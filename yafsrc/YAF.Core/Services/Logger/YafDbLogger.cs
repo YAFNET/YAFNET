@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -29,8 +29,9 @@ namespace YAF.Core.Services.Logger
     using System.Collections.Generic;
     using System.Diagnostics;
     using System.Linq;
+    using System.Web;
 
-    using YAF.Classes;
+    using YAF.Configuration;
     using YAF.Core.Extensions;
     using YAF.Types;
     using YAF.Types.Attributes;
@@ -38,7 +39,7 @@ namespace YAF.Core.Services.Logger
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
-    using YAF.Utils;
+    using YAF.Utils.Helpers;
 
     using EventLog = YAF.Types.Models.EventLog;
 
@@ -66,13 +67,7 @@ namespace YAF.Core.Services.Logger
         /// <value>
         /// The event log repository.
         /// </value>
-        public IRepository<EventLog> EventLogRepository
-        {
-            get
-            {
-                return this.GetRepository<EventLog>();
-            }
-        }
+        public IRepository<EventLog> EventLogRepository => this.GetRepository<EventLog>();
 
         /// <summary>
         /// Gets or sets the service locator.
@@ -85,9 +80,9 @@ namespace YAF.Core.Services.Logger
         /// <summary>
         ///     The _is debug.
         /// </summary>
-        private bool _isDebug = true;
+        private bool isDebug = true;
 #else
-    private bool _isDebug = false;
+    private bool isDebug = false;
 #endif
 
         /// <summary>
@@ -146,7 +141,9 @@ namespace YAF.Core.Services.Logger
                 exceptionDescription = exception.ToString();
             }
 
-            var formattedDescription = string.Format("{0}\r\n{1}", message, exceptionDescription);
+            var formattedDescription = HttpContext.Current != null
+                                           ? $"{message} (URL:'{HttpContext.Current.Request.Url}')\r\n{exceptionDescription}"
+                                           : $"{message}\r\n{exceptionDescription}";
 
             if (source.IsNotSet())
             {
@@ -239,7 +236,7 @@ namespace YAF.Core.Services.Logger
         /// <summary>
         ///     The _event log type lookup.
         /// </summary>
-        private Dictionary<EventLogTypes, bool> _eventLogTypeLookup = null;
+        private Dictionary<EventLogTypes, bool> _eventLogTypeLookup;
 
         /// <summary>
         /// Inits. the lookup.
@@ -253,10 +250,8 @@ namespace YAF.Core.Services.Logger
 
             var logTypes = EnumHelper.EnumToList<EventLogTypes>().ToDictionary(t => t, v => true);
 
-            foreach (var debugTypes in new[] { EventLogTypes.Debug, EventLogTypes.Trace })
-            {
-                logTypes.AddOrUpdate(debugTypes, this._isDebug);
-            }
+            new[] { EventLogTypes.Debug, EventLogTypes.Trace }.ForEach(
+                debugTypes => { logTypes.AddOrUpdate(debugTypes, this.isDebug); });
 
             this._eventLogTypeLookup = logTypes;
         }

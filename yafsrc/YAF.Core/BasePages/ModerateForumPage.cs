@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -29,7 +29,6 @@ namespace YAF.Core
     using System;
 
     using YAF.Types;
-    using YAF.Types.Extensions;
     using YAF.Utils;
 
     #endregion
@@ -68,13 +67,7 @@ namespace YAF.Core
         /// <summary>
         /// Gets PageName.
         /// </summary>
-        public override string PageName
-        {
-            get
-            {
-                return "moderate_{0}".FormatWith(base.PageName);
-            }
-        }
+        public override string PageName => $"moderate_{base.PageName}";
 
         #endregion
 

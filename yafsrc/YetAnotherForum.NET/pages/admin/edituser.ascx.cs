@@ -1,9 +1,9 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -28,20 +28,21 @@ namespace YAF.Pages.Admin
 
     using System;
     using System.Data;
-    using System.Web.Security;
 
-    using YAF.Classes;
-    using YAF.Classes.Data;
-    using YAF.Controls;
+    using YAF.Configuration;
     using YAF.Core;
+    using YAF.Core.Model;
+    using YAF.Core.UsersRoles;
+    using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Flags;
     using YAF.Types.Interfaces;
-    using YAF.Utilities;
+    using YAF.Types.Models;
     using YAF.Utils;
     using YAF.Utils.Helpers;
+    using YAF.Web.Extensions;
 
     #endregion
 
@@ -55,24 +56,12 @@ namespace YAF.Pages.Admin
         /// <summary>
         ///   Gets user ID of edited user.
         /// </summary>
-        protected int CurrentUserID
-        {
-            get
-            {
-                return this.PageContext.QueryIDs["u"].ToType<int>();
-            }
-        }
+        protected int CurrentUserId => this.PageContext.QueryIDs["u"].ToType<int>();
 
         /// <summary>
         ///   Gets a value indicating whether Is Guest User.
         /// </summary>
-        protected bool IsGuestUser
-        {
-            get
-            {
-                return UserMembershipHelper.IsGuestUser(this.CurrentUserID);
-            }
-        }
+        protected bool IsGuestUser => UserMembershipHelper.IsGuestUser(this.CurrentUserId);
 
         #endregion
 
@@ -100,11 +89,7 @@ namespace YAF.Pages.Admin
             // setup jQuery and Jquery Ui Tabs.
             YafContext.Current.PageElements.RegisterJsBlock(
                 "EditUserTabsJs",
-                JavaScriptBlocks.JqueryUITabsLoadJs(
-                    this.EditUserTabs.ClientID,
-                    this.hidLastTab.ClientID,
-                    this.hidLastTabId.ClientID,
-                    false));
+                JavaScriptBlocks.BootstrapTabsLoadJs(this.EditUserTabs.ClientID, this.hidLastTab.ClientID));
 
             base.OnPreRender(e);
         }
@@ -118,14 +103,14 @@ namespace YAF.Pages.Admin
         {
             this.PageContext.QueryIDs = new QueryStringIDHelper("u", true);
 
-            DataTable dt = LegacyDb.user_list(this.PageContext.PageBoardID, this.CurrentUserID, null);
+            var dt = this.GetRepository<User>().ListAsDataTable(this.PageContext.PageBoardID, this.CurrentUserId, null);
 
             if (dt.Rows.Count != 1)
             {
                 return;
             }
 
-            DataRow userRow = dt.Rows[0];
+            var userRow = dt.Rows[0];
 
             // do admin permission check...
             if (!this.PageContext.IsHostAdmin && this.IsUserHostAdmin(userRow))
@@ -139,28 +124,24 @@ namespace YAF.Pages.Admin
                 return;
             }
 
-            this.PageLinks.AddRoot();
-            this.PageLinks.AddLink(
-                this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
-
-            this.PageLinks.AddLink(this.GetText("ADMIN_USERS", "TITLE"), YafBuildLink.GetLink(ForumPages.admin_users));
-
-            var userName = this.Get<YafBoardSettings>().EnableDisplayName
+            var userName = this.HtmlEncode(this.Get<YafBoardSettings>().EnableDisplayName
                                ? userRow["DisplayName"].ToString()
-                               : userRow["Name"].ToString();
+                               : userRow["Name"].ToString());
+
+            var header = string.Format(this.GetText("ADMIN_EDITUSER", "TITLE"), userName);
+
+            this.Header.Text = this.Header2.Text = header;
 
             // current page label (no link)
             this.PageLinks.AddLink(
-                this.GetText("ADMIN_EDITUSER", "TITLE").FormatWith(userName),
+                header,
                 string.Empty);
 
-            this.Page.Header.Title = "{0} - {1} - {2}".FormatWith(
-                this.GetText("ADMIN_ADMIN", "Administration"),
-                this.GetText("ADMIN_USERS", "TITLE"),
-                this.GetText("ADMIN_EDITUSER", "TITLE").FormatWith(userName));
+            this.Page.Header.Title =
+                $"{this.GetText("ADMIN_ADMIN", "Administration")} - {this.GetText("ADMIN_USERS", "TITLE")} - {string.Format(this.GetText("ADMIN_EDITUSER", "TITLE"), userName)}";
 
             // do a quick user membership sync...
-            MembershipUser user = UserMembershipHelper.GetMembershipUserById(this.CurrentUserID);
+            var user = UserMembershipHelper.GetMembershipUserById(this.CurrentUserId);
 
             // update if the user is not Guest
             if (!this.IsGuestUser)
@@ -169,6 +150,18 @@ namespace YAF.Pages.Admin
             }
 
             this.EditUserTabs.DataBind();
+        }
+
+        /// <summary>
+        /// Creates page links for this page.
+        /// </summary>
+        protected override void CreatePageLinks()
+        {
+            this.PageLinks.AddRoot();
+            this.PageLinks.AddLink(
+                this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
+
+            this.PageLinks.AddLink(this.GetText("ADMIN_USERS", "TITLE"), YafBuildLink.GetLink(ForumPages.admin_users));
         }
 
         #endregion

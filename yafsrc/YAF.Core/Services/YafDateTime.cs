@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -28,12 +28,11 @@ namespace YAF.Core.Services
 
     using System;
 
-    using FarsiLibrary;
+    using FarsiLibrary.Utils;
 
-    using YAF.Classes;
+    using YAF.Configuration;
     using YAF.Core;
     using YAF.Types;
-    using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
 
     #endregion
@@ -72,7 +71,7 @@ namespace YAF.Core.Services
 
                 return new TimeSpan(
                     hrs,
-                    (min % 60) + YafContext.Current.Get<YafBoardSettings>().ServerTimeCorrection,
+                    min % 60 + YafContext.Current.Get<YafBoardSettings>().ServerTimeCorrection,
                     0);
             }
         }
@@ -109,7 +108,7 @@ namespace YAF.Core.Services
             return YafContext.Current.Get<YafBoardSettings>().UseFarsiCalender
                        ? PersianDateConverter.ToPersianDate(dateTime).ToString("D")
                        : YafContext.Current.IsGuest
-                             ? "{0}{1}".FormatWith(dateFormat, this.timeZoneName)
+                             ? $"{dateFormat}{this.timeZoneName}"
                              : dateFormat;
         }
 
@@ -141,7 +140,7 @@ namespace YAF.Core.Services
             return YafContext.Current.Get<YafBoardSettings>().UseFarsiCalender
                        ? PersianDateConverter.ToPersianDate(dateTime).ToString("d")
                        : YafContext.Current.IsGuest
-                             ? "{0}{1}".FormatWith(dateFormat, this.timeZoneName)
+                             ? $"{dateFormat}{this.timeZoneName}"
                              : dateFormat;
         }
 
@@ -176,7 +175,7 @@ namespace YAF.Core.Services
             return YafContext.Current.Get<YafBoardSettings>().UseFarsiCalender
                        ? PersianDateConverter.ToPersianDate(dateTime).ToString()
                        : YafContext.Current.IsGuest
-                             ? "{0}{1}".FormatWith(dateFormat, this.timeZoneName)
+                             ? $"{dateFormat}{this.timeZoneName}"
                              : dateFormat;
         }
 
@@ -211,7 +210,7 @@ namespace YAF.Core.Services
             return YafContext.Current.Get<YafBoardSettings>().UseFarsiCalender
                        ? PersianDateConverter.ToPersianDate(dateTime).ToString("G")
                        : YafContext.Current.IsGuest
-                             ? "{0}{1}".FormatWith(dateFormat, this.timeZoneName)
+                             ? $"{dateFormat}{this.timeZoneName}"
                              : dateFormat;
         }
 
@@ -227,6 +226,8 @@ namespace YAF.Core.Services
         /// </returns>
         public string FormatDateTimeTopic([NotNull] DateTime dateTime)
         {
+            if (dateTime.Kind == DateTimeKind.Local)
+                dateTime = DateTime.SpecifyKind(dateTime, DateTimeKind.Unspecified);
             dateTime = TimeZoneInfo.ConvertTimeFromUtc(dateTime, YafContext.Current.TimeZoneInfoUser);
             var nowDateTime = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, YafContext.Current.TimeZoneInfoUser);
 
@@ -264,7 +265,7 @@ namespace YAF.Core.Services
             return YafContext.Current.Get<YafBoardSettings>().UseFarsiCalender
                        ? PersianDateConverter.ToPersianDate(dateTime).ToString("G")
                        : YafContext.Current.IsGuest
-                             ? "{0}{1}".FormatWith(dateFormat, this.timeZoneName)
+                             ? $"{dateFormat}{this.timeZoneName}"
                              : dateFormat;
         }
 
@@ -297,7 +298,7 @@ namespace YAF.Core.Services
             return YafContext.Current.Get<YafBoardSettings>().UseFarsiCalender
                        ? PersianDateConverter.ToPersianDate(dateTime).ToString("T")
                        : YafContext.Current.IsGuest
-                             ? "{0}{1}".FormatWith(dateFormat, this.timeZoneName)
+                             ? $"{dateFormat}{this.timeZoneName}"
                              : dateFormat;
         }
 

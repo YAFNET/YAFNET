@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -32,7 +32,6 @@ namespace YAF.Types.Extensions
     using System.ComponentModel;
     using System.Dynamic;
     using System.Linq;
-    using System.Reflection;
     using System.Text;
     using System.Text.RegularExpressions;
     using System.Web.UI;
@@ -84,9 +83,9 @@ namespace YAF.Types.Extensions
                 return null;
             }
 
-            Type convertType = Type.GetType(type, true, true);
+            var convertType = Type.GetType(type, true, true);
 
-            TypeConverter converter = TypeDescriptor.GetConverter(convertType);
+            var converter = TypeDescriptor.GetConverter(convertType);
             return converter.ConvertFrom(value);
         }
 
@@ -224,12 +223,7 @@ namespace YAF.Types.Extensions
         [CanBeNull]
         public static T ToClass<T>([CanBeNull] this object instance) where T : class
         {
-            if (instance is T)
-            {
-                return instance as T;
-            }
-
-            return null;
+            return instance as T;
         }
 
         /// <summary>
@@ -249,7 +243,7 @@ namespace YAF.Types.Extensions
             var tmp = Activator.CreateInstance(typeof(T));
 
             // loop through the fields of the object you want to covert:       
-            foreach (FieldInfo fi in obj.GetType().GetFields())
+            foreach (var fi in obj.GetType().GetFields())
             {
                 try
                 {
@@ -390,20 +384,20 @@ namespace YAF.Types.Extensions
         {
             var sb = new StringBuilder();
             var reg = new Regex(@"({)([^}]+)(})", RegexOptions.IgnoreCase);
-            MatchCollection mc = reg.Matches(aFormat);
+            var mc = reg.Matches(aFormat);
 
-            int startIndex = 0;
+            var startIndex = 0;
 
             foreach (Match m in mc)
             {
-                Group g = m.Groups[2];
-                int length = g.Index - startIndex - 1;
+                var g = m.Groups[2];
+                var length = g.Index - startIndex - 1;
                 sb.Append(aFormat.Substring(startIndex, length));
 
                 string getValue;
-                string format = string.Empty;
+                var format = string.Empty;
 
-                int formatIndex = g.Value.IndexOf(":", StringComparison.Ordinal);
+                var formatIndex = g.Value.IndexOf(":", StringComparison.Ordinal);
                 if (formatIndex == -1)
                 {
                     getValue = g.Value;
@@ -419,11 +413,11 @@ namespace YAF.Types.Extensions
                 {
                     // with a string literal wrapped in {}
                     // Get the object's value using DataBinder.Eval.
-                    object resultAsObject = DataBinder.Eval(anObject, getValue);
+                    var resultAsObject = DataBinder.Eval(anObject, getValue);
 
                     // Format the value based on the incoming formatProvider 
                     // and format string
-                    string result = string.Format(formatProvider, "{0:" + format + "}", resultAsObject);
+                    var result = string.Format(formatProvider, "{0:" + format + "}", resultAsObject);
 
                     sb.Append(result);
                 }
@@ -486,11 +480,11 @@ namespace YAF.Types.Extensions
                 return (T)instance;
             }
 
-            Type conversionType = typeof(T);
+            var conversionType = typeof(T);
 
             if (conversionType.IsGenericType && conversionType.GetGenericTypeDefinition() == typeof(Nullable<>))
             {
-                conversionType = (new NullableConverter(conversionType)).UnderlyingType;
+                conversionType = new NullableConverter(conversionType).UnderlyingType;
             }
 
             return (T)Convert.ChangeType(instance, conversionType);

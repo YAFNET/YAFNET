@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -79,15 +79,9 @@ namespace YAF.Types
     [XmlAttribute]
     public string code
     {
-      get
-      {
-        return this.codeField;
-      }
+      get => this.codeField;
 
-      set
-      {
-        this.codeField = value;
-      }
+      set => this.codeField = value;
     }
 
     /// <summary>
@@ -98,15 +92,9 @@ namespace YAF.Types
     [XmlAttribute]
     public string language
     {
-      get
-      {
-        return this.languageField;
-      }
+      get => this.languageField;
 
-      set
-      {
-        this.languageField = value;
-      }
+      set => this.languageField = value;
     }
 
     /// <summary>
@@ -117,15 +105,9 @@ namespace YAF.Types
     [XmlElement("page", Form = XmlSchemaForm.Unqualified)]
     public List<LanguageResourcesPage> page
     {
-      get
-      {
-        return this.pageField;
-      }
+      get => this.pageField;
 
-      set
-      {
-        this.pageField = value;
-      }
+      set => this.pageField = value;
     }
 
     #endregion
@@ -167,15 +149,9 @@ namespace YAF.Types
     [XmlElement("Resource", Form = XmlSchemaForm.Unqualified, IsNullable = true)]
     public List<LanuageResourcesPageResource> Resource
     {
-      get
-      {
-        return this.resourceField;
-      }
+      get => this.resourceField;
 
-      set
-      {
-        this.resourceField = value;
-      }
+      set => this.resourceField = value;
     }
 
     /// <summary>
@@ -186,15 +162,9 @@ namespace YAF.Types
     [XmlAttribute]
     public string name
     {
-      get
-      {
-        return this.nameField;
-      }
+      get => this.nameField;
 
-      set
-      {
-        this.nameField = value;
-      }
+      set => this.nameField = value;
     }
 
     #endregion
@@ -241,15 +211,9 @@ namespace YAF.Types
     [XmlText]
     public string Value
     {
-      get
-      {
-        return this.valueField;
-      }
+      get => this.valueField;
 
-      set
-      {
-        this.valueField = value;
-      }
+      set => this.valueField = value;
     }
 
     /// <summary>
@@ -260,15 +224,9 @@ namespace YAF.Types
     [XmlAttribute]
     public string editType
     {
-      get
-      {
-        return this.editTypeField;
-      }
+      get => this.editTypeField;
 
-      set
-      {
-        this.editTypeField = value;
-      }
+      set => this.editTypeField = value;
     }
 
     /// <summary>
@@ -279,15 +237,9 @@ namespace YAF.Types
     [XmlAttribute]
     public string tag
     {
-      get
-      {
-        return this.tagField;
-      }
+      get => this.tagField;
 
-      set
-      {
-        this.tagField = value;
-      }
+      set => this.tagField = value;
     }
 
     #endregion

@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -27,13 +27,11 @@ namespace YAF.Pages.Admin
     #region Using
 
     using System;
-    using System.Data;
     using System.Web.UI.WebControls;
 
-    using YAF.Classes;
-    using YAF.Classes.Data;
-    using YAF.Controls;
     using YAF.Core;
+    using YAF.Core.Data;
+    using YAF.Core.Extensions;
     using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;
@@ -41,39 +39,16 @@ namespace YAF.Pages.Admin
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
     using YAF.Utils;
+    using YAF.Web.Extensions;
 
     #endregion
 
     /// <summary>
-    /// Summary description for forums.
+    /// The Admin Manage Forums and Categories Page.
     /// </summary>
     public partial class forums : AdminPage
     {
         #region Methods
-
-        /// <summary>
-        /// Add Confirm Dialog to the Category Delete Button
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        protected void DeleteCategory_Load([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            ((ThemeButton)sender).Attributes["onclick"] =
-                "return confirm('{0}')".FormatWith(this.GetText("ADMIN_FORUMS", "CONFIRM_DELETE_CAT"));
-        }
-
-        /// <summary>
-        /// Add Confirm Dialog to the Forum Delete Button
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        protected void DeleteForum_Load([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            ((ThemeButton)sender).Attributes["onclick"] =
-                "return (confirm('{0}') && confirm('{1}'))".FormatWith(
-                    this.GetText("ADMIN_FORUMS", "CONFIRM_DELETE"),
-                    this.GetText("ADMIN_FORUMS", "CONFIRM_DELETE_POSITIVE"));
-        }
 
         /// <summary>
         /// Handle Commands for Edit/Copy/Delete Forum
@@ -109,13 +84,15 @@ namespace YAF.Pages.Admin
                     YafBuildLink.Redirect(ForumPages.admin_editcategory, "c={0}", e.CommandArgument);
                     break;
                 case "delete":
-                    if (this.GetRepository<Category>().Delete(e.CommandArgument.ToType<int>()))
+                    if (this.GetRepository<Category>().DeleteById(e.CommandArgument.ToType<int>()))
                     {
                         this.BindData();
                     }
                     else
                     {
-                        this.PageContext.AddLoadMessage(this.GetText("ADMIN_FORUMS", "MSG_NOT_DELETE"));
+                        this.PageContext.AddLoadMessage(
+                            this.GetText("ADMIN_FORUMS", "MSG_NOT_DELETE"),
+                            MessageTypes.warning);
                     }
 
                     break;
@@ -154,16 +131,22 @@ namespace YAF.Pages.Admin
                 return;
             }
 
+            this.BindData();
+        }
+
+        /// <summary>
+        /// Creates page links for this page.
+        /// </summary>
+        protected override void CreatePageLinks()
+        {
             this.PageLinks.AddRoot();
-            this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
+            this.PageLinks.AddLink(
+                this.GetText("ADMIN_ADMIN", "Administration"),
+                YafBuildLink.GetLink(ForumPages.admin_admin));
             this.PageLinks.AddLink(this.GetText("TEAM", "FORUMS"), string.Empty);
 
-            this.Page.Header.Title = "{0} - {1}".FormatWith(this.GetText("ADMIN_ADMIN", "Administration"), this.GetText("TEAM", "FORUMS"));
-
-            this.NewCategory.Text = this.GetText("ADMIN_FORUMS", "NEW_CATEGORY");
-            this.NewForum.Text = this.GetText("ADMIN_FORUMS", "NEW_FORUM");
-
-            this.BindData();
+            this.Page.Header.Title =
+                $"{this.GetText("ADMIN_ADMIN", "Administration")} - {this.GetText("TEAM", "FORUMS")}";
         }
 
         /// <summary>
@@ -171,9 +154,9 @@ namespace YAF.Pages.Admin
         /// </summary>
         private void BindData()
         {
-            using (DataSet ds = LegacyDb.ds_forumadmin(this.PageContext.PageBoardID))
+            using (var ds = this.GetRepository<Forum>().ForumAdminAsDataSet(this.PageContext.PageBoardID))
             {
-                this.CategoryList.DataSource = ds.Tables[DbHelpers.GetObjectName("Category")];
+                this.CategoryList.DataSource = ds.Tables[CommandTextHelpers.GetObjectName("Category")];
             }
 
             // Hide the New Forum Button if there are no Categories.

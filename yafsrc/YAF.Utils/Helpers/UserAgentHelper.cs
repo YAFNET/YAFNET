@@ -29,7 +29,7 @@ namespace YAF.Utils.Helpers
     using System.Linq;
     using System.Web;
 
-    using YAF.Classes;
+    using YAF.Configuration;
     using YAF.Types;
     using YAF.Types.Extensions;
 
@@ -69,18 +69,6 @@ namespace YAF.Utils.Helpers
         #region Public Methods
 
         /// <summary>
-        /// Is this user agent IE v6?
-        /// </summary>
-        /// <returns>
-        /// The is browser i e 6.
-        /// </returns>
-        public static bool IsBrowserIE6()
-        {
-            return HttpContext.Current.Request.Browser.Browser.Contains("IE")
-                   && HttpContext.Current.Request.Browser.Version.StartsWith("6.");
-        }
-
-        /// <summary>
         /// Validates if the user agent owner is a feed reader
         /// </summary>
         /// <param name="userAgent">The user agent.</param>
@@ -118,35 +106,24 @@ namespace YAF.Utils.Helpers
         /// <summary>
         /// Tests if the user agent is a mobile device.
         /// </summary>
-        /// <param name="userAgent">The user agent.</param>
+        /// <param name="requestBase">
+        /// The request Base.
+        /// </param>
         /// <returns>
         /// The is mobile device.
         /// </returns>
-        public static bool IsMobileDevice([CanBeNull] string userAgent)
+        public static bool IsMobileDevice([CanBeNull] HttpRequestBase requestBase)
         {
+            if (requestBase.Browser.IsMobileDevice)
+            {
+                return true;
+            }
+
             var mobileContains = Config.MobileUserAgents.Split(',').Where(m => m.IsSet())
                 .Select(m => m.Trim().ToLowerInvariant());
 
-            return userAgent.IsSet()
-                   && mobileContains.Any(s => userAgent.IndexOf(s, StringComparison.OrdinalIgnoreCase) > 0);
-        }
-
-        /// <summary>
-        /// Sets if a user agent pattern is not checked against cookies support and JS.
-        /// </summary>
-        /// <param name="userAgent">The user agent.</param>
-        /// <returns>
-        /// The Is Not Checked For Cookies And JS.
-        /// </returns>
-        public static bool IsNotCheckedForCookiesAndJs([CanBeNull] string userAgent)
-        {
-            if (userAgent.IsSet())
-            {
-                string[] userAgentContains = { "W3C_Validator" };
-                return userAgentContains.Any(x => userAgent.ToLowerInvariant().Contains(x.ToLowerInvariant()));
-            }
-
-            return false;
+            return requestBase.UserAgent != null && requestBase.UserAgent.IsSet()
+                   && mobileContains.Any(s => requestBase.UserAgent.IndexOf(s, StringComparison.OrdinalIgnoreCase) > 0);
         }
 
         /// <summary>
@@ -192,81 +169,81 @@ namespace YAF.Utils.Helpers
                 return;
             }
 
-            if (userAgent.IndexOf("Windows NT ") >= 0)
+            if (userAgent.IndexOf("Windows NT ", StringComparison.Ordinal) >= 0)
             {
-                if (userAgent.IndexOf("Windows NT 10") >= 0)
+                if (userAgent.IndexOf("Windows NT 10", StringComparison.Ordinal) >= 0)
                 {
                     platform = "Windows 10";
                 }
-                else if (userAgent.IndexOf("Windows NT 6.3") >= 0)
+                else if (userAgent.IndexOf("Windows NT 6.3", StringComparison.Ordinal) >= 0)
                 {
                     platform = "Windows 8.1";
                 }
-                else if (userAgent.IndexOf("Windows NT 6.2") >= 0)
+                else if (userAgent.IndexOf("Windows NT 6.2", StringComparison.Ordinal) >= 0)
                 {
                     platform = "Windows 8";
                 }
-                else if (userAgent.IndexOf("Windows NT 6.1") >= 0)
+                else if (userAgent.IndexOf("Windows NT 6.1", StringComparison.Ordinal) >= 0)
                 {
                     platform = "Windows 7";
                 }
-                else if (userAgent.IndexOf("Windows NT 6.0") >= 0)
+                else if (userAgent.IndexOf("Windows NT 6.0", StringComparison.Ordinal) >= 0)
                 {
                     platform = "Windows Vista";
                 }
-                else if (userAgent.IndexOf("Windows NT 5.1") >= 0)
+                else if (userAgent.IndexOf("Windows NT 5.1", StringComparison.Ordinal) >= 0)
                 {
                     platform = "Windows XP";
                 }
-                else if (userAgent.IndexOf("Windows NT 5.2") >= 0)
+                else if (userAgent.IndexOf("Windows NT 5.2", StringComparison.Ordinal) >= 0)
                 {
                     platform = "Windows 2003";
                 }
             }
-            else if (userAgent.IndexOf("Linux") >= 0)
+            else if (userAgent.IndexOf("Linux", StringComparison.Ordinal) >= 0)
             {
                 platform = "Linux";
             }
-            else if (userAgent.IndexOf("FreeBSD") >= 0)
+            else if (userAgent.IndexOf("FreeBSD", StringComparison.Ordinal) >= 0)
             {
                 platform = "FreeBSD";
             }
-            else if (userAgent.IndexOf("iPad") >= 0)
+            else if (userAgent.IndexOf("iPad", StringComparison.Ordinal) >= 0)
             {
                 platform = "iPad(iOS)";
             }
-            else if (userAgent.IndexOf("iPhone") >= 0)
+            else if (userAgent.IndexOf("iPhone", StringComparison.Ordinal) >= 0)
             {
                 platform = "iPhone(iOS)";
             }
-            else if (userAgent.IndexOf("iPod") >= 0)
+            else if (userAgent.IndexOf("iPod", StringComparison.Ordinal) >= 0)
             {
                 platform = "iPod(iOS)";
             }
-            else if (userAgent.IndexOf("WindowsMobile") >= 0)
+            else if (userAgent.IndexOf("WindowsMobile", StringComparison.Ordinal) >= 0)
             {
                 platform = "WindowsMobile";
             }
-            else if (userAgent.IndexOf("Windows Phone OS") >= 0)
+            else if (userAgent.IndexOf("Windows Phone OS", StringComparison.Ordinal) >= 0)
             {
                 platform = "Windows Phone";
             }
-            else if (userAgent.IndexOf("webOS") >= 0)
+            else if (userAgent.IndexOf("webOS", StringComparison.Ordinal) >= 0)
             {
                 platform = "WebOS";
             }
-            else if (userAgent.IndexOf("Android") >= 0)
+            else if (userAgent.IndexOf("Android", StringComparison.Ordinal) >= 0)
             {
                 platform = "Android";
             }
-            else if (userAgent.IndexOf("Mac OS X") >= 0)
+            else if (userAgent.IndexOf("Mac OS X", StringComparison.Ordinal) >= 0)
             {
                 platform = "Mac OS X";
             }
             else
             {
                 // check if it's a search engine spider or an ignored UI string...
-                string san = SearchEngineSpiderName(userAgent);
+                var san = SearchEngineSpiderName(userAgent);
                 if (san.IsSet())
                 {
                     browser = san;

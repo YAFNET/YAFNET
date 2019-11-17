@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -26,16 +26,16 @@ namespace YAF.Controls
     #region Using
 
     using System;
-    using System.Web;
     using System.Web.UI.WebControls;
 
-    using YAF.Classes;
-    using YAF.Core;
+    using YAF.Configuration;
+    using YAF.Core.BaseControls;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Utils;
+    using YAF.Web.Controls;
 
     #endregion
 
@@ -44,28 +44,7 @@ namespace YAF.Controls
     /// </summary>
     public partial class DisplayConnect : BaseUserControl
     {
-        #region Properties
-
-        /// <summary>
-        ///   Gets or sets a value indicating whether Is Alt. Row
-        /// </summary>
-        public bool IsAlt { get; set; }
-
-        #endregion
-
         #region Methods
-
-        /// <summary>
-        /// Gets the post class.
-        /// </summary>
-        /// <returns>
-        /// Returns the post class.
-        /// </returns>
-        [NotNull]
-        protected string GetPostClass()
-        {
-            return this.IsAlt ? "post_alt" : "post";
-        }
 
         /// <summary>
         /// Handles the Load event of the Page control.
@@ -88,7 +67,7 @@ namespace YAF.Controls
                 if (Config.AllowLoginAndLogoff)
                 {
                     this.ConnectHolder.Controls.Add(
-                        new Literal { Text = this.GetText("TOOLBAR", "WELCOME_GUEST_CONNECT") });
+                        new Literal { Text = $"<strong>{this.GetText("TOOLBAR", "WELCOME_GUEST_CONNECT")}</strong>" });
 
                     // show login
                     var loginLink = new ThemeButton
@@ -98,27 +77,11 @@ namespace YAF.Controls
                                             ParamText0 = this.Get<YafBoardSettings>().Name,
                                             TitleLocalizedTag = "LOGIN",
                                             TitleLocalizedPage = "TOOLBAR",
-                                           // CssClass = "yaflittlebutton"
-                    };
-
-                    if (this.Get<YafBoardSettings>().UseLoginBox && !(this.Get<IYafSession>().UseMobileTheme ?? false))
-                    {
-                        loginLink.NavigateUrl = "javascript:void(0);";
-
-                        loginLink.CssClass = "LoginLink";
-                    }
-                    else
-                    {
-                        var returnUrl = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("ReturnUrl").IsSet()
-                                            ? "ReturnUrl={0}".FormatWith(
-                                                this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("ReturnUrl"))
-                                            : string.Empty;
-
-                        loginLink.NavigateUrl = !this.Get<YafBoardSettings>().UseSSLToLogIn
-                                                    ? YafBuildLink.GetLinkNotEscaped(ForumPages.login, returnUrl)
-                                                    : YafBuildLink.GetLinkNotEscaped(ForumPages.login, true, returnUrl)
-                                                          .Replace("http:", "https:");
-                    }
+                                            Type = ButtonAction.Link,
+                                            Icon = "sign-in-alt",
+                                            NavigateUrl = "javascript:void(0);",
+                                            CssClass = "LoginLink"
+                                        };
 
                     this.ConnectHolder.Controls.Add(loginLink);
 
@@ -134,22 +97,19 @@ namespace YAF.Controls
                                                TextLocalizedPage = "TOOLBAR",
                                                TitleLocalizedTag = "REGISTER",
                                                TitleLocalizedPage = "TOOLBAR",
-                                              // CssClass = "yaflittlebutton",
+                                               Type = ButtonAction.Link,
+                                               Icon = "user-plus",
                                                NavigateUrl =
                                                    this.Get<YafBoardSettings>().ShowRulesForRegistration
                                                        ? YafBuildLink.GetLink(ForumPages.rules)
-                                                       : (!this.Get<YafBoardSettings>().UseSSLToRegister
-                                                              ? YafBuildLink.GetLink(ForumPages.register)
-                                                              : YafBuildLink.GetLink(
-                                                                  ForumPages.register,
-                                                                  true).Replace("http:", "https:"))
+                                                       : !this.Get<YafBoardSettings>().UseSSLToRegister
+                                                           ? YafBuildLink.GetLink(ForumPages.register)
+                                                           : YafBuildLink.GetLink(
+                                                               ForumPages.register,
+                                                               true).Replace("http:", "https:")
                                            };
 
-                    this.ConnectHolder.Controls.Add(new Literal { Text = ",&nbsp;" });
-
                     this.ConnectHolder.Controls.Add(registerLink);
-
-                    this.ConnectHolder.Controls.Add(endPoint);
 
                     isRegisterAllowed = true;
                 }
@@ -175,7 +135,7 @@ namespace YAF.Controls
                         || Config.GoogleClientID.IsSet()))
                 {
                     this.ConnectHolder.Controls.Add(
-                        new Literal { Text = "&nbsp;{0}&nbsp;".FormatWith(this.GetText("LOGIN", "CONNECT_VIA")) });
+                        new Literal { Text = $"&nbsp;{this.GetText("LOGIN", "CONNECT_VIA")}&nbsp;" });
 
                     if (Config.FacebookAPIKey.IsSet() && Config.FacebookSecretKey.IsSet())
                     {
@@ -186,7 +146,7 @@ namespace YAF.Controls
                                                      this.GetTextFormatted("AUTH_CONNECT_HELP", "Facebook"),
                                                  ID = "FacebookRegister",
                                                  CssClass = "authLogin facebookLogin"
-                                             };
+                    };
 
                         linkButton.Click += this.FacebookFormClick;
 

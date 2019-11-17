@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -26,13 +26,10 @@ namespace YAF.Core.Data
     #region Using
 
     using System;
-    using System.Collections;
     using System.Collections.Generic;
     using System.Data;
     using System.Dynamic;
     using System.Linq;
-
-    using Omu.ValueInjecter;
 
     using YAF.Types;
     using YAF.Types.Extensions;
@@ -95,11 +92,8 @@ namespace YAF.Core.Data
         /// <param name="dbAccessProvider">
         /// The db Access Provider. 
         /// </param>
-        /// <param name="dbSpecificFunctions">
-        /// The db Specific Functions. 
-        /// </param>
-        /// <param name="dbFilterFunctions">
-        /// The db Filter Functions. 
+        /// <param name="serviceLocator">
+        /// The service Locator.
         /// </param>
         public DynamicDbFunction(
             [NotNull] IDbAccessProvider dbAccessProvider, 
@@ -124,71 +118,35 @@ namespace YAF.Core.Data
         /// </summary>
         public IDbTransaction DbTransaction
         {
-            get
-            {
-                return this._dbTransaction;
-            }
+            get => this._dbTransaction;
 
-            protected set
-            {
-                this._dbTransaction = value;
-            }
+            protected set => this._dbTransaction = value;
         }
 
         /// <summary>
         ///     Gets GetData.
         /// </summary>
-        public dynamic GetData
-        {
-            get
-            {
-                return this._getDataProxy.ToDynamic();
-            }
-        }
+        public dynamic GetData => this._getDataProxy.ToDynamic();
 
         /// <summary>
         ///     Gets GetDataSet.
         /// </summary>
-        public dynamic GetDataSet
-        {
-            get
-            {
-                return this._getDataSetProxy.ToDynamic();
-            }
-        }
+        public dynamic GetDataSet => this._getDataSetProxy.ToDynamic();
 
         /// <summary>
         ///     Gets the get reader.
         /// </summary>
-        public dynamic GetReader
-        {
-            get
-            {
-                return this._getReaderProxy.ToDynamic();
-            }
-        }
+        public dynamic GetReader => this._getReaderProxy.ToDynamic();
 
         /// <summary>
         ///     Gets Query.
         /// </summary>
-        public dynamic Query
-        {
-            get
-            {
-                return this._queryProxy.ToDynamic();
-            }
-        }
+        public dynamic Query => this._queryProxy.ToDynamic();
 
         /// <summary>
         ///     Gets Scalar.
         /// </summary>
-        public dynamic Scalar
-        {
-            get
-            {
-                return this._scalarProxy.ToDynamic();
-            }
-        }
+        public dynamic Scalar => this._scalarProxy.ToDynamic();
 
         #endregion
 
@@ -233,51 +191,18 @@ namespace YAF.Core.Data
             this._dbTransaction = null;
         }
 
-        /// <summary>
-        /// The get typed.
-        /// </summary>
-        /// <param name="getFunction">
-        /// The get function. 
-        /// </param>
-        /// <typeparam name="T">
-        /// </typeparam>
-        /// <returns>
-        /// The <see cref="IList"/> . 
-        /// </returns>
-        public IList<T> GetTyped<T>(Func<dynamic, object> getFunction)
-            where T : new()
-        {
-            var objectList = new List<T>();
-
-            using (var dataReader = (IDataReader)getFunction(this.GetReader))
-            {
-                while (dataReader.Read())
-                {
-                    var o = new T();
-                    o.InjectFrom<DataRecordInjection>(dataReader);
-                    objectList.Add(o);
-                }
-
-                dataReader.Close();
-            }
-
-            return objectList;
-        }
-
         #endregion
 
         #region Methods
 
-        public IEnumerable<IDbSpecificFunction> DbSpecificFunctions
-        {
-            get
-            {
-                return this._serviceLocator.Get<IEnumerable<IDbSpecificFunction>>()
-                    .WhereProviderName(this._dbAccessProvider.ProviderName)
-                    .BySortOrder()
-                    .ToList();
-            }
-        }
+        /// <summary>
+        /// The db specific functions.
+        /// </summary>
+        public IEnumerable<IDbSpecificFunction> DbSpecificFunctions =>
+            this._serviceLocator.Get<IEnumerable<IDbSpecificFunction>>()
+                .WhereProviderName(this._dbAccessProvider.ProviderName)
+                .BySortOrder()
+                .ToList();
 
         /// <summary>
         /// The db function execute.
@@ -474,7 +399,7 @@ namespace YAF.Core.Data
                 DbFunctionType.Scalar, 
                 binder, 
                 this.MapParameters(binder.CallInfo, args), 
-                (cmd) => this._dbAccessProvider.Instance.ExecuteScalar(cmd, this.DbTransaction), 
+                cmd => this._dbAccessProvider.Instance.ExecuteScalar(cmd, this.DbTransaction), 
                 out result);
         }
 
@@ -504,14 +429,15 @@ namespace YAF.Core.Data
 
             var entities = argsPairs.Where(x => x.Value is IEntity).ToList();
 
-            foreach (var pair in entities)
-            {
-                // remove the individual entity
-                argsPairs.Remove(pair);
+            entities.ForEach(
+                pair =>
+                    {
+                        // remove the individual entity
+                        argsPairs.Remove(pair);
 
-                // Add all items in this object...
-                argsPairs.AddRange(pair.AnyToDictionary());
-            }
+                        // Add all items in this object...
+                        argsPairs.AddRange(pair.AnyToDictionary());
+                    });
 
             return argsPairs;
         }

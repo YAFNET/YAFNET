@@ -30,14 +30,16 @@ namespace YAF.Pages
     using System.Net.Mail;
     using System.Web;
 
-    using YAF.Classes;
-    using YAF.Controls;
+    using YAF.Configuration;
     using YAF.Core;
     using YAF.Core.Extensions;
+    using YAF.Core.UsersRoles;
     using YAF.Types;
     using YAF.Types.Constants;
+    using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Utils;
+    using YAF.Web.Extensions;
 
     #endregion
 
@@ -63,13 +65,8 @@ namespace YAF.Pages
         /// <summary>
         ///   Gets UserID.
         /// </summary>
-        public int UserId
-        {
-            get
-            {
-                return Security.StringToIntOrRedirect(this.Get<HttpRequestBase>().QueryString["u"]);
-            }
-        }
+        public int UserId =>
+            Security.StringToIntOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u"));
 
         #endregion
 
@@ -97,7 +94,8 @@ namespace YAF.Pages
 
             if (user == null)
             {
-                YafBuildLink.AccessDenied(/*No such user exists*/);
+                // No such user exists
+                YafBuildLink.AccessDenied();
             }
             else
             {
@@ -112,8 +110,6 @@ namespace YAF.Pages
                         this.UserId,
                         this.PageContext.BoardSettings.EnableDisplayName ? displayName : user.UserName));
                 this.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
-
-                this.Send.Text = this.GetText("SEND");
             }
         }
 
@@ -130,13 +126,12 @@ namespace YAF.Pages
                 var toUser = UserMembershipHelper.GetMembershipUserById(this.UserId);
 
                 // send it...
-                this.Get<ISendMail>()
-                    .Send(
-                        new MailAddress(this.PageContext.User.Email, this.PageContext.User.UserName),
-                        new MailAddress(toUser.Email.Trim(), toUser.UserName.Trim()),
-                        new MailAddress(this.PageContext.BoardSettings.ForumEmail, this.PageContext.BoardSettings.Name), 
-                        this.Subject.Text.Trim(),
-                        this.Body.Text.Trim());
+                this.Get<ISendMail>().Send(
+                    new MailAddress(this.PageContext.User.Email, this.PageContext.User.UserName),
+                    new MailAddress(toUser.Email.Trim(), toUser.UserName.Trim()),
+                    new MailAddress(this.PageContext.BoardSettings.ForumEmail, this.PageContext.BoardSettings.Name),
+                    this.Subject.Text.Trim(),
+                    this.Body.Text.Trim());
 
                 // redirect to profile page...
                 YafBuildLink.Redirect(ForumPages.profile, false, "u={0}", this.UserId);
@@ -145,7 +140,9 @@ namespace YAF.Pages
             {
                 this.Logger.Log(this.PageContext.PageUserID, this, x);
 
-                this.PageContext.AddLoadMessage(this.PageContext.IsAdmin ? x.Message : this.GetText("ERROR"));
+                this.PageContext.AddLoadMessage(
+                    this.PageContext.IsAdmin ? x.Message : this.GetText("ERROR"),
+                    MessageTypes.danger);
             }
         }
 

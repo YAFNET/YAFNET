@@ -1,0 +1,500 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AdminEmail" xml:space="preserve">
+    <value>Epost adresse</value>
+  </data>
+  <data name="AdminName" xml:space="preserve">
+    <value>Skriv inn navnet på superbrukeren</value>
+  </data>
+  <data name="AdminPassword" xml:space="preserve">
+    <value>Passord</value>
+  </data>
+  <data name="AdminPassword2" xml:space="preserve">
+    <value>Bekreft passord</value>
+  </data>
+  <data name="BoardName" xml:space="preserve">
+    <value>Skriv inn navnet på det nye styret</value>
+  </data>
+  <data name="ConfigPassword" xml:space="preserve">
+    <value>Konfigurer passord</value>
+  </data>
+  <data name="ConnectionDetails" xml:space="preserve">
+    <value>Tilkoblingsdetaljer</value>
+  </data>
+  <data name="ConnectionExist" xml:space="preserve">
+    <value>Velg Eksisterende tilkoblingsstreng</value>
+  </data>
+  <data name="ConnectionExistDesc" xml:space="preserve">
+    <value>Velg SQL Server Database Connection String:</value>
+  </data>
+  <data name="ConnectionFailed" xml:space="preserve">
+    <value>Tilkobling mislyktes:</value>
+  </data>
+  <data name="ConnectionNew" xml:space="preserve">
+    <value>Lag ny tilkoblingsstreng</value>
+  </data>
+  <data name="ConnectionNewNote" xml:space="preserve">
+    <value>Tilkoblingsstreng lagres som</value>
+  </data>
+  <data name="ConnectionSuccess" xml:space="preserve">
+    <value>Tilkoblingen lyktes</value>
+  </data>
+  <data name="ConnectionTest" xml:space="preserve">
+    <value>Test av databasetilkobling</value>
+  </data>
+  <data name="CreateBoard" xml:space="preserve">
+    <value>Lag nytt styre</value>
+  </data>
+  <data name="CreatePassword" xml:space="preserve">
+    <value>Opprett konfigurasjonspassord</value>
+  </data>
+  <data name="CreatePasswordText" xml:space="preserve">
+    <value>Siden dette er første gang du installerer eller oppgraderer denne versjonen av forumet, må du opprette et konfigurasjonspassord for sikkerhet.</value>
+  </data>
+  <data name="CreateUser" xml:space="preserve">
+    <value>Opprett ny superbruker (vert)</value>
+  </data>
+  <data name="Culture" xml:space="preserve">
+    <value>Gjestebrukerkultur (språk)</value>
+  </data>
+  <data name="CurrentVersion" xml:space="preserve">
+    <value>Gjeldende versjon:</value>
+  </data>
+  <data name="Database" xml:space="preserve">
+    <value>database</value>
+  </data>
+  <data name="DataSource" xml:space="preserve">
+    <value>Skriv inn datakilden (navn eller adresse på sql-serveren)</value>
+  </data>
+  <data name="DBConnection" xml:space="preserve">
+    <value>YAF.NET databasetilkobling</value>
+  </data>
+  <data name="DBName" xml:space="preserve">
+    <value>Skriv inn databasenavnet</value>
+  </data>
+  <data name="DuplicateEmail" xml:space="preserve">
+    <value>Et brukernavn for den e-postadressen eksisterer allerede. Skriv inn en annen e-postadresse.</value>
+  </data>
+  <data name="DuplicateUserName" xml:space="preserve">
+    <value>Brukernavn finnes allerede. Skriv inn et annet brukernavn.</value>
+  </data>
+  <data name="EnterConfigPassword" xml:space="preserve">
+    <value>Skriv inn konfigurasjonspassordet</value>
+  </data>
+  <data name="EnterConfigPasswordDesc" xml:space="preserve">
+    <value>Skriv inn konfigurasjonspassordet for å oppgradere eller installere forumet manuelt.</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Feil</value>
+  </data>
+  <data name="ErrorBoardInstalled" xml:space="preserve">
+    <value>Board er allerede installert.</value>
+  </data>
+  <data name="ErrorBoardName" xml:space="preserve">
+    <value>Du må oppgi et styrenavn.</value>
+  </data>
+  <data name="ErrorConfigPassword" xml:space="preserve">
+    <value>Du må oppdatere appinnstillingene dine med YAF.ConfigPassword Key for å fortsette. MERKNAD: Nøkkelnavnet er små og små bokstaver.</value>
+  </data>
+  <data name="ErrorForumEmail" xml:space="preserve">
+    <value>Du må oppgi en e-postadresse for styret.</value>
+  </data>
+  <data name="ErrorPassword" xml:space="preserve">
+    <value>Du må oppgi et passord.</value>
+  </data>
+  <data name="ErrorUserCreate" xml:space="preserve">
+    <value>Opprett administratorbruker mislyktes:</value>
+  </data>
+  <data name="ErrorUserEmail" xml:space="preserve">
+    <value>Du må oppgi e-postadressen for superbrukeren.</value>
+  </data>
+  <data name="ErrorUserName" xml:space="preserve">
+    <value>Du må oppgi superbrukerbrukernavnet,</value>
+  </data>
+  <data name="ErrorUserNotFound" xml:space="preserve">
+    <value>Det eksisterende brukernavnet er ugyldig og representerer ikke en gjeldende bruker i medlemsbutikken.</value>
+  </data>
+  <data name="ErrorWrongPassword" xml:space="preserve">
+    <value>Du skrev inn &lt;strong&gt; feil passord &lt;/strong&gt;!</value>
+  </data>
+  <data name="ExistConnection" xml:space="preserve">
+    <value>Bruk eksisterende DB-tilkoblingsstreng</value>
+  </data>
+  <data name="ExistingUser" xml:space="preserve">
+    <value>Bruk eksisterende bruker</value>
+  </data>
+  <data name="ExistingUserName" xml:space="preserve">
+    <value>Skriv inn navnet på den eksisterende brukeren for å gjøre superbruker (vert)</value>
+  </data>
+  <data name="Finish" xml:space="preserve">
+    <value>Bli ferdig</value>
+  </data>
+  <data name="FinishDesc" xml:space="preserve">
+    <value>Hvis du klikker på Fullfør, vil du ta deg til forumets hovedside.</value>
+  </data>
+  <data name="Finished" xml:space="preserve">
+    <value>ferdig</value>
+  </data>
+  <data name="ForumEmail" xml:space="preserve">
+    <value>Forumets e-postadresse</value>
+  </data>
+  <data name="ForumUrl" xml:space="preserve">
+    <value>Forum Base Url Mask</value>
+  </data>
+  <data name="FromEmail" xml:space="preserve">
+    <value>Skriv inn e-postadressen</value>
+  </data>
+  <data name="InitFinish" xml:space="preserve">
+    <value>Forumet ditt er nå klart.</value>
+  </data>
+  <data name="Initialize" xml:space="preserve">
+    <value>initial~~POS=TRUNC</value>
+  </data>
+  <data name="Installation" xml:space="preserve">
+    <value>Installasjon</value>
+  </data>
+  <data name="Integrated" xml:space="preserve">
+    <value>Bruk integrert sikkerhet</value>
+  </data>
+  <data name="InvalidAnswer" xml:space="preserve">
+    <value>Svaret med passordinnhenting er ugyldig. Sjekk verdien og prøv igjen.</value>
+  </data>
+  <data name="InvalidEmail" xml:space="preserve">
+    <value>Den oppgitte e-postadressen er ugyldig. Sjekk verdien og prøv igjen.</value>
+  </data>
+  <data name="InvalidPassword" xml:space="preserve">
+    <value>Passordet som er oppgitt, er ugyldig. Angi en gyldig passordverdi.</value>
+  </data>
+  <data name="InvalidQuestion" xml:space="preserve">
+    <value>Spørsmålet om henting av passord er ugyldig. Sjekk verdien og prøv igjen.</value>
+  </data>
+  <data name="InvalidUserName" xml:space="preserve">
+    <value>Brukernavnet som er oppgitt, er ugyldig. Sjekk verdien og prøv igjen.</value>
+  </data>
+  <data name="MailTest" xml:space="preserve">
+    <value>Mail (SMTP) sendingstest</value>
+  </data>
+  <data name="MailTestDesc" xml:space="preserve">
+    <value>Sender en testmelding til e-postadressen som er definert som Send til adresse</value>
+  </data>
+  <data name="ManuallyPassword" xml:space="preserve">
+    <value>Ingen skrivetilgang til appinnstillinger</value>
+  </data>
+  <data name="ManuallyPasswordDesc" xml:space="preserve">
+    <value>Klikk "Neste" når du er klar.</value>
+  </data>
+  <data name="ManuallyPasswordError" xml:space="preserve">
+    <value>Kan ikke endre konfigurasjonsfilen din til å skrive installasjonspassordet på grunn av et tillatelsesproblem.</value>
+  </data>
+  <data name="Migrate" xml:space="preserve">
+    <value>Migrer roller og brukere</value>
+  </data>
+  <data name="MigrateCount" xml:space="preserve">
+    <value>bruker (e) som finnes i din forumdatabase.</value>
+  </data>
+  <data name="MigrateDesc" xml:space="preserve">
+    <value>Klikk "Neste" for å starte oppgraderingen (migreringen) av alle roller og brukere fra den gamle Yet Another Forum.NET-databasen til .NET-leverandørmodellen.</value>
+  </data>
+  <data name="MigrateNote" xml:space="preserve">
+    <value>Migrasjonsoppgaven kan ta lang tid veldig, avhengig av hvor mange brukere som er i forumet ditt.</value>
+  </data>
+  <data name="MigrateSkip" xml:space="preserve">
+    <value>Deaktiver migrering (anbefales ikke)</value>
+  </data>
+  <data name="MigrateUsers" xml:space="preserve">
+    <value>Migrerer brukere ...</value>
+  </data>
+  <data name="MigrateUsersText" xml:space="preserve">
+    <value>Ikke naviger bort fra denne siden mens overføringen pågår. Det kan ta veldig lang tid å utføre migrasjonen.</value>
+  </data>
+  <data name="NewConnection" xml:space="preserve">
+    <value>Lag ny DB-tilkoblingsstreng</value>
+  </data>
+  <data name="Next" xml:space="preserve">
+    <value>neste</value>
+  </data>
+  <data name="NextInitDb" xml:space="preserve">
+    <value>Hvis du klikker "Neste", vil databasen initialiseres til den nyeste versjonen.</value>
+  </data>
+  <data name="NextReady" xml:space="preserve">
+    <value>Klikk "Neste" når du er klar.</value>
+  </data>
+  <data name="NextUpgradeDb" xml:space="preserve">
+    <value>Ved å klikke "Neste" vil du oppgradere databasen til den nyeste versjonen.</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>NEI</value>
+  </data>
+  <data name="Note" xml:space="preserve">
+    <value>Merk</value>
+  </data>
+  <data name="NoWriteAppSettings" xml:space="preserve">
+    <value>Ingen skrivetilgang til innstillinger</value>
+  </data>
+  <data name="NoWriteAppSettingsNote" xml:space="preserve">
+    <value>Kan ikke endre konfigurasjonsfilen din til å angi databaseforbindelse på grunn av ingen skrivetillatelse.</value>
+  </data>
+  <data name="NoWriteConnSettings" xml:space="preserve">
+    <value>Ingen skrivetilgang til databasetilkoblingsstrenger</value>
+  </data>
+  <data name="NoWriteConnSettingsNote" xml:space="preserve">
+    <value>Kan ikke endre konfigurasjonsfilen din til å angi databaseforbindelsesstreng på grunn av ingen skrivetillatelse.</value>
+  </data>
+  <data name="OpenFile" xml:space="preserve">
+    <value>Åpne</value>
+  </data>
+  <data name="OpenFileDesc" xml:space="preserve">
+    <value>filen i programrotens katalog og legg til / oppdater følgende nøkkel i &amp; lt; AppSettings &amp; gt; seksjon:</value>
+  </data>
+  <data name="OpenFileDesc2" xml:space="preserve">
+    <value>fil i programrotens katalog og legg til / oppdater følgende nøkkel i &amp; lt; connectionStrings &amp; gt; seksjon:</value>
+  </data>
+  <data name="PasswordFile" xml:space="preserve">
+    <value>Dette passordet er lagret med appinnstillingene dine i filen ...</value>
+  </data>
+  <data name="PasswordNoMatch" xml:space="preserve">
+    <value>Bekreftelsen er ikke den samme som passordet ditt.</value>
+  </data>
+  <data name="PermissionApp" xml:space="preserve">
+    <value>YAF.NET har skrivetilgang til Root Application Directory ("~ /") ...</value>
+  </data>
+  <data name="PermissionUpload" xml:space="preserve">
+    <value>YAF.NET har skrivetilgang til katalogen "~ / Last opp" ...</value>
+  </data>
+  <data name="Previous" xml:space="preserve">
+    <value>Tidligere</value>
+  </data>
+  <data name="ProviderError" xml:space="preserve">
+    <value>Autentiseringsleverandøren returnerte en feil. Bekreft oppføringen din og prøv igjen. Hvis problemet vedvarer, kan du kontakte systemadministratoren.</value>
+  </data>
+  <data name="ReenterConfigPassword" xml:space="preserve">
+    <value>Angi konfigurasjonspassordet på nytt</value>
+  </data>
+  <data name="SecurityAnswer" xml:space="preserve">
+    <value>Svaret på sikkerhetsspørsmålet</value>
+  </data>
+  <data name="SecurityQuestion" xml:space="preserve">
+    <value>Spørsmålet du vil bli stilt når du trenger å hente det tapte passordet</value>
+  </data>
+  <data name="Setup" xml:space="preserve">
+    <value>Setup</value>
+  </data>
+  <data name="SmtpTestBody" xml:space="preserve">
+    <value>E-post sendingen ser ut til å fungere fra YAF-installasjonen.</value>
+  </data>
+  <data name="SmtpTestDetails" xml:space="preserve">
+    <value>SMTP-testdetaljer</value>
+  </data>
+  <data name="SmtpTestSubject" xml:space="preserve">
+    <value>Test e-post fra nok et forum.NET</value>
+  </data>
+  <data name="SmtpTestSuccess" xml:space="preserve">
+    <value>E-post sendt. Bekreft at den er mottatt på din e-postadresse.</value>
+  </data>
+  <data name="SqlPass" xml:space="preserve">
+    <value>Skriv inn SQL-passordet</value>
+  </data>
+  <data name="SqlUser" xml:space="preserve">
+    <value>Skriv inn SQL-brukernavnet</value>
+  </data>
+  <data name="TestConnection" xml:space="preserve">
+    <value>Testforbindelse</value>
+  </data>
+  <data name="TestEmail" xml:space="preserve">
+    <value>Test Smtp-innstillinger</value>
+  </data>
+  <data name="TestPermission" xml:space="preserve">
+    <value>Testtillatelse</value>
+  </data>
+  <data name="TestSettings" xml:space="preserve">
+    <value>Testinnstillinger</value>
+  </data>
+  <data name="TestSettingsDesc" xml:space="preserve">
+    <value>Klikk på "Forrige" -knappen for å redigere databasekonfigurasjonen.</value>
+  </data>
+  <data name="TestSettingsText" xml:space="preserve">
+    <value>Det kan være lurt å teste YAF-konfigurasjonsinnstillingene her før du fortsetter.</value>
+  </data>
+  <data name="TimeZone" xml:space="preserve">
+    <value>Gjestebrukerens tidssone</value>
+  </data>
+  <data name="ToEmail" xml:space="preserve">
+    <value>Skriv inn e-postadressen</value>
+  </data>
+  <data name="Unchecked" xml:space="preserve">
+    <value>ukontrollert</value>
+  </data>
+  <data name="UnknownError" xml:space="preserve">
+    <value>En ukjent feil oppstod. Bekreft oppføringen din og prøv igjen. Hvis problemet vedvarer, kan du kontakte systemadministratoren.</value>
+  </data>
+  <data name="Upgrade" xml:space="preserve">
+    <value>Oppgradering</value>
+  </data>
+  <data name="UpgradeExtensions" xml:space="preserve">
+    <value>Oppgrader BBCode Extensions, File Extensions and Spam Words</value>
+  </data>
+  <data name="UpgradeFinish" xml:space="preserve">
+    <value>Forumet ditt er nå oppgradert til den nyeste versjonen.</value>
+  </data>
+  <data name="UpgradeNote" xml:space="preserve">
+    <value>Hvis dette er en oppgradering, må du oppgi konfigurasjonspassordet du opprettet da forumet ble installert, ikke administratorpassordet.</value>
+  </data>
+  <data name="UpgradeVersion" xml:space="preserve">
+    <value>Oppgraderingsversjon:</value>
+  </data>
+  <data name="UserRejected" xml:space="preserve">
+    <value>Forespørsel om opprettelse av bruker er kansellert. Bekreft oppføringen din og prøv igjen. Hvis problemet vedvarer, kan du kontakte systemadministratoren.</value>
+  </data>
+  <data name="ValidatePermission" xml:space="preserve">
+    <value>Valider tillatelser</value>
+  </data>
+  <data name="ValidatePermissionDesc" xml:space="preserve">
+    <value>YetAnotherForum.NET-installasjonen er enklere når applikasjonen har skrivetilgang til .config
+                        filer.</value>
+  </data>
+  <data name="ValidatePermissionText" xml:space="preserve">
+    <value>Klikk nedenfor for å teste om tillatelsene er riktige. Hvis de ikke er det, kan du gjøre det
+                        bruk fortsatt installasjonsveiviseren.</value>
+  </data>
+  <data name="WarningUpgrade" xml:space="preserve">
+    <value>Du er i ferd med å oppgradere YAF.NET til den nyeste versjonen. Før du fortsetter med oppgraderingsprosessen, må du forsikre deg om at ...
+                        &lt;Ul&gt;
+                            &lt;li&gt; du opprettet en sikkerhetskopi av din eksisterende installasjon &lt;/li&gt;
+                        &lt;/ Ul&gt;</value>
+  </data>
+  <data name="WelcomeInstall" xml:space="preserve">
+    <value>Velkommen til YAF.NET-installasjonen</value>
+  </data>
+  <data name="WelcomeInstallDesc" xml:space="preserve">
+    <value>Klikk "Neste" for å starte installasjonsprosessen.</value>
+  </data>
+  <data name="WelcomeInstallText" xml:space="preserve">
+    <value>Denne installatøren vil guide deg gjennom trinnene som kreves for å installere YetAnotherForum.NET (YAF.NET).</value>
+  </data>
+  <data name="WelcomeUpgrade" xml:space="preserve">
+    <value>Velkommen til YAF.NET oppgraderingsprosess</value>
+  </data>
+  <data name="WelcomeUpgradeDesc" xml:space="preserve">
+    <value>Klikk "Neste" for å starte oppgraderingsprosessen.</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>JA</value>
+  </data>
+</root>

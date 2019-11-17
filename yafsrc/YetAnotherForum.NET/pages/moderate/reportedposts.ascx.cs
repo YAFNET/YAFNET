@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -21,27 +21,24 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF.Pages.moderate
 {
     #region Using
 
     using System;
-    using System.Data;
     using System.Web;
     using System.Web.UI.WebControls;
 
-    using YAF.Classes;
-    using YAF.Classes.Data;
-    using YAF.Controls;
     using YAF.Core;
-    using YAF.Core.Extensions;
-    using YAF.Core.Services.CheckForSpam;
+    using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
-    using YAF.Types.Flags;
     using YAF.Types.Interfaces;
+    using YAF.Types.Models;
     using YAF.Utils;
+    using YAF.Web.Extensions;
 
     #endregion
 
@@ -81,54 +78,6 @@ namespace YAF.Pages.moderate
         }
 
         /// <summary>
-        /// Handles load event for delete button, adds confirmation dialog.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        protected void Delete_Load([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            var button = sender as ThemeButton;
-            if (button != null)
-            {
-                button.Attributes["onclick"] = "return confirm('{0}');".FormatWith(this.GetText("ASK_DELETE"));
-            }
-        }
-
-        /// <summary>
-        /// Format message.
-        /// </summary>
-        /// <param name="row">
-        /// Message data row.
-        /// </param>
-        /// <returns>
-        /// Formatted string with escaped HTML markup and formatted.
-        /// </returns>
-        protected string FormatMessage([NotNull] DataRowView row)
-        {
-            // get message flags
-            var messageFlags = new MessageFlags(row["Flags"]);
-
-            // message
-            string msg;
-
-            // format message?
-            if (messageFlags.NotFormatted)
-            {
-                // just encode it for HTML output
-                msg = this.HtmlEncode(row["OriginalMessage"].ToString());
-            }
-            else
-            {
-                // fully format message (YafBBCode, smilies)
-                msg = this.Get<IFormatMessage>().FormatMessage(
-                  row["OriginalMessage"].ToString(), messageFlags, Convert.ToBoolean(row["IsModeratorChanged"]));
-            }
-
-            // return formatted message
-            return msg;
-        }
-
-        /// <summary>
         /// Raises the <see cref="E:System.Web.UI.Control.Init"/> event.
         /// </summary>
         /// <param name="e">An <see cref="T:System.EventArgs"/> object that contains the event data.</param>
@@ -136,8 +85,6 @@ namespace YAF.Pages.moderate
         {
             this.List.ItemCommand += this.List_ItemCommand;
 
-            // CODEGEN: This call is required by the ASP.NET Web Form Designer.
-            this.InitializeComponent();
             base.OnInit(e);
         }
 
@@ -148,7 +95,7 @@ namespace YAF.Pages.moderate
         /// <param name="e">An <see cref="T:System.EventArgs"/> object that contains the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            // do this just on page load, not postbacks
+            // do this just on page load, not post-backs
             if (this.IsPostBack)
             {
                 return;
@@ -167,18 +114,10 @@ namespace YAF.Pages.moderate
         private void BindData()
         {
             // get reported posts for this forum
-            this.List.DataSource = LegacyDb.message_listreported(this.PageContext.PageForumID);
+            this.List.DataSource = this.GetRepository<Message>().ListReportedAsDataTable(this.PageContext.PageForumID);
 
             // bind data to controls
             this.DataBind();
-        }
-
-        /// <summary>
-        /// Required method for Designer support - do not modify
-        ///   the contents of this method with the code editor.
-        /// </summary>
-        private void InitializeComponent()
-        {
         }
 
         /// <summary>
@@ -194,7 +133,7 @@ namespace YAF.Pages.moderate
                 case "delete":
 
                     // delete message
-                    LegacyDb.message_delete(e.CommandArgument, true, string.Empty, 1, true);
+                    this.GetRepository<Message>().Delete(e.CommandArgument.ToType<int>(), true, string.Empty, 1, true);
 
                     // Update statistics
                     this.Get<IDataCache>().Remove(Constants.Cache.BoardStats);
@@ -203,7 +142,7 @@ namespace YAF.Pages.moderate
                     this.BindData();
 
                     // tell user message was deleted
-                    this.PageContext.AddLoadMessage(this.GetText("DELETED"));
+                    this.PageContext.AddLoadMessage(this.GetText("DELETED"), MessageTypes.info);
                     break;
                 case "view":
 
@@ -216,85 +155,35 @@ namespace YAF.Pages.moderate
                     this.BindData();
 
                     // update message text
-                    LegacyDb.message_reportcopyover(e.CommandArgument);
+                    this.GetRepository<Message>().ReportCopyOver(e.CommandArgument.ToType<int>());
                     break;
                 case "viewhistory":
 
                     // go to history page
-                    string[] ff = e.CommandArgument.ToString().Split(',');
+                    var ff = e.CommandArgument.ToString().Split(',');
                     YafContext.Current.Get<HttpResponseBase>().Redirect(
                       YafBuildLink.GetLinkNotEscaped(ForumPages.messagehistory, "f={0}&m={1}", ff[0], ff[1]));
                     break;
                 case "resolved":
 
                     // mark message as resolved
-                    LegacyDb.message_reportresolve(7, e.CommandArgument, this.PageContext.PageUserID);
+                    this.GetRepository<Message>().ReportResolve(7, e.CommandArgument.ToType<int>(), this.PageContext.PageUserID);
 
                     // re-bind data
                     this.BindData();
 
                     // tell user message was flagged as resolved
-                    this.PageContext.AddLoadMessage(this.GetText("RESOLVEDFEEDBACK"), MessageTypes.Success);
-                    break;
-                case "spam":
-
-                    this.ReportSpam((string)e.CommandArgument);
-
+                    this.PageContext.AddLoadMessage(this.GetText("RESOLVEDFEEDBACK"), MessageTypes.success);
                     break;
             }
 
             // see if there are any items left...
-            DataTable dt = LegacyDb.message_listreported(this.PageContext.PageForumID);
+            var dt = this.GetRepository<Message>().ListReportedAsDataTable(this.PageContext.PageForumID);
 
-            if (dt.Rows.Count == 0)
+            if (!dt.HasRows())
             {
                 // nope -- redirect back to the moderate main...
                 YafBuildLink.Redirect(ForumPages.moderate_index);
-            }
-        }
-
-        /// <summary>
-        /// Report Message as Spam
-        /// </summary>
-        /// <param name="comment">
-        /// The comment.
-        /// </param>
-        private void ReportSpam(string comment)
-        {
-            if (this.Get<YafBoardSettings>().SpamServiceType.Equals(1))
-            {
-                string message = BlogSpamNet.ClassifyComment(comment, true);
-
-                this.PageContext.AddLoadMessage(message);
-            }
-
-            try
-            {
-                if (!this.Get<YafBoardSettings>().SpamServiceType.Equals(2)
-                    || string.IsNullOrEmpty(this.Get<YafBoardSettings>().AkismetApiKey))
-                {
-                    return;
-                }
-
-                var service = new AkismetSpamClient(this.Get<YafBoardSettings>().AkismetApiKey, new Uri(BaseUrlBuilder.BaseUrl));
-
-                service.SubmitSpam(new Comment(null, string.Empty) { Content = comment });
-
-                this.Logger.Log(
-                    this.PageContext.PageUserID,
-                    "Spam Message Reported",
-                    "Message '{0}' was Reported to Akismet.com by {1}".FormatWith(
-                        comment,
-                        this.Get<YafBoardSettings>().EnableDisplayName
-                            ? this.PageContext.CurrentUserData.DisplayName
-                            : this.PageContext.CurrentUserData.UserName),
-                    EventLogTypes.SpamMessageReported);
-
-                this.PageContext.AddLoadMessage(this.GetText("MODERATE_DEFAULT", "SPAM_REPORTED"));
-            }
-            catch (Exception)
-            {
-                this.PageContext.AddLoadMessage(this.GetText("MODERATE_DEFAULT", "SPAM_REPORTED_FAILED"));
             }
         }
 

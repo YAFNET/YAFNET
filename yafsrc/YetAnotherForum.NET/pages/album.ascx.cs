@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -29,16 +29,16 @@ namespace YAF.Pages
     using System;
     using System.Web;
 
-    using YAF.Classes;
-    using YAF.Classes.Data;
-    using YAF.Controls;
+    using YAF.Configuration;
     using YAF.Core;
+    using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Utilities;
+    using YAF.Types.Models;
     using YAF.Utils;
+    using YAF.Web.Extensions;
 
     #endregion
 
@@ -62,23 +62,6 @@ namespace YAF.Pages
         #region Methods
 
         /// <summary>
-        /// The On PreRender event.
-        /// </summary>
-        /// <param name="e">
-        /// the Event Arguments
-        /// </param>
-        protected override void OnPreRender([NotNull] EventArgs e)
-        {
-            // setup jQuery and YAF JS...
-            YafContext.Current.PageElements.RegisterJsBlock("toggleMessageJs", JavaScriptBlocks.ToggleMessageJs);
-
-            // ceebox Js
-            YafContext.Current.PageElements.RegisterJsBlock("ceeboxloadjs", JavaScriptBlocks.CeeBoxLoadJs);
-
-            base.OnPreRender(e);
-        }
-
-        /// <summary>
         /// Handles the Load event of the Page control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
@@ -90,13 +73,14 @@ namespace YAF.Pages
                 YafBuildLink.AccessDenied();
             }
 
-            if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u") == null
-                || this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("a") == null)
+            if (!this.Get<HttpRequestBase>().QueryString.Exists("u")
+                || !this.Get<HttpRequestBase>().QueryString.Exists("a"))
             {
                 YafBuildLink.AccessDenied();
             }
 
-            var userId = Security.StringToLongOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u"));
+            var userId =
+                Security.StringToLongOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u"));
             var albumId = Security.StringToLongOrRedirect(
                 this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("a"));
 
@@ -105,15 +89,16 @@ namespace YAF.Pages
             // Generate the page links.
             this.PageLinks.Clear();
             this.PageLinks.AddRoot();
-            this.PageLinks.AddLink(displayName, YafBuildLink.GetLink(ForumPages.profile, "u={0}&name={1}", userId, displayName));
+            this.PageLinks.AddLink(
+                displayName,
+                YafBuildLink.GetLink(ForumPages.profile, "u={0}&name={1}", userId, displayName));
             this.PageLinks.AddLink(this.GetText("ALBUMS"), YafBuildLink.GetLink(ForumPages.albums, "u={0}", userId));
             this.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
 
             // Set the title text.
             this.LocalizedLabel1.Param0 = this.Server.HtmlEncode(displayName);
-            this.LocalizedLabel1.Param1 = this.Server.HtmlEncode(LegacyDb.album_gettitle(albumId));
-
-            this.Back.Text = this.GetText("BACK_ALBUMS");
+            this.LocalizedLabel1.Param1 =
+                this.Server.HtmlEncode(this.GetRepository<UserAlbum>().GetTitle(albumId.ToType<int>()));
 
             // Initialize the Album Image List control.
             this.AlbumImageList1.UserID = (int)userId;
@@ -125,11 +110,12 @@ namespace YAF.Pages
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        /// <exception cref="System.NotImplementedException"></exception>
         protected void Back_Click(object sender, EventArgs e)
         {
             YafBuildLink.Redirect(
-                ForumPages.albums, "u={0}", this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u"));
+                ForumPages.albums,
+                "u={0}",
+                this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u"));
         }
 
         #endregion

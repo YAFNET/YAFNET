@@ -99,13 +99,7 @@ namespace YAF.Core.Services
         /// <summary>
         ///     Gets the mail repository.
         /// </summary>
-        public IRepository<Mail> MailRepository
-        {
-            get
-            {
-                return this.GetRepository<Mail>();
-            }
-        }
+        public IRepository<Mail> MailRepository => this.GetRepository<Mail>();
 
         /// <summary>
         ///     Gets or sets SendMail.
@@ -122,13 +116,7 @@ namespace YAF.Core.Services
         /// <value>
         /// The unique process identifier.
         /// </value>
-        protected int UniqueProcessId
-        {
-            get
-            {
-                return this._uniqueId.Value ^ Thread.CurrentThread.ManagedThreadId;
-            }
-        }
+        protected int UniqueProcessId => this._uniqueId.Value ^ Thread.CurrentThread.ManagedThreadId;
 
         #endregion
 
@@ -145,19 +133,16 @@ namespace YAF.Core.Services
             {
                 IEnumerable<Mail> mailList = this.GetMailListSafe().ToList();
 
-                foreach (var n in mailList)
-                {
-                    this.Logger.Debug("Process Id {0} to User {1}", this.UniqueProcessId, n.ToUser);    
-                }
+                mailList.ForEach(n => this.Logger.Debug("Process Id {0} to User {1}", this.UniqueProcessId, n.ToUser));
 
                 this.ConstructMessageList(mailMessages, mailList);
 
                 this.SendMail.SendAll(
                     mailMessages.Select(x => x.Key),
                     (message, ex) =>
-                    {
-                        if (ex is FormatException)
                         {
+                            if (ex is FormatException)
+                            {
 #if (DEBUG) // email address is no good -- delete this email...
                             this.Logger.Debug(
                                 "Invalid Email Address: {0}, Exception: {1}",
@@ -165,75 +150,69 @@ namespace YAF.Core.Services
                                 ex.ToString());
 #else
 
-                            // email address is no good -- delete this email...
-                            this.Logger.Log(
-                                null,
-                                this,
-                                "Invalid Email Address: {0}, Exception: {1}".FormatWith(
-                                    mailMessages[message].ToUser,
-                                    ex.ToString()),
-                                EventLogTypes.Warning);
+                                // email address is no good -- delete this email...
+                                this.Logger.Log(
+                                    null,
+                                    this,
+                                    $"Invalid Email Address: {mailMessages[message].ToUser}, Exception: {ex.ToString()}",
+                                    EventLogTypes.Warning);
 #endif
-                        }
-                        else if (ex is SmtpException)
-                        {
+                            }
+                            else if (ex is SmtpException)
+                            {
 #if (DEBUG)
                             this.Logger.Debug("SendMailThread SmtpException: {0}", ex.ToString());
 #else
                                 this.Logger.Log(
                                     null,
                                     this,
-                                    "SendMailThread failed with an SmtpException (Email to: {1}, Subject: {2}): {0}"
-                                        .FormatWith(
-                                            ex.ToString(),
-                                            mailMessages[message].ToUser,
-                                            mailMessages[message].Subject),
+                                    string.Format(
+                                        "SendMailThread failed with an SmtpException (Email to: {1}, Subject: {2}): {0}",
+                                        ex.ToString(),
+                                        mailMessages[message].ToUser,
+                                        mailMessages[message].Subject),
                                     EventLogTypes.Warning);
 #endif
-                            if (mailMessages.ContainsKey(message) && mailMessages[message].SendTries < 2)
-                            {
-                                // update messsage so it will be deleted on the second run
-                                this.MailRepository.Create(
-                                    mailMessages[message].FromUser,
-                                    mailMessages[message].FromUserName,
-                                    mailMessages[message].ToUser,
-                                    mailMessages[message].ToUserName,
-                                    mailMessages[message].Subject,
-                                    mailMessages[message].Body,
-                                    mailMessages[message].BodyHtml,
-                                    mailMessages[message].SendTries + 1,
-                                    DateTime.UtcNow);
+                                if (mailMessages.ContainsKey(message) && mailMessages[message].SendTries < 2)
+                                {
+                                    // update messsage so it will be deleted on the second run
+                                    this.MailRepository.Create(
+                                        mailMessages[message].FromUser,
+                                        mailMessages[message].FromUserName,
+                                        mailMessages[message].ToUser,
+                                        mailMessages[message].ToUserName,
+                                        mailMessages[message].Subject,
+                                        mailMessages[message].Body,
+                                        mailMessages[message].BodyHtml,
+                                        mailMessages[message].SendTries + 1,
+                                        DateTime.UtcNow);
 
-                                mailMessages.Remove(message);
+                                    mailMessages.Remove(message);
+                                }
+                                else
+                                {
+                                    this.Logger.Log(
+                                        null,
+                                        this,
+                                        $"SendMailThread Failed for the 2nd time (the email will now deleted) with an SmtpException (Email to: {mailMessages[message].ToUser}, Subject: {mailMessages[message].Subject}): {ex.ToString()}",
+                                        EventLogTypes.Warning);
+                                }
                             }
                             else
                             {
-                                this.Logger.Log(
-                                    null,
-                                    this,
-                                    "SendMailThread Failed for the 2nd time (the email will now deleted) with an SmtpException (Email to: {1}, Subject: {2}): {0}"
-                                        .FormatWith(
-                                            ex.ToString(),
-                                            mailMessages[message].ToUser,
-                                            mailMessages[message].Subject),
-                                    EventLogTypes.Warning);
-                            }
-                        }
-                        else
-                        {
 #if (DEBUG) // general exception...
                             this.Logger.Debug("SendMailThread General Exception: {0}", ex.ToString());
 #else
 
-                            // general exception...
-                            this.Logger.Log(
-                                null,
-                                this,
-                                "Exception Thrown in SendMail Thread: {0}".FormatWith(ex.ToString()),
-                                EventLogTypes.Warning);
+                                // general exception...
+                                this.Logger.Log(
+                                    null,
+                                    this,
+                                    $"Exception Thrown in SendMail Thread: {ex.ToString()}",
+                                    EventLogTypes.Warning);
 #endif
-                        }
-                    });
+                            }
+                        });
             }
             catch (Exception ex)
             {
@@ -241,11 +220,11 @@ namespace YAF.Core.Services
                 this.Logger.Debug("SendMailThread General Exception: {0}", ex.ToString());
 #else
 
-    // general exception...
+                // general exception...
                 this.Logger.Log(
                     null,
                     this,
-                    "Exception Thrown in SendMail Thread: {0}".FormatWith(ex.ToString()),
+                    $"Exception Thrown in SendMail Thread: {ex.ToString()}",
                     EventLogTypes.Warning);
 #endif
             }
@@ -281,11 +260,11 @@ namespace YAF.Core.Services
                 try
                 {
                     var toEmailAddress = mail.ToUserName.IsSet()
-                                                     ? new MailAddress(mail.ToUser, mail.ToUserName)
-                                                     : new MailAddress(mail.ToUser);
+                                             ? new MailAddress(mail.ToUser, mail.ToUserName)
+                                             : new MailAddress(mail.ToUser);
                     var fromEmailAddress = mail.FromUserName.IsSet()
-                                                       ? new MailAddress(mail.FromUser, mail.FromUserName)
-                                                       : new MailAddress(mail.FromUser);
+                                               ? new MailAddress(mail.FromUser, mail.FromUserName)
+                                               : new MailAddress(mail.FromUser);
 
                     var newMessage = new MailMessage();
 
@@ -304,13 +283,9 @@ namespace YAF.Core.Services
                     // incorrect email format -- delete this message immediately
                     this.MailRepository.Delete(mail);
 #if (DEBUG)
-                    this.Logger.Debug("Invalid Email Address: {0}".FormatWith(ex.ToString()), ex.ToString());
+                    this.Logger.Debug($"Invalid Email Address: {ex}", ex.ToString());
 #else
-                    this.Logger.Log(
-                        null,
-                        this,
-                        "Invalid Email Address: {0}".FormatWith(ex.ToString()),
-                        EventLogTypes.Warning);
+                    this.Logger.Log(null, this, $"Invalid Email Address: {ex.ToString()}", EventLogTypes.Warning);
 #endif
                 }
             }
@@ -327,16 +302,17 @@ namespace YAF.Core.Services
             IList<Mail> mailList;
 
             Thread.BeginCriticalRegion();
+
             try
             {
-                mailList = this.MailRepository.ListTyped(this.UniqueProcessId);
+                mailList = this.MailRepository.List(this.UniqueProcessId);
             }
             finally
             {
                 Thread.EndCriticalRegion();
             }
 
-            this.Logger.Debug("Retreived {0} Queued Messages Process Id ({1})...".FormatWith(mailList.Count(), this.UniqueProcessId));
+            this.Logger.Debug($"Retrieved {mailList.Count} Queued Messages Process Id ({this.UniqueProcessId})...");
 
             return mailList;
         }

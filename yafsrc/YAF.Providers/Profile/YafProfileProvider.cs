@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -36,7 +36,6 @@ namespace YAF.Providers.Profile
     using System.Text;
     using System.Web.Profile;
 
-    using YAF.Classes.Data;
     using YAF.Core;
     using YAF.Providers.Utils;
     using YAF.Types.Extensions;
@@ -48,11 +47,6 @@ namespace YAF.Providers.Profile
     public class YafProfileProvider : ProfileProvider
     {
         #region Constants and Fields
-
-        /// <summary>
-        /// The conn str app key name.
-        /// </summary>
-        private static string _connStrAppKeyName = "YafProfileConnectionString";
 
         /// <summary>
         /// The _app name.
@@ -67,7 +61,7 @@ namespace YAF.Providers.Profile
         /// <summary>
         /// The _properties setup.
         /// </summary>
-        private bool _propertiesSetup = false;
+        private bool _propertiesSetup;
 
         /// <summary>
         /// The _property lock.
@@ -86,31 +80,19 @@ namespace YAF.Providers.Profile
         /// <summary>
         /// Gets the Connection String App Key Name.
         /// </summary>
-        public static string ConnStrAppKeyName
-        {
-            get
-            {
-                return _connStrAppKeyName;
-            }
-        }
+        public static string ConnStrAppKeyName { get; } = "YafProfileConnectionString";
 
         /// <summary>
         /// Gets or sets ApplicationName.
         /// </summary>
         public override string ApplicationName
         {
-            get
-            {
-                return this._appName;
-            }
+            get => this._appName;
 
-            set
-            {
-                this._appName = value;
-            }
+            set => this._appName = value;
         }
 
-        private ConcurrentDictionary<string, SettingsPropertyValueCollection> _userProfileCache = null;
+        private ConcurrentDictionary<string, SettingsPropertyValueCollection> _userProfileCache;
 
         /// <summary>
         /// Gets UserProfileCache.
@@ -119,7 +101,7 @@ namespace YAF.Providers.Profile
         {
             get
             {
-                string key = this.GenerateCacheKey("UserProfileDictionary");
+                var key = this.GenerateCacheKey("UserProfileDictionary");
 
                 return this._userProfileCache ??
                        (this._userProfileCache =
@@ -213,13 +195,13 @@ namespace YAF.Providers.Profile
 
             var usernames = new string[profiles.Count];
 
-            int index = 0;
+            var index = 0;
             foreach (ProfileInfo profile in profiles)
             {
                 usernames[index++] = profile.UserName;
             }
 
-            return DeleteProfiles(usernames);
+            return this.DeleteProfiles(usernames);
         }
 
         /// <summary>
@@ -386,7 +368,7 @@ namespace YAF.Providers.Profile
                 return settingPropertyCollection;
             }
 
-            string username = context["UserName"].ToString();
+            var username = context["UserName"].ToString();
 
             if (username.IsNotSet())
             {
@@ -408,6 +390,7 @@ namespace YAF.Providers.Profile
                 // just use the cached version...
                 return this.UserProfileCache[username.ToLower()];
             }
+
             // transfer properties regardless...
             foreach (SettingsProperty prop in collection)
             {
@@ -415,17 +398,17 @@ namespace YAF.Providers.Profile
             }
 
             // get this profile from the DB
-            DataSet profileDS = DB.Current.GetProfiles(this.ApplicationName, 0, 1, username, null);
-            DataTable profileDT = profileDS.Tables[0];
+            var profileDS = DB.Current.GetProfiles(this.ApplicationName, 0, 1, username, null);
+            var profileDT = profileDS.Tables[0];
 
             if (profileDT.HasRows())
             {
-                DataRow row = profileDT.Rows[0];
+                var row = profileDT.Rows[0];
 
                 // load the data into the collection...
                 foreach (SettingsPropertyValue prop in settingPropertyCollection)
                 {
-                    object val = row[prop.Name];
+                    var val = row[prop.Name];
 
                     // Only initialize a SettingsPropertyValue for non-null values
                     if (val is DBNull || val == null)
@@ -440,7 +423,10 @@ namespace YAF.Providers.Profile
             }
 
             // save this collection to the cache
-            this.UserProfileCache.AddOrUpdate(username.ToLower(), (k) => settingPropertyCollection, (k, v) => settingPropertyCollection);
+            this.UserProfileCache.AddOrUpdate(
+                username.ToLower(),
+                (k) => settingPropertyCollection,
+                (k, v) => settingPropertyCollection);
 
             return settingPropertyCollection;
         }
@@ -457,7 +443,7 @@ namespace YAF.Providers.Profile
             // verify that the configuration section was properly passed
             if (config == null)
             {
-                throw new ArgumentNullException("config");
+                throw new ArgumentNullException(nameof(config));
             }
 
             // Connection String Name
@@ -466,7 +452,7 @@ namespace YAF.Providers.Profile
             // application name
             this._appName = config["applicationName"];
 
-            if (string.IsNullOrEmpty(this._appName))
+            if (this._appName.IsNotSet())
             {
                 this._appName = "YetAnotherForum";
             }
@@ -489,7 +475,7 @@ namespace YAF.Providers.Profile
         {
             var username = (string)context["UserName"];
 
-            if (string.IsNullOrEmpty(username) || collection.Count < 1)
+            if (username.IsNotSet() || collection.Count < 1)
             {
                 return;
             }
@@ -509,7 +495,7 @@ namespace YAF.Providers.Profile
             // load the data for the configuration
             this.LoadFromPropertyValueCollection(collection);
 
-            object userID = DB.Current.GetProviderUserKey(this.ApplicationName, username);
+            var userID = DB.Current.GetProviderUserKey(this.ApplicationName, username);
             if (userID != null)
             {
                 // start saving...
@@ -545,11 +531,8 @@ namespace YAF.Providers.Profile
                 // validiate all the properties and populate the internal settings collection
                 foreach (SettingsProperty property in collection)
                 {
-                    SqlDbType dbType;
-                    int size;
-
                     // parse custom provider data...
-                    DB.GetDbTypeAndSizeFromString(property.Attributes["CustomProviderData"].ToString(), out dbType, out size);
+                    DB.GetDbTypeAndSizeFromString(property.Attributes["CustomProviderData"].ToString(), out var dbType, out var size);
 
                     // default the size to 256 if no size is specified
                     if (dbType == SqlDbType.NVarChar && size == -1)
@@ -561,10 +544,10 @@ namespace YAF.Providers.Profile
                 }
 
                 // sync profile table structure with the db...
-                DataTable structure = DB.Current.GetProfileStructure();
+                var structure = DB.Current.GetProfileStructure();
 
                 // verify all the columns are there...
-                foreach (SettingsPropertyColumn column in this._settingsColumnsList)
+                foreach (var column in this._settingsColumnsList)
                 {
                     // see if this column exists
                     if (!structure.Columns.Contains(column.Settings.Name))
@@ -595,12 +578,9 @@ namespace YAF.Providers.Profile
                 // validiate all the properties and populate the internal settings collection
                 foreach (SettingsPropertyValue value in collection)
                 {
-                    SqlDbType dbType;
-                    int size;
-
                     // parse custom provider data...
                     DB.GetDbTypeAndSizeFromString(
-                      value.Property.Attributes["CustomProviderData"].ToString(), out dbType, out size);
+                      value.Property.Attributes["CustomProviderData"].ToString(), out var dbType, out var size);
 
                     // default the size to 256 if no size is specified
                     if (dbType == SqlDbType.NVarChar && size == -1)
@@ -612,10 +592,10 @@ namespace YAF.Providers.Profile
                 }
 
                 // sync profile table structure with the db...
-                DataTable structure = DB.Current.GetProfileStructure();
+                var structure = DB.Current.GetProfileStructure();
 
                 // verify all the columns are there...
-                foreach (SettingsPropertyColumn column in this._settingsColumnsList)
+                foreach (var column in this._settingsColumnsList)
                 {
                     // see if this column exists
                     if (!structure.Columns.Contains(column.Settings.Name))
@@ -647,9 +627,7 @@ namespace YAF.Providers.Profile
         /// </param>
         private void DeleteFromProfileCacheIfExists(string key)
         {
-            SettingsPropertyValueCollection collection;
-
-            this.UserProfileCache.TryRemove(key, out collection);
+            this.UserProfileCache.TryRemove(key, out var collection);
         }
 
         /// <summary>
@@ -663,7 +641,7 @@ namespace YAF.Providers.Profile
         /// </returns>
         private string GenerateCacheKey(string name)
         {
-            return "YafProfileProvider-{0}-{1}".FormatWith(name, this.ApplicationName);
+            return $"YafProfileProvider-{name}-{this.ApplicationName}";
         }
 
         /// <summary>
@@ -713,25 +691,25 @@ namespace YAF.Providers.Profile
             }
 
             // get all the profiles...
-            DataSet allProfilesDS = DB.Current.GetProfiles(this.ApplicationName, pageIndex, pageSize, userNameToMatch, inactiveSinceDate);
+            var allProfilesDS = DB.Current.GetProfiles(this.ApplicationName, pageIndex, pageSize, userNameToMatch, inactiveSinceDate);
 
             // create an instance for the profiles...
             var profiles = new ProfileInfoCollection();
 
-            DataTable allProfilesDT = allProfilesDS.Tables[0];
-            DataTable profilesCountDT = allProfilesDS.Tables[1];
+            var allProfilesDT = allProfilesDS.Tables[0];
+            var profilesCountDT = allProfilesDS.Tables[1];
 
             foreach (DataRow profileRow in allProfilesDT.Rows)
             {
-                string username = profileRow["Username"].ToString();
-                DateTime lastActivity = DateTime.SpecifyKind(Convert.ToDateTime(profileRow["LastActivity"]), DateTimeKind.Utc);
-                DateTime lastUpdated = DateTime.SpecifyKind(Convert.ToDateTime(profileRow["LastUpdatedDate"]), DateTimeKind.Utc);
+                var username = profileRow["Username"].ToString();
+                var lastActivity = DateTime.SpecifyKind(Convert.ToDateTime(profileRow["LastActivity"]), DateTimeKind.Utc);
+                var lastUpdated = DateTime.SpecifyKind(Convert.ToDateTime(profileRow["LastUpdatedDate"]), DateTimeKind.Utc);
 
                 profiles.Add(new ProfileInfo(username, false, lastActivity, lastUpdated, 0));
             }
 
             // get the first record which is the count...
-            totalRecords = Convert.ToInt32(profilesCountDT.Rows[0][0]);
+            totalRecords = profilesCountDT.Rows[0][0].ToType<int>();
 
             return profiles;
         }

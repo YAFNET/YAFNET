@@ -1,19 +1,21 @@
 <YafBBCodeList>
-  <Name>TWITTER</Name>
-  <Description>[TWITTER][localization=TWITTER_DESCRIPTION]Enter the Status URL of the Tweet you want to embed[/localization][/TWITTER]</Description>
-  <OnClickJS />
-  <DisplayJS></DisplayJS>
-  <EditJS />
-  <DisplayCSS />
-  <SearchRegex>\[twitter\](?&lt;statusID&gt;.+?)\[/twitter\]</SearchRegex>
-  <ReplaceRegex>
-    &lt;!-- BEGIN twitter embed --&gt;&lt;iframe border=0 frameborder=0 width=550 height="550"
-    src="https://twitframe.com/show?url=${statusID}"&gt;&lt;/iframe&gt;&lt;blockquote class="twitter-tweet"&gt;&lt;!-- END twitter embed --&gt;
-  </ReplaceRegex>
-  <Variables>statusID</Variables>
-  <UseModule>false</UseModule>
-  <ModuleClass />
-  <ExecOrder>100</ExecOrder>
+  <YafBBCode>
+    <Name>TWITTER</Name>
+    <Description>[TWITTER][localization=TWITTER_DESCRIPTION]Enter the Status URL of the Tweet you want to embed[/localization][/TWITTER]</Description>
+    <OnClickJS />
+    <DisplayJS></DisplayJS>
+    <EditJS />
+    <DisplayCSS />
+    <SearchRegex>\[twitter\](?&lt;statusID&gt;.+?)\[/twitter\]</SearchRegex>
+    <ReplaceRegex>
+      &lt;!-- BEGIN twitter embed --&gt;&lt;div class="embed-responsive embed-responsive-1by1"&gt;&lt;iframe class="embed-responsive-item" src="https://twitframe.com/show?url=${statusID}"&gt;&lt;/iframe&gt;&lt;/div&gt;&lt;!-- END twitter embed --&gt;
+    </ReplaceRegex>
+    <Variables>statusID</Variables>
+    <UseModule>false</UseModule>
+    <UseToolbar>true</UseToolbar>
+    <ModuleClass />
+    <ExecOrder>100</ExecOrder>
+  </YafBBCode>
   <YafBBCode>
     <Name>DAILYMOTION</Name>
     <Description>[dailymotion][localization=DAILYMOTION_DESCRIPTION]Enter Dailymotion Url (http://www.dailymotion.com/video/xxxx)[/localization][/dailymotion]</Description>
@@ -22,54 +24,27 @@
     <EditJS />
     <DisplayCSS />
     <SearchRegex>\[dailymotion\](?&lt;inner&gt;http://(?&lt;prefix&gt;[A-Za-z][A-Za-z][A-Za-z]?\.)?dailymotion.com/video/(?&lt;id&gt;[^_]*))[^[]*\[/dailymotion\]</SearchRegex>
-    <ReplaceRegex>&lt;div&gt;&lt;!-- BEGIN dailymotion --&gt;&lt;iframe frameborder="0" width="560" height="315" src="http://${prefix}dailymotion.com/embed/video/${id}?forcedQuality=hd720"&gt;&lt;/iframe&gt;&lt;!-- END dailymotion --&gt;&lt;/div&gt;</ReplaceRegex>
+    <ReplaceRegex>&lt;div class="embed-responsive embed-responsive-1by1"&gt;&lt;!-- BEGIN dailymotion --&gt;&lt;iframe class="embed-responsive-item" src="http://${prefix}dailymotion.com/embed/video/${id}?forcedQuality=hd720"&gt;&lt;/iframe&gt;&lt;!-- END dailymotion --&gt;&lt;/div&gt;</ReplaceRegex>
     <Variables>id;prefix</Variables>
     <UseModule>false</UseModule>
+    <UseToolbar>false</UseToolbar>
     <ModuleClass />
     <ExecOrder>1</ExecOrder>
   </YafBBCode>
   <YafBBCode>
     <Name>YOUTUBE</Name>
     <Description>[YOUTUBE][localization=YOUTUBEMOD_DESCRIPTION]Put YouTube URL Here[/localization][/YOUTUBE]</Description>
-    <OnClickJS />
-    <DisplayJS />
-    <EditJS />
-    <DisplayCSS />
-    <SearchRegex>\[youtube\](?&lt;inner&gt;(?&lt;prefix&gt;.+?)youtube.com/watch\?v=(?&lt;id&gt;[0-9A-Za-z-_]{11}))[^[]*\[/youtube\]|\[youtube\](?&lt;inner&gt;(?&lt;prefix&gt;.+?)youtu.be/(?&lt;id&gt;[0-9A-Za-z-_]{11}))\[/youtube\]</SearchRegex>
-    <ReplaceRegex>&lt;!-- BEGIN youtube --&gt;&lt;div&gt;&lt;iframe width="560" height="350" src="//youtube.com/embed/${id}?hd=1" frameborder="0" allowfullscreen&gt;&lt;/iframe&gt;&lt;/div&gt;&lt;!-- END youtube --&gt;</ReplaceRegex>
+    <OnClickJS></OnClickJS>
+    <DisplayJS></DisplayJS>
+    <EditJS></EditJS>
+    <DisplayCSS></DisplayCSS>
+    <SearchRegex>\[youtube\](?&lt;inner&gt;(?&lt;prefix&gt;.+?)youtube.com/watch\?v=(?&lt;id&gt;[0-9A-Za-z-_]{11}))[^[]*\[/youtube\]|\[youtube\](?&lt;inner&gt;(?&lt;prefix&gt;.+?)youtu.be/(?&lt;id&gt;[0-9A-Za-z-_]{11}))[^[]*\[/youtube\]</SearchRegex>
+    <ReplaceRegex>&lt;!-- BEGIN youtube --&gt;&lt;div class="embed-responsive embed-responsive-16by9"&gt;&lt;iframe src="//youtube.com/embed/${id}?hd=1" class="embed-responsive-item"&gt;&lt;/iframe&gt;&lt;/div&gt;&lt;!-- END youtube --&gt;</ReplaceRegex>
+
     <Variables>id</Variables>
     <UseModule>false</UseModule>
-    <ModuleClass />
-    <ExecOrder>1</ExecOrder>
-  </YafBBCode>
-  <YafBBCode>
-    <Name>GOOGLEMAPS</Name>
-    <Description>[GOOGLEMAPS][localization=GOOGLEMAPS_DESCRIPTION]Enter Google Maps Url[/localization][/GOOGLEMAPS]</Description>
-    <OnClickJS />
-    <DisplayJS />
-    <EditJS />
-    <DisplayCSS />
-    <SearchRegex>\[googlemaps\](?&lt;inner&gt;.+?)\[/googlemaps\]</SearchRegex>
-    <ReplaceRegex>&lt;div&gt;&lt;iframe width="425" height="350" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="${inner}&amp;amp;output=embed"&gt;&lt;/iframe&gt;&lt;/div&gt;</ReplaceRegex>
-    <Variables />
-    <UseModule>false</UseModule>
-    <ModuleClass />
-    <ExecOrder>2</ExecOrder>
-  </YafBBCode>
-  <YafBBCode>
-    <Name>GOOGLEWIDGET</Name>
-    <Description>[GOOGLEWIDGET]&amp;lt;script src=&amp;quot;url&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;[/GOOGLEWIDGET]</Description>
-    <OnClickJS />
-    <DisplayJS />
-    <EditJS />
-    <DisplayCSS />
-    <SearchRegex>\[googlewidget\]&amp;lt;script src=\&amp;quot;(?&lt;prefix&gt;.+?)gmodules.com/ig/ifr\?url=(?&lt;url&gt;.+?)&amp;quot;\&amp;gt;\&amp;lt;/script\&amp;gt;\[/googlewidget\]</SearchRegex>
-    <ReplaceRegex>&lt;!-- BEGIN Google Widget --&gt;
-&lt;script type="text/javascript" src="http://www.gmodules.com/ig/ifr?url=${url}"&gt;&lt;/script&gt;
-&lt;!-- END Google Widget --&gt;</ReplaceRegex>
-    <Variables>url:decode;</Variables>
-    <UseModule>false</UseModule>
-    <ModuleClass />
+    <UseToolbar>true</UseToolbar>
+    <ModuleClass></ModuleClass>
     <ExecOrder>1</ExecOrder>
   </YafBBCode>
   <YafBBCode>
@@ -94,19 +69,12 @@
       }
     </DisplayJS>
     <EditJS />
-    <DisplayCSS>      .spoilerbox
-      {
-      margin: 5px;
-      padding: 4px;
-      background-color: #eeeeee;
-      border: solid 1px #808080;
-      color: #000000;
-      }
-    </DisplayCSS>
+    <DisplayCSS />
     <SearchRegex>\[spoiler\](?&lt;inner&gt;.+?)\[\/spoiler\]</SearchRegex>
     <ReplaceRegex />
     <Variables />
     <UseModule>true</UseModule>
+    <UseToolbar>false</UseToolbar>
     <ModuleClass>YAF.Modules.SpoilerBBCodeModule</ModuleClass>
     <ExecOrder>50</ExecOrder>
   </YafBBCode>
@@ -116,44 +84,29 @@
     <OnClickJS />
     <DisplayJS />
     <EditJS />
-    <DisplayCSS>.yafnet .userLinkContainer
-{
-    background: url(Content/icons/user.png) #fff no-repeat 4px 50%;
-    border: 1px solid #eee;
-    padding: 4px 2px 4px 25px;
-    margin: 3px;
-    font-size: 80%;
-    font-weight: bold;    
-    background-color: #fff;
-    -webkit-border-radius: 4px;
-	-moz-border-radius: 4px;
-	border-radius: 4px;	    
-}
-
-.yafnet .userLinkContainer:hover
-{
-    border: 1px solid #ddd;
-    background-color: #eee;
-}</DisplayCSS>
+    <DisplayCSS />
     <SearchRegex>\[userlink\](?&lt;inner&gt;.+?)\[\/userlink\]</SearchRegex>
     <ReplaceRegex />
     <Variables />
     <UseModule>true</UseModule>
+    <UseToolbar>false</UseToolbar>
     <ModuleClass>YAF.Modules.UserLinkBBCodeModule</ModuleClass>
     <ExecOrder>75</ExecOrder>
   </YafBBCode>
   <YafBBCode>
     <Name>VIMEO</Name>
-    <Description>[VIMEO]https://www.vimeo.com/xxxxxxx[/VIMEO]</Description>
+    <Description>[VIMEO]http://www.vimeo.com/xxxxxxx[/VIMEO]</Description>
     <OnClickJS />
     <DisplayJS />
     <EditJS />
     <DisplayCSS />
-    <SearchRegex>\[vimeo\](?&lt;inner&gt;(?&lt;prefix&gt;.+?)vimeo.com/(?&lt;vimeoId&gt;[0-9]{9}))/[^[]*\[/vimeo\]|\[vimeo\](?&lt;inner&gt;(?&lt;prefix&gt;.+?)vimeo.com/(?&lt;vimeoId&gt;[0-9]{8}))[^[]*\[/vimeo\]</SearchRegex>
-    <ReplaceRegex>&lt;div&gt;&lt;iframe width="560" height="350" src="//player.vimeo.com/video/${vimeoId}?show_title=1&amp;amp;show_byline=1&amp;amp;show_portrait=1&amp;amp;&amp;amp;fullscreen=1" frameborder="0"&gt;&lt;/iframe&gt;&lt;/div&gt;
+    <SearchRegex>\[vimeo\](?&lt;inner&gt;(?&lt;prefix&gt;.+?)vimeo.com/(?&lt;vimeoId&gt;[0-9]+))[^[]*\[/vimeo\]</SearchRegex>
+    <ReplaceRegex>
+      &lt;div class="embed-responsive embed-responsive-16by9"&gt;&lt;iframe class="embed-responsive-item" src="http://player.vimeo.com/video/${vimeoId}?show_title=1&amp;amp;show_byline=1&amp;amp;show_portrait=1&amp;amp;&amp;amp;fullscreen=1"&gt;&lt;/iframe&gt;&lt;/div&gt;
     </ReplaceRegex>
     <Variables>prefix;vimeoId</Variables>
     <UseModule>false</UseModule>
+    <UseToolbar>true</UseToolbar>
     <ModuleClass />
     <ExecOrder>1</ExecOrder>
   </YafBBCode>
@@ -163,11 +116,12 @@
     <OnClickJS />
     <DisplayJS />
     <EditJS />
-    <DisplayCSS>.HiddenGuestBox {padding: 0 .7em;}.HiddenGuestBoxImage img {float: left; padding: 0 0 3px 3px;}.HiddenGuestBox br {clear:both}</DisplayCSS>
+    <DisplayCSS />
     <SearchRegex>\[hide\](?&lt;inner&gt;(.|\n)*?)\[\/hide\]</SearchRegex>
     <ReplaceRegex />
     <Variables />
     <UseModule>true</UseModule>
+    <UseToolbar>false</UseToolbar>
     <ModuleClass>YAF.Modules.BBCode.HideBBCodeModule</ModuleClass>
     <ExecOrder>60</ExecOrder>
   </YafBBCode>
@@ -177,11 +131,12 @@
     <OnClickJS />
     <DisplayJS />
     <EditJS />
-    <DisplayCSS>.HiddenGuestBox {padding: 0 .7em;}.HiddenGuestBoxImage {float: left; margin-right: .3em;}</DisplayCSS>
+    <DisplayCSS />
     <SearchRegex>\[group-hide\](?&lt;inner&gt;(.|\n)*?)\[\/group-hide\]|\[group-hide=(?&lt;group&gt;([^""\r\n\]\[]*?))\](?&lt;inner&gt;(.|\n)*?)\[\/group-hide\]</SearchRegex>
     <ReplaceRegex />
     <Variables>group</Variables>
     <UseModule>true</UseModule>
+    <UseToolbar>false</UseToolbar>
     <ModuleClass>YAF.Modules.BBCode.GroupHide</ModuleClass>
     <ExecOrder>1</ExecOrder>
   </YafBBCode>
@@ -191,11 +146,12 @@
     <OnClickJS />
     <DisplayJS />
     <EditJS />
-    <DisplayCSS>.HiddenGuestBox {padding: 0 .7em;}.HiddenGuestBoxImage img {float: left; padding: 0 0 3px 3px;}.HiddenGuestBox br {clear:both}</DisplayCSS>
+    <DisplayCSS />
     <SearchRegex>\[hide-thanks=(?&lt;thanks&gt;([0-9]*))\](?&lt;inner&gt;(.|\n)*?)\[\/hide-thanks\]</SearchRegex>
     <ReplaceRegex />
     <Variables>thanks</Variables>
     <UseModule>true</UseModule>
+    <UseToolbar>false</UseToolbar>
     <ModuleClass>YAF.Modules.BBCode.HideBBCodeModule</ModuleClass>
     <ExecOrder>1</ExecOrder>
   </YafBBCode>
@@ -205,11 +161,12 @@
     <OnClickJS />
     <DisplayJS />
     <EditJS />
-    <DisplayCSS>.HiddenGuestBox {padding: 0 .7em;}.HiddenGuestBoxImage img {float: left; padding: 0 0 3px 3px;}.HiddenGuestBox br {clear:both}</DisplayCSS>
+    <DisplayCSS />
     <SearchRegex>\[hide-reply-thanks\](?&lt;inner&gt;(.|\n)*?)\[\/hide-reply-thanks\]</SearchRegex>
     <ReplaceRegex />
     <Variables />
     <UseModule>true</UseModule>
+    <UseToolbar>false</UseToolbar>
     <ModuleClass>YAF.Modules.BBCode.HideReplyThanksModule</ModuleClass>
     <ExecOrder>1</ExecOrder>
   </YafBBCode>
@@ -219,11 +176,12 @@
     <OnClickJS />
     <DisplayJS />
     <EditJS />
-    <DisplayCSS>.HiddenGuestBox {padding: 0 .7em;}.HiddenGuestBoxImage img {float: left; padding: 0 0 3px 3px;}.HiddenGuestBox br {clear:both}</DisplayCSS>
+    <DisplayCSS />
     <SearchRegex>\[hide-reply\](?&lt;inner&gt;(.|\n)*?)\[\/hide-reply\]</SearchRegex>
     <ReplaceRegex />
     <Variables />
     <UseModule>true</UseModule>
+    <UseToolbar>false</UseToolbar>
     <ModuleClass>YAF.Modules.BBCode.HideReplyModule</ModuleClass>
     <ExecOrder>1</ExecOrder>
   </YafBBCode>
@@ -233,11 +191,12 @@
     <OnClickJS />
     <DisplayJS />
     <EditJS />
-    <DisplayCSS>.HiddenGuestBox {padding: 0 .7em;}.HiddenGuestBoxImage img {float: left; padding: 0 0 3px 3px;}.HiddenGuestBox br {clear:both}</DisplayCSS>
+    <DisplayCSS />
     <SearchRegex>\[hide-posts=(?&lt;posts&gt;([0-9]*))\](?&lt;inner&gt;(.|\n)*?)\[\/hide-posts\]</SearchRegex>
     <ReplaceRegex />
     <Variables>posts</Variables>
     <UseModule>true</UseModule>
+    <UseToolbar>false</UseToolbar>
     <ModuleClass>YAF.Modules.BBCode.HideBBCodeModule</ModuleClass>
     <ExecOrder>2</ExecOrder>
   </YafBBCode>
@@ -252,6 +211,7 @@
     <ReplaceRegex />
     <Variables />
     <UseModule>true</UseModule>
+    <UseToolbar>false</UseToolbar>
     <ModuleClass>YAF.Modules.BBCode.AlbumImage</ModuleClass>
     <ExecOrder>30</ExecOrder>
   </YafBBCode>
@@ -266,20 +226,22 @@
     <ReplaceRegex />
     <Variables />
     <UseModule>true</UseModule>
+    <UseToolbar>false</UseToolbar>
     <ModuleClass>YAF.Modules.BBCode.Attach</ModuleClass>
     <ExecOrder>31</ExecOrder>
   </YafBBCode>
   <YafBBCode>
     <Name>INSTAGRAM</Name>
-    <Description>[INSTAGRAM][localization=INSTAGRAM_DESCRIPTION]Put the Instagram URL Here[/INSTAGRAM]</Description>
+    <Description>[INSTAGRAM][localization=INSTAGRAM_DESCRIPTION]Put YouTube URL Here[/localization][/INSTAGRAM]</Description>
     <OnClickJS></OnClickJS>
     <DisplayJS></DisplayJS>
     <EditJS></EditJS>
     <DisplayCSS></DisplayCSS>
     <SearchRegex>\[instagram\](?&lt;inner&gt;(.*?)\.instagram.com/p/(?&lt;id&gt;.+)?\/\?(.*?))\[/instagram\]|\[instagram\](?&lt;inner&gt;(.*?)\.instagram.com/p/(?&lt;id&gt;.+)?\/)\[/instagram\]</SearchRegex>
-    <ReplaceRegex>&lt;iframe src="https://www.instagram.com/p/${id}/embed/captioned/" allowtransparency="true" allowfullscreen="true" height="710" frameborder="0" scrolling="no" style="background: white; max-width: 658px; width: calc(100% - 2px); display: block; margin: 0px 0px 12px; min-width: 326px; padding: 0px;"&gt;&lt;/iframe&gt;</ReplaceRegex>
+    <ReplaceRegex>&lt;div class="embed-responsive embed-responsive-1by1"&gt;&lt;iframe src="https://www.instagram.com/p/${id}/embed/captioned/" class="embed-responsive-item"&gt;&lt;/iframe&gt;&lt;/div&gt;</ReplaceRegex>
     <Variables>id</Variables>
     <UseModule>false</UseModule>
+    <UseToolbar>true</UseToolbar>
     <ModuleClass></ModuleClass>
     <ExecOrder>32</ExecOrder>
   </YafBBCode>
@@ -287,13 +249,14 @@
     <Name>FACEBOOK</Name>
     <Description>[FACEBOOK][localization=FACEBOOK_DESCRIPTION]Enter the Url of the post or the Embed Code of the Post you want to embed[/localization][/FACEBOOK]</Description>
     <OnClickJS></OnClickJS>
-    <DisplayJS>(function(d, s, id) { var js, fjs = d.getElementsByTagName(s)[0]; if (d.getElementById(id)) return; js = d.createElement(s); js.id = id; js.src = "//connect.facebook.net/en_US/all.js#xfbml=1"; fjs.parentNode.insertBefore(js, fjs); }(document, 'script', 'facebook-jssdk'));</DisplayJS>
+    <DisplayJS></DisplayJS>
     <EditJS></EditJS>
     <DisplayCSS></DisplayCSS>
-    <SearchRegex>\[facebook\].*?https://www.facebook.com/(?&lt;url&gt;.*?)\[/facebook\]</SearchRegex>
-    <ReplaceRegex>&lt;!-- BEGIN facebook embed --&gt;&lt;div id="fb-root"&gt;&lt;/div&gt;&lt;div class="fb-post" data-href="https://www.facebook.com/${url}" data-width="466"&gt;&lt;/div&gt;&lt;!-- END facebook embed --&gt;</ReplaceRegex>
+    <SearchRegex>\[facebook\](?&lt;url&gt;.*?)\[/facebook\]</SearchRegex>
+    <ReplaceRegex>&lt;!-- BEGIN facebook embed --&gt;&lt;div class="embed-responsive embed-responsive-1by1"&gt;&lt;iframe class="embed-responsive-item" src="https://www.facebook.com/plugins/post.php?href=${url}" /&gt;&lt;/div&gt;&lt;!-- END facebook embed --&gt;</ReplaceRegex>
     <Variables>url</Variables>
     <UseModule>false</UseModule>
+    <UseToolbar>true</UseToolbar>
     <ModuleClass></ModuleClass>
     <ExecOrder>33</ExecOrder>
   </YafBBCode>

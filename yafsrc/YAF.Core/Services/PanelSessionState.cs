@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -44,54 +44,55 @@ namespace YAF.Core.Services
     /// <returns></returns>
     public CollapsiblePanelState this[[NotNull] string panelID]
     {
-      // Ederon : 7/14/2007
-      get
-      {
-        string sessionPanelID = "panelstate_" + panelID;
+        // Ederon : 7/14/2007
+        get
+        {
+            var sessionPanelID = $"panelstate_{panelID}";
 
-        // try to get panel state from session state first
-        if (YafContext.Current.Get<HttpSessionStateBase>()[sessionPanelID] != null)
-        {
-          return (CollapsiblePanelState)YafContext.Current.Get<HttpSessionStateBase>()[sessionPanelID];
-        }
-          
-          
-        // if no panel state info is in session state, try cookie
-        if (YafContext.Current.Get<HttpRequestBase>().Cookies[sessionPanelID] != null)
-        {
-          try
-          {
-            // we must convert string to int, better get is safe
-            if (YafContext.Current.Get<HttpRequestBase>() != null)
+            // try to get panel state from session state first
+            if (YafContext.Current.Get<HttpSessionStateBase>()[sessionPanelID] != null)
             {
-              return (CollapsiblePanelState)int.Parse(YafContext.Current.Get<HttpRequestBase>().Cookies[sessionPanelID].Value);
+                return (CollapsiblePanelState)YafContext.Current.Get<HttpSessionStateBase>()[sessionPanelID];
             }
-          }
-          catch
-          {
-            // in case cookie has wrong value
-            if (YafContext.Current.Get<HttpRequestBase>() != null)
+
+            // if no panel state info is in session state, try cookie
+            if (YafContext.Current.Get<HttpRequestBase>().Cookies[sessionPanelID] != null)
             {
-              YafContext.Current.Get<HttpRequestBase>().Cookies.Remove(sessionPanelID); // scrap wrong cookie
+                try
+                {
+                    // we must convert string to int, better get is safe
+                    if (YafContext.Current.Get<HttpRequestBase>() != null)
+                    {
+                        return (CollapsiblePanelState)int.Parse(
+                            YafContext.Current.Get<HttpRequestBase>().Cookies[sessionPanelID].Value);
+                    }
+                }
+                catch
+                {
+                    // in case cookie has wrong value
+                    if (YafContext.Current.Get<HttpRequestBase>() != null)
+                    {
+                        YafContext.Current.Get<HttpRequestBase>().Cookies.Remove(sessionPanelID); // scrap wrong cookie
+                    }
+
+                    return CollapsiblePanelState.None;
+                }
             }
 
             return CollapsiblePanelState.None;
-          }
         }
 
-        return CollapsiblePanelState.None;
-      }
-      // Ederon : 7/14/2007
-      set
-      {
-        string sessionPanelID = "panelstate_" + panelID;
+        // Ederon : 7/14/2007
+        set
+        {
+            var sessionPanelID = $"panelstate_{panelID}";
 
-        YafContext.Current.Get<HttpSessionStateBase>()[sessionPanelID] = value;
+            YafContext.Current.Get<HttpSessionStateBase>()[sessionPanelID] = value;
 
-        // create persistent cookie with visibility setting for panel
-        var c = new HttpCookie(sessionPanelID, ((int)value).ToString()) {Expires = DateTime.UtcNow.AddYears(1)};
-        YafContext.Current.Get<HttpResponseBase>().SetCookie(c);
-      }
+            // create persistent cookie with visibility setting for panel
+            var c = new HttpCookie(sessionPanelID, ((int)value).ToString()) { Expires = DateTime.UtcNow.AddYears(1) };
+            YafContext.Current.Get<HttpResponseBase>().SetCookie(c);
+        }
     }
 
     #endregion
@@ -109,7 +110,7 @@ namespace YAF.Core.Services
     /// </param>
     public void TogglePanelState([NotNull] string panelID, CollapsiblePanelState defaultState)
     {
-      CollapsiblePanelState currentState = this[panelID];
+      var currentState = this[panelID];
 
       if (currentState == CollapsiblePanelState.None)
       {

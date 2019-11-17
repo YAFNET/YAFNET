@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -62,13 +62,7 @@ namespace YAF.Data.MsSql.Functions
         /// <summary>
         ///   Gets SortOrder.
         /// </summary>
-        public override int SortOrder
-        {
-            get
-            {
-                return 1000;
-            }
-        }
+        public override int SortOrder => 1000;
 
         #endregion
 
@@ -87,6 +81,54 @@ namespace YAF.Data.MsSql.Functions
         {
             return operationName.Equals("getstats", StringComparison.InvariantCultureIgnoreCase);
         }
+
+        /// <summary>
+        /// The get db type and size from string.
+        /// </summary>
+        /// <param name="providerData">
+        ///  The provider data.
+        /// </param>
+        /// <param name="dbType">
+        /// The db type.
+        /// </param>
+        /// <param name="size">
+        /// The size.
+        /// </param>
+        /// <returns>
+        /// The get db type and size from string.
+        /// </returns>
+        /// <exception cref="ArgumentException">
+        /// </exception>
+        public static bool GetDbTypeAndSizeFromString(string providerData, out SqlDbType dbType, out int size)
+        {
+            size = -1;
+            dbType = SqlDbType.NVarChar;
+
+            if (providerData.IsNotSet())
+            {
+                return false;
+            }
+
+            // split the data
+            var chunk = providerData.Split(';');
+
+            // get the data type and ignore case...
+            dbType = (SqlDbType)Enum.Parse(typeof(SqlDbType), chunk[1], true);
+
+            if (chunk.Length <= 2)
+            {
+                return true;
+            }
+
+            // handle size...
+            if (!int.TryParse(chunk[2], out size))
+            {
+                throw new ArgumentException($"Unable to parse as integer: {chunk[2]}");
+            }
+
+            return true;
+        }
+
 
         #endregion
 

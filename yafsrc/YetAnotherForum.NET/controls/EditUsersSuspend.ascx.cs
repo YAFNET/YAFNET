@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -32,15 +32,18 @@ namespace YAF.Controls
     using System.Linq;
     using System.Web.UI.WebControls;
 
-    using YAF.Classes;
-    using YAF.Classes.Data;
-    using YAF.Core;
+    using YAF.Configuration;
+    using YAF.Core.BaseControls;
     using YAF.Core.Extensions;
+    using YAF.Core.Model;
+    using YAF.Core.UsersRoles;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.EventProxies;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Events;
+    using YAF.Types.Models;
     using YAF.Utils;
     using YAF.Utils.Helpers;
 
@@ -63,39 +66,21 @@ namespace YAF.Controls
         /// </summary>
         public bool ShowHeader
         {
-            get
-            {
-                return this.ViewState["ShowHeader"] == null || Convert.ToBoolean(this.ViewState["ShowHeader"]);
-            }
+            get => this.ViewState["ShowHeader"] == null || Convert.ToBoolean(this.ViewState["ShowHeader"]);
 
-            set
-            {
-                this.ViewState["ShowHeader"] = value;
-            }
+            set => this.ViewState["ShowHeader"] = value;
         }
 
         /// <summary>
         ///   Gets CurrentUserID.
         /// </summary>
-        protected long? CurrentUserID
-        {
-            get
-            {
-                return this.PageContext.QueryIDs["u"];
-            }
-        }
+        protected int CurrentUserID => this.PageContext.QueryIDs["u"].ToType<int>();
 
         /// <summary>
         /// Gets the User Data.
         /// </summary>
         [NotNull]
-        private CombinedUserDataHelper UserData
-        {
-            get
-            {
-                return this._userData ?? (this._userData = new CombinedUserDataHelper(this.CurrentUserID.ToType<int>()));
-            }
-        }
+        private CombinedUserDataHelper UserData => this._userData ?? (this._userData = new CombinedUserDataHelper(this.CurrentUserID));
 
         #endregion
 
@@ -186,9 +171,10 @@ namespace YAF.Controls
         protected void RemoveSuspension_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
             // un-suspend user
-            LegacyDb.user_suspend(this.CurrentUserID);
+            this.GetRepository<User>().Suspend(this.CurrentUserID);
+
             var usr =
-                LegacyDb.UserList(this.PageContext.PageBoardID, (int?)this.CurrentUserID, null, null, null, false)
+                this.GetRepository<User>().UserList(this.PageContext.PageBoardID, this.CurrentUserID, null, null, null, false)
                     .ToList();
 
             if (usr.Any())
@@ -197,14 +183,10 @@ namespace YAF.Controls
                     .Log(
                         this.PageContext.PageUserID,
                         "YAF.Controls.EditUsersSuspend",
-                        "User {0} was unsuspended by {1}.".FormatWith(
-                            this.Get<YafBoardSettings>().EnableDisplayName ? usr.First().DisplayName : usr.First().Name,
-                            this.Get<YafBoardSettings>().EnableDisplayName
-                                ? this.PageContext.CurrentUserData.DisplayName
-                                : this.PageContext.CurrentUserData.UserName),
+                        $"User {(this.Get<YafBoardSettings>().EnableDisplayName ? usr.First().DisplayName : usr.First().Name)} was unsuspended by {(this.Get<YafBoardSettings>().EnableDisplayName ? this.PageContext.CurrentUserData.DisplayName : this.PageContext.CurrentUserData.UserName)}.",
                         EventLogTypes.UserUnsuspended);
 
-                this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.CurrentUserID.ToType<int>()));
+                this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.CurrentUserID));
 
                 this.Get<ISendNotification>()
                     .SendUserSuspensionEndedNotification(
@@ -231,7 +213,7 @@ namespace YAF.Controls
         {
             // Admins can suspend anyone not admins
             // Forum Moderators can suspend anyone not admin or forum moderator
-            using (var dt = LegacyDb.user_list(this.PageContext.PageBoardID, this.CurrentUserID, null))
+            using (var dt = this.GetRepository<User>().ListAsDataTable(this.PageContext.PageBoardID, this.CurrentUserID, null))
             {
                 foreach (DataRow row in dt.Rows)
                 {
@@ -241,7 +223,7 @@ namespace YAF.Controls
                         // tell user he can't suspend admin
                         this.PageContext.AddLoadMessage(
                             this.GetText("PROFILE", "ERROR_ADMINISTRATORS"),
-                            MessageTypes.Error);
+                            MessageTypes.danger);
                         return;
                     }
 
@@ -251,7 +233,7 @@ namespace YAF.Controls
                         // tell user he can't suspend forum moderator when he's not admin
                         this.PageContext.AddLoadMessage(
                             this.GetText("PROFILE", "ERROR_FORUMMODERATORS"),
-                            MessageTypes.Error);
+                            MessageTypes.danger);
                         return;
                     }
 
@@ -262,7 +244,7 @@ namespace YAF.Controls
                     {
                         this.PageContext.AddLoadMessage(
                             this.GetText("PROFILE", "ERROR_GUESTACCOUNT"),
-                            MessageTypes.Error);
+                            MessageTypes.danger);
                         return;
                     }
                 }
@@ -301,16 +283,16 @@ namespace YAF.Controls
             }
 
             // suspend user by calling appropriate method
-            LegacyDb.user_suspend(
+            this.GetRepository<User>().Suspend(
                 this.CurrentUserID,
                 suspend,
                 this.SuspendedReason.Text.Trim(),
                 this.PageContext.PageUserID);
 
             var usr =
-                LegacyDb.UserList(
+                this.GetRepository<User>().UserList(
                     this.PageContext.PageBoardID,
-                    this.CurrentUserID.ToType<int?>(),
+                    this.CurrentUserID,
                     null,
                     null,
                     null,
@@ -322,15 +304,10 @@ namespace YAF.Controls
                     .Log(
                         this.PageContext.PageUserID,
                         "YAF.Controls.EditUsersSuspend",
-                        "User {0} was suspended by {1} until: {2} (UTC)".FormatWith(
-                            this.Get<YafBoardSettings>().EnableDisplayName ? usr.First().DisplayName : usr.First().Name,
-                            this.Get<YafBoardSettings>().EnableDisplayName
-                                ? this.PageContext.CurrentUserData.DisplayName
-                                : this.PageContext.CurrentUserData.UserName,
-                            suspend),
+                        $"User {(this.Get<YafBoardSettings>().EnableDisplayName ? usr.First().DisplayName : usr.First().Name)} was suspended by {(this.Get<YafBoardSettings>().EnableDisplayName ? this.PageContext.CurrentUserData.DisplayName : this.PageContext.CurrentUserData.UserName)} until: {suspend} (UTC)",
                         EventLogTypes.UserSuspended);
 
-                this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.CurrentUserID.ToType<int>()));
+                this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.CurrentUserID));
 
                 this.Get<ISendNotification>()
                     .SendUserSuspensionNotification(
@@ -354,7 +331,7 @@ namespace YAF.Controls
         private void BindData()
         {
             // get user's info
-            using (var dt = LegacyDb.user_list(this.PageContext.PageBoardID, this.CurrentUserID, null))
+            using (var dt = this.GetRepository<User>().ListAsDataTable(this.PageContext.PageBoardID, this.CurrentUserID, null))
             {
                 // there is no such user
                 if (dt.Rows.Count < 1)
@@ -378,16 +355,10 @@ namespace YAF.Controls
                                 user["Suspended"].ToType<DateTime>(),
                                 this.UserData.TimeZoneInfo);
 
-                    // localize remove suspension button
-                    this.RemoveSuspension.Text = this.GetText("PROFILE", "REMOVESUSPENSION");
-
                     this.CurrentSuspendedReason.Text = user["SuspendedReason"].ToString();
 
                     this.SuspendedBy.UserID = user["SuspendedBy"].ToType<int>();
                 }
-
-                // localize suspend button
-                this.Suspend.Text = this.GetText("PROFILE", "SUSPEND");
             }
         }
 

@@ -242,7 +242,7 @@ CKEDITOR.htmlDataProcessor.prototype =
         data = data.replace(/\[font=(.*?)\](((\n|.)*).*?)\[\/font\]/gi, '<span style="font-family:$1">$2</span>');
 
         // [attach]
-        data = data.replace(/\[attach\](.+?)\[\/attach]/gi, '<a href="resource.ashx?i=$1" class="attachedImage" data-gallery><img src="resource.ashx?p=$1" alt="Attached Image" class="UserPostedImage" /></a>');
+        data = data.replace(/\[attach\](.+?)\[\/attach]/gi, '<a href="resource.ashx?i=$1" class="attachedImage" data-gallery><img src="resource.ashx?p=$1" alt="Attached Image" class="img-thumbnail" /></a>');
 
         return data;
     },

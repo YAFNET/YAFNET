@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -30,73 +30,40 @@ namespace YAF.Controls
     using System.Collections.Generic;
     using System.Data;
     using System.Linq;
-    using System.Web.UI.HtmlControls;
     using System.Web.UI.WebControls;
 
-    using YAF.Core;
+    using YAF.Core.BaseControls;
     using YAF.Types;
-    using YAF.Types.Extensions;
+    using YAF.Types.Constants;
     using YAF.Types.Interfaces;
+    using YAF.Utils.Helpers;
 
     #endregion
 
     /// <summary>
-    /// The thanks list mode.
-    /// </summary>
-    public enum ThanksListMode
-    {
-        /// <summary>
-        ///   The from user.
-        /// </summary>
-        FromUser,
-
-        /// <summary>
-        ///   The to user.
-        /// </summary>
-        ToUser
-    }
-
-    /// <summary>
-    /// Summary description for buddies.
+    /// The View Thanks List Control
     /// </summary>
     public partial class ViewThanksList : BaseUserControl
     {
-        /* Data Fields */
-
-        /* Properties */
-        #region Constants and Fields
-
-        /// <summary>
-        ///   The _count.
-        /// </summary>
-        private int _count;
-
-        #endregion
-
         #region Properties
 
         /// <summary>
-        ///   Determines what is th current mode of the control.
+        ///   Gets or sets the Thanks List Mode of the control.
         /// </summary>
         public ThanksListMode CurrentMode { get; set; }
 
         /// <summary>
-        ///   The Thanks Info.
+        ///   Gets or sets the Thanks Info.
         /// </summary>
         public DataTable ThanksInfo { get; set; }
 
         /// <summary>
-        ///   The User ID.
+        ///   Gets or sets the User ID.
         /// </summary>
         public int UserID { get; set; }
 
         #endregion
 
-        // keeps count
-
-        /* Event Handlers */
-
-        /* Methods */
         #region Public Methods
 
         /// <summary>
@@ -104,8 +71,6 @@ namespace YAF.Controls
         /// </summary>
         public void BindData()
         {
-            this._count = 0;
-
             if (!this.ThanksInfo.Columns.Contains("MessageThanksNumber"))
             {
                 this.ThanksInfo.Columns.Add("MessageThanksNumber", typeof(int));
@@ -120,38 +85,40 @@ namespace YAF.Controls
                 return;
             }
 
-            if (this.CurrentMode == ThanksListMode.FromUser)
+            switch (this.CurrentMode)
             {
-                thanksData = thanksData.Where(x => x.Field<int>("ThanksFromUserID") == this.UserID);
-            }
-            else if (this.CurrentMode == ThanksListMode.ToUser)
-            {
-                foreach (var dr in thanksData)
-                {
-                    // update the message count
-                    int messageThanksNumber;
-                    dr["MessageThanksNumber"] = int.TryParse(dr["MessageThanksNumber"].ToString(), out messageThanksNumber)
-                                                ? dr["MessageThanksNumber"]
-                                                : thanksData.Count(x => x.Field<int>("ThanksToUserID") == this.UserID &&
-                                                                        x.Field<int>("MessageID") == (int)dr["MessageID"]);
-                }
+                case ThanksListMode.FromUser:
+                    thanksData = thanksData.Where(x => x.Field<int>("ThanksFromUserID") == this.UserID);
+                    break;
+                case ThanksListMode.ToUser:
+                    {
+                        foreach (var dr in thanksData)
+                        {
+                            // update the message count
+                            dr["MessageThanksNumber"] = int.TryParse(dr["MessageThanksNumber"].ToString(), out _)
+                                                            ? dr["MessageThanksNumber"]
+                                                            : thanksData.Count(x => x.Field<int>("ThanksToUserID") == this.UserID &&
+                                                                                    x.Field<int>("MessageID") == (int)dr["MessageID"]);
+                        }
 
-                thanksData = thanksData.Where(x => x.Field<int>("ThanksToUserID") == this.UserID);
+                        thanksData = thanksData.Where(x => x.Field<int>("ThanksToUserID") == this.UserID);
 
-                // Remove duplicates.
-                this.DistinctMessageID(thanksData);
+                        // Remove duplicates.
+                        DistinctMessageID(thanksData);
 
-                // Sort by the ThanksNumber (Descensing)
-                thanksData = thanksData.OrderByDescending(x => x.Field<int>("MessageThanksNumber"));
+                        // Sort by the ThanksNumber (Descending)
+                        thanksData = thanksData.OrderByDescending(x => x.Field<int>("MessageThanksNumber"));
 
-                // Update the datatable with changes
-                this.ThanksInfo.AcceptChanges();
+                        // Update the data table with changes
+                        this.ThanksInfo.AcceptChanges();
+                        break;
+                    }
             }
 
             // TODO : page size definable?
             this.PagerTop.PageSize = 15;
 
-            // set datasource of repeater
+            // set data source of repeater
             this.ThanksRes.DataSource = thanksData.ToList().GetPaged(this.PagerTop);
 
             // data bind controls
@@ -161,19 +128,6 @@ namespace YAF.Controls
         #endregion
 
         #region Methods
-
-        /// <summary>
-        /// Returns <see langword="true"/> if the count is odd
-        /// </summary>
-        /// <returns>
-        /// The is odd.
-        /// </returns>
-        protected bool IsOdd()
-        {
-            return (this._count++ % 2) == 0;
-        }
-
-        /* Methods */
 
         /// <summary>
         /// The page_ load.
@@ -226,7 +180,7 @@ namespace YAF.Controls
                 case ThanksListMode.FromUser:
                     if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
                     {
-                        var thanksNumberCell = (HtmlTableCell)e.Item.FindControl("ThanksNumberCell");
+                        var thanksNumberCell = e.Item.FindControlAs<PlaceHolder>("ThanksNumberCell");
                         thanksNumberCell.Visible = false;
                     }
 
@@ -234,7 +188,7 @@ namespace YAF.Controls
                 case ThanksListMode.ToUser:
                     if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
                     {
-                        var nameCell = (HtmlTableCell)e.Item.FindControl("NameCell");
+                        var nameCell = e.Item.FindControlAs<PlaceHolder>("NameCell");
                         nameCell.Visible = false;
                     }
 
@@ -248,14 +202,13 @@ namespace YAF.Controls
         /// <param name="thanksData">
         /// The thanks data.
         /// </param>
-        private void DistinctMessageID([NotNull] IEnumerable<DataRow> thanksData)
+        private static void DistinctMessageID([NotNull] IEnumerable<DataRow> thanksData)
         {
-            int previousId = 0;
-            int tempId;
+            var previousId = 0;
 
             foreach (var dr in thanksData.OrderBy(x => x.Field<int>("MessageID")))
             {
-                tempId = dr.Field<int>("MessageID");
+                var tempId = dr.Field<int>("MessageID");
                 if (dr.Field<int>("MessageID") == previousId)
                 {
                     dr.Delete();

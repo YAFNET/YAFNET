@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -27,17 +27,23 @@ namespace YAF.Controls
     #region Using
 
     using System;
+    using System.Linq;
     using System.Web.UI.WebControls;
 
-    using YAF.Classes;
-    using YAF.Classes.Data;
+    using YAF.Configuration;
     using YAF.Core;
+    using YAF.Core.BaseControls;
+    using YAF.Core.Extensions;
+    using YAF.Core.Model;
+    using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Utilities;
+    using YAF.Types.Models;
     using YAF.Utils;
+    using YAF.Utils.Helpers;
+    using YAF.Web.Controls;
 
     #endregion
 
@@ -74,18 +80,17 @@ namespace YAF.Controls
         /// <param name="e">The <see cref="System.Web.UI.WebControls.CommandEventArgs"/> instance containing the event data.</param>
         protected void AlbumImages_ItemCommand([NotNull] object sender, [NotNull] CommandEventArgs e)
         {
-            using (var dt = LegacyDb.album_list(null, this.AlbumID))
-            {
-                if (dt.Rows[0]["CoverImageID"].ToString() == e.CommandArgument.ToString())
+            var dt = this.GetRepository<UserAlbum>().List(this.AlbumID).FirstOrDefault();
+            
+                if (dt.CoverImageID.ToString() == e.CommandArgument.ToString())
                 {
-                    LegacyDb.album_save(this.AlbumID, null, null, 0);
+                    this.GetRepository<UserAlbum>().UpdateCover(this.AlbumID, null);
                 }
                 else
                 {
-                    LegacyDb.album_save(dt.Rows[0]["AlbumID"], null, null, e.CommandArgument);
+                    this.GetRepository<UserAlbum>().UpdateCover(this.AlbumID, e.CommandArgument.ToType<int>());
                 }
-            }
-
+  
             this.BindData();
         }
 
@@ -101,14 +106,25 @@ namespace YAF.Controls
                 return;
             }
 
-            var setCover = (Button)e.Item.FindControl("SetCover");
+            var setCover = e.Item.FindControlAs<ThemeButton>("SetCover");
 
-            if (setCover != null)
+            if (setCover == null)
             {
-                // Is this the cover image?
-                setCover.Text = setCover.CommandArgument == this._coverImageID
-                                    ? this.GetText("BUTTON_RESETCOVER")
-                                    : this.GetText("BUTTON_SETCOVER");
+                return;
+            }
+
+            // Is this the cover image?
+            if (setCover.CommandArgument == this._coverImageID)
+            {
+                setCover.TextLocalizedTag = "BUTTON_RESETCOVER";
+                setCover.Type = ButtonAction.Danger;
+                setCover.Icon = "trash";
+            }
+            else
+            {
+                setCover.TextLocalizedTag = "BUTTON_SETCOVER";
+                setCover.Type = ButtonAction.Success;
+                setCover.Icon = "tag";
             }
         }
 
@@ -140,9 +156,7 @@ namespace YAF.Controls
                 YafContext.Current.PageElements.RegisterJsBlockStartup(
                     "ChangeImageCaptionJs", JavaScriptBlocks.ChangeImageCaptionJs);
                 YafContext.Current.PageElements.RegisterJsBlockStartup(
-                    "asynchCallFailedJs", JavaScriptBlocks.AsynchCallFailedJs);
-                YafContext.Current.PageElements.RegisterJsBlockStartup(
-                    "AlbumCallbackSuccessJS", JavaScriptBlocks.AlbumCallbackSuccessJS);
+                    "AlbumCallbackSuccessJS", JavaScriptBlocks.AlbumCallbackSuccessJs);
                 this.ltrTitleOnly.Visible = false;
             }
 
@@ -162,7 +176,6 @@ namespace YAF.Controls
 
                 // Initialize the edit control.
                 this.EditAlbums.Visible = true;
-                this.EditAlbums.Text = this.GetText("BUTTON", "BUTTON_EDITALBUMIMAGES");
             }
 
             this.BindData();
@@ -184,7 +197,7 @@ namespace YAF.Controls
         private void BindData()
         {
             this.PagerTop.PageSize = this.Get<YafBoardSettings>().AlbumImagesPerPage;
-            string albumTitle = LegacyDb.album_gettitle(this.AlbumID);
+            var albumTitle = this.GetRepository<UserAlbum>().GetTitle(this.AlbumID);
 
             // if (UserID == PageContext.PageUserID)
             // ltrTitle.Visible = false;
@@ -193,26 +206,26 @@ namespace YAF.Controls
                                      ? this.GetText("ALBUM_CHANGE_TITLE")
                                      : this.HtmlEncode(albumTitle);
 
-            // set the Datatable
-            var dtAlbumImageList = LegacyDb.album_image_list(this.AlbumID, null);
-            var dtAlbum = LegacyDb.album_list(null, this.AlbumID);
+            // set the Data table
+            var albumImageList = this.GetRepository<UserAlbumImage>().List(this.AlbumID);
+            var album = this.GetRepository<UserAlbum>().List(this.AlbumID).FirstOrDefault();
 
             // Does this album has a cover?
-            this._coverImageID = dtAlbum.Rows[0]["CoverImageID"] == DBNull.Value
+            this._coverImageID = album.CoverImageID == null
                                      ? string.Empty
-                                     : dtAlbum.Rows[0]["CoverImageID"].ToString();
+                                     : album.CoverImageID.ToString();
 
-            if ((dtAlbumImageList == null) || (dtAlbumImageList.Rows.Count <= 0))
+            if (albumImageList == null || !albumImageList.Any())
             {
                 return;
             }
 
-            this.PagerTop.Count = dtAlbumImageList.Rows.Count;
-
+            this.PagerTop.Count = albumImageList.Count;
+            
             // Create paged data source for the album image list
             var pds = new PagedDataSource
                           {
-                              DataSource = dtAlbumImageList.DefaultView,
+                              DataSource = albumImageList,
                               AllowPaging = true,
                               CurrentPageIndex = this.PagerTop.CurrentPageIndex,
                               PageSize = this.PagerTop.PageSize

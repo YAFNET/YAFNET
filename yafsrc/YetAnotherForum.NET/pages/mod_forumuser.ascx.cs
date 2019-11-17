@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -24,17 +24,18 @@
 
 namespace YAF.Pages
 {
-    // YAF.Pages
     #region Using
 
     using System;
+    using System.Collections.Generic;
     using System.Data;
+    using System.Web;
 
-    using YAF.Classes;
-    using YAF.Classes.Data;
-    using YAF.Controls;
+    using YAF.Configuration;
     using YAF.Core;
+    using YAF.Core.Extensions;
     using YAF.Core.Model;
+    using YAF.Core.UsersRoles;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
@@ -42,6 +43,7 @@ namespace YAF.Pages
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
     using YAF.Utils;
+    using YAF.Web.Extensions;
 
     #endregion
 
@@ -71,25 +73,26 @@ namespace YAF.Pages
         public override void DataBind()
         {
             // load data
-            DataTable dataTable;
+            IList<AccessMask> dataTable;
 
             // only admin can assign all access masks
             if (!this.PageContext.IsAdmin)
             {
                 // do not include access masks with this flags set
-                var flags = (int)AccessFlags.Flags.ModeratorAccess;
+                var flags = AccessFlags.Flags.ModeratorAccess.ToType<int>();
 
                 // non-admins cannot assign moderation access masks
-                dataTable = this.GetRepository<AccessMask>().List(excludeFlags: flags);
+                dataTable = this.GetRepository<AccessMask>()
+                    .Get(a => a.BoardID == this.PageContext.PageBoardID && a.Flags == flags);
             }
             else
             {
-                dataTable = this.GetRepository<AccessMask>().List();
+                dataTable = this.GetRepository<AccessMask>().GetByBoardId();
             }
 
-            // setup datasource for access masks dropdown
+            // setup data source for access masks dropdown
             this.AccessMaskID.DataSource = dataTable;
-            this.AccessMaskID.DataValueField = "AccessMaskID";
+            this.AccessMaskID.DataValueField = "ID";
             this.AccessMaskID.DataTextField = "Name";
 
             base.DataBind();
@@ -100,14 +103,10 @@ namespace YAF.Pages
         #region Methods
 
         /// <summary>
-        /// Handles click event of cancel button.
+        /// Handles the Click event of the Cancel control.
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Cancel_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
             // redirect to forum moderation page
@@ -122,13 +121,15 @@ namespace YAF.Pages
             if (this.PageContext.Settings.LockedForum == 0)
             {
                 // forum index
-                this.PageLinks.AddRoot().AddCategory(this.PageContext.PageCategoryName, this.PageContext.PageCategoryID);
+                this.PageLinks.AddRoot().AddCategory(
+                    this.PageContext.PageCategoryName,
+                    this.PageContext.PageCategoryID);
             }
 
             // forum page
             this.PageLinks.AddForum(this.PageContext.PageForumID);
 
-            // currect page
+            // current page
             this.PageLinks.AddLink(this.GetText("TITLE"));
         }
 
@@ -157,8 +158,8 @@ namespace YAF.Pages
             {
                 // set and enable user dropdown, disable text box
                 this.ToList.DataSource = foundUsers;
-                this.ToList.DataValueField = "Key";
-                this.ToList.DataTextField = "Value";
+                this.ToList.DataValueField = "ID";
+                this.ToList.DataTextField = this.Get<YafBoardSettings>().EnableDisplayName ? "DisplayName" : "Name";
 
                 // ToList.SelectedIndex = 0;
                 this.ToList.Visible = true;
@@ -187,7 +188,7 @@ namespace YAF.Pages
                 YafBuildLink.AccessDenied();
             }
 
-            // do not repeat on postbact
+            // do not repeat on post-back
             if (this.IsPostBack)
             {
                 return;
@@ -198,37 +199,38 @@ namespace YAF.Pages
 
             // load localized texts for buttons
             this.FindUsers.Text = this.GetText("FIND");
-            this.Update.Text = this.GetText("UPDATE");
-            this.Cancel.Text = this.GetText("CANCEL");
 
             // bind data
             this.DataBind();
 
             // if there is concrete user being handled
-            if (this.Request.QueryString.GetFirstOrDefault("u") == null)
+            if (!this.Get<HttpRequestBase>().QueryString.Exists("u"))
             {
                 return;
             }
 
-            using (
-                DataTable dt = LegacyDb.userforum_list(
-                    this.Request.QueryString.GetFirstOrDefault("u"), this.PageContext.PageForumID))
+            using (var dt = this.GetRepository<UserForum>().ListAsDataTable(
+                this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u"),
+                this.PageContext.PageForumID))
             {
-                foreach (DataRow row in dt.Rows)
-                {
-                    // set username and disable its editing
-                    this.UserName.Text = PageContext.BoardSettings.EnableDisplayName ? row["DisplayName"].ToString() : row["Name"].ToString();
-                    this.UserName.Enabled = false;
+                dt.AsEnumerable().ForEach(
+                    row =>
+                        {
+                            // set username and disable its editing
+                            this.UserName.Text = this.PageContext.BoardSettings.EnableDisplayName
+                                                     ? row["DisplayName"].ToString()
+                                                     : row["Name"].ToString();
+                            this.UserName.Enabled = false;
 
-                    // we don't need to find users now
-                    this.FindUsers.Visible = false;
+                            // we don't need to find users now
+                            this.FindUsers.Visible = false;
 
-                    // get access mask for this user                
-                    if (this.AccessMaskID.Items.FindByValue(row["AccessMaskID"].ToString()) != null)
-                    {
-                        this.AccessMaskID.Items.FindByValue(row["AccessMaskID"].ToString()).Selected = true;
-                    }
-                }
+                            // get access mask for this user                
+                            if (this.AccessMaskID.Items.FindByValue(row["AccessMaskID"].ToString()) != null)
+                            {
+                                this.AccessMaskID.Items.FindByValue(row["AccessMaskID"].ToString()).Selected = true;
+                            }
+                        });
             }
         }
 
@@ -246,7 +248,7 @@ namespace YAF.Pages
             // no user was specified
             if (this.UserName.Text.Length <= 0)
             {
-                this.PageContext.AddLoadMessage(this.GetText("NO_SUCH_USER"));
+                this.PageContext.AddLoadMessage(this.GetText("NO_SUCH_USER"), MessageTypes.warning);
                 return;
             }
 
@@ -259,21 +261,21 @@ namespace YAF.Pages
             // we need to verify user exists
             var userId = this.Get<IUserDisplayName>().GetId(this.UserName.Text.Trim());
 
-            // there is no such user or reference is ambiugous
+            // there is no such user or reference is ambiguous
             if (!userId.HasValue)
             {
-                this.PageContext.AddLoadMessage(this.GetText("NO_SUCH_USER"));
+                this.PageContext.AddLoadMessage(this.GetText("NO_SUCH_USER"), MessageTypes.warning);
                 return;
             }
 
             if (UserMembershipHelper.IsGuestUser(userId))
             {
-                this.PageContext.AddLoadMessage(this.GetText("NOT_GUEST"));
+                this.PageContext.AddLoadMessage(this.GetText("NOT_GUEST"), MessageTypes.warning);
                 return;
             }
 
             // save permission
-            LegacyDb.userforum_save(userId.Value, this.PageContext.PageForumID, this.AccessMaskID.SelectedValue);
+            this.GetRepository<UserForum>().Save(userId.Value, this.PageContext.PageForumID, this.AccessMaskID.SelectedValue);
 
             // clear moderators cache
             this.Get<IDataCache>().Remove(Constants.Cache.ForumModerators);
@@ -281,7 +283,6 @@ namespace YAF.Pages
 
             // redirect to forum moderation page
             YafBuildLink.Redirect(ForumPages.moderating, "f={0}", this.PageContext.PageForumID);
-
         }
 
         #endregion

@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -30,14 +30,12 @@ namespace YAF.Core.Services
     using System.Data;
     using System.Web;
 
-    using YAF.Classes.Data;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
-    using YAF.Utils.Helpers;
 
     #endregion
 
@@ -129,7 +127,7 @@ namespace YAF.Core.Services
         {
             // clear for the session
             this.SessionState.Remove(
-                this.TreatCacheKey.Treat(Constants.Cache.FavoriteTopicList.FormatWith(YafContext.Current.PageUserID)));
+                this.TreatCacheKey.Treat(string.Format(Constants.Cache.FavoriteTopicList, YafContext.Current.PageUserID)));
         }
 
         /// <summary>
@@ -145,7 +143,7 @@ namespace YAF.Core.Services
         {
             return
                 this.Get<IDataCache>().GetOrSet(
-                    Constants.Cache.FavoriteTopicCount.FormatWith(topicId),
+                    string.Format(Constants.Cache.FavoriteTopicCount, topicId),
                     () => this.GetRepository<FavoriteTopic>().Count(topicId),
                     TimeSpan.FromMilliseconds(90000)).ToType<int>();
         }
@@ -162,7 +160,7 @@ namespace YAF.Core.Services
         public DataTable FavoriteTopicDetails(DateTime sinceDate)
         {
             return this.GetRepository<FavoriteTopic>().Details(
-                (YafContext.Current.Settings.CategoryID == 0) ? null : (int?)YafContext.Current.Settings.CategoryID, 
+                YafContext.Current.Settings.CategoryID == 0 ? null : (int?)YafContext.Current.Settings.CategoryID, 
                 YafContext.Current.PageUserID, 
                 sinceDate, 
                 DateTime.UtcNow, 
@@ -258,7 +256,7 @@ namespace YAF.Core.Services
 
             if (watchedId.HasValue)
             {
-                this.GetRepository<WatchTopic>().DeleteByID(watchedId.Value);
+                this.GetRepository<WatchTopic>().DeleteById(watchedId.Value);
             }
         }
 

@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -27,15 +27,17 @@ namespace YAF.Core
     using System;
     using System.Data;
     using System.Web;
-    using System.Web.Security;
 
-    using YAF.Classes.Data;
+    using YAF.Core.Model;
+    using YAF.Core.UsersRoles;
     using YAF.Types;
     using YAF.Types.Attributes;
     using YAF.Types.Constants;
     using YAF.Types.EventProxies;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Events;
+    using YAF.Types.Models;
     using YAF.Utils;
     using YAF.Utils.Helpers;
 
@@ -81,13 +83,7 @@ namespace YAF.Core
         /// <summary>
         ///   Gets Order.
         /// </summary>
-        public int Order
-        {
-            get
-            {
-                return 1000;
-            }
-        }
+        public int Order => 1000;
 
         /// <summary>
         ///   Gets or sets ServiceLocator.
@@ -134,23 +130,23 @@ namespace YAF.Core
 
                 do
                 {
-                    pageRow = LegacyDb.pageload(
+                    pageRow = this.GetRepository<ActiveAccess>().PageLoad(
                         this.Get<HttpSessionStateBase>().SessionID,
                         YafContext.Current.PageBoardID,
                         userKey,
                         this.Get<HttpRequestBase>().GetUserRealIPAddress(),
                         location,
                         forumPage,
-                        @event.Data.Browser,
-                        @event.Data.Platform,
-                        @event.Data.CategoryID,
-                        @event.Data.ForumID,
-                        @event.Data.TopicID,
-                        @event.Data.MessageID,
-                        // don't track if this is a search engine
-                        @event.Data.IsSearchEngine,
-                        @event.Data.IsMobileDevice,
-                        @event.Data.DontTrack);
+                        (string)@event.Data.Browser,
+                        (string)@event.Data.Platform,
+                        (int?)@event.Data.CategoryID,
+                        (int?)@event.Data.ForumID,
+                        (int?)@event.Data.TopicID,
+                        (int?)@event.Data.MessageID,
+                        (bool)@event.Data.IsSearchEngine,
+                        (bool)@event.Data.IsMobileDevice,
+                        (bool)@event.Data.DontTrack);
+                        
 
                     // if the user doesn't exist...
                     if (userKey != null && pageRow == null)
@@ -207,8 +203,7 @@ namespace YAF.Core
                     this.Get<HttpRequestBase>().Url.ToString());
 
                 // log the user out...
-                //FormsAuthentication.SignOut();
-
+                // FormsAuthentication.SignOut();
                 if (YafContext.Current.ForumPageType != ForumPages.info)
                 {
                     // show a failure notice since something is probably up with membership...
@@ -219,9 +214,10 @@ namespace YAF.Core
                     // totally failing... just re-throw the exception...
                     throw;
                 }
+
 #else
-    // re-throw exception...
-				throw;
+                // re-throw exception...
+                throw;
 #endif
             }
         }

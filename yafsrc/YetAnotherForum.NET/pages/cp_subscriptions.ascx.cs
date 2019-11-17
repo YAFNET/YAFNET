@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -32,9 +32,7 @@ namespace YAF.Pages
     using System.Data;
     using System.Linq;
     using System.Web.UI.WebControls;
-    using YAF.Classes;
-    using YAF.Classes.Data;
-    using YAF.Controls;
+    using YAF.Configuration;
     using YAF.Core;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
@@ -43,14 +41,16 @@ namespace YAF.Pages
     using YAF.Types.EventProxies;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Events;
     using YAF.Types.Models;
     using YAF.Utils;
     using YAF.Utils.Helpers;
+    using YAF.Web.Extensions;
 
     #endregion
 
     /// <summary>
-    /// User Page To Manage Email Subcriptions
+    /// User Page To Manage Email Subscriptions
     /// </summary>
     public partial class cp_subscriptions : ForumPageRegistered
     {
@@ -67,56 +67,6 @@ namespace YAF.Pages
         #endregion
 
         #region Methods
-
-        /// <summary>
-        /// Formats the forum replies.
-        /// </summary>
-        /// <param name="o">The o.</param>
-        /// <returns>
-        /// The format forum replies.
-        /// </returns>
-        protected string FormatForumReplies([NotNull] object o)
-        {
-            var row = o as DataRow;
-
-            return row != null ? "{0}".FormatWith((int)row["Messages"] - (int)row["Topics"]) : string.Empty;
-        }
-
-        /// <summary>
-        /// Formats the last posted.
-        /// </summary>
-        /// <param name="o">The o.</param>
-        /// <returns>
-        /// The format last posted.
-        /// </returns>
-        protected string FormatLastPosted([NotNull] object o)
-        {
-            var row = o as DataRow;
-
-            if (row == null)
-            {
-                return string.Empty;
-            }
-
-            if (row["LastPosted"].ToString().Length == 0)
-            {
-                return "&nbsp;";
-            }
-
-            var displayName = this.Get<YafBoardSettings>().EnableDisplayName
-                                  ? this.HtmlEncode(row["LastUserDisplayName"])
-                                  : this.HtmlEncode(row["LastUserName"]);
-
-            string link = @"<a href=""{0}"">{1}</a>".FormatWith(YafBuildLink.GetLink(ForumPages.profile, "u={0}&name={1}", row["LastUserID"], displayName), displayName);
-            string by = this.GetTextFormatted("lastpostlink", this.Get<IDateTime>().FormatDateTime((DateTime)row["LastPosted"]), link);
-
-            string html = @"{0} <a href=""{1}""><img src=""{2}"" alt="""" /></a>".FormatWith(
-                @by,
-                YafBuildLink.GetLink(ForumPages.posts, "m={0}&find=lastpost", row["LastMessageID"]),
-                this.GetThemeContents("ICONS", "ICON_LATEST"));
-
-            return html;
-        }
 
         /// <summary>
         /// Handles the Load event of the Page control.
@@ -139,10 +89,6 @@ namespace YAF.Pages
                         : this.PageContext.PageUserName,
                     YafBuildLink.GetLink(ForumPages.cp_profile));
             this.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
-
-            this.UnsubscribeForums.Text = this.GetText("unsubscribe");
-            this.UnsubscribeTopics.Text = this.GetText("unsubscribe");
-            this.SaveUser.Text = this.GetText("Save");
 
             this.DailyDigestRow.Visible = this.Get<YafBoardSettings>().AllowDigestEmail;
             this.PMNotificationRow.Visible = this.Get<YafBoardSettings>().AllowPMEmailNotification;
@@ -169,7 +115,7 @@ namespace YAF.Pages
             }
 
             // update the ui...
-            this.UpdateSubscribeUI(this.PageContext.CurrentUserData.NotificationSetting);
+            this.UpdateSubscribeUi(this.PageContext.CurrentUserData.NotificationSetting);
         }
 
         /// <summary>
@@ -190,12 +136,14 @@ namespace YAF.Pages
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void SaveUser_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
+            this.Page.Validate();
+
             if (!this.Page.IsValid)
             {
                 return;
             }
 
-            bool autoWatchTopicsEnabled = false;
+            var autoWatchTopicsEnabled = false;
 
             var value = this.rblNotificationType.SelectedValue.ToEnum<UserNotificationSetting>();
 
@@ -205,7 +153,7 @@ namespace YAF.Pages
             }
 
             // save the settings...
-            LegacyDb.user_savenotification(
+            this.GetRepository<User>().SaveNotification(
                 this.PageContext.PageUserID,
                 this.PMNotificationEnabled.Checked,
                 autoWatchTopicsEnabled,
@@ -214,7 +162,7 @@ namespace YAF.Pages
 
             this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.PageContext.PageUserID));
 
-            this.PageContext.AddLoadMessage(this.GetText("SAVED_NOTIFICATION_SETTING"), MessageTypes.Success);
+            this.PageContext.AddLoadMessage(this.GetText("SAVED_NOTIFICATION_SETTING"), MessageTypes.success);
         }
 
         /// <summary>
@@ -247,12 +195,12 @@ namespace YAF.Pages
 
             if (ids.Any())
             {
-                this.GetRepository<WatchForum>().DeleteByIDs(ids);
+                this.GetRepository<WatchForum>().DeleteByIds(ids);
                 this.BindData();
             }
             else
             {
-                this.PageContext.AddLoadMessage(this.GetText("WARN_SELECTFORUMS"), MessageTypes.Warning);
+                this.PageContext.AddLoadMessage(this.GetText("WARN_SELECTFORUMS"), MessageTypes.warning);
             }
         }
 
@@ -267,12 +215,12 @@ namespace YAF.Pages
 
             if (ids.Any())
             {
-                this.GetRepository<WatchTopic>().DeleteByIDs(ids);
+                this.GetRepository<WatchTopic>().DeleteByIds(ids);
                 this.BindData();
             }
             else
             {
-                this.PageContext.AddLoadMessage(this.GetText("WARN_SELECTTOPICS"), MessageTypes.Warning);
+                this.PageContext.AddLoadMessage(this.GetText("WARN_SELECTTOPICS"), MessageTypes.warning);
             }
         }
 
@@ -285,7 +233,7 @@ namespace YAF.Pages
         {
             var selectedValue = this.rblNotificationType.SelectedItem.Value.ToEnum<UserNotificationSetting>();
 
-            this.UpdateSubscribeUI(selectedValue);
+            this.UpdateSubscribeUi(selectedValue);
         }
 
         /// <summary>
@@ -293,11 +241,12 @@ namespace YAF.Pages
         /// </summary>
         private void BindData()
         {
-            var watchForums = this.GetRepository<WatchForum>().List(this.PageContext.PageUserID).AsEnumerable();
+            var watchForums = this.GetRepository<WatchForum>().ListAsDataTable(this.PageContext.PageUserID).AsEnumerable();
 
             this.ForumList.DataSource = watchForums;
 
-            this.UnsubscribeForums.Visible = watchForums.Count() != 0;
+
+            this.ForumsHolder.Visible = watchForums.Any();
 
             // we are going to page results
             var dt = this.GetRepository<WatchTopic>().List(this.PageContext.PageUserID);
@@ -322,7 +271,9 @@ namespace YAF.Pages
             this.TopicList.DataSource = topicList;
 
             this.UnsubscribeTopics.Visible = topicList.Count() != 0;
-            
+
+            this.TopicsHolder.Visible = topicList.Count() != 0;
+
             this.PMNotificationEnabled.Checked = this.PageContext.CurrentUserData.PMNotification;
             this.DailyDigestEnabled.Checked = this.PageContext.CurrentUserData.DailyDigest;
 
@@ -330,15 +281,16 @@ namespace YAF.Pages
         }
 
         /// <summary>
-        /// The update subscribe ui.
+        /// The update subscribe UI.
         /// </summary>
         /// <param name="selectedValue">
         /// The selected value.
         /// </param>
-        private void UpdateSubscribeUI(UserNotificationSetting selectedValue)
+        private void UpdateSubscribeUi(UserNotificationSetting selectedValue)
         {
-            bool showSubscribe =
-              !(selectedValue == UserNotificationSetting.AllTopics || selectedValue == UserNotificationSetting.NoNotification);
+            var showSubscribe =
+              !(selectedValue == UserNotificationSetting.AllTopics
+                || selectedValue == UserNotificationSetting.NoNotification);
 
             this.SubscribeHolder.Visible = showSubscribe;
         }

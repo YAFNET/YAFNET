@@ -7,11 +7,13 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace YAF.Pages.Admin {
-    
-    
-    public partial class ranks {
-        
+namespace YAF.Pages.Admin
+{
+
+
+    public partial class ranks
+    {
+
         /// <summary>
         /// PageLinks control.
         /// </summary>
@@ -19,8 +21,8 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.PageLinks PageLinks;
-        
+        protected global::YAF.Web.Controls.PageLinks PageLinks;
+
         /// <summary>
         /// LocalizedLabel1 control.
         /// </summary>
@@ -28,8 +30,17 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel1;
-        
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel1;
+
+        /// <summary>
+        /// LocalizedLabel2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel2;
+
         /// <summary>
         /// RankList control.
         /// </summary>
@@ -38,7 +49,7 @@ namespace YAF.Pages.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Repeater RankList;
-        
+
         /// <summary>
         /// NewRank control.
         /// </summary>
@@ -46,15 +57,6 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button NewRank;
-        
-        /// <summary>
-        /// SmartScroller1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Controls.SmartScroller SmartScroller1;
+        protected global::YAF.Web.Controls.ThemeButton NewRank;
     }
 }

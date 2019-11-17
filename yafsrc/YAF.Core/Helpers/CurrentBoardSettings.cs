@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -27,12 +27,11 @@ namespace YAF.Core
 
     using System.Web;
 
-    using YAF.Classes;
+    using YAF.Configuration;
+    using YAF.Core.Extensions;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Interfaces;
-    using YAF.Types.Interfaces.Data;
-    using YAF.Types.Models;
 
     #endregion
 
@@ -81,13 +80,10 @@ namespace YAF.Core
         /// </param>
         /// <param name="treatCacheKey">
         /// </param>
-        /// <param name="boardRepository">
-        /// The board Repository.
-        /// </param>
         public CurrentBoardSettings(
-            [NotNull] HttpApplicationStateBase applicationStateBase, 
-            [NotNull] IInjectServices injectServices, 
-            [NotNull] IHaveBoardID haveBoardId, 
+            [NotNull] HttpApplicationStateBase applicationStateBase,
+            [NotNull] IInjectServices injectServices,
+            [NotNull] IHaveBoardID haveBoardId,
             [NotNull] ITreatCacheKey treatCacheKey)
         {
             CodeContracts.VerifyNotNull(applicationStateBase, "applicationStateBase");
@@ -113,10 +109,10 @@ namespace YAF.Core
             get
             {
                 return this._applicationStateBase.GetOrSet(
-                    this._treatCacheKey.Treat(Constants.Cache.BoardSettings), 
+                    this._treatCacheKey.Treat(Constants.Cache.BoardSettings),
                     () =>
                         {
-                            var boardSettings = new YafLoadBoardSettings(this._haveBoardId.BoardID);
+                            var boardSettings = (YafBoardSettings)new YafLoadBoardSettings(this._haveBoardId.BoardID);
 
                             // inject
                             this._injectServices.Inject(boardSettings);
@@ -125,10 +121,7 @@ namespace YAF.Core
                         });
             }
 
-            set
-            {
-                this._applicationStateBase.Set(this._treatCacheKey.Treat(Constants.Cache.BoardSettings), value);
-            }
+            set => this._applicationStateBase.Set(this._treatCacheKey.Treat(Constants.Cache.BoardSettings), value);
         }
 
         #endregion

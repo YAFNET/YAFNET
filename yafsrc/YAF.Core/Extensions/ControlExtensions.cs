@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -22,7 +22,7 @@
  * under the License.
  */
 
-namespace YAF.Core
+namespace YAF.Core.Extensions
 {
     #region Using
 
@@ -75,7 +75,7 @@ namespace YAF.Core
         public static string GetUniqueID(this Control currentControl, string prefix)
         {
             return prefix.IsSet()
-                       ? "{0}{1}".FormatWith(prefix, Guid.NewGuid().ToString().Substring(0, 5))
+                       ? $"{prefix}{Guid.NewGuid().ToString().Substring(0, 5)}"
                        : Guid.NewGuid().ToString().Substring(0, 10);
         }
 
@@ -89,6 +89,11 @@ namespace YAF.Core
         /// </returns>
         public static string HtmlEncode(this Control currentControl, object data)
         {
+            if (data == null)
+            {
+                return null;
+            }
+
             return YafContext.Current != null
                        ? new UnicodeEncoder().XSSEncode(data.ToString())
                        : YafContext.Current.CurrentForumPage.HtmlEncode(data.ToString());

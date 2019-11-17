@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -28,34 +28,31 @@ namespace YAF.Core.Services.Startup
 
     using System.Web;
 
-    using YAF.Classes;
-    using YAF.Classes.Data;
+    using YAF.Configuration;
+    using YAF.Core.Extensions;
+    using YAF.Core.Model;
     using YAF.Core.Tasks;
     using YAF.Types;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Data;
+    using YAF.Types.Models;
     using YAF.Utils;
 
     #endregion
 
     /// <summary>
-    ///     The yaf initialize db.
+    /// The startup initialize db.
     /// </summary>
     public class StartupInitializeDb : BaseStartupService, ICriticalStartupService
     {
         #region Properties
 
         /// <summary>
-        ///     Gets InitVarName.
+        ///     Gets the initialize var. Name.
         /// </summary>
         [NotNull]
-        protected override string InitVarName
-        {
-            get
-            {
-                return "YafInitializeDb_Init";
-            }
-        }
+        protected override string InitVarName => "YafInitializeDb_Init";
 
         #endregion
 
@@ -70,8 +67,7 @@ namespace YAF.Core.Services.Startup
         protected override bool RunService()
         {
             // init the db...
-            string errorString;
-            bool debugging = false;
+            var debugging = false;
 
 #if DEBUG
             debugging = true;
@@ -87,31 +83,31 @@ namespace YAF.Core.Services.Startup
             if (Config.ConnectionString == null)
             {
                 // attempt to create a connection string...
-                response.Redirect("{0}install/default.aspx".FormatWith(YafForumInfo.ForumClientFileRoot));
+                response.Redirect($"{YafForumInfo.ForumClientFileRoot}install/default.aspx");
                 
                 return false;
             }
 
             // attempt to init the db...
-            if (!LegacyDb.forumpage_initdb(out errorString, debugging))
+            if (!YafContext.Current.Get<IDbAccess>().TestConnection(out var errorString))
             {
                 // unable to connect to the DB...
                 YafContext.Current.Get<HttpSessionStateBase>()["StartupException"] = errorString;
                
-                response.Redirect("{0}error.aspx".FormatWith(YafForumInfo.ForumClientFileRoot));
+                response.Redirect($"{YafForumInfo.ForumClientFileRoot}error.aspx");
                 
                 return false;
             }
 
             // step 2: validate the database version...
-            var redirectString = LegacyDb.forumpage_validateversion(YafForumInfo.AppVersion);
+            var redirectString = YafContext.Current.GetRepository<Registry>().ValidateVersion(YafForumInfo.AppVersion);
 
-            if (!redirectString.IsSet())
+            if (redirectString.IsNotSet())
             {
                 return true;
             }
 
-            response.Redirect("{0}{1}".FormatWith(YafForumInfo.ForumClientFileRoot, redirectString));
+            response.Redirect($"{YafForumInfo.ForumClientFileRoot}{redirectString}");
             return false;
         }
 

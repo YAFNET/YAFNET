@@ -30,13 +30,14 @@ namespace YAF.Modules
     using System.Text;
     using System.Web.UI.HtmlControls;
 
-    using YAF.Controls;
     using YAF.Types;
     using YAF.Types.Attributes;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Utils.Helpers;
+    using YAF.Web.Controls;
+    using YAF.Web.EventsArgs;
 
     #endregion
 
@@ -94,17 +95,17 @@ namespace YAF.Modules
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void ForumPage_PreRender([NotNull] object sender, [NotNull] EventArgs e)
         {
-            HtmlHead head = this.ForumControl.Page.Header
-                            ?? this.CurrentForumPage.FindControlRecursiveBothAs<HtmlHead>("YafHead");
+            var head = this.ForumControl.Page.Header
+                            ?? this.CurrentForumPage.FindControlRecursiveBothAs<HtmlHead>(id: "YafHead");
 
             if (head != null)
             {
                 // setup the title...
-                string addition = string.Empty;
+                var addition = string.Empty;
 
                 if (head.Title.IsSet())
                 {
-                    addition = " - {0}".FormatWith(head.Title.Trim());
+                    addition = $" - {head.Title.Trim()}";
                 }
 
                 head.Title = this._forumPageTitle + addition;
@@ -112,7 +113,7 @@ namespace YAF.Modules
             else
             {
                 // old style
-                var title = this.CurrentForumPage.FindControlRecursiveBothAs<HtmlTitle>("ForumTitle");
+                var title = this.CurrentForumPage.FindControlRecursiveBothAs<HtmlTitle>(id: "ForumTitle");
 
                 if (title != null)
                 {
@@ -134,11 +135,11 @@ namespace YAF.Modules
             if (this.ForumPageType == ForumPages.posts || this.ForumPageType == ForumPages.topics)
             {
                 // get current page...
-                var currentPager = this.CurrentForumPage.FindControlAs<Pager>("Pager");
+                var currentPager = this.CurrentForumPage.FindControlAs<Pager>(id: "Pager");
 
                 if (currentPager != null && currentPager.CurrentPageIndex != 0)
                 {
-                    pageString = "- Page {0}".FormatWith(currentPager.CurrentPageIndex + 1);
+                    pageString = $"- Page {currentPager.CurrentPageIndex + 1}";
                 }
             }
 
@@ -153,26 +154,26 @@ namespace YAF.Modules
                         {
                             // Tack on the topic we're viewing
                             title.Append(
-                                this.Get<IBadWordReplace>().Replace(this.PageContext.PageTopicName.Truncate(80)));
+                                value: this.Get<IBadWordReplace>().Replace(searchText: this.PageContext.PageTopicName.Truncate(inputLimit: 80)));
                         }
 
                         addBoardName = false;
 
                         // Append Current Page
-                        title.Append(pageString);
+                        title.Append(value: pageString);
 
                         break;
                     case ForumPages.topics:
                         if (this.PageContext.PageForumName != string.Empty)
                         {
                             // Tack on the forum we're viewing
-                            title.Append(this.CurrentForumPage.HtmlEncode(this.PageContext.PageForumName.Truncate(80)));
+                            title.Append(value: this.CurrentForumPage.HtmlEncode(data: this.PageContext.PageForumName.Truncate(inputLimit: 80)));
                         }
 
                         addBoardName = false;
 
                         // Append Current Page
-                        title.Append(pageString);
+                        title.Append(value: pageString);
 
                         break;
                     case ForumPages.forum:
@@ -182,21 +183,21 @@ namespace YAF.Modules
 
                             // Tack on the forum we're viewing
                             title.Append(
-                                this.CurrentForumPage.HtmlEncode(this.PageContext.PageCategoryName.Truncate(80)));
+                                value: this.CurrentForumPage.HtmlEncode(data: this.PageContext.PageCategoryName.Truncate(inputLimit: 80)));
                         }
 
                         break;
                     default:
-                        var pageLinks = this.CurrentForumPage.FindControlAs<PageLinks>("PageLinks");
+                        var pageLinks = this.CurrentForumPage.FindControlAs<PageLinks>(id: "PageLinks");
 
-                        var activePageLink = pageLinks?.PageLinkList?.FirstOrDefault(link => link.URL.IsNotSet());
+                        var activePageLink = pageLinks?.PageLinkList?.FirstOrDefault(predicate: link => link.URL.IsNotSet());
 
                         if (activePageLink != null)
                         {
                             addBoardName = false;
 
                             // Tack on the forum we're viewing
-                            title.Append(this.CurrentForumPage.HtmlEncode(activePageLink.Title.Truncate(80)));
+                            title.Append(value: this.CurrentForumPage.HtmlEncode(data: activePageLink.Title.Truncate(inputLimit: 80)));
                         }
 
                         break;
@@ -206,12 +207,12 @@ namespace YAF.Modules
             if (addBoardName)
             {
                 // and lastly, tack on the board's name
-                title.Append(this.CurrentForumPage.HtmlEncode(this.PageContext.BoardSettings.Name));
+                title.Append(value: this.CurrentForumPage.HtmlEncode(data: this.PageContext.BoardSettings.Name));
             }
 
             this._forumPageTitle = title.ToString();
 
-            this.ForumControl.FirePageTitleSet(this, new ForumPageTitleArgs(this._forumPageTitle));
+            this.ForumControl.FirePageTitleSet(sender: this, e: new ForumPageTitleArgs(title: this._forumPageTitle));
         }
 
         #endregion

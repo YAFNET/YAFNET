@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -27,7 +27,6 @@ namespace YAF.Core.Services.Auth
     using System.Collections.Generic;
 
     using YAF.Types;
-    using YAF.Types.Extensions;
     using YAF.Types.Objects;
     using YAF.Utils.Extensions;
 
@@ -85,7 +84,7 @@ namespace YAF.Core.Services.Auth
         {
             return this.oAuth.OAuthWebRequest(
                 AuthUtilities.Method.GET,
-                "https://api.twitter.com/1.1/users/lookup.json?screen_name={0}".FormatWith(userNames),
+                $"https://api.twitter.com/1.1/users/lookup.json?screen_name={userNames}",
                 optionalparameters);
         }
 
@@ -105,9 +104,10 @@ namespace YAF.Core.Services.Auth
         {
             return this.oAuth.OAuthWebRequest(
                 AuthUtilities.Method.GET,
-                "https://api.twitter.com/1.1/users/lookup.{1}?screen_name={0}".FormatWith(
+                string.Format(
+                    "https://api.twitter.com/1.1/users/lookup.{1}?screen_name={0}",
                     userNames,
-                    response_format.ToString()),
+                        response_format.ToString()),
                 optionalparameters).FromJson<List<TwitterUser>>();
         }
 
@@ -131,7 +131,7 @@ namespace YAF.Core.Services.Auth
         {
             return this.oAuth.OAuthWebRequest(
                 AuthUtilities.Method.GET,
-                "https://api.twitter.com/1.1/statuses/show/{0}.{1}".FormatWith(statusid, response_format.ToString()),
+                $"https://api.twitter.com/1.1/statuses/show/{statusid}.{response_format.ToString()}",
                 optionalparameters);
         }
 
@@ -163,8 +163,8 @@ namespace YAF.Core.Services.Auth
         {
             return this.oAuth.OAuthWebRequest(
                 AuthUtilities.Method.POST,
-                "https://api.twitter.com/1.1/statuses/update.{0}".FormatWith(reponse_format.ToString()),
-                "status={0}{1}".FormatWith(tweet_message, optionalparameters));
+                $"https://api.twitter.com/1.1/statuses/update.{reponse_format.ToString()}",
+                $"status={tweet_message}{optionalparameters}");
         }
 
         #endregion
@@ -193,8 +193,8 @@ namespace YAF.Core.Services.Auth
         {
             return this.oAuth.OAuthWebRequest(
                 AuthUtilities.Method.POST,
-                "https://api.twitter.com/1.1/direct_messages/new.{0}".FormatWith(reponse_format.ToString()),
-                "screen_name={0}&text={1}".FormatWith(screen_name, message));
+                $"https://api.twitter.com/1.1/direct_messages/new.{reponse_format.ToString()}",
+                $"screen_name={screen_name}&text={message}");
         }
 
         /// <summary>
@@ -219,8 +219,8 @@ namespace YAF.Core.Services.Auth
         {
             return this.oAuth.OAuthWebRequest(
                 AuthUtilities.Method.POST,
-                "https://api.twitter.com/1.1/direct_messages/new.{0}".FormatWith(reponse_format.ToString()),
-                "user_id={0}&text={1}".FormatWith(user_id, message));
+                $"https://api.twitter.com/1.1/direct_messages/new.{reponse_format.ToString()}",
+                $"user_id={user_id}&text={message}");
         }
 
         #endregion
@@ -242,7 +242,7 @@ namespace YAF.Core.Services.Auth
         {
             return this.oAuth.OAuthWebRequest(
                 AuthUtilities.Method.POST,
-                "https://api.twitter.com/1.1/statuses/destroy/{0}.{1}".FormatWith(statusid, response_format.ToString()),
+                $"https://api.twitter.com/1.1/statuses/destroy/{statusid}.{response_format.ToString()}",
                 optionalparameters);
         }
 
@@ -265,7 +265,7 @@ namespace YAF.Core.Services.Auth
         {
             return this.oAuth.OAuthWebRequest(
                 AuthUtilities.Method.POST,
-                "https://api.twitter.com/1.1/statuses/retweet/{0}.{1}".FormatWith(statusid, response_format.ToString()),
+                $"https://api.twitter.com/1.1/statuses/retweet/{statusid}.{response_format.ToString()}",
                 optionalparameters);
         }
 
@@ -288,7 +288,7 @@ namespace YAF.Core.Services.Auth
         {
             return this.oAuth.OAuthWebRequest(
                 AuthUtilities.Method.GET,
-                "https://api.twitter.com/1.1/statuses/retweets/{0}.{1}".FormatWith(statusid, response_format.ToString()),
+                $"https://api.twitter.com/1.1/statuses/retweets/{statusid}.{response_format.ToString()}",
                 optionalparameters);
         }
 
@@ -311,9 +311,7 @@ namespace YAF.Core.Services.Auth
         {
             return this.oAuth.OAuthWebRequest(
                 AuthUtilities.Method.GET,
-                "https://api.twitter.com/1.1/statuses/{0}/retweeted_by.{1}".FormatWith(
-                    statusid,
-                    response_format.ToString()),
+                $"https://api.twitter.com/1.1/statuses/{statusid}/retweeted_by.{response_format.ToString()}",
                 optionalparameters);
         }
 

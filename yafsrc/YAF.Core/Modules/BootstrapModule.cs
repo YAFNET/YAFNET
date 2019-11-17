@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -29,19 +29,22 @@ namespace YAF.Core.Modules
     using Autofac;
     using Autofac.Core;
 
+    /// <summary>
+    /// The bootstrap module.
+    /// </summary>
     public class BootstrapModule : BaseModule
     {
         /// <summary>
         /// Bootstrap module is always called first
         /// </summary>
-        public override int SortOrder
-        {
-            get
-            {
-                return 1;
-            }
-        }
+        public override int SortOrder => 1;
 
+        /// <summary>
+        /// The load.
+        /// </summary>
+        /// <param name="builder">
+        /// The builder.
+        /// </param>
         protected override void Load(ContainerBuilder builder)
         {
             // register all the modules in this assembly first -- excluding this module

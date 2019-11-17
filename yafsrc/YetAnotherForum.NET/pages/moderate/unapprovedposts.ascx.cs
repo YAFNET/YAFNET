@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -30,15 +30,17 @@ namespace YAF.Pages.moderate
     using System.Data;
     using System.Web.UI.WebControls;
 
-    using YAF.Classes.Data;
-    using YAF.Controls;
     using YAF.Core;
+    using YAF.Core.Extensions;
+    using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Flags;
     using YAF.Types.Interfaces;
+    using YAF.Types.Models;
     using YAF.Utils;
+    using YAF.Web.Extensions;
 
     #endregion
 
@@ -71,24 +73,12 @@ namespace YAF.Pages.moderate
             this.PageLinks.AddRoot();
 
             // moderation index
-            this.PageLinks.AddLink(this.GetText("MODERATE_DEFAULT", "TITLE"), YafBuildLink.GetLink(ForumPages.moderate_index));
+            this.PageLinks.AddLink(
+                this.GetText("MODERATE_DEFAULT", "TITLE"),
+                YafBuildLink.GetLink(ForumPages.moderate_index));
 
             // current page
             this.PageLinks.AddLink(this.PageContext.PageForumName);
-        }
-
-        /// <summary>
-        /// Handles load event for delete button, adds confirmation dialog.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        protected void Delete_Load([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            var button = sender as ThemeButton;
-            if (button != null)
-            {
-                button.Attributes["onclick"] = "return confirm('{0}');".FormatWith(this.GetText("ASK_DELETE"));
-            }
         }
 
         /// <summary>
@@ -116,9 +106,11 @@ namespace YAF.Pages.moderate
             }
             else
             {
-                // fully format message (YafBBCode, smilies)
+                // fully format message (YafBBCode)
                 msg = this.Get<IFormatMessage>().FormatMessage(
-                  row["Message"].ToString(), messageFlags, row["IsModeratorChanged"].ToType<bool>());
+                    row["Message"].ToString(),
+                    messageFlags,
+                    row["IsModeratorChanged"].ToType<bool>());
             }
 
             // return formatted message
@@ -142,7 +134,7 @@ namespace YAF.Pages.moderate
         /// <param name="e">An <see cref="T:System.EventArgs"/> object that contains the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            // do this just on page load, not postbacks
+            // do this just on page load, not post-backs
             if (this.IsPostBack)
             {
                 return;
@@ -160,9 +152,9 @@ namespace YAF.Pages.moderate
         /// </summary>
         private void BindData()
         {
-            var messageList = LegacyDb.message_unapproved(this.PageContext.PageForumID);
+            var messageList = this.GetRepository<Message>().UnapprovedAsDataTable(this.PageContext.PageForumID);
 
-            if (messageList.Rows.Count == 0)
+            if (!messageList.HasRows())
             {
                 // redirect back to the moderate main if no messages found
                 YafBuildLink.Redirect(ForumPages.moderate_index);
@@ -189,7 +181,7 @@ namespace YAF.Pages.moderate
                 case "approve":
 
                     // approve post
-                    LegacyDb.message_approve(e.CommandArgument);
+                    this.GetRepository<Message>().ApproveMessage(e.CommandArgument.ToType<int>());
 
                     // Update statistics
                     this.Get<IDataCache>().Remove(Constants.Cache.BoardStats);
@@ -198,7 +190,7 @@ namespace YAF.Pages.moderate
                     this.BindData();
 
                     // tell user message was approved
-                    this.PageContext.AddLoadMessage(this.GetText("APPROVED"), MessageTypes.Success);
+                    this.PageContext.AddLoadMessage(this.GetText("APPROVED"), MessageTypes.success);
 
                     // send notification to watching users...
                     this.Get<ISendNotification>().ToWatchingUsers(e.CommandArgument.ToType<int>());
@@ -206,7 +198,7 @@ namespace YAF.Pages.moderate
                 case "delete":
 
                     // delete message
-                    LegacyDb.message_delete(e.CommandArgument, true, string.Empty, 1, true);
+                    this.GetRepository<Message>().Delete(e.CommandArgument.ToType<int>(), true, string.Empty, 1, true);
 
                     // Update statistics
                     this.Get<IDataCache>().Remove(Constants.Cache.BoardStats);
@@ -215,7 +207,7 @@ namespace YAF.Pages.moderate
                     this.BindData();
 
                     // tell user message was deleted
-                    this.PageContext.AddLoadMessage(this.GetText("DELETED"));
+                    this.PageContext.AddLoadMessage(this.GetText("DELETED"), MessageTypes.info);
                     break;
             }
 

@@ -1,55 +1,86 @@
 <%@ Control Language="c#" AutoEventWireup="True"
 	Inherits="YAF.Pages.Admin.nntpretrieve" Codebehind="nntpretrieve.ascx.cs" %>
-<%@ Register TagPrefix="YAF" Namespace="YAF.Controls" %>
-<%@ Import Namespace="YAF.Core"%>
-<%@ Import Namespace="YAF.Types.Interfaces" %>
+<%@ Import Namespace="YAF.Core.Extensions" %>
+
 <YAF:PageLinks runat="server" ID="PageLinks" />
-<YAF:AdminMenu runat="server">
-	<table class="content" width="100%" cellspacing="1" cellpadding="0">
-		<tr>
-			<td colspan="3" class="header1">
-                <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="HEADER" LocalizedPage="ADMIN_NNTPRETRIEVE" />
-			</td>
-		</tr>
-		<asp:Repeater runat="server" ID="List">  
-			<HeaderTemplate>  
-				<tr class="header2">
-					<td>
-                        <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="GROUPS" LocalizedPage="ADMIN_NNTPRETRIEVE" />
-					</td>
-					<td align="right">
-                        <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="LAST_MESSAGE" LocalizedPage="ADMIN_NNTPRETRIEVE" />
-					</td>
-					<td>
-                        <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="LAST_UPDATE" LocalizedPage="ADMIN_NNTPRETRIEVE" />
-					</td>
-				</tr>
+
+    <div class="row">
+    <div class="col-xl-12">
+        <h1><YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" 
+                                LocalizedTag="HEADER" 
+                                LocalizedPage="ADMIN_NNTPRETRIEVE" /></h1>
+    </div>
+    </div>
+    <div class="row">
+        <div class="col-xl-12">
+            <div class="card mb-3">
+                <div class="card-header">
+                    <i class="fa fa-newspaper fa-fw text-secondary pr-1"></i>
+                    <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server"
+                                        LocalizedTag="HEADER"
+                                        LocalizedPage="ADMIN_NNTPRETRIEVE" />
+                    </div>
+                <div class="card-body">
+                    <asp:Repeater runat="server" ID="List">
+			<HeaderTemplate>
+                <ul class="list-group">
 			</HeaderTemplate>
 			<ItemTemplate>
-				<tr class="post">
-					<td>
-						<%# Eval("GroupName") %>
-					</td>
-					<td align="right">
-						<%# LastMessageNo(Container.DataItem) %>
-					</td>
-					<td>
-						<%# this.Get<IDateTime>().FormatDateTime(Eval("LastUpdate")) %>
-					</td>
-				</tr>
+                <li class="list-group-item list-group-item-action">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1">
+                            <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" 
+                                                LocalizedTag="GROUPS" 
+                                                LocalizedPage="ADMIN_NNTPRETRIEVE" />:
+                        </h5>
+                        <small>
+                            <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" 
+                                                LocalizedTag="LAST_MESSAGE" 
+                                                LocalizedPage="ADMIN_NNTPRETRIEVE" />:&nbsp;
+                            <%# this.LastMessageNo(Container.DataItem) %>
+                        </small>
+                    </div>
+                    <p class="mb-1">
+                        <%# this.Eval("GroupName") %>
+                    </p>
+                    <small>
+                        <span class="font-weight-bold">
+                            <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" 
+                                                LocalizedTag="LAST_UPDATE" 
+                                                LocalizedPage="ADMIN_NNTPRETRIEVE" />:&nbsp;
+                        </span>
+                        <%# this.Get<IDateTime>().FormatDateTime(this.Eval("LastUpdate")) %>
+                    </small>
+                </li>
 			</ItemTemplate>
+            <FooterTemplate>
+                </ul>
+
+            </FooterTemplate>
 		</asp:Repeater>
-		<tr>
-			<td colspan="2" class="postheader" width="50%">
-                <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="TIME" LocalizedPage="ADMIN_NNTPRETRIEVE" />
-				</td>
-			<td class="post" width="50%">
-				<asp:TextBox runat="server" ID="Seconds" Text="30" CssClass="Numeric" />&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="SECONDS" LocalizedPage="ADMIN_NNTPRETRIEVE" /></td>
-		</tr>
-		<tr>
-			<td colspan="3" align="center" class="footer1">
-				<asp:Button runat="server" ID="Retrieve" Text="Retrieve" CssClass="pbutton" OnClick="Retrieve_Click" /></td>
-		</tr>
-	</table>
-</YAF:AdminMenu>
-<YAF:SmartScroller ID="SmartScroller1" runat="server" />
+                        <div class="form-row mt-3">
+                            <div class="form-group col-md-6">
+                                <asp:Label runat="server" AssociatedControlID="Seconds">
+                                    <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" 
+                                                        LocalizedTag="TIME" 
+                                                        LocalizedPage="ADMIN_NNTPRETRIEVE" /> 
+                                </asp:Label>
+                                <asp:TextBox runat="server" ID="Seconds" 
+                                             Text="30" 
+                                             CssClass="form-control" 
+                                             TextMode="Number" />
+                            </div>
+                        </div>
+                    </div>
+                <div class="card-footer text-center">
+                    <YAF:ThemeButton runat="server" ID="Retrieve" 
+                                     Type="Primary" 
+                                     OnClick="RetrieveClick"
+                                     Icon="download" 
+                                     TextLocalizedTag="RETRIEVE"/>
+                </div>
+            </div>
+            </div>
+        </div>
+
+

@@ -40,22 +40,22 @@ namespace YAF.Controls {
         protected global::System.Web.UI.WebControls.HyperLink topicLink;
         
         /// <summary>
+        /// NewMessage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label NewMessage;
+        
+        /// <summary>
         /// LastTopicImgLink control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink LastTopicImgLink;
-        
-        /// <summary>
-        /// Icon control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Controls.ThemeImage Icon;
+        protected global::YAF.Web.Controls.ThemeButton LastTopicImgLink;
         
         /// <summary>
         /// ImageLastUnreadMessageLink control.
@@ -64,25 +64,7 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink ImageLastUnreadMessageLink;
-        
-        /// <summary>
-        /// LastUnreadImage control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Controls.ThemeImage LastUnreadImage;
-        
-        /// <summary>
-        /// ByLabel control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel ByLabel;
+        protected global::YAF.Web.Controls.ThemeButton ImageLastUnreadMessageLink;
         
         /// <summary>
         /// ProfileUserLink control.
@@ -91,7 +73,7 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.UserLink ProfileUserLink;
+        protected global::YAF.Web.Controls.UserLink ProfileUserLink;
         
         /// <summary>
         /// LastPostDate control.
@@ -100,7 +82,16 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.DisplayDateTime LastPostDate;
+        protected global::YAF.Web.Controls.DisplayDateTime LastPostDate;
+        
+        /// <summary>
+        /// NoPostsPlaceHolder control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.PlaceHolder NoPostsPlaceHolder;
         
         /// <summary>
         /// NoPostsLabel control.
@@ -109,6 +100,6 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel NoPostsLabel;
+        protected global::YAF.Web.Controls.LocalizedLabel NoPostsLabel;
     }
 }

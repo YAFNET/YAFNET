@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -26,7 +26,7 @@ namespace YAF.Core.Events
     using YAF.Providers.Membership;
     using YAF.Types.Attributes;
     using YAF.Types.EventProxies;
-    using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Events;
 
     /// <summary>
     ///     The membership upgrade event.
@@ -39,13 +39,7 @@ namespace YAF.Core.Events
         /// <summary>
         ///     Gets the order.
         /// </summary>
-        public int Order
-        {
-            get
-            {
-                return 1000;
-            }
-        }
+        public int Order => 1000;
 
         #endregion
 

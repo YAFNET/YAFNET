@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -28,8 +28,8 @@ namespace YAF.Core.Services.Startup
     using System.Linq;
     using System.Web;
 
-    using YAF.Classes;
-    using YAF.Core.Model;
+    using YAF.Configuration;
+    using YAF.Core.Extensions;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
@@ -114,13 +114,7 @@ namespace YAF.Core.Services.Startup
         ///   Gets InitVarName.
         /// </summary>
         [NotNull]
-        protected override string InitVarName
-        {
-            get
-            {
-                return "YafCheckBannedIps_Init";
-            }
-        }
+        protected override string InitVarName => "YafCheckBannedIps_Init";
 
         #endregion
 
@@ -137,7 +131,7 @@ namespace YAF.Core.Services.Startup
             // TODO: The data cache needs a more fast string array check as number of banned ips can be huge, but current output is too demanding on perfomance in the cases.
             var bannedIPs = this.DataCache.GetOrSet(
                 Constants.Cache.BannedIP,
-                () => this.BannedIpRepository.ListTyped().Select(x => x.Mask.Trim()).ToList());
+                () => this.BannedIpRepository.Get(x => x.BoardID == YafContext.Current.PageBoardID).Select(x => x.Mask.Trim()).ToList());
 
             var ipToCheck = this.HttpRequestBase.ServerVariables["REMOTE_ADDR"];
 
@@ -152,7 +146,7 @@ namespace YAF.Core.Services.Startup
                 this.Logger.Log(
                     null,
                     "Banned IP Blocked",
-                    @"Ending Response for Banned User at IP ""{0}""".FormatWith(ipToCheck),
+                    $@"Ending Response for Banned User at IP ""{ipToCheck}""",
                     EventLogTypes.IpBanDetected);
             }
 

@@ -26,7 +26,7 @@ namespace YAF.Core.BBCode.ReplaceRules
     using System.Text;
     using System.Text.RegularExpressions;
 
-    using YAF.Types.Extensions;
+    using YAF.Core.Extensions;
     using YAF.Types.Interfaces;
 
     /// <summary>
@@ -90,13 +90,7 @@ namespace YAF.Core.BBCode.ReplaceRules
     /// <summary>
     ///   Gets RuleDescription.
     /// </summary>
-    public override string RuleDescription
-    {
-      get
-      {
-        return "RegExSearch = \"{0}\"".FormatWith(this._regExSearch);
-      }
-    }
+    public override string RuleDescription => $"RegExSearch = \"{this._regExSearch}\"";
 
     #endregion
 
@@ -115,10 +109,10 @@ namespace YAF.Core.BBCode.ReplaceRules
     {
       var sb = new StringBuilder(text);
 
-      Match m = this._regExSearch.Match(text);
+      var m = this._regExSearch.Match(text);
       while (m.Success)
       {
-        string replaceString = this._regExReplace.Replace("${inner}", this.GetInnerValue(m.Groups["inner"].Value));
+        var replaceString = this._regExReplace.Replace("${inner}", this.GetInnerValue(m.Groups["inner"].Value));
 
         // pulls the htmls into the replacement collection before it's inserted back into the main text
         replacement.ReplaceHtmlFromText(ref replaceString);

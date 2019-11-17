@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -23,72 +23,24 @@
  */
 namespace YAF.Core.Nntp
 {
-  /// <summary>
+    /// <summary>
   /// The article body.
   /// </summary>
   public class ArticleBody
   {
-    /// <summary>
-    /// The _attachments.
-    /// </summary>
-    private Attachment[] _attachments;
-
-    /// <summary>
-    /// The _is html.
-    /// </summary>
-    private bool _isHtml;
-
-    /// <summary>
-    /// The _text.
-    /// </summary>
-    private string _text;
-
-    /// <summary>
+      /// <summary>
     /// Gets or sets a value indicating whether IsHtml.
     /// </summary>
-    public bool IsHtml
-    {
-      get
-      {
-        return this._isHtml;
-      }
-
-      set
-      {
-        this._isHtml = value;
-      }
-    }
+    public bool IsHtml { get; set; }
 
     /// <summary>
     /// Gets or sets Text.
     /// </summary>
-    public string Text
-    {
-      get
-      {
-        return this._text;
-      }
-
-      set
-      {
-        this._text = value;
-      }
-    }
+    public string Text { get; set; }
 
     /// <summary>
     /// Gets or sets Attachments.
     /// </summary>
-    public Attachment[] Attachments
-    {
-      get
-      {
-        return this._attachments;
-      }
-
-      set
-      {
-        this._attachments = value;
-      }
-    }
+    public Attachment[] Attachments { get; set; }
   }
 }

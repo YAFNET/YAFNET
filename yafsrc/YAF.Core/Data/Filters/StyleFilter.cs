@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -29,7 +29,7 @@ namespace YAF.Core.Data.Filters
     using System.Data;
     using System.Linq;
 
-    using YAF.Classes;
+    using YAF.Configuration;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
 
@@ -45,14 +45,12 @@ namespace YAF.Core.Data.Filters
         /// <summary>
         ///     The _styled nick operations.
         /// </summary>
-        private readonly string[] _styledNickOperations = new[]
-                                                              {
+        private readonly string[] _styledNickOperations = {
                                                                   "active_list", 
                                                                   "active_listtopic", 
                                                                   "active_listforum", 
                                                                   "forum_moderators", 
                                                                   "topic_latest", 
-                                                                  "shoutbox_getmessages", 
                                                                   "topic_latest", 
                                                                   "active_list_user", 
                                                                   "admin_list"
@@ -80,13 +78,7 @@ namespace YAF.Core.Data.Filters
         /// <summary>
         ///     The _board settings.
         /// </summary>
-        public YafBoardSettings BoardSettings
-        {
-            get
-            {
-                return this.Get<YafBoardSettings>();
-            }
-        }
+        public YafBoardSettings BoardSettings => this.Get<YafBoardSettings>();
 
         /// <summary>
         /// Gets or sets the service locator.
@@ -96,24 +88,12 @@ namespace YAF.Core.Data.Filters
         /// <summary>
         ///     Gets the sort order.
         /// </summary>
-        public int SortOrder
-        {
-            get
-            {
-                return 100;
-            }
-        }
+        public int SortOrder => 100;
 
         /// <summary>
         ///     The _style transform.
         /// </summary>
-        public IStyleTransform StyleTransform
-        {
-            get
-            {
-                return this.Get<IStyleTransform>();
-            }
-        }
+        public IStyleTransform StyleTransform => this.Get<IStyleTransform>();
 
         #endregion
 
@@ -155,7 +135,7 @@ namespace YAF.Core.Data.Filters
                 return;
             }
 
-            bool colorOnly = false;
+            var colorOnly = false;
 
             if (!this.BoardSettings.UseStyledNicks)
             {
@@ -163,7 +143,7 @@ namespace YAF.Core.Data.Filters
             }
 
             var dataTable = (DataTable)data;
-            this.StyleTransform.DecodeStyleByTable(dataTable, colorOnly);
+            this.StyleTransform.DecodeStyleByTable(dataTable);
         }
 
         #endregion

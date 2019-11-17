@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -28,6 +28,7 @@ namespace YAF.Core.Nntp
   using System;
   using System.Collections;
   using System.IO;
+  using System.Linq;
   using System.Text;
   using System.Text.RegularExpressions;
   using System.Web;
@@ -35,11 +36,8 @@ namespace YAF.Core.Nntp
   using YAF.Core;
   using YAF.Core.Extensions;
   using YAF.Types;
-  using YAF.Types.Constants;
-  using YAF.Classes.Data;
   using YAF.Types.Extensions;
   using YAF.Types.Interfaces;
-  using YAF.Utils;
 
   #endregion
 
@@ -81,23 +79,23 @@ namespace YAF.Core.Nntp
     static NntpUtil()
     {
       hexValue = new int[128];
-      for (int i = 0; i <= 9; i++)
+      for (var i = 0; i <= 9; i++)
       {
         hexValue[i + '0'] = i;
       }
 
-      for (int i = 0; i < 6; i++)
+      for (var i = 0; i < 6; i++)
       {
         hexValue[i + 'A'] = i + 10;
       }
 
       base64PemConvertCode = new byte[256];
-      for (int i = 0; i < 255; i++)
+      for (var i = 0; i < 255; i++)
       {
         base64PemConvertCode[i] = 255;
       }
 
-      for (int i = 0; i < base64PemCode.Length; i++)
+      for (var i = 0; i < base64PemCode.Length; i++)
       {
         base64PemConvertCode[base64PemCode[i]] = (byte)i;
       }
@@ -124,23 +122,20 @@ namespace YAF.Core.Nntp
     {
       CodeContracts.VerifyNotNull(encodedData, "encodedData");
 
-      byte[] decodedDataAsBytes = Convert.FromBase64String(encodedData);
+      var decodedDataAsBytes = Convert.FromBase64String(encodedData);
 
       return (encoding ?? Encoding.Unicode).GetString(decodedDataAsBytes);
     }
 
     public static int Base64Decode([NotNull] string encodedData, Stream output)
     {
-      CodeContracts.VerifyNotNull(encodedData, "encodedData");
+        CodeContracts.VerifyNotNull(encodedData, "encodedData");
 
-      byte[] decodedDataAsBytes = Convert.FromBase64String(encodedData);
+        var decodedDataAsBytes = Convert.FromBase64String(encodedData);
 
-      foreach (var decodedByte in decodedDataAsBytes)
-      {
-        output.WriteByte(decodedByte);
-      }
+        decodedDataAsBytes.AsEnumerable().ForEach(output.WriteByte);
 
-      return decodedDataAsBytes.Length;
+        return decodedDataAsBytes.Length;
     }
 
     /// <summary>
@@ -154,14 +149,14 @@ namespace YAF.Core.Nntp
     /// </returns>
     public static string Base64HeaderDecode(string line)
     {
-      Match m = Regex.Match(line, @"=\?([^?]+)\?[^?]+\?([^?]+)\?=");
+      var m = Regex.Match(line, @"=\?([^?]+)\?[^?]+\?([^?]+)\?=");
 
       try
       {
         while (m.Success)
         {
-          string matched = m.Groups[0].ToString();
-          string encodingCode = m.Groups[1].ToString();
+          var matched = m.Groups[0].ToString();
+          var encodingCode = m.Groups[1].ToString();
 
           line = line.Replace(matched, Base64Decode(m.Groups[2].ToString(), Encoding.GetEncoding(encodingCode)));
 
@@ -174,55 +169,6 @@ namespace YAF.Core.Nntp
       }
 
       return line;
-    }
-
-    /// <summary>
-    /// The convert list to tree.
-    /// </summary>
-    /// <param name="list">
-    /// The list.
-    /// </param>
-    /// <returns>
-    /// </returns>
-    public static ArrayList ConvertListToTree(ArrayList list)
-    {
-      var hash = new Hashtable(list.Count);
-      var treeList = new ArrayList();
-      int len;
-      bool isTop;
-      foreach (Article article in list)
-      {
-        isTop = true;
-        hash[article.MessageId] = article;
-        article.LastReply = article.Header.Date;
-        article.Children = new ArrayList();
-        len = article.Header.ReferenceIds.Length;
-        for (int i = 0; i < len; i++)
-        {
-          if (hash.ContainsKey(article.Header.ReferenceIds[i]))
-          {
-            ((Article)hash[article.Header.ReferenceIds[i]]).LastReply = article.LastReply;
-            break;
-          }
-        }
-
-        for (int i = len - 1; i >= 0; i--)
-        {
-          if (hash.ContainsKey(article.Header.ReferenceIds[i]))
-          {
-            isTop = false;
-            ((Article)hash[article.Header.ReferenceIds[i]]).Children.Add(article);
-            break;
-          }
-        }
-
-        if (isTop)
-        {
-          treeList.Add(article);
-        }
-      }
-
-      return treeList;
     }
 
     /// <summary>
@@ -239,14 +185,14 @@ namespace YAF.Core.Nntp
       try
       {
         nntpDateTime = nntpDateTime.Substring(nntpDateTime.IndexOf(',') + 1);
-        if (nntpDateTime.IndexOf("(") > 0)
+        if (nntpDateTime.IndexOf("(", StringComparison.Ordinal) > 0)
         {
           nntpDateTime = nntpDateTime.Substring(0, nntpDateTime.IndexOf('(') - 1).Trim();
         }
 
-        int ipos = nntpDateTime.IndexOf('+');
-        int ineg = nntpDateTime.IndexOf('-');
-        string tz = string.Empty;
+        var ipos = nntpDateTime.IndexOf('+');
+        var ineg = nntpDateTime.IndexOf('-');
+        var tz = string.Empty;
         if (ipos > 0)
         {
           tz = nntpDateTime.Substring(ipos + 1).Trim();
@@ -258,28 +204,26 @@ namespace YAF.Core.Nntp
           nntpDateTime = nntpDateTime.Substring(0, ineg - 1).Trim();
         }
 
-        int indGMT = nntpDateTime.IndexOf("GMT");
+        var indGMT = nntpDateTime.IndexOf("GMT", StringComparison.Ordinal);
 
         if (indGMT > 0 && ineg < 0 && ipos < 0)
         {
           nntpDateTime = nntpDateTime.Substring(0, indGMT - 1).Trim();
         }
 
-        DateTime dtc;
-
-        if (DateTime.TryParse(nntpDateTime, out dtc))
+        if (DateTime.TryParse(nntpDateTime, out var dtc))
         {
           if (ipos > 0)
           {
-            TimeSpan ts = TimeSpan.FromHours(Convert.ToInt32(tz.Substring(0, 2))) +
-                          TimeSpan.FromMinutes(Convert.ToInt32(tz.Substring(2, 2)));
+            var ts = TimeSpan.FromHours(tz.Substring(0, 2).ToType<int>()) +
+                          TimeSpan.FromMinutes(tz.Substring(2, 2).ToType<int>());
             tzi = ts.Minutes;
             return dtc + ts;
           }
           else if (ineg > 0)
           {
-            TimeSpan ts = TimeSpan.FromHours(Convert.ToInt32(tz.Substring(0, 2))) +
-                          TimeSpan.FromMinutes(Convert.ToInt32(tz.Substring(2, 2)));
+            var ts = TimeSpan.FromHours(tz.Substring(0, 2).ToType<int>()) +
+                          TimeSpan.FromMinutes(tz.Substring(2, 2).ToType<int>());
             tzi = ts.Minutes;
             return dtc - ts;
           }
@@ -299,7 +243,8 @@ namespace YAF.Core.Nntp
       catch (Exception ex)
       {
           YafContext.Current.Get<ILogger>()
-                    .Log(YafContext.Current.PageUserID, "NntpUtil", "Unhandled NNTP DateTime nntpDateTime '{0}': {1}".FormatWith(nntpDateTime, ex));
+                    .Log(YafContext.Current.PageUserID, "NntpUtil",
+                        $"Unhandled NNTP DateTime nntpDateTime '{nntpDateTime}': {ex}");
       }
 
       tzi = 0;
@@ -323,26 +268,27 @@ namespace YAF.Core.Nntp
     /// </returns>
     public static MIMEPart DispatchMIMEContent(StreamReader sr, MIMEPart part, string seperator)
     {
-      string line = null;
-      Match m = null;
+      string line;
       MemoryStream ms;
       byte[] bytes;
       switch (part.ContentType.Substring(0, part.ContentType.IndexOf('/')).ToUpper())
       {
         case "MULTIPART":
-          MIMEPart newPart = null;
-          while ((line = sr.ReadLine()) != null && line != seperator && line != seperator + "--")
+          MIMEPart newPart;
+          while ((line = sr.ReadLine()) != null && line != seperator && line != $"{seperator}--")
           {
-            m = Regex.Match(line, @"CONTENT-TYPE: ""?([^""\s;]+)", RegexOptions.IgnoreCase);
+            var m = Regex.Match(line, @"CONTENT-TYPE: ""?([^""\s;]+)", RegexOptions.IgnoreCase);
             if (!m.Success)
             {
               continue;
             }
 
-            newPart = new MIMEPart();
-            newPart.ContentType = m.Groups[1].ToString();
-            newPart.Charset = "US-ASCII";
-            newPart.ContentTransferEncoding = "7BIT";
+            newPart = new MIMEPart
+                          {
+                              ContentType = m.Groups[1].ToString(),
+                              Charset = "US-ASCII",
+                              ContentTransferEncoding = "7BIT"
+                          };
             while (line != string.Empty)
             {
               m = Regex.Match(line, @"BOUNDARY=""?([^""\s;]+)", RegexOptions.IgnoreCase);
@@ -374,17 +320,16 @@ namespace YAF.Core.Nntp
               line = sr.ReadLine();
             }
 
-            part.EmbeddedPartList.Add(DispatchMIMEContent(sr, newPart, "--" + part.Boundary));
+            part.EmbeddedPartList.Add(DispatchMIMEContent(sr, newPart, $"--{part.Boundary}"));
           }
 
           break;
         case "TEXT":
           ms = new MemoryStream();
-          bytes = null;
           long pos;
           var msr = new StreamReader(ms, Encoding.GetEncoding(part.Charset));
           var sb = new StringBuilder();
-          while ((line = sr.ReadLine()) != null && line != seperator && line != seperator + "--")
+          while ((line = sr.ReadLine()) != null && line != seperator && line != $"{seperator}--")
           {
             pos = ms.Position;
             if (line != string.Empty)
@@ -422,14 +367,10 @@ namespace YAF.Core.Nntp
             }
 
             ms.Position = pos;
-            if (part.ContentType.ToUpper() == "TEXT/HTML")
-            {
-              sb.Append(msr.ReadToEnd());
-            }
-            else
-            {
-              sb.Append(HttpUtility.HtmlEncode(msr.ReadToEnd()).Replace("\n", "<br>\n"));
-            }
+            sb.Append(
+                part.ContentType.ToUpper() == "TEXT/HTML"
+                    ? msr.ReadToEnd()
+                    : HttpUtility.HtmlEncode(msr.ReadToEnd()).Replace("\n", "<br>\n"));
           }
 
           part.Text = sb.ToString();
@@ -437,7 +378,7 @@ namespace YAF.Core.Nntp
         default:
           ms = new MemoryStream();
           bytes = null;
-          while ((line = sr.ReadLine()) != null && line != seperator && line != seperator + "--")
+          while ((line = sr.ReadLine()) != null && line != seperator && line != $"{seperator}--")
           {
             if (line != string.Empty)
             {
@@ -508,7 +449,7 @@ namespace YAF.Core.Nntp
     /// </returns>
     public static int QuotedPrintableDecode(char[] line, Stream outputStream)
     {
-      int length = line.Length;
+      var length = line.Length;
       int i = 0, j = 0;
       while (i < length)
       {
@@ -576,7 +517,7 @@ namespace YAF.Core.Nntp
     {
       if (line.Length < 1)
       {
-        throw new InvalidOperationException("Invalid line: " + new string(line) + ".");
+        throw new InvalidOperationException($"Invalid line: {new string(line)}.");
       }
 
       if (line[0] == '`')
@@ -585,7 +526,7 @@ namespace YAF.Core.Nntp
       }
 
       var line2 = new uint[line.Length];
-      for (int ii = 0; ii < line.Length; ii++)
+      for (var ii = 0; ii < line.Length; ii++)
       {
         line2[ii] = (uint)line[ii] - 32 & 0x3f;
       }
@@ -593,11 +534,11 @@ namespace YAF.Core.Nntp
       var length = (int)line2[0];
       if ((int)(length / 3.0 + 0.999999999) * 4 > line.Length - 1)
       {
-        throw new InvalidOperationException("Invalid length(" + length + ") with line: " + new string(line) + ".");
+        throw new InvalidOperationException($"Invalid length({length}) with line: {new string(line)}.");
       }
 
-      int i = 1;
-      int j = 0;
+      var i = 1;
+      var j = 0;
       while (length > j + 3)
       {
         outputStream.WriteByte((byte)((line2[i] << 2 & 0xfc | line2[i + 1] >> 4 & 0x3) & 0xff));

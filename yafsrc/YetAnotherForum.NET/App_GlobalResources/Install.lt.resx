@@ -1,0 +1,500 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AdminEmail" xml:space="preserve">
+    <value>Elektroninio pašto adresas</value>
+  </data>
+  <data name="AdminName" xml:space="preserve">
+    <value>Įveskite super vartotojo vardą</value>
+  </data>
+  <data name="AdminPassword" xml:space="preserve">
+    <value>Slaptažodis</value>
+  </data>
+  <data name="AdminPassword2" xml:space="preserve">
+    <value>Patvirtinkite slaptažodį</value>
+  </data>
+  <data name="BoardName" xml:space="preserve">
+    <value>Įveskite naujos valdybos pavadinimą</value>
+  </data>
+  <data name="ConfigPassword" xml:space="preserve">
+    <value>Konfigūruoti slaptažodį</value>
+  </data>
+  <data name="ConnectionDetails" xml:space="preserve">
+    <value>Informacija apie jungtį</value>
+  </data>
+  <data name="ConnectionExist" xml:space="preserve">
+    <value>Pasirinkite esamą ryšio eilutę</value>
+  </data>
+  <data name="ConnectionExistDesc" xml:space="preserve">
+    <value>Pasirinkite „SQL Server“ duomenų bazės ryšio eilutę:</value>
+  </data>
+  <data name="ConnectionFailed" xml:space="preserve">
+    <value>Nepavyko prisijungti:</value>
+  </data>
+  <data name="ConnectionNew" xml:space="preserve">
+    <value>Sukurkite naują ryšio eilutę</value>
+  </data>
+  <data name="ConnectionNewNote" xml:space="preserve">
+    <value>Ryšio eilutė bus išsaugota kaip</value>
+  </data>
+  <data name="ConnectionSuccess" xml:space="preserve">
+    <value>Ryšys pavyko</value>
+  </data>
+  <data name="ConnectionTest" xml:space="preserve">
+    <value>Duomenų bazės ryšio testas</value>
+  </data>
+  <data name="CreateBoard" xml:space="preserve">
+    <value>Sukurti naują valdybą</value>
+  </data>
+  <data name="CreatePassword" xml:space="preserve">
+    <value>Sukurkite „Config“ slaptažodį</value>
+  </data>
+  <data name="CreatePasswordText" xml:space="preserve">
+    <value>Kadangi tai yra pirmas kartas, kai įdiegiate ar atnaujinate šią forumo versiją, turite sukurti saugos konfigūracijos slaptažodį.</value>
+  </data>
+  <data name="CreateUser" xml:space="preserve">
+    <value>Sukurti naują super vartotoją (pagrindinį kompiuterį)</value>
+  </data>
+  <data name="Culture" xml:space="preserve">
+    <value>Svečio vartotojo kultūra (kalba)</value>
+  </data>
+  <data name="CurrentVersion" xml:space="preserve">
+    <value>Dabartinė versija:</value>
+  </data>
+  <data name="Database" xml:space="preserve">
+    <value>Duomenų bazė</value>
+  </data>
+  <data name="DataSource" xml:space="preserve">
+    <value>Įveskite duomenų šaltinį („SQL“ serverio pavadinimas arba adresas)</value>
+  </data>
+  <data name="DBConnection" xml:space="preserve">
+    <value>YAF.NET duomenų bazės ryšys</value>
+  </data>
+  <data name="DBName" xml:space="preserve">
+    <value>Įveskite duomenų bazės pavadinimą</value>
+  </data>
+  <data name="DuplicateEmail" xml:space="preserve">
+    <value>To el. Pašto vartotojo vardas jau yra. Įveskite kitą el. Pašto adresą.</value>
+  </data>
+  <data name="DuplicateUserName" xml:space="preserve">
+    <value>Vardas jau egzistuoja. Įveskite kitą vartotojo vardą.</value>
+  </data>
+  <data name="EnterConfigPassword" xml:space="preserve">
+    <value>Įveskite konfigūravimo slaptažodį</value>
+  </data>
+  <data name="EnterConfigPasswordDesc" xml:space="preserve">
+    <value>Įveskite konfigūracijos slaptažodį, jei norite atnaujinti arba rankiniu būdu įdiegti forumą.</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Klaida</value>
+  </data>
+  <data name="ErrorBoardInstalled" xml:space="preserve">
+    <value>Plokštė jau įdiegta.</value>
+  </data>
+  <data name="ErrorBoardName" xml:space="preserve">
+    <value>Turite įvesti valdybos pavadinimą.</value>
+  </data>
+  <data name="ErrorConfigPassword" xml:space="preserve">
+    <value>Jei norite tęsti, turite atnaujinti „appSettings“ naudodami „YAF.ConfigPassword Key“. PASTABA: rakto pavadinime yra didžiosios ir mažosios raidės.</value>
+  </data>
+  <data name="ErrorForumEmail" xml:space="preserve">
+    <value>Turite įvesti valdybos el. Pašto adresą.</value>
+  </data>
+  <data name="ErrorPassword" xml:space="preserve">
+    <value>Turite įvesti slaptažodį.</value>
+  </data>
+  <data name="ErrorUserCreate" xml:space="preserve">
+    <value>Nepavyko sukurti administratoriaus vartotojo:</value>
+  </data>
+  <data name="ErrorUserEmail" xml:space="preserve">
+    <value>Turite įvesti super vartotojo el. Pašto adresą.</value>
+  </data>
+  <data name="ErrorUserName" xml:space="preserve">
+    <value>Turite įvesti super vartotojo vardą,</value>
+  </data>
+  <data name="ErrorUserNotFound" xml:space="preserve">
+    <value>Esamas vartotojo vardas neteisingas ir neatstovauja dabartiniam vartotojui narystės parduotuvėje.</value>
+  </data>
+  <data name="ErrorWrongPassword" xml:space="preserve">
+    <value>Įvedėte &lt;strong&gt; neteisingą slaptažodį &lt;/strong&gt;!</value>
+  </data>
+  <data name="ExistConnection" xml:space="preserve">
+    <value>Naudokite esamą DB ryšio eilutę</value>
+  </data>
+  <data name="ExistingUser" xml:space="preserve">
+    <value>Naudokite esamą vartotoją</value>
+  </data>
+  <data name="ExistingUserName" xml:space="preserve">
+    <value>Įveskite esamo vartotojo vardą, kad jis taptų super vartotoju (pagrindiniu kompiuteriu)</value>
+  </data>
+  <data name="Finish" xml:space="preserve">
+    <value>Baigti</value>
+  </data>
+  <data name="FinishDesc" xml:space="preserve">
+    <value>Spustelėję Baigti, pateksite į pagrindinį forumo puslapį.</value>
+  </data>
+  <data name="Finished" xml:space="preserve">
+    <value>Baigta</value>
+  </data>
+  <data name="ForumEmail" xml:space="preserve">
+    <value>Forumo el. Pašto adresas</value>
+  </data>
+  <data name="ForumUrl" xml:space="preserve">
+    <value>Forumo bazės URL kaukė</value>
+  </data>
+  <data name="FromEmail" xml:space="preserve">
+    <value>Įveskite iš el. Pašto adreso</value>
+  </data>
+  <data name="InitFinish" xml:space="preserve">
+    <value>Jūsų forumas dabar paruoštas.</value>
+  </data>
+  <data name="Initialize" xml:space="preserve">
+    <value>Pradėti</value>
+  </data>
+  <data name="Installation" xml:space="preserve">
+    <value>Montavimas</value>
+  </data>
+  <data name="Integrated" xml:space="preserve">
+    <value>Naudokite integruotą apsaugą</value>
+  </data>
+  <data name="InvalidAnswer" xml:space="preserve">
+    <value>Pateiktas slaptažodžio gavimo atsakymas yra neteisingas. Patikrinkite vertę ir bandykite dar kartą.</value>
+  </data>
+  <data name="InvalidEmail" xml:space="preserve">
+    <value>Pateiktas el. Pašto adresas neteisingas. Patikrinkite vertę ir bandykite dar kartą.</value>
+  </data>
+  <data name="InvalidPassword" xml:space="preserve">
+    <value>Pateiktas slaptažodis neteisingas. Įveskite teisingą slaptažodžio reikšmę.</value>
+  </data>
+  <data name="InvalidQuestion" xml:space="preserve">
+    <value>Pateiktas slaptažodžio gavimo klausimas yra neteisingas. Patikrinkite vertę ir bandykite dar kartą.</value>
+  </data>
+  <data name="InvalidUserName" xml:space="preserve">
+    <value>Pateiktas vartotojo vardas neteisingas. Patikrinkite vertę ir bandykite dar kartą.</value>
+  </data>
+  <data name="MailTest" xml:space="preserve">
+    <value>Pašto (SMTP) siuntimo testas</value>
+  </data>
+  <data name="MailTestDesc" xml:space="preserve">
+    <value>Siunčia bandomąjį pranešimą el. Pašto adresu, kuris apibūdinamas kaip Siųsti į adresą</value>
+  </data>
+  <data name="ManuallyPassword" xml:space="preserve">
+    <value>Nėra rašymo prieigos prie programos nustatymų</value>
+  </data>
+  <data name="ManuallyPasswordDesc" xml:space="preserve">
+    <value>Spustelėkite „Kitas“, kai būsite pasiruošę.</value>
+  </data>
+  <data name="ManuallyPasswordError" xml:space="preserve">
+    <value>Nepavyko modifikuoti savo konfigūracijos failo ir parašyti diegimo slaptažodžio dėl leidimo išdavimo.</value>
+  </data>
+  <data name="Migrate" xml:space="preserve">
+    <value>Perkelti vaidmenis ir vartotojus</value>
+  </data>
+  <data name="MigrateCount" xml:space="preserve">
+    <value>vartotojas (-ai), rastas jūsų forumo duomenų bazėje.</value>
+  </data>
+  <data name="MigrateDesc" xml:space="preserve">
+    <value>Spustelėkite „Kitas“, kad pradėtumėte visų vaidmenų ir vartotojų atnaujinimą (perkėlimą) iš senos „Yet Another Forum.NET“ duomenų bazės į .NET teikėjo modelį.</value>
+  </data>
+  <data name="MigrateNote" xml:space="preserve">
+    <value>Perkėlimo užduotis gali užtrukti &lt;strong&gt; labai &lt;/strong&gt; ilgai, atsižvelgiant į tai, kiek vartotojų yra jūsų forume.</value>
+  </data>
+  <data name="MigrateSkip" xml:space="preserve">
+    <value>Išjungti migraciją (nerekomenduojama)</value>
+  </data>
+  <data name="MigrateUsers" xml:space="preserve">
+    <value>Migruojami vartotojai ...</value>
+  </data>
+  <data name="MigrateUsersText" xml:space="preserve">
+    <value>Kol vyksta perkėlimas, nesitraukite iš šio puslapio. Perkėlimas gali užtrukti labai ilgai.</value>
+  </data>
+  <data name="NewConnection" xml:space="preserve">
+    <value>Sukurkite naują DB ryšio eilutę</value>
+  </data>
+  <data name="Next" xml:space="preserve">
+    <value>Kitas</value>
+  </data>
+  <data name="NextInitDb" xml:space="preserve">
+    <value>Spustelėjus „Kitas“, jūsų duomenų bazė bus inicializuota į naujausią versiją.</value>
+  </data>
+  <data name="NextReady" xml:space="preserve">
+    <value>Spustelėkite „Kitas“, kai būsite pasiruošę.</value>
+  </data>
+  <data name="NextUpgradeDb" xml:space="preserve">
+    <value>Spustelėjus „Kitas“, jūsų duomenų bazė bus atnaujinta į naujausią versiją.</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>NE</value>
+  </data>
+  <data name="Note" xml:space="preserve">
+    <value>Pastaba</value>
+  </data>
+  <data name="NoWriteAppSettings" xml:space="preserve">
+    <value>Nėra rašymo prieigos prie nustatymų</value>
+  </data>
+  <data name="NoWriteAppSettingsNote" xml:space="preserve">
+    <value>Nepavyko modifikuoti savo konfigūracijos failo, kad jis nustatytų duomenų bazės ryšį, nes neturi rašymo leidimo.</value>
+  </data>
+  <data name="NoWriteConnSettings" xml:space="preserve">
+    <value>Nėra rašymo prieigos prie duomenų bazės eilučių</value>
+  </data>
+  <data name="NoWriteConnSettingsNote" xml:space="preserve">
+    <value>Nepavyko modifikuoti savo konfigūracijos failo, kad nustatytumėte duomenų bazės ryšio eilutę, nes neturite teisės rašyti.</value>
+  </data>
+  <data name="OpenFile" xml:space="preserve">
+    <value>Prašome atidaryti</value>
+  </data>
+  <data name="OpenFileDesc" xml:space="preserve">
+    <value>failą programos šakniniame kataloge ir pridėkite / atnaujinkite šį raktą į &amp; lt; AppSettings &amp; gt; skyrius:</value>
+  </data>
+  <data name="OpenFileDesc2" xml:space="preserve">
+    <value>failą programos šakniniame kataloge ir pridėkite / atnaujinkite šį raktą į &amp; lt; connectionStrings &amp; gt; skyrius:</value>
+  </data>
+  <data name="PasswordFile" xml:space="preserve">
+    <value>Šis slaptažodis saugomas faile su „appSettings“ ...</value>
+  </data>
+  <data name="PasswordNoMatch" xml:space="preserve">
+    <value>Patvirtinimas nėra tas pats kaip jūsų slaptažodis.</value>
+  </data>
+  <data name="PermissionApp" xml:space="preserve">
+    <value>YAF.NET turi rašymo prieigą prie šakninių programų katalogo ("~ /") ...</value>
+  </data>
+  <data name="PermissionUpload" xml:space="preserve">
+    <value>YAF.NET turi rašymo prieigą prie „~ / Įkelti“ katalogo ...</value>
+  </data>
+  <data name="Previous" xml:space="preserve">
+    <value>Ankstesnis</value>
+  </data>
+  <data name="ProviderError" xml:space="preserve">
+    <value>Autentifikavimo teikėjas grąžino klaidą. Patikrinkite savo įrašą ir bandykite dar kartą. Jei problema išlieka, susisiekite su sistemos administratoriumi.</value>
+  </data>
+  <data name="ReenterConfigPassword" xml:space="preserve">
+    <value>Dar kartą įveskite konfigūravimo slaptažodį</value>
+  </data>
+  <data name="SecurityAnswer" xml:space="preserve">
+    <value>Atsakymas į saugumo klausimą</value>
+  </data>
+  <data name="SecurityQuestion" xml:space="preserve">
+    <value>Klausimas, kuris bus užduotas, kai reikės susigrąžinti prarastą slaptažodį</value>
+  </data>
+  <data name="Setup" xml:space="preserve">
+    <value>Sąranka</value>
+  </data>
+  <data name="SmtpTestBody" xml:space="preserve">
+    <value>Panašu, kad el. Laiškų siuntimas veikia iš jūsų YAF diegimo.</value>
+  </data>
+  <data name="SmtpTestDetails" xml:space="preserve">
+    <value>SMTP testo duomenys</value>
+  </data>
+  <data name="SmtpTestSubject" xml:space="preserve">
+    <value>Testuokite el. Laišką iš dar vieno forumo.NET</value>
+  </data>
+  <data name="SmtpTestSuccess" xml:space="preserve">
+    <value>Paštas išsiųstas. Patikrinkite, ar jis gautas jūsų įvestu el. Pašto adresu.</value>
+  </data>
+  <data name="SqlPass" xml:space="preserve">
+    <value>Įveskite SQL slaptažodį</value>
+  </data>
+  <data name="SqlUser" xml:space="preserve">
+    <value>Įveskite SQL vartotojo vardą</value>
+  </data>
+  <data name="TestConnection" xml:space="preserve">
+    <value>Tikrinkite ryšį</value>
+  </data>
+  <data name="TestEmail" xml:space="preserve">
+    <value>Išbandykite „Smtp“ nustatymus</value>
+  </data>
+  <data name="TestPermission" xml:space="preserve">
+    <value>Testo leidimas</value>
+  </data>
+  <data name="TestSettings" xml:space="preserve">
+    <value>Testo nustatymai</value>
+  </data>
+  <data name="TestSettingsDesc" xml:space="preserve">
+    <value>Spustelėkite mygtuką „Ankstesnis“, norėdami redaguoti duomenų bazės konfigūraciją.</value>
+  </data>
+  <data name="TestSettingsText" xml:space="preserve">
+    <value>Prieš tęsdami, čia galite išbandyti YAF konfigūracijos parametrus.</value>
+  </data>
+  <data name="TimeZone" xml:space="preserve">
+    <value>Svečio vartotojo laiko juosta</value>
+  </data>
+  <data name="ToEmail" xml:space="preserve">
+    <value>Įveskite el. Pašto adresą</value>
+  </data>
+  <data name="Unchecked" xml:space="preserve">
+    <value>Nepažymėtas</value>
+  </data>
+  <data name="UnknownError" xml:space="preserve">
+    <value>Įvyko nežinoma klaida. Patikrinkite savo įrašą ir bandykite dar kartą. Jei problema išlieka, susisiekite su sistemos administratoriumi.</value>
+  </data>
+  <data name="Upgrade" xml:space="preserve">
+    <value>Patobulinti</value>
+  </data>
+  <data name="UpgradeExtensions" xml:space="preserve">
+    <value>Naujovinkite „BBCode“ plėtinius, failų plėtinius ir šlamšto žodžius</value>
+  </data>
+  <data name="UpgradeFinish" xml:space="preserve">
+    <value>Dabar jūsų forumas buvo atnaujintas į naujausią versiją.</value>
+  </data>
+  <data name="UpgradeNote" xml:space="preserve">
+    <value>Jei tai yra atnaujinimas, įveskite konfigūracijos slaptažodį, kurį sukūrėte pirmą kartą įdiegdami forumą, o ne administratoriaus vartotojo slaptažodį.</value>
+  </data>
+  <data name="UpgradeVersion" xml:space="preserve">
+    <value>Naujovinimo versija:</value>
+  </data>
+  <data name="UserRejected" xml:space="preserve">
+    <value>Vartotojo atšaukimo užklausa atšaukta. Patikrinkite savo įrašą ir bandykite dar kartą. Jei problema išlieka, susisiekite su sistemos administratoriumi.</value>
+  </data>
+  <data name="ValidatePermission" xml:space="preserve">
+    <value>Patvirtinti leidimus</value>
+  </data>
+  <data name="ValidatePermissionDesc" xml:space="preserve">
+    <value>„YetAnotherForum.NET“ įdiegti lengviau, kai programa turi rašymo prieigą prie jūsų .config
+                        bylos.</value>
+  </data>
+  <data name="ValidatePermissionText" xml:space="preserve">
+    <value>Spustelėkite žemiau, kad patikrintumėte, ar teisingi leidimai. Jei jų nėra, galite
+                        vis tiek naudokite diegimo vedlį.</value>
+  </data>
+  <data name="WarningUpgrade" xml:space="preserve">
+    <value>Ketinate atnaujinti YAF.NET į naujausią versiją. Prieš pradėdami atnaujinimo procesą įsitikinkite, kad ...
+                        &lt;ul&gt;
+                            &lt;li&gt; sukūrėte esamo įrenginio atsarginę kopiją &lt;/li&gt;
+                        &lt;/ul&gt;</value>
+  </data>
+  <data name="WelcomeInstall" xml:space="preserve">
+    <value>Sveiki apsilankę YAF.NET diegime</value>
+  </data>
+  <data name="WelcomeInstallDesc" xml:space="preserve">
+    <value>Spustelėkite „Kitas“, kad pradėtumėte diegimo procesą.</value>
+  </data>
+  <data name="WelcomeInstallText" xml:space="preserve">
+    <value>Šis diegimo programa padės jums atlikti veiksmus, kurių reikia norint įdiegti „YetAnotherForum.NET“ (YAF.NET).</value>
+  </data>
+  <data name="WelcomeUpgrade" xml:space="preserve">
+    <value>Sveiki apsilankę YAF.NET atnaujinimo procese</value>
+  </data>
+  <data name="WelcomeUpgradeDesc" xml:space="preserve">
+    <value>Spustelėkite „Kitas“, kad pradėtumėte atnaujinimo procesą.</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>TAIP</value>
+  </data>
+</root>

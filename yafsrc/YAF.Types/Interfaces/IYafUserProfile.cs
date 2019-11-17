@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -26,16 +26,11 @@ namespace YAF.Types.Interfaces
   using System;
 
   /// <summary>
-  /// The yaf user profile interface.
+  /// The YAF user profile interface.
   /// </summary>
   public interface IYafUserProfile
   {
     #region Properties
-
-    /// <summary>
-    /// Gets or sets AIM.
-    /// </summary>
-    string AIM { get; set; }
 
     /// <summary>
     /// Gets or sets Birthday.
@@ -66,11 +61,6 @@ namespace YAF.Types.Interfaces
     /// Gets or sets Gender.
     /// </summary>
     int Gender { get; set; }
-
-    /// <summary>
-    /// Gets or sets Google.
-    /// </summary>
-    string Google { get; set; }
 
     /// <summary>
     /// Gets or sets Google ID.
@@ -138,11 +128,6 @@ namespace YAF.Types.Interfaces
     string City { get; set; }
 
     /// <summary>
-    /// Gets or sets MSN.
-    /// </summary>
-    string MSN { get; set; }
-
-    /// <summary>
     /// Gets or sets Occupation.
     /// </summary>
     string Occupation { get; set; }
@@ -161,11 +146,6 @@ namespace YAF.Types.Interfaces
     /// Gets or sets XMPP.
     /// </summary>
     string XMPP { get; set; }
-
-    /// <summary>
-    /// Gets or sets YIM.
-    /// </summary>
-    string YIM { get; set; }
 
     /// <summary>
     /// Gets or sets Last Synced With DNN.

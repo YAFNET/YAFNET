@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -30,17 +30,19 @@ namespace YAF.Pages
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
+    using System.Web;
     using System.Web.UI;
     using System.Web.UI.WebControls;
 
-    using YAF.Classes;
-    using YAF.Controls;
+    using YAF.Configuration;
     using YAF.Core;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Utils;
+    using YAF.Utils.Helpers;
+    using YAF.Web.Extensions;
 
     #endregion
 
@@ -50,16 +52,6 @@ namespace YAF.Pages
     public partial class avatar : ForumPage
     {
         #region Constants and Fields
-
-        /// <summary>
-        ///   The page size.
-        /// </summary>
-        public int Pagesize = 20;
-
-        /// <summary>
-        ///   The title.
-        /// </summary>
-        protected Label title;
 
         /// <summary>
         ///   The return user id.
@@ -83,24 +75,13 @@ namespace YAF.Pages
         #region Properties
 
         /// <summary>
-        ///   Gets or sets the Page Number
-        /// </summary>
-        public int Pagenum { get; set; }
-
-        /// <summary>
         ///   Gets or sets CurrentDirectory.
         /// </summary>
         protected string CurrentDirectory
         {
-            get
-            {
-                return this.ViewState["CurrentDir"] != null ? (string)this.ViewState["CurrentDir"] : string.Empty;
-            }
+            get => this.ViewState["CurrentDir"] != null ? (string)this.ViewState["CurrentDir"] : string.Empty;
 
-            set
-            {
-                this.ViewState["CurrentDir"] = value;
-            }
+            set => this.ViewState["CurrentDir"] = value;
         }
 
         #endregion
@@ -114,20 +95,19 @@ namespace YAF.Pages
         /// <param name="e">The <see cref="DataListItemEventArgs"/> instance containing the event data.</param>
         public void Directories_Bind([NotNull] object sender, [NotNull] DataListItemEventArgs e)
         {
-            var directory = string.Concat(YafForumInfo.ForumClientFileRoot, YafBoardFolders.Current.Avatars, "/");
+            var directory = $"{YafForumInfo.ForumClientFileRoot}{YafBoardFolders.Current.Avatars}/";
 
             if (e.Item.ItemType != ListItemType.Item && e.Item.ItemType != ListItemType.AlternatingItem)
             {
                 return;
             }
 
-            var dirName = e.Item.FindControl("dirName") as LinkButton;
+            var dirName = e.Item.FindControlAs<LinkButton>("dirName");
             dirName.CommandArgument = directory + Convert.ToString(DataBinder.Eval(e.Item.DataItem, "name"));
             dirName.Text =
-                @"<p style=""text-align:center""><img src=""{0}images/folder.gif"" alt=""{1}"" title=""{1}"" /><br />{1}</p>"
-                    .FormatWith(
-                        YafForumInfo.ForumClientFileRoot,
-                        Convert.ToString(DataBinder.Eval(e.Item.DataItem, "name")));
+                string
+                    .Format(
+                        @"<p style=""text-align:center""><i class=""far fa-folder"" alt=""{0}"" title=""{0}"" style=""font-size:50px"" /></i><br />{0}</p>", Convert.ToString(DataBinder.Eval(e.Item.DataItem, "name")));
         }
 
         /// <summary>
@@ -139,11 +119,11 @@ namespace YAF.Pages
         {
             var directoryPath = Path.Combine(YafForumInfo.ForumClientFileRoot, YafBoardFolders.Current.Avatars);
 
-            var fname = (Literal)e.Item.FindControl("fname");
+            var fileName = e.Item.FindControlAs<Literal>("fname");
 
             if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
             {
-                var finfo = new FileInfo(
+                var info = new FileInfo(
                     this.Server.MapPath(Convert.ToString(DataBinder.Eval(e.Item.DataItem, "name"))));
 
                 if (this.CurrentDirectory.IsSet())
@@ -151,12 +131,12 @@ namespace YAF.Pages
                     directoryPath = this.CurrentDirectory;
                 }
 
-                string tmpExt = finfo.Extension.ToLower();
+                var tmpExt = info.Extension.ToLower();
 
                 if (tmpExt == ".gif" || tmpExt == ".jpg" || tmpExt == ".jpeg" || tmpExt == ".png" || tmpExt == ".bmp")
                 {
                     string link;
-                    var encodedFileName = finfo.Name.Replace(".", "%2E");
+                    var encodedFileName = info.Name.Replace(".", "%2E");
 
                     if (this.returnUserID > 0)
                     {
@@ -164,23 +144,24 @@ namespace YAF.Pages
                             ForumPages.admin_edituser,
                             "u={0}&av={1}",
                             this.returnUserID,
-                            this.Server.UrlEncode("{0}/{1}".FormatWith(directoryPath, encodedFileName)));
+                            this.Server.UrlEncode($"{directoryPath}/{encodedFileName}"));
                     }
                     else
                     {
                         link = YafBuildLink.GetLink(
                             ForumPages.cp_editavatar,
                             "av={0}",
-                            this.Server.UrlEncode("{0}/{1}".FormatWith(directoryPath, encodedFileName)));
+                            this.Server.UrlEncode($"{directoryPath}/{encodedFileName}"));
                     }
 
-                    fname.Text =
-                        @"<div style=""text-align:center""><a href=""{0}""><img src=""{1}"" alt=""{2}"" title=""{2}"" class=""borderless"" /></a><br /><small>{2}</small></div>{3}"
-                            .FormatWith(
+                    fileName.Text =
+                        string
+                            .Format(
+                                @"<div style=""text-align:center""><a href=""{0}""><img src=""{1}"" alt=""{2}"" title=""{2}"" class=""borderless"" /></a><br /><small>{2}</small></div>{3}",
                                 link,
-                                "{0}/{1}".FormatWith(directoryPath, finfo.Name),
-                                finfo.Name,
-                                Environment.NewLine);
+                                $"{directoryPath}/{info.Name}",
+                                    info.Name,
+                                    Environment.NewLine);
                 }
             }
 
@@ -190,13 +171,13 @@ namespace YAF.Pages
             }
 
             // get the previous directory...
-            string previousDirectory = Path.Combine(YafForumInfo.ForumClientFileRoot, YafBoardFolders.Current.Avatars);
+            var previousDirectory = Path.Combine(YafForumInfo.ForumClientFileRoot, YafBoardFolders.Current.Avatars);
 
-            var up = e.Item.FindControl("up") as LinkButton;
+            var up = e.Item.FindControlAs<LinkButton>("up");
             up.CommandArgument = previousDirectory;
-            up.Text =
-                @"<p style=""text-align:center""><img src=""{0}images/folder.gif"" alt=""Up"" /><br />UP</p>".FormatWith
-                    (YafForumInfo.ForumClientFileRoot);
+            up.Text = $@"<p style=""text-align:center"">
+                     <i class=""far fa-folder-open""style=""font-size:50px""></i><br />
+                     <button type=""button"" class=""btn btn-primary btn-sm""><i class=""fas fa-arrow-left""></i>&nbsp;{this.GetText("UP")}</button></p>";
             up.ToolTip = this.GetText("UP_TITLE");
 
             // Hide if Top Folder
@@ -220,7 +201,7 @@ namespace YAF.Pages
         [NotNull]
         protected List<DirectoryInfo> DirectoryListClean([NotNull] DirectoryInfo baseDir)
         {
-            DirectoryInfo[] avatarDirectories = baseDir.GetDirectories();
+            var avatarDirectories = baseDir.GetDirectories();
 
             return
                 avatarDirectories.Where(
@@ -237,10 +218,10 @@ namespace YAF.Pages
         [NotNull]
         protected List<FileInfo> FilesListClean([NotNull] DirectoryInfo baseDir)
         {
-            FileInfo[] avatarfiles = baseDir.GetFiles("*.*");
+            var avatarFiles = baseDir.GetFiles("*.*");
 
             return
-                avatarfiles.Where(
+                avatarFiles.Where(
                     file =>
                     (file.Attributes & FileAttributes.Hidden) != FileAttributes.Hidden
                     && (file.Attributes & FileAttributes.System) != FileAttributes.System
@@ -294,9 +275,9 @@ namespace YAF.Pages
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            if (this.Request.QueryString.GetFirstOrDefault("u") != null)
+            if (this.Get<HttpRequestBase>().QueryString.Exists("u"))
             {
-                this.returnUserID = this.Request.QueryString.GetFirstOrDefault("u").ToType<int>();
+                this.returnUserID = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u").ToType<int>();
             }
 
             if (this.IsPostBack)

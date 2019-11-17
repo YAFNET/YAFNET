@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -32,16 +32,6 @@ namespace YAF.Core.Data
     /// </summary>
     public struct DbConnectionParam : IDbConnectionParam
     {
-        #region Fields
-
-        private int _id;
-
-        private string _name;
-
-        private string _value;
-
-        #endregion
-
         #region Constructors and Destructors
 
         /// <summary>
@@ -61,9 +51,9 @@ namespace YAF.Core.Data
         /// </param>
         public DbConnectionParam(int id, string name, [NotNull] string defaultValue = null)
         {
-            this._id = id;
-            this._name = name;
-            this._value = defaultValue ?? string.Empty;
+            this.ID = id;
+            this.Name = name;
+            this.Value = defaultValue ?? string.Empty;
         }
 
         #endregion
@@ -73,40 +63,17 @@ namespace YAF.Core.Data
         /// <summary>
         ///     Gets or sets ID.
         /// </summary>
-        public int ID
-        {
-            get
-            {
-                return this._id;
-            }
-
-            set
-            {
-                this._id = value;
-            }
-        }
+        public int ID { get; set; }
 
         /// <summary>
         ///     Gets or sets Label.
         /// </summary>
-        public string Name
-        {
-            get
-            {
-                return this._name;
-            }
-        }
+        public string Name { get; }
 
         /// <summary>
         ///     Gets or sets DefaultValue.
         /// </summary>
-        public string Value
-        {
-            get
-            {
-                return this._value;
-            }
-        }
+        public string Value { get; }
 
         #endregion
     }

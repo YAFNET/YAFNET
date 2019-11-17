@@ -158,10 +158,7 @@ namespace YAF.Core.Services.CheckForSpam
         [NotNull]
         public string ApiKey
         {
-            get
-            {
-                return this.apiKey ?? string.Empty;
-            }
+            get => this.apiKey ?? string.Empty;
 
             set
             {
@@ -176,15 +173,9 @@ namespace YAF.Core.Services.CheckForSpam
         /// <value>The proxy.</value>
         public IWebProxy Proxy
         {
-            get
-            {
-                return this.proxy;
-            }
+            get => this.proxy;
 
-            set
-            {
-                this.proxy = value;
-            }
+            set => this.proxy = value;
         }
 
         /// <summary>
@@ -193,15 +184,9 @@ namespace YAF.Core.Services.CheckForSpam
         /// <value>The blog URL.</value>
         public Uri RootUrl
         {
-            get
-            {
-                return this.rootUrl;
-            }
+            get => this.rootUrl;
 
-            set
-            {
-                this.rootUrl = value;
-            }
+            set => this.rootUrl = value;
         }
 
         /// <summary>
@@ -211,15 +196,9 @@ namespace YAF.Core.Services.CheckForSpam
         /// <value>The timeout.</value>
         public int Timeout
         {
-            get
-            {
-                return this.timeout;
-            }
+            get => this.timeout;
 
-            set
-            {
-                this.timeout = value;
-            }
+            set => this.timeout = value;
         }
 
         /// <summary>
@@ -231,15 +210,9 @@ namespace YAF.Core.Services.CheckForSpam
         [NotNull]
         public string UserAgent
         {
-            get
-            {
-                return this.userAgent ?? BuildUserAgent("Subkismet");
-            }
+            get => this.userAgent ?? BuildUserAgent("Subkismet");
 
-            set
-            {
-                this.userAgent = value;
-            }
+            set => this.userAgent = value;
         }
 
         /// <summary>
@@ -361,9 +334,9 @@ namespace YAF.Core.Services.CheckForSpam
         /// </exception>
         public bool VerifyApiKey()
         {
-            string parameters = "key=" + HttpUtility.UrlEncode(this.ApiKey) + "&blog="
-                                + HttpUtility.UrlEncode(this.RootUrl.ToString());
-            string result = this.httpClient.PostRequest(
+            var parameters =
+                $"key={HttpUtility.UrlEncode(this.ApiKey)}&blog={HttpUtility.UrlEncode(this.RootUrl.ToString())}";
+            var result = this.httpClient.PostRequest(
                 this.verifyUrl,
                 this.UserAgent,
                 this.Timeout,
@@ -375,7 +348,7 @@ namespace YAF.Core.Services.CheckForSpam
                 throw new InvalidResponseException("Akismet returned an empty response");
             }
 
-            return String.Equals("valid", result, StringComparison.InvariantCultureIgnoreCase);
+            return string.Equals("valid", result, StringComparison.InvariantCultureIgnoreCase);
         }
 
         #endregion
@@ -390,12 +363,12 @@ namespace YAF.Core.Services.CheckForSpam
         protected void SetServiceUrls()
         {
             this.submitHamUrl =
-                new Uri(String.Format(CultureInfo.InvariantCulture, this.SubmitHamUrlFormat, this.apiKey));
+                new Uri(string.Format(CultureInfo.InvariantCulture, this.SubmitHamUrlFormat, this.apiKey));
             this.submitSpamUrl =
-                new Uri(String.Format(CultureInfo.InvariantCulture, this.SubmitSpamUrlFormat, this.apiKey));
-            this.submitCheckUrl = new Uri(String.Format(CultureInfo.InvariantCulture, this.CheckUrlFormat, this.apiKey));
+                new Uri(string.Format(CultureInfo.InvariantCulture, this.SubmitSpamUrlFormat, this.apiKey));
+            this.submitCheckUrl = new Uri(string.Format(CultureInfo.InvariantCulture, this.CheckUrlFormat, this.apiKey));
             this.verifyUrl =
-                new Uri(String.Format(CultureInfo.InvariantCulture, this.SubmitVerifyKeyFormat, this.apiKey));
+                new Uri(string.Format(CultureInfo.InvariantCulture, this.SubmitVerifyKeyFormat, this.apiKey));
         }
 
         /// <summary>
@@ -467,7 +440,7 @@ namespace YAF.Core.Services.CheckForSpam
                 }
             }
 
-            string response = this.httpClient.PostRequest(
+            var response = this.httpClient.PostRequest(
                 url,
                 this.UserAgent,
                 this.Timeout,

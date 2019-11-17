@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -21,7 +21,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-
+#if DEBUG
 namespace YAF.Core.Data.Profiling
 {
     using System.Web;
@@ -31,7 +31,20 @@ namespace YAF.Core.Data.Profiling
     /// </summary>
     public static class QueryCounter
     {
-#if DEBUG
+        /// <summary>
+        ///     Gets Count.
+        /// </summary>
+        public static int Count => (int)(HttpContext.Current == null ? 0 : HttpContext.Current.Items["NumQueries"]);
+
+        /// <summary>
+        ///     Gets Duration.
+        /// </summary>
+        public static double Duration => (double)(HttpContext.Current == null ? 0.0 : HttpContext.Current.Items["TimeQueries"]);
+
+        /// <summary>
+        ///     Gets Commands.
+        /// </summary>
+        public static string Commands => (string)(HttpContext.Current == null ? string.Empty : HttpContext.Current.Items["CmdQueries"]);
 
         /// <summary>
         ///     The reset.
@@ -47,39 +60,6 @@ namespace YAF.Core.Data.Profiling
             HttpContext.Current.Items["TimeQueries"] = (double)0;
             HttpContext.Current.Items["CmdQueries"] = string.Empty;
         }
-
-        /// <summary>
-        ///     Gets Count.
-        /// </summary>
-        public static int Count
-        {
-            get
-            {
-                return (int)((HttpContext.Current == null) ? 0 : HttpContext.Current.Items["NumQueries"]);
-            }
-        }
-
-        /// <summary>
-        ///     Gets Duration.
-        /// </summary>
-        public static double Duration
-        {
-            get
-            {
-                return (double)((HttpContext.Current == null) ? 0.0 : HttpContext.Current.Items["TimeQueries"]);
-            }
-        }
-
-        /// <summary>
-        ///     Gets Commands.
-        /// </summary>
-        public static string Commands
-        {
-            get
-            {
-                return (string)((HttpContext.Current == null) ? string.Empty : HttpContext.Current.Items["CmdQueries"]);
-            }
-        }
-#endif
     }
 }
+#endif

@@ -1,242 +1,243 @@
 <%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Admin.admin"
     CodeBehind="admin.ascx.cs" %>
-<%@ Import Namespace="YAF.Utils" %>
-<%@ Import Namespace="YAF.Types.Interfaces" %>
+
 <%@ Import Namespace="YAF.Utils.Helpers" %>
 <%@ Import Namespace="YAF.Types.Extensions" %>
+<%@ Import Namespace="ServiceStack" %>
 <YAF:PageLinks ID="PageLinks" runat="server" />
-<YAF:AdminMenu ID="Adminmenu1" runat="server">
-    <asp:PlaceHolder ID="UpdateHightlight" runat="server" Visible="false">
-        <div class="ui-widget">
-            <div class="ui-state-highlight ui-corner-all" style="margin-bottom: 20px; padding: 0 .7em;">
-                <p>
-                    <span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span>
-                    <asp:HyperLink ID="UpdateLinkHighlight" runat="server" Target="_blank"></asp:HyperLink>
-                </p>
+                <div class="row">
+                <div class="col-xl-12">
+                    <h1>Dashboard</h1>
+                </div>
             </div>
-        </div>
+    <asp:PlaceHolder ID="UpdateHightlight" runat="server" Visible="false">
+        <YAF:Alert runat="server" Type="info">
+            <asp:HyperLink ID="UpdateLinkHighlight" runat="server" Target="_blank"></asp:HyperLink>
+        </YAF:Alert>
     </asp:PlaceHolder>
     <asp:PlaceHolder ID="UpdateWarning" runat="server" Visible="false">
-			<div class="ui-state-error ui-corner-all" style="margin-bottom: 20px; padding: 0 .7em;"> 
-				<p><span class="ui-icon ui-icon-alert" style="float: left; margin-right: .3em;"></span> 
-				<asp:HyperLink ID="UpdateLinkWarning" runat="server" Target="_blank"></asp:HyperLink>
-			</div>
+        <YAF:Alert runat="server" Type="danger">
+            <asp:HyperLink ID="UpdateLinkWarning" runat="server" Target="_blank"></asp:HyperLink>
+        </YAF:Alert>
     </asp:PlaceHolder>
-    <asp:PlaceHolder runat="server" ID="UnverifiedUsersHolder">
-    <table width="100%" cellspacing="1" cellpadding="0" class="content">
-        <tr>
-             <td class="header1">
-                        <YAF:LocalizedLabel ID="LocalizedLabel19" runat="server" LocalizedTag="HEADER2" LocalizedPage="ADMIN_ADMIN" />
-                    </td>
-        </tr>
-        <tr>
-            <td style="padding:0">
-                
-        <asp:Repeater ID="UserList" runat="server" OnItemCommand="UserList_ItemCommand">
-            <HeaderTemplate>
-                <table style="width:100%"  cellspacing="1" cellpadding="0" class="tablesorter" id="UnverifiedUsers">
-                <thead>
-                <tr>
-                    <th class="header2">
-                        <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="ADMIN_NAME"
-                            LocalizedPage="ADMIN_ADMIN" />
-                    </th>
-                    <th class="header2">
-                        <YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="ADMIN_EMAIL"
-                            LocalizedPage="ADMIN_ADMIN" />
-                    </th>
-                    <th class="header2">
-                        <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="LOCATION" />
-                    </th>
-                    <th class="header2">
-                        <YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedTag="ADMIN_JOINED"
-                            LocalizedPage="ADMIN_ADMIN" />
-                    </th>
-                    <th class="header2">
-                        &nbsp;
-                    </th>
-                </tr>
-                    </thead>
-                <tbody>
-            </HeaderTemplate>
-            <ItemTemplate>
-                <tr>
-                    <td class="post">
-                        <YAF:UserLink ID="UnverifiedUserLink" UserID='<%# Eval("UserID") %>' Style='<%# Eval("Style") %>'
-                            runat="server" />
-                    </td>
-                    <td class="post">
-                        <%# Eval("Email") %>
-                    </td>
-                    <td class="post">
-                        <%# this.SetLocation(Eval("Name").ToString())%>
-                    </td>
-                    <td class="post">
-                        <%# this.Get<IDateTime>().FormatDateTime((DateTime)this.Eval("Joined")) %>
-                    </td>
-                    <td class="post">
-                        <asp:LinkButton runat="server" CommandName="resendEmail" CommandArgument='<%# Eval("Email") + ";" + Eval("Name") %>' 
-                            CssClass="yaflittlebutton">
-                            <YAF:LocalizedLabel ID="LocalizedLabel20" runat="server" LocalizedTag="ADMIN_RESEND_EMAIL"
-                                LocalizedPage="ADMIN_ADMIN" />
-                        </asp:LinkButton>
-                        <asp:LinkButton OnLoad="Approve_Load" runat="server" CommandName="approve" CommandArgument='<%# Eval("UserID") %>'
-                            CssClass="yaflittlebutton">
-                            <YAF:LocalizedLabel ID="LocalizedLabel8" runat="server" LocalizedTag="ADMIN_APPROVE"
-                                LocalizedPage="ADMIN_ADMIN">
-                            </YAF:LocalizedLabel>
-                        </asp:LinkButton>
-                        <asp:LinkButton OnLoad="Delete_Load" runat="server" CommandName="delete" CommandArgument='<%# Eval("UserID") %>' 
-                            CssClass="yaflittlebutton">
-                            <YAF:LocalizedLabel ID="LocalizedLabel9" runat="server" LocalizedTag="ADMIN_DELETE"
-                                LocalizedPage="ADMIN_ADMIN" />
-                        </asp:LinkButton>
-                    </td>
-                </tr>
-            </ItemTemplate>
-            <FooterTemplate>
-                </tbody>
-                </table>
-                <div id="UnverifiedUsersPager" class=" tableSorterPager">
-                        <a href="#" class="first pagelink"><span>&lt;&lt;</span></a>
-                        <a href="#" class="prev pagelink"><span>&lt;</span></a>
-                        <input type="text" class="pagedisplay"/>
-                        <a href="#" class="next pagelink"><span>&gt;</span></a>
-                        <a href="#" class="last pagelink"><span>&gt;&gt;</span></a>
-                        <select class="pagesize">
-		                    <option selected="selected"  value="10">10</option>
-		                    <option value="20">20</option>
-                        	<option value="30">30</option>
-                        	<option  value="40">40</option>
-                        </select>
+    <div class="row">
+             <div class="col-xl-12">
+                    <div class="card mb-3">
+                        <div class="card-header form-inline">
+                            <i class="fa fa-tachometer-alt fa-fw text-secondary pr-1"></i>
+                            <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server"
+                                                LocalizedTag="HEADER3" 
+                                                LocalizedPage="ADMIN_ADMIN" />&nbsp;
+                            <asp:DropDownList ID="BoardStatsSelect" runat="server" 
+                                              DataTextField="Name" 
+                                              DataValueField="ID"
+                                              OnSelectedIndexChanged="BoardStatsSelectChanged" 
+                                              AutoPostBack="true" 
+                                              CssClass="custom-select" 
+                                              Width="300" />
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-xl-3 col-lg-6">
+                                    <div class="card mb-4 mb-xl-0">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col">
+                                                    <h5 class="card-title text-uppercase text-muted mb-0">
+                                                        <YAF:LocalizedLabel ID="LocalizedLabel8" runat="server" 
+                                                                            LocalizedTag="NUM_POSTS"
+                                                                            LocalizedPage="ADMIN_ADMIN" />
+                                                    </h5>
+                                                    <span class="h2 font-weight-bold mb-0">
+                                                        <asp:Label ID="NumPosts" runat="server"></asp:Label>
+                                                    </span>
+                                                </div>
+                                                <div class="col-auto">
+                                                    <span class="fa-stack fa-2x" style="vertical-align: top;">
+                                                        <i class="fas fa-circle fa-stack-2x text-primary"></i>
+                                                        <i class="fas fa-comment fa-stack-1x fa-inverse"></i>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <p class="mt-3 mb-0 text-muted small">
+                                                <YAF:LocalizedLabel ID="LocalizedLabel17" runat="server" 
+                                                                    LocalizedTag="POSTS_DAY"
+                                                                    LocalizedPage="ADMIN_ADMIN" />
+                                                <span class="text-nowrap">
+                                                    <asp:Label ID="DayPosts" runat="server"></asp:Label>
+                                                </span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-3 col-lg-6">
+                                    <div class="card mb-4 mb-xl-0">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col">
+                                                    <h5 class="card-title text-uppercase text-muted mb-0">
+                                                        <YAF:LocalizedLabel ID="LocalizedLabel16" runat="server" 
+                                                                            LocalizedTag="NUM_TOPICS"
+                                                                            LocalizedPage="ADMIN_ADMIN" />
+                                                    </h5>
+                                                    <span class="h2 font-weight-bold mb-0">
+                                                        <asp:Label ID="NumTopics" runat="server"></asp:Label>
+                                                    </span>
+                                                </div>
+                                                <div class="col-auto">
+                                                    <span class="fa-stack fa-2x" style="vertical-align: top;">
+                                                        <i class="fas fa-circle fa-stack-2x text-secondary"></i>
+                                                        <i class="fas fa-comments fa-stack-1x fa-inverse"></i>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <p class="mt-3 mb-0 text-muted small">
+                                                <YAF:LocalizedLabel ID="LocalizedLabel15" runat="server" 
+                                                                    LocalizedTag="TOPICS_DAY"
+                                                                    LocalizedPage="ADMIN_ADMIN" />
+                                                <span class="text-nowrap">
+                                                    <asp:Label ID="DayTopics" runat="server"></asp:Label>
+                                                </span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            <div class="col-xl-3 col-lg-6">
+                                    <div class="card mb-4 mb-xl-0">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col">
+                                                    <h5 class="card-title text-uppercase text-muted mb-0">
+                                                        <YAF:LocalizedLabel ID="LocalizedLabel14" runat="server" 
+                                                                            LocalizedTag="NUM_USERS"
+                                                                            LocalizedPage="ADMIN_ADMIN" />
+                                                    </h5>
+                                                    <span class="h2 font-weight-bold mb-0">
+                                                        <asp:Label ID="NumUsers" runat="server"></asp:Label>
+                                                    </span>
+                                                </div>
+                                                <div class="col-auto">
+                                                    <span class="fa-stack fa-2x" style="vertical-align: top;">
+                                                        <i class="fas fa-circle fa-stack-2x text-success"></i>
+                                                        <i class="fas fa-users fa-stack-1x fa-inverse"></i>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <p class="mt-3 mb-0 text-muted small">
+                                                <YAF:LocalizedLabel ID="LocalizedLabel13" runat="server" 
+                                                                    LocalizedTag="USERS_DAY"
+                                                                    LocalizedPage="ADMIN_ADMIN" />
+                                                <span class="text-nowrap">
+                                                    <asp:Label ID="DayUsers" runat="server"></asp:Label>
+                                                </span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                        <div class="col-xl-3 col-lg-6">
+                            <div class="card mb-4 mb-xl-0">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col">
+                                            <h5 class="card-title text-uppercase text-muted mb-0">
+                                                <YAF:LocalizedLabel ID="LocalizedLabel12" runat="server" 
+                                                                    LocalizedTag="BOARD_STARTED"
+                                                                    LocalizedPage="ADMIN_ADMIN" />
+                                            </h5>
+                                            <span class="h2 font-weight-bold mb-0">
+                                                <asp:Label ID="BoardStartAgo" runat="server"></asp:Label>
+                                            </span>
+                                        </div>
+                                        <div class="col-auto">
+                                            <span class="fa-stack fa-2x" style="vertical-align: top;">
+                                                <i class="fas fa-circle fa-stack-2x text-warning"></i>
+                                                <i class="fas fa-globe fa-stack-1x fa-inverse"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <p class="mt-3 mb-0 text-muted small">
+                                        <span class="text-nowrap">
+                                            <asp:Label ID="BoardStart" runat="server"></asp:Label>
+                                        </span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                                <div class="col-xl-3 col-lg-6">
+                                    <div class="card mb-4 mb-xl-0">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col">
+                                                    <h5 class="card-title text-uppercase text-muted mb-0">
+                                                        <YAF:LocalizedLabel ID="LocalizedLabel11" runat="server" 
+                                                                            LocalizedTag="SIZE_DATABASE"
+                                                                            LocalizedPage="ADMIN_ADMIN" />
+                                                    </h5>
+                                                    <span class="h2 font-weight-bold mb-0">
+                                                        <asp:Label ID="DBSize" runat="server"></asp:Label>
+                                                    </span>
+                                                </div>
+                                                <div class="col-auto">
+                                                    <span class="fa-stack fa-2x" style="vertical-align: top;">
+                                                        <i class="fas fa-circle fa-stack-2x text-danger"></i>
+                                                        <i class="fas fa-database fa-stack-1x fa-inverse"></i>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            </div>
+                        <div class="card-footer text-muted">
+                            <YAF:LocalizedLabel ID="LocalizedLabel10" runat="server"
+                                                LocalizedTag="STATS_DONTCOUNT" 
+                                                LocalizedPage="ADMIN_ADMIN" />
+                        </div>
                     </div>
-                </td>
-                <tr>
-                    <td class="footer1">
-                        <asp:Button OnLoad="ApproveAll_Load" CommandName="approveall" CssClass="pbutton"
-                            runat="server" />
-                        <asp:Button OnLoad="DeleteAll_Load" CommandName="deleteall" CssClass="pbutton" runat="server" />
-                        <asp:TextBox ID="DaysOld" runat="server" MaxLength="5" Text="14" CssClass="Numeric" type="number"></asp:TextBox>
-                    </td>
-                </tr>
-            </FooterTemplate>
-        </asp:Repeater>
-    </table>
-    &nbsp;<br />
-    </asp:PlaceHolder>
-    <table class="content" cellspacing="1" cellpadding="0" width="100%">
-        <tr>
-            <td class="header1" colspan="4">
-                <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="HEADER3" LocalizedPage="ADMIN_ADMIN" />
-                <span runat="server" id="boardSelector" visible='<%# this.PageContext.IsHostAdmin %>'>
-                    <asp:DropDownList ID="BoardStatsSelect" runat="server" DataTextField="Name" DataValueField="BoardID"
-                        OnSelectedIndexChanged="BoardStatsSelect_Changed" AutoPostBack="true" CssClass="standardSelectMenu" />
-                </span>
-            </td>
-        </tr>
-        <tr>
-            <td class="postheader" width="25%">
-                <YAF:LocalizedLabel ID="LocalizedLabel18" runat="server" LocalizedTag="NUM_POSTS"
-                    LocalizedPage="ADMIN_ADMIN" />
-            </td>
-            <td class="post" width="25%">
-                <asp:Label ID="NumPosts" runat="server"></asp:Label>
-            </td>
-            <td class="postheader" width="25%">
-                <YAF:LocalizedLabel ID="LocalizedLabel17" runat="server" LocalizedTag="POSTS_DAY"
-                    LocalizedPage="ADMIN_ADMIN" />
-            </td>
-            <td class="post" width="25%">
-                <asp:Label ID="DayPosts" runat="server"></asp:Label>
-            </td>
-        </tr>
-        <tr>
-            <td class="postheader">
-                <YAF:LocalizedLabel ID="LocalizedLabel16" runat="server" LocalizedTag="NUM_TOPICS"
-                    LocalizedPage="ADMIN_ADMIN" />
-            </td>
-            <td class="post">
-                <asp:Label ID="NumTopics" runat="server"></asp:Label>
-            </td>
-            <td class="postheader">
-                <YAF:LocalizedLabel ID="LocalizedLabel15" runat="server" LocalizedTag="TOPICS_DAY"
-                    LocalizedPage="ADMIN_ADMIN" />
-            </td>
-            <td class="post">
-                <asp:Label ID="DayTopics" runat="server"></asp:Label>
-            </td>
-        </tr>
-        <tr>
-            <td class="postheader">
-                <YAF:LocalizedLabel ID="LocalizedLabel14" runat="server" LocalizedTag="NUM_USERS"
-                    LocalizedPage="ADMIN_ADMIN" />
-            </td>
-            <td class="post">
-                <asp:Label ID="NumUsers" runat="server"></asp:Label>
-            </td>
-            <td class="postheader">
-                <YAF:LocalizedLabel ID="LocalizedLabel13" runat="server" LocalizedTag="USERS_DAY"
-                    LocalizedPage="ADMIN_ADMIN" />
-            </td>
-            <td class="post">
-                <asp:Label ID="DayUsers" runat="server"></asp:Label>
-            </td>
-        </tr>
-        <tr>
-            <td class="postheader">
-                <YAF:LocalizedLabel ID="LocalizedLabel12" runat="server" LocalizedTag="BOARD_STARTED"
-                    LocalizedPage="ADMIN_ADMIN" />
-            </td>
-            <td class="post">
-                <asp:Label ID="BoardStart" runat="server"></asp:Label>
-            </td>
-            <td class="postheader">
-                <YAF:LocalizedLabel ID="LocalizedLabel11" runat="server" LocalizedTag="SIZE_DATABASE"
-                    LocalizedPage="ADMIN_ADMIN" />
-            </td>
-            <td class="post">
-                <asp:Label ID="DBSize" runat="server"></asp:Label>
-            </td>
-        </tr>
-        <tr>
-            <td class="postfooter" colspan="4">
-                <YAF:LocalizedLabel ID="LocalizedLabel10" runat="server" LocalizedTag="STATS_DONTCOUNT"
-                    LocalizedPage="ADMIN_ADMIN" />
-            </td>
-        </tr>
-    </table>
+             </div>
+    </div>
     <p id="UpgradeNotice" runat="server" visible="false">
-        <YAF:LocalizedLabel ID="LocalizedLabel9" runat="server" LocalizedTag="ADMIN_UPGRADE"
-            LocalizedPage="ADMIN_ADMIN" />
+        <YAF:LocalizedLabel ID="LocalizedLabel9" runat="server" 
+                            LocalizedTag="ADMIN_UPGRADE"
+                            LocalizedPage="ADMIN_ADMIN" />
     </p>
-    &nbsp;<br />
-    <table width="100%" cellspacing="1" cellpadding="0" class="content">
-        <tr>
-            <td class="header1" colspan="4">
-                <YAF:LocalizedLabel ID="LocalizedLabel21" runat="server" LocalizedTag="HEADER1" LocalizedPage="ADMIN_ADMIN" />
-            </td>
-        </tr>
-        <tr>
-            <td style="padding:0">
-                <asp:Repeater ID="ActiveList" runat="server">
+<div class="row">
+             <div class="col-xl-12">
+                    <div class="card mb-3">
+                        <div class="card-header">
+                            <i class="fa fa-users fa-fw text-secondary pr-1"></i>
+                            <YAF:LocalizedLabel ID="LocalizedLabel21" runat="server" 
+                                                LocalizedTag="HEADER1" 
+                                                LocalizedPage="ADMIN_ADMIN" />
+                        </div>
+                        <div class="card-body">
+                            <asp:Repeater ID="ActiveList" runat="server">
                     <HeaderTemplate>
-                        <table style="width:100%"  cellspacing="1" cellpadding="0" class="tablesorter" id="ActiveUsers">
-                            <thead>
+                        <YAF:Alert runat="server" Type="info" MobileOnly="True">
+                            <YAF:LocalizedLabel ID="LocalizedLabel220" runat="server" 
+                                                LocalizedTag="TABLE_RESPONSIVE" 
+                                                LocalizedPage="ADMIN_COMMON" />
+                            <span class="float-right"><i class="fa fa-hand-point-left fa-fw"></i></span>
+                        </YAF:Alert>
+                        <div class="table-responsive">
+                        <table class="table tablesorter table-bordered table-striped" id="ActiveUsers">
+                            <thead class="thead-light">
                             <tr>
-                                <th class="header2">
-                                    <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" 
+                                <th>
+                                    <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server"
                                         LocalizedTag="ADMIN_NAME" LocalizedPage="ADMIN_ADMIN" />
                                 </th>
-                                <th class="header2">
-                                    <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" 
+                                <th>
+                                    <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server"
                                         LocalizedTag="ADMIN_IPADRESS" LocalizedPage="ADMIN_ADMIN" />
                                 </th>
-                                <th class="header2">
-                                    <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" 
+                                <th>
+                                    <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server"
                                         LocalizedTag="LOCATION" />
                                 </th>
-                                <th class="header2">
-                                    <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" 
+                                <th>
+                                    <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server"
                                         LocalizedTag="BOARD_LOCATION" LocalizedPage="ADMIN_ADMIN" />
                                 </th>
                             </tr>
@@ -245,23 +246,28 @@
                     </HeaderTemplate>
                     <ItemTemplate>
                             <tr>
-                    <td class="post">
-                        <YAF:UserLink ID="ActiveUserLink" UserID='<%# Eval("UserID") %>' CrawlerName='<%# this.Eval("IsCrawler").ToType<int>() > 0 ? Eval("Browser").ToString() : String.Empty %>'
-                            Style='<%# Eval("Style") %>' runat="server" />
+                    <td>
+                        <YAF:UserLink ID="ActiveUserLink" 
+                                      UserID='<%# this.Eval("UserID") %>' 
+                                      CrawlerName='<%# this.Eval("IsCrawler").ToType<int>() > 0 ? this.Eval("Browser").ToString() : string.Empty %>'
+                                      Style='<%# this.Eval("Style") %>' runat="server" />
                     </td>
-                    <td class="post">
-                        <a id="A1" href='<%# this.Get<YafBoardSettings>().IPInfoPageURL.FormatWith(IPHelper.GetIp4Address(this.Eval("IP").ToString())) %>'
+                    <td>
+                        <a id="A1" href='<%# string.Format(this.Get<YafBoardSettings>().IPInfoPageURL, IPHelper.GetIp4Address(this.Eval("IP").ToString())) %>'
                             title='<%# this.GetText("COMMON","TT_IPDETAILS") %>' target="_blank" runat="server">
-                            <%# IPHelper.GetIp4Address(Eval("IP").ToString())%></a>
+                            <%# IPHelper.GetIp4Address(this.Eval("IP").ToString())%></a>
                     </td>
-                    <td class="post">
-                        <%# this.SetLocation(Eval("UserName").ToString())%>
+                    <td>
+                        <%# this.SetLocation(this.Eval("UserName").ToString())%>
                     </td>
-                    <td class="post">
-                        <YAF:ActiveLocation ID="ActiveLocation2" UserID='<%# ((this.Eval("UserID") == DBNull.Value)? 0 : this.Eval("UserID")).ToType<int>() %>'
-                            UserName='<%# Eval("UserName") %>' ForumPage='<%# Eval("ForumPage") %>' ForumID='<%# ((this.Eval("ForumID") == DBNull.Value)? 0 : this.Eval("ForumID")).ToType<int>() %>'
-                            ForumName='<%# Eval("ForumName") %>' TopicID='<%# ((this.Eval("TopicID") == DBNull.Value)? 0 : this.Eval("TopicID")).ToType<int>() %>'
-                            TopicName='<%# Eval("TopicName") %>' LastLinkOnly="false" runat="server">
+                    <td>
+                        <YAF:ActiveLocation ID="ActiveLocation2" 
+                                            UserID='<%# (this.Eval("UserID") == DBNull.Value? 0 : this.Eval("UserID")).ToType<int>() %>' 
+                                            UserName='<%# this.Eval("UserName") %>' 
+                                            ForumPage='<%# this.Eval("ForumPage") %>' 
+                                            ForumID='<%# (this.Eval("ForumID") == DBNull.Value? 0 : this.Eval("ForumID")).ToType<int>() %>'
+                                            ForumName='<%# this.Eval("ForumName") %>' TopicID='<%# (this.Eval("TopicID") == DBNull.Value? 0 : this.Eval("TopicID")).ToType<int>() %>'
+                                            TopicName='<%# this.Eval("TopicName") %>' LastLinkOnly="false" runat="server">
                         </YAF:ActiveLocation>
                     </td>
                             </tr>
@@ -269,22 +275,172 @@
                     <FooterTemplate>
                             </tbody>
                         </table>
-                        <div id="ActiveUsersPager" class=" tableSorterPager">
-                        <a href="#" class="first pagelink"><span>&lt;&lt;</span></a>
-                        <a href="#" class="prev pagelink"><span>&lt;</span></a>
-                        <input type="text" class="pagedisplay"/>
-                        <a href="#" class="next pagelink"><span>&gt;</span></a>
-                        <a href="#" class="last pagelink"><span>&gt;&gt;</span></a>
-                        <select class="pagesize">
-		                    <option selected="selected"  value="10">10</option>
-		                    <option value="20">20</option>
-                        	<option value="30">30</option>
-                        	<option  value="40">40</option>
-                        </select>
-                    </div>
-                    </td>
+                        </div>
+                        <div id="ActiveUsersPager" class=" tableSorterPager form-inline">
+                            <select class="pagesize custom-select">
+		                        <option selected="selected" value="10">10</option>
+		                        <option value="20">20</option>
+                        	    <option value="30">30</option>
+                        	    <option value="40">40</option>
+                            </select>
+                            &nbsp;
+                            <div class="btn-group"  role="group">
+                                <a href="#" class="first  btn btn-secondary btn-sm"><span><i class="fas fa-angle-double-left"></i></span></a>
+                                <a href="#" class="prev  btn btn-secondary btn-sm"><span><i class="fas fa-angle-left"></i></span></a>
+                                <input type="text" class="pagedisplay  btn btn-secondary btn-sm"  style="width:150px" />
+                                <a href="#" class="next btn btn-secondary btn-sm"><span><i class="fas fa-angle-right"></i></span></a>
+                                <a href="#" class="last  btn btn-secondary btn-sm"><span><i class="fas fa-angle-double-right"></i></span></a>
+                            </div>
+                        </div>
                     </FooterTemplate>
                 </asp:Repeater>
-    </table>
-</YAF:AdminMenu>
-<YAF:SmartScroller ID="SmartScroller1" runat="server" />
+    </div>
+                   </div>
+                 </div>
+            </div>
+
+
+
+    <asp:PlaceHolder runat="server" ID="UnverifiedUsersHolder">
+        <div class="row">
+             <div class="col-xl-12">
+                    <div class="card mb-3">
+                        <div class="card-header">
+                            <i class="fa fa-user-plus fa-fw text-secondary pr-1"></i>
+                            <YAF:LocalizedLabel ID="LocalizedLabel19" runat="server" 
+                                                LocalizedTag="HEADER2" 
+                                                LocalizedPage="ADMIN_ADMIN" />
+                        </div>
+                        <div class="card-body">
+                                    <asp:Repeater ID="UserList" runat="server" 
+                                                  OnItemCommand="UserListItemCommand">
+            <HeaderTemplate>
+                <YAF:Alert runat="server" ID="Alert2" Type="info" MobileOnly="True">
+                    <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server"
+                                        LocalizedTag="TABLE_RESPONSIVE" 
+                                        LocalizedPage="ADMIN_COMMON" />
+                    <span class="float-right"><i class="fa fa-hand-point-left fa-fw"></i></span>
+                </YAF:Alert>
+                <div class="table-responsive">
+                <table class="table tablesorter table-bordered table-striped" id="UnverifiedUsers">
+                <thead class="thead-light">
+                <tr>
+                    <th>
+                        <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="ADMIN_NAME"
+                            LocalizedPage="ADMIN_ADMIN" />
+                    </th>
+                    <th>
+                        <YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="ADMIN_EMAIL"
+                            LocalizedPage="ADMIN_ADMIN" />
+                    </th>
+                    <th>
+                        <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="LOCATION" />
+                    </th>
+                    <th>
+                        <YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedTag="ADMIN_JOINED"
+                            LocalizedPage="ADMIN_ADMIN" />
+                    </th>
+                </tr>
+                    </thead>
+                <tbody>
+            </HeaderTemplate>
+            <ItemTemplate>
+                <tr>
+                    <td>
+                        <YAF:UserLink ID="UnverifiedUserLink" UserID='<%# this.Eval("UserID") %>' Style='<%# this.Eval("Style") %>'
+                            runat="server" />
+                    </td>
+                    <td>
+                        <%# this.Eval("Email") %>
+                    </td>
+                    <td>
+                        <%# this.SetLocation(this.Eval("Name").ToString())%>
+                    </td>
+                    <td>
+                        <%# this.Get<IDateTime>().FormatDateTime((DateTime)this.Eval("Joined")) %>
+                    </td>
+                    <td>
+					    <div class="btn-group btn-group-sm float-right" role="group">
+                        <YAF:ThemeButton runat="server" 
+                                         CommandName="resendEmail" 
+                                         CommandArgument='<%# "{0};{1}".Fmt(this.Eval("Email"), this.Eval("Name")) %>'
+                                         Icon="share" 
+                                         TextLocalizedTag="ADMIN_RESEND_EMAIL"
+                                         Type="Info" 
+                                         Size="Small">
+                        </YAF:ThemeButton>
+                        <YAF:ThemeButton runat="server" 
+                                         CommandName="approve" 
+                                         CommandArgument='<%# this.Eval("UserID") %>'
+                                         Type="Primary" 
+                                         Size="Small" 
+                                         ReturnConfirmText='<%# this.GetText("ADMIN_ADMIN", "CONFIRM_APPROVE") %>'
+                                         Icon="check" 
+                                         TextLocalizedTag="ADMIN_APPROVE">
+                        </YAF:ThemeButton>
+                        <YAF:ThemeButton runat="server" 
+                                         CommandName="delete" 
+                                         CommandArgument='<%# this.Eval("UserID") %>'
+                                         Type="Danger" 
+                                         Size="Small" 
+                                         ReturnConfirmText='<%# this.GetText("ADMIN_ADMIN", "CONFIRM_DELETE_ALL") %>'
+                                         Icon="trash" 
+                                         TextLocalizedTag="ADMIN_DELETE">
+                        </YAF:ThemeButton>
+
+					    </div>
+                    </td>
+                </tr>
+            </ItemTemplate>
+            <FooterTemplate>
+                </tbody>
+                </table>
+                </div>
+                    <div id="UnverifiedUsersPager" class=" tableSorterPager form-inline">
+                        <select class="pagesize custom-select">
+		                        <option selected="selected" value="10">10</option>
+		                        <option value="20">20</option>
+                        	    <option value="30">30</option>
+                        	    <option value="40">40</option>
+                            </select>
+                            &nbsp;
+                        <div class="btn-group"  role="group">
+                            <a href="#" class="first  btn btn-secondary btn-sm"><span><i class="fas fa-angle-double-left"></i></span></a>
+                            <a href="#" class="prev  btn btn-secondary btn-sm"><span><i class="fas fa-angle-left"></i></span></a>
+                            <input type="text" class="pagedisplay  btn btn-secondary btn-sm"  style="width:150px" />
+                            <a href="#" class="next btn btn-secondary btn-sm"><span><i class="fas fa-angle-right"></i></span></a>
+                            <a href="#" class="last  btn btn-secondary btn-sm"><span><i class="fas fa-angle-double-right"></i></span></a>
+                        </div>
+                    </div>
+               </div>
+                <div class="card-footer form-inline">
+                    <YAF:ThemeButton runat="server" 
+                                     CommandName="approveall" 
+                                     Type="Primary" 
+                                     Icon="check" 
+                                     TextLocalizedTag="APROVE_ALL" 
+                                     ReturnConfirmText='<%# this.GetText("ADMIN_ADMIN", "CONFIRM_APROVE_ALL") %>'
+                        />&nbsp;
+                    <YAF:ThemeButton runat="server"
+                                     CommandName="deleteall" 
+                                     Type="Danger" 
+                                     Icon="trash" 
+                                     TextLocalizedTag="DELETE_ALL" 
+                                     ReturnConfirmText='<%# this.GetText("ADMIN_ADMIN", "CONFIRM_DELETE_ALL") %>'
+                         />&nbsp;
+                    <asp:TextBox ID="DaysOld" runat="server" 
+                                 MaxLength="5" 
+                                 Text="14" 
+                                 CssClass="form-control"
+                                 TextMode="Number">
+                    </asp:TextBox>
+                </div>
+            </FooterTemplate>
+        </asp:Repeater>
+
+
+                        </div>
+                 </div>
+          </div>
+        </div>
+    </asp:PlaceHolder>

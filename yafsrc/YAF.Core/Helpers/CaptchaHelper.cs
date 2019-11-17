@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -29,10 +29,9 @@ namespace YAF.Core
   using System.Web;
   using System.Web.Caching;
 
+  using YAF.Types;
   using YAF.Types.Extensions;
   using YAF.Types.Interfaces;
-  using YAF.Utils;
-  using YAF.Types;
 
   #endregion
 
@@ -69,11 +68,11 @@ namespace YAF.Core
     /// <returns>
     /// The get captcha text.
     /// </returns>
-    public static string GetCaptchaText([NotNull] HttpSessionStateBase session, [NotNull] System.Web.Caching.Cache cache, bool forceNew)
+    public static string GetCaptchaText([NotNull] HttpSessionStateBase session, [NotNull] Cache cache, bool forceNew)
     {
       CodeContracts.VerifyNotNull(session, "session");
 
-      var cacheName = "Session{0}CaptchaImageText".FormatWith(session.SessionID);
+      var cacheName = $"Session{session.SessionID}CaptchaImageText";
 
       if (!forceNew && cache[cacheName] != null)
       {
@@ -89,7 +88,7 @@ namespace YAF.Core
       else
       {
         cache.Add(
-          cacheName, text, null, System.Web.Caching.Cache.NoAbsoluteExpiration, TimeSpan.FromMinutes(10), CacheItemPriority.Low, null);
+          cacheName, text, null, Cache.NoAbsoluteExpiration, TimeSpan.FromMinutes(10), CacheItemPriority.Low, null);
       }
 
       return text;
@@ -110,7 +109,7 @@ namespace YAF.Core
 
       var text = GetCaptchaText(YafContext.Current.Get<HttpSessionStateBase>(), HttpRuntime.Cache, false);
 
-      return String.Compare(text, captchaText, StringComparison.InvariantCultureIgnoreCase) == 0;
+      return string.Compare(text, captchaText, StringComparison.InvariantCultureIgnoreCase) == 0;
     }
 
     #endregion

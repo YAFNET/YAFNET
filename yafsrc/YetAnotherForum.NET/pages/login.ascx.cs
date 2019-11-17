@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -32,18 +32,22 @@ namespace YAF.Pages
     using System.Web.UI.HtmlControls;
     using System.Web.UI.WebControls;
 
-    using YAF.Classes;
-    using YAF.Classes.Data;
-    using YAF.Controls;
+    using YAF.Configuration;
     using YAF.Core;
+    using YAF.Core.Model;
     using YAF.Core.Services;
+    using YAF.Core.UsersRoles;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.EventProxies;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Events;
+    using YAF.Types.Models;
     using YAF.Utils;
     using YAF.Utils.Helpers;
+    using YAF.Web.Controls;
+    using YAF.Web.Extensions;
 
     #endregion
 
@@ -69,13 +73,7 @@ namespace YAF.Pages
         /// <summary>
         ///   Gets a value indicating whether IsProtected.
         /// </summary>
-        public override bool IsProtected
-        {
-            get
-            {
-                return false;
-            }
-        }
+        public override bool IsProtected => false;
 
         #endregion
 
@@ -94,7 +92,7 @@ namespace YAF.Pages
             if (username.Contains("@") && this.Get<MembershipProvider>().RequiresUniqueEmail)
             {
                 // attempt Email Login
-                string realUsername = this.Get<MembershipProvider>().GetUserNameByEmail(username);
+                var realUsername = this.Get<MembershipProvider>().GetUserNameByEmail(username);
 
                 if (realUsername.IsSet() && this.Get<MembershipProvider>().ValidateUser(realUsername, password))
                 {
@@ -117,7 +115,7 @@ namespace YAF.Pages
                 if (id.HasValue)
                 {
                     // get the username associated with this id...
-                    string realUsername = UserMembershipHelper.GetUserNameFromID(id.Value);
+                    var realUsername = UserMembershipHelper.GetUserNameFromID(id.Value);
 
                     // validate again...
                     if (this.Get<MembershipProvider>().ValidateUser(realUsername, password))
@@ -169,7 +167,7 @@ namespace YAF.Pages
         {
             this.Get<IRaiseEvent>().Raise(new SuccessfulUserLoginEvent(this.PageContext.PageUserID));
 
-            LegacyDb.user_update_single_sign_on_status(this.PageContext.PageUserID, AuthService.none);
+            this.GetRepository<User>().UpdateAuthServiceStatus(this.PageContext.PageUserID, AuthService.none);
         }
 
         /// <summary>
@@ -183,26 +181,26 @@ namespace YAF.Pages
         /// </param>
         protected void Login1_LoginError([NotNull] object sender, [NotNull] EventArgs e)
         {
-            bool emptyFields = false;
+            var emptyFields = false;
 
             var userName = this.Login1.FindControlAs<TextBox>("UserName");
             var password = this.Login1.FindControlAs<TextBox>("Password");
 
             if (userName.Text.Trim().Length == 0)
             {
-                this.PageContext.AddLoadMessage(this.GetText("REGISTER", "NEED_USERNAME"));
+                this.PageContext.AddLoadMessage(this.GetText("REGISTER", "NEED_USERNAME"), MessageTypes.warning);
                 emptyFields = true;
             }
 
             if (password.Text.Trim().Length == 0)
             {
-                this.PageContext.AddLoadMessage(this.GetText("REGISTER", "NEED_PASSWORD"));
+                this.PageContext.AddLoadMessage(this.GetText("REGISTER", "NEED_PASSWORD"), MessageTypes.warning);
                 emptyFields = true;
             }
 
             if (!emptyFields)
             {
-                this.PageContext.AddLoadMessage(this.Login1.FailureText);
+                this.PageContext.AddLoadMessage(this.Login1.FailureText, MessageTypes.danger);
             }
         }
 
@@ -235,7 +233,7 @@ namespace YAF.Pages
 
             this.Login1.DestinationPageUrl =
                 this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("ReturnUrl").IsSet()
-                    ? HtmlEncode(this.Server.UrlDecode(this.Request.QueryString.GetFirstOrDefault("ReturnUrl")))
+                    ? this.HtmlEncode(this.Server.UrlDecode(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("ReturnUrl")))
                     : YafBuildLink.GetLink(ForumPages.forum);
 
             // localize controls
@@ -244,31 +242,31 @@ namespace YAF.Pages
             var password = this.Login1.FindControlAs<TextBox>("Password");
             var forumLogin = this.Login1.FindControlAs<Button>("LoginButton");
             var passwordRecovery = this.Login1.FindControlAs<Button>("PasswordRecovery");
-            var cancelAuthLogin = this.Login1.FindControlAs<Button>("Cancel");
+            var cancelAuthLogin = this.Login1.FindControlAs<ThemeButton>("Cancel");
 
-            var userNameRow = this.Login1.FindControlAs<HtmlTableRow>("UserNameRow");
-            var passwordRow = this.Login1.FindControlAs<HtmlTableRow>("PasswordRow");
+            var userNameRow = this.Login1.FindControlAs<PlaceHolder>("UserNameRow");
+            var passwordRow = this.Login1.FindControlAs<PlaceHolder>("PasswordRow");
 
-            var singleSignOnOptionsRow = this.Login1.FindControlAs<HtmlTableRow>("SingleSignOnOptionsRow");
+            var singleSignOnOptionsRow = this.Login1.FindControlAs<PlaceHolder>("SingleSignOnOptionsRow");
             var singleSignOnOptions = this.Login1.FindControlAs<RadioButtonList>("SingleSignOnOptions");
 
-            var registerLink = this.Login1.FindControlAs<LinkButton>("RegisterLink");
+            var registerLink = this.Login1.FindControlAs<ThemeButton>("RegisterLink");
             var registerLinkPlaceHolder = this.Login1.FindControlAs<PlaceHolder>("RegisterLinkPlaceHolder");
 
-            var singleSignOnRow = this.Login1.FindControlAs<HtmlTableRow>("SingleSignOnRow");
+            var singleSignOnRow = this.Login1.FindControlAs<PlaceHolder>("SingleSignOnRow");
 
             var facebookHolder = this.Login1.FindControlAs<PlaceHolder>("FacebookHolder");
-            var facebookLogin = this.Login1.FindControlAs<HtmlAnchor>("FacebookLogin");
+            var facebookLogin = this.Login1.FindControlAs<ThemeButton>("FacebookLogin");
 
             var twitterHolder = this.Login1.FindControlAs<PlaceHolder>("TwitterHolder");
-            var twitterLogin = this.Login1.FindControlAs<HtmlAnchor>("TwitterLogin");
+            var twitterLogin = this.Login1.FindControlAs<ThemeButton>("TwitterLogin");
 
             var googleHolder = this.Login1.FindControlAs<PlaceHolder>("GoogleHolder");
-            var googleLogin = this.Login1.FindControlAs<HtmlAnchor>("GoogleLogin");
+            var googleLogin = this.Login1.FindControlAs<ThemeButton>("GoogleLogin");
 
-            var facebookRegister = this.Login1.FindControlAs<LinkButton>("FacebookRegister");
-            var twitterRegister = this.Login1.FindControlAs<LinkButton>("TwitterRegister");
-            var googleRegister = this.Login1.FindControlAs<LinkButton>("GoogleRegister");
+            var facebookRegister = this.Login1.FindControlAs<ThemeButton>("FacebookRegister");
+            var twitterRegister = this.Login1.FindControlAs<ThemeButton>("TwitterRegister");
+            var googleRegister = this.Login1.FindControlAs<ThemeButton>("GoogleRegister");
 
             userName.Focus();
 
@@ -298,8 +296,8 @@ namespace YAF.Pages
             {
                 password.Attributes.Add(
                     "onkeydown",
-                    "if(event.which || event.keyCode){{if ((event.which == 13) || (event.keyCode == 13)) {{document.getElementById('{0}').click();return false;}}}} else {{return true}}; "
-                        .FormatWith(forumLogin.ClientID));
+                    $@"if(event.which || event.keyCode){{if ((event.which == 13) || (event.keyCode == 13)) {{
+                              document.getElementById('{forumLogin.ClientID}').click();return false;}}}} else {{return true}}; ");
             }
 
             if (registerLinkPlaceHolder != null && this.PageContext.IsGuest
@@ -307,7 +305,7 @@ namespace YAF.Pages
             {
                 registerLinkPlaceHolder.Visible = true;
 
-                registerLink.Text = this.GetText("REGISTER_INSTEAD");
+                registerLink.TextLocalizedTag = "REGISTER_INSTEAD";
             }
 
             if (this.Get<YafBoardSettings>().AllowSingleSignOn
@@ -319,7 +317,7 @@ namespace YAF.Pages
                 var twitterEnabled = Config.TwitterConsumerKey.IsSet() && Config.TwitterConsumerSecret.IsSet();
                 var googleEnabled = Config.GoogleClientID.IsSet() && Config.GoogleClientSecret.IsSet();
 
-                string loginAuth = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("auth");
+                var loginAuth = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("auth");
 
                 if (loginAuth.IsNotSet())
                 {
@@ -327,21 +325,24 @@ namespace YAF.Pages
                     {
                         facebookRegister.Visible = true;
                         facebookRegister.Text = this.GetTextFormatted("AUTH_CONNECT", "Facebook");
-                        facebookRegister.ToolTip = this.GetTextFormatted("AUTH_CONNECT_HELP", "Facebook");
+                        facebookRegister.TitleLocalizedTag = "AUTH_CONNECT_HELP";
+                        facebookRegister.ParamTitle0 = "Facebook";
                     }
 
                     if (twitterEnabled)
                     {
                         twitterRegister.Visible = true;
                         twitterRegister.Text = this.GetTextFormatted("AUTH_CONNECT", "Twitter");
-                        twitterRegister.ToolTip = this.GetTextFormatted("AUTH_CONNECT_HELP", "Twitter");
+                        twitterRegister.TitleLocalizedTag = "AUTH_CONNECT_HELP";
+                        twitterRegister.ParamTitle0 = "Twitter";
                     } 
                     
                     if (googleEnabled)
                     {
                         googleRegister.Visible = true;
                         googleRegister.Text = this.GetTextFormatted("AUTH_CONNECT", "Google");
-                        googleRegister.ToolTip = this.GetTextFormatted("AUTH_CONNECT_HELP", "Google");
+                        googleRegister.TitleLocalizedTag = "AUTH_CONNECT_HELP";
+                        googleRegister.ParamTitle0 = "Google";
                     }
                 }
                 else
@@ -360,7 +361,6 @@ namespace YAF.Pages
                     rememberMe.Visible = false;
 
                     cancelAuthLogin.Visible = true;
-                    cancelAuthLogin.Text = this.GetText("CANCEL");
 
                     switch ((AuthService)Enum.Parse(typeof(AuthService), loginAuth, true))
                     {
@@ -442,7 +442,7 @@ namespace YAF.Pages
                                         // Redirect the user to Twitter for authorization.
                                         facebookLogin.Attributes.Add(
                                             "onclick",
-                                            "location.href='{0}'".FormatWith(facebookLoginUrl));
+                                            $"location.href='{facebookLoginUrl}'");
                                     }
                                     catch (Exception exception)
                                     {
@@ -489,7 +489,7 @@ namespace YAF.Pages
                                         // Redirect the user to Twitter for authorization.
                                         googleLogin.Attributes.Add(
                                             "onclick",
-                                            "location.href='{0}'".FormatWith(googleLoginUrl));
+                                            $"location.href='{googleLoginUrl}'");
                                     }
                                     catch (Exception exception)
                                     {

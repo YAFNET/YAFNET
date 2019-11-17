@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -30,7 +30,6 @@ namespace YAF.Types.Extensions
     using System.Data;
     using System.Linq;
 
-    using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
 
     #endregion
@@ -63,7 +62,7 @@ namespace YAF.Types.Extensions
             {
                 var rowDictionary = new Dictionary<string, object>(comparer ?? StringComparer.OrdinalIgnoreCase);
 
-                for (int fieldIndex = 0; fieldIndex < reader.FieldCount; fieldIndex++)
+                for (var fieldIndex = 0; fieldIndex < reader.FieldCount; fieldIndex++)
                 {
                     rowDictionary.Add(reader.GetName(fieldIndex), reader.GetValue(fieldIndex));
                 }

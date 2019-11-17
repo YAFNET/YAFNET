@@ -1,9 +1,9 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -47,7 +47,7 @@ namespace YAF.Core.Services
         /// <summary>
         ///   The _load string list.
         /// </summary>
-        private readonly List<MessageNotification> _loadStringList = new List<MessageNotification>();
+        private readonly List<MessageNotification> loadStringList = new List<MessageNotification>();
 
         #endregion
 
@@ -60,14 +60,13 @@ namespace YAF.Core.Services
         {
             if (this.SessionLoadString.Any())
             {
-                // get this as the current "loadstring"
-                this._loadStringList.AddRange(this.SessionLoadString);
+                this.loadStringList.AddRange(this.SessionLoadString);
 
                 // session load string no longer needed
                 this.SessionLoadString.Clear();
             }
 
-            YafContext.Current.Unload += this.Current_Unload;
+            YafContext.Current.Unload += this.CurrentUnload;
         }
 
         #endregion
@@ -75,27 +74,10 @@ namespace YAF.Core.Services
         #region Properties
 
         /// <summary>
-        ///   Gets LoadString.
-        /// </summary>
-        /*public string LoadString
-        {
-            get
-            {
-                return !this.LoadStringList.Any() ? string.Empty : this.LoadStringDelimited("\r\n");
-            }
-        }*/
-
-        /// <summary>
         ///   Gets LoadStringList.
         /// </summary>
         [NotNull]
-        public List<MessageNotification> LoadStringList
-        {
-            get
-            {
-                return this._loadStringList;
-            }
-        }
+        public List<MessageNotification> LoadStringList => this.loadStringList;
 
         /*
         /// <summary>
@@ -140,6 +122,23 @@ namespace YAF.Core.Services
         }
 
         /// <summary>
+        /// AddLoadMessage creates a message that will be returned on the next page load.
+        /// </summary>
+        /// <param name="message">
+        /// The message you wish to display.
+        /// </param>
+        /// <param name="messageType">
+        /// Type of the message.
+        /// </param>
+        /// <param name="script">
+        /// The script.
+        /// </param>
+        public void Add([NotNull] string message, MessageTypes messageType, string script)
+        {
+            this.LoadStringList.Add(new MessageNotification(message, messageType, script));
+        }
+
+        /// <summary>
         /// AddLoadMessageSession creates a message that will be returned on the next page.
         /// </summary>
         /// <param name="message">The message you wish to display.</param>
@@ -158,23 +157,7 @@ namespace YAF.Core.Services
             this.LoadStringList.Clear();
         }
 
-        /*
-        /// <summary>
-        /// Loads the string delimited.
-        /// </summary>
-        /// <param name="delimiter">The delimiter.</param>
-        /// <returns>
-        /// The load string delimited.
-        /// </returns>
-        public string LoadStringDelimited([NotNull] string delimiter)
-        {
-            return !this.LoadStringList.Any()
-                       ? string.Empty
-                       : this.LoadStringList.Aggregate((current, next) => current + delimiter + next);
-        }
-        */
-
-        /// <summary>
+       /// <summary>
         /// Gets the message.
         /// </summary>
         /// <returns>Returns the Current Message</returns>
@@ -194,7 +177,7 @@ namespace YAF.Core.Services
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        private void Current_Unload([NotNull] object sender, [NotNull] EventArgs e)
+        private void CurrentUnload([NotNull] object sender, [NotNull] EventArgs e)
         {
             // clear the load message...
             this.Clear();

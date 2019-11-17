@@ -1,9 +1,9 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -31,21 +31,41 @@ namespace YAF.Types.Constants
         /// <summary>
         /// Error Messages
         /// </summary>
-        Error,
+        danger,
 
         /// <summary>
         /// Info Messages
         /// </summary>
-        Information,
+        info,
 
         /// <summary>
         /// Warning Messages
         /// </summary>
-        Warning,
+        warning,
 
         /// <summary>
         /// Success Messages
         /// </summary>
-        Success
+        success,
+
+        /// <summary>
+        /// The primary.
+        /// </summary>
+        primary,
+
+        /// <summary>
+        /// The secondary.
+        /// </summary>
+        secondary,
+
+        /// <summary>
+        /// The light.
+        /// </summary>
+        light,
+
+        /// <summary>
+        /// The dark.
+        /// </summary>
+        dark
     }
 }

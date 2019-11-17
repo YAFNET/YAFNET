@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -23,114 +23,73 @@
  */
 namespace YAF.Core.Nntp
 {
-  using System.IO;
-
-  /// <summary>
-  /// The attachment.
-  /// </summary>
-  public class Attachment
-  {
-    /// <summary>
-    /// The binary data.
-    /// </summary>
-    private byte[] binaryData;
+    using System.IO;
 
     /// <summary>
-    /// The filename.
+    /// The attachment.
     /// </summary>
-    private string filename;
-
-    /// <summary>
-    /// The id.
-    /// </summary>
-    private string id;
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="Attachment"/> class.
-    /// </summary>
-    /// <param name="id">
-    /// The id.
-    /// </param>
-    /// <param name="filename">
-    /// The filename.
-    /// </param>
-    /// <param name="binaryData">
-    /// The binary data.
-    /// </param>
-    public Attachment(string id, string filename, byte[] binaryData)
+    public class Attachment
     {
-      this.id = id;
-      this.filename = filename;
-      this.binaryData = binaryData;
-    }
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Attachment"/> class.
+        /// </summary>
+        /// <param name="id">
+        /// The id.
+        /// </param>
+        /// <param name="filename">
+        /// The filename.
+        /// </param>
+        /// <param name="binaryData">
+        /// The binary data.
+        /// </param>
+        public Attachment(string id, string filename, byte[] binaryData)
+        {
+            this.Id = id;
+            this.Filename = filename;
+            this.BinaryData = binaryData;
+        }
 
-    /// <summary>
-    /// Gets Id.
-    /// </summary>
-    public string Id
-    {
-      get
-      {
-        return this.id;
-      }
-    }
+        /// <summary>
+        /// Gets Id.
+        /// </summary>
+        public string Id { get; }
 
-    /// <summary>
-    /// Gets Filename.
-    /// </summary>
-    public string Filename
-    {
-      get
-      {
-        return this.filename;
-      }
-    }
+        /// <summary>
+        /// Gets Filename.
+        /// </summary>
+        public string Filename { get; }
 
-    /// <summary>
-    /// Gets BinaryData.
-    /// </summary>
-    public byte[] BinaryData
-    {
-      get
-      {
-        return this.binaryData;
-      }
-    }
+        /// <summary>
+        /// Gets BinaryData.
+        /// </summary>
+        public byte[] BinaryData { get; }
 
-    /// <summary>
-    /// The save as.
-    /// </summary>
-    /// <param name="path">
-    /// The path.
-    /// </param>
-    public void SaveAs(string path)
-    {
-      this.SaveAs(path, false);
-    }
+        /// <summary>
+        /// The save as.
+        /// </summary>
+        /// <param name="path">
+        /// The path.
+        /// </param>
+        public void SaveAs(string path)
+        {
+            this.SaveAs(path, false);
+        }
 
-    /// <summary>
-    /// The save as.
-    /// </summary>
-    /// <param name="path">
-    /// The path.
-    /// </param>
-    /// <param name="isOverwrite">
-    /// The is overwrite.
-    /// </param>
-    public void SaveAs(string path, bool isOverwrite)
-    {
-      FileStream fs = null;
-      if (isOverwrite)
-      {
-        fs = new FileStream(path, FileMode.Create);
-      }
-      else
-      {
-        fs = new FileStream(path, FileMode.CreateNew);
-      }
+        /// <summary>
+        /// The save as.
+        /// </summary>
+        /// <param name="path">
+        /// The path.
+        /// </param>
+        /// <param name="isOverwrite">
+        /// The is overwrite.
+        /// </param>
+        public void SaveAs(string path, bool isOverwrite)
+        {
+            var fs = isOverwrite ? new FileStream(path, FileMode.Create) : new FileStream(path, FileMode.CreateNew);
 
-      fs.Write(this.binaryData, 0, this.binaryData.Length);
-      fs.Close();
+            fs.Write(this.BinaryData, 0, this.BinaryData.Length);
+            fs.Close();
+        }
     }
-  }
 }

@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -33,10 +33,8 @@ namespace YAF.Data.MsSql
 
     using YAF.Core.Data;
     using YAF.Types;
-    using YAF.Types.Attributes;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Types.Interfaces.Data;
 
     #endregion
 
@@ -47,10 +45,6 @@ namespace YAF.Data.MsSql
     {
         public const string ProviderTypeName = "System.Data.SqlClient";
 
-        #region Static Fields
-
-        #endregion
-
         #region Constructors and Destructors
 
         /// <summary>
@@ -58,6 +52,9 @@ namespace YAF.Data.MsSql
         /// </summary>
         /// <param name="dbProviderFactory">
         /// The db provider factory. 
+        /// </param>
+        /// <param name="profiler">
+        /// The profiler.
         /// </param>
         public MsSqlDbAccess([NotNull] Func<string, DbProviderFactory> dbProviderFactory, IProfileQuery profiler)
             : base(dbProviderFactory, profiler, new MsSqlDbInformation())
@@ -86,10 +83,8 @@ namespace YAF.Data.MsSql
             if (cmd.CommandType == CommandType.StoredProcedure && paramList.Any() && !paramList.All(x => x.Key.IsSet()))
             {
                 cmd.CommandType = CommandType.Text;
-                cmd.CommandText = string.Format(
-                    "EXEC {0} {1}", 
-                    cmd.CommandText, 
-                    Enumerable.Range(0, paramList.Count()).Select(x => string.Format("@{0}", x)).ToDelimitedString(","));
+                cmd.CommandText =
+                    $"EXEC {cmd.CommandText} {Enumerable.Range(0, paramList.Count).Select(x => $"@{x}").ToDelimitedString(",")}";
 
                 // add params without "keys" as they need to be index (0, 1, 2, 3)...
                 base.MapParameters(cmd, paramList.Select(x => new KeyValuePair<string, object>(null, x.Value)));

@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -31,27 +31,34 @@ namespace YAF.Core.Modules
 
     using Autofac;
 
+    using YAF.Core.Extensions;
     using YAF.Types;
     using YAF.Types.Attributes;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
 
+    /// <summary>
+    /// The dynamic services module.
+    /// </summary>
     public class DynamicServicesModule : BaseModule
     {
         #region Public Properties
 
-        public override int SortOrder
-        {
-            get
-            {
-                return 500;
-            }
-        }
+        /// <summary>
+        /// The sort order.
+        /// </summary>
+        public override int SortOrder => 500;
 
         #endregion
 
         #region Methods
 
+        /// <summary>
+        /// The load.
+        /// </summary>
+        /// <param name="containerBuilder">
+        /// The container builder.
+        /// </param>
         protected override void Load(ContainerBuilder containerBuilder)
         {
             // external first...
@@ -61,6 +68,12 @@ namespace YAF.Core.Modules
             this.RegisterDynamicServices(new[] { Assembly.GetExecutingAssembly() });
         }
 
+        /// <summary>
+        /// The register dynamic services.
+        /// </summary>
+        /// <param name="assemblies">
+        /// The assemblies.
+        /// </param>
         private void RegisterDynamicServices([NotNull] Assembly[] assemblies)
         {
             CodeContracts.VerifyNotNull(assemblies, "assemblies");
@@ -96,16 +109,11 @@ namespace YAF.Core.Modules
                     typesToRegister = c.GetInterfaces().Where(i => !exclude.Contains(i)).ToArray();
                 }
 
-                if (exportAttribute.Named.IsSet())
-                {
-                    // register types as "Named"
-                    built = typesToRegister.Aggregate(built, (current, regType) => current.Named(exportAttribute.Named, regType));
-                }
-                else
-                {
-                    // register types "As"
-                    built = typesToRegister.Aggregate(built, (current, regType) => current.As(regType));
-                }
+                built = exportAttribute.Named.IsSet()
+                            ? typesToRegister.Aggregate(
+                                built,
+                                (current, regType) => current.Named(exportAttribute.Named, regType))
+                            : typesToRegister.Aggregate(built, (current, regType) => current.As(regType));
 
                 switch (exportAttribute.ServiceLifetimeScope)
                 {

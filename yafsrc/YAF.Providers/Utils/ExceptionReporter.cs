@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -30,7 +30,7 @@ namespace YAF.Providers.Utils
     using System.Web;
     using System.Xml;
 
-    using YAF.Classes;
+    using YAF.Configuration;
     using YAF.Types;
     using YAF.Types.Extensions;
 
@@ -47,13 +47,7 @@ namespace YAF.Providers.Utils
         ///   Gets the Exception XML File Name from AppSettings
         /// </summary>
         [NotNull]
-        private static string ProviderExceptionFile
-        {
-            get
-            {
-                return Config.GetConfigValueAsString("YAF.ProviderExceptionXML") ?? "ProviderExceptions.xml";
-            }
-        }
+        private static string ProviderExceptionFile => Config.GetConfigValueAsString("YAF.ProviderExceptionXML") ?? "ProviderExceptions.xml";
 
         #endregion
 
@@ -73,14 +67,12 @@ namespace YAF.Providers.Utils
         /// </returns>
         public static string GetReport([NotNull] string providerSection, [NotNull] string tag)
         {
-            string select = "//provider[@name='{0}']/Resource[@tag='{1}']".FormatWith(
-                providerSection.ToUpper(),
-                tag.ToUpper());
-            XmlNode node = ExceptionXML().SelectSingleNode(select);
+            var select = $"//provider[@name='{providerSection.ToUpper()}']/Resource[@tag='{tag.ToUpper()}']";
+            var node = ExceptionXML().SelectSingleNode(select);
 
             return node != null
                        ? node.InnerText
-                       : "Exception({1}:{0}) cannot be found in Exception file!".FormatWith(tag, providerSection);
+                       : string.Format("Exception({1}:{0}) cannot be found in Exception file!", tag, providerSection);
         }
 
         /// <summary>
@@ -188,10 +180,7 @@ namespace YAF.Providers.Utils
             var exceptionXmlDoc = new XmlDocument();
             exceptionXmlDoc.Load(
                 HttpContext.Current.Server.MapPath(
-                    "{0}{1}Resources/{2}".FormatWith(
-                        Config.ServerFileRoot,
-                        Config.ServerFileRoot.EndsWith("/") ? string.Empty : "/",
-                        ProviderExceptionFile)));
+                    $"{Config.ServerFileRoot}{(Config.ServerFileRoot.EndsWith("/") ? string.Empty : "/")}Resources/{ProviderExceptionFile}"));
 
             return exceptionXmlDoc;
         }

@@ -1,9 +1,9 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -35,8 +35,7 @@ namespace YAF.Core.Services
     using System.Web;
     using System.Web.Security;
 
-    using YAF.Classes;
-    using YAF.Classes.Data;
+    using YAF.Configuration;
     using YAF.Core.Model;
     using YAF.Core.UsersRoles;
     using YAF.Types;
@@ -84,13 +83,7 @@ namespace YAF.Core.Services
         /// <value>
         /// The board settings.
         /// </value>
-        public YafBoardSettings BoardSettings
-        {
-            get
-            {
-                return this.Get<YafBoardSettings>();
-            }
-        }
+        public YafBoardSettings BoardSettings => this.Get<YafBoardSettings>();
 
         #endregion
 
@@ -109,56 +102,61 @@ namespace YAF.Core.Services
             var moderatorsFiltered = this.Get<YafDbBroker>().GetAllModerators().Where(f => f.ForumID.Equals(forumId));
             var moderatorUserNames = new List<string>();
 
-            foreach (var moderator in moderatorsFiltered)
-            {
-                if (moderator.IsGroup)
-                {
-                    moderatorUserNames.AddRange(this.Get<RoleProvider>().GetUsersInRole(moderator.Name));
-                }
-                else
-                {
-                    moderatorUserNames.Add(moderator.Name);
-                }
-            }
+            moderatorsFiltered.ForEach(
+                moderator =>
+                    {
+                        if (moderator.IsGroup)
+                        {
+                            moderatorUserNames.AddRange(this.Get<RoleProvider>().GetUsersInRole(moderator.Name));
+                        }
+                        else
+                        {
+                            moderatorUserNames.Add(moderator.Name);
+                        }
+                    });
 
             // send each message...
-            foreach (var userName in moderatorUserNames.Distinct())
-            {
-                // add each member of the group
-                var membershipUser = UserMembershipHelper.GetUser(userName);
-                var userId = UserMembershipHelper.GetUserIDFromProviderUserKey(membershipUser.ProviderUserKey);
+            moderatorUserNames.Distinct().ForEach(
+                userName =>
+                    {
+                        // add each member of the group
+                        var membershipUser = UserMembershipHelper.GetUser(userName);
+                        var userId = UserMembershipHelper.GetUserIDFromProviderUserKey(membershipUser.ProviderUserKey);
 
-                var languageFile = UserHelper.GetUserLanguageFile(userId);
+                        var languageFile = UserHelper.GetUserLanguageFile(userId);
 
-                var subject =
-                    this.Get<ILocalization>()
-                        .GetText(
-                            "COMMON",
-                            isSpamMessage
-                                ? "NOTIFICATION_ON_MODERATOR_SPAMMESSAGE_APPROVAL"
-                                : "NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL",
-                            languageFile)
-                        .FormatWith(this.BoardSettings.Name);
+                        var subject = string.Format(
+                            this.Get<ILocalization>().GetText(
+                                "COMMON",
+                                isSpamMessage
+                                    ? "NOTIFICATION_ON_MODERATOR_SPAMMESSAGE_APPROVAL"
+                                    : "NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL",
+                                languageFile),
+                            this.BoardSettings.Name);
 
-                var notifyModerators =
-                    new YafTemplateEmail(
-                        isSpamMessage
-                            ? "NOTIFICATION_ON_MODERATOR_SPAMMESSAGE_APPROVAL"
-                            : "NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL")
-                        {
-                            // get the user localization...
-                            TemplateLanguageFile = languageFile
-                        };
+                        var notifyModerators = new YafTemplateEmail(
+                                                   isSpamMessage
+                                                       ? "NOTIFICATION_ON_MODERATOR_SPAMMESSAGE_APPROVAL"
+                                                       : "NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL")
+                                                   {
+                                                       // get the user localization...
+                                                       TemplateLanguageFile = languageFile,
+                                                       TemplateParams =
+                                                           {
+                                                               ["{adminlink}"] = YafBuildLink.GetLinkNotEscaped(
+                                                                   ForumPages.moderate_unapprovedposts,
+                                                                   true,
+                                                                   "f={0}",
+                                                                   forumId),
+                                                               ["{forumname}"] = this.BoardSettings.Name
+                                                           }
+                                                   };
 
-                notifyModerators.TemplateParams["{adminlink}"] =
-                    YafBuildLink.GetLinkNotEscaped(ForumPages.moderate_unapprovedposts, true, "f={0}", forumId);
-                notifyModerators.TemplateParams["{forumname}"] = this.BoardSettings.Name;
-
-                notifyModerators.SendEmail(
-                    new MailAddress(membershipUser.Email, membershipUser.UserName),
-                    subject,
-                    true);
-            }
+                        notifyModerators.SendEmail(
+                            new MailAddress(membershipUser.Email, membershipUser.UserName),
+                            subject,
+                            true);
+                    });
         }
 
         /// <summary>
@@ -184,55 +182,63 @@ namespace YAF.Core.Services
         {
             try
             {
-                var moderatorsFiltered =
-                    this.Get<YafDbBroker>().GetAllModerators().Where(f => f.ForumID.Equals(pageForumID));
+                var moderatorsFiltered = this.Get<YafDbBroker>().GetAllModerators().Where(f => f.ForumID.Equals(pageForumID));
                 var moderatorUserNames = new List<string>();
 
-                foreach (var moderator in moderatorsFiltered)
-                {
-                    if (moderator.IsGroup)
-                    {
-                        moderatorUserNames.AddRange(this.Get<RoleProvider>().GetUsersInRole(moderator.Name));
-                    }
-                    else
-                    {
-                        moderatorUserNames.Add(moderator.Name);
-                    }
-                }
+                moderatorsFiltered.ForEach(
+                    moderator =>
+                        {
+                            if (moderator.IsGroup)
+                            {
+                                moderatorUserNames.AddRange(this.Get<RoleProvider>().GetUsersInRole(moderator.Name));
+                            }
+                            else
+                            {
+                                moderatorUserNames.Add(moderator.Name);
+                            }
+                        });
 
                 // send each message...
-                foreach (var userName in moderatorUserNames.Distinct())
-                {
-                    // add each member of the group
-                    var membershipUser = UserMembershipHelper.GetUser(userName);
-                    var userId = UserMembershipHelper.GetUserIDFromProviderUserKey(membershipUser.ProviderUserKey);
+                moderatorUserNames.Distinct().ForEach(
+                    userName =>
+                        {
+                            // add each member of the group
+                            var membershipUser = UserMembershipHelper.GetUser(userName);
+                            var userId =
+                                UserMembershipHelper.GetUserIDFromProviderUserKey(membershipUser.ProviderUserKey);
 
-                    var languageFile = UserHelper.GetUserLanguageFile(userId);
+                            var languageFile = UserHelper.GetUserLanguageFile(userId);
 
-                    var subject =
-                        this.Get<ILocalization>()
-                            .GetText("COMMON", "NOTIFICATION_ON_MODERATOR_REPORTED_MESSAGE", languageFile)
-                            .FormatWith(this.BoardSettings.Name);
+                            var subject = string.Format(
+                                this.Get<ILocalization>().GetText(
+                                    "COMMON",
+                                    "NOTIFICATION_ON_MODERATOR_REPORTED_MESSAGE",
+                                    languageFile),
+                                this.BoardSettings.Name);
 
-                    var notifyModerators = new YafTemplateEmail("NOTIFICATION_ON_MODERATOR_REPORTED_MESSAGE")
-                                               {
-                                                   // get the user localization...
-                                                   TemplateLanguageFile
-                                                       =
-                                                       languageFile
-                                               };
+                            var notifyModerators = new YafTemplateEmail("NOTIFICATION_ON_MODERATOR_REPORTED_MESSAGE")
+                                                       {
+                                                           // get the user localization...
+                                                           TemplateLanguageFile = languageFile,
+                                                           TemplateParams =
+                                                               {
+                                                                   ["{reason}"] = reportText,
+                                                                   ["{reporter}"] =
+                                                                       this.Get<IUserDisplayName>().GetName(reporter),
+                                                                   ["{adminlink}"] = YafBuildLink.GetLinkNotEscaped(
+                                                                       ForumPages.moderate_reportedposts,
+                                                                       true,
+                                                                       "f={0}",
+                                                                       pageForumID),
+                                                                   ["{forumname}"] = this.BoardSettings.Name
+                                                               }
+                                                       };
 
-                    notifyModerators.TemplateParams["{reason}"] = reportText;
-                    notifyModerators.TemplateParams["{reporter}"] = this.Get<IUserDisplayName>().GetName(reporter);
-                    notifyModerators.TemplateParams["{adminlink}"] =
-                        YafBuildLink.GetLinkNotEscaped(ForumPages.moderate_reportedposts, true, "f={0}", pageForumID);
-                    notifyModerators.TemplateParams["{forumname}"] = this.BoardSettings.Name;
-
-                    notifyModerators.SendEmail(
-                        new MailAddress(membershipUser.Email, membershipUser.UserName),
-                        subject,
-                        true);
-                }
+                            notifyModerators.SendEmail(
+                                new MailAddress(membershipUser.Email, membershipUser.UserName),
+                                subject,
+                                true);
+                        });
             }
             catch (Exception x)
             {
@@ -240,8 +246,7 @@ namespace YAF.Core.Services
                 this.Get<ILogger>()
                     .Error(
                         x,
-                        "Send Message Report Notification Error for UserID {0}".FormatWith(
-                            YafContext.Current.PageUserID));
+                        $"Send Message Report Notification Error for UserID {YafContext.Current.PageUserID}");
             }
         }
 
@@ -264,13 +269,13 @@ namespace YAF.Core.Services
                 // user's email
                 var toEMail = string.Empty;
 
-                var userList =
-                    LegacyDb.UserList(YafContext.Current.PageBoardID, toUserId, true, null, null, null).ToList();
+                var toUser =
+                    this.GetRepository<User>().UserList(YafContext.Current.PageBoardID, toUserId, true, null, null, null).FirstOrDefault();
 
-                if (userList.Any())
+                if (toUser != null)
                 {
-                    privateMessageNotificationEnabled = userList.First().PMNotification ?? false;
-                    toEMail = userList.First().Email;
+                    privateMessageNotificationEnabled = toUser.PMNotification ?? false;
+                    toEMail = toUser.Email;
                 }
 
                 if (!privateMessageNotificationEnabled)
@@ -279,15 +284,12 @@ namespace YAF.Core.Services
                 }
 
                 // get the PM ID
-                // Ederon : 11/21/2007 - PageBoardID as parameter of DB.pmessage_list?
-                // using (DataTable dt = DB.pmessage_list(toUserID, PageContext.PageBoardID, null))
-                var userPMessageId =
-                    LegacyDb.pmessage_list(toUserId, null, null).GetFirstRow().Field<int>("UserPMessageID");
+                var userPMessageId = this.GetRepository<PMessage>().ListAsDataTable(toUserId, null, null).GetFirstRow()
+                    .Field<int>("UserPMessageID");
 
                 /*// get the sender e-mail -- DISABLED: too much information...
                     // using ( DataTable dt = YAF.Classes.Data.DB.user_list( PageContext.PageBoardID, PageContext.PageUserID, true ) )
                     // senderEmail = ( string ) dt.Rows [0] ["Email"];*/
-
                 var languageFile = UserHelper.GetUserLanguageFile(toUserId);
 
                 // send this user a PM notification e-mail
@@ -302,16 +304,25 @@ namespace YAF.Core.Services
                 notificationTemplate.TemplateParams["{fromuser}"] = displayName;
 
                 notificationTemplate.TemplateParams["{link}"] =
-                    "{0}\r\n\r\n".FormatWith(
-                        YafBuildLink.GetLinkNotEscaped(ForumPages.cp_message, true, "pm={0}", userPMessageId));
+                    $"{YafBuildLink.GetLinkNotEscaped(ForumPages.cp_message, true, "pm={0}", userPMessageId)}\r\n\r\n";
                 notificationTemplate.TemplateParams["{forumname}"] = this.BoardSettings.Name;
                 notificationTemplate.TemplateParams["{subject}"] = subject;
+                notificationTemplate.TemplateParams["{username}"] = this.BoardSettings.EnableDisplayName ? toUser.DisplayName : toUser.Name;
+
+                var logoUrl =
+                    $"{YafForumInfo.ForumClientFileRoot}{YafBoardFolders.Current.Logos}/{this.BoardSettings.ForumLogo}";
+                var themeCss =
+                    $"{this.Get<YafBoardSettings>().BaseUrlMask}{this.Get<ITheme>().BuildThemePath("bootstrap-forum.min.css")}";
+                notificationTemplate.TemplateParams["{forumlink}"] = $"{YafForumInfo.ForumURL}";
+                notificationTemplate.TemplateParams["{themecss}"] = themeCss;
+                notificationTemplate.TemplateParams["{logo}"] = $"{this.Get<YafBoardSettings>().BaseUrlMask}{logoUrl}";
 
                 // create notification email subject
-                var emailSubject =
-                    this.Get<ILocalization>()
-                        .GetText("COMMON", "PM_NOTIFICATION_SUBJECT", languageFile)
-                        .FormatWith(displayName, this.BoardSettings.Name, subject);
+                var emailSubject = string.Format(
+                    this.Get<ILocalization>().GetText("COMMON", "PM_NOTIFICATION_SUBJECT", languageFile),
+                    displayName,
+                    this.BoardSettings.Name,
+                    subject);
 
                 // send email
                 notificationTemplate.SendEmail(new MailAddress(toEMail), emailSubject, true);
@@ -320,12 +331,12 @@ namespace YAF.Core.Services
             {
                 // report exception to the forum's event log
                 this.Get<ILogger>()
-                    .Error(x, "Send PM Notification Error for UserID {0}".FormatWith(YafContext.Current.PageUserID));
+                    .Error(x, $"Send PM Notification Error for UserID {YafContext.Current.PageUserID}");
 
                 // tell user about failure
                 YafContext.Current.AddLoadMessage(
                     this.Get<ILocalization>().GetTextFormatted("Failed", x.Message),
-                    MessageTypes.Error);
+                    MessageTypes.danger);
             }
         }
 
@@ -337,20 +348,13 @@ namespace YAF.Core.Services
         /// </param>
         public void ToWatchingUsers(int newMessageId)
         {
-            IList<User> usersWithAll = new List<User>();
-
-            if (this.BoardSettings.AllowNotificationAllPostsAllTopics)
-            {
-                usersWithAll = this.GetRepository<User>()
-                    .FindUserTyped(filter: false, notificationType: UserNotificationSetting.AllTopics.ToInt());
-            }
-
-            // TODO : Rewrite Watch Topic code to allow watch mails in the users language, as workaround send all messages in the default board language
+            // Always send watch mails with boards default language
             var languageFile = this.BoardSettings.Language;
+
             var boardName = this.BoardSettings.Name;
             var forumEmail = this.BoardSettings.ForumEmail;
 
-            var message = LegacyDb.MessageList(newMessageId).FirstOrDefault();
+            var message = this.GetRepository<Message>().MessageList(newMessageId).FirstOrDefault();
 
             var messageAuthorUserID = message.UserID ?? 0;
 
@@ -362,10 +366,14 @@ namespace YAF.Core.Services
                 .RemoveMultipleWhitespace();
 
             // Send track mails
-            var subject =
-                this.Get<ILocalization>()
-                    .GetText("COMMON", "TOPIC_NOTIFICATION_SUBJECT", languageFile)
-                    .FormatWith(boardName);
+            var subject = string.Format(
+                this.Get<ILocalization>().GetText("COMMON", "TOPIC_NOTIFICATION_SUBJECT", languageFile),
+                boardName);
+
+            var logoUrl =
+                $"{YafForumInfo.ForumClientFileRoot}{YafBoardFolders.Current.Logos}/{this.BoardSettings.ForumLogo}";
+            var themeCss =
+                $"{this.Get<YafBoardSettings>().BaseUrlMask}{this.Get<ITheme>().BuildThemePath("bootstrap-forum.min.css")}";
 
             watchEmail.TemplateParams["{forumname}"] = boardName;
             watchEmail.TemplateParams["{topic}"] = HttpUtility.HtmlDecode(this.Get<IBadWordReplace>().Replace(message.Topic));
@@ -378,6 +386,10 @@ namespace YAF.Core.Services
                 "m={0}#post{0}",
                 newMessageId);
             watchEmail.TemplateParams["{subscriptionlink}"] = YafBuildLink.GetLinkNotEscaped(ForumPages.cp_subscriptions, true);
+            watchEmail.TemplateParams["{forumname}"] = this.BoardSettings.Name;
+            watchEmail.TemplateParams["{forumlink}"] = $"{YafForumInfo.ForumURL}";
+            watchEmail.TemplateParams["{themecss}"] = themeCss;
+            watchEmail.TemplateParams["{logo}"] = $"{this.Get<YafBoardSettings>().BaseUrlMask}{logoUrl}";
 
             watchEmail.CreateWatch(
                 message.TopicID ?? 0,
@@ -385,25 +397,32 @@ namespace YAF.Core.Services
                 new MailAddress(forumEmail, boardName),
                 subject);
 
-            // create individual watch emails for all users who have All Posts on...
-            foreach (var user in usersWithAll.Where(x => x.UserID != messageAuthorUserID && x.ProviderUserKey != null))
+            if (!this.BoardSettings.AllowNotificationAllPostsAllTopics)
             {
-                var membershipUser = UserMembershipHelper.GetUser(user.ProviderUserKey.ToType<object>());
-
-                if (membershipUser == null || membershipUser.Email.IsNotSet())
-                {
-                    continue;
-                }
-
-                watchEmail.TemplateLanguageFile = user.LanguageFile.IsSet()
-                                                      ? user.LanguageFile
-                                                      : this.Get<ILocalization>().LanguageFileName;
-                watchEmail.SendEmail(
-                    new MailAddress(forumEmail, boardName),
-                    new MailAddress(membershipUser.Email, membershipUser.UserName),
-                    subject,
-                    true);
+                return;
             }
+
+            var usersWithAll = this.GetRepository<User>()
+                .FindUserTyped(false, notificationType: UserNotificationSetting.AllTopics.ToInt());
+
+            // create individual watch emails for all users who have All Posts on...
+            usersWithAll.Where(x => x.ID != messageAuthorUserID && x.ProviderUserKey != null).ForEach(
+                user =>
+                    {
+                        if (user.Email.IsSet())
+                        {
+                            watchEmail.TemplateLanguageFile = user.LanguageFile.IsSet()
+                                                                  ? user.LanguageFile
+                                                                  : this.Get<ILocalization>().LanguageFileName;
+                            watchEmail.SendEmail(
+                                new MailAddress(forumEmail, boardName),
+                                new MailAddress(
+                                    user.Email,
+                                    this.BoardSettings.EnableDisplayName ? user.DisplayName : user.Name),
+                                subject,
+                                true);
+                        }
+                    });
         }
 
         /// <summary>
@@ -430,10 +449,9 @@ namespace YAF.Core.Services
         {
             var notifyUser = new YafTemplateEmail();
 
-            var subject =
-                this.Get<ILocalization>()
-                    .GetText("COMMON", "NOTIFICATION_ON_NEW_FACEBOOK_USER_SUBJECT")
-                    .FormatWith(this.BoardSettings.Name);
+            var subject = this.Get<ILocalization>().GetTextFormatted(
+                "NOTIFICATION_ON_NEW_FACEBOOK_USER_SUBJECT",
+                this.BoardSettings.Name);
 
             notifyUser.TemplateParams["{user}"] = user.UserName;
             notifyUser.TemplateParams["{email}"] = user.Email;
@@ -458,7 +476,13 @@ namespace YAF.Core.Services
         /// <param name="medalName">Name of the medal.</param>
         public void ToUserWithNewMedal([NotNull] int toUserId, [NotNull] string medalName)
         {
-            var userList = LegacyDb.UserList(YafContext.Current.PageBoardID, toUserId, true, null, null, null).ToList();
+            var userList = this.GetRepository<User>().UserList(
+                YafContext.Current.PageBoardID,
+                toUserId,
+                true,
+                null,
+                null,
+                null).ToList();
 
             TypedUserList toUser;
 
@@ -478,10 +502,9 @@ namespace YAF.Core.Services
                                      TemplateLanguageFile = languageFile
                                  };
 
-            var subject =
-                this.Get<ILocalization>()
-                    .GetText("COMMON", "NOTIFICATION_ON_MEDAL_AWARDED_SUBJECT", languageFile)
-                    .FormatWith(this.BoardSettings.Name);
+            var subject = string.Format(
+                this.Get<ILocalization>().GetText("COMMON", "NOTIFICATION_ON_MEDAL_AWARDED_SUBJECT", languageFile),
+                this.BoardSettings.Name);
 
             notifyUser.TemplateParams["{user}"] = this.BoardSettings.EnableDisplayName
                                                       ? toUser.DisplayName
@@ -504,10 +527,9 @@ namespace YAF.Core.Services
         {
             var templateEmail = new YafTemplateEmail();
 
-            var subject =
-                this.Get<ILocalization>()
-                    .GetText("COMMON", "NOTIFICATION_ROLE_ASSIGNMENT_SUBJECT")
-                    .FormatWith(this.BoardSettings.Name);
+            var subject = this.Get<ILocalization>().GetTextFormatted(
+                "NOTIFICATION_ROLE_ASSIGNMENT_SUBJECT",
+                this.BoardSettings.Name);
 
             templateEmail.TemplateParams["{user}"] = user.UserName;
             templateEmail.TemplateParams["{roles}"] = string.Join(", ", removedRoles.ToArray());
@@ -533,10 +555,9 @@ namespace YAF.Core.Services
         {
             var templateEmail = new YafTemplateEmail();
 
-            var subject =
-                this.Get<ILocalization>()
-                    .GetText("COMMON", "NOTIFICATION_ROLE_ASSIGNMENT_SUBJECT")
-                    .FormatWith(this.BoardSettings.Name);
+            var subject = this.Get<ILocalization>().GetTextFormatted(
+                "NOTIFICATION_ROLE_ASSIGNMENT_SUBJECT",
+                this.BoardSettings.Name);
 
             templateEmail.TemplateParams["{user}"] = user.UserName;
             templateEmail.TemplateParams["{roles}"] = string.Join(", ", addedRoles.ToArray());
@@ -561,14 +582,14 @@ namespace YAF.Core.Services
         /// <param name="userId">The user id.</param>
         public void SendRegistrationNotificationEmail([NotNull] MembershipUser user, int userId)
         {
-            string[] emails = this.BoardSettings.NotificationOnUserRegisterEmailList.Split(';');
+            var emails = this.BoardSettings.NotificationOnUserRegisterEmailList.Split(';');
 
             var notifyAdmin = new YafTemplateEmail();
 
-            var subject =
-                this.Get<ILocalization>()
-                    .GetText("COMMON", "NOTIFICATION_ON_USER_REGISTER_EMAIL_SUBJECT")
-                    .FormatWith(this.BoardSettings.Name);
+            var subject = this.Get<ILocalization>().GetText(
+                "COMMON",
+                "NOTIFICATION_ON_USER_REGISTER_EMAIL_SUBJECT",
+                this.BoardSettings.Name);
 
             notifyAdmin.TemplateParams["{adminlink}"] = YafBuildLink.GetLinkNotEscaped(
                 ForumPages.admin_edituser,
@@ -582,15 +603,8 @@ namespace YAF.Core.Services
 
             var emailBody = notifyAdmin.ProcessTemplate("NOTIFICATION_ON_USER_REGISTER");
 
-            foreach (var email in emails.Where(email => email.Trim().IsSet()))
-            {
-                this.GetRepository<Mail>()
-                    .Create(
-                        email.Trim(),
-                        null,
-                        subject,
-                        emailBody);
-            }
+            emails.Where(email => email.Trim().IsSet()).ForEach(
+                email => this.GetRepository<Mail>().Create(email.Trim(), null, subject, emailBody));
         }
 
         /// <summary>
@@ -601,19 +615,19 @@ namespace YAF.Core.Services
         public void SendSpamBotNotificationToAdmins([NotNull] MembershipUser user, int userId)
         {
             // Get Admin Group ID
-            var adminGroupID =
+            var adminGroupId =
                 this.GetRepository<Group>()
-                    .ListTyped(boardId: YafContext.Current.PageBoardID)
-                    .Where(@group => @group.Name.Contains("Admin"))
-                    .Select(@group => @group.ID)
+                    .List(boardId: YafContext.Current.PageBoardID)
+                    .Where(group => group.Name.Contains("Admin"))
+                    .Select(group => group.ID)
                     .FirstOrDefault();
 
-            if (adminGroupID <= 0)
+            if (adminGroupId <= 0)
             {
                 return;
             }
 
-            using (DataTable dt = LegacyDb.user_emails(YafContext.Current.PageBoardID, adminGroupID))
+            using (var dt = this.GetRepository<User>().EmailsAsDataTable(YafContext.Current.PageBoardID, adminGroupId))
             {
                 foreach (DataRow row in dt.Rows)
                 {
@@ -626,10 +640,10 @@ namespace YAF.Core.Services
 
                     var notifyAdmin = new YafTemplateEmail();
 
-                    var subject =
-                        this.Get<ILocalization>()
-                            .GetText("COMMON", "NOTIFICATION_ON_BOT_USER_REGISTER_EMAIL_SUBJECT")
-                            .FormatWith(this.BoardSettings.Name);
+                    var subject = this.Get<ILocalization>().GetTextFormatted(
+                        "COMMON",
+                        "NOTIFICATION_ON_BOT_USER_REGISTER_EMAIL_SUBJECT",
+                        this.BoardSettings.Name);
 
                     notifyAdmin.TemplateParams["{adminlink}"] = YafBuildLink.GetLinkNotEscaped(
                         ForumPages.admin_edituser,
@@ -666,10 +680,9 @@ namespace YAF.Core.Services
 
             var notifyUser = new YafTemplateEmail();
 
-            var subject =
-                this.Get<ILocalization>()
-                    .GetText("COMMON", "NOTIFICATION_ON_WELCOME_USER_SUBJECT")
-                    .FormatWith(this.BoardSettings.Name);
+            var subject = this.Get<ILocalization>().GetTextFormatted(
+                "NOTIFICATION_ON_WELCOME_USER_SUBJECT",
+                this.BoardSettings.Name);
 
             notifyUser.TemplateParams["{user}"] = user.UserName;
 
@@ -683,11 +696,23 @@ namespace YAF.Core.Services
             if (this.BoardSettings.AllowPrivateMessages
                 && this.BoardSettings.SendWelcomeNotificationAfterRegister.Equals(2))
             {
-                var users = LegacyDb.UserList(YafContext.Current.PageBoardID, null, true, null, null, null).ToList();
+                var users = this.GetRepository<User>().UserList(
+                    YafContext.Current.PageBoardID,
+                    null,
+                    true,
+                    null,
+                    null,
+                    null).ToList();
 
                 var hostUser = users.FirstOrDefault(u => u.IsHostAdmin > 0);
 
-                LegacyDb.pmessage_save(hostUser.UserID.Value, userId, subject, emailBody, messageFlags.BitValue, -1);
+                YafContext.Current.GetRepository<PMessage>().SendMessage(
+                    hostUser.UserID.Value,
+                    userId.Value,
+                    subject,
+                    emailBody,
+                    messageFlags.BitValue,
+                    -1);
             }
             else
             {
@@ -705,27 +730,31 @@ namespace YAF.Core.Services
         /// </summary>
         /// <param name="user">The user.</param>
         /// <param name="email">The email.</param>
-        /// <param name="userID">The user identifier.</param>
+        /// <param name="userId">The user identifier.</param>
         /// <param name="newUsername">The new username.</param>
         public void SendVerificationEmail(
             [NotNull] MembershipUser user,
             [NotNull] string email,
-            int? userID,
+            int? userId,
             string newUsername = null)
         {
             CodeContracts.VerifyNotNull(email, "email");
             CodeContracts.VerifyNotNull(user, "user");
 
-            var hashinput = string.Format("{0}{1}{2}", DateTime.UtcNow, email, Security.CreatePassword(20));
-            var hash = FormsAuthentication.HashPasswordForStoringInConfigFile(hashinput, "md5");
+            var hashInput = $"{DateTime.UtcNow}{email}{Security.CreatePassword(20)}";
+            var hash = FormsAuthentication.HashPasswordForStoringInConfigFile(hashInput, "md5");
 
             // save verification record...
-            this.GetRepository<CheckEmail>().Save(userID, hash, user.Email);
+            this.GetRepository<CheckEmail>().Save(userId, hash, user.Email);
 
             var verifyEmail = new YafTemplateEmail("VERIFYEMAIL");
 
             var subject = this.Get<ILocalization>()
                 .GetTextFormatted("VERIFICATION_EMAIL_SUBJECT", this.BoardSettings.Name);
+            var logoUrl =
+                $"{YafForumInfo.ForumClientFileRoot}{YafBoardFolders.Current.Logos}/{this.BoardSettings.ForumLogo}";
+            var themeCss =
+                $"{this.Get<YafBoardSettings>().BaseUrlMask}{this.Get<ITheme>().BuildThemePath("bootstrap-forum.min.css")}";
 
             verifyEmail.TemplateParams["{link}"] = YafBuildLink.GetLinkNotEscaped(
                 ForumPages.approve,
@@ -734,9 +763,67 @@ namespace YAF.Core.Services
                 hash);
             verifyEmail.TemplateParams["{key}"] = hash;
             verifyEmail.TemplateParams["{forumname}"] = this.BoardSettings.Name;
-            verifyEmail.TemplateParams["{forumlink}"] = "{0}".FormatWith(YafForumInfo.ForumURL);
+            verifyEmail.TemplateParams["{forumlink}"] = $"{YafForumInfo.ForumURL}";
+            verifyEmail.TemplateParams["{username}"] = user.UserName;
+
+            verifyEmail.TemplateParams["{themecss}"] = themeCss;
+            verifyEmail.TemplateParams["{logo}"] = $"{this.Get<YafBoardSettings>().BaseUrlMask}{logoUrl}";
 
             verifyEmail.SendEmail(new MailAddress(email, newUsername ?? user.UserName), subject, true);
+        }
+
+        /// <summary>
+        /// Send Email Verification to changed Email Address
+        /// </summary>
+        /// <param name="newEmail">
+        /// The new email.
+        /// </param>
+        /// <param name="userId">
+        /// The user Id.
+        /// </param>
+        /// <param name="userName">
+        /// The user Name.
+        /// </param>
+        public void SendEmailChangeVerification([NotNull] string newEmail, [NotNull] int userId, string userName)
+        {
+            var hashInput = $"{DateTime.UtcNow}{newEmail}{Security.CreatePassword(20)}";
+            var hash = FormsAuthentication.HashPasswordForStoringInConfigFile(hashInput, "md5");
+
+            var logoUrl =
+                $"{YafForumInfo.ForumClientFileRoot}{YafBoardFolders.Current.Logos}/{YafContext.Current.BoardSettings.ForumLogo}";
+            var themeCss =
+                $"{this.Get<YafBoardSettings>().BaseUrlMask}{this.Get<ITheme>().BuildThemePath("bootstrap-forum.min.css")}";
+
+            // Create Email
+            var changeEmail = new YafTemplateEmail("CHANGEEMAIL")
+                                  {
+                                      TemplateParams =
+                                          {
+                                              ["{user}"] = userName,
+                                              ["{link}"] =
+                                                  $"{YafBuildLink.GetLinkNotEscaped(ForumPages.approve, true, "k={0}", hash)}\r\n\r\n",
+                                              ["{newemail}"] = newEmail,
+                                              ["{key}"] = hash,
+                                              ["{forumname}"] = this.Get<YafBoardSettings>().Name,
+                                              ["{forumlink}"] = YafForumInfo.ForumURL,
+                                              ["{themecss}"] = themeCss,
+                                              ["{logo}"] = $"{this.Get<YafBoardSettings>().BaseUrlMask}{logoUrl}"
+                                          }
+                                  };
+
+            // save a change email reference to the db
+            this.GetRepository<CheckEmail>().Save(userId, hash, newEmail);
+
+            // send a change email message...
+            changeEmail.SendEmail(
+                new MailAddress(newEmail),
+                this.Get<ILocalization>().GetText("COMMON", "CHANGEEMAIL_SUBJECT"),
+                true);
+
+            // show a confirmation
+            YafContext.Current.AddLoadMessage(
+                string.Format(this.Get<ILocalization>().GetText("PROFILE", "mail_sent"), newEmail),
+                MessageTypes.info);
         }
 
         /// <summary>
@@ -754,10 +841,9 @@ namespace YAF.Core.Services
         {
             var notifyUser = new YafTemplateEmail();
 
-            var subject =
-                this.Get<ILocalization>()
-                    .GetText("COMMON", "NOTIFICATION_ON_SUSPENDING_USER_SUBJECT")
-                    .FormatWith(this.BoardSettings.Name);
+            var subject = this.Get<ILocalization>().GetTextFormatted(
+                "NOTIFICATION_ON_SUSPENDING_USER_SUBJECT",
+                this.BoardSettings.Name);
 
             notifyUser.TemplateParams["{user}"] = userName;
 
@@ -786,10 +872,9 @@ namespace YAF.Core.Services
         {
             var notifyUser = new YafTemplateEmail();
 
-            var subject =
-                this.Get<ILocalization>()
-                    .GetText("COMMON", "NOTIFICATION_ON_SUSPENDING_USER_SUBJECT")
-                    .FormatWith(this.BoardSettings.Name);
+            var subject = this.Get<ILocalization>().GetTextFormatted(
+                "NOTIFICATION_ON_SUSPENDING_USER_SUBJECT",
+                this.BoardSettings.Name);
 
             notifyUser.TemplateParams["{user}"] = userName;
 

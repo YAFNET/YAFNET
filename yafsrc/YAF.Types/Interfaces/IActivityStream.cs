@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -29,7 +29,7 @@ namespace YAF.Types.Interfaces
     /// </summary>
     public interface IActivityStream
     {
-        //void AddAlbumImageToStream(int forumID, long topicID, int messageID, string topicTitle, string message); 
+        // void AddAlbumImageToStream(int forumID, long topicID, int messageID, string topicTitle, string message); 
 
         /// <summary>
         /// Adds the New Topic to the User's ActivityStream
@@ -50,5 +50,73 @@ namespace YAF.Types.Interfaces
         /// <param name="topicTitle">The topic title.</param>
         /// <param name="message">The message.</param>
         void AddReplyToStream(int forumID, long topicID, int messageID, string topicTitle, string message);
+
+        /// <summary>
+        /// Add Mention to Users Stream
+        /// </summary>
+        /// <param name="userId">
+        /// The user id.
+        /// </param>
+        /// <param name="topicId">
+        /// The topic id.
+        /// </param>
+        /// <param name="messageId">
+        /// The message id.
+        /// </param>
+        /// <param name="fromUserId">
+        /// The from user id.
+        /// </param>
+        void AddMentionToStream(int userId, int topicId, int messageId, int fromUserId);
+
+        /// <summary>
+        /// Add Quoting to Users Stream
+        /// </summary>
+        /// <param name="userId">
+        /// The user id.
+        /// </param>
+        /// <param name="topicId">
+        /// The topic id.
+        /// </param>
+        /// <param name="messageId">
+        /// The message id.
+        /// </param>
+        /// <param name="fromUserId">
+        /// The from user id.
+        /// </param>
+        void AddQuotingToStream(int userId, int topicId, int messageId, int fromUserId);
+
+        /// <summary>
+        /// The add thanks received to stream.
+        /// </summary>
+        /// <param name="userId">
+        /// The user id.
+        /// </param>
+        /// <param name="topicId">
+        /// The topic id.
+        /// </param>
+        /// <param name="messageId">
+        /// The message id.
+        /// </param>
+        /// <param name="fromUserId">
+        /// The from user id.
+        /// </param>
+        void AddThanksReceivedToStream(int userId, int topicId, int messageId, int fromUserId);
+
+        /// <summary>
+        /// The add thanks given to stream.
+        /// </summary>
+        /// <param name="userId">
+        /// The user id.
+        /// </param>
+        /// <param name="topicId">
+        /// The topic id.
+        /// </param>
+        /// <param name="messageId">
+        /// The message id.
+        /// </param>
+        /// <param name="fromUserId">
+        /// The from user id.
+        /// </param>
+        void AddThanksGivenToStream(int userId, int topicId, int messageId, int fromUserId);
     }
 }

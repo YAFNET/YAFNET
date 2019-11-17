@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -28,13 +28,13 @@ namespace YAF.Core
 
     using System;
     using System.Collections.Generic;
-    using System.Diagnostics;
     using System.Linq;
     using System.Reflection;
 
     using Autofac;
     using Autofac.Core;
 
+    using YAF.Core.BaseModules;
     using YAF.Core.Extensions;
     using YAF.Types;
     using YAF.Types.Extensions;
@@ -43,7 +43,7 @@ namespace YAF.Core
     #endregion
 
     /// <summary>
-    /// 
+    /// The base module.
     /// </summary>
     public abstract class BaseModule : IModule, IHaveComponentRegistry, IHaveSortOrder
     {
@@ -59,31 +59,23 @@ namespace YAF.Core
         #region Constructors and Destructors
 
         /// <summary>
-        /// Initializes the <see cref="BaseModule"/> class.
+        /// Initializes static members of the <see cref="BaseModule"/> class.
         /// </summary>
         static BaseModule()
         {
-            ExtensionAssemblies =
-                new YafModuleScanner().GetModules("YAF*.dll")
-                    .Concat(
-                        AppDomain.CurrentDomain.GetAssemblies()
-                            .Where(
-                                a =>
-                                a.FullName.StartsWith("Autofac") && a.FullName.StartsWith("CookComputing.XmlRpcV2")
-                                && a.FullName.StartsWith("FarsiLibrary")
-                                && a.FullName.StartsWith("Intelligencia.UrlRewriter")
-                                && a.FullName.StartsWith("nStuff.UpdateControls")
-                                && a.FullName.StartsWith("Omu.ValueInjecter") && a.FullName.StartsWith("ServiceStack.")))
-                    .Except(new[] { Assembly.GetExecutingAssembly() })
-                    .Where(a => !a.IsDynamic)
-                    .Distinct()
-                    .OrderByDescending(x => x.GetAssemblySortOrder())
-                    .ToArray();
+            ExtensionAssemblies = new YafModuleScanner().GetModules("YAF*.dll")
+                .Concat(
+                    AppDomain.CurrentDomain.GetAssemblies().Where(
+                        a => a.FullName.StartsWith("Autofac") && a.FullName.StartsWith("FarsiLibrary")
+                                                              && a.FullName.StartsWith("ServiceStack.")))
+                .Except(new[] { Assembly.GetExecutingAssembly() }).Where(a => !a.IsDynamic).Distinct()
+                .OrderByDescending(x => x.GetAssemblySortOrder()).ToArray();
 #if DEBUG
             foreach (var s in ExtensionAssemblies)
             {
-                Debug.WriteLine("Extension Assembly: {0}", s);
+                System.Diagnostics.Debug.WriteLine("Extension Assembly: {0}", s);
             }
+
 #endif
         }
 
@@ -102,13 +94,7 @@ namespace YAF.Core
         /// <value>
         /// The sort order.
         /// </value>
-        public virtual int SortOrder
-        {
-            get
-            {
-                return 1000;
-            }
-        }
+        public virtual int SortOrder => 1000;
 
         #endregion
 
@@ -162,14 +148,9 @@ namespace YAF.Core
 
             using (var moduleContainer = moduleFinder.Build())
             {
-                var modules = moduleContainer.Resolve<IEnumerable<IModule>>()
-                    .ByOptionalSortOrder()
-                    .ToList();
+                var modules = moduleContainer.Resolve<IEnumerable<IModule>>().ByOptionalSortOrder().ToList();
 
-                foreach (var module in modules)
-                {
-                    builder.RegisterModule(module);
-                }
+                modules.ForEach(module => builder.RegisterModule(module));
             }
 
             this.UpdateRegistry(builder);

@@ -30,12 +30,9 @@
 
 namespace YAF.Core.Services.Auth
 {
-    using System;
     using System.Collections.Generic;
     using System.IO;
     using System.Net;
-
-    using YAF.Types.Interfaces;
 
     /// <summary>
     /// AUTH Utilities
@@ -100,14 +97,13 @@ namespace YAF.Core.Services.Auth
         /// </returns>
         public static string WebRequest(Method method, string url, string postData, List<KeyValuePair<string, string>> headers)
         {
-            HttpWebRequest webRequest = System.Net.WebRequest.Create(url) as HttpWebRequest;
-
+            var webRequest = System.Net.WebRequest.Create(url) as HttpWebRequest;
             webRequest.Method = method.ToString();
             webRequest.ServicePoint.Expect100Continue = false;
 
             if (headers != null)
             {
-                foreach (KeyValuePair<string, string> header in headers)
+                foreach (var header in headers)
                 {
                     webRequest.Headers.Add(header.Key, header.Value);
                 }
@@ -118,7 +114,7 @@ namespace YAF.Core.Services.Auth
                 webRequest.ContentType = "application/x-www-form-urlencoded;charset=UTF-8";
 
                 // POST the data.
-                StreamWriter requestWriter = new StreamWriter(webRequest.GetRequestStream());
+                var requestWriter = new StreamWriter(webRequest.GetRequestStream());
                 try
                 {
                     requestWriter.Write(postData);
@@ -129,7 +125,7 @@ namespace YAF.Core.Services.Auth
                 }
             }
 
-            string responseData = WebResponseGet(webRequest);
+            var responseData = WebResponseGet(webRequest);
 
             return responseData;
         }
@@ -157,10 +153,7 @@ namespace YAF.Core.Services.Auth
             {
                 webRequest.GetResponse().GetResponseStream().Close();
 
-                if (responseReader != null)
-                {
-                    responseReader.Close();
-                }
+                responseReader?.Close();
             }
 
             return responseData;

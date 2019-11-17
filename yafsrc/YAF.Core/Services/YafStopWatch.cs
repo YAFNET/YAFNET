@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -40,13 +40,7 @@ namespace YAF.Core.Services
     /// <summary>
     /// Gets Watch.
     /// </summary>
-    public Stopwatch Watch
-    {
-      get
-      {
-        return this._stopWatch;
-      }
-    }
+    public Stopwatch Watch => this._stopWatch;
 
     /// <summary>
     /// Gets Duration.
@@ -55,7 +49,7 @@ namespace YAF.Core.Services
     {
       get
       {
-        double duration = (double) this._stopWatch.ElapsedMilliseconds/1000.0;
+          var duration = this._stopWatch.ElapsedMilliseconds / 1000.0;
         return duration;
       }
     }

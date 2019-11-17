@@ -8,10 +8,13 @@
 //------------------------------------------------------------------------------
 
 namespace YAF.Pages {
-    
-    
+    using System.Web.UI.WebControls;
+
+    using YAF.Web.Controls;
+
     public partial class deletemessage {
         
+
         /// <summary>
         /// PageLinks control.
         /// </summary>
@@ -19,8 +22,9 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.PageLinks PageLinks;
+        protected PageLinks PageLinks;
         
+
         /// <summary>
         /// Title control.
         /// </summary>
@@ -28,17 +32,9 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Title;
+        protected Label Title;
         
-        /// <summary>
-        /// SubjectRow control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableRow SubjectRow;
-        
+
         /// <summary>
         /// Subject control.
         /// </summary>
@@ -46,8 +42,9 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Subject;
+        protected Label Subject;
         
+
         /// <summary>
         /// PreviewRow control.
         /// </summary>
@@ -55,8 +52,9 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableRow PreviewRow;
+        protected PlaceHolder PreviewRow;
         
+
         /// <summary>
         /// MessagePreview control.
         /// </summary>
@@ -64,8 +62,9 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.MessagePost MessagePreview;
+        protected MessagePost MessagePreview;
         
+
         /// <summary>
         /// DeleteReasonRow control.
         /// </summary>
@@ -73,8 +72,9 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableRow DeleteReasonRow;
+        protected PlaceHolder DeleteReasonRow;
         
+
         /// <summary>
         /// ReasonEditor control.
         /// </summary>
@@ -82,8 +82,9 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox ReasonEditor;
+        protected TextBox ReasonEditor;
         
+
         /// <summary>
         /// EraseRow control.
         /// </summary>
@@ -91,8 +92,9 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableRow EraseRow;
+        protected PlaceHolder EraseRow;
         
+
         /// <summary>
         /// EraseMessage control.
         /// </summary>
@@ -100,8 +102,9 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox EraseMessage;
+        protected CheckBox EraseMessage;
         
+
         /// <summary>
         /// Delete control.
         /// </summary>
@@ -109,8 +112,9 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Delete;
+        protected ThemeButton Delete;
         
+
         /// <summary>
         /// Cancel control.
         /// </summary>
@@ -118,8 +122,9 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Cancel;
+        protected ThemeButton Cancel;
         
+
         /// <summary>
         /// LinkedPosts control.
         /// </summary>
@@ -127,15 +132,6 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater LinkedPosts;
-        
-        /// <summary>
-        /// SmartScroller1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Controls.SmartScroller SmartScroller1;
+        protected Repeater LinkedPosts;
     }
 }

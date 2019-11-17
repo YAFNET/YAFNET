@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -27,19 +27,22 @@ namespace YAF.Core.Services
     using System.Data;
     using System.Text;
     using System.Web;
-    using System.Web.Security;
-    using YAF.Classes;
-    using YAF.Classes.Data;
+
+    using YAF.Configuration;
+    using YAF.Core.Extensions;
+    using YAF.Core.Model;
+    using YAF.Core.UsersRoles;
     using YAF.Types;
     using YAF.Types.Constants;
-    using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Models;
+    using YAF.Types.Objects;
     using YAF.Utils;
 
     /// <summary>
     /// Yaf ThankYou Class to handle Thanks
     /// </summary>
-    public class YafThankYou
+    public class YafThankYou : IThankYou
     {
         #region Public Methods
 
@@ -55,11 +58,11 @@ namespace YAF.Core.Services
         /// The get thanks.
         /// </returns>
         [NotNull]
-        public static string GetThanks([NotNull] int messageId)
+        public string GetThanks([NotNull] int messageId)
         {
             var filler = new StringBuilder();
 
-            using (DataTable dt = LegacyDb.message_GetThanks(messageId))
+            using (var dt = YafContext.Current.GetRepository<Thanks>().MessageGetThanksAsDataTable(messageId))
             {
                 foreach (DataRow dr in dt.Rows)
                 {
@@ -70,7 +73,7 @@ namespace YAF.Core.Services
 
                     var name = YafContext.Current.Get<YafBoardSettings>().EnableDisplayName
                                    ? YafContext.Current.Get<HttpServerUtilityBase>()
-                                         .HtmlEncode(dr["DisplayName"].ToString())
+                                       .HtmlEncode(dr["DisplayName"].ToString())
                                    : YafContext.Current.Get<HttpServerUtilityBase>().HtmlEncode(dr["Name"].ToString());
 
                     // vzrus: quick fix for the incorrect link. URL rewriting don't work :(
@@ -84,7 +87,9 @@ namespace YAF.Core.Services
                     {
                         filler.AppendFormat(
                             @" {0}",
-                            YafContext.Current.Get<ILocalization>().GetText("DEFAULT", "ONDATE").FormatWith(YafContext.Current.Get<IDateTime>().FormatDateShort(dr["ThanksDate"])));
+                            string.Format(
+                                YafContext.Current.Get<ILocalization>().GetText("DEFAULT", "ONDATE"),
+                                YafContext.Current.Get<IDateTime>().FormatDateShort(dr["ThanksDate"])));
                     }
                 }
             }
@@ -111,22 +116,21 @@ namespace YAF.Core.Services
         /// Returns ThankYou Info
         /// </returns>
         [NotNull]
-        public static ThankYouInfo CreateThankYou(
-          [NotNull] string username, [NotNull] string textTag, [NotNull] string titleTag, int messageId)
+        public ThankYouInfo CreateThankYou(
+            [NotNull] string username,
+            [NotNull] string textTag,
+            [NotNull] string titleTag,
+            int messageId)
         {
             return new ThankYouInfo
-            {
-                MessageID = messageId,
-                ThanksInfo = ThanksNumber(username, messageId),
-                Thanks = GetThanks(messageId),
-                Text = YafContext.Current.Get<ILocalization>().GetText("BUTTON", textTag),
-                Title = YafContext.Current.Get<ILocalization>().GetText("BUTTON", titleTag)
-            };
+                       {
+                           MessageID = messageId,
+                           ThanksInfo = YafContext.Current.Get<IThankYou>().ThanksNumber(username, messageId),
+                           Thanks = YafContext.Current.Get<IThankYou>().GetThanks(messageId),
+                           Text = YafContext.Current.Get<ILocalization>().GetText("BUTTON", textTag),
+                           Title = YafContext.Current.Get<ILocalization>().GetText("BUTTON", titleTag)
+                       };
         }
-
-         #endregion
-
-        #region Methods
 
         /// <summary>
         /// This method returns a string which shows how many times users have
@@ -141,20 +145,19 @@ namespace YAF.Core.Services
         /// <returns>
         /// The thanks number.
         /// </returns>
-        protected static string ThanksNumber([NotNull] string username, int messageID)
+        public string ThanksNumber([NotNull] string username, int messageID)
         {
-            int thanksNumber = LegacyDb.message_ThanksNumber(messageID);
+            var thanksNumber = YafContext.Current.GetRepository<Thanks>().Count(t => t.MessageID == messageID);
 
-            string displayName = username;
+            var displayName = username;
             if (YafContext.Current.Get<YafBoardSettings>().EnableDisplayName)
             {
                 // get the user's display name.
-                MembershipUser mu = UserMembershipHelper.GetMembershipUserByName(username);
+                var mu = UserMembershipHelper.GetMembershipUserByName(username);
                 if (mu != null)
                 {
                     displayName = YafContext.Current.Get<IUserDisplayName>().GetName(
-                        UserMembershipHelper.GetUserIDFromProviderUserKey(
-                            mu.ProviderUserKey));
+                        UserMembershipHelper.GetUserIDFromProviderUserKey(mu.ProviderUserKey));
                 }
             }
 
@@ -167,75 +170,21 @@ namespace YAF.Core.Services
                 case 0:
                     return string.Empty;
                 case 1:
-                    thanksText =
-                        YafContext.Current.Get<ILocalization>().GetText("POSTS", "THANKSINFOSINGLE").FormatWith(
-                            displayName);
+                    thanksText = string.Format(
+                        YafContext.Current.Get<ILocalization>().GetText("POSTS", "THANKSINFOSINGLE"),
+                        displayName);
 
-                    return
-                        "<img id=\"ThanksInfoImage{0}\" src=\"{1}\"  runat=\"server\" title=\"{2}\" />&nbsp;{2}".FormatWith(
-                                messageID,
-                                YafContext.Current.Get<ITheme>().GetItem("ICONS", "THANKSINFOLIST_IMAGE"),
-                                thanksText);
+                    return $"<i class=\"fa fa-heart\" style=\"color:#e74c3c\"></i>&nbsp;{thanksText}";
             }
 
-            thanksText = YafContext.Current.Get<ILocalization>().GetText("POSTS", "THANKSINFO").FormatWith(thanksNumber, displayName);
+            thanksText = string.Format(
+                YafContext.Current.Get<ILocalization>().GetText("POSTS", "THANKSINFO"),
+                thanksNumber,
+                displayName);
 
-            return
-                "<img id=\"ThanksInfoImage{0}\" src=\"{1}\"  runat=\"server\" title=\"{2}\" />&nbsp;{2}".FormatWith(
-                    messageID, YafContext.Current.Get<ITheme>().GetItem("ICONS", "THANKSINFOLIST_IMAGE"), thanksText);
+            return $"<i class=\"fa fa-heart\" style=\"color:#e74c3c\"></i>&nbsp;{thanksText}";
         }
 
         #endregion
-    }
-
-    /// <summary>
-    /// Thank You Info
-    /// </summary>
-    public class ThankYouInfo
-    {
-        /// <summary>
-        /// Gets or sets Text.
-        /// </summary>
-        public string Text
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// Gets or sets Title.
-        /// </summary>
-        public string Title
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// Gets or sets MessageID.
-        /// </summary>
-        public int MessageID
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// Gets or sets ThanksInfo.
-        /// </summary>
-        public string ThanksInfo
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// Gets or sets Thanks.
-        /// </summary>
-        public string Thanks
-        {
-            get;
-            set;
-        }
     }
 }

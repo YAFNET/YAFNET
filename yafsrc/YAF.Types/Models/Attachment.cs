@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -61,21 +61,29 @@ namespace YAF.Types.Models
         /// <summary>
         /// Gets or sets the message id.
         /// </summary>
+
+        // [Default(0)]
         public int MessageID { get; set; }
 
         /// <summary>
         /// Gets or sets the file name.
         /// </summary>
+        [Required]
+        [StringLength(255)]
         public string FileName { get; set; }
 
         /// <summary>
         /// Gets or sets the bytes.
         /// </summary>
+        [Required]
         public int Bytes { get; set; }
 
         /// <summary>
         /// Gets or sets the user id.
         /// </summary>
+        [References(typeof(User))]
+        [Required]
+        [Default(0)]
         public int UserID { get; set; }
 
         /// <summary>
@@ -86,6 +94,7 @@ namespace YAF.Types.Models
         /// <summary>
         /// Gets or sets the downloads.
         /// </summary>
+        [Required]
         public int Downloads { get; set; }
 
         /// <summary>

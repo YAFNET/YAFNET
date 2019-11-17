@@ -1,59 +1,76 @@
 <%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Admin.nntpservers"
     CodeBehind="nntpservers.ascx.cs" %>
-<%@ Register TagPrefix="YAF" Namespace="YAF.Controls" %>
+<%@ Register TagPrefix="modal" TagName="Edit" Src="../../Dialogs/NntpServerEdit.ascx" %>
+
+
 <YAF:PageLinks runat="server" ID="PageLinks" />
-<YAF:AdminMenu runat="server">
-    <table class="content" width="100%" cellspacing="1" cellpadding="0">
-        <tr>
-            <td class="header1" colspan="6">
-                <YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_NNTPSERVERS" />
-            </td>
-        </tr>
-        <asp:Repeater ID="RankList" runat="server">
+
+    <div class="row">
+    <div class="col-xl-12">
+        <h1><YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_NNTPSERVERS" /></h1>
+    </div>
+    </div>
+    <div class="row">
+        <div class="col-xl-12">
+            <div class="card mb-3">
+                <div class="card-header">
+                    <i class="fa fa-newspaper fa-fw text-secondary"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_NNTPSERVERS" />
+                </div>
+                <div class="card-body">
+                    <asp:Repeater ID="RankList" runat="server">
             <HeaderTemplate>
-                <tr>
-                    <td class="header2">
-                        <YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedTag="NAME" LocalizedPage="ADMIN_NNTPSERVERS" />
-                    </td>
-                    <td class="header2">
-                        <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="ADRESS" LocalizedPage="ADMIN_NNTPSERVERS" />
-                    </td>
-                    <td class="header2">
-                        <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="USERNAME" LocalizedPage="ADMIN_NNTPSERVERS" />
-                    </td>
-                    <td class="header2">
-                        &nbsp;
-                    </td>
-                </tr>
+                <ul class="list-group">
             </HeaderTemplate>
             <ItemTemplate>
-                <tr>
-                    <td class="post">
-                        <%# Eval( "Name") %>
-                    </td>
-                    <td class="post">
-                        <%# Eval( "Address") %>
-                    </td>
-                    <td class="post">
-                        <%# Eval( "UserName") %>
-                    </td>
-                    <td class="post rightItem">
-                        <asp:LinkButton runat="server" CommandName="edit" CommandArgument='<%# Eval( "NntpServerID") %>'>
-                            <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="EDIT" LocalizedPage="ADMIN_NNTPFORUMS" />
-                        </asp:LinkButton>
-                        |
-                        <asp:LinkButton runat="server" OnLoad="Delete_Load" CommandName="delete" CommandArgument='<%# Eval( "NntpServerID") %>'>
-                            <YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="DELETE" LocalizedPage="ADMIN_NNTPFORUMS" />
-                        </asp:LinkButton>
-                    </td>
-                </tr>
+                <li class="list-group-item list-group-item-action">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1">
+                            <%# this.Eval("Name") %>
+                        </h5>
+                    </div>
+                    <p class="mb-1">
+                        <span class="font-weight-bold">
+                            <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="ADRESS" LocalizedPage="ADMIN_NNTPSERVERS" />:&nbsp;
+                        </span>
+                        <%# this.Eval("Address") %>
+                    </p>
+                    <small>
+                        <YAF:ThemeButton runat="server" 
+                                         CommandName="edit" 
+                                         CommandArgument='<%# this.Eval( "ID") %>' 
+                                         Type="Info" 
+                                         Size="Small"
+                                         Icon="edit" 
+                                         TextLocalizedTag="EDIT">
+                        </YAF:ThemeButton>
+                        <YAF:ThemeButton runat="server"  
+                                         Type="Danger" 
+                                         Size="Small"
+                                         CommandName="delete" 
+                                         CommandArgument='<%# this.Eval( "ID") %>'
+                                         Icon="trash" 
+                                         TextLocalizedTag="DELETE"
+                                         ReturnConfirmText='<%#  this.GetText("ADMIN_NNTPSERVERS", "DELETE_SERVER") %>'>
+                        </YAF:ThemeButton>
+                    </small>
+                </li>
             </ItemTemplate>
+                        <FooterTemplate>
+                            </ul>
+                        </FooterTemplate>
         </asp:Repeater>
-        <tr>
-            <td class="footer1" colspan="5" align="center">
-                <asp:Button ID="NewServer" runat="server" CssClass="pbutton" OnClick="NewServer_Click" />
-            </td>
-        </tr>
-    </table>
-</YAF:AdminMenu>
-<YAF:SmartScroller ID="SmartScroller1" runat="server" />
+                    </div>
+                    <div class="card-footer text-center">
+                    <YAF:ThemeButton ID="NewServer" runat="server" 
+                                     Type="Primary" 
+                                     OnClick="NewServerClick"
+                                     Icon="plus-square" 
+                                     TextLocalizedTag="NEW_SERVER" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+<modal:Edit ID="EditDialog" runat="server" />

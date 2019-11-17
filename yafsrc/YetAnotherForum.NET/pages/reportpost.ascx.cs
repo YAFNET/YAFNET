@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -27,19 +27,20 @@ namespace YAF.Pages
     #region Using
 
     using System;
-    using System.Data;
     using System.Web;
 
-    using YAF.Classes;
-    using YAF.Classes.Data;
-    using YAF.Controls;
+    using YAF.Configuration;
     using YAF.Core;
+    using YAF.Core.Extensions;
     using YAF.Core.Helpers;
+    using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Models;
     using YAF.Utils;
+    using YAF.Web.Extensions;
 
     #endregion
 
@@ -48,8 +49,6 @@ namespace YAF.Pages
     /// </summary>
     public partial class ReportPost : ForumPage
     {
-        // messageid
-
         #region Constants and Fields
 
         /// <summary>
@@ -67,7 +66,6 @@ namespace YAF.Pages
         #endregion
 
         //// Class constructor
-
         #region Constructors and Destructors
 
         /// <summary>
@@ -118,7 +116,7 @@ namespace YAF.Pages
             }
 
             // Save the reported message
-            LegacyDb.message_report(
+            this.GetRepository<Message>().Report(
                 this.messageID,
                 this.PageContext.PageUserID,
                 DateTime.UtcNow,
@@ -127,7 +125,7 @@ namespace YAF.Pages
             // Send Notification to Mods about the Reported Post.
             if (this.Get<YafBoardSettings>().EmailModeratorsOnReportedPost)
             {
-                // not approved, notifiy moderators
+                // not approved, notify moderators
                 this.Get<ISendNotification>()
                     .ToModeratorsThatMessageWasReported(
                         this.PageContext.PageForumID,
@@ -162,8 +160,7 @@ namespace YAF.Pages
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
             // set attributes of editor
-            this.reportEditor.BaseDir = "{0}Scripts".FormatWith(YafForumInfo.ForumClientFileRoot);
-            this.reportEditor.StyleSheet = this.Get<ITheme>().BuildThemePath("theme.css");
+            this.reportEditor.BaseDir = $"{YafForumInfo.ForumClientFileRoot}Scripts";
 
             if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("m").IsSet())
             {
@@ -173,7 +170,7 @@ namespace YAF.Pages
                     YafBuildLink.Redirect(ForumPages.info, "i=1");
                 }
 
-                if (!Int32.TryParse(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("m"), out this.messageID))
+                if (!int.TryParse(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("m"), out this.messageID))
                 {
                     YafBuildLink.Redirect(ForumPages.error, "Incorrect message value: {0}", this.messageID);
                 }
@@ -185,13 +182,13 @@ namespace YAF.Pages
             }
 
             // Get reported message text for better quoting                    
-            DataTable messageRow = LegacyDb.message_secdata(this.messageID, this.PageContext.PageUserID);
+            var messageRow = this.GetRepository<Message>().SecAsDataTable(this.messageID, this.PageContext.PageUserID);
 
             // Checking if the user has a right to view the message and getting data  
             if (messageRow.HasRows())
             {
                 // populate the repeater with the message datarow...
-                this.MessageList.DataSource = LegacyDb.message_secdata(this.messageID, this.PageContext.PageUserID);
+                this.MessageList.DataSource = messageRow;
                 this.MessageList.DataBind();
             }
             else
@@ -201,9 +198,6 @@ namespace YAF.Pages
 
             // Get Forum Link
             this.PageLinks.AddRoot();
-            this.btnReport.Attributes.Add(
-                "onclick",
-                "return confirm('{0}');".FormatWith(this.GetText("CONFIRM_REPORTPOST")));
         }
 
         /// <summary>

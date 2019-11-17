@@ -1,91 +1,92 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" Inherits="YAF.Controls.EditUsersKill" CodeBehind="EditUsersKill.ascx.cs" %>
-<table class="content" style="width:100%">
-    <tr runat="server" id="trHeader">
-        <td class="header1" colspan="2">
+
+
+<h2 runat="server" id="trHeader">
+
             <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="HEAD_KILL_USER" LocalizedPage="ADMIN_EDITUSER" />
-        </td>
-    </tr>
-    <tr>
-        <td class="header2" style="height:30px;" colspan="2"></td>
-    </tr>
-    <tr>
-        <td class="postheader">
-            <strong>
+        </h2>
+    <hr />
+
+        <h4>
                 <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="IP_ADDRESSES" LocalizedPage="ADMIN_EDITUSER" />
-            </strong>
-        </td>
-        <td class="post">
+        </h4>
+        <p>
             <asp:Literal ID="IpAddresses" runat="server"></asp:Literal>
-        </td>
-    </tr>
-    <tr>
-        <td class="postheader">
+        </p>
+    <hr />
+
+        <h4>
             <strong>
                 <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="BAN_EMAIL_OFUSER" LocalizedPage="ADMIN_EDITUSER" />
             </strong>
-        </td>
-        <td class="post">
-            <asp:CheckBox ID="BanEmail" runat="server" Checked="true" />
-        </td>
-    </tr>
-    <tr>
-        <td class="postheader">
+        </h4>
+        <div class="custom-control custom-switch">
+            <asp:CheckBox Text="&nbsp;" ID="BanEmail" runat="server" Checked="true" />
+        </div>
+    <hr />
+
+        <h4>
             <strong>
                 <YAF:LocalizedLabel ID="LocalizedLabel8" runat="server" LocalizedTag="BAN_IP_OFUSER" LocalizedPage="ADMIN_EDITUSER" />
             </strong>
-        </td>
-        <td class="post">
-            <asp:CheckBox ID="BanIps" runat="server" Checked="true" />
-        </td>
-    </tr>
-    <tr>
-        <td class="postheader">
+        </h4>
+        <div class="custom-control custom-switch">
+            <asp:CheckBox Text="&nbsp;" ID="BanIps" runat="server" Checked="true" />
+        </div>
+    <hr />
+
+        <h4>
             <strong>
                 <YAF:LocalizedLabel ID="LocalizedLabel9" runat="server" LocalizedTag="BAN_NAME_OFUSER" LocalizedPage="ADMIN_EDITUSER" />
             </strong>
-        </td>
-        <td class="post">
-            <asp:CheckBox ID="BanName" runat="server" Checked="true" />
-        </td>
-    </tr>
-    <tr>
-        <td class="postheader">
+        </h4>
+        <div class="custom-control custom-switch">
+            <asp:CheckBox Text="&nbsp;" ID="BanName" runat="server" Checked="true" />
+        </div>
+    <hr />
+
+        <h4>
             <strong>
                 <YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="SUSPEND_OR_DELETE_ACCOUNT" LocalizedPage="ADMIN_EDITUSER" />
             </strong>
-        </td>
-        <td class="post">
-            <asp:DropDownList runat="server" ID="SuspendOrDelete" CssClass="standardSelectMenu">
-            </asp:DropDownList>
+        </h4>
+            <div class="custom-control custom-radio custom-control-inline">
+                <asp:RadioButtonList runat="server" ID="SuspendOrDelete" 
+                                     RepeatLayout="UnorderedList"
+                                     CssClass="list-unstyled">
+                </asp:RadioButtonList>
+            </div>
             <asp:Literal ID="SuspendedTo" runat="server"></asp:Literal>
-        </td>
-    </tr>
-    <tr>
-        <td class="postheader">
+<hr />
+
+        <h4>
             <strong>
                 <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="DELETE_POSTS_USER" LocalizedPage="ADMIN_EDITUSER" />
             </strong>
-        </td>
-        <td class="post">
+        </h4>
+        <p>
             <strong>
                 <asp:Literal ID="PostCount" runat="server"></asp:Literal></strong> (<asp:HyperLink ID="ViewPostsLink" runat="server" Target="_blank">
                     <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="VIEW_ALL" LocalizedPage="ADMIN_EDITUSER" />
                 </asp:HyperLink>)
-        </td>
-    </tr>
-    <tr runat="server" ID="ReportUserRow">
-        <td class="postheader">
+        </p>
+
+    <asp:PlaceHolder runat="server" ID="ReportUserRow">
+         <hr />
+        <h4>
             <strong>
                 <YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedTag="REPORT_USER" LocalizedPage="ADMIN_EDITUSER" />
             </strong>
-        </td>
-        <td class="post">
-            <asp:CheckBox ID="ReportUser" runat="server" />
-        </td>
-    </tr>
-    <tr>
-        <td colspan="2" class="footer1" style="text-align:center;">
-            <asp:Button runat="server" ID="Kill" Text="Kill User" CssClass="pbutton" OnClick="Kill_OnClick" />
-        </td>
-    </tr>
-</table>
+        </h4>
+        <div class="custom-control custom-switch">
+            <asp:CheckBox Text="&nbsp;" ID="ReportUser" runat="server" />
+        </div>
+        </asp:PlaceHolder>
+
+                <div class="text-lg-center">
+
+            <YAF:ThemeButton runat="server" ID="Kill" Type="Primary" OnClick="Kill_OnClick"
+                             Icon="ban" TextLocalizedPage="ADMIN_EDITUSER" TextLocalizedTag="HEAD_KILL_USER"
+                             ReturnConfirmText='<%# this.GetText("ADMIN_EDITUSER", "KILL_USER_CONFIRM") %>'>
+            </YAF:ThemeButton>
+            </div>

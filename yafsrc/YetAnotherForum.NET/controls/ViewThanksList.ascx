@@ -1,87 +1,74 @@
 <%@ Control Language="C#" AutoEventWireup="true" Inherits="YAF.Controls.ViewThanksList"
     CodeBehind="ViewThanksList.ascx.cs" %>
-<%@ Import Namespace="YAF.Core" %>
 <%@ Import Namespace="YAF.Types.Constants" %>
-<%@ Import Namespace="YAF.Utils" %>
 <%@ Import Namespace="YAF.Types.Interfaces" %>
 <%@ Import Namespace="YAF.Types.Extensions" %>
-<table class="command" cellspacing="0" cellpadding="0" width="100%">
-    <tr>
-        <td>
-            <YAF:Pager runat="server" ID="PagerTop" OnPageChange="Pager_PageChange" />
-        </td>
-    </tr>
-</table>
+<%@ Import Namespace="System.Data" %>
+<%@ Import Namespace="YAF.Core.Extensions" %>
+
+<div class="row">
+    <div class="col">
+        <YAF:Pager runat="server" ID="PagerTop" OnPageChange="Pager_PageChange" />
+    </div>
+</div>
+
 <asp:Repeater ID="ThanksRes" runat="server" OnItemCreated="ThanksRes_ItemCreated">
     <HeaderTemplate>
-        <table class="content" cellspacing="1" cellpadding="0" width="100%">
+        <div class="row">
+            <div class="col">
     </HeaderTemplate>
     <ItemTemplate>
-        <tr class="header2">
-            <td colspan="2">
-                 <b>
-                      <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="topic" />
-                        </b><a title='<%# this.GetText("COMMON", "VIEW_TOPIC") %>' href="<%# YafBuildLink.GetLink(ForumPages.posts,"t={0}", Container.DataItemToField<int>("TopicID")) %>">
-                            <%# this.HtmlEncode(Container.DataItemToField<string>("Topic")) %>
-                        </a>
-                        <a id="AncPost"  href="<%# YafBuildLink.GetLink(ForumPages.posts,"m={0}#post{0}", Container.DataItemToField<int>("MessageID")) %>" runat="server">&nbsp;
-                           <img id="ImgPost" runat="server" title='<%#  this.GetText("GO_LAST_POST") %>' alt='<%#  this.GetText("GO_TO_LASTPOST") %>' src='<%#  this.Get<ITheme>().GetItem("ICONS", "ICON_LATEST") %>' />
-                        </a>
-            </td>
-        </tr>
-        <tr class="postheader">
-            <td width="140px" id="ThanksNumberCell" valign="top" runat="server">
-                <%# String.Format(this.GetText("THANKSNUMBER"),  Container.DataItemToField<int?>("MessageThanksNumber")) %>
-            </td>
-            <td width="140px" id="NameCell" valign="top" runat="server">
-                <a name="<%# Container.DataItemToField<int>("MessageID") %>" /><b>
-                    <YAF:UserLink ID="UserLink1" runat="server" UserID='<%# Container.DataItemToField<int>("UserID") %> ' />
-                </b>
-                <YAF:OnlineStatusImage ID="OnlineStatusImage" runat="server" Visible='<%# PageContext.BoardSettings.ShowUserOnlineStatus && !UserMembershipHelper.IsGuestUser( Container.DataItemToField<int>("UserID") )%>'
-                    Style="vertical-align: bottom" UserID='<%# Container.DataItemToField<int>("UserID") %>' />
-            </td>
-            <td width="80%" class="postheader">
-                <b>
-                    <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="POSTED" />
-                </b>
-                <YAF:DisplayDateTime ID="PostedDateTime" runat="server" DateTime='<%# Container.DataItemToField<DateTime>("Posted") %>'></YAF:DisplayDateTime>
-            </td>
-        </tr>
-        <tr class="<%# this.IsOdd() ? "post_alt" : "post" %>">
-            <td colspan="2">
-                <YAF:MessagePostData ID="MessagePostPrimary" runat="server" ShowAttachments="false"
-                    ShowSignature="false" DataRow="<%# Container.DataItem %>">
-                </YAF:MessagePostData>
-            </td>
-        </tr>
+        <div class="card w-100 mb-3">
+            <div class="card-header">
+                <h6>
+                    <YAF:ThemeButton runat="server"
+                                     TitleLocalizedPage="COMMON" TitleLocalizedTag="VIEW_TOPIC"
+                                     NavigateUrl='<%# YafBuildLink.GetLink(ForumPages.posts,"m={0}#post{0}", Container.DataItemToField<int>("MessageID")) %>'
+                                     Type="Link"
+                                     Text='<%# this.HtmlEncode(Container.DataItemToField<string>("Topic")) %>'>
+                    </YAF:ThemeButton>
+                    <small class="text-muted">
+                        <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="POSTED" />
+                        <YAF:DisplayDateTime ID="PostedDateTime" runat="server" 
+                                             DateTime='<%# Container.DataItemToField<DateTime>("Posted") %>'>
+                        </YAF:DisplayDateTime>
+                    </small>
+                </h6>
+            </div>
+            <div class="card-body">
+                <p class="card-text">
+                    <YAF:MessagePostData ID="MessagePostPrimary" runat="server" ShowAttachments="false"
+                                         ShowSignature="false" DataRow="<%# (DataRow)Container.DataItem %>">
+                    </YAF:MessagePostData>
+                </p>
+            </div><div class="card-footer">
+                <small class="text-muted">
+                    <asp:PlaceHolder id="ThanksNumberCell" runat="server">
+                        <i class="fas fa-heart text-danger"></i>
+                        <%# string.Format(this.GetText("THANKSNUMBER"),  Container.DataItemToField<int?>("MessageThanksNumber")) %>
+                    </asp:PlaceHolder>
+                    <asp:PlaceHolder id="NameCell" runat="server">
+                        <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="POSTEDBY" />
+                        <YAF:UserLink ID="UserLink1" runat="server" UserID='<%# Container.DataItemToField<int>("UserID") %>' />
+                    </asp:PlaceHolder>
+                </small>
+                
+            </div>
+        </div>
     </ItemTemplate>
     <FooterTemplate>
-        <tr>
-            <td class="footer1" colspan="2">
-            </td>
-        </tr>
-        </table>
+            </div>
+        </div>
     </FooterTemplate>
 </asp:Repeater>
 <asp:PlaceHolder ID="NoResults" runat="Server" Visible="false">
-    <table class="content" cellspacing="1" cellpadding="0" width="100%">
-        <tr>
-            <td class="postheader" colspan="2" align="center">
-                <br />
-                <YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedTag="NO_THANKS" />
-                <br />
-            </td>
-        </tr>
-        <tr>
-            <td class="footer1" colspan="2">
-            </td>
-        </tr>
-    </table>
+    <YAF:Alert runat="server" Type="info">
+        <YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedTag="NO_THANKS" />
+    </YAF:Alert>
 </asp:PlaceHolder>
-<table class="command" width="100%" cellspacing="0" cellpadding="0">
-    <tr>
-        <td>
-            <YAF:Pager runat="server" ID="PagerBottom" LinkedPager="PagerTop" OnPageChange="Pager_PageChange" />
-        </td>
-    </tr>
-</table>
+
+<div class="row">
+    <div class="col">
+        <YAF:Pager runat="server" ID="PagerBottom" LinkedPager="PagerTop" OnPageChange="Pager_PageChange" />
+    </div>
+</div>

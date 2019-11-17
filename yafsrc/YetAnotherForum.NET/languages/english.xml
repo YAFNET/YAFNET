@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Resources xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xml="http://www.w3.org/XML/1998/namespace" language="English" code="en">
+<Resources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" language="English" code="en">
  <page name="ACTIVELOCATION">
   <Resource tag="ACTIVEUSERS">Views Active Users list</Resource>
   <Resource tag="ADMIN_ACCESSMASKS">Views access masks</Resource>
@@ -10,6 +10,7 @@
   <Resource tag="ADMIN_BANNEDIP">Views banned IPs list</Resource>
   <Resource tag="ADMIN_BANNEDIP_EDIT">Edits banned IPs</Resource>
   <Resource tag="ADMIN_BANNEDIP_IMPORT">Imports banned ips</Resource>
+  <Resource tag="ADMIN_BANNEDNAME">Views banned Names list</Resource>
   <Resource tag="ADMIN_BANNEDNAME">Views banned Names list</Resource>
   <Resource tag="ADMIN_BANNEDNAME_EDIT">Edits banned Names</Resource>
   <Resource tag="ADMIN_BANNEDNAME_IMPORT">Imports banned Names</Resource>
@@ -57,11 +58,7 @@
   <Resource tag="ADMIN_SPAMWORDS_IMPORT">Imports spam words</Resource>
   <Resource tag="ADMIN_RESTARTAPP">Restarts application</Resource>
   <Resource tag="ADMIN_RUNSQL">Runs SQL query</Resource>
-  <Resource tag="ADMIN_SMILIES">Views smilies</Resource>
-  <Resource tag="ADMIN_SMILIES_EDIT">Edits smilies</Resource>
-  <Resource tag="ADMIN_SMILIES_IMPORT">Imports smilies</Resource>
   <Resource tag="ADMIN_TASKMANAGER">Views/manages task manager</Resource>
-  <Resource tag="ADMIN_TEST_DATA">Views/edits test data generator</Resource>
   <Resource tag="ADMIN_TOPICSTATUS">Views admin topic status</Resource>
   <Resource tag="ADMIN_TOPICSTATUS_EDIT">Edits Topic Status</Resource>
   <Resource tag="ADMIN_TOPICSTATUS_IMPORT">Imports topic status</Resource>
@@ -79,11 +76,13 @@
   <Resource tag="ATTACHMENTS">Handles attachments</Resource>
   <Resource tag="AVATAR">Views avatar</Resource>
   <Resource tag="COOKIES">Views the cookie policy page</Resource>
+  <Resource tag="CP_BLOCKOPTIONS">Edits his Ignored users and block option</Resource>
   <Resource tag="CP_CHANGEPASSWORD">Changes password</Resource>
   <Resource tag="CP_EDITALBUMIMAGES">Edit the album images</Resource>
   <Resource tag="CP_EDITAVATAR">Edit the avatar</Resource>
   <Resource tag="CP_EDITBUDDIES">Edits Friends</Resource>
   <Resource tag="CP_EDITPROFILE">Edit the profile</Resource>
+   <Resource tag="CP_EDITSETTINGS">Edit the user settings</Resource>
   <Resource tag="CP_MESSAGE">Views Private Messages</Resource>
   <Resource tag="CP_PM">Views Private Messages</Resource>
   <Resource tag="CP_PROFILE">Views profile settings</Resource>
@@ -134,8 +133,6 @@
   <Resource tag="RSSTOPIC">Views RSS/Atom feed</Resource>
   <Resource tag="RULES">Views forum rules</Resource>
   <Resource tag="SEARCH">Uses search</Resource>
-  <Resource tag="SHOUTBOX">Uses shoutbox</Resource>
-  <Resource tag="SHOWSMILIES">No data</Resource>
   <Resource tag="TEAM">Views team page</Resource>
   <Resource tag="TOPICINFORUM"> in forum </Resource>
   <Resource tag="TOPICS">Views topic </Resource>
@@ -220,7 +217,8 @@
   <Resource tag="MASK_HELP">The Email address to ban. You can use Regular Expressions.</Resource>
   <Resource tag="REASON">Reason:</Resource>
   <Resource tag="REASON_HELP">The reason why the email address was banned.</Resource>
-  <Resource tag="TITLE">Add/Edit Banned Email Address</Resource>
+  <Resource tag="TITLE">Add New Banned Email Address</Resource>
+  <Resource tag="TITLE_EDIT">Edit Banned Email Address</Resource>
  </page>
  <page name="ADMIN_BANNEDEMAIL_IMPORT">
   <Resource tag="HEADER">Import Email Addresses List</Resource>
@@ -239,6 +237,7 @@
   <Resource tag="EXPORT">Export to Text File</Resource>
   <Resource tag="IMPORT_IPS">Import Address(es)</Resource>
   <Resource tag="MASK">Mask</Resource>
+  <Resource tag="MSG_DELETE">Delete this Banned Item?</Resource>
   <Resource tag="REASON">Reason</Resource>
   <Resource tag="SINCE">Since</Resource>
   <Resource tag="TITLE">Banned IP Addresses</Resource>
@@ -253,7 +252,8 @@
   <Resource tag="MASK_HELP">The ip address to ban. You can use wild cards (127.0.0.*).</Resource>
   <Resource tag="REASON">Reason:</Resource>
   <Resource tag="REASON_HELP">The reason why the ip was banned.</Resource>
-  <Resource tag="TITLE">Add/Edit Banned IP Address</Resource>
+  <Resource tag="TITLE">Add Banned IP Address</Resource>
+  <Resource tag="TITLE_EDIT">Edit Banned IP Address</Resource>
  </page>
  <page name="ADMIN_BANNEDIP_IMPORT">
   <Resource tag="HEADER">Import IP Addresses List</Resource>
@@ -280,7 +280,8 @@
   <Resource tag="MASK_HELP">The User Name to ban. You can use Regular Expressions.</Resource>
   <Resource tag="REASON">Reason:</Resource>
   <Resource tag="REASON_HELP">The reason why the user name was banned.</Resource>
-  <Resource tag="TITLE">Add/Edit Banned Name</Resource>
+  <Resource tag="TITLE">Add Banned Name</Resource>
+  <Resource tag="TITLE_EDIT">Edit Banned Name</Resource>
  </page>
  <page name="ADMIN_BANNEDNAME_IMPORT">
   <Resource tag="HEADER">Import Names List</Resource>
@@ -335,6 +336,8 @@
   <Resource tag="TITLE">{0} YafBBCode Extensions</Resource>
   <Resource tag="USE_MODULE">Use Module:</Resource>
   <Resource tag="USE_MODULE_HELP">Use server-side module (class) instead of replace regex?</Resource>
+  <Resource tag="USE_TOOLBAR">Use Toolbar:</Resource>
+  <Resource tag="USE_TOOLBAR_HELP">If enabled Show toolbar button in the Standard BBCode Editor</Resource>
  </page>
  <page name="ADMIN_BBCODE_IMPORT">
   <Resource tag="HEADER">Import Custom BBCode</Resource>
@@ -373,8 +376,9 @@
   <Resource tag="BOARD_EMAIL_REPORTMODS_HELP">Should all the moderators of a forum be notified if someone reported a post?</Resource>
   <Resource tag="BOARD_FILE_EXTENSIONS">File Extensions List is:</Resource>
   <Resource tag="BOARD_FILE_EXTENSIONS_HELP">Is the list of file extensions allowed files or disallowed files (less secure)?</Resource>
-  <Resource tag="BOARD_JQ_THEME">jQuery UI Theme:</Resource>
-  <Resource tag="BOARD_JQ_THEME_HELP">The jQuery UI Theme to use on this board for the Tabs and Accordion.</Resource>
+   <Resource tag="BOARD_LOGO">Board Logo:</Resource>
+   <Resource tag="BOARD_LOGO_HELP">Select a Board Logo or use the default YAF Board Logo.</Resource>
+   <Resource tag="BOARD_LOGO_SELECT">Select a Board logo</Resource>
   <Resource tag="BOARD_MOBILE_THEME">Mobile Theme:</Resource>
   <Resource tag="BOARD_MOBILE_THEME_HELP">The mobile theme to use on this board.</Resource>
   <Resource tag="BOARD_NAME">Board Name:</Resource>
@@ -388,8 +392,12 @@
   <Resource tag="BOARD_THREADED_HELP">Allow threaded view for posts.</Resource>
   <Resource tag="BOARD_TOPIC_DEFAULT">Show Topic Default:</Resource>
   <Resource tag="BOARD_TOPIC_DEFAULT_HELP">The default board show topic interval selection.</Resource>
+  <Resource tag="CDVVERSION">CRM Version</Resource>
+  <Resource tag="CDVVERSION_HELP">CRM Version, increase number to Force a Browser reload of all Java Script and CSS Files</Resource>
+  <Resource tag="CDVVERSION_BUTTON">Increase CRM Version</Resource>
   <Resource tag="COPYRIGHT_REMOVAL_KEY">Copyright Removal Key:</Resource>
-  <Resource tag="COPYRIGHT_REMOVAL_KEY_HELP">Remove the copyright information and link back to YAF from the footer of your entire forum domain. Available &lt;a href="http://yetanotherforum.net/purchase.aspx"&gt;from YAF.NET site&lt;/a&gt;. </Resource>
+  <Resource tag="COPYRIGHT_REMOVAL_KEY_HELP">Remove the copyright information and link back to YAF from the footer of your entire forum domain.</Resource>
+  <Resource tag="COPYRIGHT_REMOVAL_KEY_DOWN">Purchase Removal Key</Resource>
   <Resource tag="HEADER">Current Board Settings</Resource>
   <Resource tag="TITLE">Board Settings</Resource>
  </page>
@@ -401,6 +409,32 @@
   <Resource tag="SAVE">Save</Resource>
   <Resource tag="YES">Yes</Resource>
   <Resource tag="TABLE_RESPONSIVE">Swipe Table to the left to Reveal More Data</Resource>
+ </page>
+ <page name="COOKIES">
+  <Resource tag="TITLE">Cookie Policy</Resource>
+  <Resource tag="COOKIES_TEXT">
+    Cookies are small text files that are placed on your computer by websites that you visit. They are widely used in order to make websites work, or work more efficiently, as well as to provide information to the owners of the site. Depending on your access level and actions on the site, various preference based cookies may be set to enrich your experience.
+    
+    [br]
+    [b]Standard Cookies[/b][br]
+    We’re using cookies for the following purposes:
+
+    [list]
+    [*] Guest Users: Your last visit Date and Time will be saved, to indicate on your next visit which topics and message are new.
+    [*] Login: Once you login to the forum, a cookie is set containing your encrypted credentials, required to recognize you between page visits. You can disable this cookie by unchecking “Remember me” in the login form.
+    [*] Polls: Your voting options are stored as cookies. As soon as you give your voting in a poll a cookie is created.
+    [*] Session: Upon first visit of our website, the system will create a new unique session for you which will be saved using a cookie on your computer. Sessions are required to recognize users between page accesses. It is a temporary cookie which will be deleted once you close your internet browser..
+    [/list]
+
+    [b]Third Party Cookies[/b][br]
+    The site owner may set additional cookies in addition to the standard cookies above. These cookies are often used for website usage tracking, or set by embedded service providers when viewing embedded content from providers such as YouTube and Vimeo, etc.
+    
+    [br]
+
+    [b]How do I change my cookie settings?[/b][br]
+    Most web browsers allow some control of most cookies through the browser settings. To find out more about cookies, including how to see what cookies have been set and how to manage and delete them, visit [url]www.aboutcookies.org[/url] or [url]www.allaboutcookies.org.[/url]
+
+    </Resource>
  </page>
  <page name="ADMIN_DELETEFORUM">
   <Resource tag="DELETE_FORUM">Delete Forum</Resource>
@@ -517,6 +551,7 @@
   <Resource tag="CATEGORY_NAME">Category Name:</Resource>
   <Resource tag="CATEGORY_NAME_HELP">Name of this category.</Resource>
   <Resource tag="HEADER">Edit Category:</Resource>
+   <Resource tag="MSG_CATEGORY_EXISTS">A Category with such a name already exists.</Resource>
   <Resource tag="MSG_NUMBER">Invalid value entered for sort order: must enter a number.</Resource>
   <Resource tag="MSG_POSITIVE_VALUE">The Sort Order value should be a positive integer from 0 to 32767.</Resource>
   <Resource tag="MSG_VALUE">Must enter a value for the category name field.</Resource>
@@ -544,7 +579,7 @@
   <Resource tag="LOCKED_HELP">If the forum is locked, no one can post or reply in this forum.</Resource>
   <Resource tag="MODERATE_ALL_POSTS">Moderate all Posts</Resource>
   <Resource tag="MODERATED_COUNT">Moderate all Posts or only until a User reaches x amount of Posts</Resource>
-  <Resource tag="MODERATED_COUNT_HELP">Set it to 'Moderate all Posts' or uncheck that option to specifify the amount of post a user has to reach to be automatically appproved.</Resource>
+  <Resource tag="MODERATED_COUNT_HELP">Set it to 'Moderate all Posts' or uncheck that option to specifify the amount of post a user has to reach to be automatically approved.</Resource>
   <Resource tag="MODERATED_NEWTOPIC_ONLY">Moderate only new Topics but not Replies?</Resource>
   <Resource tag="MODERATED_NEWTOPIC_ONLY_HELP">If checked only Messages of new Topics are checked but not Replies to existing Topics, otherwise all Messages needs moderation.</Resource>
   <Resource tag="MSG_CATEGORY">You must select a category for the forum.</Resource>
@@ -697,7 +732,8 @@
   <Resource tag="MSG_VALID_GROUP">You should enter a valid group name.</Resource>
   <Resource tag="SERVER">Server:</Resource>
   <Resource tag="SERVER_HELP">What server this groups is located.</Resource>
-  <Resource tag="TITLE">Add/Edit NNTP Forum</Resource>
+  <Resource tag="TITLE">Add NNTP Forum</Resource>
+  <Resource tag="TITLE_EDIT">Edit NNTP Forum</Resource>
  </page>
  <page name="ADMIN_EDITNNTPSERVER">
   <Resource tag="MSG_SERVER_ADR">Missing server address.</Resource>
@@ -712,7 +748,8 @@
   <Resource tag="NNTP_PORT_HELP">The port number to connect to.</Resource>
   <Resource tag="NNTP_USERNAME">User Name:</Resource>
   <Resource tag="NNTP_USERNAME_HELP">The user name used to log on to the nntp server.</Resource>
-  <Resource tag="TITLE">Add/Edit NNTP Server</Resource>
+  <Resource tag="TITLE">Add NNTP Server</Resource>
+  <Resource tag="TITLE_EDIT">Edit NNTP Server</Resource>
  </page>
  <page name="ADMIN_EDITRANK">
   <Resource tag="ALBUMS_NUMBER">User Albums Number:</Resource>
@@ -809,6 +846,7 @@
   <Resource tag="USER_KILL">User Kill &amp; Ban</Resource>
   <Resource tag="USER_PASS">User Password</Resource>
   <Resource tag="USER_PROFILE">User Profile</Resource>
+   <Resource tag="USER_SETTINGS">User Settings</Resource>
   <Resource tag="USER_REPUTATION">User Reputation</Resource>
   <Resource tag="USER_ROLES">User Roles</Resource>
   <Resource tag="USER_SIG">User Signature</Resource>
@@ -834,6 +872,7 @@
   <Resource tag="DELETE_ALL">Delete All</Resource>
   <Resource tag="DELETE_ALLOWED">Clean Up</Resource>
   <Resource tag="HIDE">Hide</Resource>
+   <Resource tag="NO_ENTRY">No Entries found</Resource>
   <Resource tag="SHOW">Show</Resource>
   <Resource tag="SINCEDATE">Start Date</Resource>
   <Resource tag="SINCEDATE_HELP">Select the start date for the log to show.</Resource>
@@ -846,47 +885,9 @@
   <Resource tag="TYPES">Type</Resource>
   <Resource tag="TYPES_HELP">Choose to restrict the Log to certain types of events.</Resource>
  </page>
- <page name="ADMIN_EVENTLOGGROUPS">
-  <Resource tag="CANACCESS">Allowed</Resource>
-  <Resource tag="CANCEL">Cancel</Resource>
-  <Resource tag="GROUPNAME">Role</Resource>
-  <Resource tag="HEADER">Event Log Roles</Resource>
-  <Resource tag="SAVE">Save</Resource>
-  <Resource tag="TITLE">Event Log Roles</Resource>
- </page>
- <page name="ADMIN_EVENTLOGROUPACCESS">
-  <Resource tag="BOARDNAME">Board Name</Resource>
-  <Resource tag="CANCEL">Cancel</Resource>
-  <Resource tag="DELETEACCESS">Can Delete</Resource>
-  <Resource tag="EVENT">Log Name</Resource>
-  <Resource tag="GRANTALL">Grant All View</Resource>
-  <Resource tag="GRANTALLDELETE">Grant All Delete</Resource>
-  <Resource tag="GROUPNAME">Role</Resource>
-  <Resource tag="HEADER">Event Log Access For</Resource>
-  <Resource tag="LT_DEBUG">Debug</Resource>
-  <Resource tag="LT_ERROR">Errors</Resource>
-  <Resource tag="LT_INFORMATION">Information</Resource>
-  <Resource tag="LT_IPBANDETECTED">Detected a Banned IP</Resource>
-  <Resource tag="LT_IPBANLIFTED">Canceling IP ban</Resource>
-  <Resource tag="LT_IPBANSET">Setting IP ban</Resource>
-  <Resource tag="LT_SpamBotDetected">Spam Bot Detected</Resource>
-  <Resource tag="LT_SpamBotReported">Spam Bot Reported</Resource>
-  <Resource tag="LT_SpamMessageDetected">Spam Message Detected</Resource>
-  <Resource tag="LT_SpamMessageReported">Spam Message Reported</Resource>
-  <Resource tag="LT_SQLERROR">Sql Errors</Resource>
-  <Resource tag="LT_TRACE">Trace</Resource>
-  <Resource tag="LT_USERDELETED">Deleting users</Resource>
-  <Resource tag="LT_USERSUSPENDED">Suspending users</Resource>
-  <Resource tag="LT_USERUNSUSPENDED">Unsuspending users</Resource>
-  <Resource tag="LT_WARNING">Warnings</Resource>
-  <Resource tag="REVOKEALL">Revoke All View</Resource>
-  <Resource tag="REVOKEALLDELETE">Revoke All Delete</Resource>
-  <Resource tag="SAVE">Save</Resource>
-  <Resource tag="TITLE">Event Log Role Edit</Resource>
-  <Resource tag="VIEWACCESS">Can View</Resource>
- </page>
  <page name="ADMIN_EXTENSIONS">
   <Resource tag="ADD">Add</Resource>
+  <Resource tag="SAVE">Save Extension</Resource>
   <Resource tag="CONFIRM_DELETE">Delete this Extension?</Resource>
   <Resource tag="EXPORT">Export to XML</Resource>
   <Resource tag="HEADER">Allowed File Extensions</Resource>
@@ -899,7 +900,8 @@
   <Resource tag="HEADER">Add/Edit Allowed File Extensions</Resource>
   <Resource tag="MSG_ENTER">You must enter something.</Resource>
   <Resource tag="MSG_REMOVE">Remove the period in the extension.</Resource>
-  <Resource tag="TITLE">Add/Edit File Extensions</Resource>
+  <Resource tag="TITLE">Add File Extension</Resource>
+  <Resource tag="TITLE_EDIT">Edit File Extension</Resource>
  </page>
  <page name="ADMIN_EXTENSIONS_IMPORT">
   <Resource tag="HEADER">Import Extension List</Resource>
@@ -950,7 +952,8 @@
   <Resource tag="ACTIVETOPIC_FEEDS_ACCESS">Active Topics Feeds Access:</Resource>
   <Resource tag="ACTIVETOPIC_FEEDS_ACCESS_HELP">Restrict display of active topics feeds.</Resource>
   <Resource tag="AKISMET_KEY">Akismet API Key:</Resource>
-  <Resource tag="AKISMET_KEY_HELP">To Use the Akismet comment SPAM Service you need an API Key &lt;a href="https://akismet.com/signup/"&gt;Sign Up here&lt;a&gt;</Resource>
+  <Resource tag="AKISMET_KEY_HELP">To Use the Akismet comment SPAM Service you need an API Key</Resource>
+  <Resource tag="AKISMET_KEY_DOWN">Sign Up here</Resource>
   <Resource tag="ALBUMS_PER_PAGE">Albums Per Page:</Resource>
   <Resource tag="ALBUMS_PER_PAGE_HELP">Number of albums to show per page.</Resource>
   <Resource tag="ALL_USERS">All Users</Resource>
@@ -1027,7 +1030,7 @@
   <Resource tag="BOT_IPBAN_ONREGISTER">Automatically Ban Ip Address of Detected Bot:</Resource>
   <Resource tag="BOT_IPBAN_ONREGISTER_HELP">If enabled and a Bot is detected during registration, and if bot handling is set to reject Registration, the IP Address of the Bot is automatically banned.</Resource>
   <Resource tag="BOTSCOUT_KEY">BotScout.com API Key:</Resource>
-  <Resource tag="BOTSCOUT_KEY_HELP">To Use the BotScout Bot Service you need an API Key &lt;a href="http://botscout.com/getkey.htm"&gt;Sign Up here&lt;a&gt;.</Resource>
+  <Resource tag="BOTSCOUT_KEY_HELP">To Use the BotScout Bot Service you need an API Key</Resource>
   <Resource tag="CAPTCHA_FOR_REGISTER">Enable CAPTCHA/reCAPTCHA for Register:</Resource>
   <Resource tag="CAPTCHA_FOR_REGISTER_HELP">Require users to enter the CAPTCHA when they register for the forum.</Resource>
   <Resource tag="CAPTCHA_GUEST_POSTING">Enable CAPTCHA for Guest Posting:</Resource>
@@ -1040,8 +1043,6 @@
   <Resource tag="CDN_SCRIPTMANAGER_HELP">You can use the CDN Hosted Script Files, or instead use internal.</Resource>
   <Resource tag="CDN_JQUERY">Use Google Hosted CDN jQuery Script File?</Resource>
   <Resource tag="CDN_JQUERY_HELP">You can use the Google Hosted Script File, or instead use internal.</Resource>
-
-
   <Resource tag="CHECK_FOR_BOTSPAM">Choose a Service for Automatically User Bot Checking:</Resource>
   <Resource tag="CHECK_FOR_BOTSPAM_HELP">Enables/disables automatically Bot SPAM Checking via the &lt;a href="http://stopforumspam.com/"&gt;StopForumSpam.com API&lt;/a&gt; , BotScout.com API, or both together.</Resource>
   <Resource tag="CHECK_FOR_SPAM">Choose a SPAM Service for Automatically SPAM Checking:</Resource>
@@ -1123,6 +1124,7 @@
   <Resource tag="GROUPS_TEMPLATE_HELP">Template for rendering user's groups.</Resource>
   <Resource tag="HEADER_ADVERTS">Advert Settings</Resource>
   <Resource tag="HEADER_ALBUM">Album Settings</Resource>
+  <Resource tag="HEADER_ATTACHMENTS">Attachments Settings</Resource>
   <Resource tag="HEADER_AVATARS">Avatar Settings</Resource>
   <Resource tag="HEADER_BOTSPAM">Bot Spam Settings (User Checking)</Resource>
   <Resource tag="HEADER_CACHE">Cache Settings</Resource>
@@ -1146,7 +1148,6 @@
   <Resource tag="HEADER_SEARCH">Search Settings</Resource>
   <Resource tag="HEADER_SERVER_INFO">Server Info</Resource>
   <Resource tag="HEADER_SETUP">Host Setup</Resource>
-  <Resource tag="HEADER_SHOUT">Shoutbox Settings</Resource>
   <Resource tag="HEADER_SPAM">Spam Settings (Content Checking)</Resource>
   <Resource tag="HEADER_SYNDICATION">Syndication Feed Settings</Resource>
   <Resource tag="HEADER_TEMPLATES">Template Settings</Resource>
@@ -1170,8 +1171,14 @@
   <Resource tag="IMAGE_RESIZE_HEIGHT_HELP">Maximum Height of the resized attachment images.</Resource>
   <Resource tag="IMAGE_RESIZE_WIDTH">Image Resize Max Width:</Resource>
   <Resource tag="IMAGE_RESIZE_WIDTH_HELP">Maximum Width of the resized attachment images.</Resource>
+   <Resource tag="IMAGE_THUMB_HEIGHT">Thumbnail Image  Max Height:</Resource>
+   <Resource tag="IMAGE_THUMB_HEIGHT_HELP">Maximum Height of the attachment and album image thumbnail.</Resource>
+   <Resource tag="IMAGE_THUMB_WIDTH">Thumbnail Image  Max Width:</Resource>
+   <Resource tag="IMAGE_THUMB_WIDTH_HELP">Maximum Width of the attachment and album image thumbnail.</Resource>
   <Resource tag="IMAGES_PER_PAGE">Images Per Page:</Resource>
   <Resource tag="IMAGES_PER_PAGE_HELP">Number of images to show per page.</Resource>
+   <Resource tag="INDEX_SEARCH">Re-Index Search</Resource>
+   <Resource tag="INDEX_SEARCH_HELP">Indexes all Messages in all Forums of the current Board for the Search Engine</Resource>
   <Resource tag="IP_INFOSERVICE">Enable IP Info Service:</Resource>
   <Resource tag="IP_INFOSERVICE_DATAMAPPING">IP Info Geolocation Web Service arguments mapping string:</Resource>
   <Resource tag="IP_INFOSERVICE_DATAMAPPING_HELP">Maps string array or deserialized return data to properties.</Resource>
@@ -1296,7 +1303,7 @@
   <Resource tag="REMOVE_NESTED_QUOTES">Remove Nested Quotes:</Resource>
   <Resource tag="REMOVE_NESTED_QUOTES_HELP">Automatically remove nested [quote] tags from replies.</Resource>
   <Resource tag="REPLACE_CACHE_TIMEOUT">Replace Rules Cache Timeout:</Resource>
-  <Resource tag="REPLACE_CACHE_TIMEOUT_HELP"> Smilies, BB code, bad words, etc. (in minutes)</Resource>
+  <Resource tag="REPLACE_CACHE_TIMEOUT_HELP"> BB code, bad words, etc. (in minutes)</Resource>
   <Resource tag="REPORT_POST_PERMISSION">Report Post Permissions:</Resource>
   <Resource tag="REPORT_POST_PERMISSION_HELP">Allow reporting posts to:</Resource>
   <Resource tag="REPUTATION_ALLOWNEGATIVE">Allow Negative Reputation:</Resource>
@@ -1334,18 +1341,16 @@
   <Resource tag="SEARCH_PERMISS_HELP">Allow search to:</Resource>
   <Resource tag="SEO_CACHE_TIMEOUT">First Post "Title" Cache Timeout:</Resource>
   <Resource tag="SEO_CACHE_TIMEOUT_HELP">First Post "Title" for SEO Cache Timeout (in minutes)</Resource>
-   <Resource tag="SHOW_COOKIECONSET">Show Cookie Consent Popup message</Resource>
-   <Resource tag="SHOW_COOKIECONSET_HELP">When enabled show the Cookie Accept Popup message.</Resource>
   <Resource tag="SERVER_VERSION">SQL Server Version:</Resource>
   <Resource tag="SERVER_VERSION_HELP">What version of SQL Server is running.</Resource>
   <Resource tag="SHOW_CONNECT_MESSAGE">Show Connect Message after first Message:</Resource>
   <Resource tag="SHOW_CONNECT_MESSAGE_HELP">Whether or not to show a Connect Message after the first Message in a topic for Guests, containing login and registration links.</Resource>
-  <Resource tag="SERVER_VERSION">SQL Server Version:</Resource>
-  <Resource tag="SERVER_VERSION_HELP">What version of SQL Server is running.</Resource>
+  <Resource tag="SHOW_COOKIECONSET">Show Cookie Consent Popup message</Resource>
+  <Resource tag="SHOW_COOKIECONSET_HELP">When enabled show the Cookie Accept Popup message.</Resource>
   <Resource tag="SPAMCHECK_ALLOWED_URLS">Allowed Number of URLs before flagged as SPAM:</Resource>
   <Resource tag="SPAMCHECK_ALLOWED_URLS_HELP">If the user posts in one Message more then the allowed URLs the message is flagged as spam. This Check also depends how many user the posts have.</Resource>
   <Resource tag="STOPFORUMSPAM_KEY">StopForumSpam.com API Key:</Resource>
-  <Resource tag="STOPFORUMSPAM_KEY_HELP">To Use the StopForumSpam Service you need an API Key &lt;a href="http://stopforumspam.com"&gt;Sign Up here&lt;a&gt;</Resource>
+  <Resource tag="STOPFORUMSPAM_KEY_HELP">To Use the StopForumSpam Service you need an API Key</Resource>
   <Resource tag="AMOUNT_OF_SUBFORUMS">Sub Forums In Forums List:</Resource>
   <Resource tag="AMOUNT_OF_SUBFORUMS_HELP">The amount of Sub Forums In Forums List.</Resource>
   <Resource tag="APP_OS_NAME">Operating System:</Resource>
@@ -1365,8 +1370,6 @@
   <Resource tag="BOT_MESSAGE_2">Block User</Resource>
   <Resource tag="SERVERTIME_CORRECT">Server Time Zone Correction:</Resource>
   <Resource tag="SERVERTIME_CORRECT_HELP">Enter a positive or a negative value in minutes between -720 and 720, if the server UTC time value is incorrect: </Resource>
-  <Resource tag="SHOUTBOX_COUNT">Shoutbox Message Count:</Resource>
-  <Resource tag="SHOUTBOX_COUNT_HELP">The Number of Messages that will be shown in the shoutbox.</Resource>
   <Resource tag="SHOW_ACTIVE_DISCUSSION">Show Active Discussions:</Resource>
   <Resource tag="SHOW_ACTIVE_DISCUSSION_HELP">Enable or disable display of active discussions list on board index page.</Resource>
   <Resource tag="SHOW_ATOM_LINKS">Show Atom Links:</Resource>
@@ -1413,10 +1416,6 @@
   <Resource tag="SHOW_RENDERTIME_HELP">Enable or disable display of page generation text at the bottom of the page.</Resource>
   <Resource tag="SHOW_RSS_LINKS">Show RSS Links:</Resource>
   <Resource tag="SHOW_RSS_LINKS_HELP">Enable or disable display of RSS links throughout the forum.</Resource>
-  <Resource tag="SHOW_SHOUTBOX">Show Shoutbox:</Resource>
-  <Resource tag="SHOW_SHOUTBOX_HELP">Enable or disable display of the Shoutbox (Chat Module) in the forum page.</Resource>
-  <Resource tag="SHOW_SHOUTBOX_SMILIES">Show Shoutbox Smiles:</Resource>
-  <Resource tag="SHOW_SHOUTBOX_SMILIES_HELP">Enable or disable display of the Shoutbox (Chat Module) smiles.</Resource>
   <Resource tag="SHOW_SIMILARTOPICS">Show Similar Topics:</Resource>
   <Resource tag="SHOW_SIMILARTOPICS_HELP">Should similar topics to be displayed at the bottom of a topic.</Resource>
   <Resource tag="SHOW_THANK_DATE">Show The Date on Which Users Have Thanked Posts:</Resource>
@@ -1462,8 +1461,8 @@
   <Resource tag="THANKS_FROM_TEMPLATE_HELP">Template for rendering user's thanks from.</Resource>
   <Resource tag="THANKS_TO_TEMPLATE">Thanks To template:</Resource>
   <Resource tag="THANKS_TO_TEMPLATE_HELP">Template for rendering user's thanks to.</Resource>
-  <Resource tag="TIMEAGO_INTERVAL">Relative Time Refresh Interval:</Resource>
-  <Resource tag="TIMEAGO_INTERVAL_HELP">This allows to set how often the "Time Ago" library should refresh the relative time (In Milliseconds, 60000 ms = 60 seconds = 1 minute).</Resource>
+  
+  
   <Resource tag="TITLE">Host Settings</Resource>
   <Resource tag="TOPIC_FEEDS_ACCESS">Topics Feeds Access:</Resource>
   <Resource tag="TOPIC_FEEDS_ACCESS_HELP">Restrict display of topics feeds.</Resource>
@@ -1502,10 +1501,6 @@
   <Resource tag="WSERVICE_TOKEN_HELP">Token used to make secure web service calls. Constantly changing until you save your host settings.</Resource>
   <Resource tag="EXPANDED">Expanded</Resource>
   <Resource tag="COLLAPSED">Collapsed</Resource>
-  <Resource tag="VIEWSHOUTBOX_PERMISSION">Shout Box View Permission:</Resource>
-  <Resource tag="VIEWSHOUTBOX_PERMISSION_HELP">View Permission for the Shout Box to allow for all Users (Including Guests) or only registered users.</Resource>
-  <Resource tag="SHOUTBOX_DEFAULTSTATE">Shout Box Default State:</Resource>
-  <Resource tag="SHOUTBOX_DEFAULTSTATE_HELP">The Default State for the Shout Box if it should be collapsed or expanded (Note: the State is saved as cookie, if you change the value you need to delete the cookie to see the changes).</Resource>
  </page>
  <page name="ADMIN_LANGUAGES">
   <Resource tag="CULTURE_TAG">Culture Tag</Resource>
@@ -1516,6 +1511,13 @@
  <page name="ADMIN_MAIL">
   <Resource tag="ALL_USERS">All Users</Resource>
   <Resource tag="CONFIRM_SEND">Are you sure you want to send this mail?</Resource>
+   <Resource tag="FROM_MAIL">From Mail Address:</Resource>
+   <Resource tag="FROM_MAIL_HELP">Enter the From Mail Address</Resource>
+   <Resource tag="TEST_BODY">The email sending appears to be working from your YAF installation.</Resource>
+   <Resource tag="TEST_SUBJECT">Test Email From Yet Another Forum.NET</Resource>
+   <Resource tag="TEST_SUCCESS">Mail Sent. Verify it's received at your entered email address.</Resource>
+   <Resource tag="TO_MAIL">To Mail Address:</Resource>
+   <Resource tag="TO_MAIL_HELP">Enter the Email Address where the test email should be send</Resource>
   <Resource tag="HEADER">Compose Email</Resource>
   <Resource tag="MAIL_MESSAGE">Message:</Resource>
   <Resource tag="MAIL_SUBJECT">Subject:</Resource>
@@ -1540,6 +1542,7 @@
   <Resource tag="FORUM">Forum</Resource>
   <Resource tag="GROUP">Group</Resource>
   <Resource tag="NEW_FORUM">New Forum</Resource>
+  <Resource tag="SAVE">Save Forum</Resource>
   <Resource tag="SERVER">Server</Resource>
   <Resource tag="TITLE">NNTP Forums</Resource>
  </page>
@@ -1575,6 +1578,7 @@
   <Resource tag="DELETE_SERVER">Delete this server?</Resource>
   <Resource tag="NAME">Name</Resource>
   <Resource tag="NEW_SERVER">New Server</Resource>
+  <Resource tag="SAVE_SERVER">Save Server</Resource>
   <Resource tag="TITLE">NNTP Servers</Resource>
   <Resource tag="USERNAME">User Name</Resource>
  </page>
@@ -1643,8 +1647,8 @@
  </page>
  <page name="ADMIN_REINDEX">
   <Resource tag="CONFIRM_RECOVERY">Are you sure you want to change your database recovery mode?\nThe operation may make the DB inaccessible and may take a little while.\nDO THIS ONLY IF YOU KNOW WHAT YOU ARE DOING!</Resource>
-  <Resource tag="CONFIRM_REINDEX">Are you sure you want to reindex all YAF tables?\nThe operation may make the DB inaccessible and may take a little while.</Resource>
-  <Resource tag="CONFIRM_SHRINK">Are you sure you want to Shrink database?\nThe operation may make the DB inaccessible and may take a little while.</Resource>
+  <Resource tag="CONFIRM_REINDEX">Are you sure you want to reindex all YAF tables?&lt;br /&gt;The operation may make the DB inaccessible and may take a little while.</Resource>
+  <Resource tag="CONFIRM_SHRINK">Are you sure you want to Shrink database?&lt;br /&gt;The operation may make the DB inaccessible and may take a little while.</Resource>
   <Resource tag="HEADER">YAF DB Operation Report:</Resource>
   <Resource tag="INDEX_SHRINK">Shrink operation was Successful.Your database size is now: {0}MB</Resource>
   <Resource tag="INDEX_STATS">Database recovery mode was successfully set to {0}</Resource>
@@ -1664,7 +1668,7 @@
   <Resource tag="TITLE">Reindex DB</Resource>
  </page>
  <page name="ADMIN_REPLACEWORDS">
-  <Resource tag="ADD">Add</Resource>
+  <Resource tag="ADD">Add New Word Replace</Resource>
   <Resource tag="BAD">"Bad" (Find) Expression</Resource>
   <Resource tag="EXPORT">Export to XML</Resource>
   <Resource tag="GOOD">"Good" (Replace) Expression</Resource>
@@ -1678,7 +1682,8 @@
   <Resource tag="GOOD">"Good" Expression:</Resource>
   <Resource tag="GOOD_HELP">Regular expression statement. Escape punctation with a preceding slash (e.g. '\.').</Resource>
   <Resource tag="MSG_REGEX_BAD">The Regular expression statement you have entered is invalid.</Resource>
-  <Resource tag="TITLE">Add/Edit Word Replace</Resource>
+  <Resource tag="TITLE">Add Word Replace</Resource>
+  <Resource tag="TITLE_EDIT">Edit Word Replace</Resource>
  </page>
  <page name="ADMIN_REPLACEWORDS_IMPORT">
   <Resource tag="HEADER">Import Replace Word List</Resource>
@@ -1693,7 +1698,8 @@
   <page name="ADMIN_SPAMWORDS">
     <Resource tag="TITLE">Spam Check Words</Resource>
     <Resource tag="SPAM">"Spam" Word (Find) Expression</Resource>
-    <Resource tag="ADD">Add</Resource>
+    <Resource tag="ADD">Add New Word</Resource>
+    <Resource tag="SAVE">Save Word</Resource>
     <Resource tag="IMPORT">Import from XML</Resource>
     <Resource tag="EXPORT">Export to XML</Resource>
     <Resource tag="MSG_DELETE">Delete this Word?</Resource>
@@ -1710,7 +1716,8 @@
     <Resource tag="MSG_IMPORTED_FAILEDX">Failed to import: {0}</Resource>
   </page>
   <page name="ADMIN_SPAMWORDS_EDIT">
-    <Resource tag="TITLE">Add/Edit Spam Word</Resource>
+    <Resource tag="TITLE">Add New Spam Word</Resource>
+    <Resource tag="TITLE_EDIT">Edit Spam Word</Resource>
     <Resource tag="SPAM">"Spam" Word (Find) Expression:</Resource>
     <Resource tag="SPAM_HELP">Regular expression statement. Escape punctation with a preceding slash (e.g. &#39;\.&#39;).</Resource>
     <Resource tag="MSG_REGEX_SPAM">The Regular expression statement you have entered is invalid.</Resource>
@@ -1727,46 +1734,6 @@
   <Resource tag="SQL_COMMAND">SQL Command:</Resource>
   <Resource tag="TITLE">Run SQL Code</Resource>
  </page>
- <page name="ADMIN_SMILIES">
-  <Resource tag="ADD">Add Smiley</Resource>
-  <Resource tag="CODE">Code</Resource>
-  <Resource tag="COMANDS">Emotion</Resource>
-  <Resource tag="EMOTION">Emotion</Resource>
-  <Resource tag="IMPORT">Import Smiley Pack</Resource>
-  <Resource tag="MOVE_DOWN">Move Down</Resource>
-  <Resource tag="MOVE_UP">Move Up</Resource>
-  <Resource tag="MSG_DELETE">Delete this smiley?</Resource>
-  <Resource tag="ORDER">Order</Resource>
-  <Resource tag="SMILEY">Smiley</Resource>
-  <Resource tag="TITLE">Smilies</Resource>
- </page>
- <page name="ADMIN_SMILIES_EDIT">
-  <Resource tag="CODE">Code:</Resource>
-  <Resource tag="EMOTION">Emotion:</Resource>
-  <Resource tag="ICON">Icon:</Resource>
-  <Resource tag="MSG_CODE_BRACK">Please enter the code to use for this emotion in square brackets.</Resource>
-  <Resource tag="MSG_CODE_LONG">The code to use for this emotion should not be more then 10 symbols.</Resource>
-  <Resource tag="MSG_CODE_MISSING">Please enter the code to use for this emotion.</Resource>
-  <Resource tag="MSG_CODE_SAME">Please choose a different code, this one is already in use.</Resource>
-  <Resource tag="MSG_NO_EMOTICON">Please enter an emotion for this icon.</Resource>
-  <Resource tag="MSG_NO_ICON">Please select an icon to use for this emotion.</Resource>
-  <Resource tag="MSG_SORT_NMBR">Sort order must be number between 0 and 255.</Resource>
-  <Resource tag="MSG_TOO_LONG">An emotion description is too long.</Resource>
-  <Resource tag="SELECT_SMILEY">Select Smiley Image</Resource>
-  <Resource tag="SORT_ORDER">Sort Order:</Resource>
-  <Resource tag="TITLE">Add/Edit Smiley</Resource>
- </page>
- <page name="ADMIN_SMILIES_IMPORT">
-  <Resource tag="CHOOSE_PAK">Choose .pak file:</Resource>
-  <Resource tag="CHOOSE_PAK_HELP">You'll have to unpack the smiley package and upload all files to your smiley directory (Boards/BoardNo/Images/Emoticons).</Resource>
-  <Resource tag="DELETE_EXISTING">Delete existing smilies:</Resource>
-  <Resource tag="DELETE_EXISTING_HELP">Will DELETE ALL existing smilies if you check this.</Resource>
-  <Resource tag="ERROR_SELECT_FILE">You must select a .pak file to import.</Resource>
-  <Resource tag="HEADER">Import Smiley Pack</Resource>
-  <Resource tag="IMPORT">Import</Resource>
-  <Resource tag="SELECT_FILE">Select File (*.pak)</Resource>
-  <Resource tag="TITLE">Smilies Import</Resource>
- </page>
  <page name="ADMIN_SPAMLOG">
   <Resource tag="TITLE">Spam Event Log</Resource>
  </page>
@@ -1777,15 +1744,13 @@
   <Resource tag="STOP_TASK">Stop Task</Resource>
   <Resource tag="TITLE">Task Manger</Resource>
  </page>
- <page name="ADMIN_TEST_DATA">
-  <Resource tag="TITLE">Create Test Data (DEBUG Only)</Resource>
- </page>
  <page name="ADMIN_TOPICSTATUS">
   <Resource tag="ADD">Add</Resource>
   <Resource tag="CONFIRM_DELETE">Delete this Status?</Resource>
   <Resource tag="DEFAULT_DESCRIPTION">Status</Resource>
   <Resource tag="EXPORT">Export to XML</Resource>
   <Resource tag="HEADER">Allowed File Extensions</Resource>
+  <Resource tag="ICON">Icon</Resource>
   <Resource tag="IMPORT">Import from XML</Resource>
   <Resource tag="TITLE">Topic Status</Resource>
   <Resource tag="TOPICSTATUS_NAME">Status Name</Resource>
@@ -1795,7 +1760,8 @@
   <Resource tag="DEFAULT_DESCRIPTION_HELP">Default Status Name, this Name is used when its not found in the current Language File.</Resource>
   <Resource tag="HEADER">Add/Edit Topic Status</Resource>
   <Resource tag="MSG_ENTER">You must enter something.</Resource>
-  <Resource tag="TITLE">Add/Edit Topic Status</Resource>
+  <Resource tag="TITLE">Add Topic Status</Resource>
+  <Resource tag="TITLE_EDIT">Edit Topic Status</Resource>
   <Resource tag="TOPICSTATUS_NAME">Topic Status Value:</Resource>
   <Resource tag="TOPICSTATUS_NAME_HELP">This is the Value that is used to retrieve the Topic Status Icon and/or Text. That needs to be defined in the Theme Files and languages.</Resource>
  </page>
@@ -1872,8 +1838,6 @@
   <Resource tag="admin_boardsettings">Board Settings</Resource>
   <Resource tag="admin_digest">Digest</Resource>
   <Resource tag="admin_eventlog">Event Log</Resource>
-  <Resource tag="admin_eventloggroupaccess">Event Log Access Edit</Resource>
-  <Resource tag="admin_eventloggroups">Event Log Roles</Resource>
   <Resource tag="admin_extensions">File Extensions</Resource>
   <Resource tag="admin_forums">Forums</Resource>
   <Resource tag="admin_groups">Roles</Resource>
@@ -1896,7 +1860,6 @@
   <Resource tag="admin_spamwords">Spam Check Words</Resource>
   <Resource tag="admin_restartapp">Restart App</Resource>
   <Resource tag="admin_runsql">Run SQL Query</Resource>
-  <Resource tag="admin_smilies">Smilies</Resource>
   <Resource tag="admin_taskmanager">Task Manager</Resource>
   <Resource tag="admin_test_data">Create Test Data</Resource>
   <Resource tag="admin_topicstatus">Topic Status</Resource>
@@ -1942,7 +1905,7 @@
   <Resource tag="DROP_HERE">Drop file(s) here</Resource>
   <Resource tag="FILEERROR">'{0}' is not an allowed file type for upload.</Resource>
   <Resource tag="FILENAME">File Name</Resource>
-  <Resource tag="NO_ATTACHMENTS">You are not having any attachments yet, to add one click on the &lt;strong&gt;Upload New File(s)&lt;/strong&gt; button</Resource>
+  <Resource tag="NO_ATTACHMENTS">You don't have any attachments yet, to add one click on the &lt;strong&gt;Upload New File(s)&lt;/strong&gt; button</Resource>
   <Resource tag="SELECT_FILE">Select the file(s) you want to upload.</Resource>
   <Resource tag="SIZE">Size</Resource>
   <Resource tag="START_UPLOADS">Start upload(s)</Resource>
@@ -1963,6 +1926,7 @@
  <page name="BBCODEMODULE">
   <Resource tag="ALBUMIMG_DESCRIPTION">Enter a Album Image Number</Resource>
   <Resource tag="ATTACH_DESCRIPTION">Enter a Attachment ID</Resource>
+  <Resource tag="ATTACH_NO">You have insufficient rights to see the content.</Resource>
   <Resource tag="DAILYMOTION_DESCRIPTION">Enter Dailymotion Url (http://www.dailymotion.com/video/xxxx)</Resource>
   <Resource tag="FACEBOOK_DESCRIPTION">Enter the Url of the post or the Embed Code of the Post you want to embed</Resource>
   <Resource tag="GOOGLEMAPS_DESCRIPTION">Enter Google Maps Url</Resource>
@@ -2094,10 +2058,10 @@
   <Resource tag="CHANGEEMAIL_SUBJECT">Changed Email</Resource>
   <Resource tag="COMMON_WORDS">out,please,a,able,about,across,after,all,almost,also,am,among,an,and,any,are,as,at,be,because,been,but,by,can,cannot,could,dear,did,do,does,either,else,ever,every,for,from,get,got,had,has,have,he,her,hers,him,his,how,however,i,if,in,into,is,it,its,just,least,let,like,likely,may,me,might,most,must,my,neither,no,nor,not,of,off,often,on,only,or,other,our,own,rather,said,say,says,she,should,since,so,some,than,that,the,their,them,then,there,these,they,this,tis,to,too,twas,us,wants,was,we,were,what,when,where,which,while,who,whom,why,will,with,would,yet,you,your</Resource>
   <Resource tag="CONTINUE">Continue</Resource>
-   <Resource tag="COOKIE_HEADER">Important Information:</Resource>
-   <Resource tag="COOKIE">The {0} uses cookies. By continuing to browse this site, you are agreeing to our use of cookies.</Resource>
-   <Resource tag="COOKIE_AGREE">Close</Resource>
-   <Resource tag="COOKIE_DETAILS">More Details</Resource>
+  <Resource tag="COOKIE_HEADER">Important Information:</Resource>
+  <Resource tag="COOKIE">The {0} uses cookies. By continuing to browse this site, you are agreeing to our use of cookies.</Resource>
+  <Resource tag="COOKIE_AGREE">Close</Resource>
+  <Resource tag="COOKIE_DETAILS">More Details</Resource>
   <Resource tag="COPY">Copy</Resource>
   <Resource tag="CUSTOM_BBCODE">More BBCode</Resource>
   <Resource tag="DELETE">Delete</Resource>
@@ -2128,6 +2092,7 @@
   <Resource tag="HTMLTAG_WRONG">Your input data contains forbidden {0} HTML tag.</Resource>
   <Resource tag="LOADING">Loading...</Resource>
   <Resource tag="MAX_ONLINE">Most users ever online was {0:N0} on {1}.</Resource>
+  <Resource tag="MANAGE">Manage</Resource>
   <Resource tag="MENU">Menu</Resource>
   <Resource tag="MESSAGE">Message</Resource>
   <Resource tag="MOBILE_FULLSITE">View Full Site</Resource>
@@ -2137,6 +2102,7 @@
   <Resource tag="NAME">Name</Resource>
   <Resource tag="NO">No</Resource>
   <Resource tag="NONE">None</Resource>
+  <Resource tag="NOTE">Note:</Resource>
   <Resource tag="NOTIFICATION_ON_MEDAL_AWARDED_SUBJECT">you have been awarded on the {0} Forum</Resource>
   <Resource tag="NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL">New Message on {0} Forum needs to be approved</Resource>
   <Resource tag="NOTIFICATION_ON_MODERATOR_SPAMMESSAGE_APPROVAL">New SPAM Message on {0} Forum needs to be checked</Resource>
@@ -2192,27 +2158,6 @@
   </Resource>
   <Resource tag="SHOWHIDE">Show/Hide</Resource>
   <Resource tag="SUBMIT">Submit</Resource>
-  <Resource tag="TIMEAGO_JS">
-      // english
-      jQuery.timeago.settings.strings = {
-      prefixAgo: null,
-      prefixFromNow: null,
-      suffixAgo: "ago",
-      suffixFromNow: "from now",
-      seconds: "less than a minute",
-      minute: "about a minute",
-      minutes: "%d minutes",
-      hour: "about an hour",
-      hours: "about %d hours",
-      day: "a day",
-      days: "%d days",
-      month: "about a month",
-      months: "%d months",
-      year: "about a year",
-      years: "%d years",
-      numbers: []
-      };
-    </Resource>
   <Resource tag="TOPIC_NOTIFICATION_SUBJECT">Topic Subscription New Post Notification (From {0})</Resource>
   <Resource tag="TT_ALIGNCENTER">Center Justify</Resource>
   <Resource tag="TT_ALIGNLEFT">Left Justify</Resource>
@@ -2229,10 +2174,17 @@
   <Resource tag="TT_LISTORDERED">Ordered List</Resource>
   <Resource tag="TT_LISTUNORDERED">Unordered List</Resource>
   <Resource tag="TT_QUOTE">Quote</Resource>
+  <Resource tag="TT_SAVE">Save Message Draft</Resource>
   <Resource tag="TT_UNDERLINE">Underline</Resource>
   <Resource tag="UNREAD_MSG">You have {0} unread message(s) in your Inbox.</Resource>
   <Resource tag="UNREAD_MSG_TITLE">New Private Message(s)</Resource>
   <Resource tag="UNREAD_MSG2">You have {0} unread message(s) in your Inbox. Would You Like to go to your Inbox now?</Resource>
+   <Resource tag="UNREAD_QUOTED_TITLE">Somebody Quoted you in a Topic</Resource>
+   <Resource tag="UNREAD_QUOTED_MSG">You have {0} unread quoted Posts, would you like to go to the newest one?</Resource>
+   <Resource tag="UNREAD_MENTION_TITLE">Somebody Mentioned you in a Topic</Resource>
+   <Resource tag="UNREAD_MENTION_MSG">You have {0} unread Mentions, would you like to go to the newest one?</Resource>
+   <Resource tag="UNREAD_THANKS_TITLE">Somebody Thanked you for a Message</Resource>
+   <Resource tag="UNREAD_THANKS_MSG">You have {0} unread received Thanks, would you like to go to the newest one?</Resource>
   <Resource tag="UPDATE">Update</Resource>
   <Resource tag="USERNAME_TOOSMALL">User Name or Display User Name must be more than {0} characters.</Resource>
   <Resource tag="USERNAME_TOOLONG">User Name or Display User Name cannot be more than {0} characters.</Resource>
@@ -2245,33 +2197,6 @@
   <Resource tag="VOTE">Vote</Resource>
   <Resource tag="YES">Yes</Resource>
  </page>
-
-  <page name="COOKIES">
-    <Resource tag="TITLE">Cookie Policy</Resource>
-    <Resource tag="COOKIES_TEXT">
-      Cookies are small text files that are placed on your computer by websites that you visit. They are widely used in order to make websites work, or work more efficiently, as well as to provide information to the owners of the site. Depending on your access level and actions on the site, various preference based cookies may be set to enrich your experience.
-
-      [br]
-      [b]Standard Cookies[/b][br]
-      We’re using cookies for the following purposes:
-
-      [list]
-      [*] Guest Users: Your last visit Date and Time will be saved, to indicate on your next visit which topics and message are new.
-      [*] Login: Once you login to the forum, a cookie is set containing your encrypted credentials, required to recognize you between page visits. You can disable this cookie by unchecking “Remember me” in the login form.
-      [*] Polls: Your voting options are stored as cookies. As soon as you give your voting in a poll a cookie is created.
-      [*] Session: Upon first visit of our website, the system will create a new unique session for you which will be saved using a cookie on your computer. Sessions are required to recognize users between page accesses. It is a temporary cookie which will be deleted once you close your internet browser..
-      [/list]
-
-      [b]Third Party Cookies[/b][br]
-      The site owner may set additional cookies in addition to the standard cookies above. These cookies are often used for website usage tracking, or set by embedded service providers when viewing embedded content from providers such as YouTube and Vimeo, etc.
-
-      [br]
-
-      [b]How do I change my cookie settings?[/b][br]
-      Most web browsers allow some control of most cookies through the browser settings. To find out more about cookies, including how to see what cookies have been set and how to manage and delete them, visit [url]www.aboutcookies.org[/url] or [url]www.allaboutcookies.org.[/url]
-
-    </Resource>
-  </page>
  <page name="COUNTRY">
   <Resource tag="AD">Andorra</Resource>
   <Resource tag="AE">United Arab Emirates</Resource>
@@ -2513,32 +2438,44 @@
   <Resource tag="ZM">Zambia</Resource>
   <Resource tag="ZW">Zimbabwe</Resource>
  </page>
-  <page name="CP_CHANGEPASSWORD">
-    <Resource tag="CHANGE_BUTTON">Submit</Resource>
-    <Resource tag="CHANGE_SUCCESS">Password has been successfully changed.</Resource>
-    <Resource tag="CONFIRM_PASSWORD">Confirm New Password:</Resource>
-    <Resource tag="EMPTY_PASSWORD">Please Enter your Current Password</Resource>
-    <Resource tag="EMPTY_QUESTION">New Question is requiered.</Resource>
-    <Resource tag="EMPTY_ANSWER">New Answer is requiered.</Resource>
-    <Resource tag="NEED_NEW_CONFIRM_PASSWORD">New Confirm Password is required.</Resource>
-    <Resource tag="NEED_NEW_PASSWORD">New Password is required.</Resource>
-    <Resource tag="NEED_OLD_PASSWORD">Old Password is required.</Resource>
-    <Resource tag="NEW_PASSWORD">New Password:</Resource>
-    <Resource tag="NO_PASSWORD_MATCH">New Passwords do not match.</Resource>
-    <Resource tag="OLD_PASSWORD">Old Password:</Resource>
-    <Resource tag="PASSWORD_BAD_LENGTH">New Password length minimum: {0}.</Resource>
-    <Resource tag="PASSWORD_INCORRECT">Password incorrect or New Password invalid.</Resource>
-    <Resource tag="PASSWORD_NOT_COMPLEX">Non-alphanumeric characters required: {1}.</Resource>
-    <Resource tag="PASSWORD_NOT_NEW">New Password must be different from the old one.</Resource>
-    <Resource tag="SECURITY_ANSWER_NEW">New Security Answer:</Resource>
-    <Resource tag="SECURITY_ANSWER_OLD">Current Password:</Resource>
-    <Resource tag="SECURITY_CHANGED">Password Question and Answer changed.</Resource>
-    <Resource tag="SECURITY_NOT_CHANGED">Change failed. Please re-enter your values and try again.</Resource>
-    <Resource tag="SECURITY_QUESTION_NEW">New Security Question:</Resource>
-    <Resource tag="SECURITY_QUESTION_OLD">Old Security Question:</Resource>
-    <Resource tag="TITLE">Change Password</Resource>
-    <Resource tag="TITLE_SECURITY">Change Security Question and Answer</Resource>
+  <page name="CP_BLOCKOPTIONS">
+    <Resource tag="BLOCK_BUDDYS">Block Friend Requests</Resource>
+    <Resource tag="BLOCK_EMAILS">Block E-Mails</Resource>
+    <Resource tag="BLOCK_BUDDYS">Block Private Messages</Resource>
+    <Resource tag="BLOCK_OPTIONS">Block Options</Resource>
+    <Resource tag="BLOCK_PMS">Block Private Messages</Resource>
+    <Resource tag="IGNORED_USERS">Ignored User List</Resource>
+    <Resource tag="NOTE_BLOCK">Admins and Users in the Friend List will be excluded from the Blocking!</Resource>
+    <Resource tag="NOTE_USERS">Posts of Ignored Users will be hidden. This does not include Quoted Posts</Resource>
+    <Resource tag="SELECT_OPTIONS">Options to Block other Users from Contacting you...</Resource>
+    <Resource tag="TITLE">User Block Options &amp; Ignored Users</Resource>
   </page>
+ <page name="CP_CHANGEPASSWORD">
+  <Resource tag="CHANGE_BUTTON">Submit</Resource>
+  <Resource tag="CHANGE_SUCCESS">Password has been successfully changed.</Resource>
+  <Resource tag="CONFIRM_PASSWORD">Confirm New Password:</Resource>
+  <Resource tag="EMPTY_PASSWORD">Please Enter your Current Password</Resource>
+  <Resource tag="EMPTY_QUESTION">New Question is requiered.</Resource>
+  <Resource tag="EMPTY_ANSWER">New Answer is requiered.</Resource>
+  <Resource tag="NEED_NEW_CONFIRM_PASSWORD">New Confirm Password is required.</Resource>
+  <Resource tag="NEED_NEW_PASSWORD">New Password is required.</Resource>
+  <Resource tag="NEED_OLD_PASSWORD">Old Password is required.</Resource>
+  <Resource tag="NEW_PASSWORD">New Password:</Resource>
+  <Resource tag="NO_PASSWORD_MATCH">New Passwords do not match.</Resource>
+  <Resource tag="OLD_PASSWORD">Old Password:</Resource>
+  <Resource tag="PASSWORD_BAD_LENGTH">New Password length minimum: {0}.</Resource>
+  <Resource tag="PASSWORD_INCORRECT">Password incorrect or New Password invalid.</Resource>
+  <Resource tag="PASSWORD_NOT_COMPLEX">Non-alphanumeric characters required: {1}.</Resource>
+  <Resource tag="PASSWORD_NOT_NEW">New Password must be different from the old one.</Resource>
+  <Resource tag="SECURITY_ANSWER_NEW">New Security Answer:</Resource>
+  <Resource tag="SECURITY_ANSWER_OLD">Current Password:</Resource>
+  <Resource tag="SECURITY_CHANGED">Password Question and Answer changed.</Resource>
+  <Resource tag="SECURITY_NOT_CHANGED">Change failed. Please re-enter your values and try again.</Resource>
+  <Resource tag="SECURITY_QUESTION_NEW">New Security Question:</Resource>
+  <Resource tag="SECURITY_QUESTION_OLD">Old Security Question:</Resource>
+  <Resource tag="TITLE">Change Password</Resource>
+  <Resource tag="TITLE_SECURITY">Change Security Question and Answer</Resource>
+ </page>
  <page name="CP_EDITALBUMIMAGES">
   <Resource tag="ALBUM_TITLE">Title</Resource>
   <Resource tag="ALBUMS">Albums</Resource>
@@ -2618,6 +2555,7 @@
   <Resource tag="FACEBOOK">Your Facebook Profile URL:</Resource>
   <Resource tag="FIELD_TOOLONG">{0} length cannot be more than {1} characters.</Resource>
   <Resource tag="FORUM_SETTINGS">Forum Settings</Resource>
+  <Resource tag="GET_LOCATION">Get Location from IP Address</Resource>
   <Resource tag="GOOGLE">Your Google Profile URL:</Resource>
   <Resource tag="HIDEME">Hide me from active users</Resource>
   <Resource tag="HOMEPAGE">Home Page</Resource>
@@ -2644,14 +2582,14 @@
   <Resource tag="TIMEZONE2">To give you times and dates in your local time, we need to know your time zone.</Resource>
   <Resource tag="TITLE">Edit Profile</Resource>
   <Resource tag="TWITTER">Your Twitter Name:</Resource>
-
-  <Resource tag="USE_MOBILE_THEME">Use Mobile Forum Theme:</Resource>
-
-  <Resource tag="WEBLOG2">Your Blog URL (public):</Resource>
+   <Resource tag="WEBLOG2">Your Blog URL (public):</Resource>
   <Resource tag="WHERE">Where do you live?</Resource>
   <Resource tag="XMPP">Your Jabber ID:</Resource>
   <Resource tag="YIM">Your Yahoo ID:</Resource>
  </page>
+  <page name="CP_EDITSETTINGS">
+    <Resource tag="TITLE">Edit Settings</Resource>
+  </page>
  <page name="CP_MESSAGE">
   <Resource tag="INBOX">Inbox</Resource>
   <Resource tag="MSG_DELETED">Message was deleted.</Resource>
@@ -2689,11 +2627,25 @@
   <Resource tag="TO">To</Resource>
  </page>
  <page name="CP_PROFILE">
-  <Resource tag="ARCHIVE">Archive</Resource>
+   <Resource tag="ACTIVITY">Your Activity</Resource>
+   <Resource tag="CREATED_TOPIC">Created a new Topic</Resource>
+   <Resource tag="CREATED_REPLY">Replied to a Post</Resource>
+   <Resource tag="GIVEN_THANKS">Given Thanks to a Post</Resource>
+   <Resource tag="RECEIVED_THANKS">Received a Thanks to a Post</Resource>
+   <Resource tag="WAS_MENTIONED">Was Mentioned</Resource>
+   <Resource tag="WAS_QUOTED">Was Quoted</Resource>
+   <Resource tag="CREATED_TOPIC_MSG">Created a new Topic {0}</Resource>
+   <Resource tag="CREATED_REPLY_MSG">Added an Reply to the Topic {0}</Resource>
+   <Resource tag="GIVEN_THANKS_MSG">Given Thanks to {0} in the Topic {1}</Resource>
+   <Resource tag="RECEIVED_THANKS_MSG">Has Received a Thanks from {0} in the Topic {1}</Resource>
+   <Resource tag="WAS_MENTIONED_MSG">Was Mentioned by {0} in the Topic {1}</Resource>
+   <Resource tag="WAS_QUOTED_MSG">Was Quoted by {0} in the Topic {1}</Resource>
+   <Resource tag="ARCHIVE">Archive</Resource>
   <Resource tag="CHANGE_PASSWORD">Change Password</Resource>
   <Resource tag="CONTROL_PANEL">Control Panel</Resource>
   <Resource tag="EDIT_AVATAR">Modify Avatar</Resource>
   <Resource tag="EDIT_PROFILE">Edit Profile</Resource>
+   <Resource tag="EDIT_SETTINGS">Edit Settings</Resource>
   <Resource tag="EDIT_SIGNATURE">Edit Signature</Resource>
   <Resource tag="GROUPS">You are a member of these groups:</Resource>
   <Resource tag="INBOX">Inbox</Resource>
@@ -2782,7 +2734,11 @@
   <Resource tag="MAIN_FORUM_ATOM">Main Forum Atom</Resource>
   <Resource tag="MAIN_FORUM_RSS">Main Forum RSS</Resource>
   <Resource tag="MARKALL">Mark all forums as read</Resource>
+  <Resource tag="MARKALL_MESSAGE">All forums has been marked as read</Resource>
+  <Resource tag="WATCHFORUM_ALL">Watch all forums</Resource>
+  <Resource tag="WATCHFORUM_ALL_HELP">Watch all forums and get Email Notifications when a new Topic is created</Resource>
   <Resource tag="MODERATORS">Moderators</Resource>
+  <Resource tag="MOST_ACTIVE">Most Active Users in the last {0} Days</Resource>
   <Resource tag="NO_FORUM_ACCESS">(No Access)</Resource>
   <Resource tag="NO_POSTS">No Posts</Resource>
   <Resource tag="ONDATE">on {0}</Resource>
@@ -2794,11 +2750,14 @@
   <Resource tag="RSSICONTOOLTIPFORUM">Subscribe to forum RSS feed.</Resource>
   <Resource tag="SHOW_UNREAD_ONLY">Show only Unread Topics.</Resource>
   <Resource tag="STATS">Statistics</Resource>
-  <Resource tag="STATS_BIRTHDAYS">Today's Birthdays: </Resource>
   <Resource tag="STATS_LASTMEMBER">The newest member is</Resource>
   <Resource tag="STATS_LASTPOST">Last post {0} by</Resource>
   <Resource tag="STATS_MEMBERS">We have {0:N0} registered members.</Resource>
   <Resource tag="STATS_POSTS">There are {0:N0} posts in {1:N0} topics in {2:N0} forums.</Resource>
+  <Resource tag="STATS_SPAM">Anti Spam Statistics</Resource>
+  <Resource tag="STATS_SPAM_BANNED">{0} Spammers Permanently Banned</Resource>
+  <Resource tag="STATS_SPAM_DENIED">{0} Spammers Denied Registration</Resource>
+  <Resource tag="STATS_SPAM_REPORTED">{0} Spammers submitted to StopForumSpam.com</Resource>
   <Resource tag="TOPICS">Topics</Resource>
   <Resource tag="UNREAD0">You have {0} unread messages in your inbox.</Resource>
   <Resource tag="UNREAD1">You have {0} unread message in your inbox.</Resource>
@@ -2808,6 +2767,7 @@
  </page>
  <page name="DELETEMESSAGE">
   <Resource tag="DELETE">Delete</Resource>
+   <Resource tag="DELETE_ALL">Delete All Posts?</Resource>
   <Resource tag="DELETE_REASON">Delete reason</Resource>
   <Resource tag="ERASEMESSAGE">Erase message from the database (irreversible)</Resource>
   <Resource tag="FROM">From:</Resource>
@@ -2862,1020 +2822,851 @@
 &lt;p&gt;If you have uploaded an image as an attachment, they will be automatically generated a thumbnail that will displayed in your message, with an Link to the Full Size Image&lt;/p&gt;
 &lt;p&gt;To include an image that is not uploaded as an attachment and is located on another website, you can do so by copying the full URL to the image, (not the page on which the image is located), and either pressing the 'Insert Image' icon or by typing [img] before the URL and [/img] after it, ensuring that you do not have any spaces before or after the URL of the image.&lt;/p&gt;</Resource>
   <Resource tag="ATTACHMENTSTITLE">Attachments and Images</Resource>
-  <Resource tag="BBCODESCONTENT">&lt;p&gt;On this Page you find a list  of the BB code tags you can use to format your messages.&lt;/p&gt;
-&lt;table class="content" width="90%"&gt;
-  &lt;tr&gt;
-    &lt;td class="header1" colspan="2"&gt;
-      BB Codes for Text formatting
-    &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td class="header2" colspan="2"&gt;
-      Bold Text
-    &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Description&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;
-      The [noparse][b] tag allows you to create text that is bold.
-    &lt;/td&gt;
-  &lt;/tr&gt;
-   &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Usage&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;
-      [noparse][b]This text is bold[/b][/noparse]
-    &lt;/td&gt;
-  &lt;/tr&gt;
-   &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Output&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;
-      &lt;strong&gt;This text is bold&lt;/strong&gt;
-    &lt;/td&gt;
-  &lt;/tr&gt;
-&lt;tr&gt;
-    &lt;td class="header2" colspan="2"&gt;
-      Italic Text&lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Description&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;
-      The [i] tag allows you to create text that italic.&lt;/td&gt;
-  &lt;/tr&gt;
-   &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Usage&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;
-      [i]This text is italic[/i]&lt;/td&gt;
-  &lt;/tr&gt;
-   &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Output&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;
-      &lt;em&gt;This text is italic&lt;/em&gt;&lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td class="header2" colspan="2"&gt;Underline Text&lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Description&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;
-      The [u] tag allows you to create text underlined.&lt;/td&gt;
-  &lt;/tr&gt;
-   &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Usage&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;
-      [u]This text is underlined[/u]&lt;/td&gt;
-  &lt;/tr&gt;
-   &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;&lt;strong&gt;Output&lt;/strong&gt;&lt;/td&gt;
-    &lt;td&gt;
-      &lt;u&gt;This text is underlined&lt;/u&gt;&lt;/td&gt;
-  &lt;/tr&gt;
-&lt;tr&gt;
-    &lt;td class="header2" colspan="2"&gt;Strike Text&lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Description&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;
-      Wrap these tags to strike through text&lt;/td&gt;
-  &lt;/tr&gt;
-   &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Usage&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;
-      [s]This text is Strike through[/strike]&lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Output&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;
-      &lt;s&gt;This text is Strike through&lt;/s&gt;&lt;/td&gt;
-  &lt;/tr&gt;
-&lt;tr&gt;
-    &lt;td class="header2" colspan="2"&gt;Text Color&lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Description&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;
-      The [color] tag allows you to change the color of your text, by parsing the color you want.&lt;/td&gt;
-  &lt;/tr&gt;
-   &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Usage&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;
-      [color=blue]this text is blue[/color]&lt;/td&gt;
-  &lt;/tr&gt;
-   &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Output&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;
-      &lt;span style="color:blue"&gt;this text is blue&lt;/span&gt;&lt;/td&gt;
-  &lt;/tr&gt;
-       &lt;tr&gt;
-    &lt;td class="header2" colspan="2"&gt;Text Size&lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Description&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;
-      The [size] tag allows you to change the size of your text. You can define a value from 1-9, these values will be converted in percentage values 1=50, 2=70, 3=80, 4=90, 5=100, 6=120, 7=140, 8=160, 9=180&lt;/td&gt;
-  &lt;/tr&gt;
-   &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Usage&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;
-      [size=9]This Text has the font size of 180%[/size]&lt;/td&gt;
-  &lt;/tr&gt;
-   &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Output&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;
-      &lt;span style="font-size:180%"&gt;This Text has the font size of 180%&lt;/span&gt;&lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td class="header2" colspan="2"&gt;Text Font&lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Description&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;
-      The [font] tag allows you to change the font family of your text.&lt;/td&gt;
-  &lt;/tr&gt;
-   &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Usage&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;
-      [font=courier]this text is in the courier font[/font]&lt;/td&gt;
-  &lt;/tr&gt;
-   &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Usage&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;&lt;span style="font-family:courier"&gt;this text is in the courier font&lt;/span&gt;&lt;/td&gt;
-  &lt;/tr&gt;
-&lt;tr&gt;
-    &lt;td class="header2" colspan="2"&gt;Text Left / Right / Center Direction&lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Description&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;
-      The [left], [right] and [center] tags allow you to change the alignment of your text.&lt;/td&gt;
-  &lt;/tr&gt;
-   &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Usage&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;
-      [left]this text is left aligned[/left]&lt;br /&gt;
-	  [center]this text is center aligned[/center]&lt;br /&gt;
-      [right]this text is right aligned[/right]&lt;/td&gt;
-  &lt;/tr&gt;
-   &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Output&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;&lt;div align="left"&gt;this text is left aligned&lt;/div&gt;
-			&lt;div align="center"&gt;this text is center aligned&lt;/div&gt;
-			&lt;div align="right"&gt;this text is right aligned&lt;/div&gt;&lt;/td&gt;
-  &lt;/tr&gt;
-&lt;tr&gt;
-    &lt;td class="header2" colspan="2"&gt;Highlight&lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Description&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;
-      The [highlight] tag allows you to highlight your text.&lt;/td&gt;
-  &lt;/tr&gt;
-   &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Usage&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;
-      [highlight]this text is highlighted[/highlight]&lt;/td&gt;
-  &lt;/tr&gt;
-   &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Output&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;&lt;span class="highlight"&gt;this text is highlighted&lt;/span&gt;&lt;/td&gt;
-  &lt;/tr&gt;
-&lt;/table&gt;
-&lt;br /&gt;
-&lt;table class="content" width="90%"&gt;
-  &lt;tr&gt;
-    &lt;td class="header1" colspan="2"&gt;
-      BB Codes to create various Links
-    &lt;/td&gt;
-  &lt;/tr&gt;
-&lt;tr&gt;
-    &lt;td class="header2" colspan="2"&gt;Email Links&lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Description&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;
-      The [email] tag allows you to link to an email address. You can include an optional parameter to add a Link Name&lt;/td&gt;
-  &lt;/tr&gt;
-   &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Usage&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;
-      [email]someone@mydomain.com[/email]&lt;br /&gt;
-			[email=someone@mydomain.com]Click Here to Email Me[/email]&lt;/td&gt;
-  &lt;/tr&gt;
-   &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Output&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;&lt;a href="mailto:someone@mydomain.com" title="someone@mydomain.com"&gt;someone@mydomain.com&lt;/a&gt;&lt;br /&gt;
-			&lt;a href="mailto:someone@mydomain.com" title="Click Here to Email Me"&gt;Click Here to Email Me&lt;/a&gt;&lt;/td&gt;
-  &lt;/tr&gt;
-&lt;tr&gt;
-    &lt;td class="header2" colspan="2"&gt;URL Hyper Links&lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Description&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;
-      The [url] tag allows you to link to other websites and files. You can include an optional parameter to 'name' your link. You can also combine [url] tags with [img] tags to create image links.&lt;/td&gt;
-  &lt;/tr&gt;
-   &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Usage&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;
-      [url]{0}[/url]&lt;br /&gt;
-	 [url={0}]mydomain[/url]&lt;/td&gt;
-  &lt;/tr&gt;
-   &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Output&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;&lt;a href="{0}" target="_blank" title="{0}"&gt;{0}&lt;/a&gt;&lt;br /&gt;
-     &lt;a href="{0}" target="_blank" title="{0}"&gt;mydomain&lt;/a&gt;&lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td class="header2" colspan="2"&gt;Modal URL Hyper Links&lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Description&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;
-      The [modalurl] tag allows you to link to other websites and files, the difference between the regular [url] tag is all links will be opened inside an modal dialog. You can include an optional parameter to 'name' your link. You can also combine [url] tags with [img] tags to create image links.&lt;/td&gt;
-  &lt;/tr&gt;
-   &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Usage&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;
-      [modalurl]{0}[/modalurl]&lt;br /&gt;
-	 [modalurl={0}]mydomain[/modalurl]&lt;/td&gt;
-  &lt;/tr&gt;
-   &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Output&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;&lt;a class="ceebox" href="{0}" target="_blank" title="{0}"&gt;{0}&lt;/a&gt;&lt;br /&gt;
-     &lt;a class="ceebox" href="{0}" target="_blank" title="{0}"&gt;mydomain&lt;/a&gt;&lt;/td&gt;
-  &lt;/tr&gt;
+  <Resource tag="BBCODESCONTENT">
 
-&lt;tr&gt;
-    &lt;td class="header2" colspan="2"&gt;Topic Links&lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Description&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;
-      The [topic] tag allows you to link to topics inside the forum, by specifying the topic id and the Link Name.&lt;/td&gt;
-  &lt;/tr&gt;
-   &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Usage&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;
-      [topic=123]Go to Topic[/thread]
-     &lt;/td&gt;
-  &lt;/tr&gt;
-   &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Output&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;&lt;a href="{0}yaf_postst123_topic_title.aspx" target="_blank" title="Go to Topic"&gt;Go to Topic&lt;/a&gt;&lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td class="header2" colspan="2"&gt;Post Links&lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Description&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;
-      The [post] tag allows you to link to a specific post from a topic inside the forum, by specifying the post id and the Link Name.&lt;/td&gt;
-  &lt;/tr&gt;
-   &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Usage&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;
-      [post=123]Go to Post[/post]
-     &lt;/td&gt;
-  &lt;/tr&gt;
-   &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Output&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;&lt;a href="{0}yaf_postsm123_topic_title.aspx#post123" target="_blank" title="Go to Post"&gt;Go to Post&lt;/a&gt;&lt;/td&gt;
-  &lt;/tr&gt;
-&lt;/table&gt;
-&lt;br /&gt;
-&lt;table class="content" width="90%"&gt;
-  &lt;tr&gt;
-    &lt;td class="header1" colspan="2"&gt;
-      BB Codes to create Lists
-    &lt;/td&gt;
-  &lt;/tr&gt;
-&lt;tr&gt;
-    &lt;td class="header2" colspan="2"&gt;Bullet Lists&lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Description&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;
-      The [list] tag allows you to create simple, bullet lists without specifying an option. Within the value portion, each bullet is denoted by the [*] tag.&lt;/td&gt;
-  &lt;/tr&gt;
-   &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Usage&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;
-      [list]&lt;br /&gt;
-      [*]list item 1&lt;br /&gt;
-      [*]list item 2&lt;br /&gt;
-      [/list]
-    &lt;/td&gt;
-  &lt;/tr&gt;
-   &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Output&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;&lt;ul&gt;
-            &lt;li&gt;list item 1&lt;/li&gt;
-            &lt;li&gt;list item 2&lt;/li&gt;
-         &lt;/ul&gt;
-    &lt;/td&gt;
-  &lt;/tr&gt;
+    &lt;h3&gt;
+    BB Codes for Text formatting
+    &lt;/h3&gt;
 
-&lt;tr&gt;
-    &lt;td class="header2" colspan="2"&gt;Numbered and Alphabetic Lists&lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Description&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;
-      The [list=1], [list=a] (or [list=A]) or [list=i] (or [list=I]) tag allows you to create numbered, alphabetic with (capital) letters, or a numbered with (capital) Roman numeral lists.&lt;/td&gt;
-  &lt;/tr&gt;
-   &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Usage&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;
-      [list=1]&lt;br /&gt;
-      [*]list item 1&lt;br /&gt;
-      [*]list item 2&lt;br /&gt;
-      [/list]&lt;br /&gt;
-      &lt;br /&gt;
-      [list=a]&lt;br /&gt;
-      [*]list item a&lt;br /&gt;
-      [*]list item b&lt;br /&gt;
-      [/list]
-      &lt;br /&gt;&lt;br /&gt;
-      [list=A]&lt;br /&gt;
-      [*]list item A&lt;br /&gt;
-      [*]list item B&lt;br /&gt;
-      [/list]
-      &lt;br /&gt;&lt;br /&gt;
-      [list=i]&lt;br /&gt;
-      [*]list item i&lt;br /&gt;
-      [*]list item ii&lt;br /&gt;
-      [/list]&lt;br /&gt;&lt;br /&gt;
-      [list=I]&lt;br /&gt;
-      [*]list item I&lt;br /&gt;
-      [*]list item II&lt;br /&gt;
-      [/list]&lt;/td&gt;
-  &lt;/tr&gt;
-   &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Output&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;
-      &lt;ol&gt;
-        &lt;li&gt;list item 1&lt;/li&gt;
-        &lt;li&gt;list item 2&lt;/li&gt;
-      &lt;/ol&gt;
-      &lt;ol type="a"&gt;
-        &lt;li&gt;list item a&lt;/li&gt;
-        &lt;li&gt;list item b&lt;/li&gt;
-      &lt;/ol&gt;
-      &lt;ol type="A"&gt;
-        &lt;li&gt;list item A&lt;/li&gt;
-        &lt;li&gt;list item B&lt;/li&gt;
-      &lt;/ol&gt;
-      &lt;ol type="i"&gt;
-        &lt;li&gt;list item i&lt;/li&gt;
-        &lt;li&gt;list item ii&lt;/li&gt;
-      &lt;/ol&gt;
-      &lt;ol type="I"&gt;
-        &lt;li&gt;list item I&lt;/li&gt;
-        &lt;li&gt;list item II&lt;/li&gt;
-      &lt;/ol&gt;
-    &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;/table&gt;
-&lt;br /&gt;
-&lt;table class="content" width="90%"&gt;
-  &lt;tr&gt;
-    &lt;td class="header1" colspan="2"&gt;
-      BB Codes to add Media Elements (Images, Videos)
-    &lt;/td&gt;
-  &lt;/tr&gt;
-&lt;tr&gt;
-    &lt;td class="header2" colspan="2"&gt;Images&lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Description&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;
-      &lt;p&gt;The [img] tag allows you to add images to your posts. You can also combine [url] tags with [img] tags to create image links. &lt;/p&gt;
-      &lt;p&gt;There is also an Option to enter an Image Description, which will be shown when you hover over the Image with the Mouse.&lt;/p&gt;&lt;/td&gt;
-  &lt;/tr&gt;
-   &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Usage&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;
-      [img]{0}forumlogo.jpg[/img]&lt;br /&gt;&lt;br /&gt;
-      [img={0}forumlogo.jpg]YAF Logo[/img]&lt;br /&gt;&lt;br /&gt;
-	  [url={0}] [img]{0}forumlogo.jpg[/img] [/url] (Linked)
-	&lt;/td&gt;
-  &lt;/tr&gt;
-   &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Output&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;&lt;img src="{0}forumlogo.jpg" alt="" /&gt;&lt;br /&gt;
-		&lt;br /&gt;&lt;img src="{0}forumlogo.jpg" alt="YAF Logo" title="YAF Logo" /&gt;&lt;br /&gt;
-		&lt;br /&gt;
-		&lt;a href="{0}" target="_blank" title="YAF Logo"&gt;&lt;img class="inlineimg" src="{0}forumlogo.jpg" alt="" /&gt;&lt;/a&gt; (Linked)
-	&lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td class="header2" colspan="2"&gt;You Tube&lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Description&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;
-      The [youtube] tag allows the embedding of an &lt;a href="http://www.youtube.com/" title="http://www.youtube.com/"&gt;Youtube&lt;/a&gt; video, by using the Url to the Video.&lt;/td&gt;
-  &lt;/tr&gt;
-   &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Usage&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;
-      [youtube]http://www.youtube.com/watch?v=jqxENMKaeCU[/youtube]&lt;br /&gt;&lt;br /&gt;
-      [youtube]http://youtu.be/jqxENMKaeCU[/youtube]&lt;/td&gt;
-  &lt;/tr&gt;
-   &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Output&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;&lt;!-- BEGIN youtube --&gt;&lt;object width="425" height="350"&gt;&lt;param name="movie" value="http://www.youtube.com/v/jqxENMKaeCU"&gt;&lt;/param&gt;&lt;embed src="http://www.youtube.com/v/jqxENMKaeCU" type="application/x-shockwave-flash" width="425" height="350"&gt;&lt;/embed&gt;&lt;/object&gt;&lt;!-- END youtube --&gt;&lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td class="header2" colspan="2"&gt;Vimeo&lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Description&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;
-      The [vimeo] tag allows the embedding of an &lt;a href="http://www.vimeo.com/" title="http://www.vimeo.com/"&gt;Vimeo&lt;/a&gt; video, by using the Url to the Video.&lt;/td&gt;
-  &lt;/tr&gt;
-   &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Usage&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;
-      [vimeo]http://vimeo.com/25451551[/vimeo]&lt;/td&gt;
-  &lt;/tr&gt;
-   &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Output&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;      &lt;object width="425" height="350"&gt;
-      &lt;param name="allowfullscreen" value="true" /&gt;
-      &lt;param name="allowscriptaccess" value="always" /&gt;
-      &lt;param name="movie" value="http://www.vimeo.com/moogaloop.swf?clip_id=25451551&amp;amp;server=www.vimeo.com&amp;amp;show_title=1&amp;amp;show_byline=1&amp;amp;show_portrait=0&amp;amp;color=&amp;amp;fullscreen=1" /&gt;
-      &lt;embed src="http://www.vimeo.com/moogaloop.swf?clip_id=25451551&amp;server=www.vimeo.com&amp;show_title=1&amp;show_byline=1&amp;show_portrait=0&amp;color=&amp;fullscreen=1" type="application/x-shockwave-flash" allowfullscreen="true" allowscriptaccess="always" width="425" height="350"&gt;
-      &lt;/embed&gt;
-      &lt;/object&gt;&lt;/td&gt;
-  &lt;/tr&gt;
-   &lt;tr&gt;
-    &lt;td class="header2" colspan="2"&gt;Google Maps&lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Description&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;
-      The [googlemaps] tag allows the embedding a Map from Google Maps, by using the Url to the Map.&lt;/td&gt;
-  &lt;/tr&gt;
-   &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Usage&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;
-      [googlemaps]http://maps.google.de/?ll=51.151786,10.415039&amp;amp;spn=21.97528,35.639648&amp;amp;t=h&amp;amp;z=5[/googlemaps]&lt;/td&gt;
-  &lt;/tr&gt;
-   &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Output&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;&lt;iframe width="425" height="350" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="http://maps.google.de/?ll=51.151786,10.415039&amp;amp;spn=21.97528,35.639648&amp;amp;t=h&amp;amp;z=5&amp;amp;output=embed"&gt;&lt;/iframe&gt;&lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td class="header2" colspan="2"&gt;Google Gadgets (Widget)&lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Description&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;
-      The [googlewidget] tag allows the embedding a Google Gadget, you an find the The Gadgets from the &lt;a href="http://www.google.com/ig/directory?synd=open"&gt;Google Gadget Gallery&lt;/a&gt;. Select a Gadget and Copy the Html Code for the gadget.&lt;/td&gt;
-  &lt;/tr&gt;
-   &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Usage&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;
-      [googlewidget]
-      &amp;lt;script src=
-      &amp;quot;http://www.gmodules.com/ig/ifr?url=http://ralph.feedback.googlepages.com/googlecalendarviewer.xml
-      &amp;amp;synd=open&amp;amp;w=320&amp;amp;h=200&amp;amp;title=&amp;amp;
-      border=%23ffffff%7C3px%2C1px+solid+%23999999&amp;amp;output=js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
-      [/googlewidget]&lt;/td&gt;
-  &lt;/tr&gt;
-   &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Output&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;&lt;!-- BEGIN Google Widget --&gt;
-&lt;script type="text/javascript" src="http://www.gmodules.com/ig/ifr?url=http://ralph.feedback.googlepages.com/googlecalendarviewer.xml&amp;synd=open&amp;w=320&amp;h=200&amp;title=&amp;border=%23ffffff%7C3px%2C1px+solid+%23999999&amp;output=js"&gt;&lt;/script&gt;
-&lt;!-- END Google Widget --&gt;&lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;/table&gt;
-  &lt;br /&gt;
-&lt;table class="content" width="90%"&gt;
-  &lt;tr&gt;
-    &lt;td class="header1" colspan="2"&gt;
-      BB Codes to Quote other Postings, and BB Codes to include Code Text
-    &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td class="header2" colspan="2"&gt;Quoting&lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Description&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;
-      The [quote] tag allows you to quote a text from a posting.&lt;/td&gt;
-  &lt;/tr&gt;
-   &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Usage&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;
-      [quote]Quoted Text.[/quote]&lt;br /&gt;&lt;br /&gt;
-		[quote=John Doe]Quoted Text.[/quote]&lt;br /&gt;&lt;br /&gt;
-		[quote=John Doe;123]Quoted Text.[/quote]&lt;/td&gt;
-  &lt;/tr&gt;
-   &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Output&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;
-      &lt;div class="quote"&gt;&lt;span class="quotetitle"&gt;Quote:&lt;/span&gt;&lt;div class="innerquote"&gt;Quoted Text&lt;/div&gt;&lt;/div&gt;&lt;br /&gt;
-      &lt;div class="quote"&gt;&lt;span class="quotetitle"&gt;John Doe wrote:&lt;/span&gt;&lt;div class="innerquote"&gt;Quoted Text&lt;/div&gt;&lt;/div&gt;&lt;br /&gt;
-      &lt;div class="quote"&gt;&lt;span class="quotetitle"&gt;Originally Posted by: John Doe &lt;a href="{0}yaf_postsm123_posts.aspx#post123"&gt;&lt;img src="{0}Themes/GreenGrey/icon_latest_reply.gif" title="Go to Quoted Post" alt="Go to Quoted Post" /&gt;&lt;/a&gt;&lt;/span&gt;&lt;div class="innerquote"&gt;Quoted Text&lt;/div&gt;&lt;/div&gt;&lt;br /&gt;
-    &lt;/td&gt;
-  &lt;/tr&gt;
-&lt;tr&gt;
-    &lt;td class="header2" colspan="2"&gt;Code&lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Description&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;
-      The [code] tag allows you to post Code Text, if you define the Code Language the Code will be Syntax Highlighted.&lt;/td&gt;
-  &lt;/tr&gt;
-   &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Usage&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;
-      [code]&lt;br /&gt;
-		// Hello1.cs&lt;br /&gt;
-public class Hello1&lt;br /&gt;
-{{&lt;br /&gt;
-&amp;nbsp;&amp;nbsp;public static void Main()&lt;br /&gt;
-&amp;nbsp;{{&lt;br /&gt;
-&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;System.Console.WriteLine("Hello, World!");&lt;br /&gt;
-&amp;nbsp;&amp;nbsp;}}&lt;br /&gt;
-}}&lt;br /&gt;
-		[/code]&lt;br /&gt;&lt;br /&gt;
-        [code=csharp]&lt;br /&gt;
-		// Hello1.cs&lt;br /&gt;
-public class Hello1&lt;br /&gt;
-{{&lt;br /&gt;
-&amp;nbsp;&amp;nbsp;public static void Main()&lt;br /&gt;
-&amp;nbsp;{{&lt;br /&gt;
-&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;System.Console.WriteLine("Hello, World!");&lt;br /&gt;
-&amp;nbsp;&amp;nbsp;}}&lt;br /&gt;
-}}&lt;br /&gt;
-		[/code]&lt;/td&gt;
-  &lt;/tr&gt;
-   &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Output&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;
-&lt;div class="code"&gt;&lt;strong&gt;Code:&lt;/strong&gt;&lt;div class="innercode"&gt;
-// Hello1.cs&lt;br /&gt;
-public class Hello1&lt;br /&gt;
-{{&lt;br /&gt;
-&amp;nbsp;&amp;nbsp;public static void Main()&lt;br /&gt;
-&amp;nbsp;{{&lt;br /&gt;
-&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;System.Console.WriteLine("Hello, World!");&lt;br /&gt;
-&amp;nbsp;&amp;nbsp;}}&lt;br /&gt;
-}}&lt;/div&gt;&lt;/div&gt;&lt;br /&gt;&lt;br /&gt;
-&lt;div class="code"&gt;&lt;strong&gt;Code:&lt;/strong&gt;&lt;div class="innercode"&gt;&lt;pre class="brush:csharp;"&gt;
-// Hello1.cs
-public class Hello1
-{{
-   public static void Main()
-   {{
-      System.Console.WriteLine(&amp;quot;Hello, World!&amp;quot;);
-   }}
-}}&lt;/pre&gt;
-&lt;/div&gt;&lt;/div&gt;&lt;/td&gt;
-  &lt;/tr&gt;
-&lt;/table&gt;
-&lt;br /&gt;
-&lt;table class="content" width="90%"&gt;
-  &lt;tr&gt;
-    &lt;td class="header1" colspan="2"&gt;
-     BB Codes to show/Hide its Content only to specific users
-    &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td class="header2" colspan="2"&gt;Hide&lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Description&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;
-      The [hide] tag hides content from people until they press the thank you button for the post.&lt;/td&gt;
-  &lt;/tr&gt;
-   &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Usage&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;
-      [hide]Hidden Content[/hide]&lt;/td&gt;
-  &lt;/tr&gt;
-   &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Output&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;
-    &lt;p&gt;If you don't have the right to view the content, you see an Info Message that Informs you way you don't see the Content&lt;/p&gt;
-    &lt;img src="{0}Content/images/HiddenWarnDescription.png" alt="The content of this post is hidden. After you THANK the poster, refresh the page to see the hidden content. You need to thank the Current Post" title="The content of this post is hidden. After you THANK the poster, refresh the page to see the hidden content. You need to thank the Current Post" /&gt;
+    &lt;div class=&quot;card mb-3&quot;&gt;
+    &lt;div class=&quot;card-header&quot;&gt;
+    Bold Text
+    &lt;/div&gt;
+    &lt;div class=&quot;card-body&quot;&gt;
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Description&lt;/h6&gt;
+
+    The [noparse][b] tag allows you to create text that is bold.
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Usage&lt;/h6&gt;
+
+
+    [noparse][b]This text is bold[/b][/noparse]
+
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Output&lt;/h6&gt;
+    &lt;strong&gt;This text is bold&lt;/strong&gt;
+    &lt;/div&gt;
+    &lt;/div&gt;
+
+
+    &lt;div class=&quot;card mb-3&quot;&gt;
+    &lt;div class=&quot;card-header&quot;&gt;
+    Italic Text
+    &lt;/div&gt;
+
+
+    &lt;div class=&quot;card-body&quot;&gt;
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Description&lt;/h6&gt;
+
+
+    The [i] tag allows you to create text that italic.
+
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Usage&lt;/h6&gt;
+
+
+    [i]This text is italic[/i]
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Output&lt;/h6&gt;
+
+    &lt;em&gt;This text is italic&lt;/em&gt;
+    &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;div class=&quot;card mb-3&quot;&gt;
+    &lt;div class=&quot;card-header&quot;&gt;Underline Text&lt;/div&gt;
+
+
+    &lt;div class=&quot;card-body&quot;&gt;
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Description&lt;/h6&gt;
+
+
+    The [u] tag allows you to create text underlined.
+
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Usage&lt;/h6&gt;
+
+    [u]This text is underlined[/u]
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Output&lt;/h6&gt;
+
+    &lt;u&gt;This text is underlined&lt;/u&gt;
+    &lt;/div&gt;
+    &lt;/div&gt;
+
+
+    &lt;div class=&quot;card mb-3&quot;&gt;
+    &lt;div class=&quot;card-header&quot;&gt;Strike Text&lt;/div&gt;
+
+
+    &lt;div class=&quot;card-body&quot;&gt;
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Description&lt;/h6&gt;
+
+
+    Wrap these tags to strike through text
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Usage&lt;/h6&gt;
+    [s]This text is Strike through[/s]
+
+
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Output&lt;/h6&gt;
+
+    &lt;s&gt;This text is Strike through&lt;/s&gt;
+    &lt;/div&gt; &lt;/div&gt;
+
+    &lt;div class=&quot;card mb-3&quot;&gt;
+    &lt;div class=&quot;card-header&quot;&gt;Text Color&lt;/div&gt;
+
+
+    &lt;div class=&quot;card-body&quot;&gt;
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Description&lt;/h6&gt;
+
+    The [color] tag allows you to change the color of your text, by parsing the color you want.
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Usage&lt;/h6&gt;
+
+    [color=blue]this text is blue[/color]
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Output&lt;/h6&gt;
+
+    &lt;span style=&quot;color:blue&quot;&gt;this text is blue&lt;/span&gt;
+    &lt;/div&gt;&lt;/div&gt;
+
+    &lt;div class=&quot;card mb-3&quot;&gt;
+    &lt;div class=&quot;card-header&quot;&gt;Text Size&lt;/div&gt;
+
+
+    &lt;div class=&quot;card-body&quot;&gt;
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Description&lt;/h6&gt;
+
+    The [size] tag allows you to change the size of your text. You can define a value from 1-9, these values will be converted in percentage values 1=50, 2=70, 3=80, 4=90, 5=100, 6=120, 7=140, 8=160, 9=180
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Usage&lt;/h6&gt;
+    [size=9]This Text has the font size of 180%[/size]
+
+
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Output&lt;/h6&gt;
+
+    &lt;span style=&quot;font-size:180%&quot;&gt;This Text has the font size of 180%&lt;/span&gt;
+    &lt;/div&gt;&lt;/div&gt;
+
+    &lt;div class=&quot;card mb-3&quot;&gt;
+    &lt;div class=&quot;card-header&quot;&gt;Text Font&lt;/div&gt;
+
+
+    &lt;div class=&quot;card-body&quot;&gt;
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Description&lt;/h6&gt;
+
+    The [font] tag allows you to change the font family of your text.
+
+
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Usage&lt;/h6&gt;
+
+    [font=courier]this text is in the courier font[/font]
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Usage&lt;/h6&gt;
+    &lt;span style=&quot;font-family:courier&quot;&gt;this text is in the courier font&lt;/span&gt;&lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;div class=&quot;card mb-3&quot;&gt;
+    &lt;div class=&quot;card-header&quot;&gt;Text Left / Right / Center Direction&lt;/div&gt;
+
+
+    &lt;div class=&quot;card-body&quot;&gt;
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Description&lt;/h6&gt;
+
+    The [left], [right] and [center] tags allow you to change the alignment of your text.
+
+
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Usage&lt;/h6&gt;
+
+    [left]this text is left aligned[/left]&lt;br /&gt;
+    [center]this text is center aligned[/center]&lt;br /&gt;
+    [right]this text is right aligned[/right]
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Output&lt;/h6&gt;
+
+    &lt;div align=&quot;left&quot;&gt;this text is left aligned&lt;/div&gt;
+    &lt;div align=&quot;center&quot;&gt;this text is center aligned&lt;/div&gt;
+    &lt;div align=&quot;right&quot;&gt;this text is right aligned&lt;/div&gt;
+    &lt;/div&gt;        &lt;/div&gt;
+
+    &lt;div class=&quot;card mb-3&quot;&gt;
+    &lt;div class=&quot;card-header&quot;&gt;Highlight&lt;/div&gt;
+
+
+    &lt;div class=&quot;card-body&quot;&gt;
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Description&lt;/h6&gt;
+
+    The [h] tag allows you to highlight your text.
+
+
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Usage&lt;/h6&gt;
+
+    [h]this text is highlighted[/h]
+
+
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Output&lt;/h6&gt;
+    &lt;mark&gt;this text is highlighted&lt;/mark&gt;
+    &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;h3&gt;
+    BB Codes to create various Links
+    &lt;/h3&gt;
+
+    &lt;div class=&quot;card mb-3&quot;&gt;
+    &lt;div class=&quot;card-header&quot;&gt;Email Links&lt;/div&gt;
+
+
+    &lt;div class=&quot;card-body&quot;&gt;
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Description&lt;/h6&gt;
+
+    The [email] tag allows you to link to an email address. You can include an optional parameter to add a Link Name
+
+
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Usage&lt;/h6&gt;
+
+    [email]someone@mydomain.com[/email]&lt;br /&gt;
+    [email=someone@mydomain.com]Click Here to Email Me[/email]
+
+
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Output&lt;/h6&gt;
+    &lt;a href=&quot;mailto:someone@mydomain.com&quot; title=&quot;someone@mydomain.com&quot;&gt;someone@mydomain.com&amp;nbsp;&lt;i class=&quot;fa fa-external-link-alt fa-fw&quot;&gt;&lt;/i&gt;&lt;/a&gt;&lt;br /&gt;
+    &lt;a href=&quot;mailto:someone@mydomain.com&quot; title=&quot;Click Here to Email Me&quot;&gt;Click Here to Email Me&amp;nbsp;&lt;i class=&quot;fa fa-external-link-alt fa-fw&quot;&gt;&lt;/i&gt;&lt;/a&gt;
+    &lt;/div&gt;&lt;/div&gt;
+
+    &lt;div class=&quot;card mb-3&quot;&gt;
+    &lt;div class=&quot;card-header&quot;&gt;URL Hyper Links&lt;/div&gt;
+    &lt;div class=&quot;card-body&quot;&gt;
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Description&lt;/h6&gt;
+
+    The [url] tag allows you to link to other websites and files. You can include an optional parameter to &#39;name&#39; your link. You can also combine [url] tags with [img] tags to create image links.
+
+
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Usage&lt;/h6&gt;
+
+    [url]{0}[/url]&lt;br /&gt;
+    [url={0}]mydomain[/url]
+
+
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Output&lt;/h6&gt;
+
+    &lt;a href=&quot;{0}&quot; target=&quot;_blank&quot; title=&quot;{0}&quot;&gt;{0}&amp;nbsp;&lt;i class=&quot;fa fa-external-link-alt fa-fw&quot;&gt;&lt;/i&gt;&lt;/a&gt;&lt;br /&gt;
+    &lt;a href=&quot;{0}&quot; target=&quot;_blank&quot; title=&quot;{0}&quot;&gt;mydomain&amp;nbsp;&lt;i class=&quot;fa fa-external-link-alt fa-fw&quot;&gt;&lt;/i&gt;&lt;/a&gt;
+    &lt;/div&gt; &lt;/div&gt;
+
+
+
+    &lt;div class=&quot;card mb-3&quot;&gt;
+    &lt;div class=&quot;card-header&quot;&gt;Topic Links&lt;/div&gt;
+
+
+    &lt;div class=&quot;card-body&quot;&gt;
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Description&lt;/h6&gt;
+
+    The [topic] tag allows you to link to topics inside the forum, by specifying the topic id and the Link Name.
+
+
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Usage&lt;/h6&gt;
+
+    [topic=123]Go to Topic[/thread]
+
+
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Output&lt;/h6&gt;
+    &lt;a href=&quot;{0}posts/t123-topic-title&quot; target=&quot;_blank&quot; title=&quot;Go to Topic&quot;&gt;Go to Topic&lt;/a&gt;&lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;div class=&quot;card mb-3&quot;&gt;
+    &lt;div class=&quot;card-header&quot;&gt;Post Links&lt;/div&gt;
+
+
+    &lt;div class=&quot;card-body&quot;&gt;
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Description&lt;/h6&gt;
+
+    The [post] tag allows you to link to a specific post from a topic inside the forum, by specifying the post id and the Link Name.
+
+
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Usage&lt;/h6&gt;
+
+    [post=123]Go to Post[/post]
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Output&lt;/h6&gt;
+    &lt;a href=&quot;{0}posts/m123-topic-title#post123&quot; target=&quot;_blank&quot; title=&quot;Go to Post&quot;&gt;Go to Post&lt;/a&gt;
+    &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;h3&gt;
+    BB Codes to create Lists
+    &lt;/h3&gt;
+
+    &lt;div class=&quot;card mb-3&quot;&gt;
+    &lt;div class=&quot;card-header&quot;&gt;Bullet Lists&lt;/div&gt;
+
+
+    &lt;div class=&quot;card-body&quot;&gt;
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Description&lt;/h6&gt;
+
+    The [list] tag allows you to create simple, bullet lists without specifying an option. Within the value portion, each bullet is denoted by the [*] tag.
+
+
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Usage&lt;/h6&gt;
+
+    [list]&lt;br /&gt;
+    [*]list item 1&lt;br /&gt;
+    [*]list item 2&lt;br /&gt;
+    [/list]
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Output&lt;/h6&gt;
+
+    &lt;ul&gt;
+    &lt;li&gt;list item 1&lt;/li&gt;
+    &lt;li&gt;list item 2&lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;/div&gt;&lt;/div&gt;
+
+
+    &lt;div class=&quot;card mb-3&quot;&gt;
+    &lt;div class=&quot;card-header&quot;&gt;Numbered and Alphabetic Lists&lt;/div&gt;
+
+
+    &lt;div class=&quot;card-body&quot;&gt;
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Description&lt;/h6&gt;
+
+    The [list=1], [list=a] (or [list=A]) or [list=i] (or [list=I]) tag allows you to create numbered, alphabetic with (capital) letters, or a numbered with (capital) Roman numeral lists.
+
+
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Usage&lt;/h6&gt;
+
+    [list=1]&lt;br /&gt;
+    [*]list item 1&lt;br /&gt;
+    [*]list item 2&lt;br /&gt;
+    [/list]&lt;br /&gt;
+    &lt;br /&gt;
+    [list=a]&lt;br /&gt;
+    [*]list item a&lt;br /&gt;
+    [*]list item b&lt;br /&gt;
+    [/list]
+    &lt;br /&gt;&lt;br /&gt;
+    [list=A]&lt;br /&gt;
+    [*]list item A&lt;br /&gt;
+    [*]list item B&lt;br /&gt;
+    [/list]
+    &lt;br /&gt;&lt;br /&gt;
+    [list=i]&lt;br /&gt;
+    [*]list item i&lt;br /&gt;
+    [*]list item ii&lt;br /&gt;
+    [/list]&lt;br /&gt;&lt;br /&gt;
+    [list=I]&lt;br /&gt;
+    [*]list item I&lt;br /&gt;
+    [*]list item II&lt;br /&gt;
+    [/list]
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Output&lt;/h6&gt;
+
+    &lt;ol&gt;
+    &lt;li&gt;list item 1&lt;/li&gt;
+    &lt;li&gt;list item 2&lt;/li&gt;
+    &lt;/ol&gt;
+    &lt;ol type=&quot;a&quot;&gt;
+    &lt;li&gt;list item a&lt;/li&gt;
+    &lt;li&gt;list item b&lt;/li&gt;
+    &lt;/ol&gt;
+    &lt;ol type=&quot;A&quot;&gt;
+    &lt;li&gt;list item A&lt;/li&gt;
+    &lt;li&gt;list item B&lt;/li&gt;
+    &lt;/ol&gt;
+    &lt;ol type=&quot;i&quot;&gt;
+    &lt;li&gt;list item i&lt;/li&gt;
+    &lt;li&gt;list item ii&lt;/li&gt;
+    &lt;/ol&gt;
+    &lt;ol type=&quot;I&quot;&gt;
+    &lt;li&gt;list item I&lt;/li&gt;
+    &lt;li&gt;list item II&lt;/li&gt;
+    &lt;/ol&gt;
+    &lt;/div&gt;
+    &lt;/div&gt;
+
+
+    &lt;h3&gt;
+    BB Codes to add Media Elements (Images, Videos)
+    &lt;/h3&gt;
+
+    &lt;div class=&quot;card mb-3&quot;&gt;
+    &lt;div class=&quot;card-header&quot;&gt;Images&lt;/div&gt;
+
+
+    &lt;div class=&quot;card-body&quot;&gt;
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Description&lt;/h6&gt;
+
+    &lt;p&gt;The [img] tag allows you to add images to your posts. You can also combine [url] tags with [img] tags to create image links. &lt;/p&gt;
+    &lt;p&gt;There is also an Option to enter an Image Description, which will be shown when you hover over the Image with the Mouse.&lt;/p&gt;
+
+
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Usage&lt;/h6&gt;
+
+    [img]{0}Content/images/YAFLogo.svg[/img]&lt;br /&gt;&lt;br /&gt;
+    [img={0}Content/images/YAFLogo.svg]YAF Logo[/img]&lt;br /&gt;&lt;br /&gt;
+    [url={0}] [img]{0}Content/images/YAFLogo.svg[/img] [/url] (Linked)
+
+
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Output&lt;/h6&gt;
+
+    &lt;img src=&quot;{0}Content/images/YAFLogo.svg&quot; alt=&quot;&quot; /&gt;&lt;br /&gt;
+    &lt;br /&gt;&lt;img src=&quot;{0}Content/images/YAFLogo.svg&quot; alt=&quot;YAF Logo&quot; title=&quot;YAF Logo&quot; /&gt;&lt;br /&gt;
+    &lt;br /&gt;
+    &lt;a href=&quot;{0}&quot; target=&quot;_blank&quot; title=&quot;YAF Logo&quot;&gt;&lt;img class=&quot;inlineimg&quot; src=&quot;{0}Content/images/YAFLogo.svg&quot; alt=&quot;&quot; /&gt;&lt;/a&gt; (Linked)
+    &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;div class=&quot;card mb-3&quot;&gt;
+    &lt;div class=&quot;card-header&quot;&gt;You Tube&lt;/div&gt;
+
+
+    &lt;div class=&quot;card-body&quot;&gt;
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Description&lt;/h6&gt;
+
+    The [youtube] tag allows the embedding of an &lt;a href=&quot;http://www.youtube.com/&quot; title=&quot;http://www.youtube.com/&quot;&gt;Youtube&lt;/a&gt; video, by using the Url to the Video.
+
+
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Usage&lt;/h6&gt;
+
+    [youtube]http://www.youtube.com/watch?v=jqxENMKaeCU[/youtube]&lt;br /&gt;&lt;br /&gt;
+    [youtube]http://youtu.be/jqxENMKaeCU[/youtube]
+
+
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Output&lt;/h6&gt;
+    &lt;!-- BEGIN youtube --&gt;
+    &lt;div&gt;
+    &lt;iframe width=&quot;560&quot; height=&quot;350&quot; src=&quot;//youtube.com/embed/jqxENMKaeCU?hd=1&quot; frameborder=&quot;0&quot; allowfullscreen&gt;&lt;/iframe&gt;
+    &lt;/div&gt;&lt;!-- END youtube --&gt;
+    &lt;br /&gt;&lt;br /&gt;
+    &lt;!-- BEGIN youtube --&gt;
+    &lt;div&gt;
+    &lt;iframe width=&quot;560&quot; height=&quot;350&quot; src=&quot;//youtube.com/embed/jqxENMKaeCU?hd=1&quot; frameborder=&quot;0&quot; allowfullscreen&gt;&lt;/iframe&gt;
+    &lt;/div&gt;&lt;!-- END youtube --&gt;
+    &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;div class=&quot;card mb-3&quot;&gt;
+    &lt;div class=&quot;card-header&quot;&gt;Vimeo&lt;/div&gt;
+
+
+    &lt;div class=&quot;card-body&quot;&gt;
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Description&lt;/h6&gt;
+
+    The [vimeo] tag allows the embedding of an &lt;a href=&quot;http://www.vimeo.com/&quot; title=&quot;http://www.vimeo.com/&quot;&gt;Vimeo&lt;/a&gt; video, by using the Url to the Video.
+
+
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Usage&lt;/h6&gt;
+
+    [vimeo]http://vimeo.com/25451551[/vimeo]
+
+
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Output&lt;/h6&gt;
+
+    &lt;div&gt;
+    &lt;iframe width=&quot;560&quot; height=&quot;350&quot;
+    src=&quot;http://player.vimeo.com/video/25451551?show_title=1&amp;amp;show_byline=1&amp;amp;show_portrait=1&amp;amp;&amp;amp;fullscreen=1&quot; frameborder=&quot;0&quot;&gt;&lt;/iframe&gt;
+    &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;div class=&quot;card mb-3&quot;&gt;
+    &lt;div class=&quot;card-header&quot;&gt;Google Maps&lt;/div&gt;
+
+
+    &lt;div class=&quot;card-body&quot;&gt;
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Description&lt;/h6&gt;
+
+    The [googlemaps] tag allows the embedding a Map from Google Maps, by using the Url to the Map.
+
+
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Usage&lt;/h6&gt;
+
+    [googlemaps]http://maps.google.de/?ll=51.151786,10.415039&amp;amp;spn=21.97528,35.639648&amp;amp;t=h&amp;amp;z=5[/googlemaps]
+
+
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Output&lt;/h6&gt;
+    &lt;iframe width=&quot;425&quot; height=&quot;350&quot; frameborder=&quot;0&quot; scrolling=&quot;no&quot; marginheight=&quot;0&quot; marginwidth=&quot;0&quot; src=&quot;http://maps.google.de/?ll=51.151786,10.415039&amp;amp;spn=21.97528,35.639648&amp;amp;t=h&amp;amp;z=5&amp;amp;output=embed&quot;&gt;&lt;/iframe&gt;&lt;/div&gt;
+
+    &lt;/div&gt;
+
+    &lt;h3&gt;
+    BB Codes to Quote other Postings, and BB Codes to include Code Text
+    &lt;/h3&gt;
+
+    &lt;div class=&quot;card mb-3&quot;&gt;
+    &lt;div class=&quot;card-header&quot;&gt;Quoting&lt;/div&gt;
+
+
+    &lt;div class=&quot;card-body&quot;&gt;
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Description&lt;/h6&gt;
+
+    The [quote] tag allows you to quote a text from a posting.
+
+
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Usage&lt;/h6&gt;
+
+    [quote]Quoted Text.[/quote]&lt;br /&gt;&lt;br /&gt;
+    [quote=John Doe]Quoted Text.[/quote]&lt;br /&gt;&lt;br /&gt;
+    [quote=John Doe;123]Quoted Text.[/quote]
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Output&lt;/h6&gt;
+
+    &lt;div class=&quot;card mb-3&quot;&gt;
+    &lt;div class=&quot;card-header text-muted&quot;&gt;Quote:&lt;/div&gt;
+    &lt;div class=&quot;card-body&quot;&gt;
+    &lt;p class=&quot;card-text&quot;&gt;Quoted Text.&lt;/div&gt;
+    &lt;/div&gt;&lt;br /&gt;&lt;br /&gt;
+    &lt;div class=&quot;card mb-3&quot;&gt;
+    &lt;div class=&quot;card-header text-muted&quot;&gt;John Doe wrote:&lt;/div&gt;
+    &lt;div class=&quot;card-body&quot;&gt;
+    &lt;p class=&quot;card-text&quot;&gt;Quoted Text.&lt;/div&gt;
+    &lt;/div&gt;&lt;br /&gt;&lt;br /&gt;
+    &lt;div class=&quot;card mb-3&quot;&gt;
+    &lt;div class=&quot;card-header text-muted&quot;&gt;Originally Posted by: John Doe &lt;a href=&quot;#post123&quot;&gt;&lt;i class=&quot;fas fa-external-link-alt&quot;&gt;&lt;/i&gt;&lt;/a&gt;&lt;/div&gt;
+    &lt;div class=&quot;card-body&quot;&gt;
+    &lt;p class=&quot;card-text&quot;&gt;Quoted Text.&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;div class=&quot;card mb-3&quot;&gt;
+    &lt;div class=&quot;card-header&quot;&gt;Code&lt;/div&gt;
+
+
+    &lt;div class=&quot;card-body&quot;&gt;
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Description&lt;/h6&gt;
+
+    The [code] tag allows you to post Code Text, if you define the Code Language the Code will be Syntax Highlighted.
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Usage&lt;/h6&gt;
+
+    [code]&lt;br /&gt;
+    // Hello1.cs&lt;br /&gt;
+    public class Hello1&lt;br /&gt;
+    {{
+    &lt;br /&gt;
+    &amp;nbsp;&amp;nbsp;public static void Main()&lt;br /&gt;
+    &amp;nbsp;{{&lt;br /&gt;
+    &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;System.Console.WriteLine(&quot;Hello, World!&quot;);&lt;br /&gt;
+    &amp;nbsp;&amp;nbsp;
+    }}&lt;br /&gt;
+    }}&lt;br /&gt;
+    [/code]&lt;br /&gt;&lt;br /&gt;
+    [code=csharp]&lt;br /&gt;
+    // Hello1.cs&lt;br /&gt;
+    public class Hello1&lt;br /&gt;
+    {{
+    &lt;br /&gt;
+    &amp;nbsp;&amp;nbsp;public static void Main()&lt;br /&gt;
+    &amp;nbsp;{{&lt;br /&gt;
+    &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;System.Console.WriteLine(&quot;Hello, World!&quot;);&lt;br /&gt;
+    &amp;nbsp;&amp;nbsp;
+    }}&lt;br /&gt;
+    }}&lt;br /&gt;
+    [/code]
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Output&lt;/h6&gt;
+
+    &lt;div class=&quot;code&quot;&gt;&lt;pre class=&quot;line-numbers&quot;&gt;&lt;code class=&quot;language-markup&quot;&gt;
+
+    // Hello1.cs&lt;br /&gt;
+    public class Hello1&lt;br /&gt;
+    {{
+    &lt;br /&gt;
+    &amp;nbsp;&amp;nbsp;public static void Main()&lt;br /&gt;
+    &amp;nbsp;{{&lt;br /&gt;
+    &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;System.Console.WriteLine(&quot;Hello, World!&quot;);&lt;br /&gt;
+    &amp;nbsp;&amp;nbsp;
+    }}&lt;br /&gt;
+    }}
+    &lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;&lt;br /&gt;&lt;br /&gt;
+    &lt;div class=&quot;code&quot;&gt;&lt;pre class=&quot;line-numbers&quot;&gt;&lt;code class=&quot;language-csharp&quot;&gt;
+
+    // Hello1.cs
+    public class Hello1
+    {{
+    public static void Main()
+    {{
+    System.Console.WriteLine(&amp;quot;Hello, World!&amp;quot;);
+    }}
+    }}&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;/div&gt;
+
+
+    &lt;h3&gt;
+    BB Codes to show/Hide its Content only to specific users
+    &lt;/h3&gt;
+
+    &lt;div class=&quot;card mb-3&quot;&gt;
+    &lt;div class=&quot;card-header&quot;&gt;Hide&lt;/div&gt;
+
+
+    &lt;div class=&quot;card-body&quot;&gt;
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Description&lt;/h6&gt;
+    The [hide] tag hides content from people until they press the thank you button for the post.
+
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Usage&lt;/h6&gt;
+    [hide]Hidden Content[/hide]
+
+
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Output&lt;/h6&gt;
+
+    &lt;p&gt;If you don&#39;t have the right to view the content, you see an Info Message that Informs you way you don&#39;t see the Content&lt;/p&gt;
+    &lt;div class=&quot;alert alert-danger&quot; role=&quot;alert&quot;&gt;
+    &lt;h4 class=&quot;alert-heading&quot;&gt;Hidden Content&lt;/h4&gt;
+    &lt;hr&gt;
+    &lt;p class=&quot;mb-0&quot;&gt;
+    The content of this post is hidden. After you THANK the poster, refresh the page to see the hidden content. You need to thank the Current Post
+    &lt;/p&gt;
+    &lt;/div&gt;
+
     &lt;p&gt;Otherwise as Guest you see a Info Message&lt;/p&gt;
-    &lt;div class="ui-widget"&gt;&lt;div class="ui-state-error ui-corner-all" style="padding: 0 .7em;"&gt;&lt;p&gt;&lt;span class="ui-icon ui-icon-alert" style="float: left; padding: 0 0 3px 2px;"&gt;&lt;/span&gt;This board requires you to be registered and logged-in before you can view hidden messages.&lt;/div&gt;&lt;/div&gt;
+    &lt;div class=&quot;alert alert-danger&quot; role=&quot;alert&quot;&gt;
+    This board requires you to be registered and logged-in before you can view hidden messages.
+    &lt;/div&gt;
     &lt;p&gt;If you do have access to see the Content you simply see the Hidden Content&lt;/p&gt;&lt;br /&gt;
     &lt;p&gt;Hidden Content&lt;/p&gt;
-	&lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td class="header2" colspan="2"&gt;Group Hide&lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Description&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;
-      The [group-hide] tag Hide the Content from Guests, or other Roles if defined.&lt;/td&gt;
-  &lt;/tr&gt;
-   &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Usage&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;
-      [group-hide]Hidden Content[/group-hide]&lt;/td&gt;
-  &lt;/tr&gt;
-   &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Output&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;
-    &lt;p&gt;If you don't have the right to view the content, you see an Info Message that Informs you way you don't see the Content&lt;/p&gt;
+    &lt;/div&gt;    &lt;/div&gt;
 
-    &lt;div class="ui-widget"&gt;&lt;div class="ui-state-error ui-corner-all" style="padding: 0 .7em;"&gt;&lt;p&gt;&lt;span class="ui-icon ui-icon-alert" style="float: left; padding: 0 0 3px 2px;"&gt;&lt;/span&gt;You have insufficient rights to see the hidden content.&lt;/div&gt;&lt;/div&gt;
+    &lt;div class=&quot;card mb-3&quot;&gt;
+    &lt;div class=&quot;card-header&quot;&gt;Group Hide&lt;/div&gt;
+
+
+    &lt;div class=&quot;card-body&quot;&gt;
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Description&lt;/h6&gt;
+
+    The [group-hide] tag Hide the Content from Guests, or other Roles if defined.
+
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Usage&lt;/h6&gt;
+
+    [group-hide]Hidden Content[/group-hide]
+
+
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Output&lt;/h6&gt;
+
+    &lt;p&gt;If you don&#39;t have the right to view the content, you see an Info Message that Informs you way you don&#39;t see the Content&lt;/p&gt;
+
+    &lt;div class=&quot;alert alert-danger&quot; role=&quot;alert&quot;&gt;
+    You have insufficient rights to see the hidden content.
+    &lt;/div&gt;
 
     &lt;p&gt;Otherwise as Guest you see a Info Message&lt;/p&gt;
-    &lt;div class="ui-widget"&gt;&lt;div class="ui-state-error ui-corner-all" style="padding: 0 .7em;"&gt;&lt;p&gt;&lt;span class="ui-icon ui-icon-alert" style="float: left; padding: 0 0 3px 2px;"&gt;&lt;/span&gt;This board requires you to be registered and logged-in before you can view hidden messages.&lt;/div&gt;&lt;/div&gt;
+    &lt;div class=&quot;alert alert-danger&quot; role=&quot;alert&quot;&gt;
+    This board requires you to be registered and logged-in before you can view hidden messages.
+    &lt;/div&gt;
 
     &lt;p&gt;If you do have access to see the Content you simply see the Hidden Content&lt;/p&gt;&lt;br /&gt;
     &lt;p&gt;Hidden Content&lt;/p&gt;
-	&lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td class="header2" colspan="2"&gt;Hide-Thanks&lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Description&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;
-      The [hide-thanks] tag hides content from people who have below X thanks received.&lt;/td&gt;
-  &lt;/tr&gt;
-   &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Usage&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;
-      [hide-thanks=2]Hidden Content[/hide-thanks]&lt;/td&gt;
-  &lt;/tr&gt;
-   &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Output&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;
-    &lt;p&gt;If you don't have the right to view the content, you see an Info Message that Informs you way you don't see the Content&lt;/p&gt;
+    &lt;/div&gt;
+    &lt;/div&gt;
 
-    &lt;div class="ui-widget"&gt;&lt;div class="ui-state-error ui-corner-all" style="padding: 0 .7em;"&gt;&lt;p&gt;&lt;span class="ui-icon ui-icon-alert" style="float: left; padding: 0 0 3px 2px;"&gt;&lt;/span&gt;Hidden Content (You must be registered, and have at least 2 thank(s) received.)&lt;/div&gt;&lt;/div&gt;
+    &lt;div class=&quot;card mb-3&quot;&gt;
+    &lt;div class=&quot;card-header&quot;&gt;Hide-Thanks&lt;/div&gt;
+
+
+    &lt;div class=&quot;card-body&quot;&gt;
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Description&lt;/h6&gt;
+
+    The [hide-thanks] tag hides content from people who have below X thanks received.
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Usage&lt;/h6&gt;
+
+    [hide-thanks=2]Hidden Content[/hide-thanks]
+
+
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Output&lt;/h6&gt;
+
+    &lt;p&gt;If you don&#39;t have the right to view the content, you see an Info Message that Informs you way you don&#39;t see the Content&lt;/p&gt;
+
+    &lt;div class=&quot;alert alert-warning&quot; role=&quot;alert&quot;&gt;
+    Hidden Content (You must be registered, and have at least 2 thank(s) received.)
+    &lt;/div&gt;
 
     &lt;p&gt;Otherwise as Guest you see a Info Message&lt;/p&gt;
-    &lt;div class="ui-widget"&gt;&lt;div class="ui-state-error ui-corner-all" style="padding: 0 .7em;"&gt;&lt;p&gt;&lt;span class="ui-icon ui-icon-alert" style="float: left; padding: 0 0 3px 2px;"&gt;&lt;/span&gt;This board requires you to be registered and logged-in before you can view hidden messages.&lt;/div&gt;&lt;/div&gt;
+    &lt;div class=&quot;alert alert-danger&quot; role=&quot;alert&quot;&gt;
+    This board requires you to be registered and logged-in before you can view hidden messages.
+    &lt;/div&gt;
 
     &lt;p&gt;If you do have access to see the Content you simply see the Hidden Content&lt;/p&gt;&lt;br /&gt;
     &lt;p&gt;Hidden Content&lt;/p&gt;
-	&lt;/td&gt;
-  &lt;/tr&gt;
+    &lt;/div&gt;
+    &lt;/div&gt;
 
-  &lt;tr&gt;
-    &lt;td class="header2" colspan="2"&gt;Hide-Posts&lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Description&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;
-      The [hide-posts] tag hides content from people who have below X posts.&lt;/td&gt;
-  &lt;/tr&gt;
-   &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Usage&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;
-      [hide-posts=10]Hidden Content[/hide-posts]&lt;/td&gt;
-  &lt;/tr&gt;
-   &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Output&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;
-    &lt;p&gt;If you don't have the right to view the content, you see an Info Message that Informs you way you don't see the Content&lt;/p&gt;
+    &lt;div class=&quot;card mb-3&quot;&gt;
+    &lt;div class=&quot;card-header&quot;&gt;Hide-Posts&lt;/div&gt;
 
-    &lt;div class="ui-widget"&gt;&lt;div class="ui-state-error ui-corner-all" style="padding: 0 .7em;"&gt;&lt;p&gt;&lt;span class="ui-icon ui-icon-alert" style="float: left; padding: 0 0 3px 2px;"&gt;&lt;/span&gt;Hidden Content (You must be registered and have 10 post(s) or more.)&lt;/div&gt;&lt;/div&gt;
+
+    &lt;div class=&quot;card-body&quot;&gt;
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Description&lt;/h6&gt;
+
+    The [hide-posts] tag hides content from people who have below X posts.
+
+
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Usage&lt;/h6&gt;
+
+    [hide-posts=10]Hidden Content[/hide-posts]
+
+
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Output&lt;/h6&gt;
+
+    &lt;p&gt;If you don&#39;t have the right to view the content, you see an Info Message that Informs you way you don&#39;t see the Content&lt;/p&gt;
+
+    &lt;div class=&quot;alert alert-warning&quot; role=&quot;alert&quot;&gt;
+    Hidden Content (You must be registered and have 10 post(s) or more.)
+    &lt;/div&gt;
 
     &lt;p&gt;Otherwise as Guest you see a Info Message&lt;/p&gt;
-    &lt;div class="ui-widget"&gt;&lt;div class="ui-state-error ui-corner-all" style="padding: 0 .7em;"&gt;&lt;p&gt;&lt;span class="ui-icon ui-icon-alert" style="float: left; padding: 0 0 3px 2px;"&gt;&lt;/span&gt;This board requires you to be registered and logged-in before you can view hidden messages.&lt;/div&gt;&lt;/div&gt;
+    &lt;div class=&quot;alert alert-danger&quot; role=&quot;alert&quot;&gt;
+    This board requires you to be registered and logged-in before you can view hidden messages.
+    &lt;/div&gt;
 
     &lt;p&gt;If you do have access to see the Content you simply see the Hidden Content&lt;/p&gt;&lt;br /&gt;
     &lt;p&gt;Hidden Content&lt;/p&gt;
-	&lt;/td&gt;
-  &lt;/tr&gt;
+    &lt;/div&gt;
+    &lt;/div&gt;
 
-  &lt;tr&gt;
-    &lt;td class="header2" colspan="2"&gt;Hide-Reply&lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Description&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;
-      The [hide-reply] tag hides content from people until they replied in the same thread.&lt;/td&gt;
-  &lt;/tr&gt;
-   &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Usage&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;
-      [hide-reply]Hidden Content[/hide-reply]&lt;/td&gt;
-  &lt;/tr&gt;
-   &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Output&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;
-    &lt;p&gt;If you don't have the right to view the content, you see an Info Message that Informs you way you don't see the Content&lt;/p&gt;
 
-    &lt;div class="ui-widget"&gt;&lt;div class="ui-state-error ui-corner-all" style="padding: 0 .7em;"&gt;&lt;p&gt;&lt;span class="ui-icon ui-icon-alert" style="float: left; padding: 0 0 3px 2px;"&gt;&lt;/span&gt;Hidden Content (You must be registered and reply to the message to see the hidden Content.)&lt;/div&gt;&lt;/div&gt;
+    &lt;div class=&quot;card mb-3&quot;&gt;
+    &lt;div class=&quot;card-header&quot;&gt;Hide-Reply&lt;/div&gt;
+
+
+    &lt;div class=&quot;card-body&quot;&gt;
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Description&lt;/h6&gt;
+
+    The [hide-reply] tag hides content from people until they replied in the same thread.
+
+
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Usage&lt;/h6&gt;
+
+    [hide-reply]Hidden Content[/hide-reply]
+
+
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Output&lt;/h6&gt;
+
+    &lt;p&gt;If you don&#39;t have the right to view the content, you see an Info Message that Informs you way you don&#39;t see the Content&lt;/p&gt;
+
+    &lt;div class=&quot;alert alert-warning&quot; role=&quot;alert&quot;&gt;
+    Hidden Content (You must be registered and reply to the message to see the hidden Content.)
+    &lt;/div&gt;
 
     &lt;p&gt;Otherwise as Guest you see a Info Message&lt;/p&gt;
-    &lt;div class="ui-widget"&gt;&lt;div class="ui-state-error ui-corner-all" style="padding: 0 .7em;"&gt;&lt;p&gt;&lt;span class="ui-icon ui-icon-alert" style="float: left; padding: 0 0 3px 2px;"&gt;&lt;/span&gt;This board requires you to be registered and logged-in before you can view hidden messages.&lt;/div&gt;&lt;/div&gt;
+    &lt;div class=&quot;alert alert-danger&quot; role=&quot;alert&quot;&gt;
+    This board requires you to be registered and logged-in before you can view hidden messages.
+    &lt;/div&gt;
 
     &lt;p&gt;If you do have access to see the Content you simply see the Hidden Content&lt;/p&gt;&lt;br /&gt;
     &lt;p&gt;Hidden Content&lt;/p&gt;
-	&lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td class="header2" colspan="2"&gt;Hide-Reply-Thanks&lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Description&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;
-      The [hide-reply-thanks] tag hides content from people until they either reply in the same thread or press the thank you button for the post.&lt;/td&gt;
-  &lt;/tr&gt;
-   &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Usage&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;
-      [hide-reply-thanks]Hidden Content[/hide-reply-thanks]&lt;/td&gt;
-  &lt;/tr&gt;
-   &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Output&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;
-    &lt;p&gt;If you don't have the right to view the content, you see an Info Message that Informs you way you don't see the Content&lt;/p&gt;
+    &lt;/div&gt;
+    &lt;/div&gt;
 
-    &lt;div class="ui-widget"&gt;&lt;div class="ui-state-error ui-corner-all" style="padding: 0 .7em;"&gt;&lt;p&gt;&lt;span class="ui-icon ui-icon-alert" style="float: left; padding: 0 0 3px 2px;"&gt;&lt;/span&gt;Hidden Content (You must be registered and reply to the message, or give thank, to see the hidden Content.)&lt;/div&gt;&lt;/div&gt;
+    &lt;div class=&quot;card mb-3&quot;&gt;
+    &lt;div class=&quot;card-header&quot;&gt;Hide-Reply-Thanks&lt;/div&gt;
+
+
+    &lt;div class=&quot;card-body&quot;&gt;
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Description&lt;/h6&gt;
+
+    The [hide-reply-thanks] tag hides content from people until they either reply in the same thread or press the thank you button for the post.
+
+
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Usage&lt;/h6&gt;
+
+    [hide-reply-thanks]Hidden Content[/hide-reply-thanks]
+
+
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Output&lt;/h6&gt;
+
+    &lt;p&gt;If you don&#39;t have the right to view the content, you see an Info Message that Informs you way you don&#39;t see the Content&lt;/p&gt;
+
+    &lt;div class=&quot;alert alert-warning&quot; role=&quot;alert&quot;&gt;
+    Hidden Content (You must be registered and reply to the message, or give thank, to see the hidden Content.)
+    &lt;/div&gt;
 
     &lt;p&gt;Otherwise as Guest you see a Info Message&lt;/p&gt;
-    &lt;div class="ui-widget"&gt;&lt;div class="ui-state-error ui-corner-all" style="padding: 0 .7em;"&gt;&lt;p&gt;&lt;span class="ui-icon ui-icon-alert" style="float: left; padding: 0 0 3px 2px;"&gt;&lt;/span&gt;This board requires you to be registered and logged-in before you can view hidden messages.&lt;/div&gt;&lt;/div&gt;
+    &lt;div class=&quot;alert alert-danger&quot; role=&quot;alert&quot;&gt;
+    This board requires you to be registered and logged-in before you can view hidden messages.
+    &lt;/div&gt;
 
     &lt;p&gt;If you do have access to see the Content you simply see the Hidden Content&lt;/p&gt;&lt;br /&gt;
     &lt;p&gt;Hidden Content&lt;/p&gt;
-	&lt;/td&gt;
-  &lt;/tr&gt;
-&lt;tr&gt;
-    &lt;td class="header2" colspan="2"&gt;Spoiler&lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Description&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;
-      The [spoiler] tag hides content from people until they click on "Show Spoiler".&lt;/td&gt;
-  &lt;/tr&gt;
-   &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Usage&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;
-      [spoiler]Spoiler Content[/spoiler]&lt;/td&gt;
-  &lt;/tr&gt;
-   &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Output&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;
+    &lt;/div&gt;&lt;/div&gt;
+
+    &lt;div class=&quot;card mb-3&quot;&gt;
+    &lt;div class=&quot;card-header&quot;&gt;Spoiler&lt;/div&gt;
+
+
+    &lt;div class=&quot;card-body&quot;&gt;
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Description&lt;/h6&gt;
+
+    The [spoiler] tag hides content from people until they click on &quot;Show Spoiler&quot;.
+
+
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Usage&lt;/h6&gt;
+
+    [spoiler]Spoiler Content[/spoiler]
+
+
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Output&lt;/h6&gt;
+
     &lt;!-- BEGIN spoiler --&gt;
-    &lt;script type="text/javascript"&gt;
-	function toggleSpoiler(btn,elid){{var el=document.getElementById(elid);if(el==null){{return}}if(el.style.display==''){{el.style.display='none';btn.value='Show Spoiler'}}else{{el.style.display='';btn.value='Hide Spoiler'}}}}
-	&lt;/script&gt;
-&lt;div class="spoilertitle"&gt;
-&lt;input type="button" value="Show Spoiler" class="spoilerbutton" name="spoilerBtn4360a" onclick="toggleSpoiler(this,'spoil_c3a3b');"/&gt;
-&lt;/div&gt;
-&lt;div class="spoilerbox" id="spoil_c3a3b" style="display: none;margin: 5px;padding: 4px;background-color: #eeeeee;border: solid 1px #808080;color: #000000;"&gt;
-Spoiler Content
-&lt;/div&gt;
-&lt;!-- END spoiler --&gt;
-	&lt;/td&gt;
-  &lt;/tr&gt;
-&lt;/table&gt;
-&lt;br /&gt;
-&lt;table class="content" width="90%"&gt;
-  &lt;tr&gt;
-    &lt;td class="header1" colspan="2"&gt;
-     Other
-    &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td class="header2" colspan="2"&gt;User Link&lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Description&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;
-      The [userlink] tag generated a link to the provided User Profile Page, and shows if enabled the Users Online Status.&lt;/td&gt;
-  &lt;/tr&gt;
-   &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Usage&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;
-      [userlink]Username[/userlink]&lt;/td&gt;
-  &lt;/tr&gt;
-   &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Output&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;
-    &lt;style type="text/css"&gt;.yafnet .userLinkContainer{{background: url({0}Content/icons/user.png) #fff no-repeat 4px 50%;border: 1px solid #eee;padding: 4px 2px 4px 25px;margin: 3px;font-size: 80%;font-weight: bold;    background-color: #fff;-webkit-border-radius: 4px;-moz-border-radius: 4px;border-radius: 4px;}}.yafnet .userLinkContainer:hover{{border: 1px solid #ddd;background-color: #eee;}}
-	&lt;/style&gt;
-    &lt;span class="userLinkContainer"&gt;
-&lt;a href="{0}yaf_profile1234.aspx" rel="nofollow" title="View profile" target="_blank" id="UserLinkBBCodeFor12224" class="UserLinkBBCode"&gt;Username&lt;/a&gt;
-&lt;img id="OnlineStatusImage" src="{0}/Themes/OrangeGrey/icon_useronline.png" alt="Online" style="vertical-align: bottom" title="User is Online"/&gt;
-&lt;/span&gt;
-	&lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td class="header2" colspan="2"&gt;Stop BB Code Parsing&lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Description&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;
-      The [noparse] tag allows you to stop the parsing of BB code inside the tag.&lt;/td&gt;
-  &lt;/tr&gt;
-   &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Usage&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;
-      [ noparse][noparse][b]Sample text.[/b][/noparse][/ noparse]&lt;/td&gt;
-  &lt;/tr&gt;
-   &lt;tr&gt;
-    &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
-      &lt;strong&gt;Output&lt;/strong&gt;
-    &lt;/td&gt;
-    &lt;td&gt;[noparse][b]Sample text.[/b][/noparse]
-	&lt;/td&gt;
-  &lt;/tr&gt;
-&lt;/table&gt;
+    &lt;script type=&quot;text/javascript&quot;&gt;
+    function toggleSpoiler(btn,elid){{var el=document.getElementById(elid);if(el==null){{return}}if(el.style.display==&#39;&#39;){{el.style.display=&#39;none&#39;;btn.value=&#39;Show Spoiler&#39;}}else{{el.style.display=&#39;&#39;;btn.value=&#39;Hide Spoiler&#39;}}}}
+    &lt;/script&gt;
+    &lt;div class=&quot;mb-3&quot;&gt;
+    &lt;input type=&quot;button&quot; value=&quot;Show Spoiler&quot; class=&quot;btn btn-secondary btn-sm&quot; name=&quot;spoilerBtn4360a&quot; onclick=&quot;toggleSpoiler(this,&#39;spoil_c3a3b&#39;);&quot; /&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;card card-body&quot; id=&quot;spoil_c3a3b&quot; style=&quot;display: none;&quot;&gt;
+    Spoiler Content
+    &lt;/div&gt;
+    &lt;!-- END spoiler --&gt;
+    &lt;/div&gt;
+    &lt;/div&gt;
 
-&lt;p&gt;NOTE: Don't forget to close an open BB Code tag. Tags that are not closed will be not formatted.&lt;/p&gt;</Resource>
+
+    &lt;h3&gt;
+    Other
+    &lt;/h3&gt;
+
+    &lt;div class=&quot;card mb-3&quot;&gt;
+    &lt;div class=&quot;card-header&quot;&gt;User Link&lt;/div&gt;
+
+
+    &lt;div class=&quot;card-body&quot;&gt;
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Description&lt;/h6&gt;
+
+    The [userlink] tag generated a link to the provided User Profile Page, and shows if enabled the Users Online Status.
+
+
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Usage&lt;/h6&gt;
+
+    [userlink]Username[/userlink]
+
+
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Output&lt;/h6&gt;
+
+
+    &lt;span class=&quot;userLinkContainer&quot;&gt;
+    &lt;a href=&quot;{0}yaf_profile1234.aspx&quot;
+    rel=&quot;nofollow&quot;
+    title=&quot;View profile&quot;
+    target=&quot;_blank&quot;
+    id=&quot;UserLinkBBCodeFor12224&quot;
+    class=&quot;btn btn-outline-primary&quot;&gt;
+    &lt;span class=&quot;text-danger&quot; title=&quot;User is Offline&quot;&gt;&lt;i class=&quot;fas fa-user-circle&quot; style=&quot;font-size: 1.5em&quot;&gt;&lt;/i&gt;&lt;/span&gt;&amp;nbsp;Username
+    &lt;/a&gt;
+    &lt;/span&gt;
+    &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;div class=&quot;card mb-3&quot;&gt;
+    &lt;div class=&quot;card-header&quot;&gt;Stop BB Code Parsing&lt;/div&gt;
+
+
+    &lt;div class=&quot;card-body&quot;&gt;
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Description&lt;/h6&gt;
+
+    The [noparse] tag allows you to stop the parsing of BB code inside the tag.
+
+
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Usage&lt;/h6&gt;
+
+    [ noparse][noparse][b]Sample text.[/b][/noparse][/ noparse]
+
+
+    &lt;h6 class=&quot;card-subtitle mt-2 text-muted&quot;&gt;Output&lt;/h6&gt;
+
+    [noparse][b]Sample text.[/b][/noparse]
+    &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;p&gt;NOTE: Don&#39;t forget to close an open BB Code tag. Tags that are not closed will be not formatted.&lt;/p&gt;
+  </Resource>
   <Resource tag="BBCODESTITLE">BB Codes List</Resource>
   <Resource tag="BUDDIESCONTENT">&lt;p&gt;Friends are a friendship function and are a two-way relationship between two users. It is initiated by one user and accepted by the other.
 &lt;/p&gt;
@@ -4380,14 +4171,17 @@ Spoiler Content
   <Resource tag="CONFIRM_DELETE">Delete this topic?</Resource>
   <Resource tag="CONFIRM_DELETE_USER">Delete this user?</Resource>
   <Resource tag="CONFIRM_DELETETOPICLINK">Delete the topic link? The topic itself will not be deleted.</Resource>
-  <Resource tag="DELETED">Topic deleted.</Resource>
+  <Resource tag="DELETED">Topic(s) deleted.</Resource>
   <Resource tag="EDIT">Edit</Resource>
   <Resource tag="INVITE">Invite User</Resource>
   <Resource tag="LASTPOST">Last Post</Resource>
   <Resource tag="MEMBERS">Members</Resource>
   <Resource tag="MODERATEINDEX_TITLE">Moderate Reported Posts and Not Approved Posts</Resource>
+  <Resource tag="MOVE_TO_DIFFERENT">The forum you want to move the topic(s) must be different then the current forum.</Resource>
+  <Resource tag="MOVED">Topic(s) Moved</Resource>
   <Resource tag="NO_POSTS">No Posts</Resource>
   <Resource tag="NOMODERATION">Currently there are no Posts that need approval. And there are also no Posts that were reported.</Resource>
+  <Resource tag="NOTHING">You need to select atleast one topic</Resource>
   <Resource tag="REMOVE">Remove</Resource>
   <Resource tag="REPLIES">Replies</Resource>
   <Resource tag="TITLE">Moderate</Resource>
@@ -4562,6 +4356,8 @@ Spoiler Content
  <page name="POSTMESSAGE">
   <Resource tag="ANNOUNCEMENT">Announcement</Resource>
   <Resource tag="ASK_POLL_DELETE">Do you really want to remove poll from this topic?</Resource>
+  <Resource tag="BLOG_POST">Post to blog?</Resource>
+  <Resource tag="BLOG_PASSWORD">Blog Password:</Resource>
   <Resource tag="CANCEL_TITLE">Cancel Message editing/creating</Resource>
   <Resource tag="DESCRIPTION">Description:</Resource>
   <Resource tag="EDIT">Edit post</Resource>
@@ -4586,8 +4382,6 @@ Spoiler Content
   <Resource tag="REPLY">Post a reply</Resource>
   <Resource tag="SAVE">Post</Resource>
   <Resource tag="SAVE_TITLE">Post/Edit the Message</Resource>
-  <Resource tag="SMILIES_HEADER">[b]Add Smiley[/b]</Resource>
-  <Resource tag="SMILIES_MORE">More Smilies...</Resource>
   <Resource tag="SPAM_MESSAGE">Your Message was rejected because it was detected as SPAM!</Resource>
   <Resource tag="STATUS">Status:</Resource>
   <Resource tag="STICKY">Sticky</Resource>
@@ -4634,6 +4428,7 @@ Spoiler Content
   <Resource tag="FACEBOOK_TITLE">Visit {0}'s Facebook Profile</Resource>
   <Resource tag="FACEBOOK_TOPIC">Like this Topic</Resource>
   <Resource tag="FORUM_JUMP">Forum Jump</Resource>
+  <Resource tag="GO_TO_ANSWER">Go to the topic answer</Resource>
   <Resource tag="GOOGLE">Google+</Resource>
   <Resource tag="GOOGLE_TITLE">Visit {0}'s Google+ Profile</Resource>
   <Resource tag="GOOGLEPLUS_TOPIC">Share Topic on Google+</Resource>
@@ -4658,8 +4453,16 @@ Spoiler Content
   <Resource tag="LINKBACK_TOPIC">LinkBack Topic URL</Resource>
   <Resource tag="LINKBACK_TOPIC_PROMT">Use the URL below if you want to LinkBack the topic URL on another website.</Resource>
   <Resource tag="LOCATION">Location</Resource>
+  <Resource tag="MANAGE_POST">Manage Message</Resource>
+  <Resource tag="MANAGE_TOPIC">Manage Topic</Resource>
+  <Resource tag="MARK_ANSWER">Mark As Answer</Resource>
+  <Resource tag="MARK_ANSWER_TITLE">Mark this Message as answer</Resource>
+  <Resource tag="MARK_ANSWER_REMOVE">Remove As Answer</Resource>
+  <Resource tag="MARK_ANSWER_REMOVE_TITLE">Unmark this Message as answer</Resource>
   <Resource tag="MESSAGEDELETED_MOD">Message was deleted by a Moderator.</Resource>
   <Resource tag="MESSAGEDELETED_USER">Message was deleted by a User.</Resource>
+  <Resource tag="MESSAGE_ANSWER">Answer</Resource>
+  <Resource tag="MESSAGE_ANSWER_HELP">Marked as answer</Resource>
   <Resource tag="MSN">MSN</Resource>
   <Resource tag="MSN_TITLE">Contact {0} via MSN</Resource>
   <Resource tag="NEXTTOPIC">Next Topic</Resource>
@@ -4687,11 +4490,11 @@ Spoiler Content
   <Resource tag="REP_VOTE_UP_MSG">You have successfully given +1 Reputation to {0}.</Resource>
   <Resource tag="REPORTEDFEEDBACK">Thank you for reporting this post.</Resource>
   <Resource tag="REPORTPOST">Report</Resource>
-  <Resource tag="REPORTPOST_TITLE">Report Post</Resource>
+  <Resource tag="REPORTPOST_TITLE">Report this Message</Resource>
   <Resource tag="REPUTATION">Reputation</Resource>
   <Resource tag="RETWEET_TOPIC">Retweet this Topic</Resource>
   <Resource tag="RSSTOPIC">RSS Feed</Resource>
-  <Resource tag="SHARE">Share</Resource>
+  <Resource tag="SHARE">Share it!</Resource>
   <Resource tag="SHARE_TOOLTIP">Share this Topic via Email, Twitter, Google+, Facebook, Digg, Reddit or Tumblr.</Resource>
   <Resource tag="SIMILAR_TOPICS">Similar Topics</Resource>
   <Resource tag="SKYPE">SKYPE</Resource>
@@ -4710,11 +4513,14 @@ Spoiler Content
   <Resource tag="TIP_NEW_TOPIC">Post new topic</Resource>
   <Resource tag="TIP_REPLY_TOPIC">Post Reply</Resource>
   <Resource tag="TIP_UNLOCK_TOPIC">Unlock this topic</Resource>
-  <Resource tag="TOGGLEPOST">Show/Hide Post</Resource>
+  <Resource tag="TOGGLEPOST">Show/Hide Post of an Ignored User</Resource>
   <Resource tag="TOGGLEUSERPOSTS_HIDE">Hide User Posts</Resource>
   <Resource tag="TOGGLEUSERPOSTS_SHOW">Show User Posts</Resource>
+  <Resource tag="TOOLS">Tools</Resource>
   <Resource tag="TOP">Back to top</Resource>
   <Resource tag="TOPICBROWSERS">Users browsing this topic</Resource>
+  <Resource tag="TOPIC_STARTER">Topic Starter</Resource>
+  <Resource tag="TOPIC_STARTER_HELP">Indicates that this user has started this topic</Resource>
   <Resource tag="TOTAL">Total</Resource>
   <Resource tag="TUMBLR_TOPIC">Share on Tumblr</Resource>
   <Resource tag="TWITTER">Twitter</Resource>
@@ -4762,6 +4568,7 @@ Spoiler Content
   <Resource tag="ERROR_FORUMMODERATORS">You cannot suspend forum moderators.</Resource>
   <Resource tag="ERROR_GUESTACCOUNT">You cannot suspend the guest account.</Resource>
   <Resource tag="FACEBOOK">Facebook Profile:</Resource>
+  <Resource tag="FORUM_ACCESS">Forum Access</Resource>
   <Resource tag="GOOGLE">Google+ Profile:</Resource>
   <Resource tag="GENDER">Gender:</Resource>
   <Resource tag="GENDER0">None Specified</Resource>
@@ -4793,6 +4600,7 @@ Spoiler Content
   <Resource tag="REMOVESUSPENSION">Remove Suspension</Resource>
   <Resource tag="REPUTATION_RECEIVED">Community Reputation Received:</Resource>
   <Resource tag="SEARCHUSER">View All Posts by User</Resource>
+  <Resource tag="SOCIAL_MEDIA">Social Media</Resource>
   <Resource tag="SKYPE">Skype(tm) ID:</Resource>
   <Resource tag="STATISTICS">Statistics</Resource>
   <Resource tag="SUSPEND">Suspend</Resource>
@@ -5026,165 +4834,165 @@ Spoiler Content
  <page name="RULES">
   <Resource tag="ACCEPT">I agree to these Rules and Policies</Resource>
   <Resource tag="DECLINE">I do not agree to these Rules and Policies</Resource>
-   <Resource tag="RULES_TEXT">
-     [size=7][b]Rules[/b][/size][br]
-     It is impossible for owners and operators of this forum to confirm the validity of all posts on this forum. Posts reflect the views and opinion of the author, but not necessarily of the forum owners and operators. If you feel that a posted message is questionable, you are encouraged to notify an administrator of this forum immediately.
+  <Resource tag="RULES_TEXT">
+    [size=7][b]Rules[/b][/size][br]
+    It is impossible for owners and operators of this forum to confirm the validity of all posts on this forum. Posts reflect the views and opinion of the author, but not necessarily of the forum owners and operators. If you feel that a posted message is questionable, you are encouraged to notify an administrator of this forum immediately.
 
-     [br]You agree not to post any abusive, vulgar, obscene, hateful, slanderous, threatening, sexually-oriented or any other material that may violate any applicable laws. Doing so may lead to you being permanently banned from this forum. Note that all IP addresses are logged and may aid in enforcing these conditions.
+    [br]You agree not to post any abusive, vulgar, obscene, hateful, slanderous, threatening, sexually-oriented or any other material that may violate any applicable laws. Doing so may lead to you being permanently banned from this forum. Note that all IP addresses are logged and may aid in enforcing these conditions.
 
-     [br]You agree that the owners and operators of this forum have the right to remove, edit, move or close any topic at any time should they see fit. As a user you agree to any information you have entered above being stored in a database. While this information will not be disclosed to any third party without your consent the owners and operators cannot be held responsible for any hacking attempt that may lead to the data being compromised.
+    [br]You agree that the owners and operators of this forum have the right to remove, edit, move or close any topic at any time should they see fit. As a user you agree to any information you have entered above being stored in a database. While this information will not be disclosed to any third party without your consent the owners and operators cannot be held responsible for any hacking attempt that may lead to the data being compromised.
 
-     [br]You agree not to use any automated tools for registering and/or posting on this bulletin board. By failing to obey this rule you would be granting us permission to repeatedly query your web server.
+    [br]You agree not to use any automated tools for registering and/or posting on this bulletin board. By failing to obey this rule you would be granting us permission to repeatedly query your web server.
 
-     [br][size=7][b]Privacy Policy[/b][/size][br]
+    [br][size=7][b]Privacy Policy[/b][/size][br]
 
-     [br][size=6][b]1. An overview of data protection[/b][/size][br]
+    [br][size=6][b]1. An overview of data protection[/b][/size][br]
 
-     [br][size=5][b]General information[/b][/size][br]
-     The following information will provide you with an easy to navigate overview of what will happen with your personal data when you visit our website. The term “personal data” comprises all data that can be used to personally identify you. For detailed information about the subject matter of data protection, please consult our Data Protection Declaration, which we have included beneath this copy.
+    [br][size=5][b]General information[/b][/size][br]
+    The following information will provide you with an easy to navigate overview of what will happen with your personal data when you visit our website. The term “personal data” comprises all data that can be used to personally identify you. For detailed information about the subject matter of data protection, please consult our Data Protection Declaration, which we have included beneath this copy.
 
-     [br][size=5][b]Data recording on our website[/b][/size][br]
+    [br][size=5][b]Data recording on our website[/b][/size][br]
 
-     [br][b]Who is the responsible party for the recording of data on this website (i.e. the “controller”)?[/b][br]
+    [br][b]Who is the responsible party for the recording of data on this website (i.e. the “controller”)?[/b][br]
 
-     [br]The data on this website is processed by the operator of the website, whose contact information is available under section “Information about the responsible party” on this website.
+    [br]The data on this website is processed by the operator of the website, whose contact information is available under section “Information about the responsible party” on this website.
 
-     [br][b]How do we record your data?[/b][br]
+    [br][b]How do we record your data?[/b][br]
 
-     [br]We collect your data as a result of your sharing of your data with us. This may, for instance be information you enter into our contact form.
+    [br]We collect your data as a result of your sharing of your data with us. This may, for instance be information you enter into our contact form.
 
-     [br]Our IT systems automatically record other data when you visit our website. This data comprises primarily technical information (e.g. web browser, operating system or time the site was accessed). This information is recorded automatically when you access our website.
+    [br]Our IT systems automatically record other data when you visit our website. This data comprises primarily technical information (e.g. web browser, operating system or time the site was accessed). This information is recorded automatically when you access our website.
 
-     [br][b]What are the purposes we use your data for?[/b][br]
+    [br][b]What are the purposes we use your data for?[/b][br]
 
-     [br]A portion of the information is generated to guarantee the error free provision of the website. Other data may be used to analyse your user patterns.
+    [br]A portion of the information is generated to guarantee the error free provision of the website. Other data may be used to analyse your user patterns.
 
-     [br][b]What rights do you have as far as your information is concerned?[/b][br]
+    [br][b]What rights do you have as far as your information is concerned?[/b][br]
 
-     [br]You have the right to receive information about the source, recipients and purposes of your archived personal data at any time without having to pay a fee for such disclosures. You also have the right to demand that your data are rectified, blocked or eradicated. Please do not hesitate to contact us at any time under the address disclosed in section “Information about the responsible party” on this website if you have questions about this or any other data protection related issues. You also have the right to log a complaint with the competent supervising agency.
+    [br]You have the right to receive information about the source, recipients and purposes of your archived personal data at any time without having to pay a fee for such disclosures. You also have the right to demand that your data are rectified, blocked or eradicated. Please do not hesitate to contact us at any time under the address disclosed in section “Information about the responsible party” on this website if you have questions about this or any other data protection related issues. You also have the right to log a complaint with the competent supervising agency.
 
-     [br][br]
+    [br][br]
 
-     [br]Moreover, under certain circumstances, you have the right to demand the restriction of the processing of your personal data. For details, please consult the Data Protection Declaration under section “Right to demand processing restrictions.”
+    [br]Moreover, under certain circumstances, you have the right to demand the restriction of the processing of your personal data. For details, please consult the Data Protection Declaration under section “Right to demand processing restrictions.”
 
-     [br][size=6][b]2. General information and mandatory information[/b][/size][br]
-     [br][size=5][b]Data protection[/b][/size][br]
-     [br]The operators of this website and its pages take the protection of your personal data very seriously. Hence, we handle your personal data as confidential information and in compliance with the statutory data protection regulations and this Data Protection Declaration.
+    [br][size=6][b]2. General information and mandatory information[/b][/size][br]
+    [br][size=5][b]Data protection[/b][/size][br]
+    [br]The operators of this website and its pages take the protection of your personal data very seriously. Hence, we handle your personal data as confidential information and in compliance with the statutory data protection regulations and this Data Protection Declaration.
 
-     [br]Whenever you use this website, a variety of personal information will be collected. Personal data comprises data that can be used to personally identify you. This Data Protection Declaration explains which data we collect as well as the purposes we use this data for. It also explains how, and for which purpose the information is collected.
+    [br]Whenever you use this website, a variety of personal information will be collected. Personal data comprises data that can be used to personally identify you. This Data Protection Declaration explains which data we collect as well as the purposes we use this data for. It also explains how, and for which purpose the information is collected.
 
-     [br]We herewith advise you that the transmission of data via the Internet (i.e. through e-mail communications) may be prone to security gaps. It is not possible to completely protect data against third party access.
+    [br]We herewith advise you that the transmission of data via the Internet (i.e. through e-mail communications) may be prone to security gaps. It is not possible to completely protect data against third party access.
 
-     [br][size=5][b]Information about the responsible party (referred to as the “controller” in the GDPR)[/b][/size][br]
-     [br]The data processing controller on this website is:
+    [br][size=5][b]Information about the responsible party (referred to as the “controller” in the GDPR)[/b][/size][br]
+    [br]The data processing controller on this website is:
 
-     [br][br]
-     {0}
-     [br][br]
+    [br][br]
+    {0}
+    [br][br]
 
-     [br]The controller is the natural person or legal entity that single-handedly or jointly with others makes decisions as to the purposes of and resources for the processing of personal data (e.g. names, e-mail addresses, etc.).
+    [br]The controller is the natural person or legal entity that single-handedly or jointly with others makes decisions as to the purposes of and resources for the processing of personal data (e.g. names, e-mail addresses, etc.).
 
-     [br][size=5][b]Revocation of your consent to the processing of data[/b][/size][br]
-     [br]A wide range of data processing transactions are possible only subject to your express consent. You can also revoke at any time any consent you have already given us. To do so, all you are required to do is sent us an informal notification via e-mail. This shall be without prejudice to the lawfulness of any data collection that occurred prior to your revocation.
+    [br][size=5][b]Revocation of your consent to the processing of data[/b][/size][br]
+    [br]A wide range of data processing transactions are possible only subject to your express consent. You can also revoke at any time any consent you have already given us. To do so, all you are required to do is sent us an informal notification via e-mail. This shall be without prejudice to the lawfulness of any data collection that occurred prior to your revocation.
 
-     [br][size=5][b]Right to object to the collection of data in special cases; right to object to direct advertising (Art. 21 GDPR)[/b][/size][br]
+    [br][size=5][b]Right to object to the collection of data in special cases; right to object to direct advertising (Art. 21 GDPR)[/b][/size][br]
 
-     [br][b]In the event that data are processed on the basis of Art. 6 Sect. 1 lit. e or f GDPR, you have the right to at any time object to the processing of your personal data based on grounds arising from your unique situation. This also applies to any profiling based on these provisions. To determine the legal basis, on which any processing of data is based, please consult this Data Protection Declaration. If you log an objection, we will no longer process your affected personal data, unless we are in a position to present compelling protection worthy grounds for the processing of your data, that outweigh your interests, rights and freedoms or if the purpose of the processing is the claiming, exercising or defence of legal entitlements (objection pursuant to Art. 21 Sect. 1 GDPR).[/b]
-     [/b]
+    [br][b]In the event that data are processed on the basis of Art. 6 Sect. 1 lit. e or f GDPR, you have the right to at any time object to the processing of your personal data based on grounds arising from your unique situation. This also applies to any profiling based on these provisions. To determine the legal basis, on which any processing of data is based, please consult this Data Protection Declaration. If you log an objection, we will no longer process your affected personal data, unless we are in a position to present compelling protection worthy grounds for the processing of your data, that outweigh your interests, rights and freedoms or if the purpose of the processing is the claiming, exercising or defence of legal entitlements (objection pursuant to Art. 21 Sect. 1 GDPR).[/b]
+    [/b]
 
 
-     [br][b]If your personal data is being processed in order to engage in direct advertising, you have the right to at any time object to the processing of your affected personal data for the purposes of such advertising. This also applies to profiling to the extent that it is affiliated with such direct advertising. If you object, your personal data will subsequently no longer be used for direct advertising purposes (objection pursuant to Art. 21 Sect. 2 GDPR).[/b]
+    [br][b]If your personal data is being processed in order to engage in direct advertising, you have the right to at any time object to the processing of your affected personal data for the purposes of such advertising. This also applies to profiling to the extent that it is affiliated with such direct advertising. If you object, your personal data will subsequently no longer be used for direct advertising purposes (objection pursuant to Art. 21 Sect. 2 GDPR).[/b]
 
-     [br][size=5][b]Right to log a complaint with the competent supervisory agency[/b][/size][br]
-     [br]In the event of violations of the GDPR, data subjects are entitled to log a complaint with a supervisory agency, in particular in the member state where they usually maintain their domicile, place of work or at the place where the alleged violation occurred. The right to log a complaint is in effect regardless of any other administrative or court proceedings available as legal recourses.
+    [br][size=5][b]Right to log a complaint with the competent supervisory agency[/b][/size][br]
+    [br]In the event of violations of the GDPR, data subjects are entitled to log a complaint with a supervisory agency, in particular in the member state where they usually maintain their domicile, place of work or at the place where the alleged violation occurred. The right to log a complaint is in effect regardless of any other administrative or court proceedings available as legal recourses.
 
-     [br][size=5][b]Right to data portability[/b][/size][br]
-     [br]You have the right to demand that we hand over any data we automatically process on the basis of your consent or in order to fulfil a contract be handed over to you or a third party in a commonly used, machine readable format. If you should demand the direct transfer of the data to another controller, this will be done only if it is technically feasible.
+    [br][size=5][b]Right to data portability[/b][/size][br]
+    [br]You have the right to demand that we hand over any data we automatically process on the basis of your consent or in order to fulfil a contract be handed over to you or a third party in a commonly used, machine readable format. If you should demand the direct transfer of the data to another controller, this will be done only if it is technically feasible.
 
-     [br][size=5][b]Information about, blockage, rectification and eradication of data[/b][/size][br]
-     [br]Within the scope of the applicable statutory provisions, you have the right to at any time demand information about your archived personal data, their source and recipients as well as the purpose of the processing of your data. You may also have a right to have your data rectified, blocked or eradicated. If you have questions about this subject matter or any other questions about personal data, please do not hesitate to contact us at any time at the address provided in section “Information about the responsible party”.
+    [br][size=5][b]Information about, blockage, rectification and eradication of data[/b][/size][br]
+    [br]Within the scope of the applicable statutory provisions, you have the right to at any time demand information about your archived personal data, their source and recipients as well as the purpose of the processing of your data. You may also have a right to have your data rectified, blocked or eradicated. If you have questions about this subject matter or any other questions about personal data, please do not hesitate to contact us at any time at the address provided in section “Information about the responsible party”.
 
-     [br][size=5][b]Right to demand processing restrictions[/b][/size][br]
-     [br]You have the right to demand the imposition of restrictions as far as the processing of your personal data is concerned. To do so, you may contact us at any time at the address provided in section “Information about the responsible party”. The right to demand restriction of processing applies in the following cases:
+    [br][size=5][b]Right to demand processing restrictions[/b][/size][br]
+    [br]You have the right to demand the imposition of restrictions as far as the processing of your personal data is concerned. To do so, you may contact us at any time at the address provided in section “Information about the responsible party”. The right to demand restriction of processing applies in the following cases:
 
-     [list]
-     [*]In the event that you should dispute the correctness of your data archived by us, we will usually need some time to verify this claim. During the time that this investigation is ongoing, you have the right to demand that we restrict the processing of your personal data.
-     [*]If the processing of your personal data was/is conducted in an unlawful manner, you have the option to demand the restriction of the processing of your data in lieu of demanding the eradication of this data.
-     [*]If we do not need your personal data any longer and you need it to exercise, defend or claim legal entitlements, you have the right to demand the restriction of the processing of your personal data instead of its eradication.
-     [*]If you have raised an objection pursuant to Art. 21 Sect. 1 GDPR, your rights and our rights will have to be weighed against each other. As long as it has not been determined whose interests prevail, you have the right to demand a restriction of the processing of your personal data.
-     [/list]
+    [list]
+    [*]In the event that you should dispute the correctness of your data archived by us, we will usually need some time to verify this claim. During the time that this investigation is ongoing, you have the right to demand that we restrict the processing of your personal data.
+    [*]If the processing of your personal data was/is conducted in an unlawful manner, you have the option to demand the restriction of the processing of your data in lieu of demanding the eradication of this data.
+    [*]If we do not need your personal data any longer and you need it to exercise, defend or claim legal entitlements, you have the right to demand the restriction of the processing of your personal data instead of its eradication.
+    [*]If you have raised an objection pursuant to Art. 21 Sect. 1 GDPR, your rights and our rights will have to be weighed against each other. As long as it has not been determined whose interests prevail, you have the right to demand a restriction of the processing of your personal data.
+    [/list]
 
-     [br]If you have restricted the processing of your personal data, these data – with the exception of their archiving – may be processed only subject to your consent or to claim, exercise or defend legal entitlements or to protect the rights of other natural persons or legal entities or for important public interest reasons cited by the European Union or a member state of the EU.
+    [br]If you have restricted the processing of your personal data, these data – with the exception of their archiving – may be processed only subject to your consent or to claim, exercise or defend legal entitlements or to protect the rights of other natural persons or legal entities or for important public interest reasons cited by the European Union or a member state of the EU.
 
-     [br][size=6][b]3. Recording of data on our website[/b][/size][br]
+    [br][size=6][b]3. Recording of data on our website[/b][/size][br]
 
-     [br][size=5][b]Cookies[/b][/size][br]
-     [br]In some instances, our website and its pages use so-called cookies. Cookies do not cause any damage to your computer and do not contain viruses. The purpose of cookies is to make our website more user friendly, effective and more secure. Cookies are small text files that are placed on your computer and stored by your browser.
-     [br]
+    [br][size=5][b]Cookies[/b][/size][br]
+    [br]In some instances, our website and its pages use so-called cookies. Cookies do not cause any damage to your computer and do not contain viruses. The purpose of cookies is to make our website more user friendly, effective and more secure. Cookies are small text files that are placed on your computer and stored by your browser.
+    [br]
 
-     [br]Most of the cookies we use are so-called “session cookies.” They are automatically deleted after your leave our site. Other cookies will remain archived on your device until you delete them. These cookies enable us to recognise your browser the next time you visit our website.
-     [br]
+    [br]Most of the cookies we use are so-called “session cookies.” They are automatically deleted after your leave our site. Other cookies will remain archived on your device until you delete them. These cookies enable us to recognise your browser the next time you visit our website.
+    [br]
 
-     [br]You can adjust the settings of your browser to make sure that you are notified every time cookies are placed and to enable you to accept cookies only in specific cases or to exclude the acceptance of cookies for specific situations or in general and to activate the automatic deletion of cookies when you close your browser. If you deactivate cookies, the functions of this website may be limited.
+    [br]You can adjust the settings of your browser to make sure that you are notified every time cookies are placed and to enable you to accept cookies only in specific cases or to exclude the acceptance of cookies for specific situations or in general and to activate the automatic deletion of cookies when you close your browser. If you deactivate cookies, the functions of this website may be limited.
 
-     [br]
-     [br]Cookies that are required for the performance of the electronic communications transaction or to provide certain functions you want to use (e.g. the shopping cart function), are stored on the basis of Art. 6 Sect. 1 lit. f GDPR. The website operator has a legitimate interest in storing cookies to ensure the technically error free and optimised provision of the operator’s services. If other cookies (e.g. cookies for the analysis of your browsing patterns) should be stored, they are addressed separately in this Data Protection Declaration.
+    [br]
+    [br]Cookies that are required for the performance of the electronic communications transaction or to provide certain functions you want to use (e.g. the shopping cart function), are stored on the basis of Art. 6 Sect. 1 lit. f GDPR. The website operator has a legitimate interest in storing cookies to ensure the technically error free and optimised provision of the operator’s services. If other cookies (e.g. cookies for the analysis of your browsing patterns) should be stored, they are addressed separately in this Data Protection Declaration.
 
-     [br][size=5][b]Server log files[/b][/size][br]
-     [br]The provider of this website and its pages automatically collects and stores information in so-called server log files, which your browser communicates to us automatically. The information comprises:
+    [br][size=5][b]Server log files[/b][/size][br]
+    [br]The provider of this website and its pages automatically collects and stores information in so-called server log files, which your browser communicates to us automatically. The information comprises:
 
-     [list]
-     [*]The type and version of browser used
-     [*]The used operating system
-     [*]Referrer URL
-     [*]The hostname of the accessing computer
-     [*]The time of the server inquiry
-     [*]The IP address
-     [/list]
+    [list]
+    [*]The type and version of browser used
+    [*]The used operating system
+    [*]Referrer URL
+    [*]The hostname of the accessing computer
+    [*]The time of the server inquiry
+    [*]The IP address
+    [/list]
 
-     [br]This data is not merged with other data sources.
-     [br]
+    [br]This data is not merged with other data sources.
+    [br]
 
-     [br]This data is recorded on the basis of Art. 6 Sect. 1 lit. f GDPR. The operator of the website has a legitimate interest in the technically error free depiction and the optimization of the operator’s website. In order to achieve this, server log files must be recorded.
+    [br]This data is recorded on the basis of Art. 6 Sect. 1 lit. f GDPR. The operator of the website has a legitimate interest in the technically error free depiction and the optimization of the operator’s website. In order to achieve this, server log files must be recorded.
 
-     [br][size=5][b]Registration on this board[/b][/size][br]
-     [br]You have the option to register on our website to be able to use additional website functions. We shall use the data you enter only for the purpose of using the respective offer or service you have registered for. The required information we request at the time of registration must be entered in full. Otherwise we shall reject the registration.
-     [br]
+    [br][size=5][b]Registration on this board[/b][/size][br]
+    [br]You have the option to register on our website to be able to use additional website functions. We shall use the data you enter only for the purpose of using the respective offer or service you have registered for. The required information we request at the time of registration must be entered in full. Otherwise we shall reject the registration.
+    [br]
 
-     [br]To notify you of any important changes to the scope of our portfolio or in the event of technical modifications, we shall use the e-mail address provided during the registration process.
+    [br]To notify you of any important changes to the scope of our portfolio or in the event of technical modifications, we shall use the e-mail address provided during the registration process.
 
-     [br]The basis for the processing of data is Art. 6 Sect. 1 lit. b GDPR, which permits the processing of data for the fulfilment of a contract or for pre-contractual actions.
+    [br]The basis for the processing of data is Art. 6 Sect. 1 lit. b GDPR, which permits the processing of data for the fulfilment of a contract or for pre-contractual actions.
 
-     [br]The data recorded during the registration process shall be stored by us as long as you are registered on our website. Subsequently, such data shall be deleted. This shall be without prejudice to mandatory statutory retention obligations.
+    [br]The data recorded during the registration process shall be stored by us as long as you are registered on our website. Subsequently, such data shall be deleted. This shall be without prejudice to mandatory statutory retention obligations.
 
-     [br][size=6][b]4. Plug-ins and Tools[/b][/size][br]
-     [br][size=5][b]Google reCAPTCHA[/b][/size][br]
-     [br]We use “Google reCAPTCHA” (hereinafter referred to as “reCAPTCHA”) on our websites. The provider is Google Inc., 1600 Amphitheatre Parkway, Mountain View, CA 94043, USA (“Google”).
+    [br][size=6][b]4. Plug-ins and Tools[/b][/size][br]
+    [br][size=5][b]Google reCAPTCHA[/b][/size][br]
+    [br]We use “Google reCAPTCHA” (hereinafter referred to as “reCAPTCHA”) on our websites. The provider is Google Inc., 1600 Amphitheatre Parkway, Mountain View, CA 94043, USA (“Google”).
 
-     [br]
-     [br]The purpose of reCAPTCHA is to determine whether data entered on our websites (e.g. information entered into a contact form) is being provided by a human user or by an automated program. To determine this, reCAPTCHA analyses the behaviour of the website visitors based on a variety of parameters. This analysis is triggered automatically as soon as the website visitor enters the site. For this analysis, reCAPTCHA evaluates a variety of data (e.g. IP address, time the website visitor spent on the site or cursor movements initiated by the user). The data tracked during such analyses are forwarded to Google.
-     [br]
-     [br]reCAPTCHA analyses run entirely in the background. Website visitors are not alerted that an analysis is underway.
-     [br]
-     [br]The data is processed on the basis of Art. 6 Sect. 1 lit. f GDPR. It is in the website operators legitimate interest, to protect the operator’s web content against misuse by automated industrial espionage systems and against SPAM.
-     [br]
-     [br]For more information about Google reCAPTCHA and to review the Data Privacy Declaration of Google, please follow these link: [url]https://policies.google.com/privacy?hl=en[/url].
+    [br]
+    [br]The purpose of reCAPTCHA is to determine whether data entered on our websites (e.g. information entered into a contact form) is being provided by a human user or by an automated program. To determine this, reCAPTCHA analyses the behaviour of the website visitors based on a variety of parameters. This analysis is triggered automatically as soon as the website visitor enters the site. For this analysis, reCAPTCHA evaluates a variety of data (e.g. IP address, time the website visitor spent on the site or cursor movements initiated by the user). The data tracked during such analyses are forwarded to Google.
+    [br]
+    [br]reCAPTCHA analyses run entirely in the background. Website visitors are not alerted that an analysis is underway.
+    [br]
+    [br]The data is processed on the basis of Art. 6 Sect. 1 lit. f GDPR. It is in the website operators legitimate interest, to protect the operator’s web content against misuse by automated industrial espionage systems and against SPAM.
+    [br]
+    [br]For more information about Google reCAPTCHA and to review the Data Privacy Declaration of Google, please follow these link: [url]https://policies.google.com/privacy?hl=en[/url].
 
-     [br][size=5][b]BlogSpam.net[/b][/size][br]
-     [br]This Service if enabled sends the user name and message to the service to determine if the message is spam.
+    [br][size=5][b]BlogSpam.net[/b][/size][br]
+    [br]This Service if enabled sends the user name and message to the service to determine if the message is spam.
 
-     [br][size=5][b]Akismet[/b][/size][br]
-     [br]This Service, if enabled sends the user name and message to the service to determine if the message is spam.
-     [br][url=https://automattic.com/privacy/]Privacy Policy[/url].
+    [br][size=5][b]Akismet[/b][/size][br]
+    [br]This Service, if enabled sends the user name and message to the service to determine if the message is spam.
+    [br][url=https://automattic.com/privacy/]Privacy Policy[/url].
 
-     [br][size=5][b]StopForumSpam[/b][/size][br]
-     [br]This Service, if enabled passes the user name, email address and IP address of the registering member to the service to determine the likelihood a registering account is a spam source.
-     [br][url=https://www.stopforumspam.com/gdpr]Privacy Policy[/url].
+    [br][size=5][b]StopForumSpam[/b][/size][br]
+    [br]This Service, if enabled passes the user name, email address and IP address of the registering member to the service to determine the likelihood a registering account is a spam source.
+    [br][url=https://www.stopforumspam.com/gdpr]Privacy Policy[/url].
 
-     [br][size=5][b]BotScout[/b][/size][br]
-     [br]This Service, if enabled passes the user name, email address and IP address of the registering member to the service to determine the likelihood a registering account is a spam source.
-     [br][url=http://botscout.com/w3c/]Privacy Policy[/url].
-   </Resource>
+    [br][size=5][b]BotScout[/b][/size][br]
+    [br]This Service, if enabled passes the user name, email address and IP address of the registering member to the service to determine the likelihood a registering account is a spam source.
+    [br][url=http://botscout.com/w3c/]Privacy Policy[/url].
+  </Resource>
   <Resource tag="TITLE">Forum Rules and Policies</Resource>
  </page>
  <page name="SEARCH">
@@ -5217,21 +5025,6 @@ Spoiler Content
   <Resource tag="POST_AND_TITLE">Search Entire Posts</Resource>
   <Resource tag="TOPIC">Topic:</Resource>
  </page>
- <page name="SHOUTBOX">
-  <Resource tag="CLEAR">Clear</Resource>
-  <Resource tag="FLYOUT">Fly Out</Resource>
-  <Resource tag="HEADING">Chat with other members</Resource>
-  <Resource tag="MUSTBELOGGEDIN">You must be logged in to use the shoutbox.</Resource>
-  <Resource tag="SUBMIT">Submit</Resource>
-  <Resource tag="TITLE">ShoutBox</Resource>
- </page>
- <page name="SHOWSMILIES">
-  <Resource tag="CLOSE_WINDOW">Close Window</Resource>
-  <Resource tag="HEADER_CODE">Code</Resource>
-  <Resource tag="HEADER_MEANING">Meaning</Resource>
-  <Resource tag="HEADER_SMILE">Smile</Resource>
-  <Resource tag="TITLE">Available Smilies</Resource>
- </page>
  <page name="TEAM">
   <Resource tag="ADMINS">Administrators</Resource>
   <Resource tag="FORUMS">Forums</Resource>
@@ -5244,27 +5037,33 @@ Spoiler Content
  </page>
  <page name="TEMPLATES">
   <Resource tag="CHANGEEMAIL_HTML">
-&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"&gt;
-&lt;html xmlns="http://www.w3.org/1999/xhtml"&gt;
-&lt;head&gt;
-&lt;meta http-equiv="Content-Type" content="text/html; charset=utf-8" /&gt;
-&lt;title&gt;Change Email&lt;/title&gt;
-&lt;style type="text/css"&gt;
-&lt;!--
-.style1 {font-family: Verdana, Arial, Helvetica, sans-serif}
---&gt;
-&lt;/style&gt;
-&lt;/head&gt;&lt;body&gt;
-&lt;p class="style1"&gt; Hello &lt;strong&gt;{user}&lt;/strong&gt;,&lt;/p&gt;
-&lt;p class="style1"&gt; Your request to change your email address to &lt;strong&gt;{newemail}&lt;/strong&gt; is almost complete!&lt;/p&gt;
-&lt;p class="style1"&gt; Just confirm the change by clicking this link:&lt;/p&gt;
-&lt;p class="style1"&gt; &lt;a href="{link}"&gt;{link}&lt;/a&gt;&lt;/p&gt;
-&lt;p class="style1"&gt; And enter approval key:&lt;/p&gt;
-&lt;pre class="style1"&gt;&lt;b&gt;{key}&lt;/b&gt;&lt;/pre&gt;
-&lt;p class="style1"&gt; If you did not request a change to your email address please simply ignore this email.&lt;/p&gt;
-&lt;p class="style1"&gt; &lt;b&gt;{forumname}&lt;/b&gt; at &lt;a href="{forumlink}"&gt;{forumlink}&lt;/a&gt;&lt;/p&gt;
-&lt;/body&gt;
-&lt;/html&gt;
+    &lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD XHTML 1.0 Strict//EN&quot; &quot;http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd&quot;&gt;
+    &lt;html&gt;
+    &lt;head&gt;
+    &lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=utf-8&quot; /&gt;
+    &lt;link rel=&quot;stylesheet&quot; media=&quot;all&quot; href=&quot;{themecss}&quot; /&gt;
+    &lt;/head&gt;
+    &lt;body class=&quot;bg-light&quot;&gt;
+    &lt;div class=&quot;container&quot;&gt;
+    &lt;div class=&quot;mx-auto mt-4 mb-3 text-center&quot; style=&quot;width:100px;height:40px;background: url(&#39;{logo}&#39;) no-repeat&quot;&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;card mb-4&quot; style=&quot;border-top: 5px solid #3761b5;&quot;&gt;
+    &lt;div class=&quot;card-body&quot;&gt;
+    &lt;h4 class=&quot;text-center&quot;&gt; Hello &lt;strong&gt;{user}&lt;/strong&gt;,&lt;/h4&gt;
+    &lt;p class=&quot;mt-3 mb-4&quot;&gt; Your request to change your email address to &lt;strong&gt;{newemail}&lt;/strong&gt; is almost complete!&lt;/p&gt;
+    &lt;p&gt; Just confirm the change by clicking this link:&lt;/p&gt;
+    &lt;p class=&quot;mt-3 mb-3 text-center&quot;&gt;&lt;a href=&quot;{link}&quot;&gt;{link}&lt;/a&gt;&lt;/p&gt;
+    &lt;p&gt;And enter approval key:&lt;/p&gt;
+    &lt;pre class=&quot;text-center&quot;&gt;&lt;strong&gt;{key}&lt;/strong&gt;&lt;/pre&gt;
+    &lt;p&gt; If you did not request a change to your email address please simply ignore this email.&lt;/p&gt;
+    &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;div class=&quot;text-center text-muted&quot;&gt;&lt;strong&gt;{forumname}&lt;/strong&gt; at &lt;a href=&quot;{forumlink}&quot;&gt;{forumlink}&lt;/a&gt;&lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;/body&gt;
+    &lt;/html&gt;
 </Resource>
   <Resource tag="CHANGEEMAIL_TEXT">
 Hello {user},
@@ -5417,13 +5216,11 @@ The Message was posted in the {forumname} forum.
     {forumurl}
 
   </Resource>
-
-
    <Resource tag="NOTIFICATION_ROLE_ASSIGNMENT">
      Hello {user},
 
      Your user account on the {forumname} forum has has been recently updated to include access to the following Group(s):
-
+     
      {roles}
 
 
@@ -5436,9 +5233,9 @@ The Message was posted in the {forumname} forum.
      Hello {user},
 
      Your user account on the {forumname} forum  has been recently updated to restrict access to the following Groups(s):
-
+     
      {roles}
-     a
+
 
      Thanks!
      The {forumname} Team
@@ -5446,31 +5243,31 @@ The Message was posted in the {forumname} forum.
 
    </Resource>
   <Resource tag="PASSWORDRETRIEVAL_HTML">
-    &lt;!DOCTYPE html&gt;
-
-    &lt;html lang=&quot;en&quot; xmlns=&quot;http://www.w3.org/1999/xhtml&quot;&gt;
+    &lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD XHTML 1.0 Strict//EN&quot; &quot;http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd&quot;&gt;
+    &lt;html&gt;
     &lt;head&gt;
     &lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=utf-8&quot; /&gt;
-    &lt;title&gt;Password Retrieval&lt;/title&gt;
-    &lt;style type=&quot;text/css&quot;&gt;
-    &lt;!--
-    .style1 {
-    font-family: Verdana, Arial, Helvetica, sans-serif;
-    }
-    --&gt;
-    &lt;/style&gt;
+    &lt;link rel=&quot;stylesheet&quot; media=&quot;all&quot; href=&quot;{themecss}&quot; /&gt;
     &lt;/head&gt;
-    &lt;body&gt;
-    &lt;p class=&quot;style1&quot;&gt;Hello {username},&lt;/p&gt;
-    &lt;p class=&quot;style1&quot;&gt;You or someone (with the IP Address: {ipaddress}) has requested to reset your password because you have forgotten your password.&lt;/p&gt;
-    &lt;p class=&quot;style1&quot;&gt;A new password has been generated for you on &lt;strong&gt;{forumname}&lt;/strong&gt; at &lt;a href=&quot;{forumlink}&quot;&gt;{forumlink}&lt;/a&gt;.&lt;/p&gt;
-    &lt;p class=&quot;style1&quot;&gt;Please return to the site and login using the following information:&lt;/p&gt;
-    &lt;blockquote&gt;
-    &lt;span class=&quot;style1&quot;&gt;
+    &lt;body class=&quot;bg-light&quot;&gt;
+    &lt;div class=&quot;container&quot;&gt;
+    &lt;div class=&quot;mx-auto mt-4 mb-3 text-center&quot; style=&quot;width:100px;height:40px;background: url(&#39;{logo}&#39;) no-repeat&quot;&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;card mb-4&quot; style=&quot;border-top: 5px solid #3761b5;&quot;&gt;
+    &lt;div class=&quot;card-body&quot;&gt;
+    &lt;h4 class=&quot;text-center&quot;&gt;Hello &lt;strong&gt;{username}&lt;/strong&gt;,&lt;/h4&gt;
+    &lt;p class=&quot;mt-3 mb-4&quot;&gt;You or someone (with the IP Address: {ipaddress}) has requested to reset your password because you have forgotten your password.&lt;/p&gt;
+    &lt;p&gt;Please return to the site and login using the following information:&lt;/p&gt;
+    &lt;div class=&quot;text-center&quot;&gt;&lt;code&gt;
     User Name: &lt;strong&gt;{username}&lt;/strong&gt;&lt;br /&gt;
     Password: &lt;strong&gt;{password}&lt;/strong&gt;
-    &lt;/span&gt;
-    &lt;/blockquote&gt;
+    &lt;/code&gt;&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;div class=&quot;text-center text-muted&quot;&gt;&lt;strong&gt;{forumname}&lt;/strong&gt; at &lt;a href=&quot;{forumlink}&quot;&gt;{forumlink}&lt;/a&gt;&lt;/div&gt;
+    &lt;/div&gt;
+
     &lt;/body&gt;
     &lt;/html&gt;
 </Resource>
@@ -5486,7 +5283,32 @@ Please return to the site and login using the following information:
 User Name: {username}
 Password: {password}
 </Resource>
-  <Resource tag="PMNOTIFICATION_HTML"></Resource>
+   <Resource tag="PMNOTIFICATION_HTML">
+     &lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD XHTML 1.0 Strict//EN&quot; &quot;http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd&quot;&gt;
+     &lt;html&gt;
+     &lt;head&gt;
+     &lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=utf-8&quot; /&gt;
+     &lt;link rel=&quot;stylesheet&quot; media=&quot;all&quot; href=&quot;{themecss}&quot; /&gt;
+     &lt;/head&gt;
+     &lt;body class=&quot;bg-light&quot;&gt;
+     &lt;div class=&quot;container&quot;&gt;
+     &lt;div class=&quot;mx-auto mt-4 mb-3 text-center&quot; style=&quot;width:100px;height:40px;background: url(&#39;{logo}&#39;) no-repeat&quot;&gt;
+     &lt;/div&gt;
+     &lt;div class=&quot;card mb-4&quot; style=&quot;border-top: 5px solid #3761b5;&quot;&gt;
+     &lt;div class=&quot;card-body&quot;&gt;
+     &lt;h4 class=&quot;text-center&quot;&gt;Hello &lt;strong&gt;{username}&lt;/strong&gt;,&lt;/h4&gt;
+     &lt;p class=&quot;mt-3 mb-4&quot;&gt;A new Private Message from {fromuser} about {subject} was send to you at {forumname}.&lt;/p&gt;
+     &lt;p&gt;To read the message, open the following link in your browser:&lt;/p&gt;
+     &lt;p class=&quot;text-center&quot;&gt;&lt;a href=&quot;{link}&quot;&gt;{link}&lt;/a&gt;&lt;/p&gt;
+     &lt;/div&gt;
+     &lt;/div&gt;
+
+     &lt;div class=&quot;text-center text-muted&quot;&gt;&lt;strong&gt;{forumname}&lt;/strong&gt; at &lt;a href=&quot;{forumlink}&quot;&gt;{forumlink}&lt;/a&gt;&lt;/div&gt;
+     &lt;/div&gt;
+
+     &lt;/body&gt;
+     &lt;/html&gt;
+   </Resource>
   <Resource tag="PMNOTIFICATION_TEXT">
 A new Private Message from {fromuser} about {subject} was send to you at {forumname}.
 
@@ -5494,7 +5316,38 @@ To read the message, open the following link in your browser:
 
 {link}
 </Resource>
-  <Resource tag="TOPICPOST_HTML"></Resource>
+  <Resource tag="TOPICPOST_HTML">
+    &lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD XHTML 1.0 Strict//EN&quot; &quot;http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd&quot;&gt;
+    &lt;html&gt;
+    &lt;head&gt;
+    &lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=utf-8&quot; /&gt;
+    &lt;link rel=&quot;stylesheet&quot; media=&quot;all&quot; href=&quot;{themecss}&quot; /&gt;
+    &lt;/head&gt;
+    &lt;body class=&quot;bg-light&quot;&gt;
+    &lt;div class=&quot;container&quot;&gt;
+    &lt;div class=&quot;mx-auto mt-4 mb-3 text-center&quot; style=&quot;width:100px;height:40px;background: url(&#39;{logo}&#39;) no-repeat&quot;&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;card mb-4&quot; style=&quot;border-top: 5px solid #3761b5;&quot;&gt;
+    &lt;div class=&quot;card-body&quot;&gt;
+    &lt;p class=&quot;mt-3 mb-4&quot;&gt;There&#39;s a new post in topic &quot;{topic}&quot; at {forumname} By {postedby}:&lt;/p&gt;
+    &lt;p&gt;&quot;{bodytruncated}&quot;
+
+    &lt;p&gt;To read more, click or copy and paste the following link into your browser:&lt;/p&gt;
+
+    &lt;p class=&quot;text-center&quot;&gt;&lt;a href=&quot;{link}&quot;&gt;{link}&lt;/a&gt;&lt;/p&gt;
+
+    &lt;p&gt;You can manage your subscriptions here:&lt;/p&gt;
+
+    &lt;p class=&quot;text-center&quot;&gt;&lt;a href=&quot;{subscriptionlink}&quot;&gt;{subscriptionlink}&lt;/a&gt;&lt;/p&gt;
+    &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;div class=&quot;text-center text-muted&quot;&gt;&lt;strong&gt;{forumname}&lt;/strong&gt; at &lt;a href=&quot;{forumlink}&quot;&gt;{forumlink}&lt;/a&gt;&lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;/body&gt;
+    &lt;/html&gt;
+  </Resource>
   <Resource tag="TOPICPOST_TEXT">
 There's a new post in topic "{topic}" at {forumname}:
 
@@ -5509,7 +5362,34 @@ You can manage your subscriptions here:
 
 {subscriptionlink}
 </Resource>
-  <Resource tag="VERIFYEMAIL_HTML"></Resource>
+  <Resource tag="VERIFYEMAIL_HTML">
+    &lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD XHTML 1.0 Strict//EN&quot; &quot;http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd&quot;&gt;
+    &lt;html&gt;
+    &lt;head&gt;
+    &lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=utf-8&quot; /&gt;
+    &lt;link rel=&quot;stylesheet&quot; media=&quot;all&quot; href=&quot;{themecss}&quot; /&gt;
+    &lt;/head&gt;
+    &lt;body class=&quot;bg-light&quot;&gt;
+    &lt;div class=&quot;container&quot;&gt;
+    &lt;div class=&quot;mx-auto mt-4 mb-3 text-center&quot; style=&quot;width:100px;height:40px;background: url(&#39;{logo}&#39;) no-repeat&quot;&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;card mb-4&quot; style=&quot;border-top: 5px solid #3761b5;&quot;&gt;
+    &lt;div class=&quot;card-body&quot;&gt;
+    &lt;h4 class=&quot;text-center&quot;&gt;Hello &lt;strong&gt;{username}&lt;/strong&gt;,&lt;/h4&gt;
+    &lt;p class=&quot;mt-3 mb-4&quot;&gt;You have requested to join {forumname}, but before you can join your email address must be verified.&lt;/p&gt;
+    &lt;p&gt;To verify your email address open the following link in your web browser:&lt;/p&gt;
+    &lt;p class=&quot;text-center&quot;&gt;&lt;a href=&quot;{link}&quot;&gt;{link}&lt;/a&gt;&lt;/p&gt;
+    &lt;p&gt;Your approval key is:&lt;/p&gt;
+    &lt;p class=&quot;text-center&quot;&gt;{key}&lt;/p&gt;
+    &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;div class=&quot;text-center text-muted&quot;&gt;&lt;strong&gt;{forumname}&lt;/strong&gt; at &lt;a href=&quot;{forumlink}&quot;&gt;{forumlink}&lt;/a&gt;&lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;/body&gt;
+    &lt;/html&gt;
+  </Resource>
   <Resource tag="VERIFYEMAIL_TEXT">
 You have requested to join {forumname}, but before you can join your email address must be verified.
 
@@ -5523,43 +5403,6 @@ Your approval key is:
 
 Visit {forumname} at {forumlink}
 </Resource>
- </page>
- <page name="TIMEZONES">
-    <Resource tag="NAME_UTC">(UTC)</Resource>
-    <Resource tag="UTC0">(UTC) Casablanca, Coordinated Universal Time, Greenwich Mean Time : Dublin, Edinburgh, Lisbon, London, Monrovia, Reykjavik</Resource>
-    <Resource tag="UTC1">(UTC+01:00) Amsterdam, Berlin, Bern, Rome, Stockholm, Vienna, Belgrade, Bratislava, Budapest, Ljubljana, Prague, Brussels, Copenhagen, Madrid, Paris, Sarajevo, Skopje, Warsaw, Zagreb</Resource>
-    <Resource tag="UTC-1">(UTC-1:00) Azores, Cape Verde Is.</Resource>
-    <Resource tag="UTC10">(UTC+10:00) Brisbane, Canberra, Melbourne, Sydney, Guam, Port Moresby, Hobart, Yakutsk</Resource>
-    <Resource tag="UTC-10">(UTC-10:00) Hawaii</Resource>
-    <Resource tag="UTC11">(UTC+11:00) Solomon Is., New Caledonia, Vladivostok</Resource>
-    <Resource tag="UTC-11">(UTC-11:00) Coordinated Universal Time-11</Resource>
-    <Resource tag="UTC12">(UTC+12:00) Auckland, Wellington, Coordinated Universal Time+12, Fiji, Magadan, Petropavlovsk-Kamchatsky - Old</Resource>
-    <Resource tag="UTC-12">(UTC-12:00) International Date Line West</Resource>
-    <Resource tag="UTC13">(UTC+13:00) Nuku'alofa, Samoa</Resource>
-    <Resource tag="UTC2">(UTC+02:00) Athens, Bucharest, Beirut, Cairo, Damascus, E. Europe, Harare, Pretoria, Helsinki, Kyiv, Riga, Sofia, Tallinn, Vilnius, Istanbul, Jerusalem, Tripoli</Resource>
-    <Resource tag="UTC-2">(UTC-2:00) Coordinated Universal Time-2, Mid-Atlantic - Old</Resource>
-    <Resource tag="UTC3">(UTC+03:00) Amman, Baghdad, Kaliningrad, Minsk, Kuwait, Riyadh, Nairobi</Resource>
-    <Resource tag="UTC-3">(UTC-3:00) Brasilia, Buenos Aires, Cayenne, Fortaleza, Greenland, Montevideo, Salvador</Resource>
-    <Resource tag="UTC3.5">(UTC+03:30) Tehran</Resource>
-    <Resource tag="UTC-3.5">(UTC-3:30) Newfoundland</Resource>
-    <Resource tag="UTC4">(UTC+04:00) Abu Dhabi, Muscat, Baku, Caucasus Standard Time, Moscow, St. Petersburg, Volgograd,Port Louis, Tbilisi, Yerevan</Resource>
-    <Resource tag="UTC-4">(UTC-4:00) Asuncion, Atlantic Time (Canada), Cuiaba, Georgetown, La Paz, Manaus, San Juan, Santiago</Resource>
-    <Resource tag="UTC4.5">(UTC+04:30) Kabul</Resource>
-    <Resource tag="UTC-4.5">(UTC-4:30) Caracas</Resource>
-    <Resource tag="UTC5">(UTC+05:00) Ashgabat, Tashkent, Islamabad, Karachi</Resource>
-    <Resource tag="UTC-5">(UTC-5:00) Bogota, Lima, Quito, Eastern Time (US &amp; Canada), Indiana (East)</Resource>
-    <Resource tag="UTC5.5">(UTC+05:30) Chennai, Kolkata, Mumbai, New Delhi</Resource>
-    <Resource tag="UTC5.75">(UTC+05:45) Kathmandu</Resource>
-    <Resource tag="UTC6">(UTC+06:00) Astana, Dhaka, Ekaterinburg</Resource>
-    <Resource tag="UTC-6">(UTC-6:00) Central America, Central Time (US &amp; Canada), Guadalajara, Mexico City, Monterrey - New, Guadalajara, Mexico City, Monterrey - Old, Saskatchewan</Resource>
-    <Resource tag="UTC6.5">(UTC+06:30) Yangon (Rangoon)</Resource>
-    <Resource tag="UTC7">(UTC+07:00) Bangkok, Hanoi, Jakarta, Novosibirsk</Resource>
-    <Resource tag="UTC-7">(UTC-7:00) Arizona, Chihuahua, La Paz, Mazatlan - New, Chihuahua, La Paz, Mazatlan - Old, Mountain Time (US &amp; Canada)</Resource>
-    <Resource tag="UTC8">(UTC+08:00) Beijing, Chongqing, Hong Kong, Urumqi, Krasnoyarsk, Kuala Lumpur, Singapore Perth, Taipei, Ulaanbaatar</Resource>
-    <Resource tag="UTC-8">(UTC-8:00) Baja California, Pacific Time (US &amp; Canada)</Resource>
-    <Resource tag="UTC9">(UTC+09:00) Irkutsk, Osaka, Sapporo, Tokyo, Seoul</Resource>
-    <Resource tag="UTC-9">(UTC-9:00) Alaska</Resource>
-    <Resource tag="UTC9.5">(UTC+09:30) Adelaide</Resource>
  </page>
  <page name="TOOLBAR">
   <Resource tag="ACTIVETOPICS">Active Topics</Resource>
@@ -5587,13 +5430,14 @@ Visit {forumname} at {forumlink}
   <Resource tag="MEMBERS">Members</Resource>
   <Resource tag="MEMBERS_TITLE">Opens the Member list page.</Resource>
   <Resource tag="MODERATE">Moderate</Resource>
+  <Resource tag="MODERATE_NEW">({0} Need Moderating)</Resource>
   <Resource tag="MODERATE_TITLE">Shows the Moderate Page where you can view unapproved and reported Posts..</Resource>
   <Resource tag="MYALBUMS">My Albums</Resource>
   <Resource tag="MYALBUMS_TITLE">Shows the Albums Page which shows all your albums.</Resource>
   <Resource tag="MYPROFILE">My Profile</Resource>
   <Resource tag="MYPROFILE_TITLE">Shows the User Control Panel.</Resource>
   <Resource tag="MYTOPICS">My Topics</Resource>
-  <Resource tag="MYTOPICS_TITLE">Shows the Active and Favorite Topics.</Resource>
+  <Resource tag="MYTOPICS_TITLE">Shows the Active and Favorite Topics.</Resource>esource>
   <Resource tag="NEWPM">({0} Unread)</Resource>
   <Resource tag="REGISTER">Register</Resource>
   <Resource tag="REGISTER_CONNECT">or Register a new forum account</Resource>
@@ -5638,6 +5482,7 @@ Visit {forumname} at {forumlink}
   <Resource tag="LASTPOST">Last Post</Resource>
   <Resource tag="MARKREAD">Mark this forum as read</Resource>
   <Resource tag="NO_POSTS">No Posts</Resource>
+  <Resource tag="NO_TOPICS">The Forum currently has no Topics</Resource>
   <Resource tag="OK_TT">Search this Forum</Resource>
   <Resource tag="POSTS">Posts</Resource>
   <Resource tag="REPLIES">Replies</Resource>

@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -21,7 +21,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Core
+namespace YAF.Core.Extensions
 {
   #region Using
 
@@ -64,24 +64,26 @@ namespace YAF.Core
 
       var item = httpApplicationState[key];
 
-      if (Equals(item, default(T)))
+      if (!Equals(item, default(T)))
       {
-        try
-        {
+          return (T)item;
+      }
+
+      try
+      {
           httpApplicationState.Lock();
 
           item = httpApplicationState[key];
 
           if (Equals(item, default(T)))
           {
-            item = getValue();
-            httpApplicationState[key] = item;
+              item = getValue();
+              httpApplicationState[key] = item;
           }
-        }
-        finally
-        {
+      }
+      finally
+      {
           httpApplicationState.UnLock();
-        }
       }
 
       return (T)item;

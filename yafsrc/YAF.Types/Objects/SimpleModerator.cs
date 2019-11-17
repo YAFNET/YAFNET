@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -65,13 +65,14 @@ namespace YAF.Types.Objects
         /// The is group.
         /// </param>
         public SimpleModerator(
-            long forumID, string forumName, long moderatorID,  string name, string email, string avatar, bool avatarImage, string displayName, string style, bool isGroup)
+            long forumID, string forumName, long moderatorID,  string name, string email, int blockFlags, string avatar, bool avatarImage, string displayName, string style, bool isGroup)
         {
             this.ForumID = forumID;
             this.ForumName = forumName;
             this.ModeratorID = moderatorID;
             this.Name = name;
             this.Email = email;
+            this.BlockFlags = blockFlags;
             this.Avatar = avatar;
             this.AvatarImage = avatarImage;
             this.DisplayName = displayName;
@@ -103,6 +104,8 @@ namespace YAF.Types.Objects
         /// Gets or sets Email.
         /// </summary>
         public string Email { get; set; }
+
+        public int BlockFlags { get; set; }
 
         /// <summary>
         /// Gets or sets Avatar.

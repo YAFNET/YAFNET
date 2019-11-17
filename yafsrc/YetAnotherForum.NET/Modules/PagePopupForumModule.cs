@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -30,14 +30,13 @@ namespace YAF.Modules
     using YAF.Types;
     using YAF.Types.Attributes;
     using YAF.Types.Extensions;
-    using YAF.Types.Interfaces;
 
     #endregion
 
     /// <summary>
     /// The Page Popup Module
     /// </summary>
-    [YafModule("Page Popup Module", "Tiny Gecko", 1)]
+    [YafModule(moduleName: "Page Popup Module", moduleAuthor: "Tiny Gecko", moduleVersion: 1)]
     public class PagePopupForumModule : SimpleBaseForumModule
     {
         #region Constants and Fields
@@ -45,7 +44,7 @@ namespace YAF.Modules
         /// <summary>
         ///   The _error popup.
         /// </summary>
-        private PopupDialogNotification _errorPopup;
+        private PopupDialogNotification errorPopup;
 
         #endregion
 
@@ -56,12 +55,10 @@ namespace YAF.Modules
         /// </summary>
         public override void InitAfterPage()
         {
-            if (this._errorPopup == null)
+            if (this.errorPopup == null)
             {
                 this.AddErrorPopup();
             }
-
-            this._errorPopup.Title = this.GetText("COMMON", "MODAL_NOTIFICATION_HEADER");
 
             this.CurrentForumPage.PreRender += this.CurrentForumPage_PreRender;
         }
@@ -98,16 +95,21 @@ namespace YAF.Modules
             // Get the clean JS string.
             message.Message = message.Message.ToJsString();
 
-            if (string.IsNullOrEmpty(message.Message))
+            if (message.Message.IsNotSet())
             {
                 return;
             }
 
             this.PageContext.PageElements.RegisterJsBlockStartup(
-                this.ForumControl.Page,
-                "modalNotification",
-                "var fpModal = function() {{ {2}('{0}', '{1}'); Sys.Application.remove_load(fpModal); }}; Sys.Application.add_load(fpModal);"
-                    .FormatWith(message.Message, message.MessageType.ToString().ToLower(), this._errorPopup.ShowModalFunction));
+                thisControl: this.ForumControl.Page,
+                name: "modalNotification",
+                script: string
+                    .Format(
+                        format: "var fpModal = function() {{ {2}('{0}', '{1}','{3}'); Sys.Application.remove_load(fpModal); }}; Sys.Application.add_load(fpModal);",
+                        message.Message,
+                            message.MessageType.ToString().ToLower(),
+                            this.errorPopup.ShowModalFunction,
+                            message.Script.IsSet() ? message.Script : string.Empty));
         }
 
         /// <summary>
@@ -115,22 +117,20 @@ namespace YAF.Modules
         /// </summary>
         private void AddErrorPopup()
         {
-            if (this.ForumControl.FindControl("YafForumPageErrorPopup1") == null)
+            if (this.ForumControl.FindControl(id: "YafForumPageErrorPopup1") == null)
             {
                 // add error control...
-                this._errorPopup = new PopupDialogNotification
+                this.errorPopup = new PopupDialogNotification
                     {
-                        ID = "YafForumPageErrorPopup1", 
-                        Title = this.GetText("COMMON", "MODAL_NOTIFICATION_HEADER")
+                        ID = "YafForumPageErrorPopup1"
                     };
 
-                this.ForumControl.Controls.Add(this._errorPopup);
+                this.ForumControl.Controls.Add(child: this.errorPopup);
             }
             else
             {
                 // reference existing control...
-                this._errorPopup = (PopupDialogNotification)this.ForumControl.FindControl("YafForumPageErrorPopup1");
-                this._errorPopup.Title = this.GetText("COMMON", "MODAL_NOTIFICATION_HEADER");
+                this.errorPopup = (PopupDialogNotification)this.ForumControl.FindControl(id: "YafForumPageErrorPopup1");
             }
         }
 

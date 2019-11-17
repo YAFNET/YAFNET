@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -32,7 +32,8 @@ namespace YAF.Core.Helpers
     using System.Linq;
     using System.Web;
 
-    using YAF.Classes;
+    using YAF.Configuration;
+    using YAF.Core.Extensions;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
 
@@ -74,9 +75,7 @@ namespace YAF.Core.Helpers
                 if (
                     !File.Exists(
                         HttpContext.Current.Server.MapPath(
-                            "{0}{1}Scripts/tinymce/tinymce.min.js".FormatWith(
-                                Config.ServerFileRoot,
-                                Config.ServerFileRoot.EndsWith("/") ? string.Empty : "/"))))
+                            $"{Config.ServerFileRoot}{(Config.ServerFileRoot.EndsWith("/") ? string.Empty : "/")}Scripts/tinymce/tinymce.min.js")))
                 {
                     forumEditor = YafContext.Current.Get<IModuleManager<ForumEditor>>().GetBy("1");
                 }
@@ -92,14 +91,13 @@ namespace YAF.Core.Helpers
         public static DataTable GetFilteredEditorList()
         {
             var editorList = YafContext.Current.Get<IModuleManager<ForumEditor>>().ActiveAsDataTable("Editors");
-            
+
             // Check if TinyMCE exists
             var tinyMceExists = false;
 
             try
             {
-                if (
-                    File.Exists(HttpContext.Current.Server.MapPath("~/Scripts/tinymce/tinymce.min.js")))
+                if (File.Exists(HttpContext.Current.Server.MapPath("~/Scripts/tinymce/tinymce.min.js")))
                 {
                     tinyMceExists = true;
                 }
@@ -116,10 +114,8 @@ namespace YAF.Core.Helpers
 
             var filterList = new ArrayList();
 
-            foreach (var drow in editorList.Rows.Cast<DataRow>().Where(drow => drow["Name"].ToString().Contains("TinyMCE")))
-            {
-                filterList.Add(drow);
-            }
+            editorList.Rows.Cast<DataRow>().Where(drow => drow["Name"].ToString().Contains("TinyMCE"))
+                .ForEach(row => filterList.Add(row));
 
             foreach (DataRow row in filterList)
             {

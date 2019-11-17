@@ -1,5 +1,27 @@
+/* Yet Another Forum.NET
+ * Copyright (C) 2003-2005 Bjørnar Henden
+ * Copyright (C) 2006-2013 Jaben Cargman
+ * Copyright (C) 2014-2019 Ingo Herbote
+ * http://www.yetanotherforum.net/
+ * 
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
 
-// vzrus
+ * http://www.apache.org/licenses/LICENSE-2.0
+
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
+
 namespace YAF.Core.Tasks
 {
     #region Using
@@ -8,25 +30,18 @@ namespace YAF.Core.Tasks
 
     using YAF.Core.Extensions;
     using YAF.Types.Constants;
-    using YAF.Classes.Data;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
-    using YAF.Utils;
 
     #endregion
 
     /// <summary>
     /// The forum delete task.
     /// </summary>
-    public class BoardDeleteTask : LongBackgroundTask, ICriticalBackgroundTask, IBlockableTask
+    public class BoardDeleteTask : LongBackgroundTask, ICriticalBackgroundTask
     {
         #region Constants and Fields
-
-        /// <summary>
-        /// The _task name.
-        /// </summary>
-        private const string _TaskName = "BoardDeleteTask";
 
         /// <summary>
         /// The Blocking Task Names.
@@ -40,13 +55,7 @@ namespace YAF.Core.Tasks
         /// <summary>
         /// Gets TaskName.
         /// </summary>
-        public static string TaskName
-        {
-            get
-            {
-                return _TaskName;
-            }
-        }
+        public static string TaskName { get; } = "BoardDeleteTask";
 
         /// <summary>
         /// Gets or sets BoardIdToDelete.
@@ -67,7 +76,7 @@ namespace YAF.Core.Tasks
         /// The failure message - is empty if task is launched successfully.
         /// </param>
         /// <returns>
-        /// Returns if Task was Successfull
+        /// Returns if Task was Successful
         /// </returns>
         public static bool Start(int boardId, out string failureMessage)
         {
@@ -86,9 +95,7 @@ namespace YAF.Core.Tasks
             else
             {
                 failureMessage =
-                    "You can't delete the board while some of the blocking {0} tasks are running.".FormatWith(
-                        BlockingTaskNames.ToDelimitedString(","));
-
+                    $"You can't delete the board while some of the blocking {BlockingTaskNames.ToDelimitedString(",")} tasks are running.";
             }
 
             return true;
@@ -103,15 +110,12 @@ namespace YAF.Core.Tasks
             {
                 this.Logger.Info("Starting Board delete task for BoardId {0} delete task.", this.BoardIdToDelete);
 
-                this.GetRepository<Board>().DeleteByID(this.BoardIdToDelete);
+                this.GetRepository<Board>().DeleteById(this.BoardIdToDelete);
                 this.Logger.Info("Board delete task for BoardId {0} delete task is completed.", this.BoardIdToDelete);
             }
             catch (Exception x)
             {
-                this.Logger.Error(
-                    x,
-                    "Error In Board (ID: {0}) Delete Task: {1}".FormatWith(this.BoardIdToDelete),
-                    TaskName);
+                this.Logger.Error(x, "Error In Board (ID: {0}) Delete Task: {1}", this.BoardIdToDelete, TaskName);
             }
         }
 

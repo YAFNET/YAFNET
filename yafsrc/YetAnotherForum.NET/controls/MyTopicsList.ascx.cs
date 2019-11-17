@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -28,12 +28,14 @@ namespace YAF.Controls
 
     using System;
     using System.Data;
+    using System.Globalization;
     using System.Linq;
     using System.Web.UI.WebControls;
 
-    using YAF.Classes;
-    using YAF.Classes.Data;
+    using YAF.Configuration;
     using YAF.Core;
+    using YAF.Core.BaseControls;
+    using YAF.Core.Extensions;
     using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;
@@ -42,39 +44,9 @@ namespace YAF.Controls
     using YAF.Types.Models;
     using YAF.Utils;
     using YAF.Utils.Helpers;
+    using YAF.Web.Controls;
 
     #endregion
-
-    /// <summary>
-    /// The topic list mode.
-    /// </summary>
-    public enum TopicListMode
-    {
-        /// <summary>
-        ///   The active topics list.
-        /// </summary>
-        Active,
-
-        /// <summary>
-        ///   The unanswered topics list.
-        /// </summary>
-        Unanswered,
-
-        /// <summary>
-        ///   The favorite topics list.
-        /// </summary>
-        Favorite,
-
-        /// <summary>
-        ///   The Unread topics list.
-        /// </summary>
-        Unread,
-
-        /// <summary>
-        ///   The User topics list.
-        /// </summary>
-        User
-    }
 
     /// <summary>
     /// My Topics List Control.
@@ -82,18 +54,12 @@ namespace YAF.Controls
     public partial class MyTopicsList : BaseUserControl
     {
         /* Data Fields */
-
         #region Constants and Fields
-
-        /// <summary>
-        ///   The last post image tooltip.
-        /// </summary>
-        protected string lastPostImageTT = string.Empty;
 
         /// <summary>
         ///   The _last forum name.
         /// </summary>
-        private string _lastForumName = string.Empty;
+        private string lastForumName = string.Empty;
 
         /// <summary>
         ///   default since date is now
@@ -113,7 +79,6 @@ namespace YAF.Controls
         #endregion
 
         /* Properties */
-
         #region Public Properties
 
         /// <summary>
@@ -192,72 +157,84 @@ namespace YAF.Controls
             DataTable topicList = null;
             
             // set the page size here
-            int basePageSize = this.Get<YafBoardSettings>().MyTopicsListPageSize;
+            var basePageSize = this.Get<YafBoardSettings>().MyTopicsListPageSize;
             this.PagerTop.PageSize = basePageSize;
 
             // page index in db which is returned back  is +1 based!
-            int nCurrentPageIndex = this.PagerTop.CurrentPageIndex;
+            var currentPageIndex = this.PagerTop.CurrentPageIndex;
+
+            this.Title.LocalizedPage = "MyTopics";
 
             // now depending on mode fill the table
             switch (this.CurrentMode)
             {
                 case TopicListMode.Active:
-                    topicList = LegacyDb.topic_active(
+                    this.Title.LocalizedTag = "ActiveTopics";
+
+                    topicList = this.GetRepository<Topic>().ActiveAsDataTable(
                         this.PageContext.PageBoardID,
                         categoryIdObject,
                         this.PageContext.PageUserID,
                         this.sinceDate,
                         DateTime.UtcNow,
-                        nCurrentPageIndex,
+                        currentPageIndex,
                         basePageSize,
                         this.Get<YafBoardSettings>().UseStyledNicks,
                         this.Get<YafBoardSettings>().UseReadTrackingByDatabase);
                     break;
                 case TopicListMode.Unanswered:
-                    topicList = LegacyDb.topic_unanswered(
+                    this.Title.LocalizedTag = "UnansweredTopics";
+
+                    topicList = this.GetRepository<Topic>().UnansweredAsDataTable(
                         this.PageContext.PageBoardID,
                         categoryIdObject,
                         this.PageContext.PageUserID,
                         this.sinceDate,
                         DateTime.UtcNow,
-                        nCurrentPageIndex,
+                        currentPageIndex,
                         basePageSize,
                         this.Get<YafBoardSettings>().UseStyledNicks,
                         this.Get<YafBoardSettings>().UseReadTrackingByDatabase);
                     break;
                 case TopicListMode.Unread:
-                    topicList = LegacyDb.topic_unread(
+                    this.Title.LocalizedTag = "UnreadTopics";
+
+                    topicList = this.GetRepository<Topic>().UnreadAsDataTable(
                         this.PageContext.PageBoardID,
                         categoryIdObject,
                         this.PageContext.PageUserID,
                         this.sinceDate,
                         DateTime.UtcNow,
-                        nCurrentPageIndex,
+                        currentPageIndex,
                         basePageSize,
                         this.Get<YafBoardSettings>().UseStyledNicks,
                         this.Get<YafBoardSettings>().UseReadTrackingByDatabase);
                     break;
                 case TopicListMode.User:
-                    topicList = LegacyDb.Topics_ByUser(
+                    this.Title.LocalizedTag = "MyTopics";
+
+                    topicList = this.GetRepository<Topic>().ByUserAsDataTable(
                         this.PageContext.PageBoardID,
                         categoryIdObject,
                         this.PageContext.PageUserID,
                         this.sinceDate,
                         DateTime.UtcNow,
-                        nCurrentPageIndex,
+                        currentPageIndex,
                         basePageSize,
                         this.Get<YafBoardSettings>().UseStyledNicks,
                         this.Get<YafBoardSettings>().UseReadTrackingByDatabase);
                     break;
                 case TopicListMode.Favorite:
+                    this.Title.LocalizedTag = "FavoriteTopics";
+
                     topicList = this.GetRepository<FavoriteTopic>().Details(
-                        (YafContext.Current.Settings.CategoryID == 0)
+                        YafContext.Current.Settings.CategoryID == 0
                             ? null
                             : (int?)YafContext.Current.Settings.CategoryID,
                         this.PageContext.PageUserID,
                         this.sinceDate,
                         DateTime.UtcNow,
-                        nCurrentPageIndex,
+                        currentPageIndex,
                         basePageSize,
                         this.Get<YafBoardSettings>().UseStyledNicks,
                         this.Get<YafBoardSettings>().UseReadTrackingByDatabase);
@@ -270,7 +247,7 @@ namespace YAF.Controls
                 return;
             }
 
-            if (topicList.Rows.Count <= 0)
+            if (!topicList.HasRows())
             {
                 this.PagerTop.Count = 0;
                 this.TopicList.DataSource = null;
@@ -280,7 +257,7 @@ namespace YAF.Controls
 
             this.topics = topicList;
 
-            DataTable topicsNew = topicList.Copy();
+            var topicsNew = topicList.Copy();
 
             foreach (var thisTableRow in topicsNew
                 .Rows.Cast<DataRow>()
@@ -296,12 +273,21 @@ namespace YAF.Controls
                 this.Get<IStyleTransform>().DecodeStyleByTable(topicsNew, false, new[] { "LastUserStyle", "StarterStyle" });
             }
 
+            if (!topicsNew.HasRows())
+            {
+                this.PagerTop.Count = 0;
+                this.TopicList.DataSource = null;
+                this.TopicList.DataBind();
+                return;
+            }
+
             // let's page the results
             this.PagerTop.Count = topicsNew.HasRows()
                                       ? topicsNew.AsEnumerable().First().Field<int>("TotalRows")
                                       : 0;
 
             this.TopicList.DataSource = topicsNew;
+            this.TopicList.DataBind();
 
             // Get new Feeds links
             this.BindFeeds();
@@ -321,17 +307,16 @@ namespace YAF.Controls
         {
             var lastVisit = this.Get<IYafSession>().LastVisit;
 
-            // value 0, for since last visted
+            // value 0, for since last visit
             this.Since.Items.Add(
                 new ListItem(
                     this.GetTextFormatted(
                         "last_visit",
                         !this.PageContext.IsMobileDevice
-                            ? this.Get<IDateTime>()
-                                  .FormatDateTime(
-                                      lastVisit.HasValue && lastVisit.Value != DateTimeHelper.SqlDbMinTime()
-                                          ? lastVisit.Value
-                                          : DateTime.UtcNow)
+                            ? this.Get<IDateTime>().FormatDateTime(
+                                lastVisit.HasValue && lastVisit.Value != DateTimeHelper.SqlDbMinTime()
+                                    ? lastVisit.Value
+                                    : DateTime.UtcNow)
                             : string.Empty),
                     "0"));
 
@@ -357,7 +342,7 @@ namespace YAF.Controls
         {
             this.BindData();
 
-            if (this.topics == null || this.topics.Rows.Count.Equals(0))
+            if (this.topics == null || !this.topics.HasRows())
             {
                 return;
             }
@@ -378,9 +363,6 @@ namespace YAF.Controls
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            this.lastPostImageTT = this.GetText("DEFAULT", "GO_LAST_POST");
-            this.MarkAll.Text = this.GetText("DEFAULT", "MARK_ALL_ASREAD");
-
             if (!this.IsPostBack)
             {
                 this.InitSinceDropdown();
@@ -420,7 +402,7 @@ namespace YAF.Controls
                 if (previousSince.HasValue)
                 {
                     // look for value previously selected
-                    ListItem sinceItem = this.Since.Items.FindByValue(previousSince.Value.ToString());
+                    var sinceItem = this.Since.Items.FindByValue(previousSince.Value.ToString());
 
                     // and select it if found
                     if (sinceItem != null)
@@ -458,20 +440,16 @@ namespace YAF.Controls
         protected string PrintForumName([NotNull] DataRowView row)
         {
             var forumName = this.HtmlEncode(row["ForumName"]);
-            string html = string.Empty;
+            var html = string.Empty;
 
-            if (forumName == this._lastForumName)
+            if (forumName == this.lastForumName)
             {
                 return html;
             }
 
             html =
-                @"<tr><td class=""header2"" colspan=""6""><a href=""{1}"" title=""{2}"" >{0}</a></td></tr>"
-                    .FormatWith(
-                        forumName,
-                        YafBuildLink.GetLink(ForumPages.topics, "f={0}&name={1}", row["ForumID"], forumName),
-                        this.GetText("COMMON", "VIEW_FORUM"));
-            this._lastForumName = forumName;
+                $@"<tr><td class=""header2"" colspan=""6""><a href=""{YafBuildLink.GetLink(ForumPages.topics, "f={0}&name={1}", row["ForumID"], forumName)}"" title=""{this.GetText("COMMON", "VIEW_FORUM")}"" >{forumName}</a></td></tr>";
+            this.lastForumName = forumName;
 
             return html;
         }
@@ -486,7 +464,7 @@ namespace YAF.Controls
             // Set the controls' pager index to 0.
             this.PagerTop.CurrentPageIndex = 0;
 
-            // save since option to rememver it next time
+            // save since option to remember it next time
             switch (this.CurrentMode)
             {
                 case TopicListMode.User:
@@ -515,47 +493,11 @@ namespace YAF.Controls
         /// </summary>
         private void BindFeeds()
         {
-            bool accessActive = this.Get<IPermissions>().Check(this.Get<YafBoardSettings>().ActiveTopicFeedAccess);
-            bool accessFavorite = this.Get<IPermissions>().Check(this.Get<YafBoardSettings>().FavoriteTopicFeedAccess);
+            var accessActive = this.Get<IPermissions>().Check(this.Get<YafBoardSettings>().ActiveTopicFeedAccess);
+            var accessFavorite = this.Get<IPermissions>().Check(this.Get<YafBoardSettings>().FavoriteTopicFeedAccess);
 
             // RSS link setup 
-            if (this.Get<YafBoardSettings>().ShowRSSLink)
-            {
-                switch (this.CurrentMode)
-                {
-                    case TopicListMode.User:
-                        this.RssFeed.Visible = false;
-                        break;
-                    case TopicListMode.Unread:
-                        this.RssFeed.Visible = false;
-                        break;
-                    case TopicListMode.Unanswered:
-                        this.RssFeed.Visible = false;
-                        break;
-                    case TopicListMode.Active:
-                        this.RssFeed.TitleLocalizedTag = "RSSICONTOOLTIPACTIVE";
-                        this.RssFeed.FeedType = YafRssFeeds.Active;
-                        this.RssFeed.AdditionalParameters =
-                            "txt={0}&d={1}".FormatWith(
-                                this.Server.UrlEncode(this.HtmlEncode(this.Since.Items[this.Since.SelectedIndex].Text)),
-                                this.Server.UrlEncode(this.HtmlEncode(this.sinceDate.ToString())));
-
-                        this.RssFeed.Visible = accessActive;
-                        break;
-                    case TopicListMode.Favorite:
-                        this.RssFeed.TitleLocalizedTag = "RSSICONTOOLTIPFAVORITE";
-                        this.RssFeed.FeedType = YafRssFeeds.Favorite;
-                        this.RssFeed.AdditionalParameters =
-                            "txt={0}&d={1}".FormatWith(
-                                this.Server.UrlEncode(this.HtmlEncode(this.Since.Items[this.Since.SelectedIndex].Text)),
-                                this.Server.UrlEncode(this.HtmlEncode(this.sinceDate.ToString())));
-                        this.RssFeed.Visible = accessFavorite;
-                        break;
-                }
-            }
-
-            // Atom link setup 
-            if (!this.Get<YafBoardSettings>().ShowAtomLink)
+            if (!this.Get<YafBoardSettings>().ShowRSSLink)
             {
                 return;
             }
@@ -563,43 +505,46 @@ namespace YAF.Controls
             switch (this.CurrentMode)
             {
                 case TopicListMode.User:
-                    this.AtomFeed.Visible = false;
+                    this.RssFeed.Visible = false;
                     break;
                 case TopicListMode.Unread:
-                    this.AtomFeed.Visible = false;
+                    this.RssFeed.Visible = false;
                     break;
                 case TopicListMode.Unanswered:
-                    this.AtomFeed.Visible = false;
+                    this.RssFeed.Visible = false;
                     break;
                 case TopicListMode.Active:
-                    this.AtomFeed.TitleLocalizedTag = "ATOMICONTOOLTIPACTIVE";
-                    this.AtomFeed.FeedType = YafRssFeeds.Active;
-                    this.AtomFeed.ImageThemeTag = "ATOMFEED";
-                    this.AtomFeed.TextLocalizedTag = "ATOMFEED";
-                    this.AtomFeed.AdditionalParameters =
-                        "txt={0}&d={1}".FormatWith(
-                            this.Server.UrlEncode(this.HtmlEncode(this.Since.Items[this.Since.SelectedIndex].Text)),
-                            this.Server.UrlEncode(this.HtmlEncode(this.sinceDate.ToString())));
-                    this.AtomFeed.Visible = accessActive;
+                    this.RssFeed.FeedType = YafRssFeeds.Active;
+                    this.RssFeed.AdditionalParameters =
+                        $"txt={this.Server.UrlEncode(this.HtmlEncode(this.Since.Items[this.Since.SelectedIndex].Text))}&d={this.Server.UrlEncode(this.HtmlEncode(this.sinceDate.ToString(CultureInfo.InvariantCulture)))}";
+
+                    this.RssFeed.Visible = accessActive;
                     break;
                 case TopicListMode.Favorite:
-                    this.AtomFeed.TitleLocalizedTag = "ATOMICONTOOLTIPFAVORITE";
-                    this.AtomFeed.FeedType = YafRssFeeds.Favorite;
-                    this.AtomFeed.ImageThemeTag = "ATOMFEED";
-                    this.AtomFeed.TextLocalizedTag = "ATOMFEED";
-                    this.AtomFeed.AdditionalParameters =
-                        "txt={0}&d={1}".FormatWith(
-                            this.Server.UrlEncode(this.HtmlEncode(this.Since.Items[this.Since.SelectedIndex].Text)),
-                            this.Server.UrlEncode(this.HtmlEncode(this.sinceDate.ToString())));
-
-                    this.AtomFeed.Visible = accessFavorite;
+                    this.RssFeed.FeedType = YafRssFeeds.Favorite;
+                    this.RssFeed.AdditionalParameters =
+                        $"txt={this.Server.UrlEncode(this.HtmlEncode(this.Since.Items[this.Since.SelectedIndex].Text))}&d={this.Server.UrlEncode(this.HtmlEncode(this.sinceDate.ToString(CultureInfo.InvariantCulture)))}";
+                    this.RssFeed.Visible = accessFavorite;
                     break;
             }
-
-            // We should set token to show a common control to handlw it as an Atom feed.
-            this.AtomFeed.IsAtomFeed = true;
         }
 
         #endregion
+
+        /// <summary>
+        /// The create topic line.
+        /// </summary>
+        /// <param name="containerDataItem">
+        /// The container data item.
+        /// </param>
+        /// <returns>
+        /// The <see cref="string"/>.
+        /// </returns>
+        protected string CreateTopicLine(DataRowView containerDataItem)
+        {
+            var topicLine = new TopicContainer { DataRow = containerDataItem };
+
+            return topicLine.RenderToString();
+        }
     }
 }

@@ -1,9 +1,9 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -27,18 +27,20 @@ namespace YAF.Pages.Admin
     #region Using
 
     using System;
-    using System.Data;
+    using System.Linq;
+    using System.Web;
 
-    using YAF.Classes.Data;
-    using YAF.Controls;
     using YAF.Core;
+    using YAF.Core.Model;
     using YAF.Core.Tasks;
+    using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Utilities;
+    using YAF.Types.Models;
     using YAF.Utils;
+    using YAF.Web.Extensions;
 
     #endregion
 
@@ -50,25 +52,16 @@ namespace YAF.Pages.Admin
         #region Methods
 
         /// <summary>
-        /// Get query string as integer.
+        /// Registers the needed Java Scripts
         /// </summary>
-        /// <param name="name">
-        /// The name.
-        /// </param>
-        /// <returns>
-        /// The get query string as integer
-        /// </returns>
-        protected int? GetQueryStringAsInt([NotNull] string name)
+        /// <param name="e">An <see cref="T:System.EventArgs"/> object that contains the event data.</param>
+        protected override void OnPreRender([NotNull] EventArgs e)
         {
-            int value;
+            this.PageContext.PageElements.RegisterJsBlockStartup(
+                "BlockUiFunctionJs",
+                JavaScriptBlocks.BlockUiFunctionJs("DeleteForumMessage"));
 
-            if (this.Request.QueryString.GetFirstOrDefault(name) != null
-                && int.TryParse(this.Request.QueryString.GetFirstOrDefault(name), out value))
-            {
-                return value;
-            }
-
-            return null;
+            base.OnPreRender(e);
         }
 
         /// <summary>
@@ -77,9 +70,12 @@ namespace YAF.Pages.Admin
         /// <param name="e">An <see cref="T:System.EventArgs"/> object that contains the event data.</param>
         protected override void OnInit([NotNull] EventArgs e)
         {
-            this.MoveTopics.CheckedChanged += this.MoveTopics_CheckedChanged;
-            this.Delete.Click += this.Save_Click;
+            this.MoveTopics.CheckedChanged += this.MoveTopicsCheckedChanged;
+            this.Delete.Click += this.SaveClick;
             this.Cancel.Click += this.Cancel_Click;
+
+            this.Delete.ReturnConfirmText = this.GetText("ADMIN_FORUMS", "CONFIRM_DELETE");
+            this.Delete.ReturnConfirmEvent = "blockUIMessage";
 
             base.OnInit(e);
         }
@@ -96,41 +92,34 @@ namespace YAF.Pages.Admin
                 return;
             }
 
-            this.LoadingImage.ImageUrl = YafForumInfo.GetURLToContent("images/loader.gif");
+            this.BindData();
 
+            var forumId = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefaultAsInt("fa");
+
+            var forum = this.GetRepository<Forum>().List(this.PageContext.PageBoardID, forumId)
+                .FirstOrDefault();
+
+            this.ForumNameTitle.Text = forum.Name;
+
+            // populate parent forums list with forums according to selected category
+            this.BindParentList();
+        }
+
+        /// <summary>
+        /// Creates page links for this page.
+        /// </summary>
+        protected override void CreatePageLinks()
+        {
             this.PageLinks.AddRoot();
             this.PageLinks.AddLink(
-                this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
+                this.GetText("ADMIN_ADMIN", "Administration"),
+                YafBuildLink.GetLink(ForumPages.admin_admin));
 
             this.PageLinks.AddLink(this.GetText("TEAM", "FORUMS"), YafBuildLink.GetLink(ForumPages.admin_forums));
             this.PageLinks.AddLink(this.GetText("ADMIN_DELETEFORUM", "TITLE"), string.Empty);
 
-            this.Page.Header.Title = "{0} - {1} - {2}".FormatWith(
-                this.GetText("ADMIN_ADMIN", "Administration"),
-                this.GetText("TEAM", "FORUMS"),
-                this.GetText("ADMIN_DELETEFORUM", "TITLE"));
-
-            this.Delete.Text = this.GetText("ADMIN_DELETEFORUM", "DELETE_FORUM");
-            this.Cancel.Text = this.GetText("CANCEL");
-
-            this.Delete.Attributes["onclick"] =
-                "return (confirm('{0}') && confirm('{1}'));".FormatWith(
-                    this.GetText("ADMIN_FORUMS", "CONFIRM_DELETE"),
-                    this.GetText("ADMIN_FORUMS", "CONFIRM_DELETE_POSITIVE"));
-
-            this.BindData();
-
-            var forumId = this.GetQueryStringAsInt("fa");
-
-            using (DataTable dt = LegacyDb.forum_list(this.PageContext.PageBoardID, forumId.Value))
-            {
-                DataRow row = dt.Rows[0];
-
-                this.ForumNameTitle.Text = (string)row["Name"];
-
-                // populate parent forums list with forums according to selected category
-                this.BindParentList();
-            }
+            this.Page.Header.Title =
+                $"{this.GetText("ADMIN_ADMIN", "Administration")} - {this.GetText("TEAM", "FORUMS")} - {this.GetText("ADMIN_DELETEFORUM", "TITLE")}";
         }
 
         /// <summary>
@@ -138,12 +127,10 @@ namespace YAF.Pages.Admin
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        protected void UpdateStatusTimer_Tick([NotNull] object sender, [NotNull] EventArgs e)
+        protected void UpdateStatusTimerTick([NotNull] object sender, [NotNull] EventArgs e)
         {
-            IBackgroundTask task;
-
             // see if the migration is done....
-            if (this.Get<ITaskModuleManager>().TryGetTask(ForumDeleteTask.TaskName, out task) && task.IsRunning)
+            if (this.Get<ITaskModuleManager>().TryGetTask(ForumDeleteTask.TaskName, out var task) && task.IsRunning)
             {
                 // continue...
                 return;
@@ -174,8 +161,9 @@ namespace YAF.Pages.Admin
         /// </summary>
         private void BindParentList()
         {
-            this.ForumList.DataSource = LegacyDb.forum_listall(
-                this.PageContext.PageBoardID, this.PageContext.PageUserID);
+            this.ForumList.DataSource = this.GetRepository<Forum>().ListAllAsDataTable(
+                this.PageContext.PageBoardID,
+                this.PageContext.PageUserID);
 
             this.ForumList.DataValueField = "ForumID";
             this.ForumList.DataTextField = "Forum";
@@ -187,20 +175,8 @@ namespace YAF.Pages.Admin
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        private void MoveTopics_CheckedChanged(object sender, EventArgs e)
+        private void MoveTopicsCheckedChanged(object sender, EventArgs e)
         {
-            if (this.MoveTopics.Checked)
-            {
-                this.Delete.Attributes.Remove("onclick");
-            }
-            else
-            {
-                this.Delete.Attributes["onclick"] =
-                    "return (confirm('{0}') && confirm('{1}'));".FormatWith(
-                        this.GetText("ADMIN_FORUMS", "CONFIRM_DELETE"),
-                        this.GetText("ADMIN_FORUMS", "CONFIRM_DELETE_POSITIVE"));
-            }
-
             this.ForumList.Enabled = this.MoveTopics.Checked;
         }
 
@@ -234,32 +210,31 @@ namespace YAF.Pages.Admin
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        private void Save_Click([NotNull] object sender, [NotNull] EventArgs e)
+        private void SaveClick([NotNull] object sender, [NotNull] EventArgs e)
         {
             string errorMessage;
 
             if (this.MoveTopics.Checked)
             {
                 // Simply Delete the Forum with all of its Content
-                var forumId = this.GetQueryStringAsInt("fa");
+                var forumId = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefaultAsInt("fa");
 
                 // schedule...
                 ForumDeleteTask.Start(
-                    this.PageContext.PageBoardID, forumId.Value, this.ForumList.SelectedValue.ToType<int>(), out errorMessage);
+                    this.PageContext.PageBoardID,
+                    forumId.Value,
+                    this.ForumList.SelectedValue.ToType<int>(),
+                    out errorMessage);
 
                 // enable timer...
                 this.UpdateStatusTimer.Enabled = true;
 
                 this.LocalizedLabel6.LocalizedTag = "DELETE_MOVE_TITLE";
-
-                // show blocking ui...
-                this.PageContext.PageElements.RegisterJsBlockStartup(
-                    "BlockUIExecuteJs", JavaScriptBlocks.BlockUIExecuteJs("DeleteForumMessage"));
             }
             else
             {
                 // Simply Delete the Forum with all of its Content
-                var forumId = this.GetQueryStringAsInt("fa");
+                var forumId = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefaultAsInt("fa");
 
                 // schedule...
                 ForumDeleteTask.Start(this.PageContext.PageBoardID, forumId.Value, out errorMessage);
@@ -268,19 +243,11 @@ namespace YAF.Pages.Admin
                 this.UpdateStatusTimer.Enabled = true;
 
                 this.LocalizedLabel6.LocalizedTag = "DELETE_TITLE";
-
-                // show blocking ui...
-                this.PageContext.PageElements.RegisterJsBlockStartup(
-                    "BlockUIExecuteJs", JavaScriptBlocks.BlockUIExecuteJs("DeleteForumMessage"));
             }
-
-            // show blocking ui...
-            this.PageContext.PageElements.RegisterJsBlockStartup(
-                "BlockUIExecuteJs", JavaScriptBlocks.BlockUIExecuteJs("DeleteForumMessage"));
 
             if (errorMessage.IsSet())
             {
-                this.PageContext.AddLoadMessage(errorMessage, MessageTypes.Error);
+                this.PageContext.AddLoadMessage(errorMessage, MessageTypes.danger);
             }
         }
 

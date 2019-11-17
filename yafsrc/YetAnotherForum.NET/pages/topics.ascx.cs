@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -31,9 +31,7 @@ namespace YAF.Pages
     using System.Linq;
     using System.Web;
 
-    using YAF.Classes;
-    using YAF.Classes.Data;
-    using YAF.Controls;
+    using YAF.Configuration;
     using YAF.Core;
     using YAF.Core.Extensions;
     using YAF.Core.Helpers;
@@ -42,11 +40,14 @@ namespace YAF.Pages
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
-    using YAF.Types.Flags;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
     using YAF.Utils;
     using YAF.Utils.Helpers;
+    using YAF.Web.Controls;
+    using YAF.Web.Extensions;
+
+    using Forum = YAF.Types.Models.Forum;
 
     #endregion
 
@@ -58,19 +59,14 @@ namespace YAF.Pages
         #region Constants and Fields
 
         /// <summary>
-        ///   The _show topic list selected.
+        ///   The show topic list selected.
         /// </summary>
-        private int _showTopicListSelected;
+        private int showTopicListSelected;
 
         /// <summary>
-        ///   The _forum.
+        /// The forum.
         /// </summary>
-        private DataRow _forum;
-
-        /// <summary>
-        ///   The _forum flags.
-        /// </summary>
-        private ForumFlags _forumFlags;
+        private Forum forum;
 
         #endregion
 
@@ -102,7 +98,7 @@ namespace YAF.Pages
         #region Public Methods
 
         /// <summary>
-        /// The style transform func wrap.
+        /// The style transform function wrap.
         /// </summary>
         /// <param name="dt">
         /// The DateTable
@@ -143,9 +139,9 @@ namespace YAF.Pages
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void NewTopic_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
-            if (this._forumFlags.IsLocked)
+            if (this.forum.ForumFlags.IsLocked)
             {
-                this.PageContext.AddLoadMessage(this.GetText("WARN_FORUM_LOCKED"));
+                this.PageContext.AddLoadMessage(this.GetText("WARN_FORUM_LOCKED"), MessageTypes.warning);
                 return;
             }
 
@@ -162,7 +158,7 @@ namespace YAF.Pages
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void ForumSearch_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(this.forumSearch.Text))
+            if (this.forumSearch.Text.IsNotSet())
             {
                 return;
             }
@@ -170,8 +166,7 @@ namespace YAF.Pages
             YafBuildLink.Redirect(
                 ForumPages.search,
                 "search={0}&forum={1}",
-                this.forumSearch.Text.TrimWordsOverMaxLengthWordsPreserved(
-                    this.Get<YafBoardSettings>().SearchStringMaxLength),
+                this.forumSearch.Text,
                 this.PageContext.PageForumID);
         }
 
@@ -192,7 +187,6 @@ namespace YAF.Pages
             this.NewTopic2.Click += this.NewTopic_Click;
             this.WatchForum.Click += this.WatchForum_Click;
 
-            // CODEGEN: This call is required by the ASP.NET Web Form Designer.
             base.OnInit(e);
         }
 
@@ -204,11 +198,9 @@ namespace YAF.Pages
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
             this.Get<IYafSession>().UnreadTopics = 0;
-            this.AtomFeed.AdditionalParameters =
-                "f={0}".FormatWith(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("f"));
-            this.RssFeed.AdditionalParameters =
-                "f={0}".FormatWith(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("f"));
-            this.MarkRead.Text = this.GetText("MARKREAD");
+
+            this.RssFeed.AdditionalParameters = $"f={this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("f")}";
+
             this.ForumJumpHolder.Visible = this.Get<YafBoardSettings>().ShowForumJump
                                            && this.PageContext.Settings.LockedForum == 0;
 
@@ -217,8 +209,7 @@ namespace YAF.Pages
             if (this.ForumSearchHolder.Visible)
             {
                 this.forumSearch.Attributes["onkeydown"] =
-                    "if(event.which || event.keyCode){{if ((event.which == 13) || (event.keyCode == 13)) {{document.getElementById('{0}').click();return false;}}}} else {{return true}}; "
-                        .FormatWith(this.forumSearchOK.ClientID);
+                    $"if(event.which || event.keyCode){{if ((event.which == 13) || (event.keyCode == 13)) {{document.getElementById('{this.forumSearchOK.ClientID}').click();return false;}}}} else {{return true}}; ";
             }
 
             if (!this.IsPostBack)
@@ -237,7 +228,7 @@ namespace YAF.Pages
                 this.ShowList.DataSource = StaticDataHelper.TopicTimes();
                 this.ShowList.DataTextField = "TopicText";
                 this.ShowList.DataValueField = "TopicValue";
-                this._showTopicListSelected = (this.Get<IYafSession>().ShowList == -1)
+                this.showTopicListSelected = this.Get<IYafSession>().ShowList == -1
                                                   ? this.Get<YafBoardSettings>().ShowTopicsDefault
                                                   : this.Get<IYafSession>().ShowList;
 
@@ -252,7 +243,7 @@ namespace YAF.Pages
                 this.HandleWatchForum();
             }
 
-            if (this.Request.QueryString.GetFirstOrDefault("f") == null)
+            if (!this.Get<HttpRequestBase>().QueryString.Exists("f"))
             {
                 YafBuildLink.AccessDenied();
             }
@@ -267,32 +258,35 @@ namespace YAF.Pages
                 YafBuildLink.AccessDenied();
             }
 
-            using (DataTable dt = LegacyDb.forum_list(this.PageContext.PageBoardID, this.PageContext.PageForumID))
+            var dt = this.GetRepository<Forum>().List(
+                this.PageContext.PageBoardID,
+                this.PageContext.PageForumID);
+
+            this.forum = dt.FirstOrDefault();
+
+            if (this.forum.RemoteURL.IsSet())
             {
-                this._forum = dt.Rows[0];
+                this.Get<HttpResponseBase>().Clear();
+                this.Get<HttpResponseBase>().Redirect(this.forum.RemoteURL);
             }
 
-            if (this._forum["RemoteURL"] != DBNull.Value)
-            {
-                this.Response.Clear();
-                this.Response.Redirect((string)this._forum["RemoteURL"]);
-            }
-
-            this._forumFlags = new ForumFlags(this._forum["Flags"]);
-
-            this.PageTitle.Text = this._forum["Description"].ToString().IsSet()
-                                      ? "{0} - <em>{1}</em>".FormatWith(
-                                          this.HtmlEncode(this._forum["Name"]),
-                                          this.HtmlEncode(this._forum["Description"]))
-                                      : this.HtmlEncode(this._forum["Name"]);
+            this.PageTitle.Text = this.forum.Description.IsSet()
+                                      ? $"{this.HtmlEncode(this.forum.Name)} - <em>{this.HtmlEncode(this.forum.Description)}</em>"
+                                      : this.HtmlEncode(this.forum.Name);
 
             this.BindData(); // Always because of yaf:TopicLine
 
             if (!this.PageContext.ForumPostAccess
-                || (this._forumFlags.IsLocked && !this.PageContext.ForumModeratorAccess))
+                || this.forum.ForumFlags.IsLocked && !this.PageContext.ForumModeratorAccess)
             {
                 this.NewTopic1.Visible = false;
                 this.NewTopic2.Visible = false;
+            }
+
+            if (this.PageContext.IsGuest)
+            {
+                this.WatchForum.Visible = false;
+                this.MarkRead.Visible = false;
             }
 
             if (this.PageContext.ForumModeratorAccess)
@@ -302,6 +296,22 @@ namespace YAF.Pages
 
             this.moderate1.Visible = false;
             this.moderate2.Visible = false;
+        }
+
+        /// <summary>
+        /// The create topic line.
+        /// </summary>
+        /// <param name="containerDataItem">
+        /// The container data item.
+        /// </param>
+        /// <returns>
+        /// The <see cref="string"/>.
+        /// </returns>
+        protected string CreateTopicLine(DataRowView containerDataItem)
+        {
+            var topicLine = new TopicContainer { DataRow = containerDataItem };
+
+            return topicLine.RenderToString();
         }
 
         /// <summary>
@@ -318,25 +328,31 @@ namespace YAF.Pages
 
             if (this.PageContext.IsGuest)
             {
-                this.PageContext.AddLoadMessage(this.GetText("WARN_LOGIN_FORUMWATCH"));
+                this.PageContext.AddLoadMessage(this.GetText("WARN_LOGIN_FORUMWATCH"), MessageTypes.warning);
                 return;
             }
 
-            if (this.WatchForumID.InnerText == string.Empty)
+            if (this.WatchForum.Icon == "eye")
             {
                 this.GetRepository<WatchForum>().Add(this.PageContext.PageUserID, this.PageContext.PageForumID);
 
-                this.PageContext.AddLoadMessage(this.GetText("INFO_WATCH_FORUM"));
+                this.PageContext.AddLoadMessage(this.GetText("INFO_WATCH_FORUM"), MessageTypes.success);
             }
             else
             {
-                var tmpID = this.WatchForumID.InnerText.ToType<int>();
-                this.GetRepository<WatchForum>().DeleteByID(tmpID);
+                var watch = this.GetRepository<WatchForum>().Check(this.PageContext.PageUserID, this.PageContext.PageForumID);
 
-                this.PageContext.AddLoadMessage(this.GetText("INFO_UNWATCH_FORUM"));
+                if (watch != null)
+                {
+                    this.GetRepository<WatchForum>().DeleteById(watch.Value);
+
+                    this.PageContext.AddLoadMessage(this.GetText("INFO_UNWATCH_FORUM"), MessageTypes.success);
+                }
             }
 
             this.HandleWatchForum();
+
+            this.BindData();
         }
 
         /// <summary>
@@ -344,7 +360,7 @@ namespace YAF.Pages
         /// </summary>
         private void BindData()
         {
-            DataSet ds = this.Get<YafDbBroker>().BoardLayout(
+            var ds = this.Get<YafDbBroker>().BoardLayout(
                 this.PageContext.PageBoardID,
                 this.PageContext.PageUserID,
                 this.PageContext.PageCategoryID,
@@ -358,7 +374,7 @@ namespace YAF.Pages
             this.Pager.PageSize = this.Get<YafBoardSettings>().TopicsPerPage;
 
             // when userId is null it returns the count of all deleted messages
-            int? userId = null;
+            /*int? userId = null;
 
             // get the userID to use for the deleted posts count...
             if (!this.Get<YafBoardSettings>().ShowDeletedMessagesToAll)
@@ -368,9 +384,10 @@ namespace YAF.Pages
                 {
                     userId = this.PageContext.PageUserID;
                 }
-            }
+            }*/
+            int? userId = this.PageContext.PageUserID;
 
-            DataTable dt = LegacyDb.announcements_list(
+            var dt = this.GetRepository<Topic>().AnnouncementsAsDataTable(
                 this.PageContext.PageForumID,
                 userId,
                 null,
@@ -385,74 +402,74 @@ namespace YAF.Pages
                 dt = this.StyleTransformDataTable(dt);
             }
 
-            int baseSize = this.Get<YafBoardSettings>().TopicsPerPage;
+            var baseSize = this.Get<YafBoardSettings>().TopicsPerPage;
 
             this.Announcements.DataSource = dt;
-            /*if (!m_bIgnoreQueryString && Request.QueryString["p"] != null)
+
+            var pagerCurrentPageIndex = this.Pager.CurrentPageIndex;
+
+            DataTable topicList;
+
+            if (this.showTopicListSelected == 0)
             {
-                    // show specific page (p is 1 based)
-                    int tPage = (int)Security.StringToLongOrRedirect(Request.QueryString["p"]);
-
-                    if (tPage > 0)
-                    {
-                            Pager.CurrentPageIndex = tPage - 1;
-                    }
-            }*/
-
-            int nCurrentPageIndex = this.Pager.CurrentPageIndex;
-
-            DataTable dtTopics;
-
-            if (this._showTopicListSelected == 0)
-            {
-                dtTopics = LegacyDb.topic_list(
+                topicList = this.GetRepository<Topic>().ListAsDataTable(
                     this.PageContext.PageForumID,
                     userId,
                     DateTimeHelper.SqlDbMinTime(),
                     DateTime.UtcNow,
-                    nCurrentPageIndex,
+                    pagerCurrentPageIndex,
                     baseSize,
                     this.Get<YafBoardSettings>().UseStyledNicks,
                     true,
                     this.Get<YafBoardSettings>().UseReadTrackingByDatabase);
-                if (dtTopics != null)
+                if (topicList != null)
                 {
-                    dtTopics = this.StyleTransformDataTable(dtTopics);
+                    topicList = this.StyleTransformDataTable(topicList);
                 }
             }
             else
             {
                 int[] days = { 1, 2, 7, 14, 31, 2 * 31, 6 * 31, 356 };
 
-                DateTime date = DateTime.UtcNow.AddDays(-days[this._showTopicListSelected]);
+                var date = DateTime.UtcNow.AddDays(-days[this.showTopicListSelected]);
 
-                dtTopics = LegacyDb.topic_list(
+                topicList = this.GetRepository<Topic>().ListAsDataTable(
                     this.PageContext.PageForumID,
                     userId,
                     date,
                     DateTime.UtcNow,
-                    nCurrentPageIndex,
+                    pagerCurrentPageIndex,
                     baseSize,
                     this.Get<YafBoardSettings>().UseStyledNicks,
                     true,
                     this.Get<YafBoardSettings>().UseReadTrackingByDatabase);
 
-                if (dtTopics != null)
+                if (topicList != null)
                 {
-                    dtTopics = this.StyleTransformDataTable(dtTopics);
+                    topicList = this.StyleTransformDataTable(topicList);
                 }
             }
 
-            this.TopicList.DataSource = dtTopics;
+            this.TopicList.DataSource = topicList;
 
             this.DataBind();
 
             // setup the show topic list selection after data binding
-            this.ShowList.SelectedIndex = this._showTopicListSelected;
-            this.Get<IYafSession>().ShowList = this._showTopicListSelected;
-            if (dtTopics != null && dtTopics.HasRows())
+            this.ShowList.SelectedIndex = this.showTopicListSelected;
+            this.Get<IYafSession>().ShowList = this.showTopicListSelected;
+
+            if (topicList != null && topicList.HasRows())
             {
-                this.Pager.Count = dtTopics.AsEnumerable().First().Field<int>("TotalRows");
+                this.Pager.Count = topicList.AsEnumerable().First().Field<int>("TotalRows");
+            }
+
+            if (this.Announcements.Items.Count == 0 && this.TopicList.Items.Count == 0)
+            {
+                this.NoPostsPlaceHolder.Visible = true;
+            }
+            else
+            {
+                this.NoPostsPlaceHolder.Visible = false;
             }
         }
 
@@ -468,17 +485,18 @@ namespace YAF.Pages
 
             // check if this forum is being watched by this user
             var watchForumId = this.GetRepository<WatchForum>().Check(this.PageContext.PageUserID, this.PageContext.PageForumID);
+
             if (watchForumId.HasValue)
             {
                 // subscribed to this forum
-                this.WatchForum.Text = this.GetText("unwatchforum");
-                this.WatchForumID.InnerText = watchForumId.Value.ToString();
+                this.WatchForum.TextLocalizedTag = "UNWATCHFORUM";
+                this.WatchForum.Icon = "eye-slash";
             }
             else
             {
                 // not subscribed
-                this.WatchForumID.InnerText = string.Empty;
-                this.WatchForum.Text = this.GetText("watchforum");
+                this.WatchForum.TextLocalizedTag = "WATCHFORUM";
+                this.WatchForum.Icon = "eye";
             }
         }
 
@@ -490,6 +508,7 @@ namespace YAF.Pages
         private void MarkRead_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
             this.Get<IReadTrackCurrentUser>().SetForumRead(this.PageContext.PageForumID);
+
             this.BindData();
         }
 
@@ -500,7 +519,6 @@ namespace YAF.Pages
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         private void Pager_PageChange([NotNull] object sender, [NotNull] EventArgs e)
         {
-            this.SmartScroller1.Reset();
             this.BindData();
         }
 
@@ -511,7 +529,7 @@ namespace YAF.Pages
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         private void ShowList_SelectedIndexChanged([NotNull] object sender, [NotNull] EventArgs e)
         {
-            this._showTopicListSelected = this.ShowList.SelectedIndex;
+            this.showTopicListSelected = this.ShowList.SelectedIndex;
             this.BindData();
         }
 

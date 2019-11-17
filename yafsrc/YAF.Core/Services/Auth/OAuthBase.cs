@@ -314,9 +314,9 @@ namespace YAF.Core.Services.Auth
             switch (signatureType)
             {
                 case SignatureTypes.PLAINTEXT:
-                    return HttpUtility.UrlEncode("{0}&{1}".FormatWith(consumerSecret, tokenSecret));
+                    return HttpUtility.UrlEncode($"{consumerSecret}&{tokenSecret}");
                 case SignatureTypes.HMACSHA1:
-                    string signatureBase = this.GenerateSignatureBase(
+                    var signatureBase = this.GenerateSignatureBase(
                         url,
                         consumerKey,
                         token,
@@ -330,20 +330,16 @@ namespace YAF.Core.Services.Auth
                         out normalizedUrl,
                         out normalizedRequestParameters);
 
-                    HMACSHA1 hmacsha1 = new HMACSHA1
+                    var hmacsha1 = new HMACSHA1
                                         {
                                             Key =
                                                 Encoding.ASCII.GetBytes(
-                                                    "{0}&{1}".FormatWith(
-                                                        this.UrlEncode(consumerSecret),
-                                                        string.IsNullOrEmpty(tokenSecret)
-                                                            ? string.Empty
-                                                            : this.UrlEncode(tokenSecret)))
+                                                    $"{this.UrlEncode(consumerSecret)}&{(tokenSecret.IsNotSet() ? string.Empty : this.UrlEncode(tokenSecret))}")
                                         };
 
                     return this.GenerateSignatureUsingHash(signatureBase, hmacsha1);
                 default:
-                    throw new ArgumentException("Unknown signature type", "signatureType");
+                    throw new ArgumentException("Unknown signature type", nameof(signatureType));
             }
         }
 
@@ -409,56 +405,56 @@ namespace YAF.Core.Services.Auth
                 token = string.Empty;
             }
 
-            if (string.IsNullOrEmpty(consumerKey))
+            if (consumerKey.IsNotSet())
             {
-                throw new ArgumentNullException("consumerKey");
+                throw new ArgumentNullException(nameof(consumerKey));
             }
 
-            if (string.IsNullOrEmpty(httpMethod))
+            if (httpMethod.IsNotSet())
             {
-                throw new ArgumentNullException("httpMethod");
+                throw new ArgumentNullException(nameof(httpMethod));
             }
 
-            if (string.IsNullOrEmpty(signatureType))
+            if (signatureType.IsNotSet())
             {
-                throw new ArgumentNullException("signatureType");
+                throw new ArgumentNullException(nameof(signatureType));
             }
 
-            List<QueryParameter> parameters = this.GetQueryParameters(url.Query);
+            var parameters = GetQueryParameters(url.Query);
             parameters.Add(new QueryParameter(OAuthVersionKey, OAuthVersion));
             parameters.Add(new QueryParameter(OAuthNonceKey, nonce));
             parameters.Add(new QueryParameter(OAuthTimestampKey, timeStamp));
             parameters.Add(new QueryParameter(OAuthSignatureMethodKey, signatureType));
             parameters.Add(new QueryParameter(OAuthConsumerKeyKey, consumerKey));
 
-            if (!string.IsNullOrEmpty(callBackUrl))
+            if (callBackUrl.IsSet())
             {
                 parameters.Add(new QueryParameter(OAuthCallbackKey, this.UrlEncode(callBackUrl)));
             }
 
-            if (!string.IsNullOrEmpty(token))
+            if (token.IsSet())
             {
                 parameters.Add(new QueryParameter(OAuthTokenKey, token));
             }
 
             // Pin Based Authentication
-            if (!string.IsNullOrEmpty(pin))
+            if (pin.IsSet())
             {
                 parameters.Add(new QueryParameter(OAuthVerifierKey, pin));
             }
 
             parameters.Sort(new QueryParameterComparer());
 
-            normalizedUrl = "{0}://{1}".FormatWith(url.Scheme, url.Host);
-            if (!((url.Scheme == "http" && url.Port == 80) || (url.Scheme == "https" && url.Port == 443)))
+            normalizedUrl = $"{url.Scheme}://{url.Host}";
+            if (!(url.Scheme == "http" && url.Port == 80 || url.Scheme == "https" && url.Port == 443))
             {
-                normalizedUrl += ":{0}".FormatWith(url.Port);
+                normalizedUrl += $":{url.Port}";
             }
 
             normalizedUrl += url.AbsolutePath;
             normalizedRequestParameters = this.NormalizeRequestParameters(parameters);
 
-            StringBuilder signatureBase = new StringBuilder();
+            var signatureBase = new StringBuilder();
             signatureBase.AppendFormat("{0}&", httpMethod.ToUpper());
             signatureBase.AppendFormat("{0}&", this.UrlEncode(normalizedUrl));
             signatureBase.AppendFormat("{0}", this.UrlEncode(normalizedRequestParameters));
@@ -491,7 +487,7 @@ namespace YAF.Core.Services.Auth
         /// </returns>
         public virtual string GenerateTimeStamp()
         {
-            TimeSpan ts = DateTime.UtcNow - new DateTime(1970, 1, 1, 0, 0, 0, 0);
+            var ts = DateTime.UtcNow - new DateTime(1970, 1, 1, 0, 0, 0, 0);
             return ts.TotalSeconds.ToType<long>().ToString();
         }
 
@@ -510,10 +506,10 @@ namespace YAF.Core.Services.Auth
         /// </returns>
         protected string NormalizeRequestParameters(IList<QueryParameter> parameters)
         {
-            StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < parameters.Count; i++)
+            var sb = new StringBuilder();
+            for (var i = 0; i < parameters.Count; i++)
             {
-                QueryParameter p = parameters[i];
+                var p = parameters[i];
                 sb.AppendFormat("{0}={1}", p.Name, p.Value);
 
                 if (i < parameters.Count - 1)
@@ -537,9 +533,9 @@ namespace YAF.Core.Services.Auth
         /// </returns>
         protected string UrlEncode(string value)
         {
-            StringBuilder result = new StringBuilder();
+            var result = new StringBuilder();
 
-            foreach (char symbol in value)
+            foreach (var symbol in value)
             {
                 if (UnreservedChars.IndexOf(symbol) != -1)
                 {
@@ -547,7 +543,7 @@ namespace YAF.Core.Services.Auth
                 }
                 else
                 {
-                    result.AppendFormat("{0}{1}", '%', "{0:X2}".FormatWith((int)symbol));
+                    result.AppendFormat("{0}{1}", '%', $"{(int)symbol:X2}");
                 }
             }
 
@@ -558,7 +554,7 @@ namespace YAF.Core.Services.Auth
         /// Helper function to compute a hash value
         /// </summary>
         /// <param name="hashAlgorithm">
-        /// The hashing algoirhtm used. If that algorithm needs some initialization, like HMAC and its derivatives, they should be initialized prior to passing it to this function
+        /// The hashing algorithm used. If that algorithm needs some initialization, like HMAC and its derivatives, they should be initialized prior to passing it to this function
         /// </param>
         /// <param name="data">
         /// The data to hash
@@ -571,22 +567,22 @@ namespace YAF.Core.Services.Auth
         {
             if (hashAlgorithm == null)
             {
-                throw new ArgumentNullException("hashAlgorithm");
+                throw new ArgumentNullException(nameof(hashAlgorithm));
             }
 
-            if (string.IsNullOrEmpty(data))
+            if (data.IsNotSet())
             {
-                throw new ArgumentNullException("data");
+                throw new ArgumentNullException(nameof(data));
             }
 
-            byte[] dataBuffer = Encoding.ASCII.GetBytes(data);
-            byte[] hashBytes = hashAlgorithm.ComputeHash(dataBuffer);
+            var dataBuffer = Encoding.ASCII.GetBytes(data);
+            var hashBytes = hashAlgorithm.ComputeHash(dataBuffer);
 
             return Convert.ToBase64String(hashBytes);
         }
 
         /// <summary>
-        /// Internal function to cut out all non oauth query string parameters (all parameters not begining with "oauth_")
+        /// Internal function to cut out all non oauth query string parameters (all parameters not beginning with "oauth_")
         /// </summary>
         /// <param name="parameters">
         /// The query string part of the Url
@@ -594,26 +590,26 @@ namespace YAF.Core.Services.Auth
         /// <returns>
         /// A list of QueryParameter each containing the parameter name and value
         /// </returns>
-        private List<QueryParameter> GetQueryParameters(string parameters)
+        private static List<QueryParameter> GetQueryParameters(string parameters)
         {
             if (parameters.StartsWith("?"))
             {
                 parameters = parameters.Remove(0, 1);
             }
 
-            List<QueryParameter> result = new List<QueryParameter>();
+            var result = new List<QueryParameter>();
 
-            if (string.IsNullOrEmpty(parameters))
+            if (parameters.IsNotSet())
             {
                 return result;
             }
 
-            string[] p = parameters.Split('&');
-            foreach (string s in p.Where(s => !string.IsNullOrEmpty(s) && !s.StartsWith(OAuthParameterPrefix)))
+            var p = parameters.Split('&');
+            foreach (var s in p.Where(s => s.IsSet() && !s.StartsWith(OAuthParameterPrefix)))
             {
                 if (s.IndexOf('=') > -1)
                 {
-                    string[] temp = s.Split('=');
+                    var temp = s.Split('=');
                     result.Add(new QueryParameter(temp[0], temp[1]));
                 }
                 else
@@ -632,20 +628,6 @@ namespace YAF.Core.Services.Auth
         /// </summary>
         protected class QueryParameter
         {
-            #region Constants and Fields
-
-            /// <summary>
-            /// The name.
-            /// </summary>
-            private readonly string name;
-
-            /// <summary>
-            /// The value.
-            /// </summary>
-            private readonly string value;
-
-            #endregion
-
             #region Constructors and Destructors
 
             /// <summary>
@@ -659,8 +641,8 @@ namespace YAF.Core.Services.Auth
             /// </param>
             public QueryParameter(string name, string value)
             {
-                this.name = name;
-                this.value = value;
+                this.Name = name;
+                this.Value = value;
             }
 
             #endregion
@@ -670,24 +652,12 @@ namespace YAF.Core.Services.Auth
             /// <summary>
             /// Gets Name.
             /// </summary>
-            public string Name
-            {
-                get
-                {
-                    return this.name;
-                }
-            }
+            public string Name { get; }
 
             /// <summary>
             /// Gets Value.
             /// </summary>
-            public string Value
-            {
-                get
-                {
-                    return this.value;
-                }
-            }
+            public string Value { get; }
 
             #endregion
         }
@@ -716,8 +686,8 @@ namespace YAF.Core.Services.Auth
             public int Compare(QueryParameter x, QueryParameter y)
             {
                 return x.Name == y.Name
-                    ? String.CompareOrdinal(x.Value, y.Value)
-                    : String.CompareOrdinal(x.Name, y.Name);
+                    ? string.CompareOrdinal(x.Value, y.Value)
+                    : string.CompareOrdinal(x.Name, y.Name);
             }
 
             #endregion

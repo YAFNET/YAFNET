@@ -27,7 +27,6 @@ namespace YAF.Core.Services.Auth
     #region
 
     using System;
-    using System.Collections.Specialized;
     using System.Web;
 
     using YAF.Types.Extensions;
@@ -56,45 +55,6 @@ namespace YAF.Core.Services.Auth
         /// </summary>
         public const string REQUESTTOKEN = "https://api.twitter.com/oauth/request_token";
 
-        /// <summary>
-        /// The _call back url.
-        /// </summary>
-        private string _callBackUrl = "oob";
-
-        /// <summary>
-        /// The _consumer key.
-        /// </summary>
-        private string _consumerKey = string.Empty;
-
-        /// <summary>
-        /// The _consumer secret.
-        /// </summary>
-        private string _consumerSecret = string.Empty;
-
-        /// <summary>
-        /// The OAUTH token.
-        /// </summary>
-        private string _oauthToken = string.Empty;
-
-        /// <summary>
-        /// The _pin.
-        /// </summary>
-        private string _pin = string.Empty;
-
-        /// <summary>
-        /// The _token.
-        /// </summary>
-        private string _token = string.Empty;
-
-        /// <summary>
-        /// The _token secret.
-        /// </summary>
-        private string _tokenSecret = string.Empty;
-
-        #endregion
-
-        #region Enums
-
         #endregion
 
         #region Properties
@@ -105,114 +65,37 @@ namespace YAF.Core.Services.Auth
         /// <value>
         ///   The call back URL.
         /// </value>
-        public string CallBackUrl
-        {
-            get
-            {
-                return this._callBackUrl;
-            }
-
-            set
-            {
-                this._callBackUrl = value;
-            }
-        }
+        public string CallBackUrl { get; set; } = "oob";
 
         /// <summary>
         ///   Gets or sets the Consumer Key
         /// </summary>
-        public string ConsumerKey
-        {
-            get
-            {
-                return this._consumerKey;
-            }
-
-            set
-            {
-                this._consumerKey = value;
-            }
-        }
+        public string ConsumerKey { get; set; } = string.Empty;
 
         /// <summary>
         ///   Gets or sets the Consumer Secret Key
         /// </summary>
-        public string ConsumerSecret
-        {
-            get
-            {
-                return this._consumerSecret;
-            }
-
-            set
-            {
-                this._consumerSecret = value;
-            }
-        }
+        public string ConsumerSecret { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets OAUTH Token.
         /// </summary>
-        public string OAuthToken
-        {
-            get
-            {
-                return this._oauthToken;
-            }
-
-            set
-            {
-                this._oauthToken = value;
-            }
-        }
+        public string OAuthToken { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets PIN.
         /// </summary>
-        public string PIN
-        {
-            get
-            {
-                return this._pin;
-            }
-
-            set
-            {
-                this._pin = value;
-            }
-        }
+        public string PIN { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets Token.
         /// </summary>
-        public string Token
-        {
-            get
-            {
-                return this._token;
-            }
-
-            set
-            {
-                this._token = value;
-            }
-        }
+        public string Token { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets TokenSecret.
         /// </summary>
-        public string TokenSecret
-        {
-            get
-            {
-                return this._tokenSecret;
-            }
-
-            set
-            {
-                this._tokenSecret = value;
-            }
-        }
+        public string TokenSecret { get; set; } = string.Empty;
 
         #endregion
 
@@ -230,9 +113,9 @@ namespace YAF.Core.Services.Auth
         public void AccessTokenGet(string authToken, string pin)
         {
             this.Token = authToken;
-            this._pin = pin;
+            this.PIN = pin;
 
-            string response = this.OAuthWebRequest(AuthUtilities.Method.GET, ACCESSTOKEN, string.Empty);
+            var response = this.OAuthWebRequest(AuthUtilities.Method.GET, ACCESSTOKEN, string.Empty);
 
             if (response.Length <= 0)
             {
@@ -240,7 +123,7 @@ namespace YAF.Core.Services.Auth
             }
 
             // Store the Token and Token Secret
-            NameValueCollection qs = HttpUtility.ParseQueryString(response);
+            var qs = HttpUtility.ParseQueryString(response);
             if (qs["oauth_token"] != null)
             {
                 this.Token = qs["oauth_token"];
@@ -261,7 +144,7 @@ namespace YAF.Core.Services.Auth
         public string AuthorizationLinkGet()
         {
             // First let's get a REQUEST token.
-            string response = this.OAuthWebRequest(AuthUtilities.Method.GET, REQUESTTOKEN, string.Empty);
+            var response = this.OAuthWebRequest(AuthUtilities.Method.GET, REQUESTTOKEN, string.Empty);
 
             if (response.Length <= 0)
             {
@@ -269,7 +152,7 @@ namespace YAF.Core.Services.Auth
             }
 
             // response contains token and token secret.  We only need the token.
-            NameValueCollection qs = HttpUtility.ParseQueryString(response);
+            var qs = HttpUtility.ParseQueryString(response);
             if (qs["oauth_token"] == null)
             {
                 return null;
@@ -277,7 +160,7 @@ namespace YAF.Core.Services.Auth
 
             this.OAuthToken = qs["oauth_token"]; // tuck this away for later
 
-            return "{0}?oauth_token={1}".FormatWith(AUTHORIZE, qs["oauth_token"]);
+            return $"{AUTHORIZE}?oauth_token={qs["oauth_token"]}";
         }
 
         /// <summary>
@@ -306,9 +189,6 @@ namespace YAF.Core.Services.Auth
         /// </returns>
         public string OAuthWebRequest(AuthUtilities.Method method, string url, string postData)
         {
-            string outUrl;
-            string querystring;
-
             // Setup postData for signing.
             // Add the postData to the querystring.
             if (method == AuthUtilities.Method.POST)
@@ -316,21 +196,23 @@ namespace YAF.Core.Services.Auth
                 if (postData.Length > 0)
                 {
                     // Decode the parameters and re-encode using the oAuth UrlEncode method.
-                    NameValueCollection qs = HttpUtility.ParseQueryString(postData);
+                    var qs = HttpUtility.ParseQueryString(postData);
                     postData = string.Empty;
-                    foreach (string key in qs.AllKeys)
-                    {
-                        if (postData.Length > 0)
-                        {
-                            postData += "&";
-                        }
 
-                        qs[key] = HttpUtility.UrlDecode(qs[key]);
-                        qs[key] = this.UrlEncode(qs[key]);
-                        postData += "{0}={1}".FormatWith(key, qs[key]);
-                    }
+                    qs.AllKeys.ForEach(
+                        key =>
+                            {
+                                if (postData.Length > 0)
+                                {
+                                    postData += "&";
+                                }
 
-                    if (url.IndexOf("?") > 0)
+                                qs[key] = HttpUtility.UrlDecode(qs[key]);
+                                qs[key] = this.UrlEncode(qs[key]);
+                                postData += $"{key}={qs[key]}";
+                            });
+                    
+                    if (url.IndexOf("?", StringComparison.Ordinal) > 0)
                     {
                         url += "&";
                     }
@@ -342,18 +224,18 @@ namespace YAF.Core.Services.Auth
                     url += postData;
                 }
             }
-            else if (method == AuthUtilities.Method.GET && !string.IsNullOrEmpty(postData))
+            else if (method == AuthUtilities.Method.GET && postData.IsSet())
             {
-                url += "?{0}".FormatWith(postData);
+                url += $"?{postData}";
             }
 
-            Uri uri = new Uri(url);
+            var uri = new Uri(url);
 
-            string nonce = this.GenerateNonce();
-            string timeStamp = this.GenerateTimeStamp();
+            var nonce = this.GenerateNonce();
+            var timeStamp = this.GenerateTimeStamp();
 
             // Generate Signature
-            string sig = this.GenerateSignature(
+            var sig = this.GenerateSignature(
                 uri,
                 this.ConsumerKey,
                 this.ConsumerSecret,
@@ -364,10 +246,10 @@ namespace YAF.Core.Services.Auth
                 timeStamp,
                 nonce,
                 this.PIN,
-                out outUrl,
-                out querystring);
+                out var outUrl,
+                out var querystring);
 
-            querystring += "&oauth_signature={0}".FormatWith(HttpUtility.UrlEncode(sig));
+            querystring += $"&oauth_signature={HttpUtility.UrlEncode(sig)}";
 
             // Convert the querystring to postData
             if (method == AuthUtilities.Method.POST)
@@ -381,7 +263,7 @@ namespace YAF.Core.Services.Auth
                 outUrl += "?";
             }
 
-            string ret = AuthUtilities.WebRequest(method, "{0}{1}".FormatWith(outUrl, querystring), postData);
+            var ret = AuthUtilities.WebRequest(method, $"{outUrl}{querystring}", postData);
 
             return ret;
         }

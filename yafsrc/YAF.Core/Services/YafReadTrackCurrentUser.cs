@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -29,7 +29,7 @@ namespace YAF.Core.Services
     using System;
     using System.Web;
 
-    using YAF.Classes;
+    using YAF.Configuration;
     using YAF.Core.Model;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
@@ -77,9 +77,7 @@ namespace YAF.Core.Services
         {
             get
             {
-                var lastRead = this.sessionState["LastRead"] == null
-                                   ? null
-                                   : this.sessionState["LastRead"].ToType<DateTime?>();
+                var lastRead = sessionState["LastRead"]?.ToType<DateTime?>();
 
                 if (!lastRead.HasValue && this.UseDatabaseReadTracking)
                 {
@@ -106,13 +104,7 @@ namespace YAF.Core.Services
         /// <summary>
         ///     Gets the current user id.
         /// </summary>
-        protected int CurrentUserId
-        {
-            get
-            {
-                return YafContext.Current.PageUserID;
-            }
-        }
+        protected int CurrentUserId => YafContext.Current.PageUserID;
 
         /// <summary>
         ///     Gets a value indicating whether this user is guest.
@@ -120,13 +112,7 @@ namespace YAF.Core.Services
         /// <value>
         ///     <c>true</c> if this user is guest; otherwise, <c>false</c>.
         /// </value>
-        protected bool IsGuest
-        {
-            get
-            {
-                return YafContext.Current.IsGuest;
-            }
-        }
+        protected bool IsGuest => YafContext.Current.IsGuest;
 
         /// <summary>
         /// Gets a value indicating whether [use database read tracking].
@@ -134,13 +120,7 @@ namespace YAF.Core.Services
         /// <value>
         ///   <c>true</c> if [use database read tracking]; otherwise, <c>false</c>.
         /// </value>
-        protected bool UseDatabaseReadTracking
-        {
-            get
-            {
-                return this.Get<YafBoardSettings>().UseReadTrackingByDatabase && !this.IsGuest;
-            }
-        }
+        protected bool UseDatabaseReadTracking => this.Get<YafBoardSettings>().UseReadTrackingByDatabase && !this.IsGuest;
 
         #endregion
 
@@ -174,13 +154,7 @@ namespace YAF.Core.Services
             }
             else
             {
-                readTime = this.GetSessionForumRead(forumId);
-
-                if (!readTime.HasValue)
-                {
-                    // use the last visit...
-                    readTime = this.LastRead;
-                }
+                readTime = this.GetSessionForumRead(forumId) ?? this.LastRead;
             }
 
             return readTime ?? DateTimeHelper.SqlDbMinTime();
@@ -215,13 +189,7 @@ namespace YAF.Core.Services
             }
             else
             {
-                readTime = this.GetSessionTopicRead(topicId);
-
-                if (!readTime.HasValue)
-                {
-                    // use the last visit...
-                    readTime = this.LastRead;
-                }
+                readTime = this.GetSessionTopicRead(topicId) ?? this.LastRead;
             }
 
             return readTime ?? DateTimeHelper.SqlDbMinTime();

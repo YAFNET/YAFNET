@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -30,30 +30,31 @@ namespace YAF.Core.Data
     using System.Data;
     using System.Data.Common;
 
-    using YAF.Classes;
-    using YAF.Classes.Data;
+    using YAF.Configuration;
+    using YAF.Core.Extensions;
     using YAF.Types;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
 
-    using QueryCounter = YAF.Core.Data.Profiling.QueryCounter;
-
     #endregion
 
     /// <summary>
-    ///     The db access base.
+    ///     The DB access base.
     /// </summary>
     public abstract class DbAccessBase : IDbAccess
     {
         #region Fields
 
-        private readonly IProfileQuery _profiler;
+        /// <summary>
+        ///     The provider name.
+        /// </summary>
+        protected readonly string ProviderName;
 
         /// <summary>
-        ///     The _provider name.
+        /// The profiler.
         /// </summary>
-        protected readonly string _providerName;
+        private readonly IProfileQuery profiler;
 
         #endregion
 
@@ -75,7 +76,7 @@ namespace YAF.Core.Data
             [NotNull] Func<string, DbProviderFactory> dbProviderFactory, IProfileQuery profiler, IDbInformation information)
         {
             this.Information = information;
-            this._profiler = profiler;
+            this.profiler = profiler;
             this.DbProviderFactory = dbProviderFactory(information.ProviderName);
         }
 
@@ -97,6 +98,7 @@ namespace YAF.Core.Data
 
         #region Public Methods and Operators
         
+
         /// <summary>
         /// The execute.
         /// </summary>
@@ -118,38 +120,39 @@ namespace YAF.Core.Data
         {
             var command = cmd ?? this.GetCommand(string.Empty, CommandType.Text);
 
-            using (var p = this._profiler.Start(command.CommandText))
-            {
-                T result = default(T);
+           // OrmLiteConfig.ClearCache();
+           using (this.profiler.Start(command.CommandText))
+           {
+               var result = default(T);
 
-                if (dbTransaction == null)
-                {
-                    if (command.Connection != null && command.Connection.State == ConnectionState.Open)
-                    {
-                        result = execFunc(command);
-                    }
-                    else
-                    {
-                        using (var connection = this.CreateConnectionOpen())
-                        {
-                            // get an open connection
-                            command.Connection = connection;
+               if (dbTransaction == null)
+               {
+                   if (command.Connection != null && command.Connection.State == ConnectionState.Open)
+                   {
+                       result = execFunc(command);
+                   }
+                   else
+                   {
+                       using (var connection = this.CreateConnectionOpen())
+                       {
+                           // get an open connection
+                           command.Connection = connection;
 
-                            result = execFunc(command);
+                           result = execFunc(command);
 
-                            connection.Close();
-                        }
-                    }
-                }
-                else
-                {
-                    command.Populate(dbTransaction);
+                           connection.Close();
+                       }
+                   }
+               }
+               else
+               {
+                   command.Populate(dbTransaction);
 
-                    result = execFunc(command);
-                }
+                   result = execFunc(command);
+               }
 
-                return result;
-            }
+               return result;
+           }
         }
 
         /// <summary>
@@ -168,7 +171,7 @@ namespace YAF.Core.Data
         public virtual IDbCommand GetCommand(
             [NotNull] string sql, CommandType commandType = CommandType.StoredProcedure, [CanBeNull] IEnumerable<KeyValuePair<string, object>> parameters = null)
         {
-            DbCommand cmd = this.DbProviderFactory.CreateCommand();
+            var cmd = this.DbProviderFactory.CreateCommand();
             parameters = parameters.IfNullEmpty();
 
             cmd.CommandTimeout = int.Parse(Config.SqlCommandTimeout);
@@ -197,7 +200,7 @@ namespace YAF.Core.Data
         /// </returns>
         protected virtual string FormatProcedureText(string functionName)
         {
-            return "[{{databaseOwner}}].[{{objectQualifier}}{0}]".FormatWith(functionName);
+            return $"[{{databaseOwner}}].[{{objectQualifier}}{functionName}]";
         }
 
         /// <summary>

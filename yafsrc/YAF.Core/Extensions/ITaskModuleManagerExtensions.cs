@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -21,69 +21,71 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Core
+namespace YAF.Core.Extensions
 {
-  #region Using
+    #region Using
 
-  using System;
+    using System;
 
-  using YAF.Types;
-  using YAF.Types.Interfaces;
-
-  #endregion
-
-  /// <summary>
-  /// The i task module manager extensions.
-  /// </summary>
-  public static class ITaskModuleManagerExtensions
-  {
-    #region Public Methods
-
-    /// <summary>
-    /// The start.
-    /// </summary>
-    /// <param name="taskModuleManager">
-    /// The task module manager.
-    /// </param>
-    /// <param name="createTask">
-    /// The create task.
-    /// </param>
-    /// <typeparam name="T">
-    /// </typeparam>
-    /// <returns>
-    /// The start.
-    /// </returns>
-    public static bool Start<T>([NotNull] this ITaskModuleManager taskModuleManager, [NotNull] Func<T> createTask) where T : IBackgroundTask
-    {
-      CodeContracts.VerifyNotNull(taskModuleManager, "taskModuleManager");
-      CodeContracts.VerifyNotNull(createTask, "createTask");
-
-      string taskName = typeof(T).ToString();
-
-    	return taskModuleManager.StartTask(taskName, () => createTask());
-    }
-
-    /// <summary>
-    /// The start.
-    /// </summary>
-    /// <param name="taskModuleManager">
-    /// The task module manager.
-    /// </param>
-    /// <param name="data">
-    /// The data.
-    /// </param>
-    /// <typeparam name="T">
-    /// </typeparam>
-    /// <returns>
-    /// The start.
-    /// </returns>
-    public static bool Start<T>([NotNull] this ITaskModuleManager taskModuleManager, [CanBeNull] object data) where T : IBackgroundTask, new()
-    {
-      CodeContracts.VerifyNotNull(taskModuleManager, "taskModuleManager");
-
-      return Start(taskModuleManager, () => new T { Data = data });
-    }
+    using YAF.Types;
+    using YAF.Types.Interfaces;
 
     #endregion
-  }
+
+    /// <summary>
+    /// The i task module manager extensions.
+    /// </summary>
+    public static class ITaskModuleManagerExtensions
+    {
+        #region Public Methods
+
+        /// <summary>
+        /// The start.
+        /// </summary>
+        /// <param name="taskModuleManager">
+        /// The task module manager.
+        /// </param>
+        /// <param name="createTask">
+        /// The create task.
+        /// </param>
+        /// <typeparam name="T">
+        /// </typeparam>
+        /// <returns>
+        /// The <see cref="bool"/>.
+        /// </returns>
+        public static bool Start<T>([NotNull] this ITaskModuleManager taskModuleManager, [NotNull] Func<T> createTask)
+            where T : IBackgroundTask
+        {
+            CodeContracts.VerifyNotNull(taskModuleManager, "taskModuleManager");
+            CodeContracts.VerifyNotNull(createTask, "createTask");
+
+            var taskName = typeof(T).ToString();
+
+            return taskModuleManager.StartTask(taskName, () => createTask());
+        }
+
+        /// <summary>
+        /// The start.
+        /// </summary>
+        /// <param name="taskModuleManager">
+        /// The task module manager.
+        /// </param>
+        /// <param name="data">
+        /// The data.
+        /// </param>
+        /// <typeparam name="T">
+        /// </typeparam>
+        /// <returns>
+        /// The <see cref="bool"/>.
+        /// </returns>
+        public static bool Start<T>([NotNull] this ITaskModuleManager taskModuleManager, [CanBeNull] object data)
+            where T : IBackgroundTask, new()
+        {
+            CodeContracts.VerifyNotNull(taskModuleManager, "taskModuleManager");
+
+            return Start(taskModuleManager, () => new T { Data = data });
+        }
+
+        #endregion
+    }
 }

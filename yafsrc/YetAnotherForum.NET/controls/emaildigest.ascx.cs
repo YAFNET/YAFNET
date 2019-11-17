@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -27,14 +27,21 @@ namespace YAF.Controls
 
     using System;
     using System.Collections.Generic;
+
+#if DEBUG
+#endif
     using System.Linq;
     using System.Text;
     using System.Web;
-    using System.Web.UI;
 
-    using YAF.Classes;
+    using ServiceStack;
+
+    using YAF.Configuration;
     using YAF.Core;
+    using YAF.Core.BaseControls;
+#if DEBUG
     using YAF.Core.Data.Profiling;
+#endif
     using YAF.Core.Services;
     using YAF.Core.Services.Localization;
     using YAF.Core.Services.Startup;
@@ -43,16 +50,17 @@ namespace YAF.Controls
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Objects;
+    using YAF.Utils;
     using YAF.Utils.Helpers;
 
-    #endregion
+#endregion
 
     /// <summary>
     /// The email_digest.
     /// </summary>
     public partial class emaildigest : BaseUserControl
     {
-        #region Constants and Fields
+#region Constants and Fields
 
         /// <summary>
         ///   The _combined user data.
@@ -75,11 +83,6 @@ namespace YAF.Controls
         private ILocalization _localization;
 
         /// <summary>
-        ///   The _theme.
-        /// </summary>
-        private YafTheme _theme;
-
-        /// <summary>
         ///   Numbers of hours to compute digest for...
         /// </summary>
         private int _topicHours = -24;
@@ -89,9 +92,9 @@ namespace YAF.Controls
         /// </summary>
         private bool? _showErrors;
 
-        #endregion
+#endregion
 
-        #region Properties
+#region Properties
 
         /// <summary>
         ///   Gets ActiveTopics.
@@ -151,14 +154,9 @@ namespace YAF.Controls
         ///   Gets UserData.
         /// </summary>
         [NotNull]
-        public CombinedUserDataHelper UserData
-        {
-            get
-            {
-                return this._combinedUserData
-                       ?? (this._combinedUserData = new CombinedUserDataHelper(this.CurrentUserID));
-            }
-        }
+        public CombinedUserDataHelper UserData =>
+            this._combinedUserData
+            ?? (this._combinedUserData = new CombinedUserDataHelper(this.CurrentUserID));
 
         /// <summary>
         /// Gets a value indicating whether [show errors].
@@ -187,9 +185,9 @@ namespace YAF.Controls
             }
         }
 
-        #endregion
+#endregion
 
-        #region Public Methods
+#region Public Methods
 
         /// <summary>
         /// Gets the localized text.
@@ -213,9 +211,9 @@ namespace YAF.Controls
             return this._localization.GetText("DIGEST", tag);
         }
 
-        #endregion
+#endregion
 
-        #region Methods
+#region Methods
 
         /// <summary>
         /// Gets the message formatted and truncated.
@@ -241,9 +239,8 @@ namespace YAF.Controls
         /// </param>
         protected void OutputError([NotNull] string errorString)
         {
-            this.Response.Write(
-                "<!DOCTYPE html><html><head><title>Error</title></head><body><h1>{0}</h1></body></html>".FormatWith(
-                    errorString));
+            this.Get<HttpResponseBase>().Write(
+                $"<!DOCTYPE html><html><head><title>Error</title></head><body><h1>{errorString}</h1></body></html>");
         }
 
         /// <summary>
@@ -282,7 +279,7 @@ namespace YAF.Controls
                         "Invalid Web Service Token. Please go into your host settings and save them committing a unique web service token to the database.");
                 }
 
-                this.Response.End();
+                this.Get<HttpResponseBase>().End();
                 return;
             }
 
@@ -295,7 +292,7 @@ namespace YAF.Controls
                         @"Cannot generate digest unless YAF.ForceScriptName AppSetting is specified in your app.config (default). Please specify the full page name for YAF.NET -- usually ""default.aspx"".");
                 }
 
-                this.Response.End();
+                this.Get<HttpResponseBase>().End();
                 return;
             }
 
@@ -314,13 +311,12 @@ namespace YAF.Controls
             {
                 if (this.ShowErrors)
                 {
-                    this.OutputError(
-                        "No topics for the last {0} hours.".FormatWith(this.BoardSettings.DigestSendEveryXHours));
+                    this.OutputError($"No topics for the last {this.BoardSettings.DigestSendEveryXHours} hours.");
 
-                    //this.Response.Write(GetDebug());
+                     this.Get<HttpResponseBase>().Write(this.GetDebug());
                 }
 
-                this.Response.End();
+                this.Get<HttpResponseBase>().End();
                 return;
             }
 
@@ -329,22 +325,17 @@ namespace YAF.Controls
                 this.BoardID,
                 this.BoardSettings.AllowUserLanguage);
 
-            this._theme =
-                new YafTheme(
-                    UserHelper.GetUserThemeFile(
-                        this.CurrentUserID,
-                        this.BoardID,
-                        this.BoardSettings.AllowUserTheme,
-                        this.BoardSettings.Theme));
+            var theme = UserHelper.GetUserThemeFile(
+                this.CurrentUserID,
+                this.BoardID,
+                this.BoardSettings.AllowUserTheme,
+                this.BoardSettings.Theme);
 
-            string subject = this.GetText("SUBJECT").FormatWith(this.BoardSettings.Name);
+            var subject = this.GetTextFormatted("SUBJECT", this.BoardSettings.Name);
 
-            string digestHead = this._theme.GetItem("THEME", "DIGESTHEAD", null);
-
-            if (digestHead.IsSet())
-            {
-                this.YafHead.Controls.Add(new LiteralControl(digestHead));
-            }
+            this.YafHead.Controls.Add(
+                ControlHelper.MakeCssIncludeControl(
+                    YafForumInfo.GetURLToContentThemes(theme.CombineWith("bootstrap-forum.min.css"))));
 
             if (subject.IsSet())
             {
@@ -352,7 +343,7 @@ namespace YAF.Controls
             }
         }
 
-        #endregion
+#endregion
 
         /// <summary>
         /// Gets the debug information.
@@ -373,7 +364,7 @@ namespace YAF.Controls
                 @"<br /><br /><b>{0}</b> SQL Queries: <b>{1:N3}</b> Seconds (<b>{2:N2}%</b> of Total Page Load Time).<br />{3}",
                 QueryCounter.Count,
                 QueryCounter.Duration,
-                (100 * QueryCounter.Duration) / this.Get<IStopWatch>().Duration,
+                100 * QueryCounter.Duration / this.Get<IStopWatch>().Duration,
                 QueryCounter.Commands);
 
             debugInfo.Append(@"</div>");

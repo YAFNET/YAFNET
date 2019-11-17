@@ -1,0 +1,500 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AdminEmail" xml:space="preserve">
+    <value>Emailová adresa</value>
+  </data>
+  <data name="AdminName" xml:space="preserve">
+    <value>Zadajte meno superužívateľa</value>
+  </data>
+  <data name="AdminPassword" xml:space="preserve">
+    <value>heslo</value>
+  </data>
+  <data name="AdminPassword2" xml:space="preserve">
+    <value>Overte heslo</value>
+  </data>
+  <data name="BoardName" xml:space="preserve">
+    <value>Zadajte názov novej rady</value>
+  </data>
+  <data name="ConfigPassword" xml:space="preserve">
+    <value>Konfigurovať heslo</value>
+  </data>
+  <data name="ConnectionDetails" xml:space="preserve">
+    <value>Podrobnosti o pripojení</value>
+  </data>
+  <data name="ConnectionExist" xml:space="preserve">
+    <value>Vyberte položku Existing Connection String</value>
+  </data>
+  <data name="ConnectionExistDesc" xml:space="preserve">
+    <value>Vyberte reťazec pripojenia k serveru SQL Server:</value>
+  </data>
+  <data name="ConnectionFailed" xml:space="preserve">
+    <value>Nepodarilo sa pripojiť:</value>
+  </data>
+  <data name="ConnectionNew" xml:space="preserve">
+    <value>Vytvorte nový reťazec pripojenia</value>
+  </data>
+  <data name="ConnectionNewNote" xml:space="preserve">
+    <value>Pripojovací reťazec sa uloží ako</value>
+  </data>
+  <data name="ConnectionSuccess" xml:space="preserve">
+    <value>Pripojenie bolo úspešné</value>
+  </data>
+  <data name="ConnectionTest" xml:space="preserve">
+    <value>Test pripojenia databázy</value>
+  </data>
+  <data name="CreateBoard" xml:space="preserve">
+    <value>Vytvorenie novej rady</value>
+  </data>
+  <data name="CreatePassword" xml:space="preserve">
+    <value>Vytvorte konfiguračné heslo</value>
+  </data>
+  <data name="CreatePasswordText" xml:space="preserve">
+    <value>Pretože toto je prvá inštalácia alebo inovácia tejto verzie fóra, musíte si z bezpečnostných dôvodov vytvoriť konfiguračné heslo.</value>
+  </data>
+  <data name="CreateUser" xml:space="preserve">
+    <value>Vytvoriť nového super používateľa (hostiteľa)</value>
+  </data>
+  <data name="Culture" xml:space="preserve">
+    <value>Kultúra hosťa používateľa (jazyk)</value>
+  </data>
+  <data name="CurrentVersion" xml:space="preserve">
+    <value>Aktuálna verzia:</value>
+  </data>
+  <data name="Database" xml:space="preserve">
+    <value>databázy</value>
+  </data>
+  <data name="DataSource" xml:space="preserve">
+    <value>Zadajte zdroj údajov (názov alebo adresa servera SQL)</value>
+  </data>
+  <data name="DBConnection" xml:space="preserve">
+    <value>YAF.NET Pripojenie k databáze</value>
+  </data>
+  <data name="DBName" xml:space="preserve">
+    <value>Zadajte názov databázy</value>
+  </data>
+  <data name="DuplicateEmail" xml:space="preserve">
+    <value>Používateľské meno pre túto e-mailovú adresu už existuje. Zadajte inú e-mailovú adresu.</value>
+  </data>
+  <data name="DuplicateUserName" xml:space="preserve">
+    <value>Užívateľské meno už existuje. Zadajte iné používateľské meno.</value>
+  </data>
+  <data name="EnterConfigPassword" xml:space="preserve">
+    <value>Zadajte Config Password</value>
+  </data>
+  <data name="EnterConfigPasswordDesc" xml:space="preserve">
+    <value>Ak chcete aktualizovať alebo manuálne nainštalovať fórum, zadajte konfiguračné heslo.</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Chyba</value>
+  </data>
+  <data name="ErrorBoardInstalled" xml:space="preserve">
+    <value>Doska je už nainštalovaná.</value>
+  </data>
+  <data name="ErrorBoardName" xml:space="preserve">
+    <value>Musíte zadať názov rady.</value>
+  </data>
+  <data name="ErrorConfigPassword" xml:space="preserve">
+    <value>Ak chcete pokračovať, musíte svoje nastavenia aplikácií aktualizovať pomocou kľúča YAF.ConfigPassword. POZNÁMKA: Názov kľúča rozlišuje malé a veľké písmená.</value>
+  </data>
+  <data name="ErrorForumEmail" xml:space="preserve">
+    <value>Musíte zadať e-mailovú adresu fóra.</value>
+  </data>
+  <data name="ErrorPassword" xml:space="preserve">
+    <value>Musíte zadať heslo.</value>
+  </data>
+  <data name="ErrorUserCreate" xml:space="preserve">
+    <value>Vytvorenie správneho používateľa zlyhalo:</value>
+  </data>
+  <data name="ErrorUserEmail" xml:space="preserve">
+    <value>Musíte zadať e-mailovú adresu super používateľa.</value>
+  </data>
+  <data name="ErrorUserName" xml:space="preserve">
+    <value>Musíte zadať užívateľské meno superužívateľa,</value>
+  </data>
+  <data name="ErrorUserNotFound" xml:space="preserve">
+    <value>Existujúce užívateľské meno je neplatné a nepredstavuje aktuálneho používateľa v obchode s členmi.</value>
+  </data>
+  <data name="ErrorWrongPassword" xml:space="preserve">
+    <value>Zadali ste &lt;strong&gt; nesprávne heslo &lt;/strong&gt;!</value>
+  </data>
+  <data name="ExistConnection" xml:space="preserve">
+    <value>Použite existujúci reťazec pripojenia DB</value>
+  </data>
+  <data name="ExistingUser" xml:space="preserve">
+    <value>Použiť existujúceho používateľa</value>
+  </data>
+  <data name="ExistingUserName" xml:space="preserve">
+    <value>Zadajte meno existujúceho používateľa, ktorý sa má stať superpoužívateľom (hostiteľ)</value>
+  </data>
+  <data name="Finish" xml:space="preserve">
+    <value>Skončiť</value>
+  </data>
+  <data name="FinishDesc" xml:space="preserve">
+    <value>Kliknutím na tlačidlo Dokončiť sa dostanete na hlavnú stránku fóra.</value>
+  </data>
+  <data name="Finished" xml:space="preserve">
+    <value>dokončené</value>
+  </data>
+  <data name="ForumEmail" xml:space="preserve">
+    <value>E-mailová adresa fóra</value>
+  </data>
+  <data name="ForumUrl" xml:space="preserve">
+    <value>Maska základne adresy URL fóra</value>
+  </data>
+  <data name="FromEmail" xml:space="preserve">
+    <value>Zadajte e-mailovú adresu</value>
+  </data>
+  <data name="InitFinish" xml:space="preserve">
+    <value>Vaše fórum je teraz pripravené.</value>
+  </data>
+  <data name="Initialize" xml:space="preserve">
+    <value>začať</value>
+  </data>
+  <data name="Installation" xml:space="preserve">
+    <value>inštalácia</value>
+  </data>
+  <data name="Integrated" xml:space="preserve">
+    <value>Použite integrované zabezpečenie</value>
+  </data>
+  <data name="InvalidAnswer" xml:space="preserve">
+    <value>Zadaná odpoveď na obnovenie hesla je neplatná. Skontrolujte hodnotu a skúste to znova.</value>
+  </data>
+  <data name="InvalidEmail" xml:space="preserve">
+    <value>Poskytnutá e-mailová adresa je neplatná. Skontrolujte hodnotu a skúste to znova.</value>
+  </data>
+  <data name="InvalidPassword" xml:space="preserve">
+    <value>Zadané heslo je neplatné. Zadajte platnú hodnotu hesla.</value>
+  </data>
+  <data name="InvalidQuestion" xml:space="preserve">
+    <value>Zadaná otázka na obnovenie hesla je neplatná. Skontrolujte hodnotu a skúste to znova.</value>
+  </data>
+  <data name="InvalidUserName" xml:space="preserve">
+    <value>Zadané meno používateľa je neplatné. Skontrolujte hodnotu a skúste to znova.</value>
+  </data>
+  <data name="MailTest" xml:space="preserve">
+    <value>Test odosielania pošty (SMTP)</value>
+  </data>
+  <data name="MailTestDesc" xml:space="preserve">
+    <value>Odošle testovaciu správu na e-mailovú adresu, ktorá je definovaná ako Odoslať na adresu</value>
+  </data>
+  <data name="ManuallyPassword" xml:space="preserve">
+    <value>Nie je povolený prístup k nastaveniam aplikácie</value>
+  </data>
+  <data name="ManuallyPasswordDesc" xml:space="preserve">
+    <value>Až budete pripravení, kliknite na tlačidlo „Ďalej“.</value>
+  </data>
+  <data name="ManuallyPasswordError" xml:space="preserve">
+    <value>Kvôli problému s povolením nie je možné upraviť konfiguračný súbor tak, aby napísal inštalačné heslo.</value>
+  </data>
+  <data name="Migrate" xml:space="preserve">
+    <value>Migrácia rolí a používateľov</value>
+  </data>
+  <data name="MigrateCount" xml:space="preserve">
+    <value>používatelia vo vašej databáze fóra.</value>
+  </data>
+  <data name="MigrateDesc" xml:space="preserve">
+    <value>Kliknutím na tlačidlo „Ďalej“ spustíte inováciu (migráciu) všetkých rolí a používateľov z vašej starej databázy fóra Fórum.NET na model .NET Provider Model.</value>
+  </data>
+  <data name="MigrateNote" xml:space="preserve">
+    <value>Úloha migrácie môže trvať &lt;strong&gt; veľmi &lt;/strong&gt; dlho v závislosti od počtu používateľov vo vašom fóre.</value>
+  </data>
+  <data name="MigrateSkip" xml:space="preserve">
+    <value>Zakázať migráciu (neodporúča sa)</value>
+  </data>
+  <data name="MigrateUsers" xml:space="preserve">
+    <value>Migrácia používateľov ...</value>
+  </data>
+  <data name="MigrateUsersText" xml:space="preserve">
+    <value>Počas migrácie sa z tejto stránky neotvárajte. Vykonanie migrácie môže trvať veľmi dlho.</value>
+  </data>
+  <data name="NewConnection" xml:space="preserve">
+    <value>Vytvorte nový reťazec pripojenia DB</value>
+  </data>
+  <data name="Next" xml:space="preserve">
+    <value>Ďalšie</value>
+  </data>
+  <data name="NextInitDb" xml:space="preserve">
+    <value>Kliknutím na tlačidlo „Ďalej“ inicializujete svoju databázu na najnovšiu verziu.</value>
+  </data>
+  <data name="NextReady" xml:space="preserve">
+    <value>Až budete pripravení, kliknite na tlačidlo „Ďalej“.</value>
+  </data>
+  <data name="NextUpgradeDb" xml:space="preserve">
+    <value>Kliknutím na tlačidlo „Ďalej“ inovujete svoju databázu na najnovšiu verziu.</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>NO</value>
+  </data>
+  <data name="Note" xml:space="preserve">
+    <value>Poznámka</value>
+  </data>
+  <data name="NoWriteAppSettings" xml:space="preserve">
+    <value>Prístup k nastaveniam nie je možný</value>
+  </data>
+  <data name="NoWriteAppSettingsNote" xml:space="preserve">
+    <value>Váš konfiguračný súbor nie je možné zmeniť tak, aby nastavil pripojenie k databáze z dôvodu povolenia na zápis.</value>
+  </data>
+  <data name="NoWriteConnSettings" xml:space="preserve">
+    <value>Bez prístupu na zápis k reťazcom pripojenia k databáze</value>
+  </data>
+  <data name="NoWriteConnSettingsNote" xml:space="preserve">
+    <value>Nie je možné upraviť váš konfiguračný súbor tak, aby nastavoval reťazec pripojenia k databáze kvôli žiadnemu povoleniu na zápis.</value>
+  </data>
+  <data name="OpenFile" xml:space="preserve">
+    <value>Prosím otvorte</value>
+  </data>
+  <data name="OpenFileDesc" xml:space="preserve">
+    <value>súbor v koreňovom adresári aplikácie a pridajte / aktualizujte nasledujúci kľúč v časti &lt;AppSettings&gt;:</value>
+  </data>
+  <data name="OpenFileDesc2" xml:space="preserve">
+    <value>do koreňového adresára aplikácie a v časti &lt;connectionStrings&gt; pridajte / aktualizujte nasledujúci kľúč:</value>
+  </data>
+  <data name="PasswordFile" xml:space="preserve">
+    <value>Toto heslo sa uloží spolu s nastaveniami aplikácie do súboru ...</value>
+  </data>
+  <data name="PasswordNoMatch" xml:space="preserve">
+    <value>Overenie nie je to isté ako vaše heslo.</value>
+  </data>
+  <data name="PermissionApp" xml:space="preserve">
+    <value>YAF.NET má prístup na zápis do adresára koreňových aplikácií ("~ /") ...</value>
+  </data>
+  <data name="PermissionUpload" xml:space="preserve">
+    <value>YAF.NET má prístup na zápis do adresára „~ / Upload“ ...</value>
+  </data>
+  <data name="Previous" xml:space="preserve">
+    <value>predchádzajúca</value>
+  </data>
+  <data name="ProviderError" xml:space="preserve">
+    <value>Poskytovateľ autentifikácie vrátil chybu. Skontrolujte zadanie a skúste to znova. Ak problém pretrváva, kontaktujte správcu systému.</value>
+  </data>
+  <data name="ReenterConfigPassword" xml:space="preserve">
+    <value>Znovu zadajte Config Password</value>
+  </data>
+  <data name="SecurityAnswer" xml:space="preserve">
+    <value>Odpoveď na bezpečnostnú otázku</value>
+  </data>
+  <data name="SecurityQuestion" xml:space="preserve">
+    <value>Otázka, ktorá sa vás opýta, keď potrebujete získať stratené heslo</value>
+  </data>
+  <data name="Setup" xml:space="preserve">
+    <value>Nastaviť</value>
+  </data>
+  <data name="SmtpTestBody" xml:space="preserve">
+    <value>Zdá sa, že odosielanie e-mailov funguje z vašej inštalácie YAF.</value>
+  </data>
+  <data name="SmtpTestDetails" xml:space="preserve">
+    <value>Podrobnosti testu SMTP</value>
+  </data>
+  <data name="SmtpTestSubject" xml:space="preserve">
+    <value>Vyskúšajte e-mail z iného fóra Forum.NET</value>
+  </data>
+  <data name="SmtpTestSuccess" xml:space="preserve">
+    <value>Pošta odoslaná. Overte, či bol prijatý na zadanú e-mailovú adresu.</value>
+  </data>
+  <data name="SqlPass" xml:space="preserve">
+    <value>Zadajte heslo SQL</value>
+  </data>
+  <data name="SqlUser" xml:space="preserve">
+    <value>Zadajte meno používateľa SQL</value>
+  </data>
+  <data name="TestConnection" xml:space="preserve">
+    <value>Otestujte pripojenie</value>
+  </data>
+  <data name="TestEmail" xml:space="preserve">
+    <value>Vyskúšajte nastavenia protokolu SMTP</value>
+  </data>
+  <data name="TestPermission" xml:space="preserve">
+    <value>Testovacie povolenie</value>
+  </data>
+  <data name="TestSettings" xml:space="preserve">
+    <value>Testovacie nastavenia</value>
+  </data>
+  <data name="TestSettingsDesc" xml:space="preserve">
+    <value>Kliknite na tlačidlo „Predchádzajúce“ a upravte konfiguráciu databázy.</value>
+  </data>
+  <data name="TestSettingsText" xml:space="preserve">
+    <value>Možno budete chcieť vyskúšať svoje konfiguračné nastavenia YAF tu, skôr ako budete pokračovať.</value>
+  </data>
+  <data name="TimeZone" xml:space="preserve">
+    <value>Časové pásmo hosťa používateľa</value>
+  </data>
+  <data name="ToEmail" xml:space="preserve">
+    <value>Zadajte e-mailovú adresu</value>
+  </data>
+  <data name="Unchecked" xml:space="preserve">
+    <value>nekontrolovaný</value>
+  </data>
+  <data name="UnknownError" xml:space="preserve">
+    <value>Vyskytla sa neznáma chyba. Skontrolujte zadanie a skúste to znova. Ak problém pretrváva, kontaktujte správcu systému.</value>
+  </data>
+  <data name="Upgrade" xml:space="preserve">
+    <value>upgrade</value>
+  </data>
+  <data name="UpgradeExtensions" xml:space="preserve">
+    <value>Inovujte rozšírenia BBCode, prípony súborov a spamové slová</value>
+  </data>
+  <data name="UpgradeFinish" xml:space="preserve">
+    <value>Vaše fórum bolo teraz inovované na najnovšiu verziu.</value>
+  </data>
+  <data name="UpgradeNote" xml:space="preserve">
+    <value>Ak ide o inováciu, zadajte konfiguračné heslo, ktoré ste vytvorili pri prvej inštalácii fóra, a nie heslo správcu.</value>
+  </data>
+  <data name="UpgradeVersion" xml:space="preserve">
+    <value>Verzia inovácie:</value>
+  </data>
+  <data name="UserRejected" xml:space="preserve">
+    <value>Žiadosť o vytvorenie používateľa bola zrušená. Skontrolujte zadanie a skúste to znova. Ak problém pretrváva, kontaktujte správcu systému.</value>
+  </data>
+  <data name="ValidatePermission" xml:space="preserve">
+    <value>Overiť povolenia</value>
+  </data>
+  <data name="ValidatePermissionDesc" xml:space="preserve">
+    <value>Inštalácia YetAnotherForum.NET je jednoduchšia, keď má aplikácia prístup na zápis do vášho .config
+                        Súbory.</value>
+  </data>
+  <data name="ValidatePermissionText" xml:space="preserve">
+    <value>Kliknutím nižšie otestujete, či sú povolenia správne. Ak nie sú, môžete
+                        stále používajte sprievodcu inštaláciou.</value>
+  </data>
+  <data name="WarningUpgrade" xml:space="preserve">
+    <value>Chystáte sa upgradovať YAF.NET na najnovšiu verziu. Pred pokračovaním v procese aktualizácie sa uistite, že ...
+                        &lt;Ul&gt;
+                            &lt;li&gt; vytvorili ste zálohu existujúcej inštalácie &lt;/li&gt;
+                        &lt;/ Ul&gt;</value>
+  </data>
+  <data name="WelcomeInstall" xml:space="preserve">
+    <value>Vitajte v inštalácii YAF.NET</value>
+  </data>
+  <data name="WelcomeInstallDesc" xml:space="preserve">
+    <value>Kliknutím na „Ďalej“ spustíte proces inštalácie.</value>
+  </data>
+  <data name="WelcomeInstallText" xml:space="preserve">
+    <value>Tento inštalátor vás prevedie krokmi potrebnými na inštaláciu YetAnotherForum.NET (YAF.NET).</value>
+  </data>
+  <data name="WelcomeUpgrade" xml:space="preserve">
+    <value>Vitajte v procese aktualizácie YAF.NET</value>
+  </data>
+  <data name="WelcomeUpgradeDesc" xml:space="preserve">
+    <value>Kliknutím na tlačidlo „Ďalej“ spustíte proces inovácie.</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>ÁNO</value>
+  </data>
+</root>

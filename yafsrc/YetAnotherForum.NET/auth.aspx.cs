@@ -44,12 +44,12 @@ namespace YAF
         /// <summary>
         /// The script begin tag
         /// </summary>
-        private const string SCRIPTBEGINTAG = "<script type='text/javascript'>";
+        private const string ScriptBeginTag = "<script type='text/javascript'>";
 
         /// <summary>
         /// The script end tag
         /// </summary>
-        private const string SCRIPTENDTAG = "</script>";
+        private const string ScriptEndTag = "</script>";
 
         /// <summary>
         /// Handles the Load event of the Page control.
@@ -60,29 +60,32 @@ namespace YAF
         {
             var closeScript = new StringBuilder();
 
-            closeScript.Append("if (window.opener != null)");
+            closeScript.Append(value: "if (window.opener != null)");
             closeScript.AppendFormat(
-                "{{window.opener.location.href = '{0}';window.close();}}",
-                YafBuildLink.GetLink(ForumPages.login).Replace("auth.aspx", "default.aspx"));
+                format: "{{window.opener.location.href = '{0}';window.close();}}",
+                arg0: YafBuildLink.GetLink(page: ForumPages.login).Replace(
+                    oldValue: "auth.aspx",
+                    newValue: "default.aspx"));
             closeScript.AppendFormat(
-                "else {{ window.location.href = '{0}' }}",
-                YafBuildLink.GetLink(ForumPages.login).Replace("auth.aspx", "default.aspx"));
+                format: "else {{ window.location.href = '{0}' }}",
+                arg0: YafBuildLink.GetLink(page: ForumPages.login).Replace(
+                    oldValue: "auth.aspx",
+                    newValue: "default.aspx"));
 
-            if (this.Request.QueryString.GetFirstOrDefault("denied") != null)
+            if (YafContext.Current.Get<HttpRequestBase>().QueryString.Exists(paramName: "denied"))
             {
-                this.Response.Clear();
+                YafContext.Current.Get<HttpResponseBase>().Clear();
 
-                this.Response.Write("{0} {1} {2}".FormatWith(SCRIPTBEGINTAG, closeScript.ToString(), SCRIPTENDTAG));
+                YafContext.Current.Get<HttpResponseBase>().Write(s: $"{ScriptBeginTag} {closeScript} {ScriptEndTag}");
 
                 return;
             }
 
-            var loginAuth =
-                (AuthService)
-                Enum.Parse(
-                    typeof(AuthService),
-                    YafContext.Current.Get<HttpRequestBase>().QueryString.GetFirstOrDefaultAs<string>("auth"),
-                    true);
+            var loginAuth = (AuthService)Enum.Parse(
+                enumType: typeof(AuthService),
+                value: YafContext.Current.Get<HttpRequestBase>().QueryString
+                    .GetFirstOrDefaultAs<string>(paramName: "auth"),
+                ignoreCase: true);
 
             switch (loginAuth)
             {
@@ -90,13 +93,14 @@ namespace YAF
                     this.HandleTwitterReturn();
                     break;
                 case AuthService.facebook:
-                    this.HandleFacebookReturn(); 
+                    this.HandleFacebookReturn();
                     break;
                 case AuthService.google:
                     this.HandleGoogleReturn();
                     break;
                 default:
-                    this.Response.Write("{0} {1} {2}".FormatWith(SCRIPTBEGINTAG, closeScript.ToString(), SCRIPTENDTAG));
+                    YafContext.Current.Get<HttpResponseBase>()
+                        .Write(s: $"{ScriptBeginTag} {closeScript} {ScriptEndTag}");
                     break;
             }
         }
@@ -110,65 +114,78 @@ namespace YAF
 
             var twitterAuth = new Twitter();
 
-            if (YafContext.Current.Get<HttpRequestBase>().QueryString.GetFirstOrDefaultAs<bool>("connectCurrent"))
+            if (YafContext.Current.Get<HttpRequestBase>().QueryString
+                .GetFirstOrDefaultAs<bool>(paramName: "connectCurrent"))
             {
                 try
                 {
-                    twitterAuth.ConnectUser(this.Request, null, out message);
+                    twitterAuth.ConnectUser(request: this.Request, parameters: null, message: out message);
                 }
                 catch (Exception ex)
                 {
-                    YafContext.Current.Get<ILogger>().Error(ex, "Error while trying to connect the twitter user");
+                    YafContext.Current.Get<ILogger>().Error(
+                        ex: ex,
+                        format: "Error while trying to connect the twitter user");
 
                     message = ex.Message;
                 }
 
                 if (message.IsSet())
                 {
-                    this.Response.Write(
-                        "{2} alert('{0}');window.location.href = '{1}'; {3}".FormatWith(
+                    YafContext.Current.Get<HttpResponseBase>().Write(
+                        s: string.Format(
+                            format: "{2} alert('{0}');window.location.href = '{1}'; {3}",
                             message,
-                            YafBuildLink.GetLink(ForumPages.login).Replace("auth.aspx", "default.aspx"),
-                            SCRIPTBEGINTAG,
-                            SCRIPTENDTAG));
+                            YafBuildLink.GetLink(page: ForumPages.login).Replace(
+                                oldValue: "auth.aspx",
+                                newValue: "default.aspx"),
+                            ScriptBeginTag,
+                            ScriptEndTag));
                 }
                 else
                 {
-                    YafBuildLink.Redirect(ForumPages.forum);
+                    YafBuildLink.Redirect(page: ForumPages.forum);
                 }
             }
             else
             {
                 try
                 {
-                    twitterAuth.LoginOrCreateUser(this.Request, null, out message);
+                    twitterAuth.LoginOrCreateUser(request: this.Request, parameters: null, message: out message);
                 }
                 catch (Exception ex)
                 {
-                    YafContext.Current.Get<ILogger>()
-                        .Error(ex, "Error while trying to login or register the twitter user");
+                    YafContext.Current.Get<ILogger>().Error(
+                        ex: ex,
+                        format: "Error while trying to login or register the twitter user");
 
                     message = ex.Message;
                 }
 
-                this.Response.Clear();
+                YafContext.Current.Get<HttpResponseBase>().Clear();
 
                 if (message.IsSet())
                 {
-                    this.Response.Write(
-                        "{2} alert('{0}');window.opener.location.href = '{1}';window.close(); {3}>".FormatWith(
+                    YafContext.Current.Get<HttpResponseBase>().Write(
+                        s: string.Format(
+                            format: "{2} alert('{0}');window.opener.location.href = '{1}';window.close(); {3}>",
                             message,
-                            YafBuildLink.GetLink(ForumPages.login).Replace("auth.aspx", "default.aspx"),
-                            SCRIPTBEGINTAG,
-                            SCRIPTENDTAG));
+                            YafBuildLink.GetLink(page: ForumPages.login).Replace(
+                                oldValue: "auth.aspx",
+                                newValue: "default.aspx"),
+                            ScriptBeginTag,
+                            ScriptEndTag));
                 }
                 else
                 {
-                    this.Response.Write(
-                        "{1} window.opener.location.href = '{0}';window.close(); {2}>".FormatWith(
-                            YafBuildLink.GetLink(ForumPages.forum).Replace("auth.aspx", "default.aspx"),
-                            SCRIPTBEGINTAG,
-                            SCRIPTENDTAG));
+                    YafContext.Current.Get<HttpResponseBase>().Write(
+                        s: string.Format(
+                            format: "{1} window.opener.location.href = '{0}';window.close(); {2}>",
+                            arg0: YafBuildLink.GetLink(page: ForumPages.forum).Replace(
+                                oldValue: "auth.aspx",
+                                newValue: "default.aspx"),
+                            arg1: ScriptBeginTag,
+                            arg2: ScriptEndTag));
                 }
             }
         }
@@ -180,52 +197,63 @@ namespace YAF
         {
             var facebookAuth = new Facebook();
 
-            if (YafContext.Current.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("code") != null)
+            if (YafContext.Current.Get<HttpRequestBase>().QueryString.Exists(paramName: "code"))
             {
-                var authorizationCode = YafContext.Current.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("code");
-                var accessToken = facebookAuth.GetAccessToken(authorizationCode, this.Request);
+                var authorizationCode = YafContext.Current.Get<HttpRequestBase>().QueryString
+                    .GetFirstOrDefault(paramName: "code");
+                var accessToken = facebookAuth.GetAccessToken(
+                    authorizationCode: authorizationCode,
+                    request: this.Request);
 
                 if (accessToken.IsNotSet())
                 {
-                    this.Response.Write(
-                        "{2} alert('{0}');window.location.href = '{1}'; {3}".FormatWith(
-                            YafContext.Current.Get<ILocalization>().GetText("AUTH_NO_ACCESS_TOKEN"),
-                            YafBuildLink.GetLink(ForumPages.login).Replace("auth.aspx", "default.aspx"),
-                            SCRIPTBEGINTAG,
-                            SCRIPTENDTAG));
+                    YafContext.Current.Get<HttpResponseBase>().Write(
+                        s: string.Format(
+                            format: "{2} alert('{0}');window.location.href = '{1}'; {3}",
+                            YafContext.Current.Get<ILocalization>().GetText(text: "AUTH_NO_ACCESS_TOKEN"),
+                            YafBuildLink.GetLink(page: ForumPages.login).Replace(
+                                oldValue: "auth.aspx",
+                                newValue: "default.aspx"),
+                            ScriptBeginTag,
+                            ScriptEndTag));
 
                     return;
                 }
 
-                if (YafContext.Current.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("state") != null
-                    && YafContext.Current.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("state")
+                if (YafContext.Current.Get<HttpRequestBase>().QueryString.Exists(paramName: "state")
+                    && YafContext.Current.Get<HttpRequestBase>().QueryString.GetFirstOrDefault(paramName: "state")
                     == "connectCurrent")
                 {
                     string message;
 
                     try
                     {
-                        facebookAuth.ConnectUser(this.Request, accessToken, out message);
+                        facebookAuth.ConnectUser(request: this.Request, parameters: accessToken, message: out message);
                     }
                     catch (Exception ex)
                     {
-                        YafContext.Current.Get<ILogger>().Error(ex, "Error while trying to connect the facebook user");
+                        YafContext.Current.Get<ILogger>().Error(
+                            ex: ex,
+                            format: "Error while trying to connect the facebook user");
 
                         message = ex.Message;
                     }
 
                     if (message.IsSet())
                     {
-                        this.Response.Write(
-                            "{2} alert('{0}');window.location.href = '{1}'; {3}".FormatWith(
+                        YafContext.Current.Get<HttpResponseBase>().Write(
+                            s: string.Format(
+                                format: "{2} alert('{0}');window.location.href = '{1}'; {3}",
                                 message,
-                                YafBuildLink.GetLink(ForumPages.forum).Replace("auth.aspx", "default.aspx"),
-                                SCRIPTBEGINTAG,
-                                SCRIPTENDTAG));
+                                YafBuildLink.GetLink(page: ForumPages.forum).Replace(
+                                    oldValue: "auth.aspx",
+                                    newValue: "default.aspx"),
+                                ScriptBeginTag,
+                                ScriptEndTag));
                     }
                     else
                     {
-                        YafBuildLink.Redirect(ForumPages.forum);
+                        YafBuildLink.Redirect(page: ForumPages.forum);
                     }
                 }
                 else
@@ -234,46 +262,59 @@ namespace YAF
 
                     try
                     {
-                        facebookAuth.LoginOrCreateUser(this.Request, accessToken, out message);
+                        facebookAuth.LoginOrCreateUser(
+                            request: this.Request,
+                            parameters: accessToken,
+                            message: out message);
                     }
                     catch (Exception ex)
                     {
-                        YafContext.Current.Get<ILogger>()
-                            .Error(ex, "Error while trying to login or register the facebook user");
+                        YafContext.Current.Get<ILogger>().Error(
+                            ex: ex,
+                            format: "Error while trying to login or register the facebook user");
 
                         message = ex.Message;
                     }
 
-                    this.Response.Clear();
+                    YafContext.Current.Get<HttpResponseBase>().Clear();
 
                     if (message.IsSet())
                     {
-                        this.Response.Write(
-                            "{2} alert('{0}');window.location.href = '{1}';window.close(); {3}".FormatWith(
+                        YafContext.Current.Get<HttpResponseBase>().Write(
+                            s: string.Format(
+                                format: "{2} alert('{0}');window.location.href = '{1}';window.close(); {3}",
                                 message,
-                                YafBuildLink.GetLink(ForumPages.login).Replace("auth.aspx", "default.aspx"),
-                                SCRIPTBEGINTAG,
-                                SCRIPTENDTAG));
+                                YafBuildLink.GetLink(page: ForumPages.login).Replace(
+                                    oldValue: "auth.aspx",
+                                    newValue: "default.aspx"),
+                                ScriptBeginTag,
+                                ScriptEndTag));
                     }
                     else
                     {
-                        this.Response.Write(
-                            "{1} window.location.href = '{0}';window.close(); {2}".FormatWith(
-                                YafBuildLink.GetLink(ForumPages.forum).Replace("auth.aspx", "default.aspx"),
-                                SCRIPTBEGINTAG,
-                                SCRIPTENDTAG));
+                        YafContext.Current.Get<HttpResponseBase>().Write(
+                            s: string.Format(
+                                format: "{1} window.location.href = '{0}';window.close(); {2}",
+                                arg0: YafBuildLink.GetLink(page: ForumPages.forum).Replace(
+                                    oldValue: "auth.aspx",
+                                    newValue: "default.aspx"),
+                                arg1: ScriptBeginTag,
+                                arg2: ScriptEndTag));
                     }
                 }
             }
-            else if (YafContext.Current.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("error") != null)
+            else if (YafContext.Current.Get<HttpRequestBase>().QueryString.Exists(paramName: "error"))
             {
                 // Return to login page if user cancels social login
-                this.Response.Redirect(YafBuildLink.GetLink(ForumPages.login, true));
+                YafContext.Current.Get<HttpResponseBase>()
+                    .Redirect(url: YafBuildLink.GetLink(page: ForumPages.login, fullUrl: true));
             }
             else
             {
                 // Authorize first
-                this.Response.Redirect(facebookAuth.GetAuthorizeUrl(this.Request), true);
+                YafContext.Current.Get<HttpResponseBase>().Redirect(
+                    url: facebookAuth.GetAuthorizeUrl(request: this.Request),
+                    endResponse: true);
             }
         }
 
@@ -284,50 +325,65 @@ namespace YAF
         {
             var googleAuth = new Google();
 
-            if (YafContext.Current.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("code") != null)
+            if (YafContext.Current.Get<HttpRequestBase>().QueryString.Exists(paramName: "code"))
             {
-                var authorizationCode = YafContext.Current.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("code");
-                var accessTokens = googleAuth.GetAccessToken(authorizationCode, this.Request);
+                var authorizationCode = YafContext.Current.Get<HttpRequestBase>().QueryString
+                    .GetFirstOrDefault(paramName: "code");
+                var accessTokens = googleAuth.GetAccessToken(
+                    authorizationCode: authorizationCode,
+                    request: this.Request);
 
                 if (accessTokens.AccessToken == null)
                 {
-                    this.Response.Write(
-                        "{2} alert('{0}');window.location.href = '{1}'; {3}".FormatWith(
-                            YafContext.Current.Get<ILocalization>().GetText("AUTH_NO_ACCESS_TOKEN"),
-                            YafBuildLink.GetLink(ForumPages.login).Replace("auth.aspx", "default.aspx"),
-                            SCRIPTBEGINTAG,
-                            SCRIPTENDTAG));
+                    YafContext.Current.Get<HttpResponseBase>().Write(
+                        s: string.Format(
+                            format: "{2} alert('{0}');window.location.href = '{1}'; {3}",
+                            YafContext.Current.Get<ILocalization>().GetText(text: "AUTH_NO_ACCESS_TOKEN"),
+                            YafBuildLink.GetLink(page: ForumPages.login).Replace(
+                                oldValue: "auth.aspx",
+                                newValue: "default.aspx"),
+                            ScriptBeginTag,
+                            ScriptEndTag));
 
                     return;
                 }
 
-                if (YafContext.Current.Get<HttpRequestBase>().QueryString.GetFirstOrDefaultAs<bool>("connectCurrent"))
+                if (YafContext.Current.Get<HttpRequestBase>().QueryString
+                    .GetFirstOrDefaultAs<bool>(paramName: "connectCurrent"))
                 {
                     string message;
 
                     try
                     {
-                        googleAuth.ConnectUser(this.Request, accessTokens.AccessToken, out message);
+                        googleAuth.ConnectUser(
+                            request: this.Request,
+                            parameters: accessTokens.AccessToken,
+                            message: out message);
                     }
                     catch (Exception ex)
                     {
-                        YafContext.Current.Get<ILogger>().Error(ex, "Error while trying to connect the google user");
+                        YafContext.Current.Get<ILogger>().Error(
+                            ex: ex,
+                            format: "Error while trying to connect the google user");
 
                         message = ex.Message;
                     }
 
                     if (message.IsSet())
                     {
-                        this.Response.Write(
-                            "{2} alert('{0}');window.location.href = '{1}'; {3}".FormatWith(
+                        YafContext.Current.Get<HttpResponseBase>().Write(
+                            s: string.Format(
+                                format: "{2} alert('{0}');window.location.href = '{1}'; {3}",
                                 message,
-                                YafBuildLink.GetLink(ForumPages.forum).Replace("auth.aspx", "default.aspx"),
-                                SCRIPTBEGINTAG,
-                                SCRIPTENDTAG));
+                                YafBuildLink.GetLink(page: ForumPages.forum).Replace(
+                                    oldValue: "auth.aspx",
+                                    newValue: "default.aspx"),
+                                ScriptBeginTag,
+                                ScriptEndTag));
                     }
                     else
                     {
-                        YafBuildLink.Redirect(ForumPages.forum);
+                        YafBuildLink.Redirect(page: ForumPages.forum);
                     }
                 }
                 else
@@ -336,46 +392,59 @@ namespace YAF
 
                     try
                     {
-                        googleAuth.LoginOrCreateUser(this.Request, accessTokens.AccessToken, out message);
+                        googleAuth.LoginOrCreateUser(
+                            request: this.Request,
+                            parameters: accessTokens.AccessToken,
+                            message: out message);
                     }
                     catch (Exception ex)
                     {
-                        YafContext.Current.Get<ILogger>()
-                            .Error(ex, "Error while trying to login or register the google user");
+                        YafContext.Current.Get<ILogger>().Error(
+                            ex: ex,
+                            format: "Error while trying to login or register the google user");
 
                         message = ex.Message;
                     }
 
-                    this.Response.Clear();
+                    YafContext.Current.Get<HttpResponseBase>().Clear();
 
                     if (message.IsSet())
                     {
-                        this.Response.Write(
-                            "{2} alert('{0}');window.location.href = '{1}';window.close(); {3}".FormatWith(
+                        YafContext.Current.Get<HttpResponseBase>().Write(
+                            s: string.Format(
+                                format: "{2} alert('{0}');window.location.href = '{1}';window.close(); {3}",
                                 message,
-                                YafBuildLink.GetLink(ForumPages.login).Replace("auth.aspx", "default.aspx"),
-                                SCRIPTBEGINTAG,
-                                SCRIPTENDTAG));
+                                YafBuildLink.GetLink(page: ForumPages.login).Replace(
+                                    oldValue: "auth.aspx",
+                                    newValue: "default.aspx"),
+                                ScriptBeginTag,
+                                ScriptEndTag));
                     }
                     else
                     {
-                        this.Response.Write(
-                            "{1} window.location.href = '{0}';window.close(); {2}".FormatWith(
-                                YafBuildLink.GetLink(ForumPages.forum).Replace("auth.aspx", "default.aspx"),
-                                SCRIPTBEGINTAG,
-                                SCRIPTENDTAG));
+                        YafContext.Current.Get<HttpResponseBase>().Write(
+                            s: string.Format(
+                                format: "{1} window.location.href = '{0}';window.close(); {2}",
+                                arg0: YafBuildLink.GetLink(page: ForumPages.forum).Replace(
+                                    oldValue: "auth.aspx",
+                                    newValue: "default.aspx"),
+                                arg1: ScriptBeginTag,
+                                arg2: ScriptEndTag));
                     }
                 }
             }
-            else if (YafContext.Current.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("error") != null)
+            else if (YafContext.Current.Get<HttpRequestBase>().QueryString.Exists(paramName: "error"))
             {
                 // Return to login page if user cancels social login
-                this.Response.Redirect(YafBuildLink.GetLink(ForumPages.login, true));
+                YafContext.Current.Get<HttpResponseBase>()
+                    .Redirect(url: YafBuildLink.GetLink(page: ForumPages.login, fullUrl: true));
             }
             else
             {
                 // Authorize first
-                this.Response.Redirect(googleAuth.GetAuthorizeUrl(this.Request), true);
+                YafContext.Current.Get<HttpResponseBase>().Redirect(
+                    url: googleAuth.GetAuthorizeUrl(request: this.Request),
+                    endResponse: true);
             }
         }
     }

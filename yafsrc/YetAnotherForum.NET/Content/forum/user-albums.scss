@@ -1,0 +1,10 @@
+﻿.AlbumImageList li {
+    width: 60px;
+    height: 80px;
+    float: left;
+    list-style: none;
+    img {
+      max-width: 60px;
+      max-height: 80px;
+    }
+  }

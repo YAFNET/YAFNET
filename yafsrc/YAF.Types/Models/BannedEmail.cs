@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -34,6 +34,7 @@ namespace YAF.Types.Models
     /// The Banned Email Table
     /// </summary>
     [Serializable]
+    [UniqueConstraint(nameof(BoardID), nameof(Mask))]
     public partial class BannedEmail : IEntity, IHaveID, IHaveBoardID
     {
         partial void OnCreated();
@@ -43,7 +44,7 @@ namespace YAF.Types.Models
         /// </summary>
         public BannedEmail()
         {
-            OnCreated();
+            this.OnCreated();
         }
 
         #region Properties
@@ -58,8 +59,12 @@ namespace YAF.Types.Models
         /// <summary>
         /// Gets BoardId.
         /// </summary>
+        [References(typeof(Board))]
+        [Required]
         public int BoardID { get; set; }
 
+        [Required]
+        [StringLength(255)]
         public string Mask { get; set; }
 
         /// <summary>
@@ -68,6 +73,7 @@ namespace YAF.Types.Models
         /// <value>
         /// The since.
         /// </value>
+        [Required]
         public DateTime Since { get; set; }
 
         /// <summary>
@@ -76,6 +82,7 @@ namespace YAF.Types.Models
         /// <value>
         /// The reason.
         /// </value>
+        [StringLength(128)]
         public string Reason { get; set; }
 
         #endregion

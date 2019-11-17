@@ -32,12 +32,12 @@ namespace YAF.Controls
     using System.Linq;
     using System.Web.UI.WebControls;
 
-    using YAF.Classes;
-    using YAF.Classes.Data;
-    using YAF.Core;
+    using YAF.Configuration;
+    using YAF.Core.BaseControls;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
     using YAF.Core.Services.CheckForSpam;
+    using YAF.Core.UsersRoles;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
@@ -59,7 +59,7 @@ namespace YAF.Controls
         /// <summary>
         ///   The _all posts by user.
         /// </summary>
-        private DataTable _allPostsByUser;
+        private IOrderedEnumerable<Message> allPostsByUser;
 
         #endregion
 
@@ -68,11 +68,10 @@ namespace YAF.Controls
         /// <summary>
         ///   Gets AllPostsByUser.
         /// </summary>
-        public DataTable AllPostsByUser
-            =>
-                this._allPostsByUser
-                ?? (this._allPostsByUser =
-                    LegacyDb.post_alluser_simple(this.PageContext.PageBoardID, this.CurrentUserID));
+        public IOrderedEnumerable<Message> AllPostsByUser =>
+            this.allPostsByUser ?? (this.allPostsByUser =
+                                        this.GetRepository<Message>()
+                                            .GetAllUserMessages(this.CurrentUserId.Value.ToType<int>()));
 
         /// <summary>
         ///   Gets IPAddresses.
@@ -82,7 +81,7 @@ namespace YAF.Controls
         {
             get
             {
-                var list = this.AllPostsByUser.GetColumnAsList<string>("IP").OrderBy(x => x).Distinct().ToList();
+                var list = this.AllPostsByUser.Select(m => m.IP).OrderBy(x => x).Distinct().ToList();
 
                 if (list.Count.Equals(0))
                 {
@@ -103,8 +102,8 @@ namespace YAF.Controls
         {
             get
             {
-                var user = UserMembershipHelper.GetMembershipUserById(this.CurrentUserID);
-                var currentUserId = this.CurrentUserID;
+                var user = UserMembershipHelper.GetMembershipUserById(this.CurrentUserId);
+                var currentUserId = this.CurrentUserId;
 
                 return currentUserId != null
                            ? new CombinedUserDataHelper(user, currentUserId.Value.ToType<int>())
@@ -115,7 +114,7 @@ namespace YAF.Controls
         /// <summary>
         ///   Gets CurrentUserID.
         /// </summary>
-        protected long? CurrentUserID => this.PageContext.QueryIDs["u"];
+        protected long? CurrentUserId => this.PageContext.QueryIDs["u"];
 
         /// <summary>
         /// Gets or sets the current user.
@@ -136,19 +135,15 @@ namespace YAF.Controls
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Kill_OnClick([NotNull] object sender, [NotNull] EventArgs e)
         {
-            var user = UserMembershipHelper.GetMembershipUserById(this.CurrentUserID);
+            var user = UserMembershipHelper.GetMembershipUserById(this.CurrentUserId);
 
             // Ban User Email?
             if (this.BanEmail.Checked)
             {
-                this.GetRepository<BannedEmail>()
-                    .Save(
-                        null,
-                        user.Email,
-                        "Email was reported by: {0}".FormatWith(
-                            this.Get<YafBoardSettings>().EnableDisplayName
-                                ? this.PageContext.CurrentUserData.DisplayName
-                                : this.PageContext.CurrentUserData.UserName));
+                this.GetRepository<BannedEmail>().Save(
+                    null,
+                    user.Email,
+                    $"Email was reported by: {(this.Get<YafBoardSettings>().EnableDisplayName ? this.PageContext.CurrentUserData.DisplayName : this.PageContext.CurrentUserData.UserName)}");
             }
 
             // Ban User IP?
@@ -160,38 +155,29 @@ namespace YAF.Controls
             // Ban User IP?
             if (this.BanName.Checked)
             {
-                this.GetRepository<BannedName>()
-                    .Save(
-                        null,
-                        user.UserName,
-                        "Name was reported by: {0}".FormatWith(
-                            this.Get<YafBoardSettings>().EnableDisplayName
-                                ? this.PageContext.CurrentUserData.DisplayName
-                                : this.PageContext.CurrentUserData.UserName));
+                this.GetRepository<BannedName>().Save(
+                    null,
+                    user.UserName,
+                    $"Name was reported by: {(this.Get<YafBoardSettings>().EnableDisplayName ? this.PageContext.CurrentUserData.DisplayName : this.PageContext.CurrentUserData.UserName)}");
             }
 
             this.DeleteAllUserMessages();
 
             if (this.ReportUser.Checked && this.Get<YafBoardSettings>().StopForumSpamApiKey.IsSet()
-                && this.IPAddresses.Any())
+                                        && this.IPAddresses.Any())
             {
                 try
                 {
                     var stopForumSpam = new StopForumSpam();
 
-                    if (!stopForumSpam.ReportUserAsBot(this.IPAddresses.FirstOrDefault(), user.Email, user.UserName))
+                    if (stopForumSpam.ReportUserAsBot(this.IPAddresses.FirstOrDefault(), user.Email, user.UserName))
                     {
+                        this.GetRepository<Registry>().IncrementReportedSpammers();
+
                         this.Logger.Log(
                             this.PageContext.PageUserID,
                             "User Reported to StopForumSpam.com",
-                            "User (Name:{0}/ID:{1}/IP:{2}/Email:{3}) Reported to StopForumSpam.com by {4}".FormatWith(
-                                user.UserName,
-                                this.CurrentUserID,
-                                this.IPAddresses.FirstOrDefault(),
-                                user.Email,
-                                this.Get<YafBoardSettings>().EnableDisplayName
-                                    ? this.PageContext.CurrentUserData.DisplayName
-                                    : this.PageContext.CurrentUserData.UserName),
+                            $"User (Name:{user.UserName}/ID:{this.CurrentUserId}/IP:{this.IPAddresses.FirstOrDefault()}/Email:{user.Email}) Reported to StopForumSpam.com by {(this.Get<YafBoardSettings>().EnableDisplayName ? this.PageContext.CurrentUserData.DisplayName : this.PageContext.CurrentUserData.UserName)}",
                             EventLogTypes.SpamBotReported);
                     }
                 }
@@ -199,13 +185,11 @@ namespace YAF.Controls
                 {
                     this.PageContext.AddLoadMessage(
                         this.GetText("ADMIN_EDITUSER", "BOT_REPORTED_FAILED"),
-                        MessageTypes.Error);
+                        MessageTypes.danger);
 
                     this.Logger.Log(
                         this.PageContext.PageUserID,
-                        "User (Name{0}/ID:{1}) Report to StopForumSpam.com Failed".FormatWith(
-                            user.UserName,
-                            this.CurrentUserID),
+                        $"User (Name{user.UserName}/ID:{this.CurrentUserId}) Report to StopForumSpam.com Failed",
                         exception);
                 }
             }
@@ -213,34 +197,33 @@ namespace YAF.Controls
             switch (this.SuspendOrDelete.SelectedValue)
             {
                 case "delete":
-                    if (this.CurrentUserID > 0)
+                    if (this.CurrentUserId > 0)
                     {
                         // we are deleting user
-                        if (this.PageContext.PageUserID == this.CurrentUserID)
+                        if (this.PageContext.PageUserID == this.CurrentUserId)
                         {
                             // deleting yourself isn't an option
                             this.PageContext.AddLoadMessage(
                                 this.GetText("ADMIN_USERS", "MSG_SELF_DELETE"),
-                                MessageTypes.Error);
+                                MessageTypes.danger);
                             return;
                         }
 
                         // get user(s) we are about to delete
-                        using (
-                            DataTable dt = LegacyDb.user_list(
-                                this.PageContext.PageBoardID,
-                                this.CurrentUserID,
-                                DBNull.Value))
+                        using (var dt = this.GetRepository<User>().ListAsDataTable(
+                            this.PageContext.PageBoardID,
+                            this.CurrentUserId,
+                            DBNull.Value))
                         {
                             // examine each if he's possible to delete
                             foreach (DataRow row in dt.Rows)
                             {
                                 if (row["IsGuest"].ToType<int>() > 0)
                                 {
-                                    // we cannot detele guest
+                                    // we cannot delete guest
                                     this.PageContext.AddLoadMessage(
                                         this.GetText("ADMIN_USERS", "MSG_DELETE_GUEST"),
-                                        MessageTypes.Error);
+                                        MessageTypes.danger);
                                     return;
                                 }
 
@@ -253,29 +236,32 @@ namespace YAF.Controls
                                 // admin are not deletable either
                                 this.PageContext.AddLoadMessage(
                                     this.GetText("ADMIN_USERS", "MSG_DELETE_ADMIN"),
-                                    MessageTypes.Error);
+                                    MessageTypes.danger);
                                 return;
                             }
                         }
 
                         // all is good, user can be deleted
-                        UserMembershipHelper.DeleteUser(this.CurrentUserID.ToType<int>());
+                        UserMembershipHelper.DeleteUser(this.CurrentUserId.ToType<int>());
 
                         YafBuildLink.Redirect(ForumPages.admin_users);
                     }
 
                     break;
                 case "suspend":
-                    if (this.CurrentUserID > 0)
+                    if (this.CurrentUserId > 0)
                     {
-                        LegacyDb.user_suspend(this.CurrentUserID, DateTime.UtcNow.AddYears(5));
+                        this.GetRepository<User>().Suspend(
+                            this.CurrentUserId.ToType<int>(),
+                            DateTime.UtcNow.AddYears(5));
                     }
 
                     break;
             }
 
             this.PageContext.AddLoadMessage(
-                this.Get<ILocalization>().GetText("ADMIN_EDITUSER", "MSG_USER_KILLED").FormatWith(user.UserName));
+                this.GetTextFormatted("MSG_USER_KILLED", user.UserName),
+                MessageTypes.success);
 
             // update the displayed data...
             this.BindData();
@@ -291,7 +277,7 @@ namespace YAF.Controls
             // init ids...
             this.PageContext.QueryIDs = new QueryStringIDHelper("u", true);
 
-            // this needs to be done just once, not during postbacks
+            // this needs to be done just once, not during post-backs
             if (this.IsPostBack)
             {
                 return;
@@ -312,14 +298,15 @@ namespace YAF.Controls
         /// </summary>
         private void BanUserIps()
         {
-            var allIps = this.GetRepository<BannedIP>().ListTyped().Select(x => x.Mask).ToList();
+            var allIps = this.GetRepository<BannedIP>().Get(x => x.BoardID == this.PageContext.PageBoardID)
+                .Select(x => x.Mask).ToList();
 
             // ban user ips...
-            var name = UserMembershipHelper.GetDisplayNameFromID(this.CurrentUserID?.ToType<int>() ?? -1);
+            var name = UserMembershipHelper.GetDisplayNameFromID(this.CurrentUserId?.ToType<int>() ?? -1);
 
             if (name.IsNotSet())
             {
-                name = UserMembershipHelper.GetUserNameFromID(this.CurrentUserID?.ToType<int>() ?? -1);
+                name = UserMembershipHelper.GetUserNameFromID(this.CurrentUserId?.ToType<int>() ?? -1);
             }
 
             foreach (var ip in this.IPAddresses.Except(allIps).ToList())
@@ -329,13 +316,12 @@ namespace YAF.Controls
                     continue;
                 }
 
-                var linkUserBan =
-                    this.Get<ILocalization>()
-                        .GetText("ADMIN_EDITUSER", "LINK_USER_BAN")
-                        .FormatWith(
-                            this.CurrentUserID,
-                            YafBuildLink.GetLink(ForumPages.profile, "u={0}&name={1}", this.CurrentUserID, name),
-                            this.HtmlEncode(name));
+                var linkUserBan = this.Get<ILocalization>().GetTextFormatted(
+                    "ADMIN_EDITUSER",
+                    "LINK_USER_BAN",
+                    this.CurrentUserId,
+                    YafBuildLink.GetLink(ForumPages.profile, "u={0}&name={1}", this.CurrentUserId, name),
+                    this.HtmlEncode(name));
 
                 this.GetRepository<BannedIP>().Save(null, ip, linkUserBan, this.PageContext.PageUserID);
             }
@@ -353,25 +339,21 @@ namespace YAF.Controls
                 ForumPages.search,
                 "postedby={0}",
                 !this.CurrentUserDataHelper.IsGuest
-                    ? (this.Get<YafBoardSettings>().EnableDisplayName
-                           ? this.CurrentUserDataHelper.DisplayName
-                           : this.CurrentUserDataHelper.UserName)
+                    ? this.Get<YafBoardSettings>().EnableDisplayName ? this.CurrentUserDataHelper.DisplayName :
+                      this.CurrentUserDataHelper.UserName
                     : UserMembershipHelper.GuestUserName);
-
-            this.Kill.Text = this.GetText("ADMIN_EDITUSER", "HEAD_KILL_USER");
-            ControlHelper.AddOnClickConfirmDialog(this.Kill, this.GetText("ADMIN_EDITUSER", "KILL_USER_CONFIRM"));
 
             this.ReportUserRow.Visible = this.Get<YafBoardSettings>().StopForumSpamApiKey.IsSet();
 
             // load ip address history for user...
-            foreach (var ipAddress in this.IPAddresses)
-            {
-                this.IpAddresses.Text +=
-                    "<a href=\"{0}\" target=\"_blank\" title=\"{1}\">{2}</a><br />".FormatWith(
-                        this.Get<YafBoardSettings>().IPInfoPageURL.FormatWith(ipAddress),
-                        this.GetText("COMMON", "TT_IPDETAILS"),
-                        ipAddress);
-            }
+            this.IPAddresses.Take(5).ForEach(
+                ipAddress => this.IpAddresses.Text +=
+                                 $@"<a href=""{string.Format(this.Get<YafBoardSettings>().IPInfoPageURL, ipAddress)}""
+                                       target=""_blank"" 
+                                       title=""{this.GetText("COMMON", "TT_IPDETAILS")}"">
+                                       {ipAddress}
+                                    </a>
+                                    <br />");
 
             // if no ip disable BanIp checkbox
             if (!this.IPAddresses.Any())
@@ -382,17 +364,16 @@ namespace YAF.Controls
             }
 
             // show post count...
-            this.PostCount.Text = this.AllPostsByUser.Rows.Count.ToString();
+            this.PostCount.Text = this.AllPostsByUser.Count().ToString();
 
             // get user's info
-            this.CurrentUser =
-                LegacyDb.UserList(
-                    this.PageContext.PageBoardID,
-                    this.CurrentUserID.ToType<int?>(),
-                    null,
-                    null,
-                    null,
-                    false).FirstOrDefault();
+            this.CurrentUser = this.GetRepository<User>().UserList(
+                this.PageContext.PageBoardID,
+                this.CurrentUserId.ToType<int?>(),
+                null,
+                null,
+                null,
+                false).FirstOrDefault();
 
             // there is no such user
             if (this.CurrentUser?.Suspended != null)
@@ -400,9 +381,8 @@ namespace YAF.Controls
                 this.SuspendedTo.Visible = true;
 
                 // is user suspended?
-                this.SuspendedTo.Text = "({0} {1})".FormatWith(
-                    this.GetText("PROFILE", "ENDS"),
-                    this.Get<IDateTime>().FormatDateTime(this.CurrentUser.Suspended));
+                this.SuspendedTo.Text =
+                    $"({this.GetText("PROFILE", "ENDS")} {this.Get<IDateTime>().FormatDateTime(this.CurrentUser.Suspended)})";
             }
 
             this.DataBind();
@@ -414,10 +394,9 @@ namespace YAF.Controls
         private void DeleteAllUserMessages()
         {
             // delete posts...
-            var messageIds =
-                (from m in this.AllPostsByUser.AsEnumerable() select m.Field<int>("MessageID")).Distinct().ToList();
+            var messageIds = this.AllPostsByUser.Select(m => m.ID).Distinct().ToList();
 
-            messageIds.ForEach(x => LegacyDb.message_delete(x, true, string.Empty, 1, true, true));
+            messageIds.ForEach(x => this.GetRepository<Message>().Delete(x, true, string.Empty, 1, true, true));
         }
 
         #endregion

@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -25,48 +25,82 @@
 namespace YAF.Core.Model
 {
     using System;
-    using System.Collections.Generic;
     using System.Data;
 
+    using YAF.Core.Extensions;
     using YAF.Types;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
     using YAF.Types.Models;
 
+    /// <summary>
+    /// The WatchForum Repository Extensions
+    /// </summary>
     public static class WatchForumRepositoryExtensions
     {
         #region Public Methods and Operators
 
-        public static void Add(this IRepository<WatchForum> repository, int userID, int forumID)
+        /// <summary>
+        /// The add.
+        /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="userId">
+        /// The user id.
+        /// </param>
+        /// <param name="forumId">
+        /// The forum id.
+        /// </param>
+        public static void Add(this IRepository<WatchForum> repository, int userId, int forumId)
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
-            repository.DbFunction.Query.watchforum_add(UserID: userID, ForumID: forumID, UTCTIMESTAMP: DateTime.UtcNow);
+            repository.DbFunction.Query.watchforum_add(UserID: userId, ForumID: forumId, UTCTIMESTAMP: DateTime.UtcNow);
             repository.FireNew();
         }
 
-        public static int? Check(this IRepository<WatchForum> repository, int userID, int forumID)
+        /// <summary>
+        /// The check.
+        /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="userId">
+        /// The user id.
+        /// </param>
+        /// <param name="forumId">
+        /// The forum id.
+        /// </param>
+        /// <returns>
+        /// The <see cref="int?"/>.
+        /// </returns>
+        public static int? Check(this IRepository<WatchForum> repository, int userId, int forumId)
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
-            return (int?)repository.DbFunction.Scalar.watchforum_check(UserID: userID, ForumID: forumID);
+            var forum = repository.GetSingle(w => w.UserID == userId && w.ForumID == forumId);
+
+            return forum?.ID;
         }
 
-        public static DataTable List(this IRepository<WatchForum> repository, int userID)
+        /// <summary>
+        /// The list as data table.
+        /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="userId">
+        /// The user id.
+        /// </param>
+        /// <returns>
+        /// The <see cref="DataTable"/>.
+        /// </returns>
+        public static DataTable ListAsDataTable(this IRepository<WatchForum> repository, int userId)
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
-            return repository.DbFunction.GetData.watchforum_list(UserID: userID);
-        }
-
-        public static IList<WatchForum> ListTyped(this IRepository<WatchTopic> repository, int userID)
-        {
-            CodeContracts.VerifyNotNull(repository, "repository");
-
-            using (var session = repository.DbFunction.CreateSession())
-            {
-                return session.GetTyped<WatchForum>(r => r.watchtopic_list(UserID: userID));
-            }
+            return repository.DbFunction.GetData.watchforum_list(UserID: userId);
         }
 
         #endregion

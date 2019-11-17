@@ -1,33 +1,43 @@
 /*
- * jQuery File Upload jQuery UI Plugin 8.7.1
+ * jQuery File Upload jQuery UI Plugin
  * https://github.com/blueimp/jQuery-File-Upload
  *
  * Copyright 2013, Sebastian Tschan
  * https://blueimp.net
  *
  * Licensed under the MIT license:
- * http://www.opensource.org/licenses/MIT
+ * https://opensource.org/licenses/MIT
  */
 
 /* jshint nomen:false */
-/* global define, window */
+/* global define, require, window */
 
-(function (factory) {
-    //'use strict';
+;(function (factory) {
+    'use strict';
     if (typeof define === 'function' && define.amd) {
         // Register as an anonymous AMD module:
-        define(['jquery', './jquery.fileupload-ui'], factory);
+        define([
+            'jquery',
+            './jquery.fileupload-ui'
+        ], factory);
+    } else if (typeof exports === 'object') {
+        // Node/CommonJS:
+        factory(
+            require('jquery'),
+            require('./jquery.fileupload-ui')
+        );
     } else {
         // Browser globals:
         factory(window.jQuery);
     }
 }(function ($) {
-    //'use strict';
-    $.widget('blueimp.yafFileUpload', $.blueimp.yafFileUpload, {
+    'use strict';
+
+    $.widget('blueimp.fileupload', $.blueimp.fileupload, {
 
         options: {
             processdone: function (e, data) {
-                data.context.find('.start').uibutton('enable');
+                data.context.find('.start').button('enable');
             },
             progress: function (e, data) {
                 if (data.context) {
@@ -48,7 +58,7 @@
                     ).end()
                     .find('.progress-extended').each(function () {
                         $(this).html(
-                            ($this.data('blueimp-yafFileUpload') ||
+                            ($this.data('blueimp-fileupload') ||
                                     $this.data('fileupload'))
                                 ._renderExtendedProgress(data)
                         );
@@ -60,15 +70,15 @@
             var node = this._super(func, files),
                 showIconText = $(window).width() > 480;
             node.find('.progress').empty().progressbar();
-            node.find('.start').uibutton({
+            node.find('.start').button({
                 icons: {primary: 'ui-icon-circle-arrow-e'},
                 text: showIconText
             });
-            node.find('.cancel').uibutton({
+            node.find('.cancel').button({
                 icons: {primary: 'ui-icon-cancel'},
                 text: showIconText
             });
-            if (node.hasClass('fade-ui')) {
+            if (node.hasClass('fade')) {
                 node.hide();
             }
             return node;
@@ -77,24 +87,24 @@
         _renderDownload: function (func, files) {
             var node = this._super(func, files),
                 showIconText = $(window).width() > 480;
-            node.find('.delete').uibutton({
+            node.find('.delete').button({
                 icons: {primary: 'ui-icon-trash'},
                 text: showIconText
             });
-            if (node.hasClass('fade-ui')) {
+            if (node.hasClass('fade')) {
                 node.hide();
             }
             return node;
         },
 
         _startHandler: function (e) {
-            $(e.currentTarget).uibutton('disable');
+            $(e.currentTarget).button('disable');
             this._super(e);
         },
 
         _transition: function (node) {
             var deferred = $.Deferred();
-            if (node.hasClass('fade-ui')) {
+            if (node.hasClass('fade')) {
                 node.fadeToggle(
                     this.options.transitionDuration,
                     this.options.transitionEasing,
@@ -115,15 +125,15 @@
                 .find('.fileinput-button').each(function () {
                     var input = $(this).find('input:file').detach();
                     $(this)
-                        .uibutton({icons: {primary: 'ui-icon-plusthick'}})
+                        .button({icons: {primary: 'ui-icon-plusthick'}})
                         .append(input);
                 })
                 .end().find('.start')
-                .uibutton({icons: {primary: 'ui-icon-circle-arrow-e'}})
+                .button({icons: {primary: 'ui-icon-circle-arrow-e'}})
                 .end().find('.cancel')
-                .uibutton({ icons: { primary: 'ui-icon-cancel' } })
+                .button({icons: {primary: 'ui-icon-cancel'}})
                 .end().find('.delete')
-                .uibutton({ icons: { primary: 'ui-icon-trash' } })
+                .button({icons: {primary: 'ui-icon-trash'}})
                 .end().find('.progress').progressbar();
         },
 
@@ -133,15 +143,15 @@
                 .find('.fileinput-button').each(function () {
                     var input = $(this).find('input:file').detach();
                     $(this)
-                        .uibutton('destroy')
+                        .button('destroy')
                         .append(input);
                 })
                 .end().find('.start')
-                .uibutton('destroy')
+                .button('destroy')
                 .end().find('.cancel')
-                .vbutton('destroy')
+                .button('destroy')
                 .end().find('.delete')
-                .uibutton('destroy')
+                .button('destroy')
                 .end().find('.progress').progressbar('destroy');
             this._super();
         }

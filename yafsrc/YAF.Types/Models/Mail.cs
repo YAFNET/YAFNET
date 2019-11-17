@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -24,7 +24,6 @@
 namespace YAF.Types.Models
 {
     using System;
-    using System.Data;
     using System.Data.Linq.Mapping;
 
     using ServiceStack.DataAnnotations;
@@ -51,26 +50,25 @@ namespace YAF.Types.Models
         [Alias("MailID")]
         public int ID { get; set; }
 
+        [StringLength(255)]
         public string FromUser { get; set; }
-
-        public string ToUser { get; set; }
-
-        public DateTime Created { get; set; }
-
-        public string Subject { get; set; }
-
-        public string Body { get; set; }
-
+        [StringLength(255)]
         public string FromUserName { get; set; }
-
+        [StringLength(255)]
+        public string ToUser { get; set; }
+        [StringLength(255)]
         public string ToUserName { get; set; }
-
+        [Required]
+        public DateTime Created { get; set; }
+        [Required]
+        [StringLength(100)]
+        public string Subject { get; set; }
+        public string Body { get; set; }
         public string BodyHtml { get; set; }
-
+        [Required]
+        [Default(0)]
         public int SendTries { get; set; }
-
         public DateTime? SendAttempt { get; set; }
-
         public int? ProcessID { get; set; }
 
 

@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -21,7 +21,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Utils
+namespace YAF.Utils.Helpers
 {
     #region Using
 
@@ -32,18 +32,19 @@ namespace YAF.Utils
     using System.Reflection;
 
     using YAF.Types.Attributes;
+    using YAF.Types.Extensions;
 
     #endregion
 
     /// <summary>
-    ///     The enum helper.
+    ///     The Enumerator helper.
     /// </summary>
     public static class EnumHelper
     {
         #region Public Methods and Operators
 
         /// <summary>
-        /// Converts an Enum to a Dictionary
+        /// Converts an enumerator to a Dictionary
         /// </summary>
         /// <typeparam name="T">
         /// </typeparam>
@@ -56,20 +57,7 @@ namespace YAF.Utils
         }
 
         /// <summary>
-        /// Converts an Enum to a Dictionary
-        /// </summary>
-        /// <typeparam name="T">
-        /// </typeparam>
-        /// <returns>
-        /// The <see cref="IDictionary"/>.
-        /// </returns>
-        public static IDictionary<byte, string> EnumToDictionaryByte<T>()
-        {
-            return InternalToDictionary<T, byte>();
-        }
-
-        /// <summary>
-        /// Converts an Enum to a List
+        /// Converts an enumerator to a List
         /// </summary>
         /// <typeparam name="T">
         /// </typeparam>
@@ -78,7 +66,7 @@ namespace YAF.Utils
         /// </returns>
         public static List<T> EnumToList<T>()
         {
-            Type enumType = typeof(T);
+            var enumType = typeof(T);
 
             // Can't use type constraints on value types, so have to do check like this
             if (enumType.BaseType != typeof(Enum))
@@ -86,7 +74,7 @@ namespace YAF.Utils
                 throw new ArgumentException("EnumToList does not support non-enum types");
             }
 
-            Array enumValArray = Enum.GetValues(enumType);
+            var enumValArray = Enum.GetValues(enumType);
 
             return enumValArray.Cast<int>().Select(val => (T)Enum.Parse(enumType, val.ToString(CultureInfo.InvariantCulture))).ToList();
         }
@@ -109,7 +97,7 @@ namespace YAF.Utils
         /// </exception>
         private static IDictionary<TValue, string> InternalToDictionary<TEnum, TValue>()
         {
-            Type enumType = typeof(TEnum);
+            var enumType = typeof(TEnum);
 
             if (enumType.BaseType != typeof(Enum))
             {
@@ -118,22 +106,20 @@ namespace YAF.Utils
 
             var list = new Dictionary<TValue, string>();
 
-            foreach (FieldInfo field in enumType.GetFields(BindingFlags.Static | BindingFlags.GetField | BindingFlags.Public))
+            enumType.GetFields(BindingFlags.Static | BindingFlags.GetField | BindingFlags.Public).ForEach(field =>
             {
                 var value = (TValue)field.GetValue(null);
-                string display = Enum.GetName(enumType, value);
-
-                var attribs = field.GetCustomAttributes(typeof(StringValueAttribute), false) as StringValueAttribute[];
+                var display = Enum.GetName(enumType, value);
 
                 // Return the first if there was a match.
-                if (attribs != null && attribs.Length > 0)
+                if (field.GetCustomAttributes(typeof(StringValueAttribute), false) is StringValueAttribute[] attribs && attribs.Length > 0)
                 {
                     display = attribs[0].StringValue;
                 }
 
                 // add the value...
                 list.Add(value, display);
-            }
+            });
 
             return list;
         }

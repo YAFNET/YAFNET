@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -29,27 +29,29 @@ namespace YAF.Core.Extensions
 
     using YAF.Types.Interfaces;
 
+    /// <summary>
+    /// The have sort order extensions.
+    /// </summary>
     public static class HaveSortOrderExtensions
     {
         #region Public Methods and Operators
 
-        public static IEnumerable<T> ByOptionalSortOrder<T>(this IEnumerable<T> sortEnumerable, int defaultSortOrder = 1000)
+        public static IEnumerable<T> ByOptionalSortOrder<T>(
+            this IEnumerable<T> sortEnumerable,
+            int defaultSortOrder = 1000)
         {
             return sortEnumerable.Select(
                 m =>
-                {
-                    int sortOrder = defaultSortOrder;
-                    var haveSortOrder = (m as IHaveSortOrder);
-
-                    if (haveSortOrder != null)
                     {
-                        sortOrder = haveSortOrder.SortOrder;
-                    }
+                        var sortOrder = defaultSortOrder;
 
-                    return new KeyValuePair<int, T>(sortOrder, m);
-                })
-                .OrderByDescending(m => m.Key)
-                .Select(m => m.Value);
+                        if (m is IHaveSortOrder haveSortOrder)
+                        {
+                            sortOrder = haveSortOrder.SortOrder;
+                        }
+
+                        return new KeyValuePair<int, T>(sortOrder, m);
+                    }).OrderByDescending(m => m.Key).Select(m => m.Value);
         }
 
         #endregion

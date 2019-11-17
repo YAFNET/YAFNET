@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -44,12 +44,6 @@ namespace YAF.Types.Objects
         /// </summary>
         private readonly string _spamWord;
 
-
-        /// <summary>
-        ///   Regular expression object associated with this item...
-        /// </summary>
-        private readonly Regex _regEx;
-
         /// <summary>
         ///   The _active.
         /// </summary>
@@ -71,11 +65,11 @@ namespace YAF.Types.Objects
 
             try
             {
-                this._regEx = new Regex(spamWord, options);
+                this.SpamWordRegEx = new Regex(spamWord, options);
             }
             catch (Exception)
             {
-                this._regEx = null;
+                this.SpamWordRegEx = null;
             }
         }
 
@@ -115,13 +109,7 @@ namespace YAF.Types.Objects
         /// <value>
         /// The spam word reg ex.
         /// </value>
-        public Regex SpamWordRegEx
-        {
-            get
-            {
-                return this._regEx;
-            }
-        }
+        public Regex SpamWordRegEx { get; }
 
         /// <summary>
         /// Gets or sets Options.

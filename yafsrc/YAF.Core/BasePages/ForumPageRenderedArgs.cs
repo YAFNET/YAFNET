@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -32,25 +32,17 @@ namespace YAF.Core
   public class ForumPageRenderedArgs : EventArgs
   {
       /// <summary>
-      /// The Html Text Writer
-      /// </summary>
-    private HtmlTextWriter _writer;
-
-    /// <summary>
     /// Initializes a new instance of the <see cref="ForumPageRenderedArgs"/> class.
     /// </summary>
     /// <param name="writer">The writer.</param>
     public ForumPageRenderedArgs(HtmlTextWriter writer)
     {
-      this._writer = writer;
+      this.Writer = writer;
     }
 
     /// <summary>
     /// Gets the writer.
     /// </summary>
-    public HtmlTextWriter Writer
-    {
-      get { return this._writer; }
-    }
+    public HtmlTextWriter Writer { get; }
   }
 }

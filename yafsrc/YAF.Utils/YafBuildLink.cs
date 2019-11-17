@@ -1,7 +1,7 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -27,72 +27,11 @@ namespace YAF.Utils
 
     using System.Web;
 
-    using YAF.Classes;
+    using YAF.Configuration;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
 
     #endregion
-
-    /// <summary>
-    /// Enumerates forum info messages.
-    /// </summary>
-    public enum InfoMessage
-    {
-        /// <summary>
-        /// after posting to moderated forum
-        /// </summary>
-        Moderated = 1,
-
-        /// <summary>
-        /// informs user he's suspended
-        /// </summary>
-        Suspended = 2,
-
-        /// <summary>
-        /// informs user about registration email being sent
-        /// </summary>
-        RegistrationEmail = 3,
-
-        /// <summary>
-        /// access was denied
-        /// </summary>
-        AccessDenied = 4,
-
-        /// <summary>
-        /// informs user about feature being disabled by admin 
-        /// </summary>
-        Disabled = 5,
-
-        /// <summary>
-        /// informs user about invalid input/request
-        /// </summary>
-        Invalid = 6,
-
-        /// <summary>
-        /// system error
-        /// </summary>
-        Failure = 7,
-
-        /// <summary>
-        /// requires cookies
-        /// </summary>
-        RequiresCookies = 8,
-
-        /// <summary>
-        /// requires JS
-        /// </summary>
-        RequiresEcmaScript = 9,
-
-        /// <summary>
-        /// unsupported JS version
-        /// </summary>
-        EcmaScriptVersionUnsupported = 10,
-
-        /// <summary>
-        /// The message for admin to ask access for admin pages viewing.
-        /// </summary>
-        HostAdminPermissionsAreRequired = 11
-    }
 
     /// <summary>
     /// Static class with link building functions.
@@ -143,8 +82,8 @@ namespace YAF.Utils
         public static string GetLink(ForumPages page, bool fullUrl = false)
         {
             return fullUrl
-                       ? YafFactoryProvider.UrlBuilder.BuildUrlFull("g={0}".FormatWith(page))
-                       : YafFactoryProvider.UrlBuilder.BuildUrl("g={0}".FormatWith(page));
+                       ? YafFactoryProvider.UrlBuilder.BuildUrlFull($"g={page}")
+                       : YafFactoryProvider.UrlBuilder.BuildUrl($"g={page}");
         }
 
         /// <summary>
@@ -159,8 +98,8 @@ namespace YAF.Utils
         public static string GetLink(YafBoardSettings boardSettings, ForumPages page, bool fullUrl = false)
         {
             return fullUrl
-                       ? YafFactoryProvider.UrlBuilder.BuildUrlFull(boardSettings, "g={0}".FormatWith(page))
-                       : YafFactoryProvider.UrlBuilder.BuildUrl(boardSettings, "g={0}".FormatWith(page));
+                       ? YafFactoryProvider.UrlBuilder.BuildUrlFull(boardSettings, $"g={page}")
+                       : YafFactoryProvider.UrlBuilder.BuildUrl(boardSettings, $"g={page}");
         }
 
         /// <summary>
@@ -184,9 +123,8 @@ namespace YAF.Utils
         public static string GetLink(ForumPages page, bool fullUrl, string format, params object[] args)
         {
             return fullUrl
-                       ? YafFactoryProvider.UrlBuilder.BuildUrlFull(
-                           "g={0}&{1}".FormatWith(page, format.FormatWith(args)))
-                       : YafFactoryProvider.UrlBuilder.BuildUrl("g={0}&{1}".FormatWith(page, format.FormatWith(args)));
+                       ? YafFactoryProvider.UrlBuilder.BuildUrlFull($"g={page}&{string.Format(format, args)}")
+                       : YafFactoryProvider.UrlBuilder.BuildUrl($"g={page}&{string.Format(format, args)}");
         }
 
         /// <summary>
@@ -205,10 +143,10 @@ namespace YAF.Utils
             return fullUrl
                        ? YafFactoryProvider.UrlBuilder.BuildUrlFull(
                            boardSettings,
-                           "g={0}&{1}".FormatWith(page, format.FormatWith(args)))
+                           $"g={page}&{string.Format(format, args)}")
                        : YafFactoryProvider.UrlBuilder.BuildUrl(
                            boardSettings,
-                           "g={0}&{1}".FormatWith(page, format.FormatWith(args)));
+                           $"g={page}&{string.Format(format, args)}");
         }
 
         /// <summary>
@@ -333,21 +271,7 @@ namespace YAF.Utils
         /// </param>
         public static void RedirectInfoPage(InfoMessage infoMessage)
         {
-            Redirect(ForumPages.info, "i={0}".FormatWith((int)infoMessage));
-        }
-
-        /// <summary>
-        /// Gets URL of given smiley.
-        /// </summary>
-        /// <param name="icon">
-        /// Name of icon image file.
-        /// </param>
-        /// <returns>
-        /// URL of a smiley.
-        /// </returns>
-        public static string Smiley(string icon)
-        {
-            return "{0}{1}/{2}".FormatWith(YafForumInfo.ForumClientFileRoot, YafBoardFolders.Current.Emoticons, icon);
+            Redirect(ForumPages.info, $"i={infoMessage.ToType<int>()}");
         }
 
         #endregion

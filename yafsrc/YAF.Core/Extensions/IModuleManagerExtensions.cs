@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -22,7 +22,7 @@
  * under the License.
  */
 
-namespace YAF.Core
+namespace YAF.Core.Extensions
 {
     #region Using
 
@@ -31,6 +31,7 @@ namespace YAF.Core
     using System.Linq;
 
     using YAF.Types;
+    using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
 
     #endregion
@@ -62,11 +63,9 @@ namespace YAF.Core
                 dataTable.Columns.Add("Value", typeof(int));
                 dataTable.Columns.Add("Name", typeof(string));
 
-                foreach (var module in moduleManager.GetAll().OrderBy(e => e.Description))
-                {
-                    dataTable.Rows.Add(new object[] { module.ModuleId, module.Description });
-                }
-
+                moduleManager.GetAll().OrderBy(e => e.Description).ForEach(
+                    module => { dataTable.Rows.Add(module.ModuleId, module.Description); });
+                
                 return dataTable;
             }
         }

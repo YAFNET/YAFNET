@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -21,16 +21,15 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Core
+namespace YAF.Core.BaseModules
 {
   #region Using
-
-  using System;
 
   using YAF.Types;
   using YAF.Types.Attributes;
   using YAF.Types.EventProxies;
   using YAF.Types.Interfaces;
+  using YAF.Types.Interfaces.Events;
 
   #endregion
 
@@ -45,7 +44,7 @@ namespace YAF.Core
     /// <summary>
     /// The _stop watch.
     /// </summary>
-    private readonly IStopWatch _stopWatch;
+    private readonly IStopWatch stopWatch;
 
     #endregion
 
@@ -59,7 +58,7 @@ namespace YAF.Core
     /// </param>
     public StartStopWatch([NotNull] IStopWatch stopWatch)
     {
-      this._stopWatch = stopWatch;
+      this.stopWatch = stopWatch;
     }
 
     #endregion
@@ -69,13 +68,7 @@ namespace YAF.Core
     /// <summary>
     /// Gets Order.
     /// </summary>
-    public int Order
-    {
-      get
-      {
-        return 1000;
-      }
-    }
+    public int Order => 1000;
 
     /// <summary>
     /// The handle.
@@ -86,7 +79,7 @@ namespace YAF.Core
     public void Handle(ForumPageInitEvent @event)
     {
       // start the stop watch on init...
-      this._stopWatch.Start();      
+      this.stopWatch.Start();      
     }
 
     /// <summary>
@@ -98,7 +91,7 @@ namespace YAF.Core
     public void Handle(ForumPageUnloadEvent @event)
     {
       // stop the stop watch in case the footer did not...
-      this._stopWatch.Stop();
+      this.stopWatch.Stop();
     }
 
     #endregion

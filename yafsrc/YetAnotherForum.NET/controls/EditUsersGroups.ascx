@@ -1,37 +1,40 @@
 <%@ Control Language="C#" AutoEventWireup="true"
 	Inherits="YAF.Controls.EditUsersGroups" Codebehind="EditUsersGroups.ascx.cs" %>
-<table class="content" width="100%" cellspacing="1" cellpadding="0">
-	<asp:Repeater ID="UserGroups" runat="server">
+
+
+<asp:Repeater ID="UserGroups" runat="server">
 		<HeaderTemplate>
-			<tr>
-				<td class="header1" colspan="2">
+			
+				<h2>
 					<YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="HEAD_USER_GROUPS" LocalizedPage="ADMIN_EDITUSER" />
-                </td>
-			</tr>
-			<tr>
-				<td class="header2">
-					<YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="MEMBER" LocalizedPage="ADMIN_EDITUSER" /></td>
-				<td class="header2">
-					<YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="GROUP" LocalizedPage="COMMON" /></td>
-			</tr>
+                </h2>
+			<hr />
+
 		</HeaderTemplate>
 		<ItemTemplate>
-			<tr>
-				<td class="post">
-					<asp:CheckBox runat="server" ID="GroupMember" Checked='<%# IsMember(DataBinder.Eval(Container.DataItem,"Member")) %>' /></td>
-				<td class="post">
+			    <h6>
+			        <%# DataBinder.Eval(Container.DataItem, "Name") %>
+			    </h6>
+				<div class="custom-control custom-switch">
+					<asp:CheckBox Text="&nbsp;" runat="server" ID="GroupMember" 
+                                  Checked='<%# this.IsMember(DataBinder.Eval(Container.DataItem,"Member")) %>'/>
+                </div>
 					<asp:Label ID="GroupID" Visible="false" runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "GroupID") %>'></asp:Label>
-					<strong>
-						<%# DataBinder.Eval(Container.DataItem, "Name") %>
-					</strong>
-				</td>
-			</tr>
-		</ItemTemplate>
+        </ItemTemplate>
+        <SeparatorTemplate>
+            <hr/>
+        </SeparatorTemplate>
 	</asp:Repeater>
-	<tr>
-		<td class="footer1" colspan="2" align="center">
-		    <asp:CheckBox runat="server" CssClass="form-control" ID="SendEmail"/>
-			<asp:Button ID="Save" runat="server" CssClass="pbutton" OnClick="Save_Click" />
-		</td>
-	</tr>
-</table>
+	<hr/>
+                
+<div class="text-lg-center">
+    <div class="custom-control custom-switch">
+        <asp:CheckBox runat="server" Text="&nbsp;" ID="SendEmail"/>
+                    
+    </div>
+    <YAF:ThemeButton ID="Save" runat="server" 
+                     Type="Primary" 
+                     OnClick="Save_Click" 
+                     Icon="save" 
+                     TextLocalizedTag="SAVE" />
+</div>

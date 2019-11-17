@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -30,7 +30,7 @@ namespace YAF.Core
     using System.Collections.Generic;
     using System.Threading;
 
-    using YAF.Classes;
+    using YAF.Configuration;
     using YAF.Types.Extensions;
     using YAF.Types.Flags;
     using YAF.Utils.Helpers;
@@ -45,7 +45,7 @@ namespace YAF.Core
         #region Constants and Fields
 
         /// <summary>
-        ///   The init user page.
+        ///   The init. user page.
         /// </summary>
         protected bool InitUserPage;
 
@@ -212,6 +212,27 @@ namespace YAF.Core
                                                   : Convert.ToDateTime(this.Page["LastPendingBuddies"]);
 
         /// <summary>
+        /// The last received thanks.
+        /// </summary>
+        public int LastReceivedThanks => this.Page["LastReceivedThanks"].ToString().IsNotSet()
+                                            ? 0
+                                            : this.Page["LastReceivedThanks"].ToType<int>();
+
+        /// <summary>
+        /// The last mention.
+        /// </summary>
+        public int LastMention => this.Page["LastMention"].ToString().IsNotSet()
+                                            ? 0
+                                            : this.Page["LastMention"].ToType<int>();
+
+        /// <summary>
+        /// The last quoted.
+        /// </summary>
+        public int LastQuoted => this.Page["LastQuoted"].ToString().IsNotSet()
+                                      ? 0
+                                      : this.Page["LastQuoted"].ToType<int>();
+
+        /// <summary>
         ///   Gets LastUnreadPm.
         /// </summary>
         public DateTime LastUnreadPm => this.Page["LastUnreadPm"].ToString().IsNotSet()
@@ -368,6 +389,21 @@ namespace YAF.Core
         public int TimeZoneUserOffSet => DateTimeHelper.GetTimeZoneOffset(this.Page["TimeZoneUser"].ToString());
 
         /// <summary>
+        /// The received thanks.
+        /// </summary>
+        public int ReceivedThanks => this.Page["ReceivedThanks"].ToType<int>();
+
+        /// <summary>
+        /// The mention.
+        /// </summary>
+        public int Mention => this.Page["Mention"].ToType<int>();
+
+        /// <summary>
+        /// The quoted.
+        /// </summary>
+        public int Quoted => this.Page["Quoted"].ToType<int>();
+
+        /// <summary>
         ///   Gets the number of private messages that are unread
         /// </summary>
         public int UnreadPrivate => this.Page["UnreadPrivate"].ToType<int>();
@@ -448,7 +484,7 @@ namespace YAF.Core
         /// </returns>
         private bool PageValueAsBool(string field)
         {
-            if (this.Page != null && this.Page[field] != null)
+            if (this.Page?[field] != null)
             {
                 return this.Page[field].ToType<int>() != 0;
             }
@@ -467,7 +503,7 @@ namespace YAF.Core
         /// </returns>
         private int PageValueAsInt(string field)
         {
-            if (this.Page != null && this.Page[field] != null)
+            if (this.Page?[field] != null)
             {
                 return this.Page[field].ToType<int>();
             }

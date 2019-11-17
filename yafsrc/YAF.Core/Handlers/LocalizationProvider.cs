@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -21,6 +21,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF.Core
 {
     #region Using
@@ -30,9 +31,7 @@ namespace YAF.Core
     using System.Threading;
 
     using YAF.Core.Services.Localization;
-    using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Classes.Data;
 
     #endregion
 
@@ -114,10 +113,7 @@ namespace YAF.Core
         /// </summary>
         public string TranslationPage
         {
-            get
-            {
-                return this._transPage;
-            }
+            get => this._transPage;
 
             set
             {
@@ -147,7 +143,7 @@ namespace YAF.Core
             {
                 try
                 {
-                    string cultureCode = string.Empty;
+                    var cultureCode = string.Empty;
 
                     /*string [] tmp = YafContext.Current.Get<HttpRequestBase>().UserLanguages;
                               if ( tmp != null )
@@ -172,9 +168,9 @@ namespace YAF.Core
                 catch (Exception ex)
                 {
                     YafContext.Current.Get<ILogger>()
-                              .Error(ex, "Error In Loading User Language for UserID {0}".FormatWith(YafContext.Current.PageUserID));
+                              .Error(ex, $"Error In Loading User Language for UserID {YafContext.Current.PageUserID}");
 
-                    throw new ApplicationException(string.Format("Error getting User Language.{0}{1}", Environment.NewLine, ex));
+                    throw new ApplicationException($"Error getting User Language.{Environment.NewLine}{ex}");
                 }
 
 #else
@@ -184,6 +180,7 @@ namespace YAF.Core
 					Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture( "en-US" );
 					Thread.CurrentThread.CurrentUICulture = new CultureInfo( "en-US" );
 				}
+
 #endif
 
                 // mark as setup...
@@ -198,17 +195,11 @@ namespace YAF.Core
         {
             if (!this._initLocalization)
             {
-                if (this.BeforeInit != null)
-                {
-                    this.BeforeInit(this, new EventArgs());
-                }
+                this.BeforeInit?.Invoke(this, new EventArgs());
 
                 this.Localization = new YafLocalization(this.TranslationPage);
 
-                if (this.AfterInit != null)
-                {
-                    this.AfterInit(this, new EventArgs());
-                }
+                this.AfterInit?.Invoke(this, new EventArgs());
             }
         }
 

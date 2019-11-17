@@ -26,9 +26,8 @@ namespace YAF.Core.Services
     #region Using
 
     using System.Net;
-    using System.Text.RegularExpressions;
 
-    using YAF.Classes;
+    using YAF.Configuration;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
     using YAF.Types;
@@ -61,9 +60,9 @@ namespace YAF.Core.Services
         #region Properties
 
         /// <summary>
-        /// Gets or sets ServiceLocator.
+        /// Gets the ServiceLocator.
         /// </summary>
-        public IServiceLocator ServiceLocator { get; protected set; }
+        public IServiceLocator ServiceLocator { get; }
 
         #endregion
 
@@ -125,15 +124,8 @@ namespace YAF.Core.Services
         {
             var yafBoardSettings = boardSettings as YafBoardSettings;
 
-            return "{0}{1}{2}?{3}".FormatWith(
-                yafBoardSettings.BaseUrlMask,
-                BaseUrlBuilder.AppPath,
-                "digest.aspx",
-                "token={0}&userid={1}&boardid={2}&showerror={3}".FormatWith(
-                    yafBoardSettings.WebServiceToken,
-                    userId,
-                    yafBoardSettings.BoardID,
-                    showErrors.ToString().ToLower()));
+            return
+                $"{yafBoardSettings.BaseUrlMask}{BaseUrlBuilder.AppPath}digest.aspx?token={yafBoardSettings.WebServiceToken}&userid={userId}&boardid={yafBoardSettings.BoardID}&showerror={showErrors.ToString().ToLower()}";
         }
 
         /// <summary>
@@ -158,14 +150,7 @@ namespace YAF.Core.Services
             CodeContracts.VerifyNotNull(forumEmail, "forumEmail");
             CodeContracts.VerifyNotNull(toEmail, "toEmail");
 
-            var subject = "Active Topics and New Topics on {0}".FormatWith(forumName);
-            var match = Regex.Match(
-                digestHtml, @"\<title\>(?<inner>(.*?))\<\/title\>", RegexOptions.IgnoreCase | RegexOptions.Singleline);
-
-            if (match.Groups["inner"] != null)
-            {
-                subject = match.Groups["inner"].Value.Trim();
-            }
+            var subject = this.Get<ILocalization>().GetTextFormatted("SUBJECT", forumName);
 
             if (sendQueued)
             {

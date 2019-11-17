@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -25,7 +25,7 @@ namespace YAF.Core.Services
 {
   #region Using
 
-  using YAF.Classes;
+  using YAF.Configuration;
   using YAF.Types.Interfaces;
 
   #endregion
@@ -40,13 +40,7 @@ namespace YAF.Core.Services
     /// <summary>
     ///   Gets BoardId.
     /// </summary>
-    public int BoardID
-    {
-      get
-      {
-        return YafControlSettings.Current == null ? 1 : YafControlSettings.Current.BoardID;
-      }
-    }
+    public int BoardID => YafControlSettings.Current == null ? 1 : YafControlSettings.Current.BoardID;
 
     #endregion
   }

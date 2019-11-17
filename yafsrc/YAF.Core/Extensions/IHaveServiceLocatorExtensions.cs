@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -21,71 +21,70 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Core
+namespace YAF.Core.Extensions
 {
-  #region Using
+    #region Using
 
-  using System.Collections.Generic;
-  using System.Linq;
+    using System.Collections.Generic;
+    using System.Linq;
 
-  using YAF.Core.Tasks;
-  using YAF.Types;
-  using YAF.Types.Constants;
-  using YAF.Types.Extensions;
-  using YAF.Types.Interfaces;
-  using YAF.Utils;
-
-  #endregion
-
-  /// <summary>
-  /// The i have service locator extensions.
-  /// </summary>
-  public static class IHaveServiceLocatorExtensions
-  {
-    #region Public Methods
-
-    /// <summary>
-    /// The run startup services.
-    /// </summary>
-    /// <param name="serviceLocator">
-    /// The instnace that has a service locator.
-    /// </param>
-    public static void RunStartupServices([NotNull] this IHaveServiceLocator serviceLocator)
-    {
-      CodeContracts.VerifyNotNull(serviceLocator, "serviceLocator");
-
-      var startupServices =
-        serviceLocator.Get<IEnumerable<IStartupService>>();
-
-      // run critical first...
-      startupServices.Where(s => s.HasInterface<ICriticalStartupService>()).OrderByDescending(i => i.Priority).ForEach(
-        service => service.Run());
-
-      // run secondary...
-      startupServices.Where(s => !s.HasInterface<ICriticalStartupService>()).OrderByDescending(i => i.Priority).ForEach(
-        service => service.Run());
-    }
-
-    /// <summary>
-    /// The with parameters.
-    /// </summary>
-    /// <param name="serviceLocator">
-    /// The service locator.
-    /// </param>
-    /// <param name="parameters">
-    /// The parameters.
-    /// </param>
-    /// <returns>
-    /// </returns>
-    [NotNull]
-    public static IEnumerable<IServiceLocationParameter> WithParameters([NotNull] this IHaveServiceLocator serviceLocator, [NotNull] params IServiceLocationParameter[] parameters)
-    {
-      CodeContracts.VerifyNotNull(serviceLocator, "serviceLocator");
-      CodeContracts.VerifyNotNull(parameters, "parameters");
-
-      return parameters;
-    }
+    using YAF.Core.Tasks;
+    using YAF.Types;
+    using YAF.Types.Extensions;
+    using YAF.Types.Interfaces;
 
     #endregion
-  }
+
+    /// <summary>
+    /// The i have service locator extensions.
+    /// </summary>
+    public static class IHaveServiceLocatorExtensions
+    {
+        #region Public Methods
+
+        /// <summary>
+        /// The run startup services.
+        /// </summary>
+        /// <param name="serviceLocator">
+        /// The instance that has a service locator.
+        /// </param>
+        public static void RunStartupServices([NotNull] this IHaveServiceLocator serviceLocator)
+        {
+            CodeContracts.VerifyNotNull(serviceLocator, "serviceLocator");
+
+            var startupServices = serviceLocator.Get<IEnumerable<IStartupService>>();
+
+            // run critical first...
+            startupServices.Where(s => s.HasInterface<ICriticalStartupService>()).OrderByDescending(i => i.Priority)
+                .ForEach(service => service.Run());
+
+            // run secondary...
+            startupServices.Where(s => !s.HasInterface<ICriticalStartupService>()).OrderByDescending(i => i.Priority)
+                .ForEach(service => service.Run());
+        }
+
+        /// <summary>
+        /// The with parameters.
+        /// </summary>
+        /// <param name="serviceLocator">
+        /// The service locator.
+        /// </param>
+        /// <param name="parameters">
+        /// The parameters.
+        /// </param>
+        /// <returns>
+        /// </returns>
+        [NotNull]
+        public static IEnumerable<IServiceLocationParameter> WithParameters(
+            [NotNull] this IHaveServiceLocator serviceLocator,
+            [NotNull] params IServiceLocationParameter[] parameters)
+        {
+            CodeContracts.VerifyNotNull(serviceLocator, "serviceLocator");
+            CodeContracts.VerifyNotNull(parameters, "parameters");
+
+            return parameters;
+        }
+
+        #endregion
+    }
 }

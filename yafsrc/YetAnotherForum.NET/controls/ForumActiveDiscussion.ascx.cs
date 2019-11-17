@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -30,15 +30,19 @@ namespace YAF.Controls
     using System.Data;
     using System.Web.UI.WebControls;
 
-    using YAF.Classes;
-    using YAF.Classes.Data;
+    using YAF.Configuration;
     using YAF.Core;
+    using YAF.Core.BaseControls;
+    using YAF.Core.Extensions;
+    using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Models;
     using YAF.Utils;
     using YAF.Utils.Helpers;
+    using YAF.Web.Controls;
 
     #endregion
 
@@ -47,20 +51,6 @@ namespace YAF.Controls
     /// </summary>
     public partial class ForumActiveDiscussion : BaseUserControl
     {
-        #region Constants and Fields
-
-        /// <summary>
-        ///  The last post tooltip string.
-        /// </summary>
-        private string lastPostToolTip;
-
-        /// <summary>
-        ///  The first Unread post tooltip string
-        /// </summary>
-        private string firstUnreadPostToolTip;
-
-        #endregion
-
         #region Methods
 
         /// <summary>
@@ -83,24 +73,18 @@ namespace YAF.Controls
             var currentRow = (DataRowView)e.Item.DataItem;
 
             // make message url...
-            string messageUrl = YafBuildLink.GetLinkNotEscaped(
+            var messageUrl = YafBuildLink.GetLinkNotEscaped(
                 ForumPages.posts, "m={0}#post{0}", currentRow["LastMessageID"]);
 
             // get the controls
-            var newPostIcon = (Image)e.Item.FindControl("NewPostIcon");
-            var textMessageLink = (HyperLink)e.Item.FindControl("TextMessageLink");
-            var imageMessageLink = (HyperLink)e.Item.FindControl("ImageMessageLink");
-            var lastPostedImage = (ThemeImage)e.Item.FindControl("LastPostedImage");
-            var imageLastUnreadMessageLink = (HyperLink)e.Item.FindControl("ImageLastUnreadMessageLink");
-            var lastUnreadImage = (ThemeImage)e.Item.FindControl("LastUnreadImage");
-            var lastUserLink = (UserLink)e.Item.FindControl("LastUserLink");
-            var lastPostedDateLabel = (DisplayDateTime)e.Item.FindControl("LastPostDate");
-            var forumLink = (HyperLink)e.Item.FindControl("ForumLink");
+            var postIcon = e.Item.FindControlAs<PlaceHolder>("PostIcon");
+            var textMessageLink = e.Item.FindControlAs<HyperLink>("TextMessageLink");
+            var imageMessageLink = e.Item.FindControlAs<ThemeButton>("GoToLastPost");
+            var imageLastUnreadMessageLink = e.Item.FindControlAs<ThemeButton>("GoToLastUnread");
+            var lastUserLink = e.Item.FindControlAs<UserLink>("LastUserLink");
+            var lastPostedDateLabel = e.Item.FindControlAs<DisplayDateTime>("LastPostDate");
+            var forumLink = e.Item.FindControlAs<HyperLink>("ForumLink");
             imageLastUnreadMessageLink.Visible = this.Get<YafBoardSettings>().ShowLastUnreadPost;
-
-            // populate them...
-            newPostIcon.AlternateText = this.GetText("NEW_POSTS");
-            newPostIcon.ToolTip = this.GetText("NEW_POSTS");
 
             var topicSubject = this.Get<IBadWordReplace>().Replace(this.HtmlEncode(currentRow["Topic"]));
 
@@ -113,43 +97,15 @@ namespace YAF.Controls
                 textMessageLink.Attributes.Add("style", styles);
             }
 
-            if (currentRow["Status"].ToString().IsSet() && this.Get<YafBoardSettings>().EnableTopicStatus)
-            {
-                var topicStatusIcon = this.Get<ITheme>().GetItem("TOPIC_STATUS", currentRow["Status"].ToString());
-
-                if (topicStatusIcon.IsSet() && !topicStatusIcon.Contains("[TOPIC_STATUS."))
-                {
-                    textMessageLink.Text =
-                        @"<img src=""{0}"" alt=""{1}"" title=""{1}"" class=""topicStatusIcon"" />&nbsp;{2}"
-                            .FormatWith(
-                                this.Get<ITheme>().GetItem("TOPIC_STATUS", currentRow["Status"].ToString()),
-                                this.GetText("TOPIC_STATUS", currentRow["Status"].ToString()),
-                                topicSubject);
-                }
-                else
-                {
-                    textMessageLink.Text =
-                        "[{0}]&nbsp;{1}".FormatWith(
-                            this.GetText("TOPIC_STATUS", currentRow["Status"].ToString()), topicSubject);
-                }
-            }
-            else
-            {
-                textMessageLink.Text = topicSubject;
-            }
+            textMessageLink.Text = topicSubject;
 
             textMessageLink.ToolTip =
-                     "{0}".FormatWith(
-                         this.GetTextFormatted(
-                             "VIEW_TOPIC_STARTED_BY",
-                             currentRow[this.Get<YafBoardSettings>().EnableDisplayName ? "UserDisplayName" : "UserName"]
-                                 .ToString()));
+                $"{this.GetTextFormatted("VIEW_TOPIC_STARTED_BY", currentRow[this.Get<YafBoardSettings>().EnableDisplayName ? "UserDisplayName" : "UserName"].ToString())}";
 
             textMessageLink.NavigateUrl = YafBuildLink.GetLinkNotEscaped(
                 ForumPages.posts, "t={0}&find=unread", currentRow["TopicID"]);
 
             imageMessageLink.NavigateUrl = messageUrl;
-            lastPostedImage.LocalizedTitle = this.lastPostToolTip;
 
             if (imageLastUnreadMessageLink.Visible)
             {
@@ -157,8 +113,6 @@ namespace YAF.Controls
                     ForumPages.posts,
                     "t={0}&find=unread",
                     currentRow["TopicID"]);
-
-                lastUnreadImage.LocalizedTitle = this.firstUnreadPostToolTip;
             }
             
             // Just in case...
@@ -175,32 +129,24 @@ namespace YAF.Controls
             {
                 lastPostedDateLabel.DateTime = currentRow["LastPosted"];
 
-                DateTime lastRead =
+                var lastRead =
                     this.Get<IReadTrackCurrentUser>().GetForumTopicRead(
-                        forumId: currentRow["ForumID"].ToType<int>(),
-                        topicId: currentRow["TopicID"].ToType<int>(),
-                        forumReadOverride: currentRow["LastForumAccess"].ToType<DateTime?>() ?? DateTimeHelper.SqlDbMinTime(),
-                        topicReadOverride: currentRow["LastTopicAccess"].ToType<DateTime?>() ?? DateTimeHelper.SqlDbMinTime());
+                        currentRow["ForumID"].ToType<int>(),
+                        currentRow["TopicID"].ToType<int>(),
+                        currentRow["LastForumAccess"].ToType<DateTime?>() ?? DateTimeHelper.SqlDbMinTime(),
+                        currentRow["LastTopicAccess"].ToType<DateTime?>() ?? DateTimeHelper.SqlDbMinTime());
 
-                if (DateTime.Parse(currentRow["LastPosted"].ToString()) > lastRead)
-                {
-                    this.Get<IYafSession>().UnreadTopics++;
-                }
-
-                lastUnreadImage.ThemeTag = (DateTime.Parse(currentRow["LastPosted"].ToString()) > lastRead)
-                                               ? "ICON_NEWEST_UNREAD"
-                                               : "ICON_LATEST_UNREAD";
-                lastPostedImage.ThemeTag = (DateTime.Parse(currentRow["LastPosted"].ToString()) > lastRead)
-                                               ? "ICON_NEWEST"
-                                               : "ICON_LATEST";
-
-                newPostIcon.ImageUrl = this.Get<ITheme>().GetItem(
-                    "ICONS", (DateTime.Parse(currentRow["LastPosted"].ToString()) > lastRead) ? "TOPIC_NEW" : "TOPIC");
+                postIcon.Controls.Add(
+                    new Literal
+                    {
+                        Text = 
+                                $"<span class=\"fa-stack\"><i class=\"fas fa-comment fa-stack-2x {(DateTime.Parse(currentRow["LastPosted"].ToString()) > lastRead ? "text-success" : "text-secondary")}\"></i><i class=\"fas fa-comment fa-stack-1x fa-inverse\"></i></span>"
+                    });
             }
 
-            forumLink.Text = this.Page.HtmlEncode(currentRow["Forum"].ToString());
+            forumLink.Text = this.HtmlEncode(currentRow["Forum"].ToString());
             forumLink.ToolTip = this.GetText("COMMON", "VIEW_FORUM");
-            forumLink.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.topics, "f={0}", currentRow["ForumID"]);
+            forumLink.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.topics, "f={0}&name={1}", currentRow["ForumID"], currentRow["Forum"].ToString());
         }
 
         /// <summary>
@@ -232,24 +178,24 @@ namespace YAF.Controls
 
                 if (YafContext.Current.Settings.CategoryID > 0)
                 {
-                    activeTopics = LegacyDb.topic_latest_in_category(
-                        boardID: this.PageContext.PageBoardID,
-                        categoryID: YafContext.Current.Settings.CategoryID,
-                        numOfPostsToRetrieve: this.Get<YafBoardSettings>().ActiveDiscussionsCount,
-                        pageUserId: this.PageContext.PageUserID,
-                        useStyledNicks: this.Get<YafBoardSettings>().UseStyledNicks,
-                        showNoCountPosts: this.Get<YafBoardSettings>().NoCountForumsInActiveDiscussions,
-                        findLastRead: this.Get<YafBoardSettings>().UseReadTrackingByDatabase);
+                    activeTopics = this.GetRepository<Topic>().LatestInCategoryAsDataTable(
+                        this.PageContext.PageBoardID,
+                        YafContext.Current.Settings.CategoryID,
+                        this.Get<YafBoardSettings>().ActiveDiscussionsCount,
+                        this.PageContext.PageUserID,
+                        this.Get<YafBoardSettings>().UseStyledNicks,
+                        this.Get<YafBoardSettings>().NoCountForumsInActiveDiscussions,
+                        this.Get<YafBoardSettings>().UseReadTrackingByDatabase);
                 }
                 else
                 {
-                    activeTopics = LegacyDb.topic_latest(
-                         boardID: this.PageContext.PageBoardID,
-                         numOfPostsToRetrieve: this.Get<YafBoardSettings>().ActiveDiscussionsCount,
-                         pageUserId: this.PageContext.PageUserID,
-                         useStyledNicks: this.Get<YafBoardSettings>().UseStyledNicks,
-                         showNoCountPosts: this.Get<YafBoardSettings>().NoCountForumsInActiveDiscussions,
-                         findLastRead: this.Get<YafBoardSettings>().UseReadTrackingByDatabase);
+                    activeTopics = this.GetRepository<Topic>().LatestAsDataTable(
+                        this.PageContext.PageBoardID,
+                        this.Get<YafBoardSettings>().ActiveDiscussionsCount,
+                        this.PageContext.PageUserID,
+                        this.Get<YafBoardSettings>().UseStyledNicks,
+                        this.Get<YafBoardSettings>().NoCountForumsInActiveDiscussions,
+                        this.Get<YafBoardSettings>().UseReadTrackingByDatabase);
                 }
 
                 // Set colorOnly parameter to true, as we get all but color from css in the place
@@ -267,16 +213,17 @@ namespace YAF.Controls
                 }
             }
 
-            this.CollapsibleImage.ToolTip = this.GetText("COMMON", "SHOWHIDE");
+            this.RssFeed.Visible = this.Footer.Visible =
+                                       this.Get<IPermissions>()
+                                           .Check(this.Get<YafBoardSettings>().PostLatestFeedAccess);
 
-            bool groupAccess = this.Get<IPermissions>().Check(this.Get<YafBoardSettings>().PostLatestFeedAccess);
-            this.AtomFeed.Visible = this.Get<YafBoardSettings>().ShowAtomLink && groupAccess;
-            this.RssFeed.Visible = this.Get<YafBoardSettings>().ShowRSSLink && groupAccess;
-
-            this.lastPostToolTip = this.GetText("DEFAULT", "GO_LAST_POST");
-            this.firstUnreadPostToolTip = this.GetText("DEFAULT", "GO_LASTUNREAD_POST");
             this.LatestPosts.DataSource = activeTopics;
             this.LatestPosts.DataBind();
+
+            if (activeTopics.Rows.Count == 0)
+            {
+                this.ActiveDiscussionPlaceHolder.Visible = false;
+            }
         }
 
         #endregion

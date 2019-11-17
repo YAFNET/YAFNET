@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -26,6 +26,8 @@ namespace YAF.Providers.Utils
   using System;
   using System.Collections.Specialized;
   using System.Text;
+
+  using YAF.Types.Extensions;
 
   /// <summary>
   /// The transform.
@@ -62,7 +64,7 @@ namespace YAF.Providers.Utils
     /// </returns>
     public static string ToStringDBNull(this object obj)
     {
-      return ToStringDBNull(obj, String.Empty);
+      return ToStringDBNull(obj, string.Empty);
     }
 
     /// <summary>
@@ -122,16 +124,11 @@ namespace YAF.Providers.Utils
       /// The boolean.
       /// </returns>
       public static bool ToBool(this object obj, bool defaultValue)
-    {
-      bool value;
-
-      if (obj != DBNull.Value && obj != null && bool.TryParse(obj.ToString(), out value))
       {
-        return value;  
+          return obj != DBNull.Value && obj != null && bool.TryParse(obj.ToString(), out var value)
+                     ? value
+                     : defaultValue;
       }
-
-      return defaultValue;
-    }
 
     /// <summary>
     /// The to int.
@@ -144,7 +141,7 @@ namespace YAF.Providers.Utils
     /// </returns>
     public static int ToInt(this object obj)
     {
-      return obj != DBNull.Value && obj != null ? Convert.ToInt32(obj) : 0;
+      return obj != DBNull.Value && obj != null ? obj.ToType<int>() : 0;
     }
 
     /// <summary>
@@ -160,12 +157,12 @@ namespace YAF.Providers.Utils
     {
       if (hashedBytes == null || hashedBytes.Length == 0)
       {
-        throw new ArgumentException("hashedBytes is null or empty.", "hashedBytes");
+        throw new ArgumentException("hashedBytes is null or empty.", nameof(hashedBytes));
       }
 
-      var hashedSB = new StringBuilder((hashedBytes.Length * 2) + 2);
+      var hashedSB = new StringBuilder(hashedBytes.Length * 2 + 2);
 
-      foreach (byte b in hashedBytes)
+      foreach (var b in hashedBytes)
       {
         hashedSB.AppendFormat("{0:X2}", b);
       }

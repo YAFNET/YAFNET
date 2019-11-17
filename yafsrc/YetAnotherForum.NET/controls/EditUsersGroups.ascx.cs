@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -31,15 +31,16 @@ namespace YAF.Controls
     using System.Linq;
     using System.Web.UI.WebControls;
 
-    using YAF.Core;
+    using YAF.Core.BaseControls;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
+    using YAF.Core.UsersRoles;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.EventProxies;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Types.Interfaces.Data;
+    using YAF.Types.Interfaces.Events;
     using YAF.Types.Models;
     using YAF.Utils;
     using YAF.Utils.Helpers;
@@ -56,13 +57,7 @@ namespace YAF.Controls
         /// <summary>
         ///   Gets user ID of edited user.
         /// </summary>
-        protected int CurrentUserID
-        {
-            get
-            {
-                return this.PageContext.QueryIDs["u"].ToType<int>();
-            }
-        }
+        protected int CurrentUserID => this.PageContext.QueryIDs["u"].ToType<int>();
 
         #endregion
 
@@ -110,13 +105,12 @@ namespace YAF.Controls
         {
             this.PageContext.QueryIDs = new QueryStringIDHelper("u", true);
 
-            // this needs to be done just once, not during postbacks
+            // this needs to be done just once, not during post-backs
             if (this.IsPostBack)
             {
                 return;
             }
 
-            this.Save.Text = this.GetText("COMMON", "SAVE");
             this.SendEmail.Text = this.GetText("ADMIN_EDITUSER", "SEND_EMAIL");
 
             // bind data
@@ -140,7 +134,7 @@ namespace YAF.Controls
             // get user's name
             var userName = UserMembershipHelper.GetUserNameFromID(this.CurrentUserID);
             var user = UserMembershipHelper.GetUser(userName);
-
+            
             // go through all roles displayed on page
             for (var i = 0; i < this.UserGroups.Items.Count; i++)
             {
@@ -148,16 +142,17 @@ namespace YAF.Controls
                 var item = this.UserGroups.Items[i];
 
                 // get role ID from it
-                var roleID = int.Parse(((Label)item.FindControl("GroupID")).Text);
+                var roleID = int.Parse(item.FindControlAs<Label>("GroupID").Text);
 
                 // get role name
-                var roleName = this.GetRepository<Group>().ListTyped(boardId: this.PageContext.PageBoardID, groupID: roleID).FirstOrDefault().Name;
+                var roleName = this.GetRepository<Group>().List(boardId: this.PageContext.PageBoardID, groupId: roleID)
+                    .FirstOrDefault().Name;
 
                 // is user supposed to be in that role?
-                var isChecked = ((CheckBox)item.FindControl("GroupMember")).Checked;
+                var isChecked = item.FindControlAs<CheckBox>("GroupMember").Checked;
 
                 // save user in role
-                this.Get<IDbFunction>().Query.usergroup_save(this.CurrentUserID, roleID, isChecked);
+                this.GetRepository<UserGroup>().Save(this.CurrentUserID, roleID, isChecked);
 
                 // empty out access table(s)
                 this.GetRepository<Active>().DeleteAll();
@@ -183,8 +178,8 @@ namespace YAF.Controls
                     removedRoles.Add(roleName);
                 }
 
-                // Clearing cache with old permisssions data...
-                this.Get<IDataCache>().Remove(Constants.Cache.ActiveUserLazyData.FormatWith(this.CurrentUserID));
+                // Clearing cache with old permissions data...
+                this.Get<IDataCache>().Remove(string.Format(Constants.Cache.ActiveUserLazyData, this.CurrentUserID));
             }
 
             if (this.SendEmail.Checked)
@@ -216,7 +211,7 @@ namespace YAF.Controls
         private void BindData()
         {
             // get user roles
-            this.UserGroups.DataSource = this.Get<IDbFunction>().GetAsDataTable(cdb => cdb.group_member(this.PageContext.PageBoardID, this.CurrentUserID));
+            this.UserGroups.DataSource = this.GetRepository<Group>().MemberAsDataTable(this.PageContext.PageBoardID, this.CurrentUserID);
 
             // bind data to controls
             this.DataBind();

@@ -1,50 +1,73 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" EnableViewState="false" Inherits="YAF.Controls.ForumActiveDiscussion"
     CodeBehind="ForumActiveDiscussion.ascx.cs" %>
-<%@ Import Namespace="YAF.Types.Interfaces" %>
+
+<div class="col">
 <asp:UpdatePanel ID="UpdateStatsPanel" runat="server" UpdateMode="Conditional">
     <ContentTemplate>
-        <table border="0" class="content activeDiscussionContent" cellspacing="1" cellpadding="0" width="100%">
-            <tr>
-                <td class="header1" colspan="2">
-                    <YAF:CollapsibleImage ID="CollapsibleImage" runat="server" BorderWidth="0" Style="vertical-align: middle"
-                        PanelID='ActiveDiscussions' AttachedControlID="ActiveDiscussionPlaceHolder" />&nbsp;&nbsp;<YAF:LocalizedLabel
-                            ID="ActiveDiscussionHeader" runat="server" LocalizedTag="ACTIVE_DISCUSSIONS" />
-                </td>
-            </tr>
-            <asp:PlaceHolder runat="server" ID="ActiveDiscussionPlaceHolder">
-                <tr>
-                    <td class="header2" colspan="2">
-                        <YAF:LocalizedLabel ID="LatestPostsHeader" runat="server" LocalizedTag="LATEST_POSTS" />
-                    </td>
-                </tr>
-                <asp:Repeater runat="server" ID="LatestPosts" OnItemDataBound="LatestPosts_ItemDataBound">
-                    <ItemTemplate>
-                        <tr>
-                            <td class="post" style="padding-left:10px">
-                                <asp:Image ID="NewPostIcon" runat="server" CssClass="topicStatusIcon" />
-                                &nbsp;<strong><asp:HyperLink ID="TextMessageLink" runat="server" /></strong>
-                                &nbsp;<YAF:LocalizedLabel ID="ByLabel" runat="server" LocalizedTag="BY" LocalizedPage="TOPICS" />
-                                &nbsp;<YAF:UserLink ID="LastUserLink"  runat="server" />&nbsp;(<asp:HyperLink ID="ForumLink" runat="server" />)
-                            </td>
-                            <td class="post" style="width: 30em; text-align: right;">                            
-                                <YAF:DisplayDateTime ID="LastPostDate" runat="server" Format="BothTopic" />
-                                <asp:HyperLink ID="ImageMessageLink" runat="server">
-                                    <YAF:ThemeImage ID="LastPostedImage" runat="server" Style="border: 0" />
-                                </asp:HyperLink>
-                                <asp:HyperLink ID="ImageLastUnreadMessageLink" runat="server">
-                                 <YAF:ThemeImage ID="LastUnreadImage" runat="server"  Style="border: 0" />
-                                </asp:HyperLink>
-                            </td>
-                        </tr>
-                    </ItemTemplate>
-                </asp:Repeater>
-                <tr>
-                    <td class="footer1" align="right" colspan="2">
-                        <YAF:RssFeedLink ID="RssFeed" runat="server" FeedType="LatestPosts"  TitleLocalizedTag="RSSICONTOOLTIPACTIVE" />&nbsp; 
-                        <YAF:RssFeedLink ID="AtomFeed" runat="server" FeedType="LatestPosts" IsAtomFeed="true" ImageThemeTag="ATOMFEED" TextLocalizedTag="ATOMFEED" TitleLocalizedTag="ATOMICONTOOLTIPFORUM" />                           
-                    </td>
-                </tr>
+        <asp:PlaceHolder runat="server" ID="ActiveDiscussionPlaceHolder">
+                        <div class="card mb-3">
+                            <div class="card-header">
+                                <span class="fa-stack">
+                                    <i class="fas fa-comments fa-2x fa-fw text-secondary mr-1"></i>
+                                </span>
+                                <YAF:LocalizedLabel runat="server" ID="ActiveDiscussionHeader"
+                                                    LocalizedTag="ACTIVE_DISCUSSIONS" />
+                            </div>
+                            <div class="card-body">
+                                <asp:Repeater runat="server" ID="LatestPosts" 
+                                              OnItemDataBound="LatestPosts_ItemDataBound">
+                                    <HeaderTemplate>
+                                        <ul class="list-group list-group-flush">
+                                    </HeaderTemplate>
+                                    <ItemTemplate>
+                                        <li class="list-group-item px-0">
+                                            <h6>
+                                                    <asp:PlaceHolder runat="server" ID="PostIcon"></asp:PlaceHolder>
+                                                    <asp:HyperLink ID="TextMessageLink" runat="server" CssClass="font-weight-bold" />&nbsp;
+                                                    (<asp:HyperLink ID="ForumLink" runat="server" />)&nbsp;
+                                                <YAF:ThemeButton runat="server" 
+                                                                     ID="GoToLastPost" 
+                                                                     Size="Small"
+                                                                     Icon="share-square"
+                                                                     Type="OutlineSecondary"
+                                                                     TextLocalizedTag="GO_LAST_POST"
+                                                                     TitleLocalizedTag="GO_LAST_POST"></YAF:ThemeButton>
+                                                    <YAF:ThemeButton runat="server" 
+                                                                     ID="GoToLastUnread" 
+                                                                     Size="Small"
+                                                                     Icon="book-reader"
+                                                                     Type="OutlineSecondary"
+                                                                     TextLocalizedTag="GO_LASTUNREAD_POST"
+                                                                     TitleLocalizedTag="GO_LASTUNREAD_POST"></YAF:ThemeButton>
+                                            </h6>
+                                            <p>
+                                                <YAF:LocalizedLabel ID="ByLabel" runat="server" 
+                                                                       LocalizedTag="BY" 
+                                                                       LocalizedPage="TOPICS" />
+                                                <YAF:UserLink ID="LastUserLink"  runat="server" />
+                                                <span class="fa-stack">
+                                                    <i class="fa fa-calendar-day fa-stack-1x text-secondary"></i>
+                                                    <i class="fa fa-circle fa-badge-bg fa-inverse fa-outline-inverse"></i>
+                                                    <i class="fa fa-clock fa-badge text-secondary"></i>
+                                                </span>
+                                                <YAF:DisplayDateTime ID="LastPostDate" runat="server"
+                                                                     Format="BothTopic" />
+                                            </p> 
+                                        </li>
+                                    </ItemTemplate>
+                                    <FooterTemplate>
+                                        </ul>
+                                    </FooterTemplate>
+                                </asp:Repeater>
+                            </div>
+
+                            <asp:Panel runat="server" ID="Footer" CssClass="card-footer" >
+                                <div class="btn-group float-right" role="group" aria-label="Tools">
+                                    <YAF:RssFeedLink ID="RssFeed" runat="server" FeedType="LatestPosts" />
+                                </div>
+                            </asp:Panel>
+                        </div>
             </asp:PlaceHolder>
-        </table>
     </ContentTemplate>
 </asp:UpdatePanel>
+</div>

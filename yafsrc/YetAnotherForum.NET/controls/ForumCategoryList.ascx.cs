@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -23,109 +23,162 @@
  */
 namespace YAF.Controls
 {
-	#region Using
+    #region Using
 
-	using System;
-	using System.Data;
-	using System.Web.UI.WebControls;
+    using System;
+    using System.Data;
+    using System.Web.UI.WebControls;
 
-	using YAF.Classes;
-	using YAF.Classes.Data;
-	using YAF.Core;
-	using YAF.Core.Services;
-	using YAF.Types;
-	using YAF.Types.Extensions;
-	using YAF.Types.Interfaces;
-	using YAF.Types.Interfaces.Data;
-	using YAF.Utils;
+    using YAF.Configuration;
+    using YAF.Core.BaseControls;
+    using YAF.Core.Model;
+    using YAF.Core.Services;
+    using YAF.Types;
+    using YAF.Types.Constants;
+    using YAF.Types.Extensions;
+    using YAF.Types.Interfaces;
+    using YAF.Types.Models;
+    using YAF.Utils;
+    using YAF.Utils.Helpers;
+    using YAF.Web.Controls;
 
-	#endregion
+    using Forum = YAF.Types.Models.Forum;
 
-	/// <summary>
-	/// The forum category list.
-	/// </summary>
-	public partial class ForumCategoryList : BaseUserControl
-	{
-		#region Methods
+    #endregion
 
-		/// <summary>
-		/// Column count
-		/// </summary>
-		/// <returns>
-		/// The column count.
-		/// </returns>
-		protected int ColumnCount()
-		{
-			int cnt = 5;
+    /// <summary>
+    /// The forum category list.
+    /// </summary>
+    public partial class ForumCategoryList : BaseUserControl
+    {
+        #region Methods
 
-			if (this.Get<YafBoardSettings>().ShowModeratorList && this.Get<YafBoardSettings>().ShowModeratorListAsColumn)
-			{
-				cnt++;
-			}
+        /// <summary>
+        /// Gets the Category Image
+        /// </summary>
+        /// <param name="row">
+        /// The row.
+        /// </param>
+        /// <returns>
+        /// The <see cref="string"/>.
+        /// </returns>
+        public string GetCategoryImage([NotNull] DataRowView row)
+        {
+            var hasCategoryImage = row["CategoryImage"].ToString().IsSet();
 
-			return cnt;
-		}
+            var image = new Image
+                            {
+                                ImageUrl =
+                                    $"{YafForumInfo.ForumClientFileRoot}{YafBoardFolders.Current.Categories}/{row["CategoryImage"]}",
+                                AlternateText = row["Name"].ToString() 
+            };
 
-		/// <summary>
-		/// The mark all_ click.
-		/// </summary>
-		/// <param name="sender">
-		/// The sender.
-		/// </param>
-		/// <param name="e">
-		/// The e.
-		/// </param>
-		protected void MarkAll_Click([NotNull] object sender, [NotNull] EventArgs e)
-		{
-			var markAll = (LinkButton)sender;
+            return hasCategoryImage
+                       ? $"{image.RenderToString()}&nbsp;"
+                       : @"<i class=""fas fa-folder fa-fw text-warning"" aria-hidden=""true""></i>&nbsp;";
+        }
 
-			object categoryId = null;
+        /// <summary>
+        /// The mark all_ click.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        protected void WatchAllClick([NotNull] object sender, [NotNull] EventArgs e)
+        {
+            var markAll = (ThemeButton)sender;
 
-			int icategoryId;
-			if (int.TryParse(markAll.CommandArgument, out icategoryId))
-			{
-				categoryId = icategoryId;
-			}
+            int? categoryId = null;
 
-			DataTable dt = LegacyDb.forum_listread(
-				boardID: this.PageContext.PageBoardID,
-				userID: this.PageContext.PageUserID,
-				categoryID: categoryId,
-				parentID: null,
-				useStyledNicks: false,
-				findLastRead: false);
+            if (int.TryParse(markAll.CommandArgument, out var resultId))
+            {
+                categoryId = resultId;
+            }
 
-			this.Get<IReadTrackCurrentUser>().SetForumRead(dt.AsEnumerable().Select(r => r["ForumID"].ToType<int>()));
+            var dt = this.GetRepository<Forum>().ListReadAsDataTable(
+                this.PageContext.PageBoardID,
+                this.PageContext.PageUserID,
+                categoryId,
+                null,
+                false,
+                false);
 
-			this.BindData();
-		}
+            dt.AsEnumerable().Select(r => r["ForumID"].ToType<int>()).ForEach(
+                forumId => this.GetRepository<WatchForum>().Add(this.PageContext.PageUserID, forumId));
 
-		/// <summary>
-		/// The page_ load.
-		/// </summary>
-		/// <param name="sender">
-		/// The sender.
-		/// </param>
-		/// <param name="e">
-		/// The e.
-		/// </param>
-		protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
-		{
-			this.BindData();
-		}
+            this.PageContext.AddLoadMessage(this.GetText("SAVED_NOTIFICATION_SETTING"), MessageTypes.success);
 
-		/// <summary>
-		/// Bind Data
-		/// </summary>
-		private void BindData()
-		{
-			DataSet ds = this.Get<YafDbBroker>().BoardLayout(
-					this.PageContext.PageBoardID, this.PageContext.PageUserID, this.PageContext.PageCategoryID, null);
+            this.BindData();
+        }
+        
 
-			this.CategoryList.DataSource = ds.Tables["Category"];
-			this.CategoryList.DataBind();
-		}
+        /// <summary>
+         /// The mark all_ click.
+         /// </summary>
+         /// <param name="sender">
+         /// The sender.
+         /// </param>
+         /// <param name="e">
+         /// The e.
+         /// </param>
+        protected void MarkAllClick([NotNull] object sender, [NotNull] EventArgs e)
+        {
+            var markAll = (ThemeButton)sender;
 
-		#endregion
-	}
+            int? categoryId = null;
+
+            if (int.TryParse(markAll.CommandArgument, out var resultId))
+            {
+                categoryId = resultId;
+            }
+
+            var dt = this.GetRepository<Forum>().ListReadAsDataTable(
+                this.PageContext.PageBoardID,
+                this.PageContext.PageUserID,
+                categoryId,
+                null,
+                false,
+                false);
+
+            this.Get<IReadTrackCurrentUser>().SetForumRead(dt.AsEnumerable().Select(r => r["ForumID"].ToType<int>()));
+
+            this.PageContext.AddLoadMessage(this.GetText("MARKALL_MESSAGE"), MessageTypes.success);
+
+            this.BindData();
+        }
+
+        /// <summary>
+        /// The page_ load.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+        {
+            this.BindData();
+        }
+
+        /// <summary>
+        /// Bind Data
+        /// </summary>
+        private void BindData()
+        {
+            var ds = this.Get<YafDbBroker>().BoardLayout(
+                this.PageContext.PageBoardID,
+                this.PageContext.PageUserID,
+                this.PageContext.PageCategoryID,
+                null);
+
+            this.CategoryList.DataSource = ds.Tables["Category"];
+            this.CategoryList.DataBind();
+        }
+
+        #endregion
+    }
 }

@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -27,7 +27,7 @@ namespace YAF.Controls
 
     using System;
 
-    using YAF.Core;
+    using YAF.Core.BaseControls;
     using YAF.Types;
     using YAF.Types.Interfaces;
     using YAF.Utils.Helpers;
@@ -46,7 +46,7 @@ namespace YAF.Controls
         /// </summary>
         public ForumWelcome()
         {
-            this.PreRender += this.ForumWelcome_PreRender;
+            this.PreRender += this.ForumWelcomePreRender;
         }
 
         #endregion
@@ -58,7 +58,7 @@ namespace YAF.Controls
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        private void ForumWelcome_PreRender([NotNull] object sender, [NotNull] EventArgs e)
+        private void ForumWelcomePreRender([NotNull] object sender, [NotNull] EventArgs e)
         {
             this.TimeNow.Text = this.GetTextFormatted("Current_Time", this.Get<IDateTime>().FormatTime(DateTime.UtcNow));
 
@@ -66,13 +66,13 @@ namespace YAF.Controls
 
             if (lastVisit.HasValue && lastVisit.Value != DateTimeHelper.SqlDbMinTime())
             {
-                this.TimeLastVisit.Visible = true;
+                this.LastVisitHolder.Visible = true;
                 this.TimeLastVisit.Text = this.GetTextFormatted(
                     "last_visit", this.Get<IDateTime>().FormatDateTime(lastVisit.Value));
             }
             else
             {
-                this.TimeLastVisit.Visible = false;
+                this.LastVisitHolder.Visible = false;
             }
         }
 

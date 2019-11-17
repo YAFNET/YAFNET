@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -28,11 +28,9 @@ namespace YAF.Pages
 
     using System;
     using System.Web.Security;
-    using System.Web.UI.HtmlControls;
     using System.Web.UI.WebControls;
 
-    using YAF.Classes;
-    using YAF.Controls;
+    using YAF.Configuration;
     using YAF.Core;
     using YAF.Types;
     using YAF.Types.Constants;
@@ -40,6 +38,7 @@ namespace YAF.Pages
     using YAF.Types.Interfaces;
     using YAF.Utils;
     using YAF.Utils.Helpers;
+    using YAF.Web.Extensions;
 
     #endregion
 
@@ -99,24 +98,24 @@ namespace YAF.Pages
 
                 if (securityAndAnswerChanged)
                 {
-                    this.PageContext.AddLoadMessage(this.GetText("SECURITY_CHANGED"), MessageTypes.Success);
+                    this.PageContext.AddLoadMessage(this.GetText("SECURITY_CHANGED"), MessageTypes.success);
                 }
                 else
                 {
-                    this.PageContext.AddLoadMessage(this.GetText("SECURITY_NOT_CHANGED"), MessageTypes.Error);
+                    this.PageContext.AddLoadMessage(this.GetText("SECURITY_NOT_CHANGED"), MessageTypes.danger);
                 }
             }
             else if (this.AnswerOld.Text.IsNotSet())
             {
-                this.PageContext.AddLoadMessage(this.GetText("EMPTY_PASSWORD"), MessageTypes.Warning);
+                this.PageContext.AddLoadMessage(this.GetText("EMPTY_PASSWORD"), MessageTypes.warning);
             }
             else if (this.AnswerNew.Text.IsNotSet())
             {
-                this.PageContext.AddLoadMessage(this.GetText("EMPTY_ANSWER"), MessageTypes.Warning);
+                this.PageContext.AddLoadMessage(this.GetText("EMPTY_ANSWER"), MessageTypes.warning);
             }
             else if (this.QuestionNew.Text.IsNotSet())
             {
-                this.PageContext.AddLoadMessage(this.GetText("EMPTY_QUESTION"), MessageTypes.Warning);
+                this.PageContext.AddLoadMessage(this.GetText("EMPTY_QUESTION"), MessageTypes.warning);
             }
         }
 
@@ -129,14 +128,14 @@ namespace YAF.Pages
         {
             if (Config.IsDotNetNuke)
             {
-                // Not accessbile...
+                // Not accessible...
                 YafBuildLink.AccessDenied();
             }
 
             if (!this.Get<YafBoardSettings>().AllowPasswordChange
                 && !(this.PageContext.IsAdmin || this.PageContext.IsForumModerator))
             {
-                // Not accessbile...
+                // Not accessible...
                 YafBuildLink.AccessDenied();
             }
 
@@ -175,21 +174,19 @@ namespace YAF.Pages
             passwordsNotEqual.ToolTip = passwordsNotEqual.ErrorMessage = this.GetText("PASSWORD_NOT_NEW");
 
             var changeButton =
-                (this.ChangePassword1.ChangePasswordTemplateContainer.FindControlAs<Button>("ChangePasswordPushButton"));
+                this.ChangePassword1.ChangePasswordTemplateContainer.FindControlAs<Button>("ChangePasswordPushButton");
 
             changeButton.Text = this.GetText("CHANGE_BUTTON");
-            (this.ChangePassword1.ChangePasswordTemplateContainer.FindControlAs<Button>("CancelPushButton")).Text =
+            this.ChangePassword1.ChangePasswordTemplateContainer.FindControlAs<Button>("CancelPushButton").Text =
                 this.GetText("CANCEL");
-            (this.ChangePassword1.SuccessTemplateContainer.FindControlAs<Button>("ContinuePushButton")).Text =
-                this.GetText("CONTINUE");
 
             // make failure text...
             // 1. Password incorrect or New Password invalid.
             // 2. New Password length minimum: {0}.t
             // 3. Non-alphanumeric characters required: {1}.
             var failureText = this.GetText("PASSWORD_INCORRECT");
-            failureText += "<br />{0}".FormatWith(this.GetText("PASSWORD_BAD_LENGTH"));
-            failureText += "<br />{0}".FormatWith(this.GetText("PASSWORD_NOT_COMPLEX"));
+            failureText += $"<br />{this.GetText("PASSWORD_BAD_LENGTH")}";
+            failureText += $"<br />{this.GetText("PASSWORD_NOT_COMPLEX")}";
 
             this.ChangePassword1.ChangePasswordFailureText = failureText;
 
@@ -199,16 +196,16 @@ namespace YAF.Pages
             var confirmNewPassword =
                 this.ChangePassword1.ChangePasswordTemplateContainer.FindControlAs<TextBox>("ConfirmNewPassword");
 
-            currentPassword.Attributes.Add("onKeyPress", "doClick('{0}',event)".FormatWith(changeButton.ClientID));
+            currentPassword.Attributes.Add("onKeyPress", $"doClick('{changeButton.ClientID}',event)");
 
-            newPassword.Attributes.Add("onKeyPress", "doClick('{0}',event)".FormatWith(changeButton.ClientID));
+            newPassword.Attributes.Add("onKeyPress", $"doClick('{changeButton.ClientID}',event)");
 
-            confirmNewPassword.Attributes.Add("onKeyPress", "doClick('{0}',event)".FormatWith(changeButton.ClientID));
-
+            confirmNewPassword.Attributes.Add("onKeyPress", $"doClick('{changeButton.ClientID}',event)");
 
             if (this.Get<MembershipProvider>().RequiresQuestionAndAnswer)
             {
-                this.SecurityQuestionAndAnswer.Visible = true;
+                this.QuestionTab.Visible = true;
+                this.QuestionLink.Visible = true;
 
                 this.QuestionOld.Text = this.PageContext.CurrentUserData.Membership.PasswordQuestion;
             }
@@ -216,6 +213,6 @@ namespace YAF.Pages
             this.DataBind();
         }
 
-        #endregion
+       #endregion
     }
 }

@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -57,6 +57,18 @@ namespace YAF.Types.Objects
             this.MessageType = messageType;
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MessageNotification"/> class.
+        /// </summary>
+        /// <param name="message">The message.</param>
+        /// <param name="messageType">Type of the message.</param>
+        public MessageNotification(string message, MessageTypes messageType, string script)
+        {
+            this.Message = message;
+            this.MessageType = messageType;
+            this.Script = script;
+        }
+
         #endregion
 
         #region Properties
@@ -76,6 +88,8 @@ namespace YAF.Types.Objects
         /// The type of the message.
         /// </value>
         public MessageTypes MessageType { get; set; }
+
+        public string Script { get; set; }
 
         #endregion
     }

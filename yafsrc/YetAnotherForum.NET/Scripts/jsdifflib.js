@@ -97,23 +97,23 @@ difflib = {
     },
 
     SequenceMatcher: function (a, b, isjunk) {
-        this.set_seqs = function (a, b) {
+        this.set_seqs = function(a, b) {
             this.set_seq1(a);
             this.set_seq2(b);
-        }
+        };
 
-        this.set_seq1 = function (a) {
+        this.set_seq1 = function(a) {
             if (a == this.a) return;
             this.a = a;
             this.matching_blocks = this.opcodes = null;
-        }
+        };
 
-        this.set_seq2 = function (b) {
+        this.set_seq2 = function(b) {
             if (b == this.b) return;
             this.b = b;
             this.matching_blocks = this.opcodes = this.fullbcount = null;
             this.__chain_b();
-        }
+        };
 
         this.__chain_b = function () {
             var b = this.b;
@@ -157,7 +157,7 @@ difflib = {
 
             this.isbjunk = difflib.__isindict(junkdict);
             this.isbpopular = difflib.__isindict(populardict);
-        }
+        };
 
         this.find_longest_match = function (alo, ahi, blo, bhi) {
             var a = this.a;
@@ -212,7 +212,7 @@ difflib = {
             }
 
             return [besti, bestj, bestsize];
-        }
+        };
 
         this.get_matching_blocks = function () {
             if (this.matching_blocks != null) return this.matching_blocks;
@@ -266,7 +266,7 @@ difflib = {
             non_adjacent.push([la, lb, 0]);
             this.matching_blocks = non_adjacent;
             return this.matching_blocks;
-        }
+        };
 
         this.get_opcodes = function () {
             if (this.opcodes != null) return this.opcodes;
@@ -281,23 +281,23 @@ difflib = {
                 ai = block[0];
                 bj = block[1];
                 size = block[2];
-                tag = '';
+                tag = "";
                 if (i < ai && j < bj) {
-                    tag = 'replace';
+                    tag = "replace";
                 } else if (i < ai) {
-                    tag = 'delete';
+                    tag = "delete";
                 } else if (j < bj) {
-                    tag = 'insert';
+                    tag = "insert";
                 }
                 if (tag) answer.push([tag, i, ai, j, bj]);
                 i = ai + size;
                 j = bj + size;
 
-                if (size) answer.push(['equal', ai, i, bj, j]);
+                if (size) answer.push(["equal", ai, i, bj, j]);
             }
 
             return answer;
-        }
+        };
 
         // this is a generator function in the python lib, which of course is not supported in javascript
         // the reimplementation builds up the grouped opcodes into a list in their entirety and returns that.
@@ -306,7 +306,7 @@ difflib = {
             var codes = this.get_opcodes();
             if (!codes) codes = [["equal", 0, 1, 0, 1]];
             var code, tag, i1, i2, j1, j2;
-            if (codes[0][0] == 'equal') {
+            if (codes[0][0] == "equal") {
                 code = codes[0];
                 tag = code[0];
                 i1 = code[1];
@@ -315,7 +315,7 @@ difflib = {
                 j2 = code[4];
                 codes[0] = [tag, Math.max(i1, i2 - n), i2, Math.max(j1, j2 - n), j2];
             }
-            if (codes[codes.length - 1][0] == 'equal') {
+            if (codes[codes.length - 1][0] == "equal") {
                 code = codes[codes.length - 1];
                 tag = code[0];
                 i1 = code[1];
@@ -334,7 +334,7 @@ difflib = {
                 i2 = code[2];
                 j1 = code[3];
                 j2 = code[4];
-                if (tag == 'equal' && i2 - i1 > nn) {
+                if (tag == "equal" && i2 - i1 > nn) {
                     groups.push([tag, i1, Math.min(i2, i1 + n), j1, Math.min(j2, j1 + n)]);
                     i1 = Math.max(i1, i2 - n);
                     j1 = Math.max(j1, j2 - n);
@@ -343,17 +343,17 @@ difflib = {
                 groups.push([tag, i1, i2, j1, j2]);
             }
 
-            if (groups && groups[groups.length - 1][0] == 'equal') groups.pop();
+            if (groups && groups[groups.length - 1][0] == "equal") groups.pop();
 
             return groups;
-        }
+        };
 
         this.ratio = function () {
             matches = difflib.__reduce(
 							function (sum, triple) { return sum + triple[triple.length - 1]; },
 							this.get_matching_blocks(), 0);
             return difflib.__calculate_ratio(matches, this.a.length + this.b.length);
-        }
+        };
 
         this.quick_ratio = function () {
             var fullbcount, elt;
@@ -381,19 +381,19 @@ difflib = {
             }
 
             return difflib.__calculate_ratio(matches, this.a.length + this.b.length);
-        }
+        };
 
         this.real_quick_ratio = function () {
             var la = this.a.length;
             var lb = this.b.length;
             return _calculate_ratio(Math.min(la, lb), la + lb);
-        }
+        };
 
         this.isjunk = isjunk ? isjunk : difflib.defaultJunkFunction;
         this.a = this.b = null;
         this.set_seqs(a, b);
     }
-}
+};
 
 /***
 This is part of jsdifflib v1.0. <http://snowtide.com/jsdifflib>
@@ -563,8 +563,8 @@ diffview = {
                         addCellsInline(node, null, n++, newTextLines, change);
                     } else if (change == "replace") {
                         botrows.push(node2 = document.createElement("tr"));
-                        if (b < be) addCellsInline(node, b++, null, baseTextLines, "delete");
-                        if (n < ne) addCellsInline(node2, null, n++, newTextLines, "insert");
+                        if (b < be) addCellsInline(node, b++, null, baseTextLines, "bg-danger text-white");
+                        if (n < ne) addCellsInline(node2, null, n++, newTextLines, "bg-success text-white");
                     } else if (change == "delete") {
                         addCellsInline(node, b++, null, baseTextLines, change);
                     } else {
@@ -575,8 +575,8 @@ diffview = {
                     var wdiff = diffString2(b < be ? baseTextLines[b] : "", n < ne ? newTextLines[n] : "");
                     if (b < be) baseTextLines[b] = wdiff.o;
                     if (n < ne) newTextLines[n] = wdiff.n;
-                    b = addCells(node, b, be, baseTextLines, change == "replace" ? "delete" : change);
-                    n = addCells(node, n, ne, newTextLines, change == "replace" ? "insert" : change);
+                    b = addCells(node, b, be, baseTextLines, change == "replace" ? "bg-danger text-white" : change);
+                    n = addCells(node, n, ne, newTextLines, change == "replace" ? "bg-success text-white" : change);
                 }
             }
 
@@ -587,17 +587,17 @@ diffview = {
         var msg = "combined <a href='http://snowtide.com/jsdifflib'>jsdifflib</a> ";
         msg += "and John Resig's <a href='http://ejohn.org/projects/javascript-diff-algorithm/'>diff</a> ";
         msg += "by <a href='http://richardbondi.net'>Richard Bondi</a>";
-        rows.push(node = ctelt("th", "author", msg));
+        rows.push(node = ctelt("th", "author text-muted small", msg));
         node.setAttribute("colspan", inline ? 3 : 4);
 
         tdata.push(node = document.createElement("tbody"));
         for (var idx in rows) node.appendChild(rows[idx]);
 
-        node = celt("table", "diff" + (inline ? " inlinediff" : ""));
+        node = celt("table", "diff" + (inline ? " inlinediff table" : ""));
         for (var idx in tdata) node.appendChild(tdata[idx]);
         return node;
     }
-}
+};
 
 /*
  * Javascript Diff Algorithm
@@ -623,8 +623,8 @@ function escape(s) {
 }
 
 function diffString(o, n) {
-    o = o.replace(/\s+$/, '');
-    n = n.replace(/\s+$/, '');
+    o = o.replace(/\s+$/, "");
+    n = n.replace(/\s+$/, "");
 
     var out = diff(o == "" ? [] : o.split(/\s+/), n == "" ? [] : n.split(/\s+/));
     var str = "";
@@ -644,23 +644,23 @@ function diffString(o, n) {
 
     if (out.n.length == 0) {
         for (var i = 0; i < out.o.length; i++) {
-            str += '<del>' + escape(out.o[i]) + oSpace[i] + "</del>";
+            str += "<del>" + escape(out.o[i]) + oSpace[i] + "</del>";
         }
     } else {
         if (out.n[0].text == null) {
             for (n = 0; n < out.o.length && out.o[n].text == null; n++) {
-                str += '<del>' + escape(out.o[n]) + oSpace[n] + "</del>";
+                str += "<del>" + escape(out.o[n]) + oSpace[n] + "</del>";
             }
         }
 
         for (var i = 0; i < out.n.length; i++) {
             if (out.n[i].text == null) {
-                str += '<ins>' + escape(out.n[i]) + nSpace[i] + "</ins>";
+                str += "<ins>" + escape(out.n[i]) + nSpace[i] + "</ins>";
             } else {
                 var pre = "";
 
                 for (n = out.n[i].row + 1; n < out.o.length && out.o[n].text == null; n++) {
-                    pre += '<del>' + escape(out.o[n]) + oSpace[n] + "</del>";
+                    pre += "<del>" + escape(out.o[n]) + oSpace[n] + "</del>";
                 }
                 str += " " + out.n[i].text + nSpace[i] + pre;
             }
@@ -676,8 +676,8 @@ function randomColor() {
                     (Math.random() * 100) + "%)";
 }
 function diffString2(o, n) {
-    o = o.replace(/\s+$/, '');
-    n = n.replace(/\s+$/, '');
+    o = o.replace(/\s+$/, "");
+    n = n.replace(/\s+$/, "");
 
     var out = diff(o == "" ? [] : o.split(/\s+/), n == "" ? [] : n.split(/\s+/));
 

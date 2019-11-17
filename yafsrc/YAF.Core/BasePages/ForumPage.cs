@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -29,22 +29,22 @@ namespace YAF.Core
     using System.Collections;
     using System.Web.Security;
     using System.Web.UI;
-    using System.Web.UI.HtmlControls;
     using System.Web.UI.WebControls;
 
-    using YAF.Classes;
-    using YAF.Classes.Data;
+    using YAF.Configuration;
+    using YAF.Core.Extensions;
+#if DEBUG
+    using YAF.Core.Data.Profiling;
+#endif
     using YAF.Types;
     using YAF.Types.Attributes;
     using YAF.Types.Constants;
     using YAF.Types.EventProxies;
-    using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Events;
     using YAF.Utils;
     using YAF.Utils.Helpers;
     using YAF.Utils.Helpers.StringUtils;
-
-    using QueryCounter = YAF.Core.Data.Profiling.QueryCounter;
 
     #endregion
 
@@ -67,7 +67,7 @@ namespace YAF.Core
         /// <summary>
         ///   The _trans page.
         /// </summary>
-        private readonly string _transPage = string.Empty;
+        private readonly string _transPage;
 
         /// <summary>
         /// The Unicode Encoder
@@ -80,24 +80,9 @@ namespace YAF.Core
         private bool _noDataBase;
 
         /// <summary>
-        ///   The _show footer.
-        /// </summary>
-        private bool _showFooter = Config.ShowFooter;
-
-        /// <summary>
-        ///   The _show tool bar.
-        /// </summary>
-        private bool _showToolBar = Config.ShowToolBar;
-
-        /// <summary>
         ///   The _top page control.
         /// </summary>
         private Control _topPageControl;
-
-        /// <summary>
-        /// The is protected.
-        /// </summary>
-        private bool _isProtected = true;
 
         #endregion
 
@@ -106,7 +91,7 @@ namespace YAF.Core
         /// <summary>
         ///   Initializes a new instance of the <see cref = "ForumPage" /> class.
         /// </summary>
-        public ForumPage()
+        protected ForumPage()
             : this(string.Empty)
         {
             this.unicodeEncoder = new UnicodeEncoder();
@@ -118,7 +103,7 @@ namespace YAF.Core
         /// <param name="transPage">
         /// The trans page.
         /// </param>
-        public ForumPage([CanBeNull] string transPage)
+        protected ForumPage([CanBeNull] string transPage)
         {
             this.Get<IInjectServices>().Inject(this);
 
@@ -148,21 +133,10 @@ namespace YAF.Core
         #region Properties
 
         /// <summary>
-        ///   Gets or sets a value indicating whether AllowAsPopup.
-        /// </summary>
-        public bool AllowAsPopup { get; protected set; }
-
-        /// <summary>
         ///   Gets a value indicating whether CanLogin.
         /// </summary>
         [Obsolete("Useless property that always returns true. Do not use anymore.")]
-        public bool CanLogin
-        {
-            get
-            {
-                return true;
-            }
-        }
+        public bool CanLogin => true;
 
         /// <summary>
         ///   Gets or sets DataCache.
@@ -188,13 +162,7 @@ namespace YAF.Core
         /// <summary>
         ///   Gets ForumURL.
         /// </summary>
-        public string ForumURL
-        {
-            get
-            {
-                return YafBuildLink.GetLink(ForumPages.forum, true);
-            }
-        }
+        public string ForumURL => YafBuildLink.GetLink(ForumPages.forum, true);
 
         /// <summary>
         ///   Gets or sets a value indicating whether Is Admin Page.
@@ -204,29 +172,12 @@ namespace YAF.Core
         /// <summary>
         ///   Gets a value indicating whether Is Host Admin Only.
         /// </summary>
-        public virtual bool IsHostAdminOnly
-        {
-            get
-            {
-                return false;
-            }
-        }
+        public virtual bool IsHostAdminOnly => false;
 
         /// <summary>
         ///   Gets or sets a value indicating whether Is Protected.
         /// </summary>
-        public virtual bool IsProtected
-        {
-            get
-            {
-                return this._isProtected;
-            }
-
-            protected set
-            {
-                this._isProtected = value;
-            }
-        }
+        public virtual bool IsProtected { get; protected set; } = true;
 
         /// <summary>
         ///   Gets or sets a value indicating whether IsRegisteredPage.
@@ -236,13 +187,7 @@ namespace YAF.Core
         /// <summary>
         ///   Gets the Localization.
         /// </summary>
-        public ILocalization Localization
-        {
-            get
-            {
-                return this.Get<ILocalization>();
-            }
-        }
+        public ILocalization Localization => this.Get<ILocalization>();
 
         /// <summary>
         ///   Gets or sets Logger.
@@ -258,36 +203,18 @@ namespace YAF.Core
         /// <summary>
         ///   Gets cache associated with this page.
         /// </summary>
-        public Hashtable PageCache
-        {
-            get
-            {
-                return this._pageCache;
-            }
-        }
+        public Hashtable PageCache => this._pageCache;
 
         /// <summary>
         ///   Gets the current forum Context (helper reference)
         /// </summary>
-        public YafContext PageContext
-        {
-            get
-            {
-                return this.PageContext();
-            }
-        }
+        public YafContext PageContext => this.PageContext();
 
         /// <summary>
         ///   Gets PageName.
         /// </summary>
         [NotNull]
-        public virtual string PageName
-        {
-            get
-            {
-                return this.GetType().Name.Replace("aspx", string.Empty);
-            }
-        }
+        public virtual string PageName => this.GetType().Name.Replace("aspx", string.Empty);
 
         /// <summary>
         ///   Gets or sets RefreshTime.
@@ -302,47 +229,19 @@ namespace YAF.Core
         /// <summary>
         ///   Gets ServiceLocator.
         /// </summary>
-        public IServiceLocator ServiceLocator
-        {
-            get
-            {
-                return this.PageContext().ServiceLocator;
-            }
-        }
+        public IServiceLocator ServiceLocator => this.PageContext().ServiceLocator;
 
         /// <summary>
         ///   Gets or sets a value indicating whether ShowFooter.
         /// </summary>
-        public bool ShowFooter
-        {
-            get
-            {
-                return this._showFooter;
-            }
-
-            protected set
-            {
-                this._showFooter = value;
-            }
-        }
+        public bool ShowFooter { get; protected set; } = Config.ShowFooter;
 
         /// <summary>
         ///   Gets or sets a value indicating whether 
         ///   if you don't want the menus at top and bottom. 
         ///   Only admin pages will set this to false
         /// </summary>
-        public bool ShowToolBar
-        {
-            get
-            {
-                return this._showToolBar;
-            }
-
-            protected set
-            {
-                this._showToolBar = value;
-            }
-        }
+        public bool ShowToolBar { get; protected set; } = Config.ShowToolBar;
 
         /// <summary>
         ///   Gets TopPageControl.
@@ -356,7 +255,7 @@ namespace YAF.Core
                     return this._topPageControl;
                 }
 
-                if (this.Page != null && this.Page.Header != null)
+                if (Page?.Header != null)
                 {
                     this._topPageControl = this.Page.Header;
                 }
@@ -372,23 +271,14 @@ namespace YAF.Core
         /// <summary>
         ///   Gets the current user.
         /// </summary>
-        public MembershipUser User
-        {
-            get
-            {
-                return this.PageContext.User;
-            }
-        }
+        public MembershipUser User => this.PageContext.User;
 
         /// <summary>
         ///   Sets a value indicating whether  Set to <see langword = "true" /> if this is the start page. Should only be set by the page that initialized the database.
         /// </summary>
         protected bool NoDataBase
         {
-            set
-            {
-                this._noDataBase = value;
-            }
+            set => this._noDataBase = value;
         }
 
         #endregion
@@ -405,60 +295,6 @@ namespace YAF.Core
         public static object IsNull([NotNull] string value)
         {
             return value == null || value.ToLower() == string.Empty ? (object)DBNull.Value : value;
-        }
-
-        /// <summary>
-        /// Gets the collapsible panel image url (expanded or collapsed).
-        /// </summary>
-        /// <param name="panelID">
-        /// ID of collapsible panel
-        /// </param>
-        /// <param name="defaultState">
-        /// Default Panel State
-        /// </param>
-        /// <returns>
-        /// Image URL
-        /// </returns>
-        public string GetCollapsiblePanelImageURL([NotNull] string panelID, CollapsiblePanelState defaultState)
-        {
-            return this.Get<ITheme>().GetCollapsiblePanelImageURL(panelID, defaultState);
-        }
-
-        /// <summary>
-        /// Get a value from the currently configured forum theme.
-        /// </summary>
-        /// <param name="page">
-        /// Page to look under
-        /// </param>
-        /// <param name="tag">
-        /// Theme item
-        /// </param>
-        /// <returns>
-        /// Converted Theme information
-        /// </returns>
-        public string GetThemeContents([NotNull] string page, [NotNull] string tag)
-        {
-            return this.Get<ITheme>().GetItem(page, tag);
-        }
-
-        /// <summary>
-        /// Get a value from the currently configured forum theme.
-        /// </summary>
-        /// <param name="page">
-        /// Page to look under
-        /// </param>
-        /// <param name="tag">
-        /// Theme item
-        /// </param>
-        /// <param name="defaultValue">
-        /// Value to return if the theme item doesn't exist
-        /// </param>
-        /// <returns>
-        /// Converted Theme information or Default Value if it doesn't exist
-        /// </returns>
-        public string GetThemeContents([NotNull] string page, [NotNull] string tag, [NotNull] string defaultValue)
-        {
-            return this.Get<ITheme>().GetItem(page, tag, defaultValue);
         }
 
         /// <summary>
@@ -526,24 +362,10 @@ namespace YAF.Core
         /// </summary>
         protected virtual void CreatePageLinks()
         {
+            // forum index
+            // this.PageLinks.AddRoot();
+
             // Page link creation goes to this method (overloads in descendant classes)
-        }
-
-        /// <summary>
-        /// Inserts the CSS refresh.
-        /// </summary>
-        /// <param name="addTo">The control to add.</param>
-        protected void InsertCssRefresh([NotNull] Control addTo)
-        {
-            if (this.RefreshURL == null || this.RefreshTime < 0)
-            {
-                return;
-            }
-
-            var refresh = new HtmlMeta
-                { HttpEquiv = "Refresh", Content = "{1};url={0}".FormatWith(this.RefreshURL, this.RefreshTime) };
-
-            addTo.Controls.Add(refresh);
         }
 
         /// <summary>
@@ -564,27 +386,7 @@ namespace YAF.Core
             base.Render(writer);
 
             // handle additional rendering if desired...
-            if (this.ForumPageRendered != null)
-            {
-                this.ForumPageRendered(this, new ForumPageRenderedArgs(writer));
-            }
-        }
-
-        /// <summary>
-        /// The setup header elements.
-        /// </summary>
-        protected void SetupHeaderElements()
-        {
-            this.InsertCssRefresh(this.TopPageControl);
-            string themeHeader = this.Get<ITheme>().GetItem("THEME", "HEADER", string.Empty);
-
-            if (!themeHeader.IsSet())
-            {
-                return;
-            }
-
-            var themeLiterial = new Literal { Text = themeHeader.Replace("~", this.Get<ITheme>().ThemeDir) };
-            this.TopPageControl.Controls.Add(themeLiterial);
+            this.ForumPageRendered?.Invoke(this, new ForumPageRenderedArgs(writer));
         }
 
         /// <summary>
@@ -624,6 +426,8 @@ namespace YAF.Core
                 Security.CheckRequestValidity(this.Request);
             }
 
+           // this.CreatePageLinks(); 
+
             // fire preload event...
             this.Get<IRaiseEvent>().Raise(new ForumPagePostLoadEvent());
         }
@@ -638,14 +442,13 @@ namespace YAF.Core
             this.Get<IRaiseEvent>().Raise(new ForumPagePreRenderEvent());
 
             // sets up the head elements in addition to the Css and image elements));
-            this.SetupHeaderElements();
+           // this.SetupHeaderElements();
 
             // setup the forum control header & footer properties
             /*if (this.ForumHeader != null)
             {
                 this.ForumHeader.Visible = this.ShowToolBar;
             }*/
-
             this.ForumFooter.Visible = this.ShowFooter;
         }
 
@@ -659,10 +462,7 @@ namespace YAF.Core
             this.Get<IRaiseEvent>().Raise(new ForumPageUnloadEvent());
 
             // release cache
-            if (this._pageCache != null)
-            {
-                this._pageCache.Clear();
-            }
+            this._pageCache?.Clear();
         }
 
         #endregion

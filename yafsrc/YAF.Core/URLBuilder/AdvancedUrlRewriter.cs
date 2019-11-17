@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -27,7 +27,7 @@ namespace YAF.Core.URLBuilder
 
     using System;
 
-    using YAF.Classes;
+    using YAF.Configuration;
     using YAF.Core.Helpers;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
@@ -53,10 +53,10 @@ namespace YAF.Core.URLBuilder
         /// </returns>
         public override string BuildUrl(string url)
         {
-            var newUrl = "{0}{1}?{2}".FormatWith(AppPath, Config.ForceScriptName ?? ScriptName, url);
+            var newUrl = $"{AppPath}{Config.ForceScriptName ?? ScriptName}?{url}";
 
             // create scriptName
-            var scriptName = "{0}{1}".FormatWith(AppPath, Config.ForceScriptName ?? ScriptName);
+            var scriptName = $"{AppPath}{Config.ForceScriptName ?? ScriptName}";
 
             // get the base script file from the config -- defaults to, well, default.aspx :)
             var scriptFile = Config.BaseScriptFile;
@@ -65,6 +65,10 @@ namespace YAF.Core.URLBuilder
             {
                 return newUrl;
             }
+
+            const string gsr = "getsearchresults";
+            scriptName = scriptName.Replace(gsr, scriptFile);
+            newUrl = newUrl.Replace(gsr, scriptFile);
 
             if (scriptName.EndsWith(scriptFile))
             {
@@ -172,20 +176,17 @@ namespace YAF.Core.URLBuilder
 
                             if (parser["f"].IsSet())
                             {
-                                description +=
-                                    "_{0}".FormatWith(UrlRewriteHelper.GetForumName(parser["f"].ToType<int>()));
+                                description += $"_{UrlRewriteHelper.GetForumName(parser["f"].ToType<int>())}";
                             }
 
                             if (parser["t"].IsSet())
                             {
-                                description +=
-                                    "_{0}".FormatWith(UrlRewriteHelper.GetTopicName(parser["t"].ToType<int>()));
+                                description += $"_{UrlRewriteHelper.GetTopicName(parser["t"].ToType<int>())}";
                             }
 
                             if (parser["c"].IsSet())
                             {
-                                description +=
-                                    "_{0}".FormatWith(UrlRewriteHelper.GetCategoryName(parser["c"].ToType<int>()));
+                                description += $"_{UrlRewriteHelper.GetCategoryName(parser["c"].ToType<int>())}";
                             }
 
                             if (parser["ft"].IsSet())
@@ -214,14 +215,14 @@ namespace YAF.Core.URLBuilder
                     newUrl += parser[useKey];
                 }
 
-                // handle pager linkse
+                // handle pager links
                 if (handlePage && parser["p"] != null && !isFeed)
                 {
                     var page = parser["p"].ToType<int>();
 
                     if (page != 1)
                     {
-                        description += "/page{0}".FormatWith(page);
+                        description += $"/page{page}";
                     }
 
                     parser.Parameters.Remove("p");
@@ -232,28 +233,28 @@ namespace YAF.Core.URLBuilder
                     if (parser["ft"] != null)
                     {
                         var page = parser["ft"].ToType<int>();
-                        newUrl += "ft{0}".FormatWith(page);
+                        newUrl += $"ft{page}";
                         parser.Parameters.Remove("ft");
                     }
 
                     if (parser["f"] != null)
                     {
                         var page = parser["f"].ToType<int>();
-                        newUrl += "f{0}".FormatWith(page);
+                        newUrl += $"f{page}";
                         parser.Parameters.Remove("f");
                     }
 
                     if (parser["t"] != null)
                     {
                         var page = parser["t"].ToType<int>();
-                        newUrl += "t{0}".FormatWith(page);
+                        newUrl += $"t{page}";
                         parser.Parameters.Remove("t");
                     }
                 }
 
                 if (parser["find"] != null)
                 {
-                    newUrl += "find{0}".FormatWith(parser["find"].Trim());
+                    newUrl += $"find{parser["find"].Trim()}";
                     parser.Parameters.Remove("find");
                 }
 
@@ -264,15 +265,15 @@ namespace YAF.Core.URLBuilder
                         description = description.Remove(description.Length - 1, 1);
                     }
 
-                    newUrl += "-{0}".FormatWith(description);
+                    newUrl += $"-{description}";
                 }
 
-                var restURL = parser.CreateQueryString(new[] { "g", useKey, "name" });
+                var restUrl = parser.CreateQueryString(new[] { "g", useKey, "name" });
 
                 // append to the url if there are additional (unsupported) parameters
-                if (restURL.Length > 0)
+                if (restUrl.Length > 0)
                 {
-                    newUrl += "?{0}".FormatWith(restURL);
+                    newUrl += $"?{restUrl}";
                 }
 
                 if (newUrl.EndsWith("/forum"))
@@ -284,7 +285,7 @@ namespace YAF.Core.URLBuilder
                 // add anchor
                 if (parser.HasAnchor)
                 {
-                    newUrl += "#{0}".FormatWith(parser.Anchor);
+                    newUrl += $"#{parser.Anchor}";
                 }
             }
 

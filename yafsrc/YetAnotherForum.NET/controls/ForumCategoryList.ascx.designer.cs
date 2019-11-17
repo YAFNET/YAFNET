@@ -7,11 +7,13 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace YAF.Controls {
-    
-    
-    public partial class ForumCategoryList {
-        
+namespace YAF.Controls
+{
+
+
+    public partial class ForumCategoryList
+    {
+
         /// <summary>
         /// UpdatePanelCategory control.
         /// </summary>
@@ -20,7 +22,7 @@ namespace YAF.Controls {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.UpdatePanel UpdatePanelCategory;
-        
+
         /// <summary>
         /// CategoryList control.
         /// </summary>

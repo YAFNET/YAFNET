@@ -1,62 +1,74 @@
 ﻿<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.attachments" Codebehind="attachments.ascx.cs" %>
-<%@ Import Namespace="YAF.Types.Interfaces" %>
+
 <%@ Import Namespace="YAF.Types.Extensions" %>
-<%@ Import Namespace="YAF.Types.Constants" %>
-<%@ Import Namespace="YAF.Utils" %>
+
 <YAF:PageLinks runat="server" ID="PageLinks" />
-<div class="DivTopSeparator">
+
+<div class="row">
+    <div class="col-xl-12">
+        <h2><YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="TITLE" /></h2>
+    </div>
 </div>
-<YAF:ThemeButton ID="DeleteAttachment" runat="server" CssClass="yafcssbigbutton rightItem"
-    TextLocalizedTag="BUTTON_DELETEATTACHMENT" TitleLocalizedTag="BUTTON_DELETEATTACHMENT_TT"
-    OnLoad="Delete_Load" OnClick="DeleteAttachments_Click" />
-<YAF:Pager ID="PagerTop" runat="server" OnPageChange="PagerTop_PageChange" />
-<table class="content" width="100%" cellspacing="1" cellpadding="0">
-	<tr>
-		<td class="header1" colspan="4">
-			<YAF:LocalizedLabel ID="Title" LocalizedTag="TITLE" runat="server" />
-		</td>
-	</tr>
-	<asp:Repeater runat="server" ID="List" OnItemCommand="List_ItemCommand">
-		<HeaderTemplate>
-			<tr>
-			    <td class="header2" colspan="4">
-					&nbsp;
-				</td>
-			</tr>
-		</HeaderTemplate>
-		<ItemTemplate>
-			<tr>
-			    <td class="post" width="10px">
-			        <asp:CheckBox ID="Selected" runat="server" />
-			    </td>
-			    <td class="post" width="30px">
-					<%# this.GetPreviewImage(Container.DataItem) %>
-				</td>
-				<td class="post">
-					<%# this.Eval( "FileName") %> <em>(<%# this.Eval("Bytes").ToType<int>() / 1024%> kb)</em>
-				</td>
-                <td class="post" align="right">
-					<YAF:ThemeButton ID="ThemeButtonDelete" CssClass="yaflittlebutton" 
-                                    CommandName='delete' CommandArgument='<%# this.Eval( "AttachmentID") %>' 
-                                    TitleLocalizedTag="DELETE" 
-                                    ImageThemePage="ICONS" ImageThemeTag="DELETE_SMALL_ICON"
-                                    TextLocalizedTag="DELETE"
-                                    OnLoad="Delete_Load"  runat="server">
+
+<div class="row">
+<div class="col-sm-auto">
+    <YAF:ProfileMenu ID="ProfileMenu1" runat="server" />
+</div>
+<div class="col">
+<div class="row">
+    <div class="col">
+        <div class="card mb-3">
+            <div class="card-header">
+                <i class="fa fa-paperclip fa-fw text-secondary"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" 
+                                                                                  LocalizedTag="TITLE" />
+            </div>
+            <div class="card-body">
+                <YAF:Pager ID="PagerTop" runat="server" OnPageChange="PagerTop_PageChange" />
+                <asp:Repeater runat="server" ID="List" OnItemCommand="List_ItemCommand">
+                    <HeaderTemplate>
+                        <ul class="list-group list-group-flush mt-3">
+                    </HeaderTemplate>
+                    <ItemTemplate>
+                        <li class="list-group-item">
+                            
+                                <asp:CheckBox ID="Selected" runat="server"
+                                              Text="&nbsp;"
+                                              CssClass="custom-control custom-checkbox d-inline-flex" />
+                                <%# this.GetPreviewImage(Container.DataItem) %>
+                                <%# this.Eval( "FileName") %> <em>(<%# this.Eval("Bytes").ToType<int>() / 1024%> kb)</em>
+                            
+                                <YAF:ThemeButton ID="ThemeButtonDelete" runat="server"
+                                                 CommandName='delete' CommandArgument='<%# this.Eval( "ID") %>' 
+                                                 TitleLocalizedTag="DELETE" 
+                                                 TextLocalizedTag="DELETE"
+                                                 Icon="trash"
+                                                 Type="Danger"
+                                                 ReturnConfirmText='<%#this.GetText("ATTACHMENTS", "CONFIRM_DELETE") %>'>
                                 </YAF:ThemeButton>
-				</td>
-			</tr>
-		</ItemTemplate>
-	</asp:Repeater>
-	<tr class="footer1">
-		<td colspan="4" align="center">
-			<asp:Button runat="server" CssClass="pbutton" ID="Back" OnClick="Back_Click" />
-		</td>
-	</tr>
-</table>
-<YAF:ThemeButton ID="DeleteAttachment2" runat="server" CssClass="yafcssbigbutton rightItem"
-    TextLocalizedTag="BUTTON_DELETEATTACHMENT" TitleLocalizedTag="BUTTON_DELETEATTACHMENT_TT"
-    OnLoad="Delete_Load" OnClick="DeleteAttachments_Click" />
-<YAF:Pager ID="PagerBottom" runat="server" LinkedPager="PagerTop" />
-<div id="DivSmartScroller">
-	<YAF:SmartScroller ID="SmartScroller1" runat="server" />
+                            
+                        </li>
+                    </ItemTemplate>
+                    <FooterTemplate>
+                        </ul>
+                    </FooterTemplate>
+                </asp:Repeater>
+                <YAF:ThemeButton ID="DeleteAttachment2" runat="server"
+                                 TextLocalizedTag="BUTTON_DELETEATTACHMENT" TitleLocalizedTag="BUTTON_DELETEATTACHMENT_TT"
+                                 ReturnConfirmText='<%#this.GetText("ATTACHMENTS", "CONFIRM_DELETE") %>'
+                                 OnClick="DeleteAttachments_Click"
+                                 Icon="trash"
+                                 Type="Danger"
+                                 CssClass="m-3"/>
+                <YAF:Pager ID="PagerBottom" runat="server" LinkedPager="PagerTop" />
+            </div>
+            <div class="card-footer text-center">
+               <YAF:ThemeButton runat="server" ID="Back" 
+                                OnClick="Back_Click"
+                                Type="Secondary"
+                                Icon="reply"/>
+            </div>
+        </div>
+    </div>
 </div>
+</div>
+    </div>

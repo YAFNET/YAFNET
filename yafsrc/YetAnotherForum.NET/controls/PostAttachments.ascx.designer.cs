@@ -7,29 +7,13 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace YAF.Controls {
-    
-    
-    public partial class PostAttachments {
-        
-        /// <summary>
-        /// CollapsibleImage control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Controls.CollapsibleImage CollapsibleImage;
-        
-        /// <summary>
-        /// NewPostOptionsLabel control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel NewPostOptionsLabel;
-        
+namespace YAF.Controls
+{
+
+
+    public partial class PostAttachments
+    {
+
         /// <summary>
         /// AttachmentsHolder control.
         /// </summary>
@@ -38,7 +22,7 @@ namespace YAF.Controls {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.PlaceHolder AttachmentsHolder;
-        
+
         /// <summary>
         /// LocalizedLabel1 control.
         /// </summary>
@@ -46,8 +30,8 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel1;
-        
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel1;
+
         /// <summary>
         /// LoadingText control.
         /// </summary>
@@ -55,17 +39,8 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LoadingText;
-        
-        /// <summary>
-        /// LoadingImage control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Image LoadingImage;
-        
+        protected global::YAF.Web.Controls.LocalizedLabel LoadingText;
+
         /// <summary>
         /// ThemeButton1 control.
         /// </summary>
@@ -73,6 +48,6 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel ThemeButton1;
+        protected global::YAF.Web.Controls.LocalizedLabel ThemeButton1;
     }
 }

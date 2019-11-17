@@ -1,161 +1,171 @@
-﻿<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.postmessage" Codebehind="postmessage.ascx.cs" %>
-<%@ Import Namespace="YAF.Core" %>
-<%@ Register TagPrefix="YAF" TagName="smileys" Src="../controls/smileys.ascx" %>
+﻿<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.postmessage" CodeBehind="postmessage.ascx.cs" %>
 <%@ Register TagPrefix="YAF" TagName="LastPosts" Src="../controls/LastPosts.ascx" %>
 <%@ Register TagPrefix="YAF" TagName="PostOptions" Src="../controls/PostOptions.ascx" %>
 <%@ Register TagPrefix="YAF" TagName="PostAttachments" Src="../controls/PostAttachments.ascx" %>
 <%@ Register TagPrefix="YAF" TagName="PollList" Src="../controls/PollList.ascx" %>
-<%@ Register TagPrefix="YAF" TagName="AttachmentsUploadDialog" Src="../controls/AttachmentsUploadDialog.ascx" %>
-<YAF:PageLinks ID="PageLinks" runat="server" />
-<YAF:PollList ID="PollList"  ShowButtons="true" PollGroupId='<%# GetPollGroupID() %>'  runat="server"/>
-<table align="center" cellpadding="4" cellspacing="1" class="content" width="100%">
-	<tr>
-		<td align="center" class="header1" colspan="2">
-			<asp:Label ID="Title" runat="server" />
-		</td>
-	</tr>
-          
-	<tr id="PreviewRow" runat="server" visible="false">
-		<td class="postformheader" valign="top">
-			<YAF:LocalizedLabel runat="server" LocalizedTag="previewtitle" />
-		</td>
-		<td id="PreviewCell" runat="server" class="post previewPostContent ceebox" valign="top">
-			<YAF:MessagePost ID="PreviewMessagePost" runat="server" />
-		</td>
-	</tr>
-	<tr id="SubjectRow" runat="server">
-		<td class="postformheader" width="20%">
-			<YAF:LocalizedLabel ID="TopicSubjectLabel" runat="server" LocalizedTag="subject" />
-		</td>
-		<td class="post" width="80%">
-			<asp:TextBox ID="TopicSubjectTextBox" runat="server" CssClass="edit" MaxLength="100" Width="400" autocomplete="off" />
-		</td>
-	</tr>
-    <tr id="DescriptionRow" visible="false" runat="server">
-		<td class="postformheader" width="20%">
-			<YAF:LocalizedLabel ID="TopicDescriptionLabel" runat="server" LocalizedTag="description" />
-		</td>
-		<td class="post" width="80%">
-			<asp:TextBox ID="TopicDescriptionTextBox" runat="server" CssClass="edit" MaxLength="100" Width="400" autocomplete="off" />
-		</td>
-	</tr>
-	<tr id="BlogRow" runat="server" visible="false">
-		<td class="postformheader" width="20%">
-			Post to blog?
-		</td>
-		<td class="post" width="80%">
-			<asp:CheckBox ID="PostToBlog" runat="server" />
-			Blog Password:
-			<asp:TextBox ID="BlogPassword" runat="server" TextMode="Password" Width="400" />
-			<asp:HiddenField ID="BlogPostID" runat="server" />
-		</td>
-	</tr>
-	<tr id="FromRow" runat="server">
-		<td class="postformheader" width="20%">
-			<YAF:LocalizedLabel runat="server" LocalizedTag="from" />
-		</td>
-		<td class="post" width="80%">
-			<asp:TextBox ID="From" runat="server" CssClass="edit" Width="400" />
-		</td>
-	</tr>
-    <tr id="StatusRow" visible="false" runat="server">
-		<td class="postformheader" width="20%">
-			<YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="Status" />
-		</td>
-		<td class="post" width="80%">
-			<asp:DropDownList ID="TopicStatus" runat="server" CssClass="standardSelectMenu" Width="400">
-            </asp:DropDownList>
-		</td>
-	</tr>	
-	<tr id="PriorityRow" runat="server">
-		<td class="postformheader" width="20%">
-			<YAF:LocalizedLabel runat="server" LocalizedTag="priority" />
-		</td>
-		<td class="post" width="80%">
-			<asp:DropDownList ID="Priority" runat="server" CssClass="standardSelectMenu" Width="400" />
-		</td>
-	</tr>
-    <tr id="StyleRow" runat="server">
-		<td class="postformheader" width="20%">
-			<YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="STYLES" />
-		</td>
-		<td class="post" width="80%">
-			<asp:TextBox id="TopicStylesTextBox" runat="server" CssClass="edit" Width="400" />
-		</td>
-	</tr>	
-	<tr>
-		<td class="postformheader" valign="top" width="20%">
-			<YAF:LocalizedLabel runat="server" LocalizedTag="message" />
-			<br />
-			<YAF:smileys runat="server" OnClick="insertsmiley" />
-			<br />
-			<YAF:LocalizedLabel ID="LocalizedLblMaxNumberOfPost" runat="server" LocalizedTag="MAXNUMBEROF" />
-		</td>
-		<td id="EditorLine" runat="server" class="post" width="80%">
-			<!-- editor goes here -->
-		</td>
-	</tr>
-    
-    <YAF:PostOptions id="PostOptions1" runat="server">
-    </YAF:PostOptions>
-    
-    <YAF:PostAttachments id="PostAttachments1" runat="server" Visible="False">
-    </YAF:PostAttachments>
+<%@ Register TagPrefix="YAF" TagName="AttachmentsUploadDialog" Src="../Dialogs/AttachmentsUpload.ascx" %>
 
-    <tr id="tr_captcha1" runat="server" visible="false">
-		<td class="postformheader" valign="top">
-			<YAF:LocalizedLabel runat="server" LocalizedTag="Captcha_Image" />
-		</td>
-		<td class="post">
-			<asp:Image ID="imgCaptcha" runat="server" />
-		</td>
-	</tr>
-	<tr id="tr_captcha2" runat="server" visible="false">
-		<td class="postformheader" valign="top">
-			<YAF:LocalizedLabel runat="server" LocalizedTag="Captcha_Enter" />
-		</td>
-		<td class="post">
-			<asp:TextBox ID="tbCaptcha" runat="server" />
-		</td>
-	</tr>
-	<tr id="EditReasonRow" runat="server">
-		<td class="postformheader" width="20%">
-			<YAF:LocalizedLabel runat="server" LocalizedTag="EditReason" />
-		</td>
-		<td class="post" width="80%">
-			<asp:TextBox ID="ReasonEditor" runat="server" CssClass="edit" Width="400" />
-		</td>
-	</tr>
-	<tr>
-		<td class="footer1">
-			&nbsp;
-		</td>
-		<td class="footer1">
-			<YAF:ThemeButton ID="Preview" runat="server" CssClass="yafcssbigbutton leftItem"
-				OnClick="Preview_Click" TitleLocalizedTag="PREVIEW_TITLE"  TextLocalizedTag="PREVIEW" />
-			<YAF:ThemeButton ID="PostReply" TitleLocalizedTag="SAVE_TITLE"  runat="server" CssClass="yafcssbigbutton leftItem"
-				OnClick="PostReply_Click" TextLocalizedTag="SAVE" />
-			<YAF:ThemeButton ID="Cancel" TitleLocalizedTag="CANCEL_TITLE"  runat="server" CssClass="yafcssbigbutton leftItem" OnClick="Cancel_Click"
-				TextLocalizedTag="CANCEL" />
-		</td>
-	</tr>
-</table>
-<br />
+
+<YAF:PageLinks ID="PageLinks" runat="server" />
+
+<YAF:PollList ID="PollList" ShowButtons="true" PollGroupId='<%# this.GetPollGroupID() %>' runat="server" />
+
+<div class="row">
+    <div class="col-xl-12">
+        <h2></h2>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col">
+        <div class="card mb-3">
+            <div class="card-header">
+                <i class="fas fa-comment-dots fa-fw text-secondary"></i>&nbsp;<asp:Label ID="Title" runat="server" />
+            </div>
+            <div class="card-body">
+                <asp:PlaceHolder ID="PreviewRow" runat="server" Visible="false">
+                    <asp:Label runat="server">
+                        <YAF:LocalizedLabel runat="server" LocalizedTag="previewtitle" />
+                    </asp:Label>
+                    <asp:PlaceHolder ID="PreviewCell" runat="server">
+                        <YAF:Alert Type="light" runat="server">
+                            <YAF:MessagePost ID="PreviewMessagePost" runat="server" />
+                        </YAF:Alert>
+                    </asp:PlaceHolder>
+                </asp:PlaceHolder>
+                <asp:PlaceHolder ID="SubjectRow" runat="server">
+                    <div class="form-group">
+                        <asp:Label runat="server" AssociatedControlID="TopicSubjectTextBox">
+                            <YAF:LocalizedLabel ID="TopicSubjectLabel" runat="server" LocalizedTag="subject" />
+                        </asp:Label>
+                        <asp:TextBox ID="TopicSubjectTextBox" runat="server"
+                            CssClass="form-control"
+                            MaxLength="100"
+                            autocomplete="off" />
+                    </div>
+                    <div id="SearchResultsPlaceholder"
+                        data-url='<%=YafForumInfo.ForumClientFileRoot %>'
+                        data-userid='<%= YafContext.Current.PageUserID %>'>
+                    </div>
+                </asp:PlaceHolder>
+                <asp:PlaceHolder ID="DescriptionRow" Visible="false" runat="server">
+                    <div class="form-group">
+                        <asp:Label runat="server" AssociatedControlID="TopicDescriptionTextBox">
+                            <YAF:LocalizedLabel ID="TopicDescriptionLabel" runat="server" LocalizedTag="description" />
+                        </asp:Label>
+                        <asp:TextBox ID="TopicDescriptionTextBox" runat="server"
+                            CssClass="form-control"
+                            MaxLength="100"
+                            autocomplete="off" />
+                    </div>
+                </asp:PlaceHolder>
+                <asp:PlaceHolder ID="FromRow" runat="server">
+                    <div class="form-group">
+                        <asp:Label runat="server" AssociatedControlID="From">
+                            <YAF:LocalizedLabel runat="server" LocalizedTag="from" />
+                        </asp:Label>
+                        <asp:TextBox ID="From" runat="server" CssClass="form-control" />
+                    </div>
+                </asp:PlaceHolder>
+                <asp:PlaceHolder ID="PriorityRow" runat="server">
+                    <div class="form-group">
+                        <asp:Label runat="server" AssociatedControlID="Priority">
+                            <YAF:LocalizedLabel runat="server" LocalizedTag="priority" />
+                        </asp:Label>
+                        <asp:DropDownList ID="Priority" runat="server" CssClass="select2-select" />
+                    </div>
+                </asp:PlaceHolder>
+                <asp:PlaceHolder ID="StyleRow" runat="server">
+                    <div class="form-group">
+                        <asp:Label runat="server" AssociatedControlID="TopicStylesTextBox">
+                            <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="STYLES" />
+                        </asp:Label>
+                        <asp:TextBox ID="TopicStylesTextBox" runat="server" CssClass="form-control" />
+                    </div>
+                </asp:PlaceHolder>
+                <div class="form-group">
+                    <asp:Label runat="server">
+                        <YAF:LocalizedLabel runat="server" LocalizedTag="message" />
+                    </asp:Label>
+                    <asp:PlaceHolder ID="EditorLine" runat="server">
+                        <!-- editor goes here -->
+                    </asp:PlaceHolder>
+                </div>
+                <asp:PlaceHolder runat="server" ID="maxCharRow">
+                    <div class="d-sm-none d-md-block">
+                    <YAF:Alert runat="server" Type="info">
+                        <strong>
+                            <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="NOTE" LocalizedPage="COMMON" />
+                        </strong>
+                        <YAF:LocalizedLabel ID="LocalizedLblMaxNumberOfPost" runat="server" LocalizedTag="MAXNUMBEROF" />
+                    </YAF:Alert>
+                    </div>
+                </asp:PlaceHolder>
+                <YAF:PostOptions ID="PostOptions1" runat="server"></YAF:PostOptions>
+
+                <YAF:PostAttachments ID="PostAttachments1" runat="server" Visible="False"></YAF:PostAttachments>
+
+                <asp:PlaceHolder ID="tr_captcha1" runat="server" Visible="false">
+                    <div class="form-group">
+                        <asp:Label runat="server">
+                <YAF:LocalizedLabel runat="server" LocalizedTag="Captcha_Image" />
+                        </asp:Label>
+                        <asp:Image ID="imgCaptcha" runat="server" />
+                    </div>
+                </asp:PlaceHolder>
+                <asp:PlaceHolder ID="tr_captcha2" runat="server" Visible="false">
+                    <div class="form-group">
+                        <asp:Label runat="server" AssociatedControlID="tbCaptcha">
+                        <YAF:LocalizedLabel runat="server" LocalizedTag="Captcha_Enter" />
+                        </asp:Label>
+                        <asp:TextBox ID="tbCaptcha" runat="server" CssClass="form-control" />
+                    </div>
+                </asp:PlaceHolder>
+                <asp:PlaceHolder ID="EditReasonRow" runat="server">
+                    <div class="form-group">
+                        <asp:Label runat="server" AssociatedControlID="ReasonEditor">
+                <YAF:LocalizedLabel runat="server" LocalizedTag="EditReason" />
+                        </asp:Label>
+                        <asp:TextBox ID="ReasonEditor" runat="server" CssClass="form-control" />
+                    </div>
+                </asp:PlaceHolder>
+            </div>
+            <div class="card-footer text-center">
+                <YAF:ThemeButton ID="Preview" runat="server"
+                                 CssClass="mt-1"
+                                 OnClick="Preview_Click"
+                                 TextLocalizedTag="PREVIEW" TitleLocalizedTag="PREVIEW_TITLE"
+                                 Type="Secondary" 
+                                 Icon="image" />
+                <YAF:ThemeButton ID="PostReply" runat="server"
+                                 CssClass="mt-1"
+                                 OnClick="PostReply_Click"
+                                 TextLocalizedTag="SAVE" TitleLocalizedTag="SAVE_TITLE"
+                                 Type="Primary" 
+                                 Icon="save" />
+                <YAF:ThemeButton ID="Cancel" runat="server"
+                                 CssClass="mt-1"
+                                 OnClick="Cancel_Click"
+                                 TextLocalizedTag="CANCEL"
+                                 Type="Secondary" 
+                                 Icon="times" />
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <script type="text/javascript">
 
-	var prm = Sys.WebForms.PageRequestManager.getInstance();
+    var prm = Sys.WebForms.PageRequestManager.getInstance();
 
-	prm.add_beginRequest(beginRequest);
+    prm.add_beginRequest(beginRequest);
 
-	function beginRequest() {
-		prm._scrollPosition = null;
-	}
+    function beginRequest() {
+        prm._scrollPosition = null;
+    }
 
 </script>
 
 <YAF:LastPosts ID="LastPosts1" runat="server" Visible="false" />
-<div id="DivSmartScroller">
-	<YAF:SmartScroller ID="SmartScroller1" runat="server" />
-</div>
 <YAF:AttachmentsUploadDialog ID="UploadDialog" runat="server" Visible="False"></YAF:AttachmentsUploadDialog>

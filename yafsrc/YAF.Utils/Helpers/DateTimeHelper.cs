@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -34,10 +34,10 @@ namespace YAF.Utils.Helpers
     public static class DateTimeHelper
     {
         /// <summary>
-        /// the sql compatible DateTime Min Value
+        /// the SQL compatible DateTime Min Value
         /// </summary>
         /// <returns>
-        /// Returns the sql compatible DateTime Min Value
+        /// Returns the SQL compatible DateTime Min Value
         /// </returns>
         public static DateTime SqlDbMinTime()
         {
@@ -51,6 +51,11 @@ namespace YAF.Utils.Helpers
         /// <returns>Returns the Time Zone Info</returns>
         public static TimeZoneInfo GetTimeZoneInfo(string input)
         {
+            if (System.Text.RegularExpressions.Regex.IsMatch(input, @"^[\-?\+?\d]*$"))
+            {
+                return TimeZoneInfo.Local;
+            }
+
             try
             {
                 return TimeZoneInfo.FindSystemTimeZoneById(input);
@@ -93,7 +98,7 @@ namespace YAF.Utils.Helpers
         {
             var utcOffSet = timeZoneInfo.BaseUtcOffset;
             var timeZone = utcOffSet < TimeSpan.Zero
-                               ? "-{0}".FormatWith(utcOffSet.ToString("hh"))
+                               ? $"-{utcOffSet:hh}"
                                : utcOffSet.ToString("hh");
 
             return (timeZone.ToType<decimal>() * 60).ToType<int>();

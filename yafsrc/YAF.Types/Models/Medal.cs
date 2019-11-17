@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -24,10 +24,10 @@
 namespace YAF.Types.Models
 {
     using System;
-    using System.Data.Linq.Mapping;
 
     using ServiceStack.DataAnnotations;
 
+    using YAF.Types.Flags;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
 
@@ -51,87 +51,65 @@ namespace YAF.Types.Models
 
         #region Public Properties
 
-        /// <summary>
-        /// Gets or sets the medal id.
-        /// </summary>
-        [AutoIncrement]
-        [Alias("MedalID")]
-        public int ID { get; set; }
-
-        /// <summary>
-        /// Gets or sets the board id.
-        /// </summary>
+        [Required]
         public int BoardID { get; set; }
 
-        /// <summary>
-        /// Gets or sets the category.
-        /// </summary>
-        public string Category { get; set; }
+        [Alias("MedalID")]
+        [AutoIncrement]
+        public int ID { get; set; }
 
-        /// <summary>
-        /// Gets or sets the description.
-        /// </summary>
-        public string Description { get; set; }
-
-        /// <summary>
-        /// Gets or sets the flags.
-        /// </summary>
-        public int Flags { get; set; }
-
-        /// <summary>
-        /// Gets or sets the medal url.
-        /// </summary>
-        public string MedalURL { get; set; }
-
-        /// <summary>
-        /// Gets or sets the message.
-        /// </summary>
-        public string Message { get; set; }
-
-        /// <summary>
-        /// Gets or sets the name.
-        /// </summary>
+        [Required]
+        [StringLength(100)]
         public string Name { get; set; }
 
-        /// <summary>
-        /// Gets or sets the ribbon url.
-        /// </summary>
+        public string Description { get; set; }
+
+        [Required]
+        [StringLength(100)]
+        public string Message { get; set; }
+
+        [StringLength(50)]
+        public string Category { get; set; }
+
+        [Required]
+        [StringLength(250)]
+        public string MedalURL { get; set; }
+
+        [StringLength(250)]
         public string RibbonURL { get; set; }
 
-        /// <summary>
-        /// Gets or sets the small medal height.
-        /// </summary>
-        public short SmallMedalHeight { get; set; }
-
-        /// <summary>
-        /// Gets or sets the small medal url.
-        /// </summary>
+        [Required]
+        [StringLength(250)]
         public string SmallMedalURL { get; set; }
 
-        /// <summary>
-        /// Gets or sets the small medal width.
-        /// </summary>
-        public short SmallMedalWidth { get; set; }
-
-        /// <summary>
-        /// Gets or sets the small ribbon height.
-        /// </summary>
-        public short? SmallRibbonHeight { get; set; }
-
-        /// <summary>
-        /// Gets or sets the small ribbon url.
-        /// </summary>
+        [StringLength(250)]
         public string SmallRibbonURL { get; set; }
 
-        /// <summary>
-        /// Gets or sets the small ribbon width.
-        /// </summary>
+        [Required]
+        public short SmallMedalWidth { get; set; }
+
+        [Required]
+        public short SmallMedalHeight { get; set; }
+
         public short? SmallRibbonWidth { get; set; }
 
-        /// <summary>
-        /// Gets or sets the sort order.
-        /// </summary>
+        public short? SmallRibbonHeight { get; set; }
+
+        [Required]
+        [Default(255)]
         public byte SortOrder { get; set; }
+
+        [Required]
+        [Default(0)]
+        public int Flags { get; set; }
+
+        [Ignore]
+        public MedalFlags MedalFlags
+        {
+            get => new MedalFlags(this.Flags);
+
+            set => this.Flags = value.BitValue;
+        }
 
         #endregion
 

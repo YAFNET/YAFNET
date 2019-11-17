@@ -20,7 +20,7 @@
     public class CanonicalMetaTagModule : SimpleBaseForumModule
     {
         /// <summary>
-        /// The init after page.
+        /// The initialization after page.
         /// </summary>
         public override void InitAfterPage()
         {
@@ -34,6 +34,8 @@
         /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
         private void CurrentForumPage_PreRender([NotNull] object sender, [NotNull] EventArgs e)
         {
+            const string TopicLinkParams = "t={0}";
+
             var head = this.ForumControl.Page.Header
                        ?? this.CurrentForumPage.FindControlRecursiveBothAs<HtmlHead>("YafHead");
 
@@ -43,20 +45,16 @@
             }
 
             // in cases where we are not going to index, but follow, we will not add a canonical tag.
-            var tag = string.Empty;
-
-            // in cases where we are not going to index, but follow, we will not add a canonical tag.
             if (this.ForumPageType == ForumPages.posts)
             {
-                if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("m") != null)
+                if (this.Get<HttpRequestBase>().QueryString.Exists("m") ||
+                    this.Get<HttpRequestBase>().QueryString.Exists("find"))
                 {
                     // add no-index tag
-                    head.Controls.Add(ControlHelper.MakeMetaNoIndexControl());
+                    head.Controls.Add(ControlHelper.MakeMetaNoIndexControl()); 
                 }
                 else
                 {
-                    const string TopicLinkParams = "t={0}";
-
                     var topicId = this.PageContext.PageTopicID;
                     var topicUrl = YafBuildLink.GetLink(ForumPages.posts, true, TopicLinkParams, topicId);
 
@@ -70,11 +68,6 @@
                 // or post so don't index them, but follow the links
                 // add no-index tag
                 head.Controls.Add(ControlHelper.MakeMetaNoIndexControl());
-            }
-
-            if (tag.IsSet())
-            {
-                head.Controls.Add(new LiteralControl(tag));
             }
         }
     }

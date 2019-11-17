@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -35,7 +35,7 @@ namespace YAF.Core
     using YAF.Types.EventProxies;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Utils;
+    using YAF.Types.Interfaces.Events;
 
     #endregion
 
@@ -83,13 +83,7 @@ namespace YAF.Core
         /// <summary>
         ///   Gets Order.
         /// </summary>
-        public int Order
-        {
-            get
-            {
-                return 5;
-            }
-        }
+        public int Order => 5;
 
         /// <summary>
         /// Gets or sets ServiceLocator.
@@ -120,27 +114,27 @@ namespace YAF.Core
             }
 
             // add and start this module...
-            if (!this.TaskExists(instanceName))
+            if (this.TaskExists(instanceName))
             {
-                this.Logger.Debug("Starting Task {0}...".FormatWith(instanceName));
+                return false;
+            }
 
-                var injectServices = this.Get<IInjectServices>();
+            this.Logger.Debug($"Starting Task {instanceName}...");
 
-                _taskManager.AddOrUpdate(
-                    instanceName,
-                    s =>
+            var injectServices = this.Get<IInjectServices>();
+
+            _taskManager.AddOrUpdate(
+                instanceName,
+                s =>
                     {
                         var task = start();
                         injectServices.Inject(task);
                         task.Run();
                         return task;
                     },
-                    (s, task) =>
+                (s, task) =>
                     {
-                        if (task != null)
-                        {
-                            task.Dispose();
-                        }
+                        task?.Dispose();
 
                         var newTask = start();
                         injectServices.Inject(newTask);
@@ -148,10 +142,8 @@ namespace YAF.Core
                         return task;
                     });
 
-                return true;
-            }
+            return true;
 
-            return false;
         }
 
         #endregion
@@ -176,17 +168,18 @@ namespace YAF.Core
             // create intermittent cleanup task...
             this.StartTask("CleanUpTask", () => new CleanUpTask { TaskManager = this });
 
-            foreach (var instance in this.Get<IEnumerable<IStartTasks>>())
-            {
-                try
+            this.Get<IEnumerable<IStartTasks>>().ForEach(
+                instance =>
                 {
-                    instance.Start(this);
-                }
-                catch (Exception ex)
-                {
-                    this.Logger.Fatal(ex, "Failed to start: {0}".FormatWith(instance.GetType().Name));
-                }
-            }
+                    try
+                    {
+                        instance.Start(this);
+                    }
+                    catch (Exception ex)
+                    {
+                        this.Logger.Fatal(ex, $"Failed to start: {instance.GetType().Name}");
+                    }
+                });
         }
 
         #endregion

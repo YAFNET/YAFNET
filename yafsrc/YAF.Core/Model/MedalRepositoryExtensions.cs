@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -23,7 +23,6 @@
  */
 namespace YAF.Core.Model
 {
-    using System.Collections.Generic;
     using System.Data;
 
     using YAF.Types;
@@ -62,57 +61,18 @@ namespace YAF.Core.Model
         }
 
         /// <summary>
-        /// The list.
+        /// Lists medal(s) assigned to the group
         /// </summary>
-        /// <param name="repository">
-        /// The repository. 
+        /// <param name="groupID">
+        /// ID of group of which to list medals.
         /// </param>
         /// <param name="medalID">
-        /// The medal id. 
+        /// ID of medal to list.
         /// </param>
-        /// <param name="category">
-        /// The category. 
-        /// </param>
-        /// <param name="boardId">
-        /// The board Id.
-        /// </param>
-        /// <returns>
-        /// The <see cref="DataTable"/> . 
-        /// </returns>
-        public static DataTable List(this IRepository<Medal> repository, int? medalID = null, string category = null, int? boardId = null)
+        public static DataTable GroupMedalListAsDataTable(this IRepository<Medal> repository, 
+                                                 [NotNull] object groupID, [NotNull] object medalID)
         {
-            CodeContracts.VerifyNotNull(repository, "repository");
-
-            return repository.DbFunction.GetData.medal_list(BoardID: boardId ?? repository.BoardID, MedalID: medalID, Category: category);
-        }
-
-        /// <summary>
-        /// A list of Medals.
-        /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
-        /// <param name="medalID">
-        /// The medal id.
-        /// </param>
-        /// <param name="category">
-        /// The category.
-        /// </param>
-        /// <param name="boardId">
-        /// The board id.
-        /// </param>
-        /// <returns>
-        /// The <see cref="IList"/>.
-        /// </returns>
-        public static IList<Medal> ListTyped(this IRepository<Medal> repository, int? medalID = null, string category = null, int? boardId = null)
-        {
-            CodeContracts.VerifyNotNull(repository, "repository");
-
-            using (var functionSession = repository.DbFunction.CreateSession())
-            {
-                return functionSession.GetTyped<Medal>(
-                    r => r.medal_list(BoardID: boardId ?? repository.BoardID, MedalID: medalID, Category: category));
-            }
+            return repository.DbFunction.GetData.group_medal_list(GroupID: groupID, MedalID: medalID);
         }
 
         /// <summary>

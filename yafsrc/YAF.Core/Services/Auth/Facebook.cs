@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -25,22 +25,20 @@
 namespace YAF.Core.Services.Auth
 {
     using System;
-    using System.Collections.Generic;
     using System.Collections.Specialized;
     using System.Globalization;
     using System.Linq;
-    using System.Text;
     using System.Web;
     using System.Web.Security;
 
-    using YAF.Classes;
-    using YAF.Classes.Data;
-    using YAF.Core.Helpers;
+    using YAF.Configuration;
     using YAF.Core.Model;
+    using YAF.Core.UsersRoles;
     using YAF.Types.Constants;
     using YAF.Types.EventProxies;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Events;
     using YAF.Types.Models;
     using YAF.Types.Objects;
     using YAF.Utils;
@@ -52,11 +50,6 @@ namespace YAF.Core.Services.Auth
     /// </summary>
     public class Facebook : IAuthBase
     {
-        /// <summary>
-        ///   Gets or sets the User IP Info.
-        /// </summary>
-        private IDictionary<string, string> UserIpLocator { get; set; }
-
         /// <summary>
         /// Gets the authorize URL.
         /// </summary>
@@ -73,11 +66,7 @@ namespace YAF.Core.Services.Auth
             var redirectUrl = GetRedirectURL(request);
 
             return
-                "https://graph.facebook.com/v3.1/oauth/authorize?client_id={0}&redirect_uri={1}{2}&scope={3}".FormatWith(
-                    Config.FacebookAPIKey,
-                    redirectUrl,
-                    redirectUrl.Contains("connectCurrent") ? "&state=connectCurrent" : string.Empty,
-                    Scope);
+                $"https://graph.facebook.com/v3.3/oauth/authorize?client_id={Config.FacebookAPIKey}&redirect_uri={redirectUrl}{(redirectUrl.Contains("connectCurrent") ? "&state=connectCurrent" : string.Empty)}&scope={Scope}";
         }
 
         /// <summary>
@@ -95,14 +84,8 @@ namespace YAF.Core.Services.Auth
         public string GetAccessToken(string authorizationCode, HttpRequest request)
         {
             var urlGetAccessToken =
-                "https://graph.facebook.com/v2.9/oauth/access_token?client_id={0}&client_secret={1}&redirect_uri={2}&code={3}&grant_type=client_credentials"
-                    .FormatWith(
-                        Config.FacebookAPIKey,
-                        Config.FacebookSecretKey,
-                        HttpUtility.UrlEncode(GetRedirectURL(request)),
-                        authorizationCode);
+                $"https://graph.facebook.com/v3.3/oauth/access_token?client_id={Config.FacebookAPIKey}&client_secret={Config.FacebookSecretKey}&redirect_uri={GetRedirectURL(request)}&code={authorizationCode}";
 
-          
             var responseData = AuthUtilities.WebRequest(AuthUtilities.Method.GET, urlGetAccessToken, null);
 
             if (responseData.IsNotSet())
@@ -129,7 +112,9 @@ namespace YAF.Core.Services.Auth
         /// </returns>
         public FacebookUser GetFacebookUser(HttpRequest request, string access_token)
         {
-            var url = "https://graph.facebook.com/me?access_token={0}".FormatWith(access_token);
+            var url =
+                $"https://graph.facebook.com/v3.3/me?fields=email,first_name,last_name,location,birthday,gender,name,link&access_token={access_token}";
+
             return AuthUtilities.WebRequest(AuthUtilities.Method.GET, url, string.Empty).FromJson<FacebookUser>();
         }
 
@@ -149,10 +134,8 @@ namespace YAF.Core.Services.Auth
         /// </returns>
         public string GenerateLoginUrl(bool generatePopUpUrl, bool connectCurrentUser = false)
         {
-            var authUrl = "{0}auth.aspx?auth={1}{2}".FormatWith(
-                YafForumInfo.ForumBaseUrl,
-                AuthService.facebook,
-                connectCurrentUser ? "&connectCurrent=true" : string.Empty);
+            var authUrl =
+                $"{YafForumInfo.ForumBaseUrl}auth.aspx?auth={AuthService.facebook}{(connectCurrentUser ? "&connectCurrent=true" : string.Empty)}";
 
             return authUrl;
         }
@@ -205,7 +188,7 @@ namespace YAF.Core.Services.Auth
 
                 if (!facebookUser.Gender.IsSet())
                 {
-                    return this.CreateFacebookUser(facebookUser, userGender, out message);
+                    return CreateFacebookUser(facebookUser, userGender, out message);
                 }
 
                 switch (facebookUser.Gender)
@@ -219,7 +202,7 @@ namespace YAF.Core.Services.Auth
                 }
 
                 // Create User if not exists?!
-                return this.CreateFacebookUser(facebookUser, userGender, out message);
+                return CreateFacebookUser(facebookUser, userGender, out message);
             }
 
             var yafUser = YafUserProfile.GetProfile(userName);
@@ -312,9 +295,8 @@ namespace YAF.Core.Services.Auth
 
                 if (facebookUser.Birthday.IsSet())
                 {
-                    DateTime userBirthdate;
                     var ci = CultureInfo.CreateSpecificCulture("en-US");
-                    DateTime.TryParse(facebookUser.Birthday, ci, DateTimeStyles.None, out userBirthdate);
+                    DateTime.TryParse(facebookUser.Birthday, ci, DateTimeStyles.None, out var userBirthdate);
 
                     if (userBirthdate > DateTimeHelper.SqlDbMinTime().Date)
                     {
@@ -333,9 +315,9 @@ namespace YAF.Core.Services.Auth
                 userProfile.Save();
 
                 // save avatar
-                LegacyDb.user_saveavatar(
+                YafContext.Current.GetRepository<User>().SaveAvatar(
                     YafContext.Current.PageUserID,
-                    "https://graph.facebook.com/{0}/picture".FormatWith(facebookUser.UserID),
+                    $"https://graph.facebook.com/v3.3/{facebookUser.UserID}/picture",
                     null,
                     null);
 
@@ -377,10 +359,10 @@ namespace YAF.Core.Services.Auth
             foreach (string key in nvc)
             {
                 queryString += queryString == string.Empty ? "?" : "&";
-                queryString += "{0}={1}".FormatWith(key, nvc[key]);
+                queryString += $"{key}={nvc[key]}";
             }
 
-            return "{0}{1}".FormatWith(urlCurrentPage, queryString);
+            return $"{urlCurrentPage}{queryString}";
         }
 
         /// <summary>
@@ -398,7 +380,7 @@ namespace YAF.Core.Services.Auth
         /// <returns>
         /// Returns if the login was successfully or not
         /// </returns>
-        private bool CreateFacebookUser(FacebookUser facebookUser, int userGender, out string message)
+        private static bool CreateFacebookUser(FacebookUser facebookUser, int userGender, out string message)
         {
             if (YafContext.Current.Get<YafBoardSettings>().DisableRegistrations)
             {
@@ -407,20 +389,17 @@ namespace YAF.Core.Services.Auth
             }
 
             // Check user for bot
-            var spamChecker = new YafSpamCheck();
-            string result;
             var isPossibleSpamBot = false;
 
             var userIpAddress = YafContext.Current.Get<HttpRequestBase>().GetUserRealIPAddress();
 
             // Check content for spam
-            if (spamChecker.CheckUserForSpamBot(facebookUser.UserName, facebookUser.Email, userIpAddress, out result))
+            if (YafContext.Current.Get<ISpamCheck>().CheckUserForSpamBot(facebookUser.UserName, facebookUser.Email, userIpAddress, out var result))
             {
                 YafContext.Current.Get<ILogger>().Log(
                     null,
                     "Bot Detected",
-                    "Bot Check detected a possible SPAM BOT: (user name : '{0}', email : '{1}', ip: '{2}', reason : {3}), user was rejected."
-                        .FormatWith(facebookUser.UserName, facebookUser.Email, userIpAddress, result),
+                    $"Bot Check detected a possible SPAM BOT: (user name : '{facebookUser.UserName}', email : '{facebookUser.Email}', ip: '{userIpAddress}', reason : {result}), user was rejected.",
                     EventLogTypes.SpamBotDetected);
 
                 if (YafContext.Current.Get<YafBoardSettings>().BotHandlingOnRegister.Equals(1))
@@ -441,7 +420,7 @@ namespace YAF.Core.Services.Auth
                         .Save(
                             null,
                             userIpAddress,
-                            "A spam Bot who was trying to register was banned by IP {0}".FormatWith(userIpAddress),
+                            $"A spam Bot who was trying to register was banned by IP {userIpAddress}",
                             YafContext.Current.PageUserID);
 
                     // Clear cache
@@ -453,16 +432,13 @@ namespace YAF.Core.Services.Auth
                             .Log(
                                 null,
                                 "IP BAN of Bot During Registration",
-                                "A spam Bot who was trying to register was banned by IP {0}".FormatWith(
-                                    userIpAddress),
+                                $"A spam Bot who was trying to register was banned by IP {userIpAddress}",
                                 EventLogTypes.IpBanSet);
                     }
 
                     return false;
                 }
             }
-
-            MembershipCreateStatus status;
 
             var memberShipProvider = YafContext.Current.Get<MembershipProvider>();
 
@@ -477,7 +453,7 @@ namespace YAF.Core.Services.Auth
                 memberShipProvider.RequiresQuestionAndAnswer ? securityAnswer : null,
                 true,
                 null,
-                out status);
+                out var status);
 
             // setup initial roles (if any) for this user
             RoleMembershipHelper.SetupUserRoles(YafContext.Current.PageBoardID, facebookUser.UserName);
@@ -497,9 +473,8 @@ namespace YAF.Core.Services.Auth
 
             if (facebookUser.Birthday.IsSet())
             {
-                DateTime userBirthdate;
                 var ci = CultureInfo.CreateSpecificCulture("en-US");
-                DateTime.TryParse(facebookUser.Birthday, ci, DateTimeStyles.None, out userBirthdate);
+                DateTime.TryParse(facebookUser.Birthday, ci, DateTimeStyles.None, out var userBirthdate);
 
                 if (userBirthdate > DateTimeHelper.SqlDbMinTime().Date)
                 {
@@ -515,20 +490,13 @@ namespace YAF.Core.Services.Auth
                 userProfile.Location = facebookUser.Location.Name;
             }
 
-            if (YafContext.Current.Get<YafBoardSettings>().EnableIPInfoService && this.UserIpLocator == null)
+            if (YafContext.Current.Get<YafBoardSettings>().EnableIPInfoService)
             {
-                this.UserIpLocator = new IPDetails().GetData(
-                    YafContext.Current.Get<HttpRequestBase>().GetUserRealIPAddress(),
-                    "text",
-                    false,
-                    YafContext.Current.CurrentForumPage.Localization.Culture.Name,
-                    string.Empty,
-                    string.Empty);
+                var userIpLocator = YafContext.Current.Get<IIpInfoService>().GetUserIpLocator();
 
-                if (this.UserIpLocator != null && this.UserIpLocator["StatusCode"] == "OK"
-                                               && this.UserIpLocator.Count > 0)
+                if (userIpLocator != null)
                 {
-                    userProfile.Country = this.UserIpLocator["CountryCode"];
+                    userProfile.Country = userIpLocator["CountryCode"];
                 }
             }
 
@@ -565,27 +533,26 @@ namespace YAF.Core.Services.Auth
             var autoWatchTopicsEnabled = YafContext.Current.Get<YafBoardSettings>().DefaultNotificationSetting
                                          == UserNotificationSetting.TopicsIPostToOrSubscribeTo;
 
-            LegacyDb.user_save(
-                userID: userId,
-                boardID: YafContext.Current.PageBoardID,
-                userName: facebookUser.UserName,
-                displayName: facebookUser.UserName,
-                email: facebookUser.Email,
-                timeZone: TimeZoneInfo.Local.Id,
-                languageFile: null,
-                culture: null,
-                themeFile: null,
-                textEditor: null,
-                useMobileTheme: null,
-                approved: null,
-                pmNotification: YafContext.Current.Get<YafBoardSettings>().DefaultNotificationSetting,
-                autoWatchTopics: autoWatchTopicsEnabled,
-                dSTUser: TimeZoneInfo.Local.SupportsDaylightSavingTime,
-                hideUser: null,
-                notificationType: null);
+            YafContext.Current.GetRepository<User>().Save(
+                userId,
+                YafContext.Current.PageBoardID,
+                facebookUser.UserName,
+                facebookUser.UserName,
+                facebookUser.Email,
+                TimeZoneInfo.Local.Id,
+                null,
+                null,
+                null,
+                null,
+                null,
+                YafContext.Current.Get<YafBoardSettings>().DefaultNotificationSetting,
+                autoWatchTopicsEnabled,
+                TimeZoneInfo.Local.SupportsDaylightSavingTime,
+                null,
+                null);
 
             // save the settings...
-            LegacyDb.user_savenotification(
+            YafContext.Current.GetRepository<User>().SaveNotification(
                 userId,
                 true,
                 autoWatchTopicsEnabled,
@@ -593,9 +560,9 @@ namespace YAF.Core.Services.Auth
                 YafContext.Current.Get<YafBoardSettings>().DefaultSendDigestEmail);
 
             // save avatar
-            LegacyDb.user_saveavatar(
+            YafContext.Current.GetRepository<User>().SaveAvatar(
                 userId,
-                "https://graph.facebook.com/{0}/picture".FormatWith(facebookUser.UserID),
+                $"https://graph.facebook.com/v3.3/{facebookUser.UserID}/picture",
                 null,
                 null);
 

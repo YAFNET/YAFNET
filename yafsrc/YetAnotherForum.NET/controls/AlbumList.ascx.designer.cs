@@ -7,11 +7,13 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace YAF.Controls {
-    
-    
-    public partial class AlbumList {
-        
+namespace YAF.Controls
+{
+
+
+    public partial class AlbumList
+    {
+
         /// <summary>
         /// AlbumHeaderLabel control.
         /// </summary>
@@ -19,17 +21,8 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel AlbumHeaderLabel;
-        
-        /// <summary>
-        /// albumsInfo control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label albumsInfo;
-        
+        protected global::YAF.Web.Controls.LocalizedLabel AlbumHeaderLabel;
+
         /// <summary>
         /// AddAlbum control.
         /// </summary>
@@ -37,8 +30,8 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button AddAlbum;
-        
+        protected global::YAF.Web.Controls.ThemeButton AddAlbum;
+
         /// <summary>
         /// PagerTop control.
         /// </summary>
@@ -46,8 +39,8 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.Pager PagerTop;
-        
+        protected global::YAF.Web.Controls.Pager PagerTop;
+
         /// <summary>
         /// Albums control.
         /// </summary>
@@ -56,7 +49,7 @@ namespace YAF.Controls {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Repeater Albums;
-        
+
         /// <summary>
         /// PagerBottom control.
         /// </summary>
@@ -64,15 +57,15 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.Pager PagerBottom;
-        
+        protected global::YAF.Web.Controls.Pager PagerBottom;
+
         /// <summary>
-        /// SmartScroller1 control.
+        /// albumsInfo control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.SmartScroller SmartScroller1;
+        protected global::System.Web.UI.WebControls.Label albumsInfo;
     }
 }

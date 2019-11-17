@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -24,7 +24,6 @@
 namespace YAF.Types.Models
 {
     using System;
-    using System.Data.Linq.Mapping;
 
     using ServiceStack.DataAnnotations;
 
@@ -54,11 +53,14 @@ namespace YAF.Types.Models
         /// <summary>
         /// Gets or sets the board id.
         /// </summary>
+        [References(typeof(Board))]
+        [Required]
         public int BoardID { get; set; }
 
         /// <summary>
         /// Gets or sets the browser.
         /// </summary>
+        [StringLength(50)]
         public string Browser { get; set; }
 
         /// <summary>
@@ -69,51 +71,64 @@ namespace YAF.Types.Models
         /// <summary>
         /// Gets or sets the forum id.
         /// </summary>
+        [References(typeof(Forum))]
         public int? ForumID { get; set; }
 
         /// <summary>
         /// Gets or sets the forum page.
         /// </summary>
+        [StringLength(1024)]
         public string ForumPage { get; set; }
 
         /// <summary>
         /// Gets or sets the ip.
         /// </summary>
+        [Required]
+        [StringLength(39)]
         public string IP { get; set; }
 
         /// <summary>
         /// Gets or sets the last active.
         /// </summary>
+        [Required]
         public DateTime LastActive { get; set; }
 
         /// <summary>
         /// Gets or sets the location.
         /// </summary>
+        [StringLength(255)]
         public string Location { get; set; }
 
         /// <summary>
         /// Gets or sets the login.
         /// </summary>
+        [Required]
         public DateTime Login { get; set; }
 
         /// <summary>
         /// Gets or sets the platform.
         /// </summary>
+        [StringLength(50)]
         public string Platform { get; set; }
 
         /// <summary>
         /// Gets or sets the session id.
         /// </summary>
+        [Required]
+        [StringLength(24)]
         public string SessionID { get; set; }
 
         /// <summary>
         /// Gets or sets the topic id.
         /// </summary>
+        [References(typeof(Topic))]
         public int? TopicID { get; set; }
 
         /// <summary>
         /// Gets or sets the user id.
         /// </summary>
+        [References(typeof(User))]
+        [Required]
         public int UserID { get; set; }
 
         #endregion

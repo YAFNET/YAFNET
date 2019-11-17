@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -42,15 +42,9 @@ namespace YAFProviders.Passthru
     /// </summary>
     public override string ApplicationName
     {
-      get
-      {
-        return this._realProvider.ApplicationName;
-      }
+      get => this._realProvider.ApplicationName;
 
-      set
-      {
-        this._realProvider.ApplicationName = value;
-      }
+      set => this._realProvider.ApplicationName = value;
     }
 
     /// <summary>
@@ -66,7 +60,7 @@ namespace YAFProviders.Passthru
     /// </exception>
     public override void Initialize(string name, NameValueCollection config)
     {
-      string realProviderName = config["passThru"];
+      var realProviderName = config["passThru"];
 
 
       if (realProviderName == null || realProviderName.Length < 1)
@@ -179,7 +173,7 @@ namespace YAFProviders.Passthru
     /// </returns>
     public override string[] GetUsersInRole(string roleName)
     {
-      return GetUsersInRole(roleName);
+      return this.GetUsersInRole(roleName);
     }
 
     /// <summary>
@@ -196,7 +190,7 @@ namespace YAFProviders.Passthru
     /// </returns>
     public override bool IsUserInRole(string username, string roleName)
     {
-      return IsUserInRole(username, roleName);
+      return this.IsUserInRole(username, roleName);
     }
 
     /// <summary>

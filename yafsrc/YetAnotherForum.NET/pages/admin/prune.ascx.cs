@@ -1,9 +1,9 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -29,75 +29,93 @@ namespace YAF.Pages.Admin
     using System;
     using System.Web.UI.WebControls;
 
-    using YAF.Classes;
-    using YAF.Classes.Data;
-    using YAF.Controls;
     using YAF.Core;
+    using YAF.Core.Model;
     using YAF.Core.Tasks;
+    using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Models;
     using YAF.Utils;
-    using YAF.Utils.Helpers;
+    using YAF.Web.Extensions;
 
     #endregion
 
     /// <summary>
-    /// Summary description for prune.
+    /// The Admin Prune Topics Page
     /// </summary>
     public partial class prune : AdminPage
     {
         #region Methods
 
         /// <summary>
-        /// The page_ load.
+        /// Handles the Load event of the Page control.
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
             if (!this.IsPostBack)
             {
-                this.PageLinks.AddRoot();
-                this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
-                this.PageLinks.AddLink(this.GetText("ADMIN_PRUNE", "TITLE"), string.Empty);
-
-                this.Page.Header.Title = "{0} - {1}".FormatWith(
-                      this.GetText("ADMIN_ADMIN", "Administration"),
-                      this.GetText("ADMIN_PRUNE", "TITLE"));
-
-                this.commit.Text = this.GetText("ADMIN_PRUNE", "PRUNE_START");
-
                 this.days.Text = "60";
                 this.BindData();
             }
 
             this.lblPruneInfo.Text = string.Empty;
 
-            if (this.Get<ITaskModuleManager>().IsTaskRunning(PruneTopicTask.TaskName))
+            if (!this.Get<ITaskModuleManager>().IsTaskRunning(PruneTopicTask.TaskName))
             {
-                this.lblPruneInfo.Text = this.GetText("ADMIN_PRUNE", "PRUNE_INFO");
-                this.commit.Enabled = false;
+                return;
             }
+
+            this.lblPruneInfo.Text = this.GetText("ADMIN_PRUNE", "PRUNE_INFO");
+            this.commit.Visible = false;
         }
 
         /// <summary>
-        /// The prune button_ load.
+        /// Creates page links for this page.
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
-        protected void PruneButton_Load([NotNull] object sender, [NotNull] EventArgs e)
+        protected override void CreatePageLinks()
         {
-            ControlHelper.AddOnClickConfirmDialog(sender, this.GetText("ADMIN_PRUNE", "CONFIRM_PRUNE"));
+            this.PageLinks.AddRoot();
+            this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
+            this.PageLinks.AddLink(this.GetText("ADMIN_PRUNE", "TITLE"), string.Empty);
+
+            this.Page.Header.Title =
+                $"{this.GetText("ADMIN_ADMIN", "Administration")} - {this.GetText("ADMIN_PRUNE", "TITLE")}";
+        }
+
+        /// <summary>
+        /// Registers the needed Java Scripts
+        /// </summary>
+        /// <param name="e">An <see cref="T:System.EventArgs"/> object that contains the event data.</param>
+        protected override void OnPreRender([NotNull] EventArgs e)
+        {
+            YafContext.Current.PageElements.RegisterJsBlock(
+                "TouchSpinLoadJs",
+                JavaScriptBlocks.LoadTouchSpin(
+                    ".DaysInput",
+                    $"postfix: '{this.GetText("ADMIN_PM", "DAYS")}'"));
+
+            base.OnPreRender(e);
+        }
+
+        /// <summary>
+        /// Handles the Click event of the commit control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        protected void CommitClick([NotNull] object sender, [NotNull] EventArgs e)
+        {
+            PruneTopicTask.Start(
+                this.PageContext.PageBoardID,
+                this.forumlist.SelectedValue.ToType<int>(),
+                this.days.Text.ToType<int>(),
+                this.permDeleteChkBox.Checked);
+
+            this.PageContext.AddLoadMessage(this.GetText("ADMIN_PRUNE", "MSG_TASK"), MessageTypes.info);
         }
 
         /// <summary>
@@ -105,7 +123,7 @@ namespace YAF.Pages.Admin
         /// </summary>
         private void BindData()
         {
-            this.forumlist.DataSource = LegacyDb.forum_listread(
+            this.forumlist.DataSource = this.GetRepository<Forum>().ListReadAsDataTable(
                 this.PageContext.PageBoardID, this.PageContext.PageUserID, null, null, false, false);
 
             this.forumlist.DataValueField = "ForumID";
@@ -114,26 +132,6 @@ namespace YAF.Pages.Admin
             this.DataBind();
 
             this.forumlist.Items.Insert(0, new ListItem(this.GetText("ADMIN_PRUNE", "ALL_FORUMS"), "0"));
-        }
-
-        /// <summary>
-        /// The commit_ click.
-        /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
-        protected void commit_Click([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            PruneTopicTask.Start(
-              this.PageContext.PageBoardID,
-              this.forumlist.SelectedValue.ToType<int>(),
-              this.days.Text.ToType<int>(),
-              this.permDeleteChkBox.Checked);
-
-            this.PageContext.AddLoadMessage(this.GetText("ADMIN_PRUNE", "MSG_TASK"));
         }
 
         #endregion

@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -27,17 +27,22 @@ namespace YAF.Controls
     #region Using
 
     using System;
+    using System.Linq;
     using System.Web;
     using System.Web.UI.WebControls;
 
-    using YAF.Classes;
-    using YAF.Classes.Data;
+    using YAF.Configuration;
     using YAF.Core;
+    using YAF.Core.BaseControls;
+    using YAF.Core.Extensions;
+    using YAF.Core.Model;
+    using YAF.Core.UsersRoles;
+    using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Utilities;
+    using YAF.Types.Models;
     using YAF.Utils;
 
     #endregion
@@ -85,7 +90,7 @@ namespace YAF.Controls
         /// <param name="e">The <see cref="System.Web.UI.WebControls.RepeaterItemEventArgs"/> instance containing the event data.</param>
         protected void Albums_ItemDataBound([NotNull] object sender, [NotNull] RepeaterItemEventArgs e)
         {
-            // tha_watcha: TODO: Currently disabled this funtion, until yaf 2.0 build
+            // tha_watcha: TODO: Currently disabled this function, until yaf 2.0 build
             /*var coverImage = (Image)e.Item.FindControl("coverImage");
 
                   if (coverImage == null) return;
@@ -117,9 +122,7 @@ namespace YAF.Controls
                 YafContext.Current.PageElements.RegisterJsBlockStartup(
                     "ChangeAlbumTitleJs", JavaScriptBlocks.ChangeAlbumTitleJs);
                 YafContext.Current.PageElements.RegisterJsBlockStartup(
-                    "asynchCallFailedJs", JavaScriptBlocks.AsynchCallFailedJs);
-                YafContext.Current.PageElements.RegisterJsBlockStartup(
-                    "AlbumCallbackSuccessJS", JavaScriptBlocks.AlbumCallbackSuccessJS);
+                    "AlbumCallbackSuccessJS", JavaScriptBlocks.AlbumCallbackSuccessJs);
             }
 
             base.OnPreRender(e);
@@ -137,17 +140,13 @@ namespace YAF.Controls
                 return;
             }
 
-            string umhdn = UserMembershipHelper.GetDisplayNameFromID(this.UserID);
+            var umhdn = UserMembershipHelper.GetDisplayNameFromID(this.UserID);
             this.AlbumHeaderLabel.Param0 = this.Get<YafBoardSettings>().EnableDisplayName
                                                ? this.HtmlEncode(umhdn)
                                                : this.HtmlEncode(UserMembershipHelper.GetUserNameFromID(this.UserID));
 
             this.BindData();
 
-            HttpContext.Current.Session["imagePreviewWidth"] = this.Get<YafBoardSettings>().ImageAttachmentResizeWidth;
-            HttpContext.Current.Session["imagePreviewHeight"] = this.Get<YafBoardSettings>().ImageAttachmentResizeHeight;
-            HttpContext.Current.Session["imagePreviewCropped"] =
-                this.Get<YafBoardSettings>().ImageAttachmentResizeCropped;
             HttpContext.Current.Session["localizationFile"] = this.Get<ILocalization>().LanguageFileName;
 
             // Show Albums Max Info
@@ -168,26 +167,13 @@ namespace YAF.Controls
                 this.albumsInfo.Visible = true;
             }
 
-            // vzrus: used if someone moderates usuful if a moderation is implemented 
-            /* else 
+            if (!this.AddAlbum.Visible)
             {
-                DataTable sigData = LegacyDb.user_getalbumsdata(this.PageContext.PageUserID, YafContext.Current.PageBoardID);
-                DataTable usrAlbumsData = LegacyDb.user_getalbumsdata(this.PageContext.PageUserID, YafContext.Current.PageBoardID);
-                var allowedAlbums = usrAlbumsData.GetFirstRowColumnAsValue<int?>("UsrAlbums", null);
-                var numAlbums = usrAlbumsData.GetFirstRowColumnAsValue<int?>("NumAlbums", null);
-          
-                if (allowedAlbums.HasValue && allowedAlbums > 0 && numAlbums < allowedAlbums)
-                {
-                    this.AddAlbum.Visible = true;
-                }
-
-                this.albumsInfo.Visible = false;
-            } */
-
-            if (this.AddAlbum.Visible)
-            {
-                this.AddAlbum.Text = this.Get<ILocalization>().GetText("BUTTON", "BUTTON_ADDALBUM");
+                return;
             }
+
+            this.AddAlbum.TextLocalizedPage = "BUTTON";
+            this.AddAlbum.TextLocalizedTag = "BUTTON_ADDALBUM";
         }
 
         /// <summary>
@@ -207,20 +193,20 @@ namespace YAF.Controls
         {
             this.PagerTop.PageSize = this.Get<YafBoardSettings>().AlbumsPerPage;
 
-            // set the Datatable
-            var albumListDT = LegacyDb.album_list(this.UserID, null);
+            // set the Data table
+            var albumListDT = this.GetRepository<UserAlbum>().ListByUser(this.UserID);
 
-            if ((albumListDT == null) || (albumListDT.Rows.Count <= 0))
+            if (albumListDT == null || !albumListDT.Any())
             {
                 return;
             }
 
-            this.PagerTop.Count = albumListDT.Rows.Count;
+            this.PagerTop.Count = albumListDT.Count;
 
-            // create paged data source for the albumlist
+            // create paged data source for the album list
             var pds = new PagedDataSource
                 {
-                    DataSource = albumListDT.DefaultView,
+                    DataSource = albumListDT,
                     AllowPaging = true,
                     CurrentPageIndex = this.PagerTop.CurrentPageIndex,
                     PageSize = this.PagerTop.PageSize

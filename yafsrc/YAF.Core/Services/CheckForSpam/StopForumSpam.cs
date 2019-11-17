@@ -1,20 +1,25 @@
-/* Yet Another Foru.NET
+/* Yet Another Forum.NET
+ * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public License
- * as published by the Free Software Foundation; either version 2
- * of the License, or (at your option) any later version.
- * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- * 
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+
+ * http://www.apache.org/licenses/LICENSE-2.0
+
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
  */
 
 namespace YAF.Core.Services.CheckForSpam
@@ -26,7 +31,7 @@ namespace YAF.Core.Services.CheckForSpam
     using System.Net;
     using System.Runtime.Serialization;
 
-    using YAF.Classes;
+    using YAF.Configuration;
     using YAF.Types;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
@@ -50,8 +55,7 @@ namespace YAF.Core.Services.CheckForSpam
         /// </returns>
         public bool IsBot([CanBeNull] string ipAddress, [CanBeNull] string emailAddress, [CanBeNull] string userName)
         {
-            string responseText;
-            return this.IsBot(ipAddress, emailAddress, userName, out responseText);
+            return this.IsBot(ipAddress, emailAddress, userName, out _);
         }
 
         /// <summary>
@@ -74,10 +78,7 @@ namespace YAF.Core.Services.CheckForSpam
             try
             {
                 var url =
-                    "http://www.stopforumspam.com/api?{0}{1}{2}&f=json".FormatWith(
-                        ipAddress.IsSet() ? "ip={0}".FormatWith(ipAddress) : string.Empty,
-                        emailAddress.IsSet() ? "&email={0}".FormatWith(emailAddress) : string.Empty,
-                        userName.IsSet() ? "&username={0}".FormatWith(userName) : string.Empty);
+                    $"http://www.stopforumspam.com/api?{(ipAddress.IsSet() ? $"ip={ipAddress}" : string.Empty)}{(emailAddress.IsSet() ? $"&email={emailAddress}" : string.Empty)}{(userName.IsSet() ? $"&username={userName}" : string.Empty)}&f=json";
 
                 var webRequest = (HttpWebRequest)WebRequest.Create(url);
 
@@ -129,11 +130,8 @@ namespace YAF.Core.Services.CheckForSpam
             [CanBeNull] string emailAddress,
             [CanBeNull] string userName)
         {
-            var parameters = "username={0}&ip_addr={1}&email={2}&api_key={3}".FormatWith(
-                userName,
-                ipAddress,
-                emailAddress,
-                YafContext.Current.Get<YafBoardSettings>().StopForumSpamApiKey);
+            var parameters =
+                $"username={userName}&ip_addr={ipAddress}&email={emailAddress}&api_key={YafContext.Current.Get<YafBoardSettings>().StopForumSpamApiKey}";
 
             var result = new HttpClient().PostRequest(
                 new Uri("http://www.stopforumspam.com/add.php"),
@@ -141,70 +139,16 @@ namespace YAF.Core.Services.CheckForSpam
                 60 * 1000,
                 parameters);
 
+            if (!result.Contains("success"))
+            {
+                YafContext.Current.Get<ILogger>().Log(
+                    null,
+                    " Report to StopForumSpam.com Failed",
+                    result);
+            }
+
             return result.Contains("success");
         }
-    }
-
-    /// <summary>
-    /// StopForumSpam.com JSON Response Class
-    /// </summary>
-    [DataContract]
-    public class StopForumSpamResponse
-    {
-        /// <summary>
-        /// Gets or sets the success string.
-        /// </summary>
-        /// <value>
-        /// The success string.
-        /// </value>
-        [DataMember(Name = "success")]
-        public string SuccessString { get; set; }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether [success].
-        /// </summary>
-        /// <value>
-        ///   <c>true</c> if [success]; otherwise, <c>false</c>.
-        /// </value>
-        public bool Success
-        {
-            get
-            {
-                return this.SuccessString == "1";
-            }
-
-            set
-            {
-                this.SuccessString = value ? "1" : "0";
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the name of the user.
-        /// </summary>
-        /// <value>
-        /// The name of the user.
-        /// </value>
-        [DataMember(Name = "username")]
-        public UserName UserName { get; set; }
-
-        /// <summary>
-        /// Gets or sets the email.
-        /// </summary>
-        /// <value>
-        /// The email.
-        /// </value>
-        [DataMember(Name = "email")]
-        public Email Email { get; set; }
-
-        /// <summary>
-        /// Gets or sets the IP address.
-        /// </summary>
-        /// <value>
-        /// The IP address.
-        /// </value>
-        [DataMember(Name = "ip")]
-        public IP IPAddress { get; set; }
     }
 
     /// <summary>
@@ -239,15 +183,9 @@ namespace YAF.Core.Services.CheckForSpam
         /// </value>
         public bool Appears
         {
-            get
-            {
-                return this.AppearsString == "1";
-            }
+            get => this.AppearsString == "1";
 
-            set
-            {
-                this.AppearsString = value ? "1" : "0";
-            }
+            set => this.AppearsString = value ? "1" : "0";
         }
     }
 
@@ -283,15 +221,9 @@ namespace YAF.Core.Services.CheckForSpam
         /// </value>
         public bool Appears
         {
-            get
-            {
-                return this.AppearsString == "1";
-            }
+            get => this.AppearsString == "1";
 
-            set
-            {
-                this.AppearsString = value ? "1" : "0";
-            }
+            set => this.AppearsString = value ? "1" : "0";
         }
     }
 
@@ -327,15 +259,9 @@ namespace YAF.Core.Services.CheckForSpam
         /// </value>
         public bool Appears
         {
-            get
-            {
-                return this.AppearsString == "1";
-            }
+            get => this.AppearsString == "1";
 
-            set
-            {
-                this.AppearsString = value ? "1" : "0";
-            }
+            set => this.AppearsString = value ? "1" : "0";
         }
     }
 }

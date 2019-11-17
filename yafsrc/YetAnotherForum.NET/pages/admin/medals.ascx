@@ -1,86 +1,113 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" Inherits="YAF.Pages.Admin.medals" Codebehind="medals.ascx.cs" %>
+
+
 <YAF:PageLinks runat="server" ID="PageLinks" />
-<YAF:AdminMenu runat="server">
-	<table class="content" width="100%" cellspacing="1" cellpadding="0">
-		<tr>
-			<td class="header1" colspan="6">
-				<YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_MEDALS" />
-            </td>
-		</tr>
-		<asp:Repeater ID="MedalList" OnItemCommand="MedalList_ItemCommand" runat="server">
-			<HeaderTemplate>
-				<tr>
-					<td class="header2" style="width: 20px;">
-						<YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="ORDER" /></td>
-					<td class="header2" style="width: 50px;">
-						<YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="IMAGE_TEXT" /></td>
-					<td class="header2">
-						<YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="NAME" LocalizedPage="COMMON" /></td>
-					<td class="header2">
-						<YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="CATEGORY" /></td>
-					<td class="header2">
-						<YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedTag="DESCRIPTION" LocalizedPage="ADMIN_BBCODE" /></td>
-					<td class="header2">
-						<YAF:LocalizedLabel ID="LocalizedLabel8" runat="server" LocalizedTag="COMMAND" /></td>
-				</tr>
-			</HeaderTemplate>
-			<ItemTemplate>
-				<tr>
-					<td class="post">
-						<%# Eval( "SortOrder") %>
-					</td>
-					<td class="post">
-						<%# RenderImages(Container.DataItem) %>
-					</td>
-					<td class="post">
-						<%# Eval( "Name") %>
-					</td>
-					<td class="post">
-						<%# Eval( "Category") %>
-					</td>
-					<td class="post">
-						<%# ((string)Eval( "Description")).Substring(0, Math.Min(Eval( "Description").ToString().Length, 100)) + "..." %>
-					</td>
-					<td class="post" align="right">
-					    <YAF:ThemeButton ID="ThemeButtonEdit" CssClass="yaflittlebutton" 
-                            CommandName='edit' CommandArgument='<%# Eval( "MedalID") %>' 
-                            TitleLocalizedTag="EDIT" 
-                            ImageThemePage="ICONS" ImageThemeTag="EDIT_SMALL_ICON"
-                            TextLocalizedTag="EDIT" 
-                            runat="server">
-					    </YAF:ThemeButton>
-					    <YAF:ThemeButton ID="ThemeButtonMoveUp" CssClass="yaflittlebutton" 
-                            CommandName='moveup' CommandArgument='<%# Eval("MedalID") %>' 
-					        TitleLocalizedTag="MOVE_UP" 
-                            TitleLocalizedPage="ADMIN_SMILIES"
-					        ImageThemePage="SORT" ImageThemeTag="ASCENDING"
-					        TextLocalizedTag="MOVE_UP" 
-                            TextLocalizedPage="ADMIN_SMILIES"
-					        runat="server"/>
-					    <YAF:ThemeButton ID="ThemeButtonMoveDown" CssClass="yaflittlebutton" 
-					        CommandName='movedown' CommandArgument='<%# Eval("MedalID") %>' 
-					        TitleLocalizedTag="MOVE_DOWN" 
-                            TitleLocalizedPage="ADMIN_SMILIES"
-					        ImageThemePage="SORT" ImageThemeTag="DESCENDING"
-					        TextLocalizedTag="MOVE_DOWN" 
-                            TextLocalizedPage="ADMIN_SMILIES"
-					        runat="server" />
-						<YAF:ThemeButton ID="ThemeButtonDelete" CssClass="yaflittlebutton" 
-                                    CommandName='delete' CommandArgument='<%# Eval( "MedalID") %>' 
-                                    TitleLocalizedTag="DELETE" 
-                                    ImageThemePage="ICONS" ImageThemeTag="DELETE_SMALL_ICON"
-                                    TextLocalizedTag="DELETE"
-                                    OnLoad="Delete_Load"  runat="server">
+
+    <div class="row">
+    <div class="col-xl-12">
+        <h1><YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_MEDALS" /></h1>
+    </div>
+    </div>
+    <div class="row">
+        <div class="col-xl-12">
+            <div class="card mb-3">
+                <div class="card-header">
+                    <i class="fa fa-trophy fa-fw text-secondary"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" 
+                                                                                LocalizedTag="TITLE" 
+                                                                                LocalizedPage="ADMIN_MEDALS" />
+                </div>
+                <div class="card-body">
+                    <asp:Repeater ID="MedalList" 
+                                  OnItemCommand="MedalListItemCommand" runat="server">
+                        <HeaderTemplate>
+                            <ul class="list-group">
+                        </HeaderTemplate>
+                        <ItemTemplate>
+                            <li class="list-group-item list-group-item-action">
+                             <div class="d-flex w-100 justify-content-between">
+                                 <h5 class="mb-1 text-break">
+                                     <%# this.RenderImages(Container.DataItem) %>
+                                     <%# this.Eval( "Name") %>
+                                 </h5>
+                                 <small class="d-none d-md-block">
+                                     <%# this.Eval("SortOrder") %>
+                                 </small>
+                             </div>
+                            <p class="mb-1">
+                                <span class="font-weight-bold">
+                                    <YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" 
+                                                        LocalizedTag="CATEGORY" 
+                                                        LocalizedPage="MODERATE_DEFAULT" />:
+                                </span>
+                                <%# this.Eval("Category") %>
+                            </p>
+                            <p class="mb-1">
+                                <span class="font-weight-bold">
+                                    <YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" 
+                                                        LocalizedTag="DESCRIPTION" 
+                                                        LocalizedPage="ADMIN_BBCODE" />:
+                                </span>
+                                <%# this.Eval("Description") %>
+                            </p>
+                            <small>
+                                <YAF:ThemeButton ID="ThemeButtonEdit" 
+                                                 Type="Info" 
+                                                 Size="Small"
+                                                 CommandName='edit' 
+                                                 CommandArgument='<%# this.Eval( "ID") %>'
+                                                 TitleLocalizedTag="EDIT"
+                                                 Icon="edit"
+                                                 TextLocalizedTag="EDIT"
+                                                 runat="server">
                                 </YAF:ThemeButton>
-					</td>
-				</tr>
-			</ItemTemplate>
-		</asp:Repeater>
-		<tr>
-			<td class="footer1" colspan="6" align="center">
-				<asp:Button ID="NewMedal" runat="server" OnClick="NewMedal_Click" CssClass="pbutton" />
-            </td>
-		</tr>
-	</table>
-</YAF:AdminMenu>
-<YAF:SmartScroller ID="SmartScroller1" runat="server" />
+                                <YAF:ThemeButton ID="ThemeButtonMoveUp" 
+                                                 CssClass="btn btn-warning btn-sm"
+                                                 CommandName='moveup' 
+                                                 CommandArgument='<%# this.Eval("ID") %>'
+                                                 TitleLocalizedTag="MOVE_UP"
+                                                 TitleLocalizedPage="ADMIN_SMILIES"
+                                                 Icon="level-up-alt"
+                                                 TextLocalizedTag="MOVE_UP"
+                                                 TextLocalizedPage="ADMIN_SMILIES"
+                                                 runat="server"/>
+                                <YAF:ThemeButton ID="ThemeButtonMoveDown" 
+                                                 CssClass="btn btn-warning btn-sm"
+                                                 CommandName='movedown' 
+                                                 CommandArgument='<%# this.Eval("ID") %>'
+                                                 TitleLocalizedTag="MOVE_DOWN"
+                                                 TitleLocalizedPage="ADMIN_SMILIES"
+                                                 Icon="level-down-alt"
+                                                 TextLocalizedTag="MOVE_DOWN"
+                                                 TextLocalizedPage="ADMIN_SMILIES"
+                                                 runat="server" />
+                                <YAF:ThemeButton ID="ThemeButtonDelete" 
+                                                 Type="Danger" 
+                                                 Size="Small"
+                                                 CommandName='delete' 
+                                                 CommandArgument='<%# this.Eval( "ID") %>'
+                                                 TitleLocalizedTag="DELETE"
+                                                 Icon="trash"
+                                                 TextLocalizedTag="DELETE"
+                                                 ReturnConfirmText='<%# this.GetText("ADMIN_MEDALS", "CONFIRM_DELETE") %>'
+                                                 runat="server">
+                                </YAF:ThemeButton>
+                            </small>
+                            </li>
+			            </ItemTemplate>
+                        <FooterTemplate>
+                            </ul>
+                        </FooterTemplate>
+                    </asp:Repeater>
+                </div>
+                <div class="card-footer text-center">
+				    <YAF:ThemeButton ID="NewMedal" runat="server" 
+                                     OnClick="NewMedalClick" 
+                                     Type="Primary"
+				                     Icon="plus-square" 
+                                     TextLocalizedTag="NEW_MEDAL" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+

@@ -1,9 +1,9 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -28,7 +28,7 @@ namespace YAF.Core.Services
     using System.Net;
     using System.Web;
 
-    using YAF.Classes;
+    using YAF.Configuration;
     using YAF.Core.Services.CheckForSpam;
     using YAF.Types;
     using YAF.Types.Extensions;
@@ -37,8 +37,32 @@ namespace YAF.Core.Services
     /// <summary>
     /// User and Content Spam Checking
     /// </summary>
-    public class YafSpamCheck
+    public class YafSpamCheck : ISpamCheck, IHaveServiceLocator
     {
+        #region Constructors and Destructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="YafSpamCheck"/> class.
+        /// </summary>
+        /// <param name="serviceLocator">
+        /// The service locator.
+        /// </param>
+        public YafSpamCheck(IServiceLocator serviceLocator)
+        {
+            this.ServiceLocator = serviceLocator;
+        }
+
+        #endregion
+
+        #region Properties
+
+        /// <summary>
+        /// Gets or sets the service locator.
+        /// </summary>
+        public IServiceLocator ServiceLocator { get; set; }
+
+        #endregion
+
         /// <summary>
         /// Check a Post for SPAM against the BlogSpam.NET API or AKISMET Service
         /// </summary>
@@ -72,14 +96,13 @@ namespace YAF.Core.Services
 
             switch (YafContext.Current.Get<YafBoardSettings>().SpamServiceType)
             {
-                case 1:
-                    return this.CheckWithBlogSpam(userName, postMessage, ipAddress, out result);
                 case 2:
                     {
                         return YafContext.Current.Get<YafBoardSettings>().AkismetApiKey.IsSet()
-                               && this.CheckWithAkismet(userName, postMessage, ipAddress, out result);
+                               && CheckWithAkismet(userName, postMessage, ipAddress, out result);
                     }
 
+                case 1:
                 case 3:
                     {
                         return YafContext.Current.Get<ISpamWordCheck>().CheckForSpamWord(postMessage, out result);
@@ -177,46 +200,6 @@ namespace YAF.Core.Services
         }
 
         /// <summary>
-        /// Checks with blog spam.
-        /// </summary>
-        /// <param name="userName">Name of the user.</param>
-        /// <param name="postMessage">The post message.</param>
-        /// <param name="ipAddress">The IP Address.</param>
-        /// <param name="result">The result.</param>
-        /// <returns>
-        /// Returns if the Content or the User was flagged as Spam, or not
-        /// </returns>
-        private bool CheckWithBlogSpam([NotNull]string userName, [NotNull]string postMessage, [NotNull]string ipAddress, out string result)
-        {
-            var isLocal = YafContext.Current.Get<HttpRequestBase>().IsLocal;
-
-            var whiteList = isLocal ? "whitelist=127.0.0.1" : string.Empty;
-
-            try
-            {
-                return
-                    BlogSpamNet.CommentIsSpam(
-                        new BlogSpamComment
-                        {
-                            comment = postMessage,
-                            ip = ipAddress,
-                            agent = YafContext.Current.Get<HttpRequestBase>().UserAgent,
-                            name = userName,
-                            options = whiteList,
-                        },
-                        true,
-                        out result);
-            }
-            catch (Exception ex)
-            {
-                YafContext.Current.Get<ILogger>().Error(ex, "Error while Checking for Spam via BlogSpam");
-
-                result = string.Empty;
-                return false;
-            }
-        }
-
-        /// <summary>
         /// Checks with AKISMET.
         /// </summary>
         /// <param name="userName">Name of the user.</param>
@@ -226,7 +209,7 @@ namespace YAF.Core.Services
         /// <returns>
         /// Returns if the Content or the User was flagged as Spam, or not
         /// </returns>
-        private bool CheckWithAkismet(
+        private static bool CheckWithAkismet(
             [NotNull] string userName,
             [NotNull] string postMessage,
             [NotNull] string ipAddress,

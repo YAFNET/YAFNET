@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -31,15 +31,16 @@ namespace YAF.Pages
     using System.Web;
     using System.Web.UI.WebControls;
 
-    using YAF.Classes.Data;
-    using YAF.Controls;
     using YAF.Core;
+    using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
-    using YAF.Types.Flags;
     using YAF.Types.Interfaces;
+    using YAF.Types.Models;
     using YAF.Utils;
+    using YAF.Utils.Helpers;
+    using YAF.Web.Extensions;
 
     #endregion
 
@@ -105,7 +106,7 @@ namespace YAF.Pages
             {
                 if (!int.TryParse(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("m"), out this.messageID))
                 {
-                    this.Response.Redirect(
+                    this.Get<HttpResponseBase>().Redirect(
                         YafBuildLink.GetLink(ForumPages.error, "Incorrect message value: {0}", this.messageID));
                 }
 
@@ -117,23 +118,23 @@ namespace YAF.Pages
                 // We check here if the user have access to the option
                 if (this.PageContext.IsGuest)
                 {
-                    this.Response.Redirect(YafBuildLink.GetLinkNotEscaped(ForumPages.info, "i=4"));
+                    this.Get<HttpResponseBase>().Redirect(YafBuildLink.GetLinkNotEscaped(ForumPages.info, "i=4"));
                 }
 
                 if (!int.TryParse(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("f"), out this.forumID))
                 {
-                    this.Response.Redirect(
+                    this.Get<HttpResponseBase>().Redirect(
                         YafBuildLink.GetLink(ForumPages.error, "Incorrect forum value: {0}", this.forumID));
                 }
 
                 this.ReturnModBtn.Visible = true;
             }
 
-            this.originalRow = LegacyDb.message_secdata(this.messageID, this.PageContext.PageUserID);
+            this.originalRow = this.GetRepository<Message>().SecAsDataTable(this.messageID, this.PageContext.PageUserID);
 
             if (this.originalRow.Rows.Count <= 0)
             {
-                this.Response.Redirect(
+                this.Get<HttpResponseBase>().Redirect(
                     YafBuildLink.GetLink(ForumPages.error, "Incorrect message value: {0}", this.messageID));
             }
 
@@ -149,23 +150,13 @@ namespace YAF.Pages
         }
 
         /// <summary>
-        /// Compares the selected Versions
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        protected void CompareVersions_OnClick([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            //TODO:
-        }
-
-        /// <summary>
         /// Redirect to the changed post
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void ReturnBtn_OnClick([NotNull] object sender, [NotNull] EventArgs e)
         {
-            this.Response.Redirect(YafBuildLink.GetLinkNotEscaped(ForumPages.posts, "m={0}#post{0}", this.messageID));
+            this.Get<HttpResponseBase>().Redirect(YafBuildLink.GetLinkNotEscaped(ForumPages.posts, "m={0}#post{0}", this.messageID));
         }
 
         /// <summary>
@@ -175,7 +166,7 @@ namespace YAF.Pages
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void ReturnModBtn_OnClick([NotNull] object sender, [NotNull] EventArgs e)
         {
-            this.Response.Redirect(
+            this.Get<HttpResponseBase>().Redirect(
                 YafBuildLink.GetLinkNotEscaped(ForumPages.moderate_reportedposts, "f={0}", this.forumID));
         }
 
@@ -189,102 +180,65 @@ namespace YAF.Pages
             switch (e.CommandName)
             {
                 case "restore":
-                    var currentMessage = LegacyDb.MessageList(this.messageID).FirstOrDefault();
+                    var currentMessage = this.GetRepository<Message>().MessageList(this.messageID).FirstOrDefault();
 
                     DataRow restoreMessage = null;
 
-                    var revisionsTable = LegacyDb.messagehistory_list(
+                    var revisionsTable = this.GetRepository<Message>().HistoryListAsDataTable(
                         this.messageID,
                         this.PageContext.BoardSettings.MessageHistoryDaysToLog).AsEnumerable();
 
-                    foreach (DataRow row in Enumerable.Where(revisionsTable, row => row["Edited"].ToType<string>().Equals(e.CommandArgument.ToType<string>())))
-                    {
-                        restoreMessage = row;
-                    }
+                    Enumerable.Where(
+                            revisionsTable,
+                            row => row["Edited"].ToType<string>().Equals(e.CommandArgument.ToType<string>()))
+                        .ForEach(row => restoreMessage = row);
 
                     if (restoreMessage != null)
                     {
-
-                        LegacyDb.message_update(
+                        this.GetRepository<Message>().Update(
                             this.messageID,
-                            currentMessage.Priority,
-                            restoreMessage["Message"],
+                            currentMessage.Priority.Value,
+                            restoreMessage["Message"].ToString(),
                             currentMessage.Description,
                             currentMessage.Status,
                             currentMessage.Styles,
                             currentMessage.Topic,
                             currentMessage.Flags.BitValue,
-                            restoreMessage["EditReason"],
+                            restoreMessage["EditReason"].ToString(),
                             this.PageContext.PageUserID != currentMessage.UserID,
                             this.PageContext.IsAdmin || this.PageContext.ForumModeratorAccess,
-                            currentMessage.Message,
+                            currentMessage,
                             this.PageContext.PageUserID);
 
-                        this.PageContext.AddLoadMessage(this.GetText("MESSAGE_RESTORED"), MessageTypes.Success);
+                        this.PageContext.AddLoadMessage(this.GetText("MESSAGE_RESTORED"), MessageTypes.success);
                     }
 
                     break;
             }
         }
 
-        /// <summary>
-        /// Add Confirm Dialog to the Restore Message Button
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        protected void RestoreVersion_Load([NotNull] object sender, [NotNull] EventArgs e)
+        protected string GetIpAddress(object dataItem)
         {
-            ((ThemeButton)sender).Attributes["onclick"] =
-                "return confirm('{0}')".FormatWith(this.GetText("MESSAGEHISTORY", "CONFIRM_RESTORE"));
+            var row = (DataRow)dataItem;
+
+            var ip = IPHelper.GetIp4Address(row["IP"].ToString());
+
+            return ip.IsSet() ? ip : IPHelper.GetIp4Address(row["MessageIP"].ToString());
         }
 
-        /// <summary>
-        /// Format message.
-        /// </summary>
-        /// <param name="row">
-        /// Message data row.
-        /// </param>
-        /// <returns>
-        /// Formatted string with escaped HTML markup and formatted.
-        /// </returns>
-        protected string FormatMessage([NotNull] DataRow row)
-        {
-            // get message flags
-            var messageFlags = new MessageFlags(row["Flags"]);
-
-            // message
-            string msg;
-
-            // format message?
-            if (messageFlags.NotFormatted)
-            {
-                // just encode it for HTML output
-                msg = this.HtmlEncode(row["Message"].ToString());
-            }
-            else
-            {
-                // fully format message (YafBBCode, smilies)
-                msg = this.Get<IFormatMessage>().FormatMessage(
-                  row["Message"].ToString(), messageFlags, row["IsModeratorChanged"].ToType<bool>());
-            }
-
-            // return formatted message
-            return msg;
-        }
-        
         /// <summary>
         /// Binds data to data source
         /// </summary>
         private void BindData()
         {
             // Fill revisions list repeater.
-            var revisionsTable = LegacyDb.messagehistory_list(
+            var revisionsTable = this.GetRepository<Message>().HistoryListAsDataTable(
                 this.messageID,
                 this.PageContext.BoardSettings.MessageHistoryDaysToLog);
 
             revisionsTable.AcceptChanges();
 
-            revisionsTable.Merge(LegacyDb.message_secdata(this.messageID, this.PageContext.PageUserID));
+            revisionsTable.Merge(this.GetRepository<Message>().SecAsDataTable(this.messageID, this.PageContext.PageUserID));
 
             this.RevisionsCount = revisionsTable.Rows.Count;
 

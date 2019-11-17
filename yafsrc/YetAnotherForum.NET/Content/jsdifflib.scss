@@ -28,7 +28,6 @@ authors and should not be interpreted as representing official policies, either 
 or implied, of Chas Emerick.
 */
 
-
 .diffContent {
   height: auto;
   overflow: auto;
@@ -39,56 +38,46 @@ or implied, of Chas Emerick.
 }
 
 table.diff {
-  border-collapse: collapse;
-  border: 1px solid darkgray;
-  tbody {
-    font-family: Courier, monospace;
-    th {
-      font-family: verdana, arial, 'Bitstream Vera Sans', helvetica, sans-serif;
-      background: #EED;
-      font-size: 11px;
-      font-weight: normal;
-      border: 1px solid #BBC;
-      color: #886;
-      padding: .3em .5em .1em 2em;
-      text-align: right;
-      vertical-align: top;
+    tbody {
+        th {
+            padding: .3em .5em .1em 2em;
+            text-align: right;
+            vertical-align: top;
+        }
+
+        td {
+            padding: 0 .4em;
+            vertical-align: top;
+        }
     }
-    td {
-      padding: 0 .4em;
-      vertical-align: top;
+
+    thead {
+        th.texttitle {
+            text-align: left;
+        }
     }
-  }
-  thead {
-    border-bottom: 1px solid #BBC;
-    background: #EFEFEF;
-    font-family: Verdana;
-    th.texttitle {
-      text-align: left;
+
+    .empty {
+        background-color: #DDD;
     }
-  }
-  .empty {
-    background-color: #DDD;
-  }
-  .replace {
-    background-color: #FFC;
-  }
-  .delete {
-    background-color: #FCC;
-  }
-  .skip {
-    background-color: #EFEFEF;
-    border: 1px solid #AAA;
-    border-right: 1px solid #BBC;
-  }
-  .insert {
-    background-color: #CFC;
-  }
-  th.author {
-    text-align: right;
-    border-top: 1px solid #BBC;
-    background: #EFEFEF;
-  }
+
+    .replace {
+        background-color: #FFC;
+    }
+
+    .insert {
+        background-color: #CFC;
+    }
+
+    .skip {
+        background-color: #EFEFEF;
+        border: 1px solid #AAA;
+        border-right: 1px solid #BBC;
+    }
+
+    th.author {
+        text-align: right;
+    }
 }
 
 del {

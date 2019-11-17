@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -38,14 +38,15 @@ namespace YAF.Pages.Admin
     using System.Xml;
     using System.Xml.XPath;
 
-    using YAF.Classes;
-    using YAF.Controls;
     using YAF.Core;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Objects;
     using YAF.Utils;
+    using YAF.Utils.Helpers;
+    using YAF.Web.Extensions;
 
     #endregion
 
@@ -57,29 +58,19 @@ namespace YAF.Pages.Admin
         #region Constants and Fields
 
         /// <summary>
-        ///   List of attributes for Resources in destination translation file, backing store for property
+        ///   Indicates if Xml File is Synchronized
         /// </summary>
-        private readonly StringDictionary _resourcesAttributes = new StringDictionary();
+        private bool update;
 
         /// <summary>
-        ///   List of namespaces for  Resources  in destination translation file, backing store for property
+        ///   Physical Path to The languages folder
         /// </summary>
-        private readonly StringDictionary _resourcesNamespaces = new StringDictionary();
-
-        /// <summary>
-        ///   Indicates if Xml File is Syncronized
-        /// </summary>
-        private bool bUpdate;
-
-        /// <summary>
-        ///   Pysical Path to The languages folder
-        /// </summary>
-        private string sLangPath;
+        private string langPath;
 
         /// <summary>
         ///   Xml File Name of Current Language
         /// </summary>
-        private string sXmlFile;
+        private string xmlFile;
 
         /// <summary>
         ///   The translations.
@@ -93,24 +84,12 @@ namespace YAF.Pages.Admin
         /// <summary>
         ///  Gets the List of attributes for Resources in destination translation file
         /// </summary>
-        private StringDictionary ResourcesAttributes
-        {
-            get
-            {
-                return this._resourcesAttributes;
-            }
-        }
+        private StringDictionary ResourcesAttributes { get; } = new StringDictionary();
 
         /// <summary>
         ///  Gets the List of namespaces for Resources in destination translation file
         /// </summary>
-        private StringDictionary ResourcesNamespaces
-        {
-            get
-            {
-                return this._resourcesNamespaces;
-            }
-        }
+        private StringDictionary ResourcesNamespaces { get; } = new StringDictionary();
 
         #endregion
 
@@ -119,24 +98,22 @@ namespace YAF.Pages.Admin
         /// <summary>
         /// Remove all Resources with the same Name and Page
         /// </summary>
-        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="T">The typed parameter</typeparam>
         /// <param name="list">The list.</param>
         /// <returns>
         /// The Cleaned List
         /// </returns>
         [NotNull]
-        public static List<T> RemoveDuplicateSections<T>([NotNull] List<T> list) where T : Translation
+        public static List<T> RemoveDuplicateSections<T>([NotNull] List<T> list)
+            where T : Translation
         {
             var finalList = new List<T>();
 
-            /*foreach (T item1 in
-                      list.Where(item1 => finalList.Find(check => check.sPageName.Equals(item1.sPageName) && check.sResourceName.Equals(item1.sResourceName) && check.sResourceValue.Equals(item1.sResourceValue) && check.sLocalizedValue.Equals(item1.sLocalizedValue)) == null))
-                  {
-                      finalList.Add(item1);
-                  }*/
             finalList.AddRange(
                 list.Where(
-                    item1 => finalList.Find(check => check.PageName.Equals(item1.PageName) && check.ResourceName.Equals(item1.ResourceName)) == null));
+                    item1 => finalList.Find(
+                                 check => check.PageName.Equals(item1.PageName)
+                                          && check.ResourceName.Equals(item1.ResourceName)) == null));
 
             return finalList;
         }
@@ -148,9 +125,8 @@ namespace YAF.Pages.Admin
         /// <param name="args">The <see cref="System.Web.UI.WebControls.ServerValidateEventArgs"/> instance containing the event data.</param>
         public void LocalizedTextCheck([NotNull] object sender, [NotNull] ServerValidateEventArgs args)
         {
-            foreach (TextBox tbx in
-                this.grdLocals.Items.Cast<DataGridItem>().Select(item => (TextBox)item.FindControl("txtLocalized")).
-                    Where(tbx => args.Value.Equals(tbx.Text)))
+            foreach (var tbx in this.grdLocals.Items.Cast<DataGridItem>()
+                .Select(item => item.FindControlAs<TextBox>("txtLocalized")).Where(tbx => args.Value.Equals(tbx.Text)))
             {
                 tbx.ForeColor = tbx.Text.Equals(tbx.ToolTip, StringComparison.OrdinalIgnoreCase)
                                     ? Color.Red
@@ -165,12 +141,8 @@ namespace YAF.Pages.Admin
 
         #region Methods
 
-        /// <summary>
-        /// The on init.
-        /// </summary>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <summary>Raises the <see cref="E:System.Web.UI.Control.Init"/> event.</summary>
+        /// <param name="e">An <see cref="T:System.EventArgs"/> object that contains the event data.</param>
         protected override void OnInit([NotNull] EventArgs e)
         {
             this.InitializeComponent();
@@ -184,17 +156,17 @@ namespace YAF.Pages.Admin
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            this.sLangPath =
-                HttpContext.Current.Request.MapPath("{0}languages".FormatWith(YafForumInfo.ForumServerFileRoot));
+            this.langPath = HttpContext.Current.Request.MapPath($"{YafForumInfo.ForumServerFileRoot}languages");
 
-            if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("x") != null)
+            if (this.Get<HttpRequestBase>().QueryString.Exists("x"))
             {
-                this.sXmlFile = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("x");
+                this.xmlFile = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("x");
 
                 this.dDLPages.Items.Clear();
 
                 this.PopulateTranslations(
-                    Path.Combine(this.sLangPath, "english.xml"), Path.Combine(this.sLangPath, this.sXmlFile));
+                    Path.Combine(this.langPath, "english.xml"),
+                    Path.Combine(this.langPath, this.xmlFile));
             }
 
             if (this.IsPostBack)
@@ -202,28 +174,11 @@ namespace YAF.Pages.Admin
                 return;
             }
 
-            this.PageLinks.AddRoot();
-            this.PageLinks.AddLink(
-                this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
-
-            this.PageLinks.AddLink(
-                this.GetText("ADMIN_LANGUAGES", "TITLE"), YafBuildLink.GetLink(ForumPages.admin_languages));
-            this.PageLinks.AddLink(this.GetText("ADMIN_EDITLANGUAGE", "TITLE"), string.Empty);
-
-            this.Page.Header.Title = "{0} - {1} - {2}".FormatWith(
-                this.GetText("ADMIN_ADMIN", "Administration"),
-                this.GetText("ADMIN_LANGUAGES", "TITLE"),
-                this.GetText("ADMIN_EDITLANGUAGE", "TITLE"));
-
-            this.btnLoadPageLocalization.Text = this.GetText("ADMIN_EDITLANGUAGE", "LOAD_PAGE");
-            this.btnSave.Text = this.GetText("COMMON", "SAVE");
-            this.btnCancel.Text = this.GetText("COMMON", "CANCEL");
-
             this.dDLPages.Items.FindByText("DEFAULT").Selected = true;
 
             this.lblPageName.Text = "DEFAULT";
 
-            if (this.bUpdate)
+            if (this.update)
             {
                 this.lblInfo.Visible = true;
 
@@ -238,6 +193,25 @@ namespace YAF.Pages.Admin
 
             this.grdLocals.DataSource = this.translations.FindAll(check => check.PageName.Equals("DEFAULT"));
             this.grdLocals.DataBind();
+        }
+
+        /// <summary>
+        /// Creates page links for this page.
+        /// </summary>
+        protected override void CreatePageLinks()
+        {
+            this.PageLinks.AddRoot();
+            this.PageLinks.AddLink(
+                this.GetText("ADMIN_ADMIN", "Administration"),
+                YafBuildLink.GetLink(ForumPages.admin_admin));
+
+            this.PageLinks.AddLink(
+                this.GetText("ADMIN_LANGUAGES", "TITLE"),
+                YafBuildLink.GetLink(ForumPages.admin_languages));
+            this.PageLinks.AddLink(this.GetText("ADMIN_EDITLANGUAGE", "TITLE"), string.Empty);
+
+            this.Page.Header.Title =
+                $"{this.GetText("ADMIN_ADMIN", "Administration")} - {this.GetText("ADMIN_LANGUAGES", "TITLE")} - {this.GetText("ADMIN_EDITLANGUAGE", "TITLE")}";
         }
 
         /// <summary>
@@ -262,9 +236,9 @@ namespace YAF.Pages.Admin
                 return;
             }
 
-            var txtLocalized = (TextBox)e.Item.FindControl("txtLocalized");
+            var txtLocalized = e.Item.FindControlAs<TextBox>("txtLocalized");
 
-            var txtResource = (TextBox)e.Item.FindControl("txtResource");
+            var txtResource = e.Item.FindControlAs<TextBox>("txtResource");
 
             if (txtResource.Text.Length > 30)
             {
@@ -285,19 +259,19 @@ namespace YAF.Pages.Admin
         /// <summary>
         /// Creates controls for column 1 (Resource tag) and column 2 (Resource value).
         /// </summary>
-        /// <param name="sPageName">Name of the s page.</param>
+        /// <param name="pageName">Name of the page.</param>
         /// <param name="resourceName">Name of the resource.</param>
         /// <param name="srcResourceValue">The SRC resource value.</param>
         /// <param name="dstResourceValue">The DST resource value.</param>
         private void CreatePageResourceControl(
-            [NotNull] string sPageName,
+            [NotNull] string pageName,
             [NotNull] string resourceName,
             [NotNull] string srcResourceValue,
             [NotNull] string dstResourceValue)
         {
             var translation = new Translation
                                   {
-                                      PageName = sPageName,
+                                      PageName = pageName,
                                       ResourceName = resourceName,
                                       ResourceValue = srcResourceValue,
                                       LocalizedValue = dstResourceValue
@@ -353,7 +327,7 @@ namespace YAF.Pages.Admin
         /// <param name="dstFile">The DST file.</param>
         private void PopulateTranslations([NotNull] string srcFile, [NotNull] string dstFile)
         {
-            this.bUpdate = false;
+            this.update = false;
 
             try
             {
@@ -363,8 +337,8 @@ namespace YAF.Pages.Admin
                 docSrc.Load(srcFile);
                 docDst.Load(dstFile);
 
-                XPathNavigator navSrc = docSrc.DocumentElement.CreateNavigator();
-                XPathNavigator navDst = docDst.DocumentElement.CreateNavigator();
+                var navSrc = docSrc.DocumentElement.CreateNavigator();
+                var navDst = docDst.DocumentElement.CreateNavigator();
 
                 this.ResourcesNamespaces.Clear();
                 if (navDst.MoveToFirstNamespace())
@@ -395,20 +369,18 @@ namespace YAF.Pages.Admin
                 foreach (XPathNavigator pageItemNavigator in navSrc.Select("page"))
                 {
                     // int pageResourceCount = 0;
-                    string pageNameAttributeValue = pageItemNavigator.GetAttribute("name", string.Empty);
+                    var pageNameAttributeValue = pageItemNavigator.GetAttribute("name", string.Empty);
 
                     this.CreatePageResourceHeader(pageNameAttributeValue);
 
-                    XPathNodeIterator resourceItemCollection = pageItemNavigator.Select("Resource");
+                    var resourceItemCollection = pageItemNavigator.Select("Resource");
 
                     foreach (XPathNavigator resourceItem in resourceItemCollection)
                     {
                         var resourceTagAttributeValue = resourceItem.GetAttribute("tag", string.Empty);
 
-                        XPathNodeIterator iteratorSe =
-                            navDst.Select(
-                                "/Resources/page[@name=\"" + pageNameAttributeValue + "\"]/Resource[@tag=\""
-                                + resourceTagAttributeValue + "\"]");
+                        var iteratorSe = navDst.Select(
+                            $"/Resources/page[@name=\"{pageNameAttributeValue}\"]/Resource[@tag=\"{resourceTagAttributeValue}\"]");
 
                         if (iteratorSe.Count <= 0)
                         {
@@ -421,13 +393,15 @@ namespace YAF.Pages.Admin
                                 resourceItem.Value,
                                 resourceItem.Value);
 
-                            this.bUpdate = true;
+                            this.update = true;
                         }
 
                         while (iteratorSe.MoveNext())
                         {
                             // pageResourceCount++;
-                            if (!iteratorSe.Current.Value.Equals(resourceItem.Value, StringComparison.OrdinalIgnoreCase))
+                            if (!iteratorSe.Current.Value.Equals(
+                                    resourceItem.Value,
+                                    StringComparison.OrdinalIgnoreCase))
                             {
                             }
 
@@ -442,7 +416,7 @@ namespace YAF.Pages.Admin
             }
             catch (Exception exception)
             {
-                this.Logger.Log(null, this, "Error loading files. {0}".FormatWith(exception.Message));
+                this.Logger.Log(null, this, $"Error loading files. {exception.Message}");
             }
         }
 
@@ -465,17 +439,15 @@ namespace YAF.Pages.Admin
         {
             this.translations = RemoveDuplicateSections(this.translations);
 
-            new XmlDocument();
+            var settings = new XmlWriterSettings
+                               {
+                                   Encoding = Encoding.UTF8,
+                                   OmitXmlDeclaration = false,
+                                   Indent = true,
+                                   IndentChars = " "
+                               };
 
-            var xwSettings = new XmlWriterSettings
-                                 {
-                                     Encoding = Encoding.UTF8,
-                                     OmitXmlDeclaration = false,
-                                     Indent = true,
-                                     IndentChars = " "
-                                 };
-
-            XmlWriter xw = XmlWriter.Create(Path.Combine(this.sLangPath, this.sXmlFile), xwSettings);
+            var xw = XmlWriter.Create(Path.Combine(this.langPath, this.xmlFile), settings);
             xw.WriteStartDocument();
 
             // <Resources>
@@ -493,7 +465,7 @@ namespace YAF.Pages.Admin
 
             var currentPageName = string.Empty;
 
-            foreach (Translation trans in this.translations.OrderBy(t => t.PageName).ThenBy(t => t.ResourceName))
+            foreach (var trans in this.translations.OrderBy(t => t.PageName).ThenBy(t => t.ResourceName))
             {
                 // <page></page>
                 if (!trans.PageName.Equals(currentPageName, StringComparison.OrdinalIgnoreCase))
@@ -527,60 +499,28 @@ namespace YAF.Pages.Admin
             xw.WriteEndDocument();
             xw.Close();
 
-            if (General.GetCurrentTrustLevel() >= AspNetHostingPermissionLevel.High)
-            {
-                HttpRuntime.UnloadAppDomain();
-            }
+            HttpRuntime.UnloadAppDomain();
         }
 
         /// <summary>
-        /// Update Localizated Values in the Generics List
+        /// Update Localized Values in the Generics List
         /// </summary>
         private void UpdateLocalizedValues()
         {
-            foreach (DataGridItem item in this.grdLocals.Items)
-            {
-                var txtLocalized = (TextBox)item.FindControl("txtLocalized");
+            this.grdLocals.Items.Cast<DataGridItem>().ForEach(
+                item =>
+                    {
+                        var txtLocalized = item.FindControlAs<TextBox>("txtLocalized");
 
-                var lblResourceName = (Label)item.FindControl("lblResourceName");
+                        var lblResourceName = (Label)item.FindControlAs<Label>("lblResourceName");
 
-                this.translations.Find(
-                    check =>
-                    check.PageName.Equals(this.lblPageName.Text) && check.ResourceName.Equals(lblResourceName.Text)).
-                    LocalizedValue = txtLocalized.Text;
-            }
+                        this.translations.Find(
+                                check => check.PageName.Equals(this.lblPageName.Text)
+                                         && check.ResourceName.Equals(lblResourceName.Text)).LocalizedValue =
+                            txtLocalized.Text;
+                    });
         }
 
         #endregion
-
-        /// <summary>
-        /// Support class for TextBox.Tag property value
-        /// </summary>
-        public class Translation
-        {
-            #region Properties
-
-            /// <summary>
-            ///   Gets or sets the localized value.
-            /// </summary>
-            public string LocalizedValue { get; set; }
-
-            /// <summary>
-            ///   Gets or sets the page name.
-            /// </summary>
-            public string PageName { get; set; }
-
-            /// <summary>
-            ///   Gets or sets the resource name.
-            /// </summary>
-            public string ResourceName { get; set; }
-
-            /// <summary>
-            ///   Gets or sets the resource value.
-            /// </summary>
-            public string ResourceValue { get; set; }
-
-            #endregion
-        }
     }
 }

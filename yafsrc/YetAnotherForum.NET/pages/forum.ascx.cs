@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -27,13 +27,13 @@ namespace YAF.Pages
 
     using System;
 
-    using YAF.Classes;
-    using YAF.Controls;
+    using YAF.Configuration;
     using YAF.Core;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Interfaces;
     using YAF.Utils;
+    using YAF.Web.Extensions;
 
     #endregion
 
@@ -69,10 +69,7 @@ namespace YAF.Pages
 
             // Since these controls have EnabledViewState=false, set their visibility on every page load so that this value is not lost on postback.
             // This is important for another reason: these are board settings; values in the view state should have no impact on whether these controls are shown or not.
-            this.ShoutBox1.Visible = this.Get<YafBoardSettings>().ShowShoutbox
-                                     && this.Get<IPermissions>()
-                                            .Check(this.Get<YafBoardSettings>().ShoutboxViewPermissions);
-            this.ForumStats.Visible = this.Get<YafBoardSettings>().ShowForumStatistics;
+           this.ForumStats.Visible = this.Get<YafBoardSettings>().ShowForumStatistics;
             this.ActiveDiscussions.Visible = this.Get<YafBoardSettings>().ShowActiveDiscussions;
 
             if (this.IsPostBack)
@@ -80,17 +77,22 @@ namespace YAF.Pages
                 return;
             }
 
-            if (this.PageContext.Settings.LockedForum == 0)
+            if (this.PageContext.Settings.LockedForum != 0)
             {
-                this.PageLinks.AddRoot();
-                if (this.PageContext.PageCategoryID != 0)
-                {
-                    this.PageLinks.AddLink(
-                        this.PageContext.PageCategoryName,
-                        YafBuildLink.GetLink(ForumPages.forum, "c={0}", this.PageContext.PageCategoryID));
-                    this.Welcome.Visible = false;
-                }
+                return;
             }
+
+            this.PageLinks.AddRoot();
+
+            if (this.PageContext.PageCategoryID == 0)
+            {
+                return;
+            }
+
+            this.PageLinks.AddLink(
+                this.PageContext.PageCategoryName,
+                YafBuildLink.GetLink(ForumPages.forum, "c={0}", this.PageContext.PageCategoryID));
+            this.Welcome.Visible = false;
         }
 
         #endregion

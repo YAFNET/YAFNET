@@ -188,11 +188,6 @@ if exists (select top 1 1 from sys.objects where name='FK_Rank_Board' and parent
 go
 
 
-if exists (select top 1 1 from sys.objects where name='FK_Smiley_Board' and parent_object_id=object_id('[{databaseOwner}].[{objectQualifier}Smiley]') and type in (N'F'))
-	alter table [{databaseOwner}].[{objectQualifier}Smiley] drop constraint [FK_Smiley_Board]
-go
-
-
 if exists (select top 1 1 from sys.objects where name='FK_User_Rank' and parent_object_id=object_id('[{databaseOwner}].[{objectQualifier}User]') and type in (N'F'))
 	alter table [{databaseOwner}].[{objectQualifier}User] drop constraint [FK_User_Rank]
 go
@@ -295,11 +290,6 @@ go
 
 if exists (select top 1 1 from  sys.indexes where object_id=object_id('[{databaseOwner}].[{objectQualifier}Poll]') and name='PK_Poll')
 	alter table [{databaseOwner}].[{objectQualifier}Poll] drop constraint [PK_Poll]
-go
-
-
-if exists (select top 1 1 from  sys.indexes where object_id=object_id('[{databaseOwner}].[{objectQualifier}Smiley]') and name='PK_Smiley')
-	alter table [{databaseOwner}].[{objectQualifier}Smiley] drop constraint [PK_Smiley]
 go
 
 
@@ -442,11 +432,6 @@ if exists (select top 1 1 from  sys.indexes where object_id=object_id('[{databas
 go
 
 
-if exists (select top 1 1 from  sys.indexes where object_id=object_id('[{databaseOwner}].[{objectQualifier}Smiley]') and name='IX_Smiley')
-	alter table [{databaseOwner}].[{objectQualifier}Smiley] drop constraint IX_Smiley
-go
-
-
 if exists (select top 1 1 from  sys.indexes where object_id=object_id('[{databaseOwner}].[{objectQualifier}BannedIP]') and name='IX_BannedIP')
 	alter table [{databaseOwner}].[{objectQualifier}BannedIP] drop constraint IX_BannedIP
 go
@@ -476,10 +461,6 @@ if exists (select top 1 1 from  sys.indexes where object_id=object_id('[{databas
 	alter table [{databaseOwner}].[{objectQualifier}Rank] drop constraint IX_Rank
 go
 
-
-if exists (select top 1 1 from  sys.indexes where object_id=object_id('[{databaseOwner}].[{objectQualifier}Smiley]') and name='IX_Smiley')
-	alter table [{databaseOwner}].[{objectQualifier}Smiley] drop constraint IX_Smiley
-go
 
 
 if exists (select top 1 1 from  sys.indexes where object_id=object_id('[{databaseOwner}].[{objectQualifier}User]') and name='IX_User')
@@ -608,10 +589,6 @@ if (select OBJECTPROPERTY(OBJECT_ID('[{databaseOwner}].[{objectQualifier}Poll]')
 	alter table [{databaseOwner}].[{objectQualifier}Poll] with nocheck add constraint [PK_{objectQualifier}Poll] primary key clustered(PollID)
 go
 
-if (select OBJECTPROPERTY(OBJECT_ID('[{databaseOwner}].[{objectQualifier}Smiley]'), 'TableHasPrimaryKey')) = 0
-	alter table [{databaseOwner}].[{objectQualifier}Smiley] with nocheck add constraint [PK_{objectQualifier}Smiley] primary key clustered(SmileyID)
-go
-
 if (select OBJECTPROPERTY(OBJECT_ID('[{databaseOwner}].[{objectQualifier}Topic]'), 'TableHasPrimaryKey')) = 0
 	alter table [{databaseOwner}].[{objectQualifier}Topic] with nocheck add constraint [PK_{objectQualifier}Topic] primary key clustered(TopicID)
 go
@@ -699,10 +676,6 @@ if (select OBJECTPROPERTY(OBJECT_ID('[{databaseOwner}].[{objectQualifier}IgnoreU
 	alter table [{databaseOwner}].[{objectQualifier}IgnoreUser] with nocheck add constraint [PK_{objectQualifier}IgnoreUser] PRIMARY KEY CLUSTERED (UserID, IgnoredUserID)
 go
 
-if (select OBJECTPROPERTY(OBJECT_ID('[{databaseOwner}].[{objectQualifier}ShoutboxMessage]'), 'TableHasPrimaryKey')) = 0
-	alter table [{databaseOwner}].[{objectQualifier}ShoutboxMessage] with nocheck add constraint [PK_{objectQualifier}ShoutboxMessage] PRIMARY KEY CLUSTERED (ShoutBoxMessageID)
-go
-
 if (select OBJECTPROPERTY(OBJECT_ID('[{databaseOwner}].[{objectQualifier}Thanks]'), 'TableHasPrimaryKey')) = 0
 	alter table [{databaseOwner}].[{objectQualifier}Thanks] with nocheck add constraint [PK_{objectQualifier}Thanks] PRIMARY KEY CLUSTERED (ThanksID)
 go
@@ -721,10 +694,6 @@ go
 
 if (select OBJECTPROPERTY(OBJECT_ID('[{databaseOwner}].[{objectQualifier}AdminPageUserAccess]'), 'TableHasPrimaryKey')) = 0
 	alter table [{databaseOwner}].[{objectQualifier}AdminPageUserAccess] with nocheck add constraint [PK_{objectQualifier}AdminPageUserAccess] primary key clustered(UserID,PageName)
-go
-
-if (select OBJECTPROPERTY(OBJECT_ID('[{databaseOwner}].[{objectQualifier}EventLogGroupAccess]'), 'TableHasPrimaryKey')) = 0
-	alter table [{databaseOwner}].[{objectQualifier}EventLogGroupAccess] with nocheck add constraint [PK_{objectQualifier}EventLogGroupAccess] primary key clustered(GroupID,EventTypeID)
 go
 
 /*
@@ -780,10 +749,6 @@ if not exists (select top 1 1 from  sys.indexes where object_id=object_id('[{dat
 	alter table [{databaseOwner}].[{objectQualifier}BannedEmail] add constraint IX_{objectQualifier}BannedEmail unique nonclustered(BoardID,Mask)
 go
 
-if not exists (select top 1 1 from  sys.indexes where object_id=object_id('[{databaseOwner}].[{objectQualifier}Smiley]') and name='IX_{objectQualifier}Smiley')
-	alter table [{databaseOwner}].[{objectQualifier}Smiley] add constraint IX_{objectQualifier}Smiley unique nonclustered(BoardID,Code)
-go
-
 
 if not exists (select top 1 1 from  sys.indexes where object_id=object_id('[{databaseOwner}].[{objectQualifier}Category]') and name='IX_{objectQualifier}Category')
 	alter table [{databaseOwner}].[{objectQualifier}Category] add constraint IX_{objectQualifier}Category unique nonclustered(BoardID,Name)
@@ -807,11 +772,6 @@ go
 
 if not exists (select top 1 1 from  sys.indexes where object_id=object_id('[{databaseOwner}].[{objectQualifier}Rank]') and name='IX_{objectQualifier}Rank')
 	alter table [{databaseOwner}].[{objectQualifier}Rank] add constraint IX_{objectQualifier}Rank unique nonclustered(BoardID,Name)
-go
-
-
-if not exists (select top 1 1 from  sys.indexes where object_id=object_id('[{databaseOwner}].[{objectQualifier}Smiley]') and name='IX_{objectQualifier}Smiley')
-	alter table [{databaseOwner}].[{objectQualifier}Smiley] add constraint IX_{objectQualifier}Smiley unique nonclustered(BoardID,Code)
 go
 
 
@@ -1082,12 +1042,6 @@ if not exists (select top 1 1 from sys.objects where name='FK_{objectQualifier}R
 	alter table [{databaseOwner}].[{objectQualifier}Rank] add constraint [FK_{objectQualifier}Rank_{objectQualifier}Board] foreign key(BoardID) references [{databaseOwner}].[{objectQualifier}Board] (BoardID)
 go
 
-
-if not exists (select top 1 1 from sys.objects where name='FK_{objectQualifier}Smiley_{objectQualifier}Board' and parent_object_id=object_id('[{databaseOwner}].[{objectQualifier}Smiley]') and type in (N'F'))
-	alter table [{databaseOwner}].[{objectQualifier}Smiley] add constraint [FK_{objectQualifier}Smiley_{objectQualifier}Board] foreign key(BoardID) references [{databaseOwner}].[{objectQualifier}Board] (BoardID)
-go
-
-
 if not exists (select top 1 1 from sys.objects where name='FK_{objectQualifier}User_{objectQualifier}Rank' and parent_object_id=object_id('[{databaseOwner}].[{objectQualifier}User]') and type in (N'F'))
 	alter table [{databaseOwner}].[{objectQualifier}User] add constraint [FK_{objectQualifier}User_{objectQualifier}Rank] foreign key(RankID) references [{databaseOwner}].[{objectQualifier}Rank](RankID)
 go
@@ -1179,10 +1133,6 @@ go
 
 if not exists (select top 1 1 from sys.objects where name='FK_{objectQualifier}AdminPageUserAccess_{objectQualifier}UserID' and parent_object_id=object_id('[{databaseOwner}].[{objectQualifier}AdminPageUserAccess]') and type in (N'F'))
 	alter table [{databaseOwner}].[{objectQualifier}AdminPageUserAccess] add constraint [FK_{objectQualifier}AdminPageUserAccess_{objectQualifier}UserID] foreign key (UserID) references [{databaseOwner}].[{objectQualifier}User](UserID) ON DELETE CASCADE
-go
-
-if not exists (select top 1 1 from sys.objects where name='FK_{objectQualifier}EventLogGroupAccess_{objectQualifier}GroupID' and parent_object_id=object_id('[{databaseOwner}].[{objectQualifier}EventLogGroupAccess]') and type in (N'F'))
-	alter table [{databaseOwner}].[{objectQualifier}EventLogGroupAccess] add constraint [FK_{objectQualifier}EventLogGroupAccess_{objectQualifier}GroupID] foreign key (GroupID) references [{databaseOwner}].[{objectQualifier}Group](GroupID) ON DELETE CASCADE
 go
 
 /* Default Constraints */

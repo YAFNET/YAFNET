@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -33,7 +33,7 @@ namespace YAF.Types.Models
     /// A class which represents the TopicReadTracking table.
     /// </summary>
     [Serializable]
-    public partial class TopicReadTracking : IEntity, IHaveID
+    public partial class TopicReadTracking : IEntity
     {
         partial void OnCreated();
 
@@ -44,12 +44,13 @@ namespace YAF.Types.Models
 
         #region Properties
 
+        [References(typeof(User))]
+        [Required]
         public int UserID { get; set; }
-
-        [AutoIncrement]
-        [Alias("TopicID")]
-        public int ID { get; set; }
-
+        [References(typeof(Topic))]
+        [Required]
+        public int TopicID { get; set; }
+        [Required]
         public DateTime LastAccessDate { get; set; }
 
 

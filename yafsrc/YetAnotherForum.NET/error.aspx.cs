@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -30,7 +30,6 @@ namespace YAF
     using System.Web.UI;
 
     using YAF.Types;
-    using YAF.Types.Extensions;
 
     #endregion
 
@@ -56,17 +55,15 @@ namespace YAF
             var errorMessage = @"There has been a serious error loading the forum. No further information is available.";
 
             // show error message if one was provided...
-            if (this.Session["StartupException"] != null)
+            if (this.Session[name: "StartupException"] != null)
             {
                 errorMessage =
-                    "<span class=\"label label-danger\">Error</span> {0}".FormatWith(
-                        this.Server.HtmlEncode(this.Session["StartupException"].ToString()));
+                    $"<strong>Error:</strong> {this.Server.HtmlEncode(s: this.Session[name: "StartupException"].ToString())}";
 
-                this.Session["StartupException"] = null;
+                this.Session[name: "StartupException"] = null;
             }
 
             this.ErrorMessage.Text = errorMessage;
-            //////////
         }
 
         #endregion

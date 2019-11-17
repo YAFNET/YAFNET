@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -23,82 +23,86 @@
  */
 namespace YAF.Types.Interfaces
 {
-  /// <summary>
-  /// The i have localization extensions.
-  /// </summary>
-  public static class IHaveLocalizationExtensions
-  {
-    #region Public Methods
-
     /// <summary>
-    /// Gets a text localization using the page and tag name.
+    /// The i have localization extensions.
     /// </summary>
-    /// <param name="haveLocalization">
-    /// The have localization.
-    /// </param>
-    /// <param name="page">
-    /// The page.
-    /// </param>
-    /// <param name="tag">
-    /// The tag.
-    /// </param>
-    /// <returns>
-    /// The get text.
-    /// </returns>
-    public static string GetText(
-      [NotNull] this IHaveLocalization haveLocalization, [NotNull] string page, [NotNull] string tag)
+    public static class IHaveLocalizationExtensions
     {
-      CodeContracts.VerifyNotNull(haveLocalization, "haveLocalization");
-      CodeContracts.VerifyNotNull(page, "page");
-      CodeContracts.VerifyNotNull(tag, "tag");
+        #region Public Methods
 
-      return haveLocalization.Localization.GetText(page, tag);
+        /// <summary>
+        /// Gets a text localization using the page and tag name.
+        /// </summary>
+        /// <param name="haveLocalization">
+        /// The have localization.
+        /// </param>
+        /// <param name="page">
+        /// The page.
+        /// </param>
+        /// <param name="tag">
+        /// The tag.
+        /// </param>
+        /// <returns>
+        /// The get text.
+        /// </returns>
+        public static string GetText(
+            [NotNull] this IHaveLocalization haveLocalization,
+            [NotNull] string page,
+            [NotNull] string tag)
+        {
+            CodeContracts.VerifyNotNull(haveLocalization, "haveLocalization");
+            CodeContracts.VerifyNotNull(page, "page");
+            CodeContracts.VerifyNotNull(tag, "tag");
+
+            return haveLocalization.Localization.GetText(page, tag);
+        }
+
+        /// <summary>
+        /// Gets a text localization.
+        /// </summary>
+        /// <param name="haveLocalization">
+        /// The have localization.
+        /// </param>
+        /// <param name="tag">
+        /// The tag.
+        /// </param>
+        /// <returns>
+        /// The get text.
+        /// </returns>
+        public static string GetText([NotNull] this IHaveLocalization haveLocalization, [NotNull] string tag)
+        {
+            CodeContracts.VerifyNotNull(haveLocalization, "haveLocalization");
+            CodeContracts.VerifyNotNull(tag, "tag");
+
+            return haveLocalization.Localization.GetText(tag);
+        }
+
+        /// <summary>
+        /// Gets a text localization using formatting.
+        /// </summary>
+        /// <param name="haveLocalization">
+        /// The have localization.
+        /// </param>
+        /// <param name="tag">
+        /// The tag.
+        /// </param>
+        /// <param name="args">
+        /// The args.
+        /// </param>
+        /// <returns>
+        /// The get text formatted.
+        /// </returns>
+        public static string GetTextFormatted(
+            [NotNull] this IHaveLocalization haveLocalization,
+            [NotNull] string tag,
+            [CanBeNull] params object[] args)
+        {
+            CodeContracts.VerifyNotNull(haveLocalization, "haveLocalization");
+            CodeContracts.VerifyNotNull(tag, "tag");
+
+            return haveLocalization.Localization.GetTextFormatted(tag, args);
+        }
+
+        #endregion
     }
-
-    /// <summary>
-    /// Gets a text localization.
-    /// </summary>
-    /// <param name="haveLocalization">
-    /// The have localization.
-    /// </param>
-    /// <param name="tag">
-    /// The tag.
-    /// </param>
-    /// <returns>
-    /// The get text.
-    /// </returns>
-    public static string GetText([NotNull] this IHaveLocalization haveLocalization, [NotNull] string tag)
-    {
-      CodeContracts.VerifyNotNull(haveLocalization, "haveLocalization");
-      CodeContracts.VerifyNotNull(tag, "tag");
-
-      return haveLocalization.Localization.GetText(tag);
-    }
-
-    /// <summary>
-    /// Gets a text localization using formatting.
-    /// </summary>
-    /// <param name="haveLocalization">
-    /// The have localization.
-    /// </param>
-    /// <param name="tag">
-    /// The tag.
-    /// </param>
-    /// <param name="args">
-    /// The args.
-    /// </param>
-    /// <returns>
-    /// The get text formatted.
-    /// </returns>
-    public static string GetTextFormatted(
-      [NotNull] this IHaveLocalization haveLocalization, [NotNull] string tag, [CanBeNull] params object[] args)
-    {
-      CodeContracts.VerifyNotNull(haveLocalization, "haveLocalization");
-      CodeContracts.VerifyNotNull(tag, "tag");
-
-      return haveLocalization.Localization.GetTextFormatted(tag, args);
-    }
-
-    #endregion
-  }
 }

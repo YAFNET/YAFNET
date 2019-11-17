@@ -13,12 +13,21 @@ namespace YAF.Pages {
     public partial class error {
         
         /// <summary>
-        /// errormsg control.
+        /// Alert control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableCell errormsg;
+        protected global::YAF.Web.Controls.Alert Alert;
+        
+        /// <summary>
+        /// ErrorMessageHolder control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label ErrorMessageHolder;
     }
 }

@@ -2,17 +2,18 @@
   {
     "outputFileName": "Scripts/InstallWizard.comb.js",
     "inputFiles": [
+      "Scripts/jquery-3.4.1.js",
       "Scripts/spin.js",
       "Scripts/ladda.js",
-      "Scripts/jquery-2.2.4.js",
-      "Scripts/bootstrap.js",
-      "Scripts/bootstrap-select.js",
-      "Scripts/InstallWizard.js"
+      "Scripts/select2.js",
+      "Scripts/bootstrap.bundle.js",
+      "Scripts/forum/InstallWizard.js"
     ]
   },
   {
     "outputFileName": "Scripts/jquery.fileupload.comb.js",
     "inputFiles": [
+      "Scripts/jquery.FileUpload/cors/jquery.ui.widget.js",
       "Scripts/jquery.FileUpload/tmpl.min.js",
       "Scripts/jquery.FileUpload/load-image.all.min.js",
       "Scripts/jquery.FileUpload/canvas-to-blob.min.js",
@@ -21,44 +22,85 @@
       "Scripts/jquery.FileUpload/jquery.fileupload-process.js",
       "Scripts/jquery.FileUpload/jquery.fileupload-image.js",
       "Scripts/jquery.FileUpload/jquery.fileupload-validate.js",
-      "Scripts/jquery.FileUpload/jquery.fileupload-ui.js",
-      "Scripts/jquery.FileUpload/jquery.fileupload-jquery-ui.js"
+      "Scripts/jquery.FileUpload/jquery.fileupload-ui.js"
     ]
   },
   {
     "outputFileName": "Scripts/jquery.ForumExtensions.js",
     "inputFiles": [
-      "Scripts/DataPanel.js",
-      "Scripts/jquery.ceebox.js",
+      "Scripts/moment-with-locales.js",
+      "Scripts/bootstrap.bundle.js",
+      "Scripts/jquery.bootstrap-touchspin.js",
+      "Scripts/bootbox.js",
+      "Scripts/bootstrap-datetimepicker.js",
+      "Scripts/bootstrap-notify.js",
+      "Scripts/bootstrap-suggest.js",
       "Scripts/select2.js",
-      "Scripts/jquery.blockUI.js",
+      "Scripts/blueimp-gallery.js",
+      "Scripts/blueimp-gallery-indicator.js",
+      "Scripts/jquery.blueimp-gallery.js",
       "Scripts/jquery.hovercard.js",
-      "Scripts/jquery.msDropDown.js",
-      "Scripts/jquery.notification.js",
-      "Scripts/jquery.pagemethod.js",
-      "Scripts/jquery.pagination.js",
       "Scripts/prism.js",
       "Scripts/jquery.selectedQuoting.js",
-      "Scripts/jquery.tablesorter.js",
-      "Scripts/jquery.tablesorter.pager.js",
-      "Scripts/jquery.timeago.js",
-      "Scripts/jquery.yafmodaldialog.js",
+      "Scripts/tablesorter/jquery.tablesorter.combined.js",
+      "Scripts/tablesorter/extras/jquery.tablesorter.pager.min.js",
       "Scripts/jsdifflib.js",
+      "Scripts/emojipicker/jquery.emojis.js",
+      "Scripts/emojipicker/jquery.emojipicker.js",
       "Scripts/cookiealert-standalone.js",
-      "Scripts/yaf.js"
+      "Scripts/forum/yaf.Utilities.js",
+      "Scripts/forum/yaf.MessageHistory.js",
+      "Scripts/forum/yaf.Albums.js",
+      "Scripts/forum/yaf.Attachments.js",
+      "Scripts/forum/yaf.SearchResults.js",
+      "Scripts/forum/yaf.SimilarTitles.js",
+      "Scripts/forum/yaf.Main.js"
+    ]
+  },
+  {
+    "outputFileName": "Scripts/jquery.ForumAdminExtensions.js",
+    "inputFiles": [
+      "Scripts/moment-with-locales.js",
+      "Scripts/bootstrap.bundle.js",
+      "Scripts/jquery.bootstrap-touchspin.js",
+      "Scripts/bootbox.js",
+      "Scripts/bootstrap-datetimepicker.js",
+      "Scripts/bootstrap-notify.js",
+      "Scripts/select2.js",
+      "Scripts/blueimp-gallery.js",
+      "Scripts/jquery.blueimp-gallery.js",
+      "Scripts/jquery.blockUI.js",
+      "Scripts/jquery.hovercard.js",
+      "Scripts/prism.js",
+      "Scripts/tablesorter/jquery.tablesorter.combined.js",
+      "Scripts/tablesorter/extras/jquery.tablesorter.pager.min.js",
+      "Scripts/emojipicker/jquery.emojis.js",
+      "Scripts/emojipicker/jquery.emojipicker.js",
+      "Scripts/cookiealert-standalone.js",
+      "Scripts/forum/yaf.Utilities.js",
+      "Scripts/forum/yaf.Albums.js",
+      "Scripts/forum/yaf.Attachments.js",
+      "Scripts/forum/yaf.SimilarTitles.js",
+      "Scripts/forum/yaf.Main.js"
     ]
   },
   {
     "outputFileName": "Content/jquery.fileupload.comb.css",
     "inputFiles": [
-      "Content/jQuery.FileUpload/css/jquery.fileupload-ui.css",
-      "Content/jQuery.FileUpload/css/jquery.fileupload.css"
+      "Content/jQuery.FileUpload/jquery.fileupload-ui.css",
+      "Content/jQuery.FileUpload/jquery.fileupload.css"
     ]
   },
   {
     "outputFileName": "Scripts/yafEditor/yafEditor.min.js",
     "inputFiles": [
       "Scripts/yafEditor/yafEditor.js"
+    ]
+  },
+  {
+    "outputFileName": "Scripts/tablesorter/extras/jquery.tablesorter.pager.min.js",
+    "inputFiles": [
+      "Scripts/tablesorter/extras/jquery.tablesorter.pager.js"
     ]
   }
 ]

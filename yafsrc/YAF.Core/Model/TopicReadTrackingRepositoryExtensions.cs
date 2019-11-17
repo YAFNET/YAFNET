@@ -1,15 +1,19 @@
 namespace YAF.Core.Model
 {
     using System;
-    using System.CodeDom;
+    using System.Linq;
 
     using ServiceStack.OrmLite;
 
+    using YAF.Core.Extensions;
     using YAF.Types;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
     using YAF.Types.Models;
 
+    /// <summary>
+    /// The TopicRead Repository Extensions
+    /// </summary>
     public static class TopicReadTrackingRepositoryExtensions
     {
         #region Public Methods and Operators
@@ -35,11 +39,14 @@ namespace YAF.Core.Model
             return success;
         }
 
-        public static DateTime? Lastread(this IRepository<TopicReadTracking> repository, int userID, int topicID)
+        public static DateTime? Lastread(this IRepository<TopicReadTracking> repository, int userId, int topicId)
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
-            return repository.DbFunction.Scalar.readtopic_lastread(UserID: userID, TopicID: topicID);
+            var topic = repository.Get(t => t.UserID == userId && t.TopicID == topicId);
+
+            return topic.FirstOrDefault()?.LastAccessDate;
+
         }
 
         #endregion

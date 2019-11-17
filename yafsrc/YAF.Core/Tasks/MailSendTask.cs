@@ -26,10 +26,8 @@ namespace YAF.Core.Tasks
     #region Using
 
     using System;
-    using System.Diagnostics;
 
     using YAF.Types.Attributes;
-    using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
 
     #endregion
@@ -42,7 +40,7 @@ namespace YAF.Core.Tasks
         /// <summary>
         /// The _send mail threaded
         /// </summary>
-        private ISendMailThreaded _sendMailThreaded = null;
+        private ISendMailThreaded _sendMailThreaded;
 
         #region Constructors and Destructors
 
@@ -63,7 +61,6 @@ namespace YAF.Core.Tasks
 
         #region Constants and Fields
 
-
         /// <summary>
         /// Gets or sets the ServiceLocator.
         /// </summary>
@@ -76,13 +73,7 @@ namespace YAF.Core.Tasks
         /// <value>
         /// The send mail threaded.
         /// </value>
-        public ISendMailThreaded SendMailThreaded
-        {
-            get
-            {
-                return this._sendMailThreaded ?? (this._sendMailThreaded = this.ServiceLocator.Get<ISendMailThreaded>());
-            }
-        }
+        public ISendMailThreaded SendMailThreaded => this._sendMailThreaded ?? (this._sendMailThreaded = this.ServiceLocator.Get<ISendMailThreaded>());
 
         #endregion
 

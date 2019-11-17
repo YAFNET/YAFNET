@@ -1,9 +1,9 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -29,8 +29,9 @@ namespace YAF.Modules
     using System;
     using System.Collections.Specialized;
     using System.Web;
+    using System.Web.UI;
 
-    using YAF.Classes;
+    using YAF.Configuration;
     using YAF.Core;
     using YAF.Types;
     using YAF.Types.Attributes;
@@ -54,8 +55,8 @@ namespace YAF.Modules
         /// </summary>
         public override void InitAfterPage()
         {
-            this.CurrentForumPage.PreRender += this.CurrentForumPage_PreRender;
-            this.CurrentForumPage.Load += this.CurrentForumPage_Load;
+            this.CurrentForumPage.PreRender += this.CurrentForumPagePreRender;
+            this.CurrentForumPage.Load += this.CurrentForumPageLoad;
         }
 
         #endregion
@@ -63,48 +64,11 @@ namespace YAF.Modules
         #region Methods
 
         /// <summary>
-        /// Handles the Load event of the ForumPage control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        private void CurrentForumPage_Load([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            // Load CSS First
-            this.RegisterCSSFiles();
-
-            this.RegisterJQuery();
-        }
-
-        /// <summary>
-        /// Handles the PreRender event of the CurrentForumPage control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        private void CurrentForumPage_PreRender([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            this.RegisterJQueryUI();
-
-            if (this.PageContext.Vars.ContainsKey("yafForumExtensions"))
-            {
-                return;
-            }
-#if DEBUG
-            YafContext.Current.PageElements.RegisterJsScriptsInclude("yafForumExtensions", "jquery.ForumExtensions.js");
-#else
-                YafContext.Current.PageElements.RegisterJsScriptsInclude("yafForumExtensions", "jquery.ForumExtensions.min.js");
-#endif
-
-            this.PageContext.Vars["yafForumExtensions"] = true;
-        }
-
-        /// <summary>
         /// Registers the jQuery script library.
         /// </summary>
-        private void RegisterJQuery()
+        private static void RegisterJQuery()
         {
-            var element = YafContext.Current.CurrentForumPage.TopPageControl;
-
-            if (YafContext.Current.PageElements.PageElementExists("jquery") || Config.DisableJQuery)
+            if (YafContext.Current.PageElements.PageElementExists("jquery"))
             {
                 return;
             }
@@ -116,16 +80,14 @@ namespace YAF.Modules
             // check to see if DotNetAge is around and has registered jQuery for us...
             if (HttpContext.Current.Items[Key] != null)
             {
-                var collection = HttpContext.Current.Items[Key] as StringCollection;
-
-                if (collection != null && collection.Contains("jquery"))
+                if (HttpContext.Current.Items[Key] is StringCollection collection && collection.Contains("jquery"))
                 {
                     registerJQuery = false;
                 }
             }
             else if (Config.IsDotNetNuke)
             {
-                // latest version of DNN (v5) should register jQuery for us...
+                // latest version of DNN should register jQuery for us...
                 registerJQuery = false;
             }
 
@@ -143,90 +105,107 @@ namespace YAF.Modules
                 }
                 else
                 {
-                    jqueryUrl = YafContext.Current.Get<YafBoardSettings>().JqueryCDNHosted
-                                    ? "//ajax.aspnetcdn.com/ajax/jQuery/jquery-2.2.4.min.js"
-#if DEBUG
-                                    : YafForumInfo.GetURLToScripts("jquery-2.2.4.js");
-#else
-                                    : YafForumInfo.GetURLToScripts("jquery-2.2.4.min.js");
-#endif
+                    jqueryUrl = YafForumInfo.GetURLToScripts($"jquery-{Config.JQueryVersion}.min.js");
                 }
 
                 // load jQuery
-                element.Controls.Add(ControlHelper.MakeJsIncludeControl(jqueryUrl));
+                // element.Controls.Add(ControlHelper.MakeJsIncludeControl(jqueryUrl));
+                ScriptManager.ScriptResourceMapping.AddDefinition(
+                    "jquery",
+                    new ScriptResourceDefinition
+                    {
+                        Path = jqueryUrl,
+                        DebugPath = YafForumInfo.GetURLToScripts($"jquery-{Config.JQueryVersion}.js"),
+                        CdnPath = $"//ajax.aspnetcdn.com/ajax/jQuery/jquery-{Config.JQueryVersion}.min.js",
+                        CdnDebugPath = $"//ajax.aspnetcdn.com/ajax/jQuery/jquery-{Config.JQueryVersion}.js",
+                        CdnSupportsSecureConnection = true/*,
+                            LoadSuccessExpression = "window.jQuery"*/
+                    });
+
+                YafContext.Current.PageElements.AddScriptReference("jquery");
             }
 
             YafContext.Current.PageElements.AddPageElement("jquery");
         }
         
         /// <summary>
-        /// Register the jQuery UI script library in the header.
-        /// </summary>
-        private void RegisterJQueryUI()
+         /// Handles the Load event of the ForumPage control.
+         /// </summary>
+         /// <param name="sender">The source of the event.</param>
+         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        private void CurrentForumPageLoad([NotNull] object sender, [NotNull] EventArgs e)
         {
-            var element = YafContext.Current.CurrentForumPage.TopPageControl;
+            // Load CSS First
+            this.RegisterCssFiles(this.Get<YafBoardSettings>().CdvVersion);
+        }
 
-            // If registered or told not to register, don't bother
-            if (YafContext.Current.PageElements.PageElementExists("jqueryui"))
+        /// <summary>
+        /// Handles the PreRender event of the CurrentForumPage control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        private void CurrentForumPagePreRender([NotNull] object sender, [NotNull] EventArgs e)
+        {
+            RegisterJQuery();
+
+            if (this.PageContext.Vars.ContainsKey("yafForumExtensions"))
             {
                 return;
             }
 
-            string jqueryUIUrl;
+            var version = this.Get<YafBoardSettings>().CdvVersion;
 
-            // Check if override file is set ?
-            if (Config.JQueryUIOverrideFile.IsSet())
-            {
-                jqueryUIUrl = !Config.JQueryUIOverrideFile.StartsWith("http")
-                              && !Config.JQueryUIOverrideFile.StartsWith("//")
-                                  ? YafForumInfo.GetURLToScripts(Config.JQueryOverrideFile)
-                                  : Config.JQueryUIOverrideFile;
-            }
-            else
-            {
-                jqueryUIUrl = YafContext.Current.Get<YafBoardSettings>().JqueryUICDNHosted
-                                  ? "//ajax.aspnetcdn.com/ajax/jquery.ui/1.12.1/jquery-ui.min.js"
-#if DEBUG
-                                  : YafForumInfo.GetURLToScripts("jquery-ui-1.12.1.js");
-#else
-                                  : YafForumInfo.GetURLToScripts("jquery-ui-1.12.1.min.js");
-#endif
-            }
+            ScriptManager.ScriptResourceMapping.AddDefinition(
+                "yafForumAdminExtensions",
+                new ScriptResourceDefinition
+                    {
+                        Path = YafForumInfo.GetURLToScripts($"jquery.ForumAdminExtensions.min.js?v={version}"),
+                        DebugPath = YafForumInfo.GetURLToScripts($"jquery.ForumAdminExtensions.js?v={version}")
+                });
 
-            // load jQuery UI from google...
-            element.Controls.Add(ControlHelper.MakeJsIncludeControl(jqueryUIUrl));
+            ScriptManager.ScriptResourceMapping.AddDefinition(
+                "yafForumExtensions",
+                new ScriptResourceDefinition
+                    {
+                        Path = YafForumInfo.GetURLToScripts($"jquery.ForumExtensions.min.js?v={version}"),
+                        DebugPath = YafForumInfo.GetURLToScripts($"jquery.ForumExtensions.js?v={version}")
+                });
 
-            YafContext.Current.PageElements.AddPageElement("jqueryui");
+            ScriptManager.ScriptResourceMapping.AddDefinition(
+                "FileUploadScript",
+                new ScriptResourceDefinition
+                    {
+                        Path = YafForumInfo.GetURLToScripts("jquery.fileupload.comb.min.js"),
+                        DebugPath = YafForumInfo.GetURLToScripts("jquery.fileupload.comb.js")
+                    });
+
+            YafContext.Current.PageElements.AddScriptReference(
+                this.PageContext.CurrentForumPage.IsAdminPage ? "yafForumAdminExtensions" : "yafForumExtensions");
+
+            this.PageContext.Vars["yafForumExtensions"] = true;
         }
 
         /// <summary>
         /// Register the CSS Files in the header.
         /// </summary>
-        private void RegisterCSSFiles()
+        /// <param name="version">
+        /// The version.
+        /// </param>
+        private void RegisterCssFiles(int version)
         {
             var element = YafContext.Current.CurrentForumPage.TopPageControl;
 
+            element.Controls.Add(
+                ControlHelper.MakeCssIncludeControl(
+                    $"{this.Get<ITheme>().BuildThemePath("bootstrap-forum.min.css")}?v={version}"));
+
             // make the style sheet link controls.
-#if DEBUG
-            element.Controls.Add(ControlHelper.MakeCssIncludeControl(YafForumInfo.GetURLToContent("forum.css")));
-#else
-            element.Controls.Add(ControlHelper.MakeCssIncludeControl(YafForumInfo.GetURLToContent("forum.min.css")));
-#endif
-
-            element.Controls.Add(ControlHelper.MakeCssIncludeControl(this.Get<ITheme>().BuildThemePath("theme.css")));
-
-            // Register the jQueryUI Theme CSS
-            if (YafContext.Current.Get<YafBoardSettings>().JqueryUIThemeCDNHosted)
-            {
-                YafContext.Current.PageElements.RegisterCssInclude(
-                     "//code.jquery.com/ui/1.12.1/themes/{0}/jquery-ui.min.css".FormatWith(
-                         YafContext.Current.Get<YafBoardSettings>().JqueryUITheme));
-            }
-            else
-            {
-                YafContext.Current.PageElements.RegisterCssIncludeContent(
-                    "themes/{0}/jquery-ui.min.css".FormatWith(YafContext.Current.Get<YafBoardSettings>().JqueryUITheme));
-            }
+            element.Controls.Add(
+                ControlHelper.MakeCssIncludeControl(
+                    YafForumInfo.GetURLToContent(
+                        this.PageContext.CurrentForumPage.IsAdminPage
+                            ? $"forum-admin.min.css?v={version}"
+                            : $"forum.min.css?v={version}")));
         }
 
         #endregion

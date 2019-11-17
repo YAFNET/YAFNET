@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -29,9 +29,10 @@ namespace YAF.Data.MsSql
     using System.Data.SqlClient;
     using System.Linq;
 
-    using YAF.Classes;
+    using YAF.Configuration;
     using YAF.Core.Data;
     using YAF.Types;
+    using YAF.Types.Extensions;
     using YAF.Types.Interfaces.Data;
 
     /// <summary>
@@ -42,7 +43,7 @@ namespace YAF.Data.MsSql
         /// <summary>
         /// The DB parameters
         /// </summary>
-        protected DbConnectionParam[] _dbParameters =
+        private readonly DbConnectionParam[] dbParameters =
             {
                 new DbConnectionParam(0, "Password", string.Empty),
                 new DbConnectionParam(1, "Data Source", "(local)"),
@@ -53,7 +54,7 @@ namespace YAF.Data.MsSql
         /// <summary>
         /// The azure script list
         /// </summary>
-        private static readonly string[] _AzureScriptList =
+        private static readonly string[] AzureScriptList =
             {
                 "mssql/install/azure/InstallCommon.sql",
                 "mssql/install/azure/InstallMembership.sql",
@@ -64,20 +65,20 @@ namespace YAF.Data.MsSql
         /// <summary>
         /// The install script list
         /// </summary>
-        private static readonly string[] _InstallScriptList =
+        private static readonly string[] InstallScriptList =
             {
                 "mssql/install/tables.sql", 
                 "mssql/install/indexes.sql", 
                 "mssql/install/views.sql",
                 "mssql/install/constraints.sql", 
                 "mssql/install/functions.sql", 
-                "mssql/install/procedures.sql"
+                "mssql/install/procedures.sql",
             };
 
         /// <summary>
         /// The upgrade script list
         /// </summary>
-        private static readonly string[] _UpgradeScriptList =
+        private static readonly string[] UpgradeScriptList =
             {
                 "mssql/upgrade/tables.sql", 
                 "mssql/upgrade/indexes.sql", 
@@ -91,7 +92,7 @@ namespace YAF.Data.MsSql
         /// <summary>
         /// The YAF Provider Install script list
         /// </summary>
-        private static readonly string[] _YAFProviderInstallScriptList =
+        private static readonly string[] YafProviderInstallScriptList =
             {
                 "mssql/install/providers/tables.sql",
                 "mssql/install/providers/indexes.sql", 
@@ -101,7 +102,7 @@ namespace YAF.Data.MsSql
         /// <summary>
         /// The YAF Provider Upgrade script list
         /// </summary>
-        private static readonly string[] _YAFProviderUpgradeScriptList =
+        private static readonly string[] YafProviderUpgradeScriptList =
             {
                 "mssql/upgrade/providers/tables.sql",
                 "mssql/upgrade/providers/indexes.sql", 
@@ -130,90 +131,37 @@ namespace YAF.Data.MsSql
         /// <summary>
         /// Gets Full Text Upgrade Script.
         /// </summary>
-        public string FullTextUpgradeScript
-        {
-            get
-            {
-                return "mssql/upgrade/fulltext.sql";
-            }
-        }
-
-        /// <summary>
-        /// Gets Full Text Script.
-        /// </summary>
-        public string FullTextScript
-        {
-            get
-            {
-                return "mssql/install/fulltext.sql";
-            }
-        }
+        public string FullTextUpgradeScript => "mssql/upgrade/fulltext.sql";
 
         /// <summary>
         /// Gets the Azure Script List.
         /// </summary>
-        public IEnumerable<string> AzureScripts
-        {
-            get
-            {
-                return _AzureScriptList;
-            }
-        }
+        public IEnumerable<string> AzureScripts => AzureScriptList;
 
         /// <summary>
         /// Gets the Install Script List.
         /// </summary>
-        public IEnumerable<string> InstallScripts
-        {
-            get
-            {
-                return _InstallScriptList;
-            }
-        }
+        public IEnumerable<string> InstallScripts => InstallScriptList;
 
         /// <summary>
         /// Gets the Upgrade Script List.
         /// </summary>
-        public IEnumerable<string> UpgradeScripts
-        {
-            get
-            {
-                return _UpgradeScriptList;
-            }
-        }
+        public IEnumerable<string> UpgradeScripts => UpgradeScriptList;
 
         /// <summary>
         /// Gets the YAF Provider Install Script List.
         /// </summary>
-        public IEnumerable<string> YAFProviderInstallScripts
-        {
-            get
-            {
-                return _YAFProviderInstallScriptList;
-            }
-        }
+        public IEnumerable<string> YAFProviderInstallScripts => YafProviderInstallScriptList;
 
         /// <summary>
         /// Gets the YAF Provider Upgrade Script List.
         /// </summary>
-        public IEnumerable<string> YAFProviderUpgradeScripts
-        {
-            get
-            {
-                return _YAFProviderUpgradeScriptList;
-            }
-        }
+        public IEnumerable<string> YAFProviderUpgradeScripts => YafProviderUpgradeScriptList;
 
         /// <summary>
         /// Gets the DB Connection Parameters.
         /// </summary>
-        public IDbConnectionParam[] DbConnectionParameters
-        {
-            get
-            {
-                return this._dbParameters.OfType<IDbConnectionParam>().ToArray();
-            }
-        }
+        public IDbConnectionParam[] DbConnectionParameters => this.dbParameters.OfType<IDbConnectionParam>().ToArray();
 
         /// <summary>
         /// Builds a connection string.
@@ -226,10 +174,7 @@ namespace YAF.Data.MsSql
 
             var connBuilder = new SqlConnectionStringBuilder();
 
-            foreach (var param in parameters)
-            {
-                connBuilder[param.Name] = param.Value;
-            }
+            parameters.ForEach(param => connBuilder[param.Name] = param.Value);
 
             return connBuilder.ConnectionString;
         }

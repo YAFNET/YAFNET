@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -85,6 +85,7 @@ namespace YAF.Types.Objects
         [DataMember(Name = "link")]
         public string ProfileURL { get; set; }
         
+
         /// <summary>
         /// Gets or sets the location.
         /// </summary>
@@ -94,6 +95,7 @@ namespace YAF.Types.Objects
         [DataMember(Name = "location")]
         public Location Location { get; set; }
         
+
         /// <summary>
         /// Gets or sets the time zone.
         /// </summary>

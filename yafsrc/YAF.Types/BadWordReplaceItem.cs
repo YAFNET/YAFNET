@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -40,21 +40,6 @@ namespace YAF.Types
     private readonly object _activeLock = new object();
 
     /// <summary>
-    ///   The _bad word.
-    /// </summary>
-    private readonly string _badWord;
-
-    /// <summary>
-    ///   The _good word.
-    /// </summary>
-    private readonly string _goodWord;
-
-    /// <summary>
-    ///   Regular expression object associated with this replace item...
-    /// </summary>
-    private readonly Regex _regEx;
-
-    /// <summary>
     ///   The _active.
     /// </summary>
     private bool _active = true;
@@ -78,16 +63,16 @@ namespace YAF.Types
     public BadWordReplaceItem([NotNull] string goodWord, [NotNull] string badWord, RegexOptions options)
     {
       this.Options = options;
-      this._goodWord = goodWord;
-      this._badWord = badWord;
+      this.GoodWord = goodWord;
+      this.BadWord = badWord;
 
       try
       {
-          this._regEx = new Regex(badWord, options);
+          this.BadWordRegEx = new Regex(badWord, options);
       }
       catch (Exception)
       {
-          this._regEx = null;
+          this.BadWordRegEx = null;
       }
     }
 
@@ -124,35 +109,17 @@ namespace YAF.Types
     /// <summary>
     ///   Gets BadWord.
     /// </summary>
-    public string BadWord
-    {
-      get
-      {
-        return this._badWord;
-      }
-    }
+    public string BadWord { get; }
 
     /// <summary>
     ///   Gets BadWordRegEx.
     /// </summary>
-    public Regex BadWordRegEx
-    {
-      get
-      {
-        return this._regEx;
-      }
-    }
+    public Regex BadWordRegEx { get; }
 
     /// <summary>
     ///   Gets GoodWord.
     /// </summary>
-    public string GoodWord
-    {
-      get
-      {
-        return this._goodWord;
-      }
-    }
+    public string GoodWord { get; }
 
     /// <summary>
     /// Gets or sets Options.

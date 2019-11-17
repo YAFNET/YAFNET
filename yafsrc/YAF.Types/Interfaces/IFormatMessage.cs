@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -26,7 +26,6 @@ namespace YAF.Types.Interfaces
     using System;
     using System.Collections.Generic;
 
-    using YAF.Core.Services;
     using YAF.Types;
     using YAF.Types.Flags;
 
@@ -36,7 +35,7 @@ namespace YAF.Types.Interfaces
     public interface IFormatMessage
     {
         /// <summary>
-        /// The method to detect a forbidden BBCode tag from delimited by 'delim' list 
+        /// The method to detect a forbidden BBCode tag from delimited by 'delimiter' list 
         ///   'stringToMatch'
         /// </summary>
         /// <param name="stringToClear">
@@ -45,14 +44,14 @@ namespace YAF.Types.Interfaces
         /// <param name="stringToMatch">
         /// String with delimiter
         /// </param>
-        /// <param name="delim">
-        /// The delim.
+        /// <param name="delimiter">
+        /// The delimiter
         /// </param>
         /// <returns>
         /// Returns a string containing a forbidden BBCode or a null string
         /// </returns>
         [CanBeNull]
-        string BBCodeForbiddenDetector([NotNull] string stringToClear, [NotNull] string stringToMatch, char delim);
+        string BBCodeForbiddenDetector([NotNull] string stringToClear, [NotNull] string stringToMatch, char delimiter);
 
         /// <summary>
         /// The method used to get response string, if a forbidden tag is detected.
@@ -63,13 +62,13 @@ namespace YAF.Types.Interfaces
         /// <param name="acceptedTags">
         /// The list of accepted tags.
         /// </param>
-        /// <param name="delim">
-        /// The delimeter in a tags list.
+        /// <param name="delimiter">
+        /// The delimiter in a tags list.
         /// </param>
         /// <returns>
         /// A message string.
         /// </returns>
-        string CheckHtmlTags([NotNull] string checkString, [NotNull] string acceptedTags, char delim);
+        string CheckHtmlTags([NotNull] string checkString, [NotNull] string acceptedTags, char delimiter);
 
         /// <summary>
         /// The format message.
@@ -127,7 +126,7 @@ namespace YAF.Types.Interfaces
         MessageCleaned GetCleanedTopicMessage([NotNull] object topicMessage, [NotNull] object topicId);
 
         /// <summary>
-        /// The method to detect a forbidden HTML code from delimited by 'delim' list
+        /// The method to detect a forbidden HTML code from delimited by 'delimiter' list
         /// </summary>
         /// <param name="stringToClear">
         /// The string To Clear.
@@ -135,14 +134,14 @@ namespace YAF.Types.Interfaces
         /// <param name="stringToMatch">
         /// The string To Match.
         /// </param>
-        /// <param name="delim">
-        /// The delim.
+        /// <param name="delimiter">
+        /// The delimiter.
         /// </param>
         /// <returns>
         /// Returns a forbidden HTML tag or a null string
         /// </returns>
         [CanBeNull]
-        string HtmlTagForbiddenDetector([NotNull] string stringToClear, [NotNull] string stringToMatch, char delim);
+        string HtmlTagForbiddenDetector([NotNull] string stringToClear, [NotNull] string stringToMatch, char delimiter);
 
         /// <summary>
         /// Removes nested YafBBCode quotes from the given message body.

@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -27,20 +27,24 @@ namespace YAF.Controls
     #region Using
 
     using System;
-    using System.Data;
     using System.Text;
 
-    using YAF.Classes;
-    using YAF.Classes.Data;
+    using YAF.Configuration;
     using YAF.Core;
-    using YAF.Editors;
+    using YAF.Core.BaseControls;
+    using YAF.Core.Model;
+    using YAF.Core.UsersRoles;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.EventProxies;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Events;
+    using YAF.Types.Models;
     using YAF.Utils;
     using YAF.Utils.Helpers;
+    using YAF.Web.Controls;
+    using YAF.Web.Editors;
 
     #endregion
 
@@ -54,22 +58,22 @@ namespace YAF.Controls
         /// <summary>
         ///   The string with allowed BBCodes info.
         /// </summary>
-        private string _allowedBbcodes;
+        private string allowedBbcodes;
 
         /// <summary>
         ///   The string with allowed HTML tags info.
         /// </summary>
-        private string _allowedHtml;
+        private string allowedHtml;
 
         /// <summary>
         ///   The number of characters which is allowed in user signature.
         /// </summary>
-        private int _allowedNumberOfCharacters;
+        private int allowedNumberOfCharacters;
 
         /// <summary>
         ///   The _sig.
         /// </summary>
-        private ForumEditor _sig;
+        private ForumEditor signatureEditor;
 
         /// <summary>
         ///  The signature Preview
@@ -90,15 +94,9 @@ namespace YAF.Controls
         /// </summary>
         public bool ShowHeader
         {
-            get
-            {
-                return this.ViewState["ShowHeader"] == null || Convert.ToBoolean(this.ViewState["ShowHeader"]);
-            }
+            get => this.ViewState["ShowHeader"] == null || Convert.ToBoolean(this.ViewState["ShowHeader"]);
 
-            set
-            {
-                this.ViewState["ShowHeader"] = value;
-            }
+            set => this.ViewState["ShowHeader"] = value;
         }
 
         /// <summary>
@@ -108,13 +106,14 @@ namespace YAF.Controls
         {
             get
             {
-                if (this.PageContext.CurrentForumPage.IsAdminPage && this.PageContext.IsAdmin && this.PageContext.QueryIDs.ContainsKey("u"))
+                if (this.PageContext.CurrentForumPage.IsAdminPage && this.PageContext.IsAdmin
+                                                                  && this.PageContext.QueryIDs.ContainsKey("u"))
                 {
                     return this.PageContext.QueryIDs["u"].ToType<int>();
                 }
 
-                if (this.InModeratorMode && (this.PageContext.IsAdmin || this.PageContext.IsForumModerator) &&
-                    this.PageContext.QueryIDs.ContainsKey("u"))
+                if (this.InModeratorMode && (this.PageContext.IsAdmin || this.PageContext.IsForumModerator)
+                                         && this.PageContext.QueryIDs.ContainsKey("u"))
                 {
                     return this.PageContext.QueryIDs["u"].ToType<int>();
                 }
@@ -132,9 +131,9 @@ namespace YAF.Controls
         /// </summary>
         protected void BindData()
         {
-            this._sig.Text = LegacyDb.user_getsignature(this.CurrentUserID);
+            this.signatureEditor.Text = this.GetRepository<User>().GetSignature(this.CurrentUserID);
 
-            this.signaturePreview.Signature = this._sig.Text;
+            this.signaturePreview.Signature = this.signatureEditor.Text;
             this.signaturePreview.DisplayUserID = this.CurrentUserID;
         }
 
@@ -145,18 +144,17 @@ namespace YAF.Controls
         protected override void OnInit([NotNull] EventArgs e)
         {
             // since signatures are so small only allow YafBBCode in them...
-            this._sig = new BBCodeEditor { UserCanUpload = false };
+            this.signatureEditor = new BBCodeEditor { UserCanUpload = false };
 
-            this.EditorLine.Controls.Add(this._sig);
+            this.EditorLine.Controls.Add(this.signatureEditor);
 
             this.signaturePreview = new SignaturePreview();
             this.PreviewLine.Controls.Add(this.signaturePreview);
-       
+
             this.save.Click += this.Save_Click;
             this.preview.Click += this.Preview_Click;
             this.cancel.Click += this.Cancel_Click;
 
-            // CODEGEN: This call is required by the ASP.NET Web Form Designer.
             InitializeComponent();
             base.OnInit(e);
         }
@@ -170,18 +168,18 @@ namespace YAF.Controls
         {
             this.PageContext.QueryIDs = new QueryStringIDHelper("u");
 
-            this._sig.BaseDir = "{0}Scripts".FormatWith(YafForumInfo.ForumClientFileRoot);
-            this._sig.StyleSheet = this.Get<ITheme>().BuildThemePath("theme.css");
+            this.signatureEditor.BaseDir = $"{YafForumInfo.ForumClientFileRoot}Scripts";
 
-            DataTable sigData = LegacyDb.user_getsignaturedata(this.CurrentUserID, this.PageContext.PageBoardID);
+            var sigData = this.GetRepository<User>()
+                .SignatureDataAsDataTable(this.CurrentUserID, this.PageContext.PageBoardID);
 
             if (sigData.HasRows())
             {
-                this._allowedBbcodes = sigData.Rows[0]["UsrSigBBCodes"].ToString().Trim().Trim(',').Trim();
+                this.allowedBbcodes = sigData.Rows[0]["UsrSigBBCodes"].ToString().Trim().Trim(',').Trim();
 
-                this._allowedHtml = sigData.Rows[0]["UsrSigHTMLTags"].ToString().Trim().Trim(',').Trim();
+                this.allowedHtml = sigData.Rows[0]["UsrSigHTMLTags"].ToString().Trim().Trim(',').Trim();
 
-                this._allowedNumberOfCharacters = sigData.Rows[0]["UsrSigChars"].ToType<int>();
+                this.allowedNumberOfCharacters = sigData.Rows[0]["UsrSigChars"].ToType<int>();
             }
 
             if (this.IsPostBack)
@@ -189,34 +187,30 @@ namespace YAF.Controls
                 return;
             }
 
-            this.save.Text = this.GetText("COMMON", "SAVE");
-            this.preview.Text = this.GetText("COMMON", "PREVIEW");
-            this.cancel.Text = this.GetText("COMMON", "CANCEL");
-
             var warningMessage = new StringBuilder();
 
             warningMessage.Append("<ul>");
 
-            if (this._allowedBbcodes.IsSet())
+            if (this.allowedBbcodes.IsSet())
             {
                 warningMessage.AppendFormat(
-                  "<li>{0}</li>",
-                  this._allowedBbcodes.Contains("ALL")
-                    ? this.GetText("BBCODE_ALLOWEDALL")
-                    : this.GetTextFormatted("BBCODE_ALLOWEDLIST", this._allowedBbcodes));
+                    "<li>{0}</li>",
+                    this.allowedBbcodes.Contains("ALL")
+                        ? this.GetText("BBCODE_ALLOWEDALL")
+                        : this.GetTextFormatted("BBCODE_ALLOWEDLIST", this.allowedBbcodes));
             }
             else
             {
                 warningMessage.AppendFormat("<li>{0}</li>", this.GetText("BBCODE_FORBIDDEN"));
             }
 
-            if (this._allowedHtml.IsSet())
+            if (this.allowedHtml.IsSet())
             {
                 warningMessage.AppendFormat(
-                  "<li>{0}</li>",
-                  this._allowedHtml.Contains("ALL")
-                    ? this.GetText("HTML_ALLOWEDALL")
-                    : this.GetTextFormatted("HTML_ALLOWEDLIST", this._allowedHtml));
+                    "<li>{0}</li>",
+                    this.allowedHtml.Contains("ALL")
+                        ? this.GetText("HTML_ALLOWEDALL")
+                        : this.GetTextFormatted("HTML_ALLOWEDLIST", this.allowedHtml));
             }
             else
             {
@@ -225,8 +219,8 @@ namespace YAF.Controls
 
             warningMessage.AppendFormat(
                 "<li>{0}</li>",
-                this._allowedNumberOfCharacters > 0
-                    ? this.GetTextFormatted("SIGNATURE_CHARSMAX", this._allowedNumberOfCharacters)
+                this.allowedNumberOfCharacters > 0
+                    ? this.GetTextFormatted("SIGNATURE_CHARSMAX", this.allowedNumberOfCharacters)
                     : this.GetText("SIGNATURE_NOEDIT"));
 
             warningMessage.Append("</ul>");
@@ -284,55 +278,55 @@ namespace YAF.Controls
         /// </param>
         private void Save_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
-            var body = this._sig.Text;
+            var body = this.signatureEditor.Text;
 
-            // find forbidden BBcodes in signature
-            var detectedBbCode = this.Get<IFormatMessage>().BBCodeForbiddenDetector(body, this._allowedBbcodes, ',');
-            if (this._allowedBbcodes.IndexOf("ALL") < 0)
+            // find forbidden BBCodes in signature
+            var detectedBbCode = this.Get<IFormatMessage>().BBCodeForbiddenDetector(body, this.allowedBbcodes, ',');
+            if (this.allowedBbcodes.IndexOf("ALL", StringComparison.Ordinal) < 0)
             {
                 if (detectedBbCode.IsSet() && detectedBbCode != "ALL")
                 {
                     this.PageContext.AddLoadMessage(
-                      this.GetTextFormatted("SIGNATURE_BBCODE_WRONG", detectedBbCode));
+                        this.GetTextFormatted("SIGNATURE_BBCODE_WRONG", detectedBbCode),
+                        MessageTypes.warning);
                     return;
                 }
 
                 if (detectedBbCode.IsSet() && detectedBbCode == "ALL")
                 {
-                    this.PageContext.AddLoadMessage(this.GetText("BBCODE_FORBIDDEN"));
+                    this.PageContext.AddLoadMessage(this.GetText("BBCODE_FORBIDDEN"), MessageTypes.warning);
                     return;
                 }
             }
 
             // find forbidden HTMLTags in signature
-            if (!this.PageContext.IsAdmin && this._allowedHtml.IndexOf("ALL") < 0)
+            if (!this.PageContext.IsAdmin && this.allowedHtml.IndexOf("ALL", StringComparison.Ordinal) < 0)
             {
-                var detectedHtmlTag = this.Get<IFormatMessage>().CheckHtmlTags(body, this._allowedHtml, ',');
+                var detectedHtmlTag = this.Get<IFormatMessage>().CheckHtmlTags(body, this.allowedHtml, ',');
                 if (detectedHtmlTag.IsSet() && detectedHtmlTag != "ALL")
                 {
-                    this.PageContext.AddLoadMessage(detectedHtmlTag);
+                    this.PageContext.AddLoadMessage(detectedHtmlTag, MessageTypes.warning);
                     return;
                 }
 
                 if (detectedHtmlTag.IsSet() && detectedHtmlTag == "ALL")
                 {
-                    this.PageContext.AddLoadMessage(this.GetText("HTML_FORBIDDEN"));
+                    this.PageContext.AddLoadMessage(this.GetText("HTML_FORBIDDEN"), MessageTypes.warning);
                     return;
                 }
             }
 
             // body = this.Get<IFormatMessage>().RepairHtml(this,body,false);
-            if (this._sig.Text.Length > 0)
+            if (this.signatureEditor.Text.Length > 0)
             {
-                if (this._sig.Text.Length <= this._allowedNumberOfCharacters)
+                if (this.signatureEditor.Text.Length <= this.allowedNumberOfCharacters)
                 {
                     var userData = new CombinedUserDataHelper(this.CurrentUserID);
 
                     if (userData.NumPosts < this.Get<YafBoardSettings>().IgnoreSpamWordCheckPostCount)
                     {
                         // Check for spam
-                        string result;
-                        if (this.Get<ISpamWordCheck>().CheckForSpamWord(body, out result))
+                        if (this.Get<ISpamWordCheck>().CheckForSpamWord(body, out var result))
                         {
                             var user = UserMembershipHelper.GetMembershipUserById(this.CurrentUserID);
                             var userId = this.CurrentUserID;
@@ -343,8 +337,10 @@ namespace YAF.Controls
                                 this.Logger.Log(
                                     null,
                                     "Bot Detected",
-                                    "Internal Spam Word Check detected a SPAM BOT: (user name : '{0}', user id : '{1}') after the user included a spam word in his/her signature: {2}"
-                                        .FormatWith(user.UserName, this.CurrentUserID, result),
+                                    $@"Internal Spam Word Check detected a SPAM BOT: (
+                                                      user name : '{user.UserName}', 
+                                                      user id : '{this.CurrentUserID}') 
+                                                 after the user included a spam word in his/her signature: {result}",
                                     EventLogTypes.SpamBotDetected);
                             }
                             else if (this.Get<YafBoardSettings>().BotHandlingOnRegister.Equals(2))
@@ -352,8 +348,10 @@ namespace YAF.Controls
                                 this.Logger.Log(
                                     null,
                                     "Bot Detected",
-                                    "Internal Spam Word Check detected a SPAM BOT: (user name : '{0}', user id : '{1}') after the user included a spam word in his/her signature: {2}, user was deleted and the name, email and IP Address are banned."
-                                        .FormatWith(user.UserName, this.CurrentUserID, result),
+                                    $@"Internal Spam Word Check detected a SPAM BOT: (
+                                                       user name : '{user.UserName}', 
+                                                       user id : '{this.CurrentUserID}') 
+                                                 after the user included a spam word in his/her signature: {result}, user was deleted and the name, email and IP Address are banned.",
                                     EventLogTypes.SpamBotDetected);
 
                                 // Kill user
@@ -367,19 +365,22 @@ namespace YAF.Controls
                         }
                     }
 
-                    LegacyDb.user_savesignature(this.CurrentUserID, this.Get<IBadWordReplace>().Replace(body));
+                    this.GetRepository<User>().SaveSignature(
+                        this.CurrentUserID,
+                        this.Get<IBadWordReplace>().Replace(body));
                 }
                 else
                 {
                     this.PageContext.AddLoadMessage(
-                        this.GetTextFormatted("SIGNATURE_MAX", this._allowedNumberOfCharacters));
+                        this.GetTextFormatted("SIGNATURE_MAX", this.allowedNumberOfCharacters),
+                        MessageTypes.warning);
 
                     return;
                 }
             }
             else
             {
-                LegacyDb.user_savesignature(this.CurrentUserID, DBNull.Value);
+                this.GetRepository<User>().SaveSignature(this.CurrentUserID, null);
             }
 
             // clear the cache for this user...
@@ -406,46 +407,47 @@ namespace YAF.Controls
         /// </param>
         private void Preview_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
-            var body = this._sig.Text;
+            var body = this.signatureEditor.Text;
 
-            // find forbidden BBcodes in signature
-            var detectedBbCode = this.Get<IFormatMessage>().BBCodeForbiddenDetector(body, this._allowedBbcodes, ',');
+            // find forbidden BBCodes in signature
+            var detectedBbCode = this.Get<IFormatMessage>().BBCodeForbiddenDetector(body, this.allowedBbcodes, ',');
 
-            if (this._allowedBbcodes.IndexOf("ALL") < 0)
+            if (this.allowedBbcodes.IndexOf("ALL", StringComparison.Ordinal) < 0)
             {
                 if (detectedBbCode.IsSet() && detectedBbCode != "ALL")
                 {
                     this.PageContext.AddLoadMessage(
-                      this.GetTextFormatted("SIGNATURE_BBCODE_WRONG", detectedBbCode));
+                        this.GetTextFormatted("SIGNATURE_BBCODE_WRONG", detectedBbCode),
+                        MessageTypes.warning);
                     return;
                 }
 
                 if (detectedBbCode.IsSet() && detectedBbCode == "ALL")
                 {
-                    this.PageContext.AddLoadMessage(this.GetText("BBCODE_FORBIDDEN"));
+                    this.PageContext.AddLoadMessage(this.GetText("BBCODE_FORBIDDEN"), MessageTypes.warning);
                     return;
                 }
             }
 
             // find forbidden HTMLTags in signature
-            if (!this.PageContext.IsAdmin && this._allowedHtml.IndexOf("ALL") < 0)
+            if (!this.PageContext.IsAdmin && this.allowedHtml.IndexOf("ALL", StringComparison.Ordinal) < 0)
             {
-                var detectedHtmlTag = this.Get<IFormatMessage>().CheckHtmlTags(body, this._allowedHtml, ',');
+                var detectedHtmlTag = this.Get<IFormatMessage>().CheckHtmlTags(body, this.allowedHtml, ',');
 
                 if (detectedHtmlTag.IsSet() && detectedHtmlTag != "ALL")
                 {
-                    this.PageContext.AddLoadMessage(detectedHtmlTag);
+                    this.PageContext.AddLoadMessage(detectedHtmlTag, MessageTypes.warning);
                     return;
                 }
 
                 if (detectedHtmlTag.IsSet() && detectedHtmlTag == "ALL")
                 {
-                    this.PageContext.AddLoadMessage(this.GetText("HTML_FORBIDDEN"));
+                    this.PageContext.AddLoadMessage(this.GetText("HTML_FORBIDDEN"), MessageTypes.warning);
                     return;
                 }
             }
 
-            if (this._sig.Text.Length <= this._allowedNumberOfCharacters)
+            if (this.signatureEditor.Text.Length <= this.allowedNumberOfCharacters)
             {
                 this.signaturePreview.Signature = this.Get<IBadWordReplace>().Replace(body);
                 this.signaturePreview.DisplayUserID = this.CurrentUserID;
@@ -453,7 +455,8 @@ namespace YAF.Controls
             else
             {
                 this.PageContext.AddLoadMessage(
-                  this.GetTextFormatted("SIGNATURE_MAX", this._allowedNumberOfCharacters));
+                    this.GetTextFormatted("SIGNATURE_MAX", this.allowedNumberOfCharacters),
+                    MessageTypes.warning);
             }
         }
 

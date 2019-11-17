@@ -28,70 +28,33 @@ namespace YAF.Core.Tasks
 
     using System;
 
-    using YAF.Classes.Data;
     using YAF.Core.Model;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
-    using YAF.Utils;
 
     #endregion
 
     /// <summary>
     /// Run when we want to do migration of users in the background...
     /// </summary>
-    public class BoardCreateTask : LongBackgroundTask, ICriticalBackgroundTask, IBlockableTask
+    public class BoardCreateTask : LongBackgroundTask, ICriticalBackgroundTask
     {
-        private static long _boardOut;
-
-        /// <summary>
-        /// The Blocking Task Names.
-        /// </summary>
-        private static readonly string[] _blockingTaskNames = Constants.ForumRebuild.BlockingTaskNames;
-
-        /// <summary>
-        /// The _task name.
-        /// </summary>
-        private const string _TaskName = "BoardCreateTask";
-
         /// <summary>
         ///  Gets TaskName.
         /// </summary>
-        public static string TaskName
-        {
-            get
-            {
-                return _TaskName;
-            }
-        }
+        public static string TaskName { get; } = "BoardCreateTask";
 
         /// <summary>
         /// Gets Blocking Task Names.
         /// </summary>
-        public static string[] BlockingTaskNames
-        {
-            get
-            {
-                return _blockingTaskNames;
-            }
-        }
+        public static string[] BlockingTaskNames { get; } = Constants.ForumRebuild.BlockingTaskNames;
 
         /// <summary>
         /// Gets or sets ForumOut.
         /// </summary>
-        public static long BoardOut
-        {
-            get
-            {
-                return _boardOut;
-            }
-
-            set
-            {
-                _boardOut = value;
-            }
-        }
+        public static long BoardOut { get; set; }
 
         /// <summary>
         /// Gets or sets AdminUserName.
@@ -142,8 +105,8 @@ namespace YAF.Core.Tasks
         /// Starts the Board Create Task
         /// </summary>
         /// <param name="adminUserName">Name of the admin user.</param>
-        /// <param name="admiUserEmail">The admi user email.</param>
-        /// <param name="adminUserProviderUserkey">The admin user provider userkey.</param>
+        /// <param name="adminUserEmail">The admin user email.</param>
+        /// <param name="adminUserProviderUserKey">The admin user provider user Key.</param>
         /// <param name="boardName">Name of the board.</param>
         /// <param name="culture">The culture.</param>
         /// <param name="languageFileName">Name of the language file.</param>
@@ -156,8 +119,8 @@ namespace YAF.Core.Tasks
         /// </returns>
         public static long Start(
             object adminUserName,
-            object admiUserEmail,
-            object adminUserProviderUserkey,
+            object adminUserEmail,
+            object adminUserProviderUserKey,
             object boardName,
             object culture,
             object languageFileName,
@@ -180,8 +143,8 @@ namespace YAF.Core.Tasks
                     new BoardCreateTask
                         {
                             AdminUserName = adminUserName,
-                            AdminUserEmail = admiUserEmail,
-                            AdminUserProviderUserKey = adminUserProviderUserkey,
+                            AdminUserEmail = adminUserEmail,
+                            AdminUserProviderUserKey = adminUserProviderUserKey,
                             BoardName = boardName,
                             Culture = culture,
                             LanguageFileName = languageFileName,
@@ -193,9 +156,8 @@ namespace YAF.Core.Tasks
             else
             {
                 failureMessage =
-                    "You can't delete forum while blocking {0} tasks are running.".FormatWith(
-                        BlockingTaskNames.ToDelimitedString(","));
-                _boardOut = -1;
+                    $"You can't delete forum while blocking {BlockingTaskNames.ToDelimitedString(",")} tasks are running.";
+                BoardOut = -1;
             }
 
             return BoardOut;
@@ -208,10 +170,10 @@ namespace YAF.Core.Tasks
         {
             try
             {
-                this.Logger.Info("Starting  Board Add Task for board {0}.", _boardOut);
+                this.Logger.Info("Starting  Board Add Task for board {0}.", BoardOut);
 
                 // Create Board
-                _boardOut = this.GetRepository<Board>().Create(
+                BoardOut = this.GetRepository<Board>().Create(
                     this.BoardName.ToString(),
                     this.Culture.ToString(),
                     this.LanguageFileName.ToString(),
@@ -222,11 +184,12 @@ namespace YAF.Core.Tasks
                     this.AdminUserProviderUserKey.ToString(),
                     false,
                     this.RolePrefix.ToString());
-                this.Logger.Info("Board Add Task for board {0} completed.", _boardOut);
+
+                this.Logger.Info("Board Add Task for board {0} completed.", BoardOut);
             }
             catch (Exception)
             {
-                _boardOut = -1;
+                BoardOut = -1;
             }
         }
     }

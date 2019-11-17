@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -26,7 +26,6 @@ namespace YAF.Types.Interfaces
     using System;
 
     using YAF.Types.Constants;
-    using YAF.Types.Extensions;
 
     /// <summary>
     ///     The logger extensions.
@@ -49,7 +48,7 @@ namespace YAF.Types.Interfaces
         /// </param>
         public static void Debug(this ILogger logger, [NotNull] string format, [NotNull] params object[] args)
         {
-            logger.Log(format.FormatWith(args), EventLogTypes.Debug);
+            logger.Log(string.Format(format, args), EventLogTypes.Debug);
         }
 
         /// <summary>
@@ -66,7 +65,7 @@ namespace YAF.Types.Interfaces
         /// </param>
         public static void Error(this ILogger logger, [NotNull] string format, [NotNull] params object[] args)
         {
-            logger.Log(format.FormatWith(args), EventLogTypes.Error);
+            logger.Log(string.Format(format, args), EventLogTypes.Error);
         }
 
         /// <summary>
@@ -86,7 +85,7 @@ namespace YAF.Types.Interfaces
         /// </param>
         public static void Error(this ILogger logger, Exception ex, [NotNull] string format, [NotNull] params object[] args)
         {
-            logger.Log(format.FormatWith(args), EventLogTypes.Error, exception: ex);
+            logger.Log(string.Format(format, args), EventLogTypes.Error, exception: ex);
         }
 
         /// <summary>
@@ -103,7 +102,7 @@ namespace YAF.Types.Interfaces
         /// </param>
         public static void Fatal(this ILogger logger, [NotNull] string format, [NotNull] params object[] args)
         {
-            logger.Log(format.FormatWith(args), EventLogTypes.Error);
+            logger.Log(string.Format(format, args), EventLogTypes.Error);
         }
 
         /// <summary>
@@ -123,7 +122,7 @@ namespace YAF.Types.Interfaces
         /// </param>
         public static void Fatal(this ILogger logger, Exception ex, [NotNull] string format, [NotNull] params object[] args)
         {
-            logger.Log(format.FormatWith(args), EventLogTypes.Error, exception: ex);
+            logger.Log(string.Format(format, args), EventLogTypes.Error, exception: ex);
         }
 
         /// <summary>
@@ -140,7 +139,7 @@ namespace YAF.Types.Interfaces
         /// </param>
         public static void Info(this ILogger logger, [NotNull] string format, [NotNull] params object[] args)
         {
-            logger.Log(format.FormatWith(args), EventLogTypes.Information);
+            logger.Log(string.Format(format, args), EventLogTypes.Information);
         }
 
         /// <summary>
@@ -198,7 +197,7 @@ namespace YAF.Types.Interfaces
         /// </param>
         public static void Trace(this ILogger logger, [NotNull] string format, [NotNull] params object[] args)
         {
-            logger.Log(format.FormatWith(args), EventLogTypes.Trace);
+            logger.Log(string.Format(format, args), EventLogTypes.Trace);
         }
 
         /// <summary>
@@ -215,7 +214,7 @@ namespace YAF.Types.Interfaces
         /// </param>
         public static void Warn(this ILogger logger, [NotNull] string format, [NotNull] params object[] args)
         {
-            logger.Log(format.FormatWith(args), EventLogTypes.Warning);
+            logger.Log(string.Format(format, args), EventLogTypes.Warning);
         }
 
         /// <summary>
@@ -235,7 +234,7 @@ namespace YAF.Types.Interfaces
         /// </param>
         public static void Warn(this ILogger logger, Exception ex, [NotNull] string format, [NotNull] params object[] args)
         {
-            logger.Log(format.FormatWith(args), EventLogTypes.Warning, exception: ex);
+            logger.Log(string.Format(format, args), EventLogTypes.Warning, exception: ex);
         }
 
         #endregion

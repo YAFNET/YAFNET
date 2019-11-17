@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -33,10 +33,9 @@ namespace YAF.Pages
     using System.Linq;
     using System.Web.UI.WebControls;
 
-    using YAF.Classes;
-    using YAF.Classes.Data;
-    using YAF.Controls;
+    using YAF.Configuration;
     using YAF.Core;
+    using YAF.Core.Extensions;
     using YAF.Core.Model;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
@@ -44,7 +43,10 @@ namespace YAF.Pages
     using YAF.Types.Models;
     using YAF.Types.Objects;
     using YAF.Utils;
+    using YAF.Utils.Extensions;
     using YAF.Utils.Helpers;
+    using YAF.Utils.Helpers.ImageUtils;
+    using YAF.Web.Extensions;
 
     #endregion
 
@@ -58,7 +60,7 @@ namespace YAF.Pages
         /// <summary>
         ///   Table with choices
         /// </summary>
-        private DataRow _topicInfo;
+        private Topic topicInfo;
 
         /// <summary>
         /// The board id.
@@ -185,28 +187,25 @@ namespace YAF.Pages
 
             if (this.Question.Text.Trim().Length == 0)
             {
-                YafContext.Current.AddLoadMessage(this.GetText("POLLEDIT", "NEED_QUESTION"));
+                YafContext.Current.AddLoadMessage(this.GetText("POLLEDIT", "NEED_QUESTION"), MessageTypes.warning);
                 return false;
             }
 
             this.Question.Text = HtmlHelper.StripHtml(this.Question.Text);
 
-            int notNullcount =
+            var notNullcount =
                 (from RepeaterItem ri in this.ChoiceRepeater.Items
-                 select ((TextBox)ri.FindControl("PollChoice")).Text.Trim()).Count(
-                     value => !string.IsNullOrEmpty(value));
+                 select ri.FindControlAs<TextBox>("PollChoice").Text.Trim()).Count(value => value.IsSet());
 
             if (notNullcount < 2)
             {
-                YafContext.Current.AddLoadMessage(this.GetText("POLLEDIT", "NEED_CHOICES"));
+                YafContext.Current.AddLoadMessage(this.GetText("POLLEDIT", "NEED_CHOICES"), MessageTypes.warning);
                 return false;
             }
 
-            int dateVerified;
-            
-            if (!int.TryParse(this.PollExpire.Text.Trim(), out dateVerified) && this.PollExpire.Text.Trim().IsSet())
+            if (!int.TryParse(this.PollExpire.Text.Trim(), out var dateVerified) && this.PollExpire.Text.Trim().IsSet())
             {
-                YafContext.Current.AddLoadMessage(this.GetText("POLLEDIT", "EXPIRE_BAD"));
+                YafContext.Current.AddLoadMessage(this.GetText("POLLEDIT", "EXPIRE_BAD"), MessageTypes.warning);
                 return false;
             }
 
@@ -234,8 +233,9 @@ namespace YAF.Pages
 
             this.InitializeVariables();
 
-            this.PollObjectRow1.Visible = (this.PageContext.IsAdmin || this.Get<YafBoardSettings>().AllowUsersImagedPoll) &&
-                                          this.PageContext.ForumPollAccess;
+            this.PollObjectRow1.Visible =
+                (this.PageContext.IsAdmin || this.Get<YafBoardSettings>().AllowUsersImagedPoll)
+                && this.PageContext.ForumPollAccess;
 
             if (int.TryParse(this.PollExpire.Text.Trim(), out this._daysPollExpire))
             {
@@ -255,8 +255,8 @@ namespace YAF.Pages
                 return;
             }
 
-            var pollGroup =
-                LegacyDb.PollGroupList(this.PageContext.PageUserID, null, this.PageContext.PageBoardID).Distinct(
+            var pollGroup = this.GetRepository<Poll>()
+                .PollGroupList(this.PageContext.PageUserID, null, this.PageContext.PageBoardID).Distinct(
                     new AreEqualFunc<TypedPollGroup>((id1, id2) => id1.PollGroupID == id2.PollGroupID)).ToList();
 
             pollGroup.Insert(0, new TypedPollGroup(string.Empty, -1));
@@ -300,33 +300,34 @@ namespace YAF.Pages
             if (this._categoryId > 0)
             {
                 this.PageLinks.AddLink(
-                    this.PageContext.PageCategoryName, YafBuildLink.GetLink(ForumPages.forum, "c={0}", this._categoryId));
+                    this.PageContext.PageCategoryName,
+                    YafBuildLink.GetLink(ForumPages.forum, "c={0}", this._categoryId));
             }
+
+            var name = this.GetRepository<Forum>().List(this.PageContext.PageBoardID, this._returnForum)
+                .FirstOrDefault().Name;
 
             if (this._returnForum > 0)
             {
-                this.PageLinks.AddLink(
-                    LegacyDb.forum_list(this.PageContext.PageBoardID, this._returnForum).Rows[0]["Name"].ToString(),
-                    YafBuildLink.GetLink(ForumPages.topics, "f={0}", this._returnForum));
+                this.PageLinks.AddLink(name, YafBuildLink.GetLink(ForumPages.topics, "f={0}", this._returnForum));
             }
 
             if (this._forumId > 0)
             {
-                this.PageLinks.AddLink(
-                    LegacyDb.forum_list(this.PageContext.PageBoardID, this._returnForum).Rows[0]["Name"].ToString(),
-                    YafBuildLink.GetLink(ForumPages.topics, "f={0}", this._forumId));
+                this.PageLinks.AddLink(name, YafBuildLink.GetLink(ForumPages.topics, "f={0}", this._forumId));
             }
 
             if (this._topicId > 0)
             {
                 this.PageLinks.AddLink(
-                    this._topicInfo["Topic"].ToString(), YafBuildLink.GetLink(ForumPages.posts, "t={0}", this._topicId));
+                    this.topicInfo.TopicName,
+                    YafBuildLink.GetLink(ForumPages.posts, "t={0}", this._topicId));
             }
 
             if (this._editMessageId > 0)
             {
                 this.PageLinks.AddLink(
-                    this._topicInfo["Topic"].ToString(),
+                    this.topicInfo.TopicName,
                     YafBuildLink.GetLink(ForumPages.postmessage, "m={0}", this._editMessageId));
             }
 
@@ -341,22 +342,22 @@ namespace YAF.Pages
             if (this._boardId > 0 || this._categoryId > 0)
             {
                 // invalid category
-                bool categoryVars = this._categoryId > 0 &&
-                                    (this._topicId > 0 || this._editTopicId > 0 || this._editMessageId > 0 ||
-                                     this.editForumId > 0 || this._editBoardId > 0 || this._forumId > 0 ||
-                                     this._boardId > 0);
+                var categoryVars = this._categoryId > 0
+                                   && (this._topicId > 0 || this._editTopicId > 0 || this._editMessageId > 0
+                                       || this.editForumId > 0 || this._editBoardId > 0 || this._forumId > 0
+                                       || this._boardId > 0);
 
                 // invalid board vars
-                bool boardVars = this._boardId > 0 &&
-                                 (this._topicId > 0 || this._editTopicId > 0 || this._editMessageId > 0 ||
-                                  this.editForumId > 0 || this._editBoardId > 0 || this._forumId > 0 ||
-                                  this._categoryId > 0);
-                if (!categoryVars || (!boardVars))
+                var boardVars = this._boardId > 0 && (this._topicId > 0 || this._editTopicId > 0
+                                                                        || this._editMessageId > 0
+                                                                        || this.editForumId > 0 || this._editBoardId > 0
+                                                                        || this._forumId > 0 || this._categoryId > 0);
+                if (!categoryVars || !boardVars)
                 {
                     YafBuildLink.RedirectInfoPage(InfoMessage.Invalid);
                 }
             }
-            else if (this._forumId > 0 && (!this.PageContext.ForumPollAccess))
+            else if (this._forumId > 0 && !this.PageContext.ForumPollAccess)
             {
                 YafBuildLink.RedirectInfoPage(InfoMessage.AccessDenied);
             }
@@ -378,16 +379,17 @@ namespace YAF.Pages
             // we are just using existing poll
             if (this.PollId != null)
             {
-                string questionPath = this.QuestionObjectPath.Text.Trim();
-                string questionMime = string.Empty;
+                var questionPath = this.QuestionObjectPath.Text.Trim();
+                var questionMime = string.Empty;
 
                 if (questionPath.IsSet())
                 {
-                    long length;
-                    questionMime = ImageHelper.GetImageParameters(new Uri(questionPath), out length);
+                    questionMime = ImageHelper.GetImageParameters(new Uri(questionPath), out var length);
                     if (questionMime.IsNotSet())
                     {
-                        YafContext.Current.AddLoadMessage(this.GetTextFormatted("POLLIMAGE_INVALID", questionPath));
+                        YafContext.Current.AddLoadMessage(
+                            this.GetTextFormatted("POLLIMAGE_INVALID", questionPath),
+                            MessageTypes.warning);
                         return false;
                     }
 
@@ -398,12 +400,13 @@ namespace YAF.Pages
                                 "POLLIMAGE_TOOBIG",
                                 length / 1024,
                                 this.Get<YafBoardSettings>().PollImageMaxFileSize,
-                                questionPath));
+                                questionPath),
+                            MessageTypes.warning);
                         return false;
                     }
                 }
 
-                LegacyDb.poll_update(
+                this.GetRepository<Poll>().Update(
                     this.PollId,
                     this.Question.Text,
                     this._datePollExpire,
@@ -417,22 +420,22 @@ namespace YAF.Pages
 
                 foreach (RepeaterItem ri in this.ChoiceRepeater.Items)
                 {
-                    string choice = ((TextBox)ri.FindControl("PollChoice")).Text.Trim();
-                    string chid = ((HiddenField)ri.FindControl("PollChoiceID")).Value;
+                    var choice = ri.FindControlAs<TextBox>("PollChoice").Text.Trim();
+                    var chid = ri.FindControlAs<HiddenField>("PollChoiceID").Value;
 
-                    string choiceObjectPath = ((TextBox)ri.FindControl("ObjectPath")).Text.Trim();
+                    var choiceObjectPath = ri.FindControlAs<TextBox>("ObjectPath").Text.Trim();
 
-                    string choiceImageMime = string.Empty;
+                    var choiceImageMime = string.Empty;
 
                     // update choice
                     if (choiceObjectPath.IsSet())
                     {
-                        long length;
-                        choiceImageMime = ImageHelper.GetImageParameters(new Uri(choiceObjectPath), out length);
+                        choiceImageMime = ImageHelper.GetImageParameters(new Uri(choiceObjectPath), out var length);
                         if (choiceImageMime.IsNotSet())
                         {
                             YafContext.Current.AddLoadMessage(
-                                this.GetTextFormatted("POLLIMAGE_INVALID", choiceObjectPath.Trim()));
+                                this.GetTextFormatted("POLLIMAGE_INVALID", choiceObjectPath.Trim()),
+                                MessageTypes.warning);
                             return false;
                         }
 
@@ -443,24 +446,33 @@ namespace YAF.Pages
                                     "POLLIMAGE_TOOBIG",
                                     length / 1024,
                                     this.Get<YafBoardSettings>().PollImageMaxFileSize,
-                                    choiceObjectPath));
+                                    choiceObjectPath),
+                                MessageTypes.warning);
                             return false;
                         }
                     }
 
-                    if (string.IsNullOrEmpty(chid) && !string.IsNullOrEmpty(choice))
+                    if (chid.IsNotSet() && choice.IsSet())
                     {
                         // add choice
-                        LegacyDb.choice_add(this.PollId, choice, choiceObjectPath, choiceImageMime);
+                        this.GetRepository<Choice>().AddChoice(
+                            this.PollId.Value,
+                            choice,
+                            choiceObjectPath,
+                            choiceImageMime);
                     }
-                    else if (!string.IsNullOrEmpty(chid) && !string.IsNullOrEmpty(choice))
+                    else if (chid.IsSet() && choice.IsSet())
                     {
-                        LegacyDb.choice_update(chid, choice, choiceObjectPath, choiceImageMime);
+                        this.GetRepository<Choice>().UpdateChoice(
+                            chid.ToType<int>(),
+                            choice,
+                            choiceObjectPath,
+                            choiceImageMime);
                     }
-                    else if (!string.IsNullOrEmpty(chid) && string.IsNullOrEmpty(choice))
+                    else if (chid.IsSet() && choice.IsNotSet())
                     {
                         // remove choice
-                        LegacyDb.choice_delete(chid);
+                        this.GetRepository<Choice>().DeleteById(chid.ToType<int>());
                     }
                 }
 
@@ -472,32 +484,34 @@ namespace YAF.Pages
                 // The value was selected, we attach an existing poll
                 if (this.PollGroupListDropDown.SelectedIndex.ToType<int>() > 0)
                 {
-                    int result = LegacyDb.pollgroup_attach(
-                        this.PollGroupListDropDown.SelectedValue.ToType<int>(), 
-                        this._topicId, 
-                        this._forumId, 
-                        this._categoryId, 
+                    var result = this.GetRepository<Poll>().PollGroupAttach(
+                        this.PollGroupListDropDown.SelectedValue.ToType<int>(),
+                        this._topicId,
+                        this._forumId,
+                        this._categoryId,
                         this._boardId);
 
                     if (result == 1)
                     {
-                        this.PageContext.AddLoadMessage(this.GetText("POLLEDIT", "POLLGROUP_ATTACHED"));
+                        this.PageContext.AddLoadMessage(
+                            this.GetText("POLLEDIT", "POLLGROUP_ATTACHED"),
+                            MessageTypes.info);
                     }
 
                     return true;
                 }
 
-                string questionPath = this.QuestionObjectPath.Text.Trim();
-                string questionMime = string.Empty;
+                var questionPath = this.QuestionObjectPath.Text.Trim();
+                var questionMime = string.Empty;
 
                 if (questionPath.IsSet())
                 {
-                    long length;
-                    questionMime = ImageHelper.GetImageParameters(new Uri(questionPath), out length);
+                    questionMime = ImageHelper.GetImageParameters(new Uri(questionPath), out var length);
                     if (questionMime.IsNotSet())
                     {
                         YafContext.Current.AddLoadMessage(
-                            this.GetTextFormatted("POLLIMAGE_INVALID", this.QuestionObjectPath.Text.Trim()));
+                            this.GetTextFormatted("POLLIMAGE_INVALID", this.QuestionObjectPath.Text.Trim()),
+                            MessageTypes.warning);
                         return false;
                     }
 
@@ -505,32 +519,33 @@ namespace YAF.Pages
                     {
                         YafContext.Current.AddLoadMessage(
                             this.GetTextFormatted(
-                                "POLLIMAGE_TOOBIG", 
-                                length / 1024, 
-                                this.Get<YafBoardSettings>().PollImageMaxFileSize, 
-                                questionPath));
+                                "POLLIMAGE_TOOBIG",
+                                length / 1024,
+                                this.Get<YafBoardSettings>().PollImageMaxFileSize,
+                                questionPath),
+                            MessageTypes.warning);
                     }
                 }
 
                 var pollSaveList = new List<PollSaveList>();
 
                 var rawChoices = new string[3, this.ChoiceRepeater.Items.Count];
-                int j = 0;
-                
+                var j = 0;
+
                 foreach (RepeaterItem ri in this.ChoiceRepeater.Items)
                 {
-                    string choiceObjectPath = ((TextBox)ri.FindControl("ObjectPath")).Text.Trim();
+                    var choiceObjectPath = ri.FindControlAs<TextBox>("ObjectPath").Text.Trim();
 
-                    string choiceObjectMime = string.Empty;
+                    var choiceObjectMime = string.Empty;
 
                     if (choiceObjectPath.IsSet())
                     {
-                        long length;
-                        choiceObjectMime = ImageHelper.GetImageParameters(new Uri(choiceObjectPath), out length);
+                        choiceObjectMime = ImageHelper.GetImageParameters(new Uri(choiceObjectPath), out var length);
                         if (choiceObjectMime.IsNotSet())
                         {
                             YafContext.Current.AddLoadMessage(
-                                this.GetTextFormatted("POLLIMAGE_INVALID", choiceObjectPath.Trim()));
+                                this.GetTextFormatted("POLLIMAGE_INVALID", choiceObjectPath.Trim()),
+                                MessageTypes.warning);
                             return false;
                         }
 
@@ -538,21 +553,23 @@ namespace YAF.Pages
                         {
                             YafContext.Current.AddLoadMessage(
                                 this.GetTextFormatted(
-                                    "POLLIMAGE_TOOBIG", 
-                                    length / 1024, 
-                                    this.Get<YafBoardSettings>().PollImageMaxFileSize, 
-                                    choiceObjectPath));
+                                    "POLLIMAGE_TOOBIG",
+                                    length / 1024,
+                                    this.Get<YafBoardSettings>().PollImageMaxFileSize,
+                                    choiceObjectPath),
+                                MessageTypes.warning);
                             return false;
                         }
                     }
 
-                    rawChoices[0, j] = HtmlHelper.StripHtml(((TextBox)ri.FindControl("PollChoice")).Text.Trim());
+                    rawChoices[0, j] =
+                        HtmlHelper.StripHtml(((TextBox)ri.FindControlAs<TextBox>("PollChoice")).Text.Trim());
                     rawChoices[1, j] = choiceObjectPath;
                     rawChoices[2, j] = choiceObjectMime;
                     j++;
                 }
 
-                int? realTopic = this._topicId;
+                var realTopic = this._topicId;
 
                 if (this._topicId == null)
                 {
@@ -566,22 +583,22 @@ namespace YAF.Pages
 
                 pollSaveList.Add(
                     new PollSaveList(
-                        this.Question.Text, 
-                        rawChoices, 
-                        this._datePollExpire, 
-                        this.PageContext.PageUserID, 
-                        realTopic, 
-                        this._forumId, 
-                        this._categoryId, 
-                        this._boardId, 
-                        questionPath, 
-                        questionMime, 
-                        this.IsBoundCheckBox.Checked, 
-                        this.IsClosedBoundCheckBox.Checked, 
-                        this.AllowMultipleChoicesCheckBox.Checked, 
-                        this.ShowVotersCheckBox.Checked, 
+                        this.Question.Text,
+                        rawChoices,
+                        this._datePollExpire,
+                        this.PageContext.PageUserID,
+                        realTopic,
+                        this._forumId,
+                        this._categoryId,
+                        this._boardId,
+                        questionPath,
+                        questionMime,
+                        this.IsBoundCheckBox.Checked,
+                        this.IsClosedBoundCheckBox.Checked,
+                        this.AllowMultipleChoicesCheckBox.Checked,
+                        this.ShowVotersCheckBox.Checked,
                         this.AllowSkipVoteCheckBox.Checked));
-                LegacyDb.poll_save(pollSaveList);
+                this.GetRepository<Poll>().Save(pollSaveList);
                 return true;
             }
         }
@@ -595,25 +612,26 @@ namespace YAF.Pages
         private void InitPollUI(int? pollID)
         {
             // we should get the schema anyway
-            this._choices = LegacyDb.poll_stats(pollID);
+            this._choices = this.GetRepository<Poll>().StatsAsDataTable(pollID);
             this._choices.Columns.Add("ChoiceOrderID", typeof(int));
 
-            // First existing values alway 1!
-            int existingRowsCount = 1;
-            int allExistingRowsCount = this._choices.Rows.Count;
+            // First existing values always 1!
+            var existingRowsCount = 1;
+            var allExistingRowsCount = this._choices.Rows.Count;
 
             // we edit existing poll 
             if (this._choices.HasRows())
             {
-                if ((this._choices.Rows[0]["UserID"].ToType<int>() != this.PageContext.PageUserID) &&
-                    (!this.PageContext.IsAdmin) && (!this.PageContext.ForumModeratorAccess))
+                if (this._choices.Rows[0]["UserID"].ToType<int>() != this.PageContext.PageUserID
+                    && !this.PageContext.IsAdmin && !this.PageContext.ForumModeratorAccess)
                 {
                     YafBuildLink.RedirectInfoPage(InfoMessage.Invalid);
                 }
 
                 this.IsBoundCheckBox.Checked = this._choices.Rows[0]["IsBound"].ToType<bool>();
                 this.IsClosedBoundCheckBox.Checked = this._choices.Rows[0]["IsClosedBound"].ToType<bool>();
-                this.AllowMultipleChoicesCheckBox.Checked = this._choices.Rows[0]["AllowMultipleChoices"].ToType<bool>();
+                this.AllowMultipleChoicesCheckBox.Checked =
+                    this._choices.Rows[0]["AllowMultipleChoices"].ToType<bool>();
                 this.AllowSkipVoteCheckBox.Checked = this._choices.Rows[0]["AllowSkipVote"].ToType<bool>();
                 this.ShowVotersCheckBox.Checked = this._choices.Rows[0]["ShowVoters"].ToType<bool>();
                 this.Question.Text = this._choices.Rows[0]["Question"].ToString();
@@ -621,7 +639,7 @@ namespace YAF.Pages
 
                 if (this._choices.Rows[0]["Closes"] != DBNull.Value)
                 {
-                    TimeSpan closing = (DateTime)this._choices.Rows[0]["Closes"] - DateTime.UtcNow;
+                    var closing = (DateTime)this._choices.Rows[0]["Closes"] - DateTime.UtcNow;
 
                     this.PollExpire.Text = (closing.TotalDays + 1).ToType<int>().ToString();
                 }
@@ -645,46 +663,46 @@ namespace YAF.Pages
                 {
                     YafBuildLink.RedirectInfoPage(InfoMessage.AccessDenied);
                 }
-                
+
                 // Get isBound value using page variables. They are initialized here.
-                int pgidt = 0;
+                var pgidt = 0;
 
                 // If a topic poll is edited or new topic created
-                if (this._topicId > 0 && this._topicInfo != null)
+                if (this._topicId > 0 && this.topicInfo != null)
                 {
-                    // topicid should not be null here 
-                    if (!this._topicInfo["PollID"].IsNullOrEmptyDBField())
+                    // topic id should not be null here 
+                    if (this.topicInfo.PollID != null)
                     {
-                        pgidt = (int)this._topicInfo["PollID"];
+                        pgidt = this.topicInfo.PollID.Value;
 
-                        DataTable pollGroupData = LegacyDb.pollgroup_stats(pgidt);
+                        var pollGroupData = this.GetRepository<Poll>().PollGroupStatsAsDataTable(pgidt);
 
-                        this.IsBoundCheckBox.Checked = Convert.ToBoolean(pollGroupData.Rows[0]["IsBound"]);
-                        //// this.IsClosedBoundCheckBox.Checked = Convert.ToBoolean(DB.pollgroup_stats(pgidt).Rows[0]["IsClosedBound"]);
+                        this.IsBoundCheckBox.Checked = pollGroupData.Rows[0]["IsBound"].ToType<bool>();
                     }
                 }
-                else if (this._forumId > 0 && (!(this._topicId > 0) || (!(this._editTopicId > 0))))
+                else if (this._forumId > 0 && (!(this._topicId > 0) || !(this._editTopicId > 0)))
                 {
-                    // forumid should not be null here
-                    pgidt = (int)LegacyDb.forum_list(this.PageContext.PageBoardID, this._forumId).Rows[0]["PollGroupID"];
+                    // forum id should not be null here
+                    pgidt = this.GetRepository<Forum>().List(this.PageContext.PageBoardID, this._forumId)
+                        .FirstOrDefault().PollGroupID.Value;
                 }
                 else if (this._categoryId > 0)
                 {
-                    // categoryid should not be null here
-                    pgidt =
-                        this.GetRepository<Category>()
-                            .Listread(this.PageContext.PageUserID, this._categoryId)
-                            .GetFirstRowColumnAsValue("PollGroupID", 0);
+                    // category id should not be null here
+                    pgidt = this.GetRepository<Category>().Listread(this.PageContext.PageUserID, this._categoryId)
+                        .GetFirstRowColumnAsValue("PollGroupID", 0);
                 }
 
                 if (pgidt > 0)
                 {
-                    if (LegacyDb.pollgroup_stats(pgidt).Rows[0]["IsBound"].ToType<int>() == 2)
+                    if (this.GetRepository<Poll>().PollGroupStatsAsDataTable(pgidt).Rows[0]["IsBound"].ToType<int>()
+                        == 2)
                     {
                         this.IsBoundCheckBox.Checked = true;
                     }
 
-                    if (LegacyDb.pollgroup_stats(pgidt).Rows[0]["IsClosedBound"].ToType<int>() == 4)
+                    if (this.GetRepository<Poll>().PollGroupStatsAsDataTable(pgidt).Rows[0]["IsClosedBound"]
+                            .ToType<int>() == 4)
                     {
                         this.IsClosedBoundCheckBox.Checked = true;
                     }
@@ -696,10 +714,10 @@ namespace YAF.Pages
             }
 
             // we add dummy rows to data table to fill in repeater empty fields   
-            int dummyRowsCount = this.Get<YafBoardSettings>().AllowedPollChoiceNumber - allExistingRowsCount - 1;
-            for (int i = 0; i <= dummyRowsCount; i++)
+            var dummyRowsCount = this.Get<YafBoardSettings>().AllowedPollChoiceNumber - allExistingRowsCount - 1;
+            for (var i = 0; i <= dummyRowsCount; i++)
             {
-                DataRow drow = this._choices.NewRow();
+                var drow = this._choices.NewRow();
                 drow["ChoiceOrderID"] = existingRowsCount + i;
                 this._choices.Rows.Add(drow);
             }
@@ -714,10 +732,11 @@ namespace YAF.Pages
             this.Cancel.Visible = true;
             this.PollRow1.Visible = true;
             this.PollRowExpire.Visible = true;
-            this.IsClosedBound.Visible =
-                this.IsBound.Visible = this.Get<YafBoardSettings>().AllowUsersHidePollResults || PageContext.IsAdmin || PageContext.IsForumModerator;
-            this.tr_AllowMultipleChoices.Visible = this.Get<YafBoardSettings>().AllowMultipleChoices || PageContext.IsAdmin
-                                                   || PageContext.ForumModeratorAccess;
+            this.IsClosedBound.Visible = this.IsBound.Visible =
+                                             this.Get<YafBoardSettings>().AllowUsersHidePollResults
+                                             || this.PageContext.IsAdmin || this.PageContext.IsForumModerator;
+            this.tr_AllowMultipleChoices.Visible = this.Get<YafBoardSettings>().AllowMultipleChoices
+                                                   || this.PageContext.IsAdmin || this.PageContext.ForumModeratorAccess;
             this.tr_ShowVoters.Visible = true;
             this.tr_AllowSkipVote.Visible = false;
         }
@@ -727,9 +746,8 @@ namespace YAF.Pages
         /// </summary>
         private void InitializeVariables()
         {
-            this.PageContext.QueryIDs =
-                new QueryStringIDHelper(
-                    new[] { "p", "ra", "ntp", "t", "e", "em", "m", "f", "ef", "c", "ec", "b", "eb", "rf" });
+            this.PageContext.QueryIDs = new QueryStringIDHelper(
+                new[] { "p", "ra", "ntp", "t", "e", "em", "m", "f", "ef", "c", "ec", "b", "eb", "rf" });
 
             // we return to a specific place, general token 
             if (this.PageContext.QueryIDs.ContainsKey("ra"))
@@ -746,7 +764,7 @@ namespace YAF.Pages
             if (this.PageContext.QueryIDs.ContainsKey("t"))
             {
                 this._topicId = this.PageContext.QueryIDs["t"].ToType<int>();
-                this._topicInfo = LegacyDb.topic_info(this._topicId);
+                this.topicInfo = this.GetRepository<Topic>().GetById(this._topicId.ToType<int>());
             }
 
             if (this.PageContext.QueryIDs.ContainsKey("m"))
@@ -885,7 +903,7 @@ namespace YAF.Pages
             if (this._topicUnapproved)
             {
                 // Tell user that his message will have to be approved by a moderator
-                string url = YafBuildLink.GetLink(ForumPages.topics, "f={0}", this._returnForum);
+                var url = YafBuildLink.GetLink(ForumPages.topics, "f={0}", this._returnForum);
 
                 if (Config.IsRainbow)
                 {
@@ -898,10 +916,7 @@ namespace YAF.Pages
             }
 
             // YafBuildLink.Redirect(ForumPages.posts, "m={0}#{0}", this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("m"));      
-            string retliterals;
-            int? retvalue;
-
-            this.ParamsToSend(out retliterals, out retvalue);
+            this.ParamsToSend(out var retliterals, out var retvalue);
 
             switch (retliterals)
             {
@@ -959,9 +974,9 @@ namespace YAF.Pages
             }
 
             int? pollGroupId = null;
-            if (!this._topicInfo["PollID"].IsNullOrEmptyDBField())
+            if (!this.topicInfo.PollID.HasValue)
             {
-                pollGroupId = this._topicInfo["PollID"].ToType<int>();
+                pollGroupId = this.topicInfo.PollID.Value;
             }
 
             if (!this.PageContext.ForumPollAccess)
@@ -969,42 +984,42 @@ namespace YAF.Pages
                 return false;
             }
 
-            if (pollGroupId == null && this.Get<YafBoardSettings>().AllowedPollNumber > 0 &&
-                this.PageContext.ForumPollAccess)
+            if (pollGroupId == null && this.Get<YafBoardSettings>().AllowedPollNumber > 0
+                                    && this.PageContext.ForumPollAccess)
             {
                 return true;
             }
 
             // TODO: repeating code
             // Remove repeating PollID values   
-            var hTable = new Hashtable();
+            var hashtable = new Hashtable();
             var duplicateList = new ArrayList();
-            DataTable dtPollGroup = LegacyDb.pollgroup_stats(pollGroupId);
+            var pollGroup = this.GetRepository<Poll>().PollGroupStatsAsDataTable(pollGroupId);
 
-            foreach (DataRow drow in dtPollGroup.Rows)
+            foreach (DataRow drow in pollGroup.Rows)
             {
-                if (hTable.Contains(drow["PollID"]))
+                if (hashtable.Contains(drow["PollID"]))
                 {
                     duplicateList.Add(drow);
                 }
                 else
                 {
-                    hTable.Add(drow["PollID"], string.Empty);
+                    hashtable.Add(drow["PollID"], string.Empty);
                 }
             }
 
             foreach (DataRow dRow in duplicateList)
             {
-                dtPollGroup.Rows.Remove(dRow);
+                pollGroup.Rows.Remove(dRow);
             }
 
-            dtPollGroup.AcceptChanges();
+            pollGroup.AcceptChanges();
 
             // frequently used
-            int pollNumber = dtPollGroup.Rows.Count;
+            var pollNumber = pollGroup.Rows.Count;
 
-            return (pollNumber < this.Get<YafBoardSettings>().AllowedPollNumber) &&
-                   (this.Get<YafBoardSettings>().AllowedPollChoiceNumber > 0);
+            return pollNumber < this.Get<YafBoardSettings>().AllowedPollNumber
+                   && this.Get<YafBoardSettings>().AllowedPollChoiceNumber > 0;
         }
 
         #endregion

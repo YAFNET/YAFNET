@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -21,12 +21,13 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Core
+namespace YAF.Core.Extensions
 {
   #region Using
 
   using System.Web.Security;
 
+  using YAF.Core.UsersRoles;
   using YAF.Types;
   using YAF.Types.Interfaces;
 
@@ -46,6 +47,7 @@ namespace YAF.Core
     /// The membership user.
     /// </param>
     /// <returns>
+    /// The <see cref="IUserData"/>.
     /// </returns>
     [NotNull]
     public static IUserData GetUserData([NotNull] this MembershipUser membershipUser)

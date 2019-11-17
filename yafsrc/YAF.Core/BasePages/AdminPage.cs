@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -28,9 +28,12 @@ namespace YAF.Core
 
     using System;
 
-    using YAF.Classes.Data;
+    using YAF.Core.Model;
     using YAF.Types;
+    using YAF.Types.Constants;
     using YAF.Types.Extensions;
+    using YAF.Types.Interfaces;
+    using YAF.Types.Models;
     using YAF.Utils;
 
     #endregion
@@ -61,7 +64,7 @@ namespace YAF.Core
             : base(transPage)
         {
             this.IsAdminPage = true;
-            this.Load += this.AdminPage_Load;
+            this.Load += this.AdminPageLoad;
         }
 
         #endregion
@@ -69,14 +72,15 @@ namespace YAF.Core
         #region Properties
 
         /// <summary>
-        /// Gets PageName.
+        /// Gets the Page Name.
         /// </summary>
-        public override string PageName
+        public override string PageName => $"admin_{base.PageName}";
+
+        /// <summary>
+        /// Creates page links for this page.
+        /// </summary>
+        protected override void CreatePageLinks()
         {
-            get
-            {
-                return "admin_{0}".FormatWith(base.PageName);
-            }
         }
 
         #endregion
@@ -84,16 +88,17 @@ namespace YAF.Core
         #region Methods
 
         /// <summary>
-        /// The admin page_ load.
+        /// Handles the Load event of the AdminPage control.
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
-        private void AdminPage_Load([NotNull] object sender, [NotNull] EventArgs e)
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        private void AdminPageLoad([NotNull] object sender, [NotNull] EventArgs e)
         {
+            if (!this.IsPostBack)
+            {
+                this.CreatePageLinks();
+            }
+            
             // not admins are forbidden
             if (!this.PageContext.IsAdmin)
             {
@@ -107,11 +112,11 @@ namespace YAF.Core
             }
 
             // Load the page access list.
-            var dt = LegacyDb.adminpageaccess_list(
+            var dt = this.GetRepository<AdminPageUserAccess>().List(
                 this.PageContext.PageUserID, this.PageContext.ForumPageType.ToString().ToLowerInvariant());
 
             // Check access rights to the page.
-            if (!this.PageContext.ForumPageType.ToString().IsSet() || dt == null || dt.Rows.Count <= 0)
+            if (!this.PageContext.ForumPageType.ToString().IsSet() || dt == null || !dt.HasRows())
             {
                 YafBuildLink.RedirectInfoPage(InfoMessage.HostAdminPermissionsAreRequired);
             }

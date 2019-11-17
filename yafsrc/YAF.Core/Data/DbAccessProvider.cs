@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -28,13 +28,13 @@ namespace YAF.Core.Data
 
     using Autofac.Features.Indexed;
 
-    using YAF.Classes;
+    using YAF.Configuration;
     using YAF.Core.Helpers;
     using YAF.Types;
     using YAF.Types.Exceptions;
-    using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
+    using YAF.Types.Interfaces.Events;
 
     #endregion
 
@@ -51,7 +51,7 @@ namespace YAF.Core.Data
 
         private readonly IServiceLocator _serviceLocator;
 
-        private string _providerName = null;
+        private string _providerName;
 
         #endregion
 
@@ -74,10 +74,8 @@ namespace YAF.Core.Data
             this._dbAccessSafe = new SafeReadWriteProvider<IDbAccess>(
                 () =>
                     {
-                        IDbAccess dbAccess;
-
                         // attempt to get the provider...
-                        if (this._dbAccessProviders.TryGetValue(this.ProviderName, out dbAccess))
+                        if (this._dbAccessProviders.TryGetValue(this.ProviderName, out var dbAccess))
                         {
                             // first time...
                             this._serviceLocator.Get<IRaiseEvent>()
@@ -86,8 +84,7 @@ namespace YAF.Core.Data
                         else
                         {
                             throw new NoValidDbAccessProviderFoundException(
-                                @"Unable to Locate Provider Named ""{0}"" in Data Access Providers (DLL Not Located in Bin Directory?)."
-                                    .FormatWith(this.ProviderName));
+                                $@"Unable to Locate Provider Named ""{this.ProviderName}"" in Data Access Providers (DLL Not Located in Bin Directory?).");
                         }
 
                         return dbAccess;
@@ -109,10 +106,7 @@ namespace YAF.Core.Data
         [CanBeNull]
         public IDbAccess Instance
         {
-            get
-            {
-                return this._dbAccessSafe.Instance;
-            }
+            get => this._dbAccessSafe.Instance;
 
             set
             {
@@ -129,10 +123,8 @@ namespace YAF.Core.Data
         /// </summary>
         public string ProviderName
         {
-            get
-            {
-                return this._providerName ?? (this._providerName = Config.ConnectionProviderName);
-            }
+            get => this._providerName ?? (this._providerName = Config.ConnectionProviderName);
+
             set
             {
                 this._providerName = value;

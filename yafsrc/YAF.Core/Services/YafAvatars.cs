@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -29,7 +29,8 @@ namespace YAF.Core.Services
     using System;
     using System.Web;
 
-    using YAF.Classes;
+    using YAF.Configuration;
+    using YAF.Core.UsersRoles;
     using YAF.Types;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
@@ -99,7 +100,7 @@ namespace YAF.Core.Services
             catch (Exception)
             {
                 // Return NoAvatar Image if there something wrong with the user
-                return "{0}images/noavatar.gif".FormatWith(YafForumInfo.ForumClientFileRoot);
+                return $"{YafForumInfo.ForumClientFileRoot}images/noavatar.svg";
             }
         }
 
@@ -159,43 +160,34 @@ namespace YAF.Core.Services
         /// </returns>
         public string GetAvatarUrlForUser(int userId, string avatarString, bool hasAvatarImage, string email)
         {
-            string avatarUrl = string.Empty;
+            var avatarUrl = string.Empty;
 
             if (this._yafBoardSettings.AvatarUpload && hasAvatarImage)
             {
-                avatarUrl = "{0}resource.ashx?u={1}".FormatWith(YafForumInfo.ForumClientFileRoot, userId);
+                avatarUrl = $"{YafForumInfo.ForumClientFileRoot}resource.ashx?u={userId}";
             }
             else if (avatarString.IsSet())
             {
                 // Took out PageContext.BoardSettings.AvatarRemote
                 avatarUrl =
-                    "{3}resource.ashx?url={0}&width={1}&height={2}".FormatWith(
-                        HttpUtility.UrlEncode(avatarString),
-                        this._yafBoardSettings.AvatarWidth,
-                        this._yafBoardSettings.AvatarHeight,
-                        YafForumInfo.ForumClientFileRoot);
+                    $"{YafForumInfo.ForumClientFileRoot}resource.ashx?url={HttpUtility.UrlEncode(avatarString)}&width={this._yafBoardSettings.AvatarWidth}&height={this._yafBoardSettings.AvatarHeight}";
             }
             else if (this._yafBoardSettings.AvatarGravatar && email.IsSet())
             {
-                // JoeOuts added 8/17/09 for Gravatar use
+                const string GravatarBaseUrl = "https://www.gravatar.com/avatar/";
 
-                // string noAvatarGraphicUrl = HttpContext.Current.Server.UrlEncode( string.Format( "{0}/images/avatars/{1}", YafForumInfo.ForumBaseUrl, "NoAvatar.gif" ) );
-                string gravatarUrl =
-                    @"http://www.gravatar.com/avatar/{0}.jpg?r={1}".FormatWith(
-                        email.StringToHexBytes(), this._yafBoardSettings.GravatarRating);
+                // JoeOuts added 8/17/09 for Gravatar use
+                var gravatarUrl =
+                    $@"{GravatarBaseUrl}{email.StringToHexBytes()}.jpg?r={this._yafBoardSettings.GravatarRating}&s={this._yafBoardSettings.AvatarWidth}";
 
                 avatarUrl =
-                    @"{3}resource.ashx?url={0}&width={1}&height={2}".FormatWith(
-                        HttpUtility.UrlEncode(gravatarUrl),
-                        this._yafBoardSettings.AvatarWidth,
-                        this._yafBoardSettings.AvatarHeight,
-                        YafForumInfo.ForumClientFileRoot);
+                    $@"{YafForumInfo.ForumClientFileRoot}resource.ashx?url={HttpUtility.UrlEncode(gravatarUrl)}&width={this._yafBoardSettings.AvatarWidth}&height={this._yafBoardSettings.AvatarHeight}";
             }
 
             // Return NoAvatar Image is no Avatar available for that user.
             if (avatarUrl.IsNotSet())
             {
-                avatarUrl = "{0}images/noavatar.gif".FormatWith(YafForumInfo.ForumClientFileRoot);
+                avatarUrl = $"{YafForumInfo.ForumClientFileRoot}images/noavatar.svg";
             }
 
             return avatarUrl;

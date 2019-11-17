@@ -1,9 +1,9 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -27,19 +27,20 @@ namespace YAF.Pages
 
     using System;
 
-    using YAF.Classes;
+    using YAF.Configuration;
     using YAF.Controls;
     using YAF.Core;
+    using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Interfaces;
-    using YAF.Utilities;
     using YAF.Utils;
+    using YAF.Web.Extensions;
 
     #endregion
 
     /// <summary>
-    /// The cp_editbuddies.
+    /// The user Friends Control Panel
     /// </summary>
     public partial class cp_editbuddies : ForumPageRegistered
     {
@@ -68,11 +69,7 @@ namespace YAF.Pages
             // setup jQuery and Jquery Ui Tabs.
             YafContext.Current.PageElements.RegisterJsBlock(
                 "yafBuddiesTabsJs",
-                JavaScriptBlocks.JqueryUITabsLoadJs(
-                    this.BuddiesTabs.ClientID,
-                    this.hidLastTab.ClientID,
-                    this.hidLastTabId.ClientID,
-                    false));
+                JavaScriptBlocks.BootstrapTabsLoadJs(this.BuddiesTabs.ClientID, this.hidLastTab.ClientID));
 
             base.OnPreRender(e);
         }

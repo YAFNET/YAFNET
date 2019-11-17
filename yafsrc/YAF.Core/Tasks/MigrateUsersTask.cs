@@ -27,11 +27,9 @@ namespace YAF.Core.Tasks
 
     using System;
 
-    using YAF.Classes.Data;
+    using YAF.Core.UsersRoles;
     using YAF.Types;
-    using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Utils;
 
     #endregion
 
@@ -42,11 +40,6 @@ namespace YAF.Core.Tasks
     {
         #region Constants and Fields
 
-        /// <summary>
-        ///   The _task name.
-        /// </summary>
-        private const string _taskName = "MigrateUsersTask";
-
         #endregion
 
         #region Properties
@@ -55,13 +48,7 @@ namespace YAF.Core.Tasks
         ///   Gets TaskName.
         /// </summary>
         [NotNull]
-        public static string TaskName
-        {
-            get
-            {
-                return _taskName;
-            }
-        }
+        public static string TaskName { get; } = "MigrateUsersTask";
 
         #endregion
 
@@ -99,7 +86,7 @@ namespace YAF.Core.Tasks
             }
             catch (Exception x)
             {
-                this.Logger.Error(x, "Error In {0} Task".FormatWith(TaskName));
+                this.Logger.Error(x, $"Error In {TaskName} Task");
             }
         }
 

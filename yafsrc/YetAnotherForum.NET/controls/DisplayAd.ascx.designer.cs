@@ -13,22 +13,13 @@ namespace YAF.Controls {
     public partial class DisplayAd {
         
         /// <summary>
-        /// NameCell control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableCell NameCell;
-        
-        /// <summary>
         /// SponserName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel SponserName;
+        protected global::YAF.Web.Controls.LocalizedLabel SponserName;
         
         /// <summary>
         /// AdMessage control.
@@ -37,15 +28,6 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.MessagePost AdMessage;
-        
-        /// <summary>
-        /// ThemeImage1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Controls.ThemeImage ThemeImage1;
+        protected global::YAF.Web.Controls.MessagePost AdMessage;
     }
 }

@@ -29,25 +29,27 @@ namespace YAF.Pages
     using System;
     using System.Collections.Generic;
     using System.Data;
+    using System.Linq;
     using System.Text;
     using System.Text.RegularExpressions;
     using System.Web;
     using System.Web.UI.WebControls;
 
-    using YAF.Classes;
-    using YAF.Classes.Data;
-    using YAF.Controls;
+    using YAF.Configuration;
     using YAF.Core;
     using YAF.Core.Extensions;
     using YAF.Core.Helpers;
-    using YAF.Core.Services;
+    using YAF.Core.Model;
+    using YAF.Core.UsersRoles;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Flags;
     using YAF.Types.Interfaces;
+    using YAF.Types.Models;
     using YAF.Utils;
     using YAF.Utils.Helpers;
+    using YAF.Web.Extensions;
 
     #endregion
 
@@ -88,13 +90,7 @@ namespace YAF.Pages
         {
             if (this.Get<YafBoardSettings>().AllowPrivateMessageAttachments)
             {
-                this.PageContext.PageElements.RegisterJsScriptsInclude(
-                    "FileUploadScriptJs",
-#if DEBUG
-                    "jquery.fileupload.comb.js");
-#else
-                    "jquery.fileupload.comb.min.js");
-#endif
+                this.PageContext.PageElements.AddScriptReference("FileUploadScript");
 
 #if DEBUG
                 this.PageContext.PageElements.RegisterCssIncludeContent("jquery.fileupload.comb.css");
@@ -145,7 +141,7 @@ namespace YAF.Pages
 
             var friendsString = new StringBuilder();
 
-            if (usersFound.Rows.Count <= 0)
+            if (!usersFound.HasRows())
             {
                 return;
             }
@@ -234,20 +230,20 @@ namespace YAF.Pages
         {
             if (this.To.Text.Length < 2)
             {
-                // need at least 2 latters of user's name
-                YafContext.Current.AddLoadMessage(this.GetText("NEED_MORE_LETTERS"), MessageTypes.Warning);
+                // need at least 2 letters of user's name
+                YafContext.Current.AddLoadMessage(this.GetText("NEED_MORE_LETTERS"), MessageTypes.warning);
                 return;
             }
 
             // try to find users by user name
-            var usersFound = this.Get<IUserDisplayName>().Find(this.To.Text.Trim());
+            var usersFound = this.Get<IUserDisplayName>().Find(this.To.Text.Trim()).Where(u => !u.Block.BlockPMs).ToList();
 
             if (usersFound.Count > 0)
             {
                 // we found a user(s)
                 this.ToList.DataSource = usersFound;
-                this.ToList.DataValueField = "Key";
-                this.ToList.DataTextField = "Value";
+                this.ToList.DataValueField = "ID";
+                this.ToList.DataTextField = this.Get<YafBoardSettings>().EnableDisplayName ? "DisplayName" : "Name";
                 this.ToList.DataBind();
 
                 // ToList.SelectedIndex = 0;
@@ -264,7 +260,7 @@ namespace YAF.Pages
             else
             {
                 // user not found
-                YafContext.Current.AddLoadMessage(this.GetText("USER_NOTFOUND"), MessageTypes.Error);
+                YafContext.Current.AddLoadMessage(this.GetText("USER_NOTFOUND"), MessageTypes.danger);
                 return;
             }
 
@@ -286,7 +282,6 @@ namespace YAF.Pages
             this.EditorLine.Controls.Add(this._editor);
 
             this._editor.UserCanUpload = this.Get<YafBoardSettings>().AllowPrivateMessageAttachments;
-            this.UploadDialog.Visible = this.Get<YafBoardSettings>().AllowPrivateMessageAttachments;
 
             // add editor to the page
             this.EditorLine.Controls.Add(this._editor);
@@ -306,10 +301,9 @@ namespace YAF.Pages
             }
 
             // set attributes of editor
-            this._editor.BaseDir = "{0}Scripts".FormatWith(YafForumInfo.ForumClientFileRoot);
-            this._editor.StyleSheet = this.Get<ITheme>().BuildThemePath("theme.css");
+            this._editor.BaseDir = $"{YafForumInfo.ForumClientFileRoot}Scripts";
 
-            // this needs to be done just once, not during postbacks
+            // this needs to be done just once, not during post-backs
             if (this.IsPostBack)
             {
                 return;
@@ -317,12 +311,6 @@ namespace YAF.Pages
 
             // create page links
             this.CreatePageLinks();
-
-            // localize button labels
-            this.FindUsers.Text = this.GetText("FINDUSERS");
-            this.AllUsers.Text = this.GetText("ALLUSERS");
-            this.AllBuddies.Text = this.GetText("ALLBUDDIES");
-            this.Clear.Text = this.GetText("CLEAR");
 
             // only administrators can send messages to all users
             this.AllUsers.Visible = YafContext.Current.IsAdmin;
@@ -334,12 +322,12 @@ namespace YAF.Pages
             {
                 // PM is a reply or quoted reply (isQuoting)
                 // to the given message id "p"
-                bool isQuoting = this.Request.QueryString.GetFirstOrDefault("q") == "1";
+                var isQuoting = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("q") == "1";
 
                 // get quoted message
-                DataRow row =
-                    LegacyDb.pmessage_list(
-                        Security.StringToLongOrRedirect(this.Request.QueryString.GetFirstOrDefault("p"))).GetFirstRow();
+                var row =
+                    this.GetRepository<PMessage>().ListAsDataTable(
+                        Security.StringToLongOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("p"))).GetFirstRow();
 
                 // there is such a message
                 if (row == null)
@@ -361,19 +349,19 @@ namespace YAF.Pages
                 var subject = row["Subject"].ToType<string>();
                 if (!subject.StartsWith("Re: "))
                 {
-                    subject = "Re: {0}".FormatWith(subject);
+                    subject = $"Re: {subject}";
                 }
 
                 this.PmSubjectTextBox.Text = subject;
 
-                string displayName = this.Get<IUserDisplayName>().GetName(fromUserId);
+                var displayName = this.Get<IUserDisplayName>().GetName(fromUserId);
 
                 // set "To" user and disable changing...
                 this.To.Text = displayName;
                 this.To.Enabled = false;
-                this.FindUsers.Enabled = false;
-                this.AllUsers.Enabled = false;
-                this.AllBuddies.Enabled = false;
+                this.FindUsers.Visible = false;
+                this.AllUsers.Visible = false;
+                this.AllBuddies.Visible = false;
 
                 if (!isQuoting)
                 {
@@ -381,7 +369,7 @@ namespace YAF.Pages
                 }
 
                 // PM is a quoted reply
-                string body = row["Body"].ToString();
+                var body = row["Body"].ToString();
 
                 if (this.Get<YafBoardSettings>().RemoveNestedQuotes)
                 {
@@ -392,7 +380,7 @@ namespace YAF.Pages
                 body = this.Get<IBadWordReplace>().Replace(body);
 
                 // Quote the original message
-                body = "[QUOTE={0}]{1}[/QUOTE]".FormatWith(displayName, body);
+                body = $"[QUOTE={displayName}]{body}[/QUOTE]";
 
                 // we don't want any whitespaces at the beginning of message
                 this._editor.Text = body.TrimStart();
@@ -407,22 +395,19 @@ namespace YAF.Pages
                 }
 
                 // PM is being sent to a predefined user
-                int toUser;
-                int reportMessage;
-
-                if (!int.TryParse(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u"), out toUser)
-                    || !int.TryParse(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("r"), out reportMessage))
+                if (!int.TryParse(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u"), out _)
+                    || !int.TryParse(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("r"), out _))
                 {
                     return;
                 }
 
                 // get quoted message
-                DataRow messagesRow =
-                    LegacyDb.message_listreporters(
-                        Security.StringToLongOrRedirect(
-                            this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("r")).ToType<int>(),
-                        Security.StringToLongOrRedirect(
-                            this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u")).ToType<int>())
+                var messagesRow =
+                        this.GetRepository<Message>().ListReportersAsDataTable(
+                            Security.StringToIntOrRedirect(
+                                this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("r")),
+                            Security.StringToIntOrRedirect(
+                                this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u")))
                         .GetFirstRow();
 
                 // there is such a message
@@ -435,26 +420,26 @@ namespace YAF.Pages
                 // handle subject                                           
                 this.PmSubjectTextBox.Text = this.GetText("REPORTED_SUBJECT");
 
-                string displayName =
+                var displayName =
                     this.Get<IUserDisplayName>().GetName(messagesRow.Field<int>("UserID"));
 
                 // set "To" user and disable changing...
                 this.To.Text = displayName;
                 this.To.Enabled = false;
-                this.FindUsers.Enabled = false;
-                this.AllUsers.Enabled = false;
-                this.AllBuddies.Enabled = false;
+                this.FindUsers.Visible = false;
+                this.AllUsers.Visible = false;
+                this.AllBuddies.Visible = false;
 
                 // Parse content with delimiter '|'  
-                string[] quoteList = messagesRow.Field<string>("ReportText").Split('|');
+                var quoteList = messagesRow.Field<string>("ReportText").Split('|');
 
                 // Quoted replies should have bad words in them
                 // Reply to report PM is always a quoted reply
                 // Quote the original message in a cycle
-                for (int i = 0; i < quoteList.Length; i++)
+                for (var i = 0; i < quoteList.Length; i++)
                 {
                     // Add quote codes
-                    quoteList[i] = "[QUOTE={0}]{1}[/QUOTE]".FormatWith(displayName, quoteList[i]);
+                    quoteList[i] = $"[QUOTE={displayName}]{quoteList[i]}[/QUOTE]";
 
                     // Replace DateTime delimiter '??' by ': ' 
                     // we don't want any whitespaces at the beginning of message
@@ -466,15 +451,13 @@ namespace YAF.Pages
                 // PM is being send as a reply to a reported post
 
                 // find user
-                int toUserId;
-
-                if (!int.TryParse(this.Request.QueryString.GetFirstOrDefault("u"), out toUserId))
+                if (!int.TryParse(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u"), out var toUserId))
                 {
                     return;
                 }
 
-                DataRow currentRow =
-                    LegacyDb.user_list(YafContext.Current.PageBoardID, toUserId, true).GetFirstRow();
+                var currentRow =
+                    this.GetRepository<User>().ListAsDataTable(YafContext.Current.PageBoardID, toUserId, true).GetFirstRow();
 
                 if (currentRow == null)
                 {
@@ -485,9 +468,9 @@ namespace YAF.Pages
                 this.To.Enabled = false;
 
                 // hide find user/all users buttons
-                this.FindUsers.Enabled = false;
-                this.AllUsers.Enabled = false;
-                this.AllBuddies.Enabled = false;
+                this.FindUsers.Visible = false;
+                this.AllUsers.Visible = false;
+                this.AllBuddies.Visible = false;
             }
             else
             {
@@ -501,10 +484,7 @@ namespace YAF.Pages
 
                 // format localized string
                 this.MultiReceiverInfo.Text =
-                    "<br />{0}<br />{1}".FormatWith(
-                        this.GetText("MAX_RECIPIENT_INFO")
-                            .FormatWith(this.Get<YafBoardSettings>().PrivateMessageMaxRecipients),
-                        this.GetText("MULTI_RECEIVER_INFO"));
+                    $"<br />{string.Format(this.GetText("MAX_RECIPIENT_INFO"), this.Get<YafBoardSettings>().PrivateMessageMaxRecipients)}<br />{this.GetText("MULTI_RECEIVER_INFO")}";
 
                 // display info
                 this.MultiReceiverInfo.Visible = true;
@@ -531,7 +511,7 @@ namespace YAF.Pages
             }
 
             using (
-                DataTable userDT = LegacyDb.user_list(
+                var userDT = this.GetRepository<User>().ListAsDataTable(
                     YafContext.Current.PageBoardID,
                     YafContext.Current.PageUserID,
                     true))
@@ -563,21 +543,21 @@ namespace YAF.Pages
             if (this.To.Text.Length <= 0)
             {
                 // recipient is required field
-                YafContext.Current.AddLoadMessage(this.GetText("need_to"), MessageTypes.Warning);
+                YafContext.Current.AddLoadMessage(this.GetText("need_to"), MessageTypes.warning);
                 return;
             }
 
             // subject is required
             if (this.PmSubjectTextBox.Text.Trim().Length <= 0)
             {
-                YafContext.Current.AddLoadMessage(this.GetText("need_subject"), MessageTypes.Warning);
+                YafContext.Current.AddLoadMessage(this.GetText("need_subject"), MessageTypes.warning);
                 return;
             }
 
             // message is required
             if (this._editor.Text.Trim().Length <= 0)
             {
-                YafContext.Current.AddLoadMessage(this.GetText("need_message"), MessageTypes.Warning);
+                YafContext.Current.AddLoadMessage(this.GetText("need_message"), MessageTypes.warning);
                 return;
             }
 
@@ -597,7 +577,7 @@ namespace YAF.Pages
                     return;
                 }
 
-                LegacyDb.pmessage_save(
+                this.GetRepository<PMessage>().SendMessage(
                     YafContext.Current.PageUserID,
                     0,
                     this.PmSubjectTextBox.Text,
@@ -638,7 +618,7 @@ namespace YAF.Pages
                         this.GetTextFormatted(
                             "TOO_MANY_RECIPIENTS",
                             this.Get<YafBoardSettings>().PrivateMessageMaxRecipients),
-                        MessageTypes.Warning);
+                        MessageTypes.warning);
 
                     return;
                 }
@@ -652,21 +632,21 @@ namespace YAF.Pages
                 var recipientIds = new List<int>();
 
                 // get recipients' IDs
-                foreach (string recipient in recipients)
+                foreach (var recipient in recipients)
                 {
-                    int? userId = this.Get<IUserDisplayName>().GetId(recipient);
+                    var userId = this.Get<IUserDisplayName>().GetId(recipient);
 
                     if (!userId.HasValue)
                     {
                         YafContext.Current.AddLoadMessage(
                             this.GetTextFormatted("NO_SUCH_USER", recipient),
-                            MessageTypes.Error);
+                            MessageTypes.warning);
                         return;
                     }
 
                     if (UserMembershipHelper.IsGuestUser(userId.Value))
                     {
-                        YafContext.Current.AddLoadMessage(this.GetText("NOT_GUEST"), MessageTypes.Error);
+                        YafContext.Current.AddLoadMessage(this.GetText("NOT_GUEST"), MessageTypes.danger);
                         return;
                     }
 
@@ -676,11 +656,11 @@ namespace YAF.Pages
                         recipientIds.Add(userId.Value);
                     }
 
-                    var receivingPMInfo = LegacyDb.user_pmcount(userId.Value).Rows[0];
+                    var receivingPMInfo = this.GetRepository<PMessage>().UserMessageCount(userId.Value).Rows[0];
 
                     // test receiving user's PM count
-                    if ((receivingPMInfo["NumberTotal"].ToType<int>() + 1
-                         < receivingPMInfo["NumberAllowed"].ToType<int>()) || YafContext.Current.IsAdmin
+                    if (receivingPMInfo["NumberTotal"].ToType<int>() + 1
+                        < receivingPMInfo["NumberAllowed"].ToType<int>() || YafContext.Current.IsAdmin
                         || (bool)
                            Convert.ChangeType(
                                UserMembershipHelper.GetUserRowForID(userId.Value, true)["IsAdmin"],
@@ -692,38 +672,41 @@ namespace YAF.Pages
                     // recipient has full PM box
                     YafContext.Current.AddLoadMessage(
                         this.GetTextFormatted("RECIPIENTS_PMBOX_FULL", recipient),
-                        MessageTypes.Error);
+                        MessageTypes.danger);
                     return;
                 }
 
                 // send PM to all recipients
-                foreach (var userId in recipientIds)
-                {
-                    string body = this._editor.Text;
+                recipientIds.ForEach(
+                    userId =>
 
-                    var messageFlags = new MessageFlags
-                                           {
-                                               IsHtml = this._editor.UsesHTML,
-                                               IsBBCode = this._editor.UsesBBCode
-                                           };
+                        {
+                            var body = this._editor.Text;
 
-                    LegacyDb.pmessage_save(
-                        YafContext.Current.PageUserID,
-                        userId,
-                        this.PmSubjectTextBox.Text,
-                        body,
-                        messageFlags.BitValue,
-                        replyTo);
+                            var messageFlags = new MessageFlags
+                                                   {
+                                                       IsHtml = this._editor.UsesHTML,
+                                                       IsBBCode = this._editor.UsesBBCode
+                                                   };
 
-                    // reset reciever's lazy data as he should be informed at once
-                    this.Get<IDataCache>().Remove(Constants.Cache.ActiveUserLazyData.FormatWith(userId));
+                            this.GetRepository<PMessage>().SendMessage(
+                                YafContext.Current.PageUserID,
+                                userId,
+                                this.PmSubjectTextBox.Text,
+                                body,
+                                messageFlags.BitValue,
+                                replyTo);
 
-                    if (this.Get<YafBoardSettings>().AllowPMEmailNotification)
-                    {
-                        this.Get<ISendNotification>()
-                            .ToPrivateMessageRecipient(userId, this.PmSubjectTextBox.Text.Trim());
-                    }
-                }
+                            // reset lazy data as he should be informed at once
+                            this.Get<IDataCache>().Remove(string.Format(Constants.Cache.ActiveUserLazyData, userId));
+
+                            if (this.Get<YafBoardSettings>().AllowPMEmailNotification)
+                            {
+                                this.Get<ISendNotification>().ToPrivateMessageRecipient(
+                                    userId,
+                                    this.PmSubjectTextBox.Text.Trim());
+                            }
+                        });
 
                 // redirect to outbox (sent items), not control panel
                 YafBuildLink.Redirect(ForumPages.cp_pm, "v={0}", "out");
@@ -743,16 +726,13 @@ namespace YAF.Pages
             // Check if SPAM Message first...
             if (!this.PageContext.IsAdmin && !this.PageContext.ForumModeratorAccess && !this.Get<YafBoardSettings>().SpamServiceType.Equals(0))
             {
-                var spamChecker = new YafSpamCheck();
-                string spamResult;
-
                 // Check content for spam
-                if (spamChecker.CheckPostForSpam(
+                if (this.Get<ISpamCheck>().CheckPostForSpam(
                     this.PageContext.IsGuest ? "Guest" : this.PageContext.PageUserName,
                     YafContext.Current.Get<HttpRequestBase>().GetUserRealIPAddress(),
                     message,
                     this.PageContext.User.Email,
-                    out spamResult))
+                    out var spamResult))
                 {
                     switch (this.Get<YafBoardSettings>().SpamMessageHandling)
                     {
@@ -760,43 +740,47 @@ namespace YAF.Pages
                             this.Logger.Log(
                                 this.PageContext.PageUserID,
                                 "Spam Message Detected",
-                                "Spam Check detected possible SPAM ({1}) posted by User: {0}"
-                                    .FormatWith(
+                                string
+                                    .Format(
+                                        "Spam Check detected possible SPAM ({1}) posted by User: {0}",
                                         this.PageContext.PageUserName,
-                                        spamResult),
+                                            spamResult),
                                 EventLogTypes.SpamMessageDetected);
                             break;
                         case 1:
                             this.Logger.Log(
                                 this.PageContext.PageUserID,
                                 "Spam Message Detected",
-                                "Spam Check detected possible SPAM ({1}) posted by User: {0}, it was flagged as unapproved post"
-                                    .FormatWith(
+                                string
+                                    .Format(
+                                        "Spam Check detected possible SPAM ({1}) posted by User: {0}, it was flagged as unapproved post",
                                         this.PageContext.PageUserName,
-                                        spamResult),
+                                            spamResult),
                                 EventLogTypes.SpamMessageDetected);
                             break;
                         case 2:
                             this.Logger.Log(
                                 this.PageContext.PageUserID,
                                 "Spam Message Detected",
-                                "Spam Check detected possible SPAM ({1}) posted by User: {0}, post was rejected"
-                                    .FormatWith(
+                                string
+                                    .Format(
+                                        "Spam Check detected possible SPAM ({1}) posted by User: {0}, post was rejected",
                                         this.PageContext.PageUserName,
-                                        spamResult),
+                                            spamResult),
                                 EventLogTypes.SpamMessageDetected);
 
-                            this.PageContext.AddLoadMessage(this.GetText("SPAM_MESSAGE"), MessageTypes.Error);
+                            this.PageContext.AddLoadMessage(this.GetText("SPAM_MESSAGE"), MessageTypes.danger);
 
                             break;
                         case 3:
                             this.Logger.Log(
                                 this.PageContext.PageUserID,
                                 "Spam Message Detected",
-                                "Spam Check detected possible SPAM ({1}) posted by User: {0}, user was deleted and bannded"
-                                    .FormatWith(
+                                string
+                                    .Format(
+                                        "Spam Check detected possible SPAM ({1}) posted by User: {0}, user was deleted and bannded",
                                         this.PageContext.PageUserName,
-                                        spamResult),
+                                            spamResult),
                                 EventLogTypes.SpamMessageDetected);
 
                             var userIp =
@@ -824,9 +808,8 @@ namespace YAF.Pages
 
                     if (urlCount > this.PageContext.BoardSettings.AllowedNumberOfUrls)
                     {
-                        spamResult = "The user posted {0} urls but allowed only {1}".FormatWith(
-                            urlCount,
-                            this.PageContext.BoardSettings.AllowedNumberOfUrls);
+                        spamResult =
+                            $"The user posted {urlCount} urls but allowed only {this.PageContext.BoardSettings.AllowedNumberOfUrls}";
 
                         switch (this.Get<YafBoardSettings>().SpamMessageHandling)
                         {
@@ -834,42 +817,46 @@ namespace YAF.Pages
                                 this.Logger.Log(
                                     this.PageContext.PageUserID,
                                     "Spam Message Detected",
-                                    "Spam Check detected possible SPAM ({1}) posted by User: {0}".FormatWith(
+                                    string.Format(
+                                        "Spam Check detected possible SPAM ({1}) posted by User: {0}",
                                         this.PageContext.PageUserName,
-                                        spamResult),
+                                            spamResult),
                                     EventLogTypes.SpamMessageDetected);
                                 break;
                             case 1:
                                 this.Logger.Log(
                                     this.PageContext.PageUserID,
                                     "Spam Message Detected",
-                                    "Spam Check detected possible SPAM ({1}) posted by User: {0}, it was flagged as unapproved post"
-                                        .FormatWith(
+                                    string
+                                        .Format(
+                                            "Spam Check detected possible SPAM ({1}) posted by User: {0}, it was flagged as unapproved post",
                                             this.PageContext.IsGuest ? "Guest" : this.PageContext.PageUserName,
-                                            spamResult),
+                                                spamResult),
                                     EventLogTypes.SpamMessageDetected);
                                 break;
                             case 2:
                                 this.Logger.Log(
                                     this.PageContext.PageUserID,
                                     "Spam Message Detected",
-                                    "Spam Check detected possible SPAM ({1}) posted by User: {0}, post was rejected"
-                                        .FormatWith(
+                                    string
+                                        .Format(
+                                            "Spam Check detected possible SPAM ({1}) posted by User: {0}, post was rejected",
                                             this.PageContext.PageUserName,
-                                            spamResult),
+                                                spamResult),
                                     EventLogTypes.SpamMessageDetected);
 
-                                this.PageContext.AddLoadMessage(this.GetText("SPAM_MESSAGE"), MessageTypes.Error);
+                                this.PageContext.AddLoadMessage(this.GetText("SPAM_MESSAGE"), MessageTypes.danger);
 
                                 break;
                             case 3:
                                 this.Logger.Log(
                                     this.PageContext.PageUserID,
                                     "Spam Message Detected",
-                                    "Spam Check detected possible SPAM ({1}) posted by User: {0}, user was deleted and bannded"
-                                        .FormatWith(
+                                    string
+                                        .Format(
+                                            "Spam Check detected possible SPAM ({1}) posted by User: {0}, user was deleted and bannded",
                                             this.PageContext.PageUserName,
-                                            spamResult),
+                                                spamResult),
                                     EventLogTypes.SpamMessageDetected);
 
                                 var userIp =
@@ -894,10 +881,9 @@ namespace YAF.Pages
 
             ///////////////////////////////
 
-
             // test sending user's PM count
             // get user's name
-            var drPMInfo = LegacyDb.user_pmcount(YafContext.Current.PageUserID).Rows[0];
+            var drPMInfo = this.GetRepository<PMessage>().UserMessageCount(YafContext.Current.PageUserID).Rows[0];
 
             if (drPMInfo["NumberTotal"].ToType<int>() + count <= drPMInfo["NumberAllowed"].ToType<int>()
                 || YafContext.Current.IsAdmin)
@@ -908,7 +894,7 @@ namespace YAF.Pages
             // user has full PM box
             YafContext.Current.AddLoadMessage(
                 this.GetTextFormatted("OWN_PMBOX_FULL", drPMInfo["NumberAllowed"]),
-                MessageTypes.Error);
+                MessageTypes.danger);
 
             return false;
         }

@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -29,18 +29,21 @@ namespace YAF.Pages
 
     using System;
     using System.Data;
+    using System.Web;
 
-    using YAF.Classes;
-    using YAF.Classes.Data;
-    using YAF.Controls;
+    using YAF.Configuration;
     using YAF.Core;
+    using YAF.Core.Extensions;
+    using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Flags;
     using YAF.Types.Interfaces;
+    using YAF.Types.Models;
     using YAF.Utils;
     using YAF.Utils.Helpers;
+    using YAF.Web.Extensions;
 
     #endregion
 
@@ -74,7 +77,7 @@ namespace YAF.Pages
         {
             var row = (DataRow)o;
 
-            string message = row["Message"].ToString();
+            var message = row["Message"].ToString();
 
             message = this.Get<IFormatMessage>().FormatMessage(message, new MessageFlags(row["Flags"].ToType<int>()));
 
@@ -96,20 +99,8 @@ namespace YAF.Pages
         protected string GetPrintHeader([NotNull] object o)
         {
             var row = (DataRow)o;
-            return "<strong>{2}: {0}</strong> - {1}".FormatWith(this.Get<YafBoardSettings>().EnableDisplayName ? row["DisplayName"] : row["UserName"], this.Get<IDateTime>().FormatDateTime((DateTime)row["Posted"]), this.GetText("postedby"));
-        }
-
-        /// <summary>
-        /// The on init.
-        /// </summary>
-        /// <param name="e">
-        /// The e.
-        /// </param>
-        protected override void OnInit([NotNull] EventArgs e)
-        {
-            // CODEGEN: This call is required by the ASP.NET Web Form Designer.
-            this.InitializeComponent();
-            base.OnInit(e);
+            return
+                $"<strong>{this.GetText("postedby")}: {(this.Get<YafBoardSettings>().EnableDisplayName ? row["DisplayName"] : row["UserName"])}</strong> - {this.Get<IDateTime>().FormatDateTime((DateTime)row["Posted"])}";
         }
 
         /// <summary>
@@ -123,7 +114,7 @@ namespace YAF.Pages
         /// </param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            if (this.Request.QueryString.GetFirstOrDefault("t") == null || !this.PageContext.ForumReadAccess)
+            if (!this.Get<HttpRequestBase>().QueryString.Exists("t") || !this.PageContext.ForumReadAccess)
             {
                 YafBuildLink.AccessDenied();
             }
@@ -146,26 +137,26 @@ namespace YAF.Pages
             this.PageLinks.AddForum(this.PageContext.PageForumID);
             this.PageLinks.AddLink(
                 this.PageContext.PageTopicName, YafBuildLink.GetLink(ForumPages.posts, "t={0}", this.PageContext.PageTopicID));
-            bool showDeleted = false;
-            int userId = 0;
+            var showDeleted = false;
+            var userId = 0;
             if (this.Get<YafBoardSettings>().ShowDeletedMessagesToAll)
             {
                 showDeleted = true;
             }
 
-            if (!showDeleted && ((this.Get<YafBoardSettings>().ShowDeletedMessages &&
-                                  !this.Get<YafBoardSettings>().ShowDeletedMessagesToAll)
+            if (!showDeleted && (this.Get<YafBoardSettings>().ShowDeletedMessages &&
+                                 !this.Get<YafBoardSettings>().ShowDeletedMessagesToAll
                                  || this.PageContext.IsAdmin ||
                                  this.PageContext.ForumModeratorAccess))
             {
                 userId = this.PageContext.PageUserID;
             }
 
-            var dt = LegacyDb.post_list(
+            var dt = this.GetRepository<Message>().PostListAsDataTable(
                 this.PageContext.PageTopicID,
                 this.PageContext.PageUserID,
                 userId,
-                !PageContext.IsCrawler ? 1 : 0,
+                !this.PageContext.IsCrawler ? 1 : 0,
                 showDeleted,
                 false,
                 false,
@@ -184,14 +175,6 @@ namespace YAF.Pages
             this.Posts.DataSource = dt.AsEnumerable();
 
             this.DataBind();
-        }
-
-        /// <summary>
-        /// Required method for Designer support - do not modify
-        ///   the contents of this method with the code editor.
-        /// </summary>
-        private void InitializeComponent()
-        {
         }
 
         #endregion

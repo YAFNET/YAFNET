@@ -1,0 +1,197 @@
+﻿using YAF.Lucene.Net.Index;
+using YAF.Lucene.Net.Util.Mutable;
+using System;
+
+namespace YAF.Lucene.Net.Queries.Function.DocValues
+{
+    /*
+     * Licensed to the Apache Software Foundation (ASF) under one or more
+     * contributor license agreements.  See the NOTICE file distributed with
+     * this work for additional information regarding copyright ownership.
+     * The ASF licenses this file to You under the Apache License, Version 2.0
+     * (the "License"); you may not use this file except in compliance with
+     * the License.  You may obtain a copy of the License at
+     *
+     *     http://www.apache.org/licenses/LICENSE-2.0
+     *
+     * Unless required by applicable law or agreed to in writing, software
+     * distributed under the License is distributed on an "AS IS" BASIS,
+     * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     * See the License for the specific language governing permissions and
+     * limitations under the License.
+     */
+
+    /// <summary>
+    /// Abstract <see cref="FunctionValues"/> implementation which supports retrieving <see cref="long"/> values.
+    /// Implementations can control how the <see cref="long"/> values are loaded through <see cref="Int64Val(int)"/>
+    /// <para/>
+    /// NOTE: This was LongDocValues in Lucene
+    /// </summary>
+    public abstract class Int64DocValues : FunctionValues
+    {
+        protected readonly ValueSource m_vs;
+
+        public Int64DocValues(ValueSource vs)
+        {
+            this.m_vs = vs;
+        }
+
+        public override byte ByteVal(int doc)
+        {
+            return (byte)Int64Val(doc);
+        }
+
+        /// <summary>
+        /// NOTE: This was shortVal() in Lucene
+        /// </summary>
+        public override short Int16Val(int doc)
+        {
+            return (short)Int64Val(doc);
+        }
+
+        /// <summary>
+        /// NOTE: This was floatVal() in Lucene
+        /// </summary>
+        public override float SingleVal(int doc)
+        {
+            return (float)Int64Val(doc);
+        }
+
+        /// <summary>
+        /// NOTE: This was intVal() in Lucene
+        /// </summary>
+        public override int Int32Val(int doc)
+        {
+            return (int)Int64Val(doc);
+        }
+
+        public override abstract long Int64Val(int doc);
+
+        public override double DoubleVal(int doc)
+        {
+            return (double)Int64Val(doc);
+        }
+
+        public override bool BoolVal(int doc)
+        {
+            return Int64Val(doc) != 0;
+        }
+
+        public override string StrVal(int doc) // LUCENENET TODO: API - Add overload to include CultureInfo ?
+        {
+            return Convert.ToString(Int64Val(doc));
+        }
+
+        public override object ObjectVal(int doc)
+        {
+            return Exists(doc) ? Int64Val(doc) : (long?)null;
+        }
+
+        public override string ToString(int doc)
+        {
+            return m_vs.GetDescription() + '=' + StrVal(doc);
+        }
+
+        /// <summary>
+        /// NOTE: This was externalToLong() in Lucene
+        /// </summary>
+        protected virtual long ExternalToInt64(string extVal) // LUCENENET TODO: API - Add overload to include CultureInfo ?
+        {
+            return Convert.ToInt64(extVal);
+        }
+
+        public override ValueSourceScorer GetRangeScorer(IndexReader reader, string lowerVal, string upperVal, bool includeLower, bool includeUpper)
+        {
+            long lower, upper;
+
+            // instead of using separate comparison functions, adjust the endpoints.
+
+            if (lowerVal == null)
+            {
+                lower = long.MinValue;
+            }
+            else
+            {
+                lower = ExternalToInt64(lowerVal);
+                if (!includeLower && lower < long.MaxValue)
+                {
+                    lower++;
+                }
+            }
+
+            if (upperVal == null)
+            {
+                upper = long.MaxValue;
+            }
+            else
+            {
+                upper = ExternalToInt64(upperVal);
+                if (!includeUpper && upper > long.MinValue)
+                {
+                    upper--;
+                }
+            }
+
+            long ll = lower;
+            long uu = upper;
+
+            return new ValueSourceScorerAnonymousInnerClassHelper(this, reader, this, ll, uu);
+        }
+
+        private class ValueSourceScorerAnonymousInnerClassHelper : ValueSourceScorer
+        {
+            private readonly Int64DocValues outerInstance;
+
+            private readonly long ll;
+            private readonly long uu;
+
+            public ValueSourceScorerAnonymousInnerClassHelper(Int64DocValues outerInstance, IndexReader reader, Int64DocValues @this, long ll, long uu)
+                : base(reader, @this)
+            {
+                this.outerInstance = outerInstance;
+                this.ll = ll;
+                this.uu = uu;
+            }
+
+            public override bool MatchesValue(int doc)
+            {
+                long val = outerInstance.Int64Val(doc);
+                // only check for deleted if it's the default value
+                // if (val==0 && reader.isDeleted(doc)) return false;
+                return val >= ll && val <= uu;
+            }
+        }
+
+        public override ValueFiller GetValueFiller()
+        {
+            return new ValueFillerAnonymousInnerClassHelper(this);
+        }
+
+        private class ValueFillerAnonymousInnerClassHelper : ValueFiller
+        {
+            private readonly Int64DocValues outerInstance;
+
+            public ValueFillerAnonymousInnerClassHelper(Int64DocValues outerInstance)
+            {
+                this.outerInstance = outerInstance;
+                mval = new MutableValueInt64();
+            }
+
+            private readonly MutableValueInt64 mval;
+
+            public override MutableValue Value
+            {
+                get
+                {
+                    return mval;
+                }
+            }
+
+            public override void FillValue(int doc)
+            {
+                mval.Value = outerInstance.Int64Val(doc);
+                mval.Exists = outerInstance.Exists(doc);
+            }
+        }
+    }
+}

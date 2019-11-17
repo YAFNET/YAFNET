@@ -23,60 +23,61 @@
  */
 namespace YAF.Core.Tasks
 {
-  #region Using
+    #region Using
 
-  using System;
+    using System;
 
-  using YAF.Types;
-  using YAF.Types.Attributes;
-  using YAF.Types.Interfaces;
-
-    #endregion
-
-  /// <summary>
-  /// The mail sending module.
-  /// </summary>
-  [YafModule("Mail Queue Starting Module", "Tiny Gecko", 1)]
-  public class MailSendingForumModule : BaseForumModule
-  {
-    #region Constants and Fields
-
-    /// <summary>
-    ///   The _key name.
-    /// </summary>
-    private const string _keyName = "MailSendTask";
+    using YAF.Core.BaseModules;
+    using YAF.Types;
+    using YAF.Types.Attributes;
+    using YAF.Types.Interfaces;
 
     #endregion
 
-    #region Public Methods
-
     /// <summary>
-    /// The init.
+    /// The mail sending module.
     /// </summary>
-    public override void Init()
+    [YafModule("Mail Queue Starting Module", "Tiny Gecko", 1)]
+    public class MailSendingForumModule : BaseForumModule
     {
-      // hook the page init for mail sending...
-      YafContext.Current.AfterInit += this.Current_AfterInit;
+        #region Constants and Fields
+
+        /// <summary>
+        ///   The _key name.
+        /// </summary>
+        private const string _keyName = "MailSendTask";
+
+        #endregion
+
+        #region Public Methods
+
+        /// <summary>
+        /// The init.
+        /// </summary>
+        public override void Init()
+        {
+            // hook the page init for mail sending...
+            YafContext.Current.AfterInit += this.Current_AfterInit;
+        }
+
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        /// The current_ after init.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        private void Current_AfterInit([NotNull] object sender, [NotNull] EventArgs e)
+        {
+            this.Get<ITaskModuleManager>().StartTask(_keyName, () => new MailSendTask());
+        }
+
+        #endregion
     }
-
-    #endregion
-
-    #region Methods
-
-    /// <summary>
-    /// The current_ after init.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    private void Current_AfterInit([NotNull] object sender, [NotNull] EventArgs e)
-    {
-			this.Get<ITaskModuleManager>().StartTask(_keyName, () => new MailSendTask());
-    }
-
-    #endregion
-  }
 }

@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -49,12 +49,18 @@ namespace YAF.Types.Models
         [Alias("BBCodeID")]
         public int ID { get; set; }
 
+        [References(typeof(Board))]
+        [Required]
         public int BoardID { get; set; }
 
+        [Required]
+        [StringLength(255)]
         public string Name { get; set; }
 
+        [StringLength(4000)]
         public string Description { get; set; }
 
+        [StringLength(1000)]
         public string OnClickJS { get; set; }
 
         public string DisplayJS { get; set; }
@@ -67,12 +73,17 @@ namespace YAF.Types.Models
 
         public string ReplaceRegex { get; set; }
 
+        [StringLength(1000)]
         public string Variables { get; set; }
 
         public bool? UseModule { get; set; }
 
+        public bool? UseToolbar { get; set; }
+
+        [StringLength(255)]
         public string ModuleClass { get; set; }
 
+        [Required]
         public int ExecOrder { get; set; }
 
         #endregion

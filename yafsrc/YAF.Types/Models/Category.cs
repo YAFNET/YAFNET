@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -24,7 +24,6 @@
 namespace YAF.Types.Models
 {
     using System;
-    using System.Data.Linq.Mapping;
 
     using ServiceStack.DataAnnotations;
 
@@ -35,13 +34,15 @@ namespace YAF.Types.Models
     /// A class which represents the Category table.
     /// </summary>
     [Serializable]
+
+    [UniqueConstraint(nameof(BoardID), nameof(Name))]
     public partial class Category : IEntity, IHaveID, IHaveBoardID
     {
         partial void OnCreated();
 
         public Category()
         {
-            OnCreated();
+            this.OnCreated();
         }
 
         #region Properties
@@ -50,14 +51,23 @@ namespace YAF.Types.Models
         [Alias("CategoryID")]
         public int ID { get; set; }
 
+        [References(typeof(Board))]
+        [Required]
+        [Index]
         public int BoardID { get; set; }
 
+        [Required]
+        [Index]
+        [StringLength(128)]
         public string Name { get; set; }
 
+        [Required]
         public short SortOrder { get; set; }
 
+        [StringLength(255)]
         public string CategoryImage { get; set; }
 
+        [References(typeof(PollGroupCluster))]
         public int? PollGroupID { get; set; }
 
 

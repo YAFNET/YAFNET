@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -27,17 +27,19 @@ namespace YAF.Pages
     #region Using
 
     using System;
+    using System.Web;
 
-    using YAF.Classes.Data;
-    using YAF.Controls;
     using YAF.Core;
+    using YAF.Core.Model;
+    using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Utilities;
+    using YAF.Types.Models;
     using YAF.Utils;
     using YAF.Utils.Helpers;
+    using YAF.Web.Extensions;
 
     #endregion
 
@@ -79,16 +81,21 @@ namespace YAF.Pages
         {
             if (this.TopicSubject.Text.IsSet())
             {
-                var topicId = LegacyDb.topic_create_by_message(
-                    this.Request.QueryString.GetFirstOrDefault("m"),
-                    this.ForumList.SelectedValue,
+                var topicId = this.GetRepository<Topic>().CreateByMessage(
+                    this.Get<HttpRequestBase>().QueryString.GetFirstOrDefaultAs<int>("m"),
+                    this.ForumList.SelectedValue.ToType<int>(),
                     this.TopicSubject.Text);
-                LegacyDb.message_move(this.Request.QueryString.GetFirstOrDefault("m"), topicId, true);
+
+                this.GetRepository<Message>().Move(
+                    this.Get<HttpRequestBase>().QueryString.GetFirstOrDefaultAs<int>("m"),
+                    topicId.ToType<int>(),
+                    true);
+
                 YafBuildLink.Redirect(ForumPages.topics, "f={0}", this.PageContext.PageForumID);
             }
             else
             {
-                this.PageContext.AddLoadMessage(this.GetText("Empty_Topic"));
+                this.PageContext.AddLoadMessage(this.GetText("Empty_Topic"), MessageTypes.warning);
             }
         }
 
@@ -99,8 +106,8 @@ namespace YAF.Pages
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void ForumList_SelectedIndexChanged([NotNull] object sender, [NotNull] EventArgs e)
         {
-            this.TopicsList.DataSource = LegacyDb.topic_list(
-                this.ForumList.SelectedValue,
+            this.TopicsList.DataSource = this.GetRepository<Topic>().ListAsDataTable(
+                this.ForumList.SelectedValue.ToType<int>(),
                 null,
                 DateTimeHelper.SqlDbMinTime(),
                 DateTime.UtcNow,
@@ -116,7 +123,7 @@ namespace YAF.Pages
             this.TopicsList.DataBind();
 
             this.TopicsList_SelectedIndexChanged(this.ForumList, e);
-            this.CreateAndMove.Enabled = this.ForumList.SelectedValue.ToType<int>() > 0;
+            this.CreateAndMove.Visible = this.ForumList.SelectedValue.ToType<int>() > 0;
         }
 
         /// <summary>
@@ -128,9 +135,9 @@ namespace YAF.Pages
         {
             if (this.TopicsList.SelectedValue.ToType<int>() != this.PageContext.PageTopicID)
             {
-                LegacyDb.message_move(
-                    this.Request.QueryString.GetFirstOrDefault("m"),
-                    this.TopicsList.SelectedValue,
+                this.GetRepository<Message>().Move(
+                    this.Get<HttpRequestBase>().QueryString.GetFirstOrDefaultAs<int>("m"),
+                    this.TopicsList.SelectedValue.ToType<int>(),
                     true);
             }
 
@@ -144,7 +151,7 @@ namespace YAF.Pages
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            if (this.Request.QueryString.GetFirstOrDefault("m") == null || !this.PageContext.ForumModeratorAccess)
+            if (!this.Get<HttpRequestBase>().QueryString.Exists("m") || !this.PageContext.ForumModeratorAccess)
             {
                 YafBuildLink.AccessDenied();
             }
@@ -166,12 +173,7 @@ namespace YAF.Pages
 
             this.PageLinks.AddLink(this.GetText("MOVE_MESSAGE"));
 
-            this.Move.Text = this.GetText("MOVE_MESSAGE");
-            this.Move.ToolTip = this.GetText("MOVE_TITLE");
-            this.CreateAndMove.Text = this.GetText("CREATE_TOPIC");
-            this.CreateAndMove.ToolTip = this.GetText("SPLIT_TITLE");
-
-            this.ForumList.DataSource = LegacyDb.forum_listall_sorted(
+            this.ForumList.DataSource = this.GetRepository<Forum>().ListAllSortedAsDataTable(
                 this.PageContext.PageBoardID,
                 this.PageContext.PageUserID);
             this.ForumList.DataTextField = "Title";
@@ -189,7 +191,7 @@ namespace YAF.Pages
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void TopicsList_SelectedIndexChanged([NotNull] object sender, [NotNull] EventArgs e)
         {
-            this.Move.Enabled = this.TopicsList.SelectedValue != string.Empty;
+            this.Move.Visible = this.TopicsList.SelectedValue != string.Empty;
         }
 
         /// <summary>

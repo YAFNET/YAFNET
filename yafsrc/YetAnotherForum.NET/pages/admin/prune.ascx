@@ -1,47 +1,62 @@
 <%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Admin.prune" CodeBehind="prune.ascx.cs" %>
+
+
 <YAF:PageLinks runat="server" ID="PageLinks" />
-<YAF:AdminMenu runat="server">
-    <table class="content" cellspacing="1" cellpadding="0" width="100%">
-        <tr>
-            <td class="header1" colspan="2">
-                <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_PRUNE" />
-            </td>
-        </tr>
-        <tr>
-            <td class="header2" colspan="2" height="30px">
+
+<div class="row">
+    <div class="col-xl-12">
+        <h1>
+            <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_PRUNE" />
+        </h1>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xl-12">
+        <div class="card mb-3">
+            <div class="card-header">
+                <i class="fa fa-trash fa-fw text-secondary"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel5" runat="server"
+                    LocalizedTag="TITLE"
+                    LocalizedPage="ADMIN_PRUNE" />
+            </div>
+            <div class="card-body">
                 <asp:Label ID="lblPruneInfo" runat="server"></asp:Label>
-            </td>
-        </tr>
-        <tr>
-            <td class="postheader" width="50%">
-                <YAF:HelpLabel ID="LocalizedLabel4" runat="server" LocalizedTag="PRUNE_FORUM" LocalizedPage="ADMIN_PRUNE" />
-            </td>
-            <td class="post" width="50%">
-                <asp:DropDownList ID="forumlist" runat="server" CssClass="standardSelectMenu">
-                </asp:DropDownList>
-            </td>
-        </tr>
-        <tr>
-            <td class="postheader">
-                <YAF:HelpLabel ID="LocalizedLabel3" runat="server" LocalizedTag="PRUNE_DAYS" LocalizedPage="ADMIN_PRUNE" />
-            </td>
-            <td class="post">
-                <asp:TextBox ID="days" runat="server" CssClass="Numeric"></asp:TextBox>
-            </td>
-        </tr>
-        <tr>
-            <td class="postheader">
-                <YAF:HelpLabel ID="LocalizedLabel2" runat="server" LocalizedTag="PRUNE_PERMANENT" LocalizedPage="ADMIN_PRUNE" />
-            </td>
-            <td class="post">
-                <asp:CheckBox ID="permDeleteChkBox" runat="server" />
-            </td>
-        </tr>
-        <tr>
-            <td class="footer1" colspan="2" align="center">
-                <asp:Button ID="commit" runat="server" class="pbutton" OnClick="commit_Click" OnLoad="PruneButton_Load"></asp:Button>
-            </td>
-        </tr>
-    </table>
-</YAF:AdminMenu>
-<YAF:SmartScroller ID="SmartScroller1" runat="server" />
+                <div class="form-group">
+                    <YAF:HelpLabel ID="LocalizedLabel4" runat="server"
+                                   LocalizedTag="PRUNE_FORUM" LocalizedPage="ADMIN_PRUNE"
+                                   AssociatedControlID="forumlist"/>
+                    <asp:DropDownList ID="forumlist" runat="server"
+                                      CssClass="custom-select">
+                    </asp:DropDownList>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-4">
+                        <YAF:HelpLabel ID="LocalizedLabel3" runat="server"
+                                       LocalizedTag="PRUNE_DAYS" LocalizedPage="ADMIN_PRUNE"
+                                       AssociatedControlID="days"/>
+                        <asp:TextBox ID="days" runat="server" 
+                                     CssClass="form-control DaysInput" 
+                                     TextMode="Number"></asp:TextBox>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <YAF:HelpLabel ID="LocalizedLabel2" runat="server" 
+                                       LocalizedTag="PRUNE_PERMANENT" LocalizedPage="ADMIN_PRUNE"
+                                       AssociatedControlID="permDeleteChkBox"/>
+                        <div class="custom-control custom-switch">
+                            <asp:CheckBox ID="permDeleteChkBox" runat="server" 
+                                          Text="&nbsp;" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer text-center">
+                <YAF:ThemeButton ID="commit" runat="server"
+                    Type="Primary"
+                    OnClick="CommitClick"
+                    Icon="trash"
+                    TextLocalizedTag="PRUNE_START"
+                    ReturnConfirmText='<%# this.GetText("ADMIN_PRUNE", "CONFIRM_PRUNE") %>'>
+                </YAF:ThemeButton>
+            </div>
+        </div>
+    </div>
+</div>

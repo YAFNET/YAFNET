@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -21,75 +21,75 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Core
+namespace YAF.Core.BaseModules
 {
-  #region Using
+    #region Using
 
-  using System;
-  using System.Web;
-  using System.Web.UI;
+    using System;
+    using System.Web;
+    using System.Web.UI;
 
-  using YAF.Core.Services;
-  using YAF.Core.Services.Startup;
-  using YAF.Types;
-  using YAF.Types.Attributes;
-  using YAF.Types.Interfaces;
-
-    #endregion
-
-  /// <summary>
-  /// The unload session module.
-  /// </summary>
-  [YafModule("Unload Session Module", "Tiny Gecko", 1)]
-  public class UnloadSessionForumModule : BaseForumModule
-  {
-    #region Properties
-
-    /// <summary>
-    ///   Gets or sets a value indicating whether UnloadSession.
-    /// </summary>
-    public bool UnloadSession { get; set; }
+    using YAF.Core.Services.Startup;
+    using YAF.Types;
+    using YAF.Types.Attributes;
+    using YAF.Types.Interfaces;
 
     #endregion
 
-    #region Public Methods
-
     /// <summary>
-    /// The init.
+    /// The unload session module.
     /// </summary>
-    public override void Init()
+    [YafModule("Unload Session Module", "Tiny Gecko", 1)]
+    public class UnloadSessionForumModule : BaseForumModule
     {
-      (this.ForumControlObj as Control).Unload += this.UnloadSessionModule_Unload;
+        #region Properties
+
+        /// <summary>
+        ///   Gets or sets a value indicating whether UnloadSession.
+        /// </summary>
+        public bool UnloadSession { get; set; }
+
+        #endregion
+
+        #region Public Methods
+
+        /// <summary>
+        /// The init.
+        /// </summary>
+        public override void Init()
+        {
+            ((Control)this.ForumControlObj).Unload += this.UnloadSessionModule_Unload;
+        }
+
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        /// The unload session module_ unload.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        private void UnloadSessionModule_Unload([NotNull] object sender, [NotNull] EventArgs e)
+        {
+            if (!this.Get<StartupInitializeDb>().Initialized)
+            {
+                return;
+            }
+
+            if (YafContext.Current.BoardSettings.AbandonSessionsForDontTrack
+                && (YafContext.Current.Vars.AsBoolean("DontTrack") ?? false)
+                && this.Get<HttpSessionStateBase>().IsNewSession)
+            {
+                // remove session
+                this.Get<HttpSessionStateBase>().Abandon();
+            }
+        }
+
+        #endregion
     }
-
-    #endregion
-
-    #region Methods
-
-    /// <summary>
-    /// The unload session module_ unload.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    private void UnloadSessionModule_Unload([NotNull] object sender, [NotNull] EventArgs e)
-    {
-      if (!this.Get<StartupInitializeDb>().Initialized)
-      {
-        return;
-      }
-
-      if (YafContext.Current.BoardSettings.AbandonSessionsForDontTrack &&
-          (YafContext.Current.Vars.AsBoolean("DontTrack") ?? false) && this.Get<HttpSessionStateBase>().IsNewSession)
-      {
-        // remove session
-        this.Get<HttpSessionStateBase>().Abandon();
-      }
-    }
-
-    #endregion
-  }
 }

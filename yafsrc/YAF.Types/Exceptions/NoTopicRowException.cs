@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -25,7 +25,6 @@
 namespace YAF.Types.Exceptions
 {
     using System;
-    using YAF.Types.Extensions;
 
     /// <summary>
     /// The No TopicRow Exception
@@ -37,7 +36,7 @@ namespace YAF.Types.Exceptions
         /// </summary>
         /// <param name="topicRowID">The topic row identifier.</param>
         public NoTopicRowException(int? topicRowID)
-            : base("No topic row found for topic row id [{0}]".FormatWith(topicRowID ?? 0))
+            : base($"No topic row found for topic row id [{topicRowID ?? 0}]")
         {
         }
     }

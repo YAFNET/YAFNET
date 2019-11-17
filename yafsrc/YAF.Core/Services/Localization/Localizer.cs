@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -44,11 +44,6 @@ namespace YAF.Core.Services.Localization
     public class Localizer
     {
         #region Constants and Fields
-
-        /// <summary>
-        /// The _current culture.
-        /// </summary>
-        private CultureInfo _currentCulture;
 
         /// <summary>
         ///   The _current page.
@@ -96,13 +91,7 @@ namespace YAF.Core.Services.Localization
         /// <summary>
         ///   Gets LanguageCode.
         /// </summary>
-        public CultureInfo CurrentCulture
-        {
-            get
-            {
-                return this._currentCulture;
-            }
-        }
+        public CultureInfo CurrentCulture { get; private set; }
 
         #endregion
 
@@ -214,10 +203,8 @@ namespace YAF.Core.Services.Localization
         /// </returns>
         public string GetText(string page, string tag)
         {
-            string text;
-
             this.SetPage(page);
-            this.GetText(tag, out text);
+            this.GetText(tag, out var text);
 
             return text;
         }
@@ -277,15 +264,15 @@ namespace YAF.Core.Services.Localization
             {
                 if (langCode.Equals(YafContext.Current.BoardSettings.Culture.Substring(0, 2)))
                 {
-                    this._currentCulture = new CultureInfo(YafContext.Current.BoardSettings.Culture);
+                    this.CurrentCulture = new CultureInfo(YafContext.Current.BoardSettings.Culture);
                 }
             }
             catch (Exception)
             {
-                this._currentCulture = new CultureInfo(YafContext.Current.BoardSettings.Culture);
+                this.CurrentCulture = new CultureInfo(YafContext.Current.BoardSettings.Culture);
             }
 
-            string cultureUser = YafContext.Current.CultureUser;
+            var cultureUser = YafContext.Current.CultureUser;
 
             if (!cultureUser.IsSet())
             {
@@ -299,13 +286,13 @@ namespace YAF.Core.Services.Localization
 
             try
             {
-                this._currentCulture =
+                this.CurrentCulture =
                     new CultureInfo(
                         cultureUser.Trim().Length > 5 ? cultureUser.Trim().Substring(0, 2) : cultureUser.Trim());
             }
             catch (Exception)
             {
-                this._currentCulture = new CultureInfo(YafContext.Current.BoardSettings.Culture);
+                this.CurrentCulture = new CultureInfo(YafContext.Current.BoardSettings.Culture);
             }
         }
 
@@ -316,12 +303,12 @@ namespace YAF.Core.Services.Localization
         {
             if (this._fileName == string.Empty || !File.Exists(this._fileName))
             {
-                throw new ApplicationException("Invalid language file {0}".FormatWith(this._fileName));
+                throw new ApplicationException($"Invalid language file {this._fileName}");
             }
 
             this._localizationLanguageResources = new LoadSerializedXmlFile<LanguageResources>().FromFile(
                 this._fileName,
-                "LOCALIZATIONFILE{0}".FormatWith(this._fileName),
+                $"LOCALIZATIONFILE{this._fileName}",
                 r =>
                     {
                         // transform the page and tag name ToUpper...
@@ -338,7 +325,7 @@ namespace YAF.Core.Services.Localization
                 userLanguageCode = this._localizationLanguageResources.code.Trim().Substring(0, 2);
             }
 
-            this._currentCulture = new CultureInfo(userLanguageCode);
+            this.CurrentCulture = new CultureInfo(userLanguageCode);
         }
 
         #endregion

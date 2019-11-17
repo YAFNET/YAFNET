@@ -1,9 +1,9 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -27,14 +27,13 @@ namespace YAF.Pages
 
     using System;
 
-    using YAF.Classes;
-    using YAF.Controls;
+    using YAF.Configuration;
     using YAF.Core;
+    using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Interfaces;
-    using YAF.Utilities;
-    using YAF.Utils;
+    using YAF.Web.Extensions;
 
     #endregion
 
@@ -86,10 +85,7 @@ namespace YAF.Pages
                 return TopicListMode.Active;
             }
 
-            set
-            {
-                this.ViewState["CurrentTab"] = value;
-            }
+            set => this.ViewState["CurrentTab"] = value;
         }
 
         #region Constructors and Destructors
@@ -115,15 +111,12 @@ namespace YAF.Pages
         protected override void OnPreRender([NotNull] EventArgs e)
         {
             // setup jQuery and Jquery Ui Tabs.
-           YafContext.Current.PageElements.RegisterJsBlock(
+            YafContext.Current.PageElements.RegisterJsBlock(
                 "TopicsTabsJs",
-                JavaScriptBlocks.JqueryUITabsLoadJs(
+                JavaScriptBlocks.BootstrapTabsLoadJs(
                     this.TopicsTabs.ClientID,
                     this.hidLastTab.ClientID,
-                    this.hidLastTabId.ClientID,
-                    this.Page.ClientScript.GetPostBackEventReference(this.ChangeTab, string.Empty),
-                    false,
-                    true));
+                    this.Page.ClientScript.GetPostBackEventReference(this.ChangeTab, string.Empty)));
 
             base.OnPreRender(e);
         }
@@ -172,7 +165,7 @@ namespace YAF.Pages
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void ChangeTabClick(object sender, EventArgs e)
         {
-            switch (hidLastTabId.Value)
+            switch (this.hidLastTab.Value)
             {
                 case "UnansweredTopicsTab":
                     this.CurrentTab = TopicListMode.Unanswered;

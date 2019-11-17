@@ -28,9 +28,7 @@ namespace YAF.Types.Interfaces
 
     using System;
     using System.Collections.Generic;
-    using System.Data;
     using System.Linq;
-    using System.Runtime.CompilerServices;
 
     #endregion
 
@@ -59,8 +57,8 @@ namespace YAF.Types.Interfaces
         {
             CodeContracts.VerifyNotNull(readTrackCurrentUser, "readTrackCurrentUser");
 
-            DateTime lastRead = readTrackCurrentUser.GetTopicRead(topicId, topicReadOverride);
-            DateTime lastReadForum = readTrackCurrentUser.GetForumRead(forumId, forumReadOverride);
+            var lastRead = readTrackCurrentUser.GetTopicRead(topicId, topicReadOverride);
+            var lastReadForum = readTrackCurrentUser.GetForumRead(forumId, forumReadOverride);
 
 
             if (lastReadForum > lastRead)
@@ -83,12 +81,10 @@ namespace YAF.Types.Interfaces
         public static void SetForumRead(this IReadTrackCurrentUser readTrackCurrentUser, IEnumerable<int> forumIds)
         {
             CodeContracts.VerifyNotNull(readTrackCurrentUser, "readTrackCurrentUser");
-            CodeContracts.VerifyNotNull(forumIds, "forumIds");
+            var enumerable = forumIds.ToList();
+            CodeContracts.VerifyNotNull(enumerable, "forumIds");
 
-            foreach (var id in forumIds)
-            {
-                readTrackCurrentUser.SetForumRead(id);
-            }
+            enumerable.ForEach(readTrackCurrentUser.SetForumRead);
         }
 
         /// <summary>

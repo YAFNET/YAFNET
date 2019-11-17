@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -40,24 +40,24 @@ namespace YAF.Utils.Extensions
         /// </summary>
         /// <typeparam name="TType">The type of the type.</typeparam>
         /// <param name="json">The json.</param>
-        /// <returns>Deserialised Json Strin</returns>
+        /// <returns>Deserialized Json String</returns>
         public static TType FromJson<TType>(this string json)
         {
             return Deserialise<TType>(json);
         }
 
         /// <summary>
-        /// Deserialises the specified json.
+        /// Deserializes the specified json.
         /// </summary>
         /// <typeparam name="T">The Object</typeparam>
         /// <param name="json">The json.</param>
-        /// <returns>Deserialised Json Strin</returns>
+        /// <returns>Deserialized Json String</returns>
         public static T Deserialise<T>(string json)
         {
-            T obj = Activator.CreateInstance<T>();
-            using (MemoryStream ms = new MemoryStream(Encoding.Unicode.GetBytes(json)))
+            var obj = Activator.CreateInstance<T>();
+            using (var ms = new MemoryStream(Encoding.Unicode.GetBytes(json)))
             {
-                DataContractJsonSerializer serializer = new DataContractJsonSerializer(obj.GetType());
+                var serializer = new DataContractJsonSerializer(obj.GetType());
                 obj = (T)serializer.ReadObject(ms);
                 return obj;
             }
@@ -68,17 +68,10 @@ namespace YAF.Utils.Extensions
         /// </summary>
         /// <param name="obj">The object that will be serialized.</param>
         /// <returns>
-        /// Serialised Json String
+        /// Serialized Json String
         /// </returns>
         public static string Serialize(object obj)
         {
-            /*var serializer = new DataContractJsonSerializer(obj.GetType());
-            using (MemoryStream ms = new MemoryStream())
-            {
-                serializer.WriteObject(ms, obj);
-                return Encoding.Default.GetString(ms.ToArray());
-            }*/
-
             var serializer = new JavaScriptSerializer();
             return serializer.Serialize(obj);
         }
@@ -90,7 +83,7 @@ namespace YAF.Utils.Extensions
         /// The object that will be serialized.
         /// </param>
         /// <returns>
-        /// Serialised Json String
+        /// Serialized Json String
         /// </returns>
         public static string ToJson(this object obj)
         {

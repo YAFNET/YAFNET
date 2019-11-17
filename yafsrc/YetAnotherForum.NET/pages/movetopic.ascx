@@ -1,44 +1,60 @@
 ﻿<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.movetopic" Codebehind="movetopic.ascx.cs" %>
-<YAF:PageLinks runat="server" ID="PageLinks" />
-<table class="content" width="100%" cellspacing="1" cellpadding="0">
-	<tr>
-		<td class="header1" colspan="2">
-			<YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="title" />
-		</td>
-	</tr>
-	<tr>
-		<td class="postheader" width="50%">
-			<YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="select_forum" />
-		</td>
-		<td class="post" width="50%">
-			<asp:DropDownList ID="ForumList" runat="server" DataValueField="ForumID" DataTextField="Title" CssClass="standardSelectMenu" />
-		</td>
-    </tr>
-		<tr id="trLeaveLink" runat="server">
-			<td class="postheader" width="50%">
-				<YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="LEAVE_POINTER" />
-			</td>
-			<td class="post" width="50%">
-				<asp:CheckBox ID="LeavePointer" runat="server" />
-			</td>
-		</tr>
-	<tr>
-	</tr>
-		<tr id="trLeaveLinkDays" runat="server">
-			<td class="postheader" width="50%">
-				<YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="POINTER_DAYS" />
-			</td>
-			<td class="post" width="50%">
-				<asp:TextBox ID="LinkDays" runat="server" CssClass="Numeric" />
-			</td>
-		</tr>
-	<tr>   
 
-		<td class="footer1" colspan="2" align="center">
-			<asp:Button ID="Move" CssClass="pbutton" runat="server" OnClick="Move_Click" />
-		</td>
-	</tr>
-</table>
-<div id="DivSmartScroller">
-	<YAF:SmartScroller ID="SmartScroller1" runat="server" />
+
+<YAF:PageLinks runat="server" ID="PageLinks" />
+
+<div class="row">
+    <div class="col-xl-12">
+        <h2><YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="TITLE" /></h2>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col">
+        <div class="card mb-3">
+            <div class="card-header">
+                <i class="fa fa-arrows-alt fa-fw text-secondary"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" 
+                                                                                LocalizedTag="TITLE" />
+            </div>
+            <div class="card-body text-center">
+                <div class="form-group">
+                    <asp:Label runat="server" AssociatedControlID="ForumList">
+                        <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" 
+                                            LocalizedTag="select_forum" />
+                    </asp:Label>
+                    <asp:DropDownList ID="ForumList" runat="server"
+                                      DataValueField="ForumID" 
+                                      DataTextField="Title" 
+                                      CssClass="select2-select" />
+                </div>
+                <asp:PlaceHolder id="trLeaveLink" runat="server">
+                    <div class="form-check">
+                        <asp:CheckBox ID="LeavePointer" runat="server" CssClass="form-check-input" />
+                        <asp:Label runat="server" 
+                                   AssociatedControlID="LeavePointer"
+                                   CssClass="form-check-label">
+                            <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" 
+                                                LocalizedTag="LEAVE_POINTER" />
+                        </asp:Label>
+                    </div>
+                </asp:PlaceHolder>
+                <asp:PlaceHolder id="trLeaveLinkDays" runat="server">
+                    <div class="form-group">
+                        <asp:Label runat="server" AssociatedControlID="LinkDays">
+                            <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" 
+                                                LocalizedTag="POINTER_DAYS" />
+                        </asp:Label>
+                        <asp:TextBox ID="LinkDays" runat="server" CssClass="form-control" TextMode="Number" />
+                    </div>
+                </asp:PlaceHolder> 
+            </div>
+            <div class="card-footer text-center">
+                <YAF:ThemeButton ID="Move" runat="server" 
+                                 OnClick="Move_Click"
+                                 TextLocalizedTag="MOVE"
+                                 Type="Primary"
+                                 Icon="arrows-alt"/>
+            </div>
+        </div>
+    </div>
 </div>

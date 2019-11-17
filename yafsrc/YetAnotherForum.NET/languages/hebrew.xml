@@ -74,9 +74,6 @@
     <Resource tag="ADMIN_REPLACEWORDS_IMPORT">Imports replace words</Resource>
     <Resource tag="ADMIN_RESTARTAPP">Restarts application</Resource>
     <Resource tag="ADMIN_RUNSQL">Runs SQL query</Resource>
-    <Resource tag="ADMIN_SMILIES">Views smilies</Resource>
-    <Resource tag="ADMIN_SMILIES_EDIT">Adits smilies</Resource>
-    <Resource tag="ADMIN_SMILIES_IMPORT">Imports smilies</Resource>
     <Resource tag="ADMIN_SPAMLOG">Views/edits the spam log</Resource>
     <Resource tag="ADMIN_SPAMWORDS">Views spam words list</Resource>
     <Resource tag="ADMIN_SPAMWORDS_EDIT">Edits spam words list</Resource>
@@ -100,11 +97,13 @@
     <Resource tag="ATTACHMENTS">Handles attachments</Resource>
     <Resource tag="AVATAR">Views avatar</Resource>
     <Resource tag="COOKIES">Views the cookie policy page</Resource>
+    <Resource tag="CP_BLOCKOPTIONS">Edits his Ignored users and block option</Resource>
     <Resource tag="CP_CHANGEPASSWORD">Changes password</Resource>
     <Resource tag="CP_EDITALBUMIMAGES">Edits album images</Resource>
     <Resource tag="CP_EDITAVATAR">Edits his avatar</Resource>
     <Resource tag="CP_EDITBUDDIES">Edits Friends</Resource>
     <Resource tag="CP_EDITPROFILE">Edits his profile</Resource>
+    <Resource tag="CP_EDITSETTINGS">Edit the user settings</Resource>
     <Resource tag="CP_MESSAGE">Views Private Messages</Resource>
     <Resource tag="CP_PM">Views Private Messages</Resource>
     <Resource tag="CP_PROFILE">Views a user profile</Resource>
@@ -157,7 +156,6 @@
     <Resource tag="RULES">Views forum rules</Resource>
     <Resource tag="SEARCH">Uses search</Resource>
     <Resource tag="SHOUTBOX">Uses shoutbox</Resource>
-    <Resource tag="SHOWSMILIES">No data</Resource>
     <Resource tag="TEAM">Views team page</Resource>
     <Resource tag="TOPICINFORUM"> in forum </Resource>
     <Resource tag="TOPICS">Views topic </Resource>
@@ -243,6 +241,7 @@
     <Resource tag="REASON">Reason:</Resource>
     <Resource tag="REASON_HELP">The reason why the email address was banned.</Resource>
     <Resource tag="TITLE">Add/Edit Banned Email Address</Resource>
+    <Resource tag="TITLE_EDIT">Edit Banned Email Address</Resource>
   </page>
   <page name="ADMIN_BANNEDEMAIL_IMPORT">
     <Resource tag="HEADER">Import Email Addresses List</Resource>
@@ -261,6 +260,7 @@
     <Resource tag="EXPORT">Export to Text File</Resource>
     <Resource tag="IMPORT_IPS">Import Address(es)</Resource>
     <Resource tag="MASK">Mask</Resource>
+    <Resource tag="MSG_DELETE">Delete this Banned Item?</Resource>
     <Resource tag="MSG_REMOVEBAN_IP">IP Address or Mask '{0}' was successfully deleted</Resource>
     <Resource tag="REASON">Reason</Resource>
     <Resource tag="SINCE">Since</Resource>
@@ -276,6 +276,7 @@
     <Resource tag="REASON">Reason:</Resource>
     <Resource tag="REASON_HELP">The reason why the ip was banned.</Resource>
     <Resource tag="TITLE">Add/Edit Banned IP Address</Resource>
+    <Resource tag="TITLE_EDIT">Edit Banned IP Address</Resource>
   </page>
   <page name="ADMIN_BANNEDIP_IMPORT">
     <Resource tag="HEADER">Import IP Addresses List</Resource>
@@ -303,6 +304,7 @@
     <Resource tag="REASON">Reason:</Resource>
     <Resource tag="REASON_HELP">The reason why the user name was banned.</Resource>
     <Resource tag="TITLE">Add/Edit Banned Name</Resource>
+    <Resource tag="TITLE_EDIT">Edit Banned Name</Resource>
   </page>
   <page name="ADMIN_BANNEDNAME_IMPORT">
     <Resource tag="HEADER">Import Names List</Resource>
@@ -357,6 +359,8 @@
     <Resource tag="TITLE">{0} YafBBCode Extensions</Resource>
     <Resource tag="USE_MODULE">Use Module:</Resource>
     <Resource tag="USE_MODULE_HELP">Use server-side module (class) instead of replace regex?</Resource>
+    <Resource tag="USE_TOOLBAR">Use Toolbar:</Resource>
+    <Resource tag="USE_TOOLBAR_HELP">If enabled Show toolbar button in the Standard BBCode Editor</Resource>
   </page>
   <page name="ADMIN_BBCODE_IMPORT">
     <Resource tag="HEADER">Import Custom BBCode</Resource>
@@ -397,6 +401,9 @@
     <Resource tag="BOARD_FILE_EXTENSIONS_HELP">Is the list of file extensions allowed files or disallowed files (less secure)?</Resource>
     <Resource tag="BOARD_JQ_THEME">jQuery UI Theme:</Resource>
     <Resource tag="BOARD_JQ_THEME_HELP">The jQuery UI Theme to use on this board for the Tabs and Accordion.</Resource>
+    <Resource tag="BOARD_LOGO">Board Logo:</Resource>
+    <Resource tag="BOARD_LOGO_HELP">Select a Board Logo or use the default YAF Board Logo.</Resource>
+    <Resource tag="BOARD_LOGO_SELECT">Select a Board logo</Resource>
     <Resource tag="BOARD_MOBILE_THEME">Mobile Theme:</Resource>
     <Resource tag="BOARD_MOBILE_THEME_HELP">The mobile theme to use on this board.</Resource>
     <Resource tag="BOARD_NAME">Board Name:</Resource>
@@ -410,7 +417,11 @@
     <Resource tag="BOARD_THREADED_HELP">Allow threaded view for posts.</Resource>
     <Resource tag="BOARD_TOPIC_DEFAULT">Show Topic Default:</Resource>
     <Resource tag="BOARD_TOPIC_DEFAULT_HELP">The default board show topic interval selection.</Resource>
+    <Resource tag="CDVVERSION">CRM Version</Resource>
+    <Resource tag="CDVVERSION_BUTTON">Increase CRM Version</Resource>
+    <Resource tag="CDVVERSION_HELP">CRM Version, increase number to Force a Browser reload of all Java Script and CSS Files</Resource>
     <Resource tag="COPYRIGHT_REMOVAL_KEY">Copyright Removal Key:</Resource>
+    <Resource tag="COPYRIGHT_REMOVAL_KEY_DOWN">Purchase Removal Key</Resource>
     <Resource tag="COPYRIGHT_REMOVAL_KEY_HELP">Remove the copyright information and link back to YAF from the footer of your entire forum domain. Available&lt;a href="http://yetanotherforum.net/purchase.aspx"&gt;from YAF.NET site&lt;/a&gt;. </Resource>
     <Resource tag="HEADER">Current Board Settings</Resource>
     <Resource tag="TITLE">Board Settings</Resource>
@@ -539,6 +550,7 @@
     <Resource tag="CATEGORY_NAME">Category Name:</Resource>
     <Resource tag="CATEGORY_NAME_HELP">Name of this category.</Resource>
     <Resource tag="HEADER">Edit Category:</Resource>
+    <Resource tag="MSG_CATEGORY_EXISTS">A Category with such a name already exists.</Resource>
     <Resource tag="MSG_NUMBER">Invalid value entered for sort order: must enter a number.</Resource>
     <Resource tag="MSG_POSITIVE_VALUE">The Sort Order value should be a positive integer from 0 to 32767.</Resource>
     <Resource tag="MSG_VALUE">Must enter a value for the category name field.</Resource>
@@ -722,6 +734,7 @@
     <Resource tag="SERVER">Server:</Resource>
     <Resource tag="SERVER_HELP">What server this groups is located.</Resource>
     <Resource tag="TITLE">Add/Edit NNTP Forum</Resource>
+    <Resource tag="TITLE_EDIT">Edit NNTP Forum</Resource>
   </page>
   <page name="ADMIN_EDITNNTPSERVER">
     <Resource tag="MSG_SERVER_ADR">Missing server address.</Resource>
@@ -737,6 +750,7 @@
     <Resource tag="NNTP_USERNAME">User Name:</Resource>
     <Resource tag="NNTP_USERNAME_HELP">The user name used to log on to the nntp server.</Resource>
     <Resource tag="TITLE">Add/Edit NNTP Server</Resource>
+    <Resource tag="TITLE_EDIT">Edit NNTP Server</Resource>
   </page>
   <page name="ADMIN_EDITRANK">
     <Resource tag="ALBUMS_NUMBER">User Albums Number:</Resource>
@@ -836,6 +850,7 @@
     <Resource tag="USER_PROFILE">User Profile</Resource>
     <Resource tag="USER_REPUTATION">User Reputation</Resource>
     <Resource tag="USER_ROLES">User Roles</Resource>
+    <Resource tag="USER_SETTINGS">User Settings</Resource>
     <Resource tag="USER_SIG">User Signature</Resource>
     <Resource tag="USER_SUSPEND">User Suspend</Resource>
     <Resource tag="USERINFO_APPROVED">Is Approved:</Resource>
@@ -859,6 +874,7 @@
     <Resource tag="DELETE_ALL">Delete All</Resource>
     <Resource tag="DELETE_ALLOWED">Clean Up</Resource>
     <Resource tag="HIDE">Hide</Resource>
+    <Resource tag="NO_ENTRY">No Entries found</Resource>
     <Resource tag="SHOW">Show</Resource>
     <Resource tag="SINCEDATE">Start Date</Resource>
     <Resource tag="SINCEDATE_HELP">Select the start date for the log to show.</Resource>
@@ -871,54 +887,13 @@
     <Resource tag="TYPES">Type</Resource>
     <Resource tag="TYPES_HELP">Choose to restrict the Log to certain types of events.</Resource>
   </page>
-  <page name="ADMIN_EVENTLOGGROUPS">
-    <Resource tag="CANACCESS">Allowed</Resource>
-    <Resource tag="CANCEL">Cancel</Resource>
-    <Resource tag="GRANTALL">Grant All</Resource>
-    <Resource tag="GROUPNAME">Role</Resource>
-    <Resource tag="HEADER">Event Log Roles</Resource>
-    <Resource tag="PAGE">Real Page</Resource>
-    <Resource tag="REVOKEALL">Revoke All</Resource>
-    <Resource tag="SAVE">Save</Resource>
-    <Resource tag="TITLE">Event Log Roles</Resource>
-  </page>
-  <page name="ADMIN_EVENTLOGROUPACCESS">
-    <Resource tag="BOARDNAME">Board Name</Resource>
-    <Resource tag="CANCEL">Cancel</Resource>
-    <Resource tag="DELETEACCESS">Can Delete</Resource>
-    <Resource tag="EVENT">Log Name</Resource>
-    <Resource tag="GRANTALL">Grant All View</Resource>
-    <Resource tag="GRANTALLDELETE">Grant All Delete</Resource>
-    <Resource tag="GROUPNAME">Role</Resource>
-    <Resource tag="HEADER">Event Log Access For</Resource>
-    <Resource tag="LT_DEBUG">Debug</Resource>
-    <Resource tag="LT_ERROR">Errors</Resource>
-    <Resource tag="LT_INFORMATION">Information</Resource>
-    <Resource tag="LT_IPBANDETECTED">Detected a Banned IP</Resource>
-    <Resource tag="LT_IPBANLIFTED">Canceling IP ban</Resource>
-    <Resource tag="LT_IPBANSET">Setting IP ban</Resource>
-    <Resource tag="LT_SpamBotDetected">Spam Bot Detected</Resource>
-    <Resource tag="LT_SpamBotReported">Spam Bot Reported</Resource>
-    <Resource tag="LT_SpamMessageDetected">Spam Message Detected</Resource>
-    <Resource tag="LT_SpamMessageReported">Spam Message Reported</Resource>
-    <Resource tag="LT_SQLERROR">Sql Errors</Resource>
-    <Resource tag="LT_TRACE">Trace</Resource>
-    <Resource tag="LT_USERDELETED">Deleting users</Resource>
-    <Resource tag="LT_USERSUSPENDED">Suspending users</Resource>
-    <Resource tag="LT_USERUNSUSPENDED">Unsuspending users</Resource>
-    <Resource tag="LT_WARNING">Warnings</Resource>
-    <Resource tag="REVOKEALL">Revoke All View</Resource>
-    <Resource tag="REVOKEALLDELETE">Revoke All Delete</Resource>
-    <Resource tag="SAVE">Save</Resource>
-    <Resource tag="TITLE">Event Log Role Edit</Resource>
-    <Resource tag="VIEWACCESS">Can View</Resource>
-  </page>
   <page name="ADMIN_EXTENSIONS">
     <Resource tag="ADD">Add</Resource>
     <Resource tag="CONFIRM_DELETE">Delete this Extension?</Resource>
     <Resource tag="EXPORT">Export to XML</Resource>
     <Resource tag="HEADER">Allowed File Extensions</Resource>
     <Resource tag="IMPORT">Import from XML</Resource>
+    <Resource tag="SAVE">Save Extension</Resource>
     <Resource tag="TITLE">File Extensions</Resource>
   </page>
   <page name="ADMIN_EXTENSIONS_EDIT">
@@ -928,6 +903,7 @@
     <Resource tag="MSG_ENTER">You must enter something.</Resource>
     <Resource tag="MSG_REMOVE">Remove the period in the extension.</Resource>
     <Resource tag="TITLE">Add/Edit File Extensions</Resource>
+    <Resource tag="TITLE_EDIT">Edit File Extension</Resource>
   </page>
   <page name="ADMIN_EXTENSIONS_IMPORT">
     <Resource tag="HEADER">Import Extension List</Resource>
@@ -980,6 +956,7 @@
     <Resource tag="ACTIVETOPIC_FEEDS_ACCESS">Active Topics Feeds Access:</Resource>
     <Resource tag="ACTIVETOPIC_FEEDS_ACCESS_HELP">Restrict display of active topics feeds.</Resource>
     <Resource tag="AKISMET_KEY">Akismet API Key:</Resource>
+    <Resource tag="AKISMET_KEY_DOWN">Sign Up here</Resource>
     <Resource tag="AKISMET_KEY_HELP">To Use the Akismet comment SPAM Service you need an API Key &lt;a href="https://akismet.com/signup/"&gt;Sign Up here&lt;a&gt;.</Resource>
     <Resource tag="ALBUMS_PER_PAGE">Albums Per Page:</Resource>
     <Resource tag="ALBUMS_PER_PAGE_HELP">Number of albums to show per page.</Resource>
@@ -1169,6 +1146,7 @@
     <Resource tag="GROUPS_TEMPLATE_HELP">Template for rendering user's groups.</Resource>
     <Resource tag="HEADER_ADVERTS">Advert Settings</Resource>
     <Resource tag="HEADER_ALBUM">Album Settings</Resource>
+    <Resource tag="HEADER_ATTACHMENTS">Attachments Settings</Resource>
     <Resource tag="HEADER_AVATARS">Avatar Settings</Resource>
     <Resource tag="HEADER_BOTSPAM">Bot Spam Settings (User Checking)</Resource>
     <Resource tag="HEADER_CACHE">Cache Settings</Resource>
@@ -1216,8 +1194,14 @@
     <Resource tag="IMAGE_RESIZE_HEIGHT_HELP">Maximum Height of the resized attachment images.</Resource>
     <Resource tag="IMAGE_RESIZE_WIDTH">Image Resize Max Width:</Resource>
     <Resource tag="IMAGE_RESIZE_WIDTH_HELP">Maximum Width of the resized attachment images (Be aware that Values above 500 pixel break the Forum Layout).</Resource>
+    <Resource tag="IMAGE_THUMB_HEIGHT">Thumbnail Image  Max Height:</Resource>
+    <Resource tag="IMAGE_THUMB_HEIGHT_HELP">Maximum Height of the attachment and album image thumbnail.</Resource>
+    <Resource tag="IMAGE_THUMB_WIDTH">Thumbnail Image  Max Width:</Resource>
+    <Resource tag="IMAGE_THUMB_WIDTH_HELP">Maximum Width of the attachment and album image thumbnail.</Resource>
     <Resource tag="IMAGES_PER_PAGE">Images Per Page:</Resource>
     <Resource tag="IMAGES_PER_PAGE_HELP">Number of images to show per page.</Resource>
+    <Resource tag="INDEX_SEARCH">Re-Index Search</Resource>
+    <Resource tag="INDEX_SEARCH_HELP">Indexes all Messages in all Forums of the current Board for the Search Engine</Resource>
     <Resource tag="IP_INFOSERVICE">Enable IP Info Service:</Resource>
     <Resource tag="IP_INFOSERVICE_DATAMAPPING">IP Info Geolocation Web Service arguments mapping string:</Resource>
     <Resource tag="IP_INFOSERVICE_DATAMAPPING_HELP">Maps string array or deserialized return data to properties.</Resource>
@@ -1342,7 +1326,7 @@
     <Resource tag="REMOVE_NESTED_QUOTES">Remove Nested Quotes:</Resource>
     <Resource tag="REMOVE_NESTED_QUOTES_HELP">Automatically remove nested [quote] tags from replies.</Resource>
     <Resource tag="REPLACE_CACHE_TIMEOUT">Replace Rules Cache Timeout:</Resource>
-    <Resource tag="REPLACE_CACHE_TIMEOUT_HELP"> Smilies, BB code, bad words, etc. (in minutes)</Resource>
+    <Resource tag="REPLACE_CACHE_TIMEOUT_HELP">BB code, bad words, etc. (in minutes)</Resource>
     <Resource tag="REPORT_POST_PERMISSION">Report Post Permissions:</Resource>
     <Resource tag="REPORT_POST_PERMISSION_HELP">Allow reporting posts to:</Resource>
     <Resource tag="REPUTATION_ALLOWNEGATIVE">Allow Negative Reputation:</Resource>
@@ -1440,8 +1424,6 @@
     <Resource tag="SHOW_RSS_LINKS_HELP">Enable or disable display of RSS links throughout the forum.</Resource>
     <Resource tag="SHOW_SHOUTBOX">Show Shoutbox:</Resource>
     <Resource tag="SHOW_SHOUTBOX_HELP">Enable or disable display of the Shoutbox (Chat Module) in the forum page.</Resource>
-    <Resource tag="SHOW_SHOUTBOX_SMILIES">Show Shoutbox Smiles:</Resource>
-    <Resource tag="SHOW_SHOUTBOX_SMILIES_HELP">Enable or disable display of the Shoutbox (Chat Module) smiles.</Resource>
     <Resource tag="SHOW_SIMILARTOPICS">Show Similar Topics:</Resource>
     <Resource tag="SHOW_SIMILARTOPICS_HELP">Should similar topics to be displayed at the bottom of a topic.</Resource>
     <Resource tag="SHOW_THANK_DATE">Show The Date on Which Users Have Thanked Posts:</Resource>
@@ -1491,8 +1473,6 @@
     <Resource tag="THANKS_FROM_TEMPLATE_HELP">Template for rendering user's thanks from.</Resource>
     <Resource tag="THANKS_TO_TEMPLATE">Thanks To template:</Resource>
     <Resource tag="THANKS_TO_TEMPLATE_HELP">Template for rendering user's thanks to.</Resource>
-    <Resource tag="TIMEAGO_INTERVAL">Relative Time Refresh Interval:</Resource>
-    <Resource tag="TIMEAGO_INTERVAL_HELP">This allows to set how often the "Time Ago" library should refresh the relative time (In Milliseconds, 60000 ms = 60 seconds = 1 minute).</Resource>
     <Resource tag="TITLE">Host Settings</Resource>
     <Resource tag="TOPIC_FEEDS_ACCESS">Topics Feeds Access:</Resource>
     <Resource tag="TOPIC_FEEDS_ACCESS_HELP">Restrict display of topics feeds.</Resource>
@@ -1541,6 +1521,8 @@
   <page name="ADMIN_MAIL">
     <Resource tag="ALL_USERS">All Users</Resource>
     <Resource tag="CONFIRM_SEND">Are you sure you want to send this mail?</Resource>
+    <Resource tag="FROM_MAIL">From Mail Address:</Resource>
+    <Resource tag="FROM_MAIL_HELP">Enter the From Mail Address</Resource>
     <Resource tag="HEADER">Compose Email</Resource>
     <Resource tag="MAIL_MESSAGE">Message:</Resource>
     <Resource tag="MAIL_SUBJECT">Subject:</Resource>
@@ -1548,7 +1530,12 @@
     <Resource tag="MSG_QUEUED">Mails queued.</Resource>
     <Resource tag="MSG_SUBJECT">Subject is Required</Resource>
     <Resource tag="SEND_MAIL">Send Mail</Resource>
+    <Resource tag="TEST_BODY">The email sending appears to be working from your YAF installation.</Resource>
+    <Resource tag="TEST_SUBJECT">Test Email From Yet Another Forum.NET</Resource>
+    <Resource tag="TEST_SUCCESS">Mail Sent. Verify it's received at your entered email address.</Resource>
     <Resource tag="TITLE">Mail</Resource>
+    <Resource tag="TO_MAIL">To Mail Address:</Resource>
+    <Resource tag="TO_MAIL_HELP">Enter the Email Address where the test email should be send</Resource>
   </page>
   <page name="ADMIN_MEDALS">
     <Resource tag="CONFIRM_DELETE">Delete this Medal?</Resource>
@@ -1565,6 +1552,7 @@
     <Resource tag="FORUM">Forum</Resource>
     <Resource tag="GROUP">Group</Resource>
     <Resource tag="NEW_FORUM">New Forum</Resource>
+    <Resource tag="SAVE">Save Forum</Resource>
     <Resource tag="SERVER">Server</Resource>
     <Resource tag="TITLE">NNTP Forums</Resource>
   </page>
@@ -1600,6 +1588,7 @@
     <Resource tag="DELETE_SERVER">Delete this server?</Resource>
     <Resource tag="NAME">Name</Resource>
     <Resource tag="NEW_SERVER">New Server</Resource>
+    <Resource tag="SAVE_SERVER">Save Server</Resource>
     <Resource tag="TITLE">NNTP Servers</Resource>
     <Resource tag="USERNAME">User Name</Resource>
   </page>
@@ -1668,8 +1657,8 @@
   </page>
   <page name="ADMIN_REINDEX">
     <Resource tag="CONFIRM_RECOVERY">Are you sure you want to change your database recovery mode?\nThe operation may make the DB inaccessible and may take a little while.\nDO THIS ONLY IF YOU KNOW WHAT YOU ARE DOING!</Resource>
-    <Resource tag="CONFIRM_REINDEX">Are you sure you want to reindex all YAF tables?\nThe operation may make the DB inaccessible and may take a little while.</Resource>
-    <Resource tag="CONFIRM_SHRINK">Are you sure you want to Shrink database?\nThe operation may make the DB inaccessible and may take a little while.</Resource>
+    <Resource tag="CONFIRM_REINDEX">Are you sure you want to reindex all YAF tables?&lt;br /&gt;The operation may make the DB inaccessible and may take a little while.</Resource>
+    <Resource tag="CONFIRM_SHRINK">Are you sure you want to Shrink database?&lt;br /&gt;The operation may make the DB inaccessible and may take a little while.</Resource>
     <Resource tag="HEADER">YAF DB Operation Report:</Resource>
     <Resource tag="INDEX_SHRINK">Shrink operation was Successful.Your database size is now: {0}MB</Resource>
     <Resource tag="INDEX_STATS">Database recovery mode was successfully set to {0}</Resource>
@@ -1704,6 +1693,7 @@
     <Resource tag="GOOD_HELP">Regular expression statement. Escape punctation with a preceding slash (e.g. '\.').</Resource>
     <Resource tag="MSG_REGEX_BAD">The Regular expression statement you have entered is invalid.</Resource>
     <Resource tag="TITLE">Add/Edit Word Replace</Resource>
+    <Resource tag="TITLE_EDIT">Edit Word Replace</Resource>
   </page>
   <page name="ADMIN_REPLACEWORDS_IMPORT">
     <Resource tag="HEADER">Import Replace Word List</Resource>
@@ -1727,46 +1717,6 @@
     <Resource tag="SQL_COMMAND">SQL Command:</Resource>
     <Resource tag="TITLE">Run SQL Code</Resource>
   </page>
-  <page name="ADMIN_SMILIES">
-    <Resource tag="ADD">Add Smiley</Resource>
-    <Resource tag="CODE">Code</Resource>
-    <Resource tag="COMANDS">Emotion</Resource>
-    <Resource tag="EMOTION">Emotion</Resource>
-    <Resource tag="IMPORT">Import Smiley Pack</Resource>
-    <Resource tag="MOVE_DOWN">Move Down</Resource>
-    <Resource tag="MOVE_UP">Move Up</Resource>
-    <Resource tag="MSG_DELETE">Delete this smiley?</Resource>
-    <Resource tag="ORDER">Order</Resource>
-    <Resource tag="SMILEY">Smiley</Resource>
-    <Resource tag="TITLE">Smilies</Resource>
-  </page>
-  <page name="ADMIN_SMILIES_EDIT">
-    <Resource tag="CODE">Code:</Resource>
-    <Resource tag="EMOTION">Emotion:</Resource>
-    <Resource tag="ICON">Icon:</Resource>
-    <Resource tag="MSG_CODE_BRACK">Please enter the code to use for this emotion in square brackets.</Resource>
-    <Resource tag="MSG_CODE_LONG">The code to use for this emotion should not be more then 10 symbols.</Resource>
-    <Resource tag="MSG_CODE_MISSING">Please enter the code to use for this emotion.</Resource>
-    <Resource tag="MSG_CODE_SAME">Please choose a different code, this one is already in use.</Resource>
-    <Resource tag="MSG_NO_EMOTICON">Please enter an emotion for this icon.</Resource>
-    <Resource tag="MSG_NO_ICON">Please select an icon to use for this emotion.</Resource>
-    <Resource tag="MSG_SORT_NMBR">Sort order must be number between 0 and 255.</Resource>
-    <Resource tag="MSG_TOO_LONG">An emotion description is too long.</Resource>
-    <Resource tag="SELECT_SMILEY">Select Smiley Image</Resource>
-    <Resource tag="SORT_ORDER">Sort Order:</Resource>
-    <Resource tag="TITLE">Add/Edit Smiley</Resource>
-  </page>
-  <page name="ADMIN_SMILIES_IMPORT">
-    <Resource tag="CHOOSE_PAK">Choose .pak file:</Resource>
-    <Resource tag="CHOOSE_PAK_HELP">You'll have to unpack the smiley package and upload all files to your smiley directory (Boards/BoardNo/Images/Emoticons).</Resource>
-    <Resource tag="DELETE_EXISTING">Delete existing smilies:</Resource>
-    <Resource tag="DELETE_EXISTING_HELP">Will delete all existing smilies if you check this.</Resource>
-    <Resource tag="ERROR_SELECT_FILE">You must select a .pak file to import.</Resource>
-    <Resource tag="HEADER">Import Smiley Pack</Resource>
-    <Resource tag="IMPORT">Import</Resource>
-    <Resource tag="SELECT_FILE">Select File (*.pak)</Resource>
-    <Resource tag="TITLE">Smilies Import</Resource>
-  </page>
   <page name="ADMIN_SPAMLOG">
     <Resource tag="TITLE">Spam Event Log</Resource>
   </page>
@@ -1776,6 +1726,7 @@
     <Resource tag="IMPORT">Import from XML</Resource>
     <Resource tag="MSG_DELETE">Delete this Word?</Resource>
     <Resource tag="NOTE">&lt;strong&gt;Note: &lt;/strong&gt; The Spam Words are used for the internal SPAM Detection, during Registration the Homepage the user is entering in the user profile is checked against the Spam Words. Also if a user Posts a new Message in the forum it will be checked against the Spam Words if 'Choose a SPAM Service for Automatically SPAM Checking' in the Host Settings is set to 'Internal Spam Check Words'.</Resource>
+    <Resource tag="SAVE">Save Word</Resource>
     <Resource tag="SPAM">"Spam" Word (Find) Expression</Resource>
     <Resource tag="TITLE">Spam Check Words</Resource>
   </page>
@@ -1783,7 +1734,8 @@
     <Resource tag="MSG_REGEX_SPAM">The Regular expression statement you have entered is invalid.</Resource>
     <Resource tag="SPAM">"Spam" Word (Find) Expression:</Resource>
     <Resource tag="SPAM_HELP">Regular expression statement. Escape punctation with a preceding slash (e.g. '\.').</Resource>
-    <Resource tag="TITLE">Add/Edit Spam Word</Resource>
+    <Resource tag="TITLE">Add New Spam Word</Resource>
+    <Resource tag="TITLE_EDIT">Edit Spam Word</Resource>
   </page>
   <page name="ADMIN_SPAMWORDS_IMPORT">
     <Resource tag="HEADER">Import Spam Word List</Resource>
@@ -1811,6 +1763,7 @@
     <Resource tag="DEFAULT_DESCRIPTION">Status</Resource>
     <Resource tag="EXPORT">Export to XML</Resource>
     <Resource tag="HEADER">Allowed File Extensions</Resource>
+    <Resource tag="ICON">Icon</Resource>
     <Resource tag="IMPORT">Import from XML</Resource>
     <Resource tag="TITLE">Topic Status</Resource>
     <Resource tag="TOPICSTATUS_NAME">Status Name</Resource>
@@ -1821,6 +1774,7 @@
     <Resource tag="HEADER">Add/Edit Topic Status</Resource>
     <Resource tag="MSG_ENTER">You must enter something.</Resource>
     <Resource tag="TITLE">Add/Edit Topic Status</Resource>
+    <Resource tag="TITLE_EDIT">Edit Topic Status</Resource>
     <Resource tag="TOPICSTATUS_NAME">Topic Status Value:</Resource>
     <Resource tag="TOPICSTATUS_NAME_HELP">This is the Value that is used to retrieve the Topic Status Icon and/or Text. That needs to be defined in the Theme Files and languages.</Resource>
   </page>
@@ -1883,7 +1837,7 @@
     <Resource tag="LATEST_VERSION">The latest final version available is &lt;strong&gt;{0}&lt;/strong&gt; released &lt;strong&gt;{1}&lt;/strong&gt;.</Resource>
     <Resource tag="RUNNING_VERSION">You are running YetAnotherForum.NET version &lt;strong&gt;{0}&lt;/strong&gt; (Date: {1}).</Resource>
     <Resource tag="TITLE">Version Check</Resource>
-    <Resource tag="UPGRADE_VERSION">You can download the latest version from &lt;a target="_top" href="http://yafnet.codeplex.com/"&gt;
+    <Resource tag="UPGRADE_VERSION">You can download the latest version from &lt;a target="_top" href="http://yetanotherforum.net/download/"&gt;
 						here&lt;/a&gt;.</Resource>
   </page>
   <page name="ADMINMENU">
@@ -1897,8 +1851,6 @@
     <Resource tag="admin_boardsettings">Board Settings</Resource>
     <Resource tag="admin_digest">Digest</Resource>
     <Resource tag="admin_eventlog">Event Log</Resource>
-    <Resource tag="admin_eventloggroupaccess">Event Log Access Edit</Resource>
-    <Resource tag="admin_eventloggroups">Event Log Roles</Resource>
     <Resource tag="admin_extensions">File Extensions</Resource>
     <Resource tag="admin_forums">Forums</Resource>
     <Resource tag="admin_groups">Roles</Resource>
@@ -1919,7 +1871,6 @@
     <Resource tag="admin_replacewords">Replace Words</Resource>
     <Resource tag="admin_restartapp">Restart App</Resource>
     <Resource tag="admin_runsql">Run SQL Query</Resource>
-    <Resource tag="admin_smilies">Smiles</Resource>
     <Resource tag="ADMIN_SPAMLOG">Spam Event Log</Resource>
     <Resource tag="admin_spamwords">Spam Check Words</Resource>
     <Resource tag="admin_taskmanager">Task Manager</Resource>
@@ -1969,7 +1920,7 @@
     <Resource tag="ERROR_TOOBIG">לא ניתן לצרף קבצים כל כך גדולים.</Resource>
     <Resource tag="FILEERROR">'{0}' אינו קובץ חוקי להעלאה.</Resource>
     <Resource tag="FILENAME">שם קובץ</Resource>
-    <Resource tag="NO_ATTACHMENTS">You are not having any attachments yet, to add one click on the &lt;strong&gt;Upload New File(s)&lt;/strong&gt; button</Resource>
+    <Resource tag="NO_ATTACHMENTS">You don't have any attachments yet, to add one click on the &lt;strong&gt;Upload New File(s)&lt;/strong&gt; button</Resource>
     <Resource tag="SELECT_FILE">בחר את הקובץ שברצונך להעלות.</Resource>
     <Resource tag="SIZE">גודל</Resource>
     <Resource tag="START_UPLOADS">Start upload(s)</Resource>
@@ -1989,6 +1940,7 @@
   <page name="BBCODEMODULE">
     <Resource tag="ALBUMIMG_DESCRIPTION">Enter a Album Image Number</Resource>
     <Resource tag="ATTACH_DESCRIPTION">Enter a Attachment ID</Resource>
+    <Resource tag="ATTACH_NO">You have insufficient rights to see the content.</Resource>
     <Resource tag="DAILYMOTION_DESCRIPTION">Enter Dailymotion Url (http://www.dailymotion.com/video/xxxx)</Resource>
     <Resource tag="FACEBOOK_DESCRIPTION">Enter the Url of the post or the Embed Code of the Post you want to embed</Resource>
     <Resource tag="GOOGLEMAPS_DESCRIPTION">Enter Google Maps Url</Resource>
@@ -2154,6 +2106,7 @@
     <Resource tag="HTMLTAG_FORBIDDEN">Your input data should not contain HTML tags.</Resource>
     <Resource tag="HTMLTAG_WRONG">Your input data contains forbidden {0} HTML tag.</Resource>
     <Resource tag="LOADING">טוען...</Resource>
+    <Resource tag="MANAGE">Manage</Resource>
     <Resource tag="MAX_ONLINE">מספר המשתמשים המחוברים הגבוה ביותר אי פעם היה {0:N0} on {1}.</Resource>
     <Resource tag="MENU">Menu</Resource>
     <Resource tag="MESSAGE">Message</Resource>
@@ -2164,6 +2117,7 @@
     <Resource tag="NAME">Name</Resource>
     <Resource tag="NO">No</Resource>
     <Resource tag="NONE">None</Resource>
+    <Resource tag="NOTE">Note:</Resource>
     <Resource tag="NOTIFICATION_ON_BOT_USER_REGISTER_EMAIL_SUBJECT">New SPAM BOT User Registered on {0} Forum</Resource>
     <Resource tag="NOTIFICATION_ON_MEDAL_AWARDED_SUBJECT">you have been awarded on the {0} Forum</Resource>
     <Resource tag="NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL">New Message on {0} Forum Needs to be Approved</Resource>
@@ -2219,26 +2173,6 @@
   </Resource>
     <Resource tag="SHOWHIDE">Show/Hide</Resource>
     <Resource tag="SUBMIT">שלח</Resource>
-    <Resource tag="TIMEAGO_JS">
-      // Hebrew
-      jQuery.timeago.settings.strings = {
-      prefixAgo: "לפני",
-      prefixFromNow: "מעכשיו",
-      suffixAgo: "",
-      suffixFromNow: "",
-      seconds: "פחות מדקה",
-      minute: "דקה",
-      minutes: "%d דקות",
-      hour: "שעה",
-      hours: "%d שעות",
-      day: "יום",
-      days: "%d ימים",
-      month: "חודש",
-      months: "%d חודשים",
-      year: "שנה",
-      years: "%d שנים"
-      };
-    </Resource>
     <Resource tag="TOPIC_NOTIFICATION_SUBJECT">הודעה על הודעה חדשה בדיון רשום (From {0})</Resource>
     <Resource tag="TT_ALIGNCENTER">הצמדה למרכז</Resource>
     <Resource tag="TT_ALIGNLEFT">הצמדה לשמאל</Resource>
@@ -2255,10 +2189,17 @@
     <Resource tag="TT_LISTORDERED">Ordered List</Resource>
     <Resource tag="TT_LISTUNORDERED">Unordered List</Resource>
     <Resource tag="TT_QUOTE">ציטוט</Resource>
+    <Resource tag="TT_SAVE">Save Message Draft</Resource>
     <Resource tag="TT_UNDERLINE">קו תחתון</Resource>
+    <Resource tag="UNREAD_MENTION_MSG">You have {0} unread Mentions, would you like to go to the newest one?</Resource>
+    <Resource tag="UNREAD_MENTION_TITLE">Somebody Mentioned you in a Topic</Resource>
     <Resource tag="UNREAD_MSG">יש לך {0} הודעות שלא נקראו בתיבת הדואר הנכנס</Resource>
     <Resource tag="UNREAD_MSG_TITLE">New Private Message(s)</Resource>
     <Resource tag="UNREAD_MSG2">You have {0} unread message(s) in your Inbox. Would You Like to go to your Inbox now?</Resource>
+    <Resource tag="UNREAD_QUOTED_MSG">You have {0} unread quoted Posts, would you like to go to the newest one?</Resource>
+    <Resource tag="UNREAD_QUOTED_TITLE">Somebody Quoted you in a Topic</Resource>
+    <Resource tag="UNREAD_THANKS_MSG">You have {0} unread received Thanks, would you like to go to the newest one?</Resource>
+    <Resource tag="UNREAD_THANKS_TITLE">Somebody Thanked you for a Message</Resource>
     <Resource tag="UPDATE">עדכן</Resource>
     <Resource tag="USERNAME_TOOLONG">User Name or Display User Name cannot be more than {0} characters.</Resource>
     <Resource tag="USERNAME_TOOSMALL">User Name or Display User Name must be more than {0} characters.</Resource>
@@ -2273,26 +2214,26 @@
   </page>
   <page name="COOKIES">
     <Resource tag="COOKIES_TEXT">
-      Cookies are small text files that are placed on your computer by websites that you visit. They are widely used in order to make websites work, or work more efficiently, as well as to provide information to the owners of the site. Depending on your access level and actions on the site, various preference based cookies may be set to enrich your experience.
+    Cookies are small text files that are placed on your computer by websites that you visit. They are widely used in order to make websites work, or work more efficiently, as well as to provide information to the owners of the site. Depending on your access level and actions on the site, various preference based cookies may be set to enrich your experience.
+    
+    [br]
+    [b]Standard Cookies[/b][br]
+    We’re using cookies for the following purposes:
 
-      [br]
-      [b]Standard Cookies[/b][br]
-      We’re using cookies for the following purposes:
+    [list]
+    [*] Guest Users: Your last visit Date and Time will be saved, to indicate on your next visit which topics and message are new.
+    [*] Login: Once you login to the forum, a cookie is set containing your encrypted credentials, required to recognize you between page visits. You can disable this cookie by unchecking “Remember me” in the login form.
+    [*] Polls: Your voting options are stored as cookies. As soon as you give your voting in a poll a cookie is created.
+    [*] Session: Upon first visit of our website, the system will create a new unique session for you which will be saved using a cookie on your computer. Sessions are required to recognize users between page accesses. It is a temporary cookie which will be deleted once you close your internet browser..
+    [/list]
 
-      [list]
-      [*] Guest Users: Your last visit Date and Time will be saved, to indicate on your next visit which topics and message are new.
-      [*] Login: Once you login to the forum, a cookie is set containing your encrypted credentials, required to recognize you between page visits. You can disable this cookie by unchecking “Remember me” in the login form.
-      [*] Polls: Your voting options are stored as cookies. As soon as you give your voting in a poll a cookie is created.
-      [*] Session: Upon first visit of our website, the system will create a new unique session for you which will be saved using a cookie on your computer. Sessions are required to recognize users between page accesses. It is a temporary cookie which will be deleted once you close your internet browser..
-      [/list]
+    [b]Third Party Cookies[/b][br]
+    The site owner may set additional cookies in addition to the standard cookies above. These cookies are often used for website usage tracking, or set by embedded service providers when viewing embedded content from providers such as YouTube and Vimeo, etc.
+    
+    [br]
 
-      [b]Third Party Cookies[/b][br]
-      The site owner may set additional cookies in addition to the standard cookies above. These cookies are often used for website usage tracking, or set by embedded service providers when viewing embedded content from providers such as YouTube and Vimeo, etc.
-
-      [br]
-
-      [b]How do I change my cookie settings?[/b][br]
-      Most web browsers allow some control of most cookies through the browser settings. To find out more about cookies, including how to see what cookies have been set and how to manage and delete them, visit [url]www.aboutcookies.org[/url] or [url]www.allaboutcookies.org.[/url]
+    [b]How do I change my cookie settings?[/b][br]
+    Most web browsers allow some control of most cookies through the browser settings. To find out more about cookies, including how to see what cookies have been set and how to manage and delete them, visit [url]www.aboutcookies.org[/url] or [url]www.allaboutcookies.org.[/url]
 
     </Resource>
     <Resource tag="TITLE">Cookie Policy</Resource>
@@ -2538,6 +2479,18 @@
     <Resource tag="ZM">Zambia</Resource>
     <Resource tag="ZW">Zimbabwe</Resource>
   </page>
+  <page name="CP_BLOCKOPTIONS">
+    <Resource tag="BLOCK_BUDDYS">Block Friend Requests</Resource>
+    <Resource tag="BLOCK_BUDDYS">Block Private Messages</Resource>
+    <Resource tag="BLOCK_EMAILS">Block E-Mails</Resource>
+    <Resource tag="BLOCK_OPTIONS">Block Options</Resource>
+    <Resource tag="BLOCK_PMS">Block Private Messages</Resource>
+    <Resource tag="IGNORED_USERS">Ignored User List</Resource>
+    <Resource tag="NOTE_BLOCK">Admins and Users in the Friend List will be excluded from the Blocking!</Resource>
+    <Resource tag="NOTE_USERS">Posts of Ignored Users will be hidden. This does not include Quoted Posts</Resource>
+    <Resource tag="SELECT_OPTIONS">Options to Block other Users from Contacting you...</Resource>
+    <Resource tag="TITLE">User Block Options &amp; Ignored Users</Resource>
+  </page>
   <page name="CP_CHANGEPASSWORD">
     <Resource tag="CHANGE_BUTTON">שלח</Resource>
     <Resource tag="CHANGE_SUCCESS">הסיסמא הוחלפה בהצלחה.</Resource>
@@ -2643,6 +2596,7 @@
     <Resource tag="FACEBOOK">Your Facebook Profile URL:</Resource>
     <Resource tag="FIELD_TOOLONG">{0} length cannot be more than {1} characters.</Resource>
     <Resource tag="FORUM_SETTINGS">הגדרות פורום</Resource>
+    <Resource tag="GET_LOCATION">Get Location from IP Address</Resource>
     <Resource tag="GOOGLE">Your Google Profile URL:</Resource>
     <Resource tag="HIDEME">Hide me from active users</Resource>
     <Resource tag="HOMEPAGE">דף הבית</Resource>
@@ -2674,6 +2628,9 @@
     <Resource tag="WHERE">היכן את/ה גר/ה?</Resource>
     <Resource tag="XMPP">Your Jabber ID:</Resource>
     <Resource tag="YIM">Your Yahoo ID:</Resource>
+  </page>
+  <page name="CP_EDITSETTINGS">
+    <Resource tag="TITLE">Edit Settings</Resource>
   </page>
   <page name="CP_MESSAGE">
     <Resource tag="INBOX">תיבת דואר נכנס</Resource>
@@ -2712,12 +2669,20 @@
     <Resource tag="TO">אל</Resource>
   </page>
   <page name="CP_PROFILE">
+    <Resource tag="ACTIVITY">Your Activity</Resource>
     <Resource tag="ARCHIVE">ארכיון</Resource>
     <Resource tag="CHANGE_PASSWORD">החלף/י סיסמא</Resource>
     <Resource tag="CONTROL_PANEL">לוח הבקרה</Resource>
+    <Resource tag="CREATED_REPLY">Replied to a Post</Resource>
+    <Resource tag="CREATED_REPLY_MSG">Added an Reply to the Topic {0}</Resource>
+    <Resource tag="CREATED_TOPIC">Created a new Topic</Resource>
+    <Resource tag="CREATED_TOPIC_MSG">Created a new Topic {0}</Resource>
     <Resource tag="EDIT_AVATAR">החלפת דמות</Resource>
     <Resource tag="EDIT_PROFILE">עריכת פרופיל</Resource>
+    <Resource tag="EDIT_SETTINGS">Edit Settings</Resource>
     <Resource tag="EDIT_SIGNATURE">עריכת חתימה</Resource>
+    <Resource tag="GIVEN_THANKS">Given Thanks to a Post</Resource>
+    <Resource tag="GIVEN_THANKS_MSG">Given Thanks to {0} in the Topic {1}</Resource>
     <Resource tag="GROUPS">א/תה חבר/ה בקבוצות הבאות:</Resource>
     <Resource tag="INBOX">תיבת דואר נכנס</Resource>
     <Resource tag="JOINED">את/ה חבר/ה מאז:</Resource>
@@ -2725,10 +2690,16 @@
     <Resource tag="NEW_MESSAGE">הודעה חדשה</Resource>
     <Resource tag="NUMPOSTS">מס' הודעות:</Resource>
     <Resource tag="PERSONAL_PROFILE">פרופיל אישי:</Resource>
+    <Resource tag="RECEIVED_THANKS">Received a Thanks to a Post</Resource>
+    <Resource tag="RECEIVED_THANKS_MSG">Has Received a Thanks from {0} in the Topic {1}</Resource>
     <Resource tag="SENTITEMS">פריטים שנשלחו</Resource>
     <Resource tag="SIGNATURE">חתימה</Resource>
     <Resource tag="SUBSCRIPTIONS">מנויים</Resource>
     <Resource tag="VIEW_PROFILE">View Profile</Resource>
+    <Resource tag="WAS_MENTIONED">Was Mentioned</Resource>
+    <Resource tag="WAS_MENTIONED_MSG">Was Mentioned by {0} in the Topic {1}</Resource>
+    <Resource tag="WAS_QUOTED">Was Quoted</Resource>
+    <Resource tag="WAS_QUOTED_MSG">Was Quoted by {0} in the Topic {1}</Resource>
     <Resource tag="YOUR_ACCOUNT">החשבון שלך</Resource>
     <Resource tag="YOUR_EMAIL">כתובת הדוא"ל שלך:</Resource>
     <Resource tag="YOUR_USERDISPLAYNAME">Your display name:</Resource>
@@ -2806,7 +2777,9 @@
     <Resource tag="MAIN_FORUM_ATOM">Main Forum Atom</Resource>
     <Resource tag="MAIN_FORUM_RSS">RSS לפורום ראשי</Resource>
     <Resource tag="MARKALL">סמן את כל הפורומים כנקראו</Resource>
+    <Resource tag="MARKALL_MESSAGE">All forums has been marked as read</Resource>
     <Resource tag="MODERATORS">אחראי פורום</Resource>
+    <Resource tag="MOST_ACTIVE">Most Active Users in the last {0} Days</Resource>
     <Resource tag="NO_FORUM_ACCESS">(אין גישה)</Resource>
     <Resource tag="NO_POSTS">אין הודעות</Resource>
     <Resource tag="ONDATE">on {0}</Resource>
@@ -2823,15 +2796,22 @@
     <Resource tag="STATS_LASTPOST">הודעה אחרונה {0} ע"י</Resource>
     <Resource tag="STATS_MEMBERS">יש לנו {0:N0} חברים רשומים.</Resource>
     <Resource tag="STATS_POSTS">ישנן {0:N0} הודעות ב- {1:N0} דיונים ב- {2:N0} פורומים.</Resource>
+    <Resource tag="STATS_SPAM">Anti Spam Statistics</Resource>
+    <Resource tag="STATS_SPAM_BANNED">{0} Spammers Permanently Banned</Resource>
+    <Resource tag="STATS_SPAM_DENIED">{0} Spammers Denied Registration</Resource>
+    <Resource tag="STATS_SPAM_REPORTED">{0} Spammers submitted to StopForumSpam.com</Resource>
     <Resource tag="TOPICS">דיונים</Resource>
     <Resource tag="UNREAD0">יש לך {0} הודעות לא נקראו בתיבת הדואר הנכנס.</Resource>
     <Resource tag="UNREAD1">יש לך הודעה אחת שלא נקראה בתיבת הדואר הנכנס.</Resource>
     <Resource tag="VIEWING">({0} צופים)</Resource>
     <Resource tag="VOTE_DOWN_TITLE">Remove -1 of the Users Reputation</Resource>
     <Resource tag="VOTE_UP_TITLE">Add +1 to the Users Reputation.</Resource>
+    <Resource tag="WATCHFORUM_ALL">Watch all forums</Resource>
+    <Resource tag="WATCHFORUM_ALL_HELP">Watch all forums and get Email Notifications when a new Topic is created</Resource>
   </page>
   <page name="DELETEMESSAGE">
     <Resource tag="DELETE">מחק</Resource>
+    <Resource tag="DELETE_ALL">Delete All Posts?</Resource>
     <Resource tag="DELETE_REASON">סיבת מחיקה</Resource>
     <Resource tag="ERASEMESSAGE">מחר הודעה ממסד הנתונים (בלתי הפיך)</Resource>
     <Resource tag="FROM">מאת:</Resource>
@@ -3221,7 +3201,7 @@
     &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
       &lt;strong&gt;Output&lt;/strong&gt;
     &lt;/td&gt;
-    &lt;td&gt;&lt;a href="{0}yaf_postst123_topic_title.aspx" target="_blank" title="Go to Topic"&gt;Go to Topic&lt;/a&gt;&lt;/td&gt;
+    &lt;td&gt;&lt;a href="{0}posts/t123-topic-title" target="_blank" title="Go to Topic"&gt;Go to Topic&lt;/a&gt;&lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
     &lt;td class="header2" colspan="2"&gt;Post Links&lt;/td&gt;
@@ -3245,7 +3225,7 @@
     &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
       &lt;strong&gt;Output&lt;/strong&gt;
     &lt;/td&gt;
-    &lt;td&gt;&lt;a href="{0}yaf_postsm123_topic_title.aspx#post123" target="_blank" title="Go to Post"&gt;Go to Post&lt;/a&gt;&lt;/td&gt;
+    &lt;td&gt;&lt;a href="{0}posts/m123-topic-title#post123" target="_blank" title="Go to Post"&gt;Go to Post&lt;/a&gt;&lt;/td&gt;
   &lt;/tr&gt;
 &lt;/table&gt;
 &lt;br /&gt;
@@ -3377,19 +3357,19 @@
       &lt;strong&gt;Usage&lt;/strong&gt;
     &lt;/td&gt;
     &lt;td&gt;
-      [img]{0}forumlogo.jpg[/img]&lt;br /&gt;&lt;br /&gt;
-      [img={0}forumlogo.jpg]YAF Logo[/img]&lt;br /&gt;&lt;br /&gt;
-	  [url={0}] [img]{0}forumlogo.jpg[/img] [/url] (Linked)
+      [img]{0}Content/images/YAFLogo.svg[/img]&lt;br /&gt;&lt;br /&gt;
+      [img={0}Content/images/YAFLogo.svg]YAF Logo[/img]&lt;br /&gt;&lt;br /&gt;
+	  [url={0}] [img]{0}Content/images/YAFLogo.svg[/img] [/url] (Linked)
 	&lt;/td&gt;
   &lt;/tr&gt;
    &lt;tr&gt;
     &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
       &lt;strong&gt;Output&lt;/strong&gt;
     &lt;/td&gt;
-    &lt;td&gt;&lt;img src="{0}forumlogo.jpg" alt="" /&gt;&lt;br /&gt;
-		&lt;br /&gt;&lt;img src="{0}forumlogo.jpg" alt="YAF Logo" title="YAF Logo" /&gt;&lt;br /&gt;
+    &lt;td&gt;&lt;img src="{0}Content/images/YAFLogo.svg" alt="" /&gt;&lt;br /&gt;
+		&lt;br /&gt;&lt;img src="{0}Content/images/YAFLogo.svg" alt="YAF Logo" title="YAF Logo" /&gt;&lt;br /&gt;
 		&lt;br /&gt;
-		&lt;a href="{0}" target="_blank" title="YAF Logo"&gt;&lt;img class="inlineimg" src="{0}forumlogo.jpg" alt="" /&gt;&lt;/a&gt; (Linked)
+		&lt;a href="{0}" target="_blank" title="YAF Logo"&gt;&lt;img class="inlineimg" src="{0}Content/images/YAFLogo.svg" alt="" /&gt;&lt;/a&gt; (Linked)
 	&lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
@@ -4433,8 +4413,11 @@ Spoiler Content
     <Resource tag="LASTPOST">הודעה אחרונה</Resource>
     <Resource tag="MEMBERS">חברים</Resource>
     <Resource tag="MODERATEINDEX_TITLE">Moderate Reported Posts and Not Approved Posts</Resource>
+    <Resource tag="MOVE_TO_DIFFERENT">The forum you want to move the topic(s) must be different then the current forum.</Resource>
+    <Resource tag="MOVED">Topic(s) Moved</Resource>
     <Resource tag="NO_POSTS">אין הודעות</Resource>
     <Resource tag="NOMODERATION">Currently there are no Posts that need approval. And there are also no Posts that were reported.</Resource>
+    <Resource tag="NOTHING">You need to select atleast one topic</Resource>
     <Resource tag="REMOVE">הסר</Resource>
     <Resource tag="REPLIES">תגובות</Resource>
     <Resource tag="TITLE">ניהול</Resource>
@@ -4622,6 +4605,8 @@ Spoiler Content
   <page name="POSTMESSAGE">
     <Resource tag="ANNOUNCEMENT">הכרזה</Resource>
     <Resource tag="ASK_POLL_DELETE">האם את/ה באמת רוצה להסיר סקר זה?</Resource>
+    <Resource tag="BLOG_PASSWORD">Blog Password:</Resource>
+    <Resource tag="BLOG_POST">Post to blog?</Resource>
     <Resource tag="CANCEL_TITLE">Cancel Message editing/creating</Resource>
     <Resource tag="CHOICE">{0} בחירה:</Resource>
     <Resource tag="CREATEPOLL">צור סקר</Resource>
@@ -4654,8 +4639,6 @@ Spoiler Content
     <Resource tag="REPLY">שלח תגובה</Resource>
     <Resource tag="SAVE">שלח</Resource>
     <Resource tag="SAVE_TITLE">Post/Edit the Message</Resource>
-    <Resource tag="SMILIES_HEADER">[b]הוסף/י רגשון[/b]</Resource>
-    <Resource tag="SMILIES_MORE">עוד רגשונים...</Resource>
     <Resource tag="SPAM_MESSAGE">Your Message was rejected because it was detected as SPAM!</Resource>
     <Resource tag="STATUS">Status:</Resource>
     <Resource tag="STICKY">דביק</Resource>
@@ -4703,6 +4686,7 @@ Spoiler Content
     <Resource tag="FACEBOOK_TITLE">Visit {0}'s Facebook Profile</Resource>
     <Resource tag="FACEBOOK_TOPIC">Like this Topic</Resource>
     <Resource tag="FORUM_JUMP">עבור לפורום</Resource>
+    <Resource tag="GO_TO_ANSWER">Go to the topic answer</Resource>
     <Resource tag="GOOGLE">Google+</Resource>
     <Resource tag="GOOGLE_TITLE">Visit {0}'s Google+ Profile</Resource>
     <Resource tag="GOOGLEPLUS_TOPIC">Share Topic on Google+</Resource>
@@ -4727,6 +4711,14 @@ Spoiler Content
     <Resource tag="LINKBACK_TOPIC">LinkBack Topic URL</Resource>
     <Resource tag="LINKBACK_TOPIC_PROMT">Use the URL below if you want to LinkBack the topic URL on another website.</Resource>
     <Resource tag="LOCATION">מיקום</Resource>
+    <Resource tag="MANAGE_POST">Manage Message</Resource>
+    <Resource tag="MANAGE_TOPIC">Manage Topic</Resource>
+    <Resource tag="MARK_ANSWER">Mark As Answer</Resource>
+    <Resource tag="MARK_ANSWER_REMOVE">Remove As Answer</Resource>
+    <Resource tag="MARK_ANSWER_REMOVE_TITLE">Unmark this Message as answer</Resource>
+    <Resource tag="MARK_ANSWER_TITLE">Mark this Message as answer</Resource>
+    <Resource tag="MESSAGE_ANSWER">Answer</Resource>
+    <Resource tag="MESSAGE_ANSWER_HELP">Marked as answer</Resource>
     <Resource tag="MESSAGEDELETED_MOD">ההודעה נמחקה ע"י מנהל.</Resource>
     <Resource tag="MESSAGEDELETED_USER">ההודעה נמחקה ע"י משתמש.</Resource>
     <Resource tag="MSN">MSN</Resource>
@@ -4782,7 +4774,10 @@ Spoiler Content
     <Resource tag="TOGGLEPOST">Show/Hide Post</Resource>
     <Resource tag="TOGGLEUSERPOSTS_HIDE">Hide User Posts</Resource>
     <Resource tag="TOGGLEUSERPOSTS_SHOW">Show User Posts</Resource>
+    <Resource tag="TOOLS">Tools</Resource>
     <Resource tag="TOP">חזור למעלה</Resource>
+    <Resource tag="TOPIC_STARTER">Topic Starter</Resource>
+    <Resource tag="TOPIC_STARTER_HELP">Indicates that this user has started this topic</Resource>
     <Resource tag="TOPICBROWSERS">משתמשים הצופים בדיון זה</Resource>
     <Resource tag="TOTAL">Total</Resource>
     <Resource tag="TUMBLR_TOPIC">Share on Tumblr</Resource>
@@ -4831,6 +4826,7 @@ Spoiler Content
     <Resource tag="ERROR_FORUMMODERATORS">אינך יכול/ה להשעות מנהלי פורום.</Resource>
     <Resource tag="ERROR_GUESTACCOUNT">אינך יכול/ה להשעות את חשבון האורח.</Resource>
     <Resource tag="FACEBOOK">Facebook Profile:</Resource>
+    <Resource tag="FORUM_ACCESS">Forum Access</Resource>
     <Resource tag="GENDER">מין:</Resource>
     <Resource tag="GENDER0">לא נבחר</Resource>
     <Resource tag="GENDER1">זכר</Resource>
@@ -4863,6 +4859,7 @@ Spoiler Content
     <Resource tag="REPUTATION_RECEIVED">Numer of Reputation received from other users</Resource>
     <Resource tag="SEARCHUSER">View All Posts by User</Resource>
     <Resource tag="SKYPE">זהות Skype(tm):</Resource>
+    <Resource tag="SOCIAL_MEDIA">Social Media</Resource>
     <Resource tag="STATISTICS">סטטיסטיקות</Resource>
     <Resource tag="SUSPEND">השעה</Resource>
     <Resource tag="SUSPEND_BY">Suspended By:</Resource>
@@ -5151,13 +5148,6 @@ Spoiler Content
     <Resource tag="SUBMIT">Submit</Resource>
     <Resource tag="TITLE">ShoutBox</Resource>
   </page>
-  <page name="SHOWSMILIES">
-    <Resource tag="CLOSE_WINDOW">סגור חלון</Resource>
-    <Resource tag="HEADER_CODE">קוד</Resource>
-    <Resource tag="HEADER_MEANING">משמעות</Resource>
-    <Resource tag="HEADER_SMILE">רגשון</Resource>
-    <Resource tag="TITLE">רגשונים זמינים</Resource>
-  </page>
   <page name="TEAM">
     <Resource tag="ADMINS">Administrators</Resource>
     <Resource tag="FORUMS">Forums</Resource>
@@ -5352,9 +5342,8 @@ The Message was posted in the {forumname} forum.
      Hello {user},
 
      Your user account on the {forumname} forum has has been recently updated to include access to the following Group(s):
-
+     
      {roles}
-
 
      Thanks!
      The {forumname} Team
@@ -5365,9 +5354,8 @@ The Message was posted in the {forumname} forum.
      Hello {user},
 
      Your user account on the {forumname} forum  has been recently updated to restrict access to the following Groups(s):
-
+     
      {roles}
-     a
 
      Thanks!
      The {forumname} Team
@@ -5375,34 +5363,34 @@ The Message was posted in the {forumname} forum.
 
    </Resource>
     <Resource tag="PASSWORDRETRIEVAL_HTML">
-      &lt;!DOCTYPE html&gt;
+    &lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"&gt;
+    &lt;html&gt;
+    &lt;head&gt;
+    &lt;meta http-equiv="Content-Type" content="text/html; charset=utf-8" /&gt;
+    &lt;link rel="stylesheet" media="all" href="{themecss}" /&gt;
+    &lt;/head&gt;
+    &lt;body class="bg-light"&gt;
+    &lt;div class="container"&gt;
+    &lt;div class="mx-auto mt-4 mb-3 text-center" style="width:100px;height:40px;background: url('{logo}') no-repeat"&gt;
+    &lt;/div&gt;
+    &lt;div class="card mb-4" style="border-top: 5px solid #3761b5;"&gt;
+    &lt;div class="card-body"&gt;
+    &lt;h4 class="text-center"&gt;Hello &lt;strong&gt;{username}&lt;/strong&gt;,&lt;/h4&gt;
+    &lt;p class="mt-3 mb-4"&gt;You or someone (with the IP Address: {ipaddress}) has requested to reset your password because you have forgotten your password.&lt;/p&gt;
+    &lt;p&gt;Please return to the site and login using the following information:&lt;/p&gt;
+    &lt;div class="text-center"&gt;&lt;code&gt;
+    User Name: &lt;strong&gt;{username}&lt;/strong&gt;&lt;br /&gt;
+    Password: &lt;strong&gt;{password}&lt;/strong&gt;
+    &lt;/code&gt;&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;/div&gt;
 
-      &lt;html lang="en" xmlns="http://www.w3.org/1999/xhtml"&gt;
-      &lt;head&gt;
-      &lt;meta http-equiv="Content-Type" content="text/html; charset=utf-8" /&gt;
-      &lt;title&gt;Password Retrieval&lt;/title&gt;
-      &lt;style type="text/css"&gt;
-      &lt;!--
-      .style1 {
-      font-family: Verdana, Arial, Helvetica, sans-serif;
-      }
-      --&gt;
-      &lt;/style&gt;
-      &lt;/head&gt;
-      &lt;body&gt;
-      &lt;p class="style1"&gt;Hello {username},&lt;/p&gt;
-      &lt;p class="style1"&gt;You or someone (with the IP Address: {ipaddress}) has requested to reset your password because you have forgotten your password.&lt;/p&gt;
-      &lt;p class="style1"&gt;A new password has been generated for you on &lt;strong&gt;{forumname}&lt;/strong&gt; at &lt;a href="{forumlink}"&gt;{forumlink}&lt;/a&gt;.&lt;/p&gt;
-      &lt;p class="style1"&gt;Please return to the site and login using the following information:&lt;/p&gt;
-      &lt;blockquote&gt;
-      &lt;span class="style1"&gt;
-      User Name: &lt;strong&gt;{username}&lt;/strong&gt;&lt;br /&gt;
-      Password: &lt;strong&gt;{password}&lt;/strong&gt;
-      &lt;/span&gt;
-      &lt;/blockquote&gt;
-      &lt;/body&gt;
-      &lt;/html&gt;
-    </Resource>
+    &lt;div class="text-center text-muted"&gt;&lt;strong&gt;{forumname}&lt;/strong&gt; at &lt;a href="{forumlink}"&gt;{forumlink}&lt;/a&gt;&lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;/body&gt;
+    &lt;/html&gt;
+</Resource>
     <Resource tag="PASSWORDRETRIEVAL_TEXT">
       Hello {username},
 
@@ -5439,23 +5427,38 @@ The Message was posted in the {forumname} forum.
 
 {link}
 </Resource>
-    <Resource tag="TOPICPOST_HTML" editType="html">
-&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"&gt;
-&lt;html xmlns="http://www.w3.org/1999/xhtml"&gt;
-&lt;head&gt;
-&lt;meta http-equiv="Content-Type" content="text/html; charset=utf-8" /&gt;
-&lt;title&gt;תגובה חדשה בדיון {topic}&lt;/title&gt;
-&lt;style type="text/css"&gt;
-&lt;!--
-.style1 {font-family: Verdana, Arial, Helvetica, sans-serif}
---&gt;
-&lt;/style&gt;
-&lt;/head&gt;&lt;body dir="rtl"&gt;
-&lt;p class="style1"&gt; תגובה חדשה נכתבה בדיון &lt;b&gt;{topic}&lt;/b&gt; בפורום &lt;b&gt;{forumname}&lt;/b&gt;.&lt;/p&gt;
-&lt;p class="style1"&gt; על מנת לקרוא את ההודעה, לחץ על פתח את הקישור הבא: &lt;br/&gt;&lt;a href="{link}"&gt;{link}&lt;/a&gt;&lt;/p&gt;
-&lt;/body&gt;
-&lt;/html&gt;
-</Resource>
+    <Resource tag="TOPICPOST_HTML">
+    &lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"&gt;
+    &lt;html&gt;
+    &lt;head&gt;
+    &lt;meta http-equiv="Content-Type" content="text/html; charset=utf-8" /&gt;
+    &lt;link rel="stylesheet" media="all" href="{themecss}" /&gt;
+    &lt;/head&gt;
+    &lt;body class="bg-light"&gt;
+    &lt;div class="container"&gt;
+    &lt;div class="mx-auto mt-4 mb-3 text-center" style="width:100px;height:40px;background: url('{logo}') no-repeat"&gt;
+    &lt;/div&gt;
+    &lt;div class="card mb-4" style="border-top: 5px solid #3761b5;"&gt;
+    &lt;div class="card-body"&gt;
+    &lt;p class="mt-3 mb-4"&gt;There's a new post in topic "{topic}" at {forumname} By {postedby}:&lt;/p&gt;
+    &lt;p&gt;"{bodytruncated}"
+
+    &lt;p&gt;To read more, click or copy and paste the following link into your browser:&lt;/p&gt;
+
+    &lt;p class="text-center"&gt;&lt;a href="{link}"&gt;{link}&lt;/a&gt;&lt;/p&gt;
+
+    &lt;p&gt;You can manage your subscriptions here:&lt;/p&gt;
+
+    &lt;p class="text-center"&gt;&lt;a href="{subscriptionlink}"&gt;{subscriptionlink}&lt;/a&gt;&lt;/p&gt;
+    &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;div class="text-center text-muted"&gt;&lt;strong&gt;{forumname}&lt;/strong&gt; at &lt;a href="{forumlink}"&gt;{forumlink}&lt;/a&gt;&lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;/body&gt;
+    &lt;/html&gt;
+  </Resource>
     <Resource tag="TOPICPOST_TEXT">
 תגובה חדשה נכתבה בדיון {topic} בפורום {forumname}.
 
@@ -5500,43 +5503,6 @@ The Message was posted in the {forumname} forum.
 בקר את {forumname} בכתובת {forumlink}
 </Resource>
   </page>
-  <page name="TIMEZONES">
-    <Resource tag="NAME_UTC">(UTC)</Resource>
-    <Resource tag="UTC0">(UTC) Casablanca, Coordinated Universal Time, Greenwich Mean Time : Dublin, Edinburgh, Lisbon, London, Monrovia, Reykjavik</Resource>
-    <Resource tag="UTC1">(UTC+01:00) Amsterdam, Berlin, Bern, Rome, Stockholm, Vienna, Belgrade, Bratislava, Budapest, Ljubljana, Prague, Brussels, Copenhagen, Madrid, Paris, Sarajevo, Skopje, Warsaw, Zagreb</Resource>
-    <Resource tag="UTC-1">(UTC-1:00) Azores, Cape Verde Is.</Resource>
-    <Resource tag="UTC10">(UTC+10:00) Brisbane, Canberra, Melbourne, Sydney, Guam, Port Moresby, Hobart, Yakutsk</Resource>
-    <Resource tag="UTC-10">(UTC-10:00) Hawaii</Resource>
-    <Resource tag="UTC11">(UTC+11:00) Solomon Is., New Caledonia, Vladivostok</Resource>
-    <Resource tag="UTC-11">(UTC-11:00) Coordinated Universal Time-11</Resource>
-    <Resource tag="UTC12">(UTC+12:00) Auckland, Wellington, Coordinated Universal Time+12, Fiji, Magadan, Petropavlovsk-Kamchatsky - Old</Resource>
-    <Resource tag="UTC-12">(UTC-12:00) International Date Line West</Resource>
-    <Resource tag="UTC13">(UTC+13:00) Nuku'alofa, Samoa</Resource>
-    <Resource tag="UTC2">(UTC+02:00) Athens, Bucharest, Beirut, Cairo, Damascus, E. Europe, Harare, Pretoria, Helsinki, Kyiv, Riga, Sofia, Tallinn, Vilnius, Istanbul, Jerusalem, Tripoli</Resource>
-    <Resource tag="UTC-2">(UTC-2:00) Coordinated Universal Time-2, Mid-Atlantic - Old</Resource>
-    <Resource tag="UTC3">(UTC+03:00) Amman, Baghdad, Kaliningrad, Minsk, Kuwait, Riyadh, Nairobi</Resource>
-    <Resource tag="UTC-3">(UTC-3:00) Brasilia, Buenos Aires, Cayenne, Fortaleza, Greenland, Montevideo, Salvador</Resource>
-    <Resource tag="UTC3.5">(UTC+03:30) Tehran</Resource>
-    <Resource tag="UTC-3.5">(UTC-3:30) Newfoundland</Resource>
-    <Resource tag="UTC4">(UTC+04:00) Abu Dhabi, Muscat, Baku, Caucasus Standard Time, Moscow, St. Petersburg, Volgograd,Port Louis, Tbilisi, Yerevan</Resource>
-    <Resource tag="UTC-4">(UTC-4:00) Asuncion, Atlantic Time (Canada), Cuiaba, Georgetown, La Paz, Manaus, San Juan, Santiago</Resource>
-    <Resource tag="UTC4.5">(UTC+04:30) Kabul</Resource>
-    <Resource tag="UTC-4.5">(UTC-4:30) Caracas</Resource>
-    <Resource tag="UTC5">(UTC+05:00) Ashgabat, Tashkent, Islamabad, Karachi</Resource>
-    <Resource tag="UTC-5">(UTC-5:00) Bogota, Lima, Quito, Eastern Time (US &amp; Canada), Indiana (East)</Resource>
-    <Resource tag="UTC5.5">(UTC+05:30) Chennai, Kolkata, Mumbai, New Delhi</Resource>
-    <Resource tag="UTC5.75">(UTC+05:45) Kathmandu</Resource>
-    <Resource tag="UTC6">(UTC+06:00) Astana, Dhaka, Ekaterinburg</Resource>
-    <Resource tag="UTC-6">(UTC-6:00) Central America, Central Time (US &amp; Canada), Guadalajara, Mexico City, Monterrey - New, Guadalajara, Mexico City, Monterrey - Old, Saskatchewan</Resource>
-    <Resource tag="UTC6.5">(UTC+06:30) Yangon (Rangoon)</Resource>
-    <Resource tag="UTC7">(UTC+07:00) Bangkok, Hanoi, Jakarta, Novosibirsk</Resource>
-    <Resource tag="UTC-7">(UTC-7:00) Arizona, Chihuahua, La Paz, Mazatlan - New, Chihuahua, La Paz, Mazatlan - Old, Mountain Time (US &amp; Canada)</Resource>
-    <Resource tag="UTC8">(UTC+08:00) Beijing, Chongqing, Hong Kong, Urumqi, Krasnoyarsk, Kuala Lumpur, Singapore Perth, Taipei, Ulaanbaatar</Resource>
-    <Resource tag="UTC-8">(UTC-8:00) Baja California, Pacific Time (US &amp; Canada)</Resource>
-    <Resource tag="UTC9">(UTC+09:00) Irkutsk, Osaka, Sapporo, Tokyo, Seoul</Resource>
-    <Resource tag="UTC-9">(UTC-9:00) Alaska</Resource>
-    <Resource tag="UTC9.5">(UTC+09:30) Adelaide</Resource>
-  </page>
   <page name="TOOLBAR">
     <Resource tag="ACTIVETOPICS">דיונים פעילים</Resource>
     <Resource tag="ACTIVETOPICS_TITLE">Shows the Active Topics Page.</Resource>
@@ -5563,6 +5529,7 @@ The Message was posted in the {forumname} forum.
     <Resource tag="MEMBERS">חברים</Resource>
     <Resource tag="MEMBERS_TITLE">Opens the Member list page.</Resource>
     <Resource tag="MODERATE">פיקוח</Resource>
+    <Resource tag="MODERATE_NEW">({0} Need Moderating)</Resource>
     <Resource tag="MODERATE_TITLE">Shows the Moderate Page where you can view unapproved and reported Posts..</Resource>
     <Resource tag="MYALBUMS">My Albums</Resource>
     <Resource tag="MYALBUMS_TITLE">Shows the Albums Page which shows all your albums.</Resource>
@@ -5614,6 +5581,7 @@ The Message was posted in the {forumname} forum.
     <Resource tag="LASTPOST">הודעה אחרונה</Resource>
     <Resource tag="MARKREAD">סמן פורום זה כ'נקרא'</Resource>
     <Resource tag="NO_POSTS">אין הודעות</Resource>
+    <Resource tag="NO_TOPICS">The Forum currently has no Topics</Resource>
     <Resource tag="OK_TT">Search this Forum</Resource>
     <Resource tag="POSTS">Posts</Resource>
     <Resource tag="REPLIES">תגובות</Resource>

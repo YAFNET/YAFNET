@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -25,7 +25,6 @@
 namespace YAF.Types.Models
 {
     using System;
-    using System.Data.Linq.Mapping;
 
     using ServiceStack.DataAnnotations;
 
@@ -35,13 +34,15 @@ namespace YAF.Types.Models
     /// A class which represents the CheckEmail table.
     /// </summary>
     [Serializable]
+
+    [UniqueConstraint(nameof(Hash))]
     public partial class CheckEmail : IEntity, IHaveID
     {
         partial void OnCreated();
 
         public CheckEmail()
         {
-            OnCreated();
+            this.OnCreated();
         }
 
         #region Properties
@@ -50,12 +51,19 @@ namespace YAF.Types.Models
         [Alias("CheckEmailID")]
         public int ID { get; set; }
 
+        [References(typeof(User))]
+        [Required]
         public int UserID { get; set; }
 
+        [StringLength(255)]
         public string Email { get; set; }
 
+        [Required]
         public DateTime Created { get; set; }
 
+        [Required]
+        [Index]
+        [StringLength(32)]
         public string Hash { get; set; }
 
         #endregion

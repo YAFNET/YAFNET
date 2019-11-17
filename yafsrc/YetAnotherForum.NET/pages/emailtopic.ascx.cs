@@ -29,15 +29,16 @@ namespace YAF.Pages
     using System;
     using System.Web;
 
-    using YAF.Classes.Data;
-    using YAF.Controls;
     using YAF.Core;
     using YAF.Core.Extensions;
     using YAF.Core.Services;
     using YAF.Types;
     using YAF.Types.Constants;
+    using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Models;
     using YAF.Utils;
+    using YAF.Web.Extensions;
 
     #endregion
 
@@ -67,7 +68,7 @@ namespace YAF.Pages
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            if (this.Get<HttpRequestBase>().QueryString["t"] == null || !this.PageContext.ForumReadAccess
+            if (!this.Get<HttpRequestBase>().QueryString.Exists("t") || !this.PageContext.ForumReadAccess
                 || !this.PageContext.BoardSettings.AllowEmailTopic)
             {
                 YafBuildLink.AccessDenied();
@@ -90,8 +91,6 @@ namespace YAF.Pages
             this.PageLinks.AddLink(
                 this.PageContext.PageTopicName,
                 YafBuildLink.GetLink(ForumPages.posts, "t={0}", this.PageContext.PageTopicID));
-
-            this.SendEmail.Text = this.GetText("send");
 
             this.Subject.Text = this.PageContext.PageTopicName;
 
@@ -121,25 +120,15 @@ namespace YAF.Pages
         {
             if (this.EmailAddress.Text.Length == 0)
             {
-                this.PageContext.AddLoadMessage(this.GetText("need_email"));
+                this.PageContext.AddLoadMessage(this.GetText("need_email"), MessageTypes.warning);
                 return;
             }
 
             try
             {
-                string senderEmail;
-
-                using (var dataTable = LegacyDb.user_list(
-                    this.PageContext.PageBoardID,
-                    this.PageContext.PageUserID,
-                    true))
-                {
-                    senderEmail = (string)dataTable.Rows[0]["Email"];
-                }
-
                 // send the email...
                 this.Get<ISendMail>().Send(
-                    senderEmail,
+                    this.PageContext.User.Email,
                     this.EmailAddress.Text.Trim(),
                     this.PageContext.BoardSettings.ForumEmail,
                     this.Subject.Text.Trim(),
@@ -150,7 +139,7 @@ namespace YAF.Pages
             catch (Exception x)
             {
                 this.Logger.Log(this.PageContext.PageUserID, this, x);
-                this.PageContext.AddLoadMessage(this.GetTextFormatted("failed", x.Message));
+                this.PageContext.AddLoadMessage(this.GetTextFormatted("failed", x.Message), MessageTypes.danger);
             }
         }
 

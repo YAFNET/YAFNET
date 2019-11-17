@@ -1,9 +1,9 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -26,24 +26,24 @@ namespace YAF.Pages.Admin
     #region Using
 
     using System;
-    using System.Data;
+    using System.Collections.Generic;
     using System.Linq;
+    using System.Web;
     using System.Web.Security;
     using System.Web.UI.WebControls;
 
-    using YAF.Classes.Data;
-    using YAF.Controls;
     using YAF.Core;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
+    using YAF.Core.UsersRoles;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
-    using YAF.Types.Flags;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
     using YAF.Utils;
     using YAF.Utils.Helpers;
+    using YAF.Web.Extensions;
 
     #endregion
 
@@ -57,18 +57,14 @@ namespace YAF.Pages.Admin
         /// <summary>
         /// Gets or sets the access masks list.
         /// </summary>
-        public DataTable AccessMasksList { get; set; }
+        public IList<AccessMask> AccessMasksList { get; set; }
 
         /// <summary>
-        /// Handles databinding event of initial access maks dropdown control.
+        /// Handles databinding event of initial access masks dropdown control.
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
-        protected void BindData_AccessMaskID([NotNull] object sender, [NotNull] EventArgs e)
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        protected void BindDataAccessMaskId([NotNull] object sender, [NotNull] EventArgs e)
         {
             // We don't change access masks if it's a guest
             if (this.IsGuestX.Checked)
@@ -83,7 +79,7 @@ namespace YAF.Pages.Admin
             c.DataSource = this.AccessMasksList;
 
             // set value and text field names
-            c.DataValueField = "AccessMaskID";
+            c.DataValueField = "ID";
             c.DataTextField = "Name";
         }
 
@@ -96,7 +92,7 @@ namespace YAF.Pages.Admin
         /// <param name="e">
         /// The e.
         /// </param>
-        protected void Cancel_Click([NotNull] object sender, [NotNull] EventArgs e)
+        protected void CancelClick([NotNull] object sender, [NotNull] EventArgs e)
         {
             // go back to roles administration
             YafBuildLink.Redirect(ForumPages.admin_groups);
@@ -111,47 +107,39 @@ namespace YAF.Pages.Admin
             this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
 
             // admin index
-            this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
+            this.PageLinks.AddLink(
+                this.GetText("ADMIN_ADMIN", "Administration"),
+                YafBuildLink.GetLink(ForumPages.admin_admin));
 
-            this.PageLinks.AddLink(this.GetText("ADMIN_GROUPS", "TITLE"), YafBuildLink.GetLink(ForumPages.admin_groups));
+            this.PageLinks.AddLink(
+                this.GetText("ADMIN_GROUPS", "TITLE"),
+                YafBuildLink.GetLink(ForumPages.admin_groups));
 
             // current page label (no link)
             this.PageLinks.AddLink(this.GetText("ADMIN_EDITGROUP", "TITLE"), string.Empty);
 
-            this.Page.Header.Title = "{0} - {1} - {2}".FormatWith(
-               this.GetText("ADMIN_ADMIN", "Administration"), 
-               this.GetText("ADMIN_GROUPS", "TITLE"), 
-               this.GetText("ADMIN_EDITGROUP", "TITLE"));
+            this.Page.Header.Title =
+                $"{this.GetText("ADMIN_ADMIN", "Administration")} - {this.GetText("ADMIN_GROUPS", "TITLE")} - {this.GetText("ADMIN_EDITGROUP", "TITLE")}";
         }
 
         /// <summary>
-        /// Handles page load event.
+        /// Handles the Load event of the Page control.
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            // this needs to be done just once, not during postbacks
+            // this needs to be done just once, not during post-backs
             if (this.IsPostBack)
             {
                 return;
             }
 
-            // create page links
-            this.CreatePageLinks();
-
-            this.Save.Text = this.GetText("COMMON", "SAVE");
-            this.Cancel.Text = this.GetText("COMMON", "CANCEL");
-
             // bind data
             this.BindData();
 
             // is this editing of existing role or creation of new one?
-            if (this.Request.QueryString.GetFirstOrDefault("i") == null)
+            if (!this.Get<HttpRequestBase>().QueryString.Exists("i"))
             {
                 return;
             }
@@ -160,159 +148,154 @@ namespace YAF.Pages.Admin
             this.NewGroupRow.Visible = false;
 
             // get data about edited role
-            using (
-                var dt = this.GetRepository<Group>()
-                    .List(
-                        boardId: this.PageContext.PageBoardID, 
-                        groupID: this.Request.QueryString.GetFirstOrDefaultAs<int>("i")))
+            var row = this.GetRepository<Group>().List(
+                this.Get<HttpRequestBase>().QueryString.GetFirstOrDefaultAs<int>("i"),
+                this.PageContext.PageBoardID).FirstOrDefault();
+
+            // get role flags
+            var flags = row.GroupFlags;
+
+            // set controls to role values
+            this.Name.Text = row.Name;
+
+            this.IsAdminX.Checked = flags.IsAdmin;
+            this.IsAdminX.Enabled = !flags.IsGuest;
+
+            this.IsStartX.Checked = flags.IsStart;
+            this.IsStartX.Enabled = !flags.IsGuest;
+
+            this.IsModeratorX.Checked = flags.IsModerator;
+            this.IsModeratorX.Enabled = !flags.IsGuest;
+
+            this.PMLimit.Text = row.PMLimit.ToString();
+            this.PMLimit.Enabled = !flags.IsGuest;
+
+            this.StyleTextBox.Text = row.Style;
+
+            this.Priority.Text = row.SortOrder.ToString();
+
+            this.UsrAlbums.Text = row.UsrAlbums.ToString();
+            this.UsrAlbums.Enabled = !flags.IsGuest;
+
+            this.UsrAlbumImages.Text = row.UsrAlbumImages.ToString();
+            this.UsrAlbumImages.Enabled = !flags.IsGuest;
+
+            this.UsrSigChars.Text = row.UsrSigChars.ToString();
+            this.UsrSigChars.Enabled = !flags.IsGuest;
+
+            this.UsrSigBBCodes.Text = row.UsrSigBBCodes;
+            this.UsrSigBBCodes.Enabled = !flags.IsGuest;
+
+            this.UsrSigHTMLTags.Text = row.UsrSigHTMLTags;
+            this.UsrSigHTMLTags.Enabled = !flags.IsGuest;
+
+            this.Description.Text = row.Description;
+
+            this.IsGuestX.Checked = flags.IsGuest;
+
+            // IsGuest flag can be set for only one role. if it isn't for this, disable that row
+            if (flags.IsGuest)
             {
-                // get it as row
-                var row = dt.Rows[0];
-
-                // get role flags
-                var flags = new GroupFlags(row["Flags"]);
-
-                // set controls to role values
-                this.Name.Text = (string)row["Name"];
-
-                this.IsAdminX.Checked = flags.IsAdmin;
-                this.IsAdminX.Enabled = !flags.IsGuest;
-
-                this.IsStartX.Checked = flags.IsStart;
-                this.IsStartX.Enabled = !flags.IsGuest;
-
-                this.IsModeratorX.Checked = flags.IsModerator;
-                this.IsModeratorX.Enabled = !flags.IsGuest;
-
-                this.PMLimit.Text = row["PMLimit"].ToString();
-                this.PMLimit.Enabled = !flags.IsGuest;
-
-                this.StyleTextBox.Text = row["Style"].ToString();
-
-                this.Priority.Text = row["SortOrder"].ToString();
-
-                this.UsrAlbums.Text = row["UsrAlbums"].ToString();
-                this.UsrAlbums.Enabled = !flags.IsGuest;
-
-                this.UsrAlbumImages.Text = row["UsrAlbumImages"].ToString();
-                this.UsrAlbumImages.Enabled = !flags.IsGuest;
-
-                this.UsrSigChars.Text = row["UsrSigChars"].ToString();
-                this.UsrSigChars.Enabled = !flags.IsGuest;
-
-                this.UsrSigBBCodes.Text = row["UsrSigBBCodes"].ToString();
-                this.UsrSigBBCodes.Enabled = !flags.IsGuest;
-
-                this.UsrSigHTMLTags.Text = row["UsrSigHTMLTags"].ToString();
-                this.UsrSigHTMLTags.Enabled = !flags.IsGuest;
-
-                this.Description.Text = row["Description"].ToString();
-
-                this.IsGuestX.Checked = flags.IsGuest;
-
-                // IsGuest flag can be set for only one role. if it isn't for this, disable that row
-                if (flags.IsGuest)
-                {
-                    this.IsGuestTR.Visible = true;
-                    this.IsGuestX.Enabled = !flags.IsGuest;
-                    this.AccessList.Visible = false;
-                }
+                this.IsGuestTR.Visible = true;
+                this.IsGuestX.Enabled = !flags.IsGuest;
+                this.AccessList.Visible = false;
             }
         }
 
         /// <summary>
-        /// Handles click on save button.
+        /// Saves the click.
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
-        protected void Save_Click([NotNull] object sender, [NotNull] EventArgs e)
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        protected void SaveClick([NotNull] object sender, [NotNull] EventArgs e)
         {
             if (!ValidationHelper.IsValidInt(this.PMLimit.Text.Trim()))
             {
-                this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITGROUP", "MSG_VALID_NUMBER"));
+                this.PageContext.AddLoadMessage(
+                    this.GetText("ADMIN_EDITGROUP", "MSG_VALID_NUMBER"),
+                    MessageTypes.warning);
                 return;
             }
 
             if (!ValidationHelper.IsValidInt(this.Priority.Text.Trim()))
             {
-                this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITGROUP", "MSG_INTEGER"));
+                this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITGROUP", "MSG_INTEGER"), MessageTypes.warning);
                 return;
             }
 
             if (!ValidationHelper.IsValidInt(this.UsrAlbums.Text.Trim()))
             {
-                this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITGROUP", "MSG_ALBUM_NUMBER"));
+                this.PageContext.AddLoadMessage(
+                    this.GetText("ADMIN_EDITGROUP", "MSG_ALBUM_NUMBER"),
+                    MessageTypes.warning);
                 return;
             }
 
             if (!ValidationHelper.IsValidInt(this.UsrSigChars.Text.Trim()))
             {
-                this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITGROUP", "MSG_SIG_NUMBER"));
+                this.PageContext.AddLoadMessage(
+                    this.GetText("ADMIN_EDITGROUP", "MSG_SIG_NUMBER"),
+                    MessageTypes.warning);
                 return;
             }
 
             if (!ValidationHelper.IsValidInt(this.UsrAlbumImages.Text.Trim()))
             {
-                this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITGROUP", "MSG_TOTAL_NUMBER"));
+                this.PageContext.AddLoadMessage(
+                    this.GetText("ADMIN_EDITGROUP", "MSG_TOTAL_NUMBER"),
+                    MessageTypes.warning);
                 return;
             }
 
             // Role
-            long roleID = 0;
+            long roleId = 0;
 
             // get role ID from page's parameter
-            if (this.Request.QueryString.GetFirstOrDefault("i") != null)
+            if (this.Get<HttpRequestBase>().QueryString.Exists("i"))
             {
-                roleID = long.Parse(this.Request.QueryString.GetFirstOrDefault("i"));
+                roleId = long.Parse(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("i"));
             }
 
             // get new and old name
             var roleName = this.Name.Text.Trim();
             var oldRoleName = string.Empty;
 
-            // if we are editing exising role, get it's original name
-            if (roleID != 0)
+            // if we are editing existing role, get it's original name
+            if (roleId != 0)
             {
                 // get the current role name in the DB
-                using (var dt = this.GetRepository<Group>().List(boardId: this.PageContext.PageBoardID))
-                {
-                    foreach (DataRow row in dt.Rows)
-                    {
-                        oldRoleName = row["Name"].ToString();
-                    }
-                }
+                var groups = this.GetRepository<Group>().List(boardId: this.PageContext.PageBoardID);
+
+                groups.ForEach(group => oldRoleName = @group.Name);
             }
 
             // save role and get its ID if it's new (if it's old role, we get it anyway)
-            roleID = LegacyDb.group_save(
-              roleID, 
-              this.PageContext.PageBoardID, 
-              roleName, 
-              this.IsAdminX.Checked, 
-              this.IsGuestX.Checked, 
-              this.IsStartX.Checked, 
-              this.IsModeratorX.Checked, 
-              this.AccessMaskID.SelectedValue, 
-              this.PMLimit.Text.Trim(), 
-              this.StyleTextBox.Text.Trim(), 
-              this.Priority.Text.Trim(), 
-              this.Description.Text, 
-              this.UsrSigChars.Text, 
-              this.UsrSigBBCodes.Text, 
-              this.UsrSigHTMLTags.Text, 
-              this.UsrAlbums.Text.Trim(), 
-              this.UsrAlbumImages.Text.Trim());
+            roleId = this.GetRepository<Group>().Save(
+                roleId,
+                this.PageContext.PageBoardID,
+                roleName,
+                this.IsAdminX.Checked,
+                this.IsGuestX.Checked,
+                this.IsStartX.Checked,
+                this.IsModeratorX.Checked,
+                this.AccessMaskID.SelectedValue,
+                this.PMLimit.Text.Trim(),
+                this.StyleTextBox.Text.Trim(),
+                this.Priority.Text.Trim(),
+                this.Description.Text,
+                this.UsrSigChars.Text,
+                this.UsrSigBBCodes.Text,
+                this.UsrSigHTMLTags.Text,
+                this.UsrAlbums.Text.Trim(),
+                this.UsrAlbumImages.Text.Trim());
 
             // empty out access table(s)
             this.GetRepository<Active>().DeleteAll();
             this.GetRepository<ActiveAccess>().DeleteAll();
 
             // see if need to rename an existing role...
-            if (oldRoleName.IsSet() && roleName != oldRoleName && RoleMembershipHelper.RoleExists(oldRoleName) && !RoleMembershipHelper.RoleExists(roleName) && !this.IsGuestX.Checked)
+            if (oldRoleName.IsSet() && roleName != oldRoleName && RoleMembershipHelper.RoleExists(oldRoleName)
+                && !RoleMembershipHelper.RoleExists(roleName) && !this.IsGuestX.Checked)
             {
                 // transfer users in addition to changing the name of the role...
                 var users = this.Get<RoleProvider>().GetUsersInRole(oldRoleName);
@@ -338,23 +321,23 @@ namespace YAF.Pages.Admin
             }
 
             // Access masks for a newly created or an existing role
-            if (this.Request.QueryString.GetFirstOrDefault("i") != null)
+            if (this.Get<HttpRequestBase>().QueryString.Exists("i"))
             {
-                    // go trhough all forums
-                    for (var i = 0; i < this.AccessList.Items.Count; i++)
-                    {
-                        // get current repeater item
-                        var item = this.AccessList.Items[i];
+                // go through all forums
+                for (var i = 0; i < this.AccessList.Items.Count; i++)
+                {
+                    // get current repeater item
+                    var item = this.AccessList.Items[i];
 
-                        // get forum ID
-                        var forumID = int.Parse(((Label)item.FindControl("ForumID")).Text);
+                    // get forum ID
+                    var forumId = int.Parse(item.FindControlAs<Label>("ForumID").Text);
 
-                        // save forum access maks for this role
-                        LegacyDb.forumaccess_save(
-                            forumID,
-                            roleID,
-                            ((DropDownList)item.FindControl("AccessmaskID")).SelectedValue);
-                    }
+                    // save forum access masks for this role
+                    this.GetRepository<ForumAccess>().Save(
+                        forumId,
+                        roleId.ToType<int>(),
+                        item.FindControlAs<DropDownList>("AccessmaskID").SelectedValue.ToType<int>());
+                }
 
                 YafBuildLink.Redirect(ForumPages.admin_groups);
             }
@@ -363,13 +346,14 @@ namespace YAF.Pages.Admin
             this.Get<IDataCache>().Remove(Constants.Cache.ForumModerators);
 
             // Clearing cache with old permissions data...
-            this.Get<IDataCache>().Remove(k => k.StartsWith(Constants.Cache.ActiveUserLazyData.FormatWith(string.Empty)));
+            this.Get<IDataCache>().Remove(
+                k => k.StartsWith(string.Format(Constants.Cache.ActiveUserLazyData, string.Empty)));
 
             // Clear Styling Caching
             this.Get<IDataCache>().Remove(Constants.Cache.GroupRankStyles);
 
             // Done, redirect to role editing page
-            YafBuildLink.Redirect(ForumPages.admin_editgroup, "i={0}", roleID);
+            YafBuildLink.Redirect(ForumPages.admin_editgroup, "i={0}", roleId);
         }
 
         /// <summary>
@@ -401,13 +385,14 @@ namespace YAF.Pages.Admin
         /// </summary>
         private void BindData()
         {
-            // set datasource of access list (list of forums and role's access masks) if we are editing existing mask
-            if (this.Request.QueryString.GetFirstOrDefault("i") != null)
+            // set data source of access list (list of forums and role's access masks) if we are editing existing mask
+            if (this.Get<HttpRequestBase>().QueryString.Exists("i"))
             {
-                this.AccessList.DataSource = LegacyDb.forumaccess_group(this.Request.QueryString.GetFirstOrDefault("i"));
+                this.AccessList.DataSource = this.GetRepository<ForumAccess>()
+                    .GroupAsDataTable(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefaultAs<int>("i"));
             }
 
-            this.AccessMasksList = this.GetRepository<AccessMask>().List();
+            this.AccessMasksList = this.GetRepository<AccessMask>().GetByBoardId();
 
             // bind data to controls
             this.DataBind();

@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -145,22 +145,36 @@ namespace YAF.Types.Interfaces
         /// </summary>
         /// <param name="user">The user.</param>
         /// <param name="email">The email.</param>
-        /// <param name="userID">The user identifier.</param>
+        /// <param name="userId">The user identifier.</param>
         /// <param name="newUsername">The new username.</param>
         void SendVerificationEmail(
             [NotNull] MembershipUser user,
             [NotNull] string email,
-            int? userID,
+            int? userId,
             string newUsername = null);
 
         /// <summary>
-        /// Sends the user a suspension notification.
+        /// Send Email Verification to changed Email Address
         /// </summary>
-        /// <param name="suspendedUntil">The suspended until.</param>
-        /// <param name="suspendReason">The suspend reason.</param>
-        /// <param name="email">The email.</param>
-        /// <param name="userName">Name of the user.</param>
-        void SendUserSuspensionNotification(
+        /// <param name="newEmail">
+        /// The new email.
+        /// </param>
+        /// <param name="userId">
+        /// The user Id.
+        /// </param>
+        /// <param name="userName">
+        /// The user Name.
+        /// </param>
+        void SendEmailChangeVerification([NotNull] string newEmail, [NotNull] int userId, string userName);
+
+        /// <summary>
+            /// Sends the user a suspension notification.
+            /// </summary>
+            /// <param name="suspendedUntil">The suspended until.</param>
+            /// <param name="suspendReason">The suspend reason.</param>
+            /// <param name="email">The email.</param>
+            /// <param name="userName">Name of the user.</param>
+            void SendUserSuspensionNotification(
             [NotNull] DateTime suspendedUntil,
             [NotNull] string suspendReason,
             [NotNull] string email,

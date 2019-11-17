@@ -1,0 +1,62 @@
+﻿using YAF.Lucene.Net.Analysis.Util;
+using YAF.Lucene.Net.Support;
+using System;
+using System.Collections.Generic;
+using System.Text.RegularExpressions;
+
+namespace YAF.Lucene.Net.Analysis.Pattern
+{
+    /*
+	 * Licensed to the Apache Software Foundation (ASF) under one or more
+	 * contributor license agreements.  See the NOTICE file distributed with
+	 * this work for additional information regarding copyright ownership.
+	 * The ASF licenses this file to You under the Apache License, Version 2.0
+	 * (the "License"); you may not use this file except in compliance with
+	 * the License.  You may obtain a copy of the License at
+	 *
+	 *     http://www.apache.org/licenses/LICENSE-2.0
+	 *
+	 * Unless required by applicable law or agreed to in writing, software
+	 * distributed under the License is distributed on an "AS IS" BASIS,
+	 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+	 * See the License for the specific language governing permissions and
+	 * limitations under the License.
+	 */
+
+    /// <summary>
+    /// Factory for <see cref="PatternReplaceFilter"/>. 
+    /// <code>
+    /// &lt;fieldType name="text_ptnreplace" class="solr.TextField" positionIncrementGap="100"&gt;
+    ///   &lt;analyzer&gt;
+    ///     &lt;tokenizer class="solr.KeywordTokenizerFactory"/&gt;
+    ///     &lt;filter class="solr.PatternReplaceFilterFactory" pattern="([^a-z])" replacement=""
+    ///             replace="all"/&gt;
+    ///   &lt;/analyzer&gt;
+    /// &lt;/fieldType&gt;</code>
+    /// </summary>
+    /// <seealso cref="PatternReplaceFilter"/>
+    public class PatternReplaceFilterFactory : TokenFilterFactory
+    {
+        private readonly Regex pattern;
+        private readonly string replacement;
+        private readonly bool replaceAll;
+
+        /// <summary>
+        /// Creates a new <see cref="PatternReplaceFilterFactory"/> </summary>
+        public PatternReplaceFilterFactory(IDictionary<string, string> args) : base(args)
+        {
+            pattern = GetPattern(args, "pattern");
+            replacement = Get(args, "replacement");
+            replaceAll = "all".Equals(Get(args, "replace", Arrays.AsList("all", "first"), "all"), StringComparison.Ordinal);
+            if (args.Count > 0)
+            {
+                throw new System.ArgumentException("Unknown parameters: " + args);
+            }
+        }
+
+        public override TokenStream Create(TokenStream input)
+        {
+            return new PatternReplaceFilter(input, pattern, replacement, replaceAll);
+        }
+    }
+}

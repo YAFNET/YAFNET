@@ -8,10 +8,13 @@
 //------------------------------------------------------------------------------
 
 namespace YAF.Pages {
-    
-    
+    using System.Web.UI.WebControls;
+
+    using YAF.Web.Controls;
+
     public partial class polledit {
         
+
         /// <summary>
         /// PageLinks control.
         /// </summary>
@@ -19,17 +22,19 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.PageLinks PageLinks;
+        protected PageLinks PageLinks;
         
+
         /// <summary>
-        /// PollNameLabel control.
+        /// LocalizedLabel4 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel PollNameLabel;
+        protected LocalizedLabel LocalizedLabel4;
         
+
         /// <summary>
         /// PollRow1 control.
         /// </summary>
@@ -37,8 +42,9 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableRow PollRow1;
+        protected PlaceHolder PollRow1;
         
+
         /// <summary>
         /// LocalizedLabel1 control.
         /// </summary>
@@ -46,8 +52,9 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel1;
+        protected LocalizedLabel LocalizedLabel1;
         
+
         /// <summary>
         /// Question control.
         /// </summary>
@@ -55,8 +62,9 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox Question;
+        protected TextBox Question;
         
+
         /// <summary>
         /// PollObjectRow1 control.
         /// </summary>
@@ -64,8 +72,9 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableRow PollObjectRow1;
+        protected PlaceHolder PollObjectRow1;
         
+
         /// <summary>
         /// PollQuestionObjectLabel control.
         /// </summary>
@@ -73,8 +82,9 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel PollQuestionObjectLabel;
+        protected LocalizedLabel PollQuestionObjectLabel;
         
+
         /// <summary>
         /// QuestionObjectPath control.
         /// </summary>
@@ -82,8 +92,9 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox QuestionObjectPath;
+        protected TextBox QuestionObjectPath;
         
+
         /// <summary>
         /// ChoiceRepeater control.
         /// </summary>
@@ -91,8 +102,9 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater ChoiceRepeater;
+        protected Repeater ChoiceRepeater;
         
+
         /// <summary>
         /// tr_AllowMultipleChoices control.
         /// </summary>
@@ -100,17 +112,9 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableRow tr_AllowMultipleChoices;
+        protected PlaceHolder tr_AllowMultipleChoices;
         
-        /// <summary>
-        /// AllowMultipleChoicesLabel control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel AllowMultipleChoicesLabel;
-        
+
         /// <summary>
         /// AllowMultipleChoicesCheckBox control.
         /// </summary>
@@ -118,8 +122,19 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox AllowMultipleChoicesCheckBox;
+        protected CheckBox AllowMultipleChoicesCheckBox;
         
+
+        /// <summary>
+        /// AllowMultipleChoicesLabel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected LocalizedLabel AllowMultipleChoicesLabel;
+        
+
         /// <summary>
         /// tr_AllowSkipVote control.
         /// </summary>
@@ -127,17 +142,9 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableRow tr_AllowSkipVote;
+        protected PlaceHolder tr_AllowSkipVote;
         
-        /// <summary>
-        /// AllowSkipVoteLocalizedLabel control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel AllowSkipVoteLocalizedLabel;
-        
+
         /// <summary>
         /// AllowSkipVoteCheckBox control.
         /// </summary>
@@ -145,8 +152,19 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox AllowSkipVoteCheckBox;
+        protected CheckBox AllowSkipVoteCheckBox;
         
+
+        /// <summary>
+        /// AllowSkipVoteLocalizedLabel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected LocalizedLabel AllowSkipVoteLocalizedLabel;
+        
+
         /// <summary>
         /// tr_ShowVoters control.
         /// </summary>
@@ -154,17 +172,9 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableRow tr_ShowVoters;
+        protected PlaceHolder tr_ShowVoters;
         
-        /// <summary>
-        /// ShowVotersLocalizedLabel control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel ShowVotersLocalizedLabel;
-        
+
         /// <summary>
         /// ShowVotersCheckBox control.
         /// </summary>
@@ -172,8 +182,19 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox ShowVotersCheckBox;
+        protected CheckBox ShowVotersCheckBox;
         
+
+        /// <summary>
+        /// ShowVotersLocalizedLabel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected LocalizedLabel ShowVotersLocalizedLabel;
+        
+
         /// <summary>
         /// PollRowExpire control.
         /// </summary>
@@ -181,8 +202,9 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableRow PollRowExpire;
+        protected PlaceHolder PollRowExpire;
         
+
         /// <summary>
         /// LocalizedLabel2 control.
         /// </summary>
@@ -190,8 +212,9 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel2;
+        protected LocalizedLabel LocalizedLabel2;
         
+
         /// <summary>
         /// PollExpire control.
         /// </summary>
@@ -199,8 +222,9 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox PollExpire;
+        protected TextBox PollExpire;
         
+
         /// <summary>
         /// LocalizedLabel3 control.
         /// </summary>
@@ -208,8 +232,9 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LocalizedLabel3;
+        protected LocalizedLabel LocalizedLabel3;
         
+
         /// <summary>
         /// IsBound control.
         /// </summary>
@@ -217,17 +242,9 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableRow IsBound;
+        protected PlaceHolder IsBound;
         
-        /// <summary>
-        /// IsBoundLabel control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel IsBoundLabel;
-        
+
         /// <summary>
         /// IsBoundCheckBox control.
         /// </summary>
@@ -235,8 +252,19 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox IsBoundCheckBox;
+        protected CheckBox IsBoundCheckBox;
         
+
+        /// <summary>
+        /// IsBoundLabel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected LocalizedLabel IsBoundLabel;
+        
+
         /// <summary>
         /// IsClosedBound control.
         /// </summary>
@@ -244,26 +272,9 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableRow IsClosedBound;
+        protected PlaceHolder IsClosedBound;
         
-        /// <summary>
-        /// IsClosedBoundLabel control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel IsClosedBoundLabel;
-        
-        /// <summary>
-        /// IsClosedBoundExplainLabel control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel IsClosedBoundExplainLabel;
-        
+
         /// <summary>
         /// IsClosedBoundCheckBox control.
         /// </summary>
@@ -271,8 +282,29 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox IsClosedBoundCheckBox;
+        protected CheckBox IsClosedBoundCheckBox;
         
+
+        /// <summary>
+        /// IsClosedBoundLabel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected LocalizedLabel IsClosedBoundLabel;
+        
+
+        /// <summary>
+        /// IsClosedBoundExplainLabel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected LocalizedLabel IsClosedBoundExplainLabel;
+        
+
         /// <summary>
         /// PollGroupList control.
         /// </summary>
@@ -280,8 +312,9 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableRow PollGroupList;
+        protected PlaceHolder PollGroupList;
         
+
         /// <summary>
         /// PollGroupListLabel control.
         /// </summary>
@@ -289,8 +322,9 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel PollGroupListLabel;
+        protected LocalizedLabel PollGroupListLabel;
         
+
         /// <summary>
         /// PollGroupListDropDown control.
         /// </summary>
@@ -298,8 +332,9 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList PollGroupListDropDown;
+        protected DropDownList PollGroupListDropDown;
         
+
         /// <summary>
         /// SavePoll control.
         /// </summary>
@@ -307,8 +342,9 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.ThemeButton SavePoll;
+        protected ThemeButton SavePoll;
         
+
         /// <summary>
         /// Cancel control.
         /// </summary>
@@ -316,6 +352,6 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.ThemeButton Cancel;
+        protected ThemeButton Cancel;
     }
 }

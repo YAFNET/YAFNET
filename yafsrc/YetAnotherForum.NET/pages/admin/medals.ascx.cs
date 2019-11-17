@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -27,13 +27,13 @@ namespace YAF.Pages.Admin
     #region Using
 
     using System;
-    using System.Data;
+    using System.Linq;
     using System.Text;
     using System.Web.UI.WebControls;
 
-    using YAF.Classes;
-    using YAF.Controls;
+    using YAF.Configuration;
     using YAF.Core;
+    using YAF.Core.Extensions;
     using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;
@@ -41,12 +41,12 @@ namespace YAF.Pages.Admin
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
     using YAF.Utils;
-    using YAF.Utils.Helpers;
+    using YAF.Web.Extensions;
 
     #endregion
 
     /// <summary>
-    /// Administration inferface for managing medals.
+    /// Administration Page for managing medals.
     /// </summary>
     public partial class medals : AdminPage
     {
@@ -80,19 +80,8 @@ namespace YAF.Pages.Admin
             // current page label (no link)
             this.PageLinks.AddLink(this.GetText("ADMIN_MEDALS", "TITLE"), string.Empty);
 
-            this.Page.Header.Title = "{0} - {1}".FormatWith(
-                this.GetText("ADMIN_ADMIN", "Administration"), this.GetText("ADMIN_MEDALS", "TITLE"));
-        }
-
-        /// <summary>
-        /// Handles on load event for delete button.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        protected void Delete_Load([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            ((ThemeButton)sender).Attributes["onclick"] =
-                "return confirm('{0}')".FormatWith(this.GetText("ADMIN_MEDALS", "CONFIRM_DELETE"));
+            this.Page.Header.Title =
+                $"{this.GetText("ADMIN_ADMIN", "Administration")} - {this.GetText("ADMIN_MEDALS", "TITLE")}";
         }
 
         /// <summary>
@@ -100,7 +89,7 @@ namespace YAF.Pages.Admin
         /// </summary>
         /// <param name="source">The source of the event.</param>
         /// <param name="e">The <see cref="System.Web.UI.WebControls.RepeaterCommandEventArgs"/> instance containing the event data.</param>
-        protected void MedalList_ItemCommand([NotNull] object source, [NotNull] RepeaterCommandEventArgs e)
+        protected void MedalListItemCommand([NotNull] object source, [NotNull] RepeaterCommandEventArgs e)
         {
             switch (e.CommandName)
             {
@@ -132,7 +121,7 @@ namespace YAF.Pages.Admin
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        protected void NewMedal_Click([NotNull] object sender, [NotNull] EventArgs e)
+        protected void NewMedalClick([NotNull] object sender, [NotNull] EventArgs e)
         {
             // redirect to medal edit page
             YafBuildLink.Redirect(ForumPages.admin_editmedal);
@@ -145,16 +134,11 @@ namespace YAF.Pages.Admin
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            // this needs to be done just once, not during postbacks
+            // this needs to be done just once, not during post-backs
             if (this.IsPostBack)
             {
                 return;
             }
-
-            // create page links
-            this.CreatePageLinks();
-
-            this.NewMedal.Text = this.GetText("ADMIN_MEDALS", "NEW_MEDAL");
 
             // bind data
             this.BindData();
@@ -174,27 +158,27 @@ namespace YAF.Pages.Admin
         {
             var output = new StringBuilder(250);
 
-            var dr = (DataRowView)data;
+            var medal = (Medal)data;
 
             // image of medal
             output.AppendFormat(
                 "<img src=\"{0}{5}/{1}\" width=\"{2}\" height=\"{3}\" alt=\"{4}\" align=\"top\" />",
                 YafForumInfo.ForumClientFileRoot,
-                dr["SmallMedalURL"],
-                dr["SmallMedalWidth"],
-                dr["SmallMedalHeight"],
+                medal.SmallMedalURL,
+                medal.SmallMedalWidth,
+                medal.SmallMedalHeight,
                 this.GetText("ADMIN_MEDALS", "DISPLAY_BOX"),
                 YafBoardFolders.Current.Medals);
 
             // if available, create also ribbon bar image of medal
-            if (!dr["SmallRibbonURL"].IsNullOrEmptyDBField())
+            if (medal.SmallRibbonURL.IsSet())
             {
                 output.AppendFormat(
                     " &nbsp; <img src=\"{0}{5}/{1}\" width=\"{2}\" height=\"{3}\" alt=\"{4}\" align=\"top\" />",
                     YafForumInfo.ForumClientFileRoot,
-                    dr["SmallRibbonURL"],
-                    dr["SmallRibbonWidth"],
-                    dr["SmallRibbonHeight"],
+                    medal.SmallRibbonURL,
+                    medal.SmallRibbonWidth,
+                    medal.SmallRibbonHeight,
                     this.GetText("ADMIN_MEDALS", "DISPLAY_RIBBON"),
                     YafBoardFolders.Current.Medals);
             }
@@ -208,7 +192,8 @@ namespace YAF.Pages.Admin
         private void BindData()
         {
             // list medals for this board
-            this.MedalList.DataSource = this.GetRepository<Medal>().List();
+            this.MedalList.DataSource = this.GetRepository<Medal>().Get(m => m.BoardID == this.PageContext.PageBoardID)
+                .OrderBy(m => m.Category).ThenBy(m => m.SortOrder);
 
             // bind data to controls
             this.DataBind();

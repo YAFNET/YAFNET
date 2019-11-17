@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -21,7 +21,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Core
+namespace YAF.Core.BaseModules
 {
   #region Using
 
@@ -29,7 +29,6 @@ namespace YAF.Core
   using YAF.Types.Attributes;
   using YAF.Types.Extensions;
   using YAF.Types.Interfaces;
-  using YAF.Utils;
 
   #endregion
 
@@ -43,27 +42,15 @@ namespace YAF.Core
     /// <summary>
     ///   Gets a value indicating whether Active.
     /// </summary>
-    public virtual bool Active
-    {
-      get
-      {
-        return true;
-      }
-    }
+    public virtual bool Active => true;
 
     /// <summary>
     ///   Gets Description.
     /// </summary>
-    public virtual string Description
-    {
-      get
-      {
-        return this.GetType().GetAttribute<YafModule>().ModuleName;
-      }
-    }
+    public virtual string Description => this.GetType().GetAttribute<YafModule>().ModuleName;
 
     /// <summary>
-    ///   Gets or sets ForumControlObj.
+    ///   Gets or sets Forum Control Object.
     /// </summary>
     public virtual object ForumControlObj { get; set; }
 
@@ -71,46 +58,22 @@ namespace YAF.Core
     ///   Gets ModuleId.
     /// </summary>
     [NotNull]
-    public virtual string ModuleId
-    {
-      get
-      {
-        return this.Description.GetHashCode().ToString();
-      }
-    }
+    public virtual string ModuleId => this.Description.GetHashCode().ToString();
 
     /// <summary>
     /// Gets PageContext.
     /// </summary>
-    public YafContext PageContext
-    {
-      get
-      {
-        return YafContext.Current;
-      }
-    }
+    public YafContext PageContext => YafContext.Current;
 
     /// <summary>
     ///   Gets ServiceLocator.
     /// </summary>
-    public virtual IServiceLocator ServiceLocator
-    {
-      get
-      {
-        return YafContext.Current.ServiceLocator;
-      }
-    }
+    public virtual IServiceLocator ServiceLocator => YafContext.Current.ServiceLocator;
 
     /// <summary>
     ///   Gets ServiceLocator.
     /// </summary>
-    public virtual ILocalization Localization
-    {
-      get
-      {
-        return this.Get<ILocalization>();
-      }
-    }
+    public virtual ILocalization Localization => this.Get<ILocalization>();
 
     #endregion
 

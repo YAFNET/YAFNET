@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -22,7 +22,7 @@
  * under the License.
  */
 
-namespace YAF.Core
+namespace YAF.Core.Extensions
 {
     #region Using
 
@@ -33,6 +33,7 @@ namespace YAF.Core
 
     using YAF.Types;
     using YAF.Types.Attributes;
+    using YAF.Types.Extensions;
 
     #endregion
 
@@ -43,6 +44,17 @@ namespace YAF.Core
     {
         #region Public Methods and Operators
 
+        /// <summary>
+        /// The find classes with attribute.
+        /// </summary>
+        /// <param name="assemblies">
+        /// The assemblies.
+        /// </param>
+        /// <typeparam name="T">
+        /// </typeparam>
+        /// <returns>
+        /// The <see cref="IEnumerable"/>.
+        /// </returns>
         [NotNull]
         public static IEnumerable<Type> FindClassesWithAttribute<T>([NotNull] this IEnumerable<Assembly> assemblies)
             where T : Attribute
@@ -53,75 +65,10 @@ namespace YAF.Core
             var attributeType = typeof(T);
 
             // get classes...
-            foreach (
-                var types in
-                    assemblies.Select(
-                        a =>
-                        a.GetExportedTypes().Where(t => !t.IsAbstract && t.GetCustomAttributes(attributeType, true).Any()).ToList()))
-            {
-                moduleClassTypes.AddRange(types);
-            }
-
-            return moduleClassTypes.Distinct();
-        }
-
-        [NotNull]
-        public static IEnumerable<Type> FindModules<T>([NotNull] this IEnumerable<Assembly> assemblies)
-        {
-            CodeContracts.VerifyNotNull(assemblies, "assemblies");
-
-            var moduleClassTypes = new List<Type>();
-            var implementedInterfaceType = typeof(T);
-
-            // get classes...
-            foreach (
-                var types in
-                    assemblies.Select(
-                        a =>
-                        a.GetExportedTypes().Where(t => !t.IsAbstract).ToList()))
-            {
-                moduleClassTypes.AddRange(types.Where(implementedInterfaceType.IsAssignableFrom));
-            }
-
-            return moduleClassTypes.Distinct();
-        }
-
-        /// <summary>
-        ///     The find modules.
-        /// </summary>
-        /// <param name="assemblies">
-        ///     The assemblies.
-        /// </param>
-        /// <param name="namespaceName">
-        ///     The module namespace.
-        /// </param>
-        /// <param name="implementedInterfaceName">
-        ///     The module base interface.
-        /// </param>
-        /// <returns>
-        /// </returns>
-        [NotNull]
-        public static IEnumerable<Type> FindModules(
-            [NotNull] this IEnumerable<Assembly> assemblies,
-            [NotNull] string namespaceName,
-            [NotNull] string implementedInterfaceName)
-        {
-            CodeContracts.VerifyNotNull(assemblies, "assemblies");
-            CodeContracts.VerifyNotNull(namespaceName, "namespaceName");
-            CodeContracts.VerifyNotNull(implementedInterfaceName, "implementedInterfaceName");
-
-            var moduleClassTypes = new List<Type>();
-            var implementedInterfaceType = Type.GetType(implementedInterfaceName);
-
-            // get classes...
-            foreach (var types in assemblies.OfType<Assembly>().Select(
-                        a =>
-                        a.GetExportedTypes().Where(t => t.Namespace != null && !t.IsAbstract && t.Namespace.Equals(namespaceName))
-                            .ToList()))
-            {
-                moduleClassTypes.AddRange(types.Where(implementedInterfaceType.IsAssignableFrom));
-            }
-
+            assemblies.Select(
+                a => a.GetExportedTypes().Where(t => !t.IsAbstract && t.GetCustomAttributes(attributeType, true).Any())
+                    .ToList()).ForEach(types => { moduleClassTypes.AddRange(types); });
+            
             return moduleClassTypes.Distinct();
         }
 

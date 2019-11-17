@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -25,13 +25,12 @@ namespace YAF.Core
 {
     using System.Web;
 
-    using YAF.Classes;
+    using YAF.Configuration;
     using YAF.Types;
     using YAF.Types.Attributes;
     using YAF.Types.EventProxies;
-    using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Utils;
+    using YAF.Types.Interfaces.Events;
     using YAF.Utils.Helpers;
 
     /// <summary>
@@ -70,13 +69,7 @@ namespace YAF.Core
         /// <summary>
         ///   Gets Order.
         /// </summary>
-        public int Order
-        {
-            get
-            {
-                return 10;
-            }
-        }
+        public int Order => 10;
 
         /// <summary>
         ///   Gets or sets ServiceLocator.
@@ -95,17 +88,12 @@ namespace YAF.Core
         /// <param name="event">The @event.</param>
         public void Handle([NotNull] InitPageLoadEvent @event)
         {
-            var browser = "{0} {1}".FormatWith(
-                this.HttpRequestBase.Browser.Browser, this.HttpRequestBase.Browser.Version);
+            var browser = $"{this.HttpRequestBase.Browser.Browser} {this.HttpRequestBase.Browser.Version}";
             var platform = this.HttpRequestBase.Browser.Platform;
-
-            bool isSearchEngine;
-            bool dontTrack;
 
             var userAgent = this.HttpRequestBase.UserAgent;
 
-            var isMobileDevice = UserAgentHelper.IsMobileDevice(userAgent)
-                                  || this.HttpRequestBase.Browser.IsMobileDevice;
+            var isMobileDevice = UserAgentHelper.IsMobileDevice(this.HttpRequestBase);
 
             // try and get more verbose platform name by ref and other parameters             
             UserAgentHelper.Platform(
@@ -113,8 +101,8 @@ namespace YAF.Core
                 this.HttpRequestBase.Browser.Crawler,
                 ref platform,
                 ref browser,
-                out isSearchEngine,
-                out dontTrack);
+                out var isSearchEngine,
+                out var dontTrack);
 
             dontTrack = !this.Get<YafBoardSettings>().ShowCrawlersInActiveList && isSearchEngine;
 

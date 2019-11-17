@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -77,13 +77,7 @@ namespace YAF.Core.BBCode
     /// <summary>
     ///   Gets ReplacementDictionary.
     /// </summary>
-    public Dictionary<int, string> ReplacementDictionary
-    {
-      get
-      {
-        return this._replacementDictionary;
-      }
-    }
+    public Dictionary<int, string> ReplacementDictionary => this._replacementDictionary;
 
     #endregion
 
@@ -115,7 +109,7 @@ namespace YAF.Core.BBCode
     /// </returns>
     public string Get(int index)
     {
-      return this._replaceFormat.FormatWith(index, this._randomInstance);
+      return string.Format(this._replaceFormat, index, this._randomInstance);
     }
 
     /// <summary>
@@ -135,14 +129,12 @@ namespace YAF.Core.BBCode
     /// </param>
     public void Reconstruct(ref string text)
     {
-      var sb = new StringBuilder(text);
+        var sb = new StringBuilder(text);
 
-      foreach (int index in this._replacementDictionary.Keys)
-      {
-        sb.Replace(this.Get(index), this._replacementDictionary[index]);
-      }
+        this._replacementDictionary.Keys.ForEach(
+            index => sb.Replace(this.Get(index), this._replacementDictionary[index]));
 
-      text = sb.ToString();
+        text = sb.ToString();
     }
 
     #endregion

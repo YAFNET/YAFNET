@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -25,11 +25,8 @@ namespace YAF.Core.Model
 {
     using System;
     using System.Collections.Generic;
-    using System.Data;
 
-    using Omu.ValueInjecter;
-
-    using YAF.Core.Data;
+    using YAF.Core.Extensions;
     using YAF.Types;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
@@ -149,17 +146,20 @@ namespace YAF.Core.Model
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
-            repository.DbFunction.Query.mail_create(
-                From: from,
-                FromName: fromName,
-                To: to,
-                ToName: toName,
-                Subject: subject,
-                Body: body,
-                BodyHtml: bodyHtml,
-                SendTries: sendTries,
-                SendAttempt: sendAttempt,
-                UTCTIMESTAMP: DateTime.UtcNow);
+            repository.Insert(
+                new Mail
+                    {
+                        FromUser = from,
+                        FromUserName = fromName,
+                        ToUser = to,
+                        ToUserName = toName,
+                        Created = DateTime.UtcNow,
+                        Subject = subject,
+                        Body = body,
+                        BodyHtml = bodyHtml,
+                        SendTries = sendTries,
+                        SendAttempt = sendAttempt
+                });
 
             repository.FireNew();
         }
@@ -168,53 +168,34 @@ namespace YAF.Core.Model
         /// Creates the watch email.
         /// </summary>
         /// <param name="repository">The repository.</param>
-        /// <param name="topicID">The topic id.</param>
+        /// <param name="topicId">The topic id.</param>
         /// <param name="from">The from.</param>
         /// <param name="fromName">The from name.</param>
         /// <param name="subject">The subject.</param>
         /// <param name="body">The body.</param>
         /// <param name="bodyHtml">The body html.</param>
-        /// <param name="userID">The user id.</param>
+        /// <param name="userId">The user id.</param>
         public static void CreateWatch(
             this IRepository<Mail> repository,
-            int topicID,
+            int topicId,
             string from,
             string fromName,
             string subject,
             string body,
             string bodyHtml,
-            int userID)
+            int userId)
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
             repository.DbFunction.Query.mail_createwatch(
-                TopicID: topicID,
+                TopicID: topicId,
                 From: from,
                 FromName: fromName,
                 Subject: subject,
                 Body: body,
                 BodyHtml: bodyHtml,
-                UserID: userID,
+                UserID: userId,
                 UTCTIMESTAMP: DateTime.UtcNow);
-        }
-
-        /// <summary>
-        /// Gets the Mail List
-        /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
-        /// <param name="processID">
-        /// The process id.
-        /// </param>
-        /// <returns>
-        /// Returns the Mail List as <see cref="DataTable"/>.
-        /// </returns>
-        public static DataTable List(this IRepository<Mail> repository, int? processID)
-        {
-            CodeContracts.VerifyNotNull(repository, "repository");
-
-            return repository.DbFunction.GetData.mail_list(ProcessID: processID, UTCTIMESTAMP: DateTime.UtcNow);
         }
 
         /// <summary>
@@ -223,27 +204,17 @@ namespace YAF.Core.Model
         /// <param name="repository">
         /// The repository.
         /// </param>
-        /// <param name="processID">
+        /// <param name="processId">
         /// The process id.
         /// </param>
         /// <returns>
         ///  Returns the Mail List as Typed List
         /// </returns>
-        public static IList<Mail> ListTyped(this IRepository<Mail> repository, int? processID)
+        public static IList<Mail> List(this IRepository<Mail> repository, int? processId)
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
-            var mailList = new List<Mail>();
-
-            foreach (DataRow dr in
-                repository.DbFunction.GetData.mail_list(ProcessID: processID, UTCTIMESTAMP: DateTime.UtcNow).Rows)
-            {
-                var mail = new Mail();
-                mail.InjectFrom<DataRowInjection>(dr);
-                mailList.Add(mail);
-            }
-
-            return mailList;
+            return repository.SqlList("mail_list", new { ProcessID = processId, UTCTIMESTAMP = DateTime.UtcNow });
         }
 
         /// <summary>
@@ -255,12 +226,9 @@ namespace YAF.Core.Model
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
-            repository.DbFunction.Scalar.mail_save(
-                MailID: mailMessage.ID,
-                SendTries: mailMessage.SendTries,
-                SendAttempt: DateTime.UtcNow);
-
-            repository.FireUpdated(mailMessage.ID);
+            repository.UpdateOnly(
+                () => new Mail { SendAttempt = DateTime.UtcNow, SendTries = mailMessage.SendTries },
+                m => m.ID == mailMessage.ID);
         }
 
         #endregion

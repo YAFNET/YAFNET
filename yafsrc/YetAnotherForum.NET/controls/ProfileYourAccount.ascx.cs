@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -26,14 +26,15 @@ namespace YAF.Controls
   #region Using
 
   using System;
-  using System.Data;
 
-  using YAF.Classes.Data;
   using YAF.Core;
+  using YAF.Core.BaseControls;
+  using YAF.Core.Extensions;
+  using YAF.Core.Model;
   using YAF.Types;
   using YAF.Types.Extensions;
   using YAF.Types.Interfaces;
-  using YAF.Utils;
+  using YAF.Types.Models;
 
   #endregion
 
@@ -66,7 +67,7 @@ namespace YAF.Controls
     /// </summary>
     private void BindData()
     {
-      DataTable dt = LegacyDb.usergroup_list(this.PageContext.PageUserID);
+      var dt = this.GetRepository<UserGroup>().ListAsDataTable(this.PageContext.PageUserID);
 
       if (YafContext.Current.BoardSettings.UseStyledNicks)
       {
@@ -82,7 +83,7 @@ namespace YAF.Controls
       this.AccountEmail.Text = this.PageContext.CurrentUserData.Membership.Email;
       this.Name.Text = this.HtmlEncode(this.PageContext.CurrentUserData.Membership.UserName);
       this.Joined.Text = this.Get<IDateTime>().FormatDateTime(this.PageContext.CurrentUserData.Joined);
-      this.NumPosts.Text = "{0:N0}".FormatWith(this.PageContext.CurrentUserData.NumPosts);
+      this.NumPosts.Text = $"{this.PageContext.CurrentUserData.NumPosts:N0}";
 
       this.DisplayNameHolder.Visible = this.PageContext.BoardSettings.EnableDisplayName;
 
@@ -92,7 +93,7 @@ namespace YAF.Controls
           this.HtmlEncode(this.Get<IUserDisplayName>().GetName(this.PageContext.PageUserID));
       }
 
-      string avatarImg = this.Get<IAvatars>().GetAvatarUrlForCurrentUser();
+      var avatarImg = this.Get<IAvatars>().GetAvatarUrlForCurrentUser();
 
       if (avatarImg.IsSet())
       {

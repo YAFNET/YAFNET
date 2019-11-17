@@ -1,9 +1,9 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -26,24 +26,21 @@ namespace YAF.Modules
     #region Using
 
     using System;
-    using System.Web;
 
-    using YAF.Classes;
-    using YAF.Controls;
     using YAF.Core;
+    using YAF.Dialogs;
     using YAF.Types;
     using YAF.Types.Attributes;
     using YAF.Types.Constants;
-    using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Utils;
+    using YAF.Types.Objects;
 
     #endregion
 
     /// <summary>
     /// The Page PM Popup Module
     /// </summary>
-    [YafModule("Page Title Module", "Tiny Gecko", 1)]
+    [YafModule(moduleName: "Page PopUp Module", moduleAuthor: "Tiny Gecko", moduleVersion: 1)]
     public class PagePmPopupForumModule : SimpleBaseForumModule
     {
         #region Public Methods
@@ -53,14 +50,7 @@ namespace YAF.Modules
         /// </summary>
         public override void InitAfterPage()
         {
-            this.CurrentForumPage.Load += this.ForumPage_Load;
-        }
-
-        /// <summary>
-        /// The init before page.
-        /// </summary>
-        public override void InitBeforePage()
-        {
+            this.CurrentForumPage.Load += this.ForumPageLoad;
         }
 
         #endregion
@@ -68,15 +58,48 @@ namespace YAF.Modules
         #region Methods
 
         /// <summary>
+        /// The display received thanks popup.
+        /// </summary>
+        /// <returns>
+        /// The <see cref="bool"/>.
+        /// </returns>
+        protected bool DisplayReceivedThanksPopup()
+        {
+            return this.PageContext.ReceivedThanks > 0;
+        }
+
+        /// <summary>
+        /// The display mention popup.
+        /// </summary>
+        /// <returns>
+        /// The <see cref="bool"/>.
+        /// </returns>
+        protected bool DisplayMentionPopup()
+        {
+            return this.PageContext.Mention > 0;
+        }
+
+        /// <summary>
+        /// The display quoted popup.
+        /// </summary>
+        /// <returns>
+        /// The <see cref="bool"/>.
+        /// </returns>
+        protected bool DisplayQuotedPopup()
+        {
+            return this.PageContext.Quoted > 0;
+        }
+
+        /// <summary>
         /// Displays the PM popup.
         /// </summary>
         /// <returns>
         /// The display pm popup.
         /// </returns>
-        protected bool DisplayPMPopup()
+        protected bool DisplayPmPopup()
         {
-            return (this.PageContext.UnreadPrivate > 0)
-                   && (this.PageContext.LastUnreadPm > this.Get<IYafSession>().LastPm);
+            return this.PageContext.UnreadPrivate > 0
+                   && this.PageContext.LastUnreadPm > this.Get<IYafSession>().LastPm;
         }
 
         /// <summary>
@@ -87,8 +110,8 @@ namespace YAF.Modules
         /// </returns>
         protected bool DisplayPendingBuddies()
         {
-            return (this.PageContext.PendingBuddies > 0)
-                   && (this.PageContext.LastPendingBuddies > this.Get<IYafSession>().LastPendingBuddies);
+            return this.PageContext.PendingBuddies > 0
+                   && this.PageContext.LastPendingBuddies > this.Get<IYafSession>().LastPendingBuddies;
         }
 
         /// <summary>
@@ -96,7 +119,7 @@ namespace YAF.Modules
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        private void ForumPage_Load([NotNull] object sender, [NotNull] EventArgs e)
+        private void ForumPageLoad([NotNull] object sender, [NotNull] EventArgs e)
         {
             this.GeneratePopUp();
         }
@@ -109,37 +132,110 @@ namespace YAF.Modules
             var notification = (DialogBox)this.PageContext.CurrentForumPage.Notification;
 
             // This happens when user logs in
-            if (this.DisplayPMPopup()
-                &&
-                (!this.PageContext.ForumPageType.Equals(ForumPages.cp_pm)
-                 || !this.PageContext.ForumPageType.Equals(ForumPages.cp_editbuddies)))
+            if (this.DisplayQuotedPopup() && !this.PageContext.ForumPageType.Equals(obj: ForumPages.posts))
             {
-                if (this.Get<YafBoardSettings>().MessageNotificationSystem.Equals(0)
-                    &&
-                    !(this.Get<YafBoardSettings>().NotifcationNativeOnMobile
-                      && this.Get<HttpRequestBase>().Browser.IsMobileDevice))
-                {
-                    notification.Show(
-                        this.GetText("COMMON", "UNREAD_MSG2").FormatWith(this.PageContext.UnreadPrivate),
-                        this.GetText("COMMON", "UNREAD_MSG_TITLE"),
-                        DialogBox.DialogIcon.Mail,
-                        new DialogBox.DialogButton
-                            {
-                                Text = this.GetText("COMMON", "YES"),
-                                CssClass = "StandardButton OkButton",
-                                ForumPageLink = new DialogBox.ForumLink { ForumPage = ForumPages.cp_pm }
-                            },
-                        new DialogBox.DialogButton
-                            {
-                                Text = this.GetText("COMMON", "NO"), 
-                                CssClass = "StandardButton CancelButton"
-                            });
-                }
-                else
-                {
-                    this.PageContext.AddLoadMessage(
-                        this.GetText("COMMON", "UNREAD_MSG").FormatWith(this.PageContext.UnreadPrivate));
-                }
+                notification.Show(
+                    message: this.GetTextFormatted("UNREAD_QUOTED_MSG", this.PageContext.Quoted),
+                    title: this.GetText(page: "COMMON", tag: "UNREAD_QUOTED_TITLE"),
+                    okay: new DialogButton
+                                  {
+                                      Text = this.GetText(page: "COMMON", tag: "YES"),
+                                      CssClass = "btn btn-success btn-sm",
+                                      ForumPageLink = new ForumLink
+                                                          {
+                                                              ForumPage = ForumPages.posts,
+                                                              ForumLinkFormat = "m={0}#post{0}",
+                                                              ForumLinkArgs = new object[] { this.PageContext.LastQuoted }
+                                                          }
+                                  },
+                    cancel: new DialogButton
+                                      {
+                                          Text = this.GetText(page: "COMMON", tag: "NO"),
+                                          CssClass = "btn btn-danger btn-sm",
+                                          ForumPageLink =
+                                              new ForumLink { ForumPage = YafContext.Current.ForumPageType }
+                                      });
+
+                // Avoid Showing Both Popups
+                return;
+            }
+
+            if (this.DisplayReceivedThanksPopup() && !this.PageContext.ForumPageType.Equals(obj: ForumPages.posts))
+            {
+                notification.Show(
+                    message: this.GetTextFormatted("UNREAD_THANKS_MSG", this.PageContext.ReceivedThanks),
+                    title: this.GetText(page: "COMMON", tag: "UNREAD_THANKS_TITLE"),
+                    okay: new DialogButton
+                                  {
+                                      Text = this.GetText(page: "COMMON", tag: "YES"),
+                                      CssClass = "btn btn-success btn-sm",
+                                      ForumPageLink = new ForumLink
+                                                          {
+                                                              ForumPage = ForumPages.posts,
+                                                              ForumLinkFormat = "m={0}#post{0}",
+                                                              ForumLinkArgs = new object[] { this.PageContext.LastReceivedThanks }
+                                                          }
+                                  },
+                    cancel: new DialogButton
+                                      {
+                                          Text = this.GetText(page: "COMMON", tag: "NO"),
+                                          CssClass = "btn btn-danger btn-sm",
+                                          ForumPageLink =
+                                              new ForumLink { ForumPage = YafContext.Current.ForumPageType }
+                                      });
+
+                // Avoid Showing Both Popups
+                return;
+            }
+
+            if (this.DisplayMentionPopup() && !this.PageContext.ForumPageType.Equals(obj: ForumPages.posts))
+            {
+                notification.Show(
+                    message: this.GetTextFormatted("UNREAD_MENTION_MSG", this.PageContext.Mention),
+                    title: this.GetText(page: "COMMON", tag: "UNREAD_MENTION_TITLE"),
+                    okay: new DialogButton
+                                  {
+                                      Text = this.GetText(page: "COMMON", tag: "YES"),
+                                      CssClass = "btn btn-success btn-sm",
+                                      ForumPageLink = new ForumLink
+                                                          {
+                                                              ForumPage = ForumPages.posts,
+                                                              ForumLinkFormat = "m={0}#post{0}",
+                                                              ForumLinkArgs = new object[] { this.PageContext.LastMention }
+                                                          }
+                                  },
+                    cancel: new DialogButton
+                                      {
+                                          Text = this.GetText(page: "COMMON", tag: "NO"),
+                                          CssClass = "btn btn-danger btn-sm",
+                                          ForumPageLink =
+                                              new ForumLink { ForumPage = YafContext.Current.ForumPageType }
+                                      });
+
+                // Avoid Showing Both Popups
+                return;
+            }
+
+            if (this.DisplayPmPopup() && (!this.PageContext.ForumPageType.Equals(obj: ForumPages.cp_pm)
+                                          || !this.PageContext.ForumPageType.Equals(obj: ForumPages.cp_editbuddies)))
+            {
+                notification.Show(
+                    message:
+                    this.GetTextFormatted("UNREAD_MSG2", this.PageContext.UnreadPrivate),
+                    title: this.GetText(page: "COMMON", tag: "UNREAD_MSG_TITLE"),
+                    okay: new DialogButton
+                                  {
+                                      Text = this.GetText(page: "COMMON", tag: "YES"),
+                                      CssClass = "btn btn-success btn-sm",
+                                      ForumPageLink = new ForumLink { ForumPage = ForumPages.cp_pm }
+                                  },
+                    cancel: new DialogButton
+                                      {
+                                          Text = this.GetText(page: "COMMON", tag: "NO"),
+                                          CssClass = "btn btn-danger btn-sm",
+                                          ForumPageLink =
+                                              new ForumLink { ForumPage = YafContext.Current.ForumPageType }
+                                      });
 
                 this.Get<IYafSession>().LastPm = this.PageContext.LastUnreadPm;
 
@@ -147,41 +243,28 @@ namespace YAF.Modules
                 return;
             }
 
-            if (!this.DisplayPendingBuddies()
-                ||
-                (this.PageContext.ForumPageType.Equals(ForumPages.cp_editbuddies)
-                 || this.PageContext.ForumPageType.Equals(ForumPages.cp_pm)))
+            if (!this.DisplayPendingBuddies() || this.PageContext.ForumPageType.Equals(obj: ForumPages.cp_editbuddies) || this.PageContext.ForumPageType.Equals(obj: ForumPages.cp_pm))
             {
                 return;
             }
 
-            if (this.Get<YafBoardSettings>().MessageNotificationSystem.Equals(0)
-                &&
-                !(this.Get<YafBoardSettings>().NotifcationNativeOnMobile
-                  && this.Get<HttpRequestBase>().Browser.IsMobileDevice))
-            {
-                notification.Show(
-                    this.GetText("BUDDY", "PENDINGBUDDIES2").FormatWith(this.PageContext.PendingBuddies),
-                    this.GetText("BUDDY", "PENDINGBUDDIES_TITLE"),
-                    DialogBox.DialogIcon.Info,
-                    new DialogBox.DialogButton
-                        {
-                            Text = this.GetText("COMMON", "YES"),
-                            CssClass = "StandardButton OkButton",
-                            ForumPageLink = new DialogBox.ForumLink { ForumPage = ForumPages.cp_editbuddies }
-                        },
-                    new DialogBox.DialogButton
-                        {
-                            Text = this.GetText("COMMON", "NO"),
-                            CssClass = "StandardButton CancelButton",
-                            ForumPageLink = new DialogBox.ForumLink { ForumPage = YafContext.Current.ForumPageType }
-                        });
-            }
-            else
-            {
-                this.PageContext.AddLoadMessage(
-                    this.GetText("BUDDY", "PENDINGBUDDIES2").FormatWith(this.PageContext.PendingBuddies));
-            }
+            notification.Show(
+                message:
+                this.GetTextFormatted("PENDINGBUDDIES2", this.PageContext.PendingBuddies),
+                title: this.GetText(page: "BUDDY", tag: "PENDINGBUDDIES_TITLE"),
+                okay: new DialogButton
+                              {
+                                  Text = this.GetText(page: "COMMON", tag: "YES"),
+                                  CssClass = "btn btn-success btn-sm",
+                                  ForumPageLink = new ForumLink { ForumPage = ForumPages.cp_editbuddies }
+                              },
+                cancel: new DialogButton
+                                  {
+                                      Text = this.GetText(page: "COMMON", tag: "NO"),
+                                      CssClass = "btn btn-danger btn-sm",
+                                      ForumPageLink =
+                                          new ForumLink { ForumPage = YafContext.Current.ForumPageType }
+                                  });
 
             this.Get<IYafSession>().LastPendingBuddies = this.PageContext.LastPendingBuddies;
         }

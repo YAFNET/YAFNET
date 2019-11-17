@@ -1,9 +1,9 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -22,31 +22,28 @@
  * under the License.
  */
 
-using System.Drawing;
-
 namespace YAF.Pages.Admin
 {
     #region Using
 
     using System;
-    using System.Data;
     using System.Web.UI.WebControls;
 
-    using YAF.Classes.Data;
-    using YAF.Controls;
     using YAF.Core;
+    using YAF.Core.Extensions;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Flags;
     using YAF.Types.Interfaces;
+    using YAF.Types.Models;
     using YAF.Utils;
-    using YAF.Utils.Helpers;
+    using YAF.Web.Extensions;
 
     #endregion
 
     /// <summary>
-    /// Summary description for ranks.
+    /// Admin Ranks Page
     /// </summary>
     public partial class ranks : AdminPage
     {
@@ -61,10 +58,10 @@ namespace YAF.Pages.Admin
         /// <returns>
         /// Set values  are rendered green if true, and if not red
         /// </returns>
-        protected Color GetItemColorString(string item)
+        protected string GetItemColorString(string item)
         {
             // show enabled flag red
-            return item.IsSet() ? Color.Green : Color.Red;
+            return item.IsSet() ? "badge badge-success" : "badge badge-danger";
         }
 
         /// <summary>
@@ -76,10 +73,10 @@ namespace YAF.Pages.Admin
         /// <returns>
         /// Set access mask flags  are rendered green if true, and if not red
         /// </returns>
-        protected Color GetItemColor(bool enabled)
+        protected string GetItemColor(bool enabled)
         {
             // show enabled flag red
-            return enabled ? Color.Green : Color.Red;
+            return enabled ? "badge badge-success" : "badge badge-danger";
         }
 
         /// <summary>
@@ -95,6 +92,7 @@ namespace YAF.Pages.Admin
         {
             return enabled ? this.GetText("DEFAULT", "YES") : this.GetText("DEFAULT", "NO");
         }
+
         /// <summary>
         /// The bit set.
         /// </summary>
@@ -114,21 +112,6 @@ namespace YAF.Pages.Admin
         }
 
         /// <summary>
-        /// The delete_ load.
-        /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
-        protected void Delete_Load([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            ((ThemeButton)sender).Attributes["onclick"] =
-                "return confirm('{0}')".FormatWith(this.GetText("ADMIN_RANKS", "CONFIRM_DELETE"));
-        }
-
-        /// <summary>
         /// The ladder info.
         /// </summary>
         /// <param name="_o">
@@ -139,40 +122,32 @@ namespace YAF.Pages.Admin
         /// </returns>
         protected string LadderInfo([NotNull] object _o)
         {
-            var dr = (DataRowView)_o;
+            var dr = (Rank)_o;
 
             // object IsLadder,object MinPosts
-            // Eval( "IsLadder"),Eval( "MinPosts")
-            bool isLadder = dr["Flags"].BinaryAnd(RankFlags.Flags.IsLadder);
+            // this.Eval( "IsLadder"),Eval( "MinPosts")
+            var isLadder = dr.Flags.BinaryAnd(RankFlags.Flags.IsLadder);
 
             return isLadder
-                       ? "{0} ({1} {2})".FormatWith(GetItemName(true), dr["MinPosts"], this.GetText("ADMIN_RANKS", "POSTS"))
-                       : GetItemName(false);
+                       ? $"{this.GetItemName(true)} ({dr.MinPosts} {this.GetText("ADMIN_RANKS", "POSTS")})"
+                       : this.GetItemName(false);
         }
 
         /// <summary>
-        /// The new rank_ click.
+        /// News the rank click.
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
-        protected void NewRank_Click([NotNull] object sender, [NotNull] EventArgs e)
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        protected void NewRankClick([NotNull] object sender, [NotNull] EventArgs e)
         {
             YafBuildLink.Redirect(ForumPages.admin_editrank);
         }
 
         /// <summary>
-        /// The page_ load.
+        /// Handles the Load event of the Page control.
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
             if (this.IsPostBack)
@@ -180,18 +155,21 @@ namespace YAF.Pages.Admin
                 return;
             }
 
+            this.BindData();
+        }
+
+        /// <summary>
+        /// Creates page links for this page.
+        /// </summary>
+        protected override void CreatePageLinks()
+        {
             this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
             this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
 
             this.PageLinks.AddLink(this.GetText("ADMIN_RANKS", "TITLE"));
 
-            this.Page.Header.Title = "{0} - {1}".FormatWith(
-               this.GetText("ADMIN_ADMIN", "Administration"),
-               this.GetText("ADMIN_RANKS", "TITLE"));
-
-            this.NewRank.Text = this.GetText("ADMIN_RANKS", "NEW_RANK");
-
-            this.BindData();
+            this.Page.Header.Title =
+                $"{this.GetText("ADMIN_ADMIN", "Administration")} - {this.GetText("ADMIN_RANKS", "TITLE")}";
         }
 
         /// <summary>
@@ -203,7 +181,7 @@ namespace YAF.Pages.Admin
         /// <param name="e">
         /// The e.
         /// </param>
-        protected void RankList_ItemCommand([NotNull] object source, [NotNull] RepeaterCommandEventArgs e)
+        protected void RankListItemCommand([NotNull] object source, [NotNull] RepeaterCommandEventArgs e)
         {
             switch (e.CommandName)
             {
@@ -211,7 +189,7 @@ namespace YAF.Pages.Admin
                     YafBuildLink.Redirect(ForumPages.admin_editrank, "r={0}", e.CommandArgument);
                     break;
                 case "delete":
-                    LegacyDb.rank_delete(e.CommandArgument);
+                    this.GetRepository<Rank>().DeleteById(e.CommandArgument.ToType<int>());
                     this.BindData();
                     break;
             }
@@ -222,7 +200,7 @@ namespace YAF.Pages.Admin
         /// </summary>
         private void BindData()
         {
-            this.RankList.DataSource = LegacyDb.rank_list(this.PageContext.PageBoardID, null);
+            this.RankList.DataSource = this.GetRepository<Rank>().GetByBoardId();
             this.DataBind();
         }
 

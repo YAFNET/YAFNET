@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -32,55 +32,17 @@ namespace YAF.Utils.Helpers
     using System.Linq;
 
     using YAF.Types;
+    using YAF.Types.Constants;
     using YAF.Types.Extensions;
 
     #endregion
 
     /// <summary>
-    /// The db helper.
+    /// The DB helper.
     /// </summary>
     public static class DBHelper
     {
         #region Public Methods
-
-        /// <summary>
-        /// Converts <paramref name="columnName"/> in a <see cref="DataTable"/> to a generic List of type T.
-        /// </summary>
-        /// <typeparam name="T">
-        /// The type of elements in the list.
-        /// </typeparam>
-        /// <param name="dataTable">
-        /// The data table.
-        /// </param>
-        /// <param name="columnName">
-        /// Name of the column.
-        /// </param>
-        /// <returns>
-        /// The get column as list.
-        /// </returns>
-        [NotNull]
-        public static List<T> GetColumnAsList<T>([NotNull] this DataTable dataTable, [NotNull] string columnName)
-        {
-            return (from x in dataTable.AsEnumerable() select x.Field<T>(columnName)).ToList();
-        }
-
-        /// <summary>
-        /// Converts the first column of a <see cref="DataTable"/> to a generic List of type T.
-        /// </summary>
-        /// <typeparam name="T">
-        /// The type of elements in the list.
-        /// </typeparam>
-        /// <param name="dataTable">
-        /// The data table.
-        /// </param>
-        /// <returns>
-        /// The get first column as list.
-        /// </returns>
-        [NotNull]
-        public static List<T> GetFirstColumnAsList<T>([NotNull] this DataTable dataTable)
-        {
-            return (from x in dataTable.AsEnumerable() select x.Field<T>(0)).ToList();
-        }
 
         /// <summary>
         /// Gets the first row (<see cref="DataRow"/>) of a <see cref="DataTable"/>.
@@ -140,7 +102,7 @@ namespace YAF.Utils.Helpers
         [CanBeNull]
         public static DataRow GetFirstRowOrInvalid([NotNull] this DataTable dt)
         {
-            DataRow row = dt.GetFirstRow();
+            var row = dt.GetFirstRow();
 
             if (row != null)
             {
@@ -162,7 +124,7 @@ namespace YAF.Utils.Helpers
         /// </returns>
         public static bool IsNullOrEmptyDBField([NotNull] this object columnValue)
         {
-            return columnValue == DBNull.Value || columnValue.ToString().IsNotSet();
+            return columnValue == null || columnValue == DBNull.Value || columnValue.ToString().IsNotSet();
         }
 
         /// <summary>
@@ -203,7 +165,7 @@ namespace YAF.Utils.Helpers
         {
             CodeContracts.VerifyNotNull(command, "command");
 
-            string debugString = command.CommandText;
+            var debugString = command.CommandText;
 
             try
             {
@@ -214,15 +176,14 @@ namespace YAF.Utils.Helpers
                     var sqlParams =
                         parameters.Select(
                             p =>
-                            @"@{0} = {1}".FormatWith(
-                                p.ParameterName, p.Value == null ? "NULL" : "'{0}'".FormatWith(p.Value.ToString().Replace("'", "''"))));
+                                $@"@{p.ParameterName} = {(p.Value == null ? "NULL" : $"'{p.Value.ToString().Replace("'", "''")}'")}");
 
-                    debugString += " " + sqlParams.ToDelimitedString(", ");
+                    debugString += $" {sqlParams.ToDelimitedString(", ")}";
                 }
             }
             catch (Exception ex)
             {
-                debugString += "Error in getting parameters {0}".FormatWith(ex);
+                debugString += $"Error in getting parameters {ex}";
             }
 
             return debugString;

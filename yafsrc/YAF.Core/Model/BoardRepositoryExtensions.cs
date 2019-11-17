@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -42,6 +42,79 @@ namespace YAF.Core.Model
     public static class BoardRepositoryExtensions
     {
         #region Public Methods and Operators
+
+        /// <summary>
+        /// The system_initialize.
+        /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="forumName">
+        /// The forum name.
+        /// </param>
+        /// <param name="timeZone">
+        /// The time zone.
+        /// </param>
+        /// <param name="culture">
+        /// The culture.
+        /// </param>
+        /// <param name="languageFile">
+        /// The language File.
+        /// </param>
+        /// <param name="forumEmail">
+        /// The forum email.
+        /// </param>
+        /// <param name="forumLogo">
+        /// The forum Logo.
+        /// </param>
+        /// <param name="forumBaseUrlMask">
+        /// The forum base URL mask.
+        /// </param>
+        /// <param name="smtpServer">
+        /// The SMTP server.
+        /// </param>
+        /// <param name="userName">
+        /// The user name.
+        /// </param>
+        /// <param name="userEmail">
+        /// The user email.
+        /// </param>
+        /// <param name="providerUserKey">
+        /// The provider user key.
+        /// </param>
+        /// <param name="rolePrefix">
+        /// The role Prefix.
+        /// </param>
+        public static void SystemInitialize(
+            this IRepository<Board> repository,
+            [NotNull] string forumName,
+            [NotNull] string timeZone,
+            [NotNull] string culture,
+            [NotNull] string languageFile,
+            [NotNull] string forumEmail,
+            [NotNull] string forumLogo,
+            [NotNull] string forumBaseUrlMask,
+            [NotNull] string smtpServer,
+            [NotNull] string userName,
+            [NotNull] string userEmail,
+            [NotNull] object providerUserKey,
+            [NotNull] string rolePrefix)
+        {
+            repository.DbFunction.Scalar.system_initialize(
+                Name: forumName,
+                TimeZone: timeZone,
+                Culture: culture,
+                LanguageFile: languageFile,
+                ForumEmail: forumEmail,
+                ForumLogo: forumLogo,
+                ForumBaseUrlMask: forumBaseUrlMask,
+                SmtpServer: string.Empty,
+                User: userName,
+                UserEmail: userEmail,
+                UserKey: providerUserKey,
+                RolePrefix: rolePrefix,
+                UTCTIMESTAMP: DateTime.UtcNow);
+        }
 
         /// <summary>
         /// The create.
@@ -118,24 +191,6 @@ namespace YAF.Core.Model
         }
 
         /// <summary>
-        /// The delete.
-        /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
-        /// <param name="boardID">
-        /// The board id.
-        /// </param>
-        public static void Delete(this IRepository<Board> repository, int boardID)
-        {
-            CodeContracts.VerifyNotNull(repository, "repository");
-
-            repository.DbFunction.Query.board_delete(BoardID: boardID);
-
-            repository.FireDeleted(boardID);
-        }
-
-        /// <summary>
         /// The list.
         /// </summary>
         /// <param name="repository">
@@ -147,12 +202,12 @@ namespace YAF.Core.Model
         /// <returns>
         /// The <see cref="DataTable"/>.
         /// </returns>
-        public static DataTable List(this IRepository<Board> repository, int? boardID = null)
+        /*public static DataTable List(this IRepository<Board> repository, int? boardID = null)
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
             return repository.DbFunction.GetData.board_list(BoardID: boardID);
-        }
+        }*/
 
         /// <summary>
         /// The list typed.
@@ -171,12 +226,12 @@ namespace YAF.Core.Model
             CodeContracts.VerifyNotNull(repository, "repository");
 
             return boardID.HasValue
-                ? new List<Board> { repository.GetByID(boardID.Value) }
+                ? new List<Board> { repository.GetById(boardID.Value) }
                 : repository.DbAccess.Execute(cmd => cmd.Connection.Select<Board>());
         }
 
         /// <summary>
-        /// The poststats.
+        /// Gets the post stats.
         /// </summary>
         /// <param name="repository">The repository.</param>
         /// <param name="boardID">The board id.</param>
@@ -185,7 +240,7 @@ namespace YAF.Core.Model
         /// <returns>
         /// The <see cref="DataTable" />.
         /// </returns>
-        public static DataRow Poststats(this IRepository<Board> repository, int boardID, bool styledNicks, bool showNoCountPosts)
+        public static DataRow PostStats(this IRepository<Board> repository, int boardID, bool styledNicks, bool showNoCountPosts)
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
@@ -208,7 +263,7 @@ namespace YAF.Core.Model
         }
 
         /// <summary>
-        /// The resync.
+        /// Re-Sync the Board
         /// </summary>
         /// <param name="repository">
         /// The repository.
@@ -216,7 +271,7 @@ namespace YAF.Core.Model
         /// <param name="boardID">
         /// The board id.
         /// </param>
-        public static void Resync(this IRepository<Board> repository, int? boardID = null)
+        public static void ReSync(this IRepository<Board> repository, int? boardID = null)
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
@@ -272,7 +327,7 @@ namespace YAF.Core.Model
         }
 
         /// <summary>
-        /// The userstats.
+        /// Gets the User Stats.
         /// </summary>
         /// <param name="repository">
         /// The repository.
@@ -283,11 +338,27 @@ namespace YAF.Core.Model
         /// <returns>
         /// The <see cref="DataTable"/>.
         /// </returns>
-        public static DataRow Userstats(this IRepository<Board> repository, int? boardID)
+        public static DataRow UserStats(this IRepository<Board> repository, int? boardID)
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
             return ((DataTable)repository.DbFunction.GetData.board_userstats(BoardID: boardID)).Rows[0];
+        }
+
+        /// <summary>
+        /// The delete board.
+        /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="boardId">
+        /// The board id.
+        /// </param>
+        public static void DeleteBoard(this IRepository<Board> repository, int boardId)
+        {
+            CodeContracts.VerifyNotNull(repository, "repository");
+
+            repository.DbFunction.Query.board_delete(BoardID: boardId);
         }
 
         #endregion

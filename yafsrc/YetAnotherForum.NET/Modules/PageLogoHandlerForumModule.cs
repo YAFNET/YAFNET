@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -26,14 +26,13 @@ namespace YAF.Modules
     #region Using
 
     using System;
-    using System.Web.UI.HtmlControls;
     using System.Web.UI.WebControls;
 
-    using YAF.Classes;
+    using YAF.Configuration;
+    using YAF.Core;
     using YAF.Types;
     using YAF.Types.Attributes;
     using YAF.Types.Constants;
-    using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Utils;
     using YAF.Utils.Helpers;
@@ -43,7 +42,7 @@ namespace YAF.Modules
     /// <summary>
     /// Page Logo Handler Module
     /// </summary>
-    [YafModule("Page Logo Handler Module", "Tiny Gecko", 1)]
+    [YafModule(moduleName: "Page Logo Handler Module", moduleAuthor: "Tiny Gecko", moduleVersion: 1)]
     public class PageLogoHandlerForumModule : SimpleBaseForumModule
     {
         #region Public Methods
@@ -78,47 +77,24 @@ namespace YAF.Modules
         /// </param>
         private void ForumPage_PreRender([NotNull] object sender, [NotNull] EventArgs e)
         {
-            var htmlImgBanner = this.CurrentForumPage.FindControlRecursiveBothAs<HtmlImage>("imgBanner");
-            var imgBanner = this.CurrentForumPage.FindControlRecursiveBothAs<Image>("imgBanner");
-            var bannerLink = this.CurrentForumPage.FindControlRecursiveBothAs<HyperLink>("BannerLink");
+            var bannerLink = this.CurrentForumPage.FindControlRecursiveBothAs<HyperLink>(id: "BannerLink");
 
-            if (bannerLink != null)
+            if (bannerLink == null)
             {
-                bannerLink.NavigateUrl = YafBuildLink.GetLink(ForumPages.forum);
-                bannerLink.ToolTip = this.GetText("TOOLBAR", "FORUM_TITLE");
+                return;
             }
 
+            bannerLink.NavigateUrl = YafBuildLink.GetLink(page: ForumPages.forum);
+            bannerLink.ToolTip = this.GetText(page: "TOOLBAR", tag: "FORUM_TITLE");
+
+
+            var logoUrl = $"{YafForumInfo.ForumClientFileRoot}{YafBoardFolders.Current.Logos}/{YafContext.Current.BoardSettings.ForumLogo}";
+
+            bannerLink.Attributes.Add("style", $"background: url('{logoUrl}') no-repeat");
+            
             if (!this.CurrentForumPage.ShowToolBar)
             {
-                if (htmlImgBanner != null)
-                {
-                    htmlImgBanner.Visible = false;
-                }
-                else if (imgBanner != null)
-                {
-                    imgBanner.Visible = false;
-                }
-            }
-
-            if (!this.Get<YafBoardSettings>().AllowThemedLogo || Config.IsAnyPortal)
-            {
-                return;
-            }
-
-            string graphicSrc = this.Get<ITheme>().GetItem("FORUM", "BANNER", null);
-
-            if (!graphicSrc.IsSet())
-            {
-                return;
-            }
-
-            if (htmlImgBanner != null)
-            {
-                htmlImgBanner.Src = graphicSrc;
-            }
-            else if (imgBanner != null)
-            {
-                imgBanner.ImageUrl = graphicSrc;
+                bannerLink.Visible = false;
             }
         }
 

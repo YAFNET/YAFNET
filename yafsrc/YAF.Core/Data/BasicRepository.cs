@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -27,6 +27,7 @@ namespace YAF.Core.Data
 
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
+    using YAF.Types.Interfaces.Events;
 
     #endregion
 
@@ -75,17 +76,17 @@ namespace YAF.Core.Data
         /// <summary>
         /// Gets the db access.
         /// </summary>
-        public IDbAccess DbAccess { get; private set; }
+        public IDbAccess DbAccess { get; }
 
         /// <summary>
         ///     Gets the db event.
         /// </summary>
-        public IRaiseEvent DbEvent { get; private set; }
+        public IRaiseEvent DbEvent { get; }
 
         /// <summary>
         ///     Gets the db function.
         /// </summary>
-        public IDbFunction DbFunction { get; private set; }
+        public IDbFunction DbFunction { get; }
 
         #endregion
     }

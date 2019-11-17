@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -28,21 +28,29 @@ namespace YAF.Controls
 
     using System;
     using System.Data;
+    using System.Linq;
     using System.Text;
     using System.Web;
 
-    using YAF.Classes;
-    using YAF.Classes.Data;
+    using ServiceStack;
+
+    using YAF.Configuration;
     using YAF.Core;
+    using YAF.Core.BaseControls;
+    using YAF.Core.Extensions;
+    using YAF.Core.Helpers;
+    using YAF.Core.Model;
     using YAF.Core.Services;
-    using YAF.Core.Services.Auth;
+    using YAF.Core.UsersRoles;
+    using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Utilities;
+    using YAF.Types.Models;
     using YAF.Utils;
     using YAF.Utils.Helpers;
+    using YAF.Web.EventsArgs;
 
     #endregion
 
@@ -56,7 +64,12 @@ namespace YAF.Controls
         /// <summary>
         ///   The current Post Data for this post.
         /// </summary>
-        private PostDataHelperWrapper _postDataHelperWrapper;
+        private PostDataHelperWrapper postDataHelperWrapper;
+
+        /// <summary>
+        ///   Instance of the style transformation class
+        /// </summary>
+        private IStyleTransform styleTransform;
 
         #endregion
 
@@ -81,13 +94,7 @@ namespace YAF.Controls
         /// <summary>
         ///   Gets a value indicating whether IsGuest.
         /// </summary>
-        public bool IsGuest
-        {
-            get
-            {
-                return this.PostData == null || UserMembershipHelper.IsGuestUser(this.PostData.UserId);
-            }
-        }
+        public bool IsGuest => this.PostData == null || UserMembershipHelper.IsGuestUser(this.PostData.UserId);
 
         /// <summary>
         ///   Gets or sets a value indicating whether IsThreaded.
@@ -106,14 +113,28 @@ namespace YAF.Controls
         {
             get
             {
-                if (this._postDataHelperWrapper == null && this.DataRow != null)
+                if (this.postDataHelperWrapper == null && this.DataRow != null)
                 {
-                    this._postDataHelperWrapper = new PostDataHelperWrapper(this.DataRow);
+                    this.postDataHelperWrapper = new PostDataHelperWrapper(this.DataRow);
                 }
 
-                return this._postDataHelperWrapper;
+                return this.postDataHelperWrapper;
             }
         }
+
+        /// <summary>
+        ///   Gets Refines style string from other skins info
+        /// </summary>
+        private IStyleTransform TransformStyle =>
+            this.styleTransform ?? (this.styleTransform = this.Get<IStyleTransform>());
+
+        /// <summary>
+        /// The role rank style table.
+        /// </summary>
+        private DataTable roleRankStyleTable => this.Get<IDataCache>().GetOrSet(
+            Constants.Cache.GroupRankStyles,
+            () => this.GetRepository<Group>().RankStyleAsDataTable(YafContext.Current.PageBoardID),
+            TimeSpan.FromMinutes(this.Get<YafBoardSettings>().ForumStatisticsCacheTimeout));
 
         #endregion
 
@@ -134,94 +155,38 @@ namespace YAF.Controls
             var showDate = this.Get<YafBoardSettings>().ShowThanksDate;
 
             // Extract all user IDs, user name's and (If enabled thanks dates) related to this message.
-            foreach (var chunk in rawString.Split(','))
-            {
-                var subChunks = chunk.Split('|');
+            rawString.Split(',').ForEach(
+                chunk =>
+                    {
+                        var subChunks = chunk.Split('|');
 
-                var userId = int.Parse(subChunks[0]);
-                var thanksDate = DateTime.Parse(subChunks[1]);
+                        var userId = int.Parse(subChunks[0]);
+                        var thanksDate = DateTime.Parse(subChunks[1]);
 
-                if (sb.Length > 0)
-                {
-                    sb.Append(", ");
-                }
+                        if (sb.Length > 0)
+                        {
+                            sb.Append(",&nbsp;");
+                        }
 
-                // Get the username related to this User ID
-                var displayName = this.Get<IUserDisplayName>().GetName(userId);
+                        // Get the username related to this User ID
+                        var displayName = this.Get<IUserDisplayName>().GetName(userId);
 
-                sb.AppendFormat(
-                    @"<a id=""{0}"" href=""{1}""><u>{2}</u></a>",
-                    userId,
-                    YafBuildLink.GetLink(ForumPages.profile, "u={0}&name={1}", userId, displayName),
-                    this.Get<HttpServerUtilityBase>().HtmlEncode(displayName));
+                        sb.AppendFormat(
+                            @"<a id=""{0}"" href=""{1}""><u>{2}</u></a>",
+                            userId,
+                            YafBuildLink.GetLink(ForumPages.profile, "u={0}&name={1}", userId, displayName),
+                            this.Get<HttpServerUtilityBase>().HtmlEncode(displayName));
 
-                // If showing thanks date is enabled, add it to the formatted string.
-                if (showDate)
-                {
-                    sb.AppendFormat(
-                        @" {0}",
-                        this.GetText("DEFAULT", "ONDATE").FormatWith(this.Get<IDateTime>().FormatDateShort(thanksDate)));
-                }
-            }
+                        // If showing thanks date is enabled, add it to the formatted string.
+                        if (showDate)
+                        {
+                            sb.AppendFormat(
+                                @" {0}",
+                                this.GetTextFormatted("ONDATE", this.Get<IDateTime>().FormatDateShort(thanksDate)));
+                        }
+                    });
 
             return sb.ToString();
-        }
-
-        /// <summary>
-        /// The get indent cell.
-        /// </summary>
-        /// <returns>
-        /// Returns indent cell. 
-        /// </returns>
-        protected string GetIndentCell()
-        {
-            if (!this.IsThreaded)
-            {
-                return string.Empty;
-            }
-
-            var indent = this.DataRow["Indent"].ToType<int>();
-
-            if (indent > 0)
-            {
-                return
-                    @"<td rowspan=""4"" width=""1%""><img src=""{1}Content/images/spacer.gif"" width=""{0}"" height=""2"" alt=""""/></td>"
-                        .FormatWith(indent * 32, YafForumInfo.ForumClientFileRoot);
-            }
-
-            return string.Empty;
-        }
-
-        /// <summary>
-        /// Get Row Span
-        /// </summary>
-        /// <returns>
-        /// Returns the row Span value 
-        /// </returns>
-        [NotNull]
-        protected string GetRowSpan()
-        {
-            if (this.DataRow != null && this.Get<YafBoardSettings>().AllowSignatures &&
-                this.DataRow["Signature"] != DBNull.Value &&
-                this.DataRow["Signature"].ToString().ToLower() != "<p>&nbsp;</p>" &&
-                this.DataRow["Signature"].ToString().Trim().Length > 0)
-            {
-                return "rowspan=\"2\"";
-            }
-
-            return string.Empty;
-        }
-
-        /// <summary>
-        /// The get indent span.
-        /// </summary>
-        /// <returns>
-        /// Returns the indent span. 
-        /// </returns>
-        [NotNull]
-        protected string GetIndentSpan()
-        {
-            return !this.IsThreaded || this.DataRow["Indent"].ToType<int>() == 0 ? "2" : "1";
         }
 
         /// <summary>
@@ -234,20 +199,6 @@ namespace YAF.Controls
         protected string GetPostClass()
         {
             return this.IsAlt ? "post_alt" : "post";
-        }
-
-        // Prevents a high user box when displaying a deleted post.
-
-        /// <summary>
-        /// The get user box height.
-        /// </summary>
-        /// <returns>
-        /// Returns a fake user box height (Not the Real one). 
-        /// </returns>
-        [NotNull]
-        protected string GetUserBoxHeight()
-        {
-            return this.PostData.PostDeleted ? "0" : "100";
         }
 
         /// <summary>
@@ -264,16 +215,13 @@ namespace YAF.Controls
         /// The page_ load.
         /// </summary>
         /// <param name="sender">
-        /// The sender. 
+        /// The sender.
         /// </param>
         /// <param name="e">
-        /// The e. 
+        /// The e.
         /// </param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            // Set column span for layout depending on is it TreeView or not.
-            this.NameCell.ColSpan = int.Parse(this.GetIndentSpan());
-
             if (this.IsGuest)
             {
                 return;
@@ -288,10 +236,10 @@ namespace YAF.Controls
         /// Adds the user reputation.
         /// </summary>
         /// <param name="sender">
-        /// The sender. 
+        /// The sender.
         /// </param>
         /// <param name="e">
-        /// The <see cref="System.EventArgs"/> instance containing the event data. 
+        /// The <see cref="System.EventArgs"/> instance containing the event data.
         /// </param>
         protected void AddUserReputation(object sender, EventArgs e)
         {
@@ -303,7 +251,7 @@ namespace YAF.Controls
             this.AddReputation.Visible = false;
             this.RemoveReputation.Visible = false;
 
-            LegacyDb.user_addpoints(this.PostData.UserId, this.PageContext.PageUserID, 1);
+            this.GetRepository<User>().AddPoints(this.PostData.UserId, this.PageContext.PageUserID, 1);
 
             this.DataRow["ReputationVoteDate"] = DateTime.UtcNow;
 
@@ -311,30 +259,24 @@ namespace YAF.Controls
             this.PageContext.CurrentForumPage.PageCache[Constants.Cache.UserBoxes] = null;
 
             this.DataRow["Points"] = this.DataRow["Points"].ToType<int>() + 1;
-            this.UserBox1.PageCache = null;
 
             this.PageContext.AddLoadMessage(
                 this.GetTextFormatted(
                     "REP_VOTE_UP_MSG",
                     this.Get<HttpServerUtilityBase>().HtmlEncode(
-                        this.DataRow[this.Get<YafBoardSettings>().EnableDisplayName ? "DisplayName" : "UserName"].ToString())),
-                MessageTypes.Success);
-
-            YafContext.Current.PageElements.RegisterJsBlockStartup(
-                "reputationprogressjs",
-                JavaScriptBlocks.ReputationProgressChangeJs(
-                    YafReputation.GenerateReputationBar(this.DataRow["Points"].ToType<int>(), this.PostData.UserId),
-                    this.PostData.UserId.ToString()));
+                        this.DataRow[this.Get<YafBoardSettings>().EnableDisplayName ? "DisplayName" : "UserName"]
+                            .ToString())),
+                MessageTypes.success);
         }
 
         /// <summary>
         /// Removes the user reputation.
         /// </summary>
         /// <param name="sender">
-        /// The sender. 
+        /// The sender.
         /// </param>
         /// <param name="e">
-        /// The <see cref="System.EventArgs"/> instance containing the event data. 
+        /// The <see cref="System.EventArgs"/> instance containing the event data.
         /// </param>
         protected void RemoveUserReputation(object sender, EventArgs e)
         {
@@ -346,7 +288,7 @@ namespace YAF.Controls
             this.AddReputation.Visible = false;
             this.RemoveReputation.Visible = false;
 
-            LegacyDb.user_removepoints(this.PostData.UserId, this.PageContext.PageUserID, 1);
+            this.GetRepository<User>().RemovePoints(this.PostData.UserId, this.PageContext.PageUserID, 1);
 
             this.DataRow["ReputationVoteDate"] = DateTime.UtcNow;
 
@@ -354,90 +296,154 @@ namespace YAF.Controls
             this.PageContext.CurrentForumPage.PageCache[Constants.Cache.UserBoxes] = null;
 
             this.DataRow["Points"] = this.DataRow["Points"].ToType<int>() - 1;
-            this.UserBox1.PageCache = null;
 
             this.PageContext.AddLoadMessage(
                 this.GetTextFormatted(
-                   "REP_VOTE_DOWN_MSG",
-                   this.Get<HttpServerUtilityBase>().HtmlEncode(
-                        this.DataRow[this.Get<YafBoardSettings>().EnableDisplayName ? "DisplayName" : "UserName"].ToString())),
-                MessageTypes.Success);
-
-            YafContext.Current.PageElements.RegisterJsBlockStartup(
-                "reputationprogressjs",
-                JavaScriptBlocks.ReputationProgressChangeJs(
-                    YafReputation.GenerateReputationBar(this.DataRow["Points"].ToType<int>(), this.PostData.UserId),
-                    this.PostData.UserId.ToString()));
+                    "REP_VOTE_DOWN_MSG",
+                    this.Get<HttpServerUtilityBase>().HtmlEncode(
+                        this.DataRow[this.Get<YafBoardSettings>().EnableDisplayName ? "DisplayName" : "UserName"]
+                            .ToString())),
+                MessageTypes.success);
         }
 
         /// <summary>
-        /// Re-tweets Message thru the Twitter API
+        /// Get the User Groups
         /// </summary>
-        /// <param name="sender">
-        /// The source of the event. 
-        /// </param>
-        /// <param name="e">
-        /// The <see cref="System.EventArgs"/> instance containing the event data. 
-        /// </param>
-        protected void Retweet_Click(object sender, EventArgs e)
+        /// <returns>
+        /// The <see cref="string"/>.
+        /// </returns>
+        protected string GetUserRoles()
         {
-            var twitterName = this.Get<YafBoardSettings>().TwitterUserName.IsSet()
-                                  ? "@{0} ".FormatWith(this.Get<YafBoardSettings>().TwitterUserName)
-                                  : string.Empty;
+            var filler = string.Empty;
 
-            // process message... clean html, strip html, remove bbcode, etc...
-            var twitterMsg =
-                BBCodeHelper.StripBBCode(
-                    HtmlHelper.StripHtml(HtmlHelper.CleanHtmlString((string)this.DataRow["Message"]))).RemoveMultipleWhitespace();
-
-            var topicUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.posts, true, "m={0}#post{0}", this.DataRow["MessageID"]);
-
-            // Send Retweet Directlly thru the Twitter API if User is Twitter User
-            if (Config.TwitterConsumerKey.IsSet() && Config.TwitterConsumerSecret.IsSet() &&
-                this.Get<IYafSession>().TwitterToken.IsSet() && this.Get<IYafSession>().TwitterTokenSecret.IsSet() &&
-                this.Get<IYafSession>().TwitterTokenSecret.IsSet() && this.PageContext.IsTwitterUser)
+            if (!this.Get<YafBoardSettings>().ShowGroups)
             {
-                var oAuth = new OAuthTwitter
+                return filler;
+            }
+
+            const string StyledNick = @"<span class=""YafGroup_{0}"" style=""{1}"">{0}</span>";
+
+            var groupsText = new StringBuilder(500);
+
+            var first = true;
+            var hasRole = false;
+            string roleStyle = null;
+
+            var userName = this.DataRow["IsGuest"].ToType<bool>()
+                               ? UserMembershipHelper.GuestUserName
+                               : this.DataRow["UserName"].ToString();
+
+            RoleMembershipHelper.GetRolesForUser(userName).ForEach(
+                role =>
+                    {
+                        var role1 = role;
+
+                        foreach (var dataRow in this.roleRankStyleTable.Rows.Cast<DataRow>().Where(
+                            row => row["LegendID"].ToType<int>() == 1 && row["Style"] != null
+                                                                        && row["Name"].ToString() == role1))
+                        {
+                            roleStyle = this.TransformStyle.DecodeStyleByString(dataRow["Style"].ToString(), true);
+                            break;
+                        }
+
+                        if (first)
+                        {
+                            groupsText.AppendLine(
+                                this.Get<YafBoardSettings>().UseStyledNicks
+                                    ? string.Format(StyledNick, role, roleStyle)
+                                    : role);
+
+                            first = false;
+                        }
+                        else
+                        {
+                            if (this.Get<YafBoardSettings>().UseStyledNicks)
+                            {
+                                groupsText.AppendFormat(", " + StyledNick, role, roleStyle);
+                            }
+                            else
+                            {
+                                groupsText.AppendFormat(", {0}", role);
+                            }
+                        }
+
+                        roleStyle = null;
+                        hasRole = true;
+                    });
+
+            // vzrus: Only a guest normally has no role
+            if (!hasRole)
+            {
+                var dt = this.Get<IDataCache>().GetOrSet(
+                    Constants.Cache.GuestGroupsCache,
+                    () => this.GetRepository<Group>().MemberAsDataTable(
+                        this.PageContext.PageBoardID,
+                        this.DataRow["UserID"]),
+                    TimeSpan.FromMinutes(60));
+
+                foreach (var guestRole in dt.Rows.Cast<DataRow>().Where(role => role["Member"].ToType<int>() > 0)
+                    .Select(role => role["Name"].ToString()))
                 {
-                    ConsumerKey = Config.TwitterConsumerKey,
-                    ConsumerSecret = Config.TwitterConsumerSecret,
-                    Token = this.Get<IYafSession>().TwitterToken,
-                    TokenSecret = this.Get<IYafSession>().TwitterTokenSecret
-                };
+                    foreach (var dataRow in this.roleRankStyleTable.Rows.Cast<DataRow>().Where(
+                        row => row["LegendID"].ToType<int>() == 1 && row["Style"] != null
+                                                                    && row["Name"].ToString() == guestRole))
+                    {
+                        roleStyle = this.TransformStyle.DecodeStyleByString(dataRow["Style"].ToString(), true);
+                        break;
+                    }
 
-                var tweets = new TweetAPI(oAuth);
+                    groupsText.AppendLine(
+                        this.Get<YafBoardSettings>().UseStyledNicks
+                            ? string.Format(StyledNick, guestRole, roleStyle)
+                            : guestRole);
+                    break;
+                }
+            }
 
-                tweets.UpdateStatus(
-                    TweetAPI.ResponseFormat.json,
-                    this.Server.UrlEncode("RT {1}: {0} {2}".FormatWith(twitterMsg.Truncate(100), twitterName, topicUrl)),
-                    string.Empty);
-            }
-            else
-            {
-                this.Get<HttpResponseBase>().Redirect(
-                    "http://twitter.com/share?url={0}&text={1}".FormatWith(
-                        this.Server.UrlEncode(topicUrl),
-                        this.Server.UrlEncode(
-                            "RT {1}: {0}".FormatWith(twitterMsg.Truncate(100), twitterName))));
-            }
+            filler = $"<strong>{this.GetText("GROUPS")}:</strong> {groupsText}";
+
+            // Remove the space before the first comma when multiple groups exist.
+            filler = filler.Replace("\r\n,", ",");
+
+            return filler;
+        }
+
+        /// <summary>
+        /// Get the User Rank
+        /// </summary>
+        /// <returns>
+        /// The <see cref="string"/>.
+        /// </returns>
+        protected string GetUserRank()
+        {
+            var rankStyle = (from DataRow dataRow in this.roleRankStyleTable.Rows
+                             where dataRow["LegendID"].ToType<int>() == 2 && dataRow["Style"] != null
+                                                                          && dataRow["Name"].ToString()
+                                                                          == this.DataRow["RankName"].ToString()
+                             select this.TransformStyle.DecodeStyleByString(dataRow["Style"].ToString(), true))
+                .FirstOrDefault();
+
+            return
+                $"<strong>{this.GetText("RANK")}:</strong> {(this.Get<YafBoardSettings>().UseStyledNicks ? $@"<span class=""YafRank_{this.DataRow["RankName"]}"" style=""{rankStyle}"">{this.DataRow["RankName"]}</span>" : this.DataRow["RankName"].ToString())}";
         }
 
         /// <summary>
         /// Shows the IP information.
         /// </summary>
-        private void ShowIPInfo()
+        private void ShowIpInfo()
         {
             // Display admin/moderator only info
-            if (!this.PageContext.IsAdmin
-                && (!this.Get<YafBoardSettings>().AllowModeratorsViewIPs || !this.PageContext.ForumModeratorAccess))
+            if (!this.PageContext.IsAdmin && (!this.Get<YafBoardSettings>().AllowModeratorsViewIPs
+                                              || !this.PageContext.ForumModeratorAccess))
             {
                 return;
             }
 
             // We should show IP
-            this.IPSpan1.Visible = true;
+            this.IPInfo.Visible = true;
+            this.IPHolder.Visible = true;
             var ip = IPHelper.GetIp4Address(this.PostData.DataRow["IP"].ToString());
-            this.IPLink1.HRef = this.Get<YafBoardSettings>().IPInfoPageURL.FormatWith(ip);
+            this.IPLink1.HRef = string.Format(this.Get<YafBoardSettings>().IPInfoPageURL, ip);
             this.IPLink1.Title = this.GetText("COMMON", "TT_IPDETAILS");
             this.IPLink1.InnerText = this.HtmlEncode(ip);
         }
@@ -448,50 +454,58 @@ namespace YAF.Controls
         private void SetupPopupMenu()
         {
             this.PopMenu1.ItemClick += this.PopMenu1_ItemClick;
-            this.PopMenu1.AddPostBackItem("userprofile", this.GetText("POSTS", "USERPROFILE"));
+            this.PopMenu1.AddPostBackItem("userprofile", this.GetText("POSTS", "USERPROFILE"), "fa fa-user");
 
-            this.PopMenu1.AddPostBackItem("lastposts", this.GetText("PROFILE", "SEARCHUSER"));
+            this.PopMenu1.AddPostBackItem("lastposts", this.GetText("PROFILE", "SEARCHUSER"), "fa fa-th-list");
 
             if (this.Get<YafBoardSettings>().EnableThanksMod)
             {
-                this.PopMenu1.AddPostBackItem("viewthanks", this.GetText("VIEWTHANKS", "TITLE"));
+                this.PopMenu1.AddPostBackItem("viewthanks", this.GetText("VIEWTHANKS", "TITLE"), "fa fa-heart");
             }
 
             if (this.PageContext.IsAdmin)
             {
-                this.PopMenu1.AddPostBackItem("edituser", this.GetText("POSTS", "EDITUSER"));
+                this.PopMenu1.AddPostBackItem("edituser", this.GetText("POSTS", "EDITUSER"), "fa fa-cogs");
             }
 
             if (!this.PageContext.IsGuest)
             {
                 if (this.Get<IUserIgnored>().IsIgnored(this.PostData.UserId))
                 {
-                    this.PopMenu1.AddPostBackItem("toggleuserposts_show", this.GetText("POSTS", "TOGGLEUSERPOSTS_SHOW"));
+                    this.PopMenu1.AddPostBackItem(
+                        "toggleuserposts_show",
+                        this.GetText("POSTS", "TOGGLEUSERPOSTS_SHOW"),
+                        "fa fa-eye");
                 }
                 else
                 {
-                    this.PopMenu1.AddPostBackItem("toggleuserposts_hide", this.GetText("POSTS", "TOGGLEUSERPOSTS_HIDE"));
+                    this.PopMenu1.AddPostBackItem(
+                        "toggleuserposts_hide",
+                        this.GetText("POSTS", "TOGGLEUSERPOSTS_HIDE"),
+                        "fa fa-eye-slash");
                 }
             }
 
-            var userID = this.DataRow["UserID"].ToType<int>();
+            var userId = this.PostData.UserId;
 
-            if (this.Get<YafBoardSettings>().EnableBuddyList &&
-                this.PageContext.PageUserID != userID)
+            if (this.Get<YafBoardSettings>().EnableBuddyList && this.PageContext.PageUserID != userId)
             {
                 // Should we add the "Add Buddy" item?
-                if (!this.Get<IBuddy>().IsBuddy(userID, false) && !this.PageContext.IsGuest)
+                if (!this.Get<IBuddy>().IsBuddy(userId, false) && !this.PageContext.IsGuest
+                                                               && !this.GetRepository<User>()
+                                                                   .GetById(userId).Block
+                                                                   .BlockFriendRequests)
                 {
-                    this.PopMenu1.AddPostBackItem("addbuddy", this.GetText("BUDDY", "ADDBUDDY"));
+                    this.PopMenu1.AddPostBackItem("addbuddy", this.GetText("BUDDY", "ADDBUDDY"), "fa fa-user-plus");
                 }
-                else if (this.Get<IBuddy>().IsBuddy(userID, true) && !this.PageContext.IsGuest)
+                else if (this.Get<IBuddy>().IsBuddy(userId, true) && !this.PageContext.IsGuest)
                 {
                     // Are the users approved buddies? Add the "Remove buddy" item.
                     this.PopMenu1.AddClientScriptItemWithPostback(
                         this.GetText("BUDDY", "REMOVEBUDDY"),
                         "removebuddy",
-                        "if (confirm('{0}')) {1}".FormatWith(
-                            this.GetText("CP_EDITBUDDIES", "NOTIFICATION_REMOVE"), "{postbackcode}"));
+                        $"if (confirm('{this.GetText("CP_EDITBUDDIES", "NOTIFICATION_REMOVE")}')) {{postbackcode}}",
+                        "fa fa-user-times");
                 }
             }
 
@@ -502,45 +516,48 @@ namespace YAF.Controls
         /// The display post_ pre render.
         /// </summary>
         /// <param name="sender">
-        /// The sender. 
+        /// The sender.
         /// </param>
         /// <param name="e">
-        /// The e. 
+        /// The e.
         /// </param>
         private void DisplayPost_PreRender([NotNull] object sender, [NotNull] EventArgs e)
         {
             if (this.PageContext.IsGuest)
             {
-                this.PostFooter.TogglePost.Visible = false;
+                this.ShowHideIgnoredUserPost.Visible = false;
+                this.MessageRow.CssClass = "collapse show";
             }
             else if (this.Get<IUserIgnored>().IsIgnored(this.PostData.UserId))
             {
-                this.panMessage.Attributes["style"] = "display:none";
-                this.PostFooter.TogglePost.Visible = true;
-                this.PostFooter.TogglePost.Attributes["onclick"] =
-                    "toggleMessage('{0}'); return false;".FormatWith(this.panMessage.ClientID);
+                this.MessageRow.CssClass = "collapse";
+                this.ShowHideIgnoredUserPost.Visible = true;
             }
             else if (!this.Get<IUserIgnored>().IsIgnored(this.PostData.UserId))
             {
-                this.panMessage.Attributes["style"] = "display:block";
-                this.panMessage.Visible = true;
+                this.MessageRow.CssClass = "collapse show";
             }
-
-            this.Retweet.Visible = this.Get<IPermissions>().Check(this.Get<YafBoardSettings>().ShowRetweetMessageTo)
-                                   && !this.PostData.PostDeleted && !this.PostData.IsLocked;
 
             this.Edit.Visible = !this.PostData.PostDeleted && this.PostData.CanEditPost && !this.PostData.IsLocked;
             this.Edit.NavigateUrl = YafBuildLink.GetLinkNotEscaped(
-                ForumPages.postmessage, "m={0}", this.PostData.MessageId);
+                ForumPages.postmessage,
+                "m={0}",
+                this.PostData.MessageId);
             this.MovePost.Visible = this.PageContext.ForumModeratorAccess && !this.PostData.IsLocked;
             this.MovePost.NavigateUrl = YafBuildLink.GetLinkNotEscaped(
-                ForumPages.movemessage, "m={0}", this.PostData.MessageId);
+                ForumPages.movemessage,
+                "m={0}",
+                this.PostData.MessageId);
             this.Delete.Visible = !this.PostData.PostDeleted && this.PostData.CanDeletePost && !this.PostData.IsLocked;
             this.Delete.NavigateUrl = YafBuildLink.GetLinkNotEscaped(
-                ForumPages.deletemessage, "m={0}&action=delete", this.PostData.MessageId);
+                ForumPages.deletemessage,
+                "m={0}&action=delete",
+                this.PostData.MessageId);
             this.UnDelete.Visible = this.PostData.CanUnDeletePost && !this.PostData.IsLocked;
             this.UnDelete.NavigateUrl = YafBuildLink.GetLinkNotEscaped(
-                ForumPages.deletemessage, "m={0}&action=undelete", this.PostData.MessageId);
+                ForumPages.deletemessage,
+                "m={0}&action=undelete",
+                this.PostData.MessageId);
 
             this.Quote.Visible = !this.PostData.PostDeleted && this.PostData.CanReply && !this.PostData.IsLocked;
             this.MultiQuote.Visible = !this.PostData.PostDeleted && this.PostData.CanReply && !this.PostData.IsLocked;
@@ -552,24 +569,18 @@ namespace YAF.Controls
                 this.PageContext.PageForumID,
                 this.PostData.MessageId);
 
-            // setup jQuery and YAF JS...
-            YafContext.Current.PageElements.RegisterJsBlock("toggleMessageJs", JavaScriptBlocks.ToggleMessageJs);
-
-            // Setup Ceebox js
-            YafContext.Current.PageElements.RegisterJsBlock("ceeboxloadjs", JavaScriptBlocks.CeeBoxLoadJs);
-
             if (this.MultiQuote.Visible)
             {
                 this.MultiQuote.Attributes.Add(
                     "onclick",
-                    "handleMultiQuoteButton(this, '{0}', '{1}')".FormatWith(
-                        this.PostData.MessageId,
-                        this.PostData.TopicId));
+                    $"handleMultiQuoteButton(this, '{this.PostData.MessageId}', '{this.PostData.TopicId}')");
 
                 YafContext.Current.PageElements.RegisterJsBlockStartup(
-                    "MultiQuoteButtonJs", JavaScriptBlocks.MultiQuoteButtonJs);
+                    "MultiQuoteButtonJs",
+                    JavaScriptBlocks.MultiQuoteButtonJs);
                 YafContext.Current.PageElements.RegisterJsBlockStartup(
-                  "MultiQuoteCallbackSuccessJS", JavaScriptBlocks.MultiQuoteCallbackSuccessJS);
+                    "MultiQuoteCallbackSuccessJS",
+                    JavaScriptBlocks.MultiQuoteCallbackSuccessJs);
 
                 this.MultiQuote.Text = this.GetText("BUTTON_MULTI_QUOTE");
                 this.MultiQuote.ToolTip = this.GetText("BUTTON_MULTI_QUOTE_TT");
@@ -577,31 +588,46 @@ namespace YAF.Controls
 
             if (this.Get<YafBoardSettings>().EnableUserReputation)
             {
-                // Setup UserBox Reputation Script Block
-                YafContext.Current.PageElements.RegisterJsBlockStartup(
-                    "reputationprogressjs", JavaScriptBlocks.RepuatationProgressLoadJs);
-
                 this.AddReputationControls();
             }
 
-            // Is User Suspended
-            var suspended = this.DataRow["Suspended"].ToType<DateTime?>();
-
-            if (suspended.HasValue && suspended.Value > DateTime.UtcNow)
+            if (this.Edit.Visible || this.Delete.Visible || this.MovePost.Visible)
             {
-                this.ThemeImgSuspended.LocalizedTitle =
-                    this.GetText("POSTS", "USERSUSPENDED").FormatWith(
-                        this.Get<IDateTime>().FormatDateTimeShort(suspended.Value));
-
-                this.ThemeImgSuspended.Visible = true;
-                this.OnlineStatusImage.Visible = false;
+                this.Manage.Visible = true;
+            }
+            else
+            {
+                this.Manage.Visible = false;
             }
 
-            YafContext.Current.PageElements.RegisterJsBlockStartup("asynchCallFailedJs", "function CallFailed(res){ alert('Error Occurred'); }");
-            
+            YafContext.Current.PageElements.RegisterJsBlockStartup(
+                "asynchCallFailedJs",
+                "function CallFailed(res){console.log(res);  }");
+
             this.FormatThanksRow();
 
-            this.ShowIPInfo();
+            this.ShowIpInfo();
+
+            this.panMessage.CssClass = "col";
+
+            var userId = this.PostData.UserId;
+
+            var avatarUrl = this.Get<IAvatars>().GetAvatarUrlForUser(userId);
+            var displayName = this.Get<YafBoardSettings>().EnableDisplayName
+                                  ? UserMembershipHelper.GetDisplayNameFromID(userId)
+                                  : UserMembershipHelper.GetUserNameFromID(userId);
+
+            if (avatarUrl.IsSet())
+            {
+                this.Avatar.Visible = true;
+                this.Avatar.AlternateText = displayName;
+                this.Avatar.ToolTip = displayName;
+                this.Avatar.ImageUrl = avatarUrl;
+            }
+            else
+            {
+                this.Avatar.Visible = false;
+            }
         }
 
         /// <summary>
@@ -609,8 +635,8 @@ namespace YAF.Controls
         /// </summary>
         private void AddReputationControls()
         {
-            if (this.PageContext.PageUserID != this.DataRow["UserID"].ToType<int>() &&
-                this.Get<YafBoardSettings>().EnableUserReputation && !this.IsGuest && !this.PageContext.IsGuest)
+            if (this.PageContext.PageUserID != this.PostData.UserId
+                && this.Get<YafBoardSettings>().EnableUserReputation && !this.IsGuest && !this.PageContext.IsGuest)
             {
                 if (!YafReputation.CheckIfAllowReputationVoting(this.DataRow["ReputationVoteDate"]))
                 {
@@ -630,8 +656,7 @@ namespace YAF.Controls
                 }
 
                 // Check if the Value is 0 or Bellow
-                if (this.DataRow["Points"].ToType<int>() > 0 &&
-                    this.Get<YafBoardSettings>().ReputationAllowNegative)
+                if (this.DataRow["Points"].ToType<int>() > 0 && this.Get<YafBoardSettings>().ReputationAllowNegative)
                 {
                     this.RemoveReputation.Visible = true;
                 }
@@ -660,29 +685,37 @@ namespace YAF.Controls
 
             // Register Javascript
             const string AddThankBoxHTML =
-                "'<a class=\"yaflittlebutton\" href=\"javascript:addThanks(' + res.d.MessageID + ');\" onclick=\"jQuery(this).blur();\" title=' + res.d.Title + '><span>' + res.d.Text + '</span></a>'";
+                "'<a class=\"btn btn-link\" href=\"javascript:addThanks(' + response.MessageID + ');\" onclick=\"jQuery(this).blur();\" title=' + response.Title + '><span><i class=\"fas fa-heart text-danger fa-fw\"></i>&nbsp;' + response.Text + '</span></a>'";
 
             const string RemoveThankBoxHTML =
-                "'<a class=\"yaflittlebutton\" href=\"javascript:removeThanks(' + res.d.MessageID + ');\" onclick=\"jQuery(this).blur();\" title=' + res.d.Title + '><span>' + res.d.Text + '</span></a>'";
+                "'<a class=\"btn btn-link\" href=\"javascript:removeThanks(' + response.MessageID + ');\" onclick=\"jQuery(this).blur();\" title=' + response.Title + '><span><i class=\"far fa-heart fa-fw\"></i>&nbsp;' + response.Text + '</span></a>'";
 
-            var thanksJs = JavaScriptBlocks.AddThanksJs(RemoveThankBoxHTML) + Environment.NewLine + JavaScriptBlocks.RemoveThanksJs(AddThankBoxHTML);
+            var thanksJs = "{0}{1}{2}".Fmt(
+                JavaScriptBlocks.AddThanksJs(RemoveThankBoxHTML),
+                Environment.NewLine,
+                JavaScriptBlocks.RemoveThanksJs(AddThankBoxHTML));
 
             YafContext.Current.PageElements.RegisterJsBlockStartup("ThanksJs", thanksJs);
 
-            this.Thank.Visible = this.PostData.CanThankPost && !this.PageContext.IsGuest &&
-                                 this.Get<YafBoardSettings>().EnableThanksMod;
+            this.Thank.Visible = this.PostData.CanThankPost && !this.PageContext.IsGuest
+                                                            && this.Get<YafBoardSettings>().EnableThanksMod;
 
             if (Convert.ToBoolean(this.DataRow["IsThankedByUser"]))
             {
-                this.Thank.NavigateUrl = "javascript:removeThanks({0});".FormatWith(this.DataRow["MessageID"]);
+                this.Thank.NavigateUrl = $"javascript:removeThanks({this.DataRow["MessageID"]});";
                 this.Thank.TextLocalizedTag = "BUTTON_THANKSDELETE";
                 this.Thank.TitleLocalizedTag = "BUTTON_THANKSDELETE_TT";
+                this.Thank.Icon = "heart";
+                this.Thank.IconCssClass = "far";
             }
             else
             {
-                this.Thank.NavigateUrl = "javascript:addThanks({0});".FormatWith(this.DataRow["MessageID"]);
+                this.Thank.NavigateUrl = $"javascript:addThanks({this.DataRow["MessageID"]});";
                 this.Thank.TextLocalizedTag = "BUTTON_THANKS";
                 this.Thank.TitleLocalizedTag = "BUTTON_THANKS_TT";
+                this.Thank.Icon = "heart";
+                this.Thank.IconCssClass = "fas";
+                this.Thank.IconColor = "text-danger";
             }
 
             var thanksNumber = this.DataRow["MessageThanksNumber"].ToType<int>();
@@ -692,21 +725,20 @@ namespace YAF.Controls
                 return;
             }
 
-            var username =
-                this.HtmlEncode(
-                    this.Get<YafBoardSettings>().EnableDisplayName
-                        ? UserMembershipHelper.GetDisplayNameFromID(this.PostData.UserId)
-                        : UserMembershipHelper.GetUserNameFromID(this.PostData.UserId));
+            var username = this.HtmlEncode(
+                this.Get<YafBoardSettings>().EnableDisplayName
+                    ? UserMembershipHelper.GetDisplayNameFromID(this.PostData.UserId)
+                    : UserMembershipHelper.GetUserNameFromID(this.PostData.UserId));
 
             var thanksLabelText = thanksNumber == 1
-                                  ? this.Get<ILocalization>().GetText("THANKSINFOSINGLE").FormatWith(username)
-                                  : this.Get<ILocalization>().GetText("THANKSINFO").FormatWith(thanksNumber, username);
+                                      ? this.Get<ILocalization>().GetTextFormatted("THANKSINFOSINGLE", username)
+                                      : this.Get<ILocalization>().GetTextFormatted(
+                                          "THANKSINFO",
+                                          thanksNumber,
+                                          username);
 
             this.ThanksDataLiteral.Text =
-                "<img id=\"ThanksInfoImage{0}\" src=\"{1}\" alt=\"thanks\"  runat=\"server\" />&nbsp;{2}".FormatWith(
-                    this.DataRow["MessageID"],
-                    this.Get<ITheme>().GetItem("ICONS", "THANKSINFOLIST_IMAGE"),
-                    thanksLabelText);
+                $"<i class=\"fa fa-heart\" style=\"color:#e74c3c\"></i>&nbsp;{thanksLabelText}";
 
             this.ThanksDataLiteral.Visible = true;
 
@@ -718,7 +750,7 @@ namespace YAF.Controls
         /// The pop menu 1_ item click.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="YAF.Controls.PopEventArgs"/> instance containing the event data.</param>
+        /// <param name="e">The <see cref="PopEventArgs"/> instance containing the event data.</param>
         private void PopMenu1_ItemClick([NotNull] object sender, [NotNull] PopEventArgs e)
         {
             switch (e.Item)
@@ -728,44 +760,52 @@ namespace YAF.Controls
                         ForumPages.profile,
                         "u={0}&name={1}",
                         this.PostData.UserId,
-                        this.Get<YafBoardSettings>().EnableDisplayName
-                            ? this.DataRow["DisplayName"]
-                            : this.DataRow["UserName"]);
+                        this.DataRow[this.Get<YafBoardSettings>().EnableDisplayName ? "DisplayName" : "UserName"]);
                     break;
                 case "lastposts":
                     YafBuildLink.Redirect(
                         ForumPages.search,
                         "postedby={0}",
-                        this.Get<YafBoardSettings>().EnableDisplayName ? this.DataRow["DisplayName"] : this.DataRow["UserName"]);
+                        this.Get<YafBoardSettings>().EnableDisplayName
+                            ? this.DataRow["DisplayName"]
+                            : this.DataRow["UserName"]);
                     break;
                 case "addbuddy":
-                    this.PopMenu1.RemovePostBackItem("addbuddy");
                     var strBuddyRequest = this.Get<IBuddy>().AddRequest(this.PostData.UserId);
-                    if (Convert.ToBoolean(strBuddyRequest[1]))
+
+                    if (Convert.ToBoolean(strBuddyRequest[1].ToType<int>()))
                     {
                         this.PageContext.AddLoadMessage(
-                            this.GetTextFormatted("NOTIFICATION_BUDDYAPPROVED_MUTUAL", strBuddyRequest[0]), MessageTypes.Success);
+                            this.GetTextFormatted("NOTIFICATION_BUDDYAPPROVED_MUTUAL", strBuddyRequest[0]),
+                            MessageTypes.success);
+
+                        this.PopMenu1.RemovePostBackItem("addbuddy");
 
                         this.PopMenu1.AddClientScriptItemWithPostback(
                             this.GetText("BUDDY", "REMOVEBUDDY"),
                             "removebuddy",
-                            "if (confirm('{0}')) {1}".FormatWith(
-                                this.GetText("CP_EDITBUDDIES", "NOTIFICATION_REMOVE"), "{postbackcode}"));
+                            $"if (confirm('{this.GetText("CP_EDITBUDDIES", "NOTIFICATION_REMOVE")}')) {{postbackcode}}",
+                            "fa fa-user-times");
                     }
                     else
                     {
-                        this.PageContext.AddLoadMessage(this.GetText("NOTIFICATION_BUDDYREQUEST"));
+                        this.PageContext.AddLoadMessage(this.GetText("NOTIFICATION_BUDDYREQUEST"), MessageTypes.success);
                     }
 
                     break;
                 case "removebuddy":
                     {
+                        this.Get<IBuddy>().Remove(this.PostData.UserId);
+
                         this.PopMenu1.RemovePostBackItem("removebuddy");
-                        this.PopMenu1.AddPostBackItem("addbuddy", this.GetText("BUDDY", "ADDBUDDY"));
+
+                        this.PopMenu1.AddPostBackItem("addbuddy", this.GetText("BUDDY", "ADDBUDDY"), "fa fa-user-plus");
+
                         this.PageContext.AddLoadMessage(
                             this.GetTextFormatted(
-                                "REMOVEBUDDY_NOTIFICATION", this.Get<IBuddy>().Remove(this.PostData.UserId)),
-                            MessageTypes.Success);
+                                "REMOVEBUDDY_NOTIFICATION",
+                                this.Get<IBuddy>().Remove(this.PostData.UserId)),
+                            MessageTypes.success);
                         break;
                     }
 
@@ -774,11 +814,11 @@ namespace YAF.Controls
                     break;
                 case "toggleuserposts_show":
                     this.Get<IUserIgnored>().RemoveIgnored(this.PostData.UserId);
-                    this.Response.Redirect(this.Request.RawUrl);
+                    this.Get<HttpResponseBase>().Redirect(this.Get<HttpRequestBase>().RawUrl);
                     break;
                 case "toggleuserposts_hide":
                     this.Get<IUserIgnored>().AddIgnored(this.PostData.UserId);
-                    this.Response.Redirect(this.Request.RawUrl);
+                    this.Get<HttpResponseBase>().Redirect(this.Get<HttpRequestBase>().RawUrl);
                     break;
                 case "viewthanks":
                     YafBuildLink.Redirect(ForumPages.viewthanks, "u={0}", this.PostData.UserId);

@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -32,8 +32,7 @@ namespace YAF.Core.Helpers
     using System.Web;
     using System.Web.Caching;
 
-    using YAF.Classes;
-    using YAF.Classes.Data;
+    using YAF.Configuration;
     using YAF.Core.Model;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
@@ -47,10 +46,11 @@ namespace YAF.Core.Helpers
     {
         #region Constants and Fields
         
+
         /// <summary>
         /// The cache size.
         /// </summary>
-        private static int _cacheSize = 500;
+        private static int cacheSize = 500;
 
         #endregion
 
@@ -61,16 +61,13 @@ namespace YAF.Core.Helpers
         /// </summary>
         protected static int CacheSize
         {
-            get
-            {
-                return _cacheSize;
-            }
+            get => cacheSize;
 
             set
             {
-                if (_cacheSize > 0)
+                if (cacheSize > 0)
                 {
-                    _cacheSize = value;
+                    cacheSize = value;
                 }
             }
         }
@@ -100,13 +97,14 @@ namespace YAF.Core.Helpers
             }
 
             // get the section desired...
-            var list = YafContext.Current.GetRepository<Category>().Simplelist(LowRange(id), CacheSize);
+            var list = YafContext.Current.GetRepository<Category>().SimpleListAsDataTable(LowRange(id), CacheSize);
 
             // set it up in the cache
             row = SetupDataToCache(ref list, Type, id, PrimaryKey);
 
             return row == null ? string.Empty : CleanStringForURL(row[NameField].ToString());
         }
+
 
         /// <summary>
         /// Gets the name of the forum.
@@ -129,7 +127,7 @@ namespace YAF.Core.Helpers
             }
 
             // get the section desired...
-            var list = LegacyDb.forum_simplelist(LowRange(id), CacheSize);
+            var list = YafContext.Current.GetRepository<Forum>().SimpleListAsDataTable(LowRange(id), CacheSize);
 
             // set it up in the cache
             row = SetupDataToCache(ref list, Type, id, PrimaryKey);
@@ -169,7 +167,7 @@ namespace YAF.Core.Helpers
             }
 
             // get the section desired...
-            var list = LegacyDb.user_simplelist(LowRange(id), CacheSize);
+            var list = YafContext.Current.GetRepository<User>().SimpleListAsDataTable(LowRange(id), CacheSize);
 
             // set it up in the cache
             row = SetupDataToCache(ref list, Type, id, PrimaryKey);
@@ -186,11 +184,11 @@ namespace YAF.Core.Helpers
         /// </returns>
         public static string GetTopicName(int id)
         {
-            const string TSype = "Topic";
+            const string Topic = "Topic";
             const string PrimaryKey = "TopicID";
             const string NameField = "Topic";
 
-            var row = GetDataRowFromCache(TSype, id);
+            var row = GetDataRowFromCache(Topic, id);
 
             if (row != null)
             {
@@ -198,10 +196,10 @@ namespace YAF.Core.Helpers
             }
 
             // get the section desired...
-            var list = LegacyDb.topic_simplelist(LowRange(id), CacheSize);
+            var list = YafContext.Current.GetRepository<Topic>().SimpleListAsDataTable(LowRange(id), CacheSize);
 
             // set it up in the cache
-            row = SetupDataToCache(ref list, TSype, id, PrimaryKey);
+            row = SetupDataToCache(ref list, Topic, id, PrimaryKey);
 
             return row == null ? string.Empty : CleanStringForURL(row[NameField].ToString());
         }
@@ -226,7 +224,7 @@ namespace YAF.Core.Helpers
             }
 
             // get the section desired...
-            var list = LegacyDb.message_simplelist(LowRange(id), CacheSize);
+            var list = YafContext.Current.GetRepository<Message>().SimpleListAsDataTable(LowRange(id), CacheSize);
 
             // set it up in the cache
             row = SetupDataToCache(ref list, Type, id, PrimaryKey);
@@ -245,13 +243,13 @@ namespace YAF.Core.Helpers
         {
             var sb = new StringBuilder();
 
+            // fix ampersand...
+            inputString = inputString.Replace(" & ", "and").Replace("ـ", string.Empty);
+
             // trim...
             inputString = Config.UrlRewritingMode == "Unicode"
                       ? HttpUtility.UrlDecode(inputString.Trim())
                       : HttpContext.Current.Server.HtmlDecode(inputString.Trim());
-
-            // fix ampersand...
-            inputString = inputString.Replace("&", "and").Replace("ـ", string.Empty);
 
             inputString = Regex.Replace(inputString, @"\p{Cs}", string.Empty);
 
@@ -262,20 +260,21 @@ namespace YAF.Core.Helpers
             {
                 case "Unicode":
                     {
-                        foreach (char currentChar in inputString)
-                        {
-                            if (char.IsWhiteSpace(currentChar) || char.IsPunctuation(currentChar))
-                            {
-                                sb.Append('-');
-                            }
-                            else if (char.GetUnicodeCategory(currentChar) != UnicodeCategory.NonSpacingMark
-                                     && !char.IsSymbol(currentChar))
-                            {
-                                sb.Append(currentChar);
-                            }
-                        }
-
-                        string strNew = sb.ToString();
+                        inputString.ForEach(
+                            currentChar =>
+                                {
+                                    if (char.IsWhiteSpace(currentChar) || char.IsPunctuation(currentChar))
+                                    {
+                                        sb.Append('-');
+                                    }
+                                    else if (char.GetUnicodeCategory(currentChar) != UnicodeCategory.NonSpacingMark
+                                             && !char.IsSymbol(currentChar))
+                                    {
+                                        sb.Append(currentChar);
+                                    }
+                                });
+                        
+                        var strNew = sb.ToString();
 
                         while (strNew.EndsWith("-"))
                         {
@@ -298,20 +297,21 @@ namespace YAF.Core.Helpers
                             strUnidecode = inputString;
                         }
 
-                        foreach (char currentChar in strUnidecode)
-                        {
-                            if (char.IsWhiteSpace(currentChar) || char.IsPunctuation(currentChar))
-                            {
-                                sb.Append('-');
-                            }
-                            else if (char.GetUnicodeCategory(currentChar) != UnicodeCategory.NonSpacingMark
-                                     && !char.IsSymbol(currentChar))
-                            {
-                                sb.Append(currentChar);
-                            }
-                        }
+                        strUnidecode.ForEach(
+                            currentChar =>
+                                {
+                                    if (char.IsWhiteSpace(currentChar) || char.IsPunctuation(currentChar))
+                                    {
+                                        sb.Append('-');
+                                    }
+                                    else if (char.GetUnicodeCategory(currentChar) != UnicodeCategory.NonSpacingMark
+                                             && !char.IsSymbol(currentChar))
+                                    {
+                                        sb.Append(currentChar);
+                                    }
+                                });
 
-                        string strNew = sb.ToString();
+                        var strNew = sb.ToString();
 
                         while (strNew.EndsWith("-"))
                         {
@@ -323,20 +323,21 @@ namespace YAF.Core.Helpers
 
                 default:
                     {
-                        foreach (char currentChar in inputString)
-                        {
-                            if (char.IsWhiteSpace(currentChar) || char.IsPunctuation(currentChar))
-                            {
-                                sb.Append('-');
-                            }
-                            else if (char.GetUnicodeCategory(currentChar) != UnicodeCategory.NonSpacingMark
-                                     && !char.IsSymbol(currentChar) && currentChar < 128)
-                            {
-                                sb.Append(currentChar);
-                            }
-                        }
+                        inputString.ForEach(
+                            currentChar =>
+                                {
+                                    if (char.IsWhiteSpace(currentChar) || char.IsPunctuation(currentChar))
+                                    {
+                                        sb.Append('-');
+                                    }
+                                    else if (char.GetUnicodeCategory(currentChar) != UnicodeCategory.NonSpacingMark
+                                             && !char.IsSymbol(currentChar) && currentChar < 128)
+                                    {
+                                        sb.Append(currentChar);
+                                    }
+                                });
 
-                        string strNew = sb.ToString();
+                        var strNew = sb.ToString();
 
                         while (strNew.EndsWith("-"))
                         {
@@ -357,7 +358,7 @@ namespace YAF.Core.Helpers
         /// </returns>
         protected static int HighRange(int id)
         {
-            return (Math.Ceiling((id / _cacheSize).ToType<double>()) * _cacheSize).ToType<int>();
+            return (Math.Ceiling((id / cacheSize).ToType<double>()) * cacheSize).ToType<int>();
         }
 
         /// <summary>
@@ -369,7 +370,7 @@ namespace YAF.Core.Helpers
         /// </returns>
         protected static int LowRange(int id)
         {
-            return (Math.Floor((id / _cacheSize).ToType<double>()) * _cacheSize).ToType<int>();
+            return (Math.Floor((id / cacheSize).ToType<double>()) * cacheSize).ToType<int>();
         }
 
         /// <summary>
@@ -382,7 +383,7 @@ namespace YAF.Core.Helpers
         /// </returns>
         protected static string GetCacheName(string type, int id)
         {
-            return @"urlRewritingDT-{0}-Range-{1}-to-{2}".FormatWith(type, HighRange(id), LowRange(id));
+            return $@"urlRewritingDT-{type}-Range-{HighRange(id)}-to-{LowRange(id)}";
         }
 
         /// <summary>
@@ -399,10 +400,8 @@ namespace YAF.Core.Helpers
         /// </returns>
         protected static DataRow GetDataRowFromCache(string type, int id)
         {
-            // get the datatable and find the value
-            var list = HttpContext.Current.Cache[GetCacheName(type, id)] as DataTable;
-
-            if (list == null)
+            // get the data table and find the value
+            if (!(HttpContext.Current.Cache[GetCacheName(type, id)] is DataTable list))
             {
                 return null;
             }
@@ -451,7 +450,7 @@ namespace YAF.Core.Helpers
 
             // store it for the future
             var randomValue = new Random();
-            
+
             HttpContext.Current.Cache.Insert(
                 GetCacheName(type, id),
                 list,

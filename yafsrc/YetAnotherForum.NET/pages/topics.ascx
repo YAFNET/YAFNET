@@ -1,146 +1,188 @@
 ﻿<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.topics" Codebehind="topics.ascx.cs" %>
-<%@ Import Namespace="YAF.Core" %>
 <%@ Import Namespace="YAF.Types.Interfaces" %>
+<%@ Import Namespace="ServiceStack" %>
+<%@ Import Namespace="YAF.Core.Extensions" %>
 <%@ Register TagPrefix="YAF" TagName="ForumList" Src="../controls/ForumList.ascx" %>
-<%@ Register TagPrefix="YAF" TagName="TopicLine" Src="../controls/TopicLine.ascx" %>
+
+
 <YAF:PageLinks runat="server" ID="PageLinks" />
-<div class="DivTopSeparator">
-</div>
+
 <asp:PlaceHolder runat="server" ID="SubForums" Visible="false">
-    <table class="content subForum" width="100%">
-        <tr class="topicTitle">
-            <th colspan="6" class="header1">
-                <%=GetSubForumTitle()%>
-            </th>
-        </tr>
-        <tr class="topicSubTitle">
-            <th width="1%" class="header2">
-                &nbsp;
-            </th>
-            <th class="header2 headerForum">
-                <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="FORUM" />
-            </th>
-            <th width="15%" runat="server" class="header2 headerModerators" visible="<%# PageContext.BoardSettings.ShowModeratorList && PageContext.BoardSettings.ShowModeratorListAsColumn %>">
-                <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="moderators" />
-            </th>
-            <th width="4%" class="header2 headerTopics">
-                <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="topics" />
-            </th>
-            <th width="4%" class="header2 headerPosts">
-                <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="posts" />
-            </th>
-            <th width="25%" class="header2 headerLastPost">
-                <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="lastpost" />
-            </th>
-        </tr>
-        <YAF:ForumList AltLastPost="<%# this.LastPostImageTT %>" runat="server" ID="ForumList" />
-    </table>
+    <div class="row">
+        <div class="col">
+            <div class="card mb-3">
+                <div class="card-header d-flex align-items-center">
+                    <YAF:CollapseButton ID="CollapsibleImage" runat="server"
+                                        PanelID='<%# "forumPanel{0}".Fmt(this.PageContext.PageForumID) %>'
+                                        AttachedControlID="body" 
+                                        CssClass="pl-0">
+                    </YAF:CollapseButton>
+                    <i class="fas fa-comments fa-fw text-secondary"></i>&nbsp;<%= this.GetSubForumTitle()%>
+                </div>
+                <div class="card-body" id="body" runat="server">
+                    <YAF:ForumList AltLastPost="<%# this.LastPostImageTT %>" runat="server" ID="ForumList" />
+                </div>
+            </div>
+        </div>
+    </div>
 </asp:PlaceHolder>
-<table class="command" width="100%">
-    <tr>
-        <td>
-            <YAF:Pager runat="server" ID="Pager" UsePostBack="False" />
-        </td>
-        <td>
-            <YAF:ThemeButton ID="moderate1" runat="server" CssClass="yafcssbigbutton rightItem button-moderate"
-                TextLocalizedTag="BUTTON_MODERATE" TitleLocalizedTag="BUTTON_MODERATE_TT" />
-            <YAF:ThemeButton ID="NewTopic1" runat="server" CssClass="yafcssbigbutton rightItem button-newtopic"
-                TextLocalizedTag="BUTTON_NEWTOPIC" TitleLocalizedTag="BUTTON_NEWTOPIC_TT" OnClick="NewTopic_Click" />
-        </td>
-    </tr>
-</table>
-<table class="content" width="100%">
-    <tr class="topicTitle">
-        <th class="header1" colspan="6">
-            <asp:Label ID="PageTitle" runat="server"></asp:Label>
-        </th>
-    </tr>
-    <tr class="topicSubTitle">
-        <th class="header2" width="1%">
-            &nbsp;
-        </th>
-        <th class="header2 headerTopic" align="left">
-            <YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="topics" />
-        </th>
-        <th class="header2 headerReplies" align="right" width="7%">
-            <YAF:LocalizedLabel ID="LocalizedLabel8" runat="server" LocalizedTag="replies" />
-        </th>
-        <th class="header2 headerViews" align="right" width="7%">
-            <YAF:LocalizedLabel ID="LocalizedLabel9" runat="server" LocalizedTag="views" />
-        </th>
-        <th class="header2 headerLastPost" align="left" width="15%">
-            <YAF:LocalizedLabel ID="LocalizedLabel10" runat="server" LocalizedTag="lastpost" />
-        </th>
-    </tr>
-    <asp:Repeater ID="Announcements" runat="server">
-        <ItemTemplate>
-            <YAF:TopicLine runat="server" AltLastPost="<%# this.LastPostImageTT %>" DataRow="<%# Container.DataItem %>" />
-        </ItemTemplate>
-    </asp:Repeater>
-    <asp:Repeater ID="TopicList" runat="server">
-        <ItemTemplate>
-            <YAF:TopicLine runat="server" AltLastPost="<%# this.LastPostImageTT %>" DataRow="<%# Container.DataItem %>" />
-        </ItemTemplate>
-        <AlternatingItemTemplate>
-            <YAF:TopicLine runat="server" IsAlt="True" AltLastPost="<%# this.LastPostImageTT %>" DataRow="<%# Container.DataItem %>" />
-        </AlternatingItemTemplate>
-    </asp:Repeater>
-    <YAF:ForumUsers runat="server" />
-    <tr>
-        <td align="center" colspan="6" class="footer1">
-            <table cellspacing="0" cellpadding="0" width="100%">
-                <tr>
-                    <td width="1%" style="white-space: nowrap">
-                        <YAF:LocalizedLabel ID="LocalizedLabel11" runat="server" LocalizedTag="showtopics" />
-                        <asp:DropDownList ID="ShowList" runat="server" AutoPostBack="True" CssClass="standardSelectMenu" />
-                    </td>
-                    <td align="right">
-                        <asp:LinkButton ID="WatchForum" runat="server" /><span id="WatchForumID" runat="server"
-                            visible="false" /><span id="delimiter1" runat="server" visible="<%# this.WatchForum.Text.Length > 0 %>"> | </span>
-                        <asp:LinkButton runat="server" ID="MarkRead" />
-                        <YAF:RssFeedLink ID="RssFeed" runat="server" FeedType="Topics" ShowSpacerBefore="true"
-                            Visible="<%# PageContext.BoardSettings.ShowRSSLink && this.Get<IPermissions>().Check(PageContext.BoardSettings.TopicsFeedAccess) %>" TitleLocalizedTag="RSSICONTOOLTIPFORUM" />  
-                          <YAF:RssFeedLink ID="AtomFeed" runat="server" FeedType="Topics" ShowSpacerBefore="true" IsAtomFeed="true" Visible="<%# PageContext.BoardSettings.ShowAtomLink && this.Get<IPermissions>().Check(PageContext.BoardSettings.TopicsFeedAccess) %>" ImageThemeTag="ATOMFEED" TextLocalizedTag="ATOMFEED" TitleLocalizedTag="ATOMICONTOOLTIPACTIVE" />                            
-                    </td>
-                </tr>
-            </table>
-        </td>
-    </tr>
-</table>
-<table class="command" width="100%" cellspacing="0" cellpadding="0">
-    <tr>
-        <td align="left">
+<div class="row mb-3 align-items-center justify-content-between">
+    <div class="col-md-6">
+        <YAF:Pager runat="server" ID="Pager" UsePostBack="False" />
+    </div>
+    <div class="col-md-6 mt-1 mt-md-0">
+        <YAF:ThemeButton ID="moderate1" runat="server"
+                         CssClass="float-right mr-1"
+                         TextLocalizedTag="BUTTON_MODERATE" TitleLocalizedTag="BUTTON_MODERATE_TT"
+                         Type="Secondary"
+                         Icon="tasks"/>
+        <YAF:ThemeButton ID="NewTopic1" runat="server" 
+                         CssClass="float-right mr-1"
+                         TextLocalizedTag="BUTTON_NEWTOPIC" TitleLocalizedTag="BUTTON_NEWTOPIC_TT" 
+                         OnClick="NewTopic_Click"
+                         Icon="plus"/>
+    </div>
+</div>
+<div class="row">
+    <div class="col">
+        <div class="card mb-3 mt-3">
+            <div class="card-header">
+                <i class="fas fa-comments fa-fw text-secondary"></i>&nbsp;<asp:Label ID="PageTitle" runat="server"></asp:Label>
+            </div>
+            <div class="card-body">
+                <asp:PlaceHolder runat="server" ID="NoPostsPlaceHolder">
+                    <YAF:Alert runat="server" Type="info">
+                        <YAF:LocalizedLabel runat="server" LocalizedTag="NO_TOPICS"></YAF:LocalizedLabel>
+                    </YAF:Alert>
+                </asp:PlaceHolder>
+                <asp:Repeater ID="Announcements" runat="server">
+                    <ItemTemplate>
+                        <%# this.CreateTopicLine((System.Data.DataRowView)Container.DataItem) %>
+                    </ItemTemplate>
+                    <SeparatorTemplate>
+                        <div class="row">
+                            <div class="col">
+                                <hr/>
+                            </div>
+                        </div>
+                    </SeparatorTemplate>
+                    <FooterTemplate>
+                        <asp:PlaceHolder runat="server" Visible="<%# this.Announcements.Items.Count > 0 %>">
+                            <div class="row">
+                                <div class="col">
+                                    <hr/>
+                                </div>
+                            </div>
+                        </asp:PlaceHolder>
+                        
+                    </FooterTemplate>
+                </asp:Repeater>
+                <asp:Repeater ID="TopicList" runat="server">
+                    <ItemTemplate>
+                        <%# this.CreateTopicLine((System.Data.DataRowView)Container.DataItem) %>
+                    </ItemTemplate>
+                    <SeparatorTemplate>
+                        <div class="row">
+                            <div class="col">
+                                <hr/>
+                            </div>
+                        </div>
+                    </SeparatorTemplate>
+                </asp:Repeater>
+            </div>
+            <div class="card-footer">
+                <div class="form-group row align-items-center">
+                    <div class="col-sm-3">
+                        <YAF:LocalizedLabel ID="LocalizedLabel11" runat="server" LocalizedTag="showtopics" />:
+                    </div>
+                    <div class="col-sm-9">
+                        <asp:DropDownList ID="ShowList" runat="server" AutoPostBack="True" CssClass="select2-select" />                            
+                    </div>
+                </div>
+                <asp:PlaceHolder ID="ForumJumpHolder" runat="server">
+                <div class="form-group row align-items-center">
+                    <div class="col-sm-3">
+                        <YAF:LocalizedLabel ID="ForumJumpLabel" runat="server" LocalizedTag="FORUM_JUMP" />:
+                    </div>
+                    <div class="col-sm-9">
+                        <YAF:ForumJump ID="ForumJump1" runat="server" />        
+                    </div>
+                </div>
+                </asp:PlaceHolder>
+
+                <asp:PlaceHolder ID="ForumSearchHolder" runat="server">
+                <div class="form-group row align-items-center">
+                    <label class="col-sm-3 col-form-label">
+                        <YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedTag="SEARCH_FORUM" />:
+                    </label>
+                    <div class="col-sm-9">
+						<div class="input-group">
+                            <asp:TextBox id="forumSearch" CssClass="form-control" runat="server"></asp:TextBox>
+                            <div class="input-group-append">
+                                <YAF:ThemeButton ID="forumSearchOK" runat="server" 
+                                                Size="Small"
+                                                CssClass="input-group-text"
+                                                TextLocalizedTag="OK" TitleLocalizedTag="OK_TT" 
+                                                OnClick="ForumSearch_Click" />
+                            </div>
+						</div>
+                    </div>
+                </div>
+                </asp:PlaceHolder>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row mb-3">
+    <div class="col">
+        <div class="btn-group float-right" role="group" aria-label="Tools">
+            <YAF:ThemeButton runat="server" ID="WatchForum"
+                             Type="Secondary" 
+                             Size="Small"
+                             Icon="eye"
+                             TextLocalizedTag="WATCHFORUM"/>
+            <YAF:ThemeButton runat="server" 
+                             Type="Secondary" 
+                             Size="Small" 
+                             Icon="glasses"
+                             ID="MarkRead"
+                             TextLocalizedTag="MARKREAD"/>
+            <YAF:RssFeedLink ID="RssFeed" runat="server" 
+                             FeedType="Topics"
+                             Visible="<%# this.Get<IPermissions>().Check(this.PageContext.BoardSettings.TopicsFeedAccess) %>"  
+            />
+        </div>
+    </div>
+</div>
+<div class="row mb-3">
+    <div class="col">
+        <YAF:ForumUsers runat="server" />
+    </div>
+</div>
+
+<div class="row mb-3 align-items-center justify-content-between">
+    <div class="col-md-6">
             <YAF:Pager ID="PagerBottom" runat="server" LinkedPager="Pager" UsePostBack="False" />
-        </td>
-        <td>
-            <YAF:ThemeButton ID="moderate2" runat="server" CssClass="yafcssbigbutton rightItem button-moderate"
-                TextLocalizedTag="BUTTON_MODERATE" TitleLocalizedTag="BUTTON_MODERATE_TT" />
-            <YAF:ThemeButton ID="NewTopic2" runat="server" CssClass="yafcssbigbutton rightItem button-newtopic"
-                TextLocalizedTag="BUTTON_NEWTOPIC" TitleLocalizedTag="BUTTON_NEWTOPIC_TT" OnClick="NewTopic_Click" />
-        </td>
-    </tr>
-</table>
-<asp:PlaceHolder ID="ForumSearchHolder" runat="server">
-<div id="ForumSearchDiv">
-        <YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedTag="SEARCH_FORUM" />
-        &nbsp;<asp:TextBox id="forumSearch" runat="server"></asp:TextBox>
-        &nbsp;<YAF:ThemeButton ID="forumSearchOK" runat="server" CssClass="yaflittlebutton"
-                TextLocalizedTag="OK" TitleLocalizedTag="OK_TT" OnClick="ForumSearch_Click" />
     </div>
-</asp:PlaceHolder>
-<asp:PlaceHolder ID="ForumJumpHolder" runat="server">
-    <div id="DivForumJump">
-        <YAF:LocalizedLabel ID="ForumJumpLabel" runat="server" LocalizedTag="FORUM_JUMP" />
-        &nbsp;<YAF:ForumJump ID="ForumJump1" runat="server" />
+    <div class="col-md-6 mt-1 mt-md-0">
+            <YAF:ThemeButton ID="moderate2" runat="server" 
+                             CssClass="float-right mr-1"
+                             TextLocalizedTag="BUTTON_MODERATE" TitleLocalizedTag="BUTTON_MODERATE_TT"
+                             Type="Secondary"
+                             Icon="tasks"/>
+            <YAF:ThemeButton ID="NewTopic2" runat="server" 
+                             CssClass="float-right mr-1"
+                             TextLocalizedTag="BUTTON_NEWTOPIC" TitleLocalizedTag="BUTTON_NEWTOPIC_TT" 
+                             OnClick="NewTopic_Click"
+                             Icon="plus"/>
     </div>
-</asp:PlaceHolder>
-<div class="clearItem"></div>
-<div id="DivIconLegend">
+</div>
+
+<div class="row justify-content-between">
+<div class="col-md py-3">
     <YAF:IconLegend ID="IconLegend1" runat="server" />
 </div>
-<div id="DivPageAccess" class="smallfont">
+<div class="col-md py-3">
     <YAF:PageAccess ID="PageAccess1" runat="server" />
 </div>
-<div id="DivSmartScroller">
-    <YAF:SmartScroller ID="SmartScroller1" runat="server" />
 </div>

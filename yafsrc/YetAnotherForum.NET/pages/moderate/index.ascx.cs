@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -27,16 +27,17 @@ namespace YAF.Pages.moderate
     #region Using
 
     using System;
-    using System.Data;
     using System.Web.UI.WebControls;
 
-    using YAF.Classes.Data;
-    using YAF.Controls;
     using YAF.Core;
+    using YAF.Core.Data;
+    using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Interfaces;
+    using YAF.Types.Models;
     using YAF.Utils;
+    using YAF.Web.Extensions;
 
     #endregion
 
@@ -77,7 +78,7 @@ namespace YAF.Pages.moderate
         /// </summary>
         /// <param name="source">The source of the event.</param>
         /// <param name="e">The <see cref="System.Web.UI.WebControls.RepeaterCommandEventArgs"/> instance containing the event data.</param>
-        protected void ForumList_ItemCommand([NotNull] object source, [NotNull] RepeaterCommandEventArgs e)
+        protected void ForumListItemCommand([NotNull] object source, [NotNull] RepeaterCommandEventArgs e)
         {
             // which command are we handling
             switch (e.CommandName.ToLower())
@@ -102,7 +103,7 @@ namespace YAF.Pages.moderate
         /// <param name="e">The <see cref="System.Web.UI.WebControls.RepeaterCommandEventArgs"/> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            // this needs to be done just once, not during postbacks
+            // this needs to be done just once, not during post-backs
             if (this.IsPostBack)
             {
                 return;
@@ -121,9 +122,9 @@ namespace YAF.Pages.moderate
         private void BindData()
         {
             // get list of forums and their moderating data
-            using (DataSet ds = LegacyDb.forum_moderatelist(this.PageContext.PageUserID, this.PageContext.PageBoardID))
+            using (var ds = this.GetRepository<Forum>().ModerateListADataSet(this.PageContext.PageUserID, this.PageContext.PageBoardID))
             {
-                this.CategoryList.DataSource = ds.Tables[DbHelpers.GetObjectName("Category")];
+                this.CategoryList.DataSource = ds.Tables[CommandTextHelpers.GetObjectName("Category")];
             }
 
             // bind data to controls

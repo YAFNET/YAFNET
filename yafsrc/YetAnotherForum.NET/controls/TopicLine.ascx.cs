@@ -5,8 +5,9 @@ namespace YAF.Controls
     using System;
     using System.Data;
     using System.Text;
-    using YAF.Classes;
-    using YAF.Core;
+    using YAF.Configuration;
+    using YAF.Core.BaseControls;
+    using YAF.Core.Extensions;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Exceptions;
@@ -28,22 +29,12 @@ namespace YAF.Controls
         /// <summary>
         ///   The last post tooltip string.
         /// </summary>
-        private string _altLastPost;
+        private string altLastPost;
 
         /// <summary>
         ///   The first unread post tooltip string.
         /// </summary>
-        private string _altFirstUnreadPost;
-
-        /// <summary>
-        ///   The _selected checkbox.
-        /// </summary>
-        // private CheckBox _selectedCheckbox;
-
-        /// <summary>
-        ///   The _the topic row.
-        /// </summary>
-        private DataRowView _theTopicRow;
+        private string altFirstUnreadPost;
 
         #endregion
 
@@ -64,10 +55,7 @@ namespace YAF.Controls
                 return (bool)this.ViewState["AllowSelection"];
             }
 
-            set
-            {
-                this.ViewState["AllowSelection"] = value;
-            }
+            set => this.ViewState["AllowSelection"] = value;
         }
 
         /// <summary>
@@ -76,15 +64,9 @@ namespace YAF.Controls
         [NotNull]
         public string AltLastPost
         {
-            get
-            {
-                return string.IsNullOrEmpty(this._altLastPost) ? string.Empty : this._altLastPost;
-            }
+            get => this.altLastPost.IsNotSet() ? string.Empty : this.altLastPost;
 
-            set
-            {
-                this._altLastPost = value;
-            }
+            set => this.altLastPost = value;
         }
 
         /// <summary>
@@ -93,15 +75,9 @@ namespace YAF.Controls
         [NotNull]
         public string AltLastUnreadPost
         {
-            get
-            {
-                return string.IsNullOrEmpty(this._altFirstUnreadPost) ? string.Empty : this._altFirstUnreadPost;
-            }
+            get => this.altFirstUnreadPost.IsNotSet() ? string.Empty : this.altFirstUnreadPost;
 
-            set
-            {
-                this._altFirstUnreadPost = value;
-            }
+            set => this.altFirstUnreadPost = value;
         }
 
         /// <summary>
@@ -111,24 +87,8 @@ namespace YAF.Controls
         {
             set
             {
-                this._theTopicRow = value as DataRowView;
+                this.TopicRow = value as DataRowView;
                 this.TopicRowID = this.TopicRow["LinkTopicID"].ToType<int>();
-            }
-        }
-
-        /// <summary>
-        ///   Gets or sets a value indicating whether FindUnread.
-        /// </summary>
-        public bool FindUnread
-        {
-            get
-            {
-                return (this.ViewState["FindUnread"] != null) && Convert.ToBoolean(this.ViewState["FindUnread"]);
-            }
-
-            set
-            {
-                this.ViewState["FindUnread"] = value;
             }
         }
 
@@ -140,13 +100,7 @@ namespace YAF.Controls
         /// <summary>
         ///   Gets a value indicating whether IsSelected.
         /// </summary>
-        public bool IsSelected
-        {
-            get
-            {
-                return this.chkSelected.Checked;
-            }
-        }
+        public bool IsSelected => this.chkSelected.Checked;
 
         /// <summary>
         ///   Gets or sets a value indicating whether ShowTopicPosted.
@@ -163,10 +117,7 @@ namespace YAF.Controls
                 return (bool)this.ViewState["ShowTopicPosted"];
             }
 
-            set
-            {
-                this.ViewState["ShowTopicPosted"] = value;
-            }
+            set => this.ViewState["ShowTopicPosted"] = value;
         }
 
         /// <summary>
@@ -174,32 +125,15 @@ namespace YAF.Controls
         /// </summary>
         public int? TopicRowID
         {
-            get
-            {
-                if (this.ViewState["TopicRowID"] == null)
-                {
-                    return null;
-                }
+            get => (int?)this.ViewState["TopicRowID"];
 
-                return (int?)this.ViewState["TopicRowID"];
-            }
-
-            set
-            {
-                this.ViewState["TopicRowID"] = value;
-            }
+            set => this.ViewState["TopicRowID"] = value;
         }
 
         /// <summary>
         ///  Gets the TopicRow.
         /// </summary>
-        protected DataRowView TopicRow
-        {
-            get
-            {
-                return this._theTopicRow;
-            }
-        }
+        protected DataRowView TopicRow { get; private set; }
 
         #endregion
 
@@ -260,50 +194,30 @@ namespace YAF.Controls
                 strReturn.AppendLine(
                     this.MakeLink("1", YafBuildLink.GetLink(ForumPages.posts, "t={0}", topicID), 1));
                 strReturn.AppendLine(" ... ");
-                bool bFirst = true;
 
                 // show links from the end
-                for (int i = pageCount - (NumToDisplay - 1); i < pageCount; i++)
+                for (var i = pageCount - (NumToDisplay - 1); i < pageCount; i++)
                 {
-                    int iPost = i + 1;
-
-                    if (bFirst)
-                    {
-                        bFirst = false;
-                    }
-                    else
-                    {
-                        strReturn.AppendLine(", ");
-                    }
+                    var post = i + 1;
 
                     strReturn.AppendLine(
                         this.MakeLink(
-                            iPost.ToString(),
-                            YafBuildLink.GetLink(ForumPages.posts, "t={0}&p={1}", topicID, iPost),
-                            iPost));
+                            post.ToString(),
+                            YafBuildLink.GetLink(ForumPages.posts, "t={0}&p={1}", topicID, post),
+                            post));
                 }
             }
             else
             {
-                bool bFirst = true;
-                for (int i = 0; i < pageCount; i++)
+                for (var i = 0; i < pageCount; i++)
                 {
-                    int iPost = i + 1;
-
-                    if (bFirst)
-                    {
-                        bFirst = false;
-                    }
-                    else
-                    {
-                        strReturn.AppendLine(", ");
-                    }
+                    var post = i + 1;
 
                     strReturn.AppendLine(
                         this.MakeLink(
-                            iPost.ToString(),
-                            YafBuildLink.GetLink(ForumPages.posts, "t={0}&p={1}", topicID, iPost),
-                            iPost));
+                            post.ToString(),
+                            YafBuildLink.GetLink(ForumPages.posts, "t={0}&p={1}", topicID, post),
+                            post));
                 }
             }
 
@@ -318,23 +232,23 @@ namespace YAF.Controls
         /// </returns>
         protected string FormatReplies()
         {
-            string repStr = "&nbsp;";
+            var repStr = "&nbsp;";
 
-            int nReplies = this.TopicRow["Replies"].ToType<int>();
-            int numDeleted = this.TopicRow["NumPostsDeleted"].ToType<int>();
+            var replies = this.TopicRow["Replies"].ToType<int>();
+            var numDeleted = this.TopicRow["NumPostsDeleted"].ToType<int>();
 
-            if (nReplies < 0)
+            if (replies < 0)
             {
                 return repStr;
             }
 
             if (this.Get<YafBoardSettings>().ShowDeletedMessages && numDeleted > 0)
             {
-                repStr = "{0:N0}".FormatWith(nReplies + numDeleted);
+                repStr = $"{replies + numDeleted:N0}";
             }
             else
             {
-                repStr = "{0:N0}".FormatWith(nReplies);
+                repStr = $"{replies:N0}";
             }
 
             return repStr;
@@ -348,8 +262,8 @@ namespace YAF.Controls
         /// </returns>
         protected string FormatViews()
         {
-            var nViews = this.TopicRow["Views"].ToType<int>();
-            return (this.TopicRow["TopicMovedID"].ToString().Length > 0) ? "&nbsp;" : "{0:N0}".FormatWith(nViews);
+            var views = this.TopicRow["Views"].ToType<int>();
+            return this.TopicRow["TopicMovedID"].ToString().Length > 0 ? "&nbsp;" : $"{views:N0}";
         }
 
         /// <summary>
@@ -365,57 +279,17 @@ namespace YAF.Controls
 
             var styles = this.Get<YafBoardSettings>().UseStyledTopicTitles
                              ? this.Get<IStyleTransform>()
-                                   .DecodeStyleByString(this.TopicRow["Styles"].ToString(), false)
+                                   .DecodeStyleByString(this.TopicRow["Styles"].ToString())
                              : string.Empty;
 
             var topicSubjectStyled = string.Empty;
 
             if (styles.IsSet())
             {
-                topicSubjectStyled = "<span style=\"{0}\">{1}</span>".FormatWith(this.HtmlEncode(styles), topicSubject);
+                topicSubjectStyled = $"<span style=\"{this.HtmlEncode(styles)}\">{topicSubject}</span>";
             }
 
-            if (!this.TopicRow["Status"].ToString().IsSet() || !this.Get<YafBoardSettings>().EnableTopicStatus)
-            {
-                return topicSubjectStyled.IsSet() ? topicSubjectStyled : topicSubject;
-            }
-
-            // Render the Topic Status
-            var topicStatusIcon = this.Get<ITheme>().GetItem("TOPIC_STATUS", this.TopicRow["Status"].ToString());
-
-            if (topicStatusIcon.IsSet() && !topicStatusIcon.Contains("[TOPIC_STATUS."))
-            {
-                return
-                    "<img src=\"{0}\" alt=\"{1}\" title=\"{1}\" class=\"topicStatusIcon\" />&nbsp;{2}".FormatWith(
-                        this.Get<ITheme>().GetItem("TOPIC_STATUS", this.TopicRow["Status"].ToString()),
-                        this.GetText("TOPIC_STATUS", this.TopicRow["Status"].ToString()),
-                        topicSubjectStyled.IsSet() ? topicSubjectStyled : topicSubject);
-            }
-
-            return "[{0}]&nbsp;{1}".FormatWith(
-                this.GetText("TOPIC_STATUS", this.TopicRow["Status"].ToString()),
-                topicSubjectStyled.IsSet() ? topicSubjectStyled : topicSubject);
-        }
-
-        /// <summary>
-        /// The get avatar url from id.
-        /// </summary>
-        /// <param name="userID">
-        /// The user id.
-        /// </param>
-        /// <returns>
-        /// Returns the Avatar Url for the User
-        /// </returns>
-        protected string GetAvatarUrlFromID(int userID)
-        {
-            string avatarUrl = this.Get<IAvatars>().GetAvatarUrlForUser(userID);
-
-            if (avatarUrl.IsNotSet())
-            {
-                avatarUrl = "{0}images/noavatar.gif".FormatWith(YafForumInfo.ForumClientFileRoot);
-            }
-
-            return avatarUrl;
+            return topicSubjectStyled.IsSet() ? topicSubjectStyled : topicSubject;
         }
 
         /// <summary>
@@ -431,32 +305,31 @@ namespace YAF.Controls
         {
             CodeContracts.VerifyNotNull(row, "row");
 
-            string strReturn = string.Empty;
+            var strReturn = string.Empty;
 
             if (row["TopicMovedID"].ToString().Length > 0)
             {
-                strReturn = this.GetText("MOVED");
+                strReturn =
+                    $"<span class=\"badge badge-secondary\"><i class=\"fas fa-arrows-alt fa-fw\"></i> {this.GetText("MOVED")}</span>";
             }
             else if (row["PollID"].ToString() != string.Empty)
             {
-                strReturn = this.GetText("POLL");
+                strReturn =
+                    $"<span class=\"badge badge-secondary\"><i class=\"fas fa-poll-h fa-fw\"></i> {this.GetText("POLL")}</span>";
             }
             else
             {
                 switch (int.Parse(row["Priority"].ToString()))
                 {
                     case 1:
-                        strReturn = this.GetText("STICKY");
+                        strReturn =
+                            $"<span class=\"badge badge-secondary\"><i class=\"fas fa-sticky-note fa-fw\"></i> {this.GetText("STICKY")}</span>";
                         break;
                     case 2:
-                        strReturn = this.GetText("ANNOUNCEMENT");
+                        strReturn =
+                            $"<span class=\"badge badge-secondary\"><i class=\"fas fa-bullhorn fa-fw\"></i> {this.GetText("ANNOUNCEMENT")}</span>";
                         break;
                 }
-            }
-
-            if (strReturn.Length > 0)
-            {
-                strReturn = "[ {0} ] ".FormatWith(strReturn);
             }
 
             return strReturn;
@@ -466,41 +339,37 @@ namespace YAF.Controls
         /// Gets the topic image.
         /// </summary>
         /// <param name="row">The row.</param>
-        /// <param name="imgTitle">The image title.</param>
         /// <returns>
         /// Returns the Topic Image
         /// </returns>
-        protected string GetTopicImage([NotNull] DataRowView row, [NotNull] ref string imgTitle)
+        protected string GetTopicImage([NotNull] DataRowView row)
         {
             CodeContracts.VerifyNotNull(row, "row");
-            CodeContracts.VerifyNotNull(imgTitle, "imgTitle");
 
-            DateTime lastPosted = row["LastPosted"] != DBNull.Value
-                                      ? (DateTime)row["LastPosted"]
-                                      : DateTimeHelper.SqlDbMinTime();
+            var lastPosted = row["LastPosted"] != DBNull.Value
+                                 ? (DateTime)row["LastPosted"]
+                                 : DateTimeHelper.SqlDbMinTime();
 
             var topicFlags = new TopicFlags(row["TopicFlags"]);
             var forumFlags = new ForumFlags(row["ForumFlags"]);
 
             var isHot = this.IsPopularTopic(lastPosted, row);
-            var theme = this.Get<ITheme>();
 
             if (row["TopicMovedID"].ToString().Length > 0)
             {
-                imgTitle = this.GetText("MOVED");
-                return theme.GetItem("ICONS", "TOPIC_MOVED");
+                return
+                    "<i class=\"fas fa-comment fa-stack-2x\"></i><i class=\"fas fa-arrows-alt fa-stack-1x fa-inverse\"></i>";
             }
 
-            DateTime lastRead = this.Get<IReadTrackCurrentUser>()
-                .GetForumTopicRead(
-                    row["ForumID"].ToType<int>(),
-                    row["TopicID"].ToType<int>(),
-                    row["LastForumAccess"].IsNullOrEmptyDBField()
-                        ? DateTimeHelper.SqlDbMinTime()
-                        : row["LastForumAccess"].ToType<DateTime?>(),
-                    row["LastTopicAccess"].IsNullOrEmptyDBField()
-                        ? DateTimeHelper.SqlDbMinTime()
-                        : row["LastForumAccess"].ToType<DateTime?>());
+            var lastRead = this.Get<IReadTrackCurrentUser>().GetForumTopicRead(
+                row["ForumID"].ToType<int>(),
+                row["TopicID"].ToType<int>(),
+                row["LastForumAccess"].IsNullOrEmptyDBField()
+                    ? DateTimeHelper.SqlDbMinTime()
+                    : row["LastForumAccess"].ToType<DateTime?>(),
+                row["LastTopicAccess"].IsNullOrEmptyDBField()
+                    ? DateTimeHelper.SqlDbMinTime()
+                    : row["LastForumAccess"].ToType<DateTime?>());
 
             if (lastPosted > lastRead)
             {
@@ -508,65 +377,64 @@ namespace YAF.Controls
 
                 if (row["PollID"] != DBNull.Value)
                 {
-                    imgTitle = this.GetText("POLL_NEW");
-                    return theme.GetItem("ICONS", "TOPIC_POLL_NEW");
+                    return
+                        "<i class=\"fas fa-comment fa-stack-2x text-success\"></i><i class=\"fas fa-poll-h fa-stack-1x fa-inverse\"></i>";
                 }
 
                 switch (row["Priority"].ToString())
                 {
                     case "1":
-                        imgTitle = this.GetText("STICKY_NEW");
-                        return theme.GetItem("ICONS", "TOPIC_STICKY_NEW");
+                        return
+                            "<i class=\"fas fa-comment fa-stack-2x text-success\"></i><i class=\"fas fa-sticky-note fa-stack-1x fa-inverse\"></i>";
                     case "2":
-                        imgTitle = this.GetText("ANNOUNCEMENT");
-                        return theme.GetItem("ICONS", "TOPIC_ANNOUNCEMENT_NEW");
+                        return
+                            "<i class=\"fas fa-comment fa-stack-2x text-success\"></i><i class=\"fas fa-bullhorn fa-stack-1x fa-inverse\"></i>";
                     default:
                         if (topicFlags.IsLocked || forumFlags.IsLocked)
                         {
-                            imgTitle = this.GetText("NEW_POSTS_LOCKED");
-                            return theme.GetItem("ICONS", "TOPIC_NEW_LOCKED");
+                            return
+                                "<i class=\"fas fa-comment fa-stack-2x text-success\"></i><i class=\"fas fa-lock fa-stack-1x fa-inverse\"></i>";
                         }
 
                         if (isHot)
                         {
-                            imgTitle = this.GetText("ICONLEGEND", "HOT_NEW_POSTS");
-                            return theme.GetItem("ICONS", "TOPIC_HOT_NEW", theme.GetItem("ICONS", "TOPIC_NEW"));
+                            return
+                                "<i class=\"fas fa-comment fa-stack-2x text-success\"></i><i class=\"fas fa-fire fa-stack-1x fa-inverse\"></i>";
                         }
 
-                        imgTitle = this.GetText("ICONLEGEND", "NEW_POSTS");
-                        return theme.GetItem("ICONS", "TOPIC_NEW");
+                        return
+                            "<i class=\"fas fa-comment fa-stack-2x text-success\"></i><i class=\"fas fa-comment fa-stack-1x fa-inverse\"></i>";
                 }
             }
 
             if (row["PollID"] != DBNull.Value)
             {
-                imgTitle = this.GetText("POLL");
-                return theme.GetItem("ICONS", "TOPIC_POLL");
+                return "<i class=\"fas fa-comment fa-stack-2x text-secondary\"></i><i class=\"fas fa-poll fa-stack-1x fa-inverse\"></i>";
             }
 
             switch (row["Priority"].ToString())
             {
                 case "1":
-                    imgTitle = this.GetText("STICKY");
-                    return theme.GetItem("ICONS", "TOPIC_STICKY");
+                    return
+                        "<i class=\"fas fa-comment fa-stack-2x text-secondary\"></i><i class=\"fas fa-sticky-note fa-stack-1x fa-inverse\"></i>";
                 case "2":
-                    imgTitle = this.GetText("ANNOUNCEMENT");
-                    return theme.GetItem("ICONS", "TOPIC_ANNOUNCEMENT");
+                    return
+                        "<i class=\"fas fa-comment fa-stack-2x text-secondary\"></i><i class=\"fas fa-bullhorn fa-stack-1x fa-inverse\"></i>";
                 default:
                     if (topicFlags.IsLocked || forumFlags.IsLocked)
                     {
-                        imgTitle = this.GetText("NO_NEW_POSTS_LOCKED");
-                        return theme.GetItem("ICONS", "TOPIC_LOCKED");
+                        return
+                            "<i class=\"fas fa-comment fa-stack-2x text-secondary\"></i><i class=\"fas fa-lock fa-stack-1x fa-inverse\"></i>";
                     }
 
                     if (isHot)
                     {
-                        imgTitle = this.GetText("HOT_NO_NEW_POSTS");
-                        return theme.GetItem("ICONS", "TOPIC_HOT", theme.GetItem("ICONS", "TOPIC"));
+                        return
+                            "<i class=\"fas fa-comment fa-stack-2x text-secondary\"></i><i class=\"fas fa-fire fa-stack-1x fa-inverse\"></i>";
                     }
 
-                    imgTitle = this.GetText("NO_NEW_POSTS");
-                    return theme.GetItem("ICONS", "TOPIC");
+                    return
+                        "<i class=\"fas fa-comment fa-stack-2x text-secondary\"></i><i class=\"fas fa-comment fa-stack-1x fa-inverse\"></i>";
             }
         }
 
@@ -581,28 +449,8 @@ namespace YAF.Controls
         /// </returns>
         protected string MakeLink([NotNull] string text, [NotNull] string link, [NotNull] int pageId)
         {
-            return @"<a href=""{0}"" title=""{1}"">{2}</a>".FormatWith(
-                link,
-                this.GetText("GOTO_POST_PAGER").FormatWith(pageId),
-                text);
-        }
-
-        /// <summary>
-        /// Determines whether [is sticky or announcement].
-        /// </summary>
-        /// <returns>Returns if topic is sticky or announcement</returns>
-        protected string IsStickyOrAnnouncement()
-        {
-            switch (this.TopicRow["Priority"].ToString())
-            {
-                case "1":
-
-                    return " priorityRow sticky";
-                case "2":
-                    return " priorityRow announcement";
-                default:
-                    return string.Empty;
-            }
+            return
+                $@"<a href=""{link}"" title=""{string.Format(this.GetText("GOTO_POST_PAGER"), pageId)}"" class=""btn btn-secondary btn-sm py-0 px-1"">{text}</a>";
         }
 
         /// <summary>
@@ -635,6 +483,106 @@ namespace YAF.Controls
         {
             this.SelectionHolder.Visible = this.AllowSelection;
             this.chkSelected.Checked = this.IsSelected;
+
+            try
+            {
+                var priorityMessage = this.GetPriorityMessage(this.TopicRow);
+
+                if (priorityMessage.IsSet())
+                {
+                    this.Priority.Visible = true;
+                    this.Priority.Text = priorityMessage;
+                }
+            }
+            catch (Exception)
+            {
+                this.Priority.Visible = false;
+            }
+
+            try
+            {
+                var favoriteCount = this.TopicRow["FavoriteCount"].ToType<int>();
+
+                if (favoriteCount > 0)
+                {
+                    this.FavoriteCount.Visible = true;
+                    this.FavoriteCount.Text =
+                        $" <span class=\"badge badge-info\" title=\"{this.GetText("FAVORITE_COUNT_TT")}\"><i class=\"fas fa-star\"></i> +{favoriteCount}</span>";
+                }
+            }
+            catch (Exception)
+            {
+                this.FavoriteCount.Visible = false;
+            }
+            
+            this.TopicLink.NavigateUrl = YafBuildLink.GetLink(
+                ForumPages.posts,
+                "t={0}",
+                this.TopicRow["LinkTopicID"]);
+            this.TopicLink.ToolTip = this.Get<IFormatMessage>()
+                .GetCleanedTopicMessage(this.TopicRow["FirstMessage"], this.TopicRow["LinkTopicID"]).MessageTruncated;
+            this.TopicLink.Text = this.FormatTopicName();
+
+            this.Description.Visible = this.TopicRow["Description"].ToString().IsSet();
+            this.Description.Text = this.Get<IBadWordReplace>().Replace(this.HtmlEncode(this.TopicRow["Description"]));
+
+            this.topicStarterLink.UserID = this.TopicRow["UserID"].ToType<int>();
+            this.topicStarterLink.ReplaceName = this
+                .TopicRow[this.Get<YafBoardSettings>().EnableDisplayName ? "StarterDisplay" : "Starter"].ToString();
+            this.topicStarterLink.Style = this.TopicRow["StarterStyle"].ToString();
+
+            this.StartDate.Format = DateTimeFormat.BothTopic;
+            this.StartDate.DateTime = this.TopicRow["Posted"];
+            this.StartDate.Visible = this.ShowTopicPosted;
+
+            this.UserLast.UserID = this.TopicRow["LastUserID"].ToType<int>();
+            this.UserLast.ReplaceName = this.TopicRow[this.Get<YafBoardSettings>().EnableDisplayName ? "LastUserDisplayName" : "LastUserName"].ToString();
+            this.UserLast.Style = this.TopicRow["LastUserStyle"].ToString();
+
+            this.LastDate.Format = DateTimeFormat.BothTopic;
+            this.LastDate.DateTime = this.TopicRow["LastPosted"];
+            this.LastDate.Visible = this.ShowTopicPosted;
+
+            if (!this.TopicRow["LastMessageID"].IsNullOrEmptyDBField())
+            {
+                var lastRead =
+                    this.Get<IReadTrackCurrentUser>().GetForumTopicRead(
+                        this.TopicRow["ForumID"].ToType<int>(),
+                        this.TopicRow["TopicID"].ToType<int>(),
+                        this.TopicRow["LastForumAccess"].ToType<DateTime?>() ?? DateTimeHelper.SqlDbMinTime(),
+                        this.TopicRow["LastTopicAccess"].ToType<DateTime?>() ?? DateTimeHelper.SqlDbMinTime());
+
+                if (this.AltLastPost.IsNotSet())
+                {
+                    this.AltLastPost = this.GetText("DEFAULT", "GO_LAST_POST");
+                }
+
+                if (this.AltLastUnreadPost.IsNotSet())
+                {
+                    this.AltLastUnreadPost = this.GetText("DEFAULT", "GO_LASTUNREAD_POST");
+                }
+
+                this.GoToLastPost.NavigateUrl = YafBuildLink.GetLink(ForumPages.posts, "m={0}#post{0}", this.TopicRow["LastMessageID"]);
+
+                this.GoToLastUnread.NavigateUrl = YafBuildLink.GetLink(
+                    ForumPages.posts,
+                    "t={0}&find=unread",
+                    this.TopicRow["TopicID"]);
+                this.GoToLastUnread.Visible = this.Get<YafBoardSettings>().ShowLastUnreadPost;
+
+                if (this.TopicRow["LastPosted"].ToType<DateTime>() > lastRead)
+                {
+                    this.NewMessage.Visible = true;
+                    this.NewMessage.Text =
+                        " <span class=\"fa-stack\"><i class=\"far fa-square fa-stack-2x\"></i><i class=\"fab fa-twitter fa-stack-1x\"></i></span>";
+                }
+                else
+                {
+                    this.NewMessage.Visible = false;
+                }
+            }
+
+            this.TopicIcon.Text = $"<span class=\"fa-stack\">{this.GetTopicImage(this.TopicRow)}</span>";
         }
 
         #endregion

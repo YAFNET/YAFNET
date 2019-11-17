@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -72,7 +72,6 @@ namespace YAF.Types.Objects
             this.IsApproved = row.Field<bool?>("IsApproved");
             this.IsActiveExcluded = row.Field<bool?>("IsActiveExcluded");
             this.ProviderUserKey = row.Field<string>("ProviderUserKey");
-            this.OverrideDefaultThemes = row.Field<bool?>("OverrideDefaultThemes");
             this.AvatarImageType = row.Field<string>("AvatarImageType");
             this.AutoWatchTopics = row.Field<bool?>("AutoWatchTopics");
             this.DisplayName = row.Field<string>("DisplayName");
@@ -182,9 +181,6 @@ namespace YAF.Types.Objects
         /// <param name="dailydigest">
         /// The dailydigest.
         /// </param>
-        /// <param name="numposts1">
-        /// The numposts 1.
-        /// </param>
         /// <param name="cultureuser">
         /// The cultureuser.
         /// </param>
@@ -225,7 +221,6 @@ namespace YAF.Types.Objects
             bool? isapproved,
             bool? isactiveexcluded,
             [CanBeNull] string provideruserkey,
-            bool? overridedefaultthemes,
             [CanBeNull] string avatarimagetype,
             bool? autowatchtopics,
             [CanBeNull] string displayname,
@@ -262,7 +257,6 @@ namespace YAF.Types.Objects
             this.IsApproved = isapproved;
             this.IsActiveExcluded = isactiveexcluded;
             this.ProviderUserKey = provideruserkey;
-            this.OverrideDefaultThemes = overridedefaultthemes;
             this.AvatarImageType = avatarimagetype;
             this.AutoWatchTopics = autowatchtopics;
             this.DisplayName = displayname;
@@ -399,11 +393,6 @@ namespace YAF.Types.Objects
         /// Gets or sets NumPosts.
         /// </summary>
         public int? NumPosts { get; set; }
-
-        /// <summary>
-        /// Gets or sets OverrideDefaultThemes.
-        /// </summary>
-        public bool? OverrideDefaultThemes { get; set; }
 
         /// <summary>
         /// Gets or sets PMNotification.

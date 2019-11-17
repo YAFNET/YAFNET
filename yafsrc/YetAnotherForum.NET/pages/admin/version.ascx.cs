@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -28,19 +28,18 @@ namespace YAF.Pages.Admin
 
     using System;
 
-    using YAF.Controls;
     using YAF.Core;
     using YAF.RegisterV2;
     using YAF.Types;
     using YAF.Types.Constants;
-    using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Utils;
+    using YAF.Web.Extensions;
 
     #endregion
 
     /// <summary>
-    ///     the version info page.
+    ///    The version info page.
     /// </summary>
     public partial class version : AdminPage
     {
@@ -49,12 +48,12 @@ namespace YAF.Pages.Admin
         /// <summary>
         ///     The _last version.
         /// </summary>
-        private byte[] _lastVersion;
+        private byte[] lastVersion;
 
         /// <summary>
         ///     The _last version date.
         /// </summary>
-        private DateTime _lastVersionDate;
+        private DateTime lastVersionDate;
 
         #endregion
 
@@ -66,7 +65,7 @@ namespace YAF.Pages.Admin
         /// <value>
         /// The last version.
         /// </value>
-        protected string LastVersion => YafForumInfo.AppVersionNameFromCode(this._lastVersion);
+        protected string LastVersion => YafForumInfo.AppVersionNameFromCode(this.lastVersion);
 
         /// <summary>
         /// Gets the last version date.
@@ -74,7 +73,7 @@ namespace YAF.Pages.Admin
         /// <value>
         /// The last version date.
         /// </value>
-        protected string LastVersionDate => this.Get<IDateTime>().FormatDateShort(this._lastVersionDate);
+        protected string LastVersionDate => this.Get<IDateTime>().FormatDateShort(this.lastVersionDate);
 
         #endregion
 
@@ -93,8 +92,8 @@ namespace YAF.Pages.Admin
                 {
                     using (var reg = new RegisterV2())
                     {
-                        this._lastVersion = reg.LatestVersion();
-                        this._lastVersionDate = reg.LatestVersionDate();
+                        this.lastVersion = reg.LatestVersion();
+                        this.lastVersionDate = reg.LatestVersionDate();
                     }
 
                     this.LatestVersion.Text = this.GetTextFormatted(
@@ -102,21 +101,13 @@ namespace YAF.Pages.Admin
                         this.LastVersion,
                         this.LastVersionDate);
 
-                    this.UpgradeVersionHolder.Visible = BitConverter.ToInt64(this._lastVersion, 0)
+                    this.UpgradeVersionHolder.Visible = BitConverter.ToInt64(this.lastVersion, 0)
                                                         > BitConverter.ToInt64(YafForumInfo.AppVersionCode, 0);
                 }
                 catch (Exception)
                 {
                     this.LatestVersion.Visible = false;
                 }
-
-                this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
-                this.PageLinks.AddLink(
-                    this.GetText("ADMIN_ADMIN", "Administration"),
-                    YafBuildLink.GetLink(ForumPages.admin_admin));
-                this.PageLinks.AddLink(this.GetText("ADMIN_VERSION", "TITLE"), string.Empty);
-
-                this.Page.Header.Title = this.GetText("ADMIN_VERSION", "TITLE");
 
                 this.RunningVersion.Text = this.GetTextFormatted(
                     "RUNNING_VERSION",
@@ -125,6 +116,20 @@ namespace YAF.Pages.Admin
             }
 
             this.DataBind();
+        }
+
+        /// <summary>
+        /// Creates page links for this page.
+        /// </summary>
+        protected override void CreatePageLinks()
+        {
+            this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+            this.PageLinks.AddLink(
+                this.GetText("ADMIN_ADMIN", "Administration"),
+                YafBuildLink.GetLink(ForumPages.admin_admin));
+            this.PageLinks.AddLink(this.GetText("ADMIN_VERSION", "TITLE"), string.Empty);
+
+            this.Page.Header.Title = this.GetText("ADMIN_VERSION", "TITLE");
         }
 
         #endregion

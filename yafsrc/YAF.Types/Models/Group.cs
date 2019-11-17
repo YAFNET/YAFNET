@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -37,6 +37,8 @@ namespace YAF.Types.Models
     /// </summary>
     [Serializable]
     [Table(Name = "Group")]
+
+    [UniqueConstraint(nameof(BoardID), nameof(Name))]
     public partial class Group : IEntity, IHaveID, IHaveBoardID
     {
         partial void OnCreated();
@@ -52,46 +54,64 @@ namespace YAF.Types.Models
         [Alias("GroupID")]
         public int ID { get; set; }
 
+        [References(typeof(Board))]
+        [Required]
         public int BoardID { get; set; }
 
+        [Required]
+        [StringLength(255)]
         public string Name { get; set; }
 
         [Ignore]
         public GroupFlags GroupFlags
         {
-            get
-            {
-                return new GroupFlags(this.Flags);
-            }
+            get => new GroupFlags(this.Flags);
 
-            set
-            {
-                this.Flags = value.BitValue;
-            }
+            set => this.Flags = value.BitValue;
         }
 
+        [Required]
+        [Default(0)]
         public int Flags { get; set; }
 
+        [Required]
+        [Default(30)]
         public int PMLimit { get; set; }
 
+        [Index]
+        [StringLength(255)]
         public string Style { get; set; }
 
+        [Required]
+        [Index]
+        [Default(0)]
         public short SortOrder { get; set; }
 
+        [StringLength(128)]
         public string Description { get; set; }
 
+        [Required]
+        [Default(0)]
         public int UsrSigChars { get; set; }
 
+        [StringLength(255)]
         public string UsrSigBBCodes { get; set; }
 
+        [StringLength(255)]
         public string UsrSigHTMLTags { get; set; }
 
+        [Required]
+        [Default(0)]
         public int UsrAlbums { get; set; }
 
+        [Required]
+        [Default(0)]
         public int UsrAlbumImages { get; set; }
 
+        [Compute]
         public bool? IsHidden { get; set; }
 
+        [Compute]
         public bool? IsUserGroup { get; set; }
 
 

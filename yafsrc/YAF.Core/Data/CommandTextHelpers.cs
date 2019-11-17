@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -24,7 +24,7 @@
 
 namespace YAF.Core.Data
 {
-    using YAF.Classes;
+    using YAF.Configuration;
     using YAF.Types;
 
     /// <summary>
@@ -48,6 +48,20 @@ namespace YAF.Core.Data
             commandText = commandText.Replace("{objectQualifier}", Config.DatabaseObjectQualifier);
 
             return commandText;
+        }
+
+        /// <summary>
+        /// Gets qualified object name
+        /// </summary>
+        /// <param name="name">
+        /// Base name of an object
+        /// </param>
+        /// <returns>
+        /// Returns qualified object name of format {databaseOwner}.{objectQualifier}name
+        /// </returns>
+        public static string GetObjectName([NotNull] string name)
+        {
+            return $"[{Config.DatabaseOwner}].[{Config.DatabaseObjectQualifier}{name}]";
         }
     }
 }

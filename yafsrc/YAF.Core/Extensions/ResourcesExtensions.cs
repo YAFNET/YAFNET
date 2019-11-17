@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -42,23 +42,23 @@ namespace YAF.Core.Extensions
         /// <summary>
         /// Gets the hours offset.
         /// </summary>
-        /// <param name="lanuageResource">The resource.</param>
+        /// <param name="languageResource">The resource.</param>
         /// <returns>
         /// The get hours offset.
         /// </returns>
-        public static decimal GetHoursOffset(this LanuageResourcesPageResource lanuageResource)
+        public static decimal GetHoursOffset(this LanuageResourcesPageResource languageResource)
         {
             // calculate hours -- can use prefix of either UTC or GMT...
             decimal hours;
 
             try
             {
-                hours = lanuageResource.tag.Replace("UTC", string.Empty).Replace("GMT", string.Empty).ToType<decimal>();
+                hours = languageResource.tag.Replace("UTC", string.Empty).Replace("GMT", string.Empty).ToType<decimal>();
             }
             catch (FormatException)
             {
                 hours =
-                    lanuageResource.tag.Replace(".", ",")
+                    languageResource.tag.Replace(".", ",")
                         .Replace("UTC", string.Empty)
                         .Replace("GMT", string.Empty)
                         .ToType<decimal>();

@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -21,23 +21,18 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Core
+namespace YAF.Core.BaseModules
 {
-  using System;
-  using System.Collections.Generic;
-  using System.Diagnostics;
-  using System.IO;
-  using System.Linq;
-  using System.Reflection;
-  using System.Security;
-  using System.Security.Permissions;
-  using System.Security.Policy;
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Linq;
+    using System.Reflection;
 
-  using YAF.Types;
-  using YAF.Types.Extensions;
-  using YAF.Utils;
+    using YAF.Types;
+    using YAF.Types.Extensions;
 
-  /// <summary>
+    /// <summary>
   /// The module scanner
   /// </summary>
   public class YafModuleScanner
@@ -93,8 +88,8 @@ namespace YAF.Core
     [NotNull]
     private static string GetAppBaseDirectory()
     {
-      string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
-      string searchPath = AppDomain.CurrentDomain.RelativeSearchPath;
+      var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+      var searchPath = AppDomain.CurrentDomain.RelativeSearchPath;
 
       return searchPath.IsNotSet() ? baseDirectory : Path.Combine(baseDirectory, searchPath);
     }
@@ -110,8 +105,8 @@ namespace YAF.Core
     [NotNull]
     private static IEnumerable<string> GetMatchingFiles([NotNull] string pattern)
     {
-      string path = CleanPath(Path.GetDirectoryName(pattern));
-      string glob = Path.GetFileName(pattern);
+      var path = CleanPath(Path.GetDirectoryName(pattern));
+      var glob = Path.GetFileName(pattern);
 
       return Directory.GetFiles(path, glob);
     }
@@ -120,15 +115,15 @@ namespace YAF.Core
     /// The load and validate assemblies.
     /// </summary>
     /// <param name="filenames">
-    /// The filenames.
+    /// The fileNames.
     /// </param>
     /// <returns>
     /// </returns>
-    private static IEnumerable<Assembly> GetValidateAssemblies([NotNull] IEnumerable<string> filenames)
+    private static IEnumerable<Assembly> GetValidateAssemblies([NotNull] IEnumerable<string> fileNames)
     {
-      CodeContracts.VerifyNotNull(filenames, "filenames");
+      CodeContracts.VerifyNotNull(fileNames, "filenames");
 
-      foreach (var assemblyFile in filenames.Where(File.Exists))
+      foreach (var assemblyFile in fileNames.Where(File.Exists))
       {
         Assembly assembly;
 

@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -27,8 +27,8 @@ namespace YAF.Controls
 
     using System;
 
-    using YAF.Classes;
-    using YAF.Core;
+    using YAF.Configuration;
+    using YAF.Core.BaseControls;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Interfaces;
@@ -48,7 +48,7 @@ namespace YAF.Controls
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            this.Lable1.Param0 = this.Get<YafBoardSettings>().Name;
+            this.Label1.Param0 = this.Get<YafBoardSettings>().Name;
 
             this.MoreDetails.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.cookies);
         }

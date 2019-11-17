@@ -54,25 +54,13 @@ namespace YAF.Core
         /// <summary>
         ///     Gets TaskCount.
         /// </summary>
-        public virtual int TaskCount
-        {
-            get
-            {
-                return _taskManager.Count;
-            }
-        }
+        public virtual int TaskCount => _taskManager.Count;
 
         /// <summary>
         ///     All the names of tasks running.
         /// </summary>
         [NotNull]
-        public virtual IList<string> TaskManagerInstances
-        {
-            get
-            {
-                return _taskManager.Keys.ToList();
-            }
-        }
+        public virtual IList<string> TaskManagerInstances => _taskManager.Keys.ToList();
 
         /// <summary>
         ///     Gets TaskManagerSnapshot.
@@ -100,11 +88,10 @@ namespace YAF.Core
         /// </returns>
         public virtual bool AreTasksRunning([NotNull] string[] instanceNames)
         {
-            bool isRunning = false;
+            var isRunning = false;
             foreach (var s in instanceNames)
             {
-                IBackgroundTask task;
-                isRunning = this.TryGetTask(s, out task) && task.IsRunning;
+                isRunning = this.TryGetTask(s, out var task) && task.IsRunning;
                 if (isRunning)
                 {
                     break;
@@ -124,9 +111,7 @@ namespace YAF.Core
         /// </returns>
         public virtual bool IsTaskRunning([NotNull] string instanceName)
         {
-            IBackgroundTask task;
-
-            return this.TryGetTask(instanceName, out task) && task.IsRunning;
+            return this.TryGetTask(instanceName, out var task) && task.IsRunning;
         }
 
         /// <summary>
@@ -147,9 +132,7 @@ namespace YAF.Core
         /// </param>
         public virtual void StopTask([NotNull] string instanceName)
         {
-            IBackgroundTask task;
-
-            if (this.TryGetTask(instanceName, out task))
+            if (this.TryGetTask(instanceName, out var task))
             {
                 if (task != null && task.IsRunning && !(task is ICriticalBackgroundTask))
                 {
@@ -197,9 +180,7 @@ namespace YAF.Core
         /// </returns>
         public virtual bool TryRemoveTask([NotNull] string instanceName)
         {
-            IBackgroundTask task;
-
-            return _taskManager.TryRemove(instanceName, out task);
+            return _taskManager.TryRemove(instanceName, out var task);
         }
 
         #endregion

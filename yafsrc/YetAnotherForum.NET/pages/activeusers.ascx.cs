@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -31,16 +31,17 @@ namespace YAF.Pages
     using System.Linq;
     using System.Web;
 
-    using YAF.Controls;
     using YAF.Core;
+    using YAF.Core.Extensions;
     using YAF.Core.Model;
+    using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
-    using YAF.Utilities;
     using YAF.Utils;
+    using YAF.Web.Extensions;
 
     #endregion
 
@@ -74,8 +75,6 @@ namespace YAF.Pages
             {
                 return;
             }
-
-            this.CreatePageLinks();
 
             if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("v").IsSet()
                 && this.Get<IPermissions>().Check(this.PageContext.BoardSettings.ActiveUsersViewPermissions))
@@ -179,10 +178,7 @@ namespace YAF.Pages
 
             YafContext.Current.PageElements.RegisterJsBlock(
                 "UnverifiedUserstablesorterLoadJs",
-                JavaScriptBlocks.LoadTableSorter(
-                    "#ActiveUsers",
-                    "sortList: [[3,1],[0,0]]",
-                    "#ActiveUsersPager"));
+                JavaScriptBlocks.LoadTableSorter("#ActiveUsers", "sortList: [[0,0]]", "#ActiveUsersPager"));
 
             this.UserList.DataSource = activeUsers;
             this.DataBind();
@@ -204,12 +200,12 @@ namespace YAF.Pages
         {
             // vzrus: Here should not be a common cache as it's should be individual for each user because of ActiveLocationcontrol to hide unavailable places.        
             var activeUsers = this.GetRepository<Active>()
-                .ListUser(
-                    userID: this.PageContext.PageUserID,
-                    guests: showGuests,
-                    showCrawlers: showCrawlers,
-                    activeTime: this.PageContext.BoardSettings.ActiveListTime,
-                    styledNicks: this.PageContext.BoardSettings.UseStyledNicks);
+                .ListUserAsDataTable(
+                    this.PageContext.PageUserID,
+                    showGuests,
+                    showCrawlers,
+                    this.PageContext.BoardSettings.ActiveListTime,
+                    this.PageContext.BoardSettings.UseStyledNicks);
 
             return activeUsers;
         }
@@ -228,11 +224,8 @@ namespace YAF.Pages
             }
 
             // remove non-guest users...
-            foreach (var row in activeUsers.Rows.Cast<DataRow>().Where(row => !Convert.ToBoolean(row["IsGuest"])))
-            {
-                // remove this active user...
-                row.Delete();
-            }
+            activeUsers.Rows.Cast<DataRow>().Where(row => !Convert.ToBoolean(row["IsGuest"]))
+                .ForEach(row => row.Delete());
         }
 
         /// <summary>
@@ -249,17 +242,10 @@ namespace YAF.Pages
             }
 
             // remove hidden users...
-            foreach (
-                var row in
-                    activeUsers.Rows.Cast<DataRow>()
-                        .Where(
-                            row =>
-                            !row["IsHidden"].ToType<bool>()
-                            && this.PageContext.PageUserID != row["UserID"].ToType<int>()))
-            {
-                // remove this active user...
-                row.Delete();
-            }
+            activeUsers.Rows.Cast<DataRow>()
+                .Where(
+                    row => !row["IsHidden"].ToType<bool>()
+                           && this.PageContext.PageUserID != row["UserID"].ToType<int>()).ForEach(row => row.Delete());
         }
 
         /// <summary>
@@ -276,17 +262,11 @@ namespace YAF.Pages
             }
 
             // remove hidden users...
-            foreach (
-                var row in
-                    activeUsers.Rows.Cast<DataRow>()
-                        .Where(
-                            row =>
-                            row["IsHidden"].ToType<bool>() && !this.PageContext.IsAdmin
-                            && this.PageContext.PageUserID != row["UserID"].ToType<int>()))
-            {
-                // remove this active user...
-                row.Delete();
-            }
+            activeUsers.Rows.Cast<DataRow>()
+                .Where(
+                    row => row["IsHidden"].ToType<bool>() && !this.PageContext.IsAdmin
+                                                          && this.PageContext.PageUserID != row["UserID"].ToType<int>())
+                .ForEach(row => row.Delete());
         }
 
         #endregion

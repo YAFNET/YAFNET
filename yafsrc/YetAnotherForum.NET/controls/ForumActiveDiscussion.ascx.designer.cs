@@ -22,24 +22,6 @@ namespace YAF.Controls {
         protected global::System.Web.UI.UpdatePanel UpdateStatsPanel;
         
         /// <summary>
-        /// CollapsibleImage control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Controls.CollapsibleImage CollapsibleImage;
-        
-        /// <summary>
-        /// ActiveDiscussionHeader control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel ActiveDiscussionHeader;
-        
-        /// <summary>
         /// ActiveDiscussionPlaceHolder control.
         /// </summary>
         /// <remarks>
@@ -49,13 +31,13 @@ namespace YAF.Controls {
         protected global::System.Web.UI.WebControls.PlaceHolder ActiveDiscussionPlaceHolder;
         
         /// <summary>
-        /// LatestPostsHeader control.
+        /// ActiveDiscussionHeader control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel LatestPostsHeader;
+        protected global::YAF.Web.Controls.LocalizedLabel ActiveDiscussionHeader;
         
         /// <summary>
         /// LatestPosts control.
@@ -67,21 +49,21 @@ namespace YAF.Controls {
         protected global::System.Web.UI.WebControls.Repeater LatestPosts;
         
         /// <summary>
+        /// Footer control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel Footer;
+        
+        /// <summary>
         /// RssFeed control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.RssFeedLink RssFeed;
-        
-        /// <summary>
-        /// AtomFeed control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Controls.RssFeedLink AtomFeed;
+        protected global::YAF.Web.Controls.RssFeedLink RssFeed;
     }
 }

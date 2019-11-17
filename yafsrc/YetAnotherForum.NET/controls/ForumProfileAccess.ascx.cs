@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -27,12 +27,17 @@ namespace YAF.Controls
 
     using System;
     using System.Data;
+    using System.Linq;
     using System.Text;
+    using System.Web;
 
-    using YAF.Classes.Data;
-    using YAF.Core;
+    using YAF.Core.BaseControls;
+    using YAF.Core.Extensions;
+    using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Extensions;
+    using YAF.Types.Interfaces;
+    using YAF.Types.Models;
     using YAF.Utils;
 
     #endregion
@@ -56,37 +61,38 @@ namespace YAF.Controls
                 return;
             }
 
-            var userID = (int)Security.StringToLongOrRedirect(this.Request.QueryString.GetFirstOrDefault("u"));
+            var userID = Security.StringToIntOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u"));
 
-            using (DataTable dt2 = LegacyDb.user_accessmasks(this.PageContext.PageBoardID, userID))
+            using (var dt2 = this.GetRepository<ForumAccess>()
+                .UserAccessMasksAsDataTable(this.PageContext.PageBoardID, userID))
             {
                 var html = new StringBuilder();
-                int nLastForumID = 0;
-                foreach (DataRow row in dt2.Rows)
-                {
-                    if (nLastForumID != row["ForumID"].ToType<int>())
-                    {
-                        if (nLastForumID != 0)
+                var lastForumId = 0;
+
+                dt2.Rows.Cast<DataRow>().ForEach(
+                    row =>
                         {
-                            html.AppendFormat("</td></tr>");
-                        }
+                            if (lastForumId != row["ForumID"].ToType<int>())
+                            {
+                                if (lastForumId != 0)
+                                {
+                                    html.AppendFormat("</li>");
+                                }
 
-                        html.AppendFormat(
-                            "<tr><td width='50%' class='postheader'>{0}</td><td width='50%' class='post'>",
-                            this.HtmlEncode(row["ForumName"]));
-                        nLastForumID = row["ForumID"].ToType<int>();
-                    }
-                    else
-                    {
-                        html.AppendFormat(", ");
-                    }
+                                html.AppendFormat(
+                                    "<li class=\"list-group-item\"><span class=\"font-weight-bold\">{0}:</span>&nbsp;",
+                                    this.HtmlEncode(row["ForumName"]));
+                                lastForumId = row["ForumID"].ToType<int>();
+                            }
 
-                    html.AppendFormat("{0}", row["AccessMaskName"]);
-                }
+                            html.AppendFormat(
+                                "<span class=\"badge badge-pill badge-info mr-1\">{0}</span>",
+                                row["AccessMaskName"]);
+                        });
 
-                if (nLastForumID != 0)
+                if (lastForumId != 0)
                 {
-                    html.AppendFormat("</td></tr>");
+                    html.AppendFormat("</li>");
                 }
 
                 this.AccessMaskRow.Text = html.ToString();

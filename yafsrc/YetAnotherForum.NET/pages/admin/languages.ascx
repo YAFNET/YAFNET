@@ -1,20 +1,31 @@
 <%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Admin.languages" Codebehind="languages.ascx.cs" %>
-<%@ Register TagPrefix="YAF" Namespace="YAF.Controls" %>
+
+
 <YAF:PageLinks runat="server" ID="PageLinks" />
-<YAF:AdminMenu runat="server">
-	<table class="content" width="100%" cellspacing="1" cellpadding="0">
-		<tr>
-			<td class="header1" colspan="8">
-				<YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_LANGUAGES" />
-			</td>
-		</tr>
-        <tr>
-            <td style="padding:0">
+
+    <div class="row">
+    <div class="col-xl-12">
+        <h1><YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_LANGUAGES" /></h1>
+    </div>
+    </div>
+    <div class="row">
+        <div class="col-xl-12">
+            <div class="card mb-3">
+                <div class="card-header">
+                    <i class="fa fa-language fa-fw text-secondary"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_LANGUAGES" />
+                </div>
+                <div class="card-body">
 		<asp:Repeater runat="server" ID="List">
 			<HeaderTemplate>
-			    <table style="width:100%"  cellspacing="1" cellpadding="0" class="sortable tablesorter">
-                    <thead>
-                        <tr class="header2">
+                <YAF:Alert runat="server" ID="Alert2" Type="info" MobileOnly="True">
+                    <YAF:LocalizedLabel ID="LocalizedLabel6" runat="server"
+                                        LocalizedTag="TABLE_RESPONSIVE" 
+                                        LocalizedPage="ADMIN_COMMON" />
+                    <span class="float-right"><i class="fa fa-hand-point-left fa-fw"></i></span>
+                </YAF:Alert><div class="table-responsive">
+			    <table class="table tablesorter table-bordered table-striped">
+                    <thead class="thead-light">
+                        <tr>
                             <th>
                                 <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="LANG_NAME" LocalizedPage="ADMIN_LANGUAGES" />
                             </th>
@@ -35,43 +46,42 @@
                 <tbody>
 			</HeaderTemplate>
 			<ItemTemplate>
-				<tr class="post">
+				<tr>
                     <td>
-						<%# Eval("CultureEnglishName")%>
+						<%# this.Eval("CultureEnglishName")%>
 					</td>
                     <td>
-						<%# Eval("CultureTag")%>
+						<%# this.Eval("CultureTag")%>
 					</td>
                      <td>
-						<%# Eval("CultureNativeName")%>
+						<%# this.Eval("CultureNativeName")%>
 					</td>
 					<td>
-						<%# Eval("CultureFile")%>
+						<%# this.Eval("CultureFile")%>
 					</td>
-                    <td class="rightItem">
-                        <YAF:ThemeButton ID="btnEdit" 
-                            CssClass="yaflittlebutton" 
-                            CommandName='edit' 
-                            CommandArgument='<%# Eval("CultureFile")%>' 
-                            TitleLocalizedTag="EDIT" 
-                            ImageThemePage="ICONS" 
+                    <td>
+                        <span class="float-right">
+                        <YAF:ThemeButton ID="btnEdit"
+                            Type="Info" Size="Small"
+                            CommandName='edit'
+                            CommandArgument='<%# this.Eval("CultureFile")%>'
+                            TitleLocalizedTag="EDIT"
+                            Icon="edit"
                             TextLocalizedTag="EDIT"
-                            ImageThemeTag="EDIT_SMALL_ICON" 
                             runat="server">
                         </YAF:ThemeButton>
+                            </span>
 					</td>
 				</tr>
 			</ItemTemplate>
             <FooterTemplate>
                 </tbody>
-        </table>
+        </table></div>
                 </FooterTemplate>
 		</asp:Repeater>
-                </td>
-         </tr>
-         <tr>
-           <td class="footer1" align="center" colspan="8" style="height:30px"></td>
-         </tr>
-	</table>
-</YAF:AdminMenu>
-<YAF:SmartScroller ID="SmartScroller1" runat="server" />
+            </div>
+        </div>
+    </div>
+    </div>
+
+

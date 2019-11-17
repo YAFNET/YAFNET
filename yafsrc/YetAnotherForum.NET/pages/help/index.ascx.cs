@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -33,15 +33,16 @@ namespace YAF.Pages.help
     using System.Web;
     using System.Xml.Serialization;
 
-    using YAF.Classes;
-    using YAF.Controls;
+    using YAF.Configuration;
     using YAF.Core;
+    using YAF.Core.Extensions;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Utilities;
+    using YAF.Types.Objects;
     using YAF.Utils;
+    using YAF.Web.Extensions;
 
     #endregion
 
@@ -72,13 +73,7 @@ namespace YAF.Pages.help
         /// <summary>
         /// Gets PageName.
         /// </summary>
-        public override string PageName
-        {
-            get
-            {
-                return "help_index";
-            }
-        }
+        public override string PageName => "help_index";
 
         #endregion
 
@@ -90,8 +85,6 @@ namespace YAF.Pages.help
         /// <param name="e">An <see cref="T:System.EventArgs"/> object that contains the event data.</param>
         protected override void OnInit([NotNull] EventArgs e)
         {
-            this.PreRender += Index_PreRender;
-
             this.DoSearch.Click += this.DoSearch_Click;
             base.OnInit(e);
 
@@ -119,8 +112,6 @@ namespace YAF.Pages.help
             this.PageLinks.AddLink(
                 this.GetText("SUBTITLE"), YafBuildLink.GetLink(ForumPages.help_index));
 
-            this.DoSearch.Text = this.GetText("SEARCH", "BTNSEARCH");
-
             if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("faq").IsSet())
             {
                 var faqPage = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("faq");
@@ -133,12 +124,11 @@ namespace YAF.Pages.help
                 this.PageLinks.AddLink(
                     this.GetText(
                         "HELP_INDEX",
-                        "{0}TITLE".FormatWith(faqPage)),
+                        $"{faqPage}TITLE"),
                     string.Empty);
 
-                this.Page.Header.Title = "{0} - {1}".FormatWith(
-                this.GetText("SUBTITLE"),
-                this.GetText("HELP_INDEX", "{0}TITLE".FormatWith(faqPage)));
+                this.Page.Header.Title =
+                    $"{this.GetText("SUBTITLE")} - {this.GetText("HELP_INDEX", $"{faqPage}TITLE")}";
 
                 this.BindData();
             }
@@ -146,9 +136,8 @@ namespace YAF.Pages.help
             {
                 this.PageLinks.AddLink(this.GetText("HELP_INDEX", "SEARCHHELPTITLE"), string.Empty);
 
-                this.Page.Header.Title = "{0} - {1}".FormatWith(
-                this.GetText("SUBTITLE"),
-                this.GetText("HELP_INDEX", "SEARCHHELPTITLE"));
+                this.Page.Header.Title =
+                    $"{this.GetText("SUBTITLE")} - {this.GetText("HELP_INDEX", "SEARCHHELPTITLE")}";
 
                 // Load Index and Search
                 this.SearchHolder.Visible = true;
@@ -159,22 +148,11 @@ namespace YAF.Pages.help
         }
 
         /// <summary>
-        /// Load the Javascript files
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        private static void Index_PreRender([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            // Setup Ceebox js
-            YafContext.Current.PageElements.RegisterJsBlock("ceeboxloadjs", JavaScriptBlocks.CeeBoxLoadJs);
-        }
-
-        /// <summary>
         /// Binds the data.
         /// </summary>
         private void BindData()
         {
-            string faqPage = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("faq");
+            var faqPage = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("faq");
 
             switch (faqPage)
             {
@@ -225,42 +203,44 @@ namespace YAF.Pages.help
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         private void DoSearch_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
-            if (string.IsNullOrEmpty(this.search.Text))
+            if (this.search.Text.IsNotSet())
             {
                 return;
             }
 
             if (this.search.Text.Length <= 3)
             {
-                this.PageContext.AddLoadMessage(this.GetText("SEARCHLONGER"), MessageTypes.Error);
+                this.PageContext.AddLoadMessage(this.GetText("SEARCHLONGER"), MessageTypes.danger);
 
                 return;
             }
 
             var highlightWords = new List<string> { this.search.Text };
 
-            var searchlist =
+            var searchList =
               this.helpContents.FindAll(
                 check =>
                 check.HelpContent.ToLower().Contains(this.search.Text.ToLower()) ||
                 check.HelpTitle.ToLower().Contains(this.search.Text.ToLower()));
 
-            foreach (YafHelpContent item in searchlist)
-            {
-                item.HelpContent = this.Get<IFormatMessage>().SurroundWordList(
-                  item.HelpContent, highlightWords, @"<span class=""highlight"">", @"</span>");
-                item.HelpTitle = this.Get<IFormatMessage>().SurroundWordList(
-                  item.HelpTitle, highlightWords, @"<span class=""highlight"">", @"</span>");
-            }
+            searchList.ForEach(
+                item =>
+                {
+                    item.HelpContent = this.Get<IFormatMessage>().SurroundWordList(
+                        item.HelpContent, highlightWords, @"<span class=""highlight"">", @"</span>");
+                    item.HelpTitle = this.Get<IFormatMessage>().SurroundWordList(
+                        item.HelpTitle, highlightWords, @"<span class=""highlight"">", @"</span>");
+                });
+            
 
-            if (searchlist.Count.Equals(0))
+            if (searchList.Count.Equals(0))
             {
-                this.PageContext.AddLoadMessage(this.GetText("NORESULTS"), MessageTypes.Warning);
+                this.PageContext.AddLoadMessage(this.GetText("NORESULTS"), MessageTypes.warning);
 
                 return;
             }
 
-            this.HelpList.DataSource = searchlist;
+            this.HelpList.DataSource = searchList;
             this.HelpList.DataBind();
 
             this.SearchHolder.Visible = false;
@@ -277,22 +257,18 @@ namespace YAF.Pages.help
                 return;
             }
 
-            // vzrus tip: some features can be disabled and users shouldn't normally see them in help.
-            // The list can include some limitations based on host settings when features are enabled.  
-            // tha_watcha: actually not really needed content describes that things can be disabled.
-            var helpNavigation = new List<HelpMenu.YafHelpNavigation>();
+            var helpNavigation = new List<YafHelpNavigation>();
 
-            var serializer = new XmlSerializer(typeof(List<HelpMenu.YafHelpNavigation>));
+            var serializer = new XmlSerializer(typeof(List<YafHelpNavigation>));
 
             var xmlFilePath =
-                HttpContext.Current.Server.MapPath(
-                    "{0}Resources/{1}".FormatWith(YafForumInfo.ForumServerFileRoot, "HelpMenuList.xml"));
+                HttpContext.Current.Server.MapPath($"{YafForumInfo.ForumServerFileRoot}Resources/HelpMenuList.xml");
 
             if (File.Exists(xmlFilePath))
             {
                 var reader = new StreamReader(xmlFilePath);
 
-                helpNavigation = (List<HelpMenu.YafHelpNavigation>)serializer.Deserialize(reader);
+                helpNavigation = (List<YafHelpNavigation>)serializer.Deserialize(reader);
 
                 reader.Close();
             }
@@ -306,7 +282,7 @@ namespace YAF.Pages.help
                     case "RECOVER":
                         {
                             helpContent = this.GetTextFormatted(
-                                "{0}CONTENT".FormatWith(helpPage.HelpPage),
+                                $"{helpPage.HelpPage}CONTENT",
                                 YafBuildLink.GetLink(ForumPages.recoverpassword));
                         }
 
@@ -314,7 +290,7 @@ namespace YAF.Pages.help
                     case "BBCODES":
                         {
                             helpContent = this.GetTextFormatted(
-                                "{0}CONTENT".FormatWith(helpPage.HelpPage),
+                                $"{helpPage.HelpPage}CONTENT",
                                 YafForumInfo.ForumBaseUrl);
                         }
 
@@ -322,14 +298,14 @@ namespace YAF.Pages.help
                     case "POSTING":
                         {
                             helpContent = this.GetTextFormatted(
-                                "{0}CONTENT".FormatWith(helpPage.HelpPage),
+                                $"{helpPage.HelpPage}CONTENT",
                                 YafBuildLink.GetLink(ForumPages.help_index, "faq=bbcodes"));
                         }
 
                         break;
                     default:
                         {
-                            helpContent = this.GetText("{0}CONTENT".FormatWith(helpPage.HelpPage));
+                            helpContent = this.GetText($"{helpPage.HelpPage}CONTENT");
                         }
 
                         break;
@@ -339,37 +315,12 @@ namespace YAF.Pages.help
                     new YafHelpContent
                         {
                             HelpPage = helpPage.HelpPage,
-                            HelpTitle = this.GetText("{0}TITLE".FormatWith(helpPage.HelpPage)),
+                            HelpTitle = this.GetText($"{helpPage.HelpPage}TITLE"),
                             HelpContent = helpContent
                         });
             }
         }
 
         #endregion
-
-        /// <summary>
-        /// Class that Can store the Help Content
-        /// </summary>
-        public class YafHelpContent
-        {
-            #region Properties
-
-            /// <summary>
-            ///   Gets or sets The Content of the Help page
-            /// </summary>
-            public string HelpContent { get; set; }
-
-            /// <summary>
-            ///   Gets or sets The Help page Name
-            /// </summary>
-            public string HelpPage { get; set; }
-
-            /// <summary>
-            ///   Gets or sets The Title of the Help page
-            /// </summary>
-            public string HelpTitle { get; set; }
-
-            #endregion
-        }
     }
 }

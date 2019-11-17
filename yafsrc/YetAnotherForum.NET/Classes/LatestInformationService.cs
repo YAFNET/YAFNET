@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -32,7 +32,6 @@ namespace YAF.Classes
     using YAF.Types.Interfaces;
     using YAF.Utils;
 
-    /// <inheritdoc />
     /// <summary>
     /// LatestInformation service class
     /// </summary>
@@ -49,17 +48,16 @@ namespace YAF.Classes
         /// <returns>Returns the LatestVersionInformation</returns>
         public LatestVersionInformation GetLatestVersionInformation()
         {
-            if (this.Get<HttpApplicationStateBase>()["YafRegistrationLatestInformation"] is LatestVersionInformation latestInfo)
+            if (this.Get<HttpApplicationStateBase>()["YafRegistrationLatestInformation"] is LatestVersionInformation
+                    latestInfo)
             {
                 return latestInfo;
             }
 
             try
             {
-                using (var reg = new RegisterV2())
+                using (var reg = new RegisterV2 { Timeout = 30000 })
                 {
-                    reg.Timeout = 30000;
-
                     // load the latest info -- but only provide the current version information and the user's two-letter language information. Nothing trackable.))
                     latestInfo = reg.LatestInfo(YafForumInfo.AppVersionCode, "US");
 
@@ -69,6 +67,7 @@ namespace YAF.Classes
                     }
                 }
             }
+
 #if DEBUG
             catch (Exception x)
             {
@@ -77,7 +76,7 @@ namespace YAF.Classes
             catch (Exception)
             {
 #endif
-            return null;
+                return null;
             }
 
             return latestInfo;

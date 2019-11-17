@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -29,7 +29,7 @@ namespace YAF.Utils.Structures
 
   /// <summary>
   /// Class that represents a doubly linked list (I can't believe that .NET didn't 
-  ///   have one of these).  The primary usage for this class is with the MostRecenlyUsed class,
+  ///   have one of these).  The primary usage for this class is with the Most Recently Used class,
   ///   but can be used in a variety of scenarios.
   /// </summary>
   [Serializable]
@@ -48,11 +48,6 @@ namespace YAF.Utils.Structures
     public LinkItem TailLink;
 
     /// <summary>
-    /// The m_sync root.
-    /// </summary>
-    private readonly object m_syncRoot = new object();
-
-    /// <summary>
     /// The m_count.
     /// </summary>
     private int m_count;
@@ -64,59 +59,27 @@ namespace YAF.Utils.Structures
     /// <summary>
     /// Gets Count.
     /// </summary>
-    public int Count
-    {
-      get
-      {
-        return this.m_count;
-      }
-    }
+    public int Count => this.m_count;
 
     /// <summary>
     /// Gets a value indicating whether IsFixedSize.
     /// </summary>
-    public bool IsFixedSize
-    {
-      get
-      {
-        return false;
-      }
-    }
+    public bool IsFixedSize => false;
 
     /// <summary>
     /// Gets a value indicating whether IsReadOnly.
     /// </summary>
-    public bool IsReadOnly
-    {
-      get
-      {
-        // TODO:  Add DoubleLinkedList.IsReadOnly getter implementation
-        return false;
-      }
-    }
+    public bool IsReadOnly => false;
 
     /// <summary>
     /// Gets a value indicating whether IsSynchronized.
     /// </summary>
-    public bool IsSynchronized
-    {
-      get
-      {
-        // TODO:  Add DoubleLinkedList.IsSynchronized getter implementation
-        return false;
-      }
-    }
+    public bool IsSynchronized => false;
 
     /// <summary>
     /// Gets SyncRoot.
     /// </summary>
-    public object SyncRoot
-    {
-      get
-      {
-        return this.m_syncRoot;
-      }
-    }
+    public object SyncRoot { get; } = new object();
 
     #endregion
 
@@ -132,14 +95,13 @@ namespace YAF.Utils.Structures
     {
       get
       {
-        int i = 0;
-        LinkItem current = this.HeadLink;
+        var i = 0;
+        var current = this.HeadLink;
         object item = null;
 
         // Skip to the index
         for (i = 0, current = this.HeadLink; current != null && i < index; i++, current = current.Next)
         {
-          ;
         }
 
         if (i == index && current != null)
@@ -152,8 +114,8 @@ namespace YAF.Utils.Structures
 
       set
       {
-        int i = 0;
-        LinkItem current = this.HeadLink;
+        var i = 0;
+        var current = this.HeadLink;
 
         // Skip past existing items
         for (i = 0, current = this.HeadLink; current != null && i < index; i++, current = current.Next)
@@ -216,8 +178,8 @@ namespace YAF.Utils.Structures
 
       if (item != this.HeadLink)
       {
-        LinkItem prev = item.Previous;
-        LinkItem next = item.Next;
+        var prev = item.Previous;
+        var next = item.Next;
 
         if (prev != null)
         {
@@ -290,8 +252,8 @@ namespace YAF.Utils.Structures
         return;
       }
 
-      LinkItem next = item.Next;
-      LinkItem prev = item.Previous;
+      var next = item.Next;
+      var prev = item.Previous;
 
       if (this.HeadLink == item)
       {
@@ -334,10 +296,10 @@ namespace YAF.Utils.Structures
     /// </param>
     public void CopyTo(Array array, int index)
     {
-      int i = 0;
+      var i = 0;
       LinkItem current = null;
 
-      for (i = 0, current = this.HeadLink; current != null && (i + index) < array.Length; i++, current = current.Next)
+      for (i = 0, current = this.HeadLink; current != null && i + index < array.Length; i++, current = current.Next)
       {
         array.SetValue(current.Item, index + i);
       }
@@ -411,8 +373,8 @@ namespace YAF.Utils.Structures
     /// </returns>
     public bool Contains(object value)
     {
-      LinkItem current = this.HeadLink;
-      bool hasItem = false;
+      var current = this.HeadLink;
+      var hasItem = false;
 
       // Skip past existing items
       for (current = this.HeadLink; current != null && current.Item != value; current = current.Next)
@@ -438,8 +400,8 @@ namespace YAF.Utils.Structures
     /// </returns>
     public int IndexOf(object value)
     {
-      LinkItem current = this.HeadLink;
-      int index = -1;
+      var current = this.HeadLink;
+      var index = -1;
 
       // Skip past existing items
       for (index = 0, current = this.HeadLink;
@@ -468,8 +430,8 @@ namespace YAF.Utils.Structures
     /// </param>
     public void Insert(int index, object value)
     {
-      int i = 0;
-      LinkItem current = this.HeadLink;
+      var i = 0;
+      var current = this.HeadLink;
 
       // Skip past existing items
       for (i = 0, current = this.HeadLink; current != null && i < index; i++, current = current.Next)
@@ -517,8 +479,8 @@ namespace YAF.Utils.Structures
 
       if (current != null)
       {
-        LinkItem prev = current.Previous;
-        LinkItem next = current.Next;
+        var prev = current.Previous;
+        var next = current.Next;
 
         if (current == this.HeadLink)
         {
@@ -551,8 +513,8 @@ namespace YAF.Utils.Structures
     /// </param>
     public void RemoveAt(int index)
     {
-      int i = 0;
-      LinkItem current = this.HeadLink;
+      var i = 0;
+      var current = this.HeadLink;
 
       // Skip past existing items
       for (i = 0, current = this.HeadLink; current != null && i < index; i++, current = current.Next)
@@ -562,8 +524,8 @@ namespace YAF.Utils.Structures
 
       if (i == index && current != null)
       {
-        LinkItem prev = current.Previous;
-        LinkItem next = current.Next;
+        var prev = current.Previous;
+        var next = current.Next;
 
         if (current == this.HeadLink)
         {
@@ -632,13 +594,7 @@ namespace YAF.Utils.Structures
       /// <summary>
       /// Gets Current.
       /// </summary>
-      public object Current
-      {
-        get
-        {
-          return this.m_current;
-        }
-      }
+      public object Current => this.m_current;
 
       #endregion
 
@@ -654,7 +610,7 @@ namespace YAF.Utils.Structures
       /// </returns>
       public bool MoveNext()
       {
-        bool result = false;
+        bool result;
 
         if (this.m_current == null)
         {
@@ -753,14 +709,7 @@ namespace YAF.Utils.Structures
       /// </returns>
       public override string ToString()
       {
-        if (this.Item != null)
-        {
-          return this.Item.ToString();
-        }
-        else
-        {
-          return "null";
-        }
+          return this.Item != null ? this.Item.ToString() : "null";
       }
 
       #endregion

@@ -1,122 +1,128 @@
 <%@ Control Language="C#" AutoEventWireup="true" Inherits="YAF.Pages.messagehistory"CodeBehind="messagehistory.ascx.cs" %>
-<%@ Import Namespace="YAF.Core" %>
+
 <%@ Import Namespace="YAF.Types.Interfaces" %>
-<%@ Import Namespace="YAF.Utils" %>
-<%@ Import Namespace="YAF.Utils.Helpers" %>
 <%@ Import Namespace="YAF.Types.Extensions" %>
+<%@ Import Namespace="ServiceStack" %>
+
 <YAF:PageLinks runat="server" ID="PageLinks" />
 
-<table class="content" width="100%" cellspacing="1" cellpadding="0">
-    <tr>
-        <td class="header1" colspan="7">
-            <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="title" />
-        </td>
-    </tr>
-    <asp:Repeater ID="RevisionsList" runat="server"  OnItemCommand="RevisionsList_ItemCommand">
-        <HeaderTemplate>
-            <tr>
-                <td class="header2" width="13">
-                    <YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedPage="POSTMESSAGE"
-                            LocalizedTag="OLD" />
-                </td>
-                <td class="header2" width="13">
-                    <YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedPage="POSTMESSAGE"
-                            LocalizedTag="NEW" />
-                </td>
-                <td class="header2" width="550">
-                    <YAF:LocalizedLabel ID="LocalizedLabel9" runat="server" LocalizedPage="POSTMESSAGE"
-                            LocalizedTag="EDITEREASON" />
-                </td>
-                <td class="header2">
-                    <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedPage="POSTMESSAGE"
-                            LocalizedTag="EDITEDBY" />
-                </td>
-                 <td class="header2" width="50">
-                    <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedPage="POSTMESSAGE"
-                            LocalizedTag="EDITEDBY_MOD" />
-                </td>
-                <td class="header2">
-                    <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedPage="POSTMESSAGE"
-                            LocalizedTag="EDITED" />
-                </td>
-                <td class="header2">
-                </td>
-            </tr>
-        </HeaderTemplate>
-        <ItemTemplate>
-            <tr>
-                <td class="post">
-                    <asp:RadioButton runat="server" ID="Old" onclick="toggleOldSelection(this);" />
-                </td>
-                <td class="post">
-                    <asp:RadioButton runat="server" ID="New" onclick="toggleNewSelection(this);" />
-                </td>
-                <td class="post">
-                    <asp:HiddenField runat="server" Value='<%# FormatMessage((System.Data.DataRow)Container.DataItem)%>' ID="MessageField" />
-                    <%# Container.DataItemToField<DateTime>("Edited") != Container.DataItemToField<DateTime>("Posted") ? Container.DataItemToField<string>("EditReason").IsNotSet() ? this.GetText("EDIT_REASON_NA") : Container.DataItemToField<string>("EditReason"): this.GetText("ORIGINALMESSAGE") %>
-                    <%# Container.ItemIndex.Equals(this.RevisionsCount-1) ? "({0})".FormatWith(this.GetText("MESSAGEHISTORY","CURRENTMESSAGE")) : string.Empty %>
-                </td>
-                <td class="post">
-                    <YAF:OnlineStatusImage ID="OnlineStatusImage" runat="server" Visible='<%# this.Get<YafBoardSettings>().ShowUserOnlineStatus && !UserMembershipHelper.IsGuestUser( Container.DataItemToField<int>("UserID") )%>'
-                        Style="vertical-align: bottom" UserID='<%# Container.DataItemToField<int>("UserID") %>' />
-                    <YAF:UserLink ID="UserLink3" runat="server" UserID='<%# Container.DataItemToField<int>("EditedBy") %>' />
-                    <br />
-                    <span id="IPSpan1" runat="server" visible='<%# PageContext.IsAdmin || (this.Get<YafBoardSettings>().AllowModeratorsViewIPs && PageContext.ForumModeratorAccess)%>'>
-                        <strong>
-                            <%# this.GetText("IP") %>:</strong><a id="IPLink1" href='<%# this.Get<YafBoardSettings>().IPInfoPageURL.FormatWith(IPHelper.GetIp4Address(Container.DataItemToField<string>("IP"))) %>'
-                                title='<%# this.GetText("COMMON","TT_IPDETAILS") %>'
-                                target="_blank" runat="server"><%# IPHelper.GetIp4Address(Container.DataItemToField<string>("IP")) %></a>
-                    </span>
-                </td>
-                <td class="post">
-                    <%# Container.DataItemToField<bool>("IsModeratorChanged") ?  this.GetText("YES") : this.GetText("NO") %>
-                </td>
-                <td class="post"><%# this.Get<IDateTime>().FormatDateTimeTopic( Container.DataItemToField<DateTime>("Edited") ) %></td>
-                <td class="post">
-                    <YAF:ThemeButton ID="ThemeButtonEdit" CssClass="yaflittlebutton" runat="server"
-                        CommandName='restore' CommandArgument='<%# Container.DataItemToField<DateTime>("Edited") %>' 
-                        TitleLocalizedTag="RESTORE_MESSAGE" TextLocalizedTag="RESTORE_MESSAGE"
-                        Visible='<%# (this.PageContext.IsAdmin || this.PageContext.IsModeratorInAnyForum) && !Container.ItemIndex.Equals(this.RevisionsCount-1) %>'
-                        OnLoad="RestoreVersion_Load">
-                    </YAF:ThemeButton>
-                </td>
-            </tr>
-        </ItemTemplate>
-    </asp:Repeater>
-    <tr class="postfooter">
-        <td class="post" colspan="7">
-            <a onclick="RenderMessageDiff('<%# this.GetText("MESSAGEHISTORY","MESSAGE_EDITEDAT") %>','<%# this.GetText("MESSAGEHISTORY","NOTHING_SELECTED") %>','<%# this.GetText("MESSAGEHISTORY","SELECT_BOTH") %>','<%# this.GetText("MESSAGEHISTORY","SELECT_DIFFERENT") %>');" class="yafcssbigbutton leftItem">
-                <span>
-                    <%# this.GetText("MESSAGEHISTORY","COMPARE_VERSIONS") %>
-                </span>
-            </a>            
-            <YAF:ThemeButton ID="ReturnBtn" CssClass="yafcssbigbutton leftItem" OnClick="ReturnBtn_OnClick"
-                TextLocalizedTag="TOMESSAGE" Visible="false" runat="server">
-            </YAF:ThemeButton>
-            <YAF:ThemeButton ID="ReturnModBtn" CssClass="yafcssbigbutton leftItem" OnClick="ReturnModBtn_OnClick"
-                TextLocalizedTag="GOMODERATE" Visible="false" runat="server">
-            </YAF:ThemeButton>
-        </td>
-    </tr>
-</table>
+<div class="row">
+    <div class="col-xl-12">
+        <h2><YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="TITLE" /></h2>
+    </div>
+</div>
 
-<br/>
+<div class="row">
+    <div class="col">
+        <div class="card mb-3">
+            <div class="card-header">
+                <i class="fa fa-history fa-fw text-secondary"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel10" runat="server" 
+                                                                                            LocalizedTag="TITLE" />
+            </div>
+            <div class="card-body">
+                <asp:Repeater ID="RevisionsList" runat="server"  OnItemCommand="RevisionsList_ItemCommand">
+                    <HeaderTemplate>
+                        <ul class="list-group">
+                    </HeaderTemplate>
+                    <ItemTemplate>
+                        <li class="list-group-item list-group-item-action">
+                                 <div class="d-flex w-100 justify-content-between">
+                                     <h5 class="mb-1">
+                                         <div class="custom-control custom-checkbox d-inline-block">
+                                             <asp:Checkbox runat="server" ID="Compare" 
+                                                           onclick="toggleSelection(this);" 
+                                                           Text="&nbsp;" />
+                                         </div>
+                                         <asp:HiddenField runat="server" Value='<%#Container.DataItemToField<string>("Message")%>' ID="MessageField" />
+                                         <YAF:LocalizedLabel ID="LocalizedLabel9" runat="server" 
+                                                             LocalizedPage="POSTMESSAGE"
+                                                             LocalizedTag="EDITEREASON" />: <%# Container.DataItemToField<DateTime>("Edited") != Container.DataItemToField<DateTime>("Posted") ? Container.DataItemToField<string>("EditReason").IsNotSet() ? this.GetText("EDIT_REASON_NA") : Container.DataItemToField<string>("EditReason"): this.GetText("ORIGINALMESSAGE") %>
+                                         <%# Container.ItemIndex.Equals(this.RevisionsCount-1) ? "({0})".Fmt(this.GetText("MESSAGEHISTORY", "CURRENTMESSAGE")) : string.Empty %>
+                                     </h5>
+                                     <small class="d-none d-md-block">
+                                         <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" 
+                                                             LocalizedPage="POSTMESSAGE" 
+                                                             LocalizedTag="EDITED" />: <%# this.Get<IDateTime>().FormatDateTimeTopic( Container.DataItemToField<DateTime>("Edited") ) %>
+                                     </small>
+                                 </div>
+                                <p class="mb-1">
+                                    <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" 
+                                                        LocalizedPage="POSTMESSAGE"
+                                                        LocalizedTag="EDITEDBY" />: <YAF:UserLink ID="UserLink3" runat="server" UserID='<%# Container.DataItemToField<int>("EditedBy") %>' />
+                                    <asp:PlaceHolder runat="server" Visible='<%# this.PageContext.IsAdmin || this.Get<YafBoardSettings>().AllowModeratorsViewIPs && this.PageContext.ForumModeratorAccess%>'>
+                                        <strong>
+                                            <%# this.GetText("IP") %>:</strong><a id="IPLink1" 
+                                                                                  href='<%# string.Format(this.Get<YafBoardSettings>().IPInfoPageURL, this.GetIpAddress(Container.DataItem)) %>'
+                                                                                  title='<%# this.GetText("COMMON","TT_IPDETAILS") %>'
+                                                                                  target="_blank" runat="server"><%# this.GetIpAddress(Container.DataItem) %></a>
+                                    </asp:PlaceHolder>
+                                    <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" 
+                                                        LocalizedPage="POSTMESSAGE"
+                                                        LocalizedTag="EDITEDBY_MOD" />: <span class="badge badge-secondary"><%# Container.DataItemToField<bool>("IsModeratorChanged") ?  this.GetText("YES") : this.GetText("NO") %></span>
+                                </p>
+                                <small>
+                                    <YAF:ThemeButton ID="ThemeButtonEdit" runat="server"
+                                                     CommandName="restore" 
+                                                     CommandArgument='<%# Container.DataItemToField<DateTime>("Edited") %>'
+                                                     TitleLocalizedTag="RESTORE_MESSAGE" 
+                                                     TextLocalizedTag="RESTORE_MESSAGE"
+                                                     Visible='<%# (this.PageContext.IsAdmin || this.PageContext.IsModeratorInAnyForum) && !Container.ItemIndex.Equals(this.RevisionsCount-1) %>'
+                                                     ReturnConfirmText='<%# this.GetText("MESSAGEHISTORY", "CONFIRM_RESTORE") %>'
+                                                     Type="Secondary" 
+                                                     Size="Small" 
+                                                     Icon="undo">
+                                    </YAF:ThemeButton>
+                                </small>
+                        </li>
+                    </ItemTemplate>
+                    <FooterTemplate>
+                    </ul>
+                    </FooterTemplate>
+                </asp:Repeater>
+            </div>
+            <div class="card-footer text-center">
+                        <a onclick="RenderMessageDiff('<%# this.GetText("MESSAGEHISTORY","NOTHING_SELECTED") %>','<%# this.GetText("MESSAGEHISTORY","SELECT_BOTH") %>');" 
+                           class="btn btn-primary mb-1" role="button" href="#diffContent">
+                            <i class="fas fa-equals"></i>&nbsp;<%# this.GetText("MESSAGEHISTORY","COMPARE_VERSIONS") %>
+                        </a>            
+                        <YAF:ThemeButton ID="ReturnBtn" 
+                                         OnClick="ReturnBtn_OnClick"
+                                         TextLocalizedTag="TOMESSAGE" 
+                                         Visible="false" 
+                                         Type="Secondary"
+                                         Icon="external-link-square-alt"
+                                         runat="server">
+                        </YAF:ThemeButton>
+                        <YAF:ThemeButton ID="ReturnModBtn"  
+                                         OnClick="ReturnModBtn_OnClick"
+                                         TextLocalizedTag="GOMODERATE" 
+                                         Visible="false" 
+                                         Type="Secondary"
+                                         Icon="external-link-square-alt"
+                                         runat="server">
+                        </YAF:ThemeButton>
+            </div>
+        </div>
+    </div>
+</div>
 
-<table class="content" width="100%" cellspacing="1" cellpadding="0">
-    <tr>
-        <td class="header1" colspan="7">
-            <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="COMPARE_TITLE" />
-        </td>
-    </tr>
-    <tr>
-        <td class="header2">
-            <YAF:LocalizedLabel ID="LocalizedLabel8" runat="server" LocalizedTag="TEXT_CHANGES" />
-        </td>
-    </tr>
-    <tr>
-        <td class="post" id="diffContent"><%# this.GetText("MESSAGEHISTORY","SELECT_DIFFERENT") %></td>
-    </tr>
-</table>
-<div id="DivSmartScroller">
-    <YAF:SmartScroller ID="SmartScroller1" runat="server" />
+<div class="row">
+    <div class="col">
+        <div class="card mb-3">
+            <div class="card-header">
+                <i class="fa fa-history fa-fw text-secondary"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" 
+                                                                             LocalizedTag="COMPARE_TITLE" />
+            </div>
+            <div class="card-body">
+                <h6 class="card-subtitle mb-2 text-muted">
+                    <YAF:LocalizedLabel ID="LocalizedLabel8" runat="server" LocalizedTag="TEXT_CHANGES" />
+                </h6>
+                <div id="diffContent">
+                    <YAF:Alert runat="server" Type="info">
+                        <%# this.GetText("MESSAGEHISTORY","SELECT_DIFFERENT") %>
+                    </YAF:Alert>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

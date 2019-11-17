@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -33,6 +33,7 @@ namespace YAF.Types.Models
     /// A class which represents the Buddy table.
     /// </summary>
     [Serializable]
+    [UniqueConstraint(nameof(FromUserID), nameof(ToUserID))]
     public partial class Buddy : IEntity, IHaveID
     {
         partial void OnCreated();
@@ -51,7 +52,6 @@ namespace YAF.Types.Models
         /// Gets or sets the id.
         /// </summary>
         [AutoIncrement]
-        [Alias("BuddyID")]
         public int ID { get; set; }
 
         /// <summary>
@@ -60,6 +60,9 @@ namespace YAF.Types.Models
         /// <value>
         /// From user identifier.
         /// </value>
+        [References(typeof(User))]
+        [Required]
+        [Index]
         public int FromUserID { get; set; }
 
         /// <summary>
@@ -68,6 +71,8 @@ namespace YAF.Types.Models
         /// <value>
         /// To user identifier.
         /// </value>
+        [Required]
+        [Index]
         public int ToUserID { get; set; }
 
         /// <summary>
@@ -76,6 +81,7 @@ namespace YAF.Types.Models
         /// <value>
         ///   <c>true</c> if approved; otherwise, <c>false</c>.
         /// </value>
+        [Required]
         public bool Approved { get; set; }
 
         /// <summary>
@@ -84,6 +90,7 @@ namespace YAF.Types.Models
         /// <value>
         /// The requested.
         /// </value>
+        [Required]
         public DateTime Requested { get; set; }
 
         #endregion

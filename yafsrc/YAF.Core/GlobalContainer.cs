@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -25,13 +25,9 @@ namespace YAF.Core
 {
     #region Using
 
-    using System.Reflection;
-
     using Autofac;
 
-    using YAF.Core.Helpers;
     using YAF.Core.Modules;
-    using YAF.Core.Services.Logger;
     using YAF.Types;
     using YAF.Types.Interfaces;
 
@@ -42,20 +38,14 @@ namespace YAF.Core
     /// </summary>
     public static class GlobalContainer
     {
-        #region Constants and Fields
-
         /// <summary>
-        ///   The _container.
+        /// Initializes static members of the <see cref="GlobalContainer"/> class.
         /// </summary>
-        private static readonly IContainer _container;
-
-        #endregion
-
         static GlobalContainer()
         {
             var container = CreateContainer();
             ServiceLocatorAccess.CurrentServiceProvider = container.Resolve<IServiceLocator>();
-            _container = container;
+            Container = container;
         }
 
         #region Properties
@@ -63,13 +53,7 @@ namespace YAF.Core
         /// <summary>
         ///   Gets Container.
         /// </summary>
-        public static IContainer Container
-        {
-            get
-            {
-                return _container;
-            }
-        }
+        public static IContainer Container { get; }
 
         #endregion
 

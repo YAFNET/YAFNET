@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -21,7 +21,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Core
+namespace YAF.Core.Extensions
 {
   #region Using
 
@@ -83,15 +83,15 @@ namespace YAF.Core
     /// </param>
     public static void ReplaceHtmlFromText(this IReplaceBlocks replaceBlocks, ref StringBuilder sb)
     {
-      Match m = _regExHtml.Match(sb.ToString());
+      var m = _regExHtml.Match(sb.ToString());
 
       while (m.Success)
       {
         // add it to the list...
-        int index = replaceBlocks.Add(m.Groups[0].Value);
+        var index = replaceBlocks.Add(m.Groups[0].Value);
 
         // replacement lookup code
-        string replace = replaceBlocks.Get(index);
+        var replace = replaceBlocks.Get(index);
 
         // remove the replaced item...
         sb.Remove(m.Groups[0].Index, m.Groups[0].Length);

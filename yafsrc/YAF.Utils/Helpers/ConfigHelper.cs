@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -41,17 +41,12 @@ namespace YAF.Utils.Helpers
         /// <summary>
         ///     The _app settings full.
         /// </summary>
-        private AppSettingsSection _appSettingsFull;
-
-        /// <summary>
-        ///     The _trust level.
-        /// </summary>
-        private AspNetHostingPermissionLevel? _trustLevel;
+        private AppSettingsSection appSettingsFull;
 
         /// <summary>
         ///     The _web config.
         /// </summary>
-        private Configuration _webConfig;
+        private Configuration webConfig;
 
         #endregion
 
@@ -60,118 +55,67 @@ namespace YAF.Utils.Helpers
         /// <summary>
         ///     Gets AppSettings.
         /// </summary>
-        public NameValueCollection AppSettings
-        {
-            get
-            {
-                return WebConfigurationManager.AppSettings;
-            }
-        }
+        public NameValueCollection AppSettings => WebConfigurationManager.AppSettings;
 
         /// <summary>
         ///     Gets AppSettingsFull.
         /// </summary>
-        public AppSettingsSection AppSettingsFull
-        {
-            get
-            {
-                return this._appSettingsFull ?? (this._appSettingsFull = this.GetConfigSectionFull<AppSettingsSection>("appSettings"));
-            }
-        }
-
-        /// <summary>
-        ///     Gets TrustLevel.
-        /// </summary>
-        public AspNetHostingPermissionLevel TrustLevel
-        {
-            get
-            {
-                if (!this._trustLevel.HasValue)
-                {
-                    this._trustLevel = General.GetCurrentTrustLevel();
-                }
-
-                return this._trustLevel.Value;
-            }
-        }
+        public AppSettingsSection AppSettingsFull => this.appSettingsFull
+                                                     ?? (this.appSettingsFull =
+                                                             this.GetConfigSectionFull<AppSettingsSection>(
+                                                                 "appSettings"));
 
         /// <summary>
         ///     Gets WebConfigFull.
         /// </summary>
-        public Configuration WebConfigFull
-        {
-            get
-            {
-                return this._webConfig ?? (this._webConfig = WebConfigurationManager.OpenWebConfiguration("~/"));
-            }
-        }
+        public Configuration WebConfigFull => this.webConfig
+                                              ?? (this.webConfig = WebConfigurationManager.OpenWebConfiguration("~/"));
 
         #endregion
 
         #region Public Methods and Operators
 
         /// <summary>
-        /// The get config section.
+        /// Gets the configuration section.
         /// </summary>
-        /// <param name="sectionName">
-        /// The section name.
-        /// </param>
-        /// <typeparam name="T">
-        /// </typeparam>
-        /// <returns>
-        /// The <see cref="T"/>.
-        /// </returns>
-        public T GetConfigSection<T>(string sectionName) where T : class
+        /// <typeparam name="T">The type parameter name</typeparam>
+        /// <param name="sectionName">Name of the section.</param>
+        /// <returns>Returns the the configuration section.</returns>
+        public T GetConfigSection<T>(string sectionName)
+            where T : class
         {
             var section = WebConfigurationManager.GetWebApplicationSection(sectionName) as T;
             return section;
         }
 
         /// <summary>
-        /// The get config section full.
+        /// Gets the configuration section full.
         /// </summary>
-        /// <param name="sectionName">
-        /// The section name.
-        /// </param>
-        /// <typeparam name="T">
-        /// </typeparam>
-        /// <returns>
-        /// The <see cref="T"/>.
-        /// </returns>
-        [AspNetHostingPermission(SecurityAction.Demand, Level = AspNetHostingPermissionLevel.High)]
-        public T GetConfigSectionFull<T>(string sectionName) where T : class
+        /// <typeparam name="T">The type parameter name</typeparam>
+        /// <param name="sectionName">Name of the section.</param>
+        /// <returns>Returns the full configuration setting</returns>
+        public T GetConfigSectionFull<T>(string sectionName)
+            where T : class
         {
-            ConfigurationSection section = this.WebConfigFull.GetSection(sectionName);
-            if (section is T)
-            {
-                return section as T;
-            }
-
-            return null;
+            var section = this.WebConfigFull.GetSection(sectionName);
+            return section as T;
         }
 
         /// <summary>
-        /// The get config value as string.
+        /// Gets the configuration value as string.
         /// </summary>
-        /// <param name="keyName">
-        /// The key name.
-        /// </param>
-        /// <returns>
-        /// The get config value as string.
-        /// </returns>
+        /// <param name="keyName">Name of the key.</param>
+        /// <returns>Returns the configuration value as string.</returns>
         public string GetConfigValueAsString(string keyName)
         {
-            string[] allKeys = this.TrustLevel == AspNetHostingPermissionLevel.High
-                                   ? this.AppSettingsFull.Settings.AllKeys
-                                   : this.AppSettings.AllKeys;
-            return
-                allKeys.Where(key => key.Equals(keyName, StringComparison.OrdinalIgnoreCase))
-                       .Select(key => this.AppSettings[key])
-                       .FirstOrDefault();
+            var allKeys = this.AppSettingsFull.Settings.AllKeys;
+            return allKeys.Where(key => key.Equals(keyName, StringComparison.OrdinalIgnoreCase))
+                .Select(key => this.AppSettings[key])
+                .FirstOrDefault();
         }
 
         /// <summary>
-        /// The write app setting.
+        /// Writes the setting to the appSettings section of the web.config
         /// </summary>
         /// <param name="keyName">
         /// The key name.
@@ -182,10 +126,9 @@ namespace YAF.Utils.Helpers
         /// <returns>
         /// The write app setting.
         /// </returns>
-        [AspNetHostingPermission(SecurityAction.Demand, Level = AspNetHostingPermissionLevel.High)]
         public bool WriteAppSetting(string keyName, string keyValue)
         {
-            bool writtenSuccessfully = false;
+            bool writtenSuccessfully;
 
             try
             {
@@ -209,17 +152,11 @@ namespace YAF.Utils.Helpers
         }
 
         /// <summary>
-        /// The write connection string.
+        /// Writes the setting to the connectionString section of the web.config
         /// </summary>
-        /// <param name="keyName">
-        /// The key name.
-        /// </param>
-        /// <param name="keyValue">
-        /// The key value.
-        /// </param>
-        /// <param name="providerValue">
-        /// The provider value.
-        /// </param>
+        /// <param name="keyName">The key name.</param>
+        /// <param name="keyValue">The key value.</param>
+        /// <param name="providerValue">The provider value.</param>
         /// <returns>
         /// The write connection string.
         /// </returns>
@@ -233,7 +170,7 @@ namespace YAF.Utils.Helpers
                 return false;
             }
 
-            bool writtenSuccessfully = false;
+            bool writtenSuccessfully;
             try
             {
                 if (connStrings.ConnectionStrings[keyName] != null)

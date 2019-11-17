@@ -1,34 +1,43 @@
 ﻿<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.im_email" Codebehind="im_email.ascx.cs" %>
+
+
 <YAF:PageLinks runat="server" ID="PageLinks" />
-<div align="center">
-<table class="content" width="600px" border="0" cellpadding="0" cellspacing="1">
-	<tr>
-		<td colspan="2" class="header1">
-			<YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="TITLE" />
-		</td>
-	</tr>
-	<tr>
-		<td class="postheader" width="150px">
-			<YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="SUBJECT" />
-		</td>
-		<td class="post">
-			<asp:TextBox runat="server" ID="Subject" CssClass="edit" /></td>
-	</tr>
-	<tr>
-		<td class="postheader" valign='top' width="150px">
-			<YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="BODY" />
-		</td>
-		<td class="post">
-			<asp:TextBox runat="server" ID="Body" TextMode="multiline" Rows='10' CssClass="edit" />
-		</td>
-	</tr>
-	<tr class="postfooter">
-		<td colspan="2" align="center">
-			<asp:Button runat="server" ID="Send" CssClass="pbutton" OnClick="Send_Click" />
-		</td>
-	</tr>
-</table>
+
+<div class="row">
+    <div class="col-xl-12">
+        <h2><YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="TITLE" /></h2>
+    </div>
 </div>
-<div id="DivSmartScroller">
-	<YAF:SmartScroller ID="SmartScroller1" runat="server" />
+
+<div class="row">
+    <div class="col">
+        <div class="card mb-3">
+            <div class="card-header">
+                <i class="fa fa-envelope-open fa-fw text-secondary"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="TITLE" />
+            </div>
+            <div class="card-body text-center">
+                <form>
+                    <div class="form-group">
+                        <asp:Label runat="server" AssociatedControlID="">
+                            <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="SUBJECT" />
+                        </asp:Label>
+                        <asp:TextBox runat="server" ID="Subject" CssClass="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <asp:Label runat="server" AssociatedControlID="">
+                            <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="BODY" />
+                        </asp:Label>
+                        <asp:TextBox runat="server" ID="Body" TextMode="multiline" Rows="10" CssClass="form-control" />
+                    </div>
+                </form>
+            </div>
+            <div class="card-footer text-center">
+                <YAF:ThemeButton runat="server" ID="Send"
+                                 OnClick="Send_Click"
+                                 TextLocalizedTag="SEND"
+                                 Type="Primary"
+                                 Icon="paper-plane"/>
+            </div>
+        </div>
+    </div>
 </div>

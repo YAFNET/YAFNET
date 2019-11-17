@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -21,7 +21,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Core
+namespace YAF.Core.Extensions
 {
   #region Using
 
@@ -40,41 +40,6 @@ namespace YAF.Core
   public static class IHaveComponentRegistryExtensions
   {
     #region Public Methods
-
-    /// <summary>
-    /// Is not registered in the component registry.
-    /// </summary>
-    /// <param name="haveComponentRegistry">
-    /// The have component registry.
-    /// </param>
-    /// <typeparam name="TRegistered">
-    /// </typeparam>
-    /// <returns>
-    /// The is registered.
-    /// </returns>
-    public static bool IsNotRegistered<TRegistered>([NotNull] this IHaveComponentRegistry haveComponentRegistry)
-    {
-      CodeContracts.VerifyNotNull(haveComponentRegistry, "haveComponentRegistry");
-
-      return !haveComponentRegistry.ComponentRegistry.IsRegistered(new TypedService(typeof(TRegistered)));
-    }
-
-    /// <summary>
-    /// Is not registered in the component registry.
-    /// </summary>
-    /// <param name="haveComponentRegistry">
-    /// The have component registry.
-    /// </param>
-    /// <param name="registeredType"></param>
-    /// <returns>
-    /// The is registered.
-    /// </returns>
-    public static bool IsNotRegistered([NotNull] this IHaveComponentRegistry haveComponentRegistry, Type registeredType)
-    {
-      CodeContracts.VerifyNotNull(haveComponentRegistry, "haveComponentRegistry");
-
-      return !haveComponentRegistry.ComponentRegistry.IsRegistered(new TypedService(registeredType));
-    }
 
     /// <summary>
     /// The is registered.

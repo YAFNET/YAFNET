@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -26,7 +26,6 @@ namespace YAF.Types.Models
     #region Using
 
     using System;
-    using System.Data.Linq.Mapping;
 
     using ServiceStack.DataAnnotations;
 
@@ -65,21 +64,29 @@ namespace YAF.Types.Models
         /// <summary>
         ///     Gets or sets the board id.
         /// </summary>
+        [References(typeof(Board))]
+        [Required]
         public int BoardID { get; set; }
 
         /// <summary>
         ///     Gets or sets the flags.
         /// </summary>
+        [Required]
+        [Default(0)]
         public int Flags { get; set; }
 
         /// <summary>
         ///     Gets or sets the name.
         /// </summary>
+        [Required]
+        [StringLength(50)]
         public string Name { get; set; }
 
         /// <summary>
         ///     Gets or sets the sort order.
         /// </summary>
+        [Required]
+        [Default(0)]
         public short SortOrder { get; set; }
 
         #endregion

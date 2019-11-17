@@ -1,24 +1,30 @@
 /*
- * jQuery File Upload Validation Plugin 1.1.2
+ * jQuery File Upload Validation Plugin
  * https://github.com/blueimp/jQuery-File-Upload
  *
  * Copyright 2013, Sebastian Tschan
  * https://blueimp.net
  *
  * Licensed under the MIT license:
- * http://www.opensource.org/licenses/MIT
+ * https://opensource.org/licenses/MIT
  */
 
-/* global define, window */
+/* global define, require, window */
 
-(function (factory) {
-    //'use strict';
+;(function (factory) {
+    'use strict';
     if (typeof define === 'function' && define.amd) {
         // Register as an anonymous AMD module:
         define([
             'jquery',
             './jquery.fileupload-process'
         ], factory);
+    } else if (typeof exports === 'object') {
+        // Node/CommonJS:
+        factory(
+            require('jquery'),
+            require('./jquery.fileupload-process')
+        );
     } else {
         // Browser globals:
         factory(
@@ -26,14 +32,14 @@
         );
     }
 }(function ($) {
-    //'use strict';
+    'use strict';
 
     // Append to the default processQueue:
     $.blueimp.yafFileUpload.prototype.options.processQueue.push(
         {
             action: 'validate',
             // Always trigger this action,
-            // even if the previous action was rejected: 
+            // even if the previous action was rejected:
             always: true,
             // Options taken from the global options map:
             acceptFileTypes: '@',

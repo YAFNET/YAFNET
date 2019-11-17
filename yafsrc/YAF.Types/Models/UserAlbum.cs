@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -44,16 +44,17 @@ namespace YAF.Types.Models
 
         #region Properties
 
-        [AutoIncrement]
         [Alias("AlbumID")]
+        [AutoIncrement]
+        [Index]
         public int ID { get; set; }
-
+        [Required]
         public int UserID { get; set; }
 
+        [StringLength(255)]
         public string Title { get; set; }
-
-        public int CoverImageID { get; set; }
-
+        public int? CoverImageID { get; set; }
+        [Required]
         public DateTime Updated { get; set; }
 
         #endregion

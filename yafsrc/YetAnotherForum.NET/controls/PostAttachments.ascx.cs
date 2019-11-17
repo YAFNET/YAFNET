@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -28,10 +28,8 @@ namespace YAF.Controls
 
     using System;
 
-    using YAF.Core;
+    using YAF.Core.BaseControls;
     using YAF.Types;
-    using YAF.Types.Interfaces;
-    using YAF.Utils;
 
     #endregion
 
@@ -50,10 +48,6 @@ namespace YAF.Controls
         /// </param>
         protected override void OnPreRender([NotNull] EventArgs e)
         {
-            this.LoadingImage.ImageUrl = YafForumInfo.GetURLToContent("images/loader.gif");
-            this.LoadingImage.AlternateText = this.Get<ILocalization>().GetText("COMMON", "LOADING");
-            this.LoadingImage.ToolTip = this.Get<ILocalization>().GetText("COMMON", "LOADING");
-
             base.OnPreRender(e);
         }
 

@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -37,14 +37,19 @@ namespace YAF.Controls
     using System.Web.UI.WebControls;
     using System.Xml;
 
-    using YAF.Classes;
-    using YAF.Classes.Data;
+    using YAF.Configuration;
     using YAF.Core;
+    using YAF.Core.BaseControls;
+    using YAF.Core.Extensions;
+    using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Models;
     using YAF.Utils;
+    using YAF.Utils.Helpers;
+    using YAF.Web.Controls;
 
     #endregion
 
@@ -60,22 +65,19 @@ namespace YAF.Controls
         /// </summary>
         [Category("Behavior")]
         [Description("Gets or sets the current view for the user's private messages.")]
-        public PMView View
+        public PmView View
         {
             get
             {
                 if (this.ViewState["View"] != null)
                 {
-                    return (PMView)this.ViewState["View"];
+                    return (PmView)this.ViewState["View"];
                 }
 
-                return PMView.Inbox;
+                return PmView.Inbox;
             }
 
-            set
-            {
-                this.ViewState["View"] = value;
-            }
+            set => this.ViewState["View"] = value;
         }
 
         #endregion
@@ -89,37 +91,23 @@ namespace YAF.Controls
         /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
         protected void ArchiveAll_Click([NotNull] object source, [NotNull] EventArgs e)
         {
-            if (this.View != PMView.Inbox)
-            {
-                return;
-            }
-
             long archivedCount = 0;
-            using (DataView dv = LegacyDb.pmessage_list(this.PageContext.PageUserID, null, null).DefaultView)
+            using (var dv = this.GetRepository<PMessage>().ListAsDataTable(this.PageContext.PageUserID, null, null)
+                .DefaultView)
             {
                 dv.RowFilter = "IsDeleted = False AND IsArchived = False";
 
-                foreach (DataRowView item in dv)
-                {
-                    LegacyDb.pmessage_archive(item["UserPMessageID"]);
-                    archivedCount++;
-                }
+                dv.Cast<DataRowView>().ForEach(
+                    item =>
+                        {
+                            this.GetRepository<PMessage>().ArchiveMessage(item["UserPMessageID"].ToType<int>());
+                            archivedCount++;
+                        });
             }
 
             this.BindData();
             this.ClearCache();
-            this.PageContext.AddLoadMessage(this.GetText("MSG_ARCHIVED+").FormatWith(archivedCount));
-        }
-
-        /// <summary>
-        /// Handles the Load event of the ArchiveAll control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
-        protected void ArchiveAll_Load([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            ((ThemeButton)sender).Attributes["onclick"] =
-                "return confirm('{0}')".FormatWith(this.GetText("CONFIRM_ARCHIVEALL"));
+            this.PageContext.AddLoadMessage(this.GetTextFormatted("MSG_ARCHIVED+", archivedCount), MessageTypes.success);
         }
 
         /// <summary>
@@ -129,8 +117,7 @@ namespace YAF.Controls
         /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
         protected void ExportAll_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            ((ThemeButton)sender).Attributes["onclick"] =
-                "this.form.onsubmit = function() {return true;}";
+            ((ThemeButton)sender).Attributes["onclick"] = "this.form.onsubmit = function() {return true;}";
         }
 
         /// <summary>
@@ -140,27 +127,25 @@ namespace YAF.Controls
         /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
         protected void ArchiveSelected_Click([NotNull] object source, [NotNull] EventArgs e)
         {
-            if (this.View != PMView.Inbox)
-            {
-                return;
-            }
-
             long archivedCount = 0;
 
-            foreach (GridViewRow item in
-                this.MessagesView.Rows.Cast<GridViewRow>().Where(
-                    item => ((CheckBox)item.FindControl("ItemCheck")).Checked))
-            {
-                LegacyDb.pmessage_archive(this.MessagesView.DataKeys[item.RowIndex].Value);
-                archivedCount++;
-            }
+            this.MessagesView.Rows.Cast<GridViewRow>().Where(item => item.FindControlAs<CheckBox>("ItemCheck").Checked)
+                .ForEach(
+                    item =>
+                        {
+                            this.GetRepository<PMessage>()
+                                .ArchiveMessage(this.MessagesView.DataKeys[item.RowIndex].Value);
+                            archivedCount++;
+                        });
 
             this.BindData();
             this.ClearCache();
+
             this.PageContext.AddLoadMessage(
                 archivedCount == 1
                     ? this.GetText("MSG_ARCHIVED")
-                    : this.GetText("MSG_ARCHIVED+").FormatWith(archivedCount));
+                    : this.GetTextFormatted("MSG_ARCHIVED+", archivedCount),
+                MessageTypes.success);
         }
 
         /// <summary>
@@ -183,68 +168,47 @@ namespace YAF.Controls
         /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
         protected void DeleteAll_Click([NotNull] object source, [NotNull] EventArgs e)
         {
-            long nItemCount = 0;
+            long itemCount = 0;
 
-            object toUserID = null;
-            object fromUserID = null;
-            bool isoutbox = false;
+            object toUserId = null;
+            object fromUserId = null;
 
-            if (this.View == PMView.Outbox)
+            if (this.View == PmView.Outbox)
             {
-                fromUserID = this.PageContext.PageUserID;
-                isoutbox = true;
+                fromUserId = this.PageContext.PageUserID;
             }
             else
             {
-                toUserID = this.PageContext.PageUserID;
+                toUserId = this.PageContext.PageUserID;
             }
 
-            using (DataView dv = LegacyDb.pmessage_list(toUserID, fromUserID, null).DefaultView)
+            using (var dv = this.GetRepository<PMessage>().ListAsDataTable(toUserId, fromUserId, null).DefaultView)
             {
                 switch (this.View)
                 {
-                    case PMView.Inbox:
+                    case PmView.Inbox:
                         dv.RowFilter = "IsDeleted = False AND IsArchived = False";
                         break;
-                    case PMView.Outbox:
-                        dv.RowFilter = "IsInOutbox = True";
+                    case PmView.Outbox:
+                        dv.RowFilter = "IsInOutbox = True AND IsArchived = False";
                         break;
-                    case PMView.Archive:
+                    case PmView.Archive:
                         dv.RowFilter = "IsArchived = True";
                         break;
                 }
 
-                foreach (DataRowView item in dv)
-                {
-                    if (isoutbox)
-                    {
-                        LegacyDb.pmessage_delete(item["UserPMessageID"], true);
-                    }
-                    else
-                    {
-                        LegacyDb.pmessage_delete(item["UserPMessageID"]);
-                    }
+                dv.Cast<DataRowView>().ForEach(
+                    item =>
+                        {
+                            this.GetRepository<PMessage>().DeleteMessage(item["UserPMessageID"].ToType<int>());
 
-                    nItemCount++;
-                }
+                            itemCount++;
+                        });
             }
 
             this.BindData();
-            this.PageContext.AddLoadMessage(this.GetTextFormatted("msgdeleted2", nItemCount));
+            this.PageContext.AddLoadMessage(this.GetTextFormatted("msgdeleted2", itemCount), MessageTypes.success);
             this.ClearCache();
-        }
-
-        /// <summary>
-        /// The delete all_ load.
-        /// </summary>
-        /// <param name="sender">
-        /// The source of the event.
-        /// </param>
-        /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
-        protected void DeleteAll_Load([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            ((ThemeButton)sender).Attributes["onclick"] =
-                "return confirm('{0}')".FormatWith(this.GetText("CONFIRM_DELETEALL"));
         }
 
         /// <summary>
@@ -258,43 +222,24 @@ namespace YAF.Controls
         /// </param>
         protected void DeleteSelected_Click([NotNull] object source, [NotNull] EventArgs e)
         {
-            long nItemCount = 0;
+            long itemCount = 0;
 
-            foreach (GridViewRow item in
-                this.MessagesView.Rows.Cast<GridViewRow>().Where(
-                    item => ((CheckBox)item.FindControl("ItemCheck")).Checked))
-            {
-                switch (this.View)
-                {
-                    case PMView.Outbox:
-                        LegacyDb.pmessage_delete(this.MessagesView.DataKeys[item.RowIndex].Value, true);
-                        break;
-                    default:
-                        LegacyDb.pmessage_delete(this.MessagesView.DataKeys[item.RowIndex].Value);
-                        break;
-                }
+            this.MessagesView.Rows.Cast<GridViewRow>().Where(item => item.FindControlAs<CheckBox>("ItemCheck").Checked)
+                .ForEach(
+                    item =>
+                        {
+                            this.GetRepository<PMessage>().DeleteMessage(
+                                this.MessagesView.DataKeys[item.RowIndex].Value.ToType<int>());
 
-                nItemCount++;
-            }
+                            itemCount++;
+                        });
 
             this.BindData();
 
             this.PageContext.AddLoadMessage(
-                nItemCount == 1 ? this.GetText("msgdeleted1") : this.GetTextFormatted("msgdeleted2", nItemCount));
+                itemCount == 1 ? this.GetText("msgdeleted1") : this.GetTextFormatted("msgdeleted2", itemCount),
+                MessageTypes.success);
             this.ClearCache();
-        }
-
-        /// <summary>
-        /// The delete selected_ load.
-        /// </summary>
-        /// <param name="sender">
-        /// The source of the event.
-        /// </param>
-        /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
-        protected void DeleteSelected_Load([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            ((ThemeButton)sender).Attributes["onclick"] =
-                "return confirm('{0}')".FormatWith(this.GetText("CONFIRM_DELETE"));
         }
 
         /// <summary>
@@ -309,9 +254,9 @@ namespace YAF.Controls
             var messageList = this.GetMessagesForExport(null);
 
             // Return if No Messages are Available to Export
-            if (messageList.Table.Rows.Count.Equals(0))
+            if (!messageList.Table.HasRows())
             {
-                this.PageContext.AddLoadMessage(this.GetText("NO_MESSAGES"));
+                this.PageContext.AddLoadMessage(this.GetText("NO_MESSAGES"), MessageTypes.warning);
                 return;
             }
 
@@ -338,18 +283,16 @@ namespace YAF.Controls
         /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
         protected void ExportSelected_Click([NotNull] object source, [NotNull] EventArgs e)
         {
-            var exportPMIds =
-                this.MessagesView.Rows.Cast<GridViewRow>()
-                    .Where(item => ((CheckBox)item.FindControl("ItemCheck")).Checked)
-                    .Select(item => (int)this.MessagesView.DataKeys[item.RowIndex].Value)
-                    .ToList();
+            var exportPmIds = this.MessagesView.Rows.Cast<GridViewRow>()
+                .Where(item => item.FindControlAs<CheckBox>("ItemCheck").Checked)
+                .Select(item => (int)this.MessagesView.DataKeys[item.RowIndex].Value).ToList();
 
-            var messageList = this.GetMessagesForExport(exportPMIds);
-            
+            var messageList = this.GetMessagesForExport(exportPmIds);
+
             // Return if No Message Selected
-            if (messageList.Table.Rows.Count.Equals(0))
+            if (!messageList.Table.HasRows())
             {
-                this.PageContext.AddLoadMessage(this.GetText("MSG_NOSELECTED"));
+                this.PageContext.AddLoadMessage(this.GetText("MSG_NOSELECTED"), MessageTypes.warning);
 
                 this.BindData();
 
@@ -394,7 +337,7 @@ namespace YAF.Controls
         /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
         protected void FromLink_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
-            this.SetSort(this.View == PMView.Outbox ? "ToUser" : "FromUser", true);
+            this.SetSort(this.View == PmView.Outbox ? "ToUser" : "FromUser", true);
 
             this.BindData();
         }
@@ -406,14 +349,12 @@ namespace YAF.Controls
         /// <returns>
         /// Returns the Image Url
         /// </returns>
-        protected string GetImage([NotNull] object dataRow)
+        protected string GetIcon([NotNull] object dataRow)
         {
             var dataRowView = dataRow as DataRowView;
-            var isRead = (dataRowView)["IsRead"].ToType<bool>();
+            var isRead = dataRowView["IsRead"].ToType<bool>();
 
-            return (dataRowView)["IsReply"].ToType<bool>()
-                       ? this.Get<ITheme>().GetItem("ICONS", isRead ? "PM_READ_REPLY" : "PM_NEW_REPLY")
-                       : this.Get<ITheme>().GetItem("ICONS", isRead ? "PM_READ" : "PM_NEW");
+            return $"<i class=\"fa fa-{(isRead ? "envelope-open" : "envelope")} fa-2x text-secondary\"></i>";
         }
 
         /// <summary>
@@ -426,7 +367,7 @@ namespace YAF.Controls
         /// </returns>
         protected string GetLocalizedText([NotNull] string text, string page)
         {
-            return this.HtmlEncode(!string.IsNullOrEmpty(page) ? this.GetText(page, text) : this.GetText(text));
+            return this.HtmlEncode(page.IsSet() ? this.GetText(page, text) : this.GetText(text));
         }
 
         /// <summary>
@@ -439,7 +380,10 @@ namespace YAF.Controls
         protected string GetMessageLink([NotNull] object messageId)
         {
             return YafBuildLink.GetLink(
-                ForumPages.cp_message, "pm={0}&v={1}", messageId, PMViewConverter.ToQueryStringParam(this.View));
+                ForumPages.cp_message,
+                "pm={0}&v={1}",
+                messageId,
+                PmViewConverter.ToQueryStringParam(this.View));
         }
 
         /// <summary>
@@ -450,7 +394,7 @@ namespace YAF.Controls
         /// </returns>
         protected string GetMessageUserHeader()
         {
-            return this.GetLocalizedText(this.View == PMView.Outbox ? "to" : "from", "CP_PM");
+            return this.GetLocalizedText(this.View == PmView.Outbox ? "to" : "from", "CP_PM");
         }
 
         /// <summary>
@@ -471,38 +415,19 @@ namespace YAF.Controls
             [NotNull] object _archive,
             [NotNull] object _limit)
         {
-            object _percentage = 0;
+            object percentage = 0;
             if (_limit.ToType<int>() != 0)
             {
-                _percentage = decimal.Round((_total.ToType<decimal>() / _limit.ToType<decimal>()) * 100, 2);
+                percentage = decimal.Round(_total.ToType<decimal>() / _limit.ToType<decimal>() * 100, 2);
             }
 
             if (YafContext.Current.IsAdmin)
             {
                 _limit = "\u221E";
-                _percentage = 0;
+                percentage = 0;
             }
 
-            return this.HtmlEncode(this.GetTextFormatted(text, _total, _inbox, _outbox, _archive, _limit, _percentage));
-        }
-
-        /// <summary>
-        /// Gets the title.
-        /// </summary>
-        /// <returns>
-        /// The get title.
-        /// </returns>
-        protected string GetTitle()
-        {
-            switch (this.View)
-            {
-                case PMView.Outbox:
-                    return this.GetLocalizedText("SENTITEMS", null);
-                case PMView.Inbox:
-                    return this.GetLocalizedText("INBOX", null);
-                default:
-                    return this.GetLocalizedText("ARCHIVE", null);
-            }
+            return this.HtmlEncode(this.GetTextFormatted(text, _total, _inbox, _outbox, _archive, _limit, percentage));
         }
 
         /// <summary>
@@ -514,30 +439,30 @@ namespace YAF.Controls
         /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
         protected void MarkAsRead_Click([NotNull] object source, [NotNull] EventArgs e)
         {
-            if (this.View == PMView.Outbox)
-            {
-                return;
-            }
-
-            using (DataView dv = LegacyDb.pmessage_list(this.PageContext.PageUserID, null, null).DefaultView)
+            using (var dv = this.GetRepository<PMessage>().ListAsDataTable(this.PageContext.PageUserID, null, null)
+                .DefaultView)
             {
                 switch (this.View)
                 {
-                    case PMView.Inbox:
+                    case PmView.Inbox:
                         dv.RowFilter = "IsRead = False AND IsDeleted = False AND IsArchived = False";
                         break;
-                    case PMView.Archive:
+                    case PmView.Outbox:
+                        dv.RowFilter = "IsRead = False AND IsDeleted = False AND IsArchived = False";
+                        break;
+                    case PmView.Archive:
                         dv.RowFilter = "IsRead = False AND IsArchived = True";
                         break;
                 }
 
-                foreach (DataRowView item in dv)
-                {
-                    LegacyDb.pmessage_markread(item["UserPMessageID"]);
+                dv.Cast<DataRowView>().ForEach(
+                    item =>
+                        {
+                            this.GetRepository<UserPMessage>().MarkAsRead(item["UserPMessageID"].ToType<int>());
 
-                    // Clearing cache with old permissions data...
-                    this.ClearCache();
-                }
+                            // Clearing cache with old permissions data...
+                            this.ClearCache();
+                        });
             }
 
             this.BindData();
@@ -558,40 +483,35 @@ namespace YAF.Controls
             {
                 case DataControlRowType.Header:
                     {
-                        var oGridView = (GridView)sender;
-                        var oGridViewRow = new GridViewRow(0, 0, DataControlRowType.Header, DataControlRowState.Insert);
+                        var sortFrom = e.Row.FindControlAs<Label>("SortFrom");
+                        var sortSubject = e.Row.FindControlAs<Label>("SortSubject");
+                        var sortDate = e.Row.FindControlAs<Label>("SortDate");
 
-                        var oTableCell = new TableCell { Text = this.GetTitle(), CssClass = "header1", ColumnSpan = 5 };
+                        var sortOrder = this.ViewState["SortAsc"].ToType<bool>();
 
-                        // Add Header to top with column span of 5... no need for two tables.
-                        oGridViewRow.Cells.Add(oTableCell);
-                        oGridView.Controls[0].Controls.AddAt(0, oGridViewRow);
+                        var sortText = sortOrder
+                                           ? "<i class=\"fa fa-sort-up fa-fw\"></i>"
+                                           : "<i class=\"fa fa-sort-down fa-fw\"></i>";
 
-                        var sortFrom = (Image)e.Row.FindControl("SortFrom");
-                        var sortSubject = (Image)e.Row.FindControl("SortSubject");
-                        var sortDate = (Image)e.Row.FindControl("SortDate");
-
-                        sortFrom.Visible = (this.View == PMView.Outbox)
+                        sortFrom.Visible = this.View == PmView.Outbox
                                                ? (string)this.ViewState["SortField"] == "ToUser"
                                                : (string)this.ViewState["SortField"] == "FromUser";
-                        sortFrom.ImageUrl = this.Get<ITheme>().GetItem(
-                            "SORT", (bool)this.ViewState["SortAsc"] ? "ASCENDING" : "DESCENDING");
+
+                        sortFrom.Text = sortText;
 
                         sortSubject.Visible = (string)this.ViewState["SortField"] == "Subject";
-                        sortSubject.ImageUrl = this.Get<ITheme>().GetItem(
-                            "SORT", (bool)this.ViewState["SortAsc"] ? "ASCENDING" : "DESCENDING");
+                        sortSubject.Text = sortText;
 
                         sortDate.Visible = (string)this.ViewState["SortField"] == "Created";
-                        sortDate.ImageUrl = this.Get<ITheme>().GetItem(
-                            "SORT", (bool)this.ViewState["SortAsc"] ? "ASCENDING" : "DESCENDING");
+                        sortDate.Text = sortText;
                     }
 
                     break;
                 case DataControlRowType.Footer:
                     {
-                        int rolCount = e.Row.Cells.Count;
+                        var rolCount = e.Row.Cells.Count;
 
-                        for (int i = rolCount - 1; i >= 1; i--)
+                        for (var i = rolCount - 1; i >= 1; i--)
                         {
                             e.Row.Cells.RemoveAt(i);
                         }
@@ -657,7 +577,7 @@ namespace YAF.Controls
         protected void Stats_Renew()
         {
             // Renew PM Statistics
-            DataTable dt = LegacyDb.user_pmcount(this.PageContext.PageUserID);
+            var dt = this.GetRepository<PMessage>().UserMessageCount(this.PageContext.PageUserID);
             if (dt.HasRows())
             {
                 this.PMInfoLink.Text = this.GetPMessageText(
@@ -690,15 +610,15 @@ namespace YAF.Controls
         /// <returns>
         /// Returns the filtered Messages
         /// </returns>
-        private DataView GetMessagesForExport([CanBeNull] List<int> exportPmIds)
+        private DataView GetMessagesForExport([CanBeNull] ICollection<int> exportPmIds)
         {
             var messageList = (DataView)this.MessagesView.DataSource;
 
-            for (int i = messageList.Table.Rows.Count - 1; i >= 0; i--)
+            for (var i = messageList.Table.Rows.Count - 1; i >= 0; i--)
             {
-                DataRow row = messageList.Table.Rows[i];
+                var row = messageList.Table.Rows[i];
 
-                if (exportPmIds != null  && !exportPmIds.Contains(row["PMessageID"].ToType<int>()))
+                if (exportPmIds != null && !exportPmIds.Contains(row["PMessageID"].ToType<int>()))
                 {
                     messageList.Table.Rows.RemoveAt(i);
                     continue;
@@ -712,7 +632,7 @@ namespace YAF.Controls
                 {
                     switch (this.View)
                     {
-                        case PMView.Inbox:
+                        case PmView.Inbox:
                             {
                                 if (row["IsArchived"].ToType<bool>())
                                 {
@@ -721,7 +641,7 @@ namespace YAF.Controls
                             }
 
                             break;
-                        case PMView.Outbox:
+                        case PmView.Outbox:
                             {
                                 if (!row["IsInOutbox"].ToType<bool>())
                                 {
@@ -730,7 +650,7 @@ namespace YAF.Controls
                             }
 
                             break;
-                        case PMView.Archive:
+                        case PmView.Archive:
                             {
                                 if (!row["IsArchived"].ToType<bool>())
                                 {
@@ -748,7 +668,7 @@ namespace YAF.Controls
             messageList.Table.Columns.Remove("IsArchived");
             messageList.Table.Columns.Remove("IsInOutbox");
             messageList.Table.Columns.Remove("Flags");
-            
+
             return messageList;
         }
 
@@ -757,35 +677,39 @@ namespace YAF.Controls
         /// </summary>
         private void BindData()
         {
-            object toUserID = null;
-            object fromUserID = null;
+            object toUserId = null;
+            object fromUserId = null;
 
-            if (this.View == PMView.Outbox)
+            switch (this.View)
             {
-                fromUserID = this.PageContext.PageUserID;
-            }
-            else
-            {
-                toUserID = this.PageContext.PageUserID;
+                case PmView.Outbox:
+                    fromUserId = this.PageContext.PageUserID;
+                    break;
+                case PmView.Archive:
+                    fromUserId = this.PageContext.PageUserID;
+                    toUserId = this.PageContext.PageUserID;
+                    break;
+                default:
+                    toUserId = this.PageContext.PageUserID;
+                    break;
             }
 
-            using (DataView dv = LegacyDb.pmessage_list(toUserID, fromUserID, null).DefaultView)
+            using (var dv = this.GetRepository<PMessage>().ListAsDataTable(toUserId, fromUserId, null).DefaultView)
             {
                 switch (this.View)
                 {
-                    case PMView.Inbox:
+                    case PmView.Inbox:
                         dv.RowFilter = "IsDeleted = False AND IsArchived = False";
                         break;
-                    case PMView.Outbox:
-                        dv.RowFilter = "IsInOutbox = True";
+                    case PmView.Outbox:
+                        dv.RowFilter = "IsInOutbox = True AND IsArchived = False";
                         break;
-                    case PMView.Archive:
+                    case PmView.Archive:
                         dv.RowFilter = "IsArchived = True";
                         break;
                 }
 
-                dv.Sort = "{0} {1}".FormatWith(
-                    this.ViewState["SortField"], (bool)this.ViewState["SortAsc"] ? "asc" : "desc");
+                dv.Sort = $"{this.ViewState["SortField"]} {((bool)this.ViewState["SortAsc"] ? "asc" : "desc")}";
                 this.PagerTop.Count = dv.Count;
 
                 if (dv.Count > 0)
@@ -812,7 +736,8 @@ namespace YAF.Controls
         /// </summary>
         private void ClearCache()
         {
-            this.Get<IDataCache>().Remove(Constants.Cache.ActiveUserLazyData.FormatWith(this.PageContext.PageUserID));
+            this.Get<IDataCache>()
+                .Remove(string.Format(Constants.Cache.ActiveUserLazyData, this.PageContext.PageUserID));
         }
 
         /// <summary>
@@ -828,22 +753,19 @@ namespace YAF.Controls
             this.Get<HttpResponseBase>().ClearHeaders();
 
             this.Get<HttpResponseBase>().ContentType = "application/vnd.csv";
-            this.Response.AppendHeader(
+            this.Get<HttpResponseBase>().AppendHeader(
                 "content-disposition",
-                "attachment; filename=" +
-                HttpUtility.UrlEncode(
-                    "Privatemessages-{0}-{1}.csv".FormatWith(
-                        this.PageContext.PageUserName, DateTime.Now.ToString("yyyy'-'MM'-'dd'-'HHmm"))));
+                $"attachment; filename={HttpUtility.UrlEncode($"Privatemessages-{this.PageContext.PageUserName}-{DateTime.Now:yyyy'-'MM'-'dd'-'HHmm}.csv")}");
 
             var sw = new StreamWriter(this.Get<HttpResponseBase>().OutputStream);
 
-            int iColCount = messageList.Table.Columns.Count;
+            var columnsCount = messageList.Table.Columns.Count;
 
-            for (int i = 0; i < iColCount; i++)
+            for (var i = 0; i < columnsCount; i++)
             {
                 sw.Write(messageList.Table.Columns[i]);
 
-                if (i < iColCount - 1)
+                if (i < columnsCount - 1)
                 {
                     sw.Write(",");
                 }
@@ -851,23 +773,24 @@ namespace YAF.Controls
 
             sw.Write(sw.NewLine);
 
-            foreach (DataRow dr in messageList.Table.Rows)
-            {
-                for (int i = 0; i < iColCount; i++)
-                {
-                    if (!Convert.IsDBNull(dr[i]))
+            messageList.Table.Rows.Cast<DataRow>().ForEach(
+                dr =>
                     {
-                        sw.Write(dr[i].ToString());
-                    }
+                        for (var i = 0; i < columnsCount; i++)
+                        {
+                            if (!Convert.IsDBNull(dr[i]))
+                            {
+                                sw.Write(dr[i].ToString());
+                            }
 
-                    if (i < iColCount - 1)
-                    {
-                        sw.Write(",");
-                    }
-                }
+                            if (i < columnsCount - 1)
+                            {
+                                sw.Write(",");
+                            }
+                        }
 
-                sw.Write(sw.NewLine);
-            }
+                        sw.Write(sw.NewLine);
+                    });
 
             sw.Close();
 
@@ -890,21 +813,18 @@ namespace YAF.Controls
             this.Get<HttpResponseBase>().ContentType = "application/vnd.text";
             this.Get<HttpResponseBase>().AppendHeader(
                 "content-disposition",
-                "attachment; filename=" +
-                HttpUtility.UrlEncode(
-                    "Privatemessages-{0}-{1}.txt".FormatWith(
-                        this.PageContext.PageUserName, DateTime.Now.ToString("yyyy'-'MM'-'dd'-'HHmm"))));
+                $"attachment; filename={HttpUtility.UrlEncode($"Privatemessages-{this.PageContext.PageUserName}-{DateTime.Now:yyyy'-'MM'-'dd'-'HHmm}.txt")}");
 
             var sw = new StreamWriter(this.Get<HttpResponseBase>().OutputStream);
 
-            sw.Write("{0};{1}".FormatWith(this.Get<YafBoardSettings>().Name, YafForumInfo.ForumURL));
+            sw.Write($"{this.Get<YafBoardSettings>().Name};{YafForumInfo.ForumURL}");
             sw.Write(sw.NewLine);
-            sw.Write("Private Message Dump for User {0}; {1}".FormatWith(this.PageContext.PageUserName, DateTime.Now));
+            sw.Write($"Private Message Dump for User {this.PageContext.PageUserName}; {DateTime.Now}");
             sw.Write(sw.NewLine);
 
-            for (int i = 0; i <= messageList.Table.DataSet.Tables[0].Rows.Count - 1; i++)
+            for (var i = 0; i <= messageList.Table.DataSet.Tables[0].Rows.Count - 1; i++)
             {
-                for (int j = 0; j <= messageList.Table.DataSet.Tables[0].Columns.Count - 1; j++)
+                for (var j = 0; j <= messageList.Table.DataSet.Tables[0].Columns.Count - 1; j++)
                 {
                     sw.Write(
                         "{0}: {1}",
@@ -935,32 +855,30 @@ namespace YAF.Controls
             this.Get<HttpResponseBase>().ContentType = "text/xml";
             this.Get<HttpResponseBase>().AppendHeader(
                 "content-disposition",
-                "attachment; filename=" +
-                HttpUtility.UrlEncode(
-                    "Privatemessages-{0}-{1}.xml".FormatWith(
-                        this.PageContext.PageUserName, DateTime.Now.ToString("yyyy'-'MM'-'dd'-'HHmm"))));
+                $"attachment; filename=PrivateMessages-{this.PageContext.PageUserName}-{HttpUtility.UrlEncode(DateTime.Now.ToString("yyyy'-'MM'-'dd'-'HHmm"))}.xml");
 
             messageList.Table.TableName = "PrivateMessage";
 
-            var xwSettings = new XmlWriterSettings
-                { Encoding = Encoding.UTF8, OmitXmlDeclaration = false, Indent = true, NewLineOnAttributes = true };
+            var settings = new XmlWriterSettings
+                               {
+                                   Encoding = Encoding.UTF8,
+                                   OmitXmlDeclaration = false,
+                                   Indent = true,
+                                   NewLineOnAttributes = true
+                               };
 
-            XmlWriter xw = XmlWriter.Create(this.Get<HttpResponseBase>().OutputStream, xwSettings);
+            var xw = XmlWriter.Create(this.Get<HttpResponseBase>().OutputStream, settings);
             xw.WriteStartDocument();
 
             messageList.Table.DataSet.DataSetName = "PrivateMessages";
 
-            xw.WriteComment(" {0};{1} ".FormatWith(this.Get<YafBoardSettings>().Name, YafForumInfo.ForumURL));
-            xw.WriteComment(
-                " Private Message Dump for User {0}; {1} ".FormatWith(this.PageContext.PageUserName, DateTime.Now));
+            xw.WriteComment($" {this.Get<YafBoardSettings>().Name};{YafForumInfo.ForumURL} ");
+            xw.WriteComment($" Private Message Dump for User {this.PageContext.PageUserName}; {DateTime.Now} ");
 
-            var xd = new XmlDataDocument(messageList.Table.DataSet);
+            var xmlDocument = new XmlDocument();
+            xmlDocument.LoadXml(messageList.Table.DataSet.GetXml());
 
-            foreach (XmlNode node in xd.ChildNodes)
-            {
-                // nItemCount = node.ChildNodes.Count;
-                node.WriteTo(xw);
-            }
+            xmlDocument.ChildNodes.Cast<XmlNode>().ForEach(node => node.WriteTo(xw));
 
             xw.WriteEndDocument();
 
@@ -976,10 +894,10 @@ namespace YAF.Controls
         /// <param name="field">
         /// The field.
         /// </param>
-        /// <param name="asc">
-        /// The asc.
+        /// <param name="ascending">
+        /// The ascending.
         /// </param>
-        private void SetSort([NotNull] string field, bool asc)
+        private void SetSort([NotNull] string field, bool ascending)
         {
             if (this.ViewState["SortField"] != null && (string)this.ViewState["SortField"] == field)
             {
@@ -988,86 +906,7 @@ namespace YAF.Controls
             else
             {
                 this.ViewState["SortField"] = field;
-                this.ViewState["SortAsc"] = asc;
-            }
-        }
-
-        #endregion
-    }
-
-    /// <summary>
-    /// Indicates the mode of the PMList.
-    /// </summary>
-    public enum PMView
-    {
-        /// <summary>
-        ///   The inbox.
-        /// </summary>
-        Inbox = 0,
-
-        /// <summary>
-        ///   The outbox.
-        /// </summary>
-        Outbox = 1,
-
-        /// <summary>
-        ///   The archive.
-        /// </summary>
-        Archive = 2
-    }
-
-    /// <summary>
-    /// Converts <see cref="PMView"/>s to and from their URL query string representations.
-    /// </summary>
-    public static class PMViewConverter
-    {
-        #region Public Methods
-
-        /// <summary>
-        /// Returns a <see cref="PMView"/> based on its URL query string value.
-        /// </summary>
-        /// <param name="param">The param.</param>
-        /// <returns>Returns the Current View</returns>
-        public static PMView FromQueryString([NotNull] string param)
-        {
-            if (param.IsNotSet())
-            {
-                return PMView.Inbox;
-            }
-
-            switch (param.ToLower())
-            {
-                case "out":
-                    return PMView.Outbox;
-                case "in":
-                    return PMView.Inbox;
-                case "arch":
-                    return PMView.Archive;
-                default: // Inbox by default
-                    return PMView.Inbox;
-            }
-        }
-
-        /// <summary>
-        /// Converts a <see cref="PMView"/> to a string representation appropriate for inclusion in a URL query string.
-        /// </summary>
-        /// <param name="view">The view.</param>
-        /// <returns>
-        /// The to query string param.
-        /// </returns>
-        [CanBeNull]
-        public static string ToQueryStringParam(PMView view)
-        {
-            switch (view)
-            {
-                case PMView.Outbox:
-                    return "out";
-                case PMView.Inbox:
-                    return "in";
-                case PMView.Archive:
-                    return "arch";
-                default:
-                    return null;
+                this.ViewState["SortAsc"] = ascending;
             }
         }
 

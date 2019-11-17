@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -21,126 +21,103 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Core
+
+namespace YAF.Core.BaseControls
 {
-  #region Using
+    #region Using
 
-  using System;
-  using System.Web.UI;
+    using System;
+    using System.Web.UI;
 
-  using YAF.Types.Interfaces;
-
-    #endregion
-
-  /// <summary>
-  /// Summary description for BaseControl.
-  /// </summary>
-  public class BaseControl : Control, IRaiseControlLifeCycles, IHaveServiceLocator, IHaveLocalization
-  {
-    #region Constants and Fields
-
-    /// <summary>
-    ///   The _localization.
-    /// </summary>
-    private ILocalization _localization;
-
-    /// <summary>
-    /// The _logger.
-    /// </summary>
-    private ILogger _logger;
+    using YAF.Types.Interfaces;
 
     #endregion
 
-    #region Constructors and Destructors
-
     /// <summary>
-    ///   Initializes a new instance of the <see cref = "BaseControl" /> class.
+    /// The base control.
     /// </summary>
-    public BaseControl()
+    public class BaseControl : Control, IRaiseControlLifeCycles, IHaveServiceLocator, IHaveLocalization
     {
-      this.Get<IInjectServices>().Inject(this);
+        #region Constants and Fields
+
+        /// <summary>
+        ///   The _localization.
+        /// </summary>
+        private ILocalization _localization;
+
+        /// <summary>
+        /// The _logger.
+        /// </summary>
+        private ILogger _logger;
+
+        #endregion
+
+        #region Constructors and Destructors
+
+        /// <summary>
+        ///   Initializes a new instance of the <see cref = "BaseControl" /> class.
+        /// </summary>
+        public BaseControl()
+        {
+            this.Get<IInjectServices>().Inject(this);
+        }
+
+        #endregion
+
+        #region Properties
+
+        /// <summary>
+        ///   Gets Localization.
+        /// </summary>
+        public ILocalization Localization => this._localization ?? (this._localization = this.Get<ILocalization>());
+
+        /// <summary>
+        ///   Gets or sets Logger.
+        /// </summary>
+        public ILogger Logger => this._logger ?? (this._logger = this.Get<ILoggerProvider>().Create(this.GetType()));
+
+        /// <summary>
+        ///   Gets PageContext.
+        /// </summary>
+        public YafContext PageContext => YafContext.Current;
+
+        /// <summary>
+        ///   Gets ServiceLocator.
+        /// </summary>
+        public IServiceLocator ServiceLocator => this.PageContext.ServiceLocator;
+
+        #endregion
+
+        #region Implemented Interfaces
+
+        #region IRaiseControlLifeCycles
+
+        /// <summary>
+        /// The raise init.
+        /// </summary>
+        void IRaiseControlLifeCycles.RaiseInit()
+        {
+            this.OnInit(new EventArgs());
+        }
+
+        /// <summary>
+        /// The raise load.
+        /// </summary>
+        void IRaiseControlLifeCycles.RaiseLoad()
+        {
+            this.OnLoad(new EventArgs());
+        }
+
+        /// <summary>
+        /// The raise pre render.
+        /// </summary>
+        void IRaiseControlLifeCycles.RaisePreRender()
+        {
+            this.OnPreRender(new EventArgs());
+        }
+
+        #endregion
+
+        #endregion
     }
-
-    #endregion
-
-    #region Properties
-
-    /// <summary>
-    ///   Gets Localization.
-    /// </summary>
-    public ILocalization Localization
-    {
-      get
-      {
-        return this._localization ?? (this._localization = this.Get<ILocalization>());
-      }
-    }
-
-    /// <summary>
-    ///   Gets or sets Logger.
-    /// </summary>
-    public ILogger Logger
-    {
-      get
-      {
-        return this._logger ?? (this._logger = this.Get<ILoggerProvider>().Create(this.GetType()));
-      }
-    }
-
-    /// <summary>
-    ///   Gets PageContext.
-    /// </summary>
-    public YafContext PageContext
-    {
-      get
-      {
-        return YafContext.Current;
-      }
-    }
-
-    /// <summary>
-    ///   Gets ServiceLocator.
-    /// </summary>
-    public IServiceLocator ServiceLocator
-    {
-      get
-      {
-        return this.PageContext.ServiceLocator;
-      }
-    }
-
-    #endregion
-
-    #region Implemented Interfaces
-
-    #region IRaiseControlLifeCycles
-
-    /// <summary>
-    /// The raise init.
-    /// </summary>
-    void IRaiseControlLifeCycles.RaiseInit()
-    {
-      this.OnInit(new EventArgs());
-    }
-
-    /// <summary>
-    /// The raise load.
-    /// </summary>
-    void IRaiseControlLifeCycles.RaiseLoad()
-    {
-      this.OnLoad(new EventArgs());
-    }
-
-    /// <summary>
-    /// The raise pre render.
-    /// </summary>
-    void IRaiseControlLifeCycles.RaisePreRender()
-    {
-      this.OnPreRender(new EventArgs());
-    }
-
-    #endregion
-
-    #endregion
-  }
 }

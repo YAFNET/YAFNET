@@ -5,6 +5,11 @@ namespace YAF.Core.Helpers
 
     using YAF.Types.Interfaces;
 
+    /// <summary>
+    /// The safe read write provider.
+    /// </summary>
+    /// <typeparam name="T">
+    /// </typeparam>
     public class SafeReadWriteProvider<T> : IReadWriteProvider<T>
         where T : class
     {
@@ -43,6 +48,7 @@ namespace YAF.Core.Helpers
                     if (returnInstance == null)
                     {
                         returnInstance = this._create();
+
                         // call this setter...
                         this.Instance = returnInstance;
                     }
@@ -54,6 +60,7 @@ namespace YAF.Core.Helpers
 
                 return returnInstance;
             }
+
             set
             {
                 this._slimLock.EnterWriteLock();

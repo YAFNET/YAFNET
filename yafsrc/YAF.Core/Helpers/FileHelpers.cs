@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -26,9 +26,8 @@ namespace YAF.Core.Helpers
     using System.IO;
     using System.Web.Hosting;
 
-    using YAF.Classes;
+    using YAF.Configuration;
     using YAF.Types;
-    using YAF.Types.Extensions;
     using YAF.Types.Models;
 
     /// <summary>
@@ -53,11 +52,8 @@ namespace YAF.Core.Helpers
 
             var uploadFolder = HostingEnvironment.MapPath(string.Concat(BaseUrlBuilder.ServerFileRoot, YafBoardFolders.Current.Uploads));
 
-            var fileNameOld = string.Format(
-                "{0}/{1}.{2}.yafupload",
-                uploadFolder,
-                attachment.MessageID > 0 ? attachment.MessageID.ToString() : "u{0}".FormatWith(attachment.UserID),
-                attachment.FileName);
+            var fileNameOld =
+                $"{uploadFolder}/{(attachment.MessageID > 0 ? attachment.MessageID.ToString() : $"u{attachment.UserID}")}.{attachment.FileName}.yafupload";
 
             if (File.Exists(fileNameOld))
             {
@@ -65,12 +61,8 @@ namespace YAF.Core.Helpers
                 return true;
             }
 
-
-            var fileName = string.Format(
-                "{0}/{1}.{2}.yafupload",
-                uploadFolder,
-                attachment.MessageID > 0 ? attachment.MessageID.ToString() : "u{0}-{1}".FormatWith(attachment.UserID, attachment.ID),
-                attachment.FileName);
+            var fileName =
+                $"{uploadFolder}/{(attachment.MessageID > 0 ? attachment.MessageID.ToString() : $"u{attachment.UserID}-{attachment.ID}")}.{attachment.FileName}.yafupload";
 
             if (!File.Exists(fileName))
             {

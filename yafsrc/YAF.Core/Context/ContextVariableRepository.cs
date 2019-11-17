@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -26,7 +26,7 @@ namespace YAF.Core
 {
   #region Using
 
-  using YAF.Classes.Pattern;
+  using YAF.Configuration.Pattern;
   using YAF.Types;
 
   #endregion
@@ -36,16 +36,7 @@ namespace YAF.Core
   /// </summary>
   public class ContextVariableRepository
   {
-    #region Constants and Fields
-
-    /// <summary>
-    ///   The _dic.
-    /// </summary>
-    private readonly TypeDictionary _dic;
-
-    #endregion
-
-    #region Constructors and Destructors
+      #region Constructors and Destructors
 
     /// <summary>
     /// Initializes a new instance of the <see cref="ContextVariableRepository"/> class.
@@ -55,7 +46,7 @@ namespace YAF.Core
     /// </param>
     public ContextVariableRepository([NotNull] TypeDictionary dictionary)
     {
-      this._dic = dictionary;
+      this.Vars = dictionary;
     }
 
     #endregion
@@ -68,27 +59,15 @@ namespace YAF.Core
     /// </summary>
     public bool IsSuspendCheckEnabled
     {
-      get
-      {
-        return this.Vars.AsBoolean("IsSuspendCheckEnabled") ?? true;
-      }
+      get => this.Vars.AsBoolean("IsSuspendCheckEnabled") ?? true;
 
-      set
-      {
-        this.Vars["IsSuspendCheckEnabled"] = value;
-      }
+      set => this.Vars["IsSuspendCheckEnabled"] = value;
     }
 
     /// <summary>
     ///   Gets Vars.
     /// </summary>
-    protected TypeDictionary Vars
-    {
-      get
-      {
-        return this._dic;
-      }
-    }
+    protected TypeDictionary Vars { get; }
 
     #endregion
   }

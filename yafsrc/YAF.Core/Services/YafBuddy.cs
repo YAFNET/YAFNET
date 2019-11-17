@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -29,11 +29,13 @@ namespace YAF.Core.Services
     using System.Data;
     using System.Linq;
 
-    using YAF.Classes.Data;
+    using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.EventProxies;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Events;
+    using YAF.Types.Models;
 
     #endregion
 
@@ -47,7 +49,7 @@ namespace YAF.Core.Services
         /// <summary>
         /// The DB broker.
         /// </summary>
-        private readonly YafDbBroker _dbBroker;
+        private readonly YafDbBroker dbBroker;
 
         #endregion
 
@@ -65,7 +67,7 @@ namespace YAF.Core.Services
         public YafBuddy([NotNull] IServiceLocator serviceLocator, [NotNull] YafDbBroker dbBroker)
         {
             this.ServiceLocator = serviceLocator;
-            this._dbBroker = dbBroker;
+            this.dbBroker = dbBroker;
         }
 
         #endregion
@@ -86,7 +88,7 @@ namespace YAF.Core.Services
         /// <summary>
         /// Adds a buddy request.
         /// </summary>
-        /// <param name="toUserID">
+        /// <param name="toUserId">
         /// the to user id.
         /// </param>
         /// <returns>
@@ -94,13 +96,13 @@ namespace YAF.Core.Services
         ///   is approved without the target user's approval if the target user has sent a buddy request
         ///   to current user too or if the current user is already in the target user's buddy list.
         /// </returns>
-        public string[] AddRequest(int toUserID)
+        public string[] AddRequest(int toUserId)
         {
-            this.ClearCache(toUserID);
+            this.ClearCache(toUserId);
 
-            return LegacyDb.buddy_addrequest(
+            return this.GetRepository<Buddy>().AddRequest(
                 YafContext.Current.PageUserID,
-                toUserID,
+                toUserId,
                 YafContext.Current.BoardSettings.EnableDisplayName);
         }
 
@@ -112,9 +114,10 @@ namespace YAF.Core.Services
         /// </param>
         public void ApproveAllRequests(bool mutual)
         {
-            DataTable dt = this.All();
-            DataView dv = dt.DefaultView;
-            dv.RowFilter = "Approved = 0 AND UserID = {0}".FormatWith(YafContext.Current.PageUserID);
+            var dt = this.All();
+            var dv = dt.DefaultView;
+            dv.RowFilter = $"Approved = 0 AND UserID = {YafContext.Current.PageUserID}";
+
             foreach (DataRowView drv in dv)
             {
                 this.ApproveRequest((int)drv["FromUserID"], mutual);
@@ -124,7 +127,7 @@ namespace YAF.Core.Services
         /// <summary>
         /// Approves a buddy request.
         /// </summary>
-        /// <param name="toUserID">
+        /// <param name="toUserId">
         /// the to user id.
         /// </param>
         /// <param name="mutual">
@@ -133,11 +136,11 @@ namespace YAF.Core.Services
         /// <returns>
         /// The name of the second user.
         /// </returns>
-        public string ApproveRequest(int toUserID, bool mutual)
+        public string ApproveRequest(int toUserId, bool mutual)
         {
-            this.ClearCache(toUserID);
-            return LegacyDb.buddy_approveRequest(
-                toUserID,
+            this.ClearCache(toUserId);
+            return this.GetRepository<Buddy>().ApproveRequest(
+                toUserId,
                 YafContext.Current.PageUserID,
                 mutual,
                 YafContext.Current.BoardSettings.EnableDisplayName);
@@ -151,7 +154,7 @@ namespace YAF.Core.Services
         /// </returns>
         public DataTable All()
         {
-            return this._dbBroker.UserBuddyList(YafContext.Current.PageUserID);
+            return this.dbBroker.UserBuddyList(YafContext.Current.PageUserID);
         }
 
         /// <summary>
@@ -169,12 +172,12 @@ namespace YAF.Core.Services
         /// </summary>
         public void DenyAllRequests()
         {
-            DataTable dt = this.All();
-            DataView dv = dt.DefaultView;
-            dv.RowFilter = "Approved = 0 AND UserID = {0}".FormatWith(YafContext.Current.PageUserID);
+            var dt = this.All();
+            var dv = dt.DefaultView;
+            dv.RowFilter = $"Approved = 0 AND UserID = {YafContext.Current.PageUserID}";
 
             foreach (
-                DataRowView drv in
+                var drv in
                     dv.Cast<DataRowView>()
                         .Where(drv => Convert.ToDateTime(drv["Requested"]).AddDays(14) < DateTime.UtcNow))
             {
@@ -185,17 +188,17 @@ namespace YAF.Core.Services
         /// <summary>
         /// Denies a buddy request.
         /// </summary>
-        /// <param name="toUserID">
+        /// <param name="toUserId">
         /// The to user id.
         /// </param>
         /// <returns>
         /// the name of the second user.
         /// </returns>
-        public string DenyRequest(int toUserID)
+        public string DenyRequest(int toUserId)
         {
-            this.ClearCache(toUserID);
-            return LegacyDb.buddy_denyRequest(
-                toUserID,
+            this.ClearCache(toUserId);
+            return this.GetRepository<Buddy>().DenyRequest(
+                toUserId,
                 YafContext.Current.PageUserID,
                 YafContext.Current.BoardSettings.EnableDisplayName);
         }
@@ -203,21 +206,21 @@ namespace YAF.Core.Services
         /// <summary>
         /// Gets all the buddies for the specified user.
         /// </summary>
-        /// <param name="userID">
+        /// <param name="userId">
         /// The user id.
         /// </param>
         /// <returns>
         /// a <see cref="DataTable"/> of all buddies.
         /// </returns>
-        public DataTable GetForUser(int userID)
+        public DataTable GetForUser(int userId)
         {
-            return this._dbBroker.UserBuddyList(userID);
+            return this.dbBroker.UserBuddyList(userId);
         }
 
         /// <summary>
-        /// determines if the "<paramref name="buddyUserID"/>" and current user are buddies.
+        /// determines if the "<paramref name="buddyUserId"/>" and current user are buddies.
         /// </summary>
-        /// <param name="buddyUserID">
+        /// <param name="buddyUserId">
         /// The Buddy User ID.
         /// </param>
         /// <param name="approved">
@@ -226,16 +229,16 @@ namespace YAF.Core.Services
         /// <returns>
         /// true if they are buddies, <see langword="false"/> if not.
         /// </returns>
-        public bool IsBuddy(int buddyUserID, bool approved)
+        public bool IsBuddy(int buddyUserId, bool approved)
         {
-            if (buddyUserID == YafContext.Current.PageUserID)
+            if (buddyUserId == YafContext.Current.PageUserID)
             {
                 return true;
             }
 
-            DataTable userBuddyList = this._dbBroker.UserBuddyList(YafContext.Current.PageUserID);
+            var userBuddyList = this.dbBroker.UserBuddyList(YafContext.Current.PageUserID);
 
-            if ((userBuddyList == null) || (userBuddyList.Rows.Count <= 0))
+            if (userBuddyList == null || !userBuddyList.HasRows())
             {
                 return false;
             }
@@ -243,14 +246,14 @@ namespace YAF.Core.Services
             // Filter the DataTable.
             if (approved)
             {
-                if (userBuddyList.Select("UserID = {0} AND Approved = 1".FormatWith(buddyUserID)).Length > 0)
+                if (userBuddyList.Select($"UserID = {buddyUserId} AND Approved = 1").Length > 0)
                 {
                     return true;
                 }
             }
             else
             {
-                if (userBuddyList.Select("UserID = {0}".FormatWith(buddyUserID)).Length > 0)
+                if (userBuddyList.Select($"UserID = {buddyUserId}").Length > 0)
                 {
                     return true;
                 }
@@ -260,20 +263,20 @@ namespace YAF.Core.Services
         }
 
         /// <summary>
-        /// Removes the "<paramref name="toUserID"/>" from current user's buddy list.
+        /// Removes the "<paramref name="toUserId"/>" from current user's buddy list.
         /// </summary>
-        /// <param name="toUserID">
+        /// <param name="toUserId">
         /// The to user id.
         /// </param>
         /// <returns>
         /// The name of the second user.
         /// </returns>
-        public string Remove(int toUserID)
+        public string Remove(int toUserId)
         {
-            this.ClearCache(toUserID);
-            return LegacyDb.buddy_remove(
+            this.ClearCache(toUserId);
+            return this.GetRepository<Buddy>().Remove(
                 YafContext.Current.PageUserID,
-                toUserID,
+                toUserId,
                 YafContext.Current.BoardSettings.EnableDisplayName);
         }
 

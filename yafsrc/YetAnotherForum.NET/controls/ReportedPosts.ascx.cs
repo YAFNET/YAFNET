@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -28,8 +28,11 @@ namespace YAF.Controls
 
   using System;
 
-  using YAF.Classes.Data;
+  using YAF.Core.Model;
   using YAF.Types;
+  using YAF.Types.Interfaces;
+  using YAF.Types.Models;
+  using YAF.Web.Controls;
 
   #endregion
 
@@ -56,7 +59,7 @@ namespace YAF.Controls
             return;
         }
 
-        this.ReportedPostsRepeater.DataSource = LegacyDb.message_listreporters(this.MessageID);
+        this.ReportedPostsRepeater.DataSource = this.GetRepository<Message>().ListReportersAsDataTable(this.MessageID);
         this.ReportedPostsRepeater.DataBind();
     }
 

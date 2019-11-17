@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -34,6 +34,9 @@ namespace YAF.Types.Extensions
 
     #endregion
 
+    /// <summary>
+    /// The enumerable extensions.
+    /// </summary>
     public static class EnumerableExtensions
     {
         #region Public Methods and Operators
@@ -49,10 +52,7 @@ namespace YAF.Types.Extensions
             CodeContracts.VerifyNotNull(list, "list");
             CodeContracts.VerifyNotNull(action, "action");
 
-            foreach (var item in list.ToList())
-            {
-                action(item);
-            }
+            list.ToList().ForEach(action);
         }
 
         /// <summary>
@@ -66,12 +66,14 @@ namespace YAF.Types.Extensions
             CodeContracts.VerifyNotNull(list, "list");
             CodeContracts.VerifyNotNull(action, "action");
 
-            bool isFirst = true;
-            foreach (var item in list.ToList())
-            {
-                action(item, isFirst);
-                isFirst = false;
-            }
+            var isFirst = true;
+
+            list.ToList().ForEach(
+                item =>
+                    {
+                        action(item, isFirst);
+                        isFirst = false;
+                    });
         }
 
         /// <summary>
@@ -85,11 +87,9 @@ namespace YAF.Types.Extensions
             CodeContracts.VerifyNotNull(list, "list");
             CodeContracts.VerifyNotNull(action, "action");
 
-            int i = 0;
-            foreach (var item in list.ToList())
-            {
-                action(item, i++);
-            }
+            var i = 0;
+
+            list.ToList().ForEach(item => action(item, i++));
         }
 
         /// <summary>
@@ -101,12 +101,7 @@ namespace YAF.Types.Extensions
         /// <returns> </returns>
         public static IEnumerable<T> IfNullEmpty<T>([CanBeNull] this IEnumerable<T> currentEnumerable)
         {
-            if (currentEnumerable == null)
-            {
-                return Enumerable.Empty<T>();
-            }
-
-            return currentEnumerable;
+            return currentEnumerable ?? Enumerable.Empty<T>();
         }
 
         /// <summary>
@@ -127,23 +122,8 @@ namespace YAF.Types.Extensions
 
             while (true)
             {
-                yield return default(T);
+                yield return default;
             }
-        }
-
-        /// <summary>
-        ///     Converts an <see cref="IEnumerable" /> to a HashSet -- similar to ToList()
-        /// </summary>
-        /// <param name="list"> The list. </param>
-        /// <typeparam name="T"> </typeparam>
-        /// <returns> </returns>
-        /// <exception cref="ArgumentNullException"></exception>
-        [NotNull]
-        public static HashSet<T> ToHashSet<T>([NotNull] this IEnumerable<T> list)
-        {
-            CodeContracts.VerifyNotNull(list, "list");
-
-            return new HashSet<T>(list);
         }
 
         #endregion

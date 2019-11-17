@@ -13,6 +13,7 @@
       "sourceMap": false
     },
     "sass": {
+      "autoPrefix": "last 2 versions",
       "includePath": "",
       "indentType": "space",
       "indentWidth": 2,

@@ -1,9 +1,9 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -29,7 +29,7 @@ namespace YAF.Utils
     using System.Linq;
     using System.Text;
     using System.Web;
-    using YAF.Classes;
+    using YAF.Configuration;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
@@ -55,7 +55,7 @@ namespace YAF.Utils
         /// <summary>
         /// Gets complete application external (client-side) URL of the forum. (e.g. http://domain.com/forum
         /// </summary>
-        public static string ForumBaseUrl => "{0}{1}".FormatWith(BaseUrlBuilder.BaseUrl, BaseUrlBuilder.AppPath);
+        public static string ForumBaseUrl => $"{BaseUrlBuilder.BaseUrl}{BaseUrlBuilder.AppPath}";
 
         /// <summary>
         /// Gets full URL to the Root of the Forum
@@ -87,7 +87,7 @@ namespace YAF.Utils
         /// <summary>
         /// Gets the Current YAF Database Version
         /// </summary>
-        public static int AppVersion => 65;
+        public static int AppVersion => 71;
 
         /// <summary>
         /// Gets the Current YAF Application Version
@@ -97,26 +97,22 @@ namespace YAF.Utils
             get
             {
                 const int Major = 2;
-                const byte Minor = 2;
-                const byte Build = 4;
-                const byte Sub = 20;
+                const byte Minor = 3;
+                const byte Build = 0;
+                const byte Sub = 0;
 
                 const ReleaseType ReleaseType = ReleaseType.Regular;
                 const byte ReleaseNumber = 0;
-                
-                var version = Major.ToType<long>() << 24;
-                version |= Minor.ToType<long>() << 16;
-                version |= (Build & 0x0F).ToType<long>() << 12;
 
                 var list = new List<int>
-                               {
-                                   Major,
-                                   Minor,
-                                   Build,
-                                   Sub,
-                                   ReleaseType.ToType<int>(),
-                                   ReleaseNumber
-                               };
+                                      {
+                                          Major,
+                                          Minor,
+                                          Build,
+                                          Sub,
+                                          ReleaseType.ToType<int>(),
+                                          ReleaseNumber
+                                      };
 
                 return list.SelectMany(BitConverter.GetBytes).ToArray();
             }
@@ -125,7 +121,7 @@ namespace YAF.Utils
         /// <summary>
         /// Gets the Current YAF Build Date
         /// </summary>
-        public static DateTime AppVersionDate => new DateTime(2019, 09, 01);
+        public static DateTime AppVersionDate => new DateTime(2019, 11, 17, 02, 30, 00);
 
         /// <summary>
         /// Creates a string that is the YAF Application Version from a long value
@@ -166,7 +162,7 @@ namespace YAF.Utils
 
             var number = version.ReleaseNumber >= 1
                              ? version.ReleaseNumber.ToString()
-                             : AppVersionDate.ToString("yyyyMMdd");
+                             : AppVersionDate.ToString("yyyyMMddHHmm");
 
             versionString.AppendFormat(" {0} {1}", version.ReleaseType.ToString().ToUpper(), number);
 
@@ -186,7 +182,21 @@ namespace YAF.Utils
         {
             CodeContracts.VerifyNotNull(resourceName, "resourceName");
 
-            return "{1}Content/{0}".FormatWith(resourceName, ForumClientFileRoot);
+            return $"{ForumClientFileRoot}Content/{resourceName}";
+        }
+
+        /// <summary>
+        /// Helper function that creates the URL to the Content  themes folder.
+        /// </summary>
+        /// <param name="resourceName">Name of the resource.</param>
+        /// <returns>
+        /// Returns the URL including the Content Themes path
+        /// </returns>
+        public static string GetURLToContentThemes([NotNull] string resourceName)
+        {
+            CodeContracts.VerifyNotNull(resourceName, "resourceName");
+
+            return $"{ForumClientFileRoot}Content/Themes/{resourceName}";
         }
 
         /// <summary>
@@ -200,7 +210,7 @@ namespace YAF.Utils
         {
             CodeContracts.VerifyNotNull(resourceName, "resourceName");
 
-            return "{1}Scripts/{0}".FormatWith(resourceName, ForumClientFileRoot);
+            return $"{ForumClientFileRoot}Scripts/{resourceName}";
         }
     }
 }

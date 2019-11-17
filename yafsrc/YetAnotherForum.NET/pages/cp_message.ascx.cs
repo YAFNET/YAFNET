@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -27,26 +27,27 @@ namespace YAF.Pages
     #region Using
 
     using System;
-    using System.Data;
     using System.Web;
     using System.Web.UI.WebControls;
 
-    using YAF.Classes;
-    using YAF.Classes.Data;
-    using YAF.Controls;
+    using YAF.Configuration;
     using YAF.Core;
+    using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.EventProxies;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Utilities;
+    using YAF.Types.Interfaces.Events;
+    using YAF.Types.Models;
     using YAF.Utils;
+    using YAF.Utils.Helpers;
+    using YAF.Web.Extensions;
 
     #endregion
 
     /// <summary>
-    /// The cp_message.
+    /// The Private Message page
     /// </summary>
     public partial class cp_message : ForumPageRegistered
     {
@@ -69,15 +70,9 @@ namespace YAF.Pages
         /// </summary>
         protected bool IsArchived
         {
-            get
-            {
-                return this.ViewState["IsArchived"] != null && (bool)this.ViewState["IsArchived"];
-            }
+            get => this.ViewState["IsArchived"] != null && (bool)this.ViewState["IsArchived"];
 
-            set
-            {
-                this.ViewState["IsArchived"] = value;
-            }
+            set => this.ViewState["IsArchived"] = value;
         }
 
         /// <summary>
@@ -85,15 +80,9 @@ namespace YAF.Pages
         /// </summary>
         protected bool IsOutbox
         {
-            get
-            {
-                return this.ViewState["IsOutbox"] != null && (bool)this.ViewState["IsOutbox"];
-            }
+            get => this.ViewState["IsOutbox"] != null && (bool)this.ViewState["IsOutbox"];
 
-            set
-            {
-                this.ViewState["IsOutbox"] = value;
-            }
+            set => this.ViewState["IsOutbox"] = value;
         }
 
         #endregion
@@ -110,17 +99,10 @@ namespace YAF.Pages
             switch (e.CommandName)
             {
                 case "delete":
-                    if (this.IsOutbox)
-                    {
-                        LegacyDb.pmessage_delete(e.CommandArgument, true);
-                    }
-                    else
-                    {
-                        LegacyDb.pmessage_delete(e.CommandArgument);
-                    }
+                    this.GetRepository<PMessage>().DeleteMessage(e.CommandArgument.ToType<int>());
 
                     this.BindData();
-                    this.PageContext.AddLoadMessage(this.GetText("msg_deleted"), MessageTypes.Success);
+                    this.PageContext.AddLoadMessage(this.GetText("msg_deleted"), MessageTypes.success);
                     YafBuildLink.Redirect(ForumPages.cp_pm);
                     break;
                 case "reply":
@@ -169,37 +151,42 @@ namespace YAF.Pages
         }
 
         /// <summary>
-        /// The theme button delete_ load.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
-        protected void ThemeButtonDelete_Load([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            var themeButton = (ThemeButton)sender;
-            themeButton.Attributes["onclick"] = "return confirm('{0}')".FormatWith(
-                this.GetText("confirm_deletemessage"));
-        }
-
-        /// <summary>
         /// Binds the data.
         /// </summary>
         private void BindData()
         {
             using (
-                DataTable dt =
-                    LegacyDb.pmessage_list(
+                var dt =
+                    this.GetRepository<PMessage>().ListAsDataTable(
                         Security.StringToLongOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("pm"))))
             {
                 if (dt.HasRows())
                 {
-                    DataRow row = dt.Rows[0];
+                    var row = dt.Rows[0];
 
                     // if the pm isn't from or two the current user--then it's access denied
-                    if ((int)row["ToUserID"] != this.PageContext.PageUserID
-                        && (int)row["FromUserID"] != this.PageContext.PageUserID)
+                    /*if (row["ToUserID"].ToType<int>() != this.PageContext.PageUserID
+                        && row["FromUserID"].ToType<int>() != this.PageContext.PageUserID)
                     {
                         YafBuildLink.AccessDenied();
+                    }*/
+
+                    // Check if Message is Reply
+                    if (!row["ReplyTo"].IsNullOrEmptyDBField())
+                    {
+                        var replyTo = row["ReplyTo"].ToType<int>();
+
+                        var message = new PMessage
+                                          {
+                                              ReplyTo = row["ReplyTo"].ToType<int>(),
+                                              ID = row["PMessageID"].ToType<int>()
+                                          };
+
+                        dt.Merge(this.GetRepository<PMessage>().GetReplies(message, replyTo));
                     }
+
+                    var dataView = dt.DefaultView;
+                    dataView.Sort = "Created ASC";
 
                     this.SetMessageView(
                         row["FromUserID"],
@@ -225,7 +212,7 @@ namespace YAF.Pages
 
                     this.PageLinks.AddLink(row["Subject"].ToString());
 
-                    this.Inbox.DataSource = dt;
+                    this.Inbox.DataSource = dataView;
                 }
                 else
                 {
@@ -240,10 +227,10 @@ namespace YAF.Pages
                 return;
             }
 
-            var userPmessageId = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("pm").ToType<int>();
+            var userPmessageId = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefaultAs<int>("pm");
 
-            LegacyDb.pmessage_markread(userPmessageId);
-            this.Get<IDataCache>().Remove(Constants.Cache.ActiveUserLazyData.FormatWith(this.PageContext.PageUserID));
+            this.GetRepository<UserPMessage>().MarkAsRead(userPmessageId);
+            this.Get<IDataCache>().Remove(string.Format(Constants.Cache.ActiveUserLazyData, this.PageContext.PageUserID));
             this.Get<IRaiseEvent>().Raise(
                 new UpdateUserPrivateMessageEvent(this.PageContext.PageUserID, userPmessageId));
         }
@@ -269,8 +256,8 @@ namespace YAF.Pages
         private void SetMessageView(
             [NotNull] object fromUserID, [NotNull] object toUserID, bool messageIsInOutbox, bool messageIsArchived)
         {
-            bool isCurrentUserFrom = fromUserID.Equals(this.PageContext.PageUserID);
-            bool isCurrentUserTo = toUserID.Equals(this.PageContext.PageUserID);
+            var isCurrentUserFrom = fromUserID.Equals(this.PageContext.PageUserID);
+            var isCurrentUserTo = toUserID.Equals(this.PageContext.PageUserID);
 
             // check if it's the same user...
             if (isCurrentUserFrom && isCurrentUserTo)

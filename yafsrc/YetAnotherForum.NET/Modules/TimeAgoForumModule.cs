@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -29,16 +29,16 @@ namespace YAF.Modules
     using System;
 
     using YAF.Core;
+    using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Attributes;
-    using YAF.Utilities;
 
     #endregion
 
     /// <summary>
     /// The time ago module.
     /// </summary>
-    [YafModule("Time Ago Javascript Loading Module", "Tiny Gecko", 1)]
+    [YafModule(moduleName: "Time Ago Javascript Loading Module", moduleAuthor: "Tiny Gecko", moduleVersion: 1)]
     public class TimeAgoForumModule : SimpleBaseForumModule
     {
         #region Public Methods
@@ -48,7 +48,7 @@ namespace YAF.Modules
         /// </summary>
         public override void InitAfterPage()
         {
-            this.CurrentForumPage.PreRender += this.CurrentForumPage_PreRender;
+            this.CurrentForumPage.PreRender += this.CurrentForumPagePreRender;
         }
 
         #endregion
@@ -60,16 +60,16 @@ namespace YAF.Modules
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        private void CurrentForumPage_PreRender([NotNull] object sender, [NotNull] EventArgs e)
+        private void CurrentForumPagePreRender([NotNull] object sender, [NotNull] EventArgs e)
         {
             if (!this.PageContext.BoardSettings.ShowRelativeTime
-                || this.PageContext.Vars.ContainsKey("RegisteredTimeago"))
+                || this.PageContext.Vars.ContainsKey(key: "RegisteredTimeago"))
             {
                 return;
             }
 
-            YafContext.Current.PageElements.RegisterJsBlockStartup("timeagoloadjs", JavaScriptBlocks.TimeagoLoadJs);
-            this.PageContext.Vars["RegisteredTimeago"] = true;
+            YafContext.Current.PageElements.RegisterJsBlockStartup(name: "timeagoloadjs", script: JavaScriptBlocks.MomentLoadJs);
+            this.PageContext.Vars[key: "RegisteredTimeago"] = true;
         }
 
         #endregion

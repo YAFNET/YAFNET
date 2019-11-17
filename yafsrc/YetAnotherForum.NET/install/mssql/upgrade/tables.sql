@@ -161,20 +161,6 @@ if not exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{d
 	)
 go
 
-if not exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}EventLogGroupAccess]') and type in (N'U'))
-	create table [{databaseOwner}].[{objectQualifier}EventLogGroupAccess](
-		GroupID		    int NOT NULL,	
-		EventTypeID     int NOT NULL,  	
-		EventTypeName	nvarchar (128) NOT NULL,
-		DeleteAccess    bit NOT NULL,
- constraint [PK_{objectQualifier}EventLogGroupAccess] PRIMARY KEY CLUSTERED 
-(
-	[GroupID] ASC,
-	[EventTypeID] ASC
-)WITH (STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF)
-	)
-go
-
 if not exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}BannedIP]') and type in (N'U'))
 	create table [{databaseOwner}].[{objectQualifier}BannedIP](
 		ID				int IDENTITY (1,1) NOT NULL,
@@ -537,24 +523,8 @@ if not exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{d
 	)
 GO
 
-if not exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}Smiley]') and type in (N'U'))
-	create table [{databaseOwner}].[{objectQualifier}Smiley](
-		SmileyID		int IDENTITY (1,1) NOT NULL,
-		BoardID			int NOT NULL,
-		Code			nvarchar (10) NOT NULL,
-		Icon			nvarchar (50) NOT NULL,
-		Emoticon		nvarchar (50) NULL,
-		SortOrder		tinyint	NOT NULL default 0,
- constraint [PK_{objectQualifier}Smiley] PRIMARY KEY CLUSTERED 
-(
-	[SmileyID] ASC
-)WITH (STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF),
- constraint [IX_{objectQualifier}Smiley] UNIQUE NONCLUSTERED 
-(
-	[BoardID] ASC,
-	[Code] ASC
-)WITH (STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF)
-	)
+if exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}Smiley]') and type in (N'U'))
+	drop table [{databaseOwner}].[{objectQualifier}Smiley]
 GO
 
 if not exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}Topic]') and type in (N'U'))
@@ -618,7 +588,6 @@ if not exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{d
 		LanguageFile	nvarchar(50) NULL,
 		ThemeFile		nvarchar(50) NULL,
 		TextEditor		nvarchar(50) NULL,
-		OverridedefaultThemes	bit NOT NULL constraint [DF_{objectQualifier}User_OverridedefaultThemes] default (1),
 		[PMNotification] [bit] NOT NULL constraint [DF_{objectQualifier}User_PMNotification] default (1),
 		[AutoWatchTopics] [bit] NOT NULL constraint [DF_{objectQualifier}User_AutoWatchTopics] default (0),
 		[DailyDigest] [bit] NOT NULL constraint [DF_{objectQualifier}User_DailyDigest] default (0),
@@ -716,7 +685,7 @@ GO
 if not exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}Attachment]') and type in (N'U'))
 	create table [{databaseOwner}].[{objectQualifier}Attachment](
 		AttachmentID	int IDENTITY (1,1) not null,
-		MessageID		int not null default (0),
+		MessageID		int not null,
 		UserID          int not null default (0),		
 		[FileName]		nvarchar(255) not null,
 		Bytes			int not null,
@@ -1076,25 +1045,6 @@ if not exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{d
 	)
 GO
 
-if not exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}ShoutboxMessage]') and type in (N'U'))
-begin
-	CREATE TABLE [{databaseOwner}].[{objectQualifier}ShoutboxMessage](
-		[ShoutBoxMessageID] [int] IDENTITY(1,1) NOT NULL,		
-		[BoardId] [int] NOT NULL constraint [DF_{objectQualifier}ShoutboxMessage_BoardID] default (1),
-		[UserID] [int] NULL,
-		[UserName] [nvarchar](255) NOT NULL,
-		[UserDisplayName] [nvarchar](255) NOT NULL,
-		[Message] [nvarchar](max) NULL,
-		[Date] [datetime] NOT NULL,
-		[IP] [varchar](50) NOT NULL,
- constraint [PK_{objectQualifier}ShoutboxMessage] PRIMARY KEY CLUSTERED 
-(
-	[ShoutBoxMessageID] ASC
-)WITH (STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF)
-	)
-end
-GO	
-
 exec('[{databaseOwner}].[{objectQualifier}drop_defaultconstraint_oncolumn] {objectQualifier}Board, BoardUID')
 GO
 
@@ -1360,18 +1310,6 @@ GO
 if not exists (select top 1 1 from sys.columns where object_id=object_id('[{databaseOwner}].[{objectQualifier}User]') and name='AutoWatchTopics')
 begin
 	alter table [{databaseOwner}].[{objectQualifier}User] add [AutoWatchTopics] [bit] NOT NULL constraint [DF_{objectQualifier}User_AutoWatchTopics] default (0)
-end
-GO
-
-if not exists (select top 1 1 from sys.columns where object_id=object_id('[{databaseOwner}].[{objectQualifier}User]') and name='OverridedefaultThemes')
-begin
-alter table [{databaseOwner}].[{objectQualifier}User] add  [OverridedefaultThemes]	bit NOT NULL constraint [DF_{objectQualifier}User_OverridedefaultThemes] default (1)
-end
-GO
-
-if exists (select top 1 1 from sys.columns where object_id =  object_id('[{databaseOwner}].[{objectQualifier}User]') and name='OverridedefaultThemes')
-begin
-	update  [{databaseOwner}].[{objectQualifier}User] SET [OverridedefaultThemes]=1 WHERE [OverridedefaultThemes] = 0
 end
 GO
 
@@ -1904,24 +1842,18 @@ begin
 end
 GO
 
--- ShoutboxMessage Table
-if not exists (select top 1 1 from sys.columns where object_id=object_id(N'[{databaseOwner}].[{objectQualifier}ShoutboxMessage]') and name='BoardID')
-begin
-	alter table [{databaseOwner}].[{objectQualifier}ShoutboxMessage] add BoardID int not null constraint [DF_{objectQualifier}ShoutboxMessage_BoardID] default (1)
-end
-GO
-if not exists (select top 1 1 from sys.columns where object_id=object_id('[{databaseOwner}].[{objectQualifier}ShoutboxMessage]') and name='UserDisplayName')
-begin	
-	alter table [{databaseOwner}].[{objectQualifier}ShoutboxMessage] add UserDisplayName nvarchar (255) null
-	-- alter table [{databaseOwner}].[{objectQualifier}ShoutboxMessage] alter column UserDisplayName nvarchar (255) not null
-end
-GO
-
 -- BBCode Table
 if not exists (select top 1 1 from sys.columns where object_id=object_id(N'[{databaseOwner}].[{objectQualifier}BBCode]') and name='UseModule')
 begin
 	alter table [{databaseOwner}].[{objectQualifier}BBCode] add UseModule bit null
 	alter table [{databaseOwner}].[{objectQualifier}BBCode] add ModuleClass nvarchar(255) null
+end
+GO
+
+-- BBCode Table
+if not exists (select top 1 1 from sys.columns where object_id=object_id(N'[{databaseOwner}].[{objectQualifier}BBCode]') and name='UseToolbar')
+begin
+	alter table [{databaseOwner}].[{objectQualifier}BBCode] add UseToolbar bit null
 end
 GO
 
@@ -1971,11 +1903,8 @@ GO
 if not exists (select top 1 1 from sys.columns where object_id=object_id('[{databaseOwner}].[{objectQualifier}Message]') and name='UserDisplayName')
 begin
 	alter table [{databaseOwner}].[{objectQualifier}Message] add UserDisplayName nvarchar(255) 
-
 end
 GO
-
-
 
 if not exists (select top 1 1 from sys.columns where object_id =  object_id('[{databaseOwner}].[{objectQualifier}Message]') and name='IsApproved')
 begin
@@ -2657,16 +2586,8 @@ begin
         end
         close fc
         deallocate fc */
- 
-        update d
-       set    d.UserDisplayName = ISNULL((select top 1 f.UserDisplayName FROM [{databaseOwner}].[{objectQualifier}ShoutboxMessage] f
-          join [{databaseOwner}].[{objectQualifier}User] u on u.UserID = f.UserID where u.UserID = d.UserID), 
-           (select top 1 f.UserName FROM [{databaseOwner}].[{objectQualifier}ShoutboxMessage] f
-          join [{databaseOwner}].[{objectQualifier}User] u on u.UserID = f.UserID where u.UserID = d.UserID ))      
-       from  [{databaseOwner}].[{objectQualifier}ShoutboxMessage] d where d.UserDisplayName IS NULL OR d.UserDisplayName = d.UserName;
          
     /*  declare sbc cursor for
-        select ShoutBoxMessageID,UserID from [{databaseOwner}].[{objectQualifier}ShoutboxMessage]
         where UserDisplayName IS NULL
         FOR UPDATE     
         open sbc
@@ -2927,14 +2848,43 @@ begin
 end
 go
 
-if exists (select top 1 1 from sys.columns where object_id = object_id('[{databaseOwner}].[{objectQualifier}ShoutboxMessage]') and name = 'Message' and system_type_id = 99)
+if exists (select top 1 1 from sys.columns where object_id = object_id('[{databaseOwner}].[{objectQualifier}User]') and name='TimeZone' and  system_type_id = 56)
 begin
-    alter table [{databaseOwner}].[{objectQualifier}ShoutboxMessage] alter column [Message] nvarchar(max)
+alter table [{databaseOwner}].[{objectQualifier}User] alter column TimeZone nvarchar(max) NULL
+end
+GO
+
+if exists (select top 1 1 from sys.columns where object_id = object_id('[{databaseOwner}].[{objectQualifier}ShoutboxMessage]'))
+begin
+    drop table [{databaseOwner}].[{objectQualifier}ShoutboxMessage]
 end
 go
 
-if exists (select top 1 1 from sys.columns where object_id = object_id('[{databaseOwner}].[{objectQualifier}User]') and name='TimeZone' and  system_type_id = 56)
+if exists (select top 1 1 from sys.columns where object_id = object_id('[{databaseOwner}].[{objectQualifier}TopicStatus]'))
 begin
-alter table [{databaseOwner}].[{objectQualifier}User] alter column TimeZone nvarchar(max) Not NULL
+    drop table [{databaseOwner}].[{objectQualifier}TopicStatus]
 end
+go
+
+if not exists (select top 1 1 from sys.columns where object_id = object_id(N'[{databaseOwner}].[{objectQualifier}User]') and name='BlockFlags')
+ 	alter table [{databaseOwner}].[{objectQualifier}User] add [BlockFlags] [int]	NOT NULL  constraint [DF_{objectQualifier}User_Block_Flags]  default (0)
+GO
+
+/* Create Activity Table */
+if not exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}Activity]') and type in (N'U'))
+CREATE TABLE [{databaseOwner}].[{objectQualifier}Activity](
+	[ID] [int] IDENTITY(1,1) NOT NULL,
+	[UserID] [int] NOT NULL,
+	[Created] [datetime] NOT NULL,
+	[Flags] [int] NOT NULL,
+	[TopicID] [int] NULL,
+	[MessageID] [int] NULL,
+	[FromUserID] [int] NULL,
+	[Notification]  bit NOT NULL default (0),
+	constraint [PK_{objectQualifier}Activity] primary key(ID)
+	)
+go
+
+if exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}EventLogGroupAccess]') and type in (N'U'))
+	drop table [{databaseOwner}].[{objectQualifier}EventLogGroupAccess]
 GO

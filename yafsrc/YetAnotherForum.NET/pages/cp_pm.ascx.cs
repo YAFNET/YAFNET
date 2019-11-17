@@ -1,9 +1,9 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -27,16 +27,18 @@ namespace YAF.Pages
     #region Using
 
     using System;
+    using System.Web;
 
-    using YAF.Classes;
-    using YAF.Controls;
+    using YAF.Configuration;
     using YAF.Core;
+    using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Utilities;
     using YAF.Utils;
+    using YAF.Utils.Helpers;
+    using YAF.Web.Extensions;
 
     #endregion
 
@@ -45,15 +47,6 @@ namespace YAF.Pages
     /// </summary>
     public partial class cp_pm : ForumPageRegistered
     {
-        #region Constants and Fields
-
-        /// <summary>
-        ///   The _view.
-        /// </summary>
-        private PMView _view;
-
-        #endregion
-
         #region Constructors and Destructors
 
         /// <summary>
@@ -71,13 +64,7 @@ namespace YAF.Pages
         /// <summary>
         ///   Gets View.
         /// </summary>
-        protected PMView View
-        {
-            get
-            {
-                return this._view;
-            }
-        }
+        protected PmView View { get; private set; }
 
         #endregion
 
@@ -94,11 +81,7 @@ namespace YAF.Pages
             // setup jQuery and Jquery Ui Tabs.
             YafContext.Current.PageElements.RegisterJsBlock(
                 "yafPmTabsJs",
-                JavaScriptBlocks.JqueryUITabsLoadJs(
-                    this.PmTabs.ClientID,
-                    this.hidLastTab.ClientID,
-                    this.hidLastTabId.ClientID,
-                    false));
+                JavaScriptBlocks.BootstrapTabsLoadJs(this.PmTabs.ClientID, this.hidLastTab.ClientID));
 
             base.OnPreRender(e);
         }
@@ -121,19 +104,13 @@ namespace YAF.Pages
                 return;
             }
 
-            if (this.Request.QueryString.GetFirstOrDefault("v").IsSet())
+            if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("v").IsSet())
             {
-                this._view = PMViewConverter.FromQueryString(this.Request.QueryString.GetFirstOrDefault("v"));
+                this.View = PmViewConverter.FromQueryString(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("v"));
 
-                this.hidLastTab.Value = ((int)this._view).ToString();
+                this.hidLastTab.Value = $"View{(int)this.View}";
             }
 
-            // if (_view == PMView.Inbox)
-            // this.PMTabs.ActiveTab = this.InboxTab;
-            // else if (_view == PMView.Outbox)
-            // this.PMTabs.ActiveTab = this.OutboxTab;
-            // else if (_view == PMView.Archive)
-            // this.PMTabs.ActiveTab = this.ArchiveTab;
             this.PageLinks.AddRoot();
             this.PageLinks.AddLink(
                 this.Get<YafBoardSettings>().EnableDisplayName
@@ -142,18 +119,8 @@ namespace YAF.Pages
                 YafBuildLink.GetLink(ForumPages.cp_profile));
             this.PageLinks.AddLink(this.GetText("TITLE"));
 
-            // InboxTab.HeaderText = GetText("INBOX");
-            // OutboxTab.HeaderText = GetText("SENTITEMS");
-            // ArchiveTab.HeaderText = GetText("ARCHIVE");
             this.NewPM.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.pmessage);
             this.NewPM2.NavigateUrl = this.NewPM.NavigateUrl;
-
-            // inbox tab
-            // ScriptManager.RegisterClientScriptBlock(InboxTabUpdatePanel, typeof(UpdatePanel), "InboxTabRefresh", String.Format("function InboxTabRefresh() {1}\n__doPostBack('{0}', '');\n{2}", InboxTabUpdatePanel.ClientID, '{', '}'), true);
-            // sent tab
-            // ScriptManager.RegisterClientScriptBlock(SentTabUpdatePanel, typeof(UpdatePanel), "SentTabRefresh", String.Format("function SentTabRefresh() {1}\n__doPostBack('{0}', '');\n{2}", SentTabUpdatePanel.ClientID, '{', '}'), true);
-            // archive tab
-            // ScriptManager.RegisterClientScriptBlock(ArchiveTabUpdatePanel, typeof(UpdatePanel), "ArchiveTabRefresh", String.Format("function ArchiveTabRefresh() {1}\n__doPostBack('{0}', '');\n{2}", ArchiveTabUpdatePanel.ClientID, '{', '}'), true);
         }
 
         #endregion

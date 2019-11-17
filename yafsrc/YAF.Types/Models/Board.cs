@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -36,7 +36,7 @@ namespace YAF.Types.Models
 
         public Board()
         {
-            OnCreated();
+            this.OnCreated();
         }
 
         #region Properties
@@ -45,12 +45,17 @@ namespace YAF.Types.Models
         [Alias("BoardID")]
         public int ID { get; set; }
 
+        [Required]
+        [StringLength(50)]
         public string Name { get; set; }
 
+        [Required]
         public bool AllowThreaded { get; set; }
 
+        [StringLength(255)]
         public string MembershipAppName { get; set; }
 
+        [StringLength(255)]
         public string RolesAppName { get; set; }
 
         #endregion

@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -98,15 +98,15 @@ namespace YAF.Core.BBCode
             // extract highlight
             if (language.Contains(";"))
             {
-                highlight = language.Substring(language.IndexOf(";") + 1);
-                language = language.Remove(language.IndexOf(";"));
+                highlight = language.Substring(language.IndexOf(";", StringComparison.Ordinal) + 1);
+                language = language.Remove(language.IndexOf(";", StringComparison.Ordinal));
             }
 
             // Create Output
             tmpOutput.AppendFormat(
                 "<pre class=\"line-numbers\"{1}><code class=\"language-{0}\">",
                 language,
-                highlight.IsSet() ? " data-line=\"{0}\"".FormatWith(highlight) : string.Empty);
+                highlight.IsSet() ? $" data-line=\"{highlight}\"" : string.Empty);
 
             tmpOutput.Append(codeText);
 

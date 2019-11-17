@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -33,18 +33,18 @@ namespace YAF.Pages
     using System.Web.Security;
     using System.Web.UI.WebControls;
 
-    using YAF.Classes;
-    using YAF.Controls;
+    using YAF.Configuration;
     using YAF.Core;
     using YAF.Core.Model;
     using YAF.Core.Services;
+    using YAF.Core.UsersRoles;
     using YAF.Types;
     using YAF.Types.Constants;
-    using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
     using YAF.Utils;
     using YAF.Utils.Helpers;
+    using YAF.Web.Extensions;
 
     #endregion
 
@@ -70,13 +70,7 @@ namespace YAF.Pages
         /// <summary>
         ///   Gets a value indicating whether IsProtected.
         /// </summary>
-        public override bool IsProtected
-        {
-            get
-            {
-                return false;
-            }
-        }
+        public override bool IsProtected => false;
 
         #endregion
 
@@ -101,19 +95,19 @@ namespace YAF.Pages
 
             // handle localization
             var usernameRequired =
-                (RequiredFieldValidator)this.PasswordRecovery1.UserNameTemplateContainer.FindControl("UserNameRequired");
+                this.PasswordRecovery1.UserNameTemplateContainer.FindControlAs<RequiredFieldValidator>(
+                    "UserNameRequired");
             var answerRequired =
-                (RequiredFieldValidator)this.PasswordRecovery1.QuestionTemplateContainer.FindControl("AnswerRequired");
+                this.PasswordRecovery1.QuestionTemplateContainer
+                    .FindControlAs<RequiredFieldValidator>("AnswerRequired");
 
             usernameRequired.ToolTip = usernameRequired.ErrorMessage = this.GetText("REGISTER", "NEED_USERNAME");
             answerRequired.ToolTip = answerRequired.ErrorMessage = this.GetText("REGISTER", "NEED_ANSWER");
 
-            ((Button)this.PasswordRecovery1.UserNameTemplateContainer.FindControl("SubmitButton")).Text =
+            this.PasswordRecovery1.UserNameTemplateContainer.FindControlAs<Button>("SubmitButton").Text =
                 this.GetText("SUBMIT");
-            ((Button)this.PasswordRecovery1.QuestionTemplateContainer.FindControl("SubmitButton")).Text =
+            this.PasswordRecovery1.QuestionTemplateContainer.FindControlAs<Button>("SubmitButton").Text =
                 this.GetText("SUBMIT");
-            ((Button)this.PasswordRecovery1.SuccessTemplateContainer.FindControl("SubmitButton")).Text = this.GetText(
-                "BACK");
 
             this.PasswordRecovery1.UserNameFailureText = this.GetText("USERNAME_FAILURE");
             this.PasswordRecovery1.GeneralFailureText = this.GetText("GENERAL_FAILURE");
@@ -129,7 +123,7 @@ namespace YAF.Pages
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void PasswordRecovery1_AnswerLookupError([NotNull] object sender, [NotNull] EventArgs e)
         {
-            this.PageContext.LoadMessage.AddSession(this.GetText("QUESTION_FAILURE"), MessageTypes.Error);
+            this.PageContext.LoadMessage.AddSession(this.GetText("QUESTION_FAILURE"), MessageTypes.danger);
         }
 
         /// <summary>
@@ -175,6 +169,10 @@ namespace YAF.Pages
             var passwordRetrieval = new YafTemplateEmail("PASSWORDRETRIEVAL");
 
             var subject = this.GetTextFormatted("PASSWORDRETRIEVAL_EMAIL_SUBJECT", this.Get<YafBoardSettings>().Name);
+            var logoUrl =
+                $"{YafForumInfo.ForumClientFileRoot}{YafBoardFolders.Current.Logos}/{this.PageContext.BoardSettings.ForumLogo}";
+            var themeCss =
+                $"{this.Get<YafBoardSettings>().BaseUrlMask}{this.Get<ITheme>().BuildThemePath("bootstrap-forum.min.css")}";
 
             var userIpAddress = this.Get<HttpRequestBase>().GetUserRealIPAddress();
 
@@ -182,17 +180,17 @@ namespace YAF.Pages
             passwordRetrieval.TemplateParams["{password}"] = password;
             passwordRetrieval.TemplateParams["{ipaddress}"] = userIpAddress;
             passwordRetrieval.TemplateParams["{forumname}"] = this.Get<YafBoardSettings>().Name;
-            passwordRetrieval.TemplateParams["{forumlink}"] = "{0}".FormatWith(YafForumInfo.ForumURL);
+            passwordRetrieval.TemplateParams["{forumlink}"] = $"{YafForumInfo.ForumURL}";
+            passwordRetrieval.TemplateParams["{themecss}"] = themeCss;
+            passwordRetrieval.TemplateParams["{logo}"] = $"{this.Get<YafBoardSettings>().BaseUrlMask}{logoUrl}";
 
             passwordRetrieval.SendEmail(e.Message.To[0], subject, true);
 
             // log password reset attempt
             this.Logger.Log(
                 userName,
-                "{0} Requested a Password Reset".FormatWith(userName),
-                "The user {0} with the IP address: '{1}' requested a password reset.".FormatWith(
-                    userName,
-                    userIpAddress),
+                $"{userName} Requested a Password Reset",
+                $"The user {userName} with the IP address: '{userIpAddress}' requested a password reset.",
                 EventLogTypes.Information);
 
             // manually set to success...
@@ -281,23 +279,30 @@ namespace YAF.Pages
                     // re-send verification email instead of lost password...
                     var verifyEmail = new YafTemplateEmail("VERIFYEMAIL");
 
-                    string subject = this.GetTextFormatted("VERIFICATION_EMAIL_SUBJECT", this.Get<YafBoardSettings>().Name);
+                    var subject = this.GetTextFormatted(
+                        "VERIFICATION_EMAIL_SUBJECT",
+                        this.Get<YafBoardSettings>().Name);
 
-                    verifyEmail.TemplateParams["{link}"] = YafBuildLink.GetLinkNotEscaped(ForumPages.approve, true, "k={0}", checkTyped.Hash);
+                    verifyEmail.TemplateParams["{link}"] = YafBuildLink.GetLinkNotEscaped(
+                        ForumPages.approve,
+                        true,
+                        "k={0}",
+                        checkTyped.Hash);
                     verifyEmail.TemplateParams["{key}"] = checkTyped.Hash;
                     verifyEmail.TemplateParams["{forumname}"] = this.Get<YafBoardSettings>().Name;
-                    verifyEmail.TemplateParams["{forumlink}"] = "{0}".FormatWith(YafForumInfo.ForumURL);
+                    verifyEmail.TemplateParams["{forumlink}"] = $"{YafForumInfo.ForumURL}";
 
                     verifyEmail.SendEmail(new MailAddress(user.Email, user.UserName), subject, true);
 
                     this.PageContext.LoadMessage.AddSession(
-                        this.GetTextFormatted("ACCOUNT_NOT_APPROVED_VERIFICATION", user.Email), MessageTypes.Warning);
+                        this.GetTextFormatted("ACCOUNT_NOT_APPROVED_VERIFICATION", user.Email),
+                        MessageTypes.warning);
                 }
             }
             else
             {
                 // explain they are not approved yet...
-                this.PageContext.LoadMessage.AddSession(this.GetText("ACCOUNT_NOT_APPROVED"), MessageTypes.Warning);
+                this.PageContext.LoadMessage.AddSession(this.GetText("ACCOUNT_NOT_APPROVED"), MessageTypes.warning);
             }
 
             // just in case cancel the verification...

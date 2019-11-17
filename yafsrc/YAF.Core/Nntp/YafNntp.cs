@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -26,18 +26,17 @@ namespace YAF.Core.Nntp
   #region Using
 
   using System;
-  using System.Data;
   using System.Data.SqlClient;
   using System.Linq;
   using System.Web;
 
-  using YAF.Classes;
-  using YAF.Classes.Data;
+  using YAF.Core.Model;
+  using YAF.Core.UsersRoles;
   using YAF.Types;
   using YAF.Types.Extensions;
   using YAF.Types.Interfaces;
+  using YAF.Types.Models;
   using YAF.Types.Objects;
-  using YAF.Utils;
 
   #endregion
 
@@ -121,34 +120,34 @@ namespace YAF.Core.Nntp
         return 0;
       }
 
-      int guestUserId = UserMembershipHelper.GuestUserId; // Use guests user-id
+      var guestUserId = UserMembershipHelper.GuestUserId; // Use guests user-id
 
       // string hostAddress = YafContext.Current.Get<HttpRequestBase>().UserHostAddress;     
-      DateTime dateTimeStart = DateTime.UtcNow;
-      int articleCount = 0;
-      int count = 0;
+      var dateTimeStart = DateTime.UtcNow;
+      var articleCount = 0;
+      var count = 0;
 
       try
       {
         this._applicationStateBase["WorkingInYafNNTP"] = true;
 
         // Only those not updated in the last 30 minutes
-        foreach (var nntpForum in LegacyDb.NntpForumList(boardID, lastUpdate, null, true))
+        foreach (var nntpForum in YafContext.Current.GetRepository<NntpForum>().NntpForumList(boardID, lastUpdate, null, true))
         {
           using (var nntpConnection = GetNntpConnection(nntpForum))
           {
-            Newsgroup group = nntpConnection.ConnectGroup(nntpForum.GroupName);
+            var group = nntpConnection.ConnectGroup(nntpForum.GroupName);
 
             var lastMessageNo = nntpForum.LastMessageNo ?? 0;
 
             // start at the bottom...
-            int currentMessage = lastMessageNo == 0 ? group.Low : lastMessageNo + 1;
+            var currentMessage = lastMessageNo == 0 ? group.Low : lastMessageNo + 1;
             var nntpForumID = nntpForum.NntpForumID;
             var cutOffDate = nntpForum.DateCutOff ?? DateTime.MinValue;
 
             if (nntpForum.DateCutOff.HasValue)
             {
-              bool behindCutOff = true;
+              var behindCutOff = true;
 
               // advance if needed...
               do
@@ -174,32 +173,31 @@ namespace YAF.Core.Nntp
               while (behindCutOff);
 
               // update the group lastMessage info...
-              LegacyDb.nntpforum_update(nntpForum.NntpForumID, currentMessage, guestUserId);
+              YafContext.Current.GetRepository<NntpForum>().Update(nntpForum.NntpForumID, currentMessage, guestUserId);
             }
 
             for (; currentMessage <= group.High; currentMessage++)
             {
-              Article article;
-
-              try
-              {
                 try
+              {
+                  Article article;
+                  try
                 {
                   article = nntpConnection.GetArticle(currentMessage);
                 }
                 catch (InvalidOperationException ex)
                 {
-                  Logger.Error(ex, "Error Downloading Message ID {0}", currentMessage);
+                    this.Logger.Error(ex, "Error Downloading Message ID {0}", currentMessage);
 
                   // just advance to the next message
                   currentMessage++;
                   continue;
                 }
 
-                string subject = article.Header.Subject.Trim();
-                string originalName = article.Header.From.Trim();
-                string fromName = originalName;
-                DateTime dateTime = article.Header.Date;
+                var subject = article.Header.Subject.Trim();
+                var originalName = article.Header.From.Trim();
+                var fromName = originalName;
+                var dateTime = article.Header.Date;
 
                 if (dateTime.Year < 1950 || dateTime > DateTime.UtcNow)
                 {
@@ -215,7 +213,7 @@ namespace YAF.Core.Nntp
                 if (fromName.IsSet() && fromName.LastIndexOf('<') > 0)
                 {
                   fromName = fromName.Substring(0, fromName.LastIndexOf('<') - 1);
-                  fromName = fromName.Replace("\"", String.Empty).Trim();
+                  fromName = fromName.Replace("\"", string.Empty).Trim();
                 }
                 else if (fromName.IsSet() && fromName.LastIndexOf('(') > 0)
                 {
@@ -227,27 +225,27 @@ namespace YAF.Core.Nntp
                   fromName = originalName;
                 }
 
-                string externalMessageId = article.MessageId;
+                var externalMessageId = article.MessageId;
 
-                string referenceId = article.Header.ReferenceIds.LastOrDefault();
+                var referenceId = article.Header.ReferenceIds.LastOrDefault();
 
                 if (createUsers)
                 {
-                  guestUserId = LegacyDb.user_nntp(boardID, fromName, string.Empty, article.Header.TimeZoneOffset);
+                  guestUserId = YafContext.Current.GetRepository<User>().Nntp(boardID, fromName, string.Empty, article.Header.TimeZoneOffset);
                 }
 
-                string body = this.ReplaceBody(article.Body.Text.Trim());
+                var body = ReplaceBody(article.Body.Text.Trim());
 
-                LegacyDb.nntptopic_savemessage(
-                  nntpForumID,
+                YafContext.Current.GetRepository<NntpTopic>().SaveMessage(
+                  nntpForumID.Value,
                   subject.Truncate(75),
                   body,
                   guestUserId,
-                  fromName.Truncate(100, String.Empty),
+                  fromName.Truncate(100, string.Empty),
                   "NNTP",
                   dateTime,
-                  externalMessageId.Truncate(255, String.Empty),
-                  referenceId.Truncate(255, String.Empty));
+                  externalMessageId.Truncate(255, string.Empty),
+                  referenceId.Truncate(255, string.Empty));
 
                 lastMessageNo = currentMessage;
 
@@ -263,7 +261,7 @@ namespace YAF.Core.Nntp
                 if (count++ > 1000)
                 {
                   count = 0;
-                  LegacyDb.nntpforum_update(nntpForum.NntpForumID, lastMessageNo, guestUserId);
+                  YafContext.Current.GetRepository<NntpForum>().Update(nntpForum.NntpForumID, lastMessageNo, guestUserId);
                 }
               }
               catch (NntpException exception)
@@ -283,7 +281,7 @@ namespace YAF.Core.Nntp
               }
             }
 
-            LegacyDb.nntpforum_update(nntpForum.NntpForumID, lastMessageNo, guestUserId);
+            YafContext.Current.GetRepository<NntpForum>().Update(nntpForum.NntpForumID, lastMessageNo, guestUserId);
 
             // Total time x seconds for all groups
             if ((DateTime.UtcNow - dateTimeStart).TotalSeconds > timeToRun)
@@ -301,6 +299,15 @@ namespace YAF.Core.Nntp
       return articleCount;
     }
 
+    /// <summary>
+    /// The get nntp connection.
+    /// </summary>
+    /// <param name="nntpForum">
+    /// The nntp forum.
+    /// </param>
+    /// <returns>
+    /// The <see cref="NntpConnection"/>.
+    /// </returns>
     [NotNull]
     public static NntpConnection GetNntpConnection([NotNull] TypedNntpForum nntpForum)
     {
@@ -312,11 +319,13 @@ namespace YAF.Core.Nntp
       nntpConnection.ConnectServer(nntpForum.Address.ToLower(), nntpForum.Port ?? 119);
 
       // provide authentication if required...
-      if (nntpForum.UserName.IsSet() && nntpForum.UserPass.IsSet())
+      if (!nntpForum.UserName.IsSet() || !nntpForum.UserPass.IsSet())
       {
-        nntpConnection.ProvideIdentity(nntpForum.UserName, nntpForum.UserPass);
-        nntpConnection.SendIdentity();
+          return nntpConnection;
       }
+
+      nntpConnection.ProvideIdentity(nntpForum.UserName, nntpForum.UserPass);
+      nntpConnection.SendIdentity();
 
       return nntpConnection;
     }
@@ -337,15 +346,12 @@ namespace YAF.Core.Nntp
     /// The replace body.
     /// </returns>
     [NotNull]
-    private string ReplaceBody([NotNull] string body)
+    private static string ReplaceBody([NotNull] string body)
     {
       // Incorrect tags fixes which are common in nntp messages and cause display problems.
       // These are spotted ones.
       body = body.Replace("<br>", "<br />");
       body = body.Replace("<hr>", "<hr />");
-
-      // body = "Date: {0}\r\n\r\n".FormatWith(article.Header.Date) + body;
-      // body = "Date parsed: {0}(UTC)\r\n".FormatWith(dateTime) + body;
 
       //// vzrus: various wrong NNTP tags replacements
 

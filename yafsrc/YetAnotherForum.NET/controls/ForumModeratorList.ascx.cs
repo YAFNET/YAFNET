@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -29,7 +29,7 @@ namespace YAF.Controls
   using System.Collections;
   using System.Data;
 
-  using YAF.Core;
+  using YAF.Core.BaseControls;
   using YAF.Types;
 
   #endregion
@@ -58,10 +58,7 @@ namespace YAF.Controls
     /// </summary>
     public IEnumerable DataSource
     {
-      set
-      {
-        this.ModeratorList.DataSource = value;
-      }
+      set => this.ModeratorList.DataSource = value;
     }
 
     #endregion

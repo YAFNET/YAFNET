@@ -7,11 +7,13 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace YAF.Controls {
-    
-    
-    public partial class PollChoiceList {
-        
+namespace YAF.Controls
+{
+
+
+    public partial class PollChoiceList
+    {
+
         /// <summary>
         /// Poll control.
         /// </summary>

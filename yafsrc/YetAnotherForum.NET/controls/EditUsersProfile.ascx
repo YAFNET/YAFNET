@@ -1,381 +1,240 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true"
     Inherits="YAF.Controls.EditUsersProfile" Codebehind="EditUsersProfile.ascx.cs" %>
+
 <%@ Import Namespace="YAF.Types.Interfaces" %>
-<table width="100%" class="content EditUserProfileTable" cellspacing="1" cellpadding="4">
     <asp:PlaceHolder ID="ProfilePlaceHolder" runat="server">
-    <tr>
-        <td class="header1" colspan="2">
-            <YAF:LocalizedLabel runat="server"  LocalizedPage="CP_EDITPROFILE" LocalizedTag="TITLE" />
-        </td>
-    </tr>
-    <tr>
-        <td colspan="2" class="header2">
-            <strong>
-                <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedPage="CP_EDITPROFILE"
-                    LocalizedTag="aboutyou" />
-            </strong>
-        </td>
-    </tr>
+        <h2>
+            <YAF:LocalizedLabel runat="server"
+                                LocalizedPage="CP_EDITPROFILE" 
+                                LocalizedTag="TITLE" />
+            <small>
+                <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" 
+                                    LocalizedPage="CP_EDITPROFILE"
+                                    LocalizedTag="aboutyou" />
+            </small>
+        </h2>
     <asp:PlaceHolder ID="DisplayNamePlaceholder" runat="server" Visible="false">
-        <tr>
-            <td class="postheader" style="width:50%">
-                <YAF:LocalizedLabel ID="LocalizedLabel34" runat="server" LocalizedPage="CP_EDITPROFILE"
-                    LocalizedTag="DISPLAYNAME" />
-            </td>
-            <td class="post">
-                <asp:TextBox ID="DisplayName" runat="server" CssClass="edit" />
-            </td>
-        </tr>
+        <div class="form-group">
+            <asp:Label runat="server" AssociatedControlID="DisplayName">
+                <YAF:LocalizedLabel ID="LocalizedLabel34" runat="server" 
+                                    LocalizedPage="CP_EDITPROFILE"
+                                    LocalizedTag="DISPLAYNAME" />
+            </asp:Label>
+            <asp:TextBox ID="DisplayName" runat="server" CssClass="form-control" />
+        </div>
     </asp:PlaceHolder>
-    <tr>
-        <td class="postheader" style="width:50%">
-            <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedPage="CP_EDITPROFILE"
-                LocalizedTag="REALNAME2" />
-        </td>
-        <td class="post">
-            <asp:TextBox ID="Realname" runat="server" CssClass="edit" />
-        </td>
-     </tr>
-     <tr id="HideTr" visible="<%# this.Get<YafBoardSettings>().AllowUserHideHimself || this.PageContext.IsAdmin %>" runat="server">
-        <td class="postheader">
-            <YAF:LocalizedLabel ID="LocalizedLabel35" runat="server" LocalizedPage="CP_EDITPROFILE"
-                LocalizedTag="HIDEME" />
-        </td>
-        <td class="post">
-            <asp:CheckBox ID="HideMe" runat="server" Checked="false" />
-        </td>
-    </tr>    
-    <tr>
-        <td class="postheader">
-            <YAF:LocalizedLabel ID="BirthdayLabel" runat="server" LocalizedPage="CP_EDITPROFILE"
-                LocalizedTag="BIRTHDAY" />
-        </td>
-        <td class="post">
-            <asp:TextBox ID="Birthday" runat="server" CssClass="edit"></asp:TextBox>
-        </td>
-    </tr>
-    <tr>
-        <td class="postheader">
-            <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedPage="CP_EDITPROFILE"
-                LocalizedTag="OCCUPATION" />
-        </td>
-        <td class="post">
-            <asp:TextBox ID="Occupation" runat="server" CssClass="edit" />
-        </td>
-    </tr>
-    <tr>
-        <td class="postheader">
-            <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedPage="CP_EDITPROFILE"
-                LocalizedTag="INTERESTS" />
-        </td>
-        <td class="post">
-            <asp:TextBox ID="Interests" runat="server" CssClass="edit" TextMode="MultiLine" MaxLength="400" Rows="5" />
-        </td>
-    </tr>
-    <tr>
-        <td class="postheader">
-            <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedPage="CP_EDITPROFILE"
-                LocalizedTag="GENDER" />
-        </td>
-        <td class="post">
-            <asp:DropDownList ID="Gender" runat="server" CssClass="standardSelectMenu" />
-        </td>
-    </tr>
-    <tr>
-        <td colspan="2" class="header2">
-            <strong>
-                <YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedPage="CP_EDITPROFILE"
-                    LocalizedTag="LOCATION" />
-            </strong>
-        </td>
-    </tr>
-    <tr>
-        <td class="postheader">
-            <YAF:LocalizedLabel ID="LocalizedLabel40" runat="server" LocalizedPage="CP_EDITPROFILE"
-                LocalizedTag="COUNTRY" />
-        </td>
-        <td class="post">
-            <YAF:ImageListBox ID="Country" AutoPostBack="true" OnTextChanged="LookForNewRegions" runat="server" CssClass="selectMenuWithIcons" />
-        </td>
-    </tr>
-     <tr id="RegionTr" visible="false" runat="server">
-        <td class="postheader">
-            <YAF:LocalizedLabel ID="LocalizedLabel41" runat="server" LocalizedPage="CP_EDITPROFILE"
-                LocalizedTag="REGION" />
-        </td>
-        <td class="post">
-            <asp:DropDownList ID="Region" runat="server" CssClass="standardSelectMenu" />            
-        </td>
-    </tr>
-    <tr>
-        <td class="postheader">
-            <YAF:LocalizedLabel ID="LocalizedLabel42" runat="server" LocalizedPage="CP_EDITPROFILE"
-                LocalizedTag="CITY" />
-        </td>
-        <td class="post">
-            <asp:TextBox ID="City" runat="server" CssClass="edit" />
-        </td>
-    </tr>
-    <tr>
-        <td class="postheader">
-            <YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedPage="CP_EDITPROFILE"
-                LocalizedTag="where" />
-        </td>
-        <td class="post">
-            <asp:TextBox ID="Location" runat="server" CssClass="edit" />
-        </td>
-    </tr>
-    <tr>
-        <td colspan="2" class="header2">
-            <strong>
-                <YAF:LocalizedLabel ID="LocalizedLabel8" runat="server" LocalizedPage="CP_EDITPROFILE"
-                    LocalizedTag="homepage" />
-            </strong>
-        </td>
-    </tr>
-    <tr>
-        <td class="postheader">
-            <YAF:LocalizedLabel ID="LocalizedLabel9" runat="server" LocalizedPage="CP_EDITPROFILE"
-                LocalizedTag="homepage2" />
-        </td>
-        <td class="post">
-            <asp:TextBox runat="server" ID="HomePage" CssClass="edit" />
-        </td>
-    </tr>
-    <tr>
-        <td class="postheader">
-            <YAF:LocalizedLabel ID="LocalizedLabel10" runat="server" LocalizedPage="CP_EDITPROFILE"
-                LocalizedTag="weblog2" />
-        </td>
-        <td class="post">
-            <asp:TextBox runat="server" ID="Weblog" CssClass="edit" />
-        </td>
-    </tr>
+        <div class="form-group">
+        <asp:Label runat="server" AssociatedControlID="Realname">
+            <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" 
+                                LocalizedPage="CP_EDITPROFILE"
+                                LocalizedTag="REALNAME2" />
+        </asp:Label>
+            <asp:TextBox ID="Realname" runat="server" CssClass="form-control" />
+        </div>
+        <div class="form-group">
+        <asp:Label runat="server" AssociatedControlID="Birthday">
+            <YAF:LocalizedLabel ID="BirthdayLabel" runat="server" 
+                                LocalizedPage="CP_EDITPROFILE"
+                                LocalizedTag="BIRTHDAY" />
+        </asp:Label>
+        <div class='input-group mb-3 date datepickerinput'>
+            <span class="input-group-prepend">
+                <button class="btn btn-secondary datepickerbutton" type="button">
+                    <i class="fa fa-calendar-day fa-fw"></i>
+                </button>
+            </span>
+            <asp:TextBox ID="Birthday" runat="server" 
+                         CssClass="form-control"></asp:TextBox>
+            </div>
+        </div>
+        <div class="form-group">
+        <asp:Label runat="server" AssociatedControlID="Occupation">
+            <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" 
+                                LocalizedPage="CP_EDITPROFILE"
+                                LocalizedTag="OCCUPATION" />
+        </asp:Label>
+            <asp:TextBox ID="Occupation" runat="server" 
+                         CssClass="form-control" />
+        </div>
+        <div class="form-group">
+        <asp:Label runat="server" AssociatedControlID="Gender">
+            <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" 
+                                LocalizedPage="CP_EDITPROFILE"
+                                LocalizedTag="INTERESTS" />
+        </asp:Label>
+            <asp:TextBox ID="Interests" runat="server" 
+                         CssClass="form-control" 
+                         TextMode="MultiLine" 
+                         MaxLength="400" 
+                         Rows="5" />
+        </div>
+        <div class="form-group">
+        <asp:Label runat="server" AssociatedControlID="Gender">
+            <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" 
+                                LocalizedPage="CP_EDITPROFILE"
+                                LocalizedTag="GENDER" />
+        </asp:Label>
+            <div class="custom-control custom-radio custom-control-inline">
+                <asp:RadioButtonList ID="Gender" runat="server" 
+                                     RepeatLayout="UnorderedList"
+                                     CssClass="list-unstyled" />
+            </div>
+        </div>
+               <h4>
+                   <YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" 
+                                       LocalizedPage="CP_EDITPROFILE"
+                                       LocalizedTag="LOCATION" />
+               </h4>
+    
+        <div class="form-group">
+            <YAF:ThemeButton runat="server" ID="GetLocation" 
+                             Visible='<%# this.Get<YafBoardSettings>().EnableIPInfoService %>'
+                             Icon="location-arrow"
+                             Type="Secondary"
+                             TextLocalizedTag="GET_LOCATION"
+                             OnClick="GetLocationOnClick">
+            </YAF:ThemeButton>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-4">
+                <asp:Label runat="server" AssociatedControlID="Country">
+                    <YAF:LocalizedLabel ID="LocalizedLabel40" runat="server" 
+                                        LocalizedPage="CP_EDITPROFILE"
+                                        LocalizedTag="COUNTRY" />
+                </asp:Label>
+                <YAF:CountryImageListBox runat="server" ID="Country" 
+                                         AutoPostBack="true" 
+                                         OnTextChanged="LookForNewRegions"
+                                         CssClass="select2-image-select" />
+        
+            </div>
+            <asp:PlaceHolder id="RegionTr" visible="false" runat="server">
+                <div class="form-group col-md-4">
+                    <asp:Label runat="server" AssociatedControlID="Region">
+                        <YAF:LocalizedLabel ID="LocalizedLabel41" runat="server" 
+                                            LocalizedPage="CP_EDITPROFILE"
+                                            LocalizedTag="REGION" />
+                    </asp:Label>
+                    <asp:DropDownList ID="Region" runat="server" 
+                                      CssClass="select2-select" />
+                </div>
+            </asp:PlaceHolder>
+            <div class="form-group col-md-4">
+                <asp:Label runat="server" AssociatedControlID="City">
+                    <YAF:LocalizedLabel ID="LocalizedLabel42" runat="server" 
+                                        LocalizedPage="CP_EDITPROFILE"
+                                        LocalizedTag="CITY" />
+                </asp:Label>
+                <asp:TextBox ID="City" runat="server" CssClass="form-control" />
+            </div>
+        </div>
+        
+        <div class="form-group">
+        <asp:Label runat="server" AssociatedControlID="Location">
+            <YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" 
+                                LocalizedPage="CP_EDITPROFILE"
+                                LocalizedTag="where" />
+        </asp:Label>
+            <asp:TextBox ID="Location" runat="server" CssClass="form-control" />
+        </div>
+        <h2>
+             <YAF:LocalizedLabel ID="LocalizedLabel8" runat="server" 
+                                 LocalizedPage="CP_EDITPROFILE"
+                                 LocalizedTag="homepage" />
+        </h2>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <asp:Label runat="server" AssociatedControlID="HomePage">
+                    <YAF:LocalizedLabel ID="LocalizedLabel9" runat="server" 
+                                        LocalizedPage="CP_EDITPROFILE"
+                                        LocalizedTag="homepage2" />
+                </asp:Label>
+                <asp:TextBox runat="server" ID="HomePage" 
+                             CssClass="form-control" 
+                             TextMode="Url" />
+            </div>
+            <div class="form-group col-md-6">
+                <asp:Label runat="server" AssociatedControlID="Weblog">
+                    <YAF:LocalizedLabel ID="LocalizedLabel10" runat="server" 
+                                        LocalizedPage="CP_EDITPROFILE"
+                                        LocalizedTag="weblog2" />
+                </asp:Label>
+                <asp:TextBox runat="server" ID="Weblog" 
+                             CssClass="form-control" 
+                             TextMode="Url" />
+            </div>
+        </div>
+        
     </asp:PlaceHolder>
-    <asp:PlaceHolder runat="server" ID="MetaWeblogAPI" Visible="true">
-        <tr>
-            <td colspan="2" class="header2">
-                <strong>
-                    <YAF:LocalizedLabel ID="LocalizedLabel11" runat="server" LocalizedPage="CP_EDITPROFILE"
-                        LocalizedTag="METAWEBLOG_TITLE" />
-                </strong>
-            </td>
-        </tr>
-        <tr>
-            <td class="postheader">
-                <YAF:LocalizedLabel ID="LocalizedLabel12" runat="server" LocalizedPage="CP_EDITPROFILE"
-                    LocalizedTag="METAWEBLOG_API_URL" />
-            </td>
-            <td class="post">
-                <asp:TextBox runat="server" ID="WeblogUrl" CssClass="edit" />
-            </td>
-        </tr>
-        <tr>
-            <td class="postheader">
-                <YAF:LocalizedLabel ID="LocalizedLabel13" runat="server" LocalizedPage="CP_EDITPROFILE"
-                    LocalizedTag="METAWEBLOG_API_ID" />
-                <br />
-                <YAF:LocalizedLabel ID="LocalizedLabel14" runat="server" LocalizedPage="CP_EDITPROFILE"
-                    LocalizedTag="METAWEBLOG_API_ID_INSTRUCTIONS" />
-            </td>
-            <td class="post">
-                <asp:TextBox runat="server" ID="WeblogID" CssClass="edit" />
-            </td>
-        </tr>
-        <tr>
-            <td class="postheader">
-                <YAF:LocalizedLabel ID="LocalizedLabel15" runat="server" LocalizedPage="CP_EDITPROFILE"
-                    LocalizedTag="METAWEBLOG_API_USERNAME" />
-            </td>
-            <td class="post">
-                <asp:TextBox runat="server" ID="WeblogUsername" CssClass="edit" />
-            </td>
-        </tr>
-    </asp:PlaceHolder>
-    <asp:PlaceHolder ID="IMServicesPlaceHolder" runat="server">
-    <tr>
-        <td colspan="2" class="header2">
-            <strong>
-                <YAF:LocalizedLabel ID="LocalizedLabel16" runat="server" LocalizedPage="CP_EDITPROFILE"
-                    LocalizedTag="messenger" />
-            </strong>
-        </td>
-    </tr>
-    <tr>
-        <td class="postheader">
-            <YAF:LocalizedLabel ID="LocalizedLabel29" runat="server" LocalizedPage="CP_EDITPROFILE"
-                LocalizedTag="MSN" />
-        </td>
-        <td class="post">
-            <asp:TextBox runat="server" ID="MSN" CssClass="edit" />
-        </td>
-    </tr>
-    <tr>
-        <td class="postheader">
-            <YAF:LocalizedLabel ID="LocalizedLabel28" runat="server" LocalizedPage="CP_EDITPROFILE"
-                LocalizedTag="YIM" />
-        </td>
-        <td class="post">
-            <asp:TextBox runat="server" ID="YIM" CssClass="edit" />
-        </td>
-    </tr>
-    <tr>
-        <td class="postheader">
-            <YAF:LocalizedLabel ID="LocalizedLabel27" runat="server" LocalizedPage="CP_EDITPROFILE"
-                LocalizedTag="AIM" />
-        </td>
-        <td class="post">
-            <asp:TextBox runat="server" ID="AIM" CssClass="edit" />
-        </td>
-    </tr>
-    <tr>
-        <td class="postheader">
-            <YAF:LocalizedLabel ID="LocalizedLabel26" runat="server" LocalizedPage="CP_EDITPROFILE"
-                LocalizedTag="ICQ" />
-        </td>
-        <td class="post">
-            <asp:TextBox runat="server" ID="ICQ" CssClass="edit" />
-        </td>
-    </tr>
-    <tr>
-        <td class="postheader">
-            <YAF:LocalizedLabel ID="LocalizedLabel31" runat="server" LocalizedPage="CP_EDITPROFILE"
-                LocalizedTag="Facebook" />
-        </td>
-        <td class="post">
-            <asp:TextBox runat="server" ID="Facebook" CssClass="edit" />
-        </td>
-    </tr>
-    <tr>
-        <td class="postheader">
-            <YAF:LocalizedLabel ID="LocalizedLabel33" runat="server" LocalizedPage="CP_EDITPROFILE"
-                LocalizedTag="Twitter" />
-        </td>
-        <td class="post">
-            <asp:TextBox runat="server" ID="Twitter" CssClass="edit" />
-        </td>
-    </tr>
-    <tr>
-        <td class="postheader">
-            <YAF:LocalizedLabel ID="LocalizedLabel36" runat="server" LocalizedPage="CP_EDITPROFILE"
-                LocalizedTag="Google" />
-        </td>
-        <td class="post">
-            <asp:TextBox runat="server" ID="Google" CssClass="edit" />
-        </td>
-    </tr>
-    <tr>
-        <td class="postheader">
-            <YAF:LocalizedLabel ID="LocalizedLabel32" runat="server" LocalizedPage="CP_EDITPROFILE"
-                LocalizedTag="xmpp" />
-        </td>
-        <td class="post">
-            <asp:TextBox runat="server" ID="Xmpp" CssClass="edit" />
-        </td>
-    </tr>
-    <tr>
-        <td class="postheader">
-            <YAF:LocalizedLabel ID="LocalizedLabel30" runat="server" LocalizedPage="CP_EDITPROFILE"
-                LocalizedTag="SKYPE" />
-        </td>
-        <td class="post">
-            <asp:TextBox runat="server" ID="Skype" CssClass="edit" />
-        </td>
-    </tr>
-    </asp:PlaceHolder>
-    <tr>
-        <td colspan="2" class="header2">
-            <strong>
-                <YAF:LocalizedLabel ID="LocalizedLabel25" runat="server" LocalizedPage="CP_EDITPROFILE"
-                    LocalizedTag="TIMEZONE" />
-            </strong>
-        </td>
-    </tr>
-    <tr>
-		<td class="postheader">
-			<YAF:LocalizedLabel ID="DSTLocalizedLabel" runat="server" LocalizedPage="CP_EDITPROFILE"
-                    LocalizedTag="DST" />
-		</td>
-		<td class="post">
-			<asp:CheckBox runat="server" ID="DSTUser" />
-		</td>
-	</tr>
-    <tr>
-        <td class="postheader">
-            <YAF:LocalizedLabel ID="LocalizedLabel24" runat="server" LocalizedPage="CP_EDITPROFILE"
-                LocalizedTag="TIMEZONE2" />
-        </td>
-        <td class="post">
-            <asp:DropDownList runat="server" ID="TimeZones" CssClass="standardSelectMenu" DataTextField="Name" DataValueField="Value"   />
-        </td>
-    </tr>
-    <tr runat="server" id="ForumSettingsRows">
-        <td colspan="2" class="header2">
-            <strong>
-                <YAF:LocalizedLabel ID="LocalizedLabel23" runat="server" LocalizedPage="CP_EDITPROFILE"
-                    LocalizedTag="FORUM_SETTINGS" />
-            </strong>
-        </td>
-    </tr>
-    <tr runat="server" id="UserThemeRow">
-        <td class="postheader">
-            <YAF:LocalizedLabel ID="LocalizedLabel22" runat="server" LocalizedPage="CP_EDITPROFILE"
-                LocalizedTag="SELECT_THEME" />
-        </td>
-        <td class="post">
-            <asp:DropDownList runat="server" ID="Theme" CssClass="standardSelectMenu" />
-        </td>
-    </tr>
-    <tr runat="server" id="TrTextEditors">
-        <td class="postheader">
-            <YAF:LocalizedLabel ID="LocalizedLabel19" runat="server" LocalizedPage="CP_EDITPROFILE"
-                LocalizedTag="SELECT_TEXTEDITOR" />
-        </td> 
-        <td class="post">
-         <asp:DropDownList ID="ForumEditor" CssClass="standardSelectMenu" runat="server" DataValueField="Value" DataTextField="Name">
-                            </asp:DropDownList>
-        </td>
-    </tr>
-    <tr runat="server" id="UseMobileThemeRow" visible="false">
-        <td class="postheader">
-            <YAF:LocalizedLabel ID="LocalizedLabel21" runat="server" LocalizedPage="CP_EDITPROFILE"
-                LocalizedTag="USE_MOBILE_THEME" />
-        </td>
-        <td class="post">
-            <asp:CheckBox ID="UseMobileTheme" runat="server" />
-        </td>
-    </tr>
-    <tr runat="server" id="UserLanguageRow">
-        <td class="postheader">
-            <YAF:LocalizedLabel ID="LocalizedLabel20" runat="server" LocalizedPage="CP_EDITPROFILE"
-                LocalizedTag="SELECT_LANGUAGE" />
-        </td>
-        <td class="post">
-             <asp:DropDownList runat="server" ID="Culture" CssClass="standardSelectMenu" />
-        </td>
-    </tr>
-    <asp:PlaceHolder runat="server" ID="LoginInfo" Visible="false">
-        <tr>
-            <td colspan="2" class="header2">
-                <YAF:LocalizedLabel ID="LocalizedLabel18" runat="server" LocalizedPage="CP_EDITPROFILE"
-                    LocalizedTag="CHANGE_EMAIL" />
-            </td>
-        </tr>
-        <tr>
-            <td class="postheader">
-                <YAF:LocalizedLabel ID="LocalizedLabel17" runat="server" LocalizedPage="CP_EDITPROFILE"
-                    LocalizedTag="EMAIL" />
-            </td>
-            <td class="post">
-                <asp:TextBox ID="Email" CssClass="edit" runat="server" OnTextChanged="Email_TextChanged" />
-            </td>
-        </tr>
-    </asp:PlaceHolder>
-    <tr>
-        <td class="footer1" colspan="2" align="center">
-            <asp:Button ID="UpdateProfile" CssClass="pbutton" runat="server" OnClick="UpdateProfile_Click" />
-            |
-            <asp:Button ID="Cancel" CssClass="pbutton" runat="server" OnClick="Cancel_Click" />
-        </td>
-    </tr>
-</table>
+<asp:PlaceHolder ID="IMServicesPlaceHolder" runat="server">
+
+        <h4>
+            <YAF:LocalizedLabel ID="LocalizedLabel16" runat="server" 
+                                LocalizedPage="CP_EDITPROFILE"
+                                LocalizedTag="messenger" />
+        </h4>
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <asp:Label runat="server" AssociatedControlID="ICQ">
+                <YAF:LocalizedLabel ID="LocalizedLabel26" runat="server" 
+                                    LocalizedPage="CP_EDITPROFILE"
+                                    LocalizedTag="ICQ" />
+            </asp:Label>
+            <asp:TextBox runat="server" ID="ICQ" 
+                         CssClass="form-control" 
+                         TextMode="Number" />
+        </div>
+        <div class="form-group col-md-6">
+            <asp:Label runat="server" AssociatedControlID="Twitter">
+                <YAF:LocalizedLabel ID="LocalizedLabel33" runat="server" 
+                                    LocalizedPage="CP_EDITPROFILE"
+                                    LocalizedTag="Twitter" />
+            </asp:Label>
+            <asp:TextBox runat="server" ID="Twitter" CssClass="form-control" />
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <asp:Label runat="server" AssociatedControlID="Xmpp">
+                <YAF:LocalizedLabel ID="LocalizedLabel32" runat="server" 
+                                    LocalizedPage="CP_EDITPROFILE"
+                                    LocalizedTag="xmpp" />
+            </asp:Label>
+            <asp:TextBox runat="server" ID="Xmpp" CssClass="form-control" />
+        </div>
+        <div class="form-group col-md-6">
+            <asp:Label runat="server" AssociatedControlID="Skype">
+                <YAF:LocalizedLabel ID="LocalizedLabel30" runat="server" 
+                                    LocalizedPage="CP_EDITPROFILE"
+                                    LocalizedTag="SKYPE" />
+            </asp:Label>
+            <asp:TextBox runat="server" ID="Skype" CssClass="form-control" />
+        </div>
+    </div>
+    
+    
+    <div class="form-group">
+        <asp:Label runat="server" AssociatedControlID="Facebook">
+            <YAF:LocalizedLabel ID="LocalizedLabel31" runat="server" 
+                                LocalizedPage="CP_EDITPROFILE"
+                                LocalizedTag="Facebook" />
+        </asp:Label>
+        <asp:TextBox runat="server" ID="Facebook" CssClass="form-control" />
+    </div>
+</asp:PlaceHolder>
+
+                <div class="text-lg-center">
+                    <YAF:ThemeButton ID="UpdateProfile" runat="server" 
+                                     Type="Primary" 
+                                     OnClick="UpdateProfileClick"
+                                     Icon="save" 
+                                     TextLocalizedTag="SAVE" 
+                                     TextLocalizedPage="COMMON" />
+                    &nbsp;
+                    <YAF:ThemeButton ID="Cancel" runat="server" 
+                                     Type="Secondary" 
+                                     OnClick="CancelClick"
+                                     Icon="trash" 
+                                     TextLocalizedTag="CANCEL" 
+                                     TextLocalizedPage="COMMON" />
+                </div>

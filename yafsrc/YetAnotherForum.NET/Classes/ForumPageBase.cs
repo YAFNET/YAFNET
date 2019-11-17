@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -29,7 +29,7 @@ namespace YAF
     using System.Web;
     using System.Web.UI;
 
-    using YAF.Classes;
+    using YAF.Configuration;
     using YAF.Core;
     using YAF.Core.Extensions;
     using YAF.Core.Services.Startup;
@@ -49,13 +49,7 @@ namespace YAF
         /// <summary>
         ///   Gets ServiceLocator.
         /// </summary>
-        public IServiceLocator ServiceLocator
-        {
-            get
-            {
-                return YafContext.Current.ServiceLocator;
-            }
-        }
+        public IServiceLocator ServiceLocator => YafContext.Current.ServiceLocator;
 
         /// <summary>
         /// Gets the page context.
@@ -63,13 +57,7 @@ namespace YAF
         /// <value>
         /// The page context.
         /// </value>
-        public YafContext PageContext
-        {
-            get
-            {
-                return YafContext.Current;
-            }
-        }
+        public YafContext PageContext => YafContext.Current;
 
         #endregion
 
@@ -100,7 +88,11 @@ namespace YAF
             }
             else
             {
-                this.Get<ILogger>().Log(YafContext.Current.PageUserID, error.Source, error);
+                this.Get<ILogger>()
+                    .Log(
+                        YafContext.Current.PageUserID,
+                        error.Source,
+                        error);
             }
         }
 

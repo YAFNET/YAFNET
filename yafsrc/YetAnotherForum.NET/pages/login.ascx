@@ -1,109 +1,158 @@
 ﻿<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.login" CodeBehind="login.ascx.cs" %>
-<%@ Import Namespace="YAF.Core.Services" %>
+
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <asp:UpdatePanel ID="UpdateLoginPanel" runat="server" UpdateMode="Conditional">
     <ContentTemplate>
-        <div align="center">
-            <asp:Login ID="Login1" runat="server" RememberMeSet="True" OnLoginError="Login1_LoginError" OnLoggedIn="Login1_LoggedIn"
-             OnAuthenticate="Login1_Authenticate" VisibleWhenLoggedIn="True">
+        <asp:Login ID="Login1" runat="server" 
+                   RememberMeSet="True" 
+                   OnLoginError="Login1_LoginError" 
+                   OnLoggedIn="Login1_LoggedIn"
+                   OnAuthenticate="Login1_Authenticate" 
+                   VisibleWhenLoggedIn="True"
+                   CssClass="mx-auto"
+                   Width="400px">
                 <LayoutTemplate>
-                    <table align="center" width="100%" border="0" cellpadding="0" cellspacing="0" style="border-collapse: collapse">
-                        <tr>
-                            <td>
-                                <table border="0" cellpadding="0" class="content" width="400">
-                                    <tr>
-                                        <td align="center" colspan="2" class="header1">
-                                            <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="title" />
-                                        </td>
-                                    </tr>
-                                    <tr runat="server" id="SingleSignOnOptionsRow" Visible="False">
-                                        <td colspan="2" class="post">
-                                            <asp:RadioButtonList runat="server" id="SingleSignOnOptions" AutoPostBack="true"
-                                                OnSelectedIndexChanged="SingleSignOnOptionsChanged">
-                                            </asp:RadioButtonList>
-                                        </td>
-                                    </tr>
-                                    <tr runat="server" id="UserNameRow">
-                                        <td align="right" class="postheader">
-                                            <asp:Label ID="UserNameLabel" runat="server" AssociatedControlID="UserName">
-                                                <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="username" />
-                                            </asp:Label>
-                                        </td>
-                                        <td class="post">
-                                            <asp:TextBox ID="UserName" runat="server"></asp:TextBox>
-                                        </td>
-                                    </tr>
-                                    <tr runat="server" id="PasswordRow">
-                                        <td align="right" class="postheader" style="height: 24px">
-                                            <asp:Label ID="PasswordLabel" runat="server" AssociatedControlID="Password">
-                                                <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="PASSWORD" />
-                                            </asp:Label>
-                                        </td>
-                                        <td class="post" style="height: 24px">
-                                            <asp:TextBox ID="Password" runat="server" TextMode="Password"></asp:TextBox><br/>
-                                        </td>
-                                    </tr>
-                                    <tr class="CapsLockWarning" style="display: none;">
-                                        <td colspan="2" class="post">
-                                            <div class="ui-widget">
-                                                <div class="ui-state-error ui-corner-all" style="padding: 0 .7em;">
-                                                    <p><span class="ui-icon ui-icon-alert" style="float: left; margin-right: .3em;"></span>
-                                                        <YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedTag="CAPS_LOCK" />
-                                                    </p>
-                                                 </div>
+                    <div class="row">
+                        <div class="col-xl-12">
+                            <h2><YAF:LocalizedLabel runat="server" LocalizedTag="TITLE" /></h2>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="card mb-3">
+                                <div class="card-header">
+                                    <i class="fa fa-sign-in-alt fa-fw text-secondary pr-1"></i>
+                                    <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="title" />
+                                </div>
+                                <div class="card-body">
+                                    <asp:PlaceHolder runat="server" id="SingleSignOnOptionsRow" Visible="False">
+                                            <div class="custom-control custom-radio custom-control-inline">
+                                                <asp:RadioButtonList runat="server" id="SingleSignOnOptions"
+                                                                     AutoPostBack="true"
+                                                                     OnSelectedIndexChanged="SingleSignOnOptionsChanged"
+                                                                     RepeatLayout="UnorderedList"
+                                                                     CssClass="list-unstyled">
+                                                </asp:RadioButtonList>
                                             </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="2" class="post">
-                                            <asp:CheckBox ID="RememberMe" runat="server"></asp:CheckBox>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="2" class="postfooter" style="text-align: center;height: 24px">
-                                            <asp:Button ID="LoginButton" runat="server" CssClass="pbutton" CommandName="Login" ValidationGroup="Login1" />
-                                            <asp:Button ID="PasswordRecovery" runat="server" CausesValidation="false" class="pbutton"
-                                                OnClick="PasswordRecovery_Click" />
-                                            <asp:PlaceHolder ID="RegisterLinkPlaceHolder" runat="server" Visible="false">
-                                                <div>
-                                                    <u><asp:LinkButton ID="RegisterLink" runat="server" OnClick="RegisterLinkClick"></asp:LinkButton></u>
+                                        </asp:PlaceHolder>
+                                        <asp:PlaceHolder runat="server" id="UserNameRow">
+                                            <div class="form-group">
+                                                <asp:Label ID="UserNameLabel" runat="server" AssociatedControlID="UserName">
+                                                    <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="username" />
+                                                </asp:Label>
+                                                <asp:TextBox ID="UserName" runat="server" CssClass="form-control"></asp:TextBox>
+                                            </div>
+                                        </asp:PlaceHolder>
+                                        <asp:PlaceHolder runat="server" id="PasswordRow">
+                                            <div class="form-group">
+                                                <asp:Label ID="PasswordLabel" runat="server" AssociatedControlID="Password">
+                                                    <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="PASSWORD" />
+                                                </asp:Label>
+                                                <asp:TextBox ID="Password" runat="server" TextMode="Password" CssClass="form-control"></asp:TextBox><br/>
+                                                
+                                                <div class="alert alert-danger CapsLockWarning" style="display: none;" role="alert">
+                                                    <YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedTag="CAPS_LOCK" />
                                                 </div>
-                                            </asp:PlaceHolder>
-                                        </td>
-                                    </tr>
-                                    <tr id="SingleSignOnRow" runat="server" Visible="false">
-                                       <td style="text-align:center" colspan="2" class="postfooter">
-                                           <asp:LinkButton runat="server" ID="FacebookRegister" CssClass="authLogin facebookLogin" Visible="False" OnClick="FacebookFormClick"></asp:LinkButton>
-                                           <asp:LinkButton runat="server" ID="TwitterRegister" CssClass="authLogin twitterLogin" Visible="False" OnClick="TwitterFormClick"></asp:LinkButton>
-                                           <asp:LinkButton runat="server" ID="GoogleRegister" CssClass="authLogin googleLogin" Visible="False" OnClick="GoogleFormClick"></asp:LinkButton>
+                                                
+                                            </div>
+                                        </asp:PlaceHolder>
+                                        <div class="form-row">
+                                            <div class="form-group col-md-6">
+                                                <div class="custom-control custom-checkbox">
+                                                    <asp:CheckBox ID="RememberMe" runat="server"></asp:CheckBox>
+                                                </div>
+                                            </div>
+                                            <div class="form-group col-md-6 text-right">
+                                                <asp:Button ID="LoginButton" runat="server" 
+                                                            CssClass="btn btn-primary" 
+                                                            CommandName="Login" 
+                                                            ValidationGroup="Login1" />
+                                            </div>
+                                        </div>
+                                </div>
+                                <div class="card-footer">
+                                    <asp:Button ID="PasswordRecovery" runat="server" 
+                                                CausesValidation="false" 
+                                                CssClass="btn btn-secondary btn-sm"
+                                                OnClick="PasswordRecovery_Click" />
+                                    <asp:PlaceHolder ID="RegisterLinkPlaceHolder" runat="server" Visible="false">
+                                        <YAF:ThemeButton ID="RegisterLink" runat="server"
+                                                         OnClick="RegisterLinkClick"
+                                                         Type="OutlineSecondary"
+                                                         Size="Small">
+                                            </YAF:ThemeButton>
+                                    </asp:PlaceHolder>
+                                     <asp:PlaceHolder id="SingleSignOnRow" runat="server" 
+                                                      Visible="false">
+                                           <YAF:ThemeButton runat="server" ID="FacebookRegister" 
+                                                            Type="None"
+                                                            Size="Small"
+                                                            CssClass="btn btn-social btn-facebook mr-2"
+                                                            Icon="facebook"
+                                                            IconCssClass="fab"
+                                                            Visible="False" 
+                                                            OnClick="FacebookFormClick"></YAF:ThemeButton>
+                                           <YAF:ThemeButton runat="server" ID="TwitterRegister" 
+                                                            Type="None"
+                                                            Size="Small"
+                                                            Icon="twitter"
+                                                            IconCssClass="fab"
+                                                            CssClass="btn btn-social btn-twitter mr-2" 
+                                                            Visible="False" 
+                                                            OnClick="TwitterFormClick"></YAF:ThemeButton>
+                                           <YAF:ThemeButton runat="server" ID="GoogleRegister" 
+                                                            Type="None"
+                                                            Size="Small"
+                                                            Icon="google"
+                                                            IconCssClass="fab"
+                                                            CssClass="btn btn-social btn-google mr-2" 
+                                                            Visible="False" 
+                                                            OnClick="GoogleFormClick"></YAF:ThemeButton>
                                           
-                                           <asp:PlaceHolder id="FacebookHolder" runat="server" Visible="false">
-                                              <a id="FacebookLogin" runat="server" class="authLogin facebookLogin">
-                                                   <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="FACEBOOK_LOGIN" />
-                                               </a>
+                                           <asp:PlaceHolder id="FacebookHolder" runat="server" 
+                                                            Visible="false">
+                                               <YAF:ThemeButton id="FacebookLogin" runat="server"
+                                                                Type="None"
+                                                                Size="Small"
+                                                                Icon="facebook"
+                                                                IconCssClass="fab"
+                                                                CssClass="btn-social btn-facebook mr-2"
+                                                                TextLocalizedTag="FACEBOOK_LOGIN" />
                                            </asp:PlaceHolder>
-                                           <asp:PlaceHolder id="TwitterHolder" runat="server" Visible="false">
-                                               <a id="TwitterLogin" runat="server" class="authLogin twitterLogin">
-                                                   <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="TWITTER_LOGIN" />
-                                               </a>
+                                           <asp:PlaceHolder id="TwitterHolder" runat="server" 
+                                                            Visible="false">
+                                               <YAF:ThemeButton id="TwitterLogin" runat="server" 
+                                                                Type="None"
+                                                                Size="Small"
+                                                                Icon="twitter"
+                                                                IconCssClass="fab"
+                                                                CssClass="btn btn-social btn-twitter mr-2"
+                                                                TextLocalizedTag="TWITTER_LOGIN" />
                                            </asp:PlaceHolder>
-                                           <asp:PlaceHolder id="GoogleHolder" runat="server" Visible="false">
-                                              <a id="GoogleLogin" runat="server" class="authLogin googleLogin">
-                                                   <YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="GOOGLE_LOGIN" />
-                                               </a>
+                                           <asp:PlaceHolder id="GoogleHolder" runat="server" 
+                                                            Visible="false">
+                                              <YAF:ThemeButton id="GoogleLogin" runat="server" 
+                                                               Type="None"
+                                                               Size="Small"
+                                                               Icon="google"
+                                                               IconCssClass="fab"
+                                                               CssClass="btn btn-social btn-google mr-2"
+                                                               TextLocalizedTag="GOOGLE_LOGIN" />
                                            </asp:PlaceHolder>
-                                           <asp:Button runat="server" ID="Cancel" CssClass="pbutton" Visible="False" OnClick="CancelAuthLoginClick" />
-                                       </td>
-                                    </tr>
-                                </table>
-                            </td>
-                        </tr>
-                    </table>
+                                           <YAF:ThemeButton runat="server" ID="Cancel" 
+                                                            Visible="False" 
+                                                            OnClick="CancelAuthLoginClick"
+                                                            TextLocalizedTag="CANCEL" 
+                                                            Type="Secondary" 
+                                                            Icon="ban"
+                                                            CssClass="ml-1"/>
+                                    </asp:PlaceHolder>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
                 </LayoutTemplate>
             </asp:Login>
-        </div>
     </ContentTemplate>
 </asp:UpdatePanel>
-<div id="DivSmartScroller">
-    <YAF:SmartScroller ID="SmartScroller1" runat="server" />
-</div>

@@ -76,8 +76,7 @@ namespace YAF.Core.Services.CheckForSpam
             Debug.Assert(
                 request != null,
                 "HttpWebRequest should not be null",
-                "Calling WebRequest.Create(url) produced a null HttpWebRequest instance for the URL '{0}'".FormatWith(
-                    url));
+                $"Calling WebRequest.Create(url) produced a null HttpWebRequest instance for the URL '{url}'");
 
             if (proxy != null)
             {
@@ -178,8 +177,7 @@ namespace YAF.Core.Services.CheckForSpam
             Debug.Assert(
                 request != null,
                 "HttpWebRequest should not be null",
-                "Calling WebRequest.Create(url) produced a null HttpWebRequest instance for the URL '{0}'".FormatWith(
-                    url));
+                $"Calling WebRequest.Create(url) produced a null HttpWebRequest instance for the URL '{url}'");
 
             if (proxy != null)
             {

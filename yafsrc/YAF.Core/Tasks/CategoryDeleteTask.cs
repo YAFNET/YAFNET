@@ -25,7 +25,7 @@ namespace YAF.Core.Tasks
 {
     using System;
 
-    using YAF.Core.Model;
+    using YAF.Core.Extensions;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
@@ -34,17 +34,8 @@ namespace YAF.Core.Tasks
     /// <summary>
     ///     The forum delete task.
     /// </summary>
-    public class CategoryDeleteTask : LongBackgroundTask, ICriticalBackgroundTask, IBlockableTask
+    public class CategoryDeleteTask : LongBackgroundTask, ICriticalBackgroundTask
     {
-        #region Constants
-
-        /// <summary>
-        ///     The _task name.
-        /// </summary>
-        private const string _TaskName = "CategoryDeleteTask";
-
-        #endregion
-
         #region Static Fields
 
         /// <summary>
@@ -59,13 +50,7 @@ namespace YAF.Core.Tasks
         /// <summary>
         ///     Gets TaskName.
         /// </summary>
-        public static string TaskName
-        {
-            get
-            {
-                return _TaskName;
-            }
-        }
+        public static string TaskName { get; } = "CategoryDeleteTask";
 
         /// <summary>
         ///     Gets or sets CategoryId.
@@ -91,7 +76,7 @@ namespace YAF.Core.Tasks
         /// The failure message - is empty if task is launched successfully.
         /// </param>
         /// <returns>
-        /// Returns if Task was Successfull
+        /// Returns if Task was Successful
         /// </returns>
         public static bool Start(int categoryId, out string failureMessage)
         {
@@ -109,7 +94,7 @@ namespace YAF.Core.Tasks
             else
             {
                 failureMessage =
-                    "You can't delete category while some of the blocking {0} tasks are running.".FormatWith(BlockingTaskNames.ToDelimitedString(","));
+                    $"You can't delete category while some of the blocking {BlockingTaskNames.ToDelimitedString(",")} tasks are running.";
                 return false;
             }
 
@@ -124,12 +109,12 @@ namespace YAF.Core.Tasks
             try
             {
                 this.Logger.Info("Starting Category {0} delete task.", this.CategoryId);
-                this.GetRepository<Category>().Delete(this.CategoryId);
+                this.GetRepository<Category>().DeleteById(this.CategoryId);
                 this.Logger.Info("Category (ID: {0}) Delete Task Complete.", this.CategoryId);
             }
             catch (Exception x)
             {
-                this.Logger.Error(x, "Error In Category (ID: {0}) Delete Task".FormatWith(this.CategoryId), x);
+                this.Logger.Error(x, $"Error In Category (ID: {this.CategoryId}) Delete Task", x);
             }
         }
 

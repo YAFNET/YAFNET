@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -27,6 +27,9 @@ namespace YAF.Utils
     using System;
     using System.Web;
 
+    using YAF.Types.Constants;
+    using YAF.Types.Extensions;
+
     /// <summary>
     /// The security.
     /// </summary>
@@ -44,9 +47,7 @@ namespace YAF.Utils
         /// </returns>
         public static long StringToLongOrRedirect(string longValue)
         {
-            long value;
-
-            if (!long.TryParse(longValue, out value))
+            if (!long.TryParse(longValue, out var value))
             {
                 // it's an invalid request. Redirect to the info page on invalid requests.
                 YafBuildLink.RedirectInfoPage(InfoMessage.Invalid);
@@ -63,13 +64,11 @@ namespace YAF.Utils
         /// The string value to test
         /// </param>
         /// <returns>
-        /// The converted int value
+        /// The converted integer value
         /// </returns>
         public static int StringToIntOrRedirect(string intValue)
         {
-            int value;
-
-            if (!int.TryParse(intValue, out value))
+            if (!int.TryParse(intValue, out var value))
             {
                 // it's an invalid request. Redirect to the info page on invalid requests.
                 YafBuildLink.RedirectInfoPage(InfoMessage.Invalid);
@@ -90,6 +89,7 @@ namespace YAF.Utils
             const string Valid = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!#%&()@${[]}";
             var res = string.Empty;
             var rnd = new Random();
+
             while (0 < length--)
             {
                 res += Valid[rnd.Next(Valid.Length)];
@@ -108,7 +108,7 @@ namespace YAF.Utils
         {
             // ip with 
             // deny access if POST request comes from other server
-            if (request.HttpMethod == "POST" && request.UrlReferrer != null && request.Url.Host != null
+            if (request.HttpMethod == "POST" && request.UrlReferrer != null && request.Url.Host.IsSet()
                 && request.UrlReferrer.Host != request.Url.Host)
             {
                 YafBuildLink.AccessDenied();

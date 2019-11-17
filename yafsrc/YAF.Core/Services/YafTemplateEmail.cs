@@ -27,7 +27,7 @@ namespace YAF.Core.Services
     using System.Linq;
     using System.Net.Mail;
 
-    using YAF.Classes;
+    using YAF.Configuration;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
     using YAF.Core.Services.Localization;
@@ -41,11 +41,6 @@ namespace YAF.Core.Services
     public class YafTemplateEmail : IHaveServiceLocator
     {
         #region Fields
-
-        /// <summary>
-        ///     The _template Parameters.
-        /// </summary>
-        private IDictionary<string, string> templateParams = new Dictionary<string, string>();
 
         #endregion
 
@@ -97,13 +92,7 @@ namespace YAF.Core.Services
         /// <summary>
         ///     Gets the service locator.
         /// </summary>
-        public IServiceLocator ServiceLocator
-        {
-            get
-            {
-                return YafContext.Current.ServiceLocator;
-            }
-        }
+        public IServiceLocator ServiceLocator => YafContext.Current.ServiceLocator;
 
         /// <summary>
         ///     Gets or sets TemplateLanguageFile.
@@ -116,20 +105,9 @@ namespace YAF.Core.Services
         public string TemplateName { get; set; }
 
         /// <summary>
-        ///     Gets or sets TemplateParams.
+        ///     Gets or sets Template Parameter
         /// </summary>
-        public IDictionary<string, string> TemplateParams
-        {
-            get
-            {
-                return this.templateParams;
-            }
-
-            set
-            {
-                this.templateParams = value;
-            }
-        }
+        public IDictionary<string, string> TemplateParams { get; set; } = new Dictionary<string, string>();
 
         #endregion
 
@@ -152,8 +130,8 @@ namespace YAF.Core.Services
         /// </param>
         public void CreateWatch(int topicId, int userId, MailAddress fromAddress, string subject)
         {
-            var textBody = this.ProcessTemplate("{0}_TEXT".FormatWith(this.TemplateName)).Trim();
-            var htmlBody = this.ProcessTemplate("{0}_HTML".FormatWith(this.TemplateName)).Trim();
+            var textBody = this.ProcessTemplate($"{this.TemplateName}_TEXT").Trim();
+            var htmlBody = this.ProcessTemplate($"{this.TemplateName}_HTML").Trim();
 
             // null out html if it's not desired
             if (!this.HtmlEnabled || htmlBody.IsNotSet())
@@ -180,9 +158,9 @@ namespace YAF.Core.Services
 
             if (email.IsSet())
             {
-                email = this.templateParams.Keys.Aggregate(
+                email = this.TemplateParams.Keys.Aggregate(
                     email,
-                    (current, key) => current.Replace(key, this.templateParams[key]));
+                    (current, key) => current.Replace(key, this.TemplateParams[key]));
             }
 
             return email;
@@ -226,8 +204,8 @@ namespace YAF.Core.Services
         /// </param>
         public void SendEmail(MailAddress fromAddress, MailAddress toAddress, string subject, bool useSendThread)
         {
-            var textBody = this.ProcessTemplate("{0}_TEXT".FormatWith(this.TemplateName)).Trim();
-            var htmlBody = this.ProcessTemplate("{0}_HTML".FormatWith(this.TemplateName)).Trim();
+            var textBody = this.ProcessTemplate($"{this.TemplateName}_TEXT").Trim();
+            var htmlBody = this.ProcessTemplate($"{this.TemplateName}_HTML").Trim();
 
             // null out html if it's not desired
             if (!this.HtmlEnabled || htmlBody.IsNotSet())

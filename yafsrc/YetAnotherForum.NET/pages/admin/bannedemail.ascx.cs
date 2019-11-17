@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -27,23 +27,23 @@ namespace YAF.Pages.Admin
     #region Using
 
     using System;
-    using System.Data;
+    using System.Collections.Generic;
     using System.IO;
     using System.Linq;
     using System.Web;
     using System.Web.UI.WebControls;
 
-    using YAF.Classes;
-    using YAF.Controls;
+    using YAF.Configuration;
     using YAF.Core;
     using YAF.Core.Extensions;
-    using YAF.Core.Model;
+    using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
     using YAF.Utils;
+    using YAF.Web.Extensions;
 
     #endregion
 
@@ -66,6 +66,14 @@ namespace YAF.Pages.Admin
                 return;
             }
 
+            this.BindData();
+        }
+
+        /// <summary>
+        /// Creates page links for this page.
+        /// </summary>
+        protected override void CreatePageLinks()
+        {
             this.PageLinks.AddRoot();
             this.PageLinks.AddLink(
                 this.GetText("ADMIN_ADMIN", "Administration"),
@@ -73,46 +81,8 @@ namespace YAF.Pages.Admin
 
             this.PageLinks.AddLink(this.GetText("ADMIN_BANNEDEMAIL", "TITLE"), string.Empty);
 
-            this.Page.Header.Title = "{0} - {1}".FormatWith(
-                this.GetText("ADMIN_ADMIN", "Administration"),
-                this.GetText("ADMIN_BANNEDEMAIL", "TITLE"));
-
-            this.BindData();
-        }
-
-        /// <summary>
-        /// Adds text to the Add Button
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        protected void Add_Load([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            var addButton = (Button)sender;
-
-            addButton.Text = addButton.ToolTip = this.GetText("ADMIN_BANNEDEMAIL", "ADD_IP");
-        }
-
-        /// <summary>
-        /// Adds text to the Import Button
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        protected void Import_Load([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            var importButton = (Button)sender;
-
-            importButton.Text = importButton.ToolTip = this.GetText("ADMIN_BANNEDEMAIL", "IMPORT_IPS");
-        }
-
-        /// <summary>
-        /// Adds Localized Text to Button
-        /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="e">The e.</param>
-        protected void ExportLoad(object sender, EventArgs e)
-        {
-            var exportButton = (Button)sender;
-            exportButton.Text = exportButton.ToolTip = this.GetText("ADMIN_BANNEDIP", "EXPORT");
+            this.Page.Header.Title =
+                $"{this.GetText("ADMIN_ADMIN", "Administration")} - {this.GetText("ADMIN_BANNEDEMAIL", "TITLE")}";
         }
 
         /// <summary>
@@ -124,18 +94,23 @@ namespace YAF.Pages.Admin
         {
             switch (e.CommandName)
             {
-                case "import":
-                    YafBuildLink.Redirect(ForumPages.admin_bannedemail_import);
-                    break;
                 case "add":
-                    YafBuildLink.Redirect(ForumPages.admin_bannedemail_edit);
+                    this.EditDialog.BindData(null);
+
+                    YafContext.Current.PageElements.RegisterJsBlockStartup(
+                        "openModalJs",
+                        JavaScriptBlocks.OpenModalJs("EditDialog"));
                     break;
                 case "edit":
-                    YafBuildLink.Redirect(ForumPages.admin_bannedemail_edit, "i={0}", e.CommandArgument);
+                    this.EditDialog.BindData(e.CommandArgument.ToType<int>());
+
+                    YafContext.Current.PageElements.RegisterJsBlockStartup(
+                        "openModalJs",
+                        JavaScriptBlocks.OpenModalJs("EditDialog"));
                     break;
                 case "export":
                     {
-                        var bannedEmails = this.GetRepository<BannedEmail>().ListTyped();
+                        var bannedEmails = this.GetRepository<BannedEmail>().GetByBoardId();
 
                         this.Get<HttpResponseBase>().Clear();
                         this.Get<HttpResponseBase>().ClearContent();
@@ -155,13 +130,18 @@ namespace YAF.Pages.Admin
 
                         streamWriter.Close();
 
-                        this.Response.End();
+                        this.Get<HttpResponseBase>().End();
                     }
 
                     break;
                 case "delete":
                     {
-                        this.GetRepository<BannedEmail>().DeleteByID(e.CommandArgument.ToType<int>());
+                        this.GetRepository<BannedEmail>().DeleteById(e.CommandArgument.ToType<int>());
+
+                        this.PageContext.AddLoadMessage(
+                            this.GetText("ADMIN_BANNEDEMAIL", "MSG_REMOVEBAN_EMAIL"),
+                            MessageTypes.success);
+
                         this.BindData();
                     }
 
@@ -187,27 +167,40 @@ namespace YAF.Pages.Admin
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Search_Click(object sender, EventArgs e)
         {
-            this.BindData(true);
+            this.BindData();
         }
 
         /// <summary>
         /// Binds the data.
         /// </summary>
-        /// <param name="isSearch">if set to <c>true</c> [is search].</param>
-        private void BindData(bool isSearch = false)
+        private void BindData()
         {
             this.PagerTop.PageSize = this.Get<YafBoardSettings>().MemberListPageSize;
 
-            var bannedList = this.GetRepository<BannedEmail>()
-                .List(
-                    mask: isSearch ? this.SearchInput.Text.Trim() : null,
-                    pageIndex: this.PagerTop.CurrentPageIndex,
-                    pageSize: this.PagerTop.PageSize);
+            var searchText = this.SearchInput.Text.Trim();
+
+            List<BannedEmail> bannedList;
+
+            if (searchText.IsSet())
+            {
+                bannedList = this.GetRepository<BannedEmail>().GetPaged(
+                    x => x.BoardID == this.PageContext.PageBoardID && x.Mask == searchText,
+                    this.PagerTop.CurrentPageIndex,
+                    this.PagerTop.PageSize);
+            }
+            else
+            {
+                bannedList = this.GetRepository<BannedEmail>().GetPaged(
+                    x => x.BoardID == this.PageContext.PageBoardID,
+                    this.PagerTop.CurrentPageIndex,
+                    this.PagerTop.PageSize);
+            }
 
             this.list.DataSource = bannedList;
 
-            this.PagerTop.Count = bannedList != null && bannedList.HasRows()
-                                      ? bannedList.AsEnumerable().First().Field<int>("TotalRows")
+            this.PagerTop.Count = bannedList != null && bannedList.Any()
+                                      ? this.GetRepository<BannedEmail>()
+                                          .Count(x => x.BoardID == this.PageContext.PageBoardID).ToType<int>()
                                       : 0;
 
             this.DataBind();

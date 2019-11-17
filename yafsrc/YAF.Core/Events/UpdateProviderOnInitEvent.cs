@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -27,11 +27,11 @@ namespace YAF.Core
 
   using System.Web.Security;
 
-  using YAF.Classes;
+  using YAF.Configuration;
   using YAF.Types;
   using YAF.Types.Attributes;
   using YAF.Types.EventProxies;
-  using YAF.Types.Interfaces;
+  using YAF.Types.Interfaces.Events;
 
   #endregion
 
@@ -88,13 +88,7 @@ namespace YAF.Core
     /// <summary>
     ///   Gets Order.
     /// </summary>
-    public int Order
-    {
-      get
-      {
-        return 1000;
-      }
-    }
+    public int Order => 1000;
 
     #endregion
 

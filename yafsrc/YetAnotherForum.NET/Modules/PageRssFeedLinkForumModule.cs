@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -29,6 +29,7 @@ namespace YAF.Modules
   using System.Web.UI.HtmlControls;
 
   using YAF.Core;
+  using YAF.Core.Extensions;
   using YAF.Types;
   using YAF.Types.Attributes;
   using YAF.Types.Constants;
@@ -42,7 +43,7 @@ namespace YAF.Modules
   /// <summary>
   /// Summary description for PageRssFeedLinkModule
   /// </summary>
-  [YafModule("Page Rss Feed Link Module", "Tiny Gecko", 1)]
+  [YafModule(moduleName: "Page Rss Feed Link Module", moduleAuthor: "Tiny Gecko", moduleVersion: 1)]
   public class PageRssFeedLinkForumModule : SimpleBaseForumModule
   {
     #region Constants and Fields
@@ -86,13 +87,13 @@ namespace YAF.Modules
     /// </param>
     private void ForumPage_PreRender([NotNull] object sender, [NotNull] EventArgs e)
     {
-      HtmlHead head = this.ForumControl.Page.Header ??
-                      this.CurrentForumPage.FindControlRecursiveBothAs<HtmlHead>("YafHead");
+      var head = this.ForumControl.Page.Header ??
+                      this.CurrentForumPage.FindControlRecursiveBothAs<HtmlHead>(id: "YafHead");
 
       if (head != null)
       {
-        bool groupAccess =
-          this.Get<IPermissions>().Check(this.PageContext.BoardSettings.PostLatestFeedAccess);
+        var groupAccess =
+          this.Get<IPermissions>().Check(permission: this.PageContext.BoardSettings.PostLatestFeedAccess);
 
         if (this.PageContext.BoardSettings.ShowRSSLink && groupAccess)
         {
@@ -101,23 +102,21 @@ namespace YAF.Modules
             {
               Href =
                 YafBuildLink.GetLink(
-                  ForumPages.rsstopic,
-                  true,
-                  "pg={0}&ft={1}",
+                  page: ForumPages.rsstopic,
+                  fullUrl: true,
+                  format: "pg={0}&ft={1}",
                   YafRssFeeds.LatestPosts.ToInt(),
                   YafSyndicationFormats.Rss.ToInt())
             };
 
           // defaults to the "Active" rss.
-
-          rssLink.Attributes.Add("rel", "alternate");
-          rssLink.Attributes.Add("type", "application/rss+xml");
+          rssLink.Attributes.Add(key: "rel", value: "alternate");
+          rssLink.Attributes.Add(key: "type", value: "application/rss+xml");
           rssLink.Attributes.Add(
-            "title", 
-            "{0} - {1}".FormatWith(
-              this.GetText("RSSFEED"), YafContext.Current.BoardSettings.Name));
+            key: "title",
+            value: $"{this.GetText(tag: "RSSFEED")} - {YafContext.Current.BoardSettings.Name}");
 
-          head.Controls.Add(rssLink);
+          head.Controls.Add(child: rssLink);
         }
 
         if (this.PageContext.BoardSettings.ShowAtomLink && groupAccess)
@@ -127,23 +126,21 @@ namespace YAF.Modules
             {
               Href =
                 YafBuildLink.GetLink(
-                  ForumPages.rsstopic,
-                  true,
-                  "pg={0}&ft={1}",
+                  page: ForumPages.rsstopic,
+                  fullUrl: true,
+                  format: "pg={0}&ft={1}",
                   YafRssFeeds.LatestPosts.ToInt(),
                   YafSyndicationFormats.Atom.ToInt())
             };
 
           // defaults to the "Active" rss.
-
-          atomLink.Attributes.Add("rel", "alternate");
-          atomLink.Attributes.Add("type", "application/atom+xml");
+          atomLink.Attributes.Add(key: "rel", value: "alternate");
+          atomLink.Attributes.Add(key: "type", value: "application/atom+xml");
           atomLink.Attributes.Add(
-            "title", 
-            "{0} - {1}".FormatWith(
-              this.GetText("ATOMFEED"), YafContext.Current.BoardSettings.Name));
+            key: "title",
+            value: $"{this.GetText(tag: "ATOMFEED")} - {YafContext.Current.BoardSettings.Name}");
 
-          head.Controls.Add(atomLink);
+          head.Controls.Add(child: atomLink);
         }
       }
     }

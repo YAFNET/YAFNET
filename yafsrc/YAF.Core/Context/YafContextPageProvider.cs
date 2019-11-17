@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -68,10 +68,13 @@ namespace YAF.Core
         /// <param name="lifetimeScope">
         /// The container.
         /// </param>
+        /// <param name="injectServices">
+        /// The inject Services.
+        /// </param>
         public YafContextPageProvider(ILifetimeScope lifetimeScope, IInjectServices injectServices)
         {
             this._lifetimeScope = lifetimeScope;
-            _injectServices = injectServices;
+            this._injectServices = injectServices;
         }
 
         #endregion
@@ -90,9 +93,7 @@ namespace YAF.Core
                     return _globalInstance ?? (_globalInstance = this.CreateContextInstance());
                 }
 
-                var pageInstance = HttpContext.Current.Items[PageYafContextName] as YafContext;
-
-                if (pageInstance == null)
+                if (!(HttpContext.Current.Items[PageYafContextName] is YafContext pageInstance))
                 {
                     pageInstance = this.CreateContextInstance();
 

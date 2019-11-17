@@ -1,9 +1,9 @@
-﻿/* Yet Another Forum.NET
+/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -31,27 +31,30 @@ namespace YAF.Pages.Admin
     using System.Data.SqlClient;
     using System.Linq;
     using System.Net.Mail;
+    using System.Web.Security;
     using System.Web.UI.WebControls;
 
-    using FarsiLibrary;
+    using FarsiLibrary.Utils;
 
     using YAF.Classes;
-    using YAF.Classes.Data;
-    using YAF.Controls;
+    using YAF.Configuration;
     using YAF.Core;
     using YAF.Core.Extensions;
     using YAF.Core.Helpers;
     using YAF.Core.Model;
     using YAF.Core.Services;
+    using YAF.Core.UsersRoles;
+    using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
     using YAF.Types.Models;
-    using YAF.Utilities;
     using YAF.Utils;
     using YAF.Utils.Helpers;
+    using YAF.Web.Controls;
+    using YAF.Web.Extensions;
 
     #endregion
 
@@ -67,7 +70,7 @@ namespace YAF.Pages.Admin
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        public void BoardStatsSelect_Changed([NotNull] object sender, [NotNull] EventArgs e)
+        public void BoardStatsSelectChanged([NotNull] object sender, [NotNull] EventArgs e)
         {
             // re-bind data
             this.BindData();
@@ -78,7 +81,7 @@ namespace YAF.Pages.Admin
         /// </summary>
         /// <param name="source">The source of the event.</param>
         /// <param name="e">The <see cref="System.Web.UI.WebControls.RepeaterCommandEventArgs"/> instance containing the event data.</param>
-        public void UserList_ItemCommand([NotNull] object source, [NotNull] RepeaterCommandEventArgs e)
+        public void UserListItemCommand([NotNull] object source, [NotNull] RepeaterCommandEventArgs e)
         {
             switch (e.CommandName)
             {
@@ -108,16 +111,28 @@ namespace YAF.Pages.Admin
 
                         verifyEmail.SendEmail(new MailAddress(checkMail.Email, commandArgument[1]), subject, true);
 
-                        this.PageContext.AddLoadMessage(this.GetText("ADMIN_ADMIN", "MSG_MESSAGE_SEND"));
+                        this.PageContext.AddLoadMessage(
+                            this.GetText("ADMIN_ADMIN", "MSG_MESSAGE_SEND"),
+                            MessageTypes.success);
                     }
-                    
+                    else
+                    {
+                        var userFound = this.Get<IUserDisplayName>().Find(commandArgument[1]).FirstOrDefault();
+
+                        var user = this.Get<MembershipProvider>().GetUser(userFound.Name, false);
+
+                        this.Get<ISendNotification>().SendVerificationEmail(user, commandArgument[0], userFound.ID);
+                    }
+
                     break;
                 case "delete":
                     var daysValue =
                         this.PageContext.CurrentForumPage.FindControlRecursiveAs<TextBox>("DaysOld").Text.Trim();
                     if (!ValidationHelper.IsValidInt(daysValue))
                     {
-                        this.PageContext.AddLoadMessage(this.GetText("ADMIN_ADMIN", "MSG_VALID_DAYS"));
+                        this.PageContext.AddLoadMessage(
+                            this.GetText("ADMIN_ADMIN", "MSG_VALID_DAYS"),
+                            MessageTypes.warning);
                         return;
                     }
 
@@ -126,7 +141,8 @@ namespace YAF.Pages.Admin
                         UserMembershipHelper.DeleteUser(e.CommandArgument.ToType<int>());
                     }
 
-                    LegacyDb.user_delete(e.CommandArgument);
+                    this.GetRepository<User>().Delete(e.CommandArgument.ToType<int>());
+
                     this.BindData();
                     break;
                 case "approve":
@@ -140,7 +156,9 @@ namespace YAF.Pages.Admin
                         this.PageContext.CurrentForumPage.FindControlRecursiveAs<TextBox>("DaysOld").Text.Trim();
                     if (!ValidationHelper.IsValidInt(daysValueAll))
                     {
-                        this.PageContext.AddLoadMessage(this.GetText("ADMIN_ADMIN", "MSG_VALID_DAYS"));
+                        this.PageContext.AddLoadMessage(
+                            this.GetText("ADMIN_ADMIN", "MSG_VALID_DAYS"),
+                            MessageTypes.warning);
                         return;
                     }
 
@@ -149,14 +167,14 @@ namespace YAF.Pages.Admin
                         UserMembershipHelper.DeleteAllUnapproved(DateTime.UtcNow.AddDays(-daysValueAll.ToType<int>()));
                     }
 
-                    LegacyDb.user_deleteold(this.PageContext.PageBoardID, daysValueAll.ToType<int>());
+                    this.GetRepository<User>().DeleteOld(this.PageContext.PageBoardID, daysValueAll.ToType<int>());
                     this.BindData();
                     break;
                 case "approveall":
                     UserMembershipHelper.ApproveAll();
 
                     // vzrus: Should delete users from send email list
-                    LegacyDb.user_approveall(this.PageContext.PageBoardID);
+                    this.GetRepository<User>().ApproveAll(this.PageContext.PageBoardID);
                     this.BindData();
                     break;
             }
@@ -167,52 +185,9 @@ namespace YAF.Pages.Admin
         #region Methods
 
         /// <summary>
-        /// Adds Confirmation Dialog to the Approve All Button
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        protected void ApproveAll_Load([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            ((Button)sender).Text = this.GetText("ADMIN_ADMIN", "APROVE_ALL");
-            ControlHelper.AddOnClickConfirmDialog(sender, this.GetText("ADMIN_ADMIN", "CONFIRM_APROVE_ALL"));
-        }
-
-        /// <summary>
-        /// Adds Confirmation Dialog to the Approve Button
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        protected void Approve_Load([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            ControlHelper.AddOnClickConfirmDialog(sender, this.GetText("ADMIN_ADMIN", "CONFIRM_APROVE"));
-        }
-
-        /// <summary>
-        /// Adds Confirmation Dialog to the Delete All Button
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        protected void DeleteAll_Load([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            ((Button)sender).Text = this.GetText("ADMIN_ADMIN", "DELETE_ALL");
-
-            ControlHelper.AddOnClickConfirmDialog(sender, this.GetText("ADMIN_ADMIN", "CONFIRM_DELETE_ALL"));
-        }
-
-        /// <summary>
-        /// Adds Confirmation Dialog to the Delete Button
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        protected void Delete_Load([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            ControlHelper.AddOnClickConfirmDialog(sender, this.GetText("ADMIN_ADMIN", "CONFIRM_DELETE"));
-        }
-
-        /// <summary>
         /// Formats the forum link.
         /// </summary>
-        /// <param name="forumID">
+        /// <param name="forumId">
         /// The forum ID.
         /// </param>
         /// <param name="forumName">
@@ -221,22 +196,21 @@ namespace YAF.Pages.Admin
         /// <returns>
         /// The format forum link.
         /// </returns>
-        protected string FormatForumLink([NotNull] object forumID, [NotNull] object forumName)
+        protected string FormatForumLink([NotNull] object forumId, [NotNull] object forumName)
         {
-            if (forumID.ToString() == string.Empty || forumName.ToString() == string.Empty)
+            if (forumId.ToString() == string.Empty || forumName.ToString() == string.Empty)
             {
                 return string.Empty;
             }
 
             return
-                "<a target=\"_top\" href=\"{0}\">{1}</a>".FormatWith(
-                    YafBuildLink.GetLink(ForumPages.topics, "f={0}&name={1}", forumID, forumName), forumName);
+                $"<a target=\"_top\" href=\"{YafBuildLink.GetLink(ForumPages.topics, "f={0}&name={1}", forumId, forumName)}\">{forumName}</a>";
         }
 
         /// <summary>
         /// Formats the topic link.
         /// </summary>
-        /// <param name="topicID">
+        /// <param name="topicId">
         /// The topic ID.
         /// </param>
         /// <param name="topicName">
@@ -245,16 +219,15 @@ namespace YAF.Pages.Admin
         /// <returns>
         /// The format topic link.
         /// </returns>
-        protected string FormatTopicLink([NotNull] object topicID, [NotNull] object topicName)
+        protected string FormatTopicLink([NotNull] object topicId, [NotNull] object topicName)
         {
-            if (topicID.ToString() == string.Empty || topicName.ToString() == string.Empty)
+            if (topicId.ToString() == string.Empty || topicName.ToString() == string.Empty)
             {
                 return string.Empty;
             }
 
             return
-                "<a target=\"_top\" href=\"{0}\">{1}</a>".FormatWith(
-                    YafBuildLink.GetLink(ForumPages.posts, "t={0}", topicID), topicName);
+                $"<a target=\"_top\" href=\"{YafBuildLink.GetLink(ForumPages.posts, "t={0}", topicId)}\">{topicName}</a>";
         }
 
         /// <summary>
@@ -291,7 +264,7 @@ namespace YAF.Pages.Admin
         {
             base.OnPreRender(e);
         }
-        
+
         /// <summary>
         /// Handles the Load event of the Page control.
         /// </summary>
@@ -304,43 +277,22 @@ namespace YAF.Pages.Admin
                 return;
             }
 
-            this.CreatePageLinks();
-
-           this.Page.Header.Title = this.GetText("ADMIN_ADMIN", "Administration");
+            this.BoardStatsSelect.Visible = this.PageContext.IsHostAdmin;
 
             // bind data
             this.BindBoardsList();
 
             this.BindData();
 
-            var latestInfo = new LatestInformationService().GetLatestVersionInformation();
-
-            if (latestInfo == null || BitConverter.ToInt64(latestInfo.Version, 0)
-                <= BitConverter.ToInt64(YafForumInfo.AppVersionCode, 0))
+            try
             {
-                return;
+                this.ShowUpgradeMessage();
             }
-
-            // updateLink
-            var updateLink = new Action<HyperLink>(
-                link =>
-                    {
-                        link.Text = latestInfo.Message;
-                        link.NavigateUrl = latestInfo.Link;
-                    });
-
-            if (latestInfo.IsWarning)
+            catch (Exception)
             {
-                this.UpdateWarning.Visible = true;
-                updateLink(this.UpdateLinkWarning);
+                this.UpdateHightlight.Visible = false;
+                this.UpdateWarning.Visible = false;
             }
-            else
-            {
-                this.UpdateHightlight.Visible = true;
-                updateLink(this.UpdateLinkHighlight);
-            }
-
-            // UpgradeNotice.Visible = install._default.GetCurrentVersion() < Data.AppVersion;
         }
 
         /// <summary>
@@ -352,6 +304,40 @@ namespace YAF.Pages.Admin
             this.PageLinks.AddRoot();
 
             this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), string.Empty);
+
+            this.Page.Header.Title = this.GetText("ADMIN_ADMIN", "Administration");
+        }
+
+        /// <summary>
+        /// Shows the upgrade message.
+        /// </summary>
+        private void ShowUpgradeMessage()
+        {
+            var latestInfo = new LatestInformationService().GetLatestVersionInformation();
+
+            if (latestInfo == null || BitConverter.ToInt64(latestInfo.Version, 0) <= BitConverter.ToInt64(YafForumInfo.AppVersionCode, 0))
+            {
+                return;
+            }
+
+            // updateLink
+            var updateLink = new Action<HyperLink>(
+                link =>
+                {
+                    link.Text = latestInfo.Message;
+                    link.NavigateUrl = latestInfo.Link;
+                });
+
+            if (latestInfo.IsWarning)
+            {
+                this.UpdateWarning.Visible = true;
+                updateLink(this.UpdateLinkWarning);
+            }
+            else
+            {
+                this.UpdateHightlight.Visible = true;
+                updateLink(this.UpdateLinkHighlight);
+            }
         }
 
         /// <summary>
@@ -365,10 +351,7 @@ namespace YAF.Pages.Admin
             {
                 YafContext.Current.PageElements.RegisterJsBlock(
                     "ActiveUsersTablesorterLoadJs",
-                    JavaScriptBlocks.LoadTableSorter(
-                        "#ActiveUsers",
-                        "sortList: [[0,0]]",
-                        "#ActiveUsersPager"));
+                    JavaScriptBlocks.LoadTableSorter("#ActiveUsers", "sortList: [[0,0]]", "#ActiveUsersPager"));
             }
 
             this.ActiveList.DataSource = activeUsers;
@@ -386,18 +369,13 @@ namespace YAF.Pages.Admin
                 return;
             }
 
-            DataTable dt = this.GetRepository<Board>().List();
+            var boards = this.GetRepository<Board>().GetAll();
 
             // add row for "all boards" (null value)
-            DataRow r = dt.NewRow();
+            boards.Insert(0, new Board { ID = -1, Name = this.GetText("ADMIN_ADMIN", "ALL_BOARDS") });
 
-            r["BoardID"] = -1;
-            r["Name"] = this.GetText("ADMIN_ADMIN", "ALL_BOARDS");
-
-            dt.Rows.InsertAt(r, 0);
-
-            // set datasource
-            this.BoardStatsSelect.DataSource = dt;
+            // set data source
+            this.BoardStatsSelect.DataSource = boards;
             this.BoardStatsSelect.DataBind();
 
             // select current board as default
@@ -415,7 +393,7 @@ namespace YAF.Pages.Admin
 
             if (this.UnverifiedUsersHolder.Visible)
             {
-                var unverifiedUsers = LegacyDb.user_list(this.PageContext.PageBoardID, null, false);
+                var unverifiedUsers = this.GetRepository<User>().ListAsDataTable(this.PageContext.PageBoardID, null, false);
 
                 if (unverifiedUsers.HasRows())
                 {
@@ -433,34 +411,37 @@ namespace YAF.Pages.Admin
             }
 
             // get stats for current board, selected board or all boards (see function)
-            var row = this.GetRepository<Board>().Stats(this.GetSelectedBoardID());
+            var row = this.GetRepository<Board>().Stats(this.GetSelectedBoardId());
 
-            this.NumPosts.Text = "{0:N0}".FormatWith(row["NumPosts"]);
-            this.NumTopics.Text = "{0:N0}".FormatWith(row["NumTopics"]);
-            this.NumUsers.Text = "{0:N0}".FormatWith(row["NumUsers"]);
+            this.NumPosts.Text = $"{row["NumPosts"]:N0}";
+            this.NumTopics.Text = $"{row["NumTopics"]:N0}";
+            this.NumUsers.Text = $"{row["NumUsers"]:N0}";
 
-            TimeSpan span = DateTime.UtcNow - (DateTime)row["BoardStart"];
+            var span = DateTime.UtcNow - (DateTime)row["BoardStart"];
             double days = span.Days;
 
-            this.BoardStart.Text =
-                this.GetText("ADMIN_ADMIN", "DAYS_AGO").FormatWith(
-                    this.Get<YafBoardSettings>().UseFarsiCalender
-                        ? PersianDateConverter.ToPersianDate((DateTime)row["BoardStart"])
-                        : row["BoardStart"],
-                    days);
+            this.BoardStart.Text = this.Get<IDateTime>().FormatDateTimeTopic(
+                this.Get<YafBoardSettings>().UseFarsiCalender
+                    ? PersianDateConverter.ToPersianDate((DateTime)row["BoardStart"])
+                    : row["BoardStart"]);
+
+            this.BoardStartAgo.Text = new DisplayDateTime
+                                          {
+                                              DateTime = (DateTime)row["BoardStart"], Format = DateTimeFormat.BothTopic
+                                          }.RenderToString();
 
             if (days < 1)
             {
                 days = 1;
             }
 
-            this.DayPosts.Text = "{0:N2}".FormatWith(row["NumPosts"].ToType<int>() / days);
-            this.DayTopics.Text = "{0:N2}".FormatWith(row["NumTopics"].ToType<int>() / days);
-            this.DayUsers.Text = "{0:N2}".FormatWith(row["NumUsers"].ToType<int>() / days);
+            this.DayPosts.Text = $"{row["NumPosts"].ToType<int>() / days:N2}";
+            this.DayTopics.Text = $"{row["NumTopics"].ToType<int>() / days:N2}";
+            this.DayUsers.Text = $"{row["NumUsers"].ToType<int>() / days:N2}";
 
             try
             {
-                this.DBSize.Text = "{0} MB".FormatWith(this.Get<IDbFunction>().GetDBSize());
+                this.DBSize.Text = $"{this.Get<IDbFunction>().GetDBSize()} MB";
             }
             catch (SqlException)
             {
@@ -486,14 +467,14 @@ namespace YAF.Pages.Admin
         /// </returns>
         private DataTable GetActiveUsersData(bool showGuests, bool showCrawlers)
         {
-            // vzrus: Here should not be a common cache as it's should be individual for each user because of ActiveLocationcontrol to hide unavailable places.        
+            // vzrus: Here should not be a common cache as it's should be individual for each user because of ActiveLocationcontrol to hide unavailable places.
             var activeUsers = this.GetRepository<Active>()
-                .ListUser(
-                    userID: this.PageContext.PageUserID,
-                    guests: showGuests,
-                    showCrawlers: showCrawlers,
-                    activeTime: this.PageContext.BoardSettings.ActiveListTime,
-                    styledNicks: this.PageContext.BoardSettings.UseStyledNicks);
+                .ListUserAsDataTable(
+                    this.PageContext.PageUserID,
+                    showGuests,
+                    showCrawlers,
+                    this.PageContext.BoardSettings.ActiveListTime,
+                    this.PageContext.BoardSettings.UseStyledNicks);
 
             return activeUsers;
         }
@@ -504,7 +485,7 @@ namespace YAF.Pages.Admin
         /// <returns>
         /// Returns ID of selected board (for host admin), ID of current board (for admin), null if all boards is selected.
         /// </returns>
-        private int? GetSelectedBoardID()
+        private int? GetSelectedBoardId()
         {
             // check dropdown only if user is hostadmin
             if (!this.PageContext.IsHostAdmin)

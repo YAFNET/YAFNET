@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -28,7 +28,6 @@ namespace YAF.Core.Helpers
     using System.Linq;
 
     using YAF.Types;
-    using YAF.Types.Extensions;
     using YAF.Types.Interfaces.Data;
 
     /// <summary>
@@ -37,14 +36,24 @@ namespace YAF.Core.Helpers
     public static class DbFunctionHelper
     {
         /// <summary>
-        /// Validates the and execute.
+        /// The validate and execute.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="dbFunction">The database function.</param>
-        /// <param name="operationName">Name of the operation.</param>
-        /// <param name="func">The function.</param>
-        /// <returns></returns>
-        /// <exception cref="System.InvalidOperationException">@Database Provider does not support operation {0}..FormatWith(operationName)</exception>
+        /// <param name="dbFunction">
+        /// The db function.
+        /// </param>
+        /// <param name="operationName">
+        /// The operation name.
+        /// </param>
+        /// <param name="func">
+        /// The func.
+        /// </param>
+        /// <typeparam name="T">
+        /// </typeparam>
+        /// <returns>
+        /// The <see cref="T"/>.
+        /// </returns>
+        /// <exception cref="InvalidOperationException">
+        /// </exception>
         private static T ValidateAndExecute<T>(
             this IDbFunction dbFunction,
             string operationName,
@@ -53,7 +62,7 @@ namespace YAF.Core.Helpers
             if (!dbFunction.DbSpecificFunctions.WhereOperationSupported(operationName).Any())
             {
                 throw new InvalidOperationException(
-                    @"Database Provider does not support operation ""{0}"".".FormatWith(operationName));
+                    $@"Database Provider does not support operation ""{operationName}"".");
             }
 
             return func(dbFunction);
@@ -86,19 +95,144 @@ namespace YAF.Core.Helpers
         }
 
         /// <summary>
-        /// Determines whether [is full text supported].
+        /// Gets the current SQL Engine Edition.
         /// </summary>
         /// <param name="dbFunction">The database function.</param>
         /// <returns>
-        /// Returns if full text is supported by the server or not
+        /// Returns the current SQL Engine Edition.
         /// </returns>
-        public static bool IsFullTextSupported([NotNull] this IDbFunction dbFunction)
+        public static string GetSQLVersion([NotNull] this IDbFunction dbFunction)
+        {
+            CodeContracts.VerifyNotNull(dbFunction, "dbFunction");
+
+            return dbFunction.ValidateAndExecute("GetSQLVersion", f => f.GetScalar<string>(s => s.GetSQLVersion()));
+        }
+
+        /// <summary>
+        /// The shrink database.
+        /// </summary>
+        /// <param name="dbFunction">
+        /// The db function.
+        /// </param>
+        public static void ShrinkDatabase([NotNull] this IDbFunction dbFunction)
+        {
+            CodeContracts.VerifyNotNull(dbFunction, "dbFunction");
+
+            dbFunction.ValidateAndExecute("ShrinkDatabase", f => f.GetScalar<string>(s => s.ShrinkDatabase()));
+        }
+
+        /// <summary>
+        /// The re index database.
+        /// </summary>
+        /// <param name="dbFunction">
+        /// The db function.
+        /// </param>
+        /// <returns>
+        /// The <see cref="string"/>.
+        /// </returns>
+        public static string ReIndexDatabase([NotNull] this IDbFunction dbFunction)
+        {
+            CodeContracts.VerifyNotNull(dbFunction, "dbFunction");
+
+            return dbFunction.ValidateAndExecute("ShrinkDatabase", f => f.GetScalar<string>(s => s.ReIndexDatabase()));
+        }
+
+        /// <summary>
+        /// The system initialize execute scripts.
+        /// </summary>
+        /// <param name="dbFunction">
+        /// The db function.
+        /// </param>
+        /// <param name="script">
+        /// The script.
+        /// </param>
+        /// <param name="scriptFile">
+        /// The script file.
+        /// </param>
+        /// <param name="useTransactions">
+        /// The use transactions.
+        /// </param>
+        public static void SystemInitializeExecutescripts(
+            [NotNull] this IDbFunction dbFunction,
+            [NotNull] string script,
+            [NotNull] string scriptFile,
+            bool useTransactions)
+        {
+            CodeContracts.VerifyNotNull(dbFunction, "dbFunction");
+
+            dbFunction.ValidateAndExecute(
+                "SystemInitializeExecutescripts",
+                f => f.Scalar.SystemInitializeExecutescripts(script, scriptFile, useTransactions));
+        }
+
+        /// <summary>
+        /// The system initialize fix access.
+        /// </summary>
+        /// <param name="dbFunction">
+        /// The db function.
+        /// </param>
+        /// <param name="grantAccess">
+        /// The grant access.
+        /// </param>
+        public static void SystemInitializeFixaccess(
+            [NotNull] this IDbFunction dbFunction,
+            bool grantAccess)
+        {
+            CodeContracts.VerifyNotNull(dbFunction, "dbFunction");
+
+            dbFunction.ValidateAndExecute(
+                "SystemInitializeFixaccess",
+                f => f.Scalar.SystemInitializeFixaccess(grantAccess));
+        }
+
+        /// <summary>
+        /// The run sql.
+        /// </summary>
+        /// <param name="dbFunction">
+        /// The db function.
+        /// </param>
+        /// <param name="sql">
+        /// The sql.
+        /// </param>
+        /// <param name="useTransaction">
+        /// The use transaction.
+        /// </param>
+        /// <returns>
+        /// The <see cref="string"/>.
+        /// </returns>
+        public static string RunSQL(
+            [NotNull] this IDbFunction dbFunction,
+            string sql,
+            bool useTransaction)
+        {
+            CodeContracts.VerifyNotNull(dbFunction, "dbFunction");
+
+           return dbFunction.ValidateAndExecute(
+                "RunSQL",
+                f => f.Scalar.RunSQL(sql, useTransaction));
+        }
+
+        /// <summary>
+        /// The change recovery mode.
+        /// </summary>
+        /// <param name="dbFunction">
+        /// The db function.
+        /// </param>
+        /// <param name="recoveryMode">
+        /// The recovery mode.
+        /// </param>
+        /// <returns>
+        /// The <see cref="string"/>.
+        /// </returns>
+        public static string ChangeRecoveryMode(
+            [NotNull] this IDbFunction dbFunction,
+            string recoveryMode)
         {
             CodeContracts.VerifyNotNull(dbFunction, "dbFunction");
 
             return dbFunction.ValidateAndExecute(
-                "IsFullTextSupported",
-                f => f.GetScalar<bool>(s => s.IsFullTextSupported()));
+                "ChangeRecoveryMode",
+                f => f.Scalar.ChangeRecoveryMode(recoveryMode));
         }
     }
 }

@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -22,7 +22,7 @@
  * under the License.
  */
 
-namespace YAF.Utils.Helpers
+namespace YAF.Utils.Helpers.ImageUtils
 {
     #region Using
 
@@ -31,8 +31,6 @@ namespace YAF.Utils.Helpers
     using System.IO;
     using System.Net;
     using System.Web;
-
-    using YAF.Types.Extensions;
 
     #endregion
 
@@ -57,10 +55,9 @@ namespace YAF.Utils.Helpers
         /// </returns>
         public static string GetImageParameters(Uri uriPath, out long length)
         {
-            string pseudoMime;
-            string contentType;
-
-            using (Stream stream = GetRemoteData(uriPath, out length, out contentType))
+            var pseudoMime = string.Empty;
+            var contentType = string.Empty;
+            using (var stream = GetRemoteData(uriPath, out length, out contentType))
             {
                 Bitmap img = null;
                 try
@@ -68,7 +65,7 @@ namespace YAF.Utils.Helpers
                     img = new Bitmap(stream);
 
                     // no need to set here mime exatly this is reserved for customization.
-                    pseudoMime = "{0}!{1};{2}".FormatWith(contentType, img.Width, img.Height);
+                    pseudoMime = $"{contentType}!{img.Width};{img.Height}";
                 }
                 catch
                 {
@@ -88,8 +85,9 @@ namespace YAF.Utils.Helpers
         /// <summary>
         /// An image reader to read images on local disk.
         /// </summary>
-        /// <param name="path">The path.</param>
-        /// <returns>Returns the local file stream</returns>
+        /// <param name="path">
+        /// The path. 
+        /// </param>
         public static Stream GetLocalData(Uri path)
         {
             return new FileStream(path.LocalPath, FileMode.Open);
@@ -112,19 +110,19 @@ namespace YAF.Utils.Helpers
         /// </returns>
         public static Stream GetRemoteData(Uri url, out long length, out string contentType)
         {
-            string path = url.ToString();
+            var path = url.ToString();
             length = 0;
             contentType = string.Empty;
             try
             {
                 if (path.StartsWith("~/"))
                 {
-                    path = "file://" + HttpRuntime.AppDomainAppPath + path.Substring(2, path.Length - 2);
+                    path = $"file://{HttpRuntime.AppDomainAppPath}{path.Substring(2, path.Length - 2)}";
                 }
 
-                WebRequest request = WebRequest.Create(new Uri(path));
+                var request = WebRequest.Create(new Uri(path));
 
-                WebResponse response = request.GetResponse();
+                var response = request.GetResponse();
                 length = response.ContentLength;
                 contentType = response.ContentType;
                 return response.GetResponseStream();
@@ -154,6 +152,7 @@ namespace YAF.Utils.Helpers
         /// </returns>
         public static Stream GetResizedImageStreamFromImage(Image img, long x, long y)
         {
+            Stream resized = null;
             double newWidth = img.Width;
             double newHeight = img.Height;
             if (newWidth > x)
@@ -169,26 +168,11 @@ namespace YAF.Utils.Helpers
             }
 
             // TODO : Save an Animated Gif
-            var bitmap = img.GetThumbnailImage(newWidth.ToType<int>(), newHeight.ToType<int>(), null, IntPtr.Zero);
+            var bitmap = img.GetThumbnailImage((int)newWidth, (int)newHeight, null, IntPtr.Zero);
 
-            Stream resized = new MemoryStream();
+            resized = new MemoryStream();
             bitmap.Save(resized, img.RawFormat);
             return resized;
-        }
-
-        /// <summary>
-        /// Gets the size of the image.
-        /// </summary>
-        /// <param name="bytes">The bytes.</param>
-        /// <returns></returns>
-        public static Size GetImageSize(byte[] bytes)
-        {
-            using (var stream = new MemoryStream(bytes))
-            {
-                var image = System.Drawing.Image.FromStream(stream);
-
-                return image.Size;
-            }
         }
 
         #endregion

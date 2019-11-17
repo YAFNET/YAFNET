@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -26,16 +26,10 @@ namespace YAF.Core.Services
     #region Using
 
     using System.Collections.Generic;
-    using System.Globalization;
     using System.Web;
     using System.Web.UI;
 
-    using FarsiLibrary;
-
-    using YAF.Classes;
     using YAF.Core;
-    using YAF.Types.Extensions;
-    using YAF.Types.Interfaces;
     using YAF.Utils;
     using YAF.Utils.Helpers;
 
@@ -51,7 +45,7 @@ namespace YAF.Core.Services
         /// <summary>
         ///   The _registered elements.
         /// </summary>
-        private readonly List<string> _registeredElements = new List<string>();
+        private readonly List<string> registeredElements = new List<string>();
 
         #endregion
 
@@ -61,13 +55,7 @@ namespace YAF.Core.Services
         ///   Gets elements (using in the head or header) that are registered on the page.
         ///   Used mostly by RegisterPageElementHelper.
         /// </summary>
-        public List<string> RegisteredElements
-        {
-            get
-            {
-                return this._registeredElements;
-            }
-        }
+        public List<string> RegisteredElements => this.registeredElements;
 
         #endregion
 
@@ -81,7 +69,7 @@ namespace YAF.Core.Services
         /// </param>
         public void AddPageElement(string name)
         {
-            this._registeredElements.Add(name.ToLower());
+            this.registeredElements.Add(name.ToLower());
         }
 
         /// <summary>
@@ -95,7 +83,7 @@ namespace YAF.Core.Services
         /// </returns>
         public bool PageElementExists(string name)
         {
-            return this._registeredElements.Contains(name.ToLower());
+            return this.registeredElements.Contains(name.ToLower());
         }
 
         /// <summary>
@@ -182,60 +170,6 @@ namespace YAF.Core.Services
         }
 
         /// <summary>
-        /// Register the jQueryUI date picker language file.
-        /// </summary>
-        /// <param name="currentCulture">The current culture.</param>
-        public void RegisterJQueryUILanguageFile(CultureInfo currentCulture)
-        {
-            this.RegisterJQueryUILanguageFile(YafContext.Current.CurrentForumPage.TopPageControl, currentCulture);
-        }
-
-        /// <summary>
-        /// Register the jQueryUI date picker language file.
-        /// </summary>
-        /// <param name="element">Control element to put in</param>
-        /// <param name="currentCulture">The current culture.</param>
-        public void RegisterJQueryUILanguageFile(Control element, CultureInfo currentCulture)
-        {
-            // If registered or told not to register, don't bother
-            if (this.PageElementExists("datepickerlang"))
-            {
-                return;
-            }
-
-            string jqueryUILangUrl;
-
-            // Check if override file is set ?
-            if (Config.JQueryUIOverrideLangFile.IsSet())
-            {
-                jqueryUILangUrl = !Config.JQueryUIOverrideLangFile.StartsWith("http")
-                                  && !Config.JQueryUIOverrideLangFile.StartsWith("//")
-                                      ? YafForumInfo.GetURLToScripts(Config.JQueryUIOverrideLangFile)
-                                      : Config.JQueryUIOverrideLangFile;
-            }
-            else
-            {
-                jqueryUILangUrl = YafContext.Current.Get<YafBoardSettings>().JqueryUICDNHosted
-                                      ? "//ajax.aspnetcdn.com/ajax/jquery.ui/1.11.4/i18n/jquery-ui-i18n.min.js"
-#if DEBUG
-                                      : YafForumInfo.GetURLToScripts("jquery-ui-i18n.js");
-#else
-                                      : YafForumInfo.GetURLToScripts("jquery-ui-i18n.min.js");
-#endif
-            }
-
-            // load jQuery UI from google...
-            element.Controls.Add(ControlHelper.MakeJsIncludeControl(jqueryUILangUrl));
-
-            this.AddPageElement("datepickerlang");
-
-            if (currentCulture.IsFarsiCulture())
-            {
-                this.RegisterJsScriptsInclude("datepicker-farsi", "jquery.ui.datepicker-farsi.min.js");
-            }
-        }
-
-        /// <summary>
         /// Registers a Java Script block using the script manager. Adds script tags.
         /// </summary>
         /// <param name="name">
@@ -246,7 +180,7 @@ namespace YAF.Core.Services
         /// </param>
         public void RegisterJsBlock(string name, string script)
         {
-            this.RegisterJsBlock(this.GetCurrentPage(), name, script);
+            this.RegisterJsBlock(GetCurrentPage(), name, script);
         }
 
         /// <summary>
@@ -265,7 +199,7 @@ namespace YAF.Core.Services
         {
             if (!this.PageElementExists(name))
             {
-                ScriptManager.RegisterClientScriptBlock(
+                ScriptManager.RegisterStartupScript(
                     thisControl,
                     thisControl.GetType(),
                     name,
@@ -285,7 +219,7 @@ namespace YAF.Core.Services
         /// </param>
         public void RegisterJsBlockStartup(string name, string script)
         {
-            this.RegisterJsBlockStartup(this.GetCurrentPage(), name, script);
+            this.RegisterJsBlockStartup(GetCurrentPage(), name, script);
         }
 
         /// <summary>
@@ -314,83 +248,55 @@ namespace YAF.Core.Services
         }
 
         /// <summary>
-        /// Registers a Java Script include using the script manager.
+        /// The add script reference.
         /// </summary>
-        /// <param name="thisControl">
-        /// The this Control.
-        /// </param>
         /// <param name="name">
         /// The name.
         /// </param>
-        /// <param name="url">
-        /// The url.
-        /// </param>
-        public void RegisterJsInclude(Control thisControl, string name, string url)
+        public void AddScriptReference(string name)
         {
-            if (this.PageElementExists(name))
-            {
-                return;
-            }
-
-            ScriptManager.RegisterClientScriptInclude(thisControl, thisControl.GetType(), name, url);
-
-            this.AddPageElement(name);
+            this.AddScriptReference(new ScriptReference { Name = name });
         }
 
         /// <summary>
-        /// Registers a Java Script include using the script manager.
+        /// The add script reference.
         /// </summary>
         /// <param name="name">
         /// The name.
         /// </param>
-        /// <param name="url">
-        /// The url.
+        /// <param name="path">
+        /// The path.
         /// </param>
-        public void RegisterJsInclude(string name, string url)
+        public void AddScriptReference(string name, string path)
         {
-            this.RegisterJsInclude(this.GetCurrentPage(), name, url);
-        }
-
-        /// <summary>
-        /// Registers a Java Script include using the script manager.
-        /// </summary>
-        /// <param name="thisControl">
-        /// The this Control.
-        /// </param>
-        /// <param name="name">
-        /// The name.
-        /// </param>
-        /// <param name="relativeScriptsUrl">
-        /// The relative Scripts Url.
-        /// </param>
-        public void RegisterJsScriptsInclude(Control thisControl, string name, string relativeScriptsUrl)
-        {
-            if (this.PageElementExists(name))
-            {
-                return;
-            }
-
-            ScriptManager.RegisterClientScriptInclude(
-                thisControl,
-                thisControl.GetType(),
+            ScriptManager.ScriptResourceMapping.AddDefinition(
                 name,
-                YafForumInfo.GetURLToScripts(relativeScriptsUrl));
+                new ScriptResourceDefinition
+                    {
+                        Path = YafForumInfo.GetURLToScripts(path)
+                    });
 
-            this.AddPageElement(name);
+            this.AddScriptReference(new ScriptReference { Name = name });
         }
 
         /// <summary>
-        /// Registers a Java Script resource include using the script manager.
+        /// The add script reference.
         /// </summary>
-        /// <param name="name">
-        /// Unique name of the JS include
+        /// <param name="scriptReference">
+        /// The script reference.
         /// </param>
-        /// <param name="relativeScriptsUrl">
-        /// URL to the JS script
-        /// </param>
-        public void RegisterJsScriptsInclude(string name, string relativeScriptsUrl)
+        public void AddScriptReference(ScriptReference scriptReference)
         {
-            this.RegisterJsScriptsInclude(this.GetCurrentPage(), name, relativeScriptsUrl);
+            var scriptManager = ScriptManager.GetCurrent(GetCurrentPage().Page);
+
+            if (scriptReference.Name == "jquery")
+            {
+                scriptManager.Scripts.Insert(0, scriptReference);
+            }
+            else
+            {
+                scriptManager.Scripts.Add(scriptReference);
+            }
         }
 
         #endregion
@@ -399,7 +305,7 @@ namespace YAF.Core.Services
         /// Gets the current page.
         /// </summary>
         /// <returns>Returns the current page</returns>
-        private Control GetCurrentPage()
+        private static Control GetCurrentPage()
         {
             return YafContext.Current.CurrentForumPage ?? (Control)(HttpContext.Current.Handler as Page);
         }

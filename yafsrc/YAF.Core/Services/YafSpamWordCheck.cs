@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -30,7 +30,7 @@ namespace YAF.Core.Services
     using System.Linq;
     using System.Text.RegularExpressions;
 
-    using YAF.Core.Model;
+    using YAF.Core.Extensions;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
@@ -50,7 +50,7 @@ namespace YAF.Core.Services
         /// <summary>
         ///   The _options.
         /// </summary>
-        private const RegexOptions _Options = RegexOptions.IgnoreCase | RegexOptions.Compiled;
+        private const RegexOptions Options = RegexOptions.IgnoreCase | RegexOptions.Compiled;
 
         #endregion
 
@@ -102,13 +102,13 @@ namespace YAF.Core.Services
                     Constants.Cache.SpamWords,
                     () =>
                         {
-                            var spamWords =
-                               this.GetRepository<Spam_Words>().ListTyped();
+                            var spamWords = this.GetRepository<Spam_Words>().Get(
+                                x => x.BoardID == this.GetRepository<Spam_Words>().BoardID);
 
                             // move to collection...
                             return
                                 spamWords.Select(
-                                    item => new SpamWordCheckItem(item.SpamWord, _Options)).ToList();
+                                    item => new SpamWordCheckItem(item.SpamWord, Options)).ToList();
                         });
 
                 return spamItems;
@@ -139,7 +139,7 @@ namespace YAF.Core.Services
                 return false;
             }
 
-            foreach (SpamWordCheckItem item in this.SpamWordItems)
+            foreach (var item in this.SpamWordItems)
             {
                 try
                 {
@@ -162,7 +162,7 @@ namespace YAF.Core.Services
 #if DEBUG
                 catch (Exception e)
                 {
-                    throw new Exception("Spam Word Regular Expression Failed: {0}".FormatWith(e.Message), e);
+                    throw new Exception($"Spam Word Regular Expression Failed: {e.Message}", e);
                 }
 
 #else

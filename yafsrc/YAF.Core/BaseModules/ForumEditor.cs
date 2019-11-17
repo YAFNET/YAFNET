@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -29,6 +29,7 @@ namespace YAF.Core
     using System.Web.UI;
     using System.Web.UI.HtmlControls;
 
+    using YAF.Core.BaseControls;
     using YAF.Types;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
@@ -70,13 +71,7 @@ namespace YAF.Core
         /// <summary>
         ///   Gets ModuleId.
         /// </summary>
-        public virtual string ModuleId
-        {
-            get
-            {
-                return this.Description.GetHashCode().ToString();
-            }
-        }
+        public virtual string ModuleId => this.Description.GetHashCode().ToString();
 
         /// <summary>
         ///   Gets or sets StyleSheet.
@@ -84,14 +79,10 @@ namespace YAF.Core
         [NotNull]
         public virtual string StyleSheet
         {
-            get
-            {
-                return string.Empty;
-            }
+            get => string.Empty;
 
             set
             {
-                ;
             }
         }
 
@@ -103,24 +94,12 @@ namespace YAF.Core
         /// <summary>
         ///   Gets a value indicating whether UsesBBCode.
         /// </summary>
-        public virtual bool UsesBBCode
-        {
-            get
-            {
-                return false;
-            }
-        }
+        public virtual bool UsesBBCode => false;
 
         /// <summary>
         ///   Gets a value indicating whether UsesHTML.
         /// </summary>
-        public virtual bool UsesHTML
-        {
-            get
-            {
-                return false;
-            }
-        }
+        public virtual bool UsesHTML => false;
 
         /// <summary>
         /// Gets a value indicating whether [allows uploads].
@@ -128,13 +107,7 @@ namespace YAF.Core
         /// <value>
         ///   <c>true</c> if [allows uploads]; otherwise, <c>false</c>.
         /// </value>
-        public virtual bool AllowsUploads
-        {
-            get
-            {
-                return false;
-            }
-        }
+        public virtual bool AllowsUploads => false;
 
         /// <summary>
         /// Gets or sets a value indicating whether [user can upload].
@@ -144,15 +117,9 @@ namespace YAF.Core
         /// </value>
         public virtual bool UserCanUpload
         {
-            get
-            {
-                return this._userCanUpload;
-            }
+            get => this._userCanUpload;
 
-            set
-            {
-                this._userCanUpload = value;
-            }
+            set => this._userCanUpload = value;
         }
 
         #endregion

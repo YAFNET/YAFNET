@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -29,8 +29,8 @@ namespace YAF.Pages.Admin
     using System;
     using System.Web.UI.WebControls;
 
-    using YAF.Controls;
     using YAF.Core;
+    using YAF.Core.Extensions;
     using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;
@@ -38,6 +38,7 @@ namespace YAF.Pages.Admin
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
     using YAF.Utils;
+    using YAF.Web.Extensions;
 
     #endregion
 
@@ -49,28 +50,14 @@ namespace YAF.Pages.Admin
         #region Methods
 
         /// <summary>
-        /// Handles the Load event of the Delete control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        protected void Delete_Load([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            ((ThemeButton)sender).Attributes["onclick"] =
-                   "return (confirm('{0}') && confirm('{1}'))".FormatWith(
-                       this.GetText("ADMIN_BOARDS", "CONFIRM_DELETE"),
-                       this.GetText("ADMIN_FORUMS", "CONFIRM_DELETE_POSITIVE"));
-        }
-
-        /// <summary>
         /// Raises the <see cref="E:System.Web.UI.Control.Init" /> event.
         /// </summary>
         /// <param name="e">An <see cref="T:System.EventArgs" /> object that contains the event data.</param>
         protected override void OnInit([NotNull] EventArgs e)
         {
-            this.List.ItemCommand += this.List_ItemCommand;
-            this.New.Click += this.New_Click;
+            this.List.ItemCommand += this.ListItemCommand;
+            this.New.Click += New_Click;
 
-            // CODEGEN: This call is required by the ASP.NET Web Form Designer.
             base.OnInit(e);
         }
 
@@ -91,17 +78,32 @@ namespace YAF.Pages.Admin
                 return;
             }
 
+            this.BindData();
+        }
+
+        /// <summary>
+        /// Creates page links for this page.
+        /// </summary>
+        protected override void CreatePageLinks()
+        {
             this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
-            this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
+            this.PageLinks.AddLink(
+                this.GetText("ADMIN_ADMIN", "Administration"),
+                YafBuildLink.GetLink(ForumPages.admin_admin));
             this.PageLinks.AddLink(this.GetText("ADMIN_BOARDS", "TITLE"), string.Empty);
 
-            this.Page.Header.Title = "{0} - {1}".FormatWith(
-                  this.GetText("ADMIN_ADMIN", "Administration"),
-                  this.GetText("ADMIN_BOARDS", "TITLE"));
+            this.Page.Header.Title =
+                $"{this.GetText("ADMIN_ADMIN", "Administration")} - {this.GetText("ADMIN_BOARDS", "TITLE")}";
+        }
 
-            this.New.Text = this.GetText("ADMIN_BOARDS", "NEW_BOARD");
-
-            this.BindData();
+        /// <summary>
+        /// Redirects to the Create New Board Page
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        private static void New_Click([NotNull] object sender, [NotNull] EventArgs e)
+        {
+            YafBuildLink.Redirect(ForumPages.admin_editboard);
         }
 
         /// <summary>
@@ -109,7 +111,7 @@ namespace YAF.Pages.Admin
         /// </summary>
         private void BindData()
         {
-            this.List.DataSource = this.GetRepository<Board>().List();
+            this.List.DataSource = this.GetRepository<Board>().GetAll();
             this.DataBind();
         }
 
@@ -118,7 +120,7 @@ namespace YAF.Pages.Admin
         /// </summary>
         /// <param name="source">The source of the event.</param>
         /// <param name="e">The <see cref="RepeaterCommandEventArgs"/> instance containing the event data.</param>
-        private void List_ItemCommand([NotNull] object source, [NotNull] RepeaterCommandEventArgs e)
+        private void ListItemCommand([NotNull] object source, [NotNull] RepeaterCommandEventArgs e)
         {
             switch (e.CommandName)
             {
@@ -126,20 +128,10 @@ namespace YAF.Pages.Admin
                     YafBuildLink.Redirect(ForumPages.admin_editboard, "b={0}", e.CommandArgument);
                     break;
                 case "delete":
-                    this.GetRepository<Board>().Delete(e.CommandArgument.ToType<int>());
+                    this.GetRepository<Board>().DeleteBoard(e.CommandArgument.ToType<int>());
                     this.BindData();
                     break;
             }
-        }
-
-        /// <summary>
-        /// Redirects to the Create New Board Page
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        private void New_Click([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            YafBuildLink.Redirect(ForumPages.admin_editboard);
         }
 
         #endregion

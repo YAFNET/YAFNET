@@ -49,5 +49,14 @@ namespace YAF.Types.Objects
         /// </value>
         [DataMember(Name = "token_type")]
         public string TokenType { get; set; }
+
+        /// <summary>
+        /// Gets or sets the expires in.
+        /// </summary>
+        /// <value>
+        /// The expires in.
+        /// </value>
+        [DataMember(Name = "expires_in")]
+        public int ExpiresIn { get; set; }
     }
 }

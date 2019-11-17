@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -27,17 +27,19 @@ namespace YAF.Pages
     #region Using
 
     using System;
+    using System.Web;
     using System.Web.Security;
 
-    using YAF.Controls;
     using YAF.Core;
     using YAF.Core.Model;
+    using YAF.Core.UsersRoles;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
     using YAF.Utils;
+    using YAF.Web.Extensions;
 
     #endregion
 
@@ -63,13 +65,7 @@ namespace YAF.Pages
         /// <summary>
         ///   Gets a value indicating whether IsProtected.
         /// </summary>
-        public override bool IsProtected
-        {
-            get
-            {
-                return false;
-            }
-        }
+        public override bool IsProtected => false;
 
         #endregion
 
@@ -120,7 +116,7 @@ namespace YAF.Pages
             this.Get<MembershipProvider>().UpdateUser(user);
 
             // now redirect to main site...
-            this.PageContext.LoadMessage.AddSession(this.GetText("EMAIL_VERIFIED"), MessageTypes.Information);
+            this.PageContext.LoadMessage.AddSession(this.GetText("EMAIL_VERIFIED"), MessageTypes.info);
 
             // default redirect -- because if may not want to redirect to login.
             YafBuildLink.Redirect(ForumPages.forum);
@@ -145,11 +141,9 @@ namespace YAF.Pages
             this.PageLinks.AddRoot();
             this.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
 
-            this.ValidateKey.Text = this.GetText("validate");
-
-            if (this.Request.QueryString["k"] != null)
+            if (this.Get<HttpRequestBase>().QueryString.Exists("k"))
             {
-                this.key.Text = this.Request.QueryString["k"];
+                this.key.Text = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("k");
                 this.ValidateKey_Click(sender, e);
             }
             else

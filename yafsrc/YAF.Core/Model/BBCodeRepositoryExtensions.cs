@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -23,11 +23,8 @@
  */
 namespace YAF.Core.Model
 {
-    using System.Collections.Generic;
-    using System.Data;
-
+    using YAF.Core.Extensions;
     using YAF.Types;
-    using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
     using YAF.Types.Models;
 
@@ -39,59 +36,12 @@ namespace YAF.Core.Model
         #region Public Methods and Operators
 
         /// <summary>
-        /// The list.
-        /// </summary>
-        /// <param name="repository">
-        /// The repository. 
-        /// </param>
-        /// <param name="bBCodeID">
-        /// The b b code id. 
-        /// </param>
-        /// <param name="boardId">
-        /// The board Id.
-        /// </param>
-        /// <returns>
-        /// The <see cref="DataTable"/> . 
-        /// </returns>
-        public static DataTable List(this IRepository<BBCode> repository, int? bBCodeID = null, int? boardId = null)
-        {
-            CodeContracts.VerifyNotNull(repository, "repository");
-
-            return repository.DbFunction.GetData.bbcode_list(BoardID: boardId ?? repository.BoardID, BBCodeID: bBCodeID);
-        }
-
-        /// <summary>
-        /// The list typed.
-        /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
-        /// <param name="bBCodeID">
-        /// The b b code id.
-        /// </param>
-        /// <param name="boardId">
-        /// The board id.
-        /// </param>
-        /// <returns>
-        /// The <see cref="IList"/>.
-        /// </returns>
-        public static IList<BBCode> ListTyped(this IRepository<BBCode> repository, int? bBCodeID = null, int? boardId = null)
-        {
-            CodeContracts.VerifyNotNull(repository, "repository");
-
-            using (var session = repository.DbFunction.CreateSession())
-            {
-                return session.GetTyped<BBCode>(r => r.bbcode_list(BoardID: boardId ?? repository.BoardID, BBCodeID: bBCodeID));
-            }
-        }
-
-        /// <summary>
         /// The save.
         /// </summary>
         /// <param name="repository">
         /// The repository. 
         /// </param>
-        /// <param name="bBCodeID">
+        /// <param name="codeId">
         /// The b b code id. 
         /// </param>
         /// <param name="name">
@@ -100,16 +50,16 @@ namespace YAF.Core.Model
         /// <param name="description">
         /// The description. 
         /// </param>
-        /// <param name="onClickJS">
+        /// <param name="onClickJs">
         /// The on click js. 
         /// </param>
-        /// <param name="displayJS">
+        /// <param name="displayJs">
         /// The display js. 
         /// </param>
-        /// <param name="editJS">
+        /// <param name="editJs">
         /// The edit js. 
         /// </param>
-        /// <param name="displayCSS">
+        /// <param name="displayCss">
         /// The display css. 
         /// </param>
         /// <param name="searchRegEx">
@@ -124,6 +74,9 @@ namespace YAF.Core.Model
         /// <param name="useModule">
         /// The use module. 
         /// </param>
+        /// <param name="useToolbar">
+        /// Thee use Toolbar
+        /// </param>
         /// <param name="moduleClass">
         /// The module class. 
         /// </param>
@@ -135,47 +88,43 @@ namespace YAF.Core.Model
         /// </param>
         public static void Save(
             this IRepository<BBCode> repository, 
-            int? bBCodeID, 
+            int? codeId, 
             string name, 
             string description, 
-            string onClickJS, 
-            string displayJS, 
-            string editJS, 
-            string displayCSS, 
+            string onClickJs, 
+            string displayJs, 
+            string editJs, 
+            string displayCss, 
             string searchRegEx, 
             string replaceRegEx, 
             string variables, 
             bool? useModule, 
+            bool? useToolbar,
             string moduleClass, 
             int execOrder, 
             int? boardId = null)
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
-            repository.DbFunction.Query.bbcode_save(
-                BBCodeID: bBCodeID, 
-                BoardID: boardId ?? repository.BoardID, 
-                Name: name, 
-                Description: description, 
-                OnClickJS: onClickJS, 
-                DisplayJS: displayJS, 
-                EditJS: editJS, 
-                DisplayCSS: displayCSS, 
-                SearchRegEx: searchRegEx, 
-                ReplaceRegEx: replaceRegEx, 
-                Variables: variables, 
-                UseModule: useModule, 
-                ModuleClass: moduleClass, 
-                ExecOrder: execOrder);
-
-            if (bBCodeID.HasValue)
-            {
-                repository.FireUpdated(bBCodeID);
-            }
-            else
-            {
-                repository.FireNew();
-            }
+            repository.Upsert(
+                new BBCode
+                    {
+                        BoardID = boardId ?? repository.BoardID,
+                        ID = codeId ?? 0,
+                        Name = name,
+                        Description = description,
+                        OnClickJS = onClickJs,
+                        DisplayJS = displayJs,
+                        EditJS = editJs,
+                        DisplayCSS = displayCss,
+                        SearchRegex = searchRegEx,
+                        ReplaceRegex = replaceRegEx,
+                        Variables = variables,
+                        UseModule = useModule,
+                        UseToolbar = useToolbar,
+                        ModuleClass = moduleClass,
+                        ExecOrder = execOrder
+                    });
         }
 
         #endregion

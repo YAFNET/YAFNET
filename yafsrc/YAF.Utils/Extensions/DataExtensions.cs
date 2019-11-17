@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -25,15 +25,8 @@ namespace YAF.Utils.Extensions
 {
     #region Using
 
-    using System;
-    using System.Collections.Generic;
-    using System.Data;
-    using System.Linq;
-
-    using YAF.Classes;
+    using YAF.Configuration;
     using YAF.Types;
-    using YAF.Types.Extensions;
-    using YAF.Types.Interfaces;
 
     #endregion
 
@@ -51,7 +44,7 @@ namespace YAF.Utils.Extensions
         /// <returns> Returns qualified object name of format {databaseOwner}.{objectQualifier}name </returns>
         public static string GetObjectName([NotNull] string name)
         {
-            return "[{0}].[{1}{2}]".FormatWith(Config.DatabaseOwner, Config.DatabaseObjectQualifier, name);
+            return $"[{Config.DatabaseOwner}].[{Config.DatabaseObjectQualifier}{name}]";
         }
 
         #endregion

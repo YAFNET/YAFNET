@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -25,10 +25,7 @@ namespace YAF.Controls
 {
   #region Using
 
-  using System;
-
-  using YAF.Core;
-  using YAF.Types;
+  using YAF.Core.BaseControls;
 
   #endregion
 
@@ -37,29 +34,5 @@ namespace YAF.Controls
   /// </summary>
   public partial class ForumIconLegend : BaseUserControl
   {
-    #region Constructors and Destructors
-
-    /// <summary>
-    ///   Initializes a new instance of the <see cref = "ForumIconLegend" /> class.
-    /// </summary>
-    public ForumIconLegend()
-    {
-      this.PreRender += this.ForumIconLegend_PreRender;
-    }
-
-    #endregion
-
-    #region Methods
-
-    /// <summary>
-    /// Handles the PreRender event of the ForumIconLegend control.
-    /// </summary>
-    /// <param name="sender">The source of the event.</param>
-    /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-    private void ForumIconLegend_PreRender([NotNull] object sender, [NotNull] EventArgs e)
-    {
-    }
-
-    #endregion
   }
 }

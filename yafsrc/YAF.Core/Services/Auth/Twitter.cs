@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -25,33 +25,29 @@
 namespace YAF.Core.Services.Auth
 {
     using System;
-    using System.Collections.Generic;
     using System.Text;
     using System.Web;
     using System.Web.Security;
 
-    using YAF.Classes;
-    using YAF.Classes.Data;
+    using YAF.Configuration;
+    using YAF.Core.Model;
+    using YAF.Core.UsersRoles;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.EventProxies;
     using YAF.Types.Extensions;
     using YAF.Types.Flags;
     using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Events;
+    using YAF.Types.Models;
     using YAF.Types.Objects;
     using YAF.Utils;
-    using YAF.Utils.Helpers;
 
     /// <summary>
     /// Twitter Single Sign On Class
     /// </summary>
     public class Twitter : IAuthBase
     {
-        /// <summary>
-        ///   Gets or sets the User IP Info.
-        /// </summary>
-        private IDictionary<string, string> UserIpLocator { get; set; }
-
         /// <summary>
         /// Generates the login URL.
         /// </summary>
@@ -69,17 +65,13 @@ namespace YAF.Core.Services.Auth
             var oAuth = new OAuthTwitter
                             {
                                 CallBackUrl =
-                                    "{0}auth.aspx?auth={1}{2}".FormatWith(
-                                        YafForumInfo.ForumBaseUrl, 
-                                        AuthService.twitter, 
-                                        connectCurrentUser ? "&connectCurrent=true" : string.Empty), 
+                                    $"{YafForumInfo.ForumBaseUrl}auth.aspx?auth={AuthService.twitter}{(connectCurrentUser ? "&connectCurrent=true" : string.Empty)}", 
                                 ConsumerKey = Config.TwitterConsumerKey, 
                                 ConsumerSecret = Config.TwitterConsumerSecret
                             };
 
             return generatePopUpUrl
-                       ? "javascript:window.open('{0}', 'Twitter Login Window', 'width=800,height=700,left=150,top=100,scrollbar=no,resize=no'); return false;"
-                             .FormatWith(oAuth.AuthorizationLinkGet())
+                       ? $"javascript:window.open('{oAuth.AuthorizationLinkGet()}', 'Twitter Login Window', 'width=800,height=700,left=150,top=100,scrollbar=no,resize=no'); return false;"
                        : oAuth.AuthorizationLinkGet();
         }
 
@@ -215,7 +207,7 @@ namespace YAF.Core.Services.Auth
                         userProfile.Twitter = twitterUser.UserName;
                         userProfile.Homepage = twitterUser.Url.IsSet()
                                                    ? twitterUser.Url
-                                                   : "http://twitter.com/{0}".FormatWith(twitterUser.UserName);
+                                                   : $"http://twitter.com/{twitterUser.UserName}";
                         userProfile.RealName = twitterUser.Name;
                         userProfile.Interests = twitterUser.Description;
                         userProfile.Location = twitterUser.Location;
@@ -225,7 +217,7 @@ namespace YAF.Core.Services.Auth
                         // save avatar
                         if (twitterUser.ProfileImageUrl.IsSet())
                         {
-                            LegacyDb.user_saveavatar(
+                            YafContext.Current.GetRepository<User>().SaveAvatar(
                                 YafContext.Current.PageUserID, 
                                 twitterUser.ProfileImageUrl, 
                                 null, 
@@ -261,7 +253,7 @@ namespace YAF.Core.Services.Auth
         /// <returns>
         /// Returns if the login was successfully or not
         /// </returns>
-        private bool CreateTwitterUser(TwitterUser twitterUser, OAuthTwitter oAuth, out string message)
+        private static bool CreateTwitterUser(TwitterUser twitterUser, OAuthTwitter oAuth, out string message)
         {
             if (YafContext.Current.Get<YafBoardSettings>().DisableRegistrations)
             {
@@ -270,7 +262,7 @@ namespace YAF.Core.Services.Auth
             }
 
             // Create User if not exists?! Doesn't work because there is no Email
-            var email = "{0}@twitter.com".FormatWith(twitterUser.UserName);
+            var email = $"{twitterUser.UserName}@twitter.com";
 
             // Check user for bot
             /*var spamChecker = new YafSpamCheck();
@@ -329,8 +321,6 @@ namespace YAF.Core.Services.Auth
             }*/
 
             // Create User if not exists?!
-            MembershipCreateStatus status;
-
             var memberShipProvider = YafContext.Current.Get<MembershipProvider>();
 
             var pass = Membership.GeneratePassword(32, 16);
@@ -344,7 +334,7 @@ namespace YAF.Core.Services.Auth
                 memberShipProvider.RequiresQuestionAndAnswer ? securityAnswer : null,
                 true,
                 null,
-                out status);
+                out var status);
 
             // setup initial roles (if any) for this user
             RoleMembershipHelper.SetupUserRoles(YafContext.Current.PageBoardID, twitterUser.UserName);
@@ -362,38 +352,31 @@ namespace YAF.Core.Services.Auth
             userProfile.Twitter = twitterUser.UserName;
             userProfile.Homepage = twitterUser.Url.IsSet()
                                        ? twitterUser.Url
-                                       : "http://twitter.com/{0}".FormatWith(twitterUser.UserName);
+                                       : $"http://twitter.com/{twitterUser.UserName}";
             userProfile.RealName = twitterUser.Name;
             userProfile.Interests = twitterUser.Description;
             userProfile.Location = twitterUser.Location;
 
-            if (YafContext.Current.Get<YafBoardSettings>().EnableIPInfoService && this.UserIpLocator == null)
+            if (YafContext.Current.Get<YafBoardSettings>().EnableIPInfoService)
             {
-                this.UserIpLocator = new IPDetails().GetData(
-                    YafContext.Current.Get<HttpRequestBase>().GetUserRealIPAddress(),
-                    "text",
-                    false,
-                    YafContext.Current.CurrentForumPage.Localization.Culture.Name,
-                    string.Empty,
-                    string.Empty);
+                var userIpLocator = YafContext.Current.Get<IIpInfoService>().GetUserIpLocator();
 
-                if (this.UserIpLocator != null && this.UserIpLocator["StatusCode"] == "OK"
-                                               && this.UserIpLocator.Count > 0)
+                if (userIpLocator != null)
                 {
-                    userProfile.Country = this.UserIpLocator["CountryCode"];
+                    userProfile.Country = userIpLocator["CountryCode"];
 
                     var location = new StringBuilder();
 
-                    if (this.UserIpLocator["RegionName"] != null && this.UserIpLocator["RegionName"].IsSet()
-                                                                 && !this.UserIpLocator["RegionName"].Equals("-"))
+                    if (userIpLocator["RegionName"] != null && userIpLocator["RegionName"].IsSet()
+                                                                 && !userIpLocator["RegionName"].Equals("-"))
                     {
-                        location.Append(this.UserIpLocator["RegionName"]);
+                        location.Append(userIpLocator["RegionName"]);
                     }
 
-                    if (this.UserIpLocator["CityName"] != null && this.UserIpLocator["CityName"].IsSet()
-                                                               && !this.UserIpLocator["CityName"].Equals("-"))
+                    if (userIpLocator["CityName"] != null && userIpLocator["CityName"].IsSet()
+                                                               && !userIpLocator["CityName"].Equals("-"))
                     {
-                        location.AppendFormat(", {0}", this.UserIpLocator["CityName"]);
+                        location.AppendFormat(", {0}", userIpLocator["CityName"]);
                     }
 
                     userProfile.Location = location.ToString();
@@ -425,28 +408,27 @@ namespace YAF.Core.Services.Auth
             var autoWatchTopicsEnabled = YafContext.Current.Get<YafBoardSettings>().DefaultNotificationSetting
                                          == UserNotificationSetting.TopicsIPostToOrSubscribeTo;
 
-            LegacyDb.user_save(
-                userID: userId,
-                boardID: YafContext.Current.PageBoardID,
-                userName: twitterUser.UserName,
-                displayName: twitterUser.UserName,
-                email: email,
-                timeZone: TimeZoneInfo.Local.Id,
-                languageFile: null,
-                culture: null,
-                themeFile: null,
-                textEditor: null,
-                useMobileTheme: null,
-                approved: null,
-                pmNotification: YafContext.Current.Get<YafBoardSettings>().DefaultNotificationSetting,
-                autoWatchTopics: autoWatchTopicsEnabled,
-                dSTUser: TimeZoneInfo.Local.SupportsDaylightSavingTime,
-                hideUser: null,
-                notificationType: null);
+            YafContext.Current.GetRepository<User>().Save(
+                userId,
+                YafContext.Current.PageBoardID,
+                twitterUser.UserName,
+                twitterUser.UserName,
+                email,
+                TimeZoneInfo.Local.Id,
+                null,
+                null,
+                null,
+                null,
+                null,
+                YafContext.Current.Get<YafBoardSettings>().DefaultNotificationSetting,
+                autoWatchTopicsEnabled,
+                TimeZoneInfo.Local.SupportsDaylightSavingTime,
+                null,
+                null);
 
             // save the settings...
-            LegacyDb.user_savenotification(
-                userId, 
+            YafContext.Current.GetRepository<User>().SaveNotification(
+                 userId, 
                 true, 
                 autoWatchTopicsEnabled, 
                 YafContext.Current.Get<YafBoardSettings>().DefaultNotificationSetting, 
@@ -455,7 +437,7 @@ namespace YAF.Core.Services.Auth
             // save avatar
             if (twitterUser.ProfileImageUrl.IsSet())
             {
-                LegacyDb.user_saveavatar(userId, twitterUser.ProfileImageUrl, null, null);
+                YafContext.Current.GetRepository<User>().SaveAvatar(userId, twitterUser.ProfileImageUrl, null, null);
             }
 
             LoginTwitterSuccess(true, oAuth, userId, user);
@@ -493,7 +475,7 @@ namespace YAF.Core.Services.Auth
             else
             {
                 // Clearing cache with old Active User Lazy Data ...
-                YafContext.Current.Get<IDataCache>().Remove(Constants.Cache.ActiveUserLazyData.FormatWith(userId));
+                YafContext.Current.Get<IDataCache>().Remove(string.Format(Constants.Cache.ActiveUserLazyData, userId));
             }
 
             // Store Tokens in Session (Could Bes Stored in DB but it would be a Security Problem)
@@ -532,9 +514,9 @@ namespace YAF.Core.Services.Auth
             var notifyUser = new YafTemplateEmail();
 
             var subject =
-                YafContext.Current.Get<ILocalization>()
-                    .GetText("COMMON", "NOTIFICATION_ON_NEW_FACEBOOK_USER_SUBJECT")
-                    .FormatWith(YafContext.Current.Get<YafBoardSettings>().Name);
+                string
+                    .Format(YafContext.Current.Get<ILocalization>()
+                        .GetText("COMMON", "NOTIFICATION_ON_NEW_FACEBOOK_USER_SUBJECT"), YafContext.Current.Get<YafBoardSettings>().Name);
 
             notifyUser.TemplateParams["{user}"] = user.UserName;
             notifyUser.TemplateParams["{email}"] = user.Email;
@@ -549,13 +531,11 @@ namespace YAF.Core.Services.Auth
             // Send Message also as DM to Twitter.
             var tweetApi = new TweetAPI(oAuth);
 
-            var message = "{0}. {1}".FormatWith(
-                subject, 
-                YafContext.Current.Get<ILocalization>().GetText("LOGIN", "TWITTER_DM"));
+            var message = $"{subject}. {YafContext.Current.Get<ILocalization>().GetText("LOGIN", "TWITTER_DM")}";
 
             if (YafContext.Current.Get<YafBoardSettings>().AllowPrivateMessages)
             {
-                LegacyDb.pmessage_save(2, userId, subject, emailBody, messageFlags.BitValue, -1);
+                YafContext.Current.GetRepository<PMessage>().SendMessage(2, userId, subject, emailBody, messageFlags.BitValue, -1);
             }
             else
             {

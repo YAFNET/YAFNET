@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -21,7 +21,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Core
+namespace YAF.Core.BaseControls
 {
   #region Using
 
@@ -30,7 +30,7 @@ namespace YAF.Core
 
   using YAF.Types.Interfaces;
 
-    #endregion
+  #endregion
 
   /// <summary>
   /// The base user control.
@@ -68,46 +68,22 @@ namespace YAF.Core
     /// <summary>
     /// Gets Localization.
     /// </summary>
-    public ILocalization Localization
-    {
-      get
-      {
-        return this._localization ?? (this._localization = this.Get<ILocalization>());
-      }
-    }
+    public ILocalization Localization => this._localization ?? (this._localization = this.Get<ILocalization>());
 
     /// <summary>
     ///   Gets or sets Logger.
     /// </summary>
-    public ILogger Logger
-    {
-      get
-      {
-        return this._logger ?? (this._logger = this.Get<ILoggerProvider>().Create(this.GetType()));
-      }
-    }
+    public ILogger Logger => this._logger ?? (this._logger = this.Get<ILoggerProvider>().Create(this.GetType()));
 
     /// <summary>
     ///   Gets PageContext.
     /// </summary>
-    public YafContext PageContext
-    {
-      get
-      {
-        return YafContext.Current;
-      }
-    }
+    public YafContext PageContext => YafContext.Current;
 
     /// <summary>
     ///   Gets ServiceLocator.
     /// </summary>
-    public IServiceLocator ServiceLocator
-    {
-      get
-      {
-        return this.PageContext.ServiceLocator;
-      }
-    }
+    public IServiceLocator ServiceLocator => this.PageContext.ServiceLocator;
 
     #endregion
 

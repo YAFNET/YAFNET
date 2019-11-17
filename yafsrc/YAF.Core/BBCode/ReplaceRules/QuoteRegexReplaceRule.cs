@@ -27,6 +27,7 @@ namespace YAF.Core.BBCode.ReplaceRules
     using System.Text;
     using System.Text.RegularExpressions;
 
+    using YAF.Core.Extensions;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
@@ -73,20 +74,20 @@ namespace YAF.Core.BBCode.ReplaceRules
             while (match.Success)
             {
                 var innerReplace = new StringBuilder(this._regExReplace);
-                int i = 0;
+                var i = 0;
 
                 if (this._truncateLength > 0)
                 {
                     // special handling to truncate urls
                     innerReplace.Replace(
-                      "${innertrunc}", match.Groups["inner"].Value.TruncateMiddle(this._truncateLength));
+                        "${innertrunc}",
+                        match.Groups["inner"].Value.TruncateMiddle(this._truncateLength));
                 }
 
                 var quote = match.Groups["quote"].Value;
 
                 var localQuoteWrote = YafContext.Current.Get<ILocalization>().GetText("COMMON", "BBCODE_QUOTEWROTE");
-                var localQuotePosted = YafContext.Current.Get<ILocalization>()
-                                                    .GetText("COMMON", "BBCODE_QUOTEPOSTED");
+                var localQuotePosted = YafContext.Current.Get<ILocalization>().GetText("COMMON", "BBCODE_QUOTEPOSTED");
 
                 // extract post id if exists
                 if (quote.Contains(";"))
@@ -97,8 +98,8 @@ namespace YAF.Core.BBCode.ReplaceRules
 
                     try
                     {
-                        postId = quote.Substring(quote.LastIndexOf(";") + 1);
-                        userName = quote = quote.Remove(quote.LastIndexOf(";"));
+                        postId = quote.Substring(quote.LastIndexOf(";", StringComparison.Ordinal) + 1);
+                        userName = quote = quote.Remove(quote.LastIndexOf(";", StringComparison.Ordinal));
                     }
                     catch (Exception)
                     {
@@ -107,58 +108,52 @@ namespace YAF.Core.BBCode.ReplaceRules
                         userName = quote;
                     }
 
-                    if (postId.IsSet())
-                    {
-                        quote =
-                            @"{0} <a href=""{1}""><img src=""{2}"" title=""{3}"" alt=""{3}"" /></a>".FormatWith(
-                                localQuotePosted.Replace("{0}", userName),
-                                YafBuildLink.GetLink(ForumPages.posts, "m={0}#post{0}", postId),
-                                YafContext.Current.Get<ITheme>().GetItem("ICONS", "ICON_LATEST"),
-                                YafContext.Current.Get<ILocalization>().GetText("COMMON", "BBCODE_QUOTEPOSTED_TT"));
-                    }
-                    else
-                    {
-                        quote = localQuoteWrote.Replace("{0}", quote);
-                    }
+                    quote = postId.IsSet()
+                                ? $@"<div class=""card-header text-muted"">{localQuotePosted.Replace("{0}", userName)} <a href=""{YafBuildLink.GetLink(ForumPages.posts, "m={0}#post{0}", postId)}""><i class=""fas fa-external-link-alt""></i></a></div><div class=""card-body""><p class=""card-text"">"
+                                : $@"<div class=""card-header text-muted"">{localQuoteWrote.Replace("{0}", quote)}</div><div class=""card-body""><p class=""card-text"">";
                 }
                 else
                 {
-                    quote = localQuoteWrote.Replace("{0}", quote);
+                    quote =
+                        $@"<div class=""card-header text-muted"">{localQuoteWrote.Replace("{0}", quote)}</div><div class=""card-body""><p class=""card-text"">";
                 }
 
                 innerReplace.Replace("${quote}", quote);
 
-                foreach (string tVar in this._variables)
-                {
-                    string varName = tVar;
-                    string handlingValue = string.Empty;
+                this._variables.ForEach(
+                    variable =>
+                        {
+                            var varName = variable;
+                            var handlingValue = string.Empty;
 
-                    if (varName.Contains(":"))
-                    {
-                        // has handling section
-                        string[] tmpSplit = varName.Split(':');
-                        varName = tmpSplit[0];
-                        handlingValue = tmpSplit[1];
-                    }
+                            if (varName.Contains(":"))
+                            {
+                                // has handling section
+                                var tmpSplit = varName.Split(':');
+                                varName = tmpSplit[0];
+                                handlingValue = tmpSplit[1];
+                            }
 
-                    string tValue = match.Groups[varName].Value;
+                            var value = match.Groups[varName].Value;
 
-                    if (this._variableDefaults != null && tValue.Length == 0)
-                    {
-                        // use default instead
-                        tValue = this._variableDefaults[i];
-                    }
+                            if (this._variableDefaults != null && value.Length == 0)
+                            {
+                                // use default instead
+                                value = this._variableDefaults[i];
+                            }
 
-                    innerReplace.Replace("${" + varName + "}", this.ManageVariableValue(varName, tValue, handlingValue));
-                    i++;
-                }
+                            innerReplace.Replace(
+                                $"${{{varName}}}",
+                                this.ManageVariableValue(varName, value, handlingValue));
+                            i++;
+                        });
 
                 innerReplace.Replace("${inner}", match.Groups["inner"].Value);
 
-                // pulls the htmls into the replacement collection before it's inserted back into the main text
+                // pulls the html's into the replacement collection before it's inserted back into the main text
                 replacement.ReplaceHtmlFromText(ref innerReplace);
 
-                // remove old bbcode...
+                // remove old BBCode...
                 sb.Remove(match.Groups[0].Index, match.Groups[0].Length);
 
                 // insert replaced value(s)

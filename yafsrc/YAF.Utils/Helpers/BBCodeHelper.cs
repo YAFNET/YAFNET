@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -24,13 +24,53 @@
 
 namespace YAF.Utils.Helpers
 {
+    using System.Collections.Generic;
+    using System.Linq;
     using System.Text.RegularExpressions;
+
+    using YAF.Types.Objects;
 
     /// <summary>
     /// The bb code helper.
     /// </summary>
     public static class BBCodeHelper
     {
+        /// <summary>
+        /// The find user quoting.
+        /// </summary>
+        /// <param name="text">
+        /// The text.
+        /// </param>
+        /// <returns>
+        /// The <see cref="List"/>.
+        /// </returns>
+        public static List<UserSimple> FindUserQuoting(string text)
+        {
+            var mentions = Regex.Matches(
+                text,
+                @"\[quote\=(?<user>.+?);(?<messageId>.+?)\](?<inner>.+?)\[\/quote\]",
+                RegexOptions.Singleline);
+
+            return (from Match match in mentions select new UserSimple { UserName = match.Groups["user"].Value }).ToList();
+        }
+
+        /// <summary>
+        /// Find all User mentions in the text
+        /// </summary>
+        /// <param name="text">
+        /// The text.
+        /// </param>
+        /// <returns>
+        /// The <see cref="List"/>.
+        /// </returns>
+        public static List<UserSimple> FindMentions(string text)
+        {
+            var mentions = Regex.Matches(text, @"@\[userlink\](?<inner>.+?)\[\/userlink\]", RegexOptions.IgnoreCase);
+
+            return (from Match match in mentions select new UserSimple { UserName = match.Groups["inner"].Value }).ToList();
+        }
+
+
         /// <summary>
         /// The strip bb code.
         /// </summary>

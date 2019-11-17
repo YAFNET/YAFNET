@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -29,7 +29,7 @@ namespace YAF.Modules
   using YAF.Types.Attributes;
   using YAF.Types.Constants;
   using YAF.Types.EventProxies;
-  using YAF.Types.Interfaces;
+  using YAF.Types.Interfaces.Events;
   using YAF.Utils;
 
   #endregion
@@ -37,7 +37,7 @@ namespace YAF.Modules
   /// <summary>
   /// Module that handles individual page security features -- needs to be expanded.
   /// </summary>
-  [YafModule("Page Security Module", "Tiny Gecko", 1)]
+  [YafModule(moduleName: "Page Security Module", moduleAuthor: "Tiny Gecko", moduleVersion: 1)]
   public class PageSecurityForumModule : SimpleBaseForumModule
   {
     #region Constants and Fields

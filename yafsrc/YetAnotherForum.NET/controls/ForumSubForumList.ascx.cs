@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -31,8 +31,8 @@ namespace YAF.Controls
     using System.Data;
     using System.Web.UI.WebControls;
 
-    using YAF.Classes;
-    using YAF.Core;
+    using YAF.Configuration;
+    using YAF.Core.BaseControls;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
@@ -54,10 +54,7 @@ namespace YAF.Controls
         /// </summary>
         public IEnumerable DataSource
         {
-            set
-            {
-                this.SubforumList.DataSource = value;
-            }
+            set => this.SubforumList.DataSource = value;
         }
 
         #endregion
@@ -77,24 +74,12 @@ namespace YAF.Controls
         /// </returns>
         public string GetForumLink([NotNull] DataRow row)
         {
-            int forumID = row["ForumID"].ToType<int>();
+            var forumID = row["ForumID"].ToType<int>();
 
             // get the Forum Description
-            string output = Convert.ToString(row["Forum"]);
+            var output = Convert.ToString(row["Forum"]);
 
-            if (int.Parse(row["ReadAccess"].ToString()) > 0)
-            {
-                output =
-                    "<a href=\"{0}\" title=\"{1}\" >{2}</a>".FormatWith(
-                        YafBuildLink.GetLink(ForumPages.topics, "f={0}&name={1}", forumID, output),
-                        this.GetText("COMMON", "VIEW_FORUM"),
-                        output);
-            }
-            else
-            {
-                // no access to this forum
-                output = "{0} {1}".FormatWith(output, this.GetText("NO_FORUM_ACCESS"));
-            }
+            output = int.Parse(row["ReadAccess"].ToString()) > 0 ? $"<a href=\"{YafBuildLink.GetLink(ForumPages.topics, "f={0}&name={1}", forumID, output)}\" title=\"{this.GetText("COMMON", "VIEW_FORUM")}\" >{output}</a>" : $"{output} {this.GetText("NO_FORUM_ACCESS")}";
 
             return output;
         }
@@ -123,34 +108,23 @@ namespace YAF.Controls
 
                         var lastPosted = row["LastPosted"].ToType<DateTime?>() ?? lastRead;
 
-                        var subForumIcon = e.Item.FindControl("ThemeSubforumIcon") as ThemeImage;
+                        var forumIcon = e.Item.FindControlAs<PlaceHolder>("ForumIcon");
 
-                        if (subForumIcon == null)
-                        {
-                            return;
-                        }
+                        var icon = new Literal { Text = "<i class=\"fa fa-comments\"></i>" };
 
                         try
                         {
                             if (lastPosted > lastRead)
                             {
-                                subForumIcon.ThemeTag = "SUBFORUM_NEW";
-                                subForumIcon.LocalizedTitlePage = "ICONLEGEND";
-                                subForumIcon.LocalizedTitleTag = "NEW_POSTS";
-                            }
-                            else
-                            {
-                                subForumIcon.ThemeTag = "SUBFORUM";
-                                subForumIcon.LocalizedTitlePage = "ICONLEGEND";
-                                subForumIcon.LocalizedTitleTag = "NO_NEW_POSTS";
+                                icon.Text = "<i class=\"fa fa-comments\" style=\"color: green\"></i>";
                             }
                         }
                         catch
                         {
-                            subForumIcon.ThemeTag = "SUBFORUM";
-                            subForumIcon.LocalizedTitlePage = "ICONLEGEND";
-                            subForumIcon.LocalizedTitleTag = "NO_NEW_POSTS";
+                            icon = new Literal { Text = "<i class=\"fa fa-comments\"></i>" };
                         }
+
+                        forumIcon.Controls.Add(icon);
                     }
 
                     break;

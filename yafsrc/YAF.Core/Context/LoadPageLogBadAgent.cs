@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -25,12 +25,12 @@ namespace YAF.Core
 {
     using System.Web;
 
-    using YAF.Classes;
+    using YAF.Configuration;
     using YAF.Types;
     using YAF.Types.Attributes;
     using YAF.Types.EventProxies;
-    using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Events;
     using YAF.Utils.Helpers;
 
     /// <summary>
@@ -126,10 +126,7 @@ namespace YAF.Core
                 this.Logger.Log(
                     YafContext.Current.User != null ? YafContext.Current.User.UserName : string.Empty,
                     this,
-                    "Unhandled UserAgent string:'{0}'<br />Platform:'{1}'<br />Browser:'{2}'".FormatWith(
-                        (string)@event.Data.UserAgent,
-                        this.HttpRequestBase.Browser.Platform,
-                        this.HttpRequestBase.Browser.Browser));
+                    $"Unhandled UserAgent string:'{(string)@event.Data.UserAgent}'<br />Platform:'{this.HttpRequestBase.Browser.Platform}'<br />Browser:'{this.HttpRequestBase.Browser.Browser}'");
             }
         }
 

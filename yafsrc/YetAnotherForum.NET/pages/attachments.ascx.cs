@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -27,17 +27,15 @@ namespace YAF.Pages
     #region Using
 
     using System;
-    using System.Data;
     using System.Linq;
     using System.Web;
     using System.Web.UI.WebControls;
 
-    using YAF.Classes;
-    using YAF.Classes.Data;
-    using YAF.Controls;
+    using YAF.Configuration;
     using YAF.Core;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
+    using YAF.Core.UsersRoles;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
@@ -45,6 +43,8 @@ namespace YAF.Pages
     using YAF.Types.Models;
     using YAF.Utils;
     using YAF.Utils.Helpers;
+    using YAF.Web.Controls;
+    using YAF.Web.Extensions;
 
     #endregion
 
@@ -75,17 +75,6 @@ namespace YAF.Pages
         protected void Back_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
             YafBuildLink.Redirect(ForumPages.cp_profile);
-        }
-
-        /// <summary>
-        /// Handles the Load event of the Delete control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        protected void Delete_Load([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            ((ThemeButton)sender).Attributes["onclick"] =
-                "return confirm('{0}')".FormatWith(this.GetText("ADMIN_ATTACHMENTS", "CONFIRM_DELETE"));
         }
 
         /// <summary>
@@ -142,10 +131,9 @@ namespace YAF.Pages
                 YafBuildLink.GetLink(ForumPages.profile, "u={0}", this.PageContext.PageUserID, displayName));
             this.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
 
-
-            this.Back.Text = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("t").IsNotSet()
-                                 ? this.GetText("BACK")
-                                 : this.GetText("COMMON", "CONTINUE");
+            this.Back.TextLocalizedTag = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("t").IsNotSet()
+                                 ? "BACK"
+                                 : "CONTINUE";
 
             this.BindData();
         }
@@ -157,38 +145,40 @@ namespace YAF.Pages
         /// <returns>Returns the Preview Image</returns>
         protected string GetPreviewImage([NotNull] object o)
         {
-            var row = o.ToType<DataRowView>();
+            var attach = o.ToType<Attachment>();
 
-            var fileName = row["FileName"].ToString();
+            var fileName = attach.FileName;
             var isImage = fileName.IsImageName();
-            var url = isImage
-                          ? "{0}resource.ashx?i={1}&b={2}&editor=true".FormatWith(
-                              YafForumInfo.ForumClientFileRoot,
-                              row["AttachmentID"],
-                              this.PageContext.PageBoardID)
-                          : "{0}Images/document.png".FormatWith(YafForumInfo.ForumClientFileRoot);
+            var url =
+                $"{YafForumInfo.ForumClientFileRoot}resource.ashx?i={attach.ID}&b={this.PageContext.PageBoardID}&editor=true";
 
-            var dataUrl = isImage ? " data-url=\"{0}\"".FormatWith(url) : string.Empty;
-
-            return "<img src=\"{0}\" alt=\"{1}\" title=\"{1}\"{2} style=\"max-width:30px\" />".FormatWith(url, fileName, dataUrl);
+            return isImage
+                       ? $"<img src=\"{url}\" alt=\"{fileName}\" title=\"{fileName}\" data-url=\"{url}\"style=\"max-width:30px\" />"
+                       : "<i class=\"far fa-file-alt attachment-icon\"></i>";
         }
 
+        /// <summary>
+        /// Delete all selected attachment(s)
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
         protected void DeleteAttachments_Click(object sender, EventArgs e)
         {
-            foreach (RepeaterItem item in from RepeaterItem item in this.List.Items
-                                          where
-                                              item.ItemType == ListItemType.Item
-                                              || item.ItemType == ListItemType.AlternatingItem
-                                          where item.FindControlAs<CheckBox>("Selected").Checked
-                                          select item)
-            {
-                this.GetRepository<Attachment>()
-                    .DeleteByID(item.FindControlAs<ThemeButton>("ThemeButtonDelete").CommandArgument.ToType<int>());
-            }
-
+            (from RepeaterItem item in this.List.Items
+             where item.ItemType == ListItemType.Item || item.ItemType == ListItemType.AlternatingItem
+             where item.FindControlAs<CheckBox>("Selected").Checked
+             select item).ForEach(
+                item => this.GetRepository<Attachment>().DeleteById(
+                    item.FindControlAs<ThemeButton>("ThemeButtonDelete").CommandArgument.ToType<int>()));
+            
             this.BindData();
         }
         
+
         /// <summary>
         /// Binds the data.
         /// </summary>
@@ -196,15 +186,14 @@ namespace YAF.Pages
         {
             this.PagerTop.PageSize = this.Get<YafBoardSettings>().MemberListPageSize;
 
-            var dt = this.GetRepository<Attachment>()
-                .List(
-                    userID: this.PageContext.PageUserID,
-                    pageIndex: this.PagerTop.CurrentPageIndex,
-                    pageSize: this.PagerTop.PageSize);
+            var dt = this.GetRepository<Attachment>().GetPaged(
+                a => a.UserID == this.PageContext.PageUserID,
+                this.PagerTop.CurrentPageIndex,
+                this.PagerTop.PageSize);
 
             this.List.DataSource = dt;
-            this.PagerTop.Count = dt != null && dt.HasRows()
-                                      ? dt.AsEnumerable().First().Field<int>("TotalRows")
+            this.PagerTop.Count = dt != null && dt.Any()
+                                      ? this.GetRepository<Attachment>().Count(a => a.UserID == this.PageContext.PageUserID).ToType<int>()
                                       : 0;
 
             this.DataBind();

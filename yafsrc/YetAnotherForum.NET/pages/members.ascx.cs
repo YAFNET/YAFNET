@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -29,18 +29,22 @@ namespace YAF.Pages
 
     using System;
     using System.Data;
+    using System.Linq;
     using System.Web.UI.WebControls;
 
-    using YAF.Classes;
-    using YAF.Classes.Data;
-    using YAF.Controls;
+    using YAF.Configuration;
     using YAF.Core;
+    using YAF.Core.Extensions;
+    using YAF.Core.Model;
+    using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
+    using YAF.Types.Models;
     using YAF.Utils;
+    using YAF.Web.Extensions;
 
     #endregion
 
@@ -50,6 +54,7 @@ namespace YAF.Pages
     public partial class members : ForumPage
     {
         #region Fields
+
         /// <summary>
         /// The _userListDataTable.
         /// </summary>
@@ -93,6 +98,17 @@ namespace YAF.Pages
             YafBuildLink.Redirect(ForumPages.members);
         }
 
+        /// <summary>
+        /// Registers the needed Java Scripts
+        /// </summary>
+        /// <param name="e">An <see cref="T:System.EventArgs"/> object that contains the event data.</param>
+        protected override void OnPreRender([NotNull] EventArgs e)
+        {
+            YafContext.Current.PageElements.RegisterJsBlock("dropDownToggleJs", JavaScriptBlocks.DropDownToggleJs());
+
+            base.OnPreRender(e);
+        }
+
         #endregion
 
         #region Methods
@@ -110,22 +126,8 @@ namespace YAF.Pages
             var avatarUrl = this.Get<IAvatars>().GetAvatarUrlForUser(userId, avatarString, hasAvatarImage, email);
 
             return avatarUrl.IsNotSet()
-                       ? "{0}images/noavatar.gif".FormatWith(YafForumInfo.ForumClientFileRoot)
+                       ? $"{YafForumInfo.ForumClientFileRoot}images/noavatar.svg"
                        : avatarUrl;
-        }
-
-        /// <summary>
-        /// protects from script in "location" field
-        /// </summary>
-        /// <param name="value">
-        /// The value.
-        /// </param>
-        /// <returns>
-        /// The get string safely.
-        /// </returns>
-        protected string GetStringSafely(object value)
-        {
-            return value == null ? string.Empty : this.HtmlEncode(value.ToString());
         }
 
         /// <summary>
@@ -148,7 +150,7 @@ namespace YAF.Pages
         /// </returns>
         protected DataTable GetUserList(string literals, int lastUserId, bool specialSymbol, out int totalCount)
         {
-            this._userListDataTable = LegacyDb.user_listmembers(
+            this._userListDataTable = this.GetRepository<User>().ListMembersAsDataTable(
                 this.PageContext.PageBoardID,
                 null,
                 true,
@@ -167,7 +169,7 @@ namespace YAF.Pages
                 this.ViewState["SortNumPostsField"].ToType<int?>(),
                 this.ViewState["SortLastVisitField"].ToType<int?>(),
                 this.NumPostsTB.Text.Trim().IsSet() ? this.NumPostsTB.Text.Trim().ToType<int>() : 0,
-                this.NumPostDDL.SelectedIndex < 0 ? 3 : (this.NumPostsTB.Text.Trim().IsSet() ? this.NumPostDDL.SelectedValue.ToType<int>() : 0));
+                this.NumPostDDL.SelectedIndex < 0 ? 3 : this.NumPostsTB.Text.Trim().IsSet() ? this.NumPostDDL.SelectedValue.ToType<int>() : 0);
 
             if (this.Get<YafBoardSettings>().UseStyledNicks)
             {
@@ -212,26 +214,26 @@ namespace YAF.Pages
             this.PageLinks.AddRoot().AddLink(this.GetText("TITLE"));
 
             //// this.SetSort("Name", true);
-
             this.UserName.Text = this.GetText("username");
             this.Rank.Text = this.GetText("rank");
             this.Joined.Text = this.GetText("joined");
             this.Posts.Text = this.GetText("posts");
             this.LastVisitLB.Text = this.GetText("members", "lastvisit");
-       
-            using (DataTable dt = this.Get<IDbFunction>().GetAsDataTable(cdb => cdb.group_list(this.PageContext.PageBoardID, null)))
+
+            using (var dt = this.Get<IDbFunction>()
+                .GetAsDataTable(cdb => cdb.group_list(this.PageContext.PageBoardID, null)))
             {
                 // add empty item for no filtering
-                DataRow newRow = dt.NewRow();
+                var newRow = dt.NewRow();
                 newRow["Name"] = this.GetText("ALL");
                 newRow["GroupID"] = DBNull.Value;
                 dt.Rows.InsertAt(newRow, 0);
 
-                DataRow[] guestRows = dt.Select("Name='Guests'");
+                var guestRows = dt.Select("Name='Guests'");
 
                 if (guestRows.Length > 0)
                 {
-                    foreach (DataRow row in guestRows)
+                    foreach (var row in guestRows)
                     {
                         row.Delete();
                     }
@@ -249,36 +251,20 @@ namespace YAF.Pages
             this.NumPostDDL.Items.Add(new ListItem(this.GetText("MEMBERS", "NUMPOSTSEQUAL"), "1"));
             this.NumPostDDL.Items.Add(new ListItem(this.GetText("MEMBERS", "NUMPOSTSLESSOREQUAL"), "2"));
             this.NumPostDDL.Items.Add(new ListItem(this.GetText("MEMBERS", "NUMPOSTSMOREOREQUAL"), "3"));
-           
+
             this.NumPostDDL.DataBind();
 
             // get list of user ranks for filtering
-            using (DataTable dt = this.Get<IDbFunction>().GetAsDataTable(cdb => cdb.rank_list(this.PageContext.PageBoardID, null)))
-            {
-                // add empty for for no filtering
-                DataRow newRow = dt.NewRow();
-                newRow["Name"] = this.GetText("ALL");
-                newRow["RankID"] = DBNull.Value;
-                dt.Rows.InsertAt(newRow, 0);
+            var ranks = this.GetRepository<Rank>().GetByBoardId().OrderBy(r => r.SortOrder).ToList();
 
-                DataRow[] guestRows = dt.Select("Name='Guest'");
+            ranks.Insert(0, new Rank { Name = this.GetText("ALL"), ID = 0 });
 
-                if (guestRows.Length > 0)
-                {
-                    foreach (DataRow row in guestRows)
-                    {
-                        row.Delete();
-                    }
-                }
+            ranks.RemoveAll(r => r.Name == "Guest");
 
-                // commits the deletes to the table
-                dt.AcceptChanges();
-
-                this.Ranks.DataSource = dt;
-                this.Ranks.DataTextField = "Name";
-                this.Ranks.DataValueField = "RankID";
-                this.Ranks.DataBind();
-            }
+            this.Ranks.DataSource = ranks;
+            this.Ranks.DataTextField = "Name";
+            this.Ranks.DataValueField = "ID";
+            this.Ranks.DataBind();
 
             this.BindData();
         }
@@ -411,16 +397,12 @@ namespace YAF.Pages
             var selectedCharLetter = this.AlphaSort1.CurrentLetter;
 
             // get the user list...
-            int totalCount;
-
             var selectedLetter = this.UserSearchName.Text.IsSet() ? this.UserSearchName.Text.Trim() : selectedCharLetter.ToString();
-            
-            int numpostsTb;
 
             if (this.NumPostsTB.Text.Trim().IsSet() &&
-                (!int.TryParse(this.NumPostsTB.Text.Trim(), out numpostsTb) || numpostsTb < 0 || numpostsTb > int.MaxValue))
+                (!int.TryParse(this.NumPostsTB.Text.Trim(), out var numpostsTb) || numpostsTb < 0 || numpostsTb > int.MaxValue))
             {
-                this.PageContext.AddLoadMessage(this.GetText("MEMBERS", "INVALIDPOSTSVALUE"));
+                this.PageContext.AddLoadMessage(this.GetText("MEMBERS", "INVALIDPOSTSVALUE"), MessageTypes.warning);
                 return;
             }
 
@@ -434,8 +416,8 @@ namespace YAF.Pages
             this._userListDataTable = this.GetUserList(
                 selectedLetter,
                 0,
-                this.UserSearchName.Text.IsNotSet() || (selectedCharLetter == char.MinValue && selectedCharLetter == '#'),
-                out totalCount);
+                this.UserSearchName.Text.IsNotSet() || selectedCharLetter == char.MinValue && selectedCharLetter == '#',
+                out var totalCount);
             
             this.Pager.Count = totalCount;
             this.MemberList.DataSource = this._userListDataTable;
@@ -448,14 +430,12 @@ namespace YAF.Pages
             switch (this.ViewState["SortNameField"].ToType<int?>())
             {
                 case 1:
-                    this.SortUserName.Src = this.GetThemeContents(
-                   "SORT", "ASCENDING");
+                    this.SortUserName.Text = "<i class=\"fa fa-sort-up fa-fw\"></i>";
                      this.SortUserName.Visible = true;
                     break;
                 case 2:
-                     this.SortUserName.Src = this.GetThemeContents(
-                   "SORT", "DESCENDING");
-                     this.SortUserName.Visible = true;
+                     this.SortUserName.Text = "<i class=\"fa fa-sort-down fa-fw\"></i>";
+                    this.SortUserName.Visible = true;
                     break;
                 default:
                     this.ViewState["SortNameField"] = 0;
@@ -466,14 +446,12 @@ namespace YAF.Pages
             switch (this.ViewState["SortRankNameField"].ToType<int?>())
             {
                 case 1:
-                    this.SortRank.Src = this.GetThemeContents(
-                   "SORT", "ASCENDING");
-                     this.SortRank.Visible = true;
+                    this.SortRank.Text = "<i class=\"fa fa-sort-up fa-fw\"></i>";
+                    this.SortRank.Visible = true;
                     break;
                 case 2:
-                     this.SortRank.Src = this.GetThemeContents(
-                   "SORT", "DESCENDING");
-                     this.SortRank.Visible = true;
+                     this.SortRank.Text = "<i class=\"fa fa-sort-down fa-fw\"></i>";
+                    this.SortRank.Visible = true;
                     break;
                 default:
                     this.ViewState["SortRankNameField"] = 0;
@@ -484,14 +462,12 @@ namespace YAF.Pages
             switch (this.ViewState["SortJoinedField"].ToType<int?>())
             {
                 case 1:
-                    this.SortJoined.Src = this.GetThemeContents(
-                   "SORT", "ASCENDING");
-                     this.SortJoined.Visible = true;
+                    this.SortJoined.Text = "<i class=\"fa fa-sort-up fa-fw\"></i>";
+                    this.SortJoined.Visible = true;
                     break;
                 case 2:
-                     this.SortJoined.Src = this.GetThemeContents(
-                   "SORT", "DESCENDING");
-                     this.SortJoined.Visible = true;
+                     this.SortJoined.Text = "<i class=\"fa fa-sort-down fa-fw\"></i>";
+                    this.SortJoined.Visible = true;
                     break;
                 default:
                     this.ViewState["SortJoinedField"] = 0;
@@ -502,14 +478,12 @@ namespace YAF.Pages
             switch (this.ViewState["SortNumPostsField"].ToType<int?>())
             {
                 case 1:
-                    this.SortPosts.Src = this.GetThemeContents(
-                   "SORT", "ASCENDING");
-                     this.SortPosts.Visible = true;
+                    this.SortPosts.Text = "<i class=\"fa fa-sort-up fa-fw\"></i>";
+                    this.SortPosts.Visible = true;
                     break;
                 case 2:
-                     this.SortPosts.Src = this.GetThemeContents(
-                   "SORT", "DESCENDING");
-                     this.SortPosts.Visible = true;
+                     this.SortPosts.Text = "<i class=\"fa fa-sort-down fa-fw\"></i>";
+                    this.SortPosts.Visible = true;
                     break;
                 default:
                     this.ViewState["SortNumPostsField"] = 0;
@@ -520,20 +494,18 @@ namespace YAF.Pages
             switch (this.ViewState["SortLastVisitField"].ToType<int?>())
             {
                 case 1:
-                    this.SortLastVisit.Src = this.GetThemeContents(
-                   "SORT", "ASCENDING");
-                     this.SortLastVisit.Visible = true;
+                    this.SortLastVisit.Text = "<i class=\"fa fa-sort-up fa-fw\"></i>";
+                    this.SortLastVisit.Visible = true;
                     break;
                 case 2:
-                     this.SortLastVisit.Src = this.GetThemeContents(
-                   "SORT", "DESCENDING");
-                     this.SortLastVisit.Visible = true;
+                     this.SortLastVisit.Text = "<i class=\"fa fa-sort-down fa-fw\"></i>";
+                    this.SortLastVisit.Visible = true;
                     break;
                 default:
                     this.ViewState["SortLastVisitField"] = 0;
                     this.SortLastVisit.Visible = false;
                     break;
-            } 
+            }
         }
 
         /// <summary>
@@ -548,22 +520,23 @@ namespace YAF.Pages
             switch (field)
             {
                 case "Name":
-                    this.ViewState["SortNameField"] = this.ViewState["SortNameField"] == null ? 0 : (this.ViewState["SortNameField"].ToType<int>() == 1 ? 2 : 1);
+                    this.ViewState["SortNameField"] = this.ViewState["SortNameField"] == null ? 0 : this.ViewState["SortNameField"].ToType<int>() == 1 ? 2 : 1;
                     break;
                 case "RankName":
-                    this.ViewState["SortRankNameField"] = this.ViewState["SortRankNameField"] == null ? 0 : (this.ViewState["SortRankNameField"].ToType<int>() == 1 ? 2 : 1);
+                    this.ViewState["SortRankNameField"] = this.ViewState["SortRankNameField"] == null ? 0 : this.ViewState["SortRankNameField"].ToType<int>() == 1 ? 2 : 1;
                     break;
                 case "Joined":
-                    this.ViewState["SortJoinedField"] = this.ViewState["SortJoinedField"] == null ? 0 : (this.ViewState["SortJoinedField"].ToType<int>() == 1 ? 2 : 1);
+                    this.ViewState["SortJoinedField"] = this.ViewState["SortJoinedField"] == null ? 0 : this.ViewState["SortJoinedField"].ToType<int>() == 1 ? 2 : 1;
                     break;
                 case "NumPosts":
-                    this.ViewState["SortNumPostsField"] = this.ViewState["SortNumPostsField"] == null ? 0 : (this.ViewState["SortNumPostsField"].ToType<int>() == 1 ? 2 : 1);
+                    this.ViewState["SortNumPostsField"] = this.ViewState["SortNumPostsField"] == null ? 0 : this.ViewState["SortNumPostsField"].ToType<int>() == 1 ? 2 : 1;
                     break;
                 case "LastVisit":
-                    this.ViewState["SortLastVisitField"] = this.ViewState["SortLastVisitField"] == null ? 0 : (this.ViewState["SortLastVisitField"].ToType<int>() == 1 ? 2 : 1);
+                    this.ViewState["SortLastVisitField"] = this.ViewState["SortLastVisitField"] == null ? 0 : this.ViewState["SortLastVisitField"].ToType<int>() == 1 ? 2 : 1;
                     break;
             }
         }
+
         #endregion
     }
 }

@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -22,13 +22,12 @@
  * under the License.
  */
 
-namespace YAF.Core
+namespace YAF.Core.Extensions
 {
   #region Using
 
   using System;
 
-  using YAF.Core.Services;
   using YAF.Types;
   using YAF.Types.Constants;
   using YAF.Types.Interfaces;
@@ -64,7 +63,7 @@ namespace YAF.Core
 
       try
       {
-        DateTime dateTime = Convert.ToDateTime(objectDateTime);
+        var dateTime = Convert.ToDateTime(objectDateTime);
 
         switch (format)
         {
@@ -114,7 +113,7 @@ namespace YAF.Core
 
       try
       {
-        DateTime dateTime = Convert.ToDateTime(objectDateTime);
+        var dateTime = Convert.ToDateTime(objectDateTime);
         return dateTimeInstance.FormatDateLong(dateTime);
       }
       catch
@@ -143,7 +142,7 @@ namespace YAF.Core
 
       try
       {
-        DateTime dateTime = Convert.ToDateTime(objectDateTime);
+        var dateTime = Convert.ToDateTime(objectDateTime);
         return dateTimeInstance.FormatDateShort(dateTime);
       }
       catch
@@ -172,7 +171,7 @@ namespace YAF.Core
 
       try
       {
-        DateTime dateTime = Convert.ToDateTime(objectDateTime);
+        var dateTime = Convert.ToDateTime(objectDateTime);
         return dateTimeInstance.FormatDateTime(dateTime);
       }
       catch
@@ -201,7 +200,7 @@ namespace YAF.Core
 
       try
       {
-        DateTime dateTime = Convert.ToDateTime(objectDateTime);
+        var dateTime = Convert.ToDateTime(objectDateTime);
         return dateTimeInstance.FormatDateTimeShort(dateTime);
       }
       catch
@@ -230,7 +229,7 @@ namespace YAF.Core
 
       try
       {
-        DateTime dateTime = Convert.ToDateTime(objectDateTime);
+        var dateTime = Convert.ToDateTime(objectDateTime);
         return dateTimeInstance.FormatDateTimeTopic(dateTime);
       }
       catch
@@ -259,7 +258,7 @@ namespace YAF.Core
 
       try
       {
-        DateTime dateTime = Convert.ToDateTime(objectDateTime);
+        var dateTime = Convert.ToDateTime(objectDateTime);
         return dateTimeInstance.FormatDateTime(dateTime);
       }
       catch

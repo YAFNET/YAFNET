@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -30,17 +30,19 @@ namespace YAF.Pages
     using System.Web;
     using System.Web.UI.WebControls;
 
-    using YAF.Classes;
-    using YAF.Classes.Data;
-    using YAF.Controls;
+    using YAF.Configuration;
     using YAF.Core;
+    using YAF.Core.Extensions;
+    using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Flags;
     using YAF.Types.Interfaces;
+    using YAF.Types.Models;
     using YAF.Utils;
     using YAF.Utils.Helpers;
+    using YAF.Web.Extensions;
 
     #endregion
 
@@ -95,27 +97,15 @@ namespace YAF.Pages
         /// <summary>
         ///   Gets a value indicating whether CanDeletePost.
         /// </summary>
-        public bool CanDeletePost
-        {
-            get
-            {
-                // Ederon : 9/9/2007 - moderators can delete in locked topics
-                return ((!this.PostLocked && !this._forumFlags.IsLocked && !this._topicFlags.IsLocked
-                         && this._messageRow["UserID"].ToType<int>() == this.PageContext.PageUserID)
-                        || this.PageContext.ForumModeratorAccess) && this.PageContext.ForumDeleteAccess;
-            }
-        }
+        public bool CanDeletePost =>
+            (!this.PostLocked && !this._forumFlags.IsLocked && !this._topicFlags.IsLocked
+             && this._messageRow["UserID"].ToType<int>() == this.PageContext.PageUserID
+             || this.PageContext.ForumModeratorAccess) && this.PageContext.ForumDeleteAccess;
 
         /// <summary>
         ///   Gets a value indicating whether CanUnDeletePost.
         /// </summary>
-        public bool CanUnDeletePost
-        {
-            get
-            {
-                return this.PostDeleted && this.CanDeletePost;
-            }
-        }
+        public bool CanUnDeletePost => this.PostDeleted && this.CanDeletePost;
 
         /// <summary>
         ///   Gets a value indicating whether PostDeleted.
@@ -159,8 +149,8 @@ namespace YAF.Pages
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Cancel_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
-            if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("t") != null
-                || this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("m") != null)
+            if (this.Get<HttpRequestBase>().QueryString.Exists("t")
+                || this.Get<HttpRequestBase>().QueryString.Exists("m"))
             {
                 // reply to existing topic or editing of existing topic
                 YafBuildLink.Redirect(ForumPages.posts, "t={0}", this.PageContext.PageTopicID);
@@ -224,12 +214,11 @@ namespace YAF.Pages
         {
             this._messageRow = null;
 
-            if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("m") != null)
+            if (this.Get<HttpRequestBase>().QueryString.Exists("m"))
             {
-                this._messageRow =
-                    LegacyDb.message_list(
-                        Security.StringToLongOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("m")))
-                        .GetFirstRowOrInvalid();
+                this._messageRow = this.GetRepository<Message>().ListAsDataTable(
+                        Security.StringToIntOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("m")))
+                    .GetFirstRowOrInvalid();
 
                 if (!this.PageContext.ForumModeratorAccess
                     && this.PageContext.PageUserID != (int)this._messageRow["UserID"])
@@ -248,13 +237,13 @@ namespace YAF.Pages
                 YafBuildLink.AccessDenied();
             }
 
-            if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("t") == null
+            if (!this.Get<HttpRequestBase>().QueryString.Exists("t")
                 && !this.PageContext.ForumPostAccess)
             {
                 YafBuildLink.AccessDenied();
             }
 
-            if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("t") != null
+            if (this.Get<HttpRequestBase>().QueryString.Exists("t")
                 && !this.PageContext.ForumReplyAccess)
             {
                 YafBuildLink.AccessDenied();
@@ -273,13 +262,12 @@ namespace YAF.Pages
             this.PageLinks.AddForum(this.PageContext.PageForumID);
 
             this.EraseMessage.Checked = false;
+            this.EraseMessage.Text = this.GetText("erasemessage");
             this.EraseRow.Visible = false;
             this.DeleteReasonRow.Visible = false;
             this.LinkedPosts.Visible = false;
             
-            this.Cancel.Text = this.GetText("Cancel");
-
-            if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("m") == null)
+            if (!this.Get<HttpRequestBase>().QueryString.Exists("m"))
             {
                 return;
             }
@@ -287,8 +275,8 @@ namespace YAF.Pages
             // delete message...
             this.PreviewRow.Visible = true;
 
-            DataTable tempdb =
-                LegacyDb.message_getRepliesList(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("m"));
+            var tempdb = this.GetRepository<Message>().RepliesListAsDataTable(
+                this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("m").ToType<int>());
 
             if (tempdb.HasRows() && (this.PageContext.ForumModeratorAccess || this.PageContext.IsAdmin))
             {
@@ -300,7 +288,7 @@ namespace YAF.Pages
             if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("action").ToLower() == "delete")
             {
                 this.Title.Text = this.GetText("EDIT");
-                this.Delete.Text = this.GetText("DELETE");
+                this.Delete.TextLocalizedTag = "DELETE";
 
                 if (this.PageContext.IsAdmin)
                 {
@@ -310,7 +298,7 @@ namespace YAF.Pages
             else
             {
                 this.Title.Text = this.GetText("EDIT");
-                this.Delete.Text = this.GetText("UNDELETE");
+                this.Delete.TextLocalizedTag = "UNDELETE";
             }
 
             this.Subject.Text = Convert.ToString(this._messageRow["Topic"]);
@@ -335,9 +323,9 @@ namespace YAF.Pages
             }
 
             // Create objects for easy access
-            object tmpMessageID = this._messageRow["MessageID"];
-            object tmpForumID = this._messageRow["ForumID"];
-            object tmpTopicID = this._messageRow["TopicID"];
+            var tmpMessageID = this._messageRow["MessageID"];
+            var tmpForumID = this._messageRow["ForumID"];
+            var tmpTopicID = this._messageRow["TopicID"];
 
             var deleteAllLinked = false;
 
@@ -357,8 +345,7 @@ namespace YAF.Pages
             // Toogle delete message -- if the message is currently deleted it will be undeleted.
             // If it's not deleted it will be marked deleted.
             // If it is the last message of the topic, the topic is also deleted
-            LegacyDb.message_delete(
-                tmpMessageID,
+            this.GetRepository<Message>().Delete(tmpMessageID.ToType<int>(),
                 this._isModeratorChanged,
                 HttpUtility.HtmlEncode(this.ReasonEditor.Text),
                 this.PostDeleted ? 0 : 1,
@@ -366,7 +353,7 @@ namespace YAF.Pages
                 this.EraseMessage.Checked);
 
             // retrieve topic information.
-            DataRow topic = LegacyDb.topic_info(tmpTopicID);
+            var topic = this.GetRepository<Topic>().GetById(tmpTopicID.ToType<int>());
 
             // If topic has been deleted, redirect to topic list for active forum, else show remaining posts for topic
             if (topic == null)
@@ -391,7 +378,7 @@ namespace YAF.Pages
                 return;
             }
 
-            var deleteAllPosts = (CheckBox)e.Item.FindControl("DeleteAllPosts");
+            var deleteAllPosts = e.Item.FindControlAs<CheckBox>("DeleteAllPosts");
             deleteAllPosts.Checked =
                 deleteAllPosts.Enabled = this.PageContext.ForumModeratorAccess || this.PageContext.IsAdmin;
         }

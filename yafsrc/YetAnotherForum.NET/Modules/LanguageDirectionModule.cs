@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -38,7 +38,7 @@ namespace YAF.Modules
     /// <summary>
     /// LanguageDirection Module
     /// </summary>
-    [YafModule("Language Direction Module", "Ingo Herbote", 1)]
+    [YafModule(moduleName: "Language Direction Module", moduleAuthor: "Ingo Herbote", moduleVersion: 1)]
     public class LanguageDirectionModule : SimpleBaseForumModule
     {
         /// <summary>
@@ -58,13 +58,12 @@ namespace YAF.Modules
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void ForumPage_PreRender([NotNull] object sender, [NotNull] EventArgs e)
         {
-            var body = this.CurrentForumPage.FindControlRecursiveBothAs<HtmlGenericControl>("YafBody");
+            var body = this.CurrentForumPage.FindControlRecursiveBothAs<HtmlGenericControl>(id: "YafBody");
 
             if (body != null && this.Get<ILocalization>().Culture.TextInfo.IsRightToLeft)
             {
-                body.Attributes.Add("dir", "rtl");
+                body.Attributes.Add(key: "dir", value: "rtl");
             }
-
         }
 
         #endregion

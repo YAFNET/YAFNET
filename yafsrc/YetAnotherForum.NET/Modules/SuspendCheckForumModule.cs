@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -27,11 +27,14 @@ namespace YAF.Modules
 
     using System;
 
-    using YAF.Classes.Data;
+    using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Attributes;
+    using YAF.Types.Constants;
     using YAF.Types.EventProxies;
     using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Events;
+    using YAF.Types.Models;
     using YAF.Utils;
 
     #endregion
@@ -39,7 +42,7 @@ namespace YAF.Modules
     /// <summary>
     /// Suspend Check Forum Module
     /// </summary>
-    [YafModule("Suspend Check Module", "Tiny Gecko", 1)]
+    [YafModule(moduleName: "Suspend Check Module", moduleAuthor: "Tiny Gecko", moduleVersion: 1)]
     public class SuspendCheckForumModule : SimpleBaseForumModule
     {
         #region Constants and Fields
@@ -89,23 +92,23 @@ namespace YAF.Modules
                 return;
             }
 
-            if (this.Get<IDateTime>().GetUserDateTime(this.PageContext.SuspendedUntil)
-                <= this.Get<IDateTime>().GetUserDateTime(DateTime.UtcNow))
+            if (this.Get<IDateTime>().GetUserDateTime(dateTime: this.PageContext.SuspendedUntil)
+                <= this.Get<IDateTime>().GetUserDateTime(dateTime: DateTime.UtcNow))
             {
-                LegacyDb.user_suspend(this.PageContext.PageUserID);
+                this.GetRepository<User>().Suspend(userId: this.PageContext.PageUserID);
 
                 this.Get<ISendNotification>()
                     .SendUserSuspensionEndedNotification(
-                        this.PageContext.CurrentUserData.Email,
-                        this.PageContext.BoardSettings.EnableDisplayName
+                        email: this.PageContext.CurrentUserData.Email,
+                        userName: this.PageContext.BoardSettings.EnableDisplayName
                             ? this.PageContext.CurrentUserData.DisplayName
                             : this.PageContext.CurrentUserData.UserName);
 
-                this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.PageContext.PageUserID));
+                this.Get<IRaiseEvent>().Raise(eventObject: new UpdateUserEvent(userId: this.PageContext.PageUserID));
             }
             else
             {
-                YafBuildLink.RedirectInfoPage(InfoMessage.Suspended);
+                YafBuildLink.RedirectInfoPage(infoMessage: InfoMessage.Suspended);
             }
         }
 

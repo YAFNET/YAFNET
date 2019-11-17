@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -27,15 +27,16 @@ namespace YAF.Pages
     #region Using
 
     using System;
+    using System.Web;
 
-    using YAF.Classes;
-    using YAF.Controls;
+    using YAF.Configuration;
     using YAF.Core;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Utils;
+    using YAF.Web.Extensions;
 
     #endregion
 
@@ -61,13 +62,7 @@ namespace YAF.Pages
         /// <summary>
         ///   Gets a value indicating whether IsProtected.
         /// </summary>
-        public override bool IsProtected
-        {
-            get
-            {
-                return false;
-            }
-        }
+        public override bool IsProtected => false;
 
         #endregion
 
@@ -89,7 +84,7 @@ namespace YAF.Pages
                 YafBuildLink.Redirect(ForumPages.register);
             }
 
-            this.Response.Redirect(YafBuildLink.GetLink(ForumPages.register, true).Replace("http:", "https:"));
+            this.Get<HttpResponseBase>().Redirect(YafBuildLink.GetLink(ForumPages.register, true).Replace("http:", "https:"));
         }
 
         /// <summary>
@@ -130,9 +125,6 @@ namespace YAF.Pages
 
             this.Accept.Visible = this.PageContext.IsGuest;
             this.Cancel.Visible = this.PageContext.IsGuest;
-
-            this.Accept.Text = this.GetText("ACCEPT");
-            this.Cancel.Text = this.GetText("DECLINE");
         }
 
         #endregion

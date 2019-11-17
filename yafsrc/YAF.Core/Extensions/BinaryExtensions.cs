@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -22,46 +22,47 @@
  * under the License.
  */
 
-using System;
-
-namespace YAF.Core
+namespace YAF.Core.Extensions
 {
-  using YAF.Classes.Data;
+    using YAF.Types.Extensions;
 
-  public static class BinaryExtensions
-  {
     /// <summary>
-    /// The binary and.
+    /// The binary extensions.
     /// </summary>
-    /// <param name="value">
-    /// The value.
-    /// </param>
-    /// <param name="checkAgainst">
-    /// The check against.
-    /// </param>
-    /// <returns>
-    /// The binary and.
-    /// </returns>
-    public static bool BinaryAnd(this int value, int checkAgainst)
+    public static class BinaryExtensions
     {
-      return (value & checkAgainst) == checkAgainst;
+        /// <summary>
+        /// The binary and.
+        /// </summary>
+        /// <param name="value">
+        /// The value.
+        /// </param>
+        /// <param name="checkAgainst">
+        /// The check against.
+        /// </param>
+        /// <returns>
+        /// The binary and.
+        /// </returns>
+        public static bool BinaryAnd(this int value, int checkAgainst)
+        {
+            return (value & checkAgainst) == checkAgainst;
+        }
+
+        /// <summary>
+        /// The binary and.
+        /// </summary>
+        /// <param name="value">
+        /// The value.
+        /// </param>
+        /// <param name="checkAgainst">
+        /// The check against.
+        /// </param>
+        /// <returns>
+        /// The binary and.
+        /// </returns>
+        public static bool BinaryAnd(this object value, object checkAgainst)
+        {
+            return BinaryAnd(value.ToType<int>(), checkAgainst.ToType<int>());
+        }
     }
-
-    /// <summary>
-    /// The binary and.
-    /// </summary>
-    /// <param name="value">
-    /// The value.
-    /// </param>
-    /// <param name="checkAgainst">
-    /// The check against.
-    /// </param>
-    /// <returns>
-    /// The binary and.
-    /// </returns>
-    public static bool BinaryAnd(this object value, object checkAgainst)
-    {
-        return BinaryAnd(Convert.ToInt32(value), Convert.ToInt32(checkAgainst));
-    }    
-  }
 }

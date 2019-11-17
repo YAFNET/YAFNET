@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -21,14 +21,12 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Classes.Data
+namespace YAF.Core.Extensions
 {
-    using System;
-    using System.Data;
     using System.Data.Common;
 
+    using YAF.Configuration;
     using YAF.Types;
-    using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
 
     /// <summary>
@@ -71,7 +69,7 @@ namespace YAF.Classes.Data
         public static bool TestConnection([NotNull] this IDbAccess dbAccess, [NotNull] out string exceptionMessage)
         {
             exceptionMessage = string.Empty;
-            bool success = false;
+            var success = false;
 
             try
             {

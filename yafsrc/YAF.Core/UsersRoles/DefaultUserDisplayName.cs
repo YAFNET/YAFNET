@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -31,8 +31,10 @@ namespace YAF.Core
     using System.Data;
     using System.Linq;
 
-    using YAF.Classes;
+    using YAF.Configuration;
+    using YAF.Core.Extensions;
     using YAF.Core.Model;
+    using YAF.Core.UsersRoles;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
@@ -92,8 +94,7 @@ namespace YAF.Core
         public void Clear(int userId)
         {
             // update collection...
-            string outValue;
-            this.UserDisplayNameCollection.TryRemove(userId, out outValue);
+            this.UserDisplayNameCollection.TryRemove(userId, out var outValue);
         }
 
         /// <summary>
@@ -113,18 +114,11 @@ namespace YAF.Core
         /// Returns the Found User
         /// </returns>
         [NotNull]
-        public IDictionary<int, string> Find([NotNull] string contains)
+        public IList<User> Find([NotNull] string contains)
         {
-            IList<User> found;
-
-            if (YafContext.Current.Get<YafBoardSettings>().EnableDisplayName)
-            {
-                found = this.GetRepository<User>().FindUserTyped(filter: true, displayName: contains);
-                return found.ToDictionary(k => k.UserID, v => v.DisplayName);
-            }
-
-            found = this.GetRepository<User>().FindUserTyped(filter: true, userName: contains);
-            return found.ToDictionary(k => k.UserID, v => v.Name);
+            return YafContext.Current.Get<YafBoardSettings>().EnableDisplayName
+                       ? this.GetRepository<User>().Get(u => u.DisplayName.Contains(contains))
+                       : this.GetRepository<User>().Get(u => u.Name.Contains(contains));
         }
 
         /// <summary>
@@ -158,27 +152,27 @@ namespace YAF.Core
                 if (YafContext.Current.Get<YafBoardSettings>().EnableDisplayName)
                 {
                     var user =
-                      this.GetRepository<User>().FindUserTyped(filter: true, displayName: name).FirstOrDefault();
+                      this.GetRepository<User>().FindUserTyped(true, displayName: name).FirstOrDefault();
 
                     if (user == null)
                     {
                         return null;
                     }
 
-                    userId = user.UserID;
+                    userId = user.ID;
                     this.UserDisplayNameCollection.AddOrUpdate(userId.Value, k => user.DisplayName, (k, v) => user.DisplayName);
                 }
                 else
                 {
                     var user =
-                      this.GetRepository<User>().FindUserTyped(filter: true, userName: name).FirstOrDefault();
+                      this.GetRepository<User>().FindUserTyped(true, userName: name).FirstOrDefault();
 
                     if (user == null)
                     {
                         return null;
                     }
 
-                    userId = user.UserID;
+                    userId = user.ID;
                     this.UserDisplayNameCollection.AddOrUpdate(userId.Value, k => user.DisplayName, (k, v) => user.DisplayName);
                 }
             }
@@ -195,9 +189,7 @@ namespace YAF.Core
         /// </returns>
         public string GetName(int userId)
         {
-            string displayName;
-
-            if (this.UserDisplayNameCollection.TryGetValue(userId, out displayName))
+            if (this.UserDisplayNameCollection.TryGetValue(userId, out var displayName))
             {
                 return displayName;
             }

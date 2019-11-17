@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -116,38 +116,20 @@ namespace YAF.Utils.Structures
     /// </summary>
     public uint Capacity
     {
-      get
-      {
-        return this.m_max;
-      }
+      get => this.m_max;
 
-      set
-      {
-        this.m_max = value;
-      }
+      set => this.m_max = value;
     }
 
     /// <summary>
     /// Gets Keys.
     /// </summary>
-    public ICollection Keys
-    {
-      get
-      {
-        return this.Dictionary.Keys;
-      }
-    }
+    public ICollection Keys => this.Dictionary.Keys;
 
     /// <summary>
     /// Gets Values.
     /// </summary>
-    public ICollection Values
-    {
-      get
-      {
-        return this.Dictionary.Values;
-      }
-    }
+    public ICollection Values => this.Dictionary.Values;
 
     #endregion
 
@@ -182,11 +164,9 @@ namespace YAF.Utils.Structures
         CodeContracts.VerifyNotNull(key, "key");
         CodeContracts.VerifyNotNull(value, "value");
 
-        DoubleLinkedList.LinkItem link = null;
-
         if (this.Dictionary.Contains(key))
         {
-          link = (DoubleLinkedList.LinkItem)this.Dictionary[key];
+          var link = (DoubleLinkedList.LinkItem)this.Dictionary[key];
           link.Item = value;
 
           this.m_list.MoveToHead(link);
@@ -221,7 +201,7 @@ namespace YAF.Utils.Structures
       CodeContracts.VerifyNotNull(key, "key");
       CodeContracts.VerifyNotNull(value, "value");
 
-      DoubleLinkedList.LinkItem link = this.m_list.Prepend(value);
+      var link = this.m_list.Prepend(value);
 
       this.Dictionary.Add(key, link);
 
@@ -242,7 +222,7 @@ namespace YAF.Utils.Structures
     {
       CodeContracts.VerifyNotNull(key, "key");
 
-      bool hasKey = this.Dictionary.Contains(key);
+      var hasKey = this.Dictionary.Contains(key);
 
       // Update the reference for this link
       if (hasKey)
@@ -288,14 +268,14 @@ namespace YAF.Utils.Structures
 
       buff.Append("[");
 
-      foreach (object item in this.m_list)
+      foreach (var item in this.m_list)
       {
         if (buff.Length > 1)
         {
           buff.Append(", ");
         }
 
-        buff.Append(item.ToString());
+        buff.Append(item);
       }
 
       buff.Append("]");
@@ -324,11 +304,11 @@ namespace YAF.Utils.Structures
       if (this.Dictionary.Keys.Count >= this.m_max)
       {
         // Purge an item from the cache
-        DoubleLinkedList.LinkItem tail = this.m_list.TailLink;
+        var tail = this.m_list.TailLink;
 
         if (tail != null)
         {
-          object purgeKey = this.m_linkToKey[tail];
+          var purgeKey = this.m_linkToKey[tail];
 
           if (purgeKey != null)
           {

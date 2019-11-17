@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -152,15 +152,9 @@ namespace YAF.Types.Flags
         public bool IsHostAdmin
         {
             // int value 1
-            get
-            {
-                return this[0];
-            }
+            get => this[0];
 
-            set
-            {
-                this[0] = value;
-            }
+            set => this[0] = value;
         }
 
         /// <summary>
@@ -169,15 +163,9 @@ namespace YAF.Types.Flags
         public bool IsApproved
         {
             // int value 2
-            get
-            {
-                return this[1];
-            }
+            get => this[1];
 
-            set
-            {
-                this[1] = value;
-            }
+            set => this[1] = value;
         }
 
         /// <summary>
@@ -186,15 +174,9 @@ namespace YAF.Types.Flags
         public bool IsGuest
         {
             // int value 4
-            get
-            {
-                return this[2];
-            }
+            get => this[2];
 
-            set
-            {
-                this[2] = value;
-            }
+            set => this[2] = value;
         }
 
         /// <summary>
@@ -203,15 +185,9 @@ namespace YAF.Types.Flags
         public bool IsCaptchaExcluded
         {
             // int value 8
-            get
-            {
-                return this[3];
-            }
+            get => this[3];
 
-            set
-            {
-                this[3] = value;
-            }
+            set => this[3] = value;
         }
 
         /// <summary>
@@ -220,32 +196,21 @@ namespace YAF.Types.Flags
         public bool IsActiveExcluded
         {
             // int value 16
-            get
-            {
-                return this[4];
-            }
+            get => this[4];
 
-            set
-            {
-                this[4] = value;
-            }
+            set => this[4] = value;
         }
 
         /// <summary>
         /// Gets or sets a value indicating whether a user is enabled the DST correction.
         /// </summary>
+        [Obsolete("Not used anymore dst is inherited from the user selected timezone")]
         public bool IsDST
         {
             // int value 32
-            get
-            {
-                return this[5];
-            }
+            get => this[5];
 
-            set
-            {
-                this[5] = value;
-            }
+            set => this[5] = value;
         }
 
         /// <summary>
@@ -256,15 +221,9 @@ namespace YAF.Types.Flags
         public bool IsDirty
         {
             // int value 64
-            get
-            {
-                return this[6];
-            }
+            get => this[6];
 
-            set
-            {
-                this[6] = value;
-            }
+            set => this[6] = value;
         }
 
         #endregion

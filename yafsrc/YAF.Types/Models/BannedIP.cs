@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -31,13 +31,14 @@ namespace YAF.Types.Models
     using YAF.Types.Interfaces.Data;
 
     [Serializable]
+    [UniqueConstraint(nameof(BoardID), nameof(Mask))]
     public partial class BannedIP : IEntity, IHaveID, IHaveBoardID
     {
         partial void OnCreated();
 
         public BannedIP()
         {
-            OnCreated();
+            this.OnCreated();
         }
 
         #region Properties
@@ -46,12 +47,18 @@ namespace YAF.Types.Models
         [Alias("ID")]
         public int ID { get; set; }
 
+        [References(typeof(Board))]
+        [Required]
         public int BoardID { get; set; }
 
+        [Required]
+        [StringLength(15)]
         public string Mask { get; set; }
 
+        [Required]
         public DateTime Since { get; set; }
 
+        [StringLength(128)]
         public string Reason { get; set; }
 
         public int? UserID { get; set; }

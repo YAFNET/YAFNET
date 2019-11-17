@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -38,8 +38,8 @@ namespace YAF.Core
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
 
-    using NamedParameter = YAF.Types.NamedParameter;
-    using TypedParameter = YAF.Types.TypedParameter;
+    using NamedParameter = YAF.Types.Objects.NamedParameter;
+    using TypedParameter = YAF.Types.Objects.TypedParameter;
 
     #endregion
 
@@ -62,8 +62,9 @@ namespace YAF.Core
         /// <summary>
         ///     The _injection cache.
         /// </summary>
-        private static readonly ConcurrentDictionary<KeyValuePair<Type, Type>, IList<Tuple<Type, Type, Action<object, object>>>> _injectionCache =
-            new ConcurrentDictionary<KeyValuePair<Type, Type>, IList<Tuple<Type, Type, Action<object, object>>>>();
+        private static readonly
+            ConcurrentDictionary<KeyValuePair<Type, Type>, IList<Tuple<Type, Type, Action<object, object>>>> InjectionCache =
+                new ConcurrentDictionary<KeyValuePair<Type, Type>, IList<Tuple<Type, Type, Action<object, object>>>>();
 
         #endregion
 
@@ -94,23 +95,20 @@ namespace YAF.Core
         /// <summary>
         /// Gets the tag.
         /// </summary>
-        public object Tag
-        {
-            get
-            {
-                return this.Container.Tag;
-            }
-        }
+        public object Tag => this.Container.Tag;
 
         #endregion
 
         #region Public Methods and Operators
 
         /// <summary>
-        ///     The create scope.
+        /// The create scope.
         /// </summary>
+        /// <param name="tag">
+        /// The tag.
+        /// </param>
         /// <returns>
-        ///     The <see cref="IScopeServiceLocator" />.
+        /// The <see cref="IScopeServiceLocator"/>.
         /// </returns>
         public IScopeServiceLocator CreateScope(object tag = null)
         {
@@ -228,9 +226,7 @@ namespace YAF.Core
         [CanBeNull]
         public object GetService([NotNull] Type serviceType)
         {
-            object instance;
-
-            return this.TryGet(serviceType, out instance) ? instance : null;
+            return this.TryGet(serviceType, out var instance) ? instance : null;
         }
 
         /// <summary>
@@ -252,9 +248,7 @@ namespace YAF.Core
 
             var keyPair = new KeyValuePair<Type, Type>(type, attributeType);
 
-            IList<Tuple<Type, Type, Action<object, object>>> properties;
-
-            if (!_injectionCache.TryGetValue(keyPair, out properties))
+            if (!InjectionCache.TryGetValue(keyPair, out var properties))
             {
                 // find them...
                 properties =
@@ -263,18 +257,19 @@ namespace YAF.Core
                         .Select(p => Tuple.Create(p.PropertyType, p.DeclaringType, new Action<object, object>((i, v) => p.SetValue(i, v, null))))
                         .ToList();
 
-                _injectionCache.AddOrUpdate(keyPair, k => properties, (k, v) => properties);
+                InjectionCache.AddOrUpdate(keyPair, k => properties, (k, v) => properties);
             }
 
-            foreach (var injectProp in properties)
-            {
-                object serviceInstance = injectProp.Item1 == typeof(ILogger)
-                                             ? this.Container.Resolve<ILoggerProvider>().Create(injectProp.Item2)
-                                             : this.Container.Resolve(injectProp.Item1);
+            properties.ForEach(
+                injectProp =>
+                {
+                    var serviceInstance = injectProp.Item1 == typeof(ILogger)
+                                              ? this.Container.Resolve<ILoggerProvider>().Create(injectProp.Item2)
+                                              : this.Container.Resolve(injectProp.Item1);
 
-                // set value is super slow... best not to use it very much.
-                injectProp.Item3(instance, serviceInstance);
-            }
+                    // set value is super slow... best not to use it very much.
+                    injectProp.Item3(instance, serviceInstance);
+                });
         }
 
         /// <summary>
@@ -346,24 +341,22 @@ namespace YAF.Core
 
             var autoParams = new List<Parameter>();
 
-            foreach (var parameter in parameters)
-            {
-                if (parameter is NamedParameter)
+            parameters.ForEach(
+                parameter =>
                 {
-                    var param = parameter as NamedParameter;
-                    autoParams.Add(new Autofac.NamedParameter(param.Name, param.Value));
-                }
-                else if (parameter is TypedParameter)
-                {
-                    var param = parameter as TypedParameter;
-                    autoParams.Add(new Autofac.TypedParameter(param.Type, param.Value));
-                }
-                else
-                {
-                    throw new NotSupportedException("Parameter Type of {0} is not supported.".FormatWith(parameter.GetType()));
-                }
-            }
-
+                    switch (parameter)
+                    {
+                        case NamedParameter param1:
+                            autoParams.Add(new Autofac.NamedParameter(param1.Name, param1.Value));
+                            break;
+                        case TypedParameter param:
+                            autoParams.Add(new Autofac.TypedParameter(param.Type, param.Value));
+                            break;
+                        default:
+                            throw new NotSupportedException($"Parameter Type of {parameter.GetType()} is not supported.");
+                    }
+                });
+            
             return autoParams;
         }
 

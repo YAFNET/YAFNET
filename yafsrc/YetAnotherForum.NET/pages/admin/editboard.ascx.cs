@@ -1,9 +1,9 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -24,7 +24,6 @@
 
 namespace YAF.Pages.Admin
 {
-    using Core.Services.Import;
     #region Using
 
     using System;
@@ -34,17 +33,22 @@ namespace YAF.Pages.Admin
     using System.Web;
     using System.Web.Security;
     using System.Web.UI.WebControls;
-    using YAF.Classes;
-    using YAF.Controls;
+
+    using Core.Services.Import;
+
+    using YAF.Configuration;
     using YAF.Core;
+    using YAF.Core.Extensions;
     using YAF.Core.Helpers;
     using YAF.Core.Model;
+    using YAF.Core.UsersRoles;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
     using YAF.Utils;
+    using YAF.Web.Extensions;
 
     #endregion
 
@@ -58,7 +62,7 @@ namespace YAF.Pages.Admin
         /// <summary>
         ///   Gets BoardID.
         /// </summary>
-        protected int? BoardID
+        protected int? BoardId
         {
             get
             {
@@ -67,8 +71,7 @@ namespace YAF.Pages.Admin
                     return null;
                 }
 
-                int boardId;
-                if (int.TryParse(this.Request.QueryString.GetFirstOrDefault("b"), out boardId))
+                if (int.TryParse(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("b"), out var boardId))
                 {
                     return boardId;
                 }
@@ -90,12 +93,14 @@ namespace YAF.Pages.Admin
         /// <param name="e">
         /// The e.
         /// </param>
-        protected void BindData_AccessMaskID([NotNull] object sender, [NotNull] EventArgs e)
+        protected void BindDataAccessMaskId([NotNull] object sender, [NotNull] EventArgs e)
         {
-            var dropDownList = sender as DropDownList;
-            dropDownList.DataSource = this.GetRepository<AccessMask>().List();
-            dropDownList.DataValueField = "AccessMaskID";
-            dropDownList.DataTextField = "Name";
+            if (sender is DropDownList dropDownList)
+            {
+                dropDownList.DataSource = this.GetRepository<AccessMask>().GetByBoardId();
+                dropDownList.DataValueField = "ID";
+                dropDownList.DataTextField = "Name";
+            }
         }
 
         /// <summary>
@@ -103,7 +108,7 @@ namespace YAF.Pages.Admin
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        protected void Cancel_Click([NotNull] object sender, [NotNull] EventArgs e)
+        protected void CancelClick([NotNull] object sender, [NotNull] EventArgs e)
         {
             YafBuildLink.Redirect(ForumPages.admin_boards);
         }
@@ -113,7 +118,7 @@ namespace YAF.Pages.Admin
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        protected void CreateAdminUser_CheckedChanged([NotNull] object sender, [NotNull] EventArgs e)
+        protected void CreateAdminUserCheckedChanged([NotNull] object sender, [NotNull] EventArgs e)
         {
             this.AdminInfo.Visible = this.CreateAdminUser.Checked;
         }
@@ -130,7 +135,7 @@ namespace YAF.Pages.Admin
         /// <param name="boardMembershipAppName">The board membership app name.</param>
         /// <param name="boardRolesAppName">The board roles app name.</param>
         /// <param name="createUserAndRoles">The create user and roles.</param>
-        /// <returns></returns>
+        /// <returns>Returns if the board was created or not</returns>
         protected bool CreateBoard(
             [NotNull] string adminName,
             [NotNull] string adminPassword,
@@ -143,8 +148,8 @@ namespace YAF.Pages.Admin
             bool createUserAndRoles)
         {
             // Store current App Names
-            string currentMembershipAppName = this.Get<MembershipProvider>().ApplicationName;
-            string currentRolesAppName = this.Get<RoleProvider>().ApplicationName;
+            var currentMembershipAppName = this.Get<MembershipProvider>().ApplicationName;
+            var currentRolesAppName = this.Get<RoleProvider>().ApplicationName;
 
             if (boardMembershipAppName.IsSet() && boardRolesAppName.IsSet())
             {
@@ -153,11 +158,11 @@ namespace YAF.Pages.Admin
                 this.Get<MembershipProvider>().ApplicationName = boardRolesAppName;
             }
 
-            int newBoardID;
-            DataTable cult = StaticDataHelper.Cultures();
-            string langFile = "english.xml";
+            int newBoardId;
+            var cult = StaticDataHelper.Cultures();
+            var langFile = "english.xml";
 
-            foreach (DataRow drow in
+            foreach (var drow in
                 cult.Rows.Cast<DataRow>().Where(drow => drow["CultureTag"].ToString() == this.Culture.SelectedValue))
             {
                 langFile = (string)drow["CultureFile"];
@@ -166,8 +171,7 @@ namespace YAF.Pages.Admin
             if (createUserAndRoles)
             {
                 // Create new admin users
-                MembershipCreateStatus createStatus;
-                MembershipUser newAdmin = this.Get<MembershipProvider>()
+                var newAdmin = this.Get<MembershipProvider>()
                     .CreateUser(
                         adminName,
                         adminPassword,
@@ -176,13 +180,13 @@ namespace YAF.Pages.Admin
                         adminPasswordAnswer,
                         true,
                         null,
-                        out createStatus);
+                        out var createStatus);
 
                 if (createStatus != MembershipCreateStatus.Success)
                 {
                     this.PageContext.AddLoadMessage(
-                        "Create User Failed: {0}".FormatWith(this.GetMembershipErrorMessage(createStatus)),
-                        MessageTypes.Error);
+                        $"Create User Failed: {this.GetMembershipErrorMessage(createStatus)}",
+                        MessageTypes.danger);
 
                     return false;
                 }
@@ -195,7 +199,7 @@ namespace YAF.Pages.Admin
                 RoleMembershipHelper.AddUserToRole(newAdmin.UserName, "Administrators");
 
                 // Create Board
-                newBoardID = this.DbCreateBoard(
+                newBoardId = this.DbCreateBoard(
                     boardName,
                     boardMembershipAppName,
                     boardRolesAppName,
@@ -205,10 +209,10 @@ namespace YAF.Pages.Admin
             else
             {
                 // new admin
-                MembershipUser newAdmin = UserMembershipHelper.GetUser();
+                var newAdmin = UserMembershipHelper.GetUser();
 
                 // Create Board
-                newBoardID = this.DbCreateBoard(
+                newBoardId = this.DbCreateBoard(
                     boardName,
                     boardMembershipAppName,
                     boardRolesAppName,
@@ -216,10 +220,10 @@ namespace YAF.Pages.Admin
                     newAdmin);
             }
 
-            if (newBoardID > 0 && Config.MultiBoardFolders)
+            if (newBoardId > 0 && Config.MultiBoardFolders)
             {
                 // Successfully created the new board
-                string boardFolder = this.Server.MapPath(Path.Combine(Config.BoardRoot, "{0}/".FormatWith(newBoardID)));
+                var boardFolder = this.Server.MapPath(Path.Combine(Config.BoardRoot, $"{newBoardId}/"));
 
                 // Create New Folders.
                 if (!Directory.Exists(Path.Combine(boardFolder, "Images")))
@@ -312,23 +316,6 @@ namespace YAF.Pages.Admin
                 return;
             }
 
-            this.PageLinks.AddRoot();
-            this.PageLinks.AddLink(
-                this.GetText("ADMIN_ADMIN", "Administration"),
-                YafBuildLink.GetLink(ForumPages.admin_admin));
-            this.PageLinks.AddLink(
-                this.GetText("ADMIN_BOARDS", "TITLE"),
-                YafBuildLink.GetLink(ForumPages.admin_editboard));
-            this.PageLinks.AddLink(this.GetText("ADMIN_EDITBOARD", "TITLE"), string.Empty);
-
-            this.Page.Header.Title = "{0} - {1} - {2}".FormatWith(
-                this.GetText("ADMIN_ADMIN", "Administration"),
-                this.GetText("ADMIN_BOARDS", "TITLE"),
-                this.GetText("ADMIN_EDITBOARD", "TITLE"));
-
-            this.Save.Text = this.GetText("SAVE");
-            this.Cancel.Text = this.GetText("CANCEL");
-
             this.Culture.DataSource =
                 StaticDataHelper.Cultures()
                     .AsEnumerable()
@@ -344,28 +331,26 @@ namespace YAF.Pages.Admin
                 this.Culture.Items.FindByValue(this.Get<YafBoardSettings>().Culture).Selected = true;
             }
 
-            if (this.BoardID != null)
+            if (this.BoardId != null)
             {
                 this.CreateNewAdminHolder.Visible = false;
 
-                using (DataTable dt = this.GetRepository<Board>().List(this.BoardID))
-                {
-                    DataRow row = dt.Rows[0];
-                    this.Name.Text = (string)row["Name"];
-                    this.AllowThreaded.Checked = Convert.ToBoolean(row["AllowThreaded"]);
+                var board = this.GetRepository<Board>().GetById(this.BoardId.Value);
+                
+                    this.Name.Text = board.Name;
+                    this.AllowThreaded.Checked = board.AllowThreaded;
 
-                    var membershipAppName = row["MembershipAppName"].ToString();
+                    var membershipAppName = board.MembershipAppName;
 
                     if (membershipAppName.IsSet())
                     {
-                        this.BoardMembershipAppName.Text = row["MembershipAppName"].ToString();
+                        this.BoardMembershipAppName.Text = membershipAppName;
                         this.BoardMembershipAppName.Enabled = false;
                     }
                     else
                     {
                         this.BoardMembershipAppNameHolder.Visible = false;
                     }
-                }
             }
             else
             {
@@ -380,25 +365,43 @@ namespace YAF.Pages.Admin
         }
 
         /// <summary>
+        /// Creates page links for this page.
+        /// </summary>
+        protected override void CreatePageLinks()
+        {
+            this.PageLinks.AddRoot();
+            this.PageLinks.AddLink(
+                this.GetText("ADMIN_ADMIN", "Administration"),
+                YafBuildLink.GetLink(ForumPages.admin_admin));
+            this.PageLinks.AddLink(
+                this.GetText("ADMIN_BOARDS", "TITLE"),
+                YafBuildLink.GetLink(ForumPages.admin_editboard));
+            this.PageLinks.AddLink(this.GetText("ADMIN_EDITBOARD", "TITLE"), string.Empty);
+
+            this.Page.Header.Title =
+                $"{this.GetText("ADMIN_ADMIN", "Administration")} - {this.GetText("ADMIN_BOARDS", "TITLE")} - {this.GetText("ADMIN_EDITBOARD", "TITLE")}";
+        }
+
+        /// <summary>
         /// Save Current board / Create new Board
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        protected void Save_Click([NotNull] object sender, [NotNull] EventArgs e)
+        protected void SaveClick([NotNull] object sender, [NotNull] EventArgs e)
         {
             if (this.Name.Text.Trim().Length == 0)
             {
-                this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITBOARD", "MSG_NAME_BOARD"), MessageTypes.Warning);
+                this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITBOARD", "MSG_NAME_BOARD"), MessageTypes.warning);
                 return;
             }
 
-            if (this.BoardID == null && this.CreateAdminUser.Checked)
+            if (this.BoardId == null && this.CreateAdminUser.Checked)
             {
                 if (this.UserName.Text.Trim().Length == 0)
                 {
                     this.PageContext.AddLoadMessage(
                         this.GetText("ADMIN_EDITBOARD", "MSG_NAME_ADMIN"),
-                        MessageTypes.Warning);
+                        MessageTypes.warning);
                     return;
                 }
 
@@ -406,7 +409,7 @@ namespace YAF.Pages.Admin
                 {
                     this.PageContext.AddLoadMessage(
                         this.GetText("ADMIN_EDITBOARD", "MSG_EMAIL_ADMIN"),
-                        MessageTypes.Warning);
+                        MessageTypes.warning);
                     return;
                 }
 
@@ -414,7 +417,7 @@ namespace YAF.Pages.Admin
                 {
                     this.PageContext.AddLoadMessage(
                         this.GetText("ADMIN_EDITBOARD", "MSG_PASS_ADMIN"),
-                        MessageTypes.Warning);
+                        MessageTypes.warning);
                     return;
                 }
 
@@ -422,31 +425,29 @@ namespace YAF.Pages.Admin
                 {
                     this.PageContext.AddLoadMessage(
                         this.GetText("ADMIN_EDITBOARD", "MSG_PASS_MATCH"),
-                        MessageTypes.Warning);
+                        MessageTypes.warning);
                     return;
                 }
             }
 
-            if (this.BoardID != null)
+            if (this.BoardId != null)
             {
-                DataTable cult = StaticDataHelper.Cultures();
-                string langFile = "en-US";
+                var cult = StaticDataHelper.Cultures();
+                var langFile = "en-US";
 
-                foreach (DataRow drow in
-                    cult.Rows.Cast<DataRow>().Where(drow => drow["CultureTag"].ToString() == this.Culture.SelectedValue)
-                    )
+                foreach (var drow in cult.Rows.Cast<DataRow>()
+                    .Where(drow => drow["CultureTag"].ToString() == this.Culture.SelectedValue))
                 {
-                    langFile = (string)drow["CultureFile"];
+                    langFile = drow["CultureFile"].ToString();
                 }
 
                 // Save current board settings
-                this.GetRepository<Board>()
-                    .Save(
-                        this.BoardID ?? 0,
-                        this.Name.Text.Trim(),
-                        langFile,
-                        this.Culture.SelectedItem.Value,
-                        this.AllowThreaded.Checked);
+                this.GetRepository<Board>().Save(
+                    this.BoardId ?? 0,
+                    this.Name.Text.Trim(),
+                    langFile,
+                    this.Culture.SelectedItem.Value,
+                    this.AllowThreaded.Checked);
             }
             else
             {
@@ -486,28 +487,6 @@ namespace YAF.Pages.Admin
             YafBuildLink.Redirect(ForumPages.admin_boards);
         }
 
-        /*/// <summary>
-        /// The set drop down index.
-        /// Not used
-        /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
-        protected void SetDropDownIndex([NotNull] object sender, [NotNull] EventArgs e)
-        {
-          try
-          {
-            var list = (DropDownList)sender;
-            list.Items.FindByValue(list.Attributes["value"]).Selected = true;
-          }
-          catch (Exception)
-          {
-          }
-        }*/
-
         /// <summary>
         /// Binds the data.
         /// </summary>
@@ -524,7 +503,7 @@ namespace YAF.Pages.Admin
         /// <param name="boardRolesAppName">Name of the board roles application.</param>
         /// <param name="langFile">The language file.</param>
         /// <param name="newAdmin">The new admin.</param>
-        /// <returns></returns>
+        /// <returns>Returns the New Board Id</returns>
         private int DbCreateBoard(
             string boardName,
             string boardMembershipAppName,
@@ -532,7 +511,7 @@ namespace YAF.Pages.Admin
             string langFile,
             MembershipUser newAdmin)
         {
-            int newBoardID = this.GetRepository<Board>()
+            var newBoardId = this.GetRepository<Board>()
                 .Create(
                     boardName,
                     this.Culture.SelectedItem.Value,
@@ -564,19 +543,15 @@ namespace YAF.Pages.Admin
                 });
 
             // load default bbcode if available...
-            loadWrapper("install/bbCodeExtensions.xml", s => DataImport.BBCodeExtensionImport(newBoardID, s));
+            loadWrapper("install/bbCodeExtensions.xml", s => DataImport.BBCodeExtensionImport(newBoardId, s));
 
             // load default extensions if available...
-            loadWrapper("install/fileExtensions.xml", s => DataImport.FileExtensionImport(newBoardID, s));
-
-            // load default topic status if available...
-            loadWrapper("install/TopicStatusList.xml", s => DataImport.TopicStatusImport(newBoardID, s));
+            loadWrapper("install/fileExtensions.xml", s => DataImport.FileExtensionImport(newBoardId, s));
 
             // load default spam word if available...
-            loadWrapper("install/SpamWords.xml", s => DataImport.SpamWordsImport(newBoardID, s));
+            loadWrapper("install/SpamWords.xml", s => DataImport.SpamWordsImport(newBoardId, s));
 
-
-            return newBoardID;
+            return newBoardId;
         }
 
         #endregion

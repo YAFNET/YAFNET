@@ -1,11 +1,41 @@
 YetAnotherForum.NET Changelog
 ====================
 
+# YetAnotherForum.NET v2.3.0.0
+
+## New Features:
+* [NEW] UI Based on Bootstrap 4
+* [NEW] 22 Bootstrap Themes
+* [NEW] Added Dropdown on the moderate page to move multiple topics
+* [NEW #375] indication in the menu if post needs moderation
+* [NEW #365] now you can archive pm's from the outbox
+* [NEW #367] Added Badge Topic Starter Badge
+* [NEW #379] Mark Message as Answer
+* [NEW] Old GIF Emoticons have been replaced by Unicode Emoji
+* [NEW #285] Rewritten Search Engine based on Lucene.NET
+* [NEW #92] Show similar topic titles
+* [NEW #89] Added Buton "Get Location from IP Address" to Retrieve the Country & City from the IP Address
+* [NEW #107] Added Button "Watch all Forums"
+* [NEW #258] Anti Spam statistics
+* [NEW #256] automatically save message draft and also added save button
+* [NEW #286] Mentions of users via @Username
+* [NEW #287] Onsite Notification for Quoted Posts, Mentions and received Thanks
+* [NEW #457] Board Logo can be set in the Board Settings
+* Attachments can be uploaded by Drag & Drop in the Editor
+
+## Fixed Issues:
+* Fixed Unicode Urls
+
+
+# YetAnotherForum.NET v2.2.4.20
+## Fixed Issues:
+* [FIXED] Exclude topics and forum page from noindex
+
+
 # YetAnotherForum.NET v2.2.4.19
 ## Fixed Issues:
 * [FIXED] Attachments Upload on Private Message
 
- 
 # YetAnotherForum.NET v2.2.4.18
 ## New Features:
 * Upgraded to CKEditor 4.12.1
@@ -21,7 +51,6 @@ YetAnotherForum.NET Changelog
 ## Fixed Issues:
 * Image attachment thumbnails are now always max 200 x 200
 
-
 # YetAnotherForum.NET v2.2.4.16
 ## New Features:
 * Added Setting to enable/disable cookie consent popup
@@ -31,7 +60,6 @@ YetAnotherForum.NET Changelog
 * fixed issue with code blocks on mobile devices
 * improved "message_move" and "forum_updatelastpost" performance
 * [FIXED] XSS Issue
-
 
 # YetAnotherForum.NET v2.2.4.15
 ## New Features:
@@ -75,16 +103,17 @@ YetAnotherForum.NET Changelog
 ## Fixed Issues:
 * Editor Dropdown with album images now uses sql paging
 
-
 # YetAnotherForum.NET v2.2.4.11
 
 ## Fixed Issues:
 * [NEW #392] Security Question & Answer can be changed now
 
+
 # YetAnotherForum.NET v2.2.4.10
 
 ## Fixed Issues:
 * [FIXED #394]  Timezone was not correctly loaded on the Edit Profile Page
+
 
 # YetAnotherForum.NET v2.2.4.9
 
@@ -99,10 +128,11 @@ YetAnotherForum.NET Changelog
 * [FIXED] Issue Registering New User
 * [FIXED] Database Ugrade Issue when Fulltext is enabled
 
+
 # YetAnotherForum.NET v2.2.4.7
 
 ## Fixed Issues:
-* [FIXED #3]Stored XSS via file upload
+* [FIXED #387] Stored XSS via file upload
 * [FIXED #386] Hover Card Layout Issue
 
 
@@ -112,7 +142,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] always use forum email as sender address
 
 
-* # YetAnotherForum.NET v2.2.4.5
+# YetAnotherForum.NET v2.2.4.5
 
 ## Fixed Issues:
 * [FIXED #380] DB User Read Tracking without Session tracking
@@ -122,6 +152,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] handling of old attachments
 * [FIXED] ignore ThreadAbortExceptions when adding a album image
 * Extended Logging
+
 
 # YetAnotherForum.NET v2.2.4.4
 
@@ -198,7 +229,7 @@ https://github.com/YAFNET/YAFNET/commits/master
 * [FIXED] Attachments in Multi Board installations
 * [FIXED] issue with Attachments with the same name override old attachments
 * [FIXED] When creating a new Board the BBCode Extensions and other are correctly installed
-ch
+
 
 ### Full Change log here:
 https://github.com/YAFNET/YAFNET/commits/master

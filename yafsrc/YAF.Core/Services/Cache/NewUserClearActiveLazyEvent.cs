@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -26,8 +26,8 @@ namespace YAF.Core.Services.Cache
     using YAF.Types.Attributes;
     using YAF.Types.Constants;
     using YAF.Types.EventProxies;
-    using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Events;
 
     /// <summary>
     ///     The attachment event handle file delete.
@@ -60,13 +60,7 @@ namespace YAF.Core.Services.Cache
         /// <summary>
         ///     Gets the order.
         /// </summary>
-        public int Order
-        {
-            get
-            {
-                return 10000;
-            }
-        }
+        public int Order => 10000;
 
         #endregion
 
@@ -80,7 +74,7 @@ namespace YAF.Core.Services.Cache
         /// </param>
         public void Handle(NewUserRegisteredEvent @event)
         {
-            this.DataCache.Remove(Constants.Cache.ActiveUserLazyData.FormatWith(@event.UserId));
+            this.DataCache.Remove(string.Format(Constants.Cache.ActiveUserLazyData, @event.UserId));
             this.DataCache.Remove(Constants.Cache.ForumActiveDiscussions);
         }
 

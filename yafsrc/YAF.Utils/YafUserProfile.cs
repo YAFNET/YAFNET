@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -34,29 +34,11 @@ namespace YAF.Utils
   #endregion
 
   /// <summary>
-  /// The yaf user profile.
+  /// The YAF user profile.
   /// </summary>
   public class YafUserProfile : ProfileBase, IYafUserProfile
   {
     #region Properties
-
-    /// <summary>
-    /// Gets or sets AIM.
-    /// </summary>
-    [SettingsAllowAnonymous(false)]
-    [CustomProviderData("AIM;nvarchar;255")]
-    public string AIM
-    {
-      get
-      {
-        return base["AIM"] as string;
-      }
-
-      set
-      {
-        base["AIM"] = value;
-      }
-    }
 
     /// <summary>
     /// Gets or sets Birthday.
@@ -65,15 +47,9 @@ namespace YAF.Utils
     [CustomProviderData("Birthday;DateTime")]
     public DateTime Birthday
     {
-      get
-      {
-        return base["Birthday"].ToType<DateTime>();
-      }
+      get => base["Birthday"].ToType<DateTime>();
 
-      set
-      {
-        base["Birthday"] = value;
-      }
+      set => base["Birthday"] = value;
     }
 
     /// <summary>
@@ -83,15 +59,9 @@ namespace YAF.Utils
     [CustomProviderData("Blog;nvarchar;255")]
     public string Blog
     {
-      get
-      {
-        return base["Blog"] as string;
-      }
+      get => base["Blog"] as string;
 
-      set
-      {
-        base["Blog"] = value;
-      }
+      set => base["Blog"] = value;
     }
 
     /// <summary>
@@ -101,15 +71,9 @@ namespace YAF.Utils
     [CustomProviderData("BlogServicePassword;nvarchar;255")]
     public string BlogServicePassword
     {
-      get
-      {
-        return base["BlogServicePassword"] as string;
-      }
+      get => base["BlogServicePassword"] as string;
 
-      set
-      {
-        base["BlogServicePassword"] = value;
-      }
+      set => base["BlogServicePassword"] = value;
     }
 
     /// <summary>
@@ -119,15 +83,9 @@ namespace YAF.Utils
     [CustomProviderData("BlogServiceUrl;nvarchar;255")]
     public string BlogServiceUrl
     {
-      get
-      {
-        return base["BlogServiceUrl"] as string;
-      }
+      get => base["BlogServiceUrl"] as string;
 
-      set
-      {
-        base["BlogServiceUrl"] = value;
-      }
+      set => base["BlogServiceUrl"] = value;
     }
 
     /// <summary>
@@ -137,15 +95,9 @@ namespace YAF.Utils
     [CustomProviderData("BlogServiceUsername;nvarchar;255")]
     public string BlogServiceUsername
     {
-      get
-      {
-        return base["BlogServiceUsername"] as string;
-      }
+      get => base["BlogServiceUsername"] as string;
 
-      set
-      {
-        base["BlogServiceUsername"] = value;
-      }
+      set => base["BlogServiceUsername"] = value;
     }
 
     /// <summary>
@@ -155,33 +107,9 @@ namespace YAF.Utils
     [CustomProviderData("Gender;int")]
     public int Gender
     {
-      get
-      {
-        return (int)base["Gender"];
-      }
+      get => (int)base["Gender"];
 
-      set
-      {
-        base["Gender"] = value;
-      }
-    }
-
-    /// <summary>
-    /// Gets or sets Google+ URL
-    /// </summary>
-    [SettingsAllowAnonymous(false)]
-    [CustomProviderData("Google;nvarchar;400")]
-    public string Google
-    {
-      get
-      {
-        return base["Google"] as string;
-      }
-
-      set
-      {
-        base["Google"] = value;
-      }
+      set => base["Gender"] = value;
     }
 
     /// <summary>
@@ -191,15 +119,9 @@ namespace YAF.Utils
     [CustomProviderData("GoogleId;nvarchar;255")]
     public string GoogleId
     {
-        get
-        {
-            return base["GoogleId"] as string;
-        }
+        get => base["GoogleId"] as string;
 
-        set
-        {
-            base["GoogleId"] = value;
-        }
+        set => base["GoogleId"] = value;
     }
 
     /// <summary>
@@ -209,15 +131,9 @@ namespace YAF.Utils
     [CustomProviderData("Homepage;nvarchar;255")]
     public string Homepage
     {
-      get
-      {
-        return base["Homepage"] as string;
-      }
+      get => base["Homepage"] as string;
 
-      set
-      {
-        base["Homepage"] = value;
-      }
+      set => base["Homepage"] = value;
     }
 
     /// <summary>
@@ -227,15 +143,9 @@ namespace YAF.Utils
     [CustomProviderData("ICQ;nvarchar;255")]
     public string ICQ
     {
-      get
-      {
-        return base["ICQ"] as string;
-      }
+      get => base["ICQ"] as string;
 
-      set
-      {
-        base["ICQ"] = value;
-      }
+      set => base["ICQ"] = value;
     }
 
     /// <summary>
@@ -245,15 +155,9 @@ namespace YAF.Utils
     [CustomProviderData("Facebook;nvarchar;400")]
     public string Facebook
     {
-        get
-        {
-            return base["Facebook"] as string;
-        }
+        get => base["Facebook"] as string;
 
-        set
-        {
-            base["Facebook"] = value;
-        }
+        set => base["Facebook"] = value;
     }
 
     /// <summary>
@@ -263,15 +167,9 @@ namespace YAF.Utils
     [CustomProviderData("FacebookId;nvarchar;400")]
     public string FacebookId
     {
-        get
-        {
-            return base["FacebookId"] as string;
-        }
+        get => base["FacebookId"] as string;
 
-        set
-        {
-            base["FacebookId"] = value;
-        }
+        set => base["FacebookId"] = value;
     }
 
     /// <summary>
@@ -281,15 +179,9 @@ namespace YAF.Utils
     [CustomProviderData("Twitter;nvarchar;400")]
     public string Twitter
     {
-        get
-        {
-            return base["Twitter"] as string;
-        }
+        get => base["Twitter"] as string;
 
-        set
-        {
-            base["Twitter"] = value;
-        }
+        set => base["Twitter"] = value;
     }
 
     /// <summary>
@@ -299,15 +191,9 @@ namespace YAF.Utils
     [CustomProviderData("TwitterId;nvarchar;400")]
     public string TwitterId
     {
-        get
-        {
-            return base["TwitterId"] as string;
-        }
+        get => base["TwitterId"] as string;
 
-        set
-        {
-            base["TwitterId"] = value;
-        }
+        set => base["TwitterId"] = value;
     }
 
     /// <summary>
@@ -317,15 +203,9 @@ namespace YAF.Utils
     [CustomProviderData("Interests;nvarchar;400")]
     public string Interests
     {
-      get
-      {
-        return base["Interests"] as string;
-      }
+      get => base["Interests"] as string;
 
-      set
-      {
-        base["Interests"] = value;
-      }
+      set => base["Interests"] = value;
     }
 
     /// <summary>
@@ -335,15 +215,9 @@ namespace YAF.Utils
     [CustomProviderData("Location;nvarchar;255")]
     public string Location
     {
-      get
-      {
-        return base["Location"] as string;
-      }
+      get => base["Location"] as string;
 
-      set
-      {
-        base["Location"] = value;
-      }
+      set => base["Location"] = value;
     }
 
     /// <summary>
@@ -353,15 +227,9 @@ namespace YAF.Utils
     [CustomProviderData("Country;nvarchar;2")]
     public string Country
     {
-        get
-        {
-            return base["Country"] as string;
-        }
+        get => base["Country"] as string;
 
-        set
-        {
-            base["Country"] = value;
-        }
+        set => base["Country"] = value;
     }
 
     /// <summary>
@@ -371,15 +239,9 @@ namespace YAF.Utils
     [CustomProviderData("Region;nvarchar;255")]
     public string Region
     {
-        get
-        {
-            return base["Region"] as string;
-        }
+        get => base["Region"] as string;
 
-        set
-        {
-            base["Region"] = value;
-        }
+        set => base["Region"] = value;
     }
 
     /// <summary>
@@ -389,33 +251,9 @@ namespace YAF.Utils
     [CustomProviderData("City;nvarchar;255")]
     public string City
     {
-        get
-        {
-            return base["City"] as string;
-        }
+        get => base["City"] as string;
 
-        set
-        {
-            base["City"] = value;
-        }
-    }
-
-    /// <summary>
-    /// Gets or sets MSN.
-    /// </summary>
-    [SettingsAllowAnonymous(false)]
-    [CustomProviderData("MSN;nvarchar;255")]
-    public string MSN
-    {
-      get
-      {
-        return base["MSN"] as string;
-      }
-
-      set
-      {
-        base["MSN"] = value;
-      }
+        set => base["City"] = value;
     }
 
     /// <summary>
@@ -425,15 +263,9 @@ namespace YAF.Utils
     [CustomProviderData("Occupation;nvarchar;400")]
     public string Occupation
     {
-      get
-      {
-        return base["Occupation"] as string;
-      }
+      get => base["Occupation"] as string;
 
-      set
-      {
-        base["Occupation"] = value;
-      }
+      set => base["Occupation"] = value;
     }
 
     /// <summary>
@@ -443,15 +275,9 @@ namespace YAF.Utils
     [CustomProviderData("RealName;nvarchar;255")]
     public string RealName
     {
-      get
-      {
-        return base["RealName"] as string;
-      }
+      get => base["RealName"] as string;
 
-      set
-      {
-        base["RealName"] = value;
-      }
+      set => base["RealName"] = value;
     }
 
     /// <summary>
@@ -461,15 +287,9 @@ namespace YAF.Utils
     [CustomProviderData("Skype;nvarchar;255")]
     public string Skype
     {
-      get
-      {
-        return base["Skype"] as string;
-      }
+      get => base["Skype"] as string;
 
-      set
-      {
-        base["Skype"] = value;
-      }
+      set => base["Skype"] = value;
     }
 
     /// <summary>
@@ -479,33 +299,9 @@ namespace YAF.Utils
     [CustomProviderData("XMPP;nvarchar;255")]
     public string XMPP
     {
-      get
-      {
-        return base["XMPP"] as string;
-      }
+      get => base["XMPP"] as string;
 
-      set
-      {
-        base["XMPP"] = value;
-      }
-    }
-
-    /// <summary>
-    /// Gets or sets YIM.
-    /// </summary>
-    [SettingsAllowAnonymous(false)]
-    [CustomProviderData("YIM;nvarchar;255")]
-    public string YIM
-    {
-      get
-      {
-        return base["YIM"] as string;
-      }
-
-      set
-      {
-        base["YIM"] = value;
-      }
+      set => base["XMPP"] = value;
     }
 
     /// <summary>
@@ -515,15 +311,9 @@ namespace YAF.Utils
     [CustomProviderData("LastSyncedWithDNN;DateTime")]
     public DateTime LastSyncedWithDNN
     {
-        get
-        {
-            return base["LastSyncedWithDNN"].ToType<DateTime>();
-        }
+        get => base["LastSyncedWithDNN"].ToType<DateTime>();
 
-        set
-        {
-            base["LastSyncedWithDNN"] = value;
-        }
+        set => base["LastSyncedWithDNN"] = value;
     }
 
     #endregion

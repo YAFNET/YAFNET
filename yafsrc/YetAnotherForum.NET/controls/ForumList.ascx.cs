@@ -34,8 +34,9 @@ namespace YAF.Controls
     using System.Web.UI.HtmlControls;
     using System.Web.UI.WebControls;
 
-    using YAF.Classes;
-    using YAF.Core;
+    using YAF.Configuration;
+    using YAF.Core.BaseControls;
+    using YAF.Core.Extensions;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
@@ -56,12 +57,12 @@ namespace YAF.Controls
         /// <summary>
         ///   The Go to last post Image ToolTip.
         /// </summary>
-        private string _altLastPost;
+        private string altLastPost;
 
         /// <summary>
         /// The Data Source
         /// </summary>
-        private IEnumerable _dataSource;
+        private IEnumerable dataSource;
 
         #endregion
 
@@ -73,15 +74,9 @@ namespace YAF.Controls
         [NotNull]
         public string AltLastPost
         {
-            get
-            {
-                return string.IsNullOrEmpty(this._altLastPost) ? string.Empty : this._altLastPost;
-            }
+            get => this.altLastPost.IsNotSet() ? string.Empty : this.altLastPost;
 
-            set
-            {
-                this._altLastPost = value;
-            }
+            set => this.altLastPost = value;
         }
 
         /// <summary>
@@ -89,36 +84,33 @@ namespace YAF.Controls
         /// </summary>
         public IEnumerable DataSource
         {
-            get
-            {
-                return this._dataSource;
-            }
+            get => this.dataSource;
 
             set
             {
-                this._dataSource = value;
+                this.dataSource = value;
                 DataRow[] arr;
-                Type t = this._dataSource.GetType();
-                List<DataRow> arlist = new List<DataRow>();
-                List<DataRow> subLIst = new List<DataRow>();
-                List<int> parents = new List<int>();
+                var t = this.dataSource.GetType();
+                var arlist = new List<DataRow>();
+                var subLIst = new List<DataRow>();
+                var parents = new List<int>();
                 if (t.Name == "DataRowCollection")
                 {
-                    arr = new DataRow[((DataRowCollection)this._dataSource).Count];
-                    ((DataRowCollection)this._dataSource).CopyTo(arr, 0);
+                    arr = new DataRow[((DataRowCollection)this.dataSource).Count];
+                    ((DataRowCollection)this.dataSource).CopyTo(arr, 0);
 
-                    for (int i = 0; i < arr.Count(); i++)
+                    foreach (var t1 in arr)
                     {
-                        // these are all subforums related to start page forums
-                        if (!arr[i]["ParentID"].IsNullOrEmptyDBField())
+                        // these are all sub forums related to start page forums
+                        if (!t1["ParentID"].IsNullOrEmptyDBField())
                         {
                             if (this.SubDataSource == null)
                             {
-                                this.SubDataSource = arr[i].Table.Clone();
+                                this.SubDataSource = t1.Table.Clone();
                             }
 
-                            DataRow drow = this.SubDataSource.NewRow();
-                            drow.ItemArray = arr[i].ItemArray;
+                            var drow = this.SubDataSource.NewRow();
+                            drow.ItemArray = t1.ItemArray;
 
                             parents.Add(drow["ForumID"].ToType<int>());
 
@@ -129,48 +121,45 @@ namespace YAF.Controls
                             }
                             else
                             {
-                                arlist.Add(arr[i]);
+                                arlist.Add(t1);
                             }
                         }
                         else
                         {
-                            arlist.Add(arr[i]);
+                            arlist.Add(t1);
                         }
                     }
                 }
                 else
                 {
                     // (t.Name == "DataRow[]")
-                    arr = (DataRow[])this._dataSource;
-                    for (int i = 0; i < arr.Count(); i++)
+                    arr = (DataRow[])this.dataSource;
+                    foreach (var t1 in arr)
                     {
-                        if (!arr[i]["ParentID"].IsNullOrEmptyDBField())
+                        if (!t1["ParentID"].IsNullOrEmptyDBField())
                         {
                             if (this.SubDataSource == null)
                             {
-                                this.SubDataSource = arr[i].Table.Clone();
+                                this.SubDataSource = t1.Table.Clone();
                             }
 
-                            DataRow drow = this.SubDataSource.NewRow();
-                            drow.ItemArray = arr[i].ItemArray;
+                            var drow = this.SubDataSource.NewRow();
+                            drow.ItemArray = t1.ItemArray;
 
                             this.SubDataSource.Rows.Add(drow);
                         }
                         else
                         {
-                            arlist.Add(arr[i]);
+                            arlist.Add(t1);
                         }
                     }
                 }
 
-                if (this.SubDataSource != null)
-                {
-                    this.SubDataSource.AcceptChanges();
-                }
+                this.SubDataSource?.AcceptChanges();
 
-                this._dataSource = arlist;
+                this.dataSource = arlist;
 
-                this.ForumList1.DataSource = this._dataSource;
+                this.ForumList1.DataSource = this.dataSource;
             }
         }
 
@@ -199,32 +188,21 @@ namespace YAF.Controls
         /// </returns>
         public string GetForumLink([NotNull] DataRow row)
         {
-            int forumID = row["ForumID"].ToType<int>();
+            var forumID = row["ForumID"].ToType<int>();
 
             // get the Forum Description
-            string output = Convert.ToString(row["Forum"]);
+            var output = row["Forum"].ToString();
 
             if (row["ReadAccess"].ToType<int>() > 0)
             {
-                if (row["RemoteURL"] != DBNull.Value)
-                {
-                    output = "<a href=\"{0}\" title=\"{1}\" target=\"_blank\">{2}</a>".FormatWith(
-                        (string)row["RemoteURL"],
-                        this.GetText("COMMON", "VIEW_FORUM"),
-                        this.Page.HtmlEncode(output));
-                }
-                else
-                {
-                    output = "<a href=\"{0}\" title=\"{1}\">{2}</a>".FormatWith(
-                        YafBuildLink.GetLink(ForumPages.topics, "f={0}&name={1}", forumID, output),
-                        this.GetText("COMMON", "VIEW_FORUM"),
-                        this.Page.HtmlEncode(output));
-                }
+                output = row["RemoteURL"] != DBNull.Value
+                             ? $"<a href=\"{row["RemoteURL"]}\" title=\"{this.GetText("COMMON", "VIEW_FORUM")}\" target=\"_blank\">{this.Page.HtmlEncode(output)}&nbsp;<i class=\"fas fa-external-link-alt fa-fw\"></i></a>"
+                             : $"<a href=\"{YafBuildLink.GetLink(ForumPages.topics, "f={0}&name={1}", forumID, output)}\" title=\"{this.GetText("COMMON", "VIEW_FORUM")}\">{this.Page.HtmlEncode(output)}</a>";
             }
             else
             {
                 // no access to this forum
-                output = "{0} {1}".FormatWith(output, this.GetText("NO_FORUM_ACCESS"));
+                output = $"{output} {this.GetText("NO_FORUM_ACCESS")}";
             }
 
             return output;
@@ -249,61 +227,53 @@ namespace YAF.Controls
             var row = (DataRow)e.Item.DataItem;
             var flags = new ForumFlags(row["Flags"]);
 
-            DateTime lastRead =
-                this.Get<IReadTrackCurrentUser>()
-                    .GetForumTopicRead(
-                        forumId: row["ForumID"].ToType<int>(),
-                        topicId: row["LastTopicID"].ToType<int>(),
-                        forumReadOverride: row["LastForumAccess"].ToType<DateTime?>() ?? DateTimeHelper.SqlDbMinTime(),
-                        topicReadOverride: row["LastTopicAccess"].ToType<DateTime?>() ?? DateTimeHelper.SqlDbMinTime());
+            var lastRead = this.Get<IReadTrackCurrentUser>().GetForumTopicRead(
+                row["ForumID"].ToType<int>(),
+                row["LastTopicID"].ToType<int>(),
+                row["LastForumAccess"].ToType<DateTime?>() ?? DateTimeHelper.SqlDbMinTime(),
+                row["LastTopicAccess"].ToType<DateTime?>() ?? DateTimeHelper.SqlDbMinTime());
 
-            DateTime lastPosted = row["LastPosted"].ToType<DateTime?>() ?? lastRead;
+            var lastPosted = row["LastPosted"].ToType<DateTime?>() ?? lastRead;
 
-            if (string.IsNullOrEmpty(row["ImageUrl"].ToString()))
+            if (row["ImageUrl"].ToString().IsNotSet())
             {
-                var forumIcon = e.Item.FindControl("ThemeForumIcon") as ThemeImage;
-                if (forumIcon != null)
-                {
-                    forumIcon.ThemeTag = "FORUM";
-                    forumIcon.LocalizedTitlePage = "ICONLEGEND";
-                    forumIcon.LocalizedTitleTag = "NO_NEW_POSTS";
-                    forumIcon.Visible = true;
+                var forumIcon = e.Item.FindControlAs<PlaceHolder>("ForumIcon");
 
-                    try
+                var icon = new Literal { Text = "<i class=\"fas fa-comments fa-1x text-success\"></i>" };
+
+                try
+                {
+                    if (flags.IsLocked)
                     {
-                        if (flags.IsLocked)
-                        {
-                            forumIcon.ThemeTag = "FORUM_LOCKED";
-                            forumIcon.LocalizedTitlePage = "ICONLEGEND";
-                            forumIcon.LocalizedTitleTag = "FORUM_LOCKED";
-                        }
-                        else if (lastPosted > lastRead && row["ReadAccess"].ToType<int>() > 0)
-                        {
-                            forumIcon.ThemeTag = "FORUM_NEW";
-                            forumIcon.LocalizedTitlePage = "ICONLEGEND";
-                            forumIcon.LocalizedTitleTag = "NEW_POSTS";
-                        }
-                        else
-                        {
-                            forumIcon.ThemeTag = "FORUM";
-                            forumIcon.LocalizedTitlePage = "ICONLEGEND";
-                            forumIcon.LocalizedTitleTag = "NO_NEW_POSTS";
-                        }
+                        icon.Text = @"<span class=""fa-stack"">
+                                       <i class=""fas fa-comments fa-stack-2x text-secondary""></i>
+                                       <i class=""fas fa-lock fa-stack-1x text-warning"" style=""position:absolute; bottom:0px !important;text-align:right;line-height: 1em;""></i>
+                                   </span>";
                     }
-                    catch
+                    else if (lastPosted > lastRead && row["ReadAccess"].ToType<int>() > 0)
                     {
+                        icon.Text =
+                            "<span class=\"fa-stack\"><i class=\"fas fa-comments fa-2x text-success\"></i></span>";
+                    }
+                    else
+                    {
+                        icon.Text =
+                            "<span class=\"fa-stack\"><i class=\"fas fa-comments fa-2x text-secondary\"></i></span>";
                     }
                 }
+                catch
+                {
+                }
+
+                forumIcon.Controls.Add(icon);
             }
             else
             {
-                var forumImage = e.Item.FindControl("ForumImage1") as HtmlImage;
+                var forumImage = e.Item.FindControlAs<HtmlImage>("ForumImage1");
                 if (forumImage != null)
                 {
-                    forumImage.Src = "{0}{1}/{2}".FormatWith(
-                        YafForumInfo.ForumServerFileRoot,
-                        YafBoardFolders.Current.Forums,
-                        row["ImageUrl"].ToString());
+                    forumImage.Src =
+                        $"{YafForumInfo.ForumServerFileRoot}{YafBoardFolders.Current.Forums}/{row["ImageUrl"]}";
 
                     // TODO: vzrus: needs to be moved to css and converted to a more light control in the future.
                     // Highlight custom icon images and add tool tips to them. 
@@ -318,10 +288,7 @@ namespace YAF.Controls
                             forumImage.Attributes.Add("title", this.GetText("ICONLEGEND", "FORUM_LOCKED"));
                             forumImage.Attributes.Add(
                                 "src",
-                                "{0}{1}/{2}".FormatWith(
-                                    YafForumInfo.ForumServerFileRoot,
-                                    YafBoardFolders.Current.Forums,
-                                    row["ImageUrl"].ToString()));
+                                $"{YafForumInfo.ForumServerFileRoot}{YafBoardFolders.Current.Forums}/{row["ImageUrl"]}");
                         }
                         else if (lastPosted > lastRead)
                         {
@@ -330,20 +297,14 @@ namespace YAF.Controls
                             forumImage.Attributes.Add("title", this.GetText("ICONLEGEND", "NEW_POSTS"));
                             forumImage.Attributes.Add(
                                 "src",
-                                "{0}{1}/{2}".FormatWith(
-                                    YafForumInfo.ForumServerFileRoot,
-                                    YafBoardFolders.Current.Forums,
-                                    row["ImageUrl"].ToString()));
+                                $"{YafForumInfo.ForumServerFileRoot}{YafBoardFolders.Current.Forums}/{row["ImageUrl"]}");
                         }
                         else
                         {
                             forumImage.Attributes.Add("class", "forum_customimage_nonewposts");
                             forumImage.Attributes.Add(
                                 "src",
-                                "{0}{1}/{2}".FormatWith(
-                                    YafForumInfo.ForumServerFileRoot,
-                                    YafBoardFolders.Current.Forums,
-                                    row["ImageUrl"].ToString()));
+                                $"{YafForumInfo.ForumServerFileRoot}{YafBoardFolders.Current.Forums}/{row["ImageUrl"]}");
                             forumImage.Attributes.Add("alt", this.GetText("ICONLEGEND", "NO_NEW_POSTS"));
                             forumImage.Attributes.Add("title", this.GetText("ICONLEGEND", "NO_NEW_POSTS"));
                         }
@@ -363,51 +324,21 @@ namespace YAF.Controls
                 return;
             }
 
-            if (this.Get<YafBoardSettings>().ShowModeratorListAsColumn)
+            var moderatorSpan = e.Item.FindControlAs<HtmlGenericControl>("ModListMob_Span");
+
+            if (e.Item.FindControl("ForumModeratorListMob") is ForumModeratorList modList1)
             {
-                // hide moderator list...
-                var moderatorColumn = e.Item.FindControl("ModeratorListTD") as HtmlTableCell;
-                var modList = e.Item.FindControl("ModeratorList") as ForumModeratorList;
-
-                if (modList == null)
-                {
-                    return;
-                }
-
                 var dra = row.GetChildRows("FK_Moderator_Forum");
-
                 if (dra.GetLength(0) > 0)
                 {
-                    modList.DataSource = dra;
-                    modList.Visible = true;
-                    modList.DataBind();
-                }
+                    modList1.DataSource = dra;
+                    modList1.Visible = true;
+                    modList1.DataBind();
 
-                // set them as visible...
-                if (moderatorColumn != null)
-                {
-                    moderatorColumn.Visible = true;
-                }
-            }
-            else
-            {
-                var moderatorSpan = e.Item.FindControl("ModListMob_Span") as HtmlGenericControl;
-                var modList1 = e.Item.FindControl("ForumModeratorListMob") as ForumModeratorList;
-
-                if (modList1 != null)
-                {
-                    var dra = row.GetChildRows("FK_Moderator_Forum");
-                    if (dra.GetLength(0) > 0)
+                    // set them as visible...
+                    if (moderatorSpan != null)
                     {
-                        modList1.DataSource = dra;
-                        modList1.Visible = true;
-                        modList1.DataBind();
-
-                        // set them as visible...
-                        if (moderatorSpan != null)
-                        {
-                            moderatorSpan.Visible = true;
-                        }
+                        moderatorSpan.Visible = true;
                     }
                 }
             }
@@ -428,42 +359,6 @@ namespace YAF.Controls
         // Suppress rendering of footer if there is one or more 
 
         /// <summary>
-        /// Gets the moderator link.
-        /// </summary>
-        /// <param name="row">The row.</param>
-        /// <returns>
-        /// The get moderator link.
-        /// </returns>
-        protected string GetModeratorLink([NotNull] DataRow row)
-        {
-            string output;
-
-            if (row["IsGroup"].ToType<int>() == 0)
-            {
-                output =
-                    "<a href=\"{0}\">{1}</a>".FormatWith(
-                        YafBuildLink.GetLink(
-                            ForumPages.profile,
-                            "u={0}&name={1}",
-                            row["ModeratorID"],
-                            row["ModeratorName"]),
-                        row["ModeratorName"]);
-            }
-            else
-            {
-                // TODO : group link should point to group info page (yet unavailable)
-                /*output = String.Format(
-                        "<strong><a href=\"{0}\">{1}</a></strong>",
-                        YafBuildLink.GetLink(ForumPages.forum, "g={0}", row["ModeratorID"]),
-                        row["ModeratorName"]
-                        );*/
-                output = "<strong>{0}</strong>".FormatWith(row["ModeratorName"]);
-            }
-
-            return output;
-        }
-
-        /// <summary>
         /// Gets the moderators footer.
         /// </summary>
         /// <param name="sender">The sender.</param>
@@ -473,7 +368,7 @@ namespace YAF.Controls
         [NotNull]
         protected string GetModeratorsFooter([NotNull] Repeater sender)
         {
-            if (sender.DataSource is DataRow[] && ((DataRow[])sender.DataSource).Length < 1)
+            if (sender.DataSource is DataRow[] rows && rows.Length < 1)
             {
                 return "-";
             }
@@ -495,11 +390,9 @@ namespace YAF.Controls
 
             var arlist = new ArrayList();
 
-            foreach (
-                DataRow subrow in
-                    this.SubDataSource.Rows.Cast<DataRow>()
-                        .Where(subrow => row["ForumID"].ToType<int>() == subrow["ParentID"].ToType<int>())
-                        .Where(subrow => arlist.Count < this.Get<YafBoardSettings>().SubForumsInForumList))
+            foreach (var subrow in this.SubDataSource.Rows.Cast<DataRow>()
+                .Where(subrow => row["ForumID"].ToType<int>() == subrow["ParentID"].ToType<int>()).Where(
+                    subrow => arlist.Count < this.Get<YafBoardSettings>().SubForumsInForumList))
             {
                 arlist.Add(subrow);
             }
@@ -519,9 +412,11 @@ namespace YAF.Controls
         protected string GetViewing([NotNull] object o)
         {
             var row = (DataRow)o;
-            int nViewing = row["Viewing"].ToType<int>();
+            var viewing = row["Viewing"].ToType<int>();
 
-            return nViewing > 0 ? "&nbsp;{0}".FormatWith(this.GetTextFormatted("VIEWING", nViewing)) : string.Empty;
+            return viewing > 0
+                       ? $"<i class=\"far fa-eye text-secondary\" title=\"{this.GetTextFormatted("VIEWING", viewing)}\"></i> {viewing}"
+                       : string.Empty;
         }
 
         /// <summary>
@@ -533,9 +428,8 @@ namespace YAF.Controls
         /// </returns>
         protected bool HasSubforums([NotNull] DataRow row)
         {
-            return this.SubDataSource != null
-                   && this.SubDataSource.Rows.Cast<DataRow>()
-                          .Any(subrow => row["ForumID"].ToType<int>() == subrow["ParentID"].ToType<int>());
+            return this.SubDataSource != null && this.SubDataSource.Rows.Cast<DataRow>()
+                       .Any(subrow => row["ForumID"].ToType<int>() == subrow["ParentID"].ToType<int>());
         }
 
         /// <summary>
@@ -557,7 +451,7 @@ namespace YAF.Controls
         {
             var row = (DataRow)_o;
 
-            return row["RemoteURL"] == DBNull.Value ? "{0:N0}".FormatWith(row["Posts"]) : "-";
+            return row["RemoteURL"] == DBNull.Value ? $"{row["Posts"]:N0}" : "-";
         }
 
         /// <summary>
@@ -568,7 +462,7 @@ namespace YAF.Controls
         protected string Topics([NotNull] object _o)
         {
             var row = (DataRow)_o;
-            return row["RemoteURL"] == DBNull.Value ? "{0:N0}".FormatWith(row["Topics"]) : "-";
+            return row["RemoteURL"] == DBNull.Value ? $"{row["Topics"]:N0}" : "-";
         }
 
         #endregion

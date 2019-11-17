@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -26,9 +26,6 @@ namespace YAF.Types.Extensions
     #region Using
 
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Reflection;
 
     using YAF.Types.Attributes;
 
@@ -53,28 +50,23 @@ namespace YAF.Types.Extensions
         /// </returns>
         public static string GetAltStringValue(this Enum value)
         {
-            string strValue = string.Empty;
+            var strValue = string.Empty;
 
             // Get the type
-            Type type = value.GetType();
+            var type = value.GetType();
 
             // Get fieldinfo for this type
-            FieldInfo fieldInfo = type.GetField(value.ToString());
+            var fieldInfo = type.GetField(value.ToString());
 
             // Get the stringvalue attributes
-            var altAttribs =
-              fieldInfo.GetCustomAttributes(typeof(AltStringValueAttribute), false) as AltStringValueAttribute[];
-
-            if (altAttribs != null && altAttribs.Length > 0)
+            if (fieldInfo.GetCustomAttributes(typeof(AltStringValueAttribute), false) is AltStringValueAttribute[] altAttribs && altAttribs.Length > 0)
             {
                 strValue = altAttribs[0].AltStringValue;
             }
             else
             {
                 // Get the stringvalue attributes
-                var attribs = fieldInfo.GetCustomAttributes(typeof(StringValueAttribute), false) as StringValueAttribute[];
-
-                if (attribs != null && attribs.Length > 0)
+                if (fieldInfo.GetCustomAttributes(typeof(StringValueAttribute), false) is StringValueAttribute[] attribs && attribs.Length > 0)
                 {
                     strValue = attribs[0].StringValue;
                 }
@@ -96,18 +88,17 @@ namespace YAF.Types.Extensions
         public static string GetStringValue(this Enum value)
         {
             // Get the type
-            Type type = value.GetType();
+            var type = value.GetType();
 
             // Get fieldinfo for this type
-            FieldInfo fieldInfo = type.GetField(value.ToString());
+            var fieldInfo = type.GetField(value.ToString());
 
             if (fieldInfo != null)
             {
                 // Get the stringvalue attributes
-                var attribs = fieldInfo.GetCustomAttributes(typeof(StringValueAttribute), false) as StringValueAttribute[];
 
                 // Return the first if there was a match.
-                if (attribs != null)
+                if (fieldInfo.GetCustomAttributes(typeof(StringValueAttribute), false) is StringValueAttribute[] attribs)
                 {
                     return attribs.Length > 0 ? attribs[0].StringValue : Enum.GetName(type, value);
                 }
@@ -132,7 +123,7 @@ namespace YAF.Types.Extensions
         /// </returns>
         public static bool Has<T>(this Enum value, T check)
         {
-            Type type = value.GetType();
+            var type = value.GetType();
 
             // determine the values
             object result = value;
@@ -164,7 +155,7 @@ namespace YAF.Types.Extensions
         /// </param>
         public static T Include<T>(this Enum value, T append)
         {
-            Type type = value.GetType();
+            var type = value.GetType();
 
             // determine the values
             object result = value;
@@ -195,7 +186,7 @@ namespace YAF.Types.Extensions
         /// </param>
         public static T Include<T>(this Enum value, ulong bitValues)
         {
-            Type type = value.GetType();
+            var type = value.GetType();
 
             // determine the values
             object result = value;
@@ -245,7 +236,7 @@ namespace YAF.Types.Extensions
         /// </param>
         public static T Remove<T>(this Enum value, T remove)
         {
-            Type type = value.GetType();
+            var type = value.GetType();
 
             // determine the values
             object result = value;
@@ -303,7 +294,7 @@ namespace YAF.Types.Extensions
         /// </exception>
         public static T ToEnum<T>(this int value)
         {
-            Type enumType = typeof(T);
+            var enumType = typeof(T);
             if (enumType.BaseType != typeof(Enum))
             {
                 throw new ApplicationException("ToEnum does not support non-enum types");
@@ -326,7 +317,7 @@ namespace YAF.Types.Extensions
         /// </exception>
         public static T ToEnum<T>(this ulong value)
         {
-            Type enumType = typeof(T);
+            var enumType = typeof(T);
             if (enumType.BaseType != typeof(Enum))
             {
                 throw new ApplicationException("ToEnum does not support non-enum types");
@@ -349,7 +340,7 @@ namespace YAF.Types.Extensions
         /// </exception>
         public static T ToEnum<T>(this string value)
         {
-            Type enumType = typeof(T);
+            var enumType = typeof(T);
             if (enumType.BaseType != typeof(Enum))
             {
                 throw new ApplicationException("ToEnum does not support non-enum types");
@@ -375,7 +366,7 @@ namespace YAF.Types.Extensions
         /// </exception>
         public static T ToEnum<T>(this string value, bool ignoreCase)
         {
-            Type enumType = typeof(T);
+            var enumType = typeof(T);
             if (enumType.BaseType != typeof(Enum))
             {
                 throw new ApplicationException("ToEnum does not support non-enum types");
@@ -398,7 +389,7 @@ namespace YAF.Types.Extensions
         /// </exception>
         public static T ToEnum<T>(this object value)
         {
-            Type enumType = typeof(T);
+            var enumType = typeof(T);
             if (enumType.BaseType != typeof(Enum))
             {
                 throw new ApplicationException("ObjToEnum does not support non-enum types");
@@ -417,7 +408,7 @@ namespace YAF.Types.Extensions
         /// </returns>
         public static int ToInt(this Enum value)
         {
-            return Convert.ToInt32(value);
+            return value.ToType<int>();
         }
 
         #endregion
@@ -439,11 +430,6 @@ namespace YAF.Types.Extensions
             /// The unsigned.
             /// </summary>
             public readonly ulong? Unsigned;
-
-            /// <summary>
-            /// The int.
-            /// </summary>
-            public long? Int;
 
             /// <summary>
             /// The _ int 32.
@@ -484,22 +470,19 @@ namespace YAF.Types.Extensions
                 }
 
                 // then check for the enumerated value
-                Type compare = Enum.GetUnderlyingType(type);
+                var compare = Enum.GetUnderlyingType(type);
 
                 // if this is an unsigned long then the only
                 // value that can hold it would be a ulong
-                if (compare.Equals(_UInt32) || compare.Equals(_UInt64))
+                if (compare == _UInt32 || compare == _UInt64)
                 {
                     this.Unsigned = Convert.ToUInt64(value);
                 }
-                else if (compare.Equals(_Int32))
+                else if (compare == _Int32)
                 {
-                    this.Int = Convert.ToInt32(value);
                 }
-
-                  // otherwise, a long should cover anything else
                 else
-                {
+                {// otherwise, a long should cover anything else
                     this.Signed = Convert.ToInt64(value);
                 }
             }

@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -23,102 +23,83 @@
  */
 namespace YAF.Core.Syndication
 {
-  #region Using
+    #region Using
 
-  using System;
-  using System.IO;
-  using System.ServiceModel.Syndication;
+    using System;
+    using System.ServiceModel.Syndication;
 
-  using YAF.Classes;
-  using YAF.Types;
-  using YAF.Types.Constants;
-  using YAF.Types.Extensions;
-  using YAF.Types.Interfaces;
-  using YAF.Utils;
-  using YAF.Utils.Helpers.StringUtils;
-
-  #endregion
-
-  /// <summary>
-  /// Class that generates all feeds
-  /// </summary>
-  public class YafSyndicationFeed : SyndicationFeed
-  {
-    #region Constants and Fields
-
-    /// <summary>
-    /// The feed categories.
-    /// </summary>
-    private const string FeedCategories = "YAF";
+    using YAF.Configuration;
+    using YAF.Types;
+    using YAF.Types.Constants;
+    using YAF.Types.Extensions;
+    using YAF.Types.Interfaces;
+    using YAF.Utils;
+    using YAF.Utils.Helpers.StringUtils;
 
     #endregion
 
-    #region Constructors and Destructors
-
     /// <summary>
-    /// Initializes a new instance of the <see cref="YafSyndicationFeed" /> class.
+    /// Class that generates all feeds
     /// </summary>
-    /// <param name="subTitle">The sub title.</param>
-    /// <param name="feedType">The feed source.</param>
-    /// <param name="sf">The feed type Atom/RSS.</param>
-    /// <param name="urlAlphaNum">The alphanumerically encoded base site Url.</param>
-    public YafSyndicationFeed([NotNull] string subTitle, YafRssFeeds feedType, int sf, [NotNull] string urlAlphaNum)
+    public class YafSyndicationFeed : SyndicationFeed
     {
-      this.Copyright =
-        new TextSyndicationContent(
-          "Copyright {0} {1}".FormatWith(DateTime.Now.Year, YafContext.Current.BoardSettings.Name));
-      this.Description =
-        new TextSyndicationContent(
-          "{0} - {1}".FormatWith(
-            YafContext.Current.BoardSettings.Name, 
-            sf == YafSyndicationFormats.Atom.ToInt()
-              ? YafContext.Current.Get<ILocalization>().GetText("ATOMFEED")
-              : YafContext.Current.Get<ILocalization>().GetText("RSSFEED")));
-      this.Title =
-        new TextSyndicationContent(
-          "{0} - {1} - {2}".FormatWith(
-            sf == YafSyndicationFormats.Atom.ToInt()
-              ? YafContext.Current.Get<ILocalization>().GetText("ATOMFEED")
-              : YafContext.Current.Get<ILocalization>().GetText("RSSFEED"), 
-            YafContext.Current.BoardSettings.Name, 
-            subTitle));
+        #region Constants and Fields
 
-      // Alternate link
-      this.Links.Add(SyndicationLink.CreateAlternateLink(new Uri(BaseUrlBuilder.BaseUrl)));
+        /// <summary>
+        /// The feed categories.
+        /// </summary>
+        private const string FeedCategories = "YAF";
 
-      // Self Link
-      var slink =
-        new Uri(
-          YafBuildLink.GetLinkNotEscaped(ForumPages.rsstopic, true, "pg={0}&ft={1}".FormatWith(feedType.ToInt(), sf)));
-      this.Links.Add(SyndicationLink.CreateSelfLink(slink));
+        #endregion
 
-      this.Generator = "YetAnotherForum.NET";
-      this.LastUpdatedTime = DateTime.UtcNow;
-      this.Language = YafContext.Current.Get<ILocalization>().LanguageCode;
-      this.ImageUrl =
-        new Uri("{0}/YAFLogo.png".FormatWith(Path.Combine(YafForumInfo.ForumBaseUrl, YafBoardFolders.Current.Images)));
+        #region Constructors and Destructors
 
-      this.Id =
-        "urn:{0}:{1}:{2}:{3}:{4}".FormatWith(
-          urlAlphaNum, 
-          sf == YafSyndicationFormats.Atom.ToInt()
-            ? YafContext.Current.Get<ILocalization>().GetText("ATOMFEED")
-            : YafContext.Current.Get<ILocalization>().GetText("RSSFEED"), 
-          YafContext.Current.BoardSettings.Name, 
-          subTitle, 
-          YafContext.Current.PageBoardID).Unidecode();
+        /// <summary>
+        /// Initializes a new instance of the <see cref="YafSyndicationFeed" /> class.
+        /// </summary>
+        /// <param name="subTitle">The sub title.</param>
+        /// <param name="feedType">The feed source.</param>
+        /// <param name="sf">The feed type Atom/RSS.</param>
+        /// <param name="urlAlphaNum">The alphanumerically encoded base site Url.</param>
+        public YafSyndicationFeed([NotNull] string subTitle, YafRssFeeds feedType, int sf, [NotNull] string urlAlphaNum)
+        {
+            this.Copyright =
+                new TextSyndicationContent($"Copyright {DateTime.Now.Year} {YafContext.Current.BoardSettings.Name}");
+            this.Description = new TextSyndicationContent(
+                $"{YafContext.Current.BoardSettings.Name} - {(sf == YafSyndicationFormats.Atom.ToInt() ? YafContext.Current.Get<ILocalization>().GetText("ATOMFEED") : YafContext.Current.Get<ILocalization>().GetText("RSSFEED"))}");
+            this.Title = new TextSyndicationContent(
+                $"{(sf == YafSyndicationFormats.Atom.ToInt() ? YafContext.Current.Get<ILocalization>().GetText("ATOMFEED") : YafContext.Current.Get<ILocalization>().GetText("RSSFEED"))} - {YafContext.Current.BoardSettings.Name} - {subTitle}");
 
-      this.Id = this.Id.Replace(" ", string.Empty);
+            // Alternate link
+            this.Links.Add(SyndicationLink.CreateAlternateLink(new Uri(BaseUrlBuilder.BaseUrl)));
 
-      // this.Id = "urn:uuid:{0}".FormatWith(Guid.NewGuid().ToString("D"));
-      this.BaseUri = slink;
-      this.Authors.Add(
-        new SyndicationPerson(YafContext.Current.BoardSettings.ForumEmail, "Forum Admin", BaseUrlBuilder.BaseUrl));
-      this.Categories.Add(new SyndicationCategory(FeedCategories));
+            // Self Link
+            var slink = new Uri(
+                YafBuildLink.GetLinkNotEscaped(ForumPages.rsstopic, true, $"pg={feedType.ToInt()}&ft={sf}"));
+            this.Links.Add(SyndicationLink.CreateSelfLink(slink));
 
-      // writer.WriteRaw("<?xml-stylesheet type=\"text/xsl\" href=\"" + YafForumInfo.ForumClientFileRoot + "rss.xsl\" media=\"screen\"?>");
+            this.Generator = "YetAnotherForum.NET";
+            this.LastUpdatedTime = DateTime.UtcNow;
+            this.Language = YafContext.Current.Get<ILocalization>().LanguageCode;
+            this.ImageUrl = new Uri(
+                $"{BaseUrlBuilder.BaseUrl}{YafForumInfo.ForumClientFileRoot}{YafBoardFolders.Current.Logos}/{YafContext.Current.BoardSettings.ForumLogo}");
+
+            this.Id =
+                $"urn:{urlAlphaNum}:{(sf == YafSyndicationFormats.Atom.ToInt() ? YafContext.Current.Get<ILocalization>().GetText("ATOMFEED") : YafContext.Current.Get<ILocalization>().GetText("RSSFEED"))}:{YafContext.Current.BoardSettings.Name}:{subTitle}:{YafContext.Current.PageBoardID}"
+                    .Unidecode();
+
+            this.Id = this.Id.Replace(" ", string.Empty);
+
+            // this.Id = "urn:uuid:{0}".FormatWith(Guid.NewGuid().ToString("D"));
+            this.BaseUri = slink;
+            this.Authors.Add(
+                new SyndicationPerson(
+                    YafContext.Current.BoardSettings.ForumEmail,
+                    "Forum Admin",
+                    BaseUrlBuilder.BaseUrl));
+            this.Categories.Add(new SyndicationCategory(FeedCategories));
+        }
+
+        #endregion
     }
-
-    #endregion
-  }
 }

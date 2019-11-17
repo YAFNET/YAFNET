@@ -25,8 +25,6 @@ namespace YAF.Core.BBCode.ReplaceRules
 {
     using System.Text.RegularExpressions;
 
-    using ServiceStack;
-
     /// <summary>
     /// For the font size with replace
     /// </summary>
@@ -67,7 +65,7 @@ namespace YAF.Core.BBCode.ReplaceRules
         /// </returns>
         protected override string ManageVariableValue(string variableName, string variableValue, string handlingValue)
         {
-            return variableName == "size" ? this.GetFontSize(variableValue) : variableValue;
+            return variableName == "size" ? GetFontSize(variableValue) : variableValue;
         }
 
         /// <summary>
@@ -75,7 +73,7 @@ namespace YAF.Core.BBCode.ReplaceRules
         /// </summary>
         /// <param name="inputStr">The input string.</param>
         /// <returns>Returns the Font size</returns>
-        private string GetFontSize(string inputStr)
+        private static string GetFontSize(string inputStr)
         {
             int[] sizes = { 50, 70, 80, 90, 100, 120, 140, 160, 180 };
             var size = 5;
@@ -85,7 +83,7 @@ namespace YAF.Core.BBCode.ReplaceRules
 
             if (size > 9)
             {
-                return "{0}px".FormatWith(size); 
+                return $"{size}px"; 
             }
 
             if (size < 1)
@@ -98,7 +96,7 @@ namespace YAF.Core.BBCode.ReplaceRules
                 size = 5;
             }
 
-            return "{0}%".FormatWith(sizes[size - 1]);
+            return $"{sizes[size - 1]}%";
         }
 
         #endregion

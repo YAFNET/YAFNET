@@ -22,24 +22,6 @@ namespace YAF.Controls {
         protected global::System.Web.UI.UpdatePanel UpdateStatsPanel;
         
         /// <summary>
-        /// CollapsibleImage control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Controls.CollapsibleImage CollapsibleImage;
-        
-        /// <summary>
-        /// InformationHeader control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel InformationHeader;
-        
-        /// <summary>
         /// InformationPlaceHolder control.
         /// </summary>
         /// <remarks>
@@ -55,16 +37,7 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel ActiveUsersLabel;
-        
-        /// <summary>
-        /// ForumUsersImage control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Controls.ThemeImage ForumUsersImage;
+        protected global::YAF.Web.Controls.LocalizedLabel ActiveUsersLabel;
         
         /// <summary>
         /// ActiveUserCount control.
@@ -76,6 +49,15 @@ namespace YAF.Controls {
         protected global::System.Web.UI.WebControls.Label ActiveUserCount;
         
         /// <summary>
+        /// ActiveUsers1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Web.Controls.ActiveUsers ActiveUsers1;
+        
+        /// <summary>
         /// MostUsersCount control.
         /// </summary>
         /// <remarks>
@@ -83,15 +65,6 @@ namespace YAF.Controls {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label MostUsersCount;
-        
-        /// <summary>
-        /// ActiveUsers1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Controls.ActiveUsers ActiveUsers1;
         
         /// <summary>
         /// RecentUsersPlaceHolder control.
@@ -109,16 +82,16 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel RecentUsersLabel;
+        protected global::YAF.Web.Controls.LocalizedLabel RecentUsersLabel;
         
         /// <summary>
-        /// ThemeImage1 control.
+        /// RecentUsers control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.ThemeImage ThemeImage1;
+        protected global::YAF.Web.Controls.ActiveUsers RecentUsers;
         
         /// <summary>
         /// RecentUsersCount control.
@@ -130,13 +103,13 @@ namespace YAF.Controls {
         protected global::System.Web.UI.WebControls.Label RecentUsersCount;
         
         /// <summary>
-        /// RecentUsers control.
+        /// MostActiveList control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.ActiveUsers RecentUsers;
+        protected global::YAF.Web.Controls.MostActiveUsers MostActiveList;
         
         /// <summary>
         /// StatsHeader control.
@@ -145,16 +118,7 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.LocalizedLabel StatsHeader;
-        
-        /// <summary>
-        /// ForumStatsImage control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Controls.ThemeImage ForumStatsImage;
+        protected global::YAF.Web.Controls.LocalizedLabel StatsHeader;
         
         /// <summary>
         /// StatsPostsTopicCount control.
@@ -190,7 +154,7 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.UserLink LastPostUserLink;
+        protected global::YAF.Web.Controls.UserLink LastPostUserLink;
         
         /// <summary>
         /// StatsMembersCount control.
@@ -217,24 +181,42 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.UserLink NewestMemberUserLink;
+        protected global::YAF.Web.Controls.UserLink NewestMemberUserLink;
         
         /// <summary>
-        /// BirthdayUsers control.
+        /// AntiSpamStatsHolder control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder BirthdayUsers;
+        protected global::System.Web.UI.WebControls.PlaceHolder AntiSpamStatsHolder;
         
         /// <summary>
-        /// StatsTodaysBirthdays control.
+        /// StatsSpamDenied control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label StatsTodaysBirthdays;
+        protected global::YAF.Web.Controls.LocalizedLabel StatsSpamDenied;
+        
+        /// <summary>
+        /// StatsSpamBanned control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Web.Controls.LocalizedLabel StatsSpamBanned;
+        
+        /// <summary>
+        /// StatsSpamReported control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Web.Controls.LocalizedLabel StatsSpamReported;
     }
 }

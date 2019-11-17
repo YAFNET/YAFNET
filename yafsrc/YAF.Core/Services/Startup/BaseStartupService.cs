@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -53,22 +53,13 @@ namespace YAF.Core.Services.Startup
         return Convert.ToBoolean(YafContext.Current[this.InitVarName]);
       }
 
-      private set
-      {
-        YafContext.Current[this.InitVarName] = value;
-      }
+      private set => YafContext.Current[this.InitVarName] = value;
     }
 
     /// <summary>
     ///   Gets Priority.
     /// </summary>
-    public virtual int Priority
-    {
-      get
-      {
-        return 1000;
-      }
-    }
+    public virtual int Priority => 1000;
 
     /// <summary>
     ///   Gets InitVarName.

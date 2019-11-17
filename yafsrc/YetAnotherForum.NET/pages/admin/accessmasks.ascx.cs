@@ -1,9 +1,9 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -27,30 +27,25 @@ namespace YAF.Pages.Admin
     #region Using
 
     using System;
-    using System.Drawing;
     using System.Web.UI.WebControls;
 
-    using YAF.Classes.Data;
-    using YAF.Controls;
     using YAF.Core;
-    using YAF.Core.Model;
-    using YAF.Core.Services;
+    using YAF.Core.Extensions;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
     using YAF.Utils;
-    using YAF.Utils.Helpers;
+    using YAF.Web.Extensions;
 
     #endregion
 
     /// <summary>
-    /// Summary description for forums.
+    /// The Admin Access Masks Page.
     /// </summary>
     public partial class accessmasks : AdminPage
     {
-        /* Construction */
         #region Methods
 
         /// <summary>
@@ -85,27 +80,8 @@ namespace YAF.Pages.Admin
             // current page label (no link)
             this.PageLinks.AddLink(this.GetText("ADMIN_ACCESSMASKS", "TITLE"));
 
-            this.Page.Header.Title = "{0} - {1}".FormatWith(
-               this.GetText("ADMIN_ADMIN", "Administration"),
-               this.GetText("ADMIN_ACCESSMASKS", "TITLE"));
-        }
-
-        /* Event Handlers */
-
-        /// <summary>
-        /// The delete_ load.
-        /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
-        protected void Delete_Load([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            // add on click confirm dialog
-            ((ThemeButton)sender).Attributes["onclick"] =
-                "return confirm('{0}')".FormatWith(this.GetText("ADMIN_ACCESSMASKS", "CONFIRM_DELETE"));
+            this.Page.Header.Title =
+                $"{this.GetText("ADMIN_ADMIN", "Administration")} - {this.GetText("ADMIN_ACCESSMASKS", "TITLE")}";
         }
 
         /// <summary>
@@ -117,10 +93,10 @@ namespace YAF.Pages.Admin
         /// <returns>
         /// Set access mask flags are rendered green if true, and if not red
         /// </returns>
-        protected Color GetItemColor(bool enabled)
+        protected string GetItemColor(bool enabled)
         {
             // show enabled flag red
-            return enabled ? Color.Green : Color.Red;
+            return enabled ? "badge badge-success" : "badge badge-danger";
         }
 
         /// <summary>
@@ -138,15 +114,11 @@ namespace YAF.Pages.Admin
         }
 
         /// <summary>
-        /// The list_ item command.
+        /// Lists the item command.
         /// </summary>
-        /// <param name="source">
-        /// The source.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
-        protected void List_ItemCommand([NotNull] object source, [NotNull] RepeaterCommandEventArgs e)
+        /// <param name="source">The source.</param>
+        /// <param name="e">The <see cref="RepeaterCommandEventArgs"/> instance containing the event data.</param>
+        protected void ListItemCommand([NotNull] object source, [NotNull] RepeaterCommandEventArgs e)
         {
             switch (e.CommandName)
             {
@@ -157,8 +129,8 @@ namespace YAF.Pages.Admin
                     break;
                 case "delete":
 
-                    // attmempt to delete access masks
-                    if (this.GetRepository<AccessMask>().Delete(e.CommandArgument.ToType<int>()))
+                    // attempt to delete access masks
+                    if (this.GetRepository<AccessMask>().DeleteById(e.CommandArgument.ToType<int>()))
                     {
                         // remove cache of forum moderators
                         this.Get<IDataCache>().Remove(Constants.Cache.ForumModerators);
@@ -167,7 +139,9 @@ namespace YAF.Pages.Admin
                     else
                     {
                         // used masks cannot be deleted
-                        this.PageContext.AddLoadMessage(this.GetText("ADMIN_ACCESSMASKS", "MSG_NOT_DELETE"));
+                        this.PageContext.AddLoadMessage(
+                            this.GetText("ADMIN_ACCESSMASKS", "MSG_NOT_DELETE"),
+                            MessageTypes.warning);
                     }
 
                     // quit switch
@@ -176,29 +150,21 @@ namespace YAF.Pages.Admin
         }
 
         /// <summary>
-        /// The new_ click.
+        /// Handles the Click event of the New control.
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
-        protected void New_Click([NotNull] object sender, [NotNull] EventArgs e)
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        protected void NewClick([NotNull] object sender, [NotNull] EventArgs e)
         {
             // redirect to page for access mask creation
             YafBuildLink.Redirect(ForumPages.admin_editaccessmask);
         }
 
         /// <summary>
-        /// The page_ load.
+        /// Handles the Load event of the Page control.
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
             if (this.IsPostBack)
@@ -206,16 +172,9 @@ namespace YAF.Pages.Admin
                 return;
             }
 
-            this.New.Text = this.GetText("ADMIN_ACCESSMASKS", "NEW_MASK");
-
-            // create links
-            this.CreatePageLinks();
-
             // bind data
             this.BindData();
         }
-
-        /* Methods */
 
         /// <summary>
         /// The bind data.
@@ -223,7 +182,7 @@ namespace YAF.Pages.Admin
         private void BindData()
         {
             // list all access masks for this board
-            this.List.DataSource = this.GetRepository<AccessMask>().List();
+            this.List.DataSource = this.GetRepository<AccessMask>().GetByBoardId();
             this.DataBind();
         }
 

@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2018 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -28,6 +28,7 @@ namespace YAF.Types.Interfaces
     using System.Web.Security;
 
     using YAF.Types.Constants;
+    using YAF.Types.Flags;
 
     /// <summary>
     /// The UserData Interface
@@ -120,11 +121,6 @@ namespace YAF.Types.Interfaces
         int? NumPosts { get; }
 
         /// <summary>
-        ///   Gets a value indicating whether UseMobileTheme.
-        /// </summary>
-        bool UseMobileTheme { get; }
-
-        /// <summary>
         ///   Gets a value indicating whether PMNotification.
         /// </summary>
         bool PMNotification { get; }
@@ -153,6 +149,11 @@ namespace YAF.Types.Interfaces
         ///   Gets ThemeFile.
         /// </summary>
         string ThemeFile { get; }
+
+        /// <summary>
+        /// Gets the User Block Flags.
+        /// </summary>
+        UserBlockFlags Block { get; }
 
         /// <summary>
         /// Gets the time zone information.

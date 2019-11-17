@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -25,8 +25,6 @@
 namespace YAF.Types.Exceptions
 {
     using System;
-
-    using YAF.Types.Extensions;
 
     /// <summary>
     /// No Posts Found For Topic Exception
@@ -74,26 +72,7 @@ namespace YAF.Types.Exceptions
             bool showThanks,
             int messagePosition)
             : base(
-                "No posts were found for topic [topicId:{0}, currentUserID,:{1}, authorUserID:{2}, updateViewCount:{3}, showDeleted:{4}, styledNicks:{5}, showReputation:{6}, sincePostedDate:{7}, toPostedDate:{8}, sinceEditedDate:{9}, toEditedDate:{10}, pageIndex:{11}, pageSize:{12}, sortPosted:{13}, sortEdited:{14}, sortPosition:{15}, showThanks:{16}, messagePosition: {17}]"
-                    .FormatWith(
-                        topicId,
-                        currentUserID,
-                        authorUserID,
-                        updateViewCount,
-                        showDeleted,
-                        styledNicks,
-                        showReputation,
-                        sincePostedDate,
-                        toPostedDate,
-                        sinceEditedDate,
-                        toEditedDate,
-                        pageIndex,
-                        pageSize,
-                        sortPosted,
-                        sortEdited,
-                        sortPosition,
-                        showThanks,
-                        messagePosition))
+                $"No posts were found for topic [topicId:{topicId}, currentUserID,:{currentUserID}, authorUserID:{authorUserID}, updateViewCount:{updateViewCount}, showDeleted:{showDeleted}, styledNicks:{styledNicks}, showReputation:{showReputation}, sincePostedDate:{sincePostedDate}, toPostedDate:{toPostedDate}, sinceEditedDate:{sinceEditedDate}, toEditedDate:{toEditedDate}, pageIndex:{pageIndex}, pageSize:{pageSize}, sortPosted:{sortPosted}, sortEdited:{sortEdited}, sortPosition:{sortPosition}, showThanks:{showThanks}, messagePosition: {messagePosition}]")
         {
         }
     }

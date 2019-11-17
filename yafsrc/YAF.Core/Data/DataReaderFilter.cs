@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -49,53 +49,29 @@ namespace YAF.Core.Data
         #region Public Properties
 
         /// <summary>
-        /// Gets or sets the data reader.
-        /// </summary>
-        protected IDataReader DataReader { get; set; }
-
-        /// <summary>
         /// Gets the depth.
         /// </summary>
-        public virtual int Depth
-        {
-            get
-            {
-                return this.DataReader.Depth;
-            }
-        }
+        public virtual int Depth => this.DataReader.Depth;
 
         /// <summary>
         /// Gets the field count.
         /// </summary>
-        public virtual int FieldCount
-        {
-            get
-            {
-                return this.DataReader.FieldCount;
-            }
-        }
+        public virtual int FieldCount => this.DataReader.FieldCount;
 
         /// <summary>
         /// Gets a value indicating whether is closed.
         /// </summary>
-        public virtual bool IsClosed
-        {
-            get
-            {
-                return this.DataReader.IsClosed;
-            }
-        }
+        public virtual bool IsClosed => this.DataReader.IsClosed;
 
         /// <summary>
         /// Gets the records affected.
         /// </summary>
-        public int RecordsAffected
-        {
-            get
-            {
-                return this.DataReader.RecordsAffected;
-            }
-        }
+        public int RecordsAffected => this.DataReader.RecordsAffected;
+
+        /// <summary>
+        /// Gets or sets the data reader.
+        /// </summary>
+        protected IDataReader DataReader { get; set; }
 
         #endregion
 
@@ -110,13 +86,7 @@ namespace YAF.Core.Data
         /// <returns>
         /// The <see cref="object"/>.
         /// </returns>
-        public virtual object this[int i]
-        {
-            get
-            {
-                return this.DataReader[i];
-            }
-        }
+        public virtual object this[int i] => this.DataReader[i];
 
         /// <summary>
         /// The i data record.this.
@@ -127,13 +97,7 @@ namespace YAF.Core.Data
         /// <returns>
         /// The <see cref="object"/>.
         /// </returns>
-        public virtual object this[string name]
-        {
-            get
-            {
-                return this.DataReader[name];
-            }
-        }
+        public virtual object this[string name] => this.DataReader[name];
 
         #endregion
 

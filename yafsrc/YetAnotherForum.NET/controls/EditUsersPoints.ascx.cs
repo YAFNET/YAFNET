@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -27,12 +27,12 @@ namespace YAF.Controls
 
     using System;
 
-    using YAF.Classes.Data;
-    using YAF.Core;
+    using YAF.Core.BaseControls;
+    using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Utils;
+    using YAF.Types.Models;
     using YAF.Utils.Helpers;
 
     #endregion
@@ -47,13 +47,7 @@ namespace YAF.Controls
         /// <summary>
         ///   Gets user ID of edited user.
         /// </summary>
-        protected int CurrentUserID
-        {
-            get
-            {
-                return this.PageContext.QueryIDs["u"].ToType<int>();
-            }
-        }
+        protected int CurrentUserID => this.PageContext.QueryIDs["u"].ToType<int>();
 
         #endregion
 
@@ -70,12 +64,14 @@ namespace YAF.Controls
         /// </param>
         protected void AddPoints_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
+            this.Page.Validate(); 
+            
             if (!this.Page.IsValid)
             {
                 return;
             }
 
-            LegacyDb.user_addpoints(this.CurrentUserID, null, this.txtAddPoints.Text);
+            this.GetRepository<User>().AddPoints(this.CurrentUserID, null, this.txtAddPoints.Text.ToType<int>());
 
             this.BindData();
         }
@@ -98,10 +94,6 @@ namespace YAF.Controls
                 return;
             }
 
-            this.Button1.Text = this.Get<ILocalization>().GetText("COMMON", "GO");
-            this.btnAddPoints.Text = this.Get<ILocalization>().GetText("COMMON", "GO");
-            this.btnUserPoints.Text = this.Get<ILocalization>().GetText("COMMON", "GO");
-
             this.BindData();
         }
 
@@ -116,12 +108,14 @@ namespace YAF.Controls
         /// </param>
         protected void RemovePoints_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
+            this.Page.Validate();
+
             if (!this.Page.IsValid)
             {
                 return;
             }
 
-            LegacyDb.user_removepoints(this.CurrentUserID, null, this.txtRemovePoints.Text);
+            this.GetRepository<User>().RemovePoints(this.CurrentUserID, null, this.txtRemovePoints.Text.ToType<int>());
             this.BindData();
         }
 
@@ -136,12 +130,15 @@ namespace YAF.Controls
         /// </param>
         protected void SetUserPoints_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
+            this.Page.Validate();
+
             if (!this.Page.IsValid)
             {
                 return;
             }
 
-            LegacyDb.user_setpoints(this.CurrentUserID, this.txtUserPoints.Text);
+            this.GetRepository<User>().SetPoints(this.CurrentUserID, this.txtUserPoints.Text.ToType<int>());
+
             this.BindData();
         }
 
@@ -150,7 +147,8 @@ namespace YAF.Controls
         /// </summary>
         private void BindData()
         {
-            this.ltrCurrentPoints.Text = LegacyDb.user_getpoints(this.CurrentUserID).ToString();
+            this.ltrCurrentPoints.Text = this.txtUserPoints.Text =
+                                             this.GetRepository<User>().GetPoints(this.CurrentUserID).ToString();
         }
 
         #endregion

@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -30,7 +30,8 @@ namespace YAF.Core.Modules
 
     using Autofac;
 
-    using YAF.Classes;
+    using YAF.Configuration;
+    using YAF.Core.BaseModules;
     using YAF.Core.BBCode;
     using YAF.Core.Extensions;
     using YAF.Core.Handlers;
@@ -67,17 +68,9 @@ namespace YAF.Core.Modules
 
             // optional defaults.
             builder.RegisterType<YafSendMail>().As<ISendMail>().SingleInstance().PreserveExistingDefaults();
-
-            if (Config.IsDotNetNuke)
-            {
-                builder.RegisterType<YafActivityStream>()
-                    .As<IActivityStream>()
-                    .SingleInstance()
-                    .PreserveExistingDefaults();
-            }
-
+            builder.RegisterType<YafActivityStream>().As<IActivityStream>().SingleInstance().PreserveExistingDefaults();
             builder.RegisterType<YafSendNotification>().As<ISendNotification>().InstancePerLifetimeScope().PreserveExistingDefaults();
-
+            builder.RegisterType<YafSearch>().As<ISearch>().InstancePerLifetimeScope().PreserveExistingDefaults();
             builder.RegisterType<YafDigest>().As<IDigest>().InstancePerLifetimeScope().PreserveExistingDefaults();
             builder.RegisterType<DefaultUserDisplayName>().As<IUserDisplayName>().InstancePerLifetimeScope().PreserveExistingDefaults();
             builder.RegisterType<DefaultUrlBuilder>().As<IUrlBuilder>().InstancePerLifetimeScope().PreserveExistingDefaults();
@@ -85,6 +78,10 @@ namespace YAF.Core.Modules
             builder.RegisterType<YafFormatMessage>().As<IFormatMessage>().InstancePerLifetimeScope().PreserveExistingDefaults();
             builder.RegisterType<YafDbBroker>().AsSelf().InstancePerLifetimeScope().PreserveExistingDefaults();
             builder.RegisterType<YafAvatars>().As<IAvatars>().InstancePerLifetimeScope().PreserveExistingDefaults();
+            builder.RegisterType<YafAlbum>().As<IAlbum>().InstancePerLifetimeScope().PreserveExistingDefaults();
+            builder.RegisterType<YafAttachment>().As<IAttachment>().InstancePerLifetimeScope().PreserveExistingDefaults();
+            builder.RegisterType<YafResources>().As<IResources>().InstancePerLifetimeScope().PreserveExistingDefaults();
+            builder.RegisterType<IpInfoService>().As<IIpInfoService>().InstancePerLifetimeScope().PreserveExistingDefaults();
             builder.RegisterType<TreatCacheKeyWithBoard>().As<ITreatCacheKey>().InstancePerLifetimeScope().PreserveExistingDefaults();
             builder.RegisterType<CurrentBoardId>().As<IHaveBoardID>().InstancePerLifetimeScope().PreserveExistingDefaults();
 
@@ -93,6 +90,8 @@ namespace YAF.Core.Modules
             builder.RegisterType<YafSession>().As<IYafSession>().InstancePerLifetimeScope().PreserveExistingDefaults();
             builder.RegisterType<YafBadWordReplace>().As<IBadWordReplace>().SingleInstance().PreserveExistingDefaults();
             builder.RegisterType<YafSpamWordCheck>().As<ISpamWordCheck>().SingleInstance().PreserveExistingDefaults();
+            builder.RegisterType<YafSpamCheck>().As<ISpamCheck>().SingleInstance().PreserveExistingDefaults();
+            builder.RegisterType<YafThankYou>().As<IThankYou>().SingleInstance().PreserveExistingDefaults();
 
             builder.RegisterType<YafPermissions>().As<IPermissions>().InstancePerLifetimeScope().PreserveExistingDefaults();
             builder.RegisterType<YafDateTime>().As<IDateTime>().InstancePerLifetimeScope().PreserveExistingDefaults();

@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -26,12 +26,11 @@ namespace YAF.Core
 {
     #region Using
 
-    using System;
     using System.Data;
     using System.Web.Security;
 
-    using YAF.Classes;
-    using YAF.Classes.Data;
+    using YAF.Configuration;
+    using YAF.Core.Extensions;
     using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Exceptions;
@@ -49,9 +48,9 @@ namespace YAF.Core
         #region Fields
 
         /// <summary>
-        /// The _current board row.
+        /// The current board.
         /// </summary>
-        private DataRow _currentBoardRow;
+        private Board currentBoard;
 
         #endregion
 
@@ -60,12 +59,12 @@ namespace YAF.Core
         /// <summary>
         /// Initializes a new instance of the <see cref="YafLoadBoardSettings"/> class.
         /// </summary>
-        /// <param name="boardID">
+        /// <param name="boardId">
         /// The board id.
         /// </param>
-        public YafLoadBoardSettings([NotNull] int boardID)
+        public YafLoadBoardSettings([NotNull] int boardId)
         {
-            this._boardID = boardID;
+            this._boardID = boardId;
 
             // get all the registry values for the forum
             this.LoadBoardSettingsFromDB();
@@ -76,27 +75,22 @@ namespace YAF.Core
         #region Properties
 
         /// <summary>
-        /// Gets the current board row.
+        /// Gets the current board.
         /// </summary>
-        protected DataRow CurrentBoardRow
+        protected Board CurrentBoard
         {
             get
             {
-                if (this._currentBoardRow != null)
+                if (this.currentBoard != null)
                 {
-                    return this._currentBoardRow;
+                    return this.currentBoard;
                 }
 
-                var dataTable = YafContext.Current.GetRepository<Board>().List(this._boardID);
+                var board = YafContext.Current.GetRepository<Board>().GetById(this._boardID);
 
-                if (dataTable.Rows.Count == 0)
-                {
-                    throw new EmptyBoardSettingException("No data for board ID: {0}".FormatWith(this._boardID));
-                }
+                this.currentBoard = board ?? throw new EmptyBoardSettingException($"No data for board ID: {this._boardID}");
 
-                this._currentBoardRow = dataTable.Rows[0];
-
-                return this._currentBoardRow;
+                return this.currentBoard;
             }
         }
 
@@ -105,15 +99,9 @@ namespace YAF.Core
         /// </summary>
         protected override YafLegacyBoardSettings _legacyBoardSettings
         {
-            get
-            {
-                return base._legacyBoardSettings ?? (base._legacyBoardSettings = this.SetupLegacyBoardSettings(this.CurrentBoardRow));
-            }
+            get => base._legacyBoardSettings ?? (base._legacyBoardSettings = SetupLegacyBoardSettings(this.CurrentBoard));
 
-            set
-            {
-                base._legacyBoardSettings = value;
-            }
+            set => base._legacyBoardSettings = value;
         }
 
         /// <summary>
@@ -121,15 +109,9 @@ namespace YAF.Core
         /// </summary>
         protected override string _membershipAppName
         {
-            get
-            {
-                return base._membershipAppName ?? (base._membershipAppName = this._legacyBoardSettings.MembershipAppName);
-            }
+            get => base._membershipAppName ?? (base._membershipAppName = this._legacyBoardSettings.MembershipAppName);
 
-            set
-            {
-                base._membershipAppName = value;
-            }
+            set => base._membershipAppName = value;
         }
 
         /// <summary>
@@ -137,15 +119,9 @@ namespace YAF.Core
         /// </summary>
         protected override string _rolesAppName
         {
-            get
-            {
-                return base._rolesAppName ?? (base._rolesAppName = this._legacyBoardSettings.RolesAppName);
-            }
+            get => base._rolesAppName ?? (base._rolesAppName = this._legacyBoardSettings.RolesAppName);
 
-            set
-            {
-                base._rolesAppName = value;
-            }
+            set => base._rolesAppName = value;
         }
 
         #endregion
@@ -158,15 +134,10 @@ namespace YAF.Core
         public void SaveRegistry()
         {
             // loop through all values and commit them to the DB
-            foreach (string key in this._reg.Keys)
-            {
-                LegacyDb.registry_save(key, this._reg[key]);
-            }
+            this._reg.Keys.ForEach(key => YafContext.Current.GetRepository<Registry>().Save(key, this._reg[key]));
 
-            foreach (string key in this._regBoard.Keys)
-            {
-                LegacyDb.registry_save(key, this._regBoard[key], this._boardID);
-            }
+            this._regBoard.Keys.ForEach(
+                key => YafContext.Current.GetRepository<Registry>().Save(key, this._regBoard[key], this._boardID));
         }
 
         /// <summary>
@@ -178,7 +149,7 @@ namespace YAF.Core
 
             if (this._regBoard.ContainsKey(key))
             {
-                LegacyDb.registry_save(key, this._regBoard[key], this._boardID);
+                YafContext.Current.GetRepository<Registry>().Save(key, this._regBoard[key], this._boardID);
             }
         }
 
@@ -193,23 +164,29 @@ namespace YAF.Core
         {
             DataTable dataTable;
 
-            using (dataTable = LegacyDb.registry_list())
-            {
-                // get all the registry settings into our hash table
-                foreach (DataRow dr in dataTable.Rows)
-                {
-                    this._reg.Add(dr["Name"].ToString().ToLower(), dr["Value"] == DBNull.Value ? null : dr["Value"]);
-                }
-            }
+            var registryList = YafContext.Current.GetRepository<Registry>().List();
 
-            using (dataTable = LegacyDb.registry_list(null, this._boardID))
-            {
-                // get all the registry settings into our hash table
-                foreach (DataRow dr in dataTable.Rows)
-                {
-                    this._regBoard.Add(dr["Name"].ToString().ToLower(), dr["Value"] == DBNull.Value ? null : dr["Value"]);
-                }
-            }
+            // get all the registry settings into our hash table
+            registryList.ForEach(
+                row =>
+                    {
+                        if (!this._reg.ContainsKey(row.Name.ToLower()))
+                        {
+                            this._reg.Add(row.Name.ToLower(), row.Value.IsNotSet() ? null : row.Value);
+                        }
+                    });
+
+            var registryBoardList = YafContext.Current.GetRepository<Registry>().List(this._boardID);
+
+            // get all the registry settings into our hash table
+            registryBoardList.ForEach(
+                row =>
+                    {
+                        if (!this._regBoard.ContainsKey(row.Name.ToLower()))
+                        {
+                            this._regBoard.Add(row.Name.ToLower(), row.Value.IsNotSet() ? null : row.Value);
+                        }
+                    });
         }
 
         /// <summary>
@@ -219,24 +196,23 @@ namespace YAF.Core
         /// The board.
         /// </param>
         /// <returns>
-        /// The <see cref="YafBoardSettings.YafLegacyBoardSettings"/>.
+        /// The <see cref="YafLegacyBoardSettings"/>.
         /// </returns>
-        private YafLegacyBoardSettings SetupLegacyBoardSettings([NotNull] DataRow board)
+        private static YafLegacyBoardSettings SetupLegacyBoardSettings([NotNull] Board board)
         {
             CodeContracts.VerifyNotNull(board, "board");
 
-            var membershipAppName = board["MembershipAppName"].ToString().IsNotSet()
+            var membershipAppName = board.MembershipAppName.IsNotSet()
                                         ? YafContext.Current.Get<MembershipProvider>().ApplicationName
-                                        : board["MembershipAppName"].ToString();
+                                        : board.MembershipAppName;
 
-            var rolesAppName = board["RolesAppName"].ToString().IsNotSet()
+            var rolesAppName = board.RolesAppName.IsNotSet()
                                    ? YafContext.Current.Get<RoleProvider>().ApplicationName
-                                   : board["RolesAppName"].ToString();
+                                   : board.RolesAppName;
 
             return new YafLegacyBoardSettings(
-                board["Name"].ToString(), 
-                Convert.ToString(board["SQLVersion"]), 
-                board["AllowThreaded"].ToType<bool>(), 
+                board.Name, 
+                board.AllowThreaded, 
                 membershipAppName, 
                 rolesAppName);
         }

@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -25,9 +25,9 @@
 namespace YAF.Types.Models
 {
     using System;
-    using System.Data.Linq.Mapping;
 
     using ServiceStack.DataAnnotations;
+    using ServiceStack.OrmLite;
 
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
@@ -43,7 +43,7 @@ namespace YAF.Types.Models
 
         public EventLog()
         {
-            OnCreated();
+            this.OnCreated();
         }
 
         #region Properties
@@ -51,31 +51,31 @@ namespace YAF.Types.Models
         [AutoIncrement]
         [Alias("EventLogID")]
         public int ID { get; set; }
-
+        [Default(OrmLiteVariables.SystemUtc)]
         public DateTime EventTime { get; set; }
 
+        [References(typeof(User))]
         public int? UserID { get; set; }
 
+        [StringLength(100)]
         public string UserName { get; set; }
 
+        [Required]
+        [StringLength(50)]
         public string Source { get; set; }
 
         public string Description { get; set; }
-        
+
+        [Required]
+        [Default(0)]
         public int Type { get; set; }
 
         [Ignore]
         public EventLogTypes EventType
         {
-            get
-            {
-                return this.Type.ToType<EventLogTypes>();
-            }
+            get => this.Type.ToType<EventLogTypes>();
 
-            set
-            {
-                this.Type = (int)value;
-            }
+            set => this.Type = (int)value;
         }
 
         #endregion

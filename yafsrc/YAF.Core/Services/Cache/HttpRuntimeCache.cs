@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -32,8 +32,8 @@ namespace YAF.Core.Services.Cache
 
     using YAF.Types;
     using YAF.Types.EventProxies;
-    using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Events;
 
     #endregion
 
@@ -103,15 +103,9 @@ namespace YAF.Core.Services.Cache
     /// </param>
     public object this[[NotNull] string key]
     {
-      get
-      {
-        return this.Get(key);
-      }
+      get => this.Get(key);
 
-      set
-      {
-        this.Set(key, value);
-      }
+      set => this.Set(key, value);
     }
 
     #endregion
@@ -133,7 +127,7 @@ namespace YAF.Core.Services.Cache
 
       while (dictionaryEnumerator.MoveNext())
       {
-        if (!dictionaryEnumerator.Key.ToString().StartsWith(YafCacheKey + "$"))
+        if (!dictionaryEnumerator.Key.ToString().StartsWith($"{YafCacheKey}$"))
         {
           continue;
         }
@@ -267,7 +261,7 @@ namespace YAF.Core.Services.Cache
     {
       CodeContracts.VerifyNotNull(originalKey, "key");
 
-      return HttpRuntime.Cache[this.CreateKey(originalKey)] ?? null;
+      return HttpRuntime.Cache[this.CreateKey(originalKey)];
     }
 
     #endregion
@@ -322,7 +316,8 @@ namespace YAF.Core.Services.Cache
     /// </returns>
     private string CreateKey([NotNull] string key)
     {
-      return this._treatCacheKey.Treat("{0}${1}".FormatWith(YafCacheKey, key.Replace('$', '.')));
+        key = key.Replace('$', '.');
+        return this._treatCacheKey.Treat($"{YafCacheKey}${key}");
     }
 
     /// <summary>
@@ -347,24 +342,28 @@ namespace YAF.Core.Services.Cache
 
       var cachedItem = this.Get<T>(key);
 
-      if (Equals(cachedItem, default(T)))
+      if (!Equals(cachedItem, default(T)))
       {
-        lock (this._haveLockObject.Get(this.CreateKey(key)))
-        {
+          return cachedItem;
+      }
+
+      lock (this._haveLockObject.Get(this.CreateKey(key)))
+      {
           // now that we're on lockdown, try one more time...
           cachedItem = this.Get<T>(key);
 
-          if (Equals(cachedItem, default(T)))
+          if (!Equals(cachedItem, default(T)))
           {
-            // materialize the query
-            cachedItem = getValue();
-
-            if (!Equals(cachedItem, default(T)))
-            {
-              addToCacheFunction(cachedItem);
-            }
+              return cachedItem;
           }
-        }
+
+          // materialize the query
+          cachedItem = getValue();
+
+          if (!Equals(cachedItem, default(T)))
+          {
+              addToCacheFunction(cachedItem);
+          }
       }
 
       return cachedItem;

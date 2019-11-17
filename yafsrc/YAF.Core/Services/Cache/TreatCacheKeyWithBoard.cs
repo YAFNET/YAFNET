@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -21,12 +21,12 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF.Core.Services.Cache
 {
   #region Using
 
     using YAF.Types;
-    using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
 
     #endregion
@@ -77,7 +77,7 @@ namespace YAF.Core.Services.Cache
     /// </returns>
     public string Treat(string key)
     {
-      return "{0}${1}".FormatWith(key, this.HaveBoardId.BoardID);
+      return $"{key}${this.HaveBoardId.BoardID}";
     }
 
     #endregion

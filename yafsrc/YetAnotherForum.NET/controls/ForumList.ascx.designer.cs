@@ -7,11 +7,13 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace YAF.Controls {
-    
-    
-    public partial class ForumList {
-        
+namespace YAF.Controls
+{
+
+
+    public partial class ForumList
+    {
+
         /// <summary>
         /// ForumList1 control.
         /// </summary>

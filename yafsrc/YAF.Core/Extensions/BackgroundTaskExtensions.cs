@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -21,23 +21,24 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Core.Tasks
+namespace YAF.Core.Extensions
 {
-  using YAF.Types.Interfaces;
+    using YAF.Core.Tasks;
+    using YAF.Types.Interfaces;
 
-  /// <summary>
-  /// Extensions for the <see cref="IBackgroundTask"/> interface
-  /// </summary>
-  public static class BackgroundTaskExtensions
-  {
     /// <summary>
-    /// Returns <see langword="true"/> if the background task can be stopped (is non-critical)
+    /// Extensions for the <see cref="IBackgroundTask"/> interface
     /// </summary>
-    /// <param name="backgroundTask"></param>
-    /// <returns></returns>
-    public static bool IsStoppable(this IBackgroundTask backgroundTask)
+    public static class BackgroundTaskExtensions
     {
-      return !(backgroundTask is ICriticalBackgroundTask);
+        /// <summary>
+        /// Returns <see langword="true"/> if the background task can be stopped (is non-critical)
+        /// </summary>
+        /// <param name="backgroundTask"></param>
+        /// <returns></returns>
+        public static bool IsStoppable(this IBackgroundTask backgroundTask)
+        {
+            return !(backgroundTask is ICriticalBackgroundTask);
+        }
     }
-  }
 }

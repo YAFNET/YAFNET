@@ -1,9 +1,9 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2019 Ingo Herbote
  * http://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -28,13 +28,14 @@ namespace YAF.Pages.Admin
 
     using System;
     using System.Data;
+    using System.IO;
     using System.Linq;
+    using System.Web;
     using System.Web.UI.WebControls;
 
-    using YAF.Classes;
-    using YAF.Classes.Data;
-    using YAF.Controls;
+    using YAF.Configuration;
     using YAF.Core;
+    using YAF.Core.Extensions;
     using YAF.Core.Helpers;
     using YAF.Core.Model;
     using YAF.Types;
@@ -44,7 +45,9 @@ namespace YAF.Pages.Admin
     using YAF.Types.Models;
     using YAF.Types.Objects;
     using YAF.Utils;
+    using YAF.Utils.Extensions;
     using YAF.Utils.Helpers;
+    using YAF.Web.Extensions;
 
     #endregion
 
@@ -69,51 +72,18 @@ namespace YAF.Pages.Admin
 
             var boardSettings = this.Get<YafBoardSettings>();
 
-            this.PageLinks.AddLink(boardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
-            this.PageLinks.AddLink(
-                this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
-            this.PageLinks.AddLink(this.GetText("ADMIN_BOARDSETTINGS", "TITLE"), string.Empty);
+            this.CdvVersion.Text = boardSettings.CdvVersion.ToString();
 
-            this.Page.Header.Title = "{0} - {1}".FormatWith(
-                this.GetText("ADMIN_ADMIN", "Administration"), this.GetText("ADMIN_BOARDSETTINGS", "TITLE"));
-
-            this.Save.Text = this.GetText("COMMON", "SAVE");
-
-            // create list boxes by populating datasources from Data class
-            var themeData = StaticDataHelper.Themes().AsEnumerable().Where(x => !x.Field<bool>("IsMobile"));
+            // create list boxes by populating data sources from Data class
+            var themeData = StaticDataHelper.Themes();
 
             if (themeData.Any())
             {
-                this.Theme.DataSource = themeData.CopyToDataTable();
-                this.Theme.DataTextField = "Theme";
-                this.Theme.DataValueField = "FileName";
+                this.Theme.DataSource = themeData;
             }
 
-            var mobileThemeData = StaticDataHelper.Themes().AsEnumerable().Where(x => x.Field<bool>("IsMobile"));
-
-            if (mobileThemeData.Any())
-            {
-                var mobileThemes = mobileThemeData.CopyToDataTable();
-
-                // Add Dummy Disabled Mobile Theme Item to allow disabling the Mobile Theme
-                DataRow dr = mobileThemes.NewRow();
-                dr["Theme"] = "[ {0} ]".FormatWith(this.GetText("ADMIN_COMMON", "DISABLED"));
-
-                dr["FileName"] = string.Empty;
-                dr["IsMobile"] = false;
-
-                mobileThemes.Rows.InsertAt(dr, 0);
-
-                this.MobileTheme.DataSource = mobileThemes;
-                this.MobileTheme.DataTextField = "Theme";
-                this.MobileTheme.DataValueField = "FileName";
-            }
-
-            this.Culture.DataSource =
-                StaticDataHelper.Cultures()
-                    .AsEnumerable()
-                    .OrderBy(x => x.Field<string>("CultureNativeName"))
-                    .CopyToDataTable();
+            this.Culture.DataSource = StaticDataHelper.Cultures().AsEnumerable()
+                .OrderBy(x => x.Field<string>("CultureNativeName")).CopyToDataTable();
 
             this.Culture.DataTextField = "CultureNativeName";
             this.Culture.DataValueField = "CultureTag";
@@ -122,26 +92,18 @@ namespace YAF.Pages.Admin
             this.ShowTopic.DataTextField = "TopicText";
             this.ShowTopic.DataValueField = "TopicValue";
 
-            this.FileExtensionAllow.DataSource = StaticDataHelper.AllowDisallow();
-            this.FileExtensionAllow.DataTextField = "Text";
-            this.FileExtensionAllow.DataValueField = "Value";
-
-            this.JqueryUITheme.DataSource = StaticDataHelper.JqueryUIThemes();
-            this.JqueryUITheme.DataTextField = "Theme";
-            this.JqueryUITheme.DataValueField = "Theme";
-
             this.BindData();
 
             // bind poll group list
-            var pollGroup =
-                LegacyDb.PollGroupList(this.PageContext.PageUserID, null, this.PageContext.PageBoardID)
-                        .Distinct(new AreEqualFunc<TypedPollGroup>((v1, v2) => v1.PollGroupID == v2.PollGroupID))
-                        .ToList();
+            var pollGroup = this.GetRepository<Poll>()
+                .PollGroupList(this.PageContext.PageUserID, null, this.PageContext.PageBoardID).Distinct(
+                    new AreEqualFunc<TypedPollGroup>((v1, v2) => v1.PollGroupID == v2.PollGroupID)).ToList();
 
             pollGroup.Insert(0, new TypedPollGroup(string.Empty, -1));
 
             // TODO: vzrus needs some work, will be in polls only until feature is debugged there.
-            this.PollGroupListDropDown.Items.AddRange(pollGroup.Select(x => new ListItem(x.Question, x.PollGroupID.ToString())).ToArray());
+            this.PollGroupListDropDown.Items.AddRange(
+                pollGroup.Select(x => new ListItem(x.Question, x.PollGroupID.ToString())).ToArray());
 
             // population default notification setting options...
             var items = EnumHelper.EnumToDictionary<UserNotificationSetting>();
@@ -152,23 +114,29 @@ namespace YAF.Pages.Admin
                 items.Remove(UserNotificationSetting.AllTopics.ToInt());
             }
 
-            var notificationItems =
-                items.Select(x => new ListItem(HtmlHelper.StripHtml(this.GetText("CP_SUBSCRIPTIONS", x.Value)), x.Key.ToString())).ToArray();
+            var notificationItems = items.Select(
+                    x => new ListItem(
+                        HtmlHelper.StripHtml(this.GetText("CP_SUBSCRIPTIONS", x.Value)),
+                        x.Key.ToString()))
+                .ToArray();
 
             this.DefaultNotificationSetting.Items.AddRange(notificationItems);
 
-            SetSelectedOnList(ref this.JqueryUITheme, boardSettings.JqueryUITheme);
-
             // Get first default full culture from a language file tag.
-            string langFileCulture = StaticDataHelper.CultureDefaultFromFile(boardSettings.Language)
-                                     ?? "en-US";
+            var langFileCulture = StaticDataHelper.CultureDefaultFromFile(boardSettings.Language) ?? "en-US";
 
-            SetSelectedOnList(ref this.Theme, boardSettings.Theme);
-            SetSelectedOnList(ref this.MobileTheme, boardSettings.MobileTheme);
+            if (boardSettings.Theme.Contains(".xml"))
+            {
+                SetSelectedOnList(ref this.Theme, "yaf");
+            }
+            else
+            {
+                SetSelectedOnList(ref this.Theme, boardSettings.Theme);
+            }
 
             // If 2-letter language code is the same we return Culture, else we return  a default full culture from language file
             /* SetSelectedOnList(
-                ref this.Culture, 
+                ref this.Culture,
                 langFileCulture.Substring(0, 2) == this.Get<YafBoardSettings>().Culture
                   ? this.Get<YafBoardSettings>().Culture
                   : langFileCulture);*/
@@ -177,26 +145,31 @@ namespace YAF.Pages.Admin
             {
                 // If 2-letter language code is the same we return Culture, else we return  a default full culture from language file
                 SetSelectedOnList(
-                    ref this.Culture, langFileCulture.Substring(0, 2) == boardSettings.Culture ? boardSettings.Culture : langFileCulture);
+                    ref this.Culture,
+                    langFileCulture.Substring(0, 2) == boardSettings.Culture ? boardSettings.Culture : langFileCulture);
             }
 
             SetSelectedOnList(ref this.ShowTopic, boardSettings.ShowTopicsDefault.ToString());
             SetSelectedOnList(
-                ref this.FileExtensionAllow, boardSettings.FileExtensionAreAllowed ? "0" : "1");
-
-            SetSelectedOnList(
                 ref this.DefaultNotificationSetting,
                 boardSettings.DefaultNotificationSetting.ToInt().ToString());
 
-            this.NotificationOnUserRegisterEmailList.Text =
-                boardSettings.NotificationOnUserRegisterEmailList;
-            this.AllowThemedLogo.Checked = boardSettings.AllowThemedLogo;
+            this.FileExtensionAllow.Checked = boardSettings.FileExtensionAreAllowed;
+
+            this.NotificationOnUserRegisterEmailList.Text = boardSettings.NotificationOnUserRegisterEmailList;
             this.EmailModeratorsOnModeratedPost.Checked = boardSettings.EmailModeratorsOnModeratedPost;
             this.EmailModeratorsOnReportedPost.Checked = boardSettings.EmailModeratorsOnReportedPost;
             this.AllowDigestEmail.Checked = boardSettings.AllowDigestEmail;
             this.DefaultSendDigestEmail.Checked = boardSettings.DefaultSendDigestEmail;
             this.ForumEmail.Text = boardSettings.ForumEmail;
             this.ForumBaseUrlMask.Text = boardSettings.BaseUrlMask;
+
+            var item = this.BoardLogo.Items.FindByText(boardSettings.ForumLogo);
+
+            if (item != null)
+            {
+                item.Selected = true;
+            }
 
             this.CopyrightRemovalKey.Text = boardSettings.CopyrightRemovalDomainKey;
 
@@ -213,9 +186,24 @@ namespace YAF.Pages.Admin
 
             this.PollGroupList.Visible = true;
 
-            // Copyright Linkback Algorithm
+            // Copyright Link-back Algorithm
             // Please keep if you haven't purchased a removal or commercial license.
             this.CopyrightHolder.Visible = true;
+        }
+
+        /// <summary>
+        /// Creates page links for this page.
+        /// </summary>
+        protected override void CreatePageLinks()
+        {
+            this.PageLinks.AddLink(this.Get<YafBoardSettings>().Name, YafBuildLink.GetLink(ForumPages.forum));
+            this.PageLinks.AddLink(
+                this.GetText("ADMIN_ADMIN", "Administration"),
+                YafBuildLink.GetLink(ForumPages.admin_admin));
+            this.PageLinks.AddLink(this.GetText("ADMIN_BOARDSETTINGS", "TITLE"), string.Empty);
+
+            this.Page.Header.Title =
+                $"{this.GetText("ADMIN_ADMIN", "Administration")} - {this.GetText("ADMIN_BOARDSETTINGS", "TITLE")}";
         }
 
         /// <summary>
@@ -223,47 +211,40 @@ namespace YAF.Pages.Admin
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        protected void Save_Click([NotNull] object sender, [NotNull] EventArgs e)
+        protected void SaveClick([NotNull] object sender, [NotNull] EventArgs e)
         {
-            string languageFile = "english.xml";
+            var languageFile = "english.xml";
 
-            var cultures =
-                StaticDataHelper.Cultures().AsEnumerable().Where(
-                    c => c.Field<string>("CultureTag").Equals(this.Culture.SelectedValue));
+            var cultures = StaticDataHelper.Cultures().AsEnumerable()
+                .Where(c => c.Field<string>("CultureTag").Equals(this.Culture.SelectedValue));
 
             if (cultures.Any())
             {
                 languageFile = cultures.First().Field<string>("CultureFile");
             }
 
-            this.GetRepository<Board>()
-                .Save(
-                    this.PageContext.PageBoardID,
-                    this.Name.Text,
-                    languageFile,
-                    this.Culture.SelectedValue,
-                    this.AllowThreaded.Checked);
+            this.GetRepository<Board>().Save(
+                this.PageContext.PageBoardID,
+                this.Name.Text,
+                languageFile,
+                this.Culture.SelectedValue,
+                this.AllowThreaded.Checked);
 
             // save poll group
             var boardSettings = this.Get<YafBoardSettings>();
 
             boardSettings.BoardPollID = this.PollGroupListDropDown.SelectedIndex.ToType<int>() > 0
-                                                           ? this.PollGroupListDropDown.SelectedValue.ToType<int>()
-                                                           : 0;
+                                            ? this.PollGroupListDropDown.SelectedValue.ToType<int>()
+                                            : 0;
 
             boardSettings.Language = languageFile;
             boardSettings.Culture = this.Culture.SelectedValue;
             boardSettings.Theme = this.Theme.SelectedValue;
 
             // allow null/empty as a mobile theme many not be desired.
-            boardSettings.MobileTheme = this.MobileTheme.SelectedValue ?? string.Empty;
-
             boardSettings.ShowTopicsDefault = this.ShowTopic.SelectedValue.ToType<int>();
-            boardSettings.AllowThemedLogo = this.AllowThemedLogo.Checked;
-            boardSettings.FileExtensionAreAllowed = this.FileExtensionAllow.SelectedValue.ToType<int>()
-                                                                   == 0;
-            boardSettings.NotificationOnUserRegisterEmailList =
-                this.NotificationOnUserRegisterEmailList.Text.Trim();
+            boardSettings.FileExtensionAreAllowed = this.FileExtensionAllow.Checked;
+            boardSettings.NotificationOnUserRegisterEmailList = this.NotificationOnUserRegisterEmailList.Text.Trim();
 
             boardSettings.EmailModeratorsOnModeratedPost = this.EmailModeratorsOnModeratedPost.Checked;
             boardSettings.EmailModeratorsOnReportedPost = this.EmailModeratorsOnReportedPost.Checked;
@@ -273,13 +254,16 @@ namespace YAF.Pages.Admin
                 this.DefaultNotificationSetting.SelectedValue.ToEnum<UserNotificationSetting>();
 
             boardSettings.ForumEmail = this.ForumEmail.Text;
+
+            if (this.BoardLogo.SelectedIndex > 1)
+            {
+                boardSettings.ForumLogo = this.BoardLogo.SelectedItem.Text;
+            }
+
             boardSettings.BaseUrlMask = this.ForumBaseUrlMask.Text;
             boardSettings.CopyrightRemovalDomainKey = this.CopyrightRemovalKey.Text.Trim();
-            boardSettings.JqueryUITheme = this.JqueryUITheme.SelectedValue;
 
-            int hours;
-
-            if (!int.TryParse(this.DigestSendEveryXHours.Text, out hours))
+            if (!int.TryParse(this.DigestSendEveryXHours.Text, out var hours))
             {
                 hours = 24;
             }
@@ -298,6 +282,19 @@ namespace YAF.Pages.Admin
         }
 
         /// <summary>
+        /// Increases the CDV version on click.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        protected void IncreaseVersionOnClick(object sender, EventArgs e)
+        {
+            this.Get<YafBoardSettings>().CdvVersion++;
+            ((YafLoadBoardSettings)this.Get<YafBoardSettings>()).SaveRegistry();
+
+            this.CdvVersion.Text = this.Get<YafBoardSettings>().CdvVersion.ToString();
+        }
+
+        /// <summary>
         /// The set selected on list.
         /// </summary>
         /// <param name="list">The list.</param>
@@ -306,7 +303,7 @@ namespace YAF.Pages.Admin
         {
             var selItem = list.Items.FindByValue(value);
 
-            list.ClearSelection(); 
+            list.ClearSelection();
 
             if (selItem != null)
             {
@@ -324,15 +321,46 @@ namespace YAF.Pages.Admin
         /// </summary>
         private void BindData()
         {
-            DataRow row;
-            using (DataTable dt = this.GetRepository<Board>().List(this.PageContext.PageBoardID))
+            var board = this.GetRepository<Board>().GetById(this.PageContext.PageBoardID);
+
+            using (var dt = new DataTable("Files"))
             {
-                row = dt.Rows[0];
+                dt.Columns.Add("FileID", typeof(long));
+                dt.Columns.Add("FileName", typeof(string));
+                dt.Columns.Add("Description", typeof(string));
+                var dr = dt.NewRow();
+                dr["FileID"] = 0;
+                dr["FileName"] =
+                    YafForumInfo.GetURLToContent("images/spacer.gif"); // use spacer.gif for Description Entry
+                dr["Description"] = this.GetText("BOARD_LOGO_SELECT");
+                dt.Rows.Add(dr);
+
+                var dir = new DirectoryInfo(
+                    this.Get<HttpRequestBase>().MapPath($"{YafForumInfo.ForumServerFileRoot}{YafBoardFolders.Current.Logos}"));
+                var files = dir.GetFiles("*.*");
+                long fileID = 1;
+
+                foreach (var file in from file in files
+                                     let extension = file.Extension.ToLower()
+                                     where extension == ".png" || extension == ".gif" || extension == ".jpg"
+                                           || extension == ".svg"
+                                     select file)
+                {
+                    dr = dt.NewRow();
+                    dr["FileID"] = fileID++;
+                    dr["FileName"] = $"{YafForumInfo.ForumClientFileRoot}{YafBoardFolders.Current.Logos}/{file.Name}";
+                    dr["Description"] = file.Name;
+                    dt.Rows.Add(dr);
+                }
+
+                this.BoardLogo.DataSource = dt;
+                this.BoardLogo.DataValueField = "FileName";
+                this.BoardLogo.DataTextField = "Description";
             }
 
             this.DataBind();
-            this.Name.Text = row["Name"].ToString();
-            this.AllowThreaded.Checked = Convert.ToBoolean(row["AllowThreaded"]);
+            this.Name.Text = board.Name;
+            this.AllowThreaded.Checked = board.AllowThreaded;
         }
 
         #endregion
