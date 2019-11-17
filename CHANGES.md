@@ -4,7 +4,7 @@ YetAnotherForum.NET Changelog
 # YetAnotherForum.NET v2.3.0.0
 
 ## New Features:
-* [NEW] UI Based on Bootstrap
+* [NEW] UI Based on Bootstrap 4
 * [NEW] 22 Bootstrap Themes
 * [NEW] Added Dropdown on the moderate page to move multiple topics
 * [NEW #375] indication in the menu if post needs moderation
@@ -21,6 +21,7 @@ YetAnotherForum.NET Changelog
 * [NEW #286] Mentions of users via @Username
 * [NEW #287] Onsite Notification for Quoted Posts, Mentions and received Thanks
 * [NEW #457] Board Logo can be set in the Board Settings
+* Attachments can be uploaded by Drag & Drop in the Editor
 
 ## Fixed Issues:
 * Fixed Unicode Urls
