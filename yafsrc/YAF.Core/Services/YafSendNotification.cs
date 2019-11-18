@@ -586,8 +586,7 @@ namespace YAF.Core.Services
 
             var notifyAdmin = new YafTemplateEmail();
 
-            var subject = this.Get<ILocalization>().GetText(
-                "COMMON",
+            var subject = this.Get<ILocalization>().GetTextFormatted(
                 "NOTIFICATION_ON_USER_REGISTER_EMAIL_SUBJECT",
                 this.BoardSettings.Name);
 
