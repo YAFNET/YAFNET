@@ -28,6 +28,7 @@ namespace YAF.Core.Model
     using System;
     using System.Collections.Generic;
     using System.Data;
+    using System.Globalization;
     using System.Linq;
 
     using YAF.Configuration;
@@ -766,7 +767,30 @@ namespace YAF.Core.Model
                 UTCTIMESTAMP: DateTime.UtcNow);
 
             messageId = long.Parse(dt.Rows[0]["MessageID"].ToString());
-            return long.Parse(dt.Rows[0]["TopicID"].ToString());
+
+            long topicId = long.Parse(dt.Rows[0]["TopicID"].ToString());
+
+            // Add to search index
+            var newMessage = new SearchMessage
+                                 {
+                                     MessageId = messageId.ToType<int>(),
+                                     Message = message,
+                                     Flags = flags,
+                                     Posted = posted.ToString(CultureInfo.InvariantCulture),
+                                     UserName = YafContext.Current.User.UserName,
+                                     UserDisplayName = YafContext.Current.CurrentUserData.DisplayName,
+                                     UserStyle = YafContext.Current.UserStyle,
+                                     UserId = YafContext.Current.PageUserID,
+                                     TopicId = topicId.ToType<int>(),
+                                     Topic = subject,
+                                     ForumId = YafContext.Current.PageForumID,
+                                     ForumName = YafContext.Current.PageForumName,
+                                     Description = string.Empty
+                                 };
+
+            YafContext.Current.Get<ISearch>().AddSearchIndexItem(newMessage);
+
+            return topicId;
         }
 
         /// <summary>
@@ -775,14 +799,17 @@ namespace YAF.Core.Model
         /// <param name="repository">
         /// The repository.
         /// </param>
-        /// <param name="topicID">
+        /// <param name="topicId">
         /// The topic id.
         /// </param>
-        /// <param name="forumID">
+        /// <param name="forumId">
         /// The forum id.
         /// </param>
         /// <param name="showMoved">
         /// The show moved.
+        /// </param>
+        /// <param name="linkDays">
+        /// The link Days.
         /// </param>
         public static void MoveTopic(this IRepository<Topic> repository, [NotNull] int topicId, [NotNull] int forumId, [NotNull] bool showMoved, [NotNull] int linkDays)
         {
