@@ -599,6 +599,11 @@ namespace YAF.Core.Services
         /// </returns>
         private IndexSearcher GetSearcher()
         {
+            if (!DirectoryReader.IndexExists(FSDirectory.Open(SearchIndexFolder)))
+            {
+                return null;
+            }
+
             this.searcherManager = this.indexWriter != null
                                        ? new SearcherManager(this.indexWriter, false, null)
                                        : new SearcherManager(FSDirectory.Open(SearchIndexFolder), null);
@@ -768,6 +773,12 @@ namespace YAF.Core.Services
 
             var searcher = this.GetSearcher();
 
+            if (searcher == null)
+            {
+                totalHits = 0;
+                return new List<SearchMessage>();
+            }
+
             var hitsLimit = this.Get<YafBoardSettings>().ReturnSearchMax;
 
             // 0 => Lucene error;
@@ -863,6 +874,11 @@ namespace YAF.Core.Services
             var userAccessList = this.GetRepository<vaccess>().Get(v => v.UserID == userId);
 
             var searcher = this.GetSearcher();
+
+            if (searcher == null)
+            {
+                return new List<SearchMessage>();
+            }
 
             var hitsLimit = this.Get<YafBoardSettings>().ReturnSearchMax;
 
