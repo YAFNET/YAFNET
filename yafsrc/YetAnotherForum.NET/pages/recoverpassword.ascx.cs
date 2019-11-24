@@ -23,7 +23,6 @@
  */
 namespace YAF.Pages
 {
-    // YAF.Pages
     #region Using
 
     using System;
@@ -165,9 +164,6 @@ namespace YAF.Pages
             // the rest is the password...
             var password = body.Substring(0, body.IndexOf('\n'));
 
-            // get the e-mail ready from the real template.
-            var passwordRetrieval = new YafTemplateEmail("PASSWORDRETRIEVAL");
-
             var subject = this.GetTextFormatted("PASSWORDRETRIEVAL_EMAIL_SUBJECT", this.Get<YafBoardSettings>().Name);
             var logoUrl =
                 $"{YafForumInfo.ForumClientFileRoot}{YafBoardFolders.Current.Logos}/{this.PageContext.BoardSettings.ForumLogo}";
@@ -176,13 +172,20 @@ namespace YAF.Pages
 
             var userIpAddress = this.Get<HttpRequestBase>().GetUserRealIPAddress();
 
-            passwordRetrieval.TemplateParams["{username}"] = userName;
-            passwordRetrieval.TemplateParams["{password}"] = password;
-            passwordRetrieval.TemplateParams["{ipaddress}"] = userIpAddress;
-            passwordRetrieval.TemplateParams["{forumname}"] = this.Get<YafBoardSettings>().Name;
-            passwordRetrieval.TemplateParams["{forumlink}"] = $"{YafForumInfo.ForumURL}";
-            passwordRetrieval.TemplateParams["{themecss}"] = themeCss;
-            passwordRetrieval.TemplateParams["{logo}"] = $"{this.Get<YafBoardSettings>().BaseUrlMask}{logoUrl}";
+            // get the e-mail ready from the real template.
+            var passwordRetrieval = new YafTemplateEmail("PASSWORDRETRIEVAL")
+                                        {
+                                            TemplateParams =
+                                                {
+                                                    ["{username}"] = userName,
+                                                    ["{password}"] = password,
+                                                    ["{ipaddress}"] = userIpAddress,
+                                                    ["{forumname}"] = this.Get<YafBoardSettings>().Name,
+                                                    ["{forumlink}"] = $"{YafForumInfo.ForumURL}",
+                                                    ["{themecss}"] = themeCss,
+                                                    ["{logo}"] = $"{this.Get<YafBoardSettings>().BaseUrlMask}{logoUrl}"
+                                                }
+                                        };
 
             passwordRetrieval.SendEmail(e.Message.To[0], subject, true);
 
