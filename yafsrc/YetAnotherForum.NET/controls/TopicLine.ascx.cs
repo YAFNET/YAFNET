@@ -569,17 +569,6 @@ namespace YAF.Controls
                     "t={0}&find=unread",
                     this.TopicRow["TopicID"]);
                 this.GoToLastUnread.Visible = this.Get<YafBoardSettings>().ShowLastUnreadPost;
-
-                if (this.TopicRow["LastPosted"].ToType<DateTime>() > lastRead)
-                {
-                    this.NewMessage.Visible = true;
-                    this.NewMessage.Text =
-                        " <span class=\"fa-stack\"><i class=\"far fa-square fa-stack-2x\"></i><i class=\"fab fa-twitter fa-stack-1x\"></i></span>";
-                }
-                else
-                {
-                    this.NewMessage.Visible = false;
-                }
             }
 
             this.TopicIcon.Text = $"<span class=\"fa-stack\">{this.GetTopicImage(this.TopicRow)}</span>";

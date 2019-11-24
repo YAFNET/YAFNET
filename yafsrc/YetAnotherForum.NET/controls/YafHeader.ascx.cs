@@ -150,7 +150,7 @@ namespace YAF.Controls
         /// <param name="linkText">The link text.</param>
         /// <param name="linkToolTip">The link tool tip.</param>
         /// <param name="linkUrl">The link URL.</param>
-        /// <param name="noFollow">Add rel="noFollow" to the link</param>
+        /// <param name="noFollow">Add no follow to the link</param>
         /// <param name="showUnread">The show unread.</param>
         /// <param name="unread">The unread.</param>
         /// <param name="unreadText">The unread text.</param>
@@ -199,7 +199,9 @@ namespace YAF.Controls
 
             if (showUnread)
             {
-                link.Controls.Add(new LiteralControl($"{linkText}&nbsp;"));
+                link.Controls.Add(new LiteralControl(icon.IsSet()
+                                                         ? $"<i class=\"fa fa-{icon} fa-fw\"></i>&nbsp;{linkText}&nbsp;"
+                                                         : $"{linkText}&nbsp;"));
                 link.Controls.Add(unreadButton);
 
                 var unreadLabel = new HtmlGenericControl("span");
