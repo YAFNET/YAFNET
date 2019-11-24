@@ -42,9 +42,8 @@
                         <i class="fa fa-user-friends fa-fw text-secondary"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" 
                                                                                           LocalizedTag="BUDDYLIST" />
                     </div>
-                    <div class="card-body">
-                        <YAF:BuddyList runat="server" ID="BuddyList1" />
-                    </div>
+                    <YAF:BuddyList runat="server" ID="BuddyList1" />
+                </div>
             </div>
             <div id="PendingRequestsTab" class="tab-pane" role="tabpanel">
                 <div class="card mb-3">
@@ -52,9 +51,8 @@
                         <i class="fa fa-user-friends fa-fw text-secondary"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" 
                                                                                           LocalizedTag="PENDING_REQUESTS" />
                     </div>
-                    <div class="card-body">
-                        <YAF:BuddyList runat="server" ID="PendingBuddyList" />
-                    </div>
+                    <YAF:BuddyList runat="server" ID="PendingBuddyList" />
+                </div>
             </div>
             <div id="YourRequestsTab" class="tab-pane" role="tabpanel">
                 <div class="card mb-3">
@@ -62,9 +60,8 @@
                         <i class="fa fa-user-friends fa-fw text-secondary"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" 
                                                                                           LocalizedTag="YOUR_REQUESTS" />
                     </div>
-                    <div class="card-body">
-                        <YAF:BuddyList runat="server" ID="BuddyRequested" />
-                    </div>
+                    <YAF:BuddyList runat="server" ID="BuddyRequested" />
+                </div>
             </div>
         </div>
     </asp:Panel>

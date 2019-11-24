@@ -14,16 +14,27 @@
                                 LocalizedPage="ADMIN_EVENTLOG" /></h1>
     </div>
 </div>
-    <div class="row">
+<div class="row">
         <div class="col-xl-12">
+             <YAF:Pager ID="PagerTop" runat="server" OnPageChange="PagerTopPageChange" />
             <div class="card mb-3">
                 <div class="card-header">
-                    <i class="fa fa-book fa-fw text-secondary"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" 
-                                                                                             LocalizedTag="TITLE" 
-                                                                                             LocalizedPage="ADMIN_EVENTLOG" />
-            </div>
-                <div class="card-body">
-                    <div class="form-group">
+                    <i class="fa fa-book fa-fw text-secondary pr-1"></i>
+                    <YAF:LocalizedLabel ID="LocalizedLabel8" runat="server" 
+                                        LocalizedTag="TITLE" 
+                                        LocalizedPage="ADMIN_EVENTLOG" />
+                    <div class="float-right">
+                        &nbsp;
+                        <YAF:ThemeButton runat="server"
+                                         CssClass="dropdown-toggle"
+                                         DataToggle="dropdown"
+                                         Type="Secondary"
+                                         Icon="filter"
+                                         TextLocalizedTag="FILTER_DROPDOWN"
+                                         TextLocalizedPage="ADMIN_USERS"></YAF:ThemeButton>
+                        <div class="dropdown-menu">
+                            <div class="px-3 py-1">
+                               <div class="form-group">
                         <YAF:HelpLabel ID="SinceDateLabel" runat="server" 
                                        AssociatedControlID="SinceDate"
                                        LocalizedPage="ADMIN_EVENTLOG" LocalizedTag="SINCEDATE" />
@@ -57,26 +68,17 @@
                                        LocalizedPage="ADMIN_EVENTLOG" LocalizedTag="TYPES" />
                         <asp:DropDownList ID="Types" runat="server" CssClass="custom-select"></asp:DropDownList>
                     </div>
-                </div>
-                <div class="card-footer text-center">
-                <YAF:ThemeButton ID="ApplyButton" runat="server"
-                                 Type="Primary" 
-                                 OnClick="ApplyButtonClick"
-                                 TextLocalizedPage="ADMIN_EVENTLOG" 
-                                 TextLocalizedTag="APPLY" 
-                                 Icon="check"></YAF:ThemeButton>
-                </div>
-           </div>
-         </div>
-    </div>
-        <div class="row">
-        <div class="col-xl-12">
-             <YAF:Pager ID="PagerTop" runat="server" OnPageChange="PagerTopPageChange" />
-            <div class="card mb-3">
-                <div class="card-header">
-                    <i class="fa fa-book fa-fw text-secondary"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel8" runat="server" 
-                                                                                             LocalizedTag="TITLE" 
-                                                                                             LocalizedPage="ADMIN_EVENTLOG" />
+                                <div class="form-group">
+                                    <YAF:ThemeButton ID="ApplyButton" runat="server"
+                                                     Type="Primary" 
+                                                     OnClick="ApplyButtonClick"
+                                                     TextLocalizedPage="ADMIN_EVENTLOG" 
+                                                     TextLocalizedTag="APPLY" 
+                                                     Icon="check"></YAF:ThemeButton>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
             </div>
                 <div class="card-body">
         <asp:Repeater runat="server" ID="List">

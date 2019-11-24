@@ -8,7 +8,10 @@
 
 <asp:Repeater ID="rptBuddy" runat="server" OnItemCreated="rptBuddy_ItemCreated" OnItemCommand="rptBuddy_ItemCommand">
     <HeaderTemplate>
-        <ul class="list-group list-group-flush">
+        <asp:PlaceHolder runat="server" ID="HeaderHolder" Visible="False">
+            <div class="card-body">
+            <ul class="list-group list-group-flush">
+        </asp:PlaceHolder>
     </HeaderTemplate>
     <ItemTemplate>
         <li class="list-group-item">
@@ -52,28 +55,35 @@
         </li>
     </ItemTemplate>
     <FooterTemplate>
-        </ul>
-        </div>
-        <asp:Panel CssClass="card-footer" runat="server" ID="Footer" Visible="False">
-            <YAF:ThemeButton ID="Button1" runat="server" 
-                             ReturnConfirmText='<%# this.GetText("CP_EDITBUDDIES", "NOTIFICATION_APPROVEALL") %>'
-                             CommandName="approveall"
-                             TextLocalizedTag="APPROVE_ALL"
-                             Type="Secondary"
-                             Icon="check-double"/>
-            <YAF:ThemeButton ID="Button3" runat="server" 
-                             ReturnConfirmText='<%# this.GetText("CP_EDITBUDDIES", "NOTIFICATION_APPROVEALLADD") %>'
-                             CommandName="approveaddall"
-                             TextLocalizedTag="APPROVE_ADD_ALL"
-                             Type="Secondary"
-                             Icon="check-double"/>
-            <YAF:ThemeButton ID="Button2" runat="server" 
-                             ReturnConfirmText='<%# this.GetText("CP_EDITBUDDIES", "NOTIFICATION_REMOVE_OLD_UNAPPROVED")%>'
-                             CommandName="denyall"
-                             TextLocalizedTag="DENY_ALL"
-                             Type="Secondary"
-                             Icon="times-circle"/>
-        </asp:Panel>
+        <asp:PlaceHolder runat="server" ID="FooterHolder" Visible="False">
+            </ul>
+            </div>
+            <asp:Panel CssClass="card-footer" runat="server" ID="Footer" Visible="False">
+                <YAF:ThemeButton ID="Button1" runat="server" 
+                                 ReturnConfirmText='<%# this.GetText("CP_EDITBUDDIES", "NOTIFICATION_APPROVEALL") %>'
+                                 CommandName="approveall"
+                                 TextLocalizedTag="APPROVE_ALL"
+                                 Type="Secondary"
+                                 Icon="check-double"/>
+                <YAF:ThemeButton ID="Button3" runat="server" 
+                                 ReturnConfirmText='<%# this.GetText("CP_EDITBUDDIES", "NOTIFICATION_APPROVEALLADD") %>'
+                                 CommandName="approveaddall"
+                                 TextLocalizedTag="APPROVE_ADD_ALL"
+                                 Type="Secondary"
+                                 Icon="check-double"/>
+                <YAF:ThemeButton ID="Button2" runat="server" 
+                                 ReturnConfirmText='<%# this.GetText("CP_EDITBUDDIES", "NOTIFICATION_REMOVE_OLD_UNAPPROVED")%>'
+                                 CommandName="denyall"
+                                 TextLocalizedTag="DENY_ALL"
+                                 Type="Secondary"
+                                 Icon="times-circle"/>
+            </asp:Panel>
+        </asp:PlaceHolder>
     </FooterTemplate>
 </asp:Repeater>
 <YAF:Pager ID="Pager1" runat="server" LinkedPager="Pager" OnPageChange="Pager_PageChange" />
+<asp:PlaceHolder runat="server" Visible="<%# this.rptBuddy.Items.Count == 0 %>">
+    <div class="card-body">
+        <YAF:Alert runat="server" Type="info" ID="Info"></YAF:Alert>
+    </div>
+</asp:PlaceHolder>

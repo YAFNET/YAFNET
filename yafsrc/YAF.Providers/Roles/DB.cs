@@ -26,7 +26,6 @@ namespace YAF.Providers.Roles
 {
     #region Using
 
-    using System;
     using System.Data;
     using System.Data.SqlClient;
 
@@ -134,8 +133,7 @@ namespace YAF.Providers.Roles
                 cmd.Parameters.AddWithValue("Rolename", roleName);
                 cmd.Parameters.AddWithValue("DeleteOnlyIfRoleIsEmpty", deleteOnlyIfRoleIsEmpty);
 
-                var p = new SqlParameter("ReturnValue", SqlDbType.Int);
-                p.Direction = ParameterDirection.ReturnValue;
+                var p = new SqlParameter("ReturnValue", SqlDbType.Int) { Direction = ParameterDirection.ReturnValue };
                 cmd.Parameters.Add(p);
 
                 this.DbAccess.ExecuteNonQuery(cmd);
@@ -154,7 +152,7 @@ namespace YAF.Providers.Roles
         /// Role Name
         /// </param>
         /// <returns>
-        /// Datatable containing User Information
+        /// Data-table containing User Information
         /// </returns>
         public DataTable FindUsersInRole(object appName, object roleName)
         {

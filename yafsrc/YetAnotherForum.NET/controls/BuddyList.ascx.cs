@@ -208,6 +208,23 @@ namespace YAF.Controls
 
                     break;
             }
+
+            if (this.Count > 0)
+            {
+                var header  = e.Item.FindControlAs<PlaceHolder>("HeaderHolder");
+
+                if (header != null)
+                {
+                    header.Visible = true;
+                }
+
+                var footer = e.Item.FindControlAs<PlaceHolder>("FooterHolder");
+
+                if (footer != null)
+                {
+                    footer.Visible = true;
+                }
+            }
         }
 
         /// <summary>
@@ -257,6 +274,18 @@ namespace YAF.Controls
             this.DataBind();
 
             this.Count = this.rptBuddy.Items.Count;
+
+            switch (this.Mode)
+            {
+                case 1:
+                case 2:
+                    this.Info.Controls.Add(new Literal { Text = $"<i class=\"fas fa-info text-info pr-1\"></i>{this.GetText("INFO_NO")}" });
+                    break;
+                case 3:
+                case 4:
+                    this.Info.Controls.Add(new Literal { Text = $"<i class=\"fas fa-check text-success pr-1\"></i>{this.GetText("INFO_PENDING")}" });
+                    break;
+            }
         }
 
         /// <summary>

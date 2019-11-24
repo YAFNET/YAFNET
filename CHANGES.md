@@ -1,7 +1,16 @@
 YetAnotherForum.NET Changelog
 ====================
 
-# YetAnotherForum.NET v2.3.0.01
+# YetAnotherForum.NET v2.3.0.02
+## Fixed Issues:
+* [FIXED] Send Email to Admins on new User Register
+* [FIXED] Search Function when Board has no Messages
+* [FIXED] Board Delete function
+* [CHANGES] Spam & Event Log Options has been moved to a filter drop down 
+* [CHANGES] Empty Tabs on My Friends page show info message
+
+ 
+* # YetAnotherForum.NET v2.3.0.01
 ## Fixed Issues:
 * [FIXED] Send Email to Admins on new User Register
 * [FIXED] Search Function when Board has no Messages
