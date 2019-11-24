@@ -126,7 +126,7 @@ namespace YAF.Pages
 
             if (!this.IsPostBack)
             {
-                this.UserId = (int)Security.StringToLongOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u"));
+                this.UserId = Security.StringToIntOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u"));
                 this.userGroupsRow.Visible = this.Get<YafBoardSettings>().ShowGroupsProfile || this.PageContext.IsAdmin;
             }
 
@@ -182,15 +182,15 @@ namespace YAF.Pages
                 var strBuddyRequest = this.Get<IBuddy>().AddRequest(this.UserId);
 
                 this.PageContext.AddLoadMessage(
-                    Convert.ToBoolean(strBuddyRequest[1])
-                        ? string.Format(this.GetText("NOTIFICATION_BUDDYAPPROVED_MUTUAL"), strBuddyRequest[0])
+                    Convert.ToBoolean(strBuddyRequest[1].ToType<int>())
+                        ? this.GetTextFormatted("NOTIFICATION_BUDDYAPPROVED_MUTUAL", strBuddyRequest[0])
                         : this.GetText("NOTIFICATION_BUDDYREQUEST"),
                     MessageTypes.success);
             }
             else
             {
                 this.PageContext.AddLoadMessage(
-                    string.Format(this.GetText("REMOVEBUDDY_NOTIFICATION"), this.Get<IBuddy>().Remove(this.UserId)),
+                    this.GetTextFormatted("REMOVEBUDDY_NOTIFICATION", this.Get<IBuddy>().Remove(this.UserId)),
                     MessageTypes.success);
             }
 
