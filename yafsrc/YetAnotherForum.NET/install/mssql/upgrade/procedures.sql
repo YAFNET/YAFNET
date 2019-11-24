@@ -1935,7 +1935,9 @@ GO
 
 create procedure [{databaseOwner}].[{objectQualifier}board_delete](@BoardID int) as
 begin
-        declare @tmpForumID int;
+
+    --- Delete all forums of the board
+    declare @tmpForumID int;
     declare forum_cursor cursor for
         select ForumID
         from [{databaseOwner}].[{objectQualifier}Forum] a join [{databaseOwner}].[{objectQualifier}Category] b on a.CategoryID=b.CategoryID
@@ -1952,15 +1954,47 @@ begin
     close forum_cursor
     deallocate forum_cursor
 
+	--- Delete user
+	declare @tmpUserID int;
+    declare user_cursor cursor for
+        select UserID
+        from [{databaseOwner}].[{objectQualifier}User] 
+		where  BoardID=@BoardID
+
+    open user_cursor
+    fetch next from user_cursor into @tmpUserID
+    while @@FETCH_STATUS = 0
+    begin
+        exec [{databaseOwner}].[{objectQualifier}user_delete] @tmpUserID;
+        fetch next from user_cursor into @tmpUserID
+    end
+    close user_cursor
+    deallocate user_cursor
+
+	--- Delete Group
+	declare @tmpGroupID int;
+    declare group_cursor cursor for
+        select GroupID
+        from [{databaseOwner}].[{objectQualifier}Group] 
+		where  BoardID=@BoardID
+
+    open group_cursor
+    fetch next from group_cursor into @tmpGroupID
+    while @@FETCH_STATUS = 0
+    begin
+        exec [{databaseOwner}].[{objectQualifier}group_delete] @tmpGroupID;
+        fetch next from group_cursor into @tmpGroupID
+    end
+    close group_cursor
+    deallocate group_cursor
+
+
     delete from [{databaseOwner}].[{objectQualifier}ForumAccess] where exists(select 1 from [{databaseOwner}].[{objectQualifier}Group] x where x.GroupID=[{databaseOwner}].[{objectQualifier}ForumAccess].GroupID and x.BoardID=@BoardID)
     delete from [{databaseOwner}].[{objectQualifier}Forum] where exists(select 1 from [{databaseOwner}].[{objectQualifier}Category] x where x.CategoryID=[{databaseOwner}].[{objectQualifier}Forum].CategoryID and x.BoardID=@BoardID)
-    delete from [{databaseOwner}].[{objectQualifier}UserGroup] where exists(select 1 from [{databaseOwner}].[{objectQualifier}User] x where x.UserID=[{databaseOwner}].[{objectQualifier}UserGroup].UserID and x.BoardID=@BoardID)
     delete from [{databaseOwner}].[{objectQualifier}Category] where BoardID=@BoardID
     delete from [{databaseOwner}].[{objectQualifier}ActiveAccess] where BoardID=@BoardID
     delete from [{databaseOwner}].[{objectQualifier}Active] where BoardID=@BoardID
-    delete from [{databaseOwner}].[{objectQualifier}User] where BoardID=@BoardID
     delete from [{databaseOwner}].[{objectQualifier}Rank] where BoardID=@BoardID
-    delete from [{databaseOwner}].[{objectQualifier}Group] where BoardID=@BoardID
     delete from [{databaseOwner}].[{objectQualifier}AccessMask] where BoardID=@BoardID
     delete from [{databaseOwner}].[{objectQualifier}BBCode] where BoardID=@BoardID
     delete from [{databaseOwner}].[{objectQualifier}Extension] where BoardId=@BoardID
