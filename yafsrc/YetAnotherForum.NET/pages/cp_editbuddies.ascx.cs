@@ -47,7 +47,7 @@ namespace YAF.Pages
         #region Constructors and Destructors
 
         /// <summary>
-        ///   Initializes a new instance of the cp_editbuddies class.
+        ///   Initializes a new instance of the edit buddies class.
         /// </summary>
         public cp_editbuddies()
             : base("CP_EDITBUDDIES")

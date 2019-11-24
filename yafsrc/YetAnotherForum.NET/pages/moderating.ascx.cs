@@ -42,7 +42,10 @@ namespace YAF.Pages
     using YAF.Types.Models;
     using YAF.Utils;
     using YAF.Utils.Helpers;
+    using YAF.Web.Controls;
     using YAF.Web.Extensions;
+
+    using Forum = YAF.Types.Models.Forum;
 
     #endregion
 

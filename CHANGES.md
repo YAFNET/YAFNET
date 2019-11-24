@@ -1,6 +1,18 @@
 YetAnotherForum.NET Changelog
 ====================
 
+# YetAnotherForum.NET v2.3.0.02
+## Fixed Issues:
+* [FIXED] Send Email to Admins on new User Register
+* [FIXED] Search Function when Board has no Messages
+
+ 
+* # YetAnotherForum.NET v2.3.0.01
+## Fixed Issues:
+* [FIXED] Send Email to Admins on new User Register
+* [FIXED] Search Function when Board has no Messages
+
+
 # YetAnotherForum.NET v2.3.0.0
 
 ## New Features:

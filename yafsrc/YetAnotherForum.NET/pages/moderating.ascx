@@ -34,14 +34,13 @@
                 </span>
                 <%# this.Eval("Access") %>
                 <YAF:ThemeButton ID="ThemeButtonEdit" runat="server" 
-                                 CommandName='edit' CommandArgument='<%# this.Eval("UserID") %>'
+                                 CommandName="edit" CommandArgument='<%# this.Eval("UserID") %>'
                                  TitleLocalizedTag="EDIT" 
                                  Size="Small"
                                  Icon="edit"></YAF:ThemeButton>
                 <YAF:ThemeButton ID="ThemeButtonRemove" runat="server"
                                  ReturnConfirmText='<%#this.GetText("moderate", "confirm_delete_user") %>'
-                                 CommandName='remove' CommandArgument='<%#
-    this.Eval("UserID") %>' 
+                                 CommandName="remove" CommandArgument='<%# this.Eval("UserID") %>' 
                                  TitleLocalizedTag="REMOVE" 
                                  Size="Small"
                                  Type="Danger"
