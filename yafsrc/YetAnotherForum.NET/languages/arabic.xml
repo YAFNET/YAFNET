@@ -2532,6 +2532,8 @@
     <Resource tag="DENY">رفض</Resource>
     <Resource tag="DENY_ALL">رفض  جميع الطلابات التي اكثر من  14  يوم ؟</Resource>
     <Resource tag="EDIT_BUDDIES">تعديل الاصدقاء</Resource>
+    <Resource tag="INFO_NO">You don't have any friends yet</Resource>
+    <Resource tag="INFO_PENDING">You don't have any pending requests</Resource>
     <Resource tag="NOTIFICATION_APPROVEALL">الموافقه على  جميع الطلابات؟ </Resource>
     <Resource tag="NOTIFICATION_APPROVEALLADD">الموافقة على كل الطلابات  واضافتهم  الى قائمة لاصدقاء </Resource>
     <Resource tag="NOTIFICATION_DENY">رفض    هذا الطلب ؟</Resource>

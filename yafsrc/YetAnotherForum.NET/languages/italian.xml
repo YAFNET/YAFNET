@@ -2534,6 +2534,8 @@
     <Resource tag="DENY">Rifiuta</Resource>
     <Resource tag="DENY_ALL">Rifiuta tutte piu' vecchie di 14 giorni</Resource>
     <Resource tag="EDIT_BUDDIES">Modifica amici</Resource>
+    <Resource tag="INFO_NO">You don't have any friends yet</Resource>
+    <Resource tag="INFO_PENDING">You don't have any pending requests</Resource>
     <Resource tag="NOTIFICATION_APPROVEALL">Accetta tutte le richieste?</Resource>
     <Resource tag="NOTIFICATION_APPROVEALLADD">Accetta tutte le richieste ed aggiungi alla tua lista di amici?</Resource>
     <Resource tag="NOTIFICATION_DENY">Rifiuta questa richiesta?</Resource>

@@ -2520,6 +2520,8 @@
     <Resource tag="DENY">Отклонить</Resource>
     <Resource tag="DENY_ALL">Отклонить всех, кто запросил более 14 дней назад</Resource>
     <Resource tag="EDIT_BUDDIES">Редактировать Друзей</Resource>
+    <Resource tag="INFO_NO">You don't have any friends yet</Resource>
+    <Resource tag="INFO_PENDING">You don't have any pending requests</Resource>
     <Resource tag="NOTIFICATION_APPROVEALL">Одобрить всех желающих подружиться?</Resource>
     <Resource tag="NOTIFICATION_APPROVEALLADD">Одобрить всех и добавить их в свой список?</Resource>
     <Resource tag="NOTIFICATION_DENY">Отклонить этот запрос?</Resource>

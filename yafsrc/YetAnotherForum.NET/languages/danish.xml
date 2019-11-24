@@ -2538,6 +2538,8 @@
     <Resource tag="DENY">Afslå</Resource>
     <Resource tag="DENY_ALL">Afslå alle der er mere end 14 dage gamle</Resource>
     <Resource tag="EDIT_BUDDIES">Rediger venner</Resource>
+    <Resource tag="INFO_NO">You don't have any friends yet</Resource>
+    <Resource tag="INFO_PENDING">You don't have any pending requests</Resource>
     <Resource tag="NOTIFICATION_APPROVEALL">Godkend alle venne forespørgsler?</Resource>
     <Resource tag="NOTIFICATION_APPROVEALLADD">Godkend alle venne forespørgsler og tilføj dem til din venne liste?</Resource>
     <Resource tag="NOTIFICATION_DENY">Afslå denne venne forespørgsel?</Resource>

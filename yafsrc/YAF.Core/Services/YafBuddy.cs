@@ -118,10 +118,7 @@ namespace YAF.Core.Services
             var dv = dt.DefaultView;
             dv.RowFilter = $"Approved = 0 AND UserID = {YafContext.Current.PageUserID}";
 
-            foreach (DataRowView drv in dv)
-            {
-                this.ApproveRequest((int)drv["FromUserID"], mutual);
-            }
+            dv.Cast<DataRowView>().ForEach(drv => this.ApproveRequest((int)drv["FromUserID"], mutual));
         }
 
         /// <summary>
@@ -176,13 +173,8 @@ namespace YAF.Core.Services
             var dv = dt.DefaultView;
             dv.RowFilter = $"Approved = 0 AND UserID = {YafContext.Current.PageUserID}";
 
-            foreach (
-                var drv in
-                    dv.Cast<DataRowView>()
-                        .Where(drv => Convert.ToDateTime(drv["Requested"]).AddDays(14) < DateTime.UtcNow))
-            {
-                this.DenyRequest((int)drv["FromUserID"]);
-            }
+            dv.Cast<DataRowView>().Where(drv => Convert.ToDateTime(drv["Requested"]).AddDays(14) < DateTime.UtcNow)
+                .ForEach(drv => this.DenyRequest((int)drv["FromUserID"]));
         }
 
         /// <summary>

@@ -2538,6 +2538,8 @@
     <Resource tag="DENY">Reddet</Resource>
     <Resource tag="DENY_ALL">Şu kadar günden eski olan tüm arkadaşlık isteklerini İptal Et: 14</Resource>
     <Resource tag="EDIT_BUDDIES">Arkadaşlarımı Düzenle</Resource>
+    <Resource tag="INFO_NO">You don't have any friends yet</Resource>
+    <Resource tag="INFO_PENDING">You don't have any pending requests</Resource>
     <Resource tag="NOTIFICATION_APPROVEALL">Tüm istekleri reddet.</Resource>
     <Resource tag="NOTIFICATION_APPROVEALLADD">Approve all requests and add them to your Friend list too?</Resource>
     <Resource tag="NOTIFICATION_DENY">Bu teklifi reddet.</Resource>

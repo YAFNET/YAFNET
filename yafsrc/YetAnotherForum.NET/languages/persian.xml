@@ -2555,6 +2555,8 @@
     <Resource tag="DENY">رد</Resource>
     <Resource tag="DENY_ALL">درخواستهای قدیمی تر از 14 روز رد شوند.</Resource>
     <Resource tag="EDIT_BUDDIES">ویرایش دوستان</Resource>
+    <Resource tag="INFO_NO">You don't have any friends yet</Resource>
+    <Resource tag="INFO_PENDING">You don't have any pending requests</Resource>
     <Resource tag="NOTIFICATION_APPROVEALL">تمام درخواستها تائید شوند؟</Resource>
     <Resource tag="NOTIFICATION_APPROVEALLADD">آیا تمام درخواستها تائید و به لیست شمااضافه شوند؟</Resource>
     <Resource tag="NOTIFICATION_DENY">درخواست رد شود؟</Resource>

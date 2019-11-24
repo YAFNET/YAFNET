@@ -2533,6 +2533,8 @@
     <Resource tag="DENY">Odmów</Resource>
     <Resource tag="DENY_ALL">Odmów wszystkim starszym niż 14 dni</Resource>
     <Resource tag="EDIT_BUDDIES">Edytuj znajomych</Resource>
+    <Resource tag="INFO_NO">You don't have any friends yet</Resource>
+    <Resource tag="INFO_PENDING">You don't have any pending requests</Resource>
     <Resource tag="NOTIFICATION_APPROVEALL">Akceptować wszystkie zaproszenia?</Resource>
     <Resource tag="NOTIFICATION_APPROVEALLADD">Akceptować wszystkie zaproszenia i dodać ich do listy Twoich znajomych?</Resource>
     <Resource tag="NOTIFICATION_DENY">Odmówić temu zaproszeniu?</Resource>

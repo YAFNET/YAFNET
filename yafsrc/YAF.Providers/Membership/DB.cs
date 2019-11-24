@@ -195,9 +195,10 @@ namespace YAF.Providers.Membership
                 cmd.Parameters.AddWithValue("@UTCTIMESTAMP", DateTime.UtcNow);
 
                 // Input Output Parameters
-                var paramUserKey = new SqlParameter("UserKey", SqlDbType.UniqueIdentifier);
-                paramUserKey.Direction = ParameterDirection.InputOutput;
-                paramUserKey.Value = providerUserKey;
+                var paramUserKey = new SqlParameter("UserKey", SqlDbType.UniqueIdentifier)
+                                       {
+                                           Direction = ParameterDirection.InputOutput, Value = providerUserKey
+                                       };
                 cmd.Parameters.Add(paramUserKey);
 
                 // Execute
@@ -350,8 +351,7 @@ namespace YAF.Providers.Membership
                 // Nonstandard args
                 cmd.Parameters.AddWithValue("@TimeWindow", timeWindow);
                 cmd.Parameters.AddWithValue("@CurrentTimeUtc", DateTime.UtcNow);
-                var p = new SqlParameter("ReturnValue", SqlDbType.Int);
-                p.Direction = ParameterDirection.ReturnValue;
+                var p = new SqlParameter("ReturnValue", SqlDbType.Int) { Direction = ParameterDirection.ReturnValue };
                 cmd.Parameters.Add(p);
                 this.DbAccess.ExecuteNonQuery(cmd);
                 return cmd.Parameters["ReturnValue"].Value.ToType<int>();

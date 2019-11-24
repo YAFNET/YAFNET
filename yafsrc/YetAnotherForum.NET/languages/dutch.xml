@@ -2532,6 +2532,8 @@
     <Resource tag="DENY">Wijs af</Resource>
     <Resource tag="DENY_ALL">Keur alles af ouder dan 14 dagen</Resource>
     <Resource tag="EDIT_BUDDIES">Bewerk vrienden</Resource>
+    <Resource tag="INFO_NO">You don't have any friends yet</Resource>
+    <Resource tag="INFO_PENDING">You don't have any pending requests</Resource>
     <Resource tag="NOTIFICATION_APPROVEALL">Alle verzoeken goedkeuren?</Resource>
     <Resource tag="NOTIFICATION_APPROVEALLADD">Alle verzoeken goedkeuren en toevoegen aan je vriendenlijst?</Resource>
     <Resource tag="NOTIFICATION_DENY">Dit verzoek afwijzen?</Resource>

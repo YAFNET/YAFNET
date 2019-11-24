@@ -2532,6 +2532,8 @@
     <Resource tag="DENY">Deny</Resource>
     <Resource tag="DENY_ALL">Deny All More Than 14 Days Old</Resource>
     <Resource tag="EDIT_BUDDIES">Edit Friends</Resource>
+    <Resource tag="INFO_NO">You don't have any friends yet</Resource>
+    <Resource tag="INFO_PENDING">You don't have any pending requests</Resource>
     <Resource tag="NOTIFICATION_APPROVEALL">Approve all requests?</Resource>
     <Resource tag="NOTIFICATION_APPROVEALLADD">Approve all requests and add them to your Friend list too?</Resource>
     <Resource tag="NOTIFICATION_DENY">Deny this request?</Resource>

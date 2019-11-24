@@ -2535,6 +2535,8 @@
     <Resource tag="DENY">Lükka tagasi</Resource>
     <Resource tag="DENY_ALL">Lükka tagasi kõik üle 14 päeva vanemad taotlused</Resource>
     <Resource tag="EDIT_BUDDIES">Muuda sõpru</Resource>
+    <Resource tag="INFO_NO">You don't have any friends yet</Resource>
+    <Resource tag="INFO_PENDING">You don't have any pending requests</Resource>
     <Resource tag="NOTIFICATION_APPROVEALL">Kas võtan vastu kõik taotlused?</Resource>
     <Resource tag="NOTIFICATION_APPROVEALLADD">Kas võtan vastu kõik taotlused ja lisan nad teie sõprade loetellu?</Resource>
     <Resource tag="NOTIFICATION_DENY">Kas lükkan tagasi selle taotluse?</Resource>

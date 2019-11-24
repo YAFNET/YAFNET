@@ -2517,6 +2517,8 @@
     <Resource tag="DENY">Ablehnen</Resource>
     <Resource tag="DENY_ALL">Alle die Mehr als 14 Tage alt sind ablehnen</Resource>
     <Resource tag="EDIT_BUDDIES">Freunde bearbeiten</Resource>
+    <Resource tag="INFO_NO">You don't have any friends yet</Resource>
+    <Resource tag="INFO_PENDING">You don't have any pending requests</Resource>
     <Resource tag="NOTIFICATION_APPROVEALL">Alle Anfragen Genehmigen?</Resource>
     <Resource tag="NOTIFICATION_APPROVEALLADD">Alle Anfragen genehmigen und zu ihrer Freundesliste hinzufügen?</Resource>
     <Resource tag="NOTIFICATION_DENY">Diese Anfrage ablehnen?</Resource>

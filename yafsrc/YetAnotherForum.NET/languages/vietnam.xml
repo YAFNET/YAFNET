@@ -2538,6 +2538,8 @@
     <Resource tag="DENY">Không đồng ý</Resource>
     <Resource tag="DENY_ALL">Không đồng ý tất cả sau 14 ngày</Resource>
     <Resource tag="EDIT_BUDDIES">Sửa danh sách bạn bè</Resource>
+    <Resource tag="INFO_NO">You don't have any friends yet</Resource>
+    <Resource tag="INFO_PENDING">You don't have any pending requests</Resource>
     <Resource tag="NOTIFICATION_APPROVEALL">Approve all requests?</Resource>
     <Resource tag="NOTIFICATION_APPROVEALLADD">Approve all requests and add them to your Friend list too?</Resource>
     <Resource tag="NOTIFICATION_DENY">Deny this request?</Resource>
