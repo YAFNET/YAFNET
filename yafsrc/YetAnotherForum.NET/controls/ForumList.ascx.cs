@@ -37,6 +37,7 @@ namespace YAF.Controls
     using YAF.Configuration;
     using YAF.Core.BaseControls;
     using YAF.Core.Extensions;
+    using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
@@ -99,60 +100,62 @@ namespace YAF.Controls
                     arr = new DataRow[((DataRowCollection)this.dataSource).Count];
                     ((DataRowCollection)this.dataSource).CopyTo(arr, 0);
 
-                    foreach (var t1 in arr)
-                    {
-                        // these are all sub forums related to start page forums
-                        if (!t1["ParentID"].IsNullOrEmptyDBField())
-                        {
-                            if (this.SubDataSource == null)
+                    arr.ForEach(
+                        t1 =>
                             {
-                                this.SubDataSource = t1.Table.Clone();
-                            }
+                                // these are all sub forums related to start page forums
+                                if (!t1["ParentID"].IsNullOrEmptyDBField())
+                                {
+                                    if (this.SubDataSource == null)
+                                    {
+                                        this.SubDataSource = t1.Table.Clone();
+                                    }
 
-                            var drow = this.SubDataSource.NewRow();
-                            drow.ItemArray = t1.ItemArray;
+                                    var drow = this.SubDataSource.NewRow();
+                                    drow.ItemArray = t1.ItemArray;
 
-                            parents.Add(drow["ForumID"].ToType<int>());
+                                    parents.Add(drow["ForumID"].ToType<int>());
 
-                            if (parents.Contains(drow["ParentID"].ToType<int>()))
-                            {
-                                this.SubDataSource.Rows.Add(drow);
-                                subLIst.Add(drow);
-                            }
-                            else
-                            {
-                                arlist.Add(t1);
-                            }
-                        }
-                        else
-                        {
-                            arlist.Add(t1);
-                        }
-                    }
+                                    if (parents.Contains(drow["ParentID"].ToType<int>()))
+                                    {
+                                        this.SubDataSource.Rows.Add(drow);
+                                        subLIst.Add(drow);
+                                    }
+                                    else
+                                    {
+                                        arlist.Add(t1);
+                                    }
+                                }
+                                else
+                                {
+                                    arlist.Add(t1);
+                                }
+                            });
                 }
                 else
                 {
-                    // (t.Name == "DataRow[]")
                     arr = (DataRow[])this.dataSource;
-                    foreach (var t1 in arr)
-                    {
-                        if (!t1["ParentID"].IsNullOrEmptyDBField())
-                        {
-                            if (this.SubDataSource == null)
+
+                    arr.ForEach(
+                        t1 =>
                             {
-                                this.SubDataSource = t1.Table.Clone();
-                            }
+                                if (!t1["ParentID"].IsNullOrEmptyDBField())
+                                {
+                                    if (this.SubDataSource == null)
+                                    {
+                                        this.SubDataSource = t1.Table.Clone();
+                                    }
 
-                            var drow = this.SubDataSource.NewRow();
-                            drow.ItemArray = t1.ItemArray;
+                                    var drow = this.SubDataSource.NewRow();
+                                    drow.ItemArray = t1.ItemArray;
 
-                            this.SubDataSource.Rows.Add(drow);
-                        }
-                        else
-                        {
-                            arlist.Add(t1);
-                        }
-                    }
+                                    this.SubDataSource.Rows.Add(drow);
+                                }
+                                else
+                                {
+                                    arlist.Add(t1);
+                                }
+                            });
                 }
 
                 this.SubDataSource?.AcceptChanges();
@@ -239,26 +242,35 @@ namespace YAF.Controls
             {
                 var forumIcon = e.Item.FindControlAs<PlaceHolder>("ForumIcon");
 
-                var icon = new Literal { Text = "<i class=\"fas fa-comments fa-1x text-success\"></i>" };
+                var icon = new Literal
+                               {
+                                   Text =
+                                       @"<a tabindex=""0"" class=""forum-icon-legeond-popvover"" role=""button"" data-toggle=""popover"">
+                                                      <i class=""fas fa-comments fa-1x text-success""></i>
+                                                  </a>"
+                               };
 
                 try
                 {
                     if (flags.IsLocked)
                     {
-                        icon.Text = @"<span class=""fa-stack"">
+                        icon.Text = @"<a tabindex=""0"" class=""forum-icon-legeond-popvover"" role=""button"" data-toggle=""popover"">
+                                   <span class=""fa-stack"">
                                        <i class=""fas fa-comments fa-stack-2x text-secondary""></i>
                                        <i class=""fas fa-lock fa-stack-1x text-warning"" style=""position:absolute; bottom:0px !important;text-align:right;line-height: 1em;""></i>
-                                   </span>";
+                                   </span></a>";
                     }
                     else if (lastPosted > lastRead && row["ReadAccess"].ToType<int>() > 0)
                     {
                         icon.Text =
-                            "<span class=\"fa-stack\"><i class=\"fas fa-comments fa-2x text-success\"></i></span>";
+                            @"<a tabindex=""0"" class=""forum-icon-legeond-popvover"" role=""button"" data-toggle=""popover"">
+                                   <span class=""fa-stack""><i class=""fas fa-comments fa-2x text-success""></i></span>
+                               </a>";
                     }
                     else
                     {
                         icon.Text =
-                            "<span class=\"fa-stack\"><i class=\"fas fa-comments fa-2x text-secondary\"></i></span>";
+                            $@"<a tabindex=""0"" class=""forum-icon-legeond-popvover"" role=""button"" data-toggle=""popover"" data-trigger=""focus""><span class=""fa-stack""><i class=""fas fa-comments fa-2x text-secondary""></i></span></a>";
                     }
                 }
                 catch
@@ -390,12 +402,10 @@ namespace YAF.Controls
 
             var arlist = new ArrayList();
 
-            foreach (var subrow in this.SubDataSource.Rows.Cast<DataRow>()
-                .Where(subrow => row["ForumID"].ToType<int>() == subrow["ParentID"].ToType<int>()).Where(
-                    subrow => arlist.Count < this.Get<YafBoardSettings>().SubForumsInForumList))
-            {
-                arlist.Add(subrow);
-            }
+            this.SubDataSource.Rows.Cast<DataRow>()
+                .Where(dataRow => row["ForumID"].ToType<int>() == dataRow["ParentID"].ToType<int>())
+                .Where(subrow => arlist.Count < this.Get<YafBoardSettings>().SubForumsInForumList)
+                .ForEach(subrow => arlist.Add(subrow));
 
             this.SubDataSource.AcceptChanges();
 
@@ -441,6 +451,26 @@ namespace YAF.Controls
         {
             this.AltLastPost = this.GetText("DEFAULT", "GO_LAST_POST");
         }
+
+        /// <summary>
+        /// The On PreRender event.
+        /// </summary>
+        /// <param name="e">
+        /// the Event Arguments
+        /// </param>
+        protected override void OnPreRender([NotNull] EventArgs e)
+        {
+            var iconLegend = this.LoadControl($"{YafForumInfo.ForumServerFileRoot}controls/ForumIconLegend.ascx").RenderToString();
+
+            // setup jQuery and DatePicker JS...
+            this.PageContext.PageElements.RegisterJsBlockStartup(
+                "DatePickerJs",
+                JavaScriptBlocks.ForumIconLegendPopoverJs(iconLegend.Replace("\n", "").Replace("\r", "")));
+
+            base.OnPreRender(e);
+        }
+
+
 
         /// <summary>
         /// Gets the Posts string

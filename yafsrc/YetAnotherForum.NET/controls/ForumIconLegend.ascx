@@ -1,8 +1,7 @@
 <%@ Control Language="C#" AutoEventWireup="true" EnableViewState="false"
 	Inherits="YAF.Controls.ForumIconLegend" Codebehind="ForumIconLegend.ascx.cs" %>
 
-
-<ul class="list-group list-group-horizontal-sm mb-3">
+<ul class="list-group">
     <li class="list-group-item d-flex align-items-center">
         <span class="fa-stack">        
         <i class="fas fa-comments fa-2x text-success"></i>&nbsp;

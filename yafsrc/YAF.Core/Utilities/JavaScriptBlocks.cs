@@ -992,5 +992,25 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
         {
             return "getSearchResultsData(0);";
         }
+
+        /// <summary>
+        /// Renders the Forum Icon Legend Popover JS.
+        /// </summary>
+        /// <param name="content">
+        /// The content.
+        /// </param>
+        /// <returns>
+        /// Returns the JS String
+        /// </returns>
+        [NotNull]
+        public static string ForumIconLegendPopoverJs([NotNull] string content)
+        {
+            return $@"{Config.JQueryAlias}('.forum-icon-legeond-popvover').popover({{
+                           trigger: 'focus',
+                           html: true,
+                           content: '{content}',
+                           trigger: 'hover'
+                    }});";
+        }
     }
 }
