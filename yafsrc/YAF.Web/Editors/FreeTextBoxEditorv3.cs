@@ -38,7 +38,7 @@ namespace YAF.Web.Editors
         /// <summary>
         ///   Gets ModuleId.
         /// </summary>
-        public override string ModuleId => "6";
+        public override string ModuleId => "9";
 
         #endregion
     }

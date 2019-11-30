@@ -50,7 +50,7 @@ namespace YAF.Web.Editors
         /// <summary>
         ///   Gets ModuleId.
         /// </summary>
-        public override string ModuleId => "5";
+        public override string ModuleId => "2";
 
         /// <summary>
         ///   Gets a value indicating whether UsesBBCode.
