@@ -121,7 +121,7 @@ namespace YAF.Utils
         /// <summary>
         /// Gets the Current YAF Build Date
         /// </summary>
-        public static DateTime AppVersionDate => new DateTime(2019, 11, 24, 13, 46, 00);
+        public static DateTime AppVersionDate => new DateTime(2019, 12, 01, 00, 01, 00);
 
         /// <summary>
         /// Creates a string that is the YAF Application Version from a long value

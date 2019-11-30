@@ -27,6 +27,7 @@ namespace YAF.Web.Controls
     #region Using
 
     using System;
+    using System.Linq;
     using System.Web.UI;
 
     using YAF.Configuration;
@@ -98,7 +99,17 @@ namespace YAF.Web.Controls
 
             var settings = this.Get<YafBoardSettings>();
 
-            var attachments = this.GetRepository<Attachment>().Get(a => a.MessageID == this.MessageID);
+            var attachments = this.GetRepository<Attachment>().Get(a => a.MessageID == this.MessageID).Select(
+                attach => new
+                              {
+                                  attach.ID,
+                                  attach.Bytes,
+                                  attach.ContentType,
+                                  attach.Downloads,
+                                  attach.FileName,
+                                  attach.MessageID,
+                                  attach.UserID
+                              });
 
             // show file then image attachments...
             var tmpDisplaySort = 0;

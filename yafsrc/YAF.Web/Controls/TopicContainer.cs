@@ -344,7 +344,8 @@ namespace YAF.Web.Controls
                                            Size = ButtonSize.Small,
                                            Icon = "share-square",
                                            Type = ButtonAction.OutlineSecondary,
-                                           TextLocalizedTag = "GO_LAST_POST",
+                                           TitleLocalizedTag = "GO_LAST_POST",
+                                           DataToggle = "tooltip",
                                            CssClass = "mr-1"
                                        };
 
@@ -358,7 +359,8 @@ namespace YAF.Web.Controls
                                              Size = ButtonSize.Small,
                                              Icon = "book-reader",
                                              Type = ButtonAction.OutlineSecondary,
-                                             TextLocalizedTag = "GO_LASTUNREAD_POST",
+                                             TitleLocalizedTag = "GO_LASTUNREAD_POST",
+                                             DataToggle = "tooltip",
                                              Visible = this.Get<YafBoardSettings>().ShowLastUnreadPost
                                          };
 
