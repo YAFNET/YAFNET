@@ -5,7 +5,8 @@
 <div class="row">
     <div class="col-xl-12">
         <h1>
-            <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="HEADER" LocalizedPage="ADMIN_BOARDSETTINGS" />
+            <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" 
+                                LocalizedTag="HEADER" LocalizedPage="ADMIN_BOARDSETTINGS" />
         </h1>
     </div>
 </div>

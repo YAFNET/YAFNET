@@ -255,7 +255,7 @@ namespace YAF.Pages.Admin
 
             boardSettings.ForumEmail = this.ForumEmail.Text;
 
-            if (this.BoardLogo.SelectedIndex > 1)
+            if (this.BoardLogo.SelectedIndex > 0)
             {
                 boardSettings.ForumLogo = this.BoardLogo.SelectedItem.Text;
             }
@@ -278,6 +278,7 @@ namespace YAF.Pages.Admin
 
             // Clearing cache with old users permissions data to get new default styles...
             this.Get<IDataCache>().Remove(x => x.StartsWith(Constants.Cache.ActiveUserLazyData));
+
             YafBuildLink.Redirect(ForumPages.admin_admin);
         }
 
@@ -340,18 +341,19 @@ namespace YAF.Pages.Admin
                 var files = dir.GetFiles("*.*");
                 long fileID = 1;
 
-                foreach (var file in from file in files
-                                     let extension = file.Extension.ToLower()
-                                     where extension == ".png" || extension == ".gif" || extension == ".jpg"
-                                           || extension == ".svg"
-                                     select file)
-                {
-                    dr = dt.NewRow();
-                    dr["FileID"] = fileID++;
-                    dr["FileName"] = $"{YafForumInfo.ForumClientFileRoot}{YafBoardFolders.Current.Logos}/{file.Name}";
-                    dr["Description"] = file.Name;
-                    dt.Rows.Add(dr);
-                }
+                (from file in files
+                 let extension = file.Extension.ToLower()
+                 where extension == ".png" || extension == ".gif" || extension == ".jpg" || extension == ".svg"
+                 select file).ForEach(
+                    file =>
+                        {
+                            dr = dt.NewRow();
+                            dr["FileID"] = fileID++;
+                            dr["FileName"] =
+                                $"{YafForumInfo.ForumClientFileRoot}{YafBoardFolders.Current.Logos}/{file.Name}";
+                            dr["Description"] = file.Name;
+                            dt.Rows.Add(dr);
+                        });
 
                 this.BoardLogo.DataSource = dt;
                 this.BoardLogo.DataValueField = "FileName";
