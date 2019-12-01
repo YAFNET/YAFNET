@@ -600,9 +600,10 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
                     type: 'POST',
                     contentType: 'application/json;charset=utf-8',
                     success: function(response) {{
-                              {Config.JQueryAlias}('#dvThanks' + response.MessageID).html(response.Thanks);
                               {Config.JQueryAlias}('#dvThanksInfo' + response.MessageID).html(response.ThanksInfo);
                               {Config.JQueryAlias}('#dvThankBox' + response.MessageID).html({removeThankBoxHtml});
+
+                              {Config.JQueryAlias}('.thanks-popover').popover();
                     }},
                     error: function(x, e)  {{
                              console.log('An Error has occured!');
@@ -631,7 +632,6 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
                     type: 'POST',
                     contentType: 'application/json;charset=utf-8',
                     success: function(response) {{
-                              $('#dvThanks' + response.MessageID).html(response.Thanks);
                               $('#dvThanksInfo' + response.MessageID).html(response.ThanksInfo);
                               $('#dvThankBox' + response.MessageID).html({addThankBoxHtml});
                     }},
@@ -1005,12 +1005,36 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
         [NotNull]
         public static string ForumIconLegendPopoverJs([NotNull] string content)
         {
-            return $@"{Config.JQueryAlias}('.forum-icon-legeond-popvover').popover({{
-                           trigger: 'focus',
+            return $@"{Config.JQueryAlias}('.forum-icon-legend-popvover').popover({{
                            html: true,
                            content: '{content}',
                            trigger: 'hover'
                     }});";
+        }
+
+        /// <summary>
+        /// Renders the Topic Link Popover JS.
+        /// </summary>
+        /// <param name="title">
+        /// The title.
+        /// </param>
+        /// <returns>
+        /// Returns the JS String
+        /// </returns>
+        [NotNull]
+        public static string TopicLinkPopoverJs([NotNull] string title)
+        {
+            return $@"{Config.JQueryAlias}('.topic-link-popover').popover({{
+                           title: '{title}',
+                           html: true,
+                           trigger: 'hover',
+                           template: '<div class=""popover"" role=""tooltip""><h3 class=""popover-header""></h3><div class=""arrow""></div><div class=""popover-body""></div></div>'
+                }});
+                {Config.JQueryAlias}('.topic-link-popover').on('inserted.bs.popover', function () {{
+                      {Config.JQueryAlias}('.timeago1').html(function(index, value) {{
+                                                        return moment(value).fromNow();
+                      }});
+                }})";
         }
     }
 }

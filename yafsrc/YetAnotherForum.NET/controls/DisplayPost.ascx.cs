@@ -152,6 +152,8 @@ namespace YAF.Controls
         {
             var sb = new StringBuilder();
 
+            sb.Append("<ol>");
+
             var showDate = this.Get<YafBoardSettings>().ShowThanksDate;
 
             // Extract all user IDs, user name's and (If enabled thanks dates) related to this message.
@@ -163,16 +165,11 @@ namespace YAF.Controls
                         var userId = int.Parse(subChunks[0]);
                         var thanksDate = DateTime.Parse(subChunks[1]);
 
-                        if (sb.Length > 0)
-                        {
-                            sb.Append(",&nbsp;");
-                        }
-
                         // Get the username related to this User ID
                         var displayName = this.Get<IUserDisplayName>().GetName(userId);
 
                         sb.AppendFormat(
-                            @"<a id=""{0}"" href=""{1}""><u>{2}</u></a>",
+                            @"<li><a id=""{0}"" href=""{1}""><u>{2}</u></a>",
                             userId,
                             YafBuildLink.GetLink(ForumPages.profile, "u={0}&name={1}", userId, displayName),
                             this.Get<HttpServerUtilityBase>().HtmlEncode(displayName));
@@ -181,10 +178,14 @@ namespace YAF.Controls
                         if (showDate)
                         {
                             sb.AppendFormat(
-                                @" {0}",
+                                " {0}",
                                 this.GetTextFormatted("ONDATE", this.Get<IDateTime>().FormatDateShort(thanksDate)));
                         }
+
+                        sb.Append("</li>");
                     });
+
+            sb.Append("</ol>");
 
             return sb.ToString();
         }
@@ -738,12 +739,16 @@ namespace YAF.Controls
                                           username);
 
             this.ThanksDataLiteral.Text =
-                $"<i class=\"fa fa-heart\" style=\"color:#e74c3c\"></i>&nbsp;{thanksLabelText}";
+                $@"<a class=""btn btn-sm btn-link thanks-popover"" 
+                           data-toggle=""popover"" 
+                           data-trigger=""click hover""
+                           data-html=""true""
+                           title=""{thanksLabelText}"" 
+                           data-content=""{this.FormatThanksInfo(this.DataRow["ThanksInfo"].ToString()).Replace("\"", "'")}"">
+                           <i class=""fa fa-heart"" style=""color:#e74c3c""></i>&nbsp;+{thanksNumber}
+                  </a>";
 
             this.ThanksDataLiteral.Visible = true;
-
-            this.thanksDataExtendedLiteral.Text = this.FormatThanksInfo(this.DataRow["ThanksInfo"].ToString());
-            this.thanksDataExtendedLiteral.Visible = true;
         }
 
         /// <summary>

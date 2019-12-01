@@ -25,6 +25,7 @@
 namespace YAF.Core.Services
 {
     using System.Data;
+    using System.Linq;
     using System.Text;
     using System.Web;
 
@@ -34,68 +35,18 @@ namespace YAF.Core.Services
     using YAF.Core.UsersRoles;
     using YAF.Types;
     using YAF.Types.Constants;
+    using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
     using YAF.Types.Objects;
     using YAF.Utils;
 
     /// <summary>
-    /// Yaf ThankYou Class to handle Thanks
+    ///  ThankYou Class to handle Thanks
     /// </summary>
     public class YafThankYou : IThankYou
     {
         #region Public Methods
-
-        /// <summary>
-        /// This method returns a string containing the HTML code for
-        ///   showing the the post footer. the HTML content is the name of users
-        ///   who thanked the post and the date they thanked.
-        /// </summary>
-        /// <param name="messageId">
-        /// The msg ID.
-        /// </param>
-        /// <returns>
-        /// The get thanks.
-        /// </returns>
-        [NotNull]
-        public string GetThanks([NotNull] int messageId)
-        {
-            var filler = new StringBuilder();
-
-            using (var dt = YafContext.Current.GetRepository<Thanks>().MessageGetThanksAsDataTable(messageId))
-            {
-                foreach (DataRow dr in dt.Rows)
-                {
-                    if (filler.Length > 0)
-                    {
-                        filler.Append(",&nbsp;");
-                    }
-
-                    var name = YafContext.Current.Get<YafBoardSettings>().EnableDisplayName
-                                   ? YafContext.Current.Get<HttpServerUtilityBase>()
-                                       .HtmlEncode(dr["DisplayName"].ToString())
-                                   : YafContext.Current.Get<HttpServerUtilityBase>().HtmlEncode(dr["Name"].ToString());
-
-                    // vzrus: quick fix for the incorrect link. URL rewriting don't work :(
-                    filler.AppendFormat(
-                        @"<a id=""{0}"" href=""{1}""><u>{2}</u></a>",
-                        dr["UserID"],
-                        YafBuildLink.GetLink(ForumPages.profile, "u={0}&name={1}", dr["UserID"], name),
-                        name);
-
-                    if (YafContext.Current.Get<YafBoardSettings>().ShowThanksDate)
-                    {
-                        filler.AppendFormat(
-                            @" {0}",
-                            string.Format(
-                                YafContext.Current.Get<ILocalization>().GetText("DEFAULT", "ONDATE"),
-                                YafContext.Current.Get<IDateTime>().FormatDateShort(dr["ThanksDate"])));
-                    }
-                }
-            }
-
-            return filler.ToString();
-        }
 
         /// <summary>
         /// Creates an instance of the thank you object from the current information.
@@ -125,8 +76,7 @@ namespace YAF.Core.Services
             return new ThankYouInfo
                        {
                            MessageID = messageId,
-                           ThanksInfo = YafContext.Current.Get<IThankYou>().ThanksNumber(username, messageId),
-                           Thanks = YafContext.Current.Get<IThankYou>().GetThanks(messageId),
+                           ThanksInfo = YafContext.Current.Get<IThankYou>().ThanksInfo(username, messageId),
                            Text = YafContext.Current.Get<ILocalization>().GetText("BUTTON", textTag),
                            Title = YafContext.Current.Get<ILocalization>().GetText("BUTTON", titleTag)
                        };
@@ -139,15 +89,20 @@ namespace YAF.Core.Services
         /// <param name="username">
         /// The username.
         /// </param>
-        /// <param name="messageID">
+        /// <param name="messageId">
         /// The Message ID.
         /// </param>
         /// <returns>
         /// The thanks number.
         /// </returns>
-        public string ThanksNumber([NotNull] string username, int messageID)
+        public string ThanksInfo([NotNull] string username, int messageId)
         {
-            var thanksNumber = YafContext.Current.GetRepository<Thanks>().Count(t => t.MessageID == messageID);
+            var thanksNumber = YafContext.Current.GetRepository<Thanks>().Count(t => t.MessageID == messageId);
+
+            if (thanksNumber == 0)
+            {
+                return "&nbsp;";
+            }
 
             var displayName = username;
             if (YafContext.Current.Get<YafBoardSettings>().EnableDisplayName)
@@ -163,26 +118,70 @@ namespace YAF.Core.Services
 
             displayName = YafContext.Current.Get<HttpServerUtilityBase>().HtmlEncode(displayName);
 
-            string thanksText;
+            var thanksText = YafContext.Current.Get<ILocalization>()
+                .GetTextFormatted("THANKSINFO", thanksNumber, displayName);
 
-            switch (thanksNumber)
+            var thanks = GetThanks(messageId);
+
+            return $@"<a class=""btn btn-sm btn-link thanks-popover"" 
+                           data-toggle=""popover"" 
+                           data-trigger=""click hover""
+                           data-html=""true""
+                           title=""{thanksText}"" 
+                           data-content=""{thanks.Replace("\"", "'")}"">
+                               <i class=""fa fa-heart"" style= ""color:#e74c3c""></i>&nbsp;+{thanksNumber}</a>";
+        }
+
+        /// <summary>
+        /// This method returns a string containing the HTML code for
+        ///   showing the the post footer. the HTML content is the name of users
+        ///   who thanked the post and the date they thanked.
+        /// </summary>
+        /// <param name="messageId">
+        /// The message Id.
+        /// </param>
+        /// <returns>
+        /// The get thanks.
+        /// </returns>
+        [NotNull]
+        private static string GetThanks([NotNull] int messageId)
+        {
+            var filler = new StringBuilder();
+
+            using (var dt = YafContext.Current.GetRepository<Thanks>().MessageGetThanksAsDataTable(messageId))
             {
-                case 0:
-                    return string.Empty;
-                case 1:
-                    thanksText = string.Format(
-                        YafContext.Current.Get<ILocalization>().GetText("POSTS", "THANKSINFOSINGLE"),
-                        displayName);
+                filler.Append("<ol>");
+                
+                dt.Rows.Cast<DataRow>().ForEach(dr =>
+                {
+                    var name = YafContext.Current.Get<YafBoardSettings>().EnableDisplayName
+                                   ? YafContext.Current.Get<HttpServerUtilityBase>()
+                                       .HtmlEncode(dr["DisplayName"].ToString())
+                                   : YafContext.Current.Get<HttpServerUtilityBase>().HtmlEncode(dr["Name"].ToString());
 
-                    return $"<i class=\"fa fa-heart\" style=\"color:#e74c3c\"></i>&nbsp;{thanksText}";
+                    // vzrus: quick fix for the incorrect link. URL rewriting don't work :(
+                    filler.AppendFormat(
+                        @"<li class=""list-inline-item""><a id=""{0}"" href=""{1}""><u>{2}</u></a>",
+                        dr["UserID"],
+                        YafBuildLink.GetLink(ForumPages.profile, "u={0}&name={1}", dr["UserID"], name),
+                        name);
+
+                    if (YafContext.Current.Get<YafBoardSettings>().ShowThanksDate)
+                    {
+                        filler.AppendFormat(
+                            " {0}",
+                            YafContext.Current.Get<ILocalization>().GetTextFormatted(
+                                "ONDATE",
+                                YafContext.Current.Get<IDateTime>().FormatDateShort(dr["ThanksDate"])));
+                    }
+
+                    filler.Append("</li>");
+                });
+
+                filler.Append("</ol>");
             }
 
-            thanksText = string.Format(
-                YafContext.Current.Get<ILocalization>().GetText("POSTS", "THANKSINFO"),
-                thanksNumber,
-                displayName);
-
-            return $"<i class=\"fa fa-heart\" style=\"color:#e74c3c\"></i>&nbsp;{thanksText}";
+            return filler.ToString();
         }
 
         #endregion

@@ -245,7 +245,7 @@ namespace YAF.Controls
                 var icon = new Literal
                                {
                                    Text =
-                                       @"<a tabindex=""0"" class=""forum-icon-legeond-popvover"" role=""button"" data-toggle=""popover"">
+                                       @"<a tabindex=""0"" class=""forum-icon-legend-popvover"" role=""button"" data-toggle=""popover"">
                                                       <i class=""fas fa-comments fa-1x text-success""></i>
                                                   </a>"
                                };
@@ -254,7 +254,7 @@ namespace YAF.Controls
                 {
                     if (flags.IsLocked)
                     {
-                        icon.Text = @"<a tabindex=""0"" class=""forum-icon-legeond-popvover"" role=""button"" data-toggle=""popover"">
+                        icon.Text = @"<a tabindex=""0"" class=""forum-icon-legend-popvover"" role=""button"" data-toggle=""popover"">
                                    <span class=""fa-stack"">
                                        <i class=""fas fa-comments fa-stack-2x text-secondary""></i>
                                        <i class=""fas fa-lock fa-stack-1x text-warning"" style=""position:absolute; bottom:0px !important;text-align:right;line-height: 1em;""></i>
@@ -263,14 +263,14 @@ namespace YAF.Controls
                     else if (lastPosted > lastRead && row["ReadAccess"].ToType<int>() > 0)
                     {
                         icon.Text =
-                            @"<a tabindex=""0"" class=""forum-icon-legeond-popvover"" role=""button"" data-toggle=""popover"">
+                            @"<a tabindex=""0"" class=""forum-icon-legend-popvover"" role=""button"" data-toggle=""popover"">
                                    <span class=""fa-stack""><i class=""fas fa-comments fa-2x text-success""></i></span>
                                </a>";
                     }
                     else
                     {
                         icon.Text =
-                            $@"<a tabindex=""0"" class=""forum-icon-legeond-popvover"" role=""button"" data-toggle=""popover"" data-trigger=""focus""><span class=""fa-stack""><i class=""fas fa-comments fa-2x text-secondary""></i></span></a>";
+                            $@"<a tabindex=""0"" class=""forum-icon-legend-popvover"" role=""button"" data-toggle=""popover"" data-trigger=""focus""><span class=""fa-stack""><i class=""fas fa-comments fa-2x text-secondary""></i></span></a>";
                     }
                 }
                 catch
@@ -464,13 +464,11 @@ namespace YAF.Controls
 
             // setup jQuery and DatePicker JS...
             this.PageContext.PageElements.RegisterJsBlockStartup(
-                "DatePickerJs",
+                "ForumIconLegendPopoverJs",
                 JavaScriptBlocks.ForumIconLegendPopoverJs(iconLegend.Replace("\n", "").Replace("\r", "")));
 
             base.OnPreRender(e);
         }
-
-
 
         /// <summary>
         /// Gets the Posts string

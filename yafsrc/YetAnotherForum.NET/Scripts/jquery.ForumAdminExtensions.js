@@ -51991,10 +51991,10 @@ $(document).on("click",
                     }
                 },
                 callback: function (confirmed) {
-                    document.location.href = link;
-
                     if (confirmed) {
-                        if (typeof (blockUI) != "undefined") {
+                        document.location.href = link;
+
+                        if (typeof blockUI !== "undefined") {
                             window[blockUI]();
                         }
                     }
@@ -52440,6 +52440,8 @@ jQuery(document).ready(function () {
         templateSelection: formatState,
         width: "style"
     });
+
+    jQuery(".thanks-popover").popover();
 
     jQuery('[data-toggle="tooltip"]').tooltip();
 

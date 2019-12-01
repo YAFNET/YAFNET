@@ -32,20 +32,6 @@ namespace YAF.Types.Interfaces
     public interface IThankYou
     {
         /// <summary>
-        /// This method returns a string containing the HTML code for
-        ///   showing the the post footer. the HTML content is the name of users
-        ///   who thanked the post and the date they thanked.
-        /// </summary>
-        /// <param name="messageId">
-        /// The message Id.
-        /// </param>
-        /// <returns>
-        /// The get thanks.
-        /// </returns>
-        [NotNull]
-        string GetThanks([NotNull] int messageId);
-
-        /// <summary>
         /// Creates an instance of the thank you object from the current information.
         /// </summary>
         /// <param name="username">
@@ -83,6 +69,6 @@ namespace YAF.Types.Interfaces
         /// <returns>
         /// The thanks number.
         /// </returns>
-        string ThanksNumber([NotNull] string username, int messageID);
+        string ThanksInfo([NotNull] string username, int messageID);
     }
 }

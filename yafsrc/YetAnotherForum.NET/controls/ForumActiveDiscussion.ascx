@@ -25,34 +25,28 @@
                                                     <asp:PlaceHolder runat="server" ID="PostIcon"></asp:PlaceHolder>
                                                     <asp:HyperLink ID="TextMessageLink" runat="server" CssClass="font-weight-bold" />&nbsp;
                                                     (<asp:HyperLink ID="ForumLink" runat="server" />)&nbsp;
-                                                <YAF:ThemeButton runat="server" 
-                                                                     ID="GoToLastPost" 
-                                                                     Size="Small"
-                                                                     Icon="share-square"
-                                                                     Type="OutlineSecondary"
-                                                                     TextLocalizedTag="GO_LAST_POST"
-                                                                     TitleLocalizedTag="GO_LAST_POST"></YAF:ThemeButton>
-                                                    <YAF:ThemeButton runat="server" 
-                                                                     ID="GoToLastUnread" 
-                                                                     Size="Small"
-                                                                     Icon="book-reader"
-                                                                     Type="OutlineSecondary"
-                                                                     TextLocalizedTag="GO_LASTUNREAD_POST"
-                                                                     TitleLocalizedTag="GO_LASTUNREAD_POST"></YAF:ThemeButton>
+                                                <YAF:ThemeButton runat="server" ID="Info"
+                                                                 Icon="info-circle"
+                                                                 Type="OutlineInfo"
+                                                                 DataToggle="popover"
+                                                                 Size="Small"
+                                                                 CssClass="topic-link-popover">
+                                                </YAF:ThemeButton>
+                                                <YAF:ThemeButton runat="server" ID="GoToLastPost" 
+                                                                 Size="Small"
+                                                                 Icon="share-square"
+                                                                 Type="OutlineSecondary"
+                                                                 DataToggle="tooltip"
+                                                                 TitleLocalizedTag="GO_LAST_POST">
+                                                </YAF:ThemeButton>
+                                                <YAF:ThemeButton runat="server" ID="GoToLastUnread" 
+                                                                 Size="Small"
+                                                                 Icon="book-reader"
+                                                                 Type="OutlineSecondary"
+                                                                 DataToggle="tooltip"
+                                                                 TitleLocalizedTag="GO_LASTUNREAD_POST">
+                                                </YAF:ThemeButton>
                                             </h6>
-                                            <p>
-                                                <YAF:LocalizedLabel ID="ByLabel" runat="server" 
-                                                                       LocalizedTag="BY" 
-                                                                       LocalizedPage="TOPICS" />
-                                                <YAF:UserLink ID="LastUserLink"  runat="server" />
-                                                <span class="fa-stack">
-                                                    <i class="fa fa-calendar-day fa-stack-1x text-secondary"></i>
-                                                    <i class="fa fa-circle fa-badge-bg fa-inverse fa-outline-inverse"></i>
-                                                    <i class="fa fa-clock fa-badge text-secondary"></i>
-                                                </span>
-                                                <YAF:DisplayDateTime ID="LastPostDate" runat="server"
-                                                                     Format="BothTopic" />
-                                            </p> 
                                         </li>
                                     </ItemTemplate>
                                     <FooterTemplate>

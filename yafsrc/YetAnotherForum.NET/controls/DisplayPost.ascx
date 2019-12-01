@@ -148,19 +148,14 @@
             </div>
             <div class="card-footer">
                 <div class="row">
-                    <div class="col-md-2 px-0">
+                    <div class="col px-0">
                         <YAF:DisplayPostFooter ID="PostFooter" runat="server"
                             DataRow="<%# this.DataRow %>"></YAF:DisplayPostFooter>
                     </div>
-                    <div class="col-md-6 px-2">
-                        <div id="<%# "dvThanksInfo{0}".Fmt(this.DataRow["MessageID"]) %>" class="pl-1 small">
+                    <div class="col-auto px-0 d-flex flex-wrap">
+                        <div id="<%# "dvThanksInfo{0}".Fmt(this.DataRow["MessageID"]) %>" class="small mt-1">
                             <asp:Literal runat="server" Visible="false" ID="ThanksDataLiteral"></asp:Literal>
                         </div>
-                        <div id="<%# "dvThanks{0}".Fmt(this.DataRow["MessageID"]) %>" class="pl-1 small">
-                            <asp:Literal runat="server" Visible="false" ID="thanksDataExtendedLiteral"></asp:Literal>
-                        </div>
-                    </div>
-                    <div class="col-md-4 px-0 d-flex flex-wrap">
                         <span id="<%# "dvThankBox{0}".Fmt(this.DataRow["MessageID"]) %>">
                             <YAF:ThemeButton ID="Thank" runat="server"
                                 Type="Link"

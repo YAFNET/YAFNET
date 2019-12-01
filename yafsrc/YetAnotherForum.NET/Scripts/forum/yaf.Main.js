@@ -59,6 +59,8 @@ jQuery(document).ready(function () {
         width: "style"
     });
 
+    jQuery(".thanks-popover").popover();
+
     jQuery('[data-toggle="tooltip"]').tooltip();
 
     // Convert user posted image to modal images

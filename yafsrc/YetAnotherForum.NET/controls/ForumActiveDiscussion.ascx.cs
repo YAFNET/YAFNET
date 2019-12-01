@@ -28,6 +28,7 @@ namespace YAF.Controls
 
     using System;
     using System.Data;
+    using System.Globalization;
     using System.Web.UI.WebControls;
 
     using YAF.Configuration;
@@ -35,6 +36,7 @@ namespace YAF.Controls
     using YAF.Core.BaseControls;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
+    using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
@@ -79,10 +81,11 @@ namespace YAF.Controls
             // get the controls
             var postIcon = e.Item.FindControlAs<PlaceHolder>("PostIcon");
             var textMessageLink = e.Item.FindControlAs<HyperLink>("TextMessageLink");
+            var info = e.Item.FindControlAs<ThemeButton>("Info");
             var imageMessageLink = e.Item.FindControlAs<ThemeButton>("GoToLastPost");
             var imageLastUnreadMessageLink = e.Item.FindControlAs<ThemeButton>("GoToLastUnread");
-            var lastUserLink = e.Item.FindControlAs<UserLink>("LastUserLink");
-            var lastPostedDateLabel = e.Item.FindControlAs<DisplayDateTime>("LastPostDate");
+            var lastUserLink = new UserLink();
+            var lastPostedDateLabel = new DisplayDateTime { Format = DateTimeFormat.BothTopic };
             var forumLink = e.Item.FindControlAs<HyperLink>("ForumLink");
             imageLastUnreadMessageLink.Visible = this.Get<YafBoardSettings>().ShowLastUnreadPost;
 
@@ -101,6 +104,7 @@ namespace YAF.Controls
 
             textMessageLink.ToolTip =
                 $"{this.GetTextFormatted("VIEW_TOPIC_STARTED_BY", currentRow[this.Get<YafBoardSettings>().EnableDisplayName ? "UserDisplayName" : "UserName"].ToString())}";
+            textMessageLink.Attributes.Add("data-toggle", "tooltip");
 
             textMessageLink.NavigateUrl = YafBuildLink.GetLinkNotEscaped(
                 ForumPages.posts, "t={0}&find=unread", currentRow["TopicID"]);
@@ -144,9 +148,44 @@ namespace YAF.Controls
                     });
             }
 
+            var lastPostedDateTime = currentRow["LastPosted"].ToType<DateTime>();
+
+            var formattedDatetime = this.Get<YafBoardSettings>().ShowRelativeTime
+                                        ? lastPostedDateTime.ToString(
+                                            "yyyy-MM-ddTHH:mm:ssZ",
+                                            CultureInfo.InvariantCulture)
+                                        : this.Get<IDateTime>().Format(
+                                            DateTimeFormat.BothTopic,
+                                            lastPostedDateTime);
+
+            info.DataContent = $@"
+                          {lastUserLink.RenderToString()}
+                          <span class=""fa-stack"">
+                                                    <i class=""fa fa-calendar-day fa-stack-1x text-secondary""></i>
+                                                    <i class=""fa fa-circle fa-badge-bg fa-inverse fa-outline-inverse""></i>
+                                                    <i class=""fa fa-clock fa-badge text-secondary""></i>
+                                                </span>&nbsp;<span class=""timeago1"">{formattedDatetime}</span>
+                         ";
+
             forumLink.Text = this.HtmlEncode(currentRow["Forum"].ToString());
             forumLink.ToolTip = this.GetText("COMMON", "VIEW_FORUM");
+            forumLink.Attributes.Add("data-toggle", "tooltip");
             forumLink.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.topics, "f={0}&name={1}", currentRow["ForumID"], currentRow["Forum"].ToString());
+        }
+
+        /// <summary>
+        /// The On PreRender event.
+        /// </summary>
+        /// <param name="e">
+        /// the Event Arguments
+        /// </param>
+        protected override void OnPreRender([NotNull] EventArgs e)
+        {
+            this.PageContext.PageElements.RegisterJsBlockStartup(
+                "TopicLinkPopoverJs",
+                JavaScriptBlocks.TopicLinkPopoverJs($"{this.GetText("LASTPOST")}&nbsp;{this.GetText("SEARCH", "BY")} ..."));
+
+            base.OnPreRender(e);
         }
 
         /// <summary>

@@ -275,6 +275,17 @@ namespace YAF.Web.Controls
         }
 
         /// <summary>
+        /// Gets or sets the data content.
+        /// </summary>
+        [CanBeNull]
+        public string DataContent
+        {
+            get => this.ViewState["DataContent"] != null ? this.ViewState["DataContent"] as string : string.Empty;
+
+            set => this.ViewState["DataContent"] = value;
+        }
+
+        /// <summary>
         /// Gets or sets the data toggle.
         /// </summary>
         /// <value>
@@ -538,6 +549,12 @@ namespace YAF.Web.Controls
                 {
                     output.WriteAttribute("aria-haspopup", "true");
                 }
+            }
+
+            // Write popover content
+            if (this.DataContent.IsSet())
+            {
+                output.WriteAttribute("data-content", this.DataContent.Replace("\"", "'"));
             }
 
             if (this.DataDismiss.IsSet())
