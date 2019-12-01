@@ -362,6 +362,13 @@
     <Compile Include="controls\ProfileTimeline.ascx.designer.cs">
       <DependentUpon>ProfileTimeline.ascx</DependentUpon>
     </Compile>
+    <Compile Include="controls\TopicLine.ascx.cs">
+      <DependentUpon>TopicLine.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="controls\TopicLine.ascx.designer.cs">
+      <DependentUpon>TopicLine.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Dialogs\UserMedalEdit.ascx.cs">
       <DependentUpon>UserMedalEdit.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -498,13 +505,6 @@
     </Compile>
     <Compile Include="controls\SimilarTopics.ascx.designer.cs">
       <DependentUpon>SimilarTopics.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="controls\TopicLine.ascx.cs">
-      <DependentUpon>TopicLine.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="controls\TopicLine.ascx.designer.cs">
-      <DependentUpon>TopicLine.ascx</DependentUpon>
     </Compile>
     <Compile Include="controls\YafHeader.ascx.cs">
       <DependentUpon>YafHeader.ascx</DependentUpon>
@@ -1910,6 +1910,7 @@
     <Content Include="controls\CookieConsent.ascx" />
     <Content Include="controls\EditUsersSettings.ascx" />
     <Content Include="controls\ProfileTimeline.ascx" />
+    <Content Include="controls\TopicLine.ascx" />
     <Content Include="Dialogs\UserMedalEdit.ascx" />
     <Content Include="Dialogs\GroupMedalEdit.ascx" />
     <Content Include="Dialogs\QuickReply.ascx" />
@@ -1955,7 +1956,6 @@
     <Content Include="controls\ProfileYourAccount.ascx" />
     <Content Include="controls\ReportedPosts.ascx" />
     <Content Include="controls\SimilarTopics.ascx" />
-    <Content Include="controls\TopicLine.ascx" />
     <Content Include="controls\ViewThanksList.ascx" />
     <Content Include="controls\YafHeader.ascx" />
     <Content Include="Dialogs\BannedIpEdit.ascx" />
@@ -2183,13 +2183,13 @@
     <Content Include="Scripts\bootstrap-datetimepicker.js" />
     <Content Include="Scripts\bootstrap-notify.js" />
     <Content Include="Scripts\bootstrap-suggest.js" />
-    <Content Include="Scripts\bootstrap.bundle.js" />
     <None Include="Content\forum-admin.scss" />
     <Content Include="recommended-azure.web.config">
       <SubType>Designer</SubType>
     </Content>
     <None Include="bundleconfig.json" />
     <None Include="compilerconfig.json" />
+    <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\ckeditor\adapters\jquery.js" />
     <Content Include="Scripts\ckeditor\build-config.js" />
     <Content Include="Scripts\ckeditor\CHANGES.md" />
@@ -3346,6 +3346,7 @@
     </Content>
     <Content Include="Scripts\forum\yaf.MessageHistory.js" />
     <Content Include="Scripts\forum\yaf.Attachments.js" />
+    <Content Include="Scripts\README.md" />
     <None Include="Web References\RegisterV2\LatestVersionInformation.datasource">
       <DependentUpon>Reference.map</DependentUpon>
     </None>
