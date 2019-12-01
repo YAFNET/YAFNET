@@ -1,10 +1,9 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" EnableViewState="false" Inherits="YAF.Controls.ForumStatistics" Codebehind="ForumStatistics.ascx.cs" %>
 
 
-<asp:UpdatePanel ID="UpdateStatsPanel" runat="server" UpdateMode="Conditional">
+<asp:UpdatePanel ID="UpdateStatsPanel" runat="server" UpdateMode="Conditional" class="col">
     <ContentTemplate>
-            <asp:PlaceHolder runat="server" ID="InformationPlaceHolder">
-                <div class="col">
+        <asp:PlaceHolder runat="server" ID="InformationPlaceHolder">
                     <div class="row">
                         <div class="col">
                             <div class="card mb-3">
@@ -55,9 +54,8 @@
                             <YAF:MostActiveUsers ID="MostActiveList" runat="server" DisplayNumber="10" />
                         </div>
                     </div>
-                </div>
             </asp:PlaceHolder>
-        <div class="col">
+        
                 <div class="card mb-3">
                     <div class="card-header d-flex align-items-center">
                         <span class="fa-stack">
@@ -105,6 +103,5 @@
                         </ul>
                     </div>
                 </div>
-            </div>
     </ContentTemplate>
 </asp:UpdatePanel>
