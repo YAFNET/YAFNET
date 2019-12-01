@@ -8580,3 +8580,7 @@ span.form-check > label {
   position: absolute;
   top: -25px;
   left: 50px; }
+
+.popover-body-scrollable {
+  max-height: 200px;
+  overflow-y: scroll; }

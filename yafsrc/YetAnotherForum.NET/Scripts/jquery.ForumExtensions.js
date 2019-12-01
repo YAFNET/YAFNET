@@ -53846,7 +53846,9 @@ jQuery(document).ready(function () {
         width: "style"
     });
 
-    jQuery(".thanks-popover").popover();
+    jQuery(".thanks-popover").popover({
+        template: '<div class="popover" role="tooltip"><div class="arrow"></div><h3 class="popover-header"></h3><div class="popover-body popover-body-scrollable"></div></div>'
+    });
 
     jQuery('[data-toggle="tooltip"]').tooltip();
 

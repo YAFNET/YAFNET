@@ -131,3 +131,9 @@ span.form-check > label {
     top: -25px;
     left: 50px;
 }
+
+// Thanks Popover
+.popover-body-scrollable {
+    max-height: 200px;
+    overflow-y: scroll;
+}

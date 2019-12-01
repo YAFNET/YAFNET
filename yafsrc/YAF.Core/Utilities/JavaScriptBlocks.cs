@@ -603,7 +603,8 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
                               {Config.JQueryAlias}('#dvThanksInfo' + response.MessageID).html(response.ThanksInfo);
                               {Config.JQueryAlias}('#dvThankBox' + response.MessageID).html({removeThankBoxHtml});
 
-                              {Config.JQueryAlias}('.thanks-popover').popover();
+                              {Config.JQueryAlias}('.thanks-popover').popover({{
+                                     template: '<div class=""popover"" role=""tooltip""><div class=""arrow""></div><h3 class=""popover-header""></h3><div class=""popover-body popover-body-scrollable""></div></div>'}});
                     }},
                     error: function(x, e)  {{
                              console.log('An Error has occured!');
