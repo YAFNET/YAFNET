@@ -117,11 +117,11 @@ namespace YAF.Web.Editors
                            {this.SafeID}.FormatText('attach', id);
                   }}
 
-                  $("".BBCodeEditor"").suggest(""@"",
+                  {Config.JQueryAlias}("".BBCodeEditor"").suggest(""@"",
                           {{
             data: function(q) {{
                 if (q && q.length > 3) {{
-                    return $.getJSON(""{YafForumInfo.ForumClientFileRoot}resource.ashx?users="" + q);
+                    return {Config.JQueryAlias}.getJSON(""{YafForumInfo.ForumClientFileRoot}resource.ashx?users="" + q);
                            }}
                           }},
                           map: function(user)
