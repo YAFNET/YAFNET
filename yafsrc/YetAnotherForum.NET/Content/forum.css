@@ -8559,3 +8559,24 @@ span.form-check > label {
 
 .img-avatar-sm {
   max-height: 40px; }
+
+.blockquote-custom {
+  position: relative;
+  font-size: 1.1rem; }
+
+.blockquote-custom-icon {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  position: absolute;
+  top: -25px;
+  left: 50px; }

@@ -757,19 +757,22 @@ namespace YAF.Core.BBCode
                 ruleEngine.AddRule(
                     new QuoteRegexReplaceRule(
                         OpenQuoteUserIdRegex,
-                        @"<div class=""card bg-light mb-3"">${quote}",
+                        @"<blockquote class=""blockquote blockquote-custom bg-white p-3 mt-5 shadow rounded"">
+                    <div class=""blockquote-custom-icon bg-info shadow-sm""><i class=""fa fa-quote-left text-white""></i></div>${quote}",
                         Options));
 
                 // simple open quote tag
                 var simpleOpenQuoteReplace =
-                    $@"<div class=""card bg-light mb-3""><div class=""card-header text-muted"">{localQuoteStr}</div><div class=""card-body""><p class=""card-text"">";
+                    $@"<blockquote class=""blockquote blockquote-custom bg-white p-3 mt-5 shadow rounded"">
+                          <div class=""blockquote-custom-icon bg-info shadow-sm""><i class=""fa fa-quote-left text-white""></i></div>
+                             <footer class=""blockquote-footer pt-1 mt-3""><cite>{localQuoteStr}</cite></footer><p class=""mb-0 mt-2 font-italic"">";
 
                 ruleEngine.AddRule(
                     new SimpleRegexReplaceRule(OpenQuoteRegex, simpleOpenQuoteReplace, Options) { RuleRank = 62 });
 
                 // and finally the closing quote tag
                 ruleEngine.AddRule(
-                    new SingleRegexReplaceRule(CloseQuoteRegex, "</div></div>", Options) { RuleRank = 63 });
+                    new SingleRegexReplaceRule(CloseQuoteRegex, "</p></blockquote>", Options) { RuleRank = 63 });
             }
 
             // post and topic rules...
