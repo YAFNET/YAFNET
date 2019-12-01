@@ -5101,6 +5101,7 @@ begin
 		d.AnswerMessageId,
         TopicFlags	= d.Flags,
         ForumFlags	= g.Flags,
+		ForumName = g.Name,
         m.MessageID,
         m.Posted,
         [Message] = m.Message,
