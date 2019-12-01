@@ -164,7 +164,7 @@ namespace YAF.Controls
                                                     <i class=""fa fa-calendar-day fa-stack-1x text-secondary""></i>
                                                     <i class=""fa fa-circle fa-badge-bg fa-inverse fa-outline-inverse""></i>
                                                     <i class=""fa fa-clock fa-badge text-secondary""></i>
-                                                </span>&nbsp;<span class=""timeago1"">{formattedDatetime}</span>
+                                                </span>&nbsp;<span class=""popover-timeago"">{formattedDatetime}</span>
                          ";
 
             forumLink.Text = this.HtmlEncode(currentRow["Forum"].ToString());

@@ -170,9 +170,12 @@ namespace YAF.Core.Utilities
 		     moment.locale('{(YafContext.Current.CultureUser.IsSet()
                                   ? YafContext.Current.CultureUser.Substring(0, 2)
                                   : YafContext.Current.Get<YafBoardSettings>().Culture.Substring(0, 2))}');
-            {Config.JQueryAlias}('abbr.timeago').html(function(index, value) {{
-                 
-            return moment(value).fromNow();
+
+             {Config.JQueryAlias}('abbr.timeago').each(function() {{
+                  {Config.JQueryAlias}(this).html(function(index, value) {{
+                                          return moment(value).fromNow();
+                  }});
+                  {Config.JQueryAlias}(this).removeClass('timeago');
             }});
 
             Prism.highlightAll();
@@ -1032,9 +1035,12 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
                            template: '<div class=""popover"" role=""tooltip""><h3 class=""popover-header""></h3><div class=""arrow""></div><div class=""popover-body""></div></div>'
                 }});
                 {Config.JQueryAlias}('.topic-link-popover').on('inserted.bs.popover', function () {{
-                      {Config.JQueryAlias}('.timeago1').html(function(index, value) {{
-                                                        return moment(value).fromNow();
-                      }});
+                      {Config.JQueryAlias}('.popover-timeago').each(function() {{
+                  {Config.JQueryAlias}(this).html(function(index, value) {{
+                                          return moment(value).fromNow();
+                  }});
+                  {Config.JQueryAlias}(this).removeClass('timeago');
+            }});
                 }})";
         }
     }
