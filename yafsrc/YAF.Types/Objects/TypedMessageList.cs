@@ -52,8 +52,25 @@ namespace YAF.Types.Objects
             this.MessageID = row.Field<int?>("MessageID");
             this.UserID = row.Field<int?>("UserID");
             this.UserName = row.Field<string>("UserName");
-            this.UserDisplayName = row.Field<string>("UserDisplayName");
-            this.UserStyle = row.Field<string>("UserStyle");
+
+            try
+            {
+                this.UserDisplayName = row.Field<string>("UserDisplayName");
+            }
+            catch (Exception)
+            {
+                this.UserDisplayName = row.Field<string>("DisplayName");
+            }
+
+            try
+            {
+                this.UserStyle = row.Field<string>("UserStyle");
+            }
+            catch (Exception)
+            {
+                this.UserStyle = row.Field<string>("Style");
+            }
+            
             this.Message = row.Field<string>("Message");
             this.TopicID = row.Field<int?>("TopicID");
             this.ForumID = row.Field<int?>("ForumID");
