@@ -177,25 +177,25 @@
                             Icon="cogs" />
                         <div class="dropdown-menu" aria-labelledby='<%# this.Manage.ClientID %>'>
                             <YAF:ThemeButton ID="Edit" runat="server"
-                                Type="Link"
+                                Type="None"
                                 CssClass="dropdown-item"
                                 Icon="edit"
                                 TextLocalizedTag="BUTTON_EDIT"
                                 TitleLocalizedTag="BUTTON_EDIT_TT" />
                             <YAF:ThemeButton ID="MovePost" runat="server"
-                                Type="Link"
+                                Type="None"
                                 CssClass="dropdown-item"
                                 Icon="arrows-alt"
                                 TextLocalizedTag="BUTTON_MOVE"
                                 TitleLocalizedTag="BUTTON_MOVE_TT" />
                             <YAF:ThemeButton ID="Delete" runat="server"
-                                Type="Link"
+                                Type="None"
                                 CssClass="dropdown-item"
                                 Icon="trash"
                                 TextLocalizedTag="BUTTON_DELETE"
                                 TitleLocalizedTag="BUTTON_DELETE_TT" />
                             <YAF:ThemeButton ID="UnDelete" runat="server"
-                                Type="Link"
+                                Type="None"
                                 CssClass="dropdown-item"
                                 Icon="trash-alt"
                                 TextLocalizedTag="BUTTON_UNDELETE"
