@@ -6,6 +6,10 @@ YetAnotherForum.NET Changelog
 * [FIXED] Send Email to Admins on new User Register
 * [FIXED] Search Function when Board has no Messages
 * [FIXED] Board Delete function
+* [FIXED #490] Duplicate Editor Module Id
+* [FIXED] Saving Board logo
+* [FIXED] forum statistics when active discussion is disabled
+* [FIXED #488] Multi Quote Function
 * [CHANGES] Spam & Event Log Options has been moved to a filter drop down 
 * [CHANGES] Empty Tabs on My Friends page show info message
 
