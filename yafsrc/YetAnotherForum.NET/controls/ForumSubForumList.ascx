@@ -2,11 +2,12 @@
     Inherits="YAF.Controls.ForumSubForumList" Codebehind="ForumSubForumList.ascx.cs" %>
 
 
-<asp:Repeater ID="SubforumList" runat="server" OnItemCreated="SubforumList_ItemCreated">
-    <HeaderTemplate>        
+<asp:Repeater ID="SubforumList" runat="server" OnItemCreated="SubForumList_ItemCreated">
+    <HeaderTemplate>
+        <div class="card"><div class="card-body px-0">        
         <ul class="list-inline">
             <li class="list-inline-item">
-                <span class="font-weight-bold">
+                <span class="font-weight-bold small">
                     <YAF:LocalizedLabel ID="SubForums" LocalizedTag="SUBFORUMS" runat="server" />:
                 </span>
             </li>
@@ -19,5 +20,6 @@
     <FooterTemplate>
             <asp:Label Text="..." Visible="false" ID="CutOff" runat="server" />
         </ul>
+        </div></div>
 </FooterTemplate>
 </asp:Repeater>

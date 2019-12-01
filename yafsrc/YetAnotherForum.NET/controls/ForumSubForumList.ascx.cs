@@ -79,7 +79,7 @@ namespace YAF.Controls
             // get the Forum Description
             var output = Convert.ToString(row["Forum"]);
 
-            output = int.Parse(row["ReadAccess"].ToString()) > 0 ? $"<a href=\"{YafBuildLink.GetLink(ForumPages.topics, "f={0}&name={1}", forumID, output)}\" title=\"{this.GetText("COMMON", "VIEW_FORUM")}\" >{output}</a>" : $"{output} {this.GetText("NO_FORUM_ACCESS")}";
+            output = int.Parse(row["ReadAccess"].ToString()) > 0 ? $"<a class=\"card-link small\" href=\"{YafBuildLink.GetLink(ForumPages.topics, "f={0}&name={1}", forumID, output)}\" title=\"{this.GetText("COMMON", "VIEW_FORUM")}\" >{output}</a>" : $"{output} {this.GetText("NO_FORUM_ACCESS")}";
 
             return output;
         }
@@ -93,7 +93,7 @@ namespace YAF.Controls
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="RepeaterItemEventArgs"/> instance containing the event data.</param>
-        protected void SubforumList_ItemCreated([NotNull] object sender, [NotNull] RepeaterItemEventArgs e)
+        protected void SubForumList_ItemCreated([NotNull] object sender, [NotNull] RepeaterItemEventArgs e)
         {
             switch (e.Item.ItemType)
             {
@@ -110,18 +110,18 @@ namespace YAF.Controls
 
                         var forumIcon = e.Item.FindControlAs<PlaceHolder>("ForumIcon");
 
-                        var icon = new Literal { Text = "<i class=\"fa fa-comments\"></i>" };
+                        var icon = new Literal { Text = "<i class=\"fa fa-comments text-secondary\"></i>" };
 
                         try
                         {
                             if (lastPosted > lastRead)
                             {
-                                icon.Text = "<i class=\"fa fa-comments\" style=\"color: green\"></i>";
+                                icon.Text = "<i class=\"fa fa-comments text-success\"></i>";
                             }
                         }
                         catch
                         {
-                            icon = new Literal { Text = "<i class=\"fa fa-comments\"></i>" };
+                            icon = new Literal { Text = "<i class=\"fa fa-comments text-secondary\"></i>" };
                         }
 
                         forumIcon.Controls.Add(icon);
