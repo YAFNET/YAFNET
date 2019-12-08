@@ -736,7 +736,7 @@ namespace YAF.Pages
             {
                 attachementLinks.AddRange(
                     from Attachment attachment in attachments
-                    where !attachment.FileName.IsNotSet()
+                    where attachment.FileName.IsSet()
                     select
                         new SyndicationLink(
                         new Uri(

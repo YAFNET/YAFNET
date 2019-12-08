@@ -99,7 +99,7 @@ namespace YAF.Pages
             switch (e.CommandName)
             {
                 case "delete":
-                    this.GetRepository<PMessage>().DeleteMessage(e.CommandArgument.ToType<int>());
+                    this.GetRepository<PMessage>().DeleteMessage(e.CommandArgument.ToType<int>(), this.IsOutbox);
 
                     this.BindData();
                     this.PageContext.AddLoadMessage(this.GetText("msg_deleted"), MessageTypes.success);

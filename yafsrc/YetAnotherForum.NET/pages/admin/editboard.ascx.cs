@@ -235,16 +235,7 @@ namespace YAF.Pages.Admin
                     Directory.CreateDirectory(Path.Combine(boardFolder, "Images\\Avatars"));
                     Directory.CreateDirectory(Path.Combine(boardFolder, "Images\\Categories"));
                     Directory.CreateDirectory(Path.Combine(boardFolder, "Images\\Forums"));
-                    Directory.CreateDirectory(Path.Combine(boardFolder, "Images\\Emoticons"));
                     Directory.CreateDirectory(Path.Combine(boardFolder, "Images\\Medals"));
-                    Directory.CreateDirectory(Path.Combine(boardFolder, "Images\\Ranks"));
-                }
-
-                if (!Directory.Exists(Path.Combine(boardFolder, "Themes")))
-                {
-                    Directory.CreateDirectory(Path.Combine(boardFolder, "Themes"));
-
-                    // Need to copy default theme to the Themes Folder
                 }
 
                 if (!Directory.Exists(Path.Combine(boardFolder, "Uploads")))

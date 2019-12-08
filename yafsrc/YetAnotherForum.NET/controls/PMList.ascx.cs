@@ -171,11 +171,13 @@ namespace YAF.Controls
             long itemCount = 0;
 
             object toUserId = null;
-            object fromUserId = null;
+            object fromUserId = null; 
+            var isOutbox = false;
 
             if (this.View == PmView.Outbox)
             {
                 fromUserId = this.PageContext.PageUserID;
+                isOutbox = true;
             }
             else
             {
@@ -200,7 +202,7 @@ namespace YAF.Controls
                 dv.Cast<DataRowView>().ForEach(
                     item =>
                         {
-                            this.GetRepository<PMessage>().DeleteMessage(item["UserPMessageID"].ToType<int>());
+                            this.GetRepository<PMessage>().DeleteMessage(item["UserPMessageID"].ToType<int>(), isOutbox);
 
                             itemCount++;
                         });
@@ -229,7 +231,7 @@ namespace YAF.Controls
                     item =>
                         {
                             this.GetRepository<PMessage>().DeleteMessage(
-                                this.MessagesView.DataKeys[item.RowIndex].Value.ToType<int>());
+                                this.MessagesView.DataKeys[item.RowIndex].Value.ToType<int>(), this.View == PmView.Outbox);
 
                             itemCount++;
                         });
@@ -401,33 +403,35 @@ namespace YAF.Controls
         /// Gets the message text.
         /// </summary>
         /// <param name="text">The text.</param>
-        /// <param name="_total">The _total.</param>
-        /// <param name="_inbox">The _inbox.</param>
-        /// <param name="_outbox">The _outbox.</param>
-        /// <param name="_archive">The _archive.</param>
-        /// <param name="_limit">The _limit.</param>
+        /// <param name="total">The total.</param>
+        /// <param name="inbox">The inbox.</param>
+        /// <param name="outbox">The outbox.</param>
+        /// <param name="archive">The archive.</param>
+        /// <param name="limit">The limit.</param>
         /// <returns>Returns the Message Text</returns>
         protected string GetPMessageText(
             [NotNull] string text,
-            [NotNull] object _total,
-            [NotNull] object _inbox,
-            [NotNull] object _outbox,
-            [NotNull] object _archive,
-            [NotNull] object _limit)
+            [NotNull] object total,
+            [NotNull] object inbox,
+            [NotNull] object outbox,
+            [NotNull] object archive,
+            [NotNull] object limit)
         {
             object percentage = 0;
-            if (_limit.ToType<int>() != 0)
+            if (limit.ToType<int>() != 0)
             {
-                percentage = decimal.Round(_total.ToType<decimal>() / _limit.ToType<decimal>() * 100, 2);
+                percentage = decimal.Round(total.ToType<decimal>() / limit.ToType<decimal>() * 100, 2);
             }
 
-            if (YafContext.Current.IsAdmin)
+            if (!YafContext.Current.IsAdmin)
             {
-                _limit = "\u221E";
-                percentage = 0;
+                return this.HtmlEncode(this.GetTextFormatted(text, total, inbox, outbox, archive, limit, percentage));
             }
 
-            return this.HtmlEncode(this.GetTextFormatted(text, _total, _inbox, _outbox, _archive, _limit, percentage));
+            limit = "\u221E";
+            percentage = 0;
+
+            return this.HtmlEncode(this.GetTextFormatted(text, total, inbox, outbox, archive, limit, percentage));
         }
 
         /// <summary>
