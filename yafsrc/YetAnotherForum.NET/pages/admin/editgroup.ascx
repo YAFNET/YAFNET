@@ -164,20 +164,22 @@
                         </div>
                     </asp:PlaceHolder>
                     <asp:Repeater ID="AccessList" runat="server">
+                        <HeaderTemplate>
+                            <div class="form-row">
+                        </HeaderTemplate>
+                        <FooterTemplate>
+                            </div>
+                        </FooterTemplate>
                         <ItemTemplate>
-                            <div class="form-group">
-                            <asp:Label ID="ForumID" Visible="false" runat="server" Text='<%# this.Eval( "ForumID") %>'></asp:Label><%# this.Eval( "ForumName") %> 
-                            <small><em>
-                                <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="BOARD"  LocalizedPage="ADMIN_EDITGROUP" />
-                                <%# this.Eval( "BoardName") %>
-                                <br />
-                                <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="CATEGORY"  LocalizedPage="ADMIN_EDITGROUP" />
-                                <%# this.Eval( "CategoryName") %>
-                            </em></small>
-                     
-                            <asp:DropDownList runat="server" ID="AccessMaskID" OnDataBinding="BindDataAccessMaskId" CssClass="custom-select"
-                                              OnPreRender="SetDropDownIndex" value='<%# this.Eval("AccessMaskID") %>' />
-                            ...
+                            <div class="form-group col-md-4">
+                                <asp:Label ID="ForumID" Visible="false" runat="server"><%# this.Eval( "ForumID") %></asp:Label>
+                                <asp:Label runat="server" AssociatedControlID="AccessMaskID">
+                                    <%# this.Eval( "ForumName") %>
+                                </asp:Label>
+                                <asp:DropDownList runat="server" ID="AccessMaskID" 
+                                                  OnDataBinding="BindDataAccessMaskId" 
+                                                  CssClass="custom-select"
+                                                  OnPreRender="SetDropDownIndex" value='<%# this.Eval("AccessMaskID") %>' />
                             </div>
                         </ItemTemplate>
                     </asp:Repeater>
