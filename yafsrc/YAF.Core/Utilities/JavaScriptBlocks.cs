@@ -1012,7 +1012,7 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
             return $@"{Config.JQueryAlias}('.forum-icon-legend-popvover').popover({{
                            html: true,
                            content: '{content}',
-                           trigger: 'hover'
+                           trigger: 'hover click'
                     }});";
         }
 
@@ -1031,7 +1031,7 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
             return $@"{Config.JQueryAlias}('.topic-link-popover').popover({{
                            title: '{title}',
                            html: true,
-                           trigger: 'hover',
+                           trigger: 'hover click',
                            template: '<div class=""popover"" role=""tooltip""><h3 class=""popover-header""></h3><div class=""arrow""></div><div class=""popover-body""></div></div>'
                 }});
                 {Config.JQueryAlias}('.topic-link-popover').on('inserted.bs.popover', function () {{
@@ -1042,6 +1042,26 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
                   {Config.JQueryAlias}(this).removeClass('timeago');
             }});
                 }})";
+        }
+
+        /// <summary>
+        /// The forum mods popover JS.
+        /// </summary>
+        /// <param name="title">
+        /// The title.
+        /// </param>
+        /// <returns>
+        /// The <see cref="string"/>.
+        /// </returns>
+        [NotNull]
+        public static string ForumModsPopoverJs([NotNull] string title)
+        {
+            return $@"{Config.JQueryAlias}('.forum-mods-popover').popover({{
+                           title: '{title}',
+                           html: true,
+                           trigger: 'hover click',
+                           template: '<div class=""popover"" role=""tooltip""><h3 class=""popover-header""></h3><div class=""arrow""></div><div class=""popover-body popover-body-scrollable""></div></div>'
+                }});";
         }
     }
 }

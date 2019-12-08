@@ -198,9 +198,12 @@ namespace YAF.Controls
 
             if (row["ReadAccess"].ToType<int>() > 0)
             {
+                var title = row["Description"].ToString().IsSet()
+                                ? row["Description"].ToString()
+                                : this.GetText("COMMON", "VIEW_FORUM");
                 output = row["RemoteURL"] != DBNull.Value
                              ? $"<a href=\"{row["RemoteURL"]}\" title=\"{this.GetText("COMMON", "VIEW_FORUM")}\" target=\"_blank\">{this.Page.HtmlEncode(output)}&nbsp;<i class=\"fas fa-external-link-alt fa-fw\"></i></a>"
-                             : $"<a href=\"{YafBuildLink.GetLink(ForumPages.topics, "f={0}&name={1}", forumID, output)}\" title=\"{this.GetText("COMMON", "VIEW_FORUM")}\">{this.Page.HtmlEncode(output)}</a>";
+                             : $"<a href=\"{YafBuildLink.GetLink(ForumPages.topics, "f={0}&name={1}", forumID, output)}\" data-toggle=\"tooltip\" title=\"{title}\">{this.Page.HtmlEncode(output)}</a>";
             }
             else
             {

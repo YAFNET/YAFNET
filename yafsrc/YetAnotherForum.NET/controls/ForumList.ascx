@@ -29,15 +29,10 @@
                        Visible='<%# ((System.Data.DataRow)Container.DataItem)["Viewing"].ToType<int>() > 0 %>'>
                 <%# this.GetViewing(Container.DataItem) %>
             </asp:Label>
+            <YAF:ForumModeratorList ID="ForumModeratorListMob" Visible="false" runat="server"  />
         </h5>
-        <asp:Label runat="server" ID="Description" 
-                   Visible='<%# DataBinder.Eval(Container.DataItem, "[\"Description\"]").ToString().IsSet() %>'
-                   CssClass="font-italic">
-            <%# this.Page.HtmlEncode(DataBinder.Eval(Container.DataItem, "[\"Description\"]")) %>
-        </asp:Label>
         <hr />
-        <YAF:ForumModeratorList ID="ForumModeratorListMob" Visible="false" runat="server"  />
-            <YAF:ForumSubForumList ID="SubForumList" runat="server"
+        <YAF:ForumSubForumList ID="SubForumList" runat="server"
                                    DataSource='<%# this.GetSubforums( (System.Data.DataRow)Container.DataItem ) %>'
                                    Visible='<%# this.HasSubforums((System.Data.DataRow)Container.DataItem) %>' />
     </div>

@@ -7,29 +7,20 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace YAF.Controls {
-    using System.Web.UI.WebControls;
+namespace YAF.Controls
+{
 
-    public partial class ForumModeratorList {
-        
+
+    public partial class ForumModeratorList
+    {
 
         /// <summary>
-        /// ModeratorList control.
+        /// ShowMods control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected Repeater ModeratorList;
-        
-
-        /// <summary>
-        /// BlankDash control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected PlaceHolder BlankDash;
+        protected global::YAF.Web.Controls.ThemeButton ShowMods;
     }
 }
