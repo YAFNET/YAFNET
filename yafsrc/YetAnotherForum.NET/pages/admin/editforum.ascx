@@ -181,14 +181,21 @@
                     </div>
                 </asp:PlaceHolder>
                     <asp:Repeater ID="AccessList" runat="server">
+                        <HeaderTemplate>
+                            <div class="form-row">
+                        </HeaderTemplate>
+                        <FooterTemplate>
+                            </div>
+                        </FooterTemplate>
                         <ItemTemplate>
-                            <div class="form-group">
-                                <asp:Label ID="GroupID" Visible="false" runat="server" Text='<%# this.Eval( "GroupID") %>'>
+                            <div class="form-group col-md-4">
+                                <asp:Label ID="GroupID" Visible="false" runat="server">
+                                    <%# this.Eval( "GroupID") %>
                                 </asp:Label>
-                                <asp:Label runat="server" Text='<%# this.Eval( "GroupName") %>'></asp:Label>
+                                <asp:Label runat="server" Text='<%# this.Eval( "GroupName") %>' 
+                                           AssociatedControlID="AccessMaskID"></asp:Label>
                                 <asp:DropDownList runat="server" ID="AccessMaskID" OnDataBinding="BindDataAccessMaskId" CssClass="custom-select"
                                                   OnPreRender="SetDropDownIndex" value='<%# this.Eval("AccessMaskID") %>' />
-                                ...
                             </div>
                         </ItemTemplate>
                     </asp:Repeater>
