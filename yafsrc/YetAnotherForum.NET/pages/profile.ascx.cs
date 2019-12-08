@@ -646,7 +646,7 @@ namespace YAF.Pages
                     var title = $"{r["Name"]}{(f.ShowMessage ? $": {r["Message"]}" : string.Empty)}";
 
                     ribbonBar.AppendFormat(
-                        "<img src=\"{0}{5}/{1}\" width=\"{2}\" height=\"{3}\" alt=\"{4}\" title=\"{4}\" />",
+                        "<img src=\"{0}{5}/{1}\" width=\"{2}\" height=\"{3}\" alt=\"{4}\" title=\"{4}\" class=\"mr-1\" />",
                         YafForumInfo.ForumClientFileRoot,
                         r["SmallRibbonURL"],
                         r["SmallRibbonWidth"],
@@ -671,7 +671,7 @@ namespace YAF.Pages
                 if (!f.AllowHiding || !r["Hide"].ToType<bool>())
                 {
                     medals.AppendFormat(
-                        "<img src=\"{0}{6}/{1}\" width=\"{2}\" height=\"{3}\" alt=\"{4}{5}\" title=\"{4}{5}\" />",
+                        "<img src=\"{0}{6}/{1}\" width=\"{2}\" height=\"{3}\" alt=\"{4}{5}\" title=\"{4}{5}\" class=\"mr-1\" />",
                         YafForumInfo.ForumClientFileRoot,
                         r["SmallMedalURL"],
                         r["SmallMedalWidth"],
