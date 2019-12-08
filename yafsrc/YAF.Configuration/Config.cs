@@ -71,7 +71,7 @@ namespace YAF.Configuration
         ///     Gets the Folder to use for board specific uploads, images Example : /Boards/
         /// </summary>
         [NotNull]
-        public static string BoardRoot => GetConfigValueAsString("YAF.BoardRoot") ?? "/Boards/";
+        public static string BoardRoot => GetConfigValueAsString("YAF.BoardRoot") ?? string.Empty;
 
         /// <summary>
         ///     Gets the Current CategoryID -- default is null.
