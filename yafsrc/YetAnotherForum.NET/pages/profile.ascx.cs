@@ -2,7 +2,7 @@
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2019 Ingo Herbote
- * http://www.yetanotherforum.net/
+ * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -94,17 +94,6 @@ namespace YAF.Pages
         #region Methods
 
         /// <summary>
-        /// The On PreRender event.
-        /// </summary>
-        /// <param name="e">
-        /// the Event Arguments
-        /// </param>
-        protected override void OnPreRender([NotNull] EventArgs e)
-        {
-            base.OnPreRender(e);
-        }
-
-        /// <summary>
         /// The page_ load.
         /// </summary>
         /// <param name="sender">
@@ -126,7 +115,8 @@ namespace YAF.Pages
 
             if (!this.IsPostBack)
             {
-                this.UserId = Security.StringToIntOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u"));
+                this.UserId =
+                    Security.StringToIntOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u"));
                 this.userGroupsRow.Visible = this.Get<YafBoardSettings>().ShowGroupsProfile || this.PageContext.IsAdmin;
             }
 
@@ -258,6 +248,7 @@ namespace YAF.Pages
             else
             {
                 // BuddyList feature is disabled. don't show any link.
+                this.lnkBuddy.Visible = false;
                 this.BuddyCard.Visible = false;
             }
 
