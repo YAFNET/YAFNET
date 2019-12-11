@@ -2,7 +2,7 @@
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2019 Ingo Herbote
- * http://www.yetanotherforum.net/
+ * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -152,7 +152,7 @@ namespace YAF.Pages.Admin
         {
             this.CategoryList.AutoPostBack = true;
             this.Save.Click += this.SaveClick;
-            this.Cancel.Click += this.Cancel_Click;
+            this.Cancel.Click += this.CancelClick;
             base.OnInit(e);
         }
 
@@ -364,7 +364,7 @@ namespace YAF.Pages.Admin
             this.BindParentList();
 
             // Load forum's themes
-            var listheader = new ListItem
+            var listItem = new ListItem
                                  {
                                      Text = this.GetText("ADMIN_EDITFORUM", "CHOOSE_THEME"), Value = string.Empty
                                  };
@@ -373,7 +373,7 @@ namespace YAF.Pages.Admin
 
             this.ThemeList.DataSource = StaticDataHelper.Themes();
             this.ThemeList.DataBind();
-            this.ThemeList.Items.Insert(0, listheader);
+            this.ThemeList.Items.Insert(0, listItem);
         }
 
         /// <summary>
@@ -399,7 +399,7 @@ namespace YAF.Pages.Admin
         /// <param name="e">
         /// The <see cref="EventArgs"/> instance containing the event data.
         /// </param>
-        private void Cancel_Click([NotNull] object sender, [NotNull] EventArgs e)
+        private void CancelClick([NotNull] object sender, [NotNull] EventArgs e)
         {
             YafBuildLink.Redirect(ForumPages.admin_forums);
         }
@@ -459,24 +459,6 @@ namespace YAF.Pages.Admin
             {
                 this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITFORUM", "MSG_NUMBER"), MessageTypes.warning);
                 return;
-            }
-
-            if (this.remoteurl.Text.IsSet())
-            {
-                /*
-                // add http:// by default
-                if (!Regex.IsMatch(this.remoteurl.Text.Trim(), @"^(http|https|ftp|ftps|git|svn|news)\://.*"))
-                {
-                    this.remoteurl.Text = "http://" + this.remoteurl.Text.Trim();
-                }
-
-                if (!ValidationHelper.IsValidURL(this.remoteurl.Text))
-                {
-                    this.PageContext.AddLoadMessage(
-                        this.GetText("ADMIN_EDITFORUM", "MSG_INVALID_URL"),
-                        MessageTypes.warning);
-                    return;
-                }*/
             }
 
             // Forum
@@ -578,7 +560,7 @@ namespace YAF.Pages.Admin
                 this.AccessList.Items.OfType<RepeaterItem>().ForEach(
                     item =>
                         {
-                            var groupId = int.Parse(item.FindControlAs<Label>("GroupID").Text);
+                            var groupId = int.Parse(item.FindControlAs<HiddenField>("GroupID").Value);
 
                             this.GetRepository<ForumAccess>().Save(
                                 newForumId.ToType<int>(),
