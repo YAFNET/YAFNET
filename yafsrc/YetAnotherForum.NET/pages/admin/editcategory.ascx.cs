@@ -2,7 +2,7 @@
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2019 Ingo Herbote
- * http://www.yetanotherforum.net/
+ * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -52,6 +52,14 @@ namespace YAF.Pages.Admin
     /// </summary>
     public partial class editcategory : AdminPage
     {
+        /// <summary>
+        /// The category id.
+        /// </summary>
+        public int CategoryId =>
+            this.Get<HttpRequestBase>().QueryString.Exists("c")
+                ? Security.StringToIntOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("c"))
+                : 0;
+
         #region Methods
 
         /// <summary>
@@ -154,13 +162,6 @@ namespace YAF.Pages.Admin
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void SaveClick([NotNull] object sender, [NotNull] EventArgs e)
         {
-            var categoryId = 0;
-
-            if (this.Get<HttpRequestBase>().QueryString.Exists("c"))
-            {
-                categoryId = int.Parse(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("c"));
-            }
-
             var name = this.Name.Text.Trim();
             string categoryImage = null;
 
@@ -193,8 +194,8 @@ namespace YAF.Pages.Admin
 
             var category = this.GetRepository<Category>().GetSingle(c => c.Name == name);
 
-            // Check Name duplicate
-            if (category != null)
+            // Check Name duplicate only if new Category
+            if (category != null && this.CategoryId == 0)
             {
                 this.PageContext.AddLoadMessage(
                     this.GetText("ADMIN_EDITCATEGORY", "MSG_CATEGORY_EXISTS"),
@@ -203,7 +204,7 @@ namespace YAF.Pages.Admin
             }
 
             // save category
-            this.GetRepository<Category>().Save(categoryId, name, categoryImage, sortOrder);
+            this.GetRepository<Category>().Save(this.CategoryId, name, categoryImage, sortOrder);
 
             // remove category cache...
             this.Get<IDataCache>().Remove(Constants.Cache.ForumCategory);
@@ -238,7 +239,7 @@ namespace YAF.Pages.Admin
                 return;
             }
 
-            var category = this.GetRepository<Category>().List(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefaultAs<int>("c"))
+            var category = this.GetRepository<Category>().List(this.CategoryId)
                 .FirstOrDefault();
 
             if (category == null)
