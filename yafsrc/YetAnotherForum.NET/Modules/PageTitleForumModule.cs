@@ -2,7 +2,7 @@
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2019 Ingo Herbote
- * http://www.yetanotherforum.net/
+ * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -96,7 +96,7 @@ namespace YAF.Modules
         private void ForumPage_PreRender([NotNull] object sender, [NotNull] EventArgs e)
         {
             var head = this.ForumControl.Page.Header
-                            ?? this.CurrentForumPage.FindControlRecursiveBothAs<HtmlHead>(id: "YafHead");
+                            ?? this.CurrentForumPage.FindControlRecursiveBothAs<HtmlHead>("YafHead");
 
             if (head != null)
             {
@@ -113,7 +113,7 @@ namespace YAF.Modules
             else
             {
                 // old style
-                var title = this.CurrentForumPage.FindControlRecursiveBothAs<HtmlTitle>(id: "ForumTitle");
+                var title = this.CurrentForumPage.FindControlRecursiveBothAs<HtmlTitle>("ForumTitle");
 
                 if (title != null)
                 {
@@ -135,7 +135,7 @@ namespace YAF.Modules
             if (this.ForumPageType == ForumPages.posts || this.ForumPageType == ForumPages.topics)
             {
                 // get current page...
-                var currentPager = this.CurrentForumPage.FindControlAs<Pager>(id: "Pager");
+                var currentPager = this.CurrentForumPage.FindControlAs<Pager>("Pager");
 
                 if (currentPager != null && currentPager.CurrentPageIndex != 0)
                 {
@@ -154,26 +154,26 @@ namespace YAF.Modules
                         {
                             // Tack on the topic we're viewing
                             title.Append(
-                                value: this.Get<IBadWordReplace>().Replace(searchText: this.PageContext.PageTopicName.Truncate(inputLimit: 80)));
+                                this.Get<IBadWordReplace>().Replace(this.PageContext.PageTopicName.Truncate(80)));
                         }
 
                         addBoardName = false;
 
                         // Append Current Page
-                        title.Append(value: pageString);
+                        title.Append(pageString);
 
                         break;
                     case ForumPages.topics:
                         if (this.PageContext.PageForumName != string.Empty)
                         {
                             // Tack on the forum we're viewing
-                            title.Append(value: this.CurrentForumPage.HtmlEncode(data: this.PageContext.PageForumName.Truncate(inputLimit: 80)));
+                            title.Append(this.CurrentForumPage.HtmlEncode(this.PageContext.PageForumName.Truncate(80)));
                         }
 
                         addBoardName = false;
 
                         // Append Current Page
-                        title.Append(value: pageString);
+                        title.Append(pageString);
 
                         break;
                     case ForumPages.forum:
@@ -183,21 +183,21 @@ namespace YAF.Modules
 
                             // Tack on the forum we're viewing
                             title.Append(
-                                value: this.CurrentForumPage.HtmlEncode(data: this.PageContext.PageCategoryName.Truncate(inputLimit: 80)));
+                                this.CurrentForumPage.HtmlEncode(this.PageContext.PageCategoryName.Truncate(80)));
                         }
 
                         break;
                     default:
-                        var pageLinks = this.CurrentForumPage.FindControlAs<PageLinks>(id: "PageLinks");
+                        var pageLinks = this.CurrentForumPage.FindControlAs<PageLinks>("PageLinks");
 
-                        var activePageLink = pageLinks?.PageLinkList?.FirstOrDefault(predicate: link => link.URL.IsNotSet());
+                        var activePageLink = pageLinks?.PageLinkList?.FirstOrDefault(link => link.URL.IsNotSet());
 
                         if (activePageLink != null)
                         {
                             addBoardName = false;
 
                             // Tack on the forum we're viewing
-                            title.Append(value: this.CurrentForumPage.HtmlEncode(data: activePageLink.Title.Truncate(inputLimit: 80)));
+                            title.Append(this.CurrentForumPage.HtmlEncode(activePageLink.Title.Truncate(80)));
                         }
 
                         break;
@@ -207,12 +207,12 @@ namespace YAF.Modules
             if (addBoardName)
             {
                 // and lastly, tack on the board's name
-                title.Append(value: this.CurrentForumPage.HtmlEncode(data: this.PageContext.BoardSettings.Name));
+                title.Append(this.CurrentForumPage.HtmlEncode(this.PageContext.BoardSettings.Name));
             }
 
             this._forumPageTitle = title.ToString();
 
-            this.ForumControl.FirePageTitleSet(sender: this, e: new ForumPageTitleArgs(title: this._forumPageTitle));
+            this.ForumControl.FirePageTitleSet(this, new ForumPageTitleArgs(this._forumPageTitle));
         }
 
         #endregion

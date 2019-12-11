@@ -55,7 +55,7 @@
                         <asp:TextBox ID="CopyrightRemovalKey" runat="server" CssClass="form-control"></asp:TextBox>
                         <div class="input-group-append">
                             <YAF:ThemeButton runat="server" ID="GetRemovalKey"
-                                             NavigateUrl="http://yetanotherforum.net/purchase.aspx"
+                                             NavigateUrl="https://yetanotherforum.net/purchase.aspx"
                                              Type="Info"
                                              Icon="key"
                                              TextLocalizedTag="COPYRIGHT_REMOVAL_KEY_DOWN">

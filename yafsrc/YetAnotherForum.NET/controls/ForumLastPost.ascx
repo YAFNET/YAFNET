@@ -3,7 +3,9 @@
 <asp:PlaceHolder ID="LastPostedHolder" runat="server">
     <div>
         <asp:PlaceHolder ID="TopicInPlaceHolder" runat="server">
-            <strong><YAF:LocalizedLabel runat="server" LocalizedTag="LASTPOST"></YAF:LocalizedLabel>:</strong>
+            <asp:Label runat="server" CssClass="font-weight-bold text-secondary">
+                <YAF:LocalizedLabel runat="server" LocalizedTag="LASTPOST"></YAF:LocalizedLabel>:
+            </asp:Label>
             <asp:HyperLink ID="topicLink" runat="server" CssClass="mr-1"></asp:HyperLink>
         </asp:PlaceHolder>
         <asp:Label runat="server" ID="NewMessage" CssClass="mr-1"></asp:Label>

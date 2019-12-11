@@ -2,7 +2,7 @@
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2019 Ingo Herbote
- * http://www.yetanotherforum.net/
+ * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -42,7 +42,7 @@ namespace YAF.Modules
     /// <summary>
     /// Page Logo Handler Module
     /// </summary>
-    [YafModule(moduleName: "Page Logo Handler Module", moduleAuthor: "Tiny Gecko", moduleVersion: 1)]
+    [YafModule("Page Logo Handler Module", "Tiny Gecko", 1)]
     public class PageLogoHandlerForumModule : SimpleBaseForumModule
     {
         #region Public Methods
@@ -77,15 +77,15 @@ namespace YAF.Modules
         /// </param>
         private void ForumPage_PreRender([NotNull] object sender, [NotNull] EventArgs e)
         {
-            var bannerLink = this.CurrentForumPage.FindControlRecursiveBothAs<HyperLink>(id: "BannerLink");
+            var bannerLink = this.CurrentForumPage.FindControlRecursiveBothAs<HyperLink>("BannerLink");
 
             if (bannerLink == null)
             {
                 return;
             }
 
-            bannerLink.NavigateUrl = YafBuildLink.GetLink(page: ForumPages.forum);
-            bannerLink.ToolTip = this.GetText(page: "TOOLBAR", tag: "FORUM_TITLE");
+            bannerLink.NavigateUrl = YafBuildLink.GetLink(ForumPages.forum);
+            bannerLink.ToolTip = this.GetText("TOOLBAR", "FORUM_TITLE");
 
 
             var logoUrl = $"{YafForumInfo.ForumClientFileRoot}{YafBoardFolders.Current.Logos}/{YafContext.Current.BoardSettings.ForumLogo}";

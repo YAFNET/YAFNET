@@ -2,7 +2,7 @@
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2019 Ingo Herbote
- * http://www.yetanotherforum.net/
+ * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -31,7 +31,6 @@ namespace YAF.Controls
     using System.Collections.Generic;
     using System.Data;
     using System.Linq;
-    using System.Web.UI.HtmlControls;
     using System.Web.UI.WebControls;
 
     using YAF.Configuration;
@@ -92,8 +91,7 @@ namespace YAF.Controls
                 this.dataSource = value;
                 DataRow[] arr;
                 var t = this.dataSource.GetType();
-                var arlist = new List<DataRow>();
-                var subLIst = new List<DataRow>();
+                var dataRows = new List<DataRow>();
                 var parents = new List<int>();
                 if (t.Name == "DataRowCollection")
                 {
@@ -111,24 +109,23 @@ namespace YAF.Controls
                                         this.SubDataSource = t1.Table.Clone();
                                     }
 
-                                    var drow = this.SubDataSource.NewRow();
-                                    drow.ItemArray = t1.ItemArray;
+                                    var newRow = this.SubDataSource.NewRow();
+                                    newRow.ItemArray = t1.ItemArray;
 
-                                    parents.Add(drow["ForumID"].ToType<int>());
+                                    parents.Add(newRow["ForumID"].ToType<int>());
 
-                                    if (parents.Contains(drow["ParentID"].ToType<int>()))
+                                    if (parents.Contains(newRow["ParentID"].ToType<int>()))
                                     {
-                                        this.SubDataSource.Rows.Add(drow);
-                                        subLIst.Add(drow);
+                                        this.SubDataSource.Rows.Add(newRow);
                                     }
                                     else
                                     {
-                                        arlist.Add(t1);
+                                        dataRows.Add(t1);
                                     }
                                 }
                                 else
                                 {
-                                    arlist.Add(t1);
+                                    dataRows.Add(t1);
                                 }
                             });
                 }
@@ -146,21 +143,21 @@ namespace YAF.Controls
                                         this.SubDataSource = t1.Table.Clone();
                                     }
 
-                                    var drow = this.SubDataSource.NewRow();
-                                    drow.ItemArray = t1.ItemArray;
+                                    var newRow = this.SubDataSource.NewRow();
+                                    newRow.ItemArray = t1.ItemArray;
 
-                                    this.SubDataSource.Rows.Add(drow);
+                                    this.SubDataSource.Rows.Add(newRow);
                                 }
                                 else
                                 {
-                                    arlist.Add(t1);
+                                    dataRows.Add(t1);
                                 }
                             });
                 }
 
                 this.SubDataSource?.AcceptChanges();
 
-                this.dataSource = arlist;
+                this.dataSource = dataRows;
 
                 this.ForumList1.DataSource = this.dataSource;
             }
@@ -201,6 +198,7 @@ namespace YAF.Controls
                 var title = row["Description"].ToString().IsSet()
                                 ? row["Description"].ToString()
                                 : this.GetText("COMMON", "VIEW_FORUM");
+
                 output = row["RemoteURL"] != DBNull.Value
                              ? $"<a href=\"{row["RemoteURL"]}\" title=\"{this.GetText("COMMON", "VIEW_FORUM")}\" target=\"_blank\">{this.Page.HtmlEncode(output)}&nbsp;<i class=\"fas fa-external-link-alt fa-fw\"></i></a>"
                              : $"<a href=\"{YafBuildLink.GetLink(ForumPages.topics, "f={0}&name={1}", forumID, output)}\" data-toggle=\"tooltip\" title=\"{title}\">{this.Page.HtmlEncode(output)}</a>";
@@ -257,7 +255,8 @@ namespace YAF.Controls
                 {
                     if (flags.IsLocked)
                     {
-                        icon.Text = @"<a tabindex=""0"" class=""forum-icon-legend-popvover"" role=""button"" data-toggle=""popover"">
+                        icon.Text =
+                            @"<a tabindex=""0"" class=""forum-icon-legend-popvover"" role=""button"" data-toggle=""popover"">
                                    <span class=""fa-stack"">
                                        <i class=""fas fa-comments fa-stack-2x text-secondary""></i>
                                        <i class=""fas fa-lock fa-stack-1x text-warning"" style=""position:absolute; bottom:0px !important;text-align:right;line-height: 1em;""></i>
@@ -273,64 +272,54 @@ namespace YAF.Controls
                     else
                     {
                         icon.Text =
-                            $@"<a tabindex=""0"" class=""forum-icon-legend-popvover"" role=""button"" data-toggle=""popover"" data-trigger=""focus""><span class=""fa-stack""><i class=""fas fa-comments fa-2x text-secondary""></i></span></a>";
+                            @"<a tabindex=""0"" class=""forum-icon-legend-popvover"" role=""button"" data-toggle=""popover"">
+                                  <span class=""fa-stack"">
+                                      <i class=""fas fa-comments fa-2x text-secondary""></i>
+                                  </span>
+                              </a>";
                     }
                 }
-                catch
+                finally
                 {
+                    forumIcon.Controls.Add(icon);
                 }
-
-                forumIcon.Controls.Add(icon);
             }
             else
             {
-                var forumImage = e.Item.FindControlAs<HtmlImage>("ForumImage1");
+                var forumImage = e.Item.FindControlAs<Image>("ForumImage1");
                 if (forumImage != null)
                 {
-                    forumImage.Src =
+                    forumImage.ImageUrl =
                         $"{YafForumInfo.ForumServerFileRoot}{YafBoardFolders.Current.Forums}/{row["ImageUrl"]}";
 
-                    // TODO: vzrus: needs to be moved to css and converted to a more light control in the future.
                     // Highlight custom icon images and add tool tips to them. 
                     try
                     {
-                        forumImage.Attributes.Clear();
-
                         if (flags.IsLocked)
                         {
-                            forumImage.Attributes.Add("class", "forum_customimage_locked");
-                            forumImage.Attributes.Add("alt", this.GetText("ICONLEGEND", "FORUM_LOCKED"));
-                            forumImage.Attributes.Add("title", this.GetText("ICONLEGEND", "FORUM_LOCKED"));
-                            forumImage.Attributes.Add(
-                                "src",
-                                $"{YafForumInfo.ForumServerFileRoot}{YafBoardFolders.Current.Forums}/{row["ImageUrl"]}");
+                            forumImage.CssClass = "forum_customimage_locked";
+                            forumImage.AlternateText = this.GetText("ICONLEGEND", "FORUM_LOCKED");
+                            forumImage.ToolTip = this.GetText("ICONLEGEND", "FORUM_LOCKED");
                         }
                         else if (lastPosted > lastRead)
                         {
-                            forumImage.Attributes.Add("class", "forum_customimage_newposts");
-                            forumImage.Attributes.Add("alt", this.GetText("ICONLEGEND", "NEW_POSTS"));
-                            forumImage.Attributes.Add("title", this.GetText("ICONLEGEND", "NEW_POSTS"));
-                            forumImage.Attributes.Add(
-                                "src",
-                                $"{YafForumInfo.ForumServerFileRoot}{YafBoardFolders.Current.Forums}/{row["ImageUrl"]}");
+                            forumImage.CssClass = "forum_customimage_newposts";
+                            forumImage.AlternateText = this.GetText("ICONLEGEND", "NEW_POSTS");
+                            forumImage.ToolTip = this.GetText("ICONLEGEND", "NEW_POSTS");
                         }
                         else
                         {
-                            forumImage.Attributes.Add("class", "forum_customimage_nonewposts");
-                            forumImage.Attributes.Add(
-                                "src",
-                                $"{YafForumInfo.ForumServerFileRoot}{YafBoardFolders.Current.Forums}/{row["ImageUrl"]}");
-                            forumImage.Attributes.Add("alt", this.GetText("ICONLEGEND", "NO_NEW_POSTS"));
-                            forumImage.Attributes.Add("title", this.GetText("ICONLEGEND", "NO_NEW_POSTS"));
+                            forumImage.CssClass = "forum_customimage_nonewposts";
+                            forumImage.AlternateText = this.GetText("ICONLEGEND", "NO_NEW_POSTS");
+                            forumImage.ToolTip = this.GetText("ICONLEGEND", "NO_NEW_POSTS");
                         }
 
                         forumImage.Visible = true;
                     }
                     catch
                     {
+                        forumImage.Visible = false;
                     }
-
-                    forumImage.Visible = true;
                 }
             }
 
@@ -339,36 +328,35 @@ namespace YAF.Controls
                 return;
             }
 
-            var moderatorSpan = e.Item.FindControlAs<HtmlGenericControl>("ModListMob_Span");
-
-            if (e.Item.FindControl("ForumModeratorListMob") is ForumModeratorList modList1)
+            if (row["RemoteURL"] != DBNull.Value)
             {
-                var dra = row.GetChildRows("FK_Moderator_Forum");
-                if (dra.GetLength(0) > 0)
-                {
-                    modList1.DataSource = dra;
-                    modList1.Visible = true;
-                    modList1.DataBind();
-
-                    // set them as visible...
-                    if (moderatorSpan != null)
-                    {
-                        moderatorSpan.Visible = true;
-                    }
-                }
+                return;
             }
+
+            var modList = e.Item.FindControlAs<ForumModeratorList>("ForumModeratorListMob");
+
+            var dra = row.GetChildRows("FK_Moderator_Forum");
+
+            if (dra.GetLength(0) <= 0)
+            {
+                return;
+            }
+
+            modList.DataSource = dra;
+            modList.Visible = true;
+            modList.DataBind();
         }
 
         /// <summary>
         /// Gets the moderated.
         /// </summary>
-        /// <param name="o">The o.</param>
+        /// <param name="row">The Data row.</param>
         /// <returns>
         /// The get moderated.
         /// </returns>
-        protected bool GetModerated([NotNull] object o)
+        protected bool GetModerated([NotNull] object row)
         {
-            return ((DataRow)o)["Flags"].BinaryAnd(ForumFlags.Flags.IsModerated);
+            return ((DataRow)row)["Flags"].BinaryAnd(ForumFlags.Flags.IsModerated);
         }
 
         // Suppress rendering of footer if there is one or more 
@@ -396,35 +384,36 @@ namespace YAF.Controls
         /// </summary>
         /// <param name="row">The row.</param>
         /// <returns>Returns the Sub Forums</returns>
-        protected IEnumerable GetSubforums([NotNull] DataRow row)
+        protected IEnumerable GetSubForums([NotNull] DataRow row)
         {
-            if (!this.HasSubforums(row))
+            if (!this.HasSubForums(row))
             {
                 return null;
             }
 
-            var arlist = new ArrayList();
+            var arrayList = new ArrayList();
 
             this.SubDataSource.Rows.Cast<DataRow>()
                 .Where(dataRow => row["ForumID"].ToType<int>() == dataRow["ParentID"].ToType<int>())
-                .Where(subrow => arlist.Count < this.Get<YafBoardSettings>().SubForumsInForumList)
-                .ForEach(subrow => arlist.Add(subrow));
+                .Where(subRow => arrayList.Count < this.Get<YafBoardSettings>().SubForumsInForumList)
+                .ForEach(value => arrayList.Add(value));
 
             this.SubDataSource.AcceptChanges();
 
-            return arlist;
+            return arrayList;
         }
 
         /// <summary>
         /// Gets the viewing.
         /// </summary>
-        /// <param name="o">The o.</param>
+        /// <param name="row">
+        /// The row.
+        /// </param>
         /// <returns>
         /// The get viewing.
         /// </returns>
-        protected string GetViewing([NotNull] object o)
+        protected string GetViewing([NotNull] DataRow row)
         {
-            var row = (DataRow)o;
             var viewing = row["Viewing"].ToType<int>();
 
             return viewing > 0
@@ -439,10 +428,10 @@ namespace YAF.Controls
         /// <returns>
         /// The has sub forums.
         /// </returns>
-        protected bool HasSubforums([NotNull] DataRow row)
+        protected bool HasSubForums([NotNull] DataRow row)
         {
-            return this.SubDataSource != null && this.SubDataSource.Rows.Cast<DataRow>()
-                       .Any(subrow => row["ForumID"].ToType<int>() == subrow["ParentID"].ToType<int>());
+            return this.SubDataSource != null && this.SubDataSource.Rows.Cast<DataRow>().Any(
+                       dataRow => row["ForumID"].ToType<int>() == dataRow["ParentID"].ToType<int>());
         }
 
         /// <summary>
@@ -463,12 +452,14 @@ namespace YAF.Controls
         /// </param>
         protected override void OnPreRender([NotNull] EventArgs e)
         {
-            var iconLegend = this.LoadControl($"{YafForumInfo.ForumServerFileRoot}controls/ForumIconLegend.ascx").RenderToString();
+            var iconLegend = this.LoadControl($"{YafForumInfo.ForumServerFileRoot}controls/ForumIconLegend.ascx")
+                .RenderToString();
 
             // setup jQuery and DatePicker JS...
             this.PageContext.PageElements.RegisterJsBlockStartup(
                 "ForumIconLegendPopoverJs",
-                JavaScriptBlocks.ForumIconLegendPopoverJs(iconLegend.Replace("\n", "").Replace("\r", "")));
+                JavaScriptBlocks.ForumIconLegendPopoverJs(
+                    iconLegend.Replace("\n", string.Empty).Replace("\r", string.Empty)));
 
             base.OnPreRender(e);
         }
@@ -476,23 +467,28 @@ namespace YAF.Controls
         /// <summary>
         /// Gets the Posts string
         /// </summary>
-        /// <param name="_o">The _o.</param>
-        /// <returns>Returns the Posts string</returns>
-        protected string Posts([NotNull] object _o)
+        /// <param name="row">
+        /// The row.
+        /// </param>
+        /// <returns>
+        /// Returns the Posts string
+        /// </returns>
+        protected string Posts([NotNull] DataRow row)
         {
-            var row = (DataRow)_o;
-
             return row["RemoteURL"] == DBNull.Value ? $"{row["Posts"]:N0}" : "-";
         }
 
         /// <summary>
         /// Gets the Topics string
         /// </summary>
-        /// <param name="_o">The _o.</param>
-        /// <returns>Returns the Topics string</returns>
-        protected string Topics([NotNull] object _o)
+        /// <param name="row">
+        /// The row.
+        /// </param>
+        /// <returns>
+        /// Returns the Topics string
+        /// </returns>
+        protected string Topics([NotNull] DataRow row)
         {
-            var row = (DataRow)_o;
             return row["RemoteURL"] == DBNull.Value ? $"{row["Topics"]:N0}" : "-";
         }
 

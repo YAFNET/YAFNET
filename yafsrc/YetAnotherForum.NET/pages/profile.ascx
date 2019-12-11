@@ -20,11 +20,11 @@
             <YAF:ThemeButton ID="lnkBuddy" runat="server" 
                              OnCommand="lnk_AddBuddy"
                              ReturnConfirmText='<%#this.GetText("CP_EDITBUDDIES", "NOTIFICATION_REMOVE") %>'/>
-            <YAF:ThemeButton  ID="PM" runat="server" Visible="false" 
-                              TextLocalizedPage="POSTS" TextLocalizedTag="PM" 
-                              TitleLocalizedTag="PM_TITLE" TitleLocalizedPage="POSTS"
-                              Icon="envelope-open-text"
-                              Type="Info"/>
+            <YAF:ThemeButton ID="PM" runat="server" Visible="false" 
+                             TextLocalizedPage="POSTS" TextLocalizedTag="PM" 
+                             TitleLocalizedTag="PM_TITLE" TitleLocalizedPage="POSTS"
+                             Icon="envelope-open-text"
+                             Type="Info"/>
             <YAF:ThemeButton ID="Email" runat="server" Visible="false" 
                              TextLocalizedPage="POSTS" TextLocalizedTag="EMAIL" 
                              TitleLocalizedTag="EMAIL_TITLE" TitleLocalizedPage="POSTS"

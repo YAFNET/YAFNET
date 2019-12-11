@@ -400,7 +400,7 @@
     <Resource tag="CDVVERSION_HELP">CRM Version, increase number to Force a Browser reload of all Java Script and CSS Files</Resource>
     <Resource tag="COPYRIGHT_REMOVAL_KEY">Ключ удаления копирайта:</Resource>
     <Resource tag="COPYRIGHT_REMOVAL_KEY_DOWN">Purchase Removal Key</Resource>
-    <Resource tag="COPYRIGHT_REMOVAL_KEY_HELP">Удалить информацию о копирайте и ссылку на YAF из подвала вашего форума. Доступно на &lt;a href="http://yetanotherforum.net/purchase.aspx"&gt;сайта YAF.NET &lt;/a&gt;. </Resource>
+    <Resource tag="COPYRIGHT_REMOVAL_KEY_HELP">Удалить информацию о копирайте и ссылку на YAF из подвала вашего форума. Доступно на &lt;a href="https://yetanotherforum.net/purchase.aspx"&gt;сайта YAF.NET &lt;/a&gt;. </Resource>
     <Resource tag="HEADER">Текущие настройки конференции</Resource>
     <Resource tag="TITLE">Настройки конференции</Resource>
   </page>
@@ -1798,7 +1798,7 @@
     <Resource tag="LATEST_VERSION">Последняя доступная версия &lt;strong&gt;{0}&lt;/strong&gt; с датой релиза &lt;strong&gt;{1}&lt;/strong&gt;.</Resource>
     <Resource tag="RUNNING_VERSION">Вы используете YetAnotherForum.NET версии &lt;strong&gt;{0}&lt;/strong&gt; (Дата: {1}).</Resource>
     <Resource tag="TITLE">Проверка версии</Resource>
-    <Resource tag="UPGRADE_VERSION">Вы можете загрузить последнюю версию здесь: &lt;a target="_top" href="http://yetanotherforum.net/download/"&gt;
+    <Resource tag="UPGRADE_VERSION">Вы можете загрузить последнюю версию здесь: &lt;a target="_top" href="https://yetanotherforum.net/download/"&gt;
 						&lt;/a&gt;.</Resource>
   </page>
   <page name="ADMINMENU">

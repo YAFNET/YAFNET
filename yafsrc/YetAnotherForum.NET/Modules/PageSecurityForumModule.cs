@@ -2,7 +2,7 @@
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2019 Ingo Herbote
- * http://www.yetanotherforum.net/
+ * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -37,7 +37,7 @@ namespace YAF.Modules
   /// <summary>
   /// Module that handles individual page security features -- needs to be expanded.
   /// </summary>
-  [YafModule(moduleName: "Page Security Module", moduleAuthor: "Tiny Gecko", moduleVersion: 1)]
+  [YafModule("Page Security Module", "Tiny Gecko", 1)]
   public class PageSecurityForumModule : SimpleBaseForumModule
   {
     #region Constants and Fields

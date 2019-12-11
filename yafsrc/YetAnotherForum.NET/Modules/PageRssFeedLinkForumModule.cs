@@ -2,7 +2,7 @@
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2019 Ingo Herbote
- * http://www.yetanotherforum.net/
+ * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -43,7 +43,7 @@ namespace YAF.Modules
   /// <summary>
   /// Summary description for PageRssFeedLinkModule
   /// </summary>
-  [YafModule(moduleName: "Page Rss Feed Link Module", moduleAuthor: "Tiny Gecko", moduleVersion: 1)]
+  [YafModule("Page Rss Feed Link Module", "Tiny Gecko", 1)]
   public class PageRssFeedLinkForumModule : SimpleBaseForumModule
   {
     #region Constants and Fields
@@ -88,12 +88,12 @@ namespace YAF.Modules
     private void ForumPage_PreRender([NotNull] object sender, [NotNull] EventArgs e)
     {
       var head = this.ForumControl.Page.Header ??
-                      this.CurrentForumPage.FindControlRecursiveBothAs<HtmlHead>(id: "YafHead");
+                      this.CurrentForumPage.FindControlRecursiveBothAs<HtmlHead>("YafHead");
 
       if (head != null)
       {
         var groupAccess =
-          this.Get<IPermissions>().Check(permission: this.PageContext.BoardSettings.PostLatestFeedAccess);
+          this.Get<IPermissions>().Check(this.PageContext.BoardSettings.PostLatestFeedAccess);
 
         if (this.PageContext.BoardSettings.ShowRSSLink && groupAccess)
         {
@@ -102,21 +102,21 @@ namespace YAF.Modules
             {
               Href =
                 YafBuildLink.GetLink(
-                  page: ForumPages.rsstopic,
-                  fullUrl: true,
-                  format: "pg={0}&ft={1}",
+                  ForumPages.rsstopic,
+                  true,
+                  "pg={0}&ft={1}",
                   YafRssFeeds.LatestPosts.ToInt(),
                   YafSyndicationFormats.Rss.ToInt())
             };
 
           // defaults to the "Active" rss.
-          rssLink.Attributes.Add(key: "rel", value: "alternate");
-          rssLink.Attributes.Add(key: "type", value: "application/rss+xml");
+          rssLink.Attributes.Add("rel", "alternate");
+          rssLink.Attributes.Add("type", "application/rss+xml");
           rssLink.Attributes.Add(
-            key: "title",
-            value: $"{this.GetText(tag: "RSSFEED")} - {YafContext.Current.BoardSettings.Name}");
+            "title",
+            $"{this.GetText("RSSFEED")} - {YafContext.Current.BoardSettings.Name}");
 
-          head.Controls.Add(child: rssLink);
+          head.Controls.Add(rssLink);
         }
 
         if (this.PageContext.BoardSettings.ShowAtomLink && groupAccess)
@@ -126,21 +126,21 @@ namespace YAF.Modules
             {
               Href =
                 YafBuildLink.GetLink(
-                  page: ForumPages.rsstopic,
-                  fullUrl: true,
-                  format: "pg={0}&ft={1}",
+                  ForumPages.rsstopic,
+                  true,
+                  "pg={0}&ft={1}",
                   YafRssFeeds.LatestPosts.ToInt(),
                   YafSyndicationFormats.Atom.ToInt())
             };
 
           // defaults to the "Active" rss.
-          atomLink.Attributes.Add(key: "rel", value: "alternate");
-          atomLink.Attributes.Add(key: "type", value: "application/atom+xml");
+          atomLink.Attributes.Add("rel", "alternate");
+          atomLink.Attributes.Add("type", "application/atom+xml");
           atomLink.Attributes.Add(
-            key: "title",
-            value: $"{this.GetText(tag: "ATOMFEED")} - {YafContext.Current.BoardSettings.Name}");
+            "title",
+            $"{this.GetText("ATOMFEED")} - {YafContext.Current.BoardSettings.Name}");
 
-          head.Controls.Add(child: atomLink);
+          head.Controls.Add(atomLink);
         }
       }
     }

@@ -2,7 +2,7 @@
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2019 Ingo Herbote
- * http://www.yetanotherforum.net/
+ * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -38,7 +38,7 @@ namespace YAF.Modules
   /// <summary>
   /// The page requires secure connection module.
   /// </summary>
-  [YafModule(moduleName: "Page Requires Secure Connection Module", moduleAuthor: "Tiny Gecko", moduleVersion: 1)]
+  [YafModule("Page Requires Secure Connection Module", "Tiny Gecko", 1)]
   public class PageRequiresSecureConnectionForumModule : SimpleBaseForumModule
   {
     #region Public Methods
@@ -89,7 +89,7 @@ namespace YAF.Modules
 
       if (accessDenied)
       {
-        YafBuildLink.RedirectInfoPage(infoMessage: InfoMessage.AccessDenied);
+        YafBuildLink.RedirectInfoPage(InfoMessage.AccessDenied);
       }
     }
 

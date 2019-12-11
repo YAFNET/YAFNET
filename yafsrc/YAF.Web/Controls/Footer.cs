@@ -2,7 +2,7 @@
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2019 Ingo Herbote
- * http://www.yetanotherforum.net/
+ * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -57,7 +57,7 @@ namespace YAF.Web.Controls
     /// </summary>
     public class Footer : BaseControl
     {
-#region Public Properties
+        #region Public Properties
 
         /// <summary>
         ///   Gets or sets a value indicating whether SimpleRender.
@@ -70,9 +70,9 @@ namespace YAF.Web.Controls
         [NotNull]
         public Control ThisControl => this;
 
-#endregion
+        #endregion
 
-#region Methods
+        #region Methods
 
         /// <summary>
         /// The render.
@@ -103,8 +103,7 @@ namespace YAF.Web.Controls
 
             this.Get<IStopWatch>().Stop();
 
-            footer.Append(
-                @"<div class=""clearfix""></div><footer class=""footer""><div class=""text-right"">");
+            footer.Append(@"<div class=""clearfix""></div><footer class=""footer""><div class=""text-right"">");
 
             this.RenderRulesLink(footer);
 
@@ -199,15 +198,10 @@ namespace YAF.Web.Controls
             {
                 var dnsSafeHost = url.DnsSafeHost.ToLower();
 
-                // handle www and non www domains correctly.
+                // handle www domains correctly.
                 if (dnsSafeHost.StartsWith("www."))
                 {
                     dnsSafeHost = dnsSafeHost.Replace("www.", string.Empty);
-                }
-
-                if (domainKey.StartsWith("www."))
-                {
-                    domainKey = domainKey.Replace("www.", string.Empty);
                 }
 
                 var currentDomainHash = HashHelper.Hash(
@@ -250,10 +244,10 @@ namespace YAF.Web.Controls
             footer.AppendFormat(
                 @"</a> | <a target=""_top"" title=""{0}"" href=""{1}"">YAF.NET &copy; 2003-{2}, Yet Another Forum.NET</a>",
                 "YetAnotherForum.NET",
-                "http://www.yetanotherforum.net",
+                "https://www.yetanotherforum.net",
                 DateTime.UtcNow.Year);
         }
 
-#endregion
+        #endregion
     }
 }

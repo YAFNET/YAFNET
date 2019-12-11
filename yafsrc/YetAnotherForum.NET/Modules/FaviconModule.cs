@@ -2,7 +2,7 @@
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2019 Ingo Herbote
- * http://www.yetanotherforum.net/
+ * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -35,7 +35,7 @@ namespace YAF.Modules
     /// <summary>
     ///     Generates the Favicon code inside the head section
     /// </summary>
-    [YafModule(moduleName: "Favicon Module", moduleAuthor: "Ingo Herbote", moduleVersion: 1)]
+    [YafModule("Favicon Module", "Ingo Herbote", 1)]
     public class FaviconModule : SimpleBaseForumModule
     {
         /// <summary>
@@ -54,7 +54,7 @@ namespace YAF.Modules
         private void CurrentForumPage_PreRender([NotNull] object sender, [NotNull] EventArgs e)
         {
             var head = this.ForumControl.Page.Header
-                       ?? this.CurrentForumPage.FindControlRecursiveBothAs<HtmlHead>(id: "YafHead");
+                       ?? this.CurrentForumPage.FindControlRecursiveBothAs<HtmlHead>("YafHead");
 
             if (head == null)
             {

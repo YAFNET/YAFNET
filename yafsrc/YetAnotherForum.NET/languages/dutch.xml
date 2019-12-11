@@ -400,7 +400,7 @@
     <Resource tag="CDVVERSION_HELP">CRM Version, increase number to Force a Browser reload of all Java Script and CSS Files</Resource>
     <Resource tag="COPYRIGHT_REMOVAL_KEY">Copyright Verwijder Sleutel:</Resource>
     <Resource tag="COPYRIGHT_REMOVAL_KEY_DOWN">Purchase Removal Key</Resource>
-    <Resource tag="COPYRIGHT_REMOVAL_KEY_HELP">Verwijder de copyright informatie en link naar YAF in de voettekst van het forum. Beschikbaar via &lt;a href="http://yetanotherforum.net/purchase.aspx"&gt;de YAF.NET website&lt;/a&gt;. </Resource>
+    <Resource tag="COPYRIGHT_REMOVAL_KEY_HELP">Verwijder de copyright informatie en link naar YAF in de voettekst van het forum. Beschikbaar via &lt;a href="https://yetanotherforum.net/purchase.aspx"&gt;de YAF.NET website&lt;/a&gt;. </Resource>
     <Resource tag="HEADER">Huidige Board Configuratie</Resource>
     <Resource tag="TITLE">Board Configuratie</Resource>
   </page>
@@ -1810,7 +1810,7 @@
     <Resource tag="LATEST_VERSION">De laatste stabiele versie is: &lt;b&gt;{0}&lt;/b&gt; Gereleased &lt;b&gt;{1}&lt;/b&gt;.</Resource>
     <Resource tag="RUNNING_VERSION">Jouw YAF.NET Versie: &lt;b&gt;{0}&lt;/b&gt; (Datum: {1}).</Resource>
     <Resource tag="TITLE">Versiecontrole</Resource>
-    <Resource tag="UPGRADE_VERSION">Haal de laatste versie &lt;a target="_top" href="http://yetanotherforum.net/"&gt;
+    <Resource tag="UPGRADE_VERSION">Haal de laatste versie &lt;a target="_top" href="https://yetanotherforum.net/"&gt;
 				  Hier&lt;/a&gt;.</Resource>
   </page>
   <page name="ADMINMENU">

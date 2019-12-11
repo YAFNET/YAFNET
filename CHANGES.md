@@ -1,11 +1,27 @@
 YetAnotherForum.NET Changelog
 ====================
 
+# YetAnotherForum.NET v2.3.1.00
+* [NEW] layout for quote messages 
+* [CHANGES] Moved Forum Icon Legend in to a popover
+* [CHANGES] Upgraded to Bootstrap 4.4.1
+
+
+# YetAnotherForum.NET v2.3.0.03
+* [FIXED #492] relative time tooltips
+* [FIXED] deleting of private messages
+* [FIXED #494] Add as friend button on profile page
+* [FIXED #497] saving forum & category
+
+
 # YetAnotherForum.NET v2.3.0.02
-## Fixed Issues:
 * [FIXED] Send Email to Admins on new User Register
 * [FIXED] Search Function when Board has no Messages
 * [FIXED] Board Delete function
+* [FIXED #490] Duplicate Editor Module Id
+* [FIXED] Saving Board logo
+* [FIXED] forum statistics when active discussion is disabled
+* [FIXED #488] Multi Quote Function
 * [CHANGES] Spam & Event Log Options has been moved to a filter drop down 
 * [CHANGES] Empty Tabs on My Friends page show info message
 

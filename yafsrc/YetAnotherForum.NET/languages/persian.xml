@@ -400,7 +400,7 @@
     <Resource tag="CDVVERSION_HELP">CRM Version, increase number to Force a Browser reload of all Java Script and CSS Files</Resource>
     <Resource tag="COPYRIGHT_REMOVAL_KEY">کلید حذف کپی رایت:</Resource>
     <Resource tag="COPYRIGHT_REMOVAL_KEY_DOWN">Purchase Removal Key</Resource>
-    <Resource tag="COPYRIGHT_REMOVAL_KEY_HELP">حذف نام و عنوان YAF از زیر انجمن موجود در لینک : &lt;a href="http://yetanotherforum.net/purchase.aspx"&gt;سایت YAF&lt;/a&gt;. </Resource>
+    <Resource tag="COPYRIGHT_REMOVAL_KEY_HELP">حذف نام و عنوان YAF از زیر انجمن موجود در لینک : &lt;a href="https://yetanotherforum.net/purchase.aspx"&gt;سایت YAF&lt;/a&gt;. </Resource>
     <Resource tag="HEADER">تنظیمات فعلی تابلو</Resource>
     <Resource tag="TITLE">تنظیمات تابلو</Resource>
   </page>
@@ -1829,7 +1829,7 @@
     <Resource tag="RUNNING_VERSION">شما در حال استفاده از YetAnotherForum.NET نسخه &lt;strong&gt;{0}&lt;/strong&gt; (تاریخ :{1}) هستید.</Resource>
     <Resource tag="TITLE">کنترل نسخه</Resource>
     <Resource tag="UPGRADE_VERSION">&lt;p dir="rtl"&gt;شما می توانید آخرین نسخه را از
-&lt;a href="http://yetanotherforum.net/download/"&gt;اینجا&lt;/a&gt; دریافت کنید.&lt;/p&gt;
+&lt;a href="https://yetanotherforum.net/download/"&gt;اینجا&lt;/a&gt; دریافت کنید.&lt;/p&gt;
       &lt;p dir="rtl"&gt;&lt;/p&gt;
     </Resource>
   </page>

@@ -2,7 +2,7 @@
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2019 Ingo Herbote
- * http://www.yetanotherforum.net/
+ * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -34,7 +34,7 @@ namespace YAF.Modules
     /// <summary>
     /// The page bb code registration.
     /// </summary>
-    [YafModule(moduleName: "Page BBCode Registration Module", moduleAuthor: "Tiny Gecko", moduleVersion: 1)]
+    [YafModule("Page BBCode Registration Module", "Tiny Gecko", 1)]
     public class PageBBCodeRegistration : SimpleBaseForumModule
     {
         #region Public Methods
@@ -52,8 +52,8 @@ namespace YAF.Modules
                 case ForumPages.posts:
                 case ForumPages.profile:
                     this.Get<IBBCode>().RegisterCustomBBCodePageElements(
-                        currentPage: this.PageContext.CurrentForumPage.Page,
-                        currentType: this.PageContext.CurrentForumPage.GetType());
+                        this.PageContext.CurrentForumPage.Page,
+                        this.PageContext.CurrentForumPage.GetType());
                     break;
             }
         }

@@ -2,7 +2,7 @@
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2019 Ingo Herbote
- * http://www.yetanotherforum.net/
+ * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -40,7 +40,7 @@ namespace YAF.Modules
     /// <summary>
     /// The Page PM Popup Module
     /// </summary>
-    [YafModule(moduleName: "Page PopUp Module", moduleAuthor: "Tiny Gecko", moduleVersion: 1)]
+    [YafModule("Page PopUp Module", "Tiny Gecko", 1)]
     public class PagePmPopupForumModule : SimpleBaseForumModule
     {
         #region Public Methods
@@ -132,14 +132,14 @@ namespace YAF.Modules
             var notification = (DialogBox)this.PageContext.CurrentForumPage.Notification;
 
             // This happens when user logs in
-            if (this.DisplayQuotedPopup() && !this.PageContext.ForumPageType.Equals(obj: ForumPages.posts))
+            if (this.DisplayQuotedPopup() && !this.PageContext.ForumPageType.Equals(ForumPages.posts))
             {
                 notification.Show(
-                    message: this.GetTextFormatted("UNREAD_QUOTED_MSG", this.PageContext.Quoted),
-                    title: this.GetText(page: "COMMON", tag: "UNREAD_QUOTED_TITLE"),
-                    okay: new DialogButton
+                    this.GetTextFormatted("UNREAD_QUOTED_MSG", this.PageContext.Quoted),
+                    this.GetText("COMMON", "UNREAD_QUOTED_TITLE"),
+                    new DialogButton
                                   {
-                                      Text = this.GetText(page: "COMMON", tag: "YES"),
+                                      Text = this.GetText("COMMON", "YES"),
                                       CssClass = "btn btn-success btn-sm",
                                       ForumPageLink = new ForumLink
                                                           {
@@ -148,9 +148,9 @@ namespace YAF.Modules
                                                               ForumLinkArgs = new object[] { this.PageContext.LastQuoted }
                                                           }
                                   },
-                    cancel: new DialogButton
+                    new DialogButton
                                       {
-                                          Text = this.GetText(page: "COMMON", tag: "NO"),
+                                          Text = this.GetText("COMMON", "NO"),
                                           CssClass = "btn btn-danger btn-sm",
                                           ForumPageLink =
                                               new ForumLink { ForumPage = YafContext.Current.ForumPageType }
@@ -160,14 +160,14 @@ namespace YAF.Modules
                 return;
             }
 
-            if (this.DisplayReceivedThanksPopup() && !this.PageContext.ForumPageType.Equals(obj: ForumPages.posts))
+            if (this.DisplayReceivedThanksPopup() && !this.PageContext.ForumPageType.Equals(ForumPages.posts))
             {
                 notification.Show(
-                    message: this.GetTextFormatted("UNREAD_THANKS_MSG", this.PageContext.ReceivedThanks),
-                    title: this.GetText(page: "COMMON", tag: "UNREAD_THANKS_TITLE"),
-                    okay: new DialogButton
+                    this.GetTextFormatted("UNREAD_THANKS_MSG", this.PageContext.ReceivedThanks),
+                    this.GetText("COMMON", "UNREAD_THANKS_TITLE"),
+                    new DialogButton
                                   {
-                                      Text = this.GetText(page: "COMMON", tag: "YES"),
+                                      Text = this.GetText("COMMON", "YES"),
                                       CssClass = "btn btn-success btn-sm",
                                       ForumPageLink = new ForumLink
                                                           {
@@ -176,9 +176,9 @@ namespace YAF.Modules
                                                               ForumLinkArgs = new object[] { this.PageContext.LastReceivedThanks }
                                                           }
                                   },
-                    cancel: new DialogButton
+                    new DialogButton
                                       {
-                                          Text = this.GetText(page: "COMMON", tag: "NO"),
+                                          Text = this.GetText("COMMON", "NO"),
                                           CssClass = "btn btn-danger btn-sm",
                                           ForumPageLink =
                                               new ForumLink { ForumPage = YafContext.Current.ForumPageType }
@@ -188,14 +188,14 @@ namespace YAF.Modules
                 return;
             }
 
-            if (this.DisplayMentionPopup() && !this.PageContext.ForumPageType.Equals(obj: ForumPages.posts))
+            if (this.DisplayMentionPopup() && !this.PageContext.ForumPageType.Equals(ForumPages.posts))
             {
                 notification.Show(
-                    message: this.GetTextFormatted("UNREAD_MENTION_MSG", this.PageContext.Mention),
-                    title: this.GetText(page: "COMMON", tag: "UNREAD_MENTION_TITLE"),
-                    okay: new DialogButton
+                    this.GetTextFormatted("UNREAD_MENTION_MSG", this.PageContext.Mention),
+                    this.GetText("COMMON", "UNREAD_MENTION_TITLE"),
+                    new DialogButton
                                   {
-                                      Text = this.GetText(page: "COMMON", tag: "YES"),
+                                      Text = this.GetText("COMMON", "YES"),
                                       CssClass = "btn btn-success btn-sm",
                                       ForumPageLink = new ForumLink
                                                           {
@@ -204,9 +204,9 @@ namespace YAF.Modules
                                                               ForumLinkArgs = new object[] { this.PageContext.LastMention }
                                                           }
                                   },
-                    cancel: new DialogButton
+                    new DialogButton
                                       {
-                                          Text = this.GetText(page: "COMMON", tag: "NO"),
+                                          Text = this.GetText("COMMON", "NO"),
                                           CssClass = "btn btn-danger btn-sm",
                                           ForumPageLink =
                                               new ForumLink { ForumPage = YafContext.Current.ForumPageType }
@@ -216,22 +216,21 @@ namespace YAF.Modules
                 return;
             }
 
-            if (this.DisplayPmPopup() && (!this.PageContext.ForumPageType.Equals(obj: ForumPages.cp_pm)
-                                          || !this.PageContext.ForumPageType.Equals(obj: ForumPages.cp_editbuddies)))
+            if (this.DisplayPmPopup() && (!this.PageContext.ForumPageType.Equals(ForumPages.cp_pm)
+                                          || !this.PageContext.ForumPageType.Equals(ForumPages.cp_editbuddies)))
             {
                 notification.Show(
-                    message:
                     this.GetTextFormatted("UNREAD_MSG2", this.PageContext.UnreadPrivate),
-                    title: this.GetText(page: "COMMON", tag: "UNREAD_MSG_TITLE"),
-                    okay: new DialogButton
+                    this.GetText("COMMON", "UNREAD_MSG_TITLE"),
+                    new DialogButton
                                   {
-                                      Text = this.GetText(page: "COMMON", tag: "YES"),
+                                      Text = this.GetText("COMMON", "YES"),
                                       CssClass = "btn btn-success btn-sm",
                                       ForumPageLink = new ForumLink { ForumPage = ForumPages.cp_pm }
                                   },
-                    cancel: new DialogButton
+                    new DialogButton
                                       {
-                                          Text = this.GetText(page: "COMMON", tag: "NO"),
+                                          Text = this.GetText("COMMON", "NO"),
                                           CssClass = "btn btn-danger btn-sm",
                                           ForumPageLink =
                                               new ForumLink { ForumPage = YafContext.Current.ForumPageType }
@@ -243,24 +242,23 @@ namespace YAF.Modules
                 return;
             }
 
-            if (!this.DisplayPendingBuddies() || this.PageContext.ForumPageType.Equals(obj: ForumPages.cp_editbuddies) || this.PageContext.ForumPageType.Equals(obj: ForumPages.cp_pm))
+            if (!this.DisplayPendingBuddies() || this.PageContext.ForumPageType.Equals(ForumPages.cp_editbuddies) || this.PageContext.ForumPageType.Equals(ForumPages.cp_pm))
             {
                 return;
             }
 
             notification.Show(
-                message:
                 this.GetTextFormatted("PENDINGBUDDIES2", this.PageContext.PendingBuddies),
-                title: this.GetText(page: "BUDDY", tag: "PENDINGBUDDIES_TITLE"),
-                okay: new DialogButton
+                this.GetText("BUDDY", "PENDINGBUDDIES_TITLE"),
+                new DialogButton
                               {
-                                  Text = this.GetText(page: "COMMON", tag: "YES"),
+                                  Text = this.GetText("COMMON", "YES"),
                                   CssClass = "btn btn-success btn-sm",
                                   ForumPageLink = new ForumLink { ForumPage = ForumPages.cp_editbuddies }
                               },
-                cancel: new DialogButton
+                new DialogButton
                                   {
-                                      Text = this.GetText(page: "COMMON", tag: "NO"),
+                                      Text = this.GetText("COMMON", "NO"),
                                       CssClass = "btn btn-danger btn-sm",
                                       ForumPageLink =
                                           new ForumLink { ForumPage = YafContext.Current.ForumPageType }
