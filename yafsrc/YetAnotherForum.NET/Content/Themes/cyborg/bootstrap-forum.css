@@ -56,7 +56,7 @@ body {
   font-size: 0.875rem;
   font-weight: 400;
   line-height: 1.5;
-  color: #888;
+  color: #ADAFAE;
   text-align: left;
   background-color: #060606; }
 
@@ -1536,7 +1536,7 @@ pre {
 .table {
   width: 100%;
   margin-bottom: 1rem;
-  color: #888; }
+  color: #fff; }
   .table th,
   .table td {
     padding: 0.75rem;
@@ -1571,7 +1571,7 @@ pre {
   background-color: rgba(255, 255, 255, 0.05); }
 
 .table-hover tbody tr:hover {
-  color: #888;
+  color: #fff;
   background-color: rgba(255, 255, 255, 0.075); }
 
 .table-primary,
@@ -1722,7 +1722,7 @@ pre {
     background-color: rgba(242, 242, 242, 0.075); }
 
 .table .thead-dark th {
-  color: #060606;
+  color: #fff;
   background-color: #888;
   border-color: #757575; }
 
@@ -1732,7 +1732,7 @@ pre {
   border-color: #282828; }
 
 .table-dark {
-  color: #060606;
+  color: #fff;
   background-color: #888; }
   .table-dark th,
   .table-dark td,
@@ -1743,7 +1743,7 @@ pre {
   .table-dark.table-striped tbody tr:nth-of-type(odd) {
     background-color: rgba(255, 255, 255, 0.05); }
   .table-dark.table-hover tbody tr:hover {
-    color: #060606;
+    color: #fff;
     background-color: rgba(255, 255, 255, 0.075); }
 
 @media (max-width: 575.98px) {
@@ -1872,7 +1872,7 @@ select.form-control:focus::-ms-value {
   margin-bottom: 0;
   font-size: 0.875rem;
   line-height: 1.5;
-  color: #888;
+  color: #ADAFAE;
   background-color: transparent;
   border: solid transparent;
   border-width: 1px 0; }
@@ -2200,7 +2200,7 @@ textarea.form-control {
 .btn {
   display: inline-block;
   font-weight: 400;
-  color: #888;
+  color: #ADAFAE;
   text-align: center;
   vertical-align: middle;
   cursor: pointer;
@@ -2223,7 +2223,7 @@ textarea.form-control {
       -webkit-transition: none;
       transition: none; } }
   .btn:hover {
-    color: #888;
+    color: #ADAFAE;
     text-decoration: none; }
   .btn:focus, .btn.focus {
     outline: 0;
@@ -2737,7 +2737,7 @@ input[type="button"].btn-block {
   padding: 0.5rem 0;
   margin: 0.125rem 0 0;
   font-size: 0.875rem;
-  color: #888;
+  color: #ADAFAE;
   text-align: left;
   list-style: none;
   background-color: #282828;
@@ -3180,7 +3180,7 @@ input[type="button"].btn-block {
   position: relative;
   display: block;
   min-height: 1.3125rem;
-  padding-left: 1.8rem; }
+  padding-left: 1.5rem; }
 
 .custom-control-inline, .custom-control-inline li {
   display: -webkit-inline-box;
@@ -3192,8 +3192,8 @@ input[type="button"].btn-block {
   position: absolute;
   left: 0;
   z-index: -1;
-  width: 1.3rem;
-  height: 1.30625rem;
+  width: 1rem;
+  height: 1.15625rem;
   opacity: 0; }
   .custom-control-input:checked ~ .custom-control-label::before, .custom-radio input:checked ~ .custom-control-label::before, .custom-checkbox input:checked ~ .custom-control-label::before, .custom-switch input:checked ~ .custom-control-label::before, .custom-radio .custom-control-input:checked ~ label::before, .custom-radio input:checked ~ label::before, .custom-checkbox .custom-control-input:checked ~ label::before, .custom-checkbox input:checked ~ label::before, .custom-switch .custom-control-input:checked ~ label::before, .custom-switch input:checked ~ label::before {
     color: #fff;
@@ -3219,22 +3219,22 @@ input[type="button"].btn-block {
   vertical-align: top; }
   .custom-control-label::before, .custom-radio label::before, .custom-checkbox label::before, .custom-switch label::before {
     position: absolute;
-    top: 0.00625rem;
-    left: -1.8rem;
+    top: 0.15625rem;
+    left: -1.5rem;
     display: block;
-    width: 1.3rem;
-    height: 1.3rem;
+    width: 1rem;
+    height: 1rem;
     pointer-events: none;
     content: "";
     background-color: #fff;
     border: #888 solid 1px; }
   .custom-control-label::after, .custom-radio label::after, .custom-checkbox label::after, .custom-switch label::after {
     position: absolute;
-    top: 0.00625rem;
-    left: -1.8rem;
+    top: 0.15625rem;
+    left: -1.5rem;
     display: block;
-    width: 1.3rem;
-    height: 1.3rem;
+    width: 1rem;
+    height: 1rem;
     content: "";
     background: no-repeat 50% / 50% 50%; }
 
@@ -3267,19 +3267,19 @@ input[type="button"].btn-block {
   background-color: rgba(42, 159, 214, 0.5); }
 
 .custom-switch {
-  padding-left: 2.775rem; }
+  padding-left: 2.25rem; }
   .custom-switch .custom-control-label::before, .custom-switch .custom-radio label::before, .custom-radio .custom-switch label::before, .custom-switch .custom-checkbox label::before, .custom-checkbox .custom-switch label::before, .custom-switch label::before {
-    left: -2.775rem;
-    width: 2.275rem;
+    left: -2.25rem;
+    width: 1.75rem;
     pointer-events: all;
-    border-radius: 0.65rem; }
+    border-radius: 0.5rem; }
   .custom-switch .custom-control-label::after, .custom-switch .custom-radio label::after, .custom-radio .custom-switch label::after, .custom-switch .custom-checkbox label::after, .custom-checkbox .custom-switch label::after, .custom-switch label::after {
-    top: calc(0.00625rem + 2px);
-    left: calc(-2.775rem + 2px);
-    width: calc(1.3rem - 4px);
-    height: calc(1.3rem - 4px);
+    top: calc(0.15625rem + 2px);
+    left: calc(-2.25rem + 2px);
+    width: calc(1rem - 4px);
+    height: calc(1rem - 4px);
     background-color: #888;
-    border-radius: 0.65rem;
+    border-radius: 0.5rem;
     -webkit-transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, -webkit-transform 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
     transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, -webkit-transform 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
     transition: transform 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
@@ -3290,8 +3290,8 @@ input[type="button"].btn-block {
         transition: none; } }
   .custom-switch .custom-control-input:checked ~ .custom-control-label::after, .custom-switch .custom-radio input:checked ~ .custom-control-label::after, .custom-radio .custom-switch input:checked ~ .custom-control-label::after, .custom-switch .custom-checkbox input:checked ~ .custom-control-label::after, .custom-checkbox .custom-switch input:checked ~ .custom-control-label::after, .custom-switch input:checked ~ .custom-control-label::after, .custom-switch .custom-radio .custom-control-input:checked ~ label::after, .custom-radio .custom-switch .custom-control-input:checked ~ label::after, .custom-switch .custom-radio input:checked ~ label::after, .custom-radio .custom-switch input:checked ~ label::after, .custom-switch .custom-checkbox .custom-radio input:checked ~ label::after, .custom-radio .custom-checkbox .custom-switch input:checked ~ label::after, .custom-switch .custom-checkbox .custom-control-input:checked ~ label::after, .custom-checkbox .custom-switch .custom-control-input:checked ~ label::after, .custom-switch .custom-radio .custom-checkbox input:checked ~ label::after, .custom-checkbox .custom-switch .custom-radio input:checked ~ label::after, .custom-radio .custom-switch .custom-checkbox input:checked ~ label::after, .custom-checkbox .custom-radio .custom-switch input:checked ~ label::after, .custom-switch .custom-checkbox input:checked ~ label::after, .custom-checkbox .custom-switch input:checked ~ label::after, .custom-switch .custom-control-input:checked ~ label::after, .custom-switch input:checked ~ label::after {
     background-color: #fff;
-    -webkit-transform: translateX(0.975rem);
-            transform: translateX(0.975rem); }
+    -webkit-transform: translateX(0.75rem);
+            transform: translateX(0.75rem); }
   .custom-switch .custom-control-input:disabled:checked ~ .custom-control-label::before, .custom-switch .custom-radio input:disabled:checked ~ .custom-control-label::before, .custom-radio .custom-switch input:disabled:checked ~ .custom-control-label::before, .custom-switch .custom-checkbox input:disabled:checked ~ .custom-control-label::before, .custom-checkbox .custom-switch input:disabled:checked ~ .custom-control-label::before, .custom-switch input:disabled:checked ~ .custom-control-label::before, .custom-switch .custom-radio .custom-control-input:disabled:checked ~ label::before, .custom-radio .custom-switch .custom-control-input:disabled:checked ~ label::before, .custom-switch .custom-radio input:disabled:checked ~ label::before, .custom-radio .custom-switch input:disabled:checked ~ label::before, .custom-switch .custom-checkbox .custom-radio input:disabled:checked ~ label::before, .custom-radio .custom-checkbox .custom-switch input:disabled:checked ~ label::before, .custom-switch .custom-checkbox .custom-control-input:disabled:checked ~ label::before, .custom-checkbox .custom-switch .custom-control-input:disabled:checked ~ label::before, .custom-switch .custom-radio .custom-checkbox input:disabled:checked ~ label::before, .custom-checkbox .custom-switch .custom-radio input:disabled:checked ~ label::before, .custom-radio .custom-switch .custom-checkbox input:disabled:checked ~ label::before, .custom-checkbox .custom-radio .custom-switch input:disabled:checked ~ label::before, .custom-switch .custom-checkbox input:disabled:checked ~ label::before, .custom-checkbox .custom-switch input:disabled:checked ~ label::before, .custom-switch .custom-control-input:disabled:checked ~ label::before, .custom-switch input:disabled:checked ~ label::before {
     background-color: rgba(42, 159, 214, 0.5); }
 
@@ -4601,7 +4601,7 @@ input[type="button"].btn-block {
     text-decoration: none;
     background-color: #2A9FD6; }
   .list-group-item-action:active {
-    color: #888;
+    color: #ADAFAE;
     background-color: #2A9FD6; }
 
 .list-group-item {
@@ -5294,7 +5294,7 @@ a.close.disabled {
 
 .popover-body {
   padding: 0.5rem 0.75rem;
-  color: #888; }
+  color: #ADAFAE; }
 
 .carousel {
   position: relative; }
@@ -8224,7 +8224,7 @@ a.text-dark:hover, a.text-dark:focus {
   color: #868988 !important; }
 
 .text-body {
-  color: #888 !important; }
+  color: #ADAFAE !important; }
 
 .text-muted {
   color: #555 !important; }
@@ -8464,10 +8464,6 @@ legend {
     background-color: #222; }
   .alert-dark {
     background-color: #ADAFAE; }
-  .alert-light,
-  .alert-light a,
-  .alert-light .alert-link {
-    color: #060606; }
 
 .badge-warning {
   color: #fff; }

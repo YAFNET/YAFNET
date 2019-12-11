@@ -1976,7 +1976,7 @@ textarea.form-control {
   max-width: 100%;
   padding: 0.25rem 0.5rem;
   margin-top: .1rem;
-  font-size: 0.93012rem;
+  font-size: 0.6875rem;
   line-height: 1.5;
   color: #fff;
   background-color: rgba(2, 184, 117, 0.9);
@@ -2060,7 +2060,7 @@ textarea.form-control {
   max-width: 100%;
   padding: 0.25rem 0.5rem;
   margin-top: .1rem;
-  font-size: 0.93012rem;
+  font-size: 0.6875rem;
   line-height: 1.5;
   color: #fff;
   background-color: rgba(217, 83, 79, 0.9);
@@ -2209,6 +2209,7 @@ textarea.form-control {
 
 .btn {
   display: inline-block;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   font-weight: 400;
   color: #343a40;
   text-align: center;
@@ -2221,7 +2222,7 @@ textarea.form-control {
   background-color: transparent;
   border: 1px solid transparent;
   padding: 0.5rem 1.1rem;
-  font-size: 1.063rem;
+  font-size: 0.875rem;
   line-height: 1.5;
   border-radius: 0.25rem;
   -webkit-transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
@@ -2680,7 +2681,7 @@ fieldset:disabled a.btn {
 
 .btn-sm, .btn-group-sm > .btn {
   padding: 0.25rem 0.5rem;
-  font-size: 0.93012rem;
+  font-size: 0.688rem;
   line-height: 1.5;
   border-radius: 0.2rem; }
 
@@ -3201,7 +3202,7 @@ input[type="button"].btn-block {
   position: relative;
   display: block;
   min-height: 1.5945rem;
-  padding-left: 1.8rem; }
+  padding-left: 1.5rem; }
 
 .custom-control-inline, .custom-control-inline li {
   display: -webkit-inline-box;
@@ -3213,8 +3214,8 @@ input[type="button"].btn-block {
   position: absolute;
   left: 0;
   z-index: -1;
-  width: 1.3rem;
-  height: 1.44725rem;
+  width: 1rem;
+  height: 1.29725rem;
   opacity: 0; }
   .custom-control-input:checked ~ .custom-control-label::before, .custom-radio input:checked ~ .custom-control-label::before, .custom-checkbox input:checked ~ .custom-control-label::before, .custom-switch input:checked ~ .custom-control-label::before, .custom-radio .custom-control-input:checked ~ label::before, .custom-radio input:checked ~ label::before, .custom-checkbox .custom-control-input:checked ~ label::before, .custom-checkbox input:checked ~ label::before, .custom-switch .custom-control-input:checked ~ label::before, .custom-switch input:checked ~ label::before {
     color: #fff;
@@ -3240,22 +3241,22 @@ input[type="button"].btn-block {
   vertical-align: top; }
   .custom-control-label::before, .custom-radio label::before, .custom-checkbox label::before, .custom-switch label::before {
     position: absolute;
-    top: 0.14725rem;
-    left: -1.8rem;
+    top: 0.29725rem;
+    left: -1.5rem;
     display: block;
-    width: 1.3rem;
-    height: 1.3rem;
+    width: 1rem;
+    height: 1rem;
     pointer-events: none;
     content: "";
     background-color: #fff;
     border: #adb5bd solid 1px; }
   .custom-control-label::after, .custom-radio label::after, .custom-checkbox label::after, .custom-switch label::after {
     position: absolute;
-    top: 0.14725rem;
-    left: -1.8rem;
+    top: 0.29725rem;
+    left: -1.5rem;
     display: block;
-    width: 1.3rem;
-    height: 1.3rem;
+    width: 1rem;
+    height: 1rem;
     content: "";
     background: no-repeat 50% / 50% 50%; }
 
@@ -3288,19 +3289,19 @@ input[type="button"].btn-block {
   background-color: rgba(69, 130, 236, 0.5); }
 
 .custom-switch {
-  padding-left: 2.775rem; }
+  padding-left: 2.25rem; }
   .custom-switch .custom-control-label::before, .custom-switch .custom-radio label::before, .custom-radio .custom-switch label::before, .custom-switch .custom-checkbox label::before, .custom-checkbox .custom-switch label::before, .custom-switch label::before {
-    left: -2.775rem;
-    width: 2.275rem;
+    left: -2.25rem;
+    width: 1.75rem;
     pointer-events: all;
-    border-radius: 0.65rem; }
+    border-radius: 0.5rem; }
   .custom-switch .custom-control-label::after, .custom-switch .custom-radio label::after, .custom-radio .custom-switch label::after, .custom-switch .custom-checkbox label::after, .custom-checkbox .custom-switch label::after, .custom-switch label::after {
-    top: calc(0.14725rem + 2px);
-    left: calc(-2.775rem + 2px);
-    width: calc(1.3rem - 4px);
-    height: calc(1.3rem - 4px);
+    top: calc(0.29725rem + 2px);
+    left: calc(-2.25rem + 2px);
+    width: calc(1rem - 4px);
+    height: calc(1rem - 4px);
     background-color: #adb5bd;
-    border-radius: 0.65rem;
+    border-radius: 0.5rem;
     -webkit-transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, -webkit-transform 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
     transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, -webkit-transform 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
     transition: transform 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
@@ -3311,8 +3312,8 @@ input[type="button"].btn-block {
         transition: none; } }
   .custom-switch .custom-control-input:checked ~ .custom-control-label::after, .custom-switch .custom-radio input:checked ~ .custom-control-label::after, .custom-radio .custom-switch input:checked ~ .custom-control-label::after, .custom-switch .custom-checkbox input:checked ~ .custom-control-label::after, .custom-checkbox .custom-switch input:checked ~ .custom-control-label::after, .custom-switch input:checked ~ .custom-control-label::after, .custom-switch .custom-radio .custom-control-input:checked ~ label::after, .custom-radio .custom-switch .custom-control-input:checked ~ label::after, .custom-switch .custom-radio input:checked ~ label::after, .custom-radio .custom-switch input:checked ~ label::after, .custom-switch .custom-checkbox .custom-radio input:checked ~ label::after, .custom-radio .custom-checkbox .custom-switch input:checked ~ label::after, .custom-switch .custom-checkbox .custom-control-input:checked ~ label::after, .custom-checkbox .custom-switch .custom-control-input:checked ~ label::after, .custom-switch .custom-radio .custom-checkbox input:checked ~ label::after, .custom-checkbox .custom-switch .custom-radio input:checked ~ label::after, .custom-radio .custom-switch .custom-checkbox input:checked ~ label::after, .custom-checkbox .custom-radio .custom-switch input:checked ~ label::after, .custom-switch .custom-checkbox input:checked ~ label::after, .custom-checkbox .custom-switch input:checked ~ label::after, .custom-switch .custom-control-input:checked ~ label::after, .custom-switch input:checked ~ label::after {
     background-color: #fff;
-    -webkit-transform: translateX(0.975rem);
-            transform: translateX(0.975rem); }
+    -webkit-transform: translateX(0.75rem);
+            transform: translateX(0.75rem); }
   .custom-switch .custom-control-input:disabled:checked ~ .custom-control-label::before, .custom-switch .custom-radio input:disabled:checked ~ .custom-control-label::before, .custom-radio .custom-switch input:disabled:checked ~ .custom-control-label::before, .custom-switch .custom-checkbox input:disabled:checked ~ .custom-control-label::before, .custom-checkbox .custom-switch input:disabled:checked ~ .custom-control-label::before, .custom-switch input:disabled:checked ~ .custom-control-label::before, .custom-switch .custom-radio .custom-control-input:disabled:checked ~ label::before, .custom-radio .custom-switch .custom-control-input:disabled:checked ~ label::before, .custom-switch .custom-radio input:disabled:checked ~ label::before, .custom-radio .custom-switch input:disabled:checked ~ label::before, .custom-switch .custom-checkbox .custom-radio input:disabled:checked ~ label::before, .custom-radio .custom-checkbox .custom-switch input:disabled:checked ~ label::before, .custom-switch .custom-checkbox .custom-control-input:disabled:checked ~ label::before, .custom-checkbox .custom-switch .custom-control-input:disabled:checked ~ label::before, .custom-switch .custom-radio .custom-checkbox input:disabled:checked ~ label::before, .custom-checkbox .custom-switch .custom-radio input:disabled:checked ~ label::before, .custom-radio .custom-switch .custom-checkbox input:disabled:checked ~ label::before, .custom-checkbox .custom-radio .custom-switch input:disabled:checked ~ label::before, .custom-switch .custom-checkbox input:disabled:checked ~ label::before, .custom-checkbox .custom-switch input:disabled:checked ~ label::before, .custom-switch .custom-control-input:disabled:checked ~ label::before, .custom-switch input:disabled:checked ~ label::before {
     background-color: rgba(69, 130, 236, 0.5); }
 
@@ -4453,7 +4454,7 @@ input[type="button"].btn-block {
   position: relative;
   padding: 0.75rem 1.25rem;
   margin-bottom: 1rem;
-  border: 1px solid transparent;
+  border: 0 solid transparent;
   border-radius: 0.25rem; }
 
 .alert-heading {
@@ -5142,7 +5143,7 @@ a.close.disabled {
   word-spacing: normal;
   white-space: normal;
   line-break: auto;
-  font-size: 0.93012rem;
+  font-size: 0.6875rem;
   word-wrap: break-word;
   opacity: 0; }
   .tooltip.show {
@@ -8353,30 +8354,23 @@ a.text-dark:hover, a.text-dark:focus {
   margin-right: 2rem; }
 
 .navbar {
-  font-size: 0.875em; }
-
-.bg-dark {
-  background-color: #02B875 !important; }
-
-.bg-light {
-  background-color: #fff !important;
-  border: 1px solid rgba(0, 0, 0, 0.1); }
-  .bg-light.navbar-fixed-top {
-    border-width: 0 0 1px 0; }
-  .bg-light.navbar-fixed-bottom {
-    border-width: 1px 0 0 0; }
+  font-size: 0.93012rem; }
+  .navbar.bg-dark {
+    background-color: #02B875 !important; }
+  .navbar.bg-light {
+    background-color: #fff !important;
+    border: 1px solid rgba(0, 0, 0, 0.1); }
+    .navbar.bg-light.navbar-fixed-top {
+      border-width: 0 0 1px 0; }
+    .navbar.bg-light.navbar-fixed-bottom {
+      border-width: 1px 0 0 0; }
 
 .btn {
-  border-radius: 1.078em;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-  font-size: 0.875em; }
+  border-radius: 1.078em; }
   .btn-lg, .btn-group-lg > .btn {
     border-radius: 2.688em; }
   .btn-sm, .btn-group-sm > .btn {
-    border-radius: 0.844em;
-    font-size: 0.688em; }
-  .btn-secondary, .btn-secondary:hover, .btn-warning, .btn-warning:hover {
-    color: #fff; }
+    border-radius: 0.844em; }
 
 p {
   font-family: Georgia, Cambria, "Times New Roman", Times, serif; }
@@ -8385,7 +8379,7 @@ blockquote {
   font-style: italic; }
 
 footer {
-  font-size: 0.875em; }
+  font-size: 0.93012rem; }
 
 .lead {
   color: #868e96;
@@ -8393,7 +8387,7 @@ footer {
 
 table,
 .table {
-  font-size: 0.875em; }
+  font-size: 0.93012rem; }
   table-primary, table-secondary, table-success, table-info, table-warning, table-danger,
   .table-primary,
   .table-secondary,
@@ -8460,15 +8454,14 @@ table,
 .nav,
 .breadcrumb,
 .pagination {
-  font-size: 0.875em; }
+  font-size: 0.93012rem; }
 
 .dropdown-menu {
-  font-size: 0.875em; }
+  font-size: 0.93012rem; }
 
 .alert {
-  border: none;
   color: #fff;
-  font-size: 0.875em; }
+  font-size: 0.93012rem; }
   .alert, .alert p {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"; }
   .alert a, .alert .alert-link {
@@ -8498,14 +8491,9 @@ table,
 
 .badge {
   vertical-align: bottom; }
-  .badge-secondary, .badge-warning {
-    color: #fff; }
-
-.tooltip {
-  font-size: 11px; }
 
 .list-group {
-  font-size: 0.875em; }
+  font-size: 0.93012rem; }
 
 .forum-logo {
   height: 125px;
