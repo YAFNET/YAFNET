@@ -146,21 +146,6 @@ namespace YAF.Core.Utilities
                }}";
 
         /// <summary>
-        ///   Gets Disable PageManager Scroll JS.
-        /// </summary>
-        [NotNull]
-        public static string DisablePageManagerScrollJs =>
-            @"
-	var prm = Sys.WebForms.PageRequestManager.getInstance();
-
-	prm.add_beginRequest(beginRequest);
-
-	function beginRequest() {
-		prm._scrollPosition = null;
-	}
-";
-
-        /// <summary>
         ///   Gets the MomentJS Load JS.
         /// </summary>
         public static string MomentLoadJs =>
