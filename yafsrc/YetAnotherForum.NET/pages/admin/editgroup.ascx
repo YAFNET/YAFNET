@@ -172,7 +172,7 @@
                         </FooterTemplate>
                         <ItemTemplate>
                             <div class="form-group col-md-4">
-                                <asp:Label ID="ForumID" Visible="false" runat="server"><%# this.Eval( "ForumID") %></asp:Label>
+                                <asp:HiddenField ID="ForumID" runat="server" Value='<%# this.Eval( "ForumID") %>' />
                                 <asp:Label runat="server" AssociatedControlID="AccessMaskID">
                                     <%# this.Eval( "ForumName") %>
                                 </asp:Label>

@@ -60,7 +60,7 @@ namespace YAF.Pages.Admin
         public IList<AccessMask> AccessMasksList { get; set; }
 
         /// <summary>
-        /// Handles databinding event of initial access masks dropdown control.
+        /// Handles data binding event of initial access masks dropdown control.
         /// </summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
@@ -194,12 +194,14 @@ namespace YAF.Pages.Admin
             this.IsGuestX.Checked = flags.IsGuest;
 
             // IsGuest flag can be set for only one role. if it isn't for this, disable that row
-            if (flags.IsGuest)
+            if (!flags.IsGuest)
             {
-                this.IsGuestTR.Visible = true;
-                this.IsGuestX.Enabled = !flags.IsGuest;
-                this.AccessList.Visible = false;
+                return;
             }
+
+            this.IsGuestTR.Visible = true;
+            this.IsGuestX.Enabled = !flags.IsGuest;
+            this.AccessList.Visible = false;
         }
 
         /// <summary>
@@ -266,7 +268,7 @@ namespace YAF.Pages.Admin
                 // get the current role name in the DB
                 var groups = this.GetRepository<Group>().List(boardId: this.PageContext.PageBoardID);
 
-                groups.ForEach(group => oldRoleName = @group.Name);
+                groups.ForEach(group => oldRoleName = group.Name);
             }
 
             // save role and get its ID if it's new (if it's old role, we get it anyway)
@@ -330,7 +332,7 @@ namespace YAF.Pages.Admin
                     var item = this.AccessList.Items[i];
 
                     // get forum ID
-                    var forumId = int.Parse(item.FindControlAs<Label>("ForumID").Text);
+                    var forumId = int.Parse(item.FindControlAs<HiddenField>("ForumID").Value);
 
                     // save forum access masks for this role
                     this.GetRepository<ForumAccess>().Save(
