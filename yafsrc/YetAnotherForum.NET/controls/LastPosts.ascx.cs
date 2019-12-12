@@ -2,7 +2,7 @@
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2019 Ingo Herbote
- * http://www.yetanotherforum.net/
+ * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -30,12 +30,9 @@ namespace YAF.Controls
     using System.Data;
 
     using YAF.Configuration;
-    using YAF.Core;
     using YAF.Core.BaseControls;
     using YAF.Core.Model;
-    using YAF.Core.Utilities;
     using YAF.Types;
-    using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
@@ -63,46 +60,6 @@ namespace YAF.Controls
         #endregion
 
         #region Methods
-
-        /// <summary>
-        /// Reloads the Last Posts every 30 Seconds
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        protected void LastPostUpdateTimer_Tick([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            this.BindData();
-        }
-
-        /// <summary>
-        /// Raises the <see cref="E:System.Web.UI.Control.PreRender" /> event.
-        /// </summary>
-        /// <param name="e">An <see cref="T:System.EventArgs" /> object that contains the event data.</param>
-        protected override void OnPreRender([NotNull] EventArgs e)
-        {
-            this.PageContext.PageElements.RegisterJsBlockStartup(
-                this.LastPostUpdatePanel,
-                "DisablePageManagerScrollJs",
-                JavaScriptBlocks.DisablePageManagerScrollJs);
-
-            if (this.PageContext.ForumPageType == ForumPages.postmessage)
-            {
-                var editorId = this.Get<YafBoardSettings>().AllowUsersTextEditor && this.PageContext.TextEditor.IsSet()
-                                   ? this.PageContext.TextEditor
-                                   : this.Get<YafBoardSettings>().ForumEditor;
-
-                // Check if Editor exists, if not fallback to default editorid=1
-                var forumEditor = this.Get<IModuleManager<ForumEditor>>().GetBy(editorId, false)
-                                  ?? this.Get<IModuleManager<ForumEditor>>().GetBy("1");
-
-                if (forumEditor.Description.Contains("CKEditor") || forumEditor.Description.Contains("DotNetNuke"))
-                {
-                    this.LastPostUpdateTimer.Enabled = false;
-                }
-            }
-
-            base.OnPreRender(e);
-        }
 
         /// <summary>
         /// Handles the Load event of the Page control.

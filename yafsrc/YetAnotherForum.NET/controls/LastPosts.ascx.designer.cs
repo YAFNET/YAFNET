@@ -7,38 +7,13 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace YAF.Controls {
-    
-    
-    public partial class LastPosts {
-        
-        /// <summary>
-        /// LastPostUpdateTimer control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.Timer LastPostUpdateTimer;
-        
-        /// <summary>
-        /// LastPostUpdatePanel control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.UpdatePanel LastPostUpdatePanel;
-        
-        /// <summary>
-        /// InnerUpdatePanel control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.UpdatePanel InnerUpdatePanel;
-        
+namespace YAF.Controls
+{
+
+
+    public partial class LastPosts
+    {
+
         /// <summary>
         /// repLastPosts control.
         /// </summary>
