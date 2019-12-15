@@ -370,6 +370,7 @@ namespace YAF.Core.Model
         /// The page User Id.
         /// </param>
         /// <returns>
+        /// The <see cref="DataTable"/>.
         /// </returns>
         public static DataTable AnnouncementsAsDataTable(
             this IRepository<Topic> repository,
@@ -399,16 +400,16 @@ namespace YAF.Core.Model
         /// The new topic subj.
         /// </param>
         /// <returns>
-        /// The topic_create_by_message.
+        /// Returns the new Topic ID
         /// </returns>
         public static long CreateByMessage(
             this IRepository<Topic> repository, [NotNull] int messageId, [NotNull] int forumId, [NotNull] string newTopicSubj)
         {
-            return repository.DbFunction.GetData.topic_create_by_message(
+            return long.Parse(repository.DbFunction.GetData.topic_create_by_message(
                 MessageID: messageId,
                 ForumID: forumId,
                 Subject: newTopicSubj,
-                UTCTIMESTAMP: DateTime.UtcNow);
+                UTCTIMESTAMP: DateTime.UtcNow).Rows[0]["TopicID"].ToString());
         }
 
         /// <summary>
@@ -657,6 +658,7 @@ namespace YAF.Core.Model
         /// Indicates if the Table should Contain the last Access Date
         /// </param>
         /// <returns>
+        /// The <see cref="DataTable"/>.
         /// </returns>
         public static DataTable AnnouncementsAsDataTable(this IRepository<Topic> repository,
                                                          [NotNull] int forumId,
@@ -669,7 +671,6 @@ namespace YAF.Core.Model
                                                          [NotNull] bool showMoved,
                                                          [CanBeNull] bool findLastRead)
         {
-
             return repository.DbFunction.GetData.announcements_list(
                 ForumID: forumId,
                 UserID: userId,
@@ -906,7 +907,7 @@ namespace YAF.Core.Model
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
-            var topic = repository.GetSingle(t => t.TopicName.Contains(topicSubject) && t.TopicMovedID== null);
+            var topic = repository.GetSingle(t => t.TopicName.Contains(topicSubject) && t.TopicMovedID == null);
 
             return topic != null;
         }
@@ -961,20 +962,20 @@ namespace YAF.Core.Model
         /// <param name="repository">
         /// The repository.
         /// </param>
-        /// <param name="StartId">
+        /// <param name="startId">
         /// The start id.
         /// </param>
-        /// <param name="Limit">
+        /// <param name="limit">
         /// The limit.
         /// </param>
         /// <returns>
         /// The <see cref="List"/>.
         /// </returns>
-        public static List<Topic> SimpleList(this IRepository<Topic> repository, [CanBeNull] int StartId = 0, [CanBeNull] int Limit = 500)
+        public static List<Topic> SimpleList(this IRepository<Topic> repository, [CanBeNull] int startId = 0, [CanBeNull] int limit = 500)
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
-            return repository.Get(t => t.ID >= Limit && t.ID < StartId + Limit).OrderBy(t => t.ID).ToList();
+            return repository.Get(t => t.ID >= limit && t.ID < startId + limit).OrderBy(t => t.ID).ToList();
         }
 
         /// <summary>
