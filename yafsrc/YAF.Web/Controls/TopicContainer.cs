@@ -68,15 +68,7 @@ namespace YAF.Web.Controls
         /// </summary>
         public bool AllowSelection
         {
-            get
-            {
-                if (this.ViewState["AllowSelection"] == null)
-                {
-                    return false;
-                }
-
-                return (bool)this.ViewState["AllowSelection"];
-            }
+            get => this.ViewState["AllowSelection"] != null && this.ViewState["AllowSelection"].ToType<bool>();
 
             set => this.ViewState["AllowSelection"] = value;
         }
@@ -197,9 +189,12 @@ namespace YAF.Web.Controls
                 this.TopicRow["LastTopicAccess"].ToType<DateTime?>()
                 ?? DateTimeHelper.SqlDbMinTime());
 
-            writer.Write("<div class=\"row\">");
-            writer.Write("<div class=\"col-md-6\">");
-            writer.Write("<h5>");
+            if (!this.AllowSelection)
+            {
+                writer.Write("<div class=\"row\">");
+                writer.Write("<div class=\"col-md-6\">");
+                writer.Write("<h5>");
+            }
 
             writer.Write($"<span class=\"fa-stack fa-1x\">{this.GetTopicImage(this.TopicRow, lastRead)}</span>");
 
@@ -213,7 +208,7 @@ namespace YAF.Web.Controls
             var topicLink = new HyperLink
                                 {
                                     NavigateUrl =
-                                        YafBuildLink.GetLink(ForumPages.posts, "t={0}", this.TopicRow["LinkTopicID"]),
+                                        YafBuildLink.GetLinkNotEscaped(ForumPages.posts, "t={0}", this.TopicRow["LinkTopicID"]),
                                     ToolTip = this.Get<IFormatMessage>().GetCleanedTopicMessage(
                                         this.TopicRow["FirstMessage"],
                                         this.TopicRow["LinkTopicID"]).MessageTruncated,
@@ -579,7 +574,7 @@ namespace YAF.Web.Controls
             var topicFlags = new TopicFlags(row["TopicFlags"]);
             var forumFlags = new ForumFlags(row["ForumFlags"]);
 
-            var isHot = this.IsPopularTopic(lastPosted, row);
+            var isHotTopic = this.IsPopularTopic(lastPosted, row);
 
             if (row["TopicMovedID"].ToString().Length > 0)
             {
@@ -612,7 +607,7 @@ namespace YAF.Web.Controls
                                 "<i class=\"fa fa-comment fa-stack-2x text-success\"></i><i class=\"fa fa-lock fa-stack-1x fa-inverse\"></i>";
                         }
 
-                        if (isHot)
+                        if (isHotTopic)
                         {
                             return
                                 "<i class=\"fa fa-comment fa-stack-2x text-success\"></i><i class=\"fa fa-fire fa-stack-1x fa-inverse\"></i>";
@@ -643,7 +638,7 @@ namespace YAF.Web.Controls
                             "<i class=\"fa fa-comment fa-stack-2x text-secondary\"></i><i class=\"fa fa-lock fa-stack-1x fa-inverse\"></i>";
                     }
 
-                    if (isHot)
+                    if (isHotTopic)
                     {
                         return
                             "<i class=\"fa fa-comment fa-stack-2x text-secondary\"></i><i class=\"fa fa-fire fa-stack-1x fa-inverse\"></i>";

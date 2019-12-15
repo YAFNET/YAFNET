@@ -1,7 +1,6 @@
 ﻿<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.moderating" CodeBehind="moderating.ascx.cs" %>
 <%@ Import Namespace="YAF.Types.Interfaces" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
-<%@ Register TagPrefix="YAF" TagName="TopicLine" Src="../controls/TopicLine.ascx" %>
 
 
 <asp:PlaceHolder runat="server" ID="ModerateUsersHolder">
@@ -73,9 +72,15 @@
                 <i class="fa fa-tasks fa-fw text-secondary"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="title" LocalizedPage="MODERATE" />
             </div>
             <div class="card-body">
-                <asp:Repeater ID="topiclist" runat="server" OnItemCommand="topiclist_ItemCommand">
+                <asp:Repeater ID="topiclist" runat="server">
                         <ItemTemplate>
-                            <YAF:TopicLine runat="server" DataRow="<%# Container.DataItem %>" AllowSelection="true" />
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h5>
+                                        <asp:CheckBox runat="server" ID="topicCheck"
+                                                      Text="&nbsp;"
+                                                      CssClass="custom-control custom-checkbox d-inline-flex" />
+                                        <YAF:TopicContainer runat="server" ID="topicContainer" DataRow="<%# Container.DataItem %>" AllowSelection="True"></YAF:TopicContainer>
                         </ItemTemplate>
                         <SeparatorTemplate>
                             <hr/>

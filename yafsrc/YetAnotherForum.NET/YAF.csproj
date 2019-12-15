@@ -362,13 +362,6 @@
     <Compile Include="controls\ProfileTimeline.ascx.designer.cs">
       <DependentUpon>ProfileTimeline.ascx</DependentUpon>
     </Compile>
-    <Compile Include="controls\TopicLine.ascx.cs">
-      <DependentUpon>TopicLine.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="controls\TopicLine.ascx.designer.cs">
-      <DependentUpon>TopicLine.ascx</DependentUpon>
-    </Compile>
     <Compile Include="Dialogs\UserMedalEdit.ascx.cs">
       <DependentUpon>UserMedalEdit.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1910,7 +1903,6 @@
     <Content Include="controls\CookieConsent.ascx" />
     <Content Include="controls\EditUsersSettings.ascx" />
     <Content Include="controls\ProfileTimeline.ascx" />
-    <Content Include="controls\TopicLine.ascx" />
     <Content Include="Dialogs\UserMedalEdit.ascx" />
     <Content Include="Dialogs\GroupMedalEdit.ascx" />
     <Content Include="Dialogs\QuickReply.ascx" />
@@ -3642,7 +3634,7 @@
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties bundleconfig_1json__JSONSchema="" compilerconfig_1json__JSONSchema="" />
+      <UserProperties compilerconfig_1json__JSONSchema="" bundleconfig_1json__JSONSchema="" />
     </VisualStudio>
   </ProjectExtensions>
   <Import Project="..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets" Condition="Exists('..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets')" />
