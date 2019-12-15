@@ -2082,6 +2082,7 @@
     <Resource tag="HIDDEN">Peidetud</Resource>
     <Resource tag="HTMLTAG_FORBIDDEN">Sisestatud andmed ei tohi sisaldada HTML tage.</Resource>
     <Resource tag="HTMLTAG_WRONG">Sisestatud andmetes on keelatud HTML tag {0}.</Resource>
+    <Resource tag="IN_FORUM">in Forum: {0}</Resource>
     <Resource tag="LOADING">Laadimine...</Resource>
     <Resource tag="MANAGE">Manage</Resource>
     <Resource tag="MAX_ONLINE">Kõige rohkem kasutajaid  oli korraga foorumil {1}, kui neid oli {0}.</Resource>

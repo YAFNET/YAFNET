@@ -89,7 +89,7 @@ namespace YAF.Lucene.Net.Util
         /// <seealso cref="Check(FieldCache.CacheEntry[])"/>
         public static Insanity[] CheckSanity(params FieldCache.CacheEntry[] cacheEntries)
         {
-            FieldCacheSanityChecker sanityChecker = new FieldCacheSanityChecker(true);
+            FieldCacheSanityChecker sanityChecker = new FieldCacheSanityChecker(estimateRam: true);
             return sanityChecker.Check(cacheEntries);
         }
 

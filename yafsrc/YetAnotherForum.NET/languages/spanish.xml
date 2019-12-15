@@ -2088,6 +2088,7 @@
     <Resource tag="HIDDEN">Oculto</Resource>
     <Resource tag="HTMLTAG_FORBIDDEN">Los datos que introduzcas no pueden tener código HTML.</Resource>
     <Resource tag="HTMLTAG_WRONG">Los datos que has introducido contienen {0} etiquetas HTML no permitidas.</Resource>
+    <Resource tag="IN_FORUM">in Forum: {0}</Resource>
     <Resource tag="LOADING">Cargando...</Resource>
     <Resource tag="MANAGE">Manage</Resource>
     <Resource tag="MAX_ONLINE">El número máximo de usuarios activos fue {0:N0} on {1}.</Resource>

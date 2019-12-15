@@ -2064,6 +2064,7 @@
     <Resource tag="HIDDEN">Скрыт</Resource>
     <Resource tag="HTMLTAG_FORBIDDEN">Вам не разрешены HTML тэги.</Resource>
     <Resource tag="HTMLTAG_WRONG">Введённые данные содержат запрещённый HTML тег {0}.</Resource>
+    <Resource tag="IN_FORUM">in Forum: {0}</Resource>
     <Resource tag="LOADING">Загрузка...</Resource>
     <Resource tag="MANAGE">Manage</Resource>
     <Resource tag="MAX_ONLINE">{1} было больше всего пользователей - {0}.</Resource>

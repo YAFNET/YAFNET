@@ -2076,6 +2076,7 @@
     <Resource tag="HIDDEN">مخفي</Resource>
     <Resource tag="HTMLTAG_FORBIDDEN">البيانات المدخلة  يجب  ان لا تحتوي على( HTML tags). </Resource>
     <Resource tag="HTMLTAG_WRONG">لقد ادخلت   بيانات  خاطئا يرجى التاكد من  (html code) {0} .</Resource>
+    <Resource tag="IN_FORUM">in Forum: {0}</Resource>
     <Resource tag="LOADING">... تحميل   </Resource>
     <Resource tag="MANAGE">Manage</Resource>
     <Resource tag="MAX_ONLINE">أكبر عدد تواجد كان {0:N0} on {1}.</Resource>

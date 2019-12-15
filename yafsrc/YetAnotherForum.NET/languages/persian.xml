@@ -2099,6 +2099,7 @@
     <Resource tag="HIDDEN">مخفی</Resource>
     <Resource tag="HTMLTAG_FORBIDDEN">شما مجاز به استفاده از HTML نمی باشید</Resource>
     <Resource tag="HTMLTAG_WRONG">داده های ورودی شما شامل تگ های {0} غیر مجاز HTML  میباشد.</Resource>
+    <Resource tag="IN_FORUM">in Forum: {0}</Resource>
     <Resource tag="LOADING">در حال بارگذاری...</Resource>
     <Resource tag="MANAGE">Manage</Resource>
     <Resource tag="MAX_ONLINE">بیشترین تعداد کاربرانی که بطور همزمان آنلاین بوده اند {0} کاربر بوده اند که در تاریخ {1} آنلاین بوده اند</Resource>

@@ -2105,6 +2105,7 @@
     <Resource tag="HIDDEN">מוסתר</Resource>
     <Resource tag="HTMLTAG_FORBIDDEN">Your input data should not contain HTML tags.</Resource>
     <Resource tag="HTMLTAG_WRONG">Your input data contains forbidden {0} HTML tag.</Resource>
+    <Resource tag="IN_FORUM">in Forum: {0}</Resource>
     <Resource tag="LOADING">טוען...</Resource>
     <Resource tag="MANAGE">Manage</Resource>
     <Resource tag="MAX_ONLINE">מספר המשתמשים המחוברים הגבוה ביותר אי פעם היה {0:N0} on {1}.</Resource>

@@ -2078,6 +2078,7 @@
     <Resource tag="HIDDEN">Invisibile</Resource>
     <Resource tag="HTMLTAG_FORBIDDEN">Il testo inserito non può contenere tag HTML.</Resource>
     <Resource tag="HTMLTAG_WRONG">Il testo inserito contiene il tag HTML proibito {0}.</Resource>
+    <Resource tag="IN_FORUM">in Forum: {0}</Resource>
     <Resource tag="LOADING">In caricamento...</Resource>
     <Resource tag="MANAGE">Manage</Resource>
     <Resource tag="MAX_ONLINE">Il numero massimo di utenti registrati in linea è stato {0} il {1}. Ora sul forum:</Resource>

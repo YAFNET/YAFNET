@@ -2076,6 +2076,7 @@
     <Resource tag="HIDDEN">Ukryte</Resource>
     <Resource tag="HTMLTAG_FORBIDDEN">Twoja wiadomość nie może zawierać tagów html.</Resource>
     <Resource tag="HTMLTAG_WRONG">Twoja wiadomość zawiera zabronione {0} tagi html.</Resource>
+    <Resource tag="IN_FORUM">in Forum: {0}</Resource>
     <Resource tag="LOADING">Wczytywanie...</Resource>
     <Resource tag="MANAGE">Manage</Resource>
     <Resource tag="MAX_ONLINE">Najwięcej użytkowników było {0:N0} on {1}.</Resource>

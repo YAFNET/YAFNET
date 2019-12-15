@@ -2066,6 +2066,7 @@
     <Resource tag="HIDDEN">Versteckt</Resource>
     <Resource tag="HTMLTAG_FORBIDDEN">Ihre eingegebenen Daten sollten keine HTML-Tags enthalten.</Resource>
     <Resource tag="HTMLTAG_WRONG">Ihre eingegebenen Daten enthält verbotenen {0} HTML-Tag.</Resource>
+    <Resource tag="IN_FORUM">in Forum: {0}</Resource>
     <Resource tag="LOADING">Lade...</Resource>
     <Resource tag="MANAGE">Manage</Resource>
     <Resource tag="MAX_ONLINE">Mitgliederrekord: {0} gleichzeitig online ({1}).</Resource>
