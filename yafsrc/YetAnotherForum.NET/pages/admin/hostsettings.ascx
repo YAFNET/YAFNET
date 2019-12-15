@@ -499,6 +499,26 @@
                                                LocalizedTag="LOGIN_REDIR_URL" LocalizedPage="ADMIN_HOSTSETTINGS" />
                                 <asp:TextBox CssClass="form-control" ID="CustomLoginRedirectUrl" runat="server"></asp:TextBox>
                             </div>
+                            <asp:PlaceHolder runat="server" ID="SSLSettings">
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <YAF:HelpLabel ID="HelpLabel71" runat="server"
+                                                       AssociatedControlID="UseSSLToLogIn"
+                                                       LocalizedTag="SSL_LOGIN" LocalizedPage="ADMIN_HOSTSETTINGS" />
+                                        <div class="custom-control custom-switch">
+                                            <asp:CheckBox Text="&nbsp;" ID="UseSSLToLogIn" runat="server"></asp:CheckBox>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <YAF:HelpLabel ID="HelpLabel70" runat="server"
+                                                       AssociatedControlID="UseSSLToRegister"
+                                                       LocalizedTag="SSL_REGISTER" LocalizedPage="ADMIN_HOSTSETTINGS" />
+                                        <div class="custom-control custom-switch">
+                                            <asp:CheckBox Text="&nbsp;" ID="UseSSLToRegister" runat="server"></asp:CheckBox>
+                                        </div>
+                                    </div>
+                                </div>
+                            </asp:PlaceHolder>
                         </div>
                     </asp:PlaceHolder>
                     <div class="tab-pane fade" id="attachments" role="tabpanel" aria-labelledby="attachments-tab">
@@ -1762,26 +1782,6 @@
                            LocalizedTag="MAX_WORD_LENGTH" LocalizedPage="ADMIN_HOSTSETTINGS" />
             <asp:TextBox CssClass="form-control" ID="MaxWordLength" MaxLength="2" runat="server"></asp:TextBox>
         </div>
-        <asp:PlaceHolder runat="server" ID="SSLSettings">
-            <div class="form-row">
-                <div class="form-group col-md-6">
-                    <YAF:HelpLabel ID="HelpLabel71" runat="server"
-                                   AssociatedControlID="UseSSLToLogIn"
-                                   LocalizedTag="SSL_LOGIN" LocalizedPage="ADMIN_HOSTSETTINGS" />
-                    <div class="custom-control custom-switch">
-                        <asp:CheckBox Text="&nbsp;" ID="UseSSLToLogIn" runat="server"></asp:CheckBox>
-                    </div>
-                </div>
-                <div class="form-group col-md-6">
-                    <YAF:HelpLabel ID="HelpLabel70" runat="server"
-                                   AssociatedControlID="UseSSLToRegister"
-                                   LocalizedTag="SSL_REGISTER" LocalizedPage="ADMIN_HOSTSETTINGS" />
-                    <div class="custom-control custom-switch">
-                        <asp:CheckBox Text="&nbsp;" ID="UseSSLToRegister" runat="server"></asp:CheckBox>
-                    </div>
-                </div>
-            </div>
-        </asp:PlaceHolder>
                     </div>
                     <div class="card-footer text-lg-center">
                         <YAF:ThemeButton ID="ThemeButton7" runat="server"  Type="Primary" OnClick="SaveClick"
