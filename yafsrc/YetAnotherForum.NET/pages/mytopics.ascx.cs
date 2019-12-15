@@ -110,8 +110,19 @@ namespace YAF.Pages
         /// </param>
         protected override void OnPreRender([NotNull] EventArgs e)
         {
-            // setup jQuery and Jquery Ui Tabs.
-            YafContext.Current.PageElements.RegisterJsBlock(
+            this.PageContext.PageElements.RegisterJsBlockStartup(
+                "TopicStarterPopoverJs",
+                JavaScriptBlocks.TopicLinkPopoverJs(
+                    $"{this.GetText("TOPIC_STARTER")}&nbsp;...",
+                    ".topic-starter-popover"));
+
+            this.PageContext.PageElements.RegisterJsBlockStartup(
+                "TopicLinkPopoverJs",
+                JavaScriptBlocks.TopicLinkPopoverJs(
+                    $"{this.GetText("LASTPOST")}&nbsp;{this.GetText("SEARCH", "BY")} ...",
+                    ".topic-link-popover"));
+
+            this.PageContext.PageElements.RegisterJsBlock(
                 "TopicsTabsJs",
                 JavaScriptBlocks.BootstrapTabsLoadJs(
                     this.TopicsTabs.ClientID,

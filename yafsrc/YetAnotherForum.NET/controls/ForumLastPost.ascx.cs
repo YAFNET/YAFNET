@@ -100,7 +100,9 @@ namespace YAF.Controls
         {
             this.PageContext.PageElements.RegisterJsBlockStartup(
                 "TopicLinkPopoverJs",
-                JavaScriptBlocks.TopicLinkPopoverJs($"{this.GetText("LASTPOST")}&nbsp;{this.GetText("SEARCH", "BY")} ..."));
+                JavaScriptBlocks.TopicLinkPopoverJs(
+                    $"{this.GetText("LASTPOST")}&nbsp;{this.GetText("SEARCH", "BY")} ...",
+                    ".topic-link-popover"));
 
             if (this.DataRow == null)
             {
@@ -160,8 +162,6 @@ namespace YAF.Controls
 
                 this.LastTopicImgLink.NavigateUrl = YafBuildLink.GetLinkNotEscaped(
                     ForumPages.posts, "m={0}#post{0}", this.DataRow["LastMessageID"]);
-
-                this.ImageLastUnreadMessageLink.Visible = this.Get<YafBoardSettings>().ShowLastUnreadPost;
 
                 this.ImageLastUnreadMessageLink.NavigateUrl = YafBuildLink.GetLinkNotEscaped(
                     ForumPages.posts, "t={0}&find=unread", this.DataRow["LastTopicID"]);

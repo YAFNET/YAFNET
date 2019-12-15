@@ -12,6 +12,9 @@ YetAnotherForum.NET Changelog
 * [FIXED] deleting of private messages
 * [FIXED #494] Add as friend button on profile page
 * [FIXED #497] saving forum & category
+* [FIXED #499] saving group
+* [FIXED #498] removed page refresh on the postmessage page
+* [FIXED #500] error on moving topic
 
 
 # YetAnotherForum.NET v2.3.0.02

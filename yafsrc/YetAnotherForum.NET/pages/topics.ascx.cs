@@ -37,6 +37,7 @@ namespace YAF.Pages
     using YAF.Core.Helpers;
     using YAF.Core.Model;
     using YAF.Core.Services;
+    using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
@@ -124,10 +125,27 @@ namespace YAF.Pages
         #region Methods
 
         /// <summary>
+        /// The On PreRender event.
+        /// </summary>
+        /// <param name="e">
+        /// the Event Arguments
+        /// </param>
+        protected override void OnPreRender([NotNull] EventArgs e)
+        {
+            this.PageContext.PageElements.RegisterJsBlockStartup(
+                "TopicStarterPopoverJs",
+                JavaScriptBlocks.TopicLinkPopoverJs(
+                    $"{this.GetText("TOPIC_STARTER")}&nbsp;...",
+                    ".topic-starter-popover"));
+
+            base.OnPreRender(e);
+        }
+
+        /// <summary>
         /// Gets the sub forum title.
         /// </summary>
         /// <returns>The get sub forum title.</returns>
-        protected string GetSubForumTitle()
+            protected string GetSubForumTitle()
         {
             return this.GetTextFormatted("SUBFORUMS", this.HtmlEncode(this.PageContext.PageForumName));
         }

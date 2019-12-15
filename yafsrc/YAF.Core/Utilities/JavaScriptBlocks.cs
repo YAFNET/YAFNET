@@ -1007,19 +1007,22 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
         /// <param name="title">
         /// The title.
         /// </param>
+        /// <param name="cssClass">
+        /// The css Class.
+        /// </param>
         /// <returns>
         /// Returns the JS String
         /// </returns>
         [NotNull]
-        public static string TopicLinkPopoverJs([NotNull] string title)
+        public static string TopicLinkPopoverJs([NotNull] string title, [NotNull] string cssClass)
         {
-            return $@"{Config.JQueryAlias}('.topic-link-popover').popover({{
+            return $@"{Config.JQueryAlias}('{cssClass}').popover({{
                            title: '{title}',
                            html: true,
                            trigger: 'hover click',
                            template: '<div class=""popover"" role=""tooltip""><h3 class=""popover-header""></h3><div class=""arrow""></div><div class=""popover-body""></div></div>'
                 }});
-                {Config.JQueryAlias}('.topic-link-popover').on('inserted.bs.popover', function () {{
+                {Config.JQueryAlias}('{cssClass}').on('inserted.bs.popover', function () {{
                       {Config.JQueryAlias}('.popover-timeago').each(function() {{
                   {Config.JQueryAlias}(this).html(function(index, value) {{
                                           return moment(value).fromNow();

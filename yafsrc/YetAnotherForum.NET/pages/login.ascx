@@ -9,8 +9,7 @@
                    OnLoggedIn="Login1_LoggedIn"
                    OnAuthenticate="Login1_Authenticate" 
                    VisibleWhenLoggedIn="True"
-                   CssClass="mx-auto"
-                   Width="400px">
+                   CssClass="mx-auto">
                 <LayoutTemplate>
                     <div class="row">
                         <div class="col-xl-12">

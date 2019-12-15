@@ -86,8 +86,6 @@ namespace YAF.Controls
             var imageLastUnreadMessageLink = e.Item.FindControlAs<ThemeButton>("GoToLastUnread");
             var lastUserLink = new UserLink();
             var lastPostedDateLabel = new DisplayDateTime { Format = DateTimeFormat.BothTopic };
-            var forumLink = e.Item.FindControlAs<HyperLink>("ForumLink");
-            imageLastUnreadMessageLink.Visible = this.Get<YafBoardSettings>().ShowLastUnreadPost;
 
             var topicSubject = this.Get<IBadWordReplace>().Replace(this.HtmlEncode(currentRow["Topic"]));
 
@@ -102,8 +100,14 @@ namespace YAF.Controls
 
             textMessageLink.Text = topicSubject;
 
+            var startedByText = this.GetTextFormatted(
+                "VIEW_TOPIC_STARTED_BY",
+                currentRow[this.Get<YafBoardSettings>().EnableDisplayName ? "UserDisplayName" : "UserName"].ToString());
+
+            var inForumText = this.GetTextFormatted("IN_FORUM", this.HtmlEncode(currentRow["Forum"].ToString()));
+
             textMessageLink.ToolTip =
-                $"{this.GetTextFormatted("VIEW_TOPIC_STARTED_BY", currentRow[this.Get<YafBoardSettings>().EnableDisplayName ? "UserDisplayName" : "UserName"].ToString())}";
+                $"{startedByText} {inForumText}";
             textMessageLink.Attributes.Add("data-toggle", "tooltip");
 
             textMessageLink.NavigateUrl = YafBuildLink.GetLinkNotEscaped(
@@ -166,11 +170,6 @@ namespace YAF.Controls
                                                     <i class=""fa fa-clock fa-badge text-secondary""></i>
                                                 </span>&nbsp;<span class=""popover-timeago"">{formattedDatetime}</span>
                          ";
-
-            forumLink.Text = this.HtmlEncode(currentRow["Forum"].ToString());
-            forumLink.ToolTip = this.GetText("COMMON", "VIEW_FORUM");
-            forumLink.Attributes.Add("data-toggle", "tooltip");
-            forumLink.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.topics, "f={0}&name={1}", currentRow["ForumID"], currentRow["Forum"].ToString());
         }
 
         /// <summary>
@@ -183,7 +182,9 @@ namespace YAF.Controls
         {
             this.PageContext.PageElements.RegisterJsBlockStartup(
                 "TopicLinkPopoverJs",
-                JavaScriptBlocks.TopicLinkPopoverJs($"{this.GetText("LASTPOST")}&nbsp;{this.GetText("SEARCH", "BY")} ..."));
+                JavaScriptBlocks.TopicLinkPopoverJs(
+                    $"{this.GetText("LASTPOST")}&nbsp;{this.GetText("SEARCH", "BY")} ...",
+                    ".topic-link-popover"));
 
             base.OnPreRender(e);
         }

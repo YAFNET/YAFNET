@@ -112,16 +112,18 @@ namespace YAF.Pages
                 // Display name login
                 var id = this.Get<IUserDisplayName>().GetId(username);
 
-                if (id.HasValue)
+                if (!id.HasValue)
                 {
-                    // get the username associated with this id...
-                    var realUsername = UserMembershipHelper.GetUserNameFromID(id.Value);
+                    return null;
+                }
 
-                    // validate again...
-                    if (this.Get<MembershipProvider>().ValidateUser(realUsername, password))
-                    {
-                        return realUsername;
-                    }
+                // get the username associated with this id...
+                var realUsername = UserMembershipHelper.GetUserNameFromID(id.Value);
+
+                // validate again...
+                if (this.Get<MembershipProvider>().ValidateUser(realUsername, password))
+                {
+                    return realUsername;
                 }
             }
 
@@ -147,11 +149,13 @@ namespace YAF.Pages
 
             var realUserName = this.GetValidUsername(username, password);
 
-            if (realUserName.IsSet())
+            if (realUserName.IsNotSet())
             {
-                this.Login1.UserName = realUserName;
-                e.Authenticated = true;
+                return;
             }
+
+            this.Login1.UserName = realUserName;
+            e.Authenticated = true;
         }
 
         /// <summary>

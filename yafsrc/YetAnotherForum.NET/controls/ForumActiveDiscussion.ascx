@@ -1,10 +1,8 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" EnableViewState="false" Inherits="YAF.Controls.ForumActiveDiscussion"
     CodeBehind="ForumActiveDiscussion.ascx.cs" %>
 
-<div class="col">
-<asp:UpdatePanel ID="UpdateStatsPanel" runat="server" UpdateMode="Conditional">
-    <ContentTemplate>
-        <asp:PlaceHolder runat="server" ID="ActiveDiscussionPlaceHolder">
+<div class="col-md-6">
+    <asp:PlaceHolder runat="server" ID="ActiveDiscussionPlaceHolder">
                         <div class="card mb-3">
                             <div class="card-header">
                                 <span class="fa-stack">
@@ -13,18 +11,16 @@
                                 <YAF:LocalizedLabel runat="server" ID="ActiveDiscussionHeader"
                                                     LocalizedTag="ACTIVE_DISCUSSIONS" />
                             </div>
-                            <div class="card-body">
-                                <asp:Repeater runat="server" ID="LatestPosts" 
+                            <asp:Repeater runat="server" ID="LatestPosts" 
                                               OnItemDataBound="LatestPosts_ItemDataBound">
                                     <HeaderTemplate>
                                         <ul class="list-group list-group-flush">
                                     </HeaderTemplate>
                                     <ItemTemplate>
-                                        <li class="list-group-item px-0">
+                                        <li class="list-group-item pt-2 pb-0">
                                             <h6>
                                                     <asp:PlaceHolder runat="server" ID="PostIcon"></asp:PlaceHolder>
                                                     <asp:HyperLink ID="TextMessageLink" runat="server" CssClass="font-weight-bold" />&nbsp;
-                                                    (<asp:HyperLink ID="ForumLink" runat="server" />)&nbsp;
                                                 <YAF:ThemeButton runat="server" ID="Info"
                                                                  Icon="info-circle"
                                                                  Type="OutlineInfo"
@@ -53,7 +49,6 @@
                                         </ul>
                                     </FooterTemplate>
                                 </asp:Repeater>
-                            </div>
 
                             <asp:Panel runat="server" ID="Footer" CssClass="card-footer" >
                                 <div class="btn-group float-right" role="group" aria-label="Tools">
@@ -62,6 +57,4 @@
                             </asp:Panel>
                         </div>
             </asp:PlaceHolder>
-    </ContentTemplate>
-</asp:UpdatePanel>
 </div>

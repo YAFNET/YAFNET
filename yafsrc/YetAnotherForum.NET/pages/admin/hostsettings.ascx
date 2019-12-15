@@ -1351,14 +1351,6 @@
                 </div>
             </div>
             <div class="form-group col-md-6">
-                <YAF:HelpLabel ID="ShowLastUnreadPostHelpLabel" runat="server" 
-                               AssociatedControlID="ShowLastUnreadPost"  
-                               LocalizedTag="SHOW_UNREAD_LINKS" LocalizedPage="ADMIN_HOSTSETTINGS" />
-                <div class="custom-control custom-switch">
-                    <asp:CheckBox Text="&nbsp;" ID="ShowLastUnreadPost" runat="server"></asp:CheckBox>
-                </div>
-            </div>
-            <div class="form-group col-md-6">
                 <YAF:HelpLabel ID="HelpLabel177" runat="server" 
                                AssociatedControlID="UseNoFollowLinks"
                                LocalizedTag="NOFOLLOW_LINKTAGS" LocalizedPage="ADMIN_HOSTSETTINGS" />

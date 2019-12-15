@@ -26,6 +26,7 @@ namespace YAF.Web.Controls
 {
     using System;
     using System.Data;
+    using System.Globalization;
     using System.Text;
     using System.Web.UI;
     using System.Web.UI.WebControls;
@@ -209,44 +210,15 @@ namespace YAF.Web.Controls
                                 {
                                     NavigateUrl =
                                         YafBuildLink.GetLinkNotEscaped(ForumPages.posts, "t={0}", this.TopicRow["LinkTopicID"]),
-                                    ToolTip = this.Get<IFormatMessage>().GetCleanedTopicMessage(
-                                        this.TopicRow["FirstMessage"],
-                                        this.TopicRow["LinkTopicID"]).MessageTruncated,
                                     Text = this.FormatTopicName()
                                 };
 
-            var topicStarterLink = new UserLink
-                                       {
-                                           UserID = this.TopicRow["UserID"].ToType<int>(),
-                                           ReplaceName = this
-                                               .TopicRow[this.Get<YafBoardSettings>().EnableDisplayName
-                                                             ? "StarterDisplay"
-                                                             : "Starter"].ToString(),
-                                           Style = this.TopicRow["StarterStyle"].ToString()
-                                       };
-            var startDate = new DisplayDateTime
-                                {
-                                    Format = DateTimeFormat.BothTopic,
-                                    DateTime = this.TopicRow["Posted"],
-                                    Visible = this.ShowTopicPosted
-                                };
+            topicLink.Attributes.Add("data-toggle", "tooltip");
 
-            var userLast = new UserLink
-                               {
-                                   UserID = this.TopicRow["LastUserID"].ToType<int>(),
-                                   ReplaceName = this
-                                       .TopicRow[this.Get<YafBoardSettings>().EnableDisplayName
-                                                     ? "LastUserDisplayName"
-                                                     : "LastUserName"].ToString(),
-                                   Style = this.TopicRow["LastUserStyle"].ToString()
-                               };
-
-            var lastDate = new DisplayDateTime
-                               {
-                                   Format = DateTimeFormat.BothTopic,
-                                   DateTime = this.TopicRow["LastPosted"],
-                                   Visible = this.ShowTopicPosted,
-                               };
+            if (this.TopicRow["Description"].ToString().IsSet())
+            {
+                topicLink.ToolTip = this.Get<IBadWordReplace>().Replace(this.HtmlEncode(this.TopicRow["Description"]));
+            }
 
             if (!this.TopicRow["LastMessageID"].IsNullOrEmptyDBField())
             {
@@ -275,23 +247,7 @@ namespace YAF.Web.Controls
                 writer.Write("&nbsp;<span class=\"badge badge-info\" title=\"{0}\"><i class=\"fas fa-star\"></i> +{1}</span>", this.GetText("FAVORITE_COUNT_TT"), favoriteCount);
             }
 
-            writer.Write(" </h5>");
-
-            if (this.TopicRow["Description"].ToString().IsSet())
-            {
-                writer.Write($"<span class=\"font-italic\">{this.Get<IBadWordReplace>().Replace(this.HtmlEncode(this.TopicRow["Description"]))}</span>");
-            }
-
-            writer.Write(" <p class=\"card-text\">");
-
-            writer.Write(topicStarterLink.RenderToString());
-            writer.Write(@"<span class=""fa-stack"">
-                <i class=""fa fa-calendar-day fa-stack-1x text-secondary""></i>
-                <i class=""fa fa-circle fa-badge-bg fa-inverse fa-outline-inverse""></i>
-                <i class=""fa fa-clock fa-badge text-secondary""></i>
-                </span>&nbsp;");
-            writer.Write(startDate.RenderToString());
-
+            // Render Pager
             var actualPostCount = this.TopicRow["Replies"].ToType<int>() + 1;
 
             if (this.Get<YafBoardSettings>().ShowDeletedMessages)
@@ -305,12 +261,55 @@ namespace YAF.Web.Controls
                 this.Get<YafBoardSettings>().PostsPerPage,
                 this.TopicRow["LinkTopicID"].ToType<int>());
 
-            if (pager != string.Empty)
+            if (pager.IsSet())
             {
-                writer.Write("<span> - <i class=\"fa fa-copy fa-fw text-secondary\"></i>{0}</span>", pager);
+                writer.Write(" - <div class=\"btn-group btn-group-sm mb-1\" role=\"group\" aria-label\"topic pager\">{0}</div>", pager);
             }
 
-            writer.Write("</p>");
+            // Render Info Topic Starter
+            var infoTopicStarter = new ThemeButton
+                                   {
+                                       Size = ButtonSize.Small,
+                                       Icon = "info-circle",
+                                       Type = ButtonAction.OutlineInfo,
+                                       DataToggle = "popover",
+                                       CssClass = "topic-starter-popover ml-1",
+                                       NavigateUrl = "#!"
+                                   };
+
+            var topicStartedDateTime = this.TopicRow["Posted"].ToType<DateTime>();
+
+            var formattedStartedDatetime = this.Get<YafBoardSettings>().ShowRelativeTime
+                                        ? topicStartedDateTime.ToString(
+                                            "yyyy-MM-ddTHH:mm:ssZ",
+                                            CultureInfo.InvariantCulture)
+                                        : this.Get<IDateTime>().Format(
+                                            DateTimeFormat.BothTopic,
+                                            topicStartedDateTime);
+
+            var topicStarterLink = new UserLink
+                                       {
+                                           UserID = this.TopicRow["UserID"].ToType<int>(),
+                                           ReplaceName = this
+                                               .TopicRow[this.Get<YafBoardSettings>().EnableDisplayName
+                                                             ? "StarterDisplay"
+                                                             : "Starter"].ToString(),
+                                           Style = this.TopicRow["StarterStyle"].ToString()
+                                       };
+
+            infoTopicStarter.DataContent = $@"
+                          {topicStarterLink.RenderToString()}
+                          <span class=""fa-stack"">
+                                                    <i class=""fa fa-calendar-day fa-stack-1x text-secondary""></i>
+                                                    <i class=""fa fa-circle fa-badge-bg fa-inverse fa-outline-inverse""></i>
+                                                    <i class=""fa fa-clock fa-badge text-secondary""></i>
+                                                </span>&nbsp;<span class=""popover-timeago"">{formattedStartedDatetime}</span>
+                         ";
+
+            writer.Write(infoTopicStarter.RenderToString());
+
+            writer.Write(" </h5>");
+
             writer.Write("</div>");
             writer.Write("<div class=\"col-md-2\">");
             writer.Write("<ul>");
@@ -327,8 +326,49 @@ namespace YAF.Web.Controls
 
             if (!this.TopicRow["LastMessageID"].IsNullOrEmptyDBField())
             {
-                writer.Write(" <div class=\"col-md-4\">");
-                writer.Write(" <h6>");
+                writer.Write("<div class=\"col-md-4\">");
+                writer.Write("<h6 class=\"text-secondary\">");
+
+                writer.Write($"{this.GetText("LASTPOST")}&nbsp;");
+                
+                var infoLastPost = new ThemeButton
+                                       {
+                                           Size = ButtonSize.Small,
+                                           Icon = "info-circle",
+                                           Type = ButtonAction.OutlineInfo,
+                                           DataToggle = "popover",
+                                           CssClass = "topic-link-popover mr-1",
+                                           NavigateUrl = "#!"
+                                       };
+                                       
+                var lastPostedDateTime = this.TopicRow["LastPosted"].ToType<DateTime>();
+
+                var formattedDatetime = this.Get<YafBoardSettings>().ShowRelativeTime
+                                            ? lastPostedDateTime.ToString(
+                                                "yyyy-MM-ddTHH:mm:ssZ",
+                                                CultureInfo.InvariantCulture)
+                                            : this.Get<IDateTime>().Format(
+                                                DateTimeFormat.BothTopic,
+                                                lastPostedDateTime);
+
+                var userLast = new UserLink
+                                   {
+                                       UserID = this.TopicRow["LastUserID"].ToType<int>(),
+                                       ReplaceName = this
+                                           .TopicRow[this.Get<YafBoardSettings>().EnableDisplayName
+                                                         ? "LastUserDisplayName"
+                                                         : "LastUserName"].ToString(),
+                                       Style = this.TopicRow["LastUserStyle"].ToString()
+                                   };
+
+                infoLastPost.DataContent = $@"
+                          {userLast.RenderToString()}
+                          <span class=""fa-stack"">
+                                                    <i class=""fa fa-calendar-day fa-stack-1x text-secondary""></i>
+                                                    <i class=""fa fa-circle fa-badge-bg fa-inverse fa-outline-inverse""></i>
+                                                    <i class=""fa fa-clock fa-badge text-secondary""></i>
+                                                </span>&nbsp;<span class=""popover-timeago"">{formattedDatetime}</span>
+                         ";
 
                 var gotoLastPost = new ThemeButton
                                        {
@@ -355,24 +395,13 @@ namespace YAF.Web.Controls
                                              Icon = "book-reader",
                                              Type = ButtonAction.OutlineSecondary,
                                              TitleLocalizedTag = "GO_LASTUNREAD_POST",
-                                             DataToggle = "tooltip",
-                                             Visible = this.Get<YafBoardSettings>().ShowLastUnreadPost
+                                             DataToggle = "tooltip"
                                          };
 
+                writer.Write(infoLastPost.RenderToString());
                 writer.Write(gotoLastPost.RenderToString());
                 writer.Write(gotoLastUnread.RenderToString());
-                writer.Write("</h6>");
-                writer.Write(" <hr/>");
-                writer.Write(" <h6 class=\"text-secondary\">");
-                writer.Write("{0} {1}:", this.GetText("LASTPOST"), this.GetText("SEARCH", "BY"));
-                writer.Write(userLast.RenderToString());
-
-                writer.Write(@"&nbsp;<span class=""fa-stack"">
-                    <i class=""fa fa-calendar-day fa-stack-1x text-secondary""></i>
-                    <i class=""fa fa-circle fa-badge-bg fa-inverse fa-outline-inverse""></i>
-                    <i class=""fa fa-clock fa-badge text-secondary""></i>
-                    </span>&nbsp;");
-                writer.Write(lastDate.RenderToString());
+                
                 writer.Write("</h6>");
                 writer.Write("</div>");
             }
@@ -539,11 +568,11 @@ namespace YAF.Web.Controls
                 {
                     case 1:
                         strReturn =
-                            $"<span class=\"badge badge-secondary\"><i class=\"fa fa-sticky-note fa-fw\"></i> {this.GetText("STICKY")}</span>";
+                            $"<span class=\"badge badge-warning\"><i class=\"fa fa-sticky-note fa-fw\"></i> {this.GetText("STICKY")}</span>";
                         break;
                     case 2:
                         strReturn =
-                            $"<span class=\"badge badge-secondary\"><i class=\"fa fa-bullhorn fa-fw\"></i> {this.GetText("ANNOUNCEMENT")}</span>";
+                            $"<span class=\"badge badge-primary\"><i class=\"fa fa-bullhorn fa-fw\"></i> {this.GetText("ANNOUNCEMENT")}</span>";
                         break;
                 }
             }

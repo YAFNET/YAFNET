@@ -62,7 +62,7 @@
                     <SeparatorTemplate>
                         <div class="row">
                             <div class="col">
-                                <hr/>
+                                <hr class="mb-2 mt-0"/>
                             </div>
                         </div>
                     </SeparatorTemplate>
@@ -70,7 +70,7 @@
                         <asp:PlaceHolder runat="server" Visible="<%# this.Announcements.Items.Count > 0 %>">
                             <div class="row">
                                 <div class="col">
-                                    <hr/>
+                                    <hr class="mb-2 mt-0"/>
                                 </div>
                             </div>
                         </asp:PlaceHolder>
@@ -84,7 +84,7 @@
                     <SeparatorTemplate>
                         <div class="row">
                             <div class="col">
-                                <hr/>
+                                <hr class="mb-2 mt-0"/>
                             </div>
                         </div>
                     </SeparatorTemplate>
@@ -96,7 +96,7 @@
                         <YAF:LocalizedLabel ID="LocalizedLabel11" runat="server" LocalizedTag="showtopics" />:
                     </div>
                     <div class="col-sm-9">
-                        <asp:DropDownList ID="ShowList" runat="server" AutoPostBack="True" CssClass="select2-select" />                            
+                        <asp:DropDownList ID="ShowList" runat="server" AutoPostBack="True" CssClass="custom-select" />                            
                     </div>
                 </div>
                 <asp:PlaceHolder ID="ForumJumpHolder" runat="server">
