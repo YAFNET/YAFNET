@@ -186,13 +186,31 @@ namespace YAF.Controls
         protected global::System.Web.UI.WebControls.Panel panMessage;
 
         /// <summary>
-        /// PostFooter control.
+        /// Footer control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.DisplayPostFooter PostFooter;
+        protected global::System.Web.UI.WebControls.PlaceHolder Footer;
+
+        /// <summary>
+        /// ReportPost control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Web.Controls.ThemeButton ReportPost;
+
+        /// <summary>
+        /// MarkAsAnswer control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Web.Controls.ThemeButton MarkAsAnswer;
 
         /// <summary>
         /// ThanksDataLiteral control.
@@ -220,6 +238,15 @@ namespace YAF.Controls
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::YAF.Web.Controls.ThemeButton Manage;
+
+        /// <summary>
+        /// ManageDropPlaceHolder control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.PlaceHolder ManageDropPlaceHolder;
 
         /// <summary>
         /// Edit control.

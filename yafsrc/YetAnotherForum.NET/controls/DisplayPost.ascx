@@ -1,5 +1,4 @@
 ﻿<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Controls.DisplayPost" EnableViewState="false" Codebehind="DisplayPost.ascx.cs" %>
-<%@ Register TagPrefix="YAF" TagName="DisplayPostFooter" Src="DisplayPostFooter.ascx" %>
 <%@ Import Namespace="YAF.Types.Constants" %>
 <%@ Import Namespace="YAF.Types.Interfaces" %>
 <%@ Import Namespace="YAF.Types.Extensions" %>
@@ -146,11 +145,28 @@
                         </asp:panel>
                 </div>
             </div>
-            <div class="card-footer">
+            <asp:PlaceHolder runat="server" ID="Footer">
+                <div class="card-footer">
                 <div class="row">
                     <div class="col px-0">
-                        <YAF:DisplayPostFooter ID="PostFooter" runat="server"
-                            DataRow="<%# this.DataRow %>"></YAF:DisplayPostFooter>
+                        <YAF:ThemeButton ID="ReportPost" runat="server"
+                                         Visible="false"
+                                         Type="Link" 
+                                         TextLocalizedPage="POSTS" 
+                                         TextLocalizedTag="REPORTPOST"
+                                         Icon="exclamation-triangle"
+                                         IconColor="text-danger"
+                                         TitleLocalizedTag="REPORTPOST_TITLE"
+                                         CssClass="text-left" />
+                        <YAF:ThemeButton ID="MarkAsAnswer" runat="server" 
+                                         Visible="false" 
+                                         Type="Link" 
+                                         TextLocalizedPage="POSTS" 
+                                         TextLocalizedTag="MARK_ANSWER" 
+                                         TitleLocalizedTag="MARK_ANSWER_TITLE"
+                                         Icon="check-square"
+                                         IconColor="text-success"
+                                         OnClick="MarkAsAnswerClick" />	
                     </div>
                     <div class="col-auto px-0 d-flex flex-wrap">
                         <div id="<%# "dvThanksInfo{0}".Fmt(this.DataRow["MessageID"]) %>" class="small mt-1">
@@ -170,32 +186,34 @@
                             DataToggle="dropdown"
                             TextLocalizedTag="MANAGE_POST"
                             Icon="cogs" />
-                        <div class="dropdown-menu" aria-labelledby='<%# this.Manage.ClientID %>'>
-                            <YAF:ThemeButton ID="Edit" runat="server"
-                                Type="None"
-                                CssClass="dropdown-item"
-                                Icon="edit"
-                                TextLocalizedTag="BUTTON_EDIT"
-                                TitleLocalizedTag="BUTTON_EDIT_TT" />
-                            <YAF:ThemeButton ID="MovePost" runat="server"
-                                Type="None"
-                                CssClass="dropdown-item"
-                                Icon="arrows-alt"
-                                TextLocalizedTag="BUTTON_MOVE"
-                                TitleLocalizedTag="BUTTON_MOVE_TT" />
-                            <YAF:ThemeButton ID="Delete" runat="server"
-                                Type="None"
-                                CssClass="dropdown-item"
-                                Icon="trash"
-                                TextLocalizedTag="BUTTON_DELETE"
-                                TitleLocalizedTag="BUTTON_DELETE_TT" />
-                            <YAF:ThemeButton ID="UnDelete" runat="server"
-                                Type="None"
-                                CssClass="dropdown-item"
-                                Icon="trash-alt"
-                                TextLocalizedTag="BUTTON_UNDELETE"
-                                TitleLocalizedTag="BUTTON_UNDELETE_TT" />
-                        </div>
+                        <asp:PlaceHolder runat="server" ID="ManageDropPlaceHolder">
+                            <div class="dropdown-menu" aria-labelledby='<%# this.Manage.ClientID %>'>
+                                <YAF:ThemeButton ID="Edit" runat="server"
+                                                 Type="None"
+                                                 CssClass="dropdown-item"
+                                                 Icon="edit"
+                                                 TextLocalizedTag="BUTTON_EDIT"
+                                                 TitleLocalizedTag="BUTTON_EDIT_TT" />
+                                <YAF:ThemeButton ID="MovePost" runat="server"
+                                                 Type="None"
+                                                 CssClass="dropdown-item"
+                                                 Icon="arrows-alt"
+                                                 TextLocalizedTag="BUTTON_MOVE"
+                                                 TitleLocalizedTag="BUTTON_MOVE_TT" />
+                                <YAF:ThemeButton ID="Delete" runat="server"
+                                                 Type="None"
+                                                 CssClass="dropdown-item"
+                                                 Icon="trash"
+                                                 TextLocalizedTag="BUTTON_DELETE"
+                                                 TitleLocalizedTag="BUTTON_DELETE_TT" />
+                                <YAF:ThemeButton ID="UnDelete" runat="server"
+                                                 Type="None"
+                                                 CssClass="dropdown-item"
+                                                 Icon="trash-alt"
+                                                 TextLocalizedTag="BUTTON_UNDELETE"
+                                                 TitleLocalizedTag="BUTTON_UNDELETE_TT" />
+                            </div>
+                        </asp:PlaceHolder>
                         <YAF:ThemeButton ID="Quote" runat="server"
                                          Type="Link"
                                          Icon="quote-left"
@@ -206,6 +224,7 @@
                     </div>
                 </div>
             </div>
+            </asp:PlaceHolder>
         </div>
     </div>
     </div>

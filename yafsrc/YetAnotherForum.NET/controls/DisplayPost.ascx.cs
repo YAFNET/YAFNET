@@ -46,6 +46,7 @@ namespace YAF.Controls
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
+    using YAF.Types.Flags;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
     using YAF.Utils;
@@ -139,6 +140,50 @@ namespace YAF.Controls
         #endregion
 
         #region Methods
+
+        /// <summary>
+        /// Marks as answer click.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        protected void MarkAsAnswerClick([NotNull] object sender, [NotNull] EventArgs e)
+        {
+            var messageFlags =
+                new MessageFlags(this.PostData.DataRow["Flags"]) { IsAnswer = true };
+
+            if (this.PostData.PostIsAnswer)
+            {
+                // Remove Current Message 
+                messageFlags.IsAnswer = false;
+
+                this.GetRepository<Message>().UpdateFlags(this.PostData.MessageId, messageFlags.BitValue);
+
+                this.GetRepository<Topic>().RemoveAnswerMessage(this.PageContext.PageTopicID);
+            }
+            else
+            {
+                // Check for duplicates
+                var answerMessageId = this.GetRepository<Topic>().GetAnswerMessage(this.PageContext.PageTopicID);
+
+                if (answerMessageId != null)
+                {
+                    var message = this.GetRepository<Message>().GetById(answerMessageId.Value);
+
+                    var oldMessageFlags =
+                        new MessageFlags(message.Flags) { IsAnswer = false };
+
+                    this.GetRepository<Message>().UpdateFlags(message.ID, oldMessageFlags.BitValue);
+                }
+
+                messageFlags.IsAnswer = true;
+
+                this.GetRepository<Topic>().SetAnswerMessage(this.PageContext.PageTopicID, this.PostData.MessageId);
+
+                this.GetRepository<Message>().UpdateFlags(this.PostData.MessageId, messageFlags.BitValue);
+            }
+
+            YafBuildLink.Redirect(ForumPages.posts, "m={0}#post{0}", this.PostData.MessageId);
+        }
 
         /// <summary>
         /// Formats the thanks information.
@@ -595,10 +640,12 @@ namespace YAF.Controls
             if (this.Edit.Visible || this.Delete.Visible || this.MovePost.Visible)
             {
                 this.Manage.Visible = true;
+                this.ManageDropPlaceHolder.Visible = true;
             }
             else
             {
                 this.Manage.Visible = false;
+                this.ManageDropPlaceHolder.Visible = false;
             }
 
             YafContext.Current.PageElements.RegisterJsBlockStartup(
@@ -628,6 +675,53 @@ namespace YAF.Controls
             else
             {
                 this.Avatar.Visible = false;
+            }
+
+            // report post
+            if (this.Get<IPermissions>().Check(this.Get<YafBoardSettings>().ReportPostPermissions)
+                && !this.PostData.PostDeleted)
+            {
+                if (!this.PageContext.IsGuest && this.PageContext.User != null)
+                {
+                    this.ReportPost.Visible = true;
+
+                    this.ReportPost.NavigateUrl = YafBuildLink.GetLinkNotEscaped(
+                        ForumPages.reportpost,
+                        "m={0}",
+                        this.PostData.MessageId);
+                }
+            }
+
+            // mark post as answer
+            if (!this.PostData.PostDeleted && !this.PageContext.IsGuest && this.PageContext.User != null
+                && this.PageContext.PageUserID.Equals(this.DataRow["TopicOwnerID"].ToType<int>())
+                && !this.PostData.UserId.Equals(this.PageContext.PageUserID))
+            {
+                this.MarkAsAnswer.Visible = true;
+
+                if (this.PostData.PostIsAnswer)
+                {
+                    this.MarkAsAnswer.TextLocalizedTag = "MARK_ANSWER_REMOVE";
+                    this.MarkAsAnswer.TitleLocalizedTag = "MARK_ANSWER_REMOVE_TITLE";
+                    this.MarkAsAnswer.Icon = "minus-square";
+                    this.MarkAsAnswer.IconColor = "text-danger";
+                }
+                else
+                {
+                    this.MarkAsAnswer.TextLocalizedTag = "MARK_ANSWER";
+                    this.MarkAsAnswer.TitleLocalizedTag = "MARK_ANSWER_TITLE";
+                    this.MarkAsAnswer.Icon = "check-square";
+                    this.MarkAsAnswer.IconColor = "text-success";
+                }
+            }
+
+            if (this.ReportPost.Visible == false && this.MarkAsAnswer.Visible == false
+                                                 && this.ReportPost.Visible == false
+                                                 && this.ThanksDataLiteral.Visible == false
+                                                 && this.Thank.Visible == false && this.Manage.Visible == false
+                                                 && this.Quote.Visible == false && this.MultiQuote.Visible == false)
+            {
+               this.Footer.Visible = false;
             }
         }
 

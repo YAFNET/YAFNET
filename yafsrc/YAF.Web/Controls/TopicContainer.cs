@@ -234,7 +234,7 @@ namespace YAF.Web.Controls
 
                 if (this.TopicRow["LastPosted"].ToType<DateTime>() > lastRead)
                 {
-                    writer.Write("&nbsp;<span class=\"badge badge-success\">{0}</span>", this.GetText("NEW_POSTS"));
+                    writer.Write("<span class=\"badge badge-success\">{0}</span>&nbsp;", this.GetText("NEW_POSTS"));
                 }
             }
 
@@ -312,16 +312,16 @@ namespace YAF.Web.Controls
 
             writer.Write("</div>");
             writer.Write("<div class=\"col-md-2\">");
-            writer.Write("<ul>");
-            writer.Write("<li class=\"list-unstyled\">");
+            writer.Write("<div class=\"d-flex flex-row flex-md-column justify-content-between justify-content-md-start\">");
+            writer.Write("<div>");
             writer.Write("{0}: ", this.GetText("MODERATE", "REPLIES"));
             writer.Write(this.FormatReplies());
-            writer.Write(" </li>");
-            writer.Write("<li class=\"list-unstyled\">");
+            writer.Write(" </div>");
+            writer.Write("<div>");
             writer.Write("{0}: ", this.GetText("MODERATE", "VIEWS"));
             writer.Write(this.FormatViews());
-            writer.Write("   </li>");
-            writer.Write("  </ul>");
+            writer.Write("   </div>");
+            writer.Write("  </div>");
             writer.Write(" </div>");
 
             if (!this.TopicRow["LastMessageID"].IsNullOrEmptyDBField())
