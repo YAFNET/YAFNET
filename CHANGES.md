@@ -1,6 +1,16 @@
 YetAnotherForum.NET Changelog
 ====================
 
+# YetAnotherForum.NET v2.3.0.03
+* [FIXED #492] relative time tooltips
+* [FIXED] deleting of private messages
+* [FIXED #494] Add as friend button on profile page
+* [FIXED #497] saving forum & category
+* [FIXED #499] saving group
+* [FIXED #498] removed page refresh on the postmessage page
+* [FIXED #500] error on moving topic
+
+
 # YetAnotherForum.NET v2.3.0.02
 ## Fixed Issues:
 * [FIXED] Send Email to Admins on new User Register
@@ -14,7 +24,7 @@ YetAnotherForum.NET Changelog
 * [CHANGES] Empty Tabs on My Friends page show info message
 
  
-* # YetAnotherForum.NET v2.3.0.01
+# YetAnotherForum.NET v2.3.0.01
 ## Fixed Issues:
 * [FIXED] Send Email to Admins on new User Register
 * [FIXED] Search Function when Board has no Messages
