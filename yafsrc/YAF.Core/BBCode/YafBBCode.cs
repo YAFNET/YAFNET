@@ -745,7 +745,10 @@ namespace YAF.Core.BBCode
                 ruleEngine.AddRule(
                     new SyntaxHighlightedCodeRegexReplaceRule(
                         _regexCodeWithLanguage,
-                        @"<div class=""code"">${inner}</div>") { RuleRank = 2 });
+                        @"<div class=""code"">${inner}</div>")
+                        {
+                            RuleRank = 2
+                        });
 
                 // handle custom YafBBCode
                 this.AddCustomBBCodeRules(ruleEngine);
@@ -757,15 +760,20 @@ namespace YAF.Core.BBCode
                 ruleEngine.AddRule(
                     new QuoteRegexReplaceRule(
                         OpenQuoteUserIdRegex,
-                        @"<blockquote class=""blockquote blockquote-custom bg-white p-3 mt-5 shadow rounded"">
-                    <div class=""blockquote-custom-icon bg-info shadow-sm""><i class=""fa fa-quote-left text-white""></i></div>${quote}",
+                        @"<blockquote class=""blockquote blockquote-custom p-3 mt-1 mb-0 border border-secondary rounded"">
+                                         <div class=""blockquote-custom-icon bg-secondary"">
+                                             <i class=""fa fa-quote-left fa-sm text-white""></i>
+                                         </div>${quote}",
                         Options));
 
                 // simple open quote tag
                 var simpleOpenQuoteReplace =
-                    $@"<blockquote class=""blockquote blockquote-custom bg-white p-3 mt-5 shadow rounded"">
-                          <div class=""blockquote-custom-icon bg-info shadow-sm""><i class=""fa fa-quote-left text-white""></i></div>
-                             <footer class=""blockquote-footer pt-1 mt-3""><cite>{localQuoteStr}</cite></footer><p class=""mb-0 mt-2 font-italic"">";
+                    $@"<blockquote class=""blockquote blockquote-custom p-3 mt-1 mb-0 border border-secondary rounded"">
+                          <div class=""blockquote-custom-icon bg-secondary"">
+                              <i class=""fa fa-quote-left fa-sm text-white""></i>
+                          </div>
+                          <footer class=""blockquote-footer pt-1 mt-3""><cite>{localQuoteStr}</cite></footer>
+                          <p class=""mb-0 mt-2 font-italic"">";
 
                 ruleEngine.AddRule(
                     new SimpleRegexReplaceRule(OpenQuoteRegex, simpleOpenQuoteReplace, Options) { RuleRank = 62 });
