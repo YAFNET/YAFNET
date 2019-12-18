@@ -546,7 +546,7 @@ namespace YAF.Pages.Admin
                 this.AccessMaskID.SelectedValue,
                 IsNull(this.remoteurl.Text),
                 themeUrl,
-                this.ForumImages.SelectedIndex > 0 ? this.ForumImages.SelectedValue.Trim() : null,
+                this.ForumImages.SelectedIndex > 0 ? this.ForumImages.SelectedItem.Text : null,
                 this.Styles.Text,
                 false);
 
