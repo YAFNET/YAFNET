@@ -362,6 +362,13 @@
     <Compile Include="controls\ProfileTimeline.ascx.designer.cs">
       <DependentUpon>ProfileTimeline.ascx</DependentUpon>
     </Compile>
+    <Compile Include="Dialogs\MoveTopic.ascx.cs">
+      <DependentUpon>MoveTopic.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Dialogs\MoveTopic.ascx.designer.cs">
+      <DependentUpon>MoveTopic.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Dialogs\UserMedalEdit.ascx.cs">
       <DependentUpon>UserMedalEdit.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -984,9 +991,6 @@
     </Compile>
     <Compile Include="pages\movemessage.ascx.designer.cs">
       <DependentUpon>movemessage.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="pages\movetopic.ascx.designer.cs">
-      <DependentUpon>movetopic.ascx</DependentUpon>
     </Compile>
     <Compile Include="pages\mytopics.ascx.designer.cs">
       <DependentUpon>mytopics.ascx</DependentUpon>
@@ -1903,6 +1907,7 @@
     <Content Include="controls\CookieConsent.ascx" />
     <Content Include="controls\EditUsersSettings.ascx" />
     <Content Include="controls\ProfileTimeline.ascx" />
+    <Content Include="Dialogs\MoveTopic.ascx" />
     <Content Include="Dialogs\UserMedalEdit.ascx" />
     <Content Include="Dialogs\GroupMedalEdit.ascx" />
     <Content Include="Dialogs\QuickReply.ascx" />
@@ -2148,7 +2153,6 @@
     <Content Include="pages\moderate\unapprovedposts.ascx" />
     <Content Include="pages\mod_forumuser.ascx" />
     <Content Include="pages\movemessage.ascx" />
-    <Content Include="pages\movetopic.ascx" />
     <Content Include="pages\mytopics.ascx" />
     <Content Include="pages\pmessage.ascx" />
     <Content Include="pages\polledit.ascx" />
@@ -3096,10 +3100,6 @@
       <DependentUpon>movemessage.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="pages\movetopic.ascx.cs">
-      <DependentUpon>movetopic.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
     <Compile Include="pages\mytopics.ascx.cs">
       <DependentUpon>mytopics.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -3443,7 +3443,7 @@
     <PreBuildEvent>
     </PreBuildEvent>
     <PostBuildEvent>del YAF.dll.config
-</PostBuildEvent>
+RD /S /Q "$(TargetDir)bin\"</PostBuildEvent>
   </PropertyGroup>
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
