@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<wsdl:definitions xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://yetanotherforum.net/RegisterV2" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://yetanotherforum.net/RegisterV2" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+<wsdl:definitions xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="https://yetanotherforum.net/RegisterV2" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="https://yetanotherforum.net/RegisterV2" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
   <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">YAF.NET Registration v2</wsdl:documentation>
   <wsdl:types>
-    <s:schema elementFormDefault="qualified" targetNamespace="http://yetanotherforum.net/RegisterV2">
+    <s:schema elementFormDefault="qualified" targetNamespace="https://yetanotherforum.net/RegisterV2">
       <s:element name="LatestInfo">
         <s:complexType>
           <s:sequence>
@@ -160,7 +160,7 @@
   <wsdl:binding name="RegisterV2Soap" type="tns:RegisterV2Soap">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
     <wsdl:operation name="LatestInfo">
-      <soap:operation soapAction="http://yetanotherforum.net/RegisterV2/LatestInfo" style="document" />
+      <soap:operation soapAction="https://yetanotherforum.net/RegisterV2/LatestInfo" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -169,7 +169,7 @@
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="LatestVersion">
-      <soap:operation soapAction="http://yetanotherforum.net/RegisterV2/LatestVersion" style="document" />
+      <soap:operation soapAction="https://yetanotherforum.net/RegisterV2/LatestVersion" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -178,7 +178,7 @@
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="LatestVersionDate">
-      <soap:operation soapAction="http://yetanotherforum.net/RegisterV2/LatestVersionDate" style="document" />
+      <soap:operation soapAction="https://yetanotherforum.net/RegisterV2/LatestVersionDate" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -187,7 +187,7 @@
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="RegisterForum">
-      <soap:operation soapAction="http://yetanotherforum.net/RegisterV2/RegisterForum" style="document" />
+      <soap:operation soapAction="https://yetanotherforum.net/RegisterV2/RegisterForum" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -199,7 +199,7 @@
   <wsdl:binding name="RegisterV2Soap12" type="tns:RegisterV2Soap">
     <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
     <wsdl:operation name="LatestInfo">
-      <soap12:operation soapAction="http://yetanotherforum.net/RegisterV2/LatestInfo" style="document" />
+      <soap12:operation soapAction="https://yetanotherforum.net/RegisterV2/LatestInfo" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -208,7 +208,7 @@
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="LatestVersion">
-      <soap12:operation soapAction="http://yetanotherforum.net/RegisterV2/LatestVersion" style="document" />
+      <soap12:operation soapAction="https://yetanotherforum.net/RegisterV2/LatestVersion" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -217,7 +217,7 @@
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="LatestVersionDate">
-      <soap12:operation soapAction="http://yetanotherforum.net/RegisterV2/LatestVersionDate" style="document" />
+      <soap12:operation soapAction="https://yetanotherforum.net/RegisterV2/LatestVersionDate" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -226,7 +226,7 @@
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="RegisterForum">
-      <soap12:operation soapAction="http://yetanotherforum.net/RegisterV2/RegisterForum" style="document" />
+      <soap12:operation soapAction="https://yetanotherforum.net/RegisterV2/RegisterForum" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -277,13 +277,13 @@
   <wsdl:service name="RegisterV2">
     <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">YAF.NET Registration v2</wsdl:documentation>
     <wsdl:port name="RegisterV2Soap" binding="tns:RegisterV2Soap">
-      <soap:address location="http://yetanotherforum.net/RegisterV2.asmx" />
+      <soap:address location="https://yetanotherforum.net/RegisterV2.asmx" />
     </wsdl:port>
     <wsdl:port name="RegisterV2Soap12" binding="tns:RegisterV2Soap12">
-      <soap12:address location="http://yetanotherforum.net/RegisterV2.asmx" />
+      <soap12:address location="https://yetanotherforum.net/RegisterV2.asmx" />
     </wsdl:port>
     <wsdl:port name="RegisterV2HttpGet" binding="tns:RegisterV2HttpGet">
-      <http:address location="http://yetanotherforum.net/RegisterV2.asmx" />
+      <http:address location="https://yetanotherforum.net/RegisterV2.asmx" />
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>

@@ -2,7 +2,7 @@
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
 * Copyright (C) 2014-2019 Ingo Herbote
- * http://www.yetanotherforum.net/
+ * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -31,6 +31,7 @@ namespace YAF.Core.Tasks
 
     using YAF.Configuration;
     using YAF.Core.Model;
+    using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
@@ -42,10 +43,6 @@ namespace YAF.Core.Tasks
     /// </summary>
     public class UpdateSearchIndexTask : LongBackgroundTask
     {
-        #region Constants and Fields
-
-        #endregion
-
         #region Constructors and Destructors
 
         /// <summary>
@@ -82,7 +79,6 @@ namespace YAF.Core.Tasks
 
                 if (YafContext.Current == null)
                 {
-                    this.Logger.Info("Current null");
                     return;
                 }
 
@@ -102,7 +98,11 @@ namespace YAF.Core.Tasks
                             this.Get<ISearch>().AddSearchIndexAsync(messages).Wait();
                         });
 
-                this.Logger.Info("search index updated");
+                this.Get<ILogger>().Log(
+                    "search index updated",
+                    EventLogTypes.Information,
+                    null,
+                    "Update Search Index Task");
             }
             catch (Exception x)
             {
