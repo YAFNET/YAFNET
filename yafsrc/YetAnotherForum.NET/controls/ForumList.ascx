@@ -34,7 +34,7 @@
                                        Visible='<%# this.HasSubForums((System.Data.DataRow)Container.DataItem) %>' />
             </div>
             <asp:PlaceHolder runat="server" Visible='<%# ((System.Data.DataRow)Container.DataItem)["RemoteURL"].IsNullOrEmptyDBField() %>'>
-                <div class="col-md-2">
+                <div class="col-md-2 text-secondary">
                     <div class="d-flex flex-row flex-md-column justify-content-between justify-content-md-start">
                         <div>
                             <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server"
@@ -48,9 +48,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4">
-                    <YAF:ForumLastPost ID="lastPost" runat="server"
-                                       DataRow="<%# (System.Data.DataRow)Container.DataItem %>"/>
+                <div class="col-md-4 text-secondary">
+                    <YAF:ForumLastPost ID="lastPost" runat="server" DataRow="<%# (System.Data.DataRow)Container.DataItem %>"/>
                 </div>
             </asp:PlaceHolder>
         </div>

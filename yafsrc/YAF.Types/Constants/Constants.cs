@@ -37,11 +37,6 @@ namespace YAF.Types.Constants
             #region Constants and Fields
 
             /// <summary>
-            /// The Album count for the User.
-            /// </summary>
-            public const string AlbumCountUser = "AlbumCountUser{0}";
-
-            /// <summary>
             ///   The active discussions.
             /// </summary>
             public const string ActiveDiscussions = "ActiveDiscussions";
@@ -126,7 +121,6 @@ namespace YAF.Types.Constants
             /// </summary>
             public const string GuestGroupsCache = "GuestGroupsCache";
             
-
             /// <summary>
             ///   The group rank styles.
             /// </summary>
@@ -206,88 +200,6 @@ namespace YAF.Types.Constants
             /// The Visitors In The Last 30 Days
             /// </summary>
             public const string VisitorsInTheLast30Days = "VisitorsInTheLast30Days";
-
-            #endregion
-        }
-
-        /// <summary>
-        /// Constants for UserBox templating
-        /// </summary>
-        public struct UserBox
-        {
-            #region Constants and Fields
-
-            /// <summary>
-            ///   The avatar.
-            /// </summary>
-            public const string Avatar = @"<yaf:avatar\s*/>";
-
-            /// <summary>
-            ///   The display template default.
-            /// </summary>
-            public const string DisplayTemplateDefault =
-              @"<yaf:avatar /><yaf:rankimage /><yaf:rank /><yaf:reputation /><yaf:medals /><yaf:groups /><yaf:joindate /><yaf:posts /><yaf:gender /><yaf:countryimage /><yaf:location /><yaf:thanksfrom /><yaf:thanksto />";
-
-            /// <summary>
-            ///   The gender.
-            /// </summary>
-            public const string Gender = @"<yaf:gender\s*/>";
-
-            /// <summary>
-            ///   The groups.
-            /// </summary>
-            public const string Groups = @"<yaf:groups\s*/>";
-
-            /// <summary>
-            ///   The join date.
-            /// </summary>
-            public const string JoinDate = @"<yaf:joindate\s*/>";
-
-            /// <summary>
-            ///   The location.
-            /// </summary>
-            public const string Location = @"<yaf:location\s*/>";
-            
-
-            /// <summary>
-            ///   The rank image.
-            /// </summary>
-            public const string CountryImage = @"<yaf:countryimage\s*/>";
-
-            /// <summary>
-            ///   The medals.
-            /// </summary>
-            public const string Medals = @"<yaf:medals\s*/>";
-
-            /// <summary>
-            ///   The Reputation (points).
-            /// </summary>
-            public const string Reputation = @"<yaf:reputation\s*/>";
-
-            /// <summary>
-            ///   The posts.
-            /// </summary>
-            public const string Posts = @"<yaf:posts\s*/>";
-
-            /// <summary>
-            ///   The rank.
-            /// </summary>
-            public const string Rank = @"<yaf:rank\s*/>";
-
-            /// <summary>
-            ///   The rank image.
-            /// </summary>
-            public const string RankImage = @"<yaf:rankimage\s*/>";
-
-            /// <summary>
-            ///   The thanks from.
-            /// </summary>
-            public const string ThanksFrom = @"<yaf:thanksfrom\s*/>";
-
-            /// <summary>
-            ///   The thanks to.
-            /// </summary>
-            public const string ThanksTo = @"<yaf:thanksto\s*/>";
 
             #endregion
         }

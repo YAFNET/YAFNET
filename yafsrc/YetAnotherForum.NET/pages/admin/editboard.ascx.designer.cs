@@ -7,11 +7,13 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace YAF.Pages.Admin {
-    
-    
-    public partial class editboard {
-        
+namespace YAF.Pages.Admin
+{
+
+
+    public partial class editboard
+    {
+
         /// <summary>
         /// PageLinks control.
         /// </summary>
@@ -20,7 +22,7 @@ namespace YAF.Pages.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::YAF.Web.Controls.PageLinks PageLinks;
-        
+
         /// <summary>
         /// UppdatePanel1 control.
         /// </summary>
@@ -29,7 +31,7 @@ namespace YAF.Pages.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.UpdatePanel UppdatePanel1;
-        
+
         /// <summary>
         /// LocalizedLabel1 control.
         /// </summary>
@@ -38,7 +40,7 @@ namespace YAF.Pages.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel1;
-        
+
         /// <summary>
         /// LocalizedLabel6 control.
         /// </summary>
@@ -47,7 +49,7 @@ namespace YAF.Pages.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel6;
-        
+
         /// <summary>
         /// HelpLabel1 control.
         /// </summary>
@@ -56,7 +58,7 @@ namespace YAF.Pages.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::YAF.Web.Controls.HelpLabel HelpLabel1;
-        
+
         /// <summary>
         /// Name control.
         /// </summary>
@@ -65,7 +67,7 @@ namespace YAF.Pages.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox Name;
-        
+
         /// <summary>
         /// HelpLabel2 control.
         /// </summary>
@@ -74,7 +76,7 @@ namespace YAF.Pages.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::YAF.Web.Controls.HelpLabel HelpLabel2;
-        
+
         /// <summary>
         /// Culture control.
         /// </summary>
@@ -83,25 +85,7 @@ namespace YAF.Pages.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList Culture;
-        
-        /// <summary>
-        /// HelpLabel3 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Web.Controls.HelpLabel HelpLabel3;
-        
-        /// <summary>
-        /// AllowThreaded control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox AllowThreaded;
-        
+
         /// <summary>
         /// BoardMembershipAppNameHolder control.
         /// </summary>
@@ -110,7 +94,7 @@ namespace YAF.Pages.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.PlaceHolder BoardMembershipAppNameHolder;
-        
+
         /// <summary>
         /// HelpLabel4 control.
         /// </summary>
@@ -119,7 +103,7 @@ namespace YAF.Pages.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::YAF.Web.Controls.HelpLabel HelpLabel4;
-        
+
         /// <summary>
         /// BoardMembershipAppName control.
         /// </summary>
@@ -128,7 +112,7 @@ namespace YAF.Pages.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox BoardMembershipAppName;
-        
+
         /// <summary>
         /// CreateNewAdminHolder control.
         /// </summary>
@@ -137,7 +121,7 @@ namespace YAF.Pages.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.PlaceHolder CreateNewAdminHolder;
-        
+
         /// <summary>
         /// HelpLabel5 control.
         /// </summary>
@@ -146,7 +130,7 @@ namespace YAF.Pages.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::YAF.Web.Controls.HelpLabel HelpLabel5;
-        
+
         /// <summary>
         /// CreateAdminUser control.
         /// </summary>
@@ -155,7 +139,7 @@ namespace YAF.Pages.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox CreateAdminUser;
-        
+
         /// <summary>
         /// AdminInfo control.
         /// </summary>
@@ -164,7 +148,7 @@ namespace YAF.Pages.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.PlaceHolder AdminInfo;
-        
+
         /// <summary>
         /// LocalizedLabel2 control.
         /// </summary>
@@ -173,7 +157,7 @@ namespace YAF.Pages.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel2;
-        
+
         /// <summary>
         /// HelpLabel6 control.
         /// </summary>
@@ -182,7 +166,7 @@ namespace YAF.Pages.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::YAF.Web.Controls.HelpLabel HelpLabel6;
-        
+
         /// <summary>
         /// UserName control.
         /// </summary>
@@ -191,7 +175,7 @@ namespace YAF.Pages.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox UserName;
-        
+
         /// <summary>
         /// HelpLabel7 control.
         /// </summary>
@@ -200,7 +184,7 @@ namespace YAF.Pages.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::YAF.Web.Controls.HelpLabel HelpLabel7;
-        
+
         /// <summary>
         /// UserEmail control.
         /// </summary>
@@ -209,7 +193,7 @@ namespace YAF.Pages.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox UserEmail;
-        
+
         /// <summary>
         /// HelpLabel8 control.
         /// </summary>
@@ -218,7 +202,7 @@ namespace YAF.Pages.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::YAF.Web.Controls.HelpLabel HelpLabel8;
-        
+
         /// <summary>
         /// UserPass1 control.
         /// </summary>
@@ -227,7 +211,7 @@ namespace YAF.Pages.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox UserPass1;
-        
+
         /// <summary>
         /// HelpLabel9 control.
         /// </summary>
@@ -236,7 +220,7 @@ namespace YAF.Pages.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::YAF.Web.Controls.HelpLabel HelpLabel9;
-        
+
         /// <summary>
         /// UserPass2 control.
         /// </summary>
@@ -245,7 +229,7 @@ namespace YAF.Pages.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox UserPass2;
-        
+
         /// <summary>
         /// HelpLabel10 control.
         /// </summary>
@@ -254,7 +238,7 @@ namespace YAF.Pages.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::YAF.Web.Controls.HelpLabel HelpLabel10;
-        
+
         /// <summary>
         /// UserPasswordQuestion control.
         /// </summary>
@@ -263,7 +247,7 @@ namespace YAF.Pages.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox UserPasswordQuestion;
-        
+
         /// <summary>
         /// HelpLabel11 control.
         /// </summary>
@@ -272,7 +256,7 @@ namespace YAF.Pages.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::YAF.Web.Controls.HelpLabel HelpLabel11;
-        
+
         /// <summary>
         /// UserPasswordAnswer control.
         /// </summary>
@@ -281,7 +265,7 @@ namespace YAF.Pages.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox UserPasswordAnswer;
-        
+
         /// <summary>
         /// Save control.
         /// </summary>
@@ -290,7 +274,7 @@ namespace YAF.Pages.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::YAF.Web.Controls.ThemeButton Save;
-        
+
         /// <summary>
         /// Cancel control.
         /// </summary>

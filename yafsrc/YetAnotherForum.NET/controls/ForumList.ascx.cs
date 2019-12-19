@@ -290,7 +290,7 @@ namespace YAF.Controls
                 if (forumImage != null)
                 {
                     forumImage.ImageUrl =
-                        $"{YafForumInfo.ForumServerFileRoot}{YafBoardFolders.Current.Forums}/{row["ImageUrl"]}";
+                        $"{YafForumInfo.ForumClientFileRoot}{YafBoardFolders.Current.Forums}/{row["ImageUrl"]}";
 
                     // Highlight custom icon images and add tool tips to them. 
                     try

@@ -63,50 +63,86 @@ namespace YAF.Types.Models
         [Alias("RankID")]
         public int ID { get; set; }
 
+        /// <summary>
+        /// Gets or sets the board id.
+        /// </summary>
         [References(typeof(Board))]
         [Required]
         public int BoardID { get; set; }
 
+        /// <summary>
+        /// Gets or sets the name.
+        /// </summary>
         [Required]
         [StringLength(50)]
         public string Name { get; set; }
 
+        /// <summary>
+        /// Gets or sets the min posts.
+        /// </summary>
         public int? MinPosts { get; set; }
 
-        [StringLength(50)]
-        public string RankImage { get; set; }
-
+        /// <summary>
+        /// Gets or sets the flags.
+        /// </summary>
         [Required]
         [Default(0)]
         public int Flags { get; set; }
 
+        /// <summary>
+        /// Gets or sets the pm limit.
+        /// </summary>
         [Default(0)]
         public int? PMLimit { get; set; }
 
+        /// <summary>
+        /// Gets or sets the style.
+        /// </summary>
         [StringLength(255)]
         public string Style { get; set; }
 
+        /// <summary>
+        /// Gets or sets the sort order.
+        /// </summary>
         [Required]
         [Default(0)]
         public short SortOrder { get; set; }
 
+        /// <summary>
+        /// Gets or sets the description.
+        /// </summary>
         [StringLength(128)]
         public string Description { get; set; }
 
+        /// <summary>
+        /// Gets or sets the usr sig chars.
+        /// </summary>
         [Required]
         [Default(0)]
         public int UsrSigChars { get; set; }
 
+        /// <summary>
+        /// Gets or sets the usr sig bb codes.
+        /// </summary>
         [StringLength(255)]
         public string UsrSigBBCodes { get; set; }
 
+        /// <summary>
+        /// Gets or sets the usr sig html tags.
+        /// </summary>
         [StringLength(255)]
         public string UsrSigHTMLTags { get; set; }
 
+        /// <summary>
+        /// Gets or sets the usr albums.
+        /// </summary>
         [Required]
         [Default(0)]
         public int UsrAlbums { get; set; }
 
+        /// <summary>
+        /// Gets or sets the usr album images.
+        /// </summary>
         [Required]
         [Default(0)]
         public int UsrAlbumImages { get; set; }

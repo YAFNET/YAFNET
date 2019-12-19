@@ -34,7 +34,7 @@
                             <span class="font-weight-bold">
                                 <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="POSTED" />
                             </span>
-                            <%# this.Get<IDateTime>().FormatDateTimeShort( Convert.ToDateTime( this.Eval( "Posted" ) ) )%>
+                            <%# this.Get<IDateTime>().FormatDateTimeShort(this.Eval("Posted").ToType<DateTime>())%>
                             <span class="font-weight-bold">
                                 <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" 
                                                     LocalizedTag="POSTEDBY" LocalizedPage="REPORTPOST" />

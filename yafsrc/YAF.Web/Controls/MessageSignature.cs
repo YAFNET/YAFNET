@@ -88,12 +88,18 @@ namespace YAF.Web.Controls
             writer.Write("<hr />");
 
             writer.WriteBeginTag("div");
-            writer.WriteAttribute("class", "yafsignature");
+            writer.WriteAttribute("class", "card border-light card-message-signature");
+            writer.Write(HtmlTextWriter.TagRightChar);
+
+            writer.WriteBeginTag("div");
+            writer.WriteAttribute("class", "card-body");
             writer.Write(HtmlTextWriter.TagRightChar);
 
             this.RenderSignature(writer);
 
             base.Render(writer);
+
+            writer.WriteEndTag("div");
 
             writer.WriteEndTag("div");
 

@@ -138,8 +138,7 @@
                 <div class="row">
                     <asp:panel id="panMessage" runat="server">
                             <YAF:MessagePostData runat="server"
-                                                 DataRow="<%# this.DataRow %>" 
-                                                 IsAltMessage="<%# this.IsAlt %>"
+                                                 DataRow="<%# this.DataRow %>"
                                                  ShowEditMessage="True">
                             </YAF:MessagePostData>
                         </asp:panel>

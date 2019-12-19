@@ -286,14 +286,12 @@ namespace YAF.Core.Model
         /// <param name="name">The name.</param>
         /// <param name="languageFile">The language file.</param>
         /// <param name="culture">The culture.</param>
-        /// <param name="allowThreaded">The allow threaded.</param>
         public static void Save(
             this IRepository<Board> repository,
             int boardID,
             string name,
             string languageFile,
-            string culture,
-            bool allowThreaded)
+            string culture)
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
@@ -301,8 +299,7 @@ namespace YAF.Core.Model
                 BoardID: boardID,
                 Name: name,
                 LanguageFile: languageFile,
-                Culture: culture,
-                AllowThreaded: allowThreaded);
+                Culture: culture);
 
             repository.FireUpdated(boardID);
         }

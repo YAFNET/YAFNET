@@ -104,31 +104,8 @@ namespace YAF.Web.Controls
             set
             {
                 this.TopicRow = value as DataRowView;
-                this.TopicRowID = this.TopicRow["LinkTopicID"].ToType<int>();
+                this.TopicRowID = this.TopicRow?["LinkTopicID"].ToType<int>();
             }
-        }
-
-        /// <summary>
-        ///   Gets or sets a value indicating whether IsAlt.
-        /// </summary>
-        public bool IsAlt { get; set; }
-
-        /// <summary>
-        ///   Gets or sets a value indicating whether ShowTopicPosted.
-        /// </summary>
-        public bool ShowTopicPosted
-        {
-            get
-            {
-                if (this.ViewState["ShowTopicPosted"] == null)
-                {
-                    return true;
-                }
-
-                return (bool)this.ViewState["ShowTopicPosted"];
-            }
-
-            set => this.ViewState["ShowTopicPosted"] = value;
         }
 
         /// <summary>
@@ -263,7 +240,7 @@ namespace YAF.Web.Controls
 
             if (pager.IsSet())
             {
-                writer.Write(" - <div class=\"btn-group btn-group-sm mb-1\" role=\"group\" aria-label\"topic pager\">{0}</div>", pager);
+                writer.Write("&nbsp;<div class=\"btn-group btn-group-sm mb-1\" role=\"group\" aria-label\"topic pager\">{0}</div>", pager);
             }
 
             // Render Info Topic Starter
@@ -274,8 +251,9 @@ namespace YAF.Web.Controls
                                        Type = ButtonAction.OutlineInfo,
                                        DataToggle = "popover",
                                        CssClass = "topic-starter-popover ml-1",
-                                       NavigateUrl = "#!"
-                                   };
+                                       NavigateUrl = "#!",
+                                       TextLocalizedTag = "TOPIC_STARTER"
+            };
 
             var topicStartedDateTime = this.TopicRow["Posted"].ToType<DateTime>();
 
@@ -311,7 +289,7 @@ namespace YAF.Web.Controls
             writer.Write(" </h5>");
 
             writer.Write("</div>");
-            writer.Write("<div class=\"col-md-2\">");
+            writer.Write("<div class=\"col-md-2 text-secondary\">");
             writer.Write("<div class=\"d-flex flex-row flex-md-column justify-content-between justify-content-md-start\">");
             writer.Write("<div>");
             writer.Write("{0}: ", this.GetText("MODERATE", "REPLIES"));
@@ -326,10 +304,9 @@ namespace YAF.Web.Controls
 
             if (!this.TopicRow["LastMessageID"].IsNullOrEmptyDBField())
             {
-                writer.Write("<div class=\"col-md-4\">");
-                writer.Write("<h6 class=\"text-secondary\">");
+                writer.Write("<div class=\"col-md-4 text-secondary\">");
 
-                writer.Write($"{this.GetText("LASTPOST")}&nbsp;");
+                writer.Write($"{this.GetText("LASTPOST")}:&nbsp;");
                 
                 var infoLastPost = new ThemeButton
                                        {
@@ -402,7 +379,6 @@ namespace YAF.Web.Controls
                 writer.Write(gotoLastPost.RenderToString());
                 writer.Write(gotoLastUnread.RenderToString());
                 
-                writer.Write("</h6>");
                 writer.Write("</div>");
             }
 

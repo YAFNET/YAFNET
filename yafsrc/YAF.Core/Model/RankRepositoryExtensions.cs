@@ -54,9 +54,6 @@ namespace YAF.Core.Model
         /// <param name="minPosts">
         /// The min posts.
         /// </param>
-        /// <param name="rankImage">
-        /// The rank image.
-        /// </param>
         /// <param name="pmLimit">
         /// The pm limit.
         /// </param>
@@ -91,7 +88,6 @@ namespace YAF.Core.Model
             [NotNull] object isStart,
             [NotNull] object isLadder,
             [NotNull] object minPosts,
-            [NotNull] object rankImage,
             [NotNull] object pmLimit,
             [NotNull] object style,
             [NotNull] object sortOrder,
@@ -109,7 +105,6 @@ namespace YAF.Core.Model
                 IsStart: isStart,
                 IsLadder: isLadder,
                 MinPosts: minPosts,
-                RankImage: rankImage,
                 PMLimit: pmLimit,
                 Style: style,
                 SortOrder: sortOrder,

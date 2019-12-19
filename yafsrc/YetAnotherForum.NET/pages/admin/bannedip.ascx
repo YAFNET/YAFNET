@@ -133,7 +133,7 @@
                                      TextLocalizedTag="IMPORT_IPS" TextLocalizedPage="ADMIN_BANNEDIP"></YAF:ThemeButton>
                     &nbsp;
                     <YAF:ThemeButton runat="server" 
-                                     CommandName='export' 
+                                     CommandName="export" 
                                      ID="Linkbutton4" 
                                      Type="Warning" 
                                      Icon="download" 

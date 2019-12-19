@@ -59,11 +59,6 @@ namespace YAF.Web.Controls
         #region Properties
 
         /// <summary>
-        ///   Gets or sets a value indicating whether IsAlt.
-        /// </summary>
-        public bool IsAltMessage { get; set; }
-
-        /// <summary>
         ///   Sets the DataRow.
         /// </summary>
         public DataRow DataRow
@@ -179,8 +174,6 @@ namespace YAF.Web.Controls
                 {
                     this.DisplayUserID = this.CurrentMessage.UserID;
                 }
-
-                this.IsAlt = this.IsAltMessage;
 
                 if (this.ShowAttachments)
                 {

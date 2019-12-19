@@ -120,11 +120,6 @@ namespace YAF.Configuration
         public int BoardID => this._boardID;
 
         /// <summary>
-        /// Gets a value indicating whether AllowThreaded.
-        /// </summary>
-        public bool AllowThreaded => this._legacyBoardSettings.AllowThreaded;
-
-        /// <summary>
         /// Gets or sets a value indicating whether to enable Display Name.
         /// </summary>
         public bool EnableDisplayName
@@ -1302,16 +1297,6 @@ namespace YAF.Configuration
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether ShowLastUnreadPost is enabled.
-        /// </summary>
-        public bool ShowLastUnreadPost
-        {
-            get => this._reg.GetValue("ShowLastUnreadPost", true);
-
-            set => this._reg.SetValue("ShowLastUnreadPost", value);
-        }
-
-        /// <summary>
         /// Gets or sets a value indicating whether Enable IP Info Service.
         /// </summary>
         public bool EnableIPInfoService
@@ -1362,16 +1347,6 @@ namespace YAF.Configuration
             get => this._reg.GetValue("ShowMoved", true);
 
             set => this._reg.SetValue("ShowMoved", value);
-        }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether if an avatar is should be shown in the topic listings.
-        /// </summary>
-        public bool ShowAvatarsInTopic
-        {
-            get => this._reg.GetValue("ShowAvatarsInTopic", false);
-
-            set => this._reg.SetValue("ShowAvatarsInTopic", value);
         }
 
         /// <summary>

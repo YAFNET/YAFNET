@@ -212,7 +212,6 @@ namespace YAF.Core
 
             return new YafLegacyBoardSettings(
                 board.Name, 
-                board.AllowThreaded, 
                 membershipAppName, 
                 rolesAppName);
         }

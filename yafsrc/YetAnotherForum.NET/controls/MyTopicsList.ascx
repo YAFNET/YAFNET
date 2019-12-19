@@ -33,7 +33,7 @@
                     <asp:DropDownList ID="Since" runat="server" 
                                       AutoPostBack="True" 
                                       OnSelectedIndexChanged="Since_SelectedIndexChanged" 
-                                      CssClass="select2-select" />
+                                      CssClass="select2-select custom-select" />
                 </div>
             </div>
         </div>

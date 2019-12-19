@@ -29,11 +29,20 @@ namespace YAF.Types.Models
 
     using YAF.Types.Interfaces.Data;
 
+    /// <summary>
+    /// The board.
+    /// </summary>
     [Serializable]
     public partial class Board : IEntity, IHaveID
     {
+        /// <summary>
+        /// The on created.
+        /// </summary>
         partial void OnCreated();
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Board"/> class.
+        /// </summary>
         public Board()
         {
             this.OnCreated();
@@ -41,20 +50,29 @@ namespace YAF.Types.Models
 
         #region Properties
 
+        /// <summary>
+        /// Gets or sets the id.
+        /// </summary>
         [AutoIncrement]
         [Alias("BoardID")]
         public int ID { get; set; }
 
+        /// <summary>
+        /// Gets or sets the name.
+        /// </summary>
         [Required]
         [StringLength(50)]
         public string Name { get; set; }
 
-        [Required]
-        public bool AllowThreaded { get; set; }
-
+        /// <summary>
+        /// Gets or sets the membership app name.
+        /// </summary>
         [StringLength(255)]
         public string MembershipAppName { get; set; }
 
+        /// <summary>
+        /// Gets or sets the roles app name.
+        /// </summary>
         [StringLength(255)]
         public string RolesAppName { get; set; }
 

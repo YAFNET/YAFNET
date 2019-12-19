@@ -1414,15 +1414,7 @@
                 </div>
             </div>
         </div>
-    <div class="form-group">
-            <YAF:HelpLabel ID="HelpLabel153" runat="server" 
-                           AssociatedControlID="ShowAvatarsInTopic"
-                           LocalizedTag="SHOW_AVATARS_TOPICLISTS" LocalizedPage="ADMIN_HOSTSETTINGS" />
-            <div class="custom-control custom-switch">
-                <asp:CheckBox Text="&nbsp;" ID="ShowAvatarsInTopic" runat="server"></asp:CheckBox>
-            </div>
-        </div>
-    <div class="form-row">
+                    <div class="form-row">
         <div class="form-group col-md-6">
             <YAF:HelpLabel ID="HelpLabel167" runat="server" 
                            AssociatedControlID="ShowGroups"

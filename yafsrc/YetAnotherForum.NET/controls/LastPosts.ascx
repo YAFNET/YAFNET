@@ -36,7 +36,6 @@
                                          ShowAttachments="false">
                     </YAF:MessagePostData>
                 </div>
-
             </div>
             <div class="card-footer">
                 <small class="text-muted">

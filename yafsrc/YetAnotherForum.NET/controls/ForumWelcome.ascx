@@ -8,6 +8,7 @@
             <i class="fa fa-calendar-day fa-stack-1x text-secondary"></i>
             <i class="fa fa-circle fa-badge-bg fa-inverse fa-outline-inverse"></i>
             <i class="fa fa-clock fa-badge text-secondary"></i>
-        </span>&nbsp;<asp:Label ID="TimeLastVisit" runat="server" />
+        </span>
+        <asp:Label ID="TimeLastVisit" runat="server" />
     </asp:PlaceHolder>
 </div>

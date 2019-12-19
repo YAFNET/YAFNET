@@ -62,7 +62,7 @@
                     <SeparatorTemplate>
                         <div class="row">
                             <div class="col">
-                                <hr class="mb-2 mt-1"/>
+                                <hr/>
                             </div>
                         </div>
                     </SeparatorTemplate>
@@ -70,7 +70,7 @@
                         <asp:PlaceHolder runat="server" Visible="<%# this.Announcements.Items.Count > 0 %>">
                             <div class="row">
                                 <div class="col">
-                                    <hr class="mb-2 mt-1"/>
+                                    <hr />
                                 </div>
                             </div>
                         </asp:PlaceHolder>
@@ -84,7 +84,7 @@
                     <SeparatorTemplate>
                         <div class="row">
                             <div class="col">
-                                <hr class="mb-2 mt-1"/>
+                                <hr />
                             </div>
                         </div>
                     </SeparatorTemplate>

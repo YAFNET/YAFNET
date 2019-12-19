@@ -95,7 +95,7 @@ namespace YAF.Controls
 
             var content = new StringBuilder();
 
-            content.Append(@"<ul class=""list-unstyled"">");
+            content.Append(@"<ol class=""list-unstyled"">");
 
             this.DataSource.Cast<DataRow>().ForEach(
                 row =>
@@ -127,10 +127,10 @@ namespace YAF.Controls
                         content.Append(@"</li>");
                     });
 
-            content.Append("</ul>");
+            content.Append("</ol>");
 
             this.ShowMods.DataContent = content.ToString().Replace("\"", "'");
-            this.ShowMods.Text = this.GetText("SHOW") + this.GetText("DEFAULT", "MODERATORS");
+            this.ShowMods.Text = $"{this.GetText("SHOW")} {this.GetText("DEFAULT", "MODERATORS")}";
         }
 
         #endregion

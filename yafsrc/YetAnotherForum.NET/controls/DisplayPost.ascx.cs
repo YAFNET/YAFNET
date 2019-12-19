@@ -88,19 +88,9 @@ namespace YAF.Controls
         public DataRow DataRow { get; set; }
 
         /// <summary>
-        ///   Gets or sets a value indicating whether IsAlt.
-        /// </summary>
-        public bool IsAlt { get; set; }
-
-        /// <summary>
         ///   Gets a value indicating whether IsGuest.
         /// </summary>
         public bool IsGuest => this.PostData == null || UserMembershipHelper.IsGuestUser(this.PostData.UserId);
-
-        /// <summary>
-        ///   Gets or sets a value indicating whether IsThreaded.
-        /// </summary>
-        public bool IsThreaded { get; set; }
 
         /// <summary>
         ///   Gets or sets Post Count.
@@ -233,18 +223,6 @@ namespace YAF.Controls
             sb.Append("</ol>");
 
             return sb.ToString();
-        }
-
-        /// <summary>
-        /// The get post class.
-        /// </summary>
-        /// <returns>
-        /// Returns the post class.
-        /// </returns>
-        [NotNull]
-        protected string GetPostClass()
-        {
-            return this.IsAlt ? "post_alt" : "post";
         }
 
         /// <summary>

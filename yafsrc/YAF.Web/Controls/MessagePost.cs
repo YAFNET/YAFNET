@@ -50,16 +50,6 @@ namespace YAF.Web.Controls
         #region Properties
 
         /// <summary>
-        ///   Gets or sets a value indicating whether IsAlt.
-        /// </summary>
-        public virtual bool IsAlt
-        {
-            get => this.ViewState["IsAlt"] != null && Convert.ToBoolean(this.ViewState["IsAlt"]);
-
-            set => this.ViewState["IsAlt"] = value;
-        }
-
-        /// <summary>
         ///   Gets or sets DisplayUserID.
         /// </summary>
         public virtual int? DisplayUserID

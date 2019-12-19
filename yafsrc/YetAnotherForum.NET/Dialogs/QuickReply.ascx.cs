@@ -438,6 +438,7 @@ namespace YAF.Dialogs
                     }
 
                     var url = YafBuildLink.GetLink(ForumPages.topics, "f={0}", this.PageContext.PageForumID);
+
                     if (Config.IsRainbow)
                     {
                         YafBuildLink.Redirect(ForumPages.info, "i=1");

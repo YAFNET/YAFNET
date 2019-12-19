@@ -706,7 +706,6 @@ if not exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{d
 		BoardID			 int NOT NULL,
 		Name			 nvarchar (50) NOT NULL,
 		MinPosts		 int NULL,
-		RankImage		 nvarchar (50) NULL,
 		Flags			 int not null constraint [DF_{objectQualifier}Rank_Flags] default (0),
 	    [PMLimit]        [int] NULL,
 	    [Style]          [nvarchar](255) NULL,
@@ -763,7 +762,6 @@ begin
 	create table [{databaseOwner}].[{objectQualifier}Board](
 		BoardID			int IDENTITY (1,1) NOT NULL,
 		Name			nvarchar(50) NOT NULL,
-		AllowThreaded	bit NOT NULL,
 		MembershipAppName nvarchar(255) NULL,
 		RolesAppName nvarchar(255) NULL,
  constraint [PK_{objectQualifier}Board] PRIMARY KEY CLUSTERED 

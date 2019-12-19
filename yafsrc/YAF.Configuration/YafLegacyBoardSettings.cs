@@ -40,14 +40,12 @@ namespace YAF.Configuration
         /// Initializes a new instance of the <see cref="YafLegacyBoardSettings" /> class.
         /// </summary>
         /// <param name="boardName">The board name.</param>
-        /// <param name="allowThreaded">The allow threaded.</param>
         /// <param name="membershipAppName">The membership app name.</param>
         /// <param name="rolesAppName">The roles app name.</param>
-        public YafLegacyBoardSettings(string boardName, bool allowThreaded, string membershipAppName, string rolesAppName)
+        public YafLegacyBoardSettings(string boardName, string membershipAppName, string rolesAppName)
             : this()
         {
             this.BoardName = boardName;
-            this.AllowThreaded = allowThreaded;
             this.MembershipAppName = membershipAppName;
             this.RolesAppName = rolesAppName;
         }
@@ -56,15 +54,6 @@ namespace YAF.Configuration
         /// Gets or sets BoardName.
         /// </summary>
         public string BoardName
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether AllowThreaded.
-        /// </summary>
-        public bool AllowThreaded
         {
             get;
             set;

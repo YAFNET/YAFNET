@@ -227,8 +227,7 @@ namespace YAF.Pages.Admin
                 this.PageContext.PageBoardID,
                 this.Name.Text,
                 languageFile,
-                this.Culture.SelectedValue,
-                this.AllowThreaded.Checked);
+                this.Culture.SelectedValue);
 
             // save poll group
             var boardSettings = this.Get<YafBoardSettings>();
@@ -362,7 +361,6 @@ namespace YAF.Pages.Admin
 
             this.DataBind();
             this.Name.Text = board.Name;
-            this.AllowThreaded.Checked = board.AllowThreaded;
         }
 
         #endregion

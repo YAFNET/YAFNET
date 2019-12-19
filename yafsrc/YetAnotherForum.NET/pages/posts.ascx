@@ -4,11 +4,14 @@
 <%@ Import Namespace="System.Data" %>
 <%@ Import Namespace="ServiceStack" %>
 <%@ Import Namespace="YAF.Core.Extensions" %>
+
 <%@ Register TagPrefix="YAF" TagName="DisplayPost" Src="../controls/DisplayPost.ascx" %>
 <%@ Register TagPrefix="YAF" TagName="DisplayConnect" Src="../controls/DisplayConnect.ascx" %>
 <%@ Register TagPrefix="YAF" TagName="DisplayAd" Src="../controls/DisplayAd.ascx" %>
 <%@ Register TagPrefix="YAF" TagName="PollList" Src="../controls/PollList.ascx" %>
 <%@ Register TagPrefix="YAF" TagName="SimilarTopics" Src="../controls/SimilarTopics.ascx" %>
+
+<%@ Register TagPrefix="modal" TagName="MoveTopic" Src="../Dialogs/MoveTopic.ascx" %>
 <%@ Register TagPrefix="modal" TagName="QuickReply" Src="../Dialogs/QuickReply.ascx" %>
 
 
@@ -42,11 +45,12 @@
                 Icon="cogs" />
             <div class="dropdown-menu" aria-labelledby='<%# this.Tools1.ClientID %>'>
                 <YAF:ThemeButton ID="MoveTopic1" runat="server"
-                    CssClass="dropdown-item"
-                    Type="None"
-                    OnClick="MoveTopic_Click"
-                    TextLocalizedTag="BUTTON_MOVETOPIC" TitleLocalizedTag="BUTTON_MOVETOPIC_TT"
-                    Icon="arrows-alt" />
+                                 CssClass="dropdown-item"
+                                 Type="None" 
+                                 DataToggle="modal" 
+                                 DataTarget="MoveTopicDialog" 
+                                 TextLocalizedTag="BUTTON_MOVETOPIC" TitleLocalizedTag="BUTTON_MOVETOPIC_TT"
+                                 Icon="arrows-alt" />
                 <YAF:ThemeButton ID="UnlockTopic1" runat="server"
                     Type="None"
                     CssClass="dropdown-item"
@@ -144,19 +148,6 @@
                     </asp:UpdatePanel>
                     <YAF:PopMenu runat="server" ID="OptionsMenu" Control="OptionsLink" />
                 </li>
-                <li class="nav-item dropdown">
-                    <asp:PlaceHolder ID="ViewOptions" runat="server">
-                        <YAF:ThemeButton runat="server" ID="ViewLink"
-                                         TextLocalizedTag="VIEW" TitleLocalizedTag="VIEW_TOOLTIP"
-                                         Icon="book"
-                                         Type="Link"
-                                         CssClass="dropdown-toggle"
-                                         DataToggle="dropdown">
-                        </YAF:ThemeButton>
-                    
-                    </asp:PlaceHolder>
-                    <YAF:PopMenu ID="ViewMenu" runat="server" Control="ViewLink" />
-                </li>
             </ul>
         </div>
     </nav>
@@ -164,27 +155,13 @@
 </div>
 <asp:Repeater ID="MessageList" runat="server" OnItemCreated="MessageList_OnItemCreated">
     <ItemTemplate>
-        <%# this.GetThreadedRow(Container.DataItem) %>
         <YAF:DisplayPost ID="DisplayPost1" runat="server" 
                          DataRow="<%# Container.DataItem.ToType<DataRow>() %>"
-                         Visible="<%# this.IsCurrentMessage(Container.DataItem) %>" 
                          PostCount="<%# Container.ItemIndex %>" 
-                         CurrentPage="<%# this.Pager.CurrentPageIndex %>" 
-                         IsThreaded="<%# this.IsThreaded %>" />
+                         CurrentPage="<%# this.Pager.CurrentPageIndex %>" />
         <YAF:DisplayAd ID="DisplayAd" runat="server" Visible="False" />
         <YAF:DisplayConnect ID="DisplayConnect" runat="server" Visible="False" />
     </ItemTemplate>
-    <AlternatingItemTemplate>        
-        <%# this.GetThreadedRow(Container.DataItem) %>
-        <YAF:DisplayPost ID="DisplayPostAlt" runat="server" 
-                         DataRow="<%# Container.DataItem.ToType<DataRow>() %>"
-                         IsAlt="True" Visible="<%#this.IsCurrentMessage(Container.DataItem)%>" 
-                         PostCount="<%# Container.ItemIndex %>" 
-                         CurrentPage="<%# this.Pager.CurrentPageIndex %>" 
-                         IsThreaded="<%#this.IsThreaded%>" />
-        <YAF:DisplayAd ID="DisplayAd" runat="server" Visible="False" />
-        <YAF:DisplayConnect ID="DisplayConnect" runat="server" Visible="False" />
-    </AlternatingItemTemplate>
 </asp:Repeater>
 
 <asp:PlaceHolder runat="server" Visible="<%# this.Get<IPermissions>().Check(this.Get<YafBoardSettings>().PostsFeedAccess) %>">
@@ -219,7 +196,8 @@
                 <YAF:ThemeButton ID="MoveTopic2" runat="server"
                                  Type="None"
                                  CssClass="dropdown-item"
-                                 OnClick="MoveTopic_Click" 
+                                 DataToggle="modal" 
+                                 DataTarget="MovetTopicDialog" 
                                  TextLocalizedTag="BUTTON_MOVETOPIC" TitleLocalizedTag="BUTTON_MOVETOPIC_TT"
                                  Icon="arrows-alt" />
                 <YAF:ThemeButton ID="UnlockTopic2" runat="server" 
@@ -293,4 +271,5 @@
     </div>
 </div>
 
+<modal:MoveTopic ID="MoveTopicDialog" runat="server" />
 <modal:QuickReply ID="QuickReplyDialog" runat="server" />

@@ -24,10 +24,13 @@
                     <div class="card-footer">
                         <small class="text-muted">
                             <YAF:LocalizedLabel ID="PostedByLabel" runat="server" LocalizedTag="POSTEDBY" />
-                        <a name="<%# DataBinder.Eval(Container.DataItem, "MessageID") %>" /> 
                             <YAF:UserLink ID="UserLink1" runat="server" UserID='<%# DataBinder.Eval(Container.DataItem, "UserID") %>' />
-                            <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="POSTED" />
-                        <%# this.Get<IDateTime>().FormatDateTime( Container.DataItemToField<DateTime>("Posted") )%>
+                            <span class="fa-stack">
+                                <i class="fa fa-calendar-day fa-stack-1x text-secondary"></i>
+                                <i class="fa fa-circle fa-badge-bg fa-inverse fa-outline-inverse"></i>
+                                <i class="fa fa-clock fa-badge text-secondary"></i>
+                            </span>
+                            <%# this.Get<IDateTime>().FormatDateTime( Container.DataItemToField<DateTime>("Posted") )%>
                         </small>
                     </div>
                 </ItemTemplate>
@@ -52,6 +55,15 @@
                         <asp:Label ID="IncorrectReportLabel" runat="server"></asp:Label>
                         <!-- editor goes here -->
                     </asp:PlaceHolder>
+                </div>
+                <div class="d-sm-none d-md-block">
+                    <YAF:Alert runat="server" Type="info">
+                        <strong>
+                            <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="NOTE" LocalizedPage="COMMON" />
+                        </strong>
+                        <YAF:LocalizedLabel ID="LocalizedLblMaxNumberOfPost" runat="server" 
+                                            LocalizedTag="MAXNUMBEROF"/>
+                    </YAF:Alert>
                 </div>
             </div>
             <div class="card-footer text-center">

@@ -5,7 +5,7 @@
 <asp:Repeater ID="SubforumList" runat="server" OnItemCreated="SubForumList_ItemCreated">
     <HeaderTemplate>
         <div class="card">
-        <div class="card-body pl-2 py-0">        
+        <div class="card-body pl-2 py-1">        
         <ul class="list-inline">
             <li class="list-inline-item">
                 <span class="font-weight-bold small text-secondary">

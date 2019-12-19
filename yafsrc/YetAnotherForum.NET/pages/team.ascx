@@ -79,9 +79,7 @@
             </div>
         </div>
     </div>
-</div>
-<div class="row" id="ModsTable" runat="server">
-    <div class="col">
+    <div class="col" id="ModsTable" runat="server">
         <div class="card mb-3">
             <div class="card-header">
                 <i class="fas fa-user-secret fa-fw text-secondary"></i>&nbsp;<YAF:LocalizedLabel 
@@ -125,10 +123,8 @@
                                                              TextLocalizedTag="GO" 
                                                              OnClick="GoToForum"></YAF:ThemeButton>
                                         </span>
-                                        <asp:DropDownList ID="ModForums" runat="server" CssClass="standardSelectMenu form-control">
+                                        <asp:DropDownList ID="ModForums" runat="server" CssClass="select2-select form-control">
                                         </asp:DropDownList>
-                                        
-                                        
                                     </div>
                                 </p>
                             <small>

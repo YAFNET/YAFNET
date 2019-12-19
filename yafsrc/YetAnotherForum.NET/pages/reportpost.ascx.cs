@@ -52,7 +52,7 @@ namespace YAF.Pages
         #region Constants and Fields
 
         /// <summary>
-        ///   To save messageid value.
+        ///   To save message id value.
         /// </summary>
         private int messageID;
 
@@ -65,7 +65,6 @@ namespace YAF.Pages
 
         #endregion
 
-        //// Class constructor
         #region Constructors and Destructors
 
         /// <summary>
@@ -187,7 +186,7 @@ namespace YAF.Pages
             // Checking if the user has a right to view the message and getting data  
             if (messageRow.HasRows())
             {
-                // populate the repeater with the message datarow...
+                // populate the repeater with the message data row...
                 this.MessageList.DataSource = messageRow;
                 this.MessageList.DataBind();
             }
@@ -198,6 +197,8 @@ namespace YAF.Pages
 
             // Get Forum Link
             this.PageLinks.AddRoot();
+
+            this.LocalizedLblMaxNumberOfPost.Param0 = this.Get<YafBoardSettings>().MaxReportPostChars.ToString();
         }
 
         /// <summary>
@@ -207,14 +208,6 @@ namespace YAF.Pages
         {
             // Redirect to reported post
             YafBuildLink.Redirect(ForumPages.posts, "m={0}#post{0}", this.messageID);
-        }
-
-        /// <summary>
-        /// Binds data to data source
-        /// </summary>
-        private void BindData()
-        {
-            this.DataBind();
         }
 
         #endregion

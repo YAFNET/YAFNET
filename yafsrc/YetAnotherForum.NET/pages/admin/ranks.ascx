@@ -27,36 +27,95 @@
                         <i class="fa fa-graduation-cap fa-fw"></i>&nbsp;
 						<%# this.Eval( "Name") %>
                     </h5>
+                    <small>
+                        <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="IS_START" LocalizedPage="ADMIN_RANKS" />
+                        <asp:Label ID="Label4" runat="server" CssClass='<%# this.GetItemColor(this.Eval( "Flags" ).BinaryAnd(1)) %>'><%# this.GetItemName(this.Eval( "Flags" ).BinaryAnd(1)) %></asp:Label>
+                    </small>
                 </div>
                 <p>
-                     <YAF:LocalizedLabel ID="HelpLabel6" Visible='<%# ((YAF.Types.Models.Rank)Container.DataItem).Description.IsSet() %>' runat="server" LocalizedTag="DESCRIPTION" LocalizedPage="ADMIN_EDITGROUP">
-                         </YAF:LocalizedLabel>
-                          &nbsp;<%# this.Eval("Description") %>&nbsp;
-                    <br />
-                    <YAF:LocalizedLabel  ID="HelpLabel12" runat="server" LocalizedTag="PRIORITY" LocalizedPage="ADMIN_EDITGROUP" />
-                    <asp:Label ID="Label11" runat="server" CssClass='<%# this.GetItemColorString(this.Eval( "SortOrder" ).ToString()) %>'><%# this.Eval("SortOrder").ToString()%></asp:Label>&nbsp;|&nbsp;
-                    <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="IS_START" LocalizedPage="ADMIN_RANKS" />
-                     <asp:Label ID="Label4" runat="server" CssClass='<%# this.GetItemColor(this.Eval( "Flags" ).BinaryAnd(1)) %>'><%# this.GetItemName(this.Eval( "Flags" ).BinaryAnd(1)) %></asp:Label>&nbsp;|&nbsp;
-                    <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="IS_LADDER" LocalizedPage="ADMIN_RANKS" />
-                    <asp:Label ID="Label1" runat="server" CssClass='<%# this.GetItemColor(this.Eval( "Flags" ).BinaryAnd(RankFlags.Flags.IsLadder)) %>'><%# this.LadderInfo(Container.DataItem) %></asp:Label>&nbsp;|&nbsp;
-                    <YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="PM_LIMIT" LocalizedPage="ADMIN_RANKS" />
-					<asp:Label ID="Label6" runat="server" CssClass='<%# this.GetItemColorString( ((YAF.Types.Models.Rank)Container.DataItem).PMLimit == int.MaxValue ? "\u221E" : ((YAF.Types.Models.Rank)Container.DataItem).PMLimit.ToString()) %>'><%#  ((YAF.Types.Models.Rank)Container.DataItem).PMLimit == int.MaxValue ? "\u221E": ((YAF.Types.Models.Rank)Container.DataItem).PMLimit.ToString()%></asp:Label>&nbsp;|&nbsp;
-                    <br />
-                    <YAF:LocalizedLabel  ID="HelpLabel10" runat="server" LocalizedTag="ALBUM_NUMBER" LocalizedPage="ADMIN_EDITGROUP" />
-                    <asp:Label ID="Label9" runat="server" CssClass='<%# this.GetItemColorString(this.Eval( "UsrAlbums" ).ToString()) %>'><%# this.Eval("UsrAlbums").ToString()%></asp:Label>&nbsp;|&nbsp;
-                    <YAF:LocalizedLabel  ID="HelpLabel11" runat="server" LocalizedTag="IMAGES_NUMBER" LocalizedPage="ADMIN_EDITGROUP" />
-                    <asp:Label ID="Label10" runat="server" CssClass='<%# this.GetItemColorString(this.Eval( "UsrAlbumImages" ).ToString()) %>'><%# this.Eval("UsrAlbumImages").ToString()%></asp:Label>&nbsp;|&nbsp;
-                    <br />
-                    <YAF:LocalizedLabel  ID="HelpLabel13" runat="server" LocalizedTag="STYLE" LocalizedPage="ADMIN_EDITGROUP" />&nbsp;
-                    <asp:Label ID="Label12" runat="server" CssClass='<%# this.GetItemColorString(((YAF.Types.Models.Rank)Container.DataItem).Style) %>'><%# ((YAF.Types.Models.Rank)Container.DataItem).Style.IsSet() && ((YAF.Types.Models.Rank)Container.DataItem).Style.Trim().Length > 0 ? "" : this.GetItemName(false)%></asp:Label>&nbsp;
-                    <YAF:RoleRankStyles ID="RoleRankStylesRanks" RawStyles='<%# ((YAF.Types.Models.Rank)Container.DataItem).Style %>' runat="server" />
-                    <br />
-					<YAF:LocalizedLabel ID="HelpLabel7" runat="server" LocalizedTag="SIGNATURE_LENGTH" LocalizedPage="ADMIN_EDITGROUP" />
-                    <asp:Label ID="Label5" runat="server" CssClass='<%# this.GetItemColorString(((YAF.Types.Models.Rank)Container.DataItem).UsrSigChars.ToString()) %>'><%# ((YAF.Types.Models.Rank)Container.DataItem).UsrSigChars.ToString().IsSet() ? this.Eval("UsrSigChars").ToString() : this.GetItemName(false) %></asp:Label>&nbsp;|&nbsp;
-                    <YAF:LocalizedLabel ID="HelpLabel8" runat="server" LocalizedTag="SIG_BBCODES" LocalizedPage="ADMIN_EDITGROUP" />
-                    <asp:Label ID="Label7" runat="server" CssClass='<%# this.GetItemColorString(((YAF.Types.Models.Rank)Container.DataItem).UsrSigBBCodes) %>'><%# ((YAF.Types.Models.Rank)Container.DataItem).UsrSigBBCodes.IsSet() ? this.Eval("UsrSigBBCodes").ToString() : this.GetItemName(false) %></asp:Label>&nbsp;|&nbsp;
-                    <YAF:LocalizedLabel ID="HelpLabel9" runat="server"  LocalizedTag="SIG_HTML" LocalizedPage="ADMIN_EDITGROUP" />
-                    <asp:Label ID="Label8" runat="server" CssClass='<%# this.GetItemColorString(((YAF.Types.Models.Rank)Container.DataItem).UsrSigHTMLTags) %>'><%#  ((YAF.Types.Models.Rank)Container.DataItem).UsrSigHTMLTags.IsSet() ? this.Eval("UsrSigHTMLTags").ToString() : this.GetItemName(false)%></asp:Label>&nbsp;|&nbsp;
+                    <asp:PlaceHolder runat="server" Visible='<%# ((YAF.Types.Models.Rank)Container.DataItem).Description.IsSet() %>'>
+                        <YAF:LocalizedLabel ID="HelpLabel6" runat="server" LocalizedTag="DESCRIPTION" LocalizedPage="ADMIN_EDITGROUP">
+                        </YAF:LocalizedLabel>
+                        <%# this.Eval("Description") %>
+                    </asp:PlaceHolder>
+                    <ul class="list-group list-group-horizontal-md">
+                        <li class="list-group-item">
+                            <YAF:LocalizedLabel  ID="HelpLabel12" runat="server" 
+                                                 LocalizedTag="PRIORITY" LocalizedPage="ADMIN_EDITGROUP" />
+                            <asp:Label ID="Label11" runat="server" 
+                                       CssClass='<%# this.GetItemColorString(this.Eval( "SortOrder" ).ToString()) %>'>
+                                <%# this.Eval("SortOrder").ToString()%>
+                            </asp:Label>
+                        </li>
+                   
+                        <li class="list-group-item">
+                            <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" 
+                                                LocalizedTag="IS_LADDER" LocalizedPage="ADMIN_RANKS" />
+                            <asp:Label ID="Label1" runat="server" 
+                                       CssClass='<%# this.GetItemColor(this.Eval( "Flags" ).BinaryAnd(RankFlags.Flags.IsLadder)) %>'>
+                                <%# this.LadderInfo(Container.DataItem) %>
+                            </asp:Label>
+                            </li>
+                        <li class="list-group-item">
+                            <YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" 
+                                                LocalizedTag="PM_LIMIT" LocalizedPage="ADMIN_RANKS" />
+					<asp:Label ID="Label6" runat="server" 
+                               CssClass='<%# this.GetItemColorString( ((YAF.Types.Models.Rank)Container.DataItem).PMLimit == int.MaxValue ? "\u221E" : ((YAF.Types.Models.Rank)Container.DataItem).PMLimit.ToString()) %>'>
+                        <%#  ((YAF.Types.Models.Rank)Container.DataItem).PMLimit == int.MaxValue ? "\u221E": ((YAF.Types.Models.Rank)Container.DataItem).PMLimit.ToString()%>
+                    </asp:Label>
+                        </li>
+                        <li class="list-group-item">
+                            <YAF:LocalizedLabel  ID="HelpLabel10" runat="server" 
+                                                 LocalizedTag="ALBUM_NUMBER" LocalizedPage="ADMIN_EDITGROUP" />
+                            <asp:Label ID="Label9" runat="server" 
+                                       CssClass='<%# this.GetItemColorString(this.Eval( "UsrAlbums" ).ToString()) %>'>
+                                <%# this.Eval("UsrAlbums").ToString()%>
+                            </asp:Label>
+                        </li>
+                        <li class="list-group-item">
+                            <YAF:LocalizedLabel  ID="HelpLabel11" runat="server" 
+                                                 LocalizedTag="IMAGES_NUMBER" LocalizedPage="ADMIN_EDITGROUP" />
+                            <asp:Label ID="Label10" runat="server" 
+                                       CssClass='<%# this.GetItemColorString(this.Eval( "UsrAlbumImages" ).ToString()) %>'>
+                                <%# this.Eval("UsrAlbumImages").ToString()%>
+                            </asp:Label>
+                        </li>
+                        <li class="list-group-item">
+                            <YAF:LocalizedLabel  ID="HelpLabel13" runat="server" 
+                                                 LocalizedTag="STYLE" LocalizedPage="ADMIN_EDITGROUP" />&nbsp;
+                            <asp:Label ID="Label12" runat="server" 
+                                       CssClass='<%# this.GetItemColorString(((YAF.Types.Models.Rank)Container.DataItem).Style) %>'>
+                                <%# ((YAF.Types.Models.Rank)Container.DataItem).Style.IsSet() && ((YAF.Types.Models.Rank)Container.DataItem).Style.Trim().Length > 0 ? "" : this.GetItemName(false)%>
+                            </asp:Label>
+                            <YAF:RoleRankStyles ID="RoleRankStylesRanks" 
+                                                RawStyles='<%# ((YAF.Types.Models.Rank)Container.DataItem).Style %>' runat="server" />
+                        </li>
+                        <li class="list-group-item">
+                            <YAF:LocalizedLabel ID="HelpLabel7" runat="server" 
+                                                LocalizedTag="SIGNATURE_LENGTH" LocalizedPage="ADMIN_EDITGROUP" />
+                            <asp:Label ID="Label5" runat="server" 
+                                       CssClass='<%# this.GetItemColorString(((YAF.Types.Models.Rank)Container.DataItem).UsrSigChars.ToString()) %>'>
+                                <%# ((YAF.Types.Models.Rank)Container.DataItem).UsrSigChars.ToString().IsSet() ? this.Eval("UsrSigChars").ToString() : this.GetItemName(false) %>
+                            </asp:Label>
+                        </li>
+                        <li class="list-group-item">
+                            <YAF:LocalizedLabel ID="HelpLabel8" runat="server" 
+                                                LocalizedTag="SIG_BBCODES" LocalizedPage="ADMIN_EDITGROUP" />
+                            <asp:Label ID="Label7" runat="server" 
+                                       CssClass='<%# this.GetItemColorString(((YAF.Types.Models.Rank)Container.DataItem).UsrSigBBCodes) %>'>
+                                <%# ((YAF.Types.Models.Rank)Container.DataItem).UsrSigBBCodes.IsSet() ? this.Eval("UsrSigBBCodes").ToString() : this.GetItemName(false) %>
+                            </asp:Label>
+                        </li>
+                        <li class="list-group-item">
+                            <YAF:LocalizedLabel ID="HelpLabel9" runat="server" 
+                                                LocalizedTag="SIG_HTML" LocalizedPage="ADMIN_EDITGROUP" />
+                            <asp:Label ID="Label8" runat="server" 
+                                       CssClass='<%# this.GetItemColorString(((YAF.Types.Models.Rank)Container.DataItem).UsrSigHTMLTags) %>'>
+                                <%#  ((YAF.Types.Models.Rank)Container.DataItem).UsrSigHTMLTags.IsSet() ? this.Eval("UsrSigHTMLTags").ToString() : this.GetItemName(false)%>
+                            </asp:Label>
+                        </li>
+                    </ul>
+
                 </p>
                 <small>
                     <YAF:ThemeButton ID="ThemeButtonEdit" runat="server"

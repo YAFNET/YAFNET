@@ -97,7 +97,8 @@
                         <strong>
                             <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="NOTE" LocalizedPage="COMMON" />
                         </strong>
-                        <YAF:LocalizedLabel ID="LocalizedLblMaxNumberOfPost" runat="server" LocalizedTag="MAXNUMBEROF" />
+                        <YAF:LocalizedLabel ID="LocalizedLblMaxNumberOfPost" runat="server" 
+                                            LocalizedTag="MAXNUMBEROF"/>
                     </YAF:Alert>
                     </div>
                 </asp:PlaceHolder>

@@ -101,7 +101,7 @@ namespace YAF.Core
             
             // not admins are forbidden
             if (!this.PageContext.IsAdmin)
-            {
+            { 
                 YafBuildLink.AccessDenied();
             }
 

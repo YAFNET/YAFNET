@@ -94,11 +94,6 @@ namespace YAF.Types.Constants
         pmessage,
 
         /// <summary>
-        /// The movetopic.
-        /// </summary>
-        movetopic,
-
-        /// <summary>
         /// The emailtopic.
         /// </summary>
         emailtopic,

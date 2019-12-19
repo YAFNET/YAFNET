@@ -177,7 +177,6 @@ namespace YAF.Pages.Admin
                 this.IsStart.Checked,
                 this.IsLadder.Checked,
                 this.MinPosts.Text,
-                null,
                 this.PMLimit.Text.Trim().ToType<int>(),
                 this.Style.Text.Trim(),
                 this.RankPriority.Text.Trim(),

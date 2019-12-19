@@ -162,11 +162,10 @@ namespace YAF.Pages.Admin
             var cult = StaticDataHelper.Cultures();
             var langFile = "english.xml";
 
-            foreach (var drow in
-                cult.Rows.Cast<DataRow>().Where(drow => drow["CultureTag"].ToString() == this.Culture.SelectedValue))
+            cult.Rows.Cast<DataRow>().Where(dataRow => dataRow["CultureTag"].ToString() == this.Culture.SelectedValue).ForEach(row => 
             {
-                langFile = (string)drow["CultureFile"];
-            }
+                langFile = (string)row["CultureFile"];
+            });
 
             if (createUserAndRoles)
             {
@@ -329,7 +328,6 @@ namespace YAF.Pages.Admin
                 var board = this.GetRepository<Board>().GetById(this.BoardId.Value);
                 
                     this.Name.Text = board.Name;
-                    this.AllowThreaded.Checked = board.AllowThreaded;
 
                     var membershipAppName = board.MembershipAppName;
 
@@ -426,19 +424,18 @@ namespace YAF.Pages.Admin
                 var cult = StaticDataHelper.Cultures();
                 var langFile = "en-US";
 
-                foreach (var drow in cult.Rows.Cast<DataRow>()
-                    .Where(drow => drow["CultureTag"].ToString() == this.Culture.SelectedValue))
+                cult.Rows.Cast<DataRow>()
+                    .Where(dataRow => dataRow["CultureTag"].ToString() == this.Culture.SelectedValue).ForEach(row =>
                 {
-                    langFile = drow["CultureFile"].ToString();
-                }
+                    langFile = row["CultureFile"].ToString();
+                });
 
                 // Save current board settings
                 this.GetRepository<Board>().Save(
                     this.BoardId ?? 0,
                     this.Name.Text.Trim(),
                     langFile,
-                    this.Culture.SelectedItem.Value,
-                    this.AllowThreaded.Checked);
+                    this.Culture.SelectedItem.Value);
             }
             else
             {

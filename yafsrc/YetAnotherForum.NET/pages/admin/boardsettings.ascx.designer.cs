@@ -186,24 +186,6 @@ namespace YAF.Pages.Admin
         protected global::System.Web.UI.WebControls.DropDownList ShowTopic;
 
         /// <summary>
-        /// LocalizedLabel4 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Web.Controls.HelpLabel LocalizedLabel4;
-
-        /// <summary>
-        /// AllowThreaded control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox AllowThreaded;
-
-        /// <summary>
         /// LocalizedLabel10 control.
         /// </summary>
         /// <remarks>

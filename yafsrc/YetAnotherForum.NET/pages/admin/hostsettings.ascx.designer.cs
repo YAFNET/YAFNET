@@ -2769,24 +2769,6 @@ namespace YAF.Pages.Admin
         protected global::System.Web.UI.WebControls.CheckBox BlankLinks;
 
         /// <summary>
-        /// ShowLastUnreadPostHelpLabel control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Web.Controls.HelpLabel ShowLastUnreadPostHelpLabel;
-
-        /// <summary>
-        /// ShowLastUnreadPost control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox ShowLastUnreadPost;
-
-        /// <summary>
         /// HelpLabel177 control.
         /// </summary>
         /// <remarks>
@@ -2911,24 +2893,6 @@ namespace YAF.Pages.Admin
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox ShowYAFVersion;
-
-        /// <summary>
-        /// HelpLabel153 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Web.Controls.HelpLabel HelpLabel153;
-
-        /// <summary>
-        /// ShowAvatarsInTopic control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox ShowAvatarsInTopic;
 
         /// <summary>
         /// HelpLabel167 control.

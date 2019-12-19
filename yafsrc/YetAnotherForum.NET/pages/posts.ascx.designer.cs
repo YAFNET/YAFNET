@@ -213,33 +213,6 @@ namespace YAF.Pages
         protected global::YAF.Web.Controls.PopMenu OptionsMenu;
 
         /// <summary>
-        /// ViewOptions control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder ViewOptions;
-
-        /// <summary>
-        /// ViewLink control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Web.Controls.ThemeButton ViewLink;
-
-        /// <summary>
-        /// ViewMenu control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Web.Controls.PopMenu ViewMenu;
-
-        /// <summary>
         /// MessageList control.
         /// </summary>
         /// <remarks>
@@ -409,6 +382,15 @@ namespace YAF.Pages
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::YAF.Web.Controls.PageAccess PageAccess1;
+
+        /// <summary>
+        /// MoveTopicDialog control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UserControl MoveTopicDialog;
 
         /// <summary>
         /// QuickReplyDialog control.

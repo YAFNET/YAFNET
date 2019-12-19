@@ -106,29 +106,6 @@ namespace YAF.Pages
         #region Properties
 
         /// <summary>
-        ///   Gets or sets a value indicating whether IsThreaded.
-        /// </summary>
-        public bool IsThreaded
-        {
-            get
-            {
-                if (this.Get<HttpRequestBase>().QueryString.Exists("threaded"))
-                {
-                    this.Get<HttpSessionStateBase>()["IsThreaded"] =
-                        bool.Parse(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("threaded"));
-                }
-                else if (this.Get<HttpSessionStateBase>()["IsThreaded"] == null)
-                {
-                    this.Get<HttpSessionStateBase>()["IsThreaded"] = false;
-                }
-
-                return (bool)this.Get<HttpSessionStateBase>()["IsThreaded"];
-            }
-
-            set => this.Get<HttpSessionStateBase>()["IsThreaded"] = value;
-        }
-
-        /// <summary>
         ///   Gets or sets CurrentMessage.
         /// </summary>
         protected int CurrentMessage
@@ -188,119 +165,6 @@ namespace YAF.Pages
         }
 
         /// <summary>
-        /// The get indent image.
-        /// </summary>
-        /// <param name="o">
-        /// The o.
-        /// </param>
-        /// <returns>
-        /// Returns the indent image.
-        /// </returns>
-        protected string GetIndentImage([NotNull] object o)
-        {
-            if (!this.IsThreaded)
-            {
-                return string.Empty;
-            }
-
-            var currentIndex = (int)o;
-            if (currentIndex > 0)
-            {
-                return string.Format(
-                    "<img src='{1}' width='{0}' alt='' height='2'/>", currentIndex * 32, YafForumInfo.GetURLToContent("images/spacer.gif"));
-            }
-
-            return string.Empty;
-        }
-
-        /// <summary>
-        /// The get threaded row.
-        /// </summary>
-        /// <param name="o">
-        /// The o.
-        /// </param>
-        /// <returns>
-        /// Returns the threaded row.
-        /// </returns>
-        [NotNull]
-        protected string GetThreadedRow([NotNull] object o)
-        {
-            var row = (DataRow)o;
-            var messageId = (int)row["MessageID"];
-
-            if (!this.IsThreaded || this.CurrentMessage == messageId)
-            {
-                return string.Empty;
-            }
-
-            var html = new StringBuilder();
-
-            // Threaded
-            var brief =
-                BBCodeHelper.StripBBCode(
-                    BBCodeHelper.StripBBCodeQuotes(
-                        HtmlHelper.StripHtml(HtmlHelper.CleanHtmlString(row["Message"].ToString())))).RemoveMultipleWhitespace();
-
-            brief = this.Get<IBadWordReplace>().Replace(brief).Truncate(100);
-
-            if (brief.IsNotSet())
-            {
-                brief = "...";
-            }
-
-            html.AppendFormat(@"<tr class=""post""><td colspan=""3"" style=""white-space:nowrap;"">");
-            html.AppendFormat(this.GetIndentImage(row["Indent"]));
-
-            var avatarUrl = this.Get<IAvatars>().GetAvatarUrlForUser(row.Field<int>("UserID"));
-
-            if (avatarUrl.IsNotSet())
-            {
-                avatarUrl = $"{YafForumInfo.ForumClientFileRoot}images/noavatar.svg";
-            }
-
-            html.Append(@"<span class=""threadedRowCollapsed"">");
-            html.AppendFormat(@"<img src=""{0}"" alt="""" class=""rounded img-fluid"" />", avatarUrl);
-            html.AppendFormat(
-                @"<a href=""{0}"" class=""threadUrl"">{1}</a>",
-                YafBuildLink.GetLink(ForumPages.posts, "m={0}#post{0}", messageId),
-                brief);
-
-            html.Append(" (");
-            html.Append(
-                new UserLink
-                    {
-                        ID = $"UserLinkForRow{messageId}",
-                        UserID = row.Field<int>("UserID")
-                    }.RenderToString());
-
-            html.AppendFormat(
-                " - {0})</span>",
-                new DisplayDateTime { DateTime = row["Posted"], Format = DateTimeFormat.BothTopic }.RenderToString());
-
-            html.AppendFormat("</td></tr>");
-
-            return html.ToString();
-        }
-
-        /// <summary>
-        /// The is current message.
-        /// </summary>
-        /// <param name="o">
-        /// The o.
-        /// </param>
-        /// <returns>
-        /// Returns if it the current message.
-        /// </returns>
-        protected bool IsCurrentMessage([NotNull] object o)
-        {
-            CodeContracts.VerifyNotNull(o, "o");
-
-            var row = (DataRow)o;
-
-            return !this.IsThreaded || this.CurrentMessage == (int)row["MessageID"];
-        }
-
-        /// <summary>
         /// The lock topic_ click.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
@@ -356,19 +220,6 @@ namespace YAF.Pages
             if (this.Get<YafBoardSettings>().AdPost.IsSet() && displayAd != null)
             {
                 displayAd.Visible = this.PageContext.IsGuest || this.Get<YafBoardSettings>().ShowAdsToSignedInUsers;
-            }
-        }
-
-        /// <summary>
-        /// The move topic_ click.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        protected void MoveTopic_Click([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            if (!this.PageContext.ForumModeratorAccess)
-            {
-                YafBuildLink.AccessDenied(/*"You are not a forum moderator."*/);
             }
         }
 
@@ -534,10 +385,6 @@ namespace YAF.Pages
                     this.NewTopic1.NavigateUrl =
                     YafBuildLink.GetLinkNotEscaped(ForumPages.postmessage, "f={0}", this.PageContext.PageForumID);
 
-                this.MoveTopic1.NavigateUrl =
-                    this.MoveTopic2.NavigateUrl =
-                    YafBuildLink.GetLinkNotEscaped(ForumPages.movetopic, "t={0}", this.PageContext.PageTopicID);
-
                 this.PostReplyLink1.NavigateUrl =
                     this.PostReplyLink2.NavigateUrl =
                     YafBuildLink.GetLinkNotEscaped(
@@ -568,7 +415,6 @@ namespace YAF.Pages
                     this.HtmlEncode(this.topic.Description));
                 this.TopicLink.NavigateUrl = YafBuildLink.GetLinkNotEscaped(
                     ForumPages.posts, "t={0}", this.PageContext.PageTopicID);
-                this.ViewOptions.Visible = yafBoardSettings.AllowThreaded;
                 this.ForumJumpHolder.Visible = yafBoardSettings.ShowForumJump
                                                && this.PageContext.Settings.LockedForum == 0;
 
@@ -939,7 +785,7 @@ namespace YAF.Pages
                 this.Pager.PageSize,
                 1,
                 0,
-                this.IsThreaded ? 1 : 0,
+                0,
                 this.Get<YafBoardSettings>().EnableThanksMod,
                 messagePosition);
 
@@ -998,7 +844,7 @@ namespace YAF.Pages
                     this.Pager.PageSize,
                     1,
                     0,
-                    this.IsThreaded ? 1 : 0,
+                    0,
                     this.Get<YafBoardSettings>().EnableThanksMod,
                     messagePosition);
             }
@@ -1006,28 +852,6 @@ namespace YAF.Pages
             // convert to linq...
             var rowList = postListDataTable.AsEnumerable();
 
-            // see if the deleted messages need to be edited out...
-            /*if (this.Get<YafBoardSettings>().ShowDeletedMessages && !this.Get<YafBoardSettings>().ShowDeletedMessagesToAll &&
-     !this.PageContext.IsAdmin && !this.PageContext.IsForumModerator)
-            {
-                            // remove posts that are deleted and do not belong to this user...
-                            rowList =
-                                            rowList.Where(
-                                                            x => !(x.Field<bool>("IsDeleted") && x.Field<int>("UserID") != this.PageContext.PageUserID));
-            }*/
-
-            // set the sorting
-            /*if (!this.IsThreaded)
-            {
-                            // reset position for updated sorting...
-                            rowList.ForEachIndex(
-                                            (row, i) =>
-                                                            {
-                                                                            row.BeginEdit();
-                                                                            row["Position"] = (Pager.CurrentPageIndex * Pager.PageSize) + i;
-                                                                            row.EndEdit();
-                                                            });
-            }*/
             var firstPost = rowList.First();
 
             // set the sorting
@@ -1071,11 +895,6 @@ namespace YAF.Pages
                 this.AddMetaData(pagedData.First()["Message"]);
             }
 
-            // if (pagedData.Any() && this.CurrentMessage == 0)
-            // {
-            // // set it to the first...
-            // // this.CurrentMessage = pagedData.First().Field<int>("MessageID");
-            // }
             this.MessageList.DataSource = pagedData;
 
             this.DataBind();
@@ -1250,7 +1069,6 @@ namespace YAF.Pages
             this.PreRender += this.PostsPreRender;
             this.ShareMenu.ItemClick += this.ShareMenuItemClick;
             this.OptionsMenu.ItemClick += this.OptionsMenuItemClick;
-            this.ViewMenu.ItemClick += this.ViewMenuItemClick;
         }
 
         /// <summary>
@@ -1388,28 +1206,6 @@ namespace YAF.Pages
         }
 
         /// <summary>
-        /// The view menu_ item click.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        private void ViewMenuItemClick([NotNull] object sender, [NotNull] PopEventArgs e)
-        {
-            switch (e.Item.ToLower())
-            {
-                case "normal":
-                    this.IsThreaded = false;
-                    this.BindData();
-                    break;
-                case "threaded":
-                    this.IsThreaded = true;
-                    this.BindData();
-                    break;
-                default:
-                    throw new ApplicationException(e.Item);
-            }
-        }
-
-        /// <summary>
         /// The posts_ pre render.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
@@ -1495,22 +1291,9 @@ namespace YAF.Pages
                     "rssfeed", this.GetText("RSSTOPIC"), "fa fa-rss-square");
             }
 
-            // view menu
-            if (this.IsThreaded)
-            {
-                this.ViewMenu.AddPostBackItem("normal", this.GetText("NORMAL"), "fa fa-book");
-                this.ViewMenu.AddPostBackItem("threaded", $"&#187; {this.GetText("THREADED")}", "fa fa-book");
-            }
-            else
-            {
-                this.ViewMenu.AddPostBackItem("normal", $"&#187; {this.GetText("NORMAL")}", "fa fa-book");
-                this.ViewMenu.AddPostBackItem("threaded", this.GetText("THREADED"), "fa fa-book");
-            }
-
             // attach the menus to HyperLinks
             this.ShareMenu.Attach(this.ShareLink);
             this.OptionsMenu.Attach(this.OptionsLink);
-            this.ViewMenu.Attach(this.ViewLink);
 
             if (!this.dataBound)
             {

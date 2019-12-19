@@ -40,28 +40,7 @@ namespace YAF.Controls
     /// </summary>
     public partial class DisplayAd : BaseUserControl
     {
-        #region Properties
-
-        /// <summary>
-        ///   Gets or sets a value indicating whether Is Alt. Row
-        /// </summary>
-        public bool IsAlt { get; set; }
-
-        #endregion
-
         #region Methods
-
-        /// <summary>
-        /// Gets the post class.
-        /// </summary>
-        /// <returns>
-        /// Returns the post class.
-        /// </returns>
-        [NotNull]
-        protected string GetPostClass()
-        {
-            return this.IsAlt ? "post_alt" : "post";
-        }
 
         /// <summary>
         /// Handles the Load event of the Page control.
