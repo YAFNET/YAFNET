@@ -80,6 +80,11 @@ namespace YAF.Pages
         /// </summary>
         private TypedMessageList originalMessage;
 
+        /// <summary>
+        ///   The forum.
+        /// </summary>
+        private Topic topic;
+
         #endregion
 
         #region Constructors and Destructors
@@ -334,7 +339,8 @@ namespace YAF.Pages
             this.PageContext.QueryIDs = new QueryStringIDHelper(new[] { "m", "t", "q" }, false);
 
             TypedMessageList currentMessage = null;
-            var topicInfo = this.GetRepository<Topic>().GetById(this.PageContext.PageTopicID);
+
+            this.topic = this.GetRepository<Topic>().GetById(this.PageContext.PageTopicID);
 
             // we reply to a post with a quote
             if (this.QuotedMessageId != null)
@@ -360,7 +366,7 @@ namespace YAF.Pages
                         YafBuildLink.AccessDenied();
                     }
 
-                    if (!this.CanQuotePostCheck(topicInfo))
+                    if (!this.CanQuotePostCheck(this.topic))
                     {
                         YafBuildLink.AccessDenied();
                     }
@@ -390,7 +396,7 @@ namespace YAF.Pages
 
                     this.ownerUserId = currentMessage.UserID.ToType<int>();
 
-                    if (!this.CanEditPostCheck(currentMessage, topicInfo))
+                    if (!this.CanEditPostCheck(currentMessage, this.topic))
                     {
                         YafBuildLink.AccessDenied();
                     }
@@ -1190,7 +1196,7 @@ namespace YAF.Pages
                 // Tell user that his message will have to be approved by a moderator
                 var url = YafBuildLink.GetLink(ForumPages.topics, "f={0}", this.PageContext.PageForumID);
 
-                if (this.PageContext.PageTopicID > 0)
+                if (this.PageContext.PageTopicID > 0 && this.topic.NumPosts > 1)
                 {
                     url = YafBuildLink.GetLink(ForumPages.posts, "t={0}", this.PageContext.PageTopicID);
                 }
