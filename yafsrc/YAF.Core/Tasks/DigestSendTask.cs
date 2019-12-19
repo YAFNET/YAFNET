@@ -34,6 +34,7 @@ namespace YAF.Core.Tasks
     using YAF.Core.Model;
     using YAF.Core.UsersRoles;
     using YAF.Types;
+    using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
@@ -43,7 +44,7 @@ namespace YAF.Core.Tasks
     /// <summary>
     /// The digest send task.
     /// </summary>
-    public class DigestSendTask : IntermittentBackgroundTask
+    public class DigestSendTask : LongBackgroundTask
     {
         #region Constructors and Destructors
 
@@ -74,8 +75,6 @@ namespace YAF.Core.Tasks
         /// </summary>
         public override void RunOnce()
         {
-            //// validate DB run...
-            ////this.Get<StartupInitializeDb>().Run();
             this.SendDigest();
         }
 
@@ -135,6 +134,9 @@ namespace YAF.Core.Tasks
             boardSettings.SaveGuestUserIdBackup();
 
             boardSettings.SaveRegistry();
+
+            // reload all settings from the DB
+            YafContext.Current.BoardSettings = null;
 
             return true;
         }
@@ -234,7 +236,11 @@ namespace YAF.Core.Tasks
                         }
                     });
 
-            this.Get<ILogger>().Info($"Digest send to {usersSendCount} user(s)");
+            this.Get<ILogger>().Log(
+                $"Digest send to {usersSendCount} user(s)",
+                EventLogTypes.Information,
+                null,
+                "Digest Send Task");
         }
 
         #endregion
