@@ -36,10 +36,10 @@
                     <asp:PlaceHolder runat="server" Visible='<%# ((YAF.Types.Models.Rank)Container.DataItem).Description.IsSet() %>'>
                         <YAF:LocalizedLabel ID="HelpLabel6" runat="server" LocalizedTag="DESCRIPTION" LocalizedPage="ADMIN_EDITGROUP">
                         </YAF:LocalizedLabel>
-                        <%# this.Eval("Description") %>
+                        &nbsp;<%# this.Eval("Description") %>
                     </asp:PlaceHolder>
-                    <ul class="list-group list-group-horizontal-md">
-                        <li class="list-group-item">
+                    <ul class="list-inline">
+                        <li class="list-inline-item">
                             <YAF:LocalizedLabel  ID="HelpLabel12" runat="server" 
                                                  LocalizedTag="PRIORITY" LocalizedPage="ADMIN_EDITGROUP" />
                             <asp:Label ID="Label11" runat="server" 
@@ -48,7 +48,7 @@
                             </asp:Label>
                         </li>
                    
-                        <li class="list-group-item">
+                        <li class="list-inline-item">
                             <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" 
                                                 LocalizedTag="IS_LADDER" LocalizedPage="ADMIN_RANKS" />
                             <asp:Label ID="Label1" runat="server" 
@@ -56,7 +56,7 @@
                                 <%# this.LadderInfo(Container.DataItem) %>
                             </asp:Label>
                             </li>
-                        <li class="list-group-item">
+                        <li class="list-inline-item">
                             <YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" 
                                                 LocalizedTag="PM_LIMIT" LocalizedPage="ADMIN_RANKS" />
 					<asp:Label ID="Label6" runat="server" 
@@ -64,7 +64,7 @@
                         <%#  ((YAF.Types.Models.Rank)Container.DataItem).PMLimit == int.MaxValue ? "\u221E": ((YAF.Types.Models.Rank)Container.DataItem).PMLimit.ToString()%>
                     </asp:Label>
                         </li>
-                        <li class="list-group-item">
+                        <li class="list-inline-item">
                             <YAF:LocalizedLabel  ID="HelpLabel10" runat="server" 
                                                  LocalizedTag="ALBUM_NUMBER" LocalizedPage="ADMIN_EDITGROUP" />
                             <asp:Label ID="Label9" runat="server" 
@@ -72,7 +72,7 @@
                                 <%# this.Eval("UsrAlbums").ToString()%>
                             </asp:Label>
                         </li>
-                        <li class="list-group-item">
+                        <li class="list-inline-item">
                             <YAF:LocalizedLabel  ID="HelpLabel11" runat="server" 
                                                  LocalizedTag="IMAGES_NUMBER" LocalizedPage="ADMIN_EDITGROUP" />
                             <asp:Label ID="Label10" runat="server" 
@@ -80,7 +80,7 @@
                                 <%# this.Eval("UsrAlbumImages").ToString()%>
                             </asp:Label>
                         </li>
-                        <li class="list-group-item">
+                        <li class="list-inline-item">
                             <YAF:LocalizedLabel  ID="HelpLabel13" runat="server" 
                                                  LocalizedTag="STYLE" LocalizedPage="ADMIN_EDITGROUP" />&nbsp;
                             <asp:Label ID="Label12" runat="server" 
@@ -90,7 +90,7 @@
                             <YAF:RoleRankStyles ID="RoleRankStylesRanks" 
                                                 RawStyles='<%# ((YAF.Types.Models.Rank)Container.DataItem).Style %>' runat="server" />
                         </li>
-                        <li class="list-group-item">
+                        <li class="list-inline-item">
                             <YAF:LocalizedLabel ID="HelpLabel7" runat="server" 
                                                 LocalizedTag="SIGNATURE_LENGTH" LocalizedPage="ADMIN_EDITGROUP" />
                             <asp:Label ID="Label5" runat="server" 
@@ -98,7 +98,7 @@
                                 <%# ((YAF.Types.Models.Rank)Container.DataItem).UsrSigChars.ToString().IsSet() ? this.Eval("UsrSigChars").ToString() : this.GetItemName(false) %>
                             </asp:Label>
                         </li>
-                        <li class="list-group-item">
+                        <li class="list-inline-item">
                             <YAF:LocalizedLabel ID="HelpLabel8" runat="server" 
                                                 LocalizedTag="SIG_BBCODES" LocalizedPage="ADMIN_EDITGROUP" />
                             <asp:Label ID="Label7" runat="server" 
@@ -106,7 +106,7 @@
                                 <%# ((YAF.Types.Models.Rank)Container.DataItem).UsrSigBBCodes.IsSet() ? this.Eval("UsrSigBBCodes").ToString() : this.GetItemName(false) %>
                             </asp:Label>
                         </li>
-                        <li class="list-group-item">
+                        <li class="list-inline-item">
                             <YAF:LocalizedLabel ID="HelpLabel9" runat="server" 
                                                 LocalizedTag="SIG_HTML" LocalizedPage="ADMIN_EDITGROUP" />
                             <asp:Label ID="Label8" runat="server" 
@@ -121,7 +121,7 @@
                     <YAF:ThemeButton ID="ThemeButtonEdit" runat="server"
                                      Type="Info" 
                                      Size="Small"
-                                     CommandName='edit' CommandArgument='<%# this.Eval( "ID") %>'
+                                     CommandName="edit" CommandArgument='<%# this.Eval( "ID") %>'
                                      TitleLocalizedTag="EDIT"
                                      Icon="edit"
                                      TextLocalizedTag="EDIT">
