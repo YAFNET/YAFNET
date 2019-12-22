@@ -99,6 +99,7 @@
 }
 
 .select2-container--bootstrap4 .select2-selection {
+    background-color: #fff;
     border: 1px solid #ced4da;
     border-radius: 0.25rem;
     width: 100%;
