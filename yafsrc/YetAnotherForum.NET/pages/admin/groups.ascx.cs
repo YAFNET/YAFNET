@@ -2,7 +2,7 @@
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2019 Ingo Herbote
- * http://www.yetanotherforum.net/
+ * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -133,7 +133,7 @@ namespace YAF.Pages.Admin
         /// Data row which contains data about role.
         /// </param>
         /// <returns>
-        /// String "Linked" when role is linked to YAF roles, "Unlinkable" otherwise.
+        /// String "Linked" when role is linked to YAF roles, "Un-linkable" otherwise.
         /// </returns>
         [NotNull]
         protected string GetLinkedStatus([NotNull] Group currentRow)
@@ -170,7 +170,7 @@ namespace YAF.Pages.Admin
         /// </param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            // this needs to be done just once, not during postbacks
+            // this needs to be done just once, not during post-backs
             if (this.IsPostBack)
             {
                 return;
@@ -184,7 +184,7 @@ namespace YAF.Pages.Admin
         }
 
         /// <summary>
-        /// Handles provider roles additing/deletetion.
+        /// Handles provider roles adding/deleting.
         /// </summary>
         /// <param name="source">
         /// The source.
@@ -256,10 +256,13 @@ namespace YAF.Pages.Admin
                     break;
                 case "delete":
 
+                    var groupId = e.CommandArgument.ToType<int>();
+
                     // delete role
-                    this.GetRepository<ForumAccess>().Delete(g => g.GroupID == e.CommandArgument.ToType<int>());
-                    this.GetRepository<UserGroup>().Delete(g => g.GroupID == e.CommandArgument.ToType<int>());
-                    this.GetRepository<Group>().Delete(g => g.ID == e.CommandArgument.ToType<int>());
+                    this.GetRepository<GroupMedal>().Delete(g => g.GroupID == groupId);
+                    this.GetRepository<ForumAccess>().Delete(g => g.GroupID == groupId);
+                    this.GetRepository<UserGroup>().Delete(g => g.GroupID == groupId);
+                    this.GetRepository<Group>().Delete(g => g.ID == groupId);
 
                     // remove cache of forum moderators
                     this.Get<IDataCache>().Remove(Constants.Cache.ForumModerators);
@@ -278,7 +281,7 @@ namespace YAF.Pages.Admin
             // list roles of this board
             var dt = this.GetRepository<Group>().List(boardId: this.PageContext.PageBoardID);
 
-            // set repeater datasource
+            // set repeater data-source
             this.RoleListYaf.DataSource = dt;
 
             // clear cached list of roles
