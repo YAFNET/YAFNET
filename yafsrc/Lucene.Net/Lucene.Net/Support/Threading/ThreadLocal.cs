@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-#if NET472
+#if NET35
 
 using System;
 

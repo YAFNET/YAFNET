@@ -1,4 +1,4 @@
-#if NET472
+#if NET35
 /*
  *
  * Licensed to the Apache Software Foundation (ASF) under one

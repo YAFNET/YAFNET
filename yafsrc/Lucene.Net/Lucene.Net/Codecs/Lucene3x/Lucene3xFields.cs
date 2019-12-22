@@ -24,7 +24,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
      * limitations under the License.
      */
 
-    using IBits = Lucene.Net.Util.IBits;
+    using IBits = YAF.Lucene.Net.Util.IBits;
     using BytesRef = Lucene.Net.Util.BytesRef;
     using Directory = Lucene.Net.Store.Directory;
     using DocsAndPositionsEnum = Lucene.Net.Index.DocsAndPositionsEnum;

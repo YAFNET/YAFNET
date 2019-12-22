@@ -47,38 +47,6 @@ namespace YAF.Lucene.Net.Support
         /// <summary>
         /// Converts a number to System.String.
         /// </summary>
-        /// <param name="number"></param>
-        /// <returns></returns>
-        public static string ToString(long number)
-        {
-            var s = new System.Text.StringBuilder();
-
-            if (number == 0)
-            {
-                s.Append("0");
-            }
-            else
-            {
-                if (number < 0)
-                {
-                    s.Append("-");
-                    number = -number;
-                }
-
-                while (number > 0)
-                {
-                    char c = digits[(int)number % 36];
-                    s.Insert(0, c);
-                    number = number / 36;
-                }
-            }
-
-            return s.ToString();
-        }
-
-        /// <summary>
-        /// Converts a number to System.String.
-        /// </summary>
         /// <param name="f"></param>
         /// <returns></returns>
         public static System.String ToString(float f)
@@ -325,15 +293,14 @@ namespace YAF.Lucene.Net.Support
         // Returns the number of 1-bits in the number
         public static int BitCount(long num)
         {
-            int bitcount = 0;
-            // To use the > 0 condition
-            ulong nonNegNum = (ulong) num;
-            while (nonNegNum > 0)
-            {
-                bitcount += (int)(nonNegNum & 0x1);
-                nonNegNum >>= 1;
-            }
-            return bitcount;
+            num = (num & 0x5555555555555555L) + ((num >> 1) & 0x5555555555555555L);
+            num = (num & 0x3333333333333333L) + ((num >> 2) & 0x3333333333333333L);
+            // adjust for 64-bit integer
+            int i = (int)(URShift(num, 32) + num);
+            i = (i & 0x0F0F0F0F) + ((i >> 4) & 0x0F0F0F0F);
+            i = (i & 0x00FF00FF) + ((i >> 8) & 0x00FF00FF);
+            i = (i & 0x0000FFFF) + ((i >> 16) & 0x0000FFFF);
+            return i;
         }
 
         public static int Signum(long a)
@@ -342,15 +309,14 @@ namespace YAF.Lucene.Net.Support
         }
 
         // Returns the number of 1-bits in the number
-        public static int BitCount(int num)
+        public static int BitCount(int value)
         {
-            int bitcount = 0;
-            while (num > 0)
-            {
-                bitcount += (num & 1);
-                num >>= 1;
-            }
-            return bitcount;
+            value -= ((value >> 1) & 0x55555555);
+            value = (value & 0x33333333) + ((value >> 2) & 0x33333333);
+            value = (((value >> 4) + value) & 0x0F0F0F0F);
+            value += (value >> 8);
+            value += (value >> 16);
+            return (value & 0x0000003F);
         }
 
         public static int RotateLeft(int i, int reps)

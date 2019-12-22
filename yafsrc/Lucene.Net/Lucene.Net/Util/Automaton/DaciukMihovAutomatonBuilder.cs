@@ -85,7 +85,7 @@ namespace YAF.Lucene.Net.Util.Automaton
             public override bool Equals(object obj)
             {
                 State other = (State)obj;
-                return is_final == other.is_final && Array.Equals(this.labels, other.labels) && ReferenceEquals(this.states, other.states);
+                return is_final == other.is_final && Arrays.Equals(this.labels, other.labels) && ReferenceEquals(this.states, other.states);
             }
 
             /// <summary>
@@ -274,8 +274,7 @@ namespace YAF.Lucene.Net.Util.Automaton
         /// </summary>
         private static Util.Automaton.State Convert(State s, IdentityHashMap<State, Lucene.Net.Util.Automaton.State> visited)
         {
-            Util.Automaton.State converted = visited[s];
-            if (converted != null)
+            if (visited.TryGetValue(s, out Util.Automaton.State converted) && converted != null)
             {
                 return converted;
             }
