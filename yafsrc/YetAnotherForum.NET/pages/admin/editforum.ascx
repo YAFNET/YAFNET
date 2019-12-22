@@ -189,13 +189,16 @@
                         </FooterTemplate>
                         <ItemTemplate>
                             <div class="form-group col-md-4">
-                                <asp:Label ID="GroupID" Visible="false" runat="server">
-                                    <%# this.Eval( "GroupID") %>
-                                </asp:Label>
+                                <asp:HiddenField ID="GroupID" Visible="false" runat="server" 
+                                                 Value='<%# this.Eval( "GroupID") %>'>
+                                </asp:HiddenField>
                                 <asp:Label runat="server" Text='<%# this.Eval( "GroupName") %>' 
                                            AssociatedControlID="AccessMaskID"></asp:Label>
-                                <asp:DropDownList runat="server" ID="AccessMaskID" OnDataBinding="BindDataAccessMaskId" CssClass="custom-select"
-                                                  OnPreRender="SetDropDownIndex" value='<%# this.Eval("AccessMaskID") %>' />
+                                <asp:DropDownList runat="server" ID="AccessMaskID" 
+                                                  OnDataBinding="BindDataAccessMaskId" 
+                                                  CssClass="custom-select"
+                                                  OnPreRender="SetDropDownIndex" 
+                                                  Value='<%# this.Eval("AccessMaskID") %>' />
                             </div>
                         </ItemTemplate>
                     </asp:Repeater>
