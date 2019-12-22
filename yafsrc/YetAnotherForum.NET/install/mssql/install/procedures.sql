@@ -1686,6 +1686,7 @@ GO
 
 create procedure [{databaseOwner}].[{objectQualifier}group_delete](@GroupID int) as
 begin
+    delete from [{databaseOwner}].[{objectQualifier}GroupMedal] where GroupID = @GroupID
     delete from [{databaseOwner}].[{objectQualifier}ForumAccess] where GroupID = @GroupID
     delete from [{databaseOwner}].[{objectQualifier}UserGroup] where GroupID = @GroupID
     delete from [{databaseOwner}].[{objectQualifier}Group] where GroupID = @GroupID
