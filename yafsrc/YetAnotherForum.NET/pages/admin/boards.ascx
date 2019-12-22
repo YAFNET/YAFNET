@@ -27,7 +27,7 @@
 		    </HeaderTemplate>
 			<ItemTemplate>
                 <li 
-                    class='list-group-item list-group-item-action <%# this.Eval("ID").ToType<int>() != this.PageContext.PageBoardID ? "" : "active" %>'>
+                    class='list-group-item list-group-item-action list-group-item-menu <%# this.Eval("ID").ToType<int>() != this.PageContext.PageBoardID ? "" : "active" %>'>
 				<div class="d-flex w-100 justify-content-between">
                     <h5 class="mb-1">
                         <%# this.HtmlEncode(this.Eval( "Name")) %>
@@ -39,7 +39,7 @@
                     </small>
                 </div>
                 <small>
-					    <YAF:ThemeButton ID="ThemeButtonEdit" runat="server"
+                    <YAF:ThemeButton ID="ThemeButtonEdit" runat="server"
                                          Type="Info" 
                                          Size="Small"
                                          CommandName="edit" 
@@ -47,9 +47,8 @@
                                          TitleLocalizedTag="EDIT"
                                          TextLocalizedTag="EDIT"
                                          Icon="edit">
-					    </YAF:ThemeButton>
-                        &nbsp;
-                        <YAF:ThemeButton ID="ThemeButtonDelete" runat="server" 
+                    </YAF:ThemeButton>
+                    <YAF:ThemeButton ID="ThemeButtonDelete" runat="server" 
                                          Type="Danger" 
                                          Size="Small"
                                          CommandName="delete" 
@@ -60,6 +59,33 @@
                                          ReturnConfirmText='<%# this.GetText("ADMIN_BOARDS", "CONFIRM_DELETE") %>'>
                         </YAF:ThemeButton>
                     </small>
+                    <div class="dropdown-menu context-menu" aria-labelledby="context menu">
+                        <YAF:ThemeButton ID="ThemeButton1" runat="server"
+                                         Type="None"
+                                         CssClass="dropdown-item"
+                                         CommandName="edit" 
+                                         CommandArgument='<%# this.Eval( "ID") %>'
+                                         TitleLocalizedTag="EDIT"
+                                         TextLocalizedTag="EDIT"
+                                         Icon="edit">
+                        </YAF:ThemeButton>
+                        <YAF:ThemeButton ID="ThemeButton2" runat="server" 
+                                         Type="None"
+                                         CssClass="dropdown-item"
+                                         CommandName="delete" 
+                                         CommandArgument='<%# this.Eval( "ID") %>'
+                                         TitleLocalizedTag="DELETE"
+                                         TextLocalizedTag="DELETE"
+                                         Icon="trash"
+                                         ReturnConfirmText='<%# this.GetText("ADMIN_BOARDS", "CONFIRM_DELETE") %>'>
+                        </YAF:ThemeButton>
+                        <div class="dropdown-divider"></div>
+                        <YAF:ThemeButton ID="New" runat="server" 
+                                         Type="None"
+                                         CssClass="dropdown-item"
+                                         TextLocalizedTag="NEW_BOARD"
+                                         Icon="plus-square"></YAF:ThemeButton>
+                    </div>
                 </li>
 			</ItemTemplate>
             <FooterTemplate>

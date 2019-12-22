@@ -116,6 +116,6 @@ jQuery(document).ready(function () {
                 getSearchResultsData(pageNumberSearch);
             }
 
-        });
+         });
     }
 });

@@ -1515,6 +1515,8 @@
     <Resource tag="CONFIRM_DELETE">Delete this Medal?</Resource>
     <Resource tag="DISPLAY_BOX">Medal image as it'll be displayed in user box.</Resource>
     <Resource tag="DISPLAY_RIBBON">Ribbon bar image as it'll be displayed in user box.</Resource>
+    <Resource tag="MOVE_DOWN">Move Down</Resource>
+    <Resource tag="MOVE_UP">Move Up</Resource>
     <Resource tag="NEW_MEDAL">New Medal</Resource>
     <Resource tag="TITLE">Medals</Resource>
   </page>

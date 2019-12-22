@@ -25,7 +25,7 @@
                 </ul>
             </FooterTemplate>
             <ItemTemplate>
-                <li class="list-group-item list-group-item-action">
+                <li class="list-group-item list-group-item-action list-group-item-menu">
                     <div class="d-flex w-100 justify-content-between">
                         <h5 class="mb-1">
                             <%# this.Eval("Key") %>
@@ -54,7 +54,16 @@
                                              Icon="hand-paper" 
                                              Type="Danger" 
                                              Size="Small">
-                        </YAF:ThemeButton>
+                            </YAF:ThemeButton>
+                            <div class="dropdown-menu context-menu" aria-labelledby="context menu">
+                                <YAF:ThemeButton ID="ThemeButton1" runat="server"
+                                                 CommandName="stop" 
+                                                 CommandArgument='<%# this.Eval("Key") %>'
+                                                 TextLocalizedTag="STOP_TASK" TextLocalizedPage="ADMIN_TASKMANAGER"
+                                                 Icon="hand-paper" 
+                                                 Type="None"
+                                                 CssClass="dropdown-item" />
+                            </div>
                         </small>
                     </asp:PlaceHolder>
                 </li>

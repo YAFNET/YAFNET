@@ -24,7 +24,7 @@
                     <ul class="list-group">
 		</HeaderTemplate>
 		<ItemTemplate>
-            <li class="list-group-item list-group-item-action">
+            <li class="list-group-item list-group-item-action list-group-item-menu">
                 <div class="d-flex w-100 justify-content-between">
                     <h5 class="mb-1">
                         <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="BAD" LocalizedPage="ADMIN_REPLACEWORDS" />:
@@ -44,7 +44,7 @@
                     <YAF:ThemeButton ID="btnEdit" runat="server"
                                      Type="Info" 
                                      Size="Small" 
-                                     CommandName='edit' 
+                                     CommandName="edit" 
                                      CommandArgument='<%# this.Eval("ID") %>'
                                      TextLocalizedTag="EDIT"
                                      TitleLocalizedTag="EDIT" 
@@ -53,7 +53,7 @@
                     <YAF:ThemeButton ID="ThemeButtonDelete" runat="server" 
                                      Type="Danger" 
                                      Size="Small" 
-                                     CommandName='delete'
+                                     CommandName="delete"
                                      TextLocalizedTag="DELETE"
                                      CommandArgument='<%# this.Eval( "ID") %>' 
                                      TitleLocalizedTag="DELETE" 
@@ -61,6 +61,57 @@
                                      ReturnConfirmText='<%# this.GetText("ADMIN_REPLACEWORDS", "MSG_DELETE") %>'>
                     </YAF:ThemeButton>
                 </small>
+                <div class="dropdown-menu context-menu" aria-labelledby="context menu">
+                    <YAF:ThemeButton ID="ThemeButton1" runat="server"
+                                     Type="None"
+                                     CssClass="dropdown-item" 
+                                     CommandName="edit" 
+                                     CommandArgument='<%# this.Eval("ID") %>'
+                                     TextLocalizedTag="EDIT"
+                                     TitleLocalizedTag="EDIT" 
+                                     Icon="edit">
+                    </YAF:ThemeButton>
+                    <YAF:ThemeButton ID="ThemeButton2" runat="server" 
+                                     Type="None"
+                                     CssClass="dropdown-item"
+                                     CommandName="delete"
+                                     TextLocalizedTag="DELETE"
+                                     CommandArgument='<%# this.Eval( "ID") %>' 
+                                     TitleLocalizedTag="DELETE" 
+                                     Icon="trash"
+                                     ReturnConfirmText='<%# this.GetText("ADMIN_REPLACEWORDS", "MSG_DELETE") %>'>
+                    </YAF:ThemeButton>
+                    <div class="dropdown-divider"></div>
+                    <YAF:ThemeButton runat="server" 
+                                     CommandName="add" 
+                                     ID="Linkbutton3" 
+                                     Type="None"
+                                     CssClass="dropdown-item"
+                                     Icon="plus-square" 
+                                     TextLocalizedTag="ADD" 
+                                     TextLocalizedPage="ADMIN_REPLACEWORDS">
+                    </YAF:ThemeButton>
+                    <div class="dropdown-divider"></div>
+                    <YAF:ThemeButton runat="server" 
+                                     Icon="upload"   
+                                     DataToggle="modal" 
+                                     DataTarget="ReplaceWordsImportDialog" 
+                                     ID="Linkbutton5" 
+                                     Type="None"
+                                     CssClass="dropdown-item"
+                                     TextLocalizedTag="IMPORT" 
+                                     TextLocalizedPage="ADMIN_REPACEWORDS">
+                    </YAF:ThemeButton>
+                    <YAF:ThemeButton runat="server" 
+                                     CommandName="export" 
+                                     ID="Linkbutton4" 
+                                     Type="None"
+                                     CssClass="dropdown-item"
+                                     Icon="download" 
+                                     TextLocalizedTag="EXPORT" 
+                                     TextLocalizedPage="ADMIN_REPLACEWORDS">
+                    </YAF:ThemeButton>
+                </div>
 			</li>
 		</ItemTemplate>
 		<FooterTemplate>
@@ -68,14 +119,13 @@
                 </div>
                 <div class="card-footer text-center">
 					<YAF:ThemeButton runat="server" 
-                                     CommandName='add' 
+                                     CommandName="add" 
                                      ID="Linkbutton3" 
                                      Type="Primary"
 					                 Icon="plus-square" 
                                      TextLocalizedTag="ADD" 
                                      TextLocalizedPage="ADMIN_REPLACEWORDS">
                     </YAF:ThemeButton>
-					&nbsp;
 					<YAF:ThemeButton runat="server" 
                                      Icon="upload"   
                                      DataToggle="modal" 
@@ -85,9 +135,8 @@
 					                 TextLocalizedTag="IMPORT" 
                                      TextLocalizedPage="ADMIN_REPACEWORDS">
                     </YAF:ThemeButton>
-					&nbsp;
 					<YAF:ThemeButton runat="server" 
-                                     CommandName='export' 
+                                     CommandName="export" 
                                      ID="Linkbutton4" 
                                      Type="Warning"
 					                 Icon="download" 

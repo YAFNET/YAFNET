@@ -187,7 +187,7 @@ namespace YAF.Pages.Admin
             var dr = (DataRowView)data;
 
             return string.Format(
-                "<a href=\"{2}\">{0}({1})</a>",
+                "<a href=\"{2}\">{0}&nbsp;({1})</a>",
                 this.HtmlEncode(dr["DisplayName"]),
                 this.HtmlEncode(dr["UserName"]),
                 YafBuildLink.GetLink(ForumPages.admin_edituser, "u={0}", dr["UserID"]));

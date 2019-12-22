@@ -1520,6 +1520,8 @@
     <Resource tag="CONFIRM_DELETE">این نشان حذف شود؟</Resource>
     <Resource tag="DISPLAY_BOX">تصویر نشان در کادر کاربر نمایش داده خواهد شد.</Resource>
     <Resource tag="DISPLAY_RIBBON">تصویر نوار روبان  در کادر کاربر نمایش داده خواهد شد.</Resource>
+    <Resource tag="MOVE_DOWN">Move Down</Resource>
+    <Resource tag="MOVE_UP">Move Up</Resource>
     <Resource tag="NEW_MEDAL">نشان جدید</Resource>
     <Resource tag="TITLE">نشان‌ها</Resource>
   </page>

@@ -1516,6 +1516,8 @@
     <Resource tag="CONFIRM_DELETE">Diese Medaille löschen?</Resource>
     <Resource tag="DISPLAY_BOX">Medaillenbild, wie es in der Benutzerbox angezeigt wird.</Resource>
     <Resource tag="DISPLAY_RIBBON">Ribbonbarbild, wie es in der Benutzerbox angezeigt wird.</Resource>
+    <Resource tag="MOVE_DOWN">Move Down</Resource>
+    <Resource tag="MOVE_UP">Move Up</Resource>
     <Resource tag="NEW_MEDAL">Neue Medaille</Resource>
     <Resource tag="TITLE">Medaillen</Resource>
   </page>

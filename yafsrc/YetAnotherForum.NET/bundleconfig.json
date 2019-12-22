@@ -81,7 +81,8 @@
       "Scripts/forum/yaf.Albums.js",
       "Scripts/forum/yaf.Attachments.js",
       "Scripts/forum/yaf.SimilarTitles.js",
-      "Scripts/forum/yaf.Main.js"
+      "Scripts/forum/yaf.Main.js",
+      "Scripts/forum/yaf.contextMenu.js"
     ]
   },
   {

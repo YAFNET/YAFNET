@@ -1517,6 +1517,8 @@
     <Resource tag="CONFIRM_DELETE">Удалить эту медаль?</Resource>
     <Resource tag="DISPLAY_BOX">Изображение медали, как она будет отображаться в блоке пользователя в постах.</Resource>
     <Resource tag="DISPLAY_RIBBON">Орденская планка, как она будет отображаться в блоке пользователя в постах.</Resource>
+    <Resource tag="MOVE_DOWN">Move Down</Resource>
+    <Resource tag="MOVE_UP">Move Up</Resource>
     <Resource tag="NEW_MEDAL">Новая медаль</Resource>
     <Resource tag="TITLE">Медали</Resource>
   </page>

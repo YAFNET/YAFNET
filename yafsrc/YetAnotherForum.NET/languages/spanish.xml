@@ -1529,6 +1529,8 @@
     <Resource tag="CONFIRM_DELETE">¿Eliminar esta medalla?</Resource>
     <Resource tag="DISPLAY_BOX">La imagen de la medalla será mostrada in la caja de usuario.</Resource>
     <Resource tag="DISPLAY_RIBBON">La imagen de la barra Ribbon será mostrada en la caja de usuario.</Resource>
+    <Resource tag="MOVE_DOWN">Move Down</Resource>
+    <Resource tag="MOVE_UP">Move Up</Resource>
     <Resource tag="NEW_MEDAL">Nueva medalla</Resource>
     <Resource tag="TITLE">Medallas</Resource>
   </page>

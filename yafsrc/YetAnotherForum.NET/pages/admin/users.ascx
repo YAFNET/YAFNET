@@ -127,12 +127,11 @@
                             </ul>
                         </FooterTemplate>
                         <ItemTemplate>
-                            <li class="list-group-item list-group-item-action">
+                            <li class="list-group-item list-group-item-action list-group-item-menu">
                                 <div class="d-flex w-100 justify-content-between">
                                     <h5 class="mb-1 text-break">
                                         <asp:LinkButton ID="NameEdit" runat="server" CommandName="edit" CommandArgument='<%# this.Eval("UserID") %>'
                                                         Text='<%# this.HtmlEncode( this.Eval("Name").ToString() ) %>' />
-                                        <br />
                                         (<asp:LinkButton ID="DisplayNameEdit" runat="server" CommandName="edit" CommandArgument='<%# this.Eval("UserID") %>'
                                                          Text='<%# this.HtmlEncode( this.Eval("DisplayName").ToString() ) %>' />)
                                     </h5>
@@ -144,19 +143,45 @@
                                     </small>
                                 </div>
                                 <p class="mb-1">
-                                    <span style="font-weight:bold"><YAF:LocalizedLabel ID="LocalizedLabel9" runat="server" LocalizedTag="EMAIL" LocalizedPage="ADMIN_USERS" /> :</span> <%# DataBinder.Eval(Container.DataItem,"Email") %>&nbsp;|&nbsp;
-                                    <span style="font-weight:bold"><YAF:LocalizedLabel ID="LocalizedLabel8" runat="server" LocalizedTag="RANK" /> </span> <%# this.Eval("RankName") %>
-                                    <span style="font-weight:bold"><YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedTag="POSTS" LocalizedPage="ADMIN_USERS" /> :</span> <%# this.Eval( "NumPosts") %>&nbsp;|&nbsp;
-                                    <span style="font-weight:bold"><YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="LAST_VISIT" LocalizedPage="ADMIN_USERS" /> :</span> <%# this.Get<IDateTime>().FormatDateTime((DateTime)((System.Data.DataRowView)Container.DataItem)["LastVisit"]) %>&nbsp;&nbsp;
-                                    <span id="FacebookUser" class="FacebookIcon" runat="server" Visible='<%# this.Eval("IsFacebookUser").ToType<bool>() %>' title='<%# this.GetText("ADMIN_EDITUSER", "FACEBOOK_USER_HELP") %>'>&nbsp;</span>
-                                    <span id="TwitterUser" class="TwitterIcon" runat="server" Visible='<%# this.Eval("IsTwitterUser").ToType<bool>() %>' title='<%# this.GetText("ADMIN_EDITUSER", "TWITTER_USER_HELP") %>'>&nbsp;</span>
-                                    <span id="GoogleUser" class="GoogleIcon" runat="server" Visible='<%# this.Eval("IsGoogleUser").ToType<bool>() %>' title='<%# this.GetText("ADMIN_EDITUSER", "GOOGLE_USER_HELP") %>'>&nbsp;</span>
+                                    <ul class="list-inline">
+                                        <li class="list-inline-item">
+                                            <strong><YAF:LocalizedLabel ID="LocalizedLabel9" runat="server" LocalizedTag="EMAIL" LocalizedPage="ADMIN_USERS" />:</strong>
+                                            <%# DataBinder.Eval(Container.DataItem,"Email") %>
+                                        </li>
+                                        <li class="list-inline-item">
+                                            <strong><YAF:LocalizedLabel ID="LocalizedLabel8" runat="server" LocalizedTag="RANK"></YAF:LocalizedLabel> </strong>
+                                            <%# this.Eval("RankName") %>
+                                        </li>
+                                        <li class="list-inline-item">
+                                            <strong><YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedTag="POSTS" LocalizedPage="ADMIN_USERS" />:</strong>
+                                            <%# this.Eval( "NumPosts") %>
+                                        </li>
+                                        <li class="list-inline-item">
+                                            <strong><YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="LAST_VISIT" LocalizedPage="ADMIN_USERS" />:</strong>
+                                            <%# this.Get<IDateTime>().FormatDateTime((DateTime)((System.Data.DataRowView)Container.DataItem)["LastVisit"]) %>
+                                        </li>
+                                        <li class="list-inline-item">
+                                            <span id="FacebookUser" class="FacebookIcon" runat="server" 
+                                                  Visible='<%# this.Eval("IsFacebookUser").ToType<bool>() %>' 
+                                                  title='<%# this.GetText("ADMIN_EDITUSER", "FACEBOOK_USER_HELP") %>'>&nbsp;</span>
+                                        </li>
+                                        <li class="list-inline-item">
+                                            <span id="TwitterUser" class="TwitterIcon" runat="server" 
+                                                  Visible='<%# this.Eval("IsTwitterUser").ToType<bool>() %>' 
+                                                  title='<%# this.GetText("ADMIN_EDITUSER", "TWITTER_USER_HELP") %>'>&nbsp;</span>
+                                        </li>
+                                        <li class="list-inline-item">
+                                            <span id="GoogleUser" class="GoogleIcon" runat="server" 
+                                                  Visible='<%# this.Eval("IsGoogleUser").ToType<bool>() %>' 
+                                                  title='<%# this.GetText("ADMIN_EDITUSER", "GOOGLE_USER_HELP") %>'>&nbsp;</span>
+                                        </li>
+                                    </ul>
                                 </p>
                                 <small>
                                     <YAF:ThemeButton ID="ThemeButtonEdit" runat="server" 
                                                      Type="Info" 
                                                      Size="Small" 
-                                                     CommandName='edit' 
+                                                     CommandName="edit" 
                                                      CommandArgument='<%# DataBinder.Eval(Container.DataItem, "UserID") %>'
                                                      TextLocalizedTag="EDIT" 
                                                      TitleLocalizedTag="EDIT" 
@@ -166,7 +191,7 @@
                                                      ReturnConfirmText='<%# this.GetText("ADMIN_USERS", "CONFIRM_DELETE") %>' 
                                                      Type="Danger" 
                                                      Size="Small" 
-                                                     CommandName='delete' 
+                                                     CommandName="delete" 
                                                      CommandArgument='<%# DataBinder.Eval(Container.DataItem, "UserID") %>'
                                                      TextLocalizedTag="DELETE" 
                                                      TitleLocalizedTag="DELETE"
@@ -174,6 +199,28 @@
                                                      Visible='<%# DataBinder.Eval(Container.DataItem, "IsGuest").ToType<bool>() == false && !Config.IsDotNetNuke %>'>
                                     </YAF:ThemeButton>
                                 </small>
+                                <div class="dropdown-menu context-menu" aria-labelledby="context menu">
+                                    <YAF:ThemeButton ID="ThemeButton1" runat="server" 
+                                                     Type="None" 
+                                                     CssClass="dropdown-item"
+                                                     CommandName="edit" 
+                                                     CommandArgument='<%# DataBinder.Eval(Container.DataItem, "UserID") %>'
+                                                     TextLocalizedTag="EDIT" 
+                                                     TitleLocalizedTag="EDIT" 
+                                                     Icon="edit">
+                                    </YAF:ThemeButton>
+                                    <YAF:ThemeButton ID="ThemeButton2" runat="server"
+                                                     ReturnConfirmText='<%# this.GetText("ADMIN_USERS", "CONFIRM_DELETE") %>' 
+                                                     Type="None" 
+                                                     CssClass="dropdown-item"
+                                                     CommandName="delete" 
+                                                     CommandArgument='<%# DataBinder.Eval(Container.DataItem, "UserID") %>'
+                                                     TextLocalizedTag="DELETE" 
+                                                     TitleLocalizedTag="DELETE"
+                                                     Icon="trash" 
+                                                     Visible='<%# DataBinder.Eval(Container.DataItem, "IsGuest").ToType<bool>() == false && !Config.IsDotNetNuke %>'>
+                                    </YAF:ThemeButton>
+                                </div>
                             </li>
                         </ItemTemplate>
                     </asp:Repeater>

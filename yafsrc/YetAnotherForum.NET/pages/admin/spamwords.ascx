@@ -61,12 +61,12 @@
                     <ul class="list-group">
 		</HeaderTemplate>
 		<ItemTemplate>
-            <li class="list-group-item list-group-item-action text-break">
+            <li class="list-group-item list-group-item-action text-break list-group-item-menu">
                 <div class="d-flex w-100 justify-content-between">
                     <h5 class="mb-1"><%# this.HtmlEncode(this.Eval("spamword")) %></h5>
                 </div>
                 <small>
-                    <YAF:ThemeButton ID="btnEdit" Type="Info" Size="Small" CommandName='edit' CommandArgument='<%# this.Eval("ID") %>'
+                    <YAF:ThemeButton ID="btnEdit" Type="Info" Size="Small" CommandName="edit" CommandArgument='<%# this.Eval("ID") %>'
                                      TextLocalizedTag="EDIT" TitleLocalizedTag="EDIT" Icon="edit" 
                                      runat="server">
                     </YAF:ThemeButton>
@@ -76,6 +76,43 @@
                                      CommandArgument='<%# this.Eval( "ID") %>' TitleLocalizedTag="DELETE" Icon="trash" runat="server">
                     </YAF:ThemeButton>
                 </small>
+                <div class="dropdown-menu context-menu" aria-labelledby="context menu">
+                    <YAF:ThemeButton ID="ThemeButton1" 
+                                     Type="None" 
+                                     CssClass="dropdown-item" 
+                                     CommandName="edit" CommandArgument='<%# this.Eval("ID") %>'
+                                     TextLocalizedTag="EDIT" TitleLocalizedTag="EDIT" Icon="edit" 
+                                     runat="server">
+                    </YAF:ThemeButton>
+                    <YAF:ThemeButton ID="ThemeButton2" 
+                                     Type="None" 
+                                     CssClass="dropdown-item"
+                                     ReturnConfirmText='<%# this.GetText("ADMIN_SPAMWORDS", "MSG_DELETE") %>' CommandName='delete'
+                                     TextLocalizedTag="DELETE"
+                                     CommandArgument='<%# this.Eval( "ID") %>' TitleLocalizedTag="DELETE" Icon="trash" runat="server">
+                    </YAF:ThemeButton>
+                    <div class="dropdown-divider"></div>
+                    <YAF:ThemeButton runat="server" 
+                                     Icon="plus-square" 
+                                     Type="None" 
+                                     CssClass="dropdown-item"
+                                     TextLocalizedTag="ADD" TextLocalizedPage="ADMIN_SPAMWORDS"
+                                     OnClick="AddClick"></YAF:ThemeButton>
+                    <div class="dropdown-divider"></div>
+                    <YAF:ThemeButton runat="server" 
+                                     Icon="upload"   
+                                     DataToggle="modal" 
+                                     DataTarget="SpamWordsImportDialog" 
+                                     Type="None" 
+                                     CssClass="dropdown-item"
+                                     TextLocalizedTag="IMPORT" TextLocalizedPage="ADMIN_SPAMWORDS"></YAF:ThemeButton>
+                    <YAF:ThemeButton runat="server" ID="Linkbutton4"
+                                     OnClick="ExportClick"
+                                     Type="None" 
+                                     CssClass="dropdown-item"
+                                     Icon="download" 
+                                     TextLocalizedPage="ADMIN_SPAMWORDS" TextLocalizedTag="EXPORT"></YAF:ThemeButton>
+                </div>
 			</li>
 		</ItemTemplate>
 		<FooterTemplate>
@@ -89,14 +126,12 @@
                                  Type="Primary"
                                  TextLocalizedTag="ADD" TextLocalizedPage="ADMIN_SPAMWORDS"
                                  OnClick="AddClick"></YAF:ThemeButton>
-                &nbsp;
                 <YAF:ThemeButton runat="server" 
                                  Icon="upload"   
                                  DataToggle="modal" 
                                  DataTarget="SpamWordsImportDialog" 
                                  Type="Info"
                                  TextLocalizedTag="IMPORT" TextLocalizedPage="ADMIN_SPAMWORDS"></YAF:ThemeButton>
-                &nbsp;
                 <YAF:ThemeButton runat="server" ID="Linkbutton4"
                                  OnClick="ExportClick"
                                  Type="Warning" 

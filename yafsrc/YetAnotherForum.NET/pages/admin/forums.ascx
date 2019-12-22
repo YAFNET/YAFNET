@@ -25,7 +25,7 @@
 			    <ul class="list-group">
 			</HeaderTemplate>
             <ItemTemplate>
-                <li class="list-group-item list-group-item-action active">
+                <li class="list-group-item list-group-item-action active list-group-item-menu">
                 <div class="d-flex w-100 justify-content-between">
                     <h5 class="mb-1"><%# this.HtmlEncode(this.Eval( "Name"))%></h5>
                     <small class="d-none d-md-block">
@@ -53,12 +53,45 @@
                                      TextLocalizedTag="DELETE"
                                      Visible='<%# !((System.Data.DataRowView)Container.DataItem).Row.GetChildRows("FK_Forum_Category").Any() %>'>
                     </YAF:ThemeButton>
+                    <div class="dropdown-menu context-menu" aria-labelledby="context menu">
+                        <YAF:ThemeButton ID="ThemeButton1" runat="server" 
+                                         Type="None" 
+                                         CssClass="dropdown-item"
+                                         CommandName="edit" CommandArgument='<%# this.Eval( "CategoryID") %>'
+                                         TitleLocalizedTag="EDIT" Icon="edit"
+                                         TextLocalizedTag="EDIT">
+                        </YAF:ThemeButton>
+                        <YAF:ThemeButton ID="ThemeButton2" runat="server" 
+                                         Type="None" 
+                                         CssClass="dropdown-item"
+                                         ReturnConfirmText='<%# this.GetText("ADMIN_FORUMS", "CONFIRM_DELETE_CAT") %>'
+                                         CommandName="delete" CommandArgument='<%# this.Eval( "CategoryID") %>'
+                                         TitleLocalizedTag="DELETE" 
+                                         Icon="trash"
+                                         TextLocalizedTag="DELETE"
+                                         Visible='<%# !((System.Data.DataRowView)Container.DataItem).Row.GetChildRows("FK_Forum_Category").Any() %>'>
+                        </YAF:ThemeButton>
+                        <div class="dropdown-divider"></div>
+                        <YAF:ThemeButton ID="NewCategory" runat="server" 
+                                         OnClick="NewCategory_Click" 
+                                         Type="None" 
+                                         CssClass="dropdown-item"
+                                         Icon="plus-square" 
+                                         TextLocalizedTag="NEW_CATEGORY"></YAF:ThemeButton>
+                        <YAF:ThemeButton ID="NewForum" runat="server" 
+                                         OnClick="NewForum_Click" 
+                                         Type="None" 
+                                         CssClass="dropdown-item"
+                                         Icon="plus-square" 
+                                         TextLocalizedTag="NEW_FORUM"
+                                         TextLocalizedPage="ADMIN_FORUMS"></YAF:ThemeButton>
+                    </div>
                 </small>
 				</li>
 				<asp:Repeater ID="ForumList" OnItemCommand="ForumList_ItemCommand" runat="server"
 					DataSource='<%# ((System.Data.DataRowView)Container.DataItem).Row.GetChildRows("FK_Forum_Category") %>'>
 					<ItemTemplate>
-                        <li class="list-group-item list-group-item-action">
+                        <li class="list-group-item list-group-item-action list-group-item-menu">
                             <div class="d-flex w-100 justify-content-between">
                                 <h5 class="mb-1">
                                     <%# this.HtmlEncode(DataBinder.Eval(Container.DataItem, "[\"Name\"]")) %>
@@ -72,11 +105,15 @@
                                 <%# this.HtmlEncode(DataBinder.Eval(Container.DataItem, "[\"Description\"]")) %>
                             </p>
                             <small>
-                                <YAF:ThemeButton ID="btnEdit" Type="Info" Size="Small"
+                                <YAF:ThemeButton ID="btnEdit" 
+                                                 Type="Info" 
+                                                 Size="Small"
                                                  CommandName="edit" CommandArgument='<%# this.Eval( "[\"ForumID\"]") %>'
                                                  TextLocalizedTag="EDIT"
                                                  TitleLocalizedTag="EDIT" Icon="edit" runat="server"></YAF:ThemeButton>
-                                <YAF:ThemeButton ID="btnDuplicate" Type="Info" Size="Small"
+                                <YAF:ThemeButton ID="btnDuplicate" 
+                                                 Type="Info" 
+                                                 Size="Small"
                                                  CommandName="copy" CommandArgument='<%# this.Eval( "[\"ForumID\"]") %>'
                                                  TextLocalizedTag="COPY"
                                                  TitleLocalizedTag="COPY" Icon="copy" runat="server"></YAF:ThemeButton>
@@ -85,6 +122,40 @@
                                                  TextLocalizedTag="DELETE"
                                                  TitleLocalizedTag="DELETE" Icon="trash" runat="server"></YAF:ThemeButton>
                             </small>
+                            <div class="dropdown-menu context-menu" aria-labelledby="context menu">
+                                <YAF:ThemeButton ID="ThemeButton3" 
+                                                 Type="None" 
+                                                 CssClass="dropdown-item"
+                                                 CommandName="edit" CommandArgument='<%# this.Eval( "[\"ForumID\"]") %>'
+                                                 TextLocalizedTag="EDIT"
+                                                 TitleLocalizedTag="EDIT" Icon="edit" runat="server"></YAF:ThemeButton>
+                                <YAF:ThemeButton ID="ThemeButton4" 
+                                                 Type="None" 
+                                                 CssClass="dropdown-item"
+                                                 CommandName="copy" CommandArgument='<%# this.Eval( "[\"ForumID\"]") %>'
+                                                 TextLocalizedTag="COPY"
+                                                 TitleLocalizedTag="COPY" Icon="copy" runat="server"></YAF:ThemeButton>
+                                <YAF:ThemeButton ID="ThemeButton5" 
+                                                 Type="None" 
+                                                 CssClass="dropdown-item"
+                                                 CommandName="delete" CommandArgument='<%# this.Eval( "[\"ForumID\"]") %>'
+                                                 TextLocalizedTag="DELETE"
+                                                 TitleLocalizedTag="DELETE" Icon="trash" runat="server"></YAF:ThemeButton>
+                                <div class="dropdown-divider"></div>
+                                <YAF:ThemeButton ID="NewCategory" runat="server" 
+                                                 OnClick="NewCategory_Click" 
+                                                 Type="None" 
+                                                 CssClass="dropdown-item"
+                                                 Icon="plus-square" 
+                                                 TextLocalizedTag="NEW_CATEGORY"></YAF:ThemeButton>
+                                <YAF:ThemeButton ID="NewForum" runat="server" 
+                                                 OnClick="NewForum_Click" 
+                                                 Type="None" 
+                                                 CssClass="dropdown-item"
+                                                 Icon="plus-square" 
+                                                 TextLocalizedTag="NEW_FORUM"
+                                                 TextLocalizedPage="ADMIN_FORUMS"></YAF:ThemeButton>
+                            </div>
 						</li>
 					</ItemTemplate>
 				</asp:Repeater>
@@ -100,7 +171,6 @@
                                  Type="Primary"
 				                 Icon="plus-square" 
                                  TextLocalizedTag="NEW_CATEGORY"></YAF:ThemeButton>
-				&nbsp;
 				<YAF:ThemeButton ID="NewForum" runat="server" 
                                  OnClick="NewForum_Click" 
                                  Type="Primary"

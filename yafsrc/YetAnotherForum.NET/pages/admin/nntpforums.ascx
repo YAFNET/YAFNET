@@ -22,7 +22,7 @@
                 <ul class="list-group">
             </HeaderTemplate>
             <ItemTemplate>
-                <li class="list-group-item list-group-item-action">
+                <li class="list-group-item list-group-item-action list-group-item-menu">
                     <div class="d-flex w-100 justify-content-between">
                         <h5 class="mb-1">
                             <%# this.Eval( "Name") %>
@@ -49,21 +49,48 @@
                         <YAF:ThemeButton ID="ThemeButtonEdit" 
                                          Type="Info" 
                                          Size="Small" runat="server"
-                                         CommandName='edit' 
+                                         CommandName="edit" 
                                          CommandArgument='<%# this.Eval("NntpForumID") %>'
                                          Icon="edit" 
                                          TextLocalizedTag="EDIT">
-                        </YAF:ThemeButton>&nbsp;
+                        </YAF:ThemeButton>
                         <YAF:ThemeButton ID="ThemeButtonDelete" 
                                          Type="Danger" 
                                          Size="Small" runat="server"
-                                         CommandName='delete' 
+                                         CommandName="delete" 
                                          CommandArgument='<%# this.Eval("NntpForumID") %>'
                                          Icon="trash" 
                                          TextLocalizedTag="DELETE"
                                          ReturnConfirmText='<%# this.GetText("ADMIN_NNTPFORUMS", "DELETE_FORUM") %>'>
                         </YAF:ThemeButton>
                     </small>
+                    <div class="dropdown-menu context-menu" aria-labelledby="context menu">
+                        <YAF:ThemeButton ID="ThemeButton1" 
+                                         Type="None" 
+                                         CssClass="dropdown-item" runat="server"
+                                         CommandName="edit" 
+                                         CommandArgument='<%# this.Eval("NntpForumID") %>'
+                                         Icon="edit" 
+                                         TextLocalizedTag="EDIT">
+                        </YAF:ThemeButton>
+                        <YAF:ThemeButton ID="ThemeButton2" 
+                                         Type="None" 
+                                         CssClass="dropdown-item" runat="server"
+                                         CommandName="delete" 
+                                         CommandArgument='<%# this.Eval("NntpForumID") %>'
+                                         Icon="trash" 
+                                         TextLocalizedTag="DELETE"
+                                         ReturnConfirmText='<%# this.GetText("ADMIN_NNTPFORUMS", "DELETE_FORUM") %>'>
+                        </YAF:ThemeButton>
+                        <div class="dropdown-divider"></div>
+                        <YAF:ThemeButton ID="NewForum" runat="server" 
+                                         Type="None" 
+                                         CssClass="dropdown-item" 
+                                         OnClick="NewForumClick"
+                                         Icon="plus-square" 
+                                         TextLocalizedTag="NEW_FORUM" 
+                                         TextLocalizedPage="ADMIN_NNTPFORUMS" />
+                    </div>
                 </li>
             </ItemTemplate>
             <FooterTemplate>

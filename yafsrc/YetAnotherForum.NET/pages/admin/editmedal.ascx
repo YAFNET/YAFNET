@@ -179,7 +179,7 @@
                 <ul class="list-group">
             </HeaderTemplate>
 			<ItemTemplate>
-                <li class="list-group-item list-group-item-action">
+                <li class="list-group-item list-group-item-action list-group-item-menu">
                 <div class="d-flex w-100 justify-content-between">
                     <h5 class="mb-1 text-break">
                         <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="GROUP" />:
@@ -198,7 +198,7 @@
                     <YAF:ThemeButton ID="ThemeButtonEdit" runat="server"
                                      Type="Info" 
                                      Size="Small"
-                                     CommandName='edit' 
+                                     CommandName="edit" 
                                      CommandArgument='<%# this.Eval( "GroupID") %>'
                                      TitleLocalizedTag="EDIT"
                                      Icon="edit"
@@ -207,14 +207,44 @@
                     <YAF:ThemeButton ID="ThemeButtonDelete" runat="server" 
                                      Type="Danger" 
                                      Size="Small"
-                                     CommandName='delete' 
+                                     CommandName="delete" 
                                      CommandArgument='<%# this.Eval( "GroupID") %>'
-                                     TitleLocalizedTag="DELETE"
+                                     TitleLocalizedTag="REMOVE"
                                      Icon="trash"
-                                     TextLocalizedTag="DELETE"
+                                     TextLocalizedTag="REMOVE"
                                      ReturnConfirmText='<%# this.GetText("ADMIN_EDITMEDAL", "CONFIRM_REMOVE_USER") %>'>
                     </YAF:ThemeButton>
                 </small>
+                    <div class="dropdown-menu context-menu" aria-labelledby="context menu">
+                        <YAF:ThemeButton ID="ThemeButton1" runat="server"
+                                         Type="None" 
+                                         CssClass="dropdown-item"
+                                         CommandName="edit" 
+                                         CommandArgument='<%# this.Eval( "GroupID") %>'
+                                         TitleLocalizedTag="EDIT"
+                                         Icon="edit"
+                                         TextLocalizedTag="EDIT">
+                        </YAF:ThemeButton>
+                        <YAF:ThemeButton ID="ThemeButton2" runat="server" 
+                                         Type="None" 
+                                         CssClass="dropdown-item"
+                                         CommandName="delete" 
+                                         CommandArgument='<%# this.Eval( "GroupID") %>'
+                                         TitleLocalizedTag="REMOVE"
+                                         Icon="trash"
+                                         TextLocalizedTag="REMOVE"
+                                         ReturnConfirmText='<%# this.GetText("ADMIN_EDITMEDAL", "CONFIRM_REMOVE_USER") %>'>
+                        </YAF:ThemeButton>
+                        <div class="dropdown-divider"></div>
+                        <YAF:ThemeButton runat="server" 
+                                         OnClick="AddGroupClick" 
+                                         ID="AddGroup" 
+                                         Type="None" 
+                                         CssClass="dropdown-item"
+                                         Icon="plus-square" 
+                                         TextLocalizedTag="ADD_GROUP">
+                        </YAF:ThemeButton>
+                    </div>
             </li>
 			</ItemTemplate>
             <FooterTemplate>
@@ -248,7 +278,7 @@
                 <ul class="list-group">
 			</HeaderTemplate>
 			<ItemTemplate>
-                <li class="list-group-item list-group-item-action">
+                <li class="list-group-item list-group-item-action list-group-item-menu">
                 <div class="d-flex w-100 justify-content-between">
                     <h5 class="mb-1 text-break">
                         <%# this.FormatUserLink(Container.DataItem) %>
@@ -288,6 +318,33 @@
                                      Icon="trash">
                     </YAF:ThemeButton>
                 </small>
+                    <div class="dropdown-menu context-menu" aria-labelledby="context menu">
+                        <YAF:ThemeButton runat="server" 
+                                         CommandName="edit" 
+                                         CommandArgument='<%# this.Eval("UserID") %>' 
+                                         TextLocalizedTag="EDIT"
+                                         Type="None" 
+                                         CssClass="dropdown-item"
+                                         Icon="edit">
+                        </YAF:ThemeButton>
+                        <YAF:ThemeButton runat="server" 
+                                         CommandName="remove" 
+                                         CommandArgument='<%# this.Eval("UserID") %>' 
+                                         TextLocalizedTag="REMOVE"
+                                         Type="None" 
+                                         CssClass="dropdown-item"
+                                         Icon="trash">
+                        </YAF:ThemeButton>
+                        <div class="dropdown-divider"></div>
+                        <YAF:ThemeButton runat="server" 
+                                         OnClick="AddUserClick" 
+                                         ID="AddUser" 
+                                         Type="None" 
+                                         CssClass="dropdown-item"
+                                         Icon="plus-square" 
+                                         TextLocalizedTag="ADD_USER">
+                        </YAF:ThemeButton>
+                    </div>
             </li>
 			</ItemTemplate>
             <FooterTemplate>

@@ -1518,6 +1518,8 @@
     <Resource tag="CONFIRM_DELETE">Verwijder deze Medaille?</Resource>
     <Resource tag="DISPLAY_BOX">Afbeelding van de Medaille zoals weergegeven in het Gebruikersvak.</Resource>
     <Resource tag="DISPLAY_RIBBON">Lint afbeelding zoals weergegeven in het Gebruikersvak.</Resource>
+    <Resource tag="MOVE_DOWN">Move Down</Resource>
+    <Resource tag="MOVE_UP">Move Up</Resource>
     <Resource tag="NEW_MEDAL">Nieuwe Medaille</Resource>
     <Resource tag="TITLE">Medailles</Resource>
   </page>
