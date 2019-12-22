@@ -797,6 +797,8 @@
     <Resource tag="KILL_USER_CONFIRM">حذف تمام ارسال ها و مسدود کردن (بصورت اختیاری) آدرس‌های IP استفاده شده توسط این کاربر</Resource>
     <Resource tag="LINK_USER_BAN">کاربر &lt;a id="usr{0}" href="{1}"&gt;{2}&lt;/a&gt;  توسط IP مسدود شده است</Resource>
     <Resource tag="MEMBER">عضو</Resource>
+    <Resource tag="MODERATE">Moderate all Posts</Resource>
+    <Resource tag="MODERATE_HELP">Moderate all Posts made by the User</Resource>
     <Resource tag="MSG_GUEST_APPROVED">کاربر میهمان باید به عنوان تایید شده علامت‌گذاری شود. در صورت تائید نشدن کاربر میهمان انجمن شما پایداری نخواهد داشت.</Resource>
     <Resource tag="MSG_PASS_CHANGED">کلمه عبور کاربر عوض شد.</Resource>
     <Resource tag="MSG_PASS_CHANGED_NOTI">کلمه عبور کاربر تغییر کرد و نامه ای هم به وی ارسال شد</Resource>

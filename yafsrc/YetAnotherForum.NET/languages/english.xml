@@ -579,7 +579,7 @@
   <Resource tag="LOCKED_HELP">If the forum is locked, no one can post or reply in this forum.</Resource>
   <Resource tag="MODERATE_ALL_POSTS">Moderate all Posts</Resource>
   <Resource tag="MODERATED_COUNT">Moderate all Posts or only until a User reaches x amount of Posts</Resource>
-  <Resource tag="MODERATED_COUNT_HELP">Set it to 'Moderate all Posts' or uncheck that option to specifify the amount of post a user has to reach to be automatically approved.</Resource>
+  <Resource tag="MODERATED_COUNT_HELP">Set it to 'Moderate all Posts' or uncheck that option to specify the amount of post a user has to reach to be automatically approved.</Resource>
   <Resource tag="MODERATED_NEWTOPIC_ONLY">Moderate only new Topics but not Replies?</Resource>
   <Resource tag="MODERATED_NEWTOPIC_ONLY_HELP">If checked only Messages of new Topics are checked but not Replies to existing Topics, otherwise all Messages needs moderation.</Resource>
   <Resource tag="MSG_CATEGORY">You must select a category for the forum.</Resource>
@@ -822,6 +822,8 @@
   <Resource tag="SUSPEND_OR_DELETE_ACCOUNT">Suspend or Delete this Account?</Resource>
   <Resource tag="LINK_USER_BAN">User &lt;a id="usr{0}" href="{1}"&gt;{2}&lt;/a&gt;  is banned by IP</Resource>
   <Resource tag="MEMBER">Member</Resource>
+   <Resource tag="MODERATE">Moderate all Posts</Resource>
+   <Resource tag="MODERATE_HELP">Moderate all Posts made by the User</Resource>
   <Resource tag="MSG_GUEST_APPROVED">The Guest user must be marked as Approved or your forum will be unstable.</Resource>
   <Resource tag="MSG_PASS_CHANGED">User Password Changed</Resource>
   <Resource tag="MSG_PASS_CHANGED_NOTI">User Password Changed and Notification Email Sent.</Resource>

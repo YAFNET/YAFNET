@@ -190,6 +190,9 @@ namespace YAF.Types.Models
         [Compute]
         public bool? IsDirty { get; set; }
 
+        [Compute]
+        public bool? Moderated { get; set; }
+
         [Required]
         [Default(0)]
         public bool IsFacebookUser { get; set; }

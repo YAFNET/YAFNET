@@ -798,6 +798,8 @@
     <Resource tag="KILL_USER_CONFIRM">Delete all posts by and (optionally) ban IP addresses used by this user?</Resource>
     <Resource tag="LINK_USER_BAN">Пользователь &lt;a id="usr{0}" href="{1}"&gt;{2}&lt;/a&gt;  забанен по IP</Resource>
     <Resource tag="MEMBER">Участник</Resource>
+    <Resource tag="MODERATE">Moderate all Posts</Resource>
+    <Resource tag="MODERATE_HELP">Moderate all Posts made by the User</Resource>
     <Resource tag="MSG_GUEST_APPROVED">Пользователь Гость должен быть одобрен!</Resource>
     <Resource tag="MSG_PASS_CHANGED">Пароль пользователя изменён</Resource>
     <Resource tag="MSG_PASS_CHANGED_NOTI">Изменён пароль пользователя и послано уведомление на Email.</Resource>

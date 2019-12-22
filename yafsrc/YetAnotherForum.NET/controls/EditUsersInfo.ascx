@@ -39,6 +39,15 @@
 
 <asp:PlaceHolder runat="server" id="IsHostAdminRow">
     <div class="form-group">
+        <YAF:HelpLabel ID="HelpLabel15" runat="server" 
+                       AssociatedControlID="Moderated"
+                       LocalizedTag="MODERATE" LocalizedPage="ADMIN_EDITUSER" />
+         
+        <div class="custom-control custom-switch">
+            <asp:CheckBox Text="&nbsp;" runat="server" ID="Moderated" />
+        </div>
+    </div>
+    <div class="form-group">
             <YAF:HelpLabel ID="HelpLabel5" runat="server" 
                            AssociatedControlID="IsHostAdminX"
                            LocalizedTag="USERINFO_HOST" LocalizedPage="ADMIN_EDITUSER" />

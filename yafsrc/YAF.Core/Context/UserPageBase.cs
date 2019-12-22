@@ -143,6 +143,8 @@ namespace YAF.Core
         /// </summary>
         public bool IsCaptchaExcluded => this.userFlags != null && this.userFlags.IsCaptchaExcluded;
 
+        public bool Moderated => this.userFlags != null && this.userFlags.Moderated;
+
         /// <summary>
         ///   Gets a value indicating whether the current user IsCrawler (True).
         /// </summary>

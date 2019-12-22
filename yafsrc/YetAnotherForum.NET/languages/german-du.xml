@@ -797,6 +797,8 @@
     <Resource tag="KILL_USER_CONFIRM">Alle Beiträge löschen und (optional) all IP Addressen des Benutzers bannen?</Resource>
     <Resource tag="LINK_USER_BAN">Benutzer &lt;a id="usr{0}" href="{1}"&gt;{2}&lt;/a&gt;  ist gesperrt durch die IP-Adresse</Resource>
     <Resource tag="MEMBER">Mitglied</Resource>
+    <Resource tag="MODERATE">Moderate all Posts</Resource>
+    <Resource tag="MODERATE_HELP">Moderate all Posts made by the User</Resource>
     <Resource tag="MSG_GUEST_APPROVED">Der Gastbenutzer muss als Genehmigt markiert sein, ansonsten funktioniert das Forum nicht korrekt.</Resource>
     <Resource tag="MSG_PASS_CHANGED">Benutzer Passwort geändert</Resource>
     <Resource tag="MSG_PASS_CHANGED_NOTI">Benutzer Passwort geändert und Benachrichtigungs-E-Mail Gesendet</Resource>

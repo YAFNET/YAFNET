@@ -126,7 +126,8 @@ namespace YAF.Controls
                                     IsGuest = this.IsGuestX.Checked,
                                     IsCaptchaExcluded = this.IsCaptchaExcluded.Checked,
                                     IsActiveExcluded = this.IsExcludedFromActiveUsers.Checked,
-                                    IsApproved = this.IsApproved.Checked
+                                    IsApproved = this.IsApproved.Checked,
+                                    Moderated = this.Moderated.Checked
                                 };
 
             this.GetRepository<User>().AdminSave(
@@ -166,6 +167,7 @@ namespace YAF.Controls
                 this.IsGuestX.Checked = userFlags.IsGuest;
                 this.IsCaptchaExcluded.Checked = userFlags.IsCaptchaExcluded;
                 this.IsExcludedFromActiveUsers.Checked = userFlags.IsActiveExcluded;
+                this.Moderated.Checked = userFlags.Moderated;
                 this.Joined.Text = row["Joined"].ToString();
                 this.IsFacebookUser.Checked = row["IsFacebookUser"].ToType<bool>();
                 this.IsTwitterUser.Checked = row["IsTwitterUser"].ToType<bool>();

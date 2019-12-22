@@ -1509,6 +1509,12 @@ namespace YAF.Pages
         /// </returns>
         private bool CheckForumModerateStatus(Forum forumInfo, bool isNewTopic)
         {
+            // User Moderate override
+            if (this.PageContext.Moderated)
+            {
+                return true;
+            }
+
             var forumModerated = forumInfo.ForumFlags.IsModerated;
 
             if (!forumModerated)

@@ -135,9 +135,13 @@ namespace YAF.Types.Flags
             /// </summary>
             IsDirty = 64,
 
+            /// <summary>
+            /// The moderated flag.
+            /// </summary>
+            Moderated = 128
+
             /*  for future use
-             *   xxxxx = 128,
-                 xxxxx = 256,
+             *   xxxxx = 256,
                  xxxxx = 512
                   */
         }
@@ -216,7 +220,7 @@ namespace YAF.Types.Flags
         /// <summary>
         /// Gets or sets a value indicating whether a user profile/personal data was changed. 
         /// The flag is set every time when a user profile changes.
-        /// Used for portal intgration.
+        /// Used for portal integration.
         /// </summary>
         public bool IsDirty
         {
@@ -224,6 +228,17 @@ namespace YAF.Types.Flags
             get => this[6];
 
             set => this[6] = value;
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether moderated.
+        /// </summary>
+        public bool Moderated
+        {
+            // int value 128
+            get => this[7];
+
+            set => this[7] = value;
         }
 
         #endregion

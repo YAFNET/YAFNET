@@ -798,6 +798,8 @@
     <Resource tag="KILL_USER_CONFIRM">Delete all posts by and (optionally) ban IP addresses used by this user?</Resource>
     <Resource tag="LINK_USER_BAN">Gebruiker &lt;a id="usr{0}" href="{1}"&gt;{2}&lt;/a&gt;  is gebanned door IP</Resource>
     <Resource tag="MEMBER">Lid</Resource>
+    <Resource tag="MODERATE">Moderate all Posts</Resource>
+    <Resource tag="MODERATE_HELP">Moderate all Posts made by the User</Resource>
     <Resource tag="MSG_GUEST_APPROVED">Het gast-account moet gemarkeerd zijn als Goedgekeurd, anders is het forum niet stabiel.</Resource>
     <Resource tag="MSG_PASS_CHANGED">Het wachtwoord is gewijzigd</Resource>
     <Resource tag="MSG_PASS_CHANGED_NOTI">Het wachtwoord is gewijzigd en een notificatie email is verstuurd</Resource>

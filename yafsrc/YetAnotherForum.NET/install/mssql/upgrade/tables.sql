@@ -600,6 +600,7 @@ if not exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{d
 		[IsActiveExcluded] AS (CONVERT([bit],sign([Flags]&(16)),(0))),
 		[IsDST]	AS (CONVERT([bit],sign([Flags]&(32)),(0))),
 		[IsDirty]	AS (CONVERT([bit],sign([Flags]&(64)),(0))),
+		[Moderated]	AS (CONVERT([bit],sign([Flags]&(128)),(0))),
 		[Culture] varchar (10) default (10),
 		[IsFacebookUser][bit] NOT NULL constraint [DF_{objectQualifier}User_IsFacebookUser] default (0),
 		[IsTwitterUser][bit] NOT NULL constraint [DF_{objectQualifier}User_IsTwitterUser] default (0),
@@ -2896,5 +2897,11 @@ GO
 if exists (select top 1 1 from sys.columns where object_id = object_id('[{databaseOwner}].[{objectQualifier}Rank]') and name='RankImage')
 begin
     alter table [{databaseOwner}].[{objectQualifier}Rank] drop column RankImage
+end
+GO
+
+if not exists (select top 1 1 from sys.columns where object_id=object_id('[{databaseOwner}].[{objectQualifier}User]') and name='Moderated')
+begin
+	alter table [{databaseOwner}].[{objectQualifier}User] add [Moderated] AS (CONVERT([bit],sign([Flags]&(128)),(0)))
 end
 GO
