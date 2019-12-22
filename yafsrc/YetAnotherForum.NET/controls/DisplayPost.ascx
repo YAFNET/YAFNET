@@ -208,7 +208,7 @@
                                 <YAF:ThemeButton ID="UnDelete" runat="server"
                                                  Type="None"
                                                  CssClass="dropdown-item"
-                                                 Icon="trash-alt"
+                                                 Icon="trash-restore"
                                                  TextLocalizedTag="BUTTON_UNDELETE"
                                                  TitleLocalizedTag="BUTTON_UNDELETE_TT" />
                             </div>

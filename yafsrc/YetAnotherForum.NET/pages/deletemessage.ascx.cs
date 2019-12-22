@@ -299,6 +299,7 @@ namespace YAF.Pages
             {
                 this.Title.Text = this.GetText("EDIT");
                 this.Delete.TextLocalizedTag = "UNDELETE";
+                this.Delete.Icon = "trash-restore";
             }
 
             this.Subject.Text = Convert.ToString(this._messageRow["Topic"]);
@@ -307,7 +308,11 @@ namespace YAF.Pages
 
             // populate the message preview with the message datarow...
             this.MessagePreview.Message = this._messageRow["message"].ToString();
-            this.MessagePreview.MessageFlags = new MessageFlags(this._messageRow["Flags"]);
+
+            var messageFlags = new MessageFlags(this._messageRow["Flags"]) { IsDeleted = false };
+
+
+            this.MessagePreview.MessageFlags = messageFlags;
         }
 
         /// <summary>

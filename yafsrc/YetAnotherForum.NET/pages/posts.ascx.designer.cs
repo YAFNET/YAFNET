@@ -390,7 +390,7 @@ namespace YAF.Pages
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.UserControl MoveTopicDialog;
+        protected global::YAF.Dialogs.MoveTopic MoveTopicDialog;
 
         /// <summary>
         /// QuickReplyDialog control.

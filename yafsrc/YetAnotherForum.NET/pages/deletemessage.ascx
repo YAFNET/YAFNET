@@ -28,13 +28,17 @@
                         <asp:Label runat="server">
                             <YAF:LocalizedLabel runat="server" LocalizedTag="previewtitle" />
                         </asp:Label>
-                        <YAF:MessagePost ID="MessagePreview" runat="server">
-                        </YAF:MessagePost>
+                        <div class="card">
+                            <div class="card-body">
+                                <YAF:MessagePost ID="MessagePreview" runat="server">
+                                </YAF:MessagePost>
+                            </div>
+                        </div>
                     </div>
                     </asp:PlaceHolder>
                     <asp:PlaceHolder runat="server" id="DeleteReasonRow">
                     <div class="form-group">
-                        <asp:Label runat="server">
+                        <asp:Label runat="server" AssociatedControlID="ReasonEditor">
                             <% = this.GetReasonText() %>
                         </asp:Label>
                         <asp:TextBox ID="ReasonEditor" runat="server" CssClass="form-control" MaxLength="100" />
@@ -76,7 +80,7 @@
                 <i class="fas fa-trash fa-stack-1x fa-inverse"></i>
             </span>&nbsp; 
             <asp:CheckBox ID="DeleteAllPosts" runat="server" 
-                          CssClass="custom-control custom-checkbox" Text='<%# this.GetText("DELETE_ALL") %>' />
+                          CssClass="custom-control custom-checkbox d-inline-block" Text='<%# this.GetText("DELETE_ALL") %>' />
             
         </div>
         <div class="card-body">
@@ -91,12 +95,13 @@
     </FooterTemplate>
     <ItemTemplate>
         <li class="list-group-item">
-            <span class="font-weight-bold"><a href="<%# YafBuildLink.GetLink(ForumPages.profile,"u={0}&name={1}",DataBinder.Eval(Container.DataItem, "UserID"), DataBinder.Eval(Container.DataItem, "UserName")) %>">
+            <p class="pb-1"><span class="font-weight-bold"><a href="<%# YafBuildLink.GetLink(ForumPages.profile,"u={0}&name={1}",DataBinder.Eval(Container.DataItem, "UserID"), DataBinder.Eval(Container.DataItem, "UserName")) %>">
                     <%# DataBinder.Eval(Container.DataItem, "UserName") %></a></span>
                 <span class="font-weight-bold">
                     <YAF:LocalizedLabel runat="server" LocalizedTag="posted" />
                 </span>
-                <%# this.Get<IDateTime>().FormatDateTime( ( DateTime ) ( ( System.Data.DataRowView ) Container.DataItem ) ["Posted"] )%>
+                <%# this.Get<IDateTime>().FormatDateTime( ( DateTime ) ( ( System.Data.DataRowView ) Container.DataItem ) ["Posted"] )%>#
+            </p>
                 <YAF:MessagePostData ID="MessagePost1" runat="server" DataRow="<%# ((System.Data.DataRowView )Container.DataItem).Row %>"
                     ShowAttachments="false" ShowSignature="false">
                 </YAF:MessagePostData>

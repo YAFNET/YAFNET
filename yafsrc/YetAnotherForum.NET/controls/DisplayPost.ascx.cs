@@ -573,6 +573,8 @@ namespace YAF.Controls
                 "m={0}",
                 this.PostData.MessageId);
             this.Delete.Visible = !this.PostData.PostDeleted && this.PostData.CanDeletePost && !this.PostData.IsLocked;
+            
+            ////
             this.Delete.NavigateUrl = YafBuildLink.GetLinkNotEscaped(
                 ForumPages.deletemessage,
                 "m={0}&action=delete",
@@ -582,6 +584,7 @@ namespace YAF.Controls
                 ForumPages.deletemessage,
                 "m={0}&action=undelete",
                 this.PostData.MessageId);
+            ///
 
             this.Quote.Visible = !this.PostData.PostDeleted && this.PostData.CanReply && !this.PostData.IsLocked;
             this.MultiQuote.Visible = !this.PostData.PostDeleted && this.PostData.CanReply && !this.PostData.IsLocked;
