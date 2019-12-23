@@ -511,18 +511,22 @@ namespace YAF.Core.Services.Auth
             [NotNull] int userId, 
             OAuthTwitter oAuth)
         {
-            var notifyUser = new YafTemplateEmail();
+            var subject = string.Format(
+                YafContext.Current.Get<ILocalization>().GetText("COMMON", "NOTIFICATION_ON_NEW_FACEBOOK_USER_SUBJECT"),
+                YafContext.Current.Get<YafBoardSettings>().Name);
 
-            var subject =
-                string
-                    .Format(YafContext.Current.Get<ILocalization>()
-                        .GetText("COMMON", "NOTIFICATION_ON_NEW_FACEBOOK_USER_SUBJECT"), YafContext.Current.Get<YafBoardSettings>().Name);
+            var notifyUser = new YafTemplateEmail
+                                 {
+                                     TemplateParams =
+                                         {
+                                             ["{user}"] = user.UserName,
+                                             ["{email}"] = user.Email,
+                                             ["{pass}"] = pass,
+                                             ["{answer}"] = securityAnswer,
+                                             ["{forumname}"] = YafContext.Current.Get<YafBoardSettings>().Name
+                                         }
+                                 };
 
-            notifyUser.TemplateParams["{user}"] = user.UserName;
-            notifyUser.TemplateParams["{email}"] = user.Email;
-            notifyUser.TemplateParams["{pass}"] = pass;
-            notifyUser.TemplateParams["{answer}"] = securityAnswer;
-            notifyUser.TemplateParams["{forumname}"] = YafContext.Current.Get<YafBoardSettings>().Name;
 
             var emailBody = notifyUser.ProcessTemplate("NOTIFICATION_ON_TWITTER_REGISTER");
 

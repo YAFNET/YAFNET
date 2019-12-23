@@ -27,8 +27,10 @@ namespace YAF.Pages
     #region Using
 
     using System;
+    using System.Net.Mail;
     using System.Web;
 
+    using YAF.Configuration;
     using YAF.Core;
     using YAF.Core.Extensions;
     using YAF.Core.Services;
@@ -36,7 +38,6 @@ namespace YAF.Pages
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Types.Models;
     using YAF.Utils;
     using YAF.Web.Extensions;
 
@@ -126,13 +127,13 @@ namespace YAF.Pages
 
             try
             {
-                // send the email...
-                this.Get<ISendMail>().Send(
-                    this.PageContext.User.Email,
-                    this.EmailAddress.Text.Trim(),
-                    this.PageContext.BoardSettings.ForumEmail,
-                    this.Subject.Text.Trim(),
-                    this.Message.Text.Trim());
+                var emailTopic = new YafTemplateEmail("EMAILTOPIC")
+                                     {
+                                         TemplateParams = { ["{message}"] = this.Message.Text.Trim() }
+                                     };
+
+                // send a change email message...
+                emailTopic.SendEmail(new MailAddress(this.EmailAddress.Text.Trim()), this.Subject.Text.Trim(), false);
 
                 YafBuildLink.Redirect(ForumPages.posts, "t={0}", this.PageContext.PageTopicID);
             }

@@ -44,33 +44,6 @@ namespace YAF.Core.Model
         /// </summary>
         /// <param name="repository">The repository.</param>
         /// <param name="to">The to.</param>
-        /// <param name="toName">To name.</param>
-        /// <param name="subject">The subject.</param>
-        /// <param name="body">The body.</param>
-        public static void Create(
-            this IRepository<Mail> repository,
-            string to,
-            string toName,
-            string subject,
-            string body)
-        {
-            repository.Create(
-                YafContext.Current.BoardSettings.ForumEmail,
-                YafContext.Current.BoardSettings.Name,
-                to,
-                toName,
-                subject,
-                body,
-                null,
-                0,
-                null);
-        }
-
-        /// <summary>
-        /// The create.
-        /// </summary>
-        /// <param name="repository">The repository.</param>
-        /// <param name="to">The to.</param>
         /// <param name="toName">The to name.</param>
         /// <param name="subject">The subject.</param>
         /// <param name="body">The body.</param>

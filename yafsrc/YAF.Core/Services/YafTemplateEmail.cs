@@ -34,6 +34,7 @@ namespace YAF.Core.Services
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
+    using YAF.Utils;
 
     /// <summary>
     ///     The YAF template email.
@@ -63,6 +64,15 @@ namespace YAF.Core.Services
         public YafTemplateEmail(string templateName)
             : this(templateName, true)
         {
+            var logoUrl =
+                $"{YafForumInfo.ForumClientFileRoot}{YafBoardFolders.Current.Logos}/{YafContext.Current.BoardSettings.ForumLogo}";
+            var themeCss =
+                $"{this.Get<YafBoardSettings>().BaseUrlMask}{this.Get<ITheme>().BuildThemePath("bootstrap-forum.min.css")}";
+
+            this.TemplateParams["{forumname}"] = this.Get<YafBoardSettings>().Name;
+            this.TemplateParams["{forumlink}"] = YafForumInfo.ForumURL;
+            this.TemplateParams["{themecss}"] = themeCss;
+            this.TemplateParams["{logo}"] = $"{this.Get<YafBoardSettings>().BaseUrlMask}{logoUrl}";
         }
 
         /// <summary>
@@ -144,29 +154,6 @@ namespace YAF.Core.Services
         }
 
         /// <summary>
-        /// Creates an email from a template
-        /// </summary>
-        /// <param name="templateName">
-        /// The template Name.
-        /// </param>
-        /// <returns>
-        /// The process template.
-        /// </returns>
-        public string ProcessTemplate(string templateName)
-        {
-            var email = this.ReadTemplate(templateName, this.TemplateLanguageFile);
-
-            if (email.IsSet())
-            {
-                email = this.TemplateParams.Keys.Aggregate(
-                    email,
-                    (current, key) => current.Replace(key, this.TemplateParams[key]));
-            }
-
-            return email;
-        }
-
-        /// <summary>
         /// The send email.
         /// </summary>
         /// <param name="toAddress">
@@ -236,6 +223,29 @@ namespace YAF.Core.Services
         #endregion
 
         #region Methods
+
+        /// <summary>
+        /// Creates an email from a template
+        /// </summary>
+        /// <param name="templateName">
+        /// The template Name.
+        /// </param>
+        /// <returns>
+        /// The process template.
+        /// </returns>
+        public string ProcessTemplate(string templateName)
+        {
+            var email = this.ReadTemplate(templateName, this.TemplateLanguageFile);
+
+            if (email.IsSet())
+            {
+                email = this.TemplateParams.Keys.Aggregate(
+                    email,
+                    (current, key) => current.Replace(key, this.TemplateParams[key]));
+            }
+
+            return email;
+        }
 
         /// <summary>
         /// Reads a template from the language file

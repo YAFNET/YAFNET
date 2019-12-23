@@ -1,6 +1,5 @@
 <%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Admin.forums" Codebehind="forums.ascx.cs" %>
 
-
 <YAF:PageLinks runat="server" ID="PageLinks" />
 
     <div class="row">
@@ -182,6 +181,3 @@
             </div>
         </div>
     </div>
-
-
-

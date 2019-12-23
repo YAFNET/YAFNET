@@ -127,17 +127,17 @@ namespace YAF.Web.Controls
         /// </param>
         protected override void Render([NotNull] HtmlTextWriter writer)
         {
-            var forumJump =
-                this.Get<IDataCache>().GetOrSet(
-                    string.Format(
-                        Constants.Cache.ForumJump, this.PageContext.User != null ? this.PageContext.PageUserID.ToString() : "Guest"),
-                    () => this.GetRepository<Types.Models.Forum>().ListAllSortedAsDataTable(this.PageContext.PageBoardID, this.PageContext.PageUserID),
-                    TimeSpan.FromMinutes(5));
+            var forumJump = this.Get<IDataCache>().GetOrSet(
+                string.Format(
+                    Constants.Cache.ForumJump,
+                    this.PageContext.User != null ? this.PageContext.PageUserID.ToString() : "Guest"),
+                () => this.GetRepository<Types.Models.Forum>().ListAllSortedAsDataTable(
+                    this.PageContext.PageBoardID,
+                    this.PageContext.PageUserID),
+                TimeSpan.FromMinutes(5));
 
             writer.WriteLine(
                 $@"<select name=""{this.UniqueID}"" onchange=""{this.Page.ClientScript.GetPostBackClientHyperlink(this, this.ID)}"" id=""{this.ClientID}"" class=""custom-select"">");
-
-            writer.WriteLine(@"<option value=""0"">{0}</option>", this.Get<YafBoardSettings>().Name);
 
             var forumId = this.PageContext.PageForumID;
             if (forumId <= 0)
@@ -145,17 +145,19 @@ namespace YAF.Web.Controls
                 writer.WriteLine("<option/>");
             }
 
-           forumJump.Rows.Cast<DataRow>().ForEach(
+            forumJump.Rows.Cast<DataRow>().ForEach(
                 row =>
-                {
-                    writer.WriteLine(
-                        @"<option {2}value=""{0}"">&nbsp;&nbsp;{1}</option>",
-                        row["ForumID"],
-                        this.HtmlEncode(row["Title"]),
-                        Convert.ToString(row["ForumID"]) == forumId.ToString() ? @"selected=""selected"" " : string.Empty);
-                });
+                    {
+                        writer.WriteLine(
+                            @"<option {2}value=""{0}"">&nbsp;&nbsp;{1}</option>",
+                            row["ForumID"],
+                            this.HtmlEncode(row["Title"]),
+                            Convert.ToString(row["ForumID"]) == forumId.ToString()
+                                ? @"selected=""selected"" "
+                                : string.Empty);
+                    });
 
-           writer.WriteLine("</select>");
+            writer.WriteLine("</select>");
         }
 
         /// <summary>

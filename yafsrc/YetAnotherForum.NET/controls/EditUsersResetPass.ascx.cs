@@ -179,10 +179,6 @@ namespace YAF.Controls
                     var subject = this.GetTextFormatted(
                         "PASSWORDRETRIEVAL_EMAIL_SUBJECT",
                         this.Get<YafBoardSettings>().Name);
-                    var logoUrl =
-                        $"{YafForumInfo.ForumClientFileRoot}{YafBoardFolders.Current.Logos}/{this.PageContext.BoardSettings.ForumLogo}";
-                    var themeCss =
-                        $"{this.Get<YafBoardSettings>().BaseUrlMask}{this.Get<ITheme>().BuildThemePath("bootstrap-forum.min.css")}";
 
                     // email a notification...
                     var passwordRetrieval = new YafTemplateEmail("PASSWORDRETRIEVAL_ADMIN")
@@ -190,12 +186,7 @@ namespace YAF.Controls
                                                     TemplateParams =
                                                         {
                                                             ["{username}"] = user.UserName,
-                                                            ["{password}"] = newPass,
-                                                            ["{forumname}"] = this.Get<YafBoardSettings>().Name,
-                                                            ["{forumlink}"] = YafForumInfo.ForumURL,
-                                                            ["{themecss}"] = themeCss,
-                                                            ["{logo}"] =
-                                                                $"{this.Get<YafBoardSettings>().BaseUrlMask}{logoUrl}"
+                                                            ["{password}"] = newPass
                                                         }
                                                 };
 

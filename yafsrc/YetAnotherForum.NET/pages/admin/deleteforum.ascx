@@ -46,7 +46,7 @@
                                      CssClass="btn btn-danger"
                                      Icon="trash" 
                                      TextLocalizedTag="DELETE_FORUM" TextLocalizedPage="ADMIN_DELETEFORUM">
-                    </YAF:ThemeButton>&nbsp;
+                    </YAF:ThemeButton>
                     <YAF:ThemeButton ID="Cancel" runat="server" 
                                      Type="Secondary"
                                      Icon="times" 
