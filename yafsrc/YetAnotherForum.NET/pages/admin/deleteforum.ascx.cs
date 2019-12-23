@@ -2,7 +2,7 @@
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2019 Ingo Herbote
- * http://www.yetanotherforum.net/
+ * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -27,10 +27,10 @@ namespace YAF.Pages.Admin
     #region Using
 
     using System;
-    using System.Linq;
     using System.Web;
 
     using YAF.Core;
+    using YAF.Core.Extensions;
     using YAF.Core.Model;
     using YAF.Core.Tasks;
     using YAF.Core.Utilities;
@@ -94,15 +94,26 @@ namespace YAF.Pages.Admin
 
             this.BindData();
 
+            if (!this.Get<HttpRequestBase>().QueryString.Exists("fa"))
+            {
+                YafBuildLink.Redirect(ForumPages.admin_forums);
+            }
+
             var forumId = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefaultAsInt("fa");
 
-            var forum = this.GetRepository<Forum>().List(this.PageContext.PageBoardID, forumId)
-                .FirstOrDefault();
+            var forum = this.GetRepository<Forum>().GetById(forumId.Value);
 
-            this.ForumNameTitle.Text = forum.Name;
+            if (forum == null)
+            {
+                YafBuildLink.Redirect(ForumPages.admin_forums);
+            }
+            else
+            {
+                this.ForumNameTitle.Text = forum.Name;
 
-            // populate parent forums list with forums according to selected category
-            this.BindParentList();
+                // populate parent forums list with forums according to selected category
+                this.BindParentList();
+            }
         }
 
         /// <summary>
@@ -195,7 +206,7 @@ namespace YAF.Pages.Admin
         /// </summary>
         private void ClearCaches()
         {
-            // clear moderatorss cache
+            // clear moderators cache
             this.Get<IDataCache>().Remove(Constants.Cache.ForumModerators);
 
             // clear category cache...
@@ -248,6 +259,10 @@ namespace YAF.Pages.Admin
             if (errorMessage.IsSet())
             {
                 this.PageContext.AddLoadMessage(errorMessage, MessageTypes.danger);
+            }
+            else
+            {
+                YafBuildLink.Redirect(ForumPages.admin_forums);
             }
         }
 
