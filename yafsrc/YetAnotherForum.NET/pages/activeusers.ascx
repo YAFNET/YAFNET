@@ -14,10 +14,6 @@
                         <i class="fa fa-users fa-fw text-secondary"></i> <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="title" />
                     </div>
                     <div class="card-body">
-                        <YAF:Alert runat="server" ID="MobileInfo" Type="info" MobileOnly="True">
-                            <YAF:LocalizedLabel ID="LocalizedLabel220" runat="server" LocalizedTag="TABLE_RESPONSIVE" LocalizedPage="ADMIN_COMMON" />
-                            <span class="float-right"><i class="fa fa-hand-point-left fa-fw"></i></span>
-                        </YAF:Alert>
                         <div class="table-responsive">
 	                        <table class="table tablesorter table-bordered table-striped" id="ActiveUsers">
                                 <thead class="thead-light">

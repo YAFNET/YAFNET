@@ -109,7 +109,7 @@ namespace YAF.Pages.Admin
             YafContext.Current.PageElements.RegisterJsBlock(
                "tablesorterLoadJs",
                JavaScriptBlocks.LoadTableSorter(
-                   ".sortable",
+                   "#language-table",
                    cultureTable.HasRows() ? "headers: { 4: { sorter: false }}" : null));
 
             this.DataBind();

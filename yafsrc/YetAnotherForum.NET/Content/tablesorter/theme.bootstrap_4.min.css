@@ -203,3 +203,41 @@
     cursor: pointer;
     background-color: #e6bf99;
 }
+
+.tablesorter-bootstrap thead th {
+    margin: 0;
+}
+
+/* REQUIRED CSS: change your reflow breakpoint here (35em below) */
+@media ( max-width: 35em) {
+    .ui-table-reflow td,
+    .ui-table-reflow th {
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+        float: right;
+        /* if not using the stickyHeaders widget (not the css3 version)
+			 * the "!important" flag, and "height: auto" can be removed */
+        width: 100% !important;
+        height: auto !important;
+    }
+    /* reflow widget */
+    .ui-table-reflow tbody td[data-title]:before {
+        color: #469;
+        font-size: .9em;
+        content: attr(data-title);
+        float: left;
+        width: 50%;
+        white-space: pre-wrap;
+        text-align: bottom;
+        display: inline-block;
+    }
+    /* allow toggle of thead */
+    thead.hide-header {
+        display: none;
+    }
+}
+
+.ui-table-reflow .ui-table-cell-label {
+    display: none;
+}

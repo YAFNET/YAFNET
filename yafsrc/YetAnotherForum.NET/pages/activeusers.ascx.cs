@@ -178,7 +178,10 @@ namespace YAF.Pages
 
             YafContext.Current.PageElements.RegisterJsBlock(
                 "UnverifiedUserstablesorterLoadJs",
-                JavaScriptBlocks.LoadTableSorter("#ActiveUsers", "sortList: [[0,0]]", "#ActiveUsersPager"));
+                JavaScriptBlocks.LoadTableSorter(
+                    "#ActiveUsers",
+                    "sortList: [[0,0]]",
+                    "#ActiveUsersPager"));
 
             this.UserList.DataSource = activeUsers;
             this.DataBind();

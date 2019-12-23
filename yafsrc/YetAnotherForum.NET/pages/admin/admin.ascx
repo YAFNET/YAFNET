@@ -214,12 +214,6 @@
                         <div class="card-body">
                             <asp:Repeater ID="ActiveList" runat="server">
                     <HeaderTemplate>
-                        <YAF:Alert runat="server" Type="info" MobileOnly="True">
-                            <YAF:LocalizedLabel ID="LocalizedLabel220" runat="server" 
-                                                LocalizedTag="TABLE_RESPONSIVE" 
-                                                LocalizedPage="ADMIN_COMMON" />
-                            <span class="float-right"><i class="fa fa-hand-point-left fa-fw"></i></span>
-                        </YAF:Alert>
                         <div class="table-responsive">
                         <table class="table tablesorter table-bordered table-striped" id="ActiveUsers">
                             <thead class="thead-light">
@@ -315,12 +309,6 @@
                                     <asp:Repeater ID="UserList" runat="server" 
                                                   OnItemCommand="UserListItemCommand">
             <HeaderTemplate>
-                <YAF:Alert runat="server" ID="Alert2" Type="info" MobileOnly="True">
-                    <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server"
-                                        LocalizedTag="TABLE_RESPONSIVE" 
-                                        LocalizedPage="ADMIN_COMMON" />
-                    <span class="float-right"><i class="fa fa-hand-point-left fa-fw"></i></span>
-                </YAF:Alert>
                 <div class="table-responsive">
                 <table class="table tablesorter table-bordered table-striped" id="UnverifiedUsers">
                 <thead class="thead-light">

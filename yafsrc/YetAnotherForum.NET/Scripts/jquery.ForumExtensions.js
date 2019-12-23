@@ -36074,16 +36074,10 @@ Prism.languages.vbnet=Prism.languages.extend("basic",{keyword:/(?:\b(?:ADDHANDLE
 
 
 
-/*** This file is dynamically generated ***
-█████▄ ▄████▄   █████▄ ▄████▄ ██████   ███████▄ ▄████▄ █████▄ ██ ██████ ██  ██
-██  ██ ██  ██   ██  ██ ██  ██   ██     ██ ██ ██ ██  ██ ██  ██ ██ ██▄▄   ██▄▄██
-██  ██ ██  ██   ██  ██ ██  ██   ██     ██ ██ ██ ██  ██ ██  ██ ██ ██▀▀    ▀▀▀██
-█████▀ ▀████▀   ██  ██ ▀████▀   ██     ██ ██ ██ ▀████▀ █████▀ ██ ██     █████▀
-*/
-/*! tablesorter (FORK) - updated 2018-11-20 (v2.31.1)*/
+/*! tablesorter (FORK) - updated 2019-12-01 (v2.31.2)*/
 /* Includes widgets ( storage,uitheme,columns,filter,stickyHeaders,resizable,saveSort ) */
 (function(factory){if (typeof define === 'function' && define.amd){define(['jquery'], factory);} else if (typeof module === 'object' && typeof module.exports === 'object'){module.exports = factory(require('jquery'));} else {factory(jQuery);}}(function(jQuery) {
-/*! TableSorter (FORK) v2.31.1 *//*
+/*! TableSorter (FORK) v2.31.2 *//*
 * Client-side table sorting with ease!
 * @requires jQuery v1.2.6+
 *
@@ -36107,7 +36101,7 @@ Prism.languages.vbnet=Prism.languages.extend("basic",{keyword:/(?:\b(?:ADDHANDLE
 	'use strict';
 	var ts = $.tablesorter = {
 
-		version : '2.31.1',
+		version : '2.31.3',
 
 		parsers : [],
 		widgets : [],
@@ -40279,7 +40273,7 @@ Prism.languages.vbnet=Prism.languages.extend("basic",{keyword:/(?:\b(?:ADDHANDLE
 					event.preventDefault();
 					// init search with no delay
 					$( this ).attr( 'data-lastSearchTime', new Date().getTime() );
-					tsf.searching( table, eventType !== 'keypress', true, column );
+					tsf.searching( table, eventType !== 'keypress' || event.which === tskeyCodes.enter, true, column );
 				}
 			});
 		},
@@ -40354,12 +40348,14 @@ Prism.languages.vbnet=Prism.languages.extend("basic",{keyword:/(?:\b(?:ADDHANDLE
 			}
 			// return if the last search is the same; but filter === false when updating the search
 			// see example-widget-filter.html filter toggle buttons
-			if ( tsf.equalFilters(c, c.lastSearch, currentFilters) && filter !== false ) {
-				return;
-			} else if ( filter === false ) {
-				// force filter refresh
-				c.lastCombinedFilter = '';
-				c.lastSearch = [];
+			if ( tsf.equalFilters(c, c.lastSearch, currentFilters) ) {
+				if ( filter !== false ) {
+					return;
+				} else {
+					// force filter refresh
+					c.lastCombinedFilter = '';
+					c.lastSearch = [];
+				}
 			}
 			// define filter inside it is false
 			filters = filters || [];
@@ -42172,11 +42168,194 @@ Prism.languages.vbnet=Prism.languages.extend("basic",{keyword:/(?:\b(?:ADDHANDLE
 })(jQuery);
 return jQuery.tablesorter;}));
 
+(function(factory){if (typeof define === 'function' && define.amd){define(['jquery'], factory);} else if (typeof module === 'object' && typeof module.exports === 'object'){module.exports = factory(require('jquery'));} else {factory(jQuery);}}(function(jQuery){
+
 /*!
 * tablesorter (FORK) pager plugin
-* updated 2018-03-19 (v2.30.1)
+* updated 2018-08-27 (v2.31.0)
 */
-(function(n){"use strict";var t=n.tablesorter;n.extend({tablesorterPager:new function(){this.defaults={container:null,ajaxUrl:null,customAjaxUrl:function(n,t){return t},ajaxError:null,ajaxObject:{dataType:"json"},processAjaxOnInit:!0,ajaxProcessing:function(){return[0,[],null]},output:"{startRow} to {endRow} of {totalRows} rows",updateArrows:!0,page:0,pageReset:0,size:10,maxOptionSize:20,savePages:!0,storageKey:"tablesorter-pager",fixedHeight:!1,countChildRows:!1,removeRows:!1,cssFirst:".first",cssPrev:".prev",cssNext:".next",cssLast:".last",cssGoto:".gotoPage",cssPageDisplay:".pagedisplay",cssPageSize:".pagesize",cssErrorRow:"tablesorter-errorRow",cssDisabled:"disabled",totalRows:0,totalPages:0,filteredRows:0,filteredPages:0,ajaxCounter:0,currentFilters:[],startRow:0,endRow:0,$size:null,last:{}};var it="filterInit filterStart filterEnd sortEnd disablePager enablePager destroyPager updateComplete pageSize pageSet pageAndSize pagerUpdate refreshComplete ",s=this,h=function(n,t,i){var r,u="addClass",e="removeClass",o=t.cssDisabled,s=!!i,h=s||t.page===0,c=f(n,t),l=s||t.page===c-1||c===0;t.updateArrows&&(r=t.$container.find(t.cssFirst+","+t.cssPrev),r[h?u:e](o),r.each(function(){this.ariaDisabled=h}),r=t.$container.find(t.cssNext+","+t.cssLast),r[l?u:e](o),r.each(function(){this.ariaDisabled=l}))},p=function(n,i){var f,u,e,r=n.config,o=r.$table.hasClass("hasFilters");if(o&&!i.ajax)if(t.isEmptyObject(r.cache))i.filteredRows=i.totalRows=r.$tbodies.eq(0).children("tr").not(i.countChildRows?"":"."+r.cssChildRow).length;else for(i.filteredRows=0,f=r.cache[0].normalized,e=f.length,u=0;u<e;u++)i.filteredRows+=i.regexRows.test(f[u][r.columns].$row[0].className)?0:1;else o||(i.filteredRows=i.totalRows)},r=function(i,r,u){if(!r.initializing){var b,s,l,k,a,nt,y,d,c=i.config,g=c.namespace+"pager",o=e(r,r.size,"get");if(o==="all"&&(o=r.totalRows),r.countChildRows&&(s[s.length]=c.cssChildRow),r.totalPages=Math.ceil(r.totalRows/o),c.totalRows=r.totalRows,v(i,r),p(i,r),c.filteredRows=r.filteredRows,r.filteredPages=Math.ceil(r.filteredRows/o)||0,f(i,r)>=0){if(s=o*r.page>r.filteredRows&&u,r.page=s?r.pageReset||0:r.page,r.startRow=s?o*r.page+1:r.filteredRows===0?0:o*r.page+1,r.endRow=Math.min(r.filteredRows,r.totalRows,o*(r.page+1)),l=r.$container.find(r.cssPageDisplay),typeof r.output=="function"?b=r.output(i,r):(d=l.attr("data-pager-output"+(r.filteredRows<r.totalRows?"-filtered":""))||r.output,b=(r.ajaxData&&r.ajaxData.output?r.ajaxData.output||d:d).replace(/\{page([\-+]\d+)?\}/gi,function(n,t){return r.totalPages?r.page+(t?parseInt(t,10):1):0}).replace(/\{\w+(\s*:\s*\w+)?\}/gi,function(n){var f,e,u=n.replace(/[{}\s]/g,""),t=u.split(":"),i=r.ajaxData,o=/(rows?|pages?)$/i.test(u)?0:"";return/(startRow|page)/.test(t[0])&&t[1]==="input"?(f=(""+(t[0]==="page"?r.totalPages:r.totalRows)).length,e=t[0]==="page"?r.page+1:r.startRow,'<input type="text" class="ts-'+t[0]+'" style="max-width:'+f+'em" value="'+e+'"/>'):t.length>1&&i&&i[t[0]]?i[t[0]][t[1]]:r[u]||(i?i[u]:o)||o})),k=r.$container.find(r.cssGoto),k.length){for(s="",y=rt(i,r),nt=y.length,a=0;a<nt;a++)s+='<option value="'+y[a]+'">'+y[a]+"<\/option>";k.html(s).val(r.page+1)}l.length&&(l[l[0].nodeName==="INPUT"?"val":"html"](b),l.find(".ts-startRow, .ts-page").unbind("change"+g).bind("change"+g,function(){var t=n(this).val(),i=n(this).hasClass("ts-startRow")?Math.floor(t/o)+1:t;c.$table.triggerHandler("pageSet"+g,[i])}))}h(i,r);w(i,r);r.initialized&&u!==!1&&(t.debug(c,"pager")&&console.log("Pager >> Triggering pagerComplete"),c.$table.triggerHandler("pagerComplete",r),r.savePages&&t.storage&&t.storage(i,r.storageKey,{page:r.page,size:o===r.totalRows?"all":o}))}},rt=function(t,i){for(var v,s,p,c,h,e=f(t,i)||1,o=Math.ceil(e/i.maxOptionSize/5)*5,y=e>i.maxOptionSize,w=i.page+1,l=o,a=e-o,r=[1],b=y?o:1,u=b;u<=e;)r[r.length]=u,u=u+(y?o:1);if(r[r.length]=e,y){for(s=[],v=Math.max(Math.floor(i.maxOptionSize/o)-1,5),l=w-v,l<1&&(l=1),a=w+v,a>e&&(a=e),u=l;u<=a;u++)s[s.length]=u;r=n.grep(r,function(t,i){return n.inArray(t,r)===i});c=r.length;h=s.length;c-h>o/2&&c+h>i.maxOptionSize&&(p=Math.floor(c/2)-Math.floor(h/2),Array.prototype.splice.apply(r,[p,h]));r=r.concat(s)}return r=n.grep(r,function(t,i){return n.inArray(t,r)===i}).sort(function(n,t){return n-t})},w=function(t,i){var f,e,r,o=t.config,u=o.$tbodies.eq(0);u.find("tr.pagerSavedHeightSpacer").remove();i.fixedHeight&&!i.isDisabled&&(e=n.data(t,"pagerSavedHeight"),e&&(r=0,n(t).css("border-spacing").split(" ").length>1&&(r=n(t).css("border-spacing").split(" ")[1].replace(/[^-\d\.]/g,"")),f=e-u.height()+r*i.size-r,f>5&&n.data(t,"pagerLastSize")===i.size&&u.children("tr:visible").length<(i.size==="all"?i.totalRows:i.size)&&u.append('<tr class="pagerSavedHeightSpacer '+o.selectorRemove.slice(1)+'" style="height:'+f+'px;"><\/tr>')))},c=function(t,i){var u,f=t.config,r=f.$tbodies.eq(0);r.find("tr.pagerSavedHeightSpacer").remove();r.children("tr:visible").length||r.append('<tr class="pagerSavedHeightSpacer '+f.selectorRemove.slice(1)+'"><td>&nbsp<\/td><\/tr>');u=r.children("tr").eq(0).height()*(i.size==="all"?i.totalRows:i.size);n.data(t,"pagerSavedHeight",u);w(t,i);n.data(t,"pagerLastSize",i.size)},o=function(n,i){if(!i.ajaxUrl){var r,e=0,o=n.config,u=o.$tbodies.eq(0).children("tr"),c=u.length,l=i.size==="all"?i.totalRows:i.size,s=i.page*l,h=s+l,a=0,f=0;for(i.cacheIndex=[],r=0;r<c;r++)i.regexFiltered.test(u[r].className)||(f===s&&u[r].className.match(o.cssChildRow)?u[r].style.display="none":(u[r].style.display=f>=s&&f<h?"":"none",a!==f&&f>=s&&f<h&&(i.cacheIndex[i.cacheIndex.length]=r,a=f),f+=u[r].className.match(o.cssChildRow+"|"+o.selectorRemove.slice(1))&&!i.countChildRows?0:1,f===h&&u[r].style.display!=="none"&&u[r].className.match(t.css.cssHasChild)&&(e=r)));if(e>0&&u[e].className.match(t.css.cssHasChild))while(++e<c&&u[e].className.match(o.cssChildRow))u[e].style.display=""}},b=function(t,i){i.size=e(i,i.$container.find(i.cssPageSize).val(),"get");u(t,i.size,i);h(t,i);i.removeRows||(o(t,i),n(t).bind("sortEnd filterEnd ".split(" ").join(t.config.namespace+"pager "),function(){o(t,i)}))},k=function(i,u,f,o,s,h){if(typeof f.ajaxProcessing=="function"){u.config.$tbodies.eq(0).empty();var p,c,tt,k,ot,w,it,b,d,y,v,rt,ut,st,ft,l=u.config,et=l.$table,nt="",a=f.ajaxProcessing(i,u,o)||[0,[]];if(t.showError(u),h)t.debug(l,"pager")&&console.error("Pager >> Ajax Error",o,s,h),t.showError(u,o,s,h),l.$tbodies.eq(0).children("tr").detach(),f.totalRows=0;else{if(n.isArray(a)?(tt=isNaN(a[0])&&!isNaN(a[1]),ut=a[tt?1:0],f.totalRows=isNaN(ut)?f.totalRows||0:ut,l.totalRows=l.filteredRows=f.filteredRows=f.totalRows,v=f.totalRows===0?[]:a[tt?0:1]||[],y=a[2]):(f.ajaxData=a,l.totalRows=f.totalRows=a.total,l.filteredRows=f.filteredRows=typeof a.filteredRows!="undefined"?a.filteredRows:a.total,y=a.headers,v=a.rows||[]),rt=v&&v.length,v instanceof jQuery)f.processAjaxOnInit&&(l.$tbodies.eq(0).empty(),l.$tbodies.eq(0).append(v));else if(rt){for(p=0;p<rt;p++){for(nt+="<tr>",c=0;c<v[p].length;c++)nt+=/^\s*<td/.test(v[p][c])?n.trim(v[p][c]):"<td>"+v[p][c]+"<\/td>";nt+="<\/tr>"}f.processAjaxOnInit&&l.$tbodies.eq(0).html(nt)}if(f.processAjaxOnInit=!0,y)for(k=et.hasClass("hasStickyHeaders"),w=k?l.widgetOptions.$sticky.children("thead:first").children("tr:not(."+l.cssIgnoreRow+")").children():"",ot=et.find("tfoot tr:first").children(),it=l.$headers.filter("th "),st=it.length,c=0;c<st;c++)b=it.eq(c),b.find("."+t.css.icon).length?(d=b.find("."+t.css.icon).clone(!0),b.find("."+t.css.headerIn).html(y[c]).append(d),k&&w.length&&(d=w.eq(c).find("."+t.css.icon).clone(!0),w.eq(c).find("."+t.css.headerIn).html(y[c]).append(d))):(b.find("."+t.css.headerIn).html(y[c]),k&&w.length&&(f.$container=f.$container.add(l.widgetOptions.$sticky),w.eq(c).find("."+t.css.headerIn).html(y[c]))),ot.eq(c).html(y[c])}l.showProcessing&&t.isProcessing(u);ft=e(f,f.size,"get");f.totalPages=ft==="all"?1:Math.ceil(f.totalRows/ft);f.last.totalRows=f.totalRows;f.last.currentFilters=f.currentFilters;f.last.sortList=(l.sortList||[]).join(",");r(u,f,!1);t.updateCache(l,function(){f.initialized&&setTimeout(function(){t.debug(l,"pager")&&console.log("Pager >> Triggering pagerChange");et.triggerHandler("pagerChange",f);t.applyWidget(u);r(u,f,!0)},0)})}f.initialized||g(u,f)},ut=function(i,r){var u=ft(i,r),f=n(document),s,e=i.config,o=e.namespace+"pager";u!==""&&(e.showProcessing&&t.isProcessing(i,!0),f.bind("ajaxError"+o,function(n,t,u,e){k(null,i,r,t,u,e);f.unbind("ajaxError"+o)}),s=++r.ajaxCounter,r.last.ajaxUrl=u,r.ajaxObject.url=u,r.ajaxObject.success=function(n,t,u){s<r.ajaxCounter||(k(n,i,r,u),f.unbind("ajaxError"+o),typeof r.oldAjaxSuccess=="function"&&r.oldAjaxSuccess(n))},t.debug(e,"pager")&&console.log("Pager >> Ajax initialized",r.ajaxObject),n.ajax(r.ajaxObject))},ft=function(i,r){var u,h,a=i.config,f=r.ajaxUrl?r.ajaxUrl.replace(/\{page([\-+]\d+)?\}/,function(n,t){return r.page+(t?parseInt(t,10):0)}).replace(/\{size\}/g,r.size):"",l=a.sortList,c=r.currentFilters||n(i).data("lastSearch")||[],o=f.match(/\{\s*sort(?:List)?\s*:\s*(\w*)\s*\}/),s=f.match(/\{\s*filter(?:List)?\s*:\s*(\w*)\s*\}/),e=[];if(o){for(o=o[1],h=l.length,u=0;u<h;u++)e[e.length]=o+"["+l[u][0]+"]="+l[u][1];f=f.replace(/\{\s*sort(?:List)?\s*:\s*(\w*)\s*\}/g,e.length?e.join("&"):o);e=[]}if(s){for(s=s[1],h=c.length,u=0;u<h;u++)c[u]&&(e[e.length]=s+"["+u+"]="+encodeURIComponent(c[u]));f=f.replace(/\{\s*filter(?:List)?\s*:\s*(\w*)\s*\}/g,e.length?e.join("&"):s);r.currentFilters=c}return typeof r.customAjaxUrl=="function"&&(f=r.customAjaxUrl(i,f)),t.debug(a,"pager")&&console.log("Pager >> Ajax url = "+f),f},l=function(i,u,f){var h,e,c,s,b=n(i),l=i.config,a=t.debug(l,"pager"),v=l.$table.hasClass("hasFilters"),k=u&&u.length||0,p=f.size==="all"?f.totalRows:f.size,w=f.page*p;if(k<1){a&&console.warn("Pager >> No rows for pager to render");return}if(f.page>=f.totalPages&&y(i,f),f.cacheIndex=[],f.isDisabled=!1,f.initialized&&(a&&console.log("Pager >> Triggering pagerChange"),b.triggerHandler("pagerChange",f)),f.removeRows){for(t.clearTableBody(i),h=t.processTbody(i,l.$tbodies.eq(0),!0),e=v?0:w,c=v?0:w,s=0;s<p&&e<u.length;)v&&f.regexFiltered.test(u[e][0].className)||(c++,c>w&&s<=p&&(s++,f.cacheIndex[f.cacheIndex.length]=e,h.append(u[e]))),e++;t.processTbody(i,h,!1)}else o(i,f);r(i,f);i.isUpdating&&(a&&console.log("Pager >> Triggering updateComplete"),b.triggerHandler("updateComplete",[i,!0]))},d=function(i,r){var u,f,e;for(r.ajax?h(i,r,!0):(n.data(i,"pagerLastPage",r.page),n.data(i,"pagerLastSize",r.size),r.page=0,r.size=r.totalRows,r.totalPages=1,n(i).addClass("pagerDisabled").removeAttr("aria-describedby").find("tr.pagerSavedHeightSpacer").remove(),l(i,i.config.rowsCopy,r),r.isDisabled=!0,t.applyWidget(i),t.debug(i.config,"pager")&&console.log("Pager >> Disabled")),f=r.$container.find(r.cssGoto+","+r.cssPageSize+", .ts-startRow, .ts-page"),e=f.length,u=0;u<e;u++)f.eq(u).addClass(r.cssDisabled)[0].disabled=!0,f[u].ariaDisabled=!0},a=function(n){var r=n.config,u=r.pager;t.updateCache(r,function(){var t,f=[],e=n.config.cache[0].normalized;for(u.totalRows=e.length,t=0;t<u.totalRows;t++)f[f.length]=e[t][r.columns].$row;r.rowsCopy=f;i(n,u,!0)})},i=function(i,r,u){if(!r.isDisabled){var o,e=i.config,s=t.debug(e,"pager"),h=n(i),f=r.last;if(u!==!1&&r.initialized&&t.isEmptyObject(e.cache))return a(i);r.ajax&&t.hasWidget(i,"filter")&&!e.widgetOptions.filter_initialized||(v(i,r),p(i,r),f.currentFilters=(f.currentFilters||[]).join("")===""?[]:f.currentFilters,r.currentFilters=(r.currentFilters||[]).join("")===""?[]:r.currentFilters,f.page!==r.page||f.size!==r.size||f.totalRows!==r.totalRows||(f.currentFilters||[]).join(",")!==(r.currentFilters||[]).join(",")||(f.ajaxUrl||"")!==(r.ajaxObject.url||"")||(f.optAjaxUrl||"")!==(r.ajaxUrl||"")||f.sortList!==(e.sortList||[]).join(","))&&(s&&console.log("Pager >> Changing to page "+r.page),r.last={page:r.page,size:r.size,sortList:(e.sortList||[]).join(","),totalRows:r.totalRows,currentFilters:r.currentFilters||[],ajaxUrl:r.ajaxObject.url||"",optAjaxUrl:r.ajaxUrl||""},r.ajax?r.processAjaxOnInit||t.isEmptyObject(r.initialRows)?ut(i,r):(r.processAjaxOnInit=!0,o=r.initialRows,r.totalRows=typeof o.total!="undefined"?o.total:s?console.error("Pager >> No initial total page set!")||0:0,r.filteredRows=typeof o.filtered!="undefined"?o.filtered:s?console.error("Pager >> No initial filtered page set!")||0:0,g(i,r)):r.ajax||l(i,e.rowsCopy,r),n.data(i,"pagerLastPage",r.page),r.initialized&&u!==!1&&(s&&console.log("Pager >> Triggering pageMoved"),h.triggerHandler("pageMoved",r),t.applyWidget(i),i.isUpdating&&(s&&console.log("Pager >> Triggering updateComplete"),h.triggerHandler("updateComplete",[i,!0]))))}},f=function(n,i){return t.hasWidget(n,"filter")?Math.min(i.totalPages,i.filteredPages):i.totalPages},v=function(n,t){var i=f(n,t)-1;return t.page=parseInt(t.page,10),(t.page<0||isNaN(t.page))&&(t.page=0),t.page>i&&i>=0&&(t.page=i),t.page},e=function(n,t,i){var r=parseInt(t,10)||n.size||n.settings.size||10;return n.initialized&&(/all/i.test(r+" "+t)||r===n.totalRows)?n.$container.find(n.cssPageSize+' option[value="all"]').length?"all":n.totalRows:i==="get"?r:n.size},u=function(t,i,r){r.size=e(r,i,"get");r.$container.find(r.cssPageSize).val(r.size);n.data(t,"pagerLastPage",v(t,r));n.data(t,"pagerLastSize",r.size);r.totalPages=r.size==="all"?1:Math.ceil(r.totalRows/r.size);r.filteredPages=r.size==="all"?1:Math.ceil(r.filteredRows/r.size)},et=function(n,t){t.page=0;i(n,t)},y=function(n,t){t.page=f(n,t)-1;i(n,t)},ot=function(n,t){t.page++;var r=f(n,t)-1;t.page>=r&&(t.page=r);i(n,t)},st=function(n,t){t.page--;t.page<=0&&(t.page=0);i(n,t)},g=function(i,u){u.initialized=!0;u.initializing=!1;t.debug(i.config,"pager")&&console.log("Pager >> Triggering pagerInitialized");n(i).triggerHandler("pagerInitialized",u);t.applyWidget(i);r(i,u)},ht=function(t,i){var r=t.config;r.pager=n.extend(!0,{},n.tablesorterPager.defaults,i.settings);tt(t,i.settings)},ct=function(n,i){var r=n.config,u=r.namespace+"pager",f=[i.cssFirst,i.cssPrev,i.cssNext,i.cssLast,i.cssGoto,i.cssPageSize].join(",");d(n,i);i.$container.hide().find(f).unbind(u);r.appender=null;r.$table.unbind(u);t.storage&&t.storage(n,i.storageKey,"");delete r.pager;delete r.rowsCopy},nt=function(r,o,s){var h,v,l,a=r.config;o.$container.find(o.cssGoto+","+o.cssPageSize+",.ts-startRow, .ts-page").removeClass(o.cssDisabled).removeAttr("disabled").each(function(){this.ariaDisabled=!1});o.isDisabled=!1;o.page=n.data(r,"pagerLastPage")||o.page||0;l=o.$container.find(o.cssPageSize);v=l.find("option[selected]").val();o.size=n.data(r,"pagerLastSize")||e(o,v,"get");o.totalPages=o.size==="all"?1:Math.ceil(f(r,o)/o.size);u(r,o.size,o);r.id&&!a.$table.attr("aria-describedby")&&(l=o.$container.find(o.cssPageDisplay),h=l.attr("id"),h||(h=r.id+"_pager_info",l.attr("id",h)),a.$table.attr("aria-describedby",h));c(r,o);s&&(t.update(a),u(r,o.size,o),i(r,o),b(r,o),t.debug(a,"pager")&&console.log("Pager >> Enabled"))},tt=function(f,h){var w,tt,ut,k,v=f.config,ft=v.widgetOptions,g=t.debug(v,"pager"),l=v.pager=n.extend(!0,{},n.tablesorterPager.defaults,h),lt=v.$table,p=v.namespace+"pager",rt=l.$container=n(l.container).addClass("tablesorter-pager").show();l.settings=n.extend(!0,{},n.tablesorterPager.defaults,h);g&&console.log("Pager >> Initializing");l.oldAjaxSuccess=l.oldAjaxSuccess||l.ajaxObject.success;v.appender=s.appender;l.initializing=!0;l.savePages&&t.storage&&(w=t.storage(f,l.storageKey)||{},l.page=isNaN(w.page)?l.page:w.page,l.size=w.size==="all"?w.size:(isNaN(w.size)?l.size:w.size)||l.setSize||10,u(f,l.size,l));l.regexRows=new RegExp("("+(ft.filter_filteredRow||"filtered")+"|"+v.selectorRemove.slice(1)+"|"+v.cssChildRow+")");l.regexFiltered=new RegExp(ft.filter_filteredRow||"filtered");lt.unbind(it.split(" ").join(p+" ").replace(/\s+/g," ")).bind("filterInit filterStart ".split(" ").join(p+" "),function(r,u){l.currentFilters=n.isArray(u)?u:v.$table.data("lastSearch");var e;if(l.ajax&&r.type==="filterInit")return i(f,l,!1);e=t.filter.equalFilters?t.filter.equalFilters(v,v.lastSearch,l.currentFilters):(v.lastSearch||[]).join("")!==(l.currentFilters||[]).join("");r.type!=="filterStart"||l.pageReset===!1||e||(l.page=l.pageReset)}).bind("filterEnd sortEnd ".split(" ").join(p+" "),function(){l.currentFilters=v.$table.data("lastSearch");(l.initialized||l.initializing)&&(v.delayInit&&v.rowsCopy&&v.rowsCopy.length===0&&a(f),r(f,l,!1),i(f,l,!1),t.applyWidget(f))}).bind("disablePager"+p,function(n){n.stopPropagation();d(f,l)}).bind("enablePager"+p,function(n){n.stopPropagation();nt(f,l,!0)}).bind("destroyPager"+p,function(n){n.stopPropagation();ct(f,l)}).bind("resetToLoadState"+p,function(n){n.stopPropagation();ht(f,l)}).bind("updateComplete"+p,function(n,t,i){if(n.stopPropagation(),t&&!i&&!l.ajax){var u=v.$tbodies.eq(0).children("tr").not(v.selectorRemove);l.totalRows=u.length-(l.countChildRows?0:u.filter("."+v.cssChildRow).length);l.totalPages=l.size==="all"?1:Math.ceil(l.totalRows/l.size);u.length&&v.rowsCopy&&v.rowsCopy.length===0&&a(t);l.page>=l.totalPages&&y(t,l);o(t,l);c(t,l);r(t,l,!0)}}).bind("pageSize refreshComplete ".split(" ").join(p+" "),function(n,t){n.stopPropagation();u(f,e(l,t,"get"),l);i(f,l);o(f,l);r(f,l,!1)}).bind("pageSet pagerUpdate ".split(" ").join(p+" "),function(n,t){n.stopPropagation();n.type==="pagerUpdate"&&(t=typeof t=="undefined"?l.page+1:t,l.last.page=!0);l.page=(parseInt(t,10)||1)-1;i(f,l,!0);r(f,l,!1)}).bind("pageAndSize"+p,function(n,t,s){n.stopPropagation();l.page=(parseInt(t,10)||1)-1;u(f,e(l,s,"get"),l);i(f,l,!0);o(f,l);r(f,l,!1)});tt=[l.cssFirst,l.cssPrev,l.cssNext,l.cssLast];ut=[et,st,ot,y];g&&!rt.length&&console.warn('Pager >> "container" not found');rt.find(tt.join(",")).attr("tabindex",0).unbind("click"+p).bind("click"+p,function(t){t.stopPropagation();var i,r=n(this),u=tt.length;if(!r.hasClass(l.cssDisabled))for(i=0;i<u;i++)if(r.is(tt[i])){ut[i](f,l);break}});k=rt.find(l.cssGoto);k.length?k.unbind("change"+p).bind("change"+p,function(){l.page=n(this).val()-1;i(f,l,!0);r(f,l,!1)}):g&&console.warn('Pager >> "goto" selector not found');k=rt.find(l.cssPageSize);k.length?(k.find("option").removeAttr("selected"),k.unbind("change"+p).bind("change"+p,function(){if(!n(this).hasClass(l.cssDisabled)){var t=n(this).val();u(f,t,l);i(f,l);c(f,l)}return!1})):g&&console.warn('Pager >> "size" selector not found');l.initialized=!1;lt.triggerHandler("pagerBeforeInitialized",l);nt(f,l,!1);typeof l.ajaxUrl=="string"?(l.ajax=!0,v.widgetOptions.filter_serversideFiltering=!0,v.serverSideSorting=!0,i(f,l)):(l.ajax=!1,t.appendCache(v,!0),b(f,l));l.ajax||l.initialized||(l.initializing=!1,l.initialized=!0,u(f,l.size,l),i(f,l),g&&console.log("Pager >> Triggering pagerInitialized"),v.$table.triggerHandler("pagerInitialized",l),v.widgetOptions.filter_initialized&&t.hasWidget(f,"filter")||r(f,l,!1));v.widgetInit.pager=!0};s.appender=function(t,i){var f=t.config,u=f.pager;u.ajax||(f.rowsCopy=i,u.totalRows=u.countChildRows?f.$tbodies.eq(0).children("tr").length:i.length,u.size=n.data(t,"pagerLastSize")||u.size||u.settings.size||10,u.totalPages=u.size==="all"?1:Math.ceil(u.totalRows/u.size),l(t,i,u),r(t,u,!1))};s.construct=function(n){return this.each(function(){this.config&&this.hasInitialized&&tt(this,n)})}}});t.showError=function(t,i,r,u){var c=n(t),f=c[0].config,s=f&&f.widgetOptions,a=f.pager&&f.pager.cssErrorRow||s&&s.pager_css&&s.pager_css.errorRow||"tablesorter-errorRow",l=typeof i,o=!0,e="",h=function(){f.$table.find("thead").find(f.selectorRemove).remove()};if(!c.length){console.error("tablesorter showError: no table parameter passed");return}if(typeof f.pager.ajaxError=="function"){if(o=f.pager.ajaxError(f,i,r,u),o===!1)return h();e=o}else if(typeof s.pager_ajaxError=="function"){if(o=s.pager_ajaxError(f,i,r,u),o===!1)return h();e=o}if(e==="")if(l==="object")e=i.status===0?"Not connected, verify Network":i.status===404?"Requested page not found [404]":i.status===500?"Internal Server Error [500]":u==="parsererror"?"Requested JSON parse failed":u==="timeout"?"Time out error":u==="abort"?"Ajax Request aborted":"Uncaught error: "+i.statusText+" ["+i.status+"]";else if(l==="string")e=i;else return h();n(/tr\>/.test(e)?e:'<tr><td colspan="'+f.columns+'">'+e+"<\/td><\/tr>").click(function(){n(this).remove()}).appendTo(f.$table.find("thead:first")).addClass(a+" "+f.selectorRemove.slice(1)).attr({role:"alert","aria-live":"assertive"})};n.fn.extend({tablesorterPager:n.tablesorterPager.construct})})(jQuery);
+!function(M){"use strict";var T=M.tablesorter;M.extend({tablesorterPager:new function(){this.defaults={container:null,ajaxUrl:null,customAjaxUrl:function(e,t){return t},ajaxError:null,ajaxObject:{dataType:"json"},processAjaxOnInit:!0,ajaxProcessing:function(e){return e},output:"{startRow} to {endRow} of {totalRows} rows",updateArrows:!0,page:0,pageReset:0,size:10,maxOptionSize:20,savePages:!0,storageKey:"tablesorter-pager",fixedHeight:!1,countChildRows:!1,removeRows:!1,cssFirst:".first",cssPrev:".prev",cssNext:".next",cssLast:".last",cssGoto:".gotoPage",cssPageDisplay:".pagedisplay",cssPageSize:".pagesize",cssErrorRow:"tablesorter-errorRow",cssDisabled:"disabled",totalRows:0,totalPages:0,filteredRows:0,filteredPages:0,ajaxCounter:0,currentFilters:[],startRow:0,endRow:0,$size:null,last:{}};function u(e,t,a){var i,s="addClass",r="removeClass",o=t.cssDisabled,n=!!a,l=n||0===t.page,g=O(e,t),c=n||t.page===g-1||0===g;t.updateArrows&&((i=t.$container.find(t.cssFirst+","+t.cssPrev))[l?s:r](o),i.each(function(){this.ariaDisabled=l}),(i=t.$container.find(t.cssNext+","+t.cssLast))[c?s:r](o),i.each(function(){this.ariaDisabled=c}))}function h(e,t){var a,i,s,r=e.config,o=r.$table.hasClass("hasFilters");if(o&&!t.ajax)if(T.isEmptyObject(r.cache))t.filteredRows=t.totalRows=r.$tbodies.eq(0).children("tr").not(t.countChildRows?"":"."+r.cssChildRow).length;else for(t.filteredRows=0,s=(a=r.cache[0].normalized).length,i=0;i<s;i++)t.filteredRows+=t.regexRows.test(a[i][r.columns].$row[0].className)?0:1;else o||(t.filteredRows=t.totalRows)}function y(e,n,t){if(!n.initializing){var a,i,s,r,o,l,g,c,d=e.config,p=d.namespace+"pager",f=L(n,n.size,"get");if("all"===f&&(f=n.totalRows),n.countChildRows&&(i[i.length]=d.cssChildRow),n.totalPages=Math.ceil(n.totalRows/f),d.totalRows=n.totalRows,E(e,n),h(e,n),d.filteredRows=n.filteredRows,n.filteredPages=Math.ceil(n.filteredRows/f)||0,0<=O(e,n)){if(i=f*n.page>n.filteredRows&&t,n.page=i?n.pageReset||0:n.page,n.startRow=i?f*n.page+1:0===n.filteredRows?0:f*n.page+1,n.endRow=Math.min(n.filteredRows,n.totalRows,f*(n.page+1)),s=n.$container.find(n.cssPageDisplay),a="function"==typeof n.output?n.output(e,n):(c=s.attr("data-pager-output"+(n.filteredRows<n.totalRows?"-filtered":""))||n.output,(n.ajaxData&&n.ajaxData.output&&n.ajaxData.output||c).replace(/\{page([\-+]\d+)?\}/gi,function(e,t){return n.totalPages?n.page+(t?parseInt(t,10):1):0}).replace(/\{\w+(\s*:\s*\w+)?\}/gi,function(e){var t,a,i=e.replace(/[{}\s]/g,""),s=i.split(":"),r=n.ajaxData,o=/(rows?|pages?)$/i.test(i)?0:"";return/(startRow|page)/.test(s[0])&&"input"===s[1]?(t=(""+("page"===s[0]?n.totalPages:n.totalRows)).length,a="page"===s[0]?n.page+1:n.startRow,'<input type="text" class="ts-'+s[0]+'" style="max-width:'+t+'em" value="'+a+'"/>'):1<s.length&&r&&r[s[0]]?r[s[0]][s[1]]:n[i]||(r?r[i]:o)||o})),(r=n.$container.find(n.cssGoto)).length){for(i="",l=(g=I(e,n)).length,o=0;o<l;o++)i+='<option value="'+g[o]+'">'+g[o]+"</option>";r.html(i).val(n.page+1)}s.length&&(s["INPUT"===s[0].nodeName?"val":"html"](a),s.find(".ts-startRow, .ts-page").unbind("change"+p).bind("change"+p,function(){var e=M(this).val(),t=M(this).hasClass("ts-startRow")?Math.floor(e/f)+1:e;d.$table.triggerHandler("pageSet"+p,[t])}))}u(e,n),N(e,n),n.initialized&&!1!==t&&(T.debug(d,"pager")&&console.log("Pager >> Triggering pagerComplete"),d.$table.triggerHandler("pagerComplete",n),n.savePages&&T.storage&&T.storage(e,n.storageKey,{page:n.page,size:f===n.totalRows?"all":f}))}}function f(e,t){var a,i=e.config,s=i.$tbodies.eq(0);s.find("tr.pagerSavedHeightSpacer").remove(),s.children("tr:visible").length||s.append('<tr class="pagerSavedHeightSpacer '+i.selectorRemove.slice(1)+'"><td>&nbsp</td></tr>'),a=s.children("tr").eq(0).height()*("all"===t.size?t.totalRows:t.size),M.data(e,"pagerSavedHeight",a),N(e,t),M.data(e,"pagerLastSize",t.size)}function w(e,t){if(!t.ajaxUrl){var a,i=0,s=e.config,r=s.$tbodies.eq(0).children("tr"),o=r.length,n="all"===t.size?t.totalRows:t.size,l=t.page*n,g=l+n,c=0,d=0;for(t.cacheIndex=[],a=0;a<o;a++)t.regexFiltered.test(r[a].className)||(d===l&&r[a].className.match(s.cssChildRow)?r[a].style.display="none":(r[a].style.display=l<=d&&d<g?"":"none",c!==d&&l<=d&&d<g&&(t.cacheIndex[t.cacheIndex.length]=a,c=d),(d+=r[a].className.match(s.cssChildRow+"|"+s.selectorRemove.slice(1))&&!t.countChildRows?0:1)===g&&"none"!==r[a].style.display&&r[a].className.match(T.css.cssHasChild)&&(i=a)));if(0<i&&r[i].className.match(T.css.cssHasChild))for(;++i<o&&r[i].className.match(s.cssChildRow);)r[i].style.display=""}}function b(e,t){t.size=L(t,t.$container.find(t.cssPageSize).val(),"get"),D(e,t.size,t),u(e,t),t.removeRows||(w(e,t),M(e).bind("sortEnd filterEnd ".split(" ").join(e.config.namespace+"pager "),function(){w(e,t)}))}function R(e,t,a,i,s,r){if("function"==typeof a.ajaxProcessing){t.config.$tbodies.eq(0).empty();var o,n,l,g,c,d,p,f,u,h,w,b,R,z,x,j=t.config,P=j.$table,v="",m=a.ajaxProcessing(e,t,i)||[0,[]];if(T.showError(t),r)T.debug(j,"pager")&&console.error("Pager >> Ajax Error",i,s,r),T.showError(t,i,s,r),j.$tbodies.eq(0).children("tr").detach(),a.totalRows=0;else{if(M.isArray(m)?(R=m[(l=isNaN(m[0])&&!isNaN(m[1]))?1:0],a.totalRows=isNaN(R)?a.totalRows||0:R,j.totalRows=j.filteredRows=a.filteredRows=a.totalRows,w=0===a.totalRows?[]:m[l?0:1]||[],h=m[2]):(a.ajaxData=m,j.totalRows=a.totalRows=m.total,j.filteredRows=a.filteredRows=void 0!==m.filteredRows?m.filteredRows:m.total,h=m.headers,w=m.rows||[]),b=w&&w.length,w instanceof M)a.processAjaxOnInit&&(j.$tbodies.eq(0).empty(),j.$tbodies.eq(0).append(w));else if(b){for(o=0;o<b;o++){for(v+="<tr>",n=0;n<w[o].length;n++)v+=/^\s*<td/.test(w[o][n])?M.trim(w[o][n]):"<td>"+w[o][n]+"</td>";v+="</tr>"}a.processAjaxOnInit&&j.$tbodies.eq(0).html(v)}if(a.processAjaxOnInit=!0,h)for(d=(g=P.hasClass("hasStickyHeaders"))?j.widgetOptions.$sticky.children("thead:first").children("tr:not(."+j.cssIgnoreRow+")").children():"",c=P.find("tfoot tr:first").children(),z=(p=j.$headers.filter("th ")).length,n=0;n<z;n++)(f=p.eq(n)).find("."+T.css.icon).length?(u=f.find("."+T.css.icon).clone(!0),f.find("."+T.css.headerIn).html(h[n]).append(u),g&&d.length&&(u=d.eq(n).find("."+T.css.icon).clone(!0),d.eq(n).find("."+T.css.headerIn).html(h[n]).append(u))):(f.find("."+T.css.headerIn).html(h[n]),g&&d.length&&(a.$container=a.$container.add(j.widgetOptions.$sticky),d.eq(n).find("."+T.css.headerIn).html(h[n]))),c.eq(n).html(h[n])}j.showProcessing&&T.isProcessing(t),x=L(a,a.size,"get"),a.totalPages="all"===x?1:Math.ceil(a.totalRows/x),a.last.totalRows=a.totalRows,a.last.currentFilters=a.currentFilters,a.last.sortList=(j.sortList||[]).join(","),y(t,a,!1),T.updateCache(j,function(){a.initialized&&setTimeout(function(){T.debug(j,"pager")&&console.log("Pager >> Triggering pagerChange"),P.triggerHandler("pagerChange",a),T.applyWidget(t),y(t,a,!0)},0)})}a.initialized||U(t,a)}function z(e,t,a){var i,s,r,o,n=M(e),l=e.config,g=T.debug(l,"pager"),c=l.$table.hasClass("hasFilters"),d=t&&t.length||0,p="all"===a.size?a.totalRows:a.size,f=a.page*p;if(d<1)g&&console.warn("Pager >> No rows for pager to render");else{if(a.page>=a.totalPages&&q(e,a),a.cacheIndex=[],a.isDisabled=!1,a.initialized&&(g&&console.log("Pager >> Triggering pagerChange"),n.triggerHandler("pagerChange",a)),a.removeRows){for(T.clearTableBody(e),i=T.processTbody(e,l.$tbodies.eq(0),!0),r=s=c?0:f,o=0;o<p&&s<t.length;)c&&a.regexFiltered.test(t[s][0].className)||f<++r&&o<=p&&(o++,a.cacheIndex[a.cacheIndex.length]=s,i.append(t[s])),s++;T.processTbody(e,i,!1)}else w(e,a);y(e,a),e.isUpdating&&(g&&console.log("Pager >> Triggering updateComplete"),n.triggerHandler("updateComplete",[e,!0]))}}function x(e,t){var a,i,s;for(t.ajax?u(e,t,!0):(M.data(e,"pagerLastPage",t.page),M.data(e,"pagerLastSize",t.size),t.page=0,t.size=t.totalRows,t.totalPages=1,M(e).addClass("pagerDisabled").removeAttr("aria-describedby").find("tr.pagerSavedHeightSpacer").remove(),z(e,e.config.rowsCopy,t),t.isDisabled=!0,T.applyWidget(e),T.debug(e.config,"pager")&&console.log("Pager >> Disabled")),s=(i=t.$container.find(t.cssGoto+","+t.cssPageSize+", .ts-startRow, .ts-page")).length,a=0;a<s;a++)i.eq(a).addClass(t.cssDisabled)[0].disabled=!0,i[a].ariaDisabled=!0}function j(i){var s=i.config,r=s.pager;T.updateCache(s,function(){var e,t=[],a=i.config.cache[0].normalized;for(r.totalRows=a.length,e=0;e<r.totalRows;e++)t[t.length]=a[e][s.columns].$row;s.rowsCopy=t,F(i,r,!0)})}function P(e,t){t.page=0,F(e,t)}function v(e,t){t.page++;var a=O(e,t)-1;t.page>=a&&(t.page=a),F(e,t)}function m(e,t){t.page--,t.page<=0&&(t.page=0),F(e,t)}function C(e,t,a){var i,s,r,o=e.config;t.$container.find(t.cssGoto+","+t.cssPageSize+",.ts-startRow, .ts-page").removeClass(t.cssDisabled).removeAttr("disabled").each(function(){this.ariaDisabled=!1}),t.isDisabled=!1,t.page=M.data(e,"pagerLastPage")||t.page||0,s=(r=t.$container.find(t.cssPageSize)).find("option[selected]").val(),t.size=M.data(e,"pagerLastSize")||L(t,s,"get"),t.totalPages="all"===t.size?1:Math.ceil(O(e,t)/t.size),D(e,t.size,t),e.id&&!o.$table.attr("aria-describedby")&&((i=(r=t.$container.find(t.cssPageDisplay)).attr("id"))||(i=e.id+"_pager_info",r.attr("id",i)),o.$table.attr("aria-describedby",i)),f(e,t),a&&(T.update(o),D(e,t.size,t),F(e,t),b(e,t),T.debug(o,"pager")&&console.log("Pager >> Enabled"))}var S="filterInit filterStart filterEnd sortEnd disablePager enablePager destroyPager updateComplete pageSize pageSet pageAndSize pagerUpdate refreshComplete ",$=this,I=function(e,t){var a,i,s,r,o,n,l=O(e,t)||1,g=5*Math.ceil(l/t.maxOptionSize/5),c=l>t.maxOptionSize,d=t.page+1,p=g,f=l-g,u=[1];for(a=c?g:1;a<=l;)u[u.length]=a,a+=c?g:1;if(u[u.length]=l,c){for(s=[],(p=d-(i=Math.max(Math.floor(t.maxOptionSize/g)-1,5)))<1&&(p=1),l<(f=d+i)&&(f=l),a=p;a<=f;a++)s[s.length]=a;g/2<(o=(u=M.grep(u,function(e,t){return M.inArray(e,u)===t})).length)-(n=s.length)&&o+n>t.maxOptionSize&&(r=Math.floor(o/2)-Math.floor(n/2),Array.prototype.splice.apply(u,[r,n])),u=u.concat(s)}return u=M.grep(u,function(e,t){return M.inArray(e,u)===t}).sort(function(e,t){return e-t})},N=function(e,t){var a,i,s,r=e.config,o=r.$tbodies.eq(0);o.find("tr.pagerSavedHeightSpacer").remove(),t.fixedHeight&&!t.isDisabled&&(i=M.data(e,"pagerSavedHeight"))&&(s=0,1<M(e).css("border-spacing").split(" ").length&&(s=M(e).css("border-spacing").split(" ")[1].replace(/[^-\d\.]/g,"")),5<(a=i-o.height()+s*t.size-s)&&M.data(e,"pagerLastSize")===t.size&&o.children("tr:visible").length<("all"===t.size?t.totalRows:t.size)&&o.append('<tr class="pagerSavedHeightSpacer '+r.selectorRemove.slice(1)+'" style="height:'+a+'px;"></tr>'))},A=function(e,a){var t,i,s=e.config,r=a.ajaxUrl?a.ajaxUrl.replace(/\{page([\-+]\d+)?\}/,function(e,t){return a.page+(t?parseInt(t,10):0)}).replace(/\{size\}/g,a.size):"",o=s.sortList,n=a.currentFilters||M(e).data("lastSearch")||[],l=r.match(/\{\s*sort(?:List)?\s*:\s*(\w*)\s*\}/),g=r.match(/\{\s*filter(?:List)?\s*:\s*(\w*)\s*\}/),c=[];if(l){for(l=l[1],i=o.length,t=0;t<i;t++)c[c.length]=l+"["+o[t][0]+"]="+o[t][1];r=r.replace(/\{\s*sort(?:List)?\s*:\s*(\w*)\s*\}/g,c.length?c.join("&"):l),c=[]}if(g){for(g=g[1],i=n.length,t=0;t<i;t++)n[t]&&(c[c.length]=g+"["+t+"]="+encodeURIComponent(n[t]));r=r.replace(/\{\s*filter(?:List)?\s*:\s*(\w*)\s*\}/g,c.length?c.join("&"):g),a.currentFilters=n}return"function"==typeof a.customAjaxUrl&&(r=a.customAjaxUrl(e,r)),T.debug(s,"pager")&&console.log("Pager >> Ajax url = "+r),r},F=function(e,t,a){if(!t.isDisabled){var i,s,r,o,n,l,g,c,d=e.config,p=T.debug(d,"pager"),f=M(e),u=t.last;if(!1!==a&&t.initialized&&T.isEmptyObject(d.cache))return j(e);if(!t.ajax||!T.hasWidget(e,"filter")||d.widgetOptions.filter_initialized)if(E(e,t),h(e,t),u.currentFilters=""===(u.currentFilters||[]).join("")?[]:u.currentFilters,t.currentFilters=""===(t.currentFilters||[]).join("")?[]:t.currentFilters,u.page!==t.page||u.size!==t.size||u.totalRows!==t.totalRows||(u.currentFilters||[]).join(",")!==(t.currentFilters||[]).join(",")||(u.ajaxUrl||"")!==(t.ajaxObject.url||"")||(u.optAjaxUrl||"")!==(t.ajaxUrl||"")||u.sortList!==(d.sortList||[]).join(","))p&&console.log("Pager >> Changing to page "+t.page),t.last={page:t.page,size:t.size,sortList:(d.sortList||[]).join(","),totalRows:t.totalRows,currentFilters:t.currentFilters||[],ajaxUrl:t.ajaxObject.url||"",optAjaxUrl:t.ajaxUrl||""},t.ajax?t.processAjaxOnInit||T.isEmptyObject(t.initialRows)?(n=A(s=e,r=t),l=M(document),g=s.config,c=g.namespace+"pager",""!==n&&(g.showProcessing&&T.isProcessing(s,!0),l.bind("ajaxError"+c,function(e,t,a,i){R(null,s,r,t,a,i),l.unbind("ajaxError"+c)}),o=++r.ajaxCounter,r.last.ajaxUrl=n,r.ajaxObject.url=n,r.ajaxObject.success=function(e,t,a){o<r.ajaxCounter||(R(e,s,r,a),l.unbind("ajaxError"+c),"function"==typeof r.oldAjaxSuccess&&r.oldAjaxSuccess(e))},T.debug(g,"pager")&&console.log("Pager >> Ajax initialized",r.ajaxObject),M.ajax(r.ajaxObject))):(t.processAjaxOnInit=!0,i=t.initialRows,t.totalRows=void 0!==i.total?i.total:p&&console.error("Pager >> No initial total page set!")||0,t.filteredRows=void 0!==i.filtered?i.filtered:p&&console.error("Pager >> No initial filtered page set!")||0,U(e,t)):t.ajax||z(e,d.rowsCopy,t),M.data(e,"pagerLastPage",t.page),t.initialized&&!1!==a&&(p&&console.log("Pager >> Triggering pageMoved"),f.triggerHandler("pageMoved",t),T.applyWidget(e),e.isUpdating&&(p&&console.log("Pager >> Triggering updateComplete"),f.triggerHandler("updateComplete",[e,!0])))}},O=function(e,t){return T.hasWidget(e,"filter")?Math.min(t.totalPages,t.filteredPages):t.totalPages},E=function(e,t){var a=O(e,t)-1;return t.page=parseInt(t.page,10),(t.page<0||isNaN(t.page))&&(t.page=0),t.page>a&&0<=a&&(t.page=a),t.page},L=function(e,t,a){var i=parseInt(t,10)||e.size||e.settings.size||10;return e.initialized&&(/all/i.test(i+" "+t)||i===e.totalRows)?e.$container.find(e.cssPageSize+' option[value="all"]').length?"all":e.totalRows:"get"===a?i:e.size},D=function(e,t,a){a.size=L(a,t,"get"),a.$container.find(a.cssPageSize).val(a.size),M.data(e,"pagerLastPage",E(e,a)),M.data(e,"pagerLastSize",a.size),a.totalPages="all"===a.size?1:Math.ceil(a.totalRows/a.size),a.filteredPages="all"===a.size?1:Math.ceil(a.filteredRows/a.size)},q=function(e,t){t.page=O(e,t)-1,F(e,t)},U=function(e,t){t.initialized=!0,t.initializing=!1,T.debug(e.config,"pager")&&console.log("Pager >> Triggering pagerInitialized"),M(e).triggerHandler("pagerInitialized",t),T.applyWidget(e),y(e,t)},H=function(o,e){var t,s,r,a,n=o.config,i=n.widgetOptions,l=T.debug(n,"pager"),g=n.pager=M.extend(!0,{},M.tablesorterPager.defaults,e),c=n.$table,d=n.namespace+"pager",p=g.$container=M(g.container).addClass("tablesorter-pager").show();g.settings=M.extend(!0,{},M.tablesorterPager.defaults,e),l&&console.log("Pager >> Initializing"),g.oldAjaxSuccess=g.oldAjaxSuccess||g.ajaxObject.success,n.appender=$.appender,g.initializing=!0,g.savePages&&T.storage&&(t=T.storage(o,g.storageKey)||{},g.page=isNaN(t.page)?g.page:t.page,g.size="all"===t.size?t.size:(isNaN(t.size)?g.size:t.size)||g.setSize||10,D(o,g.size,g)),g.regexRows=new RegExp("("+(i.filter_filteredRow||"filtered")+"|"+n.selectorRemove.slice(1)+"|"+n.cssChildRow+")"),g.regexFiltered=new RegExp(i.filter_filteredRow||"filtered"),c.unbind(S.split(" ").join(d+" ").replace(/\s+/g," ")).bind("filterInit filterStart ".split(" ").join(d+" "),function(e,t){var a;if(g.currentFilters=M.isArray(t)?t:n.$table.data("lastSearch"),g.ajax&&"filterInit"===e.type)return F(o,g,!1);a=T.filter.equalFilters?T.filter.equalFilters(n,n.lastSearch,g.currentFilters):(n.lastSearch||[]).join("")!==(g.currentFilters||[]).join(""),"filterStart"!==e.type||!1===g.pageReset||a||(g.page=g.pageReset)}).bind("filterEnd sortEnd ".split(" ").join(d+" "),function(){g.currentFilters=n.$table.data("lastSearch"),(g.initialized||g.initializing)&&(n.delayInit&&n.rowsCopy&&0===n.rowsCopy.length&&j(o),y(o,g,!1),F(o,g,!1),T.applyWidget(o))}).bind("disablePager"+d,function(e){e.stopPropagation(),x(o,g)}).bind("enablePager"+d,function(e){e.stopPropagation(),C(o,g,!0)}).bind("destroyPager"+d,function(e){var t,a,i,s,r;e.stopPropagation(),a=g,i=(t=o).config,s=i.namespace+"pager",r=[a.cssFirst,a.cssPrev,a.cssNext,a.cssLast,a.cssGoto,a.cssPageSize].join(","),x(t,a),a.$container.hide().find(r).unbind(s),i.appender=null,i.$table.unbind(s),T.storage&&T.storage(t,a.storageKey,""),delete i.pager,delete i.rowsCopy}).bind("resetToLoadState"+d,function(e){var t,a;e.stopPropagation(),a=g,(t=o).config.pager=M.extend(!0,{},M.tablesorterPager.defaults,a.settings),H(t,a.settings)}).bind("updateComplete"+d,function(e,t,a){if(e.stopPropagation(),t&&!a&&!g.ajax){var i=n.$tbodies.eq(0).children("tr").not(n.selectorRemove);g.totalRows=i.length-(g.countChildRows?0:i.filter("."+n.cssChildRow).length),g.totalPages="all"===g.size?1:Math.ceil(g.totalRows/g.size),i.length&&n.rowsCopy&&0===n.rowsCopy.length&&j(t),g.page>=g.totalPages&&q(t,g),w(t,g),f(t,g),y(t,g,!0)}}).bind("pageSize refreshComplete ".split(" ").join(d+" "),function(e,t){e.stopPropagation(),D(o,L(g,t,"get"),g),F(o,g),w(o,g),y(o,g,!1)}).bind("pageSet pagerUpdate ".split(" ").join(d+" "),function(e,t){e.stopPropagation(),"pagerUpdate"===e.type&&(t=void 0===t?g.page+1:t,g.last.page=!0),g.page=(parseInt(t,10)||1)-1,F(o,g,!0),y(o,g,!1)}).bind("pageAndSize"+d,function(e,t,a){e.stopPropagation(),g.page=(parseInt(t,10)||1)-1,D(o,L(g,a,"get"),g),F(o,g,!0),w(o,g),y(o,g,!1)}),s=[g.cssFirst,g.cssPrev,g.cssNext,g.cssLast],r=[P,m,v,q],l&&!p.length&&console.warn('Pager >> "container" not found'),p.find(s.join(",")).attr("tabindex",0).unbind("click"+d).bind("click"+d,function(e){e.stopPropagation();var t,a=M(this),i=s.length;if(!a.hasClass(g.cssDisabled))for(t=0;t<i;t++)if(a.is(s[t])){r[t](o,g);break}}),(a=p.find(g.cssGoto)).length?a.unbind("change"+d).bind("change"+d,function(){g.page=M(this).val()-1,F(o,g,!0),y(o,g,!1)}):l&&console.warn('Pager >> "goto" selector not found'),(a=p.find(g.cssPageSize)).length?(a.find("option").removeAttr("selected"),a.unbind("change"+d).bind("change"+d,function(){if(!M(this).hasClass(g.cssDisabled)){var e=M(this).val();D(o,e,g),F(o,g),f(o,g)}return!1})):l&&console.warn('Pager >> "size" selector not found'),g.initialized=!1,c.triggerHandler("pagerBeforeInitialized",g),C(o,g,!1),"string"==typeof g.ajaxUrl?(g.ajax=!0,n.widgetOptions.filter_serversideFiltering=!0,n.serverSideSorting=!0,F(o,g)):(g.ajax=!1,T.appendCache(n,!0),b(o,g)),g.ajax||g.initialized||(g.initializing=!1,g.initialized=!0,D(o,g.size,g),F(o,g),l&&console.log("Pager >> Triggering pagerInitialized"),n.$table.triggerHandler("pagerInitialized",g),n.widgetOptions.filter_initialized&&T.hasWidget(o,"filter")||y(o,g,!1)),n.widgetInit.pager=!0};$.appender=function(e,t){var a=e.config,i=a.pager;i.ajax||(a.rowsCopy=t,i.totalRows=i.countChildRows?a.$tbodies.eq(0).children("tr").length:t.length,i.size=M.data(e,"pagerLastSize")||i.size||i.settings.size||10,i.totalPages="all"===i.size?1:Math.ceil(i.totalRows/i.size),z(e,t,i),y(e,i,!1))},$.construct=function(e){return this.each(function(){this.config&&this.hasInitialized&&H(this,e)})}}}),T.showError=function(e,t,a,i){function s(){o.$table.find("thead").find(o.selectorRemove).remove()}var r=M(e),o=r[0].config,n=o&&o.widgetOptions,l=o.pager&&o.pager.cssErrorRow||n&&n.pager_css&&n.pager_css.errorRow||"tablesorter-errorRow",g=typeof t,c=!0,d="";if(r.length){if("function"==typeof o.pager.ajaxError){if(!1===(c=o.pager.ajaxError(o,t,a,i)))return s();d=c}else if("function"==typeof n.pager_ajaxError){if(!1===(c=n.pager_ajaxError(o,t,a,i)))return s();d=c}if(""===d)if("object"==g)d=0===t.status?"Not connected, verify Network":404===t.status?"Requested page not found [404]":500===t.status?"Internal Server Error [500]":"parsererror"===i?"Requested JSON parse failed":"timeout"===i?"Time out error":"abort"===i?"Ajax Request aborted":"Uncaught error: "+t.statusText+" ["+t.status+"]";else{if("string"!=g)return s();d=t}M(/tr\>/.test(d)?d:'<tr><td colspan="'+o.columns+'">'+d+"</td></tr>").click(function(){M(this).remove()}).appendTo(o.$table.find("thead:first")).addClass(l+" "+o.selectorRemove.slice(1)).attr({role:"alert","aria-live":"assertive"})}else console.error("tablesorter showError: no table parameter passed")},M.fn.extend({tablesorterPager:M.tablesorterPager.construct})}(jQuery);return jQuery;}));
+
+/* Widget: reflow - updated 2/7/2015 (v2.19.0) *//*
+ * Requires tablesorter v2.8+ and jQuery 1.7+
+ * Also, this widget requires the following default css (modify as desired)
+
+  / * REQUIRED CSS: change your reflow breakpoint here (35em below) * /
+  @media ( max-width: 35em ) {
+    .ui-table-reflow td,
+    .ui-table-reflow th {
+      -webkit-box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      box-sizing: border-box;
+      float: right;
+      / * if not using the stickyHeaders widget (not the css3 version)
+       * the "!important" flag, and "height: auto" can be removed * /
+      width: 100% !important;
+      height: auto !important;
+    }
+    / * reflow widget * /
+    .ui-table-reflow tbody td[data-title]:before {
+      color: #469;
+      font-size: .9em;
+      content: attr(data-title);
+      float: left;
+      width: 50%;
+      white-space: pre-wrap;
+      text-align: bottom;
+      display: inline-block;
+    }
+    / * reflow2 widget * /
+    table.ui-table-reflow .ui-table-cell-label.ui-table-cell-label-top {
+      display: block;
+      padding: .4em 0;
+      margin: .4em 0;
+      text-transform: uppercase;
+      font-size: .9em;
+      font-weight: 400;
+    }
+    table.ui-table-reflow .ui-table-cell-label {
+      padding: .4em;
+      min-width: 30%;
+      display: inline-block;
+      margin: -.4em 1em -.4em -.4em;
+    }
+  }
+  .ui-table-reflow .ui-table-cell-label {
+    display: none;
+  }
+
+ */
+/*jshint browser:true, jquery:true, unused:false */
+/*global jQuery: false */
+;(function($) {
+	'use strict';
+
+	var ts = $.tablesorter,
+
+	tablereflow = {
+		// simple reflow
+		// add data-attribute to each cell which shows when media query is active
+		// this widget DOES NOT WORK on a table with multiple thead rows
+		init : function(table, c, wo) {
+			var $this,
+				title = wo.reflow_dataAttrib,
+				header = wo.reflow_headerAttrib,
+				headers = [];
+			c.$table
+				.addClass(wo.reflow_className)
+				.off('refresh.tsreflow updateComplete.tsreflow2')
+				// emulate jQuery Mobile refresh
+				// https://api.jquerymobile.com/table-reflow/#method-refresh
+				.on('refresh.tsreflow updateComplete.tsreflow2', function() {
+					tablereflow.init(table, c, wo);
+				});
+			c.$headers.each(function() {
+				$this = $(this);
+				headers.push( $.trim( $this.attr(header) || $this.text() ) );
+			});
+			c.$tbodies.children().each(function() {
+				$(this).children().each(function(i) {
+					$(this).attr(title, headers[i]);
+				});
+			});
+		},
+		init2: function(table, c, wo) {
+			var $this, $tbody, i, $hdr, txt, len,
+				cols = c.columns,
+				header = wo.reflow2_headerAttrib,
+				headers = [];
+			c.$table
+				.addClass(wo.reflow2_className)
+				.off('refresh.tsreflow2 updateComplete.tsreflow2')
+				// emulate jQuery Mobile refresh
+				// https://api.jquerymobile.com/table-reflow/#method-refresh
+				.on('refresh.tsreflow2 updateComplete.tsreflow2', function() {
+					tablereflow.init2(table, c, wo);
+				});
+
+			// add <b> to every table cell with thead cell contents
+			for (i = 0; i < cols; i++) {
+				$hdr = c.$headers.filter('[data-column="' + i + '"]');
+				if ($hdr.length > 1) {
+					txt = [];
+					/*jshint loopfunc:true */
+					$hdr.each(function() {
+						$this = $(this);
+						if (!$this.hasClass(wo.reflow2_classIgnore)) {
+							txt.push( $this.attr(header) || $this.text() );
+						}
+					});
+				} else {
+					txt = [ $hdr.attr(header) || $hdr.text() ];
+				}
+				headers.push( txt );
+			}
+			// include 'remove-me' class so these additional elements are removed before updating
+			txt = '<b class="' + c.selectorRemove.slice(1) + ' ' + wo.reflow2_labelClass;
+			c.$tbodies.children().each(function() {
+				$tbody = ts.processTbody(table, $(this), true);
+				$tbody.children().each(function(j) {
+					$this = $(this);
+					len = headers[j].length;
+					i = len - 1;
+					while (i >= 0) {
+						$this.prepend(txt + (i === 0 && len > 1 ? ' ' + wo.reflow2_labelTop : '') + '">' + headers[j][i] + '</b>');
+						i--;
+					}
+				});
+				ts.processTbody(table, $tbody, false);
+			});
+		},
+		remove : function(table, c, wo) {
+			c.$table.removeClass(wo.reflow_className);
+		},
+		remove2 : function(table, c, wo) {
+			c.$table.removeClass(wo.reflow2_className);
+		}
+	};
+
+	ts.addWidget({
+		id: 'reflow',
+		options: {
+			// class name added to make it responsive (class name within media query)
+			reflow_className    : 'ui-table-reflow',
+			// header attribute containing modified header name
+			reflow_headerAttrib : 'data-name',
+			// data attribute added to each tbody cell
+			reflow_dataAttrib   : 'data-title'
+		},
+		init: function(table, thisWidget, c, wo) {
+			tablereflow.init(table, c, wo);
+		},
+		remove: function(table, c, wo) {
+			tablereflow.remove(table, c, wo);
+		}
+	});
+
+	ts.addWidget({
+		id: 'reflow2',
+		options: {
+			// class name added to make it responsive (class name within media query)
+			reflow2_className    : 'ui-table-reflow',
+			// ignore header cell content with this class name
+			reflow2_classIgnore  : 'ui-table-reflow-ignore',
+			// header attribute containing modified header name
+			reflow2_headerAttrib : 'data-name',
+			// class name applied to thead labels
+			reflow2_labelClass   : 'ui-table-cell-label',
+			// class name applied to first row thead label
+			reflow2_labelTop     : 'ui-table-cell-label-top'
+		},
+		init: function(table, thisWidget, c, wo) {
+			tablereflow.init2(table, c, wo);
+		},
+		remove: function(table, c, wo) {
+			tablereflow.remove2(table, c, wo);
+		}
+	});
+
+})(jQuery);
+
 /***
 This is part of jsdifflib v1.0. <http://snowtide.com/jsdifflib>
 

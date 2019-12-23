@@ -78,24 +78,6 @@ namespace YAF.Pages.Admin
         protected global::System.Web.UI.WebControls.Label lblInfo;
 
         /// <summary>
-        /// Alert2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Web.Controls.Alert Alert2;
-
-        /// <summary>
-        /// LocalizedLabel5 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel5;
-
-        /// <summary>
         /// grdLocals control.
         /// </summary>
         /// <remarks>
