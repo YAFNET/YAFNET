@@ -1033,7 +1033,7 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
                   {Config.JQueryAlias}(this).html(function(index, value) {{
                                           return moment(value).fromNow();
                   }});
-                  {Config.JQueryAlias}(this).removeClass('timeago');
+                  {Config.JQueryAlias}(this).removeClass('popover-timeago');
             }});
                 }})";
         }
