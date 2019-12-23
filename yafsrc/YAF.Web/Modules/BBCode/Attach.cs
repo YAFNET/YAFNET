@@ -2,7 +2,7 @@
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2019 Ingo Herbote
- * http://www.yetanotherforum.net/
+ * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -79,12 +79,14 @@ namespace YAF.Modules.BBCode
             }
 
             // user doesn't have rights to download, don't show the image
-            if (!this.PageContext.ForumDownloadAccess && !this.PageContext.ForumModeratorAccess)
+            if (!this.PageContext.ForumDownloadAccess)
             {
                 writer.Write(
                     @"<i class=""fa fa-file fa-fw""></i>&nbsp;{0} <span class=""badge badge-warning"" role=""alert"">{1}</span>",
                     attachment.FileName,
                     this.GetText("ATTACH_NO"));
+
+                return;
             }
 
             if (showImage)
