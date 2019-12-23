@@ -79,12 +79,14 @@ namespace YAF.Modules.BBCode
             }
 
             // user doesn't have rights to download, don't show the image
-            if (!this.PageContext.ForumDownloadAccess && !this.PageContext.ForumModeratorAccess)
+            if (!this.PageContext.ForumDownloadAccess)
             {
                 writer.Write(
                     @"<i class=""fa fa-file fa-fw""></i>&nbsp;{0} <span class=""badge badge-warning"" role=""alert"">{1}</span>",
                     attachment.FileName,
                     this.GetText("ATTACH_NO"));
+
+                return;
             }
 
             if (showImage)
