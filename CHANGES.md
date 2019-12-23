@@ -2,9 +2,19 @@ YetAnotherForum.NET Changelog
 ====================
 
 # YetAnotherForum.NET v2.3.1.00
+* [NEW #495] send all emails in html format witch forum layout
 * [NEW] layout for quote messages 
+* [NEW #477] Member based Post Moderating
+* [NEW] Context menus for admin pages (open with right click)
 * [CHANGES] Moved Forum Icon Legend in to a popover
 * [CHANGES] Upgraded to Bootstrap 4.4.1
+
+
+# YetAnotherForum.NET v2.3.0.04
+* [FIXED] selecting forum image
+* [FIXED #501] error after edit moderated post
+* [FIXED] sending multiple digest mails
+* [FIXED] deleting role
 
 
 # YetAnotherForum.NET v2.3.0.03
@@ -15,6 +25,7 @@ YetAnotherForum.NET Changelog
 * [FIXED #499] saving group
 * [FIXED #498] removed page refresh on the postmessage page
 * [FIXED #500] error on moving topic
+* [FIXED] topic urls
 
 
 # YetAnotherForum.NET v2.3.0.02
