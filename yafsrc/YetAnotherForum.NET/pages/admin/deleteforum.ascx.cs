@@ -27,10 +27,10 @@ namespace YAF.Pages.Admin
     #region Using
 
     using System;
-    using System.Linq;
     using System.Web;
 
     using YAF.Core;
+    using YAF.Core.Extensions;
     using YAF.Core.Model;
     using YAF.Core.Tasks;
     using YAF.Core.Utilities;
@@ -72,7 +72,7 @@ namespace YAF.Pages.Admin
         {
             this.MoveTopics.CheckedChanged += this.MoveTopicsCheckedChanged;
             this.Delete.Click += this.SaveClick;
-            this.Cancel.Click += this.Cancel_Click;
+            this.Cancel.Click += Cancel_Click;
 
             this.Delete.ReturnConfirmText = this.GetText("ADMIN_FORUMS", "CONFIRM_DELETE");
             this.Delete.ReturnConfirmEvent = "blockUIMessage";
@@ -94,15 +94,26 @@ namespace YAF.Pages.Admin
 
             this.BindData();
 
+            if (!this.Get<HttpRequestBase>().QueryString.Exists("fa"))
+            {
+                YafBuildLink.Redirect(ForumPages.admin_forums);
+            }
+
             var forumId = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefaultAsInt("fa");
 
-            var forum = this.GetRepository<Forum>().List(this.PageContext.PageBoardID, forumId)
-                .FirstOrDefault();
+            var forum = this.GetRepository<Forum>().GetById(forumId.Value);
 
-            this.ForumNameTitle.Text = forum.Name;
+            if (forum == null)
+            {
+                YafBuildLink.Redirect(ForumPages.admin_forums);
+            }
+            else
+            {
+                this.ForumNameTitle.Text = forum.Name;
 
-            // populate parent forums list with forums according to selected category
-            this.BindParentList();
+                // populate parent forums list with forums according to selected category
+                this.BindParentList();
+            }
         }
 
         /// <summary>
@@ -148,6 +159,16 @@ namespace YAF.Pages.Admin
         }
 
         /// <summary>
+        /// Cancel Deleting and Redirecting back to The Admin Forums Page.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+        private static void Cancel_Click([NotNull] object sender, [NotNull] EventArgs e)
+        {
+            YafBuildLink.Redirect(ForumPages.admin_forums);
+        }
+
+        /// <summary>
         /// Binds the data.
         /// </summary>
         private void BindData()
@@ -181,21 +202,11 @@ namespace YAF.Pages.Admin
         }
 
         /// <summary>
-        /// Cancel Deleting and Redirecting back to The Admin Forums Page.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        private void Cancel_Click([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            YafBuildLink.Redirect(ForumPages.admin_forums);
-        }
-
-        /// <summary>
         /// Clears the caches.
         /// </summary>
         private void ClearCaches()
         {
-            // clear moderatorss cache
+            // clear moderators cache
             this.Get<IDataCache>().Remove(Constants.Cache.ForumModerators);
 
             // clear category cache...

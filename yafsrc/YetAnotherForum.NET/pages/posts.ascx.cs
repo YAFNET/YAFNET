@@ -1215,7 +1215,8 @@ namespace YAF.Pages
             var isWatched = this.HandleWatchTopic();
 
             // share menu...
-            this.ShareMenu.Visible = this.Get<IPermissions>().Check(this.Get<YafBoardSettings>().ShowShareTopicTo);
+            this.ShareMenu.Visible = this.ShareLink.Visible =
+                                         this.Get<IPermissions>().Check(this.Get<YafBoardSettings>().ShowShareTopicTo);
 
             if (this.Get<IPermissions>().Check(this.Get<YafBoardSettings>().ShowShareTopicTo))
             {
