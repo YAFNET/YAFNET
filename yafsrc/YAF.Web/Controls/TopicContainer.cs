@@ -185,17 +185,50 @@ namespace YAF.Web.Controls
 
             var topicLink = new HyperLink
                                 {
-                                    NavigateUrl =
-                                        YafBuildLink.GetLinkNotEscaped(ForumPages.posts, "t={0}", this.TopicRow["LinkTopicID"]),
-                                    Text = this.FormatTopicName()
+                                    NavigateUrl = YafBuildLink.GetLinkNotEscaped(
+                                        ForumPages.posts,
+                                        "t={0}",
+                                        this.TopicRow["LinkTopicID"]),
+                                    Text = this.FormatTopicName(),
+                                    CssClass = "topic-starter-popover"
                                 };
 
-            topicLink.Attributes.Add("data-toggle", "tooltip");
+            topicLink.Attributes.Add("data-toggle", "popover");
 
-            if (this.TopicRow["Description"].ToString().IsSet())
+            var topicStartedDateTime = this.TopicRow["Posted"].ToType<DateTime>();
+
+            var formattedStartedDatetime = this.Get<YafBoardSettings>().ShowRelativeTime
+                                               ? topicStartedDateTime.ToString(
+                                                   "yyyy-MM-ddTHH:mm:ssZ",
+                                                   CultureInfo.InvariantCulture)
+                                               : this.Get<IDateTime>().Format(
+                                                   DateTimeFormat.BothTopic,
+                                                   topicStartedDateTime);
+
+            var topicStarterLink = new UserLink
+                                       {
+                                           UserID = this.TopicRow["UserID"].ToType<int>(),
+                                           ReplaceName = this
+                                               .TopicRow[this.Get<YafBoardSettings>().EnableDisplayName
+                                                             ? "StarterDisplay"
+                                                             : "Starter"].ToString(),
+                                           Style = this.TopicRow["StarterStyle"].ToString()
+                                       };
+
+            topicLink.Attributes.Add(
+                "data-content",
+                $@"{topicStarterLink.RenderToString()}
+                          <span class=""fa-stack"">
+                                                    <i class=""fa fa-calendar-day fa-stack-1x text-secondary""></i>
+                                                    <i class=""fa fa-circle fa-badge-bg fa-inverse fa-outline-inverse""></i>
+                                                    <i class=""fa fa-clock fa-badge text-secondary""></i>
+                                                </span>&nbsp;<span class=""popover-timeago"">{formattedStartedDatetime}</span>
+                         ");
+
+            /*if (this.TopicRow["Description"].ToString().IsSet())
             {
                 topicLink.ToolTip = this.Get<IBadWordReplace>().Replace(this.HtmlEncode(this.TopicRow["Description"]));
-            }
+            }*/
 
             if (!this.TopicRow["LastMessageID"].IsNullOrEmptyDBField())
             {
@@ -242,49 +275,6 @@ namespace YAF.Web.Controls
             {
                 writer.Write("&nbsp;<div class=\"btn-group btn-group-sm mb-1\" role=\"group\" aria-label\"topic pager\">{0}</div>", pager);
             }
-
-            // Render Info Topic Starter
-            var infoTopicStarter = new ThemeButton
-                                   {
-                                       Size = ButtonSize.Small,
-                                       Icon = "info-circle",
-                                       Type = ButtonAction.OutlineInfo,
-                                       DataToggle = "popover",
-                                       CssClass = "topic-starter-popover ml-1",
-                                       NavigateUrl = "#!",
-                                       TextLocalizedTag = "TOPIC_STARTER"
-            };
-
-            var topicStartedDateTime = this.TopicRow["Posted"].ToType<DateTime>();
-
-            var formattedStartedDatetime = this.Get<YafBoardSettings>().ShowRelativeTime
-                                        ? topicStartedDateTime.ToString(
-                                            "yyyy-MM-ddTHH:mm:ssZ",
-                                            CultureInfo.InvariantCulture)
-                                        : this.Get<IDateTime>().Format(
-                                            DateTimeFormat.BothTopic,
-                                            topicStartedDateTime);
-
-            var topicStarterLink = new UserLink
-                                       {
-                                           UserID = this.TopicRow["UserID"].ToType<int>(),
-                                           ReplaceName = this
-                                               .TopicRow[this.Get<YafBoardSettings>().EnableDisplayName
-                                                             ? "StarterDisplay"
-                                                             : "Starter"].ToString(),
-                                           Style = this.TopicRow["StarterStyle"].ToString()
-                                       };
-
-            infoTopicStarter.DataContent = $@"
-                          {topicStarterLink.RenderToString()}
-                          <span class=""fa-stack"">
-                                                    <i class=""fa fa-calendar-day fa-stack-1x text-secondary""></i>
-                                                    <i class=""fa fa-circle fa-badge-bg fa-inverse fa-outline-inverse""></i>
-                                                    <i class=""fa fa-clock fa-badge text-secondary""></i>
-                                                </span>&nbsp;<span class=""popover-timeago"">{formattedStartedDatetime}</span>
-                         ";
-
-            writer.Write(infoTopicStarter.RenderToString());
 
             writer.Write(" </h5>");
 
