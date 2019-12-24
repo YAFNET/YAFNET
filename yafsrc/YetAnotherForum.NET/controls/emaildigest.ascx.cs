@@ -2,7 +2,7 @@
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2019 Ingo Herbote
- * http://www.yetanotherforum.net/
+ * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -53,48 +53,48 @@ namespace YAF.Controls
     using YAF.Utils;
     using YAF.Utils.Helpers;
 
-#endregion
+    #endregion
 
     /// <summary>
     /// The email_digest.
     /// </summary>
     public partial class emaildigest : BaseUserControl
     {
-#region Constants and Fields
+        #region Constants and Fields
 
         /// <summary>
-        ///   The _combined user data.
+        ///   The combined user data.
         /// </summary>
-        private CombinedUserDataHelper _combinedUserData;
+        private CombinedUserDataHelper combinedUserData;
 
         /// <summary>
-        ///   The _forum data.
+        ///   The forum data.
         /// </summary>
-        private List<SimpleForum> _forumData;
+        private List<SimpleForum> forumData;
 
         /// <summary>
-        ///   The _language file.
+        ///   The language file.
         /// </summary>
-        private string _languageFile;
+        private string languageFile;
 
         /// <summary>
         ///   The YAF localization.
         /// </summary>
-        private ILocalization _localization;
+        private ILocalization localization;
 
         /// <summary>
         ///   Numbers of hours to compute digest for...
         /// </summary>
-        private int _topicHours = -24;
+        private int topicHours = -24;
 
         /// <summary>
-        /// The _show errors
+        /// The show errors
         /// </summary>
-        private bool? _showErrors;
+        private bool? showErrors;
 
-#endregion
+        #endregion
 
-#region Properties
+        #region Properties
 
         /// <summary>
         ///   Gets ActiveTopics.
@@ -105,13 +105,11 @@ namespace YAF.Controls
             get
             {
                 // flatten...
-                var topicsFlattened = this._forumData.SelectMany(x => x.Topics);
+                var topicsFlattened = this.forumData.SelectMany(x => x.Topics);
 
-                return
-                    topicsFlattened.Where(
-                        t =>
-                        t.LastPostDate > DateTime.Now.AddHours(this._topicHours)
-                        && t.CreatedDate < DateTime.Now.AddHours(this._topicHours)).GroupBy(x => x.Forum);
+                return topicsFlattened.Where(
+                    t => t.LastPostDate > DateTime.Now.AddHours(this.topicHours)
+                         && t.CreatedDate < DateTime.Now.AddHours(this.topicHours)).GroupBy(x => x.Forum);
             }
         }
 
@@ -142,11 +140,10 @@ namespace YAF.Controls
             get
             {
                 // flatten...
-                var topicsFlattened = this._forumData.SelectMany(x => x.Topics);
+                var topicsFlattened = this.forumData.SelectMany(x => x.Topics);
 
-                return
-                    topicsFlattened.Where(t => t.CreatedDate > DateTime.Now.AddHours(this._topicHours))
-                        .GroupBy(x => x.Forum);
+                return topicsFlattened.Where(t => t.CreatedDate > DateTime.Now.AddHours(this.topicHours))
+                    .GroupBy(x => x.Forum);
             }
         }
 
@@ -155,8 +152,7 @@ namespace YAF.Controls
         /// </summary>
         [NotNull]
         public CombinedUserDataHelper UserData =>
-            this._combinedUserData
-            ?? (this._combinedUserData = new CombinedUserDataHelper(this.CurrentUserID));
+            this.combinedUserData ?? (this.combinedUserData = new CombinedUserDataHelper(this.CurrentUserID));
 
         /// <summary>
         /// Gets a value indicating whether [show errors].
@@ -168,26 +164,26 @@ namespace YAF.Controls
         {
             get
             {
-                if (this._showErrors.HasValue)
+                if (this.showErrors.HasValue)
                 {
-                    return this._showErrors.Value;
+                    return this.showErrors.Value;
                 }
 
-                var showErrors = false;
+                var showError = false;
                 if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("showerror").IsSet())
                 {
-                    showErrors = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("showerror").ToType<bool>();
+                    showError = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("showerror").ToType<bool>();
                 }
 
-                this._showErrors = showErrors;
+                this.showErrors = showError;
 
-                return this._showErrors.Value;
+                return this.showErrors.Value;
             }
         }
 
-#endregion
+        #endregion
 
-#region Public Methods
+        #region Public Methods
 
         /// <summary>
         /// Gets the localized text.
@@ -198,22 +194,22 @@ namespace YAF.Controls
         /// </returns>
         public string GetText([NotNull] string tag)
         {
-            if (this._languageFile.IsSet() && this._localization == null)
+            if (this.languageFile.IsSet() && this.localization == null)
             {
-                this._localization = new YafLocalization();
-                this._localization.LoadTranslation(this._languageFile);
+                this.localization = new YafLocalization();
+                this.localization.LoadTranslation(this.languageFile);
             }
-            else if (this._localization == null)
+            else if (this.localization == null)
             {
-                this._localization = this.Get<ILocalization>();
+                this.localization = this.Get<ILocalization>();
             }
 
-            return this._localization.GetText("DIGEST", tag);
+            return this.localization.GetText("DIGEST", tag);
         }
 
-#endregion
+        #endregion
 
-#region Methods
+        #region Methods
 
         /// <summary>
         /// Gets the message formatted and truncated.
@@ -225,10 +221,8 @@ namespace YAF.Controls
         /// </returns>
         protected string GetMessageFormattedAndTruncated([NotNull] string lastMessage, int maxlength)
         {
-            return
-                BBCodeHelper.StripBBCode(HtmlHelper.StripHtml(HtmlHelper.CleanHtmlString(lastMessage)))
-                    .RemoveMultipleWhitespace()
-                    .Truncate(maxlength);
+            return BBCodeHelper.StripBBCode(HtmlHelper.StripHtml(HtmlHelper.CleanHtmlString(lastMessage)))
+                .RemoveMultipleWhitespace().Truncate(maxlength);
         }
 
         /// <summary>
@@ -257,10 +251,9 @@ namespace YAF.Controls
 
             if (HttpContext.Current != null)
             {
-                if (YafContext.Current.BoardSettings.BoardID.Equals(this.BoardID))
-                {
-                    this.BoardSettings = YafContext.Current.BoardSettings;
-                }
+                this.BoardSettings = YafContext.Current.BoardSettings.BoardID.Equals(this.BoardID)
+                                         ? YafContext.Current.BoardSettings
+                                         : new YafLoadBoardSettings(this.BoardID);
             }
             else
             {
@@ -302,10 +295,13 @@ namespace YAF.Controls
             }
 
             // get topic hours...
-            this._topicHours = -this.BoardSettings.DigestSendEveryXHours;
+            this.topicHours = -this.BoardSettings.DigestSendEveryXHours;
 
-            this._forumData = this.Get<YafDbBroker>()
-                .GetSimpleForumTopic(this.BoardID, this.CurrentUserID, DateTime.Now.AddHours(this._topicHours), 9999);
+            this.forumData = this.Get<YafDbBroker>().GetSimpleForumTopic(
+                this.BoardID,
+                this.CurrentUserID,
+                DateTime.Now.AddHours(this.topicHours),
+                9999);
 
             if (!this.NewTopics.Any() && !this.ActiveTopics.Any())
             {
@@ -313,14 +309,14 @@ namespace YAF.Controls
                 {
                     this.OutputError($"No topics for the last {this.BoardSettings.DigestSendEveryXHours} hours.");
 
-                     this.Get<HttpResponseBase>().Write(this.GetDebug());
+                    this.Get<HttpResponseBase>().Write(this.GetDebug());
                 }
 
                 this.Get<HttpResponseBase>().End();
                 return;
             }
 
-            this._languageFile = UserHelper.GetUserLanguageFile(
+            this.languageFile = UserHelper.GetUserLanguageFile(
                 this.CurrentUserID,
                 this.BoardID,
                 this.BoardSettings.AllowUserLanguage);
@@ -343,7 +339,7 @@ namespace YAF.Controls
             }
         }
 
-#endregion
+        #endregion
 
         /// <summary>
         /// Gets the debug information.
