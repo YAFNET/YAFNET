@@ -1072,6 +1072,8 @@
     <Resource tag="EMAIL_VERIFICATION_HELP">ren via e-mail.</Resource>
     <Resource tag="ENABLE_ABLBUMS">Zet Album Optie aan:</Resource>
     <Resource tag="ENABLE_ABLBUMS_HELP">Als deze is aangevinkt, worden Albums aktief. Zet ook het maximum aantal plaatjes en albums voor elke groep/rang, om het aktief te maken.</Resource>
+    <Resource tag="ENABLE_ACTIVITY">Enable Activity Stream:</Resource>
+    <Resource tag="ENABLE_ACTIVITY_HELP">If checked the user gets Notifications for Mentions, Quotes and Thanks.</Resource>
     <Resource tag="ENABLE_BUDDYLIST">Sta Vriendenlijsten toe:</Resource>
     <Resource tag="ENABLE_BUDDYLIST_HELP">Als deze is aangevinkt, kunnen gebruikers vriendenlijsten aanleggen.</Resource>
     <Resource tag="ENABLE_CALENDER">Kalender:</Resource>
@@ -1829,7 +1831,7 @@
     <Resource tag="admin_digest">Samenvatting</Resource>
     <Resource tag="admin_eventlog">Logboek</Resource>
     <Resource tag="admin_extensions">Bestandsextensies</Resource>
-    <Resource tag="admin_forums">Forums</Resource>
+    <Resource tag="admin_forums">Categories &amp; Forums</Resource>
     <Resource tag="admin_groups">Rollen</Resource>
     <Resource tag="admin_hostsettings">Host Instellingen</Resource>
     <Resource tag="admin_install">Installatie</Resource>

@@ -1071,6 +1071,8 @@
     <Resource tag="EMAIL_VERIFICATION_HELP">If unchecked users will not need to verify their email address.</Resource>
     <Resource tag="ENABLE_ABLBUMS">Enable Album Feature:</Resource>
     <Resource tag="ENABLE_ABLBUMS_HELP">If checked, album feature is enabled. You should set allowed number of images and albums for each group and/or rank too, to enable the feature.</Resource>
+    <Resource tag="ENABLE_ACTIVITY">Enable Activity Stream:</Resource>
+    <Resource tag="ENABLE_ACTIVITY_HELP">If checked the user gets Notifications for Mentions, Quotes and Thanks.</Resource>
     <Resource tag="ENABLE_BUDDYLIST">Enable Friend List:</Resource>
     <Resource tag="ENABLE_BUDDYLIST_HELP">If checked users can add each other as Friends.</Resource>
     <Resource tag="ENABLE_CALENDER">Enable calendar:</Resource>

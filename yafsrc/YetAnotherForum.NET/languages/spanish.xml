@@ -1073,6 +1073,8 @@
     <Resource tag="EMAIL_VERIFICATION_HELP">Si no está seleccionado, los usuarios no necesitan verificar su dirección de email.</Resource>
     <Resource tag="ENABLE_ABLBUMS">Activar funcionalidad de álbum:</Resource>
     <Resource tag="ENABLE_ABLBUMS_HELP">Si esta seleccionado, la funcionalidad de álbum estará activa. Necesitas también haber permitido un número de imágenes y álbumes para cada grupo y/o rango, para activar la funcionalidad.</Resource>
+    <Resource tag="ENABLE_ACTIVITY">Enable Activity Stream:</Resource>
+    <Resource tag="ENABLE_ACTIVITY_HELP">If checked the user gets Notifications for Mentions, Quotes and Thanks.</Resource>
     <Resource tag="ENABLE_BUDDYLIST">Activar lista de amigos:</Resource>
     <Resource tag="ENABLE_BUDDYLIST_HELP">Si está activa, los usuarios pueden añadir a otros como amigos.</Resource>
     <Resource tag="ENABLE_CALENDER">Activar calendario:</Resource>

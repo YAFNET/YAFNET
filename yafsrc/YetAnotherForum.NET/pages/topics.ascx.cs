@@ -136,13 +136,15 @@ namespace YAF.Pages
                 "TopicStarterPopoverJs",
                 JavaScriptBlocks.TopicLinkPopoverJs(
                     $"{this.GetText("TOPIC_STARTER")}&nbsp;...",
-                    ".topic-starter-popover"));
+                    ".topic-starter-popover",
+                    "hover"));
 
             this.PageContext.PageElements.RegisterJsBlockStartup(
                 "TopicLinkPopoverJs",
                 JavaScriptBlocks.TopicLinkPopoverJs(
                     $"{this.GetText("LASTPOST")}&nbsp;{this.GetText("SEARCH", "BY")} ...",
-                    ".topic-link-popover"));
+                    ".topic-link-popover",
+                    "hover click"));
 
             base.OnPreRender(e);
         }

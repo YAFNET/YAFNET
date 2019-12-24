@@ -143,10 +143,10 @@ namespace YAF.Pages.Admin
             this.PageLinks.AddLink(
                 this.GetText("ADMIN_ADMIN", "Administration"),
                 YafBuildLink.GetLink(ForumPages.admin_admin));
-            this.PageLinks.AddLink(this.GetText("TEAM", "FORUMS"), string.Empty);
+            this.PageLinks.AddLink(this.GetText("ADMINMENU", "admin_forums"), string.Empty);
 
             this.Page.Header.Title =
-                $"{this.GetText("ADMIN_ADMIN", "Administration")} - {this.GetText("TEAM", "FORUMS")}";
+                $"{this.GetText("ADMIN_ADMIN", "Administration")} - {this.GetText("ADMINMENU", "admin_forums")}";
         }
 
         /// <summary>

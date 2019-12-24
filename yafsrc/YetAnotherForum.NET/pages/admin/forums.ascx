@@ -5,8 +5,8 @@
     <div class="row">
     <div class="col-xl-12">
         <h1><YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" 
-                                LocalizedTag="FORUMS" 
-                                LocalizedPage="TEAM" /></h1>
+                                LocalizedTag="admin_forums" 
+                                LocalizedPage="ADMINMENU" /></h1>
     </div>
     </div>
     <div class="row">
@@ -15,8 +15,8 @@
                 <div class="card-header">
                     <i class="fa fa-comments fa-fw text-secondary pr-1"></i>
                     <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" 
-                                        LocalizedTag="FORUMS" 
-                                        LocalizedPage="TEAM" />
+                                        LocalizedTag="admin_forums" 
+                                        LocalizedPage="ADMINMENU" />
                  </div>
                 <div class="card-body">
 		<asp:Repeater ID="CategoryList" runat="server" OnItemCommand="CategoryList_ItemCommand">
@@ -26,7 +26,7 @@
             <ItemTemplate>
                 <li class="list-group-item list-group-item-action active list-group-item-menu">
                 <div class="d-flex w-100 justify-content-between">
-                    <h5 class="mb-1"><%# this.HtmlEncode(this.Eval( "Name"))%></h5>
+                    <h5 class="mb-1"><i class="fa fa-folder fa-fw pr-1"></i><%# this.HtmlEncode(this.Eval( "Name"))%></h5>
                     <small class="d-none d-md-block">
                         <YAF:LocalizedLabel runat="server"
                                             LocalizedTag="SORT_ORDER">
@@ -93,7 +93,7 @@
                         <li class="list-group-item list-group-item-action list-group-item-menu">
                             <div class="d-flex w-100 justify-content-between">
                                 <h5 class="mb-1">
-                                    <%# this.HtmlEncode(DataBinder.Eval(Container.DataItem, "[\"Name\"]")) %>
+                                    <i class="fa fa-comments fa-fw pr-1"></i><%# this.HtmlEncode(DataBinder.Eval(Container.DataItem, "[\"Name\"]")) %>
                                 </h5>
                                 <small class="d-none d-md-block">
                                     <YAF:LocalizedLabel runat="server" LocalizedTag="SORT_ORDER" />&nbsp;

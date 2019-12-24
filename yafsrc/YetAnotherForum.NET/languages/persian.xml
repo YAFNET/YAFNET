@@ -1072,6 +1072,8 @@
     <Resource tag="EMAIL_VERIFICATION_HELP">اگر علامت نداشته باشد کاربران مجبور به تایپ مجدد ایمیل خود نیستند.</Resource>
     <Resource tag="ENABLE_ABLBUMS">فعال کردن آلبوم:</Resource>
     <Resource tag="ENABLE_ABLBUMS_HELP">با انتخاب این گزینه ویژگی آلبوم فعال می شود. شما باید تعداد مجاز عکس و آلبوم را برای هر گروه یا رتبه مشخص نمایید تا این ویژگی فعال گردد</Resource>
+    <Resource tag="ENABLE_ACTIVITY">Enable Activity Stream:</Resource>
+    <Resource tag="ENABLE_ACTIVITY_HELP">If checked the user gets Notifications for Mentions, Quotes and Thanks.</Resource>
     <Resource tag="ENABLE_BUDDYLIST">فعال کردن لیست دوستان:</Resource>
     <Resource tag="ENABLE_BUDDYLIST_HELP">در صورت انتخاب کاربران می توانند همدیگر را به عنوان دوست اضافه کنند</Resource>
     <Resource tag="ENABLE_CALENDER">فعال کردن تقویم:</Resource>

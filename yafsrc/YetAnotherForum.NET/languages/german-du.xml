@@ -1071,6 +1071,8 @@
     <Resource tag="EMAIL_VERIFICATION_HELP">Wenn aktiviert werden müssen die Benutzer ihre E-Mail Adresse verifizieren.</Resource>
     <Resource tag="ENABLE_ABLBUMS">Album Funktion aktivieren:</Resource>
     <Resource tag="ENABLE_ABLBUMS_HELP">Wenn aktiviert, wird die Album-Funktion aktiviert. Sie sollten die zulässige Anzahl von Bildern und Alben für jede Gruppe und / oder Rang definieren um die Funktion zu aktivieren.</Resource>
+    <Resource tag="ENABLE_ACTIVITY">Enable Activity Stream:</Resource>
+    <Resource tag="ENABLE_ACTIVITY_HELP">If checked the user gets Notifications for Mentions, Quotes and Thanks.</Resource>
     <Resource tag="ENABLE_BUDDYLIST">Freundesliste aktivieren:</Resource>
     <Resource tag="ENABLE_BUDDYLIST_HELP">Wenn diese Option aktiviert ist, können sich Benutzer gegenseitig als Freunde markieren.</Resource>
     <Resource tag="ENABLE_CALENDER">Kalender Aktivieren:</Resource>

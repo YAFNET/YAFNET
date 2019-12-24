@@ -1072,6 +1072,8 @@
     <Resource tag="EMAIL_VERIFICATION_HELP">Требовать проверки адреса email.</Resource>
     <Resource tag="ENABLE_ABLBUMS">Включить альбомы:</Resource>
     <Resource tag="ENABLE_ABLBUMS_HELP">Если включено, то альбомы будут доступны. Вы должны также установить размеры альбомов для каждой группы и/или статуса, чтобы действительно включить эту опцию для пользователей.</Resource>
+    <Resource tag="ENABLE_ACTIVITY">Enable Activity Stream:</Resource>
+    <Resource tag="ENABLE_ACTIVITY_HELP">If checked the user gets Notifications for Mentions, Quotes and Thanks.</Resource>
     <Resource tag="ENABLE_BUDDYLIST">Включить списки друзей:</Resource>
     <Resource tag="ENABLE_BUDDYLIST_HELP">Пользователи могут добавлять друг друга в друзья.</Resource>
     <Resource tag="ENABLE_CALENDER">Включить календарь:</Resource>
