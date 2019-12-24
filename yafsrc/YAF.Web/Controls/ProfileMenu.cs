@@ -67,7 +67,11 @@ namespace YAF.Web.Controls
 
             html.Append(@"<div class=""list-group d-none d-md-block"">");
 
-            this.RenderMenuItem(html, "list-group-item", ForumPages.cp_profile, this.GetText("YOUR_ACCOUNT"));
+            this.RenderMenuItem(
+                html,
+                "list-group-item list-group-item-action",
+                ForumPages.cp_profile,
+                this.GetText("YOUR_ACCOUNT"));
 
             this.RenderMenuItem(htmlDropDown, "dropdown-item", ForumPages.cp_profile, this.GetText("YOUR_ACCOUNT"));
 
@@ -75,14 +79,33 @@ namespace YAF.Web.Controls
             if (this.Get<YafBoardSettings>().AllowPrivateMessages)
             {
                 html.AppendFormat(
-                    @"<h6 class=""list-group-item disabled"">{0}</h6>",
+                    @"<a class=""list-group-item list-group-item-action disabled font-weight-bold"" href=""#"">{0}</a>",
                     this.GetText("CP_PROFILE", "MESSENGER"));
 
-                this.RenderMenuItem(html, "list-group-item", ForumPages.cp_pm, this.GetText("INBOX"), "v=in");
+                this.RenderMenuItem(
+                    html,
+                    "list-group-item list-group-item-action",
+                    ForumPages.cp_pm,
+                    this.GetText("INBOX"),
+                    "v=in");
 
-                this.RenderMenuItem(html, "list-group-item", ForumPages.cp_pm, this.GetText("SENTITEMS"), "v=out");
-                this.RenderMenuItem(html, "list-group-item", ForumPages.cp_pm, this.GetText("ARCHIVE"), "v=arch");
-                this.RenderMenuItem(html, "list-group-item", ForumPages.pmessage, this.GetText("NEW_MESSAGE"));
+                this.RenderMenuItem(
+                    html,
+                    "list-group-item list-group-item-action",
+                    ForumPages.cp_pm,
+                    this.GetText("SENTITEMS"),
+                    "v=out");
+                this.RenderMenuItem(
+                    html,
+                    "list-group-item list-group-item-action",
+                    ForumPages.cp_pm,
+                    this.GetText("ARCHIVE"),
+                    "v=arch");
+                this.RenderMenuItem(
+                    html,
+                    "list-group-item list-group-item-action",
+                    ForumPages.pmessage,
+                    this.GetText("NEW_MESSAGE"));
 
                 htmlDropDown.AppendFormat(@"<h6 class=""dropdown-header"">{0}</h6>", this.GetText("MESSENGER"));
 
@@ -98,11 +121,13 @@ namespace YAF.Web.Controls
             }
 
             // Render Personal Profile Items
-            html.AppendFormat(@"<h6 class=""list-group-item disabled"">{0}</h6>", this.GetText("PERSONAL_PROFILE"));
+            html.AppendFormat(
+                @"<a class=""list-group-item list-group-item-action disabled font-weight-bold"">{0}</a>",
+                this.GetText("PERSONAL_PROFILE"));
 
             this.RenderMenuItem(
                 html,
-                "list-group-item",
+                "list-group-item list-group-item-action",
                 ForumPages.profile,
                 this.GetText("VIEW_PROFILE"),
                 $"u={this.PageContext.PageUserID}");
@@ -118,7 +143,11 @@ namespace YAF.Web.Controls
 
             if (!Config.IsDotNetNuke)
             {
-                this.RenderMenuItem(html, "list-group-item", ForumPages.cp_editprofile, this.GetText("EDIT_PROFILE"));
+                this.RenderMenuItem(
+                    html,
+                    "list-group-item list-group-item-action",
+                    ForumPages.cp_editprofile,
+                    this.GetText("EDIT_PROFILE"));
 
                 this.RenderMenuItem(
                     htmlDropDown,
@@ -126,7 +155,11 @@ namespace YAF.Web.Controls
                     ForumPages.cp_editprofile,
                     this.GetText("EDIT_PROFILE"));
 
-                this.RenderMenuItem(html, "list-group-item", ForumPages.cp_editsettings, this.GetText("EDIT_SETTINGS"));
+                this.RenderMenuItem(
+                    html,
+                    "list-group-item list-group-item-action",
+                    ForumPages.cp_editsettings,
+                    this.GetText("EDIT_SETTINGS"));
 
                 this.RenderMenuItem(
                     htmlDropDown,
@@ -139,7 +172,7 @@ namespace YAF.Web.Controls
             {
                 this.RenderMenuItem(
                     html,
-                    "list-group-item",
+                    "list-group-item list-group-item-action",
                     ForumPages.viewthanks,
                     this.GetText("ViewTHANKS", "TITLE"),
                     $"u={this.PageContext.PageUserID}");
@@ -156,7 +189,7 @@ namespace YAF.Web.Controls
             {
                 this.RenderMenuItem(
                     html,
-                    "list-group-item",
+                    "list-group-item list-group-item-action",
                     ForumPages.attachments,
                     this.GetText("ATTACHMENTS", "TITLE"));
 
@@ -170,7 +203,11 @@ namespace YAF.Web.Controls
             if (!this.PageContext.IsGuest
                 && this.Get<YafBoardSettings>().EnableBuddyList & this.PageContext.UserHasBuddies)
             {
-                this.RenderMenuItem(html, "list-group-item", ForumPages.cp_editbuddies, this.GetText("EDIT_BUDDIES"));
+                this.RenderMenuItem(
+                    html,
+                    "list-group-item list-group-item-action",
+                    ForumPages.cp_editbuddies,
+                    this.GetText("EDIT_BUDDIES"));
 
                 this.RenderMenuItem(
                     htmlDropDown,
@@ -183,7 +220,7 @@ namespace YAF.Web.Controls
             {
                 this.RenderMenuItem(
                     html,
-                    "list-group-item",
+                    "list-group-item list-group-item-action",
                     ForumPages.albums,
                     this.GetText("EDIT_ALBUMS"),
                     $"u={this.PageContext.PageUserID}");
@@ -201,7 +238,11 @@ namespace YAF.Web.Controls
                                          || this.Get<YafBoardSettings>().AvatarGallery
                                          || this.Get<YafBoardSettings>().AvatarGravatar))
             {
-                this.RenderMenuItem(html, "list-group-item", ForumPages.cp_editavatar, this.GetText("EDIT_AVATAR"));
+                this.RenderMenuItem(
+                    html,
+                    "list-group-item list-group-item-action",
+                    ForumPages.cp_editavatar,
+                    this.GetText("EDIT_AVATAR"));
 
                 this.RenderMenuItem(
                     htmlDropDown,
@@ -214,7 +255,7 @@ namespace YAF.Web.Controls
             {
                 this.RenderMenuItem(
                     html,
-                    "list-group-item",
+                    "list-group-item list-group-item-action",
                     ForumPages.cp_signature,
                     this.GetText("CP_PROFILE", "SIGNATURE"));
 
@@ -225,7 +266,11 @@ namespace YAF.Web.Controls
                     this.GetText("CP_PROFILE", "SIGNATURE"));
             }
 
-            this.RenderMenuItem(html, "list-group-item", ForumPages.cp_subscriptions, this.GetText("SUBSCRIPTIONS"));
+            this.RenderMenuItem(
+                html,
+                "list-group-item list-group-item-action",
+                ForumPages.cp_subscriptions,
+                this.GetText("SUBSCRIPTIONS"));
 
             this.RenderMenuItem(
                 htmlDropDown,
@@ -235,7 +280,7 @@ namespace YAF.Web.Controls
 
             this.RenderMenuItem(
                 html,
-                "list-group-item",
+                "list-group-item list-group-item-action",
                 ForumPages.cp_blockoptions,
                 this.GetText("CP_BLOCKOPTIONS", "TITLE"));
 
@@ -249,7 +294,7 @@ namespace YAF.Web.Controls
             {
                 this.RenderMenuItem(
                     html,
-                    "list-group-item",
+                    "list-group-item list-group-item-action",
                     ForumPages.cp_changepassword,
                     this.GetText("CHANGE_PASSWORD"));
 
