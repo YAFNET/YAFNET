@@ -7,11 +7,13 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace YAF.Pages {
-    
-    
-    public partial class cp_profile {
-        
+namespace YAF.Pages
+{
+
+
+    public partial class cp_profile
+    {
+
         /// <summary>
         /// PageLinks control.
         /// </summary>
@@ -20,7 +22,7 @@ namespace YAF.Pages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::YAF.Web.Controls.PageLinks PageLinks;
-        
+
         /// <summary>
         /// ProfileMenu1 control.
         /// </summary>
@@ -29,7 +31,7 @@ namespace YAF.Pages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::YAF.Web.Controls.ProfileMenu ProfileMenu1;
-        
+
         /// <summary>
         /// ControlPanel control.
         /// </summary>
@@ -38,7 +40,7 @@ namespace YAF.Pages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::YAF.Web.Controls.LocalizedLabel ControlPanel;
-        
+
         /// <summary>
         /// YourAccount control.
         /// </summary>
@@ -47,7 +49,16 @@ namespace YAF.Pages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::YAF.Controls.ProfileYourAccount YourAccount;
-        
+
+        /// <summary>
+        /// ActivityPlaceHolder control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.PlaceHolder ActivityPlaceHolder;
+
         /// <summary>
         /// LocalizedLabel1 control.
         /// </summary>

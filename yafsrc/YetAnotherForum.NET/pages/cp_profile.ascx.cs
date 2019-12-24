@@ -75,6 +75,8 @@ namespace YAF.Pages
                     ? this.PageContext.CurrentUserData.DisplayName
                     : this.PageContext.PageUserName,
                 YafBuildLink.GetLink(ForumPages.cp_profile));
+
+            this.ActivityPlaceHolder.Visible = this.Get<YafBoardSettings>().EnableActivityStream;
         }
 
         #endregion

@@ -1109,7 +1109,7 @@ namespace YAF.Pages
             {
                 this.Get<ISendNotification>().ToWatchingUsers(messageId.ToType<int>());
 
-                if (this.EditMessageId == null && !this.PageContext.IsGuest)
+                if (this.EditMessageId == null && !this.PageContext.IsGuest && this.Get<YafBoardSettings>().EnableActivityStream)
                 {
                     // Handle Mentions
                     BBCodeHelper.FindMentions(this.forumEditor.Text).ForEach(

@@ -87,11 +87,6 @@ namespace YAF.Modules
                 return;
             }
 
-            /*if (ScriptManager.GetCurrent(this.ForumControl.Page) == null)
-            {
-                return;
-            }*/
-
             // Get the clean JS string.
             message.Message = message.Message.ToJsString();
 

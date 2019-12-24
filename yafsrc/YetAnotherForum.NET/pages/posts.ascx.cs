@@ -795,26 +795,26 @@ namespace YAF.Pages
                 // calls to database.)
                 if (!postListDataTable.Columns.Contains("ThanksInfo"))
                 {
-                    postListDataTable.Columns.Add("ThanksInfo", Type.GetType("System.String"));
+                    postListDataTable.Columns.Add("ThanksInfo", typeof(string));
                 }
 
                 postListDataTable.Columns.AddRange(
                     new[]
                         {
                             // How many times has this message been thanked.
-                            new DataColumn("IsThankedByUser", Type.GetType("System.Boolean")),
+                            new DataColumn("IsThankedByUser", typeof(bool)),
 
                             //// How many times has the message poster thanked others?
-                            new DataColumn("MessageThanksNumber", Type.GetType("System.Int32")),
+                            new DataColumn("MessageThanksNumber", typeof(int)),
 
                             //// How many times has the message poster been thanked?
-                            new DataColumn("ThanksFromUserNumber", Type.GetType("System.Int32")),
+                            new DataColumn("ThanksFromUserNumber", typeof(int)),
 
                             //// In how many posts has the message poster been thanked?
-                            new DataColumn("ThanksToUserNumber", Type.GetType("System.Int32")),
+                            new DataColumn("ThanksToUserNumber", typeof(int)),
 
                             //// In how many posts has the message poster been thanked?
-                            new DataColumn("ThanksToUserPostsNumber", Type.GetType("System.Int32"))
+                            new DataColumn("ThanksToUserPostsNumber", typeof(int))
                         });
 
                 postListDataTable.AcceptChanges();

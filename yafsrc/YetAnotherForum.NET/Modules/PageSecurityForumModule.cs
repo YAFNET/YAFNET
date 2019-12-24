@@ -23,95 +23,99 @@
  */
 namespace YAF.Modules
 {
-  #region Using
+    #region Using
 
-  using YAF.Types;
-  using YAF.Types.Attributes;
-  using YAF.Types.Constants;
-  using YAF.Types.EventProxies;
-  using YAF.Types.Interfaces.Events;
-  using YAF.Utils;
-
-  #endregion
-
-  /// <summary>
-  /// Module that handles individual page security features -- needs to be expanded.
-  /// </summary>
-  [YafModule("Page Security Module", "Tiny Gecko", 1)]
-  public class PageSecurityForumModule : SimpleBaseForumModule
-  {
-    #region Constants and Fields
-
-    /// <summary>
-    /// The _page pre load.
-    /// </summary>
-    private readonly IFireEvent<ForumPagePreLoadEvent> _pagePreLoad;
+    using YAF.Types;
+    using YAF.Types.Attributes;
+    using YAF.Types.Constants;
+    using YAF.Types.EventProxies;
+    using YAF.Types.Interfaces.Events;
+    using YAF.Utils;
 
     #endregion
 
-    #region Constructors and Destructors
-
     /// <summary>
-    /// Initializes a new instance of the <see cref="PageSecurityForumModule"/> class.
+    /// Module that handles individual page security features -- needs to be expanded.
     /// </summary>
-    /// <param name="pagePreLoad">
-    /// The page pre load.
-    /// </param>
-    public PageSecurityForumModule([NotNull] IFireEvent<ForumPagePreLoadEvent> pagePreLoad)
+    [YafModule("Page Security Module", "Tiny Gecko", 1)]
+    public class PageSecurityForumModule : SimpleBaseForumModule
     {
-      this._pagePreLoad = pagePreLoad;
-      this._pagePreLoad.HandleEvent += this.PagePreLoad_HandleEvent;
+        #region Constants and Fields
+
+        /// <summary>
+        /// The _page pre load.
+        /// </summary>
+        private readonly IFireEvent<ForumPagePreLoadEvent> _pagePreLoad;
+
+        #endregion
+
+        #region Constructors and Destructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PageSecurityForumModule"/> class.
+        /// </summary>
+        /// <param name="pagePreLoad">
+        /// The page pre load.
+        /// </param>
+        public PageSecurityForumModule([NotNull] IFireEvent<ForumPagePreLoadEvent> pagePreLoad)
+        {
+            this._pagePreLoad = pagePreLoad;
+            this._pagePreLoad.HandleEvent += this.PagePreLoad_HandleEvent;
+        }
+
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        /// The page pre load_ handle event.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        private void PagePreLoad_HandleEvent(
+            [NotNull] object sender,
+            [NotNull] EventConverterArgs<ForumPagePreLoadEvent> e)
+        {
+            // no security features for login/logout pages
+            if (this.ForumPageType == ForumPages.login || this.ForumPageType == ForumPages.approve
+                                                       || this.ForumPageType == ForumPages.logout
+                                                       || this.ForumPageType == ForumPages.recoverpassword)
+            {
+                return;
+            }
+
+            // check if login is required
+            if (this.PageContext.BoardSettings.RequireLogin && this.PageContext.IsGuest
+                                                            && this.CurrentForumPage.IsProtected)
+            {
+                // redirect to login page if login is required
+                this.CurrentForumPage.RedirectNoAccess();
+            }
+
+            // check if it's a "registered user only page" and check permissions.
+            if (this.CurrentForumPage.IsRegisteredPage && this.CurrentForumPage.User == null)
+            {
+                this.CurrentForumPage.RedirectNoAccess();
+            }
+
+            // not totally necessary... but provides another layer of protection...
+            if (this.CurrentForumPage.IsAdminPage && !this.PageContext.IsAdmin)
+            {
+                YafBuildLink.AccessDenied();
+                return;
+            }
+
+            // handle security features...
+            if (this.ForumPageType == ForumPages.register && this.PageContext.BoardSettings.DisableRegistrations)
+            {
+                YafBuildLink.AccessDenied();
+            }
+        }
+
+        #endregion
     }
-
-    #endregion
-
-    #region Methods
-
-    /// <summary>
-    /// The page pre load_ handle event.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    private void PagePreLoad_HandleEvent([NotNull] object sender, [NotNull] EventConverterArgs<ForumPagePreLoadEvent> e)
-    {
-      // no security features for login/logout pages
-      if (this.ForumPageType == ForumPages.login || this.ForumPageType == ForumPages.approve ||
-          this.ForumPageType == ForumPages.logout || this.ForumPageType == ForumPages.recoverpassword)
-      {
-        return;
-      }
-
-      // check if login is required
-      if (this.PageContext.BoardSettings.RequireLogin && this.PageContext.IsGuest && this.CurrentForumPage.IsProtected)
-      {
-        // redirect to login page if login is required
-        this.CurrentForumPage.RedirectNoAccess();
-      }
-
-      // check if it's a "registered user only page" and check permissions.
-      if (this.CurrentForumPage.IsRegisteredPage && this.CurrentForumPage.User == null)
-      {
-        this.CurrentForumPage.RedirectNoAccess();
-      }
-
-      // not totally necessary... but provides another layer of protection...
-      if (this.CurrentForumPage.IsAdminPage && !this.PageContext.IsAdmin)
-      {
-        YafBuildLink.AccessDenied();
-        return;
-      }
-
-      // handle security features...
-    	if (this.ForumPageType == ForumPages.register && this.PageContext.BoardSettings.DisableRegistrations)
-    	{
-    		YafBuildLink.AccessDenied();
-    	}
-    }
-
-    #endregion
-  }
 }

@@ -22,19 +22,21 @@
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col">
-                <div class="card mb-3">
-                    <div class="card-header">
-                        <i class="fa fa-stream fa-fw text-secondary"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" 
-                                                                                                   LocalizedTag="ACTIVITY"
-                                                                                                   LocalizedPage="CP_PROFILE" />
-                    </div>
-                    <div class="card-body">
-                        <YAF:ProfileTimeline runat="server"></YAF:ProfileTimeline>
+        <asp:PlaceHolder runat="server" ID="ActivityPlaceHolder">
+            <div class="row">
+                <div class="col">
+                    <div class="card mb-3">
+                        <div class="card-header">
+                            <i class="fa fa-stream fa-fw text-secondary"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" 
+                                                                                                       LocalizedTag="ACTIVITY"
+                                                                                                       LocalizedPage="CP_PROFILE" />
+                        </div>
+                        <div class="card-body">
+                            <YAF:ProfileTimeline runat="server"></YAF:ProfileTimeline>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </asp:PlaceHolder>
     </div>
 </div>

@@ -413,7 +413,7 @@ namespace YAF.Dialogs
                     // send new post notification to users watching this topic/forum
                     this.Get<ISendNotification>().ToWatchingUsers(messageId.ToType<int>());
 
-                    if (Config.IsDotNetNuke && !this.PageContext.IsGuest)
+                    if (Config.IsDotNetNuke && !this.PageContext.IsGuest && this.Get<YafBoardSettings>().EnableActivityStream)
                     {
                         this.Get<IActivityStream>().AddReplyToStream(
                             this.PageContext.PageForumID,

@@ -849,6 +849,14 @@
                             </div>
                         </div>
                         <div class="form-group">
+                            <YAF:HelpLabel ID="HelpLabel31" runat="server"
+                                           AssociatedControlID="EnableActivityStream"
+                                           LocalizedTag="ENABLE_ACTIVITY" LocalizedPage="ADMIN_HOSTSETTINGS" />
+                            <div class="custom-control custom-switch">
+                                <asp:CheckBox Text="&nbsp;" ID="EnableActivityStream" runat="server"></asp:CheckBox>
+                            </div>
+                        </div>
+                        <div class="form-group">
                             <YAF:HelpLabel ID="HelpLabel103" runat="server"
                                            AssociatedControlID="RemoveNestedQuotes"
                                            LocalizedTag="REMOVE_NESTED_QUOTES" LocalizedPage="ADMIN_HOSTSETTINGS" />

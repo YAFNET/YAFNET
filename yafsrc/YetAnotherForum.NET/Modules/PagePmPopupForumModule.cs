@@ -27,12 +27,15 @@ namespace YAF.Modules
 
     using System;
 
+    using YAF.Configuration;
     using YAF.Core;
+    using YAF.Core.Model;
     using YAF.Dialogs;
     using YAF.Types;
     using YAF.Types.Attributes;
     using YAF.Types.Constants;
     using YAF.Types.Interfaces;
+    using YAF.Types.Models;
     using YAF.Types.Objects;
 
     #endregion
@@ -65,7 +68,7 @@ namespace YAF.Modules
         /// </returns>
         protected bool DisplayReceivedThanksPopup()
         {
-            return this.PageContext.ReceivedThanks > 0;
+            return this.PageContext.ReceivedThanks > 0 && this.Get<YafBoardSettings>().EnableActivityStream;
         }
 
         /// <summary>
@@ -76,7 +79,7 @@ namespace YAF.Modules
         /// </returns>
         protected bool DisplayMentionPopup()
         {
-            return this.PageContext.Mention > 0;
+            return this.PageContext.Mention > 0 && this.Get<YafBoardSettings>().EnableActivityStream;
         }
 
         /// <summary>
@@ -87,7 +90,7 @@ namespace YAF.Modules
         /// </returns>
         protected bool DisplayQuotedPopup()
         {
-            return this.PageContext.Quoted > 0;
+            return this.PageContext.Quoted > 0 && this.Get<YafBoardSettings>().EnableActivityStream;
         }
 
         /// <summary>
@@ -156,6 +159,8 @@ namespace YAF.Modules
                                               new ForumLink { ForumPage = YafContext.Current.ForumPageType }
                                       });
 
+                this.GetRepository<Activity>().UpdateNotification(this.PageContext.PageUserID, this.PageContext.LastQuoted);
+
                 // Avoid Showing Both Popups
                 return;
             }
@@ -184,6 +189,8 @@ namespace YAF.Modules
                                               new ForumLink { ForumPage = YafContext.Current.ForumPageType }
                                       });
 
+                this.GetRepository<Activity>().UpdateNotification(this.PageContext.PageUserID, this.PageContext.LastReceivedThanks);
+
                 // Avoid Showing Both Popups
                 return;
             }
@@ -211,6 +218,8 @@ namespace YAF.Modules
                                           ForumPageLink =
                                               new ForumLink { ForumPage = YafContext.Current.ForumPageType }
                                       });
+
+                this.GetRepository<Activity>().UpdateNotification(this.PageContext.PageUserID, this.PageContext.LastMention);
 
                 // Avoid Showing Both Popups
                 return;
