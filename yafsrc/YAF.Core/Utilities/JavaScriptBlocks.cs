@@ -1020,12 +1020,12 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
         /// Returns the JS String
         /// </returns>
         [NotNull]
-        public static string TopicLinkPopoverJs([NotNull] string title, [NotNull] string cssClass)
+        public static string TopicLinkPopoverJs([NotNull] string title, [NotNull] string cssClass, [NotNull] string trigger)
         {
             return $@"{Config.JQueryAlias}('{cssClass}').popover({{
                            title: '{title}',
                            html: true,
-                           trigger: 'hover click',
+                           trigger: '{trigger}',
                            template: '<div class=""popover"" role=""tooltip""><h3 class=""popover-header""></h3><div class=""arrow""></div><div class=""popover-body""></div></div>'
                 }});
                 {Config.JQueryAlias}('{cssClass}').on('inserted.bs.popover', function () {{

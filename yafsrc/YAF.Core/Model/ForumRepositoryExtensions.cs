@@ -792,12 +792,15 @@ namespace YAF.Core.Model
 
             listDestination.Columns.Add("ForumID", typeof(int));
             listDestination.Columns.Add("Title", typeof(string));
+            listDestination.Columns.Add("Icon", typeof(string));
+
 
             if (emptyFirstRow)
             {
                 var blankRow = listDestination.NewRow();
                 blankRow["ForumID"] = 0;
                 blankRow["Title"] = string.Empty;
+                blankRow["Icon"] = string.Empty;
                 listDestination.Rows.Add(blankRow);
             }
 
@@ -865,6 +868,7 @@ namespace YAF.Core.Model
                     newRow = listDestination.NewRow();
                     newRow["ForumID"] = -categoryID; // Ederon : 9/4/2007
                     newRow["Title"] = $"{row["Category"]}";
+                    newRow["Icon"] = "folder";
                     listDestination.Rows.Add(newRow);
                 }
 
@@ -880,6 +884,7 @@ namespace YAF.Core.Model
 
                 newRow["ForumID"] = row["ForumID"];
                 newRow["Title"] = $" -{indent} {row["Forum"]}";
+                newRow["Icon"] = "comments";
 
                 listDestination.Rows.Add(newRow);
 
