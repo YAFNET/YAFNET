@@ -32,7 +32,6 @@ namespace YAF.Web.Controls
     using System.Linq;
     using System.Web.UI;
 
-    using YAF.Configuration;
     using YAF.Core.BaseControls;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
@@ -137,7 +136,10 @@ namespace YAF.Web.Controls
                 TimeSpan.FromMinutes(5));
 
             writer.WriteLine(
-                $@"<select name=""{this.UniqueID}"" onchange=""{this.Page.ClientScript.GetPostBackClientHyperlink(this, this.ID)}"" id=""{this.ClientID}"" class=""custom-select"">");
+                $@"<select name=""{this.UniqueID}"" 
+                             onchange=""{this.Page.ClientScript.GetPostBackClientHyperlink(this, this.ID)}"" 
+                             id=""{this.ClientID}"" 
+                             class=""select2-image-select"">");
 
             var forumId = this.PageContext.PageForumID;
             if (forumId <= 0)
@@ -148,13 +150,16 @@ namespace YAF.Web.Controls
             forumJump.Rows.Cast<DataRow>().ForEach(
                 row =>
                     {
+                        var title = this.HtmlEncode(row["Title"]);
+
                         writer.WriteLine(
-                            @"<option {2}value=""{0}"">&nbsp;&nbsp;{1}</option>",
+                            @"<option {2}value=""{0}"" data-content=""{3}"">&nbsp;&nbsp;{1}</option>",
                             row["ForumID"],
-                            this.HtmlEncode(row["Title"]),
-                            Convert.ToString(row["ForumID"]) == forumId.ToString()
+                            title,
+                            row["ForumID"].ToString() == forumId.ToString()
                                 ? @"selected=""selected"" "
-                                : string.Empty);
+                                : string.Empty,
+                            $"<span class='select2-image-select-icon'><i class='fas fa-{row["Icon"]} fa-fw text-secondary'></i>&nbsp;{title}</span>");
                     });
 
             writer.WriteLine("</select>");
