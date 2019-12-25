@@ -2714,8 +2714,8 @@ select
         LastMessageID	= t.LastMessageID,
         LastMessageFlags = t.LastMessageFlags,
         LastUserID		= t.LastUserID,
-        LastUser		= IsNull(t.LastUserName,(select x.[Name] from [{databaseOwner}].[{objectQualifier}User] x  where x.UserID=t.LastUserID)),
-        LastUserDisplayName	= IsNull(t.LastUserDisplayName,(select x.[DisplayName] from [{databaseOwner}].[{objectQualifier}User] x  where x.UserID=t.LastUserID)),
+        LastUser		= lastUser.Name,
+        LastUserDisplayName	= lastUser.DisplayName,
         LastTopicID		= t.TopicID,
         TopicMovedID    = t.TopicMovedID,
         LastTopicName	= t.Topic,
@@ -2741,6 +2741,7 @@ select
         join [{databaseOwner}].[{objectQualifier}Forum] b  on b.CategoryID=a.CategoryID
         join [{databaseOwner}].[{objectQualifier}ActiveAccess] x  on x.ForumID=b.ForumID
         left outer join [{databaseOwner}].[{objectQualifier}Topic] t  ON t.TopicID = [{databaseOwner}].[{objectQualifier}forum_lasttopic](b.ForumID,@UserID,b.LastTopicID,b.LastPosted)
+        join [{databaseOwner}].[{objectQualifier}User] lastUser on lastUser.UserID = t.LastUserID
     where
         (@CategoryID is null or a.CategoryID=@CategoryID) and
          x.UserID = @UserID and
@@ -2995,6 +2996,7 @@ GO
 
 create procedure [{databaseOwner}].[{objectQualifier}group_delete](@GroupID int) as
 begin
+    delete from [{databaseOwner}].[{objectQualifier}GroupMedal] where GroupID = @GroupID
     delete from [{databaseOwner}].[{objectQualifier}ForumAccess] where GroupID = @GroupID
     delete from [{databaseOwner}].[{objectQualifier}UserGroup] where GroupID = @GroupID
     delete from [{databaseOwner}].[{objectQualifier}Group] where GroupID = @GroupID
@@ -5412,8 +5414,8 @@ begin
         [Views] = c.[Views],
         LastPosted = c.LastPosted,
         LastUserID = c.LastUserID,
-        LastUserName = IsNull(c.LastUserName,(select x.Name from [{databaseOwner}].[{objectQualifier}User] x where x.UserID=c.LastUserID)),
-        LastUserDisplayName = IsNull(c.LastUserDisplayName,(select x.DisplayName from [{databaseOwner}].[{objectQualifier}User] x where x.UserID=c.LastUserID)),
+        LastUserName = lastUser.Name,
+        LastUserDisplayName = lastUser.DisplayName,
         LastMessageID = c.LastMessageID,
         LastMessageFlags = c.LastMessageFlags,
         LastTopicID = c.TopicID,
@@ -5444,6 +5446,7 @@ begin
     from
         [{databaseOwner}].[{objectQualifier}Topic] c
         join [{databaseOwner}].[{objectQualifier}User] b on b.UserID=c.UserID
+        join [{databaseOwner}].[{objectQualifier}User] lastUser on lastUser.UserID = c.LastUserID
         join [{databaseOwner}].[{objectQualifier}Forum] d on d.ForumID=c.ForumID
         join [{databaseOwner}].[{objectQualifier}ActiveAccess] x   on x.ForumID=d.ForumID
         join [{databaseOwner}].[{objectQualifier}Category] cat on cat.CategoryID=d.CategoryID
@@ -5538,8 +5541,8 @@ begin
         [Views] = c.[Views],
         LastPosted = c.LastPosted,
         LastUserID = c.LastUserID,
-        LastUserName = IsNull(c.LastUserName,(select x.Name from [{databaseOwner}].[{objectQualifier}User] x where x.UserID=c.LastUserID)),
-        LastUserDisplayName = IsNull(c.LastUserDisplayName,(select x.DisplayName from [{databaseOwner}].[{objectQualifier}User] x where x.UserID=c.LastUserID)),
+        LastUserName = lastUser.Name,
+        LastUserDisplayName = lastUser.DisplayName,
         LastMessageID = c.LastMessageID,
         LastMessageFlags = c.LastMessageFlags,
         LastTopicID = c.TopicID,
@@ -5570,6 +5573,7 @@ begin
     from
         TopicIds ti
         inner join [{databaseOwner}].[{objectQualifier}Topic] c on c.TopicID = ti.TopicID
+        join [{databaseOwner}].[{objectQualifier}User] lastUser on lastUser.UserID = c.LastUserID
         join [{databaseOwner}].[{objectQualifier}User] b on b.UserID=c.UserID
         join [{databaseOwner}].[{objectQualifier}Forum] d on d.ForumID=c.ForumID
     where ti.RowNum between @FirstSelectRowNumber and @LastSelectRowNumber
@@ -5871,14 +5875,16 @@ BEGIN
         t.LastMessageID,
         t.LastMessageFlags,
         t.LastUserID,
-        LastUserName = IsNull(t.LastUserName,(select x.[Name] from [{databaseOwner}].[{objectQualifier}User] x where x.UserID = t.LastUserID)),
-        LastUserDisplayName = IsNull(t.LastUserName,(select x.[DisplayName] from [{databaseOwner}].[{objectQualifier}User] x where x.UserID = t.LastUserID)),
+        LastUserName = lastUser.Name,
+        LastUserDisplayName = lastUser.DisplayName,
         LastUserIsGuest = (select x.IsGuest from [{databaseOwner}].[{objectQualifier}User] x where x.UserID=t.LastUserID),
         t.Posted
     FROM
         [{databaseOwner}].[{objectQualifier}Message] m
     INNER JOIN
         [{databaseOwner}].[{objectQualifier}Topic] t  ON t.LastMessageID = m.MessageID
+    inner join 
+        [{databaseOwner}].[{objectQualifier}User] lastUser on lastUser.UserID = t.LastUserID
     INNER JOIN
         [{databaseOwner}].[{objectQualifier}Forum] f ON t.ForumID = f.ForumID
     INNER JOIN
@@ -5930,8 +5936,8 @@ BEGIN
 		t.Views,
         t.Posted,
 		LastMessage = (select m.Message from [{databaseOwner}].[{objectQualifier}Message] m where m.MessageID = t.LastMessageID),
-        LastUserName = IsNull(t.LastUserName,(select x.[Name] from [{databaseOwner}].[{objectQualifier}User] x where x.UserID = t.LastUserID)),
-        LastUserDisplayName = IsNull(t.LastUserDisplayName,(select x.[DisplayName] from [{databaseOwner}].[{objectQualifier}User] x where x.UserID = t.LastUserID)),
+        LastUserName = lastUser.Name,
+        LastUserDisplayName = lastUser.DisplayName,
         LastUserStyle = case(@StyledNicks)
             when 1 then  (select top 1 usr.[UserStyle] from [{databaseOwner}].[{objectQualifier}User] usr  where usr.UserID = t.LastUserID)
             else ''	 end,
@@ -5948,6 +5954,8 @@ BEGIN
         [{databaseOwner}].[{objectQualifier}Topic] t
     INNER JOIN
         [{databaseOwner}].[{objectQualifier}Forum] f ON t.ForumID = f.ForumID
+    inner join 
+        [{databaseOwner}].[{objectQualifier}User] lastUser on lastUser.UserID = t.LastUserID
     INNER JOIN
         [{databaseOwner}].[{objectQualifier}Category] c ON c.CategoryID = f.CategoryID
     JOIN
@@ -6031,8 +6039,8 @@ BEGIN
 		t.Views,
         t.Posted,
 		LastMessage = (select m.Message from [{databaseOwner}].[{objectQualifier}Message] m where m.MessageID = t.LastMessageID),
-        LastUserName = IsNull(t.LastUserName,(select x.[Name] from [{databaseOwner}].[{objectQualifier}User] x where x.UserID = t.LastUserID)),
-        LastUserDisplayName = IsNull(t.LastUserDisplayName,(select x.[DisplayName] from [{databaseOwner}].[{objectQualifier}User] x where x.UserID = t.LastUserID)),
+        LastUserName = lastUser.Name,
+        LastUserDisplayName = lastUser.DisplayName,
         LastUserStyle = case(@StyledNicks)
             when 1 then  (select top 1 usr.[UserStyle] from [{databaseOwner}].[{objectQualifier}User] usr  where usr.UserID = t.LastUserID)
             else ''	 end,
@@ -6049,6 +6057,8 @@ BEGIN
         [{databaseOwner}].[{objectQualifier}Topic] t
     INNER JOIN
         [{databaseOwner}].[{objectQualifier}Forum] f ON t.ForumID = f.ForumID
+    inner join 
+        [{databaseOwner}].[{objectQualifier}User] lastUser on lastUser.UserID = t.LastUserID
     INNER JOIN
         [{databaseOwner}].[{objectQualifier}Category] c ON c.CategoryID = f.CategoryID
     JOIN
@@ -6130,8 +6140,8 @@ begin
             [Views] = c.[Views],
             LastPosted = c.LastPosted,
             LastUserID = c.LastUserID,
-            LastUserName = IsNull(c.LastUserName,(SELECT x.Name FROM [{databaseOwner}].[{objectQualifier}User] x where x.UserID=c.LastUserID)),
-            LastUserDisplayName = IsNull(c.LastUserDisplayName,(SELECT x.DisplayName FROM [{databaseOwner}].[{objectQualifier}User] x where x.UserID=c.LastUserID)),
+            LastUserName = lastUser.Name,
+            LastUserDisplayName = lastUser.DisplayName,
             LastMessageID = c.LastMessageID,
             LastTopicID = c.TopicID,
             LinkDate = c.LinkDate,
@@ -6164,6 +6174,7 @@ begin
             ON c.TopicID = ti.TopicID
             JOIN [{databaseOwner}].[{objectQualifier}User] b
             ON b.UserID=c.UserID
+            join [{databaseOwner}].[{objectQualifier}User] lastUser on lastUser.UserID = c.LastUserID
             join [{databaseOwner}].[{objectQualifier}Forum] d on d.ForumID=c.ForumID
             WHERE ti.RowNum between @FirstSelectRowNumber and @LastSelectRowNumber
         order by
@@ -6233,8 +6244,8 @@ begin
             [Views] = c.[Views],
             LastPosted = c.LastPosted,
             LastUserID = c.LastUserID,
-            LastUserName = IsNull(c.LastUserName,(SELECT x.Name FROM [{databaseOwner}].[{objectQualifier}User] x where x.UserID=c.LastUserID)),
-            LastUserDisplayName = IsNull(c.LastUserDisplayName,(SELECT x.DisplayName FROM [{databaseOwner}].[{objectQualifier}User] x where x.UserID=c.LastUserID)),
+            LastUserName = lastUser.Name,
+            LastUserDisplayName = lastUser.DisplayName,
             LastMessageID = c.LastMessageID,
             LastTopicID = c.TopicID,
             LinkDate = c.LinkDate,
@@ -6265,6 +6276,7 @@ begin
             TopicIds ti
             inner join [{databaseOwner}].[{objectQualifier}Topic] c
             ON c.TopicID = ti.TopicID
+            join [{databaseOwner}].[{objectQualifier}User] lastUser on lastUser.UserID = c.LastUserID
             JOIN [{databaseOwner}].[{objectQualifier}User] b
             ON b.UserID=c.UserID
             join [{databaseOwner}].[{objectQualifier}Forum] d on d.ForumID=c.ForumID
@@ -7822,11 +7834,12 @@ begin
         b.LastMessageID,
         LastTopicID = (select TopicID from [{databaseOwner}].[{objectQualifier}Message] x where x.MessageID=b.LastMessageID),
         b.LastUserID,
-        LastUserName = IsNull(b.LastUserName,(select x.Name from [{databaseOwner}].[{objectQualifier}User] x where x.UserID=b.LastUserID)),
-        LastUserDisplayName = IsNull(b.LastUserDisplayName,(select x.DisplayName from [{databaseOwner}].[{objectQualifier}User] x where x.UserID=b.LastUserID))
+        LastUserName = lastUser.Name,
+        LastUserDisplayName = lastUser.DisplayName
     from
         [{databaseOwner}].[{objectQualifier}WatchForum] a
         inner join [{databaseOwner}].[{objectQualifier}Forum] b on b.ForumID = a.ForumID
+        inner join [{databaseOwner}].[{objectQualifier}User] lastUser on lastUser.UserID = b.LastUserID
     where
         a.UserID = @UserID
 end
@@ -7852,11 +7865,12 @@ begin
         b.LastPosted,
         b.LastMessageID,
         b.LastUserID,
-        LastUserName = IsNull(b.LastUserName,(select x.Name from [{databaseOwner}].[{objectQualifier}User] x where x.UserID=b.LastUserID)),
-        LastUserDisplayName = IsNull(b.LastUserDisplayName,(select x.DisplayName from [{databaseOwner}].[{objectQualifier}User] x where x.UserID=b.LastUserID))
+        LastUserName = lastUser.Name,
+        LastUserDisplayName = lastUser.DisplayName
     from
         [{databaseOwner}].[{objectQualifier}WatchTopic] a
         inner join [{databaseOwner}].[{objectQualifier}Topic] b on b.TopicID = a.TopicID
+        inner join [{databaseOwner}].[{objectQualifier}User] lastUser on lastUser.UserID = b.LastUserID
     where
         a.UserID = @UserID
 end
@@ -8938,8 +8952,8 @@ begin
         [Views] = c.[Views],
         LastPosted = c.LastPosted,
         LastUserID = c.LastUserID,
-        LastUserName = IsNull(c.LastUserName,(select x.Name from [{databaseOwner}].[{objectQualifier}User] x where x.UserID=c.LastUserID)),
-        LastUserDisplayName = IsNull(c.LastUserDisplayName,(select x.DisplayName from [{databaseOwner}].[{objectQualifier}User] x where x.UserID=c.LastUserID)),
+        LastUserName = lastUser.Name,
+        LastUserDisplayName = lastUser.DisplayName,
         LastMessageID = c.LastMessageID,
         LastMessageFlags = c.LastMessageFlags,
         LastTopicID = c.TopicID,
@@ -8971,6 +8985,7 @@ begin
     from
         TopicIds ti
         inner join [{databaseOwner}].[{objectQualifier}Topic] c on c.TopicID = ti.TopicID
+        join [{databaseOwner}].[{objectQualifier}User] lastUser on lastUser.UserID = c.LastUserID
         join [{databaseOwner}].[{objectQualifier}User] b on b.UserID=c.UserID
         join [{databaseOwner}].[{objectQualifier}Forum] d on d.ForumID=c.ForumID
     where ti.RowNum between @FirstSelectRowNumber and @LastSelectRowNumber
@@ -9595,8 +9610,8 @@ begin
         [Views] = c.[Views],
         LastPosted = c.LastPosted,
         LastUserID = c.LastUserID,
-        LastUserName = IsNull(c.LastUserName,(select x.Name from [{databaseOwner}].[{objectQualifier}User] x where x.UserID=c.LastUserID)),
-        LastUserDisplayName = IsNull(c.LastUserDisplayName,(select x.DisplayName from [{databaseOwner}].[{objectQualifier}User] x where x.UserID=c.LastUserID)),
+        LastUserName = lastUser.Name,
+        LastUserDisplayName = lastUser.DisplayName,
         LastMessageID = c.LastMessageID,
         LastMessageFlags = c.LastMessageFlags,
         LastTopicID = c.TopicID,
@@ -9628,6 +9643,7 @@ begin
     from
         TopicIds ti
         inner join [{databaseOwner}].[{objectQualifier}Topic] c on c.TopicID = ti.TopicID
+        join [{databaseOwner}].[{objectQualifier}User] lastUser on lastUser.UserID = c.LastUserID
         join [{databaseOwner}].[{objectQualifier}User] b on b.UserID=c.UserID
         join [{databaseOwner}].[{objectQualifier}Forum] d on d.ForumID=c.ForumID
     where ti.RowNum between @FirstSelectRowNumber and @LastSelectRowNumber
@@ -9759,8 +9775,8 @@ begin
         [Views] = c.[Views],
         LastPosted = c.LastPosted,
         LastUserID = c.LastUserID,
-        LastUserName = IsNull(c.LastUserName,(select x.Name from [{databaseOwner}].[{objectQualifier}User] x where x.UserID=c.LastUserID)),
-        LastUserDisplayName = IsNull(c.LastUserDisplayName,(select x.DisplayName from [{databaseOwner}].[{objectQualifier}User] x where x.UserID=c.LastUserID)),
+        LastUserName = lastUser.Name,
+        LastUserDisplayName = lastUser.DisplayName,
         LastMessageID = c.LastMessageID,
         LastMessageFlags = c.LastMessageFlags,
         LastTopicID = c.TopicID,
@@ -9792,6 +9808,7 @@ begin
     from
         TopicIds ti
         inner join [{databaseOwner}].[{objectQualifier}Topic] c on c.TopicID = ti.TopicID
+        join [{databaseOwner}].[{objectQualifier}User] lastUser on lastUser.UserID = c.LastUserID
         join [{databaseOwner}].[{objectQualifier}User] b on b.UserID=c.UserID
         join [{databaseOwner}].[{objectQualifier}Forum] d on d.ForumID=c.ForumID
     where ti.RowNum between @FirstSelectRowNumber and @LastSelectRowNumber
