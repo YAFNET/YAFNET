@@ -407,15 +407,13 @@
                                      Type="Primary" 
                                      Icon="check" 
                                      TextLocalizedTag="APROVE_ALL" 
-                                     ReturnConfirmText='<%# this.GetText("ADMIN_ADMIN", "CONFIRM_APROVE_ALL") %>'
-                        />&nbsp;
+                                     ReturnConfirmText='<%# this.GetText("ADMIN_ADMIN", "CONFIRM_APROVE_ALL") %>'/>
                     <YAF:ThemeButton runat="server"
                                      CommandName="deleteall" 
                                      Type="Danger" 
                                      Icon="trash" 
                                      TextLocalizedTag="DELETE_ALL" 
-                                     ReturnConfirmText='<%# this.GetText("ADMIN_ADMIN", "CONFIRM_DELETE_ALL") %>'
-                         />&nbsp;
+                                     ReturnConfirmText='<%# this.GetText("ADMIN_ADMIN", "CONFIRM_DELETE_ALL") %>'/>
                     <asp:TextBox ID="DaysOld" runat="server" 
                                  MaxLength="5" 
                                  Text="14" 
@@ -425,8 +423,6 @@
                 </div>
             </FooterTemplate>
         </asp:Repeater>
-
-
                         </div>
                  </div>
           </div>

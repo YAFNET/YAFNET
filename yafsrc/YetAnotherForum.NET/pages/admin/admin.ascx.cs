@@ -126,16 +126,6 @@ namespace YAF.Pages.Admin
 
                     break;
                 case "delete":
-                    var daysValue =
-                        this.PageContext.CurrentForumPage.FindControlRecursiveAs<TextBox>("DaysOld").Text.Trim();
-                    if (!ValidationHelper.IsValidInt(daysValue))
-                    {
-                        this.PageContext.AddLoadMessage(
-                            this.GetText("ADMIN_ADMIN", "MSG_VALID_DAYS"),
-                            MessageTypes.warning);
-                        return;
-                    }
-
                     if (!Config.IsAnyPortal)
                     {
                         UserMembershipHelper.DeleteUser(e.CommandArgument.ToType<int>());
@@ -166,8 +156,11 @@ namespace YAF.Pages.Admin
                     {
                         UserMembershipHelper.DeleteAllUnapproved(DateTime.UtcNow.AddDays(-daysValueAll.ToType<int>()));
                     }
+                    else
+                    {
+                        this.GetRepository<User>().DeleteOld(this.PageContext.PageBoardID, daysValueAll.ToType<int>());
+                    }
 
-                    this.GetRepository<User>().DeleteOld(this.PageContext.PageBoardID, daysValueAll.ToType<int>());
                     this.BindData();
                     break;
                 case "approveall":

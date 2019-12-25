@@ -154,7 +154,7 @@ namespace YAF.Core.UsersRoles
         }
 
         /// <summary>
-        /// The delete all unapproved.
+        /// Deletes all Unapproved Users older then Cut Off DateTime
         /// </summary>
         /// <param name="createdCutoff">
         /// The created cutoff.
@@ -188,6 +188,28 @@ namespace YAF.Core.UsersRoles
 
                 pageCount++;
             }
+        }
+
+        /// <summary>
+        /// De-active all User accounts which are not active for x years
+        /// </summary>
+        /// <param name="createdCutoff">
+        /// The created cutoff.
+        /// </param>
+        public static void LockInactiveAccounts(DateTime createdCutoff)
+        {
+            var allUsers = GetAllUsers();
+
+            // iterate through each one...
+            allUsers.Cast<MembershipUser>().Where(user => !user.IsApproved && user.LastActivityDate < createdCutoff)
+                .ForEach(
+                    user =>
+                        {
+                            // Set user to un-approve...
+                            user.IsApproved = false;
+
+                            YafContext.Current.Get<MembershipProvider>().UpdateUser(user);
+                        });
         }
 
         /// <summary>

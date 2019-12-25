@@ -371,6 +371,20 @@ namespace YAF.Pages.Admin
         }
 
         /// <summary>
+        /// The lock accounts click.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        protected void LockAccountsClick(object sender, EventArgs e)
+        {
+            UserMembershipHelper.LockInactiveAccounts(DateTime.UtcNow.AddYears(-this.YearsOld.Text.ToType<int>()));
+        }
+
+        /// <summary>
         /// The bind data.
         /// </summary>
         private void BindData()

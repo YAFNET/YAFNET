@@ -10,7 +10,7 @@
 
 <div class="row">
     <div class="col-xl-12">
-        <h1><YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="HEADER" LocalizedPage="ADMIN_USERS" /></h1>
+        <h1><YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="ADMIN_USERS" LocalizedPage="ADMINMENU" /></h1>
     </div>
     </div>
 <asp:PlaceHolder runat="server" ID="SearchResults" Visible="False">
@@ -242,8 +242,7 @@
                                      TextLocalizedTag="NEW_USER" 
                                      TextLocalizedPage="ADMIN_USERS">
                     </YAF:ThemeButton>
-                &nbsp;
-                    <YAF:ThemeButton id="SyncUsers" runat="server" 
+                        <YAF:ThemeButton id="SyncUsers" runat="server" 
                                      CssClass="mt-1"
                                      OnClick="SyncUsersClick" 
                                      Type="Secondary"
@@ -252,8 +251,7 @@
                                      TextLocalizedPage="ADMIN_USERS" 
                                      ReturnConfirmText='<%# this.GetText("ADMIN_USERS", "CONFIRM_SYNC") %>'>
                     </YAF:ThemeButton>
-                &nbsp;
-                    <YAF:ThemeButton id="ImportUsers" runat="server" 
+                        <YAF:ThemeButton id="ImportUsers" runat="server" 
                                      CssClass="mt-1"
                                      Icon="upload" 
                                      DataTarget="UsersImportDialog"  
@@ -262,8 +260,7 @@
                                      TextLocalizedTag="IMPORT" 
                                      TextLocalizedPage="ADMIN_USERS">
                     </YAF:ThemeButton>
-                &nbsp;
-                </asp:PlaceHolder>
+                    </asp:PlaceHolder>
                     <YAF:ThemeButton id="ExportUsersXml" runat="server" 
                                      CssClass="mt-1"
                                      OnClick="ExportUsersXmlClick" 
@@ -272,7 +269,6 @@
                                      TextLocalizedTag="EXPORT_XML" 
                                      TextLocalizedPage="ADMIN_USERS">
                     </YAF:ThemeButton>
-                &nbsp;
                     <YAF:ThemeButton id="ExportUsersCsv" runat="server" 
                                      CssClass="mt-1"
                                      OnClick="ExportUsersCsvClick" 
@@ -288,6 +284,44 @@
     <YAF:Pager ID="PagerBottom" runat="server" LinkedPager="PagerTop" UsePostBack="True" />
     </asp:PlaceHolder>
 
+<div class="row">
+    <div class="col">
+        <div class="card">
+            <div class="card-header">
+                <i class="fas fa-tools text-secondary mr-1"></i>
+                <YAF:LocalizedLabel runat="server"
+                                    LocalizedTag="TOOLS"></YAF:LocalizedLabel>
+            </div>
+            <div class="card-body">
+                <div class="form-group">
+                    <YAF:HelpLabel runat="server" 
+                                   AssociatedControlID="YearsOld"
+                                   LocalizedTag="LOCK_INACTIVE"></YAF:HelpLabel>
+                    <div class="input-group">
+                        <asp:TextBox ID="YearsOld" runat="server" 
+                                     MaxLength="5" 
+                                     Text="5" 
+                                     CssClass="form-control"
+                                     TextMode="Number">
+                        </asp:TextBox>
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <YAF:LocalizedLabel runat="server" LocalizedTag="YEARS"></YAF:LocalizedLabel>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <YAF:ThemeButton runat="server"
+                                 Type="Danger" 
+                                 Icon="trash" 
+                                 TextLocalizedTag="LOCK_INACTIVE" 
+                                 TitleLocalizedTag="LOCK_INACTIVE_HELP"
+                                 OnClick="LockAccountsClick"/>
+                
+            </div>
+        </div>
+    </div>
+</div>
 
 <asp:UpdatePanel ID="UpdatePanel1" runat="server">
     <ContentTemplate>
