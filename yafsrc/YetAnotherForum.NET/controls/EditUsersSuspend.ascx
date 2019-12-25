@@ -44,7 +44,7 @@
     <asp:Label runat="server" AssociatedControlID="SuspendCount">
         <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedPage="PROFILE" LocalizedTag="SUSPEND_USER" />
     </asp:Label>
-    <asp:TextBox runat="server" ID="SuspendCount" CssClass="Numeric form-control" TextMode="Number" />
+    <asp:TextBox runat="server" ID="SuspendCount" CssClass="form-control" TextMode="Number" />
     <div class="custom-control custom-radio custom-control-inline mt-1">
         <asp:RadioButtonList
             runat="server" ID="SuspendUnit" 

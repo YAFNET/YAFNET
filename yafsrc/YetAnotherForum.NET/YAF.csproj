@@ -334,6 +334,13 @@
     <Compile Include="controls\AlbumList.ascx.designer.cs">
       <DependentUpon>AlbumList.ascx</DependentUpon>
     </Compile>
+    <Compile Include="controls\BoardAnnouncement.ascx.cs">
+      <DependentUpon>BoardAnnouncement.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="controls\BoardAnnouncement.ascx.designer.cs">
+      <DependentUpon>BoardAnnouncement.ascx</DependentUpon>
+    </Compile>
     <Compile Include="controls\ScrollTop.ascx.cs">
       <DependentUpon>ScrollTop.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -640,7 +647,6 @@
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Modules\ScriptsLoaderModule.cs" />
-    <Compile Include="Modules\SearchDataCleanupForumModule.cs" />
     <Compile Include="Modules\SimpleBaseForumModule.cs" />
     <Compile Include="Modules\SuspendCheckForumModule.cs" />
     <Compile Include="Modules\TimeAgoForumModule.cs" />
@@ -1903,6 +1909,7 @@
     <Content Include="controls\AdminMenu.ascx" />
     <Content Include="controls\AlbumImageList.ascx" />
     <Content Include="controls\AlbumList.ascx" />
+    <Content Include="controls\BoardAnnouncement.ascx" />
     <Content Include="controls\ScrollTop.ascx" />
     <Content Include="controls\CookieConsent.ascx" />
     <Content Include="controls\EditUsersSettings.ascx" />
@@ -2683,18 +2690,16 @@
     <Content Include="Scripts\spin.min.js">
       <DependentUpon>spin.js</DependentUpon>
     </Content>
-    <Content Include="Scripts\tablesorter\extras\jquery.tablesorter.pager.js" />
-    <Content Include="Scripts\tablesorter\extras\jquery.tablesorter.pager.min.js">
-      <DependentUpon>jquery.tablesorter.pager.js</DependentUpon>
-    </Content>
     <Content Include="Scripts\jsdifflib.js" />
     <Content Include="Scripts\ladda.js" />
     <Content Include="Scripts\prism.js" />
     <Content Include="Scripts\jquery.selectedQuoting.js" />
     <Content Include="Scripts\select2.js" />
     <Content Include="Scripts\spin.js" />
+    <Content Include="Scripts\tablesorter\extras\jquery.tablesorter.pager.min.js" />
     <Content Include="Scripts\tablesorter\jquery.tablesorter.combined.js" />
     <Content Include="Scripts\forum\yaf.Utilities.js" />
+    <Content Include="Scripts\tablesorter\widgets\widget-reflow.js" />
     <Content Include="Scripts\yafEditor\yafEditor.js" />
     <Content Include="Scripts\yafEditor\yafEditor.min.js">
       <DependentUpon>yafEditor.js</DependentUpon>
@@ -3627,7 +3632,7 @@ RD /S /Q "$(TargetDir)bin\"</PostBuildEvent>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties compilerconfig_1json__JSONSchema="" bundleconfig_1json__JSONSchema="" />
+      <UserProperties bundleconfig_1json__JSONSchema="" compilerconfig_1json__JSONSchema="" />
     </VisualStudio>
   </ProjectExtensions>
   <Import Project="..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets" Condition="Exists('..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets')" />

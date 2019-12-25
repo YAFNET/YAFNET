@@ -33,14 +33,16 @@
                                                                  Icon="share-square"
                                                                  Type="OutlineSecondary"
                                                                  DataToggle="tooltip"
-                                                                 TitleLocalizedTag="GO_LAST_POST">
+                                                                 TitleLocalizedTag="GO_LAST_POST"
+                                                                 TextLocalizedTag="GO_LAST_POST">
                                                 </YAF:ThemeButton>
                                                 <YAF:ThemeButton runat="server" ID="GoToLastUnread" 
                                                                  Size="Small"
                                                                  Icon="book-reader"
                                                                  Type="OutlineSecondary"
                                                                  DataToggle="tooltip"
-                                                                 TitleLocalizedTag="GO_LASTUNREAD_POST">
+                                                                 TitleLocalizedTag="GO_LASTUNREAD_POST"
+                                                                 TextLocalizedTag="GO_LASTUNREAD_POST">
                                                 </YAF:ThemeButton>
                                             </h6>
                                         </li>

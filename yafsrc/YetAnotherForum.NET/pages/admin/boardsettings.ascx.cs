@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2020 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -12,7 +12,7 @@
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
 
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
 
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
@@ -189,6 +189,30 @@ namespace YAF.Pages.Admin
             // Copyright Link-back Algorithm
             // Please keep if you haven't purchased a removal or commercial license.
             this.CopyrightHolder.Visible = true;
+
+            // Render board Announcement
+
+            // add items to the dropdown
+            this.BoardAnnouncementUntilUnit.Items.Add(new ListItem(this.GetText("PROFILE", "MONTH"), "3"));
+            this.BoardAnnouncementUntilUnit.Items.Add(new ListItem(this.GetText("PROFILE", "DAYS"), "1"));
+            this.BoardAnnouncementUntilUnit.Items.Add(new ListItem(this.GetText("PROFILE", "HOURS"), "2"));
+
+            // select hours
+            this.BoardAnnouncementUntilUnit.SelectedIndex = 0;
+
+            // default number of hours to suspend user for
+            this.BoardAnnouncementUntil.Text = "1";
+
+            if (boardSettings.BoardAnnouncement.IsNotSet())
+            {
+                return;
+            }
+
+            this.CurrentAnnouncement.Visible = true;
+            this.CurrentMessage.Text =
+                $"{this.GetText("ANNOUNCEMENT_CURRENT")}:&nbsp;{boardSettings.BoardAnnouncementUntil}";
+            this.BoardAnnouncementType.SelectedValue = boardSettings.BoardAnnouncementType;
+            this.BoardAnnouncement.Text = boardSettings.BoardAnnouncement;
         }
 
         /// <summary>
@@ -282,6 +306,85 @@ namespace YAF.Pages.Admin
         }
 
         /// <summary>
+        /// Saves the Board Announcement
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        protected void SaveAnnouncementClick([NotNull] object sender, [NotNull] EventArgs e)
+        {
+            var boardAnnouncementUntil = DateTime.UtcNow;
+
+            // number inserted by suspending user
+            var count = int.Parse(this.BoardAnnouncementUntil.Text);
+
+            // what time units are used for suspending
+            switch (this.BoardAnnouncementUntilUnit.SelectedValue)
+            {
+                // days
+                case "1":
+
+                    boardAnnouncementUntil = boardAnnouncementUntil.AddDays(count);
+                    break;
+
+                // hours
+                case "2":
+
+                    boardAnnouncementUntil = boardAnnouncementUntil.AddHours(count);
+                    break;
+
+                // month
+                case "3":
+
+                    boardAnnouncementUntil = boardAnnouncementUntil.AddMonths(count);
+                    break;
+            }
+
+            var boardSettings = this.Get<YafBoardSettings>();
+
+            boardSettings.BoardAnnouncementUntil = boardAnnouncementUntil;
+            boardSettings.BoardAnnouncement = this.BoardAnnouncement.Text;
+            boardSettings.BoardAnnouncementType = this.BoardAnnouncementType.SelectedValue;
+
+            // save the settings to the database
+            ((YafLoadBoardSettings)boardSettings).SaveRegistry();
+
+            // Reload forum settings
+            this.PageContext.BoardSettings = null;
+
+            YafBuildLink.Redirect(ForumPages.admin_boardsettings);
+        }
+
+        /// <summary>
+        /// Deletes the Announcement
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        protected void DeleteClick(object sender, EventArgs e)
+        {
+            var boardSettings = this.Get<YafBoardSettings>();
+
+            boardSettings.BoardAnnouncementUntil = DateTime.MinValue;
+            boardSettings.BoardAnnouncement = this.BoardAnnouncement.Text;
+            boardSettings.BoardAnnouncementType = this.BoardAnnouncementType.SelectedValue;
+
+            // save the settings to the database
+            ((YafLoadBoardSettings)boardSettings).SaveRegistry();
+
+            // Reload forum settings
+            this.PageContext.BoardSettings = null;
+
+            YafBuildLink.Redirect(ForumPages.admin_boardsettings);
+        }
+
+        /// <summary>
         /// Increases the CDV version on click.
         /// </summary>
         /// <param name="sender">The sender.</param>
@@ -336,7 +439,8 @@ namespace YAF.Pages.Admin
                 dt.Rows.Add(dr);
 
                 var dir = new DirectoryInfo(
-                    this.Get<HttpRequestBase>().MapPath($"{YafForumInfo.ForumServerFileRoot}{YafBoardFolders.Current.Logos}"));
+                    this.Get<HttpRequestBase>()
+                        .MapPath($"{YafForumInfo.ForumServerFileRoot}{YafBoardFolders.Current.Logos}"));
                 var files = dir.GetFiles("*.*");
                 long fileID = 1;
 

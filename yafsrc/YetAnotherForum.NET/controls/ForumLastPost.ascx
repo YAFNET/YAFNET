@@ -25,6 +25,7 @@
                              Type="OutlineSecondary"
                              DataToggle="tooltip"
                              TitleLocalizedTag="GO_LAST_POST"
+                             TextLocalizedTag="GO_LAST_POST"
                              CssClass="mt-1 mr-1"></YAF:ThemeButton>
             <YAF:ThemeButton runat="server" ID="ImageLastUnreadMessageLink" 
                              Size="Small"
@@ -32,6 +33,7 @@
                              Type="OutlineSecondary"
                              DataToggle="tooltip"
                              TitleLocalizedTag="GO_LASTUNREAD_POST"
+                             TextLocalizedTag="GO_LASTUNREAD_POST"
                              CssClass="mt-1"></YAF:ThemeButton>
         </div>
     </div>

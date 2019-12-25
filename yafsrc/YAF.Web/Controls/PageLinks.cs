@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2020 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -12,7 +12,7 @@
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
 
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
 
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
@@ -28,6 +28,7 @@ namespace YAF.Web.Controls
     using System.Collections.Generic;
     using System.Linq;
     using System.Web.UI;
+    using System.Web.UI.WebControls;
 
     using YAF.Core.BaseControls;
     using YAF.Core.Extensions;
@@ -35,6 +36,8 @@ namespace YAF.Web.Controls
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Objects;
+    using YAF.Utils;
+    using YAF.Utils.Helpers;
 
     #endregion
 
@@ -141,6 +144,12 @@ namespace YAF.Web.Controls
                     });
 
             writer.Write("</ol></div>");
+
+            // Inject Board Announcement
+            var boardAnnounceControl =
+                this.Page.LoadControl($"{YafForumInfo.ForumServerFileRoot}controls/BoardAnnouncement.ascx");
+
+            writer.Write(boardAnnounceControl.RenderToString());
         }
 
         #endregion

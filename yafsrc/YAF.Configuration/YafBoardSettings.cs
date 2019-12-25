@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2020 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -12,7 +12,7 @@
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
 
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
 
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
@@ -2531,6 +2531,27 @@ namespace YAF.Configuration
             get => this._regBoard.GetValue("ForceDigestSend", false);
 
             set => this._regBoard.SetValue("ForceDigestSend", value);
+        }
+
+        public string BoardAnnouncement
+        {
+            get => this._regBoard.GetValue("BoardAnnouncement", string.Empty);
+
+            set => this._regBoard.SetValue("BoardAnnouncement", value);
+        }
+
+        public DateTime? BoardAnnouncementUntil
+        {
+            get => this._regBoard.GetValue("BoardAnnouncementUntil", DateTime.MinValue);
+
+            set => this._regBoard.SetValue("BoardAnnouncementUntil", value);
+        }
+
+        public string BoardAnnouncementType
+        {
+            get => this._regBoard.GetValue("BoardAnnouncementType", "info");
+
+            set => this._regBoard.SetValue("BoardAnnouncementType", value);
         }
 
         #endregion

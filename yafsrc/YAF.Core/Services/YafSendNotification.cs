@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2020 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -12,7 +12,7 @@
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
 
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
 
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
@@ -290,9 +290,6 @@ namespace YAF.Core.Services
                 var userPMessageId = this.GetRepository<PMessage>().ListAsDataTable(toUserId, null, null).GetFirstRow()
                     .Field<int>("UserPMessageID");
 
-                /*// get the sender e-mail -- DISABLED: too much information...
-                    // using ( DataTable dt = YAF.Classes.Data.DB.user_list( PageContext.PageBoardID, PageContext.PageUserID, true ) )
-                    // senderEmail = ( string ) dt.Rows [0] ["Email"];*/
                 var languageFile = UserHelper.GetUserLanguageFile(toUserId);
 
                 var displayName = this.Get<IUserDisplayName>().GetName(YafContext.Current.PageUserID);
@@ -345,6 +342,7 @@ namespace YAF.Core.Services
         public void ToWatchingUsers(int newMessageId)
         {
             // Always send watch mails with boards default language
+            // TODO : Send in user Language
             var languageFile = this.BoardSettings.Language;
 
             var boardName = this.BoardSettings.Name;

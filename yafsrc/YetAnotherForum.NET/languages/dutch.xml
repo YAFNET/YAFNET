@@ -357,6 +357,11 @@
     <Resource tag="TITLE">Boards</Resource>
   </page>
   <page name="ADMIN_BOARDSETTINGS">
+    <Resource tag="ANNOUNCEMENT_CURRENT">Current Announcement visible until</Resource>
+    <Resource tag="ANNOUNCEMENT_MESSAGE">Announcement Message:</Resource>
+    <Resource tag="ANNOUNCEMENT_TITLE">Board Announcement</Resource>
+    <Resource tag="ANNOUNCEMENT_TYPE">Type:</Resource>
+    <Resource tag="ANNOUNCEMENT_UNTIL">Announcement visible for...</Resource>
     <Resource tag="BOARD_ALLOW_DIGEST">Sta het mailen van Samenvattingen toe voor gebruikers:</Resource>
     <Resource tag="BOARD_ALLOW_DIGEST_HELP">NB: het board moet "YAF.BaseUrlMask" en "YAF.ForceScriptName" AppSettings hebben in je web.config om Samenvattingen te laten werken.</Resource>
     <Resource tag="BOARD_CDN_HOSTED">Gebruik CDN jQuery UI CSS bestand gehost door Google?</Resource>
@@ -4762,6 +4767,7 @@ Spoiler Inhoud
     <Resource tag="MEMBERS">Leden</Resource>
     <Resource tag="MINUTES">minuten</Resource>
     <Resource tag="MODERATION">Moderatie</Resource>
+    <Resource tag="MONTH">month</Resource>
     <Resource tag="MSN">Live Messenger:</Resource>
     <Resource tag="NUMALL">{0:N2}% van alle berichten</Resource>
     <Resource tag="NUMDAY">{0:N2} berichten per dag</Resource>

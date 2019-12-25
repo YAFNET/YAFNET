@@ -357,6 +357,11 @@
     <Resource tag="TITLE">Конференция</Resource>
   </page>
   <page name="ADMIN_BOARDSETTINGS">
+    <Resource tag="ANNOUNCEMENT_CURRENT">Current Announcement visible until</Resource>
+    <Resource tag="ANNOUNCEMENT_MESSAGE">Announcement Message:</Resource>
+    <Resource tag="ANNOUNCEMENT_TITLE">Board Announcement</Resource>
+    <Resource tag="ANNOUNCEMENT_TYPE">Type:</Resource>
+    <Resource tag="ANNOUNCEMENT_UNTIL">Announcement visible for...</Resource>
     <Resource tag="BOARD_ALLOW_DIGEST">Отправлять дайджест по пользователям ежедневно:</Resource>
     <Resource tag="BOARD_ALLOW_DIGEST_HELP">Обязательное поле: конференция должна иметь "YAF.BaseUrlMask" и "YAF.ForceScriptName" в вашем web.config чтобы дайджест работал.</Resource>
     <Resource tag="BOARD_CDN_HOSTED">Использовать внешний Google CDN файл jQuery UI CSS</Resource>
@@ -4771,6 +4776,7 @@ Spoiler Content
     <Resource tag="MEMBERS">Участники</Resource>
     <Resource tag="MINUTES">минут</Resource>
     <Resource tag="MODERATION">Права доступа</Resource>
+    <Resource tag="MONTH">month</Resource>
     <Resource tag="MSN">Пейджер MSN:</Resource>
     <Resource tag="NUMALL">{0:N2}% от всех сообщений</Resource>
     <Resource tag="NUMDAY">{0:N2} сообщений в день</Resource>

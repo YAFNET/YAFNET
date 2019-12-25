@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2020 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -12,7 +12,7 @@
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
 
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
 
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
@@ -48,20 +48,6 @@ namespace YAF.Web.Controls
     [ToolboxData("<{0}:TopicContainer runat=server></{0}:TopicContainer>")]
     public class TopicContainer : BaseControl
     {
-        #region Constants and Fields
-
-        /// <summary>
-        ///   The last post tooltip string.
-        /// </summary>
-        private string altLastPost;
-
-        /// <summary>
-        ///   The first unread post tooltip string.
-        /// </summary>
-        private string altFirstUnreadPost;
-
-        #endregion
-
         #region Properties
 
         /// <summary>
@@ -72,28 +58,6 @@ namespace YAF.Web.Controls
             get => this.ViewState["AllowSelection"] != null && this.ViewState["AllowSelection"].ToType<bool>();
 
             set => this.ViewState["AllowSelection"] = value;
-        }
-
-        /// <summary>
-        ///   Gets or sets Alt.
-        /// </summary>
-        [NotNull]
-        public string AltLastPost
-        {
-            get => this.altLastPost.IsNotSet() ? string.Empty : this.altLastPost;
-
-            set => this.altLastPost = value;
-        }
-
-        /// <summary>
-        ///   Gets or sets Alt Unread Post.
-        /// </summary>
-        [NotNull]
-        public string AltLastUnreadPost
-        {
-            get => this.altFirstUnreadPost.IsNotSet() ? string.Empty : this.altFirstUnreadPost;
-
-            set => this.altFirstUnreadPost = value;
         }
 
         /// <summary>
@@ -232,16 +196,6 @@ namespace YAF.Web.Controls
 
             if (!this.TopicRow["LastMessageID"].IsNullOrEmptyDBField())
             {
-                if (this.AltLastPost.IsNotSet())
-                {
-                    this.AltLastPost = this.GetText("DEFAULT", "GO_LAST_POST");
-                }
-
-                if (this.AltLastUnreadPost.IsNotSet())
-                {
-                    this.AltLastUnreadPost = this.GetText("DEFAULT", "GO_LASTUNREAD_POST");
-                }
-
                 if (this.TopicRow["LastPosted"].ToType<DateTime>() > lastRead)
                 {
                     writer.Write("<span class=\"badge badge-success\">{0}</span>&nbsp;", this.GetText("NEW_POSTS"));
@@ -339,14 +293,16 @@ namespace YAF.Web.Controls
 
                 var gotoLastPost = new ThemeButton
                                        {
-                                           NavigateUrl = YafBuildLink.GetLink(
-                                               ForumPages.posts,
-                                               "m={0}#post{0}",
-                                               this.TopicRow["LastMessageID"]),
+                                           NavigateUrl =
+                                               YafBuildLink.GetLink(
+                                                   ForumPages.posts,
+                                                   "m={0}#post{0}",
+                                                   this.TopicRow["LastMessageID"]),
                                            Size = ButtonSize.Small,
                                            Icon = "share-square",
                                            Type = ButtonAction.OutlineSecondary,
                                            TitleLocalizedTag = "GO_LAST_POST",
+                                           TextLocalizedTag = "GO_LAST_POST",
                                            DataToggle = "tooltip",
                                            CssClass = "mr-1"
                                        };
@@ -362,6 +318,7 @@ namespace YAF.Web.Controls
                                              Icon = "book-reader",
                                              Type = ButtonAction.OutlineSecondary,
                                              TitleLocalizedTag = "GO_LASTUNREAD_POST",
+                                             TextLocalizedTag = "GO_LASTUNREAD_POST",
                                              DataToggle = "tooltip"
                                          };
 

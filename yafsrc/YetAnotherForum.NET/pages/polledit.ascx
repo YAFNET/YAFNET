@@ -88,7 +88,7 @@
                         <asp:Label runat="server" AssociatedControlID="PollExpire">
                             <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="poll_expire" />
                         </asp:Label>
-                        <asp:TextBox ID="PollExpire" runat="server" CssClass="Numeric" TextMode="Number" MaxLength="10" />
+                        <asp:TextBox ID="PollExpire" runat="server" TextMode="Number" MaxLength="10" />
                         <small class="form-text text-muted">
                             <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="poll_expire_explain" />
                         </small>

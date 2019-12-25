@@ -357,6 +357,11 @@
     <Resource tag="TITLE">Tableros</Resource>
   </page>
   <page name="ADMIN_BOARDSETTINGS">
+    <Resource tag="ANNOUNCEMENT_CURRENT">Current Announcement visible until</Resource>
+    <Resource tag="ANNOUNCEMENT_MESSAGE">Announcement Message:</Resource>
+    <Resource tag="ANNOUNCEMENT_TITLE">Board Announcement</Resource>
+    <Resource tag="ANNOUNCEMENT_TYPE">Type:</Resource>
+    <Resource tag="ANNOUNCEMENT_UNTIL">Announcement visible for...</Resource>
     <Resource tag="BOARD_ALLOW_DIGEST">Permitir el envío de correos resumen a usuarios:</Resource>
     <Resource tag="BOARD_ALLOW_DIGEST_HELP">Nota: el tablero debe tener "YAF.BaseUrlMask" y "YAF.ForceScriptName" en el AppSettings definido en tu web.config para que el resumen funcione.</Resource>
     <Resource tag="BOARD_CDN_HOSTED">¿Usar fichero CDN jQuery UI CSS alojado en google?</Resource>
@@ -5152,6 +5157,7 @@ public class Hello1
     <Resource tag="MEMBERS">Miembros</Resource>
     <Resource tag="MINUTES">minutos</Resource>
     <Resource tag="MODERATION">Moderación</Resource>
+    <Resource tag="MONTH">month</Resource>
     <Resource tag="MSN">MSN Messenger:</Resource>
     <Resource tag="NUMALL">{0:N2}% de todos los mensajes</Resource>
     <Resource tag="NUMDAY">{0:N2} mensajes por día</Resource>
