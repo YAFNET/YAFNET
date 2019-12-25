@@ -1792,6 +1792,8 @@
     <Resource tag="HEADER">Search Users</Resource>
     <Resource tag="IMPORT">Import User(s)</Resource>
     <Resource tag="LAST_VISIT">Last Visit</Resource>
+    <Resource tag="LOCK_INACTIVE">Lock inactive accounts</Resource>
+    <Resource tag="LOCK_INACTIVE_HELP">Lock inactive accounts older then x years. This will not delete there content (like posted messages)</Resource>
     <Resource tag="MSG_DELETE_ADMIN">You can't delete the Admin.</Resource>
     <Resource tag="MSG_DELETE_GUEST">You can't delete the Guest.</Resource>
     <Resource tag="MSG_SELF_DELETE">You can't delete yourself.</Resource>
@@ -4496,6 +4498,12 @@ Spoiler Content
     </Resource>
     <Resource tag="PREVIEWTITLE">Anteprima:</Resource>
     <Resource tag="RECIPIENTS_PMBOX_FULL">La cassetta postale dell'utente {0} non può ricevere altri messaggi privati.</Resource>
+    <Resource tag="REPORT_BODY">I would like to Report the Message: 
+
+  {0} 
+     
+  for the following Reason...</Resource>
+    <Resource tag="REPORT_SUBJECT">Report a Private Message from User: {0}</Resource>
     <Resource tag="REPORTED_SUBJECT">Risposta alla tua segnalazione</Resource>
     <Resource tag="SAVE">Invia</Resource>
     <Resource tag="SUBJECT">Soggetto:</Resource>
@@ -4823,6 +4831,7 @@ Spoiler Content
     <Resource tag="WEBLOG">Weblog:</Resource>
     <Resource tag="WEBSITE">Home page:</Resource>
     <Resource tag="XMPP">Nome XMPP:</Resource>
+    <Resource tag="YEARS">Year(s)</Resource>
     <Resource tag="YIM">Yahoo Messenger:</Resource>
   </page>
   <page name="RECOVER_PASSWORD">

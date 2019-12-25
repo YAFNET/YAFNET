@@ -108,6 +108,9 @@ namespace YAF.Pages
                 case "reply":
                     YafBuildLink.Redirect(ForumPages.pmessage, "p={0}&q=0", e.CommandArgument);
                     break;
+                case "report":
+                    YafBuildLink.Redirect(ForumPages.pmessage, "p={0}&q=1&report=1", e.CommandArgument);
+                    break;
                 case "quote":
                     YafBuildLink.Redirect(ForumPages.pmessage, "p={0}&q=1", e.CommandArgument);
                     break;

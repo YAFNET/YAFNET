@@ -1789,6 +1789,8 @@
     <Resource tag="HEADER">Search Users</Resource>
     <Resource tag="IMPORT">Import User(s)</Resource>
     <Resource tag="LAST_VISIT">Last Visit</Resource>
+    <Resource tag="LOCK_INACTIVE">Lock inactive accounts</Resource>
+    <Resource tag="LOCK_INACTIVE_HELP">Lock inactive accounts older then x years. This will not delete there content (like posted messages)</Resource>
     <Resource tag="MSG_DELETE_ADMIN">You can't delete the Admin.</Resource>
     <Resource tag="MSG_DELETE_GUEST">You can't delete the Guest.</Resource>
     <Resource tag="MSG_SELF_DELETE">You can't delete yourself.</Resource>
@@ -4488,6 +4490,12 @@ p&gt;هذا الرابط يجلب لك صفحة التي تطلب منك ادخ�
     <Resource tag="PMLIMIT_ALL">   لديك {0} رسائل خاصة: {1} في صندوق الوارد {2} و رسائل  في  المرسلات, {3} تم ارشفتة {4} مسموح به. يمتلىء صندوق الوارد  بـ {5}%.</Resource>
     <Resource tag="PREVIEWTITLE">عرض:</Resource>
     <Resource tag="RECIPIENTS_PMBOX_FULL">User {0} has a full Private Message Inbox. Sorry, they will not receive your PM until they free up space.</Resource>
+    <Resource tag="REPORT_BODY">I would like to Report the Message: 
+
+  {0} 
+     
+  for the following Reason...</Resource>
+    <Resource tag="REPORT_SUBJECT">Report a Private Message from User: {0}</Resource>
     <Resource tag="REPORTED_SUBJECT">Re: Reply to you post report.</Resource>
     <Resource tag="SAVE">مشاركة </Resource>
     <Resource tag="SUBJECT">الموضوع:</Resource>
@@ -4820,6 +4828,7 @@ p&gt;هذا الرابط يجلب لك صفحة التي تطلب منك ادخ�
     <Resource tag="WEBLOG">مدونتك الإلكترونية: </Resource>
     <Resource tag="WEBSITE">الصفحة الرئيسية :</Resource>
     <Resource tag="XMPP">XMPP اسم:</Resource>
+    <Resource tag="YEARS">Year(s)</Resource>
     <Resource tag="YIM">Yahoo ماسنجر:</Resource>
   </page>
   <page name="RECOVER_PASSWORD">

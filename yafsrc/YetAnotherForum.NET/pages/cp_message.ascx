@@ -19,7 +19,7 @@
             <div class="col">
                 <div class="card mt-3">
                     <div class="card-header">
-            <i class="fa fa-envelope-open fa-fw"></i>&nbsp;<%# this.HtmlEncode(this.Eval("Subject")) %>
+                        <i class="fa fa-envelope-open fa-fw text-secondary"></i>&nbsp;<%# this.HtmlEncode(this.Eval("Subject")) %>
             <span class="float-right">
                 <time><span class="fa-stack">
                         <i class="fa fa-calendar-day fa-stack-1x text-secondary"></i>
@@ -58,6 +58,16 @@
                                      ReturnConfirmText='<%# this.GetText("confirm_deletemessage") %>'
                                      Type="Danger"
                                      Icon="trash"/>
+                    <div class="float-right">
+                        <YAF:ThemeButton ID="ReportMessage" runat="server"
+                                         CommandName="report" CommandArgument='<%# this.Eval("UserPMessageID") %>' 
+                                         TextLocalizedTag="REPORTPOST"
+                                         TextLocalizedPage="POSTS"
+                                         Type="Link"
+                                         Icon="exclamation-triangle"
+                                         IconColor="text-danger"/>
+                    </div>
+                    
                 </div>
         </div>
         </div>

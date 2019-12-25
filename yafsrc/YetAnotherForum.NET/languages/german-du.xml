@@ -1780,6 +1780,8 @@
     <Resource tag="HEADER">Benutzer suchen</Resource>
     <Resource tag="IMPORT">Benuter Importieren</Resource>
     <Resource tag="LAST_VISIT">Letzter Besuch</Resource>
+    <Resource tag="LOCK_INACTIVE">Lock inactive accounts</Resource>
+    <Resource tag="LOCK_INACTIVE_HELP">Lock inactive accounts older then x years. This will not delete there content (like posted messages)</Resource>
     <Resource tag="MSG_DELETE_ADMIN">Sie können den Admin nicht löschen</Resource>
     <Resource tag="MSG_DELETE_GUEST">Sie können den Gast nicht löschen</Resource>
     <Resource tag="MSG_SELF_DELETE">Sie können sich nicht selber löschen.</Resource>
@@ -4448,6 +4450,12 @@ Spoiler Content
     </Resource>
     <Resource tag="PREVIEWTITLE">Vorschau:</Resource>
     <Resource tag="RECIPIENTS_PMBOX_FULL">Du wolltest eine Nachricht an einen Benutzer mit einem vollen Posteingang schicken. Der Benutzer muss zuerst seinen Posteingang leeren, bevor wieder neue Nachrichten empfangen werden können.</Resource>
+    <Resource tag="REPORT_BODY">I would like to Report the Message: 
+
+  {0} 
+     
+  for the following Reason...</Resource>
+    <Resource tag="REPORT_SUBJECT">Report a Private Message from User: {0}</Resource>
     <Resource tag="REPORTED_SUBJECT">Re: Antworten auf diesen Beitragsbericht.</Resource>
     <Resource tag="SAVE">Absenden</Resource>
     <Resource tag="SUBJECT">Betreff:</Resource>
@@ -4775,6 +4783,7 @@ Spoiler Content
     <Resource tag="WEBLOG">Web-Blog:</Resource>
     <Resource tag="WEBSITE">Webseite:</Resource>
     <Resource tag="XMPP">Jabber Name:</Resource>
+    <Resource tag="YEARS">Year(s)</Resource>
     <Resource tag="YIM">Yahoo!-Messenger:</Resource>
   </page>
   <page name="RECOVER_PASSWORD">

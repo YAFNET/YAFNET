@@ -1802,6 +1802,8 @@
     <Resource tag="HEADER">Buscar usuarios</Resource>
     <Resource tag="IMPORT">Importar usuarios</Resource>
     <Resource tag="LAST_VISIT">Última visita</Resource>
+    <Resource tag="LOCK_INACTIVE">Lock inactive accounts</Resource>
+    <Resource tag="LOCK_INACTIVE_HELP">Lock inactive accounts older then x years. This will not delete there content (like posted messages)</Resource>
     <Resource tag="MSG_DELETE_ADMIN">No puedes eliminar al Admin</Resource>
     <Resource tag="MSG_DELETE_GUEST">No puedes eliminar al Invitado.</Resource>
     <Resource tag="MSG_SELF_DELETE">No puedes eliminarte a ti mismo.</Resource>
@@ -4864,6 +4866,12 @@ public class Hello1
     </Resource>
     <Resource tag="PREVIEWTITLE">Vista previa:</Resource>
     <Resource tag="RECIPIENTS_PMBOX_FULL">El usuario {0} tiene su bandeja de entrada de mensajes privados llena. Lo sentimos, no recibirá tu mensaje privado hasta que libere espacio.</Resource>
+    <Resource tag="REPORT_BODY">I would like to Report the Message: 
+
+  {0} 
+     
+  for the following Reason...</Resource>
+    <Resource tag="REPORT_SUBJECT">Report a Private Message from User: {0}</Resource>
     <Resource tag="REPORTED_SUBJECT">Re: Respuesta a tu informe de sobre una publicación</Resource>
     <Resource tag="SAVE">Enviar</Resource>
     <Resource tag="SUBJECT">Asunto:</Resource>
@@ -5191,6 +5199,7 @@ public class Hello1
     <Resource tag="WEBLOG">Blog:</Resource>
     <Resource tag="WEBSITE">Página web:</Resource>
     <Resource tag="XMPP">Nombre en XMPP:</Resource>
+    <Resource tag="YEARS">Year(s)</Resource>
     <Resource tag="YIM">Yahoo Messenger:</Resource>
   </page>
   <page name="RECOVER_PASSWORD">

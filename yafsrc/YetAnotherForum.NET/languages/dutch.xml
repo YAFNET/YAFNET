@@ -1790,6 +1790,8 @@
     <Resource tag="HEADER">Zoek gebruikers</Resource>
     <Resource tag="IMPORT">Importeer Gebruiker(s)</Resource>
     <Resource tag="LAST_VISIT">Laatste bezoek</Resource>
+    <Resource tag="LOCK_INACTIVE">Lock inactive accounts</Resource>
+    <Resource tag="LOCK_INACTIVE_HELP">Lock inactive accounts older then x years. This will not delete there content (like posted messages)</Resource>
     <Resource tag="MSG_DELETE_ADMIN">Je kunt de Beheerder niet verwijderen.</Resource>
     <Resource tag="MSG_DELETE_GUEST">Je kunt de 'Gast' gebruiker niet verwijderen.</Resource>
     <Resource tag="MSG_SELF_DELETE">Je kunt jezelf niet verwijderen..</Resource>
@@ -4474,6 +4476,12 @@ Spoiler Inhoud
 	</Resource>
     <Resource tag="PREVIEWTITLE">Voorbeeld:</Resource>
     <Resource tag="RECIPIENTS_PMBOX_FULL">Gebruiker {0} heeft een volle PM Inbox. Hij/zij moet eerst een aantal berichten verwijderen voordat je hem/haar een PM kunt sturen.</Resource>
+    <Resource tag="REPORT_BODY">I would like to Report the Message: 
+
+  {0} 
+     
+  for the following Reason...</Resource>
+    <Resource tag="REPORT_SUBJECT">Report a Private Message from User: {0}</Resource>
     <Resource tag="REPORTED_SUBJECT">Re: Antwoord op je gerapporteerde bericht.</Resource>
     <Resource tag="SAVE">Verzenden</Resource>
     <Resource tag="SUBJECT">Onderwerp:</Resource>
@@ -4802,6 +4810,7 @@ Spoiler Inhoud
     <Resource tag="WEBLOG">Weblog:</Resource>
     <Resource tag="WEBSITE">Homepage:</Resource>
     <Resource tag="XMPP">XMPP Naam:</Resource>
+    <Resource tag="YEARS">Year(s)</Resource>
     <Resource tag="YIM">Yahoo Messenger:</Resource>
   </page>
   <page name="RECOVER_PASSWORD">

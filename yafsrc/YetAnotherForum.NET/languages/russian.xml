@@ -1778,6 +1778,8 @@
     <Resource tag="HEADER">Поиск пользователей</Resource>
     <Resource tag="IMPORT">Импортировать пользователя(лей)</Resource>
     <Resource tag="LAST_VISIT">Последнее посещение</Resource>
+    <Resource tag="LOCK_INACTIVE">Lock inactive accounts</Resource>
+    <Resource tag="LOCK_INACTIVE_HELP">Lock inactive accounts older then x years. This will not delete there content (like posted messages)</Resource>
     <Resource tag="MSG_DELETE_ADMIN">Вы не можете удалить администратора.</Resource>
     <Resource tag="MSG_DELETE_GUEST">Вы не можете удалить Гостя.</Resource>
     <Resource tag="MSG_SELF_DELETE">Вы не можете удалить себя.</Resource>
@@ -4483,6 +4485,12 @@ Spoiler Content
     </Resource>
     <Resource tag="PREVIEWTITLE">Предпросмотр:</Resource>
     <Resource tag="RECIPIENTS_PMBOX_FULL">У пользователя/пользователей {0} переполнен ящик входящих сообщений. Извините, но они не получат ваше личное сообщение до тех пор пока не освободят место.</Resource>
+    <Resource tag="REPORT_BODY">I would like to Report the Message: 
+
+  {0} 
+     
+  for the following Reason...</Resource>
+    <Resource tag="REPORT_SUBJECT">Report a Private Message from User: {0}</Resource>
     <Resource tag="REPORTED_SUBJECT">Re: Ответ на Вашу жалобу.</Resource>
     <Resource tag="SAVE">Отправить</Resource>
     <Resource tag="SUBJECT">Тема:</Resource>
@@ -4810,6 +4818,7 @@ Spoiler Content
     <Resource tag="WEBLOG">Блог:</Resource>
     <Resource tag="WEBSITE">Домашняя страница:</Resource>
     <Resource tag="XMPP">XMPP эккаунт:</Resource>
+    <Resource tag="YEARS">Year(s)</Resource>
     <Resource tag="YIM">Пейджер Yahoo:</Resource>
   </page>
   <page name="RECOVER_PASSWORD">

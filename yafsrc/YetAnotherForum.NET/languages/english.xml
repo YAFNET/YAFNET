@@ -1804,6 +1804,8 @@
   <Resource tag="HEADER">Search Users</Resource>
   <Resource tag="IMPORT">Import User(s)</Resource>
   <Resource tag="LAST_VISIT">Last Visit</Resource>
+   <Resource tag="LOCK_INACTIVE">Lock inactive accounts</Resource>
+   <Resource tag="LOCK_INACTIVE_HELP">Lock inactive accounts older then x years. This will not delete there content (like posted messages)</Resource>
   <Resource tag="MSG_DELETE_ADMIN">You can't delete the Admin.</Resource>
   <Resource tag="MSG_DELETE_GUEST">You can't delete the Guest.</Resource>
   <Resource tag="MSG_SELF_DELETE">You can't delete yourself.</Resource>
@@ -4308,6 +4310,12 @@
   <Resource tag="PREVIEWTITLE">Preview:</Resource>
   <Resource tag="RECIPIENTS_PMBOX_FULL">User {0} has a full Private Message Inbox. Sorry, they will not receive your PM until they free up space.</Resource>
   <Resource tag="REPORTED_SUBJECT">Re: Reply to you post report.</Resource>
+   <Resource tag="REPORT_SUBJECT">Report a Private Message from User: {0}</Resource>
+   <Resource tag="REPORT_BODY">I would like to Report the Message: 
+
+  {0} 
+     
+  for the following Reason...</Resource>
   <Resource tag="SAVE">Post</Resource>
   <Resource tag="SUBJECT">Subject:</Resource>
   <Resource tag="TITLE">Post a Private Message</Resource>
@@ -4600,6 +4608,7 @@
   <Resource tag="MEMBERS">Members</Resource>
   <Resource tag="MINUTES">minutes</Resource>
    <Resource tag="MONTH">month</Resource>
+   <Resource tag="YEARS">Year(s)</Resource>
   <Resource tag="MODERATION">Moderation</Resource>
   <Resource tag="MSN">MSN Messenger:</Resource>
   <Resource tag="NUMALL">{0:N2}% of all post</Resource>

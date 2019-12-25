@@ -13,7 +13,6 @@
     </div>
 </div>
 
-
 <YAF:PollList ID="PollList" runat="server"/>
 
 <YAF:ForumCategoryList ID="ForumCategoryList" runat="server"></YAF:ForumCategoryList>

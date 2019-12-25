@@ -1808,6 +1808,8 @@
     <Resource tag="HEADER">جستجوی کاربر</Resource>
     <Resource tag="IMPORT">درون‌ریزی کاربر (ها)</Resource>
     <Resource tag="LAST_VISIT">آخرین بازدید </Resource>
+    <Resource tag="LOCK_INACTIVE">Lock inactive accounts</Resource>
+    <Resource tag="LOCK_INACTIVE_HELP">Lock inactive accounts older then x years. This will not delete there content (like posted messages)</Resource>
     <Resource tag="MSG_DELETE_ADMIN">شما نمی توانید مدیریت را حذف کنید.</Resource>
     <Resource tag="MSG_DELETE_GUEST">میهمان را نمی توان حذف کرد.</Resource>
     <Resource tag="MSG_SELF_DELETE">شما نمی توانید خودتان را حذف کنید.</Resource>
@@ -4556,6 +4558,12 @@
     <Resource tag="PMLIMIT_ALL">شما دارای {0} پیغام می باشید که شامل {1} پیغام ورودی , {2} پیغام خروجی و {3} پیغام در آرشیو از مجموع {4} پیغام مجاز می باشد.{5} درصد ظرفیت صندوق شما پر شده است.</Resource>
     <Resource tag="PREVIEWTITLE">پیش نمایش:</Resource>
     <Resource tag="RECIPIENTS_PMBOX_FULL">صندوق پیامهای کاربری که مایل به ارسال پیام به او هستید پر شده است.کاربر فوق باید قبل از دریافت پیغام جدید صندوق خود را تخلیه کند.</Resource>
+    <Resource tag="REPORT_BODY">I would like to Report the Message: 
+
+  {0} 
+     
+  for the following Reason...</Resource>
+    <Resource tag="REPORT_SUBJECT">Report a Private Message from User: {0}</Resource>
     <Resource tag="REPORTED_SUBJECT">پاسخ درباره گزارش شما</Resource>
     <Resource tag="SAVE">ارسال</Resource>
     <Resource tag="SUBJECT">موضوع:</Resource>
@@ -4883,6 +4891,7 @@
     <Resource tag="WEBLOG">وبلاگ:</Resource>
     <Resource tag="WEBSITE">صفحه خانگی:</Resource>
     <Resource tag="XMPP">نام XMPP:</Resource>
+    <Resource tag="YEARS">Year(s)</Resource>
     <Resource tag="YIM">مسنجر یاهو:</Resource>
   </page>
   <page name="RECOVER_PASSWORD">
