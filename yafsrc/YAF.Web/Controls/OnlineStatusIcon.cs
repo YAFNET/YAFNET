@@ -67,11 +67,11 @@ namespace YAF.Web.Controls
         ///   <c>true</c> if suspended; otherwise, <c>false</c>.
         /// </value>
         [NotNull]
-        public bool Suspended
+        public DateTime? Suspended
         {
-            get => this.ViewState["Suspended"] != null && Convert.ToBoolean(this.ViewState["Suspended"]);
+            get => this.ViewState["Suspended"].ToType<DateTime?>();
 
-            set => this.ViewState["Style"] = value;
+            set => this.ViewState["Suspended"] = value;
         }
 
         #endregion
@@ -102,11 +102,12 @@ namespace YAF.Web.Controls
             output.WriteBeginTag(HtmlTextWriterTag.Span.ToString());
             output.WriteAttribute(HtmlTextWriterAttribute.Id.ToString(), this.ClientID);
 
-            if (this.Suspended)
+            if (this.Suspended.HasValue)
             {
                 // suspended
                 output.WriteAttribute(HtmlTextWriterAttribute.Class.ToString(), "align-middle text-warning");
-                output.WriteAttribute(HtmlTextWriterAttribute.Title.ToString(), this.GetTextFormatted("USERSUSPENDED", "0"));
+                output.WriteAttribute(HtmlTextWriterAttribute.Title.ToString(), this.GetTextFormatted("USERSUSPENDED", this.Suspended.Value));
+                output.WriteAttribute("data-toggle", "tooltip");
             }
             else
             {
@@ -116,12 +117,14 @@ namespace YAF.Web.Controls
                     // online
                     output.WriteAttribute(HtmlTextWriterAttribute.Class.ToString(), "align-middle text-success");
                     output.WriteAttribute(HtmlTextWriterAttribute.Title.ToString(), this.GetText("USERONLINESTATUS"));
+                    output.WriteAttribute("data-toggle", "tooltip");
                 }
                 else
                 {
                     // offline
                     output.WriteAttribute(HtmlTextWriterAttribute.Class.ToString(), "align-middle text-danger");
                     output.WriteAttribute(HtmlTextWriterAttribute.Title.ToString(), this.GetText("USEROFFLINESTATUS"));
+                    output.WriteAttribute("data-toggle", "tooltip");
                 }
             }
 

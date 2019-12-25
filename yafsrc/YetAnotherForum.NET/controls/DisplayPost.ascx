@@ -43,8 +43,7 @@
                                                    ReplaceName='<%#  this.Get<YafBoardSettings>().EnableDisplayName  ? this.DataRow["DisplayName"] : this.DataRow["UserName"]%>'
                                                    PostfixText='<%# this.DataRow["IP"].ToString() == "NNTP" ? this.GetText("EXTERNALUSER") : string.Empty %>'
                                                    Style='<%# this.DataRow["Style"]%>' 
-                                                   EnableHoverCard="False" 
-                                                   Suspended='<%# this.DataRow["Suspended"] != DBNull.Value && this.DataRow["Suspended"].ToType<DateTime>() > DateTime.UtcNow %>'
+                                                   EnableHoverCard="False"
                                                    CssClass="dropdown-toggle" />
                                     <YAF:PopMenu runat="server" ID="PopMenu1" Control="UserName" />
                                     <YAF:ThemeButton ID="AddReputation" runat="server" 

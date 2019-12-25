@@ -28,7 +28,6 @@ namespace YAF.Web.Controls
     using System.Collections.Generic;
     using System.Linq;
     using System.Web.UI;
-    using System.Web.UI.WebControls;
 
     using YAF.Core.BaseControls;
     using YAF.Core.Extensions;

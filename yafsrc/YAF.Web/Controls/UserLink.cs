@@ -37,6 +37,7 @@ namespace YAF.Web.Controls
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Models;
     using YAF.Utils;
 
     #endregion
@@ -81,20 +82,6 @@ namespace YAF.Web.Controls
             get => this.ViewState["IsGuest"] != null && Convert.ToBoolean(this.ViewState["IsGuest"]);
 
             set => this.ViewState["IsGuest"] = value;
-        }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether this <see cref="UserLink"/> is suspended.
-        /// </summary>
-        /// <value>
-        ///   <c>true</c> if suspended; otherwise, <c>false</c>.
-        /// </value>
-        [NotNull]
-        public bool Suspended
-        {
-            get => this.ViewState["Suspended"] != null && Convert.ToBoolean(this.ViewState["Suspended"]);
-
-            set => this.ViewState["Style"] = value;
         }
 
         #endregion
@@ -156,8 +143,11 @@ namespace YAF.Web.Controls
                 return;
             }
 
+            var user = this.GetRepository<User>().GetById(this.UserID);
+
+
             // is this the guest user? If so, guest's don't have a profile.
-            var isGuest = this.IsGuest ? this.IsGuest : UserMembershipHelper.IsGuestUser(this.UserID);
+            var isGuest = this.IsGuest ? this.IsGuest : user.IsGuest.Value;
 
             output.BeginRender();
 
@@ -225,7 +215,7 @@ namespace YAF.Web.Controls
             // show online icon
             if (this.Get<YafBoardSettings>().ShowUserOnlineStatus)
             {
-                var onlineStatusIcon = new OnlineStatusIcon { UserId = this.UserID };
+                var onlineStatusIcon = new OnlineStatusIcon { UserId = this.UserID, Suspended = user.Suspended };
 
                 onlineStatusIcon.RenderControl(output);
 
