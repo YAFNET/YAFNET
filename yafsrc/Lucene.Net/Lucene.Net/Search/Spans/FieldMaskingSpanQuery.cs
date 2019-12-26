@@ -1,4 +1,3 @@
-using YAF.Lucene.Net.Support;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -162,7 +161,7 @@ namespace YAF.Lucene.Net.Search.Spans
 
         public override int GetHashCode()
         {
-            return MaskedQuery.GetHashCode() ^ Field.GetHashCode() ^ Number.SingleToInt32Bits(Boost);
+            return MaskedQuery.GetHashCode() ^ Field.GetHashCode() ^ J2N.BitConversion.SingleToInt32Bits(Boost);
         }
     }
 }

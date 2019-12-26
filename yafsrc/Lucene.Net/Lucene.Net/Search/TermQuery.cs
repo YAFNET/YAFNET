@@ -1,4 +1,3 @@
-using YAF.Lucene.Net.Support;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -253,7 +252,7 @@ namespace YAF.Lucene.Net.Search
         /// Returns a hash code value for this object. </summary>
         public override int GetHashCode()
         {
-            return Number.SingleToInt32Bits(Boost) ^ term.GetHashCode();
+            return J2N.BitConversion.SingleToInt32Bits(Boost) ^ term.GetHashCode();
         }
     }
 }

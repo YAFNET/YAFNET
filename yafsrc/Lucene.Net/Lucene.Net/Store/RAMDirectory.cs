@@ -1,5 +1,4 @@
-using YAF.Lucene.Net.Support;
-using YAF.Lucene.Net.Support.Compatibility;
+using J2N.Threading.Atomic;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -156,7 +155,7 @@ namespace YAF.Lucene.Net.Store
         public long GetSizeInBytes()
         {
             EnsureOpen();
-            return m_sizeInBytes.Get();
+            return m_sizeInBytes;
         }
 
         /// <summary>

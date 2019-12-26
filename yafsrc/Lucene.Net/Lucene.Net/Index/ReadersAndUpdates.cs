@@ -1,5 +1,5 @@
+using J2N.Threading.Atomic;
 using YAF.Lucene.Net.Documents;
-using YAF.Lucene.Net.Support;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -115,7 +115,7 @@ namespace YAF.Lucene.Net.Index
 
         public virtual int RefCount()
         {
-            int rc = refCount.Get();
+            int rc = refCount;
             Debug.Assert(rc >= 0);
             return rc;
         }

@@ -54,11 +54,11 @@ namespace YAF.Lucene.Net.QueryParsers.Xml
         {
             m_filterFactory.AddBuilder("TermsFilter", new TermsFilterBuilder(analyzer));
             m_filterFactory.AddBuilder("BooleanFilter", new BooleanFilterBuilder(m_filterFactory));
-            //m_filterFactory.AddBuilder("DuplicateFilter", new DuplicateFilterBuilder());
+            m_filterFactory.AddBuilder("DuplicateFilter", new DuplicateFilterBuilder());
             string[] fields = { "contents" };
             m_queryFactory.AddBuilder("LikeThisQuery", new LikeThisQueryBuilder(analyzer, fields));
             m_queryFactory.AddBuilder("BoostingQuery", new BoostingQueryBuilder(m_queryFactory));
-           // m_queryFactory.AddBuilder("FuzzyLikeThisQuery", new FuzzyLikeThisQueryBuilder(analyzer));
+            m_queryFactory.AddBuilder("FuzzyLikeThisQuery", new FuzzyLikeThisQueryBuilder(analyzer));
         }
     }
 }

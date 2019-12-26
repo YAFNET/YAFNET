@@ -1,5 +1,7 @@
+using J2N;
+using J2N.Threading;
+using J2N.Threading.Atomic;
 using YAF.Lucene.Net.Support;
-using YAF.Lucene.Net.Support.Threading;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -1182,7 +1184,7 @@ namespace YAF.Lucene.Net.Index
                     try
                     {
                         // clean up merge scheduler in all cases, although flushing may have failed:
-                        interrupted = ThreadClass.Interrupted();
+                        interrupted = ThreadJob.Interrupted();
 
                         if (waitForMerges)
                         {
@@ -1998,22 +2000,10 @@ namespace YAF.Lucene.Net.Index
         }
 
         // for test purpose
-        internal int FlushCount
-        {
-            get
-            {
-                return flushCount.Get();
-            }
-        }
+        internal int FlushCount => flushCount;
 
         // for test purpose
-        internal int FlushDeletesCount
-        {
-            get
-            {
-                return flushDeletesCount.Get();
-            }
-        }
+        internal int FlushDeletesCount => flushDeletesCount;
 
         internal string NewSegmentName()
         {
@@ -2028,7 +2018,7 @@ namespace YAF.Lucene.Net.Index
                 // problems at least with ConcurrentMergeScheduler.
                 changeCount++;
                 segmentInfos.Changed();
-                return "_" + Number.ToString(segmentInfos.Counter++, Character.MAX_RADIX);
+                return "_" + (segmentInfos.Counter++).ToString(J2N.Character.MaxRadix);
             }
         }
 
@@ -3463,7 +3453,7 @@ namespace YAF.Lucene.Net.Index
                         continue;
                     }
 
-                    Debug.Assert(!SlowFileExists(directory, newFileName), "file \"" + newFileName + "\" already exists; siFiles=" + Arrays.ToString(siFiles));
+                    Debug.Assert(!SlowFileExists(directory, newFileName), "file \"" + newFileName + "\" already exists; siFiles=" + string.Format(J2N.Text.StringFormatter.InvariantCulture, "{0}", siFiles));
                     Debug.Assert(!copiedFiles.Contains(file), "file \"" + file + "\" is being copied more than once");
                     copiedFiles.Add(file);
                     info.Info.Dir.Copy(directory, file, newFileName, context);
@@ -5546,7 +5536,7 @@ namespace YAF.Lucene.Net.Index
 
                     if (infoStream.IsEnabled("IW"))
                     {
-                        infoStream.Message("IW", "done all syncs: " + Arrays.ToString(filesToSync));
+                        infoStream.Message("IW", "done all syncs: " + string.Format(J2N.Text.StringFormatter.InvariantCulture, "{0}", filesToSync));
                     }
 
                     tpResult = TestPoint("midStartCommitSuccess");

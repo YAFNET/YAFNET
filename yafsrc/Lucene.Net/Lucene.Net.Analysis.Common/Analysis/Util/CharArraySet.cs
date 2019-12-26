@@ -1,4 +1,5 @@
-﻿using YAF.Lucene.Net.Support;
+﻿using J2N.Globalization;
+using YAF.Lucene.Net.Support;
 using YAF.Lucene.Net.Util;
 using System;
 using System.Collections;

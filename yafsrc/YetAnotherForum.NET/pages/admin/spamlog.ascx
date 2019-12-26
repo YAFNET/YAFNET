@@ -164,16 +164,15 @@
                                             LocalizedTag="NO_ENTRY"></YAF:LocalizedLabel>
                     </YAF:Alert>
                 </div>
-            <div class="card-footer text-center">
+            <asp:Panel CssClass="card-footer text-center" runat="server" ID="Footer" Visible="<%# this.List.Items.Count > 0 %>">
                 <YAF:ThemeButton runat="server" 
-                                 Visible="<%# this.List.Items.Count > 0 %>" 
                                  Type="Danger"
                                  Icon="trash" 
                                  OnClick="DeleteAllClick" 
                                  TextLocalizedPage="ADMIN_EVENTLOG" TextLocalizedTag="DELETE_ALLOWED"
                                  ReturnConfirmText='<%#this.GetText("ADMIN_EVENTLOG", "CONFIRM_DELETE_ALL") %>'>
                 </YAF:ThemeButton>
-            </div>
+            </asp:Panel>
         </div>
     <YAF:Pager ID="PagerBottom" runat="server" LinkedPager="PagerTop" />
                 </div>

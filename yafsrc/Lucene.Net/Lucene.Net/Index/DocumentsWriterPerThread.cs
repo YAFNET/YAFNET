@@ -477,7 +477,7 @@ namespace YAF.Lucene.Net.Index
             get
             {
                 // public for FlushPolicy
-                return pendingUpdates.numTermDeletes.Get();
+                return pendingUpdates.numTermDeletes;
             }
         }
 
@@ -567,7 +567,7 @@ namespace YAF.Lucene.Net.Index
                 {
                     infoStream.Message("DWPT", "new segment has " + (flushState.LiveDocs == null ? 0 : (flushState.SegmentInfo.DocCount - flushState.DelCountOnFlush)) + " deleted docs");
                     infoStream.Message("DWPT", "new segment has " + (flushState.FieldInfos.HasVectors ? "vectors" : "no vectors") + "; " + (flushState.FieldInfos.HasNorms ? "norms" : "no norms") + "; " + (flushState.FieldInfos.HasDocValues ? "docValues" : "no docValues") + "; " + (flushState.FieldInfos.HasProx ? "prox" : "no prox") + "; " + (flushState.FieldInfos.HasFreq ? "freqs" : "no freqs"));
-                    infoStream.Message("DWPT", "flushedFiles=" + Arrays.ToString(segmentInfoPerCommit.GetFiles()));
+                    infoStream.Message("DWPT", "flushedFiles=" + string.Format(J2N.Text.StringFormatter.InvariantCulture, "{0}", segmentInfoPerCommit.GetFiles()));
                     infoStream.Message("DWPT", "flushed codec=" + codec);
                 }
 
@@ -697,10 +697,7 @@ namespace YAF.Lucene.Net.Index
             }
         }
 
-        public virtual long BytesUsed
-        {
-            get { return bytesUsed.Get() + pendingUpdates.bytesUsed.Get(); }
-        }
+        public virtual long BytesUsed => bytesUsed.Get() + pendingUpdates.bytesUsed;
 
         /// <summary>
         /// Initial chunks size of the shared byte[] blocks used to

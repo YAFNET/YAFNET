@@ -1,4 +1,4 @@
-using YAF.Lucene.Net.Support;
+using J2N.IO;
 using YAF.Lucene.Net.Support.IO;
 using System;
 using System.Diagnostics;

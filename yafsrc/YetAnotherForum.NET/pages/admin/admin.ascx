@@ -271,7 +271,7 @@
                         </table>
                         </div>
                         <div id="ActiveUsersPager" class=" tableSorterPager form-inline">
-                            <select class="pagesize custom-select">
+                            <select class="pagesize custom-select custom-select-sm">
 		                        <option selected="selected" value="10">10</option>
 		                        <option value="20">20</option>
                         	    <option value="30">30</option>
@@ -279,11 +279,11 @@
                             </select>
                             &nbsp;
                             <div class="btn-group"  role="group">
-                                <a href="#" class="first  btn btn-secondary btn-sm"><span><i class="fas fa-angle-double-left"></i></span></a>
-                                <a href="#" class="prev  btn btn-secondary btn-sm"><span><i class="fas fa-angle-left"></i></span></a>
+                                <a href="#" class="first btn btn-secondary btn-sm"><span><i class="fas fa-angle-double-left"></i></span></a>
+                                <a href="#" class="prev btn btn-secondary btn-sm"><span><i class="fas fa-angle-left"></i></span></a>
                                 <input type="text" class="pagedisplay  btn btn-secondary btn-sm"  style="width:150px" />
                                 <a href="#" class="next btn btn-secondary btn-sm"><span><i class="fas fa-angle-right"></i></span></a>
-                                <a href="#" class="last  btn btn-secondary btn-sm"><span><i class="fas fa-angle-double-right"></i></span></a>
+                                <a href="#" class="last btn btn-secondary btn-sm"><span><i class="fas fa-angle-double-right"></i></span></a>
                             </div>
                         </div>
                     </FooterTemplate>
@@ -348,20 +348,25 @@
                         <%# this.Get<IDateTime>().FormatDateTime((DateTime)this.Eval("Joined")) %>
                     </td>
                     <td>
-					    <div class="btn-group btn-group-sm float-right" role="group">
+                        <YAF:ThemeButton ID="Manage" runat="server"
+                                         CssClass="dropdown-toggle"
+                                         Type="Secondary"
+                                         DataToggle="dropdown"
+                                         Icon="ellipsis-v" />
+                        <div class="dropdown-menu">
                         <YAF:ThemeButton runat="server" 
                                          CommandName="resendEmail" 
                                          CommandArgument='<%# "{0};{1}".Fmt(this.Eval("Email"), this.Eval("Name")) %>'
                                          Icon="share" 
                                          TextLocalizedTag="ADMIN_RESEND_EMAIL"
-                                         Type="Info" 
-                                         Size="Small">
+                                         Type="None"
+                                         CssClass="dropdown-item">
                         </YAF:ThemeButton>
                         <YAF:ThemeButton runat="server" 
                                          CommandName="approve" 
                                          CommandArgument='<%# this.Eval("UserID") %>'
-                                         Type="Primary" 
-                                         Size="Small" 
+                                         Type="None"
+                                         CssClass="dropdown-item"
                                          ReturnConfirmText='<%# this.GetText("ADMIN_ADMIN", "CONFIRM_APPROVE") %>'
                                          Icon="check" 
                                          TextLocalizedTag="ADMIN_APPROVE">
@@ -369,9 +374,9 @@
                         <YAF:ThemeButton runat="server" 
                                          CommandName="delete" 
                                          CommandArgument='<%# this.Eval("UserID") %>'
-                                         Type="Danger" 
-                                         Size="Small" 
-                                         ReturnConfirmText='<%# this.GetText("ADMIN_ADMIN", "CONFIRM_DELETE_ALL") %>'
+                                         Type="None"
+                                         CssClass="dropdown-item" 
+                                         ReturnConfirmText='<%# this.GetText("ADMIN_ADMIN", "CONFIRM_DELETE") %>'
                                          Icon="trash" 
                                          TextLocalizedTag="ADMIN_DELETE">
                         </YAF:ThemeButton>
@@ -385,7 +390,7 @@
                 </table>
                 </div>
                     <div id="UnverifiedUsersPager" class=" tableSorterPager form-inline">
-                        <select class="pagesize custom-select">
+                        <select class="pagesize custom-select custom-select-sm">
 		                        <option selected="selected" value="10">10</option>
 		                        <option value="20">20</option>
                         	    <option value="30">30</option>
@@ -407,13 +412,16 @@
                                      Type="Primary" 
                                      Icon="check" 
                                      TextLocalizedTag="APROVE_ALL" 
+                                     CssClass="mr-1"
                                      ReturnConfirmText='<%# this.GetText("ADMIN_ADMIN", "CONFIRM_APROVE_ALL") %>'/>
+                    
                     <YAF:ThemeButton runat="server"
                                      CommandName="deleteall" 
                                      Type="Danger" 
                                      Icon="trash" 
                                      TextLocalizedTag="DELETE_ALL" 
-                                     ReturnConfirmText='<%# this.GetText("ADMIN_ADMIN", "CONFIRM_DELETE_ALL") %>'/>
+                                     ReturnConfirmText='<%# this.GetText("ADMIN_ADMIN", "CONFIRM_DELETE_ALL") %>'
+                                     CssClass="mr-1"/>
                     <asp:TextBox ID="DaysOld" runat="server" 
                                  MaxLength="5" 
                                  Text="14" 

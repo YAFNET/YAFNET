@@ -1,5 +1,5 @@
+using J2N.Threading;
 using YAF.Lucene.Net.Support;
-using YAF.Lucene.Net.Support.Threading;
 using System;
 using System.Threading;
 
@@ -39,7 +39,7 @@ namespace YAF.Lucene.Net.Search
     /// <para/>
     /// @lucene.experimental
     /// </summary>
-    public class ControlledRealTimeReopenThread<T> : ThreadClass, IDisposable
+    public class ControlledRealTimeReopenThread<T> : ThreadJob, IDisposable
          where T : class
     {
         private readonly ReferenceManager<T> manager;

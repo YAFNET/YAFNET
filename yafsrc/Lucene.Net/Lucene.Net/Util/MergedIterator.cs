@@ -171,7 +171,7 @@ namespace YAF.Lucene.Net.Util
             {
             }
 
-            protected internal override bool LessThan(SubIterator<C> a, SubIterator<C> b)
+            internal override bool LessThan(SubIterator<C> a, SubIterator<C> b)
             {
                 int cmp;
                 // LUCNENENET specific: For strings, we need to ensure we compare them ordinal

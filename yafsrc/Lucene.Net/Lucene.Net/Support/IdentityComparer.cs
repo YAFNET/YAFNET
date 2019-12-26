@@ -71,7 +71,7 @@ namespace YAF.Lucene.Net.Support
         /// </summary>
         public static IdentityComparer Default => new IdentityComparer();
 
-        public IdentityComparer()
+        internal IdentityComparer()
         { }
 
         public new bool Equals(object x, object y)

@@ -13,14 +13,15 @@
                 <YAF:Pager runat="server" ID="PagerTop" OnPageChange="Pager_PageChange" />
                 <asp:Repeater ID="TopicList" runat="server">
                     <ItemTemplate>
-                        <h5 class="card-title">
-                            <%# this.PrintForumName((System.Data.DataRowView)Container.DataItem) %>
-                        </h5>
-                        
-                        
                         <%# this.CreateTopicLine((System.Data.DataRowView)Container.DataItem) %>
-                        
                     </ItemTemplate>
+                    <SeparatorTemplate>
+                        <div class="row">
+                            <div class="col">
+                                <hr/>
+                            </div>
+                        </div>
+                    </SeparatorTemplate>
                 </asp:Repeater>
                 <YAF:Pager runat="server" ID="PagerBottom" LinkedPager="PagerTop" OnPageChange="Pager_PageChange" />
             </div>

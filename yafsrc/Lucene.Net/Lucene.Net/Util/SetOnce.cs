@@ -1,4 +1,4 @@
-using YAF.Lucene.Net.Support;
+using J2N.Threading.Atomic;
 using System;
 #if FEATURE_SERIALIZABLE_EXCEPTIONS
 using System.Runtime.Serialization;

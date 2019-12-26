@@ -1,3 +1,4 @@
+using J2N.Threading.Atomic;
 using YAF.Lucene.Net.Support;
 using System;
 using System.Collections.Generic;
@@ -94,7 +95,7 @@ namespace YAF.Lucene.Net.Index
                 bytesUsed.AddAndGet(packet.bytesUsed);
                 if (infoStream.IsEnabled("BD"))
                 {
-                    infoStream.Message("BD", "push deletes " + packet + " delGen=" + packet.DelGen + " packetCount=" + updates.Count + " totBytesUsed=" + bytesUsed.Get());
+                    infoStream.Message("BD", "push deletes " + packet + " delGen=" + packet.DelGen + " packetCount=" + updates.Count + " totBytesUsed=" + bytesUsed);
                 }
                 Debug.Assert(CheckDeleteStats());
                 return packet.DelGen;
@@ -107,25 +108,16 @@ namespace YAF.Lucene.Net.Index
             {
                 updates.Clear();
                 nextGen = 1;
-                numTerms.Set(0);
-                bytesUsed.Set(0);
+                numTerms.Value = 0;
+                bytesUsed.Value = 0;
             }
         }
 
-        public virtual bool Any()
-        {
-            return bytesUsed.Get() != 0;
-        }
+        public virtual bool Any() => bytesUsed != 0;
 
-        public virtual int NumTerms
-        {
-            get { return numTerms.Get(); }
-        }
+        public virtual int NumTerms => numTerms;
 
-        public virtual long BytesUsed
-        {
-            get { return bytesUsed.Get(); }
-        }
+        public virtual long BytesUsed => bytesUsed;
 
         public class ApplyDeletesResult
         {
@@ -203,7 +195,7 @@ namespace YAF.Lucene.Net.Index
 
                 if (infoStream.IsEnabled("BD"))
                 {
-                    infoStream.Message("BD", "applyDeletes: infos=" + Arrays.ToString(infos) + " packetCount=" + updates.Count);
+                    infoStream.Message("BD", "applyDeletes: infos=" + string.Format(J2N.Text.StringFormatter.InvariantCulture, "{0}", infos) + " packetCount=" + updates.Count);
                 }
 
                 long gen = nextGen++;
@@ -447,9 +439,9 @@ namespace YAF.Lucene.Net.Index
                     {
                         FrozenBufferedUpdates packet = updates[delIDX];
                         numTerms.AddAndGet(-packet.numTermDeletes);
-                        Debug.Assert(numTerms.Get() >= 0);
+                        Debug.Assert(numTerms >= 0);
                         bytesUsed.AddAndGet(-packet.bytesUsed);
-                        Debug.Assert(bytesUsed.Get() >= 0);
+                        Debug.Assert(bytesUsed >= 0);
                     }
                     updates.SubList(0, count).Clear();
                 }
@@ -714,8 +706,8 @@ namespace YAF.Lucene.Net.Index
                 numTerms2 += packet.numTermDeletes;
                 bytesUsed2 += packet.bytesUsed;
             }
-            Debug.Assert(numTerms2 == numTerms.Get(), "numTerms2=" + numTerms2 + " vs " + numTerms.Get());
-            Debug.Assert(bytesUsed2 == bytesUsed.Get(), "bytesUsed2=" + bytesUsed2 + " vs " + bytesUsed);
+            Debug.Assert(numTerms2 == numTerms, "numTerms2=" + numTerms2 + " vs " + numTerms);
+            Debug.Assert(bytesUsed2 == bytesUsed, "bytesUsed2=" + bytesUsed2 + " vs " + bytesUsed);
             return true;
         }
     }

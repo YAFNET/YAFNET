@@ -1,4 +1,4 @@
-namespace Lucene.Net.Util.Packed
+namespace YAF.Lucene.Net.Util.Packed
 {
     /*
      * Licensed to the Apache Software Foundation (ASF) under one or more
@@ -17,11 +17,8 @@ namespace Lucene.Net.Util.Packed
      * limitations under the License.
      */
 
-    using YAF.Lucene.Net.Util;
-    using YAF.Lucene.Net.Util.Packed;
-
-    using DocIdSet = YAF.Lucene.Net.Search.DocIdSet;
-    using DocIdSetIterator = YAF.Lucene.Net.Search.DocIdSetIterator;
+    using DocIdSet = Lucene.Net.Search.DocIdSet;
+    using DocIdSetIterator = Lucene.Net.Search.DocIdSetIterator;
 
     /// <summary>
     /// A DocIdSet in Elias-Fano encoding.

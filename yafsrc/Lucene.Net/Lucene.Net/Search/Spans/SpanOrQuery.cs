@@ -172,7 +172,7 @@ namespace YAF.Lucene.Net.Search.Spans
             //If this doesn't work, hash all elemnts together instead. This version was used to reduce time complexity
             int h = clauses.GetHashCode();
             h ^= (h << 10) | ((int)(((uint)h) >> 23));
-            h ^= Number.SingleToRawInt32Bits(Boost);
+            h ^= J2N.BitConversion.SingleToRawInt32Bits(Boost);
             return h;
         }
 
@@ -186,7 +186,7 @@ namespace YAF.Lucene.Net.Search.Spans
                 this.outerInstance = outerInstance;
             }
 
-            protected internal override bool LessThan(Spans spans1, Spans spans2)
+            internal override bool LessThan(Spans spans1, Spans spans2)
             {
                 if (spans1.Doc == spans2.Doc)
                 {

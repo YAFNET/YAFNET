@@ -459,7 +459,7 @@ namespace YAF.Lucene.Net.Util
                 this.outerInstance = outerInstance;
             }
 
-            protected internal override bool LessThan(FileAndTop a, FileAndTop b)
+            internal override bool LessThan(FileAndTop a, FileAndTop b)
             {
                 return outerInstance.comparer.Compare(a.Current, b.Current) < 0;
             }

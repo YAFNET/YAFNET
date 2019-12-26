@@ -1,4 +1,5 @@
 using YAF.Lucene.Net.Documents;
+using YAF.Lucene.Net.Documents.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;

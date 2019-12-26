@@ -54,6 +54,7 @@ namespace YAF.Controls
     public partial class MyTopicsList : BaseUserControl
     {
         /* Data Fields */
+
         #region Constants and Fields
 
         /// <summary>
@@ -78,7 +79,6 @@ namespace YAF.Controls
 
         #endregion
 
-        /* Properties */
         #region Public Properties
 
         /// <summary>
@@ -155,7 +155,7 @@ namespace YAF.Controls
 
             // we'll hold topics in this table
             DataTable topicList = null;
-            
+
             // set the page size here
             var basePageSize = this.Get<YafBoardSettings>().MyTopicsListPageSize;
             this.PagerTop.PageSize = basePageSize;
@@ -241,7 +241,7 @@ namespace YAF.Controls
                     break;
             }
 
-             if (topicList == null)
+            if (topicList == null)
             {
                 this.PagerTop.Count = 0;
                 return;
@@ -259,9 +259,9 @@ namespace YAF.Controls
 
             var topicsNew = topicList.Copy();
 
-            foreach (var thisTableRow in topicsNew
-                .Rows.Cast<DataRow>()
-                .Where(thisTableRow => thisTableRow["LastPosted"] != DBNull.Value && thisTableRow["LastPosted"].ToType<DateTime>() <= this.sinceDate))
+            foreach (var thisTableRow in topicsNew.Rows.Cast<DataRow>().Where(
+                thisTableRow => thisTableRow["LastPosted"] != DBNull.Value
+                                && thisTableRow["LastPosted"].ToType<DateTime>() <= this.sinceDate))
             {
                 thisTableRow.Delete();
             }
@@ -270,7 +270,10 @@ namespace YAF.Controls
             topicsNew.AcceptChanges();
             if (this.Get<YafBoardSettings>().UseStyledNicks)
             {
-                this.Get<IStyleTransform>().DecodeStyleByTable(topicsNew, false, new[] { "LastUserStyle", "StarterStyle" });
+                this.Get<IStyleTransform>().DecodeStyleByTable(
+                    topicsNew,
+                    false,
+                    new[] { "LastUserStyle", "StarterStyle" });
             }
 
             if (!topicsNew.HasRows())
@@ -282,9 +285,7 @@ namespace YAF.Controls
             }
 
             // let's page the results
-            this.PagerTop.Count = topicsNew.HasRows()
-                                      ? topicsNew.AsEnumerable().First().Field<int>("TotalRows")
-                                      : 0;
+            this.PagerTop.Count = topicsNew.HasRows() ? topicsNew.AsEnumerable().First().Field<int>("TotalRows") : 0;
 
             this.TopicList.DataSource = topicsNew;
             this.TopicList.DataBind();
@@ -429,32 +430,6 @@ namespace YAF.Controls
         }
 
         /// <summary>
-        /// The print forum name.
-        /// </summary>
-        /// <param name="row">
-        /// The row. 
-        /// </param>
-        /// <returns>
-        /// Returns the forum name output. 
-        /// </returns>
-        protected string PrintForumName([NotNull] DataRowView row)
-        {
-            var forumName = this.HtmlEncode(row["ForumName"]);
-            var html = string.Empty;
-
-            if (forumName == this.lastForumName)
-            {
-                return html;
-            }
-
-            html =
-                $@"<tr><td class=""header2"" colspan=""6""><a href=""{YafBuildLink.GetLink(ForumPages.topics, "f={0}&name={1}", row["ForumID"], forumName)}"" title=""{this.GetText("COMMON", "VIEW_FORUM")}"" >{forumName}</a></td></tr>";
-            this.lastForumName = forumName;
-
-            return html;
-        }
-
-        /// <summary>
         /// Reloads the Topic Last Based on the Selected Since Value
         /// </summary>
         /// <param name="sender">The source of the event.</param>
@@ -486,6 +461,22 @@ namespace YAF.Controls
 
             // re-bind data
             this.BindData();
+        }
+
+        /// <summary>
+        /// The create topic line.
+        /// </summary>
+        /// <param name="containerDataItem">
+        /// The container data item.
+        /// </param>
+        /// <returns>
+        /// The <see cref="string"/>.
+        /// </returns>
+        protected string CreateTopicLine(DataRowView containerDataItem)
+        {
+            var topicLine = new TopicContainer { DataRow = containerDataItem };
+
+            return topicLine.RenderToString();
         }
 
         /// <summary>
@@ -530,21 +521,5 @@ namespace YAF.Controls
         }
 
         #endregion
-
-        /// <summary>
-        /// The create topic line.
-        /// </summary>
-        /// <param name="containerDataItem">
-        /// The container data item.
-        /// </param>
-        /// <returns>
-        /// The <see cref="string"/>.
-        /// </returns>
-        protected string CreateTopicLine(DataRowView containerDataItem)
-        {
-            var topicLine = new TopicContainer { DataRow = containerDataItem };
-
-            return topicLine.RenderToString();
-        }
     }
 }

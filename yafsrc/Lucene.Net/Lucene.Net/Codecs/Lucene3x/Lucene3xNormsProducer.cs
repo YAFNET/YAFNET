@@ -1,3 +1,4 @@
+using J2N.Threading.Atomic;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -280,13 +281,8 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
             throw new InvalidOperationException();
         }
 
-        public override long RamBytesUsed()
-        {
-            return ramBytesUsed.Get();
-        }
+        public override long RamBytesUsed() => ramBytesUsed;
 
-        public override void CheckIntegrity()
-        {
-        }
+        public override void CheckIntegrity() { }
     }
 }

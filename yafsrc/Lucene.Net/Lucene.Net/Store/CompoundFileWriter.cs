@@ -1,4 +1,4 @@
-using YAF.Lucene.Net.Support;
+using J2N.Threading.Atomic;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -165,7 +165,7 @@ namespace YAF.Lucene.Net.Store
             // (remove partial .cfs/.cfe)
             try
             {
-                if (pendingEntries.Count > 0 || outputTaken.Get())
+                if (pendingEntries.Count > 0 || outputTaken)
                 {
                     throw new InvalidOperationException("CFS has pending open files");
                 }
@@ -297,7 +297,7 @@ namespace YAF.Lucene.Net.Store
                     entries.Remove(name);
                     if (outputLocked) // release the output lock if not successful
                     {
-                        Debug.Assert(outputTaken.Get());
+                        Debug.Assert(outputTaken);
                         ReleaseOutputLock();
                     }
                 }

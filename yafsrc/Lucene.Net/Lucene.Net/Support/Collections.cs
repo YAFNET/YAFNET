@@ -1,4 +1,5 @@
-﻿using System;
+﻿using J2N.Globalization;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -31,7 +32,7 @@ namespace YAF.Lucene.Net.Support
     {
         public static IList<T> EmptyList<T>()
         {
-            return (IList<T>)Enumerable.Empty<T>();
+            return new List<T>(); // LUCENENET NOTE: Enumerable.Empty<T>() fails to cast to IList<T> on .NET Core 3.x, so we just create a new list
         }
 
         public static IDictionary<TKey, TValue> EmptyMap<TKey, TValue>()
@@ -524,7 +525,7 @@ namespace YAF.Lucene.Net.Support
         /// </summary>
         public static string ToString<T>(ICollection<T> collection, CultureInfo culture)
         {
-            using (var context = new Support.CultureContext(culture))
+            using (var context = new CultureContext(culture))
             {
                 return ToString(collection);
             }
@@ -573,7 +574,7 @@ namespace YAF.Lucene.Net.Support
         /// </summary>
         public static string ToString<TKey, TValue>(IDictionary<TKey, TValue> dictionary, CultureInfo culture)
         {
-            using (var context = new Support.CultureContext(culture))
+            using (var context = new CultureContext(culture))
             {
                 return ToString(dictionary);
             }
@@ -605,7 +606,7 @@ namespace YAF.Lucene.Net.Support
         /// </summary>
         public static string ToString(object obj, CultureInfo culture)
         {
-            using (var context = new Support.CultureContext(culture))
+            using (var context = new CultureContext(culture))
             {
                 return ToString(obj);
             }

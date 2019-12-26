@@ -105,8 +105,8 @@
                         </div>
                         </div>
             <div class="card-footer">
-            <div id="ActiveUsersPager" class=" tableSorterPager form-inline">
-                <select class="pagesize custom-select">
+            <div id="ActiveUsersPager" class="tableSorterPager form-inline">
+                <select class="pagesize custom-select custom-select-sm">
                     <option selected="selected"  value="10">10</option>
                     <option value="20">20</option>
                     <option value="30">30</option>
@@ -114,11 +114,11 @@
                 </select>
                 &nbsp;
                 <div class="btn-group"  role="group">
-                    <a href="#" class="first  btn btn-secondary btn-sm"><span><i class="fas fa-angle-double-left"></i></span></a>
-                    <a href="#" class="prev  btn btn-secondary btn-sm"><span><i class="fas fa-angle-left"></i></span></a>
+                    <a href="#" class="first btn btn-secondary btn-sm"><span><i class="fas fa-angle-double-left"></i></span></a>
+                    <a href="#" class="prev btn btn-secondary btn-sm"><span><i class="fas fa-angle-left"></i></span></a>
                     <input type="text" class="pagedisplay  btn btn-secondary btn-sm"  style="width:150px" />
                     <a href="#" class="next btn btn-secondary btn-sm"><span><i class="fas fa-angle-right"></i></span></a>
-                    <a href="#" class="last  btn btn-secondary btn-sm"><span><i class="fas fa-angle-double-right"></i></span></a>
+                    <a href="#" class="last btn btn-secondary btn-sm"><span><i class="fas fa-angle-double-right"></i></span></a>
                 </div>
             </div>
                 </div>

@@ -1,5 +1,7 @@
+using J2N.IO;
+using J2N.IO.MemoryMappedFiles;
+using J2N.Numerics;
 using YAF.Lucene.Net.Support;
-using YAF.Lucene.Net.Support.IO;
 using System;
 using System.Diagnostics;
 using System.IO;
@@ -109,7 +111,7 @@ namespace YAF.Lucene.Net.Store
             {
                 throw new System.ArgumentException("Maximum chunk size for mmap must be >0");
             }
-            this.chunkSizePower = 31 - Number.NumberOfLeadingZeros(maxChunkSize);
+            this.chunkSizePower = 31 - maxChunkSize.LeadingZeroCount();
             Debug.Assert(this.chunkSizePower >= 0 && this.chunkSizePower <= 30);
         }
 
@@ -281,10 +283,8 @@ namespace YAF.Lucene.Net.Store
             protected override void FreeBuffer(ByteBuffer buffer)
             {
                 // LUCENENET specific: this should free the memory mapped view accessor
-                var mmfbb = buffer as MemoryMappedFileByteBuffer;
-
-                if (mmfbb != null)
-                    mmfbb.Dispose();
+                if (buffer is IDisposable disposable)
+                    disposable.Dispose();
 
                 // LUCENENET specific: no need for UnmapHack
             }
@@ -294,7 +294,7 @@ namespace YAF.Lucene.Net.Store
         /// Maps a file into a set of buffers </summary>
         internal virtual ByteBuffer[] Map(MMapIndexInput input, FileStream fc, long offset, long length)
         {
-            if (Number.URShift(length, chunkSizePower) >= int.MaxValue)
+            if (length.TripleShift(chunkSizePower) >= int.MaxValue)
                 throw new ArgumentException("RandomAccessFile too big for chunk size: " + fc.ToString());
 
             // LUCENENET specific: Return empty buffer if length is 0, rather than attempting to create a MemoryMappedFile.
@@ -314,15 +314,15 @@ namespace YAF.Lucene.Net.Store
             if (input.memoryMappedFile == null)
             {
                 input.memoryMappedFile = MemoryMappedFile.CreateFromFile(
-                    fc, 
-                    null, 
-                    length, 
-                    MemoryMappedFileAccess.Read,
+                    fileStream: fc, 
+                    mapName: null, 
+                    capacity: length, 
+                    access: MemoryMappedFileAccess.Read,
 #if !NETSTANDARD
-                    null,
+                    memoryMappedFileSecurity: null,
 #endif
-                    HandleInheritability.Inheritable, 
-                    true); // LUCENENET: We explicitly dispose the FileStream separately.
+                    inheritability: HandleInheritability.Inheritable, 
+                    leaveOpen: true); // LUCENENET: We explicitly dispose the FileStream separately.
             }
 
             long bufferStart = 0L;
@@ -339,12 +339,10 @@ namespace YAF.Lucene.Net.Store
                     adjust = 1;
                 }
 
-                buffers[bufNr] = new MemoryMappedFileByteBuffer(
-                    input.memoryMappedFile.CreateViewAccessor(
-                        (offset + bufferStart) - adjust, 
-                        bufSize, 
-                        MemoryMappedFileAccess.Read), 
-                    bufSize);
+                buffers[bufNr] = input.memoryMappedFile.CreateViewByteBuffer(
+                    offset: (offset + bufferStart) - adjust,
+                    size: bufSize,
+                    access: MemoryMappedFileAccess.Read);
                 bufferStart += bufSize;
             }
 
