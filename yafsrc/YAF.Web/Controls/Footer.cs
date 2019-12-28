@@ -1,8 +1,8 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2019 Ingo Herbote
- * http://www.yetanotherforum.net/
+ * Copyright (C) 2014-2020 Ingo Herbote
+ * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -12,7 +12,7 @@
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
 
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
 
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
@@ -57,7 +57,7 @@ namespace YAF.Web.Controls
     /// </summary>
     public class Footer : BaseControl
     {
-#region Public Properties
+        #region Public Properties
 
         /// <summary>
         ///   Gets or sets a value indicating whether SimpleRender.
@@ -70,9 +70,9 @@ namespace YAF.Web.Controls
         [NotNull]
         public Control ThisControl => this;
 
-#endregion
+        #endregion
 
-#region Methods
+        #region Methods
 
         /// <summary>
         /// The render.
@@ -103,8 +103,7 @@ namespace YAF.Web.Controls
 
             this.Get<IStopWatch>().Stop();
 
-            footer.Append(
-                @"<div class=""clearfix""></div><footer class=""footer""><div class=""text-right"">");
+            footer.Append(@"<div class=""clearfix""></div><footer class=""footer""><div class=""text-right"">");
 
             this.RenderRulesLink(footer);
 
@@ -174,6 +173,13 @@ namespace YAF.Web.Controls
         /// <param name="footer">The footer.</param>
         private void RenderRulesLink([NotNull] StringBuilder footer)
         {
+            CodeContracts.VerifyNotNull(footer, "footer");
+
+            if (Config.IsAnyPortal)
+            {
+                return;
+            }
+
             footer.AppendFormat(
                 @"<a target=""_top"" title=""{1}"" href=""{0}"">{1}</a> | ",
                 YafBuildLink.GetLink(ForumPages.rules),
@@ -199,15 +205,10 @@ namespace YAF.Web.Controls
             {
                 var dnsSafeHost = url.DnsSafeHost.ToLower();
 
-                // handle www and non www domains correctly.
+                // handle www domains correctly.
                 if (dnsSafeHost.StartsWith("www."))
                 {
                     dnsSafeHost = dnsSafeHost.Replace("www.", string.Empty);
-                }
-
-                if (domainKey.StartsWith("www."))
-                {
-                    domainKey = domainKey.Replace("www.", string.Empty);
                 }
 
                 var currentDomainHash = HashHelper.Hash(
@@ -250,10 +251,10 @@ namespace YAF.Web.Controls
             footer.AppendFormat(
                 @"</a> | <a target=""_top"" title=""{0}"" href=""{1}"">YAF.NET &copy; 2003-{2}, Yet Another Forum.NET</a>",
                 "YetAnotherForum.NET",
-                "http://www.yetanotherforum.net",
+                "https://www.yetanotherforum.net",
                 DateTime.UtcNow.Year);
         }
 
-#endregion
+        #endregion
     }
 }
