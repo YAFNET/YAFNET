@@ -99,16 +99,19 @@
                                          this.Get<YafBoardSettings>().EnableDisplayName ? this.PageContext.CurrentUserData.DisplayName : this.PageContext.CurrentUserData.UserName) %>" 
                            role="button" 
                            aria-haspopup="true" aria-expanded="false">
-                            <i class="fa fa-user fa-fw"></i>&nbsp;<%= this.Get<YafBoardSettings>().EnableDisplayName ? this.PageContext.CurrentUserData.DisplayName : this.PageContext.CurrentUserData.UserName  %>
+                            <YAF:Icon runat="server" ID="UserIcon"></YAF:Icon>
+                            <%= this.Get<YafBoardSettings>().EnableDisplayName ? this.PageContext.CurrentUserData.DisplayName : this.PageContext.CurrentUserData.UserName  %>
                             <asp:PlaceHolder runat="server" id="UnreadPlaceHolder">
-                                <span class="badge badge-danger">
-                                    <%= (this.PageContext.UnreadPrivate + this.PageContext.PendingBuddies).ToString() %>
-                                </span>
+                                <asp:Label runat="server" ID="UnreadLabel" 
+                                           CssClass="ml-1 badge badge-danger">
+                                </asp:Label>
                             </asp:PlaceHolder>
                         </a>
                         <div class="dropdown-menu" aria-labelledby="userDropdown">
-                            <asp:HyperLink id="MyProfile" runat="server" Target="_top"
-                                           CssClass="dropdown-item"></asp:HyperLink>
+                            <asp:PlaceHolder id="MyProfile" runat="server">
+                            </asp:PlaceHolder>
+                            <asp:PlaceHolder id="MyActicity" runat="server">
+                            </asp:PlaceHolder>
                             <asp:PlaceHolder ID="MyInboxItem" runat="server">
                             </asp:PlaceHolder>
                             <asp:PlaceHolder ID="MyBuddiesItem" runat="server">

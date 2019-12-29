@@ -4501,6 +4501,8 @@ Spoiler Content
     <Resource tag="POLLGROUP_CLOSEDBOUND">Keine Resultate zeigen wenn die Gruppe offen ist.</Resource>
     <Resource tag="POLLGROUP_CLOSEDBOUND_WARN">Keine Resultate zeigen wenn die Gruppe offen zum Abstimmen ist</Resource>
     <Resource tag="POLLGROUP_LIST">Wählen Sie eine Gruppe:</Resource>
+    <Resource tag="POLLGROUP_LIST_BOARD">Board Poll:</Resource>
+    <Resource tag="POLLGROUP_LIST_BOARD_HELP">Choose an existing poll as board Poll</Resource>
     <Resource tag="POLLGROUPISBOUND">Ihre Stimme wird gezählt, wenn Sie an allen Umfragen teilgenommen haben.</Resource>
     <Resource tag="POLLHEADER">Erstellen oder Umfrage bearbeiten</Resource>
     <Resource tag="POLLIMAGE_INVALID">Das Bild oder der Pfad ist für (0) ist ungültig.</Resource>
@@ -6193,6 +6195,8 @@ Der Bestätigungscode lautet
     <Resource tag="MODERATE">Moderieren</Resource>
     <Resource tag="MODERATE_NEW">({0} Need Moderating)</Resource>
     <Resource tag="MODERATE_TITLE">Öffnet die Moderieren Seite wo sie alle Unbestätigten und gemeldeten Beiträge ansehen können.</Resource>
+    <Resource tag="MYACTIVITY">My Activity</Resource>
+    <Resource tag="MYACTIVITY_TITLE">Shows your activity and Received Thanks, Mentions and Quotes.</Resource>
     <Resource tag="MYALBUMS">Meine Alben</Resource>
     <Resource tag="MYALBUMS_TITLE">Öffnet die Alben Seite mit ihren Alben.</Resource>
     <Resource tag="MYPROFILE">Mein Profil</Resource>

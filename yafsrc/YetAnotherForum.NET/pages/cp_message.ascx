@@ -5,27 +5,34 @@
 
 <YAF:PageLinks runat="server" ID="PageLinks" />
 
-<asp:Repeater ID="Inbox" runat="server" OnItemCommand="Inbox_ItemCommand">
-    <HeaderTemplate>
+<div class="row">
+    <div class="col-sm-auto">
+        <YAF:ProfileMenu ID="ProfileMenu1" runat="server" />
+    </div>
+    <div class="col">
         <div class="row">
             <div class="col-xl-12">
-                <h2><%# this.GetText("TITLE") %></h2>
+                <h2>
+                    <asp:Label runat="server" ID="Title"></asp:Label>
+                </h2>
             </div>
         </div>
-    </HeaderTemplate>
-
-    <ItemTemplate>
+    <asp:Repeater ID="Inbox" runat="server" OnItemCommand="Inbox_ItemCommand">
+        <ItemTemplate>
         <div class="row">
             <div class="col">
                 <div class="card mt-3">
                     <div class="card-header">
-                        <i class="fa fa-envelope-open fa-fw text-secondary"></i>&nbsp;<%# this.HtmlEncode(this.Eval("Subject")) %>
+                        <YAF:Icon runat="server" 
+                                  IconName="envelope-open"
+                                  IconType="text-secondary"></YAF:Icon>
+                        <%# this.HtmlEncode(this.Eval("Subject")) %>
             <span class="float-right">
-                <time><span class="fa-stack">
-                        <i class="fa fa-calendar-day fa-stack-1x text-secondary"></i>
-                        <i class="fa fa-circle fa-badge-bg fa-inverse fa-outline-inverse"></i>
-                        <i class="fa fa-clock fa-badge text-secondary"></i>
-                    </span>&nbsp;
+                <time><YAF:Icon runat="server" 
+                                 IconName="calendar-day"
+                                 IconType="text-secondary"
+                                 IconNameBadge="clock" 
+                                 IconBadgeType="text-secondary"></YAF:Icon>&nbsp;
                     <YAF:DisplayDateTime ID="CreatedDateTime" runat="server"
                                          DateTime='<%# Container.DataItemToField<DateTime>("Created") %>'></YAF:DisplayDateTime></time>
 
@@ -40,37 +47,44 @@
             Message='<%# this.Eval("Body").ToType<string>()%>' />
                     </div>
                 <div class="card-footer">
-                    <YAF:ThemeButton ID="ReplyMessage" runat="server"
-                                     CommandName="reply" CommandArgument='<%# this.Eval("UserPMessageID") %>' 
-                                     TextLocalizedTag="BUTTON_REPLY" TitleLocalizedTag="BUTTON_REPLY_TT"
-                                     Type="Secondary"
-                                     Icon="reply"
-                                     Visible='<%# this.Eval("FromUserID").ToType<int>() != this.PageContext.PageUserID %>'/>
-                    <YAF:ThemeButton ID="QuoteMessage" runat="server"
-                                     CommandName="quote" CommandArgument='<%# this.Eval("UserPMessageID") %>' 
-                                     TextLocalizedTag="BUTTON_QUOTE" TitleLocalizedTag="BUTTON_QUOTE_TT"
-                                     Type="Secondary"
-                                     Icon="reply"
-                                     Visible='<%# this.Eval("FromUserID").ToType<int>() != this.PageContext.PageUserID %>'/>
-                    <YAF:ThemeButton ID="DeleteMessage" runat="server"
-                                     CommandName="delete" CommandArgument='<%# this.Eval("UserPMessageID") %>' 
-                                     TextLocalizedTag="BUTTON_DELETE" TitleLocalizedTag="BUTTON_DELETE_TT"
-                                     ReturnConfirmText='<%# this.GetText("confirm_deletemessage") %>'
-                                     Type="Danger"
-                                     Icon="trash"/>
-                    <div class="float-right">
-                        <YAF:ThemeButton ID="ReportMessage" runat="server"
-                                         CommandName="report" CommandArgument='<%# this.Eval("UserPMessageID") %>' 
-                                         TextLocalizedTag="REPORTPOST"
-                                         TextLocalizedPage="POSTS"
-                                         Type="Link"
-                                         Icon="exclamation-triangle"
-                                         IconColor="text-danger"/>
+                    <div class="row">
+                        <div class="col px-0">
+                            <YAF:ThemeButton ID="ReportMessage" runat="server"
+                                             CommandName="report" CommandArgument='<%# this.Eval("UserPMessageID") %>' 
+                                             TextLocalizedTag="REPORTPOST"
+                                             TextLocalizedPage="POSTS"
+                                             Type="Link"
+                                             Icon="exclamation-triangle"
+                                             IconColor="text-danger"/>
+                        </div>
+                        <div class="col-auto px-0 d-flex flex-wrap">
+                            <YAF:ThemeButton ID="ReplyMessage" runat="server"
+                                             CommandName="reply" CommandArgument='<%# this.Eval("UserPMessageID") %>' 
+                                             TextLocalizedTag="BUTTON_REPLY" TitleLocalizedTag="BUTTON_REPLY_TT"
+                                             Type="Secondary"
+                                             Icon="reply"
+                                             CssClass="mr-1"
+                                             Visible='<%# this.Eval("FromUserID").ToType<int>() != this.PageContext.PageUserID %>'/>
+                            <YAF:ThemeButton ID="QuoteMessage" runat="server"
+                                             CommandName="quote" CommandArgument='<%# this.Eval("UserPMessageID") %>' 
+                                             TextLocalizedTag="BUTTON_QUOTE" TitleLocalizedTag="BUTTON_QUOTE_TT"
+                                             Type="Secondary"
+                                             Icon="reply"
+                                             CssClass="mr-1"
+                                             Visible='<%# this.Eval("FromUserID").ToType<int>() != this.PageContext.PageUserID %>'/>
+                            <YAF:ThemeButton ID="DeleteMessage" runat="server"
+                                             CommandName="delete" CommandArgument='<%# this.Eval("UserPMessageID") %>' 
+                                             TextLocalizedTag="BUTTON_DELETE" TitleLocalizedTag="BUTTON_DELETE_TT"
+                                             ReturnConfirmText='<%# this.GetText("confirm_deletemessage") %>'
+                                             Type="Danger"
+                                             Icon="trash"/>
+                        </div>
                     </div>
-                    
                 </div>
         </div>
         </div>
         </div>
     </ItemTemplate>
 </asp:Repeater>
+    </div>
+</div>

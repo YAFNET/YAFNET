@@ -4536,6 +4536,8 @@ Spoiler Content
     <Resource tag="POLLGROUP_CLOSEDBOUND">Связанное голосование</Resource>
     <Resource tag="POLLGROUP_CLOSEDBOUND_WARN">Не показывать результаты опроса пока он не истёк.</Resource>
     <Resource tag="POLLGROUP_LIST">Выберите существующую группу опросов:</Resource>
+    <Resource tag="POLLGROUP_LIST_BOARD">Board Poll:</Resource>
+    <Resource tag="POLLGROUP_LIST_BOARD_HELP">Choose an existing poll as board Poll</Resource>
     <Resource tag="POLLGROUPISBOUND">Результаты Вашего голосования будут видны, когда Вы проголосуете во всех опросах.</Resource>
     <Resource tag="POLLHEADER">Создание и редактирование опроса</Resource>
     <Resource tag="POLLIMAGE_INVALID">Изображение или его путь недействительны для {0}.</Resource>
@@ -6229,6 +6231,8 @@ Password: {password}
     <Resource tag="MODERATE">Модерировать</Resource>
     <Resource tag="MODERATE_NEW">({0} Need Moderating)</Resource>
     <Resource tag="MODERATE_TITLE">Посмотреть страницу модератора.</Resource>
+    <Resource tag="MYACTIVITY">My Activity</Resource>
+    <Resource tag="MYACTIVITY_TITLE">Shows your activity and Received Thanks, Mentions and Quotes.</Resource>
     <Resource tag="MYALBUMS">Альбомы</Resource>
     <Resource tag="MYALBUMS_TITLE">Посмотреть страницу альбомов.</Resource>
     <Resource tag="MYPROFILE">Мой профиль</Resource>

@@ -4571,6 +4571,8 @@ Spoiler Content
     <Resource tag="POLLGROUP_CLOSEDBOUND">Seotud hääletamine</Resource>
     <Resource tag="POLLGROUP_CLOSEDBOUND_WARN">Ära näita tulemusi, kui grupp on avatud hääletamiseks</Resource>
     <Resource tag="POLLGROUP_LIST">Valige olemasolev küsitlusegrupp:</Resource>
+    <Resource tag="POLLGROUP_LIST_BOARD">Board Poll:</Resource>
+    <Resource tag="POLLGROUP_LIST_BOARD_HELP">Choose an existing poll as board Poll</Resource>
     <Resource tag="POLLGROUPISBOUND">Teie häält arvestatakse, kui olete hääletanud kõikides küsitlustes.</Resource>
     <Resource tag="POLLHEADER">Lisa või muuda küsitlust</Resource>
     <Resource tag="POLLIMAGE_INVALID">Pilt või selle teekond on kehtetu {0}.</Resource>
@@ -6267,6 +6269,8 @@ Külastage {forumname} aadressil {forumlink}
     <Resource tag="MODERATE">Modereeri</Resource>
     <Resource tag="MODERATE_NEW">({0} Need Moderating)</Resource>
     <Resource tag="MODERATE_TITLE">Shows the Moderate Page where you can view unapproved and reported Posts..</Resource>
+    <Resource tag="MYACTIVITY">My Activity</Resource>
+    <Resource tag="MYACTIVITY_TITLE">Shows your activity and Received Thanks, Mentions and Quotes.</Resource>
     <Resource tag="MYALBUMS">Minu albumid</Resource>
     <Resource tag="MYALBUMS_TITLE">Shows the Albums Page which shows all your albums.</Resource>
     <Resource tag="MYPROFILE">Minu profiil</Resource>

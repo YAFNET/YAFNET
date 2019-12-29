@@ -4549,6 +4549,8 @@ Spoiler Content
     <Resource tag="POLLGROUP_CLOSEDBOUND">Voto di gruppo</Resource>
     <Resource tag="POLLGROUP_CLOSEDBOUND_WARN">Non mostrare i risultati se il gruppo è ancora aperto al voto.</Resource>
     <Resource tag="POLLGROUP_LIST">Scegli un gruppo di sondaggi:</Resource>
+    <Resource tag="POLLGROUP_LIST_BOARD">Board Poll:</Resource>
+    <Resource tag="POLLGROUP_LIST_BOARD_HELP">Choose an existing poll as board Poll</Resource>
     <Resource tag="POLLGROUPISBOUND">Il tuo voto sarà aggiunto ai risultati quando avrai votato in tutti i sondaggi.</Resource>
     <Resource tag="POLLHEADER">Crea o modifica sondaggio</Resource>
     <Resource tag="POLLIMAGE_INVALID">L'immagine oppure il suo percorso non e' valido per {0}.</Resource>
@@ -6243,6 +6245,8 @@ Visita il forum {forumname} su {forumlink}
     <Resource tag="MODERATE">Moderazione</Resource>
     <Resource tag="MODERATE_NEW">({0} Need Moderating)</Resource>
     <Resource tag="MODERATE_TITLE">Mostra la pagina di moderazione dove si possono visualizzare i messaggi non approvati e segnalati.</Resource>
+    <Resource tag="MYACTIVITY">My Activity</Resource>
+    <Resource tag="MYACTIVITY_TITLE">Shows your activity and Received Thanks, Mentions and Quotes.</Resource>
     <Resource tag="MYALBUMS">Album</Resource>
     <Resource tag="MYALBUMS_TITLE">Mostra la pagina dei tuoi album.</Resource>
     <Resource tag="MYPROFILE">Profilo</Resource>

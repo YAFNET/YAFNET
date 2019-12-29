@@ -214,27 +214,6 @@ namespace YAF.Core
                                                   : Convert.ToDateTime(this.Page["LastPendingBuddies"]);
 
         /// <summary>
-        /// The last received thanks.
-        /// </summary>
-        public int LastReceivedThanks => this.Page["LastReceivedThanks"].ToString().IsNotSet()
-                                            ? 0
-                                            : this.Page["LastReceivedThanks"].ToType<int>();
-
-        /// <summary>
-        /// The last mention.
-        /// </summary>
-        public int LastMention => this.Page["LastMention"].ToString().IsNotSet()
-                                            ? 0
-                                            : this.Page["LastMention"].ToType<int>();
-
-        /// <summary>
-        /// The last quoted.
-        /// </summary>
-        public int LastQuoted => this.Page["LastQuoted"].ToString().IsNotSet()
-                                      ? 0
-                                      : this.Page["LastQuoted"].ToType<int>();
-
-        /// <summary>
         ///   Gets LastUnreadPm.
         /// </summary>
         public DateTime LastUnreadPm => this.Page["LastUnreadPm"].ToString().IsNotSet()

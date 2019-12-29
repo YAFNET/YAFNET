@@ -2737,8 +2737,8 @@
   <Resource tag="ERROR_HOVERCARD">Sorry, no data found or something went wrong.</Resource>
   <Resource tag="ERROR_TWIT_HOVERCARD">Invalid username or you have exceeded Twitter request limit.&lt;br/&gt;&lt;small&gt;Please note, Twitter only allows 150 requests per hour.&lt;/small&gt;.</Resource>
   <Resource tag="FORUM">Forum</Resource>
-  <Resource tag="GO_LAST_POST">Go to last post</Resource>
-  <Resource tag="GO_LASTUNREAD_POST">Go to first unread</Resource>
+  <Resource tag="GO_LAST_POST">Got to the newest Posting in the topic</Resource>
+  <Resource tag="GO_LASTUNREAD_POST">Go to first unread Posting in the topic</Resource>
   <Resource tag="IN">in {0}</Resource>
   <Resource tag="INFORMATION">Information</Resource>
   <Resource tag="LAST_VISIT">Your last visit: {0}.</Resource>
@@ -4360,6 +4360,8 @@
   <Resource tag="POLLGROUP_CLOSEDBOUND">Bound voting</Resource>
   <Resource tag="POLLGROUP_CLOSEDBOUND_WARN">Don't show results, if the poll didn't expire.</Resource>
   <Resource tag="POLLGROUP_LIST">Choose an existing poll group:</Resource>
+   <Resource tag="POLLGROUP_LIST_BOARD">Board Poll:</Resource>
+   <Resource tag="POLLGROUP_LIST_BOARD_HELP">Choose an existing poll as board Poll</Resource>
   <Resource tag="POLLGROUPISBOUND">Your vote will be counted when you've voted in all the polls.</Resource>
   <Resource tag="POLLHEADER">Create Or Edit Poll</Resource>
   <Resource tag="POLLIMAGE_INVALID">The image or its path is invalid for {0}.</Resource>
@@ -5929,7 +5931,9 @@ Visit {forumname} at {forumlink}
   <Resource tag="MODERATE_TITLE">Shows the Moderate Page where you can view unapproved and reported Posts..</Resource>
   <Resource tag="MYALBUMS">My Albums</Resource>
   <Resource tag="MYALBUMS_TITLE">Shows the Albums Page which shows all your albums.</Resource>
-  <Resource tag="MYPROFILE">My Profile</Resource>
+  <Resource tag="MYPROFILE">My Account</Resource>
+   <Resource tag="MYACTIVITY">My Activity</Resource>
+   <Resource tag="MYACTIVITY_TITLE">Shows your activity and Received Thanks, Mentions and Quotes.</Resource>
   <Resource tag="MYPROFILE_TITLE">Shows the User Control Panel.</Resource>
   <Resource tag="MYTOPICS">My Topics</Resource>
   <Resource tag="MYTOPICS_TITLE">Shows the Active and Favorite Topics.</Resource>esource>

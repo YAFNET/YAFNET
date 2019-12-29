@@ -25,7 +25,7 @@
                 </div>
             </div>
             <div class="col py-2">
-                <div class="card">
+                <asp:Panel runat="server" ID="Card">
                     <div class="card-body">
                         <div class="float-right text-muted">
                             <YAF:DisplayDateTime id="DisplayDateTime" runat="server">
@@ -38,7 +38,7 @@
                             <asp:PlaceHolder runat="server" ID="Message"></asp:PlaceHolder>
                         </p>
                     </div>
-                </div>
+                </asp:Panel>
             </div>
         </div>
     </ItemTemplate>

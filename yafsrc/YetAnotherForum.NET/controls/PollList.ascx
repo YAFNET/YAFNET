@@ -30,39 +30,47 @@
             <p class="card-text"><%= this.GetText("total") %>: <%# DataBinder.Eval(Container.DataItem, "Total") %></p>
             </div>
             <div class="card-footer text-muted">
-                <asp:Label ID="PollNotification" Visible="false" runat="server" />
-                <div class="float-right">
-                    <asp:PlaceHolder id="PollCommandRow" runat="server">
-                        <YAF:ThemeButton ID="RemovePollAll" runat="server" Visible="false" 
-                                     CommandName="removeall" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "PollID") %>'
-                                Size="Small"
-                                     CssClass="mr-1"
-                                     TextLocalizedTag="REMOVEPOLL_ALL"
-                                     ReturnConfirmText='<%# this.GetText("POLLEDIT", "ASK_POLL_DELETE_ALL") %>'
-                                     Type="Danger"
-                                     Icon="trash"/>
-                        <YAF:ThemeButton ID="RemovePoll" runat="server" Visible="false" 
-                                     CommandName="remove" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "PollID") %>' 
-                                     CssClass="mr-1"
-                                     Size="Small"
-                                     TextLocalizedTag="REMOVEPOLL"
-                                     ReturnConfirmText='<%# this.GetText("POLLEDIT", "ASK_POLL_DELETE")  %>'
-                                     Type="Secondary"
-                                     Icon="trash"/>
-                        <YAF:ThemeButton ID="EditPoll" runat="server" Visible='<%#  this.CanEditPoll(DataBinder.Eval(Container.DataItem, "PollID")) %>'
-                                     CommandName="edit" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "PollID") %>'
-                                     Size="Small"
-                                     CssClass="mr-1" 
-                                     TextLocalizedTag="EDITPOLL"
-                                     Type="Secondary"
-                                     Icon="edit"/>
-                        <YAF:ThemeButton ID="CreatePoll" runat="server" Visible='<%# this.CanCreatePoll() %>'
-                                     CommandName="new" 
-                                     Size="Small" 
-                                     TextLocalizedTag="CREATEPOLL"
-                                     Icon="poll-h"
-                                     Type="Secondary" />
-                    </asp:PlaceHolder>
+                <div class="row">
+                    <div class="col">
+                        <asp:Label ID="PollNotification" Visible="false" runat="server" />
+                    </div>
+                    <div class="col-auto d-flex flex-wrap">
+                        <asp:PlaceHolder id="PollCommandRow" runat="server">
+                            <YAF:ThemeButton ID="EditPoll" runat="server" 
+                                             Visible='<%#  this.CanEditPoll(DataBinder.Eval(Container.DataItem, "PollID")) %>'
+                                             CommandName="edit" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "PollID") %>'
+                                             Size="Small"
+                                             CssClass="mr-1" 
+                                             TextLocalizedTag="EDITPOLL"
+                                             Type="Secondary"
+                                             Icon="edit"/>
+                            <YAF:ThemeButton ID="CreatePoll" runat="server" 
+                                             Visible='<%# this.CanCreatePoll() %>'
+                                             CommandName="new" 
+                                             Size="Small" 
+                                             CssClass="mr-1" 
+                                             TextLocalizedTag="CREATEPOLL"
+                                             Icon="poll-h"
+                                             Type="Secondary" />
+                            <YAF:ThemeButton ID="RemovePollAll" runat="server" 
+                                             Visible="false" 
+                                             CommandName="removeall" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "PollID") %>'
+                                             Size="Small"
+                                             CssClass="mr-1"
+                                             TextLocalizedTag="REMOVEPOLL_ALL"
+                                             ReturnConfirmText='<%# this.GetText("POLLEDIT", "ASK_POLL_DELETE_ALL") %>'
+                                             Type="Danger"
+                                             Icon="trash"/>
+                            <YAF:ThemeButton ID="RemovePoll" runat="server" 
+                                             Visible="false" 
+                                             CommandName="remove" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "PollID") %>' 
+                                             Size="Small"
+                                             TextLocalizedTag="REMOVEPOLL"
+                                             ReturnConfirmText='<%# this.GetText("POLLEDIT", "ASK_POLL_DELETE")  %>'
+                                             Type="Secondary"
+                                             Icon="trash"/>
+                        </asp:PlaceHolder>
+                    </div>
                 </div>
             </div>
             </div>

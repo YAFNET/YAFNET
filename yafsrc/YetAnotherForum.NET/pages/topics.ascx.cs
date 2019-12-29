@@ -84,18 +84,6 @@ namespace YAF.Pages
 
         #endregion
 
-        #region Properties
-
-        /// <summary>
-        /// Gets or sets the last post image TT.
-        /// </summary>
-        /// <value>
-        /// The last post image TT.
-        /// </value>
-        public string LastPostImageTT { get; set; }
-
-        #endregion
-
         #region Public Methods
 
         /// <summary>
@@ -238,8 +226,6 @@ namespace YAF.Pages
 
             this.ForumJumpHolder.Visible = this.Get<YafBoardSettings>().ShowForumJump
                                            && this.PageContext.Settings.LockedForum == 0;
-
-            this.LastPostImageTT = this.GetText("DEFAULT", "GO_LAST_POST");
 
             if (this.ForumSearchHolder.Visible)
             {

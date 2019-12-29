@@ -4543,6 +4543,8 @@ p&gt;هذا الرابط يجلب لك صفحة التي تطلب منك ادخ�
     <Resource tag="POLLGROUP_CLOSEDBOUND">تصويت  اجباري</Resource>
     <Resource tag="POLLGROUP_CLOSEDBOUND_WARN">Don't show results if group is open for voting</Resource>
     <Resource tag="POLLGROUP_LIST">إختيار  مجموعةالمستهدفة بالإستفتاء:</Resource>
+    <Resource tag="POLLGROUP_LIST_BOARD">Board Poll:</Resource>
+    <Resource tag="POLLGROUP_LIST_BOARD_HELP">Choose an existing poll as board Poll</Resource>
     <Resource tag="POLLGROUPISBOUND">Your vote will be counted when you'll vote in all the polls.</Resource>
     <Resource tag="POLLHEADER">إنشاء  او تعديل  إستفتاء</Resource>
     <Resource tag="POLLIMAGE_INVALID">الصورة او الامتداء  غير صحيح لـ {0}.</Resource>
@@ -6245,6 +6247,8 @@ Visit {forumname} at {forumlink}
     <Resource tag="MODERATE">الإشـراف </Resource>
     <Resource tag="MODERATE_NEW">({0} Need Moderating)</Resource>
     <Resource tag="MODERATE_TITLE">Shows the Moderate Page where you can view unapproved and reported Posts..</Resource>
+    <Resource tag="MYACTIVITY">My Activity</Resource>
+    <Resource tag="MYACTIVITY_TITLE">Shows your activity and Received Thanks, Mentions and Quotes.</Resource>
     <Resource tag="MYALBUMS">ألبوماتي</Resource>
     <Resource tag="MYALBUMS_TITLE">Shows the Albums Page which shows all your albums.</Resource>
     <Resource tag="MYPROFILE">الملف الشخصي</Resource>

@@ -117,6 +117,7 @@ namespace YAF.Controls
 
             var activity = (Activity)e.Item.DataItem;
 
+            var card = e.Item.FindControlAs<Panel>("Card");
             var iconLabel = e.Item.FindControlAs<Label>("Icon");
             var title = e.Item.FindControlAs<Literal>("Title");
             var messageHolder = e.Item.FindControlAs<PlaceHolder>("Message");
@@ -190,7 +191,11 @@ namespace YAF.Controls
                 message = this.GetTextFormatted("WAS_QUOTED_MSG", userLink.RenderToString(), topicLink.RenderToString());
             }
 
-            iconLabel.Text = $@"<i class=""fas fa-circle fa-stack-2x text-secondary""></i>
+            var notify = activity.Notification ? "text-success" : "text-secondary";
+
+            card.CssClass = activity.Notification ? "card shadow" : "card";
+
+            iconLabel.Text = $@"<i class=""fas fa-circle fa-stack-2x {notify}""></i>
                <i class=""fas fa-{icon} fa-stack-1x fa-inverse""></i>;";
 
             displayDateTime.DateTime = activity.Created;

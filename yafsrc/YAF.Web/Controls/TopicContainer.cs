@@ -289,6 +289,13 @@ namespace YAF.Web.Controls
                                                 </span>&nbsp;<span class=""popover-timeago"">{formattedDatetime}</span>
                          ";
 
+                infoLastPost.TextLocalizedTag = "by";
+                infoLastPost.TextLocalizedPage = "DEFAULT";
+                infoLastPost.ParamText0 = this
+                    .TopicRow[this.Get<YafBoardSettings>().EnableDisplayName
+                                  ? "LastUserDisplayName"
+                                  : "LastUserName"].ToString();
+
                 writer.Write(infoLastPost.RenderToString());
 
                 var gotoLastPost = new ThemeButton

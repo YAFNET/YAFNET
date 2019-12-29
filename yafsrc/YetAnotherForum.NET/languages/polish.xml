@@ -4546,6 +4546,8 @@ Spoiler Content
     <Resource tag="POLLGROUP_CLOSEDBOUND">Zamknięte rezultaty</Resource>
     <Resource tag="POLLGROUP_CLOSEDBOUND_WARN">Nie pokazuje rezultatów ankiety, dopóki ankieta nie wygaśnie</Resource>
     <Resource tag="POLLGROUP_LIST">Wybierz istniejącą grupę ankiet:</Resource>
+    <Resource tag="POLLGROUP_LIST_BOARD">Board Poll:</Resource>
+    <Resource tag="POLLGROUP_LIST_BOARD_HELP">Choose an existing poll as board Poll</Resource>
     <Resource tag="POLLGROUPISBOUND">Twój głos zostanie policzony, jeżeli zagłosujesz we wszystkich ankietach.</Resource>
     <Resource tag="POLLHEADER">Dodaj lub edytuj ankietę</Resource>
     <Resource tag="POLLIMAGE_INVALID">Obraz, lub jego ścieżka jest błędna dla {0}.</Resource>
@@ -6239,6 +6241,8 @@ Visit {forumname} at {forumlink}
     <Resource tag="MODERATE">Moderuj</Resource>
     <Resource tag="MODERATE_NEW">({0} Need Moderating)</Resource>
     <Resource tag="MODERATE_TITLE">Pokazuje stronę moderacyjną, na której możesz znaleźć listę niezaakceptowanych i zgłoszonych postów...</Resource>
+    <Resource tag="MYACTIVITY">My Activity</Resource>
+    <Resource tag="MYACTIVITY_TITLE">Shows your activity and Received Thanks, Mentions and Quotes.</Resource>
     <Resource tag="MYALBUMS">Moje albumy</Resource>
     <Resource tag="MYALBUMS_TITLE">Pokazuje stronę z listą Twoich albumów.</Resource>
     <Resource tag="MYPROFILE">Mój Profil</Resource>

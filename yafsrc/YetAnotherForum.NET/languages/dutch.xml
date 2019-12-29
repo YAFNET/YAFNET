@@ -4527,6 +4527,8 @@ Spoiler Inhoud
     <Resource tag="POLLGROUP_CLOSEDBOUND">Gekoppelde stemming</Resource>
     <Resource tag="POLLGROUP_CLOSEDBOUND_WARN">Geen resultaten laten zien als de Poll nog open is</Resource>
     <Resource tag="POLLGROUP_LIST">Kies een bestaande Poll groep</Resource>
+    <Resource tag="POLLGROUP_LIST_BOARD">Board Poll:</Resource>
+    <Resource tag="POLLGROUP_LIST_BOARD_HELP">Choose an existing poll as board Poll</Resource>
     <Resource tag="POLLGROUPISBOUND">Je stem wordt geteld als je in alle polls hebt gestemd.</Resource>
     <Resource tag="POLLHEADER">Maak of bewerk poll</Resource>
     <Resource tag="POLLIMAGE_INVALID">Het plaatje of de locatie is ongeldig voor {0}.</Resource>
@@ -6222,6 +6224,8 @@ Bezoek {forumname} op {forumlink}
     <Resource tag="MODERATE">Moderatie</Resource>
     <Resource tag="MODERATE_NEW">({0} Need Moderating)</Resource>
     <Resource tag="MODERATE_TITLE">Laat de Moderatiepagina zien, waar je gerapporteerde en niet-goedgekeurde berichten kunt zien.</Resource>
+    <Resource tag="MYACTIVITY">My Activity</Resource>
+    <Resource tag="MYACTIVITY_TITLE">Shows your activity and Received Thanks, Mentions and Quotes.</Resource>
     <Resource tag="MYALBUMS">Mijn Albums</Resource>
     <Resource tag="MYALBUMS_TITLE">Laat de Album-pagina met al je albums zien.</Resource>
     <Resource tag="MYPROFILE">Profiel</Resource>

@@ -162,6 +162,13 @@ namespace YAF.Controls
                                             DateTimeFormat.BothTopic,
                                             lastPostedDateTime);
 
+            info.TextLocalizedTag = "by";
+            info.TextLocalizedPage = "DEFAULT";
+            info.ParamText0 = this.Get<YafBoardSettings>().EnableDisplayName
+                                  ? currentRow["LastUserDisplayName"].ToString()
+                                  : currentRow["LastUserName"].ToString();
+            
+
             info.DataContent = $@"
                           {lastUserLink.RenderToString()}
                           <span class=""fa-stack"">

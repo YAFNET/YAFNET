@@ -13,8 +13,11 @@
             <div class="col">
                 <div class="card mb-3">
                     <div class="card-header">
-                        <i class="fa fa-address-card fa-fw text-secondary"></i>&nbsp;<YAF:LocalizedLabel ID="ControlPanel" runat="server" 
-                                                                                                 LocalizedTag="YOUR_ACCOUNT" />
+                        <YAF:Icon runat="server" 
+                                  IconName="address-card"
+                                  IconType="text-secondary"></YAF:Icon>
+                        <YAF:LocalizedLabel ID="ControlPanel" runat="server" 
+                                            LocalizedTag="YOUR_ACCOUNT" />
                     </div>
                     <div class="card-body">
                         <YAF:ProfileYourAccount ID="YourAccount" runat="server" />
@@ -27,9 +30,12 @@
                 <div class="col">
                     <div class="card mb-3">
                         <div class="card-header">
-                            <i class="fa fa-stream fa-fw text-secondary"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" 
-                                                                                                       LocalizedTag="ACTIVITY"
-                                                                                                       LocalizedPage="CP_PROFILE" />
+                            <YAF:Icon runat="server" 
+                                      IconName="stream"
+                                      IconType="text-secondary"></YAF:Icon>
+                            <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" 
+                                                LocalizedTag="ACTIVITY"
+                                                LocalizedPage="CP_PROFILE" />
                         </div>
                         <div class="card-body">
                             <YAF:ProfileTimeline runat="server"></YAF:ProfileTimeline>

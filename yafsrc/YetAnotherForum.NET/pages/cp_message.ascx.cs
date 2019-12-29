@@ -215,6 +215,8 @@ namespace YAF.Pages
 
                     this.PageLinks.AddLink(row["Subject"].ToString());
 
+                    this.Title.Text = row["Subject"].ToString();
+
                     this.Inbox.DataSource = dataView;
                 }
                 else

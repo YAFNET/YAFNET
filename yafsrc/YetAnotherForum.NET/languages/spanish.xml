@@ -4917,6 +4917,8 @@ public class Hello1
     <Resource tag="POLLGROUP_CLOSEDBOUND">Es obligatorio votar</Resource>
     <Resource tag="POLLGROUP_CLOSEDBOUND_WARN">No mostrar resultados si la encuesta no ha finalizado.</Resource>
     <Resource tag="POLLGROUP_LIST">Seleccionar un grupo de encuesta existente:</Resource>
+    <Resource tag="POLLGROUP_LIST_BOARD">Board Poll:</Resource>
+    <Resource tag="POLLGROUP_LIST_BOARD_HELP">Choose an existing poll as board Poll</Resource>
     <Resource tag="POLLGROUPISBOUND">Tu voto será contabilizado cuando hayas votado en todas las encuestas.</Resource>
     <Resource tag="POLLHEADER">Crear o editar encuesta</Resource>
     <Resource tag="POLLIMAGE_INVALID">La imagen o su dirección no es válida para {0}.</Resource>
@@ -6607,6 +6609,8 @@ Visita {forumname} en {forumlink}
     <Resource tag="MODERATE">Moderar</Resource>
     <Resource tag="MODERATE_NEW">({0} Need Moderating)</Resource>
     <Resource tag="MODERATE_TITLE">Muestra la página de moderación donde puedes ver publicaciones no aprobadas o denunciadas.</Resource>
+    <Resource tag="MYACTIVITY">My Activity</Resource>
+    <Resource tag="MYACTIVITY_TITLE">Shows your activity and Received Thanks, Mentions and Quotes.</Resource>
     <Resource tag="MYALBUMS">Mis álbumes</Resource>
     <Resource tag="MYALBUMS_TITLE">Muestra la página con tus álbums.</Resource>
     <Resource tag="MYPROFILE">Mi perfil</Resource>

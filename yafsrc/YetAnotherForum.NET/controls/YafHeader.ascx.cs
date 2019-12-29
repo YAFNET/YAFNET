@@ -195,6 +195,8 @@ namespace YAF.Controls
                 link.Attributes.Add("rel", "nofollow");
             }
 
+            link.Attributes.Add("data-toggle", "tooltip");
+
             var unreadButton = new HtmlGenericControl("span");
 
             if (showUnread)
@@ -449,10 +451,31 @@ namespace YAF.Controls
                 return;
             }
 
-            // My Profile
-            this.MyProfile.ToolTip = this.GetText("TOOLBAR", "MYPROFILE_TITLE");
-            this.MyProfile.NavigateUrl = YafBuildLink.GetLink(ForumPages.cp_profile);
-            this.MyProfile.Text = $"<i class=\"fa fa-address-card fa-fw\"></i>  {this.GetText("TOOLBAR", "MYPROFILE")}";
+            var unreadActivity = this.PageContext.Mention + this.PageContext.Quoted + this.PageContext.ReceivedThanks;
+
+            RenderMenuItem(
+                this.MyProfile,
+                "dropdown-item",
+                this.GetText("TOOLBAR", "MYPROFILE"),
+                this.GetText("TOOLBAR", "MYPROFILE_TITLE"),
+                YafBuildLink.GetLink(ForumPages.cp_profile),
+                false,
+                unreadActivity > 0,
+                unreadActivity.ToString(),
+                this.GetTextFormatted("TOOLBAR", "NEWPM", this.PageContext.UnreadPrivate),
+                "address-card");
+
+            RenderMenuItem(
+                this.MyActicity,
+                "dropdown-item",
+                this.GetText("TOOLBAR", "MYACTIVITY"),
+                this.GetText("TOOLBAR", "MYACTIVITY_TITLE"),
+                YafBuildLink.GetLink(ForumPages.cp_profile),
+                false,
+                false,
+                null,
+                null,
+                "stream");
 
             // My Inbox
             if (this.Get<YafBoardSettings>().AllowPrivateMessages)
@@ -528,7 +551,16 @@ namespace YAF.Controls
             // Logged in as : username
             this.LoggedInUserPanel.Visible = true;
 
-            this.UnreadPlaceHolder.Visible = this.PageContext.UnreadPrivate + this.PageContext.PendingBuddies > 0;
+            this.UserIcon.IconName = "user";
+
+            var unreadCount = this.PageContext.UnreadPrivate + this.PageContext.PendingBuddies
+                                                             + this.PageContext.Mention
+                                                             + this.PageContext.Quoted
+                                                             + this.PageContext.ReceivedThanks;
+
+            this.UnreadLabel.Text = unreadCount.ToString();
+
+            this.UnreadPlaceHolder.Visible = unreadCount > 0;
         }
 
         /// <summary>

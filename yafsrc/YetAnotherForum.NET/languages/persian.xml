@@ -4609,6 +4609,8 @@
     <Resource tag="POLLGROUP_CLOSEDBOUND">محدودیت رای</Resource>
     <Resource tag="POLLGROUP_CLOSEDBOUND_WARN">در صورت عدم انقضای نظر سنجی نتایج را نمایش نده.</Resource>
     <Resource tag="POLLGROUP_LIST">گروه نظر سنجی را انتخاب کنید:</Resource>
+    <Resource tag="POLLGROUP_LIST_BOARD">Board Poll:</Resource>
+    <Resource tag="POLLGROUP_LIST_BOARD_HELP">Choose an existing poll as board Poll</Resource>
     <Resource tag="POLLGROUPISBOUND">رای شما زمانی شمارش خواهشد شد که در تمام نظر سنجی ها رای داده ابشید.</Resource>
     <Resource tag="POLLHEADER">ساخت یا ویرایش نظر سنجی</Resource>
     <Resource tag="POLLIMAGE_INVALID">تصویر یا مسیر آن برای {0} نا معتبر است</Resource>
@@ -6280,6 +6282,8 @@
     <Resource tag="MODERATE">مدیریت</Resource>
     <Resource tag="MODERATE_NEW">({0} Need Moderating)</Resource>
     <Resource tag="MODERATE_TITLE">نمایش صفحه مدیر زمانی که می توانید موضوعات گزارش شده و تائید نشده را ببینید</Resource>
+    <Resource tag="MYACTIVITY">My Activity</Resource>
+    <Resource tag="MYACTIVITY_TITLE">Shows your activity and Received Thanks, Mentions and Quotes.</Resource>
     <Resource tag="MYALBUMS">آلبوم‌های من</Resource>
     <Resource tag="MYALBUMS_TITLE">نمایش صفحه آلبوم ها برای نمایش تمام آلبوم ها</Resource>
     <Resource tag="MYPROFILE">پروفایل من</Resource>

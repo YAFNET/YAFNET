@@ -1059,7 +1059,7 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
             return $@"{Config.JQueryAlias}('.forum-mods-popover').popover({{
                            title: '{title}',
                            html: true,
-                           trigger: 'focus click',
+                           trigger: 'focus hover',
                            template: '<div class=""popover"" role=""tooltip""><h3 class=""popover-header""></h3><div class=""arrow""></div><div class=""popover-body popover-body-scrollable""></div></div>'
                 }});";
         }
