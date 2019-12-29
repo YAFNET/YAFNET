@@ -1,7 +1,6 @@
+using J2N.Threading.Atomic;
 using YAF.Lucene.Net.Support;
-using System;
 using System.Collections.Generic;
-using System.Collections.Specialized;
 
 namespace YAF.Lucene.Net.Index
 {
@@ -165,17 +164,17 @@ namespace YAF.Lucene.Net.Index
         {
             if (VERBOSE_DELETES)
             {
-                return "gen=" + gen + " numTerms=" + numTermDeletes + ", terms=" + Arrays.ToString(terms) 
-                    + ", queries=" + Arrays.ToString(queries) + ", docIDs=" + Arrays.ToString(docIDs) 
-                    + ", numericUpdates=" + Arrays.ToString(numericUpdates) 
-                    + ", binaryUpdates=" + Arrays.ToString(binaryUpdates) + ", bytesUsed=" + bytesUsed;
+                return "gen=" + gen + " numTerms=" + numTermDeletes + ", terms=" + string.Format(J2N.Text.StringFormatter.InvariantCulture, "{0}", terms) 
+                    + ", queries=" + string.Format(J2N.Text.StringFormatter.InvariantCulture, "{0}", queries) + ", docIDs=" + string.Format(J2N.Text.StringFormatter.InvariantCulture, "{0}", docIDs) 
+                    + ", numericUpdates=" + string.Format(J2N.Text.StringFormatter.InvariantCulture, "{0}", numericUpdates) 
+                    + ", binaryUpdates=" + string.Format(J2N.Text.StringFormatter.InvariantCulture, "{0}", binaryUpdates) + ", bytesUsed=" + bytesUsed;
             }
             else
             {
                 string s = "gen=" + gen;
-                if (numTermDeletes.Get() != 0)
+                if (numTermDeletes != 0)
                 {
-                    s += " " + numTermDeletes.Get() + " deleted terms (unique count=" + terms.Count + ")";
+                    s += " " + numTermDeletes.Value + " deleted terms (unique count=" + terms.Count + ")";
                 }
                 if (queries.Count != 0)
                 {
@@ -185,17 +184,17 @@ namespace YAF.Lucene.Net.Index
                 {
                     s += " " + docIDs.Count + " deleted docIDs";
                 }
-                if (numNumericUpdates.Get() != 0)
+                if (numNumericUpdates != 0)
                 {
-                    s += " " + numNumericUpdates.Get() + " numeric updates (unique count=" + numericUpdates.Count + ")";
+                    s += " " + numNumericUpdates + " numeric updates (unique count=" + numericUpdates.Count + ")";
                 }
-                if (numBinaryUpdates.Get() != 0)
+                if (numBinaryUpdates != 0)
                 {
-                    s += " " + numBinaryUpdates.Get() + " binary updates (unique count=" + binaryUpdates.Count + ")";
+                    s += " " + numBinaryUpdates + " binary updates (unique count=" + binaryUpdates.Count + ")";
                 }
-                if (bytesUsed.Get() != 0)
+                if (bytesUsed != 0)
                 {
-                    s += " bytesUsed=" + bytesUsed.Get();
+                    s += " bytesUsed=" + bytesUsed;
                 }
 
                 return s;
@@ -324,10 +323,10 @@ namespace YAF.Lucene.Net.Index
             docIDs.Clear();
             numericUpdates.Clear();
             binaryUpdates.Clear();
-            numTermDeletes.Set(0);
-            numNumericUpdates.Set(0);
-            numBinaryUpdates.Set(0);
-            bytesUsed.Set(0);
+            numTermDeletes.Value = 0;
+            numNumericUpdates.Value = 0;
+            numBinaryUpdates.Value = 0;
+            bytesUsed.Value = 0;
         }
 
         internal virtual bool Any()

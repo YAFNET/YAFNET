@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Runtime.CompilerServices;
 
 namespace YAF.Lucene.Net.Search
 {
@@ -206,7 +207,11 @@ namespace YAF.Lucene.Net.Search
 
             internal readonly FieldCacheImpl wrapper;
 
-            internal IDictionary<object, IDictionary<CacheKey, object>> readerCache = new WeakDictionary<object, IDictionary<CacheKey, object>>();
+#if FEATURE_CONDITIONALWEAKTABLE_ENUMERATOR
+            internal ConditionalWeakTable<object, IDictionary<CacheKey, object>> readerCache = new ConditionalWeakTable<object, IDictionary<CacheKey, object>>();
+#else
+            internal WeakDictionary<object, IDictionary<CacheKey, object>> readerCache = new WeakDictionary<object, IDictionary<CacheKey, object>>();
+#endif
 
             protected abstract object CreateValue(AtomicReader reader, CacheKey key, bool setDocsWithField);
 
@@ -229,20 +234,18 @@ namespace YAF.Lucene.Net.Search
                 object readerKey = reader.CoreCacheKey;
                 lock (readerCache)
                 {
-                    IDictionary<CacheKey, object> innerCache = readerCache[readerKey];
-                    if (innerCache == null)
+                    if (!readerCache.TryGetValue(readerKey, out IDictionary<CacheKey, object> innerCache) || innerCache == null)
                     {
                         // First time this reader is using FieldCache
                         innerCache = new Dictionary<CacheKey, object>();
-                        readerCache[readerKey] = innerCache;
+                        readerCache.AddOrUpdate(readerKey, innerCache);
                         wrapper.InitReader(reader);
                     }
                     // LUCENENET NOTE: We declare a temp variable here so we 
                     // don't overwrite value variable with the null
                     // that will result when this if block succeeds; otherwise
                     // we won't have a value to put in the cache.
-                    object temp;
-                    if (!innerCache.TryGetValue(key, out temp))
+                    if (!innerCache.TryGetValue(key, out object temp))
                     {
                         innerCache[key] = value;
                     }
@@ -265,7 +268,7 @@ namespace YAF.Lucene.Net.Search
                     {
                         // First time this reader is using FieldCache
                         innerCache = new Dictionary<CacheKey, object>();
-                        readerCache[readerKey] = innerCache;
+                        readerCache.AddOrUpdate(readerKey, innerCache);
                         wrapper.InitReader(reader);
                         value = null;
                     }
@@ -1181,7 +1184,7 @@ namespace YAF.Lucene.Net.Search
 
             public override float Get(int docID)
             {
-                return Number.Int32BitsToSingle((int)valuesIn.Get(docID));
+                return J2N.BitConversion.Int32BitsToSingle((int)valuesIn.Get(docID));
             }
         }
 
@@ -1535,7 +1538,7 @@ namespace YAF.Lucene.Net.Search
 
             public override double Get(int docID)
             {
-                return BitConverter.Int64BitsToDouble(valuesIn.Get(docID));
+                return J2N.BitConversion.Int64BitsToDouble(valuesIn.Get(docID));
             }
         }
 

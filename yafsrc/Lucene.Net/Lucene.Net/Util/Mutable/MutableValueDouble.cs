@@ -74,7 +74,7 @@ namespace YAF.Lucene.Net.Util.Mutable
 
         public override int GetHashCode()
         {
-            long x = BitConverter.DoubleToInt64Bits(Value);
+            long x = J2N.BitConversion.DoubleToInt64Bits(Value);
             return (int)x + (int)((long)((ulong)x >> 32));
         }
     }

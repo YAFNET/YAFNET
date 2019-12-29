@@ -1,3 +1,4 @@
+using J2N.Threading.Atomic;
 using YAF.Lucene.Net.Support;
 using System;
 using System.Collections.Generic;
@@ -149,7 +150,7 @@ namespace YAF.Lucene.Net.Util
                     nextCount = 1000000;
                 }
 
-                countUntilPurge.Set(nextCount);
+                countUntilPurge.Value = nextCount;
             }
         }
 

@@ -41,6 +41,10 @@
     <AssemblyVersion>4.8.0.0</AssemblyVersion>
     <FileVersion>4.8.0.0</FileVersion>
   </PropertyGroup>
+  
+  <ItemGroup>
+    <PackageReference Include="J2N" Version="1.0.0-beta-0001" />
+  </ItemGroup>
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
     <PackageReference Include="Microsoft.CSharp" Version="4.6.0" />
@@ -75,6 +79,10 @@
   <PropertyGroup Condition=" '$(TargetFramework)' == 'net472' ">
     <DefineConstants>$(DefineConstants);FEATURE_CONCURRENTMERGESCHEDULER;FEATURE_THREADPOOL_UNSAFEQUEUEWORKITEM;FEATURE_FILESTREAM_LOCK;FEATURE_SERIALIZABLE;FEATURE_SERIALIZABLE_EXCEPTIONS</DefineConstants>
     <DebugType>full</DebugType>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net472|AnyCPU'">
+    <OutputPath></OutputPath>
   </PropertyGroup>
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'net472' ">

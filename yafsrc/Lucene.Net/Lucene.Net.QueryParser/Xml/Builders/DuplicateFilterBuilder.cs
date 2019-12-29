@@ -1,4 +1,4 @@
-﻿/*using YAF.Lucene.Net.Sandbox.Queries;
+﻿using YAF.Lucene.Net.Sandbox.Queries;
 using YAF.Lucene.Net.Search;
 using System;
 using System.Xml;
@@ -21,7 +21,7 @@ namespace YAF.Lucene.Net.QueryParsers.Xml.Builders
      * See the License for the specific language governing permissions and
      * limitations under the License.
      */
-/*
+
     /// <summary>
     /// Builder for <see cref="DuplicateFilter"/>
     /// </summary>
@@ -64,4 +64,3 @@ namespace YAF.Lucene.Net.QueryParsers.Xml.Builders
         }
     }
 }
-*/

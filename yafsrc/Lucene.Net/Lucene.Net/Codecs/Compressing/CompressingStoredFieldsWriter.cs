@@ -1,3 +1,4 @@
+using J2N;
 using YAF.Lucene.Net.Codecs.Lucene40;
 using YAF.Lucene.Net.Documents;
 using YAF.Lucene.Net.Index;
@@ -346,10 +347,10 @@ namespace YAF.Lucene.Net.Codecs.Compressing
                         bufferedDocs.WriteInt64(field.GetInt64Value().Value);
                         break;
                     case NumericFieldType.SINGLE:
-                        bufferedDocs.WriteInt32(Number.SingleToInt32Bits(field.GetSingleValue().Value));
+                        bufferedDocs.WriteInt32(BitConversion.SingleToInt32Bits(field.GetSingleValue().Value));
                         break;
                     case NumericFieldType.DOUBLE:
-                        bufferedDocs.WriteInt64(BitConverter.DoubleToInt64Bits(field.GetDoubleValue().Value));
+                        bufferedDocs.WriteInt64(BitConversion.DoubleToInt64Bits(field.GetDoubleValue().Value));
                         break;
                     default:
                         throw new Exception("Cannot get here");

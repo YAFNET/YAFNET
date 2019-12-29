@@ -1,3 +1,4 @@
+using J2N.Numerics;
 using YAF.Lucene.Net.Support;
 using System;
 using System.Diagnostics;
@@ -47,7 +48,7 @@ namespace YAF.Lucene.Net.Codecs.Compressing
 
         private static int Hash(int i, int hashBits)
         {
-            return Number.URShift((i * -1640531535), (32 - hashBits));
+            return (i * -1640531535).TripleShift(32 - hashBits);
         }
 
         private static int HashHC(int i)
@@ -227,7 +228,7 @@ namespace YAF.Lucene.Net.Codecs.Compressing
             internal void Reset(int len)
             {
                 int bitsPerOffset = PackedInt32s.BitsRequired(len - LAST_LITERALS);
-                int bitsPerOffsetLog = 32 - Number.NumberOfLeadingZeros(bitsPerOffset - 1);
+                int bitsPerOffsetLog = 32 - (bitsPerOffset - 1).LeadingZeroCount();
                 hashLog = MEMORY_USAGE + 3 - bitsPerOffsetLog;
                 if (hashTable == null || hashTable.Count < 1 << hashLog || hashTable.BitsPerValue < bitsPerOffset)
                 {

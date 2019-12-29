@@ -1,4 +1,4 @@
-﻿/*using YAF.Lucene.Net.Analysis;
+﻿using YAF.Lucene.Net.Analysis;
 using YAF.Lucene.Net.Sandbox.Queries;
 using YAF.Lucene.Net.Search;
 using System;
@@ -26,7 +26,7 @@ namespace YAF.Lucene.Net.QueryParsers.Xml.Builders
      * See the License for the specific language governing permissions and
      * limitations under the License.
      */
-/*
+
     /// <summary>
     /// Builder for <see cref="FuzzyLikeThisQuery"/>
     /// </summary>
@@ -68,4 +68,4 @@ namespace YAF.Lucene.Net.QueryParsers.Xml.Builders
             return fbq;
         }
     }
-}*/
+}

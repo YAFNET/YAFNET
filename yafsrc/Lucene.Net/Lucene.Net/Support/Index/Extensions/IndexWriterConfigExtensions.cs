@@ -1,8 +1,7 @@
 ﻿using YAF.Lucene.Net.Codecs;
-using YAF.Lucene.Net.Index;
 using YAF.Lucene.Net.Search.Similarities;
 
-namespace YAF.Lucene.Net.Support
+namespace YAF.Lucene.Net.Index.Extensions
 {
     /*
 	 * Licensed to the Apache Software Foundation (ASF) under one or more

@@ -1,4 +1,4 @@
-using YAF.Lucene.Net.Support;
+using J2N.Numerics;
 using System;
 
 namespace YAF.Lucene.Net.Util
@@ -79,11 +79,11 @@ namespace YAF.Lucene.Net.Util
             {
                 return a;
             }
-            int commonTrailingZeros = Number.NumberOfTrailingZeros(a | b);
-            a = (long)((ulong)a >> Number.NumberOfTrailingZeros(a));
+            int commonTrailingZeros = (a | b).TrailingZeroCount();
+            a = (long)((ulong)a >> a.TrailingZeroCount());
             while (true)
             {
-                b = (long)((ulong)b >> Number.NumberOfTrailingZeros(b));
+                b = (long)((ulong)b >> b.TrailingZeroCount());
                 if (a == b)
                 {
                     break;
@@ -117,7 +117,7 @@ namespace YAF.Lucene.Net.Util
         {
             double sign;
             // check the sign bit of the raw representation to handle -0
-            if (BitConverter.DoubleToInt64Bits(a) < 0)
+            if (J2N.BitConversion.DoubleToRawInt64Bits(a) < 0)
             {
                 a = Math.Abs(a);
                 sign = -1.0d;
@@ -162,7 +162,7 @@ namespace YAF.Lucene.Net.Util
         {
             double mult;
             // check the sign bit of the raw representation to handle -0
-            if (BitConverter.DoubleToInt64Bits(a) < 0)
+            if (J2N.BitConversion.DoubleToRawInt64Bits(a) < 0)
             {
                 a = Math.Abs(a);
                 mult = -0.5d;

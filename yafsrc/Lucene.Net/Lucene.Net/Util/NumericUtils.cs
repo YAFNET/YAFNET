@@ -1,4 +1,4 @@
-using YAF.Lucene.Net.Support;
+using J2N.Numerics;
 using System;
 
 namespace YAF.Lucene.Net.Util
@@ -162,7 +162,7 @@ namespace YAF.Lucene.Net.Util
                 bytes.Bytes = new byte[NumericUtils.BUF_SIZE_INT64]; // use the max
             }
             bytes.Bytes[0] = (byte)(SHIFT_START_INT64 + shift);
-            ulong sortableBits = BitConverter.ToUInt64(BitConverter.GetBytes(val), 0) ^ 0x8000000000000000L;
+            ulong sortableBits = BitConverter.ToUInt64(BitConverter.GetBytes(val), 0) ^ 0x8000000000000000L; // LUCENENET TODO: Performance - Benchmark this
             sortableBits = sortableBits >> shift;
             while (nChars > 0)
             {
@@ -198,13 +198,13 @@ namespace YAF.Lucene.Net.Util
             }
             bytes.Bytes[0] = (byte)(SHIFT_START_INT32 + shift);
             int sortableBits = val ^ unchecked((int)0x80000000);
-            sortableBits = Number.URShift(sortableBits, shift);
+            sortableBits = sortableBits.TripleShift(shift);
             while (nChars > 0)
             {
                 // Store 7 bits per byte for compatibility
                 // with UTF-8 encoding of terms
                 bytes.Bytes[nChars--] = (byte)(sortableBits & 0x7f);
-                sortableBits = (int)((uint)sortableBits >> 7);
+                sortableBits = sortableBits.TripleShift(7);
             }
         }
 
@@ -265,7 +265,7 @@ namespace YAF.Lucene.Net.Util
                 }
                 sortableBits |= (byte)b;
             }
-            return (long)((ulong)(sortableBits << GetPrefixCodedInt64Shift(val)) ^ 0x8000000000000000L);
+            return (long)((ulong)(sortableBits << GetPrefixCodedInt64Shift(val)) ^ 0x8000000000000000L); // LUCENENET TODO: Is the casting here necessary?
         }
 
         /// <summary>
@@ -307,7 +307,7 @@ namespace YAF.Lucene.Net.Util
         /// <seealso cref="SortableInt64ToDouble(long)"/>
         public static long DoubleToSortableInt64(double val)
         {
-            long f = Number.DoubleToInt64Bits(val);
+            long f = J2N.BitConversion.DoubleToInt64Bits(val);
             if (f < 0)
             {
                 f ^= 0x7fffffffffffffffL;
@@ -327,7 +327,7 @@ namespace YAF.Lucene.Net.Util
             {
                 val ^= 0x7fffffffffffffffL;
             }
-            return BitConverter.Int64BitsToDouble(val);
+            return J2N.BitConversion.Int64BitsToDouble(val);
         }
 
         /// <summary>
@@ -343,7 +343,7 @@ namespace YAF.Lucene.Net.Util
         /// <seealso cref="SortableInt32ToSingle(int)"/>
         public static int SingleToSortableInt32(float val)
         {
-            int f = Number.SingleToInt32Bits(val);
+            int f = J2N.BitConversion.SingleToInt32Bits(val);
             if (f < 0)
             {
                 f ^= 0x7fffffff;
@@ -363,7 +363,7 @@ namespace YAF.Lucene.Net.Util
             {
                 val ^= 0x7fffffff;
             }
-            return Number.Int32BitsToSingle(val);
+            return J2N.BitConversion.Int32BitsToSingle(val);
         }
 
         /// <summary>

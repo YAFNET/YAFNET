@@ -114,9 +114,8 @@ namespace YAF.Lucene.Net.Search.Highlight
 
             foreach (WeightedSpanTerm t in weightedTerms)
             {
-                WeightedSpanTerm existingTerm = fieldWeightedSpanTerms[t.Term];
-
-                if ((existingTerm == null) ||
+                if (!fieldWeightedSpanTerms.TryGetValue(t.Term, out WeightedSpanTerm existingTerm) ||
+                    (existingTerm == null) ||
                     (existingTerm.Weight < t.Weight))
                 {
                     // if a term is defined more than once, always use the highest
@@ -241,7 +240,7 @@ namespace YAF.Lucene.Net.Search.Highlight
         /// <seealso cref="IScorer.StartFragment"/>
         public virtual void StartFragment(TextFragment newFragment)
         {
-            foundTerms = Support.Compatibility.SetFactory.CreateHashSet<string>();
+            foundTerms = new HashSet<string>();
             totalScore = 0;
         }
 

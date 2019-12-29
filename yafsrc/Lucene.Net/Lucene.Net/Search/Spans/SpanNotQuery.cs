@@ -1,7 +1,7 @@
-using YAF.Lucene.Net.Support;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Number = J2N.Numerics.BitOperationExtensions;
 
 namespace YAF.Lucene.Net.Search.Spans
 {

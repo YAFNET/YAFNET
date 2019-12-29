@@ -1,6 +1,5 @@
 ﻿using YAF.Lucene.Net.Index;
 using YAF.Lucene.Net.Queries.Function.DocValues;
-using YAF.Lucene.Net.Support;
 using System.Collections;
 
 namespace YAF.Lucene.Net.Queries.Function.ValueSources
@@ -99,7 +98,7 @@ namespace YAF.Lucene.Net.Queries.Function.ValueSources
 
         public override int GetHashCode()
         {
-            return Number.SingleToInt32Bits(constant) * 31;
+            return J2N.BitConversion.SingleToInt32Bits(constant) * 31;
         }
 
         public override bool Equals(object o)

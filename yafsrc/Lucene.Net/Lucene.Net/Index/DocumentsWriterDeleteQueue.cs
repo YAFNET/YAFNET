@@ -351,10 +351,7 @@ namespace YAF.Lucene.Net.Index
             }
         }
 
-        public int NumGlobalTermDeletes
-        {
-            get { return globalBufferedUpdates.numTermDeletes.Get(); }
-        }
+        public int NumGlobalTermDeletes => globalBufferedUpdates.numTermDeletes;
 
         internal void Clear()
         {
@@ -524,10 +521,7 @@ namespace YAF.Lucene.Net.Index
             }
         }
 
-        public long BytesUsed
-        {
-            get { return globalBufferedUpdates.bytesUsed.Get(); }
-        }
+        public long BytesUsed => globalBufferedUpdates.bytesUsed;
 
         public override string ToString()
         {

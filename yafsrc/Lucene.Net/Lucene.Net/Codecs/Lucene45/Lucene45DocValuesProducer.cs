@@ -1,5 +1,5 @@
+using J2N.Threading.Atomic;
 using YAF.Lucene.Net.Index;
-using YAF.Lucene.Net.Support;
 using YAF.Lucene.Net.Util;
 using System;
 using System.Collections.Generic;
@@ -357,10 +357,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene45
             return GetNumeric(entry);
         }
 
-        public override long RamBytesUsed()
-        {
-            return ramBytesUsed.Get();
-        }
+        public override long RamBytesUsed() => ramBytesUsed;
 
         public override void CheckIntegrity()
         {

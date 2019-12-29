@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using J2N.IO;
+using System.IO;
 
 namespace YAF.Lucene.Net.Support.IO
 {

@@ -521,7 +521,7 @@ namespace YAF.Lucene.Net.Store
                             base.Dispose(disposing);
                             // LUCENENET specific - file.Flush(flushToDisk: true) required in .NET for concurrency
                             // Part of a solution suggested by Vincent Van Den Berghe: http://apache.markmail.org/message/hafnuhq2ydhfjmi2
-                            file.Flush(true);
+                            file.Flush(flushToDisk: true);
                         }
                         catch (IOException ioe)
                         {

@@ -1,6 +1,6 @@
 ﻿using YAF.Lucene.Net.Index;
 
-namespace YAF.Lucene.Net.Documents
+namespace YAF.Lucene.Net.Documents.Extensions
 {
     /*
      * Licensed to the Apache Software Foundation (ASF) under one or more

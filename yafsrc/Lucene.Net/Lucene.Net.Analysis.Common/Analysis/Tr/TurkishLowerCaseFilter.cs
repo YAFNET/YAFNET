@@ -1,8 +1,8 @@
-﻿using YAF.Lucene.Net.Analysis.TokenAttributes;
+﻿using J2N.Globalization;
+using YAF.Lucene.Net.Analysis.TokenAttributes;
 using YAF.Lucene.Net.Support;
 using System;
 using System.Globalization;
-using System.Threading;
 
 namespace YAF.Lucene.Net.Analysis.Tr
 {
