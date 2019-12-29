@@ -186,7 +186,7 @@ namespace YAF.Lucene.Net.Search.Spans
                 this.outerInstance = outerInstance;
             }
 
-            internal override bool LessThan(Spans spans1, Spans spans2)
+            protected internal override bool LessThan(Spans spans1, Spans spans2)
             {
                 if (spans1.Doc == spans2.Doc)
                 {

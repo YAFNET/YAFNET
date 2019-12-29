@@ -253,7 +253,7 @@ namespace YAF.Lucene.Net.Util
             {
             }
 
-            internal override bool LessThan(Iterator a, Iterator b)
+            protected internal override bool LessThan(Iterator a, Iterator b)
             {
                 return a.wordNum < b.wordNum;
             }
