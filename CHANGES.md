@@ -1,6 +1,12 @@
 YetAnotherForum.NET Changelog
 ====================
 
+# YetAnotherForum.NET v2.3.0.04
+* [FIXED] selecting forum image
+* [FIXED #501] error after edit moderated post
+* [FIXED] sending multiple digest mails
+* [FIXED] deleting role
+
 # YetAnotherForum.NET v2.3.0.03
 * [FIXED #492] relative time tooltips
 * [FIXED] deleting of private messages
