@@ -27,15 +27,12 @@ namespace YAF.Modules
 
     using System;
 
-    using YAF.Configuration;
     using YAF.Core;
-    using YAF.Core.Model;
     using YAF.Dialogs;
     using YAF.Types;
     using YAF.Types.Attributes;
     using YAF.Types.Constants;
     using YAF.Types.Interfaces;
-    using YAF.Types.Models;
     using YAF.Types.Objects;
 
     #endregion
@@ -59,39 +56,6 @@ namespace YAF.Modules
         #endregion
 
         #region Methods
-
-        /// <summary>
-        /// The display received thanks popup.
-        /// </summary>
-        /// <returns>
-        /// The <see cref="bool"/>.
-        /// </returns>
-        protected bool DisplayReceivedThanksPopup()
-        {
-            return this.PageContext.ReceivedThanks > 0 && this.Get<YafBoardSettings>().EnableActivityStream;
-        }
-
-        /// <summary>
-        /// The display mention popup.
-        /// </summary>
-        /// <returns>
-        /// The <see cref="bool"/>.
-        /// </returns>
-        protected bool DisplayMentionPopup()
-        {
-            return this.PageContext.Mention > 0 && this.Get<YafBoardSettings>().EnableActivityStream;
-        }
-
-        /// <summary>
-        /// The display quoted popup.
-        /// </summary>
-        /// <returns>
-        /// The <see cref="bool"/>.
-        /// </returns>
-        protected bool DisplayQuotedPopup()
-        {
-            return this.PageContext.Quoted > 0 && this.Get<YafBoardSettings>().EnableActivityStream;
-        }
 
         /// <summary>
         /// Displays the PM popup.
@@ -135,96 +99,6 @@ namespace YAF.Modules
             var notification = (DialogBox)this.PageContext.CurrentForumPage.Notification;
 
             // This happens when user logs in
-            if (this.DisplayQuotedPopup() && !this.PageContext.ForumPageType.Equals(ForumPages.posts))
-            {
-                notification.Show(
-                    this.GetTextFormatted("UNREAD_QUOTED_MSG", this.PageContext.Quoted),
-                    this.GetText("COMMON", "UNREAD_QUOTED_TITLE"),
-                    new DialogButton
-                                  {
-                                      Text = this.GetText("COMMON", "YES"),
-                                      CssClass = "btn btn-success btn-sm",
-                                      ForumPageLink = new ForumLink
-                                                          {
-                                                              ForumPage = ForumPages.posts,
-                                                              ForumLinkFormat = "m={0}#post{0}",
-                                                              ForumLinkArgs = new object[] { this.PageContext.LastQuoted }
-                                                          }
-                                  },
-                    new DialogButton
-                                      {
-                                          Text = this.GetText("COMMON", "NO"),
-                                          CssClass = "btn btn-danger btn-sm",
-                                          ForumPageLink =
-                                              new ForumLink { ForumPage = YafContext.Current.ForumPageType }
-                                      });
-
-                this.GetRepository<Activity>().UpdateNotification(this.PageContext.PageUserID, this.PageContext.LastQuoted);
-
-                // Avoid Showing Both Popups
-                return;
-            }
-
-            if (this.DisplayReceivedThanksPopup() && !this.PageContext.ForumPageType.Equals(ForumPages.posts))
-            {
-                notification.Show(
-                    this.GetTextFormatted("UNREAD_THANKS_MSG", this.PageContext.ReceivedThanks),
-                    this.GetText("COMMON", "UNREAD_THANKS_TITLE"),
-                    new DialogButton
-                                  {
-                                      Text = this.GetText("COMMON", "YES"),
-                                      CssClass = "btn btn-success btn-sm",
-                                      ForumPageLink = new ForumLink
-                                                          {
-                                                              ForumPage = ForumPages.posts,
-                                                              ForumLinkFormat = "m={0}#post{0}",
-                                                              ForumLinkArgs = new object[] { this.PageContext.LastReceivedThanks }
-                                                          }
-                                  },
-                    new DialogButton
-                                      {
-                                          Text = this.GetText("COMMON", "NO"),
-                                          CssClass = "btn btn-danger btn-sm",
-                                          ForumPageLink =
-                                              new ForumLink { ForumPage = YafContext.Current.ForumPageType }
-                                      });
-
-                this.GetRepository<Activity>().UpdateNotification(this.PageContext.PageUserID, this.PageContext.LastReceivedThanks);
-
-                // Avoid Showing Both Popups
-                return;
-            }
-
-            if (this.DisplayMentionPopup() && !this.PageContext.ForumPageType.Equals(ForumPages.posts))
-            {
-                notification.Show(
-                    this.GetTextFormatted("UNREAD_MENTION_MSG", this.PageContext.Mention),
-                    this.GetText("COMMON", "UNREAD_MENTION_TITLE"),
-                    new DialogButton
-                                  {
-                                      Text = this.GetText("COMMON", "YES"),
-                                      CssClass = "btn btn-success btn-sm",
-                                      ForumPageLink = new ForumLink
-                                                          {
-                                                              ForumPage = ForumPages.posts,
-                                                              ForumLinkFormat = "m={0}#post{0}",
-                                                              ForumLinkArgs = new object[] { this.PageContext.LastMention }
-                                                          }
-                                  },
-                    new DialogButton
-                                      {
-                                          Text = this.GetText("COMMON", "NO"),
-                                          CssClass = "btn btn-danger btn-sm",
-                                          ForumPageLink =
-                                              new ForumLink { ForumPage = YafContext.Current.ForumPageType }
-                                      });
-
-                this.GetRepository<Activity>().UpdateNotification(this.PageContext.PageUserID, this.PageContext.LastMention);
-
-                // Avoid Showing Both Popups
-                return;
-            }
-
             if (this.DisplayPmPopup() && (!this.PageContext.ForumPageType.Equals(ForumPages.cp_pm)
                                           || !this.PageContext.ForumPageType.Equals(ForumPages.cp_editbuddies)))
             {
