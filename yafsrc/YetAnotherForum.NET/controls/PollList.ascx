@@ -28,45 +28,51 @@
                            TitleLocalizedTag="POLL_ALLOWSKIPVOTE_INFO"
                            Icon="poll"/>
             <p class="card-text"><%= this.GetText("total") %>: <%# DataBinder.Eval(Container.DataItem, "Total") %></p>
-            <asp:PlaceHolder id="PollInfoTr" runat="server" visible="false">
-               <YAF:Alert runat="server" Type="info">
-                   <asp:Label ID="PollNotification" Visible="false" runat="server" />
-               </YAF:Alert>
-            </asp:PlaceHolder>
-           <asp:PlaceHolder id="PollCommandRow" runat="server">
-               
-                    <YAF:ThemeButton ID="RemovePollAll" runat="server" Visible="false" 
+            </div>
+            <div class="card-footer text-muted">
+                <asp:Label ID="PollNotification" Visible="false" runat="server" />
+                <div class="float-right">
+                    <asp:PlaceHolder id="PollCommandRow" runat="server">
+                        <YAF:ThemeButton ID="RemovePollAll" runat="server" Visible="false" 
                                      CommandName="removeall" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "PollID") %>'
-                                     CssClass="btn-sm mr-1"
+                                Size="Small"
+                                     CssClass="mr-1"
                                      TextLocalizedTag="REMOVEPOLL_ALL"
                                      ReturnConfirmText='<%# this.GetText("POLLEDIT", "ASK_POLL_DELETE_ALL") %>'
                                      Type="Danger"
                                      Icon="trash"/>
-                    <YAF:ThemeButton ID="RemovePoll" runat="server" Visible="false" 
+                        <YAF:ThemeButton ID="RemovePoll" runat="server" Visible="false" 
                                      CommandName="remove" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "PollID") %>' 
-                                     CssClass="btn-sm mr-1"
+                                     CssClass="mr-1"
+                                     Size="Small"
                                      TextLocalizedTag="REMOVEPOLL"
                                      ReturnConfirmText='<%# this.GetText("POLLEDIT", "ASK_POLL_DELETE")  %>'
                                      Type="Secondary"
                                      Icon="trash"/>
-                    <YAF:ThemeButton ID="EditPoll" runat="server" Visible='<%#  this.CanEditPoll(DataBinder.Eval(Container.DataItem, "PollID")) %>'
+                        <YAF:ThemeButton ID="EditPoll" runat="server" Visible='<%#  this.CanEditPoll(DataBinder.Eval(Container.DataItem, "PollID")) %>'
                                      CommandName="edit" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "PollID") %>'
-                                     CssClass="btn-sm mr-1" 
+                                     Size="Small"
+                                     CssClass="mr-1" 
                                      TextLocalizedTag="EDITPOLL"
                                      Type="Secondary"
                                      Icon="edit"/>
-                    <YAF:ThemeButton ID="CreatePoll" runat="server" Visible='<%# this.CanCreatePoll() %>'
+                        <YAF:ThemeButton ID="CreatePoll" runat="server" Visible='<%# this.CanCreatePoll() %>'
                                      CommandName="new" 
                                      Size="Small" 
                                      TextLocalizedTag="CREATEPOLL"
-                                     Icon=""
+                                     Icon="poll-h"
                                      Type="Secondary" />
-            </asp:PlaceHolder>
+                    </asp:PlaceHolder>
+                </div>
+            </div>
+            </div>
+            </div>
             </div>
         </ItemTemplate>
         <FooterTemplate>
-            <div class="card-footer text-center">
-                <asp:PlaceHolder id="PollGroupInfoTr" runat="server" visible="false">
+            <div class="row">
+                <div class="col">
+                    <asp:PlaceHolder id="PollGroupInfoTr" runat="server" visible="false">
                     <small class="text-muted">
                         <asp:Label ID="PollGroupNotification" Visible="false" runat="server" />
                     </small>
@@ -93,8 +99,6 @@
                                      Type="Secondary"
                                      Icon="compress-arrows-alt"/>
                 </asp:PlaceHolder>
-            </div>
-            </div>
             </div>
             </div>
         </FooterTemplate>

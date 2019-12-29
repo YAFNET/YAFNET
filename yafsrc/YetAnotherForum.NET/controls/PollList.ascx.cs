@@ -890,7 +890,6 @@ namespace YAF.Controls
                 // we don't display warnings row if no info
                 if (notificationString.IsSet())
                 {
-                    item.FindControlRecursiveAs<PlaceHolder>("PollInfoTr").Visible = true;
                     var pn = item.FindControlRecursiveAs<Label>("PollNotification");
                     pn.Text = notificationString;
                     pn.Visible = true;
@@ -906,8 +905,9 @@ namespace YAF.Controls
             if (this._groupNotificationString.IsSet())
             {
                 // we don't display warnings row if no info
-                item.FindControlRecursiveAs<PlaceHolder>("PollInfoTr").Visible = true;
+                item.FindControlRecursiveAs<PlaceHolder>("PollGroupInfoTr").Visible = true;
                 var pgn = item.FindControlRecursiveAs<Label>("PollGroupNotification");
+
                 pgn.Text = this._groupNotificationString;
                 pgn.Visible = true;
             }
