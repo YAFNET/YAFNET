@@ -306,6 +306,11 @@ namespace YAF.Controls
             myLinkButton.Enabled = this.CanVote && !myChoiceMarker.Visible;
             myLinkButton.Visible = true;
 
+            if (!myLinkButton.Enabled)
+            {
+                myLinkButton.CssClass = "btn btn-success btn-sm disabled";
+            }
+
             // Poll Choice image
             var choiceImage = item.FindControlRecursiveAs<HtmlImage>("ChoiceImage");
 

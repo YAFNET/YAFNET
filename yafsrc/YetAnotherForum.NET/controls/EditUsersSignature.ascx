@@ -11,8 +11,8 @@
                     LocalizedPage="CP_SIGNATURE"
                     LocalizedTag="SIGNATURE_PREVIEW" />
 </h4>
-<div class="card">
-    <div class="card-body mb-3">
+<div class="card mb-3">
+    <div class="card-body">
         <asp:PlaceHolder id="PreviewLine" runat="server">
         </asp:PlaceHolder>
     </div>

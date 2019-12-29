@@ -173,6 +173,13 @@ namespace YAF.Web.Controls
         /// <param name="footer">The footer.</param>
         private void RenderRulesLink([NotNull] StringBuilder footer)
         {
+            CodeContracts.VerifyNotNull(footer, "footer");
+
+            if (Config.IsAnyPortal)
+            {
+                return;
+            }
+
             footer.AppendFormat(
                 @"<a target=""_top"" title=""{1}"" href=""{0}"">{1}</a> | ",
                 YafBuildLink.GetLink(ForumPages.rules),

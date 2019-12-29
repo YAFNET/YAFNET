@@ -185,7 +185,7 @@ namespace YAF.Controls
                 JavaScriptBlocks.TopicLinkPopoverJs(
                     $"{this.GetText("LASTPOST")}&nbsp;{this.GetText("SEARCH", "BY")} ...",
                     ".topic-link-popover",
-                    "hover click"));
+                    "focus hover"));
 
             base.OnPreRender(e);
         }

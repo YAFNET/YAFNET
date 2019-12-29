@@ -7,14 +7,12 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace YAF.Pages {
-    using System.Web.UI;
-    using System.Web.UI.WebControls;
+namespace YAF.Pages
+{
 
-    using YAF.Web.Controls;
 
-    public partial class cp_subscriptions {
-        
+    public partial class cp_subscriptions
+    {
 
         /// <summary>
         /// PageLinks control.
@@ -23,8 +21,7 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected PageLinks PageLinks;
-        
+        protected global::YAF.Web.Controls.PageLinks PageLinks;
 
         /// <summary>
         /// LocalizedLabel11 control.
@@ -33,8 +30,7 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected LocalizedLabel LocalizedLabel11;
-        
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel11;
 
         /// <summary>
         /// ProfileMenu1 control.
@@ -43,8 +39,7 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected ProfileMenu ProfileMenu1;
-        
+        protected global::YAF.Web.Controls.ProfileMenu ProfileMenu1;
 
         /// <summary>
         /// PreferencesUpdatePanel control.
@@ -53,8 +48,7 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected UpdatePanel PreferencesUpdatePanel;
-        
+        protected global::System.Web.UI.UpdatePanel PreferencesUpdatePanel;
 
         /// <summary>
         /// LocalizedLabel12 control.
@@ -63,8 +57,7 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected LocalizedLabel LocalizedLabel12;
-        
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel12;
 
         /// <summary>
         /// LocalizedLabel200 control.
@@ -73,8 +66,7 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected LocalizedLabel LocalizedLabel200;
-        
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel200;
 
         /// <summary>
         /// rblNotificationType control.
@@ -83,8 +75,7 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected RadioButtonList rblNotificationType;
-        
+        protected global::System.Web.UI.WebControls.RadioButtonList rblNotificationType;
 
         /// <summary>
         /// DailyDigestRow control.
@@ -93,8 +84,7 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected PlaceHolder DailyDigestRow;
-        
+        protected global::System.Web.UI.WebControls.PlaceHolder DailyDigestRow;
 
         /// <summary>
         /// DailyDigestEnabled control.
@@ -103,8 +93,7 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected CheckBox DailyDigestEnabled;
-        
+        protected global::System.Web.UI.WebControls.CheckBox DailyDigestEnabled;
 
         /// <summary>
         /// PMNotificationRow control.
@@ -113,8 +102,7 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected PlaceHolder PMNotificationRow;
-        
+        protected global::System.Web.UI.WebControls.PlaceHolder PMNotificationRow;
 
         /// <summary>
         /// PMNotificationEnabled control.
@@ -123,8 +111,7 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected CheckBox PMNotificationEnabled;
-        
+        protected global::System.Web.UI.WebControls.CheckBox PMNotificationEnabled;
 
         /// <summary>
         /// SaveUser control.
@@ -133,8 +120,7 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected ThemeButton SaveUser;
-        
+        protected global::YAF.Web.Controls.ThemeButton SaveUser;
 
         /// <summary>
         /// SubscriptionsUpdatePanel control.
@@ -143,8 +129,7 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected UpdatePanel SubscriptionsUpdatePanel;
-        
+        protected global::System.Web.UI.UpdatePanel SubscriptionsUpdatePanel;
 
         /// <summary>
         /// SubscribeHolder control.
@@ -153,8 +138,7 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected PlaceHolder SubscribeHolder;
-        
+        protected global::System.Web.UI.WebControls.PlaceHolder SubscribeHolder;
 
         /// <summary>
         /// ForumsHolder control.
@@ -163,8 +147,7 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected PlaceHolder ForumsHolder;
-        
+        protected global::System.Web.UI.WebControls.PlaceHolder ForumsHolder;
 
         /// <summary>
         /// LocalizedLabel1 control.
@@ -173,8 +156,7 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected LocalizedLabel LocalizedLabel1;
-        
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel1;
 
         /// <summary>
         /// ForumList control.
@@ -183,8 +165,7 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected Repeater ForumList;
-        
+        protected global::System.Web.UI.WebControls.Repeater ForumList;
 
         /// <summary>
         /// UnsubscribeForums control.
@@ -193,8 +174,7 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected ThemeButton UnsubscribeForums;
-        
+        protected global::YAF.Web.Controls.ThemeButton UnsubscribeForums;
 
         /// <summary>
         /// TopicsHolder control.
@@ -203,8 +183,7 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected PlaceHolder TopicsHolder;
-        
+        protected global::System.Web.UI.WebControls.PlaceHolder TopicsHolder;
 
         /// <summary>
         /// LocalizedLabel6 control.
@@ -213,8 +192,7 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected LocalizedLabel LocalizedLabel6;
-        
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel6;
 
         /// <summary>
         /// PagerTop control.
@@ -223,8 +201,7 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected Pager PagerTop;
-        
+        protected global::YAF.Web.Controls.Pager PagerTop;
 
         /// <summary>
         /// TopicList control.
@@ -233,8 +210,7 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected Repeater TopicList;
-        
+        protected global::System.Web.UI.WebControls.Repeater TopicList;
 
         /// <summary>
         /// PagerBottom control.
@@ -243,8 +219,7 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected Pager PagerBottom;
-        
+        protected global::YAF.Web.Controls.Pager PagerBottom;
 
         /// <summary>
         /// UnsubscribeTopics control.
@@ -253,6 +228,6 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected ThemeButton UnsubscribeTopics;
+        protected global::YAF.Web.Controls.ThemeButton UnsubscribeTopics;
     }
 }

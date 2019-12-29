@@ -48,15 +48,6 @@ namespace YAF.Controls
     /// </summary>
     public partial class ForumLastPost : BaseUserControl
     {
-        #region Constants and Fields
-
-        /// <summary>
-        ///   The Go to last post Image ToolTip.
-        /// </summary>
-        private string alt;
-
-        #endregion
-
         #region Constructors and Destructors
 
         /// <summary>
@@ -70,17 +61,6 @@ namespace YAF.Controls
         #endregion
 
         #region Properties
-
-        /// <summary>
-        ///   Gets or sets Alt.
-        /// </summary>
-        [NotNull]
-        public string Alt
-        {
-            get => this.alt.IsNotSet() ? string.Empty : this.alt;
-
-            set => this.alt = value;
-        }
 
         /// <summary>
         ///   Gets or sets DataRow.
@@ -98,17 +78,17 @@ namespace YAF.Controls
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         private void ForumLastPost_PreRender([NotNull] object sender, [NotNull] EventArgs e)
         {
+            if (this.DataRow == null)
+            {
+                return;
+            }
+
             this.PageContext.PageElements.RegisterJsBlockStartup(
                 "TopicLinkPopoverJs",
                 JavaScriptBlocks.TopicLinkPopoverJs(
                     $"{this.GetText("LASTPOST")}&nbsp;{this.GetText("SEARCH", "BY")} ...",
                     ".topic-link-popover",
-                    "hover click"));
-
-            if (this.DataRow == null)
-            {
-                return;
-            }
+                    "focus hover"));
 
             var showLastLinks = true;
 
@@ -155,11 +135,6 @@ namespace YAF.Controls
                                                             ? "LastUserDisplayName"
                                                             : "LastUser"].ToString()
                                        };
-
-                if (this.Alt.IsNotSet())
-                {
-                    this.Alt = this.GetText("GO_LAST_POST");
-                }
 
                 this.LastTopicImgLink.NavigateUrl = YafBuildLink.GetLinkNotEscaped(
                     ForumPages.posts, "m={0}#post{0}", this.DataRow["LastMessageID"]);

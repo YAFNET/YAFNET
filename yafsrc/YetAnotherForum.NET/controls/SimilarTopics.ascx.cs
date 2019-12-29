@@ -57,7 +57,7 @@ namespace YAF.Controls
                 this.SimilarTopicsHolder.Visible = false;
                 return;
             }
-            
+
             this.BindData();
         }
 
@@ -68,7 +68,8 @@ namespace YAF.Controls
         {
             try
             {
-                var topicsList = this.GetRepository<Topic>().GetSimilarTopics(this.PageContext.PageUserID, this.PageContext.PageTopicName)
+                var topicsList = this.GetRepository<Topic>()
+                    .GetSimilarTopics(this.PageContext.PageUserID, this.PageContext.PageTopicName)
                     .Where(t => t.TopicId != this.PageContext.PageTopicID).Take(5).ToList();
 
                 if (!topicsList.Any())

@@ -259,7 +259,7 @@ namespace YAF.Pages
                 .PollGroupList(this.PageContext.PageUserID, null, this.PageContext.PageBoardID).Distinct(
                     new AreEqualFunc<TypedPollGroup>((id1, id2) => id1.PollGroupID == id2.PollGroupID)).ToList();
 
-            pollGroup.Insert(0, new TypedPollGroup(string.Empty, -1));
+            pollGroup.Insert(0, new TypedPollGroup(this.GetText("NONE"), -1));
 
             this.PollGroupListDropDown.Items.AddRange(
                 pollGroup.Select(x => new ListItem(x.Question, x.PollGroupID.ToString())).ToArray());
@@ -618,6 +618,12 @@ namespace YAF.Pages
             // First existing values always 1!
             var existingRowsCount = 1;
             var allExistingRowsCount = this._choices.Rows.Count;
+
+            this.AllowMultipleChoicesCheckBox.Text = this.GetText("POLL_MULTIPLECHOICES");
+            this.AllowSkipVoteCheckBox.Text = this.GetText("POLL_MULTIPLECHOICES");
+            this.ShowVotersCheckBox.Text = this.GetText("POLL_SHOWVOTERS");
+            this.IsBoundCheckBox.Text = this.GetText("POLLGROUP_BOUNDWARN");
+            this.IsClosedBoundCheckBox.Text = this.GetText("pollgroup_closedbound");
 
             // we edit existing poll 
             if (this._choices.HasRows())

@@ -464,9 +464,30 @@ namespace YAF.Pages
                 var isNewTopic = this.TopicId == null && this.QuotedMessageId == null
                                   && this.EditMessageId == null;
 
-                this.Priority.Items.Add(new ListItem(this.GetText("normal"), "0"));
-                this.Priority.Items.Add(new ListItem(this.GetText("sticky"), "1"));
-                this.Priority.Items.Add(new ListItem(this.GetText("announcement"), "2"));
+                var normal = new ListItem(this.GetText("normal"), "0");
+
+                normal.Attributes.Add(
+                    "data-content",
+                    $"<span class='select2-image-select-icon'><i class='far fa-comment fa-fw text-secondary'></i>&nbsp;{this.GetText("normal")}</span>");
+
+                this.Priority.Items.Add(normal);
+
+                var sticky = new ListItem(this.GetText("sticky"), "1");
+
+                sticky.Attributes.Add(
+                    "data-content",
+                    $"<span class='select2-image-select-icon'><i class='far fa-sticky-note fa-fw text-secondary'></i>&nbsp;{this.GetText("sticky")}</span>");
+
+                this.Priority.Items.Add(sticky);
+
+                var announcement = new ListItem(this.GetText("announcement"), "2");
+
+                announcement.Attributes.Add(
+                    "data-content",
+                    $"<span class='select2-image-select-icon'><i class='fas fa-bullhorn fa-fw text-secondary'></i>&nbsp;{this.GetText("announcement")}</span>");
+
+                this.Priority.Items.Add(announcement);
+
                 this.Priority.SelectedIndex = 0;
 
                 // Allow the Styling of Topic Titles only for Mods or Admins

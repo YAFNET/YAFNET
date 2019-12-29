@@ -8,8 +8,7 @@
 
 <asp:Repeater ID="rptBuddy" runat="server" OnItemCreated="rptBuddy_ItemCreated" OnItemCommand="rptBuddy_ItemCommand">
     <HeaderTemplate>
-        <asp:PlaceHolder runat="server" ID="HeaderHolder" Visible="False">
-            <div class="card-body">
+        <asp:PlaceHolder runat="server" ID="HeaderHolder">
             <ul class="list-group list-group-flush">
         </asp:PlaceHolder>
     </HeaderTemplate>
@@ -55,9 +54,8 @@
         </li>
     </ItemTemplate>
     <FooterTemplate>
-        <asp:PlaceHolder runat="server" ID="FooterHolder" Visible="False">
+        <asp:PlaceHolder runat="server" ID="FooterHolder">
             </ul>
-            </div>
             <asp:Panel CssClass="card-footer" runat="server" ID="Footer" Visible="False">
                 <YAF:ThemeButton ID="Button1" runat="server" 
                                  ReturnConfirmText='<%# this.GetText("CP_EDITBUDDIES", "NOTIFICATION_APPROVEALL") %>'

@@ -155,6 +155,7 @@
                                          Icon="exclamation-triangle"
                                          IconColor="text-danger"
                                          TitleLocalizedTag="REPORTPOST_TITLE"
+                                         DataToggle="tooltip"
                                          CssClass="text-left" />
                         <YAF:ThemeButton ID="MarkAsAnswer" runat="server" 
                                          Visible="false" 
@@ -162,6 +163,7 @@
                                          TextLocalizedPage="POSTS" 
                                          TextLocalizedTag="MARK_ANSWER" 
                                          TitleLocalizedTag="MARK_ANSWER_TITLE"
+                                         DataToggle="tooltip"
                                          Icon="check-square"
                                          IconColor="text-success"
                                          OnClick="MarkAsAnswerClick" />	
@@ -170,56 +172,60 @@
                         <div id="<%# "dvThanksInfo{0}".Fmt(this.DataRow["MessageID"]) %>" class="small mt-1">
                             <asp:Literal runat="server" Visible="false" ID="ThanksDataLiteral"></asp:Literal>
                         </div>
-                        <span id="<%# "dvThankBox{0}".Fmt(this.DataRow["MessageID"]) %>">
-                            <YAF:ThemeButton ID="Thank" runat="server"
-                                Type="Link"
-                                Icon="thumbs-up"
-                                Visible="false"
-                                TextLocalizedTag="BUTTON_THANKS"
-                                TitleLocalizedTag="BUTTON_THANKS_TT" />
-                        </span>
-                        <YAF:ThemeButton ID="Manage" runat="server"
-                            CssClass="dropdown-toggle"
-                            Type="Link"
-                            DataToggle="dropdown"
-                            TextLocalizedTag="MANAGE_POST"
-                            Icon="cogs" />
-                        <asp:PlaceHolder runat="server" ID="ManageDropPlaceHolder">
-                            <div class="dropdown-menu" aria-labelledby='<%# this.Manage.ClientID %>'>
-                                <YAF:ThemeButton ID="Edit" runat="server"
-                                                 Type="None"
-                                                 CssClass="dropdown-item"
-                                                 Icon="edit"
-                                                 TextLocalizedTag="BUTTON_EDIT"
-                                                 TitleLocalizedTag="BUTTON_EDIT_TT" />
-                                <YAF:ThemeButton ID="MovePost" runat="server"
-                                                 Type="None"
-                                                 CssClass="dropdown-item"
-                                                 Icon="arrows-alt"
-                                                 TextLocalizedTag="BUTTON_MOVE"
-                                                 TitleLocalizedTag="BUTTON_MOVE_TT" />
-                                <YAF:ThemeButton ID="Delete" runat="server"
-                                                 Type="None"
-                                                 CssClass="dropdown-item"
-                                                 Icon="trash"
-                                                 TextLocalizedTag="BUTTON_DELETE"
-                                                 TitleLocalizedTag="BUTTON_DELETE_TT" />
-                                <YAF:ThemeButton ID="UnDelete" runat="server"
-                                                 Type="None"
-                                                 CssClass="dropdown-item"
-                                                 Icon="trash-restore"
-                                                 TextLocalizedTag="BUTTON_UNDELETE"
-                                                 TitleLocalizedTag="BUTTON_UNDELETE_TT" />
+                        <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+                            <div class="btn-group mr-2" role="group">
+                                <span id="<%# "dvThankBox{0}".Fmt(this.DataRow["MessageID"]) %>">
+                                    <YAF:ThemeButton ID="Thank" runat="server"
+                                                     Type="Link"
+                                                     Icon="thumbs-up"
+                                                     IconColor="text-primary"
+                                                     Visible="false"
+                                                     DataToggle="tooltip"
+                                                     TextLocalizedTag="BUTTON_THANKS"
+                                                     TitleLocalizedTag="BUTTON_THANKS_TT" />
+                                </span>
                             </div>
-                        </asp:PlaceHolder>
-                        <YAF:ThemeButton ID="Quote" runat="server"
-                                         Type="Link"
-                                         Icon="quote-left"
-                                         TextLocalizedTag="BUTTON_QUOTE"
-                                         TitleLocalizedTag="BUTTON_QUOTE_TT" />
-                        <asp:CheckBox runat="server" ID="MultiQuote" 
-                                      CssClass="MultiQuoteButton custom-control custom-checkbox btn btn-link" />
-                    </div>
+                            <asp:PlaceHolder runat="server" ID="ManageDropPlaceHolder">
+                                <div class="btn-group mr-2" role="group">
+                                    <YAF:ThemeButton ID="Edit" runat="server"
+                                                     Type="Link"
+                                                     Icon="edit"
+                                                     IconColor="text-secondary"
+                                                     DataToggle="tooltip"
+                                                     TitleLocalizedTag="BUTTON_EDIT_TT" />
+                                    <YAF:ThemeButton ID="MovePost" runat="server"
+                                                     Type="Link"
+                                                     Icon="arrows-alt"
+                                                     IconColor="text-secondary"
+                                                     DataToggle="tooltip"
+                                                     TitleLocalizedTag="BUTTON_MOVE_TT" />
+                                    <YAF:ThemeButton ID="Delete" runat="server"
+                                                     Type="Link"
+                                                     Icon="trash"
+                                                     IconColor="text-secondary"
+                                                     DataToggle="tooltip"
+                                                     TitleLocalizedTag="BUTTON_DELETE_TT" />
+                                    <YAF:ThemeButton ID="UnDelete" runat="server"
+                                                     Type="Link"
+                                                     IconColor="text-warning"
+                                                     Icon="trash-restore"
+                                                     DataToggle="tooltip"
+                                                     TitleLocalizedTag="BUTTON_UNDELETE_TT" />
+                                </div>
+                            </asp:PlaceHolder>
+                            <div class="btn-group" role="group">
+                                <YAF:ThemeButton ID="Quote" runat="server"
+                                                 Type="Link"
+                                                 Icon="quote-left"
+                                                 IconColor="text-primary"
+                                                 TextLocalizedTag="BUTTON_QUOTE"
+                                                 DataToggle="tooltip"
+                                                 TitleLocalizedTag="BUTTON_QUOTE_TT" />
+                                <asp:CheckBox runat="server" ID="MultiQuote" 
+                                              CssClass="MultiQuoteButton custom-control custom-checkbox btn btn-link" />
+                            </div>
+                        </div>
+                        </div>
                 </div>
             </div>
             </asp:PlaceHolder>

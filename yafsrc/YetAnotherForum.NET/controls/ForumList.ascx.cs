@@ -55,11 +55,6 @@ namespace YAF.Controls
         #region Constants and Fields
 
         /// <summary>
-        ///   The Go to last post Image ToolTip.
-        /// </summary>
-        private string altLastPost;
-
-        /// <summary>
         /// The Data Source
         /// </summary>
         private IEnumerable dataSource;
@@ -67,17 +62,6 @@ namespace YAF.Controls
         #endregion
 
         #region Properties
-
-        /// <summary>
-        ///   Gets or sets Alt.
-        /// </summary>
-        [NotNull]
-        public string AltLastPost
-        {
-            get => this.altLastPost.IsNotSet() ? string.Empty : this.altLastPost;
-
-            set => this.altLastPost = value;
-        }
 
         /// <summary>
         ///   Gets or sets DataSource.
@@ -435,16 +419,6 @@ namespace YAF.Controls
         }
 
         /// <summary>
-        /// Handles the Load event of the Page control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            this.AltLastPost = this.GetText("DEFAULT", "GO_LAST_POST");
-        }
-
-        /// <summary>
         /// The On PreRender event.
         /// </summary>
         /// <param name="e">
@@ -459,7 +433,8 @@ namespace YAF.Controls
             this.PageContext.PageElements.RegisterJsBlockStartup(
                 "ForumIconLegendPopoverJs",
                 JavaScriptBlocks.ForumIconLegendPopoverJs(
-                    iconLegend.Replace("\n", string.Empty).Replace("\r", string.Empty)));
+                    iconLegend.Replace("\n", string.Empty).Replace("\r", string.Empty),
+                    "forum-icon-legend-popvover"));
 
             base.OnPreRender(e);
         }

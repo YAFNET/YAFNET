@@ -32,9 +32,10 @@
         <div class="mt-n1">
             <span id="dvFavorite1">
                 <YAF:ThemeButton ID="TagFavorite1" runat="server"
-                    Type="Secondary"
-                    TextLocalizedTag="BUTTON_TAGFAVORITE" TitleLocalizedTag="BUTTON_TAGFAVORITE_TT"
-                    Icon="star" />
+                                 Type="Secondary"
+                                 TextLocalizedTag="BUTTON_TAGFAVORITE" TitleLocalizedTag="BUTTON_TAGFAVORITE_TT"
+                                 Icon="star"
+                                 IconColor="text-warning"/>
             </span>
             <YAF:ThemeButton ID="Tools1" runat="server"
                 CssClass="dropdown-toggle"
@@ -184,7 +185,8 @@
             <YAF:ThemeButton ID="TagFavorite2" runat="server" 
                              Type="Secondary"
                              TextLocalizedTag="BUTTON_TAGFAVORITE" TitleLocalizedTag="BUTTON_TAGFAVORITE_TT"
-                             Icon="star" />
+                             Icon="star"
+                             IconColor="text-warning"/>
         </span>
         <YAF:ThemeButton ID="Tools2" runat="server" 
                              CssClass="dropdown-toggle"
@@ -239,37 +241,13 @@
     </div>
 </div>
 <div class="row mb-3">
-    <div class="col align-self-start">
-        <YAF:ForumUsers ID="ForumUsers1" runat="server" />
-    </div>
     <YAF:SimilarTopics ID="SimilarTopics"  runat="server">
     </YAF:SimilarTopics>
+    <div class="col">
+        <YAF:ForumUsers ID="ForumUsers1" runat="server" />
+    </div>
 </div>
 <YAF:PageLinks ID="PageLinksBottom" runat="server" LinkedPageLinkID="PageLinks" />
-<%--<div class="row">
-    <div class="col">
-        <asp:PlaceHolder ID="ForumJumpHolder" runat="server">
-                <YAF:LocalizedLabel ID="ForumJumpLabel" runat="server" LocalizedTag="FORUM_JUMP" />
-                &nbsp;<YAF:ForumJump ID="ForumJump1" runat="server" />
-        </asp:PlaceHolder>
-        </div>
-        <div class="col col-md-4 offset-md-4">
-            <YAF:PageAccess ID="PageAccess1" runat="server" />
-        </div>
-</div>--%>
-
-
-<div class="row justify-content-between">
-    <div class="col-md py-3">
-        <asp:PlaceHolder ID="ForumJumpHolder" runat="server">
-            <YAF:LocalizedLabel ID="ForumJumpLabel" runat="server" LocalizedTag="FORUM_JUMP" />
-            &nbsp;<YAF:ForumJump ID="ForumJump1" runat="server" />
-        </asp:PlaceHolder>
-    </div>
-    <div class="col-md py-3">
-        <YAF:PageAccess ID="PageAccess1" runat="server" />
-    </div>
-</div>
 
 <modal:MoveTopic ID="MoveTopicDialog" runat="server" />
 <modal:QuickReply ID="QuickReplyDialog" runat="server" />

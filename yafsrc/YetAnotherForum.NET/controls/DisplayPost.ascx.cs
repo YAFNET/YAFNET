@@ -620,12 +620,10 @@ namespace YAF.Controls
 
             if (this.Edit.Visible || this.Delete.Visible || this.MovePost.Visible)
             {
-                this.Manage.Visible = true;
                 this.ManageDropPlaceHolder.Visible = true;
             }
             else
             {
-                this.Manage.Visible = false;
                 this.ManageDropPlaceHolder.Visible = false;
             }
 
@@ -699,7 +697,7 @@ namespace YAF.Controls
             if (this.ReportPost.Visible == false && this.MarkAsAnswer.Visible == false
                                                  && this.ReportPost.Visible == false
                                                  && this.ThanksDataLiteral.Visible == false
-                                                 && this.Thank.Visible == false && this.Manage.Visible == false
+                                                 && this.Thank.Visible == false && this.ManageDropPlaceHolder.Visible == false
                                                  && this.Quote.Visible == false && this.MultiQuote.Visible == false)
             {
                this.Footer.Visible = false;

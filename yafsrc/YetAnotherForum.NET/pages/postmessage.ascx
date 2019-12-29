@@ -72,7 +72,7 @@
                         <asp:Label runat="server" AssociatedControlID="Priority">
                             <YAF:LocalizedLabel runat="server" LocalizedTag="priority" />
                         </asp:Label>
-                        <asp:DropDownList ID="Priority" runat="server" CssClass="select2-select" />
+                        <asp:DropDownList ID="Priority" runat="server" CssClass="select2-image-select" />
                     </div>
                 </asp:PlaceHolder>
                 <asp:PlaceHolder ID="StyleRow" runat="server">

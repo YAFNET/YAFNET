@@ -25,7 +25,6 @@
                                         LocalizedTag="TITLE" 
                                         LocalizedPage="ADMIN_USERS" />
                     <div class="float-right">
-                        &nbsp;
                         <YAF:ThemeButton runat="server"
                                          CssClass="dropdown-toggle"
                                          DataToggle="dropdown"
@@ -130,6 +129,7 @@
                             <li class="list-group-item list-group-item-action list-group-item-menu">
                                 <div class="d-flex w-100 justify-content-between">
                                     <h5 class="mb-1 text-break">
+                                        <%# this.GetIsUserDisabledLabel(this.Eval("Name").ToString())%>
                                         <asp:LinkButton ID="NameEdit" runat="server" CommandName="edit" CommandArgument='<%# this.Eval("UserID") %>'
                                                         Text='<%# this.HtmlEncode( this.Eval("Name").ToString() ) %>' />
                                         (<asp:LinkButton ID="DisplayNameEdit" runat="server" CommandName="edit" CommandArgument='<%# this.Eval("UserID") %>'

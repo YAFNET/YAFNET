@@ -1,6 +1,7 @@
 <%@ Control Language="C#" AutoEventWireup="true" EnableViewState="false"
     Inherits="YAF.Controls.ForumWelcome" Codebehind="ForumWelcome.ascx.cs" %>
-<div class="alert alert-light float-right d-none d-md-block" role="alert">
+
+<div class="alert alert-light float-right d-none d-md-block py-0" role="alert">
     <i class="fa fa-clock"></i>&nbsp;<asp:Label ID="TimeNow" runat="server" />
     <asp:PlaceHolder runat="server" ID="LastVisitHolder">
         <span class="mx-1"></span>

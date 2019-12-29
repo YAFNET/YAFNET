@@ -31,9 +31,7 @@ namespace YAF.Pages
     using System.Collections.Generic;
     using System.Data;
     using System.Linq;
-    using System.Text;
     using System.Web;
-    using System.Web.SessionState;
     using System.Web.UI.HtmlControls;
     using System.Web.UI.WebControls;
 
@@ -54,7 +52,6 @@ namespace YAF.Pages
     using YAF.Types.Models;
     using YAF.Utils;
     using YAF.Utils.Helpers;
-    using YAF.Web.Controls;
     using YAF.Web.EventsArgs;
     using YAF.Web.Extensions;
 
@@ -415,8 +412,6 @@ namespace YAF.Pages
                     this.HtmlEncode(this.topic.Description));
                 this.TopicLink.NavigateUrl = YafBuildLink.GetLinkNotEscaped(
                     ForumPages.posts, "t={0}", this.PageContext.PageTopicID);
-                this.ForumJumpHolder.Visible = yafBoardSettings.ShowForumJump
-                                               && this.PageContext.Settings.LockedForum == 0;
 
                 this.QuickReplyDialog.Visible = yafBoardSettings.ShowQuickAnswer;
                 this.QuickReplyLink1.Visible = yafBoardSettings.ShowQuickAnswer;

@@ -57,31 +57,22 @@
                     </ItemTemplate>
                 </asp:Repeater>
                 <asp:PlaceHolder id="tr_AllowMultipleChoices" runat="server" visible="<%# this.PageContext.BoardSettings.AllowMultipleChoices %>">
-                    <div class="form-check">
-                        <asp:CheckBox ID="AllowMultipleChoicesCheckBox" runat="server" CssClass="form-check-input" MaxLength="10" />
-                        <asp:Label runat="server" AssociatedControlID="AllowMultipleChoicesCheckBox"
-                                   CssClass="form-check-label">
-                            <YAF:LocalizedLabel ID="AllowMultipleChoicesLabel" runat="server" LocalizedTag="POLL_MULTIPLECHOICES" />
-                        </asp:Label>
-                    </div>		
+                    <div class="form-group">
+                        <asp:CheckBox ID="AllowMultipleChoicesCheckBox" runat="server" 
+                                      CssClass="custom-control custom-checkbox" />
+                    </div>
                 </asp:PlaceHolder> 
                 <asp:PlaceHolder id="tr_AllowSkipVote" runat="server" visible="<%# this.PageContext.BoardSettings.AllowMultipleChoices %>">	
-                    <div class="form-check">
-                        <asp:CheckBox ID="AllowSkipVoteCheckBox" runat="server" CssClass="form-check-input" MaxLength="10" />
-                        <asp:Label runat="server" AssociatedControlID="AllowSkipVoteCheckBox"
-                                   CssClass="form-check-label">
-                            <YAF:LocalizedLabel ID="AllowSkipVoteLocalizedLabel" runat="server" LocalizedTag="POLL_MULTIPLECHOICES" />
-                        </asp:Label>
-                    </div>		
+                    <div class="form-group">
+                        <asp:CheckBox ID="AllowSkipVoteCheckBox" runat="server" 
+                                      CssClass="custom-control custom-checkbox" />
+                    </div>
                 </asp:PlaceHolder> 
                 <asp:PlaceHolder id="tr_ShowVoters" runat="server" visible="true">	
-                    <div class="form-check">
-                        <asp:CheckBox ID="ShowVotersCheckBox" runat="server" CssClass="form-check-input" MaxLength="10" />	
-                        <asp:Label runat="server" AssociatedControlID="ShowVotersCheckBox"
-                                   CssClass="form-check-label">
-                            <YAF:LocalizedLabel ID="ShowVotersLocalizedLabel" runat="server" LocalizedTag="POLL_SHOWVOTERS" />
-                        </asp:Label>
-                    </div>		
+                    <div class="form-group">
+                        <asp:CheckBox ID="ShowVotersCheckBox" runat="server" 
+                                      CssClass="custom-control custom-checkbox" />
+                    </div>
                 </asp:PlaceHolder> 
                 <asp:PlaceHolder id="PollRowExpire" runat="server" visible="false">
                     <div class="form-group">
@@ -95,22 +86,15 @@
                     </div>
                 </asp:PlaceHolder> 
                 <asp:PlaceHolder id="IsBound" runat="server" visible="false">	
-                    <div class="form-check">
-                        <asp:CheckBox ID="IsBoundCheckBox" runat="server" CssClass="form-check-input" MaxLength="10" />
-                        <asp:Label runat="server" AssociatedControlID="IsBoundCheckBox"
-                                   CssClass="form-check-label">
-                            <YAF:LocalizedLabel ID="IsBoundLabel" runat="server" LocalizedTag="POLLGROUP_BOUNDWARN" />
-                        </asp:Label>
+                    <div class="form-group">
+                        <asp:CheckBox ID="IsBoundCheckBox" runat="server" 
+                                      CssClass="custom-control custom-checkbox" />
                     </div>		
                 </asp:PlaceHolder> 
                 <asp:PlaceHolder id="IsClosedBound" runat="server" visible="false">
-                    <div class="form-check">
-                        <asp:CheckBox ID="IsClosedBoundCheckBox"  runat="server"  CssClass="form-check-input" MaxLength="10" />
-                        <asp:Label runat="server" AssociatedControlID="IsClosedBoundCheckBox"
-                                   CssClass="form-check-label">
-                            <YAF:LocalizedLabel ID="IsClosedBoundLabel" runat="server" LocalizedTag="pollgroup_closedbound" />
-                            
-                        </asp:Label>
+                    <div class="form-group">
+                        <asp:CheckBox ID="IsClosedBoundCheckBox"  runat="server" 
+                                      CssClass="custom-control custom-checkbox" />
                         <small class="form-text text-muted">
                             <YAF:LocalizedLabel ID="IsClosedBoundExplainLabel" runat="server" LocalizedTag="POLLGROUP_CLOSEDBOUND_WARN" /> 
                         </small>
@@ -118,7 +102,7 @@
                 </asp:PlaceHolder> 
                 <asp:PlaceHolder id="PollGroupList" runat="server" visible="false">
                     <div class="form-group">
-                        <asp:Label runat="server">
+                        <asp:Label runat="server" AssociatedControlID="PollGroupListDropDown">
 				            <YAF:LocalizedLabel ID="PollGroupListLabel" runat="server" LocalizedTag="pollgroup_list" />
 			            </asp:Label>
                         <asp:DropDownList ID="PollGroupListDropDown" runat="server" CssClass="select2-select" MaxLength="10" />			

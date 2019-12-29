@@ -177,12 +177,3 @@
                              Icon="plus"/>
     </div>
 </div>
-
-<div class="row justify-content-between">
-<div class="col-md py-3">
-    <YAF:IconLegend ID="IconLegend1" runat="server" />
-</div>
-<div class="col-md py-3">
-    <YAF:PageAccess ID="PageAccess1" runat="server" />
-</div>
-</div>

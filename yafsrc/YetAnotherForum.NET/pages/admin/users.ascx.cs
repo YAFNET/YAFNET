@@ -197,6 +197,22 @@ namespace YAF.Pages.Admin
                            this.Get<IDateTime>().FormatDateTime(suspendedUntil.ToType<DateTime>()));
         }
 
+        /// <summary>
+        /// The get is user disabled label.
+        /// </summary>
+        /// <param name="userName">
+        /// The user name.
+        /// </param>
+        /// <returns>
+        /// The <see cref="string"/>.
+        /// </returns>
+        protected string GetIsUserDisabledLabel(string userName)
+        {
+            return UserMembershipHelper.GetUser(userName).IsApproved
+                       ? string.Empty
+                       : $@"<span class=""badge badge-warning"">{this.GetText("DISABLED")}</span>";
+        }
+
         #endregion
 
         #region Methods

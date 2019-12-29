@@ -14,7 +14,7 @@
                                     &nbsp;<YAF:LocalizedLabel ID="ActiveUsersLabel" runat="server" LocalizedTag="ACTIVE_USERS" />
                                 </div>
                                 <div class="card-body">
-                                    <asp:Label runat="server" ID="ActiveUserCount" />
+                                    <p class="card-text"><asp:Label runat="server" ID="ActiveUserCount" /></p>
                                     <YAF:ActiveUsers ID="ActiveUsers1" runat="server">
                                     </YAF:ActiveUsers>
                                 </div>

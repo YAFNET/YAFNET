@@ -99,7 +99,7 @@ namespace YAF.Pages.Admin
                 .PollGroupList(this.PageContext.PageUserID, null, this.PageContext.PageBoardID).Distinct(
                     new AreEqualFunc<TypedPollGroup>((v1, v2) => v1.PollGroupID == v2.PollGroupID)).ToList();
 
-            pollGroup.Insert(0, new TypedPollGroup(string.Empty, -1));
+            pollGroup.Insert(0, new TypedPollGroup(this.GetText("NONE"), -1));
 
             // TODO: vzrus needs some work, will be in polls only until feature is debugged there.
             this.PollGroupListDropDown.Items.AddRange(

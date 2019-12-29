@@ -231,15 +231,6 @@ namespace YAF.Controls
         protected global::YAF.Web.Controls.ThemeButton Thank;
 
         /// <summary>
-        /// Manage control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Web.Controls.ThemeButton Manage;
-
-        /// <summary>
         /// ManageDropPlaceHolder control.
         /// </summary>
         /// <remarks>

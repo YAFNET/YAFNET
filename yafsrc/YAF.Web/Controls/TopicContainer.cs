@@ -138,7 +138,8 @@ namespace YAF.Web.Controls
                 writer.Write("<h5>");
             }
 
-            writer.Write($"<span class=\"fa-stack fa-1x\">{this.GetTopicImage(this.TopicRow, lastRead)}</span>");
+            writer.Write($@"<a tabindex=""0"" class=""topic-icon-legend-popvover"" role=""button"" data-toggle=""popover"" href=""#!"">
+                                <span class=""fa-stack fa-1x\"">{this.GetTopicImage(this.TopicRow, lastRead)}</span></a>");
 
             var priorityMessage = this.GetPriorityMessage(this.TopicRow);
 
@@ -188,11 +189,6 @@ namespace YAF.Web.Controls
                                                     <i class=""fa fa-clock fa-badge text-secondary""></i>
                                                 </span>&nbsp;<span class=""popover-timeago"">{formattedStartedDatetime}</span>
                          ");
-
-            /*if (this.TopicRow["Description"].ToString().IsSet())
-            {
-                topicLink.ToolTip = this.Get<IBadWordReplace>().Replace(this.HtmlEncode(this.TopicRow["Description"]));
-            }*/
 
             if (!this.TopicRow["LastMessageID"].IsNullOrEmptyDBField())
             {
@@ -250,18 +246,20 @@ namespace YAF.Web.Controls
             {
                 writer.Write("<div class=\"col-md-4 text-secondary\">");
 
-                writer.Write($"{this.GetText("LASTPOST")}:&nbsp;");
-                
+                writer.Write($"{this.GetText("LASTPOST")}:");
+
                 var infoLastPost = new ThemeButton
                                        {
                                            Size = ButtonSize.Small,
                                            Icon = "info-circle",
-                                           Type = ButtonAction.OutlineInfo,
+                                           IconCssClass = "fas fa-lg",
+                                           IconColor = "text-info",
+                                           Type = ButtonAction.Link,
                                            DataToggle = "popover",
-                                           CssClass = "topic-link-popover mr-1",
+                                           CssClass = "topic-link-popover",
                                            NavigateUrl = "#!"
                                        };
-                                       
+
                 var lastPostedDateTime = this.TopicRow["LastPosted"].ToType<DateTime>();
 
                 var formattedDatetime = this.Get<YafBoardSettings>().ShowRelativeTime
@@ -291,6 +289,8 @@ namespace YAF.Web.Controls
                                                 </span>&nbsp;<span class=""popover-timeago"">{formattedDatetime}</span>
                          ";
 
+                writer.Write(infoLastPost.RenderToString());
+
                 var gotoLastPost = new ThemeButton
                                        {
                                            NavigateUrl =
@@ -302,9 +302,7 @@ namespace YAF.Web.Controls
                                            Icon = "share-square",
                                            Type = ButtonAction.OutlineSecondary,
                                            TitleLocalizedTag = "GO_LAST_POST",
-                                           TextLocalizedTag = "GO_LAST_POST",
-                                           DataToggle = "tooltip",
-                                           CssClass = "mr-1"
+                                           DataToggle = "tooltip"
                                        };
 
                 var gotoLastUnread = new ThemeButton
@@ -318,13 +316,13 @@ namespace YAF.Web.Controls
                                              Icon = "book-reader",
                                              Type = ButtonAction.OutlineSecondary,
                                              TitleLocalizedTag = "GO_LASTUNREAD_POST",
-                                             TextLocalizedTag = "GO_LASTUNREAD_POST",
                                              DataToggle = "tooltip"
                                          };
 
-                writer.Write(infoLastPost.RenderToString());
-                writer.Write(gotoLastPost.RenderToString());
+                writer.Write(@"<div class=""btn-group"" role=""group"">");
                 writer.Write(gotoLastUnread.RenderToString());
+                writer.Write(gotoLastPost.RenderToString());
+                writer.Write("</div>");
                 
                 writer.Write("</div>");
             }

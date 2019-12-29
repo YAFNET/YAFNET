@@ -15,7 +15,7 @@
 </div>
 
 <div class="row">
-    <div class="col-3">
+    <div class="col-sm-auto">
         <YAF:ProfileMenu ID="ProfileMenu1" runat="server" />
     </div>
     <div class="col">

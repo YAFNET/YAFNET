@@ -92,7 +92,7 @@ namespace YAF.Web.Controls
                 this.GetTextFormatted("MOST_ACTIVE", this.LastNumOfDays));
             writer.Write(@"<div class=""card-body"">");
 
-            writer.Write("<ol>");
+            writer.Write(@"<ol class=""mb-0"">");
 
             rankDt.AsEnumerable().ForEach(
                 row =>
@@ -104,7 +104,7 @@ namespace YAF.Web.Controls
                         userLink.RenderControl(writer);
 
                         writer.Write(" ");
-                        writer.Write($@"<span class=""NumberOfPosts"">({row.Field<int>("NumOfPosts")})</span>");
+                        writer.Write($@"({row.Field<int>("NumOfPosts")})");
                         writer.Write("</li>");
                     });
 

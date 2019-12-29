@@ -144,7 +144,16 @@ namespace YAF.Pages
                 JavaScriptBlocks.TopicLinkPopoverJs(
                     $"{this.GetText("LASTPOST")}&nbsp;{this.GetText("SEARCH", "BY")} ...",
                     ".topic-link-popover",
-                    "hover click"));
+                    "focus hover"));
+
+            var iconLegend = new IconLegend().RenderToString();
+
+            // setup jQuery and DatePicker JS...
+            this.PageContext.PageElements.RegisterJsBlockStartup(
+                "TopicIconLegendPopoverJs",
+                JavaScriptBlocks.ForumIconLegendPopoverJs(
+                    iconLegend.Replace("\n", string.Empty).Replace("\r", string.Empty),
+                    "topic-icon-legend-popvover"));
 
             base.OnPreRender(e);
         }
@@ -284,11 +293,7 @@ namespace YAF.Pages
                 YafBuildLink.AccessDenied();
             }
 
-            var dt = this.GetRepository<Forum>().List(
-                this.PageContext.PageBoardID,
-                this.PageContext.PageForumID);
-
-            this.forum = dt.FirstOrDefault();
+            this.forum = this.GetRepository<Forum>().GetById(this.PageContext.PageForumID);
 
             if (this.forum.RemoteURL.IsSet())
             {

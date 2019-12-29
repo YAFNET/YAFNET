@@ -16,11 +16,8 @@
                 <p>
                 <img id="ChoiceImage" src="" 
                      alt='<%# this.HtmlEncode(this.Get<IBadWordReplace>().Replace(Convert.ToString(DataBinder.Eval(Container.DataItem, "Choice")))) %>' runat="server" />
-                    &nbsp;<asp:Label id="YourChoice" visible="false" runat="server" 
-                               CssClass="badge badge-success"
-                               ToolTip='<%# this.GetText("POLLEDIT", "POLL_VOTED") %>'>
-                        <i class="fa fa-check-circle fa-fw"></i>&nbsp;<%# this.GetText("POLLEDIT", "POLL_VOTED") %>
-                    </asp:Label>
+                    &nbsp;
+                    <%# DataBinder.Eval(Container.DataItem, "Question") %>
                 </p>
                          <p>
                           <asp:LinkButton ID="MyLinkButton1" 
@@ -45,6 +42,12 @@
                     <asp:Label runat="server" ID="Voters"></asp:Label>
                 </asp:Label>
                     </asp:PlaceHolder>
+            
+            <asp:Label id="YourChoice" visible="false" runat="server" 
+                       CssClass="badge badge-success"
+                       ToolTip='<%# this.GetText("POLLEDIT", "POLL_VOTED") %>'>
+                <i class="fa fa-check-circle fa-fw"></i>&nbsp;<%# this.GetText("POLLEDIT", "POLL_VOTED") %>
+            </asp:Label>
         </li>
     </ItemTemplate>
     <FooterTemplate>

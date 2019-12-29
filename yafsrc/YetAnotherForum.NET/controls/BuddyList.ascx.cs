@@ -208,23 +208,6 @@ namespace YAF.Controls
 
                     break;
             }
-
-            if (this.Count > 0)
-            {
-                var header  = e.Item.FindControlAs<PlaceHolder>("HeaderHolder");
-
-                if (header != null)
-                {
-                    header.Visible = true;
-                }
-
-                var footer = e.Item.FindControlAs<PlaceHolder>("FooterHolder");
-
-                if (footer != null)
-                {
-                    footer.Visible = true;
-                }
-            }
         }
 
         /// <summary>

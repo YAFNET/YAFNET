@@ -19,31 +19,34 @@
                                     <ItemTemplate>
                                         <li class="list-group-item pt-2 pb-0">
                                             <h6>
-                                                    <asp:PlaceHolder runat="server" ID="PostIcon"></asp:PlaceHolder>
-                                                    <asp:HyperLink ID="TextMessageLink" runat="server" CssClass="font-weight-bold" />&nbsp;
+                                                <asp:PlaceHolder runat="server" ID="PostIcon"></asp:PlaceHolder>
+                                                <asp:HyperLink ID="TextMessageLink" runat="server" 
+                                                               CssClass="font-weight-bold" />
                                                 <YAF:ThemeButton runat="server" ID="Info"
                                                                  Icon="info-circle"
-                                                                 Type="OutlineInfo"
+                                                                 IconColor="text-info"
+                                                                 IconCssClass="fas fa-lg"
+                                                                 Type="Link"
                                                                  DataToggle="popover"
                                                                  Size="Small"
                                                                  CssClass="topic-link-popover">
                                                 </YAF:ThemeButton>
-                                                <YAF:ThemeButton runat="server" ID="GoToLastPost" 
-                                                                 Size="Small"
-                                                                 Icon="share-square"
-                                                                 Type="OutlineSecondary"
-                                                                 DataToggle="tooltip"
-                                                                 TitleLocalizedTag="GO_LAST_POST"
-                                                                 TextLocalizedTag="GO_LAST_POST">
-                                                </YAF:ThemeButton>
-                                                <YAF:ThemeButton runat="server" ID="GoToLastUnread" 
-                                                                 Size="Small"
-                                                                 Icon="book-reader"
-                                                                 Type="OutlineSecondary"
-                                                                 DataToggle="tooltip"
-                                                                 TitleLocalizedTag="GO_LASTUNREAD_POST"
-                                                                 TextLocalizedTag="GO_LASTUNREAD_POST">
-                                                </YAF:ThemeButton>
+                                                <div class="btn-group" role="group">
+                                                    <YAF:ThemeButton runat="server" ID="GoToLastUnread" 
+                                                                     Size="Small"
+                                                                     Icon="book-reader"
+                                                                     Type="OutlineSecondary"
+                                                                     DataToggle="tooltip"
+                                                                     TitleLocalizedTag="GO_LASTUNREAD_POST">
+                                                    </YAF:ThemeButton>
+                                                    <YAF:ThemeButton runat="server" ID="GoToLastPost" 
+                                                                     Size="Small"
+                                                                     Icon="share-square"
+                                                                     Type="OutlineSecondary"
+                                                                     DataToggle="tooltip"
+                                                                     TitleLocalizedTag="GO_LAST_POST">
+                                                    </YAF:ThemeButton>
+                                                </div>
                                             </h6>
                                         </li>
                                     </ItemTemplate>

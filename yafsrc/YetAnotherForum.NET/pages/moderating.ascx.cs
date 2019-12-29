@@ -89,7 +89,7 @@ namespace YAF.Pages
                 JavaScriptBlocks.TopicLinkPopoverJs(
                     $"{this.GetText("LASTPOST")}&nbsp;{this.GetText("SEARCH", "BY")} ...",
                     ".topic-link-popover",
-                    "hover click"));
+                    "focus hover"));
 
             base.OnPreRender(e);
         }
@@ -318,7 +318,7 @@ namespace YAF.Pages
         /// Gets the selected topics
         /// </summary>
         /// <returns>
-        /// The <see cref="List"/>.
+        /// Returns the List of selected Topics
         /// </returns>
         private List<TopicContainer> GetSelectedTopics()
         {

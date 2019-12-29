@@ -371,7 +371,7 @@ namespace YAF.Core.Services
         /// </returns>
         public List<SearchMessage> SearchSimilar(int userId, string input, string fieldName = "")
         {
-            return input.IsNotSet() ? new List<SearchMessage>() : this.SearchSimilarIndex(userId, input, fieldName);
+           return input.IsNotSet() ? new List<SearchMessage>() : this.SearchSimilarIndex(userId, input, fieldName);
         }
 
         /// <summary>
@@ -489,8 +489,11 @@ namespace YAF.Core.Services
             List<vaccess> userAccessList)
         {
             var results = hits.Select(hit => MapSearchDocumentToData(searcher.Doc(hit.Doc), userAccessList)).ToList();
-            return results.Any() ? null :
-                       results.GroupBy(x => x.Topic).Select(y => y.FirstOrDefault()).ToList();
+
+            return results.Any()
+                       ? results.Where(item => item != null).GroupBy(x => x.Topic).Select(y => y.FirstOrDefault())
+                           .ToList()
+                       : null;
         }
 
         /// <summary>

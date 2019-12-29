@@ -45,27 +45,39 @@ namespace YAF.Pages
         /// <summary>
         /// Indicates if the Active Tab was loaded
         /// </summary>
-        private bool activeloaded;
+        private bool activeLoaded;
 
         /// <summary>
         /// Indicates if the Unanswered Tab was loaded
         /// </summary>
-        private bool unansweredloaded;
+        private bool unansweredLoaded;
 
         /// <summary>
         /// Indicates if the Unread Tab was loaded
         /// </summary>
-        private bool unreadloaded;
+        private bool unreadLoaded;
 
         /// <summary>
         /// Indicates if the My Topics Tab was loaded
         /// </summary>
-        private bool mytopicsloaded;
+        private bool mytopicsLoaded;
 
         /// <summary>
         /// Indicates if the Favorite Tab was loaded
         /// </summary>
-        private bool favoriteloaded;
+        private bool favoriteLoaded;
+
+        #region Constructors and Destructors
+
+        /// <summary>
+        ///   Initializes a new instance of the mytopics class.
+        /// </summary>
+        public mytopics()
+            : base("MYTOPICS")
+        {
+        }
+
+        #endregion
 
         /// <summary>
         /// Gets or sets the current tab.
@@ -87,18 +99,6 @@ namespace YAF.Pages
 
             set => this.ViewState["CurrentTab"] = value;
         }
-
-        #region Constructors and Destructors
-
-        /// <summary>
-        ///   Initializes a new instance of the mytopics class.
-        /// </summary>
-        public mytopics()
-            : base("MYTOPICS")
-        {
-        }
-
-        #endregion
 
         #region Methods
 
@@ -122,7 +122,7 @@ namespace YAF.Pages
                 JavaScriptBlocks.TopicLinkPopoverJs(
                     $"{this.GetText("LASTPOST")}&nbsp;{this.GetText("SEARCH", "BY")} ...",
                     ".topic-link-popover",
-                    "hover click"));
+                    "focus hover"));
 
             this.PageContext.PageElements.RegisterJsBlock(
                 "TopicsTabsJs",
@@ -209,7 +209,7 @@ namespace YAF.Pages
             {
                 case TopicListMode.Unanswered:
 
-                    if (!this.unansweredloaded)
+                    if (!this.unansweredLoaded)
                     {
                         this.UnansweredTopics.BindData();
 
@@ -225,13 +225,13 @@ namespace YAF.Pages
                             this.FavoriteTopics.DataBind();
                         }
 
-                        this.unansweredloaded = true;
+                        this.unansweredLoaded = true;
                     }
 
                     break;
                 case TopicListMode.Unread:
 
-                    if (!this.unreadloaded)
+                    if (!this.unreadLoaded)
                     {
                         this.UnreadTopics.BindData();
 
@@ -244,13 +244,13 @@ namespace YAF.Pages
                             this.FavoriteTopics.DataBind();
                         }
 
-                        this.unreadloaded = true;
+                        this.unreadLoaded = true;
                     }
 
                     break;
                 case TopicListMode.User:
 
-                    if (!this.mytopicsloaded)
+                    if (!this.mytopicsLoaded)
                     {
                         this.MyTopics.BindData();
 
@@ -266,7 +266,7 @@ namespace YAF.Pages
                             this.FavoriteTopics.DataBind();
                         }
 
-                        this.mytopicsloaded = true;
+                        this.mytopicsLoaded = true;
                     }
                     else
                     {
@@ -288,7 +288,7 @@ namespace YAF.Pages
                     break;
                 case TopicListMode.Favorite:
 
-                    if (!this.favoriteloaded)
+                    if (!this.favoriteLoaded)
                     {
                         this.FavoriteTopics.BindData();
 
@@ -304,13 +304,13 @@ namespace YAF.Pages
                             this.MyTopics.DataBind();
                         }
 
-                        this.favoriteloaded = true;
+                        this.favoriteLoaded = true;
                     }
 
                     break;
                 case TopicListMode.Active:
 
-                    if (!this.activeloaded)
+                    if (!this.activeLoaded)
                     {
                         this.ActiveTopics.DataBind();
                         this.UnansweredTopics.DataBind();
@@ -325,7 +325,7 @@ namespace YAF.Pages
                             this.FavoriteTopics.DataBind();
                         }
 
-                        this.activeloaded = true;
+                        this.activeLoaded = true;
                     }
 
                     break;

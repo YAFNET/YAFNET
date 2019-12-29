@@ -445,6 +445,13 @@ namespace YAF.Core.Services
 
                 var originalData = webClient.DownloadData(avatarUrl);
 
+                if (originalData == null)
+                {
+                    // Output no-avatar
+                    context.Response.Redirect($"{YafForumInfo.ForumClientFileRoot}/Images/noavatar.svg");
+                    return;
+                }
+
                 using (var avatarStream = new MemoryStream(originalData))
                 {
                     using (var img = new Bitmap(avatarStream))

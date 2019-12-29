@@ -104,7 +104,7 @@
                 <div class="form-group">
                     <YAF:HelpLabel ID="PollGroupListLabel" runat="server"
                                    AssociatedControlID="PollGroupList"
-                                   LocalizedTag="pollgroup_list"/>
+                                   LocalizedTag="POLLGROUP_LIST_BOARD"/>
                     <asp:DropDownList ID="PollGroupListDropDown" runat="server" 
                                       CssClass="select2-select" 
                                       placeholder='<%# this.GetText("pollgroup_list") %>'/>
