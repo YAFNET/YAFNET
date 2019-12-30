@@ -4646,8 +4646,6 @@ BEGIN
         [{databaseOwner}].[{objectQualifier}Forum] f ON t.ForumID = f.ForumID
     inner join 
         [{databaseOwner}].[{objectQualifier}User] lastUser on lastUser.UserID = t.LastUserID
-    inner join 
-        [{databaseOwner}].[{objectQualifier}User] lastUser on lastUser.UserID = t.LastUserID
     INNER JOIN
         [{databaseOwner}].[{objectQualifier}Category] c ON c.CategoryID = f.CategoryID
     JOIN
@@ -6530,13 +6528,13 @@ begin
         b.LastPosted,
         b.LastMessageID,
         LastTopicID = (select TopicID from [{databaseOwner}].[{objectQualifier}Message] x where x.MessageID=b.LastMessageID),
-        b.LastUserID,
+        lastUser.UserID,
         LastUserName = lastUser.Name,
         LastUserDisplayName = lastUser.DisplayName
     from
         [{databaseOwner}].[{objectQualifier}WatchForum] a
-        inner join [{databaseOwner}].[{objectQualifier}User] lastUser on lastUser.UserID = b.LastUserID
         inner join [{databaseOwner}].[{objectQualifier}Forum] b on b.ForumID = a.ForumID
+        inner join [{databaseOwner}].[{objectQualifier}User] lastUser on lastUser.UserID = b.LastUserID
     where
         a.UserID = @UserID
 end

@@ -7833,7 +7833,7 @@ begin
         b.LastPosted,
         b.LastMessageID,
         LastTopicID = (select TopicID from [{databaseOwner}].[{objectQualifier}Message] x where x.MessageID=b.LastMessageID),
-        b.LastUserID,
+        lastUser.UserID,
         LastUserName = lastUser.Name,
         LastUserDisplayName = lastUser.DisplayName
     from
