@@ -4650,8 +4650,6 @@ BEGIN
         [{databaseOwner}].[{objectQualifier}Forum] f ON t.ForumID = f.ForumID
     inner join 
         [{databaseOwner}].[{objectQualifier}User] lastUser on lastUser.UserID = t.LastUserID
-    inner join 
-        [{databaseOwner}].[{objectQualifier}User] lastUser on lastUser.UserID = t.LastUserID
     INNER JOIN
         [{databaseOwner}].[{objectQualifier}Category] c ON c.CategoryID = f.CategoryID
     JOIN
@@ -6530,13 +6528,13 @@ begin
         b.LastPosted,
         b.LastMessageID,
         LastTopicID = (select TopicID from [{databaseOwner}].[{objectQualifier}Message] x where x.MessageID=b.LastMessageID),
-        b.LastUserID,
+        lastUser.UserID,
         LastUserName = lastUser.Name,
         LastUserDisplayName = lastUser.DisplayName
     from
         [{databaseOwner}].[{objectQualifier}WatchForum] a
-        inner join [{databaseOwner}].[{objectQualifier}User] lastUser on lastUser.UserID = b.LastUserID
         inner join [{databaseOwner}].[{objectQualifier}Forum] b on b.ForumID = a.ForumID
+        inner join [{databaseOwner}].[{objectQualifier}User] lastUser on lastUser.UserID = b.LastUserID
     where
         a.UserID = @UserID
 end
@@ -8037,7 +8035,7 @@ begin
         Quoted             = (select count(1) from [{databaseOwner}].[{objectQualifier}Activity] where UserID=@UserID and (Flags & 4096)=4096 and Notification = 1),
         UnreadPrivate		= CASE WHEN @ShowUnreadPMs > 0 THEN (select count(1) from [{databaseOwner}].[{objectQualifier}UserPMessage] where UserID=@UserID and IsRead=0 and IsDeleted = 0 and IsArchived = 0) ELSE 0 END,
         LastReceivedThanks  = (SELECT TOP 1 MessageID FROM [{databaseOwner}].[{objectQualifier}Activity] where UserID=@UserID and (Flags & 1024)=1024 and Notification = 1),
-		LastMention		    = (SELECT TOP 1 MessageID FROM [{databaseOwner}].[{objectQualifier}Activity] where UserID=@UserID and (Flags & 512)=512 and Notification = 1),
+	LastMention		    = (SELECT TOP 1 MessageID FROM [{databaseOwner}].[{objectQualifier}Activity] where UserID=@UserID and (Flags & 512)=512 and Notification = 1),
         LastQuoted		    = (SELECT TOP 1 MessageID FROM [{databaseOwner}].[{objectQualifier}Activity] where UserID=@UserID and (Flags & 4096)=4096 and Notification = 1),
         LastUnreadPm		= CASE WHEN @ShowUnreadPMs > 0 THEN (SELECT TOP 1 Created FROM [{databaseOwner}].[{objectQualifier}PMessage] pm INNER JOIN [{databaseOwner}].[{objectQualifier}UserPMessage] upm ON pm.PMessageID = upm.PMessageID WHERE upm.UserID=@UserID and upm.IsRead=0  and upm.IsDeleted = 0 and upm.IsArchived = 0 ORDER BY pm.Created DESC) ELSE NULL END,
         PendingBuddies      = CASE WHEN @ShowPendingBuddies > 0 THEN (SELECT COUNT(ID) FROM [{databaseOwner}].[{objectQualifier}Buddy] WHERE ToUserID = @UserID AND Approved = 0) ELSE 0 END,
