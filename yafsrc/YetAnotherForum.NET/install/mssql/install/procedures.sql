@@ -1433,7 +1433,7 @@ select
         join [{databaseOwner}].[{objectQualifier}Forum] b  on b.CategoryID=a.CategoryID
         join [{databaseOwner}].[{objectQualifier}ActiveAccess] x  on x.ForumID=b.ForumID
         left outer join [{databaseOwner}].[{objectQualifier}Topic] t  ON t.TopicID = [{databaseOwner}].[{objectQualifier}forum_lasttopic](b.ForumID,@UserID,b.LastTopicID,b.LastPosted)
-        join [{databaseOwner}].[{objectQualifier}User] lastUser on lastUser.UserID = t.LastUserID
+        left outer join [{databaseOwner}].[{objectQualifier}User] lastUser on lastUser.UserID = t.LastUserID
     where
         (@CategoryID is null or a.CategoryID=@CategoryID) and
          x.UserID = @UserID and
