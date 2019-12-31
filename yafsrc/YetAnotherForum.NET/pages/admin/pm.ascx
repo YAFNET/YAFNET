@@ -18,28 +18,46 @@
                     <YAF:Alert runat="server"
                                Type="Info">
                         <YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="PM_NUMBER" LocalizedPage="ADMIN_PM" />
-                        &nbsp;<span class="text-info"><asp:Label runat="server" ID="Count" /></span>
+                        &nbsp;<span class="badge badge-info"><asp:Label runat="server" ID="Count" /></span>
                     </YAF:Alert>
                     <div class="form-row">
                         <div class="form-group col-md-4">
                             <asp:Label runat="server"
                                        CssClass="font-weight-bold"
                                        AssociatedControlID="Days1">
-                                <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="DELETE_READ" LocalizedPage="ADMIN_PM" />
+                                <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" 
+                                                    LocalizedTag="DELETE_READ" LocalizedPage="ADMIN_PM" />
                             </asp:Label>
-                            <asp:TextBox runat="server" ID="Days1" 
-                                         CssClass="form-control DaysInput" 
-                                         TextMode="Number" />
+                            <div class="input-group">
+                                <asp:TextBox runat="server" ID="Days1" 
+                                             CssClass="form-control" 
+                                             TextMode="Number" />
+                                <div class="input-group-append">
+                                    <div class="input-group-text">
+                                        <YAF:LocalizedLabel runat="server" 
+                                                            LocalizedTag="DAYS"></YAF:LocalizedLabel>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <div class="form-group col-md-4">
                             <asp:Label runat="server"
                                        CssClass="font-weight-bold"
                                        AssociatedControlID="Days2">
-                                <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="DELETE_UNREAD" LocalizedPage="ADMIN_PM" />
+                                <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" 
+                                                    LocalizedTag="DELETE_UNREAD" LocalizedPage="ADMIN_PM" />
                             </asp:Label>
-                            <asp:TextBox runat="server" ID="Days2" 
-                                         CssClass="form-control DaysInput" 
-                                         TextMode="Number" />
+                            <div class="input-group">
+                                <asp:TextBox runat="server" ID="Days2" 
+                                             CssClass="form-control" 
+                                             TextMode="Number" />
+                                <div class="input-group-append">
+                                    <div class="input-group-text">
+                                        <YAF:LocalizedLabel runat="server" 
+                                                            LocalizedTag="DAYS"></YAF:LocalizedLabel>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -33,9 +33,17 @@
                         <YAF:HelpLabel ID="LocalizedLabel3" runat="server"
                                        LocalizedTag="PRUNE_DAYS" LocalizedPage="ADMIN_PRUNE"
                                        AssociatedControlID="days"/>
-                        <asp:TextBox ID="days" runat="server" 
-                                     CssClass="form-control DaysInput" 
-                                     TextMode="Number"></asp:TextBox>
+                        <div class="input-group">
+                            <asp:TextBox ID="days" runat="server" 
+                                         CssClass="form-control" 
+                                         TextMode="Number"></asp:TextBox>
+                            <div class="input-group-append">
+                                <div class="input-group-text">
+                                    <YAF:LocalizedLabel runat="server" 
+                                                        LocalizedTag="DAYS"></YAF:LocalizedLabel>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div class="form-group col-md-4">
                         <YAF:HelpLabel ID="LocalizedLabel2" runat="server" 

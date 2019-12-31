@@ -15,7 +15,6 @@
 // --Bootstrap extensions
 @import "select2/select2";
 @import "select2/select2-bootstrap";
-@import "jquery.bootstrap-touchspin";
 @import "bootstrap-datetimepicker";
 @import "blueimp-gallery.scss";
 @import "bootstrap-suggest.scss";
@@ -121,14 +120,14 @@ span.form-check > label {
 }
 
 .blockquote-custom-icon {
-    width: 50px;
-    height: 50px;
+    width: 35px;
+    height: 35px;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     position: absolute;
-    top: -25px;
+    top: -20px;
     left: 50px;
 }
 

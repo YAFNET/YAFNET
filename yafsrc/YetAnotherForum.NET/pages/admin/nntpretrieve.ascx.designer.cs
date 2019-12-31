@@ -7,13 +7,12 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace YAF.Pages.Admin {
-    using System.Web.UI.WebControls;
+namespace YAF.Pages.Admin
+{
 
-    using YAF.Web.Controls;
 
-    public partial class nntpretrieve {
-        
+    public partial class nntpretrieve
+    {
 
         /// <summary>
         /// PageLinks control.
@@ -22,8 +21,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected PageLinks PageLinks;
-        
+        protected global::YAF.Web.Controls.PageLinks PageLinks;
 
         /// <summary>
         /// LocalizedLabel1 control.
@@ -32,8 +30,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected LocalizedLabel LocalizedLabel1;
-        
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel1;
 
         /// <summary>
         /// LocalizedLabel5 control.
@@ -42,8 +39,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected LocalizedLabel LocalizedLabel5;
-        
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel5;
 
         /// <summary>
         /// List control.
@@ -52,8 +48,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected Repeater List;
-        
+        protected global::System.Web.UI.WebControls.Repeater List;
 
         /// <summary>
         /// LocalizedLabel3 control.
@@ -62,8 +57,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected LocalizedLabel LocalizedLabel3;
-        
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel3;
 
         /// <summary>
         /// Seconds control.
@@ -72,8 +66,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected TextBox Seconds;
-        
+        protected global::System.Web.UI.WebControls.TextBox Seconds;
 
         /// <summary>
         /// Retrieve control.
@@ -82,6 +75,6 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected ThemeButton Retrieve;
+        protected global::YAF.Web.Controls.ThemeButton Retrieve;
     }
 }

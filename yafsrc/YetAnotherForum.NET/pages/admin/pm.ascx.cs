@@ -30,7 +30,6 @@ namespace YAF.Pages.Admin
 
     using YAF.Core;
     using YAF.Core.Model;
-    using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
@@ -54,19 +53,6 @@ namespace YAF.Pages.Admin
         {
             this.commit.Click += this.CommitClick;
             base.OnInit(e);
-        }
-
-        /// <summary>
-        /// Registers the needed Java Scripts
-        /// </summary>
-        /// <param name="e">An <see cref="T:System.EventArgs"/> object that contains the event data.</param>
-        protected override void OnPreRender([NotNull] EventArgs e)
-        {
-            YafContext.Current.PageElements.RegisterJsBlock(
-                "TouchSpinLoadJs",
-                JavaScriptBlocks.LoadTouchSpin(".DaysInput", $"postfix: '{this.GetText("ADMIN_PM", "DAYS")}'"));
-
-            base.OnPreRender(e);
         }
 
         /// <summary>

@@ -30,7 +30,6 @@ namespace YAF.Pages.Admin
 
     using YAF.Core;
     using YAF.Core.Model;
-    using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Interfaces;
@@ -61,21 +60,6 @@ namespace YAF.Pages.Admin
         {
             var row = (TypedNntpForum)_o;
             return $"{row.LastMessageNo:N0}";
-        }
-
-        /// <summary>
-        /// Registers the needed Java Scripts
-        /// </summary>
-        /// <param name="e">An <see cref="T:System.EventArgs"/> object that contains the event data.</param>
-        protected override void OnPreRender([NotNull] EventArgs e)
-        {
-            YafContext.Current.PageElements.RegisterJsBlock(
-                "TouchSpinLoadJs",
-                JavaScriptBlocks.LoadTouchSpin(
-                    $"#{this.Seconds.ClientID}",
-                    $"postfix: '{this.GetText("ADMIN_NNTPRETRIEVE", "SECONDS")}'"));
-
-            base.OnPreRender(e);
         }
 
         /// <summary>

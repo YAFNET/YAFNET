@@ -1865,7 +1865,6 @@
     <Content Include="Content\InstallWizard.min.css">
       <DependentUpon>InstallWizard.css</DependentUpon>
     </Content>
-    <Content Include="Content\jquery.bootstrap-touchspin.css" />
     <Content Include="Content\jquery.emojipicker.css" />
     <Content Include="Content\jQuery.FileUpload\jquery.fileupload.css" />
     <Content Include="Content\jquery.hovercard.css">
@@ -2657,7 +2656,6 @@
     </Content>
     <Content Include="Scripts\jquery.blockUI.js" />
     <Content Include="Scripts\jquery.blueimp-gallery.js" />
-    <Content Include="Scripts\jquery.bootstrap-touchspin.js" />
     <Content Include="Scripts\jquery.FileUpload\canvas-to-blob.min.js" />
     <Content Include="Scripts\jquery.FileUpload\cors\jquery.postmessage-transport.js" />
     <Content Include="Scripts\jquery.FileUpload\cors\jquery.ui.widget.js" />
@@ -3328,9 +3326,6 @@
     </None>
     <None Include="Content\forum.scss" />
     <None Include="Content\jquery.hovercard.scss" />
-    <Content Include="Scripts\radEditor\toolsFile.xml" />
-    <Content Include="Scripts\tinymce\tinymce_init.js" />
-    <Content Include="Scripts\tinymce\tinymce_initbbcode.js" />
     <Content Include="recommended.web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -3420,9 +3415,6 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
-  </ItemGroup>
-  <ItemGroup>
-    <TypeScriptCompile Include="Scripts\ladda.d.ts" />
   </ItemGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Package|AnyCPU'">
     <OutputPath>bin\</OutputPath>
@@ -3704,7 +3696,7 @@ RD /S /Q "$(TargetDir)zh-TW\"</PostBuildEvent>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties compilerconfig_1json__JSONSchema="" bundleconfig_1json__JSONSchema="" />
+      <UserProperties bundleconfig_1json__JSONSchema="" compilerconfig_1json__JSONSchema="" />
     </VisualStudio>
   </ProjectExtensions>
   <Import Project="..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets" Condition="Exists('..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets')" />

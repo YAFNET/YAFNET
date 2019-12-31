@@ -7584,38 +7584,6 @@ select.is-valid ~ .select2-container--bootstrap4 .select2-selection {
 .select2-container--bootstrap4 .select2-selection__clear:hover {
   background-color: #343a40; }
 
-.bootstrap-touchspin .input-group-btn-vertical {
-  position: relative;
-  white-space: nowrap;
-  width: 1%;
-  vertical-align: middle;
-  display: table-cell; }
-
-.bootstrap-touchspin .input-group-btn-vertical > .btn {
-  display: block;
-  float: none;
-  width: 100%;
-  max-width: 100%;
-  padding: 8px 10px;
-  margin-left: -1px;
-  position: relative; }
-
-.bootstrap-touchspin .input-group-btn-vertical .bootstrap-touchspin-up {
-  border-radius: 0;
-  border-top-right-radius: 4px; }
-
-.bootstrap-touchspin .input-group-btn-vertical .bootstrap-touchspin-down {
-  margin-top: -2px;
-  border-radius: 0;
-  border-bottom-right-radius: 4px; }
-
-.bootstrap-touchspin .input-group-btn-vertical i {
-  position: absolute;
-  top: 3px;
-  left: 5px;
-  font-size: 9px;
-  font-weight: normal; }
-
 /*!
  * Datetimepicker for Bootstrap 3
  * version : 4.17.47
@@ -8408,11 +8376,6 @@ body:last-child .blueimp-gallery-playing > .play-pause {
 
 .dropdown-toggle {
   margin-right: 0.30rem; }
-
-.dropdown-item {
-  width: -webkit-max-content !important;
-  width: -moz-max-content !important;
-  width: max-content !important; }
 
 .dropdown-menu {
   max-height: -webkit-max-content;

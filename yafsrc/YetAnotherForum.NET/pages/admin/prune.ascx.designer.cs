@@ -7,13 +7,12 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace YAF.Pages.Admin {
-    using System.Web.UI.WebControls;
+namespace YAF.Pages.Admin
+{
 
-    using YAF.Web.Controls;
 
-    public partial class prune {
-        
+    public partial class prune
+    {
 
         /// <summary>
         /// PageLinks control.
@@ -22,8 +21,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected PageLinks PageLinks;
-        
+        protected global::YAF.Web.Controls.PageLinks PageLinks;
 
         /// <summary>
         /// LocalizedLabel1 control.
@@ -32,8 +30,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected LocalizedLabel LocalizedLabel1;
-        
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel1;
 
         /// <summary>
         /// LocalizedLabel5 control.
@@ -42,8 +39,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected LocalizedLabel LocalizedLabel5;
-        
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel5;
 
         /// <summary>
         /// lblPruneInfo control.
@@ -52,8 +48,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected Label lblPruneInfo;
-        
+        protected global::System.Web.UI.WebControls.Label lblPruneInfo;
 
         /// <summary>
         /// LocalizedLabel4 control.
@@ -62,8 +57,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected HelpLabel LocalizedLabel4;
-        
+        protected global::YAF.Web.Controls.HelpLabel LocalizedLabel4;
 
         /// <summary>
         /// forumlist control.
@@ -72,8 +66,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected DropDownList forumlist;
-        
+        protected global::System.Web.UI.WebControls.DropDownList forumlist;
 
         /// <summary>
         /// LocalizedLabel3 control.
@@ -82,8 +75,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected HelpLabel LocalizedLabel3;
-        
+        protected global::YAF.Web.Controls.HelpLabel LocalizedLabel3;
 
         /// <summary>
         /// days control.
@@ -92,8 +84,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected TextBox days;
-        
+        protected global::System.Web.UI.WebControls.TextBox days;
 
         /// <summary>
         /// LocalizedLabel2 control.
@@ -102,8 +93,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected HelpLabel LocalizedLabel2;
-        
+        protected global::YAF.Web.Controls.HelpLabel LocalizedLabel2;
 
         /// <summary>
         /// permDeleteChkBox control.
@@ -112,8 +102,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected CheckBox permDeleteChkBox;
-        
+        protected global::System.Web.UI.WebControls.CheckBox permDeleteChkBox;
 
         /// <summary>
         /// commit control.
@@ -122,6 +111,6 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected ThemeButton commit;
+        protected global::YAF.Web.Controls.ThemeButton commit;
     }
 }

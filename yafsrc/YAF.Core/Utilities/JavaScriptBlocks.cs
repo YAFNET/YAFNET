@@ -467,19 +467,6 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
         }
 
         /// <summary>
-        /// Loads the touch spin.
-        /// </summary>
-        /// <param name="selector">The selector.</param>
-        /// <param name="options">The options.</param>
-        /// <returns>Returns the TouchSpin JS</returns>
-        public static string LoadTouchSpin([NotNull] string selector, [CanBeNull] string options)
-        {
-            return $@"{Config.JQueryAlias}(document).ready(function() {{
-                        {Config.JQueryAlias}('{selector}').TouchSpin( {(options.IsSet() ? $"{{ {options} }}" : string.Empty)} );
-                    }});";
-        }
-
-        /// <summary>
         /// Load Go to Anchor
         /// </summary>
         /// <param name="anchor">
