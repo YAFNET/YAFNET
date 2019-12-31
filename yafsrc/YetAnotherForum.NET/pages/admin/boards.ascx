@@ -57,7 +57,8 @@
                                          TitleLocalizedTag="DELETE"
                                          TextLocalizedTag="DELETE"
                                          Icon="trash"
-                                         ReturnConfirmText='<%# this.GetText("ADMIN_BOARDS", "CONFIRM_DELETE") %>'>
+                                         ReturnConfirmText='<%# this.GetText("ADMIN_BOARDS", "CONFIRM_DELETE") %>'
+                                         Visible='<%# this.List.Items.Count > 1  %>'>
                         </YAF:ThemeButton>
                     </small>
                 </li>
