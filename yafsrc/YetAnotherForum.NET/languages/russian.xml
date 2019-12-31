@@ -2631,6 +2631,7 @@
     <Resource tag="FROM">От</Resource>
     <Resource tag="INBOX">Входящие</Resource>
     <Resource tag="MARK_ALL_ASREAD">Отметить все как прочитанные</Resource>
+    <Resource tag="MARK_ASREAD">Mark As Read</Resource>
     <Resource tag="MSG_ARCHIVED">Сообщение отправлено в архив.</Resource>
     <Resource tag="MSG_ARCHIVED+">Было отправлено в архив {0} сообщений.</Resource>
     <Resource tag="MSG_DELETED">Сообщение было удалено.</Resource>

@@ -2644,6 +2644,7 @@
     <Resource tag="FROM">Van</Resource>
     <Resource tag="INBOX">Postvak In</Resource>
     <Resource tag="MARK_ALL_ASREAD">Markeer alles als gelezen</Resource>
+    <Resource tag="MARK_ASREAD">Mark As Read</Resource>
     <Resource tag="MSG_ARCHIVED">Bericht is gearchiveerd.</Resource>
     <Resource tag="MSG_ARCHIVED+">{0} berichten gearchiveerd.</Resource>
     <Resource tag="MSG_DELETED">Bericht is gewist.</Resource>

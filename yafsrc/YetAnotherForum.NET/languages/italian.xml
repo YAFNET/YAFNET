@@ -2645,6 +2645,7 @@
     <Resource tag="FROM">Da</Resource>
     <Resource tag="INBOX">In arrivo</Resource>
     <Resource tag="MARK_ALL_ASREAD">Segna tutti come letti</Resource>
+    <Resource tag="MARK_ASREAD">Mark As Read</Resource>
     <Resource tag="MSG_ARCHIVED">Messaggio archiviato.</Resource>
     <Resource tag="MSG_ARCHIVED+">{0} messaggi archiviati.</Resource>
     <Resource tag="MSG_DELETED">Messaggio eliminato.</Resource>

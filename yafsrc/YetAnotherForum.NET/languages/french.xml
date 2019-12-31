@@ -2644,6 +2644,7 @@
     <Resource tag="FROM">De</Resource>
     <Resource tag="INBOX">Boîte de réception</Resource>
     <Resource tag="MARK_ALL_ASREAD">Tout marquer comme lu</Resource>
+    <Resource tag="MARK_ASREAD">Mark As Read</Resource>
     <Resource tag="MSG_ARCHIVED">Message archivé.</Resource>
     <Resource tag="MSG_ARCHIVED+">{0} messages archivés.</Resource>
     <Resource tag="MSG_DELETED">Message supprimé.</Resource>

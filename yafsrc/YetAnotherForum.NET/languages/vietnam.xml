@@ -2647,6 +2647,7 @@
     <Resource tag="FROM">Người gửi</Resource>
     <Resource tag="INBOX">Tin nhắn</Resource>
     <Resource tag="MARK_ALL_ASREAD">Mark All As Read</Resource>
+    <Resource tag="MARK_ASREAD">Mark As Read</Resource>
     <Resource tag="MSG_ARCHIVED">Tin nhắn đã được lưu trữ thành công.</Resource>
     <Resource tag="MSG_ARCHIVED+">{0} Tin nhắn đã được lưu trữ thành công.</Resource>
     <Resource tag="MSG_DELETED">Tin nhắn đã được xoá.</Resource>

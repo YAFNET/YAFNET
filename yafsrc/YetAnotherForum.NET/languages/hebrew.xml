@@ -2670,6 +2670,7 @@
     <Resource tag="FROM">מאת</Resource>
     <Resource tag="INBOX">תיבת דואר נכנס</Resource>
     <Resource tag="MARK_ALL_ASREAD">Mark All As Read</Resource>
+    <Resource tag="MARK_ASREAD">Mark As Read</Resource>
     <Resource tag="MSG_ARCHIVED">ההודעה נגנזה בארכיון.</Resource>
     <Resource tag="MSG_ARCHIVED+">{0} הודעות נגנזו בארכיון.</Resource>
     <Resource tag="MSG_DELETED">ההודעה נמחקה.</Resource>

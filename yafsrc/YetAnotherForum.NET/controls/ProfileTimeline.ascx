@@ -4,7 +4,7 @@
 <YAF:Pager ID="PagerTop" runat="server" OnPageChange="PagerTop_PageChange" />
 
 
-<asp:Repeater runat="server" ID="ActivityStream" OnItemDataBound="ActivityStream_OnItemDataBound">
+<asp:Repeater runat="server" ID="ActivityStream" OnItemDataBound="ActivityStream_OnItemDataBound" OnItemCommand="ActivityStream_OnItemCommand">
     <HeaderTemplate>
         <div class="container">
     </HeaderTemplate>
@@ -37,6 +37,14 @@
                         <p>
                             <asp:PlaceHolder runat="server" ID="Message"></asp:PlaceHolder>
                         </p>
+                        <YAF:ThemeButton runat="server" ID="MarkRead"
+                                         Type="Secondary"
+                                         Size="Small"
+                                         TextLocalizedTag="MARK_ASREAD"
+                                         CommandName="read"
+                                         Icon="glasses"
+                                         Visible="False">
+                        </YAF:ThemeButton>
                     </div>
                 </asp:Panel>
             </div>
@@ -47,3 +55,15 @@
     </FooterTemplate>
 </asp:Repeater>
 <YAF:Pager ID="PagerBottom" runat="server" LinkedPager="PagerTop" />
+
+<div class="row">
+    <div class="col">
+        <div class="btn-group float-right" role="group" aria-label="Tools">
+            <YAF:ThemeButton runat="server" OnClick="MarkAll_Click" ID="MarkAll"
+                             TextLocalizedTag="MARK_ALL_ASREAD" TextLocalizedPage="DEFAULT"
+                             Type="Secondary"
+                             Size="Small"
+                             Icon="glasses"/>
+        </div>
+    </div>
+</div>

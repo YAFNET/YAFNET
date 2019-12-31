@@ -2647,6 +2647,7 @@
     <Resource tag="FROM">Fra</Resource>
     <Resource tag="INBOX">Indbakke</Resource>
     <Resource tag="MARK_ALL_ASREAD">Marker alle som læst</Resource>
+    <Resource tag="MARK_ASREAD">Mark As Read</Resource>
     <Resource tag="MSG_ARCHIVED">Besked var arkiveret.</Resource>
     <Resource tag="MSG_ARCHIVED+">{0} besked blev arkiveret.</Resource>
     <Resource tag="MSG_DELETED">Besked blev slettet.</Resource>

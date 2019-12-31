@@ -2647,6 +2647,7 @@
     <Resource tag="FROM">发信人</Resource>
     <Resource tag="INBOX">收件箱</Resource>
     <Resource tag="MARK_ALL_ASREAD">标记所有为已读</Resource>
+    <Resource tag="MARK_ASREAD">Mark As Read</Resource>
     <Resource tag="MSG_ARCHIVED">信息已经激活.</Resource>
     <Resource tag="MSG_ARCHIVED+">{0} 信息已经存档.</Resource>
     <Resource tag="MSG_DELETED">信息已经删除.</Resource>

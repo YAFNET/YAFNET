@@ -2642,6 +2642,7 @@
     <Resource tag="FROM">Od</Resource>
     <Resource tag="INBOX">Skrzynka odbiorcza</Resource>
     <Resource tag="MARK_ALL_ASREAD">Oznacz wszystkie jako przeczytane</Resource>
+    <Resource tag="MARK_ASREAD">Mark As Read</Resource>
     <Resource tag="MSG_ARCHIVED">Wiadomość zarchiwizowana.</Resource>
     <Resource tag="MSG_ARCHIVED+">{0} wiadomości zostało zarchiwizowanych</Resource>
     <Resource tag="MSG_DELETED">Wiadomość usunięta.</Resource>

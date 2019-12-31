@@ -2647,6 +2647,7 @@
     <Resource tag="FROM">Kimden</Resource>
     <Resource tag="INBOX">Gelen Kutusu</Resource>
     <Resource tag="MARK_ALL_ASREAD">Hepsini Okundu Olarak İşaretle</Resource>
+    <Resource tag="MARK_ASREAD">Mark As Read</Resource>
     <Resource tag="MSG_ARCHIVED">Mesaj arşivlendi</Resource>
     <Resource tag="MSG_ARCHIVED+">{0} mesaj arşivlendi</Resource>
     <Resource tag="MSG_DELETED">Mesaj silindi.</Resource>

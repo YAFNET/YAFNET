@@ -28,8 +28,6 @@ namespace YAF.Core.Model
 
     using YAF.Core.Extensions;
     using YAF.Types;
-    using YAF.Types.Constants;
-    using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
     using YAF.Types.Models;
 
@@ -80,15 +78,29 @@ namespace YAF.Core.Model
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
-            var update = repository.UpdateOnly(
+            repository.UpdateOnly(
                 () => new Activity { Notification = false },
                 a => a.UserID == userId && a.MessageID == messageId && a.Notification);
+        }
 
-            if (update > 0)
-            {
-                YafContext.Current.Get<IDataCache>().Remove(
-                    string.Format(Constants.Cache.ActiveUserLazyData, userId));
-            }
+        /// <summary>
+        /// Mark all Notifications as read for the user
+        /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="userId">
+        /// The user id.
+        /// </param>
+        public static void MarkAllAsRead(
+            this IRepository<Activity> repository,
+            int userId)
+        {
+            CodeContracts.VerifyNotNull(repository, "repository");
+
+            repository.UpdateOnly(
+                () => new Activity { Notification = false },
+                a => a.UserID == userId && a.Notification);
         }
 
         #endregion

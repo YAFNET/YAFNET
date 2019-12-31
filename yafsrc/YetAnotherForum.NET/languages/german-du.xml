@@ -2626,6 +2626,7 @@
     <Resource tag="FROM">Von</Resource>
     <Resource tag="INBOX">Posteingang</Resource>
     <Resource tag="MARK_ALL_ASREAD">Alle als gelesen markieren</Resource>
+    <Resource tag="MARK_ASREAD">Mark As Read</Resource>
     <Resource tag="MSG_ARCHIVED">Die Nachricht wurde archiviert.</Resource>
     <Resource tag="MSG_ARCHIVED+">{0} Nachrichten wurden archiviert.</Resource>
     <Resource tag="MSG_DELETED">Die Nachricht wurde gelöscht.</Resource>

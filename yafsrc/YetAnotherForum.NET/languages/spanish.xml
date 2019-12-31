@@ -2653,6 +2653,7 @@
     <Resource tag="FROM">De</Resource>
     <Resource tag="INBOX">Bandeja de entrada</Resource>
     <Resource tag="MARK_ALL_ASREAD">Marcar todos como leídos</Resource>
+    <Resource tag="MARK_ASREAD">Mark As Read</Resource>
     <Resource tag="MSG_ARCHIVED">Mensaje archivado.</Resource>
     <Resource tag="MSG_ARCHIVED+">{0} mensajes archivados.</Resource>
     <Resource tag="MSG_DELETED">Mensaje eliminado.</Resource>

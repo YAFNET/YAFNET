@@ -2647,6 +2647,7 @@
     <Resource tag="FROM">Od</Resource>
     <Resource tag="INBOX">Doručené zprávy</Resource>
     <Resource tag="MARK_ALL_ASREAD">Mark All As Read</Resource>
+    <Resource tag="MARK_ASREAD">Mark As Read</Resource>
     <Resource tag="MSG_ARCHIVED">Zpráva byla zaarchivována.</Resource>
     <Resource tag="MSG_ARCHIVED+">{0} zpráv bylo zaarchivováno.</Resource>
     <Resource tag="MSG_DELETED">Zpráva byla smazána.</Resource>

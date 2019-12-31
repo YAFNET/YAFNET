@@ -2641,6 +2641,7 @@
     <Resource tag="FROM">من </Resource>
     <Resource tag="INBOX">الوارد</Resource>
     <Resource tag="MARK_ALL_ASREAD">إجعل الكل  مقروء</Resource>
+    <Resource tag="MARK_ASREAD">Mark As Read</Resource>
     <Resource tag="MSG_ARCHIVED">تم ارشفة الرسائل</Resource>
     <Resource tag="MSG_ARCHIVED+">رسائل/رسالة{0} تم ارشفة .</Resource>
     <Resource tag="MSG_DELETED">تم حذف الرسالة</Resource>

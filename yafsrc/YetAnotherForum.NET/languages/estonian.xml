@@ -2644,6 +2644,7 @@
     <Resource tag="FROM">Kellelt</Resource>
     <Resource tag="INBOX">Postkast</Resource>
     <Resource tag="MARK_ALL_ASREAD">Märgi kõik loetuks</Resource>
+    <Resource tag="MARK_ASREAD">Mark As Read</Resource>
     <Resource tag="MSG_ARCHIVED">Sõnum arhiveeriti.</Resource>
     <Resource tag="MSG_ARCHIVED+">{0} sõnumit arhiveeriti.</Resource>
     <Resource tag="MSG_DELETED">Sõnum kustutati.</Resource>

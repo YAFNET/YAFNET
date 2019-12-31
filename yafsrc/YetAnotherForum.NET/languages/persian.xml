@@ -2664,6 +2664,7 @@
     <Resource tag="FROM">از</Resource>
     <Resource tag="INBOX">صندوق ورودی</Resource>
     <Resource tag="MARK_ALL_ASREAD">علامت‌گذاری همه به‌عنوان خوانده‌شده</Resource>
+    <Resource tag="MARK_ASREAD">Mark As Read</Resource>
     <Resource tag="MSG_ARCHIVED">پیغام آرشیو شد</Resource>
     <Resource tag="MSG_ARCHIVED+">{0} پیغام آرشیو شد</Resource>
     <Resource tag="MSG_DELETED">پیغام حذف شد.</Resource>

@@ -31,6 +31,7 @@ namespace YAF.Controls
 
     using YAF.Core.BaseControls;
     using YAF.Core.Extensions;
+    using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
@@ -122,6 +123,7 @@ namespace YAF.Controls
             var title = e.Item.FindControlAs<Literal>("Title");
             var messageHolder = e.Item.FindControlAs<PlaceHolder>("Message");
             var displayDateTime = e.Item.FindControlAs<DisplayDateTime>("DisplayDateTime");
+            var markRead = e.Item.FindControlAs<ThemeButton>("MarkRead");
 
             var message = string.Empty;
             var icon = string.Empty;
@@ -133,7 +135,7 @@ namespace YAF.Controls
                                             ForumPages.posts,
                                             "m={0}#post{0}",
                                             activity.MessageID.Value),
-                                    Type = ButtonAction.OutlineSecondary,
+                                    Type = ButtonAction.Link,
                                     Text = this.GetRepository<Topic>().GetById(activity.TopicID.Value)
                                         .TopicName,
                                     Icon = "comment"
@@ -201,6 +203,14 @@ namespace YAF.Controls
             displayDateTime.DateTime = activity.Created;
 
             messageHolder.Controls.Add(new Literal { Text = message });
+
+            if (!activity.Notification)
+            {
+                return;
+            }
+
+            markRead.CommandArgument = activity.MessageID.Value.ToString();
+            markRead.Visible = true;
         }
 
         /// <summary>
@@ -211,6 +221,43 @@ namespace YAF.Controls
         protected void PagerTop_PageChange([NotNull] object sender, [NotNull] EventArgs e)
         {
             // rebind
+            this.BindData();
+        }
+
+        /// <summary>
+        /// Mark all Activity as read
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        protected void MarkAll_Click(object sender, EventArgs e)
+        {
+            this.GetRepository<Activity>().MarkAllAsRead(this.PageContext.PageUserID);
+
+            this.BindData();
+        }
+
+        /// <summary>
+        /// The activity stream_ on item command.
+        /// </summary>
+        /// <param name="source">
+        /// The source.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        protected void ActivityStream_OnItemCommand(object source, RepeaterCommandEventArgs e)
+        {
+            if (e.CommandName != "read")
+            {
+                return;
+            }
+
+            this.GetRepository<Activity>().UpdateNotification(this.PageContext.PageUserID, e.CommandArgument.ToType<int>());
+
             this.BindData();
         }
 

@@ -2642,6 +2642,7 @@
     <Resource tag="FROM">From</Resource>
     <Resource tag="INBOX">Inbox</Resource>
     <Resource tag="MARK_ALL_ASREAD">Mark All As Read</Resource>
+    <Resource tag="MARK_ASREAD">Mark As Read</Resource>
     <Resource tag="MSG_ARCHIVED">Message was archived.</Resource>
     <Resource tag="MSG_ARCHIVED+">{0} messages were archived.</Resource>
     <Resource tag="MSG_DELETED">Message was deleted.</Resource>
