@@ -2065,8 +2065,8 @@ create procedure [{databaseOwner}].[{objectQualifier}board_userstats](@BoardID i
 BEGIN
         SELECT
         Members = (select count(1) from [{databaseOwner}].[{objectQualifier}User] a where a.BoardID=@BoardID AND (Flags & 2) = 2 AND (a.Flags & 4) = 0),
-        MaxUsers = (SELECT [{databaseOwner}].[{objectQualifier}registry_value](N'maxusers', @BoardID)),
-        MaxUsersWhen = (SELECT [{databaseOwner}].[{objectQualifier}registry_value](N'maxuserswhen', @BoardID)),
+        MaxUsers = (SELECT top 1 [{databaseOwner}].[{objectQualifier}registry_value](N'maxusers', @BoardID)),
+        MaxUsersWhen = (SELECT top 1 [{databaseOwner}].[{objectQualifier}registry_value](N'maxuserswhen', @BoardID)),
         LastMemberInfo.*
     FROM
         (
