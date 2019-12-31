@@ -48,15 +48,16 @@
                                          TextLocalizedTag="EDIT"
                                          Icon="edit">
                     </YAF:ThemeButton>
-                    <YAF:ThemeButton ID="ThemeButtonDelete" runat="server" 
-                                         Type="Danger" 
-                                         Size="Small"
-                                         CommandName="delete" 
-                                         CommandArgument='<%# this.Eval( "ID") %>'
-                                         TitleLocalizedTag="DELETE"
-                                         TextLocalizedTag="DELETE"
-                                         Icon="trash"
-                                         ReturnConfirmText='<%# this.GetText("ADMIN_BOARDS", "CONFIRM_DELETE") %>'>
+                    <YAF:ThemeButton ID="ThemeButtonDelete" runat="server"
+                                     Type="Danger"
+                                     Size="Small"
+                                     CommandName="delete" 
+                                     CommandArgument='<%# this.Eval( "ID") %>'
+                                     TitleLocalizedTag="DELETE"
+                                     TextLocalizedTag="DELETE"
+                                     Icon="trash"
+                                     ReturnConfirmText='<%# this.GetText("ADMIN_BOARDS", "CONFIRM_DELETE") %>'
+                                     Visible='<%# this.List.Items.Count > 1  %>'>
                         </YAF:ThemeButton>
                     </small>
                     <div class="dropdown-menu context-menu" aria-labelledby="context menu">
@@ -77,7 +78,8 @@
                                          TitleLocalizedTag="DELETE"
                                          TextLocalizedTag="DELETE"
                                          Icon="trash"
-                                         ReturnConfirmText='<%# this.GetText("ADMIN_BOARDS", "CONFIRM_DELETE") %>'>
+                                         ReturnConfirmText='<%# this.GetText("ADMIN_BOARDS", "CONFIRM_DELETE") %>'
+                                         Visible='<%# this.List.Items.Count > 1  %>'>
                         </YAF:ThemeButton>
                         <div class="dropdown-divider"></div>
                         <YAF:ThemeButton ID="New" runat="server" 
