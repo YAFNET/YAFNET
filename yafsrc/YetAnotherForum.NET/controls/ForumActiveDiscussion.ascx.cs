@@ -87,7 +87,8 @@ namespace YAF.Controls
             var lastUserLink = new UserLink();
             var lastPostedDateLabel = new DisplayDateTime { Format = DateTimeFormat.BothTopic };
 
-            var topicSubject = this.Get<IBadWordReplace>().Replace(this.HtmlEncode(currentRow["Topic"]));
+            var topicSubject = this.Get<IBadWordReplace>().Replace(this.HtmlEncode(currentRow["Topic"]))
+                .Truncate(70, "...");
 
             var styles = this.Get<YafBoardSettings>().UseStyledTopicTitles
                              ? this.Get<IStyleTransform>().DecodeStyleByString(currentRow["Styles"].ToString())
@@ -168,7 +169,6 @@ namespace YAF.Controls
                                   ? currentRow["LastUserDisplayName"].ToString()
                                   : currentRow["LastUserName"].ToString();
             
-
             info.DataContent = $@"
                           {lastUserLink.RenderToString()}
                           <span class=""fa-stack"">

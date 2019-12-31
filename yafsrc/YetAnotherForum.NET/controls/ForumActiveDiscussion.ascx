@@ -17,7 +17,7 @@
                                         <ul class="list-group list-group-flush">
                                     </HeaderTemplate>
                                     <ItemTemplate>
-                                        <li class="list-group-item pt-2 pb-0">
+                                        <li class="list-group-item pt-2 pb-0 list-group-item-action">
                                             <h6>
                                                 <asp:PlaceHolder runat="server" ID="PostIcon"></asp:PlaceHolder>
                                                 <asp:HyperLink ID="TextMessageLink" runat="server" 

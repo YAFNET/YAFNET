@@ -166,11 +166,9 @@ namespace YAF.Controls
                                                 </span>&nbsp;<span class=""popover-timeago"">{formattedDatetime}</span>
                          ";
 
-                this.Info.TextLocalizedTag = "by";
-                this.Info.TextLocalizedPage = "DEFAULT";
-                this.Info.ParamText0 = this
-                    .DataRow[this.Get<YafBoardSettings>().EnableDisplayName ? "LastUserDisplayName" : "LastUser"]
-                    .ToString();
+                this.Info.Text = string.Format(
+                    this.GetText("Default", "BY"),
+                    this.DataRow[this.Get<YafBoardSettings>().EnableDisplayName ? "LastUserDisplayName" : "LastUser"]);
 
                 if (this.DataRow["LastPosted"].ToType<DateTime>() > lastRead)
                 {
