@@ -2065,8 +2065,8 @@ create procedure [{databaseOwner}].[{objectQualifier}board_userstats](@BoardID i
 BEGIN
         SELECT
         Members = (select count(1) from [{databaseOwner}].[{objectQualifier}User] a where a.BoardID=@BoardID AND (Flags & 2) = 2 AND (a.Flags & 4) = 0),
-        MaxUsers = (SELECT [{databaseOwner}].[{objectQualifier}registry_value](N'maxusers', @BoardID)),
-        MaxUsersWhen = (SELECT [{databaseOwner}].[{objectQualifier}registry_value](N'maxuserswhen', @BoardID)),
+        MaxUsers = (SELECT top 1 [{databaseOwner}].[{objectQualifier}registry_value](N'maxusers', @BoardID)),
+        MaxUsersWhen = (SELECT top 1 [{databaseOwner}].[{objectQualifier}registry_value](N'maxuserswhen', @BoardID)),
         LastMemberInfo.*
     FROM
         (
@@ -2740,7 +2740,7 @@ select
         join [{databaseOwner}].[{objectQualifier}Forum] b  on b.CategoryID=a.CategoryID
         join [{databaseOwner}].[{objectQualifier}ActiveAccess] x  on x.ForumID=b.ForumID
         left outer join [{databaseOwner}].[{objectQualifier}Topic] t  ON t.TopicID = [{databaseOwner}].[{objectQualifier}forum_lasttopic](b.ForumID,@UserID,b.LastTopicID,b.LastPosted)
-        join [{databaseOwner}].[{objectQualifier}User] lastUser on lastUser.UserID = t.LastUserID
+        left outer join [{databaseOwner}].[{objectQualifier}User] lastUser on lastUser.UserID = t.LastUserID
     where
         (@CategoryID is null or a.CategoryID=@CategoryID) and
          x.UserID = @UserID and
