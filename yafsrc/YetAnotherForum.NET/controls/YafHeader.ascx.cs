@@ -42,6 +42,7 @@ namespace YAF.Controls
     using YAF.Types.Interfaces;
     using YAF.Types.Objects;
     using YAF.Utils;
+    using YAF.Web.Controls;
 
     #endregion
 
@@ -451,8 +452,6 @@ namespace YAF.Controls
                 return;
             }
 
-            var unreadActivity = this.PageContext.Mention + this.PageContext.Quoted + this.PageContext.ReceivedThanks;
-
             RenderMenuItem(
                 this.MyProfile,
                 "dropdown-item",
@@ -460,22 +459,28 @@ namespace YAF.Controls
                 this.GetText("TOOLBAR", "MYPROFILE_TITLE"),
                 YafBuildLink.GetLink(ForumPages.cp_profile),
                 false,
-                unreadActivity > 0,
-                unreadActivity.ToString(),
-                this.GetTextFormatted("TOOLBAR", "NEWPM", this.PageContext.UnreadPrivate),
+                false,
+                null,
+                null,
                 "address-card");
 
-            RenderMenuItem(
-                this.MyActicity,
-                "dropdown-item",
-                this.GetText("TOOLBAR", "MYACTIVITY"),
-                this.GetText("TOOLBAR", "MYACTIVITY_TITLE"),
-                YafBuildLink.GetLink(ForumPages.cp_profile),
-                false,
-                false,
-                null,
-                null,
-                "stream");
+            if (this.Get<YafBoardSettings>().EnableActivityStream)
+            {
+                var unreadActivity =
+                    this.PageContext.Mention + this.PageContext.Quoted + this.PageContext.ReceivedThanks;
+
+                RenderMenuItem(
+                    this.MyActicity,
+                    "dropdown-item",
+                    this.GetText("TOOLBAR", "MYACTIVITY"),
+                    this.GetText("TOOLBAR", "MYACTIVITY_TITLE"),
+                    YafBuildLink.GetLink(ForumPages.cp_profile),
+                    false,
+                    unreadActivity > 0,
+                    unreadActivity.ToString(),
+                    this.GetTextFormatted("TOOLBAR", "NEWPM", this.PageContext.UnreadPrivate),
+                    "stream");
+            }
 
             // My Inbox
             if (this.Get<YafBoardSettings>().AllowPrivateMessages)
