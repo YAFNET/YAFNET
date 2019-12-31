@@ -80,6 +80,7 @@ namespace YAF.Core.Controllers
                 messageId,
                 this.Get<YafBoardSettings>().EnableDisplayName);
 
+
             this.Get<IActivityStream>().AddThanksReceivedToStream(message.UserID, message.TopicID, messageId, fromUserId);
             this.Get<IActivityStream>().AddThanksGivenToStream(fromUserId, message.TopicID, messageId, message.UserID);
 
@@ -108,7 +109,7 @@ namespace YAF.Core.Controllers
         public IHttpActionResult RemoveThanks([NotNull] int messageId)
         {
             var username = this.GetRepository<Thanks>().RemoveMessageThanks(
-                UserMembershipHelper.GetUserIDFromProviderUserKey(UserMembershipHelper.GetUser().ProviderUserKey),
+                YafContext.Current.PageUserID,
                 messageId,
                 this.Get<YafBoardSettings>().EnableDisplayName);
 

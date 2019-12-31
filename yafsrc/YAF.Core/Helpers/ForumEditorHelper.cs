@@ -25,14 +25,8 @@ namespace YAF.Core.Helpers
 {
     #region Using
 
-    using System;
-    using System.Collections;
     using System.Data;
-    using System.IO;
-    using System.Linq;
-    using System.Web;
 
-    using YAF.Configuration;
     using YAF.Core.Extensions;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
@@ -65,20 +59,15 @@ namespace YAF.Core.Helpers
                                : YafContext.Current.BoardSettings.ForumEditor;
             }
 
-            // Check if Editor exists, if not fallback to default editorid=1
+            // Check if Editor exists, if not fallback to default editor
             var forumEditor = YafContext.Current.Get<IModuleManager<ForumEditor>>().GetBy(editorId, false)
                               ?? YafContext.Current.Get<IModuleManager<ForumEditor>>().GetBy("1");
 
-            // Check if tinymce is used and if it exists
-            if (forumEditor.Description.Contains("TinyMCE"))
+            // Revert to standard editor 
+            if (forumEditor.Description.Contains("TinyMCE") || forumEditor.Description.Contains("FreeTextBox")
+                                                            || forumEditor.Description.Contains("Telerik"))
             {
-                if (
-                    !File.Exists(
-                        HttpContext.Current.Server.MapPath(
-                            $"{Config.ServerFileRoot}{(Config.ServerFileRoot.EndsWith("/") ? string.Empty : "/")}Scripts/tinymce/tinymce.min.js")))
-                {
-                    forumEditor = YafContext.Current.Get<IModuleManager<ForumEditor>>().GetBy("1");
-                }
+                forumEditor = YafContext.Current.Get<IModuleManager<ForumEditor>>().GetBy("1");
             }
 
             return forumEditor;
@@ -92,37 +81,6 @@ namespace YAF.Core.Helpers
         {
             var editorList = YafContext.Current.Get<IModuleManager<ForumEditor>>().ActiveAsDataTable("Editors");
 
-            // Check if TinyMCE exists
-            var tinyMceExists = false;
-
-            try
-            {
-                if (File.Exists(HttpContext.Current.Server.MapPath("~/Scripts/tinymce/tinymce.min.js")))
-                {
-                    tinyMceExists = true;
-                }
-            }
-            catch (Exception)
-            {
-                tinyMceExists = false;
-            }
-
-            if (tinyMceExists)
-            {
-                return editorList;
-            }
-
-            var filterList = new ArrayList();
-
-            editorList.Rows.Cast<DataRow>().Where(drow => drow["Name"].ToString().Contains("TinyMCE"))
-                .ForEach(row => filterList.Add(row));
-
-            foreach (DataRow row in filterList)
-            {
-                editorList.Rows.Remove(row);
-            }
-
-            editorList.AcceptChanges();
             return editorList;
         }
 

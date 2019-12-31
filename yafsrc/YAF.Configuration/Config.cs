@@ -327,19 +327,6 @@ namespace YAF.Configuration
         public static string ProviderProvider => GetConfigValueAsString("YAF.ProfileProvider") ?? string.Empty;
 
         /// <summary>
-        ///     Gets RadEditorSkin.
-        /// </summary>
-        [NotNull]
-        public static string RadEditorSkin => GetConfigValueAsString("YAF.RadEditorSkin") ?? "Vista";
-
-        /// <summary>
-        ///     Gets RadEditorToolsFile.
-        /// </summary>
-        [NotNull]
-        public static string RadEditorToolsFile => GetConfigValueAsString("YAF.RadEditorToolsFile")
-                                                   ?? $"{ServerFileRoot}/Scripts/RadEditor/ToolsFile.xml";
-
-        /// <summary>
         ///     Gets RoleProvider.
         /// </summary>
         [NotNull]
@@ -408,36 +395,6 @@ namespace YAF.Configuration
         /// </summary>
         [NotNull]
         public static string UrlRewritingMode => GetConfigValueAsString("YAF.URLRewritingMode") ?? string.Empty;
-
-        /// <summary>
-        ///     Gets a value indicating whether UseRadEditorToolsFile.
-        /// </summary>
-        public static bool UseRadEditorToolsFile
-        {
-            get
-            {
-                var value = GetConfigValueAsString("YAF.UseRadEditorToolsFile");
-
-                if (!value.IsSet())
-                {
-                    return false;
-                }
-
-                switch (value.ToLower().Substring(0, 1))
-                {
-                    case "1":
-                    case "t":
-                    case "y":
-                        return true;
-                    case "0":
-                    case "f":
-                    case "n":
-                        return false;
-                }
-
-                return false;
-            }
-        }
 
         /// <summary>
         ///     Gets a value indicating whether Use an SSL connection for the SMTP server -- default is "false"
