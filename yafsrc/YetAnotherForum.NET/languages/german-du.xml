@@ -357,6 +357,11 @@
     <Resource tag="TITLE">Boards</Resource>
   </page>
   <page name="ADMIN_BOARDSETTINGS">
+    <Resource tag="ANNOUNCEMENT_CURRENT">Current Announcement visible until</Resource>
+    <Resource tag="ANNOUNCEMENT_MESSAGE">Announcement Message:</Resource>
+    <Resource tag="ANNOUNCEMENT_TITLE">Board Announcement</Resource>
+    <Resource tag="ANNOUNCEMENT_TYPE">Type:</Resource>
+    <Resource tag="ANNOUNCEMENT_UNTIL">Announcement visible for...</Resource>
     <Resource tag="BOARD_ALLOW_DIGEST">Tägliche E-Mail Zusammenfassung(Digest) für Benutzer Erlauben</Resource>
     <Resource tag="BOARD_ALLOW_DIGEST_HELP">Erforderlich: Board muss die Werte "YAF.BaseUrl Mask" und "YAF.Force ScriptName" in den AppSettings definiert in Ihrer web.config, haben damit die Zusammenfassung (Digest) funktioniert.</Resource>
     <Resource tag="BOARD_CDN_HOSTED">Google Hosted CDN jQuery UI CSS Datei verwenden?</Resource>
@@ -400,7 +405,7 @@
     <Resource tag="CDVVERSION_HELP">CRM Version, increase number to Force a Browser reload of all Java Script and CSS Files</Resource>
     <Resource tag="COPYRIGHT_REMOVAL_KEY">Copyright Entfernungsschlüssel:</Resource>
     <Resource tag="COPYRIGHT_REMOVAL_KEY_DOWN">Purchase Removal Key</Resource>
-    <Resource tag="COPYRIGHT_REMOVAL_KEY_HELP">Entfernen Sie die Copyright-Informationen und den Link zu YAF aus der Fußzeile Ihrer gesamten Forum Domäne.  Erhältlich &lt;a href="http://yetanotherforum.net/purchase.aspx"&gt; auf der YAF.NET Website &lt;/ a&gt;.</Resource>
+    <Resource tag="COPYRIGHT_REMOVAL_KEY_HELP">Entfernen Sie die Copyright-Informationen und den Link zu YAF aus der Fußzeile Ihrer gesamten Forum Domäne.  Erhältlich &lt;a href="https://yetanotherforum.net/purchase.aspx"&gt; auf der YAF.NET Website &lt;/ a&gt;.</Resource>
     <Resource tag="HEADER">Aktuelle Boardeinstellungen</Resource>
     <Resource tag="TITLE">Boardeinstellungen</Resource>
   </page>
@@ -797,6 +802,8 @@
     <Resource tag="KILL_USER_CONFIRM">Alle Beiträge löschen und (optional) all IP Addressen des Benutzers bannen?</Resource>
     <Resource tag="LINK_USER_BAN">Benutzer &lt;a id="usr{0}" href="{1}"&gt;{2}&lt;/a&gt;  ist gesperrt durch die IP-Adresse</Resource>
     <Resource tag="MEMBER">Mitglied</Resource>
+    <Resource tag="MODERATE">Moderate all Posts</Resource>
+    <Resource tag="MODERATE_HELP">Moderate all Posts made by the User</Resource>
     <Resource tag="MSG_GUEST_APPROVED">Der Gastbenutzer muss als Genehmigt markiert sein, ansonsten funktioniert das Forum nicht korrekt.</Resource>
     <Resource tag="MSG_PASS_CHANGED">Benutzer Passwort geändert</Resource>
     <Resource tag="MSG_PASS_CHANGED_NOTI">Benutzer Passwort geändert und Benachrichtigungs-E-Mail Gesendet</Resource>
@@ -1069,6 +1076,8 @@
     <Resource tag="EMAIL_VERIFICATION_HELP">Wenn aktiviert werden müssen die Benutzer ihre E-Mail Adresse verifizieren.</Resource>
     <Resource tag="ENABLE_ABLBUMS">Album Funktion aktivieren:</Resource>
     <Resource tag="ENABLE_ABLBUMS_HELP">Wenn aktiviert, wird die Album-Funktion aktiviert. Sie sollten die zulässige Anzahl von Bildern und Alben für jede Gruppe und / oder Rang definieren um die Funktion zu aktivieren.</Resource>
+    <Resource tag="ENABLE_ACTIVITY">Enable Activity Stream:</Resource>
+    <Resource tag="ENABLE_ACTIVITY_HELP">If checked the user gets Notifications for Mentions, Quotes and Thanks.</Resource>
     <Resource tag="ENABLE_BUDDYLIST">Freundesliste aktivieren:</Resource>
     <Resource tag="ENABLE_BUDDYLIST_HELP">Wenn diese Option aktiviert ist, können sich Benutzer gegenseitig als Freunde markieren.</Resource>
     <Resource tag="ENABLE_CALENDER">Kalender Aktivieren:</Resource>
@@ -1395,6 +1404,7 @@
     <Resource tag="SHOW_RENDERTIME_HELP">Aktivieren oder deaktivieren Anzeige der Zeit die zum Generieren der Seite gebraucht wurde am unteren Rand der Seite zeigen.</Resource>
     <Resource tag="SHOW_RSS_LINKS">RSS Links Anzeigen:</Resource>
     <Resource tag="SHOW_RSS_LINKS_HELP">Aktivieren oder deaktivieren Anzeige von RSS-Links im Forum.</Resource>
+    <Resource tag="SHOW_SCROLL">Show Scroll Back to Top Button</Resource>
     <Resource tag="SHOW_SHOUTBOX">Shoutbox Anzeigen:</Resource>
     <Resource tag="SHOW_SHOUTBOX_HELP">Aktivieren oder deaktivieren Anzeige der Shoutbox (Chat-Modul) im Forum.</Resource>
     <Resource tag="SHOW_SIMILARTOPICS">Show Similar Topics:</Resource>
@@ -1514,6 +1524,8 @@
     <Resource tag="CONFIRM_DELETE">Diese Medaille löschen?</Resource>
     <Resource tag="DISPLAY_BOX">Medaillenbild, wie es in der Benutzerbox angezeigt wird.</Resource>
     <Resource tag="DISPLAY_RIBBON">Ribbonbarbild, wie es in der Benutzerbox angezeigt wird.</Resource>
+    <Resource tag="MOVE_DOWN">Move Down</Resource>
+    <Resource tag="MOVE_UP">Move Up</Resource>
     <Resource tag="NEW_MEDAL">Neue Medaille</Resource>
     <Resource tag="TITLE">Medaillen</Resource>
   </page>
@@ -1769,6 +1781,8 @@
     <Resource tag="HEADER">Benutzer suchen</Resource>
     <Resource tag="IMPORT">Benuter Importieren</Resource>
     <Resource tag="LAST_VISIT">Letzter Besuch</Resource>
+    <Resource tag="LOCK_INACTIVE">Lock inactive accounts</Resource>
+    <Resource tag="LOCK_INACTIVE_HELP">Lock inactive accounts older then x years. This will not delete there content (like posted messages)</Resource>
     <Resource tag="MSG_DELETE_ADMIN">Sie können den Admin nicht löschen</Resource>
     <Resource tag="MSG_DELETE_GUEST">Sie können den Gast nicht löschen</Resource>
     <Resource tag="MSG_SELF_DELETE">Sie können sich nicht selber löschen.</Resource>
@@ -1800,7 +1814,7 @@
     <Resource tag="LATEST_VERSION">Die aktuell letzte Finale Version ist verfügbar &lt;strong&gt;{0}&lt;/strong&gt; veröffentlicht am &lt;strong&gt;{1}&lt;/strong&gt;.</Resource>
     <Resource tag="RUNNING_VERSION">Sie verwenden YetAnotherForum.NET version &lt;strong&gt;{0}&lt;/strong&gt; (Datum: {1}).</Resource>
     <Resource tag="TITLE">Version Checken</Resource>
-    <Resource tag="UPGRADE_VERSION">Sie können die neueste Version von &lt;a target="_top" href="http://yetanotherforum.net/download/"&gt;
+    <Resource tag="UPGRADE_VERSION">Sie können die neueste Version von &lt;a target="_top" href="https://yetanotherforum.net/download/"&gt;
 						CodePlex&lt;/a&gt; laden.</Resource>
   </page>
   <page name="ADMINMENU">
@@ -2066,6 +2080,7 @@
     <Resource tag="HIDDEN">Versteckt</Resource>
     <Resource tag="HTMLTAG_FORBIDDEN">Ihre eingegebenen Daten sollten keine HTML-Tags enthalten.</Resource>
     <Resource tag="HTMLTAG_WRONG">Ihre eingegebenen Daten enthält verbotenen {0} HTML-Tag.</Resource>
+    <Resource tag="IN_FORUM">in Forum: {0}</Resource>
     <Resource tag="LOADING">Lade...</Resource>
     <Resource tag="MANAGE">Manage</Resource>
     <Resource tag="MAX_ONLINE">Mitgliederrekord: {0} gleichzeitig online ({1}).</Resource>
@@ -2517,6 +2532,8 @@
     <Resource tag="DENY">Ablehnen</Resource>
     <Resource tag="DENY_ALL">Alle die Mehr als 14 Tage alt sind ablehnen</Resource>
     <Resource tag="EDIT_BUDDIES">Freunde bearbeiten</Resource>
+    <Resource tag="INFO_NO">You don't have any friends yet</Resource>
+    <Resource tag="INFO_PENDING">You don't have any pending requests</Resource>
     <Resource tag="NOTIFICATION_APPROVEALL">Alle Anfragen Genehmigen?</Resource>
     <Resource tag="NOTIFICATION_APPROVEALLADD">Alle Anfragen genehmigen und zu ihrer Freundesliste hinzufügen?</Resource>
     <Resource tag="NOTIFICATION_DENY">Diese Anfrage ablehnen?</Resource>
@@ -2610,6 +2627,7 @@
     <Resource tag="FROM">Von</Resource>
     <Resource tag="INBOX">Posteingang</Resource>
     <Resource tag="MARK_ALL_ASREAD">Alle als gelesen markieren</Resource>
+    <Resource tag="MARK_ASREAD">Mark As Read</Resource>
     <Resource tag="MSG_ARCHIVED">Die Nachricht wurde archiviert.</Resource>
     <Resource tag="MSG_ARCHIVED+">{0} Nachrichten wurden archiviert.</Resource>
     <Resource tag="MSG_DELETED">Die Nachricht wurde gelöscht.</Resource>
@@ -4260,19 +4278,30 @@ Spoiler Content
     <Resource tag="AVATAR">Avatar</Resource>
     <Resource tag="INVALIDPOSTSVALUE">Sie haben einen ungültigen Wert für die Anzahl der Beiträge eingegeben.</Resource>
     <Resource tag="JOINED">Mitglied seit</Resource>
+    <Resource tag="JOINED_ASC">Joined asc</Resource>
+    <Resource tag="JOINED_DESC">Joined desc</Resource>
     <Resource tag="LASTVISIT">Letzter Besuch</Resource>
+    <Resource tag="LASTVISIT_ASC">Last visit asc</Resource>
+    <Resource tag="LASTVISIT_DESC">Last visit desc</Resource>
     <Resource tag="NUMPOSTSEQUAL">ist gleich</Resource>
     <Resource tag="NUMPOSTSLESSOREQUAL">ist kleiner oder gleich</Resource>
     <Resource tag="NUMPOSTSMOREOREQUAL">ist mehr oder gleich</Resource>
     <Resource tag="PAGES">{0} Seiten:</Resource>
     <Resource tag="POSTS">Beiträge</Resource>
+    <Resource tag="POSTS_ASC">Posts asc</Resource>
+    <Resource tag="POSTS_DESC">Posts desc</Resource>
     <Resource tag="RANK">Rang</Resource>
+    <Resource tag="RANK_ASC">Rank A-Z</Resource>
+    <Resource tag="RANK_DESC">Rank Z-A</Resource>
     <Resource tag="SEARCH_MEMBER">Mitglied Name enthält:</Resource>
     <Resource tag="SEARCH_MEMBERS">Mitglieder Suchen</Resource>
     <Resource tag="SEARCH_RANK">Rank:</Resource>
     <Resource tag="SEARCH_ROLE">Gruppe:</Resource>
+    <Resource tag="SORT_BY">Sort by</Resource>
     <Resource tag="TITLE">Mitglieder</Resource>
     <Resource tag="USERNAME">Benutzername</Resource>
+    <Resource tag="USERNAME_ASC">Name A-Z</Resource>
+    <Resource tag="USERNAME_DESC">Name Z-A</Resource>
   </page>
   <page name="MESSAGEHISTORY">
     <Resource tag="COMPARE_TITLE">Message Edit History Post Comparsion</Resource>
@@ -4434,6 +4463,12 @@ Spoiler Content
     </Resource>
     <Resource tag="PREVIEWTITLE">Vorschau:</Resource>
     <Resource tag="RECIPIENTS_PMBOX_FULL">Du wolltest eine Nachricht an einen Benutzer mit einem vollen Posteingang schicken. Der Benutzer muss zuerst seinen Posteingang leeren, bevor wieder neue Nachrichten empfangen werden können.</Resource>
+    <Resource tag="REPORT_BODY">I would like to Report the Message: 
+
+  {0} 
+     
+  for the following Reason...</Resource>
+    <Resource tag="REPORT_SUBJECT">Report a Private Message from User: {0}</Resource>
     <Resource tag="REPORTED_SUBJECT">Re: Antworten auf diesen Beitragsbericht.</Resource>
     <Resource tag="SAVE">Absenden</Resource>
     <Resource tag="SUBJECT">Betreff:</Resource>
@@ -4479,6 +4514,8 @@ Spoiler Content
     <Resource tag="POLLGROUP_CLOSEDBOUND">Keine Resultate zeigen wenn die Gruppe offen ist.</Resource>
     <Resource tag="POLLGROUP_CLOSEDBOUND_WARN">Keine Resultate zeigen wenn die Gruppe offen zum Abstimmen ist</Resource>
     <Resource tag="POLLGROUP_LIST">Wählen Sie eine Gruppe:</Resource>
+    <Resource tag="POLLGROUP_LIST_BOARD">Board Poll:</Resource>
+    <Resource tag="POLLGROUP_LIST_BOARD_HELP">Choose an existing poll as board Poll</Resource>
     <Resource tag="POLLGROUPISBOUND">Ihre Stimme wird gezählt, wenn Sie an allen Umfragen teilgenommen haben.</Resource>
     <Resource tag="POLLHEADER">Erstellen oder Umfrage bearbeiten</Resource>
     <Resource tag="POLLIMAGE_INVALID">Das Bild oder der Pfad ist für (0) ist ungültig.</Resource>
@@ -4727,6 +4764,7 @@ Spoiler Content
     <Resource tag="MEMBERS">Mitglieder</Resource>
     <Resource tag="MINUTES">Minuten</Resource>
     <Resource tag="MODERATION">Moderation</Resource>
+    <Resource tag="MONTH">month</Resource>
     <Resource tag="MSN">MSN-Messenger:</Resource>
     <Resource tag="NUMALL">{0:N2}% aller Beiträge</Resource>
     <Resource tag="NUMDAY">{0:N2} Beiträge pro Tag</Resource>
@@ -4760,6 +4798,7 @@ Spoiler Content
     <Resource tag="WEBLOG">Web-Blog:</Resource>
     <Resource tag="WEBSITE">Webseite:</Resource>
     <Resource tag="XMPP">Jabber Name:</Resource>
+    <Resource tag="YEARS">Year(s)</Resource>
     <Resource tag="YIM">Yahoo!-Messenger:</Resource>
   </page>
   <page name="RECOVER_PASSWORD">
@@ -5240,6 +5279,34 @@ Hallo!
 
 {link}
     </Resource>
+    <Resource tag="EMAILTOPIC_HTML">
+     &lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"&gt;
+     &lt;html&gt;
+     &lt;head&gt;
+     &lt;meta http-equiv="Content-Type" content="text/html; charset=utf-8" /&gt;
+     &lt;link rel="stylesheet" media="all" href="{themecss}" /&gt;
+     &lt;/head&gt;
+     &lt;body class="bg-light"&gt;
+     &lt;div class="container"&gt;
+     &lt;div class="mx-auto mt-4 mb-3 text-center" style="width:100px;height:40px;background: url('{logo}') no-repeat"&gt;
+     &lt;/div&gt;
+     &lt;div class="card mb-4" style="border-top: 5px solid #3761b5;"&gt;
+     &lt;div class="card-body"&gt;
+     &lt;h4 class="text-center"&gt; {message}&lt;/p&gt;
+     &lt;/div&gt;
+     &lt;/div&gt;
+
+     &lt;div class="text-center text-muted"&gt;&lt;strong&gt;{forumname}&lt;/strong&gt; at &lt;a href="{forumlink}"&gt;{forumlink}&lt;/a&gt;&lt;/div&gt;
+     &lt;/div&gt;
+
+     &lt;/body&gt;
+     &lt;/html&gt;
+   </Resource>
+    <Resource tag="EMAILTOPIC_TEXT">
+     {message}
+
+     {forumname} at {forumlink}
+   </Resource>
     <Resource tag="NOTIFICATION_ON_BOT_USER_REGISTER">
       Hallo,
 
@@ -5250,6 +5317,45 @@ Hallo!
 
       Admin-Link: {adminlink}
     </Resource>
+    <Resource tag="NOTIFICATION_ON_BOT_USER_REGISTER_HTML">
+     &lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"&gt;
+     &lt;html&gt;
+     &lt;head&gt;
+     &lt;meta http-equiv="Content-Type" content="text/html; charset=utf-8" /&gt;
+     &lt;link rel="stylesheet" media="all" href="{themecss}" /&gt;
+     &lt;/head&gt;
+     &lt;body class="bg-light"&gt;
+     &lt;div class="container"&gt;
+     &lt;div class="mx-auto mt-4 mb-3 text-center" style="width:100px;height:40px;background: url('{logo}') no-repeat"&gt;
+     &lt;/div&gt;
+     &lt;div class="card mb-4" style="border-top: 5px solid #3761b5;"&gt;
+     &lt;div class="card-body"&gt;
+     &lt;h4 class="text-center"&gt;Hello !&lt;/h4&gt;
+     &lt;p class="mt-3 mb-4"&gt;A new user has registered on the {forumname} forum (Be Aware the SPAM BOT Protection System has detected the user as possible BOT!):&lt;/p&gt;
+
+     &lt;p class="text-center"&gt;User Name: {user}&lt;/p&gt;
+     &lt;p class="text-center"&gt;User Email: {email}&lt;/p&gt;
+
+     &lt;p class="text-center"&gt;Administration Link: {adminlink}&lt;/p&gt;
+     &lt;/div&gt;
+     &lt;/div&gt;
+
+     &lt;div class="text-center text-muted"&gt;&lt;strong&gt;{forumname}&lt;/strong&gt; at &lt;a href="{forumlink}"&gt;{forumlink}&lt;/a&gt;&lt;/div&gt;
+     &lt;/div&gt;
+
+     &lt;/body&gt;
+     &lt;/html&gt;
+   </Resource>
+    <Resource tag="NOTIFICATION_ON_BOT_USER_REGISTER_TEXT">
+      Hello!
+
+      A new user has registered on the {forumname} forum (Be Aware the SPAM BOT Protection System has detected the user as possible BOT!):
+
+      User Name: {user}
+      User Email: {email}
+
+      Administration Link: {adminlink}
+    </Resource>
     <Resource tag="NOTIFICATION_ON_FACEBOOK_REGISTER">
       Hallo {user}.
 
@@ -5259,6 +5365,45 @@ Hallo!
 	  Automatisch generiertes Passwort: {pass}
 	  Automatisch generierte Sicherheits Antwort: {answer}
       E-Mail: {email} (Bitte ändern Sie nicht ihre E-Mail Adresse, ansonsten können Sie sich nicht mehr über Facebook anmelden)
+
+    </Resource>
+    <Resource tag="NOTIFICATION_ON_FACEBOOK_REGISTER_HTML">
+     &lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"&gt;
+     &lt;html&gt;
+     &lt;head&gt;
+     &lt;meta http-equiv="Content-Type" content="text/html; charset=utf-8" /&gt;
+     &lt;link rel="stylesheet" media="all" href="{themecss}" /&gt;
+     &lt;/head&gt;
+     &lt;body class="bg-light"&gt;
+     &lt;div class="container"&gt;
+     &lt;div class="mx-auto mt-4 mb-3 text-center" style="width:100px;height:40px;background: url('{logo}') no-repeat"&gt;
+     &lt;/div&gt;
+     &lt;div class="card mb-4" style="border-top: 5px solid #3761b5;"&gt;
+     &lt;div class="card-body"&gt;
+     &lt;h4 class="text-center"&gt; Hello &lt;strong&gt;{user}&lt;/strong&gt;,&lt;/h4&gt;
+     &lt;p class="mt-3 mb-4"&gt;You have been successfully registered on the {forumname} forum using Facebook Login:&lt;/p&gt;
+     &lt;p class="text-center"&gt;User Name: {user}&lt;/p&gt;
+     &lt;p class="text-center"&gt;Auto Generated Password: {pass}&lt;/p&gt;
+     &lt;p class="text-center"&gt;Auto Generated Security Answer: {answer}&lt;/p&gt;
+     &lt;p class="text-center"&gt;User Email: {email} (Please don't change your email, or you are unable to login with Facebook)&lt;/p&gt;
+     &lt;/div&gt;
+     &lt;/div&gt;
+
+     &lt;div class="text-center text-muted"&gt;&lt;strong&gt;{forumname}&lt;/strong&gt; at &lt;a href="{forumlink}"&gt;{forumlink}&lt;/a&gt;&lt;/div&gt;
+     &lt;/div&gt;
+
+     &lt;/body&gt;
+     &lt;/html&gt;
+   </Resource>
+    <Resource tag="NOTIFICATION_ON_FACEBOOK_REGISTER_TEXT">
+      Hello {user}.
+
+      You have been successfully registered on the {forumname} forum using Facebook Login:
+
+      User Name: {user}
+	  Auto Generated Password: {pass}
+	  Auto Generated Security Answer: {answer}
+      User Email: {email} (Please don't change your email, or you are unable to login with Facebook)
 
     </Resource>
     <Resource tag="NOTIFICATION_ON_GOOGLE_REGISTER">
@@ -5272,22 +5417,161 @@ Hallo!
       E-Mail: {email} (Bitte ändern Sie nicht ihre E-Mail Adresse, ansonsten können Sie sich nicht mehr über Google anmelden)
 
     </Resource>
+    <Resource tag="NOTIFICATION_ON_GOOGLE_REGISTER_HTML">
+     &lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"&gt;
+     &lt;html&gt;
+     &lt;head&gt;
+     &lt;meta http-equiv="Content-Type" content="text/html; charset=utf-8" /&gt;
+     &lt;link rel="stylesheet" media="all" href="{themecss}" /&gt;
+     &lt;/head&gt;
+     &lt;body class="bg-light"&gt;
+     &lt;div class="container"&gt;
+     &lt;div class="mx-auto mt-4 mb-3 text-center" style="width:100px;height:40px;background: url('{logo}') no-repeat"&gt;
+     &lt;/div&gt;
+     &lt;div class="card mb-4" style="border-top: 5px solid #3761b5;"&gt;
+     &lt;div class="card-body"&gt;
+     &lt;h4 class="text-center"&gt; Hello &lt;strong&gt;{user}&lt;/strong&gt;,&lt;/h4&gt;
+     &lt;p class="mt-3 mb-4"&gt;You have been successfully registered on the {forumname} forum using Google Login:&lt;/p&gt;
+     &lt;p class="text-center"&gt;User Name: {user}&lt;/p&gt;
+     &lt;p class="text-center"&gt;Auto Generated Password: {pass}&lt;/p&gt;
+     &lt;p class="text-center"&gt;Auto Generated Security Answer: {answer}&lt;/p&gt;
+     &lt;p class="text-center"&gt;User Email: {email} (Please don't change your email, or you are unable to login with Google)&lt;/p&gt;
+     &lt;/div&gt;
+     &lt;/div&gt;
+
+     &lt;div class="text-center text-muted"&gt;&lt;strong&gt;{forumname}&lt;/strong&gt; at &lt;a href="{forumlink}"&gt;{forumlink}&lt;/a&gt;&lt;/div&gt;
+     &lt;/div&gt;
+
+     &lt;/body&gt;
+     &lt;/html&gt;
+   </Resource>
+    <Resource tag="NOTIFICATION_ON_GOOGLE_REGISTER_TEXT">
+      Hello {user}.
+
+      You have been successfully registered on the {forumname} forum using Google Login:
+
+      User Name: {user}
+	  Auto Generated Password: {pass}
+	  Auto Generated Security Answer: {answer}
+      User Email: {email} (Please don't change your email, or you are unable to login with Google)
+
+    </Resource>
+    <Resource tag="NOTIFICATION_ON_MEDAL_AWARDED_HTML">
+     &lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"&gt;
+     &lt;html&gt;
+     &lt;head&gt;
+     &lt;meta http-equiv="Content-Type" content="text/html; charset=utf-8" /&gt;
+     &lt;link rel="stylesheet" media="all" href="{themecss}" /&gt;
+     &lt;/head&gt;
+     &lt;body class="bg-light"&gt;
+     &lt;div class="container"&gt;
+     &lt;div class="mx-auto mt-4 mb-3 text-center" style="width:100px;height:40px;background: url('{logo}') no-repeat"&gt;
+     &lt;/div&gt;
+     &lt;div class="card mb-4" style="border-top: 5px solid #3761b5;"&gt;
+     &lt;div class="card-body"&gt;
+     &lt;h4 class="text-center"&gt; Hello &lt;strong&gt;{user}&lt;/strong&gt;,&lt;/h4&gt;
+     &lt;p class="mt-3 mb-4"&gt;Congratulations you have been awarded with the {medalname} on the {forumname} forum.&lt;/p&gt;
+     &lt;/div&gt;
+     &lt;/div&gt;
+
+     &lt;div class="text-center text-muted"&gt;&lt;strong&gt;{forumname}&lt;/strong&gt; at &lt;a href="{forumlink}"&gt;{forumlink}&lt;/a&gt;&lt;/div&gt;
+     &lt;/div&gt;
+
+     &lt;/body&gt;
+     &lt;/html&gt;
+   </Resource>
     <Resource tag="NOTIFICATION_ON_MEDAL_AWARDED_TEXT">
       Hallo {user}.
 
       Glückwunsch Sie wurden mit der {medalname} Ausgezeichnet im {forumname} forum.
     </Resource>
+    <Resource tag="NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL_HTML">
+     &lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"&gt;
+     &lt;html&gt;
+     &lt;head&gt;
+     &lt;meta http-equiv="Content-Type" content="text/html; charset=utf-8" /&gt;
+     &lt;link rel="stylesheet" media="all" href="{themecss}" /&gt;
+     &lt;/head&gt;
+     &lt;body class="bg-light"&gt;
+     &lt;div class="container"&gt;
+     &lt;div class="mx-auto mt-4 mb-3 text-center" style="width:100px;height:40px;background: url('{logo}') no-repeat"&gt;
+     &lt;/div&gt;
+     &lt;div class="card mb-4" style="border-top: 5px solid #3761b5;"&gt;
+     &lt;div class="card-body"&gt;
+     &lt;h4 class="text-center"&gt; Hello &lt;strong&gt;{user}&lt;/strong&gt;,&lt;/h4&gt;
+     &lt;p class="mt-3 mb-4"&gt;A new message that needs to be approved has been posted in the {forumname} forum&lt;/p&gt;
+     &lt;p class="text-center"&gt;Administration Link: {adminlink}&lt;/p&gt;
+     &lt;/div&gt;
+     &lt;/div&gt;
+
+     &lt;div class="text-center text-muted"&gt;&lt;strong&gt;{forumname}&lt;/strong&gt; at &lt;a href="{forumlink}"&gt;{forumlink}&lt;/a&gt;&lt;/div&gt;
+     &lt;/div&gt;
+
+     &lt;/body&gt;
+     &lt;/html&gt;
+   </Resource>
     <Resource tag="NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL_TEXT">
 		Eine neue Nachricht muß bestätigt werden die im forum {forumname} geschrieben wurde:
 
 		Administration Link: {adminlink}
 	</Resource>
+    <Resource tag="NOTIFICATION_ON_MODERATOR_REPORTED_MESSAGE_HTML">
+     &lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"&gt;
+     &lt;html&gt;
+     &lt;head&gt;
+     &lt;meta http-equiv="Content-Type" content="text/html; charset=utf-8" /&gt;
+     &lt;link rel="stylesheet" media="all" href="{themecss}" /&gt;
+     &lt;/head&gt;
+     &lt;body class="bg-light"&gt;
+     &lt;div class="container"&gt;
+     &lt;div class="mx-auto mt-4 mb-3 text-center" style="width:100px;height:40px;background: url('{logo}') no-repeat"&gt;
+     &lt;/div&gt;
+     &lt;div class="card mb-4" style="border-top: 5px solid #3761b5;"&gt;
+     &lt;div class="card-body"&gt;
+     &lt;h4 class="text-center"&gt; Hello &lt;strong&gt;{user}&lt;/strong&gt;,&lt;/h4&gt;
+     &lt;p class="mt-3 mb-4"&gt;A message was reported by {reporter} for the following reason: {reason}&lt;/p&gt;
+     &lt;p&gt;The Message was posted in the {forumname} forum.&lt;/p&gt;
+     &lt;p class="text-center"&gt;Administration Link: {adminlink}&lt;/p&gt;
+     &lt;/div&gt;
+     &lt;/div&gt;
+
+     &lt;div class="text-center text-muted"&gt;&lt;strong&gt;{forumname}&lt;/strong&gt; at &lt;a href="{forumlink}"&gt;{forumlink}&lt;/a&gt;&lt;/div&gt;
+     &lt;/div&gt;
+
+     &lt;/body&gt;
+     &lt;/html&gt;
+   </Resource>
     <Resource tag="NOTIFICATION_ON_MODERATOR_REPORTED_MESSAGE_TEXT">
       Ein Beitrag wurde durch {reporter} gemeldet mit der folgenden Begründung: {reason}
 
 Der Beitrag wurde im {forumname} forum veröffentlicht.
 
       Administrations Link: {adminlink}
+   </Resource>
+    <Resource tag="NOTIFICATION_ON_MODERATOR_SPAMMESSAGE_APPROVAL_HTML">
+     &lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"&gt;
+     &lt;html&gt;
+     &lt;head&gt;
+     &lt;meta http-equiv="Content-Type" content="text/html; charset=utf-8" /&gt;
+     &lt;link rel="stylesheet" media="all" href="{themecss}" /&gt;
+     &lt;/head&gt;
+     &lt;body class="bg-light"&gt;
+     &lt;div class="container"&gt;
+     &lt;div class="mx-auto mt-4 mb-3 text-center" style="width:100px;height:40px;background: url('{logo}') no-repeat"&gt;
+     &lt;/div&gt;
+     &lt;div class="card mb-4" style="border-top: 5px solid #3761b5;"&gt;
+     &lt;div class="card-body"&gt;
+     &lt;h4 class="text-center"&gt; Hello &lt;strong&gt;{user}&lt;/strong&gt;,&lt;/h4&gt;
+     &lt;p class="mt-3 mb-4"&gt;A new message (posted in the {forumname} forum) was detected as SPAM, needs to be checked&lt;/p&gt;
+     &lt;p class="text-center"&gt;Administration Link: {adminlink}&lt;/p&gt;
+     &lt;/div&gt;
+     &lt;/div&gt;
+
+     &lt;div class="text-center text-muted"&gt;&lt;strong&gt;{forumname}&lt;/strong&gt; at &lt;a href="{forumlink}"&gt;{forumlink}&lt;/a&gt;&lt;/div&gt;
+     &lt;/div&gt;
+
+     &lt;/body&gt;
+     &lt;/html&gt;
    </Resource>
     <Resource tag="NOTIFICATION_ON_MODERATOR_SPAMMESSAGE_APPROVAL_TEXT">
       A new message (posted in the {forumname} forum) was detected as SPAM, needs to be checked:
@@ -5305,6 +5589,45 @@ Der Beitrag wurde im {forumname} forum veröffentlicht.
       E-Mail: {email}
 
     </Resource>
+    <Resource tag="NOTIFICATION_ON_REGISTER_HTML">
+     &lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"&gt;
+     &lt;html&gt;
+     &lt;head&gt;
+     &lt;meta http-equiv="Content-Type" content="text/html; charset=utf-8" /&gt;
+     &lt;link rel="stylesheet" media="all" href="{themecss}" /&gt;
+     &lt;/head&gt;
+     &lt;body class="bg-light"&gt;
+     &lt;div class="container"&gt;
+     &lt;div class="mx-auto mt-4 mb-3 text-center" style="width:100px;height:40px;background: url('{logo}') no-repeat"&gt;
+     &lt;/div&gt;
+     &lt;div class="card mb-4" style="border-top: 5px solid #3761b5;"&gt;
+     &lt;div class="card-body"&gt;
+     &lt;h4 class="text-center"&gt; Hello &lt;strong&gt;{user}&lt;/strong&gt;,&lt;/h4&gt;
+     &lt;p class="mt-3 mb-4"&gt;You have been successfully registered on the {forumname} forum:&lt;/p&gt;
+     &lt;p class="text-center"&gt;User Name: {user}&lt;/p&gt;
+     &lt;p class="text-center"&gt;Auto Generated Password: {pass}&lt;/p&gt;
+     &lt;p class="text-center"&gt;Auto Generated Security Answer: {answer}&lt;/p&gt;
+     &lt;p class="text-center"&gt;User Email: {email}&lt;/p&gt;
+     &lt;/div&gt;
+     &lt;/div&gt;
+
+     &lt;div class="text-center text-muted"&gt;&lt;strong&gt;{forumname}&lt;/strong&gt; at &lt;a href="{forumlink}"&gt;{forumlink}&lt;/a&gt;&lt;/div&gt;
+     &lt;/div&gt;
+
+     &lt;/body&gt;
+     &lt;/html&gt;
+   </Resource>
+    <Resource tag="NOTIFICATION_ON_REGISTER_TEXT">
+    Hello {user}.
+
+    You have been successfully registered on the {forumname} forum:
+
+    User Name: {user}
+    Auto Generated Password: {pass}
+    Auto Generated Security Answer: {answer}
+    User Email: {email}
+
+  </Resource>
     <Resource tag="NOTIFICATION_ON_SUSPENDING_ENDED_USER">
     Hello {user},
 
@@ -5315,7 +5638,93 @@ Der Beitrag wurde im {forumname} forum veröffentlicht.
     {forumurl}
 
   </Resource>
+    <Resource tag="NOTIFICATION_ON_SUSPENDING_ENDED_USER_HTML">
+     &lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"&gt;
+     &lt;html&gt;
+     &lt;head&gt;
+     &lt;meta http-equiv="Content-Type" content="text/html; charset=utf-8" /&gt;
+     &lt;link rel="stylesheet" media="all" href="{themecss}" /&gt;
+     &lt;/head&gt;
+     &lt;body class="bg-light"&gt;
+     &lt;div class="container"&gt;
+     &lt;div class="mx-auto mt-4 mb-3 text-center" style="width:100px;height:40px;background: url('{logo}') no-repeat"&gt;
+     &lt;/div&gt;
+     &lt;div class="card mb-4" style="border-top: 5px solid #3761b5;"&gt;
+     &lt;div class="card-body"&gt;
+     &lt;h4 class="text-center"&gt;Hello {user},&lt;/h4&gt;
+     &lt;p class="mt-3 mb-4"&gt;The suspension of your forum account has ended or was lifted.&lt;/p&gt;
+
+     &lt;p&gt;Thanks!&lt;br /&gt;
+     The {forumname} Team&lt;br /&gt;
+     {forumurl}
+     &lt;/p&gt;
+     &lt;/div&gt;
+     &lt;/div&gt;
+
+     &lt;div class="text-center text-muted"&gt;&lt;strong&gt;{forumname}&lt;/strong&gt; at &lt;a href="{forumlink}"&gt;{forumlink}&lt;/a&gt;&lt;/div&gt;
+     &lt;/div&gt;
+
+     &lt;/body&gt;
+     &lt;/html&gt;
+   </Resource>
+    <Resource tag="NOTIFICATION_ON_SUSPENDING_ENDED_USER_TEXT">
+    Hello {user},
+
+    The suspension of your forum account has ended or was lifted.
+
+    Thanks!
+    The {forumname} Team
+    {forumurl}
+
+  </Resource>
     <Resource tag="NOTIFICATION_ON_SUSPENDING_USER">
+    Hello {user},
+
+    Your forum account on the {forumname} forum has been temporarily suspended.
+
+    This suspension is due to end on {suspendedUntil}.
+
+    For the following Reason: '{suspendReason}'
+
+    Thanks!
+    The {forumname} Team
+    {forumurl}
+
+  </Resource>
+    <Resource tag="NOTIFICATION_ON_SUSPENDING_USER_HTML">
+     &lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"&gt;
+     &lt;html&gt;
+     &lt;head&gt;
+     &lt;meta http-equiv="Content-Type" content="text/html; charset=utf-8" /&gt;
+     &lt;link rel="stylesheet" media="all" href="{themecss}" /&gt;
+     &lt;/head&gt;
+     &lt;body class="bg-light"&gt;
+     &lt;div class="container"&gt;
+     &lt;div class="mx-auto mt-4 mb-3 text-center" style="width:100px;height:40px;background: url('{logo}') no-repeat"&gt;
+     &lt;/div&gt;
+     &lt;div class="card mb-4" style="border-top: 5px solid #3761b5;"&gt;
+     &lt;div class="card-body"&gt;
+     &lt;h4 class="text-center"&gt;Hello {user},&lt;/h4&gt;
+     &lt;p class="mt-3 mb-4"&gt;Your forum account on the {forumname} forum has been temporarily suspended.&lt;/p&gt;
+
+     &lt;p&gt;This suspension is due to end on {suspendedUntil}.&lt;/p&gt;
+
+     &lt;p&gt;For the following Reason: '{suspendReason}'&lt;/p&gt;
+
+     &lt;p&gt;Thanks!&lt;br /&gt;
+     The {forumname} Team&lt;br /&gt;
+     {forumurl}
+     &lt;/p&gt;
+     &lt;/div&gt;
+     &lt;/div&gt;
+
+     &lt;div class="text-center text-muted"&gt;&lt;strong&gt;{forumname}&lt;/strong&gt; at &lt;a href="{forumlink}"&gt;{forumlink}&lt;/a&gt;&lt;/div&gt;
+     &lt;/div&gt;
+
+     &lt;/body&gt;
+     &lt;/html&gt;
+   </Resource>
+    <Resource tag="NOTIFICATION_ON_SUSPENDING_USER_TEXT">
     Hello {user},
 
     Your forum account on the {forumname} forum has been temporarily suspended.
@@ -5350,7 +5759,101 @@ E-Mail: {email}
 
 Admin-Link: {adminlink}
 	</Resource>
+    <Resource tag="NOTIFICATION_ON_USER_REGISTER_HTML">
+     &lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"&gt;
+     &lt;html&gt;
+     &lt;head&gt;
+     &lt;meta http-equiv="Content-Type" content="text/html; charset=utf-8" /&gt;
+     &lt;link rel="stylesheet" media="all" href="{themecss}" /&gt;
+     &lt;/head&gt;
+     &lt;body class="bg-light"&gt;
+     &lt;div class="container"&gt;
+     &lt;div class="mx-auto mt-4 mb-3 text-center" style="width:100px;height:40px;background: url('{logo}') no-repeat"&gt;
+     &lt;/div&gt;
+     &lt;div class="card mb-4" style="border-top: 5px solid #3761b5;"&gt;
+     &lt;div class="card-body"&gt;
+     &lt;h4 class="text-center"&gt;Hello !&lt;/h4&gt;
+     &lt;p class="mt-3 mb-4"&gt;A new user has registered on the {forumname} forum:&lt;/p&gt;
+
+     &lt;p class="text-center"&gt;User Name: {user}&lt;/p&gt;
+     &lt;p class="text-center"&gt;User Email: {email}&lt;/p&gt;
+
+     &lt;p class="text-center"&gt;Administration Link: {adminlink}&lt;/p&gt;
+     &lt;/div&gt;
+     &lt;/div&gt;
+
+     &lt;div class="text-center text-muted"&gt;&lt;strong&gt;{forumname}&lt;/strong&gt; at &lt;a href="{forumlink}"&gt;{forumlink}&lt;/a&gt;&lt;/div&gt;
+     &lt;/div&gt;
+
+     &lt;/body&gt;
+     &lt;/html&gt;
+   </Resource>
+    <Resource tag="NOTIFICATION_ON_USER_REGISTER_TEXT">
+      Hello!
+
+      A new user has registered on the {forumname} forum:
+
+      User Name: {user}
+      User Email: {email}
+
+      Administration Link: {adminlink}
+    </Resource>
     <Resource tag="NOTIFICATION_ON_WELCOME_USER">
+    Hello {user},
+
+    You have been successfully registered on the {forumname} forum. You're all ready to go!
+
+    Before posting, consider other ways of finding information:
+
+    - Use the help pages to find out how the forum works
+    - Try the Forum Search, often times your questions are already been answered
+    - Do not post any abusive, vulgar, obscene, hateful, slanderous, threatening, sexually-oriented or any other material that may violate any applicable laws.
+    Doing so may lead to you being permanently banned from this forum. Note that all IP addresses are logged and may aid in enforcing these conditions.
+
+    Thanks!
+    The {forumname} Team
+    {forumurl}
+
+  </Resource>
+    <Resource tag="NOTIFICATION_ON_WELCOME_USER_HTML">
+     &lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"&gt;
+     &lt;html&gt;
+     &lt;head&gt;
+     &lt;meta http-equiv="Content-Type" content="text/html; charset=utf-8" /&gt;
+     &lt;link rel="stylesheet" media="all" href="{themecss}" /&gt;
+     &lt;/head&gt;
+     &lt;body class="bg-light"&gt;
+     &lt;div class="container"&gt;
+     &lt;div class="mx-auto mt-4 mb-3 text-center" style="width:100px;height:40px;background: url('{logo}') no-repeat"&gt;
+     &lt;/div&gt;
+     &lt;div class="card mb-4" style="border-top: 5px solid #3761b5;"&gt;
+     &lt;div class="card-body"&gt;
+     &lt;h4 class="text-center"&gt;Hello {user},&lt;/h4&gt;
+     &lt;p class="mt-3 mb-4"&gt;You have been successfully registered on the {forumname} forum. You're all ready to go!&lt;/p&gt;
+
+     &lt;p&gt;Before posting, consider other ways of finding information:&lt;/p&gt;
+
+     &lt;ul&gt;
+     &lt;li&gt;Use the help pages to find out how the forum works&lt;/li&gt;
+     &lt;li&gt;Try the Forum Search, often times your questions are already been answered&lt;/li&gt;
+     &lt;li&gt;Do not post any abusive, vulgar, obscene, hateful, slanderous, threatening, sexually-oriented or any other material that may violate any applicable laws.&lt;/li&gt;
+     &lt;li&gt;Doing so may lead to you being permanently banned from this forum. Note that all IP addresses are logged and may aid in enforcing these conditions.&lt;/li&gt;
+     &lt;/ul&gt;
+
+     &lt;p&gt;Thanks!&lt;br /&gt;
+     The {forumname} Team&lt;br /&gt;
+     {forumurl}
+     &lt;/p&gt;
+     &lt;/div&gt;
+     &lt;/div&gt;
+
+     &lt;div class="text-center text-muted"&gt;&lt;strong&gt;{forumname}&lt;/strong&gt; at &lt;a href="{forumlink}"&gt;{forumlink}&lt;/a&gt;&lt;/div&gt;
+     &lt;/div&gt;
+
+     &lt;/body&gt;
+     &lt;/html&gt;
+   </Resource>
+    <Resource tag="NOTIFICATION_ON_WELCOME_USER_TEXT">
     Hello {user},
 
     You have been successfully registered on the {forumname} forum. You're all ready to go!
@@ -5379,12 +5882,100 @@ Admin-Link: {adminlink}
      {forumurl}
 
    </Resource>
+    <Resource tag="NOTIFICATION_ROLE_ASSIGNMENT_HTML">
+     &lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"&gt;
+     &lt;html&gt;
+     &lt;head&gt;
+     &lt;meta http-equiv="Content-Type" content="text/html; charset=utf-8" /&gt;
+     &lt;link rel="stylesheet" media="all" href="{themecss}" /&gt;
+     &lt;/head&gt;
+     &lt;body class="bg-light"&gt;
+     &lt;div class="container"&gt;
+     &lt;div class="mx-auto mt-4 mb-3 text-center" style="width:100px;height:40px;background: url('{logo}') no-repeat"&gt;
+     &lt;/div&gt;
+     &lt;div class="card mb-4" style="border-top: 5px solid #3761b5;"&gt;
+     &lt;div class="card-body"&gt;
+     &lt;h4 class="text-center"&gt;Hello {user},&lt;/h4&gt;
+     &lt;p class="mt-3 mb-4"&gt;Your user account on the {forumname} forum has has been recently updated to include access to the following Group(s):&lt;/p&gt;
+
+     &lt;p class="text-center"&gt;{roles}&lt;/p&gt;
+
+     &lt;p&gt;Thanks!&lt;br /&gt;
+     The {forumname} Team&lt;br /&gt;
+     {forumurl}
+     &lt;/p&gt;
+     &lt;/div&gt;
+     &lt;/div&gt;
+
+     &lt;div class="text-center text-muted"&gt;&lt;strong&gt;{forumname}&lt;/strong&gt; at &lt;a href="{forumlink}"&gt;{forumlink}&lt;/a&gt;&lt;/div&gt;
+     &lt;/div&gt;
+
+     &lt;/body&gt;
+     &lt;/html&gt;
+   </Resource>
+    <Resource tag="NOTIFICATION_ROLE_ASSIGNMENT_TEXT">
+     Hello {user},
+
+     Your user account on the {forumname} forum has has been recently updated to include access to the following Group(s):
+     
+     {roles}
+
+
+     Thanks!
+     The {forumname} Team
+     {forumurl}
+
+   </Resource>
     <Resource tag="NOTIFICATION_ROLE_UNASSIGNMENT">
      Hello {user},
 
      Your user account on the {forumname} forum  has been recently updated to restrict access to the following Groups(s):
      
      {roles}
+
+     Thanks!
+     The {forumname} Team
+     {forumurl}
+
+   </Resource>
+    <Resource tag="NOTIFICATION_ROLE_UNASSIGNMENT_HTML">
+     &lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"&gt;
+     &lt;html&gt;
+     &lt;head&gt;
+     &lt;meta http-equiv="Content-Type" content="text/html; charset=utf-8" /&gt;
+     &lt;link rel="stylesheet" media="all" href="{themecss}" /&gt;
+     &lt;/head&gt;
+     &lt;body class="bg-light"&gt;
+     &lt;div class="container"&gt;
+     &lt;div class="mx-auto mt-4 mb-3 text-center" style="width:100px;height:40px;background: url('{logo}') no-repeat"&gt;
+     &lt;/div&gt;
+     &lt;div class="card mb-4" style="border-top: 5px solid #3761b5;"&gt;
+     &lt;div class="card-body"&gt;
+     &lt;h4 class="text-center"&gt;Hello {user},&lt;/h4&gt;
+     &lt;p class="mt-3 mb-4"&gt;Your user account on the {forumname} forum  has been recently updated to restrict access to the following Groups(s):&lt;/p&gt;
+
+     &lt;p class="text-center"&gt;{roles}&lt;/p&gt;
+
+     &lt;p&gt;Thanks!&lt;br /&gt;
+     The {forumname} Team&lt;br /&gt;
+     {forumurl}
+     &lt;/p&gt;
+     &lt;/div&gt;
+     &lt;/div&gt;
+
+     &lt;div class="text-center text-muted"&gt;&lt;strong&gt;{forumname}&lt;/strong&gt; at &lt;a href="{forumlink}"&gt;{forumlink}&lt;/a&gt;&lt;/div&gt;
+     &lt;/div&gt;
+
+     &lt;/body&gt;
+     &lt;/html&gt;
+   </Resource>
+    <Resource tag="NOTIFICATION_ROLE_UNASSIGNMENT_TEXT">
+     Hello {user},
+
+     Your user account on the {forumname} forum  has been recently updated to restrict access to the following Groups(s):
+     
+     {roles}
+
 
      Thanks!
      The {forumname} Team
@@ -5617,6 +6208,8 @@ Der Bestätigungscode lautet
     <Resource tag="MODERATE">Moderieren</Resource>
     <Resource tag="MODERATE_NEW">({0} Need Moderating)</Resource>
     <Resource tag="MODERATE_TITLE">Öffnet die Moderieren Seite wo sie alle Unbestätigten und gemeldeten Beiträge ansehen können.</Resource>
+    <Resource tag="MYACTIVITY">My Activity</Resource>
+    <Resource tag="MYACTIVITY_TITLE">Shows your activity and Received Thanks, Mentions and Quotes.</Resource>
     <Resource tag="MYALBUMS">Meine Alben</Resource>
     <Resource tag="MYALBUMS_TITLE">Öffnet die Alben Seite mit ihren Alben.</Resource>
     <Resource tag="MYPROFILE">Mein Profil</Resource>

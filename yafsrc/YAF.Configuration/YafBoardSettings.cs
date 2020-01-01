@@ -403,6 +403,16 @@ namespace YAF.Configuration
         }
 
         /// <summary>
+        /// Gets or sets a value indicating whether show scroll back to top button.
+        /// </summary>
+        public bool ShowScrollBackToTopButton
+        {
+            get => this._regBoard.GetValue("ShowScrollBackToTopButton", true);
+
+            set => this._regBoard.SetValue("ShowScrollBackToTopButton", value);
+        }
+
+        /// <summary>
         /// Gets or sets a value indicating whether
         /// sending the user a welcome notification after register
         /// 0 = No Mail
