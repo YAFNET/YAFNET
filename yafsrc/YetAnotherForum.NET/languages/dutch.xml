@@ -2637,12 +2637,16 @@
     <Resource tag="CONFIRM_DELETE">Wis alle geselecteerde berichten?</Resource>
     <Resource tag="CONFIRM_DELETEALL">Verwijder alle berichten?</Resource>
     <Resource tag="DATE">Datum</Resource>
+    <Resource tag="DATE_ASC">Date asc</Resource>
+    <Resource tag="DATE_DESC">Date desc</Resource>
     <Resource tag="DELETEALL">Verwijder alles</Resource>
     <Resource tag="DELETESELECTED">Verwijder selectie</Resource>
     <Resource tag="EXPORTALL">Exporteer alles</Resource>
     <Resource tag="EXPORTFORMAT">Export Formaat:</Resource>
     <Resource tag="EXPORTSELECTED">Exporteer selectie</Resource>
     <Resource tag="FROM">Van</Resource>
+    <Resource tag="FROM_ASC">From A-Z</Resource>
+    <Resource tag="FROM_DESC">From Z-A</Resource>
     <Resource tag="INBOX">Postvak In</Resource>
     <Resource tag="MARK_ALL_ASREAD">Markeer alles als gelezen</Resource>
     <Resource tag="MARK_ASREAD">Mark As Read</Resource>
@@ -2657,6 +2661,8 @@
     <Resource tag="POSTED">Geplaatst:</Resource>
     <Resource tag="SENTITEMS">Verzonden berichten</Resource>
     <Resource tag="SUBJECT">Onderwerp</Resource>
+    <Resource tag="SUBJECT_ASC">Subject A-Z</Resource>
+    <Resource tag="SUBJECT_DESC">Subject Z-A</Resource>
     <Resource tag="TITLE">Privé-berichten</Resource>
     <Resource tag="TO">Aan</Resource>
   </page>

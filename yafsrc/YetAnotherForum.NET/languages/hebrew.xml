@@ -2663,12 +2663,16 @@
     <Resource tag="CONFIRM_DELETE">האם למחוק את כל ההודעות המסומנות?</Resource>
     <Resource tag="CONFIRM_DELETEALL">Delete all messages?</Resource>
     <Resource tag="DATE">תאריך</Resource>
+    <Resource tag="DATE_ASC">Date asc</Resource>
+    <Resource tag="DATE_DESC">Date desc</Resource>
     <Resource tag="DELETEALL">Delete All</Resource>
     <Resource tag="DELETESELECTED">מחק מסומנים</Resource>
     <Resource tag="EXPORTALL">Export All</Resource>
     <Resource tag="EXPORTFORMAT">Export Format:</Resource>
     <Resource tag="EXPORTSELECTED">Export Selected</Resource>
     <Resource tag="FROM">מאת</Resource>
+    <Resource tag="FROM_ASC">From A-Z</Resource>
+    <Resource tag="FROM_DESC">From Z-A</Resource>
     <Resource tag="INBOX">תיבת דואר נכנס</Resource>
     <Resource tag="MARK_ALL_ASREAD">Mark All As Read</Resource>
     <Resource tag="MARK_ASREAD">Mark As Read</Resource>
@@ -2683,6 +2687,8 @@
     <Resource tag="POSTED">נשלח:</Resource>
     <Resource tag="SENTITEMS">פריטים שנשלחו</Resource>
     <Resource tag="SUBJECT">נושא</Resource>
+    <Resource tag="SUBJECT_ASC">Subject A-Z</Resource>
+    <Resource tag="SUBJECT_DESC">Subject Z-A</Resource>
     <Resource tag="TITLE">הודעות פרטיות</Resource>
     <Resource tag="TO">אל</Resource>
   </page>

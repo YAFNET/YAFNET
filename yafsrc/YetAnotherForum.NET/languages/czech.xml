@@ -2640,12 +2640,16 @@
     <Resource tag="CONFIRM_DELETE">Smazat všechny vybrané zprávy?</Resource>
     <Resource tag="CONFIRM_DELETEALL">Delete all messages?</Resource>
     <Resource tag="DATE">Datum</Resource>
+    <Resource tag="DATE_ASC">Date asc</Resource>
+    <Resource tag="DATE_DESC">Date desc</Resource>
     <Resource tag="DELETEALL">Delete All</Resource>
     <Resource tag="DELETESELECTED">Smaž výběr</Resource>
     <Resource tag="EXPORTALL">Export All</Resource>
     <Resource tag="EXPORTFORMAT">Export Format:</Resource>
     <Resource tag="EXPORTSELECTED">Export Selected</Resource>
     <Resource tag="FROM">Od</Resource>
+    <Resource tag="FROM_ASC">From A-Z</Resource>
+    <Resource tag="FROM_DESC">From Z-A</Resource>
     <Resource tag="INBOX">Doručené zprávy</Resource>
     <Resource tag="MARK_ALL_ASREAD">Mark All As Read</Resource>
     <Resource tag="MARK_ASREAD">Mark As Read</Resource>
@@ -2660,6 +2664,8 @@
     <Resource tag="POSTED">Odesláno:</Resource>
     <Resource tag="SENTITEMS">Odeslané</Resource>
     <Resource tag="SUBJECT">Předmět</Resource>
+    <Resource tag="SUBJECT_ASC">Subject A-Z</Resource>
+    <Resource tag="SUBJECT_DESC">Subject Z-A</Resource>
     <Resource tag="TITLE">Soukromé zprávy</Resource>
     <Resource tag="TO">Komu</Resource>
   </page>

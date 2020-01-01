@@ -2634,12 +2634,16 @@
     <Resource tag="CONFIRM_DELETE">حذف كل الرسائل المختارة؟</Resource>
     <Resource tag="CONFIRM_DELETEALL">ازالة كل الرسائل؟</Resource>
     <Resource tag="DATE">التاريخ</Resource>
+    <Resource tag="DATE_ASC">Date asc</Resource>
+    <Resource tag="DATE_DESC">Date desc</Resource>
     <Resource tag="DELETEALL">ازالة الكل</Resource>
     <Resource tag="DELETESELECTED">ازالة المختار</Resource>
     <Resource tag="EXPORTALL">Export All</Resource>
     <Resource tag="EXPORTFORMAT">Export Format:</Resource>
     <Resource tag="EXPORTSELECTED">Export Selected</Resource>
     <Resource tag="FROM">من </Resource>
+    <Resource tag="FROM_ASC">From A-Z</Resource>
+    <Resource tag="FROM_DESC">From Z-A</Resource>
     <Resource tag="INBOX">الوارد</Resource>
     <Resource tag="MARK_ALL_ASREAD">إجعل الكل  مقروء</Resource>
     <Resource tag="MARK_ASREAD">Mark As Read</Resource>
@@ -2654,6 +2658,8 @@
     <Resource tag="POSTED">:تم المشاركة</Resource>
     <Resource tag="SENTITEMS">العناصر المرسلة</Resource>
     <Resource tag="SUBJECT">الموضوع</Resource>
+    <Resource tag="SUBJECT_ASC">Subject A-Z</Resource>
+    <Resource tag="SUBJECT_DESC">Subject Z-A</Resource>
     <Resource tag="TITLE">الرسائل الخاصة</Resource>
     <Resource tag="TO">الى</Resource>
   </page>

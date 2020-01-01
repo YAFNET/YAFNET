@@ -2640,12 +2640,16 @@
     <Resource tag="CONFIRM_DELETE">Xoá tất cả các tin nhắn được chọn?</Resource>
     <Resource tag="CONFIRM_DELETEALL">Delete all messages?</Resource>
     <Resource tag="DATE">Ngày</Resource>
+    <Resource tag="DATE_ASC">Date asc</Resource>
+    <Resource tag="DATE_DESC">Date desc</Resource>
     <Resource tag="DELETEALL">Delete All</Resource>
     <Resource tag="DELETESELECTED">Xoá tin đã chọn</Resource>
     <Resource tag="EXPORTALL">Export All</Resource>
     <Resource tag="EXPORTFORMAT">Export Format:</Resource>
     <Resource tag="EXPORTSELECTED">Export Selected</Resource>
     <Resource tag="FROM">Người gửi</Resource>
+    <Resource tag="FROM_ASC">From A-Z</Resource>
+    <Resource tag="FROM_DESC">From Z-A</Resource>
     <Resource tag="INBOX">Tin nhắn</Resource>
     <Resource tag="MARK_ALL_ASREAD">Mark All As Read</Resource>
     <Resource tag="MARK_ASREAD">Mark As Read</Resource>
@@ -2660,6 +2664,8 @@
     <Resource tag="POSTED">Posted:</Resource>
     <Resource tag="SENTITEMS">Đã gửi</Resource>
     <Resource tag="SUBJECT">Tiêu đề</Resource>
+    <Resource tag="SUBJECT_ASC">Subject A-Z</Resource>
+    <Resource tag="SUBJECT_DESC">Subject Z-A</Resource>
     <Resource tag="TITLE">Tin nhắn</Resource>
     <Resource tag="TO">Người nhận</Resource>
   </page>

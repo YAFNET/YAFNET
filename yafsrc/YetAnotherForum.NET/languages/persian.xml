@@ -2657,12 +2657,16 @@
     <Resource tag="CONFIRM_DELETE">تمامی پیغام‌های انتخاب شده حذف شود؟</Resource>
     <Resource tag="CONFIRM_DELETEALL">همه پیغام‌ها حذف شوند؟</Resource>
     <Resource tag="DATE">تاریخ</Resource>
+    <Resource tag="DATE_ASC">Date asc</Resource>
+    <Resource tag="DATE_DESC">Date desc</Resource>
     <Resource tag="DELETEALL">حذف همه</Resource>
     <Resource tag="DELETESELECTED">حذف موارد انتخابی</Resource>
     <Resource tag="EXPORTALL">برون‌بری همه</Resource>
     <Resource tag="EXPORTFORMAT">قالب فایل برای برون‌بری :</Resource>
     <Resource tag="EXPORTSELECTED">برون‌بری موارد انتخاب شده</Resource>
     <Resource tag="FROM">از</Resource>
+    <Resource tag="FROM_ASC">From A-Z</Resource>
+    <Resource tag="FROM_DESC">From Z-A</Resource>
     <Resource tag="INBOX">صندوق ورودی</Resource>
     <Resource tag="MARK_ALL_ASREAD">علامت‌گذاری همه به‌عنوان خوانده‌شده</Resource>
     <Resource tag="MARK_ASREAD">Mark As Read</Resource>
@@ -2677,6 +2681,8 @@
     <Resource tag="POSTED">ارسال شده:</Resource>
     <Resource tag="SENTITEMS">موارد ارسال شده</Resource>
     <Resource tag="SUBJECT">عنوان</Resource>
+    <Resource tag="SUBJECT_ASC">Subject A-Z</Resource>
+    <Resource tag="SUBJECT_DESC">Subject Z-A</Resource>
     <Resource tag="TITLE">پیغام‌های شخصی</Resource>
     <Resource tag="TO">به</Resource>
   </page>

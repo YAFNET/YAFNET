@@ -2624,12 +2624,16 @@
     <Resource tag="CONFIRM_DELETE">Вы действительно желаете удалить все выбранные сообщения?</Resource>
     <Resource tag="CONFIRM_DELETEALL">Вы действительно желаете удалить все сообщения?</Resource>
     <Resource tag="DATE">Дата</Resource>
+    <Resource tag="DATE_ASC">Date asc</Resource>
+    <Resource tag="DATE_DESC">Date desc</Resource>
     <Resource tag="DELETEALL">Удалить всё</Resource>
     <Resource tag="DELETESELECTED">Удалить выбранное</Resource>
     <Resource tag="EXPORTALL">Экспортировать всё</Resource>
     <Resource tag="EXPORTFORMAT">Формат экспорта:</Resource>
     <Resource tag="EXPORTSELECTED">Экспортировать выбранное</Resource>
     <Resource tag="FROM">От</Resource>
+    <Resource tag="FROM_ASC">From A-Z</Resource>
+    <Resource tag="FROM_DESC">From Z-A</Resource>
     <Resource tag="INBOX">Входящие</Resource>
     <Resource tag="MARK_ALL_ASREAD">Отметить все как прочитанные</Resource>
     <Resource tag="MARK_ASREAD">Mark As Read</Resource>
@@ -2644,6 +2648,8 @@
     <Resource tag="POSTED">Отправлено:</Resource>
     <Resource tag="SENTITEMS">Отправленные</Resource>
     <Resource tag="SUBJECT">Тема</Resource>
+    <Resource tag="SUBJECT_ASC">Subject A-Z</Resource>
+    <Resource tag="SUBJECT_DESC">Subject Z-A</Resource>
     <Resource tag="TITLE">Личные сообщения</Resource>
     <Resource tag="TO">Кому</Resource>
   </page>

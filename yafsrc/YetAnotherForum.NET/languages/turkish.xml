@@ -2640,12 +2640,16 @@
     <Resource tag="CONFIRM_DELETE">Seçilenleri silmek istiyor musunuz?</Resource>
     <Resource tag="CONFIRM_DELETEALL">Hepsini silmek istiyor musunuz?</Resource>
     <Resource tag="DATE">Tarih</Resource>
+    <Resource tag="DATE_ASC">Date asc</Resource>
+    <Resource tag="DATE_DESC">Date desc</Resource>
     <Resource tag="DELETEALL">Hepsini sil</Resource>
     <Resource tag="DELETESELECTED">Seçileni sil</Resource>
     <Resource tag="EXPORTALL">Tümünü Dışarı Aktar</Resource>
     <Resource tag="EXPORTFORMAT">Formatı Dışarı Aktar:</Resource>
     <Resource tag="EXPORTSELECTED">Seçiliyi Dışarı Aktar</Resource>
     <Resource tag="FROM">Kimden</Resource>
+    <Resource tag="FROM_ASC">From A-Z</Resource>
+    <Resource tag="FROM_DESC">From Z-A</Resource>
     <Resource tag="INBOX">Gelen Kutusu</Resource>
     <Resource tag="MARK_ALL_ASREAD">Hepsini Okundu Olarak İşaretle</Resource>
     <Resource tag="MARK_ASREAD">Mark As Read</Resource>
@@ -2660,6 +2664,8 @@
     <Resource tag="POSTED">Gönderildi:</Resource>
     <Resource tag="SENTITEMS">Giden Kutusu</Resource>
     <Resource tag="SUBJECT">Konu</Resource>
+    <Resource tag="SUBJECT_ASC">Subject A-Z</Resource>
+    <Resource tag="SUBJECT_DESC">Subject Z-A</Resource>
     <Resource tag="TITLE">Özel Mesajlar</Resource>
     <Resource tag="TO">Kime</Resource>
   </page>

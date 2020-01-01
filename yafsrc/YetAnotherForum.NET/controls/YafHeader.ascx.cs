@@ -42,7 +42,6 @@ namespace YAF.Controls
     using YAF.Types.Interfaces;
     using YAF.Types.Objects;
     using YAF.Utils;
-    using YAF.Web.Controls;
 
     #endregion
 
@@ -474,7 +473,7 @@ namespace YAF.Controls
                     "dropdown-item",
                     this.GetText("TOOLBAR", "MYACTIVITY"),
                     this.GetText("TOOLBAR", "MYACTIVITY_TITLE"),
-                    YafBuildLink.GetLink(ForumPages.cp_profile),
+                    YafBuildLink.GetLink(ForumPages.cp_profile, "#activity"),
                     false,
                     unreadActivity > 0,
                     unreadActivity.ToString(),

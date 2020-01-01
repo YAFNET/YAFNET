@@ -28,7 +28,7 @@
         <asp:PlaceHolder runat="server" ID="ActivityPlaceHolder">
             <div class="row">
                 <div class="col">
-                    <div class="card mb-3">
+                    <div class="card mb-3" id="activity">
                         <div class="card-header">
                             <YAF:Icon runat="server" 
                                       IconName="stream"

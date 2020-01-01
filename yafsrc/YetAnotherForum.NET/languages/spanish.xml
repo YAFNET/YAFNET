@@ -2646,12 +2646,16 @@
     <Resource tag="CONFIRM_DELETE">¿Elimiar todos los mensajes seleccionados?</Resource>
     <Resource tag="CONFIRM_DELETEALL">¿Eliminar todos los mensajes?</Resource>
     <Resource tag="DATE">Fecha</Resource>
+    <Resource tag="DATE_ASC">Date asc</Resource>
+    <Resource tag="DATE_DESC">Date desc</Resource>
     <Resource tag="DELETEALL">Eliminar todo</Resource>
     <Resource tag="DELETESELECTED">Eliminar seleccionado</Resource>
     <Resource tag="EXPORTALL">Exportar todo</Resource>
     <Resource tag="EXPORTFORMAT">Formato de exportaciónt:</Resource>
     <Resource tag="EXPORTSELECTED">Seleccionados para exportar</Resource>
     <Resource tag="FROM">De</Resource>
+    <Resource tag="FROM_ASC">From A-Z</Resource>
+    <Resource tag="FROM_DESC">From Z-A</Resource>
     <Resource tag="INBOX">Bandeja de entrada</Resource>
     <Resource tag="MARK_ALL_ASREAD">Marcar todos como leídos</Resource>
     <Resource tag="MARK_ASREAD">Mark As Read</Resource>
@@ -2666,6 +2670,8 @@
     <Resource tag="POSTED">Publicado:</Resource>
     <Resource tag="SENTITEMS">Mensajes enviados</Resource>
     <Resource tag="SUBJECT">Asunto</Resource>
+    <Resource tag="SUBJECT_ASC">Subject A-Z</Resource>
+    <Resource tag="SUBJECT_DESC">Subject Z-A</Resource>
     <Resource tag="TITLE">Mensajes privado</Resource>
     <Resource tag="TO">Para</Resource>
   </page>

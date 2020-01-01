@@ -2637,12 +2637,16 @@
     <Resource tag="CONFIRM_DELETE">Kustutada kõik valitud sõnumid?</Resource>
     <Resource tag="CONFIRM_DELETEALL">Kustutada kõik sõnumid?</Resource>
     <Resource tag="DATE">Kuupäev</Resource>
+    <Resource tag="DATE_ASC">Date asc</Resource>
+    <Resource tag="DATE_DESC">Date desc</Resource>
     <Resource tag="DELETEALL">Kustuta kõik</Resource>
     <Resource tag="DELETESELECTED">Kustuta valitud</Resource>
     <Resource tag="EXPORTALL">Ekspordi kõik</Resource>
     <Resource tag="EXPORTFORMAT">Ekspordi formaat:</Resource>
     <Resource tag="EXPORTSELECTED">Ekspordi valitud</Resource>
     <Resource tag="FROM">Kellelt</Resource>
+    <Resource tag="FROM_ASC">From A-Z</Resource>
+    <Resource tag="FROM_DESC">From Z-A</Resource>
     <Resource tag="INBOX">Postkast</Resource>
     <Resource tag="MARK_ALL_ASREAD">Märgi kõik loetuks</Resource>
     <Resource tag="MARK_ASREAD">Mark As Read</Resource>
@@ -2657,6 +2661,8 @@
     <Resource tag="POSTED">Postitatud:</Resource>
     <Resource tag="SENTITEMS">Saadetud</Resource>
     <Resource tag="SUBJECT">Pealkiri</Resource>
+    <Resource tag="SUBJECT_ASC">Subject A-Z</Resource>
+    <Resource tag="SUBJECT_DESC">Subject Z-A</Resource>
     <Resource tag="TITLE">Privaatsõnumid</Resource>
     <Resource tag="TO">Kellele</Resource>
   </page>
