@@ -467,6 +467,29 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
         }
 
         /// <summary>
+        /// Generated the load Script for the DataGrid table fix
+        /// </summary>
+        /// <param name="selector">The id of the DataGrid.</param>
+        /// <returns>
+        /// Returns the Java Script
+        /// </returns>
+        public static string FixGridTable([NotNull] string selector)
+        {
+            var widgets =
+                ", widgets: ['zebra', 'reflow'], widgetOptions: { reflow_className: 'ui-table-reflow',reflow_headerAttrib: 'data-name',reflow_dataAttrib: 'data-title'}";
+
+            return $@"{Config.JQueryAlias}(document).ready(function() {{
+                        var table = document.getElementById('{selector}'); 
+                        if(table != null) {{
+                            var head = document.createElement('THEAD');
+                            head.appendChild(table.rows[0]);
+                            table.insertBefore(head, table.childNodes[0]); 
+                        }}
+                        {Config.JQueryAlias}('#{selector}').tablesorter({{ theme: 'bootstrap'{widgets}}});
+                    }});";
+        }
+
+        /// <summary>
         /// Load Go to Anchor
         /// </summary>
         /// <param name="anchor">

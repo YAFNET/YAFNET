@@ -235,7 +235,7 @@
                 <div class="card-footer text-center">
                     <asp:PlaceHolder runat="server" ID="ImportAndSyncHolder">
                     <YAF:ThemeButton id="NewUser" runat="server"
-                                     CssClass="mt-1"
+                                     CssClass="mt-1 mr-1"
                                      OnClick="NewUserClick" 
                                      Type="Primary"
                                      Icon="plus-square" 
@@ -243,7 +243,7 @@
                                      TextLocalizedPage="ADMIN_USERS">
                     </YAF:ThemeButton>
                         <YAF:ThemeButton id="SyncUsers" runat="server" 
-                                     CssClass="mt-1"
+                                     CssClass="mt-1 mr-1"
                                      OnClick="SyncUsersClick" 
                                      Type="Secondary"
                                      Icon="sync" 
@@ -252,7 +252,7 @@
                                      ReturnConfirmText='<%# this.GetText("ADMIN_USERS", "CONFIRM_SYNC") %>'>
                     </YAF:ThemeButton>
                         <YAF:ThemeButton id="ImportUsers" runat="server" 
-                                     CssClass="mt-1"
+                                     CssClass="mt-1 mr-1"
                                      Icon="upload" 
                                      DataTarget="UsersImportDialog"  
                                      DataToggle="modal" 
@@ -262,7 +262,7 @@
                     </YAF:ThemeButton>
                     </asp:PlaceHolder>
                     <YAF:ThemeButton id="ExportUsersXml" runat="server" 
-                                     CssClass="mt-1"
+                                     CssClass="mt-1 mr-1"
                                      OnClick="ExportUsersXmlClick" 
                                      Type="Warning"
                                      Icon="download" 

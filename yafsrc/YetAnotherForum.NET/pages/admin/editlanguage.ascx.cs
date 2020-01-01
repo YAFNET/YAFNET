@@ -39,6 +39,7 @@ namespace YAF.Pages.Admin
     using System.Xml.XPath;
 
     using YAF.Core;
+    using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
@@ -150,6 +151,19 @@ namespace YAF.Pages.Admin
         }
 
         /// <summary>
+        /// Registers the needed Java Scripts
+        /// </summary>
+        /// <param name="e">An <see cref="T:System.EventArgs"/> object that contains the event data.</param>
+        protected override void OnPreRender([NotNull] EventArgs e)
+        {
+           YafContext.Current.PageElements.RegisterJsBlock(
+                "FixGridTableJs",
+                JavaScriptBlocks.FixGridTable(this.grdLocals.ClientID));
+
+           base.OnPreRender(e);
+        }
+
+        /// <summary>
         /// Handles the Load event of the Page control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
@@ -180,7 +194,7 @@ namespace YAF.Pages.Admin
 
             if (this.update)
             {
-                this.lblInfo.Visible = true;
+                this.Info.Visible = true;
 
                 this.lblInfo.Text = this.GetText("ADMIN_EDITLANGUAGE", "AUTO_SYNC");
 
@@ -188,7 +202,7 @@ namespace YAF.Pages.Admin
             }
             else
             {
-                this.lblInfo.Visible = false;
+                this.Info.Visible = false;
             }
 
             this.grdLocals.DataSource = this.translations.FindAll(check => check.PageName.Equals("DEFAULT"));
@@ -512,7 +526,7 @@ namespace YAF.Pages.Admin
                     {
                         var txtLocalized = item.FindControlAs<TextBox>("txtLocalized");
 
-                        var lblResourceName = (Label)item.FindControlAs<Label>("lblResourceName");
+                        var lblResourceName = item.FindControlAs<Label>("lblResourceName");
 
                         this.translations.Find(
                                 check => check.PageName.Equals(this.lblPageName.Text)

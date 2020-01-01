@@ -454,24 +454,6 @@ namespace YAF.Pages
 
                     break;
             }
-
-            /*
-            
-
-            // vzrus: Here recaptcha should be always valid. This piece of code for testing only.
-            if (this.Get<YafBoardSettings>().CaptchaTypeRegister == 2)
-            {
-                var recaptcha =
-                    this.CreateUserWizard1.FindWizardControlRecursive("Recaptcha1").ToClass<RecaptchaControl>();
-
-                if (recaptcha != null && !recaptcha.IsValid)
-                {
-                    this.PageContext.AddLoadMessage(this.GetText("BAD_CAPTCHA"), MessageTypes.Error);
-                    e.Cancel = true;
-                }
-            }
-
-            */
         }
 
         /// <summary>

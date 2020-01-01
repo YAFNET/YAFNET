@@ -111,16 +111,6 @@ namespace YAF.Controls
         }
 
         /// <summary>
-        /// Handles the Load event of the ExportAll control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
-        protected void ExportAll_Load([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            ((ThemeButton)sender).Attributes["onclick"] = "this.form.onsubmit = function() {return true;}";
-        }
-
-        /// <summary>
         /// The archive selected_ click.
         /// </summary>
         /// <param name="source">The source of the event.</param>
@@ -129,12 +119,12 @@ namespace YAF.Controls
         {
             long archivedCount = 0;
 
-            this.MessagesView.Rows.Cast<GridViewRow>().Where(item => item.FindControlAs<CheckBox>("ItemCheck").Checked)
+            this.Messages.Items.Cast<RepeaterItem>().Where(item => item.FindControlAs<CheckBox>("ItemCheck").Checked)
                 .ForEach(
                     item =>
                         {
                             this.GetRepository<PMessage>()
-                                .ArchiveMessage(this.MessagesView.DataKeys[item.RowIndex].Value);
+                                .ArchiveMessage(item.FindControlAs<HiddenField>("MessageID").Value);
                             archivedCount++;
                         });
 
@@ -153,7 +143,18 @@ namespace YAF.Controls
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
-        protected void DateLink_Click([NotNull] object sender, [NotNull] EventArgs e)
+        protected void DateLinkAsc_Click([NotNull] object sender, [NotNull] EventArgs e)
+        {
+            this.SetSort("Created", true);
+            this.BindData();
+        }
+
+        /// <summary>
+        /// Sort By Date
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
+        protected void DateLinkDesc_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
             this.SetSort("Created", false);
             this.BindData();
@@ -226,12 +227,12 @@ namespace YAF.Controls
         {
             long itemCount = 0;
 
-            this.MessagesView.Rows.Cast<GridViewRow>().Where(item => item.FindControlAs<CheckBox>("ItemCheck").Checked)
+            this.Messages.Items.Cast<RepeaterItem>().Where(item => item.FindControlAs<CheckBox>("ItemCheck").Checked)
                 .ForEach(
                     item =>
                         {
                             this.GetRepository<PMessage>().DeleteMessage(
-                                this.MessagesView.DataKeys[item.RowIndex].Value.ToType<int>(), this.View == PmView.Outbox);
+                                item.FindControlAs<HiddenField>("MessageID").Value.ToType<int>(), this.View == PmView.Outbox);
 
                             itemCount++;
                         });
@@ -285,9 +286,9 @@ namespace YAF.Controls
         /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
         protected void ExportSelected_Click([NotNull] object source, [NotNull] EventArgs e)
         {
-            var exportPmIds = this.MessagesView.Rows.Cast<GridViewRow>()
+            var exportPmIds = this.Messages.Items.Cast<RepeaterItem>()
                 .Where(item => item.FindControlAs<CheckBox>("ItemCheck").Checked)
-                .Select(item => (int)this.MessagesView.DataKeys[item.RowIndex].Value).ToList();
+                .Select(item => item.FindControlAs<HiddenField>("MessageID").Value.ToType<int>()).ToList();
 
             var messageList = this.GetMessagesForExport(exportPmIds);
 
@@ -318,28 +319,22 @@ namespace YAF.Controls
         }
 
         /// <summary>
-        /// Formats the body.
-        /// </summary>
-        /// <param name="dataRowView">The data row view.</param>
-        /// <returns>
-        /// The format body.
-        /// </returns>
-        protected string FormatBody([NotNull] object dataRowView)
-        {
-            var row = (DataRowView)dataRowView;
-            return (string)row["Body"];
-        }
-
-        /// <summary>
         /// The from link_ click.
         /// </summary>
         /// <param name="sender">
         /// The source of the event.
         /// </param>
         /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
-        protected void FromLink_Click([NotNull] object sender, [NotNull] EventArgs e)
+        protected void FromLinkAsc_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
             this.SetSort(this.View == PmView.Outbox ? "ToUser" : "FromUser", true);
+
+            this.BindData();
+        }
+
+        protected void FromLinkDesc_Click([NotNull] object sender, [NotNull] EventArgs e)
+        {
+            this.SetSort(this.View == PmView.Outbox ? "ToUser" : "FromUser", false);
 
             this.BindData();
         }
@@ -473,61 +468,6 @@ namespace YAF.Controls
         }
 
         /// <summary>
-        /// The messages view_ row created.
-        /// </summary>
-        /// <param name="sender">
-        /// The source of the event.
-        /// </param>
-        /// <param name="e">
-        /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
-        /// </param>
-        protected void MessagesView_RowCreated([NotNull] object sender, [NotNull] GridViewRowEventArgs e)
-        {
-            switch (e.Row.RowType)
-            {
-                case DataControlRowType.Header:
-                    {
-                        var sortFrom = e.Row.FindControlAs<Label>("SortFrom");
-                        var sortSubject = e.Row.FindControlAs<Label>("SortSubject");
-                        var sortDate = e.Row.FindControlAs<Label>("SortDate");
-
-                        var sortOrder = this.ViewState["SortAsc"].ToType<bool>();
-
-                        var sortText = sortOrder
-                                           ? "<i class=\"fa fa-sort-up fa-fw\"></i>"
-                                           : "<i class=\"fa fa-sort-down fa-fw\"></i>";
-
-                        sortFrom.Visible = this.View == PmView.Outbox
-                                               ? (string)this.ViewState["SortField"] == "ToUser"
-                                               : (string)this.ViewState["SortField"] == "FromUser";
-
-                        sortFrom.Text = sortText;
-
-                        sortSubject.Visible = (string)this.ViewState["SortField"] == "Subject";
-                        sortSubject.Text = sortText;
-
-                        sortDate.Visible = (string)this.ViewState["SortField"] == "Created";
-                        sortDate.Text = sortText;
-                    }
-
-                    break;
-                case DataControlRowType.Footer:
-                    {
-                        var rolCount = e.Row.Cells.Count;
-
-                        for (var i = rolCount - 1; i >= 1; i--)
-                        {
-                            e.Row.Cells.RemoveAt(i);
-                        }
-
-                        e.Row.Cells[0].ColumnSpan = rolCount;
-                    }
-
-                    break;
-            }
-        }
-
-        /// <summary>
         /// The page_ load.
         /// </summary>
         /// <param name="sender">
@@ -541,17 +481,7 @@ namespace YAF.Controls
                 this.SetSort("Created", false);
             }
 
-            if (!this.IsPostBack)
-            {
-                // setup pager...
-                this.MessagesView.AllowPaging = true;
-                this.MessagesView.PagerSettings.Visible = false;
-                this.MessagesView.AllowSorting = true;
-
-                this.PagerTop.PageSize = 10;
-                this.MessagesView.PageSize = 10;
-            }
-            else
+            if (this.IsPostBack)
             {
                 // make sure addLoadMessage is empty...
                 this.PageContext.LoadMessage.Clear();
@@ -601,9 +531,22 @@ namespace YAF.Controls
         /// The source of the event.
         /// </param>
         /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
-        protected void SubjectLink_Click([NotNull] object sender, [NotNull] EventArgs e)
+        protected void SubjectLinkAsc_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
             this.SetSort("Subject", true);
+            this.BindData();
+        }
+
+        /// <summary>
+        /// The subject link_ click.
+        /// </summary>
+        /// <param name="sender">
+        /// The source of the event.
+        /// </param>
+        /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
+        protected void SubjectLinkDesc_Click([NotNull] object sender, [NotNull] EventArgs e)
+        {
+            this.SetSort("Subject", false);
             this.BindData();
         }
 
@@ -616,7 +559,7 @@ namespace YAF.Controls
         /// </returns>
         private DataView GetMessagesForExport([CanBeNull] ICollection<int> exportPmIds)
         {
-            var messageList = (DataView)this.MessagesView.DataSource;
+            var messageList = (DataView)this.Messages.DataSource;
 
             for (var i = messageList.Table.Rows.Count - 1; i >= 0; i--)
             {
@@ -713,23 +656,39 @@ namespace YAF.Controls
                         break;
                 }
 
-                dv.Sort = $"{this.ViewState["SortField"]} {((bool)this.ViewState["SortAsc"] ? "asc" : "desc")}";
+                dv.Sort = $"{this.ViewState["SortField"]} {(this.ViewState["SortAsc"].ToType<bool>() ? "asc" : "desc")}";
                 this.PagerTop.Count = dv.Count;
 
                 if (dv.Count > 0)
                 {
                     this.lblExportType.Visible = true;
                     this.ExportType.Visible = true;
+
+                    this.NoMessage.Visible = false;
+
+                    this.Sort.Visible = true;
+                    this.upPanExport.Visible = true;
                 }
                 else
                 {
                     this.lblExportType.Visible = false;
                     this.ExportType.Visible = false;
+
+                    this.NoMessage.Visible = true;
+
+                    this.Sort.Visible = false;
+                    this.upPanExport.Visible = false;
                 }
 
-                this.MessagesView.PageIndex = this.PagerTop.CurrentPageIndex;
-                this.MessagesView.DataSource = dv;
-                this.MessagesView.DataBind();
+                this.PagerTop.PageSize = 10;
+
+                this.Messages.DataSource = dv;
+                this.Messages.DataBind();
+
+
+                //this.MessagesView.PageIndex = this.PagerTop.CurrentPageIndex;
+                //this.MessagesView.DataSource = dv;
+                //this.MessagesView.DataBind();
             }
 
             this.Stats_Renew();
@@ -903,14 +862,105 @@ namespace YAF.Controls
         /// </param>
         private void SetSort([NotNull] string field, bool ascending)
         {
-            if (this.ViewState["SortField"] != null && (string)this.ViewState["SortField"] == field)
+            if (this.ViewState["SortField"] != null && this.ViewState["SortField"].ToString() == field)
             {
-                this.ViewState["SortAsc"] = !(bool)this.ViewState["SortAsc"];
+                this.ViewState["SortAsc"] = !this.ViewState["SortAsc"].ToType<bool>();
             }
             else
             {
                 this.ViewState["SortField"] = field;
                 this.ViewState["SortAsc"] = ascending;
+            }
+
+            switch (field)
+            {
+                case "Subject":
+                    {
+                        if (ascending)
+                        {
+                            this.SortSubjectAsc.Icon = "check-square";
+                            this.SortSubjectDesc.Icon = "sort-alpha-down-alt";
+                        }
+                        else
+                        {
+                            this.SortSubjectDesc.Icon = "check-square";
+                            this.SortSubjectAsc.Icon = "sort-alpha-down";
+                        }
+
+                        this.SortDatedAsc.Icon = "sort-alpha-down";
+                        this.SortDateDesc.Icon = "sort-alpha-down-alt";
+
+                        this.SortFromAsc.Icon = "sort-alpha-down";
+                        this.SortFromDesc.Icon = "sort-alpha-down-alt";
+                    }
+
+                    break;
+                case "Created":
+                    {
+                        if (ascending)
+                        {
+                            this.SortDatedAsc.Icon = "check-square";
+                            this.SortDateDesc.Icon = "sort-alpha-down-alt";
+                        }
+                        else
+                        {
+                            this.SortDateDesc.Icon = "check-square";
+                            this.SortDatedAsc.Icon = "sort-alpha-down";
+                        }
+
+                        this.SortFromAsc.Icon = "sort-alpha-down";
+                        this.SortFromDesc.Icon = "sort-alpha-down-alt";
+
+                        this.SortSubjectAsc.Icon = "sort-alpha-down";
+                        this.SortSubjectDesc.Icon = "sort-alpha-down-alt";
+                    }
+
+                    break;
+                case "ToUser":
+                    {
+                        if (ascending)
+                        {
+                            this.SortFromAsc.Icon = "check-square";
+                            this.SortFromDesc.Icon = "sort-alpha-down-alt";
+                        }
+                        else
+                        {
+                            this.SortFromDesc.Icon = "check-square";
+                            this.SortFromAsc.Icon = "sort-alpha-down";
+                        }
+
+                        this.SortDatedAsc.Icon = "sort-alpha-down";
+                        this.SortDateDesc.Icon = "sort-alpha-down-alt";
+
+                        this.SortSubjectAsc.Icon = "sort-alpha-down";
+                        this.SortSubjectDesc.Icon = "sort-alpha-down-alt";
+                    }
+
+                    break;
+                case "FromUser":
+                    {
+                        if (ascending)
+                        {
+                            this.SortFromAsc.Icon = "check-square";
+                            this.SortFromDesc.Icon = "sort-alpha-down-alt";
+                        }
+                        else
+                        {
+                            this.SortFromDesc.Icon = "check-square";
+                            this.SortFromAsc.Icon = "sort-alpha-down";
+                        }
+
+                        this.SortDatedAsc.Icon = "sort-alpha-down";
+                        this.SortDateDesc.Icon = "sort-alpha-down-alt";
+
+                        this.SortFromAsc.Icon = "sort-alpha-down";
+                        this.SortFromDesc.Icon = "sort-alpha-down-alt";
+
+                        this.SortSubjectAsc.Icon = "sort-alpha-down";
+                        this.SortSubjectDesc.Icon = "sort-alpha-down-alt";
+                    }
+
+                    break;
             }
         }
 

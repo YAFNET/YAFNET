@@ -14,23 +14,31 @@
                 <div class="card-header">
                     <i class="fa fa-language fa-fw text-secondary"></i>&nbsp;<asp:Label runat="server" id="lblPageName"></asp:Label>
                 </div>
-                <div class="card-body text-lg-center">
-                 
-                    <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="SELECT_PAGE" LocalizedPage="ADMIN_EDITLANGUAGE" />
-                 
-                <p>
-	                <asp:DropDownList runat="server" id="dDLPages" CssClass="custom-select"></asp:DropDownList>
-                </p>
-                <p>
-	                <YAF:ThemeButton runat="server" id="btnLoadPageLocalization" Type="Primary" 
-	                                 Icon="share" TextLocalizedTag="LOAD_PAGE" TextLocalizedPage="ADMIN_EDITLANGUAGE" />
-                </p>
-                <p>
-                    <asp:Label runat="server" id="lblInfo" ForeColor="Red" Font-Bold="true"></asp:Label>
-                </p>
-                <hr />
+                <div class="card-body">
+                    <div class="form-group">
+                        <asp:Label runat="server" AssociatedControlID="dDLPages">
+                            <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" 
+                                                LocalizedTag="SELECT_PAGE" 
+                                                LocalizedPage="ADMIN_EDITLANGUAGE" />
+                        </asp:Label>
+                        <asp:DropDownList runat="server" id="dDLPages" CssClass="custom-select"></asp:DropDownList>
+                    </div>
+                    <div class="form-group">
+                        <YAF:ThemeButton runat="server" id="btnLoadPageLocalization" 
+                                         Type="Primary" 
+                                         Icon="share" 
+                                         TextLocalizedTag="LOAD_PAGE" TextLocalizedPage="ADMIN_EDITLANGUAGE" />
+                    </div>
+                    <YAF:Alert ID="Info" runat="server" Type="danger">
+                        <asp:Label runat="server" id="lblInfo"></asp:Label>
+                    </YAF:Alert>
+                    <hr />
                     <div class="table-responsive">
-                    <asp:DataGrid id="grdLocals" CssClass="table" runat="server" AutoGenerateColumns="False">
+                        <asp:DataGrid id="grdLocals" runat="server" 
+                                      CssClass="table table-striped"
+                                      GridLines="None"
+                                      AutoGenerateColumns="False"
+                                      UseAccessibleHeader="True">
 		  <Columns>
 		    <asp:TemplateColumn>
 			  <HeaderTemplate>
