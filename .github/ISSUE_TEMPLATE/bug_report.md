@@ -35,7 +35,6 @@ If applicable, add screenshots to help explain your problem.
 * [ ] Chrome
 * [ ] Firefox
 * [ ] Safari
-* [ ] Internet Explorer
 * [ ] Edge
 
 **Additional context**
