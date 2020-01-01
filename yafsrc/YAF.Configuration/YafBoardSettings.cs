@@ -398,6 +398,16 @@ namespace YAF.Configuration
         }
 
         /// <summary>
+        /// Gets or sets a value indicating whether show scroll back to top button.
+        /// </summary>
+        public bool ShowScrollBackToTopButton
+        {
+            get => this._regBoard.GetValue("ShowScrollBackToTopButton", true);
+
+            set => this._regBoard.SetValue("ShowScrollBackToTopButton", value);
+        }
+
+        /// <summary>
         /// Gets or sets a value indicating whether
         /// sending the user a welcome notification after register
         /// 0 = No Mail
@@ -1804,16 +1814,6 @@ namespace YAF.Configuration
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether ShowModeratorList as a separate column.
-        /// </summary>
-        public bool ShowModeratorListAsColumn
-        {
-            get => this._reg.GetValue("ShowModeratorListAsColumn", true);
-
-            set => this._reg.SetValue("ShowModeratorListAsColumn", value);
-        }
-
-        /// <summary>
         /// Gets or sets a value indicating whether EnableCaptchaForPost.
         /// </summary>
         public bool EnableCaptchaForPost
@@ -1821,16 +1821,6 @@ namespace YAF.Configuration
             get => this._reg.GetValue("EnableCaptchaForPost", false);
 
             set => this._reg.SetValue("EnableCaptchaForPost", value);
-        }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether EnableCaptchaForRegister.
-        /// </summary>
-        public bool EnableCaptchaForRegister
-        {
-            get => this._reg.GetValue("EnableCaptchaForRegister", false);
-
-            set => this._reg.SetValue("EnableCaptchaForRegister", value);
         }
 
         /// <summary>
@@ -2123,16 +2113,6 @@ namespace YAF.Configuration
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether ImageAttachmentResizeCropped.
-        /// </summary>
-        public bool ImageAttachmentResizeCropped
-        {
-            get => this._reg.GetValue("ImageAttachmentResizeCropped", false);
-
-            set => this._reg.SetValue("ImageAttachmentResizeCropped", value);
-        }
-
-        /// <summary>
         /// Gets or sets a value indicating whether [show connect message in topic].
         /// </summary>
         /// <value>
@@ -2220,16 +2200,6 @@ namespace YAF.Configuration
             get => this._reg.GetValue("ForumEmail", string.Empty);
 
             set => this._reg.SetValue("ForumEmail", value);
-        }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether AllowGuestsViewReputation.
-        /// </summary>
-        public bool AllowGuestsViewReputation
-        {
-            get => this._reg.GetValue("AllowGuestsViewReputation", true);
-
-            set => this._reg.SetValue("AllowGuestsViewReputation", value);
         }
 
         /// <summary>
@@ -2372,18 +2342,6 @@ namespace YAF.Configuration
             set => this._reg.SetValue("WebServiceToken", value);
         }
 
-        /* Ederon : 6/16/2007 */
-
-        /// <summary>
-        /// Gets or sets a value indicating whether DisplayJoinDate.
-        /// </summary>
-        public bool DisplayJoinDate
-        {
-            get => this._reg.GetValue("DisplayJoinDate", true);
-
-            set => this._reg.SetValue("DisplayJoinDate", value);
-        }
-
         /// <summary>
         /// Gets or sets a value indicating whether ShowBrowsingUsers.
         /// </summary>
@@ -2415,18 +2373,6 @@ namespace YAF.Configuration
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether AllowReportPosts.
-        /// </summary>
-        public bool AllowReportPosts
-        {
-            get => this._reg.GetValue("AllowReportPosts", true);
-
-            set => this._reg.SetValue("AllowReportPosts", value);
-        }
-
-        /* Ederon : 8/29/2007 */
-
-        /// <summary>
         /// Gets or sets a value indicating whether Allow Email Topic.
         /// </summary>
         public bool AllowEmailTopic
@@ -2447,8 +2393,6 @@ namespace YAF.Configuration
 
             set => this._reg.SetValue("RequireLogin", value);
         }
-
-        /* Ederon : 12/14/2007 */
 
         /// <summary>
         /// Gets or sets a value indicating whether ShowActiveDiscussions.
@@ -2490,9 +2434,6 @@ namespace YAF.Configuration
             set => this._reg.SetValue("ShowRulesForRegistration", value);
         }
 
-        /* 6/16/2007 */
-        /* Ederon : 7/14/2007 */
-
         /// <summary>
         /// Gets or sets LastDigestSend.
         /// </summary>
@@ -2533,6 +2474,9 @@ namespace YAF.Configuration
             set => this._regBoard.SetValue("ForceDigestSend", value);
         }
 
+        /// <summary>
+        /// Gets or sets the board announcement.
+        /// </summary>
         public string BoardAnnouncement
         {
             get => this._regBoard.GetValue("BoardAnnouncement", string.Empty);
@@ -2540,6 +2484,9 @@ namespace YAF.Configuration
             set => this._regBoard.SetValue("BoardAnnouncement", value);
         }
 
+        /// <summary>
+        /// Gets or sets the board announcement until.
+        /// </summary>
         public DateTime? BoardAnnouncementUntil
         {
             get => this._regBoard.GetValue("BoardAnnouncementUntil", DateTime.MinValue);

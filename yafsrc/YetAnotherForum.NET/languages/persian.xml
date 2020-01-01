@@ -1408,6 +1408,7 @@
     <Resource tag="SHOW_RENDERTIME_HELP">فعال یا غیر فعال کردن مدت زمان تولید صفحه در پائین ان.</Resource>
     <Resource tag="SHOW_RSS_LINKS">نمایش پیوندهای آر اس اس:</Resource>
     <Resource tag="SHOW_RSS_LINKS_HELP">فعال/غیرفعال کردن پیوند های RSS در انجمن.</Resource>
+    <Resource tag="SHOW_SCROLL">Show Scroll Back to Top Button</Resource>
     <Resource tag="SHOW_SHOUTBOX">نمایش کادر گفتگو:</Resource>
     <Resource tag="SHOW_SHOUTBOX_HELP">فعال یا غیرفعال گردن ماژوول چت.</Resource>
     <Resource tag="SHOW_SIMILARTOPICS">Show Similar Topics:</Resource>

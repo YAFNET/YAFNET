@@ -15,7 +15,7 @@
   <Resource tag="ADMIN_BANNEDNAME_EDIT">Edits banned Names</Resource>
   <Resource tag="ADMIN_BANNEDNAME_IMPORT">Imports banned Names</Resource>
   <Resource tag="ADMIN_BBCODE">Views BBCodes</Resource>
-  <Resource tag="ADMIN_BBCODE_EDIT">Edits BBcodes</Resource>
+  <Resource tag="ADMIN_BBCODE_EDIT">Edits BBCodes</Resource>
   <Resource tag="ADMIN_BBCODE_IMPORT">Imports BBCodes</Resource>
   <Resource tag="ADMIN_BOARDS">Views boards list</Resource>
   <Resource tag="ADMIN_BOARDSETTINGS">Views board settings</Resource>
@@ -489,7 +489,7 @@
   <Resource tag="MASK_NAME_HELP">Name of this access mask.</Resource>
   <Resource tag="MASK_ORDER">Order:</Resource>
   <Resource tag="MASK_ORDER_HELP">Sort order for this access mask.</Resource>
-  <Resource tag="MODERATOR_ACCESS">Morderator Access</Resource>
+  <Resource tag="MODERATOR_ACCESS">Moderator Access</Resource>
   <Resource tag="MODERATOR_ACCESS_HELP">Allows Users to Edit/Delete all Posts and Topics in a Forum.</Resource>
   <Resource tag="MSG_MASK_NAME">You must enter a name for the Access Mask.</Resource>
   <Resource tag="MSG_NUMBER_SORT">You must enter a number value from 0 to 32767 for sort order.</Resource>
@@ -499,7 +499,7 @@
   <Resource tag="POST_ACCESS">Post Access</Resource>
   <Resource tag="POST_ACCESS_HELP">Allows Users to Post New Topics in a Forum.</Resource>
   <Resource tag="PRIORITY_ACCESS">Priority Access</Resource>
-  <Resource tag="PRIORITY_ACCESS_HELP">Allows Users to Change the Priority of Topic (Normal, Sticky, Anouncement).</Resource>
+  <Resource tag="PRIORITY_ACCESS_HELP">Allows Users to Change the Priority of Topic (Normal, Sticky, Announcement).</Resource>
   <Resource tag="READ_ACCESS">Read Access</Resource>
   <Resource tag="READ_ACCESS_HELP">Allows Users to Read Topics and Messages in a Forum.</Resource>
   <Resource tag="REPLY_ACCESS">Reply Access</Resource>
@@ -795,7 +795,7 @@
   <Resource tag="BAN_IP_OFUSER">Ban IP Addresses of User?</Resource>
   <Resource tag="BAN_NAME_OFUSER">Ban User Name of User?</Resource>
   <Resource tag="BOT_REPORTED">User Successfully Reported as Bot</Resource>
-  <Resource tag="BOT_REPORTED_FAILED">User Reporting was not successfull, please check your API Key!</Resource>
+  <Resource tag="BOT_REPORTED_FAILED">User Reporting was not successful, please check your API Key!</Resource>
   <Resource tag="CHANGE_NEW_PASS">New Password:</Resource>
   <Resource tag="CHANGE_NEW_PASS_HELP">New user password.</Resource>
   <Resource tag="CHANGE_PASS">Change Password</Resource>
@@ -1068,7 +1068,7 @@
   <Resource tag="DISABLE_REGISTER">Disable New Registrations:</Resource>
   <Resource tag="DISABLE_REGISTER_HELP">New users won't be able to register.</Resource>
   <Resource tag="DISPLAYNAME_MIN_LENGTH">User/Display Name Min. Length</Resource>
-  <Resource tag="DISPLAYNAME_MIN_LENGTH_HELP">Minium Length for Display and User Names.</Resource>
+  <Resource tag="DISPLAYNAME_MIN_LENGTH_HELP">Minimum Length for Display and User Names.</Resource>
   <Resource tag="DISCUSSIONS_CACHE_TIMEOUT">Active Discussions Cache Timeout:</Resource>
   <Resource tag="DISCUSSIONS_CACHE_TIMEOUT_HELP">In minutes</Resource>
   <Resource tag="DISPLAY_POINTS">Display Reputation Bar:</Resource>
@@ -1214,12 +1214,12 @@
   <Resource tag="LOG_INFORMATION_HELP">Application info messages will be logged.</Resource>
   <Resource tag="LOG_VIEWSTATEERROR">Log ViewState Exceptions:</Resource>
   <Resource tag="LOG_VIEWSTATEERROR_HELP">ViewState Exceptions (mainly caused by SPAM Bots) will be logged.</Resource>
-  <Resource tag="LOG_SUSPENDEDANDCONTRA">Allow log when users suspended or unsuspended:</Resource>
-  <Resource tag="LOG_SUSPENDEDANDCONTRA_HELP">Log when users are suspended or unsuspended.</Resource>
+  <Resource tag="LOG_SUSPENDEDANDCONTRA">Allow log when users suspended or un-suspended:</Resource>
+  <Resource tag="LOG_SUSPENDEDANDCONTRA_HELP">Log when users are suspended or un-suspended.</Resource>
   <Resource tag="LOG_USERDELETED">Allow log user deleting event:</Resource>
   <Resource tag="LOG_USERDELETED_HELP">User deleting event will be logged.</Resource>
-  <Resource tag="LOG_USERSUSPENDED">Allow log user suspended and unsuspended:</Resource>
-  <Resource tag="LOG_USERSUSPENDED_HELP">Suspended and unsuspended events will be logged.</Resource>
+  <Resource tag="LOG_USERSUSPENDED">Allow log user suspended and un-suspended:</Resource>
+  <Resource tag="LOG_USERSUSPENDED_HELP">Suspended and un-suspended events will be logged.</Resource>
   <Resource tag="LOG_WARNING">Allow log Application Warnings:</Resource>
   <Resource tag="LOG_WARNING_HELP">Application warnings will be logged.</Resource>
   <Resource tag="LOGIN_REDIR_URL">Custom Login Redirect Url:</Resource>
@@ -1248,7 +1248,7 @@
   <Resource tag="MEDALS_TEMPLATE_HELP">Template for rendering user's medals.</Resource>
   <Resource tag="MEMBERLIST_PAGE_SIZE">Member List Page Size:</Resource>
   <Resource tag="MEMBERLIST_PAGE_SIZE_HELP">Number entries on a page in the members list. </Resource>
-  <Resource tag="MESSAGE_CHANGE_HISTORY">Message history achive time</Resource>
+  <Resource tag="MESSAGE_CHANGE_HISTORY">Message history archive time</Resource>
   <Resource tag="MESSAGE_CHANGE_HISTORY_HELP">Number of days to keep message change history.</Resource>
   <Resource tag="MESSAGE_SYSTEM">Notification System for System Messages:</Resource>
   <Resource tag="MESSAGE_SYSTEM_HELP">You can choose Between Modal Dialog or a Top Notification Bar for System Messages.</Resource>
@@ -1267,11 +1267,11 @@
   <Resource tag="NOTIFICATION_DURATION">Notification Bar Display Duration:</Resource>
   <Resource tag="NOTIFICATION_DURATION_HELP">Duration (in Seconds) how long the Bar is displayed.</Resource>
   <Resource tag="NOTIFICATION_MOBILE">Use Native Message Dialogs on Mobile:</Resource>
-  <Resource tag="NOTIFICATION_MOBILE_HELP">Option to Show Native Notifcation Dialogs on Mobile Devices.</Resource>
+  <Resource tag="NOTIFICATION_MOBILE_HELP">Option to Show Native Notification Dialogs on Mobile Devices.</Resource>
   <Resource tag="ONLINE_STATUS_TIMEOUT">Online User Status Cache Timeout:</Resource>
   <Resource tag="ONLINE_STATUS_TIMEOUT_HELP">You can fine-tune it depending on your site activity (in milliseconds)</Resource>
   <Resource tag="PM_ATTACHMENTS">Allow attachments in Private Messages</Resource>
-  <Resource tag="PM_ATTACHMENTS_HELP">Allowes the upload and use of attachments in Private messages.</Resource>
+  <Resource tag="PM_ATTACHMENTS_HELP">Allows the upload and use of attachments in Private messages.</Resource>
   <Resource tag="POLL_IMAGE_FILESIZE">Max. File Size for User Poll Images:</Resource>
   <Resource tag="POLL_IMAGE_FILESIZE_HELP">Define the Max. File Size in Kilo Bytes for an User Poll Image.</Resource>
   <Resource tag="POLLVOTING_PERIP">Poll Votes Dependent on IP:</Resource>
@@ -1356,6 +1356,8 @@
   <Resource tag="SHOW_CONNECT_MESSAGE_HELP">Whether or not to show a Connect Message after the first Message in a topic for Guests, containing login and registration links.</Resource>
   <Resource tag="SHOW_COOKIECONSET">Show Cookie Consent Popup message</Resource>
   <Resource tag="SHOW_COOKIECONSET_HELP">When enabled show the Cookie Accept Popup message.</Resource>
+   <Resource tag="SHOW_SCROLL">Show Scroll Back to Top Button</Resource>
+   <Resouce tag="SHOW_SCROLL_HELP">If enabled automatically show Back to Top Button when scrolling down the page</Resouce>
   <Resource tag="SPAMCHECK_ALLOWED_URLS">Allowed Number of URLs before flagged as SPAM:</Resource>
   <Resource tag="SPAMCHECK_ALLOWED_URLS_HELP">If the user posts in one Message more then the allowed URLs the message is flagged as spam. This Check also depends how many user the posts have.</Resource>
   <Resource tag="STOPFORUMSPAM_KEY">StopForumSpam.com API Key:</Resource>
@@ -1429,9 +1431,7 @@
   <Resource tag="SHOW_SIMILARTOPICS_HELP">Should similar topics to be displayed at the bottom of a topic.</Resource>
   <Resource tag="SHOW_THANK_DATE">Show The Date on Which Users Have Thanked Posts:</Resource>
   <Resource tag="SHOW_THANK_DATE_HELP">If checked users can see on which date posts have been thanked. (Thanks Mod must be enabled first.)</Resource>
-  <Resource tag="SHOW_TODAYS_BIRTHDAYS">Show Todays Birthdays in Forum Info:</Resource>
-  <Resource tag="SHOW_TODAYS_BIRTHDAYS_HELP">Enable to Show What members have a Birthday today.</Resource>
-  <Resource tag="SHOW_UNREAD_LINKS">Show Unread Links:</Resource>
+   <Resource tag="SHOW_UNREAD_LINKS">Show Unread Links:</Resource>
   <Resource tag="SHOW_UNREAD_LINKS_HELP">Unread Links will be displayed.</Resource>
   <Resource tag="SHOW_USER_STATUS">Show User Online/Offline Status:</Resource>
   <Resource tag="SHOW_USER_STATUS_HELP">If checked, current user status is displayed in the forum. Hidden users are always displayed as offline.</Resource>
@@ -1470,9 +1470,7 @@
   <Resource tag="THANKS_FROM_TEMPLATE_HELP">Template for rendering user's thanks from.</Resource>
   <Resource tag="THANKS_TO_TEMPLATE">Thanks To template:</Resource>
   <Resource tag="THANKS_TO_TEMPLATE_HELP">Template for rendering user's thanks to.</Resource>
-  
-  
-  <Resource tag="TITLE">Host Settings</Resource>
+   <Resource tag="TITLE">Host Settings</Resource>
   <Resource tag="TOPIC_FEEDS_ACCESS">Topics Feeds Access:</Resource>
   <Resource tag="TOPIC_FEEDS_ACCESS_HELP">Restrict display of topics feeds.</Resource>
   <Resource tag="TOPICFEED_COUNT">Max. Topics on the Forum Feed:</Resource>
@@ -1585,7 +1583,7 @@
   <Resource tag="TITLE">NNTP Retrieve</Resource>
  </page>
  <page name="ADMIN_NNTPSERVERS">
-  <Resource tag="ADRESS">Adress</Resource>
+  <Resource tag="ADRESS">Address</Resource>
   <Resource tag="DELETE_SERVER">Delete this server?</Resource>
   <Resource tag="NAME">Name</Resource>
   <Resource tag="NEW_SERVER">New Server</Resource>
@@ -1689,9 +1687,9 @@
  </page>
  <page name="ADMIN_REPLACEWORDS_EDIT">
   <Resource tag="BAD">"Bad" Expression:</Resource>
-  <Resource tag="BAD_HELP">Regular expression statement. Escape punctation with a preceding slash (e.g. '\.').</Resource>
+  <Resource tag="BAD_HELP">Regular expression statement. Escape punctuation with a preceding slash (e.g. '\.').</Resource>
   <Resource tag="GOOD">"Good" Expression:</Resource>
-  <Resource tag="GOOD_HELP">Regular expression statement. Escape punctation with a preceding slash (e.g. '\.').</Resource>
+  <Resource tag="GOOD_HELP">Regular expression statement. Escape punctuation with a preceding slash (e.g. '\.').</Resource>
   <Resource tag="MSG_REGEX_BAD">The Regular expression statement you have entered is invalid.</Resource>
   <Resource tag="TITLE">Add Word Replace</Resource>
   <Resource tag="TITLE_EDIT">Edit Word Replace</Resource>
@@ -1730,7 +1728,7 @@
     <Resource tag="TITLE">Add New Spam Word</Resource>
     <Resource tag="TITLE_EDIT">Edit Spam Word</Resource>
     <Resource tag="SPAM">"Spam" Word (Find) Expression:</Resource>
-    <Resource tag="SPAM_HELP">Regular expression statement. Escape punctation with a preceding slash (e.g. &#39;\.&#39;).</Resource>
+    <Resource tag="SPAM_HELP">Regular expression statement. Escape punctuation with a preceding slash (e.g. &#39;\.&#39;).</Resource>
     <Resource tag="MSG_REGEX_SPAM">The Regular expression statement you have entered is invalid.</Resource>
   </page>
  <page name="ADMIN_RESTARTAPP">
@@ -2469,8 +2467,8 @@
   <Resource tag="CHANGE_SUCCESS">Password has been successfully changed.</Resource>
   <Resource tag="CONFIRM_PASSWORD">Confirm New Password:</Resource>
   <Resource tag="EMPTY_PASSWORD">Please Enter your Current Password</Resource>
-  <Resource tag="EMPTY_QUESTION">New Question is requiered.</Resource>
-  <Resource tag="EMPTY_ANSWER">New Answer is requiered.</Resource>
+  <Resource tag="EMPTY_QUESTION">New Question is required.</Resource>
+  <Resource tag="EMPTY_ANSWER">New Answer is required.</Resource>
   <Resource tag="NEED_NEW_CONFIRM_PASSWORD">New Confirm Password is required.</Resource>
   <Resource tag="NEED_NEW_PASSWORD">New Password is required.</Resource>
   <Resource tag="NEED_OLD_PASSWORD">Old Password is required.</Resource>
@@ -2499,7 +2497,7 @@
   <Resource tag="ERROR_MAXALBUMS">You cannot add any more albums to this account.</Resource>
   <Resource tag="ERROR_TOOBIG">You cannot upload images that big.</Resource>
   <Resource tag="IMAGES_COUNT_LIMIT">Your image limit is reached. You can add no more than {0} images for each album.</Resource>
-  <Resource tag="IMAGES_INFO">Note: Currently this Album contains {0} Image(s) you are allowed to have {1} images for each album. The max. filesize for an Image is {2} kb</Resource>
+  <Resource tag="IMAGES_INFO">Note: Currently this Album contains {0} Image(s) you are allowed to have {1} images for each album. The max. file size for an Image is {2} kb</Resource>
   <Resource tag="SELECT_FILE">Select an Image File ('.jpg', '.gif', '.png' or '.bmp') you want to upload.</Resource>
   <Resource tag="TITLE">Add/Edit Album</Resource>
  </page>
@@ -2557,7 +2555,7 @@
   <Resource tag="BAD_HOME">You have entered an invalid address for your home page.</Resource>
   <Resource tag="BAD_ICQ">You have entered an illegal value as your ICQ number.</Resource>
   <Resource tag="BAD_MSN">You have entered an invalid e-mail address for your MSN account.</Resource>
-  <Resource tag="BAD_WEBLOG">You have entered an invalid address for your weblog.</Resource>
+  <Resource tag="BAD_WEBLOG">You have entered an invalid address for your Blog.</Resource>
   <Resource tag="BAD_XMPP">You have entered an invalid name for your XMPP account.</Resource>
   <Resource tag="BIRTHDAY">Birthday</Resource>
   <Resource tag="CHANGE_EMAIL">Change Email Address</Resource>
@@ -3729,7 +3727,7 @@
 &lt;p&gt;&lt;strong&gt;Home Page&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;Here you can optionally enter a Home page and/or a Blog.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Instant messaging services&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;Here you can optionally enter your messenger Ids of services such as MSN, YAHOO, AIM, ICQ, XMPP, SKYPE, Facebook and Twitter.&lt;/p&gt;
+&lt;p&gt;Here you can optionally enter your messenger Ids of services such as MSN, ICQ, XMPP, SKYPE, Facebook and Twitter.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Time Zone&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;Here you can specify the Time Zone to adjust the board Time and Date to your local time. And set the Daylight Saving Time should it be automatically adjusted.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Forum Settings&lt;/strong&gt;&lt;/p&gt;
@@ -4114,11 +4112,11 @@
   <Resource tag="SSO_FACEBOOK_FAILED">The Facebook Login failed, User does not exists, or the account is not connected.</Resource>
   <Resource tag="SSO_FACEBOOK_FAILED2">The Facebook Login failed, an user account with the same email address as the facebook account already exists, please try to connect you your forum account instead.</Resource>
   <Resource tag="SSO_FACEBOOK_FAILED3">The Facebook Login failed, because the user does not provide a email address for the account.</Resource>
-  <Resource tag="SSO_FACEBOOKNAME_NOTMATCH">The Facebook email address must match the Forum email adress!</Resource>
+  <Resource tag="SSO_FACEBOOKNAME_NOTMATCH">The Facebook email address must match the Forum email address!</Resource>
   <Resource tag="SSO_FAILED">New Registrations are disabled.</Resource>
   <Resource tag="SSO_GOOGLE_FAILED">The Google Login failed, User does not exists, or the account is not connected.</Resource>
   <Resource tag="SSO_GOOGLE_FAILED2">The Google Login failed, an user account with the same email address as the Google account already exists, please try to connect you your forum account instead.</Resource>
-  <Resource tag="SSO_GOOGLENAME_NOTMATCH">The Google email address must match the Forum email adress!</Resource>
+  <Resource tag="SSO_GOOGLENAME_NOTMATCH">The Google email address must match the Forum email address!</Resource>
   <Resource tag="SSO_ID_NOTMATCH">The User Account is not connected or not found!</Resource>
   <Resource tag="SSO_TWITTER_FAILED">The Twitter Login failed, User does not exists, or the account is not connected.</Resource>
   <Resource tag="SSO_TWITTER_FAILED2">The Twitter Login failed, an user account with the same user name as the Twitter account already exists, please try to connect you your forum account instead.</Resource>
@@ -4127,7 +4125,7 @@
   <Resource tag="TWITTER_DM">You have received further Information to your new Account as Private Message on the Forum.</Resource>
   <Resource tag="TWITTER_DM_ACCOUNT">Your {0} Forum Account Information: Username "{1}" Password "{2}"</Resource>
   <Resource tag="TWITTER_LOGIN">Login with Twitter</Resource>
-  <Resource tag="UPDATE_EMAIL">Please Update Your E-Mail Adress now!</Resource>
+  <Resource tag="UPDATE_EMAIL">Please Update Your E-Mail Address now!</Resource>
   <Resource tag="USERNAME">User Name or E-Mail Address:</Resource>
   <Resource tag="WRONG_USERNAME_EMAIL">Wrong user name or email address.</Resource>
  </page>
@@ -4158,7 +4156,7 @@
  </page>
  <page name="MESSAGEHISTORY">
   <Resource tag="CONFIRM_RESTORE">Are you really want to restore that Message version?</Resource>
-  <Resource tag="COMPARE_TITLE">Message Edit History Post Comparsion</Resource>
+  <Resource tag="COMPARE_TITLE">Message Edit History Post Comparison</Resource>
   <Resource tag="COMPARE_VERSIONS">Compare versions</Resource>
   <Resource tag="CURRENTMESSAGE">Current message</Resource>
   <Resource tag="EDITED">Edited at</Resource>
@@ -4204,7 +4202,7 @@
   <Resource tag="MOVED">Topic(s) Moved</Resource>
   <Resource tag="NO_POSTS">No Posts</Resource>
   <Resource tag="NOMODERATION">Currently there are no Posts that need approval. And there are also no Posts that were reported.</Resource>
-  <Resource tag="NOTHING">You need to select atleast one topic</Resource>
+  <Resource tag="NOTHING">You need to select at least one topic</Resource>
   <Resource tag="REMOVE">Remove</Resource>
   <Resource tag="REPLIES">Replies</Resource>
   <Resource tag="TITLE">Moderate</Resource>
@@ -4443,7 +4441,6 @@
   <Resource tag="CONFIRM_DELETEMESSAGE">Delete this message?</Resource>
   <Resource tag="CONFIRM_DELETETOPIC">Delete this topic?</Resource>
   <Resource tag="CONFIRM_REPORTPOST">Are you sure you want to report this post?</Resource>
-  <Resource tag="DIGG_TOPIC">Digg this Topic</Resource>
   <Resource tag="EDIT_REASON">Reason</Resource>
   <Resource tag="EDIT_REASON_NA">Not specified</Resource>
   <Resource tag="EDITED">Edited</Resource>
@@ -4526,7 +4523,7 @@
   <Resource tag="RETWEET_TOPIC">Retweet this Topic</Resource>
   <Resource tag="RSSTOPIC">RSS Feed</Resource>
   <Resource tag="SHARE">Share it!</Resource>
-  <Resource tag="SHARE_TOOLTIP">Share this Topic via Email, Twitter, Google+, Facebook, Digg, Reddit or Tumblr.</Resource>
+  <Resource tag="SHARE_TOOLTIP">Share this Topic via Email, Twitter, Facebook, Reddit or Tumblr.</Resource>
   <Resource tag="SIMILAR_TOPICS">Similar Topics</Resource>
   <Resource tag="SKYPE">SKYPE</Resource>
   <Resource tag="SKYPE_TITLE">Contact {0} via Skype</Resource>
@@ -4649,7 +4646,7 @@
   <Resource tag="TOPIC">Topic:</Resource>
   <Resource tag="Twitter">Twitter Name:</Resource>
   <Resource tag="USERNAME">Name:</Resource>
-  <Resource tag="WEBLOG">Weblog:</Resource>
+  <Resource tag="WEBLOG">Blog:</Resource>
   <Resource tag="WEBSITE">Home Page:</Resource>
   <Resource tag="XMPP">XMPP Name:</Resource>
   <Resource tag="YIM">Yahoo Messenger:</Resource>
@@ -4898,7 +4895,7 @@
 
     [br][b]What are the purposes we use your data for?[/b][br]
 
-    [br]A portion of the information is generated to guarantee the error free provision of the website. Other data may be used to analyse your user patterns.
+    [br]A portion of the information is generated to guarantee the error free provision of the website. Other data may be used to analyze your user patterns.
 
     [br][b]What rights do you have as far as your information is concerned?[/b][br]
 
@@ -5943,7 +5940,7 @@ Visit {forumname} at {forumlink}
    <Resource tag="MYACTIVITY_TITLE">Shows your activity and Received Thanks, Mentions and Quotes.</Resource>
   <Resource tag="MYPROFILE_TITLE">Shows the User Control Panel.</Resource>
   <Resource tag="MYTOPICS">My Topics</Resource>
-  <Resource tag="MYTOPICS_TITLE">Shows the Active and Favorite Topics.</Resource>esource>
+  <Resource tag="MYTOPICS_TITLE">Shows the Active and Favorite Topics.</Resource>
   <Resource tag="NEWPM">({0} Unread)</Resource>
   <Resource tag="REGISTER">Register</Resource>
   <Resource tag="REGISTER_CONNECT">or Register a new forum account</Resource>

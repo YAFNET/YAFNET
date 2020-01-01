@@ -1405,6 +1405,7 @@
     <Resource tag="SHOW_RENDERTIME_HELP">Включить отображение времени генерации страницы в подвале форума.</Resource>
     <Resource tag="SHOW_RSS_LINKS">Показывать ссылки RSS:</Resource>
     <Resource tag="SHOW_RSS_LINKS_HELP">Разрешить ссылки RSS. Вы также должны установить разрешения для каждой ленты</Resource>
+    <Resource tag="SHOW_SCROLL">Show Scroll Back to Top Button</Resource>
     <Resource tag="SHOW_SHOUTBOX">Включить чат:</Resource>
     <Resource tag="SHOW_SHOUTBOX_HELP">Включить чат на главной странице форума.</Resource>
     <Resource tag="SHOW_SIMILARTOPICS">Show Similar Topics:</Resource>

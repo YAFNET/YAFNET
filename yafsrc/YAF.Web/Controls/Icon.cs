@@ -26,13 +26,14 @@ namespace YAF.Web.Controls
 {
     using System.ComponentModel;
     using System.Web.UI;
-    using System.Web.UI.WebControls;
 
     using YAF.Core.BaseControls;
     using YAF.Types;
-    using YAF.Types.Constants;
     using YAF.Types.Extensions;
 
+    /// <summary>
+    /// The icon.
+    /// </summary>
     [ToolboxData("<{0}:Icon runat=server></{0}:Icon>")]
     public class Icon : BaseControl
     {
@@ -46,14 +47,26 @@ namespace YAF.Web.Controls
         [NotNull]
         public string IconName { get; set; }
 
+        /// <summary>
+        /// Gets or sets the icon type.
+        /// </summary>
         public string IconType { get; set; }
 
+        /// <summary>
+        /// Gets or sets the icon name stack.
+        /// </summary>
         [CanBeNull]
         public string IconNameStack { get; set; }
 
+        /// <summary>
+        /// Gets or sets the icon name badge.
+        /// </summary>
         [CanBeNull]
         public string IconNameBadge { get; set; }
 
+        /// <summary>
+        /// Gets or sets the icon badge type.
+        /// </summary>
         [CanBeNull]
         public string IconBadgeType { get; set; }
 
@@ -68,7 +81,7 @@ namespace YAF.Web.Controls
                 return;
             }
 
-            if (IconNameBadge.IsSet())
+            if (this.IconNameBadge.IsSet())
             {
                 // Render Stack Icons
                 writer.WriteBeginTag(HtmlTextWriterTag.Span.ToString());
@@ -94,7 +107,7 @@ namespace YAF.Web.Controls
 
             writer.WriteEndTag(HtmlTextWriterTag.I.ToString());
 
-            if (IconNameBadge.IsSet())
+            if (this.IconNameBadge.IsSet())
             {
                 writer.Write(@"<i class=""fa fa-circle fa-badge-bg fa-inverse fa-outline-inverse""></i>");
                 writer.WriteBeginTag(HtmlTextWriterTag.I.ToString());

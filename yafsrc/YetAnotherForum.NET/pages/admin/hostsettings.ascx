@@ -519,6 +519,14 @@
                                     </div>
                                 </div>
                             </asp:PlaceHolder>
+                            <div class="form-group">
+                                <YAF:HelpLabel ID="HelpLabel175" runat="server" 
+                                               AssociatedControlID="ShowRulesForRegistration"
+                                               LocalizedTag="RULES_ONREGISTER" LocalizedPage="ADMIN_HOSTSETTINGS" />
+                                <div class="custom-control custom-switch">
+                                    <asp:CheckBox Text="&nbsp;" ID="ShowRulesForRegistration" runat="server" />
+                                </div>
+                            </div>
                         </div>
                     </asp:PlaceHolder>
                     <div class="tab-pane fade" id="attachments" role="tabpanel" aria-labelledby="attachments-tab">
@@ -561,14 +569,6 @@
                                     <div class="custom-control custom-switch">
                                         <asp:CheckBox Text="&nbsp;" ID="ResizePostedImages" runat="server" />
                                     </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <YAF:HelpLabel ID="HelpLabel25" runat="server" 
-                                               AssociatedControlID="ImageAttachmentResizeCropped"
-                                               LocalizedTag="CROP_IMAGE_ATTACH" LocalizedPage="ADMIN_HOSTSETTINGS" />
-                                <div class="custom-control custom-switch">
-                                    <asp:CheckBox Text="&nbsp;" ID="ImageAttachmentResizeCropped" runat="server"></asp:CheckBox>
                                 </div>
                             </div>
                             <div class="form-row">
@@ -1469,15 +1469,6 @@
     </div>
     <div class="form-row">
         <div class="form-group col-md-6">
-            <YAF:HelpLabel ID="HelpLabel174" runat="server" 
-                           AssociatedControlID="DisplayJoinDate"
-                           LocalizedTag="SHOW_JOINDATE" LocalizedPage="ADMIN_HOSTSETTINGS" />
-            <div class="custom-control custom-switch">
-                <asp:CheckBox Text="&nbsp;" ID="DisplayJoinDate" runat="server"></asp:CheckBox>
-
-            </div>
-        </div>
-        <div class="form-group col-md-6">
             <YAF:HelpLabel ID="HelpLabel169" runat="server" 
                            AssociatedControlID="ShowMedals"
                            LocalizedTag="SHOW_MEDALS" LocalizedPage="ADMIN_HOSTSETTINGS" />
@@ -1518,14 +1509,6 @@
             </div>
         </div>
     </div>
-    <div class="form-group">
-        <YAF:HelpLabel ID="HelpLabel175" runat="server" 
-                       AssociatedControlID="ShowRulesForRegistration"
-                       LocalizedTag="RULES_ONREGISTER" LocalizedPage="ADMIN_HOSTSETTINGS" />
-        <div class="custom-control custom-switch">
-            <asp:CheckBox Text="&nbsp;" ID="ShowRulesForRegistration" runat="server" />
-        </div>
-    </div>
     <div class="form-row">
         <div class="form-group col-md-6">
             <YAF:HelpLabel ID="HelpLabel178" runat="server" 
@@ -1546,6 +1529,14 @@
             <asp:TextBox CssClass="form-control" ID="SubForumsInForumList" runat="server"></asp:TextBox>
         </div>
     </div>
+                    <div class="form-group">
+                        <YAF:HelpLabel ID="HelpLabel25" runat="server" 
+                                       AssociatedControlID="ShowScrollBackToTopButton"
+                                       LocalizedTag="SHOW_SCROLL" LocalizedPage="ADMIN_HOSTSETTINGS" />
+                        <div class="custom-control custom-switch">
+                            <asp:CheckBox Text="&nbsp;" ID="ShowScrollBackToTopButton" runat="server"></asp:CheckBox>
+                        </div>
+                    </div>
                     </div>
                 <div class="card-footer text-lg-center">
                     <YAF:ThemeButton ID="ThemeButton4" runat="server"  Type="Primary" OnClick="SaveClick"

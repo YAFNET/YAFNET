@@ -375,8 +375,11 @@ namespace YAF.Web.Controls
                 this.Controls.Add(new SmartScroller());
             }
 
-            // Add Scroll top button
-            this.Controls.Add(this.LoadControl($"{YafForumInfo.ForumServerFileRoot}controls/ScrollTop.ascx"));
+            if (this.Get<YafBoardSettings>().ShowScrollBackToTopButton)
+            {
+                // Add Scroll top button
+                this.Controls.Add(this.LoadControl($"{YafForumInfo.ForumServerFileRoot}controls/ScrollTop.ascx"));
+            }
 
             // load plugins/functionality modules
             this.AfterForumPageLoad?.Invoke(this, new YafAfterForumPageLoad());

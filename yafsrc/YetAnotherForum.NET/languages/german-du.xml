@@ -1404,6 +1404,7 @@
     <Resource tag="SHOW_RENDERTIME_HELP">Aktivieren oder deaktivieren Anzeige der Zeit die zum Generieren der Seite gebraucht wurde am unteren Rand der Seite zeigen.</Resource>
     <Resource tag="SHOW_RSS_LINKS">RSS Links Anzeigen:</Resource>
     <Resource tag="SHOW_RSS_LINKS_HELP">Aktivieren oder deaktivieren Anzeige von RSS-Links im Forum.</Resource>
+    <Resource tag="SHOW_SCROLL">Show Scroll Back to Top Button</Resource>
     <Resource tag="SHOW_SHOUTBOX">Shoutbox Anzeigen:</Resource>
     <Resource tag="SHOW_SHOUTBOX_HELP">Aktivieren oder deaktivieren Anzeige der Shoutbox (Chat-Modul) im Forum.</Resource>
     <Resource tag="SHOW_SIMILARTOPICS">Show Similar Topics:</Resource>

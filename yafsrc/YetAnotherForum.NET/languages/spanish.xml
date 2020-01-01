@@ -1417,6 +1417,7 @@
     <Resource tag="SHOW_RENDERTIME_HELP">Activar o desactivar el mostrar el texto de generación de página en la parte de abajo de la misma.</Resource>
     <Resource tag="SHOW_RSS_LINKS">Mostrar enlaces RSS:</Resource>
     <Resource tag="SHOW_RSS_LINKS_HELP">Activar o desactivar el mostrar enlaces RSS a lo largo del foro.</Resource>
+    <Resource tag="SHOW_SCROLL">Show Scroll Back to Top Button</Resource>
     <Resource tag="SHOW_SHOUTBOX">Mostrar chat:</Resource>
     <Resource tag="SHOW_SHOUTBOX_HELP">Activar o desactivar el mostrar el chat en la página del foro.</Resource>
     <Resource tag="SHOW_SIMILARTOPICS">Show Similar Topics:</Resource>

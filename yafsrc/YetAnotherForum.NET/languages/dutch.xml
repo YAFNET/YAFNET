@@ -1406,6 +1406,7 @@
     <Resource tag="SHOW_RENDERTIME_HELP">Laat zien hoe snel de pagina is opgemaakt aan de onderkant van de pagina.</Resource>
     <Resource tag="SHOW_RSS_LINKS">Laat RSS Links zien:</Resource>
     <Resource tag="SHOW_RSS_LINKS_HELP">Laat RSS links zien door het forum heen.</Resource>
+    <Resource tag="SHOW_SCROLL">Show Scroll Back to Top Button</Resource>
     <Resource tag="SHOW_SHOUTBOX">Laat de Shoutbox zien:</Resource>
     <Resource tag="SHOW_SHOUTBOX_HELP">Zet de ShoutBox (Chat Module) aan of uit.</Resource>
     <Resource tag="SHOW_SIMILARTOPICS">Show Similar Topics:</Resource>
