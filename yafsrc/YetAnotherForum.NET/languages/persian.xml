@@ -78,6 +78,7 @@
     <Resource tag="COOKIES">Views the cookie policy page</Resource>
     <Resource tag="CP_BLOCKOPTIONS">Edits his Ignored users and block option</Resource>
     <Resource tag="CP_CHANGEPASSWORD">تغییر کلمه رمز</Resource>
+    <Resource tag="CP_DELETEACCOUNT">User deletes his account</Resource>
     <Resource tag="CP_EDITALBUMIMAGES">ویرایش تصاویر آلبوم</Resource>
     <Resource tag="CP_EDITAVATAR">ویرایش تصویر پروفایل</Resource>
     <Resource tag="CP_EDITBUDDIES">ویرایش دوستان</Resource>
@@ -2524,6 +2525,15 @@
     <Resource tag="TITLE">تغییر رمز</Resource>
     <Resource tag="TITLE_SECURITY">Change Security Question and Answer</Resource>
   </page>
+  <page name="CP_DELETEACCOUNT">
+    <Resource tag="CONFIRM">Are you absolutely sure you want to do this?</Resource>
+    <Resource tag="OPTION_DELETE_TEXT">This will delete your account permanently! All your content will be deleted. After that your account can not be restored</Resource>
+    <Resource tag="OPTION_DELETE_TITLE">Delete your Account (permanently)</Resource>
+    <Resource tag="OPTION_SUSPEND_TEXT">If you just want to take a break from the Forum, then this will suspend your account for 30 days. Your content is still visible</Resource>
+    <Resource tag="OPTION_SUSPEND_TITLE">Suspend your Account for 30 days</Resource>
+    <Resource tag="OPTIONS_TITLE">You have the option to...</Resource>
+    <Resource tag="TITLE">Delete Your {0} Account</Resource>
+  </page>
   <page name="CP_EDITALBUMIMAGES">
     <Resource tag="ALBUM_TITLE">عنوان</Resource>
     <Resource tag="ALBUMS">آلبوم‌ها</Resource>
@@ -2693,6 +2703,7 @@
     <Resource tag="CREATED_REPLY_MSG">Added an Reply to the Topic {0}</Resource>
     <Resource tag="CREATED_TOPIC">Created a new Topic</Resource>
     <Resource tag="CREATED_TOPIC_MSG">Created a new Topic {0}</Resource>
+    <Resource tag="DELETE_ACCOUNT">Delete Account</Resource>
     <Resource tag="EDIT_AVATAR">ویرایش تصویر پروفایل</Resource>
     <Resource tag="EDIT_PROFILE">ویرایش پروفایل</Resource>
     <Resource tag="EDIT_SETTINGS">Edit Settings</Resource>
@@ -4224,6 +4235,14 @@
       &lt;p&gt;&lt;strong&gt;چگونه خندانک را وارد پیامم بکنم؟&lt;/strong&gt;&lt;/p&gt;
       &lt;p&gt;در صورت فعال بودن، خندانک ها در صفحه "ارسال پاسخ" و یا "مبحث جدید" قابل دسترسی هستند. برای وارد کردنشان کافی است رویشان کلیک کنید. همچنین می توانید ترکیب کاراکترهای مربوط به آن خندانک را از لیست خندانک ها، بطور دستی وارد کنید.  &lt;/p&gt;
     </Resource>
+    <Resource tag="SUBSCRIPTIONSCONTENT">&lt;p&gt;Subscriptions are a way to keep track of different topics and/or forums. You can choose how you are notified about updates.&lt;/p&gt;
+&lt;p&gt;Or if you don't want to manually subscribe to a topic you want to follow you can turn on the Option 'Notification for topics you've posted to, watched or marked as favorite' in the E-mail Notification Preferences Page inside the User CP.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;How to  watch a topic?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;To subscribe to a topic, click the 'Options' link at the top of the list of posts then click 'Watch this topic'.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;How to  watch a forum?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;To subscribe to a forum, click on the 'Watch Forum' link bellow the  list of topics.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;How do I manage my Subscriptions of Watched topics and forums?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;You can see the List of 'Watched Forums' and 'Watched Topics' from the 'Email Notification Preferences' Page of your User Controp Panel. There you can select which subscriptions you wish to delete by Clicking on the Unwatch button.&lt;/p&gt;</Resource>
     <Resource tag="SUBSCRIPTIONSTITLE">اشتراک و اطلاع رسانی</Resource>
     <Resource tag="SUBTITLE">راهنمای انجمن</Resource>
     <Resource tag="THANKSCONTENT">

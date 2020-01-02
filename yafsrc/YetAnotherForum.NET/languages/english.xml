@@ -78,6 +78,7 @@
   <Resource tag="COOKIES">Views the cookie policy page</Resource>
   <Resource tag="CP_BLOCKOPTIONS">Edits his Ignored users and block option</Resource>
   <Resource tag="CP_CHANGEPASSWORD">Changes password</Resource>
+   <Resource tag="CP_DELETEACCOUNT">User deletes his account</Resource>
   <Resource tag="CP_EDITALBUMIMAGES">Edit the album images</Resource>
   <Resource tag="CP_EDITAVATAR">Edit the avatar</Resource>
   <Resource tag="CP_EDITBUDDIES">Edits Friends</Resource>
@@ -823,7 +824,7 @@
   <Resource tag="KILL_USER">Kill User</Resource>
   <Resource tag="KILL_USER_CONFIRM">Delete all posts by and (optionally) ban IP addresses used by this user?</Resource>
   <Resource tag="SUSPEND_ACCOUNT_USER">Suspend this account for 5 years</Resource>
-  <Resource tag="DELETE_ACCOUNT">Delete this account</Resource>
+  <Resource tag="DELETE_ACCOUNT">Delete Account</Resource>
   <Resource tag="SUSPEND_OR_DELETE_ACCOUNT">Suspend or Delete this Account?</Resource>
   <Resource tag="LINK_USER_BAN">User &lt;a id="usr{0}" href="{1}"&gt;{2}&lt;/a&gt;  is banned by IP</Resource>
   <Resource tag="MEMBER">Member</Resource>
@@ -2486,6 +2487,15 @@
   <Resource tag="TITLE">Change Password</Resource>
   <Resource tag="TITLE_SECURITY">Change Security Question and Answer</Resource>
  </page>
+  <page name="CP_DELETEACCOUNT">
+    <Resource tag="CONFIRM">Are you absolutely sure you want to do this?</Resource>
+    <Resource tag="OPTION_SUSPEND_TEXT">If you just want to take a break from the Forum, then this will suspend your account for 30 days. Your content is still visible</Resource>
+    <Resource tag="OPTION_SUSPEND_TITLE">Suspend your Account for 30 days</Resource>
+    <Resource tag="OPTION_DELETE_TEXT">This will delete your account permanently! All your content will be deleted. After that your account can not be restored</Resource>
+    <Resource tag="OPTION_DELETE_TITLE">Delete your Account (permanently)</Resource>
+    <Resource tag="OPTIONS_TITLE">You have the option to...</Resource>
+    <Resource tag="TITLE">Delete Your {0} Account</Resource>
+  </page>
  <page name="CP_EDITALBUMIMAGES">
   <Resource tag="ALBUM_TITLE">Title</Resource>
   <Resource tag="ALBUMS">Albums</Resource>
@@ -2649,6 +2659,7 @@
    <Resource tag="ACTIVITY">Your Activity</Resource>
    <Resource tag="CREATED_TOPIC">Created a new Topic</Resource>
    <Resource tag="CREATED_REPLY">Replied to a Post</Resource>
+   <Resource tag="DELETE_ACCOUNT">Delete Account</Resource>
    <Resource tag="GIVEN_THANKS">Given Thanks to a Post</Resource>
    <Resource tag="RECEIVED_THANKS">Received a Thanks to a Post</Resource>
    <Resource tag="WAS_MENTIONED">Was Mentioned</Resource>

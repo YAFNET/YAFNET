@@ -292,6 +292,7 @@ namespace YAF.Web.Controls
 
             if (!Config.IsDotNetNuke && this.Get<YafBoardSettings>().AllowPasswordChange)
             {
+                // Render Change Password Item
                 this.RenderMenuItem(
                     html,
                     "list-group-item list-group-item-action",
@@ -303,6 +304,19 @@ namespace YAF.Web.Controls
                     "dropdown-item",
                     ForumPages.cp_changepassword,
                     this.GetText("CHANGE_PASSWORD"));
+
+                // Render Delete Account Item
+                this.RenderMenuItem(
+                    html,
+                    "list-group-item list-group-item-action",
+                    ForumPages.cp_deleteaccount,
+                    this.GetText("DELETE_ACCOUNT"));
+
+                this.RenderMenuItem(
+                    htmlDropDown,
+                    "dropdown-item",
+                    ForumPages.cp_deleteaccount,
+                    this.GetText("DELETE_ACCOUNT"));
             }
 
             htmlDropDown.Append("</div></div>");

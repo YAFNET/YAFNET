@@ -78,6 +78,7 @@
     <Resource tag="COOKIES">Views the cookie policy page</Resource>
     <Resource tag="CP_BLOCKOPTIONS">Edits his Ignored users and block option</Resource>
     <Resource tag="CP_CHANGEPASSWORD">Wijzigt wachtwoord</Resource>
+    <Resource tag="CP_DELETEACCOUNT">User deletes his account</Resource>
     <Resource tag="CP_EDITALBUMIMAGES">Bewerkt album plaatjes</Resource>
     <Resource tag="CP_EDITAVATAR">Bewerkt zijn avatar</Resource>
     <Resource tag="CP_EDITBUDDIES">Bewerkt vriendenlijst</Resource>
@@ -2501,6 +2502,15 @@
     <Resource tag="TITLE">Wijzig wachtwoord</Resource>
     <Resource tag="TITLE_SECURITY">Change Security Question and Answer</Resource>
   </page>
+  <page name="CP_DELETEACCOUNT">
+    <Resource tag="CONFIRM">Are you absolutely sure you want to do this?</Resource>
+    <Resource tag="OPTION_DELETE_TEXT">This will delete your account permanently! All your content will be deleted. After that your account can not be restored</Resource>
+    <Resource tag="OPTION_DELETE_TITLE">Delete your Account (permanently)</Resource>
+    <Resource tag="OPTION_SUSPEND_TEXT">If you just want to take a break from the Forum, then this will suspend your account for 30 days. Your content is still visible</Resource>
+    <Resource tag="OPTION_SUSPEND_TITLE">Suspend your Account for 30 days</Resource>
+    <Resource tag="OPTIONS_TITLE">You have the option to...</Resource>
+    <Resource tag="TITLE">Delete Your {0} Account</Resource>
+  </page>
   <page name="CP_EDITALBUMIMAGES">
     <Resource tag="ALBUM_TITLE">Titel</Resource>
     <Resource tag="ALBUMS">Albums</Resource>
@@ -2673,6 +2683,7 @@
     <Resource tag="CREATED_REPLY_MSG">Added an Reply to the Topic {0}</Resource>
     <Resource tag="CREATED_TOPIC">Created a new Topic</Resource>
     <Resource tag="CREATED_TOPIC_MSG">Created a new Topic {0}</Resource>
+    <Resource tag="DELETE_ACCOUNT">Delete Account</Resource>
     <Resource tag="EDIT_AVATAR">Avatar bewerken</Resource>
     <Resource tag="EDIT_PROFILE">Profiel bewerken</Resource>
     <Resource tag="EDIT_SETTINGS">Edit Settings</Resource>

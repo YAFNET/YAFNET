@@ -341,6 +341,13 @@
     <Compile Include="controls\BoardAnnouncement.ascx.designer.cs">
       <DependentUpon>BoardAnnouncement.ascx</DependentUpon>
     </Compile>
+    <Compile Include="controls\ForumStatsUsers.ascx.cs">
+      <DependentUpon>ForumStatsUsers.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="controls\ForumStatsUsers.ascx.designer.cs">
+      <DependentUpon>ForumStatsUsers.ascx</DependentUpon>
+    </Compile>
     <Compile Include="controls\ScrollTop.ascx.cs">
       <DependentUpon>ScrollTop.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -868,6 +875,13 @@
     </Compile>
     <Compile Include="pages\avatar.ascx.designer.cs">
       <DependentUpon>avatar.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\cp_deleteaccount.ascx.cs">
+      <DependentUpon>cp_deleteaccount.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\cp_deleteaccount.ascx.designer.cs">
+      <DependentUpon>cp_deleteaccount.ascx</DependentUpon>
     </Compile>
     <Compile Include="pages\cp_changepassword.ascx.designer.cs">
       <DependentUpon>cp_changepassword.ascx</DependentUpon>
@@ -1909,6 +1923,7 @@
     <Content Include="controls\AlbumImageList.ascx" />
     <Content Include="controls\AlbumList.ascx" />
     <Content Include="controls\BoardAnnouncement.ascx" />
+    <Content Include="controls\ForumStatsUsers.ascx" />
     <Content Include="controls\ScrollTop.ascx" />
     <Content Include="controls\CookieConsent.ascx" />
     <Content Include="controls\EditUsersSettings.ascx" />
@@ -2128,6 +2143,7 @@
     <Content Include="pages\approve.ascx" />
     <Content Include="pages\attachments.ascx" />
     <Content Include="pages\avatar.ascx" />
+    <Content Include="pages\cp_deleteaccount.ascx" />
     <Content Include="pages\cp_changepassword.ascx" />
     <Content Include="pages\cp_editalbumimages.ascx" />
     <Content Include="pages\cp_editavatar.ascx" />

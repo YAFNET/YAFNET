@@ -184,6 +184,11 @@ namespace YAF.Types.Constants
         cp_changepassword,
 
         /// <summary>
+        /// The cp_deleteaccount.
+        /// </summary>
+        cp_deleteaccount,
+
+        /// <summary>
         /// The login.
         /// </summary>
         login,
