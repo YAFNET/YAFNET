@@ -992,8 +992,6 @@
     <Resource tag="ALLOW_THANKS_HELP">If checked users can thank posts they consider useful.</Resource>
     <Resource tag="ALLOW_TOPIC_DESCRIPTION">Allow Topic Description:</Resource>
     <Resource tag="ALLOW_TOPIC_DESCRIPTION_HELP">If checked, users can add a topic description.</Resource>
-    <Resource tag="ALLOW_TOPIC_STATUS">Allow Topic Status Option:</Resource>
-    <Resource tag="ALLOW_TOPIC_STATUS_HELP">If checked, users select a Topic Status Option.</Resource>
     <Resource tag="ALLOW_TOPICS_DUPLICATENAME">Allow Topics With Same Name:</Resource>
     <Resource tag="ALLOW_TOPICS_DUPLICATENAME_HELP">Duplicate topic names are allowed to:</Resource>
     <Resource tag="ALLOW_USER_HIDE">Allow User To Hide Himself:</Resource>
@@ -4182,11 +4180,6 @@ Spoiler Content
 &lt;p&gt;For more control over the search, you can restrict your search to individual forums, or find posts or topics written by a specified user. You can also select how many Results should be shown per page.&lt;/p&gt;</Resource>
     <Resource tag="SEARCHINGTITLE">Searching Forums and Topics</Resource>
     <Resource tag="SEARCHLONGER">Search Input is to short, must be at least 3 letters.</Resource>
-    <Resource tag="SMILIESCONTENT">&lt;p&gt;Smilies are icons that can be used in your posts to express emotions or feelings. You might wish to use these to show that you are happy, sad, joking, or embarrassed. For example, if you are telling a joke or being sarcastic you may wish to add a wink instead of writing 'this is a joke'.
-&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;How to add smilies to a post message?&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;Some smilies can be accessed from the 'Post Reply' or 'New Topic' pages if your administrator has enabled this function. Clicking them will automatically insert them into your message. You can also type the character combinations for the smilies directly.&lt;/p&gt;</Resource>
-    <Resource tag="SMILIESTITLE">Smilies</Resource>
     <Resource tag="SUBSCRIPTIONSCONTENT">&lt;p&gt;Subscriptions are a way to keep track of different topics and/or forums. You can choose how you are notified about updates.&lt;/p&gt;
 &lt;p&gt;Or if you don't want to manually subscribe to a topic you want to follow you can turn on the Option 'Notification for topics you've posted to, watched or marked as favorite' in the E-mail Notification Preferences Page inside the User CP.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;How to  watch a topic?&lt;/strong&gt;&lt;/p&gt;
@@ -6310,13 +6303,6 @@ Visit {forumname} at {forumlink}
     <Resource tag="WELCOME_GUEST_CONNECT">Wanna join the discussion?! </Resource>
     <Resource tag="WELCOME_GUEST_FULL">Welcome Guest! To enable all features please </Resource>
     <Resource tag="WELCOME_GUEST_NO">Welcome Guest! You can &lt;strong&gt;not&lt;/strong&gt; login or register.</Resource>
-  </page>
-  <page name="TOPIC_STATUS">
-    <Resource tag="FIXED">Fixed</Resource>
-    <Resource tag="INFORMATIC">Informative</Resource>
-    <Resource tag="ISSUE">Issue</Resource>
-    <Resource tag="QUESTION">Question</Resource>
-    <Resource tag="SOLVED">Solved</Resource>
   </page>
   <page name="TOPICS">
     <Resource tag="ALL">Alle</Resource>

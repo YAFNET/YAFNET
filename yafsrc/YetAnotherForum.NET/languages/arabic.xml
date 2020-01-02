@@ -991,8 +991,6 @@
     <Resource tag="ALLOW_THANKS_HELP">If checked users can thank posts they consider useful.</Resource>
     <Resource tag="ALLOW_TOPIC_DESCRIPTION">Allow Topic Description:</Resource>
     <Resource tag="ALLOW_TOPIC_DESCRIPTION_HELP">If checked, users can add a topic description.</Resource>
-    <Resource tag="ALLOW_TOPIC_STATUS">Allow Topic Status Option:</Resource>
-    <Resource tag="ALLOW_TOPIC_STATUS_HELP">If checked, users select a Topic Status Option.</Resource>
     <Resource tag="ALLOW_TOPICS_DUPLICATENAME">Allow Topics With Same Name:</Resource>
     <Resource tag="ALLOW_TOPICS_DUPLICATENAME_HELP">Duplicate topic names are allowed to:</Resource>
     <Resource tag="ALLOW_USER_HIDE">Allow User To Hide Himself:</Resource>
@@ -4160,15 +4158,6 @@ p&gt;هذا الرابط يجلب لك صفحة التي تطلب منك ادخ�
     <Resource tag="SEARCHINGTITLE">بحث في المنتديات والمواضيع </Resource>
     <Resource tag="SEARCHLONGER">يجب ان يكون البحث على الاقل  3 احرف  </Resource>
     <Resource tag="SMILIESCONTENT">&lt;em&gt;Help مساعدة المحتوى قريبا...&lt;/em&gt;</Resource>
-    <Resource tag="SMILIESTITLE">ابتسامات</Resource>
-    <Resource tag="SUBSCRIPTIONSCONTENT">&lt;p&gt;Subscriptions are a way to keep track of different topics and/or forums. You can choose how you are notified about updates - for example by having them listed in your User Control Panel and receiving e-mail updates for each one.&lt;/p&gt;
-&lt;p&gt;Or if you don't want to manually subscribe to a topic you want to follow you can turn on the Option 'Notification for topics &lt;strong&gt;you've posted to&lt;/strong&gt;, watched or marked as favorite' in the E-mail Notification Preferences Page inside the User CP.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;How to  watch a topic?&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;To subscribe to a topic, click the 'Options' link at the top of the list of posts then click 'Watch this topic'.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;How to  watch a forum?&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;To subscribe to a forum, click on the 'Watch Forum' link bellow the  list of topics.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;How do I manage my Subscriptions of Watched topics and forums?&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;You can see the List of 'Watched Forums' and 'Watched Topics' from the 'Email Notification Preferences' Page of your User Controp Panel. There you can select which subscriptions you wish to delete by Clicking on the Unwatch button.&lt;/p&gt;</Resource>
     <Resource tag="SUBSCRIPTIONSTITLE">Subscriptions &amp; Notifications</Resource>
     <Resource tag="SUBTITLE">مساعدة المنتدى</Resource>
     <Resource tag="THANKSCONTENT">&lt;p&gt;The 'Thanks' - System is a function that allows you to give back another user a positive feedback, for example he or she has posted a message you find useful or helps you to solve a problem.&lt;/p&gt;
@@ -6288,13 +6277,6 @@ Visit {forumname} at {forumlink}
     <Resource tag="WELCOME_GUEST_CONNECT">Wanna join the discussion?! </Resource>
     <Resource tag="WELCOME_GUEST_FULL">Welcome Guest! To enable all features please </Resource>
     <Resource tag="WELCOME_GUEST_NO">Welcome Guest! You can &lt;strong&gt;not&lt;/strong&gt; login or register.</Resource>
-  </page>
-  <page name="TOPIC_STATUS">
-    <Resource tag="FIXED">Fixed</Resource>
-    <Resource tag="INFORMATIC">Informative</Resource>
-    <Resource tag="ISSUE">Issue</Resource>
-    <Resource tag="QUESTION">Question</Resource>
-    <Resource tag="SOLVED">Solved</Resource>
   </page>
   <page name="TOPICS">
     <Resource tag="ALL">الكل</Resource>

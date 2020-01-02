@@ -988,8 +988,6 @@
     <Resource tag="ALLOW_THANKS_HELP">Als deze is aangevinkt, kunnen Gebruikers elkaar bedanken voor nuttige posts.</Resource>
     <Resource tag="ALLOW_TOPIC_DESCRIPTION">Laat Topic beschrijving toe:</Resource>
     <Resource tag="ALLOW_TOPIC_DESCRIPTION_HELP">Als deze is aangevinkt, kunnen gebruikers een beschrijving van het topic toevoegen.</Resource>
-    <Resource tag="ALLOW_TOPIC_STATUS">Laat Topic statussen toe.</Resource>
-    <Resource tag="ALLOW_TOPIC_STATUS_HELP">Als deze is aangevinkt, kunnen gebruikers een Topic status optie kiezen.</Resource>
     <Resource tag="ALLOW_TOPICS_DUPLICATENAME">Sta meerdere Topics met dezelfde naam toe:</Resource>
     <Resource tag="ALLOW_TOPICS_DUPLICATENAME_HELP">Dubbele Topicnamen toegestaan voor:</Resource>
     <Resource tag="ALLOW_USER_HIDE">Gebruikers mogen zich onzichtbaar maken:</Resource>
@@ -4142,11 +4140,6 @@ Spoiler Inhoud
 &lt;p&gt;Om meer gericht te zoeken, kun je bepaalde forums selecteren, of zoeken op een bepaalde gebruiker. Je kunt ook aangeven hoeveel resultaten je terug wilt krijgen per pagina.&lt;/p&gt;</Resource>
     <Resource tag="SEARCHINGTITLE">Aan het zoeken in Forums en Topics</Resource>
     <Resource tag="SEARCHLONGER">Een zoekterm moet minimaal drie tekens bevatten.</Resource>
-    <Resource tag="SMILIESCONTENT">&lt;p&gt;Smilies zijn icoontjes die je in berichten kunt gebruiken om emoties weer te geven. Zo kun je aangeven dat je vrolijk, verdrietig, of boos bent, of een grapje maakt. Als je bijvoorbeeld een grap maakt, of een sarcastische opmerking over maakt, dan kun je een 'knipoog' smiley bij je tekst zetten in plaats van te schrijven 'Dit is een grapje'.
-&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Hoe kan ik smilies in een bericht plaatsen?&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;Sommige smilies kun je in het 'Plaats Antwoord' of 'Nieuw Topic' scherm vinden, als de Beheerder deze functie heeft aangezet. Als je op de smiley klikt, worden ze automatisch in je bericht geplaatst op de plek van de cursor. Als je de tekens weet hoe je smilies moet typen, kun je dat ook direct in je bericht doen.&lt;/p&gt;</Resource>
-    <Resource tag="SMILIESTITLE">Smiley's</Resource>
     <Resource tag="SUBSCRIPTIONSCONTENT">&lt;p&gt;Abonnementen zijn een manier om op de hoogte te blijven van verschillende forums en/of topics. Je kunt kiezen hoe je op de hoogte gehouden wilt worden van wijzigingen - bijvoorbeeld door ze te tonen in je configuratiescherm en voor elk een e-mail te ontvangen.&lt;/p&gt;
 &lt;p&gt;Of als je je niet handmatig wilt abonneren op een topic, dan kun je de optie 'Notificaties onvangen voor topics &lt;strong&gt;waar je in gepost hebt&lt;/strong&gt;, geabonneerd of als favoriet hebt gemarkeerd' in de e-mail Notificatie Voorkeuren Pagina van je configuratiescherm.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Hoe kan ik me abonneren op een topic?&lt;/strong&gt;&lt;/p&gt;
@@ -6265,13 +6258,6 @@ Bezoek {forumname} op {forumlink}
     <Resource tag="WELCOME_GUEST_CONNECT">Wanna join the discussion?! </Resource>
     <Resource tag="WELCOME_GUEST_FULL">Welkom gast! Om van alle functies gebruik te kunnen maken kun je</Resource>
     <Resource tag="WELCOME_GUEST_NO">Welkom gast! Je kunt helaas &lt;strong&gt;niet&lt;/strong&gt; inloggen of registreren.</Resource>
-  </page>
-  <page name="TOPIC_STATUS">
-    <Resource tag="FIXED">Gerepareerd</Resource>
-    <Resource tag="INFORMATIC">Informatief</Resource>
-    <Resource tag="ISSUE">Probleem</Resource>
-    <Resource tag="QUESTION">Vraag</Resource>
-    <Resource tag="SOLVED">Opgelost</Resource>
   </page>
   <page name="TOPICS">
     <Resource tag="ALL">Alle</Resource>

@@ -987,8 +987,6 @@
     <Resource tag="ALLOW_THANKS_HELP">در صورت انتخاب به کاربران اجازه می دهید بتوانند از ارسال ها تشکر کنند.</Resource>
     <Resource tag="ALLOW_TOPIC_DESCRIPTION">مجوز توضیحات موضوع:</Resource>
     <Resource tag="ALLOW_TOPIC_DESCRIPTION_HELP">در صورت انتخاب کاربران می توانند برای موضوعات خود توضیحی وارد نمایند</Resource>
-    <Resource tag="ALLOW_TOPIC_STATUS">مجوز وضعیت موضوع:</Resource>
-    <Resource tag="ALLOW_TOPIC_STATUS_HELP">در صورت انتخاب کاربران می توانند وضعیت موضوع را مشخص نمایند</Resource>
     <Resource tag="ALLOW_TOPICS_DUPLICATENAME">مجوز وجود موضوعاتی با نام های مشابه:</Resource>
     <Resource tag="ALLOW_TOPICS_DUPLICATENAME_HELP">نام های تکراری موضوعات مجاز است برای :</Resource>
     <Resource tag="ALLOW_USER_HIDE">مجوز مخفی سازی کاربر:</Resource>
@@ -4226,17 +4224,6 @@
       &lt;p&gt;&lt;strong&gt;چگونه خندانک را وارد پیامم بکنم؟&lt;/strong&gt;&lt;/p&gt;
       &lt;p&gt;در صورت فعال بودن، خندانک ها در صفحه "ارسال پاسخ" و یا "مبحث جدید" قابل دسترسی هستند. برای وارد کردنشان کافی است رویشان کلیک کنید. همچنین می توانید ترکیب کاراکترهای مربوط به آن خندانک را از لیست خندانک ها، بطور دستی وارد کنید.  &lt;/p&gt;
     </Resource>
-    <Resource tag="SMILIESTITLE">خندانک ها</Resource>
-    <Resource tag="SUBSCRIPTIONSCONTENT">
-      &lt;p&gt;مشترک شدن یکی از راههای باخبر بودن از مباحث و تالارهای مختلف است. شما می توانید چگونگی خبررسانی از تغییرات را انتخاب کنید. &lt;/p&gt;
-      &lt;p&gt;اگر نخواهید که بطور دستی کلیه مباحث را برای دریافت اطلاع رسانی فعال کنید می توانید گزینه خبررسانی تالارها و مباحثی که در آن مشترک شده اید، ارسالی درآن داشته اید یا مورد علاقه اتان است" را در صفحه "تنظیمات اطلاع رسانی از طریق رایانامه" انتخاب کنید. "&lt;/p&gt;
-      &lt;p&gt;&lt;strong&gt;چگونه یک مبحث را دنبال کنم؟&lt;/strong&gt;&lt;/p&gt;
-      &lt;p&gt;برای پیگیری یک مبحث، برروی گزینه "انتخابها" در بالای صفحه مبحث مورد کلیک کرده و گزینه "پیگیری بحث" را بزنید.    &lt;/p&gt;
-      &lt;p&gt;&lt;strong&gt;چگونه فعالیت های یک تالار را پیگیری نمایم؟&lt;/strong&gt;&lt;/p&gt;
-      &lt;p&gt;برای اشتراک در یک تالار گزینه "پیگیری تالار" در پایین فهرست مباحث آن تالار کلیک نمایید.&lt;/p&gt;
-      &lt;p&gt;&lt;strong&gt;چگونه اشتراکات خود در مباحث و تالار ها را مدیریت نمایم؟&lt;/strong&gt;&lt;/p&gt;
-      &lt;p&gt;شما می توانید فهرست مشترکات خود را در مباحث و تالار ها، در قسمت "اشتراک ها" تحت "مشخصات فردی" در صفحه "تنظیمات من" مشاهده نمایید.&lt;/p&gt;
-    </Resource>
     <Resource tag="SUBSCRIPTIONSTITLE">اشتراک و اطلاع رسانی</Resource>
     <Resource tag="SUBTITLE">راهنمای انجمن</Resource>
     <Resource tag="THANKSCONTENT">
@@ -6323,13 +6310,6 @@
     <Resource tag="WELCOME_GUEST_CONNECT">دوست دارید در بحث ها شرکت کنید؟! </Resource>
     <Resource tag="WELCOME_GUEST_FULL">میهمان عزیز خوش آمدید! برای بهره‌مندی از تمام امکانات لطفا وارد حساب کاربری خود شوید</Resource>
     <Resource tag="WELCOME_GUEST_NO">خوش آمدید! &lt;strong&gt;نمی توانید&lt;/strong&gt; ثبت نام کنید یا وارد شوید.</Resource>
-  </page>
-  <page name="TOPIC_STATUS">
-    <Resource tag="FIXED">برطرف شده</Resource>
-    <Resource tag="INFORMATIC">اطلاع رسانی</Resource>
-    <Resource tag="ISSUE">مشکل</Resource>
-    <Resource tag="QUESTION">سوال</Resource>
-    <Resource tag="SOLVED">حل شده</Resource>
   </page>
   <page name="TOPICS">
     <Resource tag="ALL">همه</Resource>

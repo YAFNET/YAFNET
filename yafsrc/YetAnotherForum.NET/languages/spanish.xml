@@ -989,8 +989,6 @@
     <Resource tag="ALLOW_THANKS_HELP">Si está marcado, los usuarios pueden agradecer las publicaciones que consideran útiles.</Resource>
     <Resource tag="ALLOW_TOPIC_DESCRIPTION">Permitir la descripción de un tema:</Resource>
     <Resource tag="ALLOW_TOPIC_DESCRIPTION_HELP">Si está marcado, los usuarios pueden añadir una descripcción a un tema.</Resource>
-    <Resource tag="ALLOW_TOPIC_STATUS">Permitir la opción de estado de tema:</Resource>
-    <Resource tag="ALLOW_TOPIC_STATUS_HELP">Si está marcado, los usuarios pueden seleccionar la opción de estado de tema.</Resource>
     <Resource tag="ALLOW_TOPICS_DUPLICATENAME">Permitir temas con el mismo nombre:</Resource>
     <Resource tag="ALLOW_TOPICS_DUPLICATENAME_HELP">Nombres de temas duplicados pueden ser permitidos.</Resource>
     <Resource tag="ALLOW_USER_HIDE">Permitir a los usuarios ocultarse a si mismos</Resource>
@@ -4534,10 +4532,6 @@ public class Hello1
 &lt;p&gt;Para más control de las búsquedas, puedes restringir tu búsqueda a un foro en particular, o buscar publicaciones o temas escritos por un usuario espécífico. También puedes seleccionar cuantos resultados serán mostrados por página.&lt;/p&gt;</Resource>
     <Resource tag="SEARCHINGTITLE">Buscando en foros y temas</Resource>
     <Resource tag="SEARCHLONGER">La búsqueda introducida es muy corta, debes tener al menos 3 letras.</Resource>
-    <Resource tag="SMILIESCONTENT">&lt;p&gt;Los smilies son iconos que pueden ser usados en tus publicaciones para expresar emociones o sentimientos. Puedes querer usarlos para mostrar que estás feliz, triste, enfadado, bromeando o Smilies are icons that can be used in your posts to express emotions or feelings. You might wish to use these to show that you are happy, sad, joking, or avergonzado. Por ejemplo, si estás contando una broma o siendo sarcástico, puedes querer añadir un guiño en lugar de escribir 'es una broma'.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;¿Cómo añado mensajes a un mensaje publicado?&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;Algunos smilies están accesibles desde las páginas de 'Publicar respuesta' o 'Nuevo tema' si el administrador ha habilitado esta función. Haciendo click en ellos, automáticamente se insertan dentro del mensaje. También puedes teclear la combinación de caracteres para los smilies directamente.&lt;/p&gt;</Resource>
-    <Resource tag="SMILIESTITLE">Smilies</Resource>
     <Resource tag="SUBSCRIPTIONSCONTENT">&lt;p&gt;Las subscripciones son un método para mantener un seguimiento de diferentes temas o foros. Puedes elegir como eres notificado de las actualizaciones.&lt;/p&gt;
 &lt;p&gt;O si tu no quieres suscribirte manualmente a un tema, puedes activar la opción 'Notificar de temas que hayas publicado, seguido o marcado como favoritos' en la configuración de notificaciones por email dentro del panel de control de usuario.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;¿Cómo seguir un tema?&lt;/strong&gt;&lt;/p&gt;
@@ -6650,13 +6644,6 @@ Visita {forumname} en {forumlink}
     <Resource tag="WELCOME_GUEST_CONNECT">Wanna join the discussion?! </Resource>
     <Resource tag="WELCOME_GUEST_FULL">Bienvenido visitante. Para activar todas las funcionalidades, por favor</Resource>
     <Resource tag="WELCOME_GUEST_NO">Bienvenido visitante. &lt;strong&gt;No&lt;/strong&gt; puedes iniciar sesión o registrarte.</Resource>
-  </page>
-  <page name="TOPIC_STATUS">
-    <Resource tag="FIXED">Fijo</Resource>
-    <Resource tag="INFORMATIC">Informativo</Resource>
-    <Resource tag="ISSUE">Asunto</Resource>
-    <Resource tag="QUESTION">Pregunta</Resource>
-    <Resource tag="SOLVED">Resuelto</Resource>
   </page>
   <page name="TOPICS">
     <Resource tag="ALL">Todo</Resource>

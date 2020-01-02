@@ -987,8 +987,6 @@
     <Resource tag="ALLOW_THANKS_HELP">Wenn diese Option aktiviert ist, können sich für Beiträge bedanken die sie für nützlich halten.</Resource>
     <Resource tag="ALLOW_TOPIC_DESCRIPTION">Themen Beschreibung aktivieren:</Resource>
     <Resource tag="ALLOW_TOPIC_DESCRIPTION_HELP">Wenn aktiviert kann eine Beschreibung zu ein Thema eingegeben werden.</Resource>
-    <Resource tag="ALLOW_TOPIC_STATUS">Themen Status Option aktivieren::</Resource>
-    <Resource tag="ALLOW_TOPIC_STATUS_HELP">Wenn aktiviert können Benutzer einen Topic Status auswählen.</Resource>
     <Resource tag="ALLOW_TOPICS_DUPLICATENAME">Themen mit gleichem Namen zulassen:</Resource>
     <Resource tag="ALLOW_TOPICS_DUPLICATENAME_HELP">Gleiche Themen Namen sind erlaubt für:</Resource>
     <Resource tag="ALLOW_USER_HIDE">Benutzer erlauben sich zu verstecken:</Resource>
@@ -4120,10 +4118,6 @@ Spoiler Content
 &lt;p&gt;Für mehr Kontrolle über die Suche können Sie Ihre Suche weiter einzuschränken auf einzelne Foren, oder finden Sie Beiträge oder Themen von einem bestimmten Benutzer. Sie können auch wählen, wie viele Ergebnisse pro Seite gezeigt werden sollen.&lt;/p&gt;</Resource>
     <Resource tag="SEARCHINGTITLE">Durchsuchen von Foren und Themen</Resource>
     <Resource tag="SEARCHLONGER">Suche Eingabe ist zu kurz, Sie müssen mindestens 3 Buchstaben eingeben.</Resource>
-    <Resource tag="SMILIESCONTENT">&lt;p&gt;Smileys sind Icons, die in Ihren Beiträgen verwendet werden, um Emotionen oder Gefühle ausdrücken zu können. Vielleicht möchten Sie diese verwenden, um anzuzeigen, dass Sie glücklich, traurig sind, scherzen, oder verlegen. Zum Beispiel, wenn Sie einen Witz erzählen oder sarkastisch sein möchten.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt; Wie fügt man Smileys zu einem Beitrag?&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;Auf die Smileys kann man zugreifen wenn man z.B.: einen Beitrag verfasst oder editiert, wenn Ihr Administrator diese Funktion aktiviert ist. Sie können auch die Zeichenfolge direkt eingeben, für die Smileys.&lt;/p&gt;</Resource>
-    <Resource tag="SMILIESTITLE">Smileys</Resource>
     <Resource tag="SUBSCRIPTIONSCONTENT">&lt;p&gt;Abonnements sind ein Weg um verschiedene Themen und/oder  Foren zu verfolgen. Sie können bestimmen Wie Sie darüber Benachrichtigt werden  möchten. &lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Wie folge ich ein Thema?&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;Um ein Thema zu abonnieren klicken Sie auf den  Menüpunkt  &amp;ldquo;Dieses Thema abonnieren&amp;rdquo; im  Menü das sich öffnet wenn Sie auf  &amp;bdquo;Optionen&amp;rdquo;  klicken am Anfang des Themas.&lt;/p&gt;
@@ -6236,13 +6230,6 @@ Der Bestätigungscode lautet
     <Resource tag="WELCOME_GUEST_CONNECT">Wanna join the discussion?! </Resource>
     <Resource tag="WELCOME_GUEST_FULL">Willkommen Gast! Um alle Funktionen zu aktivieren müssen Sie sich </Resource>
     <Resource tag="WELCOME_GUEST_NO">Willkommen Gast! Sie können sich &lt;strong&gt;nicht&lt;/strong&gt; anmelden oder registrieren.</Resource>
-  </page>
-  <page name="TOPIC_STATUS">
-    <Resource tag="FIXED">Behoben</Resource>
-    <Resource tag="INFORMATIC">Informativ</Resource>
-    <Resource tag="ISSUE">Fehler</Resource>
-    <Resource tag="QUESTION">Frage</Resource>
-    <Resource tag="SOLVED">Gelöst</Resource>
   </page>
   <page name="TOPICS">
     <Resource tag="ALL">Alle</Resource>
