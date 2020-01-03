@@ -7517,6 +7517,7 @@ AS
                 JOIN [{databaseOwner}].[{objectQualifier}Rank] b ON b.RankID = a.RankID
                 JOIN [{databaseOwner}].[{objectQualifier}Buddy] c ON ( c.ToUserID = a.UserID
                                               AND c.FromUserID = @FromUserID
+                                              and a.IsApproved = 1
                                             )
         UNION
         SELECT  @FromUserID AS UserID,
@@ -7533,6 +7534,7 @@ AS
                 JOIN [{databaseOwner}].[{objectQualifier}Buddy] c ON ( ( c.Approved = 0 )
                                               AND ( c.ToUserID = @FromUserID )
                                               AND ( a.UserID = c.FromUserID )
+                                              and a.IsApproved = 1
                                             )
         ORDER BY a.Name
     END

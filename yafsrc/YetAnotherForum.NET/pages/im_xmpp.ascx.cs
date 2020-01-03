@@ -90,6 +90,17 @@ namespace YAF.Pages
                 // get user data...
                 var userHe = UserMembershipHelper.GetMembershipUserById(this.UserID);
 
+                if (userHe == null)
+                {
+                    // No such user exists
+                    YafBuildLink.AccessDenied();
+                }
+
+                if (userHe.IsApproved == false)
+                {
+                    YafBuildLink.AccessDenied();
+                }
+
                 var displayNameHe = UserMembershipHelper.GetDisplayNameFromID(this.UserID);
 
                 this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));

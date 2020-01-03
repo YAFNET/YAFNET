@@ -237,6 +237,11 @@ namespace YAF.Pages
                 YafBuildLink.AccessDenied();
             }
 
+            if (user.IsApproved == false)
+            {
+                YafBuildLink.AccessDenied();
+            }
+
             var userData = new CombinedUserDataHelper(user, this.UserId);
 
             // populate user information controls...

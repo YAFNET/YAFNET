@@ -236,7 +236,8 @@ namespace YAF.Pages
             }
 
             // try to find users by user name
-            var usersFound = this.Get<IUserDisplayName>().Find(this.To.Text.Trim()).Where(u => !u.Block.BlockPMs).ToList();
+            var usersFound = this.Get<IUserDisplayName>().Find(this.To.Text.Trim())
+                .Where(u => !u.Block.BlockPMs && u.IsApproved == true).ToList();
 
             if (usersFound.Count > 0)
             {

@@ -142,7 +142,7 @@ namespace YAF.Pages
                         {
                             this.Get<ILogger>().Log(
                                 this.PageContext.PageUserID,
-                                "YAF.Controls.EditUsersSuspend",
+                                this,
                                 $"User {(this.Get<YafBoardSettings>().EnableDisplayName ? usr.First().DisplayName : usr.First().Name)} Suspended his own account until: {suspend} (UTC)",
                                 EventLogTypes.UserSuspended);
 
@@ -168,6 +168,12 @@ namespace YAF.Pages
 
                         messageIds.ForEach(
                             x => this.GetRepository<Message>().Delete(x, true, string.Empty, 1, true, false));
+
+                        this.Get<ILogger>().Log(
+                            this.PageContext.PageUserID,
+                            this,
+                            $"User {this.PageContext.PageUserName} Deleted his own account",
+                            EventLogTypes.UserDeleted);
                     }
 
                     break;

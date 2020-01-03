@@ -77,6 +77,20 @@ namespace YAF.Pages
                 YafBuildLink.AccessDenied();
             }
 
+            var user = UserMembershipHelper.GetMembershipUserById(
+                Security.StringToLongOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u")));
+
+            if (user == null)
+            {
+                // No such user exists
+                YafBuildLink.AccessDenied();
+            }
+
+            if (user.IsApproved == false)
+            {
+                YafBuildLink.AccessDenied();
+            }
+
             var displayName = UserMembershipHelper.GetDisplayNameFromID(
                 Security.StringToLongOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u")));
 

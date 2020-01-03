@@ -66,6 +66,15 @@ namespace YAF.Pages
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.ForumStatistics ForumStats;
+        protected global::YAF.Controls.ForumStatsUsers ForumStats;
+
+        /// <summary>
+        /// ForumStatistics control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.ForumStatistics ForumStatistics;
     }
 }

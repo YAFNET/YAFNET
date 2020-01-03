@@ -99,6 +99,11 @@ namespace YAF.Pages
             }
             else
             {
+                if (user.IsApproved == false)
+                {
+                    YafBuildLink.AccessDenied();
+                }
+
                 var displayName = UserMembershipHelper.GetDisplayNameFromID(this.UserId);
 
                 this.PageLinks.AddRoot();

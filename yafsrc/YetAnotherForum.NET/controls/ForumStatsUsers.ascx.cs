@@ -28,33 +28,33 @@ namespace YAF.Controls
     using System;
     using System.Data;
     using System.Text;
+    using System.Threading;
 
     using YAF.Configuration;
     using YAF.Core.BaseControls;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
+    using YAF.Core.Services;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
     using YAF.Utils;
-    using YAF.Utils.Helpers;
-    using YAF.Web.Controls;
 
     #endregion
 
     /// <summary>
-    /// The forum statistics.
+    /// The forum user statistics.
     /// </summary>
-    public partial class ForumStatistics : BaseUserControl
+    public partial class ForumStatsUsers : BaseUserControl
     {
         #region Constructors and Destructors
 
         /// <summary>
-        ///   Initializes a new instance of the <see cref = "ForumStatistics" /> class.
+        /// Initializes a new instance of the <see cref="ForumStatsUsers"/> class.
         /// </summary>
-        public ForumStatistics()
+        public ForumStatsUsers()
         {
             this.Load += this.ForumStatistics_Load;
         }
@@ -174,25 +174,61 @@ namespace YAF.Controls
         /// </param>
         private void ForumStatistics_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            // Forum Statistics
-            var postsStatisticsDataRow = this.Get<IDataCache>().GetOrSet(
-                Constants.Cache.BoardStats,
-                () =>
-                    {
-                        // get the post stats
-                        var dr = this.GetRepository<Board>().PostStats(
-                            this.PageContext.PageBoardID,
-                            this.Get<YafBoardSettings>().UseStyledNicks,
-                            true);
+            // Active users : Call this before forum_stats to clean up active users
+            var activeUsers = this.Get<IDataCache>().GetOrSet(
+                Constants.Cache.UsersOnlineStatus,
+                () => this.Get<YafDbBroker>().GetActiveList(
+                    false,
+                    this.Get<YafBoardSettings>().ShowCrawlersInActiveList),
+                TimeSpan.FromMilliseconds(this.Get<YafBoardSettings>().OnlineStatusCacheTimeout));
 
-                        // Set colorOnly parameter to false, as we get here color from data field in the place
-                        dr["LastUserStyle"] = this.Get<YafBoardSettings>().UseStyledNicks
-                                                  ? this.Get<IStyleTransform>().DecodeStyleByString(
-                                                      dr["LastUserStyle"].ToString())
-                                                  : null;
-                        return dr.Table;
-                    },
-                TimeSpan.FromMinutes(this.Get<YafBoardSettings>().ForumStatisticsCacheTimeout)).Rows[0];
+            this.ActiveUsers1.ActiveUserTable = activeUsers;
+
+            // "Active Users" Count and Most Users Count 
+            var activeStats = this.GetRepository<Active>().Stats();
+
+            this.ActiveUserCount.Text = this.FormatActiveUsers(activeStats);
+
+            // Tommy MOD "Recent Users" Count.
+            if (this.Get<YafBoardSettings>().ShowRecentUsers)
+            {
+                var activeUsers30Day = this.Get<IDataCache>().GetOrSet(
+                    Constants.Cache.VisitorsInTheLast30Days,
+                    () => this.Get<YafDbBroker>().GetRecentUsers(60 * 24 * 30),
+                    TimeSpan.FromMinutes(this.Get<YafBoardSettings>().ForumStatisticsCacheTimeout));
+
+                if (activeUsers30Day != null && activeUsers30Day.HasRows())
+                {
+                    activeUsers30Day.Locale = Thread.CurrentThread.CurrentCulture;
+
+                    var activeUsers1Day1 = activeUsers30Day.Select(
+                        $"LastVisit >= '{DateTime.UtcNow.AddDays(-1).ToString(Thread.CurrentThread.CurrentCulture)}'");
+
+                    this.RecentUsersCount.Text = this.GetTextFormatted(
+                        "RECENT_ONLINE_USERS",
+                        activeUsers1Day1.Length,
+                        activeUsers30Day.Rows.Count);
+
+                    if (activeUsers1Day1.Length > 0)
+                    {
+                        try
+                        {
+                            this.RecentUsers.ActiveUserTable = activeUsers1Day1.CopyToDataTable();
+                            this.RecentUsers.Visible = true;
+                        }
+                        catch (Exception)
+                        {
+                            this.RecentUsers.Visible = false;
+                        }
+                    }
+
+                    this.RecentUsersPlaceHolder.Visible = true;
+                }
+            }
+            else
+            {
+                this.RecentUsersPlaceHolder.Visible = false;
+            }
 
             // Forum Statistics
             var userStatisticsDataRow = this.Get<IDataCache>().GetOrSet(
@@ -200,57 +236,20 @@ namespace YAF.Controls
                 () => this.GetRepository<Board>().UserStats(this.PageContext.PageBoardID).Table,
                 TimeSpan.FromMinutes(this.Get<YafBoardSettings>().BoardUserStatsCacheTimeout)).Rows[0];
 
-            // Posts and Topic Count...
-            this.StatsPostsTopicCount.Text = this.GetTextFormatted(
-                "stats_posts",
-                postsStatisticsDataRow["posts"],
-                postsStatisticsDataRow["topics"],
-                postsStatisticsDataRow["forums"]);
-
-            // Last post
-            if (!postsStatisticsDataRow.IsNull("LastPost"))
+            // show max users...
+            if (!userStatisticsDataRow.IsNull("MaxUsers"))
             {
-                this.StatsLastPostHolder.Visible = true;
-
-                this.LastPostUserLink.UserID = postsStatisticsDataRow["LastUserID"].ToType<int>();
-                this.LastPostUserLink.ReplaceName = this.Get<YafBoardSettings>().EnableDisplayName
-                                                        ? postsStatisticsDataRow["LastUserDisplayName"].ToString()
-                                                        : postsStatisticsDataRow["LastUser"].ToString();
-                this.LastPostUserLink.Style = postsStatisticsDataRow["LastUserStyle"].ToString();
-                this.StatsLastPost.Text = this.GetTextFormatted(
-                    "stats_lastpost",
-                    new DisplayDateTime
-                        {
-                            DateTime = postsStatisticsDataRow["LastPost"], Format = DateTimeFormat.BothTopic
-                        }.RenderToString());
+                this.MostUsersCount.Text = this.GetTextFormatted(
+                    "MAX_ONLINE",
+                    userStatisticsDataRow["MaxUsers"].ToType<int>(),
+                    this.Get<IDateTime>().FormatDateTimeTopic(userStatisticsDataRow["MaxUsersWhen"]));
             }
             else
             {
-                this.StatsLastPostHolder.Visible = false;
-            }
-
-            // Member Count
-            this.StatsMembersCount.Text = this.GetTextFormatted("stats_members", userStatisticsDataRow["members"]);
-
-            // Newest Member
-            this.StatsNewestMember.Text = this.GetText("stats_lastmember");
-            this.NewestMemberUserLink.UserID = userStatisticsDataRow["LastMemberID"].ToType<int>();
-            this.NewestMemberUserLink.ReplaceName = this.Get<YafBoardSettings>().EnableDisplayName
-                                                        ? userStatisticsDataRow["LastMemberDisplayName"].ToString()
-                                                        : userStatisticsDataRow["LastMember"].ToString();
-
-            if (this.Get<YafBoardSettings>().DeniedRegistrations > 0 || this.Get<YafBoardSettings>().BannedUsers > 0
-                                                                     || this.Get<YafBoardSettings>().ReportedSpammers
-                                                                     > 0)
-            {
-                this.AntiSpamStatsHolder.Visible = true;
-                this.StatsSpamDenied.Param0 = this.Get<YafBoardSettings>().DeniedRegistrations.ToString();
-                this.StatsSpamBanned.Param0 = this.Get<YafBoardSettings>().BannedUsers.ToString();
-                this.StatsSpamReported.Param0 = this.Get<YafBoardSettings>().ReportedSpammers.ToString();
-            }
-            else
-            {
-                this.AntiSpamStatsHolder.Visible = false;
+                this.MostUsersCount.Text = this.GetTextFormatted(
+                    "MAX_ONLINE",
+                    activeStats["ActiveUsers"],
+                    this.Get<IDateTime>().FormatDateTimeTopic(DateTime.UtcNow));
             }
         }
 
