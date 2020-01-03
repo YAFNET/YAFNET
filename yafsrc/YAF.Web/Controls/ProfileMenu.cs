@@ -304,6 +304,22 @@ namespace YAF.Web.Controls
                     "dropdown-item",
                     ForumPages.cp_changepassword,
                     this.GetText("CHANGE_PASSWORD"));
+            }
+
+            if (!Config.IsDotNetNuke && !this.PageContext.IsAdmin  && !this.PageContext.IsHostAdmin)
+            {
+                // Render Change Password Item
+                this.RenderMenuItem(
+                    html,
+                    "list-group-item list-group-item-action",
+                    ForumPages.cp_changepassword,
+                    this.GetText("CHANGE_PASSWORD"));
+
+                this.RenderMenuItem(
+                    htmlDropDown,
+                    "dropdown-item",
+                    ForumPages.cp_changepassword,
+                    this.GetText("CHANGE_PASSWORD"));
 
                 // Render Delete Account Item
                 this.RenderMenuItem(
