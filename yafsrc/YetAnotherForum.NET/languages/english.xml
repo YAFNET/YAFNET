@@ -2636,6 +2636,8 @@
   <Resource tag="FROM">From</Resource>
    <Resource tag="FROM_ASC">From A-Z</Resource>
    <Resource tag="FROM_DESC">From Z-A</Resource>
+   <Resource tag="TO_ASC">To A-Z</Resource>
+   <Resource tag="TO_DESC">To Z-A</Resource>
   <Resource tag="INBOX">Inbox</Resource>
    <Resource tag="MARK_ALL_ASREAD">Mark All As Read</Resource>
    <Resource tag="MARK_ASREAD">Mark As Read</Resource>

@@ -2693,6 +2693,8 @@
     <Resource tag="SUBJECT_DESC">Subject Z-A</Resource>
     <Resource tag="TITLE">پیغام‌های شخصی</Resource>
     <Resource tag="TO">به</Resource>
+    <Resource tag="TO_ASC">To A-Z</Resource>
+    <Resource tag="TO_DESC">To Z-A</Resource>
   </page>
   <page name="CP_PROFILE">
     <Resource tag="ACTIVITY">Your Activity</Resource>

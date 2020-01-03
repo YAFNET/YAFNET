@@ -2676,6 +2676,8 @@
     <Resource tag="SUBJECT_DESC">Subject Z-A</Resource>
     <Resource tag="TITLE">Özel Mesajlar</Resource>
     <Resource tag="TO">Kime</Resource>
+    <Resource tag="TO_ASC">To A-Z</Resource>
+    <Resource tag="TO_DESC">To Z-A</Resource>
   </page>
   <page name="CP_PROFILE">
     <Resource tag="ACTIVITY">Your Activity</Resource>

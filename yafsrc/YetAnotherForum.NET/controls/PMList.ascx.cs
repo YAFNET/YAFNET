@@ -49,7 +49,6 @@ namespace YAF.Controls
     using YAF.Types.Models;
     using YAF.Utils;
     using YAF.Utils.Helpers;
-    using YAF.Web.Controls;
 
     #endregion
 
@@ -332,6 +331,15 @@ namespace YAF.Controls
             this.BindData();
         }
 
+        /// <summary>
+        /// The from link desc click.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
         protected void FromLinkDesc_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
             this.SetSort(this.View == PmView.Outbox ? "ToUser" : "FromUser", false);
@@ -355,19 +363,6 @@ namespace YAF.Controls
         }
 
         /// <summary>
-        /// Gets the localized <paramref name="text"/>.
-        /// </summary>
-        /// <param name="text">The text.</param>
-        /// <param name="page">The resource page.</param>
-        /// <returns>
-        /// The get localized text.
-        /// </returns>
-        protected string GetLocalizedText([NotNull] string text, string page)
-        {
-            return this.HtmlEncode(page.IsSet() ? this.GetText(page, text) : this.GetText(text));
-        }
-
-        /// <summary>
         /// Gets the message link.
         /// </summary>
         /// <param name="messageId">The message id.</param>
@@ -381,17 +376,6 @@ namespace YAF.Controls
                 "pm={0}&v={1}",
                 messageId,
                 PmViewConverter.ToQueryStringParam(this.View));
-        }
-
-        /// <summary>
-        /// Gets the message user header.
-        /// </summary>
-        /// <returns>
-        /// The get message user header.
-        /// </returns>
-        protected string GetMessageUserHeader()
-        {
-            return this.GetLocalizedText(this.View == PmView.Outbox ? "to" : "from", "CP_PM");
         }
 
         /// <summary>
@@ -684,11 +668,6 @@ namespace YAF.Controls
 
                 this.Messages.DataSource = dv;
                 this.Messages.DataBind();
-
-
-                //this.MessagesView.PageIndex = this.PagerTop.CurrentPageIndex;
-                //this.MessagesView.DataSource = dv;
-                //this.MessagesView.DataBind();
             }
 
             this.Stats_Renew();

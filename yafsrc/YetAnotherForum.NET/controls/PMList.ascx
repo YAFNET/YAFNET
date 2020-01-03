@@ -18,12 +18,12 @@
                          CssClass="dropdown-item"
                          Type="None" 
                          OnClick="FromLinkAsc_Click"
-                         TextLocalizedTag="FROM_ASC"/>
+                         TextLocalizedTag='<%# this.View == PmView.Outbox ? "TO_ASC" : "FROM_ASC" %>'/>
         <YAF:ThemeButton ID="SortFromDesc" runat="server"
                          CssClass="dropdown-item"
                          Type="None" 
                          OnClick="FromLinkDesc_Click"
-                         TextLocalizedTag="FROM_DESC"/>
+                         TextLocalizedTag='<%# this.View == PmView.Outbox ? "TO_DESC" : "FROM_DESC" %>'/>
         <div class="dropdown-divider"></div>
         <YAF:ThemeButton ID="SortSubjectAsc" runat="server"
                          CssClass="dropdown-item"
@@ -81,7 +81,7 @@
                 </div>
                 <p class="mb-1">
                     <span class="font-weight-bold">
-                        <YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="FROM" />:
+                        <YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag='<%# this.View == PmView.Outbox ? "TO" : "FROM" %>' />:
                     </span>
                     <YAF:UserLink ID="UserLink1" runat="server" 
                                   UserID='<%# (this.View == PmView.Outbox ? this.Eval("ToUserID") : this.Eval("FromUserID" )).ToType<int>() %>' />
