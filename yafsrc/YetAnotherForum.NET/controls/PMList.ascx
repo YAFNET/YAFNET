@@ -71,7 +71,7 @@
                         <%# this.HtmlEncode(this.Eval("Subject")) %>
                         </a>
                     </h5>
-                    <small>
+                    <small class="d-none d-md-block">
                         <span class="font-weight-bold">
                             <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="DATE" />
                         </span>

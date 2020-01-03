@@ -149,7 +149,7 @@ namespace YAF.Controls
         }
 
         /// <summary>
-        /// Sort By Date
+        /// Sort By Date descending
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
@@ -318,7 +318,7 @@ namespace YAF.Controls
         }
 
         /// <summary>
-        /// The from link_ click.
+        /// sort by name ascending
         /// </summary>
         /// <param name="sender">
         /// The source of the event.
@@ -332,7 +332,7 @@ namespace YAF.Controls
         }
 
         /// <summary>
-        /// The from link desc click.
+        /// sort by name descending
         /// </summary>
         /// <param name="sender">
         /// The sender.
@@ -641,6 +641,10 @@ namespace YAF.Controls
                 }
 
                 dv.Sort = $"{this.ViewState["SortField"]} {(this.ViewState["SortAsc"].ToType<bool>() ? "asc" : "desc")}";
+
+                var dataRows = dv.Cast<DataRowView>().Skip(this.PagerTop.CurrentPageIndex * this.PagerTop.PageSize)
+                    .Take(this.PagerTop.PageSize);
+
                 this.PagerTop.Count = dv.Count;
 
                 if (dv.Count > 0)
@@ -666,7 +670,7 @@ namespace YAF.Controls
 
                 this.PagerTop.PageSize = 10;
 
-                this.Messages.DataSource = dv;
+                this.Messages.DataSource = dataRows;
                 this.Messages.DataBind();
             }
 
