@@ -304,7 +304,7 @@ jQuery(document).ready(function() {
         }
     });
 
-    $("#forum_ctl03_Cancel, #forum_ctl03_PostReply").click(function() {
+    $("a[id*='Cancel'], a[id*='PostReply']").click(function () {
         RemoveStorage(autoSaveKey);
     });
 });
@@ -319,7 +319,7 @@ function CheckForAutoSavedContent(editorInstance, autoSaveKey, notOlderThen) {
 
         var editorLoadedContent = $(editorInstance).val();
 
-        // check if the loaded editor content is the same as the autosaved content
+        // check if the loaded editor content is the same as the auto saved content
         if (editorLoadedContent == autoSavedContent) {
             localStorage.removeItem(autoSaveKey);
             return;
