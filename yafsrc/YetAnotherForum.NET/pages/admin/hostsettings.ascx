@@ -1555,9 +1555,9 @@
         </div>
     </div>
 	 <div class="form-group">
-                        <YAF:HelpLabel ID="HelpLabel25" runat="server" 
-                                       AssociatedControlID="ShowScrollBackToTopButton"
-                                       LocalizedTag="SHOW_SCROLL" LocalizedPage="ADMIN_HOSTSETTINGS" />
+         <YAF:HelpLabel ID="HelpLabel31" runat="server" 
+                        AssociatedControlID="ShowScrollBackToTopButton"
+                        LocalizedTag="SHOW_SCROLL" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         <div class="custom-control custom-switch">
                             <asp:CheckBox Text="&nbsp;" ID="ShowScrollBackToTopButton" runat="server"></asp:CheckBox>
                         </div>
