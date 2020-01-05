@@ -27,18 +27,20 @@ namespace YAF.Core.Model
     using System;
     using System.Collections.Generic;
     using System.Data;
+    using System.Linq;
 
     using ServiceStack.OrmLite;
 
     using YAF.Core.Extensions;
     using YAF.Types;
+    using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
     using YAF.Types.Models;
 
     /// <summary>
-    /// The ForumAcess Repository Extensions
+    /// The ForumAccess Repository Extensions
     /// </summary>
-    public static class ForumAcessRepositoryExtensions
+    public static class ForumAccessRepositoryExtensions
     {
         #region Public Methods and Operators
 
@@ -97,16 +99,46 @@ namespace YAF.Core.Model
         }
 
         /// <summary>
-        /// Gets the paged list of all users Album Images
+        /// Creates new Forum Access
         /// </summary>
-        /// <param name="repository">The repository.</param>
-        /// <param name="forumId">The forum identifier.</param>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="forumId">
+        /// The forum id.
+        /// </param>
+        /// <param name="groupId">
+        /// The group id.
+        /// </param>
+        /// <param name="accessMaskId">
+        /// The access mask id.
+        /// </param>
+        public static void Create(
+            this IRepository<ForumAccess> repository,
+            [NotNull] int forumId,
+            [NotNull] int groupId,
+            [NotNull] int accessMaskId)
+        {
+            CodeContracts.VerifyNotNull(repository, "repository");
+
+            repository.Insert(new ForumAccess { AccessMaskID = accessMaskId, GroupID = groupId, ForumID = forumId });
+        }
+
+        /// <summary>
+        /// Gets the forum access mask as List
+        /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="forumId">
+        /// The forum id.
+        /// </param>
         /// <returns>
-        /// Returns the list of entities
+        /// The <see cref="List"/>.
         /// </returns>
         public static List<ForumAccessList> GetForumAccessList(
             [NotNull] this IRepository<ForumAccess> repository,
-            int forumId)
+            [NotNull] int forumId)
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
@@ -118,18 +150,53 @@ namespace YAF.Core.Model
 
             var results = new List<ForumAccessList>();
 
-            foreach (var result in repository.DbAccess.Execute(db => db.Connection.Select<dynamic>(expression)))
+            repository.DbAccess.Execute(db => db.Connection.Select<dynamic>(expression)).ForEach(
+                result =>
+                    {
+                        var item = new ForumAccessList
+                                       {
+                                           GroupID = result.GroupID,
+                                           ForumID = result.ForumID,
+                                           AccessMaskID = result.AccessMaskID,
+                                           GroupName = result.GroupName
+                                       };
+
+                        results.Add(item);
+                    });
+
+            return results;
+        }
+
+        /// <summary>
+        /// Gets all groups for the selected board
+        /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="boardId">
+        /// The board id.
+        /// </param>
+        /// <returns>
+        /// The <see cref="List"/>.
+        /// </returns>
+        public static List<ForumAccessList> GetBoardAccessList([NotNull] this IRepository<ForumAccess> repository, [NotNull] int boardId)
+        {
+            CodeContracts.VerifyNotNull(repository, "repository");
+
+            var results = new List<ForumAccessList>();
+
+            var groups = YafContext.Current.GetRepository<Group>().GetByBoardId().ToList();
+
+            groups.ForEach(group =>
             {
                 var item = new ForumAccessList
                                {
-                                   GroupID = result.GroupID,
-                                   ForumID = result.ForumID,
-                                   AccessMaskID = result.AccessMaskID,
-                                   GroupName = result.GroupName
+                                   GroupID = group.ID,
+                                   GroupName = group.Name
                                };
 
                 results.Add(item);
-            }
+            });
 
             return results;
         }
@@ -159,20 +226,20 @@ namespace YAF.Core.Model
         {
             var listDestination = new DataTable();
 
-            listDestination.Columns.Add("ForumID", typeof(String));
-            listDestination.Columns.Add("ForumName", typeof(String));
+            listDestination.Columns.Add("ForumID", typeof(string));
+            listDestination.Columns.Add("ForumName", typeof(string));
 
             // it is uset in two different procedures with different tables,
             // so, we must add correct columns
             if (listSource.Columns.IndexOf("AccessMaskName") >= 0)
             {
-                listDestination.Columns.Add("AccessMaskName", typeof(String));
+                listDestination.Columns.Add("AccessMaskName", typeof(string));
             }
             else
             {
-                listDestination.Columns.Add("BoardName", typeof(String));
-                listDestination.Columns.Add("CategoryName", typeof(String));
-                listDestination.Columns.Add("AccessMaskId", typeof(Int32));
+                listDestination.Columns.Add("BoardName", typeof(string));
+                listDestination.Columns.Add("CategoryName", typeof(string));
+                listDestination.Columns.Add("AccessMaskId", typeof(int));
             }
 
             var dv = listSource.DefaultView;

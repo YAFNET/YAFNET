@@ -240,7 +240,7 @@ namespace YAF.Core.Extensions
         /// <returns>
         /// The <see cref="bool" /> .
         /// </returns>
-        public static bool Upsert<T>(
+        public static int Upsert<T>(
             [NotNull] this IRepository<T> repository,
             [NotNull] T entity,
             IDbTransaction transaction = null)
@@ -249,7 +249,18 @@ namespace YAF.Core.Extensions
             CodeContracts.VerifyNotNull(entity, "entity");
             CodeContracts.VerifyNotNull(repository, "repository");
 
-            return entity.ID > 0 ? repository.Update(entity) : repository.Insert(entity) > 0;
+            var newId = entity.ID;
+
+            if (entity.ID > 0)
+            {
+                repository.Update(entity);
+            }
+            else
+            {
+                newId = repository.Insert(entity);
+            }
+
+            return newId;
         }
 
         /// <summary>

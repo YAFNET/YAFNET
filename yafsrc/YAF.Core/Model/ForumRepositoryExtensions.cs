@@ -36,6 +36,7 @@ namespace YAF.Core.Model
     using YAF.Core.Extensions;
     using YAF.Types;
     using YAF.Types.Extensions;
+    using YAF.Types.Flags;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
     using YAF.Types.Models;
@@ -49,7 +50,7 @@ namespace YAF.Core.Model
         #region Public Methods and Operators
 
         /// <summary>
-        /// The forum_save.
+        /// Saves a Forum or if forumId is null creates a new Forum
         /// </summary>
         /// <param name="repository">
         /// The repository.
@@ -90,9 +91,6 @@ namespace YAF.Core.Model
         /// <param name="isModeratedNewTopicOnly">
         /// The is moderated new topic only.
         /// </param>
-        /// <param name="accessMaskID">
-        /// The access mask id.
-        /// </param>
         /// <param name="remoteURL">
         /// The remote url.
         /// </param>
@@ -100,56 +98,60 @@ namespace YAF.Core.Model
         /// The theme url.
         /// </param>
         /// <param name="imageURL">
-        /// The imageURL.
+        /// The image url.
         /// </param>
         /// <param name="styles">
         /// The styles.
         /// </param>
-        /// <param name="dummy">
-        /// The dummy.
-        /// </param>
         /// <returns>
-        /// Returns the forum id as long
+        /// The <see cref="int"/>.
         /// </returns>
-        public static long Save(
+        public static int Save(
             [NotNull] this IRepository<Forum> repository,
-            [NotNull] object forumID,
-            [NotNull] object categoryID,
-            [NotNull] object parentID,
-            [NotNull] object name,
-            [NotNull] object description,
-            [NotNull] object sortOrder,
-            [NotNull] object locked,
-            [NotNull] object hidden,
-            [NotNull] object isTest,
-            [NotNull] object moderated,
-            [NotNull] object moderatedPostCount,
-            [NotNull] object isModeratedNewTopicOnly,
-            [NotNull] object accessMaskID,
-            [NotNull] object remoteURL,
-            [NotNull] object themeURL,
-            [NotNull] object imageURL,
-            [NotNull] object styles,
-            bool dummy)
+            [NotNull] int? forumID,
+            [NotNull] int categoryID,
+            [CanBeNull] int? parentID,
+            [NotNull] string name,
+            [NotNull] string description,
+            [NotNull] int sortOrder,
+            [NotNull] bool locked,
+            [NotNull] bool hidden,
+            [NotNull] bool isTest,
+            [NotNull] bool moderated,
+            [CanBeNull] int? moderatedPostCount,
+            [NotNull] bool isModeratedNewTopicOnly,
+            [NotNull] string remoteURL,
+            [NotNull] string themeURL,
+            [NotNull] string imageURL,
+            [NotNull] string styles)
         {
-            return (long)repository.DbFunction.Scalar.forum_save(
-                ForumID: forumID,
-                CategoryID: categoryID,
-                ParentID: parentID,
-                Name: name,
-                Description: description,
-                SortOrder: sortOrder,
-                Locked: locked,
-                Hidden: hidden,
-                IsTest: isTest,
-                Moderated: moderated,
-                ModeratedPostCount: moderatedPostCount,
-                IsModeratedNewTopicOnly: isModeratedNewTopicOnly,
-                RemoteURL: remoteURL,
-                ThemeURL: themeURL,
-                ImageURL: imageURL,
-                Styles: styles,
-                AccessMaskID: accessMaskID);
+            if (parentID.HasValue && parentID.Equals(0))
+            {
+                parentID = null;
+            }
+
+            var flags = new ForumFlags
+                            {
+                                IsLocked = locked, IsHidden = hidden, IsTest = isTest, IsModerated = moderated
+                            };
+
+            return repository.Upsert(
+                new Forum
+                    {
+                        ParentID = parentID,
+                        ID = forumID ?? 0,
+                        Name = name,
+                        Description = description,
+                        SortOrder = sortOrder,
+                        CategoryID = categoryID,
+                        RemoteURL = remoteURL,
+                        ThemeURL = themeURL,
+                        ImageURL = imageURL,
+                        Styles = styles,
+                        Flags = flags.BitValue,
+                        ModeratedPostCount = moderatedPostCount,
+                        IsModeratedNewTopicOnly = isModeratedNewTopicOnly
+                    });
         }
 
         /// <summary>
@@ -384,13 +386,15 @@ namespace YAF.Core.Model
                 // find the base ids...
                 foreach (DataRow dataRow in dataTable.Rows)
                 {
-                    if (dataRow["ForumID"].ToType<int>() == startAt && dataRow["ParentID"] != DBNull.Value
-                                                                       && dataRow["CategoryID"] != DBNull.Value)
+                    if (dataRow["ForumID"].ToType<int>() != startAt || dataRow["ParentID"] == DBNull.Value
+                                                                    || dataRow["CategoryID"] == DBNull.Value)
                     {
-                        baseForumId = dataRow["ParentID"].ToType<int>();
-                        baseCategoryId = dataRow["CategoryID"].ToType<int>();
-                        break;
+                        continue;
                     }
+
+                    baseForumId = dataRow["ParentID"].ToType<int>();
+                    baseCategoryId = dataRow["CategoryID"].ToType<int>();
+                    break;
                 }
 
                 return repository.SortList(dataTable, baseForumId, baseCategoryId, 0, forumIdExclusions, emptyFirstRow);
@@ -793,7 +797,6 @@ namespace YAF.Core.Model
             listDestination.Columns.Add("ForumID", typeof(int));
             listDestination.Columns.Add("Title", typeof(string));
             listDestination.Columns.Add("Icon", typeof(string));
-
 
             if (emptyFirstRow)
             {

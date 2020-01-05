@@ -58,6 +58,34 @@
                             </asp:DropDownList>
                         </div>
                     </div>
+                    <hr/>
+                    <h3>
+                        <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" 
+                                            LocalizedTag="HEADER2" LocalizedPage="ADMIN_EDITFORUM" />
+                    </h3>
+                    <asp:Repeater ID="AccessList" runat="server">
+                        <HeaderTemplate>
+                            <div class="form-row">
+                        </HeaderTemplate>
+                        <FooterTemplate>
+                        </div>
+                        </FooterTemplate>
+                        <ItemTemplate>
+                            <div class="form-group col-md-4">
+                                <asp:HiddenField ID="GroupID" Visible="false" runat="server" 
+                                                 Value='<%# this.Eval( "GroupID") %>'>
+                                </asp:HiddenField>
+                                <asp:Label runat="server" Text='<%# this.Eval( "GroupName") %>' 
+                                           AssociatedControlID="AccessMaskID"></asp:Label>
+                                <asp:DropDownList runat="server" ID="AccessMaskID" 
+                                                  OnDataBinding="BindDataAccessMaskId" 
+                                                  CssClass="custom-select"
+                                                  OnPreRender="SetDropDownIndex" 
+                                                  Value='<%# this.Eval("AccessMaskID") %>' />
+                            </div>
+                        </ItemTemplate>
+                    </asp:Repeater>
+                    <hr/>
                     <div class="form-group">
                         <YAF:HelpLabel ID="HelpLabel14" runat="server" 
                                        AssociatedControlID="remoteurl"
@@ -167,41 +195,6 @@
                                    LocalizedTag="STYLES" LocalizedPage="ADMIN_EDITFORUM" />
                     <asp:TextBox ID="Styles" runat="server" CssClass="form-control"></asp:TextBox>
                 </div>
-                <hr/>
-                <h3><YAF:LocalizedLabel ID="LocalizedLabel4" 
-                                 runat="server" LocalizedTag="HEADER2" LocalizedPage="ADMIN_EDITFORUM" /></h3>
-                <asp:PlaceHolder id="NewGroupRow" runat="server">
-                    <div class="form-group">
-                        <YAF:HelpLabel ID="HelpLabel5" runat="server" 
-                                       AssociatedControlID="AccessMaskID"
-                                       LocalizedTag="INITAL_MASK" LocalizedPage="ADMIN_EDITFORUM" />
-                        <asp:DropDownList ID="AccessMaskID" OnDataBinding="BindDataAccessMaskId" CssClass="custom-select"
-                                          runat="server">
-                        </asp:DropDownList>
-                    </div>
-                </asp:PlaceHolder>
-                    <asp:Repeater ID="AccessList" runat="server">
-                        <HeaderTemplate>
-                            <div class="form-row">
-                        </HeaderTemplate>
-                        <FooterTemplate>
-                            </div>
-                        </FooterTemplate>
-                        <ItemTemplate>
-                            <div class="form-group col-md-4">
-                                <asp:HiddenField ID="GroupID" Visible="false" runat="server" 
-                                                 Value='<%# this.Eval( "GroupID") %>'>
-                                </asp:HiddenField>
-                                <asp:Label runat="server" Text='<%# this.Eval( "GroupName") %>' 
-                                           AssociatedControlID="AccessMaskID"></asp:Label>
-                                <asp:DropDownList runat="server" ID="AccessMaskID" 
-                                                  OnDataBinding="BindDataAccessMaskId" 
-                                                  CssClass="custom-select"
-                                                  OnPreRender="SetDropDownIndex" 
-                                                  Value='<%# this.Eval("AccessMaskID") %>' />
-                            </div>
-                        </ItemTemplate>
-                    </asp:Repeater>
                 </div>
                 <div class="card-footer text-center">
                 <YAF:ThemeButton ID="Save" runat="server" 

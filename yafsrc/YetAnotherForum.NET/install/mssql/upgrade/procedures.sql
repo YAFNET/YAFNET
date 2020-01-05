@@ -2851,69 +2851,6 @@ BEGIN
 END
 GO
 
-CREATE procedure [{databaseOwner}].[{objectQualifier}forum_save](
-    @ForumID 		int=null,
-    @CategoryID		int,
-    @ParentID		int=null,
-    @Name			nvarchar(50),
-    @Description	nvarchar(255),
-    @SortOrder		smallint,
-    @Locked			bit,
-    @Hidden			bit,
-    @IsTest			bit,
-    @Moderated		bit,
-	@ModeratedPostCount int = null,
-	@IsModeratedNewTopicOnly bit,
-    @RemoteURL		nvarchar(100)=null,
-    @ThemeURL		nvarchar(100)=null,
-    @ImageURL       nvarchar(128)=null,
-    @Styles         nvarchar(255)=null,
-    @AccessMaskID	int = null
-) as
-begin
-    declare @BoardID	int
-    declare @Flags		int
-
-    set @Flags = 0
-    if @Locked<>0 set @Flags = @Flags | 1
-    if @Hidden<>0 set @Flags = @Flags | 2
-    if @IsTest<>0 set @Flags = @Flags | 4
-    if @Moderated<>0 set @Flags = @Flags | 8
-
-    if @ForumID = 0 set @ForumID = null
-    if @ParentID = 0 set @ParentID = null
-
-    if @ForumID is not null begin
-        update [{databaseOwner}].[{objectQualifier}Forum] set
-            ParentID=@ParentID,
-            Name=@Name,
-            [Description]=@Description,
-            SortOrder=@SortOrder,
-            CategoryID=@CategoryID,
-            RemoteURL = @RemoteURL,
-            ThemeURL = @ThemeURL,
-            ImageURL = @ImageURL,
-            Styles = @Styles,
-            Flags = @Flags,
-			ModeratedPostCount = @ModeratedPostCount,
-			IsModeratedNewTopicOnly = @IsModeratedNewTopicOnly
-        where ForumID=@ForumID
-    end
-    else begin
-
-        insert into [{databaseOwner}].[{objectQualifier}Forum](ParentID,Name,Description,SortOrder,CategoryID,NumTopics,NumPosts,RemoteURL,ThemeURL,Flags,ImageURL,Styles,ModeratedPostCount,IsModeratedNewTopicOnly)
-        values(@ParentID,@Name,@Description,@SortOrder,@CategoryID,0,0,@RemoteURL,@ThemeURL,@Flags,@ImageURL,@Styles,@ModeratedPostCount,@IsModeratedNewTopicOnly)
-        select @ForumID = SCOPE_IDENTITY()
-
-        insert into [{databaseOwner}].[{objectQualifier}ForumAccess](GroupID,ForumID,AccessMaskID)
-        select GroupID,@ForumID,@AccessMaskID
-        from [{databaseOwner}].[{objectQualifier}Group]
-        where BoardID IN (select BoardID from [{databaseOwner}].[{objectQualifier}Category] where CategoryID=@CategoryID)
-    end
-    select ForumID = @ForumID
-end
-GO
-
 create procedure [{databaseOwner}].[{objectQualifier}forum_updatelastpost](@ForumID int) as
 begin
     DECLARE @Posted DATETIME
