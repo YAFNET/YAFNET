@@ -7525,9 +7525,9 @@ select.is-valid ~ .select2-container--bootstrap4 .select2-selection {
   max-height: -webkit-max-content;
   max-height: -moz-max-content;
   max-height: max-content;
-  max-width: -webkit-max-content;
-  max-width: -moz-max-content;
-  max-width: max-content; }
+  min-width: -webkit-max-content;
+  min-width: -moz-max-content;
+  min-width: max-content; }
 
 /* Select Drop downs */
 .select2-image-select-icon {
