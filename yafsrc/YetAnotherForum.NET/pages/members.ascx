@@ -24,12 +24,16 @@
     <div class="col">
         <div class="card mb-3">
             <div class="card-header">
-                <i class="fas fa-users fa-fw text-secondary pr-1"></i>
-                <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" 
-                                    LocalizedTag="TITLE" />
-                <div class="btn-toolbar float-right" role="toolbar">
-                    <div class="btn-group mr-2" role="group" aria-label="sort">
-                        <YAF:ThemeButton ID="Sort" runat="server"
+                <div class="row justify-content-between">
+                    <div class="col-md-3">
+                        <i class="fas fa-users fa-fw text-secondary pr-1"></i>
+                        <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" 
+                                            LocalizedTag="TITLE" />
+                    </div>
+                    <div class="col-md-3 mt-1">
+                        <div class="btn-toolbar" role="toolbar">
+                            <div class="btn-group mr-2" role="group" aria-label="sort">
+                                <YAF:ThemeButton ID="Sort" runat="server"
                                      CssClass="dropdown-toggle"
                                      Type="Secondary"
                                      DataToggle="dropdown"
@@ -91,8 +95,8 @@
                                          OnClick="LastVisitDesc_Click"
                                          TextLocalizedTag="LASTVISIT_DESC" />
                     </div>
-                    </div>
-                    <div class="btn-group dropleft" role="group" aria-label="Filters">
+                            </div>
+                            <div class="btn-group dropleft" role="group" aria-label="Filters">
                         <YAF:ThemeButton runat="server"
                                          CssClass="dropdown-toggle"
                                          DataToggle="dropdown"
@@ -160,6 +164,8 @@
                             </div>
                         </div>
                         </div>
+                    </div>
+                </div>
             </div>
             <div class="card-body">
                 <YAF:AlphaSort ID="AlphaSort1" runat="server" />

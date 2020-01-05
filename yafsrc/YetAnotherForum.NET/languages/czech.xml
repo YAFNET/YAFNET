@@ -2697,6 +2697,7 @@
     <Resource tag="GIVEN_THANKS_MSG">Given Thanks to {0} in the Topic {1}</Resource>
     <Resource tag="GROUPS">Jste členem těchto skupin:</Resource>
     <Resource tag="INBOX">Schránka</Resource>
+    <Resource tag="ITEMS">Show Items</Resource>
     <Resource tag="JOINED">Registrován od:</Resource>
     <Resource tag="MESSENGER">Osobní vzkazy:</Resource>
     <Resource tag="NEW_MESSAGE">Nový vzkaz</Resource>
@@ -2707,6 +2708,7 @@
     <Resource tag="SENTITEMS">Odeslané</Resource>
     <Resource tag="SIGNATURE">Podpis</Resource>
     <Resource tag="SUBSCRIPTIONS">Přihlásit</Resource>
+    <Resource tag="UNREAD_ONLY">Show only unread Activity</Resource>
     <Resource tag="VIEW_PROFILE">View Profile</Resource>
     <Resource tag="WAS_MENTIONED">Was Mentioned</Resource>
     <Resource tag="WAS_MENTIONED_MSG">Was Mentioned by {0} in the Topic {1}</Resource>

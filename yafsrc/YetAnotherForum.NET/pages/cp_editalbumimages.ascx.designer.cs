@@ -132,13 +132,13 @@ namespace YAF.Pages
         protected global::System.Web.UI.HtmlControls.HtmlInputFile File;
 
         /// <summary>
-        /// SelectFile control.
+        /// LocalizedLabel3 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.Controls.LocalizedLabel SelectFile;
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel3;
 
         /// <summary>
         /// Upload control.

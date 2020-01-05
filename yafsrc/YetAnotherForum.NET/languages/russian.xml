@@ -2681,6 +2681,7 @@
     <Resource tag="GIVEN_THANKS_MSG">Given Thanks to {0} in the Topic {1}</Resource>
     <Resource tag="GROUPS">Вы входите в группу/группы:</Resource>
     <Resource tag="INBOX">Входящие</Resource>
+    <Resource tag="ITEMS">Show Items</Resource>
     <Resource tag="JOINED">Дата регистрации:</Resource>
     <Resource tag="MESSENGER">Личные сообщения:</Resource>
     <Resource tag="NEW_MESSAGE">Новое сообщение</Resource>
@@ -2691,6 +2692,7 @@
     <Resource tag="SENTITEMS">Отправленные</Resource>
     <Resource tag="SIGNATURE">Подпись</Resource>
     <Resource tag="SUBSCRIPTIONS">Уведомления по Email</Resource>
+    <Resource tag="UNREAD_ONLY">Show only unread Activity</Resource>
     <Resource tag="VIEW_PROFILE">Просмотр профиля</Resource>
     <Resource tag="WAS_MENTIONED">Was Mentioned</Resource>
     <Resource tag="WAS_MENTIONED_MSG">Was Mentioned by {0} in the Topic {1}</Resource>

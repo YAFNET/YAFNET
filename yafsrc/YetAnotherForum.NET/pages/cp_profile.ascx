@@ -26,23 +26,7 @@
             </div>
         </div>
         <asp:PlaceHolder runat="server" ID="ActivityPlaceHolder">
-            <div class="row">
-                <div class="col">
-                    <div class="card mb-3" id="activity">
-                        <div class="card-header">
-                            <YAF:Icon runat="server" 
-                                      IconName="stream"
-                                      IconType="text-secondary"></YAF:Icon>
-                            <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" 
-                                                LocalizedTag="ACTIVITY"
-                                                LocalizedPage="CP_PROFILE" />
-                        </div>
-                        <div class="card-body">
-                            <YAF:ProfileTimeline runat="server"></YAF:ProfileTimeline>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <YAF:ProfileTimeline runat="server"></YAF:ProfileTimeline>
         </asp:PlaceHolder>
     </div>
 </div>

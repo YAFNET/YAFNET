@@ -178,7 +178,6 @@ namespace YAF.Pages
             this.BindData();
         }
         
-
         /// <summary>
         /// Binds the data.
         /// </summary>

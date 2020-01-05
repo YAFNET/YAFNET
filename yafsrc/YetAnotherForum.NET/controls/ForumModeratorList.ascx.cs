@@ -34,7 +34,6 @@ namespace YAF.Controls
     using YAF.Configuration;
     using YAF.Core.BaseControls;
     using YAF.Core.Utilities;
-    using YAF.Types;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Utils.Helpers;
@@ -47,18 +46,6 @@ namespace YAF.Controls
     /// </summary>
     public partial class ForumModeratorList : BaseUserControl
     {
-        #region Constructors and Destructors
-
-        /// <summary>
-        ///   Initializes a new instance of the <see cref = "ForumModeratorList" /> class.
-        /// </summary>
-        public ForumModeratorList()
-        {
-            this.PreRender += this.ForumModeratorList_PreRender;
-        }
-
-        #endregion
-
         #region Properties
 
         /// <summary>
@@ -71,23 +58,20 @@ namespace YAF.Controls
         #region Methods
 
         /// <summary>
-        /// The forum moderator list_ pre render.
+        /// Handles the PreRender event
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
-        private void ForumModeratorList_PreRender([NotNull] object sender, [NotNull] EventArgs e)
-        {
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+        protected override void OnPreRender(EventArgs e)
+        { 
+            base.OnPreRender(e);
+
             if (((DataRow[])this.DataSource).Length == 0)
             {
                 this.ShowMods.Visible = false;
 
                 return;
             }
-            
+
             this.PageContext.PageElements.RegisterJsBlockStartup(
                 "ForumModsPopoverJs",
                 JavaScriptBlocks.ForumModsPopoverJs(
@@ -99,33 +83,33 @@ namespace YAF.Controls
 
             this.DataSource.Cast<DataRow>().ForEach(
                 row =>
+                {
+                    content.Append("<li>");
+
+                    if (row["IsGroup"].ToType<int>() == 0)
                     {
-                        content.Append("<li>");
-
-                        if (row["IsGroup"].ToType<int>() == 0)
+                        // Render Moderator User Link
+                        var userLink = new UserLink
                         {
-                            // Render Moderator User Link
-                            var userLink = new UserLink
-                                               {
-                                                   UserID = row["ModeratorID"].ToType<int>(),
-                                                   ReplaceName = row[this.Get<YafBoardSettings>().EnableDisplayName
-                                                                         ? "ModeratorDisplayName"
-                                                                         : "ModeratorName"].ToString()
-                                               };
+                            UserID = row["ModeratorID"].ToType<int>(),
+                            ReplaceName = row[this.Get<YafBoardSettings>().EnableDisplayName
+                                                                     ? "ModeratorDisplayName"
+                                                                     : "ModeratorName"].ToString()
+                        };
 
-                            content.Append(userLink.RenderToString());
-                        }
-                        else
-                        {
-                            // render mod group
-                            content.Append(
-                                row[this.Get<YafBoardSettings>().EnableDisplayName
-                                        ? "ModeratorDisplayName"
-                                        : "ModeratorName"]);
-                        }
+                        content.Append(userLink.RenderToString());
+                    }
+                    else
+                    {
+                        // render mod group
+                        content.Append(
+                            row[this.Get<YafBoardSettings>().EnableDisplayName
+                                    ? "ModeratorDisplayName"
+                                    : "ModeratorName"]);
+                    }
 
-                        content.Append(@"</li>");
-                    });
+                    content.Append(@"</li>");
+                });
 
             content.Append("</ol>");
 

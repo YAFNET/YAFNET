@@ -271,6 +271,95 @@ namespace YAF.Pages
         /// </param>
         protected override void OnPreRender([NotNull] EventArgs e)
         {
+            var isWatched = this.HandleWatchTopic();
+
+            // share menu...
+            this.ShareMenu.Visible = this.ShareLink.Visible =
+                                         this.Get<IPermissions>().Check(this.Get<YafBoardSettings>().ShowShareTopicTo);
+
+            if (this.Get<IPermissions>().Check(this.Get<YafBoardSettings>().ShowShareTopicTo))
+            {
+                var topicUrl = YafBuildLink.GetLinkNotEscaped(
+                    ForumPages.posts, true, "t={0}", this.PageContext.PageTopicID);
+
+                if (this.Get<YafBoardSettings>().AllowEmailTopic)
+                {
+                    this.ShareMenu.AddPostBackItem(
+                        "email", this.GetText("EMAILTOPIC"), "fa fa-paper-plane");
+                }
+
+                this.ShareMenu.AddClientScriptItem(
+                    this.GetText("LINKBACK_TOPIC"),
+                    $@"bootbox.prompt({{ 
+                                      title: '{this.GetText("LINKBACK_TOPIC")}',
+                                      message: '{this.GetText("LINKBACK_TOPIC_PROMT")}',
+	                                  value: '{topicUrl}',
+                                      callback: function(){{}}
+	                              }});",
+                    "fa fa-link");
+                this.ShareMenu.AddPostBackItem("retweet", this.GetText("RETWEET_TOPIC"), "fab fa-twitter");
+
+                var facebookUrl = $"http://www.facebook.com/plugins/like.php?href={this.Server.UrlEncode(topicUrl)}";
+
+                this.ShareMenu.AddClientScriptItem(
+                    this.GetText("FACEBOOK_TOPIC"),
+                    $@"window.open('{facebookUrl}','{this.GetText("FACEBOOK_TOPIC")}','width=300,height=200,resizable=yes');",
+                    "fab fa-facebook");
+
+                var facebookShareUrl =
+                    $"https://www.facebook.com/sharer/sharer.php?u={this.Server.UrlEncode(topicUrl)}";
+
+                this.ShareMenu.AddClientScriptItem(
+                    this.GetText("FACEBOOK_SHARE_TOPIC"),
+                    $@"window.open('{facebookShareUrl}','{this.GetText("FACEBOOK_SHARE_TOPIC")}','width=550,height=690,resizable=yes');",
+                    "fab fa-facebook");
+                this.ShareMenu.AddPostBackItem(
+                    "reddit", this.GetText("REDDIT_TOPIC"), "fab fa-reddit");
+
+                this.ShareMenu.AddPostBackItem(
+                    "tumblr", this.GetText("TUMBLR_TOPIC"), "fab fa-tumblr");
+            }
+            else
+            {
+                if (this.Get<YafBoardSettings>().AllowEmailTopic)
+                {
+                    this.OptionsMenu.AddPostBackItem(
+                        "email", this.GetText("EMAILTOPIC"), "fa fa-email");
+                }
+            }
+
+            // options menu...
+            this.OptionsMenu.AddPostBackItem(
+                "watch",
+                isWatched ? this.GetText("UNWATCHTOPIC") : this.GetText("WATCHTOPIC"),
+                isWatched ? "fa fa-eye-slash" : "fa fa-eye");
+
+            this.OptionsMenu.AddPostBackItem(
+                "print", this.GetText("PRINTTOPIC"), "fa fa-print");
+
+            if (this.Get<YafBoardSettings>().ShowAtomLink
+                && this.Get<IPermissions>().Check(this.Get<YafBoardSettings>().PostsFeedAccess))
+            {
+                this.OptionsMenu.AddPostBackItem(
+                    "atomfeed", this.GetText("ATOMTOPIC"), "fa fa-rss");
+            }
+
+            if (this.Get<YafBoardSettings>().ShowRSSLink
+                && this.Get<IPermissions>().Check(this.Get<YafBoardSettings>().PostsFeedAccess))
+            {
+                this.OptionsMenu.AddPostBackItem(
+                    "rssfeed", this.GetText("RSSTOPIC"), "fa fa-rss-square");
+            }
+
+            // attach the menus to HyperLinks
+            this.ShareMenu.Attach(this.ShareLink);
+            this.OptionsMenu.Attach(this.OptionsLink);
+
+            if (!this.dataBound)
+            {
+                this.BindData();
+            }
+
             base.OnPreRender(e);
         }
 
@@ -1061,7 +1150,6 @@ namespace YAF.Pages
         private void InitializeComponent()
         {
             // Poll.ItemCommand += Poll_ItemCommand;
-            this.PreRender += this.PostsPreRender;
             this.ShareMenu.ItemClick += this.ShareMenuItemClick;
             this.OptionsMenu.ItemClick += this.OptionsMenuItemClick;
         }
@@ -1197,103 +1285,6 @@ namespace YAF.Pages
                     break;
                 default:
                     throw new ApplicationException(e.Item);
-            }
-        }
-
-        /// <summary>
-        /// The posts_ pre render.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        private void PostsPreRender([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            var isWatched = this.HandleWatchTopic();
-
-            // share menu...
-            this.ShareMenu.Visible = this.ShareLink.Visible =
-                                         this.Get<IPermissions>().Check(this.Get<YafBoardSettings>().ShowShareTopicTo);
-
-            if (this.Get<IPermissions>().Check(this.Get<YafBoardSettings>().ShowShareTopicTo))
-            {
-                var topicUrl = YafBuildLink.GetLinkNotEscaped(
-                    ForumPages.posts, true, "t={0}", this.PageContext.PageTopicID);
-
-                if (this.Get<YafBoardSettings>().AllowEmailTopic)
-                {
-                    this.ShareMenu.AddPostBackItem(
-                        "email", this.GetText("EMAILTOPIC"), "fa fa-paper-plane");
-                }
-
-                this.ShareMenu.AddClientScriptItem(
-                    this.GetText("LINKBACK_TOPIC"),
-                    $@"bootbox.prompt({{ 
-                                      title: '{this.GetText("LINKBACK_TOPIC")}',
-                                      message: '{this.GetText("LINKBACK_TOPIC_PROMT")}',
-	                                  value: '{topicUrl}',
-                                      callback: function(){{}}
-	                              }});",
-                    "fa fa-link");
-                this.ShareMenu.AddPostBackItem("retweet", this.GetText("RETWEET_TOPIC"), "fab fa-twitter");
-
-                var facebookUrl = $"http://www.facebook.com/plugins/like.php?href={this.Server.UrlEncode(topicUrl)}";
-
-                this.ShareMenu.AddClientScriptItem(
-                    this.GetText("FACEBOOK_TOPIC"),
-                    $@"window.open('{facebookUrl}','{this.GetText("FACEBOOK_TOPIC")}','width=300,height=200,resizable=yes');",
-                    "fab fa-facebook");
-
-                var facebookShareUrl =
-                    $"https://www.facebook.com/sharer/sharer.php?u={this.Server.UrlEncode(topicUrl)}";
-
-                this.ShareMenu.AddClientScriptItem(
-                    this.GetText("FACEBOOK_SHARE_TOPIC"),
-                    $@"window.open('{facebookShareUrl}','{this.GetText("FACEBOOK_SHARE_TOPIC")}','width=550,height=690,resizable=yes');",
-                    "fab fa-facebook");
-                this.ShareMenu.AddPostBackItem(
-                    "reddit", this.GetText("REDDIT_TOPIC"), "fab fa-reddit");
-
-                this.ShareMenu.AddPostBackItem(
-                    "tumblr", this.GetText("TUMBLR_TOPIC"), "fab fa-tumblr");
-            }
-            else
-            {
-                if (this.Get<YafBoardSettings>().AllowEmailTopic)
-                {
-                    this.OptionsMenu.AddPostBackItem(
-                        "email", this.GetText("EMAILTOPIC"), "fa fa-email");
-                }
-            }
-
-            // options menu...
-            this.OptionsMenu.AddPostBackItem(
-                "watch",
-                isWatched ? this.GetText("UNWATCHTOPIC") : this.GetText("WATCHTOPIC"),
-                isWatched ? "fa fa-eye-slash" : "fa fa-eye");
-
-            this.OptionsMenu.AddPostBackItem(
-                "print", this.GetText("PRINTTOPIC"), "fa fa-print");
-
-            if (this.Get<YafBoardSettings>().ShowAtomLink
-                && this.Get<IPermissions>().Check(this.Get<YafBoardSettings>().PostsFeedAccess))
-            {
-                this.OptionsMenu.AddPostBackItem(
-                    "atomfeed", this.GetText("ATOMTOPIC"), "fa fa-rss");
-            }
-
-            if (this.Get<YafBoardSettings>().ShowRSSLink
-                && this.Get<IPermissions>().Check(this.Get<YafBoardSettings>().PostsFeedAccess))
-            {
-                this.OptionsMenu.AddPostBackItem(
-                    "rssfeed", this.GetText("RSSTOPIC"), "fa fa-rss-square");
-            }
-
-            // attach the menus to HyperLinks
-            this.ShareMenu.Attach(this.ShareLink);
-            this.OptionsMenu.Attach(this.OptionsLink);
-
-            if (!this.dataBound)
-            {
-                this.BindData();
             }
         }
     }

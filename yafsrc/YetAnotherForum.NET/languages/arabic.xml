@@ -2691,6 +2691,7 @@
     <Resource tag="GIVEN_THANKS_MSG">Given Thanks to {0} in the Topic {1}</Resource>
     <Resource tag="GROUPS">انت عضو من هذه المجموعات</Resource>
     <Resource tag="INBOX">الوارد</Resource>
+    <Resource tag="ITEMS">Show Items</Resource>
     <Resource tag="JOINED">:انت عضو منذ </Resource>
     <Resource tag="MESSENGER">ماسنجر:</Resource>
     <Resource tag="NEW_MESSAGE">رسالة جديدة</Resource>
@@ -2701,6 +2702,7 @@
     <Resource tag="SENTITEMS">العناصر المرسلة</Resource>
     <Resource tag="SIGNATURE">التوقيع</Resource>
     <Resource tag="SUBSCRIPTIONS">بعت اشعار  الى  البريد الالكتروني  بالتفضيلات </Resource>
+    <Resource tag="UNREAD_ONLY">Show only unread Activity</Resource>
     <Resource tag="VIEW_PROFILE">عرض الملف الشخصي</Resource>
     <Resource tag="WAS_MENTIONED">Was Mentioned</Resource>
     <Resource tag="WAS_MENTIONED_MSG">Was Mentioned by {0} in the Topic {1}</Resource>

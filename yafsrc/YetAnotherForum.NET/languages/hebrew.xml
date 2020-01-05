@@ -2720,6 +2720,7 @@
     <Resource tag="GIVEN_THANKS_MSG">Given Thanks to {0} in the Topic {1}</Resource>
     <Resource tag="GROUPS">א/תה חבר/ה בקבוצות הבאות:</Resource>
     <Resource tag="INBOX">תיבת דואר נכנס</Resource>
+    <Resource tag="ITEMS">Show Items</Resource>
     <Resource tag="JOINED">את/ה חבר/ה מאז:</Resource>
     <Resource tag="MESSENGER">תוכנת מסרים מיידיים:</Resource>
     <Resource tag="NEW_MESSAGE">הודעה חדשה</Resource>
@@ -2730,6 +2731,7 @@
     <Resource tag="SENTITEMS">פריטים שנשלחו</Resource>
     <Resource tag="SIGNATURE">חתימה</Resource>
     <Resource tag="SUBSCRIPTIONS">מנויים</Resource>
+    <Resource tag="UNREAD_ONLY">Show only unread Activity</Resource>
     <Resource tag="VIEW_PROFILE">View Profile</Resource>
     <Resource tag="WAS_MENTIONED">Was Mentioned</Resource>
     <Resource tag="WAS_MENTIONED_MSG">Was Mentioned by {0} in the Topic {1}</Resource>

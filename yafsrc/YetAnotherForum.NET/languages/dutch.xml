@@ -2694,6 +2694,7 @@
     <Resource tag="GIVEN_THANKS_MSG">Given Thanks to {0} in the Topic {1}</Resource>
     <Resource tag="GROUPS">Je bent lid van deze groepen:</Resource>
     <Resource tag="INBOX">Postvak IN</Resource>
+    <Resource tag="ITEMS">Show Items</Resource>
     <Resource tag="JOINED">Je bent lid sinds:</Resource>
     <Resource tag="MESSENGER">MSN:</Resource>
     <Resource tag="NEW_MESSAGE">Nieuw bericht</Resource>
@@ -2704,6 +2705,7 @@
     <Resource tag="SENTITEMS">Verzonden Items</Resource>
     <Resource tag="SIGNATURE">Handtekening</Resource>
     <Resource tag="SUBSCRIPTIONS">Gevolgde discussies</Resource>
+    <Resource tag="UNREAD_ONLY">Show only unread Activity</Resource>
     <Resource tag="VIEW_PROFILE">Bekijk profiel</Resource>
     <Resource tag="WAS_MENTIONED">Was Mentioned</Resource>
     <Resource tag="WAS_MENTIONED_MSG">Was Mentioned by {0} in the Topic {1}</Resource>

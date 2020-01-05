@@ -32,10 +32,13 @@ namespace YAF.Controls
     using YAF.Core.BaseControls;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
+    using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Constants;
+    using YAF.Types.EventProxies;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Events;
     using YAF.Types.Models;
     using YAF.Utils;
     using YAF.Utils.Helpers;
@@ -56,6 +59,17 @@ namespace YAF.Controls
         protected int ItemCount { get; set; }
 
         /// <summary>
+        /// Registers the needed Java Scripts
+        /// </summary>
+        /// <param name="e">An <see cref="T:System.EventArgs"/> object that contains the event data.</param>
+        protected override void OnPreRender([NotNull] EventArgs e)
+        {
+            this.PageContext.PageElements.RegisterJsBlock("dropDownToggleJs", JavaScriptBlocks.DropDownToggleJs());
+
+            base.OnPreRender(e);
+        }
+
+        /// <summary>
         /// The page_ load.
         /// </summary>
         /// <param name="sender">
@@ -66,10 +80,35 @@ namespace YAF.Controls
         /// </param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            if (!this.IsPostBack)
+            this.CreatedTopic.Text = this.GetText("CREATED_TOPIC");
+            this.CreatedReply.Text = this.GetText("CREATED_REPLY");
+            this.WasMentioned.Text = this.GetText("WAS_MENTIONED");
+            this.ReceivedThanks.Text = this.GetText("RECEIVED_THANKS");
+            this.GivenThanks.Text = this.GetText("GIVEN_THANKS");
+            this.WasQuoted.Text = this.GetText("WAS_QUOTED");
+
+            this.UnreadOnly.Text = this.GetText("UNREAD_ONLY");
+
+            if (this.IsPostBack)
             {
-                this.BindData();
+                return;
             }
+
+            var previousPageSize = this.Get<IYafSession>().UserActivityPageSize;
+
+            if (previousPageSize.HasValue)
+            {
+                // look for value previously selected
+                var sinceItem = this.PageSize.Items.FindByValue(previousPageSize.Value.ToString());
+
+                // and select it if found
+                if (sinceItem != null)
+                {
+                    this.PageSize.SelectedIndex = this.PageSize.Items.IndexOf(sinceItem);
+                }
+            }
+
+            this.BindData();
         }
 
         /// <summary>
@@ -135,9 +174,8 @@ namespace YAF.Controls
                                             ForumPages.posts,
                                             "m={0}#post{0}",
                                             activity.MessageID.Value),
-                                    Type = ButtonAction.Link,
-                                    Text = this.GetRepository<Topic>().GetById(activity.TopicID.Value)
-                                        .TopicName,
+                                    Type = ButtonAction.None,
+                                    Text = this.GetRepository<Topic>().GetById(activity.TopicID.Value).TopicName,
                                     Icon = "comment"
                                 };
 
@@ -163,7 +201,10 @@ namespace YAF.Controls
 
                 title.Text = this.GetText("CP_PROFILE", "GIVEN_THANKS");
                 icon = "heart";
-                message = this.GetTextFormatted("GIVEN_THANKS_MSG", userLink.RenderToString(), topicLink.RenderToString());
+                message = this.GetTextFormatted(
+                    "GIVEN_THANKS_MSG",
+                    userLink.RenderToString(),
+                    topicLink.RenderToString());
             }
 
             if (activity.ActivityFlags.ReceivedThanks)
@@ -172,7 +213,10 @@ namespace YAF.Controls
 
                 title.Text = this.GetText("CP_PROFILE", "RECEIVED_THANKS");
                 icon = "heart";
-                message = this.GetTextFormatted("RECEIVED_THANKS_MSG", userLink.RenderToString(), topicLink.RenderToString());
+                message = this.GetTextFormatted(
+                    "RECEIVED_THANKS_MSG",
+                    userLink.RenderToString(),
+                    topicLink.RenderToString());
             }
 
             if (activity.ActivityFlags.WasMentioned)
@@ -181,7 +225,10 @@ namespace YAF.Controls
 
                 title.Text = this.GetText("CP_PROFILE", "WAS_MENTIONED");
                 icon = "at";
-                message = this.GetTextFormatted("WAS_MENTIONED_MSG", userLink.RenderToString(), topicLink.RenderToString());
+                message = this.GetTextFormatted(
+                    "WAS_MENTIONED_MSG",
+                    userLink.RenderToString(),
+                    topicLink.RenderToString());
             }
 
             if (activity.ActivityFlags.WasQuoted)
@@ -190,7 +237,10 @@ namespace YAF.Controls
 
                 title.Text = this.GetText("CP_PROFILE", "WAS_QUOTED");
                 icon = "quote-left";
-                message = this.GetTextFormatted("WAS_QUOTED_MSG", userLink.RenderToString(), topicLink.RenderToString());
+                message = this.GetTextFormatted(
+                    "WAS_QUOTED_MSG",
+                    userLink.RenderToString(),
+                    topicLink.RenderToString());
             }
 
             var notify = activity.Notification ? "text-success" : "text-secondary";
@@ -237,6 +287,8 @@ namespace YAF.Controls
         {
             this.GetRepository<Activity>().MarkAllAsRead(this.PageContext.PageUserID);
 
+            this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.PageContext.PageUserID));
+
             this.BindData();
         }
 
@@ -256,7 +308,60 @@ namespace YAF.Controls
                 return;
             }
 
-            this.GetRepository<Activity>().UpdateNotification(this.PageContext.PageUserID, e.CommandArgument.ToType<int>());
+            this.GetRepository<Activity>().UpdateNotification(
+                this.PageContext.PageUserID,
+                e.CommandArgument.ToType<int>());
+
+            this.BindData();
+        }
+
+        /// <summary>
+        /// The update filter click.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        protected void UpdateFilterClick(object sender, EventArgs e)
+        {
+            this.BindData();
+        }
+
+        /// <summary>
+        /// Reset Filter
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        protected void ResetClick(object sender, EventArgs e)
+        {
+            this.CreatedTopic.Checked = true;
+            this.CreatedReply.Checked = true;
+            this.WasMentioned.Checked = true;
+            this.ReceivedThanks.Checked = true;
+            this.GivenThanks.Checked = true;
+            this.WasQuoted.Checked = true;
+
+            this.BindData();
+        }
+
+        /// <summary>
+        /// The page size selected index changed.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        protected void PageSizeSelectedIndexChanged(object sender, EventArgs e)
+        {
+            this.Get<IYafSession>().UserActivityPageSize = this.PageSize.SelectedValue.ToType<int>();
 
             this.BindData();
         }
@@ -264,23 +369,63 @@ namespace YAF.Controls
         /// <summary>
         /// The bind data.
         /// </summary>
-        private void BindData()
+            private void BindData()
         {
-            this.PagerTop.PageSize = 5;
+            this.PagerTop.PageSize = this.PageSize.SelectedValue.ToType<int>();
 
-            var stream = this.GetRepository<Activity>().GetPaged(
-                x => x.UserID == this.PageContext.PageUserID,
-                this.PagerTop.CurrentPageIndex,
-                this.PagerTop.PageSize);
+            var stream = this.GetRepository<Activity>().Get(x => x.UserID == this.PageContext.PageUserID);
 
-            this.ActivityStream.DataSource = stream;
+            if (!this.CreatedTopic.Checked)
+            {
+                stream.RemoveAll(a => a.CreatedTopic);
+            }
 
-            this.PagerTop.Count = stream != null && stream.Any()
-                                      ? this.GetRepository<Activity>()
-                                          .Count(x => x.UserID == this.PageContext.PageUserID).ToType<int>()
-                                      : 0;
+            if (!this.CreatedReply.Checked)
+            {
+                stream.RemoveAll(a => a.CreatedReply);
+            }
 
-            this.ItemCount = stream.Count;
+            if (!this.WasMentioned.Checked)
+            {
+                stream.RemoveAll(a => a.WasMentioned);
+            }
+
+            if (!this.ReceivedThanks.Checked)
+            {
+                stream.RemoveAll(a => a.ReceivedThanks);
+            }
+
+            if (!this.GivenThanks.Checked)
+            {
+                stream.RemoveAll(a => a.GivenThanks);
+            }
+
+            if (!this.WasQuoted.Checked)
+            {
+                stream.RemoveAll(a => a.WasQuoted);
+            }
+
+            if (this.UnreadOnly.Checked)
+            { 
+                stream = stream.Where(a => a.Notification).ToList();
+            }
+
+            var paged = stream.OrderByDescending(item => item.ID)
+                .Skip(this.PagerTop.CurrentPageIndex * this.PagerTop.PageSize).Take(this.PagerTop.PageSize).ToList();
+
+            this.ActivityStream.DataSource = paged;
+
+            if (paged.Any())
+            {
+                this.PagerTop.Count = stream.Count;
+
+                this.ItemCount = paged.Count;
+            }
+            else
+            {
+                this.PagerTop.Count = 0;
+                this.ItemCount = 0;
+            }
 
             this.DataBind();
         }

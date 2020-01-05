@@ -2774,6 +2774,7 @@
     <Resource tag="GIVEN_THANKS_MSG">Given Thanks to {0} in the Topic {1}</Resource>
     <Resource tag="GROUPS">Jūs esate narys šių grupių: </Resource>
     <Resource tag="INBOX">Gauti laiškai </Resource>
+    <Resource tag="ITEMS">Show Items</Resource>
     <Resource tag="JOINED">Jūs buvote narys nuo: </Resource>
     <Resource tag="MESSENGER">Messenger: </Resource>
     <Resource tag="NEW_MESSAGE">Nauja žinutė </Resource>
@@ -2784,6 +2785,7 @@
     <Resource tag="SENTITEMS">Siùstieji </Resource>
     <Resource tag="SIGNATURE">Parašas </Resource>
     <Resource tag="SUBSCRIPTIONS">Prenumerata </Resource>
+    <Resource tag="UNREAD_ONLY">Show only unread Activity</Resource>
     <Resource tag="VIEW_PROFILE">View Profile</Resource>
     <Resource tag="WAS_MENTIONED">Was Mentioned</Resource>
     <Resource tag="WAS_MENTIONED_MSG">Was Mentioned by {0} in the Topic {1}</Resource>

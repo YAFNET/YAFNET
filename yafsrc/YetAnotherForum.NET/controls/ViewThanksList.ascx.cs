@@ -35,6 +35,7 @@ namespace YAF.Controls
     using YAF.Core.BaseControls;
     using YAF.Types;
     using YAF.Types.Constants;
+    using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Utils.Helpers;
 
@@ -92,15 +93,18 @@ namespace YAF.Controls
                     break;
                 case ThanksListMode.ToUser:
                     {
-                        foreach (var dr in thanksData)
-                        {
-                            // update the message count
-                            dr["MessageThanksNumber"] = int.TryParse(dr["MessageThanksNumber"].ToString(), out _)
-                                                            ? dr["MessageThanksNumber"]
-                                                            : thanksData.Count(x => x.Field<int>("ThanksToUserID") == this.UserID &&
-                                                                                    x.Field<int>("MessageID") == (int)dr["MessageID"]);
-                        }
-
+                        thanksData.ForEach(
+                            dr =>
+                                {
+                                    // update the message count
+                                    dr["MessageThanksNumber"] =
+                                        int.TryParse(dr["MessageThanksNumber"].ToString(), out _)
+                                            ? dr["MessageThanksNumber"]
+                                            : thanksData.Count(
+                                                x => x.Field<int>("ThanksToUserID") == this.UserID
+                                                     && x.Field<int>("MessageID") == (int)dr["MessageID"]);
+                                });
+                        
                         thanksData = thanksData.Where(x => x.Field<int>("ThanksToUserID") == this.UserID);
 
                         // Remove duplicates.
@@ -115,8 +119,7 @@ namespace YAF.Controls
                     }
             }
 
-            // TODO : page size definable?
-            this.PagerTop.PageSize = 15;
+            this.PagerTop.PageSize = 5;
 
             // set data source of repeater
             this.ThanksRes.DataSource = thanksData.ToList().GetPaged(this.PagerTop);

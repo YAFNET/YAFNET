@@ -2681,6 +2681,7 @@
   <Resource tag="EDIT_SIGNATURE">Edit Signature</Resource>
   <Resource tag="GROUPS">You are a member of these groups:</Resource>
   <Resource tag="INBOX">Inbox</Resource>
+   <Resource tag="ITEMS">Show Items</Resource>
   <Resource tag="JOINED">You have been a member since:</Resource>
   <Resource tag="MESSENGER">Messenger:</Resource>
   <Resource tag="NEW_MESSAGE">New Message</Resource>
@@ -2689,6 +2690,7 @@
   <Resource tag="SENTITEMS">Sent Items</Resource>
   <Resource tag="SIGNATURE">Signature</Resource>
   <Resource tag="SUBSCRIPTIONS">Email Notification Preferences</Resource>
+   <Resource tag="UNREAD_ONLY">Show only unread Activity</Resource>
   <Resource tag="VIEW_PROFILE">View Profile</Resource>
   <Resource tag="YOUR_ACCOUNT">Your Account</Resource>
   <Resource tag="YOUR_EMAIL">Your email address:</Resource>

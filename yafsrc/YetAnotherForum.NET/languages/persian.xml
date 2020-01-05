@@ -2714,6 +2714,7 @@
     <Resource tag="GIVEN_THANKS_MSG">Given Thanks to {0} in the Topic {1}</Resource>
     <Resource tag="GROUPS">شما عضو این گروه ها هستید:</Resource>
     <Resource tag="INBOX">صندوق ورودی</Resource>
+    <Resource tag="ITEMS">Show Items</Resource>
     <Resource tag="JOINED">شما از این تاریخ عضو بوده اید:</Resource>
     <Resource tag="MESSENGER">مسنجر:</Resource>
     <Resource tag="NEW_MESSAGE">پیغام جدید</Resource>
@@ -2724,6 +2725,7 @@
     <Resource tag="SENTITEMS">موارد ارسال شده</Resource>
     <Resource tag="SIGNATURE">امضا</Resource>
     <Resource tag="SUBSCRIPTIONS">تنظیمات اطلاع رسانی ایمیل</Resource>
+    <Resource tag="UNREAD_ONLY">Show only unread Activity</Resource>
     <Resource tag="VIEW_PROFILE">نمایش پروفایل</Resource>
     <Resource tag="WAS_MENTIONED">Was Mentioned</Resource>
     <Resource tag="WAS_MENTIONED_MSG">Was Mentioned by {0} in the Topic {1}</Resource>

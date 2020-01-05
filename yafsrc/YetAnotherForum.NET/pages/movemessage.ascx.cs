@@ -63,13 +63,16 @@ namespace YAF.Pages
         #region Methods
 
         /// <summary>
-        /// Raises the <see cref="E:System.Web.UI.Control.Init"/> event.
+        /// Handles the PreRender event
         /// </summary>
-        /// <param name="e">An <see cref="T:System.EventArgs"/> object that contains the event data.</param>
-        protected override void OnInit([NotNull] EventArgs e)
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+        protected override void OnPreRender(EventArgs e)
         {
-            this.PreRender += this.MoveMessage_PreRender;
-            base.OnInit(e);
+            base.OnPreRender(e);
+
+            this.PageContext.PageElements.RegisterJsBlockStartup(
+                "fileUploadjs",
+                JavaScriptBlocks.SelectTopicsLoadJs(this.ForumList.ClientID));
         }
 
         /// <summary>
@@ -192,18 +195,6 @@ namespace YAF.Pages
         protected void TopicsList_SelectedIndexChanged([NotNull] object sender, [NotNull] EventArgs e)
         {
             this.Move.Visible = this.TopicsList.SelectedValue != string.Empty;
-        }
-
-        /// <summary>
-        /// Handles the PreRender event of the AttachmentsUploadDialog control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        private void MoveMessage_PreRender([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            YafContext.Current.PageElements.RegisterJsBlockStartup(
-                "fileUploadjs",
-                JavaScriptBlocks.SelectTopicsLoadJs(this.ForumList.ClientID));
         }
 
         #endregion

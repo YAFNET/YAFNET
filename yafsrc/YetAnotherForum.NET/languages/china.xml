@@ -2697,6 +2697,7 @@
     <Resource tag="GIVEN_THANKS_MSG">Given Thanks to {0} in the Topic {1}</Resource>
     <Resource tag="GROUPS">属于组:</Resource>
     <Resource tag="INBOX">收件箱</Resource>
+    <Resource tag="ITEMS">Show Items</Resource>
     <Resource tag="JOINED">注册日期:</Resource>
     <Resource tag="MESSENGER">信息:</Resource>
     <Resource tag="NEW_MESSAGE">撰写</Resource>
@@ -2707,6 +2708,7 @@
     <Resource tag="SENTITEMS">发件箱</Resource>
     <Resource tag="SIGNATURE">签名</Resource>
     <Resource tag="SUBSCRIPTIONS">订阅</Resource>
+    <Resource tag="UNREAD_ONLY">Show only unread Activity</Resource>
     <Resource tag="VIEW_PROFILE">查看配置文件</Resource>
     <Resource tag="WAS_MENTIONED">Was Mentioned</Resource>
     <Resource tag="WAS_MENTIONED_MSG">Was Mentioned by {0} in the Topic {1}</Resource>

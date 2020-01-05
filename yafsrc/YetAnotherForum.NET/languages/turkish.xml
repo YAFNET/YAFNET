@@ -2697,6 +2697,7 @@
     <Resource tag="GIVEN_THANKS_MSG">Given Thanks to {0} in the Topic {1}</Resource>
     <Resource tag="GROUPS">Bu grupların üyesisiniz:</Resource>
     <Resource tag="INBOX">Gelen Kutusu</Resource>
+    <Resource tag="ITEMS">Show Items</Resource>
     <Resource tag="JOINED">Bu tarihten beri üyesiniz:</Resource>
     <Resource tag="MESSENGER">Mesajlaşma Paneli:</Resource>
     <Resource tag="NEW_MESSAGE">Yeni E-posta</Resource>
@@ -2707,6 +2708,7 @@
     <Resource tag="SENTITEMS">Gönderilmiş Öğeler</Resource>
     <Resource tag="SIGNATURE">İmza</Resource>
     <Resource tag="SUBSCRIPTIONS">Abonelikler</Resource>
+    <Resource tag="UNREAD_ONLY">Show only unread Activity</Resource>
     <Resource tag="VIEW_PROFILE">Profili Görüntüle</Resource>
     <Resource tag="WAS_MENTIONED">Was Mentioned</Resource>
     <Resource tag="WAS_MENTIONED_MSG">Was Mentioned by {0} in the Topic {1}</Resource>

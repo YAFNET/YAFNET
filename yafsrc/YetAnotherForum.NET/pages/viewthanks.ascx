@@ -10,15 +10,14 @@
     </div>
 </div>
 
-<asp:PlaceHolder runat="server" ID="MenuHolder">
 <div class="row">
-<div class="col-sm-auto">
-    <YAF:ProfileMenu ID="ProfileMenu1" runat="server" />
-</div>
+    <asp:PlaceHolder runat="server" ID="MenuHolder">
+        <div class="col-sm-auto">
+            <YAF:ProfileMenu ID="ProfileMenu1" runat="server" />
+        </div>
 </asp:PlaceHolder>
-<div class="col">
-
-       <asp:Panel id="ThanksTabs" runat="server">
+    <div class="col">
+        <asp:Panel id="ThanksTabs" runat="server">
                <ul class="nav nav-tabs" role="tablist">
                  <li class="nav-item">
                      <a href="#ThanksFromTab" class="nav-link" data-toggle="tab" role="tab">
@@ -32,41 +31,37 @@
 		         </li>
                </ul>
               <div class="tab-content">
-              <div id="ThanksFromTab" class="tab-pane" role="tabpanel">
-                  <div class="row">
-                      <div class="col">
-                          <div class="card mb-3">
-                              <div class="card-header">
-                                  <i class="fa fa-hand-holding-heart fa-fw text-secondary"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" 
-                                                                                                    LocalizedTag="ThanksFromUser" 
-                                                                                                    LocalizedPage="VIEWTHANKS" />
-                              </div>
-                              <div class="card-body">
-
-                                  <YAF:ViewThanksList runat="server" ID="ThanksFromList" CurrentMode="FromUser" />
+                  <div id="ThanksFromTab" class="tab-pane" role="tabpanel">
+                      <div class="row">
+                          <div class="col">
+                              <div class="card mb-3">
+                                  <div class="card-header">
+                                      <i class="fa fa-hand-holding-heart fa-fw text-secondary"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" 
+                                                                                                                             LocalizedTag="ThanksFromUser" LocalizedPage="VIEWTHANKS" />
+                                  </div>
+                                  <div class="card-body">
+                                      <YAF:ViewThanksList runat="server" ID="ThanksFromList" CurrentMode="FromUser" />
+                                  </div>
                               </div>
                           </div>
                       </div>
                   </div>
-                   
-                </div>
-                <div id="ThanksToTab" class="tab-pane" role="tabpanel">
-                    <div class="row">
-                        <div class="col">
-                            <div class="card mb-3">
-                                <div class="card-header">
-                                    <i class="fa fa-heart fa-fw text-secondary"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" 
-                                                                                                      LocalizedTag="ThanksToUser" 
-                                                                                                      LocalizedPage="VIEWTHANKS" />
-                                </div>
-                                <div class="card-body">
-                                    <YAF:ViewThanksList runat="server" ID="ThanksToList" CurrentMode="ToUser" />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-             </div>
+                  <div id="ThanksToTab" class="tab-pane" role="tabpanel">
+                      <div class="row">
+                          <div class="col">
+                              <div class="card mb-3">
+                                  <div class="card-header">
+                                      <i class="fa fa-heart fa-fw text-secondary"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" 
+                                                                                                                LocalizedTag="ThanksToUser" LocalizedPage="VIEWTHANKS" />
+                                  </div>
+                                  <div class="card-body">
+                                      <YAF:ViewThanksList runat="server" ID="ThanksToList" CurrentMode="ToUser" />
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
              </asp:Panel>
         <asp:HiddenField runat="server" ID="hidLastTab" Value="ThanksFromTab" />
 </div>

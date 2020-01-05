@@ -2697,6 +2697,7 @@
     <Resource tag="GIVEN_THANKS_MSG">Given Thanks to {0} in the Topic {1}</Resource>
     <Resource tag="GROUPS">Du är medlem i dessa grupper:</Resource>
     <Resource tag="INBOX">Inkorg</Resource>
+    <Resource tag="ITEMS">Show Items</Resource>
     <Resource tag="JOINED">Du har varit medlem sedan:</Resource>
     <Resource tag="MESSENGER">Dina meddelanden:</Resource>
     <Resource tag="NEW_MESSAGE">Nytt meddelande</Resource>
@@ -2707,6 +2708,7 @@
     <Resource tag="SENTITEMS">Skickat</Resource>
     <Resource tag="SIGNATURE">Signatur</Resource>
     <Resource tag="SUBSCRIPTIONS">Prenumerationer</Resource>
+    <Resource tag="UNREAD_ONLY">Show only unread Activity</Resource>
     <Resource tag="VIEW_PROFILE">View Profile</Resource>
     <Resource tag="WAS_MENTIONED">Was Mentioned</Resource>
     <Resource tag="WAS_MENTIONED_MSG">Was Mentioned by {0} in the Topic {1}</Resource>

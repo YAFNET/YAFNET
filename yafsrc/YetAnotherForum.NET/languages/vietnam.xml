@@ -2697,6 +2697,7 @@
     <Resource tag="GIVEN_THANKS_MSG">Given Thanks to {0} in the Topic {1}</Resource>
     <Resource tag="GROUPS">Nhóm:</Resource>
     <Resource tag="INBOX">Tin nhắn</Resource>
+    <Resource tag="ITEMS">Show Items</Resource>
     <Resource tag="JOINED">Ngày tham gia:</Resource>
     <Resource tag="MESSENGER">Nội dung:</Resource>
     <Resource tag="NEW_MESSAGE">Soạn tin nhắn</Resource>
@@ -2707,6 +2708,7 @@
     <Resource tag="SENTITEMS">Đã gửi</Resource>
     <Resource tag="SIGNATURE">Chữ ký</Resource>
     <Resource tag="SUBSCRIPTIONS">Chủ đề theo dõi</Resource>
+    <Resource tag="UNREAD_ONLY">Show only unread Activity</Resource>
     <Resource tag="VIEW_PROFILE">View Profile</Resource>
     <Resource tag="WAS_MENTIONED">Was Mentioned</Resource>
     <Resource tag="WAS_MENTIONED_MSG">Was Mentioned by {0} in the Topic {1}</Resource>

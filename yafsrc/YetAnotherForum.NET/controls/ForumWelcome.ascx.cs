@@ -28,7 +28,6 @@ namespace YAF.Controls
     using System;
 
     using YAF.Core.BaseControls;
-    using YAF.Types;
     using YAF.Types.Interfaces;
     using YAF.Utils.Helpers;
 
@@ -39,27 +38,16 @@ namespace YAF.Controls
     /// </summary>
     public partial class ForumWelcome : BaseUserControl
     {
-        #region Constructors and Destructors
-
-        /// <summary>
-        ///   Initializes a new instance of the <see cref = "ForumWelcome" /> class.
-        /// </summary>
-        public ForumWelcome()
-        {
-            this.PreRender += this.ForumWelcomePreRender;
-        }
-
-        #endregion
-
         #region Methods
 
         /// <summary>
-        /// Handles the PreRender event of the ForumWelcome control.
+        /// Handles the PreRender event
         /// </summary>
-        /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        private void ForumWelcomePreRender([NotNull] object sender, [NotNull] EventArgs e)
+        protected override void OnPreRender(EventArgs e)
         {
+            base.OnPreRender(e);
+
             this.TimeNow.Text = this.GetTextFormatted("Current_Time", this.Get<IDateTime>().FormatTime(DateTime.UtcNow));
 
             var lastVisit = this.Get<IYafSession>().LastVisit;

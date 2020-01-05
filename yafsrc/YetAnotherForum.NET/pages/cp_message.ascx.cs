@@ -165,14 +165,7 @@ namespace YAF.Pages
             {
                 if (dt.HasRows())
                 {
-                    var row = dt.Rows[0];
-
-                    // if the pm isn't from or two the current user--then it's access denied
-                    /*if (row["ToUserID"].ToType<int>() != this.PageContext.PageUserID
-                        && row["FromUserID"].ToType<int>() != this.PageContext.PageUserID)
-                    {
-                        YafBuildLink.AccessDenied();
-                    }*/
+                    var row = dt.GetFirstRow();
 
                     // Check if Message is Reply
                     if (!row["ReplyTo"].IsNullOrEmptyDBField())

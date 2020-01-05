@@ -2703,6 +2703,7 @@
     <Resource tag="GIVEN_THANKS_MSG">Given Thanks to {0} in the Topic {1}</Resource>
     <Resource tag="GROUPS">Eres miembro de estos grupos:</Resource>
     <Resource tag="INBOX">Bandeja de entrada</Resource>
+    <Resource tag="ITEMS">Show Items</Resource>
     <Resource tag="JOINED">Eres miembro desde:</Resource>
     <Resource tag="MESSENGER">Messenger:</Resource>
     <Resource tag="NEW_MESSAGE">Nuevo mensaje</Resource>
@@ -2713,6 +2714,7 @@
     <Resource tag="SENTITEMS">Elementos enviados</Resource>
     <Resource tag="SIGNATURE">Firma</Resource>
     <Resource tag="SUBSCRIPTIONS">Subscripciones</Resource>
+    <Resource tag="UNREAD_ONLY">Show only unread Activity</Resource>
     <Resource tag="VIEW_PROFILE">Ver perfil</Resource>
     <Resource tag="WAS_MENTIONED">Was Mentioned</Resource>
     <Resource tag="WAS_MENTIONED_MSG">Was Mentioned by {0} in the Topic {1}</Resource>

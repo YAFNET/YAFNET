@@ -2691,6 +2691,7 @@
     <Resource tag="GIVEN_THANKS_MSG">Given Thanks to {0} in the Topic {1}</Resource>
     <Resource tag="GROUPS">Kuulut seuraaviin ryhmiin:</Resource>
     <Resource tag="INBOX">Saapuneet viestit</Resource>
+    <Resource tag="ITEMS">Show Items</Resource>
     <Resource tag="JOINED">Olet ollut jäsen sitten:</Resource>
     <Resource tag="MESSENGER">Postilaatikko:</Resource>
     <Resource tag="NEW_MESSAGE">Uusi viesti</Resource>
@@ -2701,6 +2702,7 @@
     <Resource tag="SENTITEMS">Lähetetyt viestit</Resource>
     <Resource tag="SIGNATURE">Allekirjoitus</Resource>
     <Resource tag="SUBSCRIPTIONS">Seuratut aiheet</Resource>
+    <Resource tag="UNREAD_ONLY">Show only unread Activity</Resource>
     <Resource tag="VIEW_PROFILE">View Profile</Resource>
     <Resource tag="WAS_MENTIONED">Was Mentioned</Resource>
     <Resource tag="WAS_MENTIONED_MSG">Was Mentioned by {0} in the Topic {1}</Resource>

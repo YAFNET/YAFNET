@@ -2697,6 +2697,7 @@
     <Resource tag="GIVEN_THANKS_MSG">Given Thanks to {0} in the Topic {1}</Resource>
     <Resource tag="GROUPS">Du er medlem af disse grupper:</Resource>
     <Resource tag="INBOX">Indbakke</Resource>
+    <Resource tag="ITEMS">Show Items</Resource>
     <Resource tag="JOINED">Du har været medlem siden:</Resource>
     <Resource tag="MESSENGER">Messenger:</Resource>
     <Resource tag="NEW_MESSAGE">Ny besked</Resource>
@@ -2707,6 +2708,7 @@
     <Resource tag="SENTITEMS">Sendte beskeder</Resource>
     <Resource tag="SIGNATURE">Signatur</Resource>
     <Resource tag="SUBSCRIPTIONS">Abonnement</Resource>
+    <Resource tag="UNREAD_ONLY">Show only unread Activity</Resource>
     <Resource tag="VIEW_PROFILE">View Profile</Resource>
     <Resource tag="WAS_MENTIONED">Was Mentioned</Resource>
     <Resource tag="WAS_MENTIONED_MSG">Was Mentioned by {0} in the Topic {1}</Resource>

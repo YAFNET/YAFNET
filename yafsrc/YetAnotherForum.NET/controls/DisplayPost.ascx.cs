@@ -132,6 +132,173 @@ namespace YAF.Controls
         #region Methods
 
         /// <summary>
+        /// The on pre render.
+        /// </summary>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        protected override void OnPreRender(EventArgs e)
+        {
+            if (this.PageContext.IsGuest)
+            {
+                this.ShowHideIgnoredUserPost.Visible = false;
+                this.MessageRow.CssClass = "collapse show";
+            }
+            else if (this.Get<IUserIgnored>().IsIgnored(this.PostData.UserId))
+            {
+                this.MessageRow.CssClass = "collapse";
+                this.ShowHideIgnoredUserPost.Visible = true;
+            }
+            else if (!this.Get<IUserIgnored>().IsIgnored(this.PostData.UserId))
+            {
+                this.MessageRow.CssClass = "collapse show";
+            }
+
+            this.Edit.Visible = !this.PostData.PostDeleted && this.PostData.CanEditPost && !this.PostData.IsLocked;
+            this.Edit.NavigateUrl = YafBuildLink.GetLinkNotEscaped(
+                ForumPages.postmessage,
+                "m={0}",
+                this.PostData.MessageId);
+            this.MovePost.Visible = this.PageContext.ForumModeratorAccess && !this.PostData.IsLocked;
+            this.MovePost.NavigateUrl = YafBuildLink.GetLinkNotEscaped(
+                ForumPages.movemessage,
+                "m={0}",
+                this.PostData.MessageId);
+            this.Delete.Visible = !this.PostData.PostDeleted && this.PostData.CanDeletePost && !this.PostData.IsLocked;
+
+            ////
+            this.Delete.NavigateUrl = YafBuildLink.GetLinkNotEscaped(
+                ForumPages.deletemessage,
+                "m={0}&action=delete",
+                this.PostData.MessageId);
+            this.UnDelete.Visible = this.PostData.CanUnDeletePost && !this.PostData.IsLocked;
+            this.UnDelete.NavigateUrl = YafBuildLink.GetLinkNotEscaped(
+                ForumPages.deletemessage,
+                "m={0}&action=undelete",
+                this.PostData.MessageId);
+            ///
+
+            this.Quote.Visible = !this.PostData.PostDeleted && this.PostData.CanReply && !this.PostData.IsLocked;
+            this.MultiQuote.Visible = !this.PostData.PostDeleted && this.PostData.CanReply && !this.PostData.IsLocked;
+
+            this.Quote.NavigateUrl = YafBuildLink.GetLinkNotEscaped(
+                ForumPages.postmessage,
+                "t={0}&f={1}&q={2}",
+                this.PageContext.PageTopicID,
+                this.PageContext.PageForumID,
+                this.PostData.MessageId);
+
+            if (this.MultiQuote.Visible)
+            {
+                this.MultiQuote.Attributes.Add(
+                    "onclick",
+                    $"handleMultiQuoteButton(this, '{this.PostData.MessageId}', '{this.PostData.TopicId}')");
+
+                YafContext.Current.PageElements.RegisterJsBlockStartup(
+                    "MultiQuoteButtonJs",
+                    JavaScriptBlocks.MultiQuoteButtonJs);
+                YafContext.Current.PageElements.RegisterJsBlockStartup(
+                    "MultiQuoteCallbackSuccessJS",
+                    JavaScriptBlocks.MultiQuoteCallbackSuccessJs);
+
+                this.MultiQuote.Text = this.GetText("BUTTON_MULTI_QUOTE");
+                this.MultiQuote.ToolTip = this.GetText("BUTTON_MULTI_QUOTE_TT");
+            }
+
+            if (this.Get<YafBoardSettings>().EnableUserReputation)
+            {
+                this.AddReputationControls();
+            }
+
+            if (this.Edit.Visible || this.Delete.Visible || this.MovePost.Visible)
+            {
+                this.ManageDropPlaceHolder.Visible = true;
+            }
+            else
+            {
+                this.ManageDropPlaceHolder.Visible = false;
+            }
+
+            YafContext.Current.PageElements.RegisterJsBlockStartup(
+                "asynchCallFailedJs",
+                "function CallFailed(res){console.log(res);  }");
+
+            this.FormatThanksRow();
+
+            this.ShowIpInfo();
+
+            this.panMessage.CssClass = "col";
+
+            var userId = this.PostData.UserId;
+
+            var avatarUrl = this.Get<IAvatars>().GetAvatarUrlForUser(userId);
+            var displayName = this.Get<YafBoardSettings>().EnableDisplayName
+                                  ? UserMembershipHelper.GetDisplayNameFromID(userId)
+                                  : UserMembershipHelper.GetUserNameFromID(userId);
+
+            if (avatarUrl.IsSet())
+            {
+                this.Avatar.Visible = true;
+                this.Avatar.AlternateText = displayName;
+                this.Avatar.ToolTip = displayName;
+                this.Avatar.ImageUrl = avatarUrl;
+            }
+            else
+            {
+                this.Avatar.Visible = false;
+            }
+
+            // report post
+            if (this.Get<IPermissions>().Check(this.Get<YafBoardSettings>().ReportPostPermissions)
+                && !this.PostData.PostDeleted)
+            {
+                if (!this.PageContext.IsGuest && this.PageContext.User != null)
+                {
+                    this.ReportPost.Visible = true;
+
+                    this.ReportPost.NavigateUrl = YafBuildLink.GetLinkNotEscaped(
+                        ForumPages.reportpost,
+                        "m={0}",
+                        this.PostData.MessageId);
+                }
+            }
+
+            // mark post as answer
+            if (!this.PostData.PostDeleted && !this.PageContext.IsGuest && this.PageContext.User != null
+                && this.PageContext.PageUserID.Equals(this.DataRow["TopicOwnerID"].ToType<int>())
+                && !this.PostData.UserId.Equals(this.PageContext.PageUserID))
+            {
+                this.MarkAsAnswer.Visible = true;
+
+                if (this.PostData.PostIsAnswer)
+                {
+                    this.MarkAsAnswer.TextLocalizedTag = "MARK_ANSWER_REMOVE";
+                    this.MarkAsAnswer.TitleLocalizedTag = "MARK_ANSWER_REMOVE_TITLE";
+                    this.MarkAsAnswer.Icon = "minus-square";
+                    this.MarkAsAnswer.IconColor = "text-danger";
+                }
+                else
+                {
+                    this.MarkAsAnswer.TextLocalizedTag = "MARK_ANSWER";
+                    this.MarkAsAnswer.TitleLocalizedTag = "MARK_ANSWER_TITLE";
+                    this.MarkAsAnswer.Icon = "check-square";
+                    this.MarkAsAnswer.IconColor = "text-success";
+                }
+            }
+
+            if (this.ReportPost.Visible == false && this.MarkAsAnswer.Visible == false
+                                                 && this.ReportPost.Visible == false
+                                                 && this.ThanksDataLiteral.Visible == false
+                                                 && this.Thank.Visible == false && this.ManageDropPlaceHolder.Visible == false
+                                                 && this.Quote.Visible == false && this.MultiQuote.Visible == false)
+            {
+                this.Footer.Visible = false;
+            }
+
+            base.OnPreRender(e);
+        }
+
+        /// <summary>
         /// Marks as answer click.
         /// </summary>
         /// <param name="sender">The sender.</param>
@@ -231,7 +398,6 @@ namespace YAF.Controls
         /// <param name="e">An <see cref="T:System.EventArgs" /> object that contains the event data.</param>
         protected override void OnInit([NotNull] EventArgs e)
         {
-            this.PreRender += this.DisplayPost_PreRender;
             base.OnInit(e);
         }
 
@@ -534,174 +700,6 @@ namespace YAF.Controls
             }
 
             this.PopMenu1.Attach(this.UserProfileLink);
-        }
-
-        /// <summary>
-        /// The display post_ pre render.
-        /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
-        private void DisplayPost_PreRender([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            if (this.PageContext.IsGuest)
-            {
-                this.ShowHideIgnoredUserPost.Visible = false;
-                this.MessageRow.CssClass = "collapse show";
-            }
-            else if (this.Get<IUserIgnored>().IsIgnored(this.PostData.UserId))
-            {
-                this.MessageRow.CssClass = "collapse";
-                this.ShowHideIgnoredUserPost.Visible = true;
-            }
-            else if (!this.Get<IUserIgnored>().IsIgnored(this.PostData.UserId))
-            {
-                this.MessageRow.CssClass = "collapse show";
-            }
-
-            this.Edit.Visible = !this.PostData.PostDeleted && this.PostData.CanEditPost && !this.PostData.IsLocked;
-            this.Edit.NavigateUrl = YafBuildLink.GetLinkNotEscaped(
-                ForumPages.postmessage,
-                "m={0}",
-                this.PostData.MessageId);
-            this.MovePost.Visible = this.PageContext.ForumModeratorAccess && !this.PostData.IsLocked;
-            this.MovePost.NavigateUrl = YafBuildLink.GetLinkNotEscaped(
-                ForumPages.movemessage,
-                "m={0}",
-                this.PostData.MessageId);
-            this.Delete.Visible = !this.PostData.PostDeleted && this.PostData.CanDeletePost && !this.PostData.IsLocked;
-            
-            ////
-            this.Delete.NavigateUrl = YafBuildLink.GetLinkNotEscaped(
-                ForumPages.deletemessage,
-                "m={0}&action=delete",
-                this.PostData.MessageId);
-            this.UnDelete.Visible = this.PostData.CanUnDeletePost && !this.PostData.IsLocked;
-            this.UnDelete.NavigateUrl = YafBuildLink.GetLinkNotEscaped(
-                ForumPages.deletemessage,
-                "m={0}&action=undelete",
-                this.PostData.MessageId);
-            ///
-
-            this.Quote.Visible = !this.PostData.PostDeleted && this.PostData.CanReply && !this.PostData.IsLocked;
-            this.MultiQuote.Visible = !this.PostData.PostDeleted && this.PostData.CanReply && !this.PostData.IsLocked;
-
-            this.Quote.NavigateUrl = YafBuildLink.GetLinkNotEscaped(
-                ForumPages.postmessage,
-                "t={0}&f={1}&q={2}",
-                this.PageContext.PageTopicID,
-                this.PageContext.PageForumID,
-                this.PostData.MessageId);
-
-            if (this.MultiQuote.Visible)
-            {
-                this.MultiQuote.Attributes.Add(
-                    "onclick",
-                    $"handleMultiQuoteButton(this, '{this.PostData.MessageId}', '{this.PostData.TopicId}')");
-
-                YafContext.Current.PageElements.RegisterJsBlockStartup(
-                    "MultiQuoteButtonJs",
-                    JavaScriptBlocks.MultiQuoteButtonJs);
-                YafContext.Current.PageElements.RegisterJsBlockStartup(
-                    "MultiQuoteCallbackSuccessJS",
-                    JavaScriptBlocks.MultiQuoteCallbackSuccessJs);
-
-                this.MultiQuote.Text = this.GetText("BUTTON_MULTI_QUOTE");
-                this.MultiQuote.ToolTip = this.GetText("BUTTON_MULTI_QUOTE_TT");
-            }
-
-            if (this.Get<YafBoardSettings>().EnableUserReputation)
-            {
-                this.AddReputationControls();
-            }
-
-            if (this.Edit.Visible || this.Delete.Visible || this.MovePost.Visible)
-            {
-                this.ManageDropPlaceHolder.Visible = true;
-            }
-            else
-            {
-                this.ManageDropPlaceHolder.Visible = false;
-            }
-
-            YafContext.Current.PageElements.RegisterJsBlockStartup(
-                "asynchCallFailedJs",
-                "function CallFailed(res){console.log(res);  }");
-
-            this.FormatThanksRow();
-
-            this.ShowIpInfo();
-
-            this.panMessage.CssClass = "col";
-
-            var userId = this.PostData.UserId;
-
-            var avatarUrl = this.Get<IAvatars>().GetAvatarUrlForUser(userId);
-            var displayName = this.Get<YafBoardSettings>().EnableDisplayName
-                                  ? UserMembershipHelper.GetDisplayNameFromID(userId)
-                                  : UserMembershipHelper.GetUserNameFromID(userId);
-
-            if (avatarUrl.IsSet())
-            {
-                this.Avatar.Visible = true;
-                this.Avatar.AlternateText = displayName;
-                this.Avatar.ToolTip = displayName;
-                this.Avatar.ImageUrl = avatarUrl;
-            }
-            else
-            {
-                this.Avatar.Visible = false;
-            }
-
-            // report post
-            if (this.Get<IPermissions>().Check(this.Get<YafBoardSettings>().ReportPostPermissions)
-                && !this.PostData.PostDeleted)
-            {
-                if (!this.PageContext.IsGuest && this.PageContext.User != null)
-                {
-                    this.ReportPost.Visible = true;
-
-                    this.ReportPost.NavigateUrl = YafBuildLink.GetLinkNotEscaped(
-                        ForumPages.reportpost,
-                        "m={0}",
-                        this.PostData.MessageId);
-                }
-            }
-
-            // mark post as answer
-            if (!this.PostData.PostDeleted && !this.PageContext.IsGuest && this.PageContext.User != null
-                && this.PageContext.PageUserID.Equals(this.DataRow["TopicOwnerID"].ToType<int>())
-                && !this.PostData.UserId.Equals(this.PageContext.PageUserID))
-            {
-                this.MarkAsAnswer.Visible = true;
-
-                if (this.PostData.PostIsAnswer)
-                {
-                    this.MarkAsAnswer.TextLocalizedTag = "MARK_ANSWER_REMOVE";
-                    this.MarkAsAnswer.TitleLocalizedTag = "MARK_ANSWER_REMOVE_TITLE";
-                    this.MarkAsAnswer.Icon = "minus-square";
-                    this.MarkAsAnswer.IconColor = "text-danger";
-                }
-                else
-                {
-                    this.MarkAsAnswer.TextLocalizedTag = "MARK_ANSWER";
-                    this.MarkAsAnswer.TitleLocalizedTag = "MARK_ANSWER_TITLE";
-                    this.MarkAsAnswer.Icon = "check-square";
-                    this.MarkAsAnswer.IconColor = "text-success";
-                }
-            }
-
-            if (this.ReportPost.Visible == false && this.MarkAsAnswer.Visible == false
-                                                 && this.ReportPost.Visible == false
-                                                 && this.ThanksDataLiteral.Visible == false
-                                                 && this.Thank.Visible == false && this.ManageDropPlaceHolder.Visible == false
-                                                 && this.Quote.Visible == false && this.MultiQuote.Visible == false)
-            {
-               this.Footer.Visible = false;
-            }
         }
 
         /// <summary>
