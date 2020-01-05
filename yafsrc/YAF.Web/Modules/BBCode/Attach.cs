@@ -79,7 +79,7 @@ namespace YAF.Modules.BBCode
             }
 
             // user doesn't have rights to download, don't show the image
-            if (!this.PageContext.ForumDownloadAccess)
+            if (!this.UserHasDownloadAccess())
             {
                 writer.Write(
                     @"<i class=""fa fa-file fa-fw""></i>&nbsp;{0} <span class=""badge badge-warning"" role=""alert"">{1}</span>",
@@ -119,6 +119,22 @@ namespace YAF.Modules.BBCode
                     this.GetTextFormatted("ATTACHMENTINFO", kb, attachment.Downloads),
                     this.PageContext.PageBoardID);
             }
+        }
+
+        /// <summary>
+        /// Checks if the user has download access.
+        /// </summary>
+        /// <returns>
+        /// The <see cref="bool"/>.
+        /// </returns>
+        private bool UserHasDownloadAccess()
+        {
+            if (this.PageContext.ForumPageType == ForumPages.cp_message || this.PageContext.ForumPageType == ForumPages.pmessage)
+            {
+                return true;
+            }
+
+            return this.PageContext.ForumDownloadAccess;
         }
     }
 }

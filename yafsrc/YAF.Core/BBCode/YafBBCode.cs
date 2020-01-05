@@ -760,7 +760,7 @@ namespace YAF.Core.BBCode
                 ruleEngine.AddRule(
                     new QuoteRegexReplaceRule(
                         OpenQuoteUserIdRegex,
-                        @"<blockquote class=""blockquote blockquote-custom p-3 mt-1 mb-0 border border-secondary rounded"">
+                        @"<blockquote class=""blockquote blockquote-custom p-3 mt-4 mb-0 border border-secondary rounded"">
                                          <div class=""blockquote-custom-icon bg-secondary"">
                                              <i class=""fa fa-quote-left fa-sm text-white""></i>
                                          </div>${quote}",
@@ -768,12 +768,12 @@ namespace YAF.Core.BBCode
 
                 // simple open quote tag
                 var simpleOpenQuoteReplace =
-                    $@"<blockquote class=""blockquote blockquote-custom p-3 mt-1 mb-0 border border-secondary rounded"">
+                    $@"<blockquote class=""blockquote blockquote-custom p-3 mt-4 mb-0 border border-secondary rounded"">
                           <div class=""blockquote-custom-icon bg-secondary"">
                               <i class=""fa fa-quote-left fa-sm text-white""></i>
                           </div>
                           <footer class=""blockquote-footer pt-1 mt-3""><cite>{localQuoteStr}</cite></footer>
-                          <p class=""mb-0 mt-2 font-italic"">";
+                          <p class=""mb-0 mt-2"">";
 
                 ruleEngine.AddRule(
                     new SimpleRegexReplaceRule(OpenQuoteRegex, simpleOpenQuoteReplace, Options) { RuleRank = 62 });

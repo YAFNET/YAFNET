@@ -28,7 +28,10 @@ namespace YAF.Core.Model
 
     using YAF.Core.Extensions;
     using YAF.Types;
+    using YAF.Types.EventProxies;
+    using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
+    using YAF.Types.Interfaces.Events;
     using YAF.Types.Models;
 
     /// <summary>
@@ -77,6 +80,8 @@ namespace YAF.Core.Model
             int messageId)
         {
             CodeContracts.VerifyNotNull(repository, "repository");
+
+            YafContext.Current.Get<IRaiseEvent>().Raise(new UpdateUserEvent(userId));
 
             repository.UpdateOnly(
                 () => new Activity { Notification = false },

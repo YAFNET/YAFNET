@@ -13,6 +13,15 @@ namespace YAF.Core.Model
     {
         #region Public Methods and Operators
 
+        /// <summary>
+        /// The mark as read.
+        /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="userPMessageId">
+        /// The user p message id.
+        /// </param>
         public static void MarkAsRead(this IRepository<UserPMessage> repository, [NotNull] int userPMessageId)
         {
             CodeContracts.VerifyNotNull(repository, "repository");
@@ -20,7 +29,15 @@ namespace YAF.Core.Model
             repository.DbFunction.Scalar.pmessage_markread(UserPMessageID: userPMessageId);
         }
 
-
+        /// <summary>
+        /// The info as data table.
+        /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <returns>
+        /// The <see cref="DataTable"/>.
+        /// </returns>
         public static DataTable InfoAsDataTable(this IRepository<UserPMessage> repository)
         {
             return repository.DbFunction.GetAsDataTable(cdb => cdb.pmessage_info());

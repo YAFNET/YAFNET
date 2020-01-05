@@ -27,7 +27,6 @@ namespace YAF.Types.Interfaces
     using System.Collections;
     using System.Collections.Generic;
 
-    using YAF.Types.Models;
     using YAF.Types.Objects;
 
     /// <summary>
@@ -52,6 +51,11 @@ namespace YAF.Types.Interfaces
         /// The multi quote ids.
         /// </value>
         List<MultiQuote> MultiQuoteIds { get; set; }
+
+        /// <summary>
+        /// Gets or sets the user activity page size.
+        /// </summary>
+        int? UserActivityPageSize { get; set; }
 
         /// <summary>
         ///   Gets or sets Unread Topic Since.
