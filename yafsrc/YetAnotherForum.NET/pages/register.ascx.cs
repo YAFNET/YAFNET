@@ -548,6 +548,8 @@ namespace YAF.Pages
             // handle the CreateUser Step localization
             this.SetupCreateUserStep();
 
+            var loginButton = this.CreateUserStepContainer.FindControlAs<ThemeButton>("LoginButton");
+
             // handle other steps localization
             ((Button)this.CreateUserWizard1.FindWizardControlRecursive("ContinueButton")).Text =
                 this.GetText("CONTINUE");
@@ -560,14 +562,13 @@ namespace YAF.Pages
             var twitterRegister = (ThemeButton)this.CreateUserWizard1.FindWizardControlRecursive("TwitterRegister");
             var googleRegister = (ThemeButton)this.CreateUserWizard1.FindWizardControlRecursive("GoogleRegister");
 
-            var loginButton = (ThemeButton)this.CreateUserWizard1.FindWizardControlRecursive("LoginButton");
-
             var authPanel = (PlaceHolder)this.CreateUserWizard1.FindWizardControlRecursive("AuthPanel");
 
             if (this.PageContext.IsGuest && !Config.IsAnyPortal && Config.AllowLoginAndLogoff)
             {
                 loginButton.Visible = true;
                 loginButton.Text = this.GetText("LOGIN_INSTEAD");
+                loginButton.NavigateUrl = YafBuildLink.GetLink(ForumPages.login);
             }
 
             if (this.Get<YafBoardSettings>().AllowSingleSignOn)
@@ -707,20 +708,6 @@ namespace YAF.Pages
         protected void GoogleRegisterClick(object sender, EventArgs e)
         {
             YafBuildLink.Redirect(ForumPages.login, "auth={0}", AuthService.google);
-        }
-
-        /// <summary>
-        /// Redirect to the Login Page
-        /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
-        protected void LoginClick(object sender, EventArgs e)
-        {
-            YafBuildLink.Redirect(ForumPages.login);
         }
 
         /// <summary>
