@@ -97,6 +97,25 @@ namespace YAF.Types.Models
         [Default(0)]
         public bool Notification { get; set; }
 
+
+        [Compute]
+        public bool CreatedTopic { get; set; }
+
+        [Compute]
+        public bool CreatedReply { get; set; }
+
+        [Compute]
+        public bool WasMentioned { get; set; }
+
+        [Compute]
+        public bool ReceivedThanks { get; set; }
+
+        [Compute]
+        public bool GivenThanks { get; set; }
+
+        [Compute]
+        public bool WasQuoted { get; set; }
+
         #endregion
     }
 }

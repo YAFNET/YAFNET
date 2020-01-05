@@ -1058,6 +1058,12 @@ CREATE TABLE [{databaseOwner}].[{objectQualifier}Activity](
 	[MessageID] [int] NULL,
 	[FromUserID] [int] NULL,
 	[Notification]  bit NOT NULL default (0),
+	[CreatedTopic] AS (CONVERT([bit],sign([Flags]&(1)),(0))),
+	[CreatedReply] AS (CONVERT([bit],sign([Flags]&(8)),(0))),
+	[WasMentioned] AS (CONVERT([bit],sign([Flags]&(512)),(0))),
+	[ReceivedThanks] AS (CONVERT([bit],sign([Flags]&(1024)),(0))),
+	[GivenThanks] AS (CONVERT([bit],sign([Flags]&(2048)),(0))),
+	[WasQuoted] AS (CONVERT([bit],sign([Flags]&(4096)),(0))),
 	constraint [PK_{objectQualifier}Activity] primary key(ID)
 	)
 go

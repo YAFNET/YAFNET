@@ -2905,3 +2905,39 @@ begin
 	alter table [{databaseOwner}].[{objectQualifier}User] add [Moderated] AS (CONVERT([bit],sign([Flags]&(128)),(0)))
 end
 GO
+
+if not exists (select top 1 1 from sys.columns where object_id=object_id('[{databaseOwner}].[{objectQualifier}Activity]') and name=N'CreatedTopic')
+begin
+	alter table [{databaseOwner}].[{objectQualifier}Activity] add [CreatedTopic] AS (CONVERT([bit],sign([Flags]&(1)),(0)))
+end
+GO
+
+if not exists (select top 1 1 from sys.columns where object_id=object_id('[{databaseOwner}].[{objectQualifier}Activity]') and name=N'CreatedReply')
+begin
+	alter table [{databaseOwner}].[{objectQualifier}Activity] add [CreatedReply] AS (CONVERT([bit],sign([Flags]&(8)),(0)))
+end
+GO
+
+if not exists (select top 1 1 from sys.columns where object_id=object_id('[{databaseOwner}].[{objectQualifier}Activity]') and name=N'WasMentioned')
+begin
+	alter table [{databaseOwner}].[{objectQualifier}Activity] add [WasMentioned] AS (CONVERT([bit],sign([Flags]&(512)),(0)))
+end
+GO
+
+if not exists (select top 1 1 from sys.columns where object_id=object_id('[{databaseOwner}].[{objectQualifier}Activity]') and name=N'ReceivedThanks')
+begin
+	alter table [{databaseOwner}].[{objectQualifier}Activity] add [ReceivedThanks] AS (CONVERT([bit],sign([Flags]&(1024)),(0)))
+end
+GO
+
+if not exists (select top 1 1 from sys.columns where object_id=object_id('[{databaseOwner}].[{objectQualifier}Activity]') and name=N'GivenThanks')
+begin
+	alter table [{databaseOwner}].[{objectQualifier}Activity] add [GivenThanks] AS (CONVERT([bit],sign([Flags]&(2048)),(0)))
+end
+GO
+
+if not exists (select top 1 1 from sys.columns where object_id=object_id('[{databaseOwner}].[{objectQualifier}Activity]') and name=N'WasQuoted')
+begin
+	alter table [{databaseOwner}].[{objectQualifier}Activity] add [WasQuoted] AS (CONVERT([bit],sign([Flags]&(4096)),(0)))
+end
+GO
