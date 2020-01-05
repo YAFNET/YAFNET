@@ -70,20 +70,24 @@
                     </h5>
                 </asp:PlaceHolder>
                 <asp:PlaceHolder id="selectfiletr" runat="server">
-                    <div class="custom-file mb-3">
-                        <input type="file" id="File" class="custom-file-input" runat="server" />
-                        <asp:Label runat="server" AssociatedControlID="File" CssClass="custom-file-label">
-                            <YAF:LocalizedLabel ID="SelectFile" 
-                                                LocalizedTag="SELECT_FILE" 
-                                                LocalizedPage="CP_EDITALBUMIMAGES" runat="server" />
-                        </asp:Label>
+                    <div class="input-group">
+                        <div class="custom-file mb-3">
+                            <input type="file" id="File" class="custom-file-input" runat="server" />
+                            <asp:Label runat="server" CssClass="custom-file-label text-truncate">
+                                <YAF:LocalizedLabel ID="LocalizedLabel3" 
+                                                    LocalizedTag="SELECT_FILE" 
+                                                    LocalizedPage="CP_EDITALBUMIMAGES" runat="server" />
+                            </asp:Label>
+                        </div>
+                        <div class="input-group-append">
+                            <YAF:ThemeButton runat="server" ID="Upload" 
+                                             OnClick="Upload_Click" 
+                                             TextLocalizedTag="UPLOAD"
+                                             CssClass="mb-3"
+                                             Type="Success" 
+                                             Icon="upload"/>
+                        </div>
                     </div>
-                    <YAF:ThemeButton runat="server" ID="Upload" 
-                                     OnClick="Upload_Click" 
-                                     TextLocalizedTag="UPLOAD"
-                                     CssClass="mb-3"
-                                     Type="Success" 
-                                     Icon="upload"/>
                 </asp:PlaceHolder>
                 <YAF:Alert runat="server" Type="info">
                     <asp:Label ID="imagesInfo" runat="server"></asp:Label>
