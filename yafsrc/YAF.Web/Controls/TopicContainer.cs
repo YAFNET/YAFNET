@@ -74,28 +74,6 @@ namespace YAF.Web.Controls
         }
 
         /// <summary>
-        ///   Gets or sets Alt.
-        /// </summary>
-        [NotNull]
-        public string AltLastPost
-        {
-            get => this.altLastPost.IsNotSet() ? string.Empty : this.altLastPost;
-
-            set => this.altLastPost = value;
-        }
-
-        /// <summary>
-        ///   Gets or sets Alt Unread Post.
-        /// </summary>
-        [NotNull]
-        public string AltLastUnreadPost
-        {
-            get => this.altFirstUnreadPost.IsNotSet() ? string.Empty : this.altFirstUnreadPost;
-
-            set => this.altFirstUnreadPost = value;
-        }
-
-        /// <summary>
         ///   Sets DataRow.
         /// </summary>
         public object DataRow
@@ -250,16 +228,6 @@ namespace YAF.Web.Controls
 
             if (!this.TopicRow["LastMessageID"].IsNullOrEmptyDBField())
             {
-                if (this.AltLastPost.IsNotSet())
-                {
-                    this.AltLastPost = this.GetText("DEFAULT", "GO_LAST_POST");
-                }
-
-                if (this.AltLastUnreadPost.IsNotSet())
-                {
-                    this.AltLastUnreadPost = this.GetText("DEFAULT", "GO_LASTUNREAD_POST");
-                }
-
                 if (this.TopicRow["LastPosted"].ToType<DateTime>() > lastRead)
                 {
                     writer.Write("&nbsp;<span class=\"badge badge-success\">{0}</span>", this.GetText("NEW_POSTS"));

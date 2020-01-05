@@ -68,17 +68,6 @@ namespace YAF.Controls
         #region Properties
 
         /// <summary>
-        ///   Gets or sets Alt.
-        /// </summary>
-        [NotNull]
-        public string Alt
-        {
-            get => this.alt.IsNotSet() ? string.Empty : this.alt;
-
-            set => this.alt = value;
-        }
-
-        /// <summary>
         ///   Gets or sets DataRow.
         /// </summary>
         public DataRow DataRow { get; set; }
@@ -140,11 +129,6 @@ namespace YAF.Controls
                 this.ProfileUserLink.ReplaceName =
                     this.DataRow[this.Get<YafBoardSettings>().EnableDisplayName ? "LastUserDisplayName" : "LastUser"]
                         .ToString();
-
-                if (this.Alt.IsNotSet())
-                {
-                    this.Alt = this.GetText("GO_LAST_POST");
-                }
 
                 this.LastTopicImgLink.NavigateUrl = YafBuildLink.GetLinkNotEscaped(
                     ForumPages.posts, "m={0}#post{0}", this.DataRow["LastMessageID"]);
