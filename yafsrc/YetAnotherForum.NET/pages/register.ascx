@@ -160,12 +160,11 @@
                     </div>
                     <div class="card-footer text-center">
                         <asp:Button ID="StepNextButton" runat="server" 
-                                    CssClass="btn btn-success" 
+                                    CssClass="btn btn-success mb-1" 
                                     CommandName="MoveNext"
                                     ValidationGroup="CreateUserWizard1" />
                         <YAF:ThemeButton runat="server" ID="LoginButton"
-                                         Visible="False" 
-                                         OnClick="LoginClick"
+                                         Visible="False"
                                          Type="Primary"
                                          Icon="user-plus"></YAF:ThemeButton>
                         <asp:PlaceHolder runat="server" Visible="False" ID="AuthPanel">
