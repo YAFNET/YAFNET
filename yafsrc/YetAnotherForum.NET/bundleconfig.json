@@ -30,11 +30,11 @@
     "inputFiles": [
       "Scripts/moment-with-locales.js",
       "Scripts/bootstrap.bundle.js",
-      "Scripts/jquery.bootstrap-touchspin.js",
       "Scripts/bootbox.js",
       "Scripts/bootstrap-datetimepicker.js",
       "Scripts/bootstrap-notify.js",
       "Scripts/bootstrap-suggest.js",
+      "Scripts/jquery.bootstrap-touchspin.js",
       "Scripts/select2.js",
       "Scripts/blueimp-gallery.js",
       "Scripts/blueimp-gallery-indicator.js",
@@ -62,10 +62,10 @@
     "inputFiles": [
       "Scripts/moment-with-locales.js",
       "Scripts/bootstrap.bundle.js",
-      "Scripts/jquery.bootstrap-touchspin.js",
       "Scripts/bootbox.js",
       "Scripts/bootstrap-datetimepicker.js",
       "Scripts/bootstrap-notify.js",
+      "Scripts/jquery.bootstrap-touchspin.js",
       "Scripts/select2.js",
       "Scripts/blueimp-gallery.js",
       "Scripts/jquery.blueimp-gallery.js",
@@ -81,7 +81,8 @@
       "Scripts/forum/yaf.Albums.js",
       "Scripts/forum/yaf.Attachments.js",
       "Scripts/forum/yaf.SimilarTitles.js",
-      "Scripts/forum/yaf.Main.js"
+      "Scripts/forum/yaf.Main.js",
+      "Scripts/forum/yaf.FileBrowser.js"
     ]
   },
   {

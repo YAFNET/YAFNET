@@ -1,8 +1,8 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2019 Ingo Herbote
- * http://www.yetanotherforum.net/
+ * Copyright (C) 2014-2020 Ingo Herbote
+ * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -12,7 +12,7 @@
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
 
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
 
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
@@ -413,7 +413,7 @@ namespace YAF.Dialogs
                     // send new post notification to users watching this topic/forum
                     this.Get<ISendNotification>().ToWatchingUsers(messageId.ToType<int>());
 
-                    if (Config.IsDotNetNuke && !this.PageContext.IsGuest)
+                    if (Config.IsDotNetNuke && !this.PageContext.IsGuest && this.Get<YafBoardSettings>().EnableActivityStream)
                     {
                         this.Get<IActivityStream>().AddReplyToStream(
                             this.PageContext.PageForumID,
@@ -438,6 +438,7 @@ namespace YAF.Dialogs
                     }
 
                     var url = YafBuildLink.GetLink(ForumPages.topics, "f={0}", this.PageContext.PageForumID);
+
                     if (Config.IsRainbow)
                     {
                         YafBuildLink.Redirect(ForumPages.info, "i=1");
@@ -489,6 +490,12 @@ namespace YAF.Dialogs
         /// <returns>Returns if the forum needs to be moderated</returns>
         private bool CheckForumModerateStatus(Forum forumInfo)
         {
+            // User Moderate override
+            if (this.PageContext.Moderated)
+            {
+                return true;
+            }
+
             var forumModerated = forumInfo.Flags.BinaryAnd(ForumFlags.Flags.IsModerated);
 
             if (!forumModerated)

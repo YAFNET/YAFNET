@@ -20,7 +20,7 @@
                             <YAF:HelpLabel ID="LocalizedLabel2" runat="server" LocalizedTag="SELECT_IMPORT" LocalizedPage="ADMIN_SPAMWORDS_IMPORT" />
                         </h4>
                         <div class="custom-file">
-                            <input type="file" id="importFile" class="form-control-file" runat="server" />
+                            <input type="file" id="importFile" class="custom-file-input" runat="server" />
                             <asp:Label runat="server" CssClass="custom-file-label" AssociatedControlID="importFile">
                                 <YAF:LocalizedLabel runat="server" 
                                                     LocalizedTag="SELECT_IMPORT" 

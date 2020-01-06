@@ -1,8 +1,8 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2019 Ingo Herbote
- * http://www.yetanotherforum.net/
+ * Copyright (C) 2014-2020 Ingo Herbote
+ * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -12,7 +12,7 @@
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
 
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
 
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
@@ -64,13 +64,24 @@ namespace YAF.Dialogs
         #region Methods
 
         /// <summary>
-        /// Raises the <see cref="E:System.Web.UI.Control.Init"/> event.
+        /// Handles the PreRender event
         /// </summary>
-        /// <param name="e">An <see cref="T:System.EventArgs"/> object that contains the event data.</param>
-        protected override void OnInit([NotNull] EventArgs e)
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+        protected override void OnPreRender(EventArgs e)
         {
-            this.PreRender += this.AttachmentsUploadDialogPreRender;
-            base.OnInit(e);
+            base.OnPreRender(e);
+
+            // Setup Hover Card JS
+            YafContext.Current.PageElements.RegisterJsBlockStartup(
+                "fileUploadjs",
+                JavaScriptBlocks.FileUploadLoadJs(
+                    string.Join("|", this.FileExtensions.Select(ext => ext.Extension)),
+                    this.Get<YafBoardSettings>().MaxFileSize,
+                    $"{YafForumInfo.ForumClientFileRoot}YafUploader.ashx",
+                    this.PageContext.PageForumID,
+                    this.PageContext.PageBoardID,
+                    this.Get<YafBoardSettings>().ImageAttachmentResizeWidth,
+                    this.Get<YafBoardSettings>().ImageAttachmentResizeHeight));
         }
 
         /// <summary>
@@ -115,26 +126,6 @@ namespace YAF.Dialogs
             {
                 this.UploadNodePlaceHold.Visible = false;
             }
-        }
-
-        /// <summary>
-        /// Handles the PreRender event of the AttachmentsUploadDialog control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        private void AttachmentsUploadDialogPreRender([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            // Setup Hover Card JS
-            YafContext.Current.PageElements.RegisterJsBlockStartup(
-                "fileUploadjs",
-                JavaScriptBlocks.FileUploadLoadJs(
-                    string.Join("|", this.FileExtensions.Select(ext => ext.Extension)),
-                    this.Get<YafBoardSettings>().MaxFileSize,
-                    $"{YafForumInfo.ForumClientFileRoot}YafUploader.ashx",
-                    this.PageContext.PageForumID,
-                    this.PageContext.PageBoardID,
-                    this.Get<YafBoardSettings>().ImageAttachmentResizeWidth,
-                    this.Get<YafBoardSettings>().ImageAttachmentResizeHeight));
         }
 
         #endregion
