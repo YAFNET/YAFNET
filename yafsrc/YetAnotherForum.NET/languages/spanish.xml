@@ -941,6 +941,10 @@
     <Resource tag="AKISMET_KEY">Llave API para Akismet:</Resource>
     <Resource tag="AKISMET_KEY_DOWN">Sign Up here</Resource>
     <Resource tag="AKISMET_KEY_HELP">Para usar el servicio de comentado de SPAM de Akismet necesitas una llave API &lt;a href="https://akismet.com/signup/"&gt;Regístrate aquí&lt;a&gt;.</Resource>
+    <Resource tag="ALBUM_IMAGE_SIZE">Max Album Image File Size</Resource>
+    <Resource tag="ALBUM_IMAGE_SIZE_HELP">Maximum size of uploaded album image files. Leave empty for no limit.</Resource>
+    <Resource tag="ALBUM_IMAGES_PER_PAGE">Album Images Per Page:</Resource>
+    <Resource tag="ALBUM_IMAGES_PER_PAGE_HELP">Number of Album Images to show per page.</Resource>
     <Resource tag="ALBUMS_PER_PAGE">Álbumes por página:</Resource>
     <Resource tag="ALBUMS_PER_PAGE_HELP">Número de álbumes para mostrar por página.</Resource>
     <Resource tag="ALL_USERS">Todos los usuarios</Resource>

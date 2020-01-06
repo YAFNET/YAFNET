@@ -939,6 +939,10 @@
     <Resource tag="AKISMET_KEY">Akismet API Key:</Resource>
     <Resource tag="AKISMET_KEY_DOWN">Sign Up here</Resource>
     <Resource tag="AKISMET_KEY_HELP">برای استفاده از سرویس اسپم کامنت Akismet شما باید یک API Key ارایه دهید&lt;a href="https://akismet.com/signup/"&gt;از این قسمت اقدام کنید&lt;a&gt;.</Resource>
+    <Resource tag="ALBUM_IMAGE_SIZE">Max Album Image File Size</Resource>
+    <Resource tag="ALBUM_IMAGE_SIZE_HELP">Maximum size of uploaded album image files. Leave empty for no limit.</Resource>
+    <Resource tag="ALBUM_IMAGES_PER_PAGE">Album Images Per Page:</Resource>
+    <Resource tag="ALBUM_IMAGES_PER_PAGE_HELP">Number of Album Images to show per page.</Resource>
     <Resource tag="ALBUMS_PER_PAGE">تعداد آلبوم در صفحه :</Resource>
     <Resource tag="ALBUMS_PER_PAGE_HELP">تعداد آلبوم ها برای نمایش در هر صفحه.</Resource>
     <Resource tag="ALL_USERS">تمام کاربران</Resource>

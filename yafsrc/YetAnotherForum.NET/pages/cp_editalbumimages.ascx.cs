@@ -493,7 +493,8 @@ namespace YAF.Pages
             if (this.Get<YafBoardSettings>().AlbumImagesSizeMax > 0
                 && file.PostedFile.ContentLength > this.Get<YafBoardSettings>().AlbumImagesSizeMax)
             {
-                throw new Exception(this.GetText("ERROR_TOOBIG"));
+                this.PageContext.AddLoadMessage(this.GetText("ERROR_TOOBIG"), MessageTypes.danger);
+                return;
             }
 
             // vzrus: the checks here are useless but in a case...

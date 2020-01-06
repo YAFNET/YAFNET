@@ -940,6 +940,10 @@
     <Resource tag="AKISMET_KEY">Akismet API Key:</Resource>
     <Resource tag="AKISMET_KEY_DOWN">Sign Up here</Resource>
     <Resource tag="AKISMET_KEY_HELP">Om de Akismet SPAM Service te gebruiken heb je een API Key nodig &lt;a href="https://akismet.com/signup/"&gt;Scrijf hier in&lt;a&gt;.</Resource>
+    <Resource tag="ALBUM_IMAGE_SIZE">Max Album Image File Size</Resource>
+    <Resource tag="ALBUM_IMAGE_SIZE_HELP">Maximum size of uploaded album image files. Leave empty for no limit.</Resource>
+    <Resource tag="ALBUM_IMAGES_PER_PAGE">Album Images Per Page:</Resource>
+    <Resource tag="ALBUM_IMAGES_PER_PAGE_HELP">Number of Album Images to show per page.</Resource>
     <Resource tag="ALBUMS_PER_PAGE">Albums Per Pagina:</Resource>
     <Resource tag="ALBUMS_PER_PAGE_HELP">Het aantal albums dat per pagina zichtbaar is.</Resource>
     <Resource tag="ALL_USERS">Alle Gebruikers</Resource>
