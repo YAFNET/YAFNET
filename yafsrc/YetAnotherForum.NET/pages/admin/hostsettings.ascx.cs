@@ -553,6 +553,10 @@ namespace YAF.Pages.Admin
                                         ? this.Get<YafBoardSettings>().MaxFileSize.ToString()
                                         : string.Empty;
 
+            this.AlbumImagesSizeMax.Text = this.Get<YafBoardSettings>().AlbumImagesSizeMax != 0
+                                               ? this.Get<YafBoardSettings>().AlbumImagesSizeMax.ToString()
+                                               : string.Empty;
+
             this.SQLVersion.Text = this.HtmlEncode(this.Get<IDbFunction>().GetSQLVersion());
 
             this.AppCores.Text = YafSystemInfo.Processors;

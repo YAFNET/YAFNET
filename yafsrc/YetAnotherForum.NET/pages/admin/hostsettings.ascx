@@ -219,6 +219,13 @@
                             </a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link" id="albums-tab" data-toggle="tab" href="#albums" role="tab" aria-controls="albums" aria-selected="false">
+                                <YAF:LocalizedLabel ID="LocalizedLabel19" runat="server" 
+                                                    LocalizedTag="HEADER_ALBUM" 
+                                                    LocalizedPage="ADMIN_HOSTSETTINGS" />
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" id="image-tab" data-toggle="tab" href="#image" role="tab" aria-controls="image" aria-selected="false">
                                 <YAF:LocalizedLabel ID="LocalizedLabel22" runat="server" 
                                                     LocalizedTag="HEADER_IMAGE_ATTACH" 
@@ -536,6 +543,38 @@
                                            AssociatedControlID="MaxFileSize"
                                            LocalizedTag="MAX_FILESIZE" LocalizedPage="ADMIN_HOSTSETTINGS" />
                             <asp:TextBox CssClass="form-control" ID="MaxFileSize" runat="server"></asp:TextBox>
+                        </div>
+                    </div>
+                    
+                    <div class="tab-pane fade" id="albums" role="tabpanel" aria-labelledby="albums-tab">
+                        <div class="form-group">
+                            <YAF:HelpLabel ID="HelpLabel32" runat="server" 
+                                           AssociatedControlID="EnableAlbum"
+                                           LocalizedTag="ENABLE_ABLBUMS" LocalizedPage="ADMIN_HOSTSETTINGS" />
+                            <div class="custom-control custom-switch">
+                                <asp:CheckBox Text="&nbsp;" ID="EnableAlbum" runat="server"></asp:CheckBox>
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <YAF:HelpLabel ID="HelpLabel34" runat="server" 
+                                           AssociatedControlID="AlbumImagesSizeMax"
+                                           LocalizedTag="ALBUM_IMAGE_SIZE" LocalizedPage="ADMIN_HOSTSETTINGS" />
+                            <asp:TextBox CssClass="form-control" ID="AlbumImagesSizeMax" TextMode="Number" runat="server"></asp:TextBox>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <YAF:HelpLabel ID="HelpLabel35" runat="server" 
+                                               AssociatedControlID="AlbumsPerPage"
+                                               LocalizedTag="ALBUMS_PER_PAGE" LocalizedPage="ADMIN_HOSTSETTINGS" />
+                                <asp:TextBox CssClass="form-control" ID="AlbumsPerPage" TextMode="Number" runat="server"></asp:TextBox>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <YAF:HelpLabel ID="HelpLabel36" runat="server" 
+                                               AssociatedControlID="AlbumImagesPerPage"
+                                               LocalizedTag="ALBUM_IMAGES_PER_PAGE" LocalizedPage="ADMIN_HOSTSETTINGS" />
+                                <asp:TextBox CssClass="form-control" ID="AlbumImagesPerPage" TextMode="Number" runat="server"></asp:TextBox>
+                            </div>
                         </div>
                     </div>
                         <div class="tab-pane fade" id="image" role="tabpanel" aria-labelledby="image-tab">
