@@ -52683,14 +52683,6 @@ jQuery(document).ready(function () {
 // Generic Functions
 jQuery(document).ready(function () {
 
-    $("#Tags").select2({
-        tags: true,
-        tokenSeparators: [',', ' '],
-        theme: "bootstrap4",
-        dropdownAutoWidth: true
-    });
-
-
     // Main Menu
     $(".dropdown-menu a.dropdown-toggle").on("click", function () {
 		var $el = $(this);
@@ -52835,4 +52827,11 @@ jQuery(document).ready(function () {
         });
 
     });
+});
+jQuery(document).ready(function () {
+    jQuery(".custom-file-input").on("change",
+        function() {
+            var fileName = $(this)[0].files[0].name;
+            $(this).next(".custom-file-label").html(fileName);
+        });
 });

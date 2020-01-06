@@ -2656,6 +2656,7 @@
     <Content Include="Scripts\emojipicker\jquery.emojipicker.js" />
     <Content Include="Scripts\emojipicker\jquery.emojis.js" />
     <Content Include="Scripts\forum\yaf.Albums.js" />
+    <Content Include="Scripts\forum\yaf.FileBrowser.js" />
     <Content Include="Scripts\forum\yaf.contextMenu.js" />
     <Content Include="Scripts\forum\yaf.SearchResults.js" />
     <Content Include="Scripts\forum\yaf.SimilarTitles.js" />

@@ -121,9 +121,11 @@ namespace YAF.Dialogs
             }
             catch (Exception x)
             {
-                this.PageContext.AddLoadMessage(
+                this.PageContext.LoadMessage.AddSession(
                     string.Format(this.GetText("ADMIN_USERS_IMPORT", "IMPORT_FAILED"), x.Message), MessageTypes.danger);
             }
+
+            YafBuildLink.Redirect(ForumPages.admin_users);
         }
 
         /// <summary>
