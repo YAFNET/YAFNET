@@ -27,16 +27,20 @@ namespace YAF.Pages.moderate
     #region Using
 
     using System;
+    using System.Collections.Generic;
+    using System.Data;
+    using System.Linq;
     using System.Web.UI.WebControls;
 
     using YAF.Core;
-    using YAF.Core.Data;
+    using YAF.Core.Extensions;
     using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
     using YAF.Utils;
+    using YAF.Utils.Helpers;
     using YAF.Web.Extensions;
 
     #endregion
@@ -46,6 +50,11 @@ namespace YAF.Pages.moderate
     /// </summary>
     public partial class index : ModerateForumPage
     {
+        /// <summary>
+        /// The userListDataTable.
+        /// </summary>
+        private IEnumerable<DataRow> forumsTable;
+
         #region Constructors and Destructors
 
         /// <summary>
@@ -71,6 +80,39 @@ namespace YAF.Pages.moderate
 
             // moderation index
             this.PageLinks.AddLink(this.GetText("TITLE"));
+        }
+
+        /// <summary>
+        /// The category list_ on item data bound.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        protected void CategoryList_OnItemDataBound(object sender, RepeaterItemEventArgs e)
+        {
+            if (e.Item.ItemType != ListItemType.Item && e.Item.ItemType != ListItemType.AlternatingItem)
+            {
+                return;
+            }
+
+            var category = (Category)e.Item.DataItem;
+
+            var forums = this.forumsTable.Where(row => row.Field<int>("CategoryID") == category.ID);
+
+            var forumRepeater = e.Item.FindControlAs<Repeater>("ForumList");
+
+            if (!forums.Any())
+            {
+                e.Item.Visible = false;
+            }
+            else
+            {
+                forumRepeater.DataSource = forums;
+                forumRepeater.DataBind();
+            }
         }
 
         /// <summary>
@@ -121,11 +163,11 @@ namespace YAF.Pages.moderate
         /// </summary>
         private void BindData()
         {
-            // get list of forums and their moderating data
-            using (var ds = this.GetRepository<Forum>().ModerateListADataSet(this.PageContext.PageUserID, this.PageContext.PageBoardID))
-            {
-                this.CategoryList.DataSource = ds.Tables[CommandTextHelpers.GetObjectName("Category")];
-            }
+            this.forumsTable = this.GetRepository<Forum>()
+                .ModerateListAsDataTable(this.PageContext.PageUserID, this.PageContext.PageBoardID).Rows
+                .Cast<DataRow>();
+
+            this.CategoryList.DataSource = this.GetRepository<Category>().GetByBoardId().OrderBy(c => c.SortOrder);
 
             // bind data to controls
             this.DataBind();

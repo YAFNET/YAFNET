@@ -27,7 +27,6 @@ namespace YAF.Core.Services
     #region Using
 
     using System;
-    using System.Collections.Generic;
     using System.Data;
     using System.Drawing;
     using System.Drawing.Drawing2D;
@@ -251,25 +250,8 @@ namespace YAF.Core.Services
                                 ? user.DisplayName.StartsWith(searchQuery)
                                 : user.Name.StartsWith(searchQuery));
 
-                var users = new List<UserSimple>();
-
-                usersList.ForEach(
-                    user =>
-                        {
-                            // Check if user is blocked
-                            if (this.Get<IUserIgnored>().IsIgnored(user.ID))
-                            {
-                                return;
-                            }
-
-                            var userSimple = new UserSimple
-                                                 {
-                                                     UserName = this.Get<YafBoardSettings>().EnableDisplayName
-                                                                    ? user.DisplayName
-                                                                    : user.Name
-                                                 };
-                            users.Add(userSimple);
-                        });
+                var users = usersList.AsEnumerable().Where(u => !this.Get<IUserIgnored>().IsIgnored(u.ID)).Select(
+                    u => new { UserName = this.Get<YafBoardSettings>().EnableDisplayName ? u.DisplayName : u.Name });
 
                 context.Response.Clear();
 

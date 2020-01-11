@@ -816,14 +816,8 @@ namespace YAF.Core.Model
             [NotNull] object autoWatchTopics,
             [NotNull] object dSTUser,
             [NotNull] object hideUser,
-            [NotNull] object notificationType,
-            [CanBeNull] DateTime? utcTimeStamp = null)
+            [NotNull] object notificationType)
         {
-            if (utcTimeStamp == null)
-            {
-                utcTimeStamp = DateTime.UtcNow;
-            }
-
             repository.DbFunction.Scalar.user_save(
                 UserID: userID,
                 BoardID: boardID,
@@ -841,7 +835,7 @@ namespace YAF.Core.Model
                 DSTUser: dSTUser,
                 HideUser: hideUser,
                 NotificationType: notificationType,
-                UTCTIMESTAMP: utcTimeStamp);
+                UTCTIMESTAMP: DateTime.UtcNow);
         }
 
         /// <summary>

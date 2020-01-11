@@ -171,14 +171,14 @@ namespace YAF.Dialogs
 
                 var streamReader = new StreamReader(inputStream);
 
-                var headers = streamReader.ReadLine().Split(',');
+                var headers = streamReader.ReadLine()?.Split(',');
 
                 headers.ForEach(header => usersTable.Columns.Add(header));
 
                 while (streamReader.Peek() >= 0)
                 {
                     var dr = usersTable.NewRow();
-                    dr.ItemArray = streamReader.ReadLine().Split(',');
+                    dr.ItemArray = streamReader.ReadLine()?.Split(',');
 
                     usersTable.Rows.Add(dr);
                 }
@@ -240,7 +240,7 @@ namespace YAF.Dialogs
                 this.Get<MembershipProvider>().RequiresQuestionAndAnswer ? securityAnswer : null,
                 true,
                 null,
-                out var status);
+                out _);
 
             // setup initial roles (if any) for this user
             RoleMembershipHelper.SetupUserRoles(YafContext.Current.PageBoardID, (string)row["Name"]);
@@ -414,7 +414,6 @@ namespace YAF.Dialogs
                 this.Get<YafBoardSettings>().DefaultNotificationSetting,
                 autoWatchTopicsEnabled,
                 isDst,
-                null,
                 null);
 
             // save the settings...

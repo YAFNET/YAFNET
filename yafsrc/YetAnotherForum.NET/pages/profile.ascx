@@ -5,7 +5,6 @@
 
 <%@ Register TagPrefix="YAF" TagName="SignatureEdit" Src="../controls/EditUsersSignature.ascx" %>
 <%@ Register TagPrefix="YAF" TagName="SuspendUser" Src="../controls/EditUsersSuspend.ascx" %>
-<%@ Register TagPrefix="YAF" TagName="ForumAccess" Src="../controls/ForumProfileAccess.ascx" %>
 <%@ Register TagPrefix="YAF" TagName="BuddyList" Src="../controls/BuddyList.ascx" %>
 
 
@@ -302,13 +301,6 @@
                 <div class="card-body">
                     <nav>
                         <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                            <a class="nav-item nav-link active" 
-                               id="nav-access-tab" 
-                               data-toggle="tab" 
-                               href="#nav-access" 
-                               role="tab">
-                                <YAF:LocalizedLabel runat="server" LocalizedTag="FORUM_ACCESS" />
-                            </a>
                             <a class="nav-item nav-link" 
                                id="nav-suspend-tab" 
                                data-toggle="tab" 
@@ -326,10 +318,7 @@
                         </div>
                     </nav>
                     <div class="tab-content" id="nav-tabContent">
-                        <div class="tab-pane fade show active" id="nav-access" role="tabpanel">
-                            <YAF:ForumAccess runat="server" ID="ForumAccessControl" />
-                        </div>
-                        <div class="tab-pane fade" id="nav-suspend" role="tabpanel">
+                        <div class="tab-pane fade show active" id="nav-suspend" role="tabpanel">
                             <YAF:SuspendUser runat="server" ID="SuspendUserControl" ShowHeader="False" />
                         </div>
                         <div class="tab-pane fade" id="nav-signature" role="tabpanel">

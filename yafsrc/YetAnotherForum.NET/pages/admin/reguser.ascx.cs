@@ -130,7 +130,6 @@ namespace YAF.Pages.Admin
                 null,
                 null,
                 null,
-                null,
                 this.Get<YafBoardSettings>().DefaultNotificationSetting,
                 autoWatchTopicsEnabled,
                 null,

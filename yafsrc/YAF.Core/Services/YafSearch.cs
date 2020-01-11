@@ -526,6 +526,7 @@ namespace YAF.Core.Services
                            UserName = doc.Get("Author"),
                            UserDisplayName = doc.Get("AuthorDisplay"),
                            ForumName = doc.Get("ForumName"),
+                           ForumUrl = YafBuildLink.GetLink(ForumPages.forum, "f={0}", doc.Get("ForumId").ToType<int>()),
                            UserStyle = doc.Get("AuthorStyle")
                        };
         }

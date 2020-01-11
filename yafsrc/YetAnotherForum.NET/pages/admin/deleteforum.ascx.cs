@@ -182,12 +182,10 @@ namespace YAF.Pages.Admin
         /// </summary>
         private void BindParentList()
         {
-            this.ForumList.DataSource = this.GetRepository<Forum>().ListAllAsDataTable(
-                this.PageContext.PageBoardID,
-                this.PageContext.PageUserID);
+            this.ForumList.DataSource = this.GetRepository<Forum>().List(this.PageContext.PageBoardID, null);
 
-            this.ForumList.DataValueField = "ForumID";
-            this.ForumList.DataTextField = "Forum";
+            this.ForumList.DataValueField = "ID";
+            this.ForumList.DataTextField = "Name";
             this.ForumList.DataBind();
         }
 

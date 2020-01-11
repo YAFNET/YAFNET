@@ -148,9 +148,8 @@ namespace YAF.Pages.Admin
             this.NewGroupRow.Visible = false;
 
             // get data about edited role
-            var row = this.GetRepository<Group>().List(
-                this.Get<HttpRequestBase>().QueryString.GetFirstOrDefaultAs<int>("i"),
-                this.PageContext.PageBoardID).FirstOrDefault();
+            var row = this.GetRepository<Group>().GetById(
+                this.Get<HttpRequestBase>().QueryString.GetFirstOrDefaultAs<int>("i"));
 
             // get role flags
             var flags = row.GroupFlags;

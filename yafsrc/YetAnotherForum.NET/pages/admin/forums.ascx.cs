@@ -27,10 +27,10 @@ namespace YAF.Pages.Admin
     #region Using
 
     using System;
+    using System.Linq;
     using System.Web.UI.WebControls;
 
     using YAF.Core;
-    using YAF.Core.Data;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
     using YAF.Types;
@@ -39,7 +39,11 @@ namespace YAF.Pages.Admin
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
     using YAF.Utils;
+    using YAF.Utils.Helpers;
+    using YAF.Web.Controls;
     using YAF.Web.Extensions;
+
+    using Forum = YAF.Types.Models.Forum;
 
     #endregion
 
@@ -135,6 +139,41 @@ namespace YAF.Pages.Admin
         }
 
         /// <summary>
+        /// The category list_ on item data bound.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        protected void CategoryList_OnItemDataBound(object sender, RepeaterItemEventArgs e)
+        {
+            if (e.Item.ItemType != ListItemType.Item && e.Item.ItemType != ListItemType.AlternatingItem)
+            {
+                return;
+            }
+
+            var category = (Category)e.Item.DataItem;
+
+            var themeButtonDelete = e.Item.FindControlAs<ThemeButton>("ThemeButtonDelete");
+            var themeButton2 = e.Item.FindControlAs<ThemeButton>("ThemeButton2");
+
+            var forums = this.GetRepository<Forum>().GetByCategorySorted(category.ID);
+
+            themeButtonDelete.Visible = themeButton2.Visible = !forums.Any();
+
+            if (!forums.Any())
+            {
+                return;
+            }
+
+            var forumRepeater = e.Item.FindControlAs<Repeater>("ForumList");
+            forumRepeater.DataSource = forums;
+            forumRepeater.DataBind();
+        }
+
+        /// <summary>
         /// Creates page links for this page.
         /// </summary>
         protected override void CreatePageLinks()
@@ -154,10 +193,7 @@ namespace YAF.Pages.Admin
         /// </summary>
         private void BindData()
         {
-            using (var ds = this.GetRepository<Forum>().ForumAdminAsDataSet(this.PageContext.PageBoardID))
-            {
-                this.CategoryList.DataSource = ds.Tables[CommandTextHelpers.GetObjectName("Category")];
-            }
+            this.CategoryList.DataSource = this.GetRepository<Category>().GetByBoardId().OrderBy(c => c.SortOrder);
 
             // Hide the New Forum Button if there are no Categories.
             this.NewForum.Visible = this.CategoryList.Items.Count < 1;

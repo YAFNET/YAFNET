@@ -36,6 +36,7 @@ namespace YAF.Core.Services
     using System.Web.Security;
 
     using YAF.Configuration;
+    using YAF.Core.Extensions;
     using YAF.Core.Model;
     using YAF.Core.UsersRoles;
     using YAF.Types;
@@ -154,7 +155,7 @@ namespace YAF.Core.Services
                         notifyModerators.SendEmail(
                             new MailAddress(membershipUser.Email, membershipUser.UserName),
                             subject,
-                            true);
+                            false);
                     });
         }
 
@@ -236,7 +237,7 @@ namespace YAF.Core.Services
                             notifyModerators.SendEmail(
                                 new MailAddress(membershipUser.Email, membershipUser.UserName),
                                 subject,
-                                true);
+                                false);
                         });
             }
             catch (Exception x)
@@ -267,17 +268,11 @@ namespace YAF.Core.Services
                 // user's email
                 var toEMail = string.Empty;
 
-                var toUser = this.GetRepository<User>().UserList(
-                    YafContext.Current.PageBoardID,
-                    toUserId,
-                    true,
-                    null,
-                    null,
-                    null).FirstOrDefault();
+                var toUser = this.GetRepository<User>().GetById(toUserId);
 
                 if (toUser != null)
                 {
-                    privateMessageNotificationEnabled = toUser.PMNotification ?? false;
+                    privateMessageNotificationEnabled = toUser.PMNotification;
                     toEMail = toUser.Email;
                 }
 
@@ -319,7 +314,7 @@ namespace YAF.Core.Services
                     subject);
 
                 // send email
-                notificationTemplate.SendEmail(new MailAddress(toEMail), emailSubject, true);
+                notificationTemplate.SendEmail(new MailAddress(toEMail), emailSubject, false);
             }
             catch (Exception x)
             {
@@ -418,7 +413,7 @@ namespace YAF.Core.Services
                                 user.Email,
                                 this.BoardSettings.EnableDisplayName ? user.DisplayName : user.Name),
                             subject,
-                            true);
+                            false);
                     });
         }
 
@@ -459,7 +454,7 @@ namespace YAF.Core.Services
                                          }
                                  };
 
-            notifyUser.SendEmail(new MailAddress(user.Email, user.UserName), subject, true);
+            notifyUser.SendEmail(new MailAddress(user.Email, user.UserName), subject, false);
         }
 
         /// <summary>
@@ -510,7 +505,7 @@ namespace YAF.Core.Services
             notifyUser.SendEmail(
                 new MailAddress(toUser.Email, this.BoardSettings.EnableDisplayName ? toUser.DisplayName : toUser.Name),
                 subject,
-                true);
+                false);
         }
 
         /// <summary>
@@ -535,7 +530,7 @@ namespace YAF.Core.Services
                                             }
                                     };
 
-            templateEmail.SendEmail(new MailAddress(user.Email, user.UserName), subject, true);
+            templateEmail.SendEmail(new MailAddress(user.Email, user.UserName), subject, false);
         }
 
         /// <summary>
@@ -560,7 +555,7 @@ namespace YAF.Core.Services
                                             }
                                     };
 
-            templateEmail.SendEmail(new MailAddress(user.Email, user.UserName), subject, true);
+            templateEmail.SendEmail(new MailAddress(user.Email, user.UserName), subject, false);
         }
 
         /// <summary>
@@ -592,7 +587,7 @@ namespace YAF.Core.Services
                                   };
 
             emails.Where(email => email.Trim().IsSet()).ForEach(
-                email => notifyAdmin.SendEmail(new MailAddress(email.Trim()), subject, true));
+                email => notifyAdmin.SendEmail(new MailAddress(email.Trim()), subject, false));
         }
 
         /// <summary>
@@ -642,7 +637,7 @@ namespace YAF.Core.Services
                                                           }
                                                   };
 
-                            notifyAdmin.SendEmail(new MailAddress(emailAddress), subject, true);
+                            notifyAdmin.SendEmail(new MailAddress(emailAddress), subject, false);
                         });
             }
         }
@@ -695,7 +690,7 @@ namespace YAF.Core.Services
             }
             else
             {
-                notifyUser.SendEmail(new MailAddress(user.Email, user.UserName), subject, true);
+                notifyUser.SendEmail(new MailAddress(user.Email, user.UserName), subject, false);
             }
         }
 
@@ -740,7 +735,7 @@ namespace YAF.Core.Services
                                           }
                                   };
 
-            verifyEmail.SendEmail(new MailAddress(email, newUsername ?? user.UserName), subject, true);
+            verifyEmail.SendEmail(new MailAddress(email, newUsername ?? user.UserName), subject, false);
         }
 
         /// <summary>
@@ -780,7 +775,7 @@ namespace YAF.Core.Services
             changeEmail.SendEmail(
                 new MailAddress(newEmail),
                 this.Get<ILocalization>().GetText("COMMON", "CHANGEEMAIL_SUBJECT"),
-                true);
+                false);
 
             // show a confirmation
             YafContext.Current.AddLoadMessage(
@@ -818,7 +813,7 @@ namespace YAF.Core.Services
                                          }
                                  };
 
-            notifyUser.SendEmail(new MailAddress(email, userName), subject, true);
+            notifyUser.SendEmail(new MailAddress(email, userName), subject, false);
         }
 
         /// <summary>
@@ -842,7 +837,7 @@ namespace YAF.Core.Services
                                          }
                                  };
 
-            notifyUser.SendEmail(new MailAddress(email, userName), subject, true);
+            notifyUser.SendEmail(new MailAddress(email, userName), subject, false);
         }
 
         #endregion

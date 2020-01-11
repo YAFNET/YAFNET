@@ -128,17 +128,9 @@ namespace YAF.Core.Tasks
                 return false;
             }
 
-            if (!YafContext.Current.Get<ITaskModuleManager>().IsTaskRunning("ForumSaveTask"))
-            {
-                YafContext.Current.Get<ITaskModuleManager>().StartTask(
-                    TaskName,
-                    () => new ForumDeleteTask { Data = boardId, ForumId = forumOldId, ForumNewId = forumNewId });
-            }
-            else
-            {
-                failureMessage = "You can't delete forum while ForumSaveTask is running.";
-                return false;
-            }
+            YafContext.Current.Get<ITaskModuleManager>().StartTask(
+                TaskName,
+                () => new ForumDeleteTask { Data = boardId, ForumId = forumOldId, ForumNewId = forumNewId });
 
             return true;
         }

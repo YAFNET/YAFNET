@@ -9,23 +9,25 @@
     </div>
 </div>
 <div class="row">
-
-<asp:Repeater ID="CategoryList" runat="server">
-    <ItemTemplate>
-        <div class="col">
-                       <div class="card mb-3">
-                       <div class="card-header">
-                           <i class="fa fa-folder fa-fw text-warning"></i>&nbsp;<%# this.Eval( "Name") %>
-                       </div>
-                       <div class="card-body text-center">
-			<asp:Repeater ID="ForumList" runat="server" OnItemCommand="ForumListItemCommand"
-				DataSource='<%# ((System.Data.DataRowView)Container.DataItem).Row.GetChildRows("FK_Forum_Category") %>'>
-				<ItemTemplate>
-                           <div class="list-group list-group-flush small">
-                               <div class="list-group-item list-group-item-action">
-                                   <h5 class="font-weight-bold"><%# DataBinder.Eval(Container.DataItem, "[\"Name\"]") %></h5>
-                                   <YAF:ThemeButton ID="ViewUnapprovedPostsBtn" runat='server' 
-                                                   CommandName='viewunapprovedposts' CommandArgument='<%# this.Eval( "[\"ForumID\"]") %>' 
+    <asp:Repeater ID="CategoryList" runat="server" OnItemDataBound="CategoryList_OnItemDataBound">
+        <ItemTemplate>
+            <div class="col">
+                <div class="card mb-3">
+                    <div class="card-header">
+                        <YAF:Icon runat="server"
+                                  IconName="folder"
+                                  IconType="text-warning"></YAF:Icon>
+                        <%# this.Eval( "Name") %>
+                    </div>
+                    <div class="card-body text-center">
+                        <asp:Repeater ID="ForumList" runat="server" 
+                                      OnItemCommand="ForumListItemCommand">
+                            <ItemTemplate>
+                                <div class="list-group list-group-flush small">
+                                    <div class="list-group-item list-group-item-action">
+                                        <h5 class="font-weight-bold"><%# DataBinder.Eval(Container.DataItem, "[\"Name\"]") %></h5>
+                                   <YAF:ThemeButton ID="ViewUnapprovedPostsBtn" runat="server" 
+                                                   CommandName="viewunapprovedposts" CommandArgument='<%# this.Eval( "[\"ForumID\"]") %>' 
                                                    Visible='<%# this.Eval( "[\"MessageCount\"]").ToType<int>() > 0 %>' 
                                                     Type="Secondary"
                                                     Size="Small">
@@ -41,8 +43,8 @@
                                                     Enabled="False"
                                                     Size="Small">
                                    </YAF:ThemeButton>
-                                   <YAF:ThemeButton ID="ViewReportedBtn" runat='server' 
-                                                   CommandName='viewreportedposts' CommandArgument='<%# this.Eval( "[\"ForumID\"]") %>' 
+                                   <YAF:ThemeButton ID="ViewReportedBtn" runat="server" 
+                                                   CommandName="viewreportedposts" CommandArgument='<%# this.Eval( "[\"ForumID\"]") %>' 
                                                    Visible='<%# this.Eval( "[\"ReportedCount\"]").ToType<int>() > 0 %>' 
                                                     Type="Secondary"
                                                     Size="Small">
@@ -58,16 +60,16 @@
                                                     Enabled="False"
                                                     Size="Small">
                                    </YAF:ThemeButton>
-                               </div>
 
-                           </div>
-				</ItemTemplate>
-			</asp:Repeater>
-                               </div>
-                           </div>
+                                    </div>
+                                </div>
+                            </ItemTemplate>
+                        </asp:Repeater>
+                    </div>
+                </div>
             </div>
-		</ItemTemplate>
-	</asp:Repeater>
+        </ItemTemplate>
+    </asp:Repeater>
 </div>
 <asp:PlaceHolder id="InfoPlaceHolder" runat="server" Visible="false">
     <YAF:Alert runat="server" Dismissing="False" Type="success">
@@ -78,5 +80,4 @@
                             runat="server">
         </YAF:LocalizedLabel>
     </YAF:Alert>
-    
 </asp:PlaceHolder>

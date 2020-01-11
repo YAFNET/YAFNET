@@ -204,7 +204,10 @@ namespace YAF.Web.Controls
 
             if (favoriteCount > 0)
             {
-                writer.Write("&nbsp;<span class=\"badge badge-info\" title=\"{0}\"><i class=\"fas fa-star\"></i> +{1}</span>", this.GetText("FAVORITE_COUNT_TT"), favoriteCount);
+                writer.Write(
+                    "&nbsp;<span class=\"badge badge-info\" title=\"{0}\" data-toggle=\"tooltip\"><i class=\"fas fa-star\"></i> +{1}</span>",
+                    this.GetText("FAVORITE_COUNT_TT"),
+                    favoriteCount);
             }
 
             // Render Pager

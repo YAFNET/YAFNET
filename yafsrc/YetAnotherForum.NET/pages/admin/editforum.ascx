@@ -17,7 +17,9 @@
         <div class="col-xl-12">
             <div class="card mb-3">
                 <div class="card-header">
-                    <i class="fa fa-comments fa-fw text-secondary pr-1"></i>
+                    <YAF:Icon runat="server" 
+                              IconName="comments"
+                              IconType="text-secondary"></YAF:Icon>
                     <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" 
                                         LocalizedTag="HEADER1" 
                                         LocalizedPage="ADMIN_EDITFORUM" />
@@ -46,7 +48,9 @@
                                            AssociatedControlID="CategoryList"
                                            LocalizedTag="CATEGORY" LocalizedPage="ADMIN_EDITFORUM" />
                             <asp:DropDownList ID="CategoryList" runat="server" OnSelectedIndexChanged="CategoryChange"
-                                              DataValueField="ID" DataTextField="Name" CssClass="custom-select">
+                                              DataValueField="ID" 
+                                              DataTextField="Name" 
+                                              CssClass="custom-select">
                             </asp:DropDownList>
                         </div>
                         <div class="form-group col-md-6">
@@ -54,7 +58,7 @@
                                            AssociatedControlID="ParentList"
                                            LocalizedTag="PARENT_FORUM" LocalizedPage="ADMIN_EDITFORUM" />
                             <asp:DropDownList ID="ParentList" runat="server" 
-                                              CssClass="custom-select">
+                                              CssClass="select2-image-select">
                             </asp:DropDownList>
                         </div>
                     </div>

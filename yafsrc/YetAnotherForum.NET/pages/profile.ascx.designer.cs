@@ -726,15 +726,6 @@ namespace YAF.Pages
         protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel2;
 
         /// <summary>
-        /// ForumAccessControl control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Controls.ForumProfileAccess ForumAccessControl;
-
-        /// <summary>
         /// SuspendUserControl control.
         /// </summary>
         /// <remarks>

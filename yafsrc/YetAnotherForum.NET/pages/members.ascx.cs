@@ -41,7 +41,6 @@ namespace YAF.Pages
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Types.Interfaces.Data;
     using YAF.Types.Models;
     using YAF.Utils;
     using YAF.Web.Extensions;
@@ -212,31 +211,6 @@ namespace YAF.Pages
             this.ViewState["SortLastVisitField"] = 0;
 
             this.PageLinks.AddRoot().AddLink(this.GetText("TITLE"));
-
-            using (var dt = this.Get<IDbFunction>()
-                .GetAsDataTable(cdb => cdb.group_list(this.PageContext.PageBoardID, null)))
-            {
-                // add empty item for no filtering
-                var newRow = dt.NewRow();
-                newRow["Name"] = this.GetText("ALL");
-                newRow["GroupID"] = DBNull.Value;
-                dt.Rows.InsertAt(newRow, 0);
-
-                var guestRows = dt.Select("Name='Guests'");
-
-                if (guestRows.Length > 0)
-                {
-                    guestRows.ForEach(row => row.Delete());
-                }
-
-                // commits the deletes to the table
-                dt.AcceptChanges();
-
-                this.Group.DataSource = dt;
-                this.Group.DataTextField = "Name";
-                this.Group.DataValueField = "GroupID";
-                this.Group.DataBind();
-            }
 
             this.NumPostDDL.Items.Add(new ListItem(this.GetText("MEMBERS", "NUMPOSTSEQUAL"), "1"));
             this.NumPostDDL.Items.Add(new ListItem(this.GetText("MEMBERS", "NUMPOSTSLESSOREQUAL"), "2"));
