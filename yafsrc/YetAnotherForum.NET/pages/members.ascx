@@ -190,7 +190,9 @@
                                                       Style='<%# this.Eval("Style") %>' />
                                     </h5>
                                     <small class="d-none d-md-block">
-                                        <strong><YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="JOINED" />:</strong>
+                                        <strong><YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" 
+                                                                    LocalizedTag="JOINED"
+                                                                    LocalizedPage="POSTS"/>:</strong>
                                         <%# this.Get<IDateTime>().FormatDateLong((DateTime)((System.Data.DataRowView)Container.DataItem)["Joined"]) %>
                                     </small>
                                 </div>
