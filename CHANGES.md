@@ -1,6 +1,14 @@
 YetAnotherForum.NET Changelog
 ====================
 
+# YetAnotherForum.NET v2.3.0.06
+* Bug fixes
+
+
+# YetAnotherForum.NET v2.3.0.05
+* Bug fixes
+
+
 # YetAnotherForum.NET v2.3.0.04
 * [FIXED] selecting forum image
 * [FIXED #501] error after edit moderated post

@@ -413,7 +413,7 @@ namespace YAF.Dialogs
                     // send new post notification to users watching this topic/forum
                     this.Get<ISendNotification>().ToWatchingUsers(messageId.ToType<int>());
 
-                    if (Config.IsDotNetNuke && !this.PageContext.IsGuest && this.Get<YafBoardSettings>().EnableActivityStream)
+                    if (Config.IsDotNetNuke && !this.PageContext.IsGuest)
                     {
                         this.Get<IActivityStream>().AddReplyToStream(
                             this.PageContext.PageForumID,
@@ -490,12 +490,6 @@ namespace YAF.Dialogs
         /// <returns>Returns if the forum needs to be moderated</returns>
         private bool CheckForumModerateStatus(Forum forumInfo)
         {
-            // User Moderate override
-            if (this.PageContext.Moderated)
-            {
-                return true;
-            }
-
             var forumModerated = forumInfo.Flags.BinaryAnd(ForumFlags.Flags.IsModerated);
 
             if (!forumModerated)
