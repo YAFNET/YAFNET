@@ -29,6 +29,7 @@ namespace YAF.Core.Tasks
     using System.Collections.Generic;
     using System.Globalization;
     using System.Linq;
+    using System.Text.RegularExpressions;
 
     using YAF.Configuration;
     using YAF.Core.Model;
@@ -219,8 +220,11 @@ namespace YAF.Core.Tasks
                                 return;
                             }
 
+                            var subject = Regex.Match(digestHtml, "<title>(.*?)</title>", RegexOptions.Singleline).Groups[1].Value.Trim();
+
                             // send the digest...
                             this.Get<IDigest>().SendDigest(
+                                subject.Trim(),
                                 digestHtml,
                                 boardSettings.Name,
                                 boardSettings.ForumEmail,

@@ -1136,7 +1136,7 @@ namespace YAF.Pages
                     BBCodeHelper.FindMentions(this.forumEditor.Text).ForEach(
                         user =>
                             {
-                                var userId = this.Get<IUserDisplayName>().GetId(user.UserName).Value;
+                                var userId = this.Get<IUserDisplayName>().GetId(user).Value;
 
                                 if (userId != this.PageContext.PageUserID)
                                 {
@@ -1152,7 +1152,7 @@ namespace YAF.Pages
                     BBCodeHelper.FindUserQuoting(this.forumEditor.Text).ForEach(
                         user =>
                             {
-                                var userId = this.Get<IUserDisplayName>().GetId(user.UserName).Value;
+                                var userId = this.Get<IUserDisplayName>().GetId(user).Value;
 
                                 if (userId != this.PageContext.PageUserID)
                                 {

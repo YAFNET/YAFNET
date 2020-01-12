@@ -25,42 +25,43 @@
                             <ItemTemplate>
                                 <div class="list-group list-group-flush small">
                                     <div class="list-group-item list-group-item-action">
-                                        <h5 class="font-weight-bold"><%# DataBinder.Eval(Container.DataItem, "[\"Name\"]") %></h5>
-                                   <YAF:ThemeButton ID="ViewUnapprovedPostsBtn" runat="server" 
-                                                   CommandName="viewunapprovedposts" CommandArgument='<%# this.Eval( "[\"ForumID\"]") %>' 
-                                                   Visible='<%# this.Eval( "[\"MessageCount\"]").ToType<int>() > 0 %>' 
-                                                    Type="Secondary"
-                                                    Size="Small">
-                                       <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" 
-                                                           LocalizedTag="UNAPPROVED" /> 
-                                       <span class="badge badge-light"><%# this.Eval( "[\"MessageCount\"]") %></span>
-                                   </YAF:ThemeButton>
-                                   <YAF:ThemeButton ID="NoUnapprovedInfo" 
-                                                    TextLocalizedTag="NO_POSTS" TextLocalizedPage="MODERATE" 
-                                                    runat="server"
-                                                    Visible='<%# this.Eval( "[\"MessageCount\"]").ToType<int>() == 0 %>' 
-                                                    Type="Secondary"
-                                                    Enabled="False"
-                                                    Size="Small">
-                                   </YAF:ThemeButton>
-                                   <YAF:ThemeButton ID="ViewReportedBtn" runat="server" 
-                                                   CommandName="viewreportedposts" CommandArgument='<%# this.Eval( "[\"ForumID\"]") %>' 
-                                                   Visible='<%# this.Eval( "[\"ReportedCount\"]").ToType<int>() > 0 %>' 
-                                                    Type="Secondary"
-                                                    Size="Small">
-                                       <YAF:LocalizedLabel ID="ReportedCountLabel" runat="server" 
-                                                           LocalizedTag="REPORTED" /> 
-                                       <span class="badge badge-light"><%# this.Eval( "[\"ReportedCount\"]") %></span>
-                                   </YAF:ThemeButton>
-                                   <YAF:ThemeButton ID="NoReportedInfo" 
-                                                    TextLocalizedTag="NO_POSTS" TextLocalizedPage="MODERATE"
-                                                    runat="server"
-                                                    Visible='<%# this.Eval( "[\"ReportedCount\"]").ToType<int>() == 0 %>' 
-                                                    Type="Secondary"
-                                                    Enabled="False"
-                                                    Size="Small">
-                                   </YAF:ThemeButton>
-
+                                        <h5 class="font-weight-bold">
+                                            <%# DataBinder.Eval(Container.DataItem, "[\"Name\"]") %>
+                                        </h5>
+                                        <YAF:ThemeButton ID="ViewUnapprovedPostsBtn" runat="server" 
+                                                         CommandName="viewunapprovedposts" 
+                                                         CommandArgument='<%# this.Eval( "[\"ForumID\"]") %>' 
+                                                         Visible='<%# this.Eval( "[\"MessageCount\"]").ToType<int>() > 0 %>' 
+                                                         Type="Secondary"
+                                                         Size="Small">
+                                            <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" 
+                                                                LocalizedTag="UNAPPROVED" />
+                                            <span class="badge badge-light"><%# this.Eval( "[\"MessageCount\"]") %></span>
+                                        </YAF:ThemeButton>
+                                        <YAF:ThemeButton ID="NoUnapprovedInfo" runat="server"
+                                                         TextLocalizedTag="NO_POSTS" TextLocalizedPage="MODERATE" 
+                                                         Visible='<%# this.Eval( "[\"MessageCount\"]").ToType<int>() == 0 %>' 
+                                                         Type="Secondary"
+                                                         Enabled="False"
+                                                         Size="Small">
+                                        </YAF:ThemeButton>
+                                        <YAF:ThemeButton ID="ViewReportedBtn" runat="server" 
+                                                         CommandName="viewreportedposts" 
+                                                         CommandArgument='<%# this.Eval( "[\"ForumID\"]") %>' 
+                                                         Visible='<%# this.Eval( "[\"ReportedCount\"]").ToType<int>() > 0 %>' 
+                                                         Type="Secondary"
+                                                         Size="Small">
+                                            <YAF:LocalizedLabel ID="ReportedCountLabel" runat="server" 
+                                                                LocalizedTag="REPORTED" /> 
+                                            <span class="badge badge-light"><%# this.Eval( "[\"ReportedCount\"]") %></span>
+                                        </YAF:ThemeButton>
+                                        <YAF:ThemeButton ID="NoReportedInfo" runat="server"
+                                                         TextLocalizedTag="NO_POSTS" TextLocalizedPage="MODERATE"
+                                                         Visible='<%# this.Eval( "[\"ReportedCount\"]").ToType<int>() == 0 %>' 
+                                                         Type="Secondary"
+                                                         Enabled="False"
+                                                         Size="Small">
+                                        </YAF:ThemeButton>
                                     </div>
                                 </div>
                             </ItemTemplate>

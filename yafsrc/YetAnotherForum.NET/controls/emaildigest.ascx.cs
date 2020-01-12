@@ -327,7 +327,7 @@ namespace YAF.Controls
                 this.BoardSettings.AllowUserTheme,
                 this.BoardSettings.Theme);
 
-            var subject = this.GetTextFormatted("SUBJECT", this.BoardSettings.Name);
+            var subject = string.Format(this.GetText("SUBJECT"), this.BoardSettings.Name);
 
             this.YafHead.Controls.Add(
                 ControlHelper.MakeCssIncludeControl(

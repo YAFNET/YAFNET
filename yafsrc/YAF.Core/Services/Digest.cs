@@ -40,17 +40,17 @@ namespace YAF.Core.Services
     /// <summary>
     /// The YAF digest.
     /// </summary>
-    public class YafDigest : IDigest, IHaveServiceLocator
+    public class Digest : IDigest, IHaveServiceLocator
     {
         #region Constructors and Destructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="YafDigest"/> class.
+        /// Initializes a new instance of the <see cref="Digest"/> class.
         /// </summary>
         /// <param name="serviceLocator">
         /// The service locator.
         /// </param>
-        public YafDigest([NotNull] IServiceLocator serviceLocator)
+        public Digest([NotNull] IServiceLocator serviceLocator)
         {
             this.ServiceLocator = serviceLocator;
         }
@@ -131,13 +131,29 @@ namespace YAF.Core.Services
         /// <summary>
         /// Sends the digest html to the email/name specified.
         /// </summary>
-        /// <param name="digestHtml">The digest html.</param>
-        /// <param name="forumName">The forum name.</param>
-        /// <param name="forumEmail">The forum email.</param>
-        /// <param name="toEmail">The to email.</param>
-        /// <param name="toName">The to name.</param>
-        /// <param name="sendQueued">The send queued.</param>
+        /// <param name="subject">
+        /// The subject.
+        /// </param>
+        /// <param name="digestHtml">
+        /// The digest html.
+        /// </param>
+        /// <param name="forumName">
+        /// The forum name.
+        /// </param>
+        /// <param name="forumEmail">
+        /// The forum email.
+        /// </param>
+        /// <param name="toEmail">
+        /// The to email.
+        /// </param>
+        /// <param name="toName">
+        /// The to name.
+        /// </param>
+        /// <param name="sendQueued">
+        /// The send queued.
+        /// </param>
         public void SendDigest(
+            [NotNull] string subject,
             [NotNull] string digestHtml,
             [NotNull] string forumName,
             [NotNull] string forumEmail,
@@ -149,8 +165,6 @@ namespace YAF.Core.Services
             CodeContracts.VerifyNotNull(forumName, "forumName");
             CodeContracts.VerifyNotNull(forumEmail, "forumEmail");
             CodeContracts.VerifyNotNull(toEmail, "toEmail");
-
-            var subject = this.Get<ILocalization>().GetTextFormatted("SUBJECT", forumName);
 
             if (sendQueued)
             {

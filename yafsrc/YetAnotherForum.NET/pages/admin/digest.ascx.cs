@@ -27,6 +27,7 @@ namespace YAF.Pages.Admin
 
     using System;
     using System.Globalization;
+    using System.Text.RegularExpressions;
 
     using YAF.Configuration;
     using YAF.Core;
@@ -136,6 +137,7 @@ namespace YAF.Pages.Admin
                     // send....
                     this.Get<IDigest>()
                         .SendDigest(
+                            string.Format(this.GetText("DIGEST", "SUBJECT"), this.PageContext.BoardSettings.Name),
                             digestHtml,
                             this.PageContext.BoardSettings.Name,
                             this.PageContext.BoardSettings.ForumEmail,

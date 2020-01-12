@@ -44,14 +44,14 @@ namespace YAF.Utils.Helpers
         /// <returns>
         /// The <see cref="List"/>.
         /// </returns>
-        public static List<UserSimple> FindUserQuoting(string text)
+        public static List<string> FindUserQuoting(string text)
         {
             var mentions = Regex.Matches(
                 text,
                 @"\[quote\=(?<user>.+?);(?<messageId>.+?)\](?<inner>.+?)\[\/quote\]",
                 RegexOptions.Singleline);
 
-            return (from Match match in mentions select new UserSimple { UserName = match.Groups["user"].Value }).ToList();
+            return (from Match match in mentions select match.Groups["user"].Value).ToList();
         }
 
         /// <summary>
@@ -63,13 +63,12 @@ namespace YAF.Utils.Helpers
         /// <returns>
         /// The <see cref="List"/>.
         /// </returns>
-        public static List<UserSimple> FindMentions(string text)
+        public static List<string> FindMentions(string text)
         {
             var mentions = Regex.Matches(text, @"@\[userlink\](?<inner>.+?)\[\/userlink\]", RegexOptions.IgnoreCase);
 
-            return (from Match match in mentions select new UserSimple { UserName = match.Groups["inner"].Value }).ToList();
+            return (from Match match in mentions select match.Groups["inner"].Value).ToList();
         }
-
 
         /// <summary>
         /// The strip bb code.

@@ -71,7 +71,7 @@ namespace YAF.Core.Modules
             builder.RegisterType<YafActivityStream>().As<IActivityStream>().SingleInstance().PreserveExistingDefaults();
             builder.RegisterType<YafSendNotification>().As<ISendNotification>().InstancePerLifetimeScope().PreserveExistingDefaults();
             builder.RegisterType<YafSearch>().As<ISearch>().InstancePerLifetimeScope().PreserveExistingDefaults();
-            builder.RegisterType<YafDigest>().As<IDigest>().InstancePerLifetimeScope().PreserveExistingDefaults();
+            builder.RegisterType<Digest>().As<IDigest>().InstancePerLifetimeScope().PreserveExistingDefaults();
             builder.RegisterType<DefaultUserDisplayName>().As<IUserDisplayName>().InstancePerLifetimeScope().PreserveExistingDefaults();
             builder.RegisterType<DefaultUrlBuilder>().As<IUrlBuilder>().InstancePerLifetimeScope().PreserveExistingDefaults();
             builder.RegisterType<YafBBCode>().As<IBBCode>().InstancePerLifetimeScope().PreserveExistingDefaults();
