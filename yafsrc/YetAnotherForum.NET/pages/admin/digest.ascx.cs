@@ -62,7 +62,7 @@ namespace YAF.Pages.Admin
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void ForceSendClick([NotNull] object sender, [NotNull] EventArgs e)
         {
-            this.Get<YafBoardSettings>().ForceDigestSend = true;
+            this.Get<BoardSettings>().ForceDigestSend = true;
             ((YafLoadBoardSettings)YafContext.Current.BoardSettings).SaveRegistry();
 
             this.PageContext.AddLoadMessage(this.GetText("ADMIN_DIGEST", "MSG_FORCE_SEND"), MessageTypes.success);
@@ -92,13 +92,13 @@ namespace YAF.Pages.Admin
                 return;
             }
 
-            this.LastDigestSendLabel.Text = this.Get<YafBoardSettings>().LastDigestSend.IsNotSet()
+            this.LastDigestSendLabel.Text = this.Get<BoardSettings>().LastDigestSend.IsNotSet()
                                                 ? this.GetText("ADMIN_DIGEST", "DIGEST_NEVER")
                                                 : Convert.ToDateTime(
-                                                    this.Get<YafBoardSettings>().LastDigestSend,
+                                                    this.Get<BoardSettings>().LastDigestSend,
                                                     CultureInfo.InvariantCulture).ToString(CultureInfo.InvariantCulture);
 
-            this.DigestEnabled.Text = this.Get<YafBoardSettings>().AllowDigestEmail
+            this.DigestEnabled.Text = this.Get<BoardSettings>().AllowDigestEmail
                                           ? this.GetText("COMMON", "YES")
                                           : this.GetText("COMMON", "NO");
         }

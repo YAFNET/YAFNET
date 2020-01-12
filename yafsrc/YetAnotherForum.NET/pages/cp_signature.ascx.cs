@@ -64,7 +64,7 @@ namespace YAF.Pages
         /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            if (!this.Get<YafBoardSettings>().AllowSignatures
+            if (!this.Get<BoardSettings>().AllowSignatures
                 && !(this.PageContext.IsAdmin || this.PageContext.IsForumModerator))
             {
                 // Not accessbile...
@@ -78,7 +78,7 @@ namespace YAF.Pages
 
             this.PageLinks.AddRoot();
             this.PageLinks.AddLink(
-                this.Get<YafBoardSettings>().EnableDisplayName
+                this.Get<BoardSettings>().EnableDisplayName
                     ? this.PageContext.CurrentUserData.DisplayName
                     : this.PageContext.PageUserName,
                 YafBuildLink.GetLink(ForumPages.cp_profile));

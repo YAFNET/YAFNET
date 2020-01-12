@@ -2697,6 +2697,7 @@
    <Resource tag="UNREAD_ONLY">Show only unread Activity</Resource>
   <Resource tag="VIEW_PROFILE">View Profile</Resource>
   <Resource tag="YOUR_ACCOUNT">Your Account</Resource>
+   <Resource tag="YOUR_NOTIFIY">Your Notifications</Resource>
   <Resource tag="YOUR_EMAIL">Your email address:</Resource>
   <Resource tag="YOUR_USERDISPLAYNAME">Your display name:</Resource>
   <Resource tag="YOUR_USERNAME">Your user name:</Resource>
@@ -5932,7 +5933,7 @@ Visit {forumname} at {forumlink}
   <Resource tag="BUDDIES_TITLE">Shows your Friend List.</Resource>
   <Resource tag="BUDDYREQUEST">({0} pending)</Resource>
   <Resource tag="DISABLED_REGISTER"> New Registrations are disabled.</Resource>
-  <Resource tag="FORUM_TITLE">Shows the Forum Mainpage.</Resource>
+  <Resource tag="FORUM_TITLE">Shows the Forum Main page.</Resource>
   <Resource tag="HELP">Help</Resource>
   <Resource tag="HELP_TITLE">Shows the Help Pages.</Resource>
   <Resource tag="HOST">Host</Resource>
@@ -5954,8 +5955,8 @@ Visit {forumname} at {forumlink}
   <Resource tag="MYALBUMS">My Albums</Resource>
   <Resource tag="MYALBUMS_TITLE">Shows the Albums Page which shows all your albums.</Resource>
   <Resource tag="MYPROFILE">My Account</Resource>
-   <Resource tag="MYACTIVITY">My Activity</Resource>
-   <Resource tag="MYACTIVITY_TITLE">Shows your activity and Received Thanks, Mentions and Quotes.</Resource>
+   <Resource tag="MYNOTIFY">My Notifications</Resource>
+   <Resource tag="MYNOTIFY_TITLE">Shows your unread Received Thanks, Mentions and Quotes.</Resource>
   <Resource tag="MYPROFILE_TITLE">Shows the User Control Panel.</Resource>
   <Resource tag="MYTOPICS">My Topics</Resource>
   <Resource tag="MYTOPICS_TITLE">Shows the Active and Favorite Topics.</Resource>

@@ -64,7 +64,7 @@ namespace YAF.Core.Events
         /// <param name="requestBase">The request base.</param>
         /// <param name="responseBase">The response base.</param>
         public LastVisitEventHandler(
-            [NotNull] IYafSession yafSession, HttpRequestBase requestBase, HttpResponseBase responseBase)
+            [NotNull] ISession yafSession, HttpRequestBase requestBase, HttpResponseBase responseBase)
         {
             this._requestBase = requestBase;
             this._responseBase = responseBase;
@@ -83,7 +83,7 @@ namespace YAF.Core.Events
         /// <summary>
         /// Gets or sets YafSession.
         /// </summary>
-        public IYafSession YafSession { get; set; }
+        public ISession YafSession { get; set; }
 
         /// <summary>
         /// Handles the specified @event.

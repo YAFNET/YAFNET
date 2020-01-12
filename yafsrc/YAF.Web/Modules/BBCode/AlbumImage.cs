@@ -55,7 +55,7 @@ namespace YAF.Modules.BBCode
                 @"<img src=""{0}resource.ashx?imgprv={1}"" class=""img-user-posted img-thumbnail"" style=""max-width:auto;max-height:{2}px"" alt=""{1}"" />",
                 YafForumInfo.ForumClientFileRoot,
                 this.Parameters["inner"],
-                this.Get<YafBoardSettings>().ImageThumbnailMaxHeight);
+                this.Get<BoardSettings>().ImageThumbnailMaxHeight);
 
             sb.Append("</a>");
 

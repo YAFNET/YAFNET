@@ -186,19 +186,19 @@ namespace YAF.Core.Handlers
                     }
 
                     // verify the size of the attachment
-                    if (this.Get<YafBoardSettings>().MaxFileSize > 0
-                        && file.ContentLength > this.Get<YafBoardSettings>().MaxFileSize)
+                    if (this.Get<BoardSettings>().MaxFileSize > 0
+                        && file.ContentLength > this.Get<BoardSettings>().MaxFileSize)
                     {
                         throw new HttpRequestValidationException(
                             this.Get<ILocalization>().GetTextFormatted(
                                 "UPLOAD_TOOBIG",
                                 file.ContentLength / 1024,
-                                this.Get<YafBoardSettings>().MaxFileSize / 1024));
+                                this.Get<BoardSettings>().MaxFileSize / 1024));
                     }
 
                     int newAttachmentId;
 
-                    if (this.Get<YafBoardSettings>().UseFileTable)
+                    if (this.Get<BoardSettings>().UseFileTable)
                     {
                         newAttachmentId = this.GetRepository<Attachment>().Save(
                             0,

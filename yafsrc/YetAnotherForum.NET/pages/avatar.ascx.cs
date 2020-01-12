@@ -95,7 +95,7 @@ namespace YAF.Pages
         /// <param name="e">The <see cref="DataListItemEventArgs"/> instance containing the event data.</param>
         public void Directories_Bind([NotNull] object sender, [NotNull] DataListItemEventArgs e)
         {
-            var directory = $"{YafForumInfo.ForumClientFileRoot}{YafBoardFolders.Current.Avatars}/";
+            var directory = $"{YafForumInfo.ForumClientFileRoot}{BoardFolders.Current.Avatars}/";
 
             if (e.Item.ItemType != ListItemType.Item && e.Item.ItemType != ListItemType.AlternatingItem)
             {
@@ -117,7 +117,7 @@ namespace YAF.Pages
         /// <param name="e">The <see cref="DataListItemEventArgs"/> instance containing the event data.</param>
         public void Files_Bind([NotNull] object sender, [NotNull] DataListItemEventArgs e)
         {
-            var directoryPath = Path.Combine(YafForumInfo.ForumClientFileRoot, YafBoardFolders.Current.Avatars);
+            var directoryPath = Path.Combine(YafForumInfo.ForumClientFileRoot, BoardFolders.Current.Avatars);
 
             var fileName = e.Item.FindControlAs<Literal>("fname");
 
@@ -171,7 +171,7 @@ namespace YAF.Pages
             }
 
             // get the previous directory...
-            var previousDirectory = Path.Combine(YafForumInfo.ForumClientFileRoot, YafBoardFolders.Current.Avatars);
+            var previousDirectory = Path.Combine(YafForumInfo.ForumClientFileRoot, BoardFolders.Current.Avatars);
 
             var up = e.Item.FindControlAs<LinkButton>("up");
             up.CommandArgument = previousDirectory;
@@ -304,7 +304,7 @@ namespace YAF.Pages
 
             this.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
 
-            this.CurrentDirectory = Path.Combine(YafForumInfo.ForumClientFileRoot, YafBoardFolders.Current.Avatars);
+            this.CurrentDirectory = Path.Combine(YafForumInfo.ForumClientFileRoot, BoardFolders.Current.Avatars);
 
             this.BindData(this.CurrentDirectory);
         }
@@ -315,7 +315,7 @@ namespace YAF.Pages
         /// <param name="currentFolder">The current Folder.</param>
         private void BindData([NotNull] string currentFolder)
         {
-            var directoryPath = Path.Combine(YafForumInfo.ForumClientFileRoot, YafBoardFolders.Current.Avatars);
+            var directoryPath = Path.Combine(YafForumInfo.ForumClientFileRoot, BoardFolders.Current.Avatars);
 
             if (currentFolder.IsSet())
             {

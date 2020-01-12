@@ -110,7 +110,7 @@ namespace YAF.Pages
         protected void DeleteAlbum_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
             var path = this.Get<HttpRequestBase>()
-                .MapPath(string.Concat(BaseUrlBuilder.ServerFileRoot, YafBoardFolders.Current.Uploads));
+                .MapPath(string.Concat(BaseUrlBuilder.ServerFileRoot, BoardFolders.Current.Uploads));
 
             this.Get<IAlbum>().AlbumImageDelete(
                 path,
@@ -135,7 +135,7 @@ namespace YAF.Pages
             {
                 case "delete":
                     var path = this.Get<HttpRequestBase>().MapPath(
-                        string.Concat(BaseUrlBuilder.ServerFileRoot, YafBoardFolders.Current.Uploads));
+                        string.Concat(BaseUrlBuilder.ServerFileRoot, BoardFolders.Current.Uploads));
 
                     this.Get<IAlbum>().AlbumImageDelete(
                         path,
@@ -172,7 +172,7 @@ namespace YAF.Pages
                             "IMAGES_INFO",
                             this.List.Items.Count,
                             usrAlbumImagesAllowed,
-                            this.Get<YafBoardSettings>().AlbumImagesSizeMax / 1024);
+                            this.Get<BoardSettings>().AlbumImagesSizeMax / 1024);
                     }
                     else
                     {
@@ -191,7 +191,7 @@ namespace YAF.Pages
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            if (!this.Get<YafBoardSettings>().EnableAlbum)
+            if (!this.Get<BoardSettings>().EnableAlbum)
             {
                 YafBuildLink.AccessDenied();
             }
@@ -215,7 +215,7 @@ namespace YAF.Pages
                 case "new":
 
                     // Is album feature enabled?
-                    if (!this.Get<YafBoardSettings>().EnableAlbum)
+                    if (!this.Get<BoardSettings>().EnableAlbum)
                     {
                         YafBuildLink.AccessDenied();
                     }
@@ -230,8 +230,8 @@ namespace YAF.Pages
                         }
                     }
 
-                    /* if (this.Get<YafBoardSettings>().AlbumsMax > 0 &&
-                                        albumSize[0] > this.Get<YafBoardSettings>().AlbumsMax - 1)
+                    /* if (this.Get<BoardSettings>().AlbumsMax > 0 &&
+                                        albumSize[0] > this.Get<BoardSettings>().AlbumsMax - 1)
                               {
                                   YafBuildLink.RedirectInfoPage(InfoMessage.AccessDenied);
                               }*/
@@ -251,7 +251,7 @@ namespace YAF.Pages
                     break;
             }
 
-            var displayName = YafContext.Current.Get<YafBoardSettings>().EnableDisplayName
+            var displayName = YafContext.Current.Get<BoardSettings>().EnableDisplayName
                                   ? UserMembershipHelper.GetDisplayNameFromID(userID)
                                   : UserMembershipHelper.GetUserNameFromID(userID);
 
@@ -288,7 +288,7 @@ namespace YAF.Pages
                     "IMAGES_INFO",
                     this.List.Items.Count,
                     usrAlbumImagesAllowed,
-                    this.Get<YafBoardSettings>().AlbumImagesSizeMax / 1024);
+                    this.Get<BoardSettings>().AlbumImagesSizeMax / 1024);
             }
             else
             {
@@ -363,7 +363,7 @@ namespace YAF.Pages
                         "IMAGES_INFO",
                         this.List.Items.Count,
                         usrAlbumImagesAllowed,
-                        this.Get<YafBoardSettings>().AlbumImagesSizeMax / 1024);
+                        this.Get<BoardSettings>().AlbumImagesSizeMax / 1024);
                 }
                 else
                 {
@@ -467,7 +467,7 @@ namespace YAF.Pages
             }
 
             var path = this.Get<HttpRequestBase>()
-                .MapPath(string.Concat(BaseUrlBuilder.ServerFileRoot, YafBoardFolders.Current.Uploads));
+                .MapPath(string.Concat(BaseUrlBuilder.ServerFileRoot, BoardFolders.Current.Uploads));
 
             // check if Uploads folder exists
             if (!Directory.Exists(path))
@@ -490,8 +490,8 @@ namespace YAF.Pages
             }
 
             // verify the size of the attachment
-            if (this.Get<YafBoardSettings>().AlbumImagesSizeMax > 0
-                && file.PostedFile.ContentLength > this.Get<YafBoardSettings>().AlbumImagesSizeMax)
+            if (this.Get<BoardSettings>().AlbumImagesSizeMax > 0
+                && file.PostedFile.ContentLength > this.Get<BoardSettings>().AlbumImagesSizeMax)
             {
                 this.PageContext.AddLoadMessage(this.GetText("ERROR_TOOBIG"), MessageTypes.danger);
                 return;

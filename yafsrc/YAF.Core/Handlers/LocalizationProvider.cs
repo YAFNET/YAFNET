@@ -197,7 +197,7 @@ namespace YAF.Core
             {
                 this.BeforeInit?.Invoke(this, new EventArgs());
 
-                this.Localization = new YafLocalization(this.TranslationPage);
+                this.Localization = new Localization(this.TranslationPage);
 
                 this.AfterInit?.Invoke(this, new EventArgs());
             }

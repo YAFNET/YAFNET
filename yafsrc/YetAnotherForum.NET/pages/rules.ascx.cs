@@ -79,7 +79,7 @@ namespace YAF.Pages
         /// </param>
         protected void Accept_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
-            if (!this.Get<YafBoardSettings>().UseSSLToRegister)
+            if (!this.Get<BoardSettings>().UseSSLToRegister)
             {
                 YafBuildLink.Redirect(ForumPages.register);
             }
@@ -121,7 +121,7 @@ namespace YAF.Pages
 
             this.RulesText.Param0 = Config.GDPRControllerAddress.IsSet()
                                         ? Config.GDPRControllerAddress
-                                        : this.Get<YafBoardSettings>().ForumEmail;
+                                        : this.Get<BoardSettings>().ForumEmail;
 
             this.Accept.Visible = this.PageContext.IsGuest;
             this.Cancel.Visible = this.PageContext.IsGuest;

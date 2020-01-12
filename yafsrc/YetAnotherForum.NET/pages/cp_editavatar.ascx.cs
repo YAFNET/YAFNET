@@ -77,7 +77,7 @@ namespace YAF.Pages
 
             this.PageLinks.AddRoot();
             this.PageLinks.AddLink(
-                this.Get<YafBoardSettings>().EnableDisplayName
+                this.Get<BoardSettings>().EnableDisplayName
                     ? this.PageContext.CurrentUserData.DisplayName
                     : this.PageContext.PageUserName,
                 YafBuildLink.GetLink(ForumPages.cp_profile));

@@ -118,7 +118,7 @@ namespace YAF.Core.WebService
             int flags)
         {
             // validate token...
-            if (token != YafContext.Current.Get<YafBoardSettings>().WebServiceToken)
+            if (token != YafContext.Current.Get<BoardSettings>().WebServiceToken)
             {
                 throw new SecurityFailureInvalidWebServiceTokenException(
                     "Invalid Secure Web Service Token: Operation Failed");
@@ -166,7 +166,7 @@ namespace YAF.Core.WebService
             [NotNull] string token, [NotNull] string username, [NotNull] string displayName)
         {
             // validate token...
-            if (token != YafContext.Current.Get<YafBoardSettings>().WebServiceToken)
+            if (token != YafContext.Current.Get<BoardSettings>().WebServiceToken)
             {
                 throw new SecurityFailureInvalidWebServiceTokenException(
                     "Invalid Secure Web Service Token: Operation Failed");

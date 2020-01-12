@@ -50,7 +50,7 @@ namespace YAF.Core.Helpers
         {
             CodeContracts.VerifyNotNull(attachment, "attachment");
 
-            var uploadFolder = HostingEnvironment.MapPath(string.Concat(BaseUrlBuilder.ServerFileRoot, YafBoardFolders.Current.Uploads));
+            var uploadFolder = HostingEnvironment.MapPath(string.Concat(BaseUrlBuilder.ServerFileRoot, BoardFolders.Current.Uploads));
 
             var fileNameOld =
                 $"{uploadFolder}/{(attachment.MessageID > 0 ? attachment.MessageID.ToString() : $"u{attachment.UserID}")}.{attachment.FileName}.yafupload";

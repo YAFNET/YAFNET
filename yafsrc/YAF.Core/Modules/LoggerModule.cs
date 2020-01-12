@@ -62,7 +62,7 @@ namespace YAF.Core.Modules
                 return;
             }
 
-            builder.RegisterType<YafDbLoggerProvider>().As<ILoggerProvider>().SingleInstance();
+            builder.RegisterType<DbLoggerProvider>().As<ILoggerProvider>().SingleInstance();
             builder.Register(c => c.Resolve<ILoggerProvider>().Create(null)).SingleInstance();
         }
 

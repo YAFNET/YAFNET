@@ -158,10 +158,10 @@ namespace YAF.Dialogs
                 this.BanReason.Text.Trim(),
                 this.PageContext.PageUserID);
 
-            if (YafContext.Current.Get<YafBoardSettings>().LogBannedIP)
+            if (YafContext.Current.Get<BoardSettings>().LogBannedIP)
             {
                 this.Logger.Log(
-                    $"IP or mask {this.mask.Text.Trim()} was saved by {(this.Get<YafBoardSettings>().EnableDisplayName ? this.PageContext.CurrentUserData.DisplayName : this.PageContext.CurrentUserData.UserName)}.",
+                    $"IP or mask {this.mask.Text.Trim()} was saved by {(this.Get<BoardSettings>().EnableDisplayName ? this.PageContext.CurrentUserData.DisplayName : this.PageContext.CurrentUserData.UserName)}.",
                     EventLogTypes.IpBanSet);
             }
 

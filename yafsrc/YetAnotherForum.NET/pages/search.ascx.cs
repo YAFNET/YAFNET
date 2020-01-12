@@ -99,7 +99,7 @@ namespace YAF.Pages
             this.PageLinks.AddRoot();
             this.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
 
-            this.txtSearchStringFromWho.Attributes.Add("data-display", this.Get<YafBoardSettings>().EnableDisplayName.ToString());
+            this.txtSearchStringFromWho.Attributes.Add("data-display", this.Get<BoardSettings>().EnableDisplayName.ToString());
 
             // Load result dropdown
             this.listResInPage.Items.Add(new ListItem(this.GetText("result5"), "5"));

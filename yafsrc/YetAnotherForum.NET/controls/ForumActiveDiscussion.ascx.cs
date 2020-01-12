@@ -90,7 +90,7 @@ namespace YAF.Controls
             var topicSubject = this.Get<IBadWordReplace>().Replace(this.HtmlEncode(currentRow["Topic"]))
                 .Truncate(70, "...");
 
-            var styles = this.Get<YafBoardSettings>().UseStyledTopicTitles
+            var styles = this.Get<BoardSettings>().UseStyledTopicTitles
                              ? this.Get<IStyleTransform>().DecodeStyleByString(currentRow["Styles"].ToString())
                              : string.Empty;
 
@@ -103,7 +103,7 @@ namespace YAF.Controls
 
             var startedByText = this.GetTextFormatted(
                 "VIEW_TOPIC_STARTED_BY",
-                currentRow[this.Get<YafBoardSettings>().EnableDisplayName ? "UserDisplayName" : "UserName"].ToString());
+                currentRow[this.Get<BoardSettings>().EnableDisplayName ? "UserDisplayName" : "UserName"].ToString());
 
             var inForumText = this.GetTextFormatted("IN_FORUM", this.HtmlEncode(currentRow["Forum"].ToString()));
 
@@ -129,7 +129,7 @@ namespace YAF.Controls
             {
                 lastUserLink.UserID = currentRow["LastUserID"].ToType<int>();
                 lastUserLink.Style = currentRow["LastUserStyle"].ToString();
-                lastUserLink.ReplaceName = this.Get<YafBoardSettings>().EnableDisplayName
+                lastUserLink.ReplaceName = this.Get<BoardSettings>().EnableDisplayName
                               ? currentRow["LastUserDisplayName"].ToString()
                               : currentRow["LastUserName"].ToString();
             }
@@ -155,7 +155,7 @@ namespace YAF.Controls
 
             var lastPostedDateTime = currentRow["LastPosted"].ToType<DateTime>();
 
-            var formattedDatetime = this.Get<YafBoardSettings>().ShowRelativeTime
+            var formattedDatetime = this.Get<BoardSettings>().ShowRelativeTime
                                         ? lastPostedDateTime.ToString(
                                             "yyyy-MM-ddTHH:mm:ssZ",
                                             CultureInfo.InvariantCulture)
@@ -165,7 +165,7 @@ namespace YAF.Controls
 
             info.TextLocalizedTag = "by";
             info.TextLocalizedPage = "DEFAULT";
-            info.ParamText0 = this.Get<YafBoardSettings>().EnableDisplayName
+            info.ParamText0 = this.Get<BoardSettings>().EnableDisplayName
                                   ? currentRow["LastUserDisplayName"].ToString()
                                   : currentRow["LastUserName"].ToString();
             
@@ -222,32 +222,32 @@ namespace YAF.Controls
 
             if (activeTopics == null)
             {
-                this.Get<IYafSession>().UnreadTopics = 0;
+                this.Get<ISession>().UnreadTopics = 0;
 
                 if (YafContext.Current.Settings.CategoryID > 0)
                 {
                     activeTopics = this.GetRepository<Topic>().LatestInCategoryAsDataTable(
                         this.PageContext.PageBoardID,
                         YafContext.Current.Settings.CategoryID,
-                        this.Get<YafBoardSettings>().ActiveDiscussionsCount,
+                        this.Get<BoardSettings>().ActiveDiscussionsCount,
                         this.PageContext.PageUserID,
-                        this.Get<YafBoardSettings>().UseStyledNicks,
-                        this.Get<YafBoardSettings>().NoCountForumsInActiveDiscussions,
-                        this.Get<YafBoardSettings>().UseReadTrackingByDatabase);
+                        this.Get<BoardSettings>().UseStyledNicks,
+                        this.Get<BoardSettings>().NoCountForumsInActiveDiscussions,
+                        this.Get<BoardSettings>().UseReadTrackingByDatabase);
                 }
                 else
                 {
                     activeTopics = this.GetRepository<Topic>().LatestAsDataTable(
                         this.PageContext.PageBoardID,
-                        this.Get<YafBoardSettings>().ActiveDiscussionsCount,
+                        this.Get<BoardSettings>().ActiveDiscussionsCount,
                         this.PageContext.PageUserID,
-                        this.Get<YafBoardSettings>().UseStyledNicks,
-                        this.Get<YafBoardSettings>().NoCountForumsInActiveDiscussions,
-                        this.Get<YafBoardSettings>().UseReadTrackingByDatabase);
+                        this.Get<BoardSettings>().UseStyledNicks,
+                        this.Get<BoardSettings>().NoCountForumsInActiveDiscussions,
+                        this.Get<BoardSettings>().UseReadTrackingByDatabase);
                 }
 
                 // Set colorOnly parameter to true, as we get all but color from css in the place
-                if (this.Get<YafBoardSettings>().UseStyledNicks)
+                if (this.Get<BoardSettings>().UseStyledNicks)
                 {
                     this.Get<IStyleTransform>().DecodeStyleByTable(activeTopics, false, new[] { "LastUserStyle" });
                 }
@@ -257,13 +257,13 @@ namespace YAF.Controls
                     this.Get<IDataCache>().Set(
                         CacheKey,
                         activeTopics,
-                        TimeSpan.FromMinutes(this.Get<YafBoardSettings>().ActiveDiscussionsCacheTimeout));
+                        TimeSpan.FromMinutes(this.Get<BoardSettings>().ActiveDiscussionsCacheTimeout));
                 }
             }
 
             this.RssFeed.Visible = this.Footer.Visible =
                                        this.Get<IPermissions>()
-                                           .Check(this.Get<YafBoardSettings>().PostLatestFeedAccess);
+                                           .Check(this.Get<BoardSettings>().PostLatestFeedAccess);
 
             this.LatestPosts.DataSource = activeTopics;
             this.LatestPosts.DataBind();

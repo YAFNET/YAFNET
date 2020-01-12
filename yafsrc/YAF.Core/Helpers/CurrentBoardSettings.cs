@@ -38,7 +38,7 @@ namespace YAF.Core
     /// <summary>
     ///     The current board settings.
     /// </summary>
-    public class CurrentBoardSettings : IReadWriteProvider<YafBoardSettings>
+    public class CurrentBoardSettings : IReadWriteProvider<BoardSettings>
     {
         #region Fields
 
@@ -104,7 +104,7 @@ namespace YAF.Core
         /// <summary>
         ///     Gets or sets Object.
         /// </summary>
-        public YafBoardSettings Instance
+        public BoardSettings Instance
         {
             get
             {
@@ -112,7 +112,7 @@ namespace YAF.Core
                     this._treatCacheKey.Treat(Constants.Cache.BoardSettings),
                     () =>
                         {
-                            var boardSettings = (YafBoardSettings)new YafLoadBoardSettings(this._haveBoardId.BoardID);
+                            var boardSettings = (BoardSettings)new YafLoadBoardSettings(this._haveBoardId.BoardID);
 
                             // inject
                             this._injectServices.Inject(boardSettings);

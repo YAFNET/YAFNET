@@ -265,12 +265,12 @@ namespace YAF.Core.Services
                 }
 
                 // Check if BaseUrlMask is set and if not automatically write it
-                if (this.Get<YafBoardSettings>().BaseUrlMask.IsNotSet())
+                if (this.Get<BoardSettings>().BaseUrlMask.IsNotSet())
                 {
                     this.GetRepository<Registry>().Save("baseurlmask", BaseUrlBuilder.GetBaseUrlFromVariables());
                 }
 
-                this.GetRepository<Registry>().Save("cdvversion", this.Get<YafBoardSettings>().CdvVersion++);
+                this.GetRepository<Registry>().Save("cdvversion", this.Get<BoardSettings>().CdvVersion++);
             }
 
             if (this.IsForumInstalled)

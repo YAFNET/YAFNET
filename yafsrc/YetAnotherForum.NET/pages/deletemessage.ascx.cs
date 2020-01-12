@@ -127,14 +127,14 @@ namespace YAF.Pages
         {
             get
             {
-                if (this.PageContext.IsAdmin || this.Get<YafBoardSettings>().LockPosts <= 0)
+                if (this.PageContext.IsAdmin || this.Get<BoardSettings>().LockPosts <= 0)
                 {
                     return false;
                 }
 
                 var edited = this._messageRow["Edited"].ToType<DateTime>();
 
-                return edited.AddDays(this.Get<YafBoardSettings>().LockPosts) < DateTime.UtcNow;
+                return edited.AddDays(this.Get<BoardSettings>().LockPosts) < DateTime.UtcNow;
             }
         }
 

@@ -247,7 +247,7 @@
                                       Style='<%# this.Eval("Style") %>' runat="server" />
                     </td>
                     <td>
-                        <a id="A1" href='<%# string.Format(this.Get<YafBoardSettings>().IPInfoPageURL, IPHelper.GetIp4Address(this.Eval("IP").ToString())) %>'
+                        <a id="A1" href='<%# string.Format(this.Get<BoardSettings>().IPInfoPageURL, IPHelper.GetIp4Address(this.Eval("IP").ToString())) %>'
                             title='<%# this.GetText("COMMON","TT_IPDETAILS") %>' target="_blank" runat="server">
                             <%# IPHelper.GetIp4Address(this.Eval("IP").ToString())%></a>
                     </td>

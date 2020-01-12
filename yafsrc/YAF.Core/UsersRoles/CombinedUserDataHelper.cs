@@ -158,7 +158,7 @@ namespace YAF.Core.UsersRoles
                 {
                     this.userDbRow = UserMembershipHelper.GetUserRowForID(
                         this.userId.Value,
-                        YafContext.Current.Get<YafBoardSettings>().AllowUserInfoCaching);
+                        YafContext.Current.Get<BoardSettings>().AllowUserInfoCaching);
                 }
 
                 return this.userDbRow;
@@ -189,7 +189,7 @@ namespace YAF.Core.UsersRoles
         /// </summary>
         public bool DailyDigest =>
             this.DBRow.Field<bool?>("DailyDigest") ??
-            YafContext.Current.Get<YafBoardSettings>().DefaultSendDigestEmail;
+            YafContext.Current.Get<BoardSettings>().DefaultSendDigestEmail;
 
         /// <summary>
         ///   Gets DisplayName.

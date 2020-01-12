@@ -104,7 +104,7 @@ namespace YAF.Core
         public void Handle([NotNull] InitPageLoadEvent @event)
         {
             // vzrus: to log unhandled UserAgent strings
-            if (!this.Get<YafBoardSettings>().UserAgentBadLog)
+            if (!this.Get<BoardSettings>().UserAgentBadLog)
             {
                 return;
             }

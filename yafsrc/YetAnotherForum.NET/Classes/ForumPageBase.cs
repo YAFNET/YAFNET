@@ -80,7 +80,7 @@ namespace YAF
             if (error.GetType() == typeof(HttpException) && error.InnerException is ViewStateException
                 || error.Source.Contains("ViewStateException"))
             {
-                if (this.Get<YafBoardSettings>().LogViewStateError)
+                if (this.Get<BoardSettings>().LogViewStateError)
                 {
                     this.Get<ILogger>()
                         .Log(YafContext.Current.PageUserID, error.Source, error, EventLogTypes.Information);

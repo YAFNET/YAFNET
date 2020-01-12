@@ -28,8 +28,6 @@ namespace YAF.Utils.Helpers
     using System.Linq;
     using System.Text.RegularExpressions;
 
-    using YAF.Types.Objects;
-
     /// <summary>
     /// The bb code helper.
     /// </summary>

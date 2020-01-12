@@ -283,7 +283,7 @@ namespace YAF.Dialogs
                     this.UserSortOrder.Text.ToType<byte>());
             }
 
-            if (this.Get<YafBoardSettings>().EmailUserOnMedalAward)
+            if (this.Get<BoardSettings>().EmailUserOnMedalAward)
             {
                 this.Get<ISendNotification>().ToUserWithNewMedal(this.UserID.Text.ToType<int>(), this.Name);
             }

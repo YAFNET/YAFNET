@@ -2699,6 +2699,7 @@
     <Resource tag="WAS_QUOTED_MSG">Was Quoted by {0} in the Topic {1}</Resource>
     <Resource tag="YOUR_ACCOUNT">Dein Account</Resource>
     <Resource tag="YOUR_EMAIL">Deine E-Mail-Adresse:</Resource>
+    <Resource tag="YOUR_NOTIFIY">Your Notifications</Resource>
     <Resource tag="YOUR_USERDISPLAYNAME">Ihr Anzeigename:</Resource>
     <Resource tag="YOUR_USERNAME">Dein Benutzername:</Resource>
   </page>
@@ -6231,6 +6232,8 @@ Der Bestätigungscode lautet
     <Resource tag="MYACTIVITY_TITLE">Shows your activity and Received Thanks, Mentions and Quotes.</Resource>
     <Resource tag="MYALBUMS">Meine Alben</Resource>
     <Resource tag="MYALBUMS_TITLE">Öffnet die Alben Seite mit ihren Alben.</Resource>
+    <Resource tag="MYNOTIFY">My Notifications</Resource>
+    <Resource tag="MYNOTIFY_TITLE">Shows your unread Received Thanks, Mentions and Quotes.</Resource>
     <Resource tag="MYPROFILE">Mein Profil</Resource>
     <Resource tag="MYPROFILE_TITLE">Öffnet das Benutzer Control Panel.</Resource>
     <Resource tag="MYTOPICS">Meine Themen</Resource>

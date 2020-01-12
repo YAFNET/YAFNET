@@ -2704,6 +2704,7 @@
     <Resource tag="WAS_QUOTED_MSG">Was Quoted by {0} in the Topic {1}</Resource>
     <Resource tag="YOUR_ACCOUNT">Ваша учётная запись</Resource>
     <Resource tag="YOUR_EMAIL">Ваш адрес электронной почты:</Resource>
+    <Resource tag="YOUR_NOTIFIY">Your Notifications</Resource>
     <Resource tag="YOUR_USERDISPLAYNAME">Отображаемое имя:</Resource>
     <Resource tag="YOUR_USERNAME">Ваше имя пользователя:</Resource>
   </page>
@@ -6266,6 +6267,8 @@ Password: {password}
     <Resource tag="MYACTIVITY_TITLE">Shows your activity and Received Thanks, Mentions and Quotes.</Resource>
     <Resource tag="MYALBUMS">Альбомы</Resource>
     <Resource tag="MYALBUMS_TITLE">Посмотреть страницу альбомов.</Resource>
+    <Resource tag="MYNOTIFY">My Notifications</Resource>
+    <Resource tag="MYNOTIFY_TITLE">Shows your unread Received Thanks, Mentions and Quotes.</Resource>
     <Resource tag="MYPROFILE">Мой профиль</Resource>
     <Resource tag="MYPROFILE_TITLE">Страница моего профиля.</Resource>
     <Resource tag="MYTOPICS">Мои темы</Resource>

@@ -156,16 +156,16 @@ namespace YAF.Pages
             this.UserTopicsTabContent.Visible = !this.PageContext.IsGuest;
 
             this.UnreadTopicsTabTitle.Visible = !this.PageContext.IsGuest &&
-                                                this.Get<YafBoardSettings>().UseReadTrackingByDatabase;
+                                                this.Get<BoardSettings>().UseReadTrackingByDatabase;
             this.UnreadTopicsTabContent.Visible = !this.PageContext.IsGuest &&
-                                                  this.Get<YafBoardSettings>().UseReadTrackingByDatabase;
+                                                  this.Get<BoardSettings>().UseReadTrackingByDatabase;
 
             this.PageLinks.AddRoot();
 
             this.PageLinks.AddLink(
                 this.PageContext.IsGuest ? this.GetText("GUESTTITLE") : this.GetText("MEMBERTITLE"), string.Empty);
 
-            this.ForumJumpHolder.Visible = this.Get<YafBoardSettings>().ShowForumJump &&
+            this.ForumJumpHolder.Visible = this.Get<BoardSettings>().ShowForumJump &&
                                            this.PageContext.Settings.LockedForum == 0;
         }
 

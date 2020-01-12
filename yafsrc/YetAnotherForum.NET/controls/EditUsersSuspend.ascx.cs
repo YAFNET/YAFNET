@@ -182,7 +182,7 @@ namespace YAF.Controls
                 this.Get<ILogger>().Log(
                     this.PageContext.PageUserID,
                     "YAF.Controls.EditUsersSuspend",
-                    $"User {(this.Get<YafBoardSettings>().EnableDisplayName ? usr.First().DisplayName : usr.First().Name)} was unsuspended by {(this.Get<YafBoardSettings>().EnableDisplayName ? this.PageContext.CurrentUserData.DisplayName : this.PageContext.CurrentUserData.UserName)}.",
+                    $"User {(this.Get<BoardSettings>().EnableDisplayName ? usr.First().DisplayName : usr.First().Name)} was unsuspended by {(this.Get<BoardSettings>().EnableDisplayName ? this.PageContext.CurrentUserData.DisplayName : this.PageContext.CurrentUserData.UserName)}.",
                     EventLogTypes.UserUnsuspended);
 
                 this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.CurrentUserID));
@@ -302,7 +302,7 @@ namespace YAF.Controls
                 this.Get<ILogger>().Log(
                     this.PageContext.PageUserID,
                     "YAF.Controls.EditUsersSuspend",
-                    $"User {(this.Get<YafBoardSettings>().EnableDisplayName ? usr.First().DisplayName : usr.First().Name)} was suspended by {(this.Get<YafBoardSettings>().EnableDisplayName ? this.PageContext.CurrentUserData.DisplayName : this.PageContext.CurrentUserData.UserName)} until: {suspend} (UTC)",
+                    $"User {(this.Get<BoardSettings>().EnableDisplayName ? usr.First().DisplayName : usr.First().Name)} was suspended by {(this.Get<BoardSettings>().EnableDisplayName ? this.PageContext.CurrentUserData.DisplayName : this.PageContext.CurrentUserData.UserName)} until: {suspend} (UTC)",
                     EventLogTypes.UserSuspended);
 
                 this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.CurrentUserID));

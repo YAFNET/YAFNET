@@ -128,8 +128,8 @@ namespace YAF.Dialogs
                 }
 
                 // No need to check whitespace if they are actually posting something
-                if (this.Get<YafBoardSettings>().MaxPostSize > 0
-                    && this.quickReplyEditor.Text.Length >= this.Get<YafBoardSettings>().MaxPostSize)
+                if (this.Get<BoardSettings>().MaxPostSize > 0
+                    && this.quickReplyEditor.Text.Length >= this.Get<BoardSettings>().MaxPostSize)
                 {
                     YafContext.Current.PageElements.RegisterJsBlockStartup(
                         "openModalJs",
@@ -152,10 +152,10 @@ namespace YAF.Dialogs
                 }
 
                 if (!(this.PageContext.IsAdmin || this.PageContext.ForumModeratorAccess)
-                    && this.Get<YafBoardSettings>().PostFloodDelay > 0)
+                    && this.Get<BoardSettings>().PostFloodDelay > 0)
                 {
-                    if (YafContext.Current.Get<IYafSession>().LastPost
-                        > DateTime.UtcNow.AddSeconds(-this.Get<YafBoardSettings>().PostFloodDelay))
+                    if (YafContext.Current.Get<ISession>().LastPost
+                        > DateTime.UtcNow.AddSeconds(-this.Get<BoardSettings>().PostFloodDelay))
                     {
                         YafContext.Current.PageElements.RegisterJsBlockStartup(
                             "openModalJs",
@@ -164,15 +164,15 @@ namespace YAF.Dialogs
                         this.PageContext.AddLoadMessage(
                             this.GetTextFormatted(
                                 "wait",
-                                (YafContext.Current.Get<IYafSession>().LastPost
-                                 - DateTime.UtcNow.AddSeconds(-this.Get<YafBoardSettings>().PostFloodDelay)).Seconds),
+                                (YafContext.Current.Get<ISession>().LastPost
+                                 - DateTime.UtcNow.AddSeconds(-this.Get<BoardSettings>().PostFloodDelay)).Seconds),
                             MessageTypes.warning);
 
                         return;
                     }
                 }
 
-                YafContext.Current.Get<IYafSession>().LastPost = DateTime.UtcNow;
+                YafContext.Current.Get<ISession>().LastPost = DateTime.UtcNow;
 
                 // post message...
                 long messageId = 0;
@@ -201,7 +201,7 @@ namespace YAF.Dialogs
 
                 // Check for SPAM
                 if (!this.PageContext.IsAdmin && !this.PageContext.ForumModeratorAccess
-                                              && !this.Get<YafBoardSettings>().SpamServiceType.Equals(0))
+                                              && !this.Get<BoardSettings>().SpamServiceType.Equals(0))
                 {
                     // Check content for spam
                     if (this.Get<ISpamCheck>().CheckPostForSpam(
@@ -211,7 +211,7 @@ namespace YAF.Dialogs
                         this.PageContext.IsGuest ? null : this.PageContext.User.Email,
                         out var spamResult))
                     {
-                        switch (this.Get<YafBoardSettings>().SpamMessageHandling)
+                        switch (this.Get<BoardSettings>().SpamMessageHandling)
                         {
                             case 0:
                                 this.Logger.Log(
@@ -280,7 +280,7 @@ namespace YAF.Dialogs
 
                     // Check posts for urls if the user has only x posts
                     if (YafContext.Current.CurrentUserData.NumPosts
-                        <= YafContext.Current.Get<YafBoardSettings>().IgnoreSpamWordCheckPostCount
+                        <= YafContext.Current.Get<BoardSettings>().IgnoreSpamWordCheckPostCount
                         && !this.PageContext.IsAdmin && !this.PageContext.ForumModeratorAccess)
                     {
                         var urlCount = UrlHelper.CountUrls(this.quickReplyEditor.Text);
@@ -290,7 +290,7 @@ namespace YAF.Dialogs
                             spamResult =
                                 $"The user posted {urlCount} urls but allowed only {this.PageContext.BoardSettings.AllowedNumberOfUrls}";
 
-                            switch (this.Get<YafBoardSettings>().SpamMessageHandling)
+                            switch (this.Get<BoardSettings>().SpamMessageHandling)
                             {
                                 case 0:
                                     this.Logger.Log(
@@ -413,7 +413,7 @@ namespace YAF.Dialogs
                     // send new post notification to users watching this topic/forum
                     this.Get<ISendNotification>().ToWatchingUsers(messageId.ToType<int>());
 
-                    if (Config.IsDotNetNuke && !this.PageContext.IsGuest && this.Get<YafBoardSettings>().EnableActivityStream)
+                    if (Config.IsDotNetNuke && !this.PageContext.IsGuest && this.Get<BoardSettings>().EnableActivityStream)
                     {
                         this.Get<IActivityStream>().AddReplyToStream(
                             this.PageContext.PageForumID,
@@ -428,7 +428,7 @@ namespace YAF.Dialogs
                 }
                 else
                 {
-                    if (this.Get<YafBoardSettings>().EmailModeratorsOnModeratedPost)
+                    if (this.Get<BoardSettings>().EmailModeratorsOnModeratedPost)
                     {
                         // not approved, notifiy moderators
                         this.Get<ISendNotification>().ToModeratorsThatMessageNeedsApproval(

@@ -109,9 +109,9 @@ namespace YAF.Pages
         /// </summary>
         protected void BindData()
         {
-            this.PagerTop.PageSize = this.Get<YafBoardSettings>().TopicsPerPage;
+            this.PagerTop.PageSize = this.Get<BoardSettings>().TopicsPerPage;
 
-            var baseSize = this.Get<YafBoardSettings>().TopicsPerPage;
+            var baseSize = this.Get<BoardSettings>().TopicsPerPage;
             var currentPageIndex = this.PagerTop.CurrentPageIndex;
 
             var topicList = this.GetRepository<Topic>().ListAsDataTable(
@@ -262,7 +262,7 @@ namespace YAF.Pages
 
                 this.PagerTop.PageSize = 25;
 
-                var showMoved = this.Get<YafBoardSettings>().ShowMoved;
+                var showMoved = this.Get<BoardSettings>().ShowMoved;
 
                 // Ederon : 7/14/2007 - by default, leave pointer is set on value defined on host level
                 this.LeavePointer.Checked = showMoved;

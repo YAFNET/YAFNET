@@ -377,9 +377,9 @@ namespace YAF.Core.UsersRoles
 
             try
             {
-                var defaultNotificationSetting = YafContext.Current.Get<YafBoardSettings>().DefaultNotificationSetting;
+                var defaultNotificationSetting = YafContext.Current.Get<BoardSettings>().DefaultNotificationSetting;
 
-                var defaultSendDigestEmail = YafContext.Current.Get<YafBoardSettings>().DefaultSendDigestEmail;
+                var defaultSendDigestEmail = YafContext.Current.Get<BoardSettings>().DefaultSendDigestEmail;
 
                 // setup default notifications...
                 var autoWatchTopicsEnabled = defaultNotificationSetting == UserNotificationSetting.TopicsIPostToOrSubscribeTo;

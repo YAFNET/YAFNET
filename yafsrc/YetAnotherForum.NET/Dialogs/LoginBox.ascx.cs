@@ -105,7 +105,7 @@ namespace YAF.Dialogs
             }
 
             // display name login...
-            if (!this.Get<YafBoardSettings>().EnableDisplayName)
+            if (!this.Get<BoardSettings>().EnableDisplayName)
             {
                 return null;
             }
@@ -247,7 +247,7 @@ namespace YAF.Dialogs
                 passwordRecovery.Text = this.GetText("lostpassword");
             }
 
-            if (this.Get<YafBoardSettings>().AllowSingleSignOn)
+            if (this.Get<BoardSettings>().AllowSingleSignOn)
             {
                 faceBookHolder.Visible = Config.FacebookAPIKey.IsSet() && Config.FacebookSecretKey.IsSet();
                 twitterHolder.Visible = Config.TwitterConsumerKey.IsSet() && Config.TwitterConsumerSecret.IsSet();

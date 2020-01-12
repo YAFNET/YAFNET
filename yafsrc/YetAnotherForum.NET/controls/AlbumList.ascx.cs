@@ -141,7 +141,7 @@ namespace YAF.Controls
             }
 
             var umhdn = UserMembershipHelper.GetDisplayNameFromID(this.UserID);
-            this.AlbumHeaderLabel.Param0 = this.Get<YafBoardSettings>().EnableDisplayName
+            this.AlbumHeaderLabel.Param0 = this.Get<BoardSettings>().EnableDisplayName
                                                ? this.HtmlEncode(umhdn)
                                                : this.HtmlEncode(UserMembershipHelper.GetUserNameFromID(this.UserID));
 
@@ -191,7 +191,7 @@ namespace YAF.Controls
         /// </summary>
         private void BindData()
         {
-            this.PagerTop.PageSize = this.Get<YafBoardSettings>().AlbumsPerPage;
+            this.PagerTop.PageSize = this.Get<BoardSettings>().AlbumsPerPage;
 
             // set the Data table
             var albumListDT = this.GetRepository<UserAlbum>().ListByUser(this.UserID);

@@ -122,7 +122,7 @@ namespace YAF.Core.Services
         /// </returns>
         public string GetDigestUrl(int userId, object boardSettings, bool showErrors)
         {
-            var yafBoardSettings = boardSettings as YafBoardSettings;
+            var yafBoardSettings = boardSettings as BoardSettings;
 
             return
                 $"{yafBoardSettings.BaseUrlMask}{BaseUrlBuilder.AppPath}digest.aspx?token={yafBoardSettings.WebServiceToken}&userid={userId}&boardid={yafBoardSettings.BoardID}&showerror={showErrors.ToString().ToLower()}";

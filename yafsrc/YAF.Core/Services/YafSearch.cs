@@ -92,7 +92,7 @@ namespace YAF.Core.Services
         private SearcherManager searcherManager;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="YafSearch" /> class.
+        /// Initializes a new instance of the <see cref="Services.YafSearch" /> class.
         /// </summary>
         /// <param name="serviceLocator">The service locator.</param>
         public YafSearch([NotNull] IServiceLocator serviceLocator)
@@ -783,7 +783,7 @@ namespace YAF.Core.Services
                 return new List<SearchMessage>();
             }
 
-            var hitsLimit = this.Get<YafBoardSettings>().ReturnSearchMax;
+            var hitsLimit = this.Get<BoardSettings>().ReturnSearchMax;
 
             // 0 => Lucene error;
             if (hitsLimit == 0)
@@ -829,7 +829,7 @@ namespace YAF.Core.Services
                     new[]
                         {
                             "Message", "Topic",
-                            this.Get<YafBoardSettings>().EnableDisplayName ? "AuthorDisplay" : "Author"
+                            this.Get<BoardSettings>().EnableDisplayName ? "AuthorDisplay" : "Author"
                         },
                     analyzer);
 
@@ -884,7 +884,7 @@ namespace YAF.Core.Services
                 return new List<SearchMessage>();
             }
 
-            var hitsLimit = this.Get<YafBoardSettings>().ReturnSearchMax;
+            var hitsLimit = this.Get<BoardSettings>().ReturnSearchMax;
 
             var parser = new QueryParser(MatchVersion, searchField, this.standardAnalyzer);
             var query = ParseQuery(searchQuery, parser);

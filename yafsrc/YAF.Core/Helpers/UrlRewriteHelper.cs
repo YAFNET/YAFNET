@@ -152,7 +152,7 @@ namespace YAF.Core.Helpers
 
             try
             {
-                nameField = YafContext.Current.Get<YafBoardSettings>().EnableDisplayName ? "DisplayName" : "Name";
+                nameField = YafContext.Current.Get<BoardSettings>().EnableDisplayName ? "DisplayName" : "Name";
             }
             catch (Exception)
             {

@@ -2715,6 +2715,7 @@
     <Resource tag="WAS_QUOTED_MSG">Was Quoted by {0} in the Topic {1}</Resource>
     <Resource tag="YOUR_ACCOUNT">Twoje konto</Resource>
     <Resource tag="YOUR_EMAIL">Twój adres email:</Resource>
+    <Resource tag="YOUR_NOTIFIY">Your Notifications</Resource>
     <Resource tag="YOUR_USERDISPLAYNAME">Twoja wyświetlana nazwa:</Resource>
     <Resource tag="YOUR_USERNAME">Twoja nazwa użytkownika:</Resource>
   </page>
@@ -6276,6 +6277,8 @@ Visit {forumname} at {forumlink}
     <Resource tag="MYACTIVITY_TITLE">Shows your activity and Received Thanks, Mentions and Quotes.</Resource>
     <Resource tag="MYALBUMS">Moje albumy</Resource>
     <Resource tag="MYALBUMS_TITLE">Pokazuje stronę z listą Twoich albumów.</Resource>
+    <Resource tag="MYNOTIFY">My Notifications</Resource>
+    <Resource tag="MYNOTIFY_TITLE">Shows your unread Received Thanks, Mentions and Quotes.</Resource>
     <Resource tag="MYPROFILE">Mój Profil</Resource>
     <Resource tag="MYPROFILE_TITLE">Pokazuje panel użytkownika.</Resource>
     <Resource tag="MYTOPICS">Moje wątki</Resource>

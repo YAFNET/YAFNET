@@ -78,7 +78,7 @@ namespace YAF.Core.Controllers
             var username = this.GetRepository<Thanks>().AddMessageThanks(
                 fromUserId,
                 messageId,
-                this.Get<YafBoardSettings>().EnableDisplayName);
+                this.Get<BoardSettings>().EnableDisplayName);
 
 
             this.Get<IActivityStream>().AddThanksReceivedToStream(message.UserID, message.TopicID, messageId, fromUserId);
@@ -111,7 +111,7 @@ namespace YAF.Core.Controllers
             var username = this.GetRepository<Thanks>().RemoveMessageThanks(
                 YafContext.Current.PageUserID,
                 messageId,
-                this.Get<YafBoardSettings>().EnableDisplayName);
+                this.Get<BoardSettings>().EnableDisplayName);
 
             this.GetRepository<Activity>()
                 .Delete(a => a.MessageID == messageId && (a.Flags == 1024 || a.Flags == 4096));

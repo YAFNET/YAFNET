@@ -49,10 +49,10 @@
                                     <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" 
                                                         LocalizedPage="POSTMESSAGE"
                                                         LocalizedTag="EDITEDBY" />: <YAF:UserLink ID="UserLink3" runat="server" UserID='<%# Container.DataItemToField<int>("EditedBy") %>' />
-                                    <asp:PlaceHolder runat="server" Visible='<%# this.PageContext.IsAdmin || this.Get<YafBoardSettings>().AllowModeratorsViewIPs && this.PageContext.ForumModeratorAccess%>'>
+                                    <asp:PlaceHolder runat="server" Visible='<%# this.PageContext.IsAdmin || this.Get<BoardSettings>().AllowModeratorsViewIPs && this.PageContext.ForumModeratorAccess%>'>
                                         <strong>
                                             <%# this.GetText("IP") %>:</strong><a id="IPLink1" 
-                                                                                  href='<%# string.Format(this.Get<YafBoardSettings>().IPInfoPageURL, this.GetIpAddress(Container.DataItem)) %>'
+                                                                                  href='<%# string.Format(this.Get<BoardSettings>().IPInfoPageURL, this.GetIpAddress(Container.DataItem)) %>'
                                                                                   title='<%# this.GetText("COMMON","TT_IPDETAILS") %>'
                                                                                   target="_blank" runat="server"><%# this.GetIpAddress(Container.DataItem) %></a>
                                     </asp:PlaceHolder>

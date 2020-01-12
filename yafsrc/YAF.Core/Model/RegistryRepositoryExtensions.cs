@@ -52,11 +52,11 @@ namespace YAF.Core.Model
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
-            YafContext.Current.Get<YafBoardSettings>().DeniedRegistrations++;
+            YafContext.Current.Get<BoardSettings>().DeniedRegistrations++;
 
             repository.Save(
                 "DeniedRegistrations",
-                YafContext.Current.Get<YafBoardSettings>().DeniedRegistrations,
+                YafContext.Current.Get<BoardSettings>().DeniedRegistrations,
                 repository.BoardID);
         }
 
@@ -70,11 +70,11 @@ namespace YAF.Core.Model
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
-            YafContext.Current.Get<YafBoardSettings>().BannedUsers++;
+            YafContext.Current.Get<BoardSettings>().BannedUsers++;
 
             repository.Save(
                 "BannedUsers",
-                YafContext.Current.Get<YafBoardSettings>().BannedUsers,
+                YafContext.Current.Get<BoardSettings>().BannedUsers,
                 repository.BoardID);
         }
 
@@ -88,11 +88,11 @@ namespace YAF.Core.Model
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
-            YafContext.Current.Get<YafBoardSettings>().ReportedSpammers++;
+            YafContext.Current.Get<BoardSettings>().ReportedSpammers++;
 
             repository.Save(
                 "ReportedSpammers",
-                YafContext.Current.Get<YafBoardSettings>().ReportedSpammers,
+                YafContext.Current.Get<BoardSettings>().ReportedSpammers,
                 repository.BoardID);
         }
 

@@ -2737,6 +2737,7 @@
     <Resource tag="WAS_QUOTED_MSG">Was Quoted by {0} in the Topic {1}</Resource>
     <Resource tag="YOUR_ACCOUNT">حساب کاربری شما:</Resource>
     <Resource tag="YOUR_EMAIL">آدرس ایمیل شما:</Resource>
+    <Resource tag="YOUR_NOTIFIY">Your Notifications</Resource>
     <Resource tag="YOUR_USERDISPLAYNAME">نام نمایشی شما:</Resource>
     <Resource tag="YOUR_USERNAME">نام کاربری شما:</Resource>
   </page>
@@ -6319,6 +6320,8 @@
     <Resource tag="MYACTIVITY_TITLE">Shows your activity and Received Thanks, Mentions and Quotes.</Resource>
     <Resource tag="MYALBUMS">آلبوم‌های من</Resource>
     <Resource tag="MYALBUMS_TITLE">نمایش صفحه آلبوم ها برای نمایش تمام آلبوم ها</Resource>
+    <Resource tag="MYNOTIFY">My Notifications</Resource>
+    <Resource tag="MYNOTIFY_TITLE">Shows your unread Received Thanks, Mentions and Quotes.</Resource>
     <Resource tag="MYPROFILE">پروفایل من</Resource>
     <Resource tag="MYPROFILE_TITLE">نمایش کنترل پنل کاربر</Resource>
     <Resource tag="MYTOPICS">موضوعات من</Resource>

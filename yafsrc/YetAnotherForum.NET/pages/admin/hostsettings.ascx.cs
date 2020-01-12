@@ -239,7 +239,7 @@ namespace YAF.Pages.Admin
             // write all the settings back to the settings class
 
             // load Board Setting collection information...
-            var settingCollection = new YafBoardSettingCollection(this.Get<YafBoardSettings>());
+            var settingCollection = new BoardSettingCollection(this.Get<BoardSettings>());
 
             // handle checked fields...
             settingCollection.SettingsBool.Keys.ForEach(
@@ -250,7 +250,7 @@ namespace YAF.Pages.Admin
                         if (control is CheckBox box && settingCollection.SettingsBool[name].CanWrite)
                         {
                             settingCollection.SettingsBool[name].SetValue(
-                                this.Get<YafBoardSettings>(),
+                                this.Get<BoardSettings>(),
                                 box.Checked,
                                 null);
                         }
@@ -266,13 +266,13 @@ namespace YAF.Pages.Admin
                         {
                             case TextBox box when settingCollection.SettingsString[name].CanWrite:
                                 settingCollection.SettingsString[name].SetValue(
-                                    this.Get<YafBoardSettings>(),
+                                    this.Get<BoardSettings>(),
                                     box.Text.Trim(),
                                     null);
                                 break;
                             case DropDownList list when settingCollection.SettingsString[name].CanWrite:
                                 settingCollection.SettingsString[name].SetValue(
-                                    this.Get<YafBoardSettings>(),
+                                    this.Get<BoardSettings>(),
                                     Convert.ToString(list.SelectedItem.Value),
                                     null);
                                 break;
@@ -301,13 +301,13 @@ namespace YAF.Pages.Admin
                                         int.TryParse(value, out i);
                                     }
 
-                                    settingCollection.SettingsInt[name].SetValue(this.Get<YafBoardSettings>(), i, null);
+                                    settingCollection.SettingsInt[name].SetValue(this.Get<BoardSettings>(), i, null);
                                     break;
                                 }
 
                             case DropDownList list when settingCollection.SettingsInt[name].CanWrite:
                                 settingCollection.SettingsInt[name].SetValue(
-                                    this.Get<YafBoardSettings>(),
+                                    this.Get<BoardSettings>(),
                                     list.SelectedItem.Value.ToType<int>(),
                                     null);
                                 break;
@@ -337,7 +337,7 @@ namespace YAF.Pages.Admin
                                     }
 
                                     settingCollection.SettingsDouble[name].SetValue(
-                                        this.Get<YafBoardSettings>(),
+                                        this.Get<BoardSettings>(),
                                         i,
                                         null);
                                     break;
@@ -345,7 +345,7 @@ namespace YAF.Pages.Admin
 
                             case DropDownList list when settingCollection.SettingsDouble[name].CanWrite:
                                 settingCollection.SettingsDouble[name].SetValue(
-                                    this.Get<YafBoardSettings>(),
+                                    this.Get<BoardSettings>(),
                                     Convert.ToDouble(list.SelectedItem.Value),
                                     null);
                                 break;
@@ -353,7 +353,7 @@ namespace YAF.Pages.Admin
                     });
 
             // save the settings to the database
-            ((YafLoadBoardSettings)this.Get<YafBoardSettings>()).SaveRegistry();
+            ((YafLoadBoardSettings)this.Get<BoardSettings>()).SaveRegistry();
 
             // reload all settings from the DB
             this.PageContext.BoardSettings = null;
@@ -427,7 +427,7 @@ namespace YAF.Pages.Admin
             this.DataBind();
 
             // load Board Setting collection information...
-            var settingCollection = new YafBoardSettingCollection(this.Get<YafBoardSettings>());
+            var settingCollection = new BoardSettingCollection(this.Get<BoardSettings>());
 
             // handle checked fields...
             settingCollection.SettingsBool.Keys.ForEach(
@@ -439,7 +439,7 @@ namespace YAF.Pages.Admin
                         {
                             // get the value from the property...
                             box.Checked = (bool)Convert.ChangeType(
-                                settingCollection.SettingsBool[name].GetValue(this.Get<YafBoardSettings>(), null),
+                                settingCollection.SettingsBool[name].GetValue(this.Get<BoardSettings>(), null),
                                 typeof(bool));
                         }
                     });
@@ -455,14 +455,14 @@ namespace YAF.Pages.Admin
                             case TextBox box when settingCollection.SettingsString[name].CanRead:
                                 // get the value from the property...
                                 box.Text = (string)Convert.ChangeType(
-                                    settingCollection.SettingsString[name].GetValue(this.Get<YafBoardSettings>(), null),
+                                    settingCollection.SettingsString[name].GetValue(this.Get<BoardSettings>(), null),
                                     typeof(string));
                                 break;
                             case DropDownList list when settingCollection.SettingsString[name].CanRead:
                                 {
                                     var listItem = list.Items.FindByValue(
                                         settingCollection.SettingsString[name].GetValue(
-                                            this.Get<YafBoardSettings>(),
+                                            this.Get<BoardSettings>(),
                                             null).ToString());
 
                                     if (listItem != null)
@@ -492,14 +492,14 @@ namespace YAF.Pages.Admin
 
                                     // get the value from the property...
                                     box.Text = settingCollection.SettingsInt[name]
-                                        .GetValue(this.Get<YafBoardSettings>(), null).ToString();
+                                        .GetValue(this.Get<BoardSettings>(), null).ToString();
                                     break;
                                 }
 
                             case DropDownList list when settingCollection.SettingsInt[name].CanRead:
                                 {
                                     var listItem = list.Items.FindByValue(
-                                        settingCollection.SettingsInt[name].GetValue(this.Get<YafBoardSettings>(), null)
+                                        settingCollection.SettingsInt[name].GetValue(this.Get<BoardSettings>(), null)
                                             .ToString());
 
                                     if (listItem != null)
@@ -525,14 +525,14 @@ namespace YAF.Pages.Admin
 
                                 // get the value from the property...
                                 box.Text = settingCollection.SettingsDouble[name]
-                                    .GetValue(this.Get<YafBoardSettings>(), null).ToString();
+                                    .GetValue(this.Get<BoardSettings>(), null).ToString();
                                 break;
 
                             case DropDownList list when settingCollection.SettingsDouble[name].CanRead:
                                 {
                                     var listItem = list.Items.FindByValue(
                                         settingCollection.SettingsDouble[name].GetValue(
-                                            this.Get<YafBoardSettings>(),
+                                            this.Get<BoardSettings>(),
                                             null).ToString());
 
                                     if (listItem != null)
@@ -546,15 +546,15 @@ namespace YAF.Pages.Admin
                     });
 
             // special field handling...
-            this.AvatarSize.Text = this.Get<YafBoardSettings>().AvatarSize != 0
-                                       ? this.Get<YafBoardSettings>().AvatarSize.ToString()
+            this.AvatarSize.Text = this.Get<BoardSettings>().AvatarSize != 0
+                                       ? this.Get<BoardSettings>().AvatarSize.ToString()
                                        : string.Empty;
-            this.MaxFileSize.Text = this.Get<YafBoardSettings>().MaxFileSize != 0
-                                        ? this.Get<YafBoardSettings>().MaxFileSize.ToString()
+            this.MaxFileSize.Text = this.Get<BoardSettings>().MaxFileSize != 0
+                                        ? this.Get<BoardSettings>().MaxFileSize.ToString()
                                         : string.Empty;
 
-            this.AlbumImagesSizeMax.Text = this.Get<YafBoardSettings>().AlbumImagesSizeMax != 0
-                                               ? this.Get<YafBoardSettings>().AlbumImagesSizeMax.ToString()
+            this.AlbumImagesSizeMax.Text = this.Get<BoardSettings>().AlbumImagesSizeMax != 0
+                                               ? this.Get<BoardSettings>().AlbumImagesSizeMax.ToString()
                                                : string.Empty;
 
             this.SQLVersion.Text = this.HtmlEncode(this.Get<IDbFunction>().GetSQLVersion());

@@ -183,7 +183,7 @@ namespace YAF.Pages
         /// </summary>
         private void BindData()
         {
-            this.PagerTop.PageSize = this.Get<YafBoardSettings>().MemberListPageSize;
+            this.PagerTop.PageSize = this.Get<BoardSettings>().MemberListPageSize;
 
             var dt = this.GetRepository<Attachment>().GetPaged(
                 a => a.UserID == this.PageContext.PageUserID,

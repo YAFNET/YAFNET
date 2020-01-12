@@ -60,13 +60,13 @@ namespace YAF.Pages
         {
             this.PageLinks.AddRoot();
             this.PageLinks.AddLink(
-                this.Get<YafBoardSettings>().EnableDisplayName
+                this.Get<BoardSettings>().EnableDisplayName
                     ? this.PageContext.CurrentUserData.DisplayName
                     : this.PageContext.PageUserName,
                 YafBuildLink.GetLink(ForumPages.cp_profile));
 
             this.PageLinks.AddLink(
-                string.Format(this.GetText("CP_DELETEACCOUNT", "TITLE"), this.Get<YafBoardSettings>().Name),
+                string.Format(this.GetText("CP_DELETEACCOUNT", "TITLE"), this.Get<BoardSettings>().Name),
                 string.Empty);
         }
 
@@ -90,7 +90,7 @@ namespace YAF.Pages
 
             this.CreatePageLinks();
 
-            this.LocalizedLabel11.Param0 = this.LocalizedLabel12.Param0 = this.Get<YafBoardSettings>().Name;
+            this.LocalizedLabel11.Param0 = this.LocalizedLabel12.Param0 = this.Get<BoardSettings>().Name;
 
             this.Options.Items.Add(
                 new ListItem(
@@ -149,7 +149,7 @@ namespace YAF.Pages
                             this.Get<ILogger>().Log(
                                 this.PageContext.PageUserID,
                                 this,
-                                $"User {(this.Get<YafBoardSettings>().EnableDisplayName ? usr.First().DisplayName : usr.First().Name)} Suspended his own account until: {suspend} (UTC)",
+                                $"User {(this.Get<BoardSettings>().EnableDisplayName ? usr.First().DisplayName : usr.First().Name)} Suspended his own account until: {suspend} (UTC)",
                                 EventLogTypes.UserSuspended);
 
                             this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.PageContext.PageUserID));

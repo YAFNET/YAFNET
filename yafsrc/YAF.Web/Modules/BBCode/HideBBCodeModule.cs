@@ -148,7 +148,7 @@ namespace YAF.Modules.BBCode
             else
             {
                 // Handle Hide Thanks
-                if (!this.Get<YafBoardSettings>().EnableThanksMod)
+                if (!this.Get<BoardSettings>().EnableThanksMod)
                 {
                     writer.Write(hiddenContent);
                     return;

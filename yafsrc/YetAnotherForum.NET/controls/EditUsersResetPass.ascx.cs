@@ -178,10 +178,10 @@ namespace YAF.Controls
                 {
                     var subject = this.GetTextFormatted(
                         "PASSWORDRETRIEVAL_EMAIL_SUBJECT",
-                        this.Get<YafBoardSettings>().Name);
+                        this.Get<BoardSettings>().Name);
 
                     // email a notification...
-                    var passwordRetrieval = new YafTemplateEmail("PASSWORDRETRIEVAL_ADMIN")
+                    var passwordRetrieval = new TemplateEmail("PASSWORDRETRIEVAL_ADMIN")
                                                 {
                                                     TemplateParams =
                                                         {
@@ -236,24 +236,24 @@ namespace YAF.Controls
 
                 var subject = this.GetTextFormatted(
                     "PASSWORDRETRIEVAL_EMAIL_SUBJECT",
-                    this.Get<YafBoardSettings>().Name);
+                    this.Get<BoardSettings>().Name);
                 var logoUrl =
-                    $"{YafForumInfo.ForumClientFileRoot}{YafBoardFolders.Current.Logos}/{this.PageContext.BoardSettings.ForumLogo}";
+                    $"{YafForumInfo.ForumClientFileRoot}{BoardFolders.Current.Logos}/{this.PageContext.BoardSettings.ForumLogo}";
                 var themeCss =
-                    $"{this.Get<YafBoardSettings>().BaseUrlMask}{this.Get<ITheme>().BuildThemePath("bootstrap-forum.min.css")}";
+                    $"{this.Get<BoardSettings>().BaseUrlMask}{this.Get<ITheme>().BuildThemePath("bootstrap-forum.min.css")}";
 
                 // email a notification...
-                var passwordRetrieval = new YafTemplateEmail("PASSWORDRETRIEVAL_ADMIN")
+                var passwordRetrieval = new TemplateEmail("PASSWORDRETRIEVAL_ADMIN")
                                             {
                                                 TemplateParams =
                                                     {
                                                         ["{username}"] = user.UserName,
                                                         ["{password}"] = newPassword,
-                                                        ["{forumname}"] = this.Get<YafBoardSettings>().Name,
+                                                        ["{forumname}"] = this.Get<BoardSettings>().Name,
                                                         ["{forumlink}"] = YafForumInfo.ForumURL,
                                                         ["{themecss}"] = themeCss,
                                                         ["{logo}"] =
-                                                            $"{this.Get<YafBoardSettings>().BaseUrlMask}{logoUrl}"
+                                                            $"{this.Get<BoardSettings>().BaseUrlMask}{logoUrl}"
                                                     }
                                             };
 

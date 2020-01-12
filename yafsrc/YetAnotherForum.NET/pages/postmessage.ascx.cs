@@ -171,7 +171,7 @@ namespace YAF.Pages
             }
 
             // see if they've past that delay point
-            if (this.Get<IYafSession>().LastPost
+            if (this.Get<ISession>().LastPost
                 <= DateTime.UtcNow.AddSeconds(-this.PageContext.BoardSettings.PostFloodDelay)
                 || this.EditMessageId != null)
             {
@@ -181,7 +181,7 @@ namespace YAF.Pages
             this.PageContext.AddLoadMessage(
                 this.GetTextFormatted(
                     "wait",
-                    (this.Get<IYafSession>().LastPost
+                    (this.Get<ISession>().LastPost
                      - DateTime.UtcNow.AddSeconds(-this.PageContext.BoardSettings.PostFloodDelay)).Seconds),
                 MessageTypes.warning);
             return true;
@@ -552,16 +552,16 @@ namespace YAF.Pages
 
                     if (this.QuotedMessageId != null)
                     {
-                        if (this.Get<IYafSession>().MultiQuoteIds != null)
+                        if (this.Get<ISession>().MultiQuoteIds != null)
                         {
                             var quoteId = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("q").ToType<int>();
                             var multiQuote = new MultiQuote { MessageID = quoteId, TopicID = this.PageContext.PageTopicID };
 
                             if (
-                                !this.Get<IYafSession>()
+                                !this.Get<ISession>()
                                     .MultiQuoteIds.Any(m => m.MessageID.Equals(quoteId)))
                             {
-                                this.Get<IYafSession>()
+                                this.Get<ISession>()
                                     .MultiQuoteIds.Add(
                                         multiQuote);
                             }
@@ -587,7 +587,7 @@ namespace YAF.Pages
                                 0);
 
                             // quoting a reply to a topic...
-                            this.Get<IYafSession>().MultiQuoteIds
+                            this.Get<ISession>().MultiQuoteIds
                                 .Select(
                                     item => messages.AsEnumerable().Select(t => new TypedMessageList(t))
                                         .Where(m => m.MessageID == item.MessageID))
@@ -595,7 +595,7 @@ namespace YAF.Pages
                                     this.InitQuotedReply);
 
                             // Clear Multi-quotes
-                            this.Get<IYafSession>().MultiQuoteIds = null;
+                            this.Get<ISession>().MultiQuoteIds = null;
                         }
                         else
                         {
@@ -688,11 +688,11 @@ namespace YAF.Pages
                             if (attach.FileData == null)
                             {
                                 var oldFilePath = this.Get<HttpRequestBase>().MapPath(
-                                    $"{YafBoardFolders.Current.Uploads}/{attach.MessageID.ToString()}.{attach.FileName}.yafupload");
+                                    $"{BoardFolders.Current.Uploads}/{attach.MessageID.ToString()}.{attach.FileName}.yafupload");
 
                                 var newFilePath =
                                     this.Get<HttpRequestBase>().MapPath(
-                                        $"{YafBoardFolders.Current.Uploads}/u{attach.UserID}.{attach.FileName}.yafupload");
+                                        $"{BoardFolders.Current.Uploads}/u{attach.UserID}.{attach.FileName}.yafupload");
 
                                 File.Move(oldFilePath, newFilePath);
                             }
@@ -1005,7 +1005,7 @@ namespace YAF.Pages
 
             // Check posts for urls if the user has only x posts
             if (YafContext.Current.CurrentUserData.NumPosts
-                <= YafContext.Current.Get<YafBoardSettings>().IgnoreSpamWordCheckPostCount &&
+                <= YafContext.Current.Get<BoardSettings>().IgnoreSpamWordCheckPostCount &&
                 !this.PageContext.IsAdmin && !this.PageContext.ForumModeratorAccess)
             {
                 var urlCount = UrlHelper.CountUrls(this.forumEditor.Text);
@@ -1079,7 +1079,7 @@ namespace YAF.Pages
             }
 
             // update the last post time...
-            this.Get<IYafSession>().LastPost = DateTime.UtcNow.AddSeconds(30);
+            this.Get<ISession>().LastPost = DateTime.UtcNow.AddSeconds(30);
 
             long messageId;
             long newTopic = 0;
@@ -1130,7 +1130,7 @@ namespace YAF.Pages
             {
                 this.Get<ISendNotification>().ToWatchingUsers(messageId.ToType<int>());
 
-                if (this.EditMessageId == null && !this.PageContext.IsGuest && this.Get<YafBoardSettings>().EnableActivityStream)
+                if (this.EditMessageId == null && !this.PageContext.IsGuest && this.Get<BoardSettings>().EnableActivityStream)
                 {
                     // Handle Mentions
                     BBCodeHelper.FindMentions(this.forumEditor.Text).ForEach(
@@ -1258,18 +1258,6 @@ namespace YAF.Pages
                                                        };
 
             this.PreviewMessagePost.Message = this.forumEditor.Text;
-
-            if (!this.PageContext.BoardSettings.AllowSignatures)
-            {
-                return;
-            }
-
-            var userSig = this.GetRepository<User>().GetSignature(this.PageContext.PageUserID);
-
-            if (userSig.IsSet())
-            {
-                this.PreviewMessagePost.Signature = userSig;
-            }
         }
 
         /// <summary>
@@ -1299,8 +1287,7 @@ namespace YAF.Pages
             }
 
             // get  forum information
-            var forumInfo = this.GetRepository<Forum>()
-                .List(this.PageContext.PageBoardID, this.PageContext.PageForumID).FirstOrDefault();
+            var forumInfo = this.GetRepository<Forum>().GetById(this.PageContext.PageForumID);
 
             // Ederon : 9/9/2007 - moderator can edit in locked topics
             return !postLocked && !forumInfo.ForumFlags.IsLocked

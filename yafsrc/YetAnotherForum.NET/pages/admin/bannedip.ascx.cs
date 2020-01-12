@@ -146,13 +146,13 @@ namespace YAF.Pages.Admin
 
                         this.BindData();
 
-                        if (YafContext.Current.Get<YafBoardSettings>().LogBannedIP)
+                        if (YafContext.Current.Get<BoardSettings>().LogBannedIP)
                         {
                             this.Get<ILogger>()
                                 .Log(
                                     this.PageContext.PageUserID,
                                     " YAF.Pages.Admin.bannedip",
-                                    $"IP or mask {ipAddress} was deleted by {(this.Get<YafBoardSettings>().EnableDisplayName ? this.PageContext.CurrentUserData.DisplayName : this.PageContext.CurrentUserData.UserName)}.",
+                                    $"IP or mask {ipAddress} was deleted by {(this.Get<BoardSettings>().EnableDisplayName ? this.PageContext.CurrentUserData.DisplayName : this.PageContext.CurrentUserData.UserName)}.",
                                     EventLogTypes.IpBanLifted);
                         }
                     }
@@ -199,7 +199,7 @@ namespace YAF.Pages.Admin
         /// </summary>
         private void BindData()
         {
-            this.PagerTop.PageSize = this.Get<YafBoardSettings>().MemberListPageSize;
+            this.PagerTop.PageSize = this.Get<BoardSettings>().MemberListPageSize;
 
             var searchText = this.SearchInput.Text.Trim();
 

@@ -75,8 +75,26 @@ namespace YAF.Web.Controls
 
             this.RenderMenuItem(htmlDropDown, "dropdown-item", ForumPages.cp_profile, this.GetText("YOUR_ACCOUNT"));
 
+            var unreadActivity =
+                this.PageContext.Mention + this.PageContext.Quoted + this.PageContext.ReceivedThanks;
+
+            if (this.Get<BoardSettings>().EnableActivityStream && unreadActivity > 0)
+            {
+               this.RenderMenuItem(
+                    html,
+                    "list-group-item list-group-item-action",
+                    ForumPages.cp_notification,
+                    this.GetText("YOUR_NOTIFIY"));
+
+                this.RenderMenuItem(
+                    htmlDropDown,
+                    "dropdown-item",
+                    ForumPages.cp_notification,
+                    this.GetText("YOUR_NOTIFIY"));
+            }
+
             // Render Mailbox Items
-            if (this.Get<YafBoardSettings>().AllowPrivateMessages)
+            if (this.Get<BoardSettings>().AllowPrivateMessages)
             {
                 html.AppendFormat(
                     @"<a class=""list-group-item list-group-item-action disabled font-weight-bold"" href=""#"">{0}</a>",
@@ -168,7 +186,7 @@ namespace YAF.Web.Controls
                     this.GetText("EDIT_SETTINGS"));
             }
 
-            if (!this.PageContext.IsGuest && this.Get<YafBoardSettings>().EnableThanksMod)
+            if (!this.PageContext.IsGuest && this.Get<BoardSettings>().EnableThanksMod)
             {
                 this.RenderMenuItem(
                     html,
@@ -201,7 +219,7 @@ namespace YAF.Web.Controls
             }
 
             if (!this.PageContext.IsGuest
-                && this.Get<YafBoardSettings>().EnableBuddyList & this.PageContext.UserHasBuddies)
+                && this.Get<BoardSettings>().EnableBuddyList & this.PageContext.UserHasBuddies)
             {
                 this.RenderMenuItem(
                     html,
@@ -216,7 +234,7 @@ namespace YAF.Web.Controls
                     this.GetText("EDIT_BUDDIES"));
             }
 
-            if (!this.PageContext.IsGuest && this.Get<YafBoardSettings>().EnableAlbum)
+            if (!this.PageContext.IsGuest && this.Get<BoardSettings>().EnableAlbum)
             {
                 this.RenderMenuItem(
                     html,
@@ -233,10 +251,10 @@ namespace YAF.Web.Controls
                     $"u={this.PageContext.PageUserID}");
             }
 
-            if (!Config.IsDotNetNuke && (this.Get<YafBoardSettings>().AvatarRemote
-                                         || this.Get<YafBoardSettings>().AvatarUpload
-                                         || this.Get<YafBoardSettings>().AvatarGallery
-                                         || this.Get<YafBoardSettings>().AvatarGravatar))
+            if (!Config.IsDotNetNuke && (this.Get<BoardSettings>().AvatarRemote
+                                         || this.Get<BoardSettings>().AvatarUpload
+                                         || this.Get<BoardSettings>().AvatarGallery
+                                         || this.Get<BoardSettings>().AvatarGravatar))
             {
                 this.RenderMenuItem(
                     html,
@@ -251,7 +269,7 @@ namespace YAF.Web.Controls
                     this.GetText("EDIT_AVATAR"));
             }
 
-            if (this.Get<YafBoardSettings>().AllowSignatures)
+            if (this.Get<BoardSettings>().AllowSignatures)
             {
                 this.RenderMenuItem(
                     html,
@@ -290,7 +308,7 @@ namespace YAF.Web.Controls
                 ForumPages.cp_blockoptions,
                 this.GetText("CP_BLOCKOPTIONS", "TITLE"));
 
-            if (!Config.IsDotNetNuke && this.Get<YafBoardSettings>().AllowPasswordChange)
+            if (!Config.IsDotNetNuke && this.Get<BoardSettings>().AllowPasswordChange)
             {
                 // Render Change Password Item
                 this.RenderMenuItem(
@@ -370,8 +388,8 @@ namespace YAF.Web.Controls
         {
             stringBuilder.AppendFormat(
                 this.PageContext.ForumPageType == page
-                    ? @"<a class=""{3} active"" href=""{0}"" title=""{2}"">{1}</a>"
-                    : @"<a class=""{3}"" href=""{0}"" title=""{2}"">{1}</a>",
+                    ? @"<a class=""{3} active"" href=""{0}"" title=""{2}"" data-toggle=""tooltip"">{1}</a>"
+                    : @"<a class=""{3}"" href=""{0}"" title=""{2}"" data-toggle=""tooltip"">{1}</a>",
                 parameter.IsSet() ? YafBuildLink.GetLink(page, parameter) : YafBuildLink.GetLink(page),
                 getText,
                 getText,

@@ -155,7 +155,7 @@ namespace YAF.Pages
                 true,
                 this.Group.SelectedIndex <= 0 ? null : this.Group.SelectedValue,
                 this.Ranks.SelectedIndex <= 0 ? null : this.Ranks.SelectedValue,
-                this.Get<YafBoardSettings>().UseStyledNicks,
+                this.Get<BoardSettings>().UseStyledNicks,
                 lastUserId,
                 literals,
                 specialSymbol,
@@ -170,7 +170,7 @@ namespace YAF.Pages
                 this.NumPostsTB.Text.Trim().IsSet() ? this.NumPostsTB.Text.Trim().ToType<int>() : 0,
                 this.NumPostDDL.SelectedIndex < 0 ? 3 : this.NumPostsTB.Text.Trim().IsSet() ? this.NumPostDDL.SelectedValue.ToType<int>() : 0);
 
-            if (this.Get<YafBoardSettings>().UseStyledNicks)
+            if (this.Get<BoardSettings>().UseStyledNicks)
             {
                 this.Get<IStyleTransform>().DecodeStyleByTable(this.userListDataTable);
             }
@@ -462,7 +462,7 @@ namespace YAF.Pages
         /// </summary>
         private void BindData()
         {
-            this.Pager.PageSize = this.Get<YafBoardSettings>().MemberListPageSize;
+            this.Pager.PageSize = this.Get<BoardSettings>().MemberListPageSize;
             var selectedCharLetter = this.AlphaSort1.CurrentLetter;
 
             // get the user list...

@@ -118,7 +118,7 @@ namespace YAF.Pages.Admin
                 dt.Rows.Add(dr);
 
                 var dir = new DirectoryInfo(
-                    this.Get<HttpRequestBase>().MapPath($"{YafForumInfo.ForumServerFileRoot}{YafBoardFolders.Current.Forums}"));
+                    this.Get<HttpRequestBase>().MapPath($"{YafForumInfo.ForumServerFileRoot}{BoardFolders.Current.Forums}"));
                 if (dir.Exists)
                 {
                     var files = dir.GetFiles("*.*");
@@ -135,7 +135,7 @@ namespace YAF.Pages.Admin
                                 dr = dt.NewRow();
                                 dr["FileID"] = fileId++;
                                 dr["FileName"] =
-                                    $"{YafForumInfo.ForumClientFileRoot}{YafBoardFolders.Current.Forums}/{file.Name}";
+                                    $"{YafForumInfo.ForumClientFileRoot}{BoardFolders.Current.Forums}/{file.Name}";
                                 dr["Description"] = file.Name;
                                 dt.Rows.Add(dr);
                             });
@@ -520,7 +520,7 @@ namespace YAF.Pages.Admin
             {
                 var forumList = this.GetRepository<Forum>().Get(f => f.Name == this.Name.Text.Trim());
 
-                if (forumList.Any() && !this.Get<YafBoardSettings>().AllowForumsWithSameName)
+                if (forumList.Any() && !this.Get<BoardSettings>().AllowForumsWithSameName)
                 {
                     this.PageContext.AddLoadMessage(
                         this.GetText("ADMIN_EDITFORUM", "MSG_FORUMNAME_EXISTS"),

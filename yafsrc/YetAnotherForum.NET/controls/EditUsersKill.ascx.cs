@@ -143,7 +143,7 @@ namespace YAF.Controls
                 this.GetRepository<BannedEmail>().Save(
                     null,
                     user.Email,
-                    $"Email was reported by: {(this.Get<YafBoardSettings>().EnableDisplayName ? this.PageContext.CurrentUserData.DisplayName : this.PageContext.CurrentUserData.UserName)}");
+                    $"Email was reported by: {(this.Get<BoardSettings>().EnableDisplayName ? this.PageContext.CurrentUserData.DisplayName : this.PageContext.CurrentUserData.UserName)}");
             }
 
             // Ban User IP?
@@ -158,12 +158,12 @@ namespace YAF.Controls
                 this.GetRepository<BannedName>().Save(
                     null,
                     user.UserName,
-                    $"Name was reported by: {(this.Get<YafBoardSettings>().EnableDisplayName ? this.PageContext.CurrentUserData.DisplayName : this.PageContext.CurrentUserData.UserName)}");
+                    $"Name was reported by: {(this.Get<BoardSettings>().EnableDisplayName ? this.PageContext.CurrentUserData.DisplayName : this.PageContext.CurrentUserData.UserName)}");
             }
 
             this.DeleteAllUserMessages();
 
-            if (this.ReportUser.Checked && this.Get<YafBoardSettings>().StopForumSpamApiKey.IsSet()
+            if (this.ReportUser.Checked && this.Get<BoardSettings>().StopForumSpamApiKey.IsSet()
                                         && this.IPAddresses.Any())
             {
                 try
@@ -177,7 +177,7 @@ namespace YAF.Controls
                         this.Logger.Log(
                             this.PageContext.PageUserID,
                             "User Reported to StopForumSpam.com",
-                            $"User (Name:{user.UserName}/ID:{this.CurrentUserId}/IP:{this.IPAddresses.FirstOrDefault()}/Email:{user.Email}) Reported to StopForumSpam.com by {(this.Get<YafBoardSettings>().EnableDisplayName ? this.PageContext.CurrentUserData.DisplayName : this.PageContext.CurrentUserData.UserName)}",
+                            $"User (Name:{user.UserName}/ID:{this.CurrentUserId}/IP:{this.IPAddresses.FirstOrDefault()}/Email:{user.Email}) Reported to StopForumSpam.com by {(this.Get<BoardSettings>().EnableDisplayName ? this.PageContext.CurrentUserData.DisplayName : this.PageContext.CurrentUserData.UserName)}",
                             EventLogTypes.SpamBotReported);
                     }
                 }
@@ -339,16 +339,16 @@ namespace YAF.Controls
                 ForumPages.search,
                 "postedby={0}",
                 !this.CurrentUserDataHelper.IsGuest
-                    ? this.Get<YafBoardSettings>().EnableDisplayName ? this.CurrentUserDataHelper.DisplayName :
+                    ? this.Get<BoardSettings>().EnableDisplayName ? this.CurrentUserDataHelper.DisplayName :
                       this.CurrentUserDataHelper.UserName
                     : UserMembershipHelper.GuestUserName);
 
-            this.ReportUserRow.Visible = this.Get<YafBoardSettings>().StopForumSpamApiKey.IsSet();
+            this.ReportUserRow.Visible = this.Get<BoardSettings>().StopForumSpamApiKey.IsSet();
 
             // load ip address history for user...
             this.IPAddresses.Take(5).ForEach(
                 ipAddress => this.IpAddresses.Text +=
-                                 $@"<a href=""{string.Format(this.Get<YafBoardSettings>().IPInfoPageURL, ipAddress)}""
+                                 $@"<a href=""{string.Format(this.Get<BoardSettings>().IPInfoPageURL, ipAddress)}""
                                        target=""_blank"" 
                                        title=""{this.GetText("COMMON", "TT_IPDETAILS")}"">
                                        {ipAddress}

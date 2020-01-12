@@ -52,7 +52,7 @@ namespace YAF.Controls
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            if (!this.Get<YafBoardSettings>().ShowSimilarTopics)
+            if (!this.Get<BoardSettings>().ShowSimilarTopics)
             {
                 this.SimilarTopicsHolder.Visible = false;
                 return;

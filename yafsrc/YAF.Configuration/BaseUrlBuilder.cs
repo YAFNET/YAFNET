@@ -115,7 +115,7 @@ namespace YAF.Configuration
 
                 try
                 {
-                    var boardSettings = HttpContext.Current.Application["BoardSettings$1"] as YafBoardSettings;
+                    var boardSettings = HttpContext.Current.Application["BoardSettings$1"] as BoardSettings;
 
                     baseUrlMask = boardSettings.BaseUrlMask.IsSet()
                                       ? TreatBaseUrl(boardSettings.BaseUrlMask)
@@ -206,7 +206,7 @@ namespace YAF.Configuration
         /// </returns>
         public virtual string BuildUrlFull(object boardSettings, string url)
         {
-            var currentBoardSettings = boardSettings as YafBoardSettings;
+            var currentBoardSettings = boardSettings as BoardSettings;
 
             // append the full base server url to the beginning of the url (e.g. http://mydomain.com)
             return $"{currentBoardSettings.BaseUrlMask}{this.BuildUrl(boardSettings, url)}";

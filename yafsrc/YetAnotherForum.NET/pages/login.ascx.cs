@@ -107,7 +107,7 @@ namespace YAF.Pages
             }
 
             // display name login...
-            if (this.Get<YafBoardSettings>().EnableDisplayName)
+            if (this.Get<BoardSettings>().EnableDisplayName)
             {
                 // Display name login
                 var id = this.Get<IUserDisplayName>().GetId(username);
@@ -305,14 +305,14 @@ namespace YAF.Pages
             }
 
             if (registerLinkPlaceHolder != null && this.PageContext.IsGuest
-                && !this.Get<YafBoardSettings>().DisableRegistrations && !Config.IsAnyPortal)
+                && !this.Get<BoardSettings>().DisableRegistrations && !Config.IsAnyPortal)
             {
                 registerLinkPlaceHolder.Visible = true;
 
                 registerLink.TextLocalizedTag = "REGISTER_INSTEAD";
             }
 
-            if (this.Get<YafBoardSettings>().AllowSingleSignOn
+            if (this.Get<BoardSettings>().AllowSingleSignOn
                 && (Config.FacebookAPIKey.IsSet() || Config.TwitterConsumerKey.IsSet() || Config.GoogleClientID.IsSet()))
             {
                 singleSignOnRow.Visible = true;
@@ -396,7 +396,7 @@ namespace YAF.Pages
                                 {
                                     try
                                     {
-                                        var twitterLoginUrl = YafSingleSignOnUser.GenerateLoginUrl(AuthService.twitter, true);
+                                        var twitterLoginUrl = SingleSignOnUser.GenerateLoginUrl(AuthService.twitter, true);
 
                                         // Redirect the user to Twitter for authorization.
                                         twitterLogin.Attributes.Add("onclick", twitterLoginUrl);
@@ -441,7 +441,7 @@ namespace YAF.Pages
                                 {
                                     try
                                     {
-                                        var facebookLoginUrl = YafSingleSignOnUser.GenerateLoginUrl(AuthService.facebook, true);
+                                        var facebookLoginUrl = SingleSignOnUser.GenerateLoginUrl(AuthService.facebook, true);
 
                                         // Redirect the user to Twitter for authorization.
                                         facebookLogin.Attributes.Add(
@@ -488,7 +488,7 @@ namespace YAF.Pages
                                 {
                                     try
                                     {
-                                        var googleLoginUrl = YafSingleSignOnUser.GenerateLoginUrl(AuthService.google, true);
+                                        var googleLoginUrl = SingleSignOnUser.GenerateLoginUrl(AuthService.google, true);
 
                                         // Redirect the user to Twitter for authorization.
                                         googleLogin.Attributes.Add(
@@ -566,7 +566,7 @@ namespace YAF.Pages
         protected void RegisterLinkClick(object sender, EventArgs e)
         {
             YafBuildLink.Redirect(
-                this.Get<YafBoardSettings>().ShowRulesForRegistration ? ForumPages.rules : ForumPages.register);
+                this.Get<BoardSettings>().ShowRulesForRegistration ? ForumPages.rules : ForumPages.register);
         }
 
         /// <summary>
@@ -616,7 +616,7 @@ namespace YAF.Pages
                         {
                             case AuthService.twitter:
                                 {
-                                    this.Login1.DestinationPageUrl = YafSingleSignOnUser.GenerateLoginUrl(
+                                    this.Login1.DestinationPageUrl = SingleSignOnUser.GenerateLoginUrl(
                                         AuthService.twitter,
                                         false,
                                         true);
@@ -625,7 +625,7 @@ namespace YAF.Pages
                                 break;
                             case AuthService.facebook:
                                 {
-                                    this.Login1.DestinationPageUrl = YafSingleSignOnUser.GenerateLoginUrl(
+                                    this.Login1.DestinationPageUrl = SingleSignOnUser.GenerateLoginUrl(
                                         AuthService.facebook,
                                         false,
                                         true);
@@ -634,7 +634,7 @@ namespace YAF.Pages
                                 break;
                             case AuthService.google:
                                 {
-                                    this.Login1.DestinationPageUrl = YafSingleSignOnUser.GenerateLoginUrl(
+                                    this.Login1.DestinationPageUrl = SingleSignOnUser.GenerateLoginUrl(
                                         AuthService.google,
                                         false,
                                         true);

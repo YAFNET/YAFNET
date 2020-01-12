@@ -95,7 +95,7 @@ namespace YAF.Pages
 
             this.Subject.Text = this.PageContext.PageTopicName;
 
-            var emailTopic = new YafTemplateEmail
+            var emailTopic = new TemplateEmail
                                  {
                                      TemplateParams =
                                          {
@@ -127,7 +127,7 @@ namespace YAF.Pages
 
             try
             {
-                var emailTopic = new YafTemplateEmail("EMAILTOPIC")
+                var emailTopic = new TemplateEmail("EMAILTOPIC")
                                      {
                                          TemplateParams = { ["{message}"] = this.Message.Text.Trim() }
                                      };

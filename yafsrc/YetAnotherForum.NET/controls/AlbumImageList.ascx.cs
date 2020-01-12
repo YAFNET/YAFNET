@@ -196,7 +196,7 @@ namespace YAF.Controls
         /// </summary>
         private void BindData()
         {
-            this.PagerTop.PageSize = this.Get<YafBoardSettings>().AlbumImagesPerPage;
+            this.PagerTop.PageSize = this.Get<BoardSettings>().AlbumImagesPerPage;
             var albumTitle = this.GetRepository<UserAlbum>().GetTitle(this.AlbumID);
 
             // if (UserID == PageContext.PageUserID)

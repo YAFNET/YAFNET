@@ -136,7 +136,7 @@ namespace YAF.Modules
         private void CurrentForumPageLoad([NotNull] object sender, [NotNull] EventArgs e)
         {
             // Load CSS First
-            this.RegisterCssFiles(this.Get<YafBoardSettings>().CdvVersion);
+            this.RegisterCssFiles(this.Get<BoardSettings>().CdvVersion);
         }
 
         /// <summary>
@@ -153,7 +153,7 @@ namespace YAF.Modules
                 return;
             }
 
-            var version = this.Get<YafBoardSettings>().CdvVersion;
+            var version = this.Get<BoardSettings>().CdvVersion;
 
             ScriptManager.ScriptResourceMapping.AddDefinition(
                 "yafForumAdminExtensions",

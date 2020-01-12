@@ -110,8 +110,8 @@ namespace YAF.Pages.Admin
                             {
                                 // Wes - Changed to use queue to improve scalability
                                 this.GetRepository<Mail>().Create(
-                                    this.Get<YafBoardSettings>().ForumEmail,
-                                    this.Get<YafBoardSettings>().Name,
+                                    this.Get<BoardSettings>().ForumEmail,
+                                    this.Get<BoardSettings>().Name,
                                     row["Email"].ToType<string>(),
                                     null,
                                     this.Subject.Text.Trim(),
@@ -167,7 +167,7 @@ namespace YAF.Pages.Admin
 
             this.TestSubject.Text = this.GetText("TEST_SUBJECT");
             this.TestBody.Text = this.GetText("TEST_BODY");
-            this.TestFromEmail.Text = this.Get<YafBoardSettings>().ForumEmail;
+            this.TestFromEmail.Text = this.Get<BoardSettings>().ForumEmail;
         }
 
         #endregion

@@ -231,15 +231,15 @@ namespace YAF.Core.UsersRoles
 
             // Delete the images/albums both from database and physically.
             var uploadFolderPath = HttpContext.Current.Server.MapPath(
-                string.Concat(BaseUrlBuilder.ServerFileRoot, YafBoardFolders.Current.Uploads));
+                string.Concat(BaseUrlBuilder.ServerFileRoot, BoardFolders.Current.Uploads));
 
             var dt = YafContext.Current.GetRepository<UserAlbum>().ListByUser(userID);
 
             dt.ForEach(dr => YafContext.Current.Get<IAlbum>().AlbumImageDelete(uploadFolderPath, dr.ID, userID, null));
 
             // Check if there are any avatar images in the uploads folder
-            if (!YafContext.Current.Get<YafBoardSettings>().UseFileTable
-                && YafContext.Current.Get<YafBoardSettings>().AvatarUpload)
+            if (!YafContext.Current.Get<BoardSettings>().UseFileTable
+                && YafContext.Current.Get<BoardSettings>().AvatarUpload)
             {
                 string[] imageExtensions = { "jpg", "jpeg", "gif", "png", "bmp" };
 
@@ -284,7 +284,7 @@ namespace YAF.Core.UsersRoles
             YafContext.Current.GetRepository<Registry>().IncrementBannedUsers();
 
             // Ban IP ?
-            if (YafContext.Current.Get<YafBoardSettings>().BanBotIpOnDetection)
+            if (YafContext.Current.Get<BoardSettings>().BanBotIpOnDetection)
             {
                 YafContext.Current.GetRepository<BannedIP>().Save(
                     null,
@@ -295,7 +295,7 @@ namespace YAF.Core.UsersRoles
                 // Clear cache
                 YafContext.Current.Get<IDataCache>().Remove(Constants.Cache.BannedIP);
 
-                if (YafContext.Current.Get<YafBoardSettings>().LogBannedIP)
+                if (YafContext.Current.Get<BoardSettings>().LogBannedIP)
                 {
                     YafContext.Current.Get<ILogger>().Log(
                         userID,
@@ -319,7 +319,7 @@ namespace YAF.Core.UsersRoles
 
             // Delete the images/albums both from database and physically.
             var uploadDir = HttpContext.Current.Server.MapPath(
-                string.Concat(BaseUrlBuilder.ServerFileRoot, YafBoardFolders.Current.Uploads));
+                string.Concat(BaseUrlBuilder.ServerFileRoot, BoardFolders.Current.Uploads));
 
             var dt = YafContext.Current.GetRepository<UserAlbum>().ListByUser(userID);
 

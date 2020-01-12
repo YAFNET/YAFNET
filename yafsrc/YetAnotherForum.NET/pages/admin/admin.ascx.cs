@@ -95,10 +95,10 @@ namespace YAF.Pages.Admin
 
                     if (checkMail != null)
                     {
-                        var verifyEmail = new YafTemplateEmail("VERIFYEMAIL");
+                        var verifyEmail = new TemplateEmail("VERIFYEMAIL");
 
                         var subject = this.Get<ILocalization>()
-                            .GetTextFormatted("VERIFICATION_EMAIL_SUBJECT", this.Get<YafBoardSettings>().Name);
+                            .GetTextFormatted("VERIFICATION_EMAIL_SUBJECT", this.Get<BoardSettings>().Name);
 
                         verifyEmail.TemplateParams["{link}"] = YafBuildLink.GetLinkNotEscaped(
                             ForumPages.approve,
@@ -106,7 +106,7 @@ namespace YAF.Pages.Admin
                             "k={0}",
                             checkMail.Hash);
                         verifyEmail.TemplateParams["{key}"] = checkMail.Hash;
-                        verifyEmail.TemplateParams["{forumname}"] = this.Get<YafBoardSettings>().Name;
+                        verifyEmail.TemplateParams["{forumname}"] = this.Get<BoardSettings>().Name;
                         verifyEmail.TemplateParams["{forumlink}"] = YafForumInfo.ForumURL;
 
                         verifyEmail.SendEmail(new MailAddress(checkMail.Email, commandArgument[1]), subject, true);
@@ -414,7 +414,7 @@ namespace YAF.Pages.Admin
             double days = span.Days;
 
             this.BoardStart.Text = this.Get<IDateTime>().FormatDateTimeTopic(
-                this.Get<YafBoardSettings>().UseFarsiCalender
+                this.Get<BoardSettings>().UseFarsiCalender
                     ? PersianDateConverter.ToPersianDate((DateTime)row["BoardStart"])
                     : row["BoardStart"]);
 

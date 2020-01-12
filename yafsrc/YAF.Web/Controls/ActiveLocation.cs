@@ -370,7 +370,7 @@ namespace YAF.Web.Controls
                 }
                 else
                 {
-                    if (this.Get<YafBoardSettings>().EnableActiveLocationErrorsLog)
+                    if (this.Get<BoardSettings>().EnableActiveLocationErrorsLog)
                     {
                         this.Logger.Log(
                             this.UserID,

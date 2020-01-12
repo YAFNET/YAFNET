@@ -27,7 +27,7 @@
                 <div class="card-title h5">
                     <footer class="blockquote-footer">
                         <YAF:UserLink ID="ProfileLink" runat="server" UserID='<%# Container.DataItemToField<int>("UserID") %>'
-                                      ReplaceName='<%# this.Get<YafBoardSettings>().EnableDisplayName ? Container.DataItemToField<string>("DisplayName") : Container.DataItemToField<string>("UserName") %>'
+                                      ReplaceName='<%# this.Get<BoardSettings>().EnableDisplayName ? Container.DataItemToField<string>("DisplayName") : Container.DataItemToField<string>("UserName") %>'
                                       BlankTarget="true" />
                     </footer>
                 </div>

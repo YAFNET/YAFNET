@@ -141,7 +141,7 @@ namespace YAF.Core.Services.Startup
                 return true;
             }
 
-            if (YafContext.Current.Get<YafBoardSettings>().LogBannedIP)
+            if (YafContext.Current.Get<BoardSettings>().LogBannedIP)
             {
                 this.Logger.Log(
                     null,

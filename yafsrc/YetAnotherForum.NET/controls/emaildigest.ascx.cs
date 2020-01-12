@@ -129,7 +129,7 @@ namespace YAF.Controls
         /// <value>
         /// The board settings.
         /// </value>
-        public YafBoardSettings BoardSettings { get; set; }
+        public BoardSettings BoardSettings { get; set; }
 
         /// <summary>
         ///   Gets NewTopics.
@@ -196,7 +196,7 @@ namespace YAF.Controls
         {
             if (this.languageFile.IsSet() && this.localization == null)
             {
-                this.localization = new YafLocalization();
+                this.localization = new Localization();
                 this.localization.LoadTranslation(this.languageFile);
             }
             else if (this.localization == null)

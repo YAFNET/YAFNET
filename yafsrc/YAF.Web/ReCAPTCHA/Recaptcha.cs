@@ -73,8 +73,8 @@ namespace YAF.Web.Controls
         public RecaptchaControl()
         {
             this.skipRecaptcha = false;
-            this.SecretKey = YafContext.Current.Get<YafBoardSettings>().RecaptchaPrivateKey;
-            this.SiteKey = YafContext.Current.Get<YafBoardSettings>().RecaptchaPublicKey;
+            this.SecretKey = YafContext.Current.Get<BoardSettings>().RecaptchaPrivateKey;
+            this.SiteKey = YafContext.Current.Get<BoardSettings>().RecaptchaPublicKey;
         }
 
         #endregion

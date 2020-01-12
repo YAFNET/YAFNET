@@ -166,7 +166,7 @@ namespace YAF.Web.Controls
                                    {
                                        CrawlerName = row["Browser"].ToString(),
                                        UserID = row["UserID"].ToType<int>(),
-                                       Style = this.Get<YafBoardSettings>().UseStyledNicks
+                                       Style = this.Get<BoardSettings>().UseStyledNicks
                                                    ? this.Get<IStyleTransform>().DecodeStyleByString(
                                                        row["Style"].ToString())
                                                    : string.Empty
@@ -178,11 +178,11 @@ namespace YAF.Web.Controls
                     userLink = new UserLink
                                    {
                                        UserID = row["UserID"].ToType<int>(),
-                                       Style = this.Get<YafBoardSettings>().UseStyledNicks
+                                       Style = this.Get<BoardSettings>().UseStyledNicks
                                                    ? this.Get<IStyleTransform>().DecodeStyleByString(
                                                        row["Style"].ToString())
                                                    : string.Empty,
-                                       ReplaceName = this.Get<YafBoardSettings>().EnableDisplayName
+                                       ReplaceName = this.Get<BoardSettings>().EnableDisplayName
                                                          ? row["UserDisplayName"].ToString()
                                                          : row["UserName"].ToString()
                                    };
@@ -191,7 +191,7 @@ namespace YAF.Web.Controls
 
                 // how many users of this type is present (valid for guests, others have it 1)
                 var userCount = row["UserCount"].ToType<int>();
-                if (userCount > 1 && (!isCrawler || !this.Get<YafBoardSettings>().ShowCrawlersInActiveList))
+                if (userCount > 1 && (!isCrawler || !this.Get<BoardSettings>().ShowCrawlersInActiveList))
                 {
                     // add postfix if there is more the one user of this name
                     userLink.PostfixText = $" ({userCount})";

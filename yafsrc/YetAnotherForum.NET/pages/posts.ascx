@@ -165,13 +165,13 @@
     </ItemTemplate>
 </asp:Repeater>
 
-<asp:PlaceHolder runat="server" Visible="<%# this.Get<IPermissions>().Check(this.Get<YafBoardSettings>().PostsFeedAccess) %>">
+<asp:PlaceHolder runat="server" Visible="<%# this.Get<IPermissions>().Check(this.Get<BoardSettings>().PostsFeedAccess) %>">
     <div class="row mb-3">
         <div class="col">
             <YAF:RssFeedLink ID="RssFeed" runat="server"
                              FeedType="Posts"  
                              AdditionalParameters='<%# "t={0}".Fmt(this.PageContext.PageTopicID) %>' 
-                             Visible="<%# this.Get<IPermissions>().Check(this.Get<YafBoardSettings>().PostsFeedAccess) %>" 
+                             Visible="<%# this.Get<IPermissions>().Check(this.Get<BoardSettings>().PostsFeedAccess) %>" 
             />
         </div>
     </div>                         

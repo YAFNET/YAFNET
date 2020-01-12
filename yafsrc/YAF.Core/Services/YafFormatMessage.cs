@@ -88,7 +88,7 @@ namespace YAF.Core.Services
         #endregion
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="YafFormatMessage"/> class.
+        /// Initializes a new instance of the <see cref="Services.YafFormatMessage"/> class.
         /// </summary>
         /// <param name="serviceLocator">
         /// The service locator.
@@ -234,7 +234,7 @@ namespace YAF.Core.Services
             bool targetBlankOverride,
             DateTime messageLastEdited)
         {
-            var boardSettings = this.Get<YafBoardSettings>();
+            var boardSettings = this.Get<BoardSettings>();
 
             var useNoFollow = boardSettings.UseNoFollowLinks;
 
@@ -453,7 +453,7 @@ namespace YAF.Core.Services
 
                             return new MessageCleaned(returnMsg.Truncate(200), keywordList);
                         },
-                    TimeSpan.FromMinutes(this.Get<YafBoardSettings>().FirstPostCacheTimeout));
+                    TimeSpan.FromMinutes(this.Get<BoardSettings>().FirstPostCacheTimeout));
             }
 
             return message;
@@ -617,7 +617,7 @@ namespace YAF.Core.Services
 
             html = !allowHtml
                        ? this.HttpServer.HtmlEncode(html)
-                       : RemoveHtmlByList(html, this.Get<YafBoardSettings>().AcceptedHTML.Split(','));
+                       : RemoveHtmlByList(html, this.Get<BoardSettings>().AcceptedHTML.Split(','));
 
             return html;
         }

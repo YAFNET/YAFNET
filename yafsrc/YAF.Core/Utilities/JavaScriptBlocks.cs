@@ -154,7 +154,7 @@ namespace YAF.Core.Utilities
             
 		     moment.locale('{(YafContext.Current.CultureUser.IsSet()
                                   ? YafContext.Current.CultureUser.Substring(0, 2)
-                                  : YafContext.Current.Get<YafBoardSettings>().Culture.Substring(0, 2))}');
+                                  : YafContext.Current.Get<BoardSettings>().Culture.Substring(0, 2))}');
 
              {Config.JQueryAlias}('abbr.timeago').each(function() {{
                   {Config.JQueryAlias}(this).html(function(index, value) {{
@@ -708,7 +708,7 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
                     forumID: '{forumId}',
                     boardID: '{boardId}',
                     userID: '{YafContext.Current.PageUserID}',
-                    uploadFolder: '{YafBoardFolders.Current.Uploads}',
+                    uploadFolder: '{BoardFolders.Current.Uploads}',
                     allowedUpload: true
                 }},
                 dropZone: {Config.JQueryAlias}('.BBCodeEditor'),
@@ -785,7 +785,7 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
                     forumID: '{forumId}',
                     boardID: '{boardId}',
                     userID: '{YafContext.Current.PageUserID}',
-                    uploadFolder: '{YafBoardFolders.Current.Uploads}',
+                    uploadFolder: '{BoardFolders.Current.Uploads}',
                     allowedUpload: true
                 }},
                 dropZone: {Config.JQueryAlias}('#UploadDialog')

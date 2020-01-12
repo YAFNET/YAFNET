@@ -30,8 +30,8 @@
                     <YAF:ForumModeratorList ID="ForumModeratorListMob" Visible="false" runat="server"  />
                 </h5>
                 <YAF:ForumSubForumList ID="SubForumList" runat="server"
-                                       DataSource='<%# this.GetSubForums((System.Data.DataRow)Container.DataItem ) %>'
-                                       Visible='<%# this.HasSubForums((System.Data.DataRow)Container.DataItem) %>' />
+                                       DataSource="<%# this.GetSubForums((System.Data.DataRow)Container.DataItem ) %>"
+                                       Visible="<%# this.HasSubForums((System.Data.DataRow)Container.DataItem) %>" />
             </div>
             <asp:PlaceHolder runat="server" Visible='<%# ((System.Data.DataRow)Container.DataItem)["RemoteURL"].IsNullOrEmptyDBField() %>'>
                 <div class="col-md-2 text-secondary">

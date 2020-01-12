@@ -97,7 +97,7 @@ namespace YAF.Web.Controls
             var stats = this.GetText("ATTACHMENTINFO");
             var fileIcon = "<i class=\"fa fa-file fa-fw\"></i>";
 
-            var settings = this.Get<YafBoardSettings>();
+            var settings = this.Get<BoardSettings>();
 
             var attachments = this.GetRepository<Attachment>().Get(a => a.MessageID == this.MessageID).Select(
                 attach => new

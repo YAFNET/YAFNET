@@ -124,7 +124,7 @@ namespace YAF.Core.Model
 
             var uploadDir =
                 HostingEnvironment.MapPath(
-                    string.Concat(BaseUrlBuilder.ServerFileRoot, YafBoardFolders.Current.Uploads));
+                    string.Concat(BaseUrlBuilder.ServerFileRoot, BoardFolders.Current.Uploads));
 
             attachments.ForEach(
                 attachment =>

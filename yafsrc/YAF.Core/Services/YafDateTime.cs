@@ -63,7 +63,7 @@ namespace YAF.Core.Services
             {
                 if (YafContext.Current.Page == null)
                 {
-                    return new TimeSpan(0, YafContext.Current.Get<YafBoardSettings>().ServerTimeCorrection, 0);
+                    return new TimeSpan(0, YafContext.Current.Get<BoardSettings>().ServerTimeCorrection, 0);
                 }
 
                 var min = YafContext.Current.TimeZoneUserOffSet;
@@ -71,7 +71,7 @@ namespace YAF.Core.Services
 
                 return new TimeSpan(
                     hrs,
-                    min % 60 + YafContext.Current.Get<YafBoardSettings>().ServerTimeCorrection,
+                    min % 60 + YafContext.Current.Get<BoardSettings>().ServerTimeCorrection,
                     0);
             }
         }
@@ -105,7 +105,7 @@ namespace YAF.Core.Services
                 dateFormat = dateTime.ToString("D");
             }
 
-            return YafContext.Current.Get<YafBoardSettings>().UseFarsiCalender
+            return YafContext.Current.Get<BoardSettings>().UseFarsiCalender
                        ? PersianDateConverter.ToPersianDate(dateTime).ToString("D")
                        : YafContext.Current.IsGuest
                              ? $"{dateFormat}{this.timeZoneName}"
@@ -137,7 +137,7 @@ namespace YAF.Core.Services
                 dateFormat = dateTime.ToString("d");
             }
 
-            return YafContext.Current.Get<YafBoardSettings>().UseFarsiCalender
+            return YafContext.Current.Get<BoardSettings>().UseFarsiCalender
                        ? PersianDateConverter.ToPersianDate(dateTime).ToString("d")
                        : YafContext.Current.IsGuest
                              ? $"{dateFormat}{this.timeZoneName}"
@@ -172,7 +172,7 @@ namespace YAF.Core.Services
                 dateFormat = dateTime.ToString("F");
             }
 
-            return YafContext.Current.Get<YafBoardSettings>().UseFarsiCalender
+            return YafContext.Current.Get<BoardSettings>().UseFarsiCalender
                        ? PersianDateConverter.ToPersianDate(dateTime).ToString()
                        : YafContext.Current.IsGuest
                              ? $"{dateFormat}{this.timeZoneName}"
@@ -207,7 +207,7 @@ namespace YAF.Core.Services
                 dateFormat = dateTime.ToString("G");
             }
 
-            return YafContext.Current.Get<YafBoardSettings>().UseFarsiCalender
+            return YafContext.Current.Get<BoardSettings>().UseFarsiCalender
                        ? PersianDateConverter.ToPersianDate(dateTime).ToString("G")
                        : YafContext.Current.IsGuest
                              ? $"{dateFormat}{this.timeZoneName}"
@@ -262,7 +262,7 @@ namespace YAF.Core.Services
                 dateFormat = dateTime.ToString("G");
             }
 
-            return YafContext.Current.Get<YafBoardSettings>().UseFarsiCalender
+            return YafContext.Current.Get<BoardSettings>().UseFarsiCalender
                        ? PersianDateConverter.ToPersianDate(dateTime).ToString("G")
                        : YafContext.Current.IsGuest
                              ? $"{dateFormat}{this.timeZoneName}"
@@ -295,7 +295,7 @@ namespace YAF.Core.Services
                 dateFormat = dateTime.ToString("T");
             }
 
-            return YafContext.Current.Get<YafBoardSettings>().UseFarsiCalender
+            return YafContext.Current.Get<BoardSettings>().UseFarsiCalender
                        ? PersianDateConverter.ToPersianDate(dateTime).ToString("T")
                        : YafContext.Current.IsGuest
                              ? $"{dateFormat}{this.timeZoneName}"

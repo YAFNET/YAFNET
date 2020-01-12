@@ -29,7 +29,7 @@
                     </asp:Label>
                     <asp:PlaceHolder ID="PreviewCell" runat="server">
                         <YAF:Alert Type="light" runat="server">
-                            <YAF:MessagePost ID="PreviewMessagePost" runat="server" />
+                            <YAF:MessagePost ID="PreviewMessagePost" runat="server"/>
                         </YAF:Alert>
                     </asp:PlaceHolder>
                 </asp:PlaceHolder>

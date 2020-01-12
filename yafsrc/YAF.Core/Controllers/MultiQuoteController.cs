@@ -66,7 +66,7 @@ namespace YAF.Core.Controllers
             var topicId = quoteButton.TopicId;
             var buttonCssClass = quoteButton.ButtonCssClass;
 
-            var yafSession = this.Get<IYafSession>();
+            var yafSession = this.Get<ISession>();
 
             var multiQuote = new MultiQuote { MessageID = messageId, TopicID = topicId };
 

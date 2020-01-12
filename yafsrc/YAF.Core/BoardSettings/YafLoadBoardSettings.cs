@@ -43,7 +43,7 @@ namespace YAF.Core
     /// <summary>
     ///     The YAF load board settings.
     /// </summary>
-    public class YafLoadBoardSettings : YafBoardSettings
+    public class YafLoadBoardSettings : BoardSettings
     {
         #region Fields
 
@@ -97,7 +97,7 @@ namespace YAF.Core
         /// <summary>
         /// Gets or sets the _legacy board settings.
         /// </summary>
-        protected override YafLegacyBoardSettings _legacyBoardSettings
+        protected override LegacyBoardSettings _legacyBoardSettings
         {
             get => base._legacyBoardSettings ?? (base._legacyBoardSettings = SetupLegacyBoardSettings(this.CurrentBoard));
 
@@ -196,9 +196,9 @@ namespace YAF.Core
         /// The board.
         /// </param>
         /// <returns>
-        /// The <see cref="YafLegacyBoardSettings"/>.
+        /// The <see cref="LegacyBoardSettings"/>.
         /// </returns>
-        private static YafLegacyBoardSettings SetupLegacyBoardSettings([NotNull] Board board)
+        private static LegacyBoardSettings SetupLegacyBoardSettings([NotNull] Board board)
         {
             CodeContracts.VerifyNotNull(board, "board");
 
@@ -210,7 +210,7 @@ namespace YAF.Core
                                    ? YafContext.Current.Get<RoleProvider>().ApplicationName
                                    : board.RolesAppName;
 
-            return new YafLegacyBoardSettings(
+            return new LegacyBoardSettings(
                 board.Name, 
                 membershipAppName, 
                 rolesAppName);

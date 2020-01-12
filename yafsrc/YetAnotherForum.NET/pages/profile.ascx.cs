@@ -105,7 +105,7 @@ namespace YAF.Pages
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
             this.lnkThanks.Text = $"({this.GetText("VIEWTHANKS", "TITLE")})";
-            this.lnkThanks.Visible = this.Get<YafBoardSettings>().EnableThanksMod;
+            this.lnkThanks.Visible = this.Get<BoardSettings>().EnableThanksMod;
 
             // admin or moderator, set edit control to moderator mode...
             if (this.PageContext.IsAdmin || this.PageContext.IsForumModerator)
@@ -117,7 +117,7 @@ namespace YAF.Pages
             {
                 this.UserId =
                     Security.StringToIntOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u"));
-                this.userGroupsRow.Visible = this.Get<YafBoardSettings>().ShowGroupsProfile || this.PageContext.IsAdmin;
+                this.userGroupsRow.Visible = this.Get<BoardSettings>().ShowGroupsProfile || this.PageContext.IsAdmin;
             }
 
             if (this.UserId == 0)
@@ -149,7 +149,7 @@ namespace YAF.Pages
 
                 thisButton.NavigateUrl = link;
                 thisButton.Attributes.Add("target", "_blank");
-                if (this.Get<YafBoardSettings>().UseNoFollowLinks)
+                if (this.Get<BoardSettings>().UseNoFollowLinks)
                 {
                     thisButton.Attributes.Add("rel", "nofollow");
                 }
@@ -209,7 +209,7 @@ namespace YAF.Pages
             this.PageLinks.AddRoot();
             this.PageLinks.AddLink(
                 this.GetText("MEMBERS"),
-                this.Get<IPermissions>().Check(this.Get<YafBoardSettings>().MembersListViewPermissions)
+                this.Get<IPermissions>().Check(this.Get<BoardSettings>().MembersListViewPermissions)
                     ? YafBuildLink.GetLink(ForumPages.members)
                     : null);
             this.PageLinks.AddLink(userDisplayName, string.Empty);
@@ -246,7 +246,7 @@ namespace YAF.Pages
 
             // populate user information controls...
             // Is BuddyList feature enabled?
-            if (this.Get<YafBoardSettings>().EnableBuddyList)
+            if (this.Get<BoardSettings>().EnableBuddyList)
             {
                 this.SetupBuddyList(this.UserId, userData);
             }
@@ -258,7 +258,7 @@ namespace YAF.Pages
             }
 
             var userNameOrDisplayName = this.HtmlEncode(
-                this.Get<YafBoardSettings>().EnableDisplayName ? userData.DisplayName : userData.UserName);
+                this.Get<BoardSettings>().EnableDisplayName ? userData.DisplayName : userData.UserName);
 
             this.SetupUserProfileInfo(userData);
 
@@ -396,7 +396,7 @@ namespace YAF.Pages
             var isFriend = this.GetRepository<Buddy>().CheckIsFriend(this.PageContext.PageUserID, userData.UserID);
 
             this.PM.Visible = !userData.IsGuest && this.User != null
-                                                && this.Get<YafBoardSettings>().AllowPrivateMessages;
+                                                && this.Get<BoardSettings>().AllowPrivateMessages;
 
             if (this.PM.Visible)
             {
@@ -416,7 +416,7 @@ namespace YAF.Pages
 
             // email link
             this.Email.Visible = !userData.IsGuest && this.User != null
-                                                   && this.Get<YafBoardSettings>().AllowEmailSending;
+                                                   && this.Get<BoardSettings>().AllowEmailSending;
 
             if (this.Email.Visible)
             {
@@ -574,7 +574,7 @@ namespace YAF.Pages
 
             this.ThanksToTimes.Text = thanksToArray[0].ToString();
             this.ThanksToPosts.Text = thanksToArray[1].ToString();
-            this.ReputationReceived.Text = YafReputation.GenerateReputationBar(userData.Points.Value, userData.UserID);
+            this.ReputationReceived.Text = this.Get<IReputation>().GenerateReputationBar(userData.Points.Value, userData.UserID);
 
             if (this.User != null && userData.Profile.Birthday >= DateTimeHelper.SqlDbMinTime())
             {
@@ -588,7 +588,7 @@ namespace YAF.Pages
             }
 
             // Show User Medals
-            if (this.Get<YafBoardSettings>().ShowMedals)
+            if (this.Get<BoardSettings>().ShowMedals)
             {
                 this.ShowUserMedals();
             }
@@ -648,7 +648,7 @@ namespace YAF.Pages
                         r["SmallRibbonWidth"],
                         r["SmallRibbonHeight"],
                         title,
-                        YafBoardFolders.Current.Medals);
+                        BoardFolders.Current.Medals);
 
                     inRow++;
                 }
@@ -674,7 +674,7 @@ namespace YAF.Pages
                         r["SmallMedalHeight"],
                         r["Name"],
                         f.ShowMessage ? $": {r["Message"]}" : string.Empty,
-                        YafBoardFolders.Current.Medals);
+                        BoardFolders.Current.Medals);
                 }
 
                 // move to next row

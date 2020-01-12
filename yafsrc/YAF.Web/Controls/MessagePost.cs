@@ -227,7 +227,7 @@ namespace YAF.Web.Controls
         protected virtual void RenderEditedMessage(
             [NotNull] HtmlTextWriter writer, [NotNull] DateTime edited, [NotNull] string editReason, int? messageId)
         {
-            if (!this.Get<YafBoardSettings>().ShowEditedMessage)
+            if (!this.Get<BoardSettings>().ShowEditedMessage)
             {
                 return;
             }

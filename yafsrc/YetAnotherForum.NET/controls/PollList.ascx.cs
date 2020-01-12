@@ -190,8 +190,8 @@ namespace YAF.Controls
         /// </returns>
         protected bool CanCreatePoll()
         {
-            return this.PollNumber < this.Get<YafBoardSettings>().AllowedPollNumber
-                   && this.Get<YafBoardSettings>().AllowedPollChoiceNumber > 0 && this.HasOwnerExistingGroupAccess()
+            return this.PollNumber < this.Get<BoardSettings>().AllowedPollNumber
+                   && this.Get<BoardSettings>().AllowedPollChoiceNumber > 0 && this.HasOwnerExistingGroupAccess()
                    && this.PollGroupId >= 0;
         }
 
@@ -205,7 +205,7 @@ namespace YAF.Controls
         protected bool CanEditPoll([NotNull] object pollId)
         {
             // The host admin can forbid a user to change poll after first vote to avoid fakes.    
-            if (!this.Get<YafBoardSettings>().AllowPollChangesAfterFirstVote)
+            if (!this.Get<BoardSettings>().AllowPollChangesAfterFirstVote)
             {
                 // Only if show buttons are enabled user can edit poll 
                 return this.ShowButtons && (this.PageContext.IsAdmin || this.PageContext.ForumModeratorAccess
@@ -232,7 +232,7 @@ namespace YAF.Controls
         {
             var hasNoVotes = !this._dtPollAllChoices.Rows.Cast<DataRow>().Any(dr => dr["Votes"].ToType<int>() > 0);
 
-            if (!this.Get<YafBoardSettings>().AllowPollChangesAfterFirstVote)
+            if (!this.Get<BoardSettings>().AllowPollChangesAfterFirstVote)
             {
                 return this.ShowButtons && (this.PageContext.IsAdmin || this.PageContext.ForumModeratorAccess
                                                                      || this.PageContext.PageUserID
@@ -293,7 +293,7 @@ namespace YAF.Controls
         /// </returns>
         protected bool CanRemovePollCompletely([NotNull] object pollId)
         {
-            if (!this.Get<YafBoardSettings>().AllowPollChangesAfterFirstVote)
+            if (!this.Get<BoardSettings>().AllowPollChangesAfterFirstVote)
             {
                 return this.ShowButtons && (this.PageContext.IsAdmin || this.PageContext.ForumModeratorAccess
                                                                      || this.PageContext.PageUserID
@@ -472,7 +472,7 @@ namespace YAF.Controls
             }
 
             // voting is not tied to IP and they are a guest...
-            if (this.PageContext.IsGuest && !this.Get<YafBoardSettings>().PollVoteTiedToIP)
+            if (this.PageContext.IsGuest && !this.Get<BoardSettings>().PollVoteTiedToIP)
             {
                 hasVote = false;
                 return true;
@@ -673,7 +673,7 @@ namespace YAF.Controls
                 pollChoiceList.ChoiceId = choicePId;
 
                 // If guest are not allowed to view options we don't render them
-                pollChoiceList.Visible = !(!cvote && !this.Get<YafBoardSettings>().AllowGuestsViewPollOptions
+                pollChoiceList.Visible = !(!cvote && !this.Get<BoardSettings>().AllowGuestsViewPollOptions
                                                   && this.PageContext.IsGuest);
 
                 var isClosedBound = false;
@@ -831,7 +831,7 @@ namespace YAF.Controls
                 {
                     if (!cvote)
                     {
-                        if (!this.Get<YafBoardSettings>().AllowGuestsViewPollOptions)
+                        if (!this.Get<BoardSettings>().AllowGuestsViewPollOptions)
                         {
                             notificationString += $" {this.GetText("POLLEDIT", "POLLOPTIONSHIDDEN_GUEST")}";
                         }
@@ -1079,7 +1079,7 @@ namespace YAF.Controls
                 object userId = null;
                 object remoteIp = null;
 
-                if (this.Get<YafBoardSettings>().PollVoteTiedToIP)
+                if (this.Get<BoardSettings>().PollVoteTiedToIP)
                 {
                     remoteIp = IPHelper.IPStringToLong(this.Get<HttpRequestBase>().GetUserRealIPAddress()).ToString();
                 }
@@ -1146,7 +1146,7 @@ namespace YAF.Controls
         /// </returns>
         private bool HasOwnerExistingGroupAccess()
         {
-            if (this.Get<YafBoardSettings>().AllowedPollChoiceNumber <= 0)
+            if (this.Get<BoardSettings>().AllowedPollChoiceNumber <= 0)
             {
                 return false;
             }

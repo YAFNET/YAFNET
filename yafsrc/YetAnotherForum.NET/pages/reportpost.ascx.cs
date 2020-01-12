@@ -105,11 +105,11 @@ namespace YAF.Pages
         /// </param>
         protected void BtnReport_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
-            if (this.reportEditor.Text.Length > this.Get<YafBoardSettings>().MaxReportPostChars)
+            if (this.reportEditor.Text.Length > this.Get<BoardSettings>().MaxReportPostChars)
             {
                 this.IncorrectReportLabel.Text = this.GetTextFormatted(
                     "REPORTTEXT_TOOLONG",
-                    this.Get<YafBoardSettings>().MaxReportPostChars);
+                    this.Get<BoardSettings>().MaxReportPostChars);
                 this.IncorrectReportLabel.DataBind();
                 return;
             }
@@ -122,7 +122,7 @@ namespace YAF.Pages
                 this.reportEditor.Text);
 
             // Send Notification to Mods about the Reported Post.
-            if (this.Get<YafBoardSettings>().EmailModeratorsOnReportedPost)
+            if (this.Get<BoardSettings>().EmailModeratorsOnReportedPost)
             {
                 // not approved, notify moderators
                 this.Get<ISendNotification>()
@@ -164,7 +164,7 @@ namespace YAF.Pages
             if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("m").IsSet())
             {
                 // We check here if the user have access to the option
-                if (!this.Get<IPermissions>().Check(this.Get<YafBoardSettings>().ReportPostPermissions))
+                if (!this.Get<IPermissions>().Check(this.Get<BoardSettings>().ReportPostPermissions))
                 {
                     YafBuildLink.Redirect(ForumPages.info, "i=1");
                 }
@@ -198,7 +198,7 @@ namespace YAF.Pages
             // Get Forum Link
             this.PageLinks.AddRoot();
 
-            this.LocalizedLblMaxNumberOfPost.Param0 = this.Get<YafBoardSettings>().MaxReportPostChars.ToString();
+            this.LocalizedLblMaxNumberOfPost.Param0 = this.Get<BoardSettings>().MaxReportPostChars.ToString();
         }
 
         /// <summary>

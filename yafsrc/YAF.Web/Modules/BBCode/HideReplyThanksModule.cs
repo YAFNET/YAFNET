@@ -77,7 +77,7 @@ namespace YAF.Modules.BBCode
             var userId = YafContext.Current.CurrentUserData.UserID;
 
             // Handle Hide Thanks
-            if (!this.Get<YafBoardSettings>().EnableThanksMod)
+            if (!this.Get<BoardSettings>().EnableThanksMod)
             {
                 writer.Write(hiddenContent);
                 return;

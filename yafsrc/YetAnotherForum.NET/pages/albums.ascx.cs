@@ -67,7 +67,7 @@ namespace YAF.Pages
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            if (!this.Get<YafBoardSettings>().EnableAlbum)
+            if (!this.Get<BoardSettings>().EnableAlbum)
             {
                 YafBuildLink.AccessDenied();
             }
@@ -98,7 +98,7 @@ namespace YAF.Pages
             this.PageLinks.Clear();
             this.PageLinks.AddRoot();
             this.PageLinks.AddLink(
-                this.Get<YafBoardSettings>().EnableDisplayName
+                this.Get<BoardSettings>().EnableDisplayName
                     ? displayName
                     : UserMembershipHelper.GetUserNameFromID(
                         Security.StringToLongOrRedirect(

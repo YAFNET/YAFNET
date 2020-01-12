@@ -174,7 +174,7 @@
 								<asp:Literal runat="server" id="Stats" />
 							</li>
 
-							<asp:PlaceHolder id="divTF" runat="server" visible="<%# this.Get<YafBoardSettings>().EnableThanksMod %>">
+							<asp:PlaceHolder id="divTF" runat="server" visible="<%# this.Get<BoardSettings>().EnableThanksMod %>">
                                 <li class="list-group-item text-right">
                                 <span class="float-left font-weight-bold">
                                 <YAF:LocalizedLabel ID="LocalizedLabel10" runat="server" LocalizedTag="THANKSFROM" />
@@ -183,7 +183,7 @@
                                     <asp:LinkButton ID="lnkThanks" runat="server" OnCommand="lnk_ViewThanks"/>
 								</li>
 							</asp:PlaceHolder>
-							<asp:PlaceHolder id="divTTT" runat="server" visible="<%# this.Get<YafBoardSettings>().EnableThanksMod %>">
+							<asp:PlaceHolder id="divTTT" runat="server" visible="<%# this.Get<BoardSettings>().EnableThanksMod %>">
                                 <li class="list-group-item text-right">
                                 <span class="float-left font-weight-bold">
 									<YAF:LocalizedLabel ID="LocalizedLabel20" runat="server" LocalizedTag="THANKSTOTIMES" />
@@ -191,7 +191,7 @@
 									<asp:Label ID="ThanksToTimes" runat="server" />
 								</li>
 							</asp:PlaceHolder>
-							<asp:PlaceHolder id="divTTP" runat="server" visible="<%# this.Get<YafBoardSettings>().EnableThanksMod %>">
+							<asp:PlaceHolder id="divTTP" runat="server" visible="<%# this.Get<BoardSettings>().EnableThanksMod %>">
                                 <li class="list-group-item text-right">
                                 <span class="float-left font-weight-bold">
 									<YAF:LocalizedLabel ID="LocalizedLabel21" runat="server" LocalizedTag="THANKSTOPOSTS" />
@@ -199,7 +199,7 @@
 									<asp:Label ID="ThanksToPosts" runat="server" />
 								</li>
 							</asp:PlaceHolder>
-                            <asp:PlaceHolder id="divRR" runat="server" visible="<%# this.Get<YafBoardSettings>().EnableUserReputation %>">
+                            <asp:PlaceHolder id="divRR" runat="server" visible="<%# this.Get<BoardSettings>().EnableUserReputation %>">
                                 <li class="list-group-item">
                                     <span class="font-weight-bold">
                                         <YAF:LocalizedLabel ID="LocalizedLabel29" runat="server" LocalizedTag="REPUTATION_RECEIVED" />

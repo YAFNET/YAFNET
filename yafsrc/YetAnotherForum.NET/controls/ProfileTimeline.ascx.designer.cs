@@ -51,24 +51,6 @@ namespace YAF.Controls
         protected global::System.Web.UI.WebControls.CheckBox CreatedReply;
 
         /// <summary>
-        /// WasMentioned control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox WasMentioned;
-
-        /// <summary>
-        /// ReceivedThanks control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox ReceivedThanks;
-
-        /// <summary>
         /// GivenThanks control.
         /// </summary>
         /// <remarks>
@@ -76,24 +58,6 @@ namespace YAF.Controls
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox GivenThanks;
-
-        /// <summary>
-        /// WasQuoted control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox WasQuoted;
-
-        /// <summary>
-        /// UnreadOnly control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox UnreadOnly;
 
         /// <summary>
         /// Update control.
@@ -139,15 +103,6 @@ namespace YAF.Controls
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList PageSize;
-
-        /// <summary>
-        /// MarkAll control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Web.Controls.ThemeButton MarkAll;
 
         /// <summary>
         /// PagerBottom control.

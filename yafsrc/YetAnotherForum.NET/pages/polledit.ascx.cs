@@ -234,7 +234,7 @@ namespace YAF.Pages
             this.InitializeVariables();
 
             this.PollObjectRow1.Visible =
-                (this.PageContext.IsAdmin || this.Get<YafBoardSettings>().AllowUsersImagedPoll)
+                (this.PageContext.IsAdmin || this.Get<BoardSettings>().AllowUsersImagedPoll)
                 && this.PageContext.ForumPollAccess;
 
             if (int.TryParse(this.PollExpire.Text.Trim(), out this._daysPollExpire))
@@ -393,13 +393,13 @@ namespace YAF.Pages
                         return false;
                     }
 
-                    if (length > this.Get<YafBoardSettings>().PollImageMaxFileSize * 1024)
+                    if (length > this.Get<BoardSettings>().PollImageMaxFileSize * 1024)
                     {
                         YafContext.Current.AddLoadMessage(
                             this.GetTextFormatted(
                                 "POLLIMAGE_TOOBIG",
                                 length / 1024,
-                                this.Get<YafBoardSettings>().PollImageMaxFileSize,
+                                this.Get<BoardSettings>().PollImageMaxFileSize,
                                 questionPath),
                             MessageTypes.warning);
                         return false;
@@ -439,13 +439,13 @@ namespace YAF.Pages
                             return false;
                         }
 
-                        if (length > this.Get<YafBoardSettings>().PollImageMaxFileSize * 1024)
+                        if (length > this.Get<BoardSettings>().PollImageMaxFileSize * 1024)
                         {
                             YafContext.Current.AddLoadMessage(
                                 this.GetTextFormatted(
                                     "POLLIMAGE_TOOBIG",
                                     length / 1024,
-                                    this.Get<YafBoardSettings>().PollImageMaxFileSize,
+                                    this.Get<BoardSettings>().PollImageMaxFileSize,
                                     choiceObjectPath),
                                 MessageTypes.warning);
                             return false;
@@ -515,13 +515,13 @@ namespace YAF.Pages
                         return false;
                     }
 
-                    if (length > this.Get<YafBoardSettings>().PollImageMaxFileSize * 1024)
+                    if (length > this.Get<BoardSettings>().PollImageMaxFileSize * 1024)
                     {
                         YafContext.Current.AddLoadMessage(
                             this.GetTextFormatted(
                                 "POLLIMAGE_TOOBIG",
                                 length / 1024,
-                                this.Get<YafBoardSettings>().PollImageMaxFileSize,
+                                this.Get<BoardSettings>().PollImageMaxFileSize,
                                 questionPath),
                             MessageTypes.warning);
                     }
@@ -549,13 +549,13 @@ namespace YAF.Pages
                             return false;
                         }
 
-                        if (length > this.Get<YafBoardSettings>().PollImageMaxFileSize * 1024)
+                        if (length > this.Get<BoardSettings>().PollImageMaxFileSize * 1024)
                         {
                             YafContext.Current.AddLoadMessage(
                                 this.GetTextFormatted(
                                     "POLLIMAGE_TOOBIG",
                                     length / 1024,
-                                    this.Get<YafBoardSettings>().PollImageMaxFileSize,
+                                    this.Get<BoardSettings>().PollImageMaxFileSize,
                                     choiceObjectPath),
                                 MessageTypes.warning);
                             return false;
@@ -720,7 +720,7 @@ namespace YAF.Pages
             }
 
             // we add dummy rows to data table to fill in repeater empty fields   
-            var dummyRowsCount = this.Get<YafBoardSettings>().AllowedPollChoiceNumber - allExistingRowsCount - 1;
+            var dummyRowsCount = this.Get<BoardSettings>().AllowedPollChoiceNumber - allExistingRowsCount - 1;
             for (var i = 0; i <= dummyRowsCount; i++)
             {
                 var drow = this._choices.NewRow();
@@ -739,9 +739,9 @@ namespace YAF.Pages
             this.PollRow1.Visible = true;
             this.PollRowExpire.Visible = true;
             this.IsClosedBound.Visible = this.IsBound.Visible =
-                                             this.Get<YafBoardSettings>().AllowUsersHidePollResults
+                                             this.Get<BoardSettings>().AllowUsersHidePollResults
                                              || this.PageContext.IsAdmin || this.PageContext.IsForumModerator;
-            this.tr_AllowMultipleChoices.Visible = this.Get<YafBoardSettings>().AllowMultipleChoices
+            this.tr_AllowMultipleChoices.Visible = this.Get<BoardSettings>().AllowMultipleChoices
                                                    || this.PageContext.IsAdmin || this.PageContext.ForumModeratorAccess;
             this.tr_ShowVoters.Visible = true;
             this.tr_AllowSkipVote.Visible = false;
@@ -990,7 +990,7 @@ namespace YAF.Pages
                 return false;
             }
 
-            if (pollGroupId == null && this.Get<YafBoardSettings>().AllowedPollNumber > 0
+            if (pollGroupId == null && this.Get<BoardSettings>().AllowedPollNumber > 0
                                     && this.PageContext.ForumPollAccess)
             {
                 return true;
@@ -1024,8 +1024,8 @@ namespace YAF.Pages
             // frequently used
             var pollNumber = pollGroup.Rows.Count;
 
-            return pollNumber < this.Get<YafBoardSettings>().AllowedPollNumber
-                   && this.Get<YafBoardSettings>().AllowedPollChoiceNumber > 0;
+            return pollNumber < this.Get<BoardSettings>().AllowedPollNumber
+                   && this.Get<BoardSettings>().AllowedPollChoiceNumber > 0;
         }
 
         #endregion

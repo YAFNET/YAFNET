@@ -68,8 +68,8 @@ namespace YAF.Core.Modules
 
             // optional defaults.
             builder.RegisterType<YafSendMail>().As<ISendMail>().SingleInstance().PreserveExistingDefaults();
-            builder.RegisterType<YafActivityStream>().As<IActivityStream>().SingleInstance().PreserveExistingDefaults();
-            builder.RegisterType<YafSendNotification>().As<ISendNotification>().InstancePerLifetimeScope().PreserveExistingDefaults();
+            builder.RegisterType<ActivityStream>().As<IActivityStream>().SingleInstance().PreserveExistingDefaults();
+            builder.RegisterType<SendNotification>().As<ISendNotification>().InstancePerLifetimeScope().PreserveExistingDefaults();
             builder.RegisterType<YafSearch>().As<ISearch>().InstancePerLifetimeScope().PreserveExistingDefaults();
             builder.RegisterType<Digest>().As<IDigest>().InstancePerLifetimeScope().PreserveExistingDefaults();
             builder.RegisterType<DefaultUserDisplayName>().As<IUserDisplayName>().InstancePerLifetimeScope().PreserveExistingDefaults();
@@ -77,31 +77,32 @@ namespace YAF.Core.Modules
             builder.RegisterType<YafBBCode>().As<IBBCode>().InstancePerLifetimeScope().PreserveExistingDefaults();
             builder.RegisterType<YafFormatMessage>().As<IFormatMessage>().InstancePerLifetimeScope().PreserveExistingDefaults();
             builder.RegisterType<YafDbBroker>().AsSelf().InstancePerLifetimeScope().PreserveExistingDefaults();
-            builder.RegisterType<YafAvatars>().As<IAvatars>().InstancePerLifetimeScope().PreserveExistingDefaults();
-            builder.RegisterType<YafAlbum>().As<IAlbum>().InstancePerLifetimeScope().PreserveExistingDefaults();
-            builder.RegisterType<YafAttachment>().As<IAttachment>().InstancePerLifetimeScope().PreserveExistingDefaults();
-            builder.RegisterType<YafResources>().As<IResources>().InstancePerLifetimeScope().PreserveExistingDefaults();
+            builder.RegisterType<Avatars>().As<IAvatars>().InstancePerLifetimeScope().PreserveExistingDefaults();
+            builder.RegisterType<Album>().As<IAlbum>().InstancePerLifetimeScope().PreserveExistingDefaults();
+            builder.RegisterType<Attachments>().As<IAttachment>().InstancePerLifetimeScope().PreserveExistingDefaults();
+            builder.RegisterType<Reputation>().As<IReputation>().InstancePerLifetimeScope().PreserveExistingDefaults();
+            builder.RegisterType<Resources>().As<IResources>().InstancePerLifetimeScope().PreserveExistingDefaults();
             builder.RegisterType<IpInfoService>().As<IIpInfoService>().InstancePerLifetimeScope().PreserveExistingDefaults();
             builder.RegisterType<TreatCacheKeyWithBoard>().As<ITreatCacheKey>().InstancePerLifetimeScope().PreserveExistingDefaults();
             builder.RegisterType<CurrentBoardId>().As<IHaveBoardID>().InstancePerLifetimeScope().PreserveExistingDefaults();
 
-            builder.RegisterType<YafReadTrackCurrentUser>().As<IReadTrackCurrentUser>().InstancePerYafContext().PreserveExistingDefaults();
+            builder.RegisterType<ReadTrackCurrentUser>().As<IReadTrackCurrentUser>().InstancePerYafContext().PreserveExistingDefaults();
 
-            builder.RegisterType<YafSession>().As<IYafSession>().InstancePerLifetimeScope().PreserveExistingDefaults();
-            builder.RegisterType<YafBadWordReplace>().As<IBadWordReplace>().SingleInstance().PreserveExistingDefaults();
-            builder.RegisterType<YafSpamWordCheck>().As<ISpamWordCheck>().SingleInstance().PreserveExistingDefaults();
-            builder.RegisterType<YafSpamCheck>().As<ISpamCheck>().SingleInstance().PreserveExistingDefaults();
-            builder.RegisterType<YafThankYou>().As<IThankYou>().SingleInstance().PreserveExistingDefaults();
+            builder.RegisterType<Session>().As<ISession>().InstancePerLifetimeScope().PreserveExistingDefaults();
+            builder.RegisterType<BadWordReplace>().As<IBadWordReplace>().SingleInstance().PreserveExistingDefaults();
+            builder.RegisterType<SpamWordCheck>().As<ISpamWordCheck>().SingleInstance().PreserveExistingDefaults();
+            builder.RegisterType<SpamCheck>().As<ISpamCheck>().SingleInstance().PreserveExistingDefaults();
+            builder.RegisterType<ThankYou>().As<IThankYou>().SingleInstance().PreserveExistingDefaults();
 
-            builder.RegisterType<YafPermissions>().As<IPermissions>().InstancePerLifetimeScope().PreserveExistingDefaults();
+            builder.RegisterType<Permissions>().As<IPermissions>().InstancePerLifetimeScope().PreserveExistingDefaults();
             builder.RegisterType<YafDateTime>().As<IDateTime>().InstancePerLifetimeScope().PreserveExistingDefaults();
-            builder.RegisterType<YafUserIgnored>().As<IUserIgnored>().InstancePerLifetimeScope().PreserveExistingDefaults();
-            builder.RegisterType<YafBuddy>().As<IBuddy>().InstancePerLifetimeScope().PreserveExistingDefaults();
+            builder.RegisterType<UserIgnored>().As<IUserIgnored>().InstancePerLifetimeScope().PreserveExistingDefaults();
+            builder.RegisterType<Buddys>().As<IBuddy>().InstancePerLifetimeScope().PreserveExistingDefaults();
 
             builder.RegisterType<InstallUpgradeService>().AsSelf().PreserveExistingDefaults();
 
             // builder.RegisterType<RewriteUrlBuilder>().Named<IUrlBuilder>("rewriter").InstancePerLifetimeScope();
-            builder.RegisterType<YafStopWatch>()
+            builder.RegisterType<StopWatch>()
                 .As<IStopWatch>()
                 .InstancePerMatchingLifetimeScope(YafLifetimeScope.Context)
                 .PreserveExistingDefaults();
@@ -129,7 +130,7 @@ namespace YAF.Core.Modules
             builder.RegisterGeneric(typeof(StandardModuleManager<>)).As(typeof(IModuleManager<>)).InstancePerLifetimeScope();
 
             // background emailing...
-            builder.RegisterType<YafSendMailThreaded>().As<ISendMailThreaded>().PreserveExistingDefaults();
+            builder.RegisterType<SendMailThreaded>().As<ISendMailThreaded>().PreserveExistingDefaults();
 
             // style transformation...
             builder.RegisterType<StyleTransform>().As<IStyleTransform>().InstancePerYafContext().PreserveExistingDefaults();

@@ -421,7 +421,7 @@ namespace YAF.Core
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         private void ForumPage_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            if (this.Get<YafBoardSettings>().DoUrlReferrerSecurityCheck)
+            if (this.Get<BoardSettings>().DoUrlReferrerSecurityCheck)
             {
                 Security.CheckRequestValidity(this.Request);
             }

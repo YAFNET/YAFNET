@@ -92,7 +92,7 @@ namespace YAF.Controls
                         var userLink = new UserLink
                         {
                             UserID = row["ModeratorID"].ToType<int>(),
-                            ReplaceName = row[this.Get<YafBoardSettings>().EnableDisplayName
+                            ReplaceName = row[this.Get<BoardSettings>().EnableDisplayName
                                                                      ? "ModeratorDisplayName"
                                                                      : "ModeratorName"].ToString()
                         };
@@ -103,7 +103,7 @@ namespace YAF.Controls
                     {
                         // render mod group
                         content.Append(
-                            row[this.Get<YafBoardSettings>().EnableDisplayName
+                            row[this.Get<BoardSettings>().EnableDisplayName
                                     ? "ModeratorDisplayName"
                                     : "ModeratorName"]);
                     }

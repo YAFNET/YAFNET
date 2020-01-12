@@ -63,7 +63,7 @@ namespace YAF.Core
         /// </summary>
         static BaseModule()
         {
-            ExtensionAssemblies = new YafModuleScanner().GetModules("YAF*.dll")
+            ExtensionAssemblies = new ModuleScanner().GetModules("YAF*.dll")
                 .Concat(
                     AppDomain.CurrentDomain.GetAssemblies().Where(
                         a => a.FullName.StartsWith("Autofac") && a.FullName.StartsWith("FarsiLibrary")

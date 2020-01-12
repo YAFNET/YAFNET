@@ -142,13 +142,13 @@ namespace YAF.Controls
 
             this.noteRemote.Text = this.GetTextFormatted(
                 "NOTE_REMOTE",
-                this.Get<YafBoardSettings>().AvatarWidth.ToString(),
-                this.Get<YafBoardSettings>().AvatarHeight.ToString());
+                this.Get<BoardSettings>().AvatarWidth.ToString(),
+                this.Get<BoardSettings>().AvatarHeight.ToString());
             this.noteLocal.Text = this.GetTextFormatted(
                 "NOTE_LOCAL",
-                this.Get<YafBoardSettings>().AvatarWidth.ToString(),
-                this.Get<YafBoardSettings>().AvatarHeight,
-                (this.Get<YafBoardSettings>().AvatarSize / 1024).ToString());
+                this.Get<BoardSettings>().AvatarWidth.ToString(),
+                this.Get<BoardSettings>().AvatarHeight,
+                (this.Get<BoardSettings>().AvatarSize / 1024).ToString());
 
             this.BindData();
         }
@@ -191,9 +191,9 @@ namespace YAF.Controls
                 return;
             }
 
-            long x = this.Get<YafBoardSettings>().AvatarWidth;
-            long y = this.Get<YafBoardSettings>().AvatarHeight;
-            var avatarSize = this.Get<YafBoardSettings>().AvatarSize;
+            long x = this.Get<BoardSettings>().AvatarWidth;
+            long y = this.Get<BoardSettings>().AvatarHeight;
+            var avatarSize = this.Get<BoardSettings>().AvatarSize;
 
             Stream resized = null;
 
@@ -214,7 +214,7 @@ namespace YAF.Controls
                 // Delete old first...
                 this.GetRepository<User>().DeleteAvatar(this.currentUserId);
 
-                if (this.Get<YafBoardSettings>().UseFileTable)
+                if (this.Get<BoardSettings>().UseFileTable)
                 {
                     var image = Image.FromStream(resized ?? this.File.PostedFile.InputStream);
 
@@ -231,7 +231,7 @@ namespace YAF.Controls
                 else
                 {
                     var uploadFolderPath = this.Get<HttpRequestBase>().MapPath(
-                        string.Concat(BaseUrlBuilder.ServerFileRoot, YafBoardFolders.Current.Uploads));
+                        string.Concat(BaseUrlBuilder.ServerFileRoot, BoardFolders.Current.Uploads));
 
                     // check if Uploads folder exists
                     if (!Directory.Exists(uploadFolderPath))
@@ -278,7 +278,7 @@ namespace YAF.Controls
 
                     this.GetRepository<User>().SaveAvatar(
                         this.currentUserId,
-                        $"{YafForumInfo.ForumBaseUrl}{YafBoardFolders.Current.Uploads}/{newFileName}",
+                        $"{YafForumInfo.ForumBaseUrl}{BoardFolders.Current.Uploads}/{newFileName}",
                         null,
                         null);
                 }
@@ -340,12 +340,12 @@ namespace YAF.Controls
             {
                 // Took out PageContext.BoardSettings.AvatarRemote
                 this.AvatarImg.ImageUrl =
-                    $"{YafForumInfo.ForumClientFileRoot}resource.ashx?url={this.Server.UrlEncode(row["Avatar"].ToString())}&width={this.Get<YafBoardSettings>().AvatarWidth}&height={this.Get<YafBoardSettings>().AvatarHeight}&v={DateTime.Now.Ticks}";
+                    $"{YafForumInfo.ForumClientFileRoot}resource.ashx?url={this.Server.UrlEncode(row["Avatar"].ToString())}&width={this.Get<BoardSettings>().AvatarWidth}&height={this.Get<BoardSettings>().AvatarHeight}&v={DateTime.Now.Ticks}";
 
                 this.Avatar.Text = row["Avatar"].ToString();
                 this.DeleteAvatar.Visible = true;
             }
-            else if (this.Get<YafBoardSettings>().AvatarGravatar)
+            else if (this.Get<BoardSettings>().AvatarGravatar)
             {
                 var x = new MD5CryptoServiceProvider();
                 var bs = Encoding.UTF8.GetBytes(this.PageContext.User.Email);
@@ -357,10 +357,10 @@ namespace YAF.Controls
                 var emailHash = s.ToString();
 
                 var gravatarUrl =
-                    $"http://www.gravatar.com/avatar/{emailHash}.jpg?r={this.Get<YafBoardSettings>().GravatarRating}";
+                    $"http://www.gravatar.com/avatar/{emailHash}.jpg?r={this.Get<BoardSettings>().GravatarRating}";
 
                 this.AvatarImg.ImageUrl =
-                    $"{YafForumInfo.ForumClientFileRoot}resource.ashx?url={this.Server.UrlEncode(gravatarUrl)}&width={this.Get<YafBoardSettings>().AvatarWidth}&height={this.Get<YafBoardSettings>().AvatarHeight}&v={DateTime.Now.Ticks}";
+                    $"{YafForumInfo.ForumClientFileRoot}resource.ashx?url={this.Server.UrlEncode(gravatarUrl)}&width={this.Get<BoardSettings>().AvatarWidth}&height={this.Get<BoardSettings>().AvatarHeight}&v={DateTime.Now.Ticks}";
 
                 this.NoAvatar.Text = "Gravatar Image";
                 this.NoAvatar.Visible = true;
@@ -372,11 +372,11 @@ namespace YAF.Controls
             }
 
             this.AvatarUploadRow.Visible = this.PageContext.CurrentForumPage.IsAdminPage
-                                           || this.Get<YafBoardSettings>().AvatarUpload;
+                                           || this.Get<BoardSettings>().AvatarUpload;
             this.AvatarRemoteRow.Visible = this.PageContext.CurrentForumPage.IsAdminPage
-                                           || this.Get<YafBoardSettings>().AvatarRemote;
+                                           || this.Get<BoardSettings>().AvatarRemote;
             this.AvatarOurs.Visible = this.PageContext.CurrentForumPage.IsAdminPage
-                                      || this.Get<YafBoardSettings>().AvatarGallery;
+                                      || this.Get<BoardSettings>().AvatarGallery;
         }
 
         #endregion

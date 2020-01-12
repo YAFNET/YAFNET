@@ -258,7 +258,7 @@ namespace YAF.Pages.Admin
         /// </summary>
         protected void InitSinceDropdown()
         {
-            var lastVisit = this.Get<IYafSession>().LastVisit;
+            var lastVisit = this.Get<ISession>().LastVisit;
 
             // value 0, for since last visit
             this.Since.Items.Add(
@@ -445,7 +445,7 @@ namespace YAF.Pages.Admin
             // we want to filter topics since last visit
             if (sinceValue == 0)
             {
-                sinceDate = this.Get<IYafSession>().LastVisit ?? DateTime.UtcNow;
+                sinceDate = this.Get<ISession>().LastVisit ?? DateTime.UtcNow;
             }
 
             // we are going to page results

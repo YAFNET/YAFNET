@@ -74,7 +74,7 @@ namespace YAF.Controls
                                         {
                                             TextLocalizedTag = "LOGIN_CONNECT",
                                             TextLocalizedPage = "TOOLBAR",
-                                            ParamText0 = this.Get<YafBoardSettings>().Name,
+                                            ParamText0 = this.Get<BoardSettings>().Name,
                                             TitleLocalizedTag = "LOGIN",
                                             TitleLocalizedPage = "TOOLBAR",
                                             Type = ButtonAction.Link,
@@ -88,7 +88,7 @@ namespace YAF.Controls
                     isLoginAllowed = true;
                 }
 
-                if (!this.Get<YafBoardSettings>().DisableRegistrations)
+                if (!this.Get<BoardSettings>().DisableRegistrations)
                 {
                     // show register link
                     var registerLink = new ThemeButton
@@ -100,9 +100,9 @@ namespace YAF.Controls
                                                Type = ButtonAction.Link,
                                                Icon = "user-plus",
                                                NavigateUrl =
-                                                   this.Get<YafBoardSettings>().ShowRulesForRegistration
+                                                   this.Get<BoardSettings>().ShowRulesForRegistration
                                                        ? YafBuildLink.GetLink(ForumPages.rules)
-                                                       : !this.Get<YafBoardSettings>().UseSSLToRegister
+                                                       : !this.Get<BoardSettings>().UseSSLToRegister
                                                            ? YafBuildLink.GetLink(ForumPages.register)
                                                            : YafBuildLink.GetLink(
                                                                ForumPages.register,
@@ -130,7 +130,7 @@ namespace YAF.Controls
                     return;
                 }
 
-                if (this.Get<YafBoardSettings>().AllowSingleSignOn
+                if (this.Get<BoardSettings>().AllowSingleSignOn
                     && (Config.FacebookAPIKey.IsSet() || Config.TwitterConsumerKey.IsSet()
                         || Config.GoogleClientID.IsSet()))
                 {

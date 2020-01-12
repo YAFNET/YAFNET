@@ -87,7 +87,7 @@ namespace YAF.Pages.Admin
                 newEmail,
                 this.Question.Text.Trim(),
                 this.Answer.Text.Trim(),
-                !this.Get<YafBoardSettings>().EmailVerification,
+                !this.Get<BoardSettings>().EmailVerification,
                 null,
                 out var status);
 
@@ -114,7 +114,7 @@ namespace YAF.Pages.Admin
             userProfile.Homepage = this.HomePage.Text.Trim();
             userProfile.Save();
 
-            var autoWatchTopicsEnabled = this.Get<YafBoardSettings>().DefaultNotificationSetting
+            var autoWatchTopicsEnabled = this.Get<BoardSettings>().DefaultNotificationSetting
                 .Equals(UserNotificationSetting.TopicsIPostToOrSubscribeTo);
 
             // save the time zone...
@@ -130,13 +130,13 @@ namespace YAF.Pages.Admin
                 null,
                 null,
                 null,
-                this.Get<YafBoardSettings>().DefaultNotificationSetting,
+                this.Get<BoardSettings>().DefaultNotificationSetting,
                 autoWatchTopicsEnabled,
                 null,
                 null,
                 null);
 
-            if (this.Get<YafBoardSettings>().EmailVerification)
+            if (this.Get<BoardSettings>().EmailVerification)
             {
                 this.Get<ISendNotification>().SendVerificationEmail(user, newEmail, userId, newUsername);
             }
@@ -145,8 +145,8 @@ namespace YAF.Pages.Admin
                 UserMembershipHelper.GetUserIDFromProviderUserKey(user.ProviderUserKey),
                 true,
                 autoWatchTopicsEnabled,
-                this.Get<YafBoardSettings>().DefaultNotificationSetting,
-                this.Get<YafBoardSettings>().DefaultSendDigestEmail);
+                this.Get<BoardSettings>().DefaultNotificationSetting,
+                this.Get<BoardSettings>().DefaultSendDigestEmail);
 
             // success
             this.PageContext.AddLoadMessage(

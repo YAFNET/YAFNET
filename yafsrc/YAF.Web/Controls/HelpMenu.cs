@@ -143,7 +143,7 @@ namespace YAF.Web.Controls
 
                                     if (helpPage.HelpPage.Equals("REGISTRATION"))
                                     {
-                                        if (!this.Get<YafBoardSettings>().DisableRegistrations && !Config.IsAnyPortal)
+                                        if (!this.Get<BoardSettings>().DisableRegistrations && !Config.IsAnyPortal)
                                         {
                                             html.AppendFormat(
                                                 @"<li class=""nav-item""><a href=""{0}"" {2} title=""{1}"" class=""nav-link"">{1}</a></li>",

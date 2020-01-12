@@ -50,7 +50,7 @@ namespace YAF.Controls
 
             this.TimeNow.Text = this.GetTextFormatted("Current_Time", this.Get<IDateTime>().FormatTime(DateTime.UtcNow));
 
-            var lastVisit = this.Get<IYafSession>().LastVisit;
+            var lastVisit = this.Get<ISession>().LastVisit;
 
             if (lastVisit.HasValue && lastVisit.Value != DateTimeHelper.SqlDbMinTime())
             {

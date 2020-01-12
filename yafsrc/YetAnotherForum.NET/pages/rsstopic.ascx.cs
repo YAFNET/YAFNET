@@ -84,7 +84,7 @@ namespace YAF.Pages
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
             // Put user code to initialize the page here 
-            if (!(this.Get<YafBoardSettings>().ShowRSSLink || this.Get<YafBoardSettings>().ShowAtomLink))
+            if (!(this.Get<BoardSettings>().ShowRSSLink || this.Get<BoardSettings>().ShowAtomLink))
             {
                 YafBuildLink.RedirectInfoPage(InfoMessage.AccessDenied);
             }
@@ -116,8 +116,8 @@ namespace YAF.Pages
                     // Latest posts feed
                 case YafRssFeeds.LatestPosts:
                     if (
-                        !(this.Get<YafBoardSettings>().ShowActiveDiscussions
-                          && this.Get<IPermissions>().Check(this.Get<YafBoardSettings>().PostLatestFeedAccess)))
+                        !(this.Get<BoardSettings>().ShowActiveDiscussions
+                          && this.Get<IPermissions>().Check(this.Get<BoardSettings>().PostLatestFeedAccess)))
                     {
                         YafBuildLink.AccessDenied();
                     }
@@ -127,7 +127,7 @@ namespace YAF.Pages
 
                     // Latest Announcements feed
                 case YafRssFeeds.LatestAnnouncements:
-                    if (!this.Get<IPermissions>().Check(this.Get<YafBoardSettings>().ForumFeedAccess))
+                    if (!this.Get<IPermissions>().Check(this.Get<BoardSettings>().ForumFeedAccess))
                     {
                         YafBuildLink.AccessDenied();
                     }
@@ -139,7 +139,7 @@ namespace YAF.Pages
                 case YafRssFeeds.Posts:
                     if (
                         !(this.PageContext.ForumReadAccess
-                          && this.Get<IPermissions>().Check(this.Get<YafBoardSettings>().PostsFeedAccess)))
+                          && this.Get<IPermissions>().Check(this.Get<BoardSettings>().PostsFeedAccess)))
                     {
                         YafBuildLink.AccessDenied();
                     }
@@ -156,7 +156,7 @@ namespace YAF.Pages
 
                     // Forum Feed
                 case YafRssFeeds.Forum:
-                    if (!this.Get<IPermissions>().Check(this.Get<YafBoardSettings>().ForumFeedAccess))
+                    if (!this.Get<IPermissions>().Check(this.Get<BoardSettings>().ForumFeedAccess))
                     {
                         YafBuildLink.AccessDenied();
                     }
@@ -175,7 +175,7 @@ namespace YAF.Pages
                 case YafRssFeeds.Topics:
                     if (
                         !(this.PageContext.ForumReadAccess
-                          && this.Get<IPermissions>().Check(this.Get<YafBoardSettings>().TopicsFeedAccess)))
+                          && this.Get<IPermissions>().Check(this.Get<BoardSettings>().TopicsFeedAccess)))
                     {
                         YafBuildLink.AccessDenied();
                     }
@@ -192,7 +192,7 @@ namespace YAF.Pages
 
                     // Active Topics
                 case YafRssFeeds.Active:
-                    if (!this.Get<IPermissions>().Check(this.Get<YafBoardSettings>().ActiveTopicFeedAccess))
+                    if (!this.Get<IPermissions>().Check(this.Get<BoardSettings>().ActiveTopicFeedAccess))
                     {
                         YafBuildLink.AccessDenied();
                     }
@@ -210,7 +210,7 @@ namespace YAF.Pages
 
                     break;
                 case YafRssFeeds.Favorite:
-                    if (!this.Get<IPermissions>().Check(this.Get<YafBoardSettings>().FavoriteTopicFeedAccess))
+                    if (!this.Get<IPermissions>().Check(this.Get<BoardSettings>().FavoriteTopicFeedAccess))
                     {
                         YafBuildLink.AccessDenied();
                     }
@@ -406,7 +406,7 @@ namespace YAF.Pages
                             // set the page size here
                             20,
                             false,
-                            this.Get<YafBoardSettings>().UseReadTrackingByDatabase),
+                            this.Get<BoardSettings>().UseReadTrackingByDatabase),
                         "LastPosted",
                         toActDate))
             {
@@ -781,12 +781,12 @@ namespace YAF.Pages
             using (
                 var dataTopics = this.GetRepository<Topic>().RssLatestAsDataTable(
                     this.PageContext.PageBoardID,
-                    this.Get<YafBoardSettings>().ActiveDiscussionsCount <= 50
-                        ? this.Get<YafBoardSettings>().ActiveDiscussionsCount
+                    this.Get<BoardSettings>().ActiveDiscussionsCount <= 50
+                        ? this.Get<BoardSettings>().ActiveDiscussionsCount
                         : 50,
                     this.PageContext.PageUserID,
-                    this.Get<YafBoardSettings>().UseStyledNicks,
-                    this.Get<YafBoardSettings>().NoCountForumsInActiveDiscussions))
+                    this.Get<BoardSettings>().UseStyledNicks,
+                    this.Get<BoardSettings>().NoCountForumsInActiveDiscussions))
             {
                 var urlAlphaNum = FormatUrlForFeed(BaseUrlBuilder.BaseUrl);
 
@@ -874,15 +874,15 @@ namespace YAF.Pages
             var showDeleted = false;
             var userId = 0;
 
-            if (this.Get<YafBoardSettings>().ShowDeletedMessagesToAll)
+            if (this.Get<BoardSettings>().ShowDeletedMessagesToAll)
             {
                 showDeleted = true;
             }
 
             if (!showDeleted
                 &&
-                (this.Get<YafBoardSettings>().ShowDeletedMessages
-                 && !this.Get<YafBoardSettings>().ShowDeletedMessagesToAll || this.PageContext.IsAdmin
+                (this.Get<BoardSettings>().ShowDeletedMessages
+                 && !this.Get<BoardSettings>().ShowDeletedMessagesToAll || this.PageContext.IsAdmin
                  || this.PageContext.IsForumModerator))
             {
                 userId = this.PageContext.PageUserID;
@@ -902,7 +902,7 @@ namespace YAF.Pages
                     DateTimeHelper.SqlDbMinTime(),
                     DateTime.UtcNow,
                     0,
-                    this.Get<YafBoardSettings>().PostsPerPage,
+                    this.Get<BoardSettings>().PostsPerPage,
                     2,
                     0,
                     0,
@@ -913,7 +913,7 @@ namespace YAF.Pages
                 var rowList = dt.AsEnumerable();
 
                 // last page posts
-                var dataRows = rowList.Take(this.Get<YafBoardSettings>().PostsPerPage);
+                var dataRows = rowList.Take(this.Get<BoardSettings>().PostsPerPage);
 
                 var altItem = false;
 
@@ -921,7 +921,7 @@ namespace YAF.Pages
 
                 feed =
                     new YafSyndicationFeed(
-                        $"{this.GetText("PROFILE", "TOPIC")}{this.PageContext.PageTopicName} - {this.Get<YafBoardSettings>().PostsPerPage}",
+                        $"{this.GetText("PROFILE", "TOPIC")}{this.PageContext.PageTopicName} - {this.Get<BoardSettings>().PostsPerPage}",
                         feedType,
                         atomFeedByVar ? YafSyndicationFormats.Atom.ToInt() : YafSyndicationFormats.Rss.ToInt(),
                         urlAlphaNum);
@@ -1002,7 +1002,7 @@ namespace YAF.Pages
             var syndicationItems = new List<SyndicationItem>();
 
             // vzrus changed to separate DLL specific code
-            using (var dt = this.GetRepository<Topic>().RssListAsDataTable(forumId, this.Get<YafBoardSettings>().TopicsFeedItemsCount))
+            using (var dt = this.GetRepository<Topic>().RssListAsDataTable(forumId, this.Get<BoardSettings>().TopicsFeedItemsCount))
             {
                 var urlAlphaNum = FormatUrlForFeed(BaseUrlBuilder.BaseUrl);
 

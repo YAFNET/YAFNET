@@ -48,7 +48,7 @@ namespace YAF.Utils
         /// </returns>
         public static string GetBasePath()
         {
-            return YafFactoryProvider.UrlBuilder.BuildUrl(string.Empty).TrimEnd('&');
+            return FactoryProvider.UrlBuilder.BuildUrl(string.Empty).TrimEnd('&');
         }
 
         /// <summary>
@@ -58,9 +58,9 @@ namespace YAF.Utils
         /// <returns>
         /// Base URL to the given page.
         /// </returns>
-        public static string GetBasePath(YafBoardSettings boardSettings)
+        public static string GetBasePath(BoardSettings boardSettings)
         {
-            return YafFactoryProvider.UrlBuilder.BuildUrl(boardSettings, string.Empty).TrimEnd('&');
+            return FactoryProvider.UrlBuilder.BuildUrl(boardSettings, string.Empty).TrimEnd('&');
         }
 
         /// <summary>
@@ -82,8 +82,8 @@ namespace YAF.Utils
         public static string GetLink(ForumPages page, bool fullUrl = false)
         {
             return fullUrl
-                       ? YafFactoryProvider.UrlBuilder.BuildUrlFull($"g={page}")
-                       : YafFactoryProvider.UrlBuilder.BuildUrl($"g={page}");
+                       ? FactoryProvider.UrlBuilder.BuildUrlFull($"g={page}")
+                       : FactoryProvider.UrlBuilder.BuildUrl($"g={page}");
         }
 
         /// <summary>
@@ -95,11 +95,11 @@ namespace YAF.Utils
         /// <returns>
         /// URL to the given page.
         /// </returns>
-        public static string GetLink(YafBoardSettings boardSettings, ForumPages page, bool fullUrl = false)
+        public static string GetLink(BoardSettings boardSettings, ForumPages page, bool fullUrl = false)
         {
             return fullUrl
-                       ? YafFactoryProvider.UrlBuilder.BuildUrlFull(boardSettings, $"g={page}")
-                       : YafFactoryProvider.UrlBuilder.BuildUrl(boardSettings, $"g={page}");
+                       ? FactoryProvider.UrlBuilder.BuildUrlFull(boardSettings, $"g={page}")
+                       : FactoryProvider.UrlBuilder.BuildUrl(boardSettings, $"g={page}");
         }
 
         /// <summary>
@@ -123,8 +123,8 @@ namespace YAF.Utils
         public static string GetLink(ForumPages page, bool fullUrl, string format, params object[] args)
         {
             return fullUrl
-                       ? YafFactoryProvider.UrlBuilder.BuildUrlFull($"g={page}&{string.Format(format, args)}")
-                       : YafFactoryProvider.UrlBuilder.BuildUrl($"g={page}&{string.Format(format, args)}");
+                       ? FactoryProvider.UrlBuilder.BuildUrlFull($"g={page}&{string.Format(format, args)}")
+                       : FactoryProvider.UrlBuilder.BuildUrl($"g={page}&{string.Format(format, args)}");
         }
 
         /// <summary>
@@ -138,13 +138,13 @@ namespace YAF.Utils
         /// <returns>
         /// URL to the given page with parameters.
         /// </returns>
-        public static string GetLink(YafBoardSettings boardSettings, ForumPages page, bool fullUrl, string format, params object[] args)
+        public static string GetLink(BoardSettings boardSettings, ForumPages page, bool fullUrl, string format, params object[] args)
         {
             return fullUrl
-                       ? YafFactoryProvider.UrlBuilder.BuildUrlFull(
+                       ? FactoryProvider.UrlBuilder.BuildUrlFull(
                            boardSettings,
                            $"g={page}&{string.Format(format, args)}")
-                       : YafFactoryProvider.UrlBuilder.BuildUrl(
+                       : FactoryProvider.UrlBuilder.BuildUrl(
                            boardSettings,
                            $"g={page}&{string.Format(format, args)}");
         }

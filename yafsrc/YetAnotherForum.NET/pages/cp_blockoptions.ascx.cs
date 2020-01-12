@@ -81,7 +81,7 @@ namespace YAF.Pages
         {
             this.PageLinks.AddRoot();
             this.PageLinks.AddLink(
-                this.Get<YafBoardSettings>().EnableDisplayName
+                this.Get<BoardSettings>().EnableDisplayName
                     ? this.PageContext.CurrentUserData.DisplayName
                     : this.PageContext.PageUserName,
                 YafBuildLink.GetLink(ForumPages.cp_profile));
@@ -105,13 +105,13 @@ namespace YAF.Pages
             this.BindData();
 
             this.BlockPMs.Text = this.GetText("BLOCK_PMS");
-            this.BlockPMs.Visible = this.Get<YafBoardSettings>().AllowPrivateMessages;
+            this.BlockPMs.Visible = this.Get<BoardSettings>().AllowPrivateMessages;
 
             this.BlockFriendRequests.Text = this.GetText("BLOCK_BUDDYS");
-            this.BlockFriendRequests.Visible = this.Get<YafBoardSettings>().EnableBuddyList;
+            this.BlockFriendRequests.Visible = this.Get<BoardSettings>().EnableBuddyList;
 
             this.BlockEmails.Text = this.GetText("BLOCK_EMAILS");
-            this.BlockEmails.Visible = this.Get<YafBoardSettings>().AllowEmailSending;
+            this.BlockEmails.Visible = this.Get<BoardSettings>().AllowEmailSending;
         }
 
         /// <summary>

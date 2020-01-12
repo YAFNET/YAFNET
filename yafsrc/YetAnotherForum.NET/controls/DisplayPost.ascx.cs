@@ -125,7 +125,7 @@ namespace YAF.Controls
         private DataTable roleRankStyleTable => this.Get<IDataCache>().GetOrSet(
             Constants.Cache.GroupRankStyles,
             () => this.GetRepository<Group>().RankStyleAsDataTable(YafContext.Current.PageBoardID),
-            TimeSpan.FromMinutes(this.Get<YafBoardSettings>().ForumStatisticsCacheTimeout));
+            TimeSpan.FromMinutes(this.Get<BoardSettings>().ForumStatisticsCacheTimeout));
 
         #endregion
 
@@ -205,7 +205,7 @@ namespace YAF.Controls
                 this.MultiQuote.ToolTip = this.GetText("BUTTON_MULTI_QUOTE_TT");
             }
 
-            if (this.Get<YafBoardSettings>().EnableUserReputation)
+            if (this.Get<BoardSettings>().EnableUserReputation)
             {
                 this.AddReputationControls();
             }
@@ -232,7 +232,7 @@ namespace YAF.Controls
             var userId = this.PostData.UserId;
 
             var avatarUrl = this.Get<IAvatars>().GetAvatarUrlForUser(userId);
-            var displayName = this.Get<YafBoardSettings>().EnableDisplayName
+            var displayName = this.Get<BoardSettings>().EnableDisplayName
                                   ? UserMembershipHelper.GetDisplayNameFromID(userId)
                                   : UserMembershipHelper.GetUserNameFromID(userId);
 
@@ -249,7 +249,7 @@ namespace YAF.Controls
             }
 
             // report post
-            if (this.Get<IPermissions>().Check(this.Get<YafBoardSettings>().ReportPostPermissions)
+            if (this.Get<IPermissions>().Check(this.Get<BoardSettings>().ReportPostPermissions)
                 && !this.PostData.PostDeleted)
             {
                 if (!this.PageContext.IsGuest && this.PageContext.User != null)
@@ -356,7 +356,7 @@ namespace YAF.Controls
 
             sb.Append("<ol>");
 
-            var showDate = this.Get<YafBoardSettings>().ShowThanksDate;
+            var showDate = this.Get<BoardSettings>().ShowThanksDate;
 
             // Extract all user IDs, user name's and (If enabled thanks dates) related to this message.
             rawString.Split(',').ForEach(
@@ -433,7 +433,7 @@ namespace YAF.Controls
         /// </param>
         protected void AddUserReputation(object sender, EventArgs e)
         {
-            if (!YafReputation.CheckIfAllowReputationVoting(this.DataRow["ReputationVoteDate"]))
+            if (!this.Get<IReputation>().CheckIfAllowReputationVoting(this.DataRow["ReputationVoteDate"]))
             {
                 return;
             }
@@ -454,7 +454,7 @@ namespace YAF.Controls
                 this.GetTextFormatted(
                     "REP_VOTE_UP_MSG",
                     this.Get<HttpServerUtilityBase>().HtmlEncode(
-                        this.DataRow[this.Get<YafBoardSettings>().EnableDisplayName ? "DisplayName" : "UserName"]
+                        this.DataRow[this.Get<BoardSettings>().EnableDisplayName ? "DisplayName" : "UserName"]
                             .ToString())),
                 MessageTypes.success);
         }
@@ -470,7 +470,7 @@ namespace YAF.Controls
         /// </param>
         protected void RemoveUserReputation(object sender, EventArgs e)
         {
-            if (!YafReputation.CheckIfAllowReputationVoting(this.DataRow["ReputationVoteDate"]))
+            if (!this.Get<IReputation>().CheckIfAllowReputationVoting(this.DataRow["ReputationVoteDate"]))
             {
                 return;
             }
@@ -491,7 +491,7 @@ namespace YAF.Controls
                 this.GetTextFormatted(
                     "REP_VOTE_DOWN_MSG",
                     this.Get<HttpServerUtilityBase>().HtmlEncode(
-                        this.DataRow[this.Get<YafBoardSettings>().EnableDisplayName ? "DisplayName" : "UserName"]
+                        this.DataRow[this.Get<BoardSettings>().EnableDisplayName ? "DisplayName" : "UserName"]
                             .ToString())),
                 MessageTypes.success);
         }
@@ -506,7 +506,7 @@ namespace YAF.Controls
         {
             var filler = string.Empty;
 
-            if (!this.Get<YafBoardSettings>().ShowGroups)
+            if (!this.Get<BoardSettings>().ShowGroups)
             {
                 return filler;
             }
@@ -539,7 +539,7 @@ namespace YAF.Controls
                         if (first)
                         {
                             groupsText.AppendLine(
-                                this.Get<YafBoardSettings>().UseStyledNicks
+                                this.Get<BoardSettings>().UseStyledNicks
                                     ? string.Format(StyledNick, role, roleStyle)
                                     : role);
 
@@ -547,7 +547,7 @@ namespace YAF.Controls
                         }
                         else
                         {
-                            if (this.Get<YafBoardSettings>().UseStyledNicks)
+                            if (this.Get<BoardSettings>().UseStyledNicks)
                             {
                                 groupsText.AppendFormat(", " + StyledNick, role, roleStyle);
                             }
@@ -583,7 +583,7 @@ namespace YAF.Controls
                     }
 
                     groupsText.AppendLine(
-                        this.Get<YafBoardSettings>().UseStyledNicks
+                        this.Get<BoardSettings>().UseStyledNicks
                             ? string.Format(StyledNick, guestRole, roleStyle)
                             : guestRole);
                     break;
@@ -614,7 +614,7 @@ namespace YAF.Controls
                 .FirstOrDefault();
 
             return
-                $"<strong>{this.GetText("RANK")}:</strong> {(this.Get<YafBoardSettings>().UseStyledNicks ? $@"<span class=""YafRank_{this.DataRow["RankName"]}"" style=""{rankStyle}"">{this.DataRow["RankName"]}</span>" : this.DataRow["RankName"].ToString())}";
+                $"<strong>{this.GetText("RANK")}:</strong> {(this.Get<BoardSettings>().UseStyledNicks ? $@"<span class=""YafRank_{this.DataRow["RankName"]}"" style=""{rankStyle}"">{this.DataRow["RankName"]}</span>" : this.DataRow["RankName"].ToString())}";
         }
 
         /// <summary>
@@ -623,7 +623,7 @@ namespace YAF.Controls
         private void ShowIpInfo()
         {
             // Display admin/moderator only info
-            if (!this.PageContext.IsAdmin && (!this.Get<YafBoardSettings>().AllowModeratorsViewIPs
+            if (!this.PageContext.IsAdmin && (!this.Get<BoardSettings>().AllowModeratorsViewIPs
                                               || !this.PageContext.ForumModeratorAccess))
             {
                 return;
@@ -633,7 +633,7 @@ namespace YAF.Controls
             this.IPInfo.Visible = true;
             this.IPHolder.Visible = true;
             var ip = IPHelper.GetIp4Address(this.PostData.DataRow["IP"].ToString());
-            this.IPLink1.HRef = string.Format(this.Get<YafBoardSettings>().IPInfoPageURL, ip);
+            this.IPLink1.HRef = string.Format(this.Get<BoardSettings>().IPInfoPageURL, ip);
             this.IPLink1.Title = this.GetText("COMMON", "TT_IPDETAILS");
             this.IPLink1.InnerText = this.HtmlEncode(ip);
         }
@@ -648,7 +648,7 @@ namespace YAF.Controls
 
             this.PopMenu1.AddPostBackItem("lastposts", this.GetText("PROFILE", "SEARCHUSER"), "fa fa-th-list");
 
-            if (this.Get<YafBoardSettings>().EnableThanksMod)
+            if (this.Get<BoardSettings>().EnableThanksMod)
             {
                 this.PopMenu1.AddPostBackItem("viewthanks", this.GetText("VIEWTHANKS", "TITLE"), "fa fa-heart");
             }
@@ -678,7 +678,7 @@ namespace YAF.Controls
 
             var userId = this.PostData.UserId;
 
-            if (this.Get<YafBoardSettings>().EnableBuddyList && this.PageContext.PageUserID != userId)
+            if (this.Get<BoardSettings>().EnableBuddyList && this.PageContext.PageUserID != userId)
             {
                 // Should we add the "Add Buddy" item?
                 if (!this.Get<IBuddy>().IsBuddy(userId, false) && !this.PageContext.IsGuest
@@ -708,27 +708,27 @@ namespace YAF.Controls
         private void AddReputationControls()
         {
             if (this.PageContext.PageUserID != this.PostData.UserId
-                && this.Get<YafBoardSettings>().EnableUserReputation && !this.IsGuest && !this.PageContext.IsGuest)
+                && this.Get<BoardSettings>().EnableUserReputation && !this.IsGuest && !this.PageContext.IsGuest)
             {
-                if (!YafReputation.CheckIfAllowReputationVoting(this.DataRow["ReputationVoteDate"]))
+                if (!this.Get<IReputation>().CheckIfAllowReputationVoting(this.DataRow["ReputationVoteDate"]))
                 {
                     return;
                 }
 
                 // Check if the User matches minimal requirements for voting up
-                if (this.PageContext.Reputation >= this.Get<YafBoardSettings>().ReputationMinUpVoting)
+                if (this.PageContext.Reputation >= this.Get<BoardSettings>().ReputationMinUpVoting)
                 {
                     this.AddReputation.Visible = true;
                 }
 
                 // Check if the User matches minimal requirements for voting down
-                if (this.PageContext.Reputation < this.Get<YafBoardSettings>().ReputationMinDownVoting)
+                if (this.PageContext.Reputation < this.Get<BoardSettings>().ReputationMinDownVoting)
                 {
                     return;
                 }
 
                 // Check if the Value is 0 or Bellow
-                if (this.DataRow["Points"].ToType<int>() > 0 && this.Get<YafBoardSettings>().ReputationAllowNegative)
+                if (this.DataRow["Points"].ToType<int>() > 0 && this.Get<BoardSettings>().ReputationAllowNegative)
                 {
                     this.RemoveReputation.Visible = true;
                 }
@@ -745,7 +745,7 @@ namespace YAF.Controls
         /// </summary>
         private void FormatThanksRow()
         {
-            if (!this.Get<YafBoardSettings>().EnableThanksMod)
+            if (!this.Get<BoardSettings>().EnableThanksMod)
             {
                 return;
             }
@@ -770,7 +770,7 @@ namespace YAF.Controls
             YafContext.Current.PageElements.RegisterJsBlockStartup("ThanksJs", thanksJs);
 
             this.Thank.Visible = this.PostData.CanThankPost && !this.PageContext.IsGuest
-                                                            && this.Get<YafBoardSettings>().EnableThanksMod;
+                                                            && this.Get<BoardSettings>().EnableThanksMod;
 
             if (Convert.ToBoolean(this.DataRow["IsThankedByUser"]))
             {
@@ -798,7 +798,7 @@ namespace YAF.Controls
             }
 
             var username = this.HtmlEncode(
-                this.Get<YafBoardSettings>().EnableDisplayName
+                this.Get<BoardSettings>().EnableDisplayName
                     ? UserMembershipHelper.GetDisplayNameFromID(this.PostData.UserId)
                     : UserMembershipHelper.GetUserNameFromID(this.PostData.UserId));
 
@@ -836,13 +836,13 @@ namespace YAF.Controls
                         ForumPages.profile,
                         "u={0}&name={1}",
                         this.PostData.UserId,
-                        this.DataRow[this.Get<YafBoardSettings>().EnableDisplayName ? "DisplayName" : "UserName"]);
+                        this.DataRow[this.Get<BoardSettings>().EnableDisplayName ? "DisplayName" : "UserName"]);
                     break;
                 case "lastposts":
                     YafBuildLink.Redirect(
                         ForumPages.search,
                         "postedby={0}",
-                        this.Get<YafBoardSettings>().EnableDisplayName
+                        this.Get<BoardSettings>().EnableDisplayName
                             ? this.DataRow["DisplayName"]
                             : this.DataRow["UserName"]);
                     break;

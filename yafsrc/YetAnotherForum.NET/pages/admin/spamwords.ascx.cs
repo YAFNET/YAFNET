@@ -150,7 +150,7 @@ namespace YAF.Pages.Admin
         /// </summary>
         private void BindData()
         {
-            this.PagerTop.PageSize = this.Get<YafBoardSettings>().MemberListPageSize;
+            this.PagerTop.PageSize = this.Get<BoardSettings>().MemberListPageSize;
 
             var searchText = this.SearchInput.Text.Trim();
 

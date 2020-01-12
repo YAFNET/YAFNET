@@ -124,6 +124,11 @@ namespace YAF.Types.Constants
         cp_profile,
 
         /// <summary>
+        /// The cp_notification.
+        /// </summary>
+        cp_notification,
+
+        /// <summary>
         /// The cp_editbuddies.
         /// </summary>
         cp_editbuddies,

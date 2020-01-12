@@ -84,18 +84,18 @@ namespace YAF.Pages
 
             this.PageLinks.AddRoot();
             this.PageLinks.AddLink(
-                    this.Get<YafBoardSettings>().EnableDisplayName
+                    this.Get<BoardSettings>().EnableDisplayName
                         ? this.PageContext.CurrentUserData.DisplayName
                         : this.PageContext.PageUserName,
                     YafBuildLink.GetLink(ForumPages.cp_profile));
             this.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
 
-            this.DailyDigestRow.Visible = this.Get<YafBoardSettings>().AllowDigestEmail;
-            this.PMNotificationRow.Visible = this.Get<YafBoardSettings>().AllowPMEmailNotification;
+            this.DailyDigestRow.Visible = this.Get<BoardSettings>().AllowDigestEmail;
+            this.PMNotificationRow.Visible = this.Get<BoardSettings>().AllowPMEmailNotification;
 
             var items = EnumHelper.EnumToDictionary<UserNotificationSetting>();
 
-            if (!this.Get<YafBoardSettings>().AllowNotificationAllPostsAllTopics)
+            if (!this.Get<BoardSettings>().AllowNotificationAllPostsAllTopics)
             {
                 // remove it...
                 items.Remove(UserNotificationSetting.AllTopics.ToInt());

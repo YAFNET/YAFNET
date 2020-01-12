@@ -348,6 +348,13 @@
     <Compile Include="controls\ForumStatsUsers.ascx.designer.cs">
       <DependentUpon>ForumStatsUsers.ascx</DependentUpon>
     </Compile>
+    <Compile Include="controls\MyNotifications.ascx.cs">
+      <DependentUpon>MyNotifications.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="controls\MyNotifications.ascx.designer.cs">
+      <DependentUpon>MyNotifications.ascx</DependentUpon>
+    </Compile>
     <Compile Include="controls\ScrollTop.ascx.cs">
       <DependentUpon>ScrollTop.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -520,12 +527,12 @@
     <Compile Include="controls\SimilarTopics.ascx.designer.cs">
       <DependentUpon>SimilarTopics.ascx</DependentUpon>
     </Compile>
-    <Compile Include="controls\YafHeader.ascx.cs">
-      <DependentUpon>YafHeader.ascx</DependentUpon>
+    <Compile Include="controls\Header.ascx.cs">
+      <DependentUpon>Header.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="controls\YafHeader.ascx.designer.cs">
-      <DependentUpon>YafHeader.ascx</DependentUpon>
+    <Compile Include="controls\Header.ascx.designer.cs">
+      <DependentUpon>Header.ascx</DependentUpon>
     </Compile>
     <Compile Include="Dialogs\BannedIpEdit.ascx.cs">
       <DependentUpon>BannedIpEdit.ascx</DependentUpon>
@@ -918,6 +925,13 @@
     </Compile>
     <Compile Include="pages\cp_pm.ascx.designer.cs">
       <DependentUpon>cp_pm.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\cp_notification.ascx.cs">
+      <DependentUpon>cp_notification.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\cp_notification.ascx.designer.cs">
+      <DependentUpon>cp_notification.ascx</DependentUpon>
     </Compile>
     <Compile Include="pages\cp_profile.ascx.designer.cs">
       <DependentUpon>cp_profile.ascx</DependentUpon>
@@ -1924,6 +1938,7 @@
     <Content Include="controls\AlbumList.ascx" />
     <Content Include="controls\BoardAnnouncement.ascx" />
     <Content Include="controls\ForumStatsUsers.ascx" />
+    <Content Include="controls\MyNotifications.ascx" />
     <Content Include="controls\ScrollTop.ascx" />
     <Content Include="controls\CookieConsent.ascx" />
     <Content Include="controls\EditUsersSettings.ascx" />
@@ -1959,7 +1974,6 @@
       <SubType>UserControl</SubType>
     </Content>
     <Content Include="controls\ForumModeratorList.ascx" />
-    <Content Include="controls\ForumProfileAccess.ascx" />
     <Content Include="controls\ForumStatistics.ascx" />
     <Content Include="controls\ForumSubForumList.ascx" />
     <Content Include="controls\ForumWelcome.ascx" />
@@ -1974,7 +1988,7 @@
     <Content Include="controls\ReportedPosts.ascx" />
     <Content Include="controls\SimilarTopics.ascx" />
     <Content Include="controls\ViewThanksList.ascx" />
-    <Content Include="controls\YafHeader.ascx" />
+    <Content Include="controls\Header.ascx" />
     <Content Include="Dialogs\BannedIpEdit.ascx" />
     <Content Include="Dialogs\BannedNameEdit.ascx" />
     <Content Include="Dialogs\BannedIpImport.ascx" />
@@ -2152,6 +2166,7 @@
     <Content Include="pages\cp_editprofile.ascx" />
     <Content Include="pages\cp_message.ascx" />
     <Content Include="pages\cp_pm.ascx" />
+    <Content Include="pages\cp_notification.ascx" />
     <Content Include="pages\cp_profile.ascx" />
     <Content Include="pages\cp_signature.ascx" />
     <Content Include="pages\cp_blockoptions.ascx" />
@@ -2804,13 +2819,6 @@
     <Compile Include="controls\ForumModeratorList.ascx.cs">
       <DependentUpon>ForumModeratorList.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="controls\ForumProfileAccess.ascx.cs">
-      <DependentUpon>ForumProfileAccess.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="controls\ForumProfileAccess.ascx.designer.cs">
-      <DependentUpon>ForumProfileAccess.ascx</DependentUpon>
     </Compile>
     <Compile Include="controls\ForumStatistics.ascx.cs">
       <DependentUpon>ForumStatistics.ascx</DependentUpon>
@@ -3714,7 +3722,7 @@ RD /S /Q "$(TargetDir)zh-TW\"</PostBuildEvent>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties bundleconfig_1json__JSONSchema="" compilerconfig_1json__JSONSchema="" />
+      <UserProperties compilerconfig_1json__JSONSchema="" bundleconfig_1json__JSONSchema="" />
     </VisualStudio>
   </ProjectExtensions>
   <Import Project="..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets" Condition="Exists('..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets')" />

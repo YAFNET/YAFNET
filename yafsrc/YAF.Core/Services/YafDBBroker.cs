@@ -64,7 +64,7 @@ namespace YAF.Core.Services
         /// <param name="dbFunction">The database function.</param>
         public YafDbBroker(
             IServiceLocator serviceLocator,
-            YafBoardSettings boardSettings,
+            BoardSettings boardSettings,
             HttpSessionStateBase httpSessionState,
             IDataCache dataCache,
             IDbFunction dbFunction)
@@ -86,7 +86,7 @@ namespace YAF.Core.Services
         /// <value>
         /// The board settings.
         /// </value>
-        public YafBoardSettings BoardSettings { get; set; }
+        public BoardSettings BoardSettings { get; set; }
 
         /// <summary>
         ///     Gets or sets DataCache.
@@ -439,7 +439,7 @@ namespace YAF.Core.Services
                         moderator.TableName = "Moderator";
                         return moderator;
                     },
-                TimeSpan.FromMinutes(this.Get<YafBoardSettings>().BoardModeratorsCacheTimeout));
+                TimeSpan.FromMinutes(this.Get<BoardSettings>().BoardModeratorsCacheTimeout));
         }
 
         /// <summary>

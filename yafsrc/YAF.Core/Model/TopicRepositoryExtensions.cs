@@ -1142,7 +1142,7 @@ namespace YAF.Core.Model
             bool isLinked,
             bool eraseMessages)
         {
-            var useFileTable = YafContext.Current.Get<YafBoardSettings>().UseFileTable;
+            var useFileTable = YafContext.Current.Get<BoardSettings>().UseFileTable;
 
             if (deleteLinked)
             {

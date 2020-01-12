@@ -395,7 +395,7 @@ namespace YAF.Dialogs
                 int.TryParse((string)row["Timezone"], out timeZone);
             }
 
-            var autoWatchTopicsEnabled = this.Get<YafBoardSettings>().DefaultNotificationSetting
+            var autoWatchTopicsEnabled = this.Get<BoardSettings>().DefaultNotificationSetting
                                          == UserNotificationSetting.TopicsIPostToOrSubscribeTo;
 
             this.GetRepository<User>().Save(
@@ -411,7 +411,7 @@ namespace YAF.Dialogs
                 row.Table.Columns.Contains("TextEditor") ? row["TextEditor"] : null,
                 null,
                 null,
-                this.Get<YafBoardSettings>().DefaultNotificationSetting,
+                this.Get<BoardSettings>().DefaultNotificationSetting,
                 autoWatchTopicsEnabled,
                 isDst,
                 null);
@@ -421,8 +421,8 @@ namespace YAF.Dialogs
                 userId,
                 true,
                 autoWatchTopicsEnabled,
-                this.Get<YafBoardSettings>().DefaultNotificationSetting,
-                this.Get<YafBoardSettings>().DefaultSendDigestEmail);
+                this.Get<BoardSettings>().DefaultNotificationSetting,
+                this.Get<BoardSettings>().DefaultSendDigestEmail);
 
             importCount++;
 

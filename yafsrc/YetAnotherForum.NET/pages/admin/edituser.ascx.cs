@@ -124,7 +124,7 @@ namespace YAF.Pages.Admin
                 return;
             }
 
-            var userName = this.HtmlEncode(this.Get<YafBoardSettings>().EnableDisplayName
+            var userName = this.HtmlEncode(this.Get<BoardSettings>().EnableDisplayName
                                ? userRow["DisplayName"].ToString()
                                : userRow["Name"].ToString());
 

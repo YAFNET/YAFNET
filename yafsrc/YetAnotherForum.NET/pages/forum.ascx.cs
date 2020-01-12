@@ -63,14 +63,14 @@ namespace YAF.Pages
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            this.PollList.Visible = this.Get<YafBoardSettings>().BoardPollID > 0;
-            this.PollList.PollGroupId = this.Get<YafBoardSettings>().BoardPollID;
+            this.PollList.Visible = this.Get<BoardSettings>().BoardPollID > 0;
+            this.PollList.PollGroupId = this.Get<BoardSettings>().BoardPollID;
             this.PollList.BoardId = this.PageContext.Settings.BoardID;
 
             // Since these controls have EnabledViewState=false, set their visibility on every page load so that this value is not lost on postback.
             // This is important for another reason: these are board settings; values in the view state should have no impact on whether these controls are shown or not.
-           this.ForumStats.Visible = this.Get<YafBoardSettings>().ShowForumStatistics;
-            this.ActiveDiscussions.Visible = this.Get<YafBoardSettings>().ShowActiveDiscussions;
+           this.ForumStats.Visible = this.Get<BoardSettings>().ShowForumStatistics;
+            this.ActiveDiscussions.Visible = this.Get<BoardSettings>().ShowActiveDiscussions;
 
             if (this.IsPostBack)
             {

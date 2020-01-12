@@ -168,7 +168,7 @@ namespace YAF.Pages.Admin
                 medal.SmallMedalWidth,
                 medal.SmallMedalHeight,
                 this.GetText("ADMIN_MEDALS", "DISPLAY_BOX"),
-                YafBoardFolders.Current.Medals);
+                BoardFolders.Current.Medals);
 
             // if available, create also ribbon bar image of medal
             if (medal.SmallRibbonURL.IsSet())
@@ -180,7 +180,7 @@ namespace YAF.Pages.Admin
                     medal.SmallRibbonWidth,
                     medal.SmallRibbonHeight,
                     this.GetText("ADMIN_MEDALS", "DISPLAY_RIBBON"),
-                    YafBoardFolders.Current.Medals);
+                    BoardFolders.Current.Medals);
             }
 
             return output.ToString();

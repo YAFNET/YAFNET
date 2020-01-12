@@ -146,9 +146,9 @@ namespace YAF.Core
         /// <summary>
         /// Gets or sets the Current Board Settings
         /// </summary>
-        public YafBoardSettings BoardSettings
+        public BoardSettings BoardSettings
         {
-            get => this.Get<YafBoardSettings>();
+            get => this.Get<BoardSettings>();
 
             set => this.Get<CurrentBoardSettings>().Instance = value;
         }
@@ -219,12 +219,12 @@ namespace YAF.Core
         /// <summary>
         /// Gets the Current Page Control Settings from Forum Control
         /// </summary>
-        public YafControlSettings Settings => YafControlSettings.Current;
+        public ControlSettings Settings => ControlSettings.Current;
 
         /// <summary>
         /// Gets the UrlBuilder
         /// </summary>
-        public IUrlBuilder UrlBuilder => YafFactoryProvider.UrlBuilder;
+        public IUrlBuilder UrlBuilder => FactoryProvider.UrlBuilder;
 
         /// <summary>
         /// Gets or sets the Current Membership User

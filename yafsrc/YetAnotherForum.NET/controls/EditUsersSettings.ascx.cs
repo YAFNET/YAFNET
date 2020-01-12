@@ -157,13 +157,13 @@ namespace YAF.Controls
             this.LoginInfo.Visible = true;
 
             // End Modifications for enhanced profile
-            this.ForumSettingsRows.Visible = this.Get<YafBoardSettings>().AllowUserTheme
-                                             || this.Get<YafBoardSettings>().AllowUserLanguage;
+            this.ForumSettingsRows.Visible = this.Get<BoardSettings>().AllowUserTheme
+                                             || this.Get<BoardSettings>().AllowUserLanguage;
 
-            this.UserThemeRow.Visible = this.Get<YafBoardSettings>().AllowUserTheme;
-            this.TrTextEditors.Visible = this.Get<YafBoardSettings>().AllowUsersTextEditor;
-            this.UserLanguageRow.Visible = this.Get<YafBoardSettings>().AllowUserLanguage;
-            this.LoginInfo.Visible = this.Get<YafBoardSettings>().AllowEmailChange;
+            this.UserThemeRow.Visible = this.Get<BoardSettings>().AllowUserTheme;
+            this.TrTextEditors.Visible = this.Get<BoardSettings>().AllowUsersTextEditor;
+            this.UserLanguageRow.Visible = this.Get<BoardSettings>().AllowUserLanguage;
+            this.LoginInfo.Visible = this.Get<BoardSettings>().AllowEmailChange;
 
             // override Place Holders for DNN, dnn users should only see the forum settings but not the profile page
             if (Config.IsDotNetNuke)
@@ -201,7 +201,7 @@ namespace YAF.Controls
                     return;
                 }
 
-                if (this.Get<YafBoardSettings>().EmailVerification)
+                if (this.Get<BoardSettings>().EmailVerification)
                 {
                     this.Get<ISendNotification>().SendEmailChangeVerification(newEmail, this.currentUserId, userName);
                 }
@@ -310,19 +310,19 @@ namespace YAF.Controls
         {
             this.TimeZones.DataSource = StaticDataHelper.TimeZones();
 
-            if (this.Get<YafBoardSettings>().AllowUserTheme)
+            if (this.Get<BoardSettings>().AllowUserTheme)
             {
                 this.Theme.DataSource = StaticDataHelper.Themes();
             }
 
-            if (this.Get<YafBoardSettings>().AllowUserLanguage)
+            if (this.Get<BoardSettings>().AllowUserLanguage)
             {
                 this.Culture.DataSource = StaticDataHelper.Cultures();
                 this.Culture.DataValueField = "CultureTag";
                 this.Culture.DataTextField = "CultureNativeName";
             }
 
-            if (this.Get<YafBoardSettings>().AllowUsersTextEditor)
+            if (this.Get<BoardSettings>().AllowUsersTextEditor)
             {
                 this.ForumEditor.DataSource = ForumEditorHelper.GetFilteredEditorList();
                 this.ForumEditor.DataValueField = "Value";
@@ -340,11 +340,11 @@ namespace YAF.Controls
                 timeZoneItem.Selected = true;
             }
 
-            if (this.Get<YafBoardSettings>().AllowUserTheme && this.Theme.Items.Count > 0)
+            if (this.Get<BoardSettings>().AllowUserTheme && this.Theme.Items.Count > 0)
             {
                 // Allows to use different per-forum themes,
                 // While "Allow User Change Theme" option in the host settings is true
-                var themeFile = this.Get<YafBoardSettings>().Theme;
+                var themeFile = this.Get<BoardSettings>().Theme;
 
                 if (this.UserData.ThemeFile.IsSet())
                 {
@@ -368,12 +368,12 @@ namespace YAF.Controls
                 }
             }
 
-            if (this.Get<YafBoardSettings>().AllowUsersTextEditor && this.ForumEditor.Items.Count > 0)
+            if (this.Get<BoardSettings>().AllowUsersTextEditor && this.ForumEditor.Items.Count > 0)
             {
                 // Text editor
                 var textEditor = this.UserData.TextEditor.IsSet()
                                      ? this.UserData.TextEditor
-                                     : this.Get<YafBoardSettings>().ForumEditor;
+                                     : this.Get<BoardSettings>().ForumEditor;
 
                 var editorItem = this.ForumEditor.Items.FindByValue(textEditor);
                 if (editorItem != null)
@@ -387,7 +387,7 @@ namespace YAF.Controls
                 }
             }
 
-            if (!this.Get<YafBoardSettings>().AllowUserLanguage || this.Culture.Items.Count <= 0)
+            if (!this.Get<BoardSettings>().AllowUserLanguage || this.Culture.Items.Count <= 0)
             {
                 return;
             }
@@ -401,7 +401,7 @@ namespace YAF.Controls
             }
 
             this.HideMe.Checked = this.UserData.IsActiveExcluded
-                                  && (this.Get<YafBoardSettings>().AllowUserHideHimself || this.PageContext.IsAdmin);
+                                  && (this.Get<BoardSettings>().AllowUserHideHimself || this.PageContext.IsAdmin);
         }
 
         #endregion
@@ -416,8 +416,8 @@ namespace YAF.Controls
         private string GetCulture(bool overrideByPageUserCulture)
         {
             // Language and culture
-            var languageFile = this.Get<YafBoardSettings>().Language;
-            var culture4Tag = this.Get<YafBoardSettings>().Culture;
+            var languageFile = this.Get<BoardSettings>().Language;
+            var culture4Tag = this.Get<BoardSettings>().Culture;
 
             if (overrideByPageUserCulture)
             {

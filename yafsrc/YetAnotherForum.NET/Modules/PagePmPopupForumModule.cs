@@ -66,7 +66,7 @@ namespace YAF.Modules
         protected bool DisplayPmPopup()
         {
             return this.PageContext.UnreadPrivate > 0
-                   && this.PageContext.LastUnreadPm > this.Get<IYafSession>().LastPm;
+                   && this.PageContext.LastUnreadPm > this.Get<ISession>().LastPm;
         }
 
         /// <summary>
@@ -78,7 +78,7 @@ namespace YAF.Modules
         protected bool DisplayPendingBuddies()
         {
             return this.PageContext.PendingBuddies > 0
-                   && this.PageContext.LastPendingBuddies > this.Get<IYafSession>().LastPendingBuddies;
+                   && this.PageContext.LastPendingBuddies > this.Get<ISession>().LastPendingBuddies;
         }
 
         /// <summary>
@@ -119,7 +119,7 @@ namespace YAF.Modules
                                               new ForumLink { ForumPage = YafContext.Current.ForumPageType }
                                       });
 
-                this.Get<IYafSession>().LastPm = this.PageContext.LastUnreadPm;
+                this.Get<ISession>().LastPm = this.PageContext.LastUnreadPm;
 
                 // Avoid Showing Both Popups
                 return;
@@ -147,7 +147,7 @@ namespace YAF.Modules
                                           new ForumLink { ForumPage = YafContext.Current.ForumPageType }
                                   });
 
-            this.Get<IYafSession>().LastPendingBuddies = this.PageContext.LastPendingBuddies;
+            this.Get<ISession>().LastPendingBuddies = this.PageContext.LastPendingBuddies;
         }
     }
 

@@ -51,15 +51,15 @@ namespace YAF.Controls
         /// </param>
         protected override void OnPreRender([NotNull] EventArgs e)
         {
-            if (this.Get<YafBoardSettings>().BoardAnnouncement.IsNotSet())
+            if (this.Get<BoardSettings>().BoardAnnouncement.IsNotSet())
             {
                 this.Visible = false;
                 return;
             }
 
-            if (this.Get<YafBoardSettings>().BoardAnnouncementUntil <= DateTime.UtcNow)
+            if (this.Get<BoardSettings>().BoardAnnouncementUntil <= DateTime.UtcNow)
             {
-                var boardSettings = this.Get<YafBoardSettings>();
+                var boardSettings = this.Get<BoardSettings>();
 
                 boardSettings.BoardAnnouncementUntil = DateTime.MinValue;
                 boardSettings.BoardAnnouncement = string.Empty;
@@ -75,10 +75,10 @@ namespace YAF.Controls
                 return;
             }
 
-            this.Badge.CssClass = $"badge badge-{this.Get<YafBoardSettings>().BoardAnnouncementType} mr-1";
+            this.Badge.CssClass = $"badge badge-{this.Get<BoardSettings>().BoardAnnouncementType} mr-1";
 
-            this.Announcement.CssClass = $"alert alert-{this.Get<YafBoardSettings>().BoardAnnouncementType} alert-dismissible";
-            this.Message.Text = this.Get<YafBoardSettings>().BoardAnnouncement;
+            this.Announcement.CssClass = $"alert alert-{this.Get<BoardSettings>().BoardAnnouncementType} alert-dismissible";
+            this.Message.Text = this.Get<BoardSettings>().BoardAnnouncement;
 
             this.DataBind();
 

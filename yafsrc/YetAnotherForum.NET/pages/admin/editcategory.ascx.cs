@@ -90,7 +90,7 @@ namespace YAF.Pages.Admin
                 dt.Rows.Add(dr);
 
                 var dir = new DirectoryInfo(
-                    this.Get<HttpRequestBase>().MapPath($"{YafForumInfo.ForumServerFileRoot}{YafBoardFolders.Current.Categories}"));
+                    this.Get<HttpRequestBase>().MapPath($"{YafForumInfo.ForumServerFileRoot}{BoardFolders.Current.Categories}"));
                 if (dir.Exists)
                 {
                     var files = dir.GetFiles("*.*");
@@ -107,7 +107,7 @@ namespace YAF.Pages.Admin
                             dr = dt.NewRow();
                             dr["FileID"] = fileId++;
                             dr["FileName"] =
-                                $"{YafForumInfo.ForumClientFileRoot}{YafBoardFolders.Current.Categories}/{file.Name}";
+                                $"{YafForumInfo.ForumClientFileRoot}{BoardFolders.Current.Categories}/{file.Name}";
                             dr["Description"] = file.Name;
                             dt.Rows.Add(dr);
                         });

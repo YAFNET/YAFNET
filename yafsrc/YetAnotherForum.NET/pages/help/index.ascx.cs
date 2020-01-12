@@ -88,7 +88,7 @@ namespace YAF.Pages.help
             this.DoSearch.Click += this.DoSearch_Click;
             base.OnInit(e);
 
-            if (!this.Get<IPermissions>().Check(this.Get<YafBoardSettings>().ShowHelpTo))
+            if (!this.Get<IPermissions>().Check(this.Get<BoardSettings>().ShowHelpTo))
             {
                 YafBuildLink.AccessDenied();
             }

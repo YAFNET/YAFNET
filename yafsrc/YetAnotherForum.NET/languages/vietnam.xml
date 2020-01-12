@@ -2720,6 +2720,7 @@
     <Resource tag="WAS_QUOTED_MSG">Was Quoted by {0} in the Topic {1}</Resource>
     <Resource tag="YOUR_ACCOUNT">Tài khoản của bạn</Resource>
     <Resource tag="YOUR_EMAIL">Email:</Resource>
+    <Resource tag="YOUR_NOTIFIY">Your Notifications</Resource>
     <Resource tag="YOUR_USERDISPLAYNAME">Your display name:</Resource>
     <Resource tag="YOUR_USERNAME">Tên đăng nhập:</Resource>
   </page>
@@ -6309,6 +6310,8 @@ Password: {password}
     <Resource tag="MYACTIVITY_TITLE">Shows your activity and Received Thanks, Mentions and Quotes.</Resource>
     <Resource tag="MYALBUMS">My Albums</Resource>
     <Resource tag="MYALBUMS_TITLE">Shows the Albums Page which shows all your albums.</Resource>
+    <Resource tag="MYNOTIFY">My Notifications</Resource>
+    <Resource tag="MYNOTIFY_TITLE">Shows your unread Received Thanks, Mentions and Quotes.</Resource>
     <Resource tag="MYPROFILE">Trang cá nhân</Resource>
     <Resource tag="MYPROFILE_TITLE">Shows the User Control Panel.</Resource>
     <Resource tag="MYTOPICS">Chủ đề của tôi</Resource>

@@ -23,137 +23,139 @@
  */
 namespace YAF.Core
 {
-  #region Using
+    #region Using
 
-  using System;
-  using System.Web;
-  using System.Web.UI;
+    using System;
+    using System.Web;
+    using System.Web.UI;
 
-  using Autofac;
+    using Autofac;
 
-  using YAF.Types;
-  using YAF.Types.Attributes;
-  using YAF.Types.EventProxies;
-  using YAF.Types.Interfaces;
-  using YAF.Types.Interfaces.Events;
-
-  #endregion
-
-  /// <summary>
-  /// Lifecycle module used to throw events around...
-  /// </summary>
-  public class YafTaskModule : IHttpModule, IHaveServiceLocator
-  {
-    #region Constants and Fields
-
-    /// <summary>
-    ///   The _app instance.
-    /// </summary>
-    private HttpApplication appInstance;
-
-    /// <summary>
-    ///   The _module initialized.
-    /// </summary>
-    private bool moduleInitialized;
-
-    /// <summary>
-    ///   Gets or sets the logger associated with the object.
-    /// </summary>
-    [Inject]
-    public ILogger Logger { get; set; }
-
-    /// <summary>
-    /// Gets or sets the service locator.
-    /// </summary>
-    [Inject]
-    public IServiceLocator ServiceLocator { get; set; }
+    using YAF.Types;
+    using YAF.Types.Attributes;
+    using YAF.Types.EventProxies;
+    using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Events;
 
     #endregion
 
-    #region Implemented Interfaces
-
-    #region IHttpModule
-
     /// <summary>
-    /// Bootstrapping fun
+    /// Lifecycle module used to throw events around...
     /// </summary>
-    /// <param name="httpApplication">
-    /// The http application.
-    /// </param>
-    public void Init([NotNull] HttpApplication httpApplication)
+    public class YafTaskModule : IHttpModule, IHaveServiceLocator
     {
-      CodeContracts.VerifyNotNull(httpApplication, "httpApplication");
+        #region Constants and Fields
 
-      if (this.moduleInitialized)
-      {
-        return;
-      }
+        /// <summary>
+        ///   The _app instance.
+        /// </summary>
+        private HttpApplication appInstance;
 
-      // create a lock so no other instance can affect the static variable
-      lock (this)
-      {
-        if (!this.moduleInitialized)
+        /// <summary>
+        ///   The _module initialized.
+        /// </summary>
+        private bool moduleInitialized;
+
+        /// <summary>
+        ///   Gets or sets the logger associated with the object.
+        /// </summary>
+        [Inject]
+        public ILogger Logger { get; set; }
+
+        /// <summary>
+        /// Gets or sets the service locator.
+        /// </summary>
+        [Inject]
+        public IServiceLocator ServiceLocator { get; set; }
+
+        #endregion
+
+        #region Implemented Interfaces
+
+        #region IHttpModule
+
+        /// <summary>
+        /// Bootstrapping fun
+        /// </summary>
+        /// <param name="httpApplication">
+        /// The http application.
+        /// </param>
+        public void Init([NotNull] HttpApplication httpApplication)
         {
-            this.appInstance = httpApplication;
+            CodeContracts.VerifyNotNull(httpApplication, "httpApplication");
 
-          // set the httpApplication as early as possible...
-          GlobalContainer.Container.Resolve<CurrentHttpApplicationStateBaseProvider>().Instance =
-            new HttpApplicationStateWrapper(httpApplication.Application);
+            if (this.moduleInitialized)
+            {
+                return;
+            }
 
-          GlobalContainer.Container.Resolve<IInjectServices>().Inject(this);
+            // create a lock so no other instance can affect the static variable
+            lock (this)
+            {
+                if (!this.moduleInitialized)
+                {
+                    this.appInstance = httpApplication;
 
-            this.moduleInitialized = true;
+                    // set the httpApplication as early as possible...
+                    GlobalContainer.Container.Resolve<CurrentHttpApplicationStateBaseProvider>().Instance =
+                        new HttpApplicationStateWrapper(httpApplication.Application);
 
-            this.appInstance.PreRequestHandlerExecute += this.ApplicationPreRequestHandlerExecute;
+                    GlobalContainer.Container.Resolve<IInjectServices>().Inject(this);
+
+                    this.moduleInitialized = true;
+
+                    this.appInstance.PreRequestHandlerExecute += this.ApplicationPreRequestHandlerExecute;
+                }
+            }
+
+            // app init notification...
+            this.Get<IRaiseEvent>().RaiseIssolated(new HttpApplicationInitEvent(this.appInstance), null);
         }
-      }
 
-      // app init notification...
-      this.Get<IRaiseEvent>().RaiseIssolated(new HttpApplicationInitEvent(this.appInstance), null);
-    }
-
-    /// <summary>
-    /// Disposes of the resources (other than memory) used by the module that implements <see cref="T:System.Web.IHttpModule"/>.
-    /// </summary>
-    void IHttpModule.Dispose()
-    {
-    }
-
-    #endregion
-
-    #endregion
-
-    #region Methods
-
-    /// <summary>
-    /// The application pre request handler execute.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected void ApplicationPreRequestHandlerExecute([NotNull] object sender, [NotNull] EventArgs e)
-    {
-      if (HttpContext.Current.CurrentHandler != null && HttpContext.Current.CurrentHandler is Page)
-      {
-        var page = HttpContext.Current.CurrentHandler as Page;
-
-        try
+        /// <summary>
+        /// Disposes of the resources (other than memory) used by the module that implements <see cref="T:System.Web.IHttpModule"/>.
+        /// </summary>
+        void IHttpModule.Dispose()
         {
-          // call from YafContext only -- so that the events have access to the full YafContext lifecycle.
-          YafContext.Current.Get<IRaiseEvent>().RaiseIssolated(
-            new EventPreRequestPageExecute(page),
-            (m, ex) => this.Logger.Fatal(ex, $"Failed to Call Event Pre Request Page Execute Event {m}"));
         }
-        catch (Exception ex)
-        {
-          this.Logger.Fatal(ex, "Exception in PreRequestHandlerExecute.");
-        }
-      }
-    }
 
-    #endregion
-  }
+        #endregion
+
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        /// The application pre request handler execute.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        protected void ApplicationPreRequestHandlerExecute([NotNull] object sender, [NotNull] EventArgs e)
+        {
+            if (HttpContext.Current.CurrentHandler == null || !(HttpContext.Current.CurrentHandler is Page))
+            {
+                return;
+            }
+
+            var page = HttpContext.Current.CurrentHandler as Page;
+
+            try
+            {
+                // call from YafContext only -- so that the events have access to the full YafContext lifecycle.
+                YafContext.Current.Get<IRaiseEvent>().RaiseIssolated(
+                    new EventPreRequestPageExecute(page),
+                    (m, ex) => this.Logger.Fatal(ex, $"Failed to Call Event Pre Request Page Execute Event {m}"));
+            }
+            catch (Exception ex)
+            {
+                this.Logger.Fatal(ex, "Exception in PreRequestHandlerExecute.");
+            }
+        }
+
+        #endregion
+    }
 }

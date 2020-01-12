@@ -105,7 +105,7 @@ namespace YAF.Core.Helpers
         /// </returns>
         public static DataTable Country(string forceLanguage)
         {
-            var localization = new YafLocalization();
+            var localization = new Localization();
             localization.LoadTranslation(forceLanguage);
 
             return Country(localization);

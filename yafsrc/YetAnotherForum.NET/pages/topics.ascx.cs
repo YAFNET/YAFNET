@@ -97,7 +97,7 @@ namespace YAF.Pages
         /// </returns>
         public DataTable StyleTransformDataTable([NotNull] DataTable dt)
         {
-            if (!this.Get<YafBoardSettings>().UseStyledNicks)
+            if (!this.Get<BoardSettings>().UseStyledNicks)
             {
                 return dt;
             }
@@ -220,11 +220,11 @@ namespace YAF.Pages
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            this.Get<IYafSession>().UnreadTopics = 0;
+            this.Get<ISession>().UnreadTopics = 0;
 
             this.RssFeed.AdditionalParameters = $"f={this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("f")}";
 
-            this.ForumJumpHolder.Visible = this.Get<YafBoardSettings>().ShowForumJump
+            this.ForumJumpHolder.Visible = this.Get<BoardSettings>().ShowForumJump
                                            && this.PageContext.Settings.LockedForum == 0;
 
             if (this.ForumSearchHolder.Visible)
@@ -249,9 +249,9 @@ namespace YAF.Pages
                 this.ShowList.DataSource = StaticDataHelper.TopicTimes();
                 this.ShowList.DataTextField = "TopicText";
                 this.ShowList.DataValueField = "TopicValue";
-                this.showTopicListSelected = this.Get<IYafSession>().ShowList == -1
-                                                  ? this.Get<YafBoardSettings>().ShowTopicsDefault
-                                                  : this.Get<IYafSession>().ShowList;
+                this.showTopicListSelected = this.Get<ISession>().ShowList == -1
+                                                  ? this.Get<BoardSettings>().ShowTopicsDefault
+                                                  : this.Get<ISession>().ShowList;
 
                 this.moderate1.NavigateUrl =
                     this.moderate2.NavigateUrl =
@@ -388,13 +388,13 @@ namespace YAF.Pages
                 this.SubForums.Visible = true;
             }
 
-            this.Pager.PageSize = this.Get<YafBoardSettings>().TopicsPerPage;
+            this.Pager.PageSize = this.Get<BoardSettings>().TopicsPerPage;
 
             // when userId is null it returns the count of all deleted messages
             /*int? userId = null;
 
             // get the userID to use for the deleted posts count...
-            if (!this.Get<YafBoardSettings>().ShowDeletedMessagesToAll)
+            if (!this.Get<BoardSettings>().ShowDeletedMessagesToAll)
             {
                 // only show deleted messages that belong to this user if they are not admin/mod
                 if (!this.PageContext.IsAdmin && !this.PageContext.ForumModeratorAccess)
@@ -411,15 +411,15 @@ namespace YAF.Pages
                 DateTime.UtcNow,
                 0,
                 10,
-                this.Get<YafBoardSettings>().UseStyledNicks,
+                this.Get<BoardSettings>().UseStyledNicks,
                 true,
-                this.Get<YafBoardSettings>().UseReadTrackingByDatabase);
+                this.Get<BoardSettings>().UseReadTrackingByDatabase);
             if (dt != null)
             {
                 dt = this.StyleTransformDataTable(dt);
             }
 
-            var baseSize = this.Get<YafBoardSettings>().TopicsPerPage;
+            var baseSize = this.Get<BoardSettings>().TopicsPerPage;
 
             this.Announcements.DataSource = dt;
 
@@ -436,9 +436,9 @@ namespace YAF.Pages
                     DateTime.UtcNow,
                     pagerCurrentPageIndex,
                     baseSize,
-                    this.Get<YafBoardSettings>().UseStyledNicks,
+                    this.Get<BoardSettings>().UseStyledNicks,
                     true,
-                    this.Get<YafBoardSettings>().UseReadTrackingByDatabase);
+                    this.Get<BoardSettings>().UseReadTrackingByDatabase);
                 if (topicList != null)
                 {
                     topicList = this.StyleTransformDataTable(topicList);
@@ -457,9 +457,9 @@ namespace YAF.Pages
                     DateTime.UtcNow,
                     pagerCurrentPageIndex,
                     baseSize,
-                    this.Get<YafBoardSettings>().UseStyledNicks,
+                    this.Get<BoardSettings>().UseStyledNicks,
                     true,
-                    this.Get<YafBoardSettings>().UseReadTrackingByDatabase);
+                    this.Get<BoardSettings>().UseReadTrackingByDatabase);
 
                 if (topicList != null)
                 {
@@ -473,7 +473,7 @@ namespace YAF.Pages
 
             // setup the show topic list selection after data binding
             this.ShowList.SelectedIndex = this.showTopicListSelected;
-            this.Get<IYafSession>().ShowList = this.showTopicListSelected;
+            this.Get<ISession>().ShowList = this.showTopicListSelected;
 
             if (topicList != null && topicList.HasRows())
             {
@@ -557,7 +557,7 @@ namespace YAF.Pages
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         private void Topics_Unload([NotNull] object sender, [NotNull] EventArgs e)
         {
-            if (this.Get<IYafSession>().UnreadTopics == 0)
+            if (this.Get<ISession>().UnreadTopics == 0)
             {
                 this.Get<IReadTrackCurrentUser>().SetForumRead(this.PageContext.PageForumID);
             }

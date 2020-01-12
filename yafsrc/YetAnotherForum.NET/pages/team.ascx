@@ -104,7 +104,7 @@
                                                 Height="40px"
                                                 CssClass="rounded img-fluid"/>
                                      <YAF:UserLink ID="ModLink" runat="server" 
-                                                   ReplaceName='<%#  this.Eval(this.Get<YafBoardSettings>().EnableDisplayName ? "DisplayName" : "Name").ToString() %>' 
+                                                   ReplaceName='<%#  this.Eval(this.Get<BoardSettings>().EnableDisplayName ? "DisplayName" : "Name").ToString() %>' 
                                                    UserID='<%# this.Eval("ModeratorID").ToType<int>() %>' 
                                                    IsGuest="False" 
                                                    Style='<%# this.Eval("Style") %>'  />

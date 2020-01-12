@@ -412,7 +412,7 @@ namespace YAF.Pages.Admin
 
                 // add files from medals folder
                 var dir = new DirectoryInfo(
-                    this.Get<HttpRequestBase>().MapPath($"{YafForumInfo.ForumServerFileRoot}{YafBoardFolders.Current.Medals}"));
+                    this.Get<HttpRequestBase>().MapPath($"{YafForumInfo.ForumServerFileRoot}{BoardFolders.Current.Medals}"));
                 var files = dir.GetFiles("*.*");
 
                 long fileId = 1;
@@ -508,7 +508,7 @@ namespace YAF.Pages.Admin
         private Size GetImageSize([NotNull] string filename)
         {
             using (var img = Image.FromFile(
-                this.Server.MapPath($"{YafForumInfo.ForumServerFileRoot}{YafBoardFolders.Current.Medals}/{filename}")))
+                this.Server.MapPath($"{YafForumInfo.ForumServerFileRoot}{BoardFolders.Current.Medals}/{filename}")))
             {
                 return img.Size;
             }
@@ -537,7 +537,7 @@ namespace YAF.Pages.Admin
                 item.Selected = true;
 
                 // set preview image
-                preview.Src = $"{YafForumInfo.ForumClientFileRoot}{YafBoardFolders.Current.Medals}/{imageUrl}";
+                preview.Src = $"{YafForumInfo.ForumClientFileRoot}{BoardFolders.Current.Medals}/{imageUrl}";
             }
             else
             {
@@ -555,7 +555,7 @@ namespace YAF.Pages.Admin
         {
             // create javascript
             imageSelector.Attributes["onchange"] =
-                $"getElementById('{imagePreview.ClientID}').src='{YafForumInfo.ForumClientFileRoot}{YafBoardFolders.Current.Medals}/' + this.value";
+                $"getElementById('{imagePreview.ClientID}').src='{YafForumInfo.ForumClientFileRoot}{BoardFolders.Current.Medals}/' + this.value";
         }
 
         #endregion

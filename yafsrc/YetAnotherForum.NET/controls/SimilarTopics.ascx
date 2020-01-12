@@ -26,7 +26,7 @@
                    </YAF:LocalizedLabel> 
                     <YAF:UserLink ID="UserName" runat="server" 
                        UserID='<%# DataBinder.Eval(Container.DataItem, "UserId") %>' 
-                       ReplaceName='<%# DataBinder.Eval(Container.DataItem, this.Get<YafBoardSettings>().EnableDisplayName ? "UserDisplayName" : "UserName") %>' 
+                       ReplaceName='<%# DataBinder.Eval(Container.DataItem, this.Get<BoardSettings>().EnableDisplayName ? "UserDisplayName" : "UserName") %>' 
                        Style='<%# DataBinder.Eval(Container.DataItem, "UserStyle") %>'>
                       </YAF:UserLink>
                 <span class="fa-stack">

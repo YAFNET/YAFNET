@@ -167,8 +167,8 @@ namespace YAF.Controls
             this.Gender.Items.Add(this.GetText("PROFILE", "gender2"));
 
             // End Modifications for enhanced profile
-            this.DisplayNamePlaceholder.Visible = this.Get<YafBoardSettings>().EnableDisplayName
-                                                  && this.Get<YafBoardSettings>().AllowDisplayNameModification;
+            this.DisplayNamePlaceholder.Visible = this.Get<BoardSettings>().EnableDisplayName
+                                                  && this.Get<BoardSettings>().AllowDisplayNameModification;
 
             // override Place Holders for DNN, dnn users should only see the forum settings but not the profile page
             if (Config.IsDotNetNuke)
@@ -204,13 +204,13 @@ namespace YAF.Controls
                     return;
                 }
 
-                if (this.UserData.NumPosts < this.Get<YafBoardSettings>().IgnoreSpamWordCheckPostCount)
+                if (this.UserData.NumPosts < this.Get<BoardSettings>().IgnoreSpamWordCheckPostCount)
                 {
                     // Check for spam
                     if (this.Get<ISpamWordCheck>().CheckForSpamWord(this.HomePage.Text, out _))
                     {
                         // Log and Send Message to Admins
-                        if (this.Get<YafBoardSettings>().BotHandlingOnRegister.Equals(1))
+                        if (this.Get<BoardSettings>().BotHandlingOnRegister.Equals(1))
                         {
                             this.Logger.Log(
                                 null,
@@ -218,7 +218,7 @@ namespace YAF.Controls
                                 $"Internal Spam Word Check detected a SPAM BOT: (user name : '{userName}', user id : '{this.currentUserId}') after the user changed the profile Homepage url to: {this.HomePage.Text}",
                                 EventLogTypes.SpamBotDetected);
                         }
-                        else if (this.Get<YafBoardSettings>().BotHandlingOnRegister.Equals(2))
+                        else if (this.Get<BoardSettings>().BotHandlingOnRegister.Equals(2))
                         {
                             this.Logger.Log(
                                 null,
@@ -268,24 +268,24 @@ namespace YAF.Controls
 
             string displayName = null;
 
-            if (this.Get<YafBoardSettings>().EnableDisplayName
-                && this.Get<YafBoardSettings>().AllowDisplayNameModification)
+            if (this.Get<BoardSettings>().EnableDisplayName
+                && this.Get<BoardSettings>().AllowDisplayNameModification)
             {
                 // Check if name matches the required minimum length
-                if (this.DisplayName.Text.Trim().Length < this.Get<YafBoardSettings>().DisplayNameMinLength)
+                if (this.DisplayName.Text.Trim().Length < this.Get<BoardSettings>().DisplayNameMinLength)
                 {
                     this.PageContext.AddLoadMessage(
-                        this.GetTextFormatted("USERNAME_TOOLONG", this.Get<YafBoardSettings>().DisplayNameMinLength),
+                        this.GetTextFormatted("USERNAME_TOOLONG", this.Get<BoardSettings>().DisplayNameMinLength),
                         MessageTypes.warning);
 
                     return;
                 }
 
                 // Check if name matches the required minimum length
-                if (this.DisplayName.Text.Length > this.Get<YafBoardSettings>().UserNameMaxLength)
+                if (this.DisplayName.Text.Length > this.Get<BoardSettings>().UserNameMaxLength)
                 {
                     this.PageContext.AddLoadMessage(
-                        this.GetTextFormatted("USERNAME_TOOLONG", this.Get<YafBoardSettings>().UserNameMaxLength),
+                        this.GetTextFormatted("USERNAME_TOOLONG", this.Get<BoardSettings>().UserNameMaxLength),
                         MessageTypes.warning);
 
                     return;
@@ -434,7 +434,7 @@ namespace YAF.Controls
 
             this.DataBind();
 
-            if (this.Get<YafBoardSettings>().UseFarsiCalender && this.CurrentCultureInfo.IsFarsiCulture())
+            if (this.Get<BoardSettings>().UseFarsiCalender && this.CurrentCultureInfo.IsFarsiCulture())
             {
                 this.Birthday.Text = this.UserData.Profile.Birthday > DateTimeHelper.SqlDbMinTime()
                                      || this.UserData.Profile.Birthday.IsNullOrEmptyDBField()
@@ -528,7 +528,7 @@ namespace YAF.Controls
 
             DateTime userBirthdate;
 
-            if (this.Get<YafBoardSettings>().UseFarsiCalender && this.CurrentCultureInfo.IsFarsiCulture())
+            if (this.Get<BoardSettings>().UseFarsiCalender && this.CurrentCultureInfo.IsFarsiCulture())
             {
                 try
                 {
@@ -597,8 +597,8 @@ namespace YAF.Controls
         private string GetCulture(bool overrideByPageUserCulture)
         {
             // Language and culture
-            var languageFile = this.Get<YafBoardSettings>().Language;
-            var culture4Tag = this.Get<YafBoardSettings>().Culture;
+            var languageFile = this.Get<BoardSettings>().Language;
+            var culture4Tag = this.Get<BoardSettings>().Culture;
 
             if (overrideByPageUserCulture)
             {

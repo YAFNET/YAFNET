@@ -77,7 +77,7 @@ namespace YAF.Web.Controls
         protected override void Render([NotNull] HtmlTextWriter writer)
         {
             // Ederon : 07/14/2007
-            if (!this.Get<YafBoardSettings>().ShowBrowsingUsers)
+            if (!this.Get<BoardSettings>().ShowBrowsingUsers)
             {
                 return;
             }
@@ -114,7 +114,7 @@ namespace YAF.Web.Controls
 
             if (this.activeUsers.ActiveUserTable == null)
             {
-                var useStyledNicks = this.Get<YafBoardSettings>().UseStyledNicks;
+                var useStyledNicks = this.Get<BoardSettings>().UseStyledNicks;
 
                 this.activeUsers.ActiveUserTable =
                     inTopic

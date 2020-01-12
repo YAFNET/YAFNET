@@ -88,9 +88,9 @@ namespace YAF.Controls
                 activeUsers += activeHidden;
             }
 
-            var canViewActive = this.Get<IPermissions>().Check(this.Get<YafBoardSettings>().ActiveUsersViewPermissions);
-            var showGuestTotal = activeGuests > 0 && (this.Get<YafBoardSettings>().ShowGuestsInDetailedActiveList
-                                                      || this.Get<YafBoardSettings>().ShowCrawlersInActiveList);
+            var canViewActive = this.Get<IPermissions>().Check(this.Get<BoardSettings>().ActiveUsersViewPermissions);
+            var showGuestTotal = activeGuests > 0 && (this.Get<BoardSettings>().ShowGuestsInDetailedActiveList
+                                                      || this.Get<BoardSettings>().ShowCrawlersInActiveList);
             if (canViewActive && (showGuestTotal || activeMembers > 0 && activeGuests <= 0))
             {
                 // always show active users...       
@@ -122,8 +122,8 @@ namespace YAF.Controls
 
             if (activeGuests > 0)
             {
-                if (canViewActive && (this.Get<YafBoardSettings>().ShowGuestsInDetailedActiveList
-                                      || this.Get<YafBoardSettings>().ShowCrawlersInActiveList))
+                if (canViewActive && (this.Get<BoardSettings>().ShowGuestsInDetailedActiveList
+                                      || this.Get<BoardSettings>().ShowCrawlersInActiveList))
                 {
                     sb.AppendFormat(
                         ", <a href=\"{1}\" title=\"{2}\"{3}>{0}</a>",
@@ -158,7 +158,7 @@ namespace YAF.Controls
                 }
             }
 
-            sb.Append($" {this.GetTextFormatted("ACTIVE_USERS_TIME", this.Get<YafBoardSettings>().ActiveListTime)}");
+            sb.Append($" {this.GetTextFormatted("ACTIVE_USERS_TIME", this.Get<BoardSettings>().ActiveListTime)}");
 
             return sb.ToString();
         }
@@ -182,23 +182,23 @@ namespace YAF.Controls
                         // get the post stats
                         var dr = this.GetRepository<Board>().PostStats(
                             this.PageContext.PageBoardID,
-                            this.Get<YafBoardSettings>().UseStyledNicks,
+                            this.Get<BoardSettings>().UseStyledNicks,
                             true);
 
                         // Set colorOnly parameter to false, as we get here color from data field in the place
-                        dr["LastUserStyle"] = this.Get<YafBoardSettings>().UseStyledNicks
+                        dr["LastUserStyle"] = this.Get<BoardSettings>().UseStyledNicks
                                                   ? this.Get<IStyleTransform>().DecodeStyleByString(
                                                       dr["LastUserStyle"].ToString())
                                                   : null;
                         return dr.Table;
                     },
-                TimeSpan.FromMinutes(this.Get<YafBoardSettings>().ForumStatisticsCacheTimeout)).Rows[0];
+                TimeSpan.FromMinutes(this.Get<BoardSettings>().ForumStatisticsCacheTimeout)).Rows[0];
 
             // Forum Statistics
             var userStatisticsDataRow = this.Get<IDataCache>().GetOrSet(
                 Constants.Cache.BoardUserStats,
                 () => this.GetRepository<Board>().UserStats(this.PageContext.PageBoardID).Table,
-                TimeSpan.FromMinutes(this.Get<YafBoardSettings>().BoardUserStatsCacheTimeout)).Rows[0];
+                TimeSpan.FromMinutes(this.Get<BoardSettings>().BoardUserStatsCacheTimeout)).Rows[0];
 
             // Posts and Topic Count...
             this.StatsPostsTopicCount.Text = this.GetTextFormatted(
@@ -213,7 +213,7 @@ namespace YAF.Controls
                 this.StatsLastPostHolder.Visible = true;
 
                 this.LastPostUserLink.UserID = postsStatisticsDataRow["LastUserID"].ToType<int>();
-                this.LastPostUserLink.ReplaceName = this.Get<YafBoardSettings>().EnableDisplayName
+                this.LastPostUserLink.ReplaceName = this.Get<BoardSettings>().EnableDisplayName
                                                         ? postsStatisticsDataRow["LastUserDisplayName"].ToString()
                                                         : postsStatisticsDataRow["LastUser"].ToString();
                 this.LastPostUserLink.Style = postsStatisticsDataRow["LastUserStyle"].ToString();
@@ -235,18 +235,18 @@ namespace YAF.Controls
             // Newest Member
             this.StatsNewestMember.Text = this.GetText("stats_lastmember");
             this.NewestMemberUserLink.UserID = userStatisticsDataRow["LastMemberID"].ToType<int>();
-            this.NewestMemberUserLink.ReplaceName = this.Get<YafBoardSettings>().EnableDisplayName
+            this.NewestMemberUserLink.ReplaceName = this.Get<BoardSettings>().EnableDisplayName
                                                         ? userStatisticsDataRow["LastMemberDisplayName"].ToString()
                                                         : userStatisticsDataRow["LastMember"].ToString();
 
-            if (this.Get<YafBoardSettings>().DeniedRegistrations > 0 || this.Get<YafBoardSettings>().BannedUsers > 0
-                                                                     || this.Get<YafBoardSettings>().ReportedSpammers
+            if (this.Get<BoardSettings>().DeniedRegistrations > 0 || this.Get<BoardSettings>().BannedUsers > 0
+                                                                     || this.Get<BoardSettings>().ReportedSpammers
                                                                      > 0)
             {
                 this.AntiSpamStatsHolder.Visible = true;
-                this.StatsSpamDenied.Param0 = this.Get<YafBoardSettings>().DeniedRegistrations.ToString();
-                this.StatsSpamBanned.Param0 = this.Get<YafBoardSettings>().BannedUsers.ToString();
-                this.StatsSpamReported.Param0 = this.Get<YafBoardSettings>().ReportedSpammers.ToString();
+                this.StatsSpamDenied.Param0 = this.Get<BoardSettings>().DeniedRegistrations.ToString();
+                this.StatsSpamBanned.Param0 = this.Get<BoardSettings>().BannedUsers.ToString();
+                this.StatsSpamReported.Param0 = this.Get<BoardSettings>().ReportedSpammers.ToString();
             }
             else
             {

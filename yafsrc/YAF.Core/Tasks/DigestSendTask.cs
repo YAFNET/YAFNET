@@ -192,7 +192,7 @@ namespace YAF.Core.Tasks
         /// <param name="boardSettings">The board settings.</param>
         private void SendDigestToUsers(
             IEnumerable<User> usersWithDigest,
-            YafBoardSettings boardSettings)
+            BoardSettings boardSettings)
         {
             var usersSendCount = 0;
 

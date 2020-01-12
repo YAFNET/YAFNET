@@ -85,13 +85,13 @@ namespace YAF.Modules
                       }}
 
                       $.notify({{
-                                   title: ""{this.Get<YafBoardSettings>().Name}"",
+                                   title: ""{this.Get<BoardSettings>().Name}"",
                                    message: newErrorStr,
                                    icon: iconFA
                             }},
                             {{
                                   type: newErrorType,
-                                  element: 'body', position: null, placement: {{ from: 'top', align: 'center' }}, delay: {this.Get<YafBoardSettings>().MessageNotifcationDuration} * 1000
+                                  element: 'body', position: null, placement: {{ from: 'top', align: 'center' }}, delay: {this.Get<BoardSettings>().MessageNotifcationDuration} * 1000
                         }});}} }}";
 
             YafContext.Current.PageElements.RegisterJsBlock(

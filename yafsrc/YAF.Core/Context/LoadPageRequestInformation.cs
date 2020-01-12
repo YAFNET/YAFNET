@@ -104,7 +104,7 @@ namespace YAF.Core
                 out var isSearchEngine,
                 out var dontTrack);
 
-            dontTrack = !this.Get<YafBoardSettings>().ShowCrawlersInActiveList && isSearchEngine;
+            dontTrack = !this.Get<BoardSettings>().ShowCrawlersInActiveList && isSearchEngine;
 
             // don't track if this is a feed reader. May be to make it switchable in host settings.
             // we don't have page 'g' token for the feed page.

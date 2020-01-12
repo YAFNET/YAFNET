@@ -53,7 +53,7 @@ namespace YAF.Web.Extensions
         {
             CodeContracts.VerifyNotNull(pageLinks, "pageLinks");
 
-            pageLinks.AddLink(pageLinks.Get<YafBoardSettings>().Name, YafBuildLink.GetLink(ForumPages.forum));
+            pageLinks.AddLink(pageLinks.Get<BoardSettings>().Name, YafBuildLink.GetLink(ForumPages.forum));
 
             return pageLinks;
         }

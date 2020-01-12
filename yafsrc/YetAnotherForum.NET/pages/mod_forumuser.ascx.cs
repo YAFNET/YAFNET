@@ -159,7 +159,7 @@ namespace YAF.Pages
                 // set and enable user dropdown, disable text box
                 this.ToList.DataSource = foundUsers;
                 this.ToList.DataValueField = "ID";
-                this.ToList.DataTextField = this.Get<YafBoardSettings>().EnableDisplayName ? "DisplayName" : "Name";
+                this.ToList.DataTextField = this.Get<BoardSettings>().EnableDisplayName ? "DisplayName" : "Name";
 
                 // ToList.SelectedIndex = 0;
                 this.ToList.Visible = true;

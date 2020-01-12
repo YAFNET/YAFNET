@@ -270,7 +270,7 @@ namespace YAF.Core
         /// <summary>
         ///   Gets PageBoardID.
         /// </summary>
-        public int PageBoardID => YafControlSettings.Current == null ? 1 : YafControlSettings.Current.BoardID;
+        public int PageBoardID => ControlSettings.Current == null ? 1 : ControlSettings.Current.BoardID;
 
         /// <summary>
         ///   Gets the CategoryID for the current page, or 0 if not in any category

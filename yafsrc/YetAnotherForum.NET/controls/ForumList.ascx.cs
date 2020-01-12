@@ -274,7 +274,7 @@ namespace YAF.Controls
                 if (forumImage != null)
                 {
                     forumImage.ImageUrl =
-                        $"{YafForumInfo.ForumClientFileRoot}{YafBoardFolders.Current.Forums}/{row["ImageUrl"]}";
+                        $"{YafForumInfo.ForumClientFileRoot}{BoardFolders.Current.Forums}/{row["ImageUrl"]}";
 
                     // Highlight custom icon images and add tool tips to them. 
                     try
@@ -307,7 +307,7 @@ namespace YAF.Controls
                 }
             }
 
-            if (!this.Get<YafBoardSettings>().ShowModeratorList)
+            if (!this.Get<BoardSettings>().ShowModeratorList)
             {
                 return;
             }
@@ -379,7 +379,7 @@ namespace YAF.Controls
 
             this.SubDataSource.Rows.Cast<DataRow>()
                 .Where(dataRow => row["ForumID"].ToType<int>() == dataRow["ParentID"].ToType<int>())
-                .Where(subRow => arrayList.Count < this.Get<YafBoardSettings>().SubForumsInForumList)
+                .Where(subRow => arrayList.Count < this.Get<BoardSettings>().SubForumsInForumList)
                 .ForEach(value => arrayList.Add(value));
 
             this.SubDataSource.AcceptChanges();

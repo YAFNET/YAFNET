@@ -132,7 +132,7 @@ namespace YAF.Pages
                 YafBuildLink.AccessDenied();
             }
 
-            if (!this.Get<YafBoardSettings>().AllowPasswordChange
+            if (!this.Get<BoardSettings>().AllowPasswordChange
                 && !(this.PageContext.IsAdmin || this.PageContext.IsForumModerator))
             {
                 // Not accessible...
@@ -143,7 +143,7 @@ namespace YAF.Pages
             {
                 this.PageLinks.AddRoot();
                 this.PageLinks.AddLink(
-                    this.Get<YafBoardSettings>().EnableDisplayName
+                    this.Get<BoardSettings>().EnableDisplayName
                         ? this.PageContext.CurrentUserData.DisplayName
                         : this.PageContext.PageUserName,
                     YafBuildLink.GetLink(ForumPages.cp_profile));

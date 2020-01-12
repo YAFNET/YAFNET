@@ -23,7 +23,7 @@
                 <span class="font-weight-bold">
                     <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="USER" LocalizedPage="MODERATE" />:
                 </span>
-                <%# this.Get<YafBoardSettings>().EnableDisplayName ? this.Eval("Name") : this.Eval("DisplayName") %>
+                <%# this.Get<BoardSettings>().EnableDisplayName ? this.Eval("Name") : this.Eval("DisplayName") %>
                 <span class="font-weight-bold">
                     <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="ACCEPTED" LocalizedPage="MODERATE" />:
                 </span>

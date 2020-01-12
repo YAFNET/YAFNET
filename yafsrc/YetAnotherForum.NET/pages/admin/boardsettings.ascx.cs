@@ -70,7 +70,7 @@ namespace YAF.Pages.Admin
                 return;
             }
 
-            var boardSettings = this.Get<YafBoardSettings>();
+            var boardSettings = this.Get<BoardSettings>();
 
             this.CdvVersion.Text = boardSettings.CdvVersion.ToString();
 
@@ -137,8 +137,8 @@ namespace YAF.Pages.Admin
             // If 2-letter language code is the same we return Culture, else we return  a default full culture from language file
             /* SetSelectedOnList(
                 ref this.Culture,
-                langFileCulture.Substring(0, 2) == this.Get<YafBoardSettings>().Culture
-                  ? this.Get<YafBoardSettings>().Culture
+                langFileCulture.Substring(0, 2) == this.Get<BoardSettings>().Culture
+                  ? this.Get<BoardSettings>().Culture
                   : langFileCulture);*/
             SetSelectedOnList(ref this.Culture, boardSettings.Culture);
             if (this.Culture.SelectedIndex == 0)
@@ -220,7 +220,7 @@ namespace YAF.Pages.Admin
         /// </summary>
         protected override void CreatePageLinks()
         {
-            this.PageLinks.AddLink(this.Get<YafBoardSettings>().Name, YafBuildLink.GetLink(ForumPages.forum));
+            this.PageLinks.AddLink(this.Get<BoardSettings>().Name, YafBuildLink.GetLink(ForumPages.forum));
             this.PageLinks.AddLink(
                 this.GetText("ADMIN_ADMIN", "Administration"),
                 YafBuildLink.GetLink(ForumPages.admin_admin));
@@ -254,7 +254,7 @@ namespace YAF.Pages.Admin
                 this.Culture.SelectedValue);
 
             // save poll group
-            var boardSettings = this.Get<YafBoardSettings>();
+            var boardSettings = this.Get<BoardSettings>();
 
             boardSettings.BoardPollID = this.PollGroupListDropDown.SelectedIndex.ToType<int>() > 0
                                             ? this.PollGroupListDropDown.SelectedValue.ToType<int>()
@@ -343,7 +343,7 @@ namespace YAF.Pages.Admin
                     break;
             }
 
-            var boardSettings = this.Get<YafBoardSettings>();
+            var boardSettings = this.Get<BoardSettings>();
 
             boardSettings.BoardAnnouncementUntil = boardAnnouncementUntil;
             boardSettings.BoardAnnouncement = this.BoardAnnouncement.Text;
@@ -369,7 +369,7 @@ namespace YAF.Pages.Admin
         /// </param>
         protected void DeleteClick(object sender, EventArgs e)
         {
-            var boardSettings = this.Get<YafBoardSettings>();
+            var boardSettings = this.Get<BoardSettings>();
 
             boardSettings.BoardAnnouncementUntil = DateTime.MinValue;
             boardSettings.BoardAnnouncement = this.BoardAnnouncement.Text;
@@ -391,10 +391,10 @@ namespace YAF.Pages.Admin
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void IncreaseVersionOnClick(object sender, EventArgs e)
         {
-            this.Get<YafBoardSettings>().CdvVersion++;
-            ((YafLoadBoardSettings)this.Get<YafBoardSettings>()).SaveRegistry();
+            this.Get<BoardSettings>().CdvVersion++;
+            ((YafLoadBoardSettings)this.Get<BoardSettings>()).SaveRegistry();
 
-            this.CdvVersion.Text = this.Get<YafBoardSettings>().CdvVersion.ToString();
+            this.CdvVersion.Text = this.Get<BoardSettings>().CdvVersion.ToString();
         }
 
         /// <summary>
@@ -440,7 +440,7 @@ namespace YAF.Pages.Admin
 
                 var dir = new DirectoryInfo(
                     this.Get<HttpRequestBase>()
-                        .MapPath($"{YafForumInfo.ForumServerFileRoot}{YafBoardFolders.Current.Logos}"));
+                        .MapPath($"{YafForumInfo.ForumServerFileRoot}{BoardFolders.Current.Logos}"));
                 var files = dir.GetFiles("*.*");
                 long fileID = 1;
 
@@ -453,7 +453,7 @@ namespace YAF.Pages.Admin
                             dr = dt.NewRow();
                             dr["FileID"] = fileID++;
                             dr["FileName"] =
-                                $"{YafForumInfo.ForumClientFileRoot}{YafBoardFolders.Current.Logos}/{file.Name}";
+                                $"{YafForumInfo.ForumClientFileRoot}{BoardFolders.Current.Logos}/{file.Name}";
                             dr["Description"] = file.Name;
                             dt.Rows.Add(dr);
                         });

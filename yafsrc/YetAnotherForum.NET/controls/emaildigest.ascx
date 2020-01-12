@@ -12,7 +12,7 @@
 <body class="bg-light">
 <div class="container">
 <div class="mx-auto mt-4 mb-3 text-center" 
-     style="width:100px;height:40px;background: url('<%= "{0}/{1}/{2}/{3}".Fmt(this.Get<YafBoardSettings>().BaseUrlMask, YafForumInfo.ForumClientFileRoot, YafBoardFolders.Current.Logos, this.BoardSettings.ForumLogo) %>') no-repeat;"></div>
+     style="width:100px;height:40px;background: url('<%= "{0}/{1}/{2}/{3}".Fmt(this.Get<BoardSettings>().BaseUrlMask, YafForumInfo.ForumClientFileRoot, YafBoardFolders.Current.Logos, this.BoardSettings.ForumLogo) %>') no-repeat;"></div>
   <div class="card mb-4" style="border-top: 5px solid #3761b5;">
     <div class="card-body">
       <h4 class="text-center">

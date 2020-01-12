@@ -40,7 +40,7 @@ namespace YAF.Core.Services
     /// <summary>
     ///   Gets BoardId.
     /// </summary>
-    public int BoardID => YafControlSettings.Current == null ? 1 : YafControlSettings.Current.BoardID;
+    public int BoardID => ControlSettings.Current == null ? 1 : ControlSettings.Current.BoardID;
 
     #endregion
   }

@@ -32,7 +32,6 @@ namespace YAF.Web.Controls
     using YAF.Configuration;
     using YAF.Core;
     using YAF.Core.Extensions;
-    using YAF.Core.UsersRoles;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
@@ -94,13 +93,13 @@ namespace YAF.Web.Controls
         /// <value>
         /// <c>true</c> if the user can view profiles; otherwise, <c>false</c>.
         /// </value>
-        private bool CanViewProfile => this.Get<IPermissions>().Check(this.Get<YafBoardSettings>().ProfileViewPermissions);
+        private bool CanViewProfile => this.Get<IPermissions>().Check(this.Get<BoardSettings>().ProfileViewPermissions);
 
         /// <summary>
         /// Gets a value indicating whether is hover card enabled.
         /// </summary>
         private bool IsHoverCardEnabled =>
-            this.Get<YafBoardSettings>().EnableUserInfoHoverCards && this.EnableHoverCard
+            this.Get<BoardSettings>().EnableUserInfoHoverCards && this.EnableHoverCard
                                                                   && YafContext.Current.CurrentForumPage != null;
 
         #endregion
@@ -123,7 +122,7 @@ namespace YAF.Web.Controls
             // Setup Hover Card JS
             YafContext.Current.PageElements.RegisterJsBlockStartup(
                 "yafhovercardtjs",
-                $"if (typeof(jQuery.fn.hovercard) != 'undefined'){{ {Config.JQueryAlias}('.userHoverCard').hovercard({{showYafCard: true, delay: {this.Get<YafBoardSettings>().HoverCardOpenDelay}, width: 350,loadingHTML: '{this.GetText("DEFAULT", "LOADING_HOVERCARD").ToJsString()}',errorHTML: '{this.GetText("DEFAULT", "ERROR_HOVERCARD").ToJsString()}'}}); }}");
+                $"if (typeof(jQuery.fn.hovercard) != 'undefined'){{ {Config.JQueryAlias}('.userHoverCard').hovercard({{showYafCard: true, delay: {this.Get<BoardSettings>().HoverCardOpenDelay}, width: 350,loadingHTML: '{this.GetText("DEFAULT", "LOADING_HOVERCARD").ToJsString()}',errorHTML: '{this.GetText("DEFAULT", "ERROR_HOVERCARD").ToJsString()}'}}); }}");
         }
 
         /// <summary>
@@ -193,7 +192,7 @@ namespace YAF.Web.Controls
                     }
                 }
 
-                if (this.Get<YafBoardSettings>().UseNoFollowLinks)
+                if (this.Get<BoardSettings>().UseNoFollowLinks)
                 {
                     output.WriteAttribute("rel", "nofollow");
                 }
@@ -213,7 +212,7 @@ namespace YAF.Web.Controls
             output.Write(HtmlTextWriter.TagRightChar);
 
             // show online icon
-            if (this.Get<YafBoardSettings>().ShowUserOnlineStatus)
+            if (this.Get<BoardSettings>().ShowUserOnlineStatus)
             {
                 var onlineStatusIcon = new OnlineStatusIcon { UserId = this.UserID, Suspended = user.Suspended };
 

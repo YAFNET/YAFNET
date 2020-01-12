@@ -49,7 +49,7 @@ namespace YAF.Core.UsersRoles
             var row = UserMembershipHelper.GetUserRowForID(userId);
 
             if (row != null && row["LanguageFile"] != DBNull.Value
-                && YafContext.Current.Get<YafBoardSettings>().AllowUserLanguage)
+                && YafContext.Current.Get<BoardSettings>().AllowUserLanguage)
             {
                 return row["LanguageFile"].ToString();
             }

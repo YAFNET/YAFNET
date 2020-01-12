@@ -77,7 +77,7 @@ namespace YAF.Core.Services.CheckForSpam
                 const string BotScoutUrl = "http://www.botscout.com/test/?multi";
 
                 var url =
-                    $"{BotScoutUrl}{(ipAddress.IsSet() ? $"&ip={ipAddress}" : string.Empty)}{(emailAddress.IsSet() ? $"&mail={emailAddress}" : string.Empty)}{(userName.IsSet() ? $"&name={userName}" : string.Empty)}{(YafContext.Current.Get<YafBoardSettings>().BotScoutApiKey.IsSet() ? $"&key={YafContext.Current.Get<YafBoardSettings>().BotScoutApiKey}" : string.Empty)}";
+                    $"{BotScoutUrl}{(ipAddress.IsSet() ? $"&ip={ipAddress}" : string.Empty)}{(emailAddress.IsSet() ? $"&mail={emailAddress}" : string.Empty)}{(userName.IsSet() ? $"&name={userName}" : string.Empty)}{(YafContext.Current.Get<BoardSettings>().BotScoutApiKey.IsSet() ? $"&key={YafContext.Current.Get<BoardSettings>().BotScoutApiKey}" : string.Empty)}";
 
                 var webRequest = (HttpWebRequest)WebRequest.Create(url);
 

@@ -323,7 +323,7 @@ namespace YAF.Controls
                 {
                     var userData = new CombinedUserDataHelper(this.CurrentUserID);
 
-                    if (userData.NumPosts < this.Get<YafBoardSettings>().IgnoreSpamWordCheckPostCount)
+                    if (userData.NumPosts < this.Get<BoardSettings>().IgnoreSpamWordCheckPostCount)
                     {
                         // Check for spam
                         if (this.Get<ISpamWordCheck>().CheckForSpamWord(body, out var result))
@@ -332,7 +332,7 @@ namespace YAF.Controls
                             var userId = this.CurrentUserID;
 
                             // Log and Send Message to Admins
-                            if (this.Get<YafBoardSettings>().BotHandlingOnRegister.Equals(1))
+                            if (this.Get<BoardSettings>().BotHandlingOnRegister.Equals(1))
                             {
                                 this.Logger.Log(
                                     null,
@@ -343,7 +343,7 @@ namespace YAF.Controls
                                                  after the user included a spam word in his/her signature: {result}",
                                     EventLogTypes.SpamBotDetected);
                             }
-                            else if (this.Get<YafBoardSettings>().BotHandlingOnRegister.Equals(2))
+                            else if (this.Get<BoardSettings>().BotHandlingOnRegister.Equals(2))
                             {
                                 this.Logger.Log(
                                     null,

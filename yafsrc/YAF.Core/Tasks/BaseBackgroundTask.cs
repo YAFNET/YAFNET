@@ -37,7 +37,7 @@ namespace YAF.Core.Tasks
         /// <summary>
         /// The _board id.
         /// </summary>
-        protected int _boardId = YafControlSettings.Current.BoardID;
+        protected int _boardId = ControlSettings.Current.BoardID;
 
         /// <summary>
         /// The _is running.

@@ -34,13 +34,13 @@
                                 <li class="list-inline-item">
                                     <a id="post<%# this.DataRow["MessageID"] %>" 
                                        href='<%# YafBuildLink.GetLink(ForumPages.posts,"m={0}#post{0}", this.DataRow["MessageID"]) %>'>
-                                        #<%# this.CurrentPage * this.Get<YafBoardSettings>().PostsPerPage + this.PostCount + 1%>
+                                        #<%# this.CurrentPage * this.Get<BoardSettings>().PostsPerPage + this.PostCount + 1%>
                                     </a>
                                 </li>
                                 <li class="list-inline-item">
                                     <YAF:UserLink  ID="UserProfileLink" runat="server" 
                                                    UserID='<%# this.PostData.UserId%>'
-                                                   ReplaceName='<%#  this.Get<YafBoardSettings>().EnableDisplayName  ? this.DataRow["DisplayName"] : this.DataRow["UserName"]%>'
+                                                   ReplaceName='<%#  this.Get<BoardSettings>().EnableDisplayName  ? this.DataRow["DisplayName"] : this.DataRow["UserName"]%>'
                                                    PostfixText='<%# this.DataRow["IP"].ToString() == "NNTP" ? this.GetText("EXTERNALUSER") : string.Empty %>'
                                                    Style='<%# this.DataRow["Style"]%>' 
                                                    EnableHoverCard="False"
@@ -81,14 +81,14 @@
                                         <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="MESSAGE_ANSWER" LocalizedPage="POSTS" />
                                     </asp:Label>
                                 </li>
-                                <asp:PlaceHolder runat="server" Visible='<%# this.Get<YafBoardSettings>().ShowGroups %>'>
+                                <asp:PlaceHolder runat="server" Visible='<%# this.Get<BoardSettings>().ShowGroups %>'>
                                     <li class="list-inline-item d-none d-md-inline-block"><%# this.GetUserRoles() %></li>
                                 </asp:PlaceHolder>
                                 
                                 <li class="list-inline-item d-none d-md-inline-block"><%# this.GetUserRank() %></li>
-                                <asp:PlaceHolder runat="server" ID="UserReputation" Visible='<%#this.Get<YafBoardSettings>().DisplayPoints && !this.DataRow["IsGuest"].ToType<bool>() %>'>
+                                <asp:PlaceHolder runat="server" ID="UserReputation" Visible='<%#this.Get<BoardSettings>().DisplayPoints && !this.DataRow["IsGuest"].ToType<bool>() %>'>
                                     <li class="d-none d-md-block">
-                                        <%# YafReputation.GenerateReputationBar(this.DataRow["Points"].ToType<int>(), this.PostData.UserId) %>
+                                        <%# this.Get<IReputation>().GenerateReputationBar(this.DataRow["Points"].ToType<int>(), this.PostData.UserId) %>
                                     </li>
                                 </asp:PlaceHolder>
                             </ul>

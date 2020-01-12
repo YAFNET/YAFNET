@@ -58,7 +58,7 @@
                         <tr>
 				        <td>		
 					        <YAF:UserLink ID="NameLink" runat="server" 
-                                          ReplaceName='<%# this.Eval(this.Get<YafBoardSettings>().EnableDisplayName ? "UserDisplayName" : "UserName") %>' 
+                                          ReplaceName='<%# this.Eval(this.Get<BoardSettings>().EnableDisplayName ? "UserDisplayName" : "UserName") %>' 
                                           CrawlerName='<%# this.Eval("IsCrawler").ToType<int>() > 0 ? this.Eval("Browser").ToString() : string.Empty %>'
                                           UserID='<%# this.Eval("UserID").ToType<int>() %>' 
                                           Style='<%# this.Eval("Style").ToString() %>' />

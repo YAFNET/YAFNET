@@ -131,7 +131,7 @@ namespace YAF.Core.Services.CheckForSpam
             [CanBeNull] string userName)
         {
             var parameters =
-                $"username={userName}&ip_addr={ipAddress}&email={emailAddress}&api_key={YafContext.Current.Get<YafBoardSettings>().StopForumSpamApiKey}";
+                $"username={userName}&ip_addr={ipAddress}&email={emailAddress}&api_key={YafContext.Current.Get<BoardSettings>().StopForumSpamApiKey}";
 
             var result = new HttpClient().PostRequest(
                 new Uri("http://www.stopforumspam.com/add.php"),

@@ -74,23 +74,23 @@ namespace YAF.Core
 
             IDictionary<string, string> res = new ConcurrentDictionary<string, string>();
 
-            if (YafContext.Current.Get<YafBoardSettings>().IPLocatorResultsMapping.IsNotSet() ||
-                YafContext.Current.Get<YafBoardSettings>().IPLocatorUrlPath.IsNotSet())
+            if (YafContext.Current.Get<BoardSettings>().IPLocatorResultsMapping.IsNotSet() ||
+                YafContext.Current.Get<BoardSettings>().IPLocatorUrlPath.IsNotSet())
             {
                 return res;
             }
 
-            if (!YafContext.Current.Get<YafBoardSettings>().EnableIPInfoService)
+            if (!YafContext.Current.Get<BoardSettings>().EnableIPInfoService)
             {
                 return res;
             }
 
             try
             {
-                var path = string.Format(YafContext.Current.Get<YafBoardSettings>().IPLocatorUrlPath, Utils.Helpers.IPHelper.GetIp4Address(ip));
+                var path = string.Format(YafContext.Current.Get<BoardSettings>().IPLocatorUrlPath, Utils.Helpers.IPHelper.GetIp4Address(ip));
                 var client = new WebClient();
                 var result = client.DownloadString(path).Split(';');
-                var sray = YafContext.Current.Get<YafBoardSettings>().IPLocatorResultsMapping.Trim().Split(',');
+                var sray = YafContext.Current.Get<BoardSettings>().IPLocatorResultsMapping.Trim().Split(',');
                 if (result.Length > 0 && result.Length == sray.Length)
                 {
                     const int i = 0;

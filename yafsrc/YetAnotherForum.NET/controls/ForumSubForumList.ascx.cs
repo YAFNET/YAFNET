@@ -136,7 +136,7 @@ namespace YAF.Controls
                         var dataSource = repeater.DataSource.ToType<IEnumerable>();
 
                         if (dataSource != null
-                            && dataSource.ToType<ArrayList>().Count >= this.Get<YafBoardSettings>().SubForumsInForumList)
+                            && dataSource.ToType<ArrayList>().Count >= this.Get<BoardSettings>().SubForumsInForumList)
                         {
                             e.Item.FindControl("CutOff").Visible = true;
                         }

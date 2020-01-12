@@ -41,7 +41,7 @@ namespace YAF.Configuration.Pattern
         public TypeFactoryInstanceApplicationBoardScope(string typeName)
         {
             this.TypeName = typeName;
-            this.TypeInstanceKey = $"{typeName}{YafControlSettings.Current.BoardID}";
+            this.TypeInstanceKey = $"{typeName}{ControlSettings.Current.BoardID}";
         }
 
         #endregion

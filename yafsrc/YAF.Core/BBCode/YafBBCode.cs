@@ -456,7 +456,7 @@ namespace YAF.Core.BBCode
         {
             // get the rules engine from the creator...
             var ruleEngine = this.ProcessReplaceRulesFactory(
-                new[] { false, true, this.Get<YafBoardSettings>().UseNoFollowLinks, true });
+                new[] { false, true, this.Get<BoardSettings>().UseNoFollowLinks, true });
 
             if (!ruleEngine.HasRules)
             {
@@ -465,7 +465,7 @@ namespace YAF.Core.BBCode
                     ruleEngine,
                     false,
                     true,
-                    this.Get<YafBoardSettings>().UseNoFollowLinks,
+                    this.Get<BoardSettings>().UseNoFollowLinks,
                     false /*convertBBQuotes*/);
             }
 
@@ -493,7 +493,7 @@ namespace YAF.Core.BBCode
             var ruleEngine = this.ProcessReplaceRulesFactory(
                 new[]
                     {
-                        DoFormatting, TargetBlankOverride, this.Get<YafBoardSettings>().UseNoFollowLinks,
+                        DoFormatting, TargetBlankOverride, this.Get<BoardSettings>().UseNoFollowLinks,
                         ForBBCodeEditing
                     });
 
@@ -524,7 +524,7 @@ namespace YAF.Core.BBCode
             bool useNoFollow,
             bool convertBBQuotes)
         {
-            var target = this.Get<YafBoardSettings>().BlankLinks || targetBlankOverride
+            var target = this.Get<BoardSettings>().BlankLinks || targetBlankOverride
                              ? "target=\"_blank\""
                              : string.Empty;
 
@@ -694,7 +694,7 @@ namespace YAF.Core.BBCode
                         _rgxImg,
                         "<img src=\"${http}${inner}\" alt=\"UserPostedImage\" class=\"img-user-posted img-thumbnail\" style=\"max-width:auto;max-height:${height}px;\" />",
                         new[] { "http", "height" },
-                        new[] { "http://", this.Get<YafBoardSettings>().ImageThumbnailMaxHeight.ToString() })
+                        new[] { "http://", this.Get<BoardSettings>().ImageThumbnailMaxHeight.ToString() })
                         {
                             RuleRank = 70
                         });
@@ -704,7 +704,7 @@ namespace YAF.Core.BBCode
                         _rgxImgEmptyTitle,
                         "<img src=\"${http}${inner}\" alt=\"UserPostedImage\" class=\"img-user-posted img-thumbnail\" style=\"max-width:auto;max-height:${height}px;\" />",
                         new[] { "http", "height" },
-                        new[] { "http://", this.Get<YafBoardSettings>().ImageThumbnailMaxHeight.ToString() })
+                        new[] { "http://", this.Get<BoardSettings>().ImageThumbnailMaxHeight.ToString() })
                         {
                             RuleRank = 71
                         });
@@ -716,7 +716,7 @@ namespace YAF.Core.BBCode
                         new[] { "http", "description", "height" },
                         new[]
                             {
-                                "http://", string.Empty, this.Get<YafBoardSettings>().ImageThumbnailMaxHeight.ToString()
+                                "http://", string.Empty, this.Get<BoardSettings>().ImageThumbnailMaxHeight.ToString()
                             }) { RuleRank = 72 });
 
                 // basic hr and br rules
@@ -1105,7 +1105,7 @@ namespace YAF.Core.BBCode
         public string MakeHtml(string inputString, bool isHtml, bool doFormatting, bool targetBlankOverride)
         {
             var ruleEngine = this.ProcessReplaceRulesFactory(
-                new[] { doFormatting, targetBlankOverride, this.Get<YafBoardSettings>().UseNoFollowLinks });
+                new[] { doFormatting, targetBlankOverride, this.Get<BoardSettings>().UseNoFollowLinks });
 
             if (!ruleEngine.HasRules)
             {
@@ -1114,7 +1114,7 @@ namespace YAF.Core.BBCode
                     isHtml,
                     doFormatting,
                     targetBlankOverride,
-                    this.Get<YafBoardSettings>().UseNoFollowLinks);
+                    this.Get<BoardSettings>().UseNoFollowLinks);
             }
 
             ruleEngine.Process(ref inputString);

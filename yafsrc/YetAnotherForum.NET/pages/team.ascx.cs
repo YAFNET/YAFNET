@@ -119,10 +119,10 @@ namespace YAF.Pages
                 .GetOrSet(
                     Constants.Cache.BoardAdmins,
                     () =>
-                    this.GetRepository<User>().AdminList(this.Get<YafBoardSettings>().UseStyledNicks),
-                    TimeSpan.FromMinutes(this.Get<YafBoardSettings>().BoardModeratorsCacheTimeout));
+                    this.GetRepository<User>().AdminList(this.Get<BoardSettings>().UseStyledNicks),
+                    TimeSpan.FromMinutes(this.Get<BoardSettings>().BoardModeratorsCacheTimeout));
 
-            if (this.Get<YafBoardSettings>().UseStyledNicks)
+            if (this.Get<BoardSettings>().UseStyledNicks)
             {
                 this.Get<IStyleTransform>().DecodeStyleByTable(adminListDataTable, false);
             }
@@ -219,7 +219,7 @@ namespace YAF.Pages
         {
             base.OnInit(e);
 
-            if (!this.Get<IPermissions>().Check(this.Get<YafBoardSettings>().ShowTeamTo))
+            if (!this.Get<IPermissions>().Check(this.Get<BoardSettings>().ShowTeamTo))
             {
                 YafBuildLink.AccessDenied();
             }
@@ -281,7 +281,7 @@ namespace YAF.Pages
 
             var itemDataItem = (DataRowView)e.Item.DataItem;
             var userid = itemDataItem["UserID"].ToType<int>();
-            var displayName = this.Get<YafBoardSettings>().EnableDisplayName ? itemDataItem.Row["DisplayName"].ToString() : itemDataItem.Row["Name"].ToString();
+            var displayName = this.Get<BoardSettings>().EnableDisplayName ? itemDataItem.Row["DisplayName"].ToString() : itemDataItem.Row["Name"].ToString();
 
             adminAvatar.ImageUrl = this.GetAvatarUrlFileName(
                 itemDataItem.Row["UserID"].ToType<int>(),
@@ -307,7 +307,7 @@ namespace YAF.Pages
             var blockFlags = new UserBlockFlags(itemDataItem.Row["BlockFlags"].ToType<int>());
             var isFriend = this.GetRepository<Buddy>().CheckIsFriend(this.PageContext.PageUserID, userid);
 
-            pm.Visible = !this.PageContext.IsGuest && this.User != null && this.Get<YafBoardSettings>().AllowPrivateMessages;
+            pm.Visible = !this.PageContext.IsGuest && this.User != null && this.Get<BoardSettings>().AllowPrivateMessages;
 
             if (pm.Visible)
             {
@@ -326,7 +326,7 @@ namespace YAF.Pages
             pm.ParamTitle0 = displayName;
 
             // email link
-            email.Visible = !this.PageContext.IsGuest && this.User != null && this.Get<YafBoardSettings>().AllowEmailSending;
+            email.Visible = !this.PageContext.IsGuest && this.User != null && this.Get<BoardSettings>().AllowEmailSending;
 
             if (email.Visible)
             {
@@ -393,7 +393,7 @@ namespace YAF.Pages
 
             var itemDataItem = (Moderator)e.Item.DataItem;
             var userid = itemDataItem.ModeratorID.ToType<int>();
-            var displayName = this.Get<YafBoardSettings>().EnableDisplayName ? itemDataItem.DisplayName : itemDataItem.Name;
+            var displayName = this.Get<BoardSettings>().EnableDisplayName ? itemDataItem.DisplayName : itemDataItem.Name;
 
             var modAvatar = e.Item.FindControlAs<Image>("ModAvatar");
 
@@ -410,7 +410,7 @@ namespace YAF.Pages
 
             var isFriend = this.GetRepository<Buddy>().CheckIsFriend(this.PageContext.PageUserID, userid);
 
-            pm.Visible = !this.PageContext.IsGuest && this.User != null && this.Get<YafBoardSettings>().AllowPrivateMessages;
+            pm.Visible = !this.PageContext.IsGuest && this.User != null && this.Get<BoardSettings>().AllowPrivateMessages;
 
             if (pm.Visible)
             {
@@ -429,7 +429,7 @@ namespace YAF.Pages
             pm.ParamTitle0 = displayName;
 
             // email link
-            email.Visible = !this.PageContext.IsGuest && this.User != null && this.Get<YafBoardSettings>().AllowEmailSending;
+            email.Visible = !this.PageContext.IsGuest && this.User != null && this.Get<BoardSettings>().AllowEmailSending;
 
             if (email.Visible)
             {

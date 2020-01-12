@@ -318,7 +318,7 @@ namespace YAF.Pages.Admin
 
             if (this.Culture.Items.Count > 0)
             {
-                this.Culture.Items.FindByValue(this.Get<YafBoardSettings>().Culture).Selected = true;
+                this.Culture.Items.FindByValue(this.Get<BoardSettings>().Culture).Selected = true;
             }
 
             if (this.BoardId != null)

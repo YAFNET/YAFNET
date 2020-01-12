@@ -88,7 +88,7 @@ namespace YAF.Pages
         /// <param name="e">An <see cref="T:System.EventArgs"/> object that contains the event data.</param>
         protected override void OnInit([NotNull] EventArgs e)
         {
-            if (this.Get<YafBoardSettings>().AllowPrivateMessageAttachments)
+            if (this.Get<BoardSettings>().AllowPrivateMessageAttachments)
             {
                 this.PageContext.PageElements.AddScriptReference("FileUploadScript");
 
@@ -207,7 +207,7 @@ namespace YAF.Pages
 
             // users control panel
             this.PageLinks.AddLink(
-                this.Get<YafBoardSettings>().EnableDisplayName
+                this.Get<BoardSettings>().EnableDisplayName
                     ? this.PageContext.CurrentUserData.DisplayName
                     : this.PageContext.PageUserName,
                 YafBuildLink.GetLink(ForumPages.cp_profile));
@@ -244,7 +244,7 @@ namespace YAF.Pages
                 // we found a user(s)
                 this.ToList.DataSource = usersFound;
                 this.ToList.DataValueField = "ID";
-                this.ToList.DataTextField = this.Get<YafBoardSettings>().EnableDisplayName ? "DisplayName" : "Name";
+                this.ToList.DataTextField = this.Get<BoardSettings>().EnableDisplayName ? "DisplayName" : "Name";
                 this.ToList.DataBind();
 
                 // ToList.SelectedIndex = 0;
@@ -282,7 +282,7 @@ namespace YAF.Pages
 
             this.EditorLine.Controls.Add(this._editor);
 
-            this._editor.UserCanUpload = this.Get<YafBoardSettings>().AllowPrivateMessageAttachments;
+            this._editor.UserCanUpload = this.Get<BoardSettings>().AllowPrivateMessageAttachments;
 
             // add editor to the page
             this.EditorLine.Controls.Add(this._editor);
@@ -374,7 +374,7 @@ namespace YAF.Pages
                 // PM is a quoted reply
                 var body = row["Body"].ToString();
 
-                if (this.Get<YafBoardSettings>().RemoveNestedQuotes)
+                if (this.Get<BoardSettings>().RemoveNestedQuotes)
                 {
                     body = this.Get<IFormatMessage>().RemoveNestedQuotes(body);
                 }
@@ -402,7 +402,7 @@ namespace YAF.Pages
 
                     if (hostUser != null)
                     {
-                        this.To.Text = this.Get<YafBoardSettings>().EnableDisplayName
+                        this.To.Text = this.Get<BoardSettings>().EnableDisplayName
                                            ? hostUser.DisplayName
                                            : hostUser.Name;
 
@@ -514,14 +514,14 @@ namespace YAF.Pages
                 // Blank PM
 
                 // multi-receiver info is relevant only when sending blank PM
-                if (this.Get<YafBoardSettings>().PrivateMessageMaxRecipients <= 1)
+                if (this.Get<BoardSettings>().PrivateMessageMaxRecipients <= 1)
                 {
                     return;
                 }
 
                 // format localized string
                 this.MultiReceiverInfo.Text =
-                    $"<br />{string.Format(this.GetText("MAX_RECIPIENT_INFO"), this.Get<YafBoardSettings>().PrivateMessageMaxRecipients)}<br />{this.GetText("MULTI_RECEIVER_INFO")}";
+                    $"<br />{string.Format(this.GetText("MAX_RECIPIENT_INFO"), this.Get<BoardSettings>().PrivateMessageMaxRecipients)}<br />{this.GetText("MULTI_RECEIVER_INFO")}";
 
                 // display info
                 this.MultiReceiverInfo.Visible = true;
@@ -542,7 +542,7 @@ namespace YAF.Pages
             this.PreviewMessagePost.MessageFlags.IsBBCode = this._editor.UsesBBCode;
             this.PreviewMessagePost.Message = this._editor.Text;
 
-            if (!this.Get<YafBoardSettings>().AllowSignatures)
+            if (!this.Get<BoardSettings>().AllowSignatures)
             {
                 return;
             }
@@ -647,14 +647,14 @@ namespace YAF.Pages
                 // list of recipients
                 var recipients = new List<string>(this.To.Text.Trim().Split(';'));
 
-                if (recipients.Count > this.Get<YafBoardSettings>().PrivateMessageMaxRecipients
-                    && !YafContext.Current.IsAdmin && this.Get<YafBoardSettings>().PrivateMessageMaxRecipients != 0)
+                if (recipients.Count > this.Get<BoardSettings>().PrivateMessageMaxRecipients
+                    && !YafContext.Current.IsAdmin && this.Get<BoardSettings>().PrivateMessageMaxRecipients != 0)
                 {
                     // to many recipients
                     YafContext.Current.AddLoadMessage(
                         this.GetTextFormatted(
                             "TOO_MANY_RECIPIENTS",
-                            this.Get<YafBoardSettings>().PrivateMessageMaxRecipients),
+                            this.Get<BoardSettings>().PrivateMessageMaxRecipients),
                         MessageTypes.warning);
 
                     return;
@@ -737,7 +737,7 @@ namespace YAF.Pages
                             // reset lazy data as he should be informed at once
                             this.Get<IDataCache>().Remove(string.Format(Constants.Cache.ActiveUserLazyData, userId));
 
-                            if (this.Get<YafBoardSettings>().AllowPMEmailNotification)
+                            if (this.Get<BoardSettings>().AllowPMEmailNotification)
                             {
                                 this.Get<ISendNotification>().ToPrivateMessageRecipient(
                                     userId,
@@ -761,7 +761,7 @@ namespace YAF.Pages
         private bool VerifyMessageAllowed(int count, string message)
         {
             // Check if SPAM Message first...
-            if (!this.PageContext.IsAdmin && !this.PageContext.ForumModeratorAccess && !this.Get<YafBoardSettings>().SpamServiceType.Equals(0))
+            if (!this.PageContext.IsAdmin && !this.PageContext.ForumModeratorAccess && !this.Get<BoardSettings>().SpamServiceType.Equals(0))
             {
                 // Check content for spam
                 if (this.Get<ISpamCheck>().CheckPostForSpam(
@@ -771,7 +771,7 @@ namespace YAF.Pages
                     this.PageContext.User.Email,
                     out var spamResult))
                 {
-                    switch (this.Get<YafBoardSettings>().SpamMessageHandling)
+                    switch (this.Get<BoardSettings>().SpamMessageHandling)
                     {
                         case 0:
                             this.Logger.Log(
@@ -838,7 +838,7 @@ namespace YAF.Pages
 
                 // Check posts for urls if the user has only x posts
                 if (YafContext.Current.CurrentUserData.NumPosts
-                    <= YafContext.Current.Get<YafBoardSettings>().IgnoreSpamWordCheckPostCount &&
+                    <= YafContext.Current.Get<BoardSettings>().IgnoreSpamWordCheckPostCount &&
                     !this.PageContext.IsAdmin && !this.PageContext.ForumModeratorAccess)
                 {
                     var urlCount = UrlHelper.CountUrls(message);
@@ -848,7 +848,7 @@ namespace YAF.Pages
                         spamResult =
                             $"The user posted {urlCount} urls but allowed only {this.PageContext.BoardSettings.AllowedNumberOfUrls}";
 
-                        switch (this.Get<YafBoardSettings>().SpamMessageHandling)
+                        switch (this.Get<BoardSettings>().SpamMessageHandling)
                         {
                             case 0:
                                 this.Logger.Log(

@@ -78,7 +78,7 @@ namespace YAF.Core.Data.Filters
         /// <summary>
         ///     The _board settings.
         /// </summary>
-        public YafBoardSettings BoardSettings => this.Get<YafBoardSettings>();
+        public BoardSettings BoardSettings => this.Get<BoardSettings>();
 
         /// <summary>
         /// Gets or sets the service locator.

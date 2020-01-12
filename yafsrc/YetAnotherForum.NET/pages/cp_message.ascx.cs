@@ -125,7 +125,7 @@ namespace YAF.Pages
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
             // check if this feature is disabled
-            if (!this.Get<YafBoardSettings>().AllowPrivateMessages)
+            if (!this.Get<BoardSettings>().AllowPrivateMessages)
             {
                 YafBuildLink.RedirectInfoPage(InfoMessage.Disabled);
             }
@@ -142,7 +142,7 @@ namespace YAF.Pages
 
             this.PageLinks.AddRoot();
             this.PageLinks.AddLink(
-                this.Get<YafBoardSettings>().EnableDisplayName
+                this.Get<BoardSettings>().EnableDisplayName
                     ? this.PageContext.CurrentUserData.DisplayName
                     : this.PageContext.PageUserName,
                 YafBuildLink.GetLink(ForumPages.cp_profile));

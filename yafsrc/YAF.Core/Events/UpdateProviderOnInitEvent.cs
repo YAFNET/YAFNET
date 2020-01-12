@@ -46,7 +46,7 @@ namespace YAF.Core
     /// <summary>
     /// The _board settings.
     /// </summary>
-    private readonly YafBoardSettings _boardSettings;
+    private readonly BoardSettings _boardSettings;
 
     /// <summary>
     /// The _membership provider.
@@ -74,7 +74,7 @@ namespace YAF.Core
     /// <param name="boardSettings">
     /// The board settings.
     /// </param>
-    public UpdateProviderOnInitEvent([NotNull] MembershipProvider membershipProvider, [NotNull] RoleProvider roleProvider, [NotNull] YafBoardSettings boardSettings)
+    public UpdateProviderOnInitEvent([NotNull] MembershipProvider membershipProvider, [NotNull] RoleProvider roleProvider, [NotNull] BoardSettings boardSettings)
     {
       this._membershipProvider = membershipProvider;
       this._roleProvider = roleProvider;
