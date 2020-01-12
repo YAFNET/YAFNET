@@ -544,7 +544,7 @@ namespace YAF.Web.Controls
 
             if (lastPosted > lastRead)
             {
-                this.Get<IYafSession>().UnreadTopics++;
+                this.Get<ISession>().UnreadTopics++;
 
                 if (row["PollID"] != DBNull.Value)
                 {

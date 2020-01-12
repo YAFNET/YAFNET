@@ -111,9 +111,9 @@ namespace YAF.Web.Controls
         /// </summary>
         public CollapsiblePanelState PanelState
         {
-            get => YafContext.Current.Get<IYafSession>().PanelState[this.PanelID];
+            get => YafContext.Current.Get<ISession>().PanelState[this.PanelID];
 
-            set => YafContext.Current.Get<IYafSession>().PanelState[this.PanelID] = value;
+            set => YafContext.Current.Get<ISession>().PanelState[this.PanelID] = value;
         }
 
         #endregion
@@ -180,7 +180,7 @@ namespace YAF.Web.Controls
         protected override void OnClick(EventArgs e)
         {
             // toggle the status...
-            YafContext.Current.Get<IYafSession>().PanelState.TogglePanelState(this.PanelID, this.DefaultState);
+            YafContext.Current.Get<ISession>().PanelState.TogglePanelState(this.PanelID, this.DefaultState);
             this.UpdateAttachedVisibility();
 
             base.OnClick(e);
@@ -202,7 +202,7 @@ namespace YAF.Web.Controls
         {
             CodeContracts.VerifyNotNull(panelId, "panelID");
 
-            var stateValue = YafContext.Current.Get<IYafSession>().PanelState[panelId];
+            var stateValue = YafContext.Current.Get<ISession>().PanelState[panelId];
 
             if (stateValue != CollapsiblePanelState.None)
             {
@@ -210,7 +210,7 @@ namespace YAF.Web.Controls
             }
 
             stateValue = defaultState;
-            YafContext.Current.Get<IYafSession>().PanelState[panelId] = defaultState;
+            YafContext.Current.Get<ISession>().PanelState[panelId] = defaultState;
 
             return stateValue == CollapsiblePanelState.Expanded ? "minus-square" : "plus-square";
         }
