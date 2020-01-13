@@ -94,7 +94,7 @@ namespace YAF.Pages
         public void Reset_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
             // re-direct to self.
-            YafBuildLink.Redirect(ForumPages.members);
+            BuildLink.Redirect(ForumPages.members);
         }
 
         /// <summary>
@@ -125,7 +125,7 @@ namespace YAF.Pages
             var avatarUrl = this.Get<IAvatars>().GetAvatarUrlForUser(userId, avatarString, hasAvatarImage, email);
 
             return avatarUrl.IsNotSet()
-                       ? $"{YafForumInfo.ForumClientFileRoot}images/noavatar.svg"
+                       ? $"{BoardInfo.ForumClientFileRoot}images/noavatar.svg"
                        : avatarUrl;
         }
 

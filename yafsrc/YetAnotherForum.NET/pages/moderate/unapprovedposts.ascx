@@ -23,7 +23,7 @@
                                 LocalizedTag="TOPIC" />
                         </span>
                         <a id="TopicLink"
-                           href='<%# YafBuildLink.GetLink(ForumPages.posts, "t={0}", this.Eval("TopicID")) %>'
+                           href='<%# BuildLink.GetLink(ForumPages.posts, "t={0}", this.Eval("TopicID")) %>'
                            runat="server" 
                            Visible='<%# this.Eval("MessageCount").ToType<int>() > 0 %>'><%# this.Eval("Topic") %></a>
                          <asp:Label id="TopicName" 
@@ -44,7 +44,7 @@
                                              Size="Small" Visible='<%# this.PageContext.IsAdmin %>'
                                              TextLocalizedTag="ADMIN_USER" TextLocalizedPage="PROFILE"
                                              Icon="users-cog" Type="Secondary"
-                                             NavigateUrl='<%# YafBuildLink.GetLinkNotEscaped( ForumPages.admin_edituser,"u={0}", this.Eval("UserID").ToType<int>() ) %>'>
+                                             NavigateUrl='<%# BuildLink.GetLinkNotEscaped( ForumPages.admin_edituser,"u={0}", this.Eval("UserID").ToType<int>() ) %>'>
                             </YAF:ThemeButton>
                         </div>
                     </div>

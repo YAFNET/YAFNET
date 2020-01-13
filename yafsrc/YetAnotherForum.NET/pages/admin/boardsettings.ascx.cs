@@ -220,10 +220,10 @@ namespace YAF.Pages.Admin
         /// </summary>
         protected override void CreatePageLinks()
         {
-            this.PageLinks.AddLink(this.Get<BoardSettings>().Name, YafBuildLink.GetLink(ForumPages.forum));
+            this.PageLinks.AddLink(this.Get<BoardSettings>().Name, BuildLink.GetLink(ForumPages.forum));
             this.PageLinks.AddLink(
                 this.GetText("ADMIN_ADMIN", "Administration"),
-                YafBuildLink.GetLink(ForumPages.admin_admin));
+                BuildLink.GetLink(ForumPages.admin_admin));
             this.PageLinks.AddLink(this.GetText("ADMIN_BOARDSETTINGS", "TITLE"), string.Empty);
 
             this.Page.Header.Title =
@@ -302,7 +302,7 @@ namespace YAF.Pages.Admin
             // Clearing cache with old users permissions data to get new default styles...
             this.Get<IDataCache>().Remove(x => x.StartsWith(Constants.Cache.ActiveUserLazyData));
 
-            YafBuildLink.Redirect(ForumPages.admin_admin);
+            BuildLink.Redirect(ForumPages.admin_admin);
         }
 
         /// <summary>
@@ -355,7 +355,7 @@ namespace YAF.Pages.Admin
             // Reload forum settings
             this.PageContext.BoardSettings = null;
 
-            YafBuildLink.Redirect(ForumPages.admin_boardsettings);
+            BuildLink.Redirect(ForumPages.admin_boardsettings);
         }
 
         /// <summary>
@@ -381,7 +381,7 @@ namespace YAF.Pages.Admin
             // Reload forum settings
             this.PageContext.BoardSettings = null;
 
-            YafBuildLink.Redirect(ForumPages.admin_boardsettings);
+            BuildLink.Redirect(ForumPages.admin_boardsettings);
         }
 
         /// <summary>
@@ -434,13 +434,13 @@ namespace YAF.Pages.Admin
                 var dr = dt.NewRow();
                 dr["FileID"] = 0;
                 dr["FileName"] =
-                    YafForumInfo.GetURLToContent("images/spacer.gif"); // use spacer.gif for Description Entry
+                    BoardInfo.GetURLToContent("images/spacer.gif"); // use spacer.gif for Description Entry
                 dr["Description"] = this.GetText("BOARD_LOGO_SELECT");
                 dt.Rows.Add(dr);
 
                 var dir = new DirectoryInfo(
                     this.Get<HttpRequestBase>()
-                        .MapPath($"{YafForumInfo.ForumServerFileRoot}{BoardFolders.Current.Logos}"));
+                        .MapPath($"{BoardInfo.ForumServerFileRoot}{BoardFolders.Current.Logos}"));
                 var files = dir.GetFiles("*.*");
                 long fileID = 1;
 
@@ -453,7 +453,7 @@ namespace YAF.Pages.Admin
                             dr = dt.NewRow();
                             dr["FileID"] = fileID++;
                             dr["FileName"] =
-                                $"{YafForumInfo.ForumClientFileRoot}{BoardFolders.Current.Logos}/{file.Name}";
+                                $"{BoardInfo.ForumClientFileRoot}{BoardFolders.Current.Logos}/{file.Name}";
                             dr["Description"] = file.Name;
                             dt.Rows.Add(dr);
                         });

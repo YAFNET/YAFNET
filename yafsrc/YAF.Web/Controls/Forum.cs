@@ -307,7 +307,7 @@ namespace YAF.Web.Controls
             {
                 this.currentForumPage = (ForumPage)this.LoadControl(src);
 
-                this.Header = this.LoadControl($"{YafForumInfo.ForumServerFileRoot}controls/Header.ascx");
+                this.Header = this.LoadControl($"{BoardInfo.ForumServerFileRoot}controls/Header.ascx");
 
                 this.Footer = new Footer();
             }
@@ -336,11 +336,11 @@ namespace YAF.Web.Controls
             // Add the LoginBox to Control, if used and User is Guest
             if (YafContext.Current.IsGuest && !Config.IsAnyPortal && Config.AllowLoginAndLogoff)
             {
-                this.Controls.Add(this.LoadControl($"{YafForumInfo.ForumServerFileRoot}Dialogs/LoginBox.ascx"));
+                this.Controls.Add(this.LoadControl($"{BoardInfo.ForumServerFileRoot}Dialogs/LoginBox.ascx"));
             }
 
             this.NotificationBox = (BaseUserControl)this.LoadControl(
-                $"{YafForumInfo.ForumServerFileRoot}Dialogs/DialogBox.ascx");
+                $"{BoardInfo.ForumServerFileRoot}Dialogs/DialogBox.ascx");
 
             this.currentForumPage.Notification = this.NotificationBox;
 
@@ -355,7 +355,7 @@ namespace YAF.Web.Controls
             }
 
             // Add image gallery dialog
-            this.Controls.Add(this.LoadControl($"{YafForumInfo.ForumServerFileRoot}Dialogs/ImageGallery.ascx"));
+            this.Controls.Add(this.LoadControl($"{BoardInfo.ForumServerFileRoot}Dialogs/ImageGallery.ascx"));
 
             var cookieName = "YAF-AcceptCookies";
 
@@ -363,7 +363,7 @@ namespace YAF.Web.Controls
                 && this.Get<BoardSettings>().ShowCookieConsent && !Config.IsAnyPortal)
             {
                 // Add cookie consent
-                this.Controls.Add(this.LoadControl($"{YafForumInfo.ForumServerFileRoot}controls/CookieConsent.ascx"));
+                this.Controls.Add(this.LoadControl($"{BoardInfo.ForumServerFileRoot}controls/CookieConsent.ascx"));
             }
 
             // Add smart Scroll
@@ -375,7 +375,7 @@ namespace YAF.Web.Controls
             if (this.Get<BoardSettings>().ShowScrollBackToTopButton)
             {
                 // Add Scroll top button
-                this.Controls.Add(this.LoadControl($"{YafForumInfo.ForumServerFileRoot}controls/ScrollTop.ascx"));
+                this.Controls.Add(this.LoadControl($"{BoardInfo.ForumServerFileRoot}controls/ScrollTop.ascx"));
             }
 
             // load plugins/functionality modules
@@ -404,7 +404,7 @@ namespace YAF.Web.Controls
                 @"YAF.NET is not setup properly. Please add the <add name=""YafTaskModule"" type=""YAF.Core.YafTaskModule, YAF.Core"" /> to the <modules> section of your web.config file.";
 
             // go immediately to the error page.
-            HttpContext.Current.Response.Redirect($"{YafForumInfo.ForumClientFileRoot}error.aspx");
+            HttpContext.Current.Response.Redirect($"{BoardInfo.ForumClientFileRoot}error.aspx");
 
 #endif
         }
@@ -434,9 +434,9 @@ namespace YAF.Web.Controls
 
             /*if (!this.IsValidForLockedForum(this._page))
             {
-            /  YafBuildLink.Redirect(ForumPages.topics, "f={0}", this.LockedForum);
+            /  BuildLink.Redirect(ForumPages.topics, "f={0}", this.LockedForum);
             }*/
-            string[] src = { $"{YafForumInfo.ForumServerFileRoot}pages/{this.page.PageName}.ascx" };
+            string[] src = { $"{BoardInfo.ForumServerFileRoot}pages/{this.page.PageName}.ascx" };
 
             var replacementPaths = new List<string> { "moderate", "admin", "help" };
 

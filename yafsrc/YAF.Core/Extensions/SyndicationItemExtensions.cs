@@ -181,7 +181,7 @@ namespace YAF.Core.Extensions
             return new SyndicationPerson(
                 userEmail,
                 userNameToShow,
-                YafBuildLink.GetLinkNotEscaped(ForumPages.profile, true, "u={0}&name={1}", userId, userNameToShow));
+                BuildLink.GetLinkNotEscaped(ForumPages.profile, true, "u={0}&name={1}", userId, userNameToShow));
         }
 
         /// <summary>

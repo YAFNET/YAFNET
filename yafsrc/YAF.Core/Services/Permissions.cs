@@ -120,7 +120,7 @@ namespace YAF.Core.Services
                     }
                     else if (Config.AllowLoginAndLogoff)
                     {
-                        YafBuildLink.Redirect(
+                        BuildLink.Redirect(
                             ForumPages.login,
                             "ReturnUrl={0}",
                             HttpUtility.UrlEncode(General.GetSafeRawUrl()));
@@ -131,7 +131,7 @@ namespace YAF.Core.Services
                 // fall-through with no access...
                 if (noAccess)
                 {
-                    YafBuildLink.AccessDenied();
+                    BuildLink.AccessDenied();
                 }
             }
         }

@@ -86,7 +86,7 @@ namespace YAF.Pages.Admin
             switch (e.CommandName)
             {
                 case "edit":
-                    YafBuildLink.Redirect(ForumPages.admin_edituser, "u={0}", e.CommandArgument);
+                    BuildLink.Redirect(ForumPages.admin_edituser, "u={0}", e.CommandArgument);
                     break;
                 case "resendEmail":
                     var commandArgument = e.CommandArgument.ToString().Split(';');
@@ -100,14 +100,14 @@ namespace YAF.Pages.Admin
                         var subject = this.Get<ILocalization>()
                             .GetTextFormatted("VERIFICATION_EMAIL_SUBJECT", this.Get<BoardSettings>().Name);
 
-                        verifyEmail.TemplateParams["{link}"] = YafBuildLink.GetLinkNotEscaped(
+                        verifyEmail.TemplateParams["{link}"] = BuildLink.GetLinkNotEscaped(
                             ForumPages.approve,
                             true,
                             "k={0}",
                             checkMail.Hash);
                         verifyEmail.TemplateParams["{key}"] = checkMail.Hash;
                         verifyEmail.TemplateParams["{forumname}"] = this.Get<BoardSettings>().Name;
-                        verifyEmail.TemplateParams["{forumlink}"] = YafForumInfo.ForumURL;
+                        verifyEmail.TemplateParams["{forumlink}"] = BoardInfo.ForumURL;
 
                         verifyEmail.SendEmail(new MailAddress(checkMail.Email, commandArgument[1]), subject, true);
 
@@ -197,7 +197,7 @@ namespace YAF.Pages.Admin
             }
 
             return
-                $"<a target=\"_top\" href=\"{YafBuildLink.GetLink(ForumPages.topics, "f={0}&name={1}", forumId, forumName)}\">{forumName}</a>";
+                $"<a target=\"_top\" href=\"{BuildLink.GetLink(ForumPages.topics, "f={0}&name={1}", forumId, forumName)}\">{forumName}</a>";
         }
 
         /// <summary>
@@ -220,7 +220,7 @@ namespace YAF.Pages.Admin
             }
 
             return
-                $"<a target=\"_top\" href=\"{YafBuildLink.GetLink(ForumPages.posts, "t={0}", topicId)}\">{topicName}</a>";
+                $"<a target=\"_top\" href=\"{BuildLink.GetLink(ForumPages.posts, "t={0}", topicId)}\">{topicName}</a>";
         }
 
         /// <summary>
@@ -308,7 +308,7 @@ namespace YAF.Pages.Admin
         {
             var latestInfo = new LatestInformationService().GetLatestVersionInformation();
 
-            if (latestInfo == null || BitConverter.ToInt64(latestInfo.Version, 0) <= BitConverter.ToInt64(YafForumInfo.AppVersionCode, 0))
+            if (latestInfo == null || BitConverter.ToInt64(latestInfo.Version, 0) <= BitConverter.ToInt64(BoardInfo.AppVersionCode, 0))
             {
                 return;
             }

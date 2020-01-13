@@ -90,7 +90,7 @@ namespace YAF.Modules
 
             if (accessDenied)
             {
-                YafBuildLink.RedirectInfoPage(InfoMessage.AccessDenied);
+                BuildLink.RedirectInfoPage(InfoMessage.AccessDenied);
             }
         }
 

@@ -105,14 +105,14 @@ namespace YAF.Modules
             // not totally necessary... but provides another layer of protection...
             if (this.CurrentForumPage.IsAdminPage && !this.PageContext.IsAdmin)
             {
-                YafBuildLink.AccessDenied();
+                BuildLink.AccessDenied();
                 return;
             }
 
             // handle security features...
             if (this.ForumPageType == ForumPages.register && this.PageContext.BoardSettings.DisableRegistrations)
             {
-                YafBuildLink.AccessDenied();
+                BuildLink.AccessDenied();
             }
         }
 

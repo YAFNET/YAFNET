@@ -153,7 +153,7 @@ namespace YAF.Pages.Admin
                 this.GetTextFormatted("MSG_CREATED", this.UserName.Text.Trim()),
                 MessageTypes.success);
 
-            YafBuildLink.Redirect(ForumPages.admin_reguser);
+            BuildLink.Redirect(ForumPages.admin_reguser);
         }
 
         /// <summary>
@@ -180,9 +180,9 @@ namespace YAF.Pages.Admin
             this.PageLinks.AddRoot();
             this.PageLinks.AddLink(
                 this.GetText("ADMIN_ADMIN", "Administration"),
-                YafBuildLink.GetLink(ForumPages.admin_admin));
+                BuildLink.GetLink(ForumPages.admin_admin));
 
-            this.PageLinks.AddLink(this.GetText("ADMIN_USERS", "TITLE"), YafBuildLink.GetLink(ForumPages.admin_users));
+            this.PageLinks.AddLink(this.GetText("ADMIN_USERS", "TITLE"), BuildLink.GetLink(ForumPages.admin_users));
 
             // current page label (no link)
             this.PageLinks.AddLink(this.GetText("ADMIN_REGUSER", "TITLE"), string.Empty);
@@ -202,7 +202,7 @@ namespace YAF.Pages.Admin
         /// </param>
         protected void CancelClick([NotNull] object sender, [NotNull] EventArgs e)
         {
-            YafBuildLink.Redirect(ForumPages.admin_users);
+            BuildLink.Redirect(ForumPages.admin_users);
         }
 
         #endregion

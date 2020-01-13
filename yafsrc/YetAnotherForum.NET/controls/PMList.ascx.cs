@@ -371,7 +371,7 @@ namespace YAF.Controls
         /// </returns>
         protected string GetMessageLink([NotNull] object messageId)
         {
-            return YafBuildLink.GetLink(
+            return BuildLink.GetLink(
                 ForumPages.cp_message,
                 "pm={0}&v={1}",
                 messageId,
@@ -763,7 +763,7 @@ namespace YAF.Controls
 
             var sw = new StreamWriter(this.Get<HttpResponseBase>().OutputStream);
 
-            sw.Write($"{this.Get<BoardSettings>().Name};{YafForumInfo.ForumURL}");
+            sw.Write($"{this.Get<BoardSettings>().Name};{BoardInfo.ForumURL}");
             sw.Write(sw.NewLine);
             sw.Write($"Private Message Dump for User {this.PageContext.PageUserName}; {DateTime.Now}");
             sw.Write(sw.NewLine);
@@ -818,7 +818,7 @@ namespace YAF.Controls
 
             messageList.Table.DataSet.DataSetName = "PrivateMessages";
 
-            xw.WriteComment($" {this.Get<BoardSettings>().Name};{YafForumInfo.ForumURL} ");
+            xw.WriteComment($" {this.Get<BoardSettings>().Name};{BoardInfo.ForumURL} ");
             xw.WriteComment($" Private Message Dump for User {this.PageContext.PageUserName}; {DateTime.Now} ");
 
             var xmlDocument = new XmlDocument();

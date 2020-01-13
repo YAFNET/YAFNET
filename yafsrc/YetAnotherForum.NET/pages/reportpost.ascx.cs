@@ -159,19 +159,19 @@ namespace YAF.Pages
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
             // set attributes of editor
-            this.reportEditor.BaseDir = $"{YafForumInfo.ForumClientFileRoot}Scripts";
+            this.reportEditor.BaseDir = $"{BoardInfo.ForumClientFileRoot}Scripts";
 
             if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("m").IsSet())
             {
                 // We check here if the user have access to the option
                 if (!this.Get<IPermissions>().Check(this.Get<BoardSettings>().ReportPostPermissions))
                 {
-                    YafBuildLink.Redirect(ForumPages.info, "i=1");
+                    BuildLink.Redirect(ForumPages.info, "i=1");
                 }
 
                 if (!int.TryParse(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("m"), out this.messageID))
                 {
-                    YafBuildLink.Redirect(ForumPages.error, "Incorrect message value: {0}", this.messageID);
+                    BuildLink.Redirect(ForumPages.error, "Incorrect message value: {0}", this.messageID);
                 }
             }
 
@@ -192,7 +192,7 @@ namespace YAF.Pages
             }
             else
             {
-                YafBuildLink.Redirect(ForumPages.info, "i=1");
+                BuildLink.Redirect(ForumPages.info, "i=1");
             }
 
             // Get Forum Link
@@ -207,7 +207,7 @@ namespace YAF.Pages
         protected void RedirectToPost()
         {
             // Redirect to reported post
-            YafBuildLink.Redirect(ForumPages.posts, "m={0}#post{0}", this.messageID);
+            BuildLink.Redirect(ForumPages.posts, "m={0}#post{0}", this.messageID);
         }
 
         #endregion

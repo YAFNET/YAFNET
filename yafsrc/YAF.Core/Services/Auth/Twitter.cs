@@ -65,7 +65,7 @@ namespace YAF.Core.Services.Auth
             var oAuth = new OAuthTwitter
                             {
                                 CallBackUrl =
-                                    $"{YafForumInfo.ForumBaseUrl}auth.aspx?auth={AuthService.twitter}{(connectCurrentUser ? "&connectCurrent=true" : string.Empty)}", 
+                                    $"{BoardInfo.ForumBaseUrl}auth.aspx?auth={AuthService.twitter}{(connectCurrentUser ? "&connectCurrent=true" : string.Empty)}", 
                                 ConsumerKey = Config.TwitterConsumerKey, 
                                 ConsumerSecret = Config.TwitterConsumerSecret
                             };

@@ -82,7 +82,7 @@
 
 
     <div id="SearchResultsPlaceholder"
-        data-url='<%=YafForumInfo.ForumClientFileRoot %>'
+        data-url='<%=BoardInfo.ForumClientFileRoot %>'
         data-userid='<%= YafContext.Current.PageUserID %>'
         data-notext='<%= this.Get<ILocalization>().GetAttributeText("NO_SEARCH_RESULTS") %>'
         data-posted='<%= this.Get<ILocalization>().GetAttributeText("POSTED") %>'

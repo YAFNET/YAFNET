@@ -278,14 +278,14 @@ namespace YAF.Pages
                         "VERIFICATION_EMAIL_SUBJECT",
                         this.Get<BoardSettings>().Name);
 
-                    verifyEmail.TemplateParams["{link}"] = YafBuildLink.GetLinkNotEscaped(
+                    verifyEmail.TemplateParams["{link}"] = BuildLink.GetLinkNotEscaped(
                         ForumPages.approve,
                         true,
                         "k={0}",
                         checkTyped.Hash);
                     verifyEmail.TemplateParams["{key}"] = checkTyped.Hash;
                     verifyEmail.TemplateParams["{forumname}"] = this.Get<BoardSettings>().Name;
-                    verifyEmail.TemplateParams["{forumlink}"] = $"{YafForumInfo.ForumURL}";
+                    verifyEmail.TemplateParams["{forumlink}"] = $"{BoardInfo.ForumURL}";
 
                     verifyEmail.SendEmail(new MailAddress(user.Email, user.UserName), subject, true);
 
@@ -304,7 +304,7 @@ namespace YAF.Pages
             e.Cancel = true;
 
             // nothing they can do here... redirect to login...
-            YafBuildLink.Redirect(ForumPages.login);
+            BuildLink.Redirect(ForumPages.login);
         }
 
         /// <summary>
@@ -318,7 +318,7 @@ namespace YAF.Pages
         /// </param>
         protected void SubmitButton_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
-            YafBuildLink.Redirect(ForumPages.login);
+            BuildLink.Redirect(ForumPages.login);
         }
 
         #endregion

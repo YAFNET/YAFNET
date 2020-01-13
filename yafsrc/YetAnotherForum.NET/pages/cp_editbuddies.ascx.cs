@@ -88,7 +88,7 @@ namespace YAF.Pages
                     this.Get<BoardSettings>().EnableDisplayName
                         ? this.PageContext.CurrentUserData.DisplayName
                         : this.PageContext.PageUserName,
-                    YafBuildLink.GetLink(ForumPages.cp_profile));
+                    BuildLink.GetLink(ForumPages.cp_profile));
                 this.PageLinks.AddLink(this.GetText("BUDDYLIST_TT"), string.Empty);
             }
 

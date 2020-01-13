@@ -73,7 +73,7 @@ namespace YAF.Pages
 
             this.Get<HttpSessionStateBase>().Abandon();
 
-            YafBuildLink.Redirect(ForumPages.forum);
+            BuildLink.Redirect(ForumPages.forum);
         }
 
         #endregion

@@ -140,7 +140,7 @@ namespace YAF.Pages.Admin
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void NewRankClick([NotNull] object sender, [NotNull] EventArgs e)
         {
-            YafBuildLink.Redirect(ForumPages.admin_editrank);
+            BuildLink.Redirect(ForumPages.admin_editrank);
         }
 
         /// <summary>
@@ -163,8 +163,8 @@ namespace YAF.Pages.Admin
         /// </summary>
         protected override void CreatePageLinks()
         {
-            this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
-            this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
+            this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, BuildLink.GetLink(ForumPages.forum));
+            this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), BuildLink.GetLink(ForumPages.admin_admin));
 
             this.PageLinks.AddLink(this.GetText("ADMIN_RANKS", "TITLE"));
 
@@ -186,7 +186,7 @@ namespace YAF.Pages.Admin
             switch (e.CommandName)
             {
                 case "edit":
-                    YafBuildLink.Redirect(ForumPages.admin_editrank, "r={0}", e.CommandArgument);
+                    BuildLink.Redirect(ForumPages.admin_editrank, "r={0}", e.CommandArgument);
                     break;
                 case "delete":
                     this.GetRepository<Rank>().DeleteById(e.CommandArgument.ToType<int>());

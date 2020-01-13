@@ -119,7 +119,7 @@ namespace YAF.Pages
             this.PageContext.LoadMessage.AddSession(this.GetText("EMAIL_VERIFIED"), MessageTypes.info);
 
             // default redirect -- because if may not want to redirect to login.
-            YafBuildLink.Redirect(ForumPages.forum);
+            BuildLink.Redirect(ForumPages.forum);
         }
 
         #endregion

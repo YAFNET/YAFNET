@@ -101,7 +101,7 @@ namespace YAF.Pages
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void AddUser_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
-            YafBuildLink.Redirect(ForumPages.mod_forumuser, "f={0}", this.PageContext.PageForumID);
+            BuildLink.Redirect(ForumPages.mod_forumuser, "f={0}", this.PageContext.PageForumID);
         }
 
         /// <summary>
@@ -239,7 +239,7 @@ namespace YAF.Pages
         {
             if (!this.PageContext.ForumModeratorAccess)
             {
-                YafBuildLink.AccessDenied();
+                BuildLink.AccessDenied();
             }
 
             if (!this.PageContext.IsForumModerator || !this.PageContext.IsAdmin)
@@ -254,7 +254,7 @@ namespace YAF.Pages
                     this.PageLinks.AddRoot();
                     this.PageLinks.AddLink(
                         this.PageContext.PageCategoryName,
-                        YafBuildLink.GetLink(ForumPages.forum, "c={0}", this.PageContext.PageCategoryID));
+                        BuildLink.GetLink(ForumPages.forum, "c={0}", this.PageContext.PageCategoryID));
                 }
 
                 this.PageLinks.AddForum(this.PageContext.PageForumID);
@@ -300,7 +300,7 @@ namespace YAF.Pages
             switch (e.CommandName)
             {
                 case "edit":
-                    YafBuildLink.Redirect(
+                    BuildLink.Redirect(
                         ForumPages.mod_forumuser, "f={0}&u={1}", this.PageContext.PageForumID, e.CommandArgument);
                     break;
                 case "remove":

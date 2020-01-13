@@ -69,7 +69,7 @@ namespace YAF.Pages.Admin
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void CancelClick([NotNull] object sender, [NotNull] EventArgs e)
         {
-            YafBuildLink.Redirect(ForumPages.admin_forums);
+            BuildLink.Redirect(ForumPages.admin_forums);
         }
 
         /// <summary>
@@ -85,12 +85,12 @@ namespace YAF.Pages.Admin
                 var dr = dt.NewRow();
                 dr["FileID"] = 0;
                 dr["FileName"] =
-                    $"{YafForumInfo.ForumClientFileRoot}Content/images/spacer.gif"; // use spacer.gif for Description Entry
+                    $"{BoardInfo.ForumClientFileRoot}Content/images/spacer.gif"; // use spacer.gif for Description Entry
                 dr["Description"] = "None";
                 dt.Rows.Add(dr);
 
                 var dir = new DirectoryInfo(
-                    this.Get<HttpRequestBase>().MapPath($"{YafForumInfo.ForumServerFileRoot}{BoardFolders.Current.Categories}"));
+                    this.Get<HttpRequestBase>().MapPath($"{BoardInfo.ForumServerFileRoot}{BoardFolders.Current.Categories}"));
                 if (dir.Exists)
                 {
                     var files = dir.GetFiles("*.*");
@@ -107,7 +107,7 @@ namespace YAF.Pages.Admin
                             dr = dt.NewRow();
                             dr["FileID"] = fileId++;
                             dr["FileName"] =
-                                $"{YafForumInfo.ForumClientFileRoot}{BoardFolders.Current.Categories}/{file.Name}";
+                                $"{BoardInfo.ForumClientFileRoot}{BoardFolders.Current.Categories}/{file.Name}";
                             dr["Description"] = file.Name;
                             dt.Rows.Add(dr);
                         });
@@ -146,9 +146,9 @@ namespace YAF.Pages.Admin
             this.PageLinks.AddRoot();
             this.PageLinks.AddLink(
                 this.GetText("ADMIN_ADMIN", "Administration"),
-                YafBuildLink.GetLink(ForumPages.admin_admin));
+                BuildLink.GetLink(ForumPages.admin_admin));
 
-            this.PageLinks.AddLink(this.GetText("TEAM", "FORUMS"), YafBuildLink.GetLink(ForumPages.admin_forums));
+            this.PageLinks.AddLink(this.GetText("TEAM", "FORUMS"), BuildLink.GetLink(ForumPages.admin_forums));
             this.PageLinks.AddLink(this.GetText("ADMIN_EDITCATEGORY", "TITLE"), string.Empty);
 
             this.Page.Header.Title =
@@ -210,7 +210,7 @@ namespace YAF.Pages.Admin
             this.Get<IDataCache>().Remove(Constants.Cache.ForumCategory);
 
             // redirect
-            YafBuildLink.Redirect(ForumPages.admin_forums);
+            BuildLink.Redirect(ForumPages.admin_forums);
         }
 
         /// <summary>

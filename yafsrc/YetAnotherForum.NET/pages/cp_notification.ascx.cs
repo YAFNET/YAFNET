@@ -74,7 +74,7 @@ namespace YAF.Pages
                 this.Get<BoardSettings>().EnableDisplayName
                     ? this.PageContext.CurrentUserData.DisplayName
                     : this.PageContext.PageUserName,
-                YafBuildLink.GetLink(ForumPages.cp_notification));
+                BuildLink.GetLink(ForumPages.cp_notification));
         }
 
         #endregion

@@ -12,7 +12,7 @@
 <body class="bg-light">
 <div class="container">
 <div class="mx-auto mt-4 mb-3 text-center" 
-     style="width:100px;height:40px;background: url('<%= "{0}/{1}/{2}/{3}".Fmt(this.Get<BoardSettings>().BaseUrlMask, YafForumInfo.ForumClientFileRoot, BoardFolders.Current.Logos, this.BoardSettings.ForumLogo) %>') no-repeat;"></div>
+     style="width:100px;height:40px;background: url('<%= "{0}/{1}/{2}/{3}".Fmt(this.Get<BoardSettings>().BaseUrlMask, BoardInfo.ForumClientFileRoot, BoardFolders.Current.Logos, this.BoardSettings.ForumLogo) %>') no-repeat;"></div>
   <div class="card mb-4" style="border-top: 5px solid #3761b5;">
     <div class="card-body">
       <h4 class="text-center">
@@ -40,7 +40,7 @@
                     { %>
             <li class="list-group-item">
                         <p class="text-center">
-                            <a href="<%= YafBuildLink.GetLink(this.BoardSettings, ForumPages.posts, true, "m={0}#post{0}", t.LastMessageID) %>"
+                            <a href="<%= BuildLink.GetLink(this.BoardSettings, ForumPages.posts, true, "m={0}#post{0}", t.LastMessageID) %>"
                                 target="_blank">
                                 <i class="fas fa-comment"></i> <%= t.Subject %></a> 
                                  <span class="badge badge-secondary">
@@ -54,7 +54,7 @@
                             <small><%= string.Format(this.GetText("STARTEDBY"), t.StartedUserName) %></small>
                         </p>
                         <a class="btn btn-primary btn-sm mx-auto mt-2"
-                                  href="<%= YafBuildLink.GetLink(ForumPages.posts, true, "m={0}#post{0}", t.LastMessageID) %>"
+                                  href="<%= BuildLink.GetLink(ForumPages.posts, true, "m={0}#post{0}", t.LastMessageID) %>"
                                   target="_blank">
                             <%= this.GetText("LINK") %></a>
                     </li>
@@ -79,7 +79,7 @@
                     { %>
                    <li class="list-group-item">
                         <p class="text-center">
-                            <a href="<%= YafBuildLink.GetLink(this.BoardSettings, ForumPages.posts, true, "m={0}#post{0}", t.LastMessageID) %>"
+                            <a href="<%= BuildLink.GetLink(this.BoardSettings, ForumPages.posts, true, "m={0}#post{0}", t.LastMessageID) %>"
                                 target="_blank">
                                 <i class="fas fa-comment"></i> <%= t.Subject %></a> 
                                 <span class="badge badge-secondary">
@@ -93,7 +93,7 @@
                             <small><%= string.Format(this.GetText("STARTEDBY"), t.StartedUserName) %></small>
                         </p>
                             <a class="btn btn-primary btn-sm mx-auto mt-2" 
-                               href="<%= YafBuildLink.GetLink(this.BoardSettings, ForumPages.posts, true, "m={0}#post{0}", t.LastMessageID) %>"
+                               href="<%= BuildLink.GetLink(this.BoardSettings, ForumPages.posts, true, "m={0}#post{0}", t.LastMessageID) %>"
                                target="_blank">
                                 <%= this.GetText("LINK") %></a>
                     </li>
@@ -105,7 +105,7 @@
                    } %>
 
     <div class="text-center text-muted small"> 
-      <%= this.GetText("REMOVALTEXT") %>&nbsp;<a href="<%= YafBuildLink.GetLink(this.BoardSettings, ForumPages.cp_subscriptions, true) %>">
+      <%= this.GetText("REMOVALTEXT") %>&nbsp;<a href="<%= BuildLink.GetLink(this.BoardSettings, ForumPages.cp_subscriptions, true) %>">
           <%= this.GetText("REMOVALLINK") %></a>
   </div>
 </div>

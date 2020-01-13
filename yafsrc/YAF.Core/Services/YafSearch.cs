@@ -517,7 +517,7 @@ namespace YAF.Core.Services
                        {
                            Topic = doc.Get("Topic"),
                            TopicId = doc.Get("TopicId").ToType<int>(),
-                           TopicUrl = YafBuildLink.GetLink(ForumPages.posts, "t={0}", doc.Get("TopicId").ToType<int>()),
+                           TopicUrl = BuildLink.GetLink(ForumPages.posts, "t={0}", doc.Get("TopicId").ToType<int>()),
                            Posted =
                                doc.Get("Posted").ToType<DateTime>().ToString(
                                    "yyyy-MM-ddTHH:mm:ssZ",
@@ -526,7 +526,7 @@ namespace YAF.Core.Services
                            UserName = doc.Get("Author"),
                            UserDisplayName = doc.Get("AuthorDisplay"),
                            ForumName = doc.Get("ForumName"),
-                           ForumUrl = YafBuildLink.GetLink(ForumPages.forum, "f={0}", doc.Get("ForumId").ToType<int>()),
+                           ForumUrl = BuildLink.GetLink(ForumPages.forum, "f={0}", doc.Get("ForumId").ToType<int>()),
                            UserStyle = doc.Get("AuthorStyle")
                        };
         }
@@ -696,13 +696,13 @@ namespace YAF.Core.Services
                            Topic = topic.IsSet() ? topic : doc.Get("Topic"),
                            ForumId = doc.Get("ForumId").ToType<int>(),
                            Description = doc.Get("Description"),
-                           TopicUrl = YafBuildLink.GetLink(ForumPages.posts, "t={0}", doc.Get("TopicId").ToType<int>()),
+                           TopicUrl = BuildLink.GetLink(ForumPages.posts, "t={0}", doc.Get("TopicId").ToType<int>()),
                            MessageUrl =
-                               YafBuildLink.GetLink(
+                               BuildLink.GetLink(
                                    ForumPages.posts,
                                    "m={0}#post{0}",
                                    doc.Get("MessageId").ToType<int>()),
-                           ForumUrl = YafBuildLink.GetLink(ForumPages.forum, "f={0}", doc.Get("ForumId").ToType<int>()),
+                           ForumUrl = BuildLink.GetLink(ForumPages.forum, "f={0}", doc.Get("ForumId").ToType<int>()),
                            UserDisplayName = doc.Get("AuthorDisplay"),
                            ForumName = doc.Get("ForumName"),
                            UserStyle = doc.Get("AuthorStyle")

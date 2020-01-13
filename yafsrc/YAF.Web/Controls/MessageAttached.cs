@@ -157,7 +157,7 @@ namespace YAF.Web.Controls
                                     {
                                         writer.Write(
                                             @"<div class=""attachedimg""><img src=""{0}resource.ashx?a={1}&b={3}"" alt=""{2}"" /></div>",
-                                            YafForumInfo.ForumClientFileRoot,
+                                            BoardInfo.ForumClientFileRoot,
                                             attachment.ID,
                                             this.HtmlEncode(attachment.FileName),
                                             settings.BoardID);
@@ -174,7 +174,7 @@ namespace YAF.Web.Controls
                                                       <img src=""{0}resource.ashx?p={1}&b={4}"" alt=""{3}"" title=""{2}"" />
                                                   </a>
                                               </div>",
-                                            YafForumInfo.ForumClientFileRoot,
+                                            BoardInfo.ForumClientFileRoot,
                                             attachment.ID,
                                             attachFilesText,
                                             this.HtmlEncode(attachment.FileName),
@@ -219,7 +219,7 @@ namespace YAF.Web.Controls
                                         @"{0} <a class=""attachedImageLink {{html:false,image:false,video:false}}"" href=""{1}resource.ashx?a={2}&b={5}"">{3}</a> 
                                               <span class=""attachmentinfo"">{4}</span>",
                                         fileIcon,
-                                        YafForumInfo.ForumClientFileRoot,
+                                        BoardInfo.ForumClientFileRoot,
                                         attachment.ID,
                                         attachment.FileName,
                                         string.Format(stats, kb, attachment.Downloads),

@@ -70,7 +70,7 @@ namespace YAF.Controls
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void AddAlbum_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
-            YafBuildLink.Redirect(ForumPages.cp_editalbumimages, "u={0}&a=new", this.UserID);
+            BuildLink.Redirect(ForumPages.cp_editalbumimages, "u={0}&a=new", this.UserID);
         }
 
         /// <summary>
@@ -80,7 +80,7 @@ namespace YAF.Controls
         /// <param name="e">The <see cref="System.Web.UI.WebControls.RepeaterCommandEventArgs"/> instance containing the event data.</param>
         protected void Albums_ItemCommand([NotNull] object source, [NotNull] RepeaterCommandEventArgs e)
         {
-            YafBuildLink.Redirect(ForumPages.cp_editalbumimages, "a={0}", e.CommandArgument);
+            BuildLink.Redirect(ForumPages.cp_editalbumimages, "a={0}", e.CommandArgument);
         }
 
         /// <summary>
@@ -101,7 +101,7 @@ namespace YAF.Controls
 
                   if ((curAlbum != null) && curAlbum.HasRows())
                   {
-                      coverImage.ImageUrl = String.Format("{0}resource.ashx?imgprv={1}", YafForumInfo.ForumClientFileRoot, curAlbum.Rows[random.Next(curAlbum.Rows.Count)]["ImageID"]);
+                      coverImage.ImageUrl = String.Format("{0}resource.ashx?imgprv={1}", BoardInfo.ForumClientFileRoot, curAlbum.Rows[random.Next(curAlbum.Rows.Count)]["ImageID"]);
                   }*/
         }
 

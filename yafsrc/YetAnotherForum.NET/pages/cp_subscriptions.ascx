@@ -82,7 +82,7 @@
                                         <asp:CheckBox ID="unsubf" runat="server" CssClass="custom-control custom-checkbox d-inline-block" Text="&nbsp;" />
                                         <asp:Label ID="tfid" runat="server" Text='<%# Container.DataItemToField<int>("WatchForumID") %>'
                                                Visible="false" />
-                                        <a href="<%# YafBuildLink.GetLinkNotEscaped(ForumPages.topics, "f={0}&name={1}",  Container.DataItemToField<int>("ForumID"), Container.DataItemToField<string>("ForumName"))%>">
+                                        <a href="<%# BuildLink.GetLinkNotEscaped(ForumPages.topics, "f={0}&name={1}",  Container.DataItemToField<int>("ForumID"), Container.DataItemToField<string>("ForumName"))%>">
                                                 <%# this.HtmlEncode(Container.DataItemToField<string>("ForumName"))%></a>
                                     </li>
                                 </ItemTemplate>
@@ -122,7 +122,7 @@
                                         </asp:CheckBox>
                                         <asp:Label ID="ttid" runat="server" Text='<%# Container.DataItemToField<int>("WatchTopicID") %>'
                                                Visible="false" />
-                                            <a href="<%# YafBuildLink.GetLinkNotEscaped(ForumPages.posts, "t={0}", Container.DataItemToField<int>("TopicID"))%>">
+                                            <a href="<%# BuildLink.GetLinkNotEscaped(ForumPages.posts, "t={0}", Container.DataItemToField<int>("TopicID"))%>">
                                                 <%# this.HtmlEncode(Container.DataItemToField<string>("TopicName"))%></a>
                                     </li>
                                 </ItemTemplate>

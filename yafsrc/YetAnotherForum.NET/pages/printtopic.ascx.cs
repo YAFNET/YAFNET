@@ -116,7 +116,7 @@ namespace YAF.Pages
         {
             if (!this.Get<HttpRequestBase>().QueryString.Exists("t") || !this.PageContext.ForumReadAccess)
             {
-                YafBuildLink.AccessDenied();
+                BuildLink.AccessDenied();
             }
 
             this.ShowToolBar = false;
@@ -131,12 +131,12 @@ namespace YAF.Pages
                 this.PageLinks.AddRoot();
                 this.PageLinks.AddLink(
                     this.PageContext.PageCategoryName,
-                    YafBuildLink.GetLink(ForumPages.forum, "c={0}", this.PageContext.PageCategoryID));
+                    BuildLink.GetLink(ForumPages.forum, "c={0}", this.PageContext.PageCategoryID));
             }
 
             this.PageLinks.AddForum(this.PageContext.PageForumID);
             this.PageLinks.AddLink(
-                this.PageContext.PageTopicName, YafBuildLink.GetLink(ForumPages.posts, "t={0}", this.PageContext.PageTopicID));
+                this.PageContext.PageTopicName, BuildLink.GetLink(ForumPages.posts, "t={0}", this.PageContext.PageTopicID));
             var showDeleted = false;
             var userId = 0;
             if (this.Get<BoardSettings>().ShowDeletedMessagesToAll)

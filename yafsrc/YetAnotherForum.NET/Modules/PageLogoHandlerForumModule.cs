@@ -84,11 +84,11 @@ namespace YAF.Modules
                 return;
             }
 
-            bannerLink.NavigateUrl = YafBuildLink.GetLink(ForumPages.forum);
+            bannerLink.NavigateUrl = BuildLink.GetLink(ForumPages.forum);
             bannerLink.ToolTip = this.GetText("TOOLBAR", "FORUM_TITLE");
 
 
-            var logoUrl = $"{YafForumInfo.ForumClientFileRoot}{BoardFolders.Current.Logos}/{YafContext.Current.BoardSettings.ForumLogo}";
+            var logoUrl = $"{BoardInfo.ForumClientFileRoot}{BoardFolders.Current.Logos}/{YafContext.Current.BoardSettings.ForumLogo}";
 
             bannerLink.Attributes.Add("style", $"background: url('{logoUrl}') no-repeat");
             

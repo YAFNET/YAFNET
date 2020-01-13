@@ -131,7 +131,7 @@ namespace YAF.Pages
             this.Get<IDataCache>().Remove(Constants.Cache.BoardUserStats);
 
             // redirect to the main forum URL      
-            YafBuildLink.Redirect(ForumPages.forum);
+            BuildLink.Redirect(ForumPages.forum);
         }
 
         /// <summary>
@@ -223,7 +223,7 @@ namespace YAF.Pages
             if (userID == null)
             {
                 // something is seriously wrong here -- redirect to failure...
-                YafBuildLink.RedirectInfoPage(InfoMessage.Failure);
+                BuildLink.RedirectInfoPage(InfoMessage.Failure);
             }
 
             if (this.IsPossibleSpamBot)
@@ -568,7 +568,7 @@ namespace YAF.Pages
             {
                 loginButton.Visible = true;
                 loginButton.Text = this.GetText("LOGIN_INSTEAD");
-                loginButton.NavigateUrl = YafBuildLink.GetLink(ForumPages.login);
+                loginButton.NavigateUrl = BuildLink.GetLink(ForumPages.login);
             }
 
             if (this.Get<BoardSettings>().AllowSingleSignOn)
@@ -620,8 +620,8 @@ namespace YAF.Pages
                     this.Get<IBBCode>().MakeHtml(this.GetText("ACCOUNT_CREATED_VERIFICATION"), false, true, false);
             }
 
-            this.CreateUserWizard1.ContinueDestinationPageUrl = YafForumInfo.ForumURL;
-            this.CreateUserWizard1.FinishDestinationPageUrl = YafForumInfo.ForumURL;
+            this.CreateUserWizard1.ContinueDestinationPageUrl = BoardInfo.ForumURL;
+            this.CreateUserWizard1.FinishDestinationPageUrl = BoardInfo.ForumURL;
 
             this.DataBind();
 
@@ -665,7 +665,7 @@ namespace YAF.Pages
         protected void RefreshCaptcha_Click(object sender, EventArgs e)
         {
             var imgCaptcha = this.CreateUserStepContainer.FindControlAs<Image>("imgCaptcha");
-            imgCaptcha.ImageUrl = $"{YafForumInfo.ForumClientFileRoot}resource.ashx?c=1&t=";
+            imgCaptcha.ImageUrl = $"{BoardInfo.ForumClientFileRoot}resource.ashx?c=1&t=";
         }
 
         /// <summary>
@@ -679,7 +679,7 @@ namespace YAF.Pages
         /// </param>
         protected void FacebookRegisterClick(object sender, EventArgs e)
         {
-            YafBuildLink.Redirect(ForumPages.login, "auth={0}", AuthService.facebook);
+            BuildLink.Redirect(ForumPages.login, "auth={0}", AuthService.facebook);
         }
 
         /// <summary>
@@ -693,7 +693,7 @@ namespace YAF.Pages
         /// </param>
         protected void TwitterRegisterClick(object sender, EventArgs e)
         {
-            YafBuildLink.Redirect(ForumPages.login, "auth={0}", AuthService.twitter);
+            BuildLink.Redirect(ForumPages.login, "auth={0}", AuthService.twitter);
         }
 
         /// <summary>
@@ -707,7 +707,7 @@ namespace YAF.Pages
         /// </param>
         protected void GoogleRegisterClick(object sender, EventArgs e)
         {
-            YafBuildLink.Redirect(ForumPages.login, "auth={0}", AuthService.google);
+            BuildLink.Redirect(ForumPages.login, "auth={0}", AuthService.google);
         }
 
         /// <summary>
@@ -775,7 +775,7 @@ namespace YAF.Pages
             {
                 var imgCaptcha = this.CreateUserStepContainer.FindControlAs<Image>("imgCaptcha");
 
-                imgCaptcha.ImageUrl = $"{YafForumInfo.ForumClientFileRoot}resource.ashx?c=1&t={DateTime.UtcNow}";
+                imgCaptcha.ImageUrl = $"{BoardInfo.ForumClientFileRoot}resource.ashx?c=1&t={DateTime.UtcNow}";
 
                 var refreshCaptcha = this.CreateUserStepContainer.FindControlAs<LinkButton>("RefreshCaptcha");
 
@@ -813,7 +813,7 @@ namespace YAF.Pages
             }
 
             this.Logger.Log(this.PageContext.PageUserID, this, "secret or site key is required for reCAPTCHA!");
-            YafBuildLink.AccessDenied();
+            BuildLink.AccessDenied();
         }
 
         /// <summary>

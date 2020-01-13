@@ -176,14 +176,14 @@ namespace YAF.Dialogs
                 if (this.CancelButtonLink.ForumLinkFormat.IsSet()
                     && !this.CancelButtonLink.ForumLinkArgs.IsNullOrEmptyDBField())
                 {
-                    YafBuildLink.Redirect(
+                    BuildLink.Redirect(
                         this.CancelButtonLink.ForumPage,
                         this.CancelButtonLink.ForumLinkFormat,
                         this.CancelButtonLink.ForumLinkArgs);
                 }
                 else
                 {
-                    YafBuildLink.Redirect(this.CancelButtonLink.ForumPage);
+                    BuildLink.Redirect(this.CancelButtonLink.ForumPage);
                 }
             }
         }
@@ -209,14 +209,14 @@ namespace YAF.Dialogs
                 if (this.OkButtonLink.ForumLinkFormat.IsSet()
                     && !this.OkButtonLink.ForumLinkArgs.IsNullOrEmptyDBField())
                 {
-                    YafBuildLink.Redirect(
+                    BuildLink.Redirect(
                         this.OkButtonLink.ForumPage,
                         this.OkButtonLink.ForumLinkFormat,
                         this.OkButtonLink.ForumLinkArgs);
                 }
                 else
                 {
-                    YafBuildLink.Redirect(this.OkButtonLink.ForumPage);
+                    BuildLink.Redirect(this.OkButtonLink.ForumPage);
                 }
             }
         }

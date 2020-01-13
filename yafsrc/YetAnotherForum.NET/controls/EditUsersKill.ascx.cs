@@ -244,7 +244,7 @@ namespace YAF.Controls
                         // all is good, user can be deleted
                         UserMembershipHelper.DeleteUser(this.CurrentUserId.ToType<int>());
 
-                        YafBuildLink.Redirect(ForumPages.admin_users);
+                        BuildLink.Redirect(ForumPages.admin_users);
                     }
 
                     break;
@@ -320,7 +320,7 @@ namespace YAF.Controls
                     "ADMIN_EDITUSER",
                     "LINK_USER_BAN",
                     this.CurrentUserId,
-                    YafBuildLink.GetLink(ForumPages.profile, "u={0}&name={1}", this.CurrentUserId, name),
+                    BuildLink.GetLink(ForumPages.profile, "u={0}&name={1}", this.CurrentUserId, name),
                     this.HtmlEncode(name));
 
                 this.GetRepository<BannedIP>().Save(null, ip, linkUserBan, this.PageContext.PageUserID);
@@ -335,7 +335,7 @@ namespace YAF.Controls
         /// </summary>
         private void BindData()
         {
-            this.ViewPostsLink.NavigateUrl = YafBuildLink.GetLinkNotEscaped(
+            this.ViewPostsLink.NavigateUrl = BuildLink.GetLinkNotEscaped(
                 ForumPages.search,
                 "postedby={0}",
                 !this.CurrentUserDataHelper.IsGuest

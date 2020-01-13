@@ -75,7 +75,7 @@ namespace YAF.Pages.moderate
             // moderation index
             this.PageLinks.AddLink(
                 this.GetText("MODERATE_DEFAULT", "TITLE"),
-                YafBuildLink.GetLink(ForumPages.moderate_index));
+                BuildLink.GetLink(ForumPages.moderate_index));
 
             // current page
             this.PageLinks.AddLink(this.PageContext.PageForumName);
@@ -157,7 +157,7 @@ namespace YAF.Pages.moderate
             if (!messageList.HasRows())
             {
                 // redirect back to the moderate main if no messages found
-                YafBuildLink.Redirect(ForumPages.moderate_index);
+                BuildLink.Redirect(ForumPages.moderate_index);
             }
             else
             {

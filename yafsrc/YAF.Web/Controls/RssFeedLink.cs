@@ -114,7 +114,7 @@ namespace YAF.Web.Controls
                 output.WriteAttribute("class", "dropdown-item");
                 output.WriteAttribute(
                     "href",
-                    YafBuildLink.GetLink(
+                    BuildLink.GetLink(
                         ForumPages.rsstopic,
                         "pg={0}&ft={1}{2}",
                         this.FeedType.ToInt(),
@@ -134,7 +134,7 @@ namespace YAF.Web.Controls
                 output.WriteAttribute("class", "dropdown-item");
                 output.WriteAttribute(
                     "href",
-                    YafBuildLink.GetLink(
+                    BuildLink.GetLink(
                         ForumPages.rsstopic,
                         "pg={0}&ft={1}{2}",
                         this.FeedType.ToInt(),

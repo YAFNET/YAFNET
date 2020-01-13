@@ -68,7 +68,7 @@ namespace YAF.Pages
         /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
         protected void CancelPushButton_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
-            YafBuildLink.Redirect(ForumPages.cp_profile);
+            BuildLink.Redirect(ForumPages.cp_profile);
         }
 
         /// <summary>
@@ -78,7 +78,7 @@ namespace YAF.Pages
         /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
         protected void ContinuePushButton_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
-            YafBuildLink.Redirect(ForumPages.cp_profile);
+            BuildLink.Redirect(ForumPages.cp_profile);
         }
 
         /// <summary>
@@ -129,14 +129,14 @@ namespace YAF.Pages
             if (Config.IsDotNetNuke)
             {
                 // Not accessible...
-                YafBuildLink.AccessDenied();
+                BuildLink.AccessDenied();
             }
 
             if (!this.Get<BoardSettings>().AllowPasswordChange
                 && !(this.PageContext.IsAdmin || this.PageContext.IsForumModerator))
             {
                 // Not accessible...
-                YafBuildLink.AccessDenied();
+                BuildLink.AccessDenied();
             }
 
             if (!this.IsPostBack)
@@ -146,7 +146,7 @@ namespace YAF.Pages
                     this.Get<BoardSettings>().EnableDisplayName
                         ? this.PageContext.CurrentUserData.DisplayName
                         : this.PageContext.PageUserName,
-                    YafBuildLink.GetLink(ForumPages.cp_profile));
+                    BuildLink.GetLink(ForumPages.cp_profile));
                 this.PageLinks.AddLink(this.GetText("TITLE"));
             }
 

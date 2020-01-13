@@ -63,7 +63,7 @@ namespace YAF.Pages
                 this.Get<BoardSettings>().EnableDisplayName
                     ? this.PageContext.CurrentUserData.DisplayName
                     : this.PageContext.PageUserName,
-                YafBuildLink.GetLink(ForumPages.cp_profile));
+                BuildLink.GetLink(ForumPages.cp_profile));
 
             this.PageLinks.AddLink(
                 string.Format(this.GetText("CP_DELETEACCOUNT", "TITLE"), this.Get<BoardSettings>().Name),
@@ -80,7 +80,7 @@ namespace YAF.Pages
 
             if (Config.IsDotNetNuke || this.PageContext.IsAdmin || this.PageContext.IsHostAdmin)
             {
-                YafBuildLink.AccessDenied();
+                BuildLink.AccessDenied();
             }
 
             if (this.IsPostBack)
@@ -103,7 +103,7 @@ namespace YAF.Pages
 
             this.Options.SelectedIndex = 0;
 
-            this.Cancel.NavigateUrl = YafBuildLink.GetLink(ForumPages.cp_profile);
+            this.Cancel.NavigateUrl = BuildLink.GetLink(ForumPages.cp_profile);
 
             this.DeleteUser.ReturnConfirmText = this.GetText("CONFIRM");
         }
@@ -185,7 +185,7 @@ namespace YAF.Pages
                     break;
             }
 
-            YafBuildLink.Redirect(ForumPages.forum);
+            BuildLink.Redirect(ForumPages.forum);
         }
 
         #endregion

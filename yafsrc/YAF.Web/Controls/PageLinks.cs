@@ -146,7 +146,7 @@ namespace YAF.Web.Controls
 
             // Inject Board Announcement
             var boardAnnounceControl =
-                this.Page.LoadControl($"{YafForumInfo.ForumServerFileRoot}controls/BoardAnnouncement.ascx");
+                this.Page.LoadControl($"{BoardInfo.ForumServerFileRoot}controls/BoardAnnouncement.ascx");
 
             writer.Write(boardAnnounceControl.RenderToString());
         }

@@ -96,7 +96,7 @@ namespace YAF.Pages.Admin
 
             if (!this.Get<HttpRequestBase>().QueryString.Exists("fa"))
             {
-                YafBuildLink.Redirect(ForumPages.admin_forums);
+                BuildLink.Redirect(ForumPages.admin_forums);
             }
 
             var forumId = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefaultAsInt("fa");
@@ -105,7 +105,7 @@ namespace YAF.Pages.Admin
 
             if (forum == null)
             {
-                YafBuildLink.Redirect(ForumPages.admin_forums);
+                BuildLink.Redirect(ForumPages.admin_forums);
             }
             else
             {
@@ -124,9 +124,9 @@ namespace YAF.Pages.Admin
             this.PageLinks.AddRoot();
             this.PageLinks.AddLink(
                 this.GetText("ADMIN_ADMIN", "Administration"),
-                YafBuildLink.GetLink(ForumPages.admin_admin));
+                BuildLink.GetLink(ForumPages.admin_admin));
 
-            this.PageLinks.AddLink(this.GetText("TEAM", "FORUMS"), YafBuildLink.GetLink(ForumPages.admin_forums));
+            this.PageLinks.AddLink(this.GetText("TEAM", "FORUMS"), BuildLink.GetLink(ForumPages.admin_forums));
             this.PageLinks.AddLink(this.GetText("ADMIN_DELETEFORUM", "TITLE"), string.Empty);
 
             this.Page.Header.Title =
@@ -155,7 +155,7 @@ namespace YAF.Pages.Admin
             // clear caches...
             this.ClearCaches();
 
-            YafBuildLink.Redirect(ForumPages.admin_forums);
+            BuildLink.Redirect(ForumPages.admin_forums);
         }
 
         /// <summary>
@@ -165,7 +165,7 @@ namespace YAF.Pages.Admin
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         private static void Cancel_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
-            YafBuildLink.Redirect(ForumPages.admin_forums);
+            BuildLink.Redirect(ForumPages.admin_forums);
         }
 
         /// <summary>

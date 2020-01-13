@@ -91,7 +91,7 @@ namespace YAF.Pages
 
             this.PageLinks.AddLink(
                 this.PageContext.PageCategoryName,
-                YafBuildLink.GetLink(ForumPages.forum, "c={0}", this.PageContext.PageCategoryID));
+                BuildLink.GetLink(ForumPages.forum, "c={0}", this.PageContext.PageCategoryID));
             this.Welcome.Visible = false;
         }
 

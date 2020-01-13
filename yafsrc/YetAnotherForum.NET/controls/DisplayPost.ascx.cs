@@ -155,24 +155,24 @@ namespace YAF.Controls
             }
 
             this.Edit.Visible = !this.PostData.PostDeleted && this.PostData.CanEditPost && !this.PostData.IsLocked;
-            this.Edit.NavigateUrl = YafBuildLink.GetLinkNotEscaped(
+            this.Edit.NavigateUrl = BuildLink.GetLinkNotEscaped(
                 ForumPages.postmessage,
                 "m={0}",
                 this.PostData.MessageId);
             this.MovePost.Visible = this.PageContext.ForumModeratorAccess && !this.PostData.IsLocked;
-            this.MovePost.NavigateUrl = YafBuildLink.GetLinkNotEscaped(
+            this.MovePost.NavigateUrl = BuildLink.GetLinkNotEscaped(
                 ForumPages.movemessage,
                 "m={0}",
                 this.PostData.MessageId);
             this.Delete.Visible = !this.PostData.PostDeleted && this.PostData.CanDeletePost && !this.PostData.IsLocked;
 
             ////
-            this.Delete.NavigateUrl = YafBuildLink.GetLinkNotEscaped(
+            this.Delete.NavigateUrl = BuildLink.GetLinkNotEscaped(
                 ForumPages.deletemessage,
                 "m={0}&action=delete",
                 this.PostData.MessageId);
             this.UnDelete.Visible = this.PostData.CanUnDeletePost && !this.PostData.IsLocked;
-            this.UnDelete.NavigateUrl = YafBuildLink.GetLinkNotEscaped(
+            this.UnDelete.NavigateUrl = BuildLink.GetLinkNotEscaped(
                 ForumPages.deletemessage,
                 "m={0}&action=undelete",
                 this.PostData.MessageId);
@@ -181,7 +181,7 @@ namespace YAF.Controls
             this.Quote.Visible = !this.PostData.PostDeleted && this.PostData.CanReply && !this.PostData.IsLocked;
             this.MultiQuote.Visible = !this.PostData.PostDeleted && this.PostData.CanReply && !this.PostData.IsLocked;
 
-            this.Quote.NavigateUrl = YafBuildLink.GetLinkNotEscaped(
+            this.Quote.NavigateUrl = BuildLink.GetLinkNotEscaped(
                 ForumPages.postmessage,
                 "t={0}&f={1}&q={2}",
                 this.PageContext.PageTopicID,
@@ -256,7 +256,7 @@ namespace YAF.Controls
                 {
                     this.ReportPost.Visible = true;
 
-                    this.ReportPost.NavigateUrl = YafBuildLink.GetLinkNotEscaped(
+                    this.ReportPost.NavigateUrl = BuildLink.GetLinkNotEscaped(
                         ForumPages.reportpost,
                         "m={0}",
                         this.PostData.MessageId);
@@ -339,7 +339,7 @@ namespace YAF.Controls
                 this.GetRepository<Message>().UpdateFlags(this.PostData.MessageId, messageFlags.BitValue);
             }
 
-            YafBuildLink.Redirect(ForumPages.posts, "m={0}#post{0}", this.PostData.MessageId);
+            BuildLink.Redirect(ForumPages.posts, "m={0}#post{0}", this.PostData.MessageId);
         }
 
         /// <summary>
@@ -373,7 +373,7 @@ namespace YAF.Controls
                         sb.AppendFormat(
                             @"<li><a id=""{0}"" href=""{1}""><u>{2}</u></a>",
                             userId,
-                            YafBuildLink.GetLink(ForumPages.profile, "u={0}&name={1}", userId, displayName),
+                            BuildLink.GetLink(ForumPages.profile, "u={0}&name={1}", userId, displayName),
                             this.Get<HttpServerUtilityBase>().HtmlEncode(displayName));
 
                         // If showing thanks date is enabled, add it to the formatted string.
@@ -832,14 +832,14 @@ namespace YAF.Controls
             switch (e.Item)
             {
                 case "userprofile":
-                    YafBuildLink.Redirect(
+                    BuildLink.Redirect(
                         ForumPages.profile,
                         "u={0}&name={1}",
                         this.PostData.UserId,
                         this.DataRow[this.Get<BoardSettings>().EnableDisplayName ? "DisplayName" : "UserName"]);
                     break;
                 case "lastposts":
-                    YafBuildLink.Redirect(
+                    BuildLink.Redirect(
                         ForumPages.search,
                         "postedby={0}",
                         this.Get<BoardSettings>().EnableDisplayName
@@ -886,7 +886,7 @@ namespace YAF.Controls
                     }
 
                 case "edituser":
-                    YafBuildLink.Redirect(ForumPages.admin_edituser, "u={0}", this.PostData.UserId);
+                    BuildLink.Redirect(ForumPages.admin_edituser, "u={0}", this.PostData.UserId);
                     break;
                 case "toggleuserposts_show":
                     this.Get<IUserIgnored>().RemoveIgnored(this.PostData.UserId);
@@ -897,7 +897,7 @@ namespace YAF.Controls
                     this.Get<HttpResponseBase>().Redirect(this.Get<HttpRequestBase>().RawUrl);
                     break;
                 case "viewthanks":
-                    YafBuildLink.Redirect(ForumPages.viewthanks, "u={0}", this.PostData.UserId);
+                    BuildLink.Redirect(ForumPages.viewthanks, "u={0}", this.PostData.UserId);
                     break;
             }
         }

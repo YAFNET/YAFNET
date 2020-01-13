@@ -50,7 +50,7 @@ namespace YAF.Utils
             if (!long.TryParse(longValue, out var value))
             {
                 // it's an invalid request. Redirect to the info page on invalid requests.
-                YafBuildLink.RedirectInfoPage(InfoMessage.Invalid);
+                BuildLink.RedirectInfoPage(InfoMessage.Invalid);
             }
 
             return value;
@@ -71,7 +71,7 @@ namespace YAF.Utils
             if (!int.TryParse(intValue, out var value))
             {
                 // it's an invalid request. Redirect to the info page on invalid requests.
-                YafBuildLink.RedirectInfoPage(InfoMessage.Invalid);
+                BuildLink.RedirectInfoPage(InfoMessage.Invalid);
             }
 
             return value;
@@ -111,7 +111,7 @@ namespace YAF.Utils
             if (request.HttpMethod == "POST" && request.UrlReferrer != null && request.Url.Host.IsSet()
                 && request.UrlReferrer.Host != request.Url.Host)
             {
-                YafBuildLink.AccessDenied();
+                BuildLink.AccessDenied();
             }
         }
     }

@@ -80,7 +80,7 @@ namespace YAF.Modules
                 else
                 {
                     var topicId = this.PageContext.PageTopicID;
-                    var topicUrl = YafBuildLink.GetLink(ForumPages.posts, true, TopicLinkParams, topicId);
+                    var topicUrl = BuildLink.GetLink(ForumPages.posts, true, TopicLinkParams, topicId);
 
                     head.Controls.Add(new LiteralControl($"<link rel=\"canonical\" href=\"{topicUrl}\" />"));
                 }

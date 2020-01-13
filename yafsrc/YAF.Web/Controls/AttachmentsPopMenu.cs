@@ -110,7 +110,7 @@ namespace YAF.Web.Controls
             sb.Append("<div id=\"AttachmentsListBox\" class=\"content\">");
             sb.AppendFormat(
                 "<div id=\"PostAttachmentListPlaceholder\" data-url=\"{0}\" data-userid=\"{1}\" data-notext=\"{2}\" style=\"clear: both;\">",
-                YafForumInfo.ForumClientFileRoot,
+                BoardInfo.ForumClientFileRoot,
                 YafContext.Current.PageUserID,
                 this.Get<ILocalization>().GetText("ATTACHMENTS", "NO_ATTACHMENTS"));
             sb.Append("<ul class=\"AttachmentList\">");

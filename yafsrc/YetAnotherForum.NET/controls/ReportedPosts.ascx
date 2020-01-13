@@ -21,7 +21,7 @@
 		<YAF:ThemeButton ID="PM" runat="server" 
                          Size="Small"
                          TextLocalizedTag="PM"
-                         NavigateUrl='<%# YafBuildLink.GetLinkNotEscaped(ForumPages.pmessage, "u={0}", Container.DataItemToField<int>("UserID"))%>'
+                         NavigateUrl='<%# BuildLink.GetLinkNotEscaped(ForumPages.pmessage, "u={0}", Container.DataItemToField<int>("UserID"))%>'
                          Type="Secondary" Icon="envelope" />
         
         <span class="font-weight-bold pr-3">

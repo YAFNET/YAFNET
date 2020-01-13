@@ -77,7 +77,7 @@ namespace YAF.Pages.Admin
             }
 
             this.PageLinks.AddRoot()
-                .AddLink(this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin))
+                .AddLink(this.GetText("ADMIN_ADMIN", "Administration"), BuildLink.GetLink(ForumPages.admin_admin))
                 .AddLink(this.GetText("ADMIN_REPLACEWORDS", "TITLE"));
 
             this.Page.Header.Title =

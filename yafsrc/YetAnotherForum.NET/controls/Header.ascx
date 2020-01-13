@@ -13,7 +13,7 @@
     
 <header class="mb-3">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="<%=YafBuildLink.GetLink(ForumPages.forum) %>">
+        <a class="navbar-brand" href="<%=BuildLink.GetLink(ForumPages.forum) %>">
             <%= this.PageContext.BoardSettings.Name %>
         </a>
         
@@ -37,25 +37,25 @@
                     <asp:PlaceHolder runat="server" ID="HostMenuHolder" Visible="False">
                         <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" id="hostDropdown" data-toggle="dropdown" 
-                           href="<%= YafBuildLink.GetLink(ForumPages.admin_hostsettings) %>" 
+                           href="<%= BuildLink.GetLink(ForumPages.admin_hostsettings) %>" 
                            role="button" 
                            aria-haspopup="true" aria-expanded="false">
                            <%= this.GetText("TOOLBAR", "HOST")  %>
                         </a>
                         <div class="dropdown-menu" aria-labelledby="hostDropdown">
-                            <a href="<%= YafBuildLink.GetLink(ForumPages.admin_hostsettings) %>"
+                            <a href="<%= BuildLink.GetLink(ForumPages.admin_hostsettings) %>"
                                class="dropdown-item">
                             <i class="fa fa-cog fa-fw"></i>&nbsp;
                                 <YAF:LocalizedLabel runat="server" 
                                                     LocalizedTag="admin_hostsettings"></YAF:LocalizedLabel>
                             </a>
-                            <a href="<%= YafBuildLink.GetLink(ForumPages.admin_boards) %>"
+                            <a href="<%= BuildLink.GetLink(ForumPages.admin_boards) %>"
                                class="dropdown-item">
                                 <i class="fa fa-globe fa-fw"></i>&nbsp;
                                 <YAF:LocalizedLabel runat="server" 
                                                     LocalizedTag="admin_boards" LocalizedPage="adminmenu"></YAF:LocalizedLabel>
                             </a>
-                            <a href="<%= YafBuildLink.GetLink(ForumPages.admin_pageaccesslist) %>"
+                            <a href="<%= BuildLink.GetLink(ForumPages.admin_pageaccesslist) %>"
                                class="dropdown-item">
                                 <i class="fa fa-building fa-fw"></i>&nbsp;
                                 <YAF:LocalizedLabel runat="server" 
@@ -67,23 +67,23 @@
                     <asp:PlaceHolder runat="server" ID="ModerateHolder" Visible="False">
                         <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" id="moderateDropdown" data-toggle="dropdown" 
-                           href="<%= YafBuildLink.GetLink(ForumPages.admin_hostsettings) %>" 
+                           href="<%= BuildLink.GetLink(ForumPages.admin_hostsettings) %>" 
                            role="button" 
                            aria-haspopup="true" aria-expanded="false">
                            <%= this.GetText("TOOLBAR", "HOST")  %>
                         </a>
                         <div class="dropdown-menu" aria-labelledby="moderateDropdown">
-                            <a href="<%= YafBuildLink.GetLink(ForumPages.admin_hostsettings) %>"
+                            <a href="<%= BuildLink.GetLink(ForumPages.admin_hostsettings) %>"
                                class="dropdown-item">
                             <i class="fa fa-cog fa-fw"></i>&nbsp;
                                 <YAF:LocalizedLabel runat="server" LocalizedTag="admin_hostsettings"></YAF:LocalizedLabel>
                             </a>
-                            <a href="<%= YafBuildLink.GetLink(ForumPages.admin_boards) %>"
+                            <a href="<%= BuildLink.GetLink(ForumPages.admin_boards) %>"
                                class="dropdown-item">
                                 <i class="fa fa-globe fa-fw"></i>&nbsp;
                                 <YAF:LocalizedLabel runat="server" LocalizedTag="admin_boards"></YAF:LocalizedLabel>
                             </a>
-                            <a href="<%= YafBuildLink.GetLink(ForumPages.admin_pageaccesslist) %>"
+                            <a href="<%= BuildLink.GetLink(ForumPages.admin_pageaccesslist) %>"
                                class="dropdown-item">
                                 <i class="fa fa-building fa-fw"></i>&nbsp;
                                 <YAF:LocalizedLabel runat="server" LocalizedTag="admin_pageaccesslist"></YAF:LocalizedLabel>
@@ -95,7 +95,7 @@
                 <li class="nav-item dropdown">
                     <asp:PlaceHolder id="LoggedInUserPanel" runat="server" Visible="false">
                         <a class="nav-link dropdown-toggle" id="userDropdown" data-toggle="dropdown" 
-                           href="<%= YafBuildLink.GetLink(ForumPages.profile, "u={0}&name={1}", this.PageContext.PageUserID, 
+                           href="<%= BuildLink.GetLink(ForumPages.profile, "u={0}&name={1}", this.PageContext.PageUserID, 
                                          this.Get<BoardSettings>().EnableDisplayName ? this.PageContext.CurrentUserData.DisplayName : this.PageContext.CurrentUserData.UserName) %>" 
                            role="button" 
                            aria-haspopup="true" aria-expanded="false">

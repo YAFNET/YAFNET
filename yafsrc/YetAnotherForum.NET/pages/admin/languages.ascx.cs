@@ -90,7 +90,7 @@ namespace YAF.Pages.Admin
         {
             this.PageLinks.AddRoot();
             this.PageLinks.AddLink(
-                this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
+                this.GetText("ADMIN_ADMIN", "Administration"), BuildLink.GetLink(ForumPages.admin_admin));
             this.PageLinks.AddLink(this.GetText("ADMIN_LANGUAGES", "TITLE"), string.Empty);
 
             this.Page.Header.Title =
@@ -125,7 +125,7 @@ namespace YAF.Pages.Admin
             switch (e.CommandName)
             {
                 case "edit":
-                    YafBuildLink.Redirect(ForumPages.admin_editlanguage, "x={0}", e.CommandArgument);
+                    BuildLink.Redirect(ForumPages.admin_editlanguage, "x={0}", e.CommandArgument);
                     break;
             }
         }

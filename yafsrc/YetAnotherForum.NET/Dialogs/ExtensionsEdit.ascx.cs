@@ -137,7 +137,7 @@ namespace YAF.Dialogs
                     fileExtension,
                     this.PageContext.PageBoardID);
 
-                YafBuildLink.Redirect(ForumPages.admin_extensions);
+                BuildLink.Redirect(ForumPages.admin_extensions);
             }
         }
 

@@ -170,7 +170,7 @@ namespace YAF.Pages
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Cancel_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
-            YafBuildLink.Redirect(ForumPages.cp_pm);
+            BuildLink.Redirect(ForumPages.cp_pm);
         }
 
         /// <summary>
@@ -210,12 +210,12 @@ namespace YAF.Pages
                 this.Get<BoardSettings>().EnableDisplayName
                     ? this.PageContext.CurrentUserData.DisplayName
                     : this.PageContext.PageUserName,
-                YafBuildLink.GetLink(ForumPages.cp_profile));
+                BuildLink.GetLink(ForumPages.cp_profile));
 
             // private messages
             this.PageLinks.AddLink(
                 this.GetText(ForumPages.cp_pm.ToString(), "TITLE"),
-                YafBuildLink.GetLink(ForumPages.cp_pm));
+                BuildLink.GetLink(ForumPages.cp_pm));
 
             // post new message
             this.PageLinks.AddLink(this.GetText("TITLE"));
@@ -302,7 +302,7 @@ namespace YAF.Pages
             }
 
             // set attributes of editor
-            this._editor.BaseDir = $"{YafForumInfo.ForumClientFileRoot}Scripts";
+            this._editor.BaseDir = $"{BoardInfo.ForumClientFileRoot}Scripts";
 
             // this needs to be done just once, not during post-backs
             if (this.IsPostBack)
@@ -345,7 +345,7 @@ namespace YAF.Pages
                 // verify access to this PM
                 if (toUserId != YafContext.Current.PageUserID && fromUserId != YafContext.Current.PageUserID)
                 {
-                    YafBuildLink.AccessDenied();
+                    BuildLink.AccessDenied();
                 }
 
                 // handle subject
@@ -418,7 +418,7 @@ namespace YAF.Pages
                     }
                     else
                     {
-                        YafBuildLink.AccessDenied();
+                        BuildLink.AccessDenied();
                     }
                 }
             }
@@ -623,7 +623,7 @@ namespace YAF.Pages
                     replyTo);
 
                 // redirect to outbox (sent items), not control panel
-                YafBuildLink.Redirect(ForumPages.cp_pm, "v={0}", "out");
+                BuildLink.Redirect(ForumPages.cp_pm, "v={0}", "out");
             }
             else
             {
@@ -746,7 +746,7 @@ namespace YAF.Pages
                         });
 
                 // redirect to outbox (sent items), not control panel
-                YafBuildLink.Redirect(ForumPages.cp_pm, "v={0}", "out");
+                BuildLink.Redirect(ForumPages.cp_pm, "v={0}", "out");
             }
         }
 

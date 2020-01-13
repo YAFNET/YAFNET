@@ -115,7 +115,7 @@ namespace YAF.Core.Controllers
             albumImages.ForEach(
                 image =>
                     {
-                        var url = $"{YafForumInfo.ForumClientFileRoot}resource.ashx?imgprv={image.ID}";
+                        var url = $"{BoardInfo.ForumClientFileRoot}resource.ashx?imgprv={image.ID}";
 
                         var attachment = new AttachmentItem
                                              {

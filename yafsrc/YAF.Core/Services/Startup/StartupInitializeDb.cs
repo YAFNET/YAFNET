@@ -83,7 +83,7 @@ namespace YAF.Core.Services.Startup
             if (Config.ConnectionString == null)
             {
                 // attempt to create a connection string...
-                response.Redirect($"{YafForumInfo.ForumClientFileRoot}install/default.aspx");
+                response.Redirect($"{BoardInfo.ForumClientFileRoot}install/default.aspx");
                 
                 return false;
             }
@@ -94,20 +94,20 @@ namespace YAF.Core.Services.Startup
                 // unable to connect to the DB...
                 YafContext.Current.Get<HttpSessionStateBase>()["StartupException"] = errorString;
                
-                response.Redirect($"{YafForumInfo.ForumClientFileRoot}error.aspx");
+                response.Redirect($"{BoardInfo.ForumClientFileRoot}error.aspx");
                 
                 return false;
             }
 
             // step 2: validate the database version...
-            var redirectString = YafContext.Current.GetRepository<Registry>().ValidateVersion(YafForumInfo.AppVersion);
+            var redirectString = YafContext.Current.GetRepository<Registry>().ValidateVersion(BoardInfo.AppVersion);
 
             if (redirectString.IsNotSet())
             {
                 return true;
             }
 
-            response.Redirect($"{YafForumInfo.ForumClientFileRoot}{redirectString}");
+            response.Redirect($"{BoardInfo.ForumClientFileRoot}{redirectString}");
             return false;
         }
 

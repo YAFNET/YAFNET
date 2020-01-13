@@ -83,7 +83,7 @@ namespace YAF.Pages
             }
             else
             {
-                YafBuildLink.AccessDenied();
+                BuildLink.AccessDenied();
             }
         }
 
@@ -105,7 +105,7 @@ namespace YAF.Pages
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Return_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
-            YafBuildLink.Redirect(ForumPages.forum);
+            BuildLink.Redirect(ForumPages.forum);
         }
 
         /// <summary>
@@ -162,12 +162,12 @@ namespace YAF.Pages
                     }
                     else
                     {
-                        YafBuildLink.AccessDenied();
+                        BuildLink.AccessDenied();
                     }
 
                     break;
                 default:
-                    YafBuildLink.AccessDenied();
+                    BuildLink.AccessDenied();
                     break;
             }
 

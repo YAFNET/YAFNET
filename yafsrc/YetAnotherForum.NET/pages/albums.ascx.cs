@@ -69,12 +69,12 @@ namespace YAF.Pages
         {
             if (!this.Get<BoardSettings>().EnableAlbum)
             {
-                YafBuildLink.AccessDenied();
+                BuildLink.AccessDenied();
             }
 
             if (!this.Get<HttpRequestBase>().QueryString.Exists("u"))
             {
-                YafBuildLink.AccessDenied();
+                BuildLink.AccessDenied();
             }
 
             var user = UserMembershipHelper.GetMembershipUserById(
@@ -83,12 +83,12 @@ namespace YAF.Pages
             if (user == null)
             {
                 // No such user exists
-                YafBuildLink.AccessDenied();
+                BuildLink.AccessDenied();
             }
 
             if (user.IsApproved == false)
             {
-                YafBuildLink.AccessDenied();
+                BuildLink.AccessDenied();
             }
 
             var displayName = UserMembershipHelper.GetDisplayNameFromID(
@@ -103,7 +103,7 @@ namespace YAF.Pages
                     : UserMembershipHelper.GetUserNameFromID(
                         Security.StringToLongOrRedirect(
                             this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u"))),
-                YafBuildLink.GetLink(
+                BuildLink.GetLink(
                     ForumPages.profile,
                     "u={0}",
                     this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u")));

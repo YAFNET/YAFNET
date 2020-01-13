@@ -44,7 +44,7 @@
                             autocomplete="off" />
                     </div>
                     <div id="SearchResultsPlaceholder"
-                        data-url='<%=YafForumInfo.ForumClientFileRoot %>'
+                        data-url='<%=BoardInfo.ForumClientFileRoot %>'
                         data-userid='<%= YafContext.Current.PageUserID %>'>
                     </div>
                 </asp:PlaceHolder>

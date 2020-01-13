@@ -141,7 +141,7 @@ namespace YAF.Controls
                 return;
             }
 
-            YafBuildLink.Redirect(ForumPages.search, "search={0}", this.Server.UrlEncode(this.searchInput.Text));
+            BuildLink.Redirect(ForumPages.search, "search={0}", this.Server.UrlEncode(this.searchInput.Text));
         }
 
         /// <summary>Render Li and a Item</summary>
@@ -282,7 +282,7 @@ namespace YAF.Controls
                 "nav-link",
                 this.GetText("TOOLBAR", "MODERATE"),
                 this.GetText("TOOLBAR", "MODERATE_TITLE"),
-                YafBuildLink.GetLink(ForumPages.moderate_index),
+                BuildLink.GetLink(ForumPages.moderate_index),
                 false,
                 this.PageContext.ModeratePosts > 0,
                 this.PageContext.ModeratePosts.ToString(),
@@ -302,7 +302,7 @@ namespace YAF.Controls
                     "nav-link",
                     this.GetText("TOOLBAR", "ACTIVETOPICS"),
                     this.GetText("TOOLBAR", "ACTIVETOPICS_TITLE"),
-                    YafBuildLink.GetLink(ForumPages.mytopics),
+                    BuildLink.GetLink(ForumPages.mytopics),
                     false,
                     false,
                     null,
@@ -318,7 +318,7 @@ namespace YAF.Controls
                     "nav-link",
                     this.GetText("TOOLBAR", "SEARCH"),
                     this.GetText("TOOLBAR", "SEARCH_TITLE"),
-                    YafBuildLink.GetLink(ForumPages.search),
+                    BuildLink.GetLink(ForumPages.search),
                     false,
                     false,
                     null,
@@ -334,7 +334,7 @@ namespace YAF.Controls
                     "nav-link",
                     this.GetText("TOOLBAR", "MEMBERS"),
                     this.GetText("TOOLBAR", "MEMBERS_TITLE"),
-                    YafBuildLink.GetLink(ForumPages.members),
+                    BuildLink.GetLink(ForumPages.members),
                     false,
                     false,
                     null,
@@ -350,7 +350,7 @@ namespace YAF.Controls
                     "nav-link",
                     this.GetText("TOOLBAR", "TEAM"),
                     this.GetText("TOOLBAR", "TEAM_TITLE"),
-                    YafBuildLink.GetLink(ForumPages.team),
+                    BuildLink.GetLink(ForumPages.team),
                     false,
                     false,
                     null,
@@ -366,7 +366,7 @@ namespace YAF.Controls
                     "nav-link",
                     this.GetText("TOOLBAR", "HELP"),
                     this.GetText("TOOLBAR", "HELP_TITLE"),
-                    YafBuildLink.GetLink(ForumPages.help_index),
+                    BuildLink.GetLink(ForumPages.help_index),
                     false,
                     false,
                     null,
@@ -404,10 +404,10 @@ namespace YAF.Controls
                     this.GetText("TOOLBAR", "REGISTER"),
                     this.GetText("TOOLBAR", "REGISTER_TITLE"),
                     this.Get<BoardSettings>().ShowRulesForRegistration
-                        ? YafBuildLink.GetLink(ForumPages.rules)
+                        ? BuildLink.GetLink(ForumPages.rules)
                         : !this.Get<BoardSettings>().UseSSLToRegister
-                            ? YafBuildLink.GetLink(ForumPages.register)
-                            : YafBuildLink.GetLink(ForumPages.register, true).Replace("http:", "https:"),
+                            ? BuildLink.GetLink(ForumPages.register)
+                            : BuildLink.GetLink(ForumPages.register, true).Replace("http:", "https:"),
                     true,
                     false,
                     null,
@@ -431,7 +431,7 @@ namespace YAF.Controls
                 "dropdown-item",
                 this.GetText("TOOLBAR", "MYPROFILE"),
                 this.GetText("TOOLBAR", "MYPROFILE_TITLE"),
-                YafBuildLink.GetLink(ForumPages.cp_profile),
+                BuildLink.GetLink(ForumPages.cp_profile),
                 false,
                 false,
                 null,
@@ -448,7 +448,7 @@ namespace YAF.Controls
                     "dropdown-item",
                     this.GetText("TOOLBAR", "MYNOTIFY"),
                     this.GetText("TOOLBAR", "MYNOTIFY_TITLE"),
-                    YafBuildLink.GetLink(ForumPages.cp_notification),
+                    BuildLink.GetLink(ForumPages.cp_notification),
                     false,
                     unreadActivity > 0,
                     unreadActivity.ToString(),
@@ -464,7 +464,7 @@ namespace YAF.Controls
                     "dropdown-item",
                     this.GetText("TOOLBAR", "INBOX"),
                     this.GetText("TOOLBAR", "INBOX_TITLE"),
-                    YafBuildLink.GetLink(ForumPages.cp_pm),
+                    BuildLink.GetLink(ForumPages.cp_pm),
                     false,
                     this.PageContext.UnreadPrivate > 0,
                     this.PageContext.UnreadPrivate.ToString(),
@@ -480,7 +480,7 @@ namespace YAF.Controls
                     "dropdown-item",
                     this.GetText("TOOLBAR", "BUDDIES"),
                     this.GetText("TOOLBAR", "BUDDIES_TITLE"),
-                    YafBuildLink.GetLink(ForumPages.cp_editbuddies),
+                    BuildLink.GetLink(ForumPages.cp_editbuddies),
                     false,
                     this.PageContext.PendingBuddies > 0,
                     this.PageContext.PendingBuddies.ToString(),
@@ -497,7 +497,7 @@ namespace YAF.Controls
                     "dropdown-item",
                     this.GetText("TOOLBAR", "MYALBUMS"),
                     this.GetText("TOOLBAR", "MYALBUMS_TITLE"),
-                    YafBuildLink.GetLinkNotEscaped(ForumPages.albums, "u={0}", this.PageContext.PageUserID),
+                    BuildLink.GetLinkNotEscaped(ForumPages.albums, "u={0}", this.PageContext.PageUserID),
                     false,
                     false,
                     null,
@@ -511,7 +511,7 @@ namespace YAF.Controls
                 "dropdown-item",
                 this.GetText("TOOLBAR", "MYTOPICS"),
                 this.GetText("TOOLBAR", "MYTOPICS"),
-                YafBuildLink.GetLink(ForumPages.mytopics),
+                BuildLink.GetLink(ForumPages.mytopics),
                 false,
                 false,
                 string.Empty,
@@ -597,10 +597,10 @@ namespace YAF.Controls
                                                Text = this.GetText("TOOLBAR", "REGISTER"),
                                                NavigateUrl =
                                                    this.Get<BoardSettings>().ShowRulesForRegistration
-                                                       ? YafBuildLink.GetLink(ForumPages.rules)
+                                                       ? BuildLink.GetLink(ForumPages.rules)
                                                        : !this.Get<BoardSettings>().UseSSLToRegister
-                                                           ? YafBuildLink.GetLink(ForumPages.register)
-                                                           : YafBuildLink.GetLink(
+                                                           ? BuildLink.GetLink(ForumPages.register)
+                                                           : BuildLink.GetLink(
                                                                ForumPages.register,
                                                                true).Replace("http:", "https:"),
                                                CssClass = "alert-link"

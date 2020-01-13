@@ -75,7 +75,7 @@ namespace YAF.Controls
             var currentRow = (DataRowView)e.Item.DataItem;
 
             // make message url...
-            var messageUrl = YafBuildLink.GetLinkNotEscaped(
+            var messageUrl = BuildLink.GetLinkNotEscaped(
                 ForumPages.posts, "m={0}#post{0}", currentRow["LastMessageID"]);
 
             // get the controls
@@ -111,14 +111,14 @@ namespace YAF.Controls
                 $"{startedByText} {inForumText}";
             textMessageLink.Attributes.Add("data-toggle", "tooltip");
 
-            textMessageLink.NavigateUrl = YafBuildLink.GetLinkNotEscaped(
+            textMessageLink.NavigateUrl = BuildLink.GetLinkNotEscaped(
                 ForumPages.posts, "t={0}&find=unread", currentRow["TopicID"]);
 
             imageMessageLink.NavigateUrl = messageUrl;
 
             if (imageLastUnreadMessageLink.Visible)
             {
-                imageLastUnreadMessageLink.NavigateUrl = YafBuildLink.GetLinkNotEscaped(
+                imageLastUnreadMessageLink.NavigateUrl = BuildLink.GetLinkNotEscaped(
                     ForumPages.posts,
                     "t={0}&find=unread",
                     currentRow["TopicID"]);

@@ -69,7 +69,7 @@ namespace YAF.Controls
             var image = new Image
                             {
                                 ImageUrl =
-                                    $"{YafForumInfo.ForumClientFileRoot}{BoardFolders.Current.Categories}/{row["CategoryImage"]}",
+                                    $"{BoardInfo.ForumClientFileRoot}{BoardFolders.Current.Categories}/{row["CategoryImage"]}",
                                 AlternateText = row["Name"].ToString() 
             };
 

@@ -98,7 +98,7 @@ namespace YAF.Modules.BBCode
                                 : @"<a href=""{0}resource.ashx?i={1}&b={3}"" class=""attachedImage"" title=""{2}""  data-gallery>
                                             <img src=""{0}resource.ashx?p={1}&b={3}"" alt=""{2}"" class=""img-user-posted img-thumbnail"" style=""max-width:auto;max-height:{4}px"" />
                                         </a>",
-                    YafForumInfo.ForumClientFileRoot,
+                    BoardInfo.ForumClientFileRoot,
                     attachment.ID,
                     this.HtmlEncode(attachment.FileName),
                     this.PageContext.PageBoardID,
@@ -113,7 +113,7 @@ namespace YAF.Modules.BBCode
                     @"<i class=""fa fa-file fa-fw""></i>&nbsp;
                          <a class=""attachedImageLink {{html:false,image:false,video:false}}"" href=""{0}resource.ashx?a={1}&b={4}"">{2}</a> 
                          <span class=""attachmentinfo"">{3}</span>",
-                    YafForumInfo.ForumClientFileRoot,
+                    BoardInfo.ForumClientFileRoot,
                     attachment.ID,
                     attachment.FileName,
                     this.GetTextFormatted("ATTACHMENTINFO", kb, attachment.Downloads),

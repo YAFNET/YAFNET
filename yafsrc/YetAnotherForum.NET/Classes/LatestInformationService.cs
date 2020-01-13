@@ -59,7 +59,7 @@ namespace YAF.Classes
                 using (var reg = new RegisterV2 { Timeout = 30000 })
                 {
                     // load the latest info -- but only provide the current version information and the user's two-letter language information. Nothing trackable.))
-                    latestInfo = reg.LatestInfo(YafForumInfo.AppVersionCode, "US");
+                    latestInfo = reg.LatestInfo(BoardInfo.AppVersionCode, "US");
 
                     if (latestInfo != null)
                     {

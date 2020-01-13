@@ -121,7 +121,7 @@ namespace YAF.Web.Editors
                           {{
             data: function(q) {{
                 if (q && q.length > 3) {{
-                    return {Config.JQueryAlias}.getJSON(""{YafForumInfo.ForumClientFileRoot}resource.ashx?users="" + q);
+                    return {Config.JQueryAlias}.getJSON(""{BoardInfo.ForumClientFileRoot}resource.ashx?users="" + q);
                            }}
                           }},
                           map: function(user)
@@ -143,7 +143,7 @@ namespace YAF.Web.Editors
                     JavaScriptBlocks.FileAutoUploadLoadJs(
                         string.Join("|", extensions.Select(ext => ext.Extension)),
                         this.Get<BoardSettings>().MaxFileSize,
-                        $"{YafForumInfo.ForumClientFileRoot}YafUploader.ashx",
+                        $"{BoardInfo.ForumClientFileRoot}YafUploader.ashx",
                         this.PageContext.PageForumID,
                         this.PageContext.PageBoardID,
                         this.Get<BoardSettings>().ImageAttachmentResizeWidth,

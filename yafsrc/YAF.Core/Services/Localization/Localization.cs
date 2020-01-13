@@ -510,7 +510,7 @@ namespace YAF.Core.Services.Localization
             {
                 this.localizer =
                     new Localizer(
-                        HttpContext.Current.Server.MapPath($"{YafForumInfo.ForumServerFileRoot}languages/{fileName}"));
+                        HttpContext.Current.Server.MapPath($"{BoardInfo.ForumServerFileRoot}languages/{fileName}"));
 
 #if !DEBUG
                 HttpContext.Current.Cache[$"Localizer.{fileName}"] = this.localizer;
@@ -529,7 +529,7 @@ namespace YAF.Core.Services.Localization
                     this.defaultLocale =
                         new Localizer(
                             HttpContext.Current.Server.MapPath(
-                                $"{YafForumInfo.ForumServerFileRoot}languages/english.xml"));
+                                $"{BoardInfo.ForumServerFileRoot}languages/english.xml"));
 #if !DEBUG
                     HttpContext.Current.Cache["DefaultLocale"] = this.defaultLocale;
 #endif

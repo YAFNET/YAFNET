@@ -564,12 +564,12 @@ namespace YAF.Controls
         {
             if (e.CommandName == "new" && this.PageContext.ForumVoteAccess)
             {
-                YafBuildLink.Redirect(ForumPages.polledit, "{0}", this.ParamsToSend());
+                BuildLink.Redirect(ForumPages.polledit, "{0}", this.ParamsToSend());
             }
 
             if (e.CommandName == "edit" && this.PageContext.ForumVoteAccess)
             {
-                YafBuildLink.Redirect(
+                BuildLink.Redirect(
                     ForumPages.polledit,
                     "{0}&p={1}",
                     this.ParamsToSend(),
@@ -1002,7 +1002,7 @@ namespace YAF.Controls
             var cpr = this.CreatePoll1;
 
             // ChangePollShowStatus(true);
-            cpr.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.polledit, "{0}", this.ParamsToSend());
+            cpr.NavigateUrl = BuildLink.GetLinkNotEscaped(ForumPages.polledit, "{0}", this.ParamsToSend());
             cpr.DataBind();
             cpr.Visible = true;
             this.NewPollRow.Visible = true;
@@ -1363,7 +1363,7 @@ namespace YAF.Controls
                 case ForumPages.posts:
                     if (this.TopicId > 0)
                     {
-                        YafBuildLink.Redirect(ForumPages.posts, "t={0}", this.TopicId);
+                        BuildLink.Redirect(ForumPages.posts, "t={0}", this.TopicId);
                     }
 
                     break;
@@ -1372,13 +1372,13 @@ namespace YAF.Controls
                     // This is a poll on the board main page
                     if (this.BoardId > 0)
                     {
-                        YafBuildLink.Redirect(ForumPages.forum);
+                        BuildLink.Redirect(ForumPages.forum);
                     }
 
                     // This is a poll in a category list 
                     if (this.CategoryId > 0)
                     {
-                        YafBuildLink.Redirect(ForumPages.forum, "c={0}", this.CategoryId);
+                        BuildLink.Redirect(ForumPages.forum, "c={0}", this.CategoryId);
                     }
 
                     break;
@@ -1387,14 +1387,14 @@ namespace YAF.Controls
                     // this is a poll in forums topic view
                     if (this.ForumId > 0)
                     {
-                        YafBuildLink.Redirect(ForumPages.topics, "f={0}", this.ForumId);
+                        BuildLink.Redirect(ForumPages.topics, "f={0}", this.ForumId);
                     }
 
                     break;
                 case ForumPages.postmessage:
                     if (this.EditMessageId > 0)
                     {
-                        YafBuildLink.Redirect(ForumPages.postmessage, "m={0}", this.EditMessageId);
+                        BuildLink.Redirect(ForumPages.postmessage, "m={0}", this.EditMessageId);
                     }
 
                     break;
@@ -1403,7 +1403,7 @@ namespace YAF.Controls
                     // This is a poll on edit forum page
                     if (this.EditForumId > 0)
                     {
-                        YafBuildLink.Redirect(ForumPages.admin_editforum, "f={0}", this.ForumId);
+                        BuildLink.Redirect(ForumPages.admin_editforum, "f={0}", this.ForumId);
                     }
 
                     break;
@@ -1412,7 +1412,7 @@ namespace YAF.Controls
                     // this is a poll on edit category page
                     if (this.EditCategoryId > 0)
                     {
-                        YafBuildLink.Redirect(ForumPages.admin_editcategory, "c={0}", this.EditCategoryId);
+                        BuildLink.Redirect(ForumPages.admin_editcategory, "c={0}", this.EditCategoryId);
                     }
 
                     break;
@@ -1421,12 +1421,12 @@ namespace YAF.Controls
                     // this is a poll on edit board page
                     if (this.EditBoardId > 0)
                     {
-                        YafBuildLink.Redirect(ForumPages.admin_editboard, "b={0}", this.EditBoardId);
+                        BuildLink.Redirect(ForumPages.admin_editboard, "b={0}", this.EditBoardId);
                     }
 
                     break;
                 default:
-                    YafBuildLink.RedirectInfoPage(InfoMessage.Invalid);
+                    BuildLink.RedirectInfoPage(InfoMessage.Invalid);
                     break;
             }
         }

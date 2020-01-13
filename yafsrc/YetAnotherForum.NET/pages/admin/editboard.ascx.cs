@@ -110,7 +110,7 @@ namespace YAF.Pages.Admin
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void CancelClick([NotNull] object sender, [NotNull] EventArgs e)
         {
-            YafBuildLink.Redirect(ForumPages.admin_boards);
+            BuildLink.Redirect(ForumPages.admin_boards);
         }
 
         /// <summary>
@@ -361,10 +361,10 @@ namespace YAF.Pages.Admin
             this.PageLinks.AddRoot();
             this.PageLinks.AddLink(
                 this.GetText("ADMIN_ADMIN", "Administration"),
-                YafBuildLink.GetLink(ForumPages.admin_admin));
+                BuildLink.GetLink(ForumPages.admin_admin));
             this.PageLinks.AddLink(
                 this.GetText("ADMIN_BOARDS", "TITLE"),
-                YafBuildLink.GetLink(ForumPages.admin_editboard));
+                BuildLink.GetLink(ForumPages.admin_editboard));
             this.PageLinks.AddLink(this.GetText("ADMIN_EDITBOARD", "TITLE"), string.Empty);
 
             this.Page.Header.Title =
@@ -472,7 +472,7 @@ namespace YAF.Pages.Admin
 
             // Done
             this.PageContext.BoardSettings = null;
-            YafBuildLink.Redirect(ForumPages.admin_boards);
+            BuildLink.Redirect(ForumPages.admin_boards);
         }
 
         /// <summary>

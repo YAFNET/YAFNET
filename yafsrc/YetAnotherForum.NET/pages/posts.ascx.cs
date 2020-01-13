@@ -138,11 +138,11 @@ namespace YAF.Pages
             if (!this.PageContext.ForumModeratorAccess)
             {
                 /*"You don't have access to delete topics."*/
-                YafBuildLink.AccessDenied();
+                BuildLink.AccessDenied();
             }
 
             this.GetRepository<Topic>().Delete(this.PageContext.PageTopicID, true);
-            YafBuildLink.Redirect(ForumPages.topics, "f={0}", this.PageContext.PageForumID);
+            BuildLink.Redirect(ForumPages.topics, "f={0}", this.PageContext.PageForumID);
         }
 
         /// <summary>
@@ -158,7 +158,7 @@ namespace YAF.Pages
                 return;
             }
 
-            YafBuildLink.Redirect(ForumPages.emailtopic, "t={0}", this.PageContext.PageTopicID);
+            BuildLink.Redirect(ForumPages.emailtopic, "t={0}", this.PageContext.PageTopicID);
         }
 
         /// <summary>
@@ -171,7 +171,7 @@ namespace YAF.Pages
             if (!this.PageContext.ForumModeratorAccess)
             {
                 // "You are not a forum moderator.
-                YafBuildLink.AccessDenied();
+                BuildLink.AccessDenied();
             }
 
             var topicFlags  = this.topic.TopicFlags;
@@ -250,7 +250,7 @@ namespace YAF.Pages
                 return;
             }
 
-            YafBuildLink.Redirect(ForumPages.posts, "t={0}", nextTopic.ID.ToString());
+            BuildLink.Redirect(ForumPages.posts, "t={0}", nextTopic.ID.ToString());
         }
 
         /// <summary>
@@ -279,7 +279,7 @@ namespace YAF.Pages
 
             if (this.Get<IPermissions>().Check(this.Get<BoardSettings>().ShowShareTopicTo))
             {
-                var topicUrl = YafBuildLink.GetLinkNotEscaped(
+                var topicUrl = BuildLink.GetLinkNotEscaped(
                     ForumPages.posts, true, "t={0}", this.PageContext.PageTopicID);
 
                 if (this.Get<BoardSettings>().AllowEmailTopic)
@@ -425,7 +425,7 @@ namespace YAF.Pages
             // in case topic is deleted or not existent
             if (this.topic == null)
             {
-                YafBuildLink.RedirectInfoPage(InfoMessage.Invalid);
+                BuildLink.RedirectInfoPage(InfoMessage.Invalid);
             }
 
             var dt = this.GetRepository<Forum>().List(
@@ -443,7 +443,7 @@ namespace YAF.Pages
             }
             else if (!this.PageContext.ForumReadAccess)
             {
-                YafBuildLink.AccessDenied();
+                BuildLink.AccessDenied();
             }
 
             var yafBoardSettings = this.Get<BoardSettings>();
@@ -464,16 +464,16 @@ namespace YAF.Pages
                     this.PageLinks.AddRoot();
                     this.PageLinks.AddLink(
                         this.PageContext.PageCategoryName,
-                        YafBuildLink.GetLink(ForumPages.forum, "c={0}", this.PageContext.PageCategoryID));
+                        BuildLink.GetLink(ForumPages.forum, "c={0}", this.PageContext.PageCategoryID));
                 }
 
                 this.NewTopic2.NavigateUrl =
                     this.NewTopic1.NavigateUrl =
-                    YafBuildLink.GetLinkNotEscaped(ForumPages.postmessage, "f={0}", this.PageContext.PageForumID);
+                    BuildLink.GetLinkNotEscaped(ForumPages.postmessage, "f={0}", this.PageContext.PageForumID);
 
                 this.PostReplyLink1.NavigateUrl =
                     this.PostReplyLink2.NavigateUrl =
-                    YafBuildLink.GetLinkNotEscaped(
+                    BuildLink.GetLinkNotEscaped(
                         ForumPages.postmessage,
                         "t={0}&f={1}",
                         this.PageContext.PageTopicID,
@@ -499,7 +499,7 @@ namespace YAF.Pages
 
                 this.TopicLink.ToolTip = this.Get<IBadWordReplace>().Replace(
                     this.HtmlEncode(this.topic.Description));
-                this.TopicLink.NavigateUrl = YafBuildLink.GetLinkNotEscaped(
+                this.TopicLink.NavigateUrl = BuildLink.GetLinkNotEscaped(
                     ForumPages.posts, "t={0}", this.PageContext.PageTopicID);
 
                 this.QuickReplyDialog.Visible = yafBoardSettings.ShowQuickAnswer;
@@ -562,7 +562,7 @@ namespace YAF.Pages
                     YafContext.Current.PageElements.RegisterJsBlockStartup(
                         "SelectedQuotingJs",
                         JavaScriptBlocks.SelectedQuotingJs(
-                            YafBuildLink.GetLinkNotEscaped(
+                            BuildLink.GetLinkNotEscaped(
                                 ForumPages.postmessage,
                                 "t={0}&f={1}",
                                 this.PageContext.PageTopicID,
@@ -629,7 +629,7 @@ namespace YAF.Pages
                 return;
             }
 
-            YafBuildLink.Redirect(ForumPages.posts, "t={0}", previousTopic.ID.ToString());
+            BuildLink.Redirect(ForumPages.posts, "t={0}", previousTopic.ID.ToString());
         }
 
         /// <summary>
@@ -688,7 +688,7 @@ namespace YAF.Pages
         {
             if (!this.PageContext.ForumModeratorAccess)
             {
-                YafBuildLink.AccessDenied(/*"You are not a forum moderator."*/);
+                BuildLink.AccessDenied(/*"You are not a forum moderator."*/);
             }
 
             var topicFlags = this.topic.TopicFlags;
@@ -822,7 +822,7 @@ namespace YAF.Pages
         {
             if (this.topic == null)
             {
-                YafBuildLink.Redirect(ForumPages.topics, "f={0}", this.PageContext.PageForumID);
+                BuildLink.Redirect(ForumPages.topics, "f={0}", this.PageContext.PageForumID);
             }
 
             this.dataBound = true;
@@ -1166,7 +1166,7 @@ namespace YAF.Pages
         /// <param name="e">The Pop Event Arguments.</param>
         private void ShareMenuItemClick([NotNull] object sender, [NotNull] PopEventArgs e)
         {
-            var topicUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.posts, true, "t={0}", this.PageContext.PageTopicID);
+            var topicUrl = BuildLink.GetLinkNotEscaped(ForumPages.posts, true, "t={0}", this.PageContext.PageTopicID);
 
             switch (e.Item.ToLower())
             {
@@ -1266,7 +1266,7 @@ namespace YAF.Pages
             switch (e.Item.ToLower())
             {
                 case "print":
-                    YafBuildLink.Redirect(ForumPages.printtopic, "t={0}", this.PageContext.PageTopicID);
+                    BuildLink.Redirect(ForumPages.printtopic, "t={0}", this.PageContext.PageTopicID);
                     break;
                 case "watch":
                     this.TrackTopic_Click(sender, e);
@@ -1275,14 +1275,14 @@ namespace YAF.Pages
                     this.EmailTopic_Click(sender, e);
                     break;
                 case "rssfeed":
-                    YafBuildLink.Redirect(
+                    BuildLink.Redirect(
                         ForumPages.rsstopic,
                         "pg={0}&t={1}&ft=0",
                         YafRssFeeds.Posts.ToInt(),
                         this.PageContext.PageTopicID);
                     break;
                 case "atomfeed":
-                    YafBuildLink.Redirect(
+                    BuildLink.Redirect(
                         ForumPages.rsstopic,
                         "pg={0}&t={1}&ft=1",
                         YafRssFeeds.Posts.ToInt(),

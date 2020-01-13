@@ -390,7 +390,7 @@ namespace YAF.Web.Controls
                 this.PageContext.ForumPageType == page
                     ? @"<a class=""{3} active"" href=""{0}"" title=""{2}"" data-toggle=""tooltip"">{1}</a>"
                     : @"<a class=""{3}"" href=""{0}"" title=""{2}"" data-toggle=""tooltip"">{1}</a>",
-                parameter.IsSet() ? YafBuildLink.GetLink(page, parameter) : YafBuildLink.GetLink(page),
+                parameter.IsSet() ? BuildLink.GetLink(page, parameter) : BuildLink.GetLink(page),
                 getText,
                 getText,
                 cssClass);

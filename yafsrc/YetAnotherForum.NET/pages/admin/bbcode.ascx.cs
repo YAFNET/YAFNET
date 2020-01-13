@@ -89,8 +89,8 @@ namespace YAF.Pages.Admin
         /// </summary>
         protected override void CreatePageLinks()
         {
-            this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
-            this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
+            this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, BuildLink.GetLink(ForumPages.forum));
+            this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), BuildLink.GetLink(ForumPages.admin_admin));
             this.PageLinks.AddLink(this.GetText("ADMIN_BBCODE", "TITLE"), string.Empty);
 
             this.Page.Header.Title =
@@ -107,10 +107,10 @@ namespace YAF.Pages.Admin
             switch (e.CommandName)
             {
                 case "add":
-                    YafBuildLink.Redirect(ForumPages.admin_bbcode_edit);
+                    BuildLink.Redirect(ForumPages.admin_bbcode_edit);
                     break;
                 case "edit":
-                    YafBuildLink.Redirect(ForumPages.admin_bbcode_edit, "b={0}", e.CommandArgument);
+                    BuildLink.Redirect(ForumPages.admin_bbcode_edit, "b={0}", e.CommandArgument);
                     break;
                 case "delete":
                     this.GetRepository<BBCode>().DeleteById(e.CommandArgument.ToType<int>());

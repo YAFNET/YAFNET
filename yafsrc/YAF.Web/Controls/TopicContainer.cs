@@ -150,7 +150,7 @@ namespace YAF.Web.Controls
 
             var topicLink = new HyperLink
                                 {
-                                    NavigateUrl = YafBuildLink.GetLinkNotEscaped(
+                                    NavigateUrl = BuildLink.GetLinkNotEscaped(
                                         ForumPages.posts,
                                         "t={0}",
                                         this.TopicRow["LinkTopicID"]),
@@ -304,7 +304,7 @@ namespace YAF.Web.Controls
                 var gotoLastPost = new ThemeButton
                                        {
                                            NavigateUrl =
-                                               YafBuildLink.GetLink(
+                                               BuildLink.GetLink(
                                                    ForumPages.posts,
                                                    "m={0}#post{0}",
                                                    this.TopicRow["LastMessageID"]),
@@ -318,7 +318,7 @@ namespace YAF.Web.Controls
                 var gotoLastUnread = new ThemeButton
                                          {
                                              NavigateUrl =
-                                                 YafBuildLink.GetLink(
+                                                 BuildLink.GetLink(
                                                      ForumPages.posts,
                                                      "t={0}&find=unread",
                                                      this.TopicRow["TopicID"]),
@@ -369,7 +369,7 @@ namespace YAF.Web.Controls
 
             if (pageCount > NumToDisplay)
             {
-                strReturn.AppendLine(this.MakeLink("1", YafBuildLink.GetLink(ForumPages.posts, "t={0}", topicID), 1));
+                strReturn.AppendLine(this.MakeLink("1", BuildLink.GetLink(ForumPages.posts, "t={0}", topicID), 1));
                 strReturn.AppendLine(" ... ");
 
                 // show links from the end
@@ -380,7 +380,7 @@ namespace YAF.Web.Controls
                     strReturn.AppendLine(
                         this.MakeLink(
                             post.ToString(),
-                            YafBuildLink.GetLink(ForumPages.posts, "t={0}&p={1}", topicID, post),
+                            BuildLink.GetLink(ForumPages.posts, "t={0}&p={1}", topicID, post),
                             post));
                 }
             }
@@ -393,7 +393,7 @@ namespace YAF.Web.Controls
                     strReturn.AppendLine(
                         this.MakeLink(
                             post.ToString(),
-                            YafBuildLink.GetLink(ForumPages.posts, "t={0}&p={1}", topicID, post),
+                            BuildLink.GetLink(ForumPages.posts, "t={0}&p={1}", topicID, post),
                             post));
                 }
             }

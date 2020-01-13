@@ -73,7 +73,7 @@ namespace YAF.Controls
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void Back_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
-            YafBuildLink.Redirect(
+            BuildLink.Redirect(
                 this.PageContext.CurrentForumPage.IsAdminPage ? ForumPages.admin_users : ForumPages.cp_profile);
         }
 
@@ -137,7 +137,7 @@ namespace YAF.Controls
                 addAdminParam = $"u={this.currentUserId}";
             }
 
-            this.OurAvatar.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.avatar, addAdminParam);
+            this.OurAvatar.NavigateUrl = BuildLink.GetLinkNotEscaped(ForumPages.avatar, addAdminParam);
             this.OurAvatar.Text = this.GetText("CP_EDITAVATAR", "OURAVATAR_SELECT");
 
             this.noteRemote.Text = this.GetTextFormatted(
@@ -278,7 +278,7 @@ namespace YAF.Controls
 
                     this.GetRepository<User>().SaveAvatar(
                         this.currentUserId,
-                        $"{YafForumInfo.ForumBaseUrl}{BoardFolders.Current.Uploads}/{newFileName}",
+                        $"{BoardInfo.ForumBaseUrl}{BoardFolders.Current.Uploads}/{newFileName}",
                         null,
                         null);
                 }
@@ -332,7 +332,7 @@ namespace YAF.Controls
             if (row["HasAvatarImage"] != null && long.Parse(row["HasAvatarImage"].ToString()) > 0)
             {
                 this.AvatarImg.ImageUrl =
-                    $"{YafForumInfo.ForumClientFileRoot}resource.ashx?u={this.currentUserId}&v={DateTime.Now.Ticks}";
+                    $"{BoardInfo.ForumClientFileRoot}resource.ashx?u={this.currentUserId}&v={DateTime.Now.Ticks}";
                 this.Avatar.Text = string.Empty;
                 this.DeleteAvatar.Visible = true;
             }
@@ -340,7 +340,7 @@ namespace YAF.Controls
             {
                 // Took out PageContext.BoardSettings.AvatarRemote
                 this.AvatarImg.ImageUrl =
-                    $"{YafForumInfo.ForumClientFileRoot}resource.ashx?url={this.Server.UrlEncode(row["Avatar"].ToString())}&width={this.Get<BoardSettings>().AvatarWidth}&height={this.Get<BoardSettings>().AvatarHeight}&v={DateTime.Now.Ticks}";
+                    $"{BoardInfo.ForumClientFileRoot}resource.ashx?url={this.Server.UrlEncode(row["Avatar"].ToString())}&width={this.Get<BoardSettings>().AvatarWidth}&height={this.Get<BoardSettings>().AvatarHeight}&v={DateTime.Now.Ticks}";
 
                 this.Avatar.Text = row["Avatar"].ToString();
                 this.DeleteAvatar.Visible = true;
@@ -360,7 +360,7 @@ namespace YAF.Controls
                     $"http://www.gravatar.com/avatar/{emailHash}.jpg?r={this.Get<BoardSettings>().GravatarRating}";
 
                 this.AvatarImg.ImageUrl =
-                    $"{YafForumInfo.ForumClientFileRoot}resource.ashx?url={this.Server.UrlEncode(gravatarUrl)}&width={this.Get<BoardSettings>().AvatarWidth}&height={this.Get<BoardSettings>().AvatarHeight}&v={DateTime.Now.Ticks}";
+                    $"{BoardInfo.ForumClientFileRoot}resource.ashx?url={this.Server.UrlEncode(gravatarUrl)}&width={this.Get<BoardSettings>().AvatarWidth}&height={this.Get<BoardSettings>().AvatarHeight}&v={DateTime.Now.Ticks}";
 
                 this.NoAvatar.Text = "Gravatar Image";
                 this.NoAvatar.Visible = true;

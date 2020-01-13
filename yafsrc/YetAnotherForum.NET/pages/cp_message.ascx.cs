@@ -103,16 +103,16 @@ namespace YAF.Pages
 
                     this.BindData();
                     this.PageContext.AddLoadMessage(this.GetText("msg_deleted"), MessageTypes.success);
-                    YafBuildLink.Redirect(ForumPages.cp_pm);
+                    BuildLink.Redirect(ForumPages.cp_pm);
                     break;
                 case "reply":
-                    YafBuildLink.Redirect(ForumPages.pmessage, "p={0}&q=0", e.CommandArgument);
+                    BuildLink.Redirect(ForumPages.pmessage, "p={0}&q=0", e.CommandArgument);
                     break;
                 case "report":
-                    YafBuildLink.Redirect(ForumPages.pmessage, "p={0}&q=1&report=1", e.CommandArgument);
+                    BuildLink.Redirect(ForumPages.pmessage, "p={0}&q=1&report=1", e.CommandArgument);
                     break;
                 case "quote":
-                    YafBuildLink.Redirect(ForumPages.pmessage, "p={0}&q=1", e.CommandArgument);
+                    BuildLink.Redirect(ForumPages.pmessage, "p={0}&q=1", e.CommandArgument);
                     break;
             }
         }
@@ -127,7 +127,7 @@ namespace YAF.Pages
             // check if this feature is disabled
             if (!this.Get<BoardSettings>().AllowPrivateMessages)
             {
-                YafBuildLink.RedirectInfoPage(InfoMessage.Disabled);
+                BuildLink.RedirectInfoPage(InfoMessage.Disabled);
             }
 
             if (this.IsPostBack)
@@ -137,7 +137,7 @@ namespace YAF.Pages
 
             if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("pm").IsNotSet())
             {
-                YafBuildLink.AccessDenied();
+                BuildLink.AccessDenied();
             }
 
             this.PageLinks.AddRoot();
@@ -145,7 +145,7 @@ namespace YAF.Pages
                 this.Get<BoardSettings>().EnableDisplayName
                     ? this.PageContext.CurrentUserData.DisplayName
                     : this.PageContext.PageUserName,
-                YafBuildLink.GetLink(ForumPages.cp_profile));
+                BuildLink.GetLink(ForumPages.cp_profile));
 
             // handle custom YafBBCode javascript or CSS...
             this.Get<IBBCode>().RegisterCustomBBCodePageElements(this.Page, this.GetType());
@@ -194,16 +194,16 @@ namespace YAF.Pages
                     if (this.IsOutbox)
                     {
                         this.PageLinks.AddLink(
-                            this.GetText("SENTITEMS"), YafBuildLink.GetLink(ForumPages.cp_pm, "v=out"));
+                            this.GetText("SENTITEMS"), BuildLink.GetLink(ForumPages.cp_pm, "v=out"));
                     }
                     else if (this.IsArchived)
                     {
                         this.PageLinks.AddLink(
-                            this.GetText("ARCHIVE"), YafBuildLink.GetLink(ForumPages.cp_pm, "v=arch"));
+                            this.GetText("ARCHIVE"), BuildLink.GetLink(ForumPages.cp_pm, "v=arch"));
                     }
                     else
                     {
-                        this.PageLinks.AddLink(this.GetText("INBOX"), YafBuildLink.GetLink(ForumPages.cp_pm));
+                        this.PageLinks.AddLink(this.GetText("INBOX"), BuildLink.GetLink(ForumPages.cp_pm));
                     }
 
                     this.PageLinks.AddLink(row["Subject"].ToString());
@@ -214,7 +214,7 @@ namespace YAF.Pages
                 }
                 else
                 {
-                    YafBuildLink.Redirect(ForumPages.cp_pm);
+                    BuildLink.Redirect(ForumPages.cp_pm);
                 }
             }
 
@@ -267,11 +267,11 @@ namespace YAF.Pages
                 // see if the message got deleted, if so, redirect to their outbox/archive
                 if (this.IsOutbox && !messageIsInOutbox)
                 {
-                    YafBuildLink.Redirect(ForumPages.cp_pm, "v=out");
+                    BuildLink.Redirect(ForumPages.cp_pm, "v=out");
                 }
                 else if (this.IsArchived && !messageIsArchived)
                 {
-                    YafBuildLink.Redirect(ForumPages.cp_pm, "v=arch");
+                    BuildLink.Redirect(ForumPages.cp_pm, "v=arch");
                 }
             }
             else if (isCurrentUserFrom)
@@ -280,7 +280,7 @@ namespace YAF.Pages
                 if (!messageIsInOutbox)
                 {
                     // deleted for this user, redirect...
-                    YafBuildLink.Redirect(ForumPages.cp_pm, "v=out");
+                    BuildLink.Redirect(ForumPages.cp_pm, "v=out");
                 }
                 else
                 {

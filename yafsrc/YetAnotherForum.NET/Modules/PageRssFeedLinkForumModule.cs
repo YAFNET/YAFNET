@@ -101,7 +101,7 @@ namespace YAF.Modules
           var rssLink = new HtmlLink
             {
               Href =
-                YafBuildLink.GetLink(
+                BuildLink.GetLink(
                   ForumPages.rsstopic,
                   true,
                   "pg={0}&ft={1}",
@@ -125,7 +125,7 @@ namespace YAF.Modules
           var atomLink = new HtmlLink
             {
               Href =
-                YafBuildLink.GetLink(
+                BuildLink.GetLink(
                   ForumPages.rsstopic,
                   true,
                   "pg={0}&ft={1}",

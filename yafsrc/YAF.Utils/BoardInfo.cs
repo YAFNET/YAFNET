@@ -38,7 +38,7 @@ namespace YAF.Utils
     /// <summary>
     /// Class provides helper functions related to the forum path and URLs as well as forum version information.
     /// </summary>
-    public static class YafForumInfo
+    public static class BoardInfo
     {
         /// <summary>
         /// Gets the forum path (client-side).
@@ -60,7 +60,7 @@ namespace YAF.Utils
         /// <summary>
         /// Gets full URL to the Root of the Forum
         /// </summary>
-        public static string ForumURL => YafBuildLink.GetLink(ForumPages.forum, true);
+        public static string ForumURL => BuildLink.GetLink(ForumPages.forum, true);
 
         /// <summary>
         /// Gets a value indicating whether this instance is local.

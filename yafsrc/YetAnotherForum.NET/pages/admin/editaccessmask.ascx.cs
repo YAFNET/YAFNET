@@ -59,7 +59,7 @@ namespace YAF.Pages.Admin
         protected void CancelClick([NotNull] object sender, [NotNull] EventArgs e)
         {
             // get back to access masks administration
-            YafBuildLink.Redirect(ForumPages.admin_accessmasks);
+            BuildLink.Redirect(ForumPages.admin_accessmasks);
         }
 
         /// <summary>
@@ -73,11 +73,11 @@ namespace YAF.Pages.Admin
             // administration index
             this.PageLinks.AddLink(
                 this.GetText("ADMIN_ADMIN", "Administration"),
-                YafBuildLink.GetLink(ForumPages.admin_admin));
+                BuildLink.GetLink(ForumPages.admin_admin));
 
             this.PageLinks.AddLink(
                 this.GetText("ADMIN_ACCESSMASKS", "TITLE"),
-                YafBuildLink.GetLink(ForumPages.admin_accessmasks));
+                BuildLink.GetLink(ForumPages.admin_accessmasks));
 
             // current page label (no link)
             this.PageLinks.AddLink(this.GetText("ADMIN_EDITACCESSMASKS", "TITLE"), string.Empty);
@@ -167,7 +167,7 @@ namespace YAF.Pages.Admin
             this.Get<IDataCache>().Remove(Constants.Cache.ForumModerators);
 
             // get back to access masks administration
-            YafBuildLink.Redirect(ForumPages.admin_accessmasks);
+            BuildLink.Redirect(ForumPages.admin_accessmasks);
         }
 
         /// <summary>

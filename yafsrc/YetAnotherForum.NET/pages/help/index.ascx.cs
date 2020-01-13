@@ -90,7 +90,7 @@ namespace YAF.Pages.help
 
             if (!this.Get<IPermissions>().Check(this.Get<BoardSettings>().ShowHelpTo))
             {
-                YafBuildLink.AccessDenied();
+                BuildLink.AccessDenied();
             }
         }
 
@@ -110,7 +110,7 @@ namespace YAF.Pages.help
 
             this.PageLinks.AddRoot();
             this.PageLinks.AddLink(
-                this.GetText("SUBTITLE"), YafBuildLink.GetLink(ForumPages.help_index));
+                this.GetText("SUBTITLE"), BuildLink.GetLink(ForumPages.help_index));
 
             if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("faq").IsSet())
             {
@@ -262,7 +262,7 @@ namespace YAF.Pages.help
             var serializer = new XmlSerializer(typeof(List<YafHelpNavigation>));
 
             var xmlFilePath =
-                HttpContext.Current.Server.MapPath($"{YafForumInfo.ForumServerFileRoot}Resources/HelpMenuList.xml");
+                HttpContext.Current.Server.MapPath($"{BoardInfo.ForumServerFileRoot}Resources/HelpMenuList.xml");
 
             if (File.Exists(xmlFilePath))
             {
@@ -283,7 +283,7 @@ namespace YAF.Pages.help
                         {
                             helpContent = this.GetTextFormatted(
                                 $"{helpPage.HelpPage}CONTENT",
-                                YafBuildLink.GetLink(ForumPages.recoverpassword));
+                                BuildLink.GetLink(ForumPages.recoverpassword));
                         }
 
                         break;
@@ -291,7 +291,7 @@ namespace YAF.Pages.help
                         {
                             helpContent = this.GetTextFormatted(
                                 $"{helpPage.HelpPage}CONTENT",
-                                YafForumInfo.ForumBaseUrl);
+                                BoardInfo.ForumBaseUrl);
                         }
 
                         break;
@@ -299,7 +299,7 @@ namespace YAF.Pages.help
                         {
                             helpContent = this.GetTextFormatted(
                                 $"{helpPage.HelpPage}CONTENT",
-                                YafBuildLink.GetLink(ForumPages.help_index, "faq=bbcodes"));
+                                BuildLink.GetLink(ForumPages.help_index, "faq=bbcodes"));
                         }
 
                         break;

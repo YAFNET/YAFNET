@@ -144,7 +144,7 @@ namespace YAF.Core.Services
                                                        TemplateLanguageFile = languageFile,
                                                        TemplateParams =
                                                            {
-                                                               ["{adminlink}"] = YafBuildLink.GetLinkNotEscaped(
+                                                               ["{adminlink}"] = BuildLink.GetLinkNotEscaped(
                                                                    ForumPages.moderate_unapprovedposts,
                                                                    true,
                                                                    "f={0}",
@@ -226,7 +226,7 @@ namespace YAF.Core.Services
                                                                    ["{reason}"] = reportText,
                                                                    ["{reporter}"] =
                                                                        this.Get<IUserDisplayName>().GetName(reporter),
-                                                                   ["{adminlink}"] = YafBuildLink.GetLinkNotEscaped(
+                                                                   ["{adminlink}"] = BuildLink.GetLinkNotEscaped(
                                                                        ForumPages.moderate_reportedposts,
                                                                        true,
                                                                        "f={0}",
@@ -297,7 +297,7 @@ namespace YAF.Core.Services
                                                        {
                                                            ["{fromuser}"] = displayName,
                                                            ["{link}"] =
-                                                               $"{YafBuildLink.GetLinkNotEscaped(ForumPages.cp_message, true, "pm={0}", userPMessageId)}\r\n\r\n",
+                                                               $"{BuildLink.GetLinkNotEscaped(ForumPages.cp_message, true, "pm={0}", userPMessageId)}\r\n\r\n",
                                                            ["{subject}"] = subject,
                                                            ["{username}"] =
                                                                this.BoardSettings.EnableDisplayName
@@ -369,12 +369,12 @@ namespace YAF.Core.Services
                                                  UserMembershipHelper.GetDisplayNameFromID(messageAuthorUserID),
                                              ["{body}"] = bodyText,
                                              ["{bodytruncated}"] = bodyText.Truncate(160),
-                                             ["{link}"] = YafBuildLink.GetLinkNotEscaped(
+                                             ["{link}"] = BuildLink.GetLinkNotEscaped(
                                                  ForumPages.posts,
                                                  true,
                                                  "m={0}#post{0}",
                                                  newMessageId),
-                                             ["{subscriptionlink}"] = YafBuildLink.GetLinkNotEscaped(
+                                             ["{subscriptionlink}"] = BuildLink.GetLinkNotEscaped(
                                                  ForumPages.cp_subscriptions,
                                                  true)
                                          }
@@ -526,7 +526,7 @@ namespace YAF.Core.Services
                                                 ["{user}"] = user.UserName,
                                                 ["{roles}"] = string.Join(", ", removedRoles.ToArray()),
                                                 ["{forumname}"] = this.BoardSettings.Name,
-                                                ["{forumurl}"] = YafForumInfo.ForumURL
+                                                ["{forumurl}"] = BoardInfo.ForumURL
                                             }
                                     };
 
@@ -551,7 +551,7 @@ namespace YAF.Core.Services
                                                 ["{user}"] = user.UserName,
                                                 ["{roles}"] = string.Join(", ", addedRoles.ToArray()),
                                                 ["{forumname}"] = this.BoardSettings.Name,
-                                                ["{forumurl}"] = YafForumInfo.ForumURL
+                                                ["{forumurl}"] = BoardInfo.ForumURL
                                             }
                                     };
 
@@ -576,7 +576,7 @@ namespace YAF.Core.Services
                                   {
                                       TemplateParams =
                                           {
-                                              ["{adminlink}"] = YafBuildLink.GetLinkNotEscaped(
+                                              ["{adminlink}"] = BuildLink.GetLinkNotEscaped(
                                                   ForumPages.admin_edituser,
                                                   true,
                                                   "u={0}",
@@ -627,7 +627,7 @@ namespace YAF.Core.Services
                                                   {
                                                       TemplateParams =
                                                           {
-                                                              ["{adminlink}"] = YafBuildLink.GetLinkNotEscaped(
+                                                              ["{adminlink}"] = BuildLink.GetLinkNotEscaped(
                                                                   ForumPages.admin_edituser,
                                                                   true,
                                                                   "u={0}",
@@ -725,7 +725,7 @@ namespace YAF.Core.Services
                                       TemplateParams =
                                           {
                                               ["{link}"] =
-                                                  YafBuildLink.GetLinkNotEscaped(
+                                                  BuildLink.GetLinkNotEscaped(
                                                       ForumPages.approve,
                                                       true,
                                                       "k={0}",
@@ -762,7 +762,7 @@ namespace YAF.Core.Services
                                           {
                                               ["{user}"] = userName,
                                               ["{link}"] =
-                                                  $"{YafBuildLink.GetLinkNotEscaped(ForumPages.approve, true, "k={0}", hash)}\r\n\r\n",
+                                                  $"{BuildLink.GetLinkNotEscaped(ForumPages.approve, true, "k={0}", hash)}\r\n\r\n",
                                               ["{newemail}"] = newEmail,
                                               ["{key}"] = hash
                                           }
@@ -809,7 +809,7 @@ namespace YAF.Core.Services
                                              ["{suspendedUntil}"] =
                                                  suspendedUntil.ToString(CultureInfo.InvariantCulture),
                                              ["{forumname}"] = this.BoardSettings.Name,
-                                             ["{forumurl}"] = YafForumInfo.ForumURL
+                                             ["{forumurl}"] = BoardInfo.ForumURL
                                          }
                                  };
 
@@ -833,7 +833,7 @@ namespace YAF.Core.Services
                                          {
                                              ["{user}"] = userName,
                                              ["{forumname}"] = this.BoardSettings.Name,
-                                             ["{forumurl}"] = YafForumInfo.ForumURL
+                                             ["{forumurl}"] = BoardInfo.ForumURL
                                          }
                                  };
 

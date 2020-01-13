@@ -195,12 +195,12 @@ namespace YAF.Web.Controls
             {
                 case ForumPages.topics:
                     url = page > 1
-                              ? YafBuildLink.GetLinkNotEscaped(
+                              ? BuildLink.GetLinkNotEscaped(
                                   ForumPages.topics,
                                   "f={0}&p={1}",
                                   this.PageContext.PageForumID,
                                   page)
-                              : YafBuildLink.GetLinkNotEscaped(
+                              : BuildLink.GetLinkNotEscaped(
                                   ForumPages.topics,
                                   "f={0}",
                                   this.PageContext.PageForumID);
@@ -208,12 +208,12 @@ namespace YAF.Web.Controls
                     break;
                 case ForumPages.posts:
                     url = page > 1
-                              ? YafBuildLink.GetLinkNotEscaped(
+                              ? BuildLink.GetLinkNotEscaped(
                                   ForumPages.posts,
                                   "t={0}&p={1}",
                                   this.PageContext.PageTopicID,
                                   page)
-                              : YafBuildLink.GetLinkNotEscaped(ForumPages.posts, "t={0}", this.PageContext.PageTopicID);
+                              : BuildLink.GetLinkNotEscaped(ForumPages.posts, "t={0}", this.PageContext.PageTopicID);
 
                     break;
             }

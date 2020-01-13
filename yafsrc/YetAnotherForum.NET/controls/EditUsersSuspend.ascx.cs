@@ -336,7 +336,7 @@ namespace YAF.Controls
                 // there is no such user
                 if (dt.Rows.Count < 1)
                 {
-                    YafBuildLink.AccessDenied(/*No such user exists*/);
+                    BuildLink.AccessDenied(/*No such user exists*/);
                 }
 
                 // get user's data in form of data row

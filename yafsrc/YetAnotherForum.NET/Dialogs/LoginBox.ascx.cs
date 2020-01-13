@@ -199,9 +199,9 @@ namespace YAF.Dialogs
             this.Login1.MembershipProvider = Config.MembershipProvider;
 
             // Login1.CreateUserText = "Sign up for a new account.";
-            // Login1.CreateUserUrl = YafBuildLink.GetLink( ForumPages.register );
+            // Login1.CreateUserUrl = BuildLink.GetLink( ForumPages.register );
             this.Login1.PasswordRecoveryText = this.GetText("lostpassword");
-            this.Login1.PasswordRecoveryUrl = YafBuildLink.GetLink(ForumPages.recoverpassword);
+            this.Login1.PasswordRecoveryUrl = BuildLink.GetLink(ForumPages.recoverpassword);
             this.Login1.FailureText = this.GetText("password_error");
 
             this.Login1.DestinationPageUrl = this.Page.Request.RawUrl;
@@ -292,7 +292,7 @@ namespace YAF.Dialogs
         /// </param>
         protected void PasswordRecovery_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
-            YafBuildLink.Redirect(ForumPages.recoverpassword);
+            BuildLink.Redirect(ForumPages.recoverpassword);
         }
 
         #endregion
@@ -319,7 +319,7 @@ namespace YAF.Dialogs
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void FacebookRegisterClick(object sender, EventArgs e)
         {
-            YafBuildLink.Redirect(ForumPages.login, "auth={0}", AuthService.facebook);
+            BuildLink.Redirect(ForumPages.login, "auth={0}", AuthService.facebook);
         }
 
         /// <summary>
@@ -329,7 +329,7 @@ namespace YAF.Dialogs
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void TwitterRegisterClick(object sender, EventArgs e)
         {
-            YafBuildLink.Redirect(ForumPages.login, "auth={0}", AuthService.twitter);
+            BuildLink.Redirect(ForumPages.login, "auth={0}", AuthService.twitter);
         }
 
         /// <summary>
@@ -339,7 +339,7 @@ namespace YAF.Dialogs
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void GoogleRegisterClick(object sender, EventArgs e)
         {
-            YafBuildLink.Redirect(ForumPages.login, "auth={0}", AuthService.google);
+            BuildLink.Redirect(ForumPages.login, "auth={0}", AuthService.google);
         }
     }
 }

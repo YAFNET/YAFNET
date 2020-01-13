@@ -94,7 +94,7 @@ namespace YAF.Pages
                     topicId.ToType<int>(),
                     true);
 
-                YafBuildLink.Redirect(ForumPages.topics, "f={0}", this.PageContext.PageForumID);
+                BuildLink.Redirect(ForumPages.topics, "f={0}", this.PageContext.PageForumID);
             }
             else
             {
@@ -144,7 +144,7 @@ namespace YAF.Pages
                     true);
             }
 
-            YafBuildLink.Redirect(ForumPages.topics, "f={0}", this.PageContext.PageForumID);
+            BuildLink.Redirect(ForumPages.topics, "f={0}", this.PageContext.PageForumID);
         }
 
         /// <summary>
@@ -156,7 +156,7 @@ namespace YAF.Pages
         {
             if (!this.Get<HttpRequestBase>().QueryString.Exists("m") || !this.PageContext.ForumModeratorAccess)
             {
-                YafBuildLink.AccessDenied();
+                BuildLink.AccessDenied();
             }
 
             if (this.IsPostBack)
@@ -168,11 +168,11 @@ namespace YAF.Pages
 
             this.PageLinks.AddLink(
                 this.PageContext.PageCategoryName,
-                YafBuildLink.GetLink(ForumPages.forum, "c={0}", this.PageContext.PageCategoryID));
+                BuildLink.GetLink(ForumPages.forum, "c={0}", this.PageContext.PageCategoryID));
             this.PageLinks.AddForum(this.PageContext.PageForumID);
             this.PageLinks.AddLink(
                 this.PageContext.PageTopicName,
-                YafBuildLink.GetLink(ForumPages.posts, "t={0}", this.PageContext.PageTopicID));
+                BuildLink.GetLink(ForumPages.posts, "t={0}", this.PageContext.PageTopicID));
 
             this.PageLinks.AddLink(this.GetText("MOVE_MESSAGE"));
 

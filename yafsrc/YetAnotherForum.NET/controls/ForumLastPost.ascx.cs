@@ -92,7 +92,7 @@ namespace YAF.Controls
                 var lastPostedDateTime = this.DataRow["LastPosted"].ToType<DateTime>();
 
                 // Topic Link
-                this.topicLink.NavigateUrl = YafBuildLink.GetLinkNotEscaped(
+                this.topicLink.NavigateUrl = BuildLink.GetLinkNotEscaped(
                     ForumPages.posts, "t={0}", this.DataRow["LastTopicID"]);
 
                 this.topicLink.ToolTip = this.GetText("COMMON", "VIEW_TOPIC");
@@ -124,10 +124,10 @@ namespace YAF.Controls
                                                             : "LastUser"].ToString()
                 };
 
-                this.LastTopicImgLink.NavigateUrl = YafBuildLink.GetLinkNotEscaped(
+                this.LastTopicImgLink.NavigateUrl = BuildLink.GetLinkNotEscaped(
                     ForumPages.posts, "m={0}#post{0}", this.DataRow["LastMessageID"]);
 
-                this.ImageLastUnreadMessageLink.NavigateUrl = YafBuildLink.GetLinkNotEscaped(
+                this.ImageLastUnreadMessageLink.NavigateUrl = BuildLink.GetLinkNotEscaped(
                     ForumPages.posts, "t={0}&find=unread", this.DataRow["LastTopicID"]);
 
                 var lastRead =

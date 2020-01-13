@@ -36,7 +36,7 @@ namespace YAF.Utils
     /// <summary>
     /// Static class with link building functions.
     /// </summary>
-    public static class YafBuildLink
+    public static class BuildLink
     {
         #region Public Methods
 

@@ -96,7 +96,7 @@ namespace YAF.Pages
             // check if this feature is disabled
             if (!this.Get<BoardSettings>().AllowPrivateMessages)
             {
-                YafBuildLink.RedirectInfoPage(InfoMessage.Disabled);
+                BuildLink.RedirectInfoPage(InfoMessage.Disabled);
             }
 
             if (this.IsPostBack)
@@ -116,10 +116,10 @@ namespace YAF.Pages
                 this.Get<BoardSettings>().EnableDisplayName
                     ? this.PageContext.CurrentUserData.DisplayName
                     : this.PageContext.PageUserName,
-                YafBuildLink.GetLink(ForumPages.cp_profile));
+                BuildLink.GetLink(ForumPages.cp_profile));
             this.PageLinks.AddLink(this.GetText("TITLE"));
 
-            this.NewPM.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.pmessage);
+            this.NewPM.NavigateUrl = BuildLink.GetLinkNotEscaped(ForumPages.pmessage);
             this.NewPM2.NavigateUrl = this.NewPM.NavigateUrl;
         }
 

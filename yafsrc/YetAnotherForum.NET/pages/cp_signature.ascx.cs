@@ -68,7 +68,7 @@ namespace YAF.Pages
                 && !(this.PageContext.IsAdmin || this.PageContext.IsForumModerator))
             {
                 // Not accessbile...
-                YafBuildLink.AccessDenied();
+                BuildLink.AccessDenied();
             }
 
             if (this.IsPostBack)
@@ -81,7 +81,7 @@ namespace YAF.Pages
                 this.Get<BoardSettings>().EnableDisplayName
                     ? this.PageContext.CurrentUserData.DisplayName
                     : this.PageContext.PageUserName,
-                YafBuildLink.GetLink(ForumPages.cp_profile));
+                BuildLink.GetLink(ForumPages.cp_profile));
             this.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
         }
 

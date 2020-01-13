@@ -128,12 +128,12 @@ namespace YAF.Pages.moderate
                 case "viewunapprovedposts":
 
                     // go to unapproved posts for selected forum
-                    YafBuildLink.Redirect(ForumPages.moderate_unapprovedposts, "f={0}", e.CommandArgument);
+                    BuildLink.Redirect(ForumPages.moderate_unapprovedposts, "f={0}", e.CommandArgument);
                     break;
                 case "viewreportedposts":
 
                     // go to spam reports for selected forum
-                    YafBuildLink.Redirect(ForumPages.moderate_reportedposts, "f={0}", e.CommandArgument);
+                    BuildLink.Redirect(ForumPages.moderate_reportedposts, "f={0}", e.CommandArgument);
                     break;
             }
         }

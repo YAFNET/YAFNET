@@ -94,7 +94,7 @@ namespace YAF.Core.Theme
         {
             CodeContracts.VerifyNotNull(filename, "filename");
 
-            return YafForumInfo.GetURLToContentThemes(this.Theme.CombineWith(filename));
+            return BoardInfo.GetURLToContentThemes(this.Theme.CombineWith(filename));
         }
 
         #endregion
@@ -111,7 +111,7 @@ namespace YAF.Core.Theme
             CodeContracts.VerifyNotNull(theme, "theme");
 
             return
-                HttpContext.Current.Server.MapPath($"{YafForumInfo.ForumServerFileRoot}Content/Themes/{theme.Trim()}");
+                HttpContext.Current.Server.MapPath($"{BoardInfo.ForumServerFileRoot}Content/Themes/{theme.Trim()}");
         }
     }
 }

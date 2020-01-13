@@ -319,7 +319,7 @@ namespace YAF.Core.Services
                 var data = new MemoryStream();
                 if (context.Request.QueryString.GetFirstOrDefault("cover") == "0")
                 {
-                    fileName = context.Server.MapPath($"{YafForumInfo.ForumClientFileRoot}/images/noCover.png");
+                    fileName = context.Server.MapPath($"{BoardInfo.ForumClientFileRoot}/images/noCover.png");
                 }
                 else
                 {

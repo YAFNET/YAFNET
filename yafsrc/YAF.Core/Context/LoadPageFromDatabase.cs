@@ -207,7 +207,7 @@ namespace YAF.Core
                 if (YafContext.Current.ForumPageType != ForumPages.info)
                 {
                     // show a failure notice since something is probably up with membership...
-                    YafBuildLink.RedirectInfoPage(InfoMessage.Failure);
+                    BuildLink.RedirectInfoPage(InfoMessage.Failure);
                 }
                 else
                 {

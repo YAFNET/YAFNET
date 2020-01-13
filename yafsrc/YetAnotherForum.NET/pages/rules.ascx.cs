@@ -81,10 +81,10 @@ namespace YAF.Pages
         {
             if (!this.Get<BoardSettings>().UseSSLToRegister)
             {
-                YafBuildLink.Redirect(ForumPages.register);
+                BuildLink.Redirect(ForumPages.register);
             }
 
-            this.Get<HttpResponseBase>().Redirect(YafBuildLink.GetLink(ForumPages.register, true).Replace("http:", "https:"));
+            this.Get<HttpResponseBase>().Redirect(BuildLink.GetLink(ForumPages.register, true).Replace("http:", "https:"));
         }
 
         /// <summary>
@@ -98,7 +98,7 @@ namespace YAF.Pages
         /// </param>
         protected void Cancel_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
-            YafBuildLink.Redirect(ForumPages.forum);
+            BuildLink.Redirect(ForumPages.forum);
         }
 
         /// <summary>

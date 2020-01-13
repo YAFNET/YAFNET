@@ -53,12 +53,12 @@ namespace YAF.Pages.Admin
         protected override void CreatePageLinks()
         {
             // board index
-            this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+            this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, BuildLink.GetLink(ForumPages.forum));
 
             // administration index
             this.PageLinks.AddLink(
                 this.GetText("ADMIN_ADMIN", "Administration"),
-                YafBuildLink.GetLink(ForumPages.admin_admin));
+                BuildLink.GetLink(ForumPages.admin_admin));
 
             // current page label (no link)
             this.PageLinks.AddLink(this.GetText("ADMIN_PAGEACCESSLIST", "TITLE"), string.Empty);
@@ -79,7 +79,7 @@ namespace YAF.Pages.Admin
                 case "edit":
 
                     // redirect to editing page
-                    YafBuildLink.Redirect(ForumPages.admin_pageaccessedit, "u={0}", e.CommandArgument);
+                    BuildLink.Redirect(ForumPages.admin_pageaccessedit, "u={0}", e.CommandArgument);
                     break;
             }
         }

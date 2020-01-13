@@ -168,7 +168,7 @@ namespace YAF.Controls
         {
             this.PageContext.QueryIDs = new QueryStringIDHelper("u");
 
-            this.signatureEditor.BaseDir = $"{YafForumInfo.ForumClientFileRoot}Scripts";
+            this.signatureEditor.BaseDir = $"{BoardInfo.ForumClientFileRoot}Scripts";
 
             var sigData = this.GetRepository<User>()
                 .SignatureDataAsDataTable(this.CurrentUserID, this.PageContext.PageBoardID);
@@ -259,11 +259,11 @@ namespace YAF.Controls
         {
             if (this.InModeratorMode)
             {
-                YafBuildLink.Redirect(ForumPages.profile, "u={0}", this.CurrentUserID);
+                BuildLink.Redirect(ForumPages.profile, "u={0}", this.CurrentUserID);
             }
             else
             {
-                YafBuildLink.Redirect(ForumPages.cp_profile);
+                BuildLink.Redirect(ForumPages.cp_profile);
             }
         }
 

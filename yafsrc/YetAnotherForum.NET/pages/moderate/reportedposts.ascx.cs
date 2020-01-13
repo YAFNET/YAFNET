@@ -71,7 +71,7 @@ namespace YAF.Pages.moderate
             this.PageLinks.AddRoot();
 
             // moderation index
-            this.PageLinks.AddLink(this.GetText("MODERATE_DEFAULT", "TITLE"), YafBuildLink.GetLink(ForumPages.moderate_index));
+            this.PageLinks.AddLink(this.GetText("MODERATE_DEFAULT", "TITLE"), BuildLink.GetLink(ForumPages.moderate_index));
 
             // current page
             this.PageLinks.AddLink(this.PageContext.PageForumName);
@@ -147,7 +147,7 @@ namespace YAF.Pages.moderate
                 case "view":
 
                     // go to the message
-                    YafBuildLink.Redirect(ForumPages.posts, "m={0}#post{0}", e.CommandArgument);
+                    BuildLink.Redirect(ForumPages.posts, "m={0}#post{0}", e.CommandArgument);
                     break;
                 case "copyover":
 
@@ -162,7 +162,7 @@ namespace YAF.Pages.moderate
                     // go to history page
                     var ff = e.CommandArgument.ToString().Split(',');
                     YafContext.Current.Get<HttpResponseBase>().Redirect(
-                      YafBuildLink.GetLinkNotEscaped(ForumPages.messagehistory, "f={0}&m={1}", ff[0], ff[1]));
+                      BuildLink.GetLinkNotEscaped(ForumPages.messagehistory, "f={0}&m={1}", ff[0], ff[1]));
                     break;
                 case "resolved":
 
@@ -183,7 +183,7 @@ namespace YAF.Pages.moderate
             if (!dt.HasRows())
             {
                 // nope -- redirect back to the moderate main...
-                YafBuildLink.Redirect(ForumPages.moderate_index);
+                BuildLink.Redirect(ForumPages.moderate_index);
             }
         }
 

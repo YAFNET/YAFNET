@@ -451,7 +451,7 @@ namespace YAF.Install
             // done here...
             try
             {
-                this.Get<HttpResponseBase>().Redirect(YafBuildLink.GetLink(ForumPages.forum));
+                this.Get<HttpResponseBase>().Redirect(BuildLink.GetLink(ForumPages.forum));
             }
             catch (Exception)
             {
@@ -692,7 +692,7 @@ namespace YAF.Install
                         this.CurrentVersionName.Text = version < 0
                                                            ? "New"
                                                            : $"{versionName} ({version})";
-                        this.UpgradeVersionName.Text = $"{YafForumInfo.AppVersionName} ({YafForumInfo.AppVersion})";
+                        this.UpgradeVersionName.Text = $"{BoardInfo.AppVersionName} ({BoardInfo.AppVersion})";
                     }
                     else
                     {

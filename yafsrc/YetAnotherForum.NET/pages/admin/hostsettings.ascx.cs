@@ -186,7 +186,7 @@ namespace YAF.Pages.Admin
         {
             if (!this.PageContext.IsHostAdmin)
             {
-                YafBuildLink.AccessDenied();
+                BuildLink.AccessDenied();
             }
 
             if (!this.IsPostBack)
@@ -222,7 +222,7 @@ namespace YAF.Pages.Admin
             this.PageLinks.AddRoot();
             this.PageLinks.AddLink(
                 this.GetText("ADMIN_ADMIN", "Administration"),
-                YafBuildLink.GetLink(ForumPages.admin_admin));
+                BuildLink.GetLink(ForumPages.admin_admin));
             this.PageLinks.AddLink(this.GetText("ADMIN_HOSTSETTINGS", "TITLE"), string.Empty);
 
             this.Page.Header.Title =
@@ -358,7 +358,7 @@ namespace YAF.Pages.Admin
             // reload all settings from the DB
             this.PageContext.BoardSettings = null;
 
-            YafBuildLink.Redirect(ForumPages.admin_admin);
+            BuildLink.Redirect(ForumPages.admin_admin);
         }
 
         /// <summary>
@@ -559,11 +559,11 @@ namespace YAF.Pages.Admin
 
             this.SQLVersion.Text = this.HtmlEncode(this.Get<IDbFunction>().GetSQLVersion());
 
-            this.AppCores.Text = YafSystemInfo.Processors;
+            this.AppCores.Text = SystemInfo.Processors;
             this.AppMemory.Text =
-                $"{YafSystemInfo.AllocatedMemory.ToType<long>() / 1000000} MB of {YafSystemInfo.MappedMemory.ToType<long>() / 1000000} MB";
-            this.AppOSName.Text = YafSystemInfo.VersionString;
-            this.AppRuntime.Text = $"{YafSystemInfo.RuntimeName} {YafSystemInfo.RuntimeString}";
+                $"{SystemInfo.AllocatedMemory.ToType<long>() / 1000000} MB of {SystemInfo.MappedMemory.ToType<long>() / 1000000} MB";
+            this.AppOSName.Text = SystemInfo.VersionString;
+            this.AppRuntime.Text = $"{SystemInfo.RuntimeName} {SystemInfo.RuntimeString}";
         }
 
         /// <summary>

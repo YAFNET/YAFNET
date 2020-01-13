@@ -63,12 +63,12 @@ namespace YAF
             closeScript.Append("if (window.opener != null)");
             closeScript.AppendFormat(
                 "{{window.opener.location.href = '{0}';window.close();}}",
-                YafBuildLink.GetLink(ForumPages.login).Replace(
+                BuildLink.GetLink(ForumPages.login).Replace(
                     "auth.aspx",
                     "default.aspx"));
             closeScript.AppendFormat(
                 "else {{ window.location.href = '{0}' }}",
-                YafBuildLink.GetLink(ForumPages.login).Replace(
+                BuildLink.GetLink(ForumPages.login).Replace(
                     "auth.aspx",
                     "default.aspx"));
 
@@ -136,7 +136,7 @@ namespace YAF
                         string.Format(
                             "{2} alert('{0}');window.location.href = '{1}'; {3}",
                             message,
-                            YafBuildLink.GetLink(ForumPages.login).Replace(
+                            BuildLink.GetLink(ForumPages.login).Replace(
                                 "auth.aspx",
                                 "default.aspx"),
                             ScriptBeginTag,
@@ -144,7 +144,7 @@ namespace YAF
                 }
                 else
                 {
-                    YafBuildLink.Redirect(ForumPages.forum);
+                    BuildLink.Redirect(ForumPages.forum);
                 }
             }
             else
@@ -170,7 +170,7 @@ namespace YAF
                         string.Format(
                             "{2} alert('{0}');window.opener.location.href = '{1}';window.close(); {3}>",
                             message,
-                            YafBuildLink.GetLink(ForumPages.login).Replace(
+                            BuildLink.GetLink(ForumPages.login).Replace(
                                 "auth.aspx",
                                 "default.aspx"),
                             ScriptBeginTag,
@@ -181,7 +181,7 @@ namespace YAF
                     YafContext.Current.Get<HttpResponseBase>().Write(
                         string.Format(
                             "{1} window.opener.location.href = '{0}';window.close(); {2}>",
-                            YafBuildLink.GetLink(ForumPages.forum).Replace(
+                            BuildLink.GetLink(ForumPages.forum).Replace(
                                 "auth.aspx",
                                 "default.aspx"),
                             ScriptBeginTag,
@@ -211,7 +211,7 @@ namespace YAF
                         string.Format(
                             "{2} alert('{0}');window.location.href = '{1}'; {3}",
                             YafContext.Current.Get<ILocalization>().GetText("AUTH_NO_ACCESS_TOKEN"),
-                            YafBuildLink.GetLink(ForumPages.login).Replace(
+                            BuildLink.GetLink(ForumPages.login).Replace(
                                 "auth.aspx",
                                 "default.aspx"),
                             ScriptBeginTag,
@@ -245,7 +245,7 @@ namespace YAF
                             string.Format(
                                 "{2} alert('{0}');window.location.href = '{1}'; {3}",
                                 message,
-                                YafBuildLink.GetLink(ForumPages.forum).Replace(
+                                BuildLink.GetLink(ForumPages.forum).Replace(
                                     "auth.aspx",
                                     "default.aspx"),
                                 ScriptBeginTag,
@@ -253,7 +253,7 @@ namespace YAF
                     }
                     else
                     {
-                        YafBuildLink.Redirect(ForumPages.forum);
+                        BuildLink.Redirect(ForumPages.forum);
                     }
                 }
                 else
@@ -284,7 +284,7 @@ namespace YAF
                             string.Format(
                                 "{2} alert('{0}');window.location.href = '{1}';window.close(); {3}",
                                 message,
-                                YafBuildLink.GetLink(ForumPages.login).Replace(
+                                BuildLink.GetLink(ForumPages.login).Replace(
                                     "auth.aspx",
                                     "default.aspx"),
                                 ScriptBeginTag,
@@ -295,7 +295,7 @@ namespace YAF
                         YafContext.Current.Get<HttpResponseBase>().Write(
                             string.Format(
                                 "{1} window.location.href = '{0}';window.close(); {2}",
-                                YafBuildLink.GetLink(ForumPages.forum).Replace(
+                                BuildLink.GetLink(ForumPages.forum).Replace(
                                     "auth.aspx",
                                     "default.aspx"),
                                 ScriptBeginTag,
@@ -307,7 +307,7 @@ namespace YAF
             {
                 // Return to login page if user cancels social login
                 YafContext.Current.Get<HttpResponseBase>()
-                    .Redirect(YafBuildLink.GetLink(ForumPages.login, true));
+                    .Redirect(BuildLink.GetLink(ForumPages.login, true));
             }
             else
             {
@@ -339,7 +339,7 @@ namespace YAF
                         string.Format(
                             "{2} alert('{0}');window.location.href = '{1}'; {3}",
                             YafContext.Current.Get<ILocalization>().GetText("AUTH_NO_ACCESS_TOKEN"),
-                            YafBuildLink.GetLink(ForumPages.login).Replace(
+                            BuildLink.GetLink(ForumPages.login).Replace(
                                 "auth.aspx",
                                 "default.aspx"),
                             ScriptBeginTag,
@@ -375,7 +375,7 @@ namespace YAF
                             string.Format(
                                 "{2} alert('{0}');window.location.href = '{1}'; {3}",
                                 message,
-                                YafBuildLink.GetLink(ForumPages.forum).Replace(
+                                BuildLink.GetLink(ForumPages.forum).Replace(
                                     "auth.aspx",
                                     "default.aspx"),
                                 ScriptBeginTag,
@@ -383,7 +383,7 @@ namespace YAF
                     }
                     else
                     {
-                        YafBuildLink.Redirect(ForumPages.forum);
+                        BuildLink.Redirect(ForumPages.forum);
                     }
                 }
                 else
@@ -414,7 +414,7 @@ namespace YAF
                             string.Format(
                                 "{2} alert('{0}');window.location.href = '{1}';window.close(); {3}",
                                 message,
-                                YafBuildLink.GetLink(ForumPages.login).Replace(
+                                BuildLink.GetLink(ForumPages.login).Replace(
                                     "auth.aspx",
                                     "default.aspx"),
                                 ScriptBeginTag,
@@ -425,7 +425,7 @@ namespace YAF
                         YafContext.Current.Get<HttpResponseBase>().Write(
                             string.Format(
                                 "{1} window.location.href = '{0}';window.close(); {2}",
-                                YafBuildLink.GetLink(ForumPages.forum).Replace(
+                                BuildLink.GetLink(ForumPages.forum).Replace(
                                     "auth.aspx",
                                     "default.aspx"),
                                 ScriptBeginTag,
@@ -437,7 +437,7 @@ namespace YAF
             {
                 // Return to login page if user cancels social login
                 YafContext.Current.Get<HttpResponseBase>()
-                    .Redirect(YafBuildLink.GetLink(ForumPages.login, true));
+                    .Redirect(BuildLink.GetLink(ForumPages.login, true));
             }
             else
             {

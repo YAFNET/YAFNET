@@ -110,7 +110,7 @@ namespace YAF.Pages
         protected void Cancel_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
             // redirect to forum moderation page
-            YafBuildLink.Redirect(ForumPages.moderating, "f={0}", this.PageContext.PageForumID);
+            BuildLink.Redirect(ForumPages.moderating, "f={0}", this.PageContext.PageForumID);
         }
 
         /// <summary>
@@ -185,7 +185,7 @@ namespace YAF.Pages
             // only moderators/admins are allowed in
             if (!this.PageContext.ForumModeratorAccess)
             {
-                YafBuildLink.AccessDenied();
+                BuildLink.AccessDenied();
             }
 
             // do not repeat on post-back
@@ -282,7 +282,7 @@ namespace YAF.Pages
             this.Get<IDataCache>().Remove(Constants.Cache.BoardModerators);
 
             // redirect to forum moderation page
-            YafBuildLink.Redirect(ForumPages.moderating, "f={0}", this.PageContext.PageForumID);
+            BuildLink.Redirect(ForumPages.moderating, "f={0}", this.PageContext.PageForumID);
         }
 
         #endregion

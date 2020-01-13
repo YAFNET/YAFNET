@@ -65,7 +65,7 @@ namespace YAF.Pages.Admin
         /// <value>
         /// The last version.
         /// </value>
-        protected string LastVersion => YafForumInfo.AppVersionNameFromCode(this.lastVersion);
+        protected string LastVersion => BoardInfo.AppVersionNameFromCode(this.lastVersion);
 
         /// <summary>
         /// Gets the last version date.
@@ -102,7 +102,7 @@ namespace YAF.Pages.Admin
                         this.LastVersionDate);
 
                     this.UpgradeVersionHolder.Visible = BitConverter.ToInt64(this.lastVersion, 0)
-                                                        > BitConverter.ToInt64(YafForumInfo.AppVersionCode, 0);
+                                                        > BitConverter.ToInt64(BoardInfo.AppVersionCode, 0);
                 }
                 catch (Exception)
                 {
@@ -111,8 +111,8 @@ namespace YAF.Pages.Admin
 
                 this.RunningVersion.Text = this.GetTextFormatted(
                     "RUNNING_VERSION",
-                    YafForumInfo.AppVersionName,
-                    this.Get<IDateTime>().FormatDateShort(YafForumInfo.AppVersionDate));
+                    BoardInfo.AppVersionName,
+                    this.Get<IDateTime>().FormatDateShort(BoardInfo.AppVersionDate));
             }
 
             this.DataBind();
@@ -123,10 +123,10 @@ namespace YAF.Pages.Admin
         /// </summary>
         protected override void CreatePageLinks()
         {
-            this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+            this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, BuildLink.GetLink(ForumPages.forum));
             this.PageLinks.AddLink(
                 this.GetText("ADMIN_ADMIN", "Administration"),
-                YafBuildLink.GetLink(ForumPages.admin_admin));
+                BuildLink.GetLink(ForumPages.admin_admin));
             this.PageLinks.AddLink(this.GetText("ADMIN_VERSION", "TITLE"), string.Empty);
 
             this.Page.Header.Title = this.GetText("ADMIN_VERSION", "TITLE");

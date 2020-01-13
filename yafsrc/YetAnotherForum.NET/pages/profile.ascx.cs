@@ -122,7 +122,7 @@ namespace YAF.Pages
 
             if (this.UserId == 0)
             {
-                YafBuildLink.AccessDenied(/*No such user exists*/);
+                BuildLink.AccessDenied(/*No such user exists*/);
             }
 
             this.BindData();
@@ -194,7 +194,7 @@ namespace YAF.Pages
         /// <param name="e">The <see cref="System.Web.UI.WebControls.CommandEventArgs"/> instance containing the event data.</param>
         protected void lnk_ViewThanks([NotNull] object sender, [NotNull] CommandEventArgs e)
         {
-            YafBuildLink.Redirect(ForumPages.viewthanks, "u={0}", this.UserId);
+            BuildLink.Redirect(ForumPages.viewthanks, "u={0}", this.UserId);
         }
 
         /// <summary>
@@ -210,7 +210,7 @@ namespace YAF.Pages
             this.PageLinks.AddLink(
                 this.GetText("MEMBERS"),
                 this.Get<IPermissions>().Check(this.Get<BoardSettings>().MembersListViewPermissions)
-                    ? YafBuildLink.GetLink(ForumPages.members)
+                    ? BuildLink.GetLink(ForumPages.members)
                     : null);
             this.PageLinks.AddLink(userDisplayName, string.Empty);
         }
@@ -234,12 +234,12 @@ namespace YAF.Pages
             if (user == null || user.ProviderUserKey.ToString() == "0")
             {
                 // No such user exists or this is an nntp user ("0")
-                YafBuildLink.AccessDenied();
+                BuildLink.AccessDenied();
             }
 
             if (user.IsApproved == false)
             {
-                YafBuildLink.AccessDenied();
+                BuildLink.AccessDenied();
             }
 
             var userData = new CombinedUserDataHelper(user, this.UserId);
@@ -284,7 +284,7 @@ namespace YAF.Pages
                     this.PageContext.PageUserID,
                     10).AsEnumerable();
 
-                this.SearchUser.NavigateUrl = YafBuildLink.GetLinkNotEscaped(
+                this.SearchUser.NavigateUrl = BuildLink.GetLinkNotEscaped(
                     ForumPages.search,
                     "postedby={0}",
                     userNameOrDisplayName);
@@ -411,7 +411,7 @@ namespace YAF.Pages
                 }
             }
 
-            this.PM.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.pmessage, "u={0}", userData.UserID);
+            this.PM.NavigateUrl = BuildLink.GetLinkNotEscaped(ForumPages.pmessage, "u={0}", userData.UserID);
             this.PM.ParamTitle0 = userName;
 
             // email link
@@ -431,7 +431,7 @@ namespace YAF.Pages
                 }
             }
 
-            this.Email.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.im_email, "u={0}", userData.UserID);
+            this.Email.NavigateUrl = BuildLink.GetLinkNotEscaped(ForumPages.im_email, "u={0}", userData.UserID);
             if (this.PageContext.IsAdmin)
             {
                 this.Email.TitleNonLocalized = userData.Membership.Email;
@@ -440,7 +440,7 @@ namespace YAF.Pages
             this.Email.ParamTitle0 = userName;
 
             this.XMPP.Visible = this.User != null && userData.Profile.XMPP.IsSet();
-            this.XMPP.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.im_xmpp, "u={0}", userData.UserID);
+            this.XMPP.NavigateUrl = BuildLink.GetLinkNotEscaped(ForumPages.im_xmpp, "u={0}", userData.UserID);
             this.XMPP.ParamTitle0 = userName;
 
             this.Skype.Visible = this.User != null && userData.Profile.Skype.IsSet();
@@ -643,7 +643,7 @@ namespace YAF.Pages
 
                     ribbonBar.AppendFormat(
                         "<img src=\"{0}{5}/{1}\" width=\"{2}\" height=\"{3}\" alt=\"{4}\" title=\"{4}\" class=\"mr-1\" />",
-                        YafForumInfo.ForumClientFileRoot,
+                        BoardInfo.ForumClientFileRoot,
                         r["SmallRibbonURL"],
                         r["SmallRibbonWidth"],
                         r["SmallRibbonHeight"],
@@ -668,7 +668,7 @@ namespace YAF.Pages
                 {
                     medals.AppendFormat(
                         "<img src=\"{0}{6}/{1}\" width=\"{2}\" height=\"{3}\" alt=\"{4}{5}\" title=\"{4}{5}\" class=\"mr-1\" />",
-                        YafForumInfo.ForumClientFileRoot,
+                        BoardInfo.ForumClientFileRoot,
                         r["SmallMedalURL"],
                         r["SmallMedalWidth"],
                         r["SmallMedalHeight"],

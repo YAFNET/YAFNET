@@ -165,7 +165,7 @@ namespace YAF.Controls
             var topicLink = new ThemeButton
                                 {
                                     NavigateUrl =
-                                        YafBuildLink.GetLink(
+                                        BuildLink.GetLink(
                                             ForumPages.posts,
                                             "m={0}#post{0}",
                                             activity.MessageID.Value),
@@ -176,7 +176,7 @@ namespace YAF.Controls
 
             if (activity.ActivityFlags.CreatedTopic)
             {
-                topicLink.NavigateUrl = YafBuildLink.GetLink(ForumPages.posts, "t={0}", activity.TopicID.Value);
+                topicLink.NavigateUrl = BuildLink.GetLink(ForumPages.posts, "t={0}", activity.TopicID.Value);
 
                 title.Text = this.GetText("CP_PROFILE", "CREATED_TOPIC");
                 icon = "comment";

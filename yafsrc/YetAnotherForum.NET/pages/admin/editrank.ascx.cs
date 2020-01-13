@@ -58,7 +58,7 @@ namespace YAF.Pages.Admin
         /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
         protected void Cancel_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
-            YafBuildLink.Redirect(ForumPages.admin_ranks);
+            BuildLink.Redirect(ForumPages.admin_ranks);
         }
 
         /// <summary>
@@ -107,9 +107,9 @@ namespace YAF.Pages.Admin
             this.PageLinks.AddRoot();
             this.PageLinks.AddLink(
                 this.GetText("ADMIN_ADMIN", "Administration"),
-                YafBuildLink.GetLink(ForumPages.admin_admin));
+                BuildLink.GetLink(ForumPages.admin_admin));
 
-            this.PageLinks.AddLink(this.GetText("ADMIN_RANKS", "TITLE"), YafBuildLink.GetLink(ForumPages.admin_ranks));
+            this.PageLinks.AddLink(this.GetText("ADMIN_RANKS", "TITLE"), BuildLink.GetLink(ForumPages.admin_ranks));
 
             // current page label (no link)
             this.PageLinks.AddLink(this.GetText("ADMIN_EDITRANK", "TITLE"), string.Empty);
@@ -194,7 +194,7 @@ namespace YAF.Pages.Admin
             // Clear Styling Caching
             this.Get<IDataCache>().Remove(Constants.Cache.GroupRankStyles);
 
-            YafBuildLink.Redirect(ForumPages.admin_ranks);
+            BuildLink.Redirect(ForumPages.admin_ranks);
         }
 
         #endregion

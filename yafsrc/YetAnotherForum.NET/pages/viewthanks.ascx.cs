@@ -133,10 +133,10 @@ namespace YAF.Pages
                                     ? UserMembershipHelper.GetDisplayNameFromID(userId)
                                     : UserMembershipHelper.GetUserNameFromID(userId);
               this.PageLinks.Clear();
-              this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+              this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, BuildLink.GetLink(ForumPages.forum));
               this.PageLinks.AddLink(
                   displayName,
-                  YafBuildLink.GetLink(ForumPages.profile, "u={0}", userId, displayName));
+                  BuildLink.GetLink(ForumPages.profile, "u={0}", userId, displayName));
               this.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
           }
 

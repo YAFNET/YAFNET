@@ -37,7 +37,7 @@ namespace YAF.Utils
     /// <summary>
     /// The class gets common system info. Used in data layers other than MSSQL. Created by vzrus 2010
     /// </summary>
-    public static class YafSystemInfo
+    public static class SystemInfo
     {
         #region Constants and Fields
 

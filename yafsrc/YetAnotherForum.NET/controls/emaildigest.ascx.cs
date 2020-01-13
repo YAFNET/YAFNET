@@ -331,7 +331,7 @@ namespace YAF.Controls
 
             this.YafHead.Controls.Add(
                 ControlHelper.MakeCssIncludeControl(
-                    YafForumInfo.GetURLToContentThemes(theme.CombineWith("bootstrap-forum.min.css"))));
+                    BoardInfo.GetURLToContentThemes(theme.CombineWith("bootstrap-forum.min.css"))));
 
             if (subject.IsSet())
             {

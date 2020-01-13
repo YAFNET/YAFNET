@@ -65,12 +65,12 @@ namespace YAF.Core.Services
             : this(templateName, true)
         {
             var logoUrl =
-                $"{YafForumInfo.ForumClientFileRoot}{BoardFolders.Current.Logos}/{YafContext.Current.BoardSettings.ForumLogo}";
+                $"{BoardInfo.ForumClientFileRoot}{BoardFolders.Current.Logos}/{YafContext.Current.BoardSettings.ForumLogo}";
             var themeCss =
                 $"{this.Get<BoardSettings>().BaseUrlMask}{this.Get<ITheme>().BuildThemePath("bootstrap-forum.min.css")}";
 
             this.TemplateParams["{forumname}"] = this.Get<BoardSettings>().Name;
-            this.TemplateParams["{forumlink}"] = YafForumInfo.ForumURL;
+            this.TemplateParams["{forumlink}"] = BoardInfo.ForumURL;
             this.TemplateParams["{themecss}"] = themeCss;
             this.TemplateParams["{logo}"] = $"{this.Get<BoardSettings>().BaseUrlMask}{logoUrl}";
         }

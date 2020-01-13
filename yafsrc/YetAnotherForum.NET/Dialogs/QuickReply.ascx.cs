@@ -87,11 +87,11 @@ namespace YAF.Dialogs
 
             if (this.EnableCaptcha())
             {
-                this.imgCaptcha.ImageUrl = $"{YafForumInfo.ForumClientFileRoot}resource.ashx?c=1";
+                this.imgCaptcha.ImageUrl = $"{BoardInfo.ForumClientFileRoot}resource.ashx?c=1";
                 this.CaptchaDiv.Visible = true;
             }
 
-            this.quickReplyEditor.BaseDir = $"{YafForumInfo.ForumClientFileRoot}Scripts";
+            this.quickReplyEditor.BaseDir = $"{BoardInfo.ForumClientFileRoot}Scripts";
 
             this.QuickReplyWatchTopic.Visible = !this.PageContext.IsGuest;
 
@@ -424,7 +424,7 @@ namespace YAF.Dialogs
                     }
 
                     // redirect to newly posted message
-                    YafBuildLink.Redirect(ForumPages.posts, "m={0}&#post{0}", messageId);
+                    BuildLink.Redirect(ForumPages.posts, "m={0}&#post{0}", messageId);
                 }
                 else
                 {
@@ -437,15 +437,15 @@ namespace YAF.Dialogs
                             isPossibleSpamMessage);
                     }
 
-                    var url = YafBuildLink.GetLink(ForumPages.topics, "f={0}", this.PageContext.PageForumID);
+                    var url = BuildLink.GetLink(ForumPages.topics, "f={0}", this.PageContext.PageForumID);
 
                     if (Config.IsRainbow)
                     {
-                        YafBuildLink.Redirect(ForumPages.info, "i=1");
+                        BuildLink.Redirect(ForumPages.info, "i=1");
                     }
                     else
                     {
-                        YafBuildLink.Redirect(ForumPages.info, "i=1&url={0}", this.Server.UrlEncode(url));
+                        BuildLink.Redirect(ForumPages.info, "i=1&url={0}", this.Server.UrlEncode(url));
                     }
                 }
             }

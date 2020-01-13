@@ -154,7 +154,7 @@ namespace YAF.Web.Controls
             {
                 output.WriteBeginTag("a");
 
-                output.WriteAttribute("href", YafBuildLink.GetLink(ForumPages.profile, "u={0}&name={1}", this.UserID, displayName));
+                output.WriteAttribute("href", BuildLink.GetLink(ForumPages.profile, "u={0}&name={1}", this.UserID, displayName));
 
                 if (this.CanViewProfile && this.IsHoverCardEnabled)
                 {
@@ -169,7 +169,7 @@ namespace YAF.Web.Controls
 
                     output.WriteAttribute(
                         "data-hovercard",
-                        $"{(Config.IsDotNetNuke ? BaseUrlBuilder.GetBaseUrlFromVariables() + BaseUrlBuilder.AppPath : YafForumInfo.ForumClientFileRoot)}resource.ashx?userinfo={this.UserID}&boardId={YafContext.Current.PageBoardID}&type=json&forumUrl={HttpUtility.UrlEncode(YafBuildLink.GetBasePath())}");
+                        $"{(Config.IsDotNetNuke ? BaseUrlBuilder.GetBaseUrlFromVariables() + BaseUrlBuilder.AppPath : BoardInfo.ForumClientFileRoot)}resource.ashx?userinfo={this.UserID}&boardId={YafContext.Current.PageBoardID}&type=json&forumUrl={HttpUtility.UrlEncode(BuildLink.GetBasePath())}");
                 }
                 else
                 {

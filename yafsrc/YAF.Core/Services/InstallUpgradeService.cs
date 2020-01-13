@@ -191,8 +191,8 @@ namespace YAF.Core.Services
                 adminProviderUserKey,
                 Config.CreateDistinctRoles && Config.IsAnyPortal ? "YAF " : string.Empty);
 
-            this.GetRepository<Registry>().Save("version", YafForumInfo.AppVersion.ToString());
-            this.GetRepository<Registry>().Save("versionname", YafForumInfo.AppVersionName);
+            this.GetRepository<Registry>().Save("version", BoardInfo.AppVersion.ToString());
+            this.GetRepository<Registry>().Save("versionname", BoardInfo.AppVersionName);
 
             this.ImportStatics();
         }
@@ -242,14 +242,14 @@ namespace YAF.Core.Services
 
             var prevVersion = this.GetRepository<Registry>().GetDbVersion();
 
-            this.GetRepository<Registry>().Save("version", YafForumInfo.AppVersion.ToString());
-            this.GetRepository<Registry>().Save("versionname", YafForumInfo.AppVersionName);
+            this.GetRepository<Registry>().Save("version", BoardInfo.AppVersion.ToString());
+            this.GetRepository<Registry>().Save("versionname", BoardInfo.AppVersionName);
 
             // Ederon : 9/7/2007
             // re-sync all boards - necessary for proper last post bubbling
             this.GetRepository<Board>().ReSync();
 
-            this.RaiseEvent.RaiseIssolated(new AfterUpgradeDatabaseEvent(prevVersion, YafForumInfo.AppVersion), null);
+            this.RaiseEvent.RaiseIssolated(new AfterUpgradeDatabaseEvent(prevVersion, BoardInfo.AppVersion), null);
 
             if (isForumInstalled)
             {

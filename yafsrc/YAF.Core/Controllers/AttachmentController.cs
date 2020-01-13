@@ -78,7 +78,7 @@ namespace YAF.Core.Controllers
                 attach =>
                     {
                         var url =
-                            $"{YafForumInfo.ForumClientFileRoot}resource.ashx?i={attach.ID}&b={YafContext.Current.PageBoardID}&editor=true";
+                            $"{BoardInfo.ForumClientFileRoot}resource.ashx?i={attach.ID}&b={YafContext.Current.PageBoardID}&editor=true";
 
                         var description = $"{attach.FileName} ({attach.Bytes / 1024} kb)";
 

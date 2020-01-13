@@ -230,15 +230,15 @@ namespace YAF.Pages
             this.PageLinks.AddLink(this.GetText("title"));
 
             // Login1.CreateUserText = "Sign up for a new account.";
-            // Login1.CreateUserUrl = YafBuildLink.GetLink( ForumPages.register );
+            // Login1.CreateUserUrl = BuildLink.GetLink( ForumPages.register );
             this.Login1.PasswordRecoveryText = this.GetText("lostpassword");
-            this.Login1.PasswordRecoveryUrl = YafBuildLink.GetLink(ForumPages.recoverpassword);
+            this.Login1.PasswordRecoveryUrl = BuildLink.GetLink(ForumPages.recoverpassword);
             this.Login1.FailureText = this.GetText("password_error");
 
             this.Login1.DestinationPageUrl =
                 this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("ReturnUrl").IsSet()
                     ? this.HtmlEncode(this.Server.UrlDecode(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("ReturnUrl")))
-                    : YafBuildLink.GetLink(ForumPages.forum);
+                    : BuildLink.GetLink(ForumPages.forum);
 
             // localize controls
             var rememberMe = this.Login1.FindControlAs<CheckBox>("RememberMe");
@@ -525,7 +525,7 @@ namespace YAF.Pages
         /// </param>
         protected void PasswordRecovery_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
-            YafBuildLink.Redirect(ForumPages.recoverpassword);
+            BuildLink.Redirect(ForumPages.recoverpassword);
         }
 
         /// <summary>
@@ -535,7 +535,7 @@ namespace YAF.Pages
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void FacebookFormClick(object sender, EventArgs e)
         {
-            YafBuildLink.Redirect(ForumPages.login, "auth={0}", "facebook");
+            BuildLink.Redirect(ForumPages.login, "auth={0}", "facebook");
         }
 
         /// <summary>
@@ -545,7 +545,7 @@ namespace YAF.Pages
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void TwitterFormClick(object sender, EventArgs e)
         {
-            YafBuildLink.Redirect(ForumPages.login, "auth={0}", "twitter");
+            BuildLink.Redirect(ForumPages.login, "auth={0}", "twitter");
         }
 
         /// <summary>
@@ -555,7 +555,7 @@ namespace YAF.Pages
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void GoogleFormClick(object sender, EventArgs e)
         {
-            YafBuildLink.Redirect(ForumPages.login, "auth={0}", "google");
+            BuildLink.Redirect(ForumPages.login, "auth={0}", "google");
         }
 
         /// <summary>
@@ -565,7 +565,7 @@ namespace YAF.Pages
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void RegisterLinkClick(object sender, EventArgs e)
         {
-            YafBuildLink.Redirect(
+            BuildLink.Redirect(
                 this.Get<BoardSettings>().ShowRulesForRegistration ? ForumPages.rules : ForumPages.register);
         }
 
@@ -576,7 +576,7 @@ namespace YAF.Pages
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void CancelAuthLoginClick(object sender, EventArgs e)
         {
-            YafBuildLink.Redirect(ForumPages.login);
+            BuildLink.Redirect(ForumPages.login);
         }
 
         /// <summary>

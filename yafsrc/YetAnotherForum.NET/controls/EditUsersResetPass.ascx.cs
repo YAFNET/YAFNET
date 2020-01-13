@@ -73,7 +73,7 @@ namespace YAF.Controls
 
             if (!this.PageContext.IsAdmin)
             {
-                YafBuildLink.AccessDenied();
+                BuildLink.AccessDenied();
             }
 
             if (!this.IsPostBack)
@@ -238,7 +238,7 @@ namespace YAF.Controls
                     "PASSWORDRETRIEVAL_EMAIL_SUBJECT",
                     this.Get<BoardSettings>().Name);
                 var logoUrl =
-                    $"{YafForumInfo.ForumClientFileRoot}{BoardFolders.Current.Logos}/{this.PageContext.BoardSettings.ForumLogo}";
+                    $"{BoardInfo.ForumClientFileRoot}{BoardFolders.Current.Logos}/{this.PageContext.BoardSettings.ForumLogo}";
                 var themeCss =
                     $"{this.Get<BoardSettings>().BaseUrlMask}{this.Get<ITheme>().BuildThemePath("bootstrap-forum.min.css")}";
 
@@ -250,7 +250,7 @@ namespace YAF.Controls
                                                         ["{username}"] = user.UserName,
                                                         ["{password}"] = newPassword,
                                                         ["{forumname}"] = this.Get<BoardSettings>().Name,
-                                                        ["{forumlink}"] = YafForumInfo.ForumURL,
+                                                        ["{forumlink}"] = BoardInfo.ForumURL,
                                                         ["{themecss}"] = themeCss,
                                                         ["{logo}"] =
                                                             $"{this.Get<BoardSettings>().BaseUrlMask}{logoUrl}"

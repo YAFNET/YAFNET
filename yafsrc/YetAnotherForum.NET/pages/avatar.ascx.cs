@@ -95,7 +95,7 @@ namespace YAF.Pages
         /// <param name="e">The <see cref="DataListItemEventArgs"/> instance containing the event data.</param>
         public void Directories_Bind([NotNull] object sender, [NotNull] DataListItemEventArgs e)
         {
-            var directory = $"{YafForumInfo.ForumClientFileRoot}{BoardFolders.Current.Avatars}/";
+            var directory = $"{BoardInfo.ForumClientFileRoot}{BoardFolders.Current.Avatars}/";
 
             if (e.Item.ItemType != ListItemType.Item && e.Item.ItemType != ListItemType.AlternatingItem)
             {
@@ -117,7 +117,7 @@ namespace YAF.Pages
         /// <param name="e">The <see cref="DataListItemEventArgs"/> instance containing the event data.</param>
         public void Files_Bind([NotNull] object sender, [NotNull] DataListItemEventArgs e)
         {
-            var directoryPath = Path.Combine(YafForumInfo.ForumClientFileRoot, BoardFolders.Current.Avatars);
+            var directoryPath = Path.Combine(BoardInfo.ForumClientFileRoot, BoardFolders.Current.Avatars);
 
             var fileName = e.Item.FindControlAs<Literal>("fname");
 
@@ -140,7 +140,7 @@ namespace YAF.Pages
 
                     if (this.returnUserID > 0)
                     {
-                        link = YafBuildLink.GetLink(
+                        link = BuildLink.GetLink(
                             ForumPages.admin_edituser,
                             "u={0}&av={1}",
                             this.returnUserID,
@@ -148,7 +148,7 @@ namespace YAF.Pages
                     }
                     else
                     {
-                        link = YafBuildLink.GetLink(
+                        link = BuildLink.GetLink(
                             ForumPages.cp_editavatar,
                             "av={0}",
                             this.Server.UrlEncode($"{directoryPath}/{encodedFileName}"));
@@ -171,7 +171,7 @@ namespace YAF.Pages
             }
 
             // get the previous directory...
-            var previousDirectory = Path.Combine(YafForumInfo.ForumClientFileRoot, BoardFolders.Current.Avatars);
+            var previousDirectory = Path.Combine(BoardInfo.ForumClientFileRoot, BoardFolders.Current.Avatars);
 
             var up = e.Item.FindControlAs<LinkButton>("up");
             up.CommandArgument = previousDirectory;
@@ -265,7 +265,7 @@ namespace YAF.Pages
         protected void BtnCancel_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
             // Redirect to the edit avatar page
-            YafBuildLink.Redirect(ForumPages.cp_editavatar);
+            BuildLink.Redirect(ForumPages.cp_editavatar);
         }
 
         /// <summary>
@@ -290,21 +290,21 @@ namespace YAF.Pages
             if (this.returnUserID > 0)
             {
                 this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), string.Empty);
-                this.PageLinks.AddLink("Users", YafBuildLink.GetLink(ForumPages.admin_users));
+                this.PageLinks.AddLink("Users", BuildLink.GetLink(ForumPages.admin_users));
             }
             else
             {
                 this.PageLinks.AddLink(
                     this.HtmlEncode(this.PageContext.PageUserName),
-                    YafBuildLink.GetLink(ForumPages.cp_profile));
+                    BuildLink.GetLink(ForumPages.cp_profile));
                 this.PageLinks.AddLink(
                     this.GetText("CP_EDITAVATAR", "TITLE"),
-                    YafBuildLink.GetLink(ForumPages.cp_editavatar));
+                    BuildLink.GetLink(ForumPages.cp_editavatar));
             }
 
             this.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
 
-            this.CurrentDirectory = Path.Combine(YafForumInfo.ForumClientFileRoot, BoardFolders.Current.Avatars);
+            this.CurrentDirectory = Path.Combine(BoardInfo.ForumClientFileRoot, BoardFolders.Current.Avatars);
 
             this.BindData(this.CurrentDirectory);
         }
@@ -315,7 +315,7 @@ namespace YAF.Pages
         /// <param name="currentFolder">The current Folder.</param>
         private void BindData([NotNull] string currentFolder)
         {
-            var directoryPath = Path.Combine(YafForumInfo.ForumClientFileRoot, BoardFolders.Current.Avatars);
+            var directoryPath = Path.Combine(BoardInfo.ForumClientFileRoot, BoardFolders.Current.Avatars);
 
             if (currentFolder.IsSet())
             {

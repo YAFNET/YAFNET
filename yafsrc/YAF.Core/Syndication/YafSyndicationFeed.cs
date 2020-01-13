@@ -75,14 +75,14 @@ namespace YAF.Core.Syndication
 
             // Self Link
             var slink = new Uri(
-                YafBuildLink.GetLinkNotEscaped(ForumPages.rsstopic, true, $"pg={feedType.ToInt()}&ft={sf}"));
+                BuildLink.GetLinkNotEscaped(ForumPages.rsstopic, true, $"pg={feedType.ToInt()}&ft={sf}"));
             this.Links.Add(SyndicationLink.CreateSelfLink(slink));
 
             this.Generator = "YetAnotherForum.NET";
             this.LastUpdatedTime = DateTime.UtcNow;
             this.Language = YafContext.Current.Get<ILocalization>().LanguageCode;
             this.ImageUrl = new Uri(
-                $"{BaseUrlBuilder.BaseUrl}{YafForumInfo.ForumClientFileRoot}{BoardFolders.Current.Logos}/{YafContext.Current.BoardSettings.ForumLogo}");
+                $"{BaseUrlBuilder.BaseUrl}{BoardInfo.ForumClientFileRoot}{BoardFolders.Current.Logos}/{YafContext.Current.BoardSettings.ForumLogo}");
 
             this.Id =
                 $"urn:{urlAlphaNum}:{(sf == YafSyndicationFormats.Atom.ToInt() ? YafContext.Current.Get<ILocalization>().GetText("ATOMFEED") : YafContext.Current.Get<ILocalization>().GetText("RSSFEED"))}:{YafContext.Current.BoardSettings.Name}:{subTitle}:{YafContext.Current.PageBoardID}"

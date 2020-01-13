@@ -108,7 +108,7 @@ namespace YAF.Modules
             }
             else
             {
-                YafBuildLink.RedirectInfoPage(InfoMessage.Suspended);
+                BuildLink.RedirectInfoPage(InfoMessage.Suspended);
             }
         }
 

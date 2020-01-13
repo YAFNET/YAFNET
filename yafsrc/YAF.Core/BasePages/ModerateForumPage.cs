@@ -83,7 +83,7 @@ namespace YAF.Core
             // Only moderators are allowed here
             if (!this.PageContext.IsModeratorInAnyForum)
             {
-                YafBuildLink.AccessDenied();
+                BuildLink.AccessDenied();
             }
         }
 

@@ -23,7 +23,7 @@
                 <h6>
                     <YAF:ThemeButton runat="server"
                                      TitleLocalizedPage="COMMON" TitleLocalizedTag="VIEW_TOPIC"
-                                     NavigateUrl='<%# YafBuildLink.GetLink(ForumPages.posts,"m={0}#post{0}", Container.DataItemToField<int>("MessageID")) %>'
+                                     NavigateUrl='<%# BuildLink.GetLink(ForumPages.posts,"m={0}#post{0}", Container.DataItemToField<int>("MessageID")) %>'
                                      Type="Link"
                                      Text='<%# this.HtmlEncode(Container.DataItemToField<string>("Topic")) %>'>
                     </YAF:ThemeButton>

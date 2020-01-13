@@ -153,12 +153,12 @@ namespace YAF.Pages
                 || this.Get<HttpRequestBase>().QueryString.Exists("m"))
             {
                 // reply to existing topic or editing of existing topic
-                YafBuildLink.Redirect(ForumPages.posts, "t={0}", this.PageContext.PageTopicID);
+                BuildLink.Redirect(ForumPages.posts, "t={0}", this.PageContext.PageTopicID);
             }
             else
             {
                 // new topic -- cancel back to forum
-                YafBuildLink.Redirect(ForumPages.topics, "f={0}", this.PageContext.PageForumID);
+                BuildLink.Redirect(ForumPages.topics, "f={0}", this.PageContext.PageForumID);
             }
         }
 
@@ -223,7 +223,7 @@ namespace YAF.Pages
                 if (!this.PageContext.ForumModeratorAccess
                     && this.PageContext.PageUserID != (int)this._messageRow["UserID"])
                 {
-                    YafBuildLink.AccessDenied();
+                    BuildLink.AccessDenied();
                 }
             }
 
@@ -234,19 +234,19 @@ namespace YAF.Pages
 
             if (this.PageContext.PageForumID == 0)
             {
-                YafBuildLink.AccessDenied();
+                BuildLink.AccessDenied();
             }
 
             if (!this.Get<HttpRequestBase>().QueryString.Exists("t")
                 && !this.PageContext.ForumPostAccess)
             {
-                YafBuildLink.AccessDenied();
+                BuildLink.AccessDenied();
             }
 
             if (this.Get<HttpRequestBase>().QueryString.Exists("t")
                 && !this.PageContext.ForumReplyAccess)
             {
-                YafBuildLink.AccessDenied();
+                BuildLink.AccessDenied();
             }
 
             if (this.IsPostBack)
@@ -258,7 +258,7 @@ namespace YAF.Pages
             this.PageLinks.AddRoot();
             this.PageLinks.AddLink(
                 this.PageContext.PageCategoryName,
-                YafBuildLink.GetLink(ForumPages.forum, "c={0}", this.PageContext.PageCategoryID));
+                BuildLink.GetLink(ForumPages.forum, "c={0}", this.PageContext.PageCategoryID));
             this.PageLinks.AddForum(this.PageContext.PageForumID);
 
             this.EraseMessage.Checked = false;
@@ -363,11 +363,11 @@ namespace YAF.Pages
             // If topic has been deleted, redirect to topic list for active forum, else show remaining posts for topic
             if (topic == null)
             {
-                YafBuildLink.Redirect(ForumPages.topics, "f={0}", tmpForumID);
+                BuildLink.Redirect(ForumPages.topics, "f={0}", tmpForumID);
             }
             else
             {
-                YafBuildLink.Redirect(ForumPages.posts, "t={0}", tmpTopicID);
+                BuildLink.Redirect(ForumPages.posts, "t={0}", tmpTopicID);
             }
         }
 

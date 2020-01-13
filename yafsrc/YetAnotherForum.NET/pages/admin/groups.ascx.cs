@@ -117,7 +117,7 @@ namespace YAF.Pages.Admin
             // admin index
             this.PageLinks.AddLink(
                 this.GetText("ADMIN_ADMIN", "Administration"),
-                YafBuildLink.GetLink(ForumPages.admin_admin));
+                BuildLink.GetLink(ForumPages.admin_admin));
 
             // roles
             this.PageLinks.AddLink(this.GetText("ADMIN_GROUPS", "TITLE"), string.Empty);
@@ -156,7 +156,7 @@ namespace YAF.Pages.Admin
         protected void NewGroupClick([NotNull] object sender, [NotNull] EventArgs e)
         {
             // redirect to new role page
-            YafBuildLink.Redirect(ForumPages.admin_editgroup);
+            BuildLink.Redirect(ForumPages.admin_editgroup);
         }
 
         /// <summary>
@@ -222,7 +222,7 @@ namespace YAF.Pages.Admin
                         0);
 
                     // redirect to newly created role
-                    YafBuildLink.Redirect(ForumPages.admin_editgroup, "i={0}", groupId);
+                    BuildLink.Redirect(ForumPages.admin_editgroup, "i={0}", groupId);
                     break;
                 case "delete":
 
@@ -252,7 +252,7 @@ namespace YAF.Pages.Admin
                 case "edit":
 
                     // go to role editing page
-                    YafBuildLink.Redirect(ForumPages.admin_editgroup, "i={0}", e.CommandArgument);
+                    BuildLink.Redirect(ForumPages.admin_editgroup, "i={0}", e.CommandArgument);
                     break;
                 case "delete":
 

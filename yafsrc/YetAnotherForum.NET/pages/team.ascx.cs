@@ -97,7 +97,7 @@ namespace YAF.Pages
 
             if (int.TryParse(modForums.SelectedValue, out var redirForum))
             {
-                YafBuildLink.Redirect(ForumPages.topics, "f={0}", modForums.SelectedValue);
+                BuildLink.Redirect(ForumPages.topics, "f={0}", modForums.SelectedValue);
             }
         }
 
@@ -205,7 +205,7 @@ namespace YAF.Pages
                 userId, avatarString, hasAvatarImage, email);
 
             return avatarUrl.IsNotSet()
-                       ? $"{YafForumInfo.ForumClientFileRoot}images/noavatar.svg"
+                       ? $"{BoardInfo.ForumClientFileRoot}images/noavatar.svg"
                        : avatarUrl;
         }
 
@@ -221,7 +221,7 @@ namespace YAF.Pages
 
             if (!this.Get<IPermissions>().Check(this.Get<BoardSettings>().ShowTeamTo))
             {
-                YafBuildLink.AccessDenied();
+                BuildLink.AccessDenied();
             }
         }
 
@@ -322,7 +322,7 @@ namespace YAF.Pages
                 }
             }
 
-            pm.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.pmessage, "u={0}", userid);
+            pm.NavigateUrl = BuildLink.GetLinkNotEscaped(ForumPages.pmessage, "u={0}", userid);
             pm.ParamTitle0 = displayName;
 
             // email link
@@ -340,7 +340,7 @@ namespace YAF.Pages
                     email.Visible = true;
                 }
 
-                email.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.im_email, "u={0}", userid);
+                email.NavigateUrl = BuildLink.GetLinkNotEscaped(ForumPages.im_email, "u={0}", userid);
                 email.ParamTitle0 = displayName;
             }
         }
@@ -425,7 +425,7 @@ namespace YAF.Pages
                 }
             }
 
-            pm.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.pmessage, "u={0}", userid);
+            pm.NavigateUrl = BuildLink.GetLinkNotEscaped(ForumPages.pmessage, "u={0}", userid);
             pm.ParamTitle0 = displayName;
 
             // email link
@@ -443,7 +443,7 @@ namespace YAF.Pages
                     email.Visible = true;
                 }
 
-                email.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.im_email, "u={0}", userid);
+                email.NavigateUrl = BuildLink.GetLinkNotEscaped(ForumPages.im_email, "u={0}", userid);
                 email.ParamTitle0 = displayName;
             }
         }

@@ -84,7 +84,7 @@ namespace YAF.Pages
                 // This is an existing album
                 if (albumId.IsSet() && !albumId.Contains("new"))
                 {
-                    YafBuildLink.Redirect(
+                    BuildLink.Redirect(
                         ForumPages.album,
                         "u={0}&a={1}",
                         this.PageContext.PageUserID.ToString(),
@@ -93,12 +93,12 @@ namespace YAF.Pages
                 else
                 {
                     // simply redirect to albums page
-                    YafBuildLink.Redirect(ForumPages.albums, "u={0}", this.PageContext.PageUserID);
+                    BuildLink.Redirect(ForumPages.albums, "u={0}", this.PageContext.PageUserID);
                 }
             }
             else
             {
-                YafBuildLink.Redirect(ForumPages.albums, "u={0}", this.PageContext.PageUserID);
+                BuildLink.Redirect(ForumPages.albums, "u={0}", this.PageContext.PageUserID);
             }
         }
 
@@ -121,7 +121,7 @@ namespace YAF.Pages
             // clear the cache for this user to update albums|images stats...
             this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.PageContext.PageUserID));
 
-            YafBuildLink.Redirect(ForumPages.albums, "u={0}", this.PageContext.PageUserID);
+            BuildLink.Redirect(ForumPages.albums, "u={0}", this.PageContext.PageUserID);
         }
 
         /// <summary>
@@ -193,7 +193,7 @@ namespace YAF.Pages
         {
             if (!this.Get<BoardSettings>().EnableAlbum)
             {
-                YafBuildLink.AccessDenied();
+                BuildLink.AccessDenied();
             }
 
             if (this.IsPostBack)
@@ -217,7 +217,7 @@ namespace YAF.Pages
                     // Is album feature enabled?
                     if (!this.Get<BoardSettings>().EnableAlbum)
                     {
-                        YafBuildLink.AccessDenied();
+                        BuildLink.AccessDenied();
                     }
 
                     // Has the user created maximum number of albums?
@@ -226,14 +226,14 @@ namespace YAF.Pages
                         // Albums count. If we reached limit then we go to info page.
                         if (usrAlbumsAllowed > 0 && albumSize >= usrAlbumsAllowed)
                         {
-                            YafBuildLink.RedirectInfoPage(InfoMessage.AccessDenied);
+                            BuildLink.RedirectInfoPage(InfoMessage.AccessDenied);
                         }
                     }
 
                     /* if (this.Get<BoardSettings>().AlbumsMax > 0 &&
                                         albumSize[0] > this.Get<BoardSettings>().AlbumsMax - 1)
                               {
-                                  YafBuildLink.RedirectInfoPage(InfoMessage.AccessDenied);
+                                  BuildLink.RedirectInfoPage(InfoMessage.AccessDenied);
                               }*/
                     userID = this.PageContext.PageUserID;
                     break;
@@ -245,7 +245,7 @@ namespace YAF.Pages
 
                     if (userID != this.PageContext.PageUserID)
                     {
-                        YafBuildLink.AccessDenied();
+                        BuildLink.AccessDenied();
                     }
 
                     break;
@@ -259,10 +259,10 @@ namespace YAF.Pages
             this.PageLinks.AddRoot();
             this.PageLinks.AddLink(
                 displayName,
-                YafBuildLink.GetLink(ForumPages.profile, "u={0}&name={1}", userID.ToString(), displayName));
+                BuildLink.GetLink(ForumPages.profile, "u={0}&name={1}", userID.ToString(), displayName));
             this.PageLinks.AddLink(
                 this.GetText("ALBUMS"),
-                YafBuildLink.GetLink(ForumPages.albums, "u={0}", userID.ToString()));
+                BuildLink.GetLink(ForumPages.albums, "u={0}", userID.ToString()));
             this.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
 
             this.BindData();
@@ -319,7 +319,7 @@ namespace YAF.Pages
                     this.txtTitle.Text);
             }
 
-            YafBuildLink.Redirect(ForumPages.cp_editalbumimages, "a={0}", albumId);
+            BuildLink.Redirect(ForumPages.cp_editalbumimages, "a={0}", albumId);
         }
 
         /// <summary>
@@ -536,7 +536,7 @@ namespace YAF.Pages
                 // clear the cache for this user to update albums|images stats...
                 this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.PageContext.PageUserID));
 
-                YafBuildLink.Redirect(ForumPages.cp_editalbumimages, "a={0}", newAlbumId);
+                BuildLink.Redirect(ForumPages.cp_editalbumimages, "a={0}", newAlbumId);
             }
             else
             {

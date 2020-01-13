@@ -139,7 +139,7 @@ namespace YAF.Core.Services.Auth
         public string GenerateLoginUrl(bool generatePopUpUrl, bool connectCurrentUser = false)
         {
             var authUrl =
-                $"{YafForumInfo.ForumBaseUrl}auth.aspx?auth={AuthService.google}{(connectCurrentUser ? "&connectCurrent=true" : string.Empty)}";
+                $"{BoardInfo.ForumBaseUrl}auth.aspx?auth={AuthService.google}{(connectCurrentUser ? "&connectCurrent=true" : string.Empty)}";
 
             return authUrl;
         }

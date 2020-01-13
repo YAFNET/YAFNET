@@ -75,7 +75,7 @@ namespace YAF.Pages.Admin
 
             // administration index
             this.PageLinks.AddLink(
-                this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
+                this.GetText("ADMIN_ADMIN", "Administration"), BuildLink.GetLink(ForumPages.admin_admin));
 
             // current page label (no link)
             this.PageLinks.AddLink(this.GetText("ADMIN_MEDALS", "TITLE"), string.Empty);
@@ -96,7 +96,7 @@ namespace YAF.Pages.Admin
                 case "edit":
 
                     // edit medal
-                    YafBuildLink.Redirect(ForumPages.admin_editmedal, "medalid={0}", e.CommandArgument);
+                    BuildLink.Redirect(ForumPages.admin_editmedal, "medalid={0}", e.CommandArgument);
                     break;
                 case "delete":
                     // delete medal
@@ -124,7 +124,7 @@ namespace YAF.Pages.Admin
         protected void NewMedalClick([NotNull] object sender, [NotNull] EventArgs e)
         {
             // redirect to medal edit page
-            YafBuildLink.Redirect(ForumPages.admin_editmedal);
+            BuildLink.Redirect(ForumPages.admin_editmedal);
         }
 
         /// <summary>
@@ -163,7 +163,7 @@ namespace YAF.Pages.Admin
             // image of medal
             output.AppendFormat(
                 "<img src=\"{0}{5}/{1}\" width=\"{2}\" height=\"{3}\" alt=\"{4}\" align=\"top\" />",
-                YafForumInfo.ForumClientFileRoot,
+                BoardInfo.ForumClientFileRoot,
                 medal.SmallMedalURL,
                 medal.SmallMedalWidth,
                 medal.SmallMedalHeight,
@@ -175,7 +175,7 @@ namespace YAF.Pages.Admin
             {
                 output.AppendFormat(
                     " &nbsp; <img src=\"{0}{5}/{1}\" width=\"{2}\" height=\"{3}\" alt=\"{4}\" align=\"top\" />",
-                    YafForumInfo.ForumClientFileRoot,
+                    BoardInfo.ForumClientFileRoot,
                     medal.SmallRibbonURL,
                     medal.SmallRibbonWidth,
                     medal.SmallRibbonHeight,

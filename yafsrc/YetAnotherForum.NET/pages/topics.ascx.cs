@@ -170,7 +170,7 @@ namespace YAF.Pages
 
             if (!this.PageContext.ForumPostAccess)
             {
-                YafBuildLink.AccessDenied(/*"You don't have access to post new topics in this forum."*/);
+                BuildLink.AccessDenied(/*"You don't have access to post new topics in this forum."*/);
             }
         }
 
@@ -186,7 +186,7 @@ namespace YAF.Pages
                 return;
             }
 
-            YafBuildLink.Redirect(
+            BuildLink.Redirect(
                 ForumPages.search,
                 "search={0}&forum={1}",
                 this.forumSearch.Text,
@@ -241,7 +241,7 @@ namespace YAF.Pages
                     this.PageLinks.AddRoot();
                     this.PageLinks.AddLink(
                         this.PageContext.PageCategoryName,
-                        YafBuildLink.GetLink(ForumPages.forum, "c={0}", this.PageContext.PageCategoryID));
+                        BuildLink.GetLink(ForumPages.forum, "c={0}", this.PageContext.PageCategoryID));
                 }
 
                 this.PageLinks.AddForum(this.PageContext.PageForumID, true);
@@ -255,18 +255,18 @@ namespace YAF.Pages
 
                 this.moderate1.NavigateUrl =
                     this.moderate2.NavigateUrl =
-                    YafBuildLink.GetLinkNotEscaped(ForumPages.moderating, "f={0}", this.PageContext.PageForumID);
+                    BuildLink.GetLinkNotEscaped(ForumPages.moderating, "f={0}", this.PageContext.PageForumID);
 
                 this.NewTopic1.NavigateUrl =
                     this.NewTopic2.NavigateUrl =
-                    YafBuildLink.GetLinkNotEscaped(ForumPages.postmessage, "f={0}", this.PageContext.PageForumID);
+                    BuildLink.GetLinkNotEscaped(ForumPages.postmessage, "f={0}", this.PageContext.PageForumID);
 
                 this.HandleWatchForum();
             }
 
             if (!this.Get<HttpRequestBase>().QueryString.Exists("f"))
             {
-                YafBuildLink.AccessDenied();
+                BuildLink.AccessDenied();
             }
 
             if (this.PageContext.IsGuest && !this.PageContext.ForumReadAccess)
@@ -276,7 +276,7 @@ namespace YAF.Pages
             }
             else if (!this.PageContext.ForumReadAccess)
             {
-                YafBuildLink.AccessDenied();
+                BuildLink.AccessDenied();
             }
 
             this.forum = this.GetRepository<Forum>().GetById(this.PageContext.PageForumID);

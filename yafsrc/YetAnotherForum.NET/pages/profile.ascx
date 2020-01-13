@@ -30,7 +30,7 @@
                              Type="Info"/>
             <YAF:ThemeButton ID="AdminUserButton" runat="server" Visible="false"
                              TextLocalizedTag="ADMIN_USER" 
-                             NavigateUrl='<%# YafBuildLink.GetLinkNotEscaped( ForumPages.admin_edituser,"u={0}", this.UserId ) %>'
+                             NavigateUrl='<%# BuildLink.GetLinkNotEscaped( ForumPages.admin_edituser,"u={0}", this.UserId ) %>'
                              Icon="user-cog"
                              Type="Danger">
             </YAF:ThemeButton>
@@ -275,7 +275,7 @@
                                         <YAF:LocalizedLabel ID="LocalizedLabel16" runat="server" LocalizedTag="topic" />
                                     </span><a 
                                                title='<%# this.GetText("COMMON", "VIEW_TOPIC") %>' 
-                                               href='<%# YafBuildLink.GetLink(ForumPages.posts,"t={0}",Container.DataItemToField<int>("TopicID")) %>'>
+                                               href='<%# BuildLink.GetLink(ForumPages.posts,"t={0}",Container.DataItemToField<int>("TopicID")) %>'>
                                         <%# this.Get<IBadWordReplace>().Replace(this.HtmlEncode(Container.DataItemToField<string>("Subject"))) %>
                                     </a>
                                 </div>

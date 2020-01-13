@@ -102,10 +102,10 @@ namespace YAF.Pages.Admin
         /// </summary>
         protected override void CreatePageLinks()
         {
-            this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+            this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, BuildLink.GetLink(ForumPages.forum));
             this.PageLinks.AddLink(
                 this.GetText("ADMIN_ADMIN", "Administration"),
-                YafBuildLink.GetLink(ForumPages.admin_admin));
+                BuildLink.GetLink(ForumPages.admin_admin));
             this.PageLinks.AddLink(this.GetText("ADMIN_REINDEX", "TITLE"), string.Empty);
 
             this.Page.Header.Title =
@@ -180,7 +180,7 @@ namespace YAF.Pages.Admin
                     "INDEX_SHRINK",
                     this.Get<IDbFunction>().GetDBSize());
 
-                YafBuildLink.Redirect(ForumPages.admin_reindex);
+                BuildLink.Redirect(ForumPages.admin_reindex);
             }
             catch (Exception error)
             {

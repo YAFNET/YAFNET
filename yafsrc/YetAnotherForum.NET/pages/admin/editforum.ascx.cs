@@ -113,12 +113,12 @@ namespace YAF.Pages.Admin
                 var dr = dt.NewRow();
                 dr["FileID"] = 0;
                 dr["FileName"] =
-                    YafForumInfo.GetURLToContent("images/spacer.gif"); // use spacer.gif for Description Entry
+                    BoardInfo.GetURLToContent("images/spacer.gif"); // use spacer.gif for Description Entry
                 dr["Description"] = this.GetText("COMMON", "NONE");
                 dt.Rows.Add(dr);
 
                 var dir = new DirectoryInfo(
-                    this.Get<HttpRequestBase>().MapPath($"{YafForumInfo.ForumServerFileRoot}{BoardFolders.Current.Forums}"));
+                    this.Get<HttpRequestBase>().MapPath($"{BoardInfo.ForumServerFileRoot}{BoardFolders.Current.Forums}"));
                 if (dir.Exists)
                 {
                     var files = dir.GetFiles("*.*");
@@ -135,7 +135,7 @@ namespace YAF.Pages.Admin
                                 dr = dt.NewRow();
                                 dr["FileID"] = fileId++;
                                 dr["FileName"] =
-                                    $"{YafForumInfo.ForumClientFileRoot}{BoardFolders.Current.Forums}/{file.Name}";
+                                    $"{BoardInfo.ForumClientFileRoot}{BoardFolders.Current.Forums}/{file.Name}";
                                 dr["Description"] = file.Name;
                                 dt.Rows.Add(dr);
                             });
@@ -290,9 +290,9 @@ namespace YAF.Pages.Admin
             this.PageLinks.AddRoot();
             this.PageLinks.AddLink(
                 this.GetText("ADMIN_ADMIN", "Administration"),
-                YafBuildLink.GetLink(ForumPages.admin_admin));
+                BuildLink.GetLink(ForumPages.admin_admin));
 
-            this.PageLinks.AddLink(this.GetText("ADMINMENU", "ADMIN_FORUMS"), YafBuildLink.GetLink(ForumPages.admin_forums));
+            this.PageLinks.AddLink(this.GetText("ADMINMENU", "ADMIN_FORUMS"), BuildLink.GetLink(ForumPages.admin_forums));
             this.PageLinks.AddLink(this.GetText("ADMIN_EDITFORUM", "TITLE"), string.Empty);
 
             this.Page.Header.Title =
@@ -419,7 +419,7 @@ namespace YAF.Pages.Admin
         /// </param>
         private void CancelClick([NotNull] object sender, [NotNull] EventArgs e)
         {
-            YafBuildLink.Redirect(ForumPages.admin_forums);
+            BuildLink.Redirect(ForumPages.admin_forums);
         }
 
         /// <summary>
@@ -595,7 +595,7 @@ namespace YAF.Pages.Admin
 
             this.ClearCaches();
 
-            YafBuildLink.Redirect(ForumPages.admin_forums);
+            BuildLink.Redirect(ForumPages.admin_forums);
         }
 
         #endregion

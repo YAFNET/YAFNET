@@ -162,7 +162,7 @@ namespace YAF.Core
         /// <summary>
         ///   Gets ForumURL.
         /// </summary>
-        public string ForumURL => YafBuildLink.GetLink(ForumPages.forum, true);
+        public string ForumURL => BuildLink.GetLink(ForumPages.forum, true);
 
         /// <summary>
         ///   Gets or sets a value indicating whether Is Admin Page.

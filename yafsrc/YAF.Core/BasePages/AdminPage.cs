@@ -102,7 +102,7 @@ namespace YAF.Core
             // not admins are forbidden
             if (!this.PageContext.IsAdmin)
             { 
-                YafBuildLink.AccessDenied();
+                BuildLink.AccessDenied();
             }
 
             // host admins are not checked
@@ -118,7 +118,7 @@ namespace YAF.Core
             // Check access rights to the page.
             if (!this.PageContext.ForumPageType.ToString().IsSet() || dt == null || !dt.HasRows())
             {
-                YafBuildLink.RedirectInfoPage(InfoMessage.HostAdminPermissionsAreRequired);
+                BuildLink.RedirectInfoPage(InfoMessage.HostAdminPermissionsAreRequired);
             }
         }
 

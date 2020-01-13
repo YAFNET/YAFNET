@@ -170,7 +170,7 @@ namespace YAF.Pages.Admin
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            this.langPath = HttpContext.Current.Request.MapPath($"{YafForumInfo.ForumServerFileRoot}languages");
+            this.langPath = HttpContext.Current.Request.MapPath($"{BoardInfo.ForumServerFileRoot}languages");
 
             if (this.Get<HttpRequestBase>().QueryString.Exists("x"))
             {
@@ -217,11 +217,11 @@ namespace YAF.Pages.Admin
             this.PageLinks.AddRoot();
             this.PageLinks.AddLink(
                 this.GetText("ADMIN_ADMIN", "Administration"),
-                YafBuildLink.GetLink(ForumPages.admin_admin));
+                BuildLink.GetLink(ForumPages.admin_admin));
 
             this.PageLinks.AddLink(
                 this.GetText("ADMIN_LANGUAGES", "TITLE"),
-                YafBuildLink.GetLink(ForumPages.admin_languages));
+                BuildLink.GetLink(ForumPages.admin_languages));
             this.PageLinks.AddLink(this.GetText("ADMIN_EDITLANGUAGE", "TITLE"), string.Empty);
 
             this.Page.Header.Title =
@@ -235,7 +235,7 @@ namespace YAF.Pages.Admin
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         private static void CancelClick([NotNull] object sender, [NotNull] EventArgs e)
         {
-            YafBuildLink.Redirect(ForumPages.admin_languages);
+            BuildLink.Redirect(ForumPages.admin_languages);
         }
 
         /// <summary>

@@ -182,7 +182,7 @@ namespace YAF.Web.Controls
 
             footer.AppendFormat(
                 @"<a target=""_top"" title=""{1}"" href=""{0}"">{1}</a> | ",
-                YafBuildLink.GetLink(ForumPages.rules),
+                BuildLink.GetLink(ForumPages.rules),
                 this.GetText("COMMON", "PRIVACY_POLICY"));
         }
 
@@ -229,7 +229,7 @@ namespace YAF.Web.Controls
 
             if (this.Get<BoardSettings>().ShowYAFVersion)
             {
-                footer.AppendFormat(" {0} ", YafForumInfo.AppVersionName);
+                footer.AppendFormat(" {0} ", BoardInfo.AppVersionName);
                 if (Config.IsDotNetNuke)
                 {
                     footer.Append(" Under DNN ");

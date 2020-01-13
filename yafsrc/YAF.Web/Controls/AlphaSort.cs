@@ -117,7 +117,7 @@ namespace YAF.Web.Controls
                                                                "ALPHABET_FILTER_BY",
                                                                letter.ToString()),
                                                        Text = letter.ToString(),
-                                                       NavigateUrl = YafBuildLink.GetLinkNotEscaped(
+                                                       NavigateUrl = BuildLink.GetLinkNotEscaped(
                                                            ForumPages.members,
                                                            "letter={0}",
                                                            letter == '#' ? '_' : letter)

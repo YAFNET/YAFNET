@@ -301,7 +301,7 @@ namespace YAF.Pages
             {
                 this.PageLinks.AddLink(
                     this.PageContext.PageCategoryName,
-                    YafBuildLink.GetLink(ForumPages.forum, "c={0}", this._categoryId));
+                    BuildLink.GetLink(ForumPages.forum, "c={0}", this._categoryId));
             }
 
             var name = this.GetRepository<Forum>().List(this.PageContext.PageBoardID, this._returnForum)
@@ -309,26 +309,26 @@ namespace YAF.Pages
 
             if (this._returnForum > 0)
             {
-                this.PageLinks.AddLink(name, YafBuildLink.GetLink(ForumPages.topics, "f={0}", this._returnForum));
+                this.PageLinks.AddLink(name, BuildLink.GetLink(ForumPages.topics, "f={0}", this._returnForum));
             }
 
             if (this._forumId > 0)
             {
-                this.PageLinks.AddLink(name, YafBuildLink.GetLink(ForumPages.topics, "f={0}", this._forumId));
+                this.PageLinks.AddLink(name, BuildLink.GetLink(ForumPages.topics, "f={0}", this._forumId));
             }
 
             if (this._topicId > 0)
             {
                 this.PageLinks.AddLink(
                     this.topicInfo.TopicName,
-                    YafBuildLink.GetLink(ForumPages.posts, "t={0}", this._topicId));
+                    BuildLink.GetLink(ForumPages.posts, "t={0}", this._topicId));
             }
 
             if (this._editMessageId > 0)
             {
                 this.PageLinks.AddLink(
                     this.topicInfo.TopicName,
-                    YafBuildLink.GetLink(ForumPages.postmessage, "m={0}", this._editMessageId));
+                    BuildLink.GetLink(ForumPages.postmessage, "m={0}", this._editMessageId));
             }
 
             this.PageLinks.AddLink(this.GetText("POLLEDIT", "EDITPOLL"), string.Empty);
@@ -354,12 +354,12 @@ namespace YAF.Pages
                                                                         || this._forumId > 0 || this._categoryId > 0);
                 if (!categoryVars || !boardVars)
                 {
-                    YafBuildLink.RedirectInfoPage(InfoMessage.Invalid);
+                    BuildLink.RedirectInfoPage(InfoMessage.Invalid);
                 }
             }
             else if (this._forumId > 0 && !this.PageContext.ForumPollAccess)
             {
-                YafBuildLink.RedirectInfoPage(InfoMessage.AccessDenied);
+                BuildLink.RedirectInfoPage(InfoMessage.AccessDenied);
             }
         }
 
@@ -631,7 +631,7 @@ namespace YAF.Pages
                 if (this._choices.Rows[0]["UserID"].ToType<int>() != this.PageContext.PageUserID
                     && !this.PageContext.IsAdmin && !this.PageContext.ForumModeratorAccess)
                 {
-                    YafBuildLink.RedirectInfoPage(InfoMessage.Invalid);
+                    BuildLink.RedirectInfoPage(InfoMessage.Invalid);
                 }
 
                 this.IsBoundCheckBox.Checked = this._choices.Rows[0]["IsBound"].ToType<bool>();
@@ -667,7 +667,7 @@ namespace YAF.Pages
                 // below check currently if works for topics only, but will do as some things are not enabled 
                 if (!this.CanCreatePoll())
                 {
-                    YafBuildLink.RedirectInfoPage(InfoMessage.AccessDenied);
+                    BuildLink.RedirectInfoPage(InfoMessage.AccessDenied);
                 }
 
                 // Get isBound value using page variables. They are initialized here.
@@ -835,7 +835,7 @@ namespace YAF.Pages
                 this.InitPollUI(null);
             }
 
-            // YafBuildLink.RedirectInfoPage(InfoMessage.Invalid);
+            // BuildLink.RedirectInfoPage(InfoMessage.Invalid);
         }
 
         /// <summary>
@@ -897,7 +897,7 @@ namespace YAF.Pages
 
             /* else
                    {
-                       YafBuildLink.RedirectInfoPage(InfoMessage.AccessDenied);
+                       BuildLink.RedirectInfoPage(InfoMessage.AccessDenied);
                    } */
         }
 
@@ -909,53 +909,53 @@ namespace YAF.Pages
             if (this._topicUnapproved)
             {
                 // Tell user that his message will have to be approved by a moderator
-                var url = YafBuildLink.GetLink(ForumPages.topics, "f={0}", this._returnForum);
+                var url = BuildLink.GetLink(ForumPages.topics, "f={0}", this._returnForum);
 
                 if (Config.IsRainbow)
                 {
-                    YafBuildLink.Redirect(ForumPages.info, "i=1");
+                    BuildLink.Redirect(ForumPages.info, "i=1");
                 }
                 else
                 {
-                    YafBuildLink.Redirect(ForumPages.info, "i=1&url={0}", this.Server.UrlEncode(url));
+                    BuildLink.Redirect(ForumPages.info, "i=1&url={0}", this.Server.UrlEncode(url));
                 }
             }
 
-            // YafBuildLink.Redirect(ForumPages.posts, "m={0}#{0}", this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("m"));      
+            // BuildLink.Redirect(ForumPages.posts, "m={0}#{0}", this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("m"));      
             this.ParamsToSend(out var retliterals, out var retvalue);
 
             switch (retliterals)
             {
                 case "t":
-                    YafBuildLink.Redirect(ForumPages.posts, "t={0}", retvalue);
+                    BuildLink.Redirect(ForumPages.posts, "t={0}", retvalue);
                     break;
 
                 case "em":
 
-                    YafBuildLink.Redirect(ForumPages.postmessage, "m={0}", retvalue);
+                    BuildLink.Redirect(ForumPages.postmessage, "m={0}", retvalue);
                     break;
 
                 case "f":
 
-                    YafBuildLink.Redirect(ForumPages.topics, "f={0}", retvalue);
+                    BuildLink.Redirect(ForumPages.topics, "f={0}", retvalue);
                     break;
                 case "ef":
-                    YafBuildLink.Redirect(ForumPages.admin_editforum, "f={0}", retvalue);
+                    BuildLink.Redirect(ForumPages.admin_editforum, "f={0}", retvalue);
                     break;
                 case "c":
-                    YafBuildLink.Redirect(ForumPages.forum, "c={0}", retvalue);
+                    BuildLink.Redirect(ForumPages.forum, "c={0}", retvalue);
                     break;
                 case "ec":
-                    YafBuildLink.Redirect(ForumPages.admin_editcategory, "c={0}", retvalue);
+                    BuildLink.Redirect(ForumPages.admin_editcategory, "c={0}", retvalue);
                     break;
                 case "b":
-                    YafBuildLink.Redirect(ForumPages.forum);
+                    BuildLink.Redirect(ForumPages.forum);
                     break;
                 case "eb":
-                    YafBuildLink.Redirect(ForumPages.admin_editboard, "b={0}", retvalue);
+                    BuildLink.Redirect(ForumPages.admin_editboard, "b={0}", retvalue);
                     break;
                 default:
-                    YafBuildLink.RedirectInfoPage(InfoMessage.Invalid);
+                    BuildLink.RedirectInfoPage(InfoMessage.Invalid);
                     break;
             }
         }

@@ -166,7 +166,7 @@ namespace YAF.Core.Services
         {
             this.RegisterCssInclude(
                 YafContext.Current.CurrentForumPage.TopPageControl,
-                YafForumInfo.GetURLToContent(cssUrlContent));
+                BoardInfo.GetURLToContent(cssUrlContent));
         }
 
         /// <summary>
@@ -273,7 +273,7 @@ namespace YAF.Core.Services
                 name,
                 new ScriptResourceDefinition
                     {
-                        Path = YafForumInfo.GetURLToScripts(path)
+                        Path = BoardInfo.GetURLToScripts(path)
                     });
 
             this.AddScriptReference(new ScriptReference { Name = name });
