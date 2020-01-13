@@ -30,6 +30,7 @@ namespace YAF.Dialogs
     using System.Data;
     using System.IO;
     using System.Linq;
+    using System.Text.RegularExpressions;
     using System.Web.Security;
 
     using YAF.Configuration;
@@ -125,7 +126,7 @@ namespace YAF.Dialogs
                     string.Format(this.GetText("ADMIN_USERS_IMPORT", "IMPORT_FAILED"), x.Message), MessageTypes.danger);
             }
 
-            YafBuildLink.Redirect(ForumPages.admin_users);
+            BuildLink.Redirect(ForumPages.admin_users);
         }
 
         /// <summary>
@@ -178,7 +179,8 @@ namespace YAF.Dialogs
                 while (streamReader.Peek() >= 0)
                 {
                     var dr = usersTable.NewRow();
-                    dr.ItemArray = streamReader.ReadLine()?.Split(',');
+                    var regex = new Regex(",(?=(?:[^\"]*\"[^\"]*\")*(?![^\"]*\"))");
+                    dr.ItemArray = regex.Split(streamReader.ReadLine());
 
                     usersTable.Rows.Add(dr);
                 }
