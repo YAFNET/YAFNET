@@ -110,7 +110,7 @@ namespace YAF.Utils.Helpers
             }
 
             // fail...
-            YafBuildLink.RedirectInfoPage(InfoMessage.Invalid);
+            BuildLink.RedirectInfoPage(InfoMessage.Invalid);
 
             return null;
         }

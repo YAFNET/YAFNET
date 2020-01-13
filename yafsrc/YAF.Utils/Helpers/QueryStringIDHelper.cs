@@ -219,7 +219,7 @@ namespace YAF.Utils.Helpers
                 else if (errorOnInvalid[i])
                 {
                     // fail, see if it should be valid...
-                    YafBuildLink.RedirectInfoPage(InfoMessage.Invalid);
+                    BuildLink.RedirectInfoPage(InfoMessage.Invalid);
                 }
             }
         }
