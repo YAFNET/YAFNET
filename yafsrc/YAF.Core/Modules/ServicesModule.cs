@@ -129,9 +129,6 @@ namespace YAF.Core.Modules
             // module resolution bindings...
             builder.RegisterGeneric(typeof(StandardModuleManager<>)).As(typeof(IModuleManager<>)).InstancePerLifetimeScope();
 
-            // background emailing...
-            builder.RegisterType<SendMailThreaded>().As<ISendMailThreaded>().PreserveExistingDefaults();
-
             // style transformation...
             builder.RegisterType<StyleTransform>().As<IStyleTransform>().InstancePerYafContext().PreserveExistingDefaults();
 

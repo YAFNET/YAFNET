@@ -142,11 +142,10 @@ namespace YAF.Pages.Admin
                             this.PageContext.BoardSettings.Name,
                             this.PageContext.BoardSettings.ForumEmail,
                             this.TextSendEmail.Text.Trim(),
-                            "Digest Send Test",
-                            this.SendMethod.SelectedItem.Text == "Queued");
+                            "Digest Send Test");
 
                     this.PageContext.AddLoadMessage(
-                        string.Format(this.GetText("ADMIN_DIGEST", "MSG_SEND_SUC"), this.SendMethod.SelectedItem.Text),
+                        this.GetTextFormatted("MSG_SEND_SUC", "Direct"),
                         MessageTypes.success);
                 }
                 catch (Exception ex)

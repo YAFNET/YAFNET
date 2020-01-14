@@ -32,6 +32,7 @@ namespace YAF.Core.Services
     using System.Globalization;
     using System.Linq;
     using System.Net.Mail;
+    using System.Threading.Tasks;
     using System.Web;
     using System.Web.Security;
 
@@ -116,8 +117,11 @@ namespace YAF.Core.Services
                         }
                     });
 
+            var context = HttpContext.Current;
+
             // send each message...
-            moderatorUserNames.Distinct().ForEach(
+            Parallel.ForEach(
+                moderatorUserNames.Distinct(),
                 userName =>
                     {
                         // add each member of the group
@@ -132,7 +136,8 @@ namespace YAF.Core.Services
                                 isSpamMessage
                                     ? "NOTIFICATION_ON_MODERATOR_SPAMMESSAGE_APPROVAL"
                                     : "NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL",
-                                languageFile),
+                                languageFile,
+                                context),
                             this.BoardSettings.Name);
 
                         var notifyModerators = new TemplateEmail(
@@ -142,6 +147,7 @@ namespace YAF.Core.Services
                                                    {
                                                        // get the user localization...
                                                        TemplateLanguageFile = languageFile,
+                                                       Context = context,
                                                        TemplateParams =
                                                            {
                                                                ["{adminlink}"] = BuildLink.GetLinkNotEscaped(
@@ -154,8 +160,7 @@ namespace YAF.Core.Services
 
                         notifyModerators.SendEmail(
                             new MailAddress(membershipUser.Email, membershipUser.UserName),
-                            subject,
-                            false);
+                            subject);
                     });
         }
 
@@ -199,8 +204,11 @@ namespace YAF.Core.Services
                             }
                         });
 
+                var context = HttpContext.Current;
+
                 // send each message...
-                moderatorUserNames.Distinct().ForEach(
+                Parallel.ForEach(
+                    moderatorUserNames.Distinct(),
                     userName =>
                         {
                             // add each member of the group
@@ -214,12 +222,14 @@ namespace YAF.Core.Services
                                 this.Get<ILocalization>().GetText(
                                     "COMMON",
                                     "NOTIFICATION_ON_MODERATOR_REPORTED_MESSAGE",
-                                    languageFile),
+                                    languageFile,
+                                    context),
                                 this.BoardSettings.Name);
 
                             var notifyModerators = new TemplateEmail("NOTIFICATION_ON_MODERATOR_REPORTED_MESSAGE")
                                                        {
                                                            // get the user localization...
+                                                           Context = context,
                                                            TemplateLanguageFile = languageFile,
                                                            TemplateParams =
                                                                {
@@ -236,8 +246,7 @@ namespace YAF.Core.Services
 
                             notifyModerators.SendEmail(
                                 new MailAddress(membershipUser.Email, membershipUser.UserName),
-                                subject,
-                                false);
+                                subject);
                         });
             }
             catch (Exception x)
@@ -314,7 +323,7 @@ namespace YAF.Core.Services
                     subject);
 
                 // send email
-                notificationTemplate.SendEmail(new MailAddress(toEMail), emailSubject, false);
+                notificationTemplate.SendEmail(new MailAddress(toEMail), emailSubject);
             }
             catch (Exception x)
             {
@@ -336,10 +345,6 @@ namespace YAF.Core.Services
         /// </param>
         public void ToWatchingUsers(int newMessageId)
         {
-            // Always send watch mails with boards default language
-            // TODO : Send in user Language
-            var languageFile = this.BoardSettings.Language;
-
             var boardName = this.BoardSettings.Name;
             var forumEmail = this.BoardSettings.ForumEmail;
 
@@ -352,14 +357,13 @@ namespace YAF.Core.Services
                 .Replace(BBCodeHelper.StripBBCode(HtmlHelper.StripHtml(HtmlHelper.CleanHtmlString(message.Message))))
                 .RemoveMultipleWhitespace();
 
-            // Send track mails
-            var subject = string.Format(
-                this.Get<ILocalization>().GetText("COMMON", "TOPIC_NOTIFICATION_SUBJECT", languageFile),
-                boardName);
+            var watchUsers = this.GetRepository<User>()
+                .WatchMailListAsDataTable(message.TopicID ?? 0, messageAuthorUserID);
+
+            var context = HttpContext.Current;
 
             var watchEmail = new TemplateEmail("TOPICPOST")
                                  {
-                                     TemplateLanguageFile = languageFile,
                                      TemplateParams =
                                          {
                                              ["{topic}"] =
@@ -377,14 +381,37 @@ namespace YAF.Core.Services
                                              ["{subscriptionlink}"] = BuildLink.GetLinkNotEscaped(
                                                  ForumPages.cp_subscriptions,
                                                  true)
-                                         }
+                                         },
+                                     Context = HttpContext.Current
                                  };
 
-            watchEmail.CreateWatch(
-                message.TopicID ?? 0,
-                messageAuthorUserID,
-                new MailAddress(forumEmail, boardName),
-                subject);
+            Parallel.ForEach(
+                watchUsers.Rows.Cast<DataRow>(),
+                row =>
+                    {
+                        var languageFile =
+                            row.Field<string>("LanguageFile").IsSet() && this.Get<BoardSettings>().AllowUserLanguage
+                                ? row.Field<string>("LanguageFile")
+                                : this.Get<BoardSettings>().Language;
+
+                        var subject = string.Format(
+                            this.Get<ILocalization>().GetText(
+                                "COMMON",
+                                "TOPIC_NOTIFICATION_SUBJECT",
+                                languageFile,
+                                context),
+                            boardName);
+
+                        watchEmail.TemplateLanguageFile = languageFile;
+                        watchEmail.SendEmail(
+                            new MailAddress(forumEmail, boardName),
+                            new MailAddress(
+                                row.Field<string>("Email"),
+                                this.BoardSettings.EnableDisplayName
+                                    ? row.Field<string>("DisplayName")
+                                    : row.Field<string>("Name")),
+                            subject);
+                    });
 
             if (!this.BoardSettings.AllowNotificationAllPostsAllTopics)
             {
@@ -396,7 +423,8 @@ namespace YAF.Core.Services
                 notificationType: UserNotificationSetting.AllTopics.ToInt());
 
             // create individual watch emails for all users who have All Posts on...
-            usersWithAll.Where(x => x.ID != messageAuthorUserID && x.ProviderUserKey != null).ForEach(
+            Parallel.ForEach(
+                usersWithAll.Where(x => x.ID != messageAuthorUserID && x.ProviderUserKey != null),
                 user =>
                     {
                         if (user.Email.IsNotSet())
@@ -404,16 +432,26 @@ namespace YAF.Core.Services
                             return;
                         }
 
-                        watchEmail.TemplateLanguageFile = user.LanguageFile.IsSet()
-                                                              ? user.LanguageFile
-                                                              : this.Get<ILocalization>().LanguageFileName;
+                        var languageFile = user.LanguageFile.IsSet() && this.Get<BoardSettings>().AllowUserLanguage
+                                               ? user.LanguageFile
+                                               : this.Get<BoardSettings>().Language;
+
+                        var subject = string.Format(
+                            this.Get<ILocalization>().GetText(
+                                "COMMON",
+                                "TOPIC_NOTIFICATION_SUBJECT",
+                                languageFile,
+                                context),
+                            boardName);
+
+                        watchEmail.TemplateLanguageFile = languageFile;
+
                         watchEmail.SendEmail(
                             new MailAddress(forumEmail, boardName),
                             new MailAddress(
                                 user.Email,
                                 this.BoardSettings.EnableDisplayName ? user.DisplayName : user.Name),
-                            subject,
-                            false);
+                            subject);
                     });
         }
 
@@ -454,7 +492,7 @@ namespace YAF.Core.Services
                                          }
                                  };
 
-            notifyUser.SendEmail(new MailAddress(user.Email, user.UserName), subject, false);
+            notifyUser.SendEmail(new MailAddress(user.Email, user.UserName), subject);
         }
 
         /// <summary>
@@ -504,8 +542,7 @@ namespace YAF.Core.Services
 
             notifyUser.SendEmail(
                 new MailAddress(toUser.Email, this.BoardSettings.EnableDisplayName ? toUser.DisplayName : toUser.Name),
-                subject,
-                false);
+                subject);
         }
 
         /// <summary>
@@ -530,7 +567,7 @@ namespace YAF.Core.Services
                                             }
                                     };
 
-            templateEmail.SendEmail(new MailAddress(user.Email, user.UserName), subject, false);
+            templateEmail.SendEmail(new MailAddress(user.Email, user.UserName), subject);
         }
 
         /// <summary>
@@ -555,7 +592,7 @@ namespace YAF.Core.Services
                                             }
                                     };
 
-            templateEmail.SendEmail(new MailAddress(user.Email, user.UserName), subject, false);
+            templateEmail.SendEmail(new MailAddress(user.Email, user.UserName), subject);
         }
 
         /// <summary>
@@ -585,9 +622,9 @@ namespace YAF.Core.Services
                                               ["{email}"] = user.Email
                                           }
                                   };
-
-            emails.Where(email => email.Trim().IsSet()).ForEach(
-                email => notifyAdmin.SendEmail(new MailAddress(email.Trim()), subject, false));
+            Parallel.ForEach(
+                emails.Where(email => email.Trim().IsSet()),
+                email => notifyAdmin.SendEmail(new MailAddress(email.Trim()), subject));
         }
 
         /// <summary>
@@ -608,7 +645,8 @@ namespace YAF.Core.Services
 
             using (var dt = this.GetRepository<User>().EmailsAsDataTable(YafContext.Current.PageBoardID, adminGroupId))
             {
-                dt.Rows.Cast<DataRow>().ForEach(
+                Parallel.ForEach(
+                    dt.Rows.Cast<DataRow>(),
                     row =>
                         {
                             var emailAddress = row.Field<string>("Email");
@@ -637,7 +675,7 @@ namespace YAF.Core.Services
                                                           }
                                                   };
 
-                            notifyAdmin.SendEmail(new MailAddress(emailAddress), subject, false);
+                            notifyAdmin.SendEmail(new MailAddress(emailAddress), subject);
                         });
             }
         }
@@ -690,7 +728,7 @@ namespace YAF.Core.Services
             }
             else
             {
-                notifyUser.SendEmail(new MailAddress(user.Email, user.UserName), subject, false);
+                notifyUser.SendEmail(new MailAddress(user.Email, user.UserName), subject);
             }
         }
 
@@ -725,17 +763,13 @@ namespace YAF.Core.Services
                                       TemplateParams =
                                           {
                                               ["{link}"] =
-                                                  BuildLink.GetLinkNotEscaped(
-                                                      ForumPages.approve,
-                                                      true,
-                                                      "k={0}",
-                                                      hash),
+                                                  BuildLink.GetLinkNotEscaped(ForumPages.approve, true, "k={0}", hash),
                                               ["{key}"] = hash,
                                               ["{username}"] = user.UserName
                                           }
                                   };
 
-            verifyEmail.SendEmail(new MailAddress(email, newUsername ?? user.UserName), subject, false);
+            verifyEmail.SendEmail(new MailAddress(email, newUsername ?? user.UserName), subject);
         }
 
         /// <summary>
@@ -774,8 +808,7 @@ namespace YAF.Core.Services
             // send a change email message...
             changeEmail.SendEmail(
                 new MailAddress(newEmail),
-                this.Get<ILocalization>().GetText("COMMON", "CHANGEEMAIL_SUBJECT"),
-                false);
+                this.Get<ILocalization>().GetText("COMMON", "CHANGEEMAIL_SUBJECT"));
 
             // show a confirmation
             YafContext.Current.AddLoadMessage(
@@ -813,7 +846,7 @@ namespace YAF.Core.Services
                                          }
                                  };
 
-            notifyUser.SendEmail(new MailAddress(email, userName), subject, false);
+            notifyUser.SendEmail(new MailAddress(email, userName), subject);
         }
 
         /// <summary>
@@ -837,7 +870,7 @@ namespace YAF.Core.Services
                                          }
                                  };
 
-            notifyUser.SendEmail(new MailAddress(email, userName), subject, false);
+            notifyUser.SendEmail(new MailAddress(email, userName), subject);
         }
 
         #endregion

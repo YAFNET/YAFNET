@@ -26,14 +26,12 @@ namespace YAF.Core.Services
     using System.Collections.Generic;
     using System.Linq;
     using System.Net.Mail;
+    using System.Web;
 
     using YAF.Configuration;
     using YAF.Core.Extensions;
-    using YAF.Core.Model;
-    using YAF.Core.Services.Localization;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Types.Models;
     using YAF.Utils;
 
     /// <summary>
@@ -109,6 +107,8 @@ namespace YAF.Core.Services
         /// </summary>
         public string TemplateLanguageFile { get; set; }
 
+        public HttpContext Context { get; set; }
+
         /// <summary>
         ///     Gets or sets TemplateName.
         /// </summary>
@@ -124,36 +124,6 @@ namespace YAF.Core.Services
         #region Public Methods and Operators
 
         /// <summary>
-        /// The create watch.
-        /// </summary>
-        /// <param name="topicId">
-        /// The topic id.
-        /// </param>
-        /// <param name="userId">
-        /// The user id.
-        /// </param>
-        /// <param name="fromAddress">
-        /// The from address.
-        /// </param>
-        /// <param name="subject">
-        /// The subject.
-        /// </param>
-        public void CreateWatch(int topicId, int userId, MailAddress fromAddress, string subject)
-        {
-            var textBody = this.ProcessTemplate($"{this.TemplateName}_TEXT").Trim();
-            var htmlBody = this.ProcessTemplate($"{this.TemplateName}_HTML").Trim();
-
-            // null out html if it's not desired
-            if (!this.HtmlEnabled || htmlBody.IsNotSet())
-            {
-                htmlBody = null;
-            }
-
-            this.GetRepository<Mail>()
-                .CreateWatch(topicId, fromAddress.Address, fromAddress.DisplayName, subject, textBody, htmlBody, userId);
-        }
-
-        /// <summary>
         /// The send email.
         /// </summary>
         /// <param name="toAddress">
@@ -162,16 +132,12 @@ namespace YAF.Core.Services
         /// <param name="subject">
         /// The subject.
         /// </param>
-        /// <param name="useSendThread">
-        /// The use send thread.
-        /// </param>
-        public void SendEmail(MailAddress toAddress, string subject, bool useSendThread)
+        public void SendEmail(MailAddress toAddress, string subject)
         {
             this.SendEmail(
                 new MailAddress(this.Get<BoardSettings>().ForumEmail, this.Get<BoardSettings>().Name),
                 toAddress,
-                subject,
-                useSendThread);
+                subject);
         }
 
         /// <summary>
@@ -186,10 +152,7 @@ namespace YAF.Core.Services
         /// <param name="subject">
         /// The subject.
         /// </param>
-        /// <param name="useSendThread">
-        /// The use send thread.
-        /// </param>
-        public void SendEmail(MailAddress fromAddress, MailAddress toAddress, string subject, bool useSendThread)
+        public void SendEmail(MailAddress fromAddress, MailAddress toAddress, string subject)
         {
             var textBody = this.ProcessTemplate($"{this.TemplateName}_TEXT").Trim();
             var htmlBody = this.ProcessTemplate($"{this.TemplateName}_HTML").Trim();
@@ -200,24 +163,8 @@ namespace YAF.Core.Services
                 htmlBody = null;
             }
 
-            if (useSendThread)
-            {
-                // create this email in the send mail table...
-                this.GetRepository<Mail>()
-                    .Create(
-                        fromAddress.Address,
-                        fromAddress.DisplayName,
-                        toAddress.Address,
-                        toAddress.DisplayName,
-                        subject,
-                        textBody,
-                        htmlBody);
-            }
-            else
-            {
-                // just send directly
-                this.Get<ISendMail>().Send(fromAddress, toAddress, fromAddress, subject, textBody, htmlBody);
-            }
+            // just send directly
+            this.Get<ISendMail>().Send(fromAddress, toAddress, fromAddress, subject, textBody, htmlBody);
         }
 
         #endregion
@@ -272,7 +219,16 @@ namespace YAF.Core.Services
             }
 
             var localization = new Localization.Localization();
-            localization.LoadTranslation(templateLanguageFile);
+
+            if (this.Context != null)
+            {
+                localization.LoadTranslation(templateLanguageFile, this.Context);
+            }
+            else
+            {
+                localization.LoadTranslation(templateLanguageFile);
+            }
+
             return localization.GetText("TEMPLATES", templateName);
         }
 

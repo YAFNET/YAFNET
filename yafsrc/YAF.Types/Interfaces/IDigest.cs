@@ -83,17 +83,13 @@ namespace YAF.Types.Interfaces
         /// <param name="toName">
         /// The to name.
         /// </param>
-        /// <param name="sendQueued">
-        /// The send queued.
-        /// </param>
         void SendDigest(
             [NotNull] string subject,
             [NotNull] string digestHtml,
             [NotNull] string forumName,
             [NotNull] string forumEmail,
             [NotNull] string toEmail,
-            [CanBeNull] string toName,
-            bool sendQueued);
+            [CanBeNull] string toName);
 
         #endregion
     }

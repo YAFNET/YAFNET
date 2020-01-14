@@ -109,7 +109,7 @@ namespace YAF.Pages.Admin
                         verifyEmail.TemplateParams["{forumname}"] = this.Get<BoardSettings>().Name;
                         verifyEmail.TemplateParams["{forumlink}"] = BoardInfo.ForumURL;
 
-                        verifyEmail.SendEmail(new MailAddress(checkMail.Email, commandArgument[1]), subject, true);
+                        verifyEmail.SendEmail(new MailAddress(checkMail.Email, commandArgument[1]), subject);
 
                         this.PageContext.AddLoadMessage(
                             this.GetText("ADMIN_ADMIN", "MSG_MESSAGE_SEND"),

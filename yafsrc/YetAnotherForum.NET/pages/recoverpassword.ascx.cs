@@ -179,7 +179,7 @@ namespace YAF.Pages
                                                 }
                                         };
 
-            passwordRetrieval.SendEmail(e.Message.To[0], subject, true);
+            passwordRetrieval.SendEmail(e.Message.To[0], subject);
 
             // log password reset attempt
             this.Logger.Log(
@@ -287,7 +287,7 @@ namespace YAF.Pages
                     verifyEmail.TemplateParams["{forumname}"] = this.Get<BoardSettings>().Name;
                     verifyEmail.TemplateParams["{forumlink}"] = $"{BoardInfo.ForumURL}";
 
-                    verifyEmail.SendEmail(new MailAddress(user.Email, user.UserName), subject, true);
+                    verifyEmail.SendEmail(new MailAddress(user.Email, user.UserName), subject);
 
                     this.PageContext.LoadMessage.AddSession(
                         this.GetTextFormatted("ACCOUNT_NOT_APPROVED_VERIFICATION", user.Email),

@@ -29,11 +29,9 @@ namespace YAF.Core.Services
 
     using YAF.Configuration;
     using YAF.Core.Extensions;
-    using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Types.Models;
 
     #endregion
 
@@ -149,49 +147,30 @@ namespace YAF.Core.Services
         /// <param name="toName">
         /// The to name.
         /// </param>
-        /// <param name="sendQueued">
-        /// The send queued.
-        /// </param>
         public void SendDigest(
             [NotNull] string subject,
             [NotNull] string digestHtml,
             [NotNull] string forumName,
             [NotNull] string forumEmail,
             [NotNull] string toEmail,
-            [CanBeNull] string toName,
-            bool sendQueued)
+            [CanBeNull] string toName)
         {
             CodeContracts.VerifyNotNull(digestHtml, "digestHtml");
             CodeContracts.VerifyNotNull(forumName, "forumName");
             CodeContracts.VerifyNotNull(forumEmail, "forumEmail");
             CodeContracts.VerifyNotNull(toEmail, "toEmail");
 
-            if (sendQueued)
-            {
-                // queue to send...
-                this.GetRepository<Mail>().Create(
-                    forumEmail,
-                    forumName,
-                    toEmail,
-                    toName,
-                    subject,
-                    "You must have HTML Email Viewer to View.",
-                    digestHtml);
-            }
-            else
-            {
-                // send direct...
-                this.Get<ISendMail>().Send(
-                    forumEmail,
-                    forumName,
-                    toEmail,
-                    toName,
-                    forumEmail,
-                    forumName,
-                    subject,
-                    "You must have HTML Email Viewer to View.",
-                    digestHtml);
-            }
+            // send direct...
+            this.Get<ISendMail>().Send(
+                forumEmail,
+                forumName,
+                toEmail,
+                toName,
+                forumEmail,
+                forumName,
+                subject,
+                "You must have HTML Email Viewer to View.",
+                digestHtml);
         }
 
         #endregion

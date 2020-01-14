@@ -333,6 +333,14 @@ namespace YAF.Core.Model
             repository.DbFunction.Scalar.user_deleteold(BoardID: boardID, Days: days, UTCTIMESTAMP: DateTime.UtcNow);
         }
 
+        public static DataTable WatchMailListAsDataTable(
+            this IRepository<User> repository,
+            [NotNull] int topicId,
+            [NotNull] int userId)
+        {
+            return repository.DbFunction.GetData.mail_list(TopicID: topicId, UserID: userId, UTCTIMESTAMP: DateTime.UtcNow);
+        }
+
         /// <summary>
         /// The user_emails.
         /// </summary>

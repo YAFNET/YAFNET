@@ -190,7 +190,7 @@ namespace YAF.Controls
                                                         }
                                                 };
 
-                    passwordRetrieval.SendEmail(new MailAddress(user.Email, user.UserName), subject, true);
+                    passwordRetrieval.SendEmail(new MailAddress(user.Email, user.UserName), subject);
 
                     this.PageContext.AddLoadMessage(
                         this.Get<ILocalization>().GetText("ADMIN_EDITUSER", "MSG_PASS_CHANGED_NOTI"),
@@ -257,7 +257,7 @@ namespace YAF.Controls
                                                     }
                                             };
 
-                passwordRetrieval.SendEmail(new MailAddress(user.Email, user.UserName), subject, true);
+                passwordRetrieval.SendEmail(new MailAddress(user.Email, user.UserName), subject);
 
                 this.PageContext.AddLoadMessage(
                     this.Get<ILocalization>().GetText("ADMIN_EDITUSER", "MSG_PASS_RESET"),

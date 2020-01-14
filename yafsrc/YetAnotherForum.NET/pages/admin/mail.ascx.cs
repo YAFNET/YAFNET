@@ -28,6 +28,8 @@ namespace YAF.Pages.Admin
     using System;
     using System.Data;
     using System.Linq;
+    using System.Net.Mail;
+    using System.Threading.Tasks;
     using System.Web.UI.WebControls;
 
     using YAF.Configuration;
@@ -105,15 +107,20 @@ namespace YAF.Pages.Admin
             {
                 using (var dt = this.GetRepository<User>().EmailsAsDataTable(this.PageContext.PageBoardID, groupId))
                 {
-                    dt.Rows.Cast<DataRow>().ForEach(
+                    Parallel.ForEach(
+                        dt.Rows.Cast<DataRow>(),
                         row =>
                             {
-                                // Wes - Changed to use queue to improve scalability
-                                this.GetRepository<Mail>().Create(
+                                var from = new MailAddress(
                                     this.Get<BoardSettings>().ForumEmail,
-                                    this.Get<BoardSettings>().Name,
-                                    row["Email"].ToType<string>(),
-                                    null,
+                                    this.Get<BoardSettings>().Name);
+
+                                var to = new MailAddress(row.Field<string>("Email"));
+
+                                this.Get<ISendMail>().Send(
+                                    from,
+                                    to,
+                                    from,
                                     this.Subject.Text.Trim(),
                                     this.Body.Text.Trim(),
                                     null);

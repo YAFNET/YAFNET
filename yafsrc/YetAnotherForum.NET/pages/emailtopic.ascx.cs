@@ -133,7 +133,7 @@ namespace YAF.Pages
                                      };
 
                 // send a change email message...
-                emailTopic.SendEmail(new MailAddress(this.EmailAddress.Text.Trim()), this.Subject.Text.Trim(), false);
+                emailTopic.SendEmail(new MailAddress(this.EmailAddress.Text.Trim()), this.Subject.Text.Trim());
 
                 BuildLink.Redirect(ForumPages.posts, "t={0}", this.PageContext.PageTopicID);
             }

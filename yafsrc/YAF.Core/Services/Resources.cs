@@ -37,6 +37,8 @@ namespace YAF.Core.Services
     using System.Text;
     using System.Web;
 
+    using ServiceStack;
+
     using YAF.Configuration;
     using YAF.Core;
     using YAF.Core.Extensions;
@@ -49,7 +51,6 @@ namespace YAF.Core.Services
     using YAF.Types.Models;
     using YAF.Types.Objects;
     using YAF.Utils;
-    using YAF.Utils.Extensions;
     using YAF.Utils.Helpers.ImageUtils;
 
     #endregion

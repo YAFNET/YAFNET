@@ -433,6 +433,82 @@ namespace YAF.Core.Services.Localization
         }
 
         /// <summary>
+        /// The get text, with a Specific Language.
+        /// </summary>
+        /// <param name="page">
+        /// The page.
+        /// </param>
+        /// <param name="tag">
+        /// The tag.
+        /// </param>
+        /// <param name="languageFile">
+        /// The Language file
+        /// </param>
+        /// <param name="context">
+        /// The context.
+        /// </param>
+        /// <returns>
+        /// The get text.
+        /// </returns>
+        public string GetText([NotNull] string page, [NotNull] string tag, [NotNull] string languageFile, HttpContext context)
+        {
+            string localizedText;
+
+            if (languageFile.IsSet())
+            {
+                var localization = new Localization();
+                localization.LoadTranslation(languageFile, context);
+                localizedText = localization.GetText(page, tag);
+            }
+            else
+            {
+                localizedText = this.GetLocalizedTextInternal(page, tag);
+            }
+
+            if (localizedText == null)
+            {
+#if !DEBUG
+                string filename;
+
+                if (languageFile.IsSet())
+                {
+                    filename = languageFile;
+                }
+                else
+                {
+                    if (YafContext.Current.PageIsNull() || YafContext.Current.LanguageFile == string.Empty
+                        || YafContext.Current.LanguageFile == string.Empty
+                        || !YafContext.Current.Get<BoardSettings>().AllowUserLanguage)
+                    {
+                        filename = YafContext.Current.Get<BoardSettings>().Language;
+                    }
+                    else
+                    {
+                        filename = YafContext.Current.LanguageFile;
+                    }
+                }
+
+
+                if (filename == string.Empty) filename = "english.xml";
+
+               context.Cache.Remove($"Localizer.{filename}");
+#endif
+                YafContext.Current.Get<ILogger>()
+                    .Log(
+                        YafContext.Current.PageUserID,
+                        $"{page.ToLower()}.ascx",
+                        $"Missing Translation For {page.ToUpper()}.{tag.ToUpper()}");
+
+                return $"[{page.ToUpper()}.{tag.ToUpper()}]";
+            }
+
+            localizedText = localizedText.Replace("[b]", "<b>");
+            localizedText = localizedText.Replace("[/b]", "</b>");
+
+            return localizedText;
+        }
+
+        /// <summary>
         /// The get text exists.
         /// </summary>
         /// <param name="page">
@@ -532,6 +608,77 @@ namespace YAF.Core.Services.Localization
                                 $"{BoardInfo.ForumServerFileRoot}languages/english.xml"));
 #if !DEBUG
                     HttpContext.Current.Cache["DefaultLocale"] = this.defaultLocale;
+#endif
+                }
+            }
+
+            try
+            {
+                // try to load culture info defined in localization file
+                this.culture = this.localizer.CurrentCulture;
+            }
+            catch
+            {
+                // if it's wrong, fall back to current culture
+                this.culture = CultureInfo.CurrentCulture;
+            }
+
+            this.LanguageFileName = fileName.ToLower();
+
+            return this.culture;
+        }
+
+        /// <summary>
+        /// The load translation.
+        /// </summary>
+        /// <param name="fileName">
+        /// The file name.
+        /// </param>
+        /// <param name="context">
+        /// The context.
+        /// </param>
+        /// <returns>
+        /// The <see cref="CultureInfo"/>.
+        /// </returns>
+        public CultureInfo LoadTranslation(string fileName, HttpContext context)
+        {
+            CodeContracts.VerifyNotNull(fileName, "fileName");
+
+            if (this.localizer != null)
+            {
+                return this.localizer.CurrentCulture;
+            }
+
+#if !DEBUG
+            if (this.localizer == null && context.Cache[$"Localizer.{fileName}"] != null) this.localizer = (Localizer)context.Cache[
+                $"Localizer.{fileName}"];
+#endif
+            if (this.localizer == null)
+            {
+                this.localizer =
+                    new Localizer(
+                        context.Server.MapPath($"{BoardInfo.ForumServerFileRoot}languages/{fileName}"));
+
+#if !DEBUG
+                context.Cache[$"Localizer.{fileName}"] = this.localizer;
+#endif
+            }
+
+            // If not using default language load that too
+            if (fileName.ToLower() != "english.xml")
+            {
+#if !DEBUG
+                if (this.defaultLocale == null && context.Cache["DefaultLocale"] != null) this.defaultLocale = (Localizer)context.Cache["DefaultLocale"];
+#endif
+
+                if (this.defaultLocale == null)
+                {
+                    this.defaultLocale =
+                        new Localizer(
+                            context.Server.MapPath(
+                                $"{BoardInfo.ForumServerFileRoot}languages/english.xml"));
+#if !DEBUG
+                    context.Cache["DefaultLocale"] = this.defaultLocale;
 #endif
                 }
             }

@@ -26,6 +26,7 @@ namespace YAF.Types.Interfaces
     using System;
     using System.Collections.Generic;
     using System.Globalization;
+    using System.Web;
 
     /// <summary>
     /// The Localization interface.
@@ -196,6 +197,22 @@ namespace YAF.Types.Interfaces
         string GetText(string page, string tag, string languageFile);
 
         /// <summary>
+        /// Gets text with a language file.
+        /// </summary>
+        /// <param name="page">
+        /// </param>
+        /// <param name="tag">
+        /// </param>
+        /// <param name="languageFile">
+        /// </param>
+        /// <param name="context">
+        /// The context.
+        /// </param>
+        /// <returns>
+        /// </returns>
+        string GetText(string page, string tag, string languageFile, HttpContext context);
+
+        /// <summary>
         /// The get text exists.
         /// </summary>
         /// <param name="page">
@@ -213,8 +230,10 @@ namespace YAF.Types.Interfaces
         /// Formats a localized string -- but verifies the parameter count matches
         /// </summary>
         /// <param name="text">
+        /// The text.
         /// </param>
         /// <param name="args">
+        /// The args.
         /// </param>
         /// <returns>
         /// The get text formatted.
