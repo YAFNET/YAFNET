@@ -176,6 +176,11 @@ namespace YAF.Pages.moderate
             {
                 this.InfoPlaceHolder.Visible = true;
             }
+            else
+            {
+
+                this.InfoPlaceHolder.Visible = !this.CategoryList.Items.Cast<RepeaterItem>().Any(item => item.Visible);
+            }
         }
 
         #endregion
