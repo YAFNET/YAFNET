@@ -21,18 +21,19 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Core.Tasks
+namespace YAF.Core.ForumModules
 {
   #region Using
 
   using System;
 
   using YAF.Core.BaseModules;
+  using YAF.Core.Tasks;
   using YAF.Types;
   using YAF.Types.Attributes;
   using YAF.Types.Interfaces;
 
-    #endregion
+  #endregion
 
   /// <summary>
   /// The user clean up task module.

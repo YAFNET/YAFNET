@@ -1,5 +1,5 @@
 /* Yet Another Forum.NET
- * Copyright (C) 2003-2005 BjÃ¸rnar Henden
+ * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2020 Ingo Herbote
  * https://www.yetanotherforum.net/
@@ -21,24 +21,15 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Core.Extensions
+
+namespace YAF.Core.BasePages
 {
-    using YAF.Types.Interfaces;
-    using YAF.Types.Interfaces.Tasks;
+    using System;
 
     /// <summary>
-    /// Extensions for the <see cref="IBackgroundTask"/> interface
+    /// EventArgs class for the YafBeforeForumPageLoad event
     /// </summary>
-    public static class BackgroundTaskExtensions
+    public class BeforeForumPageLoad : EventArgs
     {
-        /// <summary>
-        /// Returns <see langword="true"/> if the background task can be stopped (is non-critical)
-        /// </summary>
-        /// <param name="backgroundTask"></param>
-        /// <returns></returns>
-        public static bool IsStoppable(this IBackgroundTask backgroundTask)
-        {
-            return !(backgroundTask is ICriticalBackgroundTask);
-        }
     }
 }

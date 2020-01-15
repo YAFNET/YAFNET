@@ -31,11 +31,11 @@ namespace YAF.Core.Services.Startup
     using YAF.Configuration;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
-    using YAF.Core.Tasks;
     using YAF.Types;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
+    using YAF.Types.Interfaces.Tasks;
     using YAF.Types.Models;
     using YAF.Utils;
 

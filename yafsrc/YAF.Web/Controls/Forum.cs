@@ -37,6 +37,7 @@ namespace YAF.Web.Controls
     using YAF.Configuration;
     using YAF.Core;
     using YAF.Core.BaseControls;
+    using YAF.Core.BasePages;
     using YAF.Core.Extensions;
     using YAF.Types;
     using YAF.Types.Constants;
@@ -49,20 +50,6 @@ namespace YAF.Web.Controls
     using YAF.Web.EventsArgs;
 
     #endregion
-
-    /// <summary>
-    /// EventArgs class for the YafBeforeForumPageLoad event
-    /// </summary>
-    public class YafBeforeForumPageLoad : EventArgs
-    {
-    }
-
-    /// <summary>
-    /// EventArgs class for the YafForumPageReady event -- created for future options
-    /// </summary>
-    public class YafAfterForumPageLoad : EventArgs
-    {
-    }
 
     /// <summary>
     /// The YAF Forum Control
@@ -117,12 +104,12 @@ namespace YAF.Web.Controls
         /// <summary>
         ///   The after forum page load.
         /// </summary>
-        public event EventHandler<YafAfterForumPageLoad> AfterForumPageLoad;
+        public event EventHandler<AfterForumPageLoad> AfterForumPageLoad;
 
         /// <summary>
         ///   The before forum page load.
         /// </summary>
-        public event EventHandler<YafBeforeForumPageLoad> BeforeForumPageLoad;
+        public event EventHandler<BeforeForumPageLoad> BeforeForumPageLoad;
 
         /// <summary>
         ///   The page title set.
@@ -294,7 +281,7 @@ namespace YAF.Web.Controls
         protected override void OnLoad(EventArgs e)
         {
             // context is ready to be loaded, call the before page load event...
-            this.BeforeForumPageLoad?.Invoke(this, new YafBeforeForumPageLoad());
+            this.BeforeForumPageLoad?.Invoke(this, new BeforeForumPageLoad());
 
             // add the forum header control...
             this.topControl = new PlaceHolder();
@@ -379,7 +366,7 @@ namespace YAF.Web.Controls
             }
 
             // load plugins/functionality modules
-            this.AfterForumPageLoad?.Invoke(this, new YafAfterForumPageLoad());
+            this.AfterForumPageLoad?.Invoke(this, new AfterForumPageLoad());
 
             base.OnLoad(e);
         }

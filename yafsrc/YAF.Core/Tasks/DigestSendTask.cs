@@ -30,7 +30,7 @@ namespace YAF.Core.Tasks
     using System.Globalization;
     using System.Linq;
     using System.Text.RegularExpressions;
-    using System.Threading.Tasks;
+    using System.Web;
 
     using YAF.Configuration;
     using YAF.Core.Model;
@@ -195,10 +195,13 @@ namespace YAF.Core.Tasks
         {
             var usersSendCount = 0;
 
-            Parallel.ForEach(
-                usersWithDigest,
+            var currentContext = HttpContext.Current;
+
+            usersWithDigest.AsParallel().ForAll(
                 user =>
                     {
+                        HttpContext.Current = currentContext;
+
                         try
                         {
                             var digestHtml = this.Get<IDigest>().GetDigestHtml(user.ID, boardSettings);
@@ -237,6 +240,10 @@ namespace YAF.Core.Tasks
                         catch (Exception e)
                         {
                             this.Get<ILogger>().Error(e, $"Error In Creating Digest for User {user.ID}");
+                        }
+                        finally
+                        {
+                            HttpContext.Current = null;
                         }
                     });
 

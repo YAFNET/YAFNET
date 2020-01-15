@@ -209,11 +209,10 @@ namespace YAF.Types.Constants
         /// </summary>
         public struct ForumRebuild
         {
-            public static readonly string[] BlockingTaskNames = {
-                                                                    "BoardDeleteTask", "BoardCreateTask",
-                                                                    "ForumDeleteTask", "ForumSaveTask",
-                                                                    "CategoryDeleteTask", "CategorySaveTask"
-                                                                };
+            public static readonly string[] BlockingTaskNames =
+                {
+                    "ForumDeleteTask"
+                };
         }
     }
 }

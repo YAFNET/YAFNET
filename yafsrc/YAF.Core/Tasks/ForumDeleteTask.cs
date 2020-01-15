@@ -30,6 +30,7 @@ namespace YAF.Core.Tasks
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Tasks;
     using YAF.Types.Models;
 
     /// <summary>
