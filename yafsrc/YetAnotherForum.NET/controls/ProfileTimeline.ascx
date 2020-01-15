@@ -18,48 +18,51 @@
                     </div>
                     <div class="col-md-2 mt-1">
                         <div class="btn-group dropleft" role="group" aria-label="Filters">
-                    <YAF:ThemeButton runat="server"
+                            <YAF:ThemeButton runat="server"
                                      CssClass="dropdown-toggle"
                                      DataToggle="dropdown"
                                      Type="Secondary"
                                      Icon="filter"
                                      TextLocalizedTag="FILTER_DROPDOWN"
                                      TextLocalizedPage="ADMIN_USERS"></YAF:ThemeButton>
-                        
-                    <div class="dropdown-menu">
-                        <div class="px-3 py-1">
-                            <div class="form-group">
-                                <div class="custom-control custom-switch">
-                                    <asp:CheckBox runat="server" ID="CreatedTopic" 
-                                                  Checked="True"/>
-                                </div>
-                                <div class="custom-control custom-switch">
-                                    <asp:CheckBox runat="server" ID="CreatedReply" 
-                                                  Checked="True"/>
-                                </div>
-                                <div class="custom-control custom-switch">
-                                    <asp:CheckBox runat="server" ID="GivenThanks" 
-                                                  Checked="True"/>
+                            <div class="dropdown-menu">
+                                <div class="px-3 py-1">
+                                    <div class="form-group">
+                                        <div class="custom-control custom-switch">
+                                            <asp:CheckBox runat="server" ID="CreatedTopic" 
+                                                          Checked="True"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="custom-control custom-switch">
+                                            <asp:CheckBox runat="server" ID="CreatedReply" 
+                                                          Checked="True"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="custom-control custom-switch">
+                                            <asp:CheckBox runat="server" ID="GivenThanks" 
+                                                          Checked="True"/>
+                                        </div>
+                                    </div>
+                                    <hr />
+                                    <YAF:ThemeButton runat="server" ID="Update"
+                                                     OnClick="UpdateFilterClick"
+                                                     TextLocalizedTag="UPDATE"
+                                                     Size="Small"
+                                                     Icon="sync">
+                                    </YAF:ThemeButton>
+                                    &nbsp;
+                                    <YAF:ThemeButton ID="Reset" runat="server"
+                                                     OnClick="ResetClick"
+                                                     TextLocalizedTag="CLEAR"
+                                                     Type="Secondary"
+                                                     Size="Small"
+                                                     Icon="trash">
+                                    </YAF:ThemeButton>
                                 </div>
                             </div>
-                            <hr />
-                            <YAF:ThemeButton runat="server" ID="Update"
-                                             OnClick="UpdateFilterClick"
-                                             TextLocalizedTag="UPDATE"
-                                             Size="Small"
-                                             Icon="sync">
-                            </YAF:ThemeButton>
-                            &nbsp;
-                            <YAF:ThemeButton ID="Reset" runat="server"
-                                             OnClick="ResetClick"
-                                             TextLocalizedTag="CLEAR"
-                                             Type="Secondary"
-                                             Size="Small"
-                                             Icon="trash">
-                            </YAF:ThemeButton>
                         </div>
-                    </div>
-                </div>
                     </div>
                 </div>
             </div>

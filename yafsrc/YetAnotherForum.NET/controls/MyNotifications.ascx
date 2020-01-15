@@ -17,57 +17,63 @@
                     </div>
                     <div class="col-md-2 mt-1">
                         <div class="btn-group dropleft" role="group" aria-label="Filters">
-                    <YAF:ThemeButton runat="server"
-                                     CssClass="dropdown-toggle"
-                                     DataToggle="dropdown"
-                                     Type="Secondary"
-                                     Icon="filter"
-                                     TextLocalizedTag="FILTER_DROPDOWN"
-                                     TextLocalizedPage="ADMIN_USERS"></YAF:ThemeButton>
-                        
-                    <div class="dropdown-menu">
-                        <div class="px-3 py-1">
-                            <div class="form-group">
-                                <div class="custom-control custom-switch">
-                                    <asp:CheckBox runat="server" ID="WasMentioned" 
-                                                  Checked="True"/>
-                                </div>
-                                <div class="custom-control custom-switch">
-                                    <asp:CheckBox runat="server" ID="ReceivedThanks" 
-                                                  Checked="True"/>
-                                </div>
-                                <div class="custom-control custom-switch">
-                                    <asp:CheckBox runat="server" ID="WasQuoted" 
-                                                  Checked="True"/>
-                                </div>
-                            </div>
-                            <hr />
-                            <div class="form-group">
-                                <div class="custom-control custom-switch">
-                                    <asp:CheckBox runat="server" ID="UnreadOnly" Checked="True"/>
-                                </div>
-                            </div>
-                            <YAF:ThemeButton runat="server" ID="Update"
-                                             OnClick="UpdateFilterClick"
-                                             TextLocalizedTag="UPDATE"
-                                             Size="Small"
-                                             Icon="sync">
-                            </YAF:ThemeButton>
-                            &nbsp;
-                            <YAF:ThemeButton ID="Reset" runat="server"
-                                             OnClick="ResetClick"
-                                             TextLocalizedTag="CLEAR"
+                            <YAF:ThemeButton runat="server"
+                                             CssClass="dropdown-toggle"
+                                             DataToggle="dropdown"
                                              Type="Secondary"
-                                             Size="Small"
-                                             Icon="trash">
+                                             Icon="filter"
+                                             TextLocalizedTag="FILTER_DROPDOWN"
+                                             TextLocalizedPage="ADMIN_USERS">
                             </YAF:ThemeButton>
+                            <div class="dropdown-menu">
+                                <div class="px-3 py-1">
+                                    <div class="form-group">
+                                        <div class="custom-control custom-switch">
+                                            <asp:CheckBox runat="server" ID="WasMentioned" 
+                                                          Checked="True"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="custom-control custom-switch">
+                                            <asp:CheckBox runat="server" ID="ReceivedThanks" 
+                                                          Checked="True"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="custom-control custom-switch">
+                                            <asp:CheckBox runat="server" ID="WasQuoted" 
+                                                          Checked="True"/>
+                                        </div>
+                                    </div>
+                                    <hr />
+                                    <div class="form-group">
+                                        <div class="custom-control custom-switch">
+                                            <asp:CheckBox runat="server" ID="UnreadOnly" Checked="True"/>
+                                        </div>
+                                    </div>
+                                    <YAF:ThemeButton runat="server" ID="Update"
+                                                     OnClick="UpdateFilterClick"
+                                                     TextLocalizedTag="UPDATE"
+                                                     Size="Small"
+                                                     Icon="sync">
+                                    </YAF:ThemeButton>
+                                    &nbsp;
+                                    <YAF:ThemeButton ID="Reset" runat="server"
+                                                     OnClick="ResetClick"
+                                                     TextLocalizedTag="CLEAR"
+                                                     Type="Secondary"
+                                                     Size="Small"
+                                                     Icon="trash">
+                                    </YAF:ThemeButton>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-                    </div>
-                </div>
             </div>
-            <asp:Repeater runat="server" ID="ActivityStream" OnItemDataBound="ActivityStream_OnItemDataBound" OnItemCommand="ActivityStream_OnItemCommand">
+            <asp:Repeater runat="server" ID="ActivityStream" 
+                          OnItemDataBound="ActivityStream_OnItemDataBound" 
+                          OnItemCommand="ActivityStream_OnItemCommand">
                     <HeaderTemplate>
                         <ul class="list-group list-group-flush">
                     </HeaderTemplate>
@@ -77,10 +83,10 @@
                                        CssClass="fa-stack"></asp:Label>
                             <asp:PlaceHolder runat="server" ID="Message"></asp:PlaceHolder>
                             <YAF:Icon runat="server" 
-                                       IconName="calendar-day"
-                                       IconType="text-secondary"
-                                       IconNameBadge="clock" 
-                                       IconBadgeType="text-secondary"></YAF:Icon>
+                                      IconName="calendar-day"
+                                      IconType="text-secondary"
+                                      IconNameBadge="clock" 
+                                      IconBadgeType="text-secondary"></YAF:Icon>
                             <YAF:DisplayDateTime id="DisplayDateTime" runat="server"></YAF:DisplayDateTime>
                             <YAF:ThemeButton runat="server" ID="MarkRead"
                                              Type="Secondary"

@@ -27,6 +27,7 @@ namespace YAF.Modules
 
     using YAF.Core;
     using YAF.Core.BaseModules;
+    using YAF.Core.BasePages;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Web.Controls;
@@ -112,7 +113,7 @@ namespace YAF.Modules
         /// <param name="e">
         /// The e.
         /// </param>
-        private void ForumControl_AfterForumPageLoad([NotNull] object sender, [NotNull] YafAfterForumPageLoad e)
+        private void ForumControl_AfterForumPageLoad([NotNull] object sender, [NotNull] AfterForumPageLoad e)
         {
             this.InitAfterPage();
         }
@@ -126,7 +127,7 @@ namespace YAF.Modules
         /// <param name="e">
         /// The e.
         /// </param>
-        private void ForumControl_BeforeForumPageLoad([NotNull] object sender, [NotNull] YafBeforeForumPageLoad e)
+        private void ForumControl_BeforeForumPageLoad([NotNull] object sender, [NotNull] BeforeForumPageLoad e)
         {
             this.InitBeforePage();
         }
