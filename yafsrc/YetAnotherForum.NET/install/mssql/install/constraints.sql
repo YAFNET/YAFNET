@@ -68,10 +68,6 @@ if (select OBJECTPROPERTY(OBJECT_ID('[{databaseOwner}].[{objectQualifier}UserMed
 	alter table [{databaseOwner}].[{objectQualifier}UserMedal] with nocheck add constraint [PK_{objectQualifier}UserMedal] primary key clustered(MedalID,UserID)   
 go
 
-if (select OBJECTPROPERTY(OBJECT_ID('[{databaseOwner}].[{objectQualifier}Mail]'), 'TableHasPrimaryKey')) = 0
-	alter table [{databaseOwner}].[{objectQualifier}Mail] with nocheck add constraint [PK_{objectQualifier}Mail] primary key clustered(MailID)   
-go
-
 if (select OBJECTPROPERTY(OBJECT_ID('[{databaseOwner}].[{objectQualifier}UserProfile]'), 'TableHasPrimaryKey')) = 0
 	alter table [{databaseOwner}].[{objectQualifier}UserProfile] with nocheck add constraint [PK_{objectQualifier}UserProfile] primary key clustered(UserID,ApplicationName)   
 go

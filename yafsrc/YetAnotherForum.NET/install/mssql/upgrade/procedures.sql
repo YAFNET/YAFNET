@@ -2863,99 +2863,6 @@ WHERE BoardID = @BoardID GROUP BY SortOrder,[Name],Style,[Description],PMLimit,U
 end
 GO
 
-create procedure [{databaseOwner}].[{objectQualifier}mail_createwatch]
-(
-    @TopicID int,
-    @From nvarchar(255),
-    @FromName nvarchar(255) = NULL,
-    @Subject nvarchar(100),
-    @Body nvarchar(max),
-    @BodyHtml nvarchar(max) = null,
-    @UserID int,
-    @UTCTIMESTAMP datetime
-)
-AS
-BEGIN
-    insert into [{databaseOwner}].[{objectQualifier}Mail](FromUser,FromUserName,ToUser,ToUserName,Created,[Subject],Body,BodyHtml)
-    select
-        @From,
-        @FromName,
-        b.Email,
-        b.Name,
-        @UTCTIMESTAMP ,
-        @Subject,
-        @Body,
-        @BodyHtml
-    from
-        [{databaseOwner}].[{objectQualifier}WatchTopic] a
-        inner join [{databaseOwner}].[{objectQualifier}User] b on b.UserID=a.UserID
-    where
-        b.UserID <> @UserID and
-        b.NotificationType NOT IN (10, 20) AND
-        a.TopicID = @TopicID and
-        (a.LastMail is null or a.LastMail < b.LastVisit)
-
-    insert into [{databaseOwner}].[{objectQualifier}Mail](FromUser,FromUserName,ToUser,ToUserName,Created,Subject,Body,BodyHtml)
-    select
-        @From,
-        @FromName,
-        b.Email,
-        b.Name,
-        @UTCTIMESTAMP,
-        @Subject,
-        @Body,
-        @BodyHtml
-    from
-        [{databaseOwner}].[{objectQualifier}WatchForum] a
-        inner join [{databaseOwner}].[{objectQualifier}User] b on b.UserID=a.UserID
-        inner join [{databaseOwner}].[{objectQualifier}Topic] c on c.ForumID=a.ForumID
-    where
-        b.UserID <> @UserID and
-        b.NotificationType NOT IN (10, 20) AND
-        c.TopicID = @TopicID and
-        (a.LastMail is null or a.LastMail < b.LastVisit) and
-        not exists(select 1 from [{databaseOwner}].[{objectQualifier}WatchTopic] x where x.UserID=b.UserID and x.TopicID=c.TopicID)
-
-    update [{databaseOwner}].[{objectQualifier}WatchTopic] set LastMail = @UTCTIMESTAMP
-    where TopicID = @TopicID
-    and UserID <> @UserID
-
-    update [{databaseOwner}].[{objectQualifier}WatchForum] set LastMail = @UTCTIMESTAMP
-    where ForumID = (select ForumID from [{databaseOwner}].[{objectQualifier}Topic] where TopicID = @TopicID)
-    and UserID <> @UserID
-end
-GO
-
-create procedure [{databaseOwner}].[{objectQualifier}mail_list]
-(
-    @ProcessID int,
-    @UTCTIMESTAMP datetime
-)
-AS
-begin
-	declare @count int
-
-	set @count = 10
-
-	update [{databaseOwner}].[{objectQualifier}Mail]
-	set
-		SendTries = SendTries + 1,
-		SendAttempt = DATEADD(n,5,@UTCTIMESTAMP),
-		ProcessID = @ProcessID
-	where
-		MailID in (select top (@count) MailID
-		           from [{databaseOwner}].[{objectQualifier}Mail] with (nolock)
-				   where SendAttempt is null or SendAttempt < @UTCTIMESTAMP)
-
-	select top (@count) *
-	from [{databaseOwner}].[{objectQualifier}Mail] with(nolock)
-	where ProcessID = @ProcessID
-	order by SendAttempt, Created desc
-
-	delete from [{databaseOwner}].[{objectQualifier}Mail] where ProcessID = @ProcessID
-end
-go
-
 create procedure [{databaseOwner}].[{objectQualifier}message_approve](@MessageID int) as begin
 
     declare	@UserID		int
@@ -9576,6 +9483,54 @@ BEGIN
     order by
         m.MessageID desc
 END
+GO
+
+create procedure [{databaseOwner}].[{objectQualifier}mail_list]
+(
+    @TopicID int,
+    @UserID int,
+    @UTCTIMESTAMP datetime
+)
+AS
+BEGIN
+    select
+        b.Email,
+        b.Name,
+        b.DisplayName,
+        b.LanguageFile
+    from
+        [{databaseOwner}].[{objectQualifier}WatchTopic] a
+        inner join [{databaseOwner}].[{objectQualifier}User] b on b.UserID=a.UserID
+    where
+        b.UserID <> @UserID and
+        b.NotificationType NOT IN (10, 20) AND
+        a.TopicID = @TopicID and
+        (a.LastMail is null or a.LastMail < b.LastVisit)
+    UNION
+    select
+        b.Email,
+        b.Name,
+        b.DisplayName,
+        b.LanguageFile
+    from
+        [{databaseOwner}].[{objectQualifier}WatchForum] a
+        inner join [{databaseOwner}].[{objectQualifier}User] b on b.UserID=a.UserID
+        inner join [{databaseOwner}].[{objectQualifier}Topic] c on c.ForumID=a.ForumID
+    where
+        b.UserID <> @UserID and
+        b.NotificationType NOT IN (10, 20) AND
+        c.TopicID = @TopicID and
+        (a.LastMail is null or a.LastMail < b.LastVisit) and
+        not exists(select 1 from [{databaseOwner}].[{objectQualifier}WatchTopic] x where x.UserID=b.UserID and x.TopicID=c.TopicID)
+
+    update [{databaseOwner}].[{objectQualifier}WatchTopic] set LastMail = @UTCTIMESTAMP
+    where TopicID = @TopicID
+    and UserID <> @UserID
+
+    update [{databaseOwner}].[{objectQualifier}WatchForum] set LastMail = @UTCTIMESTAMP
+    where ForumID = (select ForumID from [{databaseOwner}].[{objectQualifier}Topic] where TopicID = @TopicID)
+    and UserID <> @UserID
+end
 GO
 
 create procedure [{databaseOwner}].[{objectQualifier}user_savestyle](@GroupID int, @RankID int)  as

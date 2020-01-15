@@ -373,29 +373,6 @@ if not exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{d
 	)
 GO
 
-if not exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}Mail]') and type in (N'U'))
-begin
-	create table [{databaseOwner}].[{objectQualifier}Mail](
-		[MailID] [int] IDENTITY(1,1) NOT NULL,
-		[FromUser] [nvarchar](255) NOT NULL,
-		[FromUserName] [nvarchar](255) NULL,
-		[ToUser] [nvarchar](255) NOT NULL,
-		[ToUserName] [nvarchar](255) NULL,
-		[Created] [datetime] NOT NULL,
-		[Subject] [nvarchar](100) NOT NULL,
-		[Body] [nvarchar](max) NOT NULL,
-		[BodyHtml] [nvarchar](max) NULL,
-		[SendTries] [int] NOT NULL constraint [DF_{objectQualifier}Mail_SendTries]  default (0),
-		[SendAttempt] [datetime] NULL,
-		[ProcessID] [int] NULL,
- constraint [PK_{objectQualifier}Mail] PRIMARY KEY CLUSTERED 
-(
-	[MailID] ASC
-)WITH (STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF)
-	)
-end
-GO
-
 if not exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}Message]') and type in (N'U'))
 	create table [{databaseOwner}].[{objectQualifier}Message](
 		MessageID		    int IDENTITY (1,1) NOT NULL,
@@ -1050,42 +1027,6 @@ GO
 if exists (select top 1 1 from sys.columns where object_id = object_id('[{databaseOwner}].[{objectQualifier}Board]') and name='BoardUID')
 begin
 alter table [{databaseOwner}].[{objectQualifier}Board] drop column  BoardUID
-end
-GO
-
--- Mail Table
-if not exists (select top 1 1 from sys.columns where object_id = object_id('[{databaseOwner}].[{objectQualifier}Mail]') and name='FromUserName')
-begin
-	alter table [{databaseOwner}].[{objectQualifier}Mail] add [FromUserName] [nvarchar](255) NULL
-	alter table [{databaseOwner}].[{objectQualifier}Mail] add [ToUserName] [nvarchar](255) NULL
-	alter table [{databaseOwner}].[{objectQualifier}Mail] add [BodyHtml] [nvarchar](max) NULL		
-	alter table [{databaseOwner}].[{objectQualifier}Mail] add [SendTries] [int] NOT NULL constraint [DF_{objectQualifier}Mail_SendTries]  default ((0))		
-	alter table [{databaseOwner}].[{objectQualifier}Mail] add [SendAttempt] [datetime] NULL
-	alter table [{databaseOwner}].[{objectQualifier}Mail] add [ProcessID] [int] NULL	
-end
-GO
-
-if exists (select top 1 1 from sys.columns where object_id = object_id('[{databaseOwner}].[{objectQualifier}Mail]') and name='FromUserName' and precision < 255)
-begin
-alter table [{databaseOwner}].[{objectQualifier}Mail] alter column [FromUserName] [nvarchar](255) NULL
-end
-GO
-
-if exists (select top 1 1 from sys.columns where object_id = object_id('[{databaseOwner}].[{objectQualifier}Mail]') and name='FromUser' and precision < 255)
-begin
-alter table [{databaseOwner}].[{objectQualifier}Mail] alter column [FromUser] [nvarchar](255) NULL
-end
-GO
-
-if exists (select top 1 1 from sys.columns where object_id = object_id('[{databaseOwner}].[{objectQualifier}Mail]') and name='ToUserName' and precision < 255)
-begin
-alter table [{databaseOwner}].[{objectQualifier}Mail] alter column [ToUserName] [nvarchar](255) NULL
-end
-GO
-
-if exists (select top 1 1 from sys.columns where object_id = object_id('[{databaseOwner}].[{objectQualifier}Mail]') and name='ToUser' and precision < 255)
-begin
-alter table [{databaseOwner}].[{objectQualifier}Mail] alter column [ToUser] [nvarchar](255) NULL
 end
 GO
 
@@ -2749,19 +2690,6 @@ begin
 end
 GO
 
--- Convert all ntext columns to nvarchar(max)
-if exists (select top 1 1 from sys.columns where object_id = object_id('[{databaseOwner}].[{objectQualifier}Mail]') and name = 'Body' and system_type_id = 99)
-begin
-    alter table [{databaseOwner}].[{objectQualifier}Mail] alter column [Body] nvarchar(max)
-end
-go
-
-if exists (select top 1 1 from sys.columns where object_id = object_id('[{databaseOwner}].[{objectQualifier}Mail]') and name = 'BodyHtml' and system_type_id = 99)
-begin
-    alter table [{databaseOwner}].[{objectQualifier}Mail] alter column [BodyHtml] nvarchar(max)
-end
-go
-
 if exists (select top 1 1 from sys.columns where object_id = object_id('[{databaseOwner}].[{objectQualifier}Message]') and name = 'Message' and system_type_id = 99
    and not exists(select * from sys.sysfulltextcatalogs where name = N'YafSearch'))
 begin
@@ -2940,4 +2868,8 @@ if not exists (select top 1 1 from sys.columns where object_id=object_id('[{data
 begin
 	alter table [{databaseOwner}].[{objectQualifier}Activity] add [WasQuoted] AS (CONVERT([bit],sign([Flags]&(4096)),(0)))
 end
+GO
+
+if exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}Mail]') and type in (N'U'))
+	drop table [{databaseOwner}].[{objectQualifier}Mail]
 GO

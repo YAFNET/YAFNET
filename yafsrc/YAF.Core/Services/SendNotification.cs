@@ -117,50 +117,62 @@ namespace YAF.Core.Services
                         }
                     });
 
-            var context = HttpContext.Current;
+            var themeCss =
+                $"{this.Get<BoardSettings>().BaseUrlMask}{this.Get<ITheme>().BuildThemePath("bootstrap-forum.min.css")}";
+
+            var forumLink = BoardInfo.ForumURL;
+
+            var adminLink = BuildLink.GetLinkNotEscaped(ForumPages.moderate_unapprovedposts, true, "f={0}", forumId);
+
+            var currentContext = HttpContext.Current;
 
             // send each message...
-            Parallel.ForEach(
-                moderatorUserNames.Distinct(),
+            moderatorUserNames.Distinct().AsParallel().ForAll(
                 userName =>
                     {
-                        // add each member of the group
-                        var membershipUser = UserMembershipHelper.GetUser(userName);
-                        var userId = UserMembershipHelper.GetUserIDFromProviderUserKey(membershipUser.ProviderUserKey);
+                        HttpContext.Current = currentContext;
 
-                        var languageFile = UserHelper.GetUserLanguageFile(userId);
+                        try
+                        {
+                            // add each member of the group
+                            var membershipUser = UserMembershipHelper.GetUser(userName);
+                            var userId =
+                                UserMembershipHelper.GetUserIDFromProviderUserKey(membershipUser.ProviderUserKey);
 
-                        var subject = string.Format(
-                            this.Get<ILocalization>().GetText(
-                                "COMMON",
-                                isSpamMessage
-                                    ? "NOTIFICATION_ON_MODERATOR_SPAMMESSAGE_APPROVAL"
-                                    : "NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL",
-                                languageFile,
-                                context),
-                            this.BoardSettings.Name);
+                            var languageFile = UserHelper.GetUserLanguageFile(userId);
 
-                        var notifyModerators = new TemplateEmail(
-                                                   isSpamMessage
-                                                       ? "NOTIFICATION_ON_MODERATOR_SPAMMESSAGE_APPROVAL"
-                                                       : "NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL")
-                                                   {
-                                                       // get the user localization...
-                                                       TemplateLanguageFile = languageFile,
-                                                       Context = context,
-                                                       TemplateParams =
-                                                           {
-                                                               ["{adminlink}"] = BuildLink.GetLinkNotEscaped(
-                                                                   ForumPages.moderate_unapprovedposts,
-                                                                   true,
-                                                                   "f={0}",
-                                                                   forumId)
-                                                           }
-                                                   };
+                            var subject = string.Format(
+                                this.Get<ILocalization>().GetText(
+                                    "COMMON",
+                                    isSpamMessage
+                                        ? "NOTIFICATION_ON_MODERATOR_SPAMMESSAGE_APPROVAL"
+                                        : "NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL",
+                                    languageFile),
+                                this.BoardSettings.Name);
 
-                        notifyModerators.SendEmail(
-                            new MailAddress(membershipUser.Email, membershipUser.UserName),
-                            subject);
+                            var notifyModerators =
+                                new TemplateEmail(
+                                    isSpamMessage
+                                        ? "NOTIFICATION_ON_MODERATOR_SPAMMESSAGE_APPROVAL"
+                                        : "NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL")
+                                    {
+                                        TemplateLanguageFile = languageFile,
+                                        TemplateParams =
+                                            {
+                                                ["{adminlink}"] = adminLink,
+                                                ["{themecss}"] = themeCss,
+                                                ["{forumlink}"] = forumLink
+                                            }
+                                    };
+
+                            notifyModerators.SendEmail(
+                                new MailAddress(membershipUser.Email, membershipUser.UserName),
+                                subject);
+                        }
+                        finally
+                        {
+                            HttpContext.Current = null;
+                        }
                     });
         }
 
@@ -204,49 +216,56 @@ namespace YAF.Core.Services
                             }
                         });
 
-                var context = HttpContext.Current;
+                var currentContext = HttpContext.Current;
 
                 // send each message...
-                Parallel.ForEach(
-                    moderatorUserNames.Distinct(),
+                moderatorUserNames.Distinct().AsParallel().ForAll(
                     userName =>
                         {
-                            // add each member of the group
-                            var membershipUser = UserMembershipHelper.GetUser(userName);
-                            var userId =
-                                UserMembershipHelper.GetUserIDFromProviderUserKey(membershipUser.ProviderUserKey);
+                            HttpContext.Current = currentContext;
 
-                            var languageFile = UserHelper.GetUserLanguageFile(userId);
+                            try
+                            {
+                                // add each member of the group
+                                var membershipUser = UserMembershipHelper.GetUser(userName);
+                                var userId =
+                                    UserMembershipHelper.GetUserIDFromProviderUserKey(membershipUser.ProviderUserKey);
 
-                            var subject = string.Format(
-                                this.Get<ILocalization>().GetText(
-                                    "COMMON",
-                                    "NOTIFICATION_ON_MODERATOR_REPORTED_MESSAGE",
-                                    languageFile,
-                                    context),
-                                this.BoardSettings.Name);
+                                var languageFile = UserHelper.GetUserLanguageFile(userId);
 
-                            var notifyModerators = new TemplateEmail("NOTIFICATION_ON_MODERATOR_REPORTED_MESSAGE")
-                                                       {
-                                                           // get the user localization...
-                                                           Context = context,
-                                                           TemplateLanguageFile = languageFile,
-                                                           TemplateParams =
-                                                               {
-                                                                   ["{reason}"] = reportText,
-                                                                   ["{reporter}"] =
-                                                                       this.Get<IUserDisplayName>().GetName(reporter),
-                                                                   ["{adminlink}"] = BuildLink.GetLinkNotEscaped(
-                                                                       ForumPages.moderate_reportedposts,
-                                                                       true,
-                                                                       "f={0}",
-                                                                       pageForumID)
-                                                               }
-                                                       };
+                                var subject = string.Format(
+                                    this.Get<ILocalization>().GetText(
+                                        "COMMON",
+                                        "NOTIFICATION_ON_MODERATOR_REPORTED_MESSAGE",
+                                        languageFile),
+                                    this.BoardSettings.Name);
 
-                            notifyModerators.SendEmail(
-                                new MailAddress(membershipUser.Email, membershipUser.UserName),
-                                subject);
+                                var notifyModerators = new TemplateEmail("NOTIFICATION_ON_MODERATOR_REPORTED_MESSAGE")
+                                                           {
+                                                               // get the user localization...
+                                                               TemplateLanguageFile = languageFile,
+                                                               TemplateParams =
+                                                                   {
+                                                                       ["{reason}"] = reportText,
+                                                                       ["{reporter}"] =
+                                                                           this.Get<IUserDisplayName>()
+                                                                               .GetName(reporter),
+                                                                       ["{adminlink}"] = BuildLink.GetLinkNotEscaped(
+                                                                           ForumPages.moderate_reportedposts,
+                                                                           true,
+                                                                           "f={0}",
+                                                                           pageForumID)
+                                                                   }
+                                                           };
+
+                                notifyModerators.SendEmail(
+                                    new MailAddress(membershipUser.Email, membershipUser.UserName),
+                                    subject);
+                            }
+                            finally
+                            {
+                                HttpContext.Current = null;
+                            }
                         });
             }
             catch (Exception x)
@@ -360,8 +379,6 @@ namespace YAF.Core.Services
             var watchUsers = this.GetRepository<User>()
                 .WatchMailListAsDataTable(message.TopicID ?? 0, messageAuthorUserID);
 
-            var context = HttpContext.Current;
-
             var watchEmail = new TemplateEmail("TOPICPOST")
                                  {
                                      TemplateParams =
@@ -381,36 +398,41 @@ namespace YAF.Core.Services
                                              ["{subscriptionlink}"] = BuildLink.GetLinkNotEscaped(
                                                  ForumPages.cp_subscriptions,
                                                  true)
-                                         },
-                                     Context = HttpContext.Current
+                                         }
                                  };
 
-            Parallel.ForEach(
-                watchUsers.Rows.Cast<DataRow>(),
+            var currentContext = HttpContext.Current;
+
+            watchUsers.Rows.Cast<DataRow>().AsParallel().ForAll(
                 row =>
                     {
-                        var languageFile =
-                            row.Field<string>("LanguageFile").IsSet() && this.Get<BoardSettings>().AllowUserLanguage
-                                ? row.Field<string>("LanguageFile")
-                                : this.Get<BoardSettings>().Language;
+                        HttpContext.Current = currentContext;
 
-                        var subject = string.Format(
-                            this.Get<ILocalization>().GetText(
-                                "COMMON",
-                                "TOPIC_NOTIFICATION_SUBJECT",
-                                languageFile,
-                                context),
-                            boardName);
+                        try
+                        {
+                            var languageFile =
+                                row.Field<string>("LanguageFile").IsSet() && this.Get<BoardSettings>().AllowUserLanguage
+                                    ? row.Field<string>("LanguageFile")
+                                    : this.Get<BoardSettings>().Language;
 
-                        watchEmail.TemplateLanguageFile = languageFile;
-                        watchEmail.SendEmail(
-                            new MailAddress(forumEmail, boardName),
-                            new MailAddress(
-                                row.Field<string>("Email"),
-                                this.BoardSettings.EnableDisplayName
-                                    ? row.Field<string>("DisplayName")
-                                    : row.Field<string>("Name")),
-                            subject);
+                            var subject = string.Format(
+                                this.Get<ILocalization>().GetText("COMMON", "TOPIC_NOTIFICATION_SUBJECT", languageFile),
+                                boardName);
+
+                            watchEmail.TemplateLanguageFile = languageFile;
+                            watchEmail.SendEmail(
+                                new MailAddress(forumEmail, boardName),
+                                new MailAddress(
+                                    row.Field<string>("Email"),
+                                    this.BoardSettings.EnableDisplayName
+                                        ? row.Field<string>("DisplayName")
+                                        : row.Field<string>("Name")),
+                                subject);
+                        }
+                        finally
+                        {
+                            HttpContext.Current = null;
+                        }
                     });
 
             if (!this.BoardSettings.AllowNotificationAllPostsAllTopics)
@@ -423,35 +445,39 @@ namespace YAF.Core.Services
                 notificationType: UserNotificationSetting.AllTopics.ToInt());
 
             // create individual watch emails for all users who have All Posts on...
-            Parallel.ForEach(
-                usersWithAll.Where(x => x.ID != messageAuthorUserID && x.ProviderUserKey != null),
+            usersWithAll.Where(x => x.ID != messageAuthorUserID && x.ProviderUserKey != null).AsParallel().ForAll(
                 user =>
                     {
-                        if (user.Email.IsNotSet())
+                        HttpContext.Current = currentContext;
+
+                        try
                         {
-                            return;
+                            if (user.Email.IsNotSet())
+                            {
+                                return;
+                            }
+
+                            var languageFile = user.LanguageFile.IsSet() && this.Get<BoardSettings>().AllowUserLanguage
+                                                   ? user.LanguageFile
+                                                   : this.Get<BoardSettings>().Language;
+
+                            var subject = string.Format(
+                                this.Get<ILocalization>().GetText("COMMON", "TOPIC_NOTIFICATION_SUBJECT", languageFile),
+                                boardName);
+
+                            watchEmail.TemplateLanguageFile = languageFile;
+
+                            watchEmail.SendEmail(
+                                new MailAddress(forumEmail, boardName),
+                                new MailAddress(
+                                    user.Email,
+                                    this.BoardSettings.EnableDisplayName ? user.DisplayName : user.Name),
+                                subject);
                         }
-
-                        var languageFile = user.LanguageFile.IsSet() && this.Get<BoardSettings>().AllowUserLanguage
-                                               ? user.LanguageFile
-                                               : this.Get<BoardSettings>().Language;
-
-                        var subject = string.Format(
-                            this.Get<ILocalization>().GetText(
-                                "COMMON",
-                                "TOPIC_NOTIFICATION_SUBJECT",
-                                languageFile,
-                                context),
-                            boardName);
-
-                        watchEmail.TemplateLanguageFile = languageFile;
-
-                        watchEmail.SendEmail(
-                            new MailAddress(forumEmail, boardName),
-                            new MailAddress(
-                                user.Email,
-                                this.BoardSettings.EnableDisplayName ? user.DisplayName : user.Name),
-                            subject);
+                        finally
+                        {
+                            HttpContext.Current = null;
+                        }
                     });
         }
 
@@ -645,8 +671,7 @@ namespace YAF.Core.Services
 
             using (var dt = this.GetRepository<User>().EmailsAsDataTable(YafContext.Current.PageBoardID, adminGroupId))
             {
-                Parallel.ForEach(
-                    dt.Rows.Cast<DataRow>(),
+                dt.Rows.Cast<DataRow>().ForEach(
                     row =>
                         {
                             var emailAddress = row.Field<string>("Email");

@@ -26,8 +26,7 @@ namespace YAF.Core.Services
     using System.Collections.Generic;
     using System.Linq;
     using System.Net.Mail;
-    using System.Web;
-
+    
     using YAF.Configuration;
     using YAF.Core.Extensions;
     using YAF.Types.Extensions;
@@ -63,7 +62,7 @@ namespace YAF.Core.Services
             : this(templateName, true)
         {
             var logoUrl =
-                $"{BoardInfo.ForumClientFileRoot}{BoardFolders.Current.Logos}/{YafContext.Current.BoardSettings.ForumLogo}";
+                $"{BoardInfo.ForumClientFileRoot}{BoardFolders.Current.Logos}/{this.Get<BoardSettings>().ForumLogo}";
             var themeCss =
                 $"{this.Get<BoardSettings>().BaseUrlMask}{this.Get<ITheme>().BuildThemePath("bootstrap-forum.min.css")}";
 
@@ -107,8 +106,6 @@ namespace YAF.Core.Services
         /// </summary>
         public string TemplateLanguageFile { get; set; }
 
-        public HttpContext Context { get; set; }
-
         /// <summary>
         ///     Gets or sets TemplateName.
         /// </summary>
@@ -135,7 +132,9 @@ namespace YAF.Core.Services
         public void SendEmail(MailAddress toAddress, string subject)
         {
             this.SendEmail(
-                new MailAddress(this.Get<BoardSettings>().ForumEmail, this.Get<BoardSettings>().Name),
+                new MailAddress(
+                    this.Get<BoardSettings>().ForumEmail,
+                    this.Get<BoardSettings>().Name),
                 toAddress,
                 subject);
         }
@@ -208,28 +207,21 @@ namespace YAF.Core.Services
         /// </returns>
         private string ReadTemplate(string templateName, string templateLanguageFile)
         {
-            if (!templateName.IsSet())
+            if (templateName.IsNotSet())
             {
                 return null;
             }
 
-            if (!templateLanguageFile.IsSet())
+            if (templateLanguageFile.IsNotSet())
             {
                 return this.Get<ILocalization>().GetText("TEMPLATES", templateName);
             }
 
             var localization = new Localization.Localization();
 
-            if (this.Context != null)
-            {
-                localization.LoadTranslation(templateLanguageFile, this.Context);
-            }
-            else
-            {
-                localization.LoadTranslation(templateLanguageFile);
-            }
+            localization.LoadTranslation(templateLanguageFile);
 
-            return localization.GetText("TEMPLATES", templateName);
+            return localization.GetText("TEMPLATES", templateName, templateLanguageFile);
         }
 
         #endregion
