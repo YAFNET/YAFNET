@@ -6271,6 +6271,8 @@ Password: {password}
     <Resource tag="MYNOTIFY_TITLE">Shows your unread Received Thanks, Mentions and Quotes.</Resource>
     <Resource tag="MYPROFILE">Мой профиль</Resource>
     <Resource tag="MYPROFILE_TITLE">Страница моего профиля.</Resource>
+    <Resource tag="MYSETTINGS">My Settings</Resource>
+    <Resource tag="MYSETTINGs_TITLE">Edit your user details and settings.</Resource>
     <Resource tag="MYTOPICS">Мои темы</Resource>
     <Resource tag="MYTOPICS_TITLE">Активные и избранные темы</Resource>
     <Resource tag="NEWPM">({0} непрочитанных)</Resource>

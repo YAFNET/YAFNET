@@ -1,5 +1,6 @@
 <%@ Control Language="c#" AutoEventWireup="True"
     Inherits="YAF.Pages.cp_editprofile" Codebehind="cp_editprofile.ascx.cs" %>
+
 <%@ Register TagPrefix="YAF" TagName="ProfileEdit" Src="../controls/EditUsersProfile.ascx" %>
 
 <YAF:PageLinks runat="server" ID="PageLinks" />

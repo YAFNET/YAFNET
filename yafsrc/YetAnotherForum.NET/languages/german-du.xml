@@ -6236,6 +6236,8 @@ Der Bestätigungscode lautet
     <Resource tag="MYNOTIFY_TITLE">Shows your unread Received Thanks, Mentions and Quotes.</Resource>
     <Resource tag="MYPROFILE">Mein Profil</Resource>
     <Resource tag="MYPROFILE_TITLE">Öffnet das Benutzer Control Panel.</Resource>
+    <Resource tag="MYSETTINGS">My Settings</Resource>
+    <Resource tag="MYSETTINGs_TITLE">Edit your user details and settings.</Resource>
     <Resource tag="MYTOPICS">Meine Themen</Resource>
     <Resource tag="MYTOPICS_TITLE">Öffnet die Seite mit den Aktiven Themen und ihren Favorisierten Themen.</Resource>
     <Resource tag="NEWPM">({0} neue Nachricht(en))</Resource>

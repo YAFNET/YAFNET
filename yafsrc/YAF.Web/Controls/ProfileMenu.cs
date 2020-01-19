@@ -78,72 +78,7 @@ namespace YAF.Web.Controls
             var unreadActivity =
                 this.PageContext.Mention + this.PageContext.Quoted + this.PageContext.ReceivedThanks;
 
-            if (this.Get<BoardSettings>().EnableActivityStream && unreadActivity > 0)
-            {
-               this.RenderMenuItem(
-                    html,
-                    "list-group-item list-group-item-action",
-                    ForumPages.cp_notification,
-                    this.GetText("YOUR_NOTIFIY"));
-
-                this.RenderMenuItem(
-                    htmlDropDown,
-                    "dropdown-item",
-                    ForumPages.cp_notification,
-                    this.GetText("YOUR_NOTIFIY"));
-            }
-
-            // Render Mailbox Items
-            if (this.Get<BoardSettings>().AllowPrivateMessages)
-            {
-                html.AppendFormat(
-                    @"<a class=""list-group-item list-group-item-action disabled font-weight-bold"" href=""#"">{0}</a>",
-                    this.GetText("CP_PROFILE", "MESSENGER"));
-
-                this.RenderMenuItem(
-                    html,
-                    "list-group-item list-group-item-action",
-                    ForumPages.cp_pm,
-                    this.GetText("INBOX"),
-                    "v=in");
-
-                this.RenderMenuItem(
-                    html,
-                    "list-group-item list-group-item-action",
-                    ForumPages.cp_pm,
-                    this.GetText("SENTITEMS"),
-                    "v=out");
-                this.RenderMenuItem(
-                    html,
-                    "list-group-item list-group-item-action",
-                    ForumPages.cp_pm,
-                    this.GetText("ARCHIVE"),
-                    "v=arch");
-                this.RenderMenuItem(
-                    html,
-                    "list-group-item list-group-item-action",
-                    ForumPages.pmessage,
-                    this.GetText("NEW_MESSAGE"));
-
-                htmlDropDown.AppendFormat(@"<h6 class=""dropdown-header"">{0}</h6>", this.GetText("MESSENGER"));
-
-                this.RenderMenuItem(htmlDropDown, "dropdown-item", ForumPages.cp_pm, this.GetText("INBOX"), "v=in");
-                this.RenderMenuItem(
-                    htmlDropDown,
-                    "dropdown-item",
-                    ForumPages.cp_pm,
-                    this.GetText("SENTITEMS"),
-                    "v=out");
-                this.RenderMenuItem(htmlDropDown, "dropdown-item", ForumPages.cp_pm, this.GetText("ARCHIVE"), "v=arch");
-                this.RenderMenuItem(htmlDropDown, "dropdown-item", ForumPages.pmessage, this.GetText("NEW_MESSAGE"));
-            }
-
-            // Render Personal Profile Items
-            html.AppendFormat(
-                @"<a class=""list-group-item list-group-item-action disabled font-weight-bold"">{0}</a>",
-                this.GetText("PERSONAL_PROFILE"));
-
-            this.RenderMenuItem(
+           this.RenderMenuItem(
                 html,
                 "list-group-item list-group-item-action",
                 ForumPages.profile,
@@ -184,23 +119,6 @@ namespace YAF.Web.Controls
                     "dropdown-item",
                     ForumPages.cp_editsettings,
                     this.GetText("EDIT_SETTINGS"));
-            }
-
-            if (!this.PageContext.IsGuest && this.Get<BoardSettings>().EnableThanksMod)
-            {
-                this.RenderMenuItem(
-                    html,
-                    "list-group-item list-group-item-action",
-                    ForumPages.viewthanks,
-                    this.GetText("ViewTHANKS", "TITLE"),
-                    $"u={this.PageContext.PageUserID}");
-
-                this.RenderMenuItem(
-                    htmlDropDown,
-                    "dropdown-item",
-                    ForumPages.viewthanks,
-                    this.GetText("ViewTHANKS", "TITLE"),
-                    $"u={this.PageContext.PageUserID}");
             }
 
             if (!this.PageContext.IsGuest)
@@ -326,19 +244,6 @@ namespace YAF.Web.Controls
 
             if (!Config.IsDotNetNuke && !this.PageContext.IsAdmin  && !this.PageContext.IsHostAdmin)
             {
-                // Render Change Password Item
-                this.RenderMenuItem(
-                    html,
-                    "list-group-item list-group-item-action",
-                    ForumPages.cp_changepassword,
-                    this.GetText("CHANGE_PASSWORD"));
-
-                this.RenderMenuItem(
-                    htmlDropDown,
-                    "dropdown-item",
-                    ForumPages.cp_changepassword,
-                    this.GetText("CHANGE_PASSWORD"));
-
                 // Render Delete Account Item
                 this.RenderMenuItem(
                     html,

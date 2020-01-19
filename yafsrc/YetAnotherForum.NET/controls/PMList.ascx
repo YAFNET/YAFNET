@@ -66,7 +66,7 @@
                                        CssClass="custom-control custom-checkbox d-inline-flex"/>
                         <YAF:Icon runat="server"
                                   IconName='<%# this.Eval("IsRead").ToType<bool>() ? "envelope-open" : "envelope" %>'
-                                  IconType="text-secondary"></YAF:Icon>
+                                  IconType='<%# this.Eval("IsRead").ToType<bool>() ? "text-secondary" : "text-success" %>'></YAF:Icon>
                         <a href='<%# this.GetMessageLink(this.Eval("UserPMessageID")) %>'>
                         <%# this.HtmlEncode(this.Eval("Subject")) %>
                         </a>
@@ -176,5 +176,7 @@
 
 
 <div class="card-footer">
-    <small class="text-muted"><asp:Label ID="PMInfoLink" runat="server" ></asp:Label></small>
+    <small class="text-muted">
+        <asp:Label ID="PMInfoLink" runat="server"></asp:Label>
+    </small>
 </div>

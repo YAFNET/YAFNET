@@ -6264,6 +6264,8 @@ Bezoek {forumname} op {forumlink}
     <Resource tag="MYNOTIFY_TITLE">Shows your unread Received Thanks, Mentions and Quotes.</Resource>
     <Resource tag="MYPROFILE">Profiel</Resource>
     <Resource tag="MYPROFILE_TITLE">Laat de gebruikersconfiguratiepagina zien.</Resource>
+    <Resource tag="MYSETTINGS">My Settings</Resource>
+    <Resource tag="MYSETTINGs_TITLE">Edit your user details and settings.</Resource>
     <Resource tag="MYTOPICS">Mijn Topics</Resource>
     <Resource tag="MYTOPICS_TITLE">Laat de actieve en favoriete topics zien.</Resource>
     <Resource tag="NEWPM">(&lt;b&gt;{0} Ongelezen&lt;/b&gt;)</Resource>

@@ -6313,6 +6313,8 @@ Ziyaret için {forumname}  {forumlink}
     <Resource tag="MYNOTIFY_TITLE">Shows your unread Received Thanks, Mentions and Quotes.</Resource>
     <Resource tag="MYPROFILE">Profilim</Resource>
     <Resource tag="MYPROFILE_TITLE">Shows the User Control Panel.</Resource>
+    <Resource tag="MYSETTINGS">My Settings</Resource>
+    <Resource tag="MYSETTINGs_TITLE">Edit your user details and settings.</Resource>
     <Resource tag="MYTOPICS">Konularım</Resource>
     <Resource tag="MYTOPICS_TITLE">Shows the Active and Favorite Topics.</Resource>
     <Resource tag="NEWPM">({0} Okunmamış Mesaj)</Resource>

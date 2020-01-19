@@ -144,17 +144,42 @@ namespace YAF.Controls
             BuildLink.Redirect(ForumPages.search, "search={0}", this.Server.UrlEncode(this.searchInput.Text));
         }
 
-        /// <summary>Render Li and a Item</summary>
-        /// <param name="holder">The holder.</param>
-        /// <param name="cssClass">The CSS class.</param>
-        /// <param name="linkText">The link text.</param>
-        /// <param name="linkToolTip">The link tool tip.</param>
-        /// <param name="linkUrl">The link URL.</param>
-        /// <param name="noFollow">Add no follow to the link</param>
-        /// <param name="showUnread">The show unread.</param>
-        /// <param name="unread">The unread.</param>
-        /// <param name="unreadText">The unread text.</param>
-        /// <param name="icon">The icon.</param>
+        /// <summary>
+        /// Render Li and a Item
+        /// </summary>
+        /// <param name="holder">
+        /// The holder.
+        /// </param>
+        /// <param name="cssClass">
+        /// The CSS class.
+        /// </param>
+        /// <param name="linkText">
+        /// The link text.
+        /// </param>
+        /// <param name="linkToolTip">
+        /// The link tool tip.
+        /// </param>
+        /// <param name="linkUrl">
+        /// The link URL.
+        /// </param>
+        /// <param name="noFollow">
+        /// Add no follow to the link
+        /// </param>
+        /// <param name="showUnread">
+        /// The show unread.
+        /// </param>
+        /// <param name="unread">
+        /// The unread.
+        /// </param>
+        /// <param name="unreadText">
+        /// The unread text.
+        /// </param>
+        /// <param name="isActive">
+        /// The is Active.
+        /// </param>
+        /// <param name="icon">
+        /// The icon.
+        /// </param>
         private static void RenderMenuItem(
             Control holder,
             string cssClass,
@@ -165,6 +190,7 @@ namespace YAF.Controls
             bool showUnread,
             string unread,
             string unreadText,
+            bool isActive,
             string icon = "")
         {
             var element = new HtmlGenericControl("li");
@@ -172,6 +198,11 @@ namespace YAF.Controls
             if (cssClass.IsSet())
             {
                 element.Attributes.Add("class", "nav-item");
+            }
+
+            if (isActive)
+            {
+                cssClass = $"{cssClass} active";
             }
 
             if (linkToolTip.IsNotSet())
@@ -286,7 +317,8 @@ namespace YAF.Controls
                 false,
                 this.PageContext.ModeratePosts > 0,
                 this.PageContext.ModeratePosts.ToString(),
-                this.GetTextFormatted("MODERATE_NEW", this.PageContext.ModeratePosts));
+                this.GetTextFormatted("MODERATE_NEW", this.PageContext.ModeratePosts),
+                this.PageContext.ForumPageType == ForumPages.moderate_index);
         }
 
         /// <summary>
@@ -307,6 +339,7 @@ namespace YAF.Controls
                     false,
                     null,
                     null,
+                    this.PageContext.ForumPageType == ForumPages.mytopics,
                     string.Empty);
             }
 
@@ -323,6 +356,7 @@ namespace YAF.Controls
                     false,
                     null,
                     null,
+                    this.PageContext.ForumPageType == ForumPages.search,
                     string.Empty);
             }
 
@@ -339,6 +373,7 @@ namespace YAF.Controls
                     false,
                     null,
                     null,
+                    this.PageContext.ForumPageType == ForumPages.members,
                     string.Empty);
             }
 
@@ -354,7 +389,8 @@ namespace YAF.Controls
                     false,
                     false,
                     null,
-                    null,
+                    null, 
+                    this.PageContext.ForumPageType == ForumPages.team,
                     string.Empty);
             }
 
@@ -371,6 +407,7 @@ namespace YAF.Controls
                     false,
                     null,
                     null,
+                    this.PageContext.ForumPageType == ForumPages.help_index,
                     string.Empty);
             }
 
@@ -392,6 +429,7 @@ namespace YAF.Controls
                     false,
                     null,
                     null,
+                    false,
                     string.Empty);
             }
 
@@ -412,6 +450,7 @@ namespace YAF.Controls
                     false,
                     null,
                     null,
+                    this.PageContext.ForumPageType == ForumPages.register,
                     string.Empty);
             }
         }
@@ -436,15 +475,29 @@ namespace YAF.Controls
                 false,
                 null,
                 null,
+                this.PageContext.ForumPageType == ForumPages.cp_profile,
                 "address-card");
+
+            RenderMenuItem(
+                this.MySettings,
+                "dropdown-item",
+                this.GetText("TOOLBAR", "MYSETTINGS"),
+                this.GetText("TOOLBAR", "MYSETTINGS_TITLE"),
+                BuildLink.GetLink(ForumPages.cp_editprofile),
+                false,
+                false,
+                null,
+                null,
+                this.PageContext.ForumPageType == ForumPages.cp_editprofile,
+                "user-cog");
 
             var unreadActivity =
                 this.PageContext.Mention + this.PageContext.Quoted + this.PageContext.ReceivedThanks;
 
-            if (this.Get<BoardSettings>().EnableActivityStream && unreadActivity > 0)
+            if (this.Get<BoardSettings>().EnableActivityStream)
             {
                 RenderMenuItem(
-                    this.MyActicity,
+                    this.MyNotification,
                     "dropdown-item",
                     this.GetText("TOOLBAR", "MYNOTIFY"),
                     this.GetText("TOOLBAR", "MYNOTIFY_TITLE"),
@@ -453,6 +506,7 @@ namespace YAF.Controls
                     unreadActivity > 0,
                     unreadActivity.ToString(),
                     this.GetTextFormatted("NEWPM", unreadActivity),
+                    this.PageContext.ForumPageType == ForumPages.cp_notification,
                     "bell");
             }
 
@@ -469,6 +523,7 @@ namespace YAF.Controls
                     this.PageContext.UnreadPrivate > 0,
                     this.PageContext.UnreadPrivate.ToString(),
                     this.GetTextFormatted("NEWPM", this.PageContext.UnreadPrivate),
+                    this.PageContext.ForumPageType == ForumPages.cp_pm,
                     "inbox");
             }
 
@@ -485,6 +540,7 @@ namespace YAF.Controls
                     this.PageContext.PendingBuddies > 0,
                     this.PageContext.PendingBuddies.ToString(),
                     this.GetTextFormatted("BUDDYREQUEST", this.PageContext.PendingBuddies),
+                    this.PageContext.ForumPageType == ForumPages.cp_editbuddies,
                     "users");
             }
 
@@ -502,6 +558,7 @@ namespace YAF.Controls
                     false,
                     null,
                     null,
+                    this.PageContext.ForumPageType == ForumPages.albums,
                     "images");
             }
 
@@ -516,6 +573,7 @@ namespace YAF.Controls
                 false,
                 string.Empty,
                 string.Empty,
+                this.PageContext.ForumPageType == ForumPages.mytopics,
                 "comment");
 
             // Logout
@@ -530,7 +588,7 @@ namespace YAF.Controls
             // Logged in as : username
             this.LoggedInUserPanel.Visible = true;
 
-            this.UserIcon.IconName = "user";
+            this.UserAvatar.ImageUrl = this.Get<IAvatars>().GetAvatarUrlForCurrentUser();
 
             var unreadCount = this.PageContext.UnreadPrivate + this.PageContext.PendingBuddies
                                                              + this.PageContext.Mention

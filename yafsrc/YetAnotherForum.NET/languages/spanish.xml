@@ -6650,6 +6650,8 @@ Visita {forumname} en {forumlink}
     <Resource tag="MYNOTIFY_TITLE">Shows your unread Received Thanks, Mentions and Quotes.</Resource>
     <Resource tag="MYPROFILE">Mi perfil</Resource>
     <Resource tag="MYPROFILE_TITLE">Muestra el panel de control de usuario.</Resource>
+    <Resource tag="MYSETTINGS">My Settings</Resource>
+    <Resource tag="MYSETTINGs_TITLE">Edit your user details and settings.</Resource>
     <Resource tag="MYTOPICS">Mis temas</Resource>
     <Resource tag="MYTOPICS_TITLE">Muestra los temas activos y favoritos.</Resource>
     <Resource tag="NEWPM">({0} Sin leer)</Resource>

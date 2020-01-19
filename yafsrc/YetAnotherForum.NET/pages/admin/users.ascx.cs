@@ -46,6 +46,7 @@ namespace YAF.Pages.Admin
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
+    using YAF.Types.Flags;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
     using YAF.Utils;
@@ -200,15 +201,16 @@ namespace YAF.Pages.Admin
         /// <summary>
         /// The get is user disabled label.
         /// </summary>
-        /// <param name="userName">
-        /// The user name.
+        /// <param name="userFlag">
+        /// The user Flag.
         /// </param>
         /// <returns>
         /// The <see cref="string"/>.
         /// </returns>
-        protected string GetIsUserDisabledLabel(string userName)
+        protected string GetIsUserDisabledLabel(object userFlag)
         {
-            return UserMembershipHelper.GetUser(userName).IsApproved
+            var flag = new UserFlags((int)userFlag);
+            return flag.IsApproved
                        ? string.Empty
                        : $@"<span class=""badge badge-warning"">{this.GetText("DISABLED")}</span>";
         }

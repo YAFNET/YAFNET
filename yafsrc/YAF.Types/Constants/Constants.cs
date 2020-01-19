@@ -157,11 +157,6 @@ namespace YAF.Types.Constants
             public const string TaskModule = "YafTaskModule";
 
             /// <summary>
-            ///   The user boxes.
-            /// </summary>
-            public const string UserBoxes = "UserBoxes";
-
-            /// <summary>
             ///   The user buddies.
             /// </summary>
             public const string UserBuddies = "UserBuddies{0}";

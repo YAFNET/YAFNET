@@ -7,13 +7,12 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace YAF.Controls {
-    using System.Web.UI.WebControls;
+namespace YAF.Controls
+{
 
-    using YAF.Web.Controls;
 
-    public partial class ProfileYourAccount {
-        
+    public partial class ProfileYourAccount
+    {
 
         /// <summary>
         /// AvatarImage control.
@@ -22,8 +21,7 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected Image AvatarImage;
-        
+        protected global::System.Web.UI.WebControls.Image AvatarImage;
 
         /// <summary>
         /// YourAccountLocalized control.
@@ -32,8 +30,7 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected LocalizedLabel YourAccountLocalized;
-        
+        protected global::YAF.Web.Controls.LocalizedLabel YourAccountLocalized;
 
         /// <summary>
         /// YourUsernameLocalized control.
@@ -42,8 +39,7 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected LocalizedLabel YourUsernameLocalized;
-        
+        protected global::YAF.Web.Controls.LocalizedLabel YourUsernameLocalized;
 
         /// <summary>
         /// Name control.
@@ -52,8 +48,7 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected Label Name;
-        
+        protected global::System.Web.UI.WebControls.Label Name;
 
         /// <summary>
         /// DisplayNameHolder control.
@@ -62,8 +57,7 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected PlaceHolder DisplayNameHolder;
-        
+        protected global::System.Web.UI.WebControls.PlaceHolder DisplayNameHolder;
 
         /// <summary>
         /// LocalizedLabel1 control.
@@ -72,8 +66,7 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected LocalizedLabel LocalizedLabel1;
-        
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel1;
 
         /// <summary>
         /// DisplayName control.
@@ -82,8 +75,7 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected Label DisplayName;
-        
+        protected global::System.Web.UI.WebControls.Label DisplayName;
 
         /// <summary>
         /// YourEmailLocalized control.
@@ -92,8 +84,7 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected LocalizedLabel YourEmailLocalized;
-        
+        protected global::YAF.Web.Controls.LocalizedLabel YourEmailLocalized;
 
         /// <summary>
         /// AccountEmail control.
@@ -102,8 +93,7 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected Label AccountEmail;
-        
+        protected global::System.Web.UI.WebControls.Label AccountEmail;
 
         /// <summary>
         /// NumPostsLocalized control.
@@ -112,8 +102,7 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected LocalizedLabel NumPostsLocalized;
-        
+        protected global::YAF.Web.Controls.LocalizedLabel NumPostsLocalized;
 
         /// <summary>
         /// NumPosts control.
@@ -122,8 +111,7 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected Label NumPosts;
-        
+        protected global::System.Web.UI.WebControls.Label NumPosts;
 
         /// <summary>
         /// GroupsLocalized control.
@@ -132,8 +120,7 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected LocalizedLabel GroupsLocalized;
-        
+        protected global::YAF.Web.Controls.LocalizedLabel GroupsLocalized;
 
         /// <summary>
         /// Groups control.
@@ -142,8 +129,7 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected Repeater Groups;
-        
+        protected global::System.Web.UI.WebControls.Repeater Groups;
 
         /// <summary>
         /// JoinedLocalized control.
@@ -152,8 +138,7 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected LocalizedLabel JoinedLocalized;
-        
+        protected global::YAF.Web.Controls.LocalizedLabel JoinedLocalized;
 
         /// <summary>
         /// Joined control.
@@ -162,6 +147,6 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected Label Joined;
+        protected global::System.Web.UI.WebControls.Label Joined;
     }
 }

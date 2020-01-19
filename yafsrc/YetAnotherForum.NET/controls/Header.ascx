@@ -99,7 +99,8 @@
                                          this.Get<BoardSettings>().EnableDisplayName ? this.PageContext.CurrentUserData.DisplayName : this.PageContext.CurrentUserData.UserName) %>" 
                            role="button" 
                            aria-haspopup="true" aria-expanded="false">
-                            <YAF:Icon runat="server" ID="UserIcon"></YAF:Icon>
+                            <asp:Image runat="server" ID="UserAvatar"
+                                       CssClass="img-navbar-avatar mr-1 rounded"/>
                             <%= this.Get<BoardSettings>().EnableDisplayName ? this.PageContext.CurrentUserData.DisplayName : this.PageContext.CurrentUserData.UserName  %>
                             <asp:PlaceHolder runat="server" id="UnreadPlaceHolder">
                                 <asp:Label runat="server" ID="UnreadLabel" 
@@ -110,7 +111,10 @@
                         <div class="dropdown-menu" aria-labelledby="userDropdown">
                             <asp:PlaceHolder id="MyProfile" runat="server">
                             </asp:PlaceHolder>
-                            <asp:PlaceHolder id="MyActicity" runat="server">
+                            <asp:PlaceHolder id="MySettings" runat="server">
+                            </asp:PlaceHolder>
+                            <div class="dropdown-divider"></div>
+                            <asp:PlaceHolder runat="server" ID="MyNotification">
                             </asp:PlaceHolder>
                             <asp:PlaceHolder ID="MyInboxItem" runat="server">
                             </asp:PlaceHolder>

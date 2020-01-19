@@ -96,3 +96,13 @@ span.form-check > label {
     overflow: auto;
     white-space: pre-line;
 }
+
+.img-navbar-avatar {
+    position: relative;
+    margin-bottom: 0;
+    display: inline-block;
+    max-width: 2rem;
+    max-height: 2rem;
+    font-size: 2rem;
+    vertical-align: middle;
+}

@@ -2,6 +2,7 @@
     CodeBehind="users.ascx.cs" %>
 <%@ Import Namespace="YAF.Types.Interfaces" %>
 <%@ Import Namespace="YAF.Types.Extensions" %>
+<%@ Import Namespace="YAF.Types.Flags" %>
 
 <%@ Register TagPrefix="modal" TagName="Import" Src="../../Dialogs/UsersImport.ascx" %>
 
@@ -129,7 +130,7 @@
                             <li class="list-group-item list-group-item-action list-group-item-menu">
                                 <div class="d-flex w-100 justify-content-between">
                                     <h5 class="mb-1 text-break">
-                                        <%# this.GetIsUserDisabledLabel(this.Eval("Name").ToString())%>
+                                        <%# this.GetIsUserDisabledLabel(this.Eval("Flags"))%>
                                         <asp:LinkButton ID="NameEdit" runat="server" CommandName="edit" CommandArgument='<%# this.Eval("UserID") %>'
                                                         Text='<%# this.HtmlEncode( this.Eval("Name").ToString() ) %>' />
                                         (<asp:LinkButton ID="DisplayNameEdit" runat="server" CommandName="edit" CommandArgument='<%# this.Eval("UserID") %>'

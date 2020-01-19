@@ -8582,6 +8582,15 @@ span.form-check > label {
 .img-avatar-sm {
   max-height: 40px; }
 
+.img-navbar-avatar {
+  position: relative;
+  margin-bottom: 0;
+  display: inline-block;
+  max-width: 2rem;
+  max-height: 2rem;
+  font-size: 2rem;
+  vertical-align: middle; }
+
 .blockquote-custom {
   position: relative;
   font-size: 1.1rem; }

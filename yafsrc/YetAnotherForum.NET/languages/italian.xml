@@ -6285,6 +6285,8 @@ Visita il forum {forumname} su {forumlink}
     <Resource tag="MYNOTIFY_TITLE">Shows your unread Received Thanks, Mentions and Quotes.</Resource>
     <Resource tag="MYPROFILE">Profilo</Resource>
     <Resource tag="MYPROFILE_TITLE">Mostra il pannello di controllo del profilo utente.</Resource>
+    <Resource tag="MYSETTINGS">My Settings</Resource>
+    <Resource tag="MYSETTINGs_TITLE">Edit your user details and settings.</Resource>
     <Resource tag="MYTOPICS">Le mie discussioni</Resource>
     <Resource tag="MYTOPICS_TITLE">Mostra discussioni attive e preferite.</Resource>
     <Resource tag="NEWPM">({0} non letti)</Resource>
