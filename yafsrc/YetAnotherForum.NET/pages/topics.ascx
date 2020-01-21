@@ -20,7 +20,7 @@
                     <i class="fas fa-comments fa-fw text-secondary"></i>&nbsp;<%= this.GetSubForumTitle()%>
                 </div>
                 <div class="card-body" id="body" runat="server">
-                    <YAF:ForumList AltLastPost="<%# this.LastPostImageTT %>" runat="server" ID="ForumList" />
+                    <YAF:ForumList runat="server" ID="ForumList" />
                 </div>
             </div>
         </div>
