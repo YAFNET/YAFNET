@@ -1,6 +1,10 @@
 YetAnotherForum.NET Changelog
 ====================
 
+# YetAnotherForum.NET v2.3.0.07
+* [FIXED #528] Topics view
+* [FIXED] csv user import commas inside quotes
+
 # YetAnotherForum.NET v2.3.0.06
 * Bug fixes
 

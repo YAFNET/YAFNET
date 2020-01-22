@@ -99,7 +99,7 @@ namespace YAF.Utils
                 const int Major = 2;
                 const byte Minor = 3;
                 const byte Build = 0;
-                const byte Sub = 6;
+                const byte Sub = 7;
 
                 const ReleaseType ReleaseType = ReleaseType.Regular;
                 const byte ReleaseNumber = 0;
@@ -121,7 +121,7 @@ namespace YAF.Utils
         /// <summary>
         /// Gets the Current YAF Build Date
         /// </summary>
-        public static DateTime AppVersionDate => new DateTime(2020, 01, 12, 10, 20, 00);
+        public static DateTime AppVersionDate => new DateTime(2020, 01, 22, 08, 26, 00);
 
         /// <summary>
         /// Creates a string that is the YAF Application Version from a long value
