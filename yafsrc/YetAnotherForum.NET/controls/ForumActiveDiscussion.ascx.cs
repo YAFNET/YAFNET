@@ -163,6 +163,8 @@ namespace YAF.Controls
                                             DateTimeFormat.BothTopic,
                                             lastPostedDateTime);
 
+            var span = this.Get<BoardSettings>().ShowRelativeTime ? @"<span class=""popover-timeago"">" : "<span>";
+
             info.TextLocalizedTag = "by";
             info.TextLocalizedPage = "DEFAULT";
             info.ParamText0 = this.Get<BoardSettings>().EnableDisplayName
@@ -175,7 +177,7 @@ namespace YAF.Controls
                                                     <i class=""fa fa-calendar-day fa-stack-1x text-secondary""></i>
                                                     <i class=""fa fa-circle fa-badge-bg fa-inverse fa-outline-inverse""></i>
                                                     <i class=""fa fa-clock fa-badge text-secondary""></i>
-                                                </span>&nbsp;<span class=""popover-timeago"">{formattedDatetime}</span>
+                                                </span>&nbsp;{span}{formattedDatetime}</span>
                          ";
         }
 

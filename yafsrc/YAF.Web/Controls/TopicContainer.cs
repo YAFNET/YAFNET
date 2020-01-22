@@ -180,6 +180,8 @@ namespace YAF.Web.Controls
                                            Style = this.TopicRow["StarterStyle"].ToString()
                                        };
 
+            var span = this.Get<BoardSettings>().ShowRelativeTime ? @"<span class=""popover-timeago"">" : "<span>";
+
             topicLink.Attributes.Add(
                 "data-content",
                 $@"{topicStarterLink.RenderToString()}
@@ -187,7 +189,7 @@ namespace YAF.Web.Controls
                                                     <i class=""fa fa-calendar-day fa-stack-1x text-secondary""></i>
                                                     <i class=""fa fa-circle fa-badge-bg fa-inverse fa-outline-inverse""></i>
                                                     <i class=""fa fa-clock fa-badge text-secondary""></i>
-                                                </span>&nbsp;<span class=""popover-timeago"">{formattedStartedDatetime}</span>
+                                                </span>&nbsp;{span}{formattedStartedDatetime}</span>
                          ");
 
             if (!this.TopicRow["LastMessageID"].IsNullOrEmptyDBField())
@@ -289,7 +291,7 @@ namespace YAF.Web.Controls
                                                     <i class=""fa fa-calendar-day fa-stack-1x text-secondary""></i>
                                                     <i class=""fa fa-circle fa-badge-bg fa-inverse fa-outline-inverse""></i>
                                                     <i class=""fa fa-clock fa-badge text-secondary""></i>
-                                                </span>&nbsp;<span class=""popover-timeago"">{formattedDatetime}</span>
+                                                </span>&nbsp;{span}{formattedDatetime}</span>
                          ";
 
                 infoLastPost.TextLocalizedTag = "by";
