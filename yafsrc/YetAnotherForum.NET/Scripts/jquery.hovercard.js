@@ -7,7 +7,7 @@
 (function($) {
     $.fn.hovercard = function(options) {
 
-        //Set defauls for the control
+        //Set defaults for the control
         var defaults = {
             openOnLeft: false,
             openOnTop: false,
@@ -15,15 +15,7 @@
             detailsHTML: "",
             loadingHTML: "Loading...",
             errorHTML: "Sorry, no data found.",
-            twitterURL: "",
-            twitterScreenName: '',
-            showTwitterCard: false,
             showYafCard: false,
-            facebookUserName: '',
-            showFacebookCard: false,
-            showCustomCard: false,
-            customCardJSON: {},
-            customDataUrl: '',
             background: "#ffffff",
             delay: 0,
             autoAdjust: true,
@@ -44,14 +36,14 @@
             //add a relatively positioned class to the selected element
             obj.addClass("hc-name");
 
-            //if card image src provided then generate the image elementk
-            var hcImg = '';
+            //if card image src provided then generate the image element
+            var hcImg = "";
             if (options.cardImgSrc.length > 0) {
                 hcImg = '<img class="hc-pic" src="' + options.cardImgSrc + '" />';
             }
 
             //generate details span with html provided by the user
-            var hcDetails = '<div class="hc-details ui-widget ui-widget-content ui-corner-all" >' + hcImg + options.detailsHTML + '</div>';
+            var hcDetails = '<div class="hc-details ui-widget ui-widget-content ui-corner-all" >' + hcImg + options.detailsHTML + "</div>";
 
             //append this detail after the selected element
             obj.after(hcDetails);
@@ -63,70 +55,30 @@
                 var $this = $(this);
                 adjustToViewPort($this);
 
-                // Up the z indiex for the .hc-name to overlay on .hc-details
+                // Up the z index for the .hc-name to overlay on .hc-details
                 obj.css("zIndex", "200");
 
                 var curHCDetails = $this.find(".hc-details").eq(0);
                 curHCDetails.stop(true, true).delay(options.delay).fadeIn();
 
-                //Default functionality on hoverin, and also allows callback
-                if (typeof options.onHoverIn == 'function') {
+                // Default functionality on hover in, and also allows callback
+                if (typeof options.onHoverIn == "function") {
 
                     //check for custom profile. If already loaded don't load again
                     var dataUrl;
-                    if (options.showCustomCard && curHCDetails.find('.s-card').length <= 0) {
-
-                        //Read data-hovercard url from the hovered element, otherwise look in the options. For custom card, complete url is required than just username.
-                        dataUrl = options.customDataUrl;
-                        if (typeof obj.attr('data-hovercard') == 'undefined') {
-                            //do nothing. detecting typeof obj.attr('data-hovercard') != 'undefined' didn't work as expected.
-                        } else if (obj.attr('data-hovercard').length > 0) {
-                            dataUrl = obj.attr('data-hovercard');
-                        }
-
-                        LoadSocialProfile("custom", "", dataUrl, curHCDetails, options.customCardJSON);
-                    }
 
                     //check for yaf profile. If already loaded don't load again
-                    if (options.showYafCard && curHCDetails.find('.s-card').length <= 0) {
+                    if (options.showYafCard && curHCDetails.find(".s-card").length <= 0) {
 
                         //Read data-hovercard url from the hovered element, otherwise look in the options. For custom card, complete url is required than just username.
                         dataUrl = options.customDataUrl;
-                        if (typeof obj.attr('data-hovercard') == 'undefined') {
+                        if (typeof obj.attr("data-hovercard") == "undefined") {
                             //do nothing. detecting typeof obj.attr('data-hovercard') != 'undefined' didn't work as expected.
-                        } else if (obj.attr('data-hovercard').length > 0) {
-                            dataUrl = obj.attr('data-hovercard');
+                        } else if (obj.attr("data-hovercard").length > 0) {
+                            dataUrl = obj.attr("data-hovercard");
                         }
 
-                        LoadSocialProfile("yaf", '', dataUrl, curHCDetails, options.customCardJSON);
-                    }
-
-                    //check for twitter profile. If already loaded don't load again
-                    if (options.showTwitterCard && curHCDetails.find('.s-card').eq(0).length <= 0) {
-
-                        //Look for twitter screen name in data-hovercard first, then in options, otherwise try with the hovered text
-                        var tUsername = options.twitterScreenName.length > 0 ? options.twitterScreenName : obj.text();
-                        if (typeof obj.attr('data-hovercard') == 'undefined') {
-                            //do nothing. detecting typeof obj.attr('data-hovercard') != 'undefined' didn't work as expected.
-                        } else if (obj.attr('data-hovercard').length > 0) {
-                            tUsername = obj.attr('data-hovercard');
-                        }
-
-                        LoadSocialProfile("twitter", obj.attr('href') + dataUrl, tUsername, curHCDetails);
-                    }
-
-                    //check for facebook profile. If already loaded don't load again
-                    if (options.showFacebookCard && curHCDetails.find('.s-card').eq(0).length <= 0) {
-
-                        //Look for twitter screen name in data-hovercard first, then in options, otherwise try with the hovered text
-                        var fbUsername = options.facebookUserName.length > 0 ? options.facebookUserName : obj.text();
-                        if (typeof obj.attr('data-hovercard') == 'undefined') {
-                            //do nothing. detecting typeof obj.attr('data-hovercard') != 'undefined' didn't work as expected.
-                        } else if (obj.attr('data-hovercard').length > 0) {
-                            fbUsername = obj.attr('data-hovercard');
-                        }
-
-                        LoadSocialProfile("facebook", "", fbUsername, curHCDetails);
+                        LoadSocialProfile("yaf", "", dataUrl, curHCDetails, options.customCardJSON);
                     }
 
                     $("body").on("keydown", function (event) {
@@ -155,7 +107,7 @@
                     //Undo the z indices
                     obj.css("zIndex", "50");
 
-                    if (typeof options.onHoverOut == 'function') {
+                    if (typeof options.onHoverOut == "function") {
                         options.onHoverOut.call(this);
                     }
                 });
@@ -167,15 +119,13 @@
 
             function adjustToViewPort(hcPreview) {
 
-                var hcDetails = hcPreview.find('.hc-details').eq(0);
+                var hcDetails = hcPreview.find(".hc-details").eq(0);
                 var hcPreviewRect = hcPreview[0].getBoundingClientRect();
 
-                var hcdTop = hcPreviewRect.top - 20; //Subtracting 20px of padding;
                 var hcdRight = hcPreviewRect.left + 35 + hcDetails.width(); //Adding 35px of padding;
                 var hcdBottom = hcPreviewRect.top + 35 + hcDetails.height(); //Adding 35px of padding;
-                var hcdLeft = hcPreviewRect.top - 10; //Subtracting 10px of padding;
-
-                //Check for forced open directions, or if need to be autoadjusted
+                
+                //Check for forced open directions, or if need to be auto adjusted
                 if (options.openOnLeft || (options.autoAdjust && (hcdRight > window.innerWidth))) {
                     hcDetails.addClass("hc-details-open-left");
                 } else {
@@ -194,136 +144,41 @@
                 var cardHTML, dataType, urlToRequest, customCallback, loadingHTML, errorHTML;
 
                 switch (type) {
-                case "twitter":
-                    {
-                        dataType = 'json',
-                        urlToRequest = options.twitterURL + username;
-                        cardHTML = function (profileData) {
-                            profileData = profileData[0];
-                            return '<div class="s-card s-card-pad">' +
-                                (profileData.profile_image_url ? ('<img class="s-img" src="' + profileData.profile_image_url + '" />') : '') +
-                                (profileData.name ? ('<label class="s-name">' + profileData.name + ' </label>') : '') +
-                                (profileData.screen_name ? ('(<a class="s-username" title="Visit Twitter profile for ' + profileData.name + '" href="http://twitter.com/' + profileData.screen_name + '">@' + profileData.screen_name + '</a>)<br/>') : '') +
-                                (profileData.location ? ('<label class="s-loc">' + profileData.location + '</label>') : '') +
-                                (profileData.description ? ('<p class="s-desc">' + profileData.description + '</p>') : '') +
-                                (profileData.url ? ('<a class="s-href" href="' + profileData.url + '">' + profileData.url + '</a><br/>') : '') +
-                                '<ul class="s-stats">' +
-                                (profileData.statuses_count ? ('<li>Tweets<br /><span class="s-count">' + profileData.statuses_count + '</span></li>') : '') +
-                                (profileData.friends_count ? ('<li>Following<br /><span class="s-count">' + profileData.friends_count + '</span></li>') : '') +
-                                (profileData.followers_count ? ('<li>Followers<br /><span class="s-count">' + profileData.followers_count + '</span></li>') : '') +
-                                '</ul>' +
-                                '</div>';
-                        };
-
-                        loadingHTML = options.loadingHTML;
-                        errorHTML = options.errorHTML;
-                        customCallback = function() {
-                        };
-
-                        //Append the twitter script to the document to add a follow button
-                        if ($('#t-follow-script').length <= 0) {
-                            var script = document.createElement('script');
-                            script.type = 'text/javascript';
-                            script.src = '//platform.twitter.com/widgets.js';
-                            script.id = 't-follow-script';
-                            $('body').append(script);
-                        }
-                        curHCDetails.append('<span class="s-action"><a href="https://twitter.com/' + username + '" class="twitter-follow-button" data-show-count="false" data-show-name="false" data-button="grey" data-width="65px" class="twitter-follow-button">Follow</a></span>');
-                        curHCDetails.append('<span class="s-action s-close"><a href="javascript:void(0)"><i class="fa fa-close fa-fw"></i></a></span>');
-                    }
-
-                    break;
-                case "facebook":
-                    {
-                        dataType = 'json',
-                        urlToRequest = 'https://graph.facebook.com/' + username,
-                        cardHTML = function(profileData) {
-                            return '<div class="s-card s-card-pad">' +
-                                '<img class="s-img" src="http://graph.facebook.com/' + profileData.id + '/picture" />' +
-                                '<label class="s-name">' + profileData.name + ' </label><br/>' +
-                                (profileData.link ? ('<a class="s-loc" href="' + profileData.link + '">' + profileData.link + '</a><br/>') : '') +
-                                (profileData.likes ? ('<label class="s-loc">Liked by </span> ' + profileData.likes + '</label><br/>') : '') +
-                                (profileData.description ? ('<p class="s-desc">' + profileData.description + '</p>') : '') +
-                                (profileData.start_time ? ('<p class="s-desc"><span class="s-strong">Start Time:</span><br/>' + profileData.start_time + '</p>') : '') +
-                                (profileData.end_time ? ('<p class="s-desc"><span class="s-strong">End Time:<br/>' + profileData.end_time + '</p>') : '') +
-                                (profileData.founded ? ('<p class="s-desc"><span class="s-strong">Founded:</span><br/>' + profileData.founded + '</p>') : '') +
-                                (profileData.mission ? ('<p class="s-desc"><span class="s-strong">Mission:</span><br/>' + profileData.mission + '</p>') : '') +
-                                (profileData.company_overview ? ('<p class="s-desc"><span class="s-strong">Overview:</span><br/>' + profileData.company_overview + '</p>') : '') +
-                                (profileData.products ? ('<p class="s-desc"><span class="s-strong">Products:</span><br/>' + profileData.products + '</p>') : '') +
-                                (profileData.website ? ('<p class="s-desc"><span class="s-strong">Web:</span><br/><a href="' + profileData.website + '">' + profileData.website + '</a></p>') : '') +
-                                (profileData.email ? ('<p class="s-desc"><span class="s-strong">Email:</span><br/><a href="' + profileData.email + '">' + profileData.email + '</a></p>') : '') +
-                                '</div>';
-                        };
-                        loadingHTML = options.loadingHTML;
-                        errorHTML = options.errorHTML;
-
-                        customCallback = function(profileData) {
-                            if ($('#fb-like' + profileData.id).length > 0) {
-                                curHCDetails.append('<span class="s-action">' + $('#fb-like' + profileData.id).html() + '</span>');
-                            } else {
-                                curHCDetails.append('<span class="s-action"><div class="fb-like" id="fb-like' + profileData.id + '"><iframe src="//www.facebook.com/plugins/like.php?href=' + profileData.link + ';send=false&amp;layout=standard&amp;width=90&amp;show_faces=false&amp;action=like&amp;layout=button_count&amp;font&amp;height=21&amp" scrolling="no" frameborder="0" style="border:none; overflow:hidden;width:77px;height:21px" allowTransparency="true"></iframe></div></span>');
-                                curHCDetails.append('<span class="s-action s-close"><a href="javascript:void(0)"><i class="fa fa-close fa-fw"></i></a></span>');
-                            }
-                        };
-                    }
-                    break;
-                case "custom":
-                    {
-                        dataType = 'jsonp',
-                        urlToRequest = username,
-                        cardHTML = function(profileData) {
-                            profileData = profileData[0];
-                            return '<div class="s-card s-card-pad">' +
-                                (profileData.image ? ('<img class="s-img" src=' + profileData.image + ' />') : '') +
-                                (profileData.name ? ('<label class="s-name">' + profileData.name + ' </label><br/>') : '') +
-                                (profileData.link ? ('<a class="s-loc" href="' + profileData.link + '">' + profileData.link + '</a><br/>') : '') +
-                                (profileData.bio ? ('<p class="s-desc">' + profileData.bio + '</p>') : '') +
-                                (profileData.website ? ('<p class="s-desc"><span class="s-strong">Web:</span><br/><a href="' + profileData.website + '">' + profileData.website + '</a></p>') : '') +
-                                (profileData.email ? ('<p class="s-desc"><span class="s-strong">Email:</span><br/><a href="' + profileData.email + '">' + profileData.email + '</a></p>') : '') +
-                                '</div>';
-                        };
-                        loadingHTML = options.loadingHTML;
-                        errorHTML = options.errorHTML;
-                        customCallback = function() {
-                        };
-                    }
-                    break;
                 case "yaf":
                     {
-                        dataType = 'json',
+                        dataType = "json",
                         urlToRequest = username,
                         cardHTML = function(profileData) {
 
-                            var online = profileData.Online ? 'green' : 'red';
+                            var online = profileData.Online ? "green" : "red";
                             var shtml = '<div class="s-card s-card-pad">' +
                                             '<div class="card rounded-0" style="width: 330px;">' +
                                                 '<div class="card-header position-relative">' +
-                                                    '<h6 class="card-title text-center">' + (profileData.RealName ? profileData.RealName : profileData.Name) + '</h6>' +
-                                                    (profileData.Avatar ? ('<img src="' + profileData.Avatar + '" class="rounded mx-auto d-block" style="width:75px" alt="" />') : '') +
-                                                    (profileData.Avatar ? ('<div class="position-absolute" style="top:0;right:0;border-width: 0 25px 25px 0; border-style: solid; border-color: transparent ' + online + ';" ></div>') : '') +
-                                                '</div>' +
+                                                    '<h6 class="card-title text-center">' + (profileData.RealName ? profileData.RealName : profileData.Name) + "</h6>" +
+                                                    (profileData.Avatar ? '<img src="' + profileData.Avatar + '" class="rounded mx-auto d-block" style="width:75px" alt="" />' : "") +
+                                                    (profileData.Avatar ? '<div class="position-absolute" style="top:0;right:0;border-width: 0 25px 25px 0; border-style: solid; border-color: transparent ' + online + ';" ></div>' : "") +
+                                                "</div>" +
                                             '<div class="card-body p-2">' +
                                                 '<ul class="list-group mt-1 mb-3">' +
-                                                    (profileData.Location ? ('<li class="list-group-item px-2 py-1">' + profileData.Location + '</li>') : '') +
-                                                    (profileData.Rank ? ('<li class="list-group-item px-2 py-1">' + profileData.Rank + '</li>') : '') +
-                                                    (profileData.Interests ? ('<li class="list-group-item px-2 py-1">' + profileData.Interests + '</li>') : '') +
-                                                    (profileData.Joined ? ('<li class="list-group-item px-2 py-1">Member since: ' + profileData.Joined + '</li>') : '') +
-                                                    (profileData.HomePage ? ('<li class="list-group-item px-2 py-1"><a href="' + profileData.HomePage + '" target="_blank">' + profileData.HomePage + '</a></li>') : '') +
-                                                '</ul >' +
+                                                    (profileData.Location ? '<li class="list-group-item px-2 py-1">' + profileData.Location + "</li>" : "") +
+                                                    (profileData.Rank ? '<li class="list-group-item px-2 py-1">' + profileData.Rank + "</li>" : "") +
+                                                    (profileData.Interests ? '<li class="list-group-item px-2 py-1">' + profileData.Interests + "</li>" : "") +
+                                                    (profileData.Joined ? '<li class="list-group-item px-2 py-1">Member since: ' + profileData.Joined + "</li>" : "") +
+                                                    (profileData.HomePage ? '<li class="list-group-item px-2 py-1"><a href="' + profileData.HomePage + '" target="_blank">' + profileData.HomePage + "</a></li>" : "") +
+                                                "</ul >" +
                                                 '<div class="row no-gutters">' +
                                                     '<div class="col-5 p-1 small bg-secondary text-white d-flex align-items-center justify-content-between">' +
-                                                        'Posts:&nbsp;<span class="badge badge-light rounded">' + profileData.Posts + '</span>' +
-                                                    '</div>' +
+                                                        'Posts:&nbsp;<span class="badge badge-light rounded">' + profileData.Posts + "</span>" +
+                                                    "</div>" +
                                 (profileData.Points ? '<div class="flex-grow-1"></div>' +
                                                     '<div class="col-5 p-1 small bg-secondary text-white d-flex align-items-center justify-content-between">' +
-                                                        'Reputation:&nbsp;<span class="badge badge-light rounded">' + profileData.Points + '</span>' +
-                                                    '</div>' : "") +
-                                                '</div>' +
-                                                (profileData.ActionButtons ? ('<div class="row no-gutters">' + profileData.ActionButtons + '</div>') : '') +
-                                                '</div>' +
-                                            '</div>' +
-                                        '</div>';
-                            //alert (shtml);
+                                                        'Reputation:&nbsp;<span class="badge badge-light rounded">' + profileData.Points + "</span>" +
+                                                    "</div>" : "") +
+                                                "</div>" +
+                                                (profileData.ActionButtons ? '<div class="row no-gutters">' + profileData.ActionButtons + "</div>" : "") +
+                                                "</div>" +
+                                            "</div>" +
+                                        "</div>";
                             return shtml;
 
                         };
@@ -336,48 +191,43 @@
                     }
                     break;
                 default:
-                    {
-                    }
                     break;
                 }
 
                 if ($.isEmptyObject(customCardJSON)) {
 					$.ajax({
                         url: urlToRequest,
-                        type: 'GET',
+                        type: "GET",
                         dataType: dataType, //jsonp for cross domain request
                         timeout: 6000, //timeout if cross domain request didn't respond, or failed silently
                         // crossDomain: true,
                         cache: true,
                         beforeSend: function() {
-                            curHCDetails.find('.s-message').remove();
-                            curHCDetails.append('<p class="s-message">' + loadingHTML + '</p>');
+                            curHCDetails.find(".s-message").remove();
+                            curHCDetails.append('<p class="s-message">' + loadingHTML + "</p>");
                         },
                         success: function(data) {
                             if (data.length <= 0) {
-
-                                curHCDetails.find('.s-message').html(errorHTML);
+                                curHCDetails.find(".s-message").html(errorHTML);
                             } else {
-                                curHCDetails.find('.s-message').replaceWith(cardHTML(data));
+                                curHCDetails.find(".s-message").replaceWith(cardHTML(data));
                                 //curHCDetails.prepend(cardHTML(data));
 
                                 $(".hc-details").hide();
 
-                                adjustToViewPort(curHCDetails.closest('.hc-preview'));
+                                adjustToViewPort(curHCDetails.closest(".hc-preview"));
                                 curHCDetails.stop(true, true).delay(options.delay).fadeIn();
                                 customCallback(data);
                             }
                         },
-                        error: function(jqXHR, textStatus, errorThrown) {
-                            curHCDetails.find('.s-message').html(errorHTML + errorThrown);
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            curHCDetails.find(".s-message").html(errorHTML + errorThrown);
                         }
                     });
                 } else {
                     curHCDetails.prepend(cardHTML(customCardJSON));
                 }
             }
-
-            ;
         });
 
     };
