@@ -24,11 +24,11 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using BytesRef = Lucene.Net.Util.BytesRef;
-    using Counter = Lucene.Net.Util.Counter;
-    using DocValuesConsumer = Lucene.Net.Codecs.DocValuesConsumer;
-    using DocValuesFormat = Lucene.Net.Codecs.DocValuesFormat;
-    using IOUtils = Lucene.Net.Util.IOUtils;
+    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
+    using Counter = YAF.Lucene.Net.Util.Counter;
+    using DocValuesConsumer = YAF.Lucene.Net.Codecs.DocValuesConsumer;
+    using DocValuesFormat = YAF.Lucene.Net.Codecs.DocValuesFormat;
+    using IOUtils = YAF.Lucene.Net.Util.IOUtils;
 
     internal sealed class DocValuesProcessor : StoredFieldsConsumer
     {

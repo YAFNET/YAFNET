@@ -1,4 +1,4 @@
-using YAF.Lucene.Net.Support;
+using J2N.Text;
 using System;
 using System.Runtime.CompilerServices;
 
@@ -21,8 +21,8 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using DocValuesConsumer = Lucene.Net.Codecs.DocValuesConsumer;
-    using Similarity = Lucene.Net.Search.Similarities.Similarity;
+    using DocValuesConsumer = YAF.Lucene.Net.Codecs.DocValuesConsumer;
+    using Similarity = YAF.Lucene.Net.Search.Similarities.Similarity;
 
     internal sealed class NormsConsumerPerField : InvertedDocEndConsumerPerField, IComparable<NormsConsumerPerField>
     {

@@ -20,7 +20,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
      * limitations under the License.
      */
 
-    using IndexInput = Lucene.Net.Store.IndexInput;
+    using IndexInput = YAF.Lucene.Net.Store.IndexInput;
 
     [Obsolete("(4.0) this is only used to read indexes created before 4.0.")]
     internal sealed class Lucene3xSkipListReader : MultiLevelSkipListReader

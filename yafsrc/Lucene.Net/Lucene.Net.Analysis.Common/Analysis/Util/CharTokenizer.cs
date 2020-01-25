@@ -1,7 +1,7 @@
-﻿using System.Diagnostics;
+﻿using J2N;
+using System.Diagnostics;
 using System.IO;
 using YAF.Lucene.Net.Analysis.TokenAttributes;
-using YAF.Lucene.Net.Support;
 using YAF.Lucene.Net.Util;
 
 namespace YAF.Lucene.Net.Analysis.Util

@@ -1,8 +1,8 @@
-using YAF.Lucene.Net.Support;
-using System.Collections.Generic;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using JCG = J2N.Collections.Generic;
 
 namespace YAF.Lucene.Net.Search.Spans
 {
@@ -23,12 +23,12 @@ namespace YAF.Lucene.Net.Search.Spans
      * limitations under the License.
      */
 
-    using AtomicReaderContext = Lucene.Net.Index.AtomicReaderContext;
-    using IBits = Lucene.Net.Util.IBits;
-    using IndexReader = Lucene.Net.Index.IndexReader;
-    using Term = Lucene.Net.Index.Term;
-    using TermContext = Lucene.Net.Index.TermContext;
-    using ToStringUtils = Lucene.Net.Util.ToStringUtils;
+    using AtomicReaderContext = YAF.Lucene.Net.Index.AtomicReaderContext;
+    using IBits = YAF.Lucene.Net.Util.IBits;
+    using IndexReader = YAF.Lucene.Net.Index.IndexReader;
+    using Term = YAF.Lucene.Net.Index.Term;
+    using TermContext = YAF.Lucene.Net.Index.TermContext;
+    using ToStringUtils = YAF.Lucene.Net.Util.ToStringUtils;
 
     /// <summary>
     /// Matches the union of its clauses. </summary>
@@ -37,16 +37,23 @@ namespace YAF.Lucene.Net.Search.Spans
         , System.ICloneable
 #endif
     {
-        private readonly EquatableList<SpanQuery> clauses;
+        private readonly IList<SpanQuery> clauses;
         private string field;
 
         /// <summary>
         /// Construct a <see cref="SpanOrQuery"/> merging the provided <paramref name="clauses"/>. </summary>
-        public SpanOrQuery(params SpanQuery[] clauses)
+        public SpanOrQuery(params SpanQuery[] clauses) : this((IList<SpanQuery>)clauses) { }
+
+        // LUCENENET specific overload.
+        // LUCENENET TODO: API - This constructor was added to eliminate casting with PayloadSpanUtil. Make public?
+        // It would be more useful if the type was an IEnumerable<SpanQuery>, but
+        // need to rework the allocation below. It would also be better to change AddClause() to Add() to make
+        // the C# collection initializer function.
+        internal SpanOrQuery(IList<SpanQuery> clauses)
         {
             // copy clauses array into an ArrayList
-            this.clauses = new EquatableList<SpanQuery>(clauses.Length);
-            for (int i = 0; i < clauses.Length; i++)
+            this.clauses = new JCG.List<SpanQuery>(clauses.Count);
+            for (int i = 0; i < clauses.Count; i++)
             {
                 AddClause(clauses[i]);
             }
@@ -74,13 +81,7 @@ namespace YAF.Lucene.Net.Search.Spans
             return clauses.ToArray();
         }
 
-        public override string Field
-        {
-            get
-            {
-                return field;
-            }
-        }
+        public override string Field => field;
 
         public override void ExtractTerms(ISet<Term> terms)
         {
@@ -186,7 +187,7 @@ namespace YAF.Lucene.Net.Search.Spans
                 this.outerInstance = outerInstance;
             }
 
-            protected internal override bool LessThan(Spans spans1, Spans spans2)
+            public override bool LessThan(Spans spans1, Spans spans2)
             {
                 if (spans1.Doc == spans2.Doc)
                 {

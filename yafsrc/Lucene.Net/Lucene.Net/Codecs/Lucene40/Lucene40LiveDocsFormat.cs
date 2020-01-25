@@ -21,14 +21,14 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
      * limitations under the License.
      */
 
-    using IBits = Lucene.Net.Util.IBits;
+    using IBits = YAF.Lucene.Net.Util.IBits;
 
     // javadocs
-    using Directory = Lucene.Net.Store.Directory;
-    using IndexFileNames = Lucene.Net.Index.IndexFileNames;
-    using IOContext = Lucene.Net.Store.IOContext;
-    using IMutableBits = Lucene.Net.Util.IMutableBits;
-    using SegmentCommitInfo = Lucene.Net.Index.SegmentCommitInfo;
+    using Directory = YAF.Lucene.Net.Store.Directory;
+    using IndexFileNames = YAF.Lucene.Net.Index.IndexFileNames;
+    using IOContext = YAF.Lucene.Net.Store.IOContext;
+    using IMutableBits = YAF.Lucene.Net.Util.IMutableBits;
+    using SegmentCommitInfo = YAF.Lucene.Net.Index.SegmentCommitInfo;
 
     /// <summary>
     /// Lucene 4.0 Live Documents Format.

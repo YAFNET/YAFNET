@@ -21,16 +21,16 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
      * limitations under the License.
      */
 
-    using CorruptIndexException = Lucene.Net.Index.CorruptIndexException;
-    using DocValuesType = Lucene.Net.Index.DocValuesType;
-    using Directory = Lucene.Net.Store.Directory;
-    using FieldInfo = Lucene.Net.Index.FieldInfo;
-    using FieldInfos = Lucene.Net.Index.FieldInfos;
-    using IndexFileNames = Lucene.Net.Index.IndexFileNames;
-    using IndexInput = Lucene.Net.Store.IndexInput;
-    using IndexOptions = Lucene.Net.Index.IndexOptions;
-    using IOContext = Lucene.Net.Store.IOContext;
-    using IOUtils = Lucene.Net.Util.IOUtils;
+    using CorruptIndexException = YAF.Lucene.Net.Index.CorruptIndexException;
+    using DocValuesType = YAF.Lucene.Net.Index.DocValuesType;
+    using Directory = YAF.Lucene.Net.Store.Directory;
+    using FieldInfo = YAF.Lucene.Net.Index.FieldInfo;
+    using FieldInfos = YAF.Lucene.Net.Index.FieldInfos;
+    using IndexFileNames = YAF.Lucene.Net.Index.IndexFileNames;
+    using IndexInput = YAF.Lucene.Net.Store.IndexInput;
+    using IndexOptions = YAF.Lucene.Net.Index.IndexOptions;
+    using IOContext = YAF.Lucene.Net.Store.IOContext;
+    using IOUtils = YAF.Lucene.Net.Util.IOUtils;
 
     /// <summary>
     /// Lucene 4.0 FieldInfos reader.
@@ -142,19 +142,19 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
         /*internal enum LegacyDocValuesType
         {
           NONE = null,
-          VAR_INTS = Lucene.Net.Index.FieldInfo.DocValuesType_e.NUMERIC,
-          FLOAT_32 = Lucene.Net.Index.FieldInfo.DocValuesType_e.NUMERIC,
-          FLOAT_64 = Lucene.Net.Index.FieldInfo.DocValuesType_e.NUMERIC,
-          BYTES_FIXED_STRAIGHT = Lucene.Net.Index.FieldInfo.DocValuesType_e.BINARY,
-          BYTES_FIXED_DEREF = Lucene.Net.Index.FieldInfo.DocValuesType_e.BINARY,
-          BYTES_VAR_STRAIGHT = Lucene.Net.Index.FieldInfo.DocValuesType_e.BINARY,
-          BYTES_VAR_DEREF = Lucene.Net.Index.FieldInfo.DocValuesType_e.BINARY,
-          FIXED_INTS_16 = Lucene.Net.Index.FieldInfo.DocValuesType_e.NUMERIC,
-          FIXED_INTS_32 = Lucene.Net.Index.FieldInfo.DocValuesType_e.NUMERIC,
-          FIXED_INTS_64 = Lucene.Net.Index.FieldInfo.DocValuesType_e.NUMERIC,
-          FIXED_INTS_8 = Lucene.Net.Index.FieldInfo.DocValuesType_e.NUMERIC,
-          BYTES_FIXED_SORTED = Lucene.Net.Index.FieldInfo.DocValuesType_e.SORTED,
-          BYTES_VAR_SORTED = Lucene.Net.Index.FieldInfo.DocValuesType_e.SORTED
+          VAR_INTS = YAF.Lucene.Net.Index.FieldInfo.DocValuesType_e.NUMERIC,
+          FLOAT_32 = YAF.Lucene.Net.Index.FieldInfo.DocValuesType_e.NUMERIC,
+          FLOAT_64 = YAF.Lucene.Net.Index.FieldInfo.DocValuesType_e.NUMERIC,
+          BYTES_FIXED_STRAIGHT = YAF.Lucene.Net.Index.FieldInfo.DocValuesType_e.BINARY,
+          BYTES_FIXED_DEREF = YAF.Lucene.Net.Index.FieldInfo.DocValuesType_e.BINARY,
+          BYTES_VAR_STRAIGHT = YAF.Lucene.Net.Index.FieldInfo.DocValuesType_e.BINARY,
+          BYTES_VAR_DEREF = YAF.Lucene.Net.Index.FieldInfo.DocValuesType_e.BINARY,
+          FIXED_INTS_16 = YAF.Lucene.Net.Index.FieldInfo.DocValuesType_e.NUMERIC,
+          FIXED_INTS_32 = YAF.Lucene.Net.Index.FieldInfo.DocValuesType_e.NUMERIC,
+          FIXED_INTS_64 = YAF.Lucene.Net.Index.FieldInfo.DocValuesType_e.NUMERIC,
+          FIXED_INTS_8 = YAF.Lucene.Net.Index.FieldInfo.DocValuesType_e.NUMERIC,
+          BYTES_FIXED_SORTED = YAF.Lucene.Net.Index.FieldInfo.DocValuesType_e.SORTED,
+          BYTES_VAR_SORTED = YAF.Lucene.Net.Index.FieldInfo.DocValuesType_e.SORTED
         }*/
 
         // decodes a 4.0 type

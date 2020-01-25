@@ -1,4 +1,4 @@
-using YAF.Lucene.Net.Support;
+using J2N;
 
 namespace YAF.Lucene.Net.Util.Automaton
 {
@@ -25,7 +25,7 @@ namespace YAF.Lucene.Net.Util.Automaton
     public class CharacterRunAutomaton : RunAutomaton
     {
         public CharacterRunAutomaton(Automaton a)
-            : base(a, Character.MAX_CODE_POINT, false)
+            : base(a, Character.MaxCodePoint, false)
         {
         }
 

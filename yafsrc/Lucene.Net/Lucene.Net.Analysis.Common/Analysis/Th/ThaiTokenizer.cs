@@ -1,8 +1,8 @@
 ﻿#if FEATURE_BREAKITERATOR
+using J2N;
 using ICU4N.Text;
 using YAF.Lucene.Net.Analysis.TokenAttributes;
 using YAF.Lucene.Net.Analysis.Util;
-using YAF.Lucene.Net.Support;
 using System;
 using System.Collections.Generic;
 using System.Globalization;

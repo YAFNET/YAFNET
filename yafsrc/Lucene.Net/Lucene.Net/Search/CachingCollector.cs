@@ -20,8 +20,8 @@ namespace YAF.Lucene.Net.Search
      * limitations under the License.
      */
 
-    using AtomicReaderContext = Lucene.Net.Index.AtomicReaderContext;
-    using RamUsageEstimator = Lucene.Net.Util.RamUsageEstimator;
+    using AtomicReaderContext = YAF.Lucene.Net.Index.AtomicReaderContext;
+    using RamUsageEstimator = YAF.Lucene.Net.Util.RamUsageEstimator;
 
     /// <summary>
     /// Caches all docs, and optionally also scores, coming from

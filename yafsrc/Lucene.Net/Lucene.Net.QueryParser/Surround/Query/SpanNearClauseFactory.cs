@@ -1,8 +1,8 @@
 ﻿using YAF.Lucene.Net.Index;
 using YAF.Lucene.Net.Search.Spans;
-using YAF.Lucene.Net.Support;
 using System;
 using System.Collections.Generic;
+using JCG = J2N.Collections.Generic;
 
 namespace YAF.Lucene.Net.QueryParsers.Surround.Query
 {
@@ -64,7 +64,7 @@ namespace YAF.Lucene.Net.QueryParsers.Surround.Query
         public SpanNearClauseFactory(IndexReader reader, string fieldName, BasicQueryFactory qf) {
             this.reader = reader;
             this.fieldName = fieldName;
-            this.weightBySpanQuery = new HashMap<SpanQuery, float>();
+            this.weightBySpanQuery = new JCG.Dictionary<SpanQuery, float>();
             this.qf = qf;
           }
 
@@ -86,8 +86,8 @@ namespace YAF.Lucene.Net.QueryParsers.Surround.Query
         protected virtual void AddSpanQueryWeighted(SpanQuery sq, float weight)
         {
             float w;
-            if (weightBySpanQuery.ContainsKey(sq))
-                w = weightBySpanQuery[sq] + weight;
+            if (weightBySpanQuery.TryGetValue(sq, out float weightValue))
+                w = weightValue + weight;
             else
                 w = weight;
             weightBySpanQuery[sq] = w;

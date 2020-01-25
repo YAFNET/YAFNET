@@ -1,5 +1,5 @@
-﻿using YAF.Lucene.Net.QueryParsers.Flexible.Core.Parser;
-using YAF.Lucene.Net.Support;
+﻿using J2N.Text;
+using YAF.Lucene.Net.QueryParsers.Flexible.Core.Parser;
 using System.Text;
 
 namespace YAF.Lucene.Net.QueryParsers.Flexible.Core.Nodes
@@ -37,7 +37,7 @@ namespace YAF.Lucene.Net.QueryParsers.Flexible.Core.Nodes
         // LUCENENET specific overload for string text
         public QuotedFieldQueryNode(string field, string text, int begin,
             int end)
-            : this(field, text.ToCharSequence(), begin, end)
+            : this(field, text.AsCharSequence(), begin, end)
         {
         }
 
@@ -51,7 +51,7 @@ namespace YAF.Lucene.Net.QueryParsers.Flexible.Core.Nodes
         // LUCENENET specific overload for StringBuilder text
         public QuotedFieldQueryNode(string field, StringBuilder text, int begin,
             int end)
-            : this(field, text.ToCharSequence(), begin, end)
+            : this(field, text.AsCharSequence(), begin, end)
         {
         }
 

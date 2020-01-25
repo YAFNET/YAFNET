@@ -1,4 +1,4 @@
-using YAF.Lucene.Net.Support;
+using J2N.Collections.Generic.Extensions;
 using YAF.Lucene.Net.Util;
 using System;
 using System.Collections.Generic;
@@ -29,11 +29,11 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using Directory = Lucene.Net.Store.Directory;
-    using FixedBitSet = Lucene.Net.Util.FixedBitSet;
-    using MergeInfo = Lucene.Net.Store.MergeInfo;
+    using Directory = YAF.Lucene.Net.Store.Directory;
+    using FixedBitSet = YAF.Lucene.Net.Util.FixedBitSet;
+    using MergeInfo = YAF.Lucene.Net.Store.MergeInfo;
 
-    //using AlreadySetException = Lucene.Net.Util.SetOnce.AlreadySetException;
+    //using AlreadySetException = YAF.Lucene.Net.Util.SetOnce.AlreadySetException;
 
     /// <summary>
     /// <para>Expert: a <see cref="MergePolicy"/> determines the sequence of
@@ -190,7 +190,7 @@ namespace YAF.Lucene.Net.Index
                         readers.Add(reader);
                     }
                 }
-                return Collections.UnmodifiableList(readers);
+                return readers.AsReadOnly();
             }
 
             /// <summary>

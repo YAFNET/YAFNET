@@ -1,5 +1,5 @@
 using J2N.Numerics;
-using YAF.Lucene.Net.Support;
+using J2N.Text;
 using System;
 using System.Collections.Generic;
 
@@ -22,15 +22,15 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
      * limitations under the License.
      */
 
-    using BytesRef = Lucene.Net.Util.BytesRef;
-    using GrowableWriter = Lucene.Net.Util.Packed.GrowableWriter;
-    using MathUtil = Lucene.Net.Util.MathUtil;
-    using PackedInt32s = Lucene.Net.Util.Packed.PackedInt32s;
-    using PagedBytes = Lucene.Net.Util.PagedBytes;
-    using PagedBytesDataInput = Lucene.Net.Util.PagedBytes.PagedBytesDataInput;
-    using PagedBytesDataOutput = Lucene.Net.Util.PagedBytes.PagedBytesDataOutput;
-    using RamUsageEstimator = Lucene.Net.Util.RamUsageEstimator;
-    using Term = Lucene.Net.Index.Term;
+    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
+    using GrowableWriter = YAF.Lucene.Net.Util.Packed.GrowableWriter;
+    using MathUtil = YAF.Lucene.Net.Util.MathUtil;
+    using PackedInt32s = YAF.Lucene.Net.Util.Packed.PackedInt32s;
+    using PagedBytes = YAF.Lucene.Net.Util.PagedBytes;
+    using PagedBytesDataInput = YAF.Lucene.Net.Util.PagedBytes.PagedBytesDataInput;
+    using PagedBytesDataOutput = YAF.Lucene.Net.Util.PagedBytes.PagedBytesDataOutput;
+    using RamUsageEstimator = YAF.Lucene.Net.Util.RamUsageEstimator;
+    using Term = YAF.Lucene.Net.Index.Term;
 
     /// <summary>
     /// This stores a monotonically increasing set of <c>Term, TermInfo</c> pairs in an

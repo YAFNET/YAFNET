@@ -1,7 +1,9 @@
+using J2N.Collections.Generic.Extensions;
 using YAF.Lucene.Net.Support;
 using YAF.Lucene.Net.Support.IO;
 using System;
 using System.Collections;
+using J2N;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -9,6 +11,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading;
+using JCG = J2N.Collections.Generic;
 
 namespace YAF.Lucene.Net.Index
 {
@@ -29,18 +32,18 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using ChecksumIndexInput = Lucene.Net.Store.ChecksumIndexInput;
-    using Codec = Lucene.Net.Codecs.Codec;
-    using CodecUtil = Lucene.Net.Codecs.CodecUtil;
-    using Directory = Lucene.Net.Store.Directory;
-    using IndexInput = Lucene.Net.Store.IndexInput;
-    using IndexOutput = Lucene.Net.Store.IndexOutput;
-    using IOContext = Lucene.Net.Store.IOContext;
-    using IOUtils = Lucene.Net.Util.IOUtils;
-    using Lucene3xCodec = Lucene.Net.Codecs.Lucene3x.Lucene3xCodec;
-    using Lucene3xSegmentInfoFormat = Lucene.Net.Codecs.Lucene3x.Lucene3xSegmentInfoFormat;
-    using Lucene3xSegmentInfoReader = Lucene.Net.Codecs.Lucene3x.Lucene3xSegmentInfoReader;
-    using StringHelper = Lucene.Net.Util.StringHelper;
+    using ChecksumIndexInput = YAF.Lucene.Net.Store.ChecksumIndexInput;
+    using Codec = YAF.Lucene.Net.Codecs.Codec;
+    using CodecUtil = YAF.Lucene.Net.Codecs.CodecUtil;
+    using Directory = YAF.Lucene.Net.Store.Directory;
+    using IndexInput = YAF.Lucene.Net.Store.IndexInput;
+    using IndexOutput = YAF.Lucene.Net.Store.IndexOutput;
+    using IOContext = YAF.Lucene.Net.Store.IOContext;
+    using IOUtils = YAF.Lucene.Net.Util.IOUtils;
+    using Lucene3xCodec = YAF.Lucene.Net.Codecs.Lucene3x.Lucene3xCodec;
+    using Lucene3xSegmentInfoFormat = YAF.Lucene.Net.Codecs.Lucene3x.Lucene3xSegmentInfoFormat;
+    using Lucene3xSegmentInfoReader = YAF.Lucene.Net.Codecs.Lucene3x.Lucene3xSegmentInfoReader;
+    using StringHelper = YAF.Lucene.Net.Util.StringHelper;
 
     /// <summary>
     /// A collection of segmentInfo objects with methods for operating on
@@ -154,7 +157,7 @@ namespace YAF.Lucene.Net.Index
         /// Opaque <see cref="T:IDictionary{string, string}"/> that user can specify during <see cref="IndexWriter.Commit()"/> </summary>
         private IDictionary<string, string> userData = Collections.EmptyMap<string, string>();
 
-        private List<SegmentCommitInfo> segments = new List<SegmentCommitInfo>();
+        private IList<SegmentCommitInfo> segments = new JCG.List<SegmentCommitInfo>();
 
         /// <summary>
         /// If non-null, information about loading segments_N files 
@@ -266,7 +269,7 @@ namespace YAF.Lucene.Net.Index
             }
             else if (fileName.StartsWith(IndexFileNames.SEGMENTS, StringComparison.Ordinal))
             {
-                return Number.Parse(fileName.Substring(1 + IndexFileNames.SEGMENTS.Length), Character.MAX_RADIX);
+                return Number.Parse(fileName.Substring(1 + IndexFileNames.SEGMENTS.Length), Character.MaxRadix);
             }
             else
             {
@@ -299,7 +302,7 @@ namespace YAF.Lucene.Net.Index
                 finally
                 {
                     genOutput.Dispose();
-                    dir.Sync(Collections.Singleton(IndexFileNames.SEGMENTS_GEN));
+                    dir.Sync(new JCG.HashSet<string> { IndexFileNames.SEGMENTS_GEN });
                 }
             }
             catch (Exception)
@@ -512,7 +515,7 @@ namespace YAF.Lucene.Net.Index
             IndexOutput segnOutput = null;
             bool success = false;
 
-            var upgradedSIFiles = new HashSet<string>();
+            var upgradedSIFiles = new JCG.HashSet<string>();
 
             try
             {
@@ -1164,7 +1167,7 @@ namespace YAF.Lucene.Net.Index
         /// </summary>
         public ICollection<string> GetFiles(Directory dir, bool includeSegmentsFile)
         {
-            var files = new HashSet<string>();
+            var files = new JCG.HashSet<string>();
             if (includeSegmentsFile)
             {
                 string segmentFileName = GetSegmentsFileName();
@@ -1244,7 +1247,7 @@ namespace YAF.Lucene.Net.Index
             success = false;
             try
             {
-                dir.Sync(Collections.Singleton(fileName));
+                dir.Sync(new JCG.HashSet<string> { fileName });
                 success = true;
             }
             finally
@@ -1355,7 +1358,7 @@ namespace YAF.Lucene.Net.Index
         /// applies all changes caused by committing a merge to this <see cref="SegmentInfos"/> </summary>
         internal void ApplyMergeChanges(MergePolicy.OneMerge merge, bool dropSegment)
         {
-            var mergedAway = new HashSet<SegmentCommitInfo>(merge.Segments);
+            var mergedAway = new JCG.HashSet<SegmentCommitInfo>(merge.Segments);
             bool inserted = false;
             int newSegIdx = 0;
             for (int segIdx = 0, cnt = segments.Count; segIdx < cnt; segIdx++)
@@ -1426,7 +1429,7 @@ namespace YAF.Lucene.Net.Index
         /// Returns all contained segments as an <b>unmodifiable</b> <see cref="T:IList{SegmentCommitInfo}"/> view. </summary>
         public IList<SegmentCommitInfo> AsList()
         {
-            return Collections.UnmodifiableList<SegmentCommitInfo>(segments);
+            return segments.AsReadOnly();
         }
 
         /// <summary>

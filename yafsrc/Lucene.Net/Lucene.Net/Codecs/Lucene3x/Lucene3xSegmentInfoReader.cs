@@ -1,8 +1,9 @@
-using YAF.Lucene.Net.Support;
+using J2N.Collections.Generic.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
+using JCG = J2N.Collections.Generic;
 using CompoundFileDirectory = YAF.Lucene.Net.Store.CompoundFileDirectory;
 using Directory = YAF.Lucene.Net.Store.Directory;
 
@@ -25,15 +26,15 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
      * limitations under the License.
      */
 
-    using IndexFileNames = Lucene.Net.Index.IndexFileNames;
-    using IndexFormatTooNewException = Lucene.Net.Index.IndexFormatTooNewException;
-    using IndexFormatTooOldException = Lucene.Net.Index.IndexFormatTooOldException;
-    using IndexInput = Lucene.Net.Store.IndexInput;
-    using IOContext = Lucene.Net.Store.IOContext;
-    using IOUtils = Lucene.Net.Util.IOUtils;
-    using SegmentCommitInfo = Lucene.Net.Index.SegmentCommitInfo;
-    using SegmentInfo = Lucene.Net.Index.SegmentInfo;
-    using SegmentInfos = Lucene.Net.Index.SegmentInfos;
+    using IndexFileNames = YAF.Lucene.Net.Index.IndexFileNames;
+    using IndexFormatTooNewException = YAF.Lucene.Net.Index.IndexFormatTooNewException;
+    using IndexFormatTooOldException = YAF.Lucene.Net.Index.IndexFormatTooOldException;
+    using IndexInput = YAF.Lucene.Net.Store.IndexInput;
+    using IOContext = YAF.Lucene.Net.Store.IOContext;
+    using IOUtils = YAF.Lucene.Net.Util.IOUtils;
+    using SegmentCommitInfo = YAF.Lucene.Net.Index.SegmentCommitInfo;
+    using SegmentInfo = YAF.Lucene.Net.Index.SegmentInfo;
+    using SegmentInfos = YAF.Lucene.Net.Index.SegmentInfos;
 
     /// <summary>
     /// Lucene 3x implementation of <see cref="SegmentInfoReader"/>.
@@ -222,7 +223,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
             }
 
             // Replicate logic from 3.x's SegmentInfo.files():
-            ISet<string> files = new HashSet<string>();
+            ISet<string> files = new JCG.HashSet<string>();
             if (isCompoundFile)
             {
                 files.Add(IndexFileNames.SegmentFileName(name, "", IndexFileNames.COMPOUND_FILE_EXTENSION));
@@ -286,7 +287,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
                 }
             }
 
-            SegmentInfo info = new SegmentInfo(dir, version, name, docCount, isCompoundFile, null, diagnostics, Collections.UnmodifiableMap(attributes));
+            SegmentInfo info = new SegmentInfo(dir, version, name, docCount, isCompoundFile, null, diagnostics, attributes.AsReadOnly());
             info.SetFiles(files);
 
             SegmentCommitInfo infoPerCommit = new SegmentCommitInfo(info, delCount, delGen, -1);
@@ -308,7 +309,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
 
             ISet<string> files = input.ReadStringSet();
 
-            SegmentInfo info = new SegmentInfo(dir, version, name, docCount, isCompoundFile, null, diagnostics, Collections.UnmodifiableMap(attributes));
+            SegmentInfo info = new SegmentInfo(dir, version, name, docCount, isCompoundFile, null, diagnostics, attributes.AsReadOnly());
             info.SetFiles(files);
             return info;
         }

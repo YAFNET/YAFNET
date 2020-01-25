@@ -22,14 +22,14 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
      * limitations under the License.
      */
 
-    using ChecksumIndexInput = Lucene.Net.Store.ChecksumIndexInput;
-    using CompoundFileDirectory = Lucene.Net.Store.CompoundFileDirectory;
-    using Directory = Lucene.Net.Store.Directory;
-    using IndexInput = Lucene.Net.Store.IndexInput;
-    using IndexOutput = Lucene.Net.Store.IndexOutput;
-    using IOContext = Lucene.Net.Store.IOContext;
-    using IOUtils = Lucene.Net.Util.IOUtils;
-    using IMutableBits = Lucene.Net.Util.IMutableBits;
+    using ChecksumIndexInput = YAF.Lucene.Net.Store.ChecksumIndexInput;
+    using CompoundFileDirectory = YAF.Lucene.Net.Store.CompoundFileDirectory;
+    using Directory = YAF.Lucene.Net.Store.Directory;
+    using IndexInput = YAF.Lucene.Net.Store.IndexInput;
+    using IndexOutput = YAF.Lucene.Net.Store.IndexOutput;
+    using IOContext = YAF.Lucene.Net.Store.IOContext;
+    using IOUtils = YAF.Lucene.Net.Util.IOUtils;
+    using IMutableBits = YAF.Lucene.Net.Util.IMutableBits;
 
     /// <summary>
     /// Optimized implementation of a vector of bits.  This is more-or-less like

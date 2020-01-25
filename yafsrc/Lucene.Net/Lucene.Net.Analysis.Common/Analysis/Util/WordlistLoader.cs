@@ -1,9 +1,8 @@
-﻿using YAF.Lucene.Net.Support;
+﻿using J2N.Text;
 using YAF.Lucene.Net.Util;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 

@@ -43,7 +43,7 @@
   </PropertyGroup>
   
   <ItemGroup>
-    <PackageReference Include="J2N" Version="1.0.0-beta-0001" />
+    <PackageReference Include="J2N" Version="2.0.0-beta-0001" />
   </ItemGroup>
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">

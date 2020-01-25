@@ -17,9 +17,9 @@ namespace YAF.Lucene.Net.Analysis.TokenAttributes
      * limitations under the License.
      */
 
-    using Attribute = Lucene.Net.Util.Attribute;
-    using IAttribute = Lucene.Net.Util.IAttribute;
-    using BytesRef = Lucene.Net.Util.BytesRef;
+    using Attribute = YAF.Lucene.Net.Util.Attribute;
+    using IAttribute = YAF.Lucene.Net.Util.IAttribute;
+    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
 
     /// <summary>
     /// Default implementation of <see cref="IPayloadAttribute"/>. </summary>

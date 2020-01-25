@@ -2,6 +2,7 @@ using YAF.Lucene.Net.Support;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using JCG = J2N.Collections.Generic;
 
 namespace YAF.Lucene.Net.Search.Spans
 {
@@ -22,10 +23,10 @@ namespace YAF.Lucene.Net.Search.Spans
      * limitations under the License.
      */
 
-    using AtomicReaderContext = Lucene.Net.Index.AtomicReaderContext;
-    using IBits = Lucene.Net.Util.IBits;
-    using Term = Lucene.Net.Index.Term;
-    using TermContext = Lucene.Net.Index.TermContext;
+    using AtomicReaderContext = YAF.Lucene.Net.Index.AtomicReaderContext;
+    using IBits = YAF.Lucene.Net.Util.IBits;
+    using Term = YAF.Lucene.Net.Index.Term;
+    using TermContext = YAF.Lucene.Net.Index.TermContext;
 
     /// <summary>
     /// Similar to <see cref="NearSpansOrdered"/>, but for the unordered case.
@@ -62,7 +63,7 @@ namespace YAF.Lucene.Net.Search.Spans
                 this.outerInstance = outerInstance;
             }
 
-            protected internal override bool LessThan(SpansCell spans1, SpansCell spans2)
+            public override bool LessThan(SpansCell spans1, SpansCell spans2)
             {
                 if (spans1.Doc == spans2.Doc)
                 {
@@ -313,7 +314,7 @@ namespace YAF.Lucene.Net.Search.Spans
         /// <exception cref="System.IO.IOException"> if there is a low-level I/O error </exception>
         public override ICollection<byte[]> GetPayload()
         {
-            var matchPayload = new HashSet<byte[]>();
+            var matchPayload = new JCG.HashSet<byte[]>();
             for (var cell = first; cell != null; cell = cell.next)
             {
                 if (cell.IsPayloadAvailable)

@@ -23,9 +23,9 @@ namespace YAF.Lucene.Net.Codecs.Compressing
      * limitations under the License.
      */
 
-    using CorruptIndexException = Lucene.Net.Index.CorruptIndexException;
-    using DataInput = Lucene.Net.Store.DataInput;
-    using DataOutput = Lucene.Net.Store.DataOutput;
+    using CorruptIndexException = YAF.Lucene.Net.Index.CorruptIndexException;
+    using DataInput = YAF.Lucene.Net.Store.DataInput;
+    using DataOutput = YAF.Lucene.Net.Store.DataOutput;
 
     /// <summary>
     /// A compression mode. Tells how much effort should be spent on compression and

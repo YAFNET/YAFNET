@@ -1,6 +1,5 @@
 using YAF.Lucene.Net.Index;
 using YAF.Lucene.Net.Store;
-using YAF.Lucene.Net.Support;
 using YAF.Lucene.Net.Util;
 using YAF.Lucene.Net.Util.Packed;
 using System;

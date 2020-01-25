@@ -1,10 +1,10 @@
 ﻿using YAF.Lucene.Net.Index;
 using YAF.Lucene.Net.Queries.Function.DocValues;
 using YAF.Lucene.Net.Search;
-using YAF.Lucene.Net.Support;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
+using JCG = J2N.Collections.Generic;
 
 namespace YAF.Lucene.Net.Queries.Function.ValueSources
 {
@@ -115,9 +115,8 @@ namespace YAF.Lucene.Net.Queries.Function.ValueSources
 
         public override int GetHashCode()
         {
-            // LUCENENET specific: ensure our passed in list is equatable by
-            // wrapping it in an EquatableList if it is not one already
-            return Equatable.Wrap(m_sources).GetHashCode() + Name.GetHashCode();
+            // LUCENENET specific: use structural equality comparison
+            return JCG.ListEqualityComparer<ValueSource>.Default.GetHashCode(m_sources) + Name.GetHashCode();
         }
 
         public override bool Equals(object o)
@@ -130,9 +129,8 @@ namespace YAF.Lucene.Net.Queries.Function.ValueSources
             if (other == null)
                 return false;
 
-            // LUCENENET specific: ensure our passed in list is equatable by
-            // wrapping it in an EquatableList if it is not one already
-            return Equatable.Wrap(this.m_sources).Equals(other.m_sources);
+            // LUCENENET specific: use structural equality comparison
+            return JCG.ListEqualityComparer<ValueSource>.Default.Equals(this.m_sources, other.m_sources);
         }
 
         public override void CreateWeight(IDictionary context, IndexSearcher searcher)

@@ -20,7 +20,7 @@ namespace YAF.Lucene.Net.Util.Packed
      * limitations under the License.
      */
 
-    using DataOutput = Lucene.Net.Store.DataOutput;
+    using DataOutput = YAF.Lucene.Net.Store.DataOutput;
 
     /// <summary>
     /// Implements <see cref="PackedInt32s.Mutable"/>, but grows the

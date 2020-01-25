@@ -3,6 +3,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using JCG = J2N.Collections.Generic;
 
 namespace YAF.Lucene.Net.Index
 {
@@ -23,8 +24,8 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using IBits = Lucene.Net.Util.IBits;
-    using BytesRef = Lucene.Net.Util.BytesRef;
+    using IBits = YAF.Lucene.Net.Util.IBits;
+    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
 
     /// <summary>
     /// Exposes flex API, merged from flex API of sub-segments.
@@ -318,7 +319,7 @@ namespace YAF.Lucene.Net.Index
         /// </summary>
         public static ICollection<string> GetIndexedFields(IndexReader reader)
         {
-            ICollection<string> fields = new HashSet<string>();
+            ICollection<string> fields = new JCG.HashSet<string>();
             foreach (FieldInfo fieldInfo in GetMergedFieldInfos(reader))
             {
                 if (fieldInfo.IsIndexed)

@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Text;
+using JCG = J2N.Collections.Generic;
 
 namespace YAF.Lucene.Net.Codecs
 {
@@ -26,31 +27,31 @@ namespace YAF.Lucene.Net.Codecs
      * limitations under the License.
      */
 
-    using ArrayUtil = Lucene.Net.Util.ArrayUtil;
-    using IBits = Lucene.Net.Util.IBits;
-    using ByteArrayDataInput = Lucene.Net.Store.ByteArrayDataInput;
-    using ByteSequenceOutputs = Lucene.Net.Util.Fst.ByteSequenceOutputs;
-    using BytesRef = Lucene.Net.Util.BytesRef;
-    using CompiledAutomaton = Lucene.Net.Util.Automaton.CompiledAutomaton;
-    using CorruptIndexException = Lucene.Net.Index.CorruptIndexException;
-    using Directory = Lucene.Net.Store.Directory;
-    using DocsAndPositionsEnum = Lucene.Net.Index.DocsAndPositionsEnum;
-    using DocsEnum = Lucene.Net.Index.DocsEnum;
-    using FieldInfo = Lucene.Net.Index.FieldInfo;
-    using FieldInfos = Lucene.Net.Index.FieldInfos;
-    using IndexFileNames = Lucene.Net.Index.IndexFileNames;
-    using IndexInput = Lucene.Net.Store.IndexInput;
-    using IndexOptions = Lucene.Net.Index.IndexOptions;
-    using IOContext = Lucene.Net.Store.IOContext;
-    using IOUtils = Lucene.Net.Util.IOUtils;
-    using RamUsageEstimator = Lucene.Net.Util.RamUsageEstimator;
-    using RunAutomaton = Lucene.Net.Util.Automaton.RunAutomaton;
-    using SegmentInfo = Lucene.Net.Index.SegmentInfo;
-    using StringHelper = Lucene.Net.Util.StringHelper;
-    using Terms = Lucene.Net.Index.Terms;
-    using TermsEnum = Lucene.Net.Index.TermsEnum;
-    using TermState = Lucene.Net.Index.TermState;
-    using Transition = Lucene.Net.Util.Automaton.Transition;
+    using ArrayUtil = YAF.Lucene.Net.Util.ArrayUtil;
+    using IBits = YAF.Lucene.Net.Util.IBits;
+    using ByteArrayDataInput = YAF.Lucene.Net.Store.ByteArrayDataInput;
+    using ByteSequenceOutputs = YAF.Lucene.Net.Util.Fst.ByteSequenceOutputs;
+    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
+    using CompiledAutomaton = YAF.Lucene.Net.Util.Automaton.CompiledAutomaton;
+    using CorruptIndexException = YAF.Lucene.Net.Index.CorruptIndexException;
+    using Directory = YAF.Lucene.Net.Store.Directory;
+    using DocsAndPositionsEnum = YAF.Lucene.Net.Index.DocsAndPositionsEnum;
+    using DocsEnum = YAF.Lucene.Net.Index.DocsEnum;
+    using FieldInfo = YAF.Lucene.Net.Index.FieldInfo;
+    using FieldInfos = YAF.Lucene.Net.Index.FieldInfos;
+    using IndexFileNames = YAF.Lucene.Net.Index.IndexFileNames;
+    using IndexInput = YAF.Lucene.Net.Store.IndexInput;
+    using IndexOptions = YAF.Lucene.Net.Index.IndexOptions;
+    using IOContext = YAF.Lucene.Net.Store.IOContext;
+    using IOUtils = YAF.Lucene.Net.Util.IOUtils;
+    using RamUsageEstimator = YAF.Lucene.Net.Util.RamUsageEstimator;
+    using RunAutomaton = YAF.Lucene.Net.Util.Automaton.RunAutomaton;
+    using SegmentInfo = YAF.Lucene.Net.Index.SegmentInfo;
+    using StringHelper = YAF.Lucene.Net.Util.StringHelper;
+    using Terms = YAF.Lucene.Net.Index.Terms;
+    using TermsEnum = YAF.Lucene.Net.Index.TermsEnum;
+    using TermState = YAF.Lucene.Net.Index.TermState;
+    using Transition = YAF.Lucene.Net.Util.Automaton.Transition;
 
     /// <summary>
     /// A block-based terms index and dictionary that assigns
@@ -99,7 +100,7 @@ namespace YAF.Lucene.Net.Codecs
         private readonly PostingsReaderBase postingsReader;
 
         // LUCENENET specific: Use StringComparer.Ordinal to get the same ordering as Java
-        private readonly SortedDictionary<string, FieldReader> fields = new SortedDictionary<string, FieldReader>(StringComparer.Ordinal);
+        private readonly IDictionary<string, FieldReader> fields = new JCG.SortedDictionary<string, FieldReader>(StringComparer.Ordinal);
 
         /// <summary>
         /// File offset where the directory starts in the terms file. </summary>

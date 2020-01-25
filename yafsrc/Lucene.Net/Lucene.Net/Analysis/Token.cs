@@ -1,3 +1,4 @@
+using J2N.Text;
 using YAF.Lucene.Net.Analysis.TokenAttributes;
 using System;
 using System.Reflection;
@@ -25,8 +26,8 @@ namespace YAF.Lucene.Net.Analysis
      * limitations under the License.
      */
 
-    using CharTermAttribute = Lucene.Net.Analysis.TokenAttributes.CharTermAttribute;
-    using IAttributeReflector = Lucene.Net.Util.IAttributeReflector;
+    using CharTermAttribute = YAF.Lucene.Net.Analysis.TokenAttributes.CharTermAttribute;
+    using IAttributeReflector = YAF.Lucene.Net.Util.IAttributeReflector;
 
     /// <summary>
     /// A <see cref="Token"/> is an occurrence of a term from the text of a field.  It consists of
@@ -113,7 +114,7 @@ namespace YAF.Lucene.Net.Analysis
     /// </para>
     /// <para>
     /// <b>Please note:</b> With Lucene 3.1, the <see cref="CharTermAttribute.ToString()"/> method had to be changed to match the
-    /// <see cref="Support.ICharSequence"/> interface introduced by the interface <see cref="ICharTermAttribute"/>.
+    /// <see cref="ICharSequence"/> interface introduced by the interface <see cref="ICharTermAttribute"/>.
     /// this method now only prints the term text, no additional information anymore.
     /// </para>
     /// </summary>

@@ -2,10 +2,10 @@
 using YAF.Lucene.Net.Documents;
 using YAF.Lucene.Net.QueryParsers.Flexible.Core.Config;
 using YAF.Lucene.Net.Search;
-using YAF.Lucene.Net.Support;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using JCG = J2N.Collections.Generic;
 using Operator = YAF.Lucene.Net.QueryParsers.Flexible.Standard.Config.StandardQueryConfigHandler.Operator;
 
 namespace YAF.Lucene.Net.QueryParsers.Flexible.Standard.Config
@@ -50,11 +50,11 @@ namespace YAF.Lucene.Net.QueryParsers.Flexible.Standard.Config
             Set(ConfigurationKeys.PHRASE_SLOP, 0); //default value 2.4
             Set(ConfigurationKeys.LOWERCASE_EXPANDED_TERMS, true); //default value 2.4
             Set(ConfigurationKeys.ENABLE_POSITION_INCREMENTS, false); //default value 2.4
-            Set(ConfigurationKeys.FIELD_BOOST_MAP, new LinkedHashMap<string, float?>());
+            Set(ConfigurationKeys.FIELD_BOOST_MAP, new JCG.LinkedDictionary<string, float?>());
             Set(ConfigurationKeys.FUZZY_CONFIG, new FuzzyConfig());
             Set(ConfigurationKeys.LOCALE, null);
             Set(ConfigurationKeys.MULTI_TERM_REWRITE_METHOD, MultiTermQuery.CONSTANT_SCORE_AUTO_REWRITE_DEFAULT);
-            Set(ConfigurationKeys.FIELD_DATE_RESOLUTION_MAP, new HashMap<string, DateTools.Resolution?>());
+            Set(ConfigurationKeys.FIELD_DATE_RESOLUTION_MAP, new JCG.Dictionary<string, DateTools.Resolution?>());
         }
 
         /// <summary>

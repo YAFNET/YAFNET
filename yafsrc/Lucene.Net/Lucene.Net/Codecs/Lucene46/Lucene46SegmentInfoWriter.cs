@@ -17,13 +17,13 @@ namespace YAF.Lucene.Net.Codecs.Lucene46
      * limitations under the License.
      */
 
-    using Directory = Lucene.Net.Store.Directory;
-    using FieldInfos = Lucene.Net.Index.FieldInfos;
-    using IndexFileNames = Lucene.Net.Index.IndexFileNames;
-    using IndexOutput = Lucene.Net.Store.IndexOutput;
-    using IOContext = Lucene.Net.Store.IOContext;
-    using IOUtils = Lucene.Net.Util.IOUtils;
-    using SegmentInfo = Lucene.Net.Index.SegmentInfo;
+    using Directory = YAF.Lucene.Net.Store.Directory;
+    using FieldInfos = YAF.Lucene.Net.Index.FieldInfos;
+    using IndexFileNames = YAF.Lucene.Net.Index.IndexFileNames;
+    using IndexOutput = YAF.Lucene.Net.Store.IndexOutput;
+    using IOContext = YAF.Lucene.Net.Store.IOContext;
+    using IOUtils = YAF.Lucene.Net.Util.IOUtils;
+    using SegmentInfo = YAF.Lucene.Net.Index.SegmentInfo;
 
     /// <summary>
     /// Lucene 4.0 implementation of <see cref="SegmentInfoWriter"/>.

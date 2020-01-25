@@ -23,11 +23,11 @@ namespace YAF.Lucene.Net.Util.Packed
      * limitations under the License.
      */
 
-    using CodecUtil = Lucene.Net.Codecs.CodecUtil;
-    using DataInput = Lucene.Net.Store.DataInput;
-    using DataOutput = Lucene.Net.Store.DataOutput;
-    using IndexInput = Lucene.Net.Store.IndexInput;
-    using NumericDocValues = Lucene.Net.Index.NumericDocValues;
+    using CodecUtil = YAF.Lucene.Net.Codecs.CodecUtil;
+    using DataInput = YAF.Lucene.Net.Store.DataInput;
+    using DataOutput = YAF.Lucene.Net.Store.DataOutput;
+    using IndexInput = YAF.Lucene.Net.Store.IndexInput;
+    using NumericDocValues = YAF.Lucene.Net.Index.NumericDocValues;
 
     /// <summary>
     /// Simplistic compression for array of unsigned long values.

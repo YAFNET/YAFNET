@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using JCG = J2N.Collections.Generic;
 
 namespace YAF.Lucene.Net.Util.Fst
 {
@@ -21,14 +22,14 @@ namespace YAF.Lucene.Net.Util.Fst
      * limitations under the License.
      */
 
-    using DataInput = Lucene.Net.Store.DataInput;
-    using DataOutput = Lucene.Net.Store.DataOutput;
+    using DataInput = YAF.Lucene.Net.Store.DataInput;
+    using DataOutput = YAF.Lucene.Net.Store.DataOutput;
 
     // TODO: merge with PagedBytes, except PagedBytes doesn't
     // let you read while writing which FST needs
     internal class BytesStore : DataOutput
     {
-        private readonly List<byte[]> blocks = new List<byte[]>();
+        private readonly JCG.List<byte[]> blocks = new JCG.List<byte[]>();
 
         private readonly int blockSize;
         private readonly int blockBits;

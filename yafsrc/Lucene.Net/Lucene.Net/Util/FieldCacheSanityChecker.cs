@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 using System.Text;
+using JCG = J2N.Collections.Generic;
 
 namespace YAF.Lucene.Net.Util
 {
@@ -25,7 +26,7 @@ namespace YAF.Lucene.Net.Util
      * limitations under the License.
      */
 
-    using IndexReader = Lucene.Net.Index.IndexReader;
+    using IndexReader = YAF.Lucene.Net.Index.IndexReader;
 
     /// <summary>
     /// <para>
@@ -123,7 +124,7 @@ namespace YAF.Lucene.Net.Util
             MapOfSets<ReaderField, int> readerFieldToValIds = new MapOfSets<ReaderField, int>(new Dictionary<ReaderField, ISet<int>>(17));
 
             // any keys that we know result in more then one valId
-            ISet<ReaderField> valMismatchKeys = new HashSet<ReaderField>();
+            ISet<ReaderField> valMismatchKeys = new JCG.HashSet<ReaderField>();
 
             // iterate over all the cacheEntries to get the mappings we'll need
             for (int i = 0; i < cacheEntries.Length; i++)
@@ -139,7 +140,7 @@ namespace YAF.Lucene.Net.Util
                     continue;
                 }
 
-                if (val is Lucene.Net.Search.FieldCache.CreationPlaceholder)
+                if (val is FieldCache.CreationPlaceholder)
                 {
                     continue;
                 }
@@ -232,12 +233,13 @@ namespace YAF.Lucene.Net.Util
                 {
                     ReaderField kid = new ReaderField(kidKey, rf.FieldName);
 
-                    if (badChildren.ContainsKey(kid))
+                    // LUCENENET: Eliminated extra lookup by using TryGetValue instead of ContainsKey
+                    if (badChildren.TryGetValue(kid, out ISet<ReaderField> badKid))
                     {
                         // we've already process this kid as RF and found other problems
                         // track those problems as our own
                         badKids.Put(rf, kid);
-                        badKids.PutAll(rf, badChildren[kid]);
+                        badKids.PutAll(rf, badKid);
                         badChildren.Remove(kid);
                     }
                     else if (rfToValIdSets.ContainsKey(kid))

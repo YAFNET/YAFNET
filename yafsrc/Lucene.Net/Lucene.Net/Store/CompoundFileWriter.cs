@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
+using JCG = J2N.Collections.Generic;
 
 namespace YAF.Lucene.Net.Store
 {
@@ -26,9 +27,9 @@ namespace YAF.Lucene.Net.Store
      * limitations under the License.
      */
 
-    using CodecUtil = Lucene.Net.Codecs.CodecUtil;
-    using IndexFileNames = Lucene.Net.Index.IndexFileNames;
-    using IOUtils = Lucene.Net.Util.IOUtils;
+    using CodecUtil = YAF.Lucene.Net.Codecs.CodecUtil;
+    using IndexFileNames = YAF.Lucene.Net.Index.IndexFileNames;
+    using IOUtils = YAF.Lucene.Net.Util.IOUtils;
 
     /// <summary>
     /// Combines multiple files into a single compound file.
@@ -72,7 +73,7 @@ namespace YAF.Lucene.Net.Store
 
         private readonly Directory directory;
         private readonly IDictionary<string, FileEntry> entries = new Dictionary<string, FileEntry>();
-        private readonly ISet<string> seenIDs = new HashSet<string>();
+        private readonly ISet<string> seenIDs = new JCG.HashSet<string>();
         // all entries that are written to a sep. file but not yet moved into CFS
         private readonly LinkedList<FileEntry> pendingEntries = new LinkedList<FileEntry>();
         private bool closed = false;

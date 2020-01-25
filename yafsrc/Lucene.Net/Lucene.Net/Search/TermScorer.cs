@@ -19,8 +19,8 @@ namespace YAF.Lucene.Net.Search
      * limitations under the License.
      */
 
-    using DocsEnum = Lucene.Net.Index.DocsEnum;
-    using Similarity = Lucene.Net.Search.Similarities.Similarity;
+    using DocsEnum = YAF.Lucene.Net.Index.DocsEnum;
+    using Similarity = YAF.Lucene.Net.Search.Similarities.Similarity;
 
     /// <summary>
     /// Expert: A <see cref="Scorer"/> for documents matching a <see cref="Index.Term"/>.

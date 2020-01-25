@@ -1,9 +1,9 @@
-﻿using YAF.Lucene.Net.QueryParsers.Flexible.Core.Nodes;
+﻿using J2N.Text;
+using YAF.Lucene.Net.QueryParsers.Flexible.Core.Nodes;
 using YAF.Lucene.Net.QueryParsers.Flexible.Core.Processors;
 using YAF.Lucene.Net.QueryParsers.Flexible.Core.Util;
 using YAF.Lucene.Net.QueryParsers.Flexible.Standard.Config;
 using YAF.Lucene.Net.QueryParsers.Flexible.Standard.Nodes;
-using YAF.Lucene.Net.Support;
 using System.Collections.Generic;
 using System.Globalization;
 

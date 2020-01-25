@@ -17,8 +17,8 @@ namespace YAF.Lucene.Net.Codecs.Lucene41
      * limitations under the License.
      */
 
-    using SegmentReadState = Lucene.Net.Index.SegmentReadState;
-    using SegmentWriteState = Lucene.Net.Index.SegmentWriteState;
+    using SegmentReadState = YAF.Lucene.Net.Index.SegmentReadState;
+    using SegmentWriteState = YAF.Lucene.Net.Index.SegmentWriteState;
 
     /// <summary>
     /// Provides a <see cref="Codecs.PostingsReaderBase"/> and 

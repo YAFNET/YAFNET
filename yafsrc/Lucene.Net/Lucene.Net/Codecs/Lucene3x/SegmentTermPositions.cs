@@ -22,9 +22,9 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
      * limitations under the License.
      */
 
-    using FieldInfos = Lucene.Net.Index.FieldInfos;
-    using IndexInput = Lucene.Net.Store.IndexInput;
-    using Term = Lucene.Net.Index.Term;
+    using FieldInfos = YAF.Lucene.Net.Index.FieldInfos;
+    using IndexInput = YAF.Lucene.Net.Store.IndexInput;
+    using Term = YAF.Lucene.Net.Index.Term;
 
     /// <summary>
     /// @lucene.experimental 

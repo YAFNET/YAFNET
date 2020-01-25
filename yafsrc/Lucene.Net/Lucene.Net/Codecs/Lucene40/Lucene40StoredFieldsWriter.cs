@@ -23,21 +23,21 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
      * limitations under the License.
      */
 
-    using AtomicReader = Lucene.Net.Index.AtomicReader;
-    using IBits = Lucene.Net.Util.IBits;
-    using BytesRef = Lucene.Net.Util.BytesRef;
-    using Directory = Lucene.Net.Store.Directory;
+    using AtomicReader = YAF.Lucene.Net.Index.AtomicReader;
+    using IBits = YAF.Lucene.Net.Util.IBits;
+    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
+    using Directory = YAF.Lucene.Net.Store.Directory;
     using Document = Documents.Document;
-    using FieldInfo = Lucene.Net.Index.FieldInfo;
-    using FieldInfos = Lucene.Net.Index.FieldInfos;
-    using IIndexableField = Lucene.Net.Index.IIndexableField;
-    using IndexFileNames = Lucene.Net.Index.IndexFileNames;
-    using IndexInput = Lucene.Net.Store.IndexInput;
-    using IndexOutput = Lucene.Net.Store.IndexOutput;
-    using IOContext = Lucene.Net.Store.IOContext;
-    using IOUtils = Lucene.Net.Util.IOUtils;
-    using MergeState = Lucene.Net.Index.MergeState;
-    using SegmentReader = Lucene.Net.Index.SegmentReader;
+    using FieldInfo = YAF.Lucene.Net.Index.FieldInfo;
+    using FieldInfos = YAF.Lucene.Net.Index.FieldInfos;
+    using IIndexableField = YAF.Lucene.Net.Index.IIndexableField;
+    using IndexFileNames = YAF.Lucene.Net.Index.IndexFileNames;
+    using IndexInput = YAF.Lucene.Net.Store.IndexInput;
+    using IndexOutput = YAF.Lucene.Net.Store.IndexOutput;
+    using IOContext = YAF.Lucene.Net.Store.IOContext;
+    using IOUtils = YAF.Lucene.Net.Util.IOUtils;
+    using MergeState = YAF.Lucene.Net.Index.MergeState;
+    using SegmentReader = YAF.Lucene.Net.Index.SegmentReader;
 
     /// <summary>
     /// Class responsible for writing stored document fields.

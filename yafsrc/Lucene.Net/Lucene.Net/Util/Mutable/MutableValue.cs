@@ -1,4 +1,4 @@
-using YAF.Lucene.Net.Support;
+using J2N.Text;
 using System;
 
 namespace YAF.Lucene.Net.Util.Mutable

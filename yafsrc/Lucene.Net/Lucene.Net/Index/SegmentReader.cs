@@ -1,8 +1,10 @@
+using J2N.Runtime.CompilerServices;
 using YAF.Lucene.Net.Support;
 using YAF.Lucene.Net.Util;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
+using JCG = J2N.Collections.Generic;
 
 namespace YAF.Lucene.Net.Index
 {
@@ -23,16 +25,16 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using IBits = Lucene.Net.Util.IBits;
-    using Codec = Lucene.Net.Codecs.Codec;
-    using CompoundFileDirectory = Lucene.Net.Store.CompoundFileDirectory;
-    using Directory = Lucene.Net.Store.Directory;
-    using DocValuesFormat = Lucene.Net.Codecs.DocValuesFormat;
-    using DocValuesProducer = Lucene.Net.Codecs.DocValuesProducer;
-    using IOContext = Lucene.Net.Store.IOContext;
-    using IOUtils = Lucene.Net.Util.IOUtils;
-    using StoredFieldsReader = Lucene.Net.Codecs.StoredFieldsReader;
-    using TermVectorsReader = Lucene.Net.Codecs.TermVectorsReader;
+    using IBits = YAF.Lucene.Net.Util.IBits;
+    using Codec = YAF.Lucene.Net.Codecs.Codec;
+    using CompoundFileDirectory = YAF.Lucene.Net.Store.CompoundFileDirectory;
+    using Directory = YAF.Lucene.Net.Store.Directory;
+    using DocValuesFormat = YAF.Lucene.Net.Codecs.DocValuesFormat;
+    using DocValuesProducer = YAF.Lucene.Net.Codecs.DocValuesProducer;
+    using IOContext = YAF.Lucene.Net.Store.IOContext;
+    using IOUtils = YAF.Lucene.Net.Util.IOUtils;
+    using StoredFieldsReader = YAF.Lucene.Net.Codecs.StoredFieldsReader;
+    using TermVectorsReader = YAF.Lucene.Net.Codecs.TermVectorsReader;
 
     /// <summary>
     /// <see cref="IndexReader"/> implementation over a single segment.
@@ -84,7 +86,7 @@ namespace YAF.Lucene.Net.Index
         }
 
         internal readonly IDictionary<string, DocValuesProducer> dvProducersByField = new Dictionary<string, DocValuesProducer>();
-        internal readonly ISet<DocValuesProducer> dvProducers = new IdentityHashSet<DocValuesProducer>();
+        internal readonly ISet<DocValuesProducer> dvProducers = new JCG.HashSet<DocValuesProducer>(IdentityEqualityComparer<DocValuesProducer>.Default);
 
         private readonly FieldInfos fieldInfos; // LUCENENET specific - since it is readonly, made all internal classes use property
 

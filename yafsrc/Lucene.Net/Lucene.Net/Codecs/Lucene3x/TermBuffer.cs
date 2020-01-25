@@ -1,4 +1,4 @@
-using YAF.Lucene.Net.Support;
+using J2N.Text;
 using YAF.Lucene.Net.Util;
 using System;
 using System.Collections.Generic;
@@ -25,8 +25,8 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
      * limitations under the License.
      */
 
-    using IndexInput = Lucene.Net.Store.IndexInput;
-    using Term = Lucene.Net.Index.Term;
+    using IndexInput = YAF.Lucene.Net.Store.IndexInput;
+    using Term = YAF.Lucene.Net.Index.Term;
 
     /// <summary>
     /// @lucene.experimental 

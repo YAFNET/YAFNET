@@ -1,11 +1,11 @@
 ﻿using YAF.Lucene.Net.Index;
 using YAF.Lucene.Net.Search;
-using YAF.Lucene.Net.Support;
 using YAF.Lucene.Net.Util;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text;
+using JCG = J2N.Collections.Generic;
 
 namespace YAF.Lucene.Net.Queries
 {
@@ -37,7 +37,7 @@ namespace YAF.Lucene.Net.Queries
     /// </summary>
     public class BooleanFilter : Filter, IEnumerable<FilterClause>
     {
-        private readonly IList<FilterClause> clauses = new EquatableList<FilterClause>();
+        private readonly IList<FilterClause> clauses = new JCG.List<FilterClause>();
 
         /// <summary>
         /// Returns the a <see cref="DocIdSetIterator"/> representing the Boolean composition

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using JCG = J2N.Collections.Generic;
 
 namespace YAF.Lucene.Net.Codecs.Lucene45
 {
@@ -23,18 +24,18 @@ namespace YAF.Lucene.Net.Codecs.Lucene45
      * limitations under the License.
      */
 
-    using BlockPackedWriter = Lucene.Net.Util.Packed.BlockPackedWriter;
-    using BytesRef = Lucene.Net.Util.BytesRef;
-    using FieldInfo = Lucene.Net.Index.FieldInfo;
-    using IndexFileNames = Lucene.Net.Index.IndexFileNames;
-    using IndexOutput = Lucene.Net.Store.IndexOutput;
-    using IOUtils = Lucene.Net.Util.IOUtils;
-    using MathUtil = Lucene.Net.Util.MathUtil;
-    using MonotonicBlockPackedWriter = Lucene.Net.Util.Packed.MonotonicBlockPackedWriter;
-    using PackedInt32s = Lucene.Net.Util.Packed.PackedInt32s;
-    using RAMOutputStream = Lucene.Net.Store.RAMOutputStream;
-    using SegmentWriteState = Lucene.Net.Index.SegmentWriteState;
-    using StringHelper = Lucene.Net.Util.StringHelper;
+    using BlockPackedWriter = YAF.Lucene.Net.Util.Packed.BlockPackedWriter;
+    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
+    using FieldInfo = YAF.Lucene.Net.Index.FieldInfo;
+    using IndexFileNames = YAF.Lucene.Net.Index.IndexFileNames;
+    using IndexOutput = YAF.Lucene.Net.Store.IndexOutput;
+    using IOUtils = YAF.Lucene.Net.Util.IOUtils;
+    using MathUtil = YAF.Lucene.Net.Util.MathUtil;
+    using MonotonicBlockPackedWriter = YAF.Lucene.Net.Util.Packed.MonotonicBlockPackedWriter;
+    using PackedInt32s = YAF.Lucene.Net.Util.Packed.PackedInt32s;
+    using RAMOutputStream = YAF.Lucene.Net.Store.RAMOutputStream;
+    using SegmentWriteState = YAF.Lucene.Net.Index.SegmentWriteState;
+    using StringHelper = YAF.Lucene.Net.Util.StringHelper;
 
     /// <summary>
     /// Writer for <see cref="Lucene45DocValuesFormat"/> </summary>
@@ -121,11 +122,11 @@ namespace YAF.Lucene.Net.Codecs.Lucene45
             long gcd = 0;
             bool missing = false;
             // TODO: more efficient?
-            HashSet<long> uniqueValues = null;
+            JCG.HashSet<long> uniqueValues = null;
             
             if (optimizeStorage)
             {
-                uniqueValues = new HashSet<long>();
+                uniqueValues = new JCG.HashSet<long>();
 
                 foreach (long? nv in values)
                 {

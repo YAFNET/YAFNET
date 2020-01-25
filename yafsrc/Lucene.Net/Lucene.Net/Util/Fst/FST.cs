@@ -1,4 +1,4 @@
-using YAF.Lucene.Net.Support;
+using J2N.Collections;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 using System.Text;
+using JCG = J2N.Collections.Generic;
 
 namespace YAF.Lucene.Net.Util.Fst
 {
@@ -26,15 +27,15 @@ namespace YAF.Lucene.Net.Util.Fst
      * limitations under the License.
      */
 
-    using ByteArrayDataOutput = Lucene.Net.Store.ByteArrayDataOutput;
-    using CodecUtil = Lucene.Net.Codecs.CodecUtil;
-    using DataInput = Lucene.Net.Store.DataInput;
-    using DataOutput = Lucene.Net.Store.DataOutput;
-    using GrowableWriter = Lucene.Net.Util.Packed.GrowableWriter;
-    using InputStreamDataInput = Lucene.Net.Store.InputStreamDataInput;
-    using OutputStreamDataOutput = Lucene.Net.Store.OutputStreamDataOutput;
-    using PackedInt32s = Lucene.Net.Util.Packed.PackedInt32s;
-    using RAMOutputStream = Lucene.Net.Store.RAMOutputStream;
+    using ByteArrayDataOutput = YAF.Lucene.Net.Store.ByteArrayDataOutput;
+    using CodecUtil = YAF.Lucene.Net.Codecs.CodecUtil;
+    using DataInput = YAF.Lucene.Net.Store.DataInput;
+    using DataOutput = YAF.Lucene.Net.Store.DataOutput;
+    using GrowableWriter = YAF.Lucene.Net.Util.Packed.GrowableWriter;
+    using InputStreamDataInput = YAF.Lucene.Net.Store.InputStreamDataInput;
+    using OutputStreamDataOutput = YAF.Lucene.Net.Store.OutputStreamDataOutput;
+    using PackedInt32s = YAF.Lucene.Net.Util.Packed.PackedInt32s;
+    using RAMOutputStream = YAF.Lucene.Net.Store.RAMOutputStream;
 
     // TODO: break this into WritableFST and ReadOnlyFST.. then
     // we can have subclasses of ReadOnlyFST to handle the
@@ -450,15 +451,15 @@ namespace YAF.Lucene.Net.Util.Fst
 
                     // LUCENENET NOTE: In .NET, IEnumerable will not equal another identical IEnumerable
                     // because it checks for reference equality, not that the list contents
-                    // are the same. Collections.Equals() will make that check.
+                    // are the same. StructuralEqualityComparer.Default.Equals() will make that check.
                     Debug.Assert(typeof(T).GetTypeInfo().IsValueType 
-                        ? root.NextFinalOutput.Equals(asserting.NextFinalOutput) 
-                        : Collections.Equals(root.NextFinalOutput, asserting.NextFinalOutput));
+                        ? JCG.EqualityComparer<T>.Default.Equals(root.NextFinalOutput, asserting.NextFinalOutput)
+                        : StructuralEqualityComparer.Default.Equals(root.NextFinalOutput, asserting.NextFinalOutput));
                     Debug.Assert(root.Node == asserting.Node);
                     Debug.Assert(root.NumArcs == asserting.NumArcs);
                     Debug.Assert(typeof(T).GetTypeInfo().IsValueType
-                        ? root.Output.Equals(asserting.Output)
-                        : Collections.Equals(root.Output, asserting.Output));
+                        ? JCG.EqualityComparer<T>.Default.Equals(root.Output, asserting.Output)
+                        : StructuralEqualityComparer.Default.Equals(root.Output, asserting.Output));
                     Debug.Assert(root.PosArcsStart == asserting.PosArcsStart);
                     Debug.Assert(root.Target == asserting.Target);
                 }
@@ -2378,7 +2379,7 @@ namespace YAF.Lucene.Net.Util.Fst
             {
             }
 
-            protected internal override bool LessThan(NodeAndInCount a, NodeAndInCount b)
+            public override bool LessThan(NodeAndInCount a, NodeAndInCount b)
             {
                 int cmp = a.CompareTo(b);
                 Debug.Assert(cmp != 0);

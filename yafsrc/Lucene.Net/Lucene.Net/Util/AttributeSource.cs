@@ -1,4 +1,3 @@
-using YAF.Lucene.Net.Support;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -6,6 +5,7 @@ using System.Diagnostics;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Text;
+using JCG = J2N.Collections.Generic;
 
 namespace YAF.Lucene.Net.Util
 {
@@ -55,8 +55,10 @@ namespace YAF.Lucene.Net.Util
 
             private sealed class DefaultAttributeFactory : AttributeFactory
             {
-                internal static readonly WeakIdentityMap<Type, WeakReference> attClassImplMap = 
-                    WeakIdentityMap<Type, WeakReference>.NewConcurrentHashMap(false);
+                // LUCENENET: Using ConditionalWeakTable instead of WeakIdentityMap. A Type IS an
+                // identity for a class, so there is no need for an identity wrapper for it.
+                private static readonly ConditionalWeakTable<Type, WeakReference<Type>> attClassImplMap =
+                    new ConditionalWeakTable<Type, WeakReference<Type>>();
 
                 internal DefaultAttributeFactory()
                 {
@@ -66,33 +68,61 @@ namespace YAF.Lucene.Net.Util
                 {
                     try
                     {
-                        return (Attribute)System.Activator.CreateInstance(GetClassForInterface<S>());
+                        return (Attribute)Activator.CreateInstance(GetClassForInterface<S>());
                     }
                     catch (Exception e)
                     {
-                        throw new System.ArgumentException("Could not instantiate implementing class for " + typeof(S).FullName, e);
+                        throw new ArgumentException("Could not instantiate implementing class for " + typeof(S).FullName, e);
                     }
                 }
 
                 internal static Type GetClassForInterface<T>() where T : IAttribute
                 {
                     var attClass = typeof(T);
-                    WeakReference @ref = attClassImplMap.Get(attClass);
-                    Type clazz = (@ref == null) ? null : (Type)@ref.Target;
-                    if (clazz == null)
+                    Type clazz;
+
+#if !FEATURE_CONDITIONALWEAKTABLE_ADDORUPDATE
+                    // LUCENENET: If the weakreference is dead, we need to explicitly remove and re-add its key.
+                    // We synchronize on attClassImplMap only to make the operation atomic. This does not actually
+                    // utilize the same lock as attClassImplMap does internally, but since this is the only place
+                    // it is used, it is fine here.
+
+                    // In .NET Standard 2.1, we can use AddOrUpdate, so don't need the lock.
+                    lock (attClassImplMap)
+#endif
                     {
-                        // we have the slight chance that another thread may do the same, but who cares?
-                        try
+                        var @ref = attClassImplMap.GetValue(attClass, (key) =>
                         {
-                            string name = attClass.FullName.Replace(attClass.Name, attClass.Name.Substring(1)) + ", " + attClass.GetTypeInfo().Assembly.FullName;
-                            attClassImplMap.Put(attClass, new WeakReference(clazz = Type.GetType(name, true)));
-                        }
-                        catch (Exception e)
+                            return CreateAttributeWeakReference(key, out clazz);
+                        });
+
+                        if (!@ref.TryGetTarget(out clazz))
                         {
-                            throw new System.ArgumentException("Could not find implementing class for " + attClass.Name, e);
+#if FEATURE_CONDITIONALWEAKTABLE_ADDORUPDATE
+                            // There is a small chance that multiple threads will get through here, but it doesn't matter
+                            attClassImplMap.AddOrUpdate(attClass, CreateAttributeWeakReference(attClass, out clazz));
+#else
+                            attClassImplMap.Remove(attClass);
+                            attClassImplMap.Add(attClass, CreateAttributeWeakReference(attClass, out clazz));
+#endif
                         }
                     }
+
                     return clazz;
+                }
+
+                // LUCENENET specific - factored this out so we can reuse
+                private static WeakReference<Type> CreateAttributeWeakReference(Type attClass, out Type clazz)
+                {
+                    try
+                    {
+                        string name = attClass.FullName.Replace(attClass.Name, attClass.Name.Substring(1)) + ", " + attClass.GetTypeInfo().Assembly.FullName;
+                        return new WeakReference<Type>(clazz = Type.GetType(name, true));
+                    }
+                    catch (Exception e)
+                    {
+                        throw new ArgumentException("Could not find implementing class for " + attClass.Name, e);
+                    }
                 }
             }
         }
@@ -125,9 +155,9 @@ namespace YAF.Lucene.Net.Util
 
         // These two maps must always be in sync!!!
         // So they are private, final and read-only from the outside (read-only iterators)
-        private readonly GeneralKeyedCollection<Type, AttributeItem> attributes;
+        private readonly IDictionary<Type, Util.Attribute> attributes;
 
-        private readonly GeneralKeyedCollection<Type, AttributeItem> attributeImpls;
+        private readonly IDictionary<Type, Util.Attribute> attributeImpls;
         private readonly State[] currentState;
 
         private readonly AttributeFactory factory;
@@ -147,7 +177,7 @@ namespace YAF.Lucene.Net.Util
         {
             if (input == null)
             {
-                throw new System.ArgumentException("input AttributeSource must not be null");
+                throw new ArgumentException("input AttributeSource must not be null");
             }
             this.attributes = input.attributes;
             this.attributeImpls = input.attributeImpls;
@@ -160,8 +190,8 @@ namespace YAF.Lucene.Net.Util
         /// </summary>
         public AttributeSource(AttributeFactory factory)
         {
-            this.attributes = new GeneralKeyedCollection<Type, AttributeItem>(att => att.Key);
-            this.attributeImpls = new GeneralKeyedCollection<Type, AttributeItem>(att => att.Key);
+            this.attributes = new JCG.LinkedDictionary<Type, Util.Attribute>();
+            this.attributeImpls = new JCG.LinkedDictionary<Type, Util.Attribute>();
             this.currentState = new State[1];
             this.factory = factory;
         }
@@ -197,7 +227,7 @@ namespace YAF.Lucene.Net.Util
             }
             else
             {
-                return (new HashSet<Attribute>()).GetEnumerator();
+                return (new JCG.HashSet<Attribute>()).GetEnumerator();
             }
         }
 
@@ -219,7 +249,7 @@ namespace YAF.Lucene.Net.Util
 
             public virtual void Remove()
             {
-                throw new System.NotSupportedException();
+                throw new NotSupportedException();
             }
 
             public void Dispose()
@@ -258,36 +288,33 @@ namespace YAF.Lucene.Net.Util
 
         /// <summary>
         /// A cache that stores all interfaces for known implementation classes for performance (slow reflection) </summary>
-        private static readonly WeakIdentityMap<Type, LinkedList<WeakReference>> knownImplClasses =
-            WeakIdentityMap<Type, LinkedList<WeakReference>>.NewConcurrentHashMap(false);
+        // LUCENENET: Using ConditionalWeakTable instead of WeakIdentityMap. A Type IS an
+        // identity for a class, so there is no need for an identity wrapper for it.
+        private static readonly ConditionalWeakTable<Type, LinkedList<WeakReference<Type>>> knownImplClasses =
+            new ConditionalWeakTable<Type, LinkedList<WeakReference<Type>>>();
 
-        internal static LinkedList<WeakReference> GetAttributeInterfaces(Type clazz)
+        internal static LinkedList<WeakReference<Type>> GetAttributeInterfaces(Type clazz)
         {
-            LinkedList<WeakReference> foundInterfaces = knownImplClasses.Get(clazz);
-            lock (knownImplClasses)
+            return knownImplClasses.GetValue(clazz, (key) =>
             {
-                if (foundInterfaces == null)
+                LinkedList<WeakReference<Type>> foundInterfaces = new LinkedList<WeakReference<Type>>();
+                // find all interfaces that this attribute instance implements
+                // and that extend the Attribute interface
+                Type actClazz = clazz;
+                do
                 {
-                    // we have the slight chance that another thread may do the same, but who cares?
-                    foundInterfaces = new LinkedList<WeakReference>();
-                    // find all interfaces that this attribute instance implements
-                    // and that extend the Attribute interface
-                    Type actClazz = clazz;
-                    do
+                    foreach (Type curInterface in actClazz.GetInterfaces())
                     {
-                        foreach (Type curInterface in actClazz.GetInterfaces())
+                        if (curInterface != typeof(IAttribute) && typeof(IAttribute).IsAssignableFrom(curInterface))
                         {
-                            if (curInterface != typeof(IAttribute) && (typeof(IAttribute)).IsAssignableFrom(curInterface))
-                            {
-                                foundInterfaces.AddLast(new WeakReference(curInterface));
-                            }
+                            foundInterfaces.AddLast(new WeakReference<Type>(curInterface));
                         }
-                        actClazz = actClazz.GetTypeInfo().BaseType;
-                    } while (actClazz != null);
-                    knownImplClasses.Put(clazz, foundInterfaces);
-                }
-            }
-            return foundInterfaces;
+                    }
+                    actClazz = actClazz.GetTypeInfo().BaseType;
+                } while (actClazz != null);
+
+                return foundInterfaces;
+            });
         }
 
         /// <summary>
@@ -307,22 +334,22 @@ namespace YAF.Lucene.Net.Util
                 return;
             }
 
-            LinkedList<WeakReference> foundInterfaces = GetAttributeInterfaces(clazz);
+            LinkedList<WeakReference<Type>> foundInterfaces = GetAttributeInterfaces(clazz);
 
             // add all interfaces of this Attribute to the maps
-            foreach (WeakReference curInterfaceRef in foundInterfaces)
+            foreach (var curInterfaceRef in foundInterfaces)
             {
-                Type curInterface = (Type)curInterfaceRef.Target;
+                curInterfaceRef.TryGetTarget(out Type curInterface);
                 Debug.Assert(curInterface != null, "We have a strong reference on the class holding the interfaces, so they should never get evicted");
                 // Attribute is a superclass of this interface
                 if (!attributes.ContainsKey(curInterface))
                 {
                     // invalidate state to force recomputation in captureState()
                     this.currentState[0] = null;
-                    attributes.Add(new AttributeItem(curInterface, att));
+                    attributes.Add(curInterface, att);
                     if (!attributeImpls.ContainsKey(clazz))
                     {
-                        attributeImpls.Add(new AttributeItem(clazz, att));
+                        attributeImpls.Add(clazz, att);
                     }
                 }
             }
@@ -351,7 +378,7 @@ namespace YAF.Lucene.Net.Util
             T returnAttr;
             try
             {
-                returnAttr = (T)(IAttribute)attributes[attClass].Value;
+                returnAttr = (T)(IAttribute)attributes[attClass];
             }
 #pragma warning disable 168
             catch (KeyNotFoundException knf)
@@ -394,9 +421,9 @@ namespace YAF.Lucene.Net.Util
             var attClass = typeof(T);
             if (!attributes.ContainsKey(attClass))
             {
-                throw new System.ArgumentException("this AttributeSource does not have the attribute '" + attClass.Name + "'.");
+                throw new ArgumentException("this AttributeSource does not have the attribute '" + attClass.Name + "'.");
             }
-            return (T)(IAttribute)this.attributes[attClass].Value;
+            return (T)(IAttribute)this.attributes[attClass];
         }
 
         private State GetCurrentState()
@@ -407,15 +434,15 @@ namespace YAF.Lucene.Net.Util
                 return s;
             }
             var c = s = currentState[0] = new State();
-            using (var it = attributeImpls.Values().GetEnumerator())
+            using (var it = attributeImpls.Values.GetEnumerator())
             {
                 it.MoveNext();
-                c.attribute = it.Current.Value;
+                c.attribute = it.Current;
                 while (it.MoveNext())
                 {
                     c.next = new State();
                     c = c.next;
-                    c.attribute = it.Current.Value;
+                    c.attribute = it.Current;
                 }
                 return s;
             }
@@ -469,9 +496,9 @@ namespace YAF.Lucene.Net.Util
             {
                 if (!attributeImpls.ContainsKey(state.attribute.GetType()))
                 {
-                    throw new System.ArgumentException("State contains Attribute of type " + state.attribute.GetType().Name + " that is not in in this AttributeSource");
+                    throw new ArgumentException("State contains Attribute of type " + state.attribute.GetType().Name + " that is not in in this AttributeSource");
                 }
-                state.attribute.CopyTo(attributeImpls[state.attribute.GetType()].Value);
+                state.attribute.CopyTo(attributeImpls[state.attribute.GetType()]);
                 state = state.next;
             } while (state != null);
         }
@@ -493,10 +520,8 @@ namespace YAF.Lucene.Net.Util
                 return true;
             }
 
-            if (obj is AttributeSource)
+            if (obj is AttributeSource other)
             {
-                AttributeSource other = (AttributeSource)obj;
-
                 if (HasAttributes)
                 {
                     if (!other.HasAttributes)
@@ -622,14 +647,14 @@ namespace YAF.Lucene.Net.Util
 
                     if (!clone.attributeImpls.ContainsKey(impl.GetType()))
                     {
-                        clone.attributeImpls.Add(new AttributeItem(impl.GetType(), impl));
+                        clone.attributeImpls.Add(impl.GetType(), impl);
                     }
                 }
 
                 // now the interfaces
                 foreach (var entry in this.attributes)
                 {
-                    clone.attributes.Add(new AttributeItem(entry.Key, clone.attributeImpls[entry.Value.GetType()].Value));
+                    clone.attributes.Add(entry.Key, clone.attributeImpls[entry.Value.GetType()]);
                 }
             }
 
@@ -648,10 +673,10 @@ namespace YAF.Lucene.Net.Util
         {
             for (State state = GetCurrentState(); state != null; state = state.next)
             {
-                Attribute targetImpl = target.attributeImpls[state.attribute.GetType()].Value;
+                Attribute targetImpl = target.attributeImpls[state.attribute.GetType()];
                 if (targetImpl == null)
                 {
-                    throw new System.ArgumentException("this AttributeSource contains Attribute of type " + state.attribute.GetType().Name + " that is not in the target");
+                    throw new ArgumentException("this AttributeSource contains Attribute of type " + state.attribute.GetType().Name + " that is not in the target");
                 }
                 state.attribute.CopyTo(targetImpl);
             }

@@ -21,11 +21,11 @@ namespace YAF.Lucene.Net.Codecs.Compressing
      * limitations under the License.
      */
 
-    using CorruptIndexException = Lucene.Net.Index.CorruptIndexException;
-    using IndexInput = Lucene.Net.Store.IndexInput;
-    using PackedInt32s = Lucene.Net.Util.Packed.PackedInt32s;
-    using RamUsageEstimator = Lucene.Net.Util.RamUsageEstimator;
-    using SegmentInfo = Lucene.Net.Index.SegmentInfo;
+    using CorruptIndexException = YAF.Lucene.Net.Index.CorruptIndexException;
+    using IndexInput = YAF.Lucene.Net.Store.IndexInput;
+    using PackedInt32s = YAF.Lucene.Net.Util.Packed.PackedInt32s;
+    using RamUsageEstimator = YAF.Lucene.Net.Util.RamUsageEstimator;
+    using SegmentInfo = YAF.Lucene.Net.Index.SegmentInfo;
 
     /// <summary>
     /// Random-access reader for <see cref="CompressingStoredFieldsIndexWriter"/>.

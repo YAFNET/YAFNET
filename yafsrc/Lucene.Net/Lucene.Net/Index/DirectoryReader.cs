@@ -23,7 +23,7 @@ namespace YAF.Lucene.Net.Index
      */
 
     // javadocs
-    using Directory = Lucene.Net.Store.Directory;
+    using Directory = YAF.Lucene.Net.Store.Directory;
 
     /// <summary>
     /// <see cref="DirectoryReader"/> is an implementation of <see cref="CompositeReader"/>

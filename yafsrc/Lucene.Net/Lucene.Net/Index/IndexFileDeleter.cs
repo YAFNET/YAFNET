@@ -26,9 +26,9 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using CollectionUtil = Lucene.Net.Util.CollectionUtil;
-    using Directory = Lucene.Net.Store.Directory;
-    using InfoStream = Lucene.Net.Util.InfoStream;
+    using CollectionUtil = YAF.Lucene.Net.Util.CollectionUtil;
+    using Directory = YAF.Lucene.Net.Store.Directory;
+    using InfoStream = YAF.Lucene.Net.Util.InfoStream;
 
     /// <summary>
     /// This class keeps track of each SegmentInfos instance that
@@ -658,28 +658,18 @@ namespace YAF.Lucene.Net.Index
         public bool Exists(string fileName)
         {
             Debug.Assert(IsLocked);
-            if (!refCounts.ContainsKey(fileName))
-            {
-                return false;
-            }
-            else
-            {
-                return GetRefCount(fileName).count > 0;
-            }
+            // LUCENENET: Using TryGetValue to eliminate extra lookup
+            return refCounts.TryGetValue(fileName, out RefCount value) ? value.count > 0 : false;
         }
 
         private RefCount GetRefCount(string fileName)
         {
             Debug.Assert(IsLocked);
-            RefCount rc;
-            if (!refCounts.ContainsKey(fileName))
+            // LUCENENET: Using TryGetValue to eliminate extra lookup
+            if (!refCounts.TryGetValue(fileName, out RefCount rc))
             {
                 rc = new RefCount(fileName);
                 refCounts[fileName] = rc;
-            }
-            else
-            {
-                rc = refCounts[fileName];
             }
             return rc;
         }
@@ -708,7 +698,10 @@ namespace YAF.Lucene.Net.Index
                 // of unref'd files, and then you add new docs / do
                 // merging, and it reuses that segment name.
                 // TestCrash.testCrashAfterReopen can hit this:
-                if (!refCounts.ContainsKey(fileName) || refCounts[fileName].count == 0)
+
+                // LUCENENET: Using TryGetValue to eliminate extra lookup
+                bool got = refCounts.TryGetValue(fileName, out RefCount refCount);
+                if (!got || got && refCount.count == 0)
                 {
                     if (infoStream.IsEnabled("IFD"))
                     {

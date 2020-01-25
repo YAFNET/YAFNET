@@ -23,30 +23,30 @@ namespace YAF.Lucene.Net.Codecs.Lucene45
      * limitations under the License.
      */
 
-    using BinaryDocValues = Lucene.Net.Index.BinaryDocValues;
-    using IBits = Lucene.Net.Util.IBits;
-    using BlockPackedReader = Lucene.Net.Util.Packed.BlockPackedReader;
-    using BytesRef = Lucene.Net.Util.BytesRef;
-    using ChecksumIndexInput = Lucene.Net.Store.ChecksumIndexInput;
-    using DocsAndPositionsEnum = Lucene.Net.Index.DocsAndPositionsEnum;
-    using DocsEnum = Lucene.Net.Index.DocsEnum;
-    using DocValues = Lucene.Net.Index.DocValues;
-    using DocValuesType = Lucene.Net.Index.DocValuesType;
-    using FieldInfo = Lucene.Net.Index.FieldInfo;
-    using FieldInfos = Lucene.Net.Index.FieldInfos;
-    using IndexFileNames = Lucene.Net.Index.IndexFileNames;
-    using IndexInput = Lucene.Net.Store.IndexInput;
-    using IOUtils = Lucene.Net.Util.IOUtils;
-    using Int64Values = Lucene.Net.Util.Int64Values;
-    using MonotonicBlockPackedReader = Lucene.Net.Util.Packed.MonotonicBlockPackedReader;
-    using NumericDocValues = Lucene.Net.Index.NumericDocValues;
-    using PackedInt32s = Lucene.Net.Util.Packed.PackedInt32s;
-    using RamUsageEstimator = Lucene.Net.Util.RamUsageEstimator;
-    using RandomAccessOrds = Lucene.Net.Index.RandomAccessOrds;
-    using SegmentReadState = Lucene.Net.Index.SegmentReadState;
-    using SortedDocValues = Lucene.Net.Index.SortedDocValues;
-    using SortedSetDocValues = Lucene.Net.Index.SortedSetDocValues;
-    using TermsEnum = Lucene.Net.Index.TermsEnum;
+    using BinaryDocValues = YAF.Lucene.Net.Index.BinaryDocValues;
+    using IBits = YAF.Lucene.Net.Util.IBits;
+    using BlockPackedReader = YAF.Lucene.Net.Util.Packed.BlockPackedReader;
+    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
+    using ChecksumIndexInput = YAF.Lucene.Net.Store.ChecksumIndexInput;
+    using DocsAndPositionsEnum = YAF.Lucene.Net.Index.DocsAndPositionsEnum;
+    using DocsEnum = YAF.Lucene.Net.Index.DocsEnum;
+    using DocValues = YAF.Lucene.Net.Index.DocValues;
+    using DocValuesType = YAF.Lucene.Net.Index.DocValuesType;
+    using FieldInfo = YAF.Lucene.Net.Index.FieldInfo;
+    using FieldInfos = YAF.Lucene.Net.Index.FieldInfos;
+    using IndexFileNames = YAF.Lucene.Net.Index.IndexFileNames;
+    using IndexInput = YAF.Lucene.Net.Store.IndexInput;
+    using IOUtils = YAF.Lucene.Net.Util.IOUtils;
+    using Int64Values = YAF.Lucene.Net.Util.Int64Values;
+    using MonotonicBlockPackedReader = YAF.Lucene.Net.Util.Packed.MonotonicBlockPackedReader;
+    using NumericDocValues = YAF.Lucene.Net.Index.NumericDocValues;
+    using PackedInt32s = YAF.Lucene.Net.Util.Packed.PackedInt32s;
+    using RamUsageEstimator = YAF.Lucene.Net.Util.RamUsageEstimator;
+    using RandomAccessOrds = YAF.Lucene.Net.Index.RandomAccessOrds;
+    using SegmentReadState = YAF.Lucene.Net.Index.SegmentReadState;
+    using SortedDocValues = YAF.Lucene.Net.Index.SortedDocValues;
+    using SortedSetDocValues = YAF.Lucene.Net.Index.SortedSetDocValues;
+    using TermsEnum = YAF.Lucene.Net.Index.TermsEnum;
 
     /// <summary>
     /// Reader for <see cref="Lucene45DocValuesFormat"/>. </summary>

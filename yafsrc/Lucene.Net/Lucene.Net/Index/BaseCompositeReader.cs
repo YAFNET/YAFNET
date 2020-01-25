@@ -1,6 +1,7 @@
+using J2N.Collections.Generic.Extensions;
 using System;
 using System.Collections.Generic;
-using System.Linq;
+using JCG = J2N.Collections.Generic;
 
 namespace YAF.Lucene.Net.Index
 {
@@ -59,7 +60,7 @@ namespace YAF.Lucene.Net.Index
         /// List view solely for <see cref="GetSequentialSubReaders()"/>,
         /// for effectiveness the array is used internally.
         /// </summary>
-        private readonly IList<R> subReadersList;
+        private readonly IList<IndexReader> subReadersList; // LUCENENET: Changed from IList<R> to IList<IndexReader> to eliminate casting
 
         /// <summary>
         /// Constructs a <see cref="BaseCompositeReader{R}"/> on the given <paramref name="subReaders"/>. </summary>
@@ -71,7 +72,13 @@ namespace YAF.Lucene.Net.Index
         protected BaseCompositeReader(R[] subReaders)
         {
             this.subReaders = subReaders;
-            this.subReadersList = subReaders.ToList();// Collections.unmodifiableList(Arrays.asList(subReaders));
+
+            // LUCENENET: To eliminate casting, we create the list explicitly
+            var subReadersList = new JCG.List<IndexReader>(subReaders.Length);
+            for (int i = 0; i < subReaders.Length; i++)
+                subReadersList.Add(subReaders[i]);
+            this.subReadersList = subReadersList.AsReadOnly();
+
             starts = new int[subReaders.Length + 1]; // build starts array
             int maxDoc = 0, numDocs = 0;
             for (int i = 0; i < subReaders.Length; i++)
@@ -222,7 +229,7 @@ namespace YAF.Lucene.Net.Index
 
         protected internal override sealed IList<IndexReader> GetSequentialSubReaders()
         {
-            return subReadersList.Cast<IndexReader>().ToList();
+            return subReadersList;
         }
     }
 }

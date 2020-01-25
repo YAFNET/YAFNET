@@ -1,5 +1,5 @@
-﻿using YAF.Lucene.Net.QueryParsers.Flexible.Core.Parser;
-using YAF.Lucene.Net.Support;
+﻿using J2N.Text;
+using YAF.Lucene.Net.QueryParsers.Flexible.Core.Parser;
 using System.Text;
 
 namespace YAF.Lucene.Net.QueryParsers.Flexible.Core.Nodes
@@ -42,7 +42,7 @@ namespace YAF.Lucene.Net.QueryParsers.Flexible.Core.Nodes
          // LUCENENET specific overload for string term
         public FuzzyQueryNode(string field, string term,
             float minSimilarity, int begin, int end)
-            : this(field, term.ToCharSequence(), minSimilarity, begin, end)
+            : this(field, term.AsCharSequence(), minSimilarity, begin, end)
         {
         }
 
@@ -57,7 +57,7 @@ namespace YAF.Lucene.Net.QueryParsers.Flexible.Core.Nodes
          // LUCENENET specific overload for StringBuilder term
         public FuzzyQueryNode(string field, StringBuilder term,
             float minSimilarity, int begin, int end)
-            : this(field, term.ToCharSequence(), minSimilarity, begin, end)
+            : this(field, term.AsCharSequence(), minSimilarity, begin, end)
         {
         }
 

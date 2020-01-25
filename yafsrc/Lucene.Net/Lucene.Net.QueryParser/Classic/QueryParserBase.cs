@@ -1,11 +1,11 @@
-﻿using J2N.Numerics;
+﻿using J2N;
+using J2N.Numerics;
 using YAF.Lucene.Net.Analysis;
 using YAF.Lucene.Net.Analysis.TokenAttributes;
 using YAF.Lucene.Net.Documents;
 using YAF.Lucene.Net.Index;
 using YAF.Lucene.Net.QueryParsers.Flexible.Standard;
 using YAF.Lucene.Net.Search;
-using YAF.Lucene.Net.Support;
 using YAF.Lucene.Net.Util;
 using System;
 using System.Collections.Generic;
@@ -365,13 +365,13 @@ namespace YAF.Lucene.Net.QueryParsers.Classic
                 return this.dateResolution;
             }
 
-            if (!fieldToDateResolution.ContainsKey(fieldName))
+            if (!fieldToDateResolution.TryGetValue(fieldName, out DateTools.Resolution resolution))
             {
                 // no date resolutions set for the given field; return default date resolution instead
                 return this.dateResolution;
             }
 
-            return fieldToDateResolution[fieldName];
+            return resolution;
         }
 
         /// <summary>

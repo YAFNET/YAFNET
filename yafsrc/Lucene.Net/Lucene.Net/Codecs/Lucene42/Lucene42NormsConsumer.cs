@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using JCG = J2N.Collections.Generic;
 
 namespace YAF.Lucene.Net.Codecs.Lucene42
 {
@@ -22,16 +23,16 @@ namespace YAF.Lucene.Net.Codecs.Lucene42
      * limitations under the License.
      */
 
-    using BlockPackedWriter = Lucene.Net.Util.Packed.BlockPackedWriter;
-    using BytesRef = Lucene.Net.Util.BytesRef;
-    using FieldInfo = Lucene.Net.Index.FieldInfo;
-    using FormatAndBits = Lucene.Net.Util.Packed.PackedInt32s.FormatAndBits;
-    using IndexFileNames = Lucene.Net.Index.IndexFileNames;
-    using IndexOutput = Lucene.Net.Store.IndexOutput;
-    using IOUtils = Lucene.Net.Util.IOUtils;
-    using MathUtil = Lucene.Net.Util.MathUtil;
-    using PackedInt32s = Lucene.Net.Util.Packed.PackedInt32s;
-    using SegmentWriteState = Lucene.Net.Index.SegmentWriteState;
+    using BlockPackedWriter = YAF.Lucene.Net.Util.Packed.BlockPackedWriter;
+    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
+    using FieldInfo = YAF.Lucene.Net.Index.FieldInfo;
+    using FormatAndBits = YAF.Lucene.Net.Util.Packed.PackedInt32s.FormatAndBits;
+    using IndexFileNames = YAF.Lucene.Net.Index.IndexFileNames;
+    using IndexOutput = YAF.Lucene.Net.Store.IndexOutput;
+    using IOUtils = YAF.Lucene.Net.Util.IOUtils;
+    using MathUtil = YAF.Lucene.Net.Util.MathUtil;
+    using PackedInt32s = YAF.Lucene.Net.Util.Packed.PackedInt32s;
+    using SegmentWriteState = YAF.Lucene.Net.Index.SegmentWriteState;
 
     /// <summary>
     /// Writer for <see cref="Lucene42NormsFormat"/>.
@@ -84,10 +85,10 @@ namespace YAF.Lucene.Net.Codecs.Lucene42
             long maxValue = long.MinValue;
             long gcd = 0;
             // TODO: more efficient?
-            HashSet<long> uniqueValues = null;
+            JCG.HashSet<long> uniqueValues = null;
             if (true)
             {
-                uniqueValues = new HashSet<long>();
+                uniqueValues = new JCG.HashSet<long>();
 
                 long count = 0;
                 foreach (long? nv in values)

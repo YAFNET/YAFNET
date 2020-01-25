@@ -17,7 +17,7 @@ namespace YAF.Lucene.Net.Codecs
      * limitations under the License.
      */
 
-    using FieldInfos = Lucene.Net.Index.FieldInfos; // javadocs
+    using FieldInfos = YAF.Lucene.Net.Index.FieldInfos; // javadocs
 
     /// <summary>
     /// Encodes/decodes <see cref="FieldInfos"/>.

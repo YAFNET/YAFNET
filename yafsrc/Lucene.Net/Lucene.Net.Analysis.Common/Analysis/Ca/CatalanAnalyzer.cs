@@ -3,7 +3,6 @@ using YAF.Lucene.Net.Analysis.Miscellaneous;
 using YAF.Lucene.Net.Analysis.Snowball;
 using YAF.Lucene.Net.Analysis.Standard;
 using YAF.Lucene.Net.Analysis.Util;
-using YAF.Lucene.Net.Support;
 using YAF.Lucene.Net.Tartarus.Snowball.Ext;
 using YAF.Lucene.Net.Util;
 using System;
@@ -48,7 +47,7 @@ namespace YAF.Lucene.Net.Analysis.Ca
 
         private static readonly CharArraySet DEFAULT_ARTICLES = CharArraySet.UnmodifiableSet(
 #pragma warning disable 612, 618
-            new CharArraySet(LuceneVersion.LUCENE_CURRENT, Arrays.AsList("d", "l", "m", "n", "s", "t"), true));
+            new CharArraySet(LuceneVersion.LUCENE_CURRENT, new string[] { "d", "l", "m", "n", "s", "t" }, true));
 #pragma warning restore 612, 618
 
         /// <summary>

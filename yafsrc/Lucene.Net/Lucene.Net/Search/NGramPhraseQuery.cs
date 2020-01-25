@@ -1,4 +1,4 @@
-using YAF.Lucene.Net.Support;
+using J2N.Collections;
 
 namespace YAF.Lucene.Net.Search
 {
@@ -19,8 +19,8 @@ namespace YAF.Lucene.Net.Search
      * limitations under the License.
      */
 
-    using IndexReader = Lucene.Net.Index.IndexReader;
-    using Term = Lucene.Net.Index.Term;
+    using IndexReader = YAF.Lucene.Net.Index.IndexReader;
+    using Term = YAF.Lucene.Net.Index.Term;
 
     /// <summary>
     /// This is a <see cref="PhraseQuery"/> which is optimized for n-gram phrase query.
@@ -123,8 +123,8 @@ namespace YAF.Lucene.Net.Search
         {
             return J2N.BitConversion.SingleToInt32Bits(Boost) 
                 ^ Slop 
-                ^ Equatable.Wrap(GetTerms()).GetHashCode() 
-                ^ Equatable.Wrap(GetPositions()).GetHashCode() 
+                ^ ArrayEqualityComparer<Term>.OneDimensional.GetHashCode(GetTerms()) 
+                ^ ArrayEqualityComparer<int>.OneDimensional.GetHashCode(GetPositions()) 
                 ^ n;
         }
     }

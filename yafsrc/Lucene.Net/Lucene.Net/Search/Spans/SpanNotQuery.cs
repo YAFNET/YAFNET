@@ -1,7 +1,7 @@
+using J2N.Numerics;
 using System;
 using System.Collections.Generic;
 using System.Text;
-using Number = J2N.Numerics.BitOperationExtensions;
 
 namespace YAF.Lucene.Net.Search.Spans
 {
@@ -22,12 +22,12 @@ namespace YAF.Lucene.Net.Search.Spans
      * limitations under the License.
      */
 
-    using AtomicReaderContext = Lucene.Net.Index.AtomicReaderContext;
-    using IBits = Lucene.Net.Util.IBits;
-    using IndexReader = Lucene.Net.Index.IndexReader;
-    using Term = Lucene.Net.Index.Term;
-    using TermContext = Lucene.Net.Index.TermContext;
-    using ToStringUtils = Lucene.Net.Util.ToStringUtils;
+    using AtomicReaderContext = YAF.Lucene.Net.Index.AtomicReaderContext;
+    using IBits = YAF.Lucene.Net.Util.IBits;
+    using IndexReader = YAF.Lucene.Net.Index.IndexReader;
+    using Term = YAF.Lucene.Net.Index.Term;
+    using TermContext = YAF.Lucene.Net.Index.TermContext;
+    using ToStringUtils = YAF.Lucene.Net.Util.ToStringUtils;
 
     /// <summary>
     /// Removes matches which overlap with another <see cref="SpanQuery"/> or
@@ -318,13 +318,13 @@ namespace YAF.Lucene.Net.Search.Spans
         public override int GetHashCode()
         {
             int h = base.GetHashCode();
-            h = Number.RotateLeft(h, 1);
+            h = BitOperation.RotateLeft(h, 1);
             h ^= include.GetHashCode();
-            h = Number.RotateLeft(h, 1);
+            h = BitOperation.RotateLeft(h, 1);
             h ^= exclude.GetHashCode();
-            h = Number.RotateLeft(h, 1);
+            h = BitOperation.RotateLeft(h, 1);
             h ^= pre;
-            h = Number.RotateLeft(h, 1);
+            h = BitOperation.RotateLeft(h, 1);
             h ^= post;
             return h;
         }

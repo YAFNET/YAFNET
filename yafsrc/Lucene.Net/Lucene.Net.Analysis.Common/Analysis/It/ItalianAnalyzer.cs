@@ -3,7 +3,6 @@ using YAF.Lucene.Net.Analysis.Miscellaneous;
 using YAF.Lucene.Net.Analysis.Snowball;
 using YAF.Lucene.Net.Analysis.Standard;
 using YAF.Lucene.Net.Analysis.Util;
-using YAF.Lucene.Net.Support;
 using YAF.Lucene.Net.Tartarus.Snowball.Ext;
 using YAF.Lucene.Net.Util;
 using System;
@@ -13,21 +12,21 @@ using System.Text;
 namespace YAF.Lucene.Net.Analysis.It
 {
     /*
-	 * Licensed to the Apache Software Foundation (ASF) under one or more
-	 * contributor license agreements.  See the NOTICE file distributed with
-	 * this work for additional information regarding copyright ownership.
-	 * The ASF licenses this file to You under the Apache License, Version 2.0
-	 * (the "License"); you may not use this file except in compliance with
-	 * the License.  You may obtain a copy of the License at
-	 *
-	 *     http://www.apache.org/licenses/LICENSE-2.0
-	 *
-	 * Unless required by applicable law or agreed to in writing, software
-	 * distributed under the License is distributed on an "AS IS" BASIS,
-	 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-	 * See the License for the specific language governing permissions and
-	 * limitations under the License.
-	 */
+     * Licensed to the Apache Software Foundation (ASF) under one or more
+     * contributor license agreements.  See the NOTICE file distributed with
+     * this work for additional information regarding copyright ownership.
+     * The ASF licenses this file to You under the Apache License, Version 2.0
+     * (the "License"); you may not use this file except in compliance with
+     * the License.  You may obtain a copy of the License at
+     *
+     *     http://www.apache.org/licenses/LICENSE-2.0
+     *
+     * Unless required by applicable law or agreed to in writing, software
+     * distributed under the License is distributed on an "AS IS" BASIS,
+     * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     * See the License for the specific language governing permissions and
+     * limitations under the License.
+     */
 
     /// <summary>
     /// <see cref="Analyzer"/> for Italian.
@@ -52,8 +51,8 @@ namespace YAF.Lucene.Net.Analysis.It
 #pragma warning disable 612, 618
             LuceneVersion.LUCENE_CURRENT,
 #pragma warning restore 612, 618
-            Arrays.AsList("c", "l", "all", "dall", "dell", "nell", "sull", "coll", "pell", "gl", "agl", 
-                "dagl", "degl", "negl", "sugl", "un", "m", "t", "s", "v", "d"), true));
+            new string[] { "c", "l", "all", "dall", "dell", "nell", "sull", "coll", "pell", "gl", "agl",
+                "dagl", "degl", "negl", "sugl", "un", "m", "t", "s", "v", "d" }, true));
 
         /// <summary>
         /// Returns an unmodifiable instance of the default stop words set. </summary>

@@ -1,9 +1,10 @@
+using J2N.Runtime.CompilerServices;
 using J2N.Threading.Atomic;
-using YAF.Lucene.Net.Support;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading;
+using JCG = J2N.Collections.Generic;
 
 namespace YAF.Lucene.Net.Index
 {
@@ -24,8 +25,8 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using InfoStream = Lucene.Net.Util.InfoStream;
-    using ThreadState = Lucene.Net.Index.DocumentsWriterPerThreadPool.ThreadState;
+    using InfoStream = YAF.Lucene.Net.Util.InfoStream;
+    using ThreadState = YAF.Lucene.Net.Index.DocumentsWriterPerThreadPool.ThreadState;
 
     /// <summary>
     /// This class controls <see cref="DocumentsWriterPerThread"/> flushing during
@@ -53,7 +54,7 @@ namespace YAF.Lucene.Net.Index
         // only for safety reasons if a DWPT is close to the RAM limit
         private readonly LinkedList<BlockedFlush> blockedFlushes = new LinkedList<BlockedFlush>();
 
-        private readonly IdentityHashMap<DocumentsWriterPerThread, long?> flushingWriters = new IdentityHashMap<DocumentsWriterPerThread, long?>();
+        private readonly IDictionary<DocumentsWriterPerThread, long?> flushingWriters = new JCG.Dictionary<DocumentsWriterPerThread, long?>(IdentityEqualityComparer<DocumentsWriterPerThread>.Default);
 
         internal double maxConfiguredRamBuffer = 0;
         internal long peakActiveBytes = 0; // only with assert

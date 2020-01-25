@@ -21,10 +21,10 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
      * limitations under the License.
      */
 
-    using FieldInfos = Lucene.Net.Index.FieldInfos;
-    using IndexFileNames = Lucene.Net.Index.IndexFileNames;
-    using IOContext = Lucene.Net.Store.IOContext;
-    using SegmentInfo = Lucene.Net.Index.SegmentInfo;
+    using FieldInfos = YAF.Lucene.Net.Index.FieldInfos;
+    using IndexFileNames = YAF.Lucene.Net.Index.IndexFileNames;
+    using IOContext = YAF.Lucene.Net.Store.IOContext;
+    using SegmentInfo = YAF.Lucene.Net.Index.SegmentInfo;
 
     /// <summary>
     /// Lucene3x ReadOnly <see cref="TermVectorsFormat"/> implementation 

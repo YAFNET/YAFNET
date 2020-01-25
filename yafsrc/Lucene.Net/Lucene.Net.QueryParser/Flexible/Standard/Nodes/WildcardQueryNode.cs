@@ -1,6 +1,6 @@
-﻿using YAF.Lucene.Net.QueryParsers.Flexible.Core.Nodes;
+﻿using J2N.Text;
+using YAF.Lucene.Net.QueryParsers.Flexible.Core.Nodes;
 using YAF.Lucene.Net.QueryParsers.Flexible.Core.Parser;
-using YAF.Lucene.Net.Support;
 using System.Text;
 
 namespace YAF.Lucene.Net.QueryParsers.Flexible.Standard.Nodes
@@ -38,7 +38,7 @@ namespace YAF.Lucene.Net.QueryParsers.Flexible.Standard.Nodes
         // LUCENENET specific overload for passing text as string
         public WildcardQueryNode(string field, string text, int begin,
             int end)
-            : this(field, text.ToCharSequence(), begin, end)
+            : this(field, text.AsCharSequence(), begin, end)
         {
         }
 
@@ -52,7 +52,7 @@ namespace YAF.Lucene.Net.QueryParsers.Flexible.Standard.Nodes
         // LUCENENET specific overload for passing text as StringBuilder
         public WildcardQueryNode(string field, StringBuilder text, int begin,
             int end)
-            : this(field, text.ToCharSequence(), begin, end)
+            : this(field, text.AsCharSequence(), begin, end)
         {
         }
 

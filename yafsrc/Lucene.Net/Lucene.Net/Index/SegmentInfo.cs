@@ -1,4 +1,4 @@
-using YAF.Lucene.Net.Support;
+using J2N.Collections.Generic.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -24,10 +24,10 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using Codec = Lucene.Net.Codecs.Codec;
-    using Directory = Lucene.Net.Store.Directory;
-    using Lucene3xSegmentInfoFormat = Lucene.Net.Codecs.Lucene3x.Lucene3xSegmentInfoFormat;
-    using TrackingDirectoryWrapper = Lucene.Net.Store.TrackingDirectoryWrapper;
+    using Codec = YAF.Lucene.Net.Codecs.Codec;
+    using Directory = YAF.Lucene.Net.Store.Directory;
+    using Lucene3xSegmentInfoFormat = YAF.Lucene.Net.Codecs.Lucene3x.Lucene3xSegmentInfoFormat;
+    using TrackingDirectoryWrapper = YAF.Lucene.Net.Store.TrackingDirectoryWrapper;
 
     /// <summary>
     /// Information about a segment such as it's name, directory, and files related
@@ -196,7 +196,7 @@ namespace YAF.Lucene.Net.Index
             {
                 throw new InvalidOperationException("files were not computed yet");
             }
-            return Collections.UnmodifiableSet(setFiles);
+            return setFiles.AsReadOnly();
         }
 
         public override string ToString()

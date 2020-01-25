@@ -1,5 +1,4 @@
 using YAF.Lucene.Net.Store;
-using YAF.Lucene.Net.Support;
 using YAF.Lucene.Net.Support.IO;
 using System;
 using System.Collections.Generic;
@@ -459,7 +458,7 @@ namespace YAF.Lucene.Net.Util
                 this.outerInstance = outerInstance;
             }
 
-            protected internal override bool LessThan(FileAndTop a, FileAndTop b)
+            public override bool LessThan(FileAndTop a, FileAndTop b)
             {
                 return outerInstance.comparer.Compare(a.Current, b.Current) < 0;
             }

@@ -1,5 +1,7 @@
+using J2N.Collections.Generic.Extensions;
 using YAF.Lucene.Net.Support;
 using System.Collections.Generic;
+using JCG = J2N.Collections.Generic;
 
 namespace YAF.Lucene.Net.Index
 {
@@ -20,7 +22,7 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using Directory = Lucene.Net.Store.Directory;
+    using Directory = YAF.Lucene.Net.Store.Directory;
 
     /// <summary>
     /// Embeds a [read-only] <see cref="SegmentInfo"/> and adds per-commit
@@ -100,7 +102,7 @@ namespace YAF.Lucene.Net.Index
         {
             get
             {
-                return Collections.UnmodifiableMap(genUpdatesFiles);
+                return genUpdatesFiles.AsReadOnly();
             }
         }
 
@@ -175,7 +177,7 @@ namespace YAF.Lucene.Net.Index
         public virtual ICollection<string> GetFiles()
         {
             // Start from the wrapped info's files:
-            ISet<string> files = new HashSet<string>(Info.GetFiles());
+            ISet<string> files = new JCG.HashSet<string>(Info.GetFiles());
 
             // TODO we could rely on TrackingDir.getCreatedFiles() (like we do for
             // updates) and then maybe even be able to remove LiveDocsFormat.files().
@@ -325,7 +327,7 @@ namespace YAF.Lucene.Net.Index
             // deep clone
             foreach (KeyValuePair<long, ISet<string>> e in genUpdatesFiles)
             {
-                other.genUpdatesFiles[e.Key] = new HashSet<string>(e.Value);
+                other.genUpdatesFiles[e.Key] = new JCG.HashSet<string>(e.Value);
             }
 
             return other;

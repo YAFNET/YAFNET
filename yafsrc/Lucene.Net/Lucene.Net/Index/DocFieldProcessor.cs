@@ -1,8 +1,9 @@
-using YAF.Lucene.Net.Support;
+using J2N.Text;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
+using JCG = J2N.Collections.Generic;
 
 namespace YAF.Lucene.Net.Index
 {
@@ -23,11 +24,11 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using ArrayUtil = Lucene.Net.Util.ArrayUtil;
-    using Codec = Lucene.Net.Codecs.Codec;
-    using Counter = Lucene.Net.Util.Counter;
-    using FieldInfosWriter = Lucene.Net.Codecs.FieldInfosWriter;
-    using IOContext = Lucene.Net.Store.IOContext;
+    using ArrayUtil = YAF.Lucene.Net.Util.ArrayUtil;
+    using Codec = YAF.Lucene.Net.Codecs.Codec;
+    using Counter = YAF.Lucene.Net.Util.Counter;
+    using FieldInfosWriter = YAF.Lucene.Net.Codecs.FieldInfosWriter;
+    using IOContext = YAF.Lucene.Net.Store.IOContext;
 
     /// <summary>
     /// This is a <see cref="DocConsumer"/> that gathers all fields under the
@@ -155,7 +156,7 @@ namespace YAF.Lucene.Net.Index
 
         public ICollection<DocFieldConsumerPerField> Fields()
         {
-            ICollection<DocFieldConsumerPerField> fields = new HashSet<DocFieldConsumerPerField>();
+            ICollection<DocFieldConsumerPerField> fields = new JCG.HashSet<DocFieldConsumerPerField>();
             for (int i = 0; i < fieldHash.Length; i++)
             {
                 DocFieldProcessorPerField field = fieldHash[i];

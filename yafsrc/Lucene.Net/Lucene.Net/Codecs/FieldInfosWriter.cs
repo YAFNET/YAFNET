@@ -17,9 +17,9 @@ namespace YAF.Lucene.Net.Codecs
      * limitations under the License.
      */
 
-    using Directory = Lucene.Net.Store.Directory;
-    using FieldInfos = Lucene.Net.Index.FieldInfos;
-    using IOContext = Lucene.Net.Store.IOContext;
+    using Directory = YAF.Lucene.Net.Store.Directory;
+    using FieldInfos = YAF.Lucene.Net.Index.FieldInfos;
+    using IOContext = YAF.Lucene.Net.Store.IOContext;
 
     /// <summary>
     /// Codec API for writing <see cref="FieldInfos"/>.

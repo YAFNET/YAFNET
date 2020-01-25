@@ -20,7 +20,7 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using IBits = Lucene.Net.Util.IBits;
+    using IBits = YAF.Lucene.Net.Util.IBits;
 
     /// <summary>
     /// Exposes a slice of an existing <see cref="IBits"/> as a new <see cref="IBits"/>.

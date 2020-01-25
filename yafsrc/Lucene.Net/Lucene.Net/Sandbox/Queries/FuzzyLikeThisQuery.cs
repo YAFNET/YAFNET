@@ -3,10 +3,10 @@ using YAF.Lucene.Net.Analysis.TokenAttributes;
 using YAF.Lucene.Net.Index;
 using YAF.Lucene.Net.Search;
 using YAF.Lucene.Net.Search.Similarities;
-using YAF.Lucene.Net.Support;
 using YAF.Lucene.Net.Util;
 using System;
 using System.Collections.Generic;
+using JCG = J2N.Collections.Generic;
 
 namespace YAF.Lucene.Net.Sandbox.Queries
 {
@@ -50,7 +50,7 @@ namespace YAF.Lucene.Net.Sandbox.Queries
         // provided to TermQuery, so that the general idea is agnostic to any scoring system...
         internal static TFIDFSimilarity sim = new DefaultSimilarity();
         private Query rewrittenQuery = null;
-        private IList<FieldVals> fieldVals = new EquatableList<FieldVals>();
+        private IList<FieldVals> fieldVals = new JCG.List<FieldVals>();
         private Analyzer analyzer;
 
         private ScoreTermQueue q;
@@ -202,7 +202,7 @@ namespace YAF.Lucene.Net.Sandbox.Queries
                 ICharTermAttribute termAtt = ts.AddAttribute<ICharTermAttribute>();
 
                 int corpusNumDocs = reader.NumDocs;
-                HashSet<string> processedTerms = new HashSet<string>();
+                ISet<string> processedTerms = new JCG.HashSet<string>();
                 ts.Reset();
                 while (ts.IncrementToken())
                 {
@@ -363,7 +363,7 @@ namespace YAF.Lucene.Net.Sandbox.Queries
             /// (non-Javadoc)
             /// <see cref="Util.PriorityQueue{T}.LessThan(T, T)"/>
             /// </summary>
-            protected internal override bool LessThan(ScoreTerm termA, ScoreTerm termB)
+            public override bool LessThan(ScoreTerm termA, ScoreTerm termB)
             {
                 if (termA.Score == termB.Score)
                     return termA.Term.CompareTo(termB.Term) > 0;

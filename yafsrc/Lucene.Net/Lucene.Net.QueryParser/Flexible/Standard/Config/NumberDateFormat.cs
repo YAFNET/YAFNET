@@ -1,6 +1,5 @@
 ﻿using YAF.Lucene.Net.Support;
 using System;
-using System.Collections.Generic;
 using System.Globalization;
 
 namespace YAF.Lucene.Net.QueryParsers.Flexible.Standard.Config

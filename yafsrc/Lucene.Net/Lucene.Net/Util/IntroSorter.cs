@@ -1,5 +1,4 @@
 using J2N.Numerics;
-using YAF.Lucene.Net.Support;
 
 namespace YAF.Lucene.Net.Util
 {

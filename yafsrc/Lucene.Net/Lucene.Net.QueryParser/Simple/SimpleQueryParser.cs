@@ -1,13 +1,13 @@
 ﻿using YAF.Lucene.Net.Analysis;
 using YAF.Lucene.Net.Index;
 using YAF.Lucene.Net.Search;
-using YAF.Lucene.Net.Support;
 using YAF.Lucene.Net.Util;
 using YAF.Lucene.Net.Util.Automaton;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using JCG = J2N.Collections.Generic;
 
 namespace YAF.Lucene.Net.QueryParsers.Simple
 {
@@ -131,7 +131,7 @@ namespace YAF.Lucene.Net.QueryParsers.Simple
 
         /// <summary>Creates a new parser searching over a single field.</summary>
         public SimpleQueryParser(Analyzer analyzer, string field)
-            : this(analyzer, new HashMap<string, float>() { { field, 1.0F } })
+            : this(analyzer, new JCG.Dictionary<string, float>() { { field, 1.0F } })
         {
         }
 

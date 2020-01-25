@@ -1,3 +1,4 @@
+using J2N.Text;
 using YAF.Lucene.Net.Analysis.TokenAttributes;
 using YAF.Lucene.Net.Support;
 using System;
@@ -24,15 +25,15 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using BytesRef = Lucene.Net.Util.BytesRef;
-    using FieldsConsumer = Lucene.Net.Codecs.FieldsConsumer;
-    using FixedBitSet = Lucene.Net.Util.FixedBitSet;
-    using OffsetAttribute = Lucene.Net.Analysis.TokenAttributes.OffsetAttribute;
-    using PayloadAttribute = Lucene.Net.Analysis.TokenAttributes.PayloadAttribute;
-    using PostingsConsumer = Lucene.Net.Codecs.PostingsConsumer;
-    using RamUsageEstimator = Lucene.Net.Util.RamUsageEstimator;
-    using TermsConsumer = Lucene.Net.Codecs.TermsConsumer;
-    using TermStats = Lucene.Net.Codecs.TermStats;
+    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
+    using FieldsConsumer = YAF.Lucene.Net.Codecs.FieldsConsumer;
+    using FixedBitSet = YAF.Lucene.Net.Util.FixedBitSet;
+    using OffsetAttribute = YAF.Lucene.Net.Analysis.TokenAttributes.OffsetAttribute;
+    using PayloadAttribute = YAF.Lucene.Net.Analysis.TokenAttributes.PayloadAttribute;
+    using PostingsConsumer = YAF.Lucene.Net.Codecs.PostingsConsumer;
+    using RamUsageEstimator = YAF.Lucene.Net.Util.RamUsageEstimator;
+    using TermsConsumer = YAF.Lucene.Net.Codecs.TermsConsumer;
+    using TermStats = YAF.Lucene.Net.Codecs.TermStats;
 
     // TODO: break into separate freq and prox writers as
     // codecs; make separate container (tii/tis/skip/*) that can

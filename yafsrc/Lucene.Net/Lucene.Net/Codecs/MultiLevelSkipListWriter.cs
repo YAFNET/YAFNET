@@ -19,9 +19,9 @@ namespace YAF.Lucene.Net.Codecs
      * limitations under the License.
      */
 
-    using IndexOutput = Lucene.Net.Store.IndexOutput;
-    using MathUtil = Lucene.Net.Util.MathUtil;
-    using RAMOutputStream = Lucene.Net.Store.RAMOutputStream;
+    using IndexOutput = YAF.Lucene.Net.Store.IndexOutput;
+    using MathUtil = YAF.Lucene.Net.Util.MathUtil;
+    using RAMOutputStream = YAF.Lucene.Net.Store.RAMOutputStream;
 
     /// <summary>
     /// This abstract class writes skip lists with multiple levels.

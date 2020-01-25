@@ -22,14 +22,14 @@ namespace YAF.Lucene.Net.Index
      */
 
     using BinaryDocValuesField = BinaryDocValuesField;
-    using BinaryDocValuesUpdate = Lucene.Net.Index.DocValuesUpdate.BinaryDocValuesUpdate;
-    using BytesRef = Lucene.Net.Util.BytesRef;
-    using DocIdSetIterator = Lucene.Net.Search.DocIdSetIterator;
-    using FixedBitSet = Lucene.Net.Util.FixedBitSet;
-    using InPlaceMergeSorter = Lucene.Net.Util.InPlaceMergeSorter;
-    using PackedInt32s = Lucene.Net.Util.Packed.PackedInt32s;
-    using PagedGrowableWriter = Lucene.Net.Util.Packed.PagedGrowableWriter;
-    using PagedMutable = Lucene.Net.Util.Packed.PagedMutable;
+    using BinaryDocValuesUpdate = YAF.Lucene.Net.Index.DocValuesUpdate.BinaryDocValuesUpdate;
+    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
+    using DocIdSetIterator = YAF.Lucene.Net.Search.DocIdSetIterator;
+    using FixedBitSet = YAF.Lucene.Net.Util.FixedBitSet;
+    using InPlaceMergeSorter = YAF.Lucene.Net.Util.InPlaceMergeSorter;
+    using PackedInt32s = YAF.Lucene.Net.Util.Packed.PackedInt32s;
+    using PagedGrowableWriter = YAF.Lucene.Net.Util.Packed.PagedGrowableWriter;
+    using PagedMutable = YAF.Lucene.Net.Util.Packed.PagedMutable;
 
     /// <summary>
     /// A <see cref="DocValuesFieldUpdates"/> which holds updates of documents, of a single
