@@ -27,18 +27,18 @@ namespace YAF.Lucene.Net.Index
      */
 
     using BinaryDocValuesField = BinaryDocValuesField;
-    using IBits = Lucene.Net.Util.IBits;
-    using BytesRef = Lucene.Net.Util.BytesRef;
-    using Codec = Lucene.Net.Codecs.Codec;
-    using Directory = Lucene.Net.Store.Directory;
-    using DocValuesConsumer = Lucene.Net.Codecs.DocValuesConsumer;
-    using DocValuesFormat = Lucene.Net.Codecs.DocValuesFormat;
-    using IOContext = Lucene.Net.Store.IOContext;
-    using IOUtils = Lucene.Net.Util.IOUtils;
-    using LiveDocsFormat = Lucene.Net.Codecs.LiveDocsFormat;
-    using IMutableBits = Lucene.Net.Util.IMutableBits;
+    using IBits = YAF.Lucene.Net.Util.IBits;
+    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
+    using Codec = YAF.Lucene.Net.Codecs.Codec;
+    using Directory = YAF.Lucene.Net.Store.Directory;
+    using DocValuesConsumer = YAF.Lucene.Net.Codecs.DocValuesConsumer;
+    using DocValuesFormat = YAF.Lucene.Net.Codecs.DocValuesFormat;
+    using IOContext = YAF.Lucene.Net.Store.IOContext;
+    using IOUtils = YAF.Lucene.Net.Util.IOUtils;
+    using LiveDocsFormat = YAF.Lucene.Net.Codecs.LiveDocsFormat;
+    using IMutableBits = YAF.Lucene.Net.Util.IMutableBits;
     using NumericDocValuesField = NumericDocValuesField;
-    using TrackingDirectoryWrapper = Lucene.Net.Store.TrackingDirectoryWrapper;
+    using TrackingDirectoryWrapper = YAF.Lucene.Net.Store.TrackingDirectoryWrapper;
 
     /// <summary>
     /// Used by <see cref="IndexWriter"/> to hold open <see cref="SegmentReader"/>s (for

@@ -22,8 +22,8 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using BytesRef = Lucene.Net.Util.BytesRef;
-    using CompiledAutomaton = Lucene.Net.Util.Automaton.CompiledAutomaton;
+    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
+    using CompiledAutomaton = YAF.Lucene.Net.Util.Automaton.CompiledAutomaton;
 
     /// <summary>
     /// Exposes flex API, merged from flex API of

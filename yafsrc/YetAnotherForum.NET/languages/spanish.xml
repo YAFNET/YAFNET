@@ -2586,6 +2586,7 @@
   </page>
   <page name="CP_EDITPROFILE">
     <Resource tag="ABOUTYOU">Acerca de</Resource>
+    <Resource tag="ACTIVITY">Enable Activity Stream (If checked you get Notifications for Mentions, Quotes and Thanks.</Resource>
     <Resource tag="AIM">Tu nombre en AIM:</Resource>
     <Resource tag="AUTOWATCH_TOPICS_NOTIFICATION">¿Ver todos los temas en los que has publicado y recibir notificaciones sobre estos temas?</Resource>
     <Resource tag="BAD_EMAIL">Has ingresado un correo electrónico no válido.</Resource>

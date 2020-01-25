@@ -21,11 +21,11 @@ namespace YAF.Lucene.Net.Search
      * limitations under the License.
      */
 
-    using Automaton = Lucene.Net.Util.Automaton.Automaton;
-    using IAutomatonProvider = Lucene.Net.Util.Automaton.IAutomatonProvider;
-    using RegExp = Lucene.Net.Util.Automaton.RegExp;
-    using Term = Lucene.Net.Index.Term;
-    using ToStringUtils = Lucene.Net.Util.ToStringUtils;
+    using Automaton = YAF.Lucene.Net.Util.Automaton.Automaton;
+    using IAutomatonProvider = YAF.Lucene.Net.Util.Automaton.IAutomatonProvider;
+    using RegExp = YAF.Lucene.Net.Util.Automaton.RegExp;
+    using Term = YAF.Lucene.Net.Index.Term;
+    using ToStringUtils = YAF.Lucene.Net.Util.ToStringUtils;
 
     /// <summary>
     /// A fast regular expression query based on the

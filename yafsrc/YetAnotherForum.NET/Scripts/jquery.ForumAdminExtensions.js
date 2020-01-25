@@ -35205,7 +35205,7 @@ S2.define('jquery.select2',[
 (function($) {
     $.fn.hovercard = function(options) {
 
-        //Set defauls for the control
+        //Set defaults for the control
         var defaults = {
             openOnLeft: false,
             openOnTop: false,
@@ -35213,15 +35213,7 @@ S2.define('jquery.select2',[
             detailsHTML: "",
             loadingHTML: "Loading...",
             errorHTML: "Sorry, no data found.",
-            twitterURL: "",
-            twitterScreenName: "",
-            showTwitterCard: false,
             showYafCard: false,
-            facebookUserName: "",
-            showFacebookCard: false,
-            showCustomCard: false,
-            customCardJSON: {},
-            customDataUrl: "",
             background: "#ffffff",
             delay: 0,
             autoAdjust: true,
@@ -35242,14 +35234,14 @@ S2.define('jquery.select2',[
             //add a relatively positioned class to the selected element
             obj.addClass("hc-name");
 
-            //if card image src provided then generate the image elementk
+            //if card image src provided then generate the image element
             var hcImg = "";
             if (options.cardImgSrc.length > 0) {
                 hcImg = '<img class="hc-pic" src="' + options.cardImgSrc + '" />';
             }
 
             //generate details span with html provided by the user
-            var hcDetails = '<div class="hc-details ui-widget ui-widget-content ui-corner-all" >' + hcImg + options.detailsHTML + "</div>";
+            var hcDetails = '<div class="hc-details" >' + hcImg + options.detailsHTML + "</div>";
 
             //append this detail after the selected element
             obj.after(hcDetails);
@@ -35261,29 +35253,17 @@ S2.define('jquery.select2',[
                 var $this = $(this);
                 adjustToViewPort($this);
 
-                // Up the z indiex for the .hc-name to overlay on .hc-details
+                // Up the z index for the .hc-name to overlay on .hc-details
                 obj.css("zIndex", "200");
 
                 var curHCDetails = $this.find(".hc-details").eq(0);
                 curHCDetails.stop(true, true).delay(options.delay).fadeIn();
 
-                //Default functionality on hoverin, and also allows callback
+                // Default functionality on hover in, and also allows callback
                 if (typeof options.onHoverIn == "function") {
 
                     //check for custom profile. If already loaded don't load again
                     var dataUrl;
-                    if (options.showCustomCard && curHCDetails.find(".s-card").length <= 0) {
-
-                        //Read data-hovercard url from the hovered element, otherwise look in the options. For custom card, complete url is required than just username.
-                        dataUrl = options.customDataUrl;
-                        if (typeof obj.attr("data-hovercard") == "undefined") {
-                            //do nothing. detecting typeof obj.attr('data-hovercard') != 'undefined' didn't work as expected.
-                        } else if (obj.attr("data-hovercard").length > 0) {
-                            dataUrl = obj.attr("data-hovercard");
-                        }
-
-                        LoadSocialProfile("custom", "", dataUrl, curHCDetails, options.customCardJSON);
-                    }
 
                     //check for yaf profile. If already loaded don't load again
                     if (options.showYafCard && curHCDetails.find(".s-card").length <= 0) {
@@ -35297,34 +35277,6 @@ S2.define('jquery.select2',[
                         }
 
                         LoadSocialProfile("yaf", "", dataUrl, curHCDetails, options.customCardJSON);
-                    }
-
-                    //check for twitter profile. If already loaded don't load again
-                    if (options.showTwitterCard && curHCDetails.find(".s-card").eq(0).length <= 0) {
-
-                        //Look for twitter screen name in data-hovercard first, then in options, otherwise try with the hovered text
-                        var tUsername = options.twitterScreenName.length > 0 ? options.twitterScreenName : obj.text();
-                        if (typeof obj.attr("data-hovercard") == "undefined") {
-                            //do nothing. detecting typeof obj.attr('data-hovercard') != 'undefined' didn't work as expected.
-                        } else if (obj.attr("data-hovercard").length > 0) {
-                            tUsername = obj.attr("data-hovercard");
-                        }
-
-                        LoadSocialProfile("twitter", obj.attr("href") + dataUrl, tUsername, curHCDetails);
-                    }
-
-                    //check for facebook profile. If already loaded don't load again
-                    if (options.showFacebookCard && curHCDetails.find(".s-card").eq(0).length <= 0) {
-
-                        //Look for twitter screen name in data-hovercard first, then in options, otherwise try with the hovered text
-                        var fbUsername = options.facebookUserName.length > 0 ? options.facebookUserName : obj.text();
-                        if (typeof obj.attr("data-hovercard") == "undefined") {
-                            //do nothing. detecting typeof obj.attr('data-hovercard') != 'undefined' didn't work as expected.
-                        } else if (obj.attr("data-hovercard").length > 0) {
-                            fbUsername = obj.attr("data-hovercard");
-                        }
-
-                        LoadSocialProfile("facebook", "", fbUsername, curHCDetails);
                     }
 
                     $("body").on("keydown", function (event) {
@@ -35368,12 +35320,10 @@ S2.define('jquery.select2',[
                 var hcDetails = hcPreview.find(".hc-details").eq(0);
                 var hcPreviewRect = hcPreview[0].getBoundingClientRect();
 
-                var hcdTop = hcPreviewRect.top - 20; //Subtracting 20px of padding;
                 var hcdRight = hcPreviewRect.left + 35 + hcDetails.width(); //Adding 35px of padding;
                 var hcdBottom = hcPreviewRect.top + 35 + hcDetails.height(); //Adding 35px of padding;
-                var hcdLeft = hcPreviewRect.top - 10; //Subtracting 10px of padding;
-
-                //Check for forced open directions, or if need to be autoadjusted
+                
+                //Check for forced open directions, or if need to be auto adjusted
                 if (options.openOnLeft || (options.autoAdjust && (hcdRight > window.innerWidth))) {
                     hcDetails.addClass("hc-details-open-left");
                 } else {
@@ -35392,100 +35342,6 @@ S2.define('jquery.select2',[
                 var cardHTML, dataType, urlToRequest, customCallback, loadingHTML, errorHTML;
 
                 switch (type) {
-                case "twitter":
-                    {
-                        dataType = "json",
-                        urlToRequest = options.twitterURL + username;
-                        cardHTML = function (profileData) {
-                            profileData = profileData[0];
-                            return '<div class="s-card s-card-pad">' +
-                                (profileData.profile_image_url ? ('<img class="s-img" src="' + profileData.profile_image_url + '" />') : "") +
-                                (profileData.name ? ('<label class="s-name">' + profileData.name + " </label>") : "") +
-                                (profileData.screen_name ? ('(<a class="s-username" title="Visit Twitter profile for ' + profileData.name + '" href="http://twitter.com/' + profileData.screen_name + '">@' + profileData.screen_name + "</a>)<br/>") : "") +
-                                (profileData.location ? ('<label class="s-loc">' + profileData.location + "</label>") : "") +
-                                (profileData.description ? ('<p class="s-desc">' + profileData.description + "</p>") : "") +
-                                (profileData.url ? ('<a class="s-href" href="' + profileData.url + '">' + profileData.url + "</a><br/>") : "") +
-                                '<ul class="s-stats">' +
-                                (profileData.statuses_count ? ('<li>Tweets<br /><span class="s-count">' + profileData.statuses_count + "</span></li>") : "") +
-                                (profileData.friends_count ? ('<li>Following<br /><span class="s-count">' + profileData.friends_count + "</span></li>") : "") +
-                                (profileData.followers_count ? ('<li>Followers<br /><span class="s-count">' + profileData.followers_count + "</span></li>") : "") +
-                                "</ul>" +
-                                "</div>";
-                        };
-
-                        loadingHTML = options.loadingHTML;
-                        errorHTML = options.errorHTML;
-                        customCallback = function() {
-                        };
-
-                        //Append the twitter script to the document to add a follow button
-                        if ($("#t-follow-script").length <= 0) {
-                            var script = document.createElement("script");
-                            script.type = "text/javascript";
-                            script.src = "//platform.twitter.com/widgets.js";
-                            script.id = "t-follow-script";
-                            $("body").append(script);
-                        }
-                        curHCDetails.append('<span class="s-action"><a href="https://twitter.com/' + username + '" class="twitter-follow-button" data-show-count="false" data-show-name="false" data-button="grey" data-width="65px" class="twitter-follow-button">Follow</a></span>');
-                        curHCDetails.append('<span class="s-action s-close"><a href="javascript:void(0)"><i class="fa fa-close fa-fw"></i></a></span>');
-                    }
-
-                    break;
-                case "facebook":
-                    {
-                        dataType = "json",
-                        urlToRequest = "https://graph.facebook.com/" + username,
-                        cardHTML = function(profileData) {
-                            return '<div class="s-card s-card-pad">' +
-                                '<img class="s-img" src="http://graph.facebook.com/' + profileData.id + '/picture" />' +
-                                '<label class="s-name">' + profileData.name + " </label><br/>" +
-                                (profileData.link ? ('<a class="s-loc" href="' + profileData.link + '">' + profileData.link + "</a><br/>") : "") +
-                                (profileData.likes ? ('<label class="s-loc">Liked by </span> ' + profileData.likes + "</label><br/>") : "") +
-                                (profileData.description ? ('<p class="s-desc">' + profileData.description + "</p>") : "") +
-                                (profileData.start_time ? ('<p class="s-desc"><span class="s-strong">Start Time:</span><br/>' + profileData.start_time + "</p>") : "") +
-                                (profileData.end_time ? ('<p class="s-desc"><span class="s-strong">End Time:<br/>' + profileData.end_time + "</p>") : "") +
-                                (profileData.founded ? ('<p class="s-desc"><span class="s-strong">Founded:</span><br/>' + profileData.founded + "</p>") : "") +
-                                (profileData.mission ? ('<p class="s-desc"><span class="s-strong">Mission:</span><br/>' + profileData.mission + "</p>") : "") +
-                                (profileData.company_overview ? ('<p class="s-desc"><span class="s-strong">Overview:</span><br/>' + profileData.company_overview + "</p>") : "") +
-                                (profileData.products ? ('<p class="s-desc"><span class="s-strong">Products:</span><br/>' + profileData.products + "</p>") : "") +
-                                (profileData.website ? ('<p class="s-desc"><span class="s-strong">Web:</span><br/><a href="' + profileData.website + '">' + profileData.website + "</a></p>") : "") +
-                                (profileData.email ? ('<p class="s-desc"><span class="s-strong">Email:</span><br/><a href="' + profileData.email + '">' + profileData.email + "</a></p>") : "") +
-                                "</div>";
-                        };
-                        loadingHTML = options.loadingHTML;
-                        errorHTML = options.errorHTML;
-
-                        customCallback = function(profileData) {
-                            if ($("#fb-like" + profileData.id).length > 0) {
-                                curHCDetails.append('<span class="s-action">' + $("#fb-like" + profileData.id).html() + "</span>");
-                            } else {
-                                curHCDetails.append('<span class="s-action"><div class="fb-like" id="fb-like' + profileData.id + '"><iframe src="//www.facebook.com/plugins/like.php?href=' + profileData.link + ';send=false&amp;layout=standard&amp;width=90&amp;show_faces=false&amp;action=like&amp;layout=button_count&amp;font&amp;height=21&amp" scrolling="no" frameborder="0" style="border:none; overflow:hidden;width:77px;height:21px" allowTransparency="true"></iframe></div></span>');
-                                curHCDetails.append('<span class="s-action s-close"><a href="javascript:void(0)"><i class="fa fa-close fa-fw"></i></a></span>');
-                            }
-                        };
-                    }
-                    break;
-                case "custom":
-                    {
-                        dataType = "jsonp",
-                        urlToRequest = username,
-                        cardHTML = function(profileData) {
-                            profileData = profileData[0];
-                            return '<div class="s-card s-card-pad">' +
-                                (profileData.image ? ('<img class="s-img" src=' + profileData.image + " />") : "") +
-                                (profileData.name ? ('<label class="s-name">' + profileData.name + " </label><br/>") : "") +
-                                (profileData.link ? ('<a class="s-loc" href="' + profileData.link + '">' + profileData.link + "</a><br/>") : "") +
-                                (profileData.bio ? ('<p class="s-desc">' + profileData.bio + "</p>") : "") +
-                                (profileData.website ? ('<p class="s-desc"><span class="s-strong">Web:</span><br/><a href="' + profileData.website + '">' + profileData.website + "</a></p>") : "") +
-                                (profileData.email ? ('<p class="s-desc"><span class="s-strong">Email:</span><br/><a href="' + profileData.email + '">' + profileData.email + "</a></p>") : "") +
-                                "</div>";
-                        };
-                        loadingHTML = options.loadingHTML;
-                        errorHTML = options.errorHTML;
-                        customCallback = function() {
-                        };
-                    }
-                    break;
                 case "yaf":
                     {
                         dataType = "json",
@@ -35497,16 +35353,16 @@ S2.define('jquery.select2',[
                                             '<div class="card rounded-0" style="width: 330px;">' +
                                                 '<div class="card-header position-relative">' +
                                                     '<h6 class="card-title text-center">' + (profileData.RealName ? profileData.RealName : profileData.Name) + "</h6>" +
-                                                    (profileData.Avatar ? ('<img src="' + profileData.Avatar + '" class="rounded mx-auto d-block" style="width:75px" alt="" />') : "") +
-                                                    (profileData.Avatar ? ('<div class="position-absolute" style="top:0;right:0;border-width: 0 25px 25px 0; border-style: solid; border-color: transparent ' + online + ';" ></div>') : "") +
+                                                    (profileData.Avatar ? '<img src="' + profileData.Avatar + '" class="rounded mx-auto d-block" style="width:75px" alt="" />' : "") +
+                                                    (profileData.Avatar ? '<div class="position-absolute" style="top:0;right:0;border-width: 0 25px 25px 0; border-style: solid; border-color: transparent ' + online + ';" ></div>' : "") +
                                                 "</div>" +
                                             '<div class="card-body p-2">' +
                                                 '<ul class="list-group mt-1 mb-3">' +
-                                                    (profileData.Location ? ('<li class="list-group-item px-2 py-1">' + profileData.Location + "</li>") : "") +
-                                                    (profileData.Rank ? ('<li class="list-group-item px-2 py-1">' + profileData.Rank + "</li>") : "") +
-                                                    (profileData.Interests ? ('<li class="list-group-item px-2 py-1">' + profileData.Interests + "</li>") : "") +
-                                                    (profileData.Joined ? ('<li class="list-group-item px-2 py-1">Member since: ' + profileData.Joined + "</li>") : "") +
-                                                    (profileData.HomePage ? ('<li class="list-group-item px-2 py-1"><a href="' + profileData.HomePage + '" target="_blank">' + profileData.HomePage + "</a></li>") : "") +
+                                                    (profileData.Location ? '<li class="list-group-item px-2 py-1">' + profileData.Location + "</li>" : "") +
+                                                    (profileData.Rank ? '<li class="list-group-item px-2 py-1">' + profileData.Rank + "</li>" : "") +
+                                                    (profileData.Interests ? '<li class="list-group-item px-2 py-1">' + profileData.Interests + "</li>" : "") +
+                                                    (profileData.Joined ? '<li class="list-group-item px-2 py-1">Member since: ' + profileData.Joined + "</li>" : "") +
+                                                    (profileData.HomePage ? '<li class="list-group-item px-2 py-1"><a href="' + profileData.HomePage + '" target="_blank">' + profileData.HomePage + "</a></li>" : "") +
                                                 "</ul >" +
                                                 '<div class="row no-gutters">' +
                                                     '<div class="col-5 p-1 small bg-secondary text-white d-flex align-items-center justify-content-between">' +
@@ -35517,11 +35373,10 @@ S2.define('jquery.select2',[
                                                         'Reputation:&nbsp;<span class="badge badge-light rounded">' + profileData.Points + "</span>" +
                                                     "</div>" : "") +
                                                 "</div>" +
-                                                (profileData.ActionButtons ? ('<div class="row no-gutters">' + profileData.ActionButtons + "</div>") : "") +
+                                                (profileData.ActionButtons ? '<div class="row no-gutters">' + profileData.ActionButtons + "</div>" : "") +
                                                 "</div>" +
                                             "</div>" +
                                         "</div>";
-                            //alert (shtml);
                             return shtml;
 
                         };
@@ -35534,8 +35389,6 @@ S2.define('jquery.select2',[
                     }
                     break;
                 default:
-                    {
-                    }
                     break;
                 }
 
@@ -35553,7 +35406,6 @@ S2.define('jquery.select2',[
                         },
                         success: function(data) {
                             if (data.length <= 0) {
-
                                 curHCDetails.find(".s-message").html(errorHTML);
                             } else {
                                 curHCDetails.find(".s-message").replaceWith(cardHTML(data));
@@ -35566,7 +35418,7 @@ S2.define('jquery.select2',[
                                 customCallback(data);
                             }
                         },
-                        error: function(jqXHR, textStatus, errorThrown) {
+                        error: function (jqXHR, textStatus, errorThrown) {
                             curHCDetails.find(".s-message").html(errorHTML + errorThrown);
                         }
                     });
@@ -35574,8 +35426,6 @@ S2.define('jquery.select2',[
                     curHCDetails.prepend(cardHTML(customCardJSON));
                 }
             }
-
-            ;
         });
 
     };
@@ -52333,7 +52183,7 @@ function getAlbumImagesData(pageSize, pageNumber, isPageChange) {
         type: "POST",
         data: JSON.stringify(pagedResults),
 		contentType: "application/json; charset=utf-8",
-		success: (function Success(data) {
+		success: function(data) {
             $("#PostAlbumsListPlaceholder ul").empty();
 
             $("#PostAlbumsLoader").hide();
@@ -52343,7 +52193,7 @@ function getAlbumImagesData(pageSize, pageNumber, isPageChange) {
                 var notext = $("#PostAlbumsListPlaceholder").data("notext");
 
                 list.append('<li><div class="alert alert-info text-break" role="alert" style="white-space:normal">' + notext + "</div></li>");
-			}
+            }
 
             $.each(data.AttachmentList, function (id, data) {
                 var list = $("#PostAlbumsListPlaceholder ul"),
@@ -52354,14 +52204,14 @@ function getAlbumImagesData(pageSize, pageNumber, isPageChange) {
                 if (data.DataURL) {
                     listItem.attr("title", "<img src=\"" + data.DataURL + "\" style=\"max-width:200px\" />");
                     listItem.attr("data-toggle", "tooltip");
-				}
+                }
 
-				listItem.append(data.IconImage);
+                listItem.append(data.IconImage);
 
-				list.append(listItem);
-			});
+                list.append(listItem);
+            });
 
-			setPageNumberAlbums(pageSize, pageNumber, data.TotalRecords);
+            setPageNumberAlbums(pageSize, pageNumber, data.TotalRecords);
 
             if (isPageChange) {
                 jQuery(".albums-toggle").dropdown("toggle");
@@ -52372,14 +52222,14 @@ function getAlbumImagesData(pageSize, pageNumber, isPageChange) {
                 template: '<div class="tooltip" role="tooltip"><div class="tooltip-arrow"></div><div class="tooltip-inner" style="max-width:250px"></div></div>',
                 placement: "top"
             });
-		}),
-        error: (function Error(request, status, error) {
+        },
+        error: function(request, status, error) {
             console.log(request);
             console.log(error);
             $("#PostAlbumsLoader").hide();
 
             $("#PostAlbumsListPlaceholder").html(request.statusText).fadeIn(1000);
-		})
+        }
 	});
 }
 
@@ -52465,8 +52315,8 @@ function setPageNumberAlbums(pageSize, pageNumber, total) {
 
     pagerHolder.append(pagination);
 }
-function getPaginationData(pageSize, pageNumber, isPageChange) {
-    var yafUserID = $("#PostAttachmentListPlaceholder").data("userid");
+function getNotifyData(pageSize, pageNumber, isPageChange) {
+    var yafUserID = $("#NotifyListPlaceholder").data("userid");
 
     var pagedResults = {};
 
@@ -52474,7 +52324,7 @@ function getPaginationData(pageSize, pageNumber, isPageChange) {
     pagedResults.PageSize = pageSize;
     pagedResults.PageNumber = pageNumber;
 
-    var ajaxURL = $("#PostAttachmentListPlaceholder").data("url") + "api/Attachment/GetAttachments";
+    var ajaxURL = $("#NotifyListPlaceholder").data("url") + "api/Notify/GetNotifications";
 
 	$.ajax({
 		type: "POST",
@@ -52482,58 +52332,44 @@ function getPaginationData(pageSize, pageNumber, isPageChange) {
         data: JSON.stringify(pagedResults),
 		contentType: "application/json; charset=utf-8",
 		dataType: "json",
-		success: (function Success(data, status) {
-			$("#PostAttachmentListPlaceholder ul").empty();
+		success: function(data) {
+            $("#NotifyListPlaceholder ul").empty();
 
-			$("#PostAttachmentLoader").hide();
+            $("#Loader").hide();
 
-			if (data.AttachmentList.length === 0) {
-				var list = $("#PostAttachmentListPlaceholder ul");
-				var notext = $("#PostAttachmentListPlaceholder").data("notext");
+            if (data.AttachmentList.length > 0) {
+                $("#MarkRead").removeClass("d-none").addClass("d-block");
 
-                list.append('<li><div class="alert alert-info text-break" role="alert" style="white-space:normal">' + notext + "</div></li>");
-			}
+                $.each(data.AttachmentList,
+                    function(id, data) {
+                        var list = $("#NotifyListPlaceholder ul"),
+                            listItem = $(
+                                '<li class="list-group-item list-group-item-action small text-wrap" style="width:15rem;" />');
 
-            $.each(data.AttachmentList, function (id, data) {
-                var list = $("#PostAttachmentListPlaceholder ul"),
-                    listItem = $('<li class="list-group-item" style="white-space: nowrap; cursor: pointer;" />');
 
-                listItem.attr("onclick", data.OnClick);
+                        listItem.append(data.FileName);
 
-                if (data.DataURL) {
-                    listItem.attr("title", "<img src=\"" + data.DataURL + "\" class=\"img-thumbnail\" />");
-                    listItem.attr("data-toggle", "tooltip");
+                        list.append(listItem);
+                    });
+
+                setPageNumberNotify(pageSize, pageNumber, data.TotalRecords);
+
+                if (isPageChange) {
+                    jQuery(".notify-toggle").dropdown("toggle");
                 }
-
-				listItem.append(data.IconImage);
-
-				list.append(listItem);
-            });
-
-            setPageNumberAttach(pageSize, pageNumber, data.TotalRecords);
-
-            if (isPageChange) {
-                jQuery(".attachments-toggle").dropdown("toggle");
             }
+        },
+		error:  function(request) {
+            $("#Loader").hide();
 
-            jQuery("#PostAttachmentListPlaceholder ul li").tooltip({
-                html: true,
-                template:
-                    '<div class="tooltip" role="tooltip"><div class="tooltip-arrow"></div><div class="tooltip-inner" style="max-width:250px"></div></div>',
-                placement: "top"
-            });
-        }),
-		error: (function Error(request, status, error) {
-			$("#PostAttachmentLoader").hide();
-
-			$("#PostAttachmentListPlaceholder").html(request.statusText).fadeIn(1000);
-		})
+            $("#NotifyListPlaceholder").html(request.statusText).fadeIn(1000);
+		}
 	});
 }
 
-function setPageNumberAttach(pageSize, pageNumber, total) {
+function setPageNumberNotify(pageSize, pageNumber, total) {
     var pages = Math.ceil(total / pageSize);
-    var pagerHolder = $("#AttachmentsListPager"),
+    var pagerHolder = $("#NotifyListPager"),
         pagination = $('<ul class="pagination pagination-sm" />');
 
     pagerHolder.empty();
@@ -52541,7 +52377,7 @@ function setPageNumberAttach(pageSize, pageNumber, total) {
     pagination.wrap('<nav aria-label="Attachments Page Results" />');
 
     if (pageNumber > 0) {
-        pagination.append('<li class="page-item"><a href="javascript:getPaginationData(' +
+        pagination.append('<li class="page-item"><a href="javascript:getNotifyData(' +
             pageSize +
             "," +
             (pageNumber - 1) +
@@ -52562,7 +52398,7 @@ function setPageNumberAttach(pageSize, pageNumber, total) {
     }
 
     if (start > 0) {
-        pagination.append('<li class="page-item"><a href="javascript:getPaginationData(' +
+        pagination.append('<li class="page-item"><a href="javascript:getNotifyData(' +
             pageSize +
             "," +
             0 +
@@ -52576,7 +52412,7 @@ function setPageNumberAttach(pageSize, pageNumber, total) {
         if (i === pageNumber) {
             pagination.append('<li class="page-item active"><span class="page-link">' + (i + 1) + "</span>");
         } else {
-            pagination.append('<li class="page-item"><a href="javascript:getPaginationData(' +
+            pagination.append('<li class="page-item"><a href="javascript:getNotifyData(' +
                 pageSize +
                 "," +
                 i +
@@ -52590,7 +52426,7 @@ function setPageNumberAttach(pageSize, pageNumber, total) {
 
     if (end < pages) {
         pagination.append('<li class="page-item disabled"><a class="page-link" href="#" tabindex="-1">...</a></li>');
-        pagination.append('<li class="page-item"><a href="javascript:getPaginationData(' +
+        pagination.append('<li class="page-item"><a href="javascript:getNotifyData(' +
             pageSize +
             "," +
             (pages - 1) +
@@ -52602,7 +52438,7 @@ function setPageNumberAttach(pageSize, pageNumber, total) {
     }
 
     if (pageNumber < pages - 1) {
-        pagination.append('<li class="page-item"><a href="javascript:getPaginationData(' +
+        pagination.append('<li class="page-item"><a href="javascript:getNotifyData(' +
             pageSize +
             "," +
             (pageNumber + 1) +
@@ -52641,17 +52477,17 @@ jQuery(document).ready(function () {
                     dataType: "json",
                     data: JSON.stringify(searchTopic),
                     contentType: "application/json; charset=utf-8",
-                    beforeSend: (function before() {
+                    beforeSend: function() {
                         searchPlaceHolder.empty();
                         searchPlaceHolder.remove("list-group");
                         // show loading screen 
                         $("#loadModal").modal("show");
-                    }),
-                    complete: (function before() {
+                    },
+                    complete: function() {
                         // show loading screen 
                         $("#loadModal").modal("hide");
-                    }),
-                    success: (function success(data) {
+                    },
+                    success: function(data) {
                         searchPlaceHolder.empty();
                         searchPlaceHolder.remove("list-group");
 
@@ -52669,10 +52505,10 @@ jQuery(document).ready(function () {
                                         "</a></li>");
                                 });
                         }
-                    }),
-                    error: (function error(request) {
+                    },
+                    error: function(request) {
                         searchPlaceHolder.html(request.statusText).fadeIn(1000);
-                    })
+                    }
                 });
             }
 
@@ -52682,6 +52518,14 @@ jQuery(document).ready(function () {
 
 // Generic Functions
 jQuery(document).ready(function () {
+
+    $("#Tags").select2({
+        tags: true,
+        tokenSeparators: [',', ' '],
+        theme: "bootstrap4",
+        dropdownAutoWidth: true
+    });
+
 
     // Main Menu
     $(".dropdown-menu a.dropdown-toggle").on("click", function () {
@@ -52801,9 +52645,17 @@ jQuery(document).ready(function () {
 
          });
     }
+
+    // Notify dropdown
+    $(".dropdown-notify").on("show.bs.dropdown",
+        function() {
+            var pageSize = 5;
+            var pageNumber = 0;
+            getNotifyData(pageSize, pageNumber, false);
+        });
 });
 jQuery(document).ready(function () {
-    $(".list-group-item-menu").each(function () {
+    $(".list-group-item-menu, .message").each(function () {
 
         var contextMenu = $(this).find(".context-menu");
 

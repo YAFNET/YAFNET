@@ -19,7 +19,7 @@ namespace YAF.Lucene.Net.Codecs
      * limitations under the License.
      */
 
-    using Fields = Lucene.Net.Index.Fields;
+    using Fields = YAF.Lucene.Net.Index.Fields;
 
     /// <summary>
     /// Abstract API that produces terms, doc, freq, prox, offset and

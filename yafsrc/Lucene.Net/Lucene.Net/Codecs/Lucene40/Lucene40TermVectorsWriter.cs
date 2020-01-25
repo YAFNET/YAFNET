@@ -1,4 +1,4 @@
-using YAF.Lucene.Net.Support;
+using J2N.Text;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -23,22 +23,22 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
      * limitations under the License.
      */
 
-    using ArrayUtil = Lucene.Net.Util.ArrayUtil;
-    using AtomicReader = Lucene.Net.Index.AtomicReader;
-    using IBits = Lucene.Net.Util.IBits;
-    using BytesRef = Lucene.Net.Util.BytesRef;
-    using DataInput = Lucene.Net.Store.DataInput;
-    using Directory = Lucene.Net.Store.Directory;
-    using FieldInfo = Lucene.Net.Index.FieldInfo;
-    using FieldInfos = Lucene.Net.Index.FieldInfos;
-    using Fields = Lucene.Net.Index.Fields;
-    using IndexFileNames = Lucene.Net.Index.IndexFileNames;
-    using IndexOutput = Lucene.Net.Store.IndexOutput;
-    using IOContext = Lucene.Net.Store.IOContext;
-    using IOUtils = Lucene.Net.Util.IOUtils;
-    using MergeState = Lucene.Net.Index.MergeState;
-    using SegmentReader = Lucene.Net.Index.SegmentReader;
-    using StringHelper = Lucene.Net.Util.StringHelper;
+    using ArrayUtil = YAF.Lucene.Net.Util.ArrayUtil;
+    using AtomicReader = YAF.Lucene.Net.Index.AtomicReader;
+    using IBits = YAF.Lucene.Net.Util.IBits;
+    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
+    using DataInput = YAF.Lucene.Net.Store.DataInput;
+    using Directory = YAF.Lucene.Net.Store.Directory;
+    using FieldInfo = YAF.Lucene.Net.Index.FieldInfo;
+    using FieldInfos = YAF.Lucene.Net.Index.FieldInfos;
+    using Fields = YAF.Lucene.Net.Index.Fields;
+    using IndexFileNames = YAF.Lucene.Net.Index.IndexFileNames;
+    using IndexOutput = YAF.Lucene.Net.Store.IndexOutput;
+    using IOContext = YAF.Lucene.Net.Store.IOContext;
+    using IOUtils = YAF.Lucene.Net.Util.IOUtils;
+    using MergeState = YAF.Lucene.Net.Index.MergeState;
+    using SegmentReader = YAF.Lucene.Net.Index.SegmentReader;
+    using StringHelper = YAF.Lucene.Net.Util.StringHelper;
 
     // TODO: make a new 4.0 TV format that encodes better
     //   - use startOffset (not endOffset) as base for delta on

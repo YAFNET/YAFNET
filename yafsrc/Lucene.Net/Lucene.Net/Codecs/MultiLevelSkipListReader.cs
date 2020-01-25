@@ -20,9 +20,9 @@ namespace YAF.Lucene.Net.Codecs
      * limitations under the License.
      */
 
-    using BufferedIndexInput = Lucene.Net.Store.BufferedIndexInput;
-    using IndexInput = Lucene.Net.Store.IndexInput;
-    using MathUtil = Lucene.Net.Util.MathUtil;
+    using BufferedIndexInput = YAF.Lucene.Net.Store.BufferedIndexInput;
+    using IndexInput = YAF.Lucene.Net.Store.IndexInput;
+    using MathUtil = YAF.Lucene.Net.Util.MathUtil;
 
     /// <summary>
     /// This abstract class reads skip lists with multiple levels.

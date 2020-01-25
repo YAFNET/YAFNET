@@ -19,11 +19,11 @@ namespace YAF.Lucene.Net.Search.Similarities
      * limitations under the License.
      */
 
-    using AtomicReaderContext = Lucene.Net.Index.AtomicReaderContext;
-    using BytesRef = Lucene.Net.Util.BytesRef;
-    using FieldInvertState = Lucene.Net.Index.FieldInvertState;
-    using NumericDocValues = Lucene.Net.Index.NumericDocValues;
-    using SmallSingle = Lucene.Net.Util.SmallSingle;
+    using AtomicReaderContext = YAF.Lucene.Net.Index.AtomicReaderContext;
+    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
+    using FieldInvertState = YAF.Lucene.Net.Index.FieldInvertState;
+    using NumericDocValues = YAF.Lucene.Net.Index.NumericDocValues;
+    using SmallSingle = YAF.Lucene.Net.Util.SmallSingle;
 
     /// <summary>
     /// BM25 Similarity. Introduced in Stephen E. Robertson, Steve Walker,

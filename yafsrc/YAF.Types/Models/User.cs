@@ -135,6 +135,10 @@ namespace YAF.Types.Models
         [Default(0)]
         public bool DailyDigest { get; set; }
 
+        [Required]
+        [Default(1)]
+        public bool Activity { get; set; }
+
         [Default(10)]
         public int? NotificationType { get; set; }
 

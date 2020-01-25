@@ -1,5 +1,5 @@
 jQuery(document).ready(function () {
-    $(".list-group-item-menu").each(function () {
+    $(".list-group-item-menu, .message").each(function () {
 
         var contextMenu = $(this).find(".context-menu");
 

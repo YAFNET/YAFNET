@@ -20,13 +20,13 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
      * limitations under the License.
      */
 
-    using CorruptIndexException = Lucene.Net.Index.CorruptIndexException;
-    using Directory = Lucene.Net.Store.Directory;
-    using IndexFileNames = Lucene.Net.Index.IndexFileNames;
-    using IndexInput = Lucene.Net.Store.IndexInput;
-    using IOContext = Lucene.Net.Store.IOContext;
-    using IOUtils = Lucene.Net.Util.IOUtils;
-    using SegmentInfo = Lucene.Net.Index.SegmentInfo;
+    using CorruptIndexException = YAF.Lucene.Net.Index.CorruptIndexException;
+    using Directory = YAF.Lucene.Net.Store.Directory;
+    using IndexFileNames = YAF.Lucene.Net.Index.IndexFileNames;
+    using IndexInput = YAF.Lucene.Net.Store.IndexInput;
+    using IOContext = YAF.Lucene.Net.Store.IOContext;
+    using IOUtils = YAF.Lucene.Net.Util.IOUtils;
+    using SegmentInfo = YAF.Lucene.Net.Index.SegmentInfo;
 
     /// <summary>
     /// Lucene 4.0 implementation of <see cref="SegmentInfoReader"/>.

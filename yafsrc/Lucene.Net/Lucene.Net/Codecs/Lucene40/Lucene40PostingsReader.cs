@@ -22,21 +22,21 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
      * limitations under the License.
      */
 
-    using IBits = Lucene.Net.Util.IBits;
-    using BytesRef = Lucene.Net.Util.BytesRef;
-    using DataInput = Lucene.Net.Store.DataInput;
-    using Directory = Lucene.Net.Store.Directory;
-    using DocsAndPositionsEnum = Lucene.Net.Index.DocsAndPositionsEnum;
-    using DocsEnum = Lucene.Net.Index.DocsEnum;
-    using FieldInfo = Lucene.Net.Index.FieldInfo;
-    using FieldInfos = Lucene.Net.Index.FieldInfos;
-    using IndexFileNames = Lucene.Net.Index.IndexFileNames;
-    using IndexInput = Lucene.Net.Store.IndexInput;
-    using IndexOptions = Lucene.Net.Index.IndexOptions;
-    using IOContext = Lucene.Net.Store.IOContext;
-    using IOUtils = Lucene.Net.Util.IOUtils;
-    using SegmentInfo = Lucene.Net.Index.SegmentInfo;
-    using TermState = Lucene.Net.Index.TermState;
+    using IBits = YAF.Lucene.Net.Util.IBits;
+    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
+    using DataInput = YAF.Lucene.Net.Store.DataInput;
+    using Directory = YAF.Lucene.Net.Store.Directory;
+    using DocsAndPositionsEnum = YAF.Lucene.Net.Index.DocsAndPositionsEnum;
+    using DocsEnum = YAF.Lucene.Net.Index.DocsEnum;
+    using FieldInfo = YAF.Lucene.Net.Index.FieldInfo;
+    using FieldInfos = YAF.Lucene.Net.Index.FieldInfos;
+    using IndexFileNames = YAF.Lucene.Net.Index.IndexFileNames;
+    using IndexInput = YAF.Lucene.Net.Store.IndexInput;
+    using IndexOptions = YAF.Lucene.Net.Index.IndexOptions;
+    using IOContext = YAF.Lucene.Net.Store.IOContext;
+    using IOUtils = YAF.Lucene.Net.Util.IOUtils;
+    using SegmentInfo = YAF.Lucene.Net.Index.SegmentInfo;
+    using TermState = YAF.Lucene.Net.Index.TermState;
 
     /// <summary>
     /// Concrete class that reads the 4.0 frq/prox

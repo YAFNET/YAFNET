@@ -1,4 +1,4 @@
-using YAF.Lucene.Net.Support;
+using J2N.Text;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -23,18 +23,18 @@ namespace YAF.Lucene.Net.Codecs
      * limitations under the License.
      */
 
-    using AtomicReader = Lucene.Net.Index.AtomicReader;
-    using IBits = Lucene.Net.Util.IBits;
-    using BytesRef = Lucene.Net.Util.BytesRef;
-    using DataInput = Lucene.Net.Store.DataInput;
-    using DocIdSetIterator = Lucene.Net.Search.DocIdSetIterator;
-    using DocsAndPositionsEnum = Lucene.Net.Index.DocsAndPositionsEnum;
-    using FieldInfo = Lucene.Net.Index.FieldInfo;
-    using FieldInfos = Lucene.Net.Index.FieldInfos;
-    using Fields = Lucene.Net.Index.Fields;
-    using MergeState = Lucene.Net.Index.MergeState;
-    using Terms = Lucene.Net.Index.Terms;
-    using TermsEnum = Lucene.Net.Index.TermsEnum;
+    using AtomicReader = YAF.Lucene.Net.Index.AtomicReader;
+    using IBits = YAF.Lucene.Net.Util.IBits;
+    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
+    using DataInput = YAF.Lucene.Net.Store.DataInput;
+    using DocIdSetIterator = YAF.Lucene.Net.Search.DocIdSetIterator;
+    using DocsAndPositionsEnum = YAF.Lucene.Net.Index.DocsAndPositionsEnum;
+    using FieldInfo = YAF.Lucene.Net.Index.FieldInfo;
+    using FieldInfos = YAF.Lucene.Net.Index.FieldInfos;
+    using Fields = YAF.Lucene.Net.Index.Fields;
+    using MergeState = YAF.Lucene.Net.Index.MergeState;
+    using Terms = YAF.Lucene.Net.Index.Terms;
+    using TermsEnum = YAF.Lucene.Net.Index.TermsEnum;
 
     /// <summary>
     /// Codec API for writing term vectors:

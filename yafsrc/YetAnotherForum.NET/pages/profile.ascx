@@ -179,8 +179,7 @@
                                 <span class="float-left font-weight-bold">
                                 <YAF:LocalizedLabel ID="LocalizedLabel10" runat="server" LocalizedTag="THANKSFROM" />
                                 </span>
-									<asp:Label ID="ThanksFrom" runat="server" />&nbsp;
-                                    <asp:LinkButton ID="lnkThanks" runat="server" OnCommand="lnk_ViewThanks"/>
+									<asp:Label ID="ThanksFrom" runat="server" />
 								</li>
 							</asp:PlaceHolder>
 							<asp:PlaceHolder id="divTTT" runat="server" visible="<%# this.Get<BoardSettings>().EnableThanksMod %>">

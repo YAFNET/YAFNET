@@ -2580,6 +2580,7 @@
   </page>
   <page name="CP_EDITPROFILE">
     <Resource tag="ABOUTYOU">İsim Bilgileriniz</Resource>
+    <Resource tag="ACTIVITY">Enable Activity Stream (If checked you get Notifications for Mentions, Quotes and Thanks.</Resource>
     <Resource tag="AIM">Your AIM Name:</Resource>
     <Resource tag="AUTOWATCH_TOPICS_NOTIFICATION">Mesaj yazdığınız konulara cevap yazıldığında E-posta ile haber almak ister misiniz?</Resource>
     <Resource tag="BAD_EMAIL">Geçersiz bir e-posta adresi girdiniz.</Resource>

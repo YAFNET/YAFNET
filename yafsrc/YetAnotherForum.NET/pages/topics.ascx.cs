@@ -136,11 +136,10 @@ namespace YAF.Pages
 
             var iconLegend = new IconLegend().RenderToString();
 
-            // setup jQuery and DatePicker JS...
             this.PageContext.PageElements.RegisterJsBlockStartup(
                 "TopicIconLegendPopoverJs",
                 JavaScriptBlocks.ForumIconLegendPopoverJs(
-                    iconLegend.Replace("\n", string.Empty).Replace("\r", string.Empty),
+                    iconLegend.ToJsString(),
                     "topic-icon-legend-popvover"));
 
             base.OnPreRender(e);

@@ -19,9 +19,9 @@ namespace YAF.Lucene.Net.Codecs
      * limitations under the License.
      */
 
-    using DocsAndPositionsEnum = Lucene.Net.Index.DocsAndPositionsEnum; // javadocs
-    using Fields = Lucene.Net.Index.Fields;
-    using OffsetAttribute = Lucene.Net.Analysis.TokenAttributes.OffsetAttribute; // javadocs
+    using DocsAndPositionsEnum = YAF.Lucene.Net.Index.DocsAndPositionsEnum; // javadocs
+    using Fields = YAF.Lucene.Net.Index.Fields;
+    using OffsetAttribute = YAF.Lucene.Net.Analysis.TokenAttributes.OffsetAttribute; // javadocs
 
     /// <summary>
     /// Codec API for reading term vectors:

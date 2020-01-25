@@ -2577,6 +2577,7 @@
   </page>
   <page name="CP_EDITPROFILE">
     <Resource tag="ABOUTYOU">Sinust</Resource>
+    <Resource tag="ACTIVITY">Enable Activity Stream (If checked you get Notifications for Mentions, Quotes and Thanks.</Resource>
     <Resource tag="AIM">Your AIM Name:</Resource>
     <Resource tag="AUTOWATCH_TOPICS_NOTIFICATION">Kas soovite jälgida teemasid, kus te olete teinud postituse, ja saada e-posti teel teavitusi nende teemadega seotud tegevuste kohta?</Resource>
     <Resource tag="BAD_EMAIL">E-kirja aadress on vigane.</Resource>

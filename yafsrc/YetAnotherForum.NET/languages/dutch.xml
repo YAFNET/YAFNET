@@ -2574,6 +2574,7 @@
   </page>
   <page name="CP_EDITPROFILE">
     <Resource tag="ABOUTYOU">Over jezelf</Resource>
+    <Resource tag="ACTIVITY">Enable Activity Stream (If checked you get Notifications for Mentions, Quotes and Thanks.</Resource>
     <Resource tag="AIM">Je AIM Name:</Resource>
     <Resource tag="AUTOWATCH_TOPICS_NOTIFICATION">Abbonneer je op elk topic waar je een bericht hebt geplaatst en ontvang updates via e-mail?
 </Resource>

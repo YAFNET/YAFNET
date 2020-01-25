@@ -19,12 +19,12 @@ namespace YAF.Lucene.Net.Codecs.Lucene42
      * limitations under the License.
      */
 
-    using Lucene40LiveDocsFormat = Lucene.Net.Codecs.Lucene40.Lucene40LiveDocsFormat;
-    using Lucene40SegmentInfoFormat = Lucene.Net.Codecs.Lucene40.Lucene40SegmentInfoFormat;
-    using Lucene41StoredFieldsFormat = Lucene.Net.Codecs.Lucene41.Lucene41StoredFieldsFormat;
-    using PerFieldDocValuesFormat = Lucene.Net.Codecs.PerField.PerFieldDocValuesFormat;
-    using PerFieldPostingsFormat = Lucene.Net.Codecs.PerField.PerFieldPostingsFormat;
-    using SegmentWriteState = Lucene.Net.Index.SegmentWriteState;
+    using Lucene40LiveDocsFormat = YAF.Lucene.Net.Codecs.Lucene40.Lucene40LiveDocsFormat;
+    using Lucene40SegmentInfoFormat = YAF.Lucene.Net.Codecs.Lucene40.Lucene40SegmentInfoFormat;
+    using Lucene41StoredFieldsFormat = YAF.Lucene.Net.Codecs.Lucene41.Lucene41StoredFieldsFormat;
+    using PerFieldDocValuesFormat = YAF.Lucene.Net.Codecs.PerField.PerFieldDocValuesFormat;
+    using PerFieldPostingsFormat = YAF.Lucene.Net.Codecs.PerField.PerFieldPostingsFormat;
+    using SegmentWriteState = YAF.Lucene.Net.Index.SegmentWriteState;
 
     /// <summary>
     /// Implements the Lucene 4.2 index format, with configurable per-field postings

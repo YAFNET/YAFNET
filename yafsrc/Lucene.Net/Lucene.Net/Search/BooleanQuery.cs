@@ -8,6 +8,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 #endif
 using System.Text;
+using JCG = J2N.Collections.Generic;
 
 namespace YAF.Lucene.Net.Search
 {
@@ -28,13 +29,13 @@ namespace YAF.Lucene.Net.Search
      * limitations under the License.
      */
 
-    using AtomicReaderContext = Lucene.Net.Index.AtomicReaderContext;
-    using IBits = Lucene.Net.Util.IBits;
-    using IndexReader = Lucene.Net.Index.IndexReader;
-    using Occur_e = Lucene.Net.Search.Occur;
-    using Similarity = Lucene.Net.Search.Similarities.Similarity;
-    using Term = Lucene.Net.Index.Term;
-    using ToStringUtils = Lucene.Net.Util.ToStringUtils;
+    using AtomicReaderContext = YAF.Lucene.Net.Index.AtomicReaderContext;
+    using IBits = YAF.Lucene.Net.Util.IBits;
+    using IndexReader = YAF.Lucene.Net.Index.IndexReader;
+    using Occur_e = YAF.Lucene.Net.Search.Occur;
+    using Similarity = YAF.Lucene.Net.Search.Similarities.Similarity;
+    using Term = YAF.Lucene.Net.Index.Term;
+    using ToStringUtils = YAF.Lucene.Net.Util.ToStringUtils;
 
     /// <summary>
     /// A <see cref="Query"/> that matches documents matching boolean combinations of other
@@ -122,7 +123,7 @@ namespace YAF.Lucene.Net.Search
             }
         }
 
-        private EquatableList<BooleanClause> clauses = new EquatableList<BooleanClause>();
+        private IList<BooleanClause> clauses = new JCG.List<BooleanClause>();
         private readonly bool disableCoord;
 
         /// <summary>
@@ -630,7 +631,7 @@ namespace YAF.Lucene.Net.Search
         public override object Clone()
         {
             BooleanQuery clone = (BooleanQuery)base.Clone();
-            clone.clauses = (EquatableList<BooleanClause>)this.clauses.Clone();
+            clone.clauses = new JCG.List<BooleanClause>(this.clauses);
             return clone;
         }
 

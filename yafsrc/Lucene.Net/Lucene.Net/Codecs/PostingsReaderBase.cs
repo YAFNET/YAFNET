@@ -20,12 +20,12 @@ namespace YAF.Lucene.Net.Codecs
      * limitations under the License.
      */
 
-    using IBits = Lucene.Net.Util.IBits;
-    using DataInput = Lucene.Net.Store.DataInput;
-    using DocsAndPositionsEnum = Lucene.Net.Index.DocsAndPositionsEnum;
-    using DocsEnum = Lucene.Net.Index.DocsEnum;
-    using FieldInfo = Lucene.Net.Index.FieldInfo;
-    using IndexInput = Lucene.Net.Store.IndexInput;
+    using IBits = YAF.Lucene.Net.Util.IBits;
+    using DataInput = YAF.Lucene.Net.Store.DataInput;
+    using DocsAndPositionsEnum = YAF.Lucene.Net.Index.DocsAndPositionsEnum;
+    using DocsEnum = YAF.Lucene.Net.Index.DocsEnum;
+    using FieldInfo = YAF.Lucene.Net.Index.FieldInfo;
+    using IndexInput = YAF.Lucene.Net.Store.IndexInput;
 
     /// <summary>
     /// The core terms dictionaries (BlockTermsReader,

@@ -4,9 +4,6 @@
 <YAF:PageLinks runat="server" ID="PageLinks" />
 
 <div class="row">     
-    <div class="col-sm-auto">
-        <YAF:ProfileMenu ID="ProfileMenu1" runat="server" />
-    </div>
     <div class="col">
                 <ul class="nav nav-tabs" id="myTab" role="tablist">
                     <li class="nav-item">

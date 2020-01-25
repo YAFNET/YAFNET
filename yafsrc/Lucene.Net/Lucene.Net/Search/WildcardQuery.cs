@@ -1,4 +1,4 @@
-using YAF.Lucene.Net.Support;
+using J2N;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -22,11 +22,11 @@ namespace YAF.Lucene.Net.Search
      * limitations under the License.
      */
 
-    using Automaton = Lucene.Net.Util.Automaton.Automaton;
-    using BasicAutomata = Lucene.Net.Util.Automaton.BasicAutomata;
-    using BasicOperations = Lucene.Net.Util.Automaton.BasicOperations;
-    using Term = Lucene.Net.Index.Term;
-    using ToStringUtils = Lucene.Net.Util.ToStringUtils;
+    using Automaton = YAF.Lucene.Net.Util.Automaton.Automaton;
+    using BasicAutomata = YAF.Lucene.Net.Util.Automaton.BasicAutomata;
+    using BasicOperations = YAF.Lucene.Net.Util.Automaton.BasicOperations;
+    using Term = YAF.Lucene.Net.Index.Term;
+    using ToStringUtils = YAF.Lucene.Net.Util.ToStringUtils;
 
     /// <summary>
     /// Implements the wildcard search query. Supported wildcards are <c>*</c>, which

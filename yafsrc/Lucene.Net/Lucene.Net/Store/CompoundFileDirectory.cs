@@ -25,10 +25,10 @@ namespace YAF.Lucene.Net.Store
      * limitations under the License.
      */
 
-    using CodecUtil = Lucene.Net.Codecs.CodecUtil;
-    using CorruptIndexException = Lucene.Net.Index.CorruptIndexException;
-    using IndexFileNames = Lucene.Net.Index.IndexFileNames;
-    using IOUtils = Lucene.Net.Util.IOUtils;
+    using CodecUtil = YAF.Lucene.Net.Codecs.CodecUtil;
+    using CorruptIndexException = YAF.Lucene.Net.Index.CorruptIndexException;
+    using IndexFileNames = YAF.Lucene.Net.Index.IndexFileNames;
+    using IOUtils = YAF.Lucene.Net.Util.IOUtils;
 
     /// <summary>
     /// Class for accessing a compound stream.

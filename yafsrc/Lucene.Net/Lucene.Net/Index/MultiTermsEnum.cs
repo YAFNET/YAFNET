@@ -23,8 +23,8 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using IBits = Lucene.Net.Util.IBits;
-    using BytesRef = Lucene.Net.Util.BytesRef;
+    using IBits = YAF.Lucene.Net.Util.IBits;
+    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
 
     /// <summary>
     /// Exposes <see cref="TermsEnum"/> API, merged from <see cref="TermsEnum"/> API of sub-segments.
@@ -664,7 +664,7 @@ namespace YAF.Lucene.Net.Index
             {
             }
 
-            protected internal override bool LessThan(TermsEnumWithSlice termsA, TermsEnumWithSlice termsB)
+            public override bool LessThan(TermsEnumWithSlice termsA, TermsEnumWithSlice termsB)
             {
                 int cmp = termComp.Compare(termsA.Current, termsB.Current);
                 if (cmp != 0)

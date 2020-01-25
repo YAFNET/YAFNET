@@ -1,5 +1,5 @@
-﻿using YAF.Lucene.Net.Index;
-using YAF.Lucene.Net.Support;
+﻿using J2N.Text;
+using YAF.Lucene.Net.Index;
 using System;
 using System.Text;
 

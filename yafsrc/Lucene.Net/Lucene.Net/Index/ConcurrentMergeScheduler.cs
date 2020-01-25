@@ -25,8 +25,8 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using CollectionUtil = Lucene.Net.Util.CollectionUtil;
-    using Directory = Lucene.Net.Store.Directory;
+    using CollectionUtil = YAF.Lucene.Net.Util.CollectionUtil;
+    using Directory = YAF.Lucene.Net.Store.Directory;
 
     /// <summary>
     /// A <see cref="MergeScheduler"/> that runs each merge using a

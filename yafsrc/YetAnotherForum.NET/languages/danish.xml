@@ -2580,6 +2580,7 @@
   </page>
   <page name="CP_EDITPROFILE">
     <Resource tag="ABOUTYOU">Om dig</Resource>
+    <Resource tag="ACTIVITY">Enable Activity Stream (If checked you get Notifications for Mentions, Quotes and Thanks.</Resource>
     <Resource tag="AIM">Your AIM Name:</Resource>
     <Resource tag="AUTOWATCH_TOPICS_NOTIFICATION">Se alle emner du har skrevet et indlæg i og modtag en email notifikation når der er aktivitet i disse emner?</Resource>
     <Resource tag="BAD_EMAIL">Du skrev en ugyldig e-mail adresse.</Resource>

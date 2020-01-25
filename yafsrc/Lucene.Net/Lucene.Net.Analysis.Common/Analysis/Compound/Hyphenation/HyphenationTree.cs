@@ -1,9 +1,9 @@
-﻿using YAF.Lucene.Net.Support;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Xml;
+using JCG = J2N.Collections.Generic;
 
 namespace YAF.Lucene.Net.Analysis.Compound.Hyphenation
 {
@@ -57,7 +57,7 @@ namespace YAF.Lucene.Net.Analysis.Compound.Hyphenation
 
         public HyphenationTree()
         {
-            m_stoplist = new HashMap<string, IList<object>>(23); // usually a small table
+            m_stoplist = new JCG.Dictionary<string, IList<object>>(23); // usually a small table
             m_classmap = new TernaryTree();
             m_vspace = new ByteVector();
             m_vspace.Alloc(1); // this reserves index 0, which we don't use
@@ -469,11 +469,11 @@ namespace YAF.Lucene.Net.Analysis.Compound.Hyphenation
 
             // check exception list first
             string sw = new string(word, 1, len);
-            if (m_stoplist.ContainsKey(sw))
+            // LUCENENET: Eliminated extra lookup by using TryGetValue instead of ContainsKey
+            if (m_stoplist.TryGetValue(sw, out IList<object> hw))
             {
                 // assume only simple hyphens (Hyphen.pre="-", Hyphen.post = Hyphen.no =
                 // null)
-                IList<object> hw = m_stoplist[sw];
                 int j = 0;
                 for (i = 0; i < hw.Count; i++)
                 {

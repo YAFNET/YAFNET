@@ -1,6 +1,6 @@
-﻿using YAF.Lucene.Net.Analysis.TokenAttributes;
+﻿using J2N;
+using YAF.Lucene.Net.Analysis.TokenAttributes;
 using YAF.Lucene.Net.Analysis.Util;
-using YAF.Lucene.Net.Support;
 using YAF.Lucene.Net.Util;
 using System;
 

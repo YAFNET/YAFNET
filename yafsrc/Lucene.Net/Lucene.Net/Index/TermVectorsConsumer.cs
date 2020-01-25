@@ -1,3 +1,4 @@
+using J2N.Text;
 using YAF.Lucene.Net.Support;
 using System;
 using System.Collections.Generic;
@@ -23,13 +24,13 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using ArrayUtil = Lucene.Net.Util.ArrayUtil;
-    using BytesRef = Lucene.Net.Util.BytesRef;
-    using FlushInfo = Lucene.Net.Store.FlushInfo;
-    using IOContext = Lucene.Net.Store.IOContext;
-    using IOUtils = Lucene.Net.Util.IOUtils;
-    using RamUsageEstimator = Lucene.Net.Util.RamUsageEstimator;
-    using TermVectorsWriter = Lucene.Net.Codecs.TermVectorsWriter;
+    using ArrayUtil = YAF.Lucene.Net.Util.ArrayUtil;
+    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
+    using FlushInfo = YAF.Lucene.Net.Store.FlushInfo;
+    using IOContext = YAF.Lucene.Net.Store.IOContext;
+    using IOUtils = YAF.Lucene.Net.Util.IOUtils;
+    using RamUsageEstimator = YAF.Lucene.Net.Util.RamUsageEstimator;
+    using TermVectorsWriter = YAF.Lucene.Net.Codecs.TermVectorsWriter;
 
     internal sealed class TermVectorsConsumer : TermsHashConsumer
     {

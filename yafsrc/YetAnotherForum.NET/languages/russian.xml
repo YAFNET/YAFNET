@@ -2562,6 +2562,7 @@
   </page>
   <page name="CP_EDITPROFILE">
     <Resource tag="ABOUTYOU">О Вас</Resource>
+    <Resource tag="ACTIVITY">Enable Activity Stream (If checked you get Notifications for Mentions, Quotes and Thanks.</Resource>
     <Resource tag="AIM">Ваш логин AIM:</Resource>
     <Resource tag="AUTOWATCH_TOPICS_NOTIFICATION">Желаете ли Вы получать уведомление по электронной почте каждый раз, когда кто-либо оставляет сообщение во [b]всех[/b] обсуждениях с вашим участием?</Resource>
     <Resource tag="BAD_EMAIL">Вы ввели недопустимый адрес электронной почты.</Resource>

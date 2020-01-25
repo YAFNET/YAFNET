@@ -1,10 +1,8 @@
-﻿using YAF.Lucene.Net.Analysis;
-using YAF.Lucene.Net.Analysis.Core;
+﻿using YAF.Lucene.Net.Analysis.Core;
 using YAF.Lucene.Net.Analysis.Miscellaneous;
 using YAF.Lucene.Net.Analysis.Snowball;
 using YAF.Lucene.Net.Analysis.Standard;
 using YAF.Lucene.Net.Analysis.Util;
-using YAF.Lucene.Net.Support;
 using YAF.Lucene.Net.Tartarus.Snowball.Ext;
 using YAF.Lucene.Net.Util;
 using System;
@@ -94,7 +92,7 @@ namespace YAF.Lucene.Net.Analysis.De
         {
             /// @deprecated in 3.1, remove in Lucene 5.0 (index bw compat) 
             [Obsolete("in 3.1, remove in Lucene 5.0 (index bw compat)")]
-            internal static readonly CharArraySet DEFAULT_SET_30 = CharArraySet.UnmodifiableSet(new CharArraySet(LuceneVersion.LUCENE_CURRENT, Arrays.AsList(GERMAN_STOP_WORDS), false));
+            internal static readonly CharArraySet DEFAULT_SET_30 = CharArraySet.UnmodifiableSet(new CharArraySet(LuceneVersion.LUCENE_CURRENT, GERMAN_STOP_WORDS, false));
             internal static readonly CharArraySet DEFAULT_SET = LoadDefaultSet();
             private static CharArraySet LoadDefaultSet() // LUCENENET: Avoid static constructors (see https://github.com/apache/lucenenet/pull/224#issuecomment-469284006)
             {

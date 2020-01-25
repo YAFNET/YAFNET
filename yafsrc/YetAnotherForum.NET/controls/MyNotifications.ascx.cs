@@ -84,8 +84,6 @@ namespace YAF.Controls
             this.ReceivedThanks.Text = this.GetText("RECEIVED_THANKS");
             this.WasQuoted.Text = this.GetText("WAS_QUOTED");
 
-            this.UnreadOnly.Text = this.GetText("UNREAD_ONLY");
-
             if (this.IsPostBack)
             {
                 return;
@@ -306,8 +304,6 @@ namespace YAF.Controls
             this.ReceivedThanks.Checked = true;
             this.WasQuoted.Checked = true;
 
-            this.UnreadOnly.Checked = false;
-
             this.BindData();
         }
 
@@ -349,11 +345,6 @@ namespace YAF.Controls
             if (!this.WasQuoted.Checked)
             {
                 stream.RemoveAll(a => a.WasQuoted);
-            }
-
-            if (this.UnreadOnly.Checked)
-            { 
-                stream = stream.Where(a => a.Notification).ToList();
             }
 
             var paged = stream.OrderByDescending(item => item.ID)

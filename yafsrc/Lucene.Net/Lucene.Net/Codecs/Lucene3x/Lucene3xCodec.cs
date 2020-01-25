@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using JCG = J2N.Collections.Generic;
 using IndexFileNames = YAF.Lucene.Net.Index.IndexFileNames;
 
 namespace YAF.Lucene.Net.Codecs.Lucene3x
@@ -21,10 +22,10 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
      * limitations under the License.
      */
 
-    using Lucene40LiveDocsFormat = Lucene.Net.Codecs.Lucene40.Lucene40LiveDocsFormat;
-    using SegmentInfo = Lucene.Net.Index.SegmentInfo;
-    using SegmentReadState = Lucene.Net.Index.SegmentReadState;
-    using SegmentWriteState = Lucene.Net.Index.SegmentWriteState;
+    using Lucene40LiveDocsFormat = YAF.Lucene.Net.Codecs.Lucene40.Lucene40LiveDocsFormat;
+    using SegmentInfo = YAF.Lucene.Net.Index.SegmentInfo;
+    using SegmentReadState = YAF.Lucene.Net.Index.SegmentReadState;
+    using SegmentWriteState = YAF.Lucene.Net.Index.SegmentWriteState;
 
     /// <summary>
     /// Supports the Lucene 3.x index format (readonly) </summary>
@@ -77,45 +78,21 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
             }
         }
 
-        public override PostingsFormat PostingsFormat
-        {
-            get { return postingsFormat; }
-        }
+        public override PostingsFormat PostingsFormat => postingsFormat;
 
-        public override DocValuesFormat DocValuesFormat
-        {
-            get { return docValuesFormat; }
-        }
+        public override DocValuesFormat DocValuesFormat => docValuesFormat;
 
-        public override StoredFieldsFormat StoredFieldsFormat
-        {
-            get { return fieldsFormat; }
-        }
+        public override StoredFieldsFormat StoredFieldsFormat => fieldsFormat;
 
-        public override TermVectorsFormat TermVectorsFormat
-        {
-            get { return vectorsFormat; }
-        }
+        public override TermVectorsFormat TermVectorsFormat => vectorsFormat;
 
-        public override FieldInfosFormat FieldInfosFormat
-        {
-            get { return fieldInfosFormat; }
-        }
+        public override FieldInfosFormat FieldInfosFormat => fieldInfosFormat;
 
-        public override SegmentInfoFormat SegmentInfoFormat
-        {
-            get { return infosFormat; }
-        }
+        public override SegmentInfoFormat SegmentInfoFormat => infosFormat;
 
-        public override NormsFormat NormsFormat
-        {
-            get { return normsFormat; }
-        }
+        public override NormsFormat NormsFormat => normsFormat;
 
-        public override LiveDocsFormat LiveDocsFormat
-        {
-            get { return liveDocsFormat; }
-        }
+        public override LiveDocsFormat LiveDocsFormat => liveDocsFormat;
 
         /// <summary>
         /// Returns file names for shared doc stores, if any, else
@@ -126,7 +103,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
             if (Lucene3xSegmentInfoFormat.GetDocStoreOffset(info) != -1)
             {
                 string dsName = Lucene3xSegmentInfoFormat.GetDocStoreSegment(info);
-                ISet<string> files = new HashSet<string>();
+                ISet<string> files = new JCG.HashSet<string>();
                 if (Lucene3xSegmentInfoFormat.GetDocStoreIsCompoundFile(info))
                 {
                     files.Add(IndexFileNames.SegmentFileName(dsName, "", COMPOUND_FILE_STORE_EXTENSION));

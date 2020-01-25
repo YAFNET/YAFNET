@@ -45,12 +45,6 @@
                                                           Checked="True"/>
                                         </div>
                                     </div>
-                                    <hr />
-                                    <div class="form-group">
-                                        <div class="custom-control custom-switch">
-                                            <asp:CheckBox runat="server" ID="UnreadOnly" Checked="True"/>
-                                        </div>
-                                    </div>
                                     <YAF:ThemeButton runat="server" ID="Update"
                                                      OnClick="UpdateFilterClick"
                                                      TextLocalizedTag="UPDATE"

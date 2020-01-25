@@ -1,4 +1,3 @@
-using YAF.Lucene.Net.Support;
 using YAF.Lucene.Net.Util;
 using System;
 using System.Collections.Generic;
@@ -6,6 +5,7 @@ using System.Diagnostics;
 using System.Globalization;
 using System.Runtime.CompilerServices;
 using System.Threading;
+using JCG = J2N.Collections.Generic;
 
 namespace YAF.Lucene.Net.Index
 {
@@ -26,22 +26,22 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using Allocator = Lucene.Net.Util.ByteBlockPool.Allocator;
-    using Analyzer = Lucene.Net.Analysis.Analyzer;
-    using Codec = Lucene.Net.Codecs.Codec;
-    using Constants = Lucene.Net.Util.Constants;
-    using Counter = Lucene.Net.Util.Counter;
-    using DeleteSlice = Lucene.Net.Index.DocumentsWriterDeleteQueue.DeleteSlice;
-    using Directory = Lucene.Net.Store.Directory;
-    using DirectTrackingAllocator = Lucene.Net.Util.ByteBlockPool.DirectTrackingAllocator;
-    using FlushInfo = Lucene.Net.Store.FlushInfo;
-    using InfoStream = Lucene.Net.Util.InfoStream;
-    using Int32BlockPool = Lucene.Net.Util.Int32BlockPool;
-    using IOContext = Lucene.Net.Store.IOContext;
-    using IMutableBits = Lucene.Net.Util.IMutableBits;
-    using RamUsageEstimator = Lucene.Net.Util.RamUsageEstimator;
-    using Similarity = Lucene.Net.Search.Similarities.Similarity;
-    using TrackingDirectoryWrapper = Lucene.Net.Store.TrackingDirectoryWrapper;
+    using Allocator = YAF.Lucene.Net.Util.ByteBlockPool.Allocator;
+    using Analyzer = YAF.Lucene.Net.Analysis.Analyzer;
+    using Codec = YAF.Lucene.Net.Codecs.Codec;
+    using Constants = YAF.Lucene.Net.Util.Constants;
+    using Counter = YAF.Lucene.Net.Util.Counter;
+    using DeleteSlice = YAF.Lucene.Net.Index.DocumentsWriterDeleteQueue.DeleteSlice;
+    using Directory = YAF.Lucene.Net.Store.Directory;
+    using DirectTrackingAllocator = YAF.Lucene.Net.Util.ByteBlockPool.DirectTrackingAllocator;
+    using FlushInfo = YAF.Lucene.Net.Store.FlushInfo;
+    using InfoStream = YAF.Lucene.Net.Util.InfoStream;
+    using Int32BlockPool = YAF.Lucene.Net.Util.Int32BlockPool;
+    using IOContext = YAF.Lucene.Net.Store.IOContext;
+    using IMutableBits = YAF.Lucene.Net.Util.IMutableBits;
+    using RamUsageEstimator = YAF.Lucene.Net.Util.RamUsageEstimator;
+    using Similarity = YAF.Lucene.Net.Search.Similarities.Similarity;
+    using TrackingDirectoryWrapper = YAF.Lucene.Net.Store.TrackingDirectoryWrapper;
 
     internal class DocumentsWriterPerThread
     {
@@ -472,26 +472,12 @@ namespace YAF.Lucene.Net.Index
         /// <summary>
         /// Returns the number of delete terms in this <see cref="DocumentsWriterPerThread"/>
         /// </summary>
-        public virtual int NumDeleteTerms
-        {
-            get
-            {
-                // public for FlushPolicy
-                return pendingUpdates.numTermDeletes;
-            }
-        }
+        public virtual int NumDeleteTerms => pendingUpdates.numTermDeletes; // public for FlushPolicy
 
         /// <summary>
         /// Returns the number of RAM resident documents in this <see cref="DocumentsWriterPerThread"/>
         /// </summary>
-        public virtual int NumDocsInRAM
-        {
-            get
-            {
-                // public for FlushPolicy
-                return numDocsInRAM;
-            }
-        }
+        public virtual int NumDocsInRAM => numDocsInRAM; // public for FlushPolicy
 
         /// <summary>
         /// Prepares this DWPT for flushing. this method will freeze and return the
@@ -560,7 +546,7 @@ namespace YAF.Lucene.Net.Index
             {
                 consumer.Flush(flushState);
                 pendingUpdates.terms.Clear();
-                segmentInfo.SetFiles(new HashSet<string>(directory.CreatedFiles));
+                segmentInfo.SetFiles(new JCG.HashSet<string>(directory.CreatedFiles));
 
                 SegmentCommitInfo segmentInfoPerCommit = new SegmentCommitInfo(segmentInfo, 0, -1L, -1L);
                 if (infoStream.IsEnabled("DWPT"))
@@ -605,12 +591,9 @@ namespace YAF.Lucene.Net.Index
             }
         }
 
-        private readonly HashSet<string> filesToDelete = new HashSet<string>();
+        private readonly JCG.HashSet<string> filesToDelete = new JCG.HashSet<string>();
 
-        public virtual ISet<string> PendingFilesToDelete
-        {
-            get { return filesToDelete; }
-        }
+        public virtual ISet<string> PendingFilesToDelete => filesToDelete;
 
         /// <summary>
         /// Seals the <see cref="Index.SegmentInfo"/> for the new flushed segment and persists
@@ -689,13 +672,7 @@ namespace YAF.Lucene.Net.Index
 
         /// <summary>
         /// Get current segment info we are writing. </summary>
-        internal virtual SegmentInfo SegmentInfo
-        {
-            get
-            {
-                return segmentInfo;
-            }
-        }
+        internal virtual SegmentInfo SegmentInfo => segmentInfo;
 
         public virtual long BytesUsed => bytesUsed.Get() + pendingUpdates.bytesUsed;
 

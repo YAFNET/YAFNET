@@ -43,7 +43,7 @@
             }
 
             //generate details span with html provided by the user
-            var hcDetails = '<div class="hc-details ui-widget ui-widget-content ui-corner-all" >' + hcImg + options.detailsHTML + "</div>";
+            var hcDetails = '<div class="hc-details" >' + hcImg + options.detailsHTML + "</div>";
 
             //append this detail after the selected element
             obj.after(hcDetails);

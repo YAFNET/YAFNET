@@ -2559,6 +2559,7 @@
   </page>
   <page name="CP_EDITPROFILE">
     <Resource tag="ABOUTYOU">Über dich</Resource>
+    <Resource tag="ACTIVITY">Enable Activity Stream (If checked you get Notifications for Mentions, Quotes and Thanks.</Resource>
     <Resource tag="AIM">AIM Name:</Resource>
     <Resource tag="AUTOWATCH_TOPICS_NOTIFICATION">Beobachten Sie jedes Thema, in dem Sie einen Beitrag gemacht haben und empfangen E-Mail-Benachrichtigungen der Aktivitäten in diesen Themen?</Resource>
     <Resource tag="BAD_EMAIL">E-Mail-Adresse nicht zulässig.</Resource>

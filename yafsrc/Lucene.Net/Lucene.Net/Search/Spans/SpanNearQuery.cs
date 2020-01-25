@@ -1,8 +1,8 @@
-using YAF.Lucene.Net.Support;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using JCG = J2N.Collections.Generic;
 
 namespace YAF.Lucene.Net.Search.Spans
 {
@@ -23,12 +23,12 @@ namespace YAF.Lucene.Net.Search.Spans
      * limitations under the License.
      */
 
-    using AtomicReaderContext = Lucene.Net.Index.AtomicReaderContext;
-    using IBits = Lucene.Net.Util.IBits;
-    using IndexReader = Lucene.Net.Index.IndexReader;
-    using Term = Lucene.Net.Index.Term;
-    using TermContext = Lucene.Net.Index.TermContext;
-    using ToStringUtils = Lucene.Net.Util.ToStringUtils;
+    using AtomicReaderContext = YAF.Lucene.Net.Index.AtomicReaderContext;
+    using IBits = YAF.Lucene.Net.Util.IBits;
+    using IndexReader = YAF.Lucene.Net.Index.IndexReader;
+    using Term = YAF.Lucene.Net.Index.Term;
+    using TermContext = YAF.Lucene.Net.Index.TermContext;
+    using ToStringUtils = YAF.Lucene.Net.Util.ToStringUtils;
 
     /// <summary>
     /// Matches spans which are near one another.  One can specify <i>slop</i>, the
@@ -63,7 +63,7 @@ namespace YAF.Lucene.Net.Search.Spans
         public SpanNearQuery(SpanQuery[] clauses, int slop, bool inOrder, bool collectPayloads)
         {
             // copy clauses array into an ArrayList
-            this.m_clauses = new EquatableList<SpanQuery>(clauses.Length);
+            this.m_clauses = new List<SpanQuery>(clauses.Length);
             for (int i = 0; i < clauses.Length; i++)
             {
                 SpanQuery clause = clauses[i];
@@ -91,31 +91,13 @@ namespace YAF.Lucene.Net.Search.Spans
 
         /// <summary>
         /// Return the maximum number of intervening unmatched positions permitted. </summary>
-        public virtual int Slop
-        {
-            get
-            {
-                return m_slop;
-            }
-        }
+        public virtual int Slop => m_slop;
 
         /// <summary>
         /// Return <c>true</c> if matches are required to be in-order. </summary>
-        public virtual bool IsInOrder
-        {
-            get
-            {
-                return m_inOrder;
-            }
-        }
+        public virtual bool IsInOrder => m_inOrder;
 
-        public override string Field
-        {
-            get
-            {
-                return m_field;
-            }
-        }
+        public override string Field => m_field;
 
         public override void ExtractTerms(ISet<Term> terms)
         {
@@ -211,12 +193,10 @@ namespace YAF.Lucene.Net.Search.Spans
             {
                 return true;
             }
-            if (!(o is SpanNearQuery))
+            if (!(o is SpanNearQuery spanNearQuery))
             {
                 return false;
             }
-
-            SpanNearQuery spanNearQuery = (SpanNearQuery)o;
 
             if (m_inOrder != spanNearQuery.m_inOrder)
             {
@@ -226,7 +206,7 @@ namespace YAF.Lucene.Net.Search.Spans
             {
                 return false;
             }
-            if (!Equatable.Wrap(m_clauses).Equals(spanNearQuery.m_clauses))
+            if (!JCG.ListEqualityComparer<SpanQuery>.Default.Equals(m_clauses, spanNearQuery.m_clauses))
             {
                 return false;
             }
@@ -237,7 +217,7 @@ namespace YAF.Lucene.Net.Search.Spans
         public override int GetHashCode()
         {
             int result;
-            result = Equatable.Wrap(m_clauses).GetHashCode();
+            result = JCG.ListEqualityComparer<SpanQuery>.Default.GetHashCode(m_clauses);
             // Mix bits before folding in things like boost, since it could cancel the
             // last element of clauses.  this particular mix also serves to
             // differentiate SpanNearQuery hashcodes from others.

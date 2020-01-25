@@ -2580,6 +2580,7 @@
   </page>
   <page name="CP_EDITPROFILE">
     <Resource tag="ABOUTYOU">关于您</Resource>
+    <Resource tag="ACTIVITY">Enable Activity Stream (If checked you get Notifications for Mentions, Quotes and Thanks.</Resource>
     <Resource tag="AIM">Your AIM Name:</Resource>
     <Resource tag="AUTOWATCH_TOPICS_NOTIFICATION">Watch every topic in which you have made a post and receive email notifications of activities in those topics?</Resource>
     <Resource tag="BAD_EMAIL">您输入了一个无效的电子邮件地址.</Resource>

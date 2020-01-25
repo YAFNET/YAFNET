@@ -1,11 +1,11 @@
-﻿using J2N.Numerics;
+﻿using J2N;
+using J2N.Numerics;
 using YAF.Lucene.Net.Analysis;
 using YAF.Lucene.Net.Analysis.TokenAttributes;
 using YAF.Lucene.Net.Documents;
 using YAF.Lucene.Net.Index;
 using YAF.Lucene.Net.QueryParsers.Flexible.Standard;
 using YAF.Lucene.Net.Search;
-using YAF.Lucene.Net.Support;
 using YAF.Lucene.Net.Util;
 using System;
 using System.Collections.Generic;

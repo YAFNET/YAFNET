@@ -372,7 +372,7 @@ namespace YAF.Pages
         {
             if (!this.PageContext.IsGuest)
             {
-                if (this.Get<HttpRequestBase>().QueryString.Exists("m") && this.Get<BoardSettings>().EnableActivityStream)
+                if (this.Get<HttpRequestBase>().QueryString.Exists("m") && this.PageContext.CurrentUserData.Activity)
                 {
                     var mentionId = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefaultAs<int>("m");
 
@@ -1074,7 +1074,7 @@ namespace YAF.Pages
                                         findMessageId = unreadFirst.Field<int>("MessageID");
                                         messagePosition = unreadFirst.Field<int>("MessagePosition");
 
-                                        if (this.Get<HttpRequestBase>().QueryString.Exists("m") && this.Get<BoardSettings>().EnableActivityStream)
+                                        if (this.Get<HttpRequestBase>().QueryString.Exists("m") && this.PageContext.CurrentUserData.Activity)
                                         {
                                             this.GetRepository<Activity>().UpdateNotification(this.PageContext.PageUserID, findMessageId);
                                         }

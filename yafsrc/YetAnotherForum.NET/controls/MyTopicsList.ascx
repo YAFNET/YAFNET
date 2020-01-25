@@ -25,7 +25,8 @@
                 </asp:Repeater>
                 <YAF:Pager runat="server" ID="PagerBottom" LinkedPager="PagerTop" OnPageChange="Pager_PageChange" />
             </div>
-            <div class="card-footer">
+            <asp:Panel runat="server" ID="Footer" 
+                       CssClass="card-footer">
                 <div class="mb-1 form-inline">
                     <asp:Label runat="server" AssociatedControlID="Since">
                         <YAF:LocalizedLabel ID="SinceLabel" runat="server"
@@ -36,9 +37,9 @@
                                       OnSelectedIndexChanged="Since_SelectedIndexChanged" 
                                       CssClass="select2-select custom-select" />
                 </div>
-            </div>
-        </div>
+            </asp:Panel>
     </div>
+</div>
 </div>
 <div class="row">
     <div class="col">

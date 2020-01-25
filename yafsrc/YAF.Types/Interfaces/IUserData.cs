@@ -65,6 +65,8 @@ namespace YAF.Types.Interfaces
         /// </summary>
         bool DailyDigest { get; }
 
+        bool Activity { get; }
+
         /// <summary>
         ///   Gets DisplayName.
         /// </summary>

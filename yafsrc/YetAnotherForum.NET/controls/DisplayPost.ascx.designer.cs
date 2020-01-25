@@ -132,15 +132,6 @@ namespace YAF.Controls
         protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel2;
 
         /// <summary>
-        /// UserReputation control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder UserReputation;
-
-        /// <summary>
         /// IPHolder control.
         /// </summary>
         /// <remarks>
@@ -168,40 +159,31 @@ namespace YAF.Controls
         protected global::System.Web.UI.HtmlControls.HtmlAnchor IPLink1;
 
         /// <summary>
-        /// DisplayDateTime control.
+        /// UserReputation control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.Controls.DisplayDateTime DisplayDateTime;
+        protected global::System.Web.UI.WebControls.PlaceHolder UserReputation;
 
         /// <summary>
-        /// panMessage control.
+        /// ToolsHolder control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel panMessage;
+        protected global::System.Web.UI.WebControls.Panel ToolsHolder;
 
         /// <summary>
-        /// Footer control.
+        /// Tools1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder Footer;
-
-        /// <summary>
-        /// ReportPost control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Web.Controls.ThemeButton ReportPost;
+        protected global::YAF.Web.Controls.ThemeButton Tools1;
 
         /// <summary>
         /// MarkAsAnswer control.
@@ -211,24 +193,6 @@ namespace YAF.Controls
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::YAF.Web.Controls.ThemeButton MarkAsAnswer;
-
-        /// <summary>
-        /// ThanksDataLiteral control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal ThanksDataLiteral;
-
-        /// <summary>
-        /// Thank control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Web.Controls.ThemeButton Thank;
 
         /// <summary>
         /// ManageDropPlaceHolder control.
@@ -274,6 +238,132 @@ namespace YAF.Controls
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::YAF.Web.Controls.ThemeButton UnDelete;
+
+        /// <summary>
+        /// ReportPost control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Web.Controls.ThemeButton ReportPost;
+
+        /// <summary>
+        /// DisplayDateTime control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Web.Controls.DisplayDateTime DisplayDateTime;
+
+        /// <summary>
+        /// panMessage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel panMessage;
+
+        /// <summary>
+        /// Edit2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Web.Controls.ThemeButton Edit2;
+
+        /// <summary>
+        /// Quote2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Web.Controls.ThemeButton Quote2;
+
+        /// <summary>
+        /// QuickReplyLink control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Web.Controls.ThemeButton QuickReplyLink;
+
+        /// <summary>
+        /// Reply control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Web.Controls.ThemeButton Reply;
+
+        /// <summary>
+        /// Move control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Web.Controls.ThemeButton Move;
+
+        /// <summary>
+        /// Delete2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Web.Controls.ThemeButton Delete2;
+
+        /// <summary>
+        /// UnDelete2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Web.Controls.ThemeButton UnDelete2;
+
+        /// <summary>
+        /// ReportPost2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Web.Controls.ThemeButton ReportPost2;
+
+        /// <summary>
+        /// Footer control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.PlaceHolder Footer;
+
+        /// <summary>
+        /// ThanksDataLiteral control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal ThanksDataLiteral;
+
+        /// <summary>
+        /// Thank control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Web.Controls.ThemeButton Thank;
 
         /// <summary>
         /// Quote control.

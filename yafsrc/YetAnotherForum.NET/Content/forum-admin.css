@@ -7682,7 +7682,12 @@ span.form-check > label {
   position: relative;
   margin-bottom: 0;
   display: inline-block;
-  max-width: 2rem;
-  max-height: 2rem;
+  max-width: 1.2rem;
+  max-height: 1.2rem;
   font-size: 2rem;
   vertical-align: middle; }
+
+.unread {
+  position: absolute;
+  top: 8px;
+  left: 16px; }

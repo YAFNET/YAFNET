@@ -21,9 +21,9 @@ namespace YAF.Lucene.Net.Codecs
      * limitations under the License.
      */
 
-    using DocsEnum = Lucene.Net.Index.DocsEnum;
-    using MergeState = Lucene.Net.Index.MergeState;
-    using MultiDocsEnum = Lucene.Net.Index.MultiDocsEnum;
+    using DocsEnum = YAF.Lucene.Net.Index.DocsEnum;
+    using MergeState = YAF.Lucene.Net.Index.MergeState;
+    using MultiDocsEnum = YAF.Lucene.Net.Index.MultiDocsEnum;
 
     /// <summary>
     /// Exposes flex API, merged from flex API of sub-segments,

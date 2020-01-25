@@ -143,6 +143,9 @@ namespace YAF.Core
         /// </summary>
         public bool IsCaptchaExcluded => this.userFlags != null && this.userFlags.IsCaptchaExcluded;
 
+        /// <summary>
+        /// The moderated.
+        /// </summary>
         public bool Moderated => this.userFlags != null && this.userFlags.Moderated;
 
         /// <summary>

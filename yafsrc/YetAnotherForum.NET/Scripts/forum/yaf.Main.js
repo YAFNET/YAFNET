@@ -1,5 +1,14 @@
 // Generic Functions
 jQuery(document).ready(function () {
+
+    $("#Tags").select2({
+        tags: true,
+        tokenSeparators: [',', ' '],
+        theme: "bootstrap4",
+        dropdownAutoWidth: true
+    });
+
+
     // Main Menu
     $(".dropdown-menu a.dropdown-toggle").on("click", function () {
 		var $el = $(this);
@@ -118,4 +127,12 @@ jQuery(document).ready(function () {
 
          });
     }
+
+    // Notify dropdown
+    $(".dropdown-notify").on("show.bs.dropdown",
+        function() {
+            var pageSize = 5;
+            var pageNumber = 0;
+            getNotifyData(pageSize, pageNumber, false);
+        });
 });

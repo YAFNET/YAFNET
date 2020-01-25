@@ -1086,9 +1086,7 @@
   <Resource tag="ENABLE_ABLBUMS_HELP">If checked, album feature is enabled. You should set allowed number of images and albums for each group and/or rank too, to enable the feature.</Resource>
    <Resource tag="ENABLE_BUDDYLIST">Enable Friend List:</Resource>
    <Resource tag="ENABLE_BUDDYLIST_HELP">If checked users can add each other as Friends.</Resource>
-   <Resource tag="ENABLE_ACTIVITY">Enable Activity Stream:</Resource>
-  <Resource tag="ENABLE_ACTIVITY_HELP">If checked the user gets Notifications for Mentions, Quotes and Thanks.</Resource>
-  <Resource tag="ENABLE_CALENDER">Enable calendar:</Resource>
+   <Resource tag="ENABLE_CALENDER">Enable calendar:</Resource>
   <Resource tag="ENABLE_CALENDER_HELP">Enables/disables calendar in profile, if it causes troubles on servers/for users with different cultures.</Resource>
   <Resource tag="ENABLE_CAPTCHA_FORPOST">Enable CAPTCHA for Post a Message:</Resource>
   <Resource tag="ENABLE_CAPTCHA_FORPOST_HELP">Require users to enter the CAPTCHA when they post or reply to a forum message (including Quick Reply).</Resource>
@@ -2558,7 +2556,8 @@
   <Resource tag="YOUR_REQUESTS">Your Requests</Resource>
  </page>
  <page name="CP_EDITPROFILE">
-  <Resource tag="ABOUTYOU">About You</Resource>
+   <Resource tag="ACTIVITY">Enable Activity Stream (If checked you get Notifications for Mentions, Quotes and Thanks.</Resource>
+   <Resource tag="ABOUTYOU">About You</Resource>
   <Resource tag="AIM">Your AIM Name:</Resource>
   <Resource tag="AUTOWATCH_TOPICS_NOTIFICATION">Watch every topic in which you have made a post and receive email notifications of activities in those topics?</Resource>
   <Resource tag="BAD_EMAIL">You have entered an illegal e-mail address.</Resource>

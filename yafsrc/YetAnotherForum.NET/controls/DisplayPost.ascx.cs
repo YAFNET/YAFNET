@@ -28,7 +28,6 @@ namespace YAF.Controls
 
     using System;
     using System.Data;
-    using System.Linq;
     using System.Text;
     using System.Web;
 
@@ -40,7 +39,6 @@ namespace YAF.Controls
     using YAF.Core.Extensions;
     using YAF.Core.Helpers;
     using YAF.Core.Model;
-    using YAF.Core.Services;
     using YAF.Core.UsersRoles;
     using YAF.Core.Utilities;
     using YAF.Types;
@@ -66,11 +64,6 @@ namespace YAF.Controls
         ///   The current Post Data for this post.
         /// </summary>
         private PostDataHelperWrapper postDataHelperWrapper;
-
-        /// <summary>
-        ///   Instance of the style transformation class
-        /// </summary>
-        private IStyleTransform styleTransform;
 
         #endregion
 
@@ -112,21 +105,7 @@ namespace YAF.Controls
                 return this.postDataHelperWrapper;
             }
         }
-
-        /// <summary>
-        ///   Gets Refines style string from other skins info
-        /// </summary>
-        private IStyleTransform TransformStyle =>
-            this.styleTransform ?? (this.styleTransform = this.Get<IStyleTransform>());
-
-        /// <summary>
-        /// The role rank style table.
-        /// </summary>
-        private DataTable roleRankStyleTable => this.Get<IDataCache>().GetOrSet(
-            Constants.Cache.GroupRankStyles,
-            () => this.GetRepository<Group>().RankStyleAsDataTable(YafContext.Current.PageBoardID),
-            TimeSpan.FromMinutes(this.Get<BoardSettings>().ForumStatisticsCacheTimeout));
-
+        
         #endregion
 
         #region Methods
@@ -154,39 +133,48 @@ namespace YAF.Controls
                 this.MessageRow.CssClass = "collapse show";
             }
 
-            this.Edit.Visible = !this.PostData.PostDeleted && this.PostData.CanEditPost && !this.PostData.IsLocked;
-            this.Edit.NavigateUrl = BuildLink.GetLinkNotEscaped(
-                ForumPages.postmessage,
-                "m={0}",
-                this.PostData.MessageId);
-            this.MovePost.Visible = this.PageContext.ForumModeratorAccess && !this.PostData.IsLocked;
-            this.MovePost.NavigateUrl = BuildLink.GetLinkNotEscaped(
-                ForumPages.movemessage,
-                "m={0}",
-                this.PostData.MessageId);
-            this.Delete.Visible = !this.PostData.PostDeleted && this.PostData.CanDeletePost && !this.PostData.IsLocked;
+            this.Edit.Visible = this.Edit2.Visible =
+                                    !this.PostData.PostDeleted && this.PostData.CanEditPost && !this.PostData.IsLocked;
+            this.Edit.NavigateUrl = this.Edit2.NavigateUrl = BuildLink.GetLinkNotEscaped(
+                                        ForumPages.postmessage,
+                                        "m={0}",
+                                        this.PostData.MessageId);
+            this.MovePost.Visible =
+                this.Move.Visible = this.PageContext.ForumModeratorAccess && !this.PostData.IsLocked;
+            this.MovePost.NavigateUrl = this.Move.NavigateUrl = BuildLink.GetLinkNotEscaped(
+                                            ForumPages.movemessage,
+                                            "m={0}",
+                                            this.PostData.MessageId);
+            this.Delete.Visible = this.Delete2.Visible =
+                                      !this.PostData.PostDeleted && this.PostData.CanDeletePost
+                                                                 && !this.PostData.IsLocked;
 
-            ////
-            this.Delete.NavigateUrl = BuildLink.GetLinkNotEscaped(
-                ForumPages.deletemessage,
-                "m={0}&action=delete",
-                this.PostData.MessageId);
-            this.UnDelete.Visible = this.PostData.CanUnDeletePost && !this.PostData.IsLocked;
-            this.UnDelete.NavigateUrl = BuildLink.GetLinkNotEscaped(
-                ForumPages.deletemessage,
-                "m={0}&action=undelete",
-                this.PostData.MessageId);
-            ///
+            this.Delete.NavigateUrl = this.Delete2.NavigateUrl = BuildLink.GetLinkNotEscaped(
+                                          ForumPages.deletemessage,
+                                          "m={0}&action=delete",
+                                          this.PostData.MessageId);
+            this.UnDelete.Visible = this.UnDelete2.Visible = this.PostData.CanUnDeletePost && !this.PostData.IsLocked;
+            this.UnDelete.NavigateUrl = this.UnDelete2.NavigateUrl = BuildLink.GetLinkNotEscaped(
+                                            ForumPages.deletemessage,
+                                            "m={0}&action=undelete",
+                                            this.PostData.MessageId);
 
-            this.Quote.Visible = !this.PostData.PostDeleted && this.PostData.CanReply && !this.PostData.IsLocked;
+            this.Quote.Visible = this.Quote2.Visible =
+                                     !this.PostData.PostDeleted && this.PostData.CanReply && !this.PostData.IsLocked;
             this.MultiQuote.Visible = !this.PostData.PostDeleted && this.PostData.CanReply && !this.PostData.IsLocked;
 
-            this.Quote.NavigateUrl = BuildLink.GetLinkNotEscaped(
+            this.Quote.NavigateUrl = this.Quote2.NavigateUrl = BuildLink.GetLinkNotEscaped(
+                                         ForumPages.postmessage,
+                                         "t={0}&f={1}&q={2}",
+                                         this.PageContext.PageTopicID,
+                                         this.PageContext.PageForumID,
+                                         this.PostData.MessageId);
+
+            this.Reply.NavigateUrl = BuildLink.GetLinkNotEscaped(
                 ForumPages.postmessage,
-                "t={0}&f={1}&q={2}",
+                "t={0}&f={1}",
                 this.PageContext.PageTopicID,
-                this.PageContext.PageForumID,
-                this.PostData.MessageId);
+                this.PageContext.PageForumID);
 
             if (this.MultiQuote.Visible)
             {
@@ -254,12 +242,12 @@ namespace YAF.Controls
             {
                 if (!this.PageContext.IsGuest && this.PageContext.User != null)
                 {
-                    this.ReportPost.Visible = true;
+                    this.ReportPost.Visible = this.ReportPost2.Visible = true;
 
-                    this.ReportPost.NavigateUrl = BuildLink.GetLinkNotEscaped(
-                        ForumPages.reportpost,
-                        "m={0}",
-                        this.PostData.MessageId);
+                    this.ReportPost.NavigateUrl = this.ReportPost2.NavigateUrl = BuildLink.GetLinkNotEscaped(
+                                                      ForumPages.reportpost,
+                                                      "m={0}",
+                                                      this.PostData.MessageId);
                 }
             }
 
@@ -288,8 +276,13 @@ namespace YAF.Controls
 
             if (this.ReportPost.Visible == false && this.MarkAsAnswer.Visible == false
                                                  && this.ReportPost.Visible == false
-                                                 && this.ThanksDataLiteral.Visible == false
-                                                 && this.Thank.Visible == false && this.ManageDropPlaceHolder.Visible == false
+                                                 && this.ManageDropPlaceHolder.Visible == false)
+            {
+                this.ToolsHolder.Visible = false;
+            }
+
+            if (this.ThanksDataLiteral.Visible == false
+                                                 && this.Thank.Visible == false
                                                  && this.Quote.Visible == false && this.MultiQuote.Visible == false)
             {
                 this.Footer.Visible = false;
@@ -305,8 +298,7 @@ namespace YAF.Controls
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void MarkAsAnswerClick([NotNull] object sender, [NotNull] EventArgs e)
         {
-            var messageFlags =
-                new MessageFlags(this.PostData.DataRow["Flags"]) { IsAnswer = true };
+            var messageFlags = new MessageFlags(this.PostData.DataRow["Flags"]) { IsAnswer = true };
 
             if (this.PostData.PostIsAnswer)
             {
@@ -326,8 +318,7 @@ namespace YAF.Controls
                 {
                     var message = this.GetRepository<Message>().GetById(answerMessageId.Value);
 
-                    var oldMessageFlags =
-                        new MessageFlags(message.Flags) { IsAnswer = false };
+                    var oldMessageFlags = new MessageFlags(message.Flags) { IsAnswer = false };
 
                     this.GetRepository<Message>().UpdateFlags(message.ID, oldMessageFlags.BitValue);
                 }
@@ -412,10 +403,21 @@ namespace YAF.Controls
         /// </param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
+            this.UserProfileLink.UserID = this.PostData.UserId;
+            this.UserProfileLink.ReplaceName = this.Get<BoardSettings>().EnableDisplayName
+                                                   ? this.DataRow.Field<string>("DisplayName")
+                                                   : this.DataRow.Field<string>("UserName");
+            this.UserProfileLink.PostfixText = this.DataRow.Field<string>("IP") == "NNTP"
+                                                   ? this.GetText("EXTERNALUSER")
+                                                   : string.Empty;
+            this.UserProfileLink.Style = this.DataRow.Field<string>("Style");
+
             if (this.IsGuest)
             {
                 return;
             }
+
+            this.UserProfileLink.CssClass = "dropdown-toggle";
 
             // Set up popup menu if it's not a guest.
             this.PopMenu1.Visible = true;
@@ -444,9 +446,6 @@ namespace YAF.Controls
             this.GetRepository<User>().AddPoints(this.PostData.UserId, this.PageContext.PageUserID, 1);
 
             this.DataRow["ReputationVoteDate"] = DateTime.UtcNow;
-
-            // Reload UserBox
-            this.PageContext.CurrentForumPage.PageCache[Constants.Cache.UserBoxes] = null;
 
             this.DataRow["Points"] = this.DataRow["Points"].ToType<int>() + 1;
 
@@ -482,9 +481,6 @@ namespace YAF.Controls
 
             this.DataRow["ReputationVoteDate"] = DateTime.UtcNow;
 
-            // Reload UserBox
-            this.PageContext.CurrentForumPage.PageCache[Constants.Cache.UserBoxes] = null;
-
             this.DataRow["Points"] = this.DataRow["Points"].ToType<int>() - 1;
 
             this.PageContext.AddLoadMessage(
@@ -494,127 +490,6 @@ namespace YAF.Controls
                         this.DataRow[this.Get<BoardSettings>().EnableDisplayName ? "DisplayName" : "UserName"]
                             .ToString())),
                 MessageTypes.success);
-        }
-
-        /// <summary>
-        /// Get the User Groups
-        /// </summary>
-        /// <returns>
-        /// The <see cref="string"/>.
-        /// </returns>
-        protected string GetUserRoles()
-        {
-            var filler = string.Empty;
-
-            if (!this.Get<BoardSettings>().ShowGroups)
-            {
-                return filler;
-            }
-
-            const string StyledNick = @"<span class=""YafGroup_{0}"" style=""{1}"">{0}</span>";
-
-            var groupsText = new StringBuilder(500);
-
-            var first = true;
-            var hasRole = false;
-            string roleStyle = null;
-
-            var userName = this.DataRow["IsGuest"].ToType<bool>()
-                               ? UserMembershipHelper.GuestUserName
-                               : this.DataRow["UserName"].ToString();
-
-            RoleMembershipHelper.GetRolesForUser(userName).ForEach(
-                role =>
-                    {
-                        var role1 = role;
-
-                        foreach (var dataRow in this.roleRankStyleTable.Rows.Cast<DataRow>().Where(
-                            row => row["LegendID"].ToType<int>() == 1 && row["Style"] != null
-                                                                        && row["Name"].ToString() == role1))
-                        {
-                            roleStyle = this.TransformStyle.DecodeStyleByString(dataRow["Style"].ToString(), true);
-                            break;
-                        }
-
-                        if (first)
-                        {
-                            groupsText.AppendLine(
-                                this.Get<BoardSettings>().UseStyledNicks
-                                    ? string.Format(StyledNick, role, roleStyle)
-                                    : role);
-
-                            first = false;
-                        }
-                        else
-                        {
-                            if (this.Get<BoardSettings>().UseStyledNicks)
-                            {
-                                groupsText.AppendFormat(", " + StyledNick, role, roleStyle);
-                            }
-                            else
-                            {
-                                groupsText.AppendFormat(", {0}", role);
-                            }
-                        }
-
-                        roleStyle = null;
-                        hasRole = true;
-                    });
-
-            // vzrus: Only a guest normally has no role
-            if (!hasRole)
-            {
-                var dt = this.Get<IDataCache>().GetOrSet(
-                    Constants.Cache.GuestGroupsCache,
-                    () => this.GetRepository<Group>().MemberAsDataTable(
-                        this.PageContext.PageBoardID,
-                        this.DataRow["UserID"]),
-                    TimeSpan.FromMinutes(60));
-
-                foreach (var guestRole in dt.Rows.Cast<DataRow>().Where(role => role["Member"].ToType<int>() > 0)
-                    .Select(role => role["Name"].ToString()))
-                {
-                    foreach (var dataRow in this.roleRankStyleTable.Rows.Cast<DataRow>().Where(
-                        row => row["LegendID"].ToType<int>() == 1 && row["Style"] != null
-                                                                    && row["Name"].ToString() == guestRole))
-                    {
-                        roleStyle = this.TransformStyle.DecodeStyleByString(dataRow["Style"].ToString(), true);
-                        break;
-                    }
-
-                    groupsText.AppendLine(
-                        this.Get<BoardSettings>().UseStyledNicks
-                            ? string.Format(StyledNick, guestRole, roleStyle)
-                            : guestRole);
-                    break;
-                }
-            }
-
-            filler = $"<strong>{this.GetText("GROUPS")}:</strong> {groupsText}";
-
-            // Remove the space before the first comma when multiple groups exist.
-            filler = filler.Replace("\r\n,", ",");
-
-            return filler;
-        }
-
-        /// <summary>
-        /// Get the User Rank
-        /// </summary>
-        /// <returns>
-        /// The <see cref="string"/>.
-        /// </returns>
-        protected string GetUserRank()
-        {
-            var rankStyle = (from DataRow dataRow in this.roleRankStyleTable.Rows
-                             where dataRow["LegendID"].ToType<int>() == 2 && dataRow["Style"] != null
-                                                                          && dataRow["Name"].ToString()
-                                                                          == this.DataRow["RankName"].ToString()
-                             select this.TransformStyle.DecodeStyleByString(dataRow["Style"].ToString(), true))
-                .FirstOrDefault();
-
-            return
-                $"<strong>{this.GetText("RANK")}:</strong> {(this.Get<BoardSettings>().UseStyledNicks ? $@"<span class=""YafRank_{this.DataRow["RankName"]}"" style=""{rankStyle}"">{this.DataRow["RankName"]}</span>" : this.DataRow["RankName"].ToString())}";
         }
 
         /// <summary>
@@ -648,11 +523,6 @@ namespace YAF.Controls
 
             this.PopMenu1.AddPostBackItem("lastposts", this.GetText("PROFILE", "SEARCHUSER"), "fa fa-th-list");
 
-            if (this.Get<BoardSettings>().EnableThanksMod)
-            {
-                this.PopMenu1.AddPostBackItem("viewthanks", this.GetText("VIEWTHANKS", "TITLE"), "fa fa-heart");
-            }
-
             if (this.PageContext.IsAdmin)
             {
                 this.PopMenu1.AddPostBackItem("edituser", this.GetText("POSTS", "EDITUSER"), "fa fa-cogs");
@@ -682,8 +552,7 @@ namespace YAF.Controls
             {
                 // Should we add the "Add Buddy" item?
                 if (!this.Get<IBuddy>().IsBuddy(userId, false) && !this.PageContext.IsGuest
-                                                               && !this.GetRepository<User>()
-                                                                   .GetById(userId).Block
+                                                               && !this.GetRepository<User>().GetById(userId).Block
                                                                    .BlockFriendRequests)
                 {
                     this.PopMenu1.AddPostBackItem("addbuddy", this.GetText("BUDDY", "ADDBUDDY"), "fa fa-user-plus");
@@ -707,8 +576,8 @@ namespace YAF.Controls
         /// </summary>
         private void AddReputationControls()
         {
-            if (this.PageContext.PageUserID != this.PostData.UserId
-                && this.Get<BoardSettings>().EnableUserReputation && !this.IsGuest && !this.PageContext.IsGuest)
+            if (this.PageContext.PageUserID != this.PostData.UserId && this.Get<BoardSettings>().EnableUserReputation
+                                                                    && !this.IsGuest && !this.PageContext.IsGuest)
             {
                 if (!this.Get<IReputation>().CheckIfAllowReputationVoting(this.DataRow["ReputationVoteDate"]))
                 {
@@ -809,13 +678,12 @@ namespace YAF.Controls
                                           thanksNumber,
                                           username);
 
-            this.ThanksDataLiteral.Text =
-                $@"<a class=""btn btn-sm btn-link thanks-popover"" 
+            this.ThanksDataLiteral.Text = $@"<a class=""btn btn-sm btn-link thanks-popover"" 
                            data-toggle=""popover"" 
                            data-trigger=""click hover""
                            data-html=""true""
                            title=""{thanksLabelText}"" 
-                           data-content=""{this.FormatThanksInfo(this.DataRow["ThanksInfo"].ToString()).Replace("\"", "'")}"">
+                           data-content=""{this.FormatThanksInfo(this.DataRow["ThanksInfo"].ToString()).ToJsString()}"">
                            <i class=""fa fa-heart"" style=""color:#e74c3c""></i>&nbsp;+{thanksNumber}
                   </a>";
 
@@ -865,7 +733,9 @@ namespace YAF.Controls
                     }
                     else
                     {
-                        this.PageContext.AddLoadMessage(this.GetText("NOTIFICATION_BUDDYREQUEST"), MessageTypes.success);
+                        this.PageContext.AddLoadMessage(
+                            this.GetText("NOTIFICATION_BUDDYREQUEST"),
+                            MessageTypes.success);
                     }
 
                     break;
@@ -895,9 +765,6 @@ namespace YAF.Controls
                 case "toggleuserposts_hide":
                     this.Get<IUserIgnored>().AddIgnored(this.PostData.UserId);
                     this.Get<HttpResponseBase>().Redirect(this.Get<HttpRequestBase>().RawUrl);
-                    break;
-                case "viewthanks":
-                    BuildLink.Redirect(ForumPages.viewthanks, "u={0}", this.PostData.UserId);
                     break;
             }
         }

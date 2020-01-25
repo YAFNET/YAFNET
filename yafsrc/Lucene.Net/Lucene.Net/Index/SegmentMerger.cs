@@ -24,17 +24,17 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using IBits = Lucene.Net.Util.IBits;
-    using Codec = Lucene.Net.Codecs.Codec;
-    using Directory = Lucene.Net.Store.Directory;
-    using DocValuesConsumer = Lucene.Net.Codecs.DocValuesConsumer;
-    using FieldInfosWriter = Lucene.Net.Codecs.FieldInfosWriter;
-    using FieldsConsumer = Lucene.Net.Codecs.FieldsConsumer;
-    using InfoStream = Lucene.Net.Util.InfoStream;
-    using IOContext = Lucene.Net.Store.IOContext;
-    using IOUtils = Lucene.Net.Util.IOUtils;
-    using StoredFieldsWriter = Lucene.Net.Codecs.StoredFieldsWriter;
-    using TermVectorsWriter = Lucene.Net.Codecs.TermVectorsWriter;
+    using IBits = YAF.Lucene.Net.Util.IBits;
+    using Codec = YAF.Lucene.Net.Codecs.Codec;
+    using Directory = YAF.Lucene.Net.Store.Directory;
+    using DocValuesConsumer = YAF.Lucene.Net.Codecs.DocValuesConsumer;
+    using FieldInfosWriter = YAF.Lucene.Net.Codecs.FieldInfosWriter;
+    using FieldsConsumer = YAF.Lucene.Net.Codecs.FieldsConsumer;
+    using InfoStream = YAF.Lucene.Net.Util.InfoStream;
+    using IOContext = YAF.Lucene.Net.Store.IOContext;
+    using IOUtils = YAF.Lucene.Net.Util.IOUtils;
+    using StoredFieldsWriter = YAF.Lucene.Net.Codecs.StoredFieldsWriter;
+    using TermVectorsWriter = YAF.Lucene.Net.Codecs.TermVectorsWriter;
 
     /// <summary>
     /// The <see cref="SegmentMerger"/> class combines two or more Segments, represented by an

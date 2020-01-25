@@ -20,8 +20,8 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using IndexReaderWarmer = Lucene.Net.Index.IndexWriter.IndexReaderWarmer;
-    using InfoStream = Lucene.Net.Util.InfoStream;
+    using IndexReaderWarmer = YAF.Lucene.Net.Index.IndexWriter.IndexReaderWarmer;
+    using InfoStream = YAF.Lucene.Net.Util.InfoStream;
 
     /// <summary>
     /// A very simple merged segment warmer that just ensures

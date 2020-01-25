@@ -34,6 +34,7 @@ namespace YAF.Controls
     using YAF.Configuration;
     using YAF.Core;
     using YAF.Core.BaseControls;
+    using YAF.Core.Extensions;
     using YAF.Core.Helpers;
     using YAF.Core.Model;
     using YAF.Core.UsersRoles;
@@ -151,6 +152,7 @@ namespace YAF.Controls
 
             if (this.IsPostBack)
             {
+                return;
                 return;
             }
 
@@ -270,6 +272,10 @@ namespace YAF.Controls
                 this.HideMe.Checked,
                 null);
 
+            this.GetRepository<User>().UpdateOnly(
+                () => new User { Activity = this.Activity.Checked },
+                u => u.ID == this.currentUserId);
+
             // vzrus: If it's a guest edited by an admin registry value should be changed
             var dt = this.GetRepository<User>().ListAsDataTable(
                 this.PageContext.PageBoardID,
@@ -387,6 +393,11 @@ namespace YAF.Controls
                 }
             }
 
+            this.HideMe.Checked = this.UserData.IsActiveExcluded
+                                  && (this.Get<BoardSettings>().AllowUserHideHimself || this.PageContext.IsAdmin);
+
+            this.Activity.Checked = this.UserData.Activity;
+
             if (!this.Get<BoardSettings>().AllowUserLanguage || this.Culture.Items.Count <= 0)
             {
                 return;
@@ -399,9 +410,6 @@ namespace YAF.Controls
             {
                 foundCultItem.Selected = true;
             }
-
-            this.HideMe.Checked = this.UserData.IsActiveExcluded
-                                  && (this.Get<BoardSettings>().AllowUserHideHimself || this.PageContext.IsAdmin);
         }
 
         #endregion

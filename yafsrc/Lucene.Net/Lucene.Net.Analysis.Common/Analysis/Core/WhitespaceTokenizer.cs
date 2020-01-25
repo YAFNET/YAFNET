@@ -1,7 +1,6 @@
-﻿using System.IO;
-using YAF.Lucene.Net.Analysis.Util;
-using YAF.Lucene.Net.Support;
+﻿using YAF.Lucene.Net.Analysis.Util;
 using YAF.Lucene.Net.Util;
+using System.IO;
 
 namespace YAF.Lucene.Net.Analysis.Core
 {

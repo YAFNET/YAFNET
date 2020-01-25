@@ -11,11 +11,6 @@
 </div>
 
 <div class="row">
-    <asp:PlaceHolder runat="server" ID="MenuHolder">
-        <div class="col-sm-auto">
-            <YAF:ProfileMenu ID="ProfileMenu1" runat="server" />
-        </div>
-</asp:PlaceHolder>
     <div class="col">
         <asp:Panel id="ThanksTabs" runat="server">
                <ul class="nav nav-tabs" role="tablist">

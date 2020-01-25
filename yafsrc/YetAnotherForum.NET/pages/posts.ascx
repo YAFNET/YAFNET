@@ -83,9 +83,9 @@
                 TextLocalizedTag="BUTTON_POSTREPLY" TitleLocalizedTag="BUTTON_POSTREPLY_TT"
                 Icon="reply" />
             <YAF:ThemeButton ID="QuickReplyLink1" runat="server"
-                Type="Primary"
-                TextLocalizedTag="QUICKREPLY" TitleLocalizedTag="BUTTON_POSTREPLY_TT"
-                Icon="reply" 
+                             Type="Primary"
+                             TextLocalizedTag="QUICKREPLY" TitleLocalizedTag="BUTTON_POSTREPLY_TT"
+                             Icon="reply" 
                              DataToggle="modal"
                              DataTarget="QuickReplyDialog" />
         </div>

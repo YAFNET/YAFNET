@@ -22,20 +22,20 @@ namespace YAF.Lucene.Net.Codecs
      * limitations under the License.
      */
 
-    using ArrayUtil = Lucene.Net.Util.ArrayUtil;
-    using AtomicReader = Lucene.Net.Index.AtomicReader;
-    using BinaryDocValues = Lucene.Net.Index.BinaryDocValues;
-    using IBits = Lucene.Net.Util.IBits;
-    using BytesRef = Lucene.Net.Util.BytesRef;
-    using FieldInfo = Lucene.Net.Index.FieldInfo;
-    using FilteredTermsEnum = Lucene.Net.Index.FilteredTermsEnum;
-    using Int64BitSet = Lucene.Net.Util.Int64BitSet;
-    using MergeState = Lucene.Net.Index.MergeState;
-    using NumericDocValues = Lucene.Net.Index.NumericDocValues;
-    using OrdinalMap = Lucene.Net.Index.MultiDocValues.OrdinalMap;
-    using SortedDocValues = Lucene.Net.Index.SortedDocValues;
-    using SortedSetDocValues = Lucene.Net.Index.SortedSetDocValues;
-    using TermsEnum = Lucene.Net.Index.TermsEnum;
+    using ArrayUtil = YAF.Lucene.Net.Util.ArrayUtil;
+    using AtomicReader = YAF.Lucene.Net.Index.AtomicReader;
+    using BinaryDocValues = YAF.Lucene.Net.Index.BinaryDocValues;
+    using IBits = YAF.Lucene.Net.Util.IBits;
+    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
+    using FieldInfo = YAF.Lucene.Net.Index.FieldInfo;
+    using FilteredTermsEnum = YAF.Lucene.Net.Index.FilteredTermsEnum;
+    using Int64BitSet = YAF.Lucene.Net.Util.Int64BitSet;
+    using MergeState = YAF.Lucene.Net.Index.MergeState;
+    using NumericDocValues = YAF.Lucene.Net.Index.NumericDocValues;
+    using OrdinalMap = YAF.Lucene.Net.Index.MultiDocValues.OrdinalMap;
+    using SortedDocValues = YAF.Lucene.Net.Index.SortedDocValues;
+    using SortedSetDocValues = YAF.Lucene.Net.Index.SortedSetDocValues;
+    using TermsEnum = YAF.Lucene.Net.Index.TermsEnum;
 
     /// <summary>
     /// Abstract API that consumes numeric, binary and

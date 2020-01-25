@@ -465,15 +465,6 @@ namespace YAF.Pages
         protected global::System.Web.UI.WebControls.Label ThanksFrom;
 
         /// <summary>
-        /// lnkThanks control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lnkThanks;
-
-        /// <summary>
         /// divTTT control.
         /// </summary>
         /// <remarks>

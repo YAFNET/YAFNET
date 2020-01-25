@@ -1,5 +1,5 @@
-﻿using YAF.Lucene.Net.Analysis.Util;
-using YAF.Lucene.Net.Support;
+﻿using J2N;
+using YAF.Lucene.Net.Analysis.Util;
 using YAF.Lucene.Net.Util;
 using System;
 using System.Globalization;

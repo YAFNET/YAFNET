@@ -313,6 +313,13 @@
     </Compile>
     <Compile Include="Classes\LatestInformationService.cs" />
     <Compile Include="Classes\MembershipUpgradeEvent.cs" />
+    <Compile Include="controls\UserMenu.ascx.cs">
+      <DependentUpon>UserMenu.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="controls\UserMenu.ascx.designer.cs">
+      <DependentUpon>UserMenu.ascx</DependentUpon>
+    </Compile>
     <Compile Include="controls\AdminMenu.ascx.cs">
       <DependentUpon>AdminMenu.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -900,6 +907,10 @@
     <Compile Include="pages\cp_editalbumimages.ascx.designer.cs">
       <DependentUpon>cp_editalbumimages.ascx</DependentUpon>
     </Compile>
+    <Compile Include="pages\cp_editavatar.ascx.cs">
+      <DependentUpon>cp_editavatar.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="pages\cp_editavatar.ascx.designer.cs">
       <DependentUpon>cp_editavatar.ascx</DependentUpon>
     </Compile>
@@ -936,15 +947,19 @@
     <Compile Include="pages\cp_profile.ascx.designer.cs">
       <DependentUpon>cp_profile.ascx</DependentUpon>
     </Compile>
-    <Compile Include="pages\cp_signature.ascx.designer.cs">
-      <DependentUpon>cp_signature.ascx</DependentUpon>
-    </Compile>
     <Compile Include="pages\cp_blockoptions.ascx.cs">
       <DependentUpon>cp_blockoptions.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="pages\cp_blockoptions.ascx.designer.cs">
       <DependentUpon>cp_blockoptions.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\cp_signature.ascx.cs">
+      <DependentUpon>cp_signature.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\cp_signature.ascx.designer.cs">
+      <DependentUpon>cp_signature.ascx</DependentUpon>
     </Compile>
     <Compile Include="pages\cp_subscriptions.ascx.designer.cs">
       <DependentUpon>cp_subscriptions.ascx</DependentUpon>
@@ -1933,6 +1948,7 @@
     <Content Include="Content\webfonts\fa-brands-400.svg" />
     <Content Include="Content\webfonts\fa-regular-400.svg" />
     <Content Include="Content\webfonts\fa-solid-900.svg" />
+    <Content Include="controls\UserMenu.ascx" />
     <Content Include="controls\AdminMenu.ascx" />
     <Content Include="controls\AlbumImageList.ascx" />
     <Content Include="controls\AlbumList.ascx" />
@@ -2168,8 +2184,8 @@
     <Content Include="pages\cp_pm.ascx" />
     <Content Include="pages\cp_notification.ascx" />
     <Content Include="pages\cp_profile.ascx" />
-    <Content Include="pages\cp_signature.ascx" />
     <Content Include="pages\cp_blockoptions.ascx" />
+    <Content Include="pages\cp_signature.ascx" />
     <Content Include="pages\cp_subscriptions.ascx" />
     <Content Include="pages\deletemessage.ascx" />
     <Content Include="pages\emailtopic.ascx" />
@@ -2671,6 +2687,7 @@
     <Content Include="Scripts\emojipicker\jquery.emojipicker.js" />
     <Content Include="Scripts\emojipicker\jquery.emojis.js" />
     <Content Include="Scripts\forum\yaf.Albums.js" />
+    <Content Include="Scripts\forum\yaf.Notify.js" />
     <Content Include="Scripts\forum\yaf.FileBrowser.js" />
     <Content Include="Scripts\forum\yaf.contextMenu.js" />
     <Content Include="Scripts\forum\yaf.SearchResults.js" />
@@ -3046,10 +3063,6 @@
       <DependentUpon>cp_changepassword.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="pages\cp_editavatar.ascx.cs">
-      <DependentUpon>cp_editavatar.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
     <Compile Include="pages\cp_editprofile.ascx.cs">
       <DependentUpon>cp_editprofile.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -3064,10 +3077,6 @@
     </Compile>
     <Compile Include="pages\cp_profile.ascx.cs">
       <DependentUpon>cp_profile.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="pages\cp_signature.ascx.cs">
-      <DependentUpon>cp_signature.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="pages\cp_subscriptions.ascx.cs">

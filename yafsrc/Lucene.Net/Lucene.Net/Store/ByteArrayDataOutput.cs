@@ -20,7 +20,7 @@ namespace YAF.Lucene.Net.Store
      * limitations under the License.
      */
 
-    using BytesRef = Lucene.Net.Util.BytesRef;
+    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
 
     /// <summary>
     /// DataOutput backed by a byte array.

@@ -17,8 +17,8 @@ namespace YAF.Lucene.Net.Search.Similarities
      * limitations under the License.
      */
 
-    using AtomicReaderContext = Lucene.Net.Index.AtomicReaderContext;
-    using FieldInvertState = Lucene.Net.Index.FieldInvertState;
+    using AtomicReaderContext = YAF.Lucene.Net.Index.AtomicReaderContext;
+    using FieldInvertState = YAF.Lucene.Net.Index.FieldInvertState;
 
     /// <summary>
     /// Provides the ability to use a different <see cref="Similarity"/> for different fields.

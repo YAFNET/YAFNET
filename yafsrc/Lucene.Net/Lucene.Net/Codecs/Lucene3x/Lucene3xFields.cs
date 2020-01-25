@@ -1,8 +1,9 @@
+using J2N.Text;
 using YAF.Lucene.Net.Index;
-using YAF.Lucene.Net.Support;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using JCG = J2N.Collections.Generic;
 using Console = YAF.Lucene.Net.Support.SystemConsole;
 
 namespace YAF.Lucene.Net.Codecs.Lucene3x
@@ -24,24 +25,24 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
      * limitations under the License.
      */
 
-    using IBits = Lucene.Net.Util.IBits;
-    using BytesRef = Lucene.Net.Util.BytesRef;
-    using Directory = Lucene.Net.Store.Directory;
-    using DocsAndPositionsEnum = Lucene.Net.Index.DocsAndPositionsEnum;
-    using DocsEnum = Lucene.Net.Index.DocsEnum;
-    using FieldInfo = Lucene.Net.Index.FieldInfo;
-    using FieldInfos = Lucene.Net.Index.FieldInfos;
-    using IndexFileNames = Lucene.Net.Index.IndexFileNames;
-    using IndexInput = Lucene.Net.Store.IndexInput;
-    using IndexOptions = Lucene.Net.Index.IndexOptions;
-    using IOContext = Lucene.Net.Store.IOContext;
-    using IOUtils = Lucene.Net.Util.IOUtils;
-    using SegmentInfo = Lucene.Net.Index.SegmentInfo;
-    using StringHelper = Lucene.Net.Util.StringHelper;
-    using Term = Lucene.Net.Index.Term;
-    using Terms = Lucene.Net.Index.Terms;
-    using TermsEnum = Lucene.Net.Index.TermsEnum;
-    using UnicodeUtil = Lucene.Net.Util.UnicodeUtil;
+    using IBits = YAF.Lucene.Net.Util.IBits;
+    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
+    using Directory = YAF.Lucene.Net.Store.Directory;
+    using DocsAndPositionsEnum = YAF.Lucene.Net.Index.DocsAndPositionsEnum;
+    using DocsEnum = YAF.Lucene.Net.Index.DocsEnum;
+    using FieldInfo = YAF.Lucene.Net.Index.FieldInfo;
+    using FieldInfos = YAF.Lucene.Net.Index.FieldInfos;
+    using IndexFileNames = YAF.Lucene.Net.Index.IndexFileNames;
+    using IndexInput = YAF.Lucene.Net.Store.IndexInput;
+    using IndexOptions = YAF.Lucene.Net.Index.IndexOptions;
+    using IOContext = YAF.Lucene.Net.Store.IOContext;
+    using IOUtils = YAF.Lucene.Net.Util.IOUtils;
+    using SegmentInfo = YAF.Lucene.Net.Index.SegmentInfo;
+    using StringHelper = YAF.Lucene.Net.Util.StringHelper;
+    using Term = YAF.Lucene.Net.Index.Term;
+    using Terms = YAF.Lucene.Net.Index.Terms;
+    using TermsEnum = YAF.Lucene.Net.Index.TermsEnum;
+    using UnicodeUtil = YAF.Lucene.Net.Util.UnicodeUtil;
 
     /// <summary>
     /// Exposes flex API on a pre-flex index, as a codec.
@@ -62,7 +63,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
         private readonly SegmentInfo si;
 
         // LUCENENET specific: Use StringComparer.Ordinal to get the same ordering as Java
-        internal readonly SortedDictionary<string, FieldInfo> fields = new SortedDictionary<string, FieldInfo>(StringComparer.Ordinal);
+        internal readonly IDictionary<string, FieldInfo> fields = new JCG.SortedDictionary<string, FieldInfo>(StringComparer.Ordinal);
         internal readonly IDictionary<string, Terms> preTerms = new Dictionary<string, Terms>();
         private readonly Directory dir;
         private readonly IOContext context;

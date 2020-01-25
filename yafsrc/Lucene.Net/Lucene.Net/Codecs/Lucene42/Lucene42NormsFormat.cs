@@ -17,9 +17,9 @@ namespace YAF.Lucene.Net.Codecs.Lucene42
      * limitations under the License.
      */
 
-    using PackedInt32s = Lucene.Net.Util.Packed.PackedInt32s;
-    using SegmentReadState = Lucene.Net.Index.SegmentReadState;
-    using SegmentWriteState = Lucene.Net.Index.SegmentWriteState;
+    using PackedInt32s = YAF.Lucene.Net.Util.Packed.PackedInt32s;
+    using SegmentReadState = YAF.Lucene.Net.Index.SegmentReadState;
+    using SegmentWriteState = YAF.Lucene.Net.Index.SegmentWriteState;
 
     /// <summary>
     /// Lucene 4.2 score normalization format.

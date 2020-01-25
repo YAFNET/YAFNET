@@ -9,15 +9,23 @@
 </asp:PlaceHolder>
 <asp:PlaceHolder id="HideTr" visible="<%# this.Get<BoardSettings>().AllowUserHideHimself || this.PageContext.IsAdmin %>" runat="server">
     <div class="form-group">
-        <asp:Label runat="server" AssociatedControlID="HideMe">
-            <YAF:LocalizedLabel ID="LocalizedLabel35" runat="server" LocalizedPage="CP_EDITPROFILE"
-                                LocalizedTag="HIDEME" />
+        <asp:Label runat="server" AssociatedControlID="Activity">
+            <YAF:LocalizedLabel ID="LocalizedLabel35" runat="server" 
+                                LocalizedPage="CP_EDITPROFILE"
+                                LocalizedTag="ACTIVITY" />
         </asp:Label>
         <div class="custom-control custom-switch">
-            <asp:CheckBox Text="&nbsp;" ID="HideMe" runat="server" Checked="false" />
+            <asp:CheckBox Text="&nbsp;" ID="Activity" runat="server" Checked="false" />
         </div>
     </div>
 </asp:PlaceHolder>
+<asp:Label runat="server" AssociatedControlID="HideMe">
+    <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedPage="CP_EDITPROFILE"
+                        LocalizedTag="HIDEME" />
+</asp:Label>
+<div class="custom-control custom-switch">
+    <asp:CheckBox Text="&nbsp;" ID="HideMe" runat="server" Checked="false" />
+</div>
 <div class="form-group">
     <asp:Label runat="server" AssociatedControlID="TimeZones">
         <YAF:LocalizedLabel ID="LocalizedLabel24" runat="server" 

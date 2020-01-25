@@ -229,11 +229,6 @@ namespace YAF.Types.Constants
         search,
 
         /// <summary>
-        /// The viewthanks
-        /// </summary>
-        viewthanks,
-
-        /// <summary>
         /// The mytopics
         /// </summary>
         mytopics,

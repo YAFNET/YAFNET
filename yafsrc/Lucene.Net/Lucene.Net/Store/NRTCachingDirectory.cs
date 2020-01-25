@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using JCG = J2N.Collections.Generic;
 using Console = YAF.Lucene.Net.Support.SystemConsole;
 
 namespace YAF.Lucene.Net.Store
@@ -23,8 +24,8 @@ namespace YAF.Lucene.Net.Store
      * limitations under the License.
      */
 
-    using IndexFileNames = Lucene.Net.Index.IndexFileNames;
-    using IOUtils = Lucene.Net.Util.IOUtils;
+    using IndexFileNames = YAF.Lucene.Net.Index.IndexFileNames;
+    using IOUtils = YAF.Lucene.Net.Util.IOUtils;
 
     // TODO
     //   - let subclass dictate policy...?
@@ -131,7 +132,7 @@ namespace YAF.Lucene.Net.Store
         {
             lock (this)
             {
-                ISet<string> files = new HashSet<string>();
+                ISet<string> files = new JCG.HashSet<string>();
                 foreach (string f in cache.ListAll())
                 {
                     files.Add(f);

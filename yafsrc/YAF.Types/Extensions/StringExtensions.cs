@@ -62,7 +62,7 @@ namespace YAF.Types.Extensions
             str = str.Replace("'", @"\'");
             str = str.Replace("\r", @"\r");
             str = str.Replace("\n", @"\n");
-            str = str.Replace("\"", @"\""");
+            str = str.Replace("\"", "'");
 
             return str;
         }

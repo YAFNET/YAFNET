@@ -118,38 +118,6 @@ SELECT @ThanksToPostsNumber=(SELECT Count(DISTINCT MessageID) FROM [{databaseOwn
 END
 GO
 
-CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}user_viewallthanks] @UserID int, @PageUserID int
-AS
-    BEGIN
-        SELECT  t.ThanksFromUserID,
-                t.ThanksToUserID,
-                c.MessageID,
-                a.ForumID,
-                a.TopicID,
-                a.Topic,
-                b.UserID,
-				c.UserName,
-                c.MessageID,
-                c.Posted,
-                c.[Message],
-                c.Flags
-        FROM
-                [{databaseOwner}].[{objectQualifier}Thanks] t
-                join [{databaseOwner}].[{objectQualifier}Message] c  on c.MessageID = t.MessageID
-                join [{databaseOwner}].[{objectQualifier}Topic] a on a.TopicID = c.TopicID
-                join [{databaseOwner}].[{objectQualifier}User] b on c.UserID = b.UserID
-                join [{databaseOwner}].[{objectQualifier}ActiveAccess] x  on x.ForumID = a.ForumID
-        WHERE
-                c.IsDeleted = 0
-                AND c.IsApproved = 1
-                AND (t.ThanksFromUserID = @UserID OR t.ThanksToUserID = @UserID)
-                AND a.TopicMovedID IS NULL
-                AND a.IsDeleted = 0
-                AND x.UserID = @PageUserID
-                AND x.ReadAccess <> 0
-        ORDER BY c.Posted DESC
-    END
-Go
 /* End of procedures for "Thanks" Mod */
 
 create procedure [{databaseOwner}].[{objectQualifier}accessmask_delete](@AccessMaskID int) as
@@ -5351,6 +5319,7 @@ begin
         a.[IsDST],
         a.[IsDirty],
         a.[Moderated],
+        a.[Activity],
         a.[IsFacebookUser],
         a.[IsTwitterUser],
         a.[IsGoogleUser],
@@ -5417,6 +5386,7 @@ begin
         a.[IsDST],
         a.[IsDirty],
         a.[Moderated],
+        a.[Activity],
         a.[IsFacebookUser],
         a.[IsTwitterUser],
         a.[IsGoogleUser],
@@ -5473,6 +5443,7 @@ begin
         a.[IsDST],
         a.[IsDirty],
         a.[Moderated],
+        a.[Activity],
         a.[IsFacebookUser],
         a.[IsTwitterUser],
         a.[IsGoogleUser],
@@ -5537,6 +5508,7 @@ begin
         a.[IsDST],
         a.[IsDirty],
         a.[Moderated],
+        a.[Activity],
         a.[IsFacebookUser],
         a.[IsTwitterUser],
         a.[IsGoogleUser],
@@ -5927,12 +5899,6 @@ begin
         end
 
     end
-end
-GO
-
-create procedure [{databaseOwner}].[{objectQualifier}user_setnotdirty](@UserID int) as
-begin
-    update [{databaseOwner}].[{objectQualifier}User] set Flags = Flags ^ 64 where UserID = @UserID
 end
 GO
 

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
+using JCG = J2N.Collections.Generic;
 
 namespace YAF.Lucene.Net.Codecs.PerField
 {
@@ -22,12 +23,12 @@ namespace YAF.Lucene.Net.Codecs.PerField
      * limitations under the License.
      */
 
-    using FieldInfo = Lucene.Net.Index.FieldInfo;
-    using IOUtils = Lucene.Net.Util.IOUtils;
-    using RamUsageEstimator = Lucene.Net.Util.RamUsageEstimator;
-    using SegmentReadState = Lucene.Net.Index.SegmentReadState;
-    using SegmentWriteState = Lucene.Net.Index.SegmentWriteState;
-    using Terms = Lucene.Net.Index.Terms;
+    using FieldInfo = YAF.Lucene.Net.Index.FieldInfo;
+    using IOUtils = YAF.Lucene.Net.Util.IOUtils;
+    using RamUsageEstimator = YAF.Lucene.Net.Util.RamUsageEstimator;
+    using SegmentReadState = YAF.Lucene.Net.Index.SegmentReadState;
+    using SegmentWriteState = YAF.Lucene.Net.Index.SegmentWriteState;
+    using Terms = YAF.Lucene.Net.Index.Terms;
 
     /// <summary>
     /// Enables per field postings support.
@@ -195,7 +196,7 @@ namespace YAF.Lucene.Net.Codecs.PerField
             private readonly PerFieldPostingsFormat outerInstance;
 
             // LUCENENET specific: Use StringComparer.Ordinal to get the same ordering as Java
-            internal readonly IDictionary<string, FieldsProducer> fields = new SortedDictionary<string, FieldsProducer>(StringComparer.Ordinal);
+            internal readonly IDictionary<string, FieldsProducer> fields = new JCG.SortedDictionary<string, FieldsProducer>(StringComparer.Ordinal);
             internal readonly IDictionary<string, FieldsProducer> formats = new Dictionary<string, FieldsProducer>();
 
             public FieldsReader(PerFieldPostingsFormat outerInstance, SegmentReadState readState)

@@ -104,9 +104,6 @@ namespace YAF.Pages
         /// </param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            this.lnkThanks.Text = $"({this.GetText("VIEWTHANKS", "TITLE")})";
-            this.lnkThanks.Visible = this.Get<BoardSettings>().EnableThanksMod;
-
             // admin or moderator, set edit control to moderator mode...
             if (this.PageContext.IsAdmin || this.PageContext.IsForumModerator)
             {
@@ -185,16 +182,6 @@ namespace YAF.Pages
             }
 
             this.BindData();
-        }
-
-        /// <summary>
-        /// Go to the View Thanks Page
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.Web.UI.WebControls.CommandEventArgs"/> instance containing the event data.</param>
-        protected void lnk_ViewThanks([NotNull] object sender, [NotNull] CommandEventArgs e)
-        {
-            BuildLink.Redirect(ForumPages.viewthanks, "u={0}", this.UserId);
         }
 
         /// <summary>

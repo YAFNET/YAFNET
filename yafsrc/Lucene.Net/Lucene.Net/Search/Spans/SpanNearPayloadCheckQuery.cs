@@ -1,6 +1,6 @@
 using YAF.Lucene.Net.Support;
+using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 
 namespace YAF.Lucene.Net.Search.Spans
@@ -22,7 +22,7 @@ namespace YAF.Lucene.Net.Search.Spans
      * limitations under the License.
      */
 
-    using ToStringUtils = Lucene.Net.Util.ToStringUtils;
+    using ToStringUtils = YAF.Lucene.Net.Util.ToStringUtils;
 
     /// <summary>
     /// Only return those matches that have a specific payload at
@@ -31,17 +31,26 @@ namespace YAF.Lucene.Net.Search.Spans
     public class SpanNearPayloadCheckQuery : SpanPositionCheckQuery
     {
         protected readonly ICollection<byte[]> m_payloadToMatch;
+        private readonly IEqualityComparer payloadEqualityComparer;
 
-        /// <param name="match">          The underlying <see cref="SpanQuery"/> to check </param>
+        /// <param name="match">          The underlying <see cref="SpanQuery"/> to check.</param>
         /// <param name="payloadToMatch"> The <see cref="T:ICollection{byte[]}"/> of payloads to match.
-        /// IMPORTANT: If the type provided does not implement <see cref="IList{T}"/> (including arrays), 
-        /// <see cref="ISet{T}"/>, or <see cref="IDictionary{TKey, TValue}"/>, it should provide an 
-        /// <see cref="object.Equals(object)"/> and <see cref="object.GetHashCode()"/> implementation 
-        /// that compares the values of the byte arrays to ensure they are the same. </param>
+        /// IMPORTANT: If the type provided does not implement <see cref="IList{T}"/> (including arrays) or
+        /// <see cref="ISet{T}"/>, it should either implement <see cref="IStructuralEquatable"/> or override
+        /// <see cref="object.Equals(object)"/> and <see cref="object.GetHashCode()"/> with implementations
+        /// that compare the values of the byte arrays to ensure they are the same.</param>
         public SpanNearPayloadCheckQuery(SpanNearQuery match, ICollection<byte[]> payloadToMatch)
             : base(match)
         {
             this.m_payloadToMatch = payloadToMatch;
+
+            // LUCENENET specific: Need to use a structural equality comparer based on the type that is passed in.
+            if (payloadToMatch is ISet<byte[]>)
+                payloadEqualityComparer = J2N.Collections.Generic.SetEqualityComparer<byte[]>.Default;
+            else if (payloadToMatch is IList<byte[]>)
+                payloadEqualityComparer = J2N.Collections.Generic.ListEqualityComparer<byte[]>.Default;
+            else
+                payloadEqualityComparer = J2N.Collections.StructuralEqualityComparer.Default;
         }
 
         protected override AcceptStatus AcceptPosition(Spans spans)
@@ -114,14 +123,13 @@ namespace YAF.Lucene.Net.Search.Spans
             {
                 return true;
             }
-            if (!(o is SpanNearPayloadCheckQuery))
+            if (!(o is SpanNearPayloadCheckQuery other))
             {
                 return false;
             }
 
-            SpanNearPayloadCheckQuery other = (SpanNearPayloadCheckQuery)o;
-            // LUCENENET NOTE: Need to call Collections.Equals() to compare equality of all contained values
-            return Collections.Equals(this.m_payloadToMatch, other.m_payloadToMatch) 
+            // LUCENENET NOTE: Need to use the structural equality comparer to compare equality of all contained values
+            return payloadEqualityComparer.Equals(this.m_payloadToMatch, other.m_payloadToMatch) 
                 && this.m_match.Equals(other.m_match) 
                 && this.Boost == other.Boost;
         }
@@ -131,7 +139,7 @@ namespace YAF.Lucene.Net.Search.Spans
             int h = m_match.GetHashCode();
             h ^= (h << 8) | ((int)((uint)h >> 25)); // reversible
             //TODO: is this right?
-            h ^= Collections.GetHashCode(m_payloadToMatch); // LUCENENET NOTE: Need to call Collections.GetHashCode() to combine the hash codes of all contained values
+            h ^= payloadEqualityComparer.GetHashCode(m_payloadToMatch); // LUCENENET NOTE: Need to use the structural equality comparer to compare equality of all contained values
             h ^= J2N.BitConversion.SingleToRawInt32Bits(Boost);
             return h;
         }

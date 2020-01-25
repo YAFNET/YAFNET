@@ -169,7 +169,7 @@ namespace YAF.Web.Controls
 
                     output.WriteAttribute(
                         "data-hovercard",
-                        $"{(Config.IsDotNetNuke ? BaseUrlBuilder.GetBaseUrlFromVariables() + BaseUrlBuilder.AppPath : BoardInfo.ForumClientFileRoot)}resource.ashx?userinfo={this.UserID}&boardId={YafContext.Current.PageBoardID}&type=json&forumUrl={HttpUtility.UrlEncode(BuildLink.GetBasePath())}");
+                        $"{(Config.IsDotNetNuke ? $"{BaseUrlBuilder.GetBaseUrlFromVariables()}{BaseUrlBuilder.AppPath}" : BoardInfo.ForumClientFileRoot)}resource.ashx?userinfo={this.UserID}&boardId={YafContext.Current.PageBoardID}&type=json&forumUrl={HttpUtility.UrlEncode(BuildLink.GetBasePath())}");
                 }
                 else
                 {

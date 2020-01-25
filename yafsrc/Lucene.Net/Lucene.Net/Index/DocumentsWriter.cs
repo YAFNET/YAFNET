@@ -1,5 +1,4 @@
 using J2N.Threading.Atomic;
-using YAF.Lucene.Net.Support;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -7,6 +6,7 @@ using System.Diagnostics;
 using System.Threading;
 using System.Reflection;
 using System.Runtime.CompilerServices;
+using JCG = J2N.Collections.Generic;
 
 namespace YAF.Lucene.Net.Index
 {
@@ -27,17 +27,17 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using Analyzer = Lucene.Net.Analysis.Analyzer;
-    using BinaryDocValuesUpdate = Lucene.Net.Index.DocValuesUpdate.BinaryDocValuesUpdate;
-    using BytesRef = Lucene.Net.Util.BytesRef;
-    using Directory = Lucene.Net.Store.Directory;
-    using IEvent = Lucene.Net.Index.IndexWriter.IEvent;
-    using FlushedSegment = Lucene.Net.Index.DocumentsWriterPerThread.FlushedSegment;
-    using InfoStream = Lucene.Net.Util.InfoStream;
-    using NumericDocValuesUpdate = Lucene.Net.Index.DocValuesUpdate.NumericDocValuesUpdate;
-    using Query = Lucene.Net.Search.Query;
-    using SegmentFlushTicket = Lucene.Net.Index.DocumentsWriterFlushQueue.SegmentFlushTicket;
-    using ThreadState = Lucene.Net.Index.DocumentsWriterPerThreadPool.ThreadState;
+    using Analyzer = YAF.Lucene.Net.Analysis.Analyzer;
+    using BinaryDocValuesUpdate = YAF.Lucene.Net.Index.DocValuesUpdate.BinaryDocValuesUpdate;
+    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
+    using Directory = YAF.Lucene.Net.Store.Directory;
+    using IEvent = YAF.Lucene.Net.Index.IndexWriter.IEvent;
+    using FlushedSegment = YAF.Lucene.Net.Index.DocumentsWriterPerThread.FlushedSegment;
+    using InfoStream = YAF.Lucene.Net.Util.InfoStream;
+    using NumericDocValuesUpdate = YAF.Lucene.Net.Index.DocValuesUpdate.NumericDocValuesUpdate;
+    using Query = YAF.Lucene.Net.Search.Query;
+    using SegmentFlushTicket = YAF.Lucene.Net.Index.DocumentsWriterFlushQueue.SegmentFlushTicket;
+    using ThreadState = YAF.Lucene.Net.Index.DocumentsWriterPerThreadPool.ThreadState;
 
     /// <summary>
     /// This class accepts multiple added documents and directly
@@ -250,7 +250,7 @@ namespace YAF.Lucene.Net.Index
             {
                 //Debug.Assert(!Thread.HoldsLock(writer), "IndexWriter lock should never be hold when aborting");
                 bool success = false;
-                HashSet<string> newFilesSet = new HashSet<string>();
+                JCG.HashSet<string> newFilesSet = new JCG.HashSet<string>();
                 try
                 {
                     deleteQueue.Clear();
@@ -301,7 +301,7 @@ namespace YAF.Lucene.Net.Index
                 {
                     deleteQueue.Clear();
                     int limit = perThreadPool.MaxThreadStates;
-                    HashSet<string> newFilesSet = new HashSet<string>();
+                    JCG.HashSet<string> newFilesSet = new JCG.HashSet<string>();
                     for (int i = 0; i < limit; i++)
                     {
                         ThreadState perThread = perThreadPool.GetThreadState(i);
@@ -801,7 +801,7 @@ namespace YAF.Lucene.Net.Index
                 }
                 else
                 {
-                    HashSet<string> newFilesSet = new HashSet<string>();
+                    JCG.HashSet<string> newFilesSet = new JCG.HashSet<string>();
                     flushControl.AbortFullFlushes(newFilesSet);
                     PutEvent(new DeleteNewFilesEvent(newFilesSet));
                 }

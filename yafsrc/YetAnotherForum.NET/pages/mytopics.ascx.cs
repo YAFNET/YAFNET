@@ -32,7 +32,10 @@ namespace YAF.Pages
     using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Constants;
+    using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Utils.Helpers;
+    using YAF.Web.Controls;
     using YAF.Web.Extensions;
 
     #endregion
@@ -40,7 +43,7 @@ namespace YAF.Pages
     /// <summary>
     /// The my topics page.
     /// </summary>
-    public partial class mytopics : ForumPage
+    public partial class mytopics : ForumPageRegistered
     {
         /// <summary>
         /// Indicates if the Active Tab was loaded
@@ -131,6 +134,14 @@ namespace YAF.Pages
                     this.hidLastTab.ClientID,
                     this.Page.ClientScript.GetPostBackEventReference(this.ChangeTab, string.Empty)));
 
+            var iconLegend = new IconLegend().RenderToString();
+
+            this.PageContext.PageElements.RegisterJsBlockStartup(
+                "TopicIconLegendPopoverJs",
+                JavaScriptBlocks.ForumIconLegendPopoverJs(
+                    iconLegend.ToJsString(),
+                    "topic-icon-legend-popvover"));
+
             base.OnPreRender(e);
         }
 
@@ -164,9 +175,6 @@ namespace YAF.Pages
 
             this.PageLinks.AddLink(
                 this.PageContext.IsGuest ? this.GetText("GUESTTITLE") : this.GetText("MEMBERTITLE"), string.Empty);
-
-            this.ForumJumpHolder.Visible = this.Get<BoardSettings>().ShowForumJump &&
-                                           this.PageContext.Settings.LockedForum == 0;
         }
 
         #endregion

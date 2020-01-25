@@ -4,14 +4,17 @@
 <YAF:PageLinks runat="server" ID="PageLinks" />
 
 <div class="row">
-<div class="col-sm-auto">
-    <YAF:ProfileMenu ID="ProfileMenu1" runat="server" />
-</div>
-<div class="col">
-<asp:UpdatePanel ID="ProfileUpdatePanel" runat="server">
-    <ContentTemplate>
-        <YAF:ProfileSettings runat="server" ID="ProfileSettings" />
-    </ContentTemplate>
-</asp:UpdatePanel>
+    <div class="col">
+        <div class="card">
+            <div class="card-header">
+                <YAF:Icon runat="server"
+                          IconName="user-cog"
+                          IconType="text-secondary"></YAF:Icon>
+                <YAF:LocalizedLabel runat="server" LocalizedTag="EDIT_SETTINGS"></YAF:LocalizedLabel>
+            </div>
+            <div class="card-body">
+                <YAF:ProfileSettings runat="server" ID="ProfileSettings" />
+            </div>
+        </div>
     </div>
 </div>

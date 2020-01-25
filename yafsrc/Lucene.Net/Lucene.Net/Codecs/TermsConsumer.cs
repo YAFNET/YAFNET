@@ -22,16 +22,16 @@ namespace YAF.Lucene.Net.Codecs
      * limitations under the License.
      */
 
-    using BytesRef = Lucene.Net.Util.BytesRef;
-    using DocsAndPositionsEnum = Lucene.Net.Index.DocsAndPositionsEnum;
-    using DocsEnum = Lucene.Net.Index.DocsEnum;
-    using IndexOptions = Lucene.Net.Index.IndexOptions;
-    using FieldInfo = Lucene.Net.Index.FieldInfo; // javadocs
-    using FixedBitSet = Lucene.Net.Util.FixedBitSet;
-    using MergeState = Lucene.Net.Index.MergeState;
-    using MultiDocsAndPositionsEnum = Lucene.Net.Index.MultiDocsAndPositionsEnum;
-    using MultiDocsEnum = Lucene.Net.Index.MultiDocsEnum;
-    using TermsEnum = Lucene.Net.Index.TermsEnum;
+    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
+    using DocsAndPositionsEnum = YAF.Lucene.Net.Index.DocsAndPositionsEnum;
+    using DocsEnum = YAF.Lucene.Net.Index.DocsEnum;
+    using IndexOptions = YAF.Lucene.Net.Index.IndexOptions;
+    using FieldInfo = YAF.Lucene.Net.Index.FieldInfo; // javadocs
+    using FixedBitSet = YAF.Lucene.Net.Util.FixedBitSet;
+    using MergeState = YAF.Lucene.Net.Index.MergeState;
+    using MultiDocsAndPositionsEnum = YAF.Lucene.Net.Index.MultiDocsAndPositionsEnum;
+    using MultiDocsEnum = YAF.Lucene.Net.Index.MultiDocsEnum;
+    using TermsEnum = YAF.Lucene.Net.Index.TermsEnum;
 
     /// <summary>
     /// Abstract API that consumes terms for an individual field.

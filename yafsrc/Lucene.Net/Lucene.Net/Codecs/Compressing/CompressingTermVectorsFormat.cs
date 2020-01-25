@@ -19,9 +19,9 @@ namespace YAF.Lucene.Net.Codecs.Compressing
      * limitations under the License.
      */
 
-    using FieldInfos = Lucene.Net.Index.FieldInfos;
-    using IOContext = Lucene.Net.Store.IOContext;
-    using SegmentInfo = Lucene.Net.Index.SegmentInfo;
+    using FieldInfos = YAF.Lucene.Net.Index.FieldInfos;
+    using IOContext = YAF.Lucene.Net.Store.IOContext;
+    using SegmentInfo = YAF.Lucene.Net.Index.SegmentInfo;
 
     /// <summary>
     /// A <see cref="TermVectorsFormat"/> that compresses chunks of documents together in

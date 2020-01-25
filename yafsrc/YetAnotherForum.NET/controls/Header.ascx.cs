@@ -35,13 +35,12 @@ namespace YAF.Controls
     using YAF.Configuration;
     using YAF.Core.BaseControls;
     using YAF.Core.Extensions;
-    using YAF.Dialogs;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Types.Objects;
     using YAF.Utils;
+    using YAF.Web.Controls;
 
     #endregion
 
@@ -80,27 +79,6 @@ namespace YAF.Controls
         }
 
         /// <summary>
-        /// Do Logout Dialog
-        /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        protected void LogOutClick([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            var notification = this.PageContext.CurrentForumPage.Notification.ToType<DialogBox>();
-
-            notification.Show(
-                this.GetText("TOOLBAR", "LOGOUT_QUESTION"),
-                "Logout?",
-                new DialogButton
-                    {
-                        Text = this.GetText("TOOLBAR", "LOGOUT"),
-                        CssClass = "btn btn-primary",
-                        ForumPageLink = new ForumLink { ForumPage = ForumPages.logout }
-                    },
-                new DialogButton { Text = this.GetText("COMMON", "CANCEL"), CssClass = "btn btn-secondary" });
-        }
-
-        /// <summary>
         /// The On PreRender event.
         /// </summary>
         /// <param name="e">
@@ -121,8 +99,6 @@ namespace YAF.Controls
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
             this.RenderGuestControls();
-
-            this.RenderUserContainer();
 
             this.RenderMainHeaderMenu();
 
@@ -210,10 +186,11 @@ namespace YAF.Controls
                 linkToolTip = linkText;
             }
 
-            var link = new HyperLink
+            var link = new ThemeButton
                            {
-                               Target = "_top",
-                               ToolTip = linkToolTip,
+                               TitleLocalizedTag = linkToolTip,
+                               Type = ButtonAction.None,
+                               TitleLocalizedPage = "TOOLBAR",
                                NavigateUrl = linkUrl,
                                Text = icon.IsSet()
                                           ? $"<i class=\"fa fa-{icon} fa-fw\"></i>&nbsp;{linkText}"
@@ -226,7 +203,7 @@ namespace YAF.Controls
                 link.Attributes.Add("rel", "nofollow");
             }
 
-            link.Attributes.Add("data-toggle", "tooltip");
+            link.DataToggle = "tooltip";
 
             if (showUnread)
             {
@@ -312,13 +289,25 @@ namespace YAF.Controls
                 this.menuAdminItems,
                 "nav-link",
                 this.GetText("TOOLBAR", "MODERATE"),
-                this.GetText("TOOLBAR", "MODERATE_TITLE"),
+                "MODERATE_TITLE",
                 BuildLink.GetLink(ForumPages.moderate_index),
                 false,
                 this.PageContext.ModeratePosts > 0,
                 this.PageContext.ModeratePosts.ToString(),
                 this.GetTextFormatted("MODERATE_NEW", this.PageContext.ModeratePosts),
                 this.PageContext.ForumPageType == ForumPages.moderate_index);
+
+            if (this.PageContext.ForumPageType == ForumPages.admin_hostsettings || this.PageContext.ForumPageType == ForumPages.admin_boards
+                                                                                || this.PageContext.ForumPageType == ForumPages.admin_editboard
+                                                                                || this.PageContext.ForumPageType == ForumPages.admin_pageaccessedit
+                                                                                || this.PageContext.ForumPageType == ForumPages.admin_pageaccesslist)
+            {
+                this.hostDropdown.CssClass = "nav-link dropdown-toggle active";
+            }
+            else
+            {
+                this.hostDropdown.CssClass = "nav-link dropdown-toggle";
+            }
         }
 
         /// <summary>
@@ -326,23 +315,6 @@ namespace YAF.Controls
         /// </summary>
         private void RenderMainHeaderMenu()
         {
-            // Active Topics
-            if (this.PageContext.IsGuest)
-            {
-                RenderMenuItem(
-                    this.menuListItems,
-                    "nav-link",
-                    this.GetText("TOOLBAR", "ACTIVETOPICS"),
-                    this.GetText("TOOLBAR", "ACTIVETOPICS_TITLE"),
-                    BuildLink.GetLink(ForumPages.mytopics),
-                    false,
-                    false,
-                    null,
-                    null,
-                    this.PageContext.ForumPageType == ForumPages.mytopics,
-                    string.Empty);
-            }
-
             // Search
             if (this.Get<IPermissions>().Check(this.Get<BoardSettings>().SearchPermissions))
             {
@@ -350,7 +322,7 @@ namespace YAF.Controls
                     this.menuListItems,
                     "nav-link",
                     this.GetText("TOOLBAR", "SEARCH"),
-                    this.GetText("TOOLBAR", "SEARCH_TITLE"),
+                    "SEARCH_TITLE",
                     BuildLink.GetLink(ForumPages.search),
                     false,
                     false,
@@ -367,7 +339,7 @@ namespace YAF.Controls
                     this.menuListItems,
                     "nav-link",
                     this.GetText("TOOLBAR", "MEMBERS"),
-                    this.GetText("TOOLBAR", "MEMBERS_TITLE"),
+                    "MEMBERS_TITLE",
                     BuildLink.GetLink(ForumPages.members),
                     false,
                     false,
@@ -384,7 +356,7 @@ namespace YAF.Controls
                     this.menuListItems,
                     "nav-link",
                     this.GetText("TOOLBAR", "TEAM"),
-                    this.GetText("TOOLBAR", "TEAM_TITLE"),
+                    "TEAM_TITLE",
                     BuildLink.GetLink(ForumPages.team),
                     false,
                     false,
@@ -401,7 +373,7 @@ namespace YAF.Controls
                     this.menuListItems,
                     "nav-link",
                     this.GetText("TOOLBAR", "HELP"),
-                    this.GetText("TOOLBAR", "HELP_TITLE"),
+                    "HELP_TITLE",
                     BuildLink.GetLink(ForumPages.help_index),
                     false,
                     false,
@@ -423,7 +395,7 @@ namespace YAF.Controls
                     this.menuListItems,
                     "nav-link  LoginLink",
                     this.GetText("TOOLBAR", "LOGIN"),
-                    this.GetText("TOOLBAR", "LOGIN_TITLE"),
+                    "LOGIN_TITLE",
                     "javascript:void(0);",
                     true,
                     false,
@@ -440,7 +412,7 @@ namespace YAF.Controls
                     this.menuListItems,
                     "nav-link",
                     this.GetText("TOOLBAR", "REGISTER"),
-                    this.GetText("TOOLBAR", "REGISTER_TITLE"),
+                    "REGISTER_TITLE",
                     this.Get<BoardSettings>().ShowRulesForRegistration
                         ? BuildLink.GetLink(ForumPages.rules)
                         : !this.Get<BoardSettings>().UseSSLToRegister
@@ -456,157 +428,14 @@ namespace YAF.Controls
         }
 
         /// <summary>
-        /// Render The User related Links
-        /// </summary>
-        private void RenderUserContainer()
-        {
-            if (this.PageContext.IsGuest)
-            {
-                return;
-            }
-
-            RenderMenuItem(
-                this.MyProfile,
-                "dropdown-item",
-                this.GetText("TOOLBAR", "MYPROFILE"),
-                this.GetText("TOOLBAR", "MYPROFILE_TITLE"),
-                BuildLink.GetLink(ForumPages.cp_profile),
-                false,
-                false,
-                null,
-                null,
-                this.PageContext.ForumPageType == ForumPages.cp_profile,
-                "address-card");
-
-            RenderMenuItem(
-                this.MySettings,
-                "dropdown-item",
-                this.GetText("TOOLBAR", "MYSETTINGS"),
-                this.GetText("TOOLBAR", "MYSETTINGS_TITLE"),
-                BuildLink.GetLink(ForumPages.cp_editprofile),
-                false,
-                false,
-                null,
-                null,
-                this.PageContext.ForumPageType == ForumPages.cp_editprofile,
-                "user-cog");
-
-            var unreadActivity =
-                this.PageContext.Mention + this.PageContext.Quoted + this.PageContext.ReceivedThanks;
-
-            if (this.Get<BoardSettings>().EnableActivityStream)
-            {
-                RenderMenuItem(
-                    this.MyNotification,
-                    "dropdown-item",
-                    this.GetText("TOOLBAR", "MYNOTIFY"),
-                    this.GetText("TOOLBAR", "MYNOTIFY_TITLE"),
-                    BuildLink.GetLink(ForumPages.cp_notification),
-                    false,
-                    unreadActivity > 0,
-                    unreadActivity.ToString(),
-                    this.GetTextFormatted("NEWPM", unreadActivity),
-                    this.PageContext.ForumPageType == ForumPages.cp_notification,
-                    "bell");
-            }
-
-            // My Inbox
-            if (this.Get<BoardSettings>().AllowPrivateMessages)
-            {
-                RenderMenuItem(
-                    this.MyInboxItem,
-                    "dropdown-item",
-                    this.GetText("TOOLBAR", "INBOX"),
-                    this.GetText("TOOLBAR", "INBOX_TITLE"),
-                    BuildLink.GetLink(ForumPages.cp_pm),
-                    false,
-                    this.PageContext.UnreadPrivate > 0,
-                    this.PageContext.UnreadPrivate.ToString(),
-                    this.GetTextFormatted("NEWPM", this.PageContext.UnreadPrivate),
-                    this.PageContext.ForumPageType == ForumPages.cp_pm,
-                    "inbox");
-            }
-
-            // My Buddies
-            if (this.Get<BoardSettings>().EnableBuddyList && this.PageContext.UserHasBuddies)
-            {
-                RenderMenuItem(
-                    this.MyBuddiesItem,
-                    "dropdown-item",
-                    this.GetText("TOOLBAR", "BUDDIES"),
-                    this.GetText("TOOLBAR", "BUDDIES_TITLE"),
-                    BuildLink.GetLink(ForumPages.cp_editbuddies),
-                    false,
-                    this.PageContext.PendingBuddies > 0,
-                    this.PageContext.PendingBuddies.ToString(),
-                    this.GetTextFormatted("BUDDYREQUEST", this.PageContext.PendingBuddies),
-                    this.PageContext.ForumPageType == ForumPages.cp_editbuddies,
-                    "users");
-            }
-
-            // My Albums
-            if (this.Get<BoardSettings>().EnableAlbum
-                && (this.PageContext.UsrAlbums > 0 || this.PageContext.NumAlbums > 0))
-            {
-                RenderMenuItem(
-                    this.MyAlbumsItem,
-                    "dropdown-item",
-                    this.GetText("TOOLBAR", "MYALBUMS"),
-                    this.GetText("TOOLBAR", "MYALBUMS_TITLE"),
-                    BuildLink.GetLinkNotEscaped(ForumPages.albums, "u={0}", this.PageContext.PageUserID),
-                    false,
-                    false,
-                    null,
-                    null,
-                    this.PageContext.ForumPageType == ForumPages.albums,
-                    "images");
-            }
-
-            // My Topics
-            RenderMenuItem(
-                this.MyTopicItem,
-                "dropdown-item",
-                this.GetText("TOOLBAR", "MYTOPICS"),
-                this.GetText("TOOLBAR", "MYTOPICS"),
-                BuildLink.GetLink(ForumPages.mytopics),
-                false,
-                false,
-                string.Empty,
-                string.Empty,
-                this.PageContext.ForumPageType == ForumPages.mytopics,
-                "comment");
-
-            // Logout
-            if (!Config.IsAnyPortal && Config.AllowLoginAndLogoff)
-            {
-                this.LogutItem.Visible = true;
-                this.LogOutButton.Text =
-                    $"<i class=\"fa fa-sign-out-alt fa-fw\"></i>&nbsp;{this.GetText("TOOLBAR", "LOGOUT")}";
-                this.LogOutButton.ToolTip = this.GetText("TOOLBAR", "LOGOUT");
-            }
-
-            // Logged in as : username
-            this.LoggedInUserPanel.Visible = true;
-
-            this.UserAvatar.ImageUrl = this.Get<IAvatars>().GetAvatarUrlForCurrentUser();
-
-            var unreadCount = this.PageContext.UnreadPrivate + this.PageContext.PendingBuddies
-                                                             + this.PageContext.Mention
-                                                             + this.PageContext.Quoted
-                                                             + this.PageContext.ReceivedThanks;
-
-            this.UnreadLabel.Text = unreadCount.ToString();
-
-            this.UnreadPlaceHolder.Visible = unreadCount > 0;
-        }
-
-        /// <summary>
         /// Render The GuestBar
         /// </summary>
         private void RenderGuestControls()
         {
             if (!this.PageContext.IsGuest)
             {
+                // Logged in as : username
+                this.LoggedInUserPanel.Visible = true;
                 return;
             }
 

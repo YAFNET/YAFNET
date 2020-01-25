@@ -1743,24 +1743,6 @@ namespace YAF.Pages.Admin
         protected global::System.Web.UI.WebControls.CheckBox EnableBuddyList;
 
         /// <summary>
-        /// HelpLabel31 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Web.Controls.HelpLabel HelpLabel31;
-
-        /// <summary>
-        /// EnableActivityStream control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox EnableActivityStream;
-
-        /// <summary>
         /// HelpLabel103 control.
         /// </summary>
         /// <remarks>

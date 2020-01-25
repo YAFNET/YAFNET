@@ -140,31 +140,6 @@ namespace YAF.Core.Model
         }
 
         /// <summary>
-        /// Gets the posts which is thanked by the user + the posts which are posted by the user and
-        ///   are thanked by other users.
-        /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
-        /// <param name="userId">
-        /// The user id.
-        /// </param>
-        /// <param name="pageUserId">
-        /// The page User ID.
-        /// </param>
-        /// <returns>
-        /// Returns the posts which is thanked by the user + the posts which are posted by the user and
-        ///   are thanked by other users.
-        /// </returns>
-        public static DataTable ViewAllThanksByUserAsDataTable(
-            this IRepository<Thanks> repository,
-            [NotNull] int userId,
-            [NotNull] int pageUserId)
-        {
-            return repository.DbFunction.GetData.user_viewallthanks(UserID: userId, PageUserID: pageUserId);
-        }
-
-        /// <summary>
         /// Add thanks to the Message
         /// </summary>
         /// <param name="repository">

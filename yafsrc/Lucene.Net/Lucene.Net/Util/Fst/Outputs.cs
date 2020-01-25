@@ -19,8 +19,8 @@ namespace YAF.Lucene.Net.Util.Fst
      * limitations under the License.
      */
 
-    using DataInput = Lucene.Net.Store.DataInput;
-    using DataOutput = Lucene.Net.Store.DataOutput;
+    using DataInput = YAF.Lucene.Net.Store.DataInput;
+    using DataOutput = YAF.Lucene.Net.Store.DataOutput;
 
     /// <summary>
     /// Represents the outputs for an FST, providing the basic
@@ -29,6 +29,10 @@ namespace YAF.Lucene.Net.Util.Fst
     /// <para>Note that any operation that returns NO_OUTPUT must
     /// return the same singleton object from
     /// <see cref="NoOutput"/>.</para>
+    /// 
+    /// <para>LUCENENET IMPORTANT: If <typeparamref name="T"/> is a collection type,
+    /// it must implement <see cref="System.Collections.IStructuralEquatable"/>
+    /// in order to properly compare its nested values.</para>
     ///
     /// @lucene.experimental
     /// </summary>

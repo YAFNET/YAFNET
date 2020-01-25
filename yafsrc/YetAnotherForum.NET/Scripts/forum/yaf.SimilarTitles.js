@@ -26,17 +26,17 @@ jQuery(document).ready(function () {
                     dataType: "json",
                     data: JSON.stringify(searchTopic),
                     contentType: "application/json; charset=utf-8",
-                    beforeSend: (function before() {
+                    beforeSend: function() {
                         searchPlaceHolder.empty();
                         searchPlaceHolder.remove("list-group");
                         // show loading screen 
                         $("#loadModal").modal("show");
-                    }),
-                    complete: (function before() {
+                    },
+                    complete: function() {
                         // show loading screen 
                         $("#loadModal").modal("hide");
-                    }),
-                    success: (function success(data) {
+                    },
+                    success: function(data) {
                         searchPlaceHolder.empty();
                         searchPlaceHolder.remove("list-group");
 
@@ -54,10 +54,10 @@ jQuery(document).ready(function () {
                                         "</a></li>");
                                 });
                         }
-                    }),
-                    error: (function error(request) {
+                    },
+                    error: function(request) {
                         searchPlaceHolder.html(request.statusText).fadeIn(1000);
-                    })
+                    }
                 });
             }
 

@@ -1954,16 +1954,6 @@ namespace YAF.Configuration
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether enable activity stream.
-        /// </summary>
-        public bool EnableActivityStream
-        {
-            get => this._reg.GetValue("EnableActivityStream", true);
-
-            set => this._reg.SetValue("EnableActivityStream", value);
-        }
-
-        /// <summary>
         /// Gets or sets a value indicating whether EnableActiveLocationErrorsLog. A temporary debug setting.
         /// </summary>
         public bool EnableActiveLocationErrorsLog

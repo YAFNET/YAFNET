@@ -42,7 +42,6 @@ namespace YAF.Controls
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
-    using YAF.Utils;
     using YAF.Utils.Helpers;
     using YAF.Web.Controls;
 
@@ -56,11 +55,6 @@ namespace YAF.Controls
         /* Data Fields */
 
         #region Constants and Fields
-
-        /// <summary>
-        ///   The _last forum name.
-        /// </summary>
-        private string lastForumName = string.Empty;
 
         /// <summary>
         ///   default since date is now
@@ -84,7 +78,7 @@ namespace YAF.Controls
         /// <summary>
         ///   Gets or sets a value indicating whether Auto Data bind.
         /// </summary>
-        public bool AutoDatabind { get; set; }
+        public bool AutoDataBind { get; set; }
 
         /// <summary>
         ///   Gets or sets Determines what is the current mode of the control.
@@ -259,12 +253,11 @@ namespace YAF.Controls
 
             var topicsNew = topicList.Copy();
 
-            foreach (var thisTableRow in topicsNew.Rows.Cast<DataRow>().Where(
-                thisTableRow => thisTableRow["LastPosted"] != DBNull.Value
-                                && thisTableRow["LastPosted"].ToType<DateTime>() <= this.sinceDate))
-            {
-                thisTableRow.Delete();
-            }
+            topicsNew.Rows.Cast<DataRow>()
+                .Where(
+                    thisTableRow => thisTableRow["LastPosted"] != DBNull.Value
+                                    && thisTableRow["LastPosted"].ToType<DateTime>() <= this.sinceDate)
+                .ForEach(thisTableRow => thisTableRow.Delete());
 
             // styled nicks
             topicsNew.AcceptChanges();
@@ -348,10 +341,8 @@ namespace YAF.Controls
                 return;
             }
 
-            foreach (DataRow row in this.topics.Rows)
-            {
-                this.Get<IReadTrackCurrentUser>().SetTopicRead(row["TopicID"].ToType<int>());
-            }
+            this.topics.Rows.Cast<DataRow>().ForEach(
+                row => this.Get<IReadTrackCurrentUser>().SetTopicRead(row.Field<int>("TopicID")));
 
             // Rebind
             this.BindData();
@@ -370,6 +361,8 @@ namespace YAF.Controls
 
                 int? previousSince = null;
 
+                this.Footer.Visible = true;
+
                 switch (this.CurrentMode)
                 {
                     case TopicListMode.User:
@@ -382,6 +375,8 @@ namespace YAF.Controls
                         this.Since.Items.Clear();
                         this.Since.Items.Add(new ListItem(this.GetText("SHOW_UNREAD_ONLY"), "0"));
                         this.Since.SelectedIndex = 0;
+
+                        this.Footer.Visible = false;
                         break;
                     case TopicListMode.Active:
                         previousSince = this.Get<ISession>().ActiveTopicSince;
@@ -413,7 +408,7 @@ namespace YAF.Controls
                 }
             }
 
-            if (this.AutoDatabind)
+            if (this.AutoDataBind)
             {
                 this.BindData();
             }

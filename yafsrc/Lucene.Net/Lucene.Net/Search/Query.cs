@@ -20,8 +20,8 @@ namespace YAF.Lucene.Net.Search
      * limitations under the License.
      */
 
-    using IndexReader = Lucene.Net.Index.IndexReader;
-    using Term = Lucene.Net.Index.Term;
+    using IndexReader = YAF.Lucene.Net.Index.IndexReader;
+    using Term = YAF.Lucene.Net.Index.Term;
 
     /// <summary>
     /// The abstract base class for queries.

@@ -30,6 +30,7 @@ namespace YAF.Controls
 
     using YAF.Core.BaseControls;
     using YAF.Types;
+    using YAF.Types.Constants;
 
     #endregion
 
@@ -41,16 +42,25 @@ namespace YAF.Controls
         #region Methods
 
         /// <summary>
-        /// The On PreRender event.
+        /// Handles the Load event of the Page control.
         /// </summary>
-        /// <param name="e">
-        /// the Event Arguments
-        /// </param>
-        protected override void OnPreRender([NotNull] EventArgs e)
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            base.OnPreRender(e);
+            this.AdminDropdown.CssClass = "nav-link dropdown-toggle";
+
+            if (this.PageContext.CurrentForumPage.IsAdminPage
+                && !(this.PageContext.ForumPageType == ForumPages.admin_hostsettings
+                     || this.PageContext.ForumPageType == ForumPages.admin_boards
+                     || this.PageContext.ForumPageType == ForumPages.admin_editboard
+                     || this.PageContext.ForumPageType == ForumPages.admin_pageaccessedit
+                     || this.PageContext.ForumPageType == ForumPages.admin_pageaccesslist))
+            {
+                this.AdminDropdown.CssClass = "nav-link dropdown-toggle active";
+            }
         }
 
-       #endregion
+        #endregion
     }
 }

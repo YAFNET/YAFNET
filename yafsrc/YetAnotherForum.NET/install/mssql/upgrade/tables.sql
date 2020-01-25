@@ -2834,6 +2834,12 @@ begin
 end
 GO
 
+if not exists (select top 1 1 from sys.columns where object_id=object_id('[{databaseOwner}].[{objectQualifier}User]') and name='Activity')
+begin
+	alter table [{databaseOwner}].[{objectQualifier}User] add [Activity] [bit] NOT NULL constraint [DF_{objectQualifier}User_Activity] default (1)
+end
+GO
+
 if not exists (select top 1 1 from sys.columns where object_id=object_id('[{databaseOwner}].[{objectQualifier}Activity]') and name=N'CreatedTopic')
 begin
 	alter table [{databaseOwner}].[{objectQualifier}Activity] add [CreatedTopic] AS (CONVERT([bit],sign([Flags]&(1)),(0)))

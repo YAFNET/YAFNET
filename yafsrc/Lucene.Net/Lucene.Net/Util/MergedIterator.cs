@@ -1,4 +1,4 @@
-using YAF.Lucene.Net.Support;
+using J2N.Text;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -171,7 +171,7 @@ namespace YAF.Lucene.Net.Util
             {
             }
 
-            protected internal override bool LessThan(SubIterator<C> a, SubIterator<C> b)
+            public override bool LessThan(SubIterator<C> a, SubIterator<C> b)
             {
                 int cmp;
                 // LUCNENENET specific: For strings, we need to ensure we compare them ordinal

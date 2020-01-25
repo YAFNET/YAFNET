@@ -1,3 +1,4 @@
+using J2N;
 using YAF.Lucene.Net.Index;
 using YAF.Lucene.Net.Support;
 using YAF.Lucene.Net.Util;
@@ -5,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using JCG = J2N.Collections.Generic;
 
 namespace YAF.Lucene.Net.Search
 {
@@ -25,24 +27,24 @@ namespace YAF.Lucene.Net.Search
      * limitations under the License.
      */
 
-    using Attribute = Lucene.Net.Util.Attribute;
-    using AttributeSource = Lucene.Net.Util.AttributeSource;
-    using Automaton = Lucene.Net.Util.Automaton.Automaton;
-    using BasicAutomata = Lucene.Net.Util.Automaton.BasicAutomata;
-    using BasicOperations = Lucene.Net.Util.Automaton.BasicOperations;
-    using IBits = Lucene.Net.Util.IBits;
-    using ByteRunAutomaton = Lucene.Net.Util.Automaton.ByteRunAutomaton;
-    using BytesRef = Lucene.Net.Util.BytesRef;
-    using CompiledAutomaton = Lucene.Net.Util.Automaton.CompiledAutomaton;
-    using DocsAndPositionsEnum = Lucene.Net.Index.DocsAndPositionsEnum;
-    using DocsEnum = Lucene.Net.Index.DocsEnum;
-    using FilteredTermsEnum = Lucene.Net.Index.FilteredTermsEnum;
-    using LevenshteinAutomata = Lucene.Net.Util.Automaton.LevenshteinAutomata;
-    using Term = Lucene.Net.Index.Term;
-    using Terms = Lucene.Net.Index.Terms;
-    using TermsEnum = Lucene.Net.Index.TermsEnum;
-    using TermState = Lucene.Net.Index.TermState;
-    using UnicodeUtil = Lucene.Net.Util.UnicodeUtil;
+    using Attribute = YAF.Lucene.Net.Util.Attribute;
+    using AttributeSource = YAF.Lucene.Net.Util.AttributeSource;
+    using Automaton = YAF.Lucene.Net.Util.Automaton.Automaton;
+    using BasicAutomata = YAF.Lucene.Net.Util.Automaton.BasicAutomata;
+    using BasicOperations = YAF.Lucene.Net.Util.Automaton.BasicOperations;
+    using IBits = YAF.Lucene.Net.Util.IBits;
+    using ByteRunAutomaton = YAF.Lucene.Net.Util.Automaton.ByteRunAutomaton;
+    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
+    using CompiledAutomaton = YAF.Lucene.Net.Util.Automaton.CompiledAutomaton;
+    using DocsAndPositionsEnum = YAF.Lucene.Net.Index.DocsAndPositionsEnum;
+    using DocsEnum = YAF.Lucene.Net.Index.DocsEnum;
+    using FilteredTermsEnum = YAF.Lucene.Net.Index.FilteredTermsEnum;
+    using LevenshteinAutomata = YAF.Lucene.Net.Util.Automaton.LevenshteinAutomata;
+    using Term = YAF.Lucene.Net.Index.Term;
+    using Terms = YAF.Lucene.Net.Index.Terms;
+    using TermsEnum = YAF.Lucene.Net.Index.TermsEnum;
+    using TermState = YAF.Lucene.Net.Index.TermState;
+    using UnicodeUtil = YAF.Lucene.Net.Util.UnicodeUtil;
 
     /// <summary>
     /// Subclass of <see cref="TermsEnum"/> for enumerating all terms that are similar
@@ -111,15 +113,15 @@ namespace YAF.Lucene.Net.Search
             InitializeInstanceFields();
             if (minSimilarity >= 1.0f && minSimilarity != (int)minSimilarity)
             {
-                throw new System.ArgumentException("fractional edit distances are not allowed");
+                throw new ArgumentException("fractional edit distances are not allowed");
             }
             if (minSimilarity < 0.0f)
             {
-                throw new System.ArgumentException("minimumSimilarity cannot be less than 0");
+                throw new ArgumentException("minimumSimilarity cannot be less than 0");
             }
             if (prefixLength < 0)
             {
-                throw new System.ArgumentException("prefixLength cannot be less than 0");
+                throw new ArgumentException("prefixLength cannot be less than 0");
             }
             this.m_terms = terms;
             this.term = term;
@@ -325,18 +327,9 @@ namespace YAF.Lucene.Net.Search
             return actualEnum.GetTermState();
         }
 
-        public override IComparer<BytesRef> Comparer
-        {
-            get
-            {
-                return actualEnum.Comparer;
-            }
-        }
+        public override IComparer<BytesRef> Comparer => actualEnum.Comparer;
 
-        public override long Ord
-        {
-            get { return actualEnum.Ord; }
-        }
+        public override long Ord => actualEnum.Ord;
 
         public override bool SeekExact(BytesRef text)
         {
@@ -353,10 +346,7 @@ namespace YAF.Lucene.Net.Search
             actualEnum.SeekExact(ord);
         }
 
-        public override BytesRef Term
-        {
-            get { return actualEnum.Term; }
-        }
+        public override BytesRef Term => actualEnum.Term;
 
         /// <summary>
         /// Implement fuzzy enumeration with <see cref="Terms.Intersect(CompiledAutomaton, BytesRef)"/>.
@@ -451,23 +441,11 @@ namespace YAF.Lucene.Net.Search
 
         /// <summary>
         /// @lucene.internal </summary>
-        public virtual float MinSimilarity
-        {
-            get
-            {
-                return m_minSimilarity;
-            }
-        }
+        public virtual float MinSimilarity => m_minSimilarity;
 
         /// <summary>
         /// @lucene.internal </summary>
-        public virtual float ScaleFactor
-        {
-            get
-            {
-                return m_scaleFactor;
-            }
-        }
+        public virtual float ScaleFactor => m_scaleFactor;
 
         /// <summary>
         /// Reuses compiled automata across different segments,
@@ -487,8 +465,8 @@ namespace YAF.Lucene.Net.Search
         /// </summary>
         public sealed class LevenshteinAutomataAttribute : Attribute, ILevenshteinAutomataAttribute
         {
-            // LUCENENET NOTE: Must use EquatableList for Equals and GetHashCode()
-            private readonly IList<CompiledAutomaton> automata = new EquatableList<CompiledAutomaton>();
+            // LUCENENET NOTE: Must use JCG.List for Equals and GetHashCode()
+            private readonly IList<CompiledAutomaton> automata = new JCG.List<CompiledAutomaton>();
 
             public IList<CompiledAutomaton> Automata
             {

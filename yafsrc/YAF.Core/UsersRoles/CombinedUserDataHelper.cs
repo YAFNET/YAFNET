@@ -192,6 +192,11 @@ namespace YAF.Core.UsersRoles
             YafContext.Current.Get<BoardSettings>().DefaultSendDigestEmail;
 
         /// <summary>
+        /// Enable Activity Stream (If checked you get Notifications for Mentions, Quotes and Thanks.
+        /// </summary>
+        public bool Activity => this.DBRow.Field<bool>("Activity");
+
+        /// <summary>
         ///   Gets DisplayName.
         /// </summary>
         public string DisplayName => this.userId.HasValue ? this.DBRow.Field<string>("DisplayName") : this.UserName;

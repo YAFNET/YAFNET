@@ -113,7 +113,7 @@ namespace YAF.Controls
 
             content.Append("</ol>");
 
-            this.ShowMods.DataContent = content.ToString().Replace("\"", "'");
+            this.ShowMods.DataContent = content.ToString().ToJsString();
             this.ShowMods.Text = $"{this.GetText("SHOW")} {this.GetText("DEFAULT", "MODERATORS")}";
         }
 

@@ -1,4 +1,5 @@
-﻿using YAF.Lucene.Net.Index;
+﻿using J2N;
+using YAF.Lucene.Net.Index;
 using YAF.Lucene.Net.Search;
 using YAF.Lucene.Net.Support;
 using YAF.Lucene.Net.Util;

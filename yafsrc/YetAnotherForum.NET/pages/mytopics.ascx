@@ -41,16 +41,16 @@
                </ul>
               <div class="tab-content">
                 <div id="ActiveTopicsTab" class="tab-pane" role="tabpanel">
-                   <YAF:MyTopicsList runat="server" ID="ActiveTopics" CurrentMode="Active" AutoDatabind="True"/>
+                   <YAF:MyTopicsList runat="server" ID="ActiveTopics" CurrentMode="Active" AutoDataBind="True"/>
                 </div>
                 <asp:PlaceHolder ID="UnansweredTopicsTabContent" runat="server">
                 <div id="UnansweredTopicsTab" class="tab-pane" role="tabpanel">
-                   <YAF:MyTopicsList runat="server" ID="UnansweredTopics" CurrentMode="Unanswered" AutoDatabind="False"/>
+                   <YAF:MyTopicsList runat="server" ID="UnansweredTopics" CurrentMode="Unanswered" AutoDataBind="False"/>
                 </div>
                 </asp:PlaceHolder>
                 <asp:PlaceHolder ID="UnreadTopicsTabContent" runat="server">
                 <div id="UnreadTopicsTab" class="tab-pane" role="tabpanel">
-                   <YAF:MyTopicsList runat="server" ID="UnreadTopics" CurrentMode="Unread" AutoDatabind="False" />
+                   <YAF:MyTopicsList runat="server" ID="UnreadTopics" CurrentMode="Unread" AutoDataBind="False" />
                 </div>
                 </asp:PlaceHolder>
                  <asp:PlaceHolder ID="UserTopicsTabContent" runat="server">
@@ -58,19 +58,10 @@
                    <YAF:MyTopicsList runat="server" ID="MyTopics" CurrentMode="User" />
                 </div>
                 <div id="FavoriteTopicsTab" class="tab-pane" role="tabpanel">
-                   <YAF:MyTopicsList runat="server" ID="FavoriteTopics" CurrentMode="Favorite" AutoDatabind="False" />
+                   <YAF:MyTopicsList runat="server" ID="FavoriteTopics" CurrentMode="Favorite" AutoDataBind="False" />
                 </div>
                 </asp:PlaceHolder>
                   </div>
              </asp:Panel>
         <asp:HiddenField runat="server" ID="hidLastTab" Value="ActiveTopicsTab" />
         <asp:Button id="ChangeTab" OnClick="ChangeTabClick" runat="server" style="display:none" />
-<asp:PlaceHolder ID="ForumJumpHolder" runat="server">
-    <div class="float-right">
-        <YAF:LocalizedLabel ID="ForumJumpLabel" runat="server" LocalizedTag="FORUM_JUMP" />
-        &nbsp;<YAF:ForumJump ID="ForumJump1" runat="server" />
-    </div>
-</asp:PlaceHolder>
-<div class="float-left">
-    <YAF:IconLegend ID="IconLegend1" runat="server" />
-</div>

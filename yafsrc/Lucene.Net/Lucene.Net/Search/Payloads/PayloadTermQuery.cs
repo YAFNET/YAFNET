@@ -17,17 +17,17 @@ namespace YAF.Lucene.Net.Search.Payloads
      * limitations under the License.
      */
 
-    using AtomicReaderContext = Lucene.Net.Index.AtomicReaderContext;
-    using IBits = Lucene.Net.Util.IBits;
-    using BytesRef = Lucene.Net.Util.BytesRef;
-    using DocsAndPositionsEnum = Lucene.Net.Index.DocsAndPositionsEnum;
-    using Similarity = Lucene.Net.Search.Similarities.Similarity;
-    using SpanQuery = Lucene.Net.Search.Spans.SpanQuery;
-    using SpanScorer = Lucene.Net.Search.Spans.SpanScorer;
-    using SpanTermQuery = Lucene.Net.Search.Spans.SpanTermQuery;
-    using SpanWeight = Lucene.Net.Search.Spans.SpanWeight;
-    using Term = Lucene.Net.Index.Term;
-    using TermSpans = Lucene.Net.Search.Spans.TermSpans;
+    using AtomicReaderContext = YAF.Lucene.Net.Index.AtomicReaderContext;
+    using IBits = YAF.Lucene.Net.Util.IBits;
+    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
+    using DocsAndPositionsEnum = YAF.Lucene.Net.Index.DocsAndPositionsEnum;
+    using Similarity = YAF.Lucene.Net.Search.Similarities.Similarity;
+    using SpanQuery = YAF.Lucene.Net.Search.Spans.SpanQuery;
+    using SpanScorer = YAF.Lucene.Net.Search.Spans.SpanScorer;
+    using SpanTermQuery = YAF.Lucene.Net.Search.Spans.SpanTermQuery;
+    using SpanWeight = YAF.Lucene.Net.Search.Spans.SpanWeight;
+    using Term = YAF.Lucene.Net.Index.Term;
+    using TermSpans = YAF.Lucene.Net.Search.Spans.TermSpans;
 
     /// <summary>
     /// This class is very similar to

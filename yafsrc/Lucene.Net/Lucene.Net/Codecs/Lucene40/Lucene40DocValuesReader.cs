@@ -22,24 +22,24 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
      * limitations under the License.
      */
 
-    using BinaryDocValues = Lucene.Net.Index.BinaryDocValues;
-    using IBits = Lucene.Net.Util.IBits;
-    using BytesRef = Lucene.Net.Util.BytesRef;
-    using CompoundFileDirectory = Lucene.Net.Store.CompoundFileDirectory;
-    using CorruptIndexException = Lucene.Net.Index.CorruptIndexException;
-    using Directory = Lucene.Net.Store.Directory;
-    using FieldInfo = Lucene.Net.Index.FieldInfo;
-    using IndexFileNames = Lucene.Net.Index.IndexFileNames;
-    using IndexInput = Lucene.Net.Store.IndexInput;
-    using IOUtils = Lucene.Net.Util.IOUtils;
-    //using LegacyDocValuesType = Lucene.Net.Codecs.Lucene40.LegacyDocValuesType;
-    using NumericDocValues = Lucene.Net.Index.NumericDocValues;
-    using PackedInt32s = Lucene.Net.Util.Packed.PackedInt32s;
-    using PagedBytes = Lucene.Net.Util.PagedBytes;
-    using RamUsageEstimator = Lucene.Net.Util.RamUsageEstimator;
-    using SegmentReadState = Lucene.Net.Index.SegmentReadState;
-    using SortedDocValues = Lucene.Net.Index.SortedDocValues;
-    using SortedSetDocValues = Lucene.Net.Index.SortedSetDocValues;
+    using BinaryDocValues = YAF.Lucene.Net.Index.BinaryDocValues;
+    using IBits = YAF.Lucene.Net.Util.IBits;
+    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
+    using CompoundFileDirectory = YAF.Lucene.Net.Store.CompoundFileDirectory;
+    using CorruptIndexException = YAF.Lucene.Net.Index.CorruptIndexException;
+    using Directory = YAF.Lucene.Net.Store.Directory;
+    using FieldInfo = YAF.Lucene.Net.Index.FieldInfo;
+    using IndexFileNames = YAF.Lucene.Net.Index.IndexFileNames;
+    using IndexInput = YAF.Lucene.Net.Store.IndexInput;
+    using IOUtils = YAF.Lucene.Net.Util.IOUtils;
+    //using LegacyDocValuesType = YAF.Lucene.Net.Codecs.Lucene40.LegacyDocValuesType;
+    using NumericDocValues = YAF.Lucene.Net.Index.NumericDocValues;
+    using PackedInt32s = YAF.Lucene.Net.Util.Packed.PackedInt32s;
+    using PagedBytes = YAF.Lucene.Net.Util.PagedBytes;
+    using RamUsageEstimator = YAF.Lucene.Net.Util.RamUsageEstimator;
+    using SegmentReadState = YAF.Lucene.Net.Index.SegmentReadState;
+    using SortedDocValues = YAF.Lucene.Net.Index.SortedDocValues;
+    using SortedSetDocValues = YAF.Lucene.Net.Index.SortedSetDocValues;
 
     /// <summary>
     /// Reads the 4.0 format of norms/docvalues.

@@ -1,4 +1,3 @@
-using YAF.Lucene.Net.Support;
 using System;
 using System.Diagnostics;
 using System.Reflection;
@@ -22,16 +21,16 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
      * limitations under the License.
      */
 
-    using CorruptIndexException = Lucene.Net.Index.CorruptIndexException;
-    using Directory = Lucene.Net.Store.Directory;
-    using FieldInfo = Lucene.Net.Index.FieldInfo;
-    using FieldInfos = Lucene.Net.Index.FieldInfos;
-    using IndexFileNames = Lucene.Net.Index.IndexFileNames;
-    using IndexInput = Lucene.Net.Store.IndexInput;
-    using IOContext = Lucene.Net.Store.IOContext;
-    using IOUtils = Lucene.Net.Util.IOUtils;
-    using SegmentInfo = Lucene.Net.Index.SegmentInfo;
-    using StoredFieldVisitor = Lucene.Net.Index.StoredFieldVisitor;
+    using CorruptIndexException = YAF.Lucene.Net.Index.CorruptIndexException;
+    using Directory = YAF.Lucene.Net.Store.Directory;
+    using FieldInfo = YAF.Lucene.Net.Index.FieldInfo;
+    using FieldInfos = YAF.Lucene.Net.Index.FieldInfos;
+    using IndexFileNames = YAF.Lucene.Net.Index.IndexFileNames;
+    using IndexInput = YAF.Lucene.Net.Store.IndexInput;
+    using IOContext = YAF.Lucene.Net.Store.IOContext;
+    using IOUtils = YAF.Lucene.Net.Util.IOUtils;
+    using SegmentInfo = YAF.Lucene.Net.Index.SegmentInfo;
+    using StoredFieldVisitor = YAF.Lucene.Net.Index.StoredFieldVisitor;
 
     /// <summary>
     /// Class responsible for access to stored document fields.

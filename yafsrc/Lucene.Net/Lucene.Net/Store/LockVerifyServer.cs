@@ -27,7 +27,7 @@ namespace YAF.Lucene.Net.Store
      * limitations under the License.
      */
 
-    using IOUtils = Lucene.Net.Util.IOUtils;
+    using IOUtils = YAF.Lucene.Net.Util.IOUtils;
 
     /// <summary>
     /// Simple standalone server that must be running when you
