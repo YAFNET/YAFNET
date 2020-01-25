@@ -1101,13 +1101,6 @@
     <Compile Include="pages\topics.ascx.designer.cs">
       <DependentUpon>topics.ascx</DependentUpon>
     </Compile>
-    <Compile Include="pages\viewthanks.ascx.cs">
-      <DependentUpon>viewthanks.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="pages\viewthanks.ascx.designer.cs">
-      <DependentUpon>viewthanks.ascx</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -2003,7 +1996,6 @@
     <Content Include="controls\ProfileYourAccount.ascx" />
     <Content Include="controls\ReportedPosts.ascx" />
     <Content Include="controls\SimilarTopics.ascx" />
-    <Content Include="controls\ViewThanksList.ascx" />
     <Content Include="controls\Header.ascx" />
     <Content Include="Dialogs\BannedIpEdit.ascx" />
     <Content Include="Dialogs\BannedNameEdit.ascx" />
@@ -2222,7 +2214,6 @@
     <Content Include="pages\search.ascx" />
     <Content Include="pages\team.ascx" />
     <Content Include="pages\topics.ascx" />
-    <Content Include="pages\viewthanks.ascx" />
     <Content Include="Resources\HelpMenuList.xml" />
     <Content Include="Resources\ProviderExceptions.xml" />
     <Content Include="Scripts\blueimp-gallery-indicator.js" />
@@ -2891,13 +2882,6 @@
     </Compile>
     <Compile Include="controls\ReportedPosts.ascx.designer.cs">
       <DependentUpon>ReportedPosts.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="controls\ViewThanksList.ascx.cs">
-      <DependentUpon>ViewThanksList.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="controls\ViewThanksList.ascx.designer.cs">
-      <DependentUpon>ViewThanksList.ascx</DependentUpon>
     </Compile>
     <Compile Include="error.aspx.cs">
       <DependentUpon>error.aspx</DependentUpon>
@@ -3731,7 +3715,7 @@ RD /S /Q "$(TargetDir)zh-TW\"</PostBuildEvent>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties compilerconfig_1json__JSONSchema="" bundleconfig_1json__JSONSchema="" />
+      <UserProperties bundleconfig_1json__JSONSchema="" compilerconfig_1json__JSONSchema="" />
     </VisualStudio>
   </ProjectExtensions>
   <Import Project="..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets" Condition="Exists('..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets')" />
