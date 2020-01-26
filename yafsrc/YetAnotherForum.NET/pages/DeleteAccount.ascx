@@ -3,13 +3,9 @@
 <YAF:PageLinks runat="server" ID="PageLinks" />
 
 <div class="row">
-    <div class="col-xl-12">
-        <h2><YAF:LocalizedLabel ID="LocalizedLabel11" runat="server" 
-                                LocalizedTag="TITLE" LocalizedPage="DELETE_ACCOUNT" /></h2>
+    <div class="col-sm-auto">
+        <YAF:ProfileMenu runat="server"></YAF:ProfileMenu>
     </div>
-</div>
-
-<div class="row">
     <div class="col">
         <div class="row">
             <div class="col">

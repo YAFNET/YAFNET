@@ -114,7 +114,7 @@ namespace YAF.Web.Controls
                     html,
                     "list-group-item list-group-item-action",
                     ForumPages.EditSettings,
-                    this.GetText("ACCOUNT","EDIT_SETTINGS"),
+                    this.GetText("ACCOUNT", "EDIT_SETTINGS"),
                     "user-cog");
 
                 this.RenderMenuItem(
@@ -220,14 +220,14 @@ namespace YAF.Web.Controls
                 html,
                 "list-group-item list-group-item-action",
                 ForumPages.Subscriptions,
-                this.GetText("SUBSCRIPTIONS"),
+                this.GetText("ACCOUNT", "SUBSCRIPTIONS"),
                 "envelope");
 
             this.RenderMenuItem(
                 htmlDropDown,
                 "dropdown-item",
                 ForumPages.Subscriptions,
-                this.GetText("SUBSCRIPTIONS"),
+                this.GetText("ACCOUNT", "SUBSCRIPTIONS"),
                 "envelope");
 
             this.RenderMenuItem(
@@ -251,14 +251,14 @@ namespace YAF.Web.Controls
                     html,
                     "list-group-item list-group-item-action",
                     ForumPages.ChangePassword,
-                    this.GetText("CHANGE_PASSWORD"),
+                    this.GetText("ACCOUNT", "CHANGE_PASSWORD"),
                     "lock");
 
                 this.RenderMenuItem(
                     htmlDropDown,
                     "dropdown-item",
                     ForumPages.ChangePassword,
-                    this.GetText("CHANGE_PASSWORD"),
+                    this.GetText("ACCOUNT", "CHANGE_PASSWORD"),
                     "lock");
             }
 
@@ -269,14 +269,14 @@ namespace YAF.Web.Controls
                     html,
                     "list-group-item list-group-item-action",
                     ForumPages.DeleteAccount,
-                    this.GetText("DELETE_ACCOUNT"),
+                    this.GetText("ACCOUNT", "DELETE_ACCOUNT"),
                     "user-alt-slash");
 
                 this.RenderMenuItem(
                     htmlDropDown,
                     "dropdown-item",
                     ForumPages.DeleteAccount,
-                    this.GetText("DELETE_ACCOUNT"),
+                    this.GetText("ACCOUNT", "DELETE_ACCOUNT"),
                     "user-alt-slash");
             }
 

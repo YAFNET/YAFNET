@@ -97,8 +97,6 @@ namespace YAF.Pages
 
             this.CreatePageLinks();
 
-            this.LocalizedLabel11.Param0 = this.LocalizedLabel12.Param0 = this.Get<BoardSettings>().Name;
-
             this.Options.Items.Add(
                 new ListItem(
                     $"<strong>{this.GetText("OPTION_SUSPEND_TITLE")}</strong><br />{this.GetText("OPTION_SUSPEND_TEXT")}",

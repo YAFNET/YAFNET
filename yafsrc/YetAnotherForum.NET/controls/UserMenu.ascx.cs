@@ -319,8 +319,8 @@ namespace YAF.Controls
             RenderMenuItem(
                 this.MySettings,
                 "dropdown-item",
-                this.GetText("SUBSCRIPTIONS"),
-                this.GetText("SUBSCRIPTIONS"),
+                this.GetText("ACCOUNT", "SUBSCRIPTIONS"),
+                this.GetText("ACCOUNT", "SUBSCRIPTIONS"),
                 BuildLink.GetLink(ForumPages.Subscriptions),
                 false,
                 false,
@@ -348,8 +348,8 @@ namespace YAF.Controls
                 RenderMenuItem(
                     this.MySettings,
                     "dropdown-item",
-                    this.GetText("CHANGE_PASSWORD"),
-                    this.GetText("CHANGE_PASSWORD"),
+                    this.GetText("ACCOUNT", "CHANGE_PASSWORD"),
+                    this.GetText("ACCOUNT", "CHANGE_PASSWORD"),
                     BuildLink.GetLink(ForumPages.ChangePassword),
                     false,
                     false,
@@ -365,8 +365,8 @@ namespace YAF.Controls
                 RenderMenuItem(
                     this.MySettings,
                     "dropdown-item",
-                    this.GetText("DELETE_ACCOUNT"),
-                    this.GetText("DELETE_ACCOUNT"),
+                    this.GetText("ACCOUNT", "DELETE_ACCOUNT"),
+                    this.GetText("ACCOUNT", "DELETE_ACCOUNT"),
                     BuildLink.GetLink(ForumPages.DeleteAccount),
                     false,
                     false,
