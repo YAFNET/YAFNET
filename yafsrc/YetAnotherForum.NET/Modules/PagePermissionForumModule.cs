@@ -99,7 +99,7 @@ namespace YAF.Modules
         case ForumPages.members:
           this.permissions.HandleRequest(this.PageContext.BoardSettings.MembersListViewPermissions);
           break;
-        case ForumPages.profile:
+        case ForumPages.Profile:
         case ForumPages.albums:
         case ForumPages.album:
           this.permissions.HandleRequest(this.PageContext.BoardSettings.ProfileViewPermissions);

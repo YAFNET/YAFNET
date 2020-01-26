@@ -99,8 +99,8 @@ namespace YAF.Modules
             var notification = (DialogBox)this.PageContext.CurrentForumPage.Notification;
 
             // This happens when user logs in
-            if (this.DisplayPmPopup() && (!this.PageContext.ForumPageType.Equals(ForumPages.cp_pm)
-                                          || !this.PageContext.ForumPageType.Equals(ForumPages.cp_editbuddies)))
+            if (this.DisplayPmPopup() && (!this.PageContext.ForumPageType.Equals(ForumPages.PM)
+                                          || !this.PageContext.ForumPageType.Equals(ForumPages.Friends)))
             {
                 notification.Show(
                     this.GetTextFormatted("UNREAD_MSG2", this.PageContext.UnreadPrivate),
@@ -109,7 +109,7 @@ namespace YAF.Modules
                                   {
                                       Text = this.GetText("COMMON", "YES"),
                                       CssClass = "btn btn-success btn-sm",
-                                      ForumPageLink = new ForumLink { ForumPage = ForumPages.cp_pm }
+                                      ForumPageLink = new ForumLink { ForumPage = ForumPages.PM }
                                   },
                     new DialogButton
                                       {
@@ -125,7 +125,7 @@ namespace YAF.Modules
                 return;
             }
 
-            if (!this.DisplayPendingBuddies() || this.PageContext.ForumPageType.Equals(ForumPages.cp_editbuddies) || this.PageContext.ForumPageType.Equals(ForumPages.cp_pm))
+            if (!this.DisplayPendingBuddies() || this.PageContext.ForumPageType.Equals(ForumPages.Friends) || this.PageContext.ForumPageType.Equals(ForumPages.PM))
             {
                 return;
             }
@@ -137,7 +137,7 @@ namespace YAF.Modules
                               {
                                   Text = this.GetText("COMMON", "YES"),
                                   CssClass = "btn btn-success btn-sm",
-                                  ForumPageLink = new ForumLink { ForumPage = ForumPages.cp_editbuddies }
+                                  ForumPageLink = new ForumLink { ForumPage = ForumPages.Friends }
                               },
                 new DialogButton
                                   {

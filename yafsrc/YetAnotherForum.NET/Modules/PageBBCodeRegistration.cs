@@ -46,11 +46,11 @@ namespace YAF.Modules
         {
             switch (this.PageContext.ForumPageType)
             {
-                case ForumPages.cp_message:
+                case ForumPages.Message:
                 case ForumPages.search:
                 case ForumPages.lastposts:
                 case ForumPages.posts:
-                case ForumPages.profile:
+                case ForumPages.Profile:
                     this.Get<IBBCode>().RegisterCustomBBCodePageElements(
                         this.PageContext.CurrentForumPage.Page,
                         this.PageContext.CurrentForumPage.GetType());
