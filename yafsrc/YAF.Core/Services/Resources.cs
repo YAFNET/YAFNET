@@ -151,7 +151,7 @@ namespace YAF.Core.Services
                 {
                     var tag = $"RGN_{userData.Profile.Country.Trim()}_{userData.Profile.Region}";
 
-                    location += $", {YafContext.Current.Get<IHaveLocalization>().GetText("REGION", tag)}";
+                    location += $", {this.Get<IHaveLocalization>().GetText("REGION", tag)}";
                 }
 
                 var userInfo = new ForumUserInfo
@@ -164,8 +164,10 @@ namespace YAF.Core.Services
                     Posts = $"{userData.NumPosts:N0}",
                     Rank = userData.RankName,
                     Location = location,
-                    Joined = this.Get<IDateTime>().FormatDateLong(userData.Joined),
-                    Online = userIsOnline
+                    Joined =
+                        $"{this.Get<IHaveLocalization>().GetText("PROFILE", "JOINED")} {this.Get<IDateTime>().FormatDateLong(userData.Joined)}",
+                    Online = userIsOnline/*,
+                    ProfileLink = BuildLink.GetLink(ForumPages.profile, true, "u={0}&name={1}", userId, userName)*/
                 };
 
                 if (YafContext.Current.Get<BoardSettings>().EnableUserReputation)

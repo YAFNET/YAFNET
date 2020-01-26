@@ -245,7 +245,7 @@ function getCurrentSelection(input) {
 
 jQuery(document).ready(function() {
 
-    var autoSaveKey = 'autosave_' + window.location + "_" + $(".BBCodeEditor").attr('name');
+    var autoSaveKey = "autosave_" + window.location + "_" + $(".BBCodeEditor").attr("name");
 
     CheckForAutoSavedContent($(".BBCodeEditor"), autoSaveKey, 1440);
 
@@ -258,8 +258,8 @@ jQuery(document).ready(function() {
 
     // Render emojipicker
     $(".BBCodeEditor").emojiPicker({
-        width: '300px',
-        height: '200px',
+        width: "300px",
+        height: "200px",
         button: false
     });
 
@@ -271,7 +271,7 @@ jQuery(document).ready(function() {
         });
 
 
-    var autoSaveKey = 'autosave_' + window.location + "_" + $(this).attr('name');
+    var autoSaveKey = "autosave_" + window.location + "_" + $(this).attr("name");
 
 
     $(".BBCodeEditor").change(function() {
@@ -326,7 +326,7 @@ function CheckForAutoSavedContent(editorInstance, autoSaveKey, notOlderThen) {
         }
 
         // Ignore if autosaved content is older then x minutes
-        if (moment(new Date()).diff(new Date(autoSavedContentDate), 'minutes') > notOlderThen) {
+        if (moment(new Date()).diff(new Date(autoSavedContentDate), "minutes") > notOlderThen) {
             RemoveStorage(autoSaveKey);
 
             return;
@@ -361,7 +361,7 @@ var startTimer = function (editorInstance) {
 
 function onTimer(editorInstance) {
     var editor = editorInstance,
-        autoSaveKey = 'autosave_' + window.location + "_" + $(editor).attr('name');
+        autoSaveKey = "autosave_" + window.location + "_" + $(editor).attr("name");
 
     SaveData(autoSaveKey, editor);
 
@@ -376,7 +376,7 @@ function LoadData(autoSaveKey) {
 }
 
 function SaveMessage() {
-    var autoSaveKey = 'autosave_' + window.location + "_" + $(".BBCodeEditor").attr('name');
+    var autoSaveKey = "autosave_" + window.location + "_" + $(".BBCodeEditor").attr("name");
     SaveData(autoSaveKey, $(".BBCodeEditor"));
 }
 
@@ -431,7 +431,7 @@ function isQuotaExceeded(e) {
                 break;
             case 1014:
                 // Firefox
-                if (e.name === 'NS_ERROR_DOM_QUOTA_REACHED') {
+                if (e.name === "NS_ERROR_DOM_QUOTA_REACHED") {
                     quotaExceeded = true;
                 }
                 break;
@@ -528,7 +528,7 @@ var LZString = (function () {
                 buf.forEach(function (c) {
                     result.push(f(c));
                 });
-                return LZString.decompress(result.join(''));
+                return LZString.decompress(result.join(""));
 
             }
 
@@ -766,7 +766,7 @@ var LZString = (function () {
                 }
                 else context_data_position++;
             }
-            return context_data.join('');
+            return context_data.join("");
         },
 
         decompress: function (compressed) {
@@ -904,7 +904,7 @@ var LZString = (function () {
                         enlargeIn--;
                         break;
                     case 2:
-                        return result.join('');
+                        return result.join("");
                 }
 
                 if (enlargeIn == 0) {

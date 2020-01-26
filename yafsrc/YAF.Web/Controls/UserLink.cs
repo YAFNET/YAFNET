@@ -119,10 +119,20 @@ namespace YAF.Web.Controls
                 return;
             }
 
+            var script =
+                $@"if (typeof(jQuery.fn.hovercard) != 'undefined'){{ 
+                      {Config.JQueryAlias}('.userHoverCard').hovercard({{
+                                      delay: {this.Get<BoardSettings>().HoverCardOpenDelay}, 
+                                      width: 350,
+                                      loadingHTML: '{this.GetText("DEFAULT", "LOADING_HOVERCARD").ToJsString()}',
+                                      errorHTML: '{this.GetText("DEFAULT", "ERROR_HOVERCARD").ToJsString()}',
+                                      pointsText: '{this.GetText("REPUTATION").ToJsString()}', 
+                                      postsText: '{this.GetText("POSTS").ToJsString()}'
+                      }}); 
+                 }}";
+
             // Setup Hover Card JS
-            YafContext.Current.PageElements.RegisterJsBlockStartup(
-                "yafhovercardtjs",
-                $"if (typeof(jQuery.fn.hovercard) != 'undefined'){{ {Config.JQueryAlias}('.userHoverCard').hovercard({{showYafCard: true, delay: {this.Get<BoardSettings>().HoverCardOpenDelay}, width: 350,loadingHTML: '{this.GetText("DEFAULT", "LOADING_HOVERCARD").ToJsString()}',errorHTML: '{this.GetText("DEFAULT", "ERROR_HOVERCARD").ToJsString()}'}}); }}");
+            YafContext.Current.PageElements.RegisterJsBlockStartup("yafhovercardtjs", script);
         }
 
         /// <summary>

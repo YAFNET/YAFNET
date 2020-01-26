@@ -35213,7 +35213,8 @@ S2.define('jquery.select2',[
             detailsHTML: "",
             loadingHTML: "Loading...",
             errorHTML: "Sorry, no data found.",
-            showYafCard: false,
+            pointsText: "",
+            postsText: "",
             background: "#ffffff",
             delay: 0,
             autoAdjust: true,
@@ -35266,7 +35267,7 @@ S2.define('jquery.select2',[
                     var dataUrl;
 
                     //check for yaf profile. If already loaded don't load again
-                    if (options.showYafCard && curHCDetails.find(".s-card").length <= 0) {
+                    if (curHCDetails.find(".s-card").length <= 0) {
 
                         //Read data-hovercard url from the hovered element, otherwise look in the options. For custom card, complete url is required than just username.
                         dataUrl = options.customDataUrl;
@@ -35357,23 +35358,23 @@ S2.define('jquery.select2',[
                                                     (profileData.Avatar ? '<div class="position-absolute" style="top:0;right:0;border-width: 0 25px 25px 0; border-style: solid; border-color: transparent ' + online + ';" ></div>' : "") +
                                                 "</div>" +
                                             '<div class="card-body p-2">' +
-                                                '<ul class="list-group mt-1 mb-3">' +
-                                                    (profileData.Location ? '<li class="list-group-item px-2 py-1">' + profileData.Location + "</li>" : "") +
-                                                    (profileData.Rank ? '<li class="list-group-item px-2 py-1">' + profileData.Rank + "</li>" : "") +
-                                                    (profileData.Interests ? '<li class="list-group-item px-2 py-1">' + profileData.Interests + "</li>" : "") +
-                                                    (profileData.Joined ? '<li class="list-group-item px-2 py-1">Member since: ' + profileData.Joined + "</li>" : "") +
-                                                    (profileData.HomePage ? '<li class="list-group-item px-2 py-1"><a href="' + profileData.HomePage + '" target="_blank">' + profileData.HomePage + "</a></li>" : "") +
+                                                '<ul class="list-unstyled mt-1 mb-3">' +
+                                (profileData.Location ? '<li class="px-2 py-1"><i class="fas fa-home mr-1"></i>' + profileData.Location + "</li>" : "") +
+                                (profileData.Rank ? '<li class="px-2 py-1"><i class="fas fa-graduation-cap mr-1"></i>' + profileData.Rank + "</li>" : "") +
+                                (profileData.Interests ? '<li class="px-2 py-1"><i class="fas fa-running mr-1"></i>' + profileData.Interests + "</li>" : "") +
+                                (profileData.Joined ? '<li class="px-2 py-1"><i class="fas fa-user-check mr-1"></i>' + profileData.Joined + "</li>" : "") +
+                                (profileData.HomePage ? '<li class="px-2 py-1"><i class="fas fa-globe mr-1"></i><a href="' + profileData.HomePage + '" target="_blank">' + profileData.HomePage + "</a></li>" : "") +
                                                 "</ul >" +
                                                 '<div class="row no-gutters">' +
                                                     '<div class="col-5 p-1 small bg-secondary text-white d-flex align-items-center justify-content-between">' +
-                                                        'Posts:&nbsp;<span class="badge badge-light rounded">' + profileData.Posts + "</span>" +
+                                                        options.postsText + ':&nbsp;<span class="badge badge-light rounded">' + profileData.Posts + "</span>" +
                                                     "</div>" +
                                 (profileData.Points ? '<div class="flex-grow-1"></div>' +
                                                     '<div class="col-5 p-1 small bg-secondary text-white d-flex align-items-center justify-content-between">' +
-                                                        'Reputation:&nbsp;<span class="badge badge-light rounded">' + profileData.Points + "</span>" +
+                                                        options.pointsText + ':&nbsp;<span class="badge badge-light rounded">' + profileData.Points + "</span>" +
                                                     "</div>" : "") +
                                                 "</div>" +
-                                                (profileData.ActionButtons ? '<div class="row no-gutters">' + profileData.ActionButtons + "</div>" : "") +
+                                (profileData.ProfileLink ? '<div class="row no-gutters p-1"><a class="btn btn-secondary btn-sm" role="button" href="' + profileData.ProfileLink + '"><i class="fas fa-external-link-alt"></i></a></div>' : "") +
                                                 "</div>" +
                                             "</div>" +
                                         "</div>";
@@ -35409,7 +35410,6 @@ S2.define('jquery.select2',[
                                 curHCDetails.find(".s-message").html(errorHTML);
                             } else {
                                 curHCDetails.find(".s-message").replaceWith(cardHTML(data));
-                                //curHCDetails.prepend(cardHTML(data));
 
                                 $(".hc-details").hide();
 
@@ -35431,8 +35431,8 @@ S2.define('jquery.select2',[
     };
 })(jQuery);
 
-(function ($) {
-    $.fn.hoverIntent = function (handlerIn, handlerOut, selector) {
+(function($) {
+    $.fn.hoverIntent = function(handlerIn, handlerOut, selector) {
 
         // default configuration values
         var cfg = {
@@ -35455,13 +35455,13 @@ S2.define('jquery.select2',[
         var cX, cY, pX, pY;
 
         // A private function for getting mouse position
-        var track = function (ev) {
+        var track = function(ev) {
             cX = ev.pageX;
             cY = ev.pageY;
         };
 
         // A private function for comparing current and previous mouse position
-        var compare = function (ev, ob) {
+        var compare = function(ev, ob) {
             ob.hoverIntent_t = clearTimeout(ob.hoverIntent_t);
             // compare mouse positions to see if they've crossed the threshold
             if ((Math.abs(pX - cX) + Math.abs(pY - cY)) < cfg.sensitivity) {
@@ -35471,43 +35471,51 @@ S2.define('jquery.select2',[
                 return cfg.over.apply(ob, [ev]);
             } else {
                 // set previous coordinates for next time
-                pX = cX; pY = cY;
+                pX = cX;
+                pY = cY;
                 // use self-calling timeout, guarantees intervals are spaced out properly (avoids JavaScript timer bugs)
-                ob.hoverIntent_t = setTimeout(function () { compare(ev, ob); }, cfg.interval);
+                ob.hoverIntent_t = setTimeout(function() { compare(ev, ob); }, cfg.interval);
             }
         };
 
         // A private function for delaying the mouseOut function
-        var delay = function (ev, ob) {
+        var delay = function(ev, ob) {
             ob.hoverIntent_t = clearTimeout(ob.hoverIntent_t);
             ob.hoverIntent_s = 0;
             return cfg.out.apply(ob, [ev]);
         };
 
         // A private function for handling mouse 'hovering'
-        var handleHover = function (e) {
+        var handleHover = function(e) {
             // copy objects to be passed into t (required for event object to be passed in IE)
             var ev = jQuery.extend({}, e);
             var ob = this;
 
             // cancel hoverIntent timer if it exists
-            if (ob.hoverIntent_t) { ob.hoverIntent_t = clearTimeout(ob.hoverIntent_t); }
+            if (ob.hoverIntent_t) {
+                ob.hoverIntent_t = clearTimeout(ob.hoverIntent_t);
+            }
 
             // if e.type == "mouseenter"
             if (e.type == "mouseenter") {
                 // set "previous" X and Y position based on initial entry point
-                pX = ev.pageX; pY = ev.pageY;
+                pX = ev.pageX;
+                pY = ev.pageY;
                 // update "current" X and Y position based on mousemove
                 $(ob).on("mousemove.hoverIntent", track);
                 // start polling interval (self-calling timeout) to compare mouse coordinates over time
-                if (ob.hoverIntent_s != 1) { ob.hoverIntent_t = setTimeout(function () { compare(ev, ob); }, cfg.interval); }
+                if (ob.hoverIntent_s != 1) {
+                    ob.hoverIntent_t = setTimeout(function() { compare(ev, ob); }, cfg.interval);
+                }
 
                 // else e.type == "mouseleave"
             } else {
                 // unbind expensive mousemove event
                 $(ob).off("mousemove.hoverIntent", track);
                 // if hoverIntent state is true, then call the mouseOut function after the specified delay
-                if (ob.hoverIntent_s == 1) { ob.hoverIntent_t = setTimeout(function () { delay(ev, ob); }, cfg.timeout); }
+                if (ob.hoverIntent_s == 1) {
+                    ob.hoverIntent_t = setTimeout(function() { delay(ev, ob); }, cfg.timeout);
+                }
             }
         };
 
