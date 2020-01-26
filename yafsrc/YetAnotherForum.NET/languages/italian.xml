@@ -4664,7 +4664,7 @@ Spoiler Content
     <Resource tag="EDITED">Modificato</Resource>
     <Resource tag="EDITED_BY_MOD">dal moderatore</Resource>
     <Resource tag="EDITED_BY_USER">dall'utente</Resource>
-    <Resource tag="EDITUSER">Edit</Resource>
+    <Resource tag="EDITUSER">Edit User</Resource>
     <Resource tag="EMAIL">E-mail</Resource>
     <Resource tag="EMAIL_TITLE">Invia un'e-mail a {0}</Resource>
     <Resource tag="EMAILTOPIC">Invia questa discussione tramite e-mail</Resource>

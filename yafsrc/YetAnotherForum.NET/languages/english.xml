@@ -4464,7 +4464,7 @@
   <Resource tag="EDITED">Edited</Resource>
   <Resource tag="EDITED_BY_MOD">by moderator</Resource>
   <Resource tag="EDITED_BY_USER">by user</Resource>
-  <Resource tag="EDITUSER">Edit</Resource>
+  <Resource tag="EDITUSER">Edit User</Resource>
   <Resource tag="EMAIL">Email</Resource>
   <Resource tag="EMAIL_TITLE">Send {0} an Email</Resource>
   <Resource tag="EMAILTOPIC">Email this topic</Resource>

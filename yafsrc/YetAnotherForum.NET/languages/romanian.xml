@@ -4692,7 +4692,7 @@ Spoiler Content
     <Resource tag="EDITED">Editeaza</Resource>
     <Resource tag="EDITED_BY_MOD">de catre moderator</Resource>
     <Resource tag="EDITED_BY_USER">de catre utilizator</Resource>
-    <Resource tag="EDITUSER">Edit</Resource>
+    <Resource tag="EDITUSER">Edit User</Resource>
     <Resource tag="EMAIL">Email</Resource>
     <Resource tag="EMAIL_TITLE">Send {0} an Email</Resource>
     <Resource tag="EMAILTOPIC">Trimite pe email tema</Resource>

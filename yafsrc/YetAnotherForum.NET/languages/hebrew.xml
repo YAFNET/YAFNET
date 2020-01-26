@@ -4733,7 +4733,7 @@ Spoiler Content
     <Resource tag="EDITED">נערך</Resource>
     <Resource tag="EDITED_BY_MOD">ע"י מנהל</Resource>
     <Resource tag="EDITED_BY_USER">ע"י משתמש</Resource>
-    <Resource tag="EDITUSER">Edit</Resource>
+    <Resource tag="EDITUSER">Edit User</Resource>
     <Resource tag="EMAIL">דוא"ל</Resource>
     <Resource tag="EMAIL_TITLE">Send {0} an Email</Resource>
     <Resource tag="EMAILTOPIC">שלח דיון זה בדוא"ל</Resource>

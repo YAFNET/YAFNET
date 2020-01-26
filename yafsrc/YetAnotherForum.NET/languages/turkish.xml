@@ -4693,7 +4693,7 @@ Spoiler Content
     <Resource tag="EDITED">Düzenle</Resource>
     <Resource tag="EDITED_BY_MOD">Moderatör Tarafından</Resource>
     <Resource tag="EDITED_BY_USER">Kullanıcı Tarafından</Resource>
-    <Resource tag="EDITUSER">Edit</Resource>
+    <Resource tag="EDITUSER">Edit User</Resource>
     <Resource tag="EMAIL">E-posta</Resource>
     <Resource tag="EMAIL_TITLE">Send {0} an Email</Resource>
     <Resource tag="EMAILTOPIC">Bu Konuyu e-posta ile Gönder</Resource>

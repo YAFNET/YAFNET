@@ -4689,7 +4689,7 @@ Spoiler Content
     <Resource tag="EDITED">Muuda</Resource>
     <Resource tag="EDITED_BY_MOD">moderaatori järgi</Resource>
     <Resource tag="EDITED_BY_USER">kasutaja järgi</Resource>
-    <Resource tag="EDITUSER">Edit</Resource>
+    <Resource tag="EDITUSER">Edit User</Resource>
     <Resource tag="EMAIL">E-post</Resource>
     <Resource tag="EMAIL_TITLE">Send {0} an Email</Resource>
     <Resource tag="EMAILTOPIC">Saada see teema e-postiga</Resource>

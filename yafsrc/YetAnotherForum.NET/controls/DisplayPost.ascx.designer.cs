@@ -69,15 +69,6 @@ namespace YAF.Controls
         protected global::YAF.Web.Controls.UserLink UserProfileLink;
 
         /// <summary>
-        /// PopMenu1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Web.Controls.PopMenu PopMenu1;
-
-        /// <summary>
         /// AddReputation control.
         /// </summary>
         /// <remarks>
@@ -240,6 +231,15 @@ namespace YAF.Controls
         protected global::YAF.Web.Controls.ThemeButton UnDelete;
 
         /// <summary>
+        /// UserDropHolder control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.PlaceHolder UserDropHolder;
+
+        /// <summary>
         /// ReportPost control.
         /// </summary>
         /// <remarks>
@@ -328,6 +328,15 @@ namespace YAF.Controls
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::YAF.Web.Controls.ThemeButton UnDelete2;
+
+        /// <summary>
+        /// UserDropHolder2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.PlaceHolder UserDropHolder2;
 
         /// <summary>
         /// ReportPost2 control.

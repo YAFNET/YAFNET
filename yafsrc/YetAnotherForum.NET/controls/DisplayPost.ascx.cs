@@ -30,6 +30,7 @@ namespace YAF.Controls
     using System.Data;
     using System.Text;
     using System.Web;
+    using System.Web.UI.WebControls;
 
     using ServiceStack;
 
@@ -49,7 +50,7 @@ namespace YAF.Controls
     using YAF.Types.Models;
     using YAF.Utils;
     using YAF.Utils.Helpers;
-    using YAF.Web.EventsArgs;
+    using YAF.Web.Controls;
 
     #endregion
 
@@ -417,10 +418,7 @@ namespace YAF.Controls
                 return;
             }
 
-            this.UserProfileLink.CssClass = "dropdown-toggle";
-
             // Set up popup menu if it's not a guest.
-            this.PopMenu1.Visible = true;
             this.SetupPopupMenu();
         }
 
@@ -518,57 +516,172 @@ namespace YAF.Controls
         /// </summary>
         private void SetupPopupMenu()
         {
-            this.PopMenu1.ItemClick += this.PopMenu1_ItemClick;
-            this.PopMenu1.AddPostBackItem("userprofile", this.GetText("POSTS", "USERPROFILE"), "fa fa-user");
-
-            this.PopMenu1.AddPostBackItem("lastposts", this.GetText("PROFILE", "SEARCHUSER"), "fa fa-th-list");
+            this.UserDropHolder.Controls.Add(
+                new ThemeButton
+                    {
+                        Type = ButtonAction.Link,
+                        Icon = "th-list",
+                        TextLocalizedPage = "PAGE",
+                        TextLocalizedTag = "SEARCHUSER",
+                        CssClass = "dropdown-item",
+                        NavigateUrl = BuildLink.GetLink(
+                            ForumPages.search,
+                            "postedby={0}",
+                            this.DataRow[this.Get<BoardSettings>().EnableDisplayName ? "DisplayName" : "UserName"])
+                    });
+            this.UserDropHolder2.Controls.Add(
+                new ThemeButton
+                    {
+                        Type = ButtonAction.Link,
+                        Icon = "th-list",
+                        TextLocalizedPage = "PAGE",
+                        TextLocalizedTag = "SEARCHUSER",
+                        CssClass = "dropdown-item",
+                        NavigateUrl = BuildLink.GetLink(
+                            ForumPages.search,
+                            "postedby={0}",
+                            this.DataRow[this.Get<BoardSettings>().EnableDisplayName ? "DisplayName" : "UserName"])
+                    });
 
             if (this.PageContext.IsAdmin)
             {
-                this.PopMenu1.AddPostBackItem("edituser", this.GetText("POSTS", "EDITUSER"), "fa fa-cogs");
+                this.UserDropHolder.Controls.Add(
+                    new ThemeButton
+                        {
+                            Type = ButtonAction.Link,
+                            Icon = "cogs",
+                            TextLocalizedPage = "POSTS",
+                            TextLocalizedTag = "EDITUSER",
+                            CssClass = "dropdown-item",
+                            NavigateUrl = BuildLink.GetLink(ForumPages.admin_edituser, "u={0}", this.PostData.UserId)
+                        });
+                this.UserDropHolder2.Controls.Add(
+                    new ThemeButton
+                        {
+                            Type = ButtonAction.Link,
+                            Icon = "cogs",
+                            TextLocalizedPage = "POSTS",
+                            TextLocalizedTag = "EDITUSER",
+                            CssClass = "dropdown-item",
+                            NavigateUrl = BuildLink.GetLink(ForumPages.admin_edituser, "u={0}", this.PostData.UserId)
+                        });
             }
 
-            if (!this.PageContext.IsGuest)
+            if (this.PageContext.PageUserID != this.PostData.UserId)
             {
                 if (this.Get<IUserIgnored>().IsIgnored(this.PostData.UserId))
                 {
-                    this.PopMenu1.AddPostBackItem(
-                        "toggleuserposts_show",
-                        this.GetText("POSTS", "TOGGLEUSERPOSTS_SHOW"),
-                        "fa fa-eye");
+                    var showButton = new ThemeButton
+                                         {
+                                             Type = ButtonAction.Link,
+                                             Icon = "eye",
+                                             TextLocalizedPage = "POSTS",
+                                             TextLocalizedTag = "TOGGLEUSERPOSTS_SHOW",
+                                             CssClass = "dropdown-item"
+                                         };
+
+                    showButton.Click += (sender, args) =>
+                        {
+                            this.Get<IUserIgnored>().RemoveIgnored(this.PostData.UserId);
+                            this.Get<HttpResponseBase>().Redirect(this.Get<HttpRequestBase>().RawUrl);
+                        };
+
+                    this.UserDropHolder.Controls.Add(showButton);
                 }
                 else
                 {
-                    this.PopMenu1.AddPostBackItem(
-                        "toggleuserposts_hide",
-                        this.GetText("POSTS", "TOGGLEUSERPOSTS_HIDE"),
-                        "fa fa-eye-slash");
+                    var hideButton = new ThemeButton
+                                         {
+                                             Type = ButtonAction.Link,
+                                             Icon = "eye-slash",
+                                             TextLocalizedPage = "POSTS",
+                                             TextLocalizedTag = "TOGGLEUSERPOSTS_HIDE",
+                                             CssClass = "dropdown-item"
+                                         };
+
+                    hideButton.Click += (sender, args) =>
+                        {
+                            this.Get<IUserIgnored>().AddIgnored(this.PostData.UserId);
+                            this.Get<HttpResponseBase>().Redirect(this.Get<HttpRequestBase>().RawUrl);
+                        };
+
+                    this.UserDropHolder.Controls.Add(hideButton);
                 }
             }
 
-            var userId = this.PostData.UserId;
-
-            if (this.Get<BoardSettings>().EnableBuddyList && this.PageContext.PageUserID != userId)
+            if (this.Get<BoardSettings>().EnableBuddyList && this.PageContext.PageUserID != this.PostData.UserId)
             {
                 // Should we add the "Add Buddy" item?
-                if (!this.Get<IBuddy>().IsBuddy(userId, false) && !this.PageContext.IsGuest
-                                                               && !this.GetRepository<User>().GetById(userId).Block
-                                                                   .BlockFriendRequests)
+                if (!this.Get<IBuddy>().IsBuddy(this.PostData.UserId, false) && !this.PageContext.IsGuest
+                                                                             && !this.GetRepository<User>()
+                                                                                 .GetById(this.PostData.UserId).Block
+                                                                                 .BlockFriendRequests)
                 {
-                    this.PopMenu1.AddPostBackItem("addbuddy", this.GetText("BUDDY", "ADDBUDDY"), "fa fa-user-plus");
+                    var addFriendButton = new ThemeButton
+                                              {
+                                                  Type = ButtonAction.Link,
+                                                  Icon = "user-plus",
+                                                  TextLocalizedPage = "BUDDY",
+                                                  TextLocalizedTag = "ADDBUDDY",
+                                                  CssClass = "dropdown-item"
+                                              };
+
+                    addFriendButton.Click += (sender, args) =>
+                        {
+                            var strBuddyRequest = this.Get<IBuddy>().AddRequest(this.PostData.UserId);
+
+                            if (Convert.ToBoolean(strBuddyRequest[1].ToType<int>()))
+                            {
+                                this.PageContext.AddLoadMessage(
+                                    this.GetTextFormatted("NOTIFICATION_BUDDYAPPROVED_MUTUAL", strBuddyRequest[0]),
+                                    MessageTypes.success);
+
+                                this.Get<HttpResponseBase>().Redirect(this.Get<HttpRequestBase>().RawUrl);
+                            }
+                            else
+                            {
+                                this.PageContext.AddLoadMessage(
+                                    this.GetText("NOTIFICATION_BUDDYREQUEST"),
+                                    MessageTypes.success);
+                            }
+                        };
+
+                    this.UserDropHolder.Controls.Add(addFriendButton);
                 }
-                else if (this.Get<IBuddy>().IsBuddy(userId, true) && !this.PageContext.IsGuest)
+                else if (this.Get<IBuddy>().IsBuddy(this.PostData.UserId, true) && !this.PageContext.IsGuest)
                 {
                     // Are the users approved buddies? Add the "Remove buddy" item.
-                    this.PopMenu1.AddClientScriptItemWithPostback(
-                        this.GetText("BUDDY", "REMOVEBUDDY"),
-                        "removebuddy",
-                        $"if (confirm('{this.GetText("CP_EDITBUDDIES", "NOTIFICATION_REMOVE")}')) {{postbackcode}}",
-                        "fa fa-user-times");
+                    var removeFriendButton = new ThemeButton
+                                                 {
+                                                     Type = ButtonAction.Link,
+                                                     Icon = "user-times",
+                                                     TextLocalizedPage = "BUDDY",
+                                                     TextLocalizedTag = "REMOVEBUDDY",
+                                                     CssClass = "dropdown-item",
+                                                     ReturnConfirmText = this.GetText(
+                                                         "CP_EDITBUDDIES",
+                                                         "NOTIFICATION_REMOVE")
+                                                 };
+
+                    removeFriendButton.Click += (sender, args) =>
+                        {
+                            this.Get<IBuddy>().Remove(this.PostData.UserId);
+
+                            this.Get<HttpResponseBase>().Redirect(this.Get<HttpRequestBase>().RawUrl);
+
+                            this.PageContext.AddLoadMessage(
+                                this.GetTextFormatted(
+                                    "REMOVEBUDDY_NOTIFICATION",
+                                    this.Get<IBuddy>().Remove(this.PostData.UserId)),
+                                MessageTypes.success);
+                        };
+
+                    this.UserDropHolder.Controls.Add(removeFriendButton);
                 }
             }
 
-            this.PopMenu1.Attach(this.UserProfileLink);
+            this.UserDropHolder.Controls.Add(new Panel { CssClass = "dropdown-divider" });
+            this.UserDropHolder2.Controls.Add(new Panel { CssClass = "dropdown-divider" });
         }
 
         /// <summary>
@@ -688,85 +801,6 @@ namespace YAF.Controls
                   </a>";
 
             this.ThanksDataLiteral.Visible = true;
-        }
-
-        /// <summary>
-        /// The pop menu 1_ item click.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="PopEventArgs"/> instance containing the event data.</param>
-        private void PopMenu1_ItemClick([NotNull] object sender, [NotNull] PopEventArgs e)
-        {
-            switch (e.Item)
-            {
-                case "userprofile":
-                    BuildLink.Redirect(
-                        ForumPages.profile,
-                        "u={0}&name={1}",
-                        this.PostData.UserId,
-                        this.DataRow[this.Get<BoardSettings>().EnableDisplayName ? "DisplayName" : "UserName"]);
-                    break;
-                case "lastposts":
-                    BuildLink.Redirect(
-                        ForumPages.search,
-                        "postedby={0}",
-                        this.Get<BoardSettings>().EnableDisplayName
-                            ? this.DataRow["DisplayName"]
-                            : this.DataRow["UserName"]);
-                    break;
-                case "addbuddy":
-                    var strBuddyRequest = this.Get<IBuddy>().AddRequest(this.PostData.UserId);
-
-                    if (Convert.ToBoolean(strBuddyRequest[1].ToType<int>()))
-                    {
-                        this.PageContext.AddLoadMessage(
-                            this.GetTextFormatted("NOTIFICATION_BUDDYAPPROVED_MUTUAL", strBuddyRequest[0]),
-                            MessageTypes.success);
-
-                        this.PopMenu1.RemovePostBackItem("addbuddy");
-
-                        this.PopMenu1.AddClientScriptItemWithPostback(
-                            this.GetText("BUDDY", "REMOVEBUDDY"),
-                            "removebuddy",
-                            $"if (confirm('{this.GetText("CP_EDITBUDDIES", "NOTIFICATION_REMOVE")}')) {{postbackcode}}",
-                            "fa fa-user-times");
-                    }
-                    else
-                    {
-                        this.PageContext.AddLoadMessage(
-                            this.GetText("NOTIFICATION_BUDDYREQUEST"),
-                            MessageTypes.success);
-                    }
-
-                    break;
-                case "removebuddy":
-                    {
-                        this.Get<IBuddy>().Remove(this.PostData.UserId);
-
-                        this.PopMenu1.RemovePostBackItem("removebuddy");
-
-                        this.PopMenu1.AddPostBackItem("addbuddy", this.GetText("BUDDY", "ADDBUDDY"), "fa fa-user-plus");
-
-                        this.PageContext.AddLoadMessage(
-                            this.GetTextFormatted(
-                                "REMOVEBUDDY_NOTIFICATION",
-                                this.Get<IBuddy>().Remove(this.PostData.UserId)),
-                            MessageTypes.success);
-                        break;
-                    }
-
-                case "edituser":
-                    BuildLink.Redirect(ForumPages.admin_edituser, "u={0}", this.PostData.UserId);
-                    break;
-                case "toggleuserposts_show":
-                    this.Get<IUserIgnored>().RemoveIgnored(this.PostData.UserId);
-                    this.Get<HttpResponseBase>().Redirect(this.Get<HttpRequestBase>().RawUrl);
-                    break;
-                case "toggleuserposts_hide":
-                    this.Get<IUserIgnored>().AddIgnored(this.PostData.UserId);
-                    this.Get<HttpResponseBase>().Redirect(this.Get<HttpRequestBase>().RawUrl);
-                    break;
-            }
         }
 
         #endregion

@@ -32,8 +32,7 @@
                         <asp:PlaceHolder runat="server" ID="UserInfo">
                             <ul class="list-inline">
                                 <li class="list-inline-item">
-                                    <YAF:UserLink  ID="UserProfileLink" runat="server" EnableHoverCard="False" />
-                                    <YAF:PopMenu runat="server" ID="PopMenu1" Control="UserName" />
+                                    <YAF:UserLink  ID="UserProfileLink" runat="server" />
                                     <YAF:ThemeButton ID="AddReputation" runat="server" 
                                                      CssClass='<%# "AddReputation_{0} mr-1".Fmt(this.DataRow["UserID"])%>'
                                                      Size="Small"
@@ -109,35 +108,36 @@
                                              CssClass="dropdown-item" />
                             <asp:PlaceHolder runat="server" ID="ManageDropPlaceHolder">
                                 <YAF:ThemeButton ID="Edit" runat="server"
-                                             Type="Link"
-                                             Icon="edit"
-                                             DataToggle="tooltip"
-                                             TextLocalizedTag="BUTTON_EDIT"
-                                             TitleLocalizedTag="BUTTON_EDIT_TT"
-                                             CssClass="dropdown-item" />
-                            <YAF:ThemeButton ID="MovePost" runat="server"
-                                             Type="Link"
-                                             Icon="arrows-alt"
-                                             DataToggle="tooltip"
-                                             TextLocalizedTag="BUTTON_MOVE"
-                                             TitleLocalizedTag="BUTTON_MOVE_TT"
-                                             CssClass="dropdown-item" />
-                            <YAF:ThemeButton ID="Delete" runat="server"
-                                             Type="Link"
-                                             Icon="trash"
-                                             DataToggle="tooltip"
-                                             TextLocalizedTag="BUTTON_DELETE"
-                                             TitleLocalizedTag="BUTTON_DELETE_TT"
-                                             CssClass="dropdown-item" />
-                            <YAF:ThemeButton ID="UnDelete" runat="server"
-                                             Type="Link"
-                                             Icon="trash-restore"
-                                             DataToggle="tooltip"
-                                             TextLocalizedTag="BUTTON_UNDELETE"
-                                             TitleLocalizedTag="BUTTON_UNDELETE_TT"
-                                             CssClass="dropdown-item" />
+                                                 Type="Link"
+                                                 Icon="edit"
+                                                 DataToggle="tooltip"
+                                                 TextLocalizedTag="BUTTON_EDIT"
+                                                 TitleLocalizedTag="BUTTON_EDIT_TT"
+                                                 CssClass="dropdown-item" />
+                                <YAF:ThemeButton ID="MovePost" runat="server"
+                                                 Type="Link"
+                                                 Icon="arrows-alt"
+                                                 DataToggle="tooltip"
+                                                 TextLocalizedTag="BUTTON_MOVE"
+                                                 TitleLocalizedTag="BUTTON_MOVE_TT"
+                                                 CssClass="dropdown-item" />
+                                <YAF:ThemeButton ID="Delete" runat="server"
+                                                 Type="Link"
+                                                 Icon="trash"
+                                                 DataToggle="tooltip"
+                                                 TextLocalizedTag="BUTTON_DELETE"
+                                                 TitleLocalizedTag="BUTTON_DELETE_TT"
+                                                 CssClass="dropdown-item" />
+                                <YAF:ThemeButton ID="UnDelete" runat="server"
+                                                 Type="Link"
+                                                 Icon="trash-restore"
+                                                 DataToggle="tooltip"
+                                                 TextLocalizedTag="BUTTON_UNDELETE"
+                                                 TitleLocalizedTag="BUTTON_UNDELETE_TT"
+                                                 CssClass="dropdown-item" />
                             <div class="dropdown-divider"></div>
-                                </asp:PlaceHolder>
+                            </asp:PlaceHolder>
+                            <asp:PlaceHolder runat="server" ID="UserDropHolder"></asp:PlaceHolder>
                             <YAF:ThemeButton ID="ReportPost" runat="server"
                                              Visible="false"
                                              Type="Link" 
@@ -228,6 +228,7 @@
                                          TitleLocalizedTag="BUTTON_UNDELETE_TT"
                                          CssClass="dropdown-item" />
                         <div class="dropdown-divider"></div>
+                        <asp:PlaceHolder runat="server" ID="UserDropHolder2"></asp:PlaceHolder>
                         <YAF:ThemeButton ID="ReportPost2" runat="server"
                                          Visible="false"
                                          Type="Link" 

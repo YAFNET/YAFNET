@@ -4694,7 +4694,7 @@ Spoiler Content
     <Resource tag="EDITED">Sửa</Resource>
     <Resource tag="EDITED_BY_MOD">bởi quản trị viên</Resource>
     <Resource tag="EDITED_BY_USER">bởi người viết</Resource>
-    <Resource tag="EDITUSER">Edit</Resource>
+    <Resource tag="EDITUSER">Edit User</Resource>
     <Resource tag="EMAIL">Email</Resource>
     <Resource tag="EMAIL_TITLE">Send {0} an Email</Resource>
     <Resource tag="EMAILTOPIC">Email chủ đề này</Resource>
