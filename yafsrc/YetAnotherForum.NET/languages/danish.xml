@@ -76,20 +76,20 @@
     <Resource tag="ATTACHMENTS">Håndterer vedhæftelser</Resource>
     <Resource tag="AVATAR">Vis avatar</Resource>
     <Resource tag="COOKIES">Views the cookie policy page</Resource>
-    <Resource tag="CP_BLOCKOPTIONS">Edits his Ignored users and block option</Resource>
-    <Resource tag="CP_CHANGEPASSWORD">Ændre adgangskode</Resource>
-    <Resource tag="CP_DELETEACCOUNT">User deletes his account</Resource>
-    <Resource tag="CP_EDITALBUMIMAGES">Rediger album billeder</Resource>
-    <Resource tag="CP_EDITAVATAR">Rediger hans avatar</Resource>
-    <Resource tag="CP_EDITBUDDIES">Rediger venner</Resource>
-    <Resource tag="CP_EDITPROFILE">Rediger hans profil</Resource>
-    <Resource tag="CP_EDITSETTINGS">Edit the user settings</Resource>
-    <Resource tag="CP_MESSAGE">Vis private beskeder</Resource>
-    <Resource tag="CP_PM">Vis private beskeder</Resource>
-    <Resource tag="CP_PROFILE">Vis brugerens profil</Resource>
+    <Resource tag="BLOCK_OPTIONS">Edits his Ignored users and block option</Resource>
+    <Resource tag="CHANGE_PASSWORD">Ændre adgangskode</Resource>
+    <Resource tag="DELETE_ACCOUNT">User deletes his account</Resource>
+    <Resource tag="EDIT_ALBUMIMAGES">Rediger album billeder</Resource>
+    <Resource tag="EDIT_AVATAR">Rediger hans avatar</Resource>
+    <Resource tag="FRIENDS">Rediger venner</Resource>
+    <Resource tag="EDIT_PROFILE">Rediger hans profil</Resource>
+    <Resource tag="EDIT_SETTINGS">Edit the user settings</Resource>
+    <Resource tag="MESSAGE">Vis private beskeder</Resource>
+    <Resource tag="PM">Vis private beskeder</Resource>
+    <Resource tag="ACCOUNT">Vis brugerens profil</Resource>
     <Resource tag="CP_PROFILE_OFUSER">Vis profil for</Resource>
-    <Resource tag="CP_SIGNATURE">Rediger hans signatur</Resource>
-    <Resource tag="CP_SUBSCRIPTIONS">Vis abbonenter</Resource>
+    <Resource tag="EDIT_SIGNATURE">Rediger hans signatur</Resource>
+    <Resource tag="SUBSCRIPTIONS">Vis abbonenter</Resource>
     <Resource tag="DELETEMESSAGE">Sletter en besked</Resource>
     <Resource tag="EMAILTOPIC">Emailer et emne</Resource>
     <Resource tag="ERROR">Henter fejl side</Resource>
@@ -2474,7 +2474,7 @@
     <Resource tag="ZM">Zambia</Resource>
     <Resource tag="ZW">Zimbabwe</Resource>
   </page>
-  <page name="CP_BLOCKOPTIONS">
+  <page name="BLOCK_OPTIONS">
     <Resource tag="BLOCK_BUDDYS">Block Friend Requests</Resource>
     <Resource tag="BLOCK_BUDDYS">Block Private Messages</Resource>
     <Resource tag="BLOCK_EMAILS">Block E-Mails</Resource>
@@ -2486,7 +2486,7 @@
     <Resource tag="SELECT_OPTIONS">Options to Block other Users from Contacting you...</Resource>
     <Resource tag="TITLE">User Block Options &amp; Ignored Users</Resource>
   </page>
-  <page name="CP_CHANGEPASSWORD">
+  <page name="CHANGE_PASSWORD">
     <Resource tag="CHANGE_BUTTON">Indsend</Resource>
     <Resource tag="CHANGE_SUCCESS">Adgangskoden er blevet ændret.</Resource>
     <Resource tag="CONFIRM_PASSWORD">Bekræft ny adgangskode:</Resource>
@@ -2512,7 +2512,7 @@
     <Resource tag="TITLE">Skift adgangskode</Resource>
     <Resource tag="TITLE_SECURITY">Change Security Question and Answer</Resource>
   </page>
-  <page name="CP_DELETEACCOUNT">
+  <page name="DELETE_ACCOUNT">
     <Resource tag="CONFIRM">Are you absolutely sure you want to do this?</Resource>
     <Resource tag="OPTION_DELETE_TEXT">This will delete your account permanently! All your content will be deleted. After that your account can not be restored</Resource>
     <Resource tag="OPTION_DELETE_TITLE">Delete your Account (permanently)</Resource>
@@ -2521,7 +2521,7 @@
     <Resource tag="OPTIONS_TITLE">You have the option to...</Resource>
     <Resource tag="TITLE">Delete Your {0} Account</Resource>
   </page>
-  <page name="CP_EDITALBUMIMAGES">
+  <page name="EDIT_ALBUMIMAGES">
     <Resource tag="ALBUM_TITLE">Titel</Resource>
     <Resource tag="ALBUMS">Albums</Resource>
     <Resource tag="ALBUMS_COUNT_LIMIT">Du kan ikke lave mere end {0} album(s).</Resource>
@@ -2534,7 +2534,7 @@
     <Resource tag="SELECT_FILE">Select an Image File ('.jpg', '.gif', '.png' or '.bmp') you want to upload.</Resource>
     <Resource tag="TITLE">Tilføj/rediger album</Resource>
   </page>
-  <page name="CP_EDITAVATAR">
+  <page name="EDIT_AVATAR">
     <Resource tag="AVATAR">Avatar</Resource>
     <Resource tag="AVATARCURRENT">Nuværende avatar</Resource>
     <Resource tag="AVATARDELETE">Slet avatar</Resource>
@@ -2555,7 +2555,7 @@
     <Resource tag="WARN_SIZE">Størrelsen på dit billede var {0}x{1} pixels.</Resource>
     <Resource tag="WARN_TOOBIG">Billedets størrelse må ikke være større end {0}x{1} pixels.</Resource>
   </page>
-  <page name="CP_EDITBUDDIES">
+  <page name="FRIENDS">
     <Resource tag="APPROVE">Godkend</Resource>
     <Resource tag="APPROVE_ADD">Godkend og tilføj</Resource>
     <Resource tag="APPROVE_ADD_ALL">Godkend og tilføj alle</Resource>
@@ -2578,7 +2578,7 @@
     <Resource tag="YOUR_BUDDYLIST">Din venne liste</Resource>
     <Resource tag="YOUR_REQUESTS">Din forespørgsel</Resource>
   </page>
-  <page name="CP_EDITPROFILE">
+  <page name="EDIT_PROFILE">
     <Resource tag="ABOUTYOU">Om dig</Resource>
     <Resource tag="ACTIVITY">Enable Activity Stream (If checked you get Notifications for Mentions, Quotes and Thanks.</Resource>
     <Resource tag="AIM">Your AIM Name:</Resource>
@@ -2636,16 +2636,16 @@
     <Resource tag="XMPP">Your Jabber ID:</Resource>
     <Resource tag="YIM">Your Yahoo ID:</Resource>
   </page>
-  <page name="CP_EDITSETTINGS">
+  <page name="EDIT_SETTINGS">
     <Resource tag="TITLE">Edit Settings</Resource>
   </page>
-  <page name="CP_MESSAGE">
+  <page name="MESSAGE">
     <Resource tag="INBOX">Indbakke</Resource>
     <Resource tag="MSG_DELETED">Beskeden blev slettet.</Resource>
     <Resource tag="POSTED">Skrevet:</Resource>
     <Resource tag="SENTITEMS">Sendte beskeder</Resource>
   </page>
-  <page name="CP_PM">
+  <page name="PM">
     <Resource tag="ARCHIVE">Arkiv</Resource>
     <Resource tag="ARCHIVEALL">Arkiver alle</Resource>
     <Resource tag="ARCHIVESELECTED">Arkiver valgte</Resource>
@@ -2684,7 +2684,7 @@
     <Resource tag="TO_ASC">To A-Z</Resource>
     <Resource tag="TO_DESC">To Z-A</Resource>
   </page>
-  <page name="CP_PROFILE">
+  <page name="ACCOUNT">
     <Resource tag="ACTIVITY">Your Activity</Resource>
     <Resource tag="ARCHIVE">Arkiv</Resource>
     <Resource tag="CHANGE_PASSWORD">Ændre adgangskode</Resource>
@@ -2725,7 +2725,7 @@
     <Resource tag="YOUR_USERDISPLAYNAME">Dit viste navn:</Resource>
     <Resource tag="YOUR_USERNAME">Dit brugernavn:</Resource>
   </page>
-  <page name="CP_SIGNATURE">
+  <page name="EDIT_SIGNATURE">
     <Resource tag="BBCODE_ALLOWEDALL">Your  signature can contain any BBCode.</Resource>
     <Resource tag="BBCODE_ALLOWEDLIST">You can use the following BBCodes: {0}.</Resource>
     <Resource tag="BBCODE_FORBIDDEN">Din signatur må ikke indeholde BBKoder.</Resource>
@@ -2741,7 +2741,7 @@
     <Resource tag="SIGNATURE_PREVIEW">Signature Preview</Resource>
     <Resource tag="TITLE">Ændre signatur</Resource>
   </page>
-  <page name="CP_SUBSCRIPTIONS">
+  <page name="SUBSCRIPTIONS">
     <Resource tag="ALLTOPICS">Notification for [b]all posts on all topics[/b]</Resource>
     <Resource tag="DAILY_DIGEST">Receive once daily digest/summary of activity?</Resource>
     <Resource tag="FORUM">Forum</Resource>

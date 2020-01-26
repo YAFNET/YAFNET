@@ -14,7 +14,7 @@
                                   IconType="text-secondary"></YAF:Icon>
                         <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" 
                                             LocalizedTag="ACTIVITY"
-                                            LocalizedPage="CP_PROFILE" />
+                                            LocalizedPage="ACCOUNT" />
                     </div>
                     <div class="col-md-2 mt-1">
                         <div class="btn-group dropleft" role="group" aria-label="Filters">

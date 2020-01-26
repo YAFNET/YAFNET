@@ -76,20 +76,20 @@
     <Resource tag="ATTACHMENTS">مدیریت فایل‌های ضمیمه</Resource>
     <Resource tag="AVATAR">نمایش تصویر پروفایل</Resource>
     <Resource tag="COOKIES">Views the cookie policy page</Resource>
-    <Resource tag="CP_BLOCKOPTIONS">Edits his Ignored users and block option</Resource>
-    <Resource tag="CP_CHANGEPASSWORD">تغییر کلمه رمز</Resource>
-    <Resource tag="CP_DELETEACCOUNT">User deletes his account</Resource>
-    <Resource tag="CP_EDITALBUMIMAGES">ویرایش تصاویر آلبوم</Resource>
-    <Resource tag="CP_EDITAVATAR">ویرایش تصویر پروفایل</Resource>
-    <Resource tag="CP_EDITBUDDIES">ویرایش دوستان</Resource>
-    <Resource tag="CP_EDITPROFILE">ویرایش پروفایل</Resource>
-    <Resource tag="CP_EDITSETTINGS">Edit the user settings</Resource>
-    <Resource tag="CP_MESSAGE">نمایش پیام‌های خصوصی</Resource>
-    <Resource tag="CP_PM">نمایش پیام‌های خصوصی</Resource>
-    <Resource tag="CP_PROFILE">نمایش تنظیمات پروفایل</Resource>
+    <Resource tag="BLOCK_OPTIONS">Edits his Ignored users and block option</Resource>
+    <Resource tag="CHANGE_PASSWORD">تغییر کلمه رمز</Resource>
+    <Resource tag="DELETE_ACCOUNT">User deletes his account</Resource>
+    <Resource tag="EDIT_ALBUMIMAGES">ویرایش تصاویر آلبوم</Resource>
+    <Resource tag="EDIT_AVATAR">ویرایش تصویر پروفایل</Resource>
+    <Resource tag="FRIENDS">ویرایش دوستان</Resource>
+    <Resource tag="EDIT_PROFILE">ویرایش پروفایل</Resource>
+    <Resource tag="EDIT_SETTINGS">Edit the user settings</Resource>
+    <Resource tag="MESSAGE">نمایش پیام‌های خصوصی</Resource>
+    <Resource tag="PM">نمایش پیام‌های خصوصی</Resource>
+    <Resource tag="ACCOUNT">نمایش تنظیمات پروفایل</Resource>
     <Resource tag="CP_PROFILE_OFUSER">نمایش پروفایل کاربر</Resource>
-    <Resource tag="CP_SIGNATURE">ویرایش امضا</Resource>
-    <Resource tag="CP_SUBSCRIPTIONS">نمایش اشتراک‌ها</Resource>
+    <Resource tag="EDIT_SIGNATURE">ویرایش امضا</Resource>
+    <Resource tag="SUBSCRIPTIONS">نمایش اشتراک‌ها</Resource>
     <Resource tag="DELETEMESSAGE">حذف یک پیام</Resource>
     <Resource tag="EMAILTOPIC">ارسال یک موضوع</Resource>
     <Resource tag="ERROR">صفحه خطا</Resource>
@@ -2491,7 +2491,7 @@
     <Resource tag="ZM">زامبیا</Resource>
     <Resource tag="ZW">زیمباوه</Resource>
   </page>
-  <page name="CP_BLOCKOPTIONS">
+  <page name="BLOCK_OPTIONS">
     <Resource tag="BLOCK_BUDDYS">Block Friend Requests</Resource>
     <Resource tag="BLOCK_BUDDYS">Block Private Messages</Resource>
     <Resource tag="BLOCK_EMAILS">Block E-Mails</Resource>
@@ -2503,7 +2503,7 @@
     <Resource tag="SELECT_OPTIONS">Options to Block other Users from Contacting you...</Resource>
     <Resource tag="TITLE">User Block Options &amp; Ignored Users</Resource>
   </page>
-  <page name="CP_CHANGEPASSWORD">
+  <page name="CHANGE_PASSWORD">
     <Resource tag="CHANGE_BUTTON">تائید</Resource>
     <Resource tag="CHANGE_SUCCESS">رمز عبور با موفقیت تغییر پیدا کرد.</Resource>
     <Resource tag="CONFIRM_PASSWORD">تکرار رمز عبور:</Resource>
@@ -2529,7 +2529,7 @@
     <Resource tag="TITLE">تغییر رمز</Resource>
     <Resource tag="TITLE_SECURITY">Change Security Question and Answer</Resource>
   </page>
-  <page name="CP_DELETEACCOUNT">
+  <page name="DELETE_ACCOUNT">
     <Resource tag="CONFIRM">Are you absolutely sure you want to do this?</Resource>
     <Resource tag="OPTION_DELETE_TEXT">This will delete your account permanently! All your content will be deleted. After that your account can not be restored</Resource>
     <Resource tag="OPTION_DELETE_TITLE">Delete your Account (permanently)</Resource>
@@ -2538,7 +2538,7 @@
     <Resource tag="OPTIONS_TITLE">You have the option to...</Resource>
     <Resource tag="TITLE">Delete Your {0} Account</Resource>
   </page>
-  <page name="CP_EDITALBUMIMAGES">
+  <page name="EDIT_ALBUMIMAGES">
     <Resource tag="ALBUM_TITLE">عنوان</Resource>
     <Resource tag="ALBUMS">آلبوم‌ها</Resource>
     <Resource tag="ALBUMS_COUNT_LIMIT">شما مجاز به ایجاد بیشتر از {0} آلبوم نمی باشد.</Resource>
@@ -2551,7 +2551,7 @@
     <Resource tag="SELECT_FILE">یک فایل تصویر ('.jpg', '.gif', '.png' or '.bmp') که می خواهید آپلود کنید را انتخاب کنید</Resource>
     <Resource tag="TITLE">افزودن/ ویرایش آلبوم</Resource>
   </page>
-  <page name="CP_EDITAVATAR">
+  <page name="EDIT_AVATAR">
     <Resource tag="AVATAR">تصویر پروفایل</Resource>
     <Resource tag="AVATARCURRENT">تصویر پروفایل فعلی</Resource>
     <Resource tag="AVATARDELETE">حذف تصویر پروفایل</Resource>
@@ -2572,7 +2572,7 @@
     <Resource tag="WARN_SIZE">اندازه عکس انتخابی {0}x{1} پیکسل می باشد.</Resource>
     <Resource tag="WARN_TOOBIG">اندازه عکس نمی تواند بزرگتر از {0}x{1} پیکسل باشد.</Resource>
   </page>
-  <page name="CP_EDITBUDDIES">
+  <page name="FRIENDS">
     <Resource tag="APPROVE">تائید</Resource>
     <Resource tag="APPROVE_ADD">تائید و افزودن</Resource>
     <Resource tag="APPROVE_ADD_ALL">تائید و افزودن همه</Resource>
@@ -2595,7 +2595,7 @@
     <Resource tag="YOUR_BUDDYLIST">دوستان من</Resource>
     <Resource tag="YOUR_REQUESTS">درخواست‌های دوستی شما</Resource>
   </page>
-  <page name="CP_EDITPROFILE">
+  <page name="EDIT_PROFILE">
     <Resource tag="ABOUTYOU">درباره شما</Resource>
     <Resource tag="ACTIVITY">Enable Activity Stream (If checked you get Notifications for Mentions, Quotes and Thanks.</Resource>
     <Resource tag="AIM">نام AIM شما:</Resource>
@@ -2653,16 +2653,16 @@
     <Resource tag="XMPP">شناسه Jabber:</Resource>
     <Resource tag="YIM">شناسه Yahoo:</Resource>
   </page>
-  <page name="CP_EDITSETTINGS">
+  <page name="EDIT_SETTINGS">
     <Resource tag="TITLE">Edit Settings</Resource>
   </page>
-  <page name="CP_MESSAGE">
+  <page name="MESSAGE">
     <Resource tag="INBOX">صندوق دریافت</Resource>
     <Resource tag="MSG_DELETED">پیغام حذف شد.</Resource>
     <Resource tag="POSTED">ارسال شده:</Resource>
     <Resource tag="SENTITEMS">موارد ارسال شده</Resource>
   </page>
-  <page name="CP_PM">
+  <page name="PM">
     <Resource tag="ARCHIVE">آرشیو</Resource>
     <Resource tag="ARCHIVEALL">آرشیو همه</Resource>
     <Resource tag="ARCHIVESELECTED">آرشیو کردن موارد انتخابی</Resource>
@@ -2701,7 +2701,7 @@
     <Resource tag="TO_ASC">To A-Z</Resource>
     <Resource tag="TO_DESC">To Z-A</Resource>
   </page>
-  <page name="CP_PROFILE">
+  <page name="ACCOUNT">
     <Resource tag="ACTIVITY">Your Activity</Resource>
     <Resource tag="ARCHIVE">آرشیو</Resource>
     <Resource tag="CHANGE_PASSWORD">تغییر رمز عبور</Resource>
@@ -2742,7 +2742,7 @@
     <Resource tag="YOUR_USERDISPLAYNAME">نام نمایشی شما:</Resource>
     <Resource tag="YOUR_USERNAME">نام کاربری شما:</Resource>
   </page>
-  <page name="CP_SIGNATURE">
+  <page name="EDIT_SIGNATURE">
     <Resource tag="BBCODE_ALLOWEDALL">امضا شما نباید شامل هیچ BBCode باشد.</Resource>
     <Resource tag="BBCODE_ALLOWEDLIST">شما می توانید از BBCode های زیر استفاده کنید: {0}.
     </Resource>
@@ -2760,7 +2760,7 @@
     <Resource tag="SIGNATURE_PREVIEW">پیش نمایش امضا</Resource>
     <Resource tag="TITLE">ویرایش امضا</Resource>
   </page>
-  <page name="CP_SUBSCRIPTIONS">
+  <page name="SUBSCRIPTIONS">
     <Resource tag="ALLTOPICS">اطلاع رسانی برای [b]تمام ارسال‌ها در تمام موضوعات[/b]</Resource>
     <Resource tag="DAILY_DIGEST">دریافت روزانه خلاصه فعالیت ها؟</Resource>
     <Resource tag="FORUM">انجمن</Resource>

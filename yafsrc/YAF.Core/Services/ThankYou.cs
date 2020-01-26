@@ -163,7 +163,7 @@ namespace YAF.Core.Services
                     filler.AppendFormat(
                         @"<li class=""list-inline-item""><a id=""{0}"" href=""{1}""><u>{2}</u></a>",
                         dr["UserID"],
-                        BuildLink.GetLink(ForumPages.profile, "u={0}&name={1}", dr["UserID"], name),
+                        BuildLink.GetLink(ForumPages.Profile, "u={0}&name={1}", dr["UserID"], name),
                         name);
 
                     if (YafContext.Current.Get<BoardSettings>().ShowThanksDate)

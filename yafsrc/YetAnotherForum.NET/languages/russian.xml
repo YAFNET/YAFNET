@@ -76,20 +76,20 @@
     <Resource tag="ATTACHMENTS">Просматривает прикреплённые файлы</Resource>
     <Resource tag="AVATAR">Просматривает аватар</Resource>
     <Resource tag="COOKIES">Views the cookie policy page</Resource>
-    <Resource tag="CP_BLOCKOPTIONS">Edits his Ignored users and block option</Resource>
-    <Resource tag="CP_CHANGEPASSWORD">Изменяет пароль</Resource>
-    <Resource tag="CP_DELETEACCOUNT">User deletes his account</Resource>
-    <Resource tag="CP_EDITALBUMIMAGES">Редактирует изображения в альбоме</Resource>
-    <Resource tag="CP_EDITAVATAR">Редактирует свой аватар</Resource>
-    <Resource tag="CP_EDITBUDDIES">Редактирует друзей</Resource>
-    <Resource tag="CP_EDITPROFILE">Редактирует свой профиль</Resource>
-    <Resource tag="CP_EDITSETTINGS">Edit the user settings</Resource>
-    <Resource tag="CP_MESSAGE">Отправляет личное сообщение</Resource>
-    <Resource tag="CP_PM">Просматривает личные сообщения</Resource>
-    <Resource tag="CP_PROFILE">Просматривает настройки профиля</Resource>
+    <Resource tag="BLOCK_OPTIONS">Edits his Ignored users and block option</Resource>
+    <Resource tag="CHANGE_PASSWORD">Изменяет пароль</Resource>
+    <Resource tag="DELETE_ACCOUNT">User deletes his account</Resource>
+    <Resource tag="EDIT_ALBUMIMAGES">Редактирует изображения в альбоме</Resource>
+    <Resource tag="EDIT_AVATAR">Редактирует свой аватар</Resource>
+    <Resource tag="FRIENDS">Редактирует друзей</Resource>
+    <Resource tag="EDIT_PROFILE">Редактирует свой профиль</Resource>
+    <Resource tag="EDIT_SETTINGS">Edit the user settings</Resource>
+    <Resource tag="MESSAGE">Отправляет личное сообщение</Resource>
+    <Resource tag="PM">Просматривает личные сообщения</Resource>
+    <Resource tag="ACCOUNT">Просматривает настройки профиля</Resource>
     <Resource tag="CP_PROFILE_OFUSER">Просматривает настройки профиля пользователя</Resource>
-    <Resource tag="CP_SIGNATURE">Редактирует подпись</Resource>
-    <Resource tag="CP_SUBSCRIPTIONS">Редактирует подписки</Resource>
+    <Resource tag="EDIT_SIGNATURE">Редактирует подпись</Resource>
+    <Resource tag="SUBSCRIPTIONS">Редактирует подписки</Resource>
     <Resource tag="DELETEMESSAGE">Удаляет сообщение</Resource>
     <Resource tag="EMAILTOPIC">Отправляет тему по электронной почте</Resource>
     <Resource tag="ERROR">Находится на странице с ошибкой</Resource>
@@ -2456,7 +2456,7 @@
     <Resource tag="ZM">Замбия</Resource>
     <Resource tag="ZW">Зимбабве</Resource>
   </page>
-  <page name="CP_BLOCKOPTIONS">
+  <page name="BLOCK_OPTIONS">
     <Resource tag="BLOCK_BUDDYS">Block Friend Requests</Resource>
     <Resource tag="BLOCK_BUDDYS">Block Private Messages</Resource>
     <Resource tag="BLOCK_EMAILS">Block E-Mails</Resource>
@@ -2468,7 +2468,7 @@
     <Resource tag="SELECT_OPTIONS">Options to Block other Users from Contacting you...</Resource>
     <Resource tag="TITLE">User Block Options &amp; Ignored Users</Resource>
   </page>
-  <page name="CP_CHANGEPASSWORD">
+  <page name="CHANGE_PASSWORD">
     <Resource tag="CHANGE_BUTTON">Отправить</Resource>
     <Resource tag="CHANGE_SUCCESS">Ваш пароль был успешно изменён.</Resource>
     <Resource tag="CONFIRM_PASSWORD">Подтвердить новый пароль:</Resource>
@@ -2494,7 +2494,7 @@
     <Resource tag="TITLE">Изменить пароль</Resource>
     <Resource tag="TITLE_SECURITY">Change Security Question and Answer</Resource>
   </page>
-  <page name="CP_DELETEACCOUNT">
+  <page name="DELETE_ACCOUNT">
     <Resource tag="CONFIRM">Are you absolutely sure you want to do this?</Resource>
     <Resource tag="OPTION_DELETE_TEXT">This will delete your account permanently! All your content will be deleted. After that your account can not be restored</Resource>
     <Resource tag="OPTION_DELETE_TITLE">Delete your Account (permanently)</Resource>
@@ -2503,7 +2503,7 @@
     <Resource tag="OPTIONS_TITLE">You have the option to...</Resource>
     <Resource tag="TITLE">Delete Your {0} Account</Resource>
   </page>
-  <page name="CP_EDITALBUMIMAGES">
+  <page name="EDIT_ALBUMIMAGES">
     <Resource tag="ALBUM_TITLE">Название</Resource>
     <Resource tag="ALBUMS">Альбомы</Resource>
     <Resource tag="ALBUMS_COUNT_LIMIT">Вам не разрешено создавать более {0} альбомов.</Resource>
@@ -2516,7 +2516,7 @@
     <Resource tag="SELECT_FILE">Select an Image File ('.jpg', '.gif', '.png' or '.bmp') you want to upload.</Resource>
     <Resource tag="TITLE">Добавить/изменить альбом</Resource>
   </page>
-  <page name="CP_EDITAVATAR">
+  <page name="EDIT_AVATAR">
     <Resource tag="AVATAR">Аватар</Resource>
     <Resource tag="AVATARCURRENT">Текущий аватар</Resource>
     <Resource tag="AVATARDELETE">Удалить аватар</Resource>
@@ -2537,7 +2537,7 @@
     <Resource tag="WARN_SIZE">Размер вашего изображения был {0}x{1} пикселей.</Resource>
     <Resource tag="WARN_TOOBIG">Размер изображения не должен быть больше чем {0}x{1} пикселей.</Resource>
   </page>
-  <page name="CP_EDITBUDDIES">
+  <page name="FRIENDS">
     <Resource tag="APPROVE">Подружиться</Resource>
     <Resource tag="APPROVE_ADD">Одобрить и добавить</Resource>
     <Resource tag="APPROVE_ADD_ALL">Одобрить и добавить всех</Resource>
@@ -2560,7 +2560,7 @@
     <Resource tag="YOUR_BUDDYLIST">Мои Друзья</Resource>
     <Resource tag="YOUR_REQUESTS">Ваши предложения</Resource>
   </page>
-  <page name="CP_EDITPROFILE">
+  <page name="EDIT_PROFILE">
     <Resource tag="ABOUTYOU">О Вас</Resource>
     <Resource tag="ACTIVITY">Enable Activity Stream (If checked you get Notifications for Mentions, Quotes and Thanks.</Resource>
     <Resource tag="AIM">Ваш логин AIM:</Resource>
@@ -2620,16 +2620,16 @@
     <Resource tag="XMPP">Ваш Jabber ID:</Resource>
     <Resource tag="YIM">Ваш Yahoo ID:</Resource>
   </page>
-  <page name="CP_EDITSETTINGS">
+  <page name="EDIT_SETTINGS">
     <Resource tag="TITLE">Edit Settings</Resource>
   </page>
-  <page name="CP_MESSAGE">
+  <page name="MESSAGE">
     <Resource tag="INBOX">Входящие</Resource>
     <Resource tag="MSG_DELETED">Сообщение удалено.</Resource>
     <Resource tag="POSTED">Отправлено:</Resource>
     <Resource tag="SENTITEMS">Отправленные</Resource>
   </page>
-  <page name="CP_PM">
+  <page name="PM">
     <Resource tag="ARCHIVE">Архив</Resource>
     <Resource tag="ARCHIVEALL">Всё в Архив</Resource>
     <Resource tag="ARCHIVESELECTED">Поместить выбранное в архив</Resource>
@@ -2668,7 +2668,7 @@
     <Resource tag="TO_ASC">To A-Z</Resource>
     <Resource tag="TO_DESC">To Z-A</Resource>
   </page>
-  <page name="CP_PROFILE">
+  <page name="ACCOUNT">
     <Resource tag="ACTIVITY">Your Activity</Resource>
     <Resource tag="ARCHIVE">Архив</Resource>
     <Resource tag="CHANGE_PASSWORD">Изменить пароль</Resource>
@@ -2709,7 +2709,7 @@
     <Resource tag="YOUR_USERDISPLAYNAME">Отображаемое имя:</Resource>
     <Resource tag="YOUR_USERNAME">Ваше имя пользователя:</Resource>
   </page>
-  <page name="CP_SIGNATURE">
+  <page name="EDIT_SIGNATURE">
     <Resource tag="BBCODE_ALLOWEDALL">Вы можете использовать любые BBCodes.</Resource>
     <Resource tag="BBCODE_ALLOWEDLIST">Вы можете использовать BBCodes: {0}.</Resource>
     <Resource tag="BBCODE_FORBIDDEN">Вам не разрешены BBCodes в подписи.</Resource>
@@ -2725,7 +2725,7 @@
     <Resource tag="SIGNATURE_PREVIEW">Предпросмотр подписи</Resource>
     <Resource tag="TITLE">Редактировать подпись</Resource>
   </page>
-  <page name="CP_SUBSCRIPTIONS">
+  <page name="SUBSCRIPTIONS">
     <Resource tag="ALLTOPICS">Уведомление о [b]всех постах во всех темах[/b]</Resource>
     <Resource tag="DAILY_DIGEST">Получать ежедневный дайджест активности на форуме?</Resource>
     <Resource tag="FORUM">Форум</Resource>

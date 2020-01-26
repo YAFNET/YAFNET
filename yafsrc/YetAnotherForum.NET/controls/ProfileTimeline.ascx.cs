@@ -178,14 +178,14 @@ namespace YAF.Controls
             {
                 topicLink.NavigateUrl = BuildLink.GetLink(ForumPages.posts, "t={0}", activity.TopicID.Value);
 
-                title.Text = this.GetText("CP_PROFILE", "CREATED_TOPIC");
+                title.Text = this.GetText("ACCOUNT", "CREATED_TOPIC");
                 icon = "comment";
                 message = this.GetTextFormatted("CREATED_TOPIC_MSG", topicLink.RenderToString());
             }
 
             if (activity.ActivityFlags.CreatedReply)
             {
-                title.Text = this.GetText("CP_PROFILE", "CREATED_REPLY");
+                title.Text = this.GetText("ACCOUNT", "CREATED_REPLY");
                 icon = "comment";
                 message = this.GetTextFormatted("CREATED_REPLY_MSG", topicLink.RenderToString());
             }
@@ -194,7 +194,7 @@ namespace YAF.Controls
             {
                 var userLink = new UserLink { UserID = activity.FromUserID.Value };
 
-                title.Text = this.GetText("CP_PROFILE", "GIVEN_THANKS");
+                title.Text = this.GetText("ACCOUNT", "GIVEN_THANKS");
                 icon = "heart";
                 message = this.GetTextFormatted(
                     "GIVEN_THANKS_MSG",

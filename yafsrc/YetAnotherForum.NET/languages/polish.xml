@@ -76,20 +76,20 @@
     <Resource tag="ATTACHMENTS">Dodaje załączniki</Resource>
     <Resource tag="AVATAR">Przeglada avatar</Resource>
     <Resource tag="COOKIES">Views the cookie policy page</Resource>
-    <Resource tag="CP_BLOCKOPTIONS">Edits his Ignored users and block option</Resource>
-    <Resource tag="CP_CHANGEPASSWORD">Edytuje hasło</Resource>
-    <Resource tag="CP_DELETEACCOUNT">User deletes his account</Resource>
-    <Resource tag="CP_EDITALBUMIMAGES">Edytuje obraz albumu</Resource>
-    <Resource tag="CP_EDITAVATAR">Edytuje swój avatar</Resource>
-    <Resource tag="CP_EDITBUDDIES">Edytuje znajomych</Resource>
-    <Resource tag="CP_EDITPROFILE">Edytuje profil</Resource>
-    <Resource tag="CP_EDITSETTINGS">Edit the user settings</Resource>
-    <Resource tag="CP_MESSAGE">Przegląda prywatne wiadomości</Resource>
-    <Resource tag="CP_PM">Przegląda prywatne wiadomości</Resource>
-    <Resource tag="CP_PROFILE">Przegląda ustawienia profilu</Resource>
+    <Resource tag="BLOCK_OPTIONS">Edits his Ignored users and block option</Resource>
+    <Resource tag="CHANGE_PASSWORD">Edytuje hasło</Resource>
+    <Resource tag="DELETE_ACCOUNT">User deletes his account</Resource>
+    <Resource tag="EDIT_ALBUMIMAGES">Edytuje obraz albumu</Resource>
+    <Resource tag="EDIT_AVATAR">Edytuje swój avatar</Resource>
+    <Resource tag="FRIENDS">Edytuje znajomych</Resource>
+    <Resource tag="EDIT_PROFILE">Edytuje profil</Resource>
+    <Resource tag="EDIT_SETTINGS">Edit the user settings</Resource>
+    <Resource tag="MESSAGE">Przegląda prywatne wiadomości</Resource>
+    <Resource tag="PM">Przegląda prywatne wiadomości</Resource>
+    <Resource tag="ACCOUNT">Przegląda ustawienia profilu</Resource>
     <Resource tag="CP_PROFILE_OFUSER">Przegląda profil użytkownika </Resource>
-    <Resource tag="CP_SIGNATURE">Edytuje swoją sygnaturę</Resource>
-    <Resource tag="CP_SUBSCRIPTIONS">Przegląda subskrybcje</Resource>
+    <Resource tag="EDIT_SIGNATURE">Edytuje swoją sygnaturę</Resource>
+    <Resource tag="SUBSCRIPTIONS">Przegląda subskrybcje</Resource>
     <Resource tag="DELETEMESSAGE">Usuwa post</Resource>
     <Resource tag="EMAILTOPIC">Wysyła temat e-mailem</Resource>
     <Resource tag="ERROR">Przegląda stronę błędu</Resource>
@@ -2469,7 +2469,7 @@
     <Resource tag="ZM">Zambia</Resource>
     <Resource tag="ZW">Zimbabwe</Resource>
   </page>
-  <page name="CP_BLOCKOPTIONS">
+  <page name="BLOCK_OPTIONS">
     <Resource tag="BLOCK_BUDDYS">Block Friend Requests</Resource>
     <Resource tag="BLOCK_BUDDYS">Block Private Messages</Resource>
     <Resource tag="BLOCK_EMAILS">Block E-Mails</Resource>
@@ -2481,7 +2481,7 @@
     <Resource tag="SELECT_OPTIONS">Options to Block other Users from Contacting you...</Resource>
     <Resource tag="TITLE">User Block Options &amp; Ignored Users</Resource>
   </page>
-  <page name="CP_CHANGEPASSWORD">
+  <page name="CHANGE_PASSWORD">
     <Resource tag="CHANGE_BUTTON">Wyślij</Resource>
     <Resource tag="CHANGE_SUCCESS">Hasło zostało zmienione.</Resource>
     <Resource tag="CONFIRM_PASSWORD">Potwierdź nowe hasło:</Resource>
@@ -2507,7 +2507,7 @@
     <Resource tag="TITLE">Zmień hasło</Resource>
     <Resource tag="TITLE_SECURITY">Change Security Question and Answer</Resource>
   </page>
-  <page name="CP_DELETEACCOUNT">
+  <page name="DELETE_ACCOUNT">
     <Resource tag="CONFIRM">Are you absolutely sure you want to do this?</Resource>
     <Resource tag="OPTION_DELETE_TEXT">This will delete your account permanently! All your content will be deleted. After that your account can not be restored</Resource>
     <Resource tag="OPTION_DELETE_TITLE">Delete your Account (permanently)</Resource>
@@ -2516,7 +2516,7 @@
     <Resource tag="OPTIONS_TITLE">You have the option to...</Resource>
     <Resource tag="TITLE">Delete Your {0} Account</Resource>
   </page>
-  <page name="CP_EDITALBUMIMAGES">
+  <page name="EDIT_ALBUMIMAGES">
     <Resource tag="ALBUM_TITLE">Tytuł</Resource>
     <Resource tag="ALBUMS">Albumy</Resource>
     <Resource tag="ALBUMS_COUNT_LIMIT">Nie możesz stworzyć więcej niż {0} albumów.</Resource>
@@ -2529,7 +2529,7 @@
     <Resource tag="SELECT_FILE">Select an Image File ('.jpg', '.gif', '.png' or '.bmp') you want to upload.</Resource>
     <Resource tag="TITLE">Dodaj/Edytuj album</Resource>
   </page>
-  <page name="CP_EDITAVATAR">
+  <page name="EDIT_AVATAR">
     <Resource tag="AVATAR">Avatar</Resource>
     <Resource tag="AVATARCURRENT">Aktualny avatar</Resource>
     <Resource tag="AVATARDELETE">Usuń avatar</Resource>
@@ -2550,7 +2550,7 @@
     <Resource tag="WARN_SIZE">Rozmiar Twojego obrazu to {0}x{1} pikseli.</Resource>
     <Resource tag="WARN_TOOBIG">Rozmiar obrazu nie może być większy niż {0}x{1} pikseli.</Resource>
   </page>
-  <page name="CP_EDITBUDDIES">
+  <page name="FRIENDS">
     <Resource tag="APPROVE">Akceptuj</Resource>
     <Resource tag="APPROVE_ADD">Akceptuj i dodaj</Resource>
     <Resource tag="APPROVE_ADD_ALL">Akceptuj i dodaj wszystkich</Resource>
@@ -2573,7 +2573,7 @@
     <Resource tag="YOUR_BUDDYLIST">Twoja lista znajomych</Resource>
     <Resource tag="YOUR_REQUESTS">Twoje zaproszenia</Resource>
   </page>
-  <page name="CP_EDITPROFILE">
+  <page name="EDIT_PROFILE">
     <Resource tag="ABOUTYOU">O Tobie</Resource>
     <Resource tag="ACTIVITY">Enable Activity Stream (If checked you get Notifications for Mentions, Quotes and Thanks.</Resource>
     <Resource tag="AIM">Twoja nazwa AIM:</Resource>
@@ -2631,16 +2631,16 @@
     <Resource tag="XMPP">Twoja nazwa użytkownika Jabbera:</Resource>
     <Resource tag="YIM">Twój Yahoo ID:</Resource>
   </page>
-  <page name="CP_EDITSETTINGS">
+  <page name="EDIT_SETTINGS">
     <Resource tag="TITLE">Edit Settings</Resource>
   </page>
-  <page name="CP_MESSAGE">
+  <page name="MESSAGE">
     <Resource tag="INBOX">Skrzynka odbiorcza</Resource>
     <Resource tag="MSG_DELETED">Wiadomość została usunięta.</Resource>
     <Resource tag="POSTED">Wysłane:</Resource>
     <Resource tag="SENTITEMS">Elementy wysłane</Resource>
   </page>
-  <page name="CP_PM">
+  <page name="PM">
     <Resource tag="ARCHIVE">Archiwum</Resource>
     <Resource tag="ARCHIVEALL">Archiwizuj wszystkie</Resource>
     <Resource tag="ARCHIVESELECTED">Archiwizuj wybrane</Resource>
@@ -2679,7 +2679,7 @@
     <Resource tag="TO_ASC">To A-Z</Resource>
     <Resource tag="TO_DESC">To Z-A</Resource>
   </page>
-  <page name="CP_PROFILE">
+  <page name="ACCOUNT">
     <Resource tag="ACTIVITY">Your Activity</Resource>
     <Resource tag="ARCHIVE">Archiwum</Resource>
     <Resource tag="CHANGE_PASSWORD">Zmień hasło</Resource>
@@ -2720,7 +2720,7 @@
     <Resource tag="YOUR_USERDISPLAYNAME">Twoja wyświetlana nazwa:</Resource>
     <Resource tag="YOUR_USERNAME">Twoja nazwa użytkownika:</Resource>
   </page>
-  <page name="CP_SIGNATURE">
+  <page name="EDIT_SIGNATURE">
     <Resource tag="BBCODE_ALLOWEDALL">Twój podpis może zawierać BBCode.</Resource>
     <Resource tag="BBCODE_ALLOWEDLIST">Możesz używać następujących BBCode: {0}.</Resource>
     <Resource tag="BBCODE_FORBIDDEN">Twój podpis nie może zawierać BBCode</Resource>
@@ -2736,7 +2736,7 @@
     <Resource tag="SIGNATURE_PREVIEW">Podgląd podpisu</Resource>
     <Resource tag="TITLE">Edytuj podpis</Resource>
   </page>
-  <page name="CP_SUBSCRIPTIONS">
+  <page name="SUBSCRIPTIONS">
     <Resource tag="ALLTOPICS">Notyfikacje dla [b]wszystkich postów we wszystkich tematach[/b]</Resource>
     <Resource tag="DAILY_DIGEST">Dostawać codziennie digest/wszystkie aktywności?</Resource>
     <Resource tag="FORUM">Dział</Resource>

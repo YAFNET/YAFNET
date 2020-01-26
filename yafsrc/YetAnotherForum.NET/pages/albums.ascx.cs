@@ -104,7 +104,7 @@ namespace YAF.Pages
                         Security.StringToLongOrRedirect(
                             this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u"))),
                 BuildLink.GetLink(
-                    ForumPages.profile,
+                    ForumPages.Profile,
                     "u={0}",
                     this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u")));
             this.PageLinks.AddLink(this.GetText("ALBUMS"), string.Empty);

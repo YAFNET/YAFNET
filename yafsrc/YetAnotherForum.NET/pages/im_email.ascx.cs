@@ -110,7 +110,7 @@ namespace YAF.Pages
                 this.PageLinks.AddLink(
                     this.PageContext.BoardSettings.EnableDisplayName ? displayName : user.UserName,
                     BuildLink.GetLink(
-                        ForumPages.profile,
+                        ForumPages.Profile,
                         "u={0}&name={1}",
                         this.UserId,
                         this.PageContext.BoardSettings.EnableDisplayName ? displayName : user.UserName));
@@ -139,7 +139,7 @@ namespace YAF.Pages
                     this.Body.Text.Trim());
 
                 // redirect to profile page...
-                BuildLink.Redirect(ForumPages.profile, false, "u={0}", this.UserId);
+                BuildLink.Redirect(ForumPages.Profile, false, "u={0}", this.UserId);
             }
             catch (Exception x)
             {

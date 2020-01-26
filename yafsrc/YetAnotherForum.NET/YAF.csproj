@@ -884,85 +884,85 @@
     <Compile Include="pages\approve.ascx.designer.cs">
       <DependentUpon>approve.ascx</DependentUpon>
     </Compile>
-    <Compile Include="pages\attachments.ascx.designer.cs">
-      <DependentUpon>attachments.ascx</DependentUpon>
+    <Compile Include="pages\Attachments.ascx.designer.cs">
+      <DependentUpon>Attachments.ascx</DependentUpon>
     </Compile>
     <Compile Include="pages\avatar.ascx.designer.cs">
       <DependentUpon>avatar.ascx</DependentUpon>
     </Compile>
-    <Compile Include="pages\cp_deleteaccount.ascx.cs">
-      <DependentUpon>cp_deleteaccount.ascx</DependentUpon>
+    <Compile Include="pages\DeleteAccount.ascx.cs">
+      <DependentUpon>DeleteAccount.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="pages\cp_deleteaccount.ascx.designer.cs">
-      <DependentUpon>cp_deleteaccount.ascx</DependentUpon>
+    <Compile Include="pages\DeleteAccount.ascx.designer.cs">
+      <DependentUpon>DeleteAccount.ascx</DependentUpon>
     </Compile>
-    <Compile Include="pages\cp_changepassword.ascx.designer.cs">
-      <DependentUpon>cp_changepassword.ascx</DependentUpon>
+    <Compile Include="pages\ChangePassword.ascx.designer.cs">
+      <DependentUpon>ChangePassword.ascx</DependentUpon>
     </Compile>
-    <Compile Include="pages\cp_editalbumimages.ascx.cs">
-      <DependentUpon>cp_editalbumimages.ascx</DependentUpon>
+    <Compile Include="pages\EditAlbumImages.ascx.cs">
+      <DependentUpon>EditAlbumImages.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="pages\cp_editalbumimages.ascx.designer.cs">
-      <DependentUpon>cp_editalbumimages.ascx</DependentUpon>
+    <Compile Include="pages\EditAlbumImages.ascx.designer.cs">
+      <DependentUpon>EditAlbumImages.ascx</DependentUpon>
     </Compile>
-    <Compile Include="pages\cp_editavatar.ascx.cs">
-      <DependentUpon>cp_editavatar.ascx</DependentUpon>
+    <Compile Include="pages\EditAvatar.ascx.cs">
+      <DependentUpon>EditAvatar.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="pages\cp_editavatar.ascx.designer.cs">
-      <DependentUpon>cp_editavatar.ascx</DependentUpon>
+    <Compile Include="pages\EditAvatar.ascx.designer.cs">
+      <DependentUpon>EditAvatar.ascx</DependentUpon>
     </Compile>
-    <Compile Include="pages\cp_editbuddies.ascx.cs">
-      <DependentUpon>cp_editbuddies.ascx</DependentUpon>
+    <Compile Include="pages\Friends.ascx.cs">
+      <DependentUpon>Friends.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="pages\cp_editbuddies.ascx.designer.cs">
-      <DependentUpon>cp_editbuddies.ascx</DependentUpon>
+    <Compile Include="pages\Friends.ascx.designer.cs">
+      <DependentUpon>Friends.ascx</DependentUpon>
     </Compile>
-    <Compile Include="pages\cp_editsettings.ascx.cs">
-      <DependentUpon>cp_editsettings.ascx</DependentUpon>
+    <Compile Include="pages\EditSettings.ascx.cs">
+      <DependentUpon>EditSettings.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="pages\cp_editsettings.ascx.designer.cs">
-      <DependentUpon>cp_editsettings.ascx</DependentUpon>
+    <Compile Include="pages\EditSettings.ascx.designer.cs">
+      <DependentUpon>EditSettings.ascx</DependentUpon>
     </Compile>
-    <Compile Include="pages\cp_editprofile.ascx.designer.cs">
-      <DependentUpon>cp_editprofile.ascx</DependentUpon>
+    <Compile Include="pages\EditProfile.ascx.designer.cs">
+      <DependentUpon>EditProfile.ascx</DependentUpon>
     </Compile>
-    <Compile Include="pages\cp_message.ascx.designer.cs">
-      <DependentUpon>cp_message.ascx</DependentUpon>
+    <Compile Include="pages\PrivateMessage.ascx.designer.cs">
+      <DependentUpon>PrivateMessage.ascx</DependentUpon>
     </Compile>
-    <Compile Include="pages\cp_pm.ascx.designer.cs">
-      <DependentUpon>cp_pm.ascx</DependentUpon>
+    <Compile Include="pages\PM.ascx.designer.cs">
+      <DependentUpon>PM.ascx</DependentUpon>
     </Compile>
-    <Compile Include="pages\cp_notification.ascx.cs">
-      <DependentUpon>cp_notification.ascx</DependentUpon>
+    <Compile Include="pages\Notification.ascx.cs">
+      <DependentUpon>Notification.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="pages\cp_notification.ascx.designer.cs">
-      <DependentUpon>cp_notification.ascx</DependentUpon>
+    <Compile Include="pages\Notification.ascx.designer.cs">
+      <DependentUpon>Notification.ascx</DependentUpon>
     </Compile>
-    <Compile Include="pages\cp_profile.ascx.designer.cs">
-      <DependentUpon>cp_profile.ascx</DependentUpon>
+    <Compile Include="pages\Account.ascx.designer.cs">
+      <DependentUpon>Account.ascx</DependentUpon>
     </Compile>
-    <Compile Include="pages\cp_blockoptions.ascx.cs">
-      <DependentUpon>cp_blockoptions.ascx</DependentUpon>
+    <Compile Include="pages\BlockOptions.ascx.cs">
+      <DependentUpon>BlockOptions.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="pages\cp_blockoptions.ascx.designer.cs">
-      <DependentUpon>cp_blockoptions.ascx</DependentUpon>
+    <Compile Include="pages\BlockOptions.ascx.designer.cs">
+      <DependentUpon>BlockOptions.ascx</DependentUpon>
     </Compile>
-    <Compile Include="pages\cp_signature.ascx.cs">
-      <DependentUpon>cp_signature.ascx</DependentUpon>
+    <Compile Include="pages\EditSignature.ascx.cs">
+      <DependentUpon>EditSignature.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="pages\cp_signature.ascx.designer.cs">
-      <DependentUpon>cp_signature.ascx</DependentUpon>
+    <Compile Include="pages\EditSignature.ascx.designer.cs">
+      <DependentUpon>EditSignature.ascx</DependentUpon>
     </Compile>
-    <Compile Include="pages\cp_subscriptions.ascx.designer.cs">
-      <DependentUpon>cp_subscriptions.ascx</DependentUpon>
+    <Compile Include="pages\Subscriptions.ascx.designer.cs">
+      <DependentUpon>Subscriptions.ascx</DependentUpon>
     </Compile>
     <Compile Include="pages\deletemessage.ascx.designer.cs">
       <DependentUpon>deletemessage.ascx</DependentUpon>
@@ -1041,8 +1041,8 @@
     <Compile Include="pages\movemessage.ascx.designer.cs">
       <DependentUpon>movemessage.ascx</DependentUpon>
     </Compile>
-    <Compile Include="pages\mytopics.ascx.designer.cs">
-      <DependentUpon>mytopics.ascx</DependentUpon>
+    <Compile Include="pages\MyTopics.ascx.designer.cs">
+      <DependentUpon>MyTopics.ascx</DependentUpon>
     </Compile>
     <Compile Include="pages\pmessage.ascx.designer.cs">
       <DependentUpon>pmessage.ascx</DependentUpon>
@@ -1063,8 +1063,8 @@
     <Compile Include="pages\printtopic.ascx.designer.cs">
       <DependentUpon>printtopic.ascx</DependentUpon>
     </Compile>
-    <Compile Include="pages\profile.ascx.designer.cs">
-      <DependentUpon>profile.ascx</DependentUpon>
+    <Compile Include="pages\Profile.ascx.designer.cs">
+      <DependentUpon>Profile.ascx</DependentUpon>
     </Compile>
     <Compile Include="pages\recoverpassword.ascx.designer.cs">
       <DependentUpon>recoverpassword.ascx</DependentUpon>
@@ -2163,22 +2163,22 @@
     <Content Include="pages\album.ascx" />
     <Content Include="pages\albums.ascx" />
     <Content Include="pages\approve.ascx" />
-    <Content Include="pages\attachments.ascx" />
+    <Content Include="pages\Attachments.ascx" />
     <Content Include="pages\avatar.ascx" />
-    <Content Include="pages\cp_deleteaccount.ascx" />
-    <Content Include="pages\cp_changepassword.ascx" />
-    <Content Include="pages\cp_editalbumimages.ascx" />
-    <Content Include="pages\cp_editavatar.ascx" />
-    <Content Include="pages\cp_editbuddies.ascx" />
-    <Content Include="pages\cp_editsettings.ascx" />
-    <Content Include="pages\cp_editprofile.ascx" />
-    <Content Include="pages\cp_message.ascx" />
-    <Content Include="pages\cp_pm.ascx" />
-    <Content Include="pages\cp_notification.ascx" />
-    <Content Include="pages\cp_profile.ascx" />
-    <Content Include="pages\cp_blockoptions.ascx" />
-    <Content Include="pages\cp_signature.ascx" />
-    <Content Include="pages\cp_subscriptions.ascx" />
+    <Content Include="pages\DeleteAccount.ascx" />
+    <Content Include="pages\ChangePassword.ascx" />
+    <Content Include="pages\EditAlbumImages.ascx" />
+    <Content Include="pages\EditAvatar.ascx" />
+    <Content Include="pages\Friends.ascx" />
+    <Content Include="pages\EditSettings.ascx" />
+    <Content Include="pages\EditProfile.ascx" />
+    <Content Include="pages\PrivateMessage.ascx" />
+    <Content Include="pages\PM.ascx" />
+    <Content Include="pages\Notification.ascx" />
+    <Content Include="pages\Account.ascx" />
+    <Content Include="pages\BlockOptions.ascx" />
+    <Content Include="pages\EditSignature.ascx" />
+    <Content Include="pages\Subscriptions.ascx" />
     <Content Include="pages\deletemessage.ascx" />
     <Content Include="pages\emailtopic.ascx" />
     <Content Include="controls\emaildigest.ascx" />
@@ -2198,13 +2198,13 @@
     <Content Include="pages\moderate\unapprovedposts.ascx" />
     <Content Include="pages\mod_forumuser.ascx" />
     <Content Include="pages\movemessage.ascx" />
-    <Content Include="pages\mytopics.ascx" />
+    <Content Include="pages\MyTopics.ascx" />
     <Content Include="pages\pmessage.ascx" />
     <Content Include="pages\polledit.ascx" />
     <Content Include="pages\postmessage.ascx" />
     <Content Include="pages\posts.ascx" />
     <Content Include="pages\printtopic.ascx" />
-    <Content Include="pages\profile.ascx" />
+    <Content Include="pages\Profile.ascx" />
     <Content Include="pages\recoverpassword.ascx" />
     <Content Include="pages\register.ascx" />
     <Content Include="pages\reportpost.ascx" />
@@ -3035,36 +3035,36 @@
       <DependentUpon>approve.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="pages\attachments.ascx.cs">
-      <DependentUpon>attachments.ascx</DependentUpon>
+    <Compile Include="pages\Attachments.ascx.cs">
+      <DependentUpon>Attachments.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="pages\avatar.ascx.cs">
       <DependentUpon>avatar.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="pages\cp_changepassword.ascx.cs">
-      <DependentUpon>cp_changepassword.ascx</DependentUpon>
+    <Compile Include="pages\ChangePassword.ascx.cs">
+      <DependentUpon>ChangePassword.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="pages\cp_editprofile.ascx.cs">
-      <DependentUpon>cp_editprofile.ascx</DependentUpon>
+    <Compile Include="pages\EditProfile.ascx.cs">
+      <DependentUpon>EditProfile.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="pages\cp_message.ascx.cs">
-      <DependentUpon>cp_message.ascx</DependentUpon>
+    <Compile Include="pages\PrivateMessage.ascx.cs">
+      <DependentUpon>PrivateMessage.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="pages\cp_pm.ascx.cs">
-      <DependentUpon>cp_pm.ascx</DependentUpon>
+    <Compile Include="pages\PM.ascx.cs">
+      <DependentUpon>PM.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="pages\cp_profile.ascx.cs">
-      <DependentUpon>cp_profile.ascx</DependentUpon>
+    <Compile Include="pages\Account.ascx.cs">
+      <DependentUpon>Account.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="pages\cp_subscriptions.ascx.cs">
-      <DependentUpon>cp_subscriptions.ascx</DependentUpon>
+    <Compile Include="pages\Subscriptions.ascx.cs">
+      <DependentUpon>Subscriptions.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="pages\deletemessage.ascx.cs">
@@ -3123,8 +3123,8 @@
       <DependentUpon>movemessage.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="pages\mytopics.ascx.cs">
-      <DependentUpon>mytopics.ascx</DependentUpon>
+    <Compile Include="pages\MyTopics.ascx.cs">
+      <DependentUpon>MyTopics.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="pages\pmessage.ascx.cs">
@@ -3143,8 +3143,8 @@
       <DependentUpon>printtopic.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="pages\profile.ascx.cs">
-      <DependentUpon>profile.ascx</DependentUpon>
+    <Compile Include="pages\Profile.ascx.cs">
+      <DependentUpon>Profile.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="pages\recoverpassword.ascx.cs">

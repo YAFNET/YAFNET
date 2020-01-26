@@ -76,20 +76,20 @@
     <Resource tag="ATTACHMENTS">Behandelt attachments</Resource>
     <Resource tag="AVATAR">Bekijkt avatar</Resource>
     <Resource tag="COOKIES">Views the cookie policy page</Resource>
-    <Resource tag="CP_BLOCKOPTIONS">Edits his Ignored users and block option</Resource>
-    <Resource tag="CP_CHANGEPASSWORD">Wijzigt wachtwoord</Resource>
-    <Resource tag="CP_DELETEACCOUNT">User deletes his account</Resource>
-    <Resource tag="CP_EDITALBUMIMAGES">Bewerkt album plaatjes</Resource>
-    <Resource tag="CP_EDITAVATAR">Bewerkt zijn avatar</Resource>
-    <Resource tag="CP_EDITBUDDIES">Bewerkt vriendenlijst</Resource>
-    <Resource tag="CP_EDITPROFILE">Bewerkt zijn profiel</Resource>
-    <Resource tag="CP_EDITSETTINGS">Edit the user settings</Resource>
-    <Resource tag="CP_MESSAGE">Bekijkt PMs</Resource>
-    <Resource tag="CP_PM">Bekijkt PMs</Resource>
-    <Resource tag="CP_PROFILE">Bekijkt een gebruikersprofiel</Resource>
+    <Resource tag="BLOCK_OPTIONS">Edits his Ignored users and block option</Resource>
+    <Resource tag="CHANGE_PASSWORD">Wijzigt wachtwoord</Resource>
+    <Resource tag="DELETE_ACCOUNT">User deletes his account</Resource>
+    <Resource tag="EDIT_ALBUMIMAGES">Bewerkt album plaatjes</Resource>
+    <Resource tag="EDIT_AVATAR">Bewerkt zijn avatar</Resource>
+    <Resource tag="FRIENDS">Bewerkt vriendenlijst</Resource>
+    <Resource tag="EDIT_PROFILE">Bewerkt zijn profiel</Resource>
+    <Resource tag="EDIT_SETTINGS">Edit the user settings</Resource>
+    <Resource tag="MESSAGE">Bekijkt PMs</Resource>
+    <Resource tag="PM">Bekijkt PMs</Resource>
+    <Resource tag="ACCOUNT">Bekijkt een gebruikersprofiel</Resource>
     <Resource tag="CP_PROFILE_OFUSER">Bekijkt profiel van </Resource>
-    <Resource tag="CP_SIGNATURE">Bewerkt zijn handtekening</Resource>
-    <Resource tag="CP_SUBSCRIPTIONS">Bekijkt inschrijvingen</Resource>
+    <Resource tag="EDIT_SIGNATURE">Bewerkt zijn handtekening</Resource>
+    <Resource tag="SUBSCRIPTIONS">Bekijkt inschrijvingen</Resource>
     <Resource tag="DELETEMESSAGE">Verwijdert bericht</Resource>
     <Resource tag="EMAILTOPIC">Emailt een topic</Resource>
     <Resource tag="ERROR">Krijgt foutpagina</Resource>
@@ -2468,7 +2468,7 @@
     <Resource tag="ZM">Zambia</Resource>
     <Resource tag="ZW">Zimbabwe</Resource>
   </page>
-  <page name="CP_BLOCKOPTIONS">
+  <page name="BLOCK_OPTIONS">
     <Resource tag="BLOCK_BUDDYS">Block Friend Requests</Resource>
     <Resource tag="BLOCK_BUDDYS">Block Private Messages</Resource>
     <Resource tag="BLOCK_EMAILS">Block E-Mails</Resource>
@@ -2480,7 +2480,7 @@
     <Resource tag="SELECT_OPTIONS">Options to Block other Users from Contacting you...</Resource>
     <Resource tag="TITLE">User Block Options &amp; Ignored Users</Resource>
   </page>
-  <page name="CP_CHANGEPASSWORD">
+  <page name="CHANGE_PASSWORD">
     <Resource tag="CHANGE_BUTTON">Opslaan</Resource>
     <Resource tag="CHANGE_SUCCESS">Nieuwe wachtwoord is opgeslagen.</Resource>
     <Resource tag="CONFIRM_PASSWORD">Bevestig nieuw wachtwoord:</Resource>
@@ -2506,7 +2506,7 @@
     <Resource tag="TITLE">Wijzig wachtwoord</Resource>
     <Resource tag="TITLE_SECURITY">Change Security Question and Answer</Resource>
   </page>
-  <page name="CP_DELETEACCOUNT">
+  <page name="DELETE_ACCOUNT">
     <Resource tag="CONFIRM">Are you absolutely sure you want to do this?</Resource>
     <Resource tag="OPTION_DELETE_TEXT">This will delete your account permanently! All your content will be deleted. After that your account can not be restored</Resource>
     <Resource tag="OPTION_DELETE_TITLE">Delete your Account (permanently)</Resource>
@@ -2515,7 +2515,7 @@
     <Resource tag="OPTIONS_TITLE">You have the option to...</Resource>
     <Resource tag="TITLE">Delete Your {0} Account</Resource>
   </page>
-  <page name="CP_EDITALBUMIMAGES">
+  <page name="EDIT_ALBUMIMAGES">
     <Resource tag="ALBUM_TITLE">Titel</Resource>
     <Resource tag="ALBUMS">Albums</Resource>
     <Resource tag="ALBUMS_COUNT_LIMIT">Je kunt niet meer dan {0} albums aanmaken.</Resource>
@@ -2528,7 +2528,7 @@
     <Resource tag="SELECT_FILE">Select an Image File ('.jpg', '.gif', '.png' or '.bmp') you want to upload.</Resource>
     <Resource tag="TITLE">Album toevoegen/bewerken</Resource>
   </page>
-  <page name="CP_EDITAVATAR">
+  <page name="EDIT_AVATAR">
     <Resource tag="AVATAR">Avatar</Resource>
     <Resource tag="AVATARCURRENT">Huidige avatar</Resource>
     <Resource tag="AVATARDELETE">Deze avatar verwijderen</Resource>
@@ -2549,7 +2549,7 @@
     <Resource tag="WARN_SIZE">De afmetingen van je afbeelding zijn {0}x{1} pixels.</Resource>
     <Resource tag="WARN_TOOBIG">De afmeting van je afbeelding mag niet meer dan {0}x{1} pixels bedragen.</Resource>
   </page>
-  <page name="CP_EDITBUDDIES">
+  <page name="FRIENDS">
     <Resource tag="APPROVE">Keur goed</Resource>
     <Resource tag="APPROVE_ADD">Keur goed en voeg toe</Resource>
     <Resource tag="APPROVE_ADD_ALL">Alles goedkeuren en toevoegen</Resource>
@@ -2572,7 +2572,7 @@
     <Resource tag="YOUR_BUDDYLIST">Je vriendenlijst</Resource>
     <Resource tag="YOUR_REQUESTS">Jouw verzoeken</Resource>
   </page>
-  <page name="CP_EDITPROFILE">
+  <page name="EDIT_PROFILE">
     <Resource tag="ABOUTYOU">Over jezelf</Resource>
     <Resource tag="ACTIVITY">Enable Activity Stream (If checked you get Notifications for Mentions, Quotes and Thanks.</Resource>
     <Resource tag="AIM">Je AIM Name:</Resource>
@@ -2633,16 +2633,16 @@
     <Resource tag="XMPP">Je Jabber ID:</Resource>
     <Resource tag="YIM">Je Yahoo ID:</Resource>
   </page>
-  <page name="CP_EDITSETTINGS">
+  <page name="EDIT_SETTINGS">
     <Resource tag="TITLE">Edit Settings</Resource>
   </page>
-  <page name="CP_MESSAGE">
+  <page name="MESSAGE">
     <Resource tag="INBOX">Postvak IN</Resource>
     <Resource tag="MSG_DELETED">Bericht is verwijderd.</Resource>
     <Resource tag="POSTED">Gepost:</Resource>
     <Resource tag="SENTITEMS">Verzonden Items</Resource>
   </page>
-  <page name="CP_PM">
+  <page name="PM">
     <Resource tag="ARCHIVE">Archief</Resource>
     <Resource tag="ARCHIVEALL">Archiveer alles</Resource>
     <Resource tag="ARCHIVESELECTED">Archiveer selectie</Resource>
@@ -2681,7 +2681,7 @@
     <Resource tag="TO_ASC">To A-Z</Resource>
     <Resource tag="TO_DESC">To Z-A</Resource>
   </page>
-  <page name="CP_PROFILE">
+  <page name="ACCOUNT">
     <Resource tag="ACTIVITY">Your Activity</Resource>
     <Resource tag="ARCHIVE">Archief</Resource>
     <Resource tag="CHANGE_PASSWORD">Wijzig wachtwoord</Resource>
@@ -2722,7 +2722,7 @@
     <Resource tag="YOUR_USERDISPLAYNAME">Je weergegeven naam:</Resource>
     <Resource tag="YOUR_USERNAME">Je gebruikersnaam:</Resource>
   </page>
-  <page name="CP_SIGNATURE">
+  <page name="EDIT_SIGNATURE">
     <Resource tag="BBCODE_ALLOWEDALL">Je handtekening mag alle BBCode bevatten.</Resource>
     <Resource tag="BBCODE_ALLOWEDLIST">Je mag de volgende BBCodes gebruiken: {0}.</Resource>
     <Resource tag="BBCODE_FORBIDDEN">Je handtekening mag geen BBCode bevatten</Resource>
@@ -2738,7 +2738,7 @@
     <Resource tag="SIGNATURE_PREVIEW">Handtekening voorbeeld</Resource>
     <Resource tag="TITLE">Handtekening bewerken</Resource>
   </page>
-  <page name="CP_SUBSCRIPTIONS">
+  <page name="SUBSCRIPTIONS">
     <Resource tag="ALLTOPICS">Melding voor [b]alle berichten in alle topics[/b]</Resource>
     <Resource tag="DAILY_DIGEST">Ontvang een dagelijkse samenvatting van alle activiteiten?</Resource>
     <Resource tag="FORUM">Forum</Resource>

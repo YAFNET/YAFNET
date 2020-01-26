@@ -135,7 +135,7 @@ namespace YAF.Controls
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void EditAlbums_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
-            BuildLink.Redirect(ForumPages.cp_editalbumimages, "a={0}", this.AlbumID);
+            BuildLink.Redirect(ForumPages.EditAlbumImages, "a={0}", this.AlbumID);
         }
 
         /// <summary>

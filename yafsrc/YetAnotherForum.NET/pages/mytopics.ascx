@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" Inherits="YAF.Pages.mytopics" Codebehind="mytopics.ascx.cs" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" Inherits="YAF.Pages.MyTopics" Codebehind="MyTopics.ascx.cs" %>
 <%@ Register TagPrefix="YAF" TagName="MyTopicsList" Src="../controls/MyTopicsList.ascx" %>
 
 <YAF:PageLinks runat="server" ID="PageLinks" />
@@ -55,7 +55,7 @@
                 </asp:PlaceHolder>
                  <asp:PlaceHolder ID="UserTopicsTabContent" runat="server">
                 <div id="MyTopicsTab" class="tab-pane" role="tabpanel">
-                   <YAF:MyTopicsList runat="server" ID="MyTopics" CurrentMode="User" />
+                   <YAF:MyTopicsList runat="server" ID="MyTopicsTopics" CurrentMode="User" />
                 </div>
                 <div id="FavoriteTopicsTab" class="tab-pane" role="tabpanel">
                    <YAF:MyTopicsList runat="server" ID="FavoriteTopics" CurrentMode="Favorite" AutoDataBind="False" />

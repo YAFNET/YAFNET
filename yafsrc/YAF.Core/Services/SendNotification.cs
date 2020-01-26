@@ -325,7 +325,7 @@ namespace YAF.Core.Services
                                                        {
                                                            ["{fromuser}"] = displayName,
                                                            ["{link}"] =
-                                                               $"{BuildLink.GetLinkNotEscaped(ForumPages.cp_message, true, "pm={0}", userPMessageId)}\r\n\r\n",
+                                                               $"{BuildLink.GetLinkNotEscaped(ForumPages.Message, true, "pm={0}", userPMessageId)}\r\n\r\n",
                                                            ["{subject}"] = subject,
                                                            ["{username}"] =
                                                                this.BoardSettings.EnableDisplayName
@@ -396,7 +396,7 @@ namespace YAF.Core.Services
                                                  "m={0}#post{0}",
                                                  newMessageId),
                                              ["{subscriptionlink}"] = BuildLink.GetLinkNotEscaped(
-                                                 ForumPages.cp_subscriptions,
+                                                 ForumPages.Subscriptions,
                                                  true)
                                          }
                                  };

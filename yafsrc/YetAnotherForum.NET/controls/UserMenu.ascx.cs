@@ -231,12 +231,12 @@ namespace YAF.Controls
                 "dropdown-item",
                 this.GetText("TOOLBAR", "MYPROFILE"),
                 this.GetText("TOOLBAR", "MYPROFILE_TITLE"),
-                BuildLink.GetLink(ForumPages.cp_profile),
+                BuildLink.GetLink(ForumPages.Account),
                 false,
                 false,
                 null,
                 null,
-                this.PageContext.ForumPageType == ForumPages.cp_profile,
+                this.PageContext.ForumPageType == ForumPages.Account,
                 "address-card");
 
             if (!Config.IsDotNetNuke)
@@ -246,25 +246,25 @@ namespace YAF.Controls
                     "dropdown-item",
                     this.GetText("EDIT_PROFILE"),
                     this.GetText("EDIT_PROFILE"),
-                    BuildLink.GetLink(ForumPages.cp_editprofile),
+                    BuildLink.GetLink(ForumPages.EditProfile),
                     false,
                     false,
                     null,
                     null,
-                    this.PageContext.ForumPageType == ForumPages.cp_editprofile,
+                    this.PageContext.ForumPageType == ForumPages.EditProfile,
                     "user-edit");
 
                 RenderMenuItem(
                     this.MySettings,
                     "dropdown-item",
-                    this.GetText("EDIT_SETTINGS"),
-                    this.GetText("EDIT_SETTINGS"),
-                    BuildLink.GetLink(ForumPages.cp_editsettings),
+                    this.GetText("ACCOUNT", "EDIT_SETTINGS"),
+                    this.GetText("ACCOUNT", "EDIT_SETTINGS"),
+                    BuildLink.GetLink(ForumPages.EditSettings),
                     false,
                     false,
                     null,
                     null,
-                    this.PageContext.ForumPageType == ForumPages.cp_editsettings,
+                    this.PageContext.ForumPageType == ForumPages.EditSettings,
                     "user-cog");
             }
 
@@ -273,12 +273,12 @@ namespace YAF.Controls
                 "dropdown-item",
                 this.GetText("ATTACHMENTS", "TITLE"),
                 this.GetText("ATTACHMENTS", "TITLE"),
-                BuildLink.GetLink(ForumPages.attachments),
+                BuildLink.GetLink(ForumPages.Attachments),
                 false,
                 false,
                 null,
                 null,
-                this.PageContext.ForumPageType == ForumPages.attachments,
+                this.PageContext.ForumPageType == ForumPages.Attachments,
                 "paperclip");
 
             if (!Config.IsDotNetNuke && (this.Get<BoardSettings>().AvatarRemote
@@ -289,14 +289,14 @@ namespace YAF.Controls
                 RenderMenuItem(
                     this.MySettings,
                     "dropdown-item",
-                    this.GetText("EDIT_AVATAR"),
-                    this.GetText("EDIT_AVATAR"),
-                    BuildLink.GetLink(ForumPages.cp_editavatar),
+                    this.GetText("ACCOUNT", "EDIT_AVATAR"),
+                    this.GetText("ACCOUNT", "EDIT_AVATAR"),
+                    BuildLink.GetLink(ForumPages.EditAvatar),
                     false,
                     false,
                     null,
                     null,
-                    this.PageContext.ForumPageType == ForumPages.cp_editavatar,
+                    this.PageContext.ForumPageType == ForumPages.EditAvatar,
                     "user-tie");
             }
 
@@ -305,14 +305,14 @@ namespace YAF.Controls
                 RenderMenuItem(
                     this.MySettings,
                     "dropdown-item",
-                    this.GetText("CP_PROFILE", "SIGNATURE"),
-                    this.GetText("CP_PROFILE", "SIGNATURE"),
-                    BuildLink.GetLink(ForumPages.cp_signature),
+                    this.GetText("ACCOUNT", "SIGNATURE"),
+                    this.GetText("ACCOUNT", "SIGNATURE"),
+                    BuildLink.GetLink(ForumPages.EditSignature),
                     false,
                     false,
                     null,
                     null,
-                    this.PageContext.ForumPageType == ForumPages.cp_signature,
+                    this.PageContext.ForumPageType == ForumPages.EditSignature,
                     "signature");
             }
 
@@ -321,25 +321,25 @@ namespace YAF.Controls
                 "dropdown-item",
                 this.GetText("SUBSCRIPTIONS"),
                 this.GetText("SUBSCRIPTIONS"),
-                BuildLink.GetLink(ForumPages.cp_subscriptions),
+                BuildLink.GetLink(ForumPages.Subscriptions),
                 false,
                 false,
                 null,
                 null,
-                this.PageContext.ForumPageType == ForumPages.cp_subscriptions,
+                this.PageContext.ForumPageType == ForumPages.Subscriptions,
                 "envelope");
 
             RenderMenuItem(
                 this.MySettings,
                 "dropdown-item",
-                this.GetText("CP_BLOCKOPTIONS", "TITLE"),
-                this.GetText("CP_BLOCKOPTIONS", "TITLE"),
-                BuildLink.GetLink(ForumPages.cp_blockoptions),
+                this.GetText("BLOCK_OPTIONS", "TITLE"),
+                this.GetText("BLOCK_OPTIONS", "TITLE"),
+                BuildLink.GetLink(ForumPages.BlockOptions),
                 false,
                 false,
                 null,
                 null,
-                this.PageContext.ForumPageType == ForumPages.cp_blockoptions,
+                this.PageContext.ForumPageType == ForumPages.BlockOptions,
                 "user-lock");
 
             if (!Config.IsDotNetNuke && this.Get<BoardSettings>().AllowPasswordChange)
@@ -350,12 +350,12 @@ namespace YAF.Controls
                     "dropdown-item",
                     this.GetText("CHANGE_PASSWORD"),
                     this.GetText("CHANGE_PASSWORD"),
-                    BuildLink.GetLink(ForumPages.cp_changepassword),
+                    BuildLink.GetLink(ForumPages.ChangePassword),
                     false,
                     false,
                     null,
                     null,
-                    this.PageContext.ForumPageType == ForumPages.cp_changepassword,
+                    this.PageContext.ForumPageType == ForumPages.ChangePassword,
                     "lock");
             }
 
@@ -367,12 +367,12 @@ namespace YAF.Controls
                     "dropdown-item",
                     this.GetText("DELETE_ACCOUNT"),
                     this.GetText("DELETE_ACCOUNT"),
-                    BuildLink.GetLink(ForumPages.cp_deleteaccount),
+                    BuildLink.GetLink(ForumPages.DeleteAccount),
                     false,
                     false,
                     null,
                     null,
-                    this.PageContext.ForumPageType == ForumPages.cp_deleteaccount,
+                    this.PageContext.ForumPageType == ForumPages.DeleteAccount,
                     "user-alt-slash");
             }
 
@@ -384,12 +384,12 @@ namespace YAF.Controls
                     "dropdown-item",
                     this.GetText("TOOLBAR", "INBOX"),
                     this.GetText("TOOLBAR", "INBOX_TITLE"),
-                    BuildLink.GetLink(ForumPages.cp_pm),
+                    BuildLink.GetLink(ForumPages.PM),
                     false,
                     this.PageContext.UnreadPrivate > 0,
                     this.PageContext.UnreadPrivate.ToString(),
                     this.GetTextFormatted("NEWPM", this.PageContext.UnreadPrivate),
-                    this.PageContext.ForumPageType == ForumPages.cp_pm,
+                    this.PageContext.ForumPageType == ForumPages.PM,
                     "inbox");
             }
 
@@ -401,12 +401,12 @@ namespace YAF.Controls
                     "dropdown-item",
                     this.GetText("TOOLBAR", "BUDDIES"),
                     this.GetText("TOOLBAR", "BUDDIES_TITLE"),
-                    BuildLink.GetLink(ForumPages.cp_editbuddies),
+                    BuildLink.GetLink(ForumPages.Friends),
                     false,
                     this.PageContext.PendingBuddies > 0,
                     this.PageContext.PendingBuddies.ToString(),
                     this.GetTextFormatted("BUDDYREQUEST", this.PageContext.PendingBuddies),
-                    this.PageContext.ForumPageType == ForumPages.cp_editbuddies,
+                    this.PageContext.ForumPageType == ForumPages.Friends,
                     "users");
             }
 
@@ -456,20 +456,20 @@ namespace YAF.Controls
             this.UserDropDown.DataToggle = "dropdown";
             this.UserDropDown.Type = ButtonAction.None;
 
-            if (this.PageContext.ForumPageType == ForumPages.cp_profile
-                || this.PageContext.ForumPageType == ForumPages.cp_editprofile
-                || this.PageContext.ForumPageType == ForumPages.cp_pm
-                || this.PageContext.ForumPageType == ForumPages.cp_editbuddies
+            if (this.PageContext.ForumPageType == ForumPages.Account
+                || this.PageContext.ForumPageType == ForumPages.EditProfile
+                || this.PageContext.ForumPageType == ForumPages.PM
+                || this.PageContext.ForumPageType == ForumPages.Friends
                 || this.PageContext.ForumPageType == ForumPages.mytopics
-                || this.PageContext.ForumPageType == ForumPages.cp_editprofile
-                || this.PageContext.ForumPageType == ForumPages.cp_editsettings
-                || this.PageContext.ForumPageType == ForumPages.cp_changepassword
-                || this.PageContext.ForumPageType == ForumPages.attachments
+                || this.PageContext.ForumPageType == ForumPages.EditProfile
+                || this.PageContext.ForumPageType == ForumPages.EditSettings
+                || this.PageContext.ForumPageType == ForumPages.ChangePassword
+                || this.PageContext.ForumPageType == ForumPages.Attachments
                 || this.PageContext.ForumPageType == ForumPages.avatar
-                || this.PageContext.ForumPageType == ForumPages.cp_editavatar
-                || this.PageContext.ForumPageType == ForumPages.cp_signature
-                || this.PageContext.ForumPageType == ForumPages.cp_subscriptions
-                || this.PageContext.ForumPageType == ForumPages.cp_blockoptions)
+                || this.PageContext.ForumPageType == ForumPages.EditAvatar
+                || this.PageContext.ForumPageType == ForumPages.EditSignature
+                || this.PageContext.ForumPageType == ForumPages.Subscriptions
+                || this.PageContext.ForumPageType == ForumPages.BlockOptions)
             {
                 this.UserDropDown.CssClass = "nav-link active dropdown-toggle";
             }
@@ -479,7 +479,7 @@ namespace YAF.Controls
             }
 
             this.UserDropDown.NavigateUrl = BuildLink.GetLink(
-                ForumPages.profile,
+                ForumPages.Profile,
                 "u={0}&name={1}",
                 this.PageContext.PageUserID,
                 this.Get<BoardSettings>().EnableDisplayName
@@ -505,7 +505,7 @@ namespace YAF.Controls
 
                     this.NotifyItem.DataToggle = "tooltip";
                     this.NotifyItem.CssClass = "nav-link mb-1";
-                    this.NotifyItem.NavigateUrl = BuildLink.GetLink(ForumPages.cp_notification);
+                    this.NotifyItem.NavigateUrl = BuildLink.GetLink(ForumPages.Notification);
                 }
             }
 

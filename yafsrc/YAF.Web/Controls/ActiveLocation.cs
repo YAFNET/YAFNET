@@ -443,7 +443,7 @@ namespace YAF.Web.Controls
                     outstring.Append(this.GetText("ACTIVELOCATION", "ALBUM_OFUSER"));
                     outstring.AppendFormat(
                         @"<a href=""{0}"" id=""albumuserid_{1}"" runat=""server""> {2} </a>",
-                        BuildLink.GetLink(ForumPages.profile, "u={0}&name={1}", userID, displayName),
+                        BuildLink.GetLink(ForumPages.Profile, "u={0}&name={1}", userID, displayName),
                         userID,
                         HttpUtility.HtmlEncode(displayName));
                 }
@@ -500,7 +500,7 @@ namespace YAF.Web.Controls
 
                     outstring.AppendFormat(
                         @"{3}<a href=""{0}"" id=""albumsuserid_{1}"" runat=""server""> {2} </a>",
-                        BuildLink.GetLink(ForumPages.profile, "u={0}&name={1}", userId, displayName),
+                        BuildLink.GetLink(ForumPages.Profile, "u={0}&name={1}", userId, displayName),
                         userId + this.PageContext.PageUserID,
                         HttpUtility.HtmlEncode(displayName),
                         this.GetText("ACTIVELOCATION", "ALBUMS_OFUSER"));
@@ -548,7 +548,7 @@ namespace YAF.Web.Controls
                     outstring.Append(this.GetText("ACTIVELOCATION", "PROFILE_OFUSER"));
                     outstring.AppendFormat(
                         @"<a href=""{0}""  id=""profileuserid_{1}"" title=""{2}"" alt=""{2}"" runat=""server""> {3} </a>",
-                        BuildLink.GetLink(ForumPages.profile, "u={0}&name={1}", userId, displayName),
+                        BuildLink.GetLink(ForumPages.Profile, "u={0}&name={1}", userId, displayName),
                         userId + this.PageContext.PageUserID,
                         this.GetText("COMMON", "VIEW_USRPROFILE"),
                         HttpUtility.HtmlEncode(displayName));

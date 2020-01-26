@@ -1,17 +1,14 @@
-﻿<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.attachments" Codebehind="attachments.ascx.cs" %>
+﻿<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Attachments" Codebehind="Attachments.ascx.cs" %>
 
 <%@ Import Namespace="YAF.Types.Extensions" %>
 
 <YAF:PageLinks runat="server" ID="PageLinks" />
 
 <div class="row">
-    <div class="col-xl-12">
-        <h2><YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="TITLE" /></h2>
+    <div class="col-sm-auto">
+        <YAF:ProfileMenu runat="server"></YAF:ProfileMenu>
     </div>
-</div>
-
-<div class="row">
-<div class="col">
+    <div class="col">
 <div class="row">
     <div class="col">
         <div class="card mb-3">

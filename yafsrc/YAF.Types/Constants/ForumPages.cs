@@ -46,7 +46,7 @@ namespace YAF.Types.Constants
         /// <summary>
         /// The profile.
         /// </summary>
-        profile,
+        Profile,
 
         /// <summary>
         /// The activeusers.
@@ -86,7 +86,7 @@ namespace YAF.Types.Constants
         /// <summary>
         /// The attachments.
         /// </summary>
-        attachments,
+        Attachments,
 
         /// <summary>
         /// The pmessage.
@@ -114,24 +114,24 @@ namespace YAF.Types.Constants
         reportpost,
 
         /// <summary>
-        /// The cp_pm.
+        /// The PM.
         /// </summary>
-        cp_pm,
+        PM,
 
         /// <summary>
         /// The cp_profile.
         /// </summary>
-        cp_profile,
+        Account,
 
         /// <summary>
-        /// The cp_notification.
+        /// The Notification.
         /// </summary>
-        cp_notification,
+        Notification,
 
         /// <summary>
         /// The cp_editbuddies.
         /// </summary>
-        cp_editbuddies,
+        Friends,
 
         /// <summary>
         /// The album.
@@ -144,54 +144,54 @@ namespace YAF.Types.Constants
         albums,
 
         /// <summary>
-        /// The cp_blockoptions.
+        /// The BlockOptions.
         /// </summary>
-        cp_blockoptions,
+        BlockOptions,
 
         /// <summary>
-        /// The cp_editalbumimages.
+        /// The EditAlbumImages.
         /// </summary>
-        cp_editalbumimages,
+        EditAlbumImages,
 
         /// <summary>
-        /// The cp_editprofile.
+        /// The EditProfile.
         /// </summary>
-        cp_editprofile,
+        EditProfile,
 
         /// <summary>
-        /// The cp_editsettings.
+        /// The EditSettings.
         /// </summary>
-        cp_editsettings,
+        EditSettings,
 
         /// <summary>
-        /// The cp_editavatar.
+        /// The EditAvatar.
         /// </summary>
-        cp_editavatar,
+        EditAvatar,
 
         /// <summary>
-        /// The cp_signature.
+        /// The EditSignature.
         /// </summary>
-        cp_signature,
+        EditSignature,
 
         /// <summary>
-        /// The cp_subscriptions.
+        /// The Subscriptions.
         /// </summary>
-        cp_subscriptions,
+        Subscriptions,
 
         /// <summary>
-        /// The cp_message.
+        /// The Message.
         /// </summary>
-        cp_message,
+        Message,
 
         /// <summary>
-        /// The cp_changepassword.
+        /// The Changepassword.
         /// </summary>
-        cp_changepassword,
+        ChangePassword,
 
         /// <summary>
         /// The cp_deleteaccount.
         /// </summary>
-        cp_deleteaccount,
+        DeleteAccount,
 
         /// <summary>
         /// The login.

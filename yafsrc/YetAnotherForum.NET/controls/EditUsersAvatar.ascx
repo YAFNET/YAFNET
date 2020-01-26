@@ -3,25 +3,16 @@
 
 
 <div class="row">
-    <div class="col-xl-12">
-        <h2>
-            <YAF:LocalizedLabel runat="server" LocalizedPage="CP_EDITAVATAR" LocalizedTag="title" />
-        </h2>
-    </div>
-</div>
-
-
-<div class="row">
     <div class="col">
         <div class="card mb-3">
             <div class="card-header">
-                <i class="fa fa-user-tie fa-fw text-secondary"></i>&nbsp;<YAF:LocalizedLabel runat="server" LocalizedPage="CP_EDITAVATAR" LocalizedTag="title" />
+                <i class="fa fa-user-tie fa-fw text-secondary"></i>&nbsp;<YAF:LocalizedLabel runat="server" LocalizedPage="EDIT_AVATAR" LocalizedTag="title" />
             </div>
             <div class="card-body">
                 <asp:PlaceHolder runat="server" id="avatarImageTD">
                     <h5 class="card-title">
                         <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" 
-                                            LocalizedPage="CP_EDITAVATAR"
+                                            LocalizedPage="EDIT_AVATAR"
                                             LocalizedTag="AvatarCurrent" />
                     </h5>
                     <p class="card-text">
@@ -33,7 +24,7 @@
                                      Type="Danger" 
                                      Icon="trash"
                                      TextLocalizedTag="AVATARDELETE"
-                                     ReturnConfirmText='<%# this.GetText("CP_EDITAVATAR", "AVATARDELETE") %>'
+                                     ReturnConfirmText='<%# this.GetText("EDIT_AVATAR", "AVATARDELETE") %>'
                                      Visible="false" 
                                      OnClick="DeleteAvatar_Click" />
                     <hr />
@@ -41,7 +32,7 @@
                 <asp:PlaceHolder runat="server" id="AvatarOurs">
                     <div class="form-group">
                         <h4><asp:Label runat="server">
-                            <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedPage="CP_EDITAVATAR"
+                            <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedPage="EDIT_AVATAR"
                                                 LocalizedTag="ouravatar" />
                         </asp:Label>
                         </h4>
@@ -57,7 +48,7 @@
                     <div class="form-group">
                         <h4><asp:Label runat="server" AssociatedControlID="Avatar">
                             <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" 
-                                                LocalizedPage="CP_EDITAVATAR"
+                                                LocalizedPage="EDIT_AVATAR"
                                                 LocalizedTag="avatarremote" />
                         </asp:Label>
                         </h4>
@@ -80,7 +71,7 @@
                     <div class="form-group">
                         <h4><asp:Label runat="server" AssociatedControlID="File">
                             <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" 
-                                                LocalizedPage="CP_EDITAVATAR"
+                                                LocalizedPage="EDIT_AVATAR"
                                                 LocalizedTag="avatarupload" />
                         </asp:Label>
                         </h4>
@@ -88,7 +79,7 @@
                             <input type="file" id="File" runat="server" class="custom-file-input" />
                             <asp:Label runat="server" AssociatedControlID="File" CssClass="custom-file-label">
                                 <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" 
-                                                    LocalizedPage="CP_EDITAVATAR"
+                                                    LocalizedPage="EDIT_AVATAR"
                                                     LocalizedTag="avatarupload" />
                             </asp:Label>
                         </div>

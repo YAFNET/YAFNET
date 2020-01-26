@@ -28,7 +28,7 @@ namespace YAF.Web.Controls
 
     using System.Text;
     using System.Web.UI;
-
+    
     using YAF.Configuration;
     using YAF.Core.BaseControls;
     using YAF.Types;
@@ -36,7 +36,7 @@ namespace YAF.Web.Controls
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Utils;
-
+    
     #endregion
 
     /// <summary>
@@ -70,19 +70,18 @@ namespace YAF.Web.Controls
             this.RenderMenuItem(
                 html,
                 "list-group-item list-group-item-action",
-                ForumPages.cp_profile,
-                this.GetText("YOUR_ACCOUNT"));
+                ForumPages.Account,
+                this.GetText("YOUR_ACCOUNT"),
+                "address-card");
 
-            this.RenderMenuItem(htmlDropDown, "dropdown-item", ForumPages.cp_profile, this.GetText("YOUR_ACCOUNT"));
+            this.RenderMenuItem(htmlDropDown, "dropdown-item", ForumPages.Account, this.GetText("YOUR_ACCOUNT"), "address-card");
 
-            var unreadActivity =
-                this.PageContext.Mention + this.PageContext.Quoted + this.PageContext.ReceivedThanks;
-
-           this.RenderMenuItem(
+            this.RenderMenuItem(
                 html,
                 "list-group-item list-group-item-action",
-                ForumPages.profile,
+                ForumPages.Profile,
                 this.GetText("VIEW_PROFILE"),
+                "user",
                 $"u={this.PageContext.PageUserID}");
 
             htmlDropDown.AppendFormat(@"<h6 class=""dropdown-header"">{0}</h6>", this.GetText("PERSONAL_PROFILE"));
@@ -90,8 +89,9 @@ namespace YAF.Web.Controls
             this.RenderMenuItem(
                 htmlDropDown,
                 "dropdown-item",
-                ForumPages.profile,
+                ForumPages.Profile,
                 this.GetText("VIEW_PROFILE"),
+                "user",
                 $"u={this.PageContext.PageUserID}");
 
             if (!Config.IsDotNetNuke)
@@ -99,26 +99,30 @@ namespace YAF.Web.Controls
                 this.RenderMenuItem(
                     html,
                     "list-group-item list-group-item-action",
-                    ForumPages.cp_editprofile,
-                    this.GetText("EDIT_PROFILE"));
+                    ForumPages.EditProfile,
+                    this.GetText("EDIT_PROFILE"),
+                    "user-edit");
 
                 this.RenderMenuItem(
                     htmlDropDown,
                     "dropdown-item",
-                    ForumPages.cp_editprofile,
-                    this.GetText("EDIT_PROFILE"));
+                    ForumPages.EditProfile,
+                    this.GetText("EDIT_PROFILE"),
+                    "user-edit");
 
                 this.RenderMenuItem(
                     html,
                     "list-group-item list-group-item-action",
-                    ForumPages.cp_editsettings,
-                    this.GetText("EDIT_SETTINGS"));
+                    ForumPages.EditSettings,
+                    this.GetText("ACCOUNT","EDIT_SETTINGS"),
+                    "user-cog");
 
                 this.RenderMenuItem(
                     htmlDropDown,
                     "dropdown-item",
-                    ForumPages.cp_editsettings,
-                    this.GetText("EDIT_SETTINGS"));
+                    ForumPages.EditSettings,
+                    this.GetText("ACCOUNT", "EDIT_SETTINGS"),
+                    "user-cog");
             }
 
             if (!this.PageContext.IsGuest)
@@ -126,14 +130,16 @@ namespace YAF.Web.Controls
                 this.RenderMenuItem(
                     html,
                     "list-group-item list-group-item-action",
-                    ForumPages.attachments,
-                    this.GetText("ATTACHMENTS", "TITLE"));
+                    ForumPages.Attachments,
+                    this.GetText("ATTACHMENTS", "TITLE"),
+                    "paperclip");
 
                 this.RenderMenuItem(
                     htmlDropDown,
                     "dropdown-item",
-                    ForumPages.attachments,
-                    this.GetText("ATTACHMENTS", "TITLE"));
+                    ForumPages.Attachments,
+                    this.GetText("ATTACHMENTS", "TITLE"),
+                    "paperclip");
             }
 
             if (!this.PageContext.IsGuest
@@ -142,14 +148,16 @@ namespace YAF.Web.Controls
                 this.RenderMenuItem(
                     html,
                     "list-group-item list-group-item-action",
-                    ForumPages.cp_editbuddies,
-                    this.GetText("EDIT_BUDDIES"));
+                    ForumPages.Friends,
+                    this.GetText("EDIT_BUDDIES"),
+                    "users");
 
                 this.RenderMenuItem(
                     htmlDropDown,
                     "dropdown-item",
-                    ForumPages.cp_editbuddies,
-                    this.GetText("EDIT_BUDDIES"));
+                    ForumPages.Friends,
+                    this.GetText("EDIT_BUDDIES"),
+                    "users");
             }
 
             if (!this.PageContext.IsGuest && this.Get<BoardSettings>().EnableAlbum)
@@ -159,6 +167,7 @@ namespace YAF.Web.Controls
                     "list-group-item list-group-item-action",
                     ForumPages.albums,
                     this.GetText("EDIT_ALBUMS"),
+                    "images",
                     $"u={this.PageContext.PageUserID}");
 
                 this.RenderMenuItem(
@@ -166,6 +175,7 @@ namespace YAF.Web.Controls
                     "dropdown-item",
                     ForumPages.albums,
                     this.GetText("EDIT_ALBUMS"),
+                    "images",
                     $"u={this.PageContext.PageUserID}");
             }
 
@@ -177,14 +187,16 @@ namespace YAF.Web.Controls
                 this.RenderMenuItem(
                     html,
                     "list-group-item list-group-item-action",
-                    ForumPages.cp_editavatar,
-                    this.GetText("EDIT_AVATAR"));
+                    ForumPages.EditAvatar,
+                    this.GetText("ACCOUNT", "EDIT_AVATAR"),
+                    "user-tie");
 
                 this.RenderMenuItem(
                     htmlDropDown,
                     "dropdown-item",
-                    ForumPages.cp_editavatar,
-                    this.GetText("EDIT_AVATAR"));
+                    ForumPages.EditAvatar,
+                    this.GetText("ACCOUNT", "EDIT_AVATAR"),
+                    "user-tie");
             }
 
             if (this.Get<BoardSettings>().AllowSignatures)
@@ -192,39 +204,45 @@ namespace YAF.Web.Controls
                 this.RenderMenuItem(
                     html,
                     "list-group-item list-group-item-action",
-                    ForumPages.cp_signature,
-                    this.GetText("CP_PROFILE", "SIGNATURE"));
+                    ForumPages.EditSignature,
+                    this.GetText("ACCOUNT", "SIGNATURE"),
+                    "signature");
 
                 this.RenderMenuItem(
                     htmlDropDown,
                     "dropdown-item",
-                    ForumPages.cp_signature,
-                    this.GetText("CP_PROFILE", "SIGNATURE"));
+                    ForumPages.EditSignature,
+                    this.GetText("ACCOUNT", "SIGNATURE"),
+                    "signature");
             }
 
             this.RenderMenuItem(
                 html,
                 "list-group-item list-group-item-action",
-                ForumPages.cp_subscriptions,
-                this.GetText("SUBSCRIPTIONS"));
+                ForumPages.Subscriptions,
+                this.GetText("SUBSCRIPTIONS"),
+                "envelope");
 
             this.RenderMenuItem(
                 htmlDropDown,
                 "dropdown-item",
-                ForumPages.cp_subscriptions,
-                this.GetText("SUBSCRIPTIONS"));
+                ForumPages.Subscriptions,
+                this.GetText("SUBSCRIPTIONS"),
+                "envelope");
 
             this.RenderMenuItem(
                 html,
                 "list-group-item list-group-item-action",
-                ForumPages.cp_blockoptions,
-                this.GetText("CP_BLOCKOPTIONS", "TITLE"));
+                ForumPages.BlockOptions,
+                this.GetText("BLOCK_OPTIONS", "TITLE"),
+                "user-lock");
 
             this.RenderMenuItem(
                 htmlDropDown,
                 "dropdown-item",
-                ForumPages.cp_blockoptions,
-                this.GetText("CP_BLOCKOPTIONS", "TITLE"));
+                ForumPages.BlockOptions,
+                this.GetText("BLOCK_OPTIONS", "TITLE"),
+                "user-lock");
 
             if (!Config.IsDotNetNuke && this.Get<BoardSettings>().AllowPasswordChange)
             {
@@ -232,30 +250,34 @@ namespace YAF.Web.Controls
                 this.RenderMenuItem(
                     html,
                     "list-group-item list-group-item-action",
-                    ForumPages.cp_changepassword,
-                    this.GetText("CHANGE_PASSWORD"));
+                    ForumPages.ChangePassword,
+                    this.GetText("CHANGE_PASSWORD"),
+                    "lock");
 
                 this.RenderMenuItem(
                     htmlDropDown,
                     "dropdown-item",
-                    ForumPages.cp_changepassword,
-                    this.GetText("CHANGE_PASSWORD"));
+                    ForumPages.ChangePassword,
+                    this.GetText("CHANGE_PASSWORD"),
+                    "lock");
             }
 
-            if (!Config.IsDotNetNuke && !this.PageContext.IsAdmin  && !this.PageContext.IsHostAdmin)
+            if (!Config.IsDotNetNuke && !this.PageContext.IsAdmin && !this.PageContext.IsHostAdmin)
             {
                 // Render Delete Account Item
                 this.RenderMenuItem(
                     html,
                     "list-group-item list-group-item-action",
-                    ForumPages.cp_deleteaccount,
-                    this.GetText("DELETE_ACCOUNT"));
+                    ForumPages.DeleteAccount,
+                    this.GetText("DELETE_ACCOUNT"),
+                    "user-alt-slash");
 
                 this.RenderMenuItem(
                     htmlDropDown,
                     "dropdown-item",
-                    ForumPages.cp_deleteaccount,
-                    this.GetText("DELETE_ACCOUNT"));
+                    ForumPages.DeleteAccount,
+                    this.GetText("DELETE_ACCOUNT"),
+                    "user-alt-slash");
             }
 
             htmlDropDown.Append("</div></div>");
@@ -281,6 +303,9 @@ namespace YAF.Web.Controls
         /// <param name="getText">
         /// The get text.
         /// </param>
+        /// <param name="icon">
+        /// The icon.
+        /// </param>
         /// <param name="parameter">
         /// The URL Parameter
         /// </param>
@@ -289,16 +314,18 @@ namespace YAF.Web.Controls
             string cssClass,
             ForumPages page,
             string getText,
+            string icon,
             string parameter = null)
         {
             stringBuilder.AppendFormat(
                 this.PageContext.ForumPageType == page
-                    ? @"<a class=""{3} active"" href=""{0}"" title=""{2}"" data-toggle=""tooltip"">{1}</a>"
-                    : @"<a class=""{3}"" href=""{0}"" title=""{2}"" data-toggle=""tooltip"">{1}</a>",
+                    ? @"<a class=""{3} active"" href=""{0}"" title=""{2}"" data-toggle=""tooltip""><i class=""fas fa-{4} mr-1 text-secondary""></i>{1}</a>"
+                    : @"<a class=""{3}"" href=""{0}"" title=""{2}"" data-toggle=""tooltip""><i class=""fas fa-{4} mr-1 text-secondary""></i>{1}</a>",
                 parameter.IsSet() ? BuildLink.GetLink(page, parameter) : BuildLink.GetLink(page),
                 getText,
                 getText,
-                cssClass);
+                cssClass,
+                icon);
         }
 
         #endregion

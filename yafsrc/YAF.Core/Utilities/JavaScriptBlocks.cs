@@ -1015,8 +1015,8 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
         {
             return $@"{Config.JQueryAlias}('.{cssClass}').popover({{
                            html: true,
-                           content: '{content}',
-                           trigger: 'focus hover'
+                           content: ""{content}"",
+                           trigger: ""focus hover""
                     }});";
         }
 

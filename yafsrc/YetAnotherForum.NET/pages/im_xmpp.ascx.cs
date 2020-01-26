@@ -107,7 +107,7 @@ namespace YAF.Pages
                 this.PageLinks.AddLink(
                     this.PageContext.BoardSettings.EnableDisplayName ? displayNameHe : userHe.UserName,
                     BuildLink.GetLink(
-                        ForumPages.profile,
+                        ForumPages.Profile,
                         "u={0}&name={1}",
                         this.UserID,
                         this.PageContext.BoardSettings.EnableDisplayName ? displayNameHe : userHe.UserName));

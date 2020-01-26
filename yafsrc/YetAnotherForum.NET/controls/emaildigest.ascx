@@ -105,7 +105,7 @@
                    } %>
 
     <div class="text-center text-muted small"> 
-      <%= this.GetText("REMOVALTEXT") %>&nbsp;<a href="<%= BuildLink.GetLink(this.BoardSettings, ForumPages.cp_subscriptions, true) %>">
+      <%= this.GetText("REMOVALTEXT") %>&nbsp;<a href="<%= BuildLink.GetLink(this.BoardSettings, ForumPages.Subscriptions, true) %>">
           <%= this.GetText("REMOVALLINK") %></a>
   </div>
 </div>

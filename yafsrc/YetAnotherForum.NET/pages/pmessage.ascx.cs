@@ -170,7 +170,7 @@ namespace YAF.Pages
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Cancel_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
-            BuildLink.Redirect(ForumPages.cp_pm);
+            BuildLink.Redirect(ForumPages.PM);
         }
 
         /// <summary>
@@ -210,12 +210,12 @@ namespace YAF.Pages
                 this.Get<BoardSettings>().EnableDisplayName
                     ? this.PageContext.CurrentUserData.DisplayName
                     : this.PageContext.PageUserName,
-                BuildLink.GetLink(ForumPages.cp_profile));
+                BuildLink.GetLink(ForumPages.Account));
 
             // private messages
             this.PageLinks.AddLink(
-                this.GetText(ForumPages.cp_pm.ToString(), "TITLE"),
-                BuildLink.GetLink(ForumPages.cp_pm));
+                this.GetText(ForumPages.PM.ToString(), "TITLE"),
+                BuildLink.GetLink(ForumPages.PM));
 
             // post new message
             this.PageLinks.AddLink(this.GetText("TITLE"));
@@ -623,7 +623,7 @@ namespace YAF.Pages
                     replyTo);
 
                 // redirect to outbox (sent items), not control panel
-                BuildLink.Redirect(ForumPages.cp_pm, "v={0}", "out");
+                BuildLink.Redirect(ForumPages.PM, "v={0}", "out");
             }
             else
             {
@@ -746,7 +746,7 @@ namespace YAF.Pages
                         });
 
                 // redirect to outbox (sent items), not control panel
-                BuildLink.Redirect(ForumPages.cp_pm, "v={0}", "out");
+                BuildLink.Redirect(ForumPages.PM, "v={0}", "out");
             }
         }
 

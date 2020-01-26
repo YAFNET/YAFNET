@@ -51,14 +51,14 @@ namespace YAF.Pages
     /// <summary>
     /// The attachments Page Class.
     /// </summary>
-    public partial class attachments : ForumPage
+    public partial class Attachments : ForumPage
     {
         #region Constructors and Destructors
 
         /// <summary>
-        ///   Initializes a new instance of the <see cref = "attachments" /> class.
+        ///   Initializes a new instance of the <see cref = "Attachments" /> class.
         /// </summary>
-        public attachments()
+        public Attachments()
             : base("ATTACHMENTS")
         {
         }
@@ -74,7 +74,7 @@ namespace YAF.Pages
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Back_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
-            BuildLink.Redirect(ForumPages.cp_profile);
+            BuildLink.Redirect(ForumPages.Account);
         }
 
         /// <summary>
@@ -128,7 +128,7 @@ namespace YAF.Pages
             this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, BuildLink.GetLink(ForumPages.forum));
             this.PageLinks.AddLink(
                 displayName,
-                BuildLink.GetLink(ForumPages.profile, "u={0}", this.PageContext.PageUserID, displayName));
+                BuildLink.GetLink(ForumPages.Profile, "u={0}", this.PageContext.PageUserID, displayName));
             this.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
 
             this.Back.TextLocalizedTag = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("t").IsNotSet()

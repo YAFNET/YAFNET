@@ -55,14 +55,14 @@ namespace YAF.Pages
     /// <summary>
     /// The User Profile Page.
     /// </summary>
-    public partial class profile : ForumPage
+    public partial class Profile : ForumPage
     {
         #region Constructors and Destructors
 
         /// <summary>
-        ///   Initializes a new instance of the <see cref = "profile" /> class.
+        ///   Initializes a new instance of the <see cref = "Profile" /> class.
         /// </summary>
-        public profile()
+        public Profile()
             : base("PROFILE")
         {
         }
@@ -314,7 +314,7 @@ namespace YAF.Pages
                 this.lnkBuddy.Type = ButtonAction.Warning;
                 this.lnkBuddy.TextLocalizedPage = "PAGE";
                 this.lnkBuddy.CommandArgument = "removebuddy";
-                this.lnkBuddy.ReturnConfirmText = this.GetText("CP_EDITBUDDIES", "NOTIFICATION_REMOVE");
+                this.lnkBuddy.ReturnConfirmText = this.GetText("FRIENDS", "NOTIFICATION_REMOVE");
             }
             else if (this.Get<IBuddy>().IsBuddy((int)userData.DBRow["userID"], false))
             {

@@ -74,7 +74,7 @@ namespace YAF.Controls
         protected void Back_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
             BuildLink.Redirect(
-                this.PageContext.CurrentForumPage.IsAdminPage ? ForumPages.admin_users : ForumPages.cp_profile);
+                this.PageContext.CurrentForumPage.IsAdminPage ? ForumPages.admin_users : ForumPages.Account);
         }
 
         /// <summary>
@@ -129,7 +129,7 @@ namespace YAF.Controls
                 this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.currentUserId));
             }
 
-            this.NoAvatar.Text = this.GetText("CP_EDITAVATAR", "NOAVATAR");
+            this.NoAvatar.Text = this.GetText("EDIT_AVATAR", "NOAVATAR");
 
             var addAdminParam = string.Empty;
             if (this.PageContext.CurrentForumPage.IsAdminPage)
@@ -138,7 +138,7 @@ namespace YAF.Controls
             }
 
             this.OurAvatar.NavigateUrl = BuildLink.GetLinkNotEscaped(ForumPages.avatar, addAdminParam);
-            this.OurAvatar.Text = this.GetText("CP_EDITAVATAR", "OURAVATAR_SELECT");
+            this.OurAvatar.Text = this.GetText("EDIT_AVATAR", "OURAVATAR_SELECT");
 
             this.noteRemote.Text = this.GetTextFormatted(
                 "NOTE_REMOTE",
@@ -204,7 +204,7 @@ namespace YAF.Controls
                     if (img.Width > x || img.Height > y)
                     {
                         this.PageContext.AddLoadMessage(
-                            $"{this.GetTextFormatted("WARN_TOOBIG", x, y)} {this.GetTextFormatted("WARN_SIZE", img.Width, img.Height)} {this.GetText("CP_EDITAVATAR", "WARN_RESIZED")}",
+                            $"{this.GetTextFormatted("WARN_TOOBIG", x, y)} {this.GetTextFormatted("WARN_SIZE", img.Width, img.Height)} {this.GetText("EDIT_AVATAR", "WARN_RESIZED")}",
                             MessageTypes.warning);
 
                         resized = ImageHelper.GetResizedImageStreamFromImage(img, x, y);
@@ -305,7 +305,7 @@ namespace YAF.Controls
                     exception);
 
                 // image is probably invalid...
-                this.PageContext.AddLoadMessage(this.GetText("CP_EDITAVATAR", "INVALID_FILE"), MessageTypes.danger);
+                this.PageContext.AddLoadMessage(this.GetText("EDIT_AVATAR", "INVALID_FILE"), MessageTypes.danger);
             }
         }
 

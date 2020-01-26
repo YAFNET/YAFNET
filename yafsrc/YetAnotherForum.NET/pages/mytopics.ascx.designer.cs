@@ -11,7 +11,7 @@ namespace YAF.Pages
 {
 
 
-    public partial class mytopics
+    public partial class MyTopics
     {
 
         /// <summary>
@@ -159,13 +159,13 @@ namespace YAF.Pages
         protected global::System.Web.UI.WebControls.PlaceHolder UserTopicsTabContent;
 
         /// <summary>
-        /// MyTopics control.
+        /// MyTopicsTopics control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Controls.MyTopicsList MyTopics;
+        protected global::YAF.Controls.MyTopicsList MyTopicsTopics;
 
         /// <summary>
         /// FavoriteTopics control.

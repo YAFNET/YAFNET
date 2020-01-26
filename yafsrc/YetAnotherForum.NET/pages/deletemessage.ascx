@@ -95,7 +95,7 @@
     </FooterTemplate>
     <ItemTemplate>
         <li class="list-group-item">
-            <p class="pb-1"><span class="font-weight-bold"><a href="<%# BuildLink.GetLink(ForumPages.profile,"u={0}&name={1}",DataBinder.Eval(Container.DataItem, "UserID"), DataBinder.Eval(Container.DataItem, "UserName")) %>">
+            <p class="pb-1"><span class="font-weight-bold"><a href="<%# BuildLink.GetLink(ForumPages.Profile,"u={0}&name={1}",DataBinder.Eval(Container.DataItem, "UserID"), DataBinder.Eval(Container.DataItem, "UserName")) %>">
                     <%# DataBinder.Eval(Container.DataItem, "UserName") %></a></span>
                 <span class="font-weight-bold">
                     <YAF:LocalizedLabel runat="server" LocalizedTag="posted" />

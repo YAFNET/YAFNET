@@ -19,15 +19,15 @@
         <asp:PlaceHolder id="MyProfile" runat="server"></asp:PlaceHolder>
         
             <a href="#" data-toggle="dropdown" 
-               class="dropdown-item dropdown-submenu dropdown-toggle<%= this.PageContext.ForumPageType == ForumPages.cp_editprofile ||
-                                                                        this.PageContext.ForumPageType == ForumPages.cp_editsettings ||
-                                                                        this.PageContext.ForumPageType == ForumPages.cp_changepassword  ||
-                                                                        this.PageContext.ForumPageType == ForumPages.attachments  ||
+               class="dropdown-item dropdown-submenu dropdown-toggle<%= this.PageContext.ForumPageType == ForumPages.EditProfile ||
+                                                                        this.PageContext.ForumPageType == ForumPages.EditSettings ||
+                                                                        this.PageContext.ForumPageType == ForumPages.ChangePassword  ||
+                                                                        this.PageContext.ForumPageType == ForumPages.Attachments  ||
                                                                         this.PageContext.ForumPageType == ForumPages.avatar  ||
-                                                                        this.PageContext.ForumPageType == ForumPages.cp_editavatar ||
-                                                                        this.PageContext.ForumPageType == ForumPages.cp_signature  ||
-                                                                        this.PageContext.ForumPageType == ForumPages.cp_subscriptions  ||
-                                                                        this.PageContext.ForumPageType == ForumPages.cp_blockoptions  ? " active" : ""%>"><i class="fa fa-user-cog fa-fw"></i>&nbsp;<YAF:LocalizedLabel runat="server"
+                                                                        this.PageContext.ForumPageType == ForumPages.EditAvatar ||
+                                                                        this.PageContext.ForumPageType == ForumPages.EditSignature  ||
+                                                                        this.PageContext.ForumPageType == ForumPages.Subscriptions  ||
+                                                                        this.PageContext.ForumPageType == ForumPages.BlockOptions  ? " active" : ""%>"><i class="fa fa-user-cog fa-fw"></i>&nbsp;<YAF:LocalizedLabel runat="server"
                                                                            LocalizedTag="MYSETTINGS" LocalizedPage="TOOLBAR"></YAF:LocalizedLabel></a>
             <ul class="dropdown-menu">
                 <asp:PlaceHolder runat="server" ID="MySettings"></asp:PlaceHolder>
@@ -48,7 +48,7 @@
     </div>
 </li>
 <asp:PlaceHolder runat="server" ID="MyNotifications">
-    <li class="nav-item dropdown dropdown-notify<%= this.PageContext.ForumPageType == ForumPages.cp_notification ? " active" : ""%>">
+    <li class="nav-item dropdown dropdown-notify<%= this.PageContext.ForumPageType == ForumPages.Notification ? " active" : ""%>">
         <YAF:Themebutton runat="server" ID="NotifyItem"
                          Type="None"
                          DataToggle="dropdown"

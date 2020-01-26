@@ -433,7 +433,7 @@ namespace YAF.Controls
             this.PageContext.PageElements.RegisterJsBlockStartup(
                 "ForumIconLegendPopoverJs",
                 JavaScriptBlocks.ForumIconLegendPopoverJs(
-                    iconLegend.Replace("\n", string.Empty).Replace("\r", string.Empty),
+                    iconLegend.ToJsString(),
                     "forum-icon-legend-popvover"));
 
             base.OnPreRender(e);

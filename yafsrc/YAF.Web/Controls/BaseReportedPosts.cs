@@ -142,7 +142,7 @@ namespace YAF.Web.Controls
                                 @"<span class=""font-weight-bold"">{0}</span><a href=""{1}""> {2}</a> : {3}",
                                 this.GetText("RESOLVEDBY"),
                                 BuildLink.GetLink(
-                                    ForumPages.profile,
+                                    ForumPages.Profile,
                                     "u={0}&name={1}",
                                     this.ResolvedBy.ToType<int>(),
                                     resolvedByDisplayName),
@@ -157,7 +157,7 @@ namespace YAF.Web.Controls
                                     this.Get<IUserDisplayName>().GetName(reporter["UserID"].ToType<int>()))
                                 : this.Server.HtmlEncode(reporter["UserName"].ToString()),
                             BuildLink.GetLink(
-                                ForumPages.profile,
+                                ForumPages.Profile,
                                 "u={0}&name={1}",
                                 reporter["UserID"].ToType<int>(),
                                 reporter["UserName"].ToString()),

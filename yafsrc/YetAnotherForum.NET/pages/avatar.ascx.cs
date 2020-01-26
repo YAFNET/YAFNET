@@ -149,7 +149,7 @@ namespace YAF.Pages
                     else
                     {
                         link = BuildLink.GetLink(
-                            ForumPages.cp_editavatar,
+                            ForumPages.EditAvatar,
                             "av={0}",
                             this.Server.UrlEncode($"{directoryPath}/{encodedFileName}"));
                     }
@@ -265,7 +265,7 @@ namespace YAF.Pages
         protected void BtnCancel_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
             // Redirect to the edit avatar page
-            BuildLink.Redirect(ForumPages.cp_editavatar);
+            BuildLink.Redirect(ForumPages.EditAvatar);
         }
 
         /// <summary>
@@ -296,10 +296,10 @@ namespace YAF.Pages
             {
                 this.PageLinks.AddLink(
                     this.HtmlEncode(this.PageContext.PageUserName),
-                    BuildLink.GetLink(ForumPages.cp_profile));
+                    BuildLink.GetLink(ForumPages.Account));
                 this.PageLinks.AddLink(
-                    this.GetText("CP_EDITAVATAR", "TITLE"),
-                    BuildLink.GetLink(ForumPages.cp_editavatar));
+                    this.GetText("EDIT_AVATAR", "TITLE"),
+                    BuildLink.GetLink(ForumPages.EditAvatar));
             }
 
             this.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);

@@ -1,4 +1,4 @@
-﻿<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.profile" Codebehind="profile.ascx.cs" %>
+﻿<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Profile" Codebehind="Profile.ascx.cs" %>
 <%@ Import Namespace="YAF.Types.Constants" %>
 <%@ Import Namespace="YAF.Types.Extensions" %>
 <%@ Import Namespace="System.Data" %>

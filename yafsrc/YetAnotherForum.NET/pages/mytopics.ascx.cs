@@ -43,7 +43,7 @@ namespace YAF.Pages
     /// <summary>
     /// The my topics page.
     /// </summary>
-    public partial class mytopics : ForumPageRegistered
+    public partial class MyTopics : ForumPageRegistered
     {
         /// <summary>
         /// Indicates if the Active Tab was loaded
@@ -73,9 +73,9 @@ namespace YAF.Pages
         #region Constructors and Destructors
 
         /// <summary>
-        ///   Initializes a new instance of the mytopics class.
+        /// Initializes a new instance of the <see cref="MyTopics"/> class.
         /// </summary>
-        public mytopics()
+        public MyTopics()
             : base("MYTOPICS")
         {
         }
@@ -229,7 +229,7 @@ namespace YAF.Pages
 
                         if (this.UserTopicsTabTitle.Visible)
                         {
-                            this.MyTopics.DataBind();
+                            this.MyTopicsTopics.DataBind();
                             this.FavoriteTopics.DataBind();
                         }
 
@@ -248,7 +248,7 @@ namespace YAF.Pages
 
                         if (this.UserTopicsTabTitle.Visible)
                         {
-                            this.MyTopics.DataBind();
+                            this.MyTopicsTopics.DataBind();
                             this.FavoriteTopics.DataBind();
                         }
 
@@ -260,7 +260,7 @@ namespace YAF.Pages
 
                     if (!this.mytopicsLoaded)
                     {
-                        this.MyTopics.BindData();
+                        this.MyTopicsTopics.BindData();
 
                         this.ActiveTopics.DataBind();
                         this.UnansweredTopics.DataBind();
@@ -278,7 +278,7 @@ namespace YAF.Pages
                     }
                     else
                     {
-                        this.MyTopics.DataBind();
+                        this.MyTopicsTopics.DataBind();
 
                         this.ActiveTopics.DataBind();
                         this.UnansweredTopics.DataBind();
@@ -309,7 +309,7 @@ namespace YAF.Pages
 
                         if (this.UserTopicsTabTitle.Visible)
                         {
-                            this.MyTopics.DataBind();
+                            this.MyTopicsTopics.DataBind();
                         }
 
                         this.favoriteLoaded = true;
@@ -329,7 +329,7 @@ namespace YAF.Pages
 
                         if (this.UserTopicsTabTitle.Visible)
                         {
-                            this.MyTopics.DataBind();
+                            this.MyTopicsTopics.DataBind();
                             this.FavoriteTopics.DataBind();
                         }
 

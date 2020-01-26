@@ -259,11 +259,11 @@ namespace YAF.Controls
         {
             if (this.InModeratorMode)
             {
-                BuildLink.Redirect(ForumPages.profile, "u={0}", this.CurrentUserID);
+                BuildLink.Redirect(ForumPages.Profile, "u={0}", this.CurrentUserID);
             }
             else
             {
-                BuildLink.Redirect(ForumPages.cp_profile);
+                BuildLink.Redirect(ForumPages.Account);
             }
         }
 

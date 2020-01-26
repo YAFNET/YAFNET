@@ -365,7 +365,7 @@ namespace YAF.Controls
                         sb.AppendFormat(
                             @"<li><a id=""{0}"" href=""{1}""><u>{2}</u></a>",
                             userId,
-                            BuildLink.GetLink(ForumPages.profile, "u={0}&name={1}", userId, displayName),
+                            BuildLink.GetLink(ForumPages.Profile, "u={0}&name={1}", userId, displayName),
                             this.Get<HttpServerUtilityBase>().HtmlEncode(displayName));
 
                         // If showing thanks date is enabled, add it to the formatted string.
@@ -659,7 +659,7 @@ namespace YAF.Controls
                                                      TextLocalizedTag = "REMOVEBUDDY",
                                                      CssClass = "dropdown-item",
                                                      ReturnConfirmText = this.GetText(
-                                                         "CP_EDITBUDDIES",
+                                                         "FRIENDS",
                                                          "NOTIFICATION_REMOVE")
                                                  };
 

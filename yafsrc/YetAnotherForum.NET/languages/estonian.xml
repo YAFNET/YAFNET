@@ -76,20 +76,20 @@
     <Resource tag="ATTACHMENTS">Käsitleb manused</Resource>
     <Resource tag="AVATAR">Avab avatari</Resource>
     <Resource tag="COOKIES">Views the cookie policy page</Resource>
-    <Resource tag="CP_BLOCKOPTIONS">Edits his Ignored users and block option</Resource>
-    <Resource tag="CP_CHANGEPASSWORD">Muudab parooli</Resource>
-    <Resource tag="CP_DELETEACCOUNT">User deletes his account</Resource>
-    <Resource tag="CP_EDITALBUMIMAGES">Muudab albumi pildid</Resource>
-    <Resource tag="CP_EDITAVATAR">Muudab avatari</Resource>
-    <Resource tag="CP_EDITBUDDIES">Redigeerib sõpru</Resource>
-    <Resource tag="CP_EDITPROFILE">Muudab profiili</Resource>
-    <Resource tag="CP_EDITSETTINGS">Edit the user settings</Resource>
-    <Resource tag="CP_MESSAGE">Avab personaalsõnumid</Resource>
-    <Resource tag="CP_PM">Avab personaalsõnumid</Resource>
-    <Resource tag="CP_PROFILE">Avab profiili seaded</Resource>
+    <Resource tag="BLOCK_OPTIONS">Edits his Ignored users and block option</Resource>
+    <Resource tag="CHANGE_PASSWORD">Muudab parooli</Resource>
+    <Resource tag="DELETE_ACCOUNT">User deletes his account</Resource>
+    <Resource tag="EDIT_ALBUMIMAGES">Muudab albumi pildid</Resource>
+    <Resource tag="EDIT_AVATAR">Muudab avatari</Resource>
+    <Resource tag="FRIENDS">Redigeerib sõpru</Resource>
+    <Resource tag="EDIT_PROFILE">Muudab profiili</Resource>
+    <Resource tag="EDIT_SETTINGS">Edit the user settings</Resource>
+    <Resource tag="MESSAGE">Avab personaalsõnumid</Resource>
+    <Resource tag="PM">Avab personaalsõnumid</Resource>
+    <Resource tag="ACCOUNT">Avab profiili seaded</Resource>
     <Resource tag="CP_PROFILE_OFUSER">Avab kasutaja profiili</Resource>
-    <Resource tag="CP_SIGNATURE">Muudab allkirja</Resource>
-    <Resource tag="CP_SUBSCRIPTIONS">Avab infotellimused</Resource>
+    <Resource tag="EDIT_SIGNATURE">Muudab allkirja</Resource>
+    <Resource tag="SUBSCRIPTIONS">Avab infotellimused</Resource>
     <Resource tag="DELETEMESSAGE">Kustutab sõnumi</Resource>
     <Resource tag="EMAILTOPIC">Saadab teema e-posti teel</Resource>
     <Resource tag="ERROR">Kuvab veateate</Resource>
@@ -2471,7 +2471,7 @@
     <Resource tag="ZM">Zambia</Resource>
     <Resource tag="ZW">Zimbabwe</Resource>
   </page>
-  <page name="CP_BLOCKOPTIONS">
+  <page name="BLOCK_OPTIONS">
     <Resource tag="BLOCK_BUDDYS">Block Friend Requests</Resource>
     <Resource tag="BLOCK_BUDDYS">Block Private Messages</Resource>
     <Resource tag="BLOCK_EMAILS">Block E-Mails</Resource>
@@ -2483,7 +2483,7 @@
     <Resource tag="SELECT_OPTIONS">Options to Block other Users from Contacting you...</Resource>
     <Resource tag="TITLE">User Block Options &amp; Ignored Users</Resource>
   </page>
-  <page name="CP_CHANGEPASSWORD">
+  <page name="CHANGE_PASSWORD">
     <Resource tag="CHANGE_BUTTON">Saada</Resource>
     <Resource tag="CHANGE_SUCCESS">Parool on muudetud.</Resource>
     <Resource tag="CONFIRM_PASSWORD">Uue parooli kinnitus:</Resource>
@@ -2509,7 +2509,7 @@
     <Resource tag="TITLE">Parooli muutmine</Resource>
     <Resource tag="TITLE_SECURITY">Change Security Question and Answer</Resource>
   </page>
-  <page name="CP_DELETEACCOUNT">
+  <page name="DELETE_ACCOUNT">
     <Resource tag="CONFIRM">Are you absolutely sure you want to do this?</Resource>
     <Resource tag="OPTION_DELETE_TEXT">This will delete your account permanently! All your content will be deleted. After that your account can not be restored</Resource>
     <Resource tag="OPTION_DELETE_TITLE">Delete your Account (permanently)</Resource>
@@ -2518,7 +2518,7 @@
     <Resource tag="OPTIONS_TITLE">You have the option to...</Resource>
     <Resource tag="TITLE">Delete Your {0} Account</Resource>
   </page>
-  <page name="CP_EDITALBUMIMAGES">
+  <page name="EDIT_ALBUMIMAGES">
     <Resource tag="ALBUM_TITLE">Pealkiri</Resource>
     <Resource tag="ALBUMS">Albumid</Resource>
     <Resource tag="ALBUMS_COUNT_LIMIT">Te ei saa luua rohkem kui {0} albumit.</Resource>
@@ -2531,7 +2531,7 @@
     <Resource tag="SELECT_FILE">Select an Image File ('.jpg', '.gif', '.png' or '.bmp') you want to upload.</Resource>
     <Resource tag="TITLE">Lisa/muuda albumit</Resource>
   </page>
-  <page name="CP_EDITAVATAR">
+  <page name="EDIT_AVATAR">
     <Resource tag="AVATAR">Avatar</Resource>
     <Resource tag="AVATARCURRENT">Kehtiv avatar</Resource>
     <Resource tag="AVATARDELETE">Eemalda avatar</Resource>
@@ -2552,7 +2552,7 @@
     <Resource tag="WARN_SIZE">Pildi mõõtmed olid {0}x{1} pikselit.</Resource>
     <Resource tag="WARN_TOOBIG">Pildi mõõtmed ei tohi ületada {0}x{1} pikselit.</Resource>
   </page>
-  <page name="CP_EDITBUDDIES">
+  <page name="FRIENDS">
     <Resource tag="APPROVE">Võta vastu</Resource>
     <Resource tag="APPROVE_ADD">Võta vastu ja lisa</Resource>
     <Resource tag="APPROVE_ADD_ALL">Võta vastu ja lisa kõik</Resource>
@@ -2575,7 +2575,7 @@
     <Resource tag="YOUR_BUDDYLIST">Minu sõbrad</Resource>
     <Resource tag="YOUR_REQUESTS">Teie taotlused</Resource>
   </page>
-  <page name="CP_EDITPROFILE">
+  <page name="EDIT_PROFILE">
     <Resource tag="ABOUTYOU">Sinust</Resource>
     <Resource tag="ACTIVITY">Enable Activity Stream (If checked you get Notifications for Mentions, Quotes and Thanks.</Resource>
     <Resource tag="AIM">Your AIM Name:</Resource>
@@ -2633,16 +2633,16 @@
     <Resource tag="XMPP">Your Jabber ID:</Resource>
     <Resource tag="YIM">Your Yahoo ID:</Resource>
   </page>
-  <page name="CP_EDITSETTINGS">
+  <page name="EDIT_SETTINGS">
     <Resource tag="TITLE">Edit Settings</Resource>
   </page>
-  <page name="CP_MESSAGE">
+  <page name="MESSAGE">
     <Resource tag="INBOX">Postkast</Resource>
     <Resource tag="MSG_DELETED">Sõnum on kustutatud.</Resource>
     <Resource tag="POSTED">Postitatud:</Resource>
     <Resource tag="SENTITEMS">Saadetud</Resource>
   </page>
-  <page name="CP_PM">
+  <page name="PM">
     <Resource tag="ARCHIVE">Arhiiv</Resource>
     <Resource tag="ARCHIVEALL">Arhiveeri kõik</Resource>
     <Resource tag="ARCHIVESELECTED">Arhiveeri valitud</Resource>
@@ -2681,7 +2681,7 @@
     <Resource tag="TO_ASC">To A-Z</Resource>
     <Resource tag="TO_DESC">To Z-A</Resource>
   </page>
-  <page name="CP_PROFILE">
+  <page name="ACCOUNT">
     <Resource tag="ACTIVITY">Your Activity</Resource>
     <Resource tag="ARCHIVE">Arhiiv</Resource>
     <Resource tag="CHANGE_PASSWORD">Muuda parooli</Resource>
@@ -2722,7 +2722,7 @@
     <Resource tag="YOUR_USERDISPLAYNAME">Teistele kuvatav nimi:</Resource>
     <Resource tag="YOUR_USERNAME">Teie kasutajanimi:</Resource>
   </page>
-  <page name="CP_SIGNATURE">
+  <page name="EDIT_SIGNATURE">
     <Resource tag="BBCODE_ALLOWEDALL">Your signature can contain any BBCode.</Resource>
     <Resource tag="BBCODE_ALLOWEDLIST">You can use the following BBCodes: {0}.</Resource>
     <Resource tag="BBCODE_FORBIDDEN">BBCode allkirjas on keelatud.</Resource>
@@ -2738,7 +2738,7 @@
     <Resource tag="SIGNATURE_PREVIEW">Signature Preview</Resource>
     <Resource tag="TITLE">Muuda allkirja</Resource>
   </page>
-  <page name="CP_SUBSCRIPTIONS">
+  <page name="SUBSCRIPTIONS">
     <Resource tag="ALLTOPICS">Teavitus [b]kõikide postituste kõikides teemades[/b]</Resource>
     <Resource tag="DAILY_DIGEST">Kas saadan kokkuvõtte päevase aktiivsuse kohta?</Resource>
     <Resource tag="FORUM">Foorum</Resource>

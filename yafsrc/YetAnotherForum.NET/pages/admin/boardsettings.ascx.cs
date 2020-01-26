@@ -116,7 +116,7 @@ namespace YAF.Pages.Admin
 
             var notificationItems = items.Select(
                     x => new ListItem(
-                        HtmlHelper.StripHtml(this.GetText("CP_SUBSCRIPTIONS", x.Value)),
+                        HtmlHelper.StripHtml(this.GetText("SUBSCRIPTIONS", x.Value)),
                         x.Key.ToString()))
                 .ToArray();
 

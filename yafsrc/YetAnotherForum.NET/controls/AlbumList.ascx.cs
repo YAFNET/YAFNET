@@ -70,7 +70,7 @@ namespace YAF.Controls
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void AddAlbum_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
-            BuildLink.Redirect(ForumPages.cp_editalbumimages, "u={0}&a=new", this.UserID);
+            BuildLink.Redirect(ForumPages.EditAlbumImages, "u={0}&a=new", this.UserID);
         }
 
         /// <summary>
@@ -80,7 +80,7 @@ namespace YAF.Controls
         /// <param name="e">The <see cref="System.Web.UI.WebControls.RepeaterCommandEventArgs"/> instance containing the event data.</param>
         protected void Albums_ItemCommand([NotNull] object source, [NotNull] RepeaterCommandEventArgs e)
         {
-            BuildLink.Redirect(ForumPages.cp_editalbumimages, "a={0}", e.CommandArgument);
+            BuildLink.Redirect(ForumPages.EditAlbumImages, "a={0}", e.CommandArgument);
         }
 
         /// <summary>

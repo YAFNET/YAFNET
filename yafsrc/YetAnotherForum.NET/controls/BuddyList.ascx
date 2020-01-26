@@ -20,7 +20,7 @@
             <asp:PlaceHolder ID="pnlRemove" runat="server" Visible="false">
                 <YAF:ThemeButton ID="lnkRemove" runat="server"
                                  TextLocalizedTag="REMOVEBUDDY"
-                                 ReturnConfirmText='<%# this.GetText("CP_EDITBUDDIES", "NOTIFICATION_REMOVE") %>'
+                                 ReturnConfirmText='<%# this.GetText("FRIENDS", "NOTIFICATION_REMOVE") %>'
                                  CommandName="remove" CommandArgument='<%# this.Eval("UserID") %>'
                                  Size="Small"
                                  Type="Danger"
@@ -41,7 +41,7 @@
                                  Icon="check"/>
                 <YAF:ThemeButton runat="server"
                                  Size="Small"
-                                 ReturnConfirmText='<%# this.GetText("CP_EDITBUDDIES", "NOTIFICATION_DENY") %>'
+                                 ReturnConfirmText='<%# this.GetText("FRIENDS", "NOTIFICATION_DENY") %>'
                                  CommandName="deny" CommandArgument='<%# this.Eval("FromUserID") %>'
                                  TextLocalizedTag="DENY"
                                  Type="Danger"
@@ -58,19 +58,19 @@
             </ul>
             <asp:Panel CssClass="card-footer" runat="server" ID="Footer" Visible="False">
                 <YAF:ThemeButton ID="Button1" runat="server" 
-                                 ReturnConfirmText='<%# this.GetText("CP_EDITBUDDIES", "NOTIFICATION_APPROVEALL") %>'
+                                 ReturnConfirmText='<%# this.GetText("FRIENDS", "NOTIFICATION_APPROVEALL") %>'
                                  CommandName="approveall"
                                  TextLocalizedTag="APPROVE_ALL"
                                  Type="Secondary"
                                  Icon="check-double"/>
                 <YAF:ThemeButton ID="Button3" runat="server" 
-                                 ReturnConfirmText='<%# this.GetText("CP_EDITBUDDIES", "NOTIFICATION_APPROVEALLADD") %>'
+                                 ReturnConfirmText='<%# this.GetText("FRIENDS", "NOTIFICATION_APPROVEALLADD") %>'
                                  CommandName="approveaddall"
                                  TextLocalizedTag="APPROVE_ADD_ALL"
                                  Type="Secondary"
                                  Icon="check-double"/>
                 <YAF:ThemeButton ID="Button2" runat="server" 
-                                 ReturnConfirmText='<%# this.GetText("CP_EDITBUDDIES", "NOTIFICATION_REMOVE_OLD_UNAPPROVED")%>'
+                                 ReturnConfirmText='<%# this.GetText("FRIENDS", "NOTIFICATION_REMOVE_OLD_UNAPPROVED")%>'
                                  CommandName="denyall"
                                  TextLocalizedTag="DENY_ALL"
                                  Type="Secondary"

@@ -118,7 +118,7 @@ namespace YAF.Controls
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void CancelClick([NotNull] object sender, [NotNull] EventArgs e)
         {
-            BuildLink.Redirect(this.PageContext.CurrentForumPage.IsAdminPage ? ForumPages.admin_users : ForumPages.cp_profile);
+            BuildLink.Redirect(this.PageContext.CurrentForumPage.IsAdminPage ? ForumPages.admin_users : ForumPages.Account);
         }
 
         /// <summary>
@@ -309,7 +309,7 @@ namespace YAF.Controls
             if (this.Interests.Text.Trim().Length > 400)
             {
                 this.PageContext.AddLoadMessage(
-                    this.GetTextFormatted("FIELD_TOOLONG", this.GetText("CP_EDITPROFILE", "INTERESTS"), 400),
+                    this.GetTextFormatted("FIELD_TOOLONG", this.GetText("EDIT_PROFILE", "INTERESTS"), 400),
                     MessageTypes.warning);
 
                 return;
@@ -318,7 +318,7 @@ namespace YAF.Controls
             if (this.Occupation.Text.Trim().Length > 400)
             {
                 this.PageContext.AddLoadMessage(
-                    this.GetTextFormatted("FIELD_TOOLONG", this.GetText("CP_EDITPROFILE", "OCCUPATION"), 400),
+                    this.GetTextFormatted("FIELD_TOOLONG", this.GetText("EDIT_PROFILE", "OCCUPATION"), 400),
                     MessageTypes.warning);
 
                 return;
@@ -352,7 +352,7 @@ namespace YAF.Controls
 
             if (!this.PageContext.CurrentForumPage.IsAdminPage)
             {
-                BuildLink.Redirect(ForumPages.cp_profile);
+                BuildLink.Redirect(ForumPages.Account);
             }
             else
             {

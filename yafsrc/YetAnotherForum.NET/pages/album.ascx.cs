@@ -91,7 +91,7 @@ namespace YAF.Pages
             this.PageLinks.AddRoot();
             this.PageLinks.AddLink(
                 displayName,
-                BuildLink.GetLink(ForumPages.profile, "u={0}&name={1}", userId, displayName));
+                BuildLink.GetLink(ForumPages.Profile, "u={0}&name={1}", userId, displayName));
             this.PageLinks.AddLink(this.GetText("ALBUMS"), BuildLink.GetLink(ForumPages.albums, "u={0}", userId));
             this.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
 

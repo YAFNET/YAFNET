@@ -556,7 +556,7 @@ namespace YAF.Pages
 
             var dstUser = (CheckBox)this.CreateUserWizard1.FindWizardControlRecursive("DSTUser");
 
-            dstUser.Text = this.GetText("CP_EDITPROFILE", "DST");
+            dstUser.Text = this.GetText("EDIT_PROFILE", "DST");
 
             var facebookRegister = (ThemeButton)this.CreateUserWizard1.FindWizardControlRecursive("FacebookRegister");
             var twitterRegister = (ThemeButton)this.CreateUserWizard1.FindWizardControlRecursive("TwitterRegister");
