@@ -32,7 +32,7 @@
                                 <%# this.Eval( "FileName") %> <em>(<%# this.Eval("Bytes").ToType<int>() / 1024%> kb)</em>
                             
                                 <YAF:ThemeButton ID="ThemeButtonDelete" runat="server"
-                                                 CommandName='delete' CommandArgument='<%# this.Eval( "ID") %>' 
+                                                 CommandName="delete" CommandArgument='<%# this.Eval( "ID") %>' 
                                                  TitleLocalizedTag="DELETE" 
                                                  TextLocalizedTag="DELETE"
                                                  Icon="trash"
@@ -52,6 +52,7 @@
                                  OnClick="DeleteAttachments_Click"
                                  Icon="trash"
                                  Type="Danger"
+                                 Visible="<%# this.List.Items.Count > 0 %>"
                                  CssClass="m-3"/>
                 <YAF:Pager ID="PagerBottom" runat="server" LinkedPager="PagerTop" />
             </div>
