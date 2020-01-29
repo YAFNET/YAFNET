@@ -26,7 +26,7 @@
                 <div class="row">
                     <div class="col-auto d-none d-md-block">
                         <asp:Image runat="server" ID="Avatar" 
-                                   CssClass="rounded img-thumbnail img-avatar-sm" />
+                                   CssClass="img-avatar-sm" />
                     </div>
                     <div class="col-auto mr-auto">
                         <asp:PlaceHolder runat="server" ID="UserInfo">
@@ -53,24 +53,7 @@
                                                      TitleLocalizedTag="VOTE_DOWN_TITLE"
                                                      OnClick="RemoveUserReputation">
                                     </YAF:ThemeButton>
-                                    <asp:Label ID="TopicStarterBadge" runat="server" 
-                                               CssClass="badge badge-dark mb-2"
-                                               Visible='<%# this.DataRow.Field<int>("TopicOwnerID").Equals(this.PostData.UserId) %>'
-                                               ToolTip='<%# this.GetText("POSTS","TOPIC_STARTER_HELP") %>'>
-                                        <YAF:LocalizedLabel ID="TopicStarterText" runat="server" 
-                                                            LocalizedTag="TOPIC_STARTER" 
-                                                            LocalizedPage="POSTS" />
-                                    </asp:Label>
-                                    <asp:Label runat="server" CssClass="badge badge-success" ID="MessageIsAnswerBadge" 
-                                               Visible="<%# this.PostData.PostIsAnswer %>"
-                                               ToolTip='<%# this.GetText("POSTS","MESSAGE_ANSWER_HELP") %>'>
-                                        <i class="fas fa-check fa-fw"></i>
-                                        <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="MESSAGE_ANSWER" LocalizedPage="POSTS" />
-                                    </asp:Label>
-                                </li>
-
-                                <li class="list-inline-item d-none d-md-inline-block">
-                                    <span class="badge badge-secondary"><%# this.DataRow["RankName"]%></span>
+                                    
                                 </li>
                                 <asp:PlaceHolder runat="server" ID="IPHolder" Visible="False">
                                     <li class="list-inline-item d-none d-md-inline-block">
@@ -83,10 +66,28 @@
                                     </li>
                                 </asp:PlaceHolder>
                                 <asp:PlaceHolder runat="server" ID="UserReputation" Visible='<%#this.Get<BoardSettings>().DisplayPoints && !this.DataRow.Field<bool>("IsGuest") %>'>
-                                    <li class="d-none d-md-block">
+                                    <li class="list-inline-item d-none d-md-inline-block">
                                         <%# this.Get<IReputation>().GenerateReputationBar(this.DataRow["Points"].ToType<int>(), this.PostData.UserId) %>
                                     </li>
                                 </asp:PlaceHolder>
+
+                                <li class="list-inline-item d-block">
+                                    <span class="badge badge-secondary"><%# this.DataRow["RankName"]%></span>
+                                    <asp:Label ID="TopicStarterBadge" runat="server" 
+                                           CssClass="badge badge-dark mb-2"
+                                           Visible='<%# this.DataRow.Field<int>("TopicOwnerID").Equals(this.PostData.UserId) %>'
+                                           ToolTip='<%# this.GetText("POSTS","TOPIC_STARTER_HELP") %>'>
+                                    <YAF:LocalizedLabel ID="TopicStarterText" runat="server" 
+                                                        LocalizedTag="TOPIC_STARTER" 
+                                                        LocalizedPage="POSTS" />
+                                    </asp:Label>
+                                    <asp:Label runat="server" CssClass="badge badge-success" ID="MessageIsAnswerBadge" 
+                                           Visible="<%# this.PostData.PostIsAnswer %>"
+                                           ToolTip='<%# this.GetText("POSTS","MESSAGE_ANSWER_HELP") %>'>
+                                    <i class="fas fa-check fa-fw"></i>
+                                    <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="MESSAGE_ANSWER" LocalizedPage="POSTS" />
+                                    </asp:Label>
+                                </li>
                             </ul>
                         </asp:PlaceHolder>
                     </div>
