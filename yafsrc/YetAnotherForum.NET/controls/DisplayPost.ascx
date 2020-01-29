@@ -22,11 +22,11 @@
     <div class="row">
     <div class="col-xl-12">
         <div class="card mb-3">
-            <div class="card-header">
+            <div class="card-header py-1">
                 <div class="row">
                     <div class="col-auto d-none d-md-block">
                         <asp:Image runat="server" ID="Avatar" 
-                                   CssClass="img-avatar-sm" />
+                                   CssClass="img-avatar-sm mt-2" />
                     </div>
                     <div class="col-auto mr-auto">
                         <asp:PlaceHolder runat="server" ID="UserInfo">
@@ -70,7 +70,6 @@
                                         <%# this.Get<IReputation>().GenerateReputationBar(this.DataRow["Points"].ToType<int>(), this.PostData.UserId) %>
                                     </li>
                                 </asp:PlaceHolder>
-
                                 <li class="list-inline-item d-block">
                                     <span class="badge badge-secondary"><%# this.DataRow["RankName"]%></span>
                                     <asp:Label ID="TopicStarterBadge" runat="server" 
