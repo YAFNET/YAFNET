@@ -970,12 +970,12 @@
     <Compile Include="pages\emailtopic.ascx.designer.cs">
       <DependentUpon>emailtopic.ascx</DependentUpon>
     </Compile>
-    <Compile Include="controls\emaildigest.ascx.cs">
-      <DependentUpon>emaildigest.ascx</DependentUpon>
+    <Compile Include="controls\EmailDigest.ascx.cs">
+      <DependentUpon>EmailDigest.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="controls\emaildigest.ascx.designer.cs">
-      <DependentUpon>emaildigest.ascx</DependentUpon>
+    <Compile Include="controls\EmailDigest.ascx.designer.cs">
+      <DependentUpon>EmailDigest.ascx</DependentUpon>
     </Compile>
     <Compile Include="pages\error.ascx.designer.cs">
       <DependentUpon>error.ascx</DependentUpon>
@@ -2181,7 +2181,7 @@
     <Content Include="pages\Subscriptions.ascx" />
     <Content Include="pages\deletemessage.ascx" />
     <Content Include="pages\emailtopic.ascx" />
-    <Content Include="controls\emaildigest.ascx" />
+    <Content Include="controls\EmailDigest.ascx" />
     <Content Include="pages\error.ascx" />
     <Content Include="pages\forum.ascx" />
     <Content Include="pages\help\index.ascx" />
@@ -3715,7 +3715,7 @@ RD /S /Q "$(TargetDir)zh-TW\"</PostBuildEvent>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties bundleconfig_1json__JSONSchema="" compilerconfig_1json__JSONSchema="" />
+      <UserProperties compilerconfig_1json__JSONSchema="" bundleconfig_1json__JSONSchema="" />
     </VisualStudio>
   </ProjectExtensions>
   <Import Project="..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets" Condition="Exists('..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets')" />

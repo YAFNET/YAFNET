@@ -56,9 +56,9 @@ namespace YAF.Controls
     #endregion
 
     /// <summary>
-    /// The email_digest.
+    /// The Email Digest Control.
     /// </summary>
-    public partial class emaildigest : BaseUserControl
+    public partial class EmailDigest : BaseUserControl
     {
         #region Constants and Fields
 
@@ -142,7 +142,7 @@ namespace YAF.Controls
                 // flatten...
                 var topicsFlattened = this.forumData.SelectMany(x => x.Topics);
 
-                return topicsFlattened.Where(t => t.CreatedDate > DateTime.Now.AddHours(this.topicHours))
+                return topicsFlattened.Where(t => t.CreatedDate > DateTime.Now.AddHours(this.topicHours)).OrderByDescending(x => x.LastPostDate)
                     .GroupBy(x => x.Forum);
             }
         }
