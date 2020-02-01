@@ -164,7 +164,7 @@
                                                  DateTime='<%# this.DataRow["Posted"] %>'>
                             </YAF:DisplayDateTime>
                     </div>
-                    <div>
+                    <div style="margin-top: 1px">
                         <a id="post<%# this.DataRow["MessageID"] %>" 
                            href='<%# BuildLink.GetLink(ForumPages.posts,"m={0}#post{0}", this.DataRow["MessageID"]) %>'>
                             #<%# this.CurrentPage * this.Get<BoardSettings>().PostsPerPage + this.PostCount + 1%>
