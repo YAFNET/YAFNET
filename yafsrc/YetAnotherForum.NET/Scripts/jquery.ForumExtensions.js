@@ -53791,16 +53791,18 @@ function getSearchResultsData(pageNumber) {
     var titleOnly = jQuery(".titleOnly").val();
     var searchWhat = jQuery(".searchWhat").val();
 
+    var minimumLength = jQuery("#SearchResultsPlaceholder").data("minimum");
+
     // Forum Filter
     var searchForum = parseInt(jQuery(".searchForum").val());
 
     var searchText = "";
 
-    if (searchInput.length && searchInput.length >= 4 || searchInputUser.length && searchInputUser.length >= 3) {
+    if (searchInput.length && searchInput.length >= minimumLength || searchInputUser.length && searchInputUser.length >= 3) {
 
         var replace;
 
-        if (searchInput.length && searchInput.length >= 4) {
+        if (searchInput.length && searchInput.length >= minimumLength) {
             if (titleOnly === "1") {
                 // ADD Topic Filter
                 if (searchWhat === "0") {
