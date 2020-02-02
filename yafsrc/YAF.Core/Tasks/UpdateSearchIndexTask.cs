@@ -27,7 +27,6 @@ namespace YAF.Core.Tasks
 
     using System;
     using System.Globalization;
-    using System.Linq;
     using System.Threading;
 
     using YAF.Configuration;
@@ -52,7 +51,6 @@ namespace YAF.Core.Tasks
         public UpdateSearchIndexTask()
         {
             // set interval values...
-            this.RunPeriodMs = 3600000;
             this.StartDelayMs = 30000;
         }
 
