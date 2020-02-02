@@ -428,10 +428,10 @@ namespace YAF.Core.Services.Auth
 
             // save the settings...
             YafContext.Current.GetRepository<User>().SaveNotification(
-                 userId, 
-                true, 
-                autoWatchTopicsEnabled, 
-                YafContext.Current.Get<BoardSettings>().DefaultNotificationSetting, 
+                userId,
+                true,
+                autoWatchTopicsEnabled,
+                YafContext.Current.Get<BoardSettings>().DefaultNotificationSetting.ToInt(),
                 YafContext.Current.Get<BoardSettings>().DefaultSendDigestEmail);
 
             // save avatar

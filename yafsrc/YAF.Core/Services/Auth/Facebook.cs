@@ -44,7 +44,6 @@ namespace YAF.Core.Services.Auth
     using YAF.Types.Models;
     using YAF.Types.Objects;
     using YAF.Utils;
-    using YAF.Utils.Extensions;
     using YAF.Utils.Helpers;
 
     /// <summary>
@@ -558,7 +557,7 @@ namespace YAF.Core.Services.Auth
                 userId,
                 true,
                 autoWatchTopicsEnabled,
-                YafContext.Current.Get<BoardSettings>().DefaultNotificationSetting,
+                YafContext.Current.Get<BoardSettings>().DefaultNotificationSetting.ToInt(),
                 YafContext.Current.Get<BoardSettings>().DefaultSendDigestEmail);
 
             // save avatar

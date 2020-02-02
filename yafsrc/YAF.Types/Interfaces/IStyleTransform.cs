@@ -23,10 +23,27 @@
  */
 namespace YAF.Types.Interfaces
 {
+    using System.Collections.Generic;
     using System.Data;
 
+    using YAF.Types.Models;
+
+    /// <summary>
+    /// The StyleTransform interface.
+    /// </summary>
     public interface IStyleTransform
     {
+        /// <summary>
+        /// The decode style Group
+        /// </summary>
+        /// <param name="group">
+        /// The group.
+        /// </param>
+        /// <param name="colorOnly">
+        /// The color only.
+        /// </param>
+        void DecodeStyleByGroup(Group group, bool colorOnly = false);
+
         /// <summary>
         /// The decode style by row.
         /// </summary>
@@ -44,12 +61,12 @@ namespace YAF.Types.Interfaces
         /// <summary>
         /// The decode style by string.
         /// </summary>
-        /// <param name="styleStr">The style str.</param>
+        /// <param name="style">The style string.</param>
         /// <param name="colorOnly">The color only.</param>
         /// <returns>
         /// The decode style by string.
         /// </returns>
-        string DecodeStyleByString(string styleStr, bool colorOnly = false);
+        string DecodeStyleByString(string style, bool colorOnly = false);
 
         /// <summary>
         /// The decode style by table.
@@ -64,5 +81,16 @@ namespace YAF.Types.Interfaces
         /// The styleColumns can contain param array to handle several style columns.
         /// </param>
         void DecodeStyleByTable(DataTable dt, bool colorOnly = false, string[] styleColumns = null);
+
+        /// <summary>
+        /// Decode Groups Styles
+        /// </summary>
+        /// <param name="list">
+        /// The list.
+        /// </param>
+        /// <param name="colorOnly">
+        /// The color only.
+        /// </param>
+        void DecodeStyleByGroupList(List<Group> list, bool colorOnly = false);
     }
 }

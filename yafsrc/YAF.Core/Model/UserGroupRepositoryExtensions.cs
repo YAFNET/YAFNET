@@ -23,7 +23,9 @@
  */
 namespace YAF.Core.Model
 {
-    using System.Data;
+    using System.Collections.Generic;
+
+    using ServiceStack.OrmLite;
 
     using YAF.Types;
     using YAF.Types.Interfaces.Data;
@@ -37,22 +39,38 @@ namespace YAF.Core.Model
         #region Public Methods and Operators
 
         /// <summary>
-        /// The usergroup_list.
+        /// Gets the User Groups by User Id
         /// </summary>
-        /// <param name="userID">
-        /// The user id.
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="userId">
+        /// The user Id.
         /// </param>
         /// <returns>
+        /// The <see cref="List"/>.
         /// </returns>
-        public static DataTable ListAsDataTable(
-            this IRepository<UserGroup> repository, [NotNull] object userID)
+        public static List<Group> List(
+            this IRepository<UserGroup> repository, [NotNull] int userId)
         {
-            return repository.DbFunction.GetData.usergroup_list(UserID: userID);
+            CodeContracts.VerifyNotNull(repository, "repository");
+
+            var expression = OrmLiteConfig.DialectProvider.SqlExpression<UserGroup>();
+
+            expression.Join<Group>((a, b) => b.ID == a.GroupID)
+                .Where<UserGroup>((a) => a.UserID == userId)
+                .Select<Group>(b => b);
+
+            return repository.DbAccess.Execute(
+                db => db.Connection.Select<Group>(expression));
         }
 
         /// <summary>
-        /// The usergroup_save.
+        /// Saves the User Group
         /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
         /// <param name="userID">
         /// The user id.
         /// </param>

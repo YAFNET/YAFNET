@@ -38,7 +38,8 @@
 </div>
 
 <asp:PlaceHolder runat="server" id="IsHostAdminRow">
-    <div class="form-group">
+    <div class="form-row">
+    <div class="form-group col-md-6">
         <YAF:HelpLabel ID="HelpLabel15" runat="server" 
                        AssociatedControlID="Moderated"
                        LocalizedTag="MODERATE" LocalizedPage="ADMIN_EDITUSER" />
@@ -47,7 +48,7 @@
             <asp:CheckBox Text="&nbsp;" runat="server" ID="Moderated" />
         </div>
     </div>
-    <div class="form-group">
+    <div class="form-group col-md-6">
             <YAF:HelpLabel ID="HelpLabel5" runat="server" 
                            AssociatedControlID="IsHostAdminX"
                            LocalizedTag="USERINFO_HOST" LocalizedPage="ADMIN_EDITUSER" />
@@ -56,9 +57,11 @@
             <asp:CheckBox Text="&nbsp;" runat="server" ID="IsHostAdminX" />
         </div>
     </div>
+    </div>
     </asp:PlaceHolder>
+    <div class="form-row">
     <asp:PlaceHolder runat="server" id="IsCaptchaExcludedRow">
-        <div class="form-group">
+        <div class="form-group col-md-6">
             <YAF:HelpLabel ID="HelpLabel6" runat="server" 
                            AssociatedControlID="IsCaptchaExcluded"
                            LocalizedTag="USERINFO_EX_CAPTCHA" LocalizedPage="ADMIN_EDITUSER" />
@@ -69,7 +72,7 @@
     </div>
             </asp:PlaceHolder>
     <asp:PlaceHolder runat="server" id="IsExcludedFromActiveUsersRow">
-        <div class="form-group">
+        <div class="form-group col-md-6">
             <YAF:HelpLabel ID="HelpLabel7" runat="server" 
                            AssociatedControlID="IsExcludedFromActiveUsers"
                            LocalizedTag="USERINFO_EX_ACTIVE" LocalizedPage="ADMIN_EDITUSER" />
@@ -79,6 +82,7 @@
         </div>
     </div>
     </asp:PlaceHolder>
+    </div>
 <div class="form-group">
             <YAF:HelpLabel ID="HelpLabel8" runat="server" 
                            AssociatedControlID="IsApproved"

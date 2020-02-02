@@ -2465,6 +2465,16 @@ namespace YAF.Configuration
         }
 
         /// <summary>
+        /// Gets or sets a value indicating whether ForceDigestSend.
+        /// </summary>
+        public bool ForceUpdateSearchIndex
+        {
+            get => this._regBoard.GetValue("ForceUpdateSearchIndex", false);
+
+            set => this._regBoard.SetValue("ForceUpdateSearchIndex", value);
+        }
+
+        /// <summary>
         /// Gets or sets the board announcement.
         /// </summary>
         public string BoardAnnouncement

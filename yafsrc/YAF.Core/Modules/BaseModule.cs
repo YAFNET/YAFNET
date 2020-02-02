@@ -141,8 +141,7 @@ namespace YAF.Core
             var excludeList = exclude.IfNullEmpty().ToList();
 
             moduleFinder.RegisterAssemblyTypes(assemblies)
-                .Where(t => typeof(TModule).IsAssignableFrom(t) && !excludeList.Contains(t))
-                .As<IModule>();
+                .Where(t => typeof(TModule).IsAssignableFrom(t) && !excludeList.Contains(t)).As<IModule>();
 
             var builder = new ContainerBuilder();
 

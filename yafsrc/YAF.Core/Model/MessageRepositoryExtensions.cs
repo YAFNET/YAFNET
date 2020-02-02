@@ -210,38 +210,6 @@ namespace YAF.Core.Model
         }
 
         /// <summary>
-        /// Gets all messages by board as Typed Search Message List.
-        /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
-        /// <param name="boardId">
-        /// The board id.
-        /// </param>
-        /// <returns>
-        /// The <see cref="IEnumerable"/>.
-        /// </returns>
-        public static IEnumerable<SearchMessage> GetAllSearchMessagesByBoard(
-            this IRepository<Message> repository,
-            [NotNull]int boardId)
-        {
-            CodeContracts.VerifyNotNull(repository, "repository");
-
-            var forums = YafContext.Current.GetRepository<Forum>().List(boardId, null);
-
-            var messages = new List<SearchMessage>();
-
-            forums.ForEach(
-                forum =>
-                    {
-                        messages.AddRange(
-                            repository.GetAllSearchMessagesByForum(forum.ID));
-                    });
-
-            return messages;
-        }
-
-        /// <summary>
         /// Gets all messages by forum as Typed Search Message List.
         /// </summary>
         /// <param name="repository">

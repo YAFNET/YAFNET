@@ -356,14 +356,10 @@ namespace YAF.Pages
             }
             else
             {
-                var watch = this.GetRepository<WatchForum>().Check(this.PageContext.PageUserID, this.PageContext.PageForumID);
+                this.GetRepository<WatchForum>().Delete(
+                    w => w.ForumID == this.PageContext.PageForumID && w.UserID == this.PageContext.PageUserID);
 
-                if (watch != null)
-                {
-                    this.GetRepository<WatchForum>().DeleteById(watch.Value);
-
-                    this.PageContext.AddLoadMessage(this.GetText("INFO_UNWATCH_FORUM"), MessageTypes.success);
-                }
+                this.PageContext.AddLoadMessage(this.GetText("INFO_UNWATCH_FORUM"), MessageTypes.success);
             }
 
             this.HandleWatchForum();

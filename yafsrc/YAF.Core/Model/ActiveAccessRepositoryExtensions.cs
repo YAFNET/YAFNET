@@ -158,19 +158,6 @@ namespace YAF.Core.Model
         }
 
         /// <summary>
-        /// The usergroup_list.
-        /// </summary>
-        /// <param name="userId">
-        /// The user id.
-        /// </param>
-        /// <returns>
-        /// </returns>
-        public static DataTable ListAsDataTable(this IRepository<ActiveAccess> repository, [NotNull] object userId)
-        {
-            return repository.DbFunction.GetData.usergroup_list(UserID: userId);
-        }
-
-        /// <summary>
         /// Sets the Page Access for the specified user
         /// </summary>
         /// <param name="boardId">The board identifier.</param>

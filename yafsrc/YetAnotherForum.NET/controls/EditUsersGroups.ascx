@@ -8,22 +8,23 @@
 				<h2>
 					<YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="HEAD_USER_GROUPS" LocalizedPage="ADMIN_EDITUSER" />
                 </h2>
-			<hr />
-
-		</HeaderTemplate>
+			<div class="form-row">
+        </HeaderTemplate>
 		<ItemTemplate>
-			    <h6>
+              <div class="form-group col-md-4">
+			    <asp:Label runat="server" AssociatedControlID="GroupMember">
 			        <%# DataBinder.Eval(Container.DataItem, "Name") %>
-			    </h6>
+			    </asp:Label>
 				<div class="custom-control custom-switch">
 					<asp:CheckBox Text="&nbsp;" runat="server" ID="GroupMember" 
                                   Checked='<%# this.IsMember(DataBinder.Eval(Container.DataItem,"Member")) %>'/>
                 </div>
 					<asp:Label ID="GroupID" Visible="false" runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "GroupID") %>'></asp:Label>
+              </div>
         </ItemTemplate>
-        <SeparatorTemplate>
-            <hr/>
-        </SeparatorTemplate>
+       <FooterTemplate>
+           </div>
+       </FooterTemplate>
 	</asp:Repeater>
 	<hr/>
                 

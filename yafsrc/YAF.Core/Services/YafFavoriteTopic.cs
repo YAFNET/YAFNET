@@ -111,12 +111,6 @@ namespace YAF.Core.Services
             this.GetRepository<FavoriteTopic>().Insert(new FavoriteTopic { UserID = YafContext.Current.PageUserID, TopicID = topicId });
             this.ClearFavoriteTopicCache();
 
-            if (YafContext.Current.CurrentUserData.NotificationSetting == UserNotificationSetting.TopicsIPostToOrSubscribeTo)
-            {
-                // add to watches...
-                this.WatchTopic(YafContext.Current.PageUserID, topicId);
-            }
-
             return topicId;
         }
 
@@ -202,12 +196,6 @@ namespace YAF.Core.Services
             this.GetRepository<FavoriteTopic>().DeleteByUserAndTopic(YafContext.Current.PageUserID, topicId);
             this.ClearFavoriteTopicCache();
 
-            if (YafContext.Current.CurrentUserData.NotificationSetting == UserNotificationSetting.TopicsIPostToOrSubscribeTo)
-            {
-                // no longer watching this topic...
-                this.UnwatchTopic(YafContext.Current.PageUserID, topicId);
-            }
-
             return topicId;
         }
 
@@ -223,56 +211,6 @@ namespace YAF.Core.Services
             if (this._favoriteTopicList == null)
             {
                 this._favoriteTopicList = YafContext.Current.Get<YafDbBroker>().FavoriteTopicList(YafContext.Current.PageUserID);
-            }
-        }
-
-        /// <summary>
-        /// Returns true if the topic is set to watch for userId
-        /// </summary>
-        /// <param name="userId">
-        /// </param>
-        /// <param name="topicId">
-        /// The topic Id.
-        /// </param>
-        /// <returns>
-        /// The <see cref="int?"/>.
-        /// </returns>
-        private int? TopicWatchedId(int userId, int topicId)
-        {
-            return this.GetRepository<WatchTopic>().Check(userId, topicId);
-        }
-
-        /// <summary>
-        /// Checks if this topic is watched, if not, adds it.
-        /// </summary>
-        /// <param name="userId">
-        /// </param>
-        /// <param name="topicId">
-        /// The topic Id.
-        /// </param>
-        private void UnwatchTopic(int userId, int topicId)
-        {
-            var watchedId = this.TopicWatchedId(userId, topicId);
-
-            if (watchedId.HasValue)
-            {
-                this.GetRepository<WatchTopic>().DeleteById(watchedId.Value);
-            }
-        }
-
-        /// <summary>
-        /// Checks if this topic is watched, if not, adds it.
-        /// </summary>
-        /// <param name="userId">
-        /// </param>
-        /// <param name="topicId">
-        /// The topic Id.
-        /// </param>
-        private void WatchTopic(int userId, int topicId)
-        {
-            if (!this.TopicWatchedId(userId, topicId).HasValue)
-            {
-                this.GetRepository<WatchTopic>().Add(userId, topicId);
             }
         }
 

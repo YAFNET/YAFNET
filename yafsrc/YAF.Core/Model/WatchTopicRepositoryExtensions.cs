@@ -25,7 +25,10 @@
 namespace YAF.Core.Model
 {
     using System;
+    using System.Collections.Generic;
     using System.Data;
+
+    using ServiceStack.OrmLite;
 
     using YAF.Core.Extensions;
     using YAF.Types;
@@ -39,32 +42,35 @@ namespace YAF.Core.Model
     public static class WatchTopicRepositoryExtensions
     {
         /// <summary>
-        /// Adds the specified repository.
+        /// Add a new WatchTopic
         /// </summary>
         /// <param name="repository">The repository.</param>
-        /// <param name="userID">The user identifier.</param>
-        /// <param name="topicID">The topic identifier.</param>
-        public static void Add(this IRepository<WatchTopic> repository, int userID, int topicID)
+        /// <param name="userId">The user identifier.</param>
+        /// <param name="topicId">The topic identifier.</param>
+        public static void Add(this IRepository<WatchTopic> repository, int userId, int topicId)
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
-            if (repository.Check(userID, topicID).HasValue)
-            {
-                return;
-            }
-
-            repository.DbFunction.Query.watchtopic_add(UserID: userID, TopicID: topicID, UTCTIMESTAMP: DateTime.UtcNow);
+            repository.Insert(new WatchTopic { TopicID = topicId, UserID = userId, Created = DateTime.UtcNow });
 
             repository.FireNew();
         }
 
         /// <summary>
-        /// Checks the specified repository.
+        /// Checks if Watch Topic Exists and Returns WatchTopic ID
         /// </summary>
-        /// <param name="repository">The repository.</param>
-        /// <param name="userId">The user identifier.</param>
-        /// <param name="topicId">The topic identifier.</param>
-        /// <returns></returns>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="userId">
+        /// The user identifier.
+        /// </param>
+        /// <param name="topicId">
+        /// The topic identifier.
+        /// </param>
+        /// <returns>
+        /// The <see cref="int?"/>.
+        /// </returns>
         public static int? Check(this IRepository<WatchTopic> repository, int userId, int topicId)
         {
             CodeContracts.VerifyNotNull(repository, "repository");
@@ -75,16 +81,29 @@ namespace YAF.Core.Model
         }
 
         /// <summary>
-        /// Lists the specified repository.
+        /// List all Watch Topics by User
         /// </summary>
-        /// <param name="repository">The repository.</param>
-        /// <param name="userID">The user identifier.</param>
-        /// <returns></returns>
-        public static DataTable List(this IRepository<WatchTopic> repository, int userID)
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="userId">
+        /// The user identifier.
+        /// </param>
+        /// <returns>
+        /// The <see cref="List"/>.
+        /// </returns>
+        public static List<Tuple<WatchTopic, Topic>> List(this IRepository<WatchTopic> repository, int userId)
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
-            return repository.DbFunction.GetData.watchtopic_list(UserID: userID);
+            var expression = OrmLiteConfig.DialectProvider.SqlExpression<WatchTopic>();
+
+            expression.Join<Topic>((a, b) => b.ID == a.TopicID)
+                .Where<WatchTopic>((b) => b.UserID == userId)
+                .Select();
+
+            return repository.DbAccess.Execute(
+                db => db.Connection.SelectMulti<WatchTopic, Topic>(expression));
         }
     }
 }

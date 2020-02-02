@@ -126,7 +126,7 @@ namespace YAF.Pages
                 false);
 
             this.topiclist.DataSource = topicList;
-            this.UserList.DataSource = this.GetRepository<UserForum>().ListAsDataTable(null, this.PageContext.PageForumID);
+            this.UserList.DataSource = this.GetRepository<UserForum>().List(null, this.PageContext.PageForumID);
            
             if (topicList != null && topicList.HasRows())
             {

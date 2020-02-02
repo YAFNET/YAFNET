@@ -25,7 +25,9 @@
 namespace YAF.Core.Model
 {
     using System;
-    using System.Data;
+    using System.Collections.Generic;
+    
+    using ServiceStack.OrmLite;
 
     using YAF.Core.Extensions;
     using YAF.Types;
@@ -41,7 +43,7 @@ namespace YAF.Core.Model
         #region Public Methods and Operators
 
         /// <summary>
-        /// The add.
+        /// Add a new WatchForum
         /// </summary>
         /// <param name="repository">
         /// The repository.
@@ -56,12 +58,13 @@ namespace YAF.Core.Model
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
-            repository.DbFunction.Query.watchforum_add(UserID: userId, ForumID: forumId, UTCTIMESTAMP: DateTime.UtcNow);
+            repository.Insert(new WatchForum { ForumID = forumId, UserID = userId, Created = DateTime.UtcNow });
+
             repository.FireNew();
         }
 
         /// <summary>
-        /// The check.
+        /// Checks if Watch Forum Exists and Returns WatchForum ID
         /// </summary>
         /// <param name="repository">
         /// The repository.
@@ -85,7 +88,7 @@ namespace YAF.Core.Model
         }
 
         /// <summary>
-        /// The list as data table.
+        /// List all Watch Forums by User
         /// </summary>
         /// <param name="repository">
         /// The repository.
@@ -94,13 +97,20 @@ namespace YAF.Core.Model
         /// The user id.
         /// </param>
         /// <returns>
-        /// The <see cref="DataTable"/>.
+        /// The <see cref="List"/>.
         /// </returns>
-        public static DataTable ListAsDataTable(this IRepository<WatchForum> repository, int userId)
+        public static List<Tuple<WatchForum, Forum>> List(this IRepository<WatchForum> repository, int userId)
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
-            return repository.DbFunction.GetData.watchforum_list(UserID: userId);
+            var expression = OrmLiteConfig.DialectProvider.SqlExpression<WatchForum>();
+
+            expression.Join<Forum>((a, b) => b.ID == a.ForumID)
+                .Where<WatchForum>((b) => b.UserID == userId)
+                .Select();
+
+            return repository.DbAccess.Execute(
+                db => db.Connection.SelectMulti<WatchForum, Forum>(expression));
         }
 
         #endregion

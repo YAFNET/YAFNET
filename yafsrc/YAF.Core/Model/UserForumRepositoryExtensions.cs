@@ -25,10 +25,11 @@
 namespace YAF.Core.Model
 {
     using System;
-    using System.Data;
-
+    using System.Collections.Generic;
+    
     using ServiceStack.OrmLite;
 
+    using YAF.Core.Extensions;
     using YAF.Types;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
@@ -65,53 +66,90 @@ namespace YAF.Core.Model
         }
 
         /// <summary>
-        /// The userforum_list.
+        /// Gets the User (Moderator) Forum List
         /// </summary>
         /// <param name="repository">
         /// The repository.
         /// </param>
-        /// <param name="userID">
-        /// The user id.
+        /// <param name="userId">
+        /// The user Id.
         /// </param>
-        /// <param name="forumID">
-        /// The forum id.
+        /// <param name="forumId">
+        /// The forum Id.
         /// </param>
         /// <returns>
+        /// The <see cref="List"/>.
         /// </returns>
-        public static DataTable ListAsDataTable(
+        public static List<Tuple<User, UserForum, AccessMask>> List(
             this IRepository<UserForum> repository,
-            [NotNull] object userID,
-            [NotNull] object forumID)
+            [NotNull] int? userId,
+            [NotNull] int forumId)
         {
-            return repository.DbFunction.GetData.userforum_list(UserID: userID, ForumID: forumID);
+            CodeContracts.VerifyNotNull(repository, "repository");
+
+            var expression = OrmLiteConfig.DialectProvider.SqlExpression<User>();
+
+            if (userId.HasValue)
+            {
+                expression.Join<UserForum>((a, b) => b.UserID == a.ID)
+                    .Join<UserForum, AccessMask>((b, c) => c.ID == b.AccessMaskID)
+                    .Where<UserForum, User>((b, a) => b.ForumID == forumId && a.ID == userId)
+                    .Select<User, UserForum, AccessMask>((user, b, c) => new { user, b, c });
+            }
+            else
+            {
+                expression.Join<UserForum>((a, b) => b.UserID == a.ID).Join<UserForum, AccessMask>((b, c) => c.ID == b.AccessMaskID)
+                    .Where<UserForum>((b) => b.ForumID == forumId)
+                    .Select<User, UserForum, AccessMask>((user, b, c) => new { user, b, c });
+            }
+            
+            return repository.DbAccess.Execute(
+                db => db.Connection.SelectMulti<User, UserForum, AccessMask>(expression));
         }
 
         /// <summary>
-        /// The userforum_save.
+        /// Save the User Forum
         /// </summary>
         /// <param name="repository">
         /// The repository.
         /// </param>
-        /// <param name="userID">
+        /// <param name="userId">
         /// The user id.
         /// </param>
-        /// <param name="forumID">
+        /// <param name="forumId">
         /// The forum id.
         /// </param>
-        /// <param name="accessMaskID">
+        /// <param name="accessMaskId">
         /// The access mask id.
         /// </param>
         public static void Save(
             this IRepository<UserForum> repository,
-            [NotNull] object userID,
-            [NotNull] object forumID,
-            [NotNull] object accessMaskID)
+            [NotNull] int userId,
+            [NotNull] int forumId,
+            [NotNull] int accessMaskId)
         {
-            repository.DbFunction.Scalar.userforum_save(
-                UserID: userID,
-                ForumID: forumID,
-                AccessMaskID: accessMaskID,
-                UTCTIMESTAMP: DateTime.UtcNow);
+            var userForum = repository.GetSingle(x => x.UserID == userId && x.ForumID == forumId);
+
+            if (userForum != null)
+            {
+                // update
+                repository.UpdateOnly(
+                    () => new UserForum { AccessMaskID = accessMaskId },
+                    x => x.UserID == userId && x.ForumID == forumId);
+            }
+            else
+            {
+                // add
+                repository.Insert(
+                    new UserForum
+                        {
+                            AccessMaskID = accessMaskId,
+                            UserID = userId,
+                            ForumID = forumId,
+                            Invited = DateTime.UtcNow,
+                            Accepted = true
+                        });
+            }
         }
 
         #endregion

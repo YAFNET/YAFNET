@@ -900,7 +900,7 @@ namespace YAF.Core.Model
         /// <param name="repository">
         /// The repository.
         /// </param>
-        /// <param name="userID">
+        /// <param name="userId">
         /// The user id.
         /// </param>
         /// <param name="pmNotification">
@@ -917,18 +917,21 @@ namespace YAF.Core.Model
         /// </param>
         public static void SaveNotification(
             this IRepository<User> repository,
-            [NotNull] int userID,
+            [NotNull] int userId,
             [NotNull] bool pmNotification,
             [NotNull] bool autoWatchTopics,
-            [NotNull] object notificationType,
+            [CanBeNull] int? notificationType,
             [NotNull] bool dailyDigest)
         {
-            repository.DbFunction.Scalar.user_savenotification(
-                UserID: userID,
-                PMNotification: pmNotification,
-                AutoWatchTopics: autoWatchTopics,
-                NotificationType: notificationType,
-                DailyDigest: dailyDigest);
+            repository.UpdateOnly(
+                () => new User
+                          {
+                              PMNotification = pmNotification,
+                              AutoWatchTopics = autoWatchTopics,
+                              NotificationType = notificationType,
+                              DailyDigest = dailyDigest
+                          },
+                u => u.ID == userId);
         }
 
         /// <summary>

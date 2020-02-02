@@ -28,6 +28,7 @@ namespace YAF.Core.Extensions
   using System;
 
   using Autofac;
+  using Autofac.Builder;
   using Autofac.Core;
 
   using YAF.Types;

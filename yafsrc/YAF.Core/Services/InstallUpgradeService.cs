@@ -264,6 +264,12 @@ namespace YAF.Core.Services
                     this.GetRepository<Topic>().UnencodeAllTopicsSubjects(HttpUtility.HtmlDecode);
                 }
 
+                // initialize search index
+                if (this.Get<BoardSettings>().LastSearchIndexUpdated.IsNotSet())
+                {
+                    this.GetRepository<Registry>().Save("forceupdatesearchindex", "1");
+                }
+
                 // Check if BaseUrlMask is set and if not automatically write it
                 if (this.Get<BoardSettings>().BaseUrlMask.IsNotSet())
                 {

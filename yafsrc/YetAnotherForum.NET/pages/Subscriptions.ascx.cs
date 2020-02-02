@@ -157,7 +157,7 @@ namespace YAF.Pages
                 this.PageContext.PageUserID,
                 this.PMNotificationEnabled.Checked,
                 autoWatchTopicsEnabled,
-                this.rblNotificationType.SelectedValue,
+                this.rblNotificationType.SelectedValue.ToType<int>(),
                 this.DailyDigestEnabled.Checked);
 
             this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.PageContext.PageUserID));
@@ -241,18 +241,17 @@ namespace YAF.Pages
         /// </summary>
         private void BindData()
         {
-            var watchForums = this.GetRepository<WatchForum>().ListAsDataTable(this.PageContext.PageUserID).AsEnumerable();
+            var watchForums = this.GetRepository<WatchForum>().List(this.PageContext.PageUserID);
 
             this.ForumList.DataSource = watchForums;
-
 
             this.ForumsHolder.Visible = watchForums.Any();
 
             // we are going to page results
             var dt = this.GetRepository<WatchTopic>().List(this.PageContext.PageUserID);
 
-            // set pager and datasource
-            this.PagerTop.Count = dt.Rows.Count;
+            // set pager and data source
+            this.PagerTop.Count = dt.Count;
 
             // page to render
             var currentPageIndex = this.PagerTop.CurrentPageIndex;

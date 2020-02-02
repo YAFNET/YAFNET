@@ -107,7 +107,13 @@ namespace YAF.Core.UsersRoles
 
             try
             {
-                userID = YafContext.Current.GetRepository<User>().Aspnet(pageBoardID, user.UserName, displayName, user.Email, user.ProviderUserKey, user.IsApproved);
+                userID = YafContext.Current.GetRepository<User>().Aspnet(
+                    pageBoardID,
+                    user.UserName,
+                    displayName,
+                    user.Email,
+                    user.ProviderUserKey,
+                    user.IsApproved);
 
                 GetRolesForUser(user.UserName).ForEach(
                     role => YafContext.Current.GetRepository<User>().SetRole(
@@ -195,9 +201,8 @@ namespace YAF.Core.UsersRoles
         /// </returns>
         public static bool GroupInGroupTable([NotNull] string groupName, [NotNull] DataTable groupTable)
         {
-            return
-                groupTable.AsEnumerable()
-                    .Any(row => row["Member"].ToType<int>() == 1 && row["Name"].ToType<string>() == groupName);
+            return groupTable.AsEnumerable().Any(
+                row => row["Member"].ToType<int>() == 1 && row["Name"].ToType<string>() == groupName);
         }
 
         /// <summary>
@@ -267,11 +272,8 @@ namespace YAF.Core.UsersRoles
         public static void SyncAllMembershipUsers(int pageBoardId)
         {
             // get all users in membership...
-            var users =
-                YafContext.Current.Get<MembershipProvider>()
-                    .GetAllUsers(0, 999999, out _)
-                    .Cast<MembershipUser>()
-                    .Where(u => u != null && u.Email.IsSet());
+            var users = YafContext.Current.Get<MembershipProvider>().GetAllUsers(0, 999999, out _)
+                .Cast<MembershipUser>().Where(u => u != null && u.Email.IsSet());
 
             // create/update users...
             Parallel.ForEach(users, user => UpdateForumUser(user, pageBoardId));
@@ -338,7 +340,10 @@ namespace YAF.Core.UsersRoles
             if (user.ProviderUserKey == null)
             {
                 // problem -- log and move on...
-                YafContext.Current.Get<ILogger>().Log(userId, "UpdateForumUser", $"Null User Provider Key for UserName {user.UserName}. Please check your provider key settings for your ASP.NET membership provider.");
+                YafContext.Current.Get<ILogger>().Log(
+                    userId,
+                    "UpdateForumUser",
+                    $"Null User Provider Key for UserName {user.UserName}. Please check your provider key settings for your ASP.NET membership provider.");
 
                 return userId;
             }
@@ -346,7 +351,13 @@ namespace YAF.Core.UsersRoles
             // is this a new user?
             var isNewUser = userId <= 0;
 
-            userId = YafContext.Current.GetRepository<User>().Aspnet(pageBoardID, user.UserName, null, user.Email, user.ProviderUserKey, user.IsApproved);
+            userId = YafContext.Current.GetRepository<User>().Aspnet(
+                pageBoardID,
+                user.UserName,
+                null,
+                user.Email,
+                user.ProviderUserKey,
+                user.IsApproved);
 
             // get user groups...
             var groupTable = YafContext.Current.GetRepository<Group>().MemberAsDataTable(pageBoardID, userId);
@@ -359,12 +370,18 @@ namespace YAF.Core.UsersRoles
 
             if (Config.IsMojoPortal)
             {
-                var roles1 = userRoles.Where(t => t.IsSet()).Aggregate(string.Empty, (current, t) => $"{current.Trim()},{t.Trim()}");
+                var roles1 = userRoles.Where(t => t.IsSet()).Aggregate(
+                    string.Empty,
+                    (current, t) => $"{current.Trim()},{t.Trim()}");
                 userRoles = roles1.Trim(',').Split(',');
             }
 
             // add groups...
-            userRoles.Where(role => !GroupInGroupTable(role, groupTable)).ForEach(role => YafContext.Current.GetRepository<User>().SetRole(pageBoardID, user.ProviderUserKey.ToString(), role));
+            userRoles.Where(role => !GroupInGroupTable(role, groupTable)).ForEach(
+                role => YafContext.Current.GetRepository<User>().SetRole(
+                    pageBoardID,
+                    user.ProviderUserKey.ToString(),
+                    role));
 
             // remove groups...remove since there is no longer an association in the membership...
             groupTable.AsEnumerable().Where(row => !userRoles.Contains(row["Name"].ToString())).ForEach(
@@ -382,14 +399,23 @@ namespace YAF.Core.UsersRoles
                 var defaultSendDigestEmail = YafContext.Current.Get<BoardSettings>().DefaultSendDigestEmail;
 
                 // setup default notifications...
-                var autoWatchTopicsEnabled = defaultNotificationSetting == UserNotificationSetting.TopicsIPostToOrSubscribeTo;
+                var autoWatchTopicsEnabled =
+                    defaultNotificationSetting == UserNotificationSetting.TopicsIPostToOrSubscribeTo;
 
                 // save the settings...
-                YafContext.Current.GetRepository<User>().SaveNotification(userId, true, autoWatchTopicsEnabled, defaultNotificationSetting, defaultSendDigestEmail);
+                YafContext.Current.GetRepository<User>().SaveNotification(
+                    userId,
+                    true,
+                    autoWatchTopicsEnabled,
+                    defaultNotificationSetting.ToInt(),
+                    defaultSendDigestEmail);
             }
             catch (Exception ex)
             {
-                YafContext.Current.Get<ILogger>().Log(userId, "UpdateForumUser", $"Failed to save default notifications for new user: {ex}");
+                YafContext.Current.Get<ILogger>().Log(
+                    userId,
+                    "UpdateForumUser",
+                    $"Failed to save default notifications for new user: {ex}");
             }
 
             return userId;
@@ -426,8 +452,15 @@ namespace YAF.Core.UsersRoles
             do
             {
                 var password = Membership.GeneratePassword(7 + retry, 1 + retry);
-                user = YafContext.Current.Get<MembershipProvider>()
-                    .CreateUser(name, password, email, question, answer, approved, null, out status);
+                user = YafContext.Current.Get<MembershipProvider>().CreateUser(
+                    name,
+                    password,
+                    email,
+                    question,
+                    answer,
+                    approved,
+                    null,
+                    out status);
             }
             while (status == MembershipCreateStatus.InvalidPassword && ++retry < 10);
 
@@ -493,13 +526,18 @@ namespace YAF.Core.UsersRoles
 
                             if (status != MembershipCreateStatus.Success)
                             {
-                                YafContext.Current.Get<ILogger>()
-                                    .Log(0, "MigrateUsers", $"Failed to create user {name}: {status}");
+                                YafContext.Current.Get<ILogger>().Log(
+                                    0,
+                                    "MigrateUsers",
+                                    $"Failed to create user {name}: {status}");
                             }
                             else
                             {
                                 // update the YAF table with the ProviderKey -- update the provider table if this is the YAF provider...
-                                YafContext.Current.GetRepository<User>().Migrate(row["UserID"].ToType<int>(), user.ProviderUserKey.ToString(), isYafProvider);
+                                YafContext.Current.GetRepository<User>().Migrate(
+                                    row["UserID"].ToType<int>(),
+                                    user.ProviderUserKey.ToString(),
+                                    isYafProvider);
 
                                 user.Comment = "Migrated from YetAnotherForum.NET";
 
@@ -570,17 +608,16 @@ namespace YAF.Core.UsersRoles
                         else
                         {
                             // just update the link just in case...
-                            YafContext.Current.GetRepository<User>().Migrate(row["UserID"].ToType<int>(), user.ProviderUserKey.ToString(), false);
+                            YafContext.Current.GetRepository<User>().Migrate(
+                                row["UserID"].ToType<int>(),
+                                user.ProviderUserKey.ToString(),
+                                false);
                         }
 
                         // setup roles for this user...
-                        using (var dtGroups = YafContext.Current.GetRepository<UserGroup>().ListAsDataTable(row["UserID"]))
-                        {
-                            foreach (DataRow rowGroup in dtGroups.Rows)
-                            {
-                                AddUserToRole(user.UserName, rowGroup["Name"].ToString());
-                            }
-                        }
+                        var groups = YafContext.Current.GetRepository<UserGroup>().List(row.Field<int>("UserID"));
+
+                        groups.ForEach(group => AddUserToRole(user.UserName, @group.Name));
                     });
         }
 

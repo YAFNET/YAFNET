@@ -36,6 +36,7 @@ namespace YAF.Pages.Admin
     using YAF.Core.UsersRoles;
     using YAF.Types;
     using YAF.Types.Constants;
+    using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
     using YAF.Utils;
@@ -145,7 +146,7 @@ namespace YAF.Pages.Admin
                 UserMembershipHelper.GetUserIDFromProviderUserKey(user.ProviderUserKey),
                 true,
                 autoWatchTopicsEnabled,
-                this.Get<BoardSettings>().DefaultNotificationSetting,
+                this.Get<BoardSettings>().DefaultNotificationSetting.ToInt(),
                 this.Get<BoardSettings>().DefaultSendDigestEmail);
 
             // success

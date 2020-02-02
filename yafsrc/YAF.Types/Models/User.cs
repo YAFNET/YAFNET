@@ -132,6 +132,10 @@ namespace YAF.Types.Models
         public bool PMNotification { get; set; }
 
         [Required]
+        [Default(1)]
+        public bool AutoWatchTopics { get; set; }
+
+        [Required]
         [Default(0)]
         public bool DailyDigest { get; set; }
 

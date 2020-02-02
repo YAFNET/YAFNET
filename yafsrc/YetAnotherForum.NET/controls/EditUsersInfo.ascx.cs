@@ -159,9 +159,9 @@ namespace YAF.Controls
                 var row = dt.Rows[0];
                 var userFlags = new UserFlags(row["Flags"]);
 
-                this.Name.Text = (string)row["Name"];
+                this.Name.Text = row.Field<string>("Name");
                 this.DisplayName.Text = row.Field<string>("DisplayName");
-                this.Email.Text = row["Email"].ToString();
+                this.Email.Text = row.Field<string>("Email");
                 this.IsHostAdminX.Checked = userFlags.IsHostAdmin;
                 this.IsApproved.Checked = userFlags.IsApproved;
                 this.IsGuestX.Checked = userFlags.IsGuest;
@@ -169,11 +169,11 @@ namespace YAF.Controls
                 this.IsExcludedFromActiveUsers.Checked = userFlags.IsActiveExcluded;
                 this.Moderated.Checked = userFlags.Moderated;
                 this.Joined.Text = row["Joined"].ToString();
-                this.IsFacebookUser.Checked = row["IsFacebookUser"].ToType<bool>();
-                this.IsTwitterUser.Checked = row["IsTwitterUser"].ToType<bool>();
-                this.IsGoogleUser.Checked = row["IsGoogleUser"].ToType<bool>();
-                this.LastVisit.Text = row["LastVisit"].ToString();
-                var item = this.RankID.Items.FindByValue(row["RankID"].ToString());
+                this.IsFacebookUser.Checked = row.Field<bool>("IsFacebookUser");
+                this.IsTwitterUser.Checked = row.Field<bool>("IsTwitterUser");
+                this.IsGoogleUser.Checked = row.Field<bool>("IsGoogleUser");
+                this.LastVisit.Text = row.Field<string>("LastVisit");
+                var item = this.RankID.Items.FindByValue(row.Field<string>("RankID"));
 
                 if (item != null)
                 {

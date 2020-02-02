@@ -370,6 +370,20 @@ namespace YAF.Core.Extensions
         }
 
         /// <summary>
+        /// Returns true if the Query returns any records that match the supplied SqlExpression, E.g:
+        /// <para>db.Exists(db.From&lt;Person&gt;().Where(x =&gt; x.Age &lt; 50))</para>
+        /// </summary>
+        public static bool Exists<T>(
+            [NotNull] this IRepository<T> repository,
+            Expression<Func<T, bool>> where = null)
+            where T : class, IEntity, new()
+        {
+            CodeContracts.VerifyNotNull(repository, "repository");
+
+            return repository.DbAccess.Exists(where);
+        }
+
+        /// <summary>
         /// Counts the specified criteria.
         /// </summary>
         /// <typeparam name="T">The type parameter.</typeparam>

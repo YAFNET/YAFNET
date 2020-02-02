@@ -28,7 +28,7 @@ namespace YAF.Pages
 
     using System;
     using System.Collections.Generic;
-    using System.Data;
+    using System.Linq;
     using System.Web;
 
     using YAF.Configuration;
@@ -209,28 +209,28 @@ namespace YAF.Pages
                 return;
             }
 
-            using (var dt = this.GetRepository<UserForum>().ListAsDataTable(
-                this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u"),
-                this.PageContext.PageForumID))
+            var userForum = this.GetRepository<UserForum>().List(
+                this.Get<HttpRequestBase>().QueryString.GetFirstOrDefaultAsInt("u"),
+                this.Get<HttpRequestBase>().QueryString.GetFirstOrDefaultAsInt("f").Value).FirstOrDefault();
+
+            if (userForum == null)
             {
-                dt.AsEnumerable().ForEach(
-                    row =>
-                        {
-                            // set username and disable its editing
-                            this.UserName.Text = this.PageContext.BoardSettings.EnableDisplayName
-                                                     ? row["DisplayName"].ToString()
-                                                     : row["Name"].ToString();
-                            this.UserName.Enabled = false;
+                return;
+            }
 
-                            // we don't need to find users now
-                            this.FindUsers.Visible = false;
+            // set username and disable its editing
+            this.UserName.Text = this.PageContext.BoardSettings.EnableDisplayName
+                                     ? userForum.Item1.DisplayName
+                                     : userForum.Item1.Name;
+            this.UserName.Enabled = false;
 
-                            // get access mask for this user                
-                            if (this.AccessMaskID.Items.FindByValue(row["AccessMaskID"].ToString()) != null)
-                            {
-                                this.AccessMaskID.Items.FindByValue(row["AccessMaskID"].ToString()).Selected = true;
-                            }
-                        });
+            // we don't need to find users now
+            this.FindUsers.Visible = false;
+
+            // get access mask for this user                
+            if (this.AccessMaskID.Items.FindByValue(userForum.Item2.AccessMaskID.ToString()) != null)
+            {
+                this.AccessMaskID.Items.FindByValue(userForum.Item2.AccessMaskID.ToString()).Selected = true;
             }
         }
 
@@ -275,7 +275,10 @@ namespace YAF.Pages
             }
 
             // save permission
-            this.GetRepository<UserForum>().Save(userId.Value, this.PageContext.PageForumID, this.AccessMaskID.SelectedValue);
+            this.GetRepository<UserForum>().Save(
+                userId.Value,
+                this.PageContext.PageForumID,
+                this.AccessMaskID.SelectedValue.ToType<int>());
 
             // clear moderators cache
             this.Get<IDataCache>().Remove(Constants.Cache.ForumModerators);

@@ -27,6 +27,7 @@ namespace YAF.Controls
 
     using System;
     using System.Data;
+    using System.Linq;
     using System.Web.UI.WebControls;
 
     using YAF.Configuration;
@@ -106,8 +107,17 @@ namespace YAF.Controls
                 false,
                 false);
 
-            dt.AsEnumerable().Select(r => r["ForumID"].ToType<int>()).ForEach(
-                forumId => this.GetRepository<WatchForum>().Add(this.PageContext.PageUserID, forumId));
+            var watchForums = this.GetRepository<WatchForum>().List(this.PageContext.PageUserID);
+
+            dt.AsEnumerable().Select(r => r.Field<int>("ForumID")).ForEach(
+                forumId =>
+                    {
+                        if (!watchForums.Any(
+                                w => w.Item1.ForumID == forumId && w.Item1.UserID == this.PageContext.PageUserID))
+                        {
+                            this.GetRepository<WatchForum>().Add(this.PageContext.PageUserID, forumId);
+                        }
+                    });
 
             this.PageContext.AddLoadMessage(this.GetText("SAVED_NOTIFICATION_SETTING"), MessageTypes.success);
 

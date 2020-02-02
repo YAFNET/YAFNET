@@ -67,14 +67,14 @@ namespace YAF.Controls
     /// </summary>
     private void BindData()
     {
-      var dt = this.GetRepository<UserGroup>().ListAsDataTable(this.PageContext.PageUserID);
+      var groups = this.GetRepository<UserGroup>().List(this.PageContext.PageUserID);
 
       if (YafContext.Current.BoardSettings.UseStyledNicks)
       {
-        this.Get<IStyleTransform>().DecodeStyleByTable(dt, false);
+        this.Get<IStyleTransform>().DecodeStyleByGroupList(groups, false);
       }
 
-      this.Groups.DataSource = dt;
+      this.Groups.DataSource = groups;
 
       // Bind			
       this.DataBind();

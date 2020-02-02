@@ -75,10 +75,10 @@
                                 <ItemTemplate>
                                     <li class="list-group-item list-group-item-action">
                                         <asp:CheckBox ID="unsubf" runat="server" CssClass="custom-control custom-checkbox d-inline-block" Text="&nbsp;" />
-                                        <asp:Label ID="tfid" runat="server" Text='<%# Container.DataItemToField<int>("WatchForumID") %>'
+                                        <asp:Label ID="tfid" runat="server" Text='<%# this.Eval("Item1.ID") %>'
                                                Visible="false" />
-                                        <a href="<%# BuildLink.GetLinkNotEscaped(ForumPages.topics, "f={0}&name={1}",  Container.DataItemToField<int>("ForumID"), Container.DataItemToField<string>("ForumName"))%>">
-                                                <%# this.HtmlEncode(Container.DataItemToField<string>("ForumName"))%></a>
+                                        <a href="<%# BuildLink.GetLinkNotEscaped(ForumPages.topics, "f={0}&name={1}",  this.Eval("Item1.ForumID"), this.Eval("Item2.Name"))%>">
+                                                <%# this.HtmlEncode(this.Eval("Item2.Name"))%></a>
                                     </li>
                                 </ItemTemplate>
                             </asp:Repeater>
@@ -115,10 +115,10 @@
                                     <li class="list-group-item list-group-item-action">
                                         <asp:CheckBox ID="unsubx" runat="server" CssClass="custom-control custom-checkbox d-inline-block" Text="&nbsp;">
                                         </asp:CheckBox>
-                                        <asp:Label ID="ttid" runat="server" Text='<%# Container.DataItemToField<int>("WatchTopicID") %>'
+                                        <asp:Label ID="ttid" runat="server" Text='<%# this.Eval("Item1.ID") %>'
                                                Visible="false" />
-                                            <a href="<%# BuildLink.GetLinkNotEscaped(ForumPages.posts, "t={0}", Container.DataItemToField<int>("TopicID"))%>">
-                                                <%# this.HtmlEncode(Container.DataItemToField<string>("TopicName"))%></a>
+                                            <a href="<%# BuildLink.GetLinkNotEscaped(ForumPages.posts, "t={0}", this.Eval("Item1.TopicID"))%>">
+                                                <%# this.HtmlEncode(this.Eval("Item2.TopicName"))%></a>
                                     </li>
                                 </ItemTemplate>
                             </asp:Repeater>

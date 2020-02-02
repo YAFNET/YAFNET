@@ -503,7 +503,7 @@ namespace YAF.Core.Services.Auth
                 userId,
                 true,
                 autoWatchTopicsEnabled,
-                YafContext.Current.Get<BoardSettings>().DefaultNotificationSetting,
+                YafContext.Current.Get<BoardSettings>().DefaultNotificationSetting.ToInt(),
                 YafContext.Current.Get<BoardSettings>().DefaultSendDigestEmail);
 
             // save avatar

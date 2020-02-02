@@ -145,8 +145,7 @@ namespace YAF.Controls
                 var roleID = int.Parse(item.FindControlAs<Label>("GroupID").Text);
 
                 // get role name
-                var roleName = this.GetRepository<Group>().List(boardId: this.PageContext.PageBoardID, groupId: roleID)
-                    .FirstOrDefault().Name;
+                var roleName = this.GetRepository<Group>().GetById(roleID).Name;
 
                 // is user supposed to be in that role?
                 var isChecked = item.FindControlAs<CheckBox>("GroupMember").Checked;

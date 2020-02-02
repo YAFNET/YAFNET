@@ -268,8 +268,6 @@ namespace YAF.Types.Interfaces.Data
             return OrmLiteConfig.DialectProvider.GetQuotedTableName(ModelDefinition<T>.Definition);
         }
 
-        
-
         /// <summary>
         /// The run.
         /// </summary>
@@ -394,6 +392,17 @@ namespace YAF.Types.Interfaces.Data
                     updateFields,
                     OrmLiteConfig.DialectProvider.SqlExpression<T>().Where(where),
                     commandFilter));
+        }
+
+        /// <summary>
+        /// Returns true if the Query returns any records that match the supplied SqlExpression, E.g:
+        /// <para>db.Exists(db.From&lt;Person&gt;().Where(x =&gt; x.Age &lt; 50))</para>
+        /// </summary>
+        public static bool Exists<T>([NotNull] this IDbAccess dbAccess, Expression<Func<T, bool>> where = null)
+            where T : class, IEntity, new()
+        {
+            return dbAccess.Execute(
+                db => db.Connection.Exists(OrmLiteConfig.DialectProvider.SqlExpression<T>().Where(where)));
         }
 
         #endregion

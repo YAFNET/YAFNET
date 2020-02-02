@@ -27,6 +27,7 @@ namespace YAF.Core.Tasks
 
     using System;
     using System.Globalization;
+    using System.Linq;
     using System.Threading;
 
     using YAF.Configuration;
@@ -82,12 +83,12 @@ namespace YAF.Core.Tasks
                     return;
                 }
 
+                var forums = this.GetRepository<Forum>().List(YafContext.Current.PageBoardID, null);
+
                 if (!IsTimeToUpdateSearchIndex())
                 {
                     return;
                 }
-
-                var forums = this.GetRepository<Forum>().List(YafContext.Current.PageBoardID, null);
 
                 forums.ForEach(
                     forum =>
@@ -125,6 +126,19 @@ namespace YAF.Core.Tasks
             var boardSettings = (YafLoadBoardSettings)YafContext.Current.Get<BoardSettings>();
             var lastSend = DateTime.MinValue;
             var sendEveryXHours = boardSettings.UpdateSearchIndexEveryXHours;
+
+            if (boardSettings.ForceUpdateSearchIndex)
+            {
+                boardSettings.LastSearchIndexUpdated = DateTime.Now.ToString(CultureInfo.InvariantCulture);
+                boardSettings.ForceUpdateSearchIndex = false;
+
+                boardSettings.SaveRegistry();
+
+                // reload all settings from the DB
+                YafContext.Current.BoardSettings = null;
+
+                return true;
+            }
 
             if (boardSettings.LastSearchIndexUpdated.IsSet())
             {

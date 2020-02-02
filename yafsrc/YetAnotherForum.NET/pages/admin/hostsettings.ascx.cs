@@ -63,11 +63,8 @@ namespace YAF.Pages.Admin
         /// </param>
         protected void IndexSearch_OnClick(object sender, EventArgs e)
         {
-            var messages = this.GetRepository<Message>().GetAllSearchMessagesByBoard(YafContext.Current.PageBoardID).ToList();
-
-            this.Get<ISearch>().AddSearchIndexAsync(messages).Wait();
-
-            this.Get<ILogger>().Info($"search index force updated ({messages.Count} messages)");
+            this.Get<BoardSettings>().ForceUpdateSearchIndex = true;
+            ((YafLoadBoardSettings)YafContext.Current.BoardSettings).SaveRegistry();
         }
 
         /// <summary>

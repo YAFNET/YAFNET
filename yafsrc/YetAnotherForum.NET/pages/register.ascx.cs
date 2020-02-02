@@ -957,7 +957,7 @@ namespace YAF.Pages
                 userId, 
                 true, 
                 autoWatchTopicsEnabled, 
-                this.Get<BoardSettings>().DefaultNotificationSetting, 
+                this.Get<BoardSettings>().DefaultNotificationSetting.ToInt(), 
                 this.Get<BoardSettings>().DefaultSendDigestEmail);
         }
 

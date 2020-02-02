@@ -14,7 +14,7 @@
             </div>
             <div class="card-body">
                 
-    <asp:Repeater runat="server" ID="UserList" OnItemCommand="UserList_ItemCommand">
+    <asp:Repeater runat="server" ID="UserList" OnItemCommand="UserList_ItemCommand" >
         <HeaderTemplate>
             <ul class="list-group list-group-flush">
         </HeaderTemplate>
@@ -23,23 +23,23 @@
                 <span class="font-weight-bold">
                     <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="USER" LocalizedPage="MODERATE" />:
                 </span>
-                <%# this.Get<BoardSettings>().EnableDisplayName ? this.Eval("Name") : this.Eval("DisplayName") %>
+                <%#  this.Eval(this.Get<BoardSettings>().EnableDisplayName ? "Item1.Name" : "Item1.DisplayName") %>
                 <span class="font-weight-bold">
                     <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="ACCEPTED" LocalizedPage="MODERATE" />:
                 </span>
-                <%# this.Eval("Accepted") %>
+                <%# this.Eval("Item2.Accepted") %>
                 <span class="font-weight-bold">
                     <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="ACCESSMASK" LocalizedPage="MODERATE" />:
                 </span>
-                <%# this.Eval("Access") %>
+                <%# this.Eval("Item3.Name") %>
                 <YAF:ThemeButton ID="ThemeButtonEdit" runat="server" 
-                                 CommandName="edit" CommandArgument='<%# this.Eval("UserID") %>'
+                                 CommandName="edit" CommandArgument='<%# this.Eval("Item1.ID") %>'
                                  TitleLocalizedTag="EDIT" 
                                  Size="Small"
                                  Icon="edit"></YAF:ThemeButton>
                 <YAF:ThemeButton ID="ThemeButtonRemove" runat="server"
                                  ReturnConfirmText='<%#this.GetText("moderate", "confirm_delete_user") %>'
-                                 CommandName="remove" CommandArgument='<%# this.Eval("UserID") %>' 
+                                 CommandName="remove" CommandArgument='<%# this.Eval("Item1.ID") %>' 
                                  TitleLocalizedTag="REMOVE" 
                                  Size="Small"
                                  Type="Danger"
