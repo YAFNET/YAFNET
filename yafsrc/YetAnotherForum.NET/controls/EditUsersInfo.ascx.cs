@@ -172,8 +172,8 @@ namespace YAF.Controls
                 this.IsFacebookUser.Checked = row.Field<bool>("IsFacebookUser");
                 this.IsTwitterUser.Checked = row.Field<bool>("IsTwitterUser");
                 this.IsGoogleUser.Checked = row.Field<bool>("IsGoogleUser");
-                this.LastVisit.Text = row.Field<string>("LastVisit");
-                var item = this.RankID.Items.FindByValue(row.Field<string>("RankID"));
+                this.LastVisit.Text = row["LastVisit"].ToString();
+                var item = this.RankID.Items.FindByValue(row["RankID"].ToString());
 
                 if (item != null)
                 {
