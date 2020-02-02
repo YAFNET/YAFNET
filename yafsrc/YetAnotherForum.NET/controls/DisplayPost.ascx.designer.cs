@@ -87,42 +87,6 @@ namespace YAF.Controls
         protected global::YAF.Web.Controls.ThemeButton RemoveReputation;
 
         /// <summary>
-        /// TopicStarterBadge control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label TopicStarterBadge;
-
-        /// <summary>
-        /// TopicStarterText control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Web.Controls.LocalizedLabel TopicStarterText;
-
-        /// <summary>
-        /// MessageIsAnswerBadge control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label MessageIsAnswerBadge;
-
-        /// <summary>
-        /// LocalizedLabel2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel2;
-
-        /// <summary>
         /// IPHolder control.
         /// </summary>
         /// <remarks>
@@ -157,6 +121,42 @@ namespace YAF.Controls
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.PlaceHolder UserReputation;
+
+        /// <summary>
+        /// TopicStarterBadge control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label TopicStarterBadge;
+
+        /// <summary>
+        /// TopicStarterText control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Web.Controls.LocalizedLabel TopicStarterText;
+
+        /// <summary>
+        /// MessageIsAnswerBadge control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label MessageIsAnswerBadge;
+
+        /// <summary>
+        /// LocalizedLabel2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel2;
 
         /// <summary>
         /// ToolsHolder control.
