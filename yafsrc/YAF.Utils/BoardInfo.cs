@@ -29,6 +29,7 @@ namespace YAF.Utils
     using System.Linq;
     using System.Text;
     using System.Web;
+
     using YAF.Configuration;
     using YAF.Types;
     using YAF.Types.Constants;
@@ -87,7 +88,7 @@ namespace YAF.Utils
         /// <summary>
         /// Gets the Current YAF Database Version
         /// </summary>
-        public static int AppVersion => 74;
+        public static int AppVersion => 75;
 
         /// <summary>
         /// Gets the Current YAF Application Version
@@ -105,14 +106,14 @@ namespace YAF.Utils
                 const byte ReleaseNumber = 0;
 
                 var list = new List<int>
-                                      {
-                                          Major,
-                                          Minor,
-                                          Build,
-                                          Sub,
-                                          ReleaseType.ToType<int>(),
-                                          ReleaseNumber
-                                      };
+                               {
+                                   Major,
+                                   Minor,
+                                   Build,
+                                   Sub,
+                                   ReleaseType.ToType<int>(),
+                                   ReleaseNumber
+                               };
 
                 return list.SelectMany(BitConverter.GetBytes).ToArray();
             }
@@ -150,15 +151,9 @@ namespace YAF.Utils
 
             versionString.AppendFormat("{0}.{1}{2}", version.Major, version.Minor, version.Build);
 
-            if (version.Sub > 0)
-            {
-                versionString.AppendFormat(".{0}", version.Sub);
-            }
+            if (version.Sub > 0) versionString.AppendFormat(".{0}", version.Sub);
 
-            if (version.ReleaseType == ReleaseType.Regular)
-            {
-                return versionString.ToString();
-            }
+            if (version.ReleaseType == ReleaseType.Regular) return versionString.ToString();
 
             var number = version.ReleaseNumber >= 1
                              ? version.ReleaseNumber.ToString()
