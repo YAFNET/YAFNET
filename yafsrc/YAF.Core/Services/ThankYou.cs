@@ -24,8 +24,6 @@
 
 namespace YAF.Core.Services
 {
-    using System.Data;
-    using System.Linq;
     using System.Text;
     using System.Web;
 
@@ -35,7 +33,6 @@ namespace YAF.Core.Services
     using YAF.Core.UsersRoles;
     using YAF.Types;
     using YAF.Types.Constants;
-    using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
     using YAF.Types.Objects;
@@ -148,38 +145,38 @@ namespace YAF.Core.Services
         {
             var filler = new StringBuilder();
 
-            using (var dt = YafContext.Current.GetRepository<Thanks>().MessageGetThanksAsDataTable(messageId))
-            {
-                filler.Append("<ol>");
-                
-                dt.Rows.Cast<DataRow>().ForEach(dr =>
-                {
-                    var name = YafContext.Current.Get<BoardSettings>().EnableDisplayName
-                                   ? YafContext.Current.Get<HttpServerUtilityBase>()
-                                       .HtmlEncode(dr["DisplayName"].ToString())
-                                   : YafContext.Current.Get<HttpServerUtilityBase>().HtmlEncode(dr["Name"].ToString());
+            var thanks = YafContext.Current.GetRepository<Thanks>().MessageGetThanksList(messageId);
 
-                    // vzrus: quick fix for the incorrect link. URL rewriting don't work :(
-                    filler.AppendFormat(
-                        @"<li class=""list-inline-item""><a id=""{0}"" href=""{1}""><u>{2}</u></a>",
-                        dr["UserID"],
-                        BuildLink.GetLink(ForumPages.Profile, "u={0}&name={1}", dr["UserID"], name),
-                        name);
+            filler.Append("<ol>");
 
-                    if (YafContext.Current.Get<BoardSettings>().ShowThanksDate)
+            thanks.ForEach(
+                dr =>
                     {
+                        var name = YafContext.Current.Get<BoardSettings>().EnableDisplayName
+                                       ? YafContext.Current.Get<HttpServerUtilityBase>()
+                                           .HtmlEncode(dr.Item2.DisplayName)
+                                       : YafContext.Current.Get<HttpServerUtilityBase>().HtmlEncode(dr.Item2.Name);
+
+                        // vzrus: quick fix for the incorrect link. URL rewriting don't work :(
                         filler.AppendFormat(
-                            " {0}",
-                            YafContext.Current.Get<ILocalization>().GetTextFormatted(
-                                "ONDATE",
-                                YafContext.Current.Get<IDateTime>().FormatDateShort(dr["ThanksDate"])));
-                    }
+                            @"<li class=""list-inline-item""><a id=""{0}"" href=""{1}""><u>{2}</u></a>",
+                            dr.Item2.ID,
+                            BuildLink.GetLink(ForumPages.Profile, "u={0}&name={1}", dr.Item2.ID, name),
+                            name);
 
-                    filler.Append("</li>");
-                });
+                        if (YafContext.Current.Get<BoardSettings>().ShowThanksDate)
+                        {
+                            filler.AppendFormat(
+                                " {0}",
+                                YafContext.Current.Get<ILocalization>().GetTextFormatted(
+                                    "ONDATE",
+                                    YafContext.Current.Get<IDateTime>().FormatDateShort(dr.Item1.ThanksDate)));
+                        }
 
-                filler.Append("</ol>");
-            }
+                        filler.Append("</li>");
+                    });
+
+            filler.Append("</ol>");
 
             return filler.ToString();
         }

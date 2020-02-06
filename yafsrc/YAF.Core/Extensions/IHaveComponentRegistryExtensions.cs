@@ -131,6 +131,8 @@ namespace YAF.Core.Extensions
       containerBuilder.Update(haveComponentRegistry.ComponentRegistry);
     }
 
+
+
     #endregion
   }
 }

@@ -194,10 +194,19 @@ namespace YAF.Core.Model
         /// Returns the UserIDs and UserNames who have thanked the message
         ///   with the provided messageID.
         /// </returns>
-        public static DataTable MessageGetThanksAsDataTable(
+        public static List<Tuple<Thanks, User>> MessageGetThanksList(
             this IRepository<Thanks> repository, [NotNull] int messageId)
         {
-            return repository.DbFunction.GetData.message_getthanks(MessageID: messageId);
+            CodeContracts.VerifyNotNull(repository, "repository");
+
+            var expression = OrmLiteConfig.DialectProvider.SqlExpression<Thanks>();
+
+            expression.Join<User>((a, b) => a.ThanksFromUserID == b.ID).Where<Thanks>(b => b.MessageID == messageId)
+                .Select<Thanks, User>(
+                    (a, b) => new { UserID = a.ThanksFromUserID, a.ThanksDate, b.Name, b.DisplayName });
+
+            return repository.DbAccess.Execute(
+                db => db.Connection.SelectMulti<Thanks, User>(expression));
         }
 
         /// <summary>

@@ -445,8 +445,6 @@ namespace YAF.Web.Editors
 
             writer.Write("<div class=\"btn-group mt-1\" role =\"group\">");
 
-            RenderButton(writer, "SaveMessage()", this.GetText("COMMON", "TT_SAVE"), "save");
-
             writer.Write("</div>");
 
             writer.Write("</div>");

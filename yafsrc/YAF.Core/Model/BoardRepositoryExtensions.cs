@@ -279,29 +279,28 @@ namespace YAF.Core.Model
         }
 
         /// <summary>
-        /// The save.
+        /// Save Board Settings (Name, Culture and Language File)
         /// </summary>
         /// <param name="repository">The repository.</param>
-        /// <param name="boardID">The board id.</param>
+        /// <param name="boardId">The board id.</param>
         /// <param name="name">The name.</param>
         /// <param name="languageFile">The language file.</param>
         /// <param name="culture">The culture.</param>
         public static void Save(
             this IRepository<Board> repository,
-            int boardID,
+            int boardId,
             string name,
             string languageFile,
             string culture)
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
-            repository.DbFunction.Query.board_save(
-                BoardID: boardID,
-                Name: name,
-                LanguageFile: languageFile,
-                Culture: culture);
+            YafContext.Current.GetRepository<Registry>().Save("culture", culture, boardId);
+            YafContext.Current.GetRepository<Registry>().Save("language", languageFile, boardId);
 
-            repository.FireUpdated(boardID);
+            repository.UpdateOnly(() => new Board { Name = name }, board => board.ID == boardId);
+
+            repository.FireUpdated(boardId);
         }
 
         /// <summary>

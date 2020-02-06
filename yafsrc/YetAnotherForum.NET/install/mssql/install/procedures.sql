@@ -37,18 +37,6 @@ ELSE
 END
 GO
 
-CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}message_getthanks]
-    @MessageID int
-AS
-BEGIN
-    SELECT a.ThanksFromUserID as UserID, a.ThanksDate, b.Name, b.DisplayName
-    FROM [{databaseOwner}].[{objectQualifier}Thanks] a
-    Inner Join [{databaseOwner}].[{objectQualifier}User] b
-    ON (a.ThanksFromUserID = b.UserID) WHERE (MessageID=@MessageID)
-    ORDER BY a.ThanksDate DESC
-END
-GO
-
 CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}message_getallthanks]
     @MessageIDs varchar(max)
 AS
@@ -752,18 +740,6 @@ BEGIN
 END
 GO
 
-create procedure [{databaseOwner}].[{objectQualifier}board_save](@BoardID int,@Name nvarchar(50), @LanguageFile nvarchar(50),@Culture varchar(10)) as
-begin
-
-        EXEC [{databaseOwner}].[{objectQualifier}registry_save] 'culture', @Culture, @BoardID
-        EXEC [{databaseOwner}].[{objectQualifier}registry_save] 'language', @LanguageFile, @BoardID
-        update [{databaseOwner}].[{objectQualifier}Board] set
-        Name = @Name
-    where BoardID=@BoardID
-    select @BoardID
-end
-GO
-
 create procedure [{databaseOwner}].[{objectQualifier}board_stats]
     @BoardID	int = null
 as
@@ -883,13 +859,6 @@ BEGIN
 
     UPDATE [{databaseOwner}].[{objectQualifier}Choice] SET Votes = Votes + 1 WHERE ChoiceID = @ChoiceID
 END
-GO
-
-create procedure [{databaseOwner}].[{objectQualifier}eventlog_create](@UserID int,@Source nvarchar(50),@Description nvarchar(max),@Type int,@UTCTIMESTAMP datetime) as
-begin
-        insert into [{databaseOwner}].[{objectQualifier}EventLog](UserID,Source,[Description],[Type])
-    values(@UserID,@Source,@Description,@Type)
-end
 GO
 
 create procedure [{databaseOwner}].[{objectQualifier}eventlog_deletebyuser]
@@ -1104,16 +1073,6 @@ begin
     delete from [{databaseOwner}].[{objectQualifier}Forum] where ForumID = @ForumID
 end
 
-GO
-
-create procedure [{databaseOwner}].[{objectQualifier}forum_list](@BoardID int,@ForumID int=null) as
-begin
-    if @ForumID = 0 set @ForumID = null
-    if @ForumID is null
-        select a.* from [{databaseOwner}].[{objectQualifier}Forum] a join [{databaseOwner}].[{objectQualifier}Category] b on b.CategoryID=a.CategoryID where b.BoardID=@BoardID order by a.SortOrder
-    else
-        select a.* from [{databaseOwner}].[{objectQualifier}Forum] a join [{databaseOwner}].[{objectQualifier}Category] b on b.CategoryID=a.CategoryID where b.BoardID=@BoardID and a.ForumID = @ForumID
-end
 GO
 
 create procedure [{databaseOwner}].[{objectQualifier}forum_listpath](@ForumID int) as

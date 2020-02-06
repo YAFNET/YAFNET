@@ -112,10 +112,10 @@ namespace YAF.Core
         /// </returns>
         public IScopeServiceLocator CreateScope(object tag = null)
         {
-            var newLifetime =
-                this.Container.BeginLifetimeScope(
-                    tag,
-                    builder => builder.Register(c => c.Resolve<AutoFacServiceLocatorProvider>()).As<IScopeServiceLocator>().ExternallyOwned());
+            var newLifetime = this.Container.BeginLifetimeScope(
+                tag,
+                builder => builder.Register(c => c.Resolve<AutoFacServiceLocatorProvider>()).As<IScopeServiceLocator>()
+                    .ExternallyOwned());
 
             return newLifetime.Resolve<IScopeServiceLocator>();
         }
