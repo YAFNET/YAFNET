@@ -72,11 +72,10 @@ namespace YAF.Core.Modules
         {
             // data
             builder.RegisterType<DbAccessProvider>().As<IDbAccessProvider>().SingleInstance();
-            builder.Register(c => c.Resolve<IComponentContext>().Resolve<IDbAccessProvider>().Instance)
-                .As<IDbAccess>()
-                .InstancePerDependency()
+            builder.Register(c => c.Resolve<IComponentContext>().Resolve<IDbAccessProvider>().Instance).As<IDbAccess>()
+                .InstancePerDependency().PreserveExistingDefaults();
+            builder.Register((c, p) => DbProviderFactories.GetFactory(p.TypedAs<string>())).ExternallyOwned()
                 .PreserveExistingDefaults();
-            builder.Register((c, p) => DbProviderFactories.GetFactory(p.TypedAs<string>())).ExternallyOwned().PreserveExistingDefaults();
 
             builder.RegisterType<DynamicDbFunction>().As<IDbFunction>().InstancePerDependency();
 
@@ -113,25 +112,25 @@ namespace YAF.Core.Modules
         private static void RegisterGeneral(ContainerBuilder builder)
         {
             builder.Register(x => ExtensionAssemblies).Named<IList<Assembly>>("ExtensionAssemblies").SingleInstance();
-            builder.RegisterType<AutoFacServiceLocatorProvider>().AsSelf().As<IServiceLocator>().As<IInjectServices>().InstancePerLifetimeScope();
+            builder.RegisterType<AutoFacServiceLocatorProvider>().AsSelf().As<IServiceLocator>().As<IInjectServices>()
+                .InstancePerLifetimeScope();
 
             // YafContext registration...
-            builder.RegisterType<YafContextPageProvider>().AsSelf().As<IReadOnlyProvider<YafContext>>().SingleInstance().PreserveExistingDefaults();
-            builder.Register((k) => k.Resolve<IComponentContext>().Resolve<YafContextPageProvider>().Instance)
-                .ExternallyOwned()
+            builder.RegisterType<YafContextPageProvider>().AsSelf().As<IReadOnlyProvider<YafContext>>().SingleInstance()
                 .PreserveExistingDefaults();
+            builder.Register((k) => k.Resolve<IComponentContext>().Resolve<YafContextPageProvider>().Instance)
+                .ExternallyOwned().PreserveExistingDefaults();
 
             // Http Application Base
             builder.RegisterType<CurrentHttpApplicationStateBaseProvider>().SingleInstance().PreserveExistingDefaults();
-            builder.Register(k => k.Resolve<IComponentContext>().Resolve<CurrentHttpApplicationStateBaseProvider>().Instance)
-                .ExternallyOwned()
-                .PreserveExistingDefaults();
+            builder.Register(
+                    k => k.Resolve<IComponentContext>().Resolve<CurrentHttpApplicationStateBaseProvider>().Instance)
+                .ExternallyOwned().PreserveExistingDefaults();
 
             // Task Module
             builder.RegisterType<CurrentTaskModuleProvider>().SingleInstance().PreserveExistingDefaults();
             builder.Register(k => k.Resolve<IComponentContext>().Resolve<CurrentTaskModuleProvider>().Instance)
-                .ExternallyOwned()
-                .PreserveExistingDefaults();
+                .ExternallyOwned().PreserveExistingDefaults();
 
             builder.RegisterType<YafNntp>().As<INewsreader>().InstancePerLifetimeScope().PreserveExistingDefaults();
 
@@ -152,20 +151,21 @@ namespace YAF.Core.Modules
         private static void RegisterMembershipProviders(ContainerBuilder builder)
         {
             // membership
-            builder.RegisterType<CurrentMembershipProvider>().AsSelf().InstancePerLifetimeScope().PreserveExistingDefaults();
-            builder.Register(x => x.Resolve<IComponentContext>().Resolve<CurrentMembershipProvider>().Instance)
-                .ExternallyOwned()
+            builder.RegisterType<CurrentMembershipProvider>().AsSelf().InstancePerLifetimeScope()
                 .PreserveExistingDefaults();
+            builder.Register(x => x.Resolve<IComponentContext>().Resolve<CurrentMembershipProvider>().Instance)
+                .ExternallyOwned().PreserveExistingDefaults();
 
             // roles
             builder.RegisterType<CurrentRoleProvider>().AsSelf().InstancePerLifetimeScope().PreserveExistingDefaults();
-            builder.Register(x => x.Resolve<IComponentContext>().Resolve<CurrentRoleProvider>().Instance).ExternallyOwned().PreserveExistingDefaults();
+            builder.Register(x => x.Resolve<IComponentContext>().Resolve<CurrentRoleProvider>().Instance)
+                .ExternallyOwned().PreserveExistingDefaults();
 
             // profiles
-            builder.RegisterType<CurrentProfileProvider>().AsSelf().InstancePerLifetimeScope().PreserveExistingDefaults();
-            builder.Register(x => x.Resolve<IComponentContext>().Resolve<CurrentProfileProvider>().Instance)
-                .ExternallyOwned()
+            builder.RegisterType<CurrentProfileProvider>().AsSelf().InstancePerLifetimeScope()
                 .PreserveExistingDefaults();
+            builder.Register(x => x.Resolve<IComponentContext>().Resolve<CurrentProfileProvider>().Instance)
+                .ExternallyOwned().PreserveExistingDefaults();
         }
 
         /// <summary>
@@ -179,15 +179,11 @@ namespace YAF.Core.Modules
             var assemblies = ExtensionAssemblies.Concat(new[] { Assembly.GetExecutingAssembly() }).ToArray();
 
             // forum modules...
-            builder.RegisterAssemblyTypes(assemblies)
-                .AssignableTo<IBaseForumModule>()
-                .As<IBaseForumModule>()
+            builder.RegisterAssemblyTypes(assemblies).AssignableTo<IBaseForumModule>().As<IBaseForumModule>()
                 .InstancePerLifetimeScope();
 
             // editor modules...
-            builder.RegisterAssemblyTypes(assemblies)
-                .AssignableTo<ForumEditor>()
-                .As<ForumEditor>()
+            builder.RegisterAssemblyTypes(assemblies).AssignableTo<ForumEditor>().As<ForumEditor>()
                 .InstancePerLifetimeScope();
         }
 
@@ -201,9 +197,7 @@ namespace YAF.Core.Modules
         {
             var assemblies = ExtensionAssemblies.Concat(new[] { Assembly.GetExecutingAssembly() }).ToArray();
 
-            builder.RegisterAssemblyTypes(assemblies)
-                .AssignableTo<ILocatablePage>()
-                .AsImplementedInterfaces()
+            builder.RegisterAssemblyTypes(assemblies).AssignableTo<ILocatablePage>().AsImplementedInterfaces()
                 .SingleInstance();
         }
 

@@ -49,11 +49,12 @@ namespace YAF.Core.Modules
         {
             // register all the modules in this assembly first -- excluding this module
             this.RegisterBaseModules<IModule>(
+                builder,
                 new[] { Assembly.GetExecutingAssembly() },
                 new[] { typeof(BootstrapModule) });
 
             // register all the modules in scanned assemblies
-            this.RegisterBaseModules<IModule>(ExtensionAssemblies);
+            this.RegisterBaseModules<IModule>(builder, ExtensionAssemblies);
         }
     }
 }

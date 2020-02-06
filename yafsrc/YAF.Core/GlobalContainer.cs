@@ -44,7 +44,12 @@ namespace YAF.Core
         static GlobalContainer()
         {
             var container = CreateContainer();
-            ServiceLocatorAccess.CurrentServiceProvider = container.Resolve<IServiceLocator>();
+
+            using (var scope = container.BeginLifetimeScope())
+            {
+                ServiceLocatorAccess.CurrentServiceProvider = scope.Resolve<IServiceLocator>();
+            }
+
             Container = container;
         }
 
@@ -60,10 +65,10 @@ namespace YAF.Core
         #region Methods
 
         /// <summary>
-        /// The create container.
+        /// Create Container
         /// </summary>
         /// <returns>
-        /// The Autofac.IContainer.
+        /// The <see cref="IContainer"/>.
         /// </returns>
         private static IContainer CreateContainer()
         {

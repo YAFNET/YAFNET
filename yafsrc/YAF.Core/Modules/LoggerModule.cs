@@ -31,7 +31,6 @@ namespace YAF.Core.Modules
     using Autofac;
     using Autofac.Core;
 
-    using YAF.Core.Extensions;
     using YAF.Core.Services.Logger;
     using YAF.Types;
     using YAF.Types.Interfaces;
@@ -55,9 +54,10 @@ namespace YAF.Core.Modules
         {
             CodeContracts.VerifyNotNull(builder, "builder");
 
-            this.ComponentRegistry.Registered += (sender, e) => e.ComponentRegistration.Preparing += OnComponentPreparing;
+            builder.ComponentRegistryBuilder.Registered +=
+                (sender, e) => e.ComponentRegistration.Preparing += OnComponentPreparing;
 
-            if (this.IsRegistered<ILoggerProvider>())
+            if (builder.ComponentRegistryBuilder.IsRegistered(new TypedService(typeof(ILoggerProvider))))
             {
                 return;
             }
@@ -78,9 +78,8 @@ namespace YAF.Core.Modules
         private static void OnComponentPreparing([NotNull] object sender, [NotNull] PreparingEventArgs e)
         {
             var t = e.Component.Activator.LimitType;
-            e.Parameters =
-                e.Parameters.Union(
-                    new[]
+            e.Parameters = e.Parameters.Union(
+                new[]
                     {
                         new ResolvedParameter(
                             (p, i) => p.ParameterType == typeof(ILogger),
