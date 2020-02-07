@@ -34,6 +34,7 @@ namespace YAF.Core.Modules
     using YAF.Core.Extensions;
     using YAF.Types;
     using YAF.Types.Attributes;
+    using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
 
@@ -143,7 +144,7 @@ namespace YAF.Core.Modules
                                 break;
 
                             case ServiceLifetimeScope.InstancePerContext:
-                                built.InstancePerMatchingLifetimeScope(YafLifetimeScope.Context);
+                                built.InstancePerMatchingLifetimeScope(LifetimeScope.Context);
                                 break;
                         }
                     });

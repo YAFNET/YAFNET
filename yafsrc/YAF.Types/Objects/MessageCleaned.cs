@@ -21,7 +21,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types
+namespace YAF.Types.Objects
 {
     using System;
     using System.Collections.Generic;

@@ -17,14 +17,17 @@
             <asp:Repeater ID="MessageList" runat="server">
                 <ItemTemplate>
                     <div class="card-body">
-                        <YAF:MessagePostData ID="MessagePreview" runat="server" ShowAttachments="false" ShowSignature="false"
+                        <YAF:MessagePostData ID="MessagePreview" runat="server" 
+                                             ShowAttachments="false" 
+                                             ShowSignature="false"
                                              DataRow="<%# ((System.Data.DataRowView)Container.DataItem).Row %>">
                         </YAF:MessagePostData>
                     </div>
                     <div class="card-footer">
                         <small class="text-muted">
                             <YAF:LocalizedLabel ID="PostedByLabel" runat="server" LocalizedTag="POSTEDBY" />
-                            <YAF:UserLink ID="UserLink1" runat="server" UserID='<%# DataBinder.Eval(Container.DataItem, "UserID") %>' />
+                            <YAF:UserLink ID="UserLink1" runat="server" 
+                                          UserID='<%# DataBinder.Eval(Container.DataItem, "UserID") %>' />
                             <span class="fa-stack">
                                 <i class="fa fa-calendar-day fa-stack-1x text-secondary"></i>
                                 <i class="fa fa-circle fa-badge-bg fa-inverse fa-outline-inverse"></i>

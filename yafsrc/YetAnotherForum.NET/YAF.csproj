@@ -3350,7 +3350,6 @@
     </Content>
     <Content Include="Scripts\forum\yaf.MessageHistory.js" />
     <Content Include="Scripts\forum\yaf.Attachments.js" />
-    <Content Include="Scripts\README.md" />
     <None Include="Web References\RegisterV2\LatestVersionInformation.datasource">
       <DependentUpon>Reference.map</DependentUpon>
     </None>

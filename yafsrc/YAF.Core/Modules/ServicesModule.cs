@@ -39,6 +39,7 @@ namespace YAF.Core.Modules
     using YAF.Core.Services.Cache;
     using YAF.Core.Services.Startup;
     using YAF.Types;
+    using YAF.Types.Constants;
     using YAF.Types.Interfaces;
     using YAF.Utils;
 
@@ -114,7 +115,7 @@ namespace YAF.Core.Modules
 
             // builder.RegisterType<RewriteUrlBuilder>().Named<IUrlBuilder>("rewriter").InstancePerLifetimeScope();
             builder.RegisterType<StopWatch>().As<IStopWatch>()
-                .InstancePerMatchingLifetimeScope(YafLifetimeScope.Context).PreserveExistingDefaults();
+                .InstancePerMatchingLifetimeScope(LifetimeScope.Context).PreserveExistingDefaults();
 
             // localization registration...
             builder.RegisterType<LocalizationProvider>().InstancePerLifetimeScope().PreserveExistingDefaults();

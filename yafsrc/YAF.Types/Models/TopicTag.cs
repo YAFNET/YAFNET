@@ -21,33 +21,51 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Interfaces
+namespace YAF.Types.Models
 {
-  using System;
-  using System.Collections.Generic;
+    using System;
 
-  using YAF.Types.Objects;
+    using ServiceStack.DataAnnotations;
 
-  public interface IBadWordReplace
-  {
-    /// <summary>
-    ///   Gets ReplaceItems.
-    /// </summary>
-    IEnumerable<BadWordReplaceItem> ReplaceItems { get; }
+    using YAF.Types.Interfaces.Data;
 
     /// <summary>
-    /// Searches through SearchText and replaces "bad words" with "good words"
-    ///   as defined in the database.
+    /// A class which represents the TopicTag table.
     /// </summary>
-    /// <param name="searchText">
-    /// The string to search through.
-    /// </param>
-    /// <returns>
-    /// The replace.
-    /// </returns>
-    /// <exception cref="Exception">
-    /// <c>Exception</c>.
-    /// </exception>
-    string Replace([NotNull] string searchText);
-  }
+    [Serializable]
+
+    [UniqueConstraint(nameof(TopicID), nameof(TagID))]
+    public partial class TopicTag : IEntity
+    {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TopicTag"/> class.
+        /// </summary>
+        public TopicTag()
+        {
+            this.OnCreated();
+        }
+
+        #region Properties
+
+        /// <summary>
+        /// Gets or sets the tag id.
+        /// </summary>
+        [References(typeof(Tag))]
+        [Required]
+        public int TagID { get; set; }
+
+        /// <summary>
+        /// Gets or sets the topic id.
+        /// </summary>
+        [References(typeof(Topic))]
+        [Required]
+        public int TopicID { get; set; }
+
+        #endregion
+
+        /// <summary>
+        /// The on created.
+        /// </summary>
+        partial void OnCreated();
+    }
 }

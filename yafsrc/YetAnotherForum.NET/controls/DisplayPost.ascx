@@ -1,7 +1,6 @@
 ﻿<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Controls.DisplayPost" EnableViewState="false" Codebehind="DisplayPost.ascx.cs" %>
 <%@ Import Namespace="YAF.Types.Constants" %>
 <%@ Import Namespace="YAF.Types.Interfaces" %>
-<%@ Import Namespace="YAF.Types.Extensions" %>
 <%@ Import Namespace="ServiceStack" %>
 <%@ Import Namespace="System.Data" %>
 
@@ -66,8 +65,8 @@
                                     </li>
                                 </asp:PlaceHolder>
                                 <asp:PlaceHolder runat="server" ID="UserReputation" Visible='<%#this.Get<BoardSettings>().DisplayPoints && !this.DataRow.Field<bool>("IsGuest") %>'>
-                                    <li class="list-inline-item d-none d-md-inline-block">
-                                        <%# this.Get<IReputation>().GenerateReputationBar(this.DataRow["Points"].ToType<int>(), this.PostData.UserId) %>
+                                    <li class="list-inline-item d-none d-md-inline-block" style="width:150px">
+                                        <%# this.Get<IReputation>().GenerateReputationBar(this.DataRow.Field<int>("Points"), this.PostData.UserId) %>
                                     </li>
                                 </asp:PlaceHolder>
                                 <li class="list-inline-item d-block">

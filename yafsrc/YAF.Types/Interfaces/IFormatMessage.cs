@@ -28,6 +28,7 @@ namespace YAF.Types.Interfaces
 
     using YAF.Types;
     using YAF.Types.Flags;
+    using YAF.Types.Objects;
 
     /// <summary>
     /// The FormatMessage Interface

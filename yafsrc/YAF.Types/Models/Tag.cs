@@ -21,33 +21,49 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Interfaces
+
+namespace YAF.Types.Models
 {
-  using System;
-  using System.Collections.Generic;
+    using System;
 
-  using YAF.Types.Objects;
+    using ServiceStack.DataAnnotations;
 
-  public interface IBadWordReplace
-  {
-    /// <summary>
-    ///   Gets ReplaceItems.
-    /// </summary>
-    IEnumerable<BadWordReplaceItem> ReplaceItems { get; }
+    using YAF.Types.Interfaces.Data;
 
     /// <summary>
-    /// Searches through SearchText and replaces "bad words" with "good words"
-    ///   as defined in the database.
+    /// A class which represents the Tag table.
     /// </summary>
-    /// <param name="searchText">
-    /// The string to search through.
-    /// </param>
-    /// <returns>
-    /// The replace.
-    /// </returns>
-    /// <exception cref="Exception">
-    /// <c>Exception</c>.
-    /// </exception>
-    string Replace([NotNull] string searchText);
-  }
+    [Serializable]
+    [Alias("Tag")]
+    public partial class Tag : IEntity
+    {
+       /// <summary>
+        /// Initializes a new instance of the <see cref="Tag"/> class.
+        /// </summary>
+        public Tag()
+        {
+            this.OnCreated();
+        }
+
+        #region Properties
+
+        /// <summary>
+        /// Gets or sets the Tag id.
+        /// </summary>
+        [AutoIncrement]
+        public int TagID { get; set; }
+
+        /// <summary>
+        /// Gets or sets the tag name.
+        /// </summary>
+        [Required]
+        public string TagName { get; set; }
+
+        #endregion
+
+        /// <summary>
+        /// The on created.
+        /// </summary>
+        partial void OnCreated();
+    }
 }

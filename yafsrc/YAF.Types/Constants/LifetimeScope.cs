@@ -21,12 +21,12 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types
+namespace YAF.Types.Constants
 {
   /// <summary>
-  /// The yaf lifetime scope.
+  /// The lifetime scope.
   /// </summary>
-  public enum YafLifetimeScope
+  public enum LifetimeScope
   {
     /// <summary>
     ///   The root.

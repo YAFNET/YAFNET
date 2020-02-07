@@ -2,19 +2,35 @@ YetAnotherForum.NET Changelog
 ====================
 
 # YetAnotherForum.NET v2.3.1.00
+* [NEW] Sitemap.xml file with all Forums
+* [NEW #53] Option to lock In-Active Users
+* [NEW #216] Report Private Messages
+* [NEW #283] Global Board Announcement
 * [NEW #495] send all emails in html format witch forum layout
 * [NEW] layout for quote messages 
 * [NEW #477] Member based Post Moderating
 * [NEW] Context menus for admin pages (open with right click)
 * [CHANGES] Moved Forum Icon Legend in to a popover
 * [CHANGES] Upgraded to Bootstrap 4.4.1
+* [FIXED #249] Watch Topics/Forum Emails are not send in user language 
 
+# YetAnotherForum.NET v2.3.0.07
+* [FIXED #528] Topics view
+* [FIXED] csv user import commas inside quotes
+
+
+# YetAnotherForum.NET v2.3.0.06
+* Bug fixes
+
+# YetAnotherForum.NET v2.3.0.05
+* Bug fixes
 
 # YetAnotherForum.NET v2.3.0.04
 * [FIXED] selecting forum image
 * [FIXED #501] error after edit moderated post
 * [FIXED] sending multiple digest mails
 * [FIXED] deleting role
+* [FIXED] Similar Topics
 
 
 # YetAnotherForum.NET v2.3.0.03

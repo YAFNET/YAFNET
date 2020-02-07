@@ -27,6 +27,7 @@ namespace YAF.Types.Interfaces
 
     using System.Collections.Generic;
 
+    using YAF.Types.Constants;
     using YAF.Types.Interfaces.Data;
 
     #endregion
@@ -248,7 +249,7 @@ namespace YAF.Types.Interfaces
         {
             CodeContracts.VerifyNotNull(serviceLocator, "serviceLocator");
 
-            return serviceLocator.Tag == (object)YafLifetimeScope.Context;
+            return serviceLocator.Tag == (object)LifetimeScope.Context;
         }
 
         /// <summary>

@@ -28,6 +28,7 @@ namespace YAF.Core.Extensions
     using Autofac.Builder;
 
     using YAF.Types;
+    using YAF.Types.Constants;
 
     #endregion
 
@@ -58,7 +59,7 @@ namespace YAF.Core.Extensions
         {
             CodeContracts.VerifyNotNull(builder, "builder");
 
-            return builder.InstancePerMatchingLifetimeScope(YafLifetimeScope.Context);
+            return builder.InstancePerMatchingLifetimeScope(LifetimeScope.Context);
         }
 
         #endregion

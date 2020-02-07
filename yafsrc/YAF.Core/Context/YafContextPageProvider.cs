@@ -30,6 +30,7 @@ namespace YAF.Core
     using Autofac;
 
     using YAF.Types;
+    using YAF.Types.Constants;
     using YAF.Types.Interfaces;
 
     #endregion
@@ -116,7 +117,7 @@ namespace YAF.Core
         /// </returns>
         private YafContext CreateContextInstance()
         {
-            var lifetimeContainer = this._lifetimeScope.BeginLifetimeScope(YafLifetimeScope.Context);
+            var lifetimeContainer = this._lifetimeScope.BeginLifetimeScope(LifetimeScope.Context);
 
             var instance = new YafContext(lifetimeContainer);
             this._injectServices.Inject(instance);

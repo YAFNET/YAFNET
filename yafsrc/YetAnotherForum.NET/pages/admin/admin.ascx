@@ -335,7 +335,9 @@
             <ItemTemplate>
                 <tr>
                     <td>
-                        <YAF:UserLink ID="UnverifiedUserLink" UserID='<%# this.Eval("UserID") %>' Style='<%# this.Eval("Style") %>'
+                        <YAF:UserLink ID="UnverifiedUserLink" 
+                                      UserID='<%# this.Eval("UserID") %>' 
+                                      Style='<%# this.Eval("Style") %>'
                             runat="server" />
                     </td>
                     <td>

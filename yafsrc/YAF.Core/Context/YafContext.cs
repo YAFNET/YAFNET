@@ -60,11 +60,6 @@ namespace YAF.Core
         private readonly ILifetimeScope contextLifetimeContainer;
 
         /// <summary>
-        /// The repository.
-        /// </summary>
-        private readonly ContextVariableRepository repository;
-
-        /// <summary>
         /// The variables.
         /// </summary>
         private readonly TypeDictionary variables = new TypeDictionary();
@@ -104,7 +99,7 @@ namespace YAF.Core
             this.contextLifetimeContainer = contextLifetimeContainer;
 
             // init the repository
-            this.repository = new ContextVariableRepository(this.variables);
+            this.Globals = new ContextVariableRepository(this.variables);
 
             // init context...
             this.Init?.Invoke(this, new EventArgs());
@@ -161,7 +156,8 @@ namespace YAF.Core
         /// <summary>
         /// Gets the Instance of the Combined UserData for the current user.
         /// </summary>
-        public IUserData CurrentUserData => this.combinedUserData ?? (this.combinedUserData = new CombinedUserDataHelper());
+        public IUserData CurrentUserData =>
+            this.combinedUserData ?? (this.combinedUserData = new CombinedUserDataHelper());
 
         /// <summary>
         /// Gets the current page as the forumPage Enumerator (for comparison)
@@ -189,7 +185,7 @@ namespace YAF.Core
         /// <summary>
         /// Gets the Access to the Context Global Variable Repository Class which is a helper class that accesses YafContext.Vars with strongly typed properties for primary variables.
         /// </summary>
-        public ContextVariableRepository Globals => this.repository;
+        public ContextVariableRepository Globals { get; }
 
         /// <summary>
         /// Gets the current Page Load Message
@@ -317,9 +313,9 @@ namespace YAF.Core
 
             this.BeforeInit?.Invoke(this, new EventArgs());
 
-            if (this.User != null
-                && (this.Get<HttpSessionStateBase>()["UserUpdated"] == null
-                    || this.Get<HttpSessionStateBase>()["UserUpdated"].ToString() != this.User.UserName))
+            if (this.User != null && (this.Get<HttpSessionStateBase>()["UserUpdated"] == null
+                                      || this.Get<HttpSessionStateBase>()["UserUpdated"].ToString()
+                                      != this.User.UserName))
             {
                 RoleMembershipHelper.UpdateForumUser(this.User, this.PageBoardID);
                 this.Get<HttpSessionStateBase>()["UserUpdated"] = this.User.UserName;

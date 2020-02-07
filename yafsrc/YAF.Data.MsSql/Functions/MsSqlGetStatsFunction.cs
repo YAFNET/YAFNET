@@ -129,7 +129,6 @@ namespace YAF.Data.MsSql.Functions
             return true;
         }
 
-
         #endregion
 
         #region Methods
