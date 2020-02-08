@@ -654,12 +654,13 @@ namespace YAF.Pages
                     this.PollExpire.Text = null;
                 }
 
-                foreach (DataRow choiceRow in this._choices.Rows)
-                {
-                    choiceRow["ChoiceOrderID"] = existingRowsCount;
+                this._choices.Rows.Cast<DataRow>().ForEach(
+                    row =>
+                        {
+                            row["ChoiceOrderID"] = existingRowsCount;
 
-                    existingRowsCount++;
-                }
+                            existingRowsCount++;
+                        });
             }
             else
             {
@@ -1002,22 +1003,23 @@ namespace YAF.Pages
             var duplicateList = new ArrayList();
             var pollGroup = this.GetRepository<Poll>().PollGroupStatsAsDataTable(pollGroupId);
 
-            foreach (DataRow drow in pollGroup.Rows)
-            {
-                if (hashtable.Contains(drow["PollID"]))
-                {
-                    duplicateList.Add(drow);
-                }
-                else
-                {
-                    hashtable.Add(drow["PollID"], string.Empty);
-                }
-            }
+            pollGroup.Rows.Cast<DataRow>().ForEach(
+                row =>
+                    {
+                        if (hashtable.Contains(row["PollID"]))
+                        {
+                            duplicateList.Add(row);
+                        }
+                        else
+                        {
+                            hashtable.Add(row["PollID"], string.Empty);
+                        }
+                    });
 
-            foreach (DataRow dRow in duplicateList)
+            duplicateList.Cast<DataRow>().ForEach(row =>
             {
-                pollGroup.Rows.Remove(dRow);
-            }
+                pollGroup.Rows.Remove(row);
+            });
 
             pollGroup.AcceptChanges();
 

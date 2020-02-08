@@ -36,7 +36,7 @@ namespace YAF.Modules
     /// <summary>
     /// The BB Code UserLink Module
     /// </summary>
-    public class UserLinkBBCodeModule : YafBBCodeControl
+    public class UserLinkBBCodeModule : BBCodeControl
     {
         /// <summary>
         /// The render.

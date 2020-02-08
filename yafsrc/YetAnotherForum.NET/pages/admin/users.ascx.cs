@@ -106,7 +106,7 @@ namespace YAF.Pages.Admin
                         DBNull.Value))
                     {
                         // examine each if he's possible to delete
-                        foreach (DataRow row in dataTable.Rows)
+                        dataTable.Rows.Cast<DataRow>().ForEach(row =>
                         {
                             if (row["IsGuest"].ToType<int>() > 0)
                             {
@@ -120,15 +120,14 @@ namespace YAF.Pages.Admin
                             if ((row["IsAdmin"] == DBNull.Value || row["IsAdmin"].ToType<int>() <= 0)
                                 && (row["IsHostAdmin"] == DBNull.Value || row["IsHostAdmin"].ToType<int>() <= 0))
                             {
-                                continue;
+                               return;
                             }
 
                             // admin are not deletable either
                             this.PageContext.AddLoadMessage(
                                 this.GetText("ADMIN_USERS", "MSG_DELETE_ADMIN"),
                                 MessageTypes.danger);
-                            return;
-                        }
+                        });
                     }
 
                     // all is good, user can be deleted

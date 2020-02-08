@@ -147,10 +147,10 @@ namespace YAF.Pages
             }
 
             // we found a user(s)
-            foreach (DataRow row in usersFound.Rows)
+            usersFound.Rows.Cast<DataRow>().ForEach(row =>
             {
                 friendsString.AppendFormat("{0};", row["Name"]);
-            }
+            });
 
             this.To.Text = friendsString.ToString();
 

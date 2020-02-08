@@ -3209,7 +3209,6 @@
     </Content>
     <None Include="Content\InstallWizard.scss" />
     <None Include="Content\jsdifflib.scss" />
-    <Content Include="YafUploader.ashx" />
     <Content Include="Content\forum\Install\ladda.scss" />
     <Content Include="Content\Themes\cerulean\_bootswatch.scss" />
     <Content Include="Content\Themes\cerulean\_variables.scss" />
@@ -3287,7 +3286,6 @@
     <Content Include="Content\webfonts\fa-solid-900.woff" />
     <Content Include="Content\webfonts\fa-solid-900.woff2" />
     <Content Include="Content\Themes\yaf\_variables.scss" />
-    <Content Include="libman.json" />
     <Content Include="Content\Themes\yeti\bootstrap-forum.min.css.gz">
       <DependentUpon>bootstrap-forum.min.css</DependentUpon>
     </Content>
@@ -3358,7 +3356,6 @@
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
     <None Include="Web References\RegisterV2\RegisterV2.disco" />
-    <Content Include="YafWebService.asmx" />
     <Content Include="db.config">
       <SubType>Designer</SubType>
     </Content>
@@ -3714,7 +3711,7 @@ RD /S /Q "$(TargetDir)zh-TW\"</PostBuildEvent>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties compilerconfig_1json__JSONSchema="" bundleconfig_1json__JSONSchema="" />
+      <UserProperties bundleconfig_1json__JSONSchema="" compilerconfig_1json__JSONSchema="" />
     </VisualStudio>
   </ProjectExtensions>
   <Import Project="..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets" Condition="Exists('..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets')" />

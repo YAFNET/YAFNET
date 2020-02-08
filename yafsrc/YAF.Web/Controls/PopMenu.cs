@@ -26,7 +26,6 @@ namespace YAF.Web.Controls
     #region Using
 
     using System.Collections.Generic;
-    using System.Linq;
     using System.Text;
     using System.Web.UI;
     using System.Web.UI.WebControls;
@@ -137,30 +136,6 @@ namespace YAF.Web.Controls
         }
 
         /// <summary>
-        /// Add a item with a client script and post back option. (Use {postbackcode} in the <paramref name="clientScript"/> code for the postback code.)
-        /// </summary>
-        /// <param name="description">
-        /// The description.
-        /// </param>
-        /// <param name="argument">
-        /// post back argument
-        /// </param>
-        /// <param name="clientScript">
-        /// The client script.
-        /// </param>
-        /// <param name="icon">
-        /// The icon.
-        /// </param>
-        public void AddClientScriptItemWithPostback(
-            [NotNull] string description,
-            [NotNull] string argument,
-            [NotNull] string clientScript,
-            string icon)
-        {
-            this.items.Add(new InternalPopMenuItem(description, argument, clientScript, icon));
-        }
-
-        /// <summary>
         /// The add post back item.
         /// </summary>
         /// <param name="argument">
@@ -189,17 +164,6 @@ namespace YAF.Web.Controls
         public void AddPostBackItem([NotNull] string argument, [NotNull] string description, [NotNull] string icon)
         {
             this.items.Add(new InternalPopMenuItem(description, argument, null, icon));
-        }
-
-        /// <summary>
-        /// The remove post back item.
-        /// </summary>
-        /// <param name="argument">
-        /// The argument.
-        /// </param>
-        public void RemovePostBackItem([NotNull] string argument)
-        {
-            this.items.Where(item => item.PostBackArgument == argument).ForEach(item => this.items.Remove(item));
         }
 
         #endregion

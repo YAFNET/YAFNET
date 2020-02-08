@@ -30,7 +30,7 @@ namespace YAF.Modules
   /// <summary>
   /// The example bb code module.
   /// </summary>
-  public class ExampleBBCodeModule : YafBBCodeControl
+  public class ExampleBBCodeModule : BBCodeControl
   {
       /// <summary>
     /// The render.

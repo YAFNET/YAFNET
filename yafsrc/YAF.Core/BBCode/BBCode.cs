@@ -50,7 +50,7 @@ namespace YAF.Core.BBCode
     /// <summary>
     /// Yaf BBCode Class to Format Message From BB Code to HTML and Reverse.
     /// </summary>
-    public class YafBBCode : IBBCode, IHaveServiceLocator
+    public class BBCode : IBBCode, IHaveServiceLocator
     {
         /* Ederon : 6/16/2007 - conventions */
 
@@ -308,7 +308,7 @@ namespace YAF.Core.BBCode
         #region Constructors and Destructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="YafBBCode"/> class.
+        /// Initializes a new instance of the <see cref="BBCode"/> class.
         /// </summary>
         /// <param name="serviceLocator">
         /// The service locator.
@@ -316,7 +316,7 @@ namespace YAF.Core.BBCode
         /// <param name="processReplaceRulesFactory">
         /// The process replace rules factory.
         /// </param>
-        public YafBBCode(
+        public BBCode(
             IServiceLocator serviceLocator,
             Func<IEnumerable<bool>, IProcessReplaceRules> processReplaceRulesFactory)
         {
@@ -343,7 +343,7 @@ namespace YAF.Core.BBCode
         /// <summary>
         /// Gets CustomBBCode.
         /// </summary>
-        protected IDictionary<BBCode, Regex> CustomBBCode
+        protected IDictionary<Types.Models.BBCode, Regex> CustomBBCode
         {
             get
             {
@@ -418,7 +418,7 @@ namespace YAF.Core.BBCode
 
                         // create/render the control...
                         var module = BuildManager.GetType(codeRow.ModuleClass, true, false);
-                        var customModule = (YafBBCodeControl)Activator.CreateInstance(module);
+                        var customModule = (BBCodeControl)Activator.CreateInstance(module);
 
                         // assign parameters...
                         customModule.CurrentMessageFlags = flags;
@@ -508,7 +508,7 @@ namespace YAF.Core.BBCode
         }
 
         /// <summary>
-        /// Creates the rules that convert <see cref="YafBBCode" /> to HTML
+        /// Creates the rules that convert <see cref="BBCode" /> to HTML
         /// </summary>
         /// <param name="ruleEngine">The rule Engine.</param>
         /// <param name="isHtml">if set to <c>true</c> [is HTML].</param>
@@ -798,7 +798,7 @@ namespace YAF.Core.BBCode
         }
 
         /// <summary>
-        /// Creates the rules that convert HTML to <see cref="YafBBCode"/>
+        /// Creates the rules that convert HTML to <see cref="BBCode"/>
         /// </summary>
         /// <param name="ruleEngine">
         /// The rule Engine.
@@ -845,7 +845,13 @@ namespace YAF.Core.BBCode
                     @"<span style=""font-size:(?<size>(.*?))px;"">(?<inner>(.*?))</span>",
                     "[size=${size}]${inner}[/size]",
                     Options,
-                    new[] { "size" }) { RuleRank = 10 });
+                    new[]
+                        {
+                            "size"
+                        })
+                    {
+                        RuleRank = 10
+                    });
 
             // font
             ruleEngine.AddRule(
@@ -995,7 +1001,10 @@ namespace YAF.Core.BBCode
                     @"<a.*?href=""(?<inner>(.*?))"".*?>(?<description>(.*?))</a>",
                     "[url=${inner}]${description}[/url]",
                     Options,
-                    new[] { "description" }) { RuleRank = 2 });
+                    new[]
+                        {
+                            "description"
+                        }) { RuleRank = 2 });
 
             // e-mails
             ruleEngine.AddRule(
@@ -1003,7 +1012,10 @@ namespace YAF.Core.BBCode
                     @"<a.*?href=""mailto:(?<email>(.*?))"".*?>(?<inner>(.*?))</a>",
                     "[email=${email}]${inner}[/email]",
                     Options,
-                    new[] { "email" }) { RuleRank = 1 });
+                    new[]
+                        {
+                            "email"
+                        }) { RuleRank = 1 });
 
             ruleEngine.AddRule(
                 new VariableRegexReplaceRule(
@@ -1024,13 +1036,19 @@ namespace YAF.Core.BBCode
                     @"<div class=""code"">.*?<div class=""innercode"">.*?<pre class=""brush:(?<language>(.*?));"">(?<inner>(.*?))</pre>.*?</div>",
                     "[code=${language}]${inner}[/code]",
                     Options,
-                    new[] { "language" }) { RuleRank = 97 });
+                    new[]
+                        {
+                            "language"
+                        }) { RuleRank = 97 });
 
             ruleEngine.AddRule(
                 new SimpleRegexReplaceRule(
                     "<div class=\"code\">.*?<div class=\"innercode\">(?<inner>(.*?))</div>",
                     "[code]${inner}[/code]",
-                    Options) { RuleRank = 98 });
+                    Options)
+                    {
+                        RuleRank = 98
+                    });
 
             ruleEngine.AddRule(new SimpleRegexReplaceRule("<br />", "\r\n", Options));
             ruleEngine.AddRule(new SimpleRegexReplaceRule("<br>", "\r\n", Options));

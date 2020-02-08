@@ -34,7 +34,7 @@ namespace YAF.Core.Extensions
         #region Public Methods
 
         /// <summary>
-        /// Creates the rules that convert <see cref="YafBBCode" /> to HTML
+        /// Creates the rules that convert <see cref="BBCode" /> to HTML
         /// </summary>
         /// <param name="bbcode">The bbcode.</param>
         /// <param name="ruleEngine">The rule Engine.</param>

@@ -79,7 +79,7 @@ namespace YAF.Core.Modules
                 .PreserveExistingDefaults();
             builder.RegisterType<DefaultUrlBuilder>().As<IUrlBuilder>().InstancePerLifetimeScope()
                 .PreserveExistingDefaults();
-            builder.RegisterType<YafBBCode>().As<IBBCode>().InstancePerLifetimeScope().PreserveExistingDefaults();
+            builder.RegisterType<BBCode>().As<IBBCode>().InstancePerLifetimeScope().PreserveExistingDefaults();
             builder.RegisterType<YafFormatMessage>().As<IFormatMessage>().InstancePerLifetimeScope()
                 .PreserveExistingDefaults();
             builder.RegisterType<YafDbBroker>().AsSelf().InstancePerLifetimeScope().PreserveExistingDefaults();

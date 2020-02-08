@@ -92,7 +92,7 @@ namespace YAF.Web.Controls
             writer.Write(HtmlTextWriter.TagRightChar);
 
             writer.WriteBeginTag("div");
-            writer.WriteAttribute("class", "card-body");
+            writer.WriteAttribute("class", "card-body py-0");
             writer.Write(HtmlTextWriter.TagRightChar);
 
             this.RenderSignature(writer);

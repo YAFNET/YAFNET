@@ -684,7 +684,7 @@ namespace YAF.Controls
                 if (pollChoiceList.Visible)
                 {
                     var thisPollTable = this._dtPollAllChoices.Copy();
-                    foreach (DataRow thisPollTableRow in thisPollTable.Rows)
+                    thisPollTable.Rows.Cast<DataRow>().ForEach(thisPollTableRow =>
                     {
                         if (thisPollTableRow["PollID"].ToType<int>() != pollId.ToType<int>())
                         {
@@ -702,7 +702,7 @@ namespace YAF.Controls
                                 }
                             }
                         }
-                    }
+                    });
 
                     thisPollTable.AcceptChanges();
                     pollChoiceList.DataSource = thisPollTable;
@@ -738,7 +738,7 @@ namespace YAF.Controls
                 var cnt = 0;
 
                 // compare a number of voted polls with number of polls
-                foreach (DataRow dr in this._dtPollGroupAllChoices.Rows)
+                this._dtPollGroupAllChoices.Rows.Cast<DataRow>().ForEach(dr =>
                 {
                     var voted = !this.IsNotVoted(
                                     (int)dr["PollID"],
@@ -758,7 +758,7 @@ namespace YAF.Controls
                     {
                         cnt++;
                     }
-                }
+                });
 
                 var warningMultiplePolls = hasVoteEmptyCounter >= this._dtPollGroupAllChoices.Rows.Count
                                            && hasVoteEmptyCounter > 0;
@@ -1051,7 +1051,7 @@ namespace YAF.Controls
             var hTable = new Hashtable();
             var duplicateList = new ArrayList();
 
-            foreach (DataRow drow in this._dtPollGroupAllChoices.Rows)
+            this._dtPollGroupAllChoices.Rows.Cast<DataRow>().ForEach(drow =>
             {
                 if (hTable.Contains(drow["PollID"]))
                 {
@@ -1061,12 +1061,9 @@ namespace YAF.Controls
                 {
                     hTable.Add(drow["PollID"], string.Empty);
                 }
-            }
+            });
 
-            foreach (DataRow dRow in duplicateList)
-            {
-                this._dtPollGroupAllChoices.Rows.Remove(dRow);
-            }
+            duplicateList.Cast<DataRow>().ForEach(row => { this._dtPollGroupAllChoices.Rows.Remove(row); });
 
             this._dtPollGroupAllChoices.AcceptChanges();
 

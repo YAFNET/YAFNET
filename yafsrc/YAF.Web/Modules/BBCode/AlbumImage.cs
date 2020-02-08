@@ -34,7 +34,7 @@ namespace YAF.Modules.BBCode
     /// <summary>
     /// The Album Image BB Code Module.
     /// </summary>
-    public class AlbumImage : YafBBCodeControl
+    public class AlbumImage : BBCodeControl
     {
         /// <summary>
         /// Render The Album Image as Link with Image

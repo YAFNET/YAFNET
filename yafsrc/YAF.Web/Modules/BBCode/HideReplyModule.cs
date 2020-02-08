@@ -36,7 +36,7 @@ namespace YAF.Modules.BBCode
     /// <summary>
     /// Hide Reply BBCode Module
     /// </summary>
-    public class HideReplyModule : YafBBCodeControl
+    public class HideReplyModule : BBCodeControl
     {
         /// <summary>
         /// The render.

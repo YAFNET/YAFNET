@@ -216,7 +216,7 @@ namespace YAF.Controls
                 this.CurrentUserID,
                 null))
             {
-                foreach (DataRow row in dt.Rows)
+                dt.Rows.Cast<DataRow>().ForEach(row =>
                 {
                     // is user to be suspended admin?
                     if (row["IsAdmin"] != DBNull.Value && row["IsAdmin"].ToType<int>() > 0)
@@ -246,9 +246,8 @@ namespace YAF.Controls
                         this.PageContext.AddLoadMessage(
                             this.GetText("PROFILE", "ERROR_GUESTACCOUNT"),
                             MessageTypes.danger);
-                        return;
                     }
-                }
+                });
             }
 
             // time until when user is suspended

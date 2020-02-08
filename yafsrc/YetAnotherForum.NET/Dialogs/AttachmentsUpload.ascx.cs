@@ -77,7 +77,7 @@ namespace YAF.Dialogs
                 JavaScriptBlocks.FileUploadLoadJs(
                     string.Join("|", this.FileExtensions.Select(ext => ext.Extension)),
                     this.Get<BoardSettings>().MaxFileSize,
-                    $"{BoardInfo.ForumClientFileRoot}YafUploader.ashx",
+                    $"{BoardInfo.ForumClientFileRoot}FileUploader.ashx",
                     this.PageContext.PageForumID,
                     this.PageContext.PageBoardID,
                     this.Get<BoardSettings>().ImageAttachmentResizeWidth,

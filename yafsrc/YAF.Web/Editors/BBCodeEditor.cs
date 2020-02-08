@@ -143,7 +143,7 @@ namespace YAF.Web.Editors
                     JavaScriptBlocks.FileAutoUploadLoadJs(
                         string.Join("|", extensions.Select(ext => ext.Extension)),
                         this.Get<BoardSettings>().MaxFileSize,
-                        $"{BoardInfo.ForumClientFileRoot}YafUploader.ashx",
+                        $"{BoardInfo.ForumClientFileRoot}FileUploader.ashx",
                         this.PageContext.PageForumID,
                         this.PageContext.PageBoardID,
                         this.Get<BoardSettings>().ImageAttachmentResizeWidth,

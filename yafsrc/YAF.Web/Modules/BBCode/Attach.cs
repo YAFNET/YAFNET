@@ -39,7 +39,7 @@ namespace YAF.Modules.BBCode
     /// <summary>
     /// The Attachment BB Code Module.
     /// </summary>
-    public class Attach : YafBBCodeControl
+    public class Attach : BBCodeControl
     {
         /// <summary>
         /// Render The Album Image as Link with Image

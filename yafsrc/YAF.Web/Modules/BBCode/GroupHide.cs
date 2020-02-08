@@ -35,7 +35,7 @@ namespace YAF.Modules.BBCode
     /// <summary>
     /// Hide Group BBCode Module
     /// </summary>
-    public class GroupHide : YafBBCodeControl
+    public class GroupHide : BBCodeControl
     {
         /// <summary>
         /// The render.

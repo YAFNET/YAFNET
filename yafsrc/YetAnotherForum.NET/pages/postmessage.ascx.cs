@@ -1104,14 +1104,6 @@ namespace YAF.Pages
             // Check if message is approved
             var isApproved = this.GetRepository<Message>().GetById(messageId.ToType<int>()).MessageFlags.IsApproved;
 
-            /*using (var dt = this.GetRepository<Message>().ListAsDataTable(messageId.ToType<int>()))
-            {
-                foreach (DataRow row in dt.Rows)
-                {
-                    isApproved = row["Flags"].BinaryAnd(MessageFlags.Flags.IsApproved);
-                }
-            }*/
-
             // vzrus^ the poll access controls are enabled and this is a new topic - we add the variables
             var attachPollParameter = string.Empty;
             var returnForum = string.Empty;

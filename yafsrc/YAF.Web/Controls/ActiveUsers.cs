@@ -65,14 +65,16 @@ namespace YAF.Web.Controls
         {
             get
             {
-                if (this.activeUserTable == null)
+                if (this.activeUserTable != null)
                 {
-                    // read there data from view state
-                    if (this.ViewState["ActiveUserTable"] != null)
-                    {
-                        // cast it
-                        this.activeUserTable = this.ViewState["ActiveUserTable"] as DataTable;
-                    }
+                    return this.activeUserTable;
+                }
+
+                // read there data from view state
+                if (this.ViewState["ActiveUserTable"] != null)
+                {
+                    // cast it
+                    this.activeUserTable = this.ViewState["ActiveUserTable"] as DataTable;
                 }
 
                 // return data table
@@ -147,94 +149,91 @@ namespace YAF.Web.Controls
             var crawlers = new List<string>();
 
             // go through the table and process each row
-            foreach (DataRow row in this.ActiveUserTable.Rows)
-            {
-                UserLink userLink;
-
-                var isCrawler = row["IsCrawler"].ToType<int>() > 0;
-
-                // create new link and set its parameters
-                if (isCrawler)
-                {
-                    if (crawlers.Contains(row["Browser"].ToString()))
+            this.ActiveUserTable.Rows.Cast<DataRow>().ForEach(
+                row =>
                     {
-                        continue;
-                    }
+                        UserLink userLink;
 
-                    crawlers.Add(row["Browser"].ToString());
-                    userLink = new UserLink
-                                   {
-                                       CrawlerName = row["Browser"].ToString(),
-                                       UserID = row["UserID"].ToType<int>(),
-                                       Style = this.Get<BoardSettings>().UseStyledNicks
-                                                   ? this.Get<IStyleTransform>().DecodeStyleByString(
-                                                       row["Style"].ToString())
-                                                   : string.Empty
-                                   };
-                    userLink.ID += userLink.CrawlerName;
-                }
-                else
-                {
-                    userLink = new UserLink
-                                   {
-                                       UserID = row["UserID"].ToType<int>(),
-                                       Style = this.Get<BoardSettings>().UseStyledNicks
-                                                   ? this.Get<IStyleTransform>().DecodeStyleByString(
-                                                       row["Style"].ToString())
-                                                   : string.Empty,
-                                       ReplaceName = this.Get<BoardSettings>().EnableDisplayName
-                                                         ? row["UserDisplayName"].ToString()
-                                                         : row["UserName"].ToString()
-                                   };
-                    userLink.ID = $"UserLink{this.InstantId}{userLink.UserID}";
-                }
+                        var isCrawler = row["IsCrawler"].ToType<int>() > 0;
 
-                // how many users of this type is present (valid for guests, others have it 1)
-                var userCount = row["UserCount"].ToType<int>();
-                if (userCount > 1 && (!isCrawler || !this.Get<BoardSettings>().ShowCrawlersInActiveList))
-                {
-                    // add postfix if there is more the one user of this name
-                    userLink.PostfixText = $" ({userCount})";
-                }
+                        // create new link and set its parameters
+                        if (isCrawler)
+                        {
+                            if (crawlers.Contains(row["Browser"].ToString()))
+                            {
+                                return;
+                            }
 
-                // indicates whether user link should be added or not
-                var addControl = true;
+                            crawlers.Add(row["Browser"].ToString());
+                            userLink = new UserLink
+                                           {
+                                               CrawlerName = row["Browser"].ToString(),
+                                               UserID = row["UserID"].ToType<int>(),
+                                               Style = this.Get<BoardSettings>().UseStyledNicks
+                                                           ? this.Get<IStyleTransform>().DecodeStyleByString(
+                                                               row["Style"].ToString())
+                                                           : string.Empty
+                                           };
+                            userLink.ID += userLink.CrawlerName;
+                        }
+                        else
+                        {
+                            userLink = new UserLink
+                                           {
+                                               UserID = row["UserID"].ToType<int>(),
+                                               Style = this.Get<BoardSettings>().UseStyledNicks
+                                                           ? this.Get<IStyleTransform>().DecodeStyleByString(
+                                                               row["Style"].ToString())
+                                                           : string.Empty,
+                                               ReplaceName = this.Get<BoardSettings>().EnableDisplayName
+                                                                 ? row["UserDisplayName"].ToString()
+                                                                 : row["UserName"].ToString()
+                                           };
+                            userLink.ID = $"UserLink{this.InstantId}{userLink.UserID}";
+                        }
 
-                // we might not want to add this user link if user is marked as hidden
-                if (Convert.ToBoolean(row["IsHidden"]) || // or if user is guest and guest should be hidden
-                    this.TreatGuestAsHidden && Convert.ToBoolean(row["IsGuest"]))
-                {
-                    // hidden user are always visible to admin and himself)
-                    if (this.PageContext.IsAdmin || userLink.UserID == this.PageContext.PageUserID)
-                    {
-                        // but use css style to distinguish such users
-                        userLink.CssClass = "active_hidden";
+                        // how many users of this type is present (valid for guests, others have it 1)
+                        var userCount = row["UserCount"].ToType<int>();
+                        if (userCount > 1 && (!isCrawler || !this.Get<BoardSettings>().ShowCrawlersInActiveList))
+                        {
+                            // add postfix if there is more the one user of this name
+                            userLink.PostfixText = $" ({userCount})";
+                        }
 
-                        // and also add postfix
-                        userLink.PostfixText = $" ({this.GetText("HIDDEN")})";
-                    }
-                    else
-                    {
-                        // user is hidden from this user...
-                        addControl = false;
-                    }
-                }
+                        // indicates whether user link should be added or not
+                        var addControl = true;
 
-                // add user link if it's not supressed
-                if (!addControl)
-                {
-                    continue;
-                }
+                        // we might not want to add this user link if user is marked as hidden
+                        if (Convert.ToBoolean(row["IsHidden"]) || // or if user is guest and guest should be hidden
+                            this.TreatGuestAsHidden && Convert.ToBoolean(row["IsGuest"]))
+                        {
+                            // hidden user are always visible to admin and himself)
+                            if (this.PageContext.IsAdmin || userLink.UserID == this.PageContext.PageUserID)
+                            {
+                                userLink.PostfixText = $"  <i class=\"fas fa-user-secret\"></i>";
+                            }
+                            else
+                            {
+                                // user is hidden from this user...
+                                addControl = false;
+                            }
+                        }
 
-                // vzrus: if guests or crawlers there can be a control with the same id. 
-                var ul = this.FindControlRecursiveAs<UserLink>(userLink.ID);
-                if (ul != null)
-                {
-                    this.Controls.Remove(ul);
-                }
+                        // add user link if it's not suppressed
+                        if (!addControl)
+                        {
+                            return;
+                        }
 
-                this.Controls.Add(userLink);
-            }
+                        // vzrus: if guests or crawlers there can be a control with the same id. 
+                        var ul = this.FindControlRecursiveAs<UserLink>(userLink.ID);
+                        if (ul != null)
+                        {
+                            this.Controls.Remove(ul);
+                        }
+
+                        this.Controls.Add(userLink);
+                    });
         }
 
         /// <summary>

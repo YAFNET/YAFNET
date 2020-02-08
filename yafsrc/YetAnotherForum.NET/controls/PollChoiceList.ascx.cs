@@ -288,7 +288,7 @@ namespace YAF.Controls
                     var voters = item.FindControlRecursiveAs<Label>("Voters");
                     var voterNames = string.Empty;
 
-                    foreach (DataRow row in this.Voters.Rows)
+                    foreach (DataRow row in this.Voters.Rows.Cast<DataRow>().ForEach(row =>
                     {
                         if (row["ChoiceID"].ToType<int>() == drowv["ChoiceID"].ToType<int>() && row["PollID"].ToType<int>() == this.PollId)
                         {

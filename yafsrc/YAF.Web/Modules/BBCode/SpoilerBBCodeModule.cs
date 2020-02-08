@@ -32,7 +32,7 @@ namespace YAF.Modules
     /// <summary>
     /// The spoiler bb code module.
     /// </summary>
-    public class SpoilerBBCodeModule : YafBBCodeControl
+    public class SpoilerBBCodeModule : BBCodeControl
     {
         /// <summary>
         /// The render.

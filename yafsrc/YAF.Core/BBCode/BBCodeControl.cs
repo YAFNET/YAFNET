@@ -37,7 +37,7 @@ namespace YAF.Core.BBCode
     /// <summary>
     /// The YAF BBCode control.
     /// </summary>
-    public class YafBBCodeControl : BaseControl
+    public class BBCodeControl : BaseControl
     {
         #region Properties
 

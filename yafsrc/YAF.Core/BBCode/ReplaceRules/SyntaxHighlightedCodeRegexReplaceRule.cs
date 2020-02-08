@@ -83,7 +83,7 @@ namespace YAF.Core.BBCode.ReplaceRules
 
                 var replaceItem = this._regExReplace.Replace("${inner}", inner);
 
-                // pulls the htmls into the replacement collection before it's inserted back into the main text
+                // pulls the html's into the replacement collection before it's inserted back into the main text
                 var replaceIndex = replacement.Add(replaceItem);
 
                 text = text.Substring(0, m.Groups[0].Index) + replacement.Get(replaceIndex)
