@@ -119,7 +119,7 @@ namespace YAF.Lucene.Net.Analysis.Lv
         ///         <see cref="StandardFilter"/>, <see cref="LowerCaseFilter"/>, <see cref="StopFilter"/>,
         ///         <see cref="SetKeywordMarkerFilter"/> if a stem exclusion set is
         ///         provided and <see cref="LatvianStemFilter"/>. </returns>
-        protected override TokenStreamComponents CreateComponents(string fieldName, TextReader reader)
+        public override TokenStreamComponents CreateComponents(string fieldName, TextReader reader)
         {
             Tokenizer source = new StandardTokenizer(m_matchVersion, reader);
             TokenStream result = new StandardFilter(m_matchVersion, source);

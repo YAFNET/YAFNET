@@ -114,7 +114,7 @@ namespace YAF.Pages
 
             this.Get<IAlbum>().AlbumImageDelete(
                 path,
-                this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("a"),
+                this.Get<HttpRequestBase>().QueryString.GetFirstOrDefaultAsInt("a"),
                 this.PageContext.PageUserID,
                 null);
 

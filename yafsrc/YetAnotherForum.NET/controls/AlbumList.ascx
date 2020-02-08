@@ -21,7 +21,7 @@
                                  CssClass="mb-3"/>
 
                 <YAF:Pager runat="server" ID="PagerTop" OnPageChange="Pager_PageChange" />
-                <asp:Repeater runat="server" ID="Albums" OnItemCommand="Albums_ItemCommand" OnItemDataBound="Albums_ItemDataBound">
+                <asp:Repeater runat="server" ID="Albums" OnItemCommand="Albums_ItemCommand">
                     <HeaderTemplate>
                         <div class="row">
                     </HeaderTemplate>
@@ -44,8 +44,8 @@
                                             <YAF:ThemeButton ID="Edit" 
                                                              TextLocalizedTag="EDIT"
                                                              TextLocalizedPage="BUTTON"
-                                                             Visible='<%#
-    this.UserID == this.PageContext.PageUserID %>' runat="server" CommandName="edit"
+                                                             Visible="<%# this.UserID == this.PageContext.PageUserID %>" runat="server" 
+                                                             CommandName="edit"
                                                              CommandArgument='<%# this.Eval("ID") %>'
                                                              Size="Small"
                                                              Type="OutlineSecondary"/>

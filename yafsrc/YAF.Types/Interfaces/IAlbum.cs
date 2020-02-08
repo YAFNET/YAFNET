@@ -35,19 +35,19 @@ namespace YAF.Types.Interfaces
         /// <summary>
         /// Deletes the specified album/image.
         /// </summary>
-        /// <param name="upDir">
-        /// The Upload dir.
+        /// <param name="uploadFolder">
+        /// The Upload folder.
         /// </param>
         /// <param name="albumId">
         /// The album id.
         /// </param>
-        /// <param name="userID">
+        /// <param name="userId">
         /// The user id.
         /// </param>
-        /// <param name="imageID">
+        /// <param name="imageId">
         /// The image id.
         /// </param>
-        void AlbumImageDelete([NotNull] object upDir, [CanBeNull] object albumId, int userID, [NotNull] object imageID);
+        void AlbumImageDelete([NotNull] string uploadFolder, [CanBeNull] int? albumId, int userId, [CanBeNull] int? imageId);
 
         /// <summary>
         /// The change album title.
@@ -106,7 +106,7 @@ namespace YAF.Types.Interfaces
         /// </summary>
         /// <param name="context">The context.</param>
         /// <param name="localizationFile">The localization file.</param>
-        /// <param name="previewCropped">if set to <c>true</c> [preview cropped].</param>
+        /// <param name="preview">if set to <c>true</c> [preview cropped].</param>
         void GetResponseImagePreview([NotNull] HttpContext context, string localizationFile, bool preview);
     }
 }

@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace YAF.Lucene.Net.Support
+namespace YAF.Lucene.Net
 {
     /*
      * Licensed to the Apache Software Foundation (ASF) under one or more
@@ -19,13 +17,13 @@ namespace YAF.Lucene.Net.Support
      * limitations under the License.
      */
 
-    /// <summary>
-    /// Properties, methods, or events marked with this attribute can ignore
-    /// the numeric naming conventions of "Int16", "Int32", "Int64", and "Single"
-    /// that are commonly used in .NET method and property names.
-    /// </summary>
-    [AttributeUsage(AttributeTargets.Property | AttributeTargets.Method | AttributeTargets.Event | AttributeTargets.Class, AllowMultiple = false)]
-    public class ExceptionToNetNumericConventionAttribute : Attribute
+    internal static class AssemblyKeys
     {
+        public const string PublicKey =
+            "002400000480000094000000060200000024000052534131000400000100010075a07ce602f88e" +
+            "f263c7db8cb342c58ebd49ecdcc210fac874260b0213fb929ac3dcaf4f5b39744b800f99073eca" +
+            "72aebfac5f7284e1d5f2c82012a804a140f06d7d043d83e830cdb606a04da2ad5374cc92c0a495" +
+            "08437802fb4f8fb80a05e59f80afb99f4ccd0dfe44065743543c4b053b669509d29d332cd32a0c" +
+            "b1e97e84";
     }
 }

@@ -2072,7 +2072,6 @@
     <Content Include="Dialogs\SpamWordsImport.ascx" />
     <Content Include="Images\Categories\categoryImageSample.gif" />
     <Content Include="Images\Forums\forumImageSample.gif" />
-    <Content Include="Images\noCover.png" />
     <Content Include="install\BBCodeExtensions.xml">
       <SubType>Designer</SubType>
     </Content>

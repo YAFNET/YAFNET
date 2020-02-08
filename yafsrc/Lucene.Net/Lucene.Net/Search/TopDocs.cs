@@ -111,7 +111,7 @@ namespace YAF.Lucene.Net.Search
             }
 
             // Returns true if first is < second
-            public override bool LessThan(ShardRef first, ShardRef second)
+            protected override bool LessThan(ShardRef first, ShardRef second)
             {
                 Debug.Assert(first != second);
                 float firstScore = shardHits[first.ShardIndex][first.HitIndex].Score;
@@ -195,7 +195,7 @@ namespace YAF.Lucene.Net.Search
             }
 
             // Returns true if first is < second
-            public override bool LessThan(ShardRef first, ShardRef second)
+            protected override bool LessThan(ShardRef first, ShardRef second)
             {
                 Debug.Assert(first != second);
                 FieldDoc firstFD = (FieldDoc)shardHits[first.ShardIndex][first.HitIndex];

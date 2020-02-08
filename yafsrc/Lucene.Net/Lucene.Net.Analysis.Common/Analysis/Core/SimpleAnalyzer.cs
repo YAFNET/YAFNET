@@ -45,7 +45,7 @@ namespace YAF.Lucene.Net.Analysis.Core
             this.matchVersion = matchVersion;
         }
 
-        protected override TokenStreamComponents CreateComponents(string fieldName, TextReader reader)
+        public override TokenStreamComponents CreateComponents(string fieldName, TextReader reader)
         {
             return new TokenStreamComponents(new LowerCaseTokenizer(matchVersion, reader));
         }

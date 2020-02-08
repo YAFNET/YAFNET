@@ -226,7 +226,7 @@ namespace YAF.Lucene.Net.Analysis
         /// <param name="reader">
         ///          the reader passed to the <see cref="Tokenizer"/> constructor </param>
         /// <returns> the <see cref="TokenStreamComponents"/> for this analyzer. </returns>
-        protected internal abstract TokenStreamComponents CreateComponents(string fieldName, TextReader reader);
+        public abstract TokenStreamComponents CreateComponents(string fieldName, TextReader reader);
 
         /// <summary>
         /// Returns a <see cref="TokenStream"/> suitable for <paramref name="fieldName"/>, tokenizing
@@ -317,7 +317,7 @@ namespace YAF.Lucene.Net.Analysis
         /// <param name="fieldName"> <see cref="Index.IIndexableField"/> name being indexed </param>
         /// <param name="reader"> original <see cref="TextReader"/> </param>
         /// <returns> reader, optionally decorated with <see cref="CharFilter"/>(s) </returns>
-        protected internal virtual TextReader InitReader(string fieldName, TextReader reader)
+        public virtual TextReader InitReader(string fieldName, TextReader reader)
         {
             return reader;
         }
@@ -494,12 +494,12 @@ namespace YAF.Lucene.Net.Analysis
                 this.initReader = initReader;
             }
 
-            protected internal override TokenStreamComponents CreateComponents(string fieldName, TextReader reader)
+            public override TokenStreamComponents CreateComponents(string fieldName, TextReader reader)
             {
                 return this.createComponents(fieldName, reader);
             }
 
-            protected internal override TextReader InitReader(string fieldName, TextReader reader)
+            public override TextReader InitReader(string fieldName, TextReader reader)
             {
                 if (this.initReader != null)
                 {
@@ -566,7 +566,7 @@ namespace YAF.Lucene.Net.Analysis
         ///          a reader to reset the source component </param>
         /// <exception cref="IOException">
         ///           if the component's reset method throws an <seealso cref="IOException"/> </exception>
-        protected internal virtual void SetReader(TextReader reader)
+        public virtual void SetReader(TextReader reader)
         {
             m_source.SetReader(reader);
         }

@@ -84,28 +84,6 @@ namespace YAF.Controls
         }
 
         /// <summary>
-        /// Show a Random Cover if none is Set
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.Web.UI.WebControls.RepeaterItemEventArgs"/> instance containing the event data.</param>
-        protected void Albums_ItemDataBound([NotNull] object sender, [NotNull] RepeaterItemEventArgs e)
-        {
-            // tha_watcha: TODO: Currently disabled this function, until yaf 2.0 build
-            /*var coverImage = (Image)e.Item.FindControl("coverImage");
-
-                  if (coverImage == null) return;
-
-                  var curAlbum = DB.album_image_list(coverImage.AlternateText, null);
-
-                  Random random = new Random();
-
-                  if ((curAlbum != null) && curAlbum.HasRows())
-                  {
-                      coverImage.ImageUrl = String.Format("{0}resource.ashx?imgprv={1}", BoardInfo.ForumClientFileRoot, curAlbum.Rows[random.Next(curAlbum.Rows.Count)]["ImageID"]);
-                  }*/
-        }
-
-        /// <summary>
         /// Raises the <see cref="E:System.Web.UI.Control.PreRender"/> event.
         /// </summary>
         /// <param name="e">An <see cref="T:System.EventArgs"/> object that contains the event data.</param>
@@ -140,10 +118,10 @@ namespace YAF.Controls
                 return;
             }
 
-            var umhdn = UserMembershipHelper.GetDisplayNameFromID(this.UserID);
-            this.AlbumHeaderLabel.Param0 = this.Get<BoardSettings>().EnableDisplayName
-                                               ? this.HtmlEncode(umhdn)
-                                               : this.HtmlEncode(UserMembershipHelper.GetUserNameFromID(this.UserID));
+            this.AlbumHeaderLabel.Param0 = this.HtmlEncode(
+                this.Get<BoardSettings>().EnableDisplayName
+                    ? UserMembershipHelper.GetDisplayNameFromID(this.UserID)
+                    : UserMembershipHelper.GetUserNameFromID(this.UserID));
 
             this.BindData();
 

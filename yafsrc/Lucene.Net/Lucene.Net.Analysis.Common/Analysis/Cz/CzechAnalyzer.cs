@@ -135,8 +135,7 @@ namespace YAF.Lucene.Net.Analysis.Cz
         ///         <see cref="CzechAnalyzer(LuceneVersion, CharArraySet, CharArraySet)"/> a
         ///         <see cref="SetKeywordMarkerFilter"/> is added before
         ///         <see cref="CzechStemFilter"/>. </returns>
-
-        protected override TokenStreamComponents CreateComponents(string fieldName, TextReader reader)
+        public override TokenStreamComponents CreateComponents(string fieldName, TextReader reader)
         {
             Tokenizer source = new StandardTokenizer(m_matchVersion, reader);
             TokenStream result = new StandardFilter(m_matchVersion, source);

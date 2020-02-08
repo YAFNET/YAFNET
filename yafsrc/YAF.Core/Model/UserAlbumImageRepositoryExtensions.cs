@@ -63,8 +63,7 @@ namespace YAF.Core.Model
         }
 
         /// <summary>
-        /// Lists all the images associated with the AlbumID or
-        ///   the image with the ImageID.
+        /// Lists all the images associated with the Album Id.
         /// </summary>
         /// <param name="repository">
         /// The repository.
@@ -98,7 +97,7 @@ namespace YAF.Core.Model
         /// <returns>
         /// a Data table containing the image(s).
         /// </returns>
-        public static List<Tuple<UserAlbumImage, UserAlbum>> ListImage(
+        public static Tuple<UserAlbumImage, UserAlbum> GetImage(
             [NotNull] this IRepository<UserAlbumImage> repository,
             int imageId)
         {
@@ -109,7 +108,7 @@ namespace YAF.Core.Model
             expression.Join<UserAlbumImage, UserAlbum>((image, userAlbum) => userAlbum.ID == image.AlbumID)
                 .Where<UserAlbumImage, UserAlbum>((image, userAlbum) => image.ID == imageId);
 
-            return repository.DbAccess.Execute(db => db.Connection.SelectMulti<UserAlbumImage, UserAlbum>(expression));
+            return repository.DbAccess.Execute(db => db.Connection.SelectMulti<UserAlbumImage, UserAlbum>(expression)).FirstOrDefault();
         }
 
         /// <summary>
