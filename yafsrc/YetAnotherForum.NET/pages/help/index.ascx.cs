@@ -56,7 +56,7 @@ namespace YAF.Pages.help
         /// <summary>
         ///  List with the Help Content
         /// </summary>
-        private readonly List<YafHelpContent> helpContents = new List<YafHelpContent>();
+        private readonly List<HelpContent> helpContents = new List<HelpContent>();
 
         #endregion
 
@@ -220,18 +220,17 @@ namespace YAF.Pages.help
             var searchList =
               this.helpContents.FindAll(
                 check =>
-                check.HelpContent.ToLower().Contains(this.search.Text.ToLower()) ||
-                check.HelpTitle.ToLower().Contains(this.search.Text.ToLower()));
+                check.Content.ToLower().Contains(this.search.Text.ToLower()) ||
+                check.Title.ToLower().Contains(this.search.Text.ToLower()));
 
             searchList.ForEach(
                 item =>
                 {
-                    item.HelpContent = this.Get<IFormatMessage>().SurroundWordList(
-                        item.HelpContent, highlightWords, @"<span class=""highlight"">", @"</span>");
-                    item.HelpTitle = this.Get<IFormatMessage>().SurroundWordList(
-                        item.HelpTitle, highlightWords, @"<span class=""highlight"">", @"</span>");
+                    item.Content = this.Get<IFormatMessage>().SurroundWordList(
+                        item.Content, highlightWords, @"<span class=""highlight"">", @"</span>");
+                    item.Title = this.Get<IFormatMessage>().SurroundWordList(
+                        item.Title, highlightWords, @"<span class=""highlight"">", @"</span>");
                 });
-            
 
             if (searchList.Count.Equals(0))
             {
@@ -257,9 +256,9 @@ namespace YAF.Pages.help
                 return;
             }
 
-            var helpNavigation = new List<YafHelpNavigation>();
+            var helpNavigation = new List<HelpNavigation>();
 
-            var serializer = new XmlSerializer(typeof(List<YafHelpNavigation>));
+            var serializer = new XmlSerializer(typeof(List<HelpNavigation>));
 
             var xmlFilePath =
                 HttpContext.Current.Server.MapPath($"{BoardInfo.ForumServerFileRoot}Resources/HelpMenuList.xml");
@@ -268,7 +267,7 @@ namespace YAF.Pages.help
             {
                 var reader = new StreamReader(xmlFilePath);
 
-                helpNavigation = (List<YafHelpNavigation>)serializer.Deserialize(reader);
+                helpNavigation = (List<HelpNavigation>)serializer.Deserialize(reader);
 
                 reader.Close();
             }
@@ -312,11 +311,11 @@ namespace YAF.Pages.help
                 }
                 
                 this.helpContents.Add(
-                    new YafHelpContent
+                    new HelpContent
                         {
                             HelpPage = helpPage.HelpPage,
-                            HelpTitle = this.GetText($"{helpPage.HelpPage}TITLE"),
-                            HelpContent = helpContent
+                            Title = this.GetText($"{helpPage.HelpPage}TITLE"),
+                            Content = helpContent
                         });
             }
         }

@@ -22,26 +22,29 @@
  * under the License.
  */
 
- namespace YAF.Types.Objects
+namespace YAF.Types.Objects
 {
-    using System.Collections.Generic;
-
     /// <summary>
-    /// The YAF Help Navigation Class
+    /// Class that Can store the Help Content
     /// </summary>
-    public class YafHelpNavigation
+    public class HelpContent
     {
         #region Properties
 
         /// <summary>
-        ///   Gets or sets The Category of the Help Category
+        ///   Gets or sets The Content of the Help page
         /// </summary>
-        public string HelpCategory { get; set; }
+        public string Content { get; set; }
 
         /// <summary>
-        ///   Gets or sets The Help pages
+        ///   Gets or sets The Help page Name
         /// </summary>
-        public List<YafHelpNavigationPage> HelpPages { get; set; }
+        public string HelpPage { get; set; }
+
+        /// <summary>
+        ///   Gets or sets The Title of the Help page
+        /// </summary>
+        public string Title { get; set; }
 
         #endregion
     }

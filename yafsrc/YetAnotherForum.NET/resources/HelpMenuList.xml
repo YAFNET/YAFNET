@@ -1,105 +1,105 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ArrayOfYafHelpNavigation xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <YafHelpNavigation>
+<ArrayOfHelpNavigation xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <HelpNavigation>
     <HelpCategory>GENERALTOPICS</HelpCategory>
     <HelpPages>
-      <YafHelpNavigationPage>
+      <HelpNavigationPage>
         <HelpPage>FORUMS</HelpPage>
-      </YafHelpNavigationPage>
-      <YafHelpNavigationPage>
+      </HelpNavigationPage>
+      <HelpNavigationPage>
         <HelpPage>REGISTRATION</HelpPage>
-      </YafHelpNavigationPage>
-      <YafHelpNavigationPage>
+      </HelpNavigationPage>
+      <HelpNavigationPage>
         <HelpPage>SEARCHING</HelpPage>
-      </YafHelpNavigationPage>
-      <YafHelpNavigationPage>
+      </HelpNavigationPage>
+      <HelpNavigationPage>
         <HelpPage>ANOUNCE</HelpPage>
-      </YafHelpNavigationPage>
-      <YafHelpNavigationPage>
+      </HelpNavigationPage>
+      <HelpNavigationPage>
         <HelpPage>DISPLAY</HelpPage>
-      </YafHelpNavigationPage>
-      <YafHelpNavigationPage>
+      </HelpNavigationPage>
+      <HelpNavigationPage>
         <HelpPage>NEWPOSTS</HelpPage>
-      </YafHelpNavigationPage>
-      <YafHelpNavigationPage>
+      </HelpNavigationPage>
+      <HelpNavigationPage>
         <HelpPage>THREADOPT</HelpPage>
-      </YafHelpNavigationPage>
-      <YafHelpNavigationPage>
+      </HelpNavigationPage>
+      <HelpNavigationPage>
         <HelpPage>RECOVER</HelpPage>
-      </YafHelpNavigationPage>
-      <YafHelpNavigationPage>
+      </HelpNavigationPage>
+      <HelpNavigationPage>
         <HelpPage>MEMBERSLIST</HelpPage>
-      </YafHelpNavigationPage>
-      <YafHelpNavigationPage>
+      </HelpNavigationPage>
+      <HelpNavigationPage>
         <HelpPage>POPUPS</HelpPage>
-      </YafHelpNavigationPage>
-      <YafHelpNavigationPage>
+      </HelpNavigationPage>
+      <HelpNavigationPage>
         <HelpPage>PM</HelpPage>
-      </YafHelpNavigationPage>
-      <YafHelpNavigationPage>
+      </HelpNavigationPage>
+      <HelpNavigationPage>
         <HelpPage>RSS</HelpPage>
-      </YafHelpNavigationPage>
+      </HelpNavigationPage>
     </HelpPages>
-  </YafHelpNavigation>
-  <YafHelpNavigation>
+  </HelpNavigation>
+  <HelpNavigation>
     <HelpCategory>PROFILETOPICS</HelpCategory>
     <HelpPages>
-      <YafHelpNavigationPage>
+      <HelpNavigationPage>
         <HelpPage>MYSETTINGS</HelpPage>
-      </YafHelpNavigationPage>
-      <YafHelpNavigationPage>
+      </HelpNavigationPage>
+      <HelpNavigationPage>
         <HelpPage>MESSENGER</HelpPage>
-      </YafHelpNavigationPage>
-      <YafHelpNavigationPage>
+      </HelpNavigationPage>
+      <HelpNavigationPage>
         <HelpPage>PUBLICPROFILE</HelpPage>
-      </YafHelpNavigationPage>
-      <YafHelpNavigationPage>
+      </HelpNavigationPage>
+      <HelpNavigationPage>
         <HelpPage>EDITPROFILE</HelpPage>
-      </YafHelpNavigationPage>
-      <YafHelpNavigationPage>
+      </HelpNavigationPage>
+      <HelpNavigationPage>
         <HelpPage>THANKS</HelpPage>
-      </YafHelpNavigationPage>
-      <YafHelpNavigationPage>
+      </HelpNavigationPage>
+      <HelpNavigationPage>
         <HelpPage>BUDDIES</HelpPage>
-      </YafHelpNavigationPage>
-      <YafHelpNavigationPage>
+      </HelpNavigationPage>
+      <HelpNavigationPage>
         <HelpPage>MYALBUMS</HelpPage>
-      </YafHelpNavigationPage>
-      <YafHelpNavigationPage>
+      </HelpNavigationPage>
+      <HelpNavigationPage>
         <HelpPage>MYPICS</HelpPage>
-      </YafHelpNavigationPage>
-      <YafHelpNavigationPage>
+      </HelpNavigationPage>
+      <HelpNavigationPage>
         <HelpPage>MAILSETTINGS</HelpPage>
-      </YafHelpNavigationPage>
-      <YafHelpNavigationPage>
+      </HelpNavigationPage>
+      <HelpNavigationPage>
         <HelpPage>SUBSCRIPTIONS</HelpPage>
-      </YafHelpNavigationPage>
+      </HelpNavigationPage>
     </HelpPages>
-  </YafHelpNavigation>
-  <YafHelpNavigation>
+  </HelpNavigation>
+  <HelpNavigation>
     <HelpCategory>READPOSTTOPICS</HelpCategory>
     <HelpPages>
-      <YafHelpNavigationPage>
+      <HelpNavigationPage>
         <HelpPage>POSTING</HelpPage>
-      </YafHelpNavigationPage>
-      <YafHelpNavigationPage>
+      </HelpNavigationPage>
+      <HelpNavigationPage>
         <HelpPage>REPLYING</HelpPage>
-      </YafHelpNavigationPage>
-      <YafHelpNavigationPage>
+      </HelpNavigationPage>
+      <HelpNavigationPage>
         <HelpPage>EDITDELETE</HelpPage>
-      </YafHelpNavigationPage>
-      <YafHelpNavigationPage>
+      </HelpNavigationPage>
+      <HelpNavigationPage>
         <HelpPage>POLLS</HelpPage>
-      </YafHelpNavigationPage>
-      <YafHelpNavigationPage>
+      </HelpNavigationPage>
+      <HelpNavigationPage>
         <HelpPage>ATTACHMENTS</HelpPage>
-      </YafHelpNavigationPage>
-      <YafHelpNavigationPage>
+      </HelpNavigationPage>
+      <HelpNavigationPage>
         <HelpPage>BBCODES</HelpPage>
-      </YafHelpNavigationPage>
-      <YafHelpNavigationPage>
+      </HelpNavigationPage>
+      <HelpNavigationPage>
         <HelpPage>MODSADMINS</HelpPage>
-      </YafHelpNavigationPage>
+      </HelpNavigationPage>
     </HelpPages>
-  </YafHelpNavigation>
-</ArrayOfYafHelpNavigation>
+  </HelpNavigation>
+</ArrayOfHelpNavigation>

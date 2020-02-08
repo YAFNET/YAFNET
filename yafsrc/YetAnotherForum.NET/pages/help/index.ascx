@@ -20,7 +20,11 @@
                 <p class="card-text"><asp:Label ID="HelpContent" runat="server" /></p>
                 <div class="form-inline">
                     <div class="form-group">
-                        <label for='<%= this.search.ClientID %>' class="mr-3"><YAF:LocalizedLabel ID="SearchFor" runat="server" LocalizedTag="searchfor" /></label>
+                        <asp:Label runat="server" AssociatedControlID="search"
+                                   CssClass="mr-3">
+                            <YAF:LocalizedLabel ID="SearchFor" runat="server" 
+                                                LocalizedTag="searchfor" />
+                        </asp:Label>
                         <asp:TextBox runat="server" ID="search" CssClass="form-control mr-3" />
                     </div>
                     <YAF:ThemeButton runat="server" ID="DoSearch" CssClass="mr-3" 

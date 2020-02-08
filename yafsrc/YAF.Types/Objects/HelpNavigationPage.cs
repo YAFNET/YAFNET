@@ -25,26 +25,16 @@
 namespace YAF.Types.Objects
 {
     /// <summary>
-    /// Class that Can store the Help Content
+    /// Class for the Help Pages inside a Category
     /// </summary>
-    public class YafHelpContent
+    public class HelpNavigationPage
     {
         #region Properties
-
-        /// <summary>
-        ///   Gets or sets The Content of the Help page
-        /// </summary>
-        public string HelpContent { get; set; }
 
         /// <summary>
         ///   Gets or sets The Help page Name
         /// </summary>
         public string HelpPage { get; set; }
-
-        /// <summary>
-        ///   Gets or sets The Title of the Help page
-        /// </summary>
-        public string HelpTitle { get; set; }
 
         #endregion
     }
