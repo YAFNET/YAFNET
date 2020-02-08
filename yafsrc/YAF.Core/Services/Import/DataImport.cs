@@ -71,55 +71,56 @@ namespace YAF.Core.Services.Import
                 var bbcodeList = repository.GetByBoardId(boardId);
 
                 // import any extensions that don't exist...
-                foreach (DataRow row in dsBBCode.Tables["YafBBCode"].Rows)
-                {
-                    var name = row["Name"].ToString();
+                dsBBCode.Tables["YafBBCode"].Rows.Cast<DataRow>().ForEach(
+                    row =>
+                        {
+                            var name = row["Name"].ToString();
 
-                    var bbCodeExtension = bbcodeList.FirstOrDefault(b => b.Name.Equals(name));
+                            var bbCodeExtension = bbcodeList.FirstOrDefault(b => b.Name.Equals(name));
 
-                    if (bbCodeExtension != null)
-                    {
-                        // update this bbcode...
-                        repository.Save(
-                            bbCodeExtension.ID,
-                            row["Name"].ToString(),
-                            row["Description"].ToString(),
-                            row["OnClickJS"].ToString(),
-                            row["DisplayJS"].ToString(),
-                            row["EditJS"].ToString(),
-                            row["DisplayCSS"].ToString(),
-                            row["SearchRegex"].ToString(),
-                            row["ReplaceRegex"].ToString(),
-                            row["Variables"].ToString(),
-                            row["UseModule"].ToType<bool>(),
-                            row["UseToolbar"].ToType<bool>(),
-                            row["ModuleClass"].ToString(),
-                            row["ExecOrder"].ToType<int>(),
-                            boardId);
-                    }
-                    else
-                    {
-                        // add this bbcode...
-                        repository.Save(
-                            null,
-                            row["Name"].ToString(),
-                            row["Description"].ToString(),
-                            row["OnClickJS"].ToString(),
-                            row["DisplayJS"].ToString(),
-                            row["EditJS"].ToString(),
-                            row["DisplayCSS"].ToString(),
-                            row["SearchRegex"].ToString(),
-                            row["ReplaceRegex"].ToString(),
-                            row["Variables"].ToString(),
-                            row["UseModule"].ToType<bool>(),
-                            row["UseToolbar"].ToType<bool>(),
-                            row["ModuleClass"].ToString(),
-                            row["ExecOrder"].ToType<int>(),
-                            boardId);
+                            if (bbCodeExtension != null)
+                            {
+                                // update this bbcode...
+                                repository.Save(
+                                    bbCodeExtension.ID,
+                                    row["Name"].ToString(),
+                                    row["Description"].ToString(),
+                                    row["OnClickJS"].ToString(),
+                                    row["DisplayJS"].ToString(),
+                                    row["EditJS"].ToString(),
+                                    row["DisplayCSS"].ToString(),
+                                    row["SearchRegex"].ToString(),
+                                    row["ReplaceRegex"].ToString(),
+                                    row["Variables"].ToString(),
+                                    row["UseModule"].ToType<bool>(),
+                                    row["UseToolbar"].ToType<bool>(),
+                                    row["ModuleClass"].ToString(),
+                                    row["ExecOrder"].ToType<int>(),
+                                    boardId);
+                            }
+                            else
+                            {
+                                // add this bbcode...
+                                repository.Save(
+                                    null,
+                                    row["Name"].ToString(),
+                                    row["Description"].ToString(),
+                                    row["OnClickJS"].ToString(),
+                                    row["DisplayJS"].ToString(),
+                                    row["EditJS"].ToString(),
+                                    row["DisplayCSS"].ToString(),
+                                    row["SearchRegex"].ToString(),
+                                    row["ReplaceRegex"].ToString(),
+                                    row["Variables"].ToString(),
+                                    row["UseModule"].ToType<bool>(),
+                                    row["UseToolbar"].ToType<bool>(),
+                                    row["ModuleClass"].ToString(),
+                                    row["ExecOrder"].ToType<int>(),
+                                    boardId);
 
-                        importedCount++;
-                    }
-                }
+                                importedCount++;
+                            }
+                        });
             }
             else
             {
@@ -338,13 +339,14 @@ namespace YAF.Core.Services.Import
             var spamWordsList = repository.Get(x => x.BoardID == boardId);
 
             // import any extensions that don't exist...
-            foreach (var row in spamWords.Tables["YafSpamWords"].Rows.Cast<DataRow>()
-                .Where(row => spamWordsList.Any(s => s.SpamWord == row["spamword"])))
-            {
-                // add this...
-                repository.Save(null, row["spamword"].ToString());
-                importedCount++;
-            }
+            spamWords.Tables["YafSpamWords"].Rows.Cast<DataRow>()
+                .Where(row => spamWordsList.Any(s => s.SpamWord == row["spamword"])).ForEach(
+                    row =>
+                        {
+                            // add this...
+                            repository.Save(null, row["spamword"].ToString());
+                            importedCount++;
+                        });
 
             return importedCount;
         }
