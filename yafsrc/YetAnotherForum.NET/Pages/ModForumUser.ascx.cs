@@ -110,7 +110,7 @@ namespace YAF.Pages
         protected void Cancel_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
             // redirect to forum moderation page
-            BuildLink.Redirect(ForumPages.moderating, "f={0}", this.PageContext.PageForumID);
+            BuildLink.Redirect(ForumPages.Moderating, "f={0}", this.PageContext.PageForumID);
         }
 
         /// <summary>
@@ -285,7 +285,7 @@ namespace YAF.Pages
             this.Get<IDataCache>().Remove(Constants.Cache.BoardModerators);
 
             // redirect to forum moderation page
-            BuildLink.Redirect(ForumPages.moderating, "f={0}", this.PageContext.PageForumID);
+            BuildLink.Redirect(ForumPages.Moderating, "f={0}", this.PageContext.PageForumID);
         }
 
         #endregion

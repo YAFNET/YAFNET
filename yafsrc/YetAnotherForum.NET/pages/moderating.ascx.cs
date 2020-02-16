@@ -53,14 +53,14 @@ namespace YAF.Pages
     /// <summary>
     /// Forum Moderating Page.
     /// </summary>
-    public partial class moderating : ForumPage
+    public partial class Moderating : ForumPage
     {
         #region Constructors and Destructors
 
         /// <summary>
-        ///   Initializes a new instance of the <see cref = "moderating" /> class.
+        ///   Initializes a new instance of the <see cref = "Moderating" /> class.
         /// </summary>
-        public moderating()
+        public Moderating()
             : base("MODERATING")
         {
         }
