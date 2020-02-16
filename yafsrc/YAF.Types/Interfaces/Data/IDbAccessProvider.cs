@@ -24,17 +24,17 @@
 namespace YAF.Types.Interfaces.Data
 {
     /// <summary>
-	/// The db access provider.
-	/// </summary>
-	public interface IDbAccessProvider : IReadWriteProvider<IDbAccess>
-	{
-		#region Properties
+    /// The db access provider.
+    /// </summary>
+    public interface IDbAccessProvider : IReadWriteProvider<IDbAccess>
+    {
+        #region Properties
 
-		/// <summary>
-		/// Gets or sets ProviderName.
-		/// </summary>
-		string ProviderName { get; set; }
+        /// <summary>
+        /// Gets or sets ProviderName.
+        /// </summary>
+        string ProviderName { get; set; }
 
-		#endregion
-	}
+        #endregion
+    }
 }

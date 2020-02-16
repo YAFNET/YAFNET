@@ -372,7 +372,7 @@ namespace YAF.Controls
         protected string GetMessageLink([NotNull] object messageId)
         {
             return BuildLink.GetLink(
-                ForumPages.Message,
+                ForumPages.PrivateMessage,
                 "pm={0}&v={1}",
                 messageId,
                 PmViewConverter.ToQueryStringParam(this.View));

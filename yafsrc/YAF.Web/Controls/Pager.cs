@@ -206,14 +206,14 @@ namespace YAF.Web.Controls
                                   this.PageContext.PageForumID);
 
                     break;
-                case ForumPages.posts:
+                case ForumPages.Posts:
                     url = page > 1
                               ? BuildLink.GetLinkNotEscaped(
-                                  ForumPages.posts,
+                                  ForumPages.Posts,
                                   "t={0}&p={1}",
                                   this.PageContext.PageTopicID,
                                   page)
-                              : BuildLink.GetLinkNotEscaped(ForumPages.posts, "t={0}", this.PageContext.PageTopicID);
+                              : BuildLink.GetLinkNotEscaped(ForumPages.Posts, "t={0}", this.PageContext.PageTopicID);
 
                     break;
             }

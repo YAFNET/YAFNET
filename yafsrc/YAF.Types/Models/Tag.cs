@@ -28,6 +28,7 @@ namespace YAF.Types.Models
 
     using ServiceStack.DataAnnotations;
 
+    using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
 
     /// <summary>
@@ -35,7 +36,7 @@ namespace YAF.Types.Models
     /// </summary>
     [Serializable]
     [Alias("Tag")]
-    public partial class Tag : IEntity
+    public partial class Tag : IEntity, IHaveBoardID, IHaveID
     {
        /// <summary>
         /// Initializes a new instance of the <see cref="Tag"/> class.
@@ -51,7 +52,15 @@ namespace YAF.Types.Models
         /// Gets or sets the Tag id.
         /// </summary>
         [AutoIncrement]
-        public int TagID { get; set; }
+        [Alias("TagID")]
+        public int ID { get; set; }
+
+        /// <summary>
+        /// Gets or sets the topic id.
+        /// </summary>
+        [References(typeof(Board))]
+        [Required]
+        public int BoardID { get; set; }
 
         /// <summary>
         /// Gets or sets the tag name.

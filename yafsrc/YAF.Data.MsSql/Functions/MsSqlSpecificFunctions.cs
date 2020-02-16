@@ -37,6 +37,7 @@ namespace YAF.Data.MsSql.Functions
     using YAF.Core.Data;
     using YAF.Types;
     using YAF.Types.Extensions;
+    using YAF.Types.Extensions.Data;
     using YAF.Types.Interfaces.Data;
 
     /// <summary>

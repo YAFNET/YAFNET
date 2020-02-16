@@ -76,7 +76,7 @@ namespace YAF.Controls
 
             // make message url...
             var messageUrl = BuildLink.GetLinkNotEscaped(
-                ForumPages.posts, "m={0}#post{0}", currentRow["LastMessageID"]);
+                ForumPages.Posts, "m={0}#post{0}", currentRow["LastMessageID"]);
 
             // get the controls
             var postIcon = e.Item.FindControlAs<PlaceHolder>("PostIcon");
@@ -112,14 +112,14 @@ namespace YAF.Controls
             textMessageLink.Attributes.Add("data-toggle", "tooltip");
 
             textMessageLink.NavigateUrl = BuildLink.GetLinkNotEscaped(
-                ForumPages.posts, "t={0}&find=unread", currentRow["TopicID"]);
+                ForumPages.Posts, "t={0}&find=unread", currentRow["TopicID"]);
 
             imageMessageLink.NavigateUrl = messageUrl;
 
             if (imageLastUnreadMessageLink.Visible)
             {
                 imageLastUnreadMessageLink.NavigateUrl = BuildLink.GetLinkNotEscaped(
-                    ForumPages.posts,
+                    ForumPages.Posts,
                     "t={0}&find=unread",
                     currentRow["TopicID"]);
             }

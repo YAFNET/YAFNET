@@ -1,4 +1,4 @@
-<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.approve" Codebehind="approve.ascx.cs" %>
+<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Approve" Codebehind="Approve.ascx.cs" %>
 
 
 <YAF:PageLinks runat="server" ID="PageLinks" />

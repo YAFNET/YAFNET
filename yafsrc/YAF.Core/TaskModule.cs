@@ -34,6 +34,7 @@ namespace YAF.Core
     using YAF.Types;
     using YAF.Types.Attributes;
     using YAF.Types.EventProxies;
+    using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Events;
 
@@ -42,7 +43,7 @@ namespace YAF.Core
     /// <summary>
     /// Lifecycle module used to throw events around...
     /// </summary>
-    public class YafTaskModule : IHttpModule, IHaveServiceLocator
+    public class TaskModule : IHttpModule, IHaveServiceLocator
     {
         #region Constants and Fields
 

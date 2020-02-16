@@ -47,7 +47,7 @@ namespace YAF.Pages
     /// <summary>
     /// Post Message History Page.
     /// </summary>
-    public partial class messagehistory : ForumPage
+    public partial class MessageHistory : ForumPage
     {
         #region Constants and Fields
 
@@ -71,9 +71,9 @@ namespace YAF.Pages
         #region Constructors and Destructors
 
         /// <summary>
-        ///   Initializes a new instance of the <see cref = "messagehistory" /> class. 
+        ///   Initializes a new instance of the <see cref = "MessageHistory" /> class. 
         /// </summary>
-        public messagehistory()
+        public MessageHistory()
             : base("MESSAGEHISTORY")
         {
         }
@@ -107,7 +107,7 @@ namespace YAF.Pages
                 if (!int.TryParse(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("m"), out this.messageID))
                 {
                     this.Get<HttpResponseBase>().Redirect(
-                        BuildLink.GetLink(ForumPages.error, "Incorrect message value: {0}", this.messageID));
+                        BuildLink.GetLink(ForumPages.Error, "Incorrect message value: {0}", this.messageID));
                 }
 
                 this.ReturnBtn.Visible = true;
@@ -118,13 +118,13 @@ namespace YAF.Pages
                 // We check here if the user have access to the option
                 if (this.PageContext.IsGuest)
                 {
-                    this.Get<HttpResponseBase>().Redirect(BuildLink.GetLinkNotEscaped(ForumPages.info, "i=4"));
+                    this.Get<HttpResponseBase>().Redirect(BuildLink.GetLinkNotEscaped(ForumPages.Info, "i=4"));
                 }
 
                 if (!int.TryParse(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("f"), out this.forumID))
                 {
                     this.Get<HttpResponseBase>().Redirect(
-                        BuildLink.GetLink(ForumPages.error, "Incorrect forum value: {0}", this.forumID));
+                        BuildLink.GetLink(ForumPages.Error, "Incorrect forum value: {0}", this.forumID));
                 }
 
                 this.ReturnModBtn.Visible = true;
@@ -135,7 +135,7 @@ namespace YAF.Pages
             if (this.originalRow.Rows.Count <= 0)
             {
                 this.Get<HttpResponseBase>().Redirect(
-                    BuildLink.GetLink(ForumPages.error, "Incorrect message value: {0}", this.messageID));
+                    BuildLink.GetLink(ForumPages.Error, "Incorrect message value: {0}", this.messageID));
             }
 
             if (this.IsPostBack)
@@ -156,7 +156,7 @@ namespace YAF.Pages
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void ReturnBtn_OnClick([NotNull] object sender, [NotNull] EventArgs e)
         {
-            this.Get<HttpResponseBase>().Redirect(BuildLink.GetLinkNotEscaped(ForumPages.posts, "m={0}#post{0}", this.messageID));
+            this.Get<HttpResponseBase>().Redirect(BuildLink.GetLinkNotEscaped(ForumPages.Posts, "m={0}#post{0}", this.messageID));
         }
 
         /// <summary>
@@ -167,7 +167,7 @@ namespace YAF.Pages
         protected void ReturnModBtn_OnClick([NotNull] object sender, [NotNull] EventArgs e)
         {
             this.Get<HttpResponseBase>().Redirect(
-                BuildLink.GetLinkNotEscaped(ForumPages.moderate_reportedposts, "f={0}", this.forumID));
+                BuildLink.GetLinkNotEscaped(ForumPages.Moderate_ReportedPosts, "f={0}", this.forumID));
         }
 
         /// <summary>

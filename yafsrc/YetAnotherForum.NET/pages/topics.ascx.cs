@@ -55,7 +55,7 @@ namespace YAF.Pages
     /// <summary>
     /// The topics list page
     /// </summary>
-    public partial class topics : ForumPage
+    public partial class Topics : ForumPage
     {
         #region Constants and Fields
 
@@ -74,10 +74,10 @@ namespace YAF.Pages
         #region Constructors and Destructors
 
         /// <summary>
-        ///   Initializes a new instance of the <see cref = "topics" /> class. 
+        ///   Initializes a new instance of the <see cref = "Topics" /> class. 
         ///   Overloads the topics page.
         /// </summary>
-        public topics()
+        public Topics()
             : base("TOPICS")
         {
         }
@@ -186,7 +186,7 @@ namespace YAF.Pages
             }
 
             BuildLink.Redirect(
-                ForumPages.search,
+                ForumPages.Search,
                 "search={0}&forum={1}",
                 this.forumSearch.Text,
                 this.PageContext.PageForumID);
@@ -258,7 +258,7 @@ namespace YAF.Pages
 
                 this.NewTopic1.NavigateUrl =
                     this.NewTopic2.NavigateUrl =
-                    BuildLink.GetLinkNotEscaped(ForumPages.postmessage, "f={0}", this.PageContext.PageForumID);
+                    BuildLink.GetLinkNotEscaped(ForumPages.PostMessage, "f={0}", this.PageContext.PageForumID);
 
                 this.HandleWatchForum();
             }

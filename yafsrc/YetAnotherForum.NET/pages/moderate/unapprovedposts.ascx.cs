@@ -22,7 +22,7 @@
  * under the License.
  */
 
-namespace YAF.Pages.moderate
+namespace YAF.Pages.Moderate
 {
     #region Using
 
@@ -47,15 +47,15 @@ namespace YAF.Pages.moderate
     /// <summary>
     /// Moderating Page for Unapproved Posts.
     /// </summary>
-    public partial class unapprovedposts : ModerateForumPage
+    public partial class UnapprovedPosts : ModerateForumPage
     {
         #region Constructors and Destructors
 
         /// <summary>
-        ///   Initializes a new instance of the <see cref = "unapprovedposts" /> class. 
+        ///   Initializes a new instance of the <see cref = "UnapprovedPosts" /> class. 
         ///   Default constructor.
         /// </summary>
-        public unapprovedposts()
+        public UnapprovedPosts()
             : base("MODERATE_FORUM")
         {
         }
@@ -75,7 +75,7 @@ namespace YAF.Pages.moderate
             // moderation index
             this.PageLinks.AddLink(
                 this.GetText("MODERATE_DEFAULT", "TITLE"),
-                BuildLink.GetLink(ForumPages.moderate_index));
+                BuildLink.GetLink(ForumPages.Moderate_Index));
 
             // current page
             this.PageLinks.AddLink(this.PageContext.PageForumName);
@@ -157,7 +157,7 @@ namespace YAF.Pages.moderate
             if (!messageList.HasRows())
             {
                 // redirect back to the moderate main if no messages found
-                BuildLink.Redirect(ForumPages.moderate_index);
+                BuildLink.Redirect(ForumPages.Moderate_Index);
             }
             else
             {

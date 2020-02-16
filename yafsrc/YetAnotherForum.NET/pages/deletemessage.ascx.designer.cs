@@ -11,7 +11,7 @@ namespace YAF.Pages
 {
 
 
-    public partial class deletemessage
+    public partial class DeleteMessage
     {
 
         /// <summary>

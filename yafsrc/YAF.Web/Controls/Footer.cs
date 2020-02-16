@@ -182,7 +182,7 @@ namespace YAF.Web.Controls
 
             footer.AppendFormat(
                 @"<a target=""_top"" title=""{1}"" href=""{0}"">{1}</a> | ",
-                BuildLink.GetLink(ForumPages.rules),
+                BuildLink.GetLink(ForumPages.Rules),
                 this.GetText("COMMON", "PRIVACY_POLICY"));
         }
 

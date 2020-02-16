@@ -93,18 +93,18 @@ namespace YAF.Modules
       // check access permissions for specific pages...
       switch (this.ForumPageType)
       {
-        case ForumPages.activeusers:
+        case ForumPages.ActiveUsers:
           this.permissions.HandleRequest(this.PageContext.BoardSettings.ActiveUsersViewPermissions);
           break;
-        case ForumPages.members:
+        case ForumPages.Members:
           this.permissions.HandleRequest(this.PageContext.BoardSettings.MembersListViewPermissions);
           break;
         case ForumPages.Profile:
-        case ForumPages.albums:
-        case ForumPages.album:
+        case ForumPages.Albums:
+        case ForumPages.Album:
           this.permissions.HandleRequest(this.PageContext.BoardSettings.ProfileViewPermissions);
           break;
-        case ForumPages.search:
+        case ForumPages.Search:
           this.permissions.HandleRequest(this.PageContext.BoardSettings.SearchPermissions);
           break;
       }

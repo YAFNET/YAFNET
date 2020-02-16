@@ -118,7 +118,7 @@ namespace YAF.Web.Controls
                                                                letter.ToString()),
                                                        Text = letter.ToString(),
                                                        NavigateUrl = BuildLink.GetLinkNotEscaped(
-                                                           ForumPages.members,
+                                                           ForumPages.Members,
                                                            "letter={0}",
                                                            letter == '#' ? '_' : letter)
                                                    };

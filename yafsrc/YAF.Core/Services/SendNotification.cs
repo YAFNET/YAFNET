@@ -122,7 +122,7 @@ namespace YAF.Core.Services
 
             var forumLink = BoardInfo.ForumURL;
 
-            var adminLink = BuildLink.GetLinkNotEscaped(ForumPages.moderate_unapprovedposts, true, "f={0}", forumId);
+            var adminLink = BuildLink.GetLinkNotEscaped(ForumPages.Moderate_UnapprovedPosts, true, "f={0}", forumId);
 
             var currentContext = HttpContext.Current;
 
@@ -251,7 +251,7 @@ namespace YAF.Core.Services
                                                                            this.Get<IUserDisplayName>()
                                                                                .GetName(reporter),
                                                                        ["{adminlink}"] = BuildLink.GetLinkNotEscaped(
-                                                                           ForumPages.moderate_reportedposts,
+                                                                           ForumPages.Moderate_ReportedPosts,
                                                                            true,
                                                                            "f={0}",
                                                                            pageForumID)
@@ -325,7 +325,7 @@ namespace YAF.Core.Services
                                                        {
                                                            ["{fromuser}"] = displayName,
                                                            ["{link}"] =
-                                                               $"{BuildLink.GetLinkNotEscaped(ForumPages.Message, true, "pm={0}", userPMessageId)}\r\n\r\n",
+                                                               $"{BuildLink.GetLinkNotEscaped(ForumPages.PrivateMessage, true, "pm={0}", userPMessageId)}\r\n\r\n",
                                                            ["{subject}"] = subject,
                                                            ["{username}"] =
                                                                this.BoardSettings.EnableDisplayName
@@ -391,7 +391,7 @@ namespace YAF.Core.Services
                                              ["{body}"] = bodyText,
                                              ["{bodytruncated}"] = bodyText.Truncate(160),
                                              ["{link}"] = BuildLink.GetLinkNotEscaped(
-                                                 ForumPages.posts,
+                                                 ForumPages.Posts,
                                                  true,
                                                  "m={0}#post{0}",
                                                  newMessageId),
@@ -788,7 +788,7 @@ namespace YAF.Core.Services
                                       TemplateParams =
                                           {
                                               ["{link}"] =
-                                                  BuildLink.GetLinkNotEscaped(ForumPages.approve, true, "k={0}", hash),
+                                                  BuildLink.GetLinkNotEscaped(ForumPages.Approve, true, "k={0}", hash),
                                               ["{key}"] = hash,
                                               ["{username}"] = user.UserName
                                           }
@@ -821,7 +821,7 @@ namespace YAF.Core.Services
                                           {
                                               ["{user}"] = userName,
                                               ["{link}"] =
-                                                  $"{BuildLink.GetLinkNotEscaped(ForumPages.approve, true, "k={0}", hash)}\r\n\r\n",
+                                                  $"{BuildLink.GetLinkNotEscaped(ForumPages.Approve, true, "k={0}", hash)}\r\n\r\n",
                                               ["{newemail}"] = newEmail,
                                               ["{key}"] = hash
                                           }

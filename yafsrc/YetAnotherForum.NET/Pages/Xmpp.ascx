@@ -1,4 +1,4 @@
-﻿<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.im_xmpp" Codebehind="im_xmpp.ascx.cs" %>
+﻿<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Xmpp" Codebehind="Xmpp.ascx.cs" %>
 
 
 <YAF:PageLinks runat="server" ID="PageLinks" />

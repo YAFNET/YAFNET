@@ -39,6 +39,7 @@ namespace YAF.Providers.Profile
     using YAF.Data.MsSql.Functions;
     using YAF.Providers.Utils;
     using YAF.Types;
+    using YAF.Types.Extensions.Data;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
     using YAF.Types.Objects;

@@ -22,7 +22,7 @@
  * under the License.
  */
 
-namespace YAF.Pages.moderate
+namespace YAF.Pages.Moderate
 {
     #region Using
 
@@ -45,15 +45,15 @@ namespace YAF.Pages.moderate
     /// <summary>
     ///  Moderating Page for Reported Posts.
     /// </summary>
-    public partial class reportedposts : ModerateForumPage
+    public partial class ReportedPosts : ModerateForumPage
     {
         #region Constructors and Destructors
 
         /// <summary>
-        ///   Initializes a new instance of the <see cref = "reportedposts" /> class. 
+        ///   Initializes a new instance of the <see cref = "ReportedPosts" /> class. 
         ///   Default constructor.
         /// </summary>
-        public reportedposts()
+        public ReportedPosts()
             : base("MODERATE_FORUM")
         {
         }
@@ -71,7 +71,7 @@ namespace YAF.Pages.moderate
             this.PageLinks.AddRoot();
 
             // moderation index
-            this.PageLinks.AddLink(this.GetText("MODERATE_DEFAULT", "TITLE"), BuildLink.GetLink(ForumPages.moderate_index));
+            this.PageLinks.AddLink(this.GetText("MODERATE_DEFAULT", "TITLE"), BuildLink.GetLink(ForumPages.Moderate_Index));
 
             // current page
             this.PageLinks.AddLink(this.PageContext.PageForumName);
@@ -147,7 +147,7 @@ namespace YAF.Pages.moderate
                 case "view":
 
                     // go to the message
-                    BuildLink.Redirect(ForumPages.posts, "m={0}#post{0}", e.CommandArgument);
+                    BuildLink.Redirect(ForumPages.Posts, "m={0}#post{0}", e.CommandArgument);
                     break;
                 case "copyover":
 
@@ -162,7 +162,7 @@ namespace YAF.Pages.moderate
                     // go to history page
                     var ff = e.CommandArgument.ToString().Split(',');
                     YafContext.Current.Get<HttpResponseBase>().Redirect(
-                      BuildLink.GetLinkNotEscaped(ForumPages.messagehistory, "f={0}&m={1}", ff[0], ff[1]));
+                      BuildLink.GetLinkNotEscaped(ForumPages.MessageHistory, "f={0}&m={1}", ff[0], ff[1]));
                     break;
                 case "resolved":
 
@@ -183,7 +183,7 @@ namespace YAF.Pages.moderate
             if (!dt.HasRows())
             {
                 // nope -- redirect back to the moderate main...
-                BuildLink.Redirect(ForumPages.moderate_index);
+                BuildLink.Redirect(ForumPages.Moderate_Index);
             }
         }
 

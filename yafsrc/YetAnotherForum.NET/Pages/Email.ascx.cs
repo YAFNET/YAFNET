@@ -46,14 +46,14 @@ namespace YAF.Pages
     /// <summary>
     /// Send Email from one user to the user
     /// </summary>
-    public partial class im_email : ForumPage
+    public partial class Email : ForumPage
     {
         #region Constructors and Destructors
 
         /// <summary>
-        ///   Initializes a new instance of the <see cref = "im_email" /> class.
+        ///   Initializes a new instance of the <see cref = "Email" /> class.
         /// </summary>
-        public im_email()
+        public Email()
             : base("IM_EMAIL")
         {
         }

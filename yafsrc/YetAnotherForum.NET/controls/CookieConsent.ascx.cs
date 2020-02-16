@@ -50,7 +50,7 @@ namespace YAF.Controls
         {
             this.Label1.Param0 = this.Get<BoardSettings>().Name;
 
-            this.MoreDetails.NavigateUrl = BuildLink.GetLinkNotEscaped(ForumPages.cookies);
+            this.MoreDetails.NavigateUrl = BuildLink.GetLinkNotEscaped(ForumPages.Cookies);
         }
     }
 }

@@ -56,7 +56,7 @@ namespace YAF.Pages
     /// <summary>
     /// The Post Private Message Page
     /// </summary>
-    public partial class pmessage : ForumPage
+    public partial class PostPrivateMessage : ForumPage
     {
         #region Constants and Fields
 
@@ -70,10 +70,10 @@ namespace YAF.Pages
         #region Constructors and Destructors
 
         /// <summary>
-        ///   Initializes a new instance of the <see cref = "pmessage" /> class. 
+        ///   Initializes a new instance of the <see cref = "PostPrivateMessage" /> class. 
         ///   Default constructor.
         /// </summary>
-        public pmessage()
+        public PostPrivateMessage()
             : base("PMESSAGE")
         {
         }
@@ -408,7 +408,7 @@ namespace YAF.Pages
 
                         this.PmSubjectTextBox.Text = this.GetTextFormatted("REPORT_SUBJECT", displayName);
 
-                        var bodyReport = row["Body"].ToString();
+                        var bodyReport = $"[QUOTE={displayName}]{row["Body"].ToString()}[/QUOTE]";
 
                         // Quote the original message
                         bodyReport = this.GetTextFormatted("REPORT_BODY", bodyReport);

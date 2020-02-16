@@ -151,9 +151,15 @@ namespace YAF.Utils
 
             versionString.AppendFormat("{0}.{1}{2}", version.Major, version.Minor, version.Build);
 
-            if (version.Sub > 0) versionString.AppendFormat(".{0}", version.Sub);
+            if (version.Sub > 0)
+            {
+                versionString.AppendFormat(".{0}", version.Sub);
+            }
 
-            if (version.ReleaseType == ReleaseType.Regular) return versionString.ToString();
+            if (version.ReleaseType == ReleaseType.Regular)
+            {
+                return versionString.ToString();
+            }
 
             var number = version.ReleaseNumber >= 1
                              ? version.ReleaseNumber.ToString()

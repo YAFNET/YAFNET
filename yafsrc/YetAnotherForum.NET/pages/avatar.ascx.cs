@@ -49,7 +49,7 @@ namespace YAF.Pages
     /// <summary>
     /// The Local Avatar Page.
     /// </summary>
-    public partial class avatar : ForumPage
+    public partial class Avatar : ForumPage
     {
         #region Constants and Fields
 
@@ -63,9 +63,9 @@ namespace YAF.Pages
         #region Constructors and Destructors
 
         /// <summary>
-        ///   Initializes a new instance of the <see cref = "avatar" /> class.
+        ///   Initializes a new instance of the <see cref = "Avatar" /> class.
         /// </summary>
-        public avatar()
+        public Avatar()
             : base("AVATAR")
         {
         }

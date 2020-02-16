@@ -166,12 +166,12 @@ namespace YAF.Pages
                 // We check here if the user have access to the option
                 if (!this.Get<IPermissions>().Check(this.Get<BoardSettings>().ReportPostPermissions))
                 {
-                    BuildLink.Redirect(ForumPages.info, "i=1");
+                    BuildLink.Redirect(ForumPages.Info, "i=1");
                 }
 
                 if (!int.TryParse(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("m"), out this.messageID))
                 {
-                    BuildLink.Redirect(ForumPages.error, "Incorrect message value: {0}", this.messageID);
+                    BuildLink.Redirect(ForumPages.Error, "Incorrect message value: {0}", this.messageID);
                 }
             }
 
@@ -192,7 +192,7 @@ namespace YAF.Pages
             }
             else
             {
-                BuildLink.Redirect(ForumPages.info, "i=1");
+                BuildLink.Redirect(ForumPages.Info, "i=1");
             }
 
             // Get Forum Link
@@ -207,7 +207,7 @@ namespace YAF.Pages
         protected void RedirectToPost()
         {
             // Redirect to reported post
-            BuildLink.Redirect(ForumPages.posts, "m={0}#post{0}", this.messageID);
+            BuildLink.Redirect(ForumPages.Posts, "m={0}#post{0}", this.messageID);
         }
 
         #endregion

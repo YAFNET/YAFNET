@@ -7,11 +7,13 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace YAF.Pages {
-    
-    
-    public partial class search {
-        
+namespace YAF.Pages
+{
+
+
+    public partial class Search
+    {
+
         /// <summary>
         /// PageLinks control.
         /// </summary>
@@ -20,7 +22,7 @@ namespace YAF.Pages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::YAF.Web.Controls.PageLinks PageLinks;
-        
+
         /// <summary>
         /// searchInput control.
         /// </summary>
@@ -29,7 +31,7 @@ namespace YAF.Pages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox searchInput;
-        
+
         /// <summary>
         /// GoSearch control.
         /// </summary>
@@ -38,7 +40,7 @@ namespace YAF.Pages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::YAF.Web.Controls.ThemeButton GoSearch;
-        
+
         /// <summary>
         /// txtSearchStringFromWho control.
         /// </summary>
@@ -47,7 +49,7 @@ namespace YAF.Pages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtSearchStringFromWho;
-        
+
         /// <summary>
         /// listSearchWhat control.
         /// </summary>
@@ -56,7 +58,7 @@ namespace YAF.Pages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList listSearchWhat;
-        
+
         /// <summary>
         /// listForum control.
         /// </summary>
@@ -65,7 +67,7 @@ namespace YAF.Pages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList listForum;
-        
+
         /// <summary>
         /// TitleOnly control.
         /// </summary>
@@ -74,7 +76,7 @@ namespace YAF.Pages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList TitleOnly;
-        
+
         /// <summary>
         /// listResInPage control.
         /// </summary>

@@ -43,14 +43,14 @@ namespace YAF.Pages
     /// <summary>
     /// The Logout function
     /// </summary>
-    public partial class logout : ForumPage
+    public partial class Logout : ForumPage
     {
         #region Constructors and Destructors
 
         /// <summary>
-        ///   Initializes a new instance of the <see cref = "logout" /> class.
+        ///   Initializes a new instance of the <see cref = "Logout" /> class.
         /// </summary>
-        public logout()
+        public Logout()
             : base("LOGOUT")
         {
             this.PageContext.Globals.IsSuspendCheckEnabled = false;

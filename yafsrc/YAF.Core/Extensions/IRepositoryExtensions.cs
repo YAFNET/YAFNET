@@ -35,6 +35,7 @@ namespace YAF.Core.Extensions
     using YAF.Configuration;
     using YAF.Types;
     using YAF.Types.Extensions;
+    using YAF.Types.Extensions.Data;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
 

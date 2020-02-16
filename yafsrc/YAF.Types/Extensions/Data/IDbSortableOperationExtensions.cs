@@ -21,10 +21,12 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Interfaces.Data
+namespace YAF.Types.Extensions.Data
 {
     using System.Collections.Generic;
     using System.Linq;
+
+    using YAF.Types.Interfaces.Data;
 
     /// <summary>
     /// The i db sortable operation extensions.
@@ -62,7 +64,9 @@ namespace YAF.Types.Interfaces.Data
         /// <returns>
         /// The is operation supported. 
         /// </returns>
-        public static IEnumerable<T> WhereOperationSupported<T>([NotNull] this IEnumerable<T> checkSupported, [NotNull] string operationName)
+        public static IEnumerable<T> WhereOperationSupported<T>(
+            [NotNull] this IEnumerable<T> checkSupported,
+            [NotNull] string operationName)
             where T : IDbSortableOperation
         {
             CodeContracts.VerifyNotNull(checkSupported, "checkSupported");

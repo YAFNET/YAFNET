@@ -1,4 +1,4 @@
-<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.emailtopic" Codebehind="emailtopic.ascx.cs" %>
+<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.EmailTopic" Codebehind="EmailTopic.ascx.cs" %>
 
 <YAF:PageLinks runat="server" ID="PageLinks" />
 

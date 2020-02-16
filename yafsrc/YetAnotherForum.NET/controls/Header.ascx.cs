@@ -61,7 +61,7 @@ namespace YAF.Controls
         {
             var returnUrl = string.Empty;
 
-            if (this.PageContext.ForumPageType != ForumPages.login)
+            if (this.PageContext.ForumPageType != ForumPages.Login)
             {
                 returnUrl = HttpContext.Current.Server.UrlEncode(General.GetSafeRawUrl());
             }
@@ -117,7 +117,7 @@ namespace YAF.Controls
                 return;
             }
 
-            BuildLink.Redirect(ForumPages.search, "search={0}", this.Server.UrlEncode(this.searchInput.Text));
+            BuildLink.Redirect(ForumPages.Search, "search={0}", this.Server.UrlEncode(this.searchInput.Text));
         }
 
         /// <summary>
@@ -290,12 +290,12 @@ namespace YAF.Controls
                 "nav-link",
                 this.GetText("TOOLBAR", "MODERATE"),
                 "MODERATE_TITLE",
-                BuildLink.GetLink(ForumPages.moderate_index),
+                BuildLink.GetLink(ForumPages.Moderate_Index),
                 false,
                 this.PageContext.ModeratePosts > 0,
                 this.PageContext.ModeratePosts.ToString(),
                 this.GetTextFormatted("MODERATE_NEW", this.PageContext.ModeratePosts),
-                this.PageContext.ForumPageType == ForumPages.moderate_index);
+                this.PageContext.ForumPageType == ForumPages.Moderate_Index);
 
             if (this.PageContext.ForumPageType == ForumPages.admin_hostsettings || this.PageContext.ForumPageType == ForumPages.admin_boards
                                                                                 || this.PageContext.ForumPageType == ForumPages.admin_editboard
@@ -323,12 +323,12 @@ namespace YAF.Controls
                     "nav-link",
                     this.GetText("TOOLBAR", "SEARCH"),
                     "SEARCH_TITLE",
-                    BuildLink.GetLink(ForumPages.search),
+                    BuildLink.GetLink(ForumPages.Search),
                     false,
                     false,
                     null,
                     null,
-                    this.PageContext.ForumPageType == ForumPages.search,
+                    this.PageContext.ForumPageType == ForumPages.Search,
                     string.Empty);
             }
 
@@ -340,12 +340,12 @@ namespace YAF.Controls
                     "nav-link",
                     this.GetText("TOOLBAR", "MEMBERS"),
                     "MEMBERS_TITLE",
-                    BuildLink.GetLink(ForumPages.members),
+                    BuildLink.GetLink(ForumPages.Members),
                     false,
                     false,
                     null,
                     null,
-                    this.PageContext.ForumPageType == ForumPages.members,
+                    this.PageContext.ForumPageType == ForumPages.Members,
                     string.Empty);
             }
 
@@ -357,12 +357,12 @@ namespace YAF.Controls
                     "nav-link",
                     this.GetText("TOOLBAR", "TEAM"),
                     "TEAM_TITLE",
-                    BuildLink.GetLink(ForumPages.team),
+                    BuildLink.GetLink(ForumPages.Team),
                     false,
                     false,
                     null,
                     null, 
-                    this.PageContext.ForumPageType == ForumPages.team,
+                    this.PageContext.ForumPageType == ForumPages.Team,
                     string.Empty);
             }
 
@@ -374,12 +374,12 @@ namespace YAF.Controls
                     "nav-link",
                     this.GetText("TOOLBAR", "HELP"),
                     "HELP_TITLE",
-                    BuildLink.GetLink(ForumPages.help_index),
+                    BuildLink.GetLink(ForumPages.Help),
                     false,
                     false,
                     null,
                     null,
-                    this.PageContext.ForumPageType == ForumPages.help_index,
+                    this.PageContext.ForumPageType == ForumPages.Help,
                     string.Empty);
             }
 
@@ -414,15 +414,15 @@ namespace YAF.Controls
                     this.GetText("TOOLBAR", "REGISTER"),
                     "REGISTER_TITLE",
                     this.Get<BoardSettings>().ShowRulesForRegistration
-                        ? BuildLink.GetLink(ForumPages.rules)
+                        ? BuildLink.GetLink(ForumPages.Rules)
                         : !this.Get<BoardSettings>().UseSSLToRegister
-                            ? BuildLink.GetLink(ForumPages.register)
-                            : BuildLink.GetLink(ForumPages.register, true).Replace("http:", "https:"),
+                            ? BuildLink.GetLink(ForumPages.Register)
+                            : BuildLink.GetLink(ForumPages.Register, true).Replace("http:", "https:"),
                     true,
                     false,
                     null,
                     null,
-                    this.PageContext.ForumPageType == ForumPages.register,
+                    this.PageContext.ForumPageType == ForumPages.Register,
                     string.Empty);
             }
         }
@@ -484,11 +484,11 @@ namespace YAF.Controls
                                                Text = this.GetText("TOOLBAR", "REGISTER"),
                                                NavigateUrl =
                                                    this.Get<BoardSettings>().ShowRulesForRegistration
-                                                       ? BuildLink.GetLink(ForumPages.rules)
+                                                       ? BuildLink.GetLink(ForumPages.Rules)
                                                        : !this.Get<BoardSettings>().UseSSLToRegister
-                                                           ? BuildLink.GetLink(ForumPages.register)
+                                                           ? BuildLink.GetLink(ForumPages.Register)
                                                            : BuildLink.GetLink(
-                                                               ForumPages.register,
+                                                               ForumPages.Register,
                                                                true).Replace("http:", "https:"),
                                                CssClass = "alert-link"
                                            };

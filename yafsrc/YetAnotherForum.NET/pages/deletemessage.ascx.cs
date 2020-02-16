@@ -49,7 +49,7 @@ namespace YAF.Pages
     /// <summary>
     /// The Delete Message Page.
     /// </summary>
-    public partial class deletemessage : ForumPage
+    public partial class DeleteMessage : ForumPage
     {
         #region Constants and Fields
 
@@ -83,9 +83,9 @@ namespace YAF.Pages
         #region Constructors and Destructors
 
         /// <summary>
-        ///   Initializes a new instance of the <see cref = "deletemessage" /> class.
+        ///   Initializes a new instance of the <see cref = "DeleteMessage" /> class.
         /// </summary>
-        public deletemessage()
+        public DeleteMessage()
             : base("DELETEMESSAGE")
         {
         }
@@ -153,7 +153,7 @@ namespace YAF.Pages
                 || this.Get<HttpRequestBase>().QueryString.Exists("m"))
             {
                 // reply to existing topic or editing of existing topic
-                BuildLink.Redirect(ForumPages.posts, "t={0}", this.PageContext.PageTopicID);
+                BuildLink.Redirect(ForumPages.Posts, "t={0}", this.PageContext.PageTopicID);
             }
             else
             {
@@ -306,11 +306,10 @@ namespace YAF.Pages
             this.DeleteReasonRow.Visible = true;
             this.ReasonEditor.Text = Convert.ToString(this._messageRow["DeleteReason"]);
 
-            // populate the message preview with the message datarow...
+            // populate the message preview with the message data-row...
             this.MessagePreview.Message = this._messageRow["message"].ToString();
 
             var messageFlags = new MessageFlags(this._messageRow["Flags"]) { IsDeleted = false };
-
 
             this.MessagePreview.MessageFlags = messageFlags;
         }
@@ -347,7 +346,7 @@ namespace YAF.Pages
                 }
             }
 
-            // Toogle delete message -- if the message is currently deleted it will be undeleted.
+            // Toggle delete message -- if the message is currently deleted it will be un-deleted.
             // If it's not deleted it will be marked deleted.
             // If it is the last message of the topic, the topic is also deleted
             this.GetRepository<Message>().Delete(tmpMessageID.ToType<int>(),
@@ -367,7 +366,7 @@ namespace YAF.Pages
             }
             else
             {
-                BuildLink.Redirect(ForumPages.posts, "t={0}", tmpTopicID);
+                BuildLink.Redirect(ForumPages.Posts, "t={0}", tmpTopicID);
             }
         }
 

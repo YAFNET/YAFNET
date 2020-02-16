@@ -23,7 +23,7 @@
  */
 namespace YAF.Types.Interfaces.Data
 {
-	#region Using
+    #region Using
 
     using System.Collections.Generic;
     using System.Data;
@@ -31,20 +31,20 @@ namespace YAF.Types.Interfaces.Data
     #endregion
 
     /// <summary>
-	/// The db specific function.
-	/// </summary>
+    /// The db specific function.
+    /// </summary>
     public interface IDbSpecificFunction : IDbSortableOperation
-	{
-		#region Properties
+    {
+        #region Properties
 
-		/// <summary>
-		/// Gets ProviderName.
-		/// </summary>
-		string ProviderName { get; }
+        /// <summary>
+        /// Gets ProviderName.
+        /// </summary>
+        string ProviderName { get; }
 
-		#endregion
+        #endregion
 
-		#region Public Methods
+        #region Public Methods
 
         /// <summary>
         /// The execute.
@@ -66,12 +66,12 @@ namespace YAF.Types.Interfaces.Data
         /// The execute.
         /// </returns>
         bool Execute(
-	        DbFunctionType dbfunctionType,
-	        string operationName,
-	        IEnumerable<KeyValuePair<string, object>> parameters,
-	        out object result,
+            DbFunctionType dbfunctionType,
+            string operationName,
+            IEnumerable<KeyValuePair<string, object>> parameters,
+            out object result,
             IDbTransaction transaction = null);
 
-		#endregion
-	}
+        #endregion
+    }
 }

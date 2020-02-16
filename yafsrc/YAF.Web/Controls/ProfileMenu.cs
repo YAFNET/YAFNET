@@ -165,7 +165,7 @@ namespace YAF.Web.Controls
                 this.RenderMenuItem(
                     html,
                     "list-group-item list-group-item-action",
-                    ForumPages.albums,
+                    ForumPages.Albums,
                     this.GetText("EDIT_ALBUMS"),
                     "images",
                     $"u={this.PageContext.PageUserID}");
@@ -173,7 +173,7 @@ namespace YAF.Web.Controls
                 this.RenderMenuItem(
                     htmlDropDown,
                     "dropdown-item",
-                    ForumPages.albums,
+                    ForumPages.Albums,
                     this.GetText("EDIT_ALBUMS"),
                     "images",
                     $"u={this.PageContext.PageUserID}");

@@ -39,14 +39,14 @@ namespace YAF.Pages
   /// <summary>
   /// the custom error page
   /// </summary>
-  public partial class error : ForumPage
+  public partial class Error : ForumPage
   {
     #region Constructors and Destructors
 
     /// <summary>
-    ///   Initializes a new instance of the <see cref = "error" /> class.
+    ///   Initializes a new instance of the <see cref = "Error" /> class.
     /// </summary>
-    public error()
+    public Error()
       : base("ERROR")
     {
       this.NoDataBase = true;
@@ -64,7 +64,6 @@ namespace YAF.Pages
     /// </param>
     protected override void OnInit([NotNull] EventArgs e)
     {
-      // CODEGEN: This call is required by the ASP.NET Web Form Designer.
       this.InitializeComponent();
       base.OnInit(e);
     }

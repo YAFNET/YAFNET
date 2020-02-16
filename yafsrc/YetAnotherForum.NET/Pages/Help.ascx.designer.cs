@@ -7,11 +7,13 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace YAF.Pages {
-    
-    
-    public partial class im_email {
-        
+namespace YAF.Pages
+{
+
+
+    public partial class Help
+    {
+
         /// <summary>
         /// PageLinks control.
         /// </summary>
@@ -20,68 +22,77 @@ namespace YAF.Pages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::YAF.Web.Controls.PageLinks PageLinks;
-        
+
         /// <summary>
-        /// LocalizedLabel6 control.
+        /// Title control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel6;
-        
+        protected global::YAF.Web.Controls.LocalizedLabel Title;
+
         /// <summary>
-        /// LocalizedLabel4 control.
+        /// HelpList control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel4;
-        
+        protected global::System.Web.UI.WebControls.Repeater HelpList;
+
         /// <summary>
-        /// LocalizedLabel2 control.
+        /// SearchHolder control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel2;
-        
+        protected global::System.Web.UI.WebControls.PlaceHolder SearchHolder;
+
         /// <summary>
-        /// Subject control.
+        /// SubTitle control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox Subject;
-        
+        protected global::System.Web.UI.WebControls.Label SubTitle;
+
         /// <summary>
-        /// LocalizedLabel3 control.
+        /// HelpContent control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel3;
-        
+        protected global::System.Web.UI.WebControls.Label HelpContent;
+
         /// <summary>
-        /// Body control.
+        /// SearchFor control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox Body;
-        
+        protected global::YAF.Web.Controls.LocalizedLabel SearchFor;
+
         /// <summary>
-        /// Send control.
+        /// search control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.Controls.ThemeButton Send;
+        protected global::System.Web.UI.WebControls.TextBox search;
+
+        /// <summary>
+        /// DoSearch control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Web.Controls.ThemeButton DoSearch;
     }
 }

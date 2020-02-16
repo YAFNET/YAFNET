@@ -85,7 +85,7 @@ namespace YAF.Pages
                 if (albumId.IsSet() && !albumId.Contains("new"))
                 {
                     BuildLink.Redirect(
-                        ForumPages.album,
+                        ForumPages.Album,
                         "u={0}&a={1}",
                         this.PageContext.PageUserID.ToString(),
                         albumId);
@@ -93,12 +93,12 @@ namespace YAF.Pages
                 else
                 {
                     // simply redirect to albums page
-                    BuildLink.Redirect(ForumPages.albums, "u={0}", this.PageContext.PageUserID);
+                    BuildLink.Redirect(ForumPages.Albums, "u={0}", this.PageContext.PageUserID);
                 }
             }
             else
             {
-                BuildLink.Redirect(ForumPages.albums, "u={0}", this.PageContext.PageUserID);
+                BuildLink.Redirect(ForumPages.Albums, "u={0}", this.PageContext.PageUserID);
             }
         }
 
@@ -121,7 +121,7 @@ namespace YAF.Pages
             // clear the cache for this user to update albums|images stats...
             this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.PageContext.PageUserID));
 
-            BuildLink.Redirect(ForumPages.albums, "u={0}", this.PageContext.PageUserID);
+            BuildLink.Redirect(ForumPages.Albums, "u={0}", this.PageContext.PageUserID);
         }
 
         /// <summary>
@@ -262,7 +262,7 @@ namespace YAF.Pages
                 BuildLink.GetLink(ForumPages.Profile, "u={0}&name={1}", userID.ToString(), displayName));
             this.PageLinks.AddLink(
                 this.GetText("ALBUMS"),
-                BuildLink.GetLink(ForumPages.albums, "u={0}", userID.ToString()));
+                BuildLink.GetLink(ForumPages.Albums, "u={0}", userID.ToString()));
             this.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
 
             this.BindData();

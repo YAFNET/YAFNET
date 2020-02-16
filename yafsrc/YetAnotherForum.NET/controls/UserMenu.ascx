@@ -23,7 +23,7 @@
                                                                         this.PageContext.ForumPageType == ForumPages.EditSettings ||
                                                                         this.PageContext.ForumPageType == ForumPages.ChangePassword  ||
                                                                         this.PageContext.ForumPageType == ForumPages.Attachments  ||
-                                                                        this.PageContext.ForumPageType == ForumPages.avatar  ||
+                                                                        this.PageContext.ForumPageType == ForumPages.Avatar  ||
                                                                         this.PageContext.ForumPageType == ForumPages.EditAvatar ||
                                                                         this.PageContext.ForumPageType == ForumPages.EditSignature  ||
                                                                         this.PageContext.ForumPageType == ForumPages.Subscriptions  ||

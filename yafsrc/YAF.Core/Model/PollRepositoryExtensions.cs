@@ -35,6 +35,7 @@ namespace YAF.Core.Model
     using YAF.Core.Data;
     using YAF.Types;
     using YAF.Types.Extensions;
+    using YAF.Types.Extensions.Data;
     using YAF.Types.Interfaces.Data;
     using YAF.Types.Models;
     using YAF.Types.Objects;

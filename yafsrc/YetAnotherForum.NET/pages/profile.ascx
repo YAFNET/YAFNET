@@ -274,7 +274,7 @@
                                         <YAF:LocalizedLabel ID="LocalizedLabel16" runat="server" LocalizedTag="topic" />
                                     </span><a 
                                                title='<%# this.GetText("COMMON", "VIEW_TOPIC") %>' 
-                                               href='<%# BuildLink.GetLink(ForumPages.posts,"t={0}",Container.DataItemToField<int>("TopicID")) %>'>
+                                               href='<%# BuildLink.GetLink(ForumPages.Posts,"t={0}",Container.DataItemToField<int>("TopicID")) %>'>
                                         <%# this.Get<IBadWordReplace>().Replace(this.HtmlEncode(Container.DataItemToField<string>("Subject"))) %>
                                     </a>
                                 </div>

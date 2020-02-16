@@ -1,5 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true"
-	Inherits="YAF.Pages.recoverpassword" Codebehind="recoverpassword.ascx.cs" %>
+	Inherits="YAF.Pages.RecoverPassword" Codebehind="RecoverPassword.ascx.cs" %>
 
 <YAF:PageLinks runat="server" ID="PageLinks" />
 

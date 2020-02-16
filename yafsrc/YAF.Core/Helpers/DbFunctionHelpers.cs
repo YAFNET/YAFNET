@@ -28,6 +28,7 @@ namespace YAF.Core.Helpers
     using System.Linq;
 
     using YAF.Types;
+    using YAF.Types.Extensions.Data;
     using YAF.Types.Interfaces.Data;
 
     /// <summary>

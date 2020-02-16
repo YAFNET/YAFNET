@@ -101,7 +101,7 @@ namespace YAF.Pages
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void AddUser_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
-            BuildLink.Redirect(ForumPages.mod_forumuser, "f={0}", this.PageContext.PageForumID);
+            BuildLink.Redirect(ForumPages.ModForumUser, "f={0}", this.PageContext.PageForumID);
         }
 
         /// <summary>
@@ -301,7 +301,7 @@ namespace YAF.Pages
             {
                 case "edit":
                     BuildLink.Redirect(
-                        ForumPages.mod_forumuser, "f={0}&u={1}", this.PageContext.PageForumID, e.CommandArgument);
+                        ForumPages.ModForumUser, "f={0}&u={1}", this.PageContext.PageForumID, e.CommandArgument);
                     break;
                 case "remove":
                     this.GetRepository<UserForum>().Delete(e.CommandArgument.ToType<int>(), this.PageContext.PageForumID);

@@ -1,4 +1,4 @@
-<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.cookies" Codebehind="cookies.ascx.cs" %>
+<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Cookies" Codebehind="Cookies.ascx.cs" %>
 
 <YAF:PageLinks runat="server" ID="PageLinks" />
 

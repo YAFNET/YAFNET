@@ -68,7 +68,7 @@ namespace YAF.Utils
         /// </summary>
         public static void AccessDenied()
         {
-            Redirect(ForumPages.info, "i=4");
+            Redirect(ForumPages.Info, "i=4");
         }
 
         /// <summary>
@@ -271,7 +271,7 @@ namespace YAF.Utils
         /// </param>
         public static void RedirectInfoPage(InfoMessage infoMessage)
         {
-            Redirect(ForumPages.info, $"i={infoMessage.ToType<int>()}");
+            Redirect(ForumPages.Info, $"i={infoMessage.ToType<int>()}");
         }
 
         #endregion

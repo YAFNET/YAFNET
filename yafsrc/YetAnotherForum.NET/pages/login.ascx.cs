@@ -54,14 +54,14 @@ namespace YAF.Pages
     /// <summary>
     /// The Forum Login Page.
     /// </summary>
-    public partial class login : ForumPage
+    public partial class Login : ForumPage
     {
         #region Constructors and Destructors
 
         /// <summary>
-        ///   Initializes a new instance of the <see cref="login" /> class.
+        ///   Initializes a new instance of the <see cref="Login" /> class.
         /// </summary>
-        public login()
+        public Login()
             : base("LOGIN")
         {
         }
@@ -232,7 +232,7 @@ namespace YAF.Pages
             // Login1.CreateUserText = "Sign up for a new account.";
             // Login1.CreateUserUrl = BuildLink.GetLink( ForumPages.register );
             this.Login1.PasswordRecoveryText = this.GetText("lostpassword");
-            this.Login1.PasswordRecoveryUrl = BuildLink.GetLink(ForumPages.recoverpassword);
+            this.Login1.PasswordRecoveryUrl = BuildLink.GetLink(ForumPages.RecoverPassword);
             this.Login1.FailureText = this.GetText("password_error");
 
             this.Login1.DestinationPageUrl =
@@ -525,7 +525,7 @@ namespace YAF.Pages
         /// </param>
         protected void PasswordRecovery_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
-            BuildLink.Redirect(ForumPages.recoverpassword);
+            BuildLink.Redirect(ForumPages.RecoverPassword);
         }
 
         /// <summary>
@@ -535,7 +535,7 @@ namespace YAF.Pages
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void FacebookFormClick(object sender, EventArgs e)
         {
-            BuildLink.Redirect(ForumPages.login, "auth={0}", "facebook");
+            BuildLink.Redirect(ForumPages.Login, "auth={0}", "facebook");
         }
 
         /// <summary>
@@ -545,7 +545,7 @@ namespace YAF.Pages
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void TwitterFormClick(object sender, EventArgs e)
         {
-            BuildLink.Redirect(ForumPages.login, "auth={0}", "twitter");
+            BuildLink.Redirect(ForumPages.Login, "auth={0}", "twitter");
         }
 
         /// <summary>
@@ -555,7 +555,7 @@ namespace YAF.Pages
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void GoogleFormClick(object sender, EventArgs e)
         {
-            BuildLink.Redirect(ForumPages.login, "auth={0}", "google");
+            BuildLink.Redirect(ForumPages.Login, "auth={0}", "google");
         }
 
         /// <summary>
@@ -566,7 +566,7 @@ namespace YAF.Pages
         protected void RegisterLinkClick(object sender, EventArgs e)
         {
             BuildLink.Redirect(
-                this.Get<BoardSettings>().ShowRulesForRegistration ? ForumPages.rules : ForumPages.register);
+                this.Get<BoardSettings>().ShowRulesForRegistration ? ForumPages.Rules : ForumPages.Register);
         }
 
         /// <summary>
@@ -576,7 +576,7 @@ namespace YAF.Pages
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void CancelAuthLoginClick(object sender, EventArgs e)
         {
-            BuildLink.Redirect(ForumPages.login);
+            BuildLink.Redirect(ForumPages.Login);
         }
 
         /// <summary>

@@ -1,4 +1,4 @@
-﻿<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.movemessage" Codebehind="movemessage.ascx.cs" %>
+﻿<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.MoveMessage" Codebehind="MoveMessage.ascx.cs" %>
 
 
 <YAF:PageLinks runat="server" ID="PageLinks" />

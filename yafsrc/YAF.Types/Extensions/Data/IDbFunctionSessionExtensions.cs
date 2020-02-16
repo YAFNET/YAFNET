@@ -21,16 +21,18 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Interfaces.Data
+namespace YAF.Types.Extensions.Data
 {
     #region Using
 
     using System.Data;
 
+    using YAF.Types.Interfaces.Data;
+
     #endregion
 
     /// <summary>
-    ///     The db unit of work extensions.
+    /// The i db function session extensions.
     /// </summary>
     public static class IDbFunctionSessionExtensions
     {

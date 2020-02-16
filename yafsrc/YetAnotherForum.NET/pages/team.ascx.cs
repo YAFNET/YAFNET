@@ -53,7 +53,7 @@ namespace YAF.Pages
     /// <summary>
     /// The Team Page
     /// </summary>
-    public partial class team : ForumPage
+    public partial class Team : ForumPage
     {
         #region Constants and Fields
 
@@ -67,9 +67,9 @@ namespace YAF.Pages
         #region Constructors and Destructors
 
         /// <summary>
-        ///   Initializes a new instance of the <see cref = "team" /> class.
+        ///   Initializes a new instance of the <see cref = "Team" /> class.
         /// </summary>
-        public team()
+        public Team()
             : base("TEAM")
         {
         }
@@ -322,7 +322,7 @@ namespace YAF.Pages
                 }
             }
 
-            pm.NavigateUrl = BuildLink.GetLinkNotEscaped(ForumPages.pmessage, "u={0}", userid);
+            pm.NavigateUrl = BuildLink.GetLinkNotEscaped(ForumPages.PostPrivateMessage, "u={0}", userid);
             pm.ParamTitle0 = displayName;
 
             // email link
@@ -340,7 +340,7 @@ namespace YAF.Pages
                     email.Visible = true;
                 }
 
-                email.NavigateUrl = BuildLink.GetLinkNotEscaped(ForumPages.im_email, "u={0}", userid);
+                email.NavigateUrl = BuildLink.GetLinkNotEscaped(ForumPages.Email, "u={0}", userid);
                 email.ParamTitle0 = displayName;
             }
         }
@@ -425,7 +425,7 @@ namespace YAF.Pages
                 }
             }
 
-            pm.NavigateUrl = BuildLink.GetLinkNotEscaped(ForumPages.pmessage, "u={0}", userid);
+            pm.NavigateUrl = BuildLink.GetLinkNotEscaped(ForumPages.PostPrivateMessage, "u={0}", userid);
             pm.ParamTitle0 = displayName;
 
             // email link
@@ -443,7 +443,7 @@ namespace YAF.Pages
                     email.Visible = true;
                 }
 
-                email.NavigateUrl = BuildLink.GetLinkNotEscaped(ForumPages.im_email, "u={0}", userid);
+                email.NavigateUrl = BuildLink.GetLinkNotEscaped(ForumPages.Email, "u={0}", userid);
                 email.ParamTitle0 = displayName;
             }
         }

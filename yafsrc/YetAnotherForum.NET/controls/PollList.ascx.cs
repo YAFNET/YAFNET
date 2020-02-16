@@ -564,13 +564,13 @@ namespace YAF.Controls
         {
             if (e.CommandName == "new" && this.PageContext.ForumVoteAccess)
             {
-                BuildLink.Redirect(ForumPages.polledit, "{0}", this.ParamsToSend());
+                BuildLink.Redirect(ForumPages.PollEdit, "{0}", this.ParamsToSend());
             }
 
             if (e.CommandName == "edit" && this.PageContext.ForumVoteAccess)
             {
                 BuildLink.Redirect(
-                    ForumPages.polledit,
+                    ForumPages.PollEdit,
                     "{0}&p={1}",
                     this.ParamsToSend(),
                     e.CommandArgument.ToString());
@@ -1002,7 +1002,7 @@ namespace YAF.Controls
             var cpr = this.CreatePoll1;
 
             // ChangePollShowStatus(true);
-            cpr.NavigateUrl = BuildLink.GetLinkNotEscaped(ForumPages.polledit, "{0}", this.ParamsToSend());
+            cpr.NavigateUrl = BuildLink.GetLinkNotEscaped(ForumPages.PollEdit, "{0}", this.ParamsToSend());
             cpr.DataBind();
             cpr.Visible = true;
             this.NewPollRow.Visible = true;
@@ -1035,7 +1035,7 @@ namespace YAF.Controls
                               || this.PageContext.IsAdmin || this.PageContext.ForumModeratorAccess;
 
             // check if we should hide poll group repeater when a message is posted
-            if (this.PageContext.ForumPageType == ForumPages.postmessage)
+            if (this.PageContext.ForumPageType == ForumPages.PostMessage)
             {
                 this.PollGroup.Visible = this.EditMessageId > 0 && !this._canChange || this._canChange;
             }
@@ -1228,7 +1228,7 @@ namespace YAF.Controls
             {
                 this.BindData();
 
-                if (!this._canChange && this.PageContext.ForumPageType == ForumPages.postmessage)
+                if (!this._canChange && this.PageContext.ForumPageType == ForumPages.PostMessage)
                 {
                     this.PollListHolder.Visible = false;
                 }
@@ -1357,10 +1357,10 @@ namespace YAF.Controls
             // We simply return here to the page where the control is put. It can be made other way.
             switch (this.PageContext.ForumPageType)
             {
-                case ForumPages.posts:
+                case ForumPages.Posts:
                     if (this.TopicId > 0)
                     {
-                        BuildLink.Redirect(ForumPages.posts, "t={0}", this.TopicId);
+                        BuildLink.Redirect(ForumPages.Posts, "t={0}", this.TopicId);
                     }
 
                     break;
@@ -1388,10 +1388,10 @@ namespace YAF.Controls
                     }
 
                     break;
-                case ForumPages.postmessage:
+                case ForumPages.PostMessage:
                     if (this.EditMessageId > 0)
                     {
-                        BuildLink.Redirect(ForumPages.postmessage, "m={0}", this.EditMessageId);
+                        BuildLink.Redirect(ForumPages.PostMessage, "m={0}", this.EditMessageId);
                     }
 
                     break;

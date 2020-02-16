@@ -132,7 +132,7 @@ namespace YAF.Modules
 
             var pageString = string.Empty;
 
-            if (this.ForumPageType == ForumPages.posts || this.ForumPageType == ForumPages.topics)
+            if (this.ForumPageType == ForumPages.Posts || this.ForumPageType == ForumPages.topics)
             {
                 // get current page...
                 var currentPager = this.CurrentForumPage.FindControlAs<Pager>("Pager");
@@ -149,7 +149,7 @@ namespace YAF.Modules
             {
                 switch (this.ForumPageType)
                 {
-                    case ForumPages.posts:
+                    case ForumPages.Posts:
                         if (this.PageContext.PageTopicID != 0)
                         {
                             // Tack on the topic we're viewing

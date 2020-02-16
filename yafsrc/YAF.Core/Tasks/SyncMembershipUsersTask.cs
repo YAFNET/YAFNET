@@ -29,6 +29,7 @@ namespace YAF.Core.Tasks
 
   using YAF.Core.UsersRoles;
   using YAF.Types;
+  using YAF.Types.Extensions;
   using YAF.Types.Interfaces;
 
   #endregion

@@ -197,7 +197,7 @@ namespace YAF.Pages
             this.PageLinks.AddLink(
                 this.GetText("MEMBERS"),
                 this.Get<IPermissions>().Check(this.Get<BoardSettings>().MembersListViewPermissions)
-                    ? BuildLink.GetLink(ForumPages.members)
+                    ? BuildLink.GetLink(ForumPages.Members)
                     : null);
             this.PageLinks.AddLink(userDisplayName, string.Empty);
         }
@@ -272,7 +272,7 @@ namespace YAF.Pages
                     10).AsEnumerable();
 
                 this.SearchUser.NavigateUrl = BuildLink.GetLinkNotEscaped(
-                    ForumPages.search,
+                    ForumPages.Search,
                     "postedby={0}",
                     userNameOrDisplayName);
             }
@@ -398,7 +398,7 @@ namespace YAF.Pages
                 }
             }
 
-            this.PM.NavigateUrl = BuildLink.GetLinkNotEscaped(ForumPages.pmessage, "u={0}", userData.UserID);
+            this.PM.NavigateUrl = BuildLink.GetLinkNotEscaped(ForumPages.PostPrivateMessage, "u={0}", userData.UserID);
             this.PM.ParamTitle0 = userName;
 
             // email link
@@ -418,7 +418,7 @@ namespace YAF.Pages
                 }
             }
 
-            this.Email.NavigateUrl = BuildLink.GetLinkNotEscaped(ForumPages.im_email, "u={0}", userData.UserID);
+            this.Email.NavigateUrl = BuildLink.GetLinkNotEscaped(ForumPages.Email, "u={0}", userData.UserID);
             if (this.PageContext.IsAdmin)
             {
                 this.Email.TitleNonLocalized = userData.Membership.Email;
@@ -427,7 +427,7 @@ namespace YAF.Pages
             this.Email.ParamTitle0 = userName;
 
             this.XMPP.Visible = this.User != null && userData.Profile.XMPP.IsSet();
-            this.XMPP.NavigateUrl = BuildLink.GetLinkNotEscaped(ForumPages.im_xmpp, "u={0}", userData.UserID);
+            this.XMPP.NavigateUrl = BuildLink.GetLinkNotEscaped(ForumPages.Xmpp, "u={0}", userData.UserID);
             this.XMPP.ParamTitle0 = userName;
 
             this.Skype.Visible = this.User != null && userData.Profile.Skype.IsSet();

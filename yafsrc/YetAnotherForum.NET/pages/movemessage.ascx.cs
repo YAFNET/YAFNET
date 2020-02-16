@@ -46,14 +46,14 @@ namespace YAF.Pages
     /// <summary>
     /// Move Message Page
     /// </summary>
-    public partial class movemessage : ForumPage
+    public partial class MoveMessage : ForumPage
     {
         #region Constructors and Destructors
 
         /// <summary>
-        ///   Initializes a new instance of the <see cref = "movemessage" /> class.
+        ///   Initializes a new instance of the <see cref = "MoveMessage" /> class.
         /// </summary>
-        public movemessage()
+        public MoveMessage()
             : base("MOVEMESSAGE")
         {
         }
@@ -172,7 +172,7 @@ namespace YAF.Pages
             this.PageLinks.AddForum(this.PageContext.PageForumID);
             this.PageLinks.AddLink(
                 this.PageContext.PageTopicName,
-                BuildLink.GetLink(ForumPages.posts, "t={0}", this.PageContext.PageTopicID));
+                BuildLink.GetLink(ForumPages.Posts, "t={0}", this.PageContext.PageTopicID));
 
             this.PageLinks.AddLink(this.GetText("MOVE_MESSAGE"));
 

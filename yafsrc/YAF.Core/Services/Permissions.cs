@@ -121,7 +121,7 @@ namespace YAF.Core.Services
                     else if (Config.AllowLoginAndLogoff)
                     {
                         BuildLink.Redirect(
-                            ForumPages.login,
+                            ForumPages.Login,
                             "ReturnUrl={0}",
                             HttpUtility.UrlEncode(General.GetSafeRawUrl()));
                         noAccess = false;

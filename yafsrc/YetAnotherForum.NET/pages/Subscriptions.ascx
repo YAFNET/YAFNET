@@ -1,7 +1,6 @@
 <%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Subscriptions"CodeBehind="Subscriptions.ascx.cs" %>
 
 <%@ Import Namespace="YAF.Types.Constants" %>
-<%@ Import Namespace="YAF.Types.Extensions" %>
 
 <YAF:PageLinks runat="server" ID="PageLinks" />
 
@@ -117,7 +116,7 @@
                                         </asp:CheckBox>
                                         <asp:Label ID="ttid" runat="server" Text='<%# this.Eval("Item1.ID") %>'
                                                Visible="false" />
-                                            <a href="<%# BuildLink.GetLinkNotEscaped(ForumPages.posts, "t={0}", this.Eval("Item1.TopicID"))%>">
+                                            <a href="<%# BuildLink.GetLinkNotEscaped(ForumPages.Posts, "t={0}", this.Eval("Item1.TopicID"))%>">
                                                 <%# this.HtmlEncode(this.Eval("Item2.TopicName"))%></a>
                                     </li>
                                 </ItemTemplate>

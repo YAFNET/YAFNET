@@ -115,7 +115,7 @@ namespace YAF.Web.Controls
                 output.WriteAttribute(
                     "href",
                     BuildLink.GetLink(
-                        ForumPages.rsstopic,
+                        ForumPages.RssTopic,
                         "pg={0}&ft={1}{2}",
                         this.FeedType.ToInt(),
                         0,
@@ -135,7 +135,7 @@ namespace YAF.Web.Controls
                 output.WriteAttribute(
                     "href",
                     BuildLink.GetLink(
-                        ForumPages.rsstopic,
+                        ForumPages.RssTopic,
                         "pg={0}&ft={1}{2}",
                         this.FeedType.ToInt(),
                         1,

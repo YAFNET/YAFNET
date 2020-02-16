@@ -1,5 +1,5 @@
 ﻿<%@ Control Language="c#" AutoEventWireup="True"
-    Inherits="YAF.Pages.deletemessage" Codebehind="deletemessage.ascx.cs" %>
+    Inherits="YAF.Pages.DeleteMessage" Codebehind="DeleteMessage.ascx.cs" %>
 
 <%@ Import Namespace="YAF.Types.Constants" %>
 <%@ Import Namespace="YAF.Types.Interfaces" %>

@@ -30,7 +30,6 @@ namespace YAF.Pages
     using System.Net.Mail;
     using System.Web;
 
-    using YAF.Configuration;
     using YAF.Core;
     using YAF.Core.Extensions;
     using YAF.Core.Services;
@@ -46,14 +45,14 @@ namespace YAF.Pages
     /// <summary>
     /// The Share Topic via email
     /// </summary>
-    public partial class emailtopic : ForumPage
+    public partial class EmailTopic : ForumPage
     {
         #region Constructors and Destructors
 
         /// <summary>
-        ///   Initializes a new instance of the <see cref = "emailtopic" /> class.
+        ///   Initializes a new instance of the <see cref = "EmailTopic" /> class.
         /// </summary>
-        public emailtopic()
+        public EmailTopic()
             : base("EMAILTOPIC")
         {
         }
@@ -91,7 +90,7 @@ namespace YAF.Pages
             this.PageLinks.AddForum(this.PageContext.PageForumID);
             this.PageLinks.AddLink(
                 this.PageContext.PageTopicName,
-                BuildLink.GetLink(ForumPages.posts, "t={0}", this.PageContext.PageTopicID));
+                BuildLink.GetLink(ForumPages.Posts, "t={0}", this.PageContext.PageTopicID));
 
             this.Subject.Text = this.PageContext.PageTopicName;
 
@@ -101,7 +100,7 @@ namespace YAF.Pages
                                          {
                                              ["{link}"] =
                                              BuildLink.GetLinkNotEscaped(
-                                                 ForumPages.posts,
+                                                 ForumPages.Posts,
                                                  true,
                                                  "t={0}",
                                                  this.PageContext.PageTopicID),
@@ -135,7 +134,7 @@ namespace YAF.Pages
                 // send a change email message...
                 emailTopic.SendEmail(new MailAddress(this.EmailAddress.Text.Trim()), this.Subject.Text.Trim());
 
-                BuildLink.Redirect(ForumPages.posts, "t={0}", this.PageContext.PageTopicID);
+                BuildLink.Redirect(ForumPages.Posts, "t={0}", this.PageContext.PageTopicID);
             }
             catch (Exception x)
             {

@@ -11,7 +11,7 @@ namespace YAF.Pages
 {
 
 
-    public partial class activeusers
+    public partial class ActiveUsers
     {
 
         /// <summary>

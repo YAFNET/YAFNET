@@ -62,7 +62,7 @@ namespace YAF.Pages
     /// <summary>
     /// The Posts Page.
     /// </summary>
-    public partial class posts : ForumPage
+    public partial class Posts : ForumPage
     {
         #region Constants and Fields
 
@@ -91,9 +91,9 @@ namespace YAF.Pages
         #region Constructors and Destructors
 
         /// <summary>
-        ///   Initializes a new instance of the <see cref = "posts" /> class.
+        ///   Initializes a new instance of the <see cref = "Posts" /> class.
         /// </summary>
-        public posts()
+        public Posts()
             : base("POSTS")
         {
         }
@@ -158,7 +158,7 @@ namespace YAF.Pages
                 return;
             }
 
-            BuildLink.Redirect(ForumPages.emailtopic, "t={0}", this.PageContext.PageTopicID);
+            BuildLink.Redirect(ForumPages.EmailTopic, "t={0}", this.PageContext.PageTopicID);
         }
 
         /// <summary>
@@ -250,7 +250,7 @@ namespace YAF.Pages
                 return;
             }
 
-            BuildLink.Redirect(ForumPages.posts, "t={0}", nextTopic.ID.ToString());
+            BuildLink.Redirect(ForumPages.Posts, "t={0}", nextTopic.ID.ToString());
         }
 
         /// <summary>
@@ -280,7 +280,7 @@ namespace YAF.Pages
             if (this.Get<IPermissions>().Check(this.Get<BoardSettings>().ShowShareTopicTo))
             {
                 var topicUrl = BuildLink.GetLinkNotEscaped(
-                    ForumPages.posts, true, "t={0}", this.PageContext.PageTopicID);
+                    ForumPages.Posts, true, "t={0}", this.PageContext.PageTopicID);
 
                 if (this.Get<BoardSettings>().AllowEmailTopic)
                 {
@@ -469,12 +469,12 @@ namespace YAF.Pages
 
                 this.NewTopic2.NavigateUrl =
                     this.NewTopic1.NavigateUrl =
-                    BuildLink.GetLinkNotEscaped(ForumPages.postmessage, "f={0}", this.PageContext.PageForumID);
+                    BuildLink.GetLinkNotEscaped(ForumPages.PostMessage, "f={0}", this.PageContext.PageForumID);
 
                 this.PostReplyLink1.NavigateUrl =
                     this.PostReplyLink2.NavigateUrl =
                     BuildLink.GetLinkNotEscaped(
-                        ForumPages.postmessage,
+                        ForumPages.PostMessage,
                         "t={0}&f={1}",
                         this.PageContext.PageTopicID,
                         this.PageContext.PageForumID);
@@ -500,7 +500,7 @@ namespace YAF.Pages
                 this.TopicLink.ToolTip = this.Get<IBadWordReplace>().Replace(
                     this.HtmlEncode(this.topic.Description));
                 this.TopicLink.NavigateUrl = BuildLink.GetLinkNotEscaped(
-                    ForumPages.posts, "t={0}", this.PageContext.PageTopicID);
+                    ForumPages.Posts, "t={0}", this.PageContext.PageTopicID);
 
                 this.QuickReplyDialog.Visible = yafBoardSettings.ShowQuickAnswer;
                 this.QuickReplyLink1.Visible = yafBoardSettings.ShowQuickAnswer;
@@ -563,7 +563,7 @@ namespace YAF.Pages
                         "SelectedQuotingJs",
                         JavaScriptBlocks.SelectedQuotingJs(
                             BuildLink.GetLinkNotEscaped(
-                                ForumPages.postmessage,
+                                ForumPages.PostMessage,
                                 "t={0}&f={1}",
                                 this.PageContext.PageTopicID,
                                 this.PageContext.PageForumID),
@@ -629,7 +629,7 @@ namespace YAF.Pages
                 return;
             }
 
-            BuildLink.Redirect(ForumPages.posts, "t={0}", previousTopic.ID.ToString());
+            BuildLink.Redirect(ForumPages.Posts, "t={0}", previousTopic.ID.ToString());
         }
 
         /// <summary>
@@ -1166,7 +1166,7 @@ namespace YAF.Pages
         /// <param name="e">The Pop Event Arguments.</param>
         private void ShareMenuItemClick([NotNull] object sender, [NotNull] PopEventArgs e)
         {
-            var topicUrl = BuildLink.GetLinkNotEscaped(ForumPages.posts, true, "t={0}", this.PageContext.PageTopicID);
+            var topicUrl = BuildLink.GetLinkNotEscaped(ForumPages.Posts, true, "t={0}", this.PageContext.PageTopicID);
 
             switch (e.Item.ToLower())
             {
@@ -1266,7 +1266,7 @@ namespace YAF.Pages
             switch (e.Item.ToLower())
             {
                 case "print":
-                    BuildLink.Redirect(ForumPages.printtopic, "t={0}", this.PageContext.PageTopicID);
+                    BuildLink.Redirect(ForumPages.PrintTopic, "t={0}", this.PageContext.PageTopicID);
                     break;
                 case "watch":
                     this.TrackTopic_Click(sender, e);
@@ -1276,14 +1276,14 @@ namespace YAF.Pages
                     break;
                 case "rssfeed":
                     BuildLink.Redirect(
-                        ForumPages.rsstopic,
+                        ForumPages.RssTopic,
                         "pg={0}&t={1}&ft=0",
                         YafRssFeeds.Posts.ToInt(),
                         this.PageContext.PageTopicID);
                     break;
                 case "atomfeed":
                     BuildLink.Redirect(
-                        ForumPages.rsstopic,
+                        ForumPages.RssTopic,
                         "pg={0}&t={1}&ft=1",
                         YafRssFeeds.Posts.ToInt(),
                         this.PageContext.PageTopicID);

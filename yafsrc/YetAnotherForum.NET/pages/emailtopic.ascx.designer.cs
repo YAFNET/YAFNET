@@ -7,11 +7,13 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace YAF.Pages {
-    
-    
-    public partial class emailtopic {
-        
+namespace YAF.Pages
+{
+
+
+    public partial class EmailTopic
+    {
+
         /// <summary>
         /// PageLinks control.
         /// </summary>
@@ -20,7 +22,7 @@ namespace YAF.Pages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::YAF.Web.Controls.PageLinks PageLinks;
-        
+
         /// <summary>
         /// LocalizedLabel6 control.
         /// </summary>
@@ -29,7 +31,7 @@ namespace YAF.Pages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel6;
-        
+
         /// <summary>
         /// LocalizedLabel5 control.
         /// </summary>
@@ -38,7 +40,7 @@ namespace YAF.Pages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel5;
-        
+
         /// <summary>
         /// LocalizedLabel2 control.
         /// </summary>
@@ -47,7 +49,7 @@ namespace YAF.Pages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel2;
-        
+
         /// <summary>
         /// EmailAddress control.
         /// </summary>
@@ -56,7 +58,7 @@ namespace YAF.Pages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox EmailAddress;
-        
+
         /// <summary>
         /// LocalizedLabel3 control.
         /// </summary>
@@ -65,7 +67,7 @@ namespace YAF.Pages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel3;
-        
+
         /// <summary>
         /// Subject control.
         /// </summary>
@@ -74,7 +76,7 @@ namespace YAF.Pages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox Subject;
-        
+
         /// <summary>
         /// LocalizedLabel4 control.
         /// </summary>
@@ -83,7 +85,7 @@ namespace YAF.Pages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel4;
-        
+
         /// <summary>
         /// Message control.
         /// </summary>
@@ -92,7 +94,7 @@ namespace YAF.Pages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox Message;
-        
+
         /// <summary>
         /// SendEmail control.
         /// </summary>

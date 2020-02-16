@@ -1,4 +1,4 @@
-<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.rules" Codebehind="rules.ascx.cs" %>
+<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Rules" Codebehind="Rules.ascx.cs" %>
 
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <div class="row">

@@ -1,4 +1,4 @@
-﻿<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.postmessage" CodeBehind="postmessage.ascx.cs" %>
+﻿<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.PostMessage" CodeBehind="PostMessage.ascx.cs" %>
 <%@ Register TagPrefix="YAF" TagName="LastPosts" Src="../controls/LastPosts.ascx" %>
 <%@ Register TagPrefix="YAF" TagName="PostOptions" Src="../controls/PostOptions.ascx" %>
 <%@ Register TagPrefix="YAF" TagName="PostAttachments" Src="../controls/PostAttachments.ascx" %>
@@ -8,7 +8,7 @@
 
 <YAF:PageLinks ID="PageLinks" runat="server" />
 
-<YAF:PollList ID="PollList" ShowButtons="true" PollGroupId='<%# this.GetPollGroupID() %>' runat="server" />
+<YAF:PollList ID="PollList" ShowButtons="true" PollGroupId="<%# this.GetPollGroupID() %>" runat="server" />
 
 <div class="row">
     <div class="col-xl-12">
@@ -44,8 +44,8 @@
                             autocomplete="off" />
                     </div>
                     <div id="SearchResultsPlaceholder"
-                        data-url='<%=BoardInfo.ForumClientFileRoot %>'
-                        data-userid='<%= YafContext.Current.PageUserID %>'>
+                        data-url="<%=BoardInfo.ForumClientFileRoot %>"
+                        data-userid="<%= YafContext.Current.PageUserID %>">
                     </div>
                 </asp:PlaceHolder>
                 <asp:PlaceHolder ID="DescriptionRow" Visible="false" runat="server">
@@ -83,6 +83,24 @@
                         <asp:TextBox ID="TopicStylesTextBox" runat="server" CssClass="form-control" />
                     </div>
                 </asp:PlaceHolder>
+                <div class="form-group">
+                    <asp:Label runat="server" AssociatedControlID="Tags">
+                        <YAF:LocalizedLabel runat="server" LocalizedTag="TAGS" />
+                    </asp:Label>
+                    <asp:UpdatePanel runat="server" UpdateMode="Conditional">
+                        <ContentTemplate>
+                            <asp:ListBox runat="server" ID="Tags" 
+                                         DataTextField="TagName"
+                                         DataValueField="ID"
+                                         CssClass="form-control select2-tags-select"
+                                         SelectionMode="Multiple"
+                                         AutoPostBack="True"
+                                         OnSelectedIndexChanged="Tags_OnSelectedIndexChanged">
+                            </asp:ListBox>
+                        </ContentTemplate>
+                    </asp:UpdatePanel>
+                   
+                </div>
                 <div class="form-group">
                     <asp:Label runat="server">
                         <YAF:LocalizedLabel runat="server" LocalizedTag="message" />

@@ -335,7 +335,7 @@ namespace YAF.Controls
         private void BindData()
         {
             this.ViewPostsLink.NavigateUrl = BuildLink.GetLinkNotEscaped(
-                ForumPages.search,
+                ForumPages.Search,
                 "postedby={0}",
                 !this.CurrentUserDataHelper.IsGuest
                     ? this.Get<BoardSettings>().EnableDisplayName ? this.CurrentUserDataHelper.DisplayName :

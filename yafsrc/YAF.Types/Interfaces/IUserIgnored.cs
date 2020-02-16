@@ -23,7 +23,10 @@
  */
 namespace YAF.Types.Interfaces
 {
-  public interface IUserIgnored
+    /// <summary>
+    /// The UserIgnored interface.
+    /// </summary>
+    public interface IUserIgnored
   {
     /// <summary>
     /// The is ignored.

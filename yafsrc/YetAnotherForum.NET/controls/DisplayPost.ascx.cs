@@ -137,13 +137,13 @@ namespace YAF.Controls
             this.Edit.Visible = this.Edit2.Visible =
                                     !this.PostData.PostDeleted && this.PostData.CanEditPost && !this.PostData.IsLocked;
             this.Edit.NavigateUrl = this.Edit2.NavigateUrl = BuildLink.GetLinkNotEscaped(
-                                        ForumPages.postmessage,
+                                        ForumPages.PostMessage,
                                         "m={0}",
                                         this.PostData.MessageId);
             this.MovePost.Visible =
                 this.Move.Visible = this.PageContext.ForumModeratorAccess && !this.PostData.IsLocked;
             this.MovePost.NavigateUrl = this.Move.NavigateUrl = BuildLink.GetLinkNotEscaped(
-                                            ForumPages.movemessage,
+                                            ForumPages.MoveMessage,
                                             "m={0}",
                                             this.PostData.MessageId);
             this.Delete.Visible = this.Delete2.Visible =
@@ -151,12 +151,12 @@ namespace YAF.Controls
                                                                  && !this.PostData.IsLocked;
 
             this.Delete.NavigateUrl = this.Delete2.NavigateUrl = BuildLink.GetLinkNotEscaped(
-                                          ForumPages.deletemessage,
+                                          ForumPages.DeleteMessage,
                                           "m={0}&action=delete",
                                           this.PostData.MessageId);
             this.UnDelete.Visible = this.UnDelete2.Visible = this.PostData.CanUnDeletePost && !this.PostData.IsLocked;
             this.UnDelete.NavigateUrl = this.UnDelete2.NavigateUrl = BuildLink.GetLinkNotEscaped(
-                                            ForumPages.deletemessage,
+                                            ForumPages.DeleteMessage,
                                             "m={0}&action=undelete",
                                             this.PostData.MessageId);
 
@@ -165,14 +165,14 @@ namespace YAF.Controls
             this.MultiQuote.Visible = !this.PostData.PostDeleted && this.PostData.CanReply && !this.PostData.IsLocked;
 
             this.Quote.NavigateUrl = this.Quote2.NavigateUrl = BuildLink.GetLinkNotEscaped(
-                                         ForumPages.postmessage,
+                                         ForumPages.PostMessage,
                                          "t={0}&f={1}&q={2}",
                                          this.PageContext.PageTopicID,
                                          this.PageContext.PageForumID,
                                          this.PostData.MessageId);
 
             this.Reply.NavigateUrl = BuildLink.GetLinkNotEscaped(
-                ForumPages.postmessage,
+                ForumPages.PostMessage,
                 "t={0}&f={1}",
                 this.PageContext.PageTopicID,
                 this.PageContext.PageForumID);
@@ -246,7 +246,7 @@ namespace YAF.Controls
                     this.ReportPost.Visible = this.ReportPost2.Visible = true;
 
                     this.ReportPost.NavigateUrl = this.ReportPost2.NavigateUrl = BuildLink.GetLinkNotEscaped(
-                                                      ForumPages.reportpost,
+                                                      ForumPages.ReportPost,
                                                       "m={0}",
                                                       this.PostData.MessageId);
                 }
@@ -331,7 +331,7 @@ namespace YAF.Controls
                 this.GetRepository<Message>().UpdateFlags(this.PostData.MessageId, messageFlags.BitValue);
             }
 
-            BuildLink.Redirect(ForumPages.posts, "m={0}#post{0}", this.PostData.MessageId);
+            BuildLink.Redirect(ForumPages.Posts, "m={0}#post{0}", this.PostData.MessageId);
         }
 
         /// <summary>
@@ -525,7 +525,7 @@ namespace YAF.Controls
                         TextLocalizedTag = "SEARCHUSER",
                         CssClass = "dropdown-item",
                         NavigateUrl = BuildLink.GetLink(
-                            ForumPages.search,
+                            ForumPages.Search,
                             "postedby={0}",
                             this.DataRow[this.Get<BoardSettings>().EnableDisplayName ? "DisplayName" : "UserName"])
                     });
@@ -538,7 +538,7 @@ namespace YAF.Controls
                         TextLocalizedTag = "SEARCHUSER",
                         CssClass = "dropdown-item",
                         NavigateUrl = BuildLink.GetLink(
-                            ForumPages.search,
+                            ForumPages.Search,
                             "postedby={0}",
                             this.DataRow[this.Get<BoardSettings>().EnableDisplayName ? "DisplayName" : "UserName"])
                     });

@@ -46,14 +46,14 @@ namespace YAF.Pages
     /// <summary>
     /// The User Account Verification Page.
     /// </summary>
-    public partial class approve : ForumPage
+    public partial class Approve : ForumPage
     {
         #region Constructors and Destructors
 
         /// <summary>
-        ///   Initializes a new instance of the <see cref = "approve" /> class.
+        ///   Initializes a new instance of the <see cref = "Approve" /> class.
         /// </summary>
-        public approve()
+        public Approve()
             : base("APPROVE")
         {
         }

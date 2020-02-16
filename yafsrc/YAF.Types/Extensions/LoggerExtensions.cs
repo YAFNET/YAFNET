@@ -21,11 +21,12 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Interfaces
+namespace YAF.Types.Extensions
 {
     using System;
 
     using YAF.Types.Constants;
+    using YAF.Types.Interfaces;
 
     /// <summary>
     ///     The logger extensions.

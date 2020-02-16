@@ -102,7 +102,7 @@ namespace YAF.Modules
             {
               Href =
                 BuildLink.GetLink(
-                  ForumPages.rsstopic,
+                  ForumPages.RssTopic,
                   true,
                   "pg={0}&ft={1}",
                   YafRssFeeds.LatestPosts.ToInt(),
@@ -126,7 +126,7 @@ namespace YAF.Modules
             {
               Href =
                 BuildLink.GetLink(
-                  ForumPages.rsstopic,
+                  ForumPages.RssTopic,
                   true,
                   "pg={0}&ft={1}",
                   YafRssFeeds.LatestPosts.ToInt(),

@@ -21,7 +21,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Interfaces.Data
+namespace YAF.Types.Extensions.Data
 {
     using System;
     using System.Data;
@@ -29,6 +29,8 @@ namespace YAF.Types.Interfaces.Data
     using System.Linq.Expressions;
 
     using ServiceStack.OrmLite;
+
+    using YAF.Types.Interfaces.Data;
 
     /// <summary>
     ///     The DBAccess extensions.

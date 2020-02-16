@@ -53,7 +53,7 @@ namespace YAF.Pages
     /// <summary>
     /// The Poll Edit Page.
     /// </summary>
-    public partial class polledit : ForumPage
+    public partial class PollEdit : ForumPage
     {
         #region Constants and Fields
 
@@ -137,10 +137,10 @@ namespace YAF.Pages
         #region Constructors and Destructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="polledit"/> class. 
+        /// Initializes a new instance of the <see cref="PollEdit"/> class. 
         ///   Initializes a new instance of the ReportPost class.
         /// </summary>
-        public polledit()
+        public PollEdit()
             : base("POLLEDIT")
         {
         }
@@ -321,14 +321,14 @@ namespace YAF.Pages
             {
                 this.PageLinks.AddLink(
                     this.topicInfo.TopicName,
-                    BuildLink.GetLink(ForumPages.posts, "t={0}", this._topicId));
+                    BuildLink.GetLink(ForumPages.Posts, "t={0}", this._topicId));
             }
 
             if (this._editMessageId > 0)
             {
                 this.PageLinks.AddLink(
                     this.topicInfo.TopicName,
-                    BuildLink.GetLink(ForumPages.postmessage, "m={0}", this._editMessageId));
+                    BuildLink.GetLink(ForumPages.PostMessage, "m={0}", this._editMessageId));
             }
 
             this.PageLinks.AddLink(this.GetText("POLLEDIT", "EDITPOLL"), string.Empty);
@@ -914,26 +914,26 @@ namespace YAF.Pages
 
                 if (Config.IsRainbow)
                 {
-                    BuildLink.Redirect(ForumPages.info, "i=1");
+                    BuildLink.Redirect(ForumPages.Info, "i=1");
                 }
                 else
                 {
-                    BuildLink.Redirect(ForumPages.info, "i=1&url={0}", this.Server.UrlEncode(url));
+                    BuildLink.Redirect(ForumPages.Info, "i=1&url={0}", this.Server.UrlEncode(url));
                 }
             }
 
-            // BuildLink.Redirect(ForumPages.posts, "m={0}#{0}", this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("m"));      
+            // BuildLink.Redirect(ForumPages.Posts, "m={0}#{0}", this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("m"));      
             this.ParamsToSend(out var retliterals, out var retvalue);
 
             switch (retliterals)
             {
                 case "t":
-                    BuildLink.Redirect(ForumPages.posts, "t={0}", retvalue);
+                    BuildLink.Redirect(ForumPages.Posts, "t={0}", retvalue);
                     break;
 
                 case "em":
 
-                    BuildLink.Redirect(ForumPages.postmessage, "m={0}", retvalue);
+                    BuildLink.Redirect(ForumPages.PostMessage, "m={0}", retvalue);
                     break;
 
                 case "f":

@@ -41,7 +41,7 @@
                     foreach (var t in f.OrderByDescending(x => x.LastPostDate))
                     { %>
                            <h6 class="card-subtitle">
-                            <a href="<%= BuildLink.GetLink(this.BoardSettings, ForumPages.posts, true, "m={0}#post{0}", t.LastMessageID) %>"
+                            <a href="<%= BuildLink.GetLink(this.BoardSettings, ForumPages.Posts, true, "m={0}#post{0}", t.LastMessageID) %>"
                                 target="_blank">
                                 <i class="fas fa-comment"></i> <%= t.Subject %></a> 
                                  <span class="badge badge-secondary">
@@ -56,7 +56,7 @@
                         </p>
                        
                         <a class="btn btn-primary btn-sm mx-auto mt-2"
-                                  href="<%= BuildLink.GetLink(ForumPages.posts, true, "m={0}#post{0}", t.LastMessageID) %>"
+                                  href="<%= BuildLink.GetLink(ForumPages.Posts, true, "m={0}#post{0}", t.LastMessageID) %>"
                                   target="_blank">
                             <%= this.GetText("LINK") %></a>
                     
@@ -83,7 +83,7 @@
                         foreach (var t in f.OrderByDescending(x => x.LastPostDate))
                         { %>
                         <h6 class="card-subtitle">
-                            <a href="<%= BuildLink.GetLink(this.BoardSettings, ForumPages.posts, true, "m={0}#post{0}", t.LastMessageID) %>"
+                            <a href="<%= BuildLink.GetLink(this.BoardSettings, ForumPages.Posts, true, "m={0}#post{0}", t.LastMessageID) %>"
                                target="_blank">
                                 <i class="fas fa-comment"></i> <%= t.Subject %></a> 
                             <span class="badge badge-secondary">
@@ -98,7 +98,7 @@
                         </p>
                        
                         <a class="btn btn-primary btn-sm mx-auto mt-2"
-                           href="<%= BuildLink.GetLink(ForumPages.posts, true, "m={0}#post{0}", t.LastMessageID) %>"
+                           href="<%= BuildLink.GetLink(ForumPages.Posts, true, "m={0}#post{0}", t.LastMessageID) %>"
                            target="_blank">
                             <%= this.GetText("LINK") %></a>
                     

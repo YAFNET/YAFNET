@@ -7,11 +7,11 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace YAF.Pages.moderate
+namespace YAF.Pages.Moderate
 {
 
 
-    public partial class unapprovedposts
+    public partial class UnapprovedPosts
     {
 
         /// <summary>

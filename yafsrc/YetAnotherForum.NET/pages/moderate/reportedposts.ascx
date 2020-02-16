@@ -1,5 +1,5 @@
 ﻿
-<%@ Control Language="C#" AutoEventWireup="true" Inherits="YAF.Pages.moderate.reportedposts"CodeBehind="reportedposts.ascx.cs" %>
+<%@ Control Language="C#" AutoEventWireup="true" Inherits="YAF.Pages.Moderate.ReportedPosts"CodeBehind="ReportedPosts.ascx.cs" %>
 <%@ Import Namespace="YAF.Types.Constants" %>
 <%@ Import Namespace="YAF.Types.Extensions" %>
 <%@ Import Namespace="ServiceStack" %>
@@ -25,7 +25,7 @@
                                             LocalizedTag="TOPIC" />
                         </span>
                         <a id="TopicLink" 
-                           href='<%# BuildLink.GetLink(ForumPages.posts, "t={0}", this.Eval("TopicID")) %>'
+                           href='<%# BuildLink.GetLink(ForumPages.Posts, "t={0}", this.Eval("TopicID")) %>'
                            runat="server"><%# this.Eval("Topic") %></a>
                         <div class="float-right text-muted">
                             <span class="font-weight-bold">

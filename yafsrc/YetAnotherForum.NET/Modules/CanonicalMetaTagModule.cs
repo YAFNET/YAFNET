@@ -69,7 +69,7 @@ namespace YAF.Modules
             }
 
             // in cases where we are not going to index, but follow, we will not add a canonical tag.
-            if (this.ForumPageType == ForumPages.posts)
+            if (this.ForumPageType == ForumPages.Posts)
             {
                 if (this.Get<HttpRequestBase>().QueryString.Exists("m") ||
                     this.Get<HttpRequestBase>().QueryString.Exists("find"))
@@ -80,7 +80,7 @@ namespace YAF.Modules
                 else
                 {
                     var topicId = this.PageContext.PageTopicID;
-                    var topicUrl = BuildLink.GetLink(ForumPages.posts, true, TopicLinkParams, topicId);
+                    var topicUrl = BuildLink.GetLink(ForumPages.Posts, true, TopicLinkParams, topicId);
 
                     head.Controls.Add(new LiteralControl($"<link rel=\"canonical\" href=\"{topicUrl}\" />"));
                 }

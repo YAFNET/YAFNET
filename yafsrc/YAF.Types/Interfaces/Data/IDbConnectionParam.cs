@@ -21,25 +21,26 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF.Types.Interfaces.Data
 {
-	/// <summary>
-	/// The db connection param.
-	/// </summary>
-	public interface IDbConnectionParam : IHaveID
-	{
-		#region Properties
+    /// <summary>
+    /// The db connection param.
+    /// </summary>
+    public interface IDbConnectionParam : IHaveID
+    {
+        #region Properties
 
-		/// <summary>
-		///   Gets or sets DefaultValue.
-		/// </summary>
-		string Value { get; }
+        /// <summary>
+        ///   Gets or sets DefaultValue.
+        /// </summary>
+        string Value { get; }
 
-		/// <summary>
-		///   Gets or sets Label.
-		/// </summary>
-		string Name { get; }
+        /// <summary>
+        ///   Gets or sets Label.
+        /// </summary>
+        string Name { get; }
 
-		#endregion
-	}
+        #endregion
+    }
 }

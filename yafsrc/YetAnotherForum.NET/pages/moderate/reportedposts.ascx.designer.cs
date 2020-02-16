@@ -7,11 +7,13 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace YAF.Pages.moderate {
-    
-    
-    public partial class reportedposts {
-        
+namespace YAF.Pages.Moderate
+{
+
+
+    public partial class ReportedPosts
+    {
+
         /// <summary>
         /// PageLinks control.
         /// </summary>
@@ -20,7 +22,7 @@ namespace YAF.Pages.moderate {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::YAF.Web.Controls.PageLinks PageLinks;
-        
+
         /// <summary>
         /// LocalizedLabel1 control.
         /// </summary>
@@ -29,7 +31,7 @@ namespace YAF.Pages.moderate {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel1;
-        
+
         /// <summary>
         /// List control.
         /// </summary>

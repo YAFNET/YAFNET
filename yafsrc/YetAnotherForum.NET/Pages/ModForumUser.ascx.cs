@@ -50,15 +50,15 @@ namespace YAF.Pages
     /// <summary>
     /// Control handling user invitations to forum (i.e. granting permissions by admin/moderator).
     /// </summary>
-    public partial class mod_forumuser : ForumPage
+    public partial class ModForumUser : ForumPage
     {
         #region Constructors and Destructors
 
         /// <summary>
-        ///   Initializes a new instance of the <see cref = "mod_forumuser" /> class. 
+        ///   Initializes a new instance of the <see cref = "ModForumUser" /> class. 
         ///   Default constructor.
         /// </summary>
-        public mod_forumuser()
+        public ModForumUser()
             : base("MOD_FORUMUSER")
         {
         }

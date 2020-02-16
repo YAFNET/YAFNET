@@ -39,6 +39,7 @@ namespace YAF.Pages
     using YAF.Core.UsersRoles;
     using YAF.Types;
     using YAF.Types.Constants;
+    using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
     using YAF.Utils;
@@ -50,14 +51,14 @@ namespace YAF.Pages
     /// <summary>
     /// The recover Password Page.
     /// </summary>
-    public partial class recoverpassword : ForumPage
+    public partial class RecoverPassword : ForumPage
     {
         #region Constructors and Destructors
 
         /// <summary>
-        ///   Initializes a new instance of the <see cref = "recoverpassword" /> class.
+        ///   Initializes a new instance of the <see cref = "RecoverPassword" /> class.
         /// </summary>
-        public recoverpassword()
+        public RecoverPassword()
             : base("RECOVER_PASSWORD")
         {
         }
@@ -279,7 +280,7 @@ namespace YAF.Pages
                         this.Get<BoardSettings>().Name);
 
                     verifyEmail.TemplateParams["{link}"] = BuildLink.GetLinkNotEscaped(
-                        ForumPages.approve,
+                        ForumPages.Approve,
                         true,
                         "k={0}",
                         checkTyped.Hash);
@@ -304,7 +305,7 @@ namespace YAF.Pages
             e.Cancel = true;
 
             // nothing they can do here... redirect to login...
-            BuildLink.Redirect(ForumPages.login);
+            BuildLink.Redirect(ForumPages.Login);
         }
 
         /// <summary>
@@ -318,7 +319,7 @@ namespace YAF.Pages
         /// </param>
         protected void SubmitButton_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
-            BuildLink.Redirect(ForumPages.login);
+            BuildLink.Redirect(ForumPages.Login);
         }
 
         #endregion

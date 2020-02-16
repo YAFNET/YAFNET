@@ -21,15 +21,15 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Interfaces.Data
+namespace YAF.Types.Extensions.Data
 {
     #region Using
 
     using System;
-    using System.Collections.Generic;
     using System.Data;
 
     using YAF.Types.Extensions;
+    using YAF.Types.Interfaces.Data;
 
     #endregion
 
@@ -39,27 +39,6 @@ namespace YAF.Types.Interfaces.Data
     public static class IDbFunctionExtensions
     {
         #region Public Methods and Operators
-
-        /// <summary>
-        /// The get data set.
-        /// </summary>
-        /// <param name="dbFunction">
-        /// The db function. 
-        /// </param>
-        /// <param name="function">
-        /// The function. 
-        /// </param>
-        /// <returns>
-        /// The <see cref="DataSet"/> . 
-        /// </returns>
-        [NotNull]
-        public static DataSet GetAsDataSet([NotNull] this IDbFunction dbFunction, [NotNull] Func<dynamic, object> function)
-        {
-            CodeContracts.VerifyNotNull(dbFunction, "dbFunction");
-            CodeContracts.VerifyNotNull(function, "function");
-
-            return (DataSet)function(dbFunction.GetDataSet);
-        }
 
         /// <summary>
         /// Gets a DataTable using the new dynamic Db Function
@@ -80,35 +59,6 @@ namespace YAF.Types.Interfaces.Data
             CodeContracts.VerifyNotNull(function, "function");
 
             return (DataTable)function(dbFunction.GetData);
-        }
-
-        /// <summary>
-        /// The get data typed.
-        /// </summary>
-        /// <param name="dbFunction">
-        /// The db function. 
-        /// </param>
-        /// <param name="function">
-        /// The function. 
-        /// </param>
-        /// <param name="comparer">
-        /// The comparer. 
-        /// </param>
-        /// <typeparam name="T">
-        /// </typeparam>
-        /// <returns>
-        /// The <see cref="IEnumerable{T}"/> . 
-        /// </returns>
-        [CanBeNull]
-        public static IEnumerable<T> GetDataTyped<T>(
-            [NotNull] this IDbFunction dbFunction, 
-            [NotNull] Func<object, object> function, 
-            [CanBeNull] IEqualityComparer<string> comparer = null) where T : IDataLoadable, new()
-        {
-            CodeContracts.VerifyNotNull(dbFunction, "dbFunction");
-            CodeContracts.VerifyNotNull(function, "function");
-
-            return dbFunction.GetData(function).Typed<T>(comparer);
         }
 
         /// <summary>

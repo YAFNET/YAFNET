@@ -11,7 +11,7 @@ namespace YAF.Pages
 {
 
 
-    public partial class pmessage
+    public partial class PostPrivateMessage
     {
 
         /// <summary>

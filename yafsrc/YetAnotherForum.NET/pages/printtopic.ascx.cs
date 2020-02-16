@@ -50,14 +50,14 @@ namespace YAF.Pages
     /// <summary>
     /// Print topic Page.
     /// </summary>
-    public partial class printtopic : ForumPage
+    public partial class PrintTopic : ForumPage
     {
         #region Constructors and Destructors
 
         /// <summary>
-        ///   Initializes a new instance of the <see cref = "printtopic" /> class.
+        ///   Initializes a new instance of the <see cref = "PrintTopic" /> class.
         /// </summary>
-        public printtopic()
+        public PrintTopic()
             : base("PRINTTOPIC")
         {
         }
@@ -136,7 +136,7 @@ namespace YAF.Pages
 
             this.PageLinks.AddForum(this.PageContext.PageForumID);
             this.PageLinks.AddLink(
-                this.PageContext.PageTopicName, BuildLink.GetLink(ForumPages.posts, "t={0}", this.PageContext.PageTopicID));
+                this.PageContext.PageTopicName, BuildLink.GetLink(ForumPages.Posts, "t={0}", this.PageContext.PageTopicID));
             var showDeleted = false;
             var userId = 0;
             if (this.Get<BoardSettings>().ShowDeletedMessagesToAll)

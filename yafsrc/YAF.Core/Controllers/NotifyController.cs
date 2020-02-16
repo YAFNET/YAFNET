@@ -90,7 +90,7 @@ namespace YAF.Core.Controllers
                         {
                             NavigateUrl =
                                                     BuildLink.GetLink(
-                                                        ForumPages.posts,
+                                                        ForumPages.Posts,
                                                         "m={0}#post{0}",
                                                         activity.MessageID.Value),
                             Text =

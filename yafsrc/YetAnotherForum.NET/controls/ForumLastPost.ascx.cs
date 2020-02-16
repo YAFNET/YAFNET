@@ -93,7 +93,7 @@ namespace YAF.Controls
 
                 // Topic Link
                 this.topicLink.NavigateUrl = BuildLink.GetLinkNotEscaped(
-                    ForumPages.posts, "t={0}", this.DataRow["LastTopicID"]);
+                    ForumPages.Posts, "t={0}", this.DataRow["LastTopicID"]);
 
                 this.topicLink.ToolTip = this.GetText("COMMON", "VIEW_TOPIC");
 
@@ -125,10 +125,10 @@ namespace YAF.Controls
                 };
 
                 this.LastTopicImgLink.NavigateUrl = BuildLink.GetLinkNotEscaped(
-                    ForumPages.posts, "m={0}#post{0}", this.DataRow["LastMessageID"]);
+                    ForumPages.Posts, "m={0}#post{0}", this.DataRow["LastMessageID"]);
 
                 this.ImageLastUnreadMessageLink.NavigateUrl = BuildLink.GetLinkNotEscaped(
-                    ForumPages.posts, "t={0}&find=unread", this.DataRow["LastTopicID"]);
+                    ForumPages.Posts, "t={0}&find=unread", this.DataRow["LastTopicID"]);
 
                 var lastRead =
                     this.Get<IReadTrackCurrentUser>().GetForumTopicRead(

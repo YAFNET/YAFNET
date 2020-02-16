@@ -26,6 +26,7 @@ namespace YAF.Core.Tasks
     using System.Security.Principal;
     using System.Threading;
 
+    using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
 
     /// <summary>

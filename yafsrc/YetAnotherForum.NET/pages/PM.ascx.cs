@@ -119,7 +119,7 @@ namespace YAF.Pages
                 BuildLink.GetLink(ForumPages.Account));
             this.PageLinks.AddLink(this.GetText("TITLE"));
 
-            this.NewPM.NavigateUrl = BuildLink.GetLinkNotEscaped(ForumPages.pmessage);
+            this.NewPM.NavigateUrl = BuildLink.GetLinkNotEscaped(ForumPages.PostPrivateMessage);
             this.NewPM2.NavigateUrl = this.NewPM.NavigateUrl;
         }
 

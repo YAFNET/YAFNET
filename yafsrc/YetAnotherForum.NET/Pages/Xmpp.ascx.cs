@@ -41,16 +41,16 @@ namespace YAF.Pages
     #endregion
 
     /// <summary>
-    /// Class to communicate in XMPP.
+    /// Class to communicate in Xmmp.
     /// </summary>
-    public partial class im_xmpp : ForumPage
+    public partial class Xmpp : ForumPage
     {
         #region Constructors and Destructors
 
         /// <summary>
-        ///   Initializes a new instance of the <see cref = "im_xmpp" /> class.
+        ///   Initializes a new instance of the <see cref = "Xmpp" /> class.
         /// </summary>
-        public im_xmpp()
+        public Xmpp()
             : base("IM_XMPP")
         {
         }

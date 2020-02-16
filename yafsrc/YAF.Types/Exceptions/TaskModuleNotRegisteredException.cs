@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2020 Ingo Herbote
@@ -21,16 +21,35 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Handlers
+
+namespace YAF.Types.Exceptions
 {
-  /// <summary>
-  /// The yaf db conn info message event handler.
-  /// </summary>
-  /// <param name="sender">
-  /// The sender.
-  /// </param>
-  /// <param name="e">
-  /// The e.
-  /// </param>
-  public delegate void YafDBConnInfoMessageEventHandler(object sender, YafDBConnInfoMessageEventArgs e);
+    #region Using
+
+    using System;
+
+    using YAF.Types;
+
+    #endregion
+
+    /// <summary>
+    /// The YAF task module not registered exception.
+    /// </summary>
+    public class TaskModuleNotRegisteredException : Exception
+    {
+        #region Constructors and Destructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TaskModuleNotRegisteredException"/> class.
+        /// </summary>
+        /// <param name="message">
+        /// The message.
+        /// </param>
+        public TaskModuleNotRegisteredException([NotNull] string message)
+            : base(message)
+        {
+        }
+
+        #endregion
+    }
 }

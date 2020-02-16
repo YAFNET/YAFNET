@@ -129,7 +129,7 @@ namespace YAF.Modules.BBCode
         /// </returns>
         private bool UserHasDownloadAccess()
         {
-            if (this.PageContext.ForumPageType == ForumPages.Message || this.PageContext.ForumPageType == ForumPages.pmessage)
+            if (this.PageContext.ForumPageType == ForumPages.PrivateMessage || this.PageContext.ForumPageType == ForumPages.PostPrivateMessage)
             {
                 return true;
             }

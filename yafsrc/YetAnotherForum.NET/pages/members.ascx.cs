@@ -50,7 +50,7 @@ namespace YAF.Pages
     /// <summary>
     /// The Members List Page
     /// </summary>
-    public partial class members : ForumPage
+    public partial class Members : ForumPage
     {
         #region Fields
 
@@ -64,9 +64,9 @@ namespace YAF.Pages
         #region Constructors and Destructors
 
         /// <summary>
-        ///   Initializes a new instance of the <see cref = "members" /> class.
+        ///   Initializes a new instance of the <see cref = "Members" /> class.
         /// </summary>
-        public members()
+        public Members()
             : base("MEMBERS")
         {
         }
@@ -94,7 +94,7 @@ namespace YAF.Pages
         public void Reset_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
             // re-direct to self.
-            BuildLink.Redirect(ForumPages.members);
+            BuildLink.Redirect(ForumPages.Members);
         }
 
         /// <summary>

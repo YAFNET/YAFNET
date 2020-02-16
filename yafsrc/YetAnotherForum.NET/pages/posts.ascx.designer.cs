@@ -11,7 +11,7 @@ namespace YAF.Pages
 {
 
 
-    public partial class posts
+    public partial class Posts
     {
 
         /// <summary>

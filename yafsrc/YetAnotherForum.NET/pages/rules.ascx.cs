@@ -43,14 +43,14 @@ namespace YAF.Pages
     /// <summary>
     /// Forum Rules Page.
     /// </summary>
-    public partial class rules : ForumPage
+    public partial class Rules : ForumPage
     {
         #region Constructors and Destructors
 
         /// <summary>
-        ///   Initializes a new instance of the <see cref = "rules" /> class.
+        ///   Initializes a new instance of the <see cref = "Rules" /> class.
         /// </summary>
-        public rules()
+        public Rules()
             : base("RULES")
         {
         }
@@ -81,10 +81,10 @@ namespace YAF.Pages
         {
             if (!this.Get<BoardSettings>().UseSSLToRegister)
             {
-                BuildLink.Redirect(ForumPages.register);
+                BuildLink.Redirect(ForumPages.Register);
             }
 
-            this.Get<HttpResponseBase>().Redirect(BuildLink.GetLink(ForumPages.register, true).Replace("http:", "https:"));
+            this.Get<HttpResponseBase>().Redirect(BuildLink.GetLink(ForumPages.Register, true).Replace("http:", "https:"));
         }
 
         /// <summary>

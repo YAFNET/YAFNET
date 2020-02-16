@@ -171,7 +171,7 @@ namespace YAF.Web.Controls
                                     this.Get<IUserDisplayName>().GetName(reporter["UserID"].ToType<int>()))
                                 : this.Server.HtmlEncode(reporter["UserName"].ToString()),
                             BuildLink.GetLink(
-                                ForumPages.pmessage,
+                                ForumPages.PostPrivateMessage,
                                 "u={0}&r={1}",
                                 reporter["UserID"].ToType<int>(),
                                 this.MessageID),

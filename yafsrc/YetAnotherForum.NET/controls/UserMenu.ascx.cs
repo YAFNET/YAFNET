@@ -71,7 +71,7 @@ namespace YAF.Controls
                     {
                         Text = this.GetText("TOOLBAR", "LOGOUT"),
                         CssClass = "btn btn-primary",
-                        ForumPageLink = new ForumLink { ForumPage = ForumPages.logout }
+                        ForumPageLink = new ForumLink { ForumPage = ForumPages.Logout }
                     },
                 new DialogButton { Text = this.GetText("COMMON", "CANCEL"), CssClass = "btn btn-secondary" });
         }
@@ -419,12 +419,12 @@ namespace YAF.Controls
                     "dropdown-item",
                     this.GetText("TOOLBAR", "MYALBUMS"),
                     this.GetText("TOOLBAR", "MYALBUMS_TITLE"),
-                    BuildLink.GetLinkNotEscaped(ForumPages.albums, "u={0}", this.PageContext.PageUserID),
+                    BuildLink.GetLinkNotEscaped(ForumPages.Albums, "u={0}", this.PageContext.PageUserID),
                     false,
                     false,
                     null,
                     null,
-                    this.PageContext.ForumPageType == ForumPages.albums,
+                    this.PageContext.ForumPageType == ForumPages.Albums,
                     "images");
             }
 
@@ -434,12 +434,12 @@ namespace YAF.Controls
                 "dropdown-item",
                 this.GetText("TOOLBAR", "MYTOPICS"),
                 this.GetText("TOOLBAR", "MYTOPICS"),
-                BuildLink.GetLink(ForumPages.mytopics),
+                BuildLink.GetLink(ForumPages.MyTopics),
                 false,
                 false,
                 string.Empty,
                 string.Empty,
-                this.PageContext.ForumPageType == ForumPages.mytopics,
+                this.PageContext.ForumPageType == ForumPages.MyTopics,
                 "comment");
 
             // Logout
@@ -460,12 +460,12 @@ namespace YAF.Controls
                 || this.PageContext.ForumPageType == ForumPages.EditProfile
                 || this.PageContext.ForumPageType == ForumPages.PM
                 || this.PageContext.ForumPageType == ForumPages.Friends
-                || this.PageContext.ForumPageType == ForumPages.mytopics
+                || this.PageContext.ForumPageType == ForumPages.MyTopics
                 || this.PageContext.ForumPageType == ForumPages.EditProfile
                 || this.PageContext.ForumPageType == ForumPages.EditSettings
                 || this.PageContext.ForumPageType == ForumPages.ChangePassword
                 || this.PageContext.ForumPageType == ForumPages.Attachments
-                || this.PageContext.ForumPageType == ForumPages.avatar
+                || this.PageContext.ForumPageType == ForumPages.Avatar
                 || this.PageContext.ForumPageType == ForumPages.EditAvatar
                 || this.PageContext.ForumPageType == ForumPages.EditSignature
                 || this.PageContext.ForumPageType == ForumPages.Subscriptions

@@ -106,13 +106,13 @@ namespace YAF.Pages
                     BuildLink.Redirect(ForumPages.PM);
                     break;
                 case "reply":
-                    BuildLink.Redirect(ForumPages.pmessage, "p={0}&q=0", e.CommandArgument);
+                    BuildLink.Redirect(ForumPages.PostPrivateMessage, "p={0}&q=0", e.CommandArgument);
                     break;
                 case "report":
-                    BuildLink.Redirect(ForumPages.pmessage, "p={0}&q=1&report=1", e.CommandArgument);
+                    BuildLink.Redirect(ForumPages.PostPrivateMessage, "p={0}&q=1&report=1", e.CommandArgument);
                     break;
                 case "quote":
-                    BuildLink.Redirect(ForumPages.pmessage, "p={0}&q=1", e.CommandArgument);
+                    BuildLink.Redirect(ForumPages.PostPrivateMessage, "p={0}&q=1", e.CommandArgument);
                     break;
             }
         }

@@ -29,7 +29,7 @@ namespace YAF.Types.Constants
     public enum ForumPages
     {
         /// <summary>
-        /// The forum.
+        /// The Forum page.
         /// </summary>
         forum,
 
@@ -39,9 +39,9 @@ namespace YAF.Types.Constants
         topics,
 
         /// <summary>
-        /// The posts.
+        /// The Posts page.
         /// </summary>
-        posts,
+        Posts,
 
         /// <summary>
         /// The profile.
@@ -49,9 +49,9 @@ namespace YAF.Types.Constants
         Profile,
 
         /// <summary>
-        /// The activeusers.
+        /// The ActiveUsers.
         /// </summary>
-        activeusers,
+        ActiveUsers,
 
         /// <summary>
         /// The moderating.
@@ -59,29 +59,29 @@ namespace YAF.Types.Constants
         moderating,
 
         /// <summary>
-        /// The postmessage.
+        /// The post message page.
         /// </summary>
-        postmessage,
+        PostMessage,
 
         /// <summary>
-        /// The deletemessage.
+        /// The DeleteMessage page.
         /// </summary>
-        deletemessage,
+        DeleteMessage,
 
         /// <summary>
-        /// The movemessage.
+        /// The Move Message page.
         /// </summary>
-        movemessage,
+        MoveMessage,
 
         /// <summary>
-        /// The messagehistory page displays a user message changes.
+        /// The MessageHistory page displays a user message changes.
         /// </summary>
-        messagehistory,
+        MessageHistory,
 
         /// <summary>
-        /// The mod_forumuser.
+        /// The ModForumUser page.
         /// </summary>
-        mod_forumuser,
+        ModForumUser,
 
         /// <summary>
         /// The attachments.
@@ -89,29 +89,29 @@ namespace YAF.Types.Constants
         Attachments,
 
         /// <summary>
-        /// The pmessage.
+        /// The PostMessage.
         /// </summary>
-        pmessage,
+        PostPrivateMessage,
 
         /// <summary>
-        /// The emailtopic.
+        /// The EmailTopic page.
         /// </summary>
-        emailtopic,
+        EmailTopic,
 
         /// <summary>
-        /// The printtopic.
+        /// The PrintTopic page.
         /// </summary>
-        printtopic,
+        PrintTopic,
 
         /// <summary>
-        /// The members.
+        /// The Members page.
         /// </summary>
-        members,
+        Members,
 
         /// <summary>
         /// The page to report posts message.
         /// </summary>
-        reportpost,
+        ReportPost,
 
         /// <summary>
         /// The PM.
@@ -119,7 +119,7 @@ namespace YAF.Types.Constants
         PM,
 
         /// <summary>
-        /// The cp_profile.
+        /// The Account.
         /// </summary>
         Account,
 
@@ -129,19 +129,19 @@ namespace YAF.Types.Constants
         Notification,
 
         /// <summary>
-        /// The cp_editbuddies.
+        /// The Friends page.
         /// </summary>
         Friends,
 
         /// <summary>
         /// The album.
         /// </summary>
-        album,
+        Album,
 
         /// <summary>
-        /// The cp_editalbum.
+        /// The Albums.
         /// </summary>
-        albums,
+        Albums,
 
         /// <summary>
         /// The BlockOptions.
@@ -181,127 +181,122 @@ namespace YAF.Types.Constants
         /// <summary>
         /// The Message.
         /// </summary>
-        Message,
+        PrivateMessage,
 
         /// <summary>
-        /// The Changepassword.
+        /// The Change Password page.
         /// </summary>
         ChangePassword,
 
         /// <summary>
-        /// The cp_deleteaccount.
+        /// The Delete Account page.
         /// </summary>
         DeleteAccount,
 
         /// <summary>
-        /// The login.
+        /// The Login page.
         /// </summary>
-        login,
+        Login,
 
         /// <summary>
         /// The approve.
         /// </summary>
-        approve,
+        Approve,
 
         /// <summary>
-        /// The info.
+        /// The Info page.
         /// </summary>
-        info,
+        Info,
 
         /// <summary>
-        /// The cookies
+        /// The cookies page.
         /// </summary>
-        cookies,
+        Cookies,
 
         /// <summary>
-        /// The rules.
+        /// The Rules page.
         /// </summary>
-        rules,
+        Rules,
 
         /// <summary>
-        /// The register.
+        /// The Register page.
         /// </summary>
-        register,
+        Register,
 
         /// <summary>
-        /// The search.
+        /// The Search page.
         /// </summary>
-        search,
+        Search,
 
         /// <summary>
-        /// The mytopics
+        /// The My Topics page
         /// </summary>
-        mytopics,
+        MyTopics,
 
         /// <summary>
-        /// The logout.
+        /// The Logout page.
         /// </summary>
-        logout,
+        Logout,
 
         /// <summary>
-        /// The moderate_index.
+        /// The moderate index page.
         /// </summary>
-        moderate_index,
+        Moderate_Index,
 
         /// <summary>
-        /// The moderate_reportedposts.
+        /// The moderate reported posts page.
         /// </summary>
-        moderate_reportedposts,
+        Moderate_ReportedPosts,
 
         /// <summary>
-        /// The moderate_unapprovedposts.
+        /// The moderate unapproved posts page.
         /// </summary>
-        moderate_unapprovedposts,
+        Moderate_UnapprovedPosts,
 
         /// <summary>
-        /// The error.
+        /// The Error page.
         /// </summary>
-        error,
+        Error,
 
         /// <summary>
-        /// The avatar.
+        /// The avatar page.
         /// </summary>
-        avatar,
+        Avatar,
 
         /// <summary>
-        /// The im_xmpp.
+        /// The XMPP page.
         /// </summary>
-        im_xmpp,
+        Xmpp,
 
         /// <summary>
-        /// The im_email.
+        /// The Email page.
         /// </summary>
-        im_email,
+        Email,
 
         /// <summary>
-        /// The rsstopic.
+        /// The RSS Topic page.
         /// </summary>
-        rsstopic,
+        RssTopic,
 
         /// <summary>
-        /// The rsstopic.
+        /// The PollEdit page.
         /// </summary>
-        polledit,
+        PollEdit,
 
         /// <summary>
-        /// The help_index.
+        /// The help page.
         /// </summary>
-        help_index,
+        Help,
 
         /// <summary>
-        /// The team page.
+        /// The Team page.
         /// </summary>
-        team,
+        Team,
 
         /// <summary>
-        /// The lastposts.
+        /// The RecoverPassword page.
         /// </summary>
-        lastposts,
-
-        /// <summary>
-        /// The recoverpassword.
-        /// </summary>
-        recoverpassword,
+        RecoverPassword,
 
         /// <summary>
         /// The admin_admin.

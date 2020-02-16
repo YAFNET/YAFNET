@@ -117,7 +117,7 @@ namespace YAF.Core.URLBuilder
                                         : UrlRewriteHelper.GetForumName(parser[useKey].ToType<int>()));
                             handlePage = true;
                             break;
-                        case ForumPages.posts:
+                        case ForumPages.Posts:
                             pageName += "/";
                             if (parser["t"].IsSet())
                             {
@@ -166,7 +166,7 @@ namespace YAF.Core.URLBuilder
                             }
 
                             break;
-                        case ForumPages.rsstopic:
+                        case ForumPages.RssTopic:
                             pageName += "/";
 
                             if (parser["pg"].IsSet())

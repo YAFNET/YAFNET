@@ -166,7 +166,7 @@ namespace YAF.Controls
                                 {
                                     NavigateUrl =
                                         BuildLink.GetLink(
-                                            ForumPages.posts,
+                                            ForumPages.Posts,
                                             "m={0}#post{0}",
                                             activity.MessageID.Value),
                                     Type = ButtonAction.None,
@@ -176,7 +176,7 @@ namespace YAF.Controls
 
             if (activity.ActivityFlags.CreatedTopic)
             {
-                topicLink.NavigateUrl = BuildLink.GetLink(ForumPages.posts, "t={0}", activity.TopicID.Value);
+                topicLink.NavigateUrl = BuildLink.GetLink(ForumPages.Posts, "t={0}", activity.TopicID.Value);
 
                 title.Text = this.GetText("ACCOUNT", "CREATED_TOPIC");
                 icon = "comment";

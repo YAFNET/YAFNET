@@ -1,4 +1,4 @@
-﻿/* Yet Another Forum.NET
+/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2020 Ingo Herbote
@@ -21,33 +21,48 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-
-namespace YAF.Types.Exceptions
+namespace YAF.Core.Model
 {
-    #region Using
-
-    using System;
-
+    using YAF.Core.Extensions;
     using YAF.Types;
-
-    #endregion
+    using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Data;
+    using YAF.Types.Models;
 
     /// <summary>
-    /// The YAF task module not registered exception.
+    /// The Topic Tag repository extensions.
     /// </summary>
-    public class YafTaskModuleNotRegisteredException : Exception
+    public static class TopicTagRepositoryExtensions
     {
-        #region Constructors and Destructors
+        #region Public Methods and Operators
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="YafTaskModuleNotRegisteredException"/> class.
+        /// Adds Topic Tag
         /// </summary>
-        /// <param name="message">
-        /// The message.
+        /// <param name="repository">
+        /// The repository.
         /// </param>
-        public YafTaskModuleNotRegisteredException([NotNull] string message)
-            : base(message)
+        /// <param name="tagId">
+        /// The tag Id.
+        /// </param>
+        /// <param name="topicId">
+        /// The topic ID.
+        /// </param>
+        public static void Add(
+            this IRepository<TopicTag> repository,
+            int tagId,
+            int topicId)
         {
+            CodeContracts.VerifyNotNull(repository, "repository");
+
+            var newId = repository.Insert(
+                new TopicTag
+                    {
+                        TagID = tagId,
+                        TopicID = topicId
+                    });
+
+            repository.FireNew(newId);
         }
 
         #endregion

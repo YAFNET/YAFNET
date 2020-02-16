@@ -59,14 +59,14 @@ namespace YAF.Pages
     /// <summary>
     /// The User Register Page.
     /// </summary>
-    public partial class register : ForumPage
+    public partial class Register : ForumPage
     {
         #region Constructors and Destructors
 
         /// <summary>
-        ///   Initializes a new instance of the <see cref = "register" /> class.
+        ///   Initializes a new instance of the <see cref = "Register" /> class.
         /// </summary>
-        public register()
+        public Register()
             : base("REGISTER")
         {
         }
@@ -568,7 +568,7 @@ namespace YAF.Pages
             {
                 loginButton.Visible = true;
                 loginButton.Text = this.GetText("LOGIN_INSTEAD");
-                loginButton.NavigateUrl = BuildLink.GetLink(ForumPages.login);
+                loginButton.NavigateUrl = BuildLink.GetLink(ForumPages.Login);
             }
 
             if (this.Get<BoardSettings>().AllowSingleSignOn)
@@ -679,7 +679,7 @@ namespace YAF.Pages
         /// </param>
         protected void FacebookRegisterClick(object sender, EventArgs e)
         {
-            BuildLink.Redirect(ForumPages.login, "auth={0}", AuthService.facebook);
+            BuildLink.Redirect(ForumPages.Login, "auth={0}", AuthService.facebook);
         }
 
         /// <summary>
@@ -693,7 +693,7 @@ namespace YAF.Pages
         /// </param>
         protected void TwitterRegisterClick(object sender, EventArgs e)
         {
-            BuildLink.Redirect(ForumPages.login, "auth={0}", AuthService.twitter);
+            BuildLink.Redirect(ForumPages.Login, "auth={0}", AuthService.twitter);
         }
 
         /// <summary>
@@ -707,7 +707,7 @@ namespace YAF.Pages
         /// </param>
         protected void GoogleRegisterClick(object sender, EventArgs e)
         {
-            BuildLink.Redirect(ForumPages.login, "auth={0}", AuthService.google);
+            BuildLink.Redirect(ForumPages.Login, "auth={0}", AuthService.google);
         }
 
         /// <summary>

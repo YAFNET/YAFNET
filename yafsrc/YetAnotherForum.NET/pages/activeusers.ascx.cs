@@ -36,7 +36,6 @@ namespace YAF.Pages
     using YAF.Core.Model;
     using YAF.Core.Utilities;
     using YAF.Types;
-    using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
@@ -48,14 +47,14 @@ namespace YAF.Pages
     /// <summary>
     /// The Active Users Page.
     /// </summary>
-    public partial class activeusers : ForumPage
+    public partial class ActiveUsers : ForumPage
     {
         #region Constructors and Destructors
 
         /// <summary>
-        ///   Initializes a new instance of the <see cref = "activeusers" /> class.
+        ///   Initializes a new instance of the <see cref = "ActiveUsers" /> class.
         /// </summary>
-        public activeusers()
+        public ActiveUsers()
             : base("ACTIVEUSERS")
         {
         }
@@ -99,13 +98,21 @@ namespace YAF.Pages
         }
 
         /// <summary>
-        /// Handles the Click event of the Return control.
+        /// Removes from the DataView all users but guests.
         /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        protected void Return_Click([NotNull] object sender, [NotNull] EventArgs e)
+        /// <param name="activeUsers">
+        /// The active users.
+        /// </param>
+        private static void RemoveAllButGuests([NotNull] ref DataTable activeUsers)
         {
-            BuildLink.Redirect(ForumPages.forum);
+            if (!activeUsers.HasRows())
+            {
+                return;
+            }
+
+            // remove non-guest users...
+            activeUsers.Rows.Cast<DataRow>().Where(row => !Convert.ToBoolean(row["IsGuest"]))
+                .ForEach(row => row.Delete());
         }
 
         /// <summary>
@@ -145,7 +152,7 @@ namespace YAF.Pages
                     activeUsers = this.GetActiveUsersData(true, this.PageContext.BoardSettings.ShowCrawlersInActiveList);
                     if (activeUsers != null)
                     {
-                        this.RemoveAllButGuests(ref activeUsers);
+                        RemoveAllButGuests(ref activeUsers);
                     }
 
                     break;
@@ -201,7 +208,7 @@ namespace YAF.Pages
         /// </returns>
         private DataTable GetActiveUsersData(bool showGuests, bool showCrawlers)
         {
-            // vzrus: Here should not be a common cache as it's should be individual for each user because of ActiveLocationcontrol to hide unavailable places.        
+            // vzrus: Here should not be a common cache as it's should be individual for each user because of ActiveLocation Control to hide unavailable places.        
             var activeUsers = this.GetRepository<Active>()
                 .ListUserAsDataTable(
                     this.PageContext.PageUserID,
@@ -211,24 +218,6 @@ namespace YAF.Pages
                     this.PageContext.BoardSettings.UseStyledNicks);
 
             return activeUsers;
-        }
-
-        /// <summary>
-        /// Removes from the DataView all users but guests.
-        /// </summary>
-        /// <param name="activeUsers">
-        /// The active users.
-        /// </param>
-        private void RemoveAllButGuests([NotNull] ref DataTable activeUsers)
-        {
-            if (!activeUsers.HasRows())
-            {
-                return;
-            }
-
-            // remove non-guest users...
-            activeUsers.Rows.Cast<DataRow>().Where(row => !Convert.ToBoolean(row["IsGuest"]))
-                .ForEach(row => row.Delete());
         }
 
         /// <summary>

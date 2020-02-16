@@ -101,7 +101,7 @@ namespace YAF.Pages.Admin
                             .GetTextFormatted("VERIFICATION_EMAIL_SUBJECT", this.Get<BoardSettings>().Name);
 
                         verifyEmail.TemplateParams["{link}"] = BuildLink.GetLinkNotEscaped(
-                            ForumPages.approve,
+                            ForumPages.Approve,
                             true,
                             "k={0}",
                             checkMail.Hash);
@@ -220,7 +220,7 @@ namespace YAF.Pages.Admin
             }
 
             return
-                $"<a target=\"_top\" href=\"{BuildLink.GetLink(ForumPages.posts, "t={0}", topicId)}\">{topicName}</a>";
+                $"<a target=\"_top\" href=\"{BuildLink.GetLink(ForumPages.Posts, "t={0}", topicId)}\">{topicName}</a>";
         }
 
         /// <summary>

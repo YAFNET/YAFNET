@@ -424,7 +424,7 @@ namespace YAF.Dialogs
                     }
 
                     // redirect to newly posted message
-                    BuildLink.Redirect(ForumPages.posts, "m={0}&#post{0}", messageId);
+                    BuildLink.Redirect(ForumPages.Posts, "m={0}&#post{0}", messageId);
                 }
                 else
                 {
@@ -441,11 +441,11 @@ namespace YAF.Dialogs
 
                     if (Config.IsRainbow)
                     {
-                        BuildLink.Redirect(ForumPages.info, "i=1");
+                        BuildLink.Redirect(ForumPages.Info, "i=1");
                     }
                     else
                     {
-                        BuildLink.Redirect(ForumPages.info, "i=1&url={0}", this.Server.UrlEncode(url));
+                        BuildLink.Redirect(ForumPages.Info, "i=1&url={0}", this.Server.UrlEncode(url));
                     }
                 }
             }

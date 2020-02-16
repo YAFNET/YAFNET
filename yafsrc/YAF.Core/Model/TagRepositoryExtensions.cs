@@ -21,42 +21,53 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Interfaces.Data
+namespace YAF.Core.Model
 {
-    #region Using
-
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-
-    #endregion
+    using YAF.Core.Extensions;
+    using YAF.Types;
+    using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Data;
+    using YAF.Types.Models;
 
     /// <summary>
-    /// The db specific function extensions.
+    /// The Tag repository extensions.
     /// </summary>
-    public static class IDbSpecificFunctionExtensions
+    public static class TagRepositoryExtensions
     {
-        #region Public Methods
+        #region Public Methods and Operators
 
         /// <summary>
-        /// Returns IEnumerable where the provider name is supported.
+        /// Adds New Tag
         /// </summary>
-        /// <param name="functions">
-        /// The functions.
+        /// <param name="repository">
+        /// The repository.
         /// </param>
-        /// <param name="providerName">
-        /// The provider name.
+        /// <param name="tagName">
+        /// The tag name.
+        /// </param>
+        /// <param name="boardId">
+        /// The board id.
         /// </param>
         /// <returns>
-        /// The is operation supported.
+        /// Returns the new Tag Id.
         /// </returns>
-        [NotNull]
-        public static IEnumerable<IDbSpecificFunction> WhereProviderName([NotNull] this IEnumerable<IDbSpecificFunction> functions, [NotNull] string providerName)
+        public static int Add(
+            this IRepository<Tag> repository,
+            string tagName,
+            int? boardId = null)
         {
-            CodeContracts.VerifyNotNull(functions, "functions");
-            CodeContracts.VerifyNotNull(providerName, "providerName");
+            CodeContracts.VerifyNotNull(repository, "repository");
 
-            return functions.Where(p => string.Equals(p.ProviderName, providerName, StringComparison.OrdinalIgnoreCase));
+            var newId = repository.Insert(
+                new Tag
+                    {
+                        BoardID = boardId ?? repository.BoardID,
+                        TagName = tagName
+                    });
+
+            repository.FireNew(newId);
+
+            return newId;
         }
 
         #endregion

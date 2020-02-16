@@ -22,7 +22,7 @@
  * under the License.
  */
 
-namespace YAF.Pages.moderate
+namespace YAF.Pages.Moderate
 {
     #region Using
 
@@ -48,7 +48,7 @@ namespace YAF.Pages.moderate
     /// <summary>
     /// Base root control for moderating, linking to other moderating controls/pages.
     /// </summary>
-    public partial class index : ModerateForumPage
+    public partial class Index : ModerateForumPage
     {
         /// <summary>
         /// The userListDataTable.
@@ -58,10 +58,10 @@ namespace YAF.Pages.moderate
         #region Constructors and Destructors
 
         /// <summary>
-        ///   Initializes a new instance of the <see cref = "index" /> class. 
+        ///   Initializes a new instance of the <see cref = "Index" /> class. 
         ///   Default constructor.
         /// </summary>
-        public index()
+        public Index()
             : base("MODERATE_DEFAULT")
         {
         }
@@ -128,12 +128,12 @@ namespace YAF.Pages.moderate
                 case "viewunapprovedposts":
 
                     // go to unapproved posts for selected forum
-                    BuildLink.Redirect(ForumPages.moderate_unapprovedposts, "f={0}", e.CommandArgument);
+                    BuildLink.Redirect(ForumPages.Moderate_UnapprovedPosts, "f={0}", e.CommandArgument);
                     break;
                 case "viewreportedposts":
 
                     // go to spam reports for selected forum
-                    BuildLink.Redirect(ForumPages.moderate_reportedposts, "f={0}", e.CommandArgument);
+                    BuildLink.Redirect(ForumPages.Moderate_ReportedPosts, "f={0}", e.CommandArgument);
                     break;
             }
         }
@@ -178,7 +178,6 @@ namespace YAF.Pages.moderate
             }
             else
             {
-
                 this.InfoPlaceHolder.Visible = !this.CategoryList.Items.Cast<RepeaterItem>().Any(item => item.Visible);
             }
         }

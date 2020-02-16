@@ -204,7 +204,7 @@ namespace YAF.Core
 
                 // log the user out...
                 // FormsAuthentication.SignOut();
-                if (YafContext.Current.ForumPageType != ForumPages.info)
+                if (YafContext.Current.ForumPageType != ForumPages.Info)
                 {
                     // show a failure notice since something is probably up with membership...
                     BuildLink.RedirectInfoPage(InfoMessage.Failure);

@@ -33,6 +33,7 @@ namespace YAF.Providers.Roles
     using YAF.Core.Data;
     using YAF.Providers.Utils;
     using YAF.Types.Extensions;
+    using YAF.Types.Extensions.Data;
     using YAF.Types.Interfaces.Data;
 
     #endregion

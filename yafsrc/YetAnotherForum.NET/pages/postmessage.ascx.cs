@@ -56,7 +56,7 @@ namespace YAF.Pages
     /// <summary>
     /// The post message Page.
     /// </summary>
-    public partial class postmessage : ForumPage
+    public partial class PostMessage : ForumPage
     {
         #region Constants and Fields
 
@@ -90,9 +90,9 @@ namespace YAF.Pages
         #region Constructors and Destructors
 
         /// <summary>
-        ///   Initializes a new instance of the <see cref="postmessage" /> class.
+        /// Initializes a new instance of the <see cref="PostMessage"/> class.
         /// </summary>
-        public postmessage()
+        public PostMessage()
             : base("POSTMESSAGE")
         {
         }
@@ -135,7 +135,7 @@ namespace YAF.Pages
             if (this.TopicId != null || this.EditMessageId != null)
             {
                 // reply to existing topic or editing of existing topic
-                BuildLink.Redirect(ForumPages.posts, "t={0}", this.PageContext.PageTopicID);
+                BuildLink.Redirect(ForumPages.Posts, "t={0}", this.PageContext.PageTopicID);
             }
             else
             {
@@ -543,6 +543,12 @@ namespace YAF.Pages
                     this.InitReplyToTopic();
 
                     this.PollList.TopicId = this.TopicId.ToType<int>();
+                }
+                else
+                {
+                    // New topic
+                    this.Tags.DataSource = this.GetRepository<Tag>().GetByBoardId();
+                    this.Tags.DataBind();
                 }
 
                 // If currentRow != null, we are quoting a post in a new reply, or editing an existing post
@@ -1173,18 +1179,41 @@ namespace YAF.Pages
                             messageId.ToType<int>(),
                             this.TopicSubjectTextBox.Text,
                             this.forumEditor.Text);
+
+                        // Add tags
+                        this.Tags.Items.Cast<ListItem>().ForEach(item =>
+                            {
+                                if (!item.Selected)
+                                {
+                                    return;
+                                }
+
+                                if (item.Text == item.Value)
+                                {
+                                    // save new Tag
+                                    var newTagId = this.GetRepository<Tag>().Add(item.Text);
+
+                                    // add to topic
+                                    this.GetRepository<TopicTag>().Add(newTagId, newTopic.ToType<int>());
+                                }
+                                else
+                                {
+                                    // add to topic
+                                    this.GetRepository<TopicTag>().Add(item.Value.ToType<int>(), newTopic.ToType<int>());
+                                }
+                            });
                     }
                 }
 
                 if (attachPollParameter.IsNotSet() || !this.PostOptions1.PollChecked)
                 {
                     // regular redirect...
-                    BuildLink.Redirect(ForumPages.posts, "m={0}#post{0}", messageId);
+                    BuildLink.Redirect(ForumPages.Posts, "m={0}#post{0}", messageId);
                 }
                 else
                 {
                     // poll edit redirect...
-                    BuildLink.Redirect(ForumPages.polledit, "{0}", attachPollParameter);
+                    BuildLink.Redirect(ForumPages.PollEdit, "{0}", attachPollParameter);
                 }
             }
             else
@@ -1211,21 +1240,21 @@ namespace YAF.Pages
 
                 if (this.PageContext.PageTopicID > 0 && this.topic.NumPosts > 1)
                 {
-                    url = BuildLink.GetLink(ForumPages.posts, "t={0}", this.PageContext.PageTopicID);
+                    url = BuildLink.GetLink(ForumPages.Posts, "t={0}", this.PageContext.PageTopicID);
                 }
 
                 if (attachPollParameter.Length <= 0)
                 {
-                    BuildLink.Redirect(ForumPages.info, "i=1&url={0}", this.Server.UrlEncode(url));
+                    BuildLink.Redirect(ForumPages.Info, "i=1&url={0}", this.Server.UrlEncode(url));
                 }
                 else
                 {
-                    BuildLink.Redirect(ForumPages.polledit, "&ra=1{0}{1}", attachPollParameter, returnForum);
+                    BuildLink.Redirect(ForumPages.PollEdit, "&ra=1{0}{1}", attachPollParameter, returnForum);
                 }
 
                 if (Config.IsRainbow)
                 {
-                    BuildLink.Redirect(ForumPages.info, "i=1");
+                    BuildLink.Redirect(ForumPages.Info, "i=1");
                 }
             }
         }
@@ -1250,6 +1279,13 @@ namespace YAF.Pages
                                                        };
 
             this.PreviewMessagePost.Message = this.forumEditor.Text;
+        }
+
+        protected void Tags_OnSelectedIndexChanged(object sender, EventArgs e)
+        {
+            var results = Request.Form[this.Tags.UniqueID].Split(',');
+
+            results.ForEach(item => { this.Tags.Items.Add(new ListItem(item, item, true)); });
         }
 
         /// <summary>
@@ -1355,7 +1391,7 @@ namespace YAF.Pages
             // add topic link...
             this.PageLinks.AddLink(
                 this.Server.HtmlDecode(currentMessage.Topic),
-                BuildLink.GetLink(ForumPages.posts, "m={0}", this.EditMessageId));
+                BuildLink.GetLink(ForumPages.Posts, "m={0}", this.EditMessageId));
 
             // editing..
             this.PageLinks.AddLink(this.GetText("EDIT"));
@@ -1462,7 +1498,7 @@ namespace YAF.Pages
             // add topic link...
             this.PageLinks.AddLink(
                 this.Server.HtmlDecode(topic.TopicName),
-                BuildLink.GetLink(ForumPages.posts, "t={0}", this.TopicId));
+                BuildLink.GetLink(ForumPages.Posts, "t={0}", this.TopicId));
 
             // add "reply" text...
             this.PageLinks.AddLink(this.GetText("reply"));

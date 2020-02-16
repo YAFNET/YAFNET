@@ -45,15 +45,15 @@ namespace YAF.Pages
     /// <summary>
     /// The Search Page.
     /// </summary>
-    public partial class search : ForumPage
+    public partial class Search : ForumPage
     {
         #region Constructors and Destructors
 
         /// <summary>
-        ///   Initializes a new instance of the <see cref = "search" /> class.
+        ///   Initializes a new instance of the <see cref = "Search" /> class.
         ///   The search page constructor.
         /// </summary>
-        public search()
+        public Search()
             : base("SEARCH")
         {
         }

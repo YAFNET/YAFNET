@@ -11,7 +11,7 @@ namespace YAF.Pages
 {
 
 
-    public partial class polledit
+    public partial class PollEdit
     {
 
         /// <summary>

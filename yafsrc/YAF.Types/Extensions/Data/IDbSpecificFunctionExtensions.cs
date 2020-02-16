@@ -21,38 +21,48 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-
-namespace YAF.Pages
+namespace YAF.Types.Extensions.Data
 {
     #region Using
 
-    using YAF.Core;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+
+    using YAF.Types.Interfaces.Data;
 
     #endregion
 
     /// <summary>
-    /// Forum Cookies Policy Page.
+    /// The db specific function extensions.
     /// </summary>
-    public partial class Cookies : ForumPage
+    public static class IDbSpecificFunctionExtensions
     {
-        #region Constructors and Destructors
+        #region Public Methods
 
         /// <summary>
-        ///   Initializes a new instance of the <see cref = "Cookies" /> class.
+        /// Returns IEnumerable where the provider name is supported.
         /// </summary>
-        public Cookies()
-            : base("COOKIES")
+        /// <param name="functions">
+        /// The functions.
+        /// </param>
+        /// <param name="providerName">
+        /// The provider name.
+        /// </param>
+        /// <returns>
+        /// The is operation supported.
+        /// </returns>
+        [NotNull]
+        public static IEnumerable<IDbSpecificFunction> WhereProviderName(
+            [NotNull] this IEnumerable<IDbSpecificFunction> functions,
+            [NotNull] string providerName)
         {
+            CodeContracts.VerifyNotNull(functions, "functions");
+            CodeContracts.VerifyNotNull(providerName, "providerName");
+
+            return functions.Where(
+                p => string.Equals(p.ProviderName, providerName, StringComparison.OrdinalIgnoreCase));
         }
-
-        #endregion
-
-        #region Properties
-
-        /// <summary>
-        ///   Gets a value indicating whether IsProtected.
-        /// </summary>
-        public override bool IsProtected => false;
 
         #endregion
     }

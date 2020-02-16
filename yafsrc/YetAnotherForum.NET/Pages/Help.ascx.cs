@@ -22,7 +22,7 @@
  * under the License.
  */
 
-namespace YAF.Pages.help
+namespace YAF.Pages
 {
     #region Using
 
@@ -49,7 +49,7 @@ namespace YAF.Pages.help
     /// <summary>
     /// The Help Index.
     /// </summary>
-    public partial class index : ForumPage
+    public partial class Help : ForumPage
     {
         #region Constants and Fields
 
@@ -63,17 +63,12 @@ namespace YAF.Pages.help
         #region Constructors and Destructors
 
         /// <summary>
-        ///   Initializes a new instance of the <see cref = "index" /> class.
+        ///   Initializes a new instance of the <see cref = "Help" /> class.
         /// </summary>
-        public index()
-            : base(null)
+        public Help()
+            : base("HELP")
         {
         }
-
-        /// <summary>
-        /// Gets PageName.
-        /// </summary>
-        public override string PageName => "help_index";
 
         #endregion
 
@@ -110,7 +105,7 @@ namespace YAF.Pages.help
 
             this.PageLinks.AddRoot();
             this.PageLinks.AddLink(
-                this.GetText("SUBTITLE"), BuildLink.GetLink(ForumPages.help_index));
+                this.GetText("SUBTITLE"), BuildLink.GetLink(ForumPages.Help));
 
             if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("faq").IsSet())
             {
@@ -282,7 +277,7 @@ namespace YAF.Pages.help
                         {
                             helpContent = this.GetTextFormatted(
                                 $"{helpPage.HelpPage}CONTENT",
-                                BuildLink.GetLink(ForumPages.recoverpassword));
+                                BuildLink.GetLink(ForumPages.RecoverPassword));
                         }
 
                         break;
@@ -298,7 +293,7 @@ namespace YAF.Pages.help
                         {
                             helpContent = this.GetTextFormatted(
                                 $"{helpPage.HelpPage}CONTENT",
-                                BuildLink.GetLink(ForumPages.help_index, "faq=bbcodes"));
+                                BuildLink.GetLink(ForumPages.Help, "faq=bbcodes"));
                         }
 
                         break;

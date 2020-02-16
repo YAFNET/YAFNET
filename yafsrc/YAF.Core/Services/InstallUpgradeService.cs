@@ -30,6 +30,8 @@ namespace YAF.Core.Services
     using System.Linq;
     using System.Web;
 
+    using ServiceStack.OrmLite;
+
     using YAF.Configuration;
     using YAF.Core.Extensions;
     using YAF.Core.Helpers;
@@ -244,6 +246,10 @@ namespace YAF.Core.Services
 
             this.GetRepository<Registry>().Save("version", BoardInfo.AppVersion.ToString());
             this.GetRepository<Registry>().Save("versionname", BoardInfo.AppVersionName);
+
+            // Handle Tables
+            this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<Tag>());
+            this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<TopicTag>());
 
             // Ederon : 9/7/2007
             // re-sync all boards - necessary for proper last post bubbling

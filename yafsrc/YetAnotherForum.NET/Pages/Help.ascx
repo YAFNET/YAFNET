@@ -1,4 +1,4 @@
-<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.help.index" Codebehind="index.ascx.cs" %>
+<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Help" Codebehind="Help.ascx.cs" %>
 
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <YAF:HelpMenu runat="server">
@@ -6,9 +6,9 @@
     <asp:Repeater runat="server" ID="HelpList">
         <ItemTemplate>
             <div class="card mb-3">
-                <div class="card-header form-inline"><%# this.Eval("HelpTitle") %></div>
+                <div class="card-header form-inline"><%# this.Eval("Title") %></div>
                 <div class="card-body">
-                    <%# this.Eval("HelpContent") %>
+                    <%# this.Eval("Content") %>
                 </div>
             </div>
         </ItemTemplate>

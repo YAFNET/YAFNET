@@ -101,11 +101,11 @@ namespace YAF.Controls
                                                Icon = "user-plus",
                                                NavigateUrl =
                                                    this.Get<BoardSettings>().ShowRulesForRegistration
-                                                       ? BuildLink.GetLink(ForumPages.rules)
+                                                       ? BuildLink.GetLink(ForumPages.Rules)
                                                        : !this.Get<BoardSettings>().UseSSLToRegister
-                                                           ? BuildLink.GetLink(ForumPages.register)
+                                                           ? BuildLink.GetLink(ForumPages.Register)
                                                            : BuildLink.GetLink(
-                                                               ForumPages.register,
+                                                               ForumPages.Register,
                                                                true).Replace("http:", "https:")
                                            };
 
@@ -198,7 +198,7 @@ namespace YAF.Controls
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void FacebookFormClick(object sender, EventArgs e)
         {
-            BuildLink.Redirect(ForumPages.login, "auth={0}", "facebook");
+            BuildLink.Redirect(ForumPages.Login, "auth={0}", "facebook");
         }
 
         /// <summary>
@@ -208,7 +208,7 @@ namespace YAF.Controls
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void TwitterFormClick(object sender, EventArgs e)
         {
-            BuildLink.Redirect(ForumPages.login, "auth={0}", "twitter");
+            BuildLink.Redirect(ForumPages.Login, "auth={0}", "twitter");
         }
 
         /// <summary>
@@ -218,7 +218,7 @@ namespace YAF.Controls
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void GoogleFormClick(object sender, EventArgs e)
         {
-            BuildLink.Redirect(ForumPages.login, "auth={0}", "google");
+            BuildLink.Redirect(ForumPages.Login, "auth={0}", "google");
         }
 
         #endregion

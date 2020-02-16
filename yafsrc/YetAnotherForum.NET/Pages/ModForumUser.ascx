@@ -1,5 +1,5 @@
 <%@ Control Language="c#" AutoEventWireup="True"
-	Inherits="YAF.Pages.mod_forumuser" Codebehind="mod_forumuser.ascx.cs" %>
+	Inherits="YAF.Pages.ModForumUser" Codebehind="ModForumUser.ascx.cs" %>
 
 
 <YAF:PageLinks runat="server" ID="PageLinks" />
