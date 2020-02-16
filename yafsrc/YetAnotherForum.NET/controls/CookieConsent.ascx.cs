@@ -26,6 +26,7 @@ namespace YAF.Controls
     #region Using
 
     using System;
+    using System.Web;
 
     using YAF.Configuration;
     using YAF.Core.BaseControls;
@@ -51,6 +52,21 @@ namespace YAF.Controls
             this.Label1.Param0 = this.Get<BoardSettings>().Name;
 
             this.MoreDetails.NavigateUrl = BuildLink.GetLinkNotEscaped(ForumPages.Cookies);
+        }
+
+        /// <summary>
+        /// Accept Cookie Consent
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        protected void AcceptClick(object sender, EventArgs e)
+        {
+            this.PageContext.Get<HttpResponseBase>().SetCookie(
+                new HttpCookie("YAF-AcceptCookies", "true") { Expires = DateTime.UtcNow.AddYears(1) });
         }
     }
 }

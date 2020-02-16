@@ -3,7 +3,7 @@
 
 
 <div class="alert alert-dismissible text-center cookiealert" role="alert">
-    <div class="cookiealert-container">
+    <div>
         <h4 class="alert-heading">
             <YAF:LocalizedLabel runat="server" 
                                 LocalizedPage="COMMON" 
@@ -20,10 +20,10 @@
                              TextLocalizedTag="COOKIE_DETAILS">
             </YAF:ThemeButton>
             <YAF:ThemeButton runat="server" ID="close" 
-                             CssClass="acceptcookies" 
                              Type="Primary" 
                              TextLocalizedTag="COOKIE_AGREE" 
-                             Icon="check-square">
+                             Icon="check-square"
+                             OnClick="AcceptClick">
             </YAF:ThemeButton>
         </p>
     </div>

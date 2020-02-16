@@ -22,15 +22,6 @@ jQuery(document).ready(function () {
 
 		return false;
 	});
-    // Cookie alert
-    if (!getCookie("YAF-AcceptCookies")) {
-        $(".cookiealert").addClass("show");
-    }
-
-    $(".acceptcookies").click(function () {
-        setCookie("YAF-AcceptCookies", true, 180);
-        $(".cookiealert").removeClass("show");
-    });
 
     // Numeric Spinner Inputs
     jQuery("input[type='number']").TouchSpin({
