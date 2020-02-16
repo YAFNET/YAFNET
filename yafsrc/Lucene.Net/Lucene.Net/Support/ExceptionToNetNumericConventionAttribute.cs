@@ -25,7 +25,7 @@ namespace YAF.Lucene.Net.Support
     /// that are commonly used in .NET method and property names.
     /// </summary>
     [AttributeUsage(AttributeTargets.Property | AttributeTargets.Method | AttributeTargets.Event | AttributeTargets.Class, AllowMultiple = false)]
-    public class ExceptionToNetNumericConventionAttribute : Attribute
+    internal class ExceptionToNetNumericConventionAttribute : Attribute
     {
     }
 }

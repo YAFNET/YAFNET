@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using JCG = J2N.Collections.Generic;
-using Console = YAF.Lucene.Net.Support.SystemConsole;
+using Console = YAF.Lucene.Net.Util.SystemConsole;
 
 namespace YAF.Lucene.Net.Codecs.Lucene3x
 {

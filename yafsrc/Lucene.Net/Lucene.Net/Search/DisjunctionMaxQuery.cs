@@ -1,4 +1,4 @@
-using YAF.Lucene.Net.Support;
+using YAF.Lucene.Net.Util;
 using System;
 using System.Collections;
 using System.Collections.Generic;

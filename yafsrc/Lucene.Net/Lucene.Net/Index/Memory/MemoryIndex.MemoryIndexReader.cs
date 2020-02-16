@@ -651,7 +651,6 @@ namespace YAF.Lucene.Net.Index.Memory
 #endif
                 // no-op: there are no stored fields
             }
-
             protected internal override void DoClose()
             {
 #if DEBUG

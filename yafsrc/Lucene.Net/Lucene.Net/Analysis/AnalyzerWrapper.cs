@@ -96,7 +96,7 @@ namespace YAF.Lucene.Net.Analysis
             return reader;
         }
 
-        public override sealed TokenStreamComponents CreateComponents(string fieldName, TextReader aReader)
+        protected internal override sealed TokenStreamComponents CreateComponents(string fieldName, TextReader aReader)
         {
             var wrappedAnalyzer = GetWrappedAnalyzer(fieldName);
             var component = wrappedAnalyzer.CreateComponents(fieldName, aReader);
@@ -113,7 +113,7 @@ namespace YAF.Lucene.Net.Analysis
             return GetWrappedAnalyzer(fieldName).GetOffsetGap(fieldName);
         }
 
-        public override TextReader InitReader(string fieldName, TextReader reader)
+        protected internal override TextReader InitReader(string fieldName, TextReader reader)
         {
             return GetWrappedAnalyzer(fieldName).InitReader(fieldName, WrapReader(fieldName, reader));
         }

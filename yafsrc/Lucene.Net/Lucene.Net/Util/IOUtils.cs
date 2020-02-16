@@ -1,10 +1,9 @@
+using J2N;
 using YAF.Lucene.Net.Support;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Reflection;
 using System.Text;
-using System.Threading;
 
 namespace YAF.Lucene.Net.Util
 {
@@ -350,7 +349,7 @@ namespace YAF.Lucene.Net.Util
         /// <summary>
         /// Since there's no C# equivalent of Java's Exception.AddSuppressed, we add the
         /// suppressed exceptions to a data field via the 
-        /// <see cref="Support.ExceptionExtensions.AddSuppressed(Exception, Exception)"/> method.
+        /// <see cref="ExceptionExtensions.AddSuppressed(Exception, Exception)"/> method.
         /// <para/>
         /// The exceptions can be retrieved by calling <see cref="ExceptionExtensions.GetSuppressed(Exception)"/>
         /// or <see cref="ExceptionExtensions.GetSuppressedAsList(Exception)"/>.
@@ -431,7 +430,7 @@ namespace YAF.Lucene.Net.Util
             bool success = false;
             try
             {
-                stream = clazz.GetTypeInfo().Assembly.FindAndGetManifestResourceStream(clazz, resource);
+                stream = clazz.FindAndGetManifestResourceStream(resource);
                 TextReader reader = GetDecodingReader(stream, charSet);
                 success = true;
                 return reader;

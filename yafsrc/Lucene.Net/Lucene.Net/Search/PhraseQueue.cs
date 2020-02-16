@@ -26,7 +26,7 @@ namespace YAF.Lucene.Net.Search
         {
         }
 
-        protected override sealed bool LessThan(PhrasePositions pp1, PhrasePositions pp2)
+        protected internal override sealed bool LessThan(PhrasePositions pp1, PhrasePositions pp2)
         {
             if (pp1.doc == pp2.doc)
             {

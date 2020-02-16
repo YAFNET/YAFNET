@@ -664,7 +664,7 @@ namespace YAF.Lucene.Net.Index
             {
             }
 
-            protected override bool LessThan(TermsEnumWithSlice termsA, TermsEnumWithSlice termsB)
+            protected internal override bool LessThan(TermsEnumWithSlice termsA, TermsEnumWithSlice termsB)
             {
                 int cmp = termComp.Compare(termsA.Current, termsB.Current);
                 if (cmp != 0)

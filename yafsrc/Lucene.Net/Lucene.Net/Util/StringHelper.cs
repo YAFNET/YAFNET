@@ -58,7 +58,7 @@ namespace YAF.Lucene.Net.Util
             }
             else
             {
-                return (int)Time.CurrentTimeMilliseconds();
+                return (int)J2N.Time.CurrentTimeMilliseconds();
             }
         }
 

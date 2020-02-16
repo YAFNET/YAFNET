@@ -19,6 +19,7 @@
  *
 */
 
+using YAF.Lucene.Net;
 using System;
 using System.Reflection;
 using System.Runtime.CompilerServices;

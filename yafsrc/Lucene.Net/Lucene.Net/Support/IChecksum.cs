@@ -20,7 +20,7 @@ namespace YAF.Lucene.Net.Support
     /// <summary>
     /// Contains conversion support elements such as classes, interfaces and static methods.
     /// </summary>
-    public interface IChecksum
+    internal interface IChecksum
     {
         void Reset();
 

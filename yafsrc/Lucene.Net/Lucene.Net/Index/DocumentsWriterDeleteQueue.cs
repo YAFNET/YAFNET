@@ -23,9 +23,9 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using BinaryDocValuesUpdate = YAF.Lucene.Net.Index.DocValuesUpdate.BinaryDocValuesUpdate;
-    using NumericDocValuesUpdate = YAF.Lucene.Net.Index.DocValuesUpdate.NumericDocValuesUpdate;
-    using Query = YAF.Lucene.Net.Search.Query;
+    using BinaryDocValuesUpdate = Lucene.Net.Index.DocValuesUpdate.BinaryDocValuesUpdate;
+    using NumericDocValuesUpdate = Lucene.Net.Index.DocValuesUpdate.NumericDocValuesUpdate;
+    using Query = Lucene.Net.Search.Query;
 
     /// <summary>
     /// <see cref="DocumentsWriterDeleteQueue"/> is a non-blocking linked pending deletes
@@ -294,7 +294,6 @@ namespace YAF.Lucene.Net.Index
             internal DeleteSlice(Node currentTail)
             {
                 Debug.Assert(currentTail != null);
-                Debug.Assert(currentTail.next == null);
                 /*
                  * Initially this is a 0 length slice pointing to the 'current' tail of
                  * the queue. Once we update the slice we only need to assign the tail and

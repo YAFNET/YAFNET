@@ -1,3 +1,4 @@
+using YAF.Lucene.Net.Support;
 using YAF.Lucene.Net.Support.IO;
 using System;
 using System.Collections.Generic;
@@ -5,6 +6,7 @@ using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;// Used only for WRITE_LOCK_NAME in deprecated create=true case:
+using System.Runtime.CompilerServices;
 
 namespace YAF.Lucene.Net.Store
 {
@@ -25,8 +27,8 @@ namespace YAF.Lucene.Net.Store
      * limitations under the License.
      */
 
-    using Constants = YAF.Lucene.Net.Util.Constants;
-    using IOUtils = YAF.Lucene.Net.Util.IOUtils;
+    using Constants = Lucene.Net.Util.Constants;
+    using IOUtils = Lucene.Net.Util.IOUtils;
 
     /// <summary>
     /// Base class for <see cref="Directory"/> implementations that store index
@@ -462,55 +464,81 @@ namespace YAF.Lucene.Net.Store
             get { return chunkSize; }
         }
 
-        /// <summary>
+        ///// <summary>
         /// Writes output with <see cref="FileStream.Write(byte[], int, int)"/>
         /// </summary>
+        // LUCENENET specific: Since FileStream does its own buffering, this class was refactored
+        // to do all checksum operations as well as writing to the FileStream. By doing this we elminate
+        // the extra set of buffers that were only creating unnecessary memory allocations and copy operations.
         protected class FSIndexOutput : BufferedIndexOutput
         {
-            // LUCENENET specific: chunk size not needed
-            ///// <summary>
-            ///// The maximum chunk size is 8192 bytes, because <seealso cref="RandomAccessFile"/> mallocs
-            ///// a native buffer outside of stack if the write buffer size is larger.
-            ///// </summary>
-            //private const int CHUNK_SIZE = 8192;
+            private const int CHUNK_SIZE = DEFAULT_BUFFER_SIZE;
 
             private readonly FSDirectory parent;
             internal readonly string name;
             private readonly FileStream file;
             private volatile bool isOpen; // remember if the file is open, so that we don't try to close it more than once
+            private readonly CRC32 crc = new CRC32();
 
             public FSIndexOutput(FSDirectory parent, string name)
-                : base(/*CHUNK_SIZE*/)
+                : base(CHUNK_SIZE, null)
             {
                 this.parent = parent;
                 this.name = name;
-                file = new FileStream(Path.Combine(parent.m_directory.FullName, name), FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.ReadWrite);
+                file = new FileStream(
+                    path: Path.Combine(parent.m_directory.FullName, name),
+                    mode: FileMode.OpenOrCreate,
+                    access: FileAccess.Write,
+                    share: FileShare.ReadWrite,
+                    bufferSize: CHUNK_SIZE);
                 isOpen = true;
             }
 
-            protected internal override void FlushBuffer(byte[] b, int offset, int size)
+            /// <inheritdoc/>
+            public override void WriteByte(byte b)
             {
-                //Debug.Assert(isOpen);
-                //while (size > 0)
-                //{
-                //    int toWrite = Math.Min(CHUNK_SIZE, size);
-                //    file.Write(b, offset, toWrite);
-                //    offset += toWrite;
-                //    size -= toWrite;
-                //}
+                if (!isOpen)
+                    throw new ObjectDisposedException(nameof(FSIndexOutput));
 
-                // LUCENENET specific: FileStream is already optimized to write natively
-                // if over the buffer size that is passed through its constructor. So,
-                // all we need to do is Write().
-                file.Write(b, offset, size);
-
-                //Debug.Assert(size == 0);
+                crc.Update(b);
+                file.WriteByte(b);
             }
 
+            /// <inheritdoc/>
+            public override void WriteBytes(byte[] b, int offset, int length)
+            {
+                if (!isOpen)
+                    throw new ObjectDisposedException(nameof(FSIndexOutput));
+
+                crc.Update(b, offset, length);
+                file.Write(b, offset, length);
+            }
+
+            /// <inheritdoc/>
+            protected internal override void FlushBuffer(byte[] b, int offset, int size)
+            {
+                if (!isOpen)
+                    throw new ObjectDisposedException(nameof(FSIndexOutput));
+
+                crc.Update(b, offset, size);
+                file.Write(b, offset, size);
+            }
+
+            /// <inheritdoc/>
+            [MethodImpl(MethodImplOptions.NoInlining)]
+            public override void Flush()
+            {
+                if (!isOpen)
+                    throw new ObjectDisposedException(nameof(FSIndexOutput));
+
+                file.Flush();
+            }
+
+            /// <inheritdoc/>
             protected override void Dispose(bool disposing)
             {
                 if (disposing)
-                { 
+                {
                     parent.OnIndexOutputClosed(this);
                     // only close the file if it has not been closed yet
                     if (isOpen)
@@ -518,9 +546,6 @@ namespace YAF.Lucene.Net.Store
                         IOException priorE = null;
                         try
                         {
-                            base.Dispose(disposing);
-                            // LUCENENET specific - file.Flush(flushToDisk: true) required in .NET for concurrency
-                            // Part of a solution suggested by Vincent Van Den Berghe: http://apache.markmail.org/message/hafnuhq2ydhfjmi2
                             file.Flush(flushToDisk: true);
                         }
                         catch (IOException ioe)
@@ -541,16 +566,25 @@ namespace YAF.Lucene.Net.Store
             [Obsolete("(4.1) this method will be removed in Lucene 5.0")]
             public override void Seek(long pos)
             {
-                base.Seek(pos);
+                if (!isOpen)
+                    throw new ObjectDisposedException(nameof(FSIndexOutput));
+
                 file.Seek(pos, SeekOrigin.Begin);
             }
 
-            public override long Length
-            {
-                get { return file.Length; }
-            }
+            /// <inheritdoc/>
+            public override long Length => file.Length;
 
             // LUCENENET NOTE: FileStream doesn't have a way to set length
+
+            /// <inheritdoc/>
+            public override long Checksum => crc.Value; // LUCENENET specific - need to override, since we are buffering locally
+
+            /// <inheritdoc/>
+            public override long GetFilePointer() // LUCENENET specific - need to override, since we are buffering locally
+            {
+                return file.Position;
+            }
         }
 
         // LUCENENET specific: Fsync is pointless in .NET, since we are 
@@ -558,7 +592,7 @@ namespace YAF.Lucene.Net.Store
         // which means we never need it at the point in Java where it is called.
         //protected virtual void Fsync(string name)
         //{
-        //    IOUtils.Fsync(Path.Combine(m_directory.FullName, name), false);            
+        //    IOUtils.Fsync(Path.Combine(m_directory.FullName, name), false);
         //}
     }
 }

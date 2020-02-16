@@ -104,7 +104,7 @@ namespace YAF.Lucene.Net.Util
         /// Determines the ordering of objects in this priority queue.  Subclasses
         /// must define this one method. </summary>
         /// <returns> <c>true</c> if parameter <paramref name="a"/> is less than parameter <paramref name="b"/>. </returns>
-        protected abstract bool LessThan(T a, T b); // LUCENENET: Internal for testing
+        protected internal abstract bool LessThan(T a, T b); // LUCENENET: Internal for testing
 
         /// <summary>
         /// This method can be overridden by extending classes to return a sentinel

@@ -103,7 +103,8 @@ namespace YAF.Lucene.Net.Analysis.Standard
             }
         }
 
-        public override TokenStreamComponents CreateComponents(string fieldName, TextReader reader)
+
+        protected internal override TokenStreamComponents CreateComponents(string fieldName, TextReader reader)
         {
             var src = new StandardTokenizer(m_matchVersion, reader);
             src.MaxTokenLength = maxTokenLength;
@@ -128,7 +129,7 @@ namespace YAF.Lucene.Net.Analysis.Standard
                 this.src = src;
             }
 
-            public override void SetReader(TextReader reader)
+            protected internal override void SetReader(TextReader reader)
             {
                 src.MaxTokenLength = outerInstance.maxTokenLength;
                 base.SetReader(reader);

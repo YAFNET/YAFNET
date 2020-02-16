@@ -35,7 +35,7 @@ namespace YAF.Lucene.Net.Support
     /// </code>
     /// </summary>
     [AttributeUsage(AttributeTargets.Method | AttributeTargets.Property, AllowMultiple = false)]
-    public class WritableArrayAttribute : Attribute 
+    internal class WritableArrayAttribute : Attribute 
     {
     }
 }
