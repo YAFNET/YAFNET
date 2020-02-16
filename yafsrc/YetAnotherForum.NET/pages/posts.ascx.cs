@@ -357,11 +357,11 @@ namespace YAF.Pages
         {
             if (!this.PageContext.IsGuest)
             {
-                if (this.Get<HttpRequestBase>().QueryString.Exists("m") && this.PageContext.CurrentUserData.Activity)
+                if (this.PageContext.CurrentUserData.Activity)
                 {
-                    var mentionId = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefaultAs<int>("m");
-
-                    this.GetRepository<Activity>().UpdateNotification(this.PageContext.PageUserID, mentionId);
+                    this.GetRepository<Activity>().UpdateTopicNotification(
+                        this.PageContext.PageUserID,
+                        this.PageContext.PageTopicID);
                 }
 
                 // The html code for "Favorite Topic" theme buttons.
@@ -374,8 +374,8 @@ namespace YAF.Pages
                 var favoriteTopicJs = JavaScriptBlocks.AddFavoriteTopicJs(untagButtonHtml) + Environment.NewLine +
                                       JavaScriptBlocks.RemoveFavoriteTopicJs(tagButtonHtml);
 
-                YafContext.Current.PageElements.RegisterJsBlockStartup("favoriteTopicJs", favoriteTopicJs);
-                YafContext.Current.PageElements.RegisterJsBlockStartup("asynchCallFailedJs", "function CallFailed(res){ console.log(res);alert('Error Occurred'); }");
+                this.PageContext.PageElements.RegisterJsBlockStartup("favoriteTopicJs", favoriteTopicJs);
+                this.PageContext.PageElements.RegisterJsBlockStartup("asynchCallFailedJs", "function CallFailed(res){ console.log(res);alert('Error Occurred'); }");
 
                 // Has the user already tagged this topic as favorite?
                 if (this.Get<IFavoriteTopic>().IsFavoriteTopic(this.PageContext.PageTopicID))
@@ -544,7 +544,7 @@ namespace YAF.Pages
                 if (this.PageContext.ForumReplyAccess ||
                     (!this.topic.TopicFlags.IsLocked || !this.forumFlags.IsLocked) && this.PageContext.ForumModeratorAccess)
                 {
-                    YafContext.Current.PageElements.RegisterJsBlockStartup(
+                    this.PageContext.PageElements.RegisterJsBlockStartup(
                         "SelectedQuotingJs",
                         JavaScriptBlocks.SelectedQuotingJs(
                             BuildLink.GetLinkNotEscaped(

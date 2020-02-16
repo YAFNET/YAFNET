@@ -36,15 +36,8 @@ namespace YAF.Types.Models
     /// </summary>
     [Serializable]
     [Table(Name = "Activity")]
-    public partial class Activity : IEntity, IHaveID
+    public class Activity : IEntity, IHaveID
     {
-        partial void OnCreated();
-
-        public Activity()
-        {
-            this.OnCreated();
-        }
-
         #region Properties
 
         /// <summary>
@@ -94,25 +87,45 @@ namespace YAF.Types.Models
         /// </summary>
         public int? FromUserID { get; set; }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether notification.
+        /// </summary>
         [Default(0)]
         public bool Notification { get; set; }
 
-
+        /// <summary>
+        /// Gets or sets a value indicating whether created topic.
+        /// </summary>
         [Compute]
         public bool CreatedTopic { get; set; }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether created reply.
+        /// </summary>
         [Compute]
         public bool CreatedReply { get; set; }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether was mentioned.
+        /// </summary>
         [Compute]
         public bool WasMentioned { get; set; }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether received thanks.
+        /// </summary>
         [Compute]
         public bool ReceivedThanks { get; set; }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether given thanks.
+        /// </summary>
         [Compute]
         public bool GivenThanks { get; set; }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether was quoted.
+        /// </summary>
         [Compute]
         public bool WasQuoted { get; set; }
 

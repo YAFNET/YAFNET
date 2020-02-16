@@ -89,6 +89,32 @@ namespace YAF.Core.Model
         }
 
         /// <summary>
+        /// Sets all Notifications as read for the topic
+        /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="userId">
+        /// The user id.
+        /// </param>
+        /// <param name="topicId">
+        /// The message id.
+        /// </param>
+        public static void UpdateTopicNotification(
+            this IRepository<Activity> repository,
+            int userId,
+            int topicId)
+        {
+            CodeContracts.VerifyNotNull(repository, "repository");
+
+            YafContext.Current.Get<IRaiseEvent>().Raise(new UpdateUserEvent(userId));
+
+            repository.UpdateOnly(
+                () => new Activity { Notification = false },
+                a => a.UserID == userId && a.TopicID == topicId && a.Notification);
+        }
+
+        /// <summary>
         /// Mark all Notifications as read for the user
         /// </summary>
         /// <param name="repository">
