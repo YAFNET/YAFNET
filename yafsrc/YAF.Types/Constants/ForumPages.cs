@@ -59,6 +59,11 @@ namespace YAF.Types.Constants
         moderating,
 
         /// <summary>
+        /// The post topic page.
+        /// </summary>
+        PostTopic,
+
+        /// <summary>
         /// The post message page.
         /// </summary>
         PostMessage,

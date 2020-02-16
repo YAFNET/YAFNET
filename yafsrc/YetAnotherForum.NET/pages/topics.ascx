@@ -39,7 +39,6 @@
         <YAF:ThemeButton ID="NewTopic1" runat="server" 
                          CssClass="float-right mr-1"
                          TextLocalizedTag="BUTTON_NEWTOPIC" TitleLocalizedTag="BUTTON_NEWTOPIC_TT" 
-                         OnClick="NewTopic_Click"
                          Icon="plus"/>
     </div>
 </div>
@@ -173,7 +172,6 @@
             <YAF:ThemeButton ID="NewTopic2" runat="server" 
                              CssClass="float-right mr-1"
                              TextLocalizedTag="BUTTON_NEWTOPIC" TitleLocalizedTag="BUTTON_NEWTOPIC_TT" 
-                             OnClick="NewTopic_Click"
                              Icon="plus"/>
     </div>
 </div>

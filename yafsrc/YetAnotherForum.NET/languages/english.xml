@@ -4442,6 +4442,10 @@
   <Resource tag="TOPICWATCH">Watch this topic and receive notifications of activity via e-mail?</Resource>
   <Resource tag="WAIT">You can't post in the next {0:N0} seconds.</Resource>
  </page>
+  <page name="POSTTOPIC">
+    <Resource tag="MESSAGE">Message:</Resource>
+    <Resource tag="TAGS">Tags:</Resource>
+  </page>
  <page name="POSTS">
   <Resource tag="AD_SIGNATURE"></Resource>
   <Resource tag="AD_USERNAME">Sponsor</Resource>

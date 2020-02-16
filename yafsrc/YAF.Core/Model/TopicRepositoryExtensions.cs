@@ -749,6 +749,7 @@ namespace YAF.Core.Model
             [NotNull] DateTime posted,
             [NotNull] string blogPostId,
             [NotNull] int flags,
+            [CanBeNull] string topicTags,
             ref long messageId)
         {
             var dt = repository.DbFunction.GetData.topic_save(
@@ -784,6 +785,7 @@ namespace YAF.Core.Model
                                      UserId = YafContext.Current.PageUserID,
                                      TopicId = topicId.ToType<int>(),
                                      Topic = subject,
+                                     TopicTags = topicTags,
                                      ForumId = YafContext.Current.PageForumID,
                                      ForumName = YafContext.Current.PageForumName,
                                      Description = string.Empty

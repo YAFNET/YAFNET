@@ -153,7 +153,6 @@ namespace YAF.Controls
             if (this.IsPostBack)
             {
                 return;
-                return;
             }
 
             this.LoginInfo.Visible = true;

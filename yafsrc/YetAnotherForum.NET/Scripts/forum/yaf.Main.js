@@ -1,14 +1,5 @@
 // Generic Functions
 jQuery(document).ready(function () {
-
-    $("#Tags").select2({
-        tags: true,
-        tokenSeparators: [',', ' '],
-        theme: "bootstrap4",
-        dropdownAutoWidth: true
-    });
-
-
     // Main Menu
     $(".dropdown-menu a.dropdown-toggle").on("click", function () {
 		var $el = $(this);

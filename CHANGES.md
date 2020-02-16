@@ -3,6 +3,7 @@ YetAnotherForum.NET Changelog
 
 # YetAnotherForum.NET v2.3.1.00
 * [NEW] Sitemap.xml file with all Forums
+* [NEW #240] Topic Tags
 * [NEW #53] Option to lock In-Active Users
 * [NEW #216] Report Private Messages
 * [NEW #283] Global Board Announcement

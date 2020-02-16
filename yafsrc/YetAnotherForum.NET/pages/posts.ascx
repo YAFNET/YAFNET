@@ -10,6 +10,7 @@
 <%@ Register TagPrefix="YAF" TagName="DisplayAd" Src="../controls/DisplayAd.ascx" %>
 <%@ Register TagPrefix="YAF" TagName="PollList" Src="../controls/PollList.ascx" %>
 <%@ Register TagPrefix="YAF" TagName="SimilarTopics" Src="../controls/SimilarTopics.ascx" %>
+<%@ Register TagPrefix="YAF" TagName="TopicTags" Src="../controls/TopicTags.ascx" %>
 
 <%@ Register TagPrefix="modal" TagName="MoveTopic" Src="../Dialogs/MoveTopic.ascx" %>
 <%@ Register TagPrefix="modal" TagName="QuickReply" Src="../Dialogs/QuickReply.ascx" %>
@@ -17,10 +18,10 @@
 
 <YAF:PageLinks ID="PageLinks" runat="server" />
 
-<YAF:PollList ID="PollList" TopicId='<%# this.PageContext.PageTopicID %>' 
-              ShowButtons='<%# this.ShowPollButtons() %>' 
-              Visible='<%# this.PollGroupId() > 0 %>' 
-              PollGroupId='<%# this.PollGroupId() %>' runat="server"/>
+<YAF:PollList ID="PollList" TopicId="<%# this.PageContext.PageTopicID %>" 
+              ShowButtons="<%# this.ShowPollButtons() %>" 
+              Visible="<%# this.PollGroupId() > 0 %>" 
+              PollGroupId="<%# this.PollGroupId() %>" runat="server"/>
 
 <a id="top"></a>
 
@@ -44,7 +45,7 @@
                 TextLocalizedTag="MANAGE_TOPIC"
                 TextLocalizedPage="POSTS"
                 Icon="cogs" />
-            <div class="dropdown-menu" aria-labelledby='<%# this.Tools1.ClientID %>'>
+            <div class="dropdown-menu" aria-labelledby="<%# this.Tools1.ClientID %>">
                 <YAF:ThemeButton ID="MoveTopic1" runat="server"
                                  CssClass="dropdown-item"
                                  Type="None" 
@@ -74,7 +75,6 @@
             </div>
             <YAF:ThemeButton ID="NewTopic1" runat="server"
                 Type="Secondary"
-                OnClick="NewTopic_Click"
                 TextLocalizedTag="BUTTON_NEWTOPIC" TitleLocalizedTag="BUTTON_NEWTOPIC_TT"
                 Icon="comment" />
             <YAF:ThemeButton ID="PostReplyLink1" runat="server"
@@ -194,12 +194,12 @@
                              DataToggle="dropdown"
                              TextLocalizedTag="MANAGE_TOPIC"
                              Icon="cogs" />
-            <div class="dropdown-menu" aria-labelledby='<%# this.Tools1.ClientID %>'>
+            <div class="dropdown-menu" aria-labelledby="<%# this.Tools1.ClientID %>">
                 <YAF:ThemeButton ID="MoveTopic2" runat="server"
                                  Type="None"
                                  CssClass="dropdown-item"
                                  DataToggle="modal" 
-                                 DataTarget="MovetTopicDialog" 
+                                 DataTarget="MoveTopicDialog" 
                                  TextLocalizedTag="BUTTON_MOVETOPIC" TitleLocalizedTag="BUTTON_MOVETOPIC_TT"
                                  Icon="arrows-alt" />
                 <YAF:ThemeButton ID="UnlockTopic2" runat="server" 
@@ -224,7 +224,6 @@
             </div>
             <YAF:ThemeButton ID="NewTopic2" runat="server" 
                              Type="Secondary"
-                             OnClick="NewTopic_Click" 
                              TextLocalizedTag="BUTTON_NEWTOPIC" TitleLocalizedTag="BUTTON_NEWTOPIC_TT"
                              Icon="comment" />
             <YAF:ThemeButton ID="PostReplyLink2" runat="server" 
@@ -240,6 +239,7 @@
                              DataTarget="QuickReplyDialog"/>
     </div>
 </div>
+<YAF:TopicTags ID="TopicTags"  runat="server" />
 <div class="row mb-3">
     <YAF:SimilarTopics ID="SimilarTopics"  runat="server">
     </YAF:SimilarTopics>

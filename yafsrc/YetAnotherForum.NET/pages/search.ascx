@@ -28,6 +28,14 @@
                     <asp:TextBox ID="txtSearchStringFromWho" runat="server" CssClass="form-control searchUserInput" />
                 </div>
             </div>
+            <div class="px-3 py-1">
+                <div class="form-group">
+                    <asp:Label runat="server" AssociatedControlID="SearchStringTag">
+                        <YAF:LocalizedLabel runat="server" LocalizedTag="Tag" />
+                    </asp:Label>
+                    <asp:TextBox ID="SearchStringTag" runat="server" CssClass="form-control searchTagInput" />
+                </div>
+            </div>
             <div class="dropdown-divider"></div>
             <div class="px-3 py-1">
                 <div class="form-group">

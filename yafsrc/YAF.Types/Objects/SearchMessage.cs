@@ -26,8 +26,10 @@ namespace YAF.Types.Objects
     #region Using
 
     using System;
+    using System.Collections.Generic;
     using System.Data;
     using System.Globalization;
+    using System.Linq;
 
     #endregion
 
@@ -50,6 +52,7 @@ namespace YAF.Types.Objects
             this.UserDisplayName = row.Field<string>("UserDisplayName");
             this.UserStyle = row.Field<string>("UserStyle");
             this.UserId = row.Field<int?>("UserID");
+
             this.TopicId = row.Field<int?>("TopicID");
             this.Topic = row.Field<string>("Topic");
             this.ForumId = row.Field<int?>("ForumID");
@@ -145,6 +148,11 @@ namespace YAF.Types.Objects
         /// The topic.
         /// </value>
         public string Topic { get; set; }
+
+        /// <summary>
+        /// Gets or sets the topic tags.
+        /// </summary>
+        public string TopicTags { get; set; }
 
         /// <summary>
         /// Gets or sets the forum identifier.

@@ -246,6 +246,7 @@ namespace YAF.Core.Services
                                                                TemplateLanguageFile = languageFile,
                                                                TemplateParams =
                                                                    {
+                                                                       ["{user}"] = userName,
                                                                        ["{reason}"] = reportText,
                                                                        ["{reporter}"] =
                                                                            this.Get<IUserDisplayName>()

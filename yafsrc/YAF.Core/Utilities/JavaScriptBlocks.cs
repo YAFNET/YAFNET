@@ -98,6 +98,41 @@ namespace YAF.Core.Utilities
         }}";
 
         /// <summary>
+        /// Gets Board Tags JavaScript
+        /// </summary>
+        /// <param name="inputId">
+        /// The input Id.
+        /// </param>
+        /// <returns>
+        /// The <see cref="string"/>.
+        /// </returns>
+        [NotNull]
+        public static string GetBoardTagsJs(string inputId) =>
+            $@" $(""#{inputId}"").tagsinput({{
+        typeahead: {{
+            source: function () {{
+                var ajaxUrl = ""{BoardInfo.ForumClientFileRoot}{WebApiConfig.UrlPrefix}/Tags/GetBoardTags"";
+                return $.ajax({{
+                    url: ajaxUrl,
+                    type: 'POST',
+                    dataType: 'JSON',
+                   // data: 'query=' + query,
+                    success: function (data) {{
+                        return data;
+                    }}
+                }});
+            }}
+        }},
+        freeInput: true
+    }});
+
+    $(""input"").on('itemAdded', function (event) {{
+        setTimeout(function () {{
+            $("">input[type=text]"", "".bootstrap-tagsinput"").val("""");
+        }}, 1);
+    }});";
+
+        /// <summary>
         ///   Gets the script for changing the album title.
         /// </summary>
         /// <returns>

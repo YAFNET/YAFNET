@@ -722,6 +722,7 @@ namespace YAF.Core.Model
                                         TopicId = YafContext.Current.PageTopicID,
                                         Topic = YafContext.Current.PageTopicName,
                                         ForumId = YafContext.Current.PageForumID,
+                                        TopicTags = string.Empty,
                                         ForumName = YafContext.Current.PageForumName,
                                         Description = string.Empty
                                     };

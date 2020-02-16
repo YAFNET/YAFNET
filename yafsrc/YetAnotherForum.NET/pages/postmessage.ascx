@@ -20,7 +20,11 @@
     <div class="col">
         <div class="card mb-3">
             <div class="card-header">
-                <i class="fas fa-comment-dots fa-fw text-secondary"></i>&nbsp;<asp:Label ID="Title" runat="server" />
+                <YAF:Icon runat="server"
+                          IconName="comment-dots"
+                          IconType="text-secondary">
+                </YAF:Icon>
+                <asp:Label ID="Title" runat="server" />
             </div>
             <div class="card-body">
                 <asp:PlaceHolder ID="PreviewRow" runat="server" Visible="false">
@@ -83,24 +87,16 @@
                         <asp:TextBox ID="TopicStylesTextBox" runat="server" CssClass="form-control" />
                     </div>
                 </asp:PlaceHolder>
-                <div class="form-group">
-                    <asp:Label runat="server" AssociatedControlID="Tags">
-                        <YAF:LocalizedLabel runat="server" LocalizedTag="TAGS" />
-                    </asp:Label>
-                    <asp:UpdatePanel runat="server" UpdateMode="Conditional">
-                        <ContentTemplate>
-                            <asp:ListBox runat="server" ID="Tags" 
-                                         DataTextField="TagName"
-                                         DataValueField="ID"
-                                         CssClass="form-control select2-tags-select"
-                                         SelectionMode="Multiple"
-                                         AutoPostBack="True"
-                                         OnSelectedIndexChanged="Tags_OnSelectedIndexChanged">
-                            </asp:ListBox>
-                        </ContentTemplate>
-                    </asp:UpdatePanel>
-                   
-                </div>
+                <asp:PlaceHolder ID="TagsHolder" runat="server">
+                    <div class="form-group">
+                        <asp:Label runat="server" AssociatedControlID="Tags">
+                            <YAF:LocalizedLabel runat="server" LocalizedTag="TAGS" />
+                        </asp:Label>
+                        <asp:TextBox runat="server" ID="Tags" 
+                                     CssClass="form-control">
+                        </asp:TextBox>
+                    </div>
+                </asp:PlaceHolder>
                 <div class="form-group">
                     <asp:Label runat="server">
                         <YAF:LocalizedLabel runat="server" LocalizedTag="message" />

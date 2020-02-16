@@ -1,6 +1,48 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Resources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" language="Arabic" code="ar">
+  <page name="ACCOUNT">
+    <Resource tag="ACTIVITY">Your Activity</Resource>
+    <Resource tag="ARCHIVE">الأرشيف</Resource>
+    <Resource tag="CHANGE_PASSWORD">تغيير كلمة المرور</Resource>
+    <Resource tag="CONTROL_PANEL">لوحة التحكم</Resource>
+    <Resource tag="CREATED_REPLY">Replied to a Post</Resource>
+    <Resource tag="CREATED_REPLY_MSG">Added an Reply to the Topic {0}</Resource>
+    <Resource tag="CREATED_TOPIC">Created a new Topic</Resource>
+    <Resource tag="CREATED_TOPIC_MSG">Created a new Topic {0}</Resource>
+    <Resource tag="DELETE_ACCOUNT">Delete Account</Resource>
+    <Resource tag="EDIT_AVATAR">تعديل الصورة الشخصية</Resource>
+    <Resource tag="EDIT_PROFILE">تعديل الملف الشخصي</Resource>
+    <Resource tag="EDIT_SETTINGS">Edit Settings</Resource>
+    <Resource tag="EDIT_SIGNATURE">تعديل التوقيع</Resource>
+    <Resource tag="GIVEN_THANKS">Given Thanks to a Post</Resource>
+    <Resource tag="GIVEN_THANKS_MSG">Given Thanks to {0} in the Topic {1}</Resource>
+    <Resource tag="GROUPS">انت عضو من هذه المجموعات</Resource>
+    <Resource tag="INBOX">الوارد</Resource>
+    <Resource tag="ITEMS">Show Items</Resource>
+    <Resource tag="JOINED">:انت عضو منذ </Resource>
+    <Resource tag="MESSENGER">ماسنجر:</Resource>
+    <Resource tag="NEW_MESSAGE">رسالة جديدة</Resource>
+    <Resource tag="NUMPOSTS">:عدد المشاركات </Resource>
+    <Resource tag="PERSONAL_PROFILE">:الملف الشخصي</Resource>
+    <Resource tag="RECEIVED_THANKS">Received a Thanks to a Post</Resource>
+    <Resource tag="RECEIVED_THANKS_MSG">Has Received a Thanks from {0} in the Topic {1}</Resource>
+    <Resource tag="SENTITEMS">العناصر المرسلة</Resource>
+    <Resource tag="SIGNATURE">التوقيع</Resource>
+    <Resource tag="SUBSCRIPTIONS">بعت اشعار  الى  البريد الالكتروني  بالتفضيلات </Resource>
+    <Resource tag="UNREAD_ONLY">Show only unread Activity</Resource>
+    <Resource tag="VIEW_PROFILE">عرض الملف الشخصي</Resource>
+    <Resource tag="WAS_MENTIONED">Was Mentioned</Resource>
+    <Resource tag="WAS_MENTIONED_MSG">Was Mentioned by {0} in the Topic {1}</Resource>
+    <Resource tag="WAS_QUOTED">Was Quoted</Resource>
+    <Resource tag="WAS_QUOTED_MSG">Was Quoted by {0} in the Topic {1}</Resource>
+    <Resource tag="YOUR_ACCOUNT">حسابك</Resource>
+    <Resource tag="YOUR_EMAIL">:عنوان بريدك الالكتروني</Resource>
+    <Resource tag="YOUR_NOTIFIY">Your Notifications</Resource>
+    <Resource tag="YOUR_USERDISPLAYNAME">اسمك:</Resource>
+    <Resource tag="YOUR_USERNAME">:اسم المستخدم الخاص بك</Resource>
+  </page>
   <page name="ACTIVELOCATION">
+    <Resource tag="ACCOUNT">عرض اعدادت الملف الشخصي</Resource>
     <Resource tag="ACTIVEUSERS">عرض المستخدمين المفعلين حاليا</Resource>
     <Resource tag="ADMIN_ACCESSMASKS">عرض أقنعة الدخول </Resource>
     <Resource tag="ADMIN_ADMIN">عرض المحتوى الاداري</Resource>
@@ -75,26 +117,22 @@
     <Resource tag="APPROVE">تثبيت</Resource>
     <Resource tag="ATTACHMENTS">معالجة المرفقات</Resource>
     <Resource tag="AVATAR">عرض الرموز</Resource>
-    <Resource tag="COOKIES">Views the cookie policy page</Resource>
     <Resource tag="BLOCK_OPTIONS">Edits his Ignored users and block option</Resource>
     <Resource tag="CHANGE_PASSWORD">تغيير كلمة المرور</Resource>
+    <Resource tag="COOKIES">Views the cookie policy page</Resource>
+    <Resource tag="CP_PROFILE_OFUSER">عرض الملف الشخصي للمستخدم</Resource>
     <Resource tag="DELETE_ACCOUNT">User deletes his account</Resource>
+    <Resource tag="DELETEMESSAGE">حذف الرسالة</Resource>
     <Resource tag="EDIT_ALBUMIMAGES">تعديل صور الألبوم</Resource>
     <Resource tag="EDIT_AVATAR">تعديل الرمز</Resource>
-    <Resource tag="FRIENDS">تعديل  قائمة لاصدقاء </Resource>
     <Resource tag="EDIT_PROFILE">تعديل الملف الشخصي</Resource>
     <Resource tag="EDIT_SETTINGS">Edit the user settings</Resource>
-    <Resource tag="MESSAGE">تعديل صفحة الرسائل</Resource>
-    <Resource tag="PM">اظهار  الرسائل  الخاصة </Resource>
-    <Resource tag="ACCOUNT">عرض اعدادت الملف الشخصي</Resource>
-    <Resource tag="CP_PROFILE_OFUSER">عرض الملف الشخصي للمستخدم</Resource>
     <Resource tag="EDIT_SIGNATURE">تعديل التوقيع</Resource>
-    <Resource tag="SUBSCRIPTIONS">تعديل الاشتراكات</Resource>
-    <Resource tag="DELETEMESSAGE">حذف الرسالة</Resource>
     <Resource tag="EMAILTOPIC">موضوع الرسائل</Resource>
     <Resource tag="ERROR">الذهاب  الى صفحة الخطا</Resource>
     <Resource tag="FORUM">المنتدى </Resource>
     <Resource tag="FORUMFROMCATEGORY"> المنتدى </Resource>
+    <Resource tag="FRIENDS">تعديل  قائمة لاصدقاء </Resource>
     <Resource tag="HELP_INDEX">عرض محتوى المساعدة</Resource>
     <Resource tag="HELP_RECOVER">لا يوجد بيانات</Resource>
     <Resource tag="IM_AIM"> AIM استخدام</Resource>
@@ -111,6 +149,7 @@
     <Resource tag="LOGOUT">خروج</Resource>
     <Resource tag="MAINPAGE"> الصفحة الرئيسية لمنتدى</Resource>
     <Resource tag="MEMBERS">عرض قائمة الأعضاء</Resource>
+    <Resource tag="MESSAGE">تعديل صفحة الرسائل</Resource>
     <Resource tag="MESSAGEHISTORY">عرض تاريخ الرسالة</Resource>
     <Resource tag="MOD_FORUMUSER">الاشراف  على  عضو في  المنتدى </Resource>
     <Resource tag="MODERATE">المشرفين</Resource>
@@ -121,6 +160,7 @@
     <Resource tag="MOVETOPIC">نقل الموضوع </Resource>
     <Resource tag="MYTOPICS">عرض القائمة المفضلة والمواضيع النشطة</Resource>
     <Resource tag="NODATA">عدم توفر البيانات</Resource>
+    <Resource tag="PM">اظهار  الرسائل  الخاصة </Resource>
     <Resource tag="PMESSAGE">كتابة رسالة  خاصة </Resource>
     <Resource tag="POSTMESSAGE_FULL">المشاركة برسالة في الموضوع </Resource>
     <Resource tag="POSTS">عرض الرسائل في الموضوع</Resource>
@@ -134,6 +174,7 @@
     <Resource tag="RSSTOPIC">مشاهدت الملخصات  </Resource>
     <Resource tag="RULES">عرض قواعد المنتدى</Resource>
     <Resource tag="SEARCH">بحث عن مستخدم</Resource>
+    <Resource tag="SUBSCRIPTIONS">تعديل الاشتراكات</Resource>
     <Resource tag="TEAM">Views team page</Resource>
     <Resource tag="TOPICINFORUM"> في المنتدى </Resource>
     <Resource tag="TOPICS">مشاهدات الموضوع </Resource>
@@ -1955,6 +1996,18 @@
     <Resource tag="UERLINKMOD_DESCRIPTION">ضع اسم المستخدم هنا</Resource>
     <Resource tag="YOUTUBEMOD_DESCRIPTION">إضافة رابط youtube</Resource>
   </page>
+  <page name="BLOCK_OPTIONS">
+    <Resource tag="BLOCK_BUDDYS">Block Friend Requests</Resource>
+    <Resource tag="BLOCK_BUDDYS">Block Private Messages</Resource>
+    <Resource tag="BLOCK_EMAILS">Block E-Mails</Resource>
+    <Resource tag="BLOCK_OPTIONS">Block Options</Resource>
+    <Resource tag="BLOCK_PMS">Block Private Messages</Resource>
+    <Resource tag="IGNORED_USERS">Ignored User List</Resource>
+    <Resource tag="NOTE_BLOCK">Admins and Users in the Friend List will be excluded from the Blocking!</Resource>
+    <Resource tag="NOTE_USERS">Posts of Ignored Users will be hidden. This does not include Quoted Posts</Resource>
+    <Resource tag="SELECT_OPTIONS">Options to Block other Users from Contacting you...</Resource>
+    <Resource tag="TITLE">User Block Options &amp; Ignored Users</Resource>
+  </page>
   <page name="BUDDY">
     <Resource tag="ADDBUDDY">إضافة صديق</Resource>
     <Resource tag="AWAIT_BUDDY_APPROVAL">(انتظار الموافقة على طلب الصداقة)</Resource>
@@ -2021,6 +2074,32 @@
     <Resource tag="BUTTON_UNLOCKTOPIC_TT">إلغاء القفل عن الموضوع</Resource>
     <Resource tag="BUTTON_UNTAGFAVORITE">أزلة التعين كمفضل</Resource>
     <Resource tag="BUTTON_UNTAGFAVORITE_TT">ازالة هذا الموضوع من قائمتك المفضلة</Resource>
+  </page>
+  <page name="CHANGE_PASSWORD">
+    <Resource tag="CHANGE_BUTTON">تقدم</Resource>
+    <Resource tag="CHANGE_SUCCESS">تم تغيير كلمة المرور بنجاح</Resource>
+    <Resource tag="CONFIRM_PASSWORD"> :تأكيد كلمة المرور الجديدة</Resource>
+    <Resource tag="EMPTY_ANSWER">New Answer is requiered.</Resource>
+    <Resource tag="EMPTY_PASSWORD">Please Enter your Current Password</Resource>
+    <Resource tag="EMPTY_QUESTION">New Question is requiered.</Resource>
+    <Resource tag="NEED_NEW_CONFIRM_PASSWORD">مطلوب تأكيد كلمة المرور الجديدة</Resource>
+    <Resource tag="NEED_NEW_PASSWORD">مطلوب كلمة المرور الجديدة.</Resource>
+    <Resource tag="NEED_OLD_PASSWORD">مطلوب كلمة المرور القديمة.</Resource>
+    <Resource tag="NEW_PASSWORD"> :كلمة المرور الجديدة </Resource>
+    <Resource tag="NO_PASSWORD_MATCH">عدم تطابق كلمة المرور الجديدة</Resource>
+    <Resource tag="OLD_PASSWORD">:كلمة المرور القديمة</Resource>
+    <Resource tag="PASSWORD_BAD_LENGTH">كلمة المرور يجي انت تكون كحد ادنى : {0}.</Resource>
+    <Resource tag="PASSWORD_INCORRECT">.كلمة المرور غير صحيحة أو كلمة المرور الجديدة خاطئة</Resource>
+    <Resource tag="PASSWORD_NOT_COMPLEX">ليست بحاجة الى  رموز  رقمية: {1}.</Resource>
+    <Resource tag="PASSWORD_NOT_NEW">New Password must be different from the old one.</Resource>
+    <Resource tag="SECURITY_ANSWER_NEW">New Security Answer:</Resource>
+    <Resource tag="SECURITY_ANSWER_OLD">Current Password:</Resource>
+    <Resource tag="SECURITY_CHANGED">Password Question and Answer changed.</Resource>
+    <Resource tag="SECURITY_NOT_CHANGED">Change failed. Please re-enter your values and try again.</Resource>
+    <Resource tag="SECURITY_QUESTION_NEW">New Security Question:</Resource>
+    <Resource tag="SECURITY_QUESTION_OLD">Old Security Question:</Resource>
+    <Resource tag="TITLE">تغيير كلمة المرور</Resource>
+    <Resource tag="TITLE_SECURITY">Change Security Question and Answer</Resource>
   </page>
   <page name="CHARACTER_CHECKER">
     <Resource tag="ISEMPTY">لايمكن ارسال رسالة فارغة  </Resource>
@@ -2468,294 +2547,6 @@
     <Resource tag="ZM">Zambia</Resource>
     <Resource tag="ZW">Zimbabwe</Resource>
   </page>
-  <page name="BLOCK_OPTIONS">
-    <Resource tag="BLOCK_BUDDYS">Block Friend Requests</Resource>
-    <Resource tag="BLOCK_BUDDYS">Block Private Messages</Resource>
-    <Resource tag="BLOCK_EMAILS">Block E-Mails</Resource>
-    <Resource tag="BLOCK_OPTIONS">Block Options</Resource>
-    <Resource tag="BLOCK_PMS">Block Private Messages</Resource>
-    <Resource tag="IGNORED_USERS">Ignored User List</Resource>
-    <Resource tag="NOTE_BLOCK">Admins and Users in the Friend List will be excluded from the Blocking!</Resource>
-    <Resource tag="NOTE_USERS">Posts of Ignored Users will be hidden. This does not include Quoted Posts</Resource>
-    <Resource tag="SELECT_OPTIONS">Options to Block other Users from Contacting you...</Resource>
-    <Resource tag="TITLE">User Block Options &amp; Ignored Users</Resource>
-  </page>
-  <page name="CHANGE_PASSWORD">
-    <Resource tag="CHANGE_BUTTON">تقدم</Resource>
-    <Resource tag="CHANGE_SUCCESS">تم تغيير كلمة المرور بنجاح</Resource>
-    <Resource tag="CONFIRM_PASSWORD"> :تأكيد كلمة المرور الجديدة</Resource>
-    <Resource tag="EMPTY_ANSWER">New Answer is requiered.</Resource>
-    <Resource tag="EMPTY_PASSWORD">Please Enter your Current Password</Resource>
-    <Resource tag="EMPTY_QUESTION">New Question is requiered.</Resource>
-    <Resource tag="NEED_NEW_CONFIRM_PASSWORD">مطلوب تأكيد كلمة المرور الجديدة</Resource>
-    <Resource tag="NEED_NEW_PASSWORD">مطلوب كلمة المرور الجديدة.</Resource>
-    <Resource tag="NEED_OLD_PASSWORD">مطلوب كلمة المرور القديمة.</Resource>
-    <Resource tag="NEW_PASSWORD"> :كلمة المرور الجديدة </Resource>
-    <Resource tag="NO_PASSWORD_MATCH">عدم تطابق كلمة المرور الجديدة</Resource>
-    <Resource tag="OLD_PASSWORD">:كلمة المرور القديمة</Resource>
-    <Resource tag="PASSWORD_BAD_LENGTH">كلمة المرور يجي انت تكون كحد ادنى : {0}.</Resource>
-    <Resource tag="PASSWORD_INCORRECT">.كلمة المرور غير صحيحة أو كلمة المرور الجديدة خاطئة</Resource>
-    <Resource tag="PASSWORD_NOT_COMPLEX">ليست بحاجة الى  رموز  رقمية: {1}.</Resource>
-    <Resource tag="PASSWORD_NOT_NEW">New Password must be different from the old one.</Resource>
-    <Resource tag="SECURITY_ANSWER_NEW">New Security Answer:</Resource>
-    <Resource tag="SECURITY_ANSWER_OLD">Current Password:</Resource>
-    <Resource tag="SECURITY_CHANGED">Password Question and Answer changed.</Resource>
-    <Resource tag="SECURITY_NOT_CHANGED">Change failed. Please re-enter your values and try again.</Resource>
-    <Resource tag="SECURITY_QUESTION_NEW">New Security Question:</Resource>
-    <Resource tag="SECURITY_QUESTION_OLD">Old Security Question:</Resource>
-    <Resource tag="TITLE">تغيير كلمة المرور</Resource>
-    <Resource tag="TITLE_SECURITY">Change Security Question and Answer</Resource>
-  </page>
-  <page name="DELETE_ACCOUNT">
-    <Resource tag="CONFIRM">Are you absolutely sure you want to do this?</Resource>
-    <Resource tag="OPTION_DELETE_TEXT">This will delete your account permanently! All your content will be deleted. After that your account can not be restored</Resource>
-    <Resource tag="OPTION_DELETE_TITLE">Delete your Account (permanently)</Resource>
-    <Resource tag="OPTION_SUSPEND_TEXT">If you just want to take a break from the Forum, then this will suspend your account for 30 days. Your content is still visible</Resource>
-    <Resource tag="OPTION_SUSPEND_TITLE">Suspend your Account for 30 days</Resource>
-    <Resource tag="OPTIONS_TITLE">You have the option to...</Resource>
-    <Resource tag="TITLE">Delete Your {0} Account</Resource>
-  </page>
-  <page name="EDIT_ALBUMIMAGES">
-    <Resource tag="ALBUM_TITLE">العنوان </Resource>
-    <Resource tag="ALBUMS">ألبومات </Resource>
-    <Resource tag="ALBUMS_COUNT_LIMIT">لا يمكن انشاء اكتر من {0} البومات .</Resource>
-    <Resource tag="ASK_DELETEALBUM">هل تريد حذف هذا الألبوم؟</Resource>
-    <Resource tag="ASK_DELETEIMAGE">هل تريد حذف هذه الصورة ؟</Resource>
-    <Resource tag="ERROR_MAXALBUMS">لا يمكن إضافة البوم لهذه الحساب .</Resource>
-    <Resource tag="ERROR_TOOBIG">لايمكن تحميل هذه الصورة بسبب الحجمهايرجى اخيتيار صوره اقل  حجما</Resource>
-    <Resource tag="IMAGES_COUNT_LIMIT">. صورة في نفس الالبوم{لايمكن إضافةاكثر من {0 </Resource>
-    <Resource tag="IMAGES_INFO">Note: Currently this Album contains {0} Image(s) you are allowed to have {1} images for each album. The max. filesize for an Image is {2} kb</Resource>
-    <Resource tag="SELECT_FILE">Select an Image File ('.jpg', '.gif', '.png' or '.bmp') you want to upload.</Resource>
-    <Resource tag="TITLE">إضافة \تعديل البوم</Resource>
-  </page>
-  <page name="EDIT_AVATAR">
-    <Resource tag="AVATAR">صورة الشخصية</Resource>
-    <Resource tag="AVATARCURRENT">الصورة الشخصية الحالية</Resource>
-    <Resource tag="AVATARDELETE">ازالة الصورة الشخصية</Resource>
-    <Resource tag="AVATARNEW">اختيار صورة شخصية جديدة</Resource>
-    <Resource tag="AVATARREMOTE">أدخل رابط صورة شخصية من موقع آخر:</Resource>
-    <Resource tag="AVATARTEXT">نص شرح الصورة الشخصية</Resource>
-    <Resource tag="AVATARUPLOAD"> :رفع الصورة الشخصية من الكمبيوتر </Resource>
-    <Resource tag="INVALID_FILE">هذا الملف الذي تم تحميله لايحتوي  على اي  صورة</Resource>
-    <Resource tag="NOAVATAR">[ لا يوجد صورة شخصية ]</Resource>
-    <Resource tag="NOTE_LOCAL">Note If the Image is larger than {0}x{1} pixels, it will be automatically resized. And the size of your image can't be more than {2} KB.</Resource>
-    <Resource tag="NOTE_REMOTE">Note: If the Image is larger than {0}x{1} pixels, it will be automatically resized.</Resource>
-    <Resource tag="OURAVATAR"> :اختار صورتك الشخصية من مجموعتنا </Resource>
-    <Resource tag="OURAVATAR_SELECT">انقر هنا لاختيار الصورة الشخصية</Resource>
-    <Resource tag="TITLE">تعديل الصورة الشخصية</Resource>
-    <Resource tag="WARN_BIGFILE">لا يمكن أن يكون حجم الصورة أكبر من {0} بايت.</Resource>
-    <Resource tag="WARN_FILESIZE">حجم الصورة {0} بايت.</Resource>
-    <Resource tag="WARN_RESIZED">تم تغيير حجم الصورة بشكل مناسب.</Resource>
-    <Resource tag="WARN_SIZE">حجم الصورة {0}x{1} بكسل</Resource>
-    <Resource tag="WARN_TOOBIG">لا يمكن أن تكون أبعاد الصورة أكبر من {0}x{1} بكسل.</Resource>
-  </page>
-  <page name="FRIENDS">
-    <Resource tag="APPROVE">موافقة </Resource>
-    <Resource tag="APPROVE_ADD">الموافقة على إضافة</Resource>
-    <Resource tag="APPROVE_ADD_ALL">الموافقة على الجميع </Resource>
-    <Resource tag="APPROVE_ALL">الموافقه على الكل</Resource>
-    <Resource tag="BUDDYLIST">قائمة الاصدقاء</Resource>
-    <Resource tag="BUDDYLIST_TT">لوحة التحكم بالاصدقاء </Resource>
-    <Resource tag="DENY">رفض</Resource>
-    <Resource tag="DENY_ALL">رفض  جميع الطلابات التي اكثر من  14  يوم ؟</Resource>
-    <Resource tag="EDIT_BUDDIES">تعديل الاصدقاء</Resource>
-    <Resource tag="INFO_NO">You don't have any friends yet</Resource>
-    <Resource tag="INFO_PENDING">You don't have any pending requests</Resource>
-    <Resource tag="NOTIFICATION_APPROVEALL">الموافقه على  جميع الطلابات؟ </Resource>
-    <Resource tag="NOTIFICATION_APPROVEALLADD">الموافقة على كل الطلابات  واضافتهم  الى قائمة لاصدقاء </Resource>
-    <Resource tag="NOTIFICATION_DENY">رفض    هذا الطلب ؟</Resource>
-    <Resource tag="NOTIFICATION_REMOVE">حذف صديق؟</Resource>
-    <Resource tag="NOTIFICATION_REMOVE_OLD_UNAPPROVED">حذف جميع الطلبات الغير الموافق عليها أكثر من 14 ؟</Resource>
-    <Resource tag="PENDING_REQUESTS">طلب قيد إلارسال</Resource>
-    <Resource tag="POSTS">تعليقات</Resource>
-    <Resource tag="REQUEST_DATE">تاريخ الطلب</Resource>
-    <Resource tag="YOUR_BUDDYLIST">الاصدقاء</Resource>
-    <Resource tag="YOUR_REQUESTS">مراسلاتك</Resource>
-  </page>
-  <page name="EDIT_PROFILE">
-    <Resource tag="ABOUTYOU">معلومات شخصية</Resource>
-    <Resource tag="ACTIVITY">Enable Activity Stream (If checked you get Notifications for Mentions, Quotes and Thanks.</Resource>
-    <Resource tag="AIM">Your AIM Name:</Resource>
-    <Resource tag="AUTOWATCH_TOPICS_NOTIFICATION">Watch every topic in which you have made a post and receive email notifications of activities in those topics?</Resource>
-    <Resource tag="BAD_EMAIL">لقد قمت بادخال عنوان بريد الكتروني غير قانوني</Resource>
-    <Resource tag="BAD_FACEBOOK">You have entered an incorrect URL as Facebook Profile.</Resource>
-    <Resource tag="BAD_GOOGLE">You have entered an illegal value as Google Profile URL.</Resource>
-    <Resource tag="BAD_HOME">لقد قمت بإدخال عنوان غير صالح لصفحتك الرئيسية</Resource>
-    <Resource tag="BAD_ICQ">غير صحيح(ICQ)لقد أدخلت رقم</Resource>
-    <Resource tag="BAD_MSN"> غير صحيح(msn)لقد أدخلت عنوان ماسنجر</Resource>
-    <Resource tag="BAD_WEBLOG">لقد أدخلت عنوان غير صالح لمدونتك الإلكترونية.</Resource>
-    <Resource tag="BAD_XMPP">غير صحيح(XMPP) لقد أدخلت عنوان </Resource>
-    <Resource tag="BIRTHDAY">عيد الميلاد</Resource>
-    <Resource tag="CHANGE_EMAIL">تغيير البريد الالكتروني</Resource>
-    <Resource tag="CITY">City:</Resource>
-    <Resource tag="COUNTRY">Country:</Resource>
-    <Resource tag="DISPLAYNAME">ما هو الاسم الذي تريد اظهاره للآخرين؟</Resource>
-    <Resource tag="DST"> ضبط الساعة تلقائيا حسب التوقيت الصيفي؟</Resource>
-    <Resource tag="DUPLICATED_EMAIL">The e-mail address you have entered is already in use.</Resource>
-    <Resource tag="EDIT_ALBUMS">تعديل الألبومات </Resource>
-    <Resource tag="EMAIL">يجب أن يكون دائما لديك عنوان بريد الكتروني صحيح</Resource>
-    <Resource tag="FACEBOOK">Your Facebook Profile URL:</Resource>
-    <Resource tag="FIELD_TOOLONG">{0} length cannot be more than {1} characters.</Resource>
-    <Resource tag="FORUM_SETTINGS">اعدادات المنتدى</Resource>
-    <Resource tag="GET_LOCATION">Get Location from IP Address</Resource>
-    <Resource tag="GOOGLE">Your Google Profile URL:</Resource>
-    <Resource tag="HIDEME">اخفائي من المستخدمين الحاليين </Resource>
-    <Resource tag="HOMEPAGE">الصفحة الرئيسية</Resource>
-    <Resource tag="HOMEPAGE2">صفحتك الرئيسية:</Resource>
-    <Resource tag="ICQ">Your ICQ Number:</Resource>
-    <Resource tag="LOCATION">الموقع</Resource>
-    <Resource tag="MAIL_SENT">تم إرسال بريد إلى {0}.\n\nتحتاج لتأكيد بريدك الإلكتروني \nافتح الرابط المرفق في الرسالة قبل تغيير بريدك الإلكتروني.</Resource>
-    <Resource tag="MESSENGER">خدمات المراسلة الفورية</Resource>
-    <Resource tag="METAWEBLOG_API_ID">MetaWeblog API ID:</Resource>
-    <Resource tag="METAWEBLOG_API_ID_INSTRUCTIONS">(Optional setting that [b]may[/b] be required for some blogs (but SubText does not need it). If not sure, try without first.)</Resource>
-    <Resource tag="METAWEBLOG_API_URL">MetaWeblog API URL:</Resource>
-    <Resource tag="METAWEBLOG_API_USERNAME">MetaWeblog API Username:</Resource>
-    <Resource tag="METAWEBLOG_TITLE">Post to MetaWeblog (API Settings)</Resource>
-    <Resource tag="MSN">Your Windows Live-ID (MSN) Name:</Resource>
-    <Resource tag="OVERRIDE_DEFAULT_THEMES">:اختيار تطبيق مختلف للمنتدى </Resource>
-    <Resource tag="PM_EMAIL_NOTIFICATION">تلقى إشعارا بالبريد الالكتروني عندما تحصل على رسالة خاصة جديدة؟</Resource>
-    <Resource tag="REALNAME2">ما هو اسمك الحقيقي؟ </Resource>
-    <Resource tag="REGION">State:</Resource>
-    <Resource tag="SELECT_LANGUAGE">:ماهي اللغة التي تود استخدامها</Resource>
-    <Resource tag="SELECT_TEXTEDITOR">Select your text editor:</Resource>
-    <Resource tag="SELECT_THEME"> :اختيار الموضوع المفضل لديك </Resource>
-    <Resource tag="SKYPE">Your SKYPE ID:</Resource>
-    <Resource tag="TIMEZONE">التوقيت</Resource>
-    <Resource tag="TIMEZONE2">لتحصل على الوقت والتاريخ حسب توقيتك الحالي , نحتاج لمعرفة توقيتك.</Resource>
-    <Resource tag="TITLE">تعديل الملف الشخصي</Resource>
-    <Resource tag="TWITTER">Your Twitter Name:</Resource>
-    <Resource tag="USE_MOBILE_THEME">Use Mobile Forum Theme:</Resource>
-    <Resource tag="WEBLOG2">مدونتك الإلكترونية:</Resource>
-    <Resource tag="WHERE">أين تعيش؟ </Resource>
-    <Resource tag="XMPP">Your Jabber ID:</Resource>
-    <Resource tag="YIM">Your Yahoo ID:</Resource>
-  </page>
-  <page name="EDIT_SETTINGS">
-    <Resource tag="TITLE">Edit Settings</Resource>
-  </page>
-  <page name="MESSAGE">
-    <Resource tag="INBOX">الصندوق الوارد</Resource>
-    <Resource tag="MSG_DELETED">تم ازالة الرسالة</Resource>
-    <Resource tag="POSTED">:تم المشاركة </Resource>
-    <Resource tag="SENTITEMS">العناصر المرسلة</Resource>
-  </page>
-  <page name="PM">
-    <Resource tag="ARCHIVE">الأرشيف</Resource>
-    <Resource tag="ARCHIVEALL">أرشفة كافة</Resource>
-    <Resource tag="ARCHIVESELECTED">اختيار الأرشيف</Resource>
-    <Resource tag="CONFIRM_ARCHIVEALL">أرشفة كافة الرسائل؟ </Resource>
-    <Resource tag="CONFIRM_DELETE">حذف كل الرسائل المختارة؟</Resource>
-    <Resource tag="CONFIRM_DELETEALL">ازالة كل الرسائل؟</Resource>
-    <Resource tag="DATE">التاريخ</Resource>
-    <Resource tag="DATE_ASC">Date asc</Resource>
-    <Resource tag="DATE_DESC">Date desc</Resource>
-    <Resource tag="DELETEALL">ازالة الكل</Resource>
-    <Resource tag="DELETESELECTED">ازالة المختار</Resource>
-    <Resource tag="EXPORTALL">Export All</Resource>
-    <Resource tag="EXPORTFORMAT">Export Format:</Resource>
-    <Resource tag="EXPORTSELECTED">Export Selected</Resource>
-    <Resource tag="FROM">من </Resource>
-    <Resource tag="FROM_ASC">From A-Z</Resource>
-    <Resource tag="FROM_DESC">From Z-A</Resource>
-    <Resource tag="INBOX">الوارد</Resource>
-    <Resource tag="MARK_ALL_ASREAD">إجعل الكل  مقروء</Resource>
-    <Resource tag="MARK_ASREAD">Mark As Read</Resource>
-    <Resource tag="MSG_ARCHIVED">تم ارشفة الرسائل</Resource>
-    <Resource tag="MSG_ARCHIVED+">رسائل/رسالة{0} تم ارشفة .</Resource>
-    <Resource tag="MSG_DELETED">تم حذف الرسالة</Resource>
-    <Resource tag="MSG_NOSELECTED">No Message(s) Selected, nothing Exported.</Resource>
-    <Resource tag="MSGDELETED1">تم  حذف رسالة  من  صندوق الوارد</Resource>
-    <Resource tag="MSGDELETED2">رسائل{0} لقد  قمت بحذف  .</Resource>
-    <Resource tag="NEW_MESSAGE">رسالة جديدة</Resource>
-    <Resource tag="NO_MESSAGES">لم يتم ايجاد أي رسالة</Resource>
-    <Resource tag="POSTED">:تم المشاركة</Resource>
-    <Resource tag="SENTITEMS">العناصر المرسلة</Resource>
-    <Resource tag="SUBJECT">الموضوع</Resource>
-    <Resource tag="SUBJECT_ASC">Subject A-Z</Resource>
-    <Resource tag="SUBJECT_DESC">Subject Z-A</Resource>
-    <Resource tag="TITLE">الرسائل الخاصة</Resource>
-    <Resource tag="TO">الى</Resource>
-    <Resource tag="TO_ASC">To A-Z</Resource>
-    <Resource tag="TO_DESC">To Z-A</Resource>
-  </page>
-  <page name="ACCOUNT">
-    <Resource tag="ACTIVITY">Your Activity</Resource>
-    <Resource tag="ARCHIVE">الأرشيف</Resource>
-    <Resource tag="CHANGE_PASSWORD">تغيير كلمة المرور</Resource>
-    <Resource tag="CONTROL_PANEL">لوحة التحكم</Resource>
-    <Resource tag="CREATED_REPLY">Replied to a Post</Resource>
-    <Resource tag="CREATED_REPLY_MSG">Added an Reply to the Topic {0}</Resource>
-    <Resource tag="CREATED_TOPIC">Created a new Topic</Resource>
-    <Resource tag="CREATED_TOPIC_MSG">Created a new Topic {0}</Resource>
-    <Resource tag="DELETE_ACCOUNT">Delete Account</Resource>
-    <Resource tag="EDIT_AVATAR">تعديل الصورة الشخصية</Resource>
-    <Resource tag="EDIT_PROFILE">تعديل الملف الشخصي</Resource>
-    <Resource tag="EDIT_SETTINGS">Edit Settings</Resource>
-    <Resource tag="EDIT_SIGNATURE">تعديل التوقيع</Resource>
-    <Resource tag="GIVEN_THANKS">Given Thanks to a Post</Resource>
-    <Resource tag="GIVEN_THANKS_MSG">Given Thanks to {0} in the Topic {1}</Resource>
-    <Resource tag="GROUPS">انت عضو من هذه المجموعات</Resource>
-    <Resource tag="INBOX">الوارد</Resource>
-    <Resource tag="ITEMS">Show Items</Resource>
-    <Resource tag="JOINED">:انت عضو منذ </Resource>
-    <Resource tag="MESSENGER">ماسنجر:</Resource>
-    <Resource tag="NEW_MESSAGE">رسالة جديدة</Resource>
-    <Resource tag="NUMPOSTS">:عدد المشاركات </Resource>
-    <Resource tag="PERSONAL_PROFILE">:الملف الشخصي</Resource>
-    <Resource tag="RECEIVED_THANKS">Received a Thanks to a Post</Resource>
-    <Resource tag="RECEIVED_THANKS_MSG">Has Received a Thanks from {0} in the Topic {1}</Resource>
-    <Resource tag="SENTITEMS">العناصر المرسلة</Resource>
-    <Resource tag="SIGNATURE">التوقيع</Resource>
-    <Resource tag="SUBSCRIPTIONS">بعت اشعار  الى  البريد الالكتروني  بالتفضيلات </Resource>
-    <Resource tag="UNREAD_ONLY">Show only unread Activity</Resource>
-    <Resource tag="VIEW_PROFILE">عرض الملف الشخصي</Resource>
-    <Resource tag="WAS_MENTIONED">Was Mentioned</Resource>
-    <Resource tag="WAS_MENTIONED_MSG">Was Mentioned by {0} in the Topic {1}</Resource>
-    <Resource tag="WAS_QUOTED">Was Quoted</Resource>
-    <Resource tag="WAS_QUOTED_MSG">Was Quoted by {0} in the Topic {1}</Resource>
-    <Resource tag="YOUR_ACCOUNT">حسابك</Resource>
-    <Resource tag="YOUR_EMAIL">:عنوان بريدك الالكتروني</Resource>
-    <Resource tag="YOUR_NOTIFIY">Your Notifications</Resource>
-    <Resource tag="YOUR_USERDISPLAYNAME">اسمك:</Resource>
-    <Resource tag="YOUR_USERNAME">:اسم المستخدم الخاص بك</Resource>
-  </page>
-  <page name="EDIT_SIGNATURE">
-    <Resource tag="BBCODE_ALLOWEDALL">Your signature can contain any BBCode.</Resource>
-    <Resource tag="BBCODE_ALLOWEDLIST">You can use the following BBCodes: {0}.</Resource>
-    <Resource tag="BBCODE_FORBIDDEN">التوقيع يجب ان  يحتوي على  BBCodes.</Resource>
-    <Resource tag="HTML_ALLOWEDALL">Your signature can contain any HTML tag.</Resource>
-    <Resource tag="HTML_ALLOWEDLIST">You can use the following HTML tags: {0}.</Resource>
-    <Resource tag="HTML_FORBIDDEN">Your signature should not contain HTML tags.</Resource>
-    <Resource tag="SIGNATURE">توقيع:</Resource>
-    <Resource tag="SIGNATURE_BBCODE_WRONG">توقيعك يحتوي على كود غير صحيح {0} BBCode.</Resource>
-    <Resource tag="SIGNATURE_CHARSMAX">Your signature can have no more than {0} characters.</Resource>
-    <Resource tag="SIGNATURE_MAX">التوقيع   كبير جديد يجب  ان يكون كحد اعلى  {0}حرف.</Resource>
-    <Resource tag="SIGNATURE_NOEDIT">You can't edit your signature, but you can delete it completely.</Resource>
-    <Resource tag="SIGNATURE_PERMISSIONS">Signature Permissions</Resource>
-    <Resource tag="SIGNATURE_PREVIEW">Signature Preview</Resource>
-    <Resource tag="TITLE">تعديل التوقيع</Resource>
-  </page>
-  <page name="SUBSCRIPTIONS">
-    <Resource tag="ALLTOPICS">Notification for [b]all posts on all topics[/b]</Resource>
-    <Resource tag="DAILY_DIGEST">Receive once daily digest/summary of activity?</Resource>
-    <Resource tag="FORUM">المنتدى</Resource>
-    <Resource tag="FORUMS">مشاهدة المنتدى</Resource>
-    <Resource tag="LASTPOST">آخر  مشاركة </Resource>
-    <Resource tag="LASTPOSTLINK">{0} بواسطة  {1}</Resource>
-    <Resource tag="NONOTIFICATION">إغلاق  الإشعارات </Resource>
-    <Resource tag="NOTIFICATIONSELECTION">Select email notification preference:</Resource>
-    <Resource tag="REPLIES">الردود</Resource>
-    <Resource tag="SAVED_NOTIFICATION_SETTING">Notification Email Settings Updated</Resource>
-    <Resource tag="TITLE">بعت اشعار  الى  البريد الالكتروني  بالتفضيلات </Resource>
-    <Resource tag="TOPIC">الموضوع</Resource>
-    <Resource tag="TOPICS">مشاهدة الموضوع</Resource>
-    <Resource tag="TOPICSIPOSTTOORSUBSCRIBETO">Notification for topics [b]you've posted to[/b], watched or marked as favorite</Resource>
-    <Resource tag="TOPICSISUBSCRIBETO">Notification for topics or forums you've selectively watched (listed below)</Resource>
-    <Resource tag="UNSUBSCRIBE">غير مشاهد</Resource>
-    <Resource tag="VIEWS">عرض</Resource>
-    <Resource tag="WARN_SELECTFORUMS">Please select forums to unwatch first.</Resource>
-    <Resource tag="WARN_SELECTTOPICS">Please select topics to unwatch first.</Resource>
-  </page>
   <page name="DEFAULT">
     <Resource tag="ACTIVE_DISCUSSIONS">المناقشات النشطة </Resource>
     <Resource tag="ACTIVE_USERS">أعضاء نشيطين</Resource>
@@ -2823,6 +2614,15 @@
     <Resource tag="WATCHFORUM_ALL">Watch all forums</Resource>
     <Resource tag="WATCHFORUM_ALL_HELP">Watch all forums and get Email Notifications when a new Topic is created</Resource>
   </page>
+  <page name="DELETE_ACCOUNT">
+    <Resource tag="CONFIRM">Are you absolutely sure you want to do this?</Resource>
+    <Resource tag="OPTION_DELETE_TEXT">This will delete your account permanently! All your content will be deleted. After that your account can not be restored</Resource>
+    <Resource tag="OPTION_DELETE_TITLE">Delete your Account (permanently)</Resource>
+    <Resource tag="OPTION_SUSPEND_TEXT">If you just want to take a break from the Forum, then this will suspend your account for 30 days. Your content is still visible</Resource>
+    <Resource tag="OPTION_SUSPEND_TITLE">Suspend your Account for 30 days</Resource>
+    <Resource tag="OPTIONS_TITLE">You have the option to...</Resource>
+    <Resource tag="TITLE">Delete Your {0} Account</Resource>
+  </page>
   <page name="DELETEMESSAGE">
     <Resource tag="DELETE">حذف</Resource>
     <Resource tag="DELETE_ALL">Delete All Posts?</Resource>
@@ -2850,6 +2650,117 @@
     <Resource tag="STARTEDBY">كتب  بواسطة  {0}</Resource>
     <Resource tag="SUBJECT"> {0} وأحدث مواضيع جديدة -- تلخيصية ليوم</Resource>
   </page>
+  <page name="EDIT_ALBUMIMAGES">
+    <Resource tag="ALBUM_TITLE">العنوان </Resource>
+    <Resource tag="ALBUMS">ألبومات </Resource>
+    <Resource tag="ALBUMS_COUNT_LIMIT">لا يمكن انشاء اكتر من {0} البومات .</Resource>
+    <Resource tag="ASK_DELETEALBUM">هل تريد حذف هذا الألبوم؟</Resource>
+    <Resource tag="ASK_DELETEIMAGE">هل تريد حذف هذه الصورة ؟</Resource>
+    <Resource tag="ERROR_MAXALBUMS">لا يمكن إضافة البوم لهذه الحساب .</Resource>
+    <Resource tag="ERROR_TOOBIG">لايمكن تحميل هذه الصورة بسبب الحجمهايرجى اخيتيار صوره اقل  حجما</Resource>
+    <Resource tag="IMAGES_COUNT_LIMIT">. صورة في نفس الالبوم{لايمكن إضافةاكثر من {0 </Resource>
+    <Resource tag="IMAGES_INFO">Note: Currently this Album contains {0} Image(s) you are allowed to have {1} images for each album. The max. filesize for an Image is {2} kb</Resource>
+    <Resource tag="SELECT_FILE">Select an Image File ('.jpg', '.gif', '.png' or '.bmp') you want to upload.</Resource>
+    <Resource tag="TITLE">إضافة \تعديل البوم</Resource>
+  </page>
+  <page name="EDIT_AVATAR">
+    <Resource tag="AVATAR">صورة الشخصية</Resource>
+    <Resource tag="AVATARCURRENT">الصورة الشخصية الحالية</Resource>
+    <Resource tag="AVATARDELETE">ازالة الصورة الشخصية</Resource>
+    <Resource tag="AVATARNEW">اختيار صورة شخصية جديدة</Resource>
+    <Resource tag="AVATARREMOTE">أدخل رابط صورة شخصية من موقع آخر:</Resource>
+    <Resource tag="AVATARTEXT">نص شرح الصورة الشخصية</Resource>
+    <Resource tag="AVATARUPLOAD"> :رفع الصورة الشخصية من الكمبيوتر </Resource>
+    <Resource tag="INVALID_FILE">هذا الملف الذي تم تحميله لايحتوي  على اي  صورة</Resource>
+    <Resource tag="NOAVATAR">[ لا يوجد صورة شخصية ]</Resource>
+    <Resource tag="NOTE_LOCAL">Note If the Image is larger than {0}x{1} pixels, it will be automatically resized. And the size of your image can't be more than {2} KB.</Resource>
+    <Resource tag="NOTE_REMOTE">Note: If the Image is larger than {0}x{1} pixels, it will be automatically resized.</Resource>
+    <Resource tag="OURAVATAR"> :اختار صورتك الشخصية من مجموعتنا </Resource>
+    <Resource tag="OURAVATAR_SELECT">انقر هنا لاختيار الصورة الشخصية</Resource>
+    <Resource tag="TITLE">تعديل الصورة الشخصية</Resource>
+    <Resource tag="WARN_BIGFILE">لا يمكن أن يكون حجم الصورة أكبر من {0} بايت.</Resource>
+    <Resource tag="WARN_FILESIZE">حجم الصورة {0} بايت.</Resource>
+    <Resource tag="WARN_RESIZED">تم تغيير حجم الصورة بشكل مناسب.</Resource>
+    <Resource tag="WARN_SIZE">حجم الصورة {0}x{1} بكسل</Resource>
+    <Resource tag="WARN_TOOBIG">لا يمكن أن تكون أبعاد الصورة أكبر من {0}x{1} بكسل.</Resource>
+  </page>
+  <page name="EDIT_PROFILE">
+    <Resource tag="ABOUTYOU">معلومات شخصية</Resource>
+    <Resource tag="ACTIVITY">Enable Activity Stream (If checked you get Notifications for Mentions, Quotes and Thanks.</Resource>
+    <Resource tag="AIM">Your AIM Name:</Resource>
+    <Resource tag="AUTOWATCH_TOPICS_NOTIFICATION">Watch every topic in which you have made a post and receive email notifications of activities in those topics?</Resource>
+    <Resource tag="BAD_EMAIL">لقد قمت بادخال عنوان بريد الكتروني غير قانوني</Resource>
+    <Resource tag="BAD_FACEBOOK">You have entered an incorrect URL as Facebook Profile.</Resource>
+    <Resource tag="BAD_GOOGLE">You have entered an illegal value as Google Profile URL.</Resource>
+    <Resource tag="BAD_HOME">لقد قمت بإدخال عنوان غير صالح لصفحتك الرئيسية</Resource>
+    <Resource tag="BAD_ICQ">غير صحيح(ICQ)لقد أدخلت رقم</Resource>
+    <Resource tag="BAD_MSN"> غير صحيح(msn)لقد أدخلت عنوان ماسنجر</Resource>
+    <Resource tag="BAD_WEBLOG">لقد أدخلت عنوان غير صالح لمدونتك الإلكترونية.</Resource>
+    <Resource tag="BAD_XMPP">غير صحيح(XMPP) لقد أدخلت عنوان </Resource>
+    <Resource tag="BIRTHDAY">عيد الميلاد</Resource>
+    <Resource tag="CHANGE_EMAIL">تغيير البريد الالكتروني</Resource>
+    <Resource tag="CITY">City:</Resource>
+    <Resource tag="COUNTRY">Country:</Resource>
+    <Resource tag="DISPLAYNAME">ما هو الاسم الذي تريد اظهاره للآخرين؟</Resource>
+    <Resource tag="DST"> ضبط الساعة تلقائيا حسب التوقيت الصيفي؟</Resource>
+    <Resource tag="DUPLICATED_EMAIL">The e-mail address you have entered is already in use.</Resource>
+    <Resource tag="EDIT_ALBUMS">تعديل الألبومات </Resource>
+    <Resource tag="EMAIL">يجب أن يكون دائما لديك عنوان بريد الكتروني صحيح</Resource>
+    <Resource tag="FACEBOOK">Your Facebook Profile URL:</Resource>
+    <Resource tag="FIELD_TOOLONG">{0} length cannot be more than {1} characters.</Resource>
+    <Resource tag="FORUM_SETTINGS">اعدادات المنتدى</Resource>
+    <Resource tag="GET_LOCATION">Get Location from IP Address</Resource>
+    <Resource tag="GOOGLE">Your Google Profile URL:</Resource>
+    <Resource tag="HIDEME">اخفائي من المستخدمين الحاليين </Resource>
+    <Resource tag="HOMEPAGE">الصفحة الرئيسية</Resource>
+    <Resource tag="HOMEPAGE2">صفحتك الرئيسية:</Resource>
+    <Resource tag="ICQ">Your ICQ Number:</Resource>
+    <Resource tag="LOCATION">الموقع</Resource>
+    <Resource tag="MAIL_SENT">تم إرسال بريد إلى {0}.\n\nتحتاج لتأكيد بريدك الإلكتروني \nافتح الرابط المرفق في الرسالة قبل تغيير بريدك الإلكتروني.</Resource>
+    <Resource tag="MESSENGER">خدمات المراسلة الفورية</Resource>
+    <Resource tag="METAWEBLOG_API_ID">MetaWeblog API ID:</Resource>
+    <Resource tag="METAWEBLOG_API_ID_INSTRUCTIONS">(Optional setting that [b]may[/b] be required for some blogs (but SubText does not need it). If not sure, try without first.)</Resource>
+    <Resource tag="METAWEBLOG_API_URL">MetaWeblog API URL:</Resource>
+    <Resource tag="METAWEBLOG_API_USERNAME">MetaWeblog API Username:</Resource>
+    <Resource tag="METAWEBLOG_TITLE">Post to MetaWeblog (API Settings)</Resource>
+    <Resource tag="MSN">Your Windows Live-ID (MSN) Name:</Resource>
+    <Resource tag="OVERRIDE_DEFAULT_THEMES">:اختيار تطبيق مختلف للمنتدى </Resource>
+    <Resource tag="PM_EMAIL_NOTIFICATION">تلقى إشعارا بالبريد الالكتروني عندما تحصل على رسالة خاصة جديدة؟</Resource>
+    <Resource tag="REALNAME2">ما هو اسمك الحقيقي؟ </Resource>
+    <Resource tag="REGION">State:</Resource>
+    <Resource tag="SELECT_LANGUAGE">:ماهي اللغة التي تود استخدامها</Resource>
+    <Resource tag="SELECT_TEXTEDITOR">Select your text editor:</Resource>
+    <Resource tag="SELECT_THEME"> :اختيار الموضوع المفضل لديك </Resource>
+    <Resource tag="SKYPE">Your SKYPE ID:</Resource>
+    <Resource tag="TIMEZONE">التوقيت</Resource>
+    <Resource tag="TIMEZONE2">لتحصل على الوقت والتاريخ حسب توقيتك الحالي , نحتاج لمعرفة توقيتك.</Resource>
+    <Resource tag="TITLE">تعديل الملف الشخصي</Resource>
+    <Resource tag="TWITTER">Your Twitter Name:</Resource>
+    <Resource tag="USE_MOBILE_THEME">Use Mobile Forum Theme:</Resource>
+    <Resource tag="WEBLOG2">مدونتك الإلكترونية:</Resource>
+    <Resource tag="WHERE">أين تعيش؟ </Resource>
+    <Resource tag="XMPP">Your Jabber ID:</Resource>
+    <Resource tag="YIM">Your Yahoo ID:</Resource>
+  </page>
+  <page name="EDIT_SETTINGS">
+    <Resource tag="TITLE">Edit Settings</Resource>
+  </page>
+  <page name="EDIT_SIGNATURE">
+    <Resource tag="BBCODE_ALLOWEDALL">Your signature can contain any BBCode.</Resource>
+    <Resource tag="BBCODE_ALLOWEDLIST">You can use the following BBCodes: {0}.</Resource>
+    <Resource tag="BBCODE_FORBIDDEN">التوقيع يجب ان  يحتوي على  BBCodes.</Resource>
+    <Resource tag="HTML_ALLOWEDALL">Your signature can contain any HTML tag.</Resource>
+    <Resource tag="HTML_ALLOWEDLIST">You can use the following HTML tags: {0}.</Resource>
+    <Resource tag="HTML_FORBIDDEN">Your signature should not contain HTML tags.</Resource>
+    <Resource tag="SIGNATURE">توقيع:</Resource>
+    <Resource tag="SIGNATURE_BBCODE_WRONG">توقيعك يحتوي على كود غير صحيح {0} BBCode.</Resource>
+    <Resource tag="SIGNATURE_CHARSMAX">Your signature can have no more than {0} characters.</Resource>
+    <Resource tag="SIGNATURE_MAX">التوقيع   كبير جديد يجب  ان يكون كحد اعلى  {0}حرف.</Resource>
+    <Resource tag="SIGNATURE_NOEDIT">You can't edit your signature, but you can delete it completely.</Resource>
+    <Resource tag="SIGNATURE_PERMISSIONS">Signature Permissions</Resource>
+    <Resource tag="SIGNATURE_PREVIEW">Signature Preview</Resource>
+    <Resource tag="TITLE">تعديل التوقيع</Resource>
+  </page>
   <page name="EMAILTOPIC">
     <Resource tag="FAILED">الفشل في بعت البريد الإلكتروني.\n\n{0}</Resource>
     <Resource tag="MESSAGE">رسالة:</Resource>
@@ -2865,6 +2776,29 @@
     <Resource tag="INFORMATION">Information</Resource>
     <Resource tag="SQLERROR">Sql Script Error</Resource>
     <Resource tag="WARNING">Warning</Resource>
+  </page>
+  <page name="FRIENDS">
+    <Resource tag="APPROVE">موافقة </Resource>
+    <Resource tag="APPROVE_ADD">الموافقة على إضافة</Resource>
+    <Resource tag="APPROVE_ADD_ALL">الموافقة على الجميع </Resource>
+    <Resource tag="APPROVE_ALL">الموافقه على الكل</Resource>
+    <Resource tag="BUDDYLIST">قائمة الاصدقاء</Resource>
+    <Resource tag="BUDDYLIST_TT">لوحة التحكم بالاصدقاء </Resource>
+    <Resource tag="DENY">رفض</Resource>
+    <Resource tag="DENY_ALL">رفض  جميع الطلابات التي اكثر من  14  يوم ؟</Resource>
+    <Resource tag="EDIT_BUDDIES">تعديل الاصدقاء</Resource>
+    <Resource tag="INFO_NO">You don't have any friends yet</Resource>
+    <Resource tag="INFO_PENDING">You don't have any pending requests</Resource>
+    <Resource tag="NOTIFICATION_APPROVEALL">الموافقه على  جميع الطلابات؟ </Resource>
+    <Resource tag="NOTIFICATION_APPROVEALLADD">الموافقة على كل الطلابات  واضافتهم  الى قائمة لاصدقاء </Resource>
+    <Resource tag="NOTIFICATION_DENY">رفض    هذا الطلب ؟</Resource>
+    <Resource tag="NOTIFICATION_REMOVE">حذف صديق؟</Resource>
+    <Resource tag="NOTIFICATION_REMOVE_OLD_UNAPPROVED">حذف جميع الطلبات الغير الموافق عليها أكثر من 14 ؟</Resource>
+    <Resource tag="PENDING_REQUESTS">طلب قيد إلارسال</Resource>
+    <Resource tag="POSTS">تعليقات</Resource>
+    <Resource tag="REQUEST_DATE">تاريخ الطلب</Resource>
+    <Resource tag="YOUR_BUDDYLIST">الاصدقاء</Resource>
+    <Resource tag="YOUR_REQUESTS">مراسلاتك</Resource>
   </page>
   <page name="HELP_INDEX">
     <Resource tag="ANOUNCECONTENT">&lt;p&gt;الاعلانات هي رسائل خاصة مرفقة من قبل المدير والمشرفين . They are a simple one-way communication with the users and you can't reply. اذا اردت مناقشة الاعلانات, يتوجب عليك انشاء موضوع جديد في المنتدى .&lt;/p&gt;
@@ -4367,6 +4301,12 @@ p&gt;هذا الرابط يجلب لك صفحة التي تطلب منك ادخ�
     <Resource tag="USERNAME_ASC">Name A-Z</Resource>
     <Resource tag="USERNAME_DESC">Name Z-A</Resource>
   </page>
+  <page name="MESSAGE">
+    <Resource tag="INBOX">الصندوق الوارد</Resource>
+    <Resource tag="MSG_DELETED">تم ازالة الرسالة</Resource>
+    <Resource tag="POSTED">:تم المشاركة </Resource>
+    <Resource tag="SENTITEMS">العناصر المرسلة</Resource>
+  </page>
   <page name="MESSAGEHISTORY">
     <Resource tag="COMPARE_TITLE">Message Edit History Post Comparsion</Resource>
     <Resource tag="COMPARE_VERSIONS">Compare versions</Resource>
@@ -4508,6 +4448,45 @@ p&gt;هذا الرابط يجلب لك صفحة التي تطلب منك ادخ�
     <Resource tag="UNANSWEREDTOPICS">Unanswered Topics</Resource>
     <Resource tag="UNREADTOPICS">Unread Topics</Resource>
     <Resource tag="VIEWS">المشاهدة</Resource>
+  </page>
+  <page name="PM">
+    <Resource tag="ARCHIVE">الأرشيف</Resource>
+    <Resource tag="ARCHIVEALL">أرشفة كافة</Resource>
+    <Resource tag="ARCHIVESELECTED">اختيار الأرشيف</Resource>
+    <Resource tag="CONFIRM_ARCHIVEALL">أرشفة كافة الرسائل؟ </Resource>
+    <Resource tag="CONFIRM_DELETE">حذف كل الرسائل المختارة؟</Resource>
+    <Resource tag="CONFIRM_DELETEALL">ازالة كل الرسائل؟</Resource>
+    <Resource tag="DATE">التاريخ</Resource>
+    <Resource tag="DATE_ASC">Date asc</Resource>
+    <Resource tag="DATE_DESC">Date desc</Resource>
+    <Resource tag="DELETEALL">ازالة الكل</Resource>
+    <Resource tag="DELETESELECTED">ازالة المختار</Resource>
+    <Resource tag="EXPORTALL">Export All</Resource>
+    <Resource tag="EXPORTFORMAT">Export Format:</Resource>
+    <Resource tag="EXPORTSELECTED">Export Selected</Resource>
+    <Resource tag="FROM">من </Resource>
+    <Resource tag="FROM_ASC">From A-Z</Resource>
+    <Resource tag="FROM_DESC">From Z-A</Resource>
+    <Resource tag="INBOX">الوارد</Resource>
+    <Resource tag="MARK_ALL_ASREAD">إجعل الكل  مقروء</Resource>
+    <Resource tag="MARK_ASREAD">Mark As Read</Resource>
+    <Resource tag="MSG_ARCHIVED">تم ارشفة الرسائل</Resource>
+    <Resource tag="MSG_ARCHIVED+">رسائل/رسالة{0} تم ارشفة .</Resource>
+    <Resource tag="MSG_DELETED">تم حذف الرسالة</Resource>
+    <Resource tag="MSG_NOSELECTED">No Message(s) Selected, nothing Exported.</Resource>
+    <Resource tag="MSGDELETED1">تم  حذف رسالة  من  صندوق الوارد</Resource>
+    <Resource tag="MSGDELETED2">رسائل{0} لقد  قمت بحذف  .</Resource>
+    <Resource tag="NEW_MESSAGE">رسالة جديدة</Resource>
+    <Resource tag="NO_MESSAGES">لم يتم ايجاد أي رسالة</Resource>
+    <Resource tag="POSTED">:تم المشاركة</Resource>
+    <Resource tag="SENTITEMS">العناصر المرسلة</Resource>
+    <Resource tag="SUBJECT">الموضوع</Resource>
+    <Resource tag="SUBJECT_ASC">Subject A-Z</Resource>
+    <Resource tag="SUBJECT_DESC">Subject Z-A</Resource>
+    <Resource tag="TITLE">الرسائل الخاصة</Resource>
+    <Resource tag="TO">الى</Resource>
+    <Resource tag="TO_ASC">To A-Z</Resource>
+    <Resource tag="TO_DESC">To Z-A</Resource>
   </page>
   <page name="PMESSAGE">
     <Resource tag="ALLBUDDIES">All Friends</Resource>
@@ -4794,6 +4773,10 @@ p&gt;هذا الرابط يجلب لك صفحة التي تطلب منك ادخ�
     <Resource tag="XMPP_TITLE">Contact {0} via Jabber</Resource>
     <Resource tag="YIM">(YAHOO)ياهو </Resource>
     <Resource tag="YIM_TITLE">Contact {0} via Yahoo Instant Messenger</Resource>
+  </page>
+  <page name="POSTTOPIC">
+    <Resource tag="MESSAGE">Message:</Resource>
+    <Resource tag="TAGS">Tags:</Resource>
   </page>
   <page name="PRINTTOPIC">
     <Resource tag="POSTEDBY">مشاركة بواسطة </Resource>
@@ -5284,6 +5267,27 @@ p&gt;هذا الرابط يجلب لك صفحة التي تطلب منك ادخ�
     <Resource tag="MUSTBELOGGEDIN">يجب عليك تسجيل الدخول اولا  </Resource>
     <Resource tag="SUBMIT">أرسال</Resource>
     <Resource tag="TITLE">دردشة </Resource>
+  </page>
+  <page name="SUBSCRIPTIONS">
+    <Resource tag="ALLTOPICS">Notification for [b]all posts on all topics[/b]</Resource>
+    <Resource tag="DAILY_DIGEST">Receive once daily digest/summary of activity?</Resource>
+    <Resource tag="FORUM">المنتدى</Resource>
+    <Resource tag="FORUMS">مشاهدة المنتدى</Resource>
+    <Resource tag="LASTPOST">آخر  مشاركة </Resource>
+    <Resource tag="LASTPOSTLINK">{0} بواسطة  {1}</Resource>
+    <Resource tag="NONOTIFICATION">إغلاق  الإشعارات </Resource>
+    <Resource tag="NOTIFICATIONSELECTION">Select email notification preference:</Resource>
+    <Resource tag="REPLIES">الردود</Resource>
+    <Resource tag="SAVED_NOTIFICATION_SETTING">Notification Email Settings Updated</Resource>
+    <Resource tag="TITLE">بعت اشعار  الى  البريد الالكتروني  بالتفضيلات </Resource>
+    <Resource tag="TOPIC">الموضوع</Resource>
+    <Resource tag="TOPICS">مشاهدة الموضوع</Resource>
+    <Resource tag="TOPICSIPOSTTOORSUBSCRIBETO">Notification for topics [b]you've posted to[/b], watched or marked as favorite</Resource>
+    <Resource tag="TOPICSISUBSCRIBETO">Notification for topics or forums you've selectively watched (listed below)</Resource>
+    <Resource tag="UNSUBSCRIBE">غير مشاهد</Resource>
+    <Resource tag="VIEWS">عرض</Resource>
+    <Resource tag="WARN_SELECTFORUMS">Please select forums to unwatch first.</Resource>
+    <Resource tag="WARN_SELECTTOPICS">Please select topics to unwatch first.</Resource>
   </page>
   <page name="TEAM">
     <Resource tag="ADMINS">Administrators</Resource>

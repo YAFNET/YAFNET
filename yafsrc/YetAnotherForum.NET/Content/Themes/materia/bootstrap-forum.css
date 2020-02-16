@@ -1783,7 +1783,7 @@ pre {
   .table-responsive > .table-bordered {
     border: 0; }
 
-.form-control {
+.form-control, .bootstrap-tagsinput {
   display: block;
   width: 100%;
   height: calc(1.5em + 2rem);
@@ -1801,39 +1801,39 @@ pre {
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out; }
   @media (prefers-reduced-motion: reduce) {
-    .form-control {
+    .form-control, .bootstrap-tagsinput {
       -webkit-transition: none;
       transition: none; } }
-  .form-control::-ms-expand {
+  .form-control::-ms-expand, .bootstrap-tagsinput::-ms-expand {
     background-color: transparent;
     border: 0; }
-  .form-control:-moz-focusring {
+  .form-control:-moz-focusring, .bootstrap-tagsinput:-moz-focusring {
     color: transparent;
     text-shadow: 0 0 0 #666; }
-  .form-control:focus {
+  .form-control:focus, .bootstrap-tagsinput:focus {
     color: #666;
     background-color: transparent;
     border-color: #9acffa;
     outline: 0;
     -webkit-box-shadow: 0 0 0 0.2rem rgba(33, 150, 243, 0.25);
             box-shadow: 0 0 0 0.2rem rgba(33, 150, 243, 0.25); }
-  .form-control::-webkit-input-placeholder {
+  .form-control::-webkit-input-placeholder, .bootstrap-tagsinput::-webkit-input-placeholder {
     color: rgba(0, 0, 0, 0.4);
     opacity: 1; }
-  .form-control::-moz-placeholder {
+  .form-control::-moz-placeholder, .bootstrap-tagsinput::-moz-placeholder {
     color: rgba(0, 0, 0, 0.4);
     opacity: 1; }
-  .form-control::-ms-input-placeholder {
+  .form-control::-ms-input-placeholder, .bootstrap-tagsinput::-ms-input-placeholder {
     color: rgba(0, 0, 0, 0.4);
     opacity: 1; }
-  .form-control::placeholder {
+  .form-control::placeholder, .bootstrap-tagsinput::placeholder {
     color: rgba(0, 0, 0, 0.4);
     opacity: 1; }
-  .form-control:disabled, .form-control[readonly] {
+  .form-control:disabled, .bootstrap-tagsinput:disabled, .form-control[readonly], [readonly].bootstrap-tagsinput {
     background-color: transparent;
     opacity: 1; }
 
-select.form-control:focus::-ms-value {
+select.form-control:focus::-ms-value, select.bootstrap-tagsinput:focus::-ms-value {
   color: #666;
   background-color: transparent; }
 
@@ -1890,10 +1890,10 @@ select.form-control:focus::-ms-value {
   line-height: 1.5;
   border-radius: 0; }
 
-select.form-control[size], select.form-control[multiple] {
+select.form-control[size], select[size].bootstrap-tagsinput, select.form-control[multiple], select[multiple].bootstrap-tagsinput {
   height: auto; }
 
-textarea.form-control {
+textarea.form-control, textarea.bootstrap-tagsinput {
   height: auto; }
 
 .form-group {
@@ -1974,19 +1974,19 @@ textarea.form-control {
 .is-valid ~ .valid-tooltip {
   display: block; }
 
-.was-validated .form-control:valid, .form-control.is-valid {
+.was-validated .form-control:valid, .was-validated .bootstrap-tagsinput:valid, .form-control.is-valid, .is-valid.bootstrap-tagsinput {
   border-color: #4CAF50;
   padding-right: calc(1.5em + 2rem);
   background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8' viewBox='0 0 8 8'%3e%3cpath fill='%234CAF50' d='M2.3 6.73L.6 4.53c-.4-1.04.46-1.4 1.1-.8l1.1 1.4 3.4-3.8c.6-.63 1.6-.27 1.2.7l-4 4.6c-.43.5-.8.4-1.1.1z'/%3e%3c/svg%3e");
   background-repeat: no-repeat;
   background-position: right calc(0.375em + 0.5rem) center;
   background-size: calc(0.75em + 1rem) calc(0.75em + 1rem); }
-  .was-validated .form-control:valid:focus, .form-control.is-valid:focus {
+  .was-validated .form-control:valid:focus, .was-validated .bootstrap-tagsinput:valid:focus, .form-control.is-valid:focus, .is-valid.bootstrap-tagsinput:focus {
     border-color: #4CAF50;
     -webkit-box-shadow: 0 0 0 0.2rem rgba(76, 175, 80, 0.25);
             box-shadow: 0 0 0 0.2rem rgba(76, 175, 80, 0.25); }
 
-.was-validated textarea.form-control:valid, textarea.form-control.is-valid {
+.was-validated textarea.form-control:valid, .was-validated textarea.bootstrap-tagsinput:valid, textarea.form-control.is-valid, textarea.is-valid.bootstrap-tagsinput {
   padding-right: calc(1.5em + 2rem);
   background-position: top calc(0.375em + 0.5rem) right calc(0.375em + 0.5rem); }
 
@@ -2059,19 +2059,19 @@ textarea.form-control {
 .is-invalid ~ .invalid-tooltip {
   display: block; }
 
-.was-validated .form-control:invalid, .form-control.is-invalid {
+.was-validated .form-control:invalid, .was-validated .bootstrap-tagsinput:invalid, .form-control.is-invalid, .is-invalid.bootstrap-tagsinput {
   border-color: #e51c23;
   padding-right: calc(1.5em + 2rem);
   background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='none' stroke='%23e51c23' viewBox='0 0 12 12'%3e%3ccircle cx='6' cy='6' r='4.5'/%3e%3cpath stroke-linejoin='round' d='M5.8 3.6h.4L6 6.5z'/%3e%3ccircle cx='6' cy='8.2' r='.6' fill='%23e51c23' stroke='none'/%3e%3c/svg%3e");
   background-repeat: no-repeat;
   background-position: right calc(0.375em + 0.5rem) center;
   background-size: calc(0.75em + 1rem) calc(0.75em + 1rem); }
-  .was-validated .form-control:invalid:focus, .form-control.is-invalid:focus {
+  .was-validated .form-control:invalid:focus, .was-validated .bootstrap-tagsinput:invalid:focus, .form-control.is-invalid:focus, .is-invalid.bootstrap-tagsinput:focus {
     border-color: #e51c23;
     -webkit-box-shadow: 0 0 0 0.2rem rgba(229, 28, 35, 0.25);
             box-shadow: 0 0 0 0.2rem rgba(229, 28, 35, 0.25); }
 
-.was-validated textarea.form-control:invalid, textarea.form-control.is-invalid {
+.was-validated textarea.form-control:invalid, .was-validated textarea.bootstrap-tagsinput:invalid, textarea.form-control.is-invalid, textarea.is-invalid.bootstrap-tagsinput {
   padding-right: calc(1.5em + 2rem);
   background-position: top calc(0.375em + 0.5rem) right calc(0.375em + 0.5rem); }
 
@@ -2157,7 +2157,7 @@ textarea.form-control {
           -ms-flex-align: center;
               align-items: center;
       margin-bottom: 0; }
-    .form-inline .form-control {
+    .form-inline .form-control, .form-inline .bootstrap-tagsinput {
       display: inline-block;
       width: auto;
       vertical-align: middle; }
@@ -3063,7 +3063,7 @@ input[type="button"].btn-block {
       -ms-flex-align: stretch;
           align-items: stretch;
   width: 100%; }
-  .input-group > .form-control,
+  .input-group > .form-control, .input-group > .bootstrap-tagsinput,
   .input-group > .form-control-plaintext,
   .input-group > .custom-select,
   .input-group > .custom-file {
@@ -3073,30 +3073,35 @@ input[type="button"].btn-block {
             flex: 1 1 0%;
     min-width: 0;
     margin-bottom: 0; }
-    .input-group > .form-control + .form-control,
+    .input-group > .form-control + .form-control, .input-group > .bootstrap-tagsinput + .form-control, .input-group > .form-control + .bootstrap-tagsinput, .input-group > .bootstrap-tagsinput + .bootstrap-tagsinput,
     .input-group > .form-control + .custom-select,
+    .input-group > .bootstrap-tagsinput + .custom-select,
     .input-group > .form-control + .custom-file,
+    .input-group > .bootstrap-tagsinput + .custom-file,
     .input-group > .form-control-plaintext + .form-control,
+    .input-group > .form-control-plaintext + .bootstrap-tagsinput,
     .input-group > .form-control-plaintext + .custom-select,
     .input-group > .form-control-plaintext + .custom-file,
     .input-group > .custom-select + .form-control,
+    .input-group > .custom-select + .bootstrap-tagsinput,
     .input-group > .custom-select + .custom-select,
     .input-group > .custom-select + .custom-file,
     .input-group > .custom-file + .form-control,
+    .input-group > .custom-file + .bootstrap-tagsinput,
     .input-group > .custom-file + .custom-select,
     .input-group > .custom-file + .custom-file {
       margin-left: 0rem; }
-  .input-group > .form-control:focus,
+  .input-group > .form-control:focus, .input-group > .bootstrap-tagsinput:focus,
   .input-group > .custom-select:focus,
   .input-group > .custom-file .custom-file-input:focus ~ .custom-file-label {
     z-index: 3; }
   .input-group > .custom-file .custom-file-input:focus {
     z-index: 4; }
-  .input-group > .form-control:not(:last-child),
+  .input-group > .form-control:not(:last-child), .input-group > .bootstrap-tagsinput:not(:last-child),
   .input-group > .custom-select:not(:last-child) {
     border-top-right-radius: 0;
     border-bottom-right-radius: 0; }
-  .input-group > .form-control:not(:first-child),
+  .input-group > .form-control:not(:first-child), .input-group > .bootstrap-tagsinput:not(:first-child),
   .input-group > .custom-select:not(:first-child) {
     border-top-left-radius: 0;
     border-bottom-left-radius: 0; }
@@ -3165,11 +3170,11 @@ input[type="button"].btn-block {
   .input-group-text input[type="checkbox"] {
     margin-top: 0; }
 
-.input-group-lg > .form-control:not(textarea),
+.input-group-lg > .form-control:not(textarea), .input-group-lg > .bootstrap-tagsinput:not(textarea),
 .input-group-lg > .custom-select {
   height: calc(1.5em + 2.03125rem); }
 
-.input-group-lg > .form-control,
+.input-group-lg > .form-control, .input-group-lg > .bootstrap-tagsinput,
 .input-group-lg > .custom-select,
 .input-group-lg > .input-group-prepend > .input-group-text,
 .input-group-lg > .input-group-append > .input-group-text,
@@ -3180,11 +3185,11 @@ input[type="button"].btn-block {
   line-height: 1.5;
   border-radius: 0; }
 
-.input-group-sm > .form-control:not(textarea),
+.input-group-sm > .form-control:not(textarea), .input-group-sm > .bootstrap-tagsinput:not(textarea),
 .input-group-sm > .custom-select {
   height: calc(1.5em + 0rem); }
 
-.input-group-sm > .form-control,
+.input-group-sm > .form-control, .input-group-sm > .bootstrap-tagsinput,
 .input-group-sm > .custom-select,
 .input-group-sm > .input-group-prepend > .input-group-text,
 .input-group-sm > .input-group-append > .input-group-text,
@@ -9105,16 +9110,23 @@ a {
 
 textarea,
 textarea.form-control,
+textarea.bootstrap-tagsinput,
 input.form-control,
+input.bootstrap-tagsinput,
 input[type=text],
 input[type=password],
 input[type=email],
 input[type=number],
 [type=text].form-control,
+[type=text].bootstrap-tagsinput,
 [type=password].form-control,
+[type=password].bootstrap-tagsinput,
 [type=email].form-control,
+[type=email].bootstrap-tagsinput,
 [type=tel].form-control,
-[contenteditable].form-control {
+[type=tel].bootstrap-tagsinput,
+[contenteditable].form-control,
+[contenteditable].bootstrap-tagsinput {
   -webkit-box-shadow: inset 0 -1px 0 #ddd;
           box-shadow: inset 0 -1px 0 #ddd;
   -webkit-transition: -webkit-box-shadow 0.2s;
@@ -9123,23 +9135,34 @@ input[type=number],
   transition: box-shadow 0.2s, -webkit-box-shadow 0.2s; }
   textarea:focus,
   textarea.form-control:focus,
+  textarea.bootstrap-tagsinput:focus,
   input.form-control:focus,
+  input.bootstrap-tagsinput:focus,
   input[type=text]:focus,
   input[type=password]:focus,
   input[type=email]:focus,
   input[type=number]:focus,
   [type=text].form-control:focus,
+  [type=text].bootstrap-tagsinput:focus,
   [type=password].form-control:focus,
+  [type=password].bootstrap-tagsinput:focus,
   [type=email].form-control:focus,
+  [type=email].bootstrap-tagsinput:focus,
   [type=tel].form-control:focus,
-  [contenteditable].form-control:focus {
+  [type=tel].bootstrap-tagsinput:focus,
+  [contenteditable].form-control:focus,
+  [contenteditable].bootstrap-tagsinput:focus {
     -webkit-box-shadow: inset 0 -2px 0 #2196F3;
             box-shadow: inset 0 -2px 0 #2196F3; }
   textarea[disabled], textarea[readonly],
   textarea.form-control[disabled],
+  textarea[disabled].bootstrap-tagsinput,
   textarea.form-control[readonly],
+  textarea[readonly].bootstrap-tagsinput,
   input.form-control[disabled],
+  input[disabled].bootstrap-tagsinput,
   input.form-control[readonly],
+  input[readonly].bootstrap-tagsinput,
   input[type=text][disabled],
   input[type=text][readonly],
   input[type=password][disabled],
@@ -9149,23 +9172,37 @@ input[type=number],
   input[type=number][disabled],
   input[type=number][readonly],
   [type=text].form-control[disabled],
+  [type=text][disabled].bootstrap-tagsinput,
   [type=text].form-control[readonly],
+  [type=text][readonly].bootstrap-tagsinput,
   [type=password].form-control[disabled],
+  [type=password][disabled].bootstrap-tagsinput,
   [type=password].form-control[readonly],
+  [type=password][readonly].bootstrap-tagsinput,
   [type=email].form-control[disabled],
+  [type=email][disabled].bootstrap-tagsinput,
   [type=email].form-control[readonly],
+  [type=email][readonly].bootstrap-tagsinput,
   [type=tel].form-control[disabled],
+  [type=tel][disabled].bootstrap-tagsinput,
   [type=tel].form-control[readonly],
+  [type=tel][readonly].bootstrap-tagsinput,
   [contenteditable].form-control[disabled],
-  [contenteditable].form-control[readonly] {
+  [contenteditable][disabled].bootstrap-tagsinput,
+  [contenteditable].form-control[readonly],
+  [contenteditable][readonly].bootstrap-tagsinput {
     -webkit-box-shadow: none;
             box-shadow: none;
     border-bottom: 1px dotted #ddd; }
   textarea[disabled], textarea[disabled]::-webkit-input-placeholder,
   textarea.form-control[disabled],
+  textarea[disabled].bootstrap-tagsinput,
   textarea.form-control[disabled]::-webkit-input-placeholder,
+  textarea[disabled].bootstrap-tagsinput::-webkit-input-placeholder,
   input.form-control[disabled],
+  input[disabled].bootstrap-tagsinput,
   input.form-control[disabled]::-webkit-input-placeholder,
+  input[disabled].bootstrap-tagsinput::-webkit-input-placeholder,
   input[type=text][disabled],
   input[type=text][disabled]::-webkit-input-placeholder,
   input[type=password][disabled],
@@ -9175,21 +9212,35 @@ input[type=number],
   input[type=number][disabled],
   input[type=number][disabled]::-webkit-input-placeholder,
   [type=text].form-control[disabled],
+  [type=text][disabled].bootstrap-tagsinput,
   [type=text].form-control[disabled]::-webkit-input-placeholder,
+  [type=text][disabled].bootstrap-tagsinput::-webkit-input-placeholder,
   [type=password].form-control[disabled],
+  [type=password][disabled].bootstrap-tagsinput,
   [type=password].form-control[disabled]::-webkit-input-placeholder,
+  [type=password][disabled].bootstrap-tagsinput::-webkit-input-placeholder,
   [type=email].form-control[disabled],
+  [type=email][disabled].bootstrap-tagsinput,
   [type=email].form-control[disabled]::-webkit-input-placeholder,
+  [type=email][disabled].bootstrap-tagsinput::-webkit-input-placeholder,
   [type=tel].form-control[disabled],
+  [type=tel][disabled].bootstrap-tagsinput,
   [type=tel].form-control[disabled]::-webkit-input-placeholder,
+  [type=tel][disabled].bootstrap-tagsinput::-webkit-input-placeholder,
   [contenteditable].form-control[disabled],
-  [contenteditable].form-control[disabled]::-webkit-input-placeholder {
+  [contenteditable][disabled].bootstrap-tagsinput,
+  [contenteditable].form-control[disabled]::-webkit-input-placeholder,
+  [contenteditable][disabled].bootstrap-tagsinput::-webkit-input-placeholder {
     color: #ddd; }
   textarea[disabled], textarea[disabled]::-moz-placeholder,
   textarea.form-control[disabled],
+  textarea[disabled].bootstrap-tagsinput,
   textarea.form-control[disabled]::-moz-placeholder,
+  textarea[disabled].bootstrap-tagsinput::-moz-placeholder,
   input.form-control[disabled],
+  input[disabled].bootstrap-tagsinput,
   input.form-control[disabled]::-moz-placeholder,
+  input[disabled].bootstrap-tagsinput::-moz-placeholder,
   input[type=text][disabled],
   input[type=text][disabled]::-moz-placeholder,
   input[type=password][disabled],
@@ -9199,21 +9250,35 @@ input[type=number],
   input[type=number][disabled],
   input[type=number][disabled]::-moz-placeholder,
   [type=text].form-control[disabled],
+  [type=text][disabled].bootstrap-tagsinput,
   [type=text].form-control[disabled]::-moz-placeholder,
+  [type=text][disabled].bootstrap-tagsinput::-moz-placeholder,
   [type=password].form-control[disabled],
+  [type=password][disabled].bootstrap-tagsinput,
   [type=password].form-control[disabled]::-moz-placeholder,
+  [type=password][disabled].bootstrap-tagsinput::-moz-placeholder,
   [type=email].form-control[disabled],
+  [type=email][disabled].bootstrap-tagsinput,
   [type=email].form-control[disabled]::-moz-placeholder,
+  [type=email][disabled].bootstrap-tagsinput::-moz-placeholder,
   [type=tel].form-control[disabled],
+  [type=tel][disabled].bootstrap-tagsinput,
   [type=tel].form-control[disabled]::-moz-placeholder,
+  [type=tel][disabled].bootstrap-tagsinput::-moz-placeholder,
   [contenteditable].form-control[disabled],
-  [contenteditable].form-control[disabled]::-moz-placeholder {
+  [contenteditable][disabled].bootstrap-tagsinput,
+  [contenteditable].form-control[disabled]::-moz-placeholder,
+  [contenteditable][disabled].bootstrap-tagsinput::-moz-placeholder {
     color: #ddd; }
   textarea[disabled], textarea[disabled]::-ms-input-placeholder,
   textarea.form-control[disabled],
+  textarea[disabled].bootstrap-tagsinput,
   textarea.form-control[disabled]::-ms-input-placeholder,
+  textarea[disabled].bootstrap-tagsinput::-ms-input-placeholder,
   input.form-control[disabled],
+  input[disabled].bootstrap-tagsinput,
   input.form-control[disabled]::-ms-input-placeholder,
+  input[disabled].bootstrap-tagsinput::-ms-input-placeholder,
   input[type=text][disabled],
   input[type=text][disabled]::-ms-input-placeholder,
   input[type=password][disabled],
@@ -9223,21 +9288,35 @@ input[type=number],
   input[type=number][disabled],
   input[type=number][disabled]::-ms-input-placeholder,
   [type=text].form-control[disabled],
+  [type=text][disabled].bootstrap-tagsinput,
   [type=text].form-control[disabled]::-ms-input-placeholder,
+  [type=text][disabled].bootstrap-tagsinput::-ms-input-placeholder,
   [type=password].form-control[disabled],
+  [type=password][disabled].bootstrap-tagsinput,
   [type=password].form-control[disabled]::-ms-input-placeholder,
+  [type=password][disabled].bootstrap-tagsinput::-ms-input-placeholder,
   [type=email].form-control[disabled],
+  [type=email][disabled].bootstrap-tagsinput,
   [type=email].form-control[disabled]::-ms-input-placeholder,
+  [type=email][disabled].bootstrap-tagsinput::-ms-input-placeholder,
   [type=tel].form-control[disabled],
+  [type=tel][disabled].bootstrap-tagsinput,
   [type=tel].form-control[disabled]::-ms-input-placeholder,
+  [type=tel][disabled].bootstrap-tagsinput::-ms-input-placeholder,
   [contenteditable].form-control[disabled],
-  [contenteditable].form-control[disabled]::-ms-input-placeholder {
+  [contenteditable][disabled].bootstrap-tagsinput,
+  [contenteditable].form-control[disabled]::-ms-input-placeholder,
+  [contenteditable][disabled].bootstrap-tagsinput::-ms-input-placeholder {
     color: #ddd; }
   textarea[disabled], textarea[disabled]::placeholder,
   textarea.form-control[disabled],
+  textarea[disabled].bootstrap-tagsinput,
   textarea.form-control[disabled]::placeholder,
+  textarea[disabled].bootstrap-tagsinput::placeholder,
   input.form-control[disabled],
+  input[disabled].bootstrap-tagsinput,
   input.form-control[disabled]::placeholder,
+  input[disabled].bootstrap-tagsinput::placeholder,
   input[type=text][disabled],
   input[type=text][disabled]::placeholder,
   input[type=password][disabled],
@@ -9247,32 +9326,50 @@ input[type=number],
   input[type=number][disabled],
   input[type=number][disabled]::placeholder,
   [type=text].form-control[disabled],
+  [type=text][disabled].bootstrap-tagsinput,
   [type=text].form-control[disabled]::placeholder,
+  [type=text][disabled].bootstrap-tagsinput::placeholder,
   [type=password].form-control[disabled],
+  [type=password][disabled].bootstrap-tagsinput,
   [type=password].form-control[disabled]::placeholder,
+  [type=password][disabled].bootstrap-tagsinput::placeholder,
   [type=email].form-control[disabled],
+  [type=email][disabled].bootstrap-tagsinput,
   [type=email].form-control[disabled]::placeholder,
+  [type=email][disabled].bootstrap-tagsinput::placeholder,
   [type=tel].form-control[disabled],
+  [type=tel][disabled].bootstrap-tagsinput,
   [type=tel].form-control[disabled]::placeholder,
+  [type=tel][disabled].bootstrap-tagsinput::placeholder,
   [contenteditable].form-control[disabled],
-  [contenteditable].form-control[disabled]::placeholder {
+  [contenteditable][disabled].bootstrap-tagsinput,
+  [contenteditable].form-control[disabled]::placeholder,
+  [contenteditable][disabled].bootstrap-tagsinput::placeholder {
     color: #ddd; }
   textarea::-ms-clear,
   textarea.form-control::-ms-clear,
+  textarea.bootstrap-tagsinput::-ms-clear,
   input.form-control::-ms-clear,
+  input.bootstrap-tagsinput::-ms-clear,
   input[type=text]::-ms-clear,
   input[type=password]::-ms-clear,
   input[type=email]::-ms-clear,
   input[type=number]::-ms-clear,
   [type=text].form-control::-ms-clear,
+  [type=text].bootstrap-tagsinput::-ms-clear,
   [type=password].form-control::-ms-clear,
+  [type=password].bootstrap-tagsinput::-ms-clear,
   [type=email].form-control::-ms-clear,
+  [type=email].bootstrap-tagsinput::-ms-clear,
   [type=tel].form-control::-ms-clear,
-  [contenteditable].form-control::-ms-clear {
+  [type=tel].bootstrap-tagsinput::-ms-clear,
+  [contenteditable].form-control::-ms-clear,
+  [contenteditable].bootstrap-tagsinput::-ms-clear {
     display: none; }
 
 select,
-select.form-control {
+select.form-control,
+select.bootstrap-tagsinput {
   -webkit-appearance: none;
      -moz-appearance: none;
           appearance: none;
@@ -9284,21 +9381,26 @@ select.form-control {
   -webkit-box-shadow: inset 0 -1px 0 #ddd;
           box-shadow: inset 0 -1px 0 #ddd; }
   select::-ms-expand,
-  select.form-control::-ms-expand {
+  select.form-control::-ms-expand,
+  select.bootstrap-tagsinput::-ms-expand {
     display: none; }
   select.input-sm,
-  select.form-control.input-sm {
+  select.form-control.input-sm,
+  select.input-sm.bootstrap-tagsinput {
     font-size: 0.71094rem; }
   select.input-lg,
-  select.form-control.input-lg {
+  select.form-control.input-lg,
+  select.input-lg.bootstrap-tagsinput {
     font-size: 1.01563rem; }
   select:focus,
-  select.form-control:focus {
+  select.form-control:focus,
+  select.bootstrap-tagsinput:focus {
     -webkit-box-shadow: inset 0 -2px 0 #2196F3;
             box-shadow: inset 0 -2px 0 #2196F3;
     background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABoAAAAaCAMAAACelLz8AAAAJ1BMVEUhISEhISEhISEhISEhISEhISEhISEhISEhISEhISEhISEhISEhISF8S9ewAAAADHRSTlMAAgMJC0uWpKa6wMxMdjkoAAAANUlEQVR4AeXJyQEAERAAsNl7Hf3X6xt0QL6JpZWq30pdvdadme+0PMdzvHm8YThHcT1H7K0BtOMDniZhWOgAAAAASUVORK5CYII=); }
   select[multiple],
-  select.form-control[multiple] {
+  select.form-control[multiple],
+  select[multiple].bootstrap-tagsinput {
     background: none; }
 
 .custom-control {
@@ -9386,33 +9488,45 @@ select.form-control {
 
 .has-warning input:not([type=checkbox]),
 .has-warning .form-control,
+.has-warning .bootstrap-tagsinput,
 .has-warning input.form-control[readonly],
+.has-warning input[readonly].bootstrap-tagsinput,
 .has-warning input[type=text][readonly],
 .has-warning [type=text].form-control[readonly],
+.has-warning [type=text][readonly].bootstrap-tagsinput,
 .has-warning input:not([type=checkbox]):focus,
-.has-warning .form-control:focus {
+.has-warning .form-control:focus,
+.has-warning .bootstrap-tagsinput:focus {
   border-bottom: none;
   -webkit-box-shadow: inset 0 -2px 0 #ff9800;
           box-shadow: inset 0 -2px 0 #ff9800; }
 
 .has-danger input:not([type=checkbox]),
 .has-danger .form-control,
+.has-danger .bootstrap-tagsinput,
 .has-danger input.form-control[readonly],
+.has-danger input[readonly].bootstrap-tagsinput,
 .has-danger input[type=text][readonly],
 .has-danger [type=text].form-control[readonly],
+.has-danger [type=text][readonly].bootstrap-tagsinput,
 .has-danger input:not([type=checkbox]):focus,
-.has-danger .form-control:focus {
+.has-danger .form-control:focus,
+.has-danger .bootstrap-tagsinput:focus {
   border-bottom: none;
   -webkit-box-shadow: inset 0 -2px 0 #e51c23;
           box-shadow: inset 0 -2px 0 #e51c23; }
 
 .has-success input:not([type=checkbox]),
 .has-success .form-control,
+.has-success .bootstrap-tagsinput,
 .has-success input.form-control[readonly],
+.has-success input[readonly].bootstrap-tagsinput,
 .has-success input[type=text][readonly],
 .has-success [type=text].form-control[readonly],
+.has-success [type=text][readonly].bootstrap-tagsinput,
 .has-success input:not([type=checkbox]):focus,
-.has-success .form-control:focus {
+.has-success .form-control:focus,
+.has-success .bootstrap-tagsinput:focus {
   border-bottom: none;
   -webkit-box-shadow: inset 0 -2px 0 #4CAF50;
           box-shadow: inset 0 -2px 0 #4CAF50; }
@@ -9428,7 +9542,7 @@ select.form-control {
 .input-group > .input-group-append > .input-group-text {
   padding-left: 0.25rem; }
 
-.input-group .form-control {
+.input-group .form-control, .input-group .bootstrap-tagsinput {
   padding-left: 0.25rem;
   padding-right: 0.25rem; }
 
@@ -9469,7 +9583,8 @@ select.form-control {
   border-bottom-right-radius: 0.3rem; }
 
 .form-group-lg select,
-.form-group-lg select.form-control {
+.form-group-lg select.form-control,
+.form-group-lg select.bootstrap-tagsinput {
   line-height: 1.5; }
 
 .nav-tabs .nav-item + .nav-item {

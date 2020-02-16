@@ -34,6 +34,7 @@ namespace YAF.Core.Services
 
     using YAF.Configuration;
     using YAF.Core.Extensions;
+    using YAF.Core.Model;
     using YAF.Lucene.Net.Analysis;
     using YAF.Lucene.Net.Analysis.Standard;
     using YAF.Lucene.Net.Documents;
@@ -260,6 +261,7 @@ namespace YAF.Core.Services
                                   new StringField("UserId", message.UserId.ToString(), Field.Store.YES),
                                   new StoredField("TopicId", message.TopicId.ToString()),
                                   new TextField("Topic", message.Topic, Field.Store.YES),
+                                  new TextField("TopicTags", message.TopicTags, Field.Store.YES),
                                   new StringField("ForumName", message.ForumName, Field.Store.YES),
                                   new StoredField("ForumId", message.ForumId.ToString()),
                                   new TextField("Author", name, Field.Store.YES),
@@ -566,7 +568,8 @@ namespace YAF.Core.Services
                                   new TextField("Author", name, Field.Store.YES),
                                   new TextField("AuthorDisplay", userDisplayName, Field.Store.YES),
                                   new StoredField("AuthorStyle", userStyle),
-                                  new TextField("Description", description, Field.Store.YES)
+                                  new TextField("Description", description, Field.Store.YES),
+                                  new TextField("TopicTags", this.GetRepository<TopicTag>().ListAsDelimitedString(message.TopicId.Value), Field.Store.YES)
                               };
 
                 try
@@ -694,6 +697,7 @@ namespace YAF.Core.Services
                            UserId = doc.Get("UserId").ToType<int>(),
                            TopicId = doc.Get("TopicId").ToType<int>(),
                            Topic = topic.IsSet() ? topic : doc.Get("Topic"),
+                           TopicTags = doc.Get("TopicTags"),
                            ForumId = doc.Get("ForumId").ToType<int>(),
                            Description = doc.Get("Description"),
                            TopicUrl = BuildLink.GetLink(ForumPages.Posts, "t={0}", doc.Get("TopicId").ToType<int>()),
@@ -829,7 +833,7 @@ namespace YAF.Core.Services
                     new[]
                         {
                             "Message", "Topic",
-                            this.Get<BoardSettings>().EnableDisplayName ? "AuthorDisplay" : "Author"
+                            this.Get<BoardSettings>().EnableDisplayName ? "AuthorDisplay" : "Author", "TopicTags"
                         },
                     analyzer);
 

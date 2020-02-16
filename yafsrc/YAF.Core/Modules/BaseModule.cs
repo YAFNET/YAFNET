@@ -69,6 +69,7 @@ namespace YAF.Core
                 .Concat(
                     AppDomain.CurrentDomain.GetAssemblies().Where(
                         a => a.FullName.StartsWith("Autofac") && a.FullName.StartsWith("FarsiLibrary")
+                                                              && a.FullName.StartsWith("YAF.Lucene.NET")
                                                               && a.FullName.StartsWith("ServiceStack.")))
                 .Except(new[] { Assembly.GetExecutingAssembly() }).Where(a => !a.IsDynamic).Distinct()
                 .OrderByDescending(x => x.GetAssemblySortOrder()).ToArray();

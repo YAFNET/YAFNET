@@ -155,25 +155,6 @@ namespace YAF.Pages
         }
 
         /// <summary>
-        /// The new topic_ click.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        protected void NewTopic_Click([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            if (this.forum.ForumFlags.IsLocked)
-            {
-                this.PageContext.AddLoadMessage(this.GetText("WARN_FORUM_LOCKED"), MessageTypes.warning);
-                return;
-            }
-
-            if (!this.PageContext.ForumPostAccess)
-            {
-                BuildLink.AccessDenied(/*"You don't have access to post new topics in this forum."*/);
-            }
-        }
-
-        /// <summary>
         /// The Forum Search
         /// </summary>
         /// <param name="sender">The source of the event.</param>
@@ -205,8 +186,6 @@ namespace YAF.Pages
             this.ShowList.SelectedIndexChanged += this.ShowList_SelectedIndexChanged;
             this.MarkRead.Click += this.MarkRead_Click;
             this.Pager.PageChange += this.Pager_PageChange;
-            this.NewTopic1.Click += this.NewTopic_Click;
-            this.NewTopic2.Click += this.NewTopic_Click;
             this.WatchForum.Click += this.WatchForum_Click;
 
             base.OnInit(e);
@@ -258,7 +237,7 @@ namespace YAF.Pages
 
                 this.NewTopic1.NavigateUrl =
                     this.NewTopic2.NavigateUrl =
-                    BuildLink.GetLinkNotEscaped(ForumPages.PostMessage, "f={0}", this.PageContext.PageForumID);
+                    BuildLink.GetLinkNotEscaped(ForumPages.PostTopic, "f={0}", this.PageContext.PageForumID);
 
                 this.HandleWatchForum();
             }

@@ -313,6 +313,13 @@
     </Compile>
     <Compile Include="Classes\LatestInformationService.cs" />
     <Compile Include="Classes\MembershipUpgradeEvent.cs" />
+    <Compile Include="controls\TopicTags.ascx.cs">
+      <DependentUpon>TopicTags.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="controls\TopicTags.ascx.designer.cs">
+      <DependentUpon>TopicTags.ascx</DependentUpon>
+    </Compile>
     <Compile Include="controls\UserMenu.ascx.cs">
       <DependentUpon>UserMenu.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -931,6 +938,13 @@
     <Compile Include="Pages\EditProfile.ascx.designer.cs">
       <DependentUpon>EditProfile.ascx</DependentUpon>
     </Compile>
+    <Compile Include="Pages\PostTopic.ascx.cs">
+      <DependentUpon>PostTopic.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\PostTopic.ascx.designer.cs">
+      <DependentUpon>PostTopic.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Pages\PrivateMessage.ascx.designer.cs">
       <DependentUpon>PrivateMessage.ascx</DependentUpon>
     </Compile>
@@ -1119,6 +1133,7 @@
     <Content Include="auth.aspx" />
     <Content Include="BuildScripts\MSBuild.ExtensionPack.Tasks.Targets" />
     <None Include="Content\blueimp-gallery.scss" />
+    <Content Include="Content\bootstrap-tagsinput.css" />
     <Content Include="Content\bootstrap-datetimepicker.css" />
     <Content Include="Content\bootstrap\bootstrap.css">
       <DependentUpon>bootstrap.scss</DependentUpon>
@@ -1941,6 +1956,7 @@
     <Content Include="Content\webfonts\fa-brands-400.svg" />
     <Content Include="Content\webfonts\fa-regular-400.svg" />
     <Content Include="Content\webfonts\fa-solid-900.svg" />
+    <Content Include="controls\TopicTags.ascx" />
     <Content Include="controls\UserMenu.ascx" />
     <Content Include="controls\AdminMenu.ascx" />
     <Content Include="controls\AlbumImageList.ascx" />
@@ -2171,6 +2187,7 @@
     <Content Include="Pages\Friends.ascx" />
     <Content Include="Pages\EditSettings.ascx" />
     <Content Include="Pages\EditProfile.ascx" />
+    <Content Include="Pages\PostTopic.ascx" />
     <Content Include="Pages\PrivateMessage.ascx" />
     <Content Include="Pages\PM.ascx" />
     <Content Include="Pages\Notification.ascx" />
@@ -2227,6 +2244,7 @@
     </Content>
     <None Include="bundleconfig.json" />
     <None Include="compilerconfig.json" />
+    <Content Include="Scripts\bootstrap-typeahead.js" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\ckeditor\adapters\jquery.js" />
     <Content Include="Scripts\ckeditor\build-config.js" />
@@ -2738,6 +2756,7 @@
     <Content Include="Scripts\tablesorter\jquery.tablesorter.combined.js" />
     <Content Include="Scripts\forum\yaf.Utilities.js" />
     <Content Include="Scripts\tablesorter\widgets\widget-reflow.js" />
+    <Content Include="Scripts\bootstrap-tagsinput.js" />
     <Content Include="Scripts\yafEditor\yafEditor.js" />
     <Content Include="Scripts\yafEditor\yafEditor.min.js">
       <DependentUpon>yafEditor.js</DependentUpon>

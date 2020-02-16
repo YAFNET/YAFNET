@@ -71,4 +71,8 @@
 
 .custom-switch input {
     @extend .custom-control-input;
-} 
+}
+
+.bootstrap-tagsinput {
+    @extend .form-control;
+}

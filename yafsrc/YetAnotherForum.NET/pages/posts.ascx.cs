@@ -221,21 +221,6 @@ namespace YAF.Pages
         }
 
         /// <summary>
-        /// The new topic_ click.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        protected void NewTopic_Click([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            if (!this.forumFlags.IsLocked)
-            {
-                return;
-            }
-
-            this.PageContext.AddLoadMessage(this.GetText("WARN_FORUM_LOCKED"), MessageTypes.warning);
-        }
-
-        /// <summary>
         /// The next topic_ click.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
@@ -469,7 +454,7 @@ namespace YAF.Pages
 
                 this.NewTopic2.NavigateUrl =
                     this.NewTopic1.NavigateUrl =
-                    BuildLink.GetLinkNotEscaped(ForumPages.PostMessage, "f={0}", this.PageContext.PageForumID);
+                    BuildLink.GetLinkNotEscaped(ForumPages.PostTopic, "f={0}", this.PageContext.PageForumID);
 
                 this.PostReplyLink1.NavigateUrl =
                     this.PostReplyLink2.NavigateUrl =

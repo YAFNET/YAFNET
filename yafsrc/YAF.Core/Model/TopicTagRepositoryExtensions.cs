@@ -23,8 +23,15 @@
  */
 namespace YAF.Core.Model
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+
+    using ServiceStack.OrmLite;
+
     using YAF.Core.Extensions;
     using YAF.Types;
+    using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
     using YAF.Types.Models;
@@ -63,6 +70,51 @@ namespace YAF.Core.Model
                     });
 
             repository.FireNew(newId);
+        }
+
+        /// <summary>
+        /// List all Topic Tags
+        /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="topicId">
+        /// The topic Id.
+        /// </param>
+        /// <returns>
+        /// The <see cref="List"/>.
+        /// </returns>
+        public static List<Tuple<TopicTag, Tag>> List(this IRepository<TopicTag> repository, int topicId)
+        {
+            CodeContracts.VerifyNotNull(repository, "repository");
+
+            var expression = OrmLiteConfig.DialectProvider.SqlExpression<TopicTag>();
+
+            expression.Join<Tag>((topicTag, tag) => tag.ID == topicTag.TagID)
+                .Where<TopicTag>(t => t.TopicID == topicId)
+                .Select();
+
+            return repository.DbAccess.Execute(
+                db => db.Connection.SelectMulti<TopicTag, Tag>(expression));
+        }
+
+        /// <summary>
+        /// List all Topic Tags
+        /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="topicId">
+        /// The topic Id.
+        /// </param>
+        /// <returns>
+        /// The <see cref="List"/>.
+        /// </returns>
+        public static string ListAsDelimitedString(this IRepository<TopicTag> repository, int topicId)
+        {
+            CodeContracts.VerifyNotNull(repository, "repository");
+            
+            return  repository.List(topicId).Select(t => t.Item2.TagName).ToDelimitedString(",");
         }
 
         #endregion

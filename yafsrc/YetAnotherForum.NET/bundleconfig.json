@@ -36,6 +36,8 @@
       "Scripts/bootstrap-suggest.js",
       "Scripts/jquery.bootstrap-touchspin.js",
       "Scripts/select2.js",
+      "Scripts/bootstrap-tagsinput.js",
+      "Scripts/bootstrap-typeahead.js",
       "Scripts/blueimp-gallery.js",
       "Scripts/blueimp-gallery-indicator.js",
       "Scripts/jquery.blueimp-gallery.js",

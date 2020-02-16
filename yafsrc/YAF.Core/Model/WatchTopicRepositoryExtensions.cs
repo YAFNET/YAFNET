@@ -26,7 +26,6 @@ namespace YAF.Core.Model
 {
     using System;
     using System.Collections.Generic;
-    using System.Data;
 
     using ServiceStack.OrmLite;
 

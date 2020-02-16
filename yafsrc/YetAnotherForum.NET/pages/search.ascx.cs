@@ -167,6 +167,21 @@ namespace YAF.Pages
                     "openModalJs",
                     JavaScriptBlocks.DoSearchJs());
             }
+
+            var tag = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("tag");
+
+            if (tag.IsSet())
+            {
+                this.SearchStringTag.Text = this.Server.UrlDecode(tag);
+                doSearch = true;
+            }
+
+            if (doSearch)
+            {
+                YafContext.Current.PageElements.RegisterJsBlockStartup(
+                    "openModalJs",
+                    JavaScriptBlocks.DoSearchJs());
+            }
         }
 
         #endregion

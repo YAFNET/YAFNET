@@ -23,52 +23,52 @@
  */
 namespace YAF.Types.EventProxies
 {
-  #region Using
+    #region Using
 
-  using System.Web.Security;
+    using System.Web.Security;
 
-  using YAF.Types.Interfaces.Events;
+    using YAF.Types.Interfaces.Events;
 
-  #endregion
-
-  /// <summary>
-  /// The new user registered event.
-  /// </summary>
-  public class NewUserRegisteredEvent : IAmEvent
-  {
-    #region Constructors and Destructors
+    #endregion
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="NewUserRegisteredEvent"/> class.
+    /// The new user registered event.
     /// </summary>
-    /// <param name="user">
-    /// The user.
-    /// </param>
-    /// <param name="userId">
-    /// The user id.
-    /// </param>
-    public NewUserRegisteredEvent([NotNull] MembershipUser user, int userId)
+    public class NewUserRegisteredEvent : IAmEvent
     {
-      CodeContracts.VerifyNotNull(user, "user");
+        #region Constructors and Destructors
 
-      this.User = user;
-      this.UserId = userId;
+        /// <summary>
+        /// Initializes a new instance of the <see cref="NewUserRegisteredEvent"/> class.
+        /// </summary>
+        /// <param name="user">
+        /// The user.
+        /// </param>
+        /// <param name="userId">
+        /// The user id.
+        /// </param>
+        public NewUserRegisteredEvent([NotNull] MembershipUser user, int userId)
+        {
+            CodeContracts.VerifyNotNull(user, "user");
+
+            this.User = user;
+            this.UserId = userId;
+        }
+
+        #endregion
+
+        #region Properties
+
+        /// <summary>
+        /// Gets or sets User.
+        /// </summary>
+        public MembershipUser User { get; set; }
+
+        /// <summary>
+        /// Gets or sets UserId.
+        /// </summary>
+        public int UserId { get; set; }
+
+        #endregion
     }
-
-    #endregion
-
-    #region Properties
-
-    /// <summary>
-    /// Gets or sets User.
-    /// </summary>
-    public MembershipUser User { get; set; }
-
-    /// <summary>
-    /// Gets or sets UserId.
-    /// </summary>
-    public int UserId { get; set; }
-
-    #endregion
-  }
 }

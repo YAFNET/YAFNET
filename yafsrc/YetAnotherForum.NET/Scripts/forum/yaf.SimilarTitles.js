@@ -1,6 +1,5 @@
 ﻿// Generic Functions
 jQuery(document).ready(function () {
-    // Numeric Spinner Inputs
     if (jQuery(".searchSimilarTopics").length) {
 
         jQuery(".searchSimilarTopics").keyup(function () {
@@ -9,7 +8,7 @@ jQuery(document).ready(function () {
                 searchText = input.val(),
                 searchPlaceHolder = jQuery("#SearchResultsPlaceholder");
 
-            if (searchText.length && searchText.length >= 5) {
+            if (searchText.length && searchText.length >= 4) {
 
                 var searchTopic = {};
                 searchTopic.ForumId = 0;
@@ -40,7 +39,7 @@ jQuery(document).ready(function () {
                         searchPlaceHolder.empty();
                         searchPlaceHolder.remove("list-group");
 
-                        if (data.SearchResults.length > 0) {
+                        if (data.TotalRecords > 0) {
                             var list = $('<ul class="list-group list-similar" />');
                             searchPlaceHolder.append(list);
 

@@ -1786,7 +1786,7 @@ pre {
   .table-responsive > .table-bordered {
     border: 0; }
 
-.form-control {
+.form-control, .bootstrap-tagsinput {
   display: block;
   width: 100%;
   height: calc(1.5em + 0.75rem + 2px);
@@ -1804,39 +1804,39 @@ pre {
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out; }
   @media (prefers-reduced-motion: reduce) {
-    .form-control {
+    .form-control, .bootstrap-tagsinput {
       -webkit-transition: none;
       transition: none; } }
-  .form-control::-ms-expand {
+  .form-control::-ms-expand, .bootstrap-tagsinput::-ms-expand {
     background-color: transparent;
     border: 0; }
-  .form-control:-moz-focusring {
+  .form-control:-moz-focusring, .bootstrap-tagsinput:-moz-focusring {
     color: transparent;
     text-shadow: 0 0 0 #495057; }
-  .form-control:focus {
+  .form-control:focus, .bootstrap-tagsinput:focus {
     color: #495057;
     background-color: #fff;
     border-color: #6f9dca;
     outline: 0;
     -webkit-box-shadow: 0 0 0 0.2rem rgba(50, 93, 136, 0.25);
             box-shadow: 0 0 0 0.2rem rgba(50, 93, 136, 0.25); }
-  .form-control::-webkit-input-placeholder {
+  .form-control::-webkit-input-placeholder, .bootstrap-tagsinput::-webkit-input-placeholder {
     color: #8E8C84;
     opacity: 1; }
-  .form-control::-moz-placeholder {
+  .form-control::-moz-placeholder, .bootstrap-tagsinput::-moz-placeholder {
     color: #8E8C84;
     opacity: 1; }
-  .form-control::-ms-input-placeholder {
+  .form-control::-ms-input-placeholder, .bootstrap-tagsinput::-ms-input-placeholder {
     color: #8E8C84;
     opacity: 1; }
-  .form-control::placeholder {
+  .form-control::placeholder, .bootstrap-tagsinput::placeholder {
     color: #8E8C84;
     opacity: 1; }
-  .form-control:disabled, .form-control[readonly] {
+  .form-control:disabled, .bootstrap-tagsinput:disabled, .form-control[readonly], [readonly].bootstrap-tagsinput {
     background-color: #F8F5F0;
     opacity: 1; }
 
-select.form-control:focus::-ms-value {
+select.form-control:focus::-ms-value, select.bootstrap-tagsinput:focus::-ms-value {
   color: #495057;
   background-color: #fff; }
 
@@ -1893,10 +1893,10 @@ select.form-control:focus::-ms-value {
   line-height: 1.5;
   border-radius: 0.3rem; }
 
-select.form-control[size], select.form-control[multiple] {
+select.form-control[size], select[size].bootstrap-tagsinput, select.form-control[multiple], select[multiple].bootstrap-tagsinput {
   height: auto; }
 
-textarea.form-control {
+textarea.form-control, textarea.bootstrap-tagsinput {
   height: auto; }
 
 .form-group {
@@ -1977,19 +1977,19 @@ textarea.form-control {
 .is-valid ~ .valid-tooltip {
   display: block; }
 
-.was-validated .form-control:valid, .form-control.is-valid {
+.was-validated .form-control:valid, .was-validated .bootstrap-tagsinput:valid, .form-control.is-valid, .is-valid.bootstrap-tagsinput {
   border-color: #93C54B;
   padding-right: calc(1.5em + 0.75rem);
   background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8' viewBox='0 0 8 8'%3e%3cpath fill='%2393C54B' d='M2.3 6.73L.6 4.53c-.4-1.04.46-1.4 1.1-.8l1.1 1.4 3.4-3.8c.6-.63 1.6-.27 1.2.7l-4 4.6c-.43.5-.8.4-1.1.1z'/%3e%3c/svg%3e");
   background-repeat: no-repeat;
   background-position: right calc(0.375em + 0.1875rem) center;
   background-size: calc(0.75em + 0.375rem) calc(0.75em + 0.375rem); }
-  .was-validated .form-control:valid:focus, .form-control.is-valid:focus {
+  .was-validated .form-control:valid:focus, .was-validated .bootstrap-tagsinput:valid:focus, .form-control.is-valid:focus, .is-valid.bootstrap-tagsinput:focus {
     border-color: #93C54B;
     -webkit-box-shadow: 0 0 0 0.2rem rgba(147, 197, 75, 0.25);
             box-shadow: 0 0 0 0.2rem rgba(147, 197, 75, 0.25); }
 
-.was-validated textarea.form-control:valid, textarea.form-control.is-valid {
+.was-validated textarea.form-control:valid, .was-validated textarea.bootstrap-tagsinput:valid, textarea.form-control.is-valid, textarea.is-valid.bootstrap-tagsinput {
   padding-right: calc(1.5em + 0.75rem);
   background-position: top calc(0.375em + 0.1875rem) right calc(0.375em + 0.1875rem); }
 
@@ -2061,19 +2061,19 @@ textarea.form-control {
 .is-invalid ~ .invalid-tooltip {
   display: block; }
 
-.was-validated .form-control:invalid, .form-control.is-invalid {
+.was-validated .form-control:invalid, .was-validated .bootstrap-tagsinput:invalid, .form-control.is-invalid, .is-invalid.bootstrap-tagsinput {
   border-color: #d9534f;
   padding-right: calc(1.5em + 0.75rem);
   background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='none' stroke='%23d9534f' viewBox='0 0 12 12'%3e%3ccircle cx='6' cy='6' r='4.5'/%3e%3cpath stroke-linejoin='round' d='M5.8 3.6h.4L6 6.5z'/%3e%3ccircle cx='6' cy='8.2' r='.6' fill='%23d9534f' stroke='none'/%3e%3c/svg%3e");
   background-repeat: no-repeat;
   background-position: right calc(0.375em + 0.1875rem) center;
   background-size: calc(0.75em + 0.375rem) calc(0.75em + 0.375rem); }
-  .was-validated .form-control:invalid:focus, .form-control.is-invalid:focus {
+  .was-validated .form-control:invalid:focus, .was-validated .bootstrap-tagsinput:invalid:focus, .form-control.is-invalid:focus, .is-invalid.bootstrap-tagsinput:focus {
     border-color: #d9534f;
     -webkit-box-shadow: 0 0 0 0.2rem rgba(217, 83, 79, 0.25);
             box-shadow: 0 0 0 0.2rem rgba(217, 83, 79, 0.25); }
 
-.was-validated textarea.form-control:invalid, textarea.form-control.is-invalid {
+.was-validated textarea.form-control:invalid, .was-validated textarea.bootstrap-tagsinput:invalid, textarea.form-control.is-invalid, textarea.is-invalid.bootstrap-tagsinput {
   padding-right: calc(1.5em + 0.75rem);
   background-position: top calc(0.375em + 0.1875rem) right calc(0.375em + 0.1875rem); }
 
@@ -2158,7 +2158,7 @@ textarea.form-control {
           -ms-flex-align: center;
               align-items: center;
       margin-bottom: 0; }
-    .form-inline .form-control {
+    .form-inline .form-control, .form-inline .bootstrap-tagsinput {
       display: inline-block;
       width: auto;
       vertical-align: middle; }
@@ -3021,7 +3021,7 @@ input[type="button"].btn-block {
       -ms-flex-align: stretch;
           align-items: stretch;
   width: 100%; }
-  .input-group > .form-control,
+  .input-group > .form-control, .input-group > .bootstrap-tagsinput,
   .input-group > .form-control-plaintext,
   .input-group > .custom-select,
   .input-group > .custom-file {
@@ -3031,30 +3031,35 @@ input[type="button"].btn-block {
             flex: 1 1 0%;
     min-width: 0;
     margin-bottom: 0; }
-    .input-group > .form-control + .form-control,
+    .input-group > .form-control + .form-control, .input-group > .bootstrap-tagsinput + .form-control, .input-group > .form-control + .bootstrap-tagsinput, .input-group > .bootstrap-tagsinput + .bootstrap-tagsinput,
     .input-group > .form-control + .custom-select,
+    .input-group > .bootstrap-tagsinput + .custom-select,
     .input-group > .form-control + .custom-file,
+    .input-group > .bootstrap-tagsinput + .custom-file,
     .input-group > .form-control-plaintext + .form-control,
+    .input-group > .form-control-plaintext + .bootstrap-tagsinput,
     .input-group > .form-control-plaintext + .custom-select,
     .input-group > .form-control-plaintext + .custom-file,
     .input-group > .custom-select + .form-control,
+    .input-group > .custom-select + .bootstrap-tagsinput,
     .input-group > .custom-select + .custom-select,
     .input-group > .custom-select + .custom-file,
     .input-group > .custom-file + .form-control,
+    .input-group > .custom-file + .bootstrap-tagsinput,
     .input-group > .custom-file + .custom-select,
     .input-group > .custom-file + .custom-file {
       margin-left: -1px; }
-  .input-group > .form-control:focus,
+  .input-group > .form-control:focus, .input-group > .bootstrap-tagsinput:focus,
   .input-group > .custom-select:focus,
   .input-group > .custom-file .custom-file-input:focus ~ .custom-file-label {
     z-index: 3; }
   .input-group > .custom-file .custom-file-input:focus {
     z-index: 4; }
-  .input-group > .form-control:not(:last-child),
+  .input-group > .form-control:not(:last-child), .input-group > .bootstrap-tagsinput:not(:last-child),
   .input-group > .custom-select:not(:last-child) {
     border-top-right-radius: 0;
     border-bottom-right-radius: 0; }
-  .input-group > .form-control:not(:first-child),
+  .input-group > .form-control:not(:first-child), .input-group > .bootstrap-tagsinput:not(:first-child),
   .input-group > .custom-select:not(:first-child) {
     border-top-left-radius: 0;
     border-bottom-left-radius: 0; }
@@ -3123,11 +3128,11 @@ input[type="button"].btn-block {
   .input-group-text input[type="checkbox"] {
     margin-top: 0; }
 
-.input-group-lg > .form-control:not(textarea),
+.input-group-lg > .form-control:not(textarea), .input-group-lg > .bootstrap-tagsinput:not(textarea),
 .input-group-lg > .custom-select {
   height: calc(1.5em + 1rem + 2px); }
 
-.input-group-lg > .form-control,
+.input-group-lg > .form-control, .input-group-lg > .bootstrap-tagsinput,
 .input-group-lg > .custom-select,
 .input-group-lg > .input-group-prepend > .input-group-text,
 .input-group-lg > .input-group-append > .input-group-text,
@@ -3138,11 +3143,11 @@ input[type="button"].btn-block {
   line-height: 1.5;
   border-radius: 0.3rem; }
 
-.input-group-sm > .form-control:not(textarea),
+.input-group-sm > .form-control:not(textarea), .input-group-sm > .bootstrap-tagsinput:not(textarea),
 .input-group-sm > .custom-select {
   height: calc(1.5em + 0.5rem + 2px); }
 
-.input-group-sm > .form-control,
+.input-group-sm > .form-control, .input-group-sm > .bootstrap-tagsinput,
 .input-group-sm > .custom-select,
 .input-group-sm > .input-group-prepend > .input-group-text,
 .input-group-sm > .input-group-append > .input-group-text,
@@ -8336,7 +8341,8 @@ a.text-dark:hover, a.text-dark:focus {
   text-transform: uppercase; }
 
 .navbar-form input,
-.navbar-form .form-control {
+.navbar-form .form-control,
+.navbar-form .bootstrap-tagsinput {
   border: none; }
 
 .btn:hover {

@@ -40,6 +40,7 @@ namespace YAF.Pages
     using YAF.Core.Helpers;
     using YAF.Core.Model;
     using YAF.Core.UsersRoles;
+    using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
@@ -330,6 +331,20 @@ namespace YAF.Pages
         }
 
         /// <summary>
+        /// Registers the java scripts
+        /// </summary>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+        protected override void OnPreRender([NotNull] EventArgs e)
+        {
+            // setup jQuery and Jquery Ui Tabs.
+            YafContext.Current.PageElements.RegisterJsBlock(
+                "GetBoardTagsJs",
+                JavaScriptBlocks.GetBoardTagsJs(this.Tags.ClientID));
+
+            base.OnPreRender(e);
+        }
+
+        /// <summary>
         /// Handles the Load event of the Page control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
@@ -544,12 +559,6 @@ namespace YAF.Pages
 
                     this.PollList.TopicId = this.TopicId.ToType<int>();
                 }
-                else
-                {
-                    // New topic
-                    this.Tags.DataSource = this.GetRepository<Tag>().GetByBoardId();
-                    this.Tags.DataBind();
-                }
 
                 // If currentRow != null, we are quoting a post in a new reply, or editing an existing post
                 if (currentMessage != null)
@@ -658,6 +667,41 @@ namespace YAF.Pages
             if (!this.PageContext.ForumEditAccess)
             {
                 BuildLink.AccessDenied();
+            }
+
+            // Update Tags
+            if (this.TagsHolder.Visible)
+            {
+                this.GetRepository<TopicTag>().Delete(t => t.TopicID == this.PageContext.PageTopicID);
+
+                if (this.Tags.Text.IsSet())
+                {
+                    var tags = this.Tags.Text.Split(',');
+
+                    var boardTags = this.GetRepository<Tag>().GetByBoardId();
+
+                    tags.ForEach(
+                        tag =>
+                            {
+                                var existTag = boardTags.FirstOrDefault(t => t.TagName == tag);
+
+                                if (existTag != null)
+                                {
+                                    // add to topic
+                                    this.GetRepository<TopicTag>().Add(
+                                        existTag.ID,
+                                        this.PageContext.PageTopicID);
+                                }
+                                else
+                                {
+                                    // save new Tag
+                                    var newTagId = this.GetRepository<Tag>().Add(tag);
+
+                                    // add to topic
+                                    this.GetRepository<TopicTag>().Add(newTagId, this.PageContext.PageTopicID);
+                                }
+                            });
+                }
             }
 
             var subjectSave = string.Empty;
@@ -822,6 +866,7 @@ namespace YAF.Pages
                 DateTime.UtcNow,
                 string.Empty,
                 messageFlags.BitValue,
+                this.Tags.Text,
                 ref messageId);
 
             this.UpdateWatchTopic(this.PageContext.PageUserID, (int)topicId);
@@ -1171,38 +1216,6 @@ namespace YAF.Pages
                             this.PageContext.PageTopicName,
                             this.forumEditor.Text);
                     }
-                    else
-                    {
-                        this.Get<IActivityStream>().AddTopicToStream(
-                            Config.IsDotNetNuke ? this.PageContext.PageForumID : this.PageContext.PageUserID,
-                            newTopic,
-                            messageId.ToType<int>(),
-                            this.TopicSubjectTextBox.Text,
-                            this.forumEditor.Text);
-
-                        // Add tags
-                        this.Tags.Items.Cast<ListItem>().ForEach(item =>
-                            {
-                                if (!item.Selected)
-                                {
-                                    return;
-                                }
-
-                                if (item.Text == item.Value)
-                                {
-                                    // save new Tag
-                                    var newTagId = this.GetRepository<Tag>().Add(item.Text);
-
-                                    // add to topic
-                                    this.GetRepository<TopicTag>().Add(newTagId, newTopic.ToType<int>());
-                                }
-                                else
-                                {
-                                    // add to topic
-                                    this.GetRepository<TopicTag>().Add(item.Value.ToType<int>(), newTopic.ToType<int>());
-                                }
-                            });
-                    }
                 }
 
                 if (attachPollParameter.IsNotSet() || !this.PostOptions1.PollChecked)
@@ -1279,13 +1292,6 @@ namespace YAF.Pages
                                                        };
 
             this.PreviewMessagePost.Message = this.forumEditor.Text;
-        }
-
-        protected void Tags_OnSelectedIndexChanged(object sender, EventArgs e)
-        {
-            var results = Request.Form[this.Tags.UniqueID].Split(',');
-
-            results.ForEach(item => { this.Tags.Items.Add(new ListItem(item, item, true)); });
         }
 
         /// <summary>
@@ -1435,6 +1441,14 @@ namespace YAF.Pages
             this.EditReasonRow.Visible = true;
             this.ReasonEditor.Text = this.Server.HtmlDecode(currentMessage.EditReason);
             this.PostOptions1.PersistantChecked = currentMessage.Flags.IsPersistent;
+
+
+            var topicsList = this.GetRepository<TopicTag>().List(this.PageContext.PageTopicID);
+
+            if (topicsList.Any())
+            {
+                this.Tags.Text = topicsList.Select(t => t.Item2.TagName).ToDelimitedString(",");
+            }
         }
 
         /// <summary>
@@ -1493,6 +1507,8 @@ namespace YAF.Pages
             this.SubjectRow.Visible = false;
             this.DescriptionRow.Visible = false;
             this.StyleRow.Visible = false;
+            this.TagsHolder.Visible = false;
+
             this.Title.Text = this.GetText("reply");
 
             // add topic link...
@@ -1584,6 +1600,6 @@ namespace YAF.Pages
             this.PostAttachments1.Visible = !this.forumEditor.AllowsUploads && this.PageContext.ForumUploadAccess;
         }
 
-        #endregion
+#endregion
     }
 }
