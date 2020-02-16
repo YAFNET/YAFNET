@@ -1160,6 +1160,7 @@
     <Resource tag="FLOOT_DELAY">Retrasar las publicaciones abrumadoras:</Resource>
     <Resource tag="FLOOT_DELAY_HELP">Número de segundos antes de que otra publicación pueda ser introducida (no se aplica a administradores y moderadores).</Resource>
     <Resource tag="FORBIDDEN">Prohibido</Resource>
+    <Resource tag="FORCE_SEARCHINDED">Search Index Task started.</Resource>
     <Resource tag="FORUM_BASEURLMASK">Forum Base URL Mask:</Resource>
     <Resource tag="FORUM_BASEURLMASK_HELP">The full forward-facing url to this forum.</Resource>
     <Resource tag="FORUM_EDITOR">Editor del foro:</Resource>

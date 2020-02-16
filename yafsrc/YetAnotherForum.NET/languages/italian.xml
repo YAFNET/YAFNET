@@ -1158,6 +1158,7 @@
     <Resource tag="FLOOT_DELAY">Post Flood Delay:</Resource>
     <Resource tag="FLOOT_DELAY_HELP">Number of seconds before another post can be entered (Does not apply to admins or mods).</Resource>
     <Resource tag="FORBIDDEN">Forbidden</Resource>
+    <Resource tag="FORCE_SEARCHINDED">Search Index Task started.</Resource>
     <Resource tag="FORUM_BASEURLMASK">Forum Base URL Mask:</Resource>
     <Resource tag="FORUM_BASEURLMASK_HELP">The full forward-facing url to this forum.</Resource>
     <Resource tag="FORUM_EDITOR">Forum Editor:</Resource>

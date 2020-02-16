@@ -1157,6 +1157,7 @@
     <Resource tag="FLOOT_DELAY">تاخیر میان ارسال:</Resource>
     <Resource tag="FLOOT_DELAY_HELP">تعداد ثانیه ها قبل از ارسالی دیگر را می‌توانید وارد کنید. (این تنظیم محدودیتی برای مدیران و ناظران ایجاد نمی کند)</Resource>
     <Resource tag="FORBIDDEN">ممنوعیت</Resource>
+    <Resource tag="FORCE_SEARCHINDED">Search Index Task started.</Resource>
     <Resource tag="FORUM_BASEURLMASK">قالب دسترسی پایه‌ی انجمن</Resource>
     <Resource tag="FORUM_BASEURLMASK_HELP">The full forward-facing url to this forum.</Resource>
     <Resource tag="FORUM_EDITOR">ویرایشگر انجمن :</Resource>

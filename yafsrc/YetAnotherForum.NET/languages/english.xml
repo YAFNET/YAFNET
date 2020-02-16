@@ -455,7 +455,6 @@
   <Resource tag="TITLE">Delete Forum</Resource>
  </page>
  <page name="ADMIN_DIGEST">
-  <Resource tag="CONFIRM_FORCE">Are you sure you want to schedule a digest send right now?</Resource>
   <Resource tag="DIGEST_EMAIL">Email:</Resource>
   <Resource tag="DIGEST_EMAIL_HELP">Send a test digest to the email.</Resource>
   <Resource tag="DIGEST_ENABLED">Digest Enabled:</Resource>
@@ -1113,6 +1112,7 @@
   <Resource tag="EXTERN_SEARCH_PERMISS_HELP">Allow external search to:</Resource>
   <Resource tag="FAVTOPIC_FEEDS_ACCESS">Favorite Topics Feeds Access:</Resource>
   <Resource tag="FAVTOPIC_FEEDS_ACCESS_HELP">Restrict display of active topics feeds.</Resource>
+   <Resource tag="FORCE_SEARCHINDED">Search Index Task started.</Resource>
   <Resource tag="FILE_TABLE">Use File Table:</Resource>
   <Resource tag="FILE_TABLE_HELP">Uploaded files will be saved in the database instead of the file system.</Resource>
   <Resource tag="FLOOT_DELAY">Post Flood Delay:</Resource>

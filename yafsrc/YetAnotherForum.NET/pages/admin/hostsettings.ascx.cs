@@ -26,19 +26,18 @@ namespace YAF.Pages.Admin
 
     using System;
     using System.Linq;
+    using System.ServiceModel.Security;
     using System.Web.UI.WebControls;
 
     using YAF.Configuration;
     using YAF.Core;
     using YAF.Core.Helpers;
-    using YAF.Core.Model;
     using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
-    using YAF.Types.Models;
     using YAF.Utils;
     using YAF.Utils.Helpers;
     using YAF.Web.Extensions;
@@ -65,6 +64,8 @@ namespace YAF.Pages.Admin
         {
             this.Get<BoardSettings>().ForceUpdateSearchIndex = true;
             ((YafLoadBoardSettings)YafContext.Current.BoardSettings).SaveRegistry();
+
+            this.PageContext.AddLoadMessage(this.GetText("FORCE_SEARCHINDED"), MessageTypes.info);
         }
 
         /// <summary>
@@ -166,10 +167,6 @@ namespace YAF.Pages.Admin
             YafContext.Current.PageElements.RegisterJsBlock(
                 "yafTabsJs",
                 JavaScriptBlocks.BootstrapNavsLoadJs("v-pills-tab", this.hidLastTab.ClientID));
-
-            this.PageContext.PageElements.RegisterJsBlockStartup(
-                "BlockUIExecuteJs",
-                JavaScriptBlocks.BlockUiExecuteJs("SearchIndexMessage", $"#{this.IndexSearch.ClientID}"));
 
             base.OnPreRender(e);
         }

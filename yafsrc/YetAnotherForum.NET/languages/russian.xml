@@ -1157,6 +1157,7 @@
     <Resource tag="FLOOT_DELAY">Задержка следующего поста:</Resource>
     <Resource tag="FLOOT_DELAY_HELP">Число секунд до того, как может быть размещено следующее сообщение(Не относится к администраторам и модераторам).</Resource>
     <Resource tag="FORBIDDEN">Запрещено</Resource>
+    <Resource tag="FORCE_SEARCHINDED">Search Index Task started.</Resource>
     <Resource tag="FORUM_BASEURLMASK">Forum Base URL Mask:</Resource>
     <Resource tag="FORUM_BASEURLMASK_HELP">The full forward-facing url to this forum.</Resource>
     <Resource tag="FORUM_EDITOR">Редактор форума:</Resource>

@@ -1158,6 +1158,7 @@
     <Resource tag="FLOOT_DELAY">Post interval timeout:</Resource>
     <Resource tag="FLOOT_DELAY_HELP">Aantal seconden voordat een nieuwe post gemaakt kan worden. (Geldt niet voor Admins of Mods).</Resource>
     <Resource tag="FORBIDDEN">Uitgeschakeld</Resource>
+    <Resource tag="FORCE_SEARCHINDED">Search Index Task started.</Resource>
     <Resource tag="FORUM_BASEURLMASK">Forum Base URL Mask:</Resource>
     <Resource tag="FORUM_BASEURLMASK_HELP">The full forward-facing url to this forum.</Resource>
     <Resource tag="FORUM_EDITOR">Forum Tekstverwerker:</Resource>
