@@ -41,6 +41,8 @@
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\blueimp-gallery.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\blueimp-gallery-indicator.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\bootstrap.bundle.js" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\bootstrap-tagsinput.js" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\bootstrap-typeahead.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\bootstrap-datetimepicker.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\bootstrap-image-gallery.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\bootstrap-notify.js" />
@@ -84,6 +86,7 @@
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\bootstrap-datetimepicker.css" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\bootstrap-image-gallery.css" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\bootstrap-notify.css" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\bootstrap-tagsinput.css" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\forum-admin.css" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\jquery.bootstrap-touchspin.css" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\jquery.emojipicker.css" />
