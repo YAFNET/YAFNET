@@ -1,38 +1,44 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Reflection;
 namespace ServiceStack.OrmLite.Dapper
 {
-    using System.Dynamic;
-    using System.Linq.Expressions;
-
     public static partial class SqlMapper
     {
+        private sealed partial class DapperRow : System.Dynamic.IDynamicMetaObjectProvider
+        {
+            System.Dynamic.DynamicMetaObject System.Dynamic.IDynamicMetaObjectProvider.GetMetaObject(
+    System.Linq.Expressions.Expression parameter)
+            {
+                return new DapperRowMetaObject(parameter, System.Dynamic.BindingRestrictions.Empty, this);
+            }
+        }
+
         private sealed class DapperRowMetaObject : System.Dynamic.DynamicMetaObject
         {
             private static readonly MethodInfo getValueMethod = typeof(IDictionary<string, object>).GetProperty("Item").GetGetMethod();
-            private static readonly MethodInfo setValueMethod = typeof(DapperRow).GetMethod("SetValue", new[] { typeof(string), typeof(object) });
+            private static readonly MethodInfo setValueMethod = typeof(DapperRow).GetMethod("SetValue", new Type[] { typeof(string), typeof(object) });
 
             public DapperRowMetaObject(
-                Expression expression,
-                BindingRestrictions restrictions
+                System.Linq.Expressions.Expression expression,
+                System.Dynamic.BindingRestrictions restrictions
                 )
                 : base(expression, restrictions)
             {
             }
 
             public DapperRowMetaObject(
-                Expression expression,
-                BindingRestrictions restrictions,
+                System.Linq.Expressions.Expression expression,
+                System.Dynamic.BindingRestrictions restrictions,
                 object value
                 )
                 : base(expression, restrictions, value)
             {
             }
 
-            private DynamicMetaObject CallMethod(
+            private System.Dynamic.DynamicMetaObject CallMethod(
                 MethodInfo method,
-                Expression[] parameters
+                System.Linq.Expressions.Expression[] parameters
                 )
             {
                 var callMethod = new System.Dynamic.DynamicMetaObject(
@@ -45,9 +51,9 @@ namespace ServiceStack.OrmLite.Dapper
                 return callMethod;
             }
 
-            public override DynamicMetaObject BindGetMember(GetMemberBinder binder)
+            public override System.Dynamic.DynamicMetaObject BindGetMember(System.Dynamic.GetMemberBinder binder)
             {
-                var parameters = new Expression[]
+                var parameters = new System.Linq.Expressions.Expression[]
                                      {
                                          System.Linq.Expressions.Expression.Constant(binder.Name)
                                      };
@@ -58,9 +64,9 @@ namespace ServiceStack.OrmLite.Dapper
             }
 
             // Needed for Visual basic dynamic support
-            public override DynamicMetaObject BindInvokeMember(InvokeMemberBinder binder, DynamicMetaObject[] args)
+            public override System.Dynamic.DynamicMetaObject BindInvokeMember(System.Dynamic.InvokeMemberBinder binder, System.Dynamic.DynamicMetaObject[] args)
             {
-                var parameters = new Expression[]
+                var parameters = new System.Linq.Expressions.Expression[]
                                      {
                                          System.Linq.Expressions.Expression.Constant(binder.Name)
                                      };
@@ -70,9 +76,9 @@ namespace ServiceStack.OrmLite.Dapper
                 return callMethod;
             }
 
-            public override DynamicMetaObject BindSetMember(SetMemberBinder binder, DynamicMetaObject value)
+            public override System.Dynamic.DynamicMetaObject BindSetMember(System.Dynamic.SetMemberBinder binder, System.Dynamic.DynamicMetaObject value)
             {
-                var parameters = new[]
+                var parameters = new System.Linq.Expressions.Expression[]
                                      {
                                          System.Linq.Expressions.Expression.Constant(binder.Name),
                                          value.Expression,
@@ -81,6 +87,13 @@ namespace ServiceStack.OrmLite.Dapper
                 var callMethod = CallMethod(setValueMethod, parameters);
 
                 return callMethod;
+            }
+
+            static readonly string[] s_nixKeys = new string[0];
+            public override IEnumerable<string> GetDynamicMemberNames()
+            {
+                if(HasValue && Value is IDictionary<string, object> lookup) return lookup.Keys;
+                return s_nixKeys;
             }
         }
     }

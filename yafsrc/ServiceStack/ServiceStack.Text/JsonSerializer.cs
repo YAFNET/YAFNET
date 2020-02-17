@@ -14,6 +14,8 @@ using System;
 using System.IO;
 using System.Net;
 using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 using ServiceStack.Text.Common;
 using ServiceStack.Text.Json;
 
@@ -29,17 +31,35 @@ namespace ServiceStack.Text
             JsConfig.InitStatics();
         }
 
-        public static Encoding UTF8Encoding = PclExport.Instance.GetUTF8Encoding(false);
+        public static int BufferSize = 1024;
+
+        [Obsolete("Use JsConfig.UTF8Encoding")]
+        public static UTF8Encoding UTF8Encoding
+        {
+            get => JsConfig.UTF8Encoding;
+            set => JsConfig.UTF8Encoding = value;
+        }
 
         public static T DeserializeFromString<T>(string value)
         {
-            if (string.IsNullOrEmpty(value)) return default(T);
-            return (T)JsonReader<T>.Parse(value);
+            return JsonReader<T>.Parse(value) is T obj ? obj : default(T);
+        }
+
+        public static T DeserializeFromSpan<T>(ReadOnlySpan<char> value)
+        {
+            return JsonReader<T>.Parse(value) is T obj ? obj : default(T);
         }
 
         public static T DeserializeFromReader<T>(TextReader reader)
         {
             return DeserializeFromString<T>(reader.ReadToEnd());
+        }
+
+        public static object DeserializeFromSpan(Type type, ReadOnlySpan<char> value)
+        {
+            return value.IsEmpty
+                ? null
+                : JsonReader.GetParseSpanFn(type)(value);
         }
 
         public static object DeserializeFromString(string value, Type type)
@@ -61,7 +81,6 @@ namespace ServiceStack.Text
             {
                 return SerializeToString(value, value.GetType());
             }
-
             if (typeof(T).IsAbstract || typeof(T).IsInterface)
             {
                 JsState.IsWritingDynamic = true;
@@ -79,7 +98,6 @@ namespace ServiceStack.Text
             {
                 JsonWriter<T>.WriteRootObject(writer, value);
             }
-
             return StringWriterThreadStatic.ReturnAndFree(writer);
         }
 
@@ -96,7 +114,6 @@ namespace ServiceStack.Text
             {
                 JsonWriter.GetWriteFn(type)(writer, value);
             }
-
             return StringWriterThreadStatic.ReturnAndFree(writer);
         }
 
@@ -150,7 +167,7 @@ namespace ServiceStack.Text
             }
             else
             {
-                var writer = new StreamWriter(stream, UTF8Encoding);
+                var writer = new StreamWriter(stream, JsConfig.UTF8Encoding, BufferSize, leaveOpen:true);
                 JsonWriter<T>.WriteRootObject(writer, value);
                 writer.Flush();
             }
@@ -158,46 +175,47 @@ namespace ServiceStack.Text
 
         public static void SerializeToStream(object value, Type type, Stream stream)
         {
-            var writer = new StreamWriter(stream, UTF8Encoding);
+            var writer = new StreamWriter(stream, JsConfig.UTF8Encoding, BufferSize, leaveOpen:true);
             JsonWriter.GetWriteFn(type)(writer, value);
             writer.Flush();
         }
 
         public static T DeserializeFromStream<T>(Stream stream)
         {
-            using (var reader = new StreamReader(stream, UTF8Encoding))
-            {
-                return DeserializeFromString<T>(reader.ReadToEnd());
-            }
+            return (T)MemoryProvider.Instance.Deserialize(stream, typeof(T), DeserializeFromSpan);
         }
 
         public static object DeserializeFromStream(Type type, Stream stream)
         {
-            using (var reader = new StreamReader(stream, UTF8Encoding))
-            {
-                return DeserializeFromString(reader.ReadToEnd(), type);
-            }
+            return MemoryProvider.Instance.Deserialize(stream, type, DeserializeFromSpan);
+        }
+
+        public static Task<object> DeserializeFromStreamAsync(Type type, Stream stream)
+        {
+            return MemoryProvider.Instance.DeserializeAsync(stream, type, DeserializeFromSpan);
+        }
+
+        public static async Task<T> DeserializeFromStreamAsync<T>(Stream stream)
+        {
+            var obj = await MemoryProvider.Instance.DeserializeAsync(stream, typeof(T), DeserializeFromSpan);
+            return (T)obj;
         }
 
         public static T DeserializeResponse<T>(WebRequest webRequest)
         {
             using (var webRes = PclExport.Instance.GetResponse(webRequest))
+            using (var stream = webRes.GetResponseStream())
             {
-                using (var stream = webRes.GetResponseStream())
-                {
-                    return DeserializeFromStream<T>(stream);
-                }
+                return DeserializeFromStream<T>(stream);
             }
         }
 
         public static object DeserializeResponse<T>(Type type, WebRequest webRequest)
         {
             using (var webRes = PclExport.Instance.GetResponse(webRequest))
+            using (var stream = webRes.GetResponseStream())
             {
-                using (var stream = webRes.GetResponseStream())
-                {
-                    return DeserializeFromStream(type, stream);
-                }
+                return DeserializeFromStream(type, stream);
             }
         }
 

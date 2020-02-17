@@ -6,13 +6,12 @@ using System.Reflection;
 using System.Reflection.Emit;
 using System.Text.RegularExpressions;
 using System.Threading;
-
+using ServiceStack.Text;
 using PropertyAttributes = System.Reflection.PropertyAttributes;
 
 namespace ServiceStack.OrmLite
 {
 #if !NO_EXPRESSIONS
-
     /// <summary>
     /// Nice SqlBuilder class by @samsaffron from Dapper.Contrib:
     /// http://samsaffron.com/archive/2011/09/05/Digging+ourselves+out+of+the+mess+Linq-2-SQL+created
@@ -90,9 +89,9 @@ namespace ServiceStack.OrmLite
                 foreach (var p in properties)
                 {
                     // Generate a private field
-                    var field = typeBuilder.DefineField($"_{p.Name}", p.Type, FieldAttributes.Private);
+                    var field = typeBuilder.DefineField("_" + p.Name, p.Type, FieldAttributes.Private);
 
-                    // set default values with Emit for popular types
+                    //set default values with Emit for popular types
                     if (p.Type == typeof(int))
                     {
                         ctorIL.Emit(OpCodes.Ldarg_0);
@@ -113,14 +112,14 @@ namespace ServiceStack.OrmLite
                     }
                     else
                     {
-                        unsetValues.Add(p); // otherwise use reflection
+                        unsetValues.Add(p); //otherwise use reflection
                     }
 
                     // Generate a public property
                     var property = typeBuilder.DefineProperty(p.Name, PropertyAttributes.None, p.Type, new[] { p.Type });
 
                     // Define the "get" accessor method for current private field.
-                    var currGetPropMthdBldr = typeBuilder.DefineMethod($"get_{p.Name}", GetSetAttr, p.Type, Type.EmptyTypes);
+                    var currGetPropMthdBldr = typeBuilder.DefineMethod("get_" + p.Name, GetSetAttr, p.Type, Type.EmptyTypes);
 
                     // Get Property impl
                     var currGetIL = currGetPropMthdBldr.GetILGenerator();
@@ -129,7 +128,7 @@ namespace ServiceStack.OrmLite
                     currGetIL.Emit(OpCodes.Ret);
 
                     // Define the "set" accessor method for current private field.
-                    var currSetPropMthdBldr = typeBuilder.DefineMethod($"set_{p.Name}", GetSetAttr, null, new[] { p.Type });
+                    var currSetPropMthdBldr = typeBuilder.DefineMethod("set_" + p.Name, GetSetAttr, null, new[] { p.Type });
 
                     // Set Property impl
                     var currSetIL = currSetPropMthdBldr.GetILGenerator();
@@ -152,7 +151,7 @@ namespace ServiceStack.OrmLite
 #endif
                 var instance = Activator.CreateInstance(generetedType);
 
-                // Using reflection for less property types. Not caching since it's a generated type.
+                //Using reflection for less property types. Not caching since it's a generated type.
                 foreach (var p in unsetValues)
                 {
                     generetedType.GetProperty(p.Name).GetSetMethod().Invoke(instance, new[] { p.Value });
@@ -181,7 +180,6 @@ namespace ServiceStack.OrmLite
                 {
                     p.AddDynamicParams(item.Parameters);
                 }
-
                 return prefix + string.Join(joiner, this.Select(c => c.Sql).ToArray()) + postfix;
             }
         }
@@ -212,13 +210,12 @@ namespace ServiceStack.OrmLite
 
                     foreach (var pair in builder.data)
                     {
-                        rawSql = rawSql.Replace($"/**{pair.Key}**/", pair.Value.ResolveClauses(p));
+                        rawSql = rawSql.Replace("/**" + pair.Key + "**/", pair.Value.ResolveClauses(p));
                     }
-
                     parameters = p.CreateDynamicType();
 
                     // replace all that is left with empty
-                    rawSql = regex.Replace(rawSql, string.Empty);
+                    rawSql = regex.Replace(rawSql, "");
 
                     dataSeq = builder.seq;
                 }
@@ -250,12 +247,12 @@ namespace ServiceStack.OrmLite
 
         void AddClause(string name, string sql, object parameters, string joiner, string prefix = "", string postfix = "")
         {
-            if (!data.TryGetValue(name, out var clauses))
+            Clauses clauses;
+            if (!data.TryGetValue(name, out clauses))
             {
                 clauses = new Clauses(joiner, prefix, postfix);
                 data[name] = clauses;
             }
-
             clauses.Add(new Clause { Sql = sql, Parameters = parameters });
             seq++;
         }
@@ -281,13 +278,13 @@ namespace ServiceStack.OrmLite
 
         public SqlBuilder Select(string sql, object parameters = null)
         {
-            AddClause("select", sql, parameters, " , ", prefix: string.Empty, postfix: "\n");
+            AddClause("select", sql, parameters, " , ", prefix: "", postfix: "\n");
             return this;
         }
 
         public SqlBuilder AddParameters(object parameters)
         {
-            AddClause("--parameters", string.Empty, parameters, string.Empty);
+            AddClause("--parameters", "", parameters, "");
             return this;
         }
 

@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -13,7 +14,7 @@ namespace ServiceStack.Text
 {
     public class CsvSerializer
     {
-        // Don't emit UTF8 BOM by default
+        //Don't emit UTF8 BOM by default
         public static Encoding UseEncoding { get; set; } = PclExport.Instance.GetUTF8Encoding(false);
 
         private static Dictionary<Type, WriteObjectDelegate> WriteFnCache = new Dictionary<Type, WriteObjectDelegate>();
@@ -34,11 +35,9 @@ namespace ServiceStack.Text
                 do
                 {
                     snapshot = WriteFnCache;
-                    newCache = new Dictionary<Type, WriteObjectDelegate>(WriteFnCache);
-                    newCache[type] = writeFn;
+                    newCache = new Dictionary<Type, WriteObjectDelegate>(WriteFnCache) {[type] = writeFn};
 
-                }
- while (!ReferenceEquals(
+                } while (!ReferenceEquals(
                     Interlocked.CompareExchange(ref WriteFnCache, newCache, snapshot), snapshot));
 
                 return writeFn;
@@ -68,11 +67,9 @@ namespace ServiceStack.Text
                 do
                 {
                     snapshot = ReadFnCache;
-                    newCache = new Dictionary<Type, ParseStringDelegate>(ReadFnCache);
-                    newCache[type] = writeFn;
+                    newCache = new Dictionary<Type, ParseStringDelegate>(ReadFnCache) {[type] = writeFn};
 
-                }
- while (!ReferenceEquals(
+                } while (!ReferenceEquals(
                     Interlocked.CompareExchange(ref ReadFnCache, newCache, snapshot), snapshot));
 
                 return writeFn;
@@ -109,7 +106,6 @@ namespace ServiceStack.Text
                 writer.Write(value);
                 return;
             }
-
             CsvSerializer<T>.WriteObject(writer, value);
         }
 
@@ -155,7 +151,7 @@ namespace ServiceStack.Text
 
         public static T DeserializeFromString<T>(string text)
         {
-            if (string.IsNullOrEmpty(text)) return default(T);
+            if (string.IsNullOrEmpty(text)) return default;
             var results = CsvSerializer<T>.ReadObject(text);
             return ConvertFrom<T>(results);
         }
@@ -163,10 +159,19 @@ namespace ServiceStack.Text
         public static object DeserializeFromString(Type type, string text)
         {
             if (string.IsNullOrEmpty(text)) return null;
-            var fn = GetReadFn(type);
-            var result = fn(text);
-            var converted = ConvertFrom(type, result);
-            return converted;
+            var hold = JsState.IsCsv;
+            JsState.IsCsv = true;
+            try
+            {
+                var fn = GetReadFn(type);
+                var result = fn(text);
+                var converted = ConvertFrom(type, result);
+                return converted;
+            }
+            finally
+            {
+                JsState.IsCsv = hold;
+            }
         }
 
         public static void WriteLateBoundObject(TextWriter writer, object value)
@@ -256,8 +261,8 @@ namespace ServiceStack.Text
 
         private const string IgnoreResponseStatus = "ResponseStatus";
 
-        private static GetMemberDelegate valueGetter;
-        private static WriteObjectDelegate writeElementFn;
+        private static GetMemberDelegate valueGetter = null;
+        private static WriteObjectDelegate writeElementFn = null;
 
         private static WriteObjectDelegate GetWriteFn()
         {
@@ -270,13 +275,13 @@ namespace ServiceStack.Text
                 return JsvWriter<T>.WriteObject;
             }
 
-            // If type is an enumerable property itself write that
+            //If type is an enumerable property itself write that
             bestCandidateEnumerableType = typeof(T).GetTypeWithGenericTypeDefinitionOf(typeof(IEnumerable<>));
             if (bestCandidateEnumerableType != null)
             {
-                var dictionarOrKvps = typeof(T).HasInterface(typeof(IEnumerable<KeyValuePair<string, object>>))
-                                   || typeof(T).HasInterface(typeof(IEnumerable<KeyValuePair<string, string>>));
-                if (dictionarOrKvps)
+                var dictionaryOrKvps = typeof(T).HasInterface(typeof(IEnumerable<KeyValuePair<string, object>>))
+                                    || typeof(T).HasInterface(typeof(IEnumerable<KeyValuePair<string, string>>));
+                if (dictionaryOrKvps)
                 {
                     return WriteSelf;
                 }
@@ -287,7 +292,7 @@ namespace ServiceStack.Text
                 return WriteEnumerableType;
             }
 
-            // Look for best candidate property if DTO
+            //Look for best candidate property if DTO
             if (typeof(T).IsDto() || typeof(T).HasAttribute<CsvAttribute>())
             {
                 var properties = TypeConfig<T>.Properties;
@@ -317,14 +322,14 @@ namespace ServiceStack.Text
                 }
             }
 
-            // If is not DTO or no candidates exist, write self
+            //If is not DTO or no candidates exist, write self
             var noCandidatesExist = bestCandidate == null && firstCandidate == null;
             if (noCandidatesExist)
             {
                 return WriteSelf;
             }
 
-            // If is DTO and has an enumerable property serialize that
+            //If is DTO and has an enumerable property serialize that
             if (bestCandidateEnumerableType != null)
             {
                 valueGetter = bestCandidate.CreateGetter();
@@ -334,7 +339,7 @@ namespace ServiceStack.Text
                 return WriteEnumerableProperty;
             }
 
-            // If is DTO and has non-enumerable, reference type property serialize that
+            //If is DTO and has non-enumerable, reference type property serialize that
             valueGetter = firstCandidate.CreateGetter();
             writeElementFn = CreateWriteRowFn(firstCandidate.PropertyType);
 
@@ -371,7 +376,7 @@ namespace ServiceStack.Text
 
         public static void WriteEnumerableProperty(TextWriter writer, object obj)
         {
-            if (obj == null) return; // AOT
+            if (obj == null) return; //AOT
 
             var enumerableProperty = valueGetter(obj);
             writeElementFn(writer, enumerableProperty);
@@ -418,8 +423,8 @@ namespace ServiceStack.Text
             return ReadCacheFn;
         }
 
-        private static SetMemberDelegate valueSetter;
-        private static ParseStringDelegate readElementFn;
+        private static SetMemberDelegate valueSetter = null;
+        private static ParseStringDelegate readElementFn = null;
 
         private static ParseStringDelegate GetReadFn()
         {
@@ -432,7 +437,7 @@ namespace ServiceStack.Text
                 return JsvReader<T>.Parse;
             }
 
-            // If type is an enumerable property itself write that
+            //If type is an enumerable property itself write that
             bestCandidateEnumerableType = typeof(T).GetTypeWithGenericTypeDefinitionOf(typeof(IEnumerable<>));
             if (bestCandidateEnumerableType != null)
             {
@@ -442,7 +447,7 @@ namespace ServiceStack.Text
                 return ReadEnumerableType;
             }
 
-            // Look for best candidate property if DTO
+            //Look for best candidate property if DTO
             if (typeof(T).IsDto() || typeof(T).HasAttribute<CsvAttribute>())
             {
                 var properties = TypeConfig<T>.Properties;
@@ -472,14 +477,14 @@ namespace ServiceStack.Text
                 }
             }
 
-            // If is not DTO or no candidates exist, write self
+            //If is not DTO or no candidates exist, write self
             var noCandidatesExist = bestCandidate == null && firstCandidate == null;
             if (noCandidatesExist)
             {
                 return ReadSelf;
             }
 
-            // If is DTO and has an enumerable property serialize that
+            //If is DTO and has an enumerable property serialize that
             if (bestCandidateEnumerableType != null)
             {
                 valueSetter = bestCandidate.CreateSetter();
@@ -489,7 +494,7 @@ namespace ServiceStack.Text
                 return ReadEnumerableProperty;
             }
 
-            // If is DTO and has non-enumerable, reference type property serialize that
+            //If is DTO and has non-enumerable, reference type property serialize that
             valueSetter = firstCandidate.CreateSetter();
             readElementFn = CreateReadRowFn(firstCandidate.PropertyType);
 
@@ -526,7 +531,7 @@ namespace ServiceStack.Text
 
         public static object ReadEnumerableProperty(string row)
         {
-            if (row == null) return null; // AOT
+            if (row == null) return null; //AOT
 
             var value = readElementFn(row);
             var to = typeof(T).CreateInstance();
@@ -536,7 +541,7 @@ namespace ServiceStack.Text
 
         public static object ReadNonEnumerableType(string row)
         {
-            if (row == null) return null; // AOT
+            if (row == null) return null; //AOT
 
             var value = readElementFn(row);
             var to = typeof(T).CreateInstance();
@@ -546,7 +551,7 @@ namespace ServiceStack.Text
 
         public static object ReadObject(string value)
         {
-            if (value == null) return null; // AOT
+            if (value == null) return null; //AOT
 
             var hold = JsState.IsCsv;
             JsState.IsCsv = true;

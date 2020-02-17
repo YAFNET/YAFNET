@@ -17,33 +17,52 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
-
 using ServiceStack.Text;
 using ServiceStack.Text.Common;
 using ServiceStack.Text.Support;
+using static System.String;
 
 namespace ServiceStack
 {
     public static class StringExtensions
     {
-        public static T To<T>(this string value)
+        /// <summary>
+        /// Converts from base: 0 - 62
+        /// </summary>
+        /// <param name="source">The source.</param>
+        /// <param name="from">From.</param>
+        /// <param name="to">To.</param>
+        /// <returns></returns>
+        public static string BaseConvert(this string source, int from, int to)
         {
-            return TypeSerializer.DeserializeFromString<T>(value);
-        }
+            var chars = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            var len = source.Length;
+            if (len == 0)
+                throw new Exception($"Parameter: '{source}' is not valid integer (in base {@from}).");
+            var minus = source[0] == '-' ? "-" : "";
+            var src = minus == "" ? source : source.Substring(1);
+            len = src.Length;
+            if (len == 0)
+                throw new Exception($"Parameter: '{source}' is not valid integer (in base {@from}).");
 
-        public static T To<T>(this string value, T defaultValue)
-        {
-            return string.IsNullOrEmpty(value) ? defaultValue : TypeSerializer.DeserializeFromString<T>(value);
-        }
+            var d = 0;
+            for (int i = 0; i < len; i++) // Convert to decimal
+            {
+                int c = chars.IndexOf(src[i]);
+                if (c >= from)
+                    throw new Exception($"Parameter: '{source}' is not valid integer (in base {@from}).");
+                d = d * from + c;
+            }
+            if (to == 10 || d == 0)
+                return minus + d;
 
-        public static T ToOrDefaultValue<T>(this string value)
-        {
-            return string.IsNullOrEmpty(value) ? default(T) : TypeSerializer.DeserializeFromString<T>(value);
-        }
-
-        public static object To(this string value, Type type)
-        {
-            return TypeSerializer.DeserializeFromString(value, type);
+            var result = "";
+            while (d > 0)   // Convert to desired
+            {
+                result = chars[d % to] + result;
+                d /= to;
+            }
+            return minus + result;
         }
 
         public static string EncodeXml(this string value)
@@ -53,8 +72,11 @@ namespace ServiceStack
 
         public static string EncodeJson(this string value)
         {
-            return
-                $"\"{value.Replace("\\", "\\\\").Replace("\"", "\\\"").Replace("\r", string.Empty).Replace("\n", "\\n")}\"";
+            return Concat
+            ("\"",
+                value.Replace("\\", "\\\\").Replace("\"", "\\\"").Replace("\r", "").Replace("\n", "\\n"),
+                "\""
+            );
         }
 
         public static string EncodeJsv(this string value)
@@ -63,10 +85,9 @@ namespace ServiceStack
             {
                 return UrlEncode(value);
             }
-
-            return string.IsNullOrEmpty(value) || !JsWriter.HasAnyEscapeChars(value)
+            return String.IsNullOrEmpty(value) || !JsWriter.HasAnyEscapeChars(value)
                 ? value
-                : string.Concat
+                : Concat
                     (
                         JsWriter.QuoteString,
                         value.Replace(JsWriter.QuoteString, TypeSerializer.DoubleQuoteString),
@@ -78,7 +99,7 @@ namespace ServiceStack
         {
             const int startingQuotePos = 1;
             const int endingQuotePos = 2;
-            return string.IsNullOrEmpty(value) || value[0] != JsWriter.QuoteChar
+            return String.IsNullOrEmpty(value) || value[0] != JsWriter.QuoteChar
                     ? value
                     : value.Substring(startingQuotePos, value.Length - endingQuotePos)
                         .Replace(TypeSerializer.DoubleQuoteString, JsWriter.QuoteString);
@@ -86,7 +107,8 @@ namespace ServiceStack
 
         public static string UrlEncode(this string text, bool upperCase=false)
         {
-            if (string.IsNullOrEmpty(text)) return text;
+            if (string.IsNullOrEmpty(text)) 
+                return text;
 
             var sb = StringBuilderThreadStatic.Allocate();
             var fmt = upperCase ? "X2" : "x2";
@@ -109,7 +131,7 @@ namespace ServiceStack
                 }
                 else
                 {
-                    sb.Append($"{'%'}{charCode.ToString(fmt)}");
+                    sb.Append('%' + charCode.ToString(fmt));
                 }
             }
 
@@ -118,7 +140,7 @@ namespace ServiceStack
 
         public static string UrlDecode(this string text)
         {
-            if (string.IsNullOrEmpty(text)) return null;
+            if (String.IsNullOrEmpty(text)) return null;
 
             var bytes = new List<byte>();
 
@@ -142,13 +164,13 @@ namespace ServiceStack
                 }
             }
 
-            var byteArray = bytes.ToArray();
+            byte[] byteArray = bytes.ToArray();
             return Encoding.UTF8.GetString(byteArray, 0, byteArray.Length);
         }
 
         public static string HexUnescape(this string text, params char[] anyCharOf)
         {
-            if (string.IsNullOrEmpty(text)) return null;
+            if (String.IsNullOrEmpty(text)) return null;
             if (anyCharOf == null || anyCharOf.Length == 0) return text;
 
             var sb = StringBuilderThreadStatic.Allocate();
@@ -181,7 +203,7 @@ namespace ServiceStack
                 encodedUrlComponents[i] = x.UrlEncode();
             }
 
-            return string.Format(url, encodedUrlComponents);
+            return Format(url, encodedUrlComponents);
         }
 
         public static string ToRot13(this string value)
@@ -192,27 +214,34 @@ namespace ServiceStack
                 var number = (int)array[i];
 
                 if (number >= 'a' && number <= 'z')
-                    number += number > 'm' ? -13 : 13;
+                    number += (number > 'm') ? -13 : 13;
+
                 else if (number >= 'A' && number <= 'Z')
-                    number += number > 'M' ? -13 : 13;
+                    number += (number > 'M') ? -13 : 13;
 
                 array[i] = (char)number;
             }
-
             return new string(array);
         }
 
+        private static char[] UrlPathDelims = new[] {'?', '#'};
+
+        public static string UrlWithTrailingSlash(this string url)
+        {
+            var endPos = url?.IndexOfAny(UrlPathDelims) ?? -1;
+            return endPos >= 0
+                ? url.Substring(0, endPos).WithTrailingSlash() + url.Substring(endPos)
+                : url.WithTrailingSlash();
+        }
+        
         public static string WithTrailingSlash(this string path)
         {
-            if (string.IsNullOrEmpty(path))
+            if (path == null)
                 throw new ArgumentNullException(nameof(path));
+            if (path == "")
+                return "/";
 
-            if (path[path.Length - 1] != '/')
-            {
-                return $"{path}/";
-            }
-
-            return path;
+            return path[path.Length - 1] != '/' ? path + "/" : path;
         }
 
         public static string AppendPath(this string uri, params string[] uriComponents)
@@ -230,7 +259,6 @@ namespace ServiceStack
                 if (i++ > 0) sb.Append('/');
                 sb.Append(uriComponent.UrlEncode());
             }
-
             return StringBuilderThreadStatic.ReturnAndFree(sb);
         }
 
@@ -244,14 +272,15 @@ namespace ServiceStack
                 if (i++ > 0) sb.Append('/');
                 sb.Append(uriComponent);
             }
-
             return StringBuilderThreadStatic.ReturnAndFree(sb);
         }
 
         public static string FromUtf8Bytes(this byte[] bytes)
         {
             return bytes == null ? null
-                : Encoding.UTF8.GetString(bytes, 0, bytes.Length);
+                : bytes.Length > 3 && bytes[0] == 0xEF && bytes[1] == 0xBB && bytes[2] == 0xBF  
+                    ? Encoding.UTF8.GetString(bytes, 3, bytes.Length - 3)
+                    : Encoding.UTF8.GetString(bytes, 0, bytes.Length);
         }
 
         public static byte[] ToUtf8Bytes(this string value)
@@ -284,10 +313,26 @@ namespace ServiceStack
             return FastToUtf8Bytes(doubleStr);
         }
 
+        public static string WithoutBom(this string value)
+        {
+            return value.Length > 0 && value[0] == 65279 
+                ? value.Substring(1) 
+                : value;
+        }
+
         // from JWT spec
         public static string ToBase64UrlSafe(this byte[] input)
         {
             var output = Convert.ToBase64String(input);
+            output = output.LeftPart('='); // Remove any trailing '='s
+            output = output.Replace('+', '-'); // 62nd char of encoding
+            output = output.Replace('/', '_'); // 63rd char of encoding
+            return output;
+        }
+
+        public static string ToBase64UrlSafe(this MemoryStream ms)
+        {
+            var output = Convert.ToBase64String(ms.GetBuffer(), 0, (int)ms.Length);
             output = output.LeftPart('='); // Remove any trailing '='s
             output = output.Replace('+', '-'); // 62nd char of encoding
             output = output.Replace('/', '_'); // 63rd char of encoding
@@ -300,9 +345,8 @@ namespace ServiceStack
             var output = input;
             output = output.Replace('-', '+'); // 62nd char of encoding
             output = output.Replace('_', '/'); // 63rd char of encoding
-            switch (output.Length % 4)
+            switch (output.Length % 4) // Pad with trailing '='s
             {
-                // Pad with trailing '='s
                 case 0: break; // No pad chars in this case
                 case 2: output += "=="; break; // Two pad chars
                 case 3: output += "="; break;  // One pad char
@@ -436,7 +480,7 @@ namespace ServiceStack
 
         public static string WithoutExtension(this string filePath)
         {
-            if (string.IsNullOrEmpty(filePath)) 
+            if (String.IsNullOrEmpty(filePath)) 
                 return null;
 
             var extPos = filePath.LastIndexOf('.');
@@ -448,16 +492,16 @@ namespace ServiceStack
 
         public static string GetExtension(this string filePath)
         {
-            if (string.IsNullOrEmpty(filePath)) 
+            if (String.IsNullOrEmpty(filePath)) 
                 return null;
 
             var extPos = filePath.LastIndexOf('.');
-            return extPos == -1 ? string.Empty : filePath.Substring(extPos);
+            return extPos == -1 ? Empty : filePath.Substring(extPos);
         }
 
         public static string ParentDirectory(this string filePath)
         {
-            if (string.IsNullOrEmpty(filePath)) return null;
+            if (String.IsNullOrEmpty(filePath)) return null;
 
             var dirSep = filePath.IndexOf(PclExport.Instance.DirSep) != -1
                          ? PclExport.Instance.DirSep
@@ -485,6 +529,11 @@ namespace ServiceStack
             return TypeSerializer.DeserializeFromString<T>(jsv);
         }
 
+        public static T FromJsvSpan<T>(this ReadOnlySpan<char> jsv)
+        {
+            return TypeSerializer.DeserializeFromSpan<T>(jsv);
+        }
+
         public static string ToJson<T>(this T obj)
         {
             return JsConfig.PreferInterfaces
@@ -504,6 +553,11 @@ namespace ServiceStack
             return JsonSerializer.DeserializeFromString<T>(json);
         }
 
+        public static T FromJsonSpan<T>(this ReadOnlySpan<char> json)
+        {
+            return JsonSerializer.DeserializeFromSpan<T>(json);
+        }
+
         public static string ToCsv<T>(this T obj)
         {
             return CsvSerializer.SerializeToString(obj);
@@ -514,24 +568,33 @@ namespace ServiceStack
             return CsvSerializer.DeserializeFromString<T>(csv);
         }
 
+        public static string FormatWith(this string text, params object[] args)
+        {
+            return Format(text, args);
+        }
+
         public static string Fmt(this string text, params object[] args)
         {
-            return string.Format(text, args);
+            return Format(text, args);
+        }
+        public static string Fmt(this string text, IFormatProvider provider, params object[] args)
+        {
+            return Format(provider, text, args);
         }
 
         public static string Fmt(this string text, object arg1)
         {
-            return string.Format(text, arg1);
+            return Format(text, arg1);
         }
 
         public static string Fmt(this string text, object arg1, object arg2)
         {
-            return string.Format(text, arg1, arg2);
+            return Format(text, arg1, arg2);
         }
 
         public static string Fmt(this string text, object arg1, object arg2, object arg3)
         {
-            return string.Format(text, arg1, arg2, arg3);
+            return Format(text, arg1, arg2, arg3);
         }
 
         public static bool StartsWithIgnoreCase(this string text, string startsWith)
@@ -594,23 +657,23 @@ namespace ServiceStack
 
         public static string ExtractContents(this string fromText, string uniqueMarker, string startAfter, string endAt)
         {
-            if (string.IsNullOrEmpty(uniqueMarker))
+            if (String.IsNullOrEmpty(uniqueMarker))
                 throw new ArgumentNullException(nameof(uniqueMarker));
-            if (string.IsNullOrEmpty(startAfter))
+            if (String.IsNullOrEmpty(startAfter))
                 throw new ArgumentNullException(nameof(startAfter));
-            if (string.IsNullOrEmpty(endAt))
+            if (String.IsNullOrEmpty(endAt))
                 throw new ArgumentNullException(nameof(endAt));
 
-            if (string.IsNullOrEmpty(fromText)) return null;
+            if (String.IsNullOrEmpty(fromText)) return null;
 
-            var markerPos = fromText.IndexOf(uniqueMarker);
+            var markerPos = fromText.IndexOf(uniqueMarker, StringComparison.Ordinal);
             if (markerPos == -1) return null;
 
-            var startPos = fromText.IndexOf(startAfter, markerPos);
+            var startPos = fromText.IndexOf(startAfter, markerPos, StringComparison.Ordinal);
             if (startPos == -1) return null;
             startPos += startAfter.Length;
 
-            var endPos = fromText.IndexOf(endAt, startPos);
+            var endPos = fromText.IndexOf(endAt, startPos, StringComparison.Ordinal);
             if (endPos == -1) endPos = fromText.Length;
 
             return fromText.Substring(startPos, endPos - startPos);
@@ -620,21 +683,22 @@ namespace ServiceStack
 
         public static string StripHtml(this string html)
         {
-            return string.IsNullOrEmpty(html) ? null : StripHtmlRegEx.Replace(html, string.Empty);
+            return String.IsNullOrEmpty(html) ? null : StripHtmlRegEx.Replace(html, "");
         }
 
         public static string Quoted(this string text)
         {
             return text == null || text.IndexOf('"') >= 0
                 ? text
-                : $"{'"'}{text}{'"'}";
+                : '"' + text + '"';
         }
 
         public static string StripQuotes(this string text)
         {
             return string.IsNullOrEmpty(text) || text.Length < 2
                 ? text
-                : text[0] == '"' && text[text.Length - 1] == '"'
+                : (text[0] == '"' && text[text.Length - 1] == '"') ||
+                  (text[0] == '\'' && text[text.Length - 1] == '\'')
                     ? text.Substring(1, text.Length - 2)
                     : text;
         }
@@ -644,15 +708,15 @@ namespace ServiceStack
 
         public static string StripMarkdownMarkup(this string markdown)
         {
-            if (string.IsNullOrEmpty(markdown)) return null;
-            markdown = StripBracketsRegEx.Replace(markdown, string.Empty);
-            markdown = StripBracesRegEx.Replace(markdown, string.Empty);
+            if (String.IsNullOrEmpty(markdown)) return null;
+            markdown = StripBracketsRegEx.Replace(markdown, "");
+            markdown = StripBracesRegEx.Replace(markdown, "");
             markdown = markdown
-                .Replace("*", string.Empty)
-                .Replace("!", string.Empty)
-                .Replace("\r", string.Empty)
-                .Replace("\n", string.Empty)
-                .Replace("#", string.Empty);
+                .Replace("*", "")
+                .Replace("!", "")
+                .Replace("\r", "")
+                .Replace("\n", "")
+                .Replace("#", "");
 
             return markdown;
         }
@@ -660,7 +724,8 @@ namespace ServiceStack
         private const int LowerCaseOffset = 'a' - 'A';
         public static string ToCamelCase(this string value)
         {
-            if (string.IsNullOrEmpty(value)) return value;
+            if (string.IsNullOrEmpty(value)) 
+                return value;
 
             var len = value.Length;
             var newValue = new char[len];
@@ -686,7 +751,8 @@ namespace ServiceStack
 
         public static string ToPascalCase(this string value)
         {
-            if (string.IsNullOrEmpty(value)) return value;
+            if (string.IsNullOrEmpty(value)) 
+                return value;
 
             if (value.IndexOf('_') >= 0)
             {
@@ -694,10 +760,11 @@ namespace ServiceStack
                 var sb = StringBuilderThreadStatic.Allocate();
                 foreach (var part in parts)
                 {
+                    if (string.IsNullOrEmpty(part))
+                        continue;
                     var str = part.ToCamelCase();
                     sb.Append(char.ToUpper(str[0]) + str.SafeSubstring(1, str.Length));
                 }
-
                 return StringBuilderThreadStatic.ReturnAndFree(sb);
             }
 
@@ -707,28 +774,27 @@ namespace ServiceStack
 
         public static string ToTitleCase(this string value)
         {
-            return CultureInfo.InvariantCulture.TextInfo.ToTitleCase(value).Replace("_", string.Empty);
+            return CultureInfo.InvariantCulture.TextInfo.ToTitleCase(value).Replace("_", String.Empty);
         }
 
         public static string ToLowercaseUnderscore(this string value)
         {
-            if (string.IsNullOrEmpty(value)) return value;
+            if (String.IsNullOrEmpty(value)) return value;
             value = value.ToCamelCase();
 
             var sb = StringBuilderThreadStatic.Allocate();
-            foreach (var t in value)
+            foreach (char t in value)
             {
-                if (char.IsDigit(t) || char.IsLetter(t) && char.IsLower(t) || t == '_')
+                if (char.IsDigit(t) || (char.IsLetter(t) && char.IsLower(t)) || t == '_')
                 {
                     sb.Append(t);
                 }
                 else
                 {
                     sb.Append("_");
-                    sb.Append(char.ToLowerInvariant(t));
+                    sb.Append(char.ToLower(t));
                 }
             }
-
             return StringBuilderThreadStatic.ReturnAndFree(sb);
         }
 
@@ -744,24 +810,28 @@ namespace ServiceStack
 
         public static string SafeSubstring(this string value, int startIndex)
         {
+            if (String.IsNullOrEmpty(value)) return Empty;
             return SafeSubstring(value, startIndex, value.Length);
         }
 
         public static string SafeSubstring(this string value, int startIndex, int length)
         {
-            if (string.IsNullOrEmpty(value)) return string.Empty;
+            if (String.IsNullOrEmpty(value) || length <= 0) return Empty;
             if (startIndex < 0) startIndex = 0;
-            if (value.Length >= startIndex + length)
+            if (value.Length >= (startIndex + length))
                 return value.Substring(startIndex, length);
 
-            return value.Length > startIndex ? value.Substring(startIndex) : string.Empty;
+            return value.Length > startIndex ? value.Substring(startIndex) : Empty;
         }
 
-        public static string SubstringWithElipsis(this string value, int startIndex, int length)
+        [Obsolete("typo")]
+        public static string SubstringWithElipsis(this string value, int startIndex, int length) => SubstringWithEllipsis(value, startIndex, length);
+
+        public static string SubstringWithEllipsis(this string value, int startIndex, int length)
         {
             var str = value.SafeSubstring(startIndex, length);
             return str.Length == length
-                ? $"{str}..."
+                ? str + "..."
                 : str;
         }
 
@@ -775,7 +845,7 @@ namespace ServiceStack
 
         public static int CompareIgnoreCase(this string strA, string strB)
         {
-            return string.Compare(strA, strB, PclExport.Instance.InvariantComparisonIgnoreCase);
+            return Compare(strA, strB, PclExport.Instance.InvariantComparisonIgnoreCase);
         }
 
         public static bool EndsWithInvariant(this string str, string endsWith)
@@ -796,7 +866,7 @@ namespace ServiceStack
 
         public static T ToEnumOrDefault<T>(this string value, T defaultValue)
         {
-            if (string.IsNullOrEmpty(value)) return defaultValue;
+            if (String.IsNullOrEmpty(value)) return defaultValue;
             return (T)Enum.Parse(typeof(T), value, true);
         }
 
@@ -822,23 +892,22 @@ namespace ServiceStack
             {
                 throw new ArgumentNullException(nameof(url));
             }
-
             return HttpRegex.Replace(url.Trim(), "https://");
         }
 
         public static bool IsEmpty(this string value)
         {
-            return string.IsNullOrEmpty(value);
+            return String.IsNullOrEmpty(value);
         }
 
         public static bool IsNullOrEmpty(this string value)
         {
-            return string.IsNullOrEmpty(value);
+            return String.IsNullOrEmpty(value);
         }
 
         public static bool EqualsIgnoreCase(this string value, string other)
         {
-            return string.Equals(value, other, StringComparison.CurrentCultureIgnoreCase);
+            return String.Equals(value, other, StringComparison.OrdinalIgnoreCase);
         }
 
         public static string ReplaceFirst(this string haystack, string needle, string replacement)
@@ -852,14 +921,15 @@ namespace ServiceStack
         public static string ReplaceAll(this string haystack, string needle, string replacement)
         {
             int pos;
-
             // Avoid a possible infinite loop
-            if (needle == replacement) return haystack;
-            while ((pos = haystack.IndexOf(needle, StringComparison.Ordinal)) > 0)
+            if (needle == replacement) 
+                return haystack;
+            while ((pos = haystack.IndexOf(needle, StringComparison.Ordinal)) >= 0)
             {
-                haystack = haystack.Substring(0, pos) + replacement + haystack.Substring(pos + needle.Length);
+                haystack = haystack.Substring(0, pos)
+                    + replacement
+                    + haystack.Substring(pos + needle.Length);
             }
-
             return haystack;
         }
 
@@ -869,9 +939,19 @@ namespace ServiceStack
             {
                 if (text.Contains(testMatch)) return true;
             }
-
             return false;
         }
+
+        public static bool ContainsAny(this string text, string[] testMatches, StringComparison comparisonType)
+        {
+            foreach (var testMatch in testMatches)
+            {
+                if (text.IndexOf(testMatch, comparisonType) >= 0) return true;
+            }
+            return false;
+        }
+      
+        public static bool IsValidVarName(this string name) => InvalidVarCharsRegex.IsMatch(name);
 
         public static string SafeVarName(this string text) => !string.IsNullOrEmpty(text) 
             ? InvalidVarCharsRegex.Replace(text, "_") : null;
@@ -905,8 +985,9 @@ namespace ServiceStack
             var copy = text.ToCharArray();
             var nonWsPos = 0;
 
-            foreach (var @char in text)
+            for (var i = 0; i < text.Length; i++)
             {
+                var @char = text[i];
                 if (@char < charFlags.Length && charFlags[@char]) continue;
                 copy[nonWsPos++] = @char;
             }
@@ -942,81 +1023,35 @@ namespace ServiceStack
 
         public static bool IsTuple(this Type type) => type.Name.StartsWith("Tuple`");
 
-        public static bool IsInt(this string text)
-        {
-            if (string.IsNullOrEmpty(text)) return false;
-            return int.TryParse(text, out var ret);
-        }
+        public static bool IsInt(this string text) => !string.IsNullOrEmpty(text) && int.TryParse(text, out _);
 
-        public static int ToInt(this string text)
-        {
-            return text == null ? default(int) : int.Parse(text);
-        }
+        public static int ToInt(this string text) => text == null ? default(int) : int.Parse(text);
 
-        public static int ToInt(this string text, int defaultValue)
-        {
-            return int.TryParse(text, out var ret) ? ret : defaultValue;
-        }
+        public static int ToInt(this string text, int defaultValue) => int.TryParse(text, out var ret) ? ret : defaultValue;
 
-        public static long ToInt64(this string text)
-        {
-            return long.Parse(text);
-        }
+        public static long ToInt64(this string text) => long.Parse(text);
 
-        public static long ToInt64(this string text, long defaultValue)
-        {
-            return long.TryParse(text, out var ret) ? ret : defaultValue;
-        }
+        public static long ToInt64(this string text, long defaultValue) => long.TryParse(text, out var ret) ? ret : defaultValue;
 
-        public static float ToFloat(this string text)
-        {
-            return text == null ? default(float) : float.Parse(text);
-        }
+        public static float ToFloat(this string text) => text == null ? default(float) : float.Parse(text);
 
-        public static float ToFloatInvariant(this string text)
-        {
-            return text == null ? default(float) : float.Parse(text, CultureInfo.InvariantCulture);
-        }
+        public static float ToFloatInvariant(this string text) => text == null ? default(float) : float.Parse(text, CultureInfo.InvariantCulture);
 
-        public static float ToFloat(this string text, float defaultValue)
-        {
-            return float.TryParse(text, out var ret) ? ret : defaultValue;
-        }
+        public static float ToFloat(this string text, float defaultValue) => float.TryParse(text, out var ret) ? ret : defaultValue;
 
-        public static double ToDouble(this string text)
-        {
-            return text == null ? default(double) : double.Parse(text);
-        }
+        public static double ToDouble(this string text) => text == null ? default(double) : double.Parse(text);
 
-        public static double ToDoubleInvariant(this string text)
-        {
-            return text == null ? default(double) : double.Parse(text, CultureInfo.InvariantCulture);
-        }
+        public static double ToDoubleInvariant(this string text) => text == null ? default(double) : double.Parse(text, CultureInfo.InvariantCulture);
 
-        public static double ToDouble(this string text, double defaultValue)
-        {
-            return double.TryParse(text, out var ret) ? ret : defaultValue;
-        }
+        public static double ToDouble(this string text, double defaultValue) => double.TryParse(text, out var ret) ? ret : defaultValue;
 
-        public static decimal ToDecimal(this string text)
-        {
-            return text == null ? default(decimal) : decimal.Parse(text);
-        }
+        public static decimal ToDecimal(this string text) => text == null ? default(decimal) : decimal.Parse(text);
 
-        public static decimal ToDecimalInvariant(this string text)
-        {
-            return text == null ? default(decimal) : decimal.Parse(text, CultureInfo.InvariantCulture);
-        }
+        public static decimal ToDecimalInvariant(this string text) => text == null ? default(decimal) : decimal.Parse(text, CultureInfo.InvariantCulture);
 
-        public static decimal ToDecimal(this string text, decimal defaultValue)
-        {
-            return decimal.TryParse(text, out var ret) ? ret : defaultValue;
-        }
+        public static decimal ToDecimal(this string text, decimal defaultValue) => decimal.TryParse(text, out var ret) ? ret : defaultValue;
 
-        public static bool Matches(this string value, string pattern)
-        {
-            return value.Glob(pattern);
-        }
+        public static bool Matches(this string value, string pattern) => value.Glob(pattern);
 
         public static bool Glob(this string value, string pattern)
         {
@@ -1029,12 +1064,11 @@ namespace ServiceStack
                         break;
 
                     case '*':
-                        for (var i = value.Length; i >= pos; i--)
+                        for (int i = value.Length; i >= pos; i--)
                         {
                             if (Glob(value.Substring(i), pattern.Substring(pos + 1)))
                                 return true;
                         }
-
                         return false;
 
                     default:
@@ -1042,7 +1076,6 @@ namespace ServiceStack
                         {
                             return false;
                         }
-
                         break;
                 }
             }
@@ -1055,7 +1088,7 @@ namespace ServiceStack
             if (string.IsNullOrEmpty(filePath) || string.IsNullOrEmpty(pattern))
                 return false;
 
-            var sanitizedPath = filePath.Replace('\\', '/');
+            var sanitizedPath = filePath.Replace('\\','/');
             if (sanitizedPath[0] == '/')
                 sanitizedPath = sanitizedPath.Substring(1);
             var sanitizedPattern = pattern.Replace('\\', '/');
@@ -1085,7 +1118,9 @@ namespace ServiceStack
             }
             else if (dirPattern.IndexOf('*') >= 0 || dirPattern.IndexOf('?') >= 0)
             {
-                var regex = new Regex($"^{Regex.Escape(dirPattern).Replace(@"\*", "[^\\/]*").Replace(@"\?", ".")}$");
+                var regex = new Regex(
+                    "^" + Regex.Escape(dirPattern).Replace(@"\*", "[^\\/]*").Replace(@"\?", ".") + "$"
+                );
                 if (!regex.IsMatch(dirPart))
                     return false;
             }
@@ -1123,12 +1158,12 @@ namespace ServiceStack
             return PclExport.Instance.GetAsciiBytes(value);
         }
 
-        public static Dictionary<string, string> ParseKeyValueText(this string text, string delimiter=" ")
+        public static Dictionary<string,string> ParseKeyValueText(this string text, string delimiter=" ")
         {
             var to = new Dictionary<string, string>();
             if (text == null) return to;
 
-            foreach (var parts in text.ReadLines().Select(line => line.SplitOnFirst(delimiter)))
+            foreach (var parts in text.ReadLines().Select(line => line.Trim().SplitOnFirst(delimiter)))
             {
                 var key = parts[0].Trim();
                 if (key.Length == 0 || key.StartsWith("#")) continue;
@@ -1138,29 +1173,33 @@ namespace ServiceStack
             return to;
         }
 
+        public static List<KeyValuePair<string,string>> ParseAsKeyValues(this string text, string delimiter=" ")
+        {
+            var to = new List<KeyValuePair<string,string>>();
+            if (text == null) return to;
+
+            foreach (var parts in text.ReadLines().Select(line => line.Trim().SplitOnFirst(delimiter)))
+            {
+                var key = parts[0].Trim();
+                if (key.Length == 0 || key.StartsWith("#")) continue;
+                to.Add(new KeyValuePair<string, string>(key, parts.Length == 2 ? parts[1].Trim() : null));
+            }
+
+            return to;
+        }
+
         public static IEnumerable<string> ReadLines(this string text)
         {
             string line;
-            var reader = new StringReader(text ?? string.Empty);
+            var reader = new StringReader(text ?? "");
             while ((line = reader.ReadLine()) != null)
             {
                 yield return line;
             }
         }
 
-        public static int CountOccurrencesOf(this string text, char needle)
-        {
-            var chars = text.ToCharArray();
-            var count = 0;
-            var length = chars.Length;
-            for (var n = length - 1; n >= 0; n--)
-            {
-                if (chars[n] == needle)
-                    count++;
-            }
-
-            return count;
-        }
+        public static int CountOccurrencesOf(this string text, char needle) =>
+            text.AsSpan().CountOccurrencesOf(needle);
 
         public static string NormalizeNewLines(this string text)
         {
@@ -1182,14 +1221,13 @@ namespace ServiceStack
                 var c = text[i];
                 if (encodeCharMap.Contains(c))
                 {
-                    sb.Append($"{'%'}{((int)c):x}");
+                    sb.Append('%' + ((int)c).ToString("x"));
                 }
                 else
                 {
                     sb.Append(c);
                 }
             }
-
             return StringBuilderThreadStatic.ReturnAndFree(sb);
         }
 
@@ -1202,8 +1240,37 @@ namespace ServiceStack
         {
             return XmlSerializer.DeserializeFromString<T>(json);
         }
-
 #endif
 
+    }
+}
+
+namespace ServiceStack.Text
+{
+    public static class StringTextExtensions
+    {
+        [Obsolete("Use ConvertTo<T>")]
+        public static T To<T>(this string value)
+        {
+            return TypeSerializer.DeserializeFromString<T>(value);
+        }
+
+        [Obsolete("Use ConvertTo<T>")]
+        public static T To<T>(this string value, T defaultValue)
+        {
+            return String.IsNullOrEmpty(value) ? defaultValue : TypeSerializer.DeserializeFromString<T>(value);
+        }
+
+        [Obsolete("Use ConvertTo<T>")]
+        public static T ToOrDefaultValue<T>(this string value)
+        {
+            return String.IsNullOrEmpty(value) ? default(T) : TypeSerializer.DeserializeFromString<T>(value);
+        }
+
+        [Obsolete("Use ConvertTo<T>")]
+        public static object To(this string value, Type type)
+        {
+            return TypeSerializer.DeserializeFromString(value, type);
+        }
     }
 }

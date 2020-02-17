@@ -1,6 +1,7 @@
 ﻿namespace ServiceStack.Text.Pools
 {
     // Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+
     using System;
     using System.Collections.Generic;
     using System.Text;
@@ -12,22 +13,29 @@
     {
         private readonly Action<ObjectPool<T>, T> _releaser;
         private readonly ObjectPool<T> _pool;
+        private T _pooledObject;
 
         public PooledObject(ObjectPool<T> pool, Func<ObjectPool<T>, T> allocator, Action<ObjectPool<T>, T> releaser) : this()
         {
-            this._pool = pool;
-            this.Object = allocator(pool);
-            this._releaser = releaser;
+            _pool = pool;
+            _pooledObject = allocator(pool);
+            _releaser = releaser;
         }
 
-        public T Object { get; private set; }
+        public T Object
+        {
+            get
+            {
+                return _pooledObject;
+            }
+        }
 
         public void Dispose()
         {
-            if (this.Object != null)
+            if (_pooledObject != null)
             {
-                this._releaser(this._pool, this.Object);
-                this.Object = null;
+                _releaser(_pool, _pooledObject);
+                _pooledObject = null;
             }
         }
 
@@ -61,7 +69,6 @@
         {
             return new PooledObject<List<TItem>>(pool, Allocator, Releaser);
         }
-
         #endregion
 
         #region allocators and releasers
@@ -124,7 +131,6 @@
         {
             pool.ClearAndFree(obj);
         }
-
         #endregion
     }
 }

@@ -1,12 +1,11 @@
 ﻿using System;
-using System.Data;
 using System.Data.Common;
+using System.Data;
 
 #pragma warning disable 1591 // xml doc comments warnings
 
 namespace ServiceStack.MiniProfiler.Data
 {
-    using System.Collections;
 
     public class ProfiledDbDataReader : DbDataReader
     {
@@ -93,7 +92,7 @@ namespace ServiceStack.MiniProfiler.Data
             return reader.GetDouble(ordinal);
         }
 
-        public override IEnumerator GetEnumerator()
+        public override System.Collections.IEnumerator GetEnumerator()
         {
             return ((System.Collections.IEnumerable)reader).GetEnumerator();
         }
@@ -143,7 +142,6 @@ namespace ServiceStack.MiniProfiler.Data
         {
             return reader.GetSchemaTable();
         }
-
 #endif
 
         public override string GetString(int ordinal)

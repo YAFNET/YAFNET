@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
@@ -161,16 +161,15 @@ namespace ServiceStack.OrmLite.Dapper
                 if (reader == null) throw new ObjectDisposedException(GetType().FullName, "The reader has been disposed; this can happen after all data has been consumed");
                 if (IsConsumed) throw new InvalidOperationException("Query results must be consumed in the correct order, and each result can only be consumed once");
                 var typedIdentity = identity.ForGrid(type, gridIndex);
-                var cache = GetCacheInfo(typedIdentity, null, addToCache);
+                CacheInfo cache = GetCacheInfo(typedIdentity, null, addToCache);
                 var deserializer = cache.Deserializer;
 
-                var hash = GetColumnHash(reader);
+                int hash = GetColumnHash(reader);
                 if (deserializer.Func == null || deserializer.Hash != hash)
                 {
                     deserializer = new DeserializerState(hash, GetDeserializer(type, reader, 0, -1, false));
                     cache.Deserializer = deserializer;
                 }
-
                 IsConsumed = true;
                 if (buffered && reader is DbDataReader)
                 {
@@ -198,30 +197,27 @@ namespace ServiceStack.OrmLite.Dapper
                 if (IsConsumed) throw new InvalidOperationException("Query results must be consumed in the correct order, and each result can only be consumed once");
 
                 IsConsumed = true;
-                var result = default(T);
+                T result = default(T);
                 if (await reader.ReadAsync(cancel).ConfigureAwait(false) && reader.FieldCount != 0)
                 {
                     var typedIdentity = identity.ForGrid(type, gridIndex);
-                    var cache = GetCacheInfo(typedIdentity, null, addToCache);
+                    CacheInfo cache = GetCacheInfo(typedIdentity, null, addToCache);
                     var deserializer = cache.Deserializer;
 
-                    var hash = GetColumnHash(reader);
+                    int hash = GetColumnHash(reader);
                     if (deserializer.Func == null || deserializer.Hash != hash)
                     {
                         deserializer = new DeserializerState(hash, GetDeserializer(type, reader, 0, -1, false));
                         cache.Deserializer = deserializer;
                     }
-
                     result = (T)deserializer.Func(reader);
                     if ((row & Row.Single) != 0 && await reader.ReadAsync(cancel).ConfigureAwait(false)) ThrowMultipleRows(row);
                     while (await reader.ReadAsync(cancel).ConfigureAwait(false)) { /* ignore subsequent rows */ }
                 }
-                else if ((row & Row.FirstOrDefault) == 0)
+                else if ((row & Row.FirstOrDefault) == 0) // demanding a row, and don't have one
                 {
-                    // demanding a row, and don't have one
                     ThrowZeroRows(row);
                 }
-
                 await NextResultAsync().ConfigureAwait(false);
                 return result;
             }
@@ -236,12 +232,10 @@ namespace ServiceStack.OrmLite.Dapper
                     {
                         buffer.Add((T)deserializer(reader));
                     }
-
                     return buffer;
                 }
-                finally
+                finally // finally so that First etc progresses things even when multiple rows
                 {
-                    // finally so that First etc progresses things even when multiple rows
                     if (index == gridIndex)
                     {
                         await NextResultAsync().ConfigureAwait(false);

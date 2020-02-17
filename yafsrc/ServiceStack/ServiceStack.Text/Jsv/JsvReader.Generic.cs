@@ -1,17 +1,11 @@
 //Copyright (c) ServiceStack, Inc. All Rights Reserved.
 //License: https://raw.github.com/ServiceStack/ServiceStack/master/license.txt
 
-#if NETSTANDARD2_0
-using Microsoft.Extensions.Primitives;
-#else
 using System;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using System.Threading;
-
+using System.Runtime.CompilerServices;
 using ServiceStack.Text.Common;
-
-#endif
 
 namespace ServiceStack.Text.Jsv
 {
@@ -21,27 +15,29 @@ namespace ServiceStack.Text.Jsv
 
         private static Dictionary<Type, ParseFactoryDelegate> ParseFnCache = new Dictionary<Type, ParseFactoryDelegate>();
 
-        public static ParseStringDelegate GetParseFn(Type type) => v => GetParseStringSegmentFn(type)(new StringSegment(v));
+        public static ParseStringDelegate GetParseFn(Type type) => v => GetParseStringSpanFn(type)(v.AsSpan());
 
-        public static ParseStringSegmentDelegate GetParseStringSegmentFn(Type type)
+        public static ParseStringSpanDelegate GetParseSpanFn(Type type) => v => GetParseStringSpanFn(type)(v);
+
+        public static ParseStringSpanDelegate GetParseStringSpanFn(Type type)
         {
             ParseFnCache.TryGetValue(type, out var parseFactoryFn);
 
             if (parseFactoryFn != null) return parseFactoryFn();
 
             var genericType = typeof(JsvReader<>).MakeGenericType(type);
-            var mi = genericType.GetStaticMethod("GetParseStringSegmentFn");
+            var mi = genericType.GetStaticMethod(nameof(GetParseStringSpanFn));
             parseFactoryFn = (ParseFactoryDelegate)mi.MakeDelegate(typeof(ParseFactoryDelegate));
 
             Dictionary<Type, ParseFactoryDelegate> snapshot, newCache;
             do
             {
                 snapshot = ParseFnCache;
-                newCache = new Dictionary<Type, ParseFactoryDelegate>(ParseFnCache);
-                newCache[type] = parseFactoryFn;
+                newCache = new Dictionary<Type, ParseFactoryDelegate>(ParseFnCache) {
+                    [type] = parseFactoryFn
+                };
 
-            }
- while (!ReferenceEquals(
+            } while (!ReferenceEquals(
                 Interlocked.CompareExchange(ref ParseFnCache, newCache, snapshot), snapshot));
 
             return parseFactoryFn();
@@ -50,16 +46,16 @@ namespace ServiceStack.Text.Jsv
         [MethodImpl(MethodImplOptions.NoInlining | MethodImplOptions.NoOptimization)]
         public static void InitAot<T>()
         {
-            Instance.GetParseFn<T>();
-            JsvReader<T>.Parse(null);
-            JsvReader<T>.GetParseFn();
-            JsvReader<T>.GetParseStringSegmentFn();
+            Text.Jsv.JsvReader.Instance.GetParseFn<T>();
+            Text.Jsv.JsvReader<T>.Parse(default(ReadOnlySpan<char>));
+            Text.Jsv.JsvReader<T>.GetParseFn();
+            Text.Jsv.JsvReader<T>.GetParseStringSpanFn();
         }
     }
 
     internal static class JsvReader<T>
     {
-        private static ParseStringSegmentDelegate ReadFn;
+        private static ParseStringSpanDelegate ReadFn;
 
         static JsvReader()
         {
@@ -73,34 +69,39 @@ namespace ServiceStack.Text.Jsv
             if (JsvReader.Instance == null)
                 return;
 
-            ReadFn = JsvReader.Instance.GetParseStringSegmentFn<T>();
+            ReadFn = JsvReader.Instance.GetParseStringSpanFn<T>();
         }
 
         public static ParseStringDelegate GetParseFn() => ReadFn != null
-            ? (ParseStringDelegate)(v => ReadFn(new StringSegment(v)))
+            ? (ParseStringDelegate)(v => ReadFn(v.AsSpan()))
             : Parse;
 
-        public static ParseStringSegmentDelegate GetParseStringSegmentFn() => ReadFn ?? Parse;
+        public static ParseStringSpanDelegate GetParseStringSpanFn() => ReadFn ?? Parse;
 
         public static object Parse(string value) => value != null
-            ? Parse(new StringSegment(value))
+            ? Parse(value.AsSpan())
             : null;
 
-        public static object Parse(StringSegment value)
+        public static object Parse(ReadOnlySpan<char> value)
         {
             TypeConfig<T>.Init();
+
+            value = value.WithoutBom();
 
             if (ReadFn == null)
             {
                 if (typeof(T).IsInterface)
                 {
-                    throw new NotSupportedException($"Can not deserialize interface type: {typeof(T).Name}");
+                    throw new NotSupportedException("Can not deserialize interface type: "
+                        + typeof(T).Name);
                 }
 
                 Refresh();
             }
 
-            return value.HasValue ? ReadFn(value) : null;
+            return !value.IsEmpty 
+                ? ReadFn(value) 
+                : null;
         }
     }
 }

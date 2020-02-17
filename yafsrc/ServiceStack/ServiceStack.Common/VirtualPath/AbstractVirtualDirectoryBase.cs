@@ -73,7 +73,7 @@ namespace ServiceStack.VirtualPath
                 : virtDir.GetDirectory(virtualPath);
         }
 
-        public virtual IEnumerable<IVirtualFile> GetAllMatchingFiles(string globPattern, int maxDepth = int.MaxValue)
+        public virtual IEnumerable<IVirtualFile> GetAllMatchingFiles(string globPattern, int maxDepth = Int32.MaxValue)
         {
             if (maxDepth == 0)
                 yield break;

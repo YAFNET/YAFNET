@@ -10,15 +10,14 @@
 // Licensed under the same terms of ServiceStack.
 //
 
+using System;
+using System.Globalization;
+using ServiceStack.Text.Common;
+
 namespace ServiceStack.Text
 {
-    using System;
-    using System.Globalization;
-
-    using ServiceStack.Text.Common;
-
     /// <summary>
-    /// A fast, standards-based, serialization-issue free DateTime serailizer.
+    /// A fast, standards-based, serialization-issue free DateTime serializer.
     /// </summary>
     public static class DateTimeExtensions
     {
@@ -32,9 +31,19 @@ namespace ServiceStack.Text
             return UnixEpochDateTimeUtc + TimeSpan.FromSeconds(unixTime);
         }
 
+        public static DateTime FromUnixTime(this double unixTime)
+        {
+            return UnixEpochDateTimeUtc + TimeSpan.FromSeconds(unixTime);
+        }
+
         public static DateTime FromUnixTime(this long unixTime)
         {
             return UnixEpochDateTimeUtc + TimeSpan.FromSeconds(unixTime);
+        }
+
+        public static long ToUnixTimeMsAlt(this DateTime dateTime)
+        {
+            return (dateTime.ToStableUniversalTime().Ticks - UnixEpoch) / TimeSpan.TicksPerMillisecond;
         }
 
         public static long ToUnixTimeMs(this DateTime dateTime)
@@ -45,7 +54,7 @@ namespace ServiceStack.Text
 
         public static long ToUnixTime(this DateTime dateTime)
         {
-            return dateTime.ToDateTimeSinceUnixEpoch().Ticks / TimeSpan.TicksPerSecond;
+            return (dateTime.ToDateTimeSinceUnixEpoch().Ticks) / TimeSpan.TicksPerSecond;
         }
 
         private static TimeSpan ToDateTimeSinceUnixEpoch(this DateTime dateTime)
@@ -82,9 +91,37 @@ namespace ServiceStack.Text
             return DateTime.SpecifyKind(UnixEpochDateTimeUnspecified + TimeSpan.FromMilliseconds(msSince1970) + offset, DateTimeKind.Local);
         }
 
+        public static DateTime FromUnixTimeMs(this double msSince1970, TimeSpan offset)
+        {
+            return DateTime.SpecifyKind(UnixEpochDateTimeUnspecified + TimeSpan.FromMilliseconds(msSince1970) + offset, DateTimeKind.Local);
+        }
+
+        public static DateTime FromUnixTimeMs(string msSince1970)
+        {
+            long ms;
+            if (long.TryParse(msSince1970, out ms)) return ms.FromUnixTimeMs();
+
+            // Do we really need to support fractional unix time ms time strings??
+            return double.Parse(msSince1970).FromUnixTimeMs();
+        }
+
+        public static DateTime FromUnixTimeMs(string msSince1970, TimeSpan offset)
+        {
+            long ms;
+            if (long.TryParse(msSince1970, out ms)) return ms.FromUnixTimeMs(offset);
+
+            // Do we really need to support fractional unix time ms time strings??
+            return double.Parse(msSince1970).FromUnixTimeMs(offset);
+        }
+
+        public static DateTime RoundToMs(this DateTime dateTime)
+        {
+            return new DateTime((dateTime.Ticks / TimeSpan.TicksPerMillisecond) * TimeSpan.TicksPerMillisecond, dateTime.Kind);
+        }
+
         public static DateTime RoundToSecond(this DateTime dateTime)
         {
-            return new DateTime(dateTime.Ticks / TimeSpan.TicksPerSecond * TimeSpan.TicksPerSecond, dateTime.Kind);
+            return new DateTime((dateTime.Ticks / TimeSpan.TicksPerSecond) * TimeSpan.TicksPerSecond, dateTime.Kind);
         }
 
         public static DateTime Truncate(this DateTime dateTime, TimeSpan timeSpan)
@@ -97,14 +134,24 @@ namespace ServiceStack.Text
             return DateTimeSerializer.ToShortestXsdDateTimeString(dateTime);
         }
 
+        public static DateTime FromShortestXsdDateTimeString(this string xsdDateTime)
+        {
+            return DateTimeSerializer.ParseShortestXsdDateTime(xsdDateTime);
+        }
+
+        public static bool IsEqualToTheSecond(this DateTime dateTime, DateTime otherDateTime)
+        {
+            return dateTime.ToStableUniversalTime().RoundToSecond().Equals(otherDateTime.ToStableUniversalTime().RoundToSecond());
+        }
+
         public static string ToTimeOffsetString(this TimeSpan offset, string seperator = "")
         {
             var hours = Math.Abs(offset.Hours).ToString(CultureInfo.InvariantCulture);
             var minutes = Math.Abs(offset.Minutes).ToString(CultureInfo.InvariantCulture);
             return (offset < TimeSpan.Zero ? "-" : "+")
-                + (hours.Length == 1 ? $"0{hours}" : hours)
+                + (hours.Length == 1 ? "0" + hours : hours)
                 + seperator
-                + (minutes.Length == 1 ? $"0{minutes}" : minutes);
+                + (minutes.Length == 1 ? "0" + minutes : minutes);
         }
 
         public static TimeSpan FromTimeOffsetString(this string offsetString)

@@ -18,7 +18,7 @@ namespace ServiceStack
 
         public object Resolve(Type type)
         {
-            Factory.TryGetValue(type, out var fn);
+            Factory.TryGetValue(type, out Func<object> fn);
             return fn?.Invoke();
         }
 
@@ -59,7 +59,7 @@ namespace ServiceStack
         protected virtual ConstructorInfo ResolveBestConstructor(Type type)
         {
             return type.GetConstructors()
-                .OrderByDescending(x => x.GetParameters().Length) // choose constructor with most params
+                .OrderByDescending(x => x.GetParameters().Length) //choose constructor with most params
                 .FirstOrDefault(ctor => !ctor.IsStatic);
         }
 
@@ -113,6 +113,15 @@ namespace ServiceStack
 
     public static class ContainerExtensions
     {
+        public static T Resolve<T>(this IResolver container)
+        {
+            var ret = container.TryResolve<T>();
+            if (ret == null)
+                throw new Exception($"Error trying to resolve Service '{typeof(T).Name}' or one of its autowired dependencies.");
+                
+            return ret;
+        }
+
         public static T Resolve<T>(this IContainer container) =>
             (T)container.Resolve(typeof(T));
 

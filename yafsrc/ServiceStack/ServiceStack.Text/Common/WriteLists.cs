@@ -14,7 +14,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Reflection;
 using System.Threading;
+using System.Linq;
 
 namespace ServiceStack.Text.Common
 {
@@ -27,7 +29,8 @@ namespace ServiceStack.Text.Common
 
         public static WriteObjectDelegate GetListWriteFn(Type elementType)
         {
-            if (ListCacheFns.TryGetValue(elementType, out var writeFn)) return writeFn;
+            WriteObjectDelegate writeFn;
+            if (ListCacheFns.TryGetValue(elementType, out writeFn)) return writeFn;
 
             var genericType = typeof(WriteListsOfElements<,>).MakeGenericType(elementType, typeof(TSerializer));
             var mi = genericType.GetStaticMethod("WriteList");
@@ -40,8 +43,7 @@ namespace ServiceStack.Text.Common
                 newCache = new Dictionary<Type, WriteObjectDelegate>(ListCacheFns);
                 newCache[elementType] = writeFn;
 
-            }
- while (!ReferenceEquals(
+            } while (!ReferenceEquals(
                 Interlocked.CompareExchange(ref ListCacheFns, newCache, snapshot), snapshot));
 
             return writeFn;
@@ -52,7 +54,8 @@ namespace ServiceStack.Text.Common
 
         public static WriteObjectDelegate GetIListWriteFn(Type elementType)
         {
-            if (IListCacheFns.TryGetValue(elementType, out var writeFn)) return writeFn;
+            WriteObjectDelegate writeFn;
+            if (IListCacheFns.TryGetValue(elementType, out writeFn)) return writeFn;
 
             var genericType = typeof(WriteListsOfElements<,>).MakeGenericType(elementType, typeof(TSerializer));
             var mi = genericType.GetStaticMethod("WriteIList");
@@ -65,8 +68,7 @@ namespace ServiceStack.Text.Common
                 newCache = new Dictionary<Type, WriteObjectDelegate>(IListCacheFns);
                 newCache[elementType] = writeFn;
 
-            }
- while (!ReferenceEquals(
+            } while (!ReferenceEquals(
                 Interlocked.CompareExchange(ref IListCacheFns, newCache, snapshot), snapshot));
 
             return writeFn;
@@ -76,7 +78,8 @@ namespace ServiceStack.Text.Common
 
         public static WriteObjectDelegate GetGenericWriteArray(Type elementType)
         {
-            if (CacheFns.TryGetValue(elementType, out var writeFn)) return writeFn;
+            WriteObjectDelegate writeFn;
+            if (CacheFns.TryGetValue(elementType, out writeFn)) return writeFn;
 
             var genericType = typeof(WriteListsOfElements<,>).MakeGenericType(elementType, typeof(TSerializer));
             var mi = genericType.GetStaticMethod("WriteArray");
@@ -89,8 +92,7 @@ namespace ServiceStack.Text.Common
                 newCache = new Dictionary<Type, WriteObjectDelegate>(CacheFns);
                 newCache[elementType] = writeFn;
 
-            }
- while (!ReferenceEquals(
+            } while (!ReferenceEquals(
                 Interlocked.CompareExchange(ref CacheFns, newCache, snapshot), snapshot));
 
             return writeFn;
@@ -100,7 +102,8 @@ namespace ServiceStack.Text.Common
 
         public static WriteObjectDelegate GetGenericWriteEnumerable(Type elementType)
         {
-            if (EnumerableCacheFns.TryGetValue(elementType, out var writeFn)) return writeFn;
+            WriteObjectDelegate writeFn;
+            if (EnumerableCacheFns.TryGetValue(elementType, out writeFn)) return writeFn;
 
             var genericType = typeof(WriteListsOfElements<,>).MakeGenericType(elementType, typeof(TSerializer));
             var mi = genericType.GetStaticMethod("WriteEnumerable");
@@ -113,8 +116,7 @@ namespace ServiceStack.Text.Common
                 newCache = new Dictionary<Type, WriteObjectDelegate>(EnumerableCacheFns);
                 newCache[elementType] = writeFn;
 
-            }
- while (!ReferenceEquals(
+            } while (!ReferenceEquals(
                 Interlocked.CompareExchange(ref EnumerableCacheFns, newCache, snapshot), snapshot));
 
             return writeFn;
@@ -124,7 +126,8 @@ namespace ServiceStack.Text.Common
 
         public static WriteObjectDelegate GetWriteListValueType(Type elementType)
         {
-            if (ListValueTypeCacheFns.TryGetValue(elementType, out var writeFn)) return writeFn;
+            WriteObjectDelegate writeFn;
+            if (ListValueTypeCacheFns.TryGetValue(elementType, out writeFn)) return writeFn;
 
             var genericType = typeof(WriteListsOfElements<,>).MakeGenericType(elementType, typeof(TSerializer));
             var mi = genericType.GetStaticMethod("WriteListValueType");
@@ -137,8 +140,7 @@ namespace ServiceStack.Text.Common
                 newCache = new Dictionary<Type, WriteObjectDelegate>(ListValueTypeCacheFns);
                 newCache[elementType] = writeFn;
 
-            }
- while (!ReferenceEquals(
+            } while (!ReferenceEquals(
                 Interlocked.CompareExchange(ref ListValueTypeCacheFns, newCache, snapshot), snapshot));
 
             return writeFn;
@@ -148,7 +150,9 @@ namespace ServiceStack.Text.Common
 
         public static WriteObjectDelegate GetWriteIListValueType(Type elementType)
         {
-            if (IListValueTypeCacheFns.TryGetValue(elementType, out var writeFn)) return writeFn;
+            WriteObjectDelegate writeFn;
+
+            if (IListValueTypeCacheFns.TryGetValue(elementType, out writeFn)) return writeFn;
 
             var genericType = typeof(WriteListsOfElements<,>).MakeGenericType(elementType, typeof(TSerializer));
             var mi = genericType.GetStaticMethod("WriteIListValueType");
@@ -161,8 +165,7 @@ namespace ServiceStack.Text.Common
                 newCache = new Dictionary<Type, WriteObjectDelegate>(IListValueTypeCacheFns);
                 newCache[elementType] = writeFn;
 
-            }
- while (!ReferenceEquals(
+            } while (!ReferenceEquals(
                 Interlocked.CompareExchange(ref IListValueTypeCacheFns, newCache, snapshot), snapshot));
 
             return writeFn;
@@ -179,7 +182,7 @@ namespace ServiceStack.Text.Common
             Type lastType = null;
             foreach (var valueItem in valueCollection)
             {
-                if (toStringFn == null || valueItem != null && valueItem.GetType() != lastType)
+                if ((toStringFn == null) || (valueItem != null && valueItem.GetType() != lastType))
                 {
                     if (valueItem != null)
                     {
@@ -213,7 +216,20 @@ namespace ServiceStack.Text.Common
 
         static WriteListsOfElements()
         {
-            ElementWriteFn = JsWriter.GetTypeSerializer<TSerializer>().GetWriteFn<T>();
+            var fn = JsWriter.GetTypeSerializer<TSerializer>().GetWriteFn<T>();
+            ElementWriteFn = (writer, obj) => {
+                try 
+                { 
+                    if (!JsState.Traverse(obj))
+                        return;
+                    
+                    fn(writer, obj);
+                }
+                finally 
+                {
+                    JsState.UnTraverse();
+                }
+            };
         }
 
         public static void WriteList(TextWriter writer, object oList)
@@ -243,7 +259,7 @@ namespace ServiceStack.Text.Common
 
         public static void WriteGenericListValueType(TextWriter writer, List<T> list)
         {
-            if (list == null) return; // AOT
+            if (list == null) return; //AOT
 
             writer.Write(JsWriter.ListStartChar);
 
@@ -284,7 +300,6 @@ namespace ServiceStack.Text.Common
                 Tracer.Instance.WriteError(ex);
                 throw;
             }
-
             writer.Write(JsWriter.ListEndChar);
         }
 
@@ -295,7 +310,7 @@ namespace ServiceStack.Text.Common
 
         public static void WriteGenericIListValueType(TextWriter writer, IList<T> list)
         {
-            if (list == null) return; // AOT
+            if (list == null) return; //AOT
 
             writer.Write(JsWriter.ListStartChar);
 
@@ -341,17 +356,16 @@ namespace ServiceStack.Text.Common
         {
             var ranOnce = false;
             writer.Write(JsWriter.ListStartChar);
-            for (var i = 0; i < array.GetLength(rank); i++)
+            for (int i = 0; i < array.GetLength(rank); i++)
             {
                 JsWriter.WriteItemSeperatorIfRanOnce(writer, ref ranOnce);
                 indices[rank] = i;
 
-                if (rank < array.Rank - 1)
+                if (rank < (array.Rank - 1))
                     WriteGenericArrayMultiDimension(writer, array, rank + 1, indices);
                 else
                     ElementWriteFn(writer, array.GetValue(indices));
             }
-
             writer.Write(JsWriter.ListEndChar);
         }
 
@@ -359,7 +373,6 @@ namespace ServiceStack.Text.Common
         {
             WriteGenericArrayMultiDimension(writer, array, 0, new int[array.Rank]);
         }
-
         public static void WriteEnumerable(TextWriter writer, object oEnumerable)
         {
             WriteGenericEnumerable(writer, (IEnumerable<T>)oEnumerable);
@@ -462,14 +475,18 @@ namespace ServiceStack.Text.Common
     internal static class WriteLists<T, TSerializer>
         where TSerializer : ITypeSerializer
     {
+        private static readonly WriteObjectDelegate CacheFn;
         private static readonly ITypeSerializer Serializer = JsWriter.GetTypeSerializer<TSerializer>();
 
         static WriteLists()
         {
-            Write = GetWriteFn();
+            CacheFn = GetWriteFn();
         }
 
-        public static WriteObjectDelegate Write { get; }
+        public static WriteObjectDelegate Write
+        {
+            get { return CacheFn; }
+        }
 
         public static WriteObjectDelegate GetWriteFn()
         {
@@ -477,9 +494,9 @@ namespace ServiceStack.Text.Common
 
             var listInterface = type.GetTypeWithGenericTypeDefinitionOf(typeof(IList<>));
             if (listInterface == null)
-                throw new ArgumentException($"Type {type.FullName} is not of type IList<>");
+                throw new ArgumentException(string.Format("Type {0} is not of type IList<>", type.FullName));
 
-            // optimized access for regularly used types
+            //optimized access for regularly used types
             if (type == typeof(List<string>))
                 return (w, x) => WriteLists.WriteListString(Serializer, w, x);
             if (type == typeof(IList<string>))

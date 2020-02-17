@@ -1,6 +1,7 @@
+using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Linq;
+using System.Data;
 
 namespace ServiceStack.OrmLite
 {
@@ -8,23 +9,23 @@ namespace ServiceStack.OrmLite
     {
         int hashCode;
 
-        public ModelDefinition ModelDefinition { get; }
+        public ModelDefinition ModelDefinition { get; private set; }
 
-        public IOrmLiteDialectProvider Dialect { get; } 
+        public IOrmLiteDialectProvider Dialect { get; private set; } 
 
-        public List<string> Fields { get; }
+        public List<string> Fields { get; private set; }
 
         public IndexFieldsCacheKey(IDataReader reader, ModelDefinition modelDefinition, IOrmLiteDialectProvider dialect)
         {
             ModelDefinition = modelDefinition;
             Dialect = dialect;
 
-            var startPos = 0;
-            var endPos = reader.FieldCount;
+            int startPos = 0;
+            int endPos = reader.FieldCount;
 
             Fields = new List<string>(endPos - startPos);
 
-            for (var i = startPos; i < endPos; i++)
+            for (int i = startPos; i < endPos; i++)
                 Fields.Add(reader.GetName(i));
 
             unchecked 
@@ -33,10 +34,8 @@ namespace ServiceStack.OrmLite
                 hashCode = hashCode * 23 + ModelDefinition.GetHashCode();
                 hashCode = hashCode * 23 + Dialect.GetHashCode();
                 hashCode = hashCode * 23 + Fields.Count;
-                foreach (var t in this.Fields)
-                {
-                    this.hashCode = this.hashCode * 23 + t.Length;
-                }
+                for (int i = 0; i < Fields.Count; i++)
+                    hashCode = hashCode * 23 + Fields[i].Length;
             }
         }
 

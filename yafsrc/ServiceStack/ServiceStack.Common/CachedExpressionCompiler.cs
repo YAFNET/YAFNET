@@ -12,16 +12,15 @@ namespace ServiceStack
     // The caching expression tree compiler was copied from MVC core to MVC Futures so that Futures code could benefit
     // from it and so that it could be exposed as a public API. This is the only public entry point into the system.
     // See the comments in the ExpressionUtil namespace for more information.
+    //
     // The unit tests for the ExpressionUtil.* types are in the System.Web.Mvc.Test project.
     public static class CachedExpressionCompiler
     {
-        private static readonly ParameterExpression _unusedParameterExpr =
-            Expression.Parameter(typeof(object), "_unused");
+        private static readonly ParameterExpression _unusedParameterExpr = Expression.Parameter(typeof(object), "_unused");
 
         // Implements caching around LambdaExpression.Compile() so that equivalent expression trees only have to be
         // compiled once.
-        public static Func<TModel, TValue> Compile<TModel, TValue>(
-            this Expression<Func<TModel, TValue>> lambdaExpression)
+        public static Func<TModel, TValue> Compile<TModel, TValue>(this Expression<Func<TModel, TValue>> lambdaExpression)
         {
             if (lambdaExpression == null)
                 throw new ArgumentNullException(nameof(lambdaExpression));
@@ -35,15 +34,13 @@ namespace ServiceStack
             if (arg == null)
                 throw new ArgumentNullException(nameof(arg));
 
-            var func = Wrap(arg);
+            Func<object, object> func = Wrap(arg);
             return func(null);
         }
 
         private static Func<object, object> Wrap(Expression arg)
         {
-            var lambdaExpr = Expression.Lambda<Func<object, object>>(
-                Expression.Convert(arg, typeof(object)),
-                _unusedParameterExpr);
+            Expression<Func<object, object>> lambdaExpr = Expression.Lambda<Func<object, object>>(Expression.Convert(arg, typeof(object)), _unusedParameterExpr);
             return ExpressionUtil.CachedExpressionCompiler.Process(lambdaExpr);
         }
     }
@@ -54,6 +51,7 @@ namespace ServiceStack.ExpressionUtil
 
     // BinaryExpression fingerprint class
     // Useful for things like array[index]
+
     internal sealed class BinaryExpressionFingerprint : ExpressionFingerprint
     {
         public BinaryExpressionFingerprint(ExpressionType nodeType, Type type, MethodInfo method)
@@ -61,15 +59,17 @@ namespace ServiceStack.ExpressionUtil
         {
             // Other properties on BinaryExpression (like IsLifted / IsLiftedToNull) are simply derived
             // from Type and NodeType, so they're not necessary for inclusion in the fingerprint.
+
             Method = method;
         }
 
         // http://msdn.microsoft.com/en-us/library/system.linq.expressions.binaryexpression.method.aspx
-        public MethodInfo Method { get; }
+        public MethodInfo Method { get; private set; }
 
         public override bool Equals(object obj)
         {
-            return obj is BinaryExpressionFingerprint other
+            BinaryExpressionFingerprint other = obj as BinaryExpressionFingerprint;
+            return (other != null)
                    && Equals(this.Method, other.Method)
                    && this.Equals(other);
         }
@@ -122,10 +122,12 @@ namespace ServiceStack.ExpressionUtil
 
             private static Func<TIn, TOut> CompileFromConstLookup(Expression<Func<TIn, TOut>> expr)
             {
-                if (expr.Body is ConstantExpression constExpr)
+                ConstantExpression constExpr = expr.Body as ConstantExpression;
+                if (constExpr != null)
                 {
                     // model => {const}
-                    var constantValue = (TOut)constExpr.Value;
+
+                    TOut constantValue = (TOut)constExpr.Value;
                     return _ => constantValue;
                 }
 
@@ -139,7 +141,12 @@ namespace ServiceStack.ExpressionUtil
                     // model => model
 
                     // don't need to lock, as all identity funcs are identical
-                    return _identityFunc ?? (_identityFunc = expr.Compile());
+                    if (_identityFunc == null)
+                    {
+                        _identityFunc = expr.Compile();
+                    }
+
+                    return _identityFunc;
                 }
 
                 return null;
@@ -147,7 +154,8 @@ namespace ServiceStack.ExpressionUtil
 
             private static Func<TIn, TOut> CompileFromFingerprint(Expression<Func<TIn, TOut>> expr)
             {
-                var fingerprint = FingerprintingExpressionVisitor.GetFingerprintChain(expr, out var capturedConstants);
+                List<object> capturedConstants;
+                ExpressionFingerprintChain fingerprint = FingerprintingExpressionVisitor.GetFingerprintChain(expr, out capturedConstants);
 
                 if (fingerprint != null)
                 {
@@ -155,6 +163,7 @@ namespace ServiceStack.ExpressionUtil
                     {
                         // Fingerprinting succeeded, but there was a cache miss. Rewrite the expression
                         // and add the rewritten expression to the cache.
+
                         var hoistedExpr = HoistingExpressionVisitor<TIn, TOut>.Hoist(expr);
                         return hoistedExpr.Compile();
                     });
@@ -172,7 +181,9 @@ namespace ServiceStack.ExpressionUtil
                 // handle them. On the x86 platform, the fingerprinting system is faster, but only
                 // by around one microsecond, so it's not worth it to complicate the logic here with
                 // an architecture check.
-                if (expr.Body is MemberExpression memberExpr)
+
+                MemberExpression memberExpr = expr.Body as MemberExpression;
+                if (memberExpr != null)
                 {
                     if (memberExpr.Expression == expr.Parameters[0] || memberExpr.Expression == null)
                     {
@@ -180,7 +191,8 @@ namespace ServiceStack.ExpressionUtil
                         return _simpleMemberAccessDict.GetOrAdd(memberExpr.Member, _ => expr.Compile());
                     }
 
-                    if (memberExpr.Expression is ConstantExpression constExpr)
+                    ConstantExpression constExpr = memberExpr.Expression as ConstantExpression;
+                    if (constExpr != null)
                     {
                         // model => {const}.Member (captured local variable)
                         var del = _constMemberAccessDict.GetOrAdd(memberExpr.Member, _ =>
@@ -193,7 +205,7 @@ namespace ServiceStack.ExpressionUtil
                             return newLambdaExpr.Compile();
                         });
 
-                        var capturedLocal = constExpr.Value;
+                        object capturedLocal = constExpr.Value;
                         return _ => del(capturedLocal);
                     }
                 }
@@ -220,7 +232,8 @@ namespace ServiceStack.ExpressionUtil
 
         public override bool Equals(object obj)
         {
-            return obj is ConditionalExpressionFingerprint other
+            ConditionalExpressionFingerprint other = obj as ConditionalExpressionFingerprint;
+            return (other != null)
                    && this.Equals(other);
         }
 
@@ -241,7 +254,8 @@ namespace ServiceStack.ExpressionUtil
 
         public override bool Equals(object obj)
         {
-            return obj is ConstantExpressionFingerprint other
+            ConstantExpressionFingerprint other = obj as ConstantExpressionFingerprint;
+            return (other != null)
                    && this.Equals(other);
         }
 
@@ -262,7 +276,8 @@ namespace ServiceStack.ExpressionUtil
 
         public override bool Equals(object obj)
         {
-            return obj is DefaultExpressionFingerprint other
+            DefaultExpressionFingerprint other = obj as DefaultExpressionFingerprint;
+            return (other != null)
                    && this.Equals(other);
         }
 
@@ -281,10 +296,10 @@ namespace ServiceStack.ExpressionUtil
         }
 
         // the type of expression node, e.g. OP_ADD, MEMBER_ACCESS, etc.
-        public ExpressionType NodeType { get; }
+        public ExpressionType NodeType { get; private set; }
 
         // the CLR type resulting from this expression, e.g. int, string, etc.
-        public Type Type { get; }
+        public Type Type { get; private set; }
 
         internal virtual void AddToHashCodeCombiner(HashCodeCombiner combiner)
         {
@@ -294,8 +309,8 @@ namespace ServiceStack.ExpressionUtil
 
         protected bool Equals(ExpressionFingerprint other)
         {
-            return other != null
-                   && this.NodeType == other.NodeType
+            return (other != null)
+                   && (this.NodeType == other.NodeType)
                    && Equals(this.Type, other.Type);
         }
 
@@ -306,7 +321,7 @@ namespace ServiceStack.ExpressionUtil
 
         public override int GetHashCode()
         {
-            var combiner = new HashCodeCombiner();
+            HashCodeCombiner combiner = new HashCodeCombiner();
             AddToHashCodeCombiner(combiner);
             return combiner.CombinedHash;
         }
@@ -320,6 +335,7 @@ namespace ServiceStack.ExpressionUtil
         {
             // Two chains are considered equal if two elements appearing in the same index in
             // each chain are equal (value equality, not referential equality).
+
             if (other == null)
             {
                 return false;
@@ -330,7 +346,7 @@ namespace ServiceStack.ExpressionUtil
                 return false;
             }
 
-            for (var i = 0; i < this.Elements.Count; i++)
+            for (int i = 0; i < this.Elements.Count; i++)
             {
                 if (!Equals(this.Elements[i], other.Elements[i]))
                 {
@@ -348,7 +364,7 @@ namespace ServiceStack.ExpressionUtil
 
         public override int GetHashCode()
         {
-            var combiner = new HashCodeCombiner();
+            HashCodeCombiner combiner = new HashCodeCombiner();
             Elements.ForEach(combiner.AddFingerprint);
 
             return combiner.CombinedHash;
@@ -369,6 +385,7 @@ namespace ServiceStack.ExpressionUtil
         private T GiveUp<T>(T node)
         {
             // We don't understand this node, so just quit.
+
             _gaveUp = true;
             return node;
         }
@@ -377,7 +394,7 @@ namespace ServiceStack.ExpressionUtil
         // if the expression couldn't be fingerprinted.
         public static ExpressionFingerprintChain GetFingerprintChain(Expression expr, out List<object> capturedConstants)
         {
-            var visitor = new FingerprintingExpressionVisitor();
+            FingerprintingExpressionVisitor visitor = new FingerprintingExpressionVisitor();
             visitor.Visit(expr);
 
             if (visitor._gaveUp)
@@ -411,7 +428,6 @@ namespace ServiceStack.ExpressionUtil
             {
                 return node;
             }
-
             _currentChain.Elements.Add(new BinaryExpressionFingerprint(node.NodeType, node.Type, node.Method));
             return base.VisitBinary(node);
         }
@@ -432,7 +448,6 @@ namespace ServiceStack.ExpressionUtil
             {
                 return node;
             }
-
             _currentChain.Elements.Add(new ConditionalExpressionFingerprint(node.NodeType, node.Type));
             return base.VisitConditional(node);
         }
@@ -460,7 +475,6 @@ namespace ServiceStack.ExpressionUtil
             {
                 return node;
             }
-
             _currentChain.Elements.Add(new DefaultExpressionFingerprint(node.NodeType, node.Type));
             return base.VisitDefault(node);
         }
@@ -491,7 +505,6 @@ namespace ServiceStack.ExpressionUtil
             {
                 return node;
             }
-
             _currentChain.Elements.Add(new IndexExpressionFingerprint(node.NodeType, node.Type, node.Indexer));
             return base.VisitIndex(node);
         }
@@ -517,7 +530,6 @@ namespace ServiceStack.ExpressionUtil
             {
                 return node;
             }
-
             _currentChain.Elements.Add(new LambdaExpressionFingerprint(node.NodeType, node.Type));
             return base.VisitLambda(node);
         }
@@ -538,7 +550,6 @@ namespace ServiceStack.ExpressionUtil
             {
                 return node;
             }
-
             _currentChain.Elements.Add(new MemberExpressionFingerprint(node.NodeType, node.Type, node.Member));
             return base.VisitMember(node);
         }
@@ -574,7 +585,6 @@ namespace ServiceStack.ExpressionUtil
             {
                 return node;
             }
-
             _currentChain.Elements.Add(new MethodCallExpressionFingerprint(node.NodeType, node.Type, node.Method));
             return base.VisitMethodCall(node);
         }
@@ -596,7 +606,7 @@ namespace ServiceStack.ExpressionUtil
                 return node;
             }
 
-            var parameterIndex = _seenParameters.IndexOf(node);
+            int parameterIndex = _seenParameters.IndexOf(node);
             if (parameterIndex < 0)
             {
                 // first time seeing this parameter
@@ -634,7 +644,6 @@ namespace ServiceStack.ExpressionUtil
             {
                 return node;
             }
-
             _currentChain.Elements.Add(new TypeBinaryExpressionFingerprint(node.NodeType, node.Type, node.TypeOperand));
             return base.VisitTypeBinary(node);
         }
@@ -645,7 +654,6 @@ namespace ServiceStack.ExpressionUtil
             {
                 return node;
             }
-
             _currentChain.Elements.Add(new UnaryExpressionFingerprint(node.NodeType, node.Type, node.Method));
             return base.VisitUnary(node);
         }
@@ -655,7 +663,10 @@ namespace ServiceStack.ExpressionUtil
     {
         private long _combinedHash64 = 0x1505L;
 
-        public int CombinedHash => _combinedHash64.GetHashCode();
+        public int CombinedHash
+        {
+            get { return _combinedHash64.GetHashCode(); }
+        }
 
         public void AddFingerprint(ExpressionFingerprint fingerprint)
         {
@@ -677,13 +688,12 @@ namespace ServiceStack.ExpressionUtil
             }
             else
             {
-                var count = 0;
-                foreach (var o in e)
+                int count = 0;
+                foreach (object o in e)
                 {
                     AddObject(o);
                     count++;
                 }
-
                 AddInt32(count);
             }
         }
@@ -695,7 +705,7 @@ namespace ServiceStack.ExpressionUtil
 
         public void AddObject(object o)
         {
-            var hashCode = o?.GetHashCode() ?? 0;
+            int hashCode = (o != null) ? o.GetHashCode() : 0;
             AddInt32(hashCode);
         }
     }
@@ -715,6 +725,7 @@ namespace ServiceStack.ExpressionUtil
         public static Expression<Hoisted<TIn, TOut>> Hoist(Expression<Func<TIn, TOut>> expr)
         {
             // rewrite Expression<Func<TIn, TOut>> as Expression<Hoisted<TIn, TOut>>
+
             var visitor = new HoistingExpressionVisitor<TIn, TOut>();
             var rewrittenBodyExpr = visitor.Visit(expr.Body);
             var rewrittenLambdaExpr = Expression.Lambda<Hoisted<TIn, TOut>>(rewrittenBodyExpr, expr.Parameters[0], _hoistedConstantsParamExpr);
@@ -735,15 +746,17 @@ namespace ServiceStack.ExpressionUtil
         {
             // Other properties on IndexExpression (like the argument count) are simply derived
             // from Type and Indexer, so they're not necessary for inclusion in the fingerprint.
+
             Indexer = indexer;
         }
 
         // http://msdn.microsoft.com/en-us/library/system.linq.expressions.indexexpression.indexer.aspx
-        public PropertyInfo Indexer { get; }
+        public PropertyInfo Indexer { get; private set; }
 
         public override bool Equals(object obj)
         {
-            return obj is IndexExpressionFingerprint other
+            IndexExpressionFingerprint other = obj as IndexExpressionFingerprint;
+            return (other != null)
                    && Equals(this.Indexer, other.Indexer)
                    && this.Equals(other);
         }
@@ -771,7 +784,8 @@ namespace ServiceStack.ExpressionUtil
 
         public override bool Equals(object obj)
         {
-            return obj is LambdaExpressionFingerprint other
+            LambdaExpressionFingerprint other = obj as LambdaExpressionFingerprint;
+            return (other != null)
                    && this.Equals(other);
         }
 
@@ -790,11 +804,12 @@ namespace ServiceStack.ExpressionUtil
         }
 
         // http://msdn.microsoft.com/en-us/library/system.linq.expressions.memberexpression.member.aspx
-        public MemberInfo Member { get; }
+        public MemberInfo Member { get; private set; }
 
         public override bool Equals(object obj)
         {
-            return obj is MemberExpressionFingerprint other
+            MemberExpressionFingerprint other = obj as MemberExpressionFingerprint;
+            return (other != null)
                    && Equals(this.Member, other.Member)
                    && this.Equals(other);
         }
@@ -818,15 +833,17 @@ namespace ServiceStack.ExpressionUtil
         {
             // Other properties on MethodCallExpression (like the argument count) are simply derived
             // from Type and Indexer, so they're not necessary for inclusion in the fingerprint.
+
             Method = method;
         }
 
         // http://msdn.microsoft.com/en-us/library/system.linq.expressions.methodcallexpression.method.aspx
-        public MethodInfo Method { get; }
+        public MethodInfo Method { get; private set; }
 
         public override bool Equals(object obj)
         {
-            return obj is MethodCallExpressionFingerprint other
+            MethodCallExpressionFingerprint other = obj as MethodCallExpressionFingerprint;
+            return (other != null)
                    && Equals(this.Method, other.Method)
                    && this.Equals(other);
         }
@@ -852,12 +869,13 @@ namespace ServiceStack.ExpressionUtil
         }
 
         // Parameter position within the overall expression, used to maintain alpha equivalence.
-        public int ParameterIndex { get; }
+        public int ParameterIndex { get; private set; }
 
         public override bool Equals(object obj)
         {
-            return obj is ParameterExpressionFingerprint other
-                   && this.ParameterIndex == other.ParameterIndex
+            ParameterExpressionFingerprint other = obj as ParameterExpressionFingerprint;
+            return (other != null)
+                   && (this.ParameterIndex == other.ParameterIndex)
                    && this.Equals(other);
         }
 
@@ -882,11 +900,12 @@ namespace ServiceStack.ExpressionUtil
         }
 
         // http://msdn.microsoft.com/en-us/library/system.linq.expressions.typebinaryexpression.typeoperand.aspx
-        public Type TypeOperand { get; }
+        public Type TypeOperand { get; private set; }
 
         public override bool Equals(object obj)
         {
-            return obj is TypeBinaryExpressionFingerprint other
+            TypeBinaryExpressionFingerprint other = obj as TypeBinaryExpressionFingerprint;
+            return (other != null)
                    && Equals(this.TypeOperand, other.TypeOperand)
                    && this.Equals(other);
         }
@@ -910,15 +929,17 @@ namespace ServiceStack.ExpressionUtil
         {
             // Other properties on UnaryExpression (like IsLifted / IsLiftedToNull) are simply derived
             // from Type and NodeType, so they're not necessary for inclusion in the fingerprint.
+
             Method = method;
         }
 
         // http://msdn.microsoft.com/en-us/library/system.linq.expressions.unaryexpression.method.aspx
-        public MethodInfo Method { get; }
+        public MethodInfo Method { get; private set; }
 
         public override bool Equals(object obj)
         {
-            return obj is UnaryExpressionFingerprint other
+            UnaryExpressionFingerprint other = obj as UnaryExpressionFingerprint;
+            return (other != null)
                    && Equals(this.Method, other.Method)
                    && this.Equals(other);
         }

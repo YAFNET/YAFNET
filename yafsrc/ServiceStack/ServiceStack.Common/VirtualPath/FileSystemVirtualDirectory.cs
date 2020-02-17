@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using ServiceStack.IO;
 using ServiceStack.Logging;
+using ServiceStack.Text;
 
 namespace ServiceStack.VirtualPath
 {
@@ -57,7 +58,7 @@ namespace ServiceStack.VirtualPath
             }
             catch (Exception ex)
             {
-                // Possible exception from scanning symbolic links
+                //Possible exception from scanning symbolic links
                 Log.Warn($"Unable to GetFiles for {RealPath}", ex);
                 return TypeConstants<FileInfo>.EmptyArray;
             }
@@ -71,7 +72,7 @@ namespace ServiceStack.VirtualPath
             }
             catch (Exception ex)
             {
-                // Possible exception from scanning symbolic links
+                //Possible exception from scanning symbolic links
                 Log.Warn($"Unable to GetDirectories for {RealPath}", ex);
                 return TypeConstants<DirectoryInfo>.EmptyArray;
             }
@@ -90,14 +91,33 @@ namespace ServiceStack.VirtualPath
         { 
             try
             {
-                var matchingFilesInBackingDir = EnumerateFiles(globPattern)
-                    .Select(fInfo => (IVirtualFile)new FileSystemVirtualFile(VirtualPathProvider, this, fInfo));
+                if (globPattern.IndexOf('/') >= 0)
+                {
+                    var dirPath = globPattern.LastLeftPart("/");
+                    var fileNameSearch = globPattern.LastRightPart("/");
+                    var dir = GetDirectory(dirPath);
 
-                return matchingFilesInBackingDir;
+                    if (dir != null)
+                    {
+                        var matchingFilesInBackingDir = ((FileSystemVirtualDirectory)dir).EnumerateFiles(fileNameSearch)
+                            .Select(fInfo => (IVirtualFile)new FileSystemVirtualFile(VirtualPathProvider, dir, fInfo));
+
+                        return matchingFilesInBackingDir;
+                    }
+                    
+                    return TypeConstants<IVirtualFile>.EmptyArray;
+                }
+                else
+                {
+                    var matchingFilesInBackingDir = EnumerateFiles(globPattern)
+                        .Select(fInfo => (IVirtualFile)new FileSystemVirtualFile(VirtualPathProvider, this, fInfo));
+
+                    return matchingFilesInBackingDir;
+                }
             }
             catch (Exception ex)
             {
-                // Possible exception from scanning symbolic links
+                //Possible exception from scanning symbolic links
                 Log.Warn($"Unable to scan for {globPattern} in {RealPath}", ex);
                 return TypeConstants<IVirtualFile>.EmptyArray;
             }

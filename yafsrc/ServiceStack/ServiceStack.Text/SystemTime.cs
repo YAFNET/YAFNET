@@ -24,7 +24,7 @@ namespace ServiceStack.Text
             get
             {
                 var temp = UtcDateTimeResolver;
-                return temp?.Invoke().ToLocalTime() ?? DateTime.Now;
+                return temp == null ? DateTime.Now : temp().ToLocalTime();
             }
         }
 
@@ -33,7 +33,7 @@ namespace ServiceStack.Text
             get
             {
                 var temp = UtcDateTimeResolver;
-                return temp?.Invoke() ?? DateTime.UtcNow;
+                return temp == null ? DateTime.UtcNow : temp();
             }
         }
     }

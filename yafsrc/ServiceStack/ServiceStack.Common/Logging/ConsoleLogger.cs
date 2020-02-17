@@ -32,7 +32,6 @@ namespace ServiceStack.Logging
 
         public bool IsDebugEnabled { get; set; }
 		
-
 		/// <summary>
         /// Logs the specified message.
         /// </summary>
@@ -41,9 +40,8 @@ namespace ServiceStack.Logging
             var msg = message?.ToString() ?? string.Empty;
             if (exception != null)
             {
-                msg += $", Exception: {exception.Message}";
+                msg += ", Exception: " + exception.Message;
             }
-
             Console.WriteLine(msg);
         }
 
@@ -52,7 +50,7 @@ namespace ServiceStack.Logging
         /// </summary>
         private static void LogFormat(object message, params object[] args)
         {
-            var msg = message?.ToString() ?? string.Empty;
+            string msg = message?.ToString() ?? string.Empty;
             Console.WriteLine(msg, args);
         }
 
@@ -61,7 +59,7 @@ namespace ServiceStack.Logging
         /// </summary>
         private static void Log(object message)
         {
-            var msg = message?.ToString() ?? string.Empty;
+            string msg = message?.ToString() ?? string.Empty;
             Console.WriteLine(msg);
         }
 

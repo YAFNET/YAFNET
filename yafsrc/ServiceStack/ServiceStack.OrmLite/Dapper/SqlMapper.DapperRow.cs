@@ -1,18 +1,14 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace ServiceStack.OrmLite.Dapper
 {
-    using System.Dynamic;
-    using System.Linq.Expressions;
-
     public static partial class SqlMapper
     {
-        private sealed class DapperRow
-            : System.Dynamic.IDynamicMetaObjectProvider
-            , IDictionary<string, object>
+        private sealed partial class DapperRow
+            : IDictionary<string, object>
             , IReadOnlyDictionary<string, object>
         {
             private readonly DapperTable table;
@@ -34,35 +30,32 @@ namespace ServiceStack.OrmLite.Dapper
             {
                 get
                 {
-                    var count = 0;
-                    for (var i = 0; i < values.Length; i++)
+                    int count = 0;
+                    for (int i = 0; i < values.Length; i++)
                     {
                         if (!(values[i] is DeadValue)) count++;
                     }
-
                     return count;
                 }
             }
 
             public bool TryGetValue(string key, out object value)
+                => TryGetValue(table.IndexOfName(key), out value);
+
+            internal bool TryGetValue(int index, out object value)
             {
-                var index = table.IndexOfName(key);
                 if (index < 0)
-                {
-                    // doesn't exist
+                { // doesn't exist
                     value = null;
                     return false;
                 }
-
                 // exists, **even if** we don't have a value; consider table rows heterogeneous
                 value = index < values.Length ? values[index] : null;
                 if (value is DeadValue)
-                {
-                    // pretend it isn't here
+                { // pretend it isn't here
                     value = null;
                     return false;
                 }
-
                 return true;
             }
 
@@ -86,18 +79,12 @@ namespace ServiceStack.OrmLite.Dapper
                 return sb.Append('}').__ToStringRecycle();
             }
 
-            DynamicMetaObject System.Dynamic.IDynamicMetaObjectProvider.GetMetaObject(
-                Expression parameter)
-            {
-                return new DapperRowMetaObject(parameter, System.Dynamic.BindingRestrictions.Empty, this);
-            }
-
             public IEnumerator<KeyValuePair<string, object>> GetEnumerator()
             {
                 var names = table.FieldNames;
                 for (var i = 0; i < names.Length; i++)
                 {
-                    var value = i < values.Length ? values[i] : null;
+                    object value = i < values.Length ? values[i] : null;
                     if (!(value is DeadValue))
                     {
                         yield return new KeyValuePair<string, object>(names[i], value);
@@ -120,13 +107,13 @@ namespace ServiceStack.OrmLite.Dapper
 
             void ICollection<KeyValuePair<string, object>>.Clear()
             { // removes values for **this row**, but doesn't change the fundamental table
-                for (var i = 0; i < values.Length; i++)
+                for (int i = 0; i < values.Length; i++)
                     values[i] = DeadValue.Default;
             }
 
             bool ICollection<KeyValuePair<string, object>>.Contains(KeyValuePair<string, object> item)
             {
-                return TryGetValue(item.Key, out var value) && Equals(value, item.Value);
+                return TryGetValue(item.Key, out object value) && Equals(value, item.Value);
             }
 
             void ICollection<KeyValuePair<string, object>>.CopyTo(KeyValuePair<string, object>[] array, int arrayIndex)
@@ -150,7 +137,7 @@ namespace ServiceStack.OrmLite.Dapper
 
             bool IDictionary<string, object>.ContainsKey(string key)
             {
-                var index = table.IndexOfName(key);
+                int index = table.IndexOfName(key);
                 if (index < 0 || index >= values.Length || values[index] is DeadValue) return false;
                 return true;
             }
@@ -161,8 +148,10 @@ namespace ServiceStack.OrmLite.Dapper
             }
 
             bool IDictionary<string, object>.Remove(string key)
+                => Remove(table.IndexOfName(key));
+
+            internal bool Remove(int index)
             {
-                var index = table.IndexOfName(key);
                 if (index < 0 || index >= values.Length || values[index] is DeadValue) return false;
                 values[index] = DeadValue.Default;
                 return true;
@@ -170,8 +159,8 @@ namespace ServiceStack.OrmLite.Dapper
 
             object IDictionary<string, object>.this[string key]
             {
-                get { TryGetValue(key, out var val); return val; }
-                set => SetValue(key, value, false);
+                get { TryGetValue(key, out object val); return val; }
+                set { SetValue(key, value, false); }
             }
 
             public object SetValue(string key, object value)
@@ -182,7 +171,7 @@ namespace ServiceStack.OrmLite.Dapper
             private object SetValue(string key, object value, bool isAdd)
             {
                 if (key == null) throw new ArgumentNullException(nameof(key));
-                var index = table.IndexOfName(key);
+                int index = table.IndexOfName(key);
                 if (index < 0)
                 {
                     index = table.AddField(key);
@@ -192,19 +181,21 @@ namespace ServiceStack.OrmLite.Dapper
                     // then semantically, this value already exists
                     throw new ArgumentException("An item with the same key has already been added", nameof(key));
                 }
-
-                var oldLength = values.Length;
+                return SetValue(index, value);
+            }
+            internal object SetValue(int index, object value)
+            {
+                int oldLength = values.Length;
                 if (oldLength <= index)
                 {
                     // we'll assume they're doing lots of things, and
                     // grow it to the full width of the table
                     Array.Resize(ref values, table.FieldCount);
-                    for (var i = oldLength; i < values.Length; i++)
+                    for (int i = oldLength; i < values.Length; i++)
                     {
                         values[i] = DeadValue.Default;
                     }
                 }
-
                 return values[index] = value;
             }
 
@@ -234,13 +225,13 @@ namespace ServiceStack.OrmLite.Dapper
 
             bool IReadOnlyDictionary<string, object>.ContainsKey(string key)
             {
-                var index = table.IndexOfName(key);
+                int index = table.IndexOfName(key);
                 return index >= 0 && index < values.Length && !(values[index] is DeadValue);
             }
 
             object IReadOnlyDictionary<string, object>.this[string key]
             {
-                get { TryGetValue(key, out var val); return val; }
+                get { TryGetValue(key, out object val); return val; }
             }
 
             IEnumerable<string> IReadOnlyDictionary<string, object>.Keys

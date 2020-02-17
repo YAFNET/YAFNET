@@ -26,7 +26,6 @@ namespace ServiceStack
             {
                 broadcastAddress[i] = (byte)(ipAdressBytes[i] | (subnetMaskBytes[i] ^ 255));
             }
-
             return new IPAddress(broadcastAddress);
         }
 
@@ -46,9 +45,8 @@ namespace ServiceStack
             var broadcastAddress = new byte[ipAdressBytes.Length];
             for (var i = 0; i < broadcastAddress.Length; i++)
             {
-                broadcastAddress[i] = (byte)(ipAdressBytes[i] & subnetMaskBytes[i]);
+                broadcastAddress[i] = (byte)(ipAdressBytes[i] & (subnetMaskBytes[i]));
             }
-
             return broadcastAddress;
         }
 
@@ -58,7 +56,6 @@ namespace ServiceStack
             {
                 throw new ArgumentException("Both IPAddress must be IPV6 addresses");
             }
-
             var address1Bytes = address.GetAddressBytes();
             var address2Bytes = address2.GetAddressBytes();
 
@@ -87,7 +84,6 @@ namespace ServiceStack
             {
                 throw new ArgumentException("Both IPAddress must be IPV4 addresses");
             }
-
             var network1 = address.GetNetworkAddress(subnetMask);
             var network2 = address2.GetNetworkAddress(subnetMask);
 
@@ -121,16 +117,15 @@ namespace ServiceStack
                     {
                         if (uipi.Address.AddressFamily != AddressFamily.InterNetwork) continue;
 
-                        if (uipi.IPv4Mask == null) continue; // ignore 127.0.0.1
+                        if (uipi.IPv4Mask == null) continue; //ignore 127.0.0.1
                         map[uipi.Address] = uipi.IPv4Mask;
                     }
                 }
             }
             catch /*(NotImplementedException ex)*/
             {
-                // log.Warn("MONO does not support NetworkInterface.GetAllNetworkInterfaces(). Could not detect local ip subnets.", ex);
+                //log.Warn("MONO does not support NetworkInterface.GetAllNetworkInterfaces(). Could not detect local ip subnets.", ex);
             }
-
             return map;
         }
 
@@ -155,7 +150,7 @@ namespace ServiceStack
             }
             catch /*(NotImplementedException ex)*/
             {
-                // log.Warn("MONO does not support NetworkInterface.GetAllNetworkInterfaces(). Could not detect local ip subnets.", ex);
+                //log.Warn("MONO does not support NetworkInterface.GetAllNetworkInterfaces(). Could not detect local ip subnets.", ex);
             }
 
             return list;

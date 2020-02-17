@@ -3,6 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace ServiceStack.OrmLite.Support
 {
@@ -31,7 +34,7 @@ namespace ServiceStack.OrmLite.Support
             this.dbCmd = dbCmd;
             this.q = q;
 
-            // Use .Clone() to prevent SqlExpressionSelectFilter from adding params to original query
+            //Use .Clone() to prevent SqlExpressionSelectFilter from adding params to original query
             var parentQ = q.Clone();
             var sql = parentQ.SelectInto<Into>();
             parentResults = dbCmd.ExprConvertToList<Into>(sql, parentQ.Params, onlyFields:q.OnlyFields);
@@ -46,8 +49,13 @@ namespace ServiceStack.OrmLite.Support
 
         protected string GetRefListSql(ModelDefinition refModelDef, FieldDefinition refField)
         {
-            var sqlRef =
-                $"SELECT {this.dialectProvider.GetColumnNames(refModelDef)} FROM {this.dialectProvider.GetQuotedTableName(refModelDef)} WHERE {this.dialectProvider.GetQuotedColumnName(refField)} IN ({this.subSql})";
+            var sqlRef = $"SELECT {dialectProvider.GetColumnNames(refModelDef)} " +
+                         $"FROM {dialectProvider.GetQuotedTableName(refModelDef)} " +
+                         $"WHERE {dialectProvider.GetQuotedColumnName(refField)} " +
+                         $"IN ({subSql})";
+
+            if (OrmLiteConfig.LoadReferenceSelectFilter != null)
+                sqlRef = OrmLiteConfig.LoadReferenceSelectFilter(refModelDef.ModelType, sqlRef);
 
             return sqlRef;
         }
@@ -64,7 +72,6 @@ namespace ServiceStack.OrmLite.Support
                 {
                     map[refValue] = refValues = new List<object>();
                 }
-
                 refValues.Add(result);
             }
 
@@ -82,22 +89,34 @@ namespace ServiceStack.OrmLite.Support
 
         protected string GetRefSelfSql(ModelDefinition modelDef, FieldDefinition refSelf, ModelDefinition refModelDef)
         {
-            // Load Self Table.RefTableId PK
+            //Load Self Table.RefTableId PK
             var refQ = q.Clone();
             refQ.Select(dialectProvider.GetQuotedColumnName(modelDef, refSelf));
+            refQ.OrderBy().ClearLimits(); //clear any ORDER BY or LIMIT's in Sub Select's
 
             var subSqlRef = refQ.ToMergedParamsSelectStatement();
 
-            var sqlRef =
-                $"SELECT {this.dialectProvider.GetColumnNames(refModelDef)} FROM {this.dialectProvider.GetQuotedTableName(refModelDef)} WHERE {this.dialectProvider.GetQuotedColumnName(refModelDef.PrimaryKey)} IN ({subSqlRef})";
+            var sqlRef = $"SELECT {dialectProvider.GetColumnNames(refModelDef)} " +
+                         $"FROM {dialectProvider.GetQuotedTableName(refModelDef)} " +
+                         $"WHERE {dialectProvider.GetQuotedColumnName(refModelDef.PrimaryKey)} " +
+                         $"IN ({subSqlRef})";
+
+            if (OrmLiteConfig.LoadReferenceSelectFilter != null)
+                sqlRef = OrmLiteConfig.LoadReferenceSelectFilter(refModelDef.ModelType, sqlRef);
 
             return sqlRef;
         }
 
         protected string GetRefFieldSql(ModelDefinition refModelDef, FieldDefinition refField)
         {
-            var sqlRef =
-                $"SELECT {this.dialectProvider.GetColumnNames(refModelDef)} FROM {this.dialectProvider.GetQuotedTableName(refModelDef)} WHERE {this.dialectProvider.GetQuotedColumnName(refField)} IN ({this.subSql})";
+            var sqlRef = $"SELECT {dialectProvider.GetColumnNames(refModelDef)} " +
+                         $"FROM {dialectProvider.GetQuotedTableName(refModelDef)} " +
+                         $"WHERE {dialectProvider.GetQuotedColumnName(refField)} " +
+                         $"IN ({subSql})";
+
+            if (OrmLiteConfig.LoadReferenceSelectFilter != null)
+                sqlRef = OrmLiteConfig.LoadReferenceSelectFilter(refModelDef.ModelType, sqlRef);
+
             return sqlRef;
         }
 
@@ -118,8 +137,9 @@ namespace ServiceStack.OrmLite.Support
                 if (x == null || y == null) return false;
 
                 var xStr = x as string;
+                var yStr = y as string;
 
-                return xStr != null && y is string yStr
+                return xStr != null && yStr != null
                     ? xStr.Equals(yStr, StringComparison.OrdinalIgnoreCase)
                     : x.Equals(y);
             }

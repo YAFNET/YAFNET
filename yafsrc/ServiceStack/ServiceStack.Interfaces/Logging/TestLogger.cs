@@ -44,11 +44,10 @@ namespace ServiceStack.Logging
         /// <param name="message">The message.</param>
         /// <param name="exception">The exception.</param>
         private static void Log(Levels level, object message, Exception exception) {
-            var msg = message == null ? string.Empty : message.ToString();
+            string msg = message == null ? string.Empty : message.ToString();
             if(exception != null) {
-                msg += $", Exception: {exception.Message}";
+                msg += ", Exception: " + exception.Message;
             }
-
             _logs.Add(new KeyValuePair<Levels, string>(level, msg));
         }
 
@@ -58,7 +57,7 @@ namespace ServiceStack.Logging
         /// <param name="message">The message.</param>
         /// <param name="args">The args.</param>
         private static void LogFormat(Levels level, object message, params object[] args) {
-            var msg = message == null ? string.Empty : message.ToString();
+            string msg = message == null ? string.Empty : message.ToString();
             _logs.Add(new KeyValuePair<Levels, string>(level, string.Format(msg, args)));
         }
 
@@ -67,7 +66,7 @@ namespace ServiceStack.Logging
         /// </summary>
         /// <param name="message">The message.</param>
         private static void Log(Levels level, object message) {
-            var msg = message == null ? string.Empty : message.ToString();
+            string msg = message == null ? string.Empty : message.ToString();
             _logs.Add(new KeyValuePair<Levels, string>(level, msg));
         }
 

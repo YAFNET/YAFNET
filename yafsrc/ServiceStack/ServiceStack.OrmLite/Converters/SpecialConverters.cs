@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.Data;
 using ServiceStack.DataAnnotations;
 #if NETSTANDARD2_0
@@ -7,15 +10,48 @@ using System.Globalization;
 
 namespace ServiceStack.OrmLite.Converters
 {
+    public enum EnumKind
+    {
+        String,
+        Int,
+        Char
+    }
+    
     public class EnumConverter : StringConverter
     {
         public EnumConverter() : base(255) {}
 
+        static Dictionary<Type, EnumKind> enumTypeCache = new Dictionary<Type, EnumKind>();
+
+        public static EnumKind GetEnumKind(Type enumType)
+        {
+            if (enumTypeCache.TryGetValue(enumType, out var enumKind))
+                return enumKind;
+
+            enumKind = IsIntEnum(enumType)
+                ? EnumKind.Int
+                : enumType.HasAttributeCached<EnumAsCharAttribute>()
+                    ? EnumKind.Char
+                    : EnumKind.String;
+
+            Dictionary<Type, EnumKind> snapshot, newCache;
+            do
+            {
+                snapshot = enumTypeCache;
+                newCache = new Dictionary<Type, EnumKind>(enumTypeCache) {
+                    [enumType] = enumKind
+                };
+            } while (!ReferenceEquals(
+                System.Threading.Interlocked.CompareExchange(ref enumTypeCache, newCache, snapshot), snapshot));
+            
+            return enumKind;
+        }
+        
         public override void InitDbParam(IDbDataParameter p, Type fieldType)
         {
-            var isIntEnum = IsIntEnum(fieldType);
+            var enumKind = GetEnumKind(fieldType);
 
-            p.DbType = isIntEnum
+            p.DbType = enumKind == EnumKind.Int
                 ? Enum.GetUnderlyingType(fieldType) == typeof(long)
                     ? DbType.Int64
                     : DbType.Int32
@@ -24,12 +60,15 @@ namespace ServiceStack.OrmLite.Converters
 
         public override string ToQuotedString(Type fieldType, object value)
         {
-            var isEnumAsInt = fieldType.HasAttribute<EnumAsIntAttribute>();
-            if (isEnumAsInt)
+            var enumKind = GetEnumKind(fieldType);
+            if (enumKind == EnumKind.Int)
                 return this.ConvertNumber(Enum.GetUnderlyingType(fieldType), value).ToString();
 
+            if (enumKind == EnumKind.Char)
+                return DialectProvider.GetQuotedValue(ToCharValue(value).ToString());
+
             var isEnumFlags = fieldType.IsEnumFlags() ||
-                !fieldType.IsEnum && fieldType.IsNumericType(); // i.e. is real int && not Enum
+                (!fieldType.IsEnum && fieldType.IsNumericType()); //i.e. is real int && not Enum
 
             if (!isEnumFlags && long.TryParse(value.ToString(), out var enumValue))
                 value = Enum.ToObject(fieldType, enumValue);
@@ -45,14 +84,26 @@ namespace ServiceStack.OrmLite.Converters
 
         public override object ToDbValue(Type fieldType, object value)
         {
-            var isIntEnum = IsIntEnum(fieldType);
+            var enumKind = GetEnumKind(fieldType);
 
-            if (isIntEnum && value.GetType().IsEnum)
-                return Convert.ChangeType(value, Enum.GetUnderlyingType(fieldType));
+            if (value.GetType().IsEnum)
+            {
+                if (enumKind == EnumKind.Int)
+                    return Convert.ChangeType(value, Enum.GetUnderlyingType(fieldType));
+                
+                if (enumKind == EnumKind.Char)
+                    return Convert.ChangeType(value, typeof(char));
+            }
+
+            if (enumKind == EnumKind.Char)
+            {
+                var charValue = ToCharValue(value);
+                return charValue;
+            }
 
             if (long.TryParse(value.ToString(), out var enumValue))
             {
-                if (isIntEnum)
+                if (enumKind == EnumKind.Int)
                     return enumValue;
 
                 value = Enum.ToObject(fieldType, enumValue);
@@ -64,16 +115,39 @@ namespace ServiceStack.OrmLite.Converters
                 : value.ToString();
         }
 
+        public static char ToCharValue(object value)
+        {
+            var charValue = value is char c
+                ? c
+                : value is string s && s.Length == 1
+                    ? s[0]
+                    : value is int i
+                        ? (char) i
+                        : (char) Convert.ChangeType(value, typeof(char));
+            return charValue;
+        }
+
+        //cache expensive to calculate operation
+        static readonly ConcurrentDictionary<Type, bool> intEnums = new ConcurrentDictionary<Type, bool>();
+
         public static bool IsIntEnum(Type fieldType)
         {
-            var isIntEnum = fieldType.IsEnumFlags() ||
-                            fieldType.HasAttribute<EnumAsIntAttribute>() ||
-                            !fieldType.IsEnum && fieldType.IsNumericType(); // i.e. is real int && not Enum
+            var isIntEnum = intEnums.GetOrAdd(fieldType, type => 
+                type.IsEnumFlags() ||
+                type.HasAttributeCached<EnumAsIntAttribute>() || 
+                !type.IsEnum && 
+                type.IsNumericType()); //i.e. is real int && not Enum)
+
             return isIntEnum;
         }
 
         public override object FromDbValue(Type fieldType, object value)
         {
+            var enumKind = GetEnumKind(fieldType);
+            
+            if (enumKind == EnumKind.Char)
+                return Enum.ToObject(fieldType, (int)ToCharValue(value));
+
             if (value is string strVal)
                 return Enum.Parse(fieldType, strVal, ignoreCase:true);
 
@@ -84,6 +158,8 @@ namespace ServiceStack.OrmLite.Converters
     public class RowVersionConverter : OrmLiteConverter
     {
         public override string ColumnDefinition => "BIGINT";
+
+        public override DbType DbType => DbType.Int64;
 
         public override object FromDbValue(Type fieldType, object value)
         {
@@ -122,7 +198,7 @@ namespace ServiceStack.OrmLite.Converters
 
         public override object ToDbValue(Type fieldType, object value)
         {
-            // Let ADO.NET providers handle byte[]
+            //Let ADO.NET providers handle byte[]
             return fieldType == typeof(byte[]) 
                 ? value 
                 : DialectProvider.StringSerializer.SerializeToString(value);

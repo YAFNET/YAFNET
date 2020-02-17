@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Data;
 
 namespace ServiceStack.OrmLite.Dapper
@@ -9,9 +9,7 @@ namespace ServiceStack.OrmLite.Dapper
     internal class FeatureSupport
     {
         private static readonly FeatureSupport
-            Default = new FeatureSupport(false);
-
-        private static readonly FeatureSupport
+            Default = new FeatureSupport(false),
             Postgres = new FeatureSupport(true);
 
         /// <summary>
@@ -20,7 +18,7 @@ namespace ServiceStack.OrmLite.Dapper
         /// <param name="connection">The connection to get supported features for.</param>
         public static FeatureSupport Get(IDbConnection connection)
         {
-            var name = connection?.GetType().Name;
+            string name = connection?.GetType().Name;
             if (string.Equals(name, "npgsqlconnection", StringComparison.OrdinalIgnoreCase)) return Postgres;
             return Default;
         }

@@ -19,15 +19,15 @@ namespace ServiceStack.Reflection
 
         public static LateBoundMethod Create(MethodInfo method)
         {
-            var instanceParameter = Expression.Parameter(typeof(object), "target");
-            var argumentsParameter = Expression.Parameter(typeof(object[]), "arguments");
+            ParameterExpression instanceParameter = Expression.Parameter(typeof(object), "target");
+            ParameterExpression argumentsParameter = Expression.Parameter(typeof(object[]), "arguments");
 
-            var call = Expression.Call(
+            MethodCallExpression call = Expression.Call(
                 Expression.Convert(instanceParameter, method.DeclaringType),
                 method,
                 CreateParameterExpressions(method, argumentsParameter));
 
-            var lambda = Expression.Lambda<LateBoundMethod>(
+            Expression<LateBoundMethod> lambda = Expression.Lambda<LateBoundMethod>(
                 Expression.Convert(call, typeof(object)),
                 instanceParameter,
                 argumentsParameter);
@@ -35,7 +35,7 @@ namespace ServiceStack.Reflection
             return lambda.Compile();
         }
 
-        private static UnaryExpression[] CreateParameterExpressions(MethodInfo method, Expression argumentsParameter)
+        private static Expression[] CreateParameterExpressions(MethodInfo method, Expression argumentsParameter)
         {
             return method.GetParameters().Select((parameter, index) =>
                 Expression.Convert(
@@ -48,10 +48,10 @@ namespace ServiceStack.Reflection
 
         public static LateBoundVoid CreateVoid(MethodInfo method)
         {
-            var instanceParameter = Expression.Parameter(typeof(object), "target");
-            var argumentsParameter = Expression.Parameter(typeof(object[]), "arguments");
+            ParameterExpression instanceParameter = Expression.Parameter(typeof(object), "target");
+            ParameterExpression argumentsParameter = Expression.Parameter(typeof(object[]), "arguments");
 
-            var call = Expression.Call(
+            MethodCallExpression call = Expression.Call(
                 Expression.Convert(instanceParameter, method.DeclaringType),
                 method,
                 CreateParameterExpressions(method, argumentsParameter));

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Data;
 
@@ -15,12 +15,21 @@ namespace ServiceStack.OrmLite.Dapper
         {
             if (reader.Read())
             {
-                var deser = GetDeserializer(typeof(T), reader, 0, -1, false);
+                var effectiveType = typeof(T);
+                var deser = GetDeserializer(effectiveType, reader, 0, -1, false);
+                var convertToType = Nullable.GetUnderlyingType(effectiveType) ?? effectiveType;
                 do
                 {
-                    yield return (T)deser(reader);
-                }
- while (reader.Read());
+                    object val = deser(reader);
+                    if (val == null || val is T)
+                    {
+                        yield return (T)val;
+                    }
+                    else
+                    {
+                        yield return (T)Convert.ChangeType(val, convertToType, System.Globalization.CultureInfo.InvariantCulture);
+                    }
+                } while (reader.Read());
             }
         }
 
@@ -37,8 +46,7 @@ namespace ServiceStack.OrmLite.Dapper
                 do
                 {
                     yield return deser(reader);
-                }
- while (reader.Read());
+                } while (reader.Read());
             }
         }
 
@@ -54,8 +62,7 @@ namespace ServiceStack.OrmLite.Dapper
                 do
                 {
                     yield return deser(reader);
-                }
- while (reader.Read());
+                } while (reader.Read());
             }
         }
 
@@ -133,7 +140,7 @@ namespace ServiceStack.OrmLite.Dapper
         {
             concreteType = concreteType ?? typeof(T);
             var func = GetDeserializer(concreteType, reader, startIndex, length, returnNullIfFirstMissing);
-            if (concreteType.IsValueType())
+            if (concreteType.IsValueType)
             {
                 return _ => (T)func(_);
             }

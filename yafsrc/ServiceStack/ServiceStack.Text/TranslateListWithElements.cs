@@ -13,8 +13,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using System.Threading;
-
+using System.Linq;
 using ServiceStack.Text.Common;
 
 namespace ServiceStack.Text
@@ -37,11 +38,11 @@ namespace ServiceStack.Text
             do
             {
                 snapshot = TranslateICollectionCache;
-                newCache = new Dictionary<Type, ConvertInstanceDelegate>(TranslateICollectionCache);
-                newCache[elementType] = translateToFn;
+                newCache = new Dictionary<Type, ConvertInstanceDelegate>(TranslateICollectionCache) {
+                    [elementType] = translateToFn
+                };
 
-            }
- while (!ReferenceEquals(
+            } while (!ReferenceEquals(
                 Interlocked.CompareExchange(ref TranslateICollectionCache, newCache, snapshot), snapshot));
 
             return translateToFn(from, toInstanceOfType);
@@ -65,11 +66,11 @@ namespace ServiceStack.Text
             do
             {
                 snapshot = TranslateConvertibleICollectionCache;
-                newCache = new Dictionary<ConvertibleTypeKey, ConvertInstanceDelegate>(TranslateConvertibleICollectionCache);
-                newCache[typeKey] = translateToFn;
+                newCache = new Dictionary<ConvertibleTypeKey, ConvertInstanceDelegate>(TranslateConvertibleICollectionCache) {
+                    [typeKey] = translateToFn
+                };
 
-            }
- while (!ReferenceEquals(
+            } while (!ReferenceEquals(
                 Interlocked.CompareExchange(ref TranslateConvertibleICollectionCache, newCache, snapshot), snapshot));
 
             return translateToFn(from, toInstanceOfType);
@@ -101,34 +102,30 @@ namespace ServiceStack.Text
             if (fromElType == null || toElType == null)
                 return null;
 
-            if (fromElType == typeof(object) || toElType.IsAssignableFrom(fromElType))
-                return TranslateToGenericICollectionCache(fromValue, toPropertyType, toElType);
-
-            return null;
+            return TranslateToGenericICollectionCache(fromValue, toPropertyType, toElType);
         }
-
     }
 
     public class ConvertibleTypeKey
     {
         public Type ToInstanceType { get; set; }
-        public Type FromElemenetType { get; set; }
+        public Type FromElementType { get; set; }
 
         public ConvertibleTypeKey()
         {
         }
 
-        public ConvertibleTypeKey(Type toInstanceType, Type fromElemenetType)
+        public ConvertibleTypeKey(Type toInstanceType, Type fromElementType)
         {
-            this.ToInstanceType = toInstanceType;
-            this.FromElemenetType = fromElemenetType;
+            ToInstanceType = toInstanceType;
+            FromElementType = fromElementType;
         }
 
         public bool Equals(ConvertibleTypeKey other)
         {
             if (ReferenceEquals(null, other)) return false;
             if (ReferenceEquals(this, other)) return true;
-            return Equals(other.ToInstanceType, this.ToInstanceType) && Equals(other.FromElemenetType, this.FromElemenetType);
+            return other.ToInstanceType == ToInstanceType && other.FromElementType == FromElementType;
         }
 
         public override bool Equals(object obj)
@@ -136,15 +133,15 @@ namespace ServiceStack.Text
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != typeof(ConvertibleTypeKey)) return false;
-            return this.Equals((ConvertibleTypeKey)obj);
+            return Equals((ConvertibleTypeKey)obj);
         }
 
         public override int GetHashCode()
         {
             unchecked
             {
-                return ((this.ToInstanceType != null ? this.ToInstanceType.GetHashCode() : 0) * 397)
-                    ^ (this.FromElemenetType != null ? this.FromElemenetType.GetHashCode() : 0);
+                return ((ToInstanceType != null ? ToInstanceType.GetHashCode() : 0) * 397)
+                    ^ (FromElementType != null ? FromElementType.GetHashCode() : 0);
             }
         }
     }
@@ -172,7 +169,6 @@ namespace ServiceStack.Text
             {
                 to.Add(item);
             }
-
             return to;
         }
 
@@ -180,7 +176,7 @@ namespace ServiceStack.Text
             object fromList, Type toInstanceOfType)
         {
             if (fromList == null)
-                return null; // AOT
+                return null; //AOT
 
             if (toInstanceOfType.IsArray)
             {
@@ -199,9 +195,16 @@ namespace ServiceStack.Text
             var to = (ICollection<T>)CreateInstance(toInstanceOfType);
             foreach (var item in fromList)
             {
-                to.Add((T)item);
+                if (item is IEnumerable<KeyValuePair<string, object>> dictionary)
+                {
+                    var convertedItem = dictionary.FromObjectDictionary<T>();
+                    to.Add(convertedItem);
+                }
+                else
+                {
+                    to.Add((T)item);
+                }
             }
-
             return to;
         }
     }
@@ -225,7 +228,7 @@ namespace ServiceStack.Text
         public static ICollection<TTo> TranslateToGenericICollection(
             ICollection<TFrom> fromList, Type toInstanceOfType)
         {
-            if (fromList == null) return null; // AOT
+            if (fromList == null) return null; //AOT
 
             var to = (ICollection<TTo>)TranslateListWithElements<TTo>.CreateInstance(toInstanceOfType);
 
@@ -234,7 +237,6 @@ namespace ServiceStack.Text
                 var toItem = ConvertFn(item);
                 to.Add(toItem);
             }
-
             return to;
         }
 
@@ -244,12 +246,10 @@ namespace ServiceStack.Text
             {
                 return x => (TTo)(object)TypeSerializer.SerializeToString(x);
             }
-
             if (typeof(TFrom) == typeof(string))
             {
                 return x => TypeSerializer.DeserializeFromString<TTo>((string)(object)x);
             }
-
             return x => TypeSerializer.DeserializeFromString<TTo>(TypeSerializer.SerializeToString(x));
         }
     }

@@ -33,9 +33,9 @@ namespace ServiceStack.OrmLite.Legacy
         internal static string UpdateFmtSql(IOrmLiteDialectProvider dialectProvider, string table, string set, string @where)
         {
             if (table == null)
-                throw new ArgumentNullException(nameof(table));
+                throw new ArgumentNullException("table");
             if (set == null)
-                throw new ArgumentNullException(nameof(set));
+                throw new ArgumentNullException("set");
 
             var sql = StringBuilderCache.Allocate();
             sql.Append("UPDATE ");
@@ -47,7 +47,6 @@ namespace ServiceStack.OrmLite.Legacy
                 sql.Append(" WHERE ");
                 sql.Append(@where.SqlVerifyFragment());
             }
-
             return StringBuilderCache.ReturnAndFree(sql);
         }
 
@@ -75,9 +74,9 @@ namespace ServiceStack.OrmLite.Legacy
         internal static string DeleteFmtSql(IOrmLiteDialectProvider dialectProvider, string table, string @where)
         {
             if (table == null)
-                throw new ArgumentNullException(nameof(table));
+                throw new ArgumentNullException("table");
             if (@where == null)
-                throw new ArgumentNullException(nameof(@where));
+                throw new ArgumentNullException("where");
 
             var sql = StringBuilderCache.Allocate();
             sql.AppendFormat("DELETE FROM {0} WHERE {1}",

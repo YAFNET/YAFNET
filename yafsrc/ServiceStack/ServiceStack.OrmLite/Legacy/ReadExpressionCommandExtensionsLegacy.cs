@@ -11,7 +11,7 @@ namespace ServiceStack.OrmLite.Legacy
         internal static List<T> Select<T>(this IDbCommand dbCmd, Func<SqlExpression<T>, SqlExpression<T>> expression)
         {
             var q = dbCmd.GetDialectProvider().SqlExpression<T>();
-            var sql = expression(q).SelectInto<T>();
+            string sql = expression(q).SelectInto<T>();
 
             return dbCmd.ExprConvertToList<T>(sql, q.Params, onlyFields: q.OnlyFields);
         }
@@ -20,14 +20,14 @@ namespace ServiceStack.OrmLite.Legacy
         internal static List<Into> Select<Into, From>(this IDbCommand dbCmd, Func<SqlExpression<From>, SqlExpression<From>> expression)
         {
             var q = dbCmd.GetDialectProvider().SqlExpression<From>();
-            var sql = expression(q).SelectInto<Into>();
+            string sql = expression(q).SelectInto<Into>();
 
             return dbCmd.ExprConvertToList<Into>(sql, q.Params, onlyFields: q.OnlyFields);
         }
 
         internal static List<Into> Select<Into, From>(this IDbCommand dbCmd, SqlExpression<From> q)
         {
-            var sql = q.SelectInto<Into>();
+            string sql = q.SelectInto<Into>();
             return dbCmd.ExprConvertToList<Into>(sql, q.Params, onlyFields: q.OnlyFields);
         }
 

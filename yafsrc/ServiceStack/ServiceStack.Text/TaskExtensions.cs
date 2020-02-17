@@ -19,7 +19,6 @@ namespace ServiceStack
             {
                 task.ContinueWith(t => fn(t.Result), taskOptions);
             }
-
             return task;
         }
 
@@ -36,7 +35,6 @@ namespace ServiceStack
             {
                 task.ContinueWith(t => fn(), taskOptions);
             }
-
             return task;
         }
 
@@ -53,7 +51,6 @@ namespace ServiceStack
             {
                 task.ContinueWith(t => fn(t.UnwrapIfSingleException()), taskOptions);
             }
-
             return task;
         }
 
@@ -70,7 +67,6 @@ namespace ServiceStack
             {
                 task.ContinueWith(t => fn(t.UnwrapIfSingleException()), taskOptions);
             }
-
             return task;
         }
 
@@ -86,7 +82,8 @@ namespace ServiceStack
 
         public static Exception UnwrapIfSingleException(this Exception ex)
         {
-            if (!(ex is AggregateException aex))
+            var aex = ex as AggregateException;
+            if (aex == null)
                 return ex;
 
             if (aex.InnerExceptions != null

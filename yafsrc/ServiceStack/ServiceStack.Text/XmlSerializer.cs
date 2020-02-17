@@ -2,6 +2,7 @@
 using System;
 using System.IO;
 using System.Runtime.Serialization;
+using System.Text;
 using System.Xml;
 
 namespace ServiceStack.Text
@@ -19,7 +20,7 @@ namespace ServiceStack.Text
             XmlWriterSettings.OmitXmlDeclaration = omitXmlDeclaration;
             XmlReaderSettings.MaxCharactersInDocument = maxCharsInDocument;
             
-            // Prevent XML bombs by default: https://msdn.microsoft.com/en-us/magazine/ee335713.aspx
+            //Prevent XML bombs by default: https://msdn.microsoft.com/en-us/magazine/ee335713.aspx
             XmlReaderSettings.DtdProcessing = DtdProcessing.Prohibit;
         }
 
@@ -36,7 +37,7 @@ namespace ServiceStack.Text
             }
             catch (Exception ex)
             {
-                throw new SerializationException($"DeserializeDataContract: Error converting type: {ex.Message}", ex);
+                throw new SerializationException("DeserializeDataContract: Error converting type: " + ex.Message, ex);
             }
         }
 
@@ -49,6 +50,11 @@ namespace ServiceStack.Text
         {
             var type = typeof(T);
             return (T)Deserialize(xml, type);
+        }
+
+        public static T DeserializeFromReader<T>(TextReader reader)
+        {
+            return DeserializeFromString<T>(reader.ReadToEnd());
         }
 
         public static T DeserializeFromStream<T>(Stream stream)
@@ -75,15 +81,29 @@ namespace ServiceStack.Text
                         var serializer = new DataContractSerializer(from.GetType());
                         serializer.WriteObject(xw, from);
                         xw.Flush();
-                        ms.Seek(0, SeekOrigin.Begin);
-                        var reader = new StreamReader(ms);
-                        return reader.ReadToEnd();
+                        return ms.ReadToEnd();
                     }
                 }
             }
             catch (Exception ex)
             {
                 throw new SerializationException($"Error serializing object of type {@from.GetType().FullName}", ex);
+            }
+        }
+
+        public static void SerializeToWriter<T>(T value, TextWriter writer)
+        {
+            try
+            {
+                using (var xw = XmlWriter.Create(writer, XmlWriterSettings))
+                {
+                    var serializer = new DataContractSerializer(value.GetType());
+                    serializer.WriteObject(xw, value);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new SerializationException($"Error serializing object of type {value.GetType().FullName}", ex);
             }
         }
 
@@ -94,19 +114,6 @@ namespace ServiceStack.Text
             {
                 var serializer = new DataContractSerializer(obj.GetType());
                 serializer.WriteObject(xw, obj);
-            }
-        }
-
-        public static void SerializeToWriter<T>(T value, XmlWriter writer)
-        {
-            try
-            {
-                var serializer = new DataContractSerializer(value.GetType());
-                serializer.WriteObject(writer, value);
-            }
-            catch (Exception ex)
-            {
-                throw new SerializationException($"Error serializing object of type {value.GetType().FullName}", ex);
             }
         }
     }

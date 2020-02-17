@@ -1,12 +1,7 @@
-﻿using System;
 using System.Data;
-using System.Reflection;
 
-#if !NETSTANDARD1_3
 namespace ServiceStack.OrmLite.Dapper
 {
-    using System.Data.SqlClient;
-
     /// <summary>
     /// Used to pass a DataTable as a TableValuedParameter
     /// </summary>
@@ -32,17 +27,6 @@ namespace ServiceStack.OrmLite.Dapper
             this.typeName = typeName;
         }
 
-        private static readonly Action<SqlParameter, string> setTypeName;
-        static TableValuedParameter()
-        {
-            var prop = typeof(System.Data.SqlClient.SqlParameter).GetProperty("TypeName", BindingFlags.Instance | BindingFlags.Public);
-            if (prop != null && prop.PropertyType == typeof(string) && prop.CanWrite)
-            {
-                setTypeName = (Action<SqlParameter, string>)
-                    Delegate.CreateDelegate(typeof(Action<SqlParameter, string>), prop.GetSetMethod());
-            }
-        }
-
         void SqlMapper.ICustomQueryParameter.AddParameter(IDbCommand command, string name)
         {
             var param = command.CreateParameter();
@@ -60,13 +44,7 @@ namespace ServiceStack.OrmLite.Dapper
             {
                 typeName = table.GetTypeName();
             }
-
-            if (!string.IsNullOrEmpty(typeName) && parameter is SqlParameter sqlParam)
-            {
-                setTypeName?.Invoke(sqlParam, typeName);
-                sqlParam.SqlDbType = SqlDbType.Structured;
-            }
+            if (!string.IsNullOrEmpty(typeName)) StructuredHelper.ConfigureTVP(parameter, typeName);
         }
     }
 }
-#endif

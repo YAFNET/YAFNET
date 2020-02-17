@@ -20,7 +20,7 @@ namespace ServiceStack
         /// <returns>time elapsed in micro seconds</returns>
         public static double MeasureFor(Action fn, int runForMs)
         {
-            var iter = 0;
+            int iter = 0;
             var watch = new Stopwatch();
             watch.Start();
             long elapsed = 0;
@@ -62,7 +62,7 @@ namespace ServiceStack
             MeasureFor(() => warmup(), 100);
 
             // Run the benchmark for at least 2000ms.
-            var result = MeasureFor(() =>
+            double result = MeasureFor(() =>
             {
                 for (var i = 0; i < times; i++)
                     fn();

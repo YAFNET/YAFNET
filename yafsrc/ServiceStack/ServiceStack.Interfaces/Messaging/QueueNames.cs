@@ -1,4 +1,5 @@
 using System;
+using System.Text;
 
 namespace ServiceStack.Messaging
 {
@@ -16,21 +17,26 @@ namespace ServiceStack.Messaging
             Dlq = QueueNames.ResolveQueueNameFn(typeof(T).Name, ".dlq");
         }
 
-        public static string Priority { get; }
+        public static string Priority { get; private set; }
 
-        public static string In { get; }
+        public static string In { get; private set; }
 
-        public static string Out { get; }
+        public static string Out { get; private set; }
 
-        public static string Dlq { get; }
+        public static string Dlq { get; private set; }
 
-        public static string[] AllQueueNames =>
-            new[] {
-                          In,
-                          Priority,
-                          Out,
-                          Dlq,
-                      };
+        public static string[] AllQueueNames
+        {
+            get
+            {
+                return new[] {
+                    In,
+                    Priority,
+                    Out,
+                    Dlq,
+                };
+            }
+        }
     }
 
     /// <summary>
@@ -43,11 +49,11 @@ namespace ServiceStack.Messaging
         public static string ExchangeTopic = "mx.servicestack.topic";
 
         public static string MqPrefix = "mq:";
-        public static string QueuePrefix = string.Empty;
+        public static string QueuePrefix = "";
 
-        public static string TempMqPrefix = $"{MqPrefix}tmp:";
-        public static string TopicIn = $"{MqPrefix}topic:in";
-        public static string TopicOut = $"{MqPrefix}topic:out";
+        public static string TempMqPrefix = MqPrefix + "tmp:";
+        public static string TopicIn = MqPrefix + "topic:in";
+        public static string TopicOut = MqPrefix + "topic:out";
 
         public static Func<string, string, string> ResolveQueueNameFn = ResolveQueueName;
 
@@ -64,10 +70,10 @@ namespace ServiceStack.Messaging
 
         public static void SetQueuePrefix(string prefix)
         {
-            TopicIn = $"{prefix}{MqPrefix}topic:in";
-            TopicOut = $"{prefix}{MqPrefix}topic:out";
+            TopicIn = prefix + MqPrefix + "topic:in";
+            TopicOut = prefix + MqPrefix + "topic:out";
             QueuePrefix = prefix;
-            TempMqPrefix = $"{prefix}{MqPrefix}tmp:";
+            TempMqPrefix = prefix + MqPrefix + "tmp:";
         }
 
         private readonly Type messageType;

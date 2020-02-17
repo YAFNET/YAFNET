@@ -40,13 +40,39 @@ namespace ServiceStack.OrmLite
         public static string GetQuotedColumnName(this IOrmLiteDialectProvider dialect,
             ModelDefinition tableDef, FieldDefinition fieldDef)
         {
-            return $"{dialect.GetQuotedTableName(tableDef)}.{dialect.GetQuotedColumnName(fieldDef.FieldName)}";
+            return dialect.GetQuotedTableName(tableDef) +
+                "." +
+                dialect.GetQuotedColumnName(fieldDef.FieldName);
+        }
+
+        public static string GetQuotedColumnName(this IOrmLiteDialectProvider dialect,
+            ModelDefinition tableDef, string tableAlias, FieldDefinition fieldDef)
+        {
+            if (tableAlias == null)
+                return dialect.GetQuotedColumnName(tableDef, fieldDef);
+            
+            return dialect.GetQuotedTableName(tableAlias) //aliases shouldn't have schemas
+                   + "." +
+                   dialect.GetQuotedColumnName(fieldDef.FieldName);
         }
 
         public static string GetQuotedColumnName(this IOrmLiteDialectProvider dialect,
             ModelDefinition tableDef, string fieldName)
         {
-            return $"{dialect.GetQuotedTableName(tableDef)}.{dialect.GetQuotedColumnName(fieldName)}";
+            return dialect.GetQuotedTableName(tableDef) +
+                   "." +
+                   dialect.GetQuotedColumnName(fieldName);
+        }
+
+        public static string GetQuotedColumnName(this IOrmLiteDialectProvider dialect,
+            ModelDefinition tableDef, string tableAlias, string fieldName)
+        {
+            if (tableAlias == null)
+                return dialect.GetQuotedColumnName(tableDef, fieldName);
+            
+            return dialect.GetQuotedTableName(tableAlias) //aliases shouldn't have schemas 
+                + "." +
+                dialect.GetQuotedColumnName(fieldName);
         }
 
         public static object FromDbValue(this IOrmLiteDialectProvider dialect, 
@@ -82,5 +108,18 @@ namespace ServiceStack.OrmLite
 
         public static bool IsMySqlConnector(this IOrmLiteDialectProvider dialect) => 
             dialect.GetType().Name == "MySqlConnectorDialectProvider";
+
+        public static void InitDbParam(this IOrmLiteDialectProvider dialect, IDbDataParameter dbParam, Type columnType)
+        {
+            var converter = dialect.GetConverterBestMatch(columnType);
+            converter.InitDbParam(dbParam, columnType);
+        }
+
+        public static void InitDbParam(this IOrmLiteDialectProvider dialect, IDbDataParameter dbParam, Type columnType, object value)
+        {
+            var converter = dialect.GetConverterBestMatch(columnType);
+            converter.InitDbParam(dbParam, columnType);
+            dbParam.Value = converter.ToDbValue(columnType, value);
+        }
     }
 }

@@ -14,10 +14,9 @@ namespace ServiceStack.Common.Support
 			{
 				throw new ArgumentNullException();
 			}
-
 			var parts = typeDefinition.Split(TypeDefinitionSeperator);
-            this.TypeName = parts[TypeNameIndex].Trim();
-            this.AssemblyName = parts.Length > AssemblyNameIndex ? parts[AssemblyNameIndex].Trim() : null;
+			TypeName = parts[TypeNameIndex].Trim();
+			AssemblyName = (parts.Length > AssemblyNameIndex) ? parts[AssemblyNameIndex].Trim() : null;
 		}
 
 		public string TypeName { get; set; }

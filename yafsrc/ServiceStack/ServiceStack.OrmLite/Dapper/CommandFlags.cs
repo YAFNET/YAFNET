@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 namespace ServiceStack.OrmLite.Dapper
 {
@@ -12,17 +12,14 @@ namespace ServiceStack.OrmLite.Dapper
         /// No additional flags
         /// </summary>
         None = 0,
-
         /// <summary>
         /// Should data be buffered before returning?
         /// </summary>
         Buffered = 1,
-
         /// <summary>
         /// Can async queries be pipelined?
         /// </summary>
         Pipelined = 2,
-
         /// <summary>
         /// Should the plan cache be bypassed?
         /// </summary>

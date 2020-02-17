@@ -11,27 +11,25 @@
 //
 
 using System;
-using System.Globalization;
-#if NETSTANDARD2_0
-using Microsoft.Extensions.Primitives;
-#endif
+using ServiceStack.Text.Json;
 
 namespace ServiceStack.Text.Common
 {
     public static class DeserializeBuiltin<T>
     {
+        private static readonly ParseStringSpanDelegate CachedParseFn;
         static DeserializeBuiltin()
         {
-            ParseStringSegment = GetParseStringSegmentFn();
+            CachedParseFn = GetParseStringSpanFn();
         }
 
-        public static ParseStringDelegate Parse => v => ParseStringSegment(new StringSegment(v));
+        public static ParseStringDelegate Parse => v => CachedParseFn(v.AsSpan());
 
-        public static ParseStringSegmentDelegate ParseStringSegment { get; }
+        public static ParseStringSpanDelegate ParseStringSpan => CachedParseFn;
 
-        private static ParseStringDelegate GetParseFn() => v => GetParseStringSegmentFn()(new StringSegment(v));
+        private static ParseStringDelegate GetParseFn() => v => GetParseStringSpanFn()(v.AsSpan());
 
-        private static ParseStringSegmentDelegate GetParseStringSegmentFn()
+        private static ParseStringSpanDelegate GetParseStringSpanFn()
         {
             var nullableType = Nullable.GetUnderlyingType(typeof(T));
             if (nullableType == null)
@@ -40,51 +38,42 @@ namespace ServiceStack.Text.Common
                 switch (typeCode)
                 {
                     case TypeCode.Boolean:
-                        // Lots of kids like to use '1', HTML checkboxes use 'on' as a soft convention
-                        return value =>
-                            value.Length == 1 ?
-                              value.Equals("1")
-                            : value.Length == 2 ?
-                              value.Equals("on") :
-                              value.ParseBoolean();
-
-                    case TypeCode.Byte:
-                        return value => value.ParseByte();
+                        return value => value.ParseBoolean();
                     case TypeCode.SByte:
-                        return value => value.ParseSByte();
+                        return SignedInteger<sbyte>.ParseObject;
+                    case TypeCode.Byte:
+                        return UnsignedInteger<byte>.ParseObject;
                     case TypeCode.Int16:
-                        return value => value.ParseInt16();
+                        return SignedInteger<short>.ParseObject;
                     case TypeCode.UInt16:
-                        return value => value.ParseUInt16();
+                        return UnsignedInteger<ushort>.ParseObject;
                     case TypeCode.Int32:
-                        return value => value.ParseInt32();
+                        return SignedInteger<int>.ParseObject;
                     case TypeCode.UInt32:
-                        return value => value.ParseUInt32();
+                        return UnsignedInteger<uint>.ParseObject;
                     case TypeCode.Int64:
-                        return value => value.ParseInt64();
+                        return SignedInteger<long>.ParseObject;
                     case TypeCode.UInt64:
-                        return value => value.ParseUInt64();
+                        return UnsignedInteger<ulong>.ParseObject;
+
                     case TypeCode.Single:
-                        return value => float.Parse(value.Value, CultureInfo.InvariantCulture);
+                        return value => MemoryProvider.Instance.ParseFloat(value);
                     case TypeCode.Double:
-                        return value => double.Parse(value.Value, CultureInfo.InvariantCulture);
+                        return value => MemoryProvider.Instance.ParseDouble(value);
                     case TypeCode.Decimal:
-                        return value => value.ParseDecimal(allowThousands: true);
+                        return value => MemoryProvider.Instance.ParseDecimal(value);
                     case TypeCode.DateTime:
-                        return value => DateTimeSerializer.ParseShortestXsdDateTime(value.Value);
+                        return value => DateTimeSerializer.ParseShortestXsdDateTime(value.ToString());
                     case TypeCode.Char:
-                        return value =>
-                        {
-                            return char.TryParse(value.Value, out var cValue) ? cValue : '\0';
-                        };
+                        return value => value.Length == 0 ? (char)0 : value.Length == 1 ? value[0] : JsonTypeSerializer.Unescape(value)[0];
                 }
 
                 if (typeof(T) == typeof(Guid))
                     return value => value.ParseGuid();
                 if (typeof(T) == typeof(DateTimeOffset))
-                    return value => DateTimeSerializer.ParseDateTimeOffset(value.Value);
+                    return value => DateTimeSerializer.ParseDateTimeOffset(value.ToString());
                 if (typeof(T) == typeof(TimeSpan))
-                    return value => DateTimeSerializer.ParseTimeSpan(value.Value);
+                    return value => DateTimeSerializer.ParseTimeSpan(value.ToString());
             }
             else
             {
@@ -92,51 +81,44 @@ namespace ServiceStack.Text.Common
                 switch (typeCode)
                 {
                     case TypeCode.Boolean:
-                        return value => value.IsNullOrEmpty() ?
-                              (bool?)null
-                            : value.Length == 1 ?
-                              value.Equals("1")
-                            : value.Length == 2 ?
-                              value.Equals("on") :
-                              value.ParseBoolean();
-
-                    case TypeCode.Byte:
-                        return value => value.IsNullOrEmpty() ? (byte?)null : value.ParseByte();
+                        return value => value.IsNullOrEmpty() 
+                            ? (bool?)null 
+                            : value.ParseBoolean();
                     case TypeCode.SByte:
-                        return value => value.IsNullOrEmpty() ? (sbyte?)null : value.ParseSByte();
+                        return SignedInteger<sbyte>.ParseNullableObject;
+                    case TypeCode.Byte:
+                        return UnsignedInteger<byte>.ParseNullableObject;
                     case TypeCode.Int16:
-                        return value => value.IsNullOrEmpty() ? (short?)null : value.ParseInt16();
+                        return SignedInteger<short>.ParseNullableObject;
                     case TypeCode.UInt16:
-                        return value => value.IsNullOrEmpty() ? (ushort?)null : value.ParseUInt16();
+                        return UnsignedInteger<ushort>.ParseNullableObject;
                     case TypeCode.Int32:
-                        return value => value.IsNullOrEmpty() ? (int?)null : value.ParseInt32();
+                        return SignedInteger<int>.ParseNullableObject;
                     case TypeCode.UInt32:
-                        return value => value.IsNullOrEmpty() ? (uint?)null : value.ParseUInt32();
+                        return UnsignedInteger<uint>.ParseNullableObject;
                     case TypeCode.Int64:
-                        return value => value.IsNullOrEmpty() ? (long?)null : value.ParseInt64();
+                        return SignedInteger<long>.ParseNullableObject;
                     case TypeCode.UInt64:
-                        return value => value.IsNullOrEmpty() ? (ulong?)null : value.ParseUInt64();
+                        return UnsignedInteger<ulong>.ParseNullableObject;
+
                     case TypeCode.Single:
-                        return value => value.IsNullOrEmpty() ? (float?)null : float.Parse(value.Value, CultureInfo.InvariantCulture);
+                        return value => value.IsNullOrEmpty() ? (float?)null : value.ParseFloat();
                     case TypeCode.Double:
-                        return value => value.IsNullOrEmpty() ? (double?)null : double.Parse(value.Value, CultureInfo.InvariantCulture);
+                        return value => value.IsNullOrEmpty() ? (double?)null : value.ParseDouble();
                     case TypeCode.Decimal:
-                        return value => value.IsNullOrEmpty() ? (decimal?)null : value.ParseDecimal(allowThousands: true);
+                        return value => value.IsNullOrEmpty() ? (decimal?)null : value.ParseDecimal();
                     case TypeCode.DateTime:
-                        return value => DateTimeSerializer.ParseShortestNullableXsdDateTime(value.Value);
+                        return value => DateTimeSerializer.ParseShortestNullableXsdDateTime(value.ToString());
                     case TypeCode.Char:
-                        return value =>
-                        {
-                            return value.IsNullOrEmpty() ? (char?)null : char.TryParse(value.Value, out var cValue) ? cValue : '\0';
-                        };
+                        return value => value.IsEmpty ? (char?)null : value.Length == 1 ? value[0] : JsonTypeSerializer.Unescape(value)[0];
                 }
 
                 if (typeof(T) == typeof(TimeSpan?))
-                    return value => DateTimeSerializer.ParseNullableTimeSpan(value.Value);
+                    return value => DateTimeSerializer.ParseNullableTimeSpan(value.ToString());
                 if (typeof(T) == typeof(Guid?))
                     return value => value.IsNullOrEmpty() ? (Guid?)null : value.ParseGuid();
                 if (typeof(T) == typeof(DateTimeOffset?))
-                    return value => DateTimeSerializer.ParseNullableDateTimeOffset(value.Value);
+                    return value => DateTimeSerializer.ParseNullableDateTimeOffset(value.ToString());
             }
 
             return null;

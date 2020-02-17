@@ -11,15 +11,13 @@
 //
 
 using System;
+using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
 
 namespace ServiceStack.Text.Common
 {
     internal static class ParseUtils
     {
-        public static readonly IPropertyNameResolver DefaultPropertyNameResolver = new DefaultPropertyNameResolver();
-        public static readonly IPropertyNameResolver LenientPropertyNameResolver = new LenientPropertyNameResolver();
-
         public static object NullValueType(Type type)
         {
             return type.GetDefaultValue();
@@ -40,7 +38,7 @@ namespace ServiceStack.Text.Common
             if (type == typeof(Uri))
                 return x => new Uri(x.FromCsvField());
 
-            // Warning: typeof(object).IsInstanceOfType(typeof(Type)) == True??
+            //Warning: typeof(object).IsInstanceOfType(typeof(Type)) == True??
             if (type.IsInstanceOfType(typeof(Type)))
                 return ParseType;
 
@@ -63,29 +61,15 @@ namespace ServiceStack.Text.Common
             if (str == null)
                 return null;
 
-            if (JsConfig.EmitLowercaseUnderscoreNames)
+            if (JsConfig.TextCase == TextCase.SnakeCase)
             {
-                var names = Enum.GetNames(enumType);
+                string[] names = Enum.GetNames(enumType);
                 if (Array.IndexOf(names, str) == -1)    // case sensitive ... could use Linq Contains() extension with StringComparer.InvariantCultureIgnoreCase instead for a slight penalty
-                    str = str.Replace("_", string.Empty);
+                    str = str.Replace("_", "");
             }
 
-            if (enumType.HasAttribute<DataContractAttribute>())
-            {
-                var enumNames = Enum.GetNames(enumType);
-                var enumValues = Enum.GetValues(enumType);
-                var i = 0;                
-                foreach (var enumValue in enumValues)
-                {
-                    var enumName = enumNames[i++];
-                    var mi = enumType.GetMember(enumName)[0];
-                    var useValue = mi.FirstAttribute<EnumMemberAttribute>()?.Value ?? enumValue;
-                    if (string.Equals(str, useValue.ToString(), StringComparison.OrdinalIgnoreCase))
-                        return enumValue;
-                }
-            }
-            
-            return Enum.Parse(enumType, str, ignoreCase: true);
+            var enumInfo = CachedTypeInfo.Get(enumType).EnumInfo;
+            return enumInfo.Parse(str);
         }
     }
 

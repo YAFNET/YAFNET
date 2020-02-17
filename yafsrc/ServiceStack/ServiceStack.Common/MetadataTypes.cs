@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-
+using System.Runtime.Serialization;
 using ServiceStack.DataAnnotations;
 
 namespace ServiceStack
@@ -147,10 +147,11 @@ namespace ServiceStack
 
         public List<string> EnumNames { get; set; }
         public List<string> EnumValues { get; set; }
+        public List<string> EnumMemberValues { get; set; }
 
         public Dictionary<string, string> Meta { get; set; }
 
-        public string GetFullName() => $"{this.Namespace}.{this.Name}";
+        public string GetFullName() => Namespace + "." + Name;
     }
 
     public class MetadataTypeName

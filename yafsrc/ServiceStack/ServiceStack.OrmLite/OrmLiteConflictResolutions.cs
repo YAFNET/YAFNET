@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data;
+using ServiceStack.Text;
 
 namespace ServiceStack.OrmLite
 {
@@ -16,8 +17,7 @@ namespace ServiceStack.OrmLite
         {
             var pos = dbCmd.CommandText?.IndexOf(' ') ?? -1;
             if (pos == -1)
-                throw new NotSupportedException(
-                    $"Cannot specify ON CONFLICT resolution on Invalid SQL starting with: {dbCmd.CommandText.SubstringWithElipsis(0, 50)}");
+                throw new NotSupportedException("Cannot specify ON CONFLICT resolution on Invalid SQL starting with: " + dbCmd.CommandText.SubstringWithEllipsis(0, 50));
 
             var sqlConflict = dbCmd.GetDialectProvider().SqlConflict(dbCmd.CommandText, conflictResolution);
             dbCmd.CommandText = sqlConflict;

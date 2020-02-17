@@ -1,26 +1,16 @@
 //Copyright (c) ServiceStack, Inc. All Rights Reserved.
 //License: https://raw.github.com/ServiceStack/ServiceStack/master/license.txt
 
-#if !(PCL || LITE || NO_DYNAMIC)
-
-#if NETSTANDARD2_0 
-using Microsoft.Extensions.Primitives;
-#else
-#endif
-
-#if !(__IOS__)
 using System;
 using System.Collections.Generic;
 using System.Dynamic;
-using System.Linq;
-using System.Reflection;
-using System.Reflection.Emit;
-
 using ServiceStack.Text;
 using ServiceStack.Text.Common;
 using ServiceStack.Text.Json;
+using System.Linq;
 
-#endif
+using System.Reflection;
+using System.Reflection.Emit;
 
 namespace ServiceStack
 {
@@ -29,18 +19,19 @@ namespace ServiceStack
     {
         private static readonly ITypeSerializer Serializer = JsWriter.GetTypeSerializer<TSerializer>();
 
+        private static readonly ParseStringSpanDelegate CachedParseFn;
         static DeserializeDynamic()
         {
-            ParseStringSegment = ParseDynamic;
+            CachedParseFn = ParseDynamic;
         }
 
-        public static ParseStringDelegate Parse => v => ParseStringSegment(new StringSegment(v));
+        public static ParseStringDelegate Parse => v => CachedParseFn(v.AsSpan());
 
-        public static ParseStringSegmentDelegate ParseStringSegment { get; }
+        public static ParseStringSpanDelegate ParseStringSpan => CachedParseFn;
 
-        public static IDynamicMetaObjectProvider ParseDynamic(string value) => ParseDynamic(new StringSegment(value));
+        public static IDynamicMetaObjectProvider ParseDynamic(string value) => ParseDynamic(value.AsSpan());
 
-        public static IDynamicMetaObjectProvider ParseDynamic(StringSegment value)
+        public static IDynamicMetaObjectProvider ParseDynamic(ReadOnlySpan<char> value)
         {
             var index = VerifyAndGetStartIndex(value, typeof(ExpandoObject));
 
@@ -48,7 +39,7 @@ namespace ServiceStack
 
             if (JsonTypeSerializer.IsEmptyMap(value)) return result;
 
-            var container = (IDictionary<string, object>)result;
+            var container = (IDictionary<String, Object>)result;
 
             var tryToParsePrimitiveTypes = JsConfig.TryToParsePrimitiveTypeValues;
 
@@ -59,7 +50,7 @@ namespace ServiceStack
                 Serializer.EatMapKeySeperator(value, ref index);
                 var elementValue = Serializer.EatValue(value, ref index);
 
-                var mapKey = Serializer.UnescapeString(keyValue).Value;
+                var mapKey = Serializer.UnescapeString(keyValue).ToString();
 
                 if (JsonUtils.IsJsObject(elementValue))
                 {
@@ -67,16 +58,15 @@ namespace ServiceStack
                 }
                 else if (JsonUtils.IsJsArray(elementValue))
                 {
-                    container[mapKey] = DeserializeList<List<object>, TSerializer>.ParseStringSegment(elementValue);
+                    container[mapKey] = DeserializeList<List<object>, TSerializer>.ParseStringSpan(elementValue);
                 }
                 else if (tryToParsePrimitiveTypes)
                 {
-                    container[mapKey] = DeserializeType<TSerializer>.ParsePrimitive(elementValue)
-                                        ?? Serializer.UnescapeString(elementValue);
+                    container[mapKey] = DeserializeType<TSerializer>.ParsePrimitive(elementValue) ?? Serializer.UnescapeString(elementValue).Value();
                 }
                 else
                 {
-                    container[mapKey] = Serializer.UnescapeString(elementValue);
+                    container[mapKey] = Serializer.UnescapeString(elementValue).Value();
                 }
 
                 Serializer.EatItemSeperatorOrMapEndChar(value, ref index);
@@ -85,24 +75,19 @@ namespace ServiceStack
             return result;
         }
 
-        private static int VerifyAndGetStartIndex(StringSegment value, Type createMapType)
+        private static int VerifyAndGetStartIndex(ReadOnlySpan<char> value, Type createMapType)
         {
             var index = 0;
             if (!Serializer.EatMapStartChar(value, ref index))
             {
-                // Don't throw ex because some KeyValueDataContractDeserializer don't have '{}'
-                Tracer.Instance.WriteDebug(
-                    "WARN: Map definitions should start with a '{0}', expecting serialized type '{1}', got string starting with: {2}",
-                    JsWriter.MapStartChar,
-                    createMapType != null ? createMapType.Name : "Dictionary<,>",
-                    value.Substring(0, value.Length < 50 ? value.Length : 50));
+                //Don't throw ex because some KeyValueDataContractDeserializer don't have '{}'
+                Tracer.Instance.WriteDebug("WARN: Map definitions should start with a '{0}', expecting serialized type '{1}', got string starting with: {2}",
+                    JsWriter.MapStartChar, createMapType != null ? createMapType.Name : "Dictionary<,>", value.Substring(0, value.Length < 50 ? value.Length : 50));
             }
-
             return index;
         }
     }
 
-    // TODO: Workout how to fix broken CoreCLR SL5 build that uses dynamic
     public class DynamicJson : DynamicObject
     {
         private readonly IDictionary<string, object> _hash = new Dictionary<string, object>();
@@ -117,44 +102,42 @@ namespace ServiceStack
         {
             // Support arbitrary nesting by using JsonObject
             var deserialized = JsonSerializer.DeserializeFromString<JsonObject>(json);
-            var hash = deserialized.ToDictionary<KeyValuePair<string, string>, string, object>(
-                entry => entry.Key,
-                entry => entry.Value);
+            var hash = deserialized.ToDictionary<KeyValuePair<string, string>, string, object>(entry => entry.Key, entry => entry.Value);
             return new DynamicJson(hash);
         }
 
         public DynamicJson(IEnumerable<KeyValuePair<string, object>> hash)
         {
-            this._hash.Clear();
+            _hash.Clear();
             foreach (var entry in hash)
             {
-                this._hash.Add(Underscored(entry.Key), entry.Value);
+                _hash.Add(Underscored(entry.Key), entry.Value);
             }
         }
 
         public override bool TrySetMember(SetMemberBinder binder, object value)
         {
             var name = Underscored(binder.Name);
-            this._hash[name] = value;
-            return this._hash[name] == value;
+            _hash[name] = value;
+            return _hash[name] == value;
         }
 
         public override bool TryGetMember(GetMemberBinder binder, out object result)
         {
             var name = Underscored(binder.Name);
-            return this.YieldMember(name, out result);
+            return YieldMember(name, out result);
         }
 
         public override string ToString()
         {
-            return JsonSerializer.SerializeToString(this._hash);
+            return JsonSerializer.SerializeToString(_hash);
         }
 
         private bool YieldMember(string name, out object result)
         {
-            if (this._hash.ContainsKey(name))
+            if (_hash.ContainsKey(name))
             {
-                var json = this._hash[name].ToString();
+                var json = _hash[name].ToString();
                 if (json.TrimStart(' ').StartsWith("{", StringComparison.Ordinal))
                 {
                     result = Deserialize(json);
@@ -162,21 +145,16 @@ namespace ServiceStack
                 }
                 else if (json.TrimStart(' ').StartsWith("[", StringComparison.Ordinal))
                 {
-                    result = JsonArrayObjects.Parse(json).Select(
-                        a =>
-                            {
-                                var hash = a.ToDictionary<KeyValuePair<string, string>, string, object>(
-                                    entry => entry.Key,
-                                    entry => entry.Value);
-                                return new DynamicJson(hash);
-                            }).ToArray();
+                    result = JsonArrayObjects.Parse(json).Select(a =>
+                    {
+                        var hash = a.ToDictionary<KeyValuePair<string, string>, string, object>(entry => entry.Key, entry => entry.Value);
+                        return new DynamicJson(hash);
+                    }).ToArray();
                     return true;
                 }
-
                 result = json;
-                return this._hash[name] == result;
+                return _hash[name] == result;
             }
-
             result = null;
             return false;
         }
@@ -196,183 +174,10 @@ namespace ServiceStack
                 {
                     sb.Append("_");
                 }
-
                 sb.Append(c);
                 i++;
             }
-
             return StringBuilderCache.ReturnAndFree(sb).ToLowerInvariant();
         }
     }
-
-#if !(__IOS__)
-    public static class DynamicProxy
-    {
-        public static T GetInstanceFor<T>()
-        {
-            return (T)GetInstanceFor(typeof(T));
-        }
-
-        static readonly ModuleBuilder ModuleBuilder;
-
-        static readonly AssemblyBuilder DynamicAssembly;
-
-        static readonly Type[] EmptyTypes = new Type[0];
-
-        public static object GetInstanceFor(Type targetType)
-        {
-            lock (DynamicAssembly)
-            {
-                var constructedType = DynamicAssembly.GetType(ProxyName(targetType)) ?? GetConstructedType(targetType);
-                var instance = Activator.CreateInstance(constructedType);
-                return instance;
-            }
-        }
-
-        static string ProxyName(Type targetType)
-        {
-            return $"{targetType.Name}Proxy";
-        }
-
-        static DynamicProxy()
-        {
-            var assemblyName = new AssemblyName("DynImpl");
-#if NETSTANDARD2_0
-            DynamicAssembly = AssemblyBuilder.DefineDynamicAssembly(assemblyName, AssemblyBuilderAccess.Run);
-#else
-            DynamicAssembly = AppDomain.CurrentDomain.DefineDynamicAssembly(
-                assemblyName,
-                AssemblyBuilderAccess.RunAndSave);
-#endif
-            ModuleBuilder = DynamicAssembly.DefineDynamicModule("DynImplModule");
-        }
-
-        static Type GetConstructedType(Type targetType)
-        {
-            var typeBuilder = ModuleBuilder.DefineType($"{targetType.Name}Proxy", TypeAttributes.Public);
-
-            var ctorBuilder = typeBuilder.DefineConstructor(
-                MethodAttributes.Public,
-                CallingConventions.Standard,
-                new Type[] { });
-            var ilGenerator = ctorBuilder.GetILGenerator();
-            ilGenerator.Emit(OpCodes.Ret);
-
-            IncludeType(targetType, typeBuilder);
-
-            foreach (var face in targetType.GetInterfaces())
-                IncludeType(face, typeBuilder);
-
-#if NETSTANDARD2_0
-            return typeBuilder.CreateTypeInfo().AsType();
-#else
-            return typeBuilder.CreateType();
-#endif
-        }
-
-        static void IncludeType(Type typeOfT, TypeBuilder typeBuilder)
-        {
-            var methodInfos = typeOfT.GetMethods();
-            foreach (var methodInfo in methodInfos)
-            {
-                if (methodInfo.Name.StartsWith("set_", StringComparison.Ordinal))
-                    continue; // we always add a set for a get.
-
-                if (methodInfo.Name.StartsWith("get_", StringComparison.Ordinal))
-                {
-                    BindProperty(typeBuilder, methodInfo);
-                }
-                else
-                {
-                    BindMethod(typeBuilder, methodInfo);
-                }
-            }
-
-            typeBuilder.AddInterfaceImplementation(typeOfT);
-        }
-
-        static void BindMethod(TypeBuilder typeBuilder, MethodInfo methodInfo)
-        {
-            var methodBuilder = typeBuilder.DefineMethod(
-                methodInfo.Name,
-                MethodAttributes.Public | MethodAttributes.Virtual,
-                methodInfo.ReturnType,
-                methodInfo.GetParameters().Select(p => p.GetType()).ToArray());
-            var methodILGen = methodBuilder.GetILGenerator();
-            if (methodInfo.ReturnType == typeof(void))
-            {
-                methodILGen.Emit(OpCodes.Ret);
-            }
-            else
-            {
-                if (methodInfo.ReturnType.IsValueType || methodInfo.ReturnType.IsEnum)
-                {
-                    var getMethod = typeof(Activator).GetMethod("CreateInstance", new[] { typeof(Type) });
-                    var lb = methodILGen.DeclareLocal(methodInfo.ReturnType);
-                    methodILGen.Emit(OpCodes.Ldtoken, lb.LocalType);
-                    methodILGen.Emit(OpCodes.Call, typeof(Type).GetMethod("GetTypeFromHandle"));
-                    methodILGen.Emit(OpCodes.Callvirt, getMethod);
-                    methodILGen.Emit(OpCodes.Unbox_Any, lb.LocalType);
-                }
-                else
-                {
-                    methodILGen.Emit(OpCodes.Ldnull);
-                }
-
-                methodILGen.Emit(OpCodes.Ret);
-            }
-
-            typeBuilder.DefineMethodOverride(methodBuilder, methodInfo);
-        }
-
-        public static void BindProperty(TypeBuilder typeBuilder, MethodInfo methodInfo)
-        {
-            // Backing Field
-            var propertyName = methodInfo.Name.Replace("get_", string.Empty);
-            var propertyType = methodInfo.ReturnType;
-            var backingField = typeBuilder.DefineField(
-                $"_{propertyName}",
-                propertyType,
-                FieldAttributes.Private);
-
-            // Getter
-            var backingGet = typeBuilder.DefineMethod(
-                $"get_{propertyName}",
-                MethodAttributes.Public | MethodAttributes.SpecialName | MethodAttributes.Virtual
-                | MethodAttributes.HideBySig,
-                propertyType,
-                EmptyTypes);
-            var getIl = backingGet.GetILGenerator();
-
-            getIl.Emit(OpCodes.Ldarg_0);
-            getIl.Emit(OpCodes.Ldfld, backingField);
-            getIl.Emit(OpCodes.Ret);
-
-            // Setter
-            var backingSet = typeBuilder.DefineMethod(
-                $"set_{propertyName}",
-                MethodAttributes.Public | MethodAttributes.SpecialName | MethodAttributes.Virtual
-                | MethodAttributes.HideBySig,
-                null,
-                new[] { propertyType });
-
-            var setIl = backingSet.GetILGenerator();
-
-            setIl.Emit(OpCodes.Ldarg_0);
-            setIl.Emit(OpCodes.Ldarg_1);
-            setIl.Emit(OpCodes.Stfld, backingField);
-            setIl.Emit(OpCodes.Ret);
-
-            // Property
-            var propertyBuilder = typeBuilder.DefineProperty(
-                propertyName,
-                PropertyAttributes.None,
-                propertyType,
-                null);
-            propertyBuilder.SetGetMethod(backingGet);
-            propertyBuilder.SetSetMethod(backingSet);
-        }
-    }
-#endif
 }
-#endif

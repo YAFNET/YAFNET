@@ -1,5 +1,6 @@
 #if ASYNC
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Linq.Expressions;
 using System.Threading;
@@ -57,6 +58,18 @@ namespace ServiceStack.OrmLite
             return cmd.ExecNonQueryAsync(token);
         }
 
+        internal static Task<int> UpdateOnlyAsync<T>(this IDbCommand dbCmd,
+            Expression<Func<T>> updateFields,
+            string whereExpression,
+            IEnumerable<IDbDataParameter> sqlParams,
+            Action<IDbCommand> commandFilter,
+            CancellationToken token)
+        {
+            var cmd = dbCmd.InitUpdateOnly(updateFields, whereExpression, sqlParams);
+            commandFilter?.Invoke(cmd);
+            return cmd.ExecNonQueryAsync(token);
+        }
+
         public static Task<int> UpdateAddAsync<T>(this IDbCommand dbCmd,
             Expression<Func<T>> updateFields,
             SqlExpression<T> q,
@@ -65,6 +78,25 @@ namespace ServiceStack.OrmLite
         {
             var cmd = dbCmd.InitUpdateAdd(updateFields, q);
             commandFilter?.Invoke(cmd);
+            return cmd.ExecNonQueryAsync(token);
+        }
+
+        public static Task<int> UpdateOnlyAsync<T>(this IDbCommand cmd,
+            Dictionary<string, object> updateFields,
+            Expression<Func<T, bool>> where,
+            Action<IDbCommand> commandFilter = null, 
+            CancellationToken token = default(CancellationToken))
+        {
+            if (updateFields == null)
+                throw new ArgumentNullException(nameof(updateFields));
+
+            OrmLiteConfig.UpdateFilter?.Invoke(cmd, updateFields.FromObjectDictionary<T>());
+
+            var q = cmd.GetDialectProvider().SqlExpression<T>();
+            q.Where(where);
+            q.PrepareUpdateStatement(cmd, updateFields);
+            commandFilter?.Invoke(cmd);
+
             return cmd.ExecNonQueryAsync(token);
         }
 
@@ -91,6 +123,8 @@ namespace ServiceStack.OrmLite
 
         internal static Task<int> UpdateAsync<T>(this IDbCommand dbCmd, object updateOnly, Expression<Func<T, bool>> where, Action<IDbCommand> commandFilter, CancellationToken token)
         {
+            OrmLiteConfig.UpdateFilter?.Invoke(dbCmd, updateOnly);
+
             var q = dbCmd.GetDialectProvider().SqlExpression<T>();
             var whereSql = q.Where(where).WhereExpression;
             q.CopyParamsTo(dbCmd);

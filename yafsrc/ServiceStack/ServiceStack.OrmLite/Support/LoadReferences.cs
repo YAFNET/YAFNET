@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace ServiceStack.OrmLite.Support
 {
@@ -33,28 +35,39 @@ namespace ServiceStack.OrmLite.Support
 
             var refField = modelDef.GetRefFieldDef(refModelDef, refType);
 
-            var sqlFilter = $"{this.dialectProvider.GetQuotedColumnName(refField.FieldName)}={{0}}";
+            var sqlFilter = dialectProvider.GetQuotedColumnName(refField.FieldName) + "={0}";
             var sql = dialectProvider.ToSelectStatement(refType, sqlFilter, pkValue);
+
+            if (OrmLiteConfig.LoadReferenceSelectFilter != null)
+                sql = OrmLiteConfig.LoadReferenceSelectFilter(refType, sql);
 
             return sql;
         }
 
         protected string GetRefFieldSql(Type refType, FieldDefinition refField)
         {
-            var sqlFilter = $"{this.dialectProvider.GetQuotedColumnName(refField.FieldName)}={{0}}";
+            var sqlFilter = dialectProvider.GetQuotedColumnName(refField.FieldName) + "={0}";
             var sql = dialectProvider.ToSelectStatement(refType, sqlFilter, pkValue);
+
+            if (OrmLiteConfig.LoadReferenceSelectFilter != null)
+                sql = OrmLiteConfig.LoadReferenceSelectFilter(refType, sql);
+
             return sql;
         }
 
         protected string GetRefSelfSql(Type refType, FieldDefinition refSelf, ModelDefinition refModelDef)
         {
-            // Load Self Table.RefTableId PK
+            //Load Self Table.RefTableId PK
             var refPkValue = refSelf.GetValue(instance);
             if (refPkValue == null)
                 return null;
 
-            var sqlFilter = $"{this.dialectProvider.GetQuotedColumnName(refModelDef.PrimaryKey.FieldName)}={{0}}";
+            var sqlFilter = dialectProvider.GetQuotedColumnName(refModelDef.PrimaryKey.FieldName) + "={0}";
             var sql = dialectProvider.ToSelectStatement(refType, sqlFilter, refPkValue);
+
+            if (OrmLiteConfig.LoadReferenceSelectFilter != null)
+                sql = OrmLiteConfig.LoadReferenceSelectFilter(refType, sql);
+
             return sql;
         }
     }

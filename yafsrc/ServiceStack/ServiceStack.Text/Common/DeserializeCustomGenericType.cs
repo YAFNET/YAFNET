@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Linq;
 using ServiceStack.Text.Json;
-#if NETSTANDARD2_0
-using Microsoft.Extensions.Primitives;
-#endif
 
 namespace ServiceStack.Text.Common
 {
@@ -12,9 +9,9 @@ namespace ServiceStack.Text.Common
     {
         private static readonly ITypeSerializer Serializer = JsWriter.GetTypeSerializer<TSerializer>();
 
-        public static ParseStringDelegate GetParseMethod(Type type) => v => GetParseStringSegmentMethod(type)(new StringSegment(v));
+        public static ParseStringDelegate GetParseMethod(Type type) => v => GetParseStringSpanMethod(type)(v.AsSpan());
 
-        public static ParseStringSegmentDelegate GetParseStringSegmentMethod(Type type)
+        public static ParseStringSpanDelegate GetParseStringSpanMethod(Type type)
         {
             if (type.Name.IndexOf("Tuple`", StringComparison.Ordinal) >= 0)
                 return x => ParseTuple(type, x);
@@ -22,9 +19,9 @@ namespace ServiceStack.Text.Common
             return null;
         }
 
-        public static object ParseTuple(Type tupleType, string value) => ParseTuple(tupleType, new StringSegment(value));
+        public static object ParseTuple(Type tupleType, string value) => ParseTuple(tupleType, value.AsSpan());
 
-        public static object ParseTuple(Type tupleType, StringSegment value)
+        public static object ParseTuple(Type tupleType, ReadOnlySpan<char> value)
         {
             var index = 0;
             Serializer.EatMapStartChar(value, ref index);
@@ -39,10 +36,10 @@ namespace ServiceStack.Text.Common
                 var keyValue = Serializer.EatMapKey(value, ref index);
                 Serializer.EatMapKeySeperator(value, ref index);
                 var elementValue = Serializer.EatValue(value, ref index);
-                if (!keyValue.HasValue) continue;
+                if (keyValue.IsEmpty) continue;
 
-                var keyIndex = keyValue.Substring("Item".Length).ToInt() - 1;
-                var parseFn = Serializer.GetParseStringSegmentFn(genericArgs[keyIndex]);
+                var keyIndex = keyValue.Slice("Item".Length).ParseInt32() - 1;
+                var parseFn = Serializer.GetParseStringSpanFn(genericArgs[keyIndex]);
                 argValues[keyIndex] = parseFn(elementValue);
 
                 Serializer.EatItemSeperatorOrMapEndChar(value, ref index);

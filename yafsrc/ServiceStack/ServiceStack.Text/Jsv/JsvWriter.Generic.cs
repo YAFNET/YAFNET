@@ -25,8 +25,7 @@ namespace ServiceStack.Text.Jsv
                 newCache = new Dictionary<Type, WriteObjectDelegate>(WriteFnCache);
                 newCache.Remove(forType);
 
-            }
- while (!ReferenceEquals(
+            } while (!ReferenceEquals(
                 Interlocked.CompareExchange(ref WriteFnCache, newCache, snapshot), snapshot));
         }
 
@@ -50,8 +49,7 @@ namespace ServiceStack.Text.Jsv
                     newCache = new Dictionary<Type, WriteObjectDelegate>(WriteFnCache);
                     newCache[type] = writeFn;
 
-                }
- while (!ReferenceEquals(
+                } while (!ReferenceEquals(
                     Interlocked.CompareExchange(ref WriteFnCache, newCache, snapshot), snapshot));
 
                 return writeFn;
@@ -70,12 +68,8 @@ namespace ServiceStack.Text.Jsv
 
             try
             {
-                if (++JsState.Depth > JsConfig.MaxDepth)
-                {
-                    Tracer.Instance.WriteError("Exceeded MaxDepth limit of {0} attempting to serialize {1}"
-                        .Fmt(JsConfig.MaxDepth, value.GetType().Name));
+                if (!JsState.Traverse(value))
                     return;
-                }
 
                 var type = value.GetType();
                 var writeFn = type == typeof(object)
@@ -89,7 +83,7 @@ namespace ServiceStack.Text.Jsv
             }
             finally
             {
-                JsState.Depth--;
+                JsState.UnTraverse();
             }
         }
 
@@ -101,10 +95,10 @@ namespace ServiceStack.Text.Jsv
         [MethodImpl(MethodImplOptions.NoInlining | MethodImplOptions.NoOptimization)]
         public static void InitAot<T>()
         {
-            JsvWriter<T>.WriteFn();
-            Instance.GetWriteFn<T>();
-            Instance.GetValueTypeToStringMethod(typeof(T));
-            JsWriter.GetTypeSerializer<JsvTypeSerializer>().GetWriteFn<T>();
+            Text.Jsv.JsvWriter<T>.WriteFn();
+            Text.Jsv.JsvWriter.Instance.GetWriteFn<T>();
+            Text.Jsv.JsvWriter.Instance.GetValueTypeToStringMethod(typeof(T));
+            JsWriter.GetTypeSerializer<Text.Jsv.JsvTypeSerializer>().GetWriteFn<T>();
         }
     }
 
@@ -146,30 +140,26 @@ namespace ServiceStack.Text.Jsv
 
         public static void WriteObject(TextWriter writer, object value)
         {
-            if (writer == null) return; // AOT
+            if (writer == null) return; //AOT
 
             TypeConfig<T>.Init();
 
             try
             {
-                if (++JsState.Depth > JsConfig.MaxDepth)
-                {
-                    Tracer.Instance.WriteError("Exceeded MaxDepth limit of {0} attempting to serialize {1}"
-                        .Fmt(JsConfig.MaxDepth, value.GetType().Name));
+                if (!JsState.Traverse(value))
                     return;
-                }
 
                 CacheFn(writer, value);
             }
             finally
             {
-                JsState.Depth--;
+                JsState.UnTraverse();
             }
         }
 
         public static void WriteRootObject(TextWriter writer, object value)
         {
-            if (writer == null) return; // AOT
+            if (writer == null) return; //AOT
 
             TypeConfig<T>.Init();
 

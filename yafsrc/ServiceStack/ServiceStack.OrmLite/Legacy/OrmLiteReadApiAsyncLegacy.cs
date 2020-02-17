@@ -1,6 +1,5 @@
 ﻿#if ASYNC
 // Copyright (c) ServiceStack, Inc. All Rights Reserved.
-
 // License: https://raw.github.com/ServiceStack/ServiceStack/master/license.txt
 
 using System;
@@ -142,8 +141,7 @@ namespace ServiceStack.OrmLite.Legacy
         /// <para>db.Exists&lt;Person&gt;(q =&gt; q.Where(x =&gt; x.Age &lt; 50))</para>
         /// </summary>
         [Obsolete("Use db.ExistsAsync(db.From<T>())")]
-        public static Task<bool> ExistsAsync<T>(this IDbConnection dbConn, Func<SqlExpression<T>, SqlExpression<T>> expression, CancellationToken token
- = default(CancellationToken))
+        public static Task<bool> ExistsAsync<T>(this IDbConnection dbConn, Func<SqlExpression<T>, SqlExpression<T>> expression, CancellationToken token = default(CancellationToken))
         {
             return dbConn.Exec(dbCmd =>
             {

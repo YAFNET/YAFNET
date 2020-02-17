@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq.Expressions;
 
 namespace ServiceStack.OrmLite.SqlServer
@@ -10,8 +11,8 @@ namespace ServiceStack.OrmLite.SqlServer
 
         protected override object VisitSqlMethodCall(MethodCallExpression m)
         {
-            var args = VisitInSqlExpressionList(m.Arguments);
-            var quotedColName = args[0];
+            List<object> args = VisitInSqlExpressionList(m.Arguments);
+            object quotedColName = args[0];
             args.RemoveAt(0);
 
             string statement;
@@ -35,17 +36,18 @@ namespace ServiceStack.OrmLite.SqlServer
                 case nameof(Sql.Min):
                 case nameof(Sql.Max):
                 case nameof(Sql.Avg):
-                    statement = $"{m.Method.Name}({quotedColName}{(args.Count == 1 ? $",{args[0]}" : string.Empty)})";
+                    statement = $"{m.Method.Name}({quotedColName}{(args.Count == 1 ? $",{args[0]}" : "")})";
                     break;
                 case nameof(Sql.CountDistinct):
                     statement = $"COUNT(DISTINCT {quotedColName})";
                     break;
                 case nameof(Sql.AllFields):
                     var argDef = m.Arguments[0].Type.GetModelMetadata();
-                    statement = $"{this.DialectProvider.GetQuotedTableName(argDef)}.*";
+                    statement = DialectProvider.GetQuotedTableName(argDef) + ".*";
                     break;
                 case nameof(Sql.JoinAlias):
-                    statement = $"{args[0]}.{quotedColName.ToString().LastRightPart('.')}";
+                case nameof(Sql.TableAlias):
+                    statement = args[0] + "." + quotedColName.ToString().LastRightPart('.');
                     break;
                 case nameof(Sql.Custom):
                     statement = quotedColName.ToString();
@@ -62,7 +64,6 @@ namespace ServiceStack.OrmLite.SqlServer
                     {
                         statement += $", '{args[0]}'";
                     }
-
                     statement += ")";
                     break;
                 default:

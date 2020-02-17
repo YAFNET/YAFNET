@@ -12,14 +12,16 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
+using System.Threading;
+using ServiceStack.Text.Support;
+using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
-using System.Threading;
 
 using ServiceStack.Text;
-using ServiceStack.Text.Support;
 
 namespace ServiceStack
 {
@@ -55,7 +57,6 @@ namespace ServiceStack
 
                 type = type.BaseType;
             }
-
             return false;
         }
 
@@ -68,7 +69,6 @@ namespace ServiceStack
 
                 type = type.BaseType;
             }
-
             return null;
         }
 
@@ -85,14 +85,13 @@ namespace ServiceStack
                 if (genericType != null)
                     return genericType;
             }
-
             return null;
         }
 
         public static bool IsOrHasGenericInterfaceTypeOf(this Type type, Type genericTypeDefinition)
         {
-            return type.GetTypeWithGenericTypeDefinitionOf(genericTypeDefinition) != null
-                || type == genericTypeDefinition;
+            return (type.GetTypeWithGenericTypeDefinitionOf(genericTypeDefinition) != null)
+                || (type == genericTypeDefinition);
         }
 
         public static Type GetTypeWithGenericTypeDefinitionOf(this Type type, Type genericTypeDefinition)
@@ -134,7 +133,6 @@ namespace ServiceStack
                 if (t == interfaceType)
                     return true;
             }
-
             return false;
         }
 
@@ -145,7 +143,6 @@ namespace ServiceStack
             {
                 if (assignableFromType.GetTypeWithInterfaceOf(type) == null) return false;
             }
-
             return true;
         }
 
@@ -163,9 +160,8 @@ namespace ServiceStack
         {
             if (type == null) return false;
 
-            if (type.IsEnum)
+            if (type.IsEnum) //TypeCode can be TypeCode.Int32
             {
-                // TypeCode can be TypeCode.Int32
                 return JsConfig.TreatEnumAsInteger || type.IsEnumFlags();
             }
 
@@ -189,12 +185,10 @@ namespace ServiceStack
                     {
                         return IsNumericType(Nullable.GetUnderlyingType(type));
                     }
-
                     if (type.IsEnum)
                     {
                         return JsConfig.TreatEnumAsInteger || type.IsEnumFlags();
                     }
-
                     return false;
             }
             return false;
@@ -221,7 +215,6 @@ namespace ServiceStack
                     {
                         return IsNumericType(Nullable.GetUnderlyingType(type));
                     }
-
                     return false;
             }
             return false;
@@ -243,7 +236,6 @@ namespace ServiceStack
                     {
                         return IsNumericType(Nullable.GetUnderlyingType(type));
                     }
-
                     return false;
             }
             return false;
@@ -336,14 +328,14 @@ namespace ServiceStack
             {
                 if (!(type == typeof(string) || type.IsValueType)) return false;
             }
-
             return true;
         }
 
         static Dictionary<Type, EmptyCtorDelegate> ConstructorMethods = new Dictionary<Type, EmptyCtorDelegate>();
         public static EmptyCtorDelegate GetConstructorMethod(Type type)
         {
-            if (ConstructorMethods.TryGetValue(type, out var emptyCtorFn)) return emptyCtorFn;
+            if (ConstructorMethods.TryGetValue(type, out var emptyCtorFn)) 
+                return emptyCtorFn;
 
             emptyCtorFn = GetConstructorMethodToCache(type);
 
@@ -354,8 +346,7 @@ namespace ServiceStack
                 newCache = new Dictionary<Type, EmptyCtorDelegate>(ConstructorMethods);
                 newCache[type] = emptyCtorFn;
 
-            }
- while (!ReferenceEquals(
+            } while (!ReferenceEquals(
                 Interlocked.CompareExchange(ref ConstructorMethods, newCache, snapshot), snapshot));
 
             return emptyCtorFn;
@@ -364,7 +355,8 @@ namespace ServiceStack
         static Dictionary<string, EmptyCtorDelegate> TypeNamesMap = new Dictionary<string, EmptyCtorDelegate>();
         public static EmptyCtorDelegate GetConstructorMethod(string typeName)
         {
-            if (TypeNamesMap.TryGetValue(typeName, out var emptyCtorFn)) return emptyCtorFn;
+            if (TypeNamesMap.TryGetValue(typeName, out var emptyCtorFn)) 
+                return emptyCtorFn;
 
             var type = JsConfig.TypeFinder(typeName);
             if (type == null) return null;
@@ -378,8 +370,7 @@ namespace ServiceStack
                     [typeName] = emptyCtorFn
                 };
 
-            }
- while (!ReferenceEquals(
+            } while (!ReferenceEquals(
                 Interlocked.CompareExchange(ref TypeNamesMap, newCache, snapshot), snapshot));
 
             return emptyCtorFn;
@@ -388,10 +379,9 @@ namespace ServiceStack
         public static EmptyCtorDelegate GetConstructorMethodToCache(Type type)
         {
             if (type == typeof(string))
-            {
                 return () => string.Empty;
-            }
-            else if (type.IsInterface)
+
+            if (type.IsInterface)
             {
                 if (type.HasGenericType())
                 {
@@ -433,26 +423,7 @@ namespace ServiceStack
                 return realizedType.CreateInstance;
             }
 
-            var emptyCtor = type.GetConstructor(Type.EmptyTypes);
-            if (emptyCtor != null)
-            {
-                if (PclExport.Instance.SupportsEmit)
-                {
-                    var dm = new System.Reflection.Emit.DynamicMethod("MyCtor", type, Type.EmptyTypes,
-                        typeof(ReflectionExtensions).Module, true);
-                    var ilgen = dm.GetILGenerator();
-                    ilgen.Emit(System.Reflection.Emit.OpCodes.Nop);
-                    ilgen.Emit(System.Reflection.Emit.OpCodes.Newobj, emptyCtor);
-                    ilgen.Emit(System.Reflection.Emit.OpCodes.Ret);
-
-                    return (EmptyCtorDelegate) dm.CreateDelegate(typeof(EmptyCtorDelegate));
-                }
-
-                return () => Activator.CreateInstance(type);
-            }
-
-            // Anonymous types don't have empty constructors
-            return () => FormatterServices.GetUninitializedObject(type);
+            return ReflectionOptimizer.Instance.CreateConstructor(type);
         }
 
         private static class TypeMeta<T>
@@ -623,6 +594,20 @@ namespace ServiceStack
                 "IgnoreDataMemberAttribute",
                 "JsonIgnoreAttribute"
             };
+
+            try
+            {
+                JsConfig<Type>.SerializeFn = x => x?.ToString();
+                JsConfig<MethodInfo>.SerializeFn = x => x?.ToString();
+                JsConfig<PropertyInfo>.SerializeFn = x => x?.ToString();
+                JsConfig<FieldInfo>.SerializeFn = x => x?.ToString();
+                JsConfig<MemberInfo>.SerializeFn = x => x?.ToString();
+                JsConfig<ParameterInfo>.SerializeFn = x => x?.ToString();
+            }
+            catch (Exception e)
+            {
+                Tracer.Instance.WriteError("ReflectionExtensions JsConfig<Type>", e);
+            }
         }
 
         public static PropertyInfo[] GetSerializableProperties(this Type type)
@@ -673,7 +658,9 @@ namespace ServiceStack
                     f.HasAttribute<DataMemberAttribute>()).ToArray();
             }
 
-            if (!JsConfig.IncludePublicFields)
+            var config = JsConfig.GetConfig();
+
+            if (!config.IncludePublicFields)
                 return TypeConstants.EmptyFieldInfoArray;
 
             var publicFields = type.GetPublicFields();
@@ -682,7 +669,7 @@ namespace ServiceStack
             return publicFields
                 .Where(prop => prop.AllAttributes()
                     .All(attr => !IgnoreAttributesNamed.Contains(attr.GetType().Name)))
-                .Where(prop => !JsConfig.ExcludeTypes.Contains(prop.FieldType))
+                .Where(prop => !config.ExcludeTypes.Contains(prop.FieldType))
                 .ToArray();
         }
 

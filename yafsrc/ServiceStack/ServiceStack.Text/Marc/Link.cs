@@ -22,10 +22,8 @@ namespace ServiceStack.Text.Marc
 					value = link.Value;
 					return true;
 				}
-
 				link = link.Tail;
 			}
-
 			value = default(TValue);
 			return false;
 		}
@@ -34,33 +32,30 @@ namespace ServiceStack.Text.Marc
 		{
 			bool tryAgain;
 			do
-            {
-                var snapshot = Interlocked.CompareExchange(ref head, null, null);
-                if (TryGet(snapshot, key, out var found))
-                {
-                    // existing match; report the existing value instead
-                    value = found;
-                    return false;
-                }
-
-                var newNode = new Link<TKey, TValue>(key, value, snapshot);
-
-                // did somebody move our cheese?
-                tryAgain = Interlocked.CompareExchange(ref head, newNode, snapshot) != snapshot;
-            }
-            while (tryAgain);
+			{
+				var snapshot = Interlocked.CompareExchange(ref head, null, null);
+				TValue found;
+				if (TryGet(snapshot, key, out found))
+				{ // existing match; report the existing value instead
+					value = found;
+					return false;
+				}
+				var newNode = new Link<TKey, TValue>(key, value, snapshot);
+				// did somebody move our cheese?
+				tryAgain = Interlocked.CompareExchange(ref head, newNode, snapshot) != snapshot;
+			} while (tryAgain);
 			return true;
 		}
 
 		private Link(TKey key, TValue value, Link<TKey, TValue> tail)
 		{
-            this.Key = key;
-            this.Value = value;
-            this.Tail = tail;
+			Key = key;
+			Value = value;
+			Tail = tail;
 		}
 		
-		public TKey Key { get; }
-		public TValue Value { get; }
-		public Link<TKey, TValue> Tail { get; }
+		public TKey Key { get; private set; }
+		public TValue Value { get; private set; }
+		public Link<TKey, TValue> Tail { get; private set; }
 	}
 }

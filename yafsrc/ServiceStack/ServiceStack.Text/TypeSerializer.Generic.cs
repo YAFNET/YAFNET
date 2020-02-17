@@ -12,7 +12,7 @@
 
 using System;
 using System.IO;
-
+using System.Text;
 using ServiceStack.Text.Jsv;
 
 namespace ServiceStack.Text
@@ -37,7 +37,7 @@ namespace ServiceStack.Text
 
         public T DeserializeFromReader(TextReader reader)
         {
-            return this.DeserializeFromString(reader.ReadToEnd());
+            return DeserializeFromString(reader.ReadToEnd());
         }
 
         public string SerializeToString(T value)

@@ -23,11 +23,11 @@ namespace ServiceStack.Text.Controller
 	{
 		public string ControllerName { get; private set; }
 
-		public string ActionName { get; }
+		public string ActionName { get; private set; }
 
-		public List<string> Arguments { get; }
+		public List<string> Arguments { get; private set; }
 
-		public Dictionary<string, string> Options { get; }
+		public Dictionary<string, string> Options { get; private set; }
 
 
 		public PathInfo(string actionName, params string[] arguments)
@@ -37,14 +37,20 @@ namespace ServiceStack.Text.Controller
 
 		public PathInfo(string actionName, List<string> arguments, Dictionary<string, string> options)
 		{
-            this.ActionName = actionName;
-            this.Arguments = arguments ?? new List<string>();
-            this.Options = options ?? new Dictionary<string, string>();
+			ActionName = actionName;
+			Arguments = arguments ?? new List<string>();
+			Options = options ?? new Dictionary<string, string>();
 		}
 
-		public string FirstArgument => this.Arguments.Count > 0 ? this.Arguments[0] : null;
+		public string FirstArgument
+		{
+			get
+			{
+				return this.Arguments.Count > 0 ? this.Arguments[0] : null;
+			}
+		}
 
-        public T GetArgumentValue<T>(int index)
+		public T GetArgumentValue<T>(int index)
 		{
 			return TypeSerializer.DeserializeFromString<T>(this.Arguments[index]);
 		}
@@ -82,7 +88,6 @@ namespace ServiceStack.Text.Controller
 													? true.ToString()
 													: keyValuePair[1].UrlDecode();
 				}
-
 				pathInfo = pathInfo.Substring(0, optionsPos);
 			}
 
