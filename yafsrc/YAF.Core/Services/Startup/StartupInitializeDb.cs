@@ -78,7 +78,7 @@ namespace YAF.Core.Services.Startup
                 return true;
             }
 
-            var response = YafContext.Current.Get<HttpResponseBase>();
+            var response = BoardContext.Current.Get<HttpResponseBase>();
 
             if (Config.ConnectionString == null)
             {
@@ -89,10 +89,10 @@ namespace YAF.Core.Services.Startup
             }
 
             // attempt to init the db...
-            if (!YafContext.Current.Get<IDbAccess>().TestConnection(out var errorString))
+            if (!BoardContext.Current.Get<IDbAccess>().TestConnection(out var errorString))
             {
                 // unable to connect to the DB...
-                YafContext.Current.Get<HttpSessionStateBase>()["StartupException"] = errorString;
+                BoardContext.Current.Get<HttpSessionStateBase>()["StartupException"] = errorString;
                
                 response.Redirect($"{BoardInfo.ForumClientFileRoot}error.aspx");
                 
@@ -100,7 +100,7 @@ namespace YAF.Core.Services.Startup
             }
 
             // step 2: validate the database version...
-            var redirectString = YafContext.Current.GetRepository<Registry>().ValidateVersion(BoardInfo.AppVersion);
+            var redirectString = BoardContext.Current.GetRepository<Registry>().ValidateVersion(BoardInfo.AppVersion);
 
             if (redirectString.IsNotSet())
             {

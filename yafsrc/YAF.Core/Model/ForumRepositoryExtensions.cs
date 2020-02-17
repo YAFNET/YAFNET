@@ -481,7 +481,7 @@ namespace YAF.Core.Model
         /// </returns>
         public static bool Delete(this IRepository<Forum> repository, [NotNull] int forumID)
         {
-            if (YafContext.Current.GetRepository<Forum>().Count(f => f.ParentID == forumID) > 0)
+            if (BoardContext.Current.GetRepository<Forum>().Count(f => f.ParentID == forumID) > 0)
             {
                 return false;
             }
@@ -510,7 +510,7 @@ namespace YAF.Core.Model
         /// </returns>
         public static bool Move(this IRepository<Forum> repository, [NotNull] int forumOldID, [NotNull] int forumNewID)
         {
-            if (YafContext.Current.GetRepository<Forum>().Count(f => f.ParentID == forumOldID) > 0)
+            if (BoardContext.Current.GetRepository<Forum>().Count(f => f.ParentID == forumOldID) > 0)
             {
                 return false;
             }
@@ -611,7 +611,7 @@ namespace YAF.Core.Model
         /// </param>
         private static void DeleteAttachments([NotNull] int forumID)
         {
-            var topicRepository = YafContext.Current.GetRepository<Topic>();
+            var topicRepository = BoardContext.Current.GetRepository<Topic>();
 
             topicRepository.Get(t => t.ForumID == forumID).ForEach(t => topicRepository.Delete(t.ID, true));
         }
@@ -655,7 +655,7 @@ namespace YAF.Core.Model
             {
                 var blankRow = listDestination.NewRow();
                 blankRow["ForumID"] = 0;
-                blankRow["Title"] = YafContext.Current.Get<ILocalization>().GetText("NONE");
+                blankRow["Title"] = BoardContext.Current.Get<ILocalization>().GetText("NONE");
                 blankRow["Icon"] = string.Empty;
                 listDestination.Rows.Add(blankRow);
             }
@@ -708,7 +708,7 @@ namespace YAF.Core.Model
             {
                 var blankRow = listDestination.NewRow();
                 blankRow["ForumID"] = 0;
-                blankRow["Title"] = YafContext.Current.Get<ILocalization>().GetText("NONE");
+                blankRow["Title"] = BoardContext.Current.Get<ILocalization>().GetText("NONE");
                 blankRow["Icon"] = string.Empty;
                 listDestination.Rows.Add(blankRow);
             }

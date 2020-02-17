@@ -59,7 +59,7 @@ namespace YAF.Web.Controls
         /// <summary>
         /// Gets PageContext.
         /// </summary>
-        public YafContext PageContext
+        public BoardContext PageContext
         {
             get
             {
@@ -69,7 +69,7 @@ namespace YAF.Web.Controls
                     return null;
                 }
 
-                return YafContext.Current;
+                return BoardContext.Current;
             }
         }
 

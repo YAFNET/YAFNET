@@ -125,7 +125,7 @@ namespace YAF.Core
                 && !UserAgentHelper.IsSearchEngineSpider(@event.Data.UserAgent))
             {
                 this.Logger.Log(
-                    YafContext.Current.User != null ? YafContext.Current.User.UserName : string.Empty,
+                    BoardContext.Current.User != null ? BoardContext.Current.User.UserName : string.Empty,
                     this,
                     $"Unhandled UserAgent string:'{(string)@event.Data.UserAgent}'<br />Platform:'{this.HttpRequestBase.Browser.Platform}'<br />Browser:'{this.HttpRequestBase.Browser.Browser}'");
             }

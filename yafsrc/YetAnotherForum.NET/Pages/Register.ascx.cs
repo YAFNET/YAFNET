@@ -202,7 +202,7 @@ namespace YAF.Pages
             var user = UserMembershipHelper.GetUser(this.CreateUserWizard1.UserName);
 
             // setup initial roles (if any) for this user
-            RoleMembershipHelper.SetupUserRoles(YafContext.Current.PageBoardID, this.CreateUserWizard1.UserName);
+            RoleMembershipHelper.SetupUserRoles(BoardContext.Current.PageBoardID, this.CreateUserWizard1.UserName);
 
             var displayName = user.UserName;
 
@@ -212,7 +212,7 @@ namespace YAF.Pages
             }
 
             // create the user in the YAF DB as well as sync roles...
-            var userID = RoleMembershipHelper.CreateForumUser(user, displayName, YafContext.Current.PageBoardID);
+            var userID = RoleMembershipHelper.CreateForumUser(user, displayName, BoardContext.Current.PageBoardID);
 
             // create empty profile just so they have one
             var userProfile = YafUserProfile.GetProfile(this.CreateUserWizard1.UserName);
@@ -401,7 +401,7 @@ namespace YAF.Pages
                         // Clear cache
                         this.Get<IDataCache>().Remove(Constants.Cache.BannedIP);
 
-                        if (YafContext.Current.Get<BoardSettings>().LogBannedIP)
+                        if (BoardContext.Current.Get<BoardSettings>().LogBannedIP)
                         {
                             this.Logger
                                 .Log(
@@ -413,10 +413,10 @@ namespace YAF.Pages
                     }
 
                     // Ban Name ?
-                    YafContext.Current.GetRepository<BannedName>().Save(null, userName, "Name was reported by the automatic spam system.");
+                    BoardContext.Current.GetRepository<BannedName>().Save(null, userName, "Name was reported by the automatic spam system.");
 
                     // Ban User Email?
-                    YafContext.Current.GetRepository<BannedEmail>().Save(null, this.CreateUserWizard1.Email, "Email was reported by the automatic spam system.");
+                    BoardContext.Current.GetRepository<BannedEmail>().Save(null, this.CreateUserWizard1.Email, "Email was reported by the automatic spam system.");
 
                     e.Cancel = true;
                 }
@@ -509,7 +509,7 @@ namespace YAF.Pages
             var password = this.CreateUserStepContainer.FindControlAs<TextBox>("Password");
             var confirmPassword = this.CreateUserStepContainer.FindControlAs<TextBox>("ConfirmPassword");
 
-            YafContext.Current.PageElements.RegisterJsBlockStartup(
+            BoardContext.Current.PageElements.RegisterJsBlockStartup(
                 "passwordStrengthCheckJs",
                 JavaScriptBlocks.PasswordStrengthCheckerJs(
                     password.ClientID,
@@ -822,7 +822,7 @@ namespace YAF.Pages
         /// <param name="country">The country.</param>
         private void FillLocationData([NotNull]ListControl country)
         {
-            var userIpLocator = YafContext.Current.Get<IIpInfoService>().GetUserIpLocator();
+            var userIpLocator = BoardContext.Current.Get<IIpInfoService>().GetUserIpLocator();
 
             if (userIpLocator == null)
             {

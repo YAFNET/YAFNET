@@ -83,29 +83,29 @@ namespace YAF.Core.Services
         {
             result = string.Empty;
 
-            if (YafContext.Current.Get<BoardSettings>().SpamServiceType.Equals(0))
+            if (BoardContext.Current.Get<BoardSettings>().SpamServiceType.Equals(0))
             {
                 return false;
             }
 
-            if (YafContext.Current.CurrentUserData.NumPosts
-                >= YafContext.Current.Get<BoardSettings>().IgnoreSpamWordCheckPostCount)
+            if (BoardContext.Current.CurrentUserData.NumPosts
+                >= BoardContext.Current.Get<BoardSettings>().IgnoreSpamWordCheckPostCount)
             {
                 return false;
             }
 
-            switch (YafContext.Current.Get<BoardSettings>().SpamServiceType)
+            switch (BoardContext.Current.Get<BoardSettings>().SpamServiceType)
             {
                 case 2:
                     {
-                        return YafContext.Current.Get<BoardSettings>().AkismetApiKey.IsSet()
+                        return BoardContext.Current.Get<BoardSettings>().AkismetApiKey.IsSet()
                                && CheckWithAkismet(userName, postMessage, ipAddress, out result);
                     }
 
                 case 1:
                 case 3:
                     {
-                        return YafContext.Current.Get<ISpamWordCheck>().CheckForSpamWord(postMessage, out result);
+                        return BoardContext.Current.Get<ISpamWordCheck>().CheckForSpamWord(postMessage, out result);
                     }
             }
 
@@ -134,12 +134,12 @@ namespace YAF.Core.Services
                 return true;
             }
 
-            if (YafContext.Current.Get<BoardSettings>().BotSpamServiceType.Equals(0))
+            if (BoardContext.Current.Get<BoardSettings>().BotSpamServiceType.Equals(0))
             {
                 return false;
             }
 
-            switch (YafContext.Current.Get<BoardSettings>().BotSpamServiceType)
+            switch (BoardContext.Current.Get<BoardSettings>().BotSpamServiceType)
             {
                 case 1:
                     {
@@ -150,7 +150,7 @@ namespace YAF.Core.Services
 
                 case 2:
                     {
-                        if (YafContext.Current.Get<BoardSettings>().BotScoutApiKey.IsSet())
+                        if (BoardContext.Current.Get<BoardSettings>().BotScoutApiKey.IsSet())
                         {
                             var botScout = new BotScout();
 
@@ -168,7 +168,7 @@ namespace YAF.Core.Services
                         // use StopForumSpam instead
                         var stopForumSpam = new StopForumSpam();
 
-                        if (!YafContext.Current.Get<BoardSettings>().BotScoutApiKey.IsSet())
+                        if (!BoardContext.Current.Get<BoardSettings>().BotScoutApiKey.IsSet())
                         {
                             return stopForumSpam.IsBot(ipAddress, emailAddress, userName, out result);
                         }
@@ -184,7 +184,7 @@ namespace YAF.Core.Services
                         // use StopForumSpam instead
                         var stopForumSpam = new StopForumSpam();
 
-                        if (!YafContext.Current.Get<BoardSettings>().BotScoutApiKey.IsSet())
+                        if (!BoardContext.Current.Get<BoardSettings>().BotScoutApiKey.IsSet())
                         {
                             return stopForumSpam.IsBot(ipAddress, emailAddress, userName, out result);
                         }
@@ -217,11 +217,11 @@ namespace YAF.Core.Services
         {
             try
             {
-                var service = new AkismetSpamClient(YafContext.Current.Get<BoardSettings>().AkismetApiKey, new Uri(BaseUrlBuilder.BaseUrl));
+                var service = new AkismetSpamClient(BoardContext.Current.Get<BoardSettings>().AkismetApiKey, new Uri(BaseUrlBuilder.BaseUrl));
 
                 return
                     service.CheckCommentForSpam(
-                        new Comment(IPAddress.Parse(ipAddress), YafContext.Current.Get<HttpRequestBase>().UserAgent)
+                        new Comment(IPAddress.Parse(ipAddress), BoardContext.Current.Get<HttpRequestBase>().UserAgent)
                             {
                                 Content
                                     =
@@ -234,7 +234,7 @@ namespace YAF.Core.Services
             }
             catch (Exception ex)
             {
-                YafContext.Current.Get<ILogger>().Error(ex, "Error while Checking for Spam via BlogSpam");
+                BoardContext.Current.Get<ILogger>().Error(ex, "Error while Checking for Spam via BlogSpam");
 
                 result = string.Empty;
                 return false;

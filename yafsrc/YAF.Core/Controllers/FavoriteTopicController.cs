@@ -39,7 +39,7 @@ namespace YAF.Core.Controllers
         /// <summary>
         ///   Gets ServiceLocator.
         /// </summary>
-        public IServiceLocator ServiceLocator => YafContext.Current.ServiceLocator;
+        public IServiceLocator ServiceLocator => BoardContext.Current.ServiceLocator;
 
         #endregion
 

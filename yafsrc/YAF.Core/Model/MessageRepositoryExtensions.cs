@@ -715,19 +715,19 @@ namespace YAF.Core.Model
                                         Message = message,
                                         Flags = flags.BitValue,
                                         Posted = posted.ToString(CultureInfo.InvariantCulture),
-                                        UserName = YafContext.Current.User.UserName,
-                                        UserDisplayName = YafContext.Current.CurrentUserData.DisplayName,
-                                        UserStyle = YafContext.Current.UserStyle,
-                                        UserId = YafContext.Current.PageUserID,
-                                        TopicId = YafContext.Current.PageTopicID,
-                                        Topic = YafContext.Current.PageTopicName,
-                                        ForumId = YafContext.Current.PageForumID,
+                                        UserName = BoardContext.Current.User.UserName,
+                                        UserDisplayName = BoardContext.Current.CurrentUserData.DisplayName,
+                                        UserStyle = BoardContext.Current.UserStyle,
+                                        UserId = BoardContext.Current.PageUserID,
+                                        TopicId = BoardContext.Current.PageTopicID,
+                                        Topic = BoardContext.Current.PageTopicName,
+                                        ForumId = BoardContext.Current.PageForumID,
                                         TopicTags = string.Empty,
-                                        ForumName = YafContext.Current.PageForumName,
+                                        ForumName = BoardContext.Current.PageForumName,
                                         Description = string.Empty
                                     };
 
-            YafContext.Current.Get<ISearch>().AddSearchIndexItem(newMessage);
+            BoardContext.Current.Get<ISearch>().AddSearchIndexItem(newMessage);
 
             return messageId;
         }
@@ -867,7 +867,7 @@ namespace YAF.Core.Model
                                         Description = description
                                     };
 
-            YafContext.Current.Get<ISearch>().UpdateSearchIndexItem(updateMessage, true);
+            BoardContext.Current.Get<ISearch>().UpdateSearchIndexItem(updateMessage, true);
         }
 
         /// <summary>
@@ -931,7 +931,7 @@ namespace YAF.Core.Model
             bool deleteLinked,
             bool eraseMessages)
         {
-            var useFileTable = YafContext.Current.Get<BoardSettings>().UseFileTable;
+            var useFileTable = BoardContext.Current.Get<BoardSettings>().UseFileTable;
 
             if (deleteLinked)
             {
@@ -951,14 +951,14 @@ namespace YAF.Core.Model
             // If the files are actually saved in the Hard Drive
             if (!useFileTable)
             {
-                YafContext.Current.GetRepository<Attachment>().DeleteByMessageId(messageID);
+                BoardContext.Current.GetRepository<Attachment>().DeleteByMessageId(messageID);
             }
 
             // Ederon : erase message for good
             if (eraseMessages)
             {
                 // Delete Message from Search Index
-                YafContext.Current.Get<ISearch>().ClearSearchIndexRecord(messageID);
+                BoardContext.Current.Get<ISearch>().ClearSearchIndexRecord(messageID);
 
                 repository.DbFunction.Scalar.message_delete(MessageID: messageID, EraseMessage: true);
             }

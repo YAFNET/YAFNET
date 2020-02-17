@@ -77,7 +77,7 @@ namespace YAF.Core.Services.CheckForSpam
                 const string BotScoutUrl = "http://www.botscout.com/test/?multi";
 
                 var url =
-                    $"{BotScoutUrl}{(ipAddress.IsSet() ? $"&ip={ipAddress}" : string.Empty)}{(emailAddress.IsSet() ? $"&mail={emailAddress}" : string.Empty)}{(userName.IsSet() ? $"&name={userName}" : string.Empty)}{(YafContext.Current.Get<BoardSettings>().BotScoutApiKey.IsSet() ? $"&key={YafContext.Current.Get<BoardSettings>().BotScoutApiKey}" : string.Empty)}";
+                    $"{BotScoutUrl}{(ipAddress.IsSet() ? $"&ip={ipAddress}" : string.Empty)}{(emailAddress.IsSet() ? $"&mail={emailAddress}" : string.Empty)}{(userName.IsSet() ? $"&name={userName}" : string.Empty)}{(BoardContext.Current.Get<BoardSettings>().BotScoutApiKey.IsSet() ? $"&key={BoardContext.Current.Get<BoardSettings>().BotScoutApiKey}" : string.Empty)}";
 
                 var webRequest = (HttpWebRequest)WebRequest.Create(url);
 
@@ -110,7 +110,7 @@ namespace YAF.Core.Services.CheckForSpam
             }
             catch (Exception ex)
             {
-                YafContext.Current.Get<ILogger>().Error(ex, "Error while Checking for Bot");
+                BoardContext.Current.Get<ILogger>().Error(ex, "Error while Checking for Bot");
 
                 responseText = ex.Message;
 

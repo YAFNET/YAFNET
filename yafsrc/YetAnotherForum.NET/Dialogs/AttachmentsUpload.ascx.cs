@@ -72,7 +72,7 @@ namespace YAF.Dialogs
             base.OnPreRender(e);
 
             // Setup Hover Card JS
-            YafContext.Current.PageElements.RegisterJsBlockStartup(
+            BoardContext.Current.PageElements.RegisterJsBlockStartup(
                 "fileUploadjs",
                 JavaScriptBlocks.FileUploadLoadJs(
                     string.Join("|", this.FileExtensions.Select(ext => ext.Extension)),

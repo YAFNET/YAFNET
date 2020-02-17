@@ -116,7 +116,7 @@ namespace YAF.Core
         [NotNull]
         public IList<User> Find([NotNull] string contains)
         {
-            return YafContext.Current.Get<BoardSettings>().EnableDisplayName
+            return BoardContext.Current.Get<BoardSettings>().EnableDisplayName
                        ? this.GetRepository<User>().Get(u => u.DisplayName.Contains(contains))
                        : this.GetRepository<User>().Get(u => u.Name.Contains(contains));
         }
@@ -149,7 +149,7 @@ namespace YAF.Core
             else
             {
                 // find the username...
-                if (YafContext.Current.Get<BoardSettings>().EnableDisplayName)
+                if (BoardContext.Current.Get<BoardSettings>().EnableDisplayName)
                 {
                     var user =
                       this.GetRepository<User>().FindUserTyped(true, displayName: name).FirstOrDefault();
@@ -201,7 +201,7 @@ namespace YAF.Core
                 return null;
             }
 
-            if (YafContext.Current.Get<BoardSettings>().EnableDisplayName)
+            if (BoardContext.Current.Get<BoardSettings>().EnableDisplayName)
             {
                 displayName = row.Field<string>("DisplayName");
             }

@@ -120,7 +120,7 @@ namespace YAF.Controls
         /// <param name="e">An <see cref="T:System.EventArgs" /> object that contains the event data.</param>
         protected override void OnPreRender([NotNull] EventArgs e)
         {
-            YafContext.Current.PageElements.RegisterJsBlockStartup(
+            BoardContext.Current.PageElements.RegisterJsBlockStartup(
                 "DatePickerJs",
                 JavaScriptBlocks.DatePickerLoadJs(
                     this.GetText("COMMON", "CAL_JQ_CULTURE_DFORMAT"),

@@ -51,7 +51,7 @@ namespace YAF.Core
     public static string GetCaptchaString()
     {
       return StringExtensions.GenerateRandomString(
-        YafContext.Current.BoardSettings.CaptchaSize, "abcdefghijkmnpqrstuvwxyzABCDEFGHJKMNPQRSTUVWXYZ123456789");
+        BoardContext.Current.BoardSettings.CaptchaSize, "abcdefghijkmnpqrstuvwxyzABCDEFGHJKMNPQRSTUVWXYZ123456789");
     }
 
     /// <summary>
@@ -107,7 +107,7 @@ namespace YAF.Core
     {
       CodeContracts.VerifyNotNull(captchaText, "captchaText");
 
-      var text = GetCaptchaText(YafContext.Current.Get<HttpSessionStateBase>(), HttpRuntime.Cache, false);
+      var text = GetCaptchaText(BoardContext.Current.Get<HttpSessionStateBase>(), HttpRuntime.Cache, false);
 
       return string.Compare(text, captchaText, StringComparison.InvariantCultureIgnoreCase) == 0;
     }

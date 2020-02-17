@@ -81,7 +81,7 @@ namespace YAF.Web.Controls
         /// <summary>
         ///   Gets PageContext.
         /// </summary>
-        public YafContext PageContext
+        public BoardContext PageContext
         {
             get
             {
@@ -91,7 +91,7 @@ namespace YAF.Web.Controls
                     return null;
                 }
 
-                return YafContext.Current;
+                return BoardContext.Current;
             }
         }
 
@@ -111,9 +111,9 @@ namespace YAF.Web.Controls
         /// </summary>
         public CollapsiblePanelState PanelState
         {
-            get => YafContext.Current.Get<ISession>().PanelState[this.PanelID];
+            get => BoardContext.Current.Get<ISession>().PanelState[this.PanelID];
 
-            set => YafContext.Current.Get<ISession>().PanelState[this.PanelID] = value;
+            set => BoardContext.Current.Get<ISession>().PanelState[this.PanelID] = value;
         }
 
         #endregion
@@ -180,7 +180,7 @@ namespace YAF.Web.Controls
         protected override void OnClick(EventArgs e)
         {
             // toggle the status...
-            YafContext.Current.Get<ISession>().PanelState.TogglePanelState(this.PanelID, this.DefaultState);
+            BoardContext.Current.Get<ISession>().PanelState.TogglePanelState(this.PanelID, this.DefaultState);
             this.UpdateAttachedVisibility();
 
             base.OnClick(e);
@@ -202,7 +202,7 @@ namespace YAF.Web.Controls
         {
             CodeContracts.VerifyNotNull(panelId, "panelID");
 
-            var stateValue = YafContext.Current.Get<ISession>().PanelState[panelId];
+            var stateValue = BoardContext.Current.Get<ISession>().PanelState[panelId];
 
             if (stateValue != CollapsiblePanelState.None)
             {
@@ -210,7 +210,7 @@ namespace YAF.Web.Controls
             }
 
             stateValue = defaultState;
-            YafContext.Current.Get<ISession>().PanelState[panelId] = defaultState;
+            BoardContext.Current.Get<ISession>().PanelState[panelId] = defaultState;
 
             return stateValue == CollapsiblePanelState.Expanded ? "minus-square" : "plus-square";
         }

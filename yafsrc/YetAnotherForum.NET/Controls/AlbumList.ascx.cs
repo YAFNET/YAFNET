@@ -92,14 +92,14 @@ namespace YAF.Controls
             if (this.UserID == this.PageContext.PageUserID)
             {
                 // Register Js Blocks.
-                YafContext.Current.PageElements.RegisterJsBlockStartup(
+                BoardContext.Current.PageElements.RegisterJsBlockStartup(
                     "AlbumEventsJs",
                     JavaScriptBlocks.AlbumEventsJs(
                         this.Get<ILocalization>().GetText("ALBUM_CHANGE_TITLE").ToJsString(),
                         this.Get<ILocalization>().GetText("ALBUM_IMAGE_CHANGE_CAPTION").ToJsString()));
-                YafContext.Current.PageElements.RegisterJsBlockStartup(
+                BoardContext.Current.PageElements.RegisterJsBlockStartup(
                     "ChangeAlbumTitleJs", JavaScriptBlocks.ChangeAlbumTitleJs);
-                YafContext.Current.PageElements.RegisterJsBlockStartup(
+                BoardContext.Current.PageElements.RegisterJsBlockStartup(
                     "AlbumCallbackSuccessJS", JavaScriptBlocks.AlbumCallbackSuccessJs);
             }
 

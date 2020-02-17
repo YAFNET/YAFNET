@@ -47,7 +47,7 @@ namespace YAF.Core.Controllers
         /// <summary>
         ///   Gets ServiceLocator.
         /// </summary>
-        public IServiceLocator ServiceLocator => YafContext.Current.ServiceLocator;
+        public IServiceLocator ServiceLocator => BoardContext.Current.ServiceLocator;
 
         #endregion
 
@@ -109,7 +109,7 @@ namespace YAF.Core.Controllers
         public IHttpActionResult RemoveThanks([NotNull] int messageId)
         {
             var username = this.GetRepository<Thanks>().RemoveMessageThanks(
-                YafContext.Current.PageUserID,
+                BoardContext.Current.PageUserID,
                 messageId,
                 this.Get<BoardSettings>().EnableDisplayName);
 

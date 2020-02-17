@@ -97,7 +97,7 @@ namespace YAF.Core.Helpers
             }
 
             // get the section desired...
-            var list = YafContext.Current.GetRepository<Category>().SimpleListAsDataTable(LowRange(id), CacheSize);
+            var list = BoardContext.Current.GetRepository<Category>().SimpleListAsDataTable(LowRange(id), CacheSize);
 
             // set it up in the cache
             row = SetupDataToCache(ref list, Type, id, PrimaryKey);
@@ -127,7 +127,7 @@ namespace YAF.Core.Helpers
             }
 
             // get the section desired...
-            var list = YafContext.Current.GetRepository<Forum>().SimpleListAsDataTable(LowRange(id), CacheSize);
+            var list = BoardContext.Current.GetRepository<Forum>().SimpleListAsDataTable(LowRange(id), CacheSize);
 
             // set it up in the cache
             row = SetupDataToCache(ref list, Type, id, PrimaryKey);
@@ -152,7 +152,7 @@ namespace YAF.Core.Helpers
 
             try
             {
-                nameField = YafContext.Current.Get<BoardSettings>().EnableDisplayName ? "DisplayName" : "Name";
+                nameField = BoardContext.Current.Get<BoardSettings>().EnableDisplayName ? "DisplayName" : "Name";
             }
             catch (Exception)
             {
@@ -167,7 +167,7 @@ namespace YAF.Core.Helpers
             }
 
             // get the section desired...
-            var list = YafContext.Current.GetRepository<User>().SimpleListAsDataTable(LowRange(id), CacheSize);
+            var list = BoardContext.Current.GetRepository<User>().SimpleListAsDataTable(LowRange(id), CacheSize);
 
             // set it up in the cache
             row = SetupDataToCache(ref list, Type, id, PrimaryKey);
@@ -196,7 +196,7 @@ namespace YAF.Core.Helpers
             }
 
             // get the section desired...
-            var list = YafContext.Current.GetRepository<Topic>().SimpleListAsDataTable(LowRange(id), CacheSize);
+            var list = BoardContext.Current.GetRepository<Topic>().SimpleListAsDataTable(LowRange(id), CacheSize);
 
             // set it up in the cache
             row = SetupDataToCache(ref list, Topic, id, PrimaryKey);
@@ -224,7 +224,7 @@ namespace YAF.Core.Helpers
             }
 
             // get the section desired...
-            var list = YafContext.Current.GetRepository<Message>().SimpleListAsDataTable(LowRange(id), CacheSize);
+            var list = BoardContext.Current.GetRepository<Message>().SimpleListAsDataTable(LowRange(id), CacheSize);
 
             // set it up in the cache
             row = SetupDataToCache(ref list, Type, id, PrimaryKey);

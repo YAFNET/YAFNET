@@ -131,7 +131,7 @@ namespace YAF.Core.Services.Startup
             // TODO: The data cache needs a more fast string array check as number of banned ips can be huge, but current output is too demanding on perfomance in the cases.
             var bannedIPs = this.DataCache.GetOrSet(
                 Constants.Cache.BannedIP,
-                () => this.BannedIpRepository.Get(x => x.BoardID == YafContext.Current.PageBoardID).Select(x => x.Mask.Trim()).ToList());
+                () => this.BannedIpRepository.Get(x => x.BoardID == BoardContext.Current.PageBoardID).Select(x => x.Mask.Trim()).ToList());
 
             var ipToCheck = this.HttpRequestBase.ServerVariables["REMOTE_ADDR"];
 
@@ -141,7 +141,7 @@ namespace YAF.Core.Services.Startup
                 return true;
             }
 
-            if (YafContext.Current.Get<BoardSettings>().LogBannedIP)
+            if (BoardContext.Current.Get<BoardSettings>().LogBannedIP)
             {
                 this.Logger.Log(
                     null,

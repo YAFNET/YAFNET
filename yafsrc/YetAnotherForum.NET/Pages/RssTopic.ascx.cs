@@ -322,7 +322,7 @@ namespace YAF.Pages
             int flags,
             bool altItem)
         {
-            text = YafContext.Current.Get<IFormatMessage>().FormatSyndicationMessage(
+            text = BoardContext.Current.Get<IFormatMessage>().FormatSyndicationMessage(
                 text, new MessageFlags(flags), altItem, 4000);
 
             return

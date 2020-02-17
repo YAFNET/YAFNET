@@ -190,7 +190,7 @@ namespace YAF.Pages
 
             // show find users and all users (if user is admin)
             this.FindUsers.Visible = true;
-            this.AllUsers.Visible = YafContext.Current.IsAdmin;
+            this.AllUsers.Visible = BoardContext.Current.IsAdmin;
             this.AllBuddies.Visible = this.PageContext.UserHasBuddies;
 
             // clear button is not necessary now
@@ -231,7 +231,7 @@ namespace YAF.Pages
             if (this.To.Text.Length < 2)
             {
                 // need at least 2 letters of user's name
-                YafContext.Current.AddLoadMessage(this.GetText("NEED_MORE_LETTERS"), MessageTypes.warning);
+                BoardContext.Current.AddLoadMessage(this.GetText("NEED_MORE_LETTERS"), MessageTypes.warning);
                 return;
             }
 
@@ -261,7 +261,7 @@ namespace YAF.Pages
             else
             {
                 // user not found
-                YafContext.Current.AddLoadMessage(this.GetText("USER_NOTFOUND"), MessageTypes.danger);
+                BoardContext.Current.AddLoadMessage(this.GetText("USER_NOTFOUND"), MessageTypes.danger);
                 return;
             }
 
@@ -296,7 +296,7 @@ namespace YAF.Pages
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
             // if user isn't authenticated, redirect him to login page
-            if (this.User == null || YafContext.Current.IsGuest)
+            if (this.User == null || BoardContext.Current.IsGuest)
             {
                 this.RedirectNoAccess();
             }
@@ -314,7 +314,7 @@ namespace YAF.Pages
             this.CreatePageLinks();
 
             // only administrators can send messages to all users
-            this.AllUsers.Visible = YafContext.Current.IsAdmin;
+            this.AllUsers.Visible = BoardContext.Current.IsAdmin;
 
             this.AllBuddies.Visible = this.PageContext.UserHasBuddies;
 
@@ -343,7 +343,7 @@ namespace YAF.Pages
                 var fromUserId = row["FromUserID"].ToType<int>();
 
                 // verify access to this PM
-                if (toUserId != YafContext.Current.PageUserID && fromUserId != YafContext.Current.PageUserID)
+                if (toUserId != BoardContext.Current.PageUserID && fromUserId != BoardContext.Current.PageUserID)
                 {
                     BuildLink.AccessDenied();
                 }
@@ -391,7 +391,7 @@ namespace YAF.Pages
                 if (isReport)
                 {
                     var users = this.GetRepository<User>().UserList(
-                        YafContext.Current.PageBoardID,
+                        BoardContext.Current.PageBoardID,
                         null,
                         true,
                         null,
@@ -494,7 +494,7 @@ namespace YAF.Pages
                 }
 
                 var currentRow =
-                    this.GetRepository<User>().ListAsDataTable(YafContext.Current.PageBoardID, toUserId, true).GetFirstRow();
+                    this.GetRepository<User>().ListAsDataTable(BoardContext.Current.PageBoardID, toUserId, true).GetFirstRow();
 
                 if (currentRow == null)
                 {
@@ -549,8 +549,8 @@ namespace YAF.Pages
 
             using (
                 var userDT = this.GetRepository<User>().ListAsDataTable(
-                    YafContext.Current.PageBoardID,
-                    YafContext.Current.PageUserID,
+                    BoardContext.Current.PageBoardID,
+                    BoardContext.Current.PageUserID,
                     true))
             {
                 if (!userDT.Rows[0].IsNull("Signature"))
@@ -580,21 +580,21 @@ namespace YAF.Pages
             if (this.To.Text.Length <= 0)
             {
                 // recipient is required field
-                YafContext.Current.AddLoadMessage(this.GetText("need_to"), MessageTypes.warning);
+                BoardContext.Current.AddLoadMessage(this.GetText("need_to"), MessageTypes.warning);
                 return;
             }
 
             // subject is required
             if (this.PmSubjectTextBox.Text.Trim().Length <= 0)
             {
-                YafContext.Current.AddLoadMessage(this.GetText("need_subject"), MessageTypes.warning);
+                BoardContext.Current.AddLoadMessage(this.GetText("need_subject"), MessageTypes.warning);
                 return;
             }
 
             // message is required
             if (this._editor.Text.Trim().Length <= 0)
             {
-                YafContext.Current.AddLoadMessage(this.GetText("need_message"), MessageTypes.warning);
+                BoardContext.Current.AddLoadMessage(this.GetText("need_message"), MessageTypes.warning);
                 return;
             }
 
@@ -615,7 +615,7 @@ namespace YAF.Pages
                 }
 
                 this.GetRepository<PMessage>().SendMessage(
-                    YafContext.Current.PageUserID,
+                    BoardContext.Current.PageUserID,
                     0,
                     this.PmSubjectTextBox.Text,
                     body,
@@ -648,10 +648,10 @@ namespace YAF.Pages
                 var recipients = new List<string>(this.To.Text.Trim().Split(';'));
 
                 if (recipients.Count > this.Get<BoardSettings>().PrivateMessageMaxRecipients
-                    && !YafContext.Current.IsAdmin && this.Get<BoardSettings>().PrivateMessageMaxRecipients != 0)
+                    && !BoardContext.Current.IsAdmin && this.Get<BoardSettings>().PrivateMessageMaxRecipients != 0)
                 {
                     // to many recipients
-                    YafContext.Current.AddLoadMessage(
+                    BoardContext.Current.AddLoadMessage(
                         this.GetTextFormatted(
                             "TOO_MANY_RECIPIENTS",
                             this.Get<BoardSettings>().PrivateMessageMaxRecipients),
@@ -675,7 +675,7 @@ namespace YAF.Pages
 
                     if (!userId.HasValue)
                     {
-                        YafContext.Current.AddLoadMessage(
+                        BoardContext.Current.AddLoadMessage(
                             this.GetTextFormatted("NO_SUCH_USER", recipient),
                             MessageTypes.warning);
                         return;
@@ -683,7 +683,7 @@ namespace YAF.Pages
 
                     if (UserMembershipHelper.IsGuestUser(userId.Value))
                     {
-                        YafContext.Current.AddLoadMessage(this.GetText("NOT_GUEST"), MessageTypes.danger);
+                        BoardContext.Current.AddLoadMessage(this.GetText("NOT_GUEST"), MessageTypes.danger);
                         return;
                     }
 
@@ -697,7 +697,7 @@ namespace YAF.Pages
 
                     // test receiving user's PM count
                     if (receivingPMInfo["NumberTotal"].ToType<int>() + 1
-                        < receivingPMInfo["NumberAllowed"].ToType<int>() || YafContext.Current.IsAdmin
+                        < receivingPMInfo["NumberAllowed"].ToType<int>() || BoardContext.Current.IsAdmin
                         || (bool)
                            Convert.ChangeType(
                                UserMembershipHelper.GetUserRowForID(userId.Value, true)["IsAdmin"],
@@ -707,7 +707,7 @@ namespace YAF.Pages
                     }
 
                     // recipient has full PM box
-                    YafContext.Current.AddLoadMessage(
+                    BoardContext.Current.AddLoadMessage(
                         this.GetTextFormatted("RECIPIENTS_PMBOX_FULL", recipient),
                         MessageTypes.danger);
                     return;
@@ -727,7 +727,7 @@ namespace YAF.Pages
                                                    };
 
                             this.GetRepository<PMessage>().SendMessage(
-                                YafContext.Current.PageUserID,
+                                BoardContext.Current.PageUserID,
                                 userId,
                                 this.PmSubjectTextBox.Text,
                                 body,
@@ -766,7 +766,7 @@ namespace YAF.Pages
                 // Check content for spam
                 if (this.Get<ISpamCheck>().CheckPostForSpam(
                     this.PageContext.IsGuest ? "Guest" : this.PageContext.PageUserName,
-                    YafContext.Current.Get<HttpRequestBase>().GetUserRealIPAddress(),
+                    BoardContext.Current.Get<HttpRequestBase>().GetUserRealIPAddress(),
                     message,
                     this.PageContext.User.Email,
                     out var spamResult))
@@ -837,8 +837,8 @@ namespace YAF.Pages
                 }
 
                 // Check posts for urls if the user has only x posts
-                if (YafContext.Current.CurrentUserData.NumPosts
-                    <= YafContext.Current.Get<BoardSettings>().IgnoreSpamWordCheckPostCount &&
+                if (BoardContext.Current.CurrentUserData.NumPosts
+                    <= BoardContext.Current.Get<BoardSettings>().IgnoreSpamWordCheckPostCount &&
                     !this.PageContext.IsAdmin && !this.PageContext.ForumModeratorAccess)
                 {
                     var urlCount = UrlHelper.CountUrls(message);
@@ -920,16 +920,16 @@ namespace YAF.Pages
 
             // test sending user's PM count
             // get user's name
-            var drPMInfo = this.GetRepository<PMessage>().UserMessageCount(YafContext.Current.PageUserID).Rows[0];
+            var drPMInfo = this.GetRepository<PMessage>().UserMessageCount(BoardContext.Current.PageUserID).Rows[0];
 
             if (drPMInfo["NumberTotal"].ToType<int>() + count <= drPMInfo["NumberAllowed"].ToType<int>()
-                || YafContext.Current.IsAdmin)
+                || BoardContext.Current.IsAdmin)
             {
                 return true;
             }
 
             // user has full PM box
-            YafContext.Current.AddLoadMessage(
+            BoardContext.Current.AddLoadMessage(
                 this.GetTextFormatted("OWN_PMBOX_FULL", drPMInfo["NumberAllowed"]),
                 MessageTypes.danger);
 

@@ -71,7 +71,7 @@ namespace YAF.Pages
         protected override void OnPreRender([NotNull] EventArgs e)
         {
             // setup jQuery and Jquery Ui Tabs.
-            YafContext.Current.PageElements.RegisterJsBlock(
+            BoardContext.Current.PageElements.RegisterJsBlock(
                 "dropDownToggleJs",
                 JavaScriptBlocks.DropDownToggleJs());
 
@@ -163,7 +163,7 @@ namespace YAF.Pages
 
             if (doSearch)
             {
-                YafContext.Current.PageElements.RegisterJsBlockStartup(
+                BoardContext.Current.PageElements.RegisterJsBlockStartup(
                     "openModalJs",
                     JavaScriptBlocks.DoSearchJs());
             }
@@ -178,7 +178,7 @@ namespace YAF.Pages
 
             if (doSearch)
             {
-                YafContext.Current.PageElements.RegisterJsBlockStartup(
+                BoardContext.Current.PageElements.RegisterJsBlockStartup(
                     "openModalJs",
                     JavaScriptBlocks.DoSearchJs());
             }

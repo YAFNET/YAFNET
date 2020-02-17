@@ -145,7 +145,7 @@ namespace YAF.Core
                 {
                     var cultureCode = string.Empty;
 
-                    /*string [] tmp = YafContext.Current.Get<HttpRequestBase>().UserLanguages;
+                    /*string [] tmp = BoardContext.Current.Get<HttpRequestBase>().UserLanguages;
                               if ( tmp != null )
                               {
                                   cultureCode = tmp [0];
@@ -167,8 +167,8 @@ namespace YAF.Core
 #if DEBUG
                 catch (Exception ex)
                 {
-                    YafContext.Current.Get<ILogger>()
-                              .Error(ex, $"Error In Loading User Language for UserID {YafContext.Current.PageUserID}");
+                    BoardContext.Current.Get<ILogger>()
+                              .Error(ex, $"Error In Loading User Language for UserID {BoardContext.Current.PageUserID}");
 
                     throw new ApplicationException($"Error getting User Language.{Environment.NewLine}{ex}");
                 }

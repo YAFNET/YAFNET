@@ -108,7 +108,7 @@ namespace YAF.Core.Services
         /// </returns>
         public int AddFavoriteTopic(int topicId)
         {
-            this.GetRepository<FavoriteTopic>().Insert(new FavoriteTopic { UserID = YafContext.Current.PageUserID, TopicID = topicId });
+            this.GetRepository<FavoriteTopic>().Insert(new FavoriteTopic { UserID = BoardContext.Current.PageUserID, TopicID = topicId });
             this.ClearFavoriteTopicCache();
 
             return topicId;
@@ -121,7 +121,7 @@ namespace YAF.Core.Services
         {
             // clear for the session
             this.SessionState.Remove(
-                this.TreatCacheKey.Treat(string.Format(Constants.Cache.FavoriteTopicList, YafContext.Current.PageUserID)));
+                this.TreatCacheKey.Treat(string.Format(Constants.Cache.FavoriteTopicList, BoardContext.Current.PageUserID)));
         }
 
         /// <summary>
@@ -154,15 +154,15 @@ namespace YAF.Core.Services
         public DataTable FavoriteTopicDetails(DateTime sinceDate)
         {
             return this.GetRepository<FavoriteTopic>().Details(
-                YafContext.Current.Settings.CategoryID == 0 ? null : (int?)YafContext.Current.Settings.CategoryID, 
-                YafContext.Current.PageUserID, 
+                BoardContext.Current.Settings.CategoryID == 0 ? null : (int?)BoardContext.Current.Settings.CategoryID, 
+                BoardContext.Current.PageUserID, 
                 sinceDate, 
                 DateTime.UtcNow, 
                 // page index in db is 1 based!
                 0, 
                 // set the page size here
                 1000, 
-                YafContext.Current.BoardSettings.UseStyledNicks, 
+                BoardContext.Current.BoardSettings.UseStyledNicks, 
                 false);
         }
 
@@ -193,7 +193,7 @@ namespace YAF.Core.Services
         /// </returns>
         public int RemoveFavoriteTopic(int topicId)
         {
-            this.GetRepository<FavoriteTopic>().DeleteByUserAndTopic(YafContext.Current.PageUserID, topicId);
+            this.GetRepository<FavoriteTopic>().DeleteByUserAndTopic(BoardContext.Current.PageUserID, topicId);
             this.ClearFavoriteTopicCache();
 
             return topicId;
@@ -210,7 +210,7 @@ namespace YAF.Core.Services
         {
             if (this._favoriteTopicList == null)
             {
-                this._favoriteTopicList = YafContext.Current.Get<YafDbBroker>().FavoriteTopicList(YafContext.Current.PageUserID);
+                this._favoriteTopicList = BoardContext.Current.Get<YafDbBroker>().FavoriteTopicList(BoardContext.Current.PageUserID);
             }
         }
 

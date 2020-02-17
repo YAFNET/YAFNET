@@ -82,7 +82,7 @@ namespace YAF.Core.Services
         public static void LoginSuccess([NotNull] AuthService authService, [CanBeNull] string userName, [NotNull] int userID, [NotNull] bool doLogin)
         {
             // Add Flag to User that indicates with what service the user is logged in
-            YafContext.Current.GetRepository<User>().UpdateAuthServiceStatus(userID, authService);
+            BoardContext.Current.GetRepository<User>().UpdateAuthServiceStatus(userID, authService);
 
             if (!doLogin)
             {
@@ -91,7 +91,7 @@ namespace YAF.Core.Services
 
             FormsAuthentication.SetAuthCookie(userName, true);
 
-            YafContext.Current.Get<IRaiseEvent>().Raise(new SuccessfulUserLoginEvent(userID));
+            BoardContext.Current.Get<IRaiseEvent>().Raise(new SuccessfulUserLoginEvent(userID));
         }
     }
 }

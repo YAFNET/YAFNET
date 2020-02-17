@@ -77,7 +77,7 @@ namespace YAF.Core.Services
         /// </returns>
         public string GetAvatarUrlForCurrentUser()
         {
-            return this.GetAvatarUrlForUser(YafContext.Current.CurrentUserData);
+            return this.GetAvatarUrlForUser(BoardContext.Current.CurrentUserData);
         }
 
         /// <summary>

@@ -342,7 +342,7 @@ namespace YAF.Pages.Admin
 
             if (activeUsers.HasRows())
             {
-                YafContext.Current.PageElements.RegisterJsBlock(
+                BoardContext.Current.PageElements.RegisterJsBlock(
                     "ActiveUsersTablesorterLoadJs",
                     JavaScriptBlocks.LoadTableSorter("#ActiveUsers", "sortList: [[0,0]]", "#ActiveUsersPager"));
             }
@@ -390,7 +390,7 @@ namespace YAF.Pages.Admin
 
                 if (unverifiedUsers.HasRows())
                 {
-                    YafContext.Current.PageElements.RegisterJsBlock(
+                    BoardContext.Current.PageElements.RegisterJsBlock(
                         "UnverifiedUserstablesorterLoadJs",
                         JavaScriptBlocks.LoadTableSorter(
                             "#UnverifiedUsers",

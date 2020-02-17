@@ -47,7 +47,7 @@ namespace YAF.Core.Services
         /// <summary>
         ///   Time zone suffix for Guests
         /// </summary>
-        private readonly string timeZoneName = YafContext.Current.Get<ILocalization>().GetText("TIMEZONES", "NAME_UTC");
+        private readonly string timeZoneName = BoardContext.Current.Get<ILocalization>().GetText("TIMEZONES", "NAME_UTC");
 
         #endregion
 
@@ -61,17 +61,17 @@ namespace YAF.Core.Services
         {
             get
             {
-                if (YafContext.Current.Page == null)
+                if (BoardContext.Current.Page == null)
                 {
-                    return new TimeSpan(0, YafContext.Current.Get<BoardSettings>().ServerTimeCorrection, 0);
+                    return new TimeSpan(0, BoardContext.Current.Get<BoardSettings>().ServerTimeCorrection, 0);
                 }
 
-                var min = YafContext.Current.TimeZoneUserOffSet;
+                var min = BoardContext.Current.TimeZoneUserOffSet;
                 var hrs = min / 60;
 
                 return new TimeSpan(
                     hrs,
-                    min % 60 + YafContext.Current.Get<BoardSettings>().ServerTimeCorrection,
+                    min % 60 + BoardContext.Current.Get<BoardSettings>().ServerTimeCorrection,
                     0);
             }
         }
@@ -92,22 +92,22 @@ namespace YAF.Core.Services
         public string FormatDateLong(DateTime dateTime)
         {
             string dateFormat;
-            dateTime = TimeZoneInfo.ConvertTimeFromUtc(dateTime, YafContext.Current.TimeZoneInfoUser);
+            dateTime = TimeZoneInfo.ConvertTimeFromUtc(dateTime, BoardContext.Current.TimeZoneInfoUser);
 
             try
             {
                 dateFormat =
-                    YafContext.Current.Get<ILocalization>()
-                        .FormatDateTime(YafContext.Current.Get<ILocalization>().GetText("FORMAT_DATE_LONG"), dateTime);
+                    BoardContext.Current.Get<ILocalization>()
+                        .FormatDateTime(BoardContext.Current.Get<ILocalization>().GetText("FORMAT_DATE_LONG"), dateTime);
             }
             catch (Exception)
             {
                 dateFormat = dateTime.ToString("D");
             }
 
-            return YafContext.Current.Get<BoardSettings>().UseFarsiCalender
+            return BoardContext.Current.Get<BoardSettings>().UseFarsiCalender
                        ? PersianDateConverter.ToPersianDate(dateTime).ToString("D")
-                       : YafContext.Current.IsGuest
+                       : BoardContext.Current.IsGuest
                              ? $"{dateFormat}{this.timeZoneName}"
                              : dateFormat;
         }
@@ -124,22 +124,22 @@ namespace YAF.Core.Services
         public string FormatDateShort([NotNull] DateTime dateTime)
         {
             string dateFormat;
-            dateTime = TimeZoneInfo.ConvertTimeFromUtc(dateTime, YafContext.Current.TimeZoneInfoUser);
+            dateTime = TimeZoneInfo.ConvertTimeFromUtc(dateTime, BoardContext.Current.TimeZoneInfoUser);
 
             try
             {
                 dateFormat =
-                    YafContext.Current.Get<ILocalization>()
-                        .FormatDateTime(YafContext.Current.Get<ILocalization>().GetText("FORMAT_DATE_SHORT"), dateTime);
+                    BoardContext.Current.Get<ILocalization>()
+                        .FormatDateTime(BoardContext.Current.Get<ILocalization>().GetText("FORMAT_DATE_SHORT"), dateTime);
             }
             catch (Exception)
             {
                 dateFormat = dateTime.ToString("d");
             }
 
-            return YafContext.Current.Get<BoardSettings>().UseFarsiCalender
+            return BoardContext.Current.Get<BoardSettings>().UseFarsiCalender
                        ? PersianDateConverter.ToPersianDate(dateTime).ToString("d")
-                       : YafContext.Current.IsGuest
+                       : BoardContext.Current.IsGuest
                              ? $"{dateFormat}{this.timeZoneName}"
                              : dateFormat;
         }
@@ -155,16 +155,16 @@ namespace YAF.Core.Services
         /// </returns>
         public string FormatDateTime([NotNull] DateTime dateTime)
         {
-            dateTime = TimeZoneInfo.ConvertTimeFromUtc(dateTime, YafContext.Current.TimeZoneInfoUser);
+            dateTime = TimeZoneInfo.ConvertTimeFromUtc(dateTime, BoardContext.Current.TimeZoneInfoUser);
 
             string dateFormat;
 
             try
             {
                 dateFormat =
-                    YafContext.Current.Get<ILocalization>()
+                    BoardContext.Current.Get<ILocalization>()
                         .FormatDateTime(
-                            YafContext.Current.Get<ILocalization>().GetText("FORMAT_DATE_TIME_LONG"),
+                            BoardContext.Current.Get<ILocalization>().GetText("FORMAT_DATE_TIME_LONG"),
                             dateTime);
             }
             catch (Exception)
@@ -172,9 +172,9 @@ namespace YAF.Core.Services
                 dateFormat = dateTime.ToString("F");
             }
 
-            return YafContext.Current.Get<BoardSettings>().UseFarsiCalender
+            return BoardContext.Current.Get<BoardSettings>().UseFarsiCalender
                        ? PersianDateConverter.ToPersianDate(dateTime).ToString()
-                       : YafContext.Current.IsGuest
+                       : BoardContext.Current.IsGuest
                              ? $"{dateFormat}{this.timeZoneName}"
                              : dateFormat;
         }
@@ -192,14 +192,14 @@ namespace YAF.Core.Services
         {
             string dateFormat;
 
-            dateTime = TimeZoneInfo.ConvertTimeFromUtc(dateTime, YafContext.Current.TimeZoneInfoUser);
+            dateTime = TimeZoneInfo.ConvertTimeFromUtc(dateTime, BoardContext.Current.TimeZoneInfoUser);
 
             try
             {
                 dateFormat =
-                    YafContext.Current.Get<ILocalization>()
+                    BoardContext.Current.Get<ILocalization>()
                         .FormatDateTime(
-                            YafContext.Current.Get<ILocalization>().GetText("FORMAT_DATE_TIME_SHORT"),
+                            BoardContext.Current.Get<ILocalization>().GetText("FORMAT_DATE_TIME_SHORT"),
                             dateTime);
             }
             catch (Exception)
@@ -207,9 +207,9 @@ namespace YAF.Core.Services
                 dateFormat = dateTime.ToString("G");
             }
 
-            return YafContext.Current.Get<BoardSettings>().UseFarsiCalender
+            return BoardContext.Current.Get<BoardSettings>().UseFarsiCalender
                        ? PersianDateConverter.ToPersianDate(dateTime).ToString("G")
-                       : YafContext.Current.IsGuest
+                       : BoardContext.Current.IsGuest
                              ? $"{dateFormat}{this.timeZoneName}"
                              : dateFormat;
         }
@@ -228,8 +228,8 @@ namespace YAF.Core.Services
         {
             if (dateTime.Kind == DateTimeKind.Local)
                 dateTime = DateTime.SpecifyKind(dateTime, DateTimeKind.Unspecified);
-            dateTime = TimeZoneInfo.ConvertTimeFromUtc(dateTime, YafContext.Current.TimeZoneInfoUser);
-            var nowDateTime = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, YafContext.Current.TimeZoneInfoUser);
+            dateTime = TimeZoneInfo.ConvertTimeFromUtc(dateTime, BoardContext.Current.TimeZoneInfoUser);
+            var nowDateTime = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, BoardContext.Current.TimeZoneInfoUser);
 
             string dateFormat;
             try
@@ -238,22 +238,22 @@ namespace YAF.Core.Services
                 {
                     // today
                     dateFormat =
-                        YafContext.Current.Get<ILocalization>()
-                            .FormatString(YafContext.Current.Get<ILocalization>().GetText("TodayAt"), dateTime);
+                        BoardContext.Current.Get<ILocalization>()
+                            .FormatString(BoardContext.Current.Get<ILocalization>().GetText("TodayAt"), dateTime);
                 }
                 else if (dateTime.Date == nowDateTime.AddDays(-1).Date)
                 {
                     // yesterday
                     dateFormat =
-                        YafContext.Current.Get<ILocalization>()
-                            .FormatString(YafContext.Current.Get<ILocalization>().GetText("YesterdayAt"), dateTime);
+                        BoardContext.Current.Get<ILocalization>()
+                            .FormatString(BoardContext.Current.Get<ILocalization>().GetText("YesterdayAt"), dateTime);
                 }
                 else
                 {
                     dateFormat =
-                        YafContext.Current.Get<ILocalization>()
+                        BoardContext.Current.Get<ILocalization>()
                             .FormatDateTime(
-                                YafContext.Current.Get<ILocalization>().GetText("FORMAT_DATE_TIME_SHORT"),
+                                BoardContext.Current.Get<ILocalization>().GetText("FORMAT_DATE_TIME_SHORT"),
                                 dateTime);
                 }
             }
@@ -262,9 +262,9 @@ namespace YAF.Core.Services
                 dateFormat = dateTime.ToString("G");
             }
 
-            return YafContext.Current.Get<BoardSettings>().UseFarsiCalender
+            return BoardContext.Current.Get<BoardSettings>().UseFarsiCalender
                        ? PersianDateConverter.ToPersianDate(dateTime).ToString("G")
-                       : YafContext.Current.IsGuest
+                       : BoardContext.Current.IsGuest
                              ? $"{dateFormat}{this.timeZoneName}"
                              : dateFormat;
         }
@@ -282,22 +282,22 @@ namespace YAF.Core.Services
         {
             string dateFormat;
 
-            dateTime = TimeZoneInfo.ConvertTimeFromUtc(dateTime, YafContext.Current.TimeZoneInfoUser);
+            dateTime = TimeZoneInfo.ConvertTimeFromUtc(dateTime, BoardContext.Current.TimeZoneInfoUser);
 
             try
             {
                 dateFormat =
-                    YafContext.Current.Get<ILocalization>()
-                        .FormatDateTime(YafContext.Current.Get<ILocalization>().GetText("FORMAT_TIME"), dateTime);
+                    BoardContext.Current.Get<ILocalization>()
+                        .FormatDateTime(BoardContext.Current.Get<ILocalization>().GetText("FORMAT_TIME"), dateTime);
             }
             catch (Exception)
             {
                 dateFormat = dateTime.ToString("T");
             }
 
-            return YafContext.Current.Get<BoardSettings>().UseFarsiCalender
+            return BoardContext.Current.Get<BoardSettings>().UseFarsiCalender
                        ? PersianDateConverter.ToPersianDate(dateTime).ToString("T")
-                       : YafContext.Current.IsGuest
+                       : BoardContext.Current.IsGuest
                              ? $"{dateFormat}{this.timeZoneName}"
                              : dateFormat;
         }
@@ -309,7 +309,7 @@ namespace YAF.Core.Services
         /// <returns>Returns the user Date Time</returns>
         public DateTime GetUserDateTime(DateTime dateTime)
         {
-            return TimeZoneInfo.ConvertTimeFromUtc(dateTime, YafContext.Current.TimeZoneInfoUser);
+            return TimeZoneInfo.ConvertTimeFromUtc(dateTime, BoardContext.Current.TimeZoneInfoUser);
         }
 
         /// <summary>

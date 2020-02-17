@@ -46,7 +46,7 @@ namespace YAF.Core.Controllers
         /// <summary>
         ///   Gets ServiceLocator.
         /// </summary>
-        public IServiceLocator ServiceLocator => YafContext.Current.ServiceLocator;
+        public IServiceLocator ServiceLocator => BoardContext.Current.ServiceLocator;
 
         #endregion
 
@@ -78,7 +78,7 @@ namespace YAF.Core.Controllers
                 attach =>
                     {
                         var url =
-                            $"{BoardInfo.ForumClientFileRoot}resource.ashx?i={attach.ID}&b={YafContext.Current.PageBoardID}&editor=true";
+                            $"{BoardInfo.ForumClientFileRoot}resource.ashx?i={attach.ID}&b={BoardContext.Current.PageBoardID}&editor=true";
 
                         var description = $"{attach.FileName} ({attach.Bytes / 1024} kb)";
 

@@ -147,7 +147,7 @@ namespace YAF.Web.Controls
         {
             CodeContracts.VerifyNotNull(message, "message");
 
-            var maxPostSize = Math.Max(YafContext.Current.Get<BoardSettings>().MaxPostSize, 0);
+            var maxPostSize = Math.Max(BoardContext.Current.Get<BoardSettings>().MaxPostSize, 0);
 
             // 0 == unlimited
             return maxPostSize == 0 || message.Length <= maxPostSize ? message : message.Truncate(maxPostSize);
@@ -183,7 +183,7 @@ namespace YAF.Web.Controls
                         var attached = new MessageAttached { MessageID = this.CurrentMessage.ID };
 
                         if (this.CurrentMessage.UserID > 0
-                            && YafContext.Current.Get<BoardSettings>().EnableDisplayName)
+                            && BoardContext.Current.Get<BoardSettings>().EnableDisplayName)
                         {
                             attached.UserName = UserMembershipHelper.GetDisplayNameFromID(this.CurrentMessage.UserID);
                         }

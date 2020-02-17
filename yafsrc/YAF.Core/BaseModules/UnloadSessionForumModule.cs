@@ -81,8 +81,8 @@ namespace YAF.Core.BaseModules
                 return;
             }
 
-            if (YafContext.Current.BoardSettings.AbandonSessionsForDontTrack
-                && (YafContext.Current.Vars.AsBoolean("DontTrack") ?? false)
+            if (BoardContext.Current.BoardSettings.AbandonSessionsForDontTrack
+                && (BoardContext.Current.Vars.AsBoolean("DontTrack") ?? false)
                 && this.Get<HttpSessionStateBase>().IsNewSession)
             {
                 // remove session

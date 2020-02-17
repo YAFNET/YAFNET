@@ -171,7 +171,7 @@ namespace YAF.Core.Services.Logger
 
                     break;
                 case EventLogTypes.Information:
-                    if (YafContext.Current.Get<BoardSettings>().LogInformation)
+                    if (BoardContext.Current.Get<BoardSettings>().LogInformation)
                     {
                         this.EventLogRepository.Insert(
                             new EventLog
@@ -186,7 +186,7 @@ namespace YAF.Core.Services.Logger
 
                     break;
                 case EventLogTypes.Warning:
-                    if (YafContext.Current.Get<BoardSettings>().LogWarning)
+                    if (BoardContext.Current.Get<BoardSettings>().LogWarning)
                     {
                         this.EventLogRepository.Insert(
                             new EventLog
@@ -201,7 +201,7 @@ namespace YAF.Core.Services.Logger
 
                     break;
                 case EventLogTypes.Error:
-                    if (YafContext.Current.Get<BoardSettings>().LogError)
+                    if (BoardContext.Current.Get<BoardSettings>().LogError)
                     {
                         this.EventLogRepository.Insert(
                             new EventLog

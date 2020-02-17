@@ -82,14 +82,14 @@ namespace YAF.Core.Tasks
         public static bool Start(int boardId, int forumId, out string failureMessage)
         {
             failureMessage = string.Empty;
-            if (YafContext.Current.Get<ITaskModuleManager>() == null)
+            if (BoardContext.Current.Get<ITaskModuleManager>() == null)
             {
                 return false;
             }
 
-            if (!YafContext.Current.Get<ITaskModuleManager>().AreTasksRunning(BlockingTaskNames))
+            if (!BoardContext.Current.Get<ITaskModuleManager>().AreTasksRunning(BlockingTaskNames))
             {
-                YafContext.Current.Get<ITaskModuleManager>().StartTask(
+                BoardContext.Current.Get<ITaskModuleManager>().StartTask(
                     TaskName,
                     () => new ForumDeleteTask { Data = boardId, ForumId = forumId, ForumNewId = -1 });
             }
@@ -124,12 +124,12 @@ namespace YAF.Core.Tasks
         public static bool Start(int boardId, int forumOldId, int forumNewId, out string failureMessage)
         {
             failureMessage = string.Empty;
-            if (YafContext.Current.Get<ITaskModuleManager>() == null)
+            if (BoardContext.Current.Get<ITaskModuleManager>() == null)
             {
                 return false;
             }
 
-            YafContext.Current.Get<ITaskModuleManager>().StartTask(
+            BoardContext.Current.Get<ITaskModuleManager>().StartTask(
                 TaskName,
                 () => new ForumDeleteTask { Data = boardId, ForumId = forumOldId, ForumNewId = forumNewId });
 

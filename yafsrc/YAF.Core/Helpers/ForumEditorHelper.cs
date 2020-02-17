@@ -49,25 +49,25 @@ namespace YAF.Core.Helpers
         public static ForumEditor GetCurrentForumEditor()
         {
             // get the forum editor based on the settings
-            var editorId = YafContext.Current.BoardSettings.ForumEditor;
+            var editorId = BoardContext.Current.BoardSettings.ForumEditor;
 
-            if (YafContext.Current.BoardSettings.AllowUsersTextEditor)
+            if (BoardContext.Current.BoardSettings.AllowUsersTextEditor)
             {
                 // Text editor
-                editorId = YafContext.Current.TextEditor.IsSet()
-                               ? YafContext.Current.TextEditor
-                               : YafContext.Current.BoardSettings.ForumEditor;
+                editorId = BoardContext.Current.TextEditor.IsSet()
+                               ? BoardContext.Current.TextEditor
+                               : BoardContext.Current.BoardSettings.ForumEditor;
             }
 
             // Check if Editor exists, if not fallback to default editor
-            var forumEditor = YafContext.Current.Get<IModuleManager<ForumEditor>>().GetBy(editorId, false)
-                              ?? YafContext.Current.Get<IModuleManager<ForumEditor>>().GetBy("1");
+            var forumEditor = BoardContext.Current.Get<IModuleManager<ForumEditor>>().GetBy(editorId, false)
+                              ?? BoardContext.Current.Get<IModuleManager<ForumEditor>>().GetBy("1");
 
             // Revert to standard editor 
             if (forumEditor.Description.Contains("TinyMCE") || forumEditor.Description.Contains("FreeTextBox")
                                                             || forumEditor.Description.Contains("Telerik"))
             {
-                forumEditor = YafContext.Current.Get<IModuleManager<ForumEditor>>().GetBy("1");
+                forumEditor = BoardContext.Current.Get<IModuleManager<ForumEditor>>().GetBy("1");
             }
 
             return forumEditor;
@@ -79,7 +79,7 @@ namespace YAF.Core.Helpers
         /// <returns>Returns the filtered editor list.</returns>
         public static DataTable GetFilteredEditorList()
         {
-            var editorList = YafContext.Current.Get<IModuleManager<ForumEditor>>().ActiveAsDataTable("Editors");
+            var editorList = BoardContext.Current.Get<IModuleManager<ForumEditor>>().ActiveAsDataTable("Editors");
 
             return editorList;
         }

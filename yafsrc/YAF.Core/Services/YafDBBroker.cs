@@ -130,7 +130,7 @@ namespace YAF.Core.Services
                     () =>
                     this.GetRepository<User>().LazyDataRow(
                         userId,
-                        YafContext.Current.PageBoardID,
+                        BoardContext.Current.PageBoardID,
                         this.BoardSettings.EnableBuddyList,
                         this.BoardSettings.AllowPrivateMessages,
                         this.BoardSettings.EnableAlbum,
@@ -157,7 +157,7 @@ namespace YAF.Core.Services
             var allThanks = this.GetRepository<Thanks>().MessageGetAllThanks(messageIds.ToDelimitedString(",")).ToList();
 
             foreach (var f in
-                allThanks.Where(t => t.FromUserID != null && t.FromUserID == YafContext.Current.PageUserID)
+                allThanks.Where(t => t.FromUserID != null && t.FromUserID == BoardContext.Current.PageUserID)
                     .SelectMany(thanks => dataRows.Where(x => x.Field<int>("MessageID") == thanks.MessageID)))
             {
                 f["IsThankedByUser"] = "true";
@@ -414,7 +414,7 @@ namespace YAF.Core.Services
                     this.DbFunction.GetAsDataTable(
                         cdb =>
                         cdb.topic_latest(
-                            YafContext.Current.PageBoardID,
+                            BoardContext.Current.PageBoardID,
                             numberOfPosts,
                             userId,
                             this.BoardSettings.UseStyledNicks,
@@ -435,7 +435,7 @@ namespace YAF.Core.Services
                     {
                         var moderator =
                             this.DbFunction.GetAsDataTable(
-                                cdb => cdb.forum_moderators(YafContext.Current.PageBoardID, this.BoardSettings.UseStyledNicks));
+                                cdb => cdb.forum_moderators(BoardContext.Current.PageBoardID, this.BoardSettings.UseStyledNicks));
                         moderator.TableName = "Moderator";
                         return moderator;
                     },
@@ -456,7 +456,7 @@ namespace YAF.Core.Services
                     this.DbFunction.GetAsDataTable(
                         cdb =>
                         cdb.recent_users(
-                            YafContext.Current.PageBoardID,
+                            BoardContext.Current.PageBoardID,
                             timeSinceLastLogin,
                             this.BoardSettings.UseStyledNicks)));
         }

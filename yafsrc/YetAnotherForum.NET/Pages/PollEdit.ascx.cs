@@ -187,7 +187,7 @@ namespace YAF.Pages
 
             if (this.Question.Text.Trim().Length == 0)
             {
-                YafContext.Current.AddLoadMessage(this.GetText("POLLEDIT", "NEED_QUESTION"), MessageTypes.warning);
+                BoardContext.Current.AddLoadMessage(this.GetText("POLLEDIT", "NEED_QUESTION"), MessageTypes.warning);
                 return false;
             }
 
@@ -199,13 +199,13 @@ namespace YAF.Pages
 
             if (notNullcount < 2)
             {
-                YafContext.Current.AddLoadMessage(this.GetText("POLLEDIT", "NEED_CHOICES"), MessageTypes.warning);
+                BoardContext.Current.AddLoadMessage(this.GetText("POLLEDIT", "NEED_CHOICES"), MessageTypes.warning);
                 return false;
             }
 
             if (!int.TryParse(this.PollExpire.Text.Trim(), out var dateVerified) && this.PollExpire.Text.Trim().IsSet())
             {
-                YafContext.Current.AddLoadMessage(this.GetText("POLLEDIT", "EXPIRE_BAD"), MessageTypes.warning);
+                BoardContext.Current.AddLoadMessage(this.GetText("POLLEDIT", "EXPIRE_BAD"), MessageTypes.warning);
                 return false;
             }
 
@@ -387,7 +387,7 @@ namespace YAF.Pages
                     questionMime = ImageHelper.GetImageParameters(new Uri(questionPath), out var length);
                     if (questionMime.IsNotSet())
                     {
-                        YafContext.Current.AddLoadMessage(
+                        BoardContext.Current.AddLoadMessage(
                             this.GetTextFormatted("POLLIMAGE_INVALID", questionPath),
                             MessageTypes.warning);
                         return false;
@@ -395,7 +395,7 @@ namespace YAF.Pages
 
                     if (length > this.Get<BoardSettings>().PollImageMaxFileSize * 1024)
                     {
-                        YafContext.Current.AddLoadMessage(
+                        BoardContext.Current.AddLoadMessage(
                             this.GetTextFormatted(
                                 "POLLIMAGE_TOOBIG",
                                 length / 1024,
@@ -433,7 +433,7 @@ namespace YAF.Pages
                         choiceImageMime = ImageHelper.GetImageParameters(new Uri(choiceObjectPath), out var length);
                         if (choiceImageMime.IsNotSet())
                         {
-                            YafContext.Current.AddLoadMessage(
+                            BoardContext.Current.AddLoadMessage(
                                 this.GetTextFormatted("POLLIMAGE_INVALID", choiceObjectPath.Trim()),
                                 MessageTypes.warning);
                             return false;
@@ -441,7 +441,7 @@ namespace YAF.Pages
 
                         if (length > this.Get<BoardSettings>().PollImageMaxFileSize * 1024)
                         {
-                            YafContext.Current.AddLoadMessage(
+                            BoardContext.Current.AddLoadMessage(
                                 this.GetTextFormatted(
                                     "POLLIMAGE_TOOBIG",
                                     length / 1024,
@@ -509,7 +509,7 @@ namespace YAF.Pages
                     questionMime = ImageHelper.GetImageParameters(new Uri(questionPath), out var length);
                     if (questionMime.IsNotSet())
                     {
-                        YafContext.Current.AddLoadMessage(
+                        BoardContext.Current.AddLoadMessage(
                             this.GetTextFormatted("POLLIMAGE_INVALID", this.QuestionObjectPath.Text.Trim()),
                             MessageTypes.warning);
                         return false;
@@ -517,7 +517,7 @@ namespace YAF.Pages
 
                     if (length > this.Get<BoardSettings>().PollImageMaxFileSize * 1024)
                     {
-                        YafContext.Current.AddLoadMessage(
+                        BoardContext.Current.AddLoadMessage(
                             this.GetTextFormatted(
                                 "POLLIMAGE_TOOBIG",
                                 length / 1024,
@@ -543,7 +543,7 @@ namespace YAF.Pages
                         choiceObjectMime = ImageHelper.GetImageParameters(new Uri(choiceObjectPath), out var length);
                         if (choiceObjectMime.IsNotSet())
                         {
-                            YafContext.Current.AddLoadMessage(
+                            BoardContext.Current.AddLoadMessage(
                                 this.GetTextFormatted("POLLIMAGE_INVALID", choiceObjectPath.Trim()),
                                 MessageTypes.warning);
                             return false;
@@ -551,7 +551,7 @@ namespace YAF.Pages
 
                         if (length > this.Get<BoardSettings>().PollImageMaxFileSize * 1024)
                         {
-                            YafContext.Current.AddLoadMessage(
+                            BoardContext.Current.AddLoadMessage(
                                 this.GetTextFormatted(
                                     "POLLIMAGE_TOOBIG",
                                     length / 1024,

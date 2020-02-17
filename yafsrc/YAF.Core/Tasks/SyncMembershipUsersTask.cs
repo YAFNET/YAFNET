@@ -66,12 +66,12 @@ namespace YAF.Core.Tasks
     /// </returns>
     public static bool Start(int boardId)
     {
-      if (YafContext.Current.Get<ITaskModuleManager>() == null)
+      if (BoardContext.Current.Get<ITaskModuleManager>() == null)
       {
         return false;
       }
 
-      YafContext.Current.Get<ITaskModuleManager>().StartTask(TaskName, () => new SyncMembershipUsersTask { Data = boardId });
+      BoardContext.Current.Get<ITaskModuleManager>().StartTask(TaskName, () => new SyncMembershipUsersTask { Data = boardId });
 
       return true;
     }

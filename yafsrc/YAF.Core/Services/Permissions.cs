@@ -68,9 +68,9 @@ namespace YAF.Core.Services
                 case ViewPermissions.Everyone:
                     return true;
                 case ViewPermissions.RegisteredUsers:
-                    return !YafContext.Current.IsGuest;
+                    return !BoardContext.Current.IsGuest;
                 default:
-                    return YafContext.Current.IsAdmin;
+                    return BoardContext.Current.IsAdmin;
             }
         }
 
@@ -88,20 +88,20 @@ namespace YAF.Core.Services
             {
                 if (permission == ViewPermissions.RegisteredUsers)
                 {
-                    if (!Config.AllowLoginAndLogoff && YafContext.Current.BoardSettings.CustomLoginRedirectUrl.IsSet())
+                    if (!Config.AllowLoginAndLogoff && BoardContext.Current.BoardSettings.CustomLoginRedirectUrl.IsSet())
                     {
-                        var loginRedirectUrl = YafContext.Current.BoardSettings.CustomLoginRedirectUrl;
+                        var loginRedirectUrl = BoardContext.Current.BoardSettings.CustomLoginRedirectUrl;
 
                         if (loginRedirectUrl.Contains("{0}"))
                         {
                             // process for return url..
                             loginRedirectUrl = string.Format(
                                 loginRedirectUrl, HttpUtility.UrlEncode(
-                                    General.GetSafeRawUrl(YafContext.Current.Get<HttpRequestBase>().Url.ToString())));
+                                    General.GetSafeRawUrl(BoardContext.Current.Get<HttpRequestBase>().Url.ToString())));
                         }
 
                         // allow custom redirect...
-                        YafContext.Current.Get<HttpResponseBase>().Redirect(loginRedirectUrl);
+                        BoardContext.Current.Get<HttpResponseBase>().Redirect(loginRedirectUrl);
                         noAccess = false;
                     }
                     else if (!Config.AllowLoginAndLogoff && Config.IsDotNetNuke)
@@ -114,7 +114,7 @@ namespace YAF.Core.Services
                         }
 
                         // redirect to DNN login...
-                        YafContext.Current.Get<HttpResponseBase>().Redirect(
+                        BoardContext.Current.Get<HttpResponseBase>().Redirect(
                             $"{appPath}Login.aspx?ReturnUrl={HttpUtility.UrlEncode(General.GetSafeRawUrl())}");
                         noAccess = false;
                     }
@@ -169,7 +169,7 @@ namespace YAF.Core.Services
                 out var isSearchEngine,
                 out var dontTrack);
 
-            YafContext.Current.Get<StartupInitializeDb>().Run();
+            BoardContext.Current.Get<StartupInitializeDb>().Run();
 
             object userKey = DBNull.Value;
 
@@ -178,7 +178,7 @@ namespace YAF.Core.Services
                 userKey = user.ProviderUserKey;
             }
 
-            var pageRow = YafContext.Current.GetRepository<ActiveAccess>().PageLoad(
+            var pageRow = BoardContext.Current.GetRepository<ActiveAccess>().PageLoad(
                 HttpContext.Current.Session.SessionID,
                 boardId,
                 userKey,

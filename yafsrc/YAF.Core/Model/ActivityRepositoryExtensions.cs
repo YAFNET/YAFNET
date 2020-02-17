@@ -81,7 +81,7 @@ namespace YAF.Core.Model
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
-            YafContext.Current.Get<IRaiseEvent>().Raise(new UpdateUserEvent(userId));
+            BoardContext.Current.Get<IRaiseEvent>().Raise(new UpdateUserEvent(userId));
 
             repository.UpdateOnly(
                 () => new Activity { Notification = false },
@@ -107,7 +107,7 @@ namespace YAF.Core.Model
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
-            YafContext.Current.Get<IRaiseEvent>().Raise(new UpdateUserEvent(userId));
+            BoardContext.Current.Get<IRaiseEvent>().Raise(new UpdateUserEvent(userId));
 
             repository.UpdateOnly(
                 () => new Activity { Notification = false },

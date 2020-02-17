@@ -126,7 +126,7 @@ namespace YAF.Pages.Admin
         {
             this.EditDialog.BindData(null);
 
-            YafContext.Current.PageElements.RegisterJsBlockStartup(
+            BoardContext.Current.PageElements.RegisterJsBlockStartup(
                 "openModalJs",
                 JavaScriptBlocks.OpenModalJs("SpamWordsEditDialog"));
         }
@@ -220,7 +220,7 @@ namespace YAF.Pages.Admin
                 case "edit":
                     this.EditDialog.BindData(e.CommandArgument.ToType<int>());
 
-                    YafContext.Current.PageElements.RegisterJsBlockStartup(
+                    BoardContext.Current.PageElements.RegisterJsBlockStartup(
                         "openModalJs",
                         JavaScriptBlocks.OpenModalJs("SpamWordsEditDialog"));
 

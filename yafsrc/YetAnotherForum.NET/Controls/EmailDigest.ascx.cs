@@ -251,8 +251,8 @@ namespace YAF.Controls
 
             if (HttpContext.Current != null)
             {
-                this.BoardSettings = YafContext.Current.BoardSettings.BoardID.Equals(this.BoardID)
-                                         ? YafContext.Current.BoardSettings
+                this.BoardSettings = BoardContext.Current.BoardSettings.BoardID.Equals(this.BoardID)
+                                         ? BoardContext.Current.BoardSettings
                                          : new YafLoadBoardSettings(this.BoardID);
             }
             else

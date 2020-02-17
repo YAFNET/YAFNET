@@ -111,7 +111,7 @@ namespace YAF.Install
         /// <summary>
         ///     Gets ServiceLocator.
         /// </summary>
-        public IServiceLocator ServiceLocator => YafContext.Current.ServiceLocator;
+        public IServiceLocator ServiceLocator => BoardContext.Current.ServiceLocator;
 
         #endregion
 
@@ -271,9 +271,9 @@ namespace YAF.Install
 
             string DynamicConnectionString()
             {
-                if (YafContext.Current.Vars.ContainsKey("ConnectionString"))
+                if (BoardContext.Current.Vars.ContainsKey("ConnectionString"))
                 {
-                    return YafContext.Current.Vars["ConnectionString"] as string;
+                    return BoardContext.Current.Vars["ConnectionString"] as string;
                 }
 
                 return previousProvider();
@@ -345,7 +345,7 @@ namespace YAF.Install
         protected void TestDBConnection_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
             // attempt to connect selected DB...
-            YafContext.Current["ConnectionString"] = this.CurrentConnString;
+            BoardContext.Current["ConnectionString"] = this.CurrentConnString;
 
             if (!this.InstallUpgradeService.TestDatabaseConnection(out var message))
             {
@@ -367,7 +367,7 @@ namespace YAF.Install
             }
 
             // we're done with it...
-            YafContext.Current.Vars.Remove("ConnectionString");
+            BoardContext.Current.Vars.Remove("ConnectionString");
         }
 
         /// <summary>
@@ -592,7 +592,7 @@ namespace YAF.Install
         protected void Wizard_FinishButtonClick([NotNull] object sender, [NotNull] WizardNavigationEventArgs e)
         {
             // reset the board settings...
-            YafContext.Current.BoardSettings = null;
+            BoardContext.Current.BoardSettings = null;
 
             this.Get<HttpResponseBase>().Redirect("~/");
         }
@@ -1106,7 +1106,7 @@ namespace YAF.Install
                 if (!this.IsConfigPasswordSet)
                 {
                     // fake the board settings
-                    YafContext.Current.BoardSettings = new BoardSettings();
+                    BoardContext.Current.BoardSettings = new BoardSettings();
                 }
 
                 this.TimeZones.DataSource = StaticDataHelper.TimeZones();

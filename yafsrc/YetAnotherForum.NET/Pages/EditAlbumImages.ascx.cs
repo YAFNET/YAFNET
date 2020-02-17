@@ -149,7 +149,7 @@ namespace YAF.Pages
 
                     var sigData = this.GetRepository<User>().AlbumsDataAsDataTable(
                         this.PageContext.PageUserID,
-                        YafContext.Current.PageBoardID);
+                        BoardContext.Current.PageBoardID);
 
                     var usrAlbumImagesAllowed = sigData.GetFirstRowColumnAsValue<int?>("UsrAlbumImages", null);
 
@@ -203,7 +203,7 @@ namespace YAF.Pages
 
             var sigData = this.GetRepository<User>().AlbumsDataAsDataTable(
                 this.PageContext.PageUserID,
-                YafContext.Current.PageBoardID);
+                BoardContext.Current.PageBoardID);
 
             var usrAlbumsAllowed = sigData.GetFirstRowColumnAsValue<int?>("UsrAlbums", null);
 
@@ -251,7 +251,7 @@ namespace YAF.Pages
                     break;
             }
 
-            var displayName = YafContext.Current.Get<BoardSettings>().EnableDisplayName
+            var displayName = BoardContext.Current.Get<BoardSettings>().EnableDisplayName
                                   ? UserMembershipHelper.GetDisplayNameFromID(userID)
                                   : UserMembershipHelper.GetUserNameFromID(userID);
 
@@ -340,7 +340,7 @@ namespace YAF.Pages
 
                 var sigData = this.GetRepository<User>().AlbumsDataAsDataTable(
                     this.PageContext.PageUserID,
-                    YafContext.Current.PageBoardID);
+                    BoardContext.Current.PageBoardID);
 
                 var usrAlbumImagesAllowed = sigData.GetFirstRowColumnAsValue<int?>("UsrAlbumImages", null);
 
@@ -500,7 +500,7 @@ namespace YAF.Pages
             // vzrus: the checks here are useless but in a case...
             var sigData = this.GetRepository<User>().AlbumsDataAsDataTable(
                 this.PageContext.PageUserID,
-                YafContext.Current.PageBoardID);
+                BoardContext.Current.PageBoardID);
 
             var usrAlbumsAllowed = sigData.GetFirstRowColumnAsValue<int?>("UsrAlbums", null);
             var usrAlbumImagesAllowed = sigData.GetFirstRowColumnAsValue<int?>("UsrAlbumImages", null);

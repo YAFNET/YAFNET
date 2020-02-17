@@ -83,13 +83,13 @@ namespace YAF.Modules.BBCode
 
             string shownContent;
 
-            if (YafContext.Current.IsAdmin)
+            if (BoardContext.Current.IsAdmin)
             {
                 writer.Write(hiddenContent);
                 return;
             }
 
-            var userId = YafContext.Current.CurrentUserData.UserID;
+            var userId = BoardContext.Current.CurrentUserData.UserID;
 
             if (postsCount > -1)
             {
@@ -102,14 +102,14 @@ namespace YAF.Modules.BBCode
 
                 var shownContentPost = $"<div class=\"alert alert-danger\" role=\"alert\">{descriptionPost}</div>";
 
-                if (YafContext.Current.IsGuest)
+                if (BoardContext.Current.IsGuest)
                 {
                     writer.Write(shownContentGuest);
                     return;
                 }
 
                 if (this.DisplayUserID == userId ||
-                    YafContext.Current.CurrentUserData.NumPosts >= postsCount)
+                    BoardContext.Current.CurrentUserData.NumPosts >= postsCount)
                 {
                     shownContent = hiddenContent;
                 }
@@ -129,7 +129,7 @@ namespace YAF.Modules.BBCode
 
                 var shownContentPost = $"<div class=\"alert alert-danger\" role=\"alert\">{descriptionPost}</div>";
 
-                if (YafContext.Current.IsGuest)
+                if (BoardContext.Current.IsGuest)
                 {
                     writer.Write(shownContentGuest);
                     return;
@@ -154,7 +154,7 @@ namespace YAF.Modules.BBCode
                     return;
                 }
 
-                if (YafContext.Current.IsGuest)
+                if (BoardContext.Current.IsGuest)
                 {
                     writer.Write(shownContentGuest);
                     return;

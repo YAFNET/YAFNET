@@ -101,7 +101,7 @@ namespace YAF.Web.Controls
         /// </summary>
         private bool IsHoverCardEnabled =>
             this.Get<BoardSettings>().EnableUserInfoHoverCards && this.EnableHoverCard
-                                                                  && YafContext.Current.CurrentForumPage != null;
+                                                                  && BoardContext.Current.CurrentForumPage != null;
 
         #endregion
 
@@ -133,7 +133,7 @@ namespace YAF.Web.Controls
                  }}";
 
             // Setup Hover Card JS
-            YafContext.Current.PageElements.RegisterJsBlockStartup("yafhovercardtjs", script);
+            BoardContext.Current.PageElements.RegisterJsBlockStartup("yafhovercardtjs", script);
         }
 
         /// <summary>
@@ -176,7 +176,7 @@ namespace YAF.Web.Controls
 
                     output.WriteAttribute(
                         "data-hovercard",
-                        $"{(Config.IsDotNetNuke ? $"{BaseUrlBuilder.GetBaseUrlFromVariables()}{BaseUrlBuilder.AppPath}" : BoardInfo.ForumClientFileRoot)}resource.ashx?userinfo={this.UserID}&boardId={YafContext.Current.PageBoardID}&type=json&forumUrl={HttpUtility.UrlEncode(BuildLink.GetBasePath())}");
+                        $"{(Config.IsDotNetNuke ? $"{BaseUrlBuilder.GetBaseUrlFromVariables()}{BaseUrlBuilder.AppPath}" : BoardInfo.ForumClientFileRoot)}resource.ashx?userinfo={this.UserID}&boardId={BoardContext.Current.PageBoardID}&type=json&forumUrl={HttpUtility.UrlEncode(BuildLink.GetBasePath())}");
                 }
                 else
                 {

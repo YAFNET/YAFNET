@@ -82,7 +82,7 @@ namespace YAF.Core.BaseControls
         /// <summary>
         ///   Gets PageContext.
         /// </summary>
-        public YafContext PageContext => YafContext.Current;
+        public BoardContext PageContext => BoardContext.Current;
 
         /// <summary>
         ///   Gets ServiceLocator.

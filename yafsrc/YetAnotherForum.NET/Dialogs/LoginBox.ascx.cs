@@ -177,7 +177,7 @@ namespace YAF.Dialogs
         protected override void OnPreRender([NotNull] EventArgs e)
         {
             // setup jQuery and YAF JS...
-            YafContext.Current.PageElements.RegisterJsBlock(
+            BoardContext.Current.PageElements.RegisterJsBlock(
                 "yafmodaldialogJs",
                 JavaScriptBlocks.LoginBoxLoadJs(".LoginLink", "#LoginBox"));
 

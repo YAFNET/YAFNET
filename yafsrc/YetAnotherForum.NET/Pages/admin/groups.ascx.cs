@@ -177,7 +177,7 @@ namespace YAF.Pages.Admin
             }
 
             // sync roles just in case...
-            RoleMembershipHelper.SyncRoles(YafContext.Current.PageBoardID);
+            RoleMembershipHelper.SyncRoles(BoardContext.Current.PageBoardID);
 
             // bind data
             this.BindData();

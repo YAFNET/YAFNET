@@ -119,7 +119,7 @@ namespace YAF.Providers.Profile
         /// </returns>
         public int DeleteInactiveProfiles([NotNull] object appName, [NotNull] object inactiveSinceDate)
         {
-            return YafContext.Current.Get<IDbFunction>().Scalar.prov_profile_deleteinactive(
+            return BoardContext.Current.Get<IDbFunction>().Scalar.prov_profile_deleteinactive(
                 ApplicationName: appName,
                 InactiveSinceDate: inactiveSinceDate);
         }
@@ -138,7 +138,7 @@ namespace YAF.Providers.Profile
         /// </returns>
         public int DeleteProfiles([NotNull] object appName, [NotNull] object userNames)
         {
-            return YafContext.Current.Get<IDbFunction>().Scalar
+            return BoardContext.Current.Get<IDbFunction>().Scalar
                 .prov_profile_deleteprofiles(ApplicationName: appName, UserNames: userNames);
         }
 
@@ -156,7 +156,7 @@ namespace YAF.Providers.Profile
         /// </returns>
         public int GetNumberInactiveProfiles([NotNull] object appName, [NotNull] object inactiveSinceDate)
         {
-            return YafContext.Current.Get<IDbFunction>().Scalar.prov_profile_getnumberinactiveprofiles(
+            return BoardContext.Current.Get<IDbFunction>().Scalar.prov_profile_getnumberinactiveprofiles(
                 ApplicationName: appName,
                 InactiveSinceDate: inactiveSinceDate);
         }
@@ -204,7 +204,7 @@ namespace YAF.Providers.Profile
             [NotNull] object userNameToMatch,
             [NotNull] object inactiveSinceDate)
         {
-            return YafContext.Current.Get<IDbFunction>().GetDataSet.prov_profile_getprofiles(
+            return BoardContext.Current.Get<IDbFunction>().GetDataSet.prov_profile_getprofiles(
                 ApplicationName: appName,
                 PageIndex: pageIndex,
                 PageSize: pageSize,

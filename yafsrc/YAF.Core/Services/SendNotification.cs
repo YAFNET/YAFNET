@@ -274,7 +274,7 @@ namespace YAF.Core.Services
                 // report exception to the forum's event log
                 this.Get<ILogger>().Error(
                     x,
-                    $"Send Message Report Notification Error for UserID {YafContext.Current.PageUserID}");
+                    $"Send Message Report Notification Error for UserID {BoardContext.Current.PageUserID}");
             }
         }
 
@@ -316,7 +316,7 @@ namespace YAF.Core.Services
 
                 var languageFile = UserHelper.GetUserLanguageFile(toUserId);
 
-                var displayName = this.Get<IUserDisplayName>().GetName(YafContext.Current.PageUserID);
+                var displayName = this.Get<IUserDisplayName>().GetName(BoardContext.Current.PageUserID);
 
                 // send this user a PM notification e-mail
                 var notificationTemplate = new TemplateEmail("PMNOTIFICATION")
@@ -348,10 +348,10 @@ namespace YAF.Core.Services
             catch (Exception x)
             {
                 // report exception to the forum's event log
-                this.Get<ILogger>().Error(x, $"Send PM Notification Error for UserID {YafContext.Current.PageUserID}");
+                this.Get<ILogger>().Error(x, $"Send PM Notification Error for UserID {BoardContext.Current.PageUserID}");
 
                 // tell user about failure
-                YafContext.Current.AddLoadMessage(
+                BoardContext.Current.AddLoadMessage(
                     this.Get<ILocalization>().GetTextFormatted("Failed", x.Message),
                     MessageTypes.danger);
             }
@@ -530,7 +530,7 @@ namespace YAF.Core.Services
         public void ToUserWithNewMedal([NotNull] int toUserId, [NotNull] string medalName)
         {
             var userList = this.GetRepository<User>().UserList(
-                YafContext.Current.PageBoardID,
+                BoardContext.Current.PageBoardID,
                 toUserId,
                 true,
                 null,
@@ -662,7 +662,7 @@ namespace YAF.Core.Services
         public void SendSpamBotNotificationToAdmins([NotNull] MembershipUser user, int userId)
         {
             // Get Admin Group ID
-            var adminGroupId = this.GetRepository<Group>().List(boardId: YafContext.Current.PageBoardID)
+            var adminGroupId = this.GetRepository<Group>().List(boardId: BoardContext.Current.PageBoardID)
                 .Where(group => group.Name.Contains("Admin")).Select(group => group.ID).FirstOrDefault();
 
             if (adminGroupId <= 0)
@@ -670,7 +670,7 @@ namespace YAF.Core.Services
                 return;
             }
 
-            using (var dt = this.GetRepository<User>().EmailsAsDataTable(YafContext.Current.PageBoardID, adminGroupId))
+            using (var dt = this.GetRepository<User>().EmailsAsDataTable(BoardContext.Current.PageBoardID, adminGroupId))
             {
                 dt.Rows.Cast<DataRow>().ForEach(
                     row =>
@@ -735,7 +735,7 @@ namespace YAF.Core.Services
                 && this.BoardSettings.SendWelcomeNotificationAfterRegister.Equals(2))
             {
                 var users = this.GetRepository<User>().UserList(
-                    YafContext.Current.PageBoardID,
+                    BoardContext.Current.PageBoardID,
                     null,
                     true,
                     null,
@@ -744,7 +744,7 @@ namespace YAF.Core.Services
 
                 var hostUser = users.FirstOrDefault(u => u.IsHostAdmin > 0);
 
-                YafContext.Current.GetRepository<PMessage>().SendMessage(
+                BoardContext.Current.GetRepository<PMessage>().SendMessage(
                     hostUser.UserID.Value,
                     userId.Value,
                     subject,
@@ -837,7 +837,7 @@ namespace YAF.Core.Services
                 this.Get<ILocalization>().GetText("COMMON", "CHANGEEMAIL_SUBJECT"));
 
             // show a confirmation
-            YafContext.Current.AddLoadMessage(
+            BoardContext.Current.AddLoadMessage(
                 string.Format(this.Get<ILocalization>().GetText("PROFILE", "mail_sent"), newEmail),
                 MessageTypes.info);
         }

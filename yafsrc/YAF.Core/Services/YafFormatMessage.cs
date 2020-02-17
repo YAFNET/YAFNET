@@ -201,13 +201,13 @@ namespace YAF.Core.Services
 
             if (detectedHtmlTag.IsSet() && detectedHtmlTag != "ALL")
             {
-                return YafContext.Current.Get<ILocalization>().GetTextFormatted(
+                return BoardContext.Current.Get<ILocalization>().GetTextFormatted(
                     "HTMLTAG_WRONG",
                     HttpUtility.HtmlEncode(detectedHtmlTag));
             }
 
             return detectedHtmlTag == "ALL"
-                       ? YafContext.Current.Get<ILocalization>().GetText("HTMLTAG_FORBIDDEN")
+                       ? BoardContext.Current.Get<ILocalization>().GetText("HTMLTAG_FORBIDDEN")
                        : string.Empty;
         }
 
@@ -397,7 +397,7 @@ namespace YAF.Core.Services
             // get the common words for the language -- should be all lower case.
             var commonWords = this.Get<ILocalization>().GetText("COMMON", "COMMON_WORDS").StringToList(',');
 
-            var cacheKey = string.Format(Constants.Cache.FirstPostCleaned, YafContext.Current.PageBoardID, topicId);
+            var cacheKey = string.Format(Constants.Cache.FirstPostCleaned, BoardContext.Current.PageBoardID, topicId);
             var message = new MessageCleaned();
 
             if (!topicMessage.IsNullOrEmptyDBField())

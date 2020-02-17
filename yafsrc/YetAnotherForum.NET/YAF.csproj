@@ -3390,12 +3390,8 @@
     <Content Include="YetAnotherForum.NET.snk" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ServiceStack\ServiceStack.Interfaces\ServiceStack.Interfaces.csproj">
-      <Project>{a99e354c-9e16-4775-ba36-83d1d98fdce3}</Project>
-      <Name>ServiceStack.Interfaces</Name>
-    </ProjectReference>
     <ProjectReference Include="..\ServiceStack\ServiceStack.Text\ServiceStack.Text.csproj">
-      <Project>{36423383-f6df-4c0e-9b73-cd53e304b383}</Project>
+      <Project>{35d4c8bf-4acc-4cdf-b239-8766e69bcda5}</Project>
       <Name>ServiceStack.Text</Name>
     </ProjectReference>
     <ProjectReference Include="..\YAF.Configuration\YAF.Configuration.csproj">

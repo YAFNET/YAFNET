@@ -102,10 +102,10 @@ namespace YAF.Pages.Admin
             }
 
             // setup initial roles (if any) for this user
-            RoleMembershipHelper.SetupUserRoles(YafContext.Current.PageBoardID, newUsername);
+            RoleMembershipHelper.SetupUserRoles(BoardContext.Current.PageBoardID, newUsername);
 
             // create the user in the YAF DB as well as sync roles...
-            var userId = RoleMembershipHelper.CreateForumUser(user, YafContext.Current.PageBoardID);
+            var userId = RoleMembershipHelper.CreateForumUser(user, BoardContext.Current.PageBoardID);
 
             // create profile
             var userProfile = YafUserProfile.GetProfile(newUsername);

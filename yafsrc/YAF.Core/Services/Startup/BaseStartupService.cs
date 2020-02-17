@@ -45,15 +45,15 @@ namespace YAF.Core.Services.Startup
     {
       get
       {
-        if (YafContext.Current[this.InitVarName] == null)
+        if (BoardContext.Current[this.InitVarName] == null)
         {
           return false;
         }
 
-        return Convert.ToBoolean(YafContext.Current[this.InitVarName]);
+        return Convert.ToBoolean(BoardContext.Current[this.InitVarName]);
       }
 
-      private set => YafContext.Current[this.InitVarName] = value;
+      private set => BoardContext.Current[this.InitVarName] = value;
     }
 
     /// <summary>

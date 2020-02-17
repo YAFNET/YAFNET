@@ -47,7 +47,7 @@ namespace YAF.Core.Controllers
         /// <summary>
         ///   Gets ServiceLocator.
         /// </summary>
-        public IServiceLocator ServiceLocator => YafContext.Current.ServiceLocator;
+        public IServiceLocator ServiceLocator => BoardContext.Current.ServiceLocator;
 
         #endregion
 
@@ -64,7 +64,7 @@ namespace YAF.Core.Controllers
         [HttpPost]
         public IHttpActionResult GetTopics(SearchTopic searchTopic)
         {
-            if (!YafContext.Current.IsAdmin && !YafContext.Current.IsForumModerator)
+            if (!BoardContext.Current.IsAdmin && !BoardContext.Current.IsForumModerator)
             {
                 return null;
             }

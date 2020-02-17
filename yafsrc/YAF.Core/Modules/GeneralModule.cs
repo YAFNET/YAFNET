@@ -116,9 +116,9 @@ namespace YAF.Core.Modules
                 .InstancePerLifetimeScope();
 
             // YafContext registration...
-            builder.RegisterType<YafContextPageProvider>().AsSelf().As<IReadOnlyProvider<YafContext>>().SingleInstance()
+            builder.RegisterType<BoardContextPageProvider>().AsSelf().As<IReadOnlyProvider<BoardContext>>().SingleInstance()
                 .PreserveExistingDefaults();
-            builder.Register((k) => k.Resolve<IComponentContext>().Resolve<YafContextPageProvider>().Instance)
+            builder.Register((k) => k.Resolve<IComponentContext>().Resolve<BoardContextPageProvider>().Instance)
                 .ExternallyOwned().PreserveExistingDefaults();
 
             // Http Application Base

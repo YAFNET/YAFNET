@@ -94,9 +94,9 @@ namespace YAF.Core.Extensions
                 return null;
             }
 
-            return YafContext.Current != null
+            return BoardContext.Current != null
                        ? new UnicodeEncoder().XSSEncode(data.ToString())
-                       : YafContext.Current.CurrentForumPage.HtmlEncode(data.ToString());
+                       : BoardContext.Current.CurrentForumPage.HtmlEncode(data.ToString());
         }
 
         /// <summary>
@@ -106,9 +106,9 @@ namespace YAF.Core.Extensions
         /// The current Control.
         /// </param>
         /// <returns>
-        /// The <see cref="YafContext"/>.
+        /// The <see cref="BoardContext"/>.
         /// </returns>
-        public static YafContext PageContext(this Control currentControl)
+        public static BoardContext PageContext(this Control currentControl)
         {
             if (currentControl.Site != null && currentControl.Site.DesignMode)
             {
@@ -116,7 +116,7 @@ namespace YAF.Core.Extensions
                 return null;
             }
 
-            return YafContext.Current;
+            return BoardContext.Current;
         }
 
         #endregion

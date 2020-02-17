@@ -1212,7 +1212,7 @@ namespace YAF.Core.BBCode
 
             if (jsScriptBuilder.ToString().Trim().Length > 0)
             {
-                YafContext.Current.PageElements.RegisterJsBlock(
+                BoardContext.Current.PageElements.RegisterJsBlock(
                     currentPage,
                     $"{ScriptID}_script",
                     jsScriptBuilder.ToString());
@@ -1221,7 +1221,7 @@ namespace YAF.Core.BBCode
             if (cssBuilder.ToString().Trim().Length > 0)
             {
                 // register the CSS from all custom bbcode...
-                YafContext.Current.PageElements.RegisterCssBlock($"{ScriptID}_css", cssBuilder.ToString());
+                BoardContext.Current.PageElements.RegisterCssBlock($"{ScriptID}_css", cssBuilder.ToString());
             }
         }
 

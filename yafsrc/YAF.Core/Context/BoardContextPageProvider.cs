@@ -38,7 +38,7 @@ namespace YAF.Core
     /// <summary>
     /// The yaf context provider.
     /// </summary>
-    internal class YafContextPageProvider : IReadOnlyProvider<YafContext>
+    internal class BoardContextPageProvider : IReadOnlyProvider<BoardContext>
     {
         #region Constants and Fields
 
@@ -57,14 +57,14 @@ namespace YAF.Core
         /// <summary>
         /// The _global instance.
         /// </summary>
-        private static YafContext _globalInstance;
+        private static BoardContext _globalInstance;
 
         #endregion
 
         #region Constructors and Destructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="YafContextPageProvider"/> class.
+        /// Initializes a new instance of the <see cref="BoardContextPageProvider"/> class.
         /// </summary>
         /// <param name="lifetimeScope">
         /// The container.
@@ -72,7 +72,7 @@ namespace YAF.Core
         /// <param name="injectServices">
         /// The inject Services.
         /// </param>
-        public YafContextPageProvider(ILifetimeScope lifetimeScope, IInjectServices injectServices)
+        public BoardContextPageProvider(ILifetimeScope lifetimeScope, IInjectServices injectServices)
         {
             this._lifetimeScope = lifetimeScope;
             this._injectServices = injectServices;
@@ -85,7 +85,7 @@ namespace YAF.Core
         /// <summary>
         /// Gets Instance.
         /// </summary>
-        public YafContext Instance
+        public BoardContext Instance
         {
             get
             {
@@ -94,7 +94,7 @@ namespace YAF.Core
                     return _globalInstance ?? (_globalInstance = this.CreateContextInstance());
                 }
 
-                if (!(HttpContext.Current.Items[PageYafContextName] is YafContext pageInstance))
+                if (!(HttpContext.Current.Items[PageYafContextName] is BoardContext pageInstance))
                 {
                     pageInstance = this.CreateContextInstance();
 
@@ -115,11 +115,11 @@ namespace YAF.Core
         /// </summary>
         /// <returns>
         /// </returns>
-        private YafContext CreateContextInstance()
+        private BoardContext CreateContextInstance()
         {
             var lifetimeContainer = this._lifetimeScope.BeginLifetimeScope(LifetimeScope.Context);
 
-            var instance = new YafContext(lifetimeContainer);
+            var instance = new BoardContext(lifetimeContainer);
             this._injectServices.Inject(instance);
 
             return instance;

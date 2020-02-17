@@ -67,9 +67,9 @@ namespace YAF.Web.Editors
         /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
         protected override void Editor_PreRender([NotNull] object sender, [NotNull] EventArgs e)
         {
-            YafContext.Current.PageElements.AddScriptReference("ckeditor", "ckeditor/ckeditor.js");
+            BoardContext.Current.PageElements.AddScriptReference("ckeditor", "ckeditor/ckeditor.js");
 
-            YafContext.Current.PageElements.AddScriptReference(
+            BoardContext.Current.PageElements.AddScriptReference(
                 "ckeditor-jQuery-Adapter",
                 "ckeditor/adapters/jquery.js");
 
@@ -100,7 +100,7 @@ namespace YAF.Web.Editors
         /// </summary>
         protected virtual void RegisterAttachScript()
         {
-            YafContext.Current.PageElements.RegisterJsBlock(
+            BoardContext.Current.PageElements.RegisterJsBlock(
                 "insertsmiley",
                 $@"function insertAttachment(id,url) {{
                                    var ckEditor = CKEDITOR.instances.{this.TextAreaControl.ClientID}; ckEditor.insertHtml( '[attach]' + id + '[/attach]' );

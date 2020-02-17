@@ -208,7 +208,7 @@ namespace YAF.Core
         /// <summary>
         ///   Gets the current forum Context (helper reference)
         /// </summary>
-        public YafContext PageContext => this.PageContext();
+        public BoardContext PageContext => this.PageContext();
 
         /// <summary>
         ///   Gets PageName.

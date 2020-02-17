@@ -86,8 +86,8 @@ namespace YAF.Core.BBCode.ReplaceRules
 
                 var quote = match.Groups["quote"].Value;
 
-                var localQuoteWrote = YafContext.Current.Get<ILocalization>().GetText("COMMON", "BBCODE_QUOTEWROTE");
-                var localQuotePosted = YafContext.Current.Get<ILocalization>().GetText("COMMON", "BBCODE_QUOTEPOSTED");
+                var localQuoteWrote = BoardContext.Current.Get<ILocalization>().GetText("COMMON", "BBCODE_QUOTEWROTE");
+                var localQuotePosted = BoardContext.Current.Get<ILocalization>().GetText("COMMON", "BBCODE_QUOTEPOSTED");
 
                 // extract post id if exists
                 if (quote.Contains(";"))

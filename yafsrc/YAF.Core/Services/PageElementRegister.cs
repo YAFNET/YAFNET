@@ -122,7 +122,7 @@ namespace YAF.Core.Services
         public void RegisterCssBlock(string name, string cssContents)
         {
             this.RegisterCssBlock(
-                YafContext.Current.CurrentForumPage.TopPageControl,
+                BoardContext.Current.CurrentForumPage.TopPageControl,
                 name,
                 JsAndCssHelper.CompressCss(cssContents));
         }
@@ -135,7 +135,7 @@ namespace YAF.Core.Services
         /// </param>
         public void RegisterCssInclude(string cssUrl)
         {
-            this.RegisterCssInclude(YafContext.Current.CurrentForumPage.TopPageControl, cssUrl);
+            this.RegisterCssInclude(BoardContext.Current.CurrentForumPage.TopPageControl, cssUrl);
         }
 
         /// <summary>
@@ -165,7 +165,7 @@ namespace YAF.Core.Services
         public void RegisterCssIncludeContent(string cssUrlContent)
         {
             this.RegisterCssInclude(
-                YafContext.Current.CurrentForumPage.TopPageControl,
+                BoardContext.Current.CurrentForumPage.TopPageControl,
                 BoardInfo.GetURLToContent(cssUrlContent));
         }
 
@@ -307,7 +307,7 @@ namespace YAF.Core.Services
         /// <returns>Returns the current page</returns>
         private static Control GetCurrentPage()
         {
-            return YafContext.Current.CurrentForumPage ?? (Control)(HttpContext.Current.Handler as Page);
+            return BoardContext.Current.CurrentForumPage ?? (Control)(HttpContext.Current.Handler as Page);
         }
     }
 }

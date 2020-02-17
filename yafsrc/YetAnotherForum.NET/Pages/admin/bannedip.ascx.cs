@@ -97,14 +97,14 @@ namespace YAF.Pages.Admin
                 case "add":
                     this.EditDialog.BindData(null);
 
-                    YafContext.Current.PageElements.RegisterJsBlockStartup(
+                    BoardContext.Current.PageElements.RegisterJsBlockStartup(
                         "openModalJs",
                         JavaScriptBlocks.OpenModalJs("EditDialog"));
                     break;
                 case "edit":
                     this.EditDialog.BindData(e.CommandArgument.ToType<int>());
 
-                    YafContext.Current.PageElements.RegisterJsBlockStartup(
+                    BoardContext.Current.PageElements.RegisterJsBlockStartup(
                         "openModalJs",
                         JavaScriptBlocks.OpenModalJs("EditDialog"));
                     break;
@@ -146,7 +146,7 @@ namespace YAF.Pages.Admin
 
                         this.BindData();
 
-                        if (YafContext.Current.Get<BoardSettings>().LogBannedIP)
+                        if (BoardContext.Current.Get<BoardSettings>().LogBannedIP)
                         {
                             this.Get<ILogger>()
                                 .Log(

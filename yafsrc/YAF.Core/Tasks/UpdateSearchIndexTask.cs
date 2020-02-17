@@ -76,12 +76,12 @@ namespace YAF.Core.Tasks
             {
                 Thread.BeginCriticalRegion();
 
-                if (YafContext.Current == null)
+                if (BoardContext.Current == null)
                 {
                     return;
                 }
 
-                var forums = this.GetRepository<Forum>().List(YafContext.Current.PageBoardID, null);
+                var forums = this.GetRepository<Forum>().List(BoardContext.Current.PageBoardID, null);
 
                 if (!IsTimeToUpdateSearchIndex())
                 {
@@ -121,7 +121,7 @@ namespace YAF.Core.Tasks
         /// </returns>
         private static bool IsTimeToUpdateSearchIndex()
         {
-            var boardSettings = (YafLoadBoardSettings)YafContext.Current.Get<BoardSettings>();
+            var boardSettings = (YafLoadBoardSettings)BoardContext.Current.Get<BoardSettings>();
             var lastSend = DateTime.MinValue;
             var sendEveryXHours = boardSettings.UpdateSearchIndexEveryXHours;
 
@@ -133,7 +133,7 @@ namespace YAF.Core.Tasks
                 boardSettings.SaveRegistry();
 
                 // reload all settings from the DB
-                YafContext.Current.BoardSettings = null;
+                BoardContext.Current.BoardSettings = null;
 
                 return true;
             }
@@ -165,7 +165,7 @@ namespace YAF.Core.Tasks
             boardSettings.SaveRegistry();
 
             // reload all settings from the DB
-            YafContext.Current.BoardSettings = null;
+            BoardContext.Current.BoardSettings = null;
 
             return true;
         }

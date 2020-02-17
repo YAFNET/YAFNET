@@ -234,7 +234,7 @@ namespace YAF.Dialogs
                 securityQuestion = (string)row["SecurityQuestion"];
             }
 
-            var user = YafContext.Current.Get<MembershipProvider>().CreateUser(
+            var user = BoardContext.Current.Get<MembershipProvider>().CreateUser(
                 (string)row["Name"],
                 pass,
                 (string)row["Email"],
@@ -245,10 +245,10 @@ namespace YAF.Dialogs
                 out _);
 
             // setup initial roles (if any) for this user
-            RoleMembershipHelper.SetupUserRoles(YafContext.Current.PageBoardID, (string)row["Name"]);
+            RoleMembershipHelper.SetupUserRoles(BoardContext.Current.PageBoardID, (string)row["Name"]);
 
             // create the user in the YAF DB as well as sync roles...
-            var userID = RoleMembershipHelper.CreateForumUser(user, YafContext.Current.PageBoardID);
+            var userID = RoleMembershipHelper.CreateForumUser(user, BoardContext.Current.PageBoardID);
 
             // create empty profile just so they have one
             var userProfile = YafUserProfile.GetProfile((string)row["Name"]);
@@ -402,7 +402,7 @@ namespace YAF.Dialogs
 
             this.GetRepository<User>().Save(
                 userId,
-                YafContext.Current.PageBoardID,
+                BoardContext.Current.PageBoardID,
                 row["Name"],
                 row.Table.Columns.Contains("DisplayName") ? row["DisplayName"] : null,
                 row["Email"],

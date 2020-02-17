@@ -93,7 +93,7 @@ namespace YAF.Providers.Roles
 
                 return this._userRoleCache ??
                        (this._userRoleCache =
-                        YafContext.Current.Get<IObjectStore>().GetOrSet(
+                        BoardContext.Current.Get<IObjectStore>().GetOrSet(
                           key, () => new ConcurrentDictionary<string, StringCollection>()));
             }
         }
@@ -406,7 +406,7 @@ namespace YAF.Providers.Roles
         private void ClearUserRoleCache()
         {
             var key = this.GenerateCacheKey("UserRoleDictionary");
-            YafContext.Current.Get<IObjectStore>().Remove(key);
+            BoardContext.Current.Get<IObjectStore>().Remove(key);
         }
 
         /// <summary>

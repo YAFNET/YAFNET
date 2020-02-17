@@ -140,7 +140,7 @@ namespace YAF.Web.Controls
 	jQuery(document).ready(yaf_SmartScroller_Scroll);
 ";
 
-      YafContext.Current.PageElements.RegisterJsBlock("SmartScrollerJs", scriptString);
+      BoardContext.Current.PageElements.RegisterJsBlock("SmartScrollerJs", scriptString);
 
       base.OnPreRender(e);
     }

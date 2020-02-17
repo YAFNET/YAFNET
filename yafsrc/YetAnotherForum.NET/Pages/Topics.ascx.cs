@@ -208,7 +208,9 @@ namespace YAF.Pages
             if (this.ForumSearchHolder.Visible)
             {
                 this.forumSearch.Attributes["onkeydown"] =
-                    $"if(event.which || event.keyCode){{if ((event.which == 13) || (event.keyCode == 13)) {{document.getElementById('{this.forumSearchOK.ClientID}').click();return false;}}}} else {{return true}}; ";
+                    @$"if(event.which || event.keyCode){{if ((event.which == 13) || (event.keyCode == 13)) {{
+                            document.getElementById('{this.forumSearchOK.ClientID}').click();return false;}}}} 
+                       else {{return true}}; ";
             }
 
             if (!this.IsPostBack)

@@ -111,9 +111,9 @@ namespace YAF.Core
             {
                 object userKey = null;
 
-                if (YafContext.Current.User != null)
+                if (BoardContext.Current.User != null)
                 {
-                    userKey = YafContext.Current.User.ProviderUserKey;
+                    userKey = BoardContext.Current.User.ProviderUserKey;
                 }
 
                 var tries = 0;
@@ -132,7 +132,7 @@ namespace YAF.Core
                 {
                     pageRow = this.GetRepository<ActiveAccess>().PageLoad(
                         this.Get<HttpSessionStateBase>().SessionID,
-                        YafContext.Current.PageBoardID,
+                        BoardContext.Current.PageBoardID,
                         userKey,
                         this.Get<HttpRequestBase>().GetUserRealIPAddress(),
                         location,
@@ -154,7 +154,7 @@ namespace YAF.Core
                         // create the user...
                         if (
                             !RoleMembershipHelper.DidCreateForumUser(
-                                YafContext.Current.User, YafContext.Current.PageBoardID))
+                                BoardContext.Current.User, BoardContext.Current.PageBoardID))
                         {
                             throw new ApplicationException("Failed to create new user.");
                         }
@@ -204,7 +204,7 @@ namespace YAF.Core
 
                 // log the user out...
                 // FormsAuthentication.SignOut();
-                if (YafContext.Current.ForumPageType != ForumPages.Info)
+                if (BoardContext.Current.ForumPageType != ForumPages.Info)
                 {
                     // show a failure notice since something is probably up with membership...
                     BuildLink.RedirectInfoPage(InfoMessage.Failure);

@@ -108,7 +108,7 @@ namespace YAF.Web.Controls
             sb.AppendFormat(
                 "<div id=\"NotifyListPlaceholder\" data-url=\"{0}\" data-userid=\"{1}\" style=\"clear: both;\">",
                 BoardInfo.ForumClientFileRoot,
-                YafContext.Current.PageUserID);
+                BoardContext.Current.PageUserID);
 
             sb.Append("<ul class=\"list-group list-group-flush\">");
             sb.Append("</ul>"); 

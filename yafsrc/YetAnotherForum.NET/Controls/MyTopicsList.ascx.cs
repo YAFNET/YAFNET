@@ -222,9 +222,9 @@ namespace YAF.Controls
                     this.Title.LocalizedTag = "FavoriteTopics";
 
                     topicList = this.GetRepository<FavoriteTopic>().Details(
-                        YafContext.Current.Settings.CategoryID == 0
+                        BoardContext.Current.Settings.CategoryID == 0
                             ? null
-                            : (int?)YafContext.Current.Settings.CategoryID,
+                            : (int?)BoardContext.Current.Settings.CategoryID,
                         this.PageContext.PageUserID,
                         this.sinceDate,
                         DateTime.UtcNow,

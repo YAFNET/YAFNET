@@ -169,17 +169,17 @@ namespace YAF.Core.Helpers
         /// <summary>
         /// Gets a value indicating whether CanThankPost.
         /// </summary>
-        public bool CanThankPost => this.DataRow["UserID"].ToType<int>() != YafContext.Current.PageUserID;
+        public bool CanThankPost => this.DataRow["UserID"].ToType<int>() != BoardContext.Current.PageUserID;
 
         /// <summary>
         /// Gets a value indicating whether CanEditPost.
         /// </summary>
         public bool CanEditPost =>
             (!this.PostLocked && !this.forumFlags.IsLocked && !this.topicFlags.IsLocked
-             && (this.UserId == YafContext.Current.PageUserID && !this.DataRow["IsGuest"].ToType<bool>()
+             && (this.UserId == BoardContext.Current.PageUserID && !this.DataRow["IsGuest"].ToType<bool>()
                  || this.DataRow["IsGuest"].ToType<bool>() && this.DataRow["IP"].ToString()
-                 == YafContext.Current.CurrentForumPage.Request.GetUserRealIPAddress())
-             || YafContext.Current.ForumModeratorAccess) && YafContext.Current.ForumEditAccess;
+                 == BoardContext.Current.CurrentForumPage.Request.GetUserRealIPAddress())
+             || BoardContext.Current.ForumModeratorAccess) && BoardContext.Current.ForumEditAccess;
 
         /// <summary>
         /// Gets a value indicating whether PostLocked.
@@ -195,7 +195,7 @@ namespace YAF.Core.Helpers
                 }
 
                 // there is auto-lock period defined
-                if (YafContext.Current.IsAdmin || YafContext.Current.BoardSettings.LockPosts <= 0)
+                if (BoardContext.Current.IsAdmin || BoardContext.Current.BoardSettings.LockPosts <= 0)
                 {
                     return false;
                 }
@@ -203,7 +203,7 @@ namespace YAF.Core.Helpers
                 var edited = this.DataRow["Edited"].ToType<DateTime>();
 
                 // check if post is locked according to this rule
-                return edited.AddDays(YafContext.Current.BoardSettings.LockPosts) < DateTime.UtcNow;
+                return edited.AddDays(BoardContext.Current.BoardSettings.LockPosts) < DateTime.UtcNow;
             }
         }
 
@@ -222,18 +222,18 @@ namespace YAF.Core.Helpers
         /// </summary>
         public bool CanAttach =>
             (!this.PostLocked && !this.forumFlags.IsLocked && !this.topicFlags.IsLocked
-             && this.UserId == YafContext.Current.PageUserID || YafContext.Current.ForumModeratorAccess)
-            && YafContext.Current.ForumUploadAccess;
+             && this.UserId == BoardContext.Current.PageUserID || BoardContext.Current.ForumModeratorAccess)
+            && BoardContext.Current.ForumUploadAccess;
 
         /// <summary>
         /// Gets a value indicating whether CanDeletePost.
         /// </summary>
         public bool CanDeletePost =>
             (!this.PostLocked && !this.forumFlags.IsLocked && !this.topicFlags.IsLocked
-             && (this.UserId == YafContext.Current.PageUserID && !this.DataRow["IsGuest"].ToType<bool>()
+             && (this.UserId == BoardContext.Current.PageUserID && !this.DataRow["IsGuest"].ToType<bool>()
                  || this.DataRow["IsGuest"].ToType<bool>() && this.DataRow["IP"].ToString()
-                 == YafContext.Current.CurrentForumPage.Request.GetUserRealIPAddress())
-             || YafContext.Current.ForumModeratorAccess) && YafContext.Current.ForumDeleteAccess;
+                 == BoardContext.Current.CurrentForumPage.Request.GetUserRealIPAddress())
+             || BoardContext.Current.ForumModeratorAccess) && BoardContext.Current.ForumDeleteAccess;
 
         /// <summary>
         /// Gets a value indicating whether CanUnDeletePost.
@@ -245,6 +245,6 @@ namespace YAF.Core.Helpers
         /// </summary>
         public bool CanReply =>
             (!this.messageFlags.IsLocked && !this.forumFlags.IsLocked && !this.topicFlags.IsLocked
-             || YafContext.Current.ForumModeratorAccess) && YafContext.Current.ForumReplyAccess;
+             || BoardContext.Current.ForumModeratorAccess) && BoardContext.Current.ForumReplyAccess;
     }
 }

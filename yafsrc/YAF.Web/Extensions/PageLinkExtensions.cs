@@ -107,7 +107,7 @@ namespace YAF.Web.Extensions
         {
             CodeContracts.VerifyNotNull(pageLinks, "pageLinks");
 
-            using (var links = YafContext.Current.GetRepository<Forum>().ListPathAsDataTable(forumId))
+            using (var links = BoardContext.Current.GetRepository<Forum>().ListPathAsDataTable(forumId))
             {
                 links.Rows.Cast<DataRow>().ForEach(
                     row =>

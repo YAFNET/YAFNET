@@ -120,7 +120,7 @@ namespace YAF.Core
             @event.Data.Browser = browser;
             @event.Data.Platform = platform;
 
-            YafContext.Current.Vars["DontTrack"] = dontTrack;
+            BoardContext.Current.Vars["DontTrack"] = dontTrack;
         }
 
         #endregion

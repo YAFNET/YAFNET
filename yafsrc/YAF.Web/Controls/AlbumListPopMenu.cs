@@ -111,7 +111,7 @@ namespace YAF.Web.Controls
             sb.AppendFormat(
                 "<div id=\"PostAlbumsListPlaceholder\" data-url=\"{0}\" data-userid=\"{1}\" data-notext=\"{2}\" style=\"clear: both;\">",
                 BoardInfo.ForumClientFileRoot,
-                YafContext.Current.PageUserID,
+                BoardContext.Current.PageUserID,
                 this.Get<ILocalization>().GetText("ATTACHMENTS", "NO_ATTACHMENTS"));
             sb.Append("<ul class=\"AlbumsList list-group\">");
             sb.Append("</ul>");

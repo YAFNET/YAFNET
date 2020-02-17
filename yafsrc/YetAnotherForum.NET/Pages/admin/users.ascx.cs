@@ -229,7 +229,7 @@ namespace YAF.Pages.Admin
                 JavaScriptBlocks.BlockUiExecuteJs("SyncUsersMessage", $"#{this.SyncUsers.ClientID}"));
 
             // setup jQuery and Jquery Ui Tabs.
-            YafContext.Current.PageElements.RegisterJsBlock("dropDownToggleJs", JavaScriptBlocks.DropDownToggleJs());
+            BoardContext.Current.PageElements.RegisterJsBlock("dropDownToggleJs", JavaScriptBlocks.DropDownToggleJs());
 
             base.OnPreRender(e);
         }

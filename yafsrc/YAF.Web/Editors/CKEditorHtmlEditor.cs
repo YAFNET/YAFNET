@@ -66,14 +66,14 @@ namespace YAF.Web.Editors
         /// </summary>
         protected override void RegisterCKEditorCustomJS()
         {
-            YafContext.Current.PageElements.RegisterJsBlock(
+            BoardContext.Current.PageElements.RegisterJsBlock(
                 "editorlang",
-                $@"var editorLanguage = ""{(YafContext.Current.CultureUser.IsSet()
-                                                ? YafContext.Current.CultureUser.Substring(0, 2)
+                $@"var editorLanguage = ""{(BoardContext.Current.CultureUser.IsSet()
+                                                ? BoardContext.Current.CultureUser.Substring(0, 2)
                                                 : this.Get<BoardSettings>().Culture.Substring(0, 2))}"";
-                         var editorMaxChar = {YafContext.Current.BoardSettings.MaxPostSize};");
+                         var editorMaxChar = {BoardContext.Current.BoardSettings.MaxPostSize};");
 
-            YafContext.Current.PageElements.AddScriptReference("ckeditorinit", "ckeditor/ckeditor_init.js");
+            BoardContext.Current.PageElements.AddScriptReference("ckeditorinit", "ckeditor/ckeditor_init.js");
         }
 
         #endregion

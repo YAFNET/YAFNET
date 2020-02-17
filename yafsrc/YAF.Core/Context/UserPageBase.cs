@@ -278,8 +278,8 @@ namespace YAF.Core
         /// <summary>
         ///   Gets the CategoryID for the current page, or 0 if not in any category
         /// </summary>
-        public int PageCategoryID => YafContext.Current.Settings.CategoryID != 0
-                                         ? YafContext.Current.Settings.CategoryID
+        public int PageCategoryID => BoardContext.Current.Settings.CategoryID != 0
+                                         ? BoardContext.Current.Settings.CategoryID
                                          : this.PageValueAsInt("CategoryID");
 
         /// <summary>
@@ -294,7 +294,7 @@ namespace YAF.Core
         {
             get
             {
-                var isLockedForum = YafContext.Current.Settings.LockedForum;
+                var isLockedForum = BoardContext.Current.Settings.LockedForum;
 
                 return isLockedForum != 0 ? isLockedForum : this.PageValueAsInt("ForumID");
             }

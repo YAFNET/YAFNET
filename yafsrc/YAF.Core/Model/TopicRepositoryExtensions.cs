@@ -58,7 +58,7 @@ namespace YAF.Core.Model
         /// <returns>Get List of similar topics</returns>
         public static List<SearchMessage> GetSimilarTopics(this IRepository<Topic> repository, [NotNull] int userId, [NotNull] string searchInput)
         {
-            return YafContext.Current.Get<ISearch>().SearchSimilar(userId, searchInput, "Topic");
+            return BoardContext.Current.Get<ISearch>().SearchSimilar(userId, searchInput, "Topic");
         }
         
         /// <summary>
@@ -779,19 +779,19 @@ namespace YAF.Core.Model
                                      Message = message,
                                      Flags = flags,
                                      Posted = posted.ToString(CultureInfo.InvariantCulture),
-                                     UserName = YafContext.Current.User.UserName,
-                                     UserDisplayName = YafContext.Current.CurrentUserData.DisplayName,
-                                     UserStyle = YafContext.Current.UserStyle,
-                                     UserId = YafContext.Current.PageUserID,
+                                     UserName = BoardContext.Current.User.UserName,
+                                     UserDisplayName = BoardContext.Current.CurrentUserData.DisplayName,
+                                     UserStyle = BoardContext.Current.UserStyle,
+                                     UserId = BoardContext.Current.PageUserID,
                                      TopicId = topicId.ToType<int>(),
                                      Topic = subject,
                                      TopicTags = topicTags,
-                                     ForumId = YafContext.Current.PageForumID,
-                                     ForumName = YafContext.Current.PageForumName,
+                                     ForumId = BoardContext.Current.PageForumID,
+                                     ForumName = BoardContext.Current.PageForumName,
                                      Description = string.Empty
                                  };
 
-            YafContext.Current.Get<ISearch>().AddSearchIndexItem(newMessage);
+            BoardContext.Current.Get<ISearch>().AddSearchIndexItem(newMessage);
 
             return topicId;
         }
@@ -1144,12 +1144,12 @@ namespace YAF.Core.Model
             bool isLinked,
             bool eraseMessages)
         {
-            var useFileTable = YafContext.Current.Get<BoardSettings>().UseFileTable;
+            var useFileTable = BoardContext.Current.Get<BoardSettings>().UseFileTable;
 
             if (deleteLinked)
             {
                 // Delete replies
-                var replies = YafContext.Current.GetRepository<Message>().Get(m => m.ReplyTo == messageID).Select(x => x.ID);
+                var replies = BoardContext.Current.GetRepository<Message>().Get(m => m.ReplyTo == messageID).Select(x => x.ID);
 
                 replies.ForEach(
                     replyId => repository.DeleteRecursively(
@@ -1165,14 +1165,14 @@ namespace YAF.Core.Model
             // If the files are actually saved in the Hard Drive
             if (!useFileTable)
             {
-                YafContext.Current.GetRepository<Attachment>().DeleteByMessageId(messageID);
+                BoardContext.Current.GetRepository<Attachment>().DeleteByMessageId(messageID);
             }
 
             // Ederon : erase message for good
             if (eraseMessages)
             {
                 // Delete Message from Search Index
-                YafContext.Current.Get<ISearch>().ClearSearchIndexRecord(messageID);
+                BoardContext.Current.Get<ISearch>().ClearSearchIndexRecord(messageID);
 
                 repository.DbFunction.Scalar.message_delete(
                     MessageID: messageID,

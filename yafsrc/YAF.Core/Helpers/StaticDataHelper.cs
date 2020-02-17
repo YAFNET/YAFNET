@@ -91,7 +91,7 @@ namespace YAF.Core.Helpers
         /// </returns>
         public static DataTable Country()
         {
-            return Country(YafContext.Current.Get<ILocalization>());
+            return Country(BoardContext.Current.Get<ILocalization>());
         }
 
         /// <summary>
@@ -152,7 +152,7 @@ namespace YAF.Core.Helpers
         /// </returns>
         public static DataTable Region(string culture)
         {
-            return Region(YafContext.Current.Get<ILocalization>(), culture);
+            return Region(BoardContext.Current.Get<ILocalization>(), culture);
         }
 
         /// <summary>
@@ -173,7 +173,7 @@ namespace YAF.Core.Helpers
 
                 // Get all language files info
                 var dir = new DirectoryInfo(
-                    YafContext.Current.Get<HttpRequestBase>().MapPath($"{BoardInfo.ForumServerFileRoot}languages"));
+                    BoardContext.Current.Get<HttpRequestBase>().MapPath($"{BoardInfo.ForumServerFileRoot}languages"));
                 var files = dir.GetFiles("*.xml");
 
                 // Create an array with tags
@@ -247,7 +247,7 @@ namespace YAF.Core.Helpers
 
             // Get all language files info
             var dir = new DirectoryInfo(
-                YafContext.Current.Get<HttpRequestBase>().MapPath($"{BoardInfo.ForumServerFileRoot}languages"));
+                BoardContext.Current.Get<HttpRequestBase>().MapPath($"{BoardInfo.ForumServerFileRoot}languages"));
             var files = dir.GetFiles(fileName);
 
             if (files.Length <= 0)
@@ -292,7 +292,7 @@ namespace YAF.Core.Helpers
                 dt.Columns.Add("FileName", typeof(string));
 
                 var dir = new DirectoryInfo(
-                    YafContext.Current.Get<HttpRequestBase>().MapPath($"{BoardInfo.ForumServerFileRoot}languages"));
+                    BoardContext.Current.Get<HttpRequestBase>().MapPath($"{BoardInfo.ForumServerFileRoot}languages"));
                 var files = dir.GetFiles("*.xml");
 
                 files.ForEach(
@@ -325,7 +325,7 @@ namespace YAF.Core.Helpers
         public static List<string> Themes()
         {
             var dir = new DirectoryInfo(
-                YafContext.Current.Get<HttpRequestBase>().MapPath(
+                BoardContext.Current.Get<HttpRequestBase>().MapPath(
                     $"{BoardInfo.ForumServerFileRoot}/Content/Themes"));
 
             return dir.GetDirectories().Select(folder => folder.Name).ToList();
@@ -391,9 +391,9 @@ namespace YAF.Core.Helpers
                 for (var i = 0; i < 8; i++)
                 {
                     var dr = dt.NewRow();
-                    dr["TopicText"] = YafContext.Current.Get<ILocalization>().TransPage == null
+                    dr["TopicText"] = BoardContext.Current.Get<ILocalization>().TransPage == null
                                           ? textArrayProp[i]
-                                          : YafContext.Current.Get<ILocalization>().GetText(textArray[i]);
+                                          : BoardContext.Current.Get<ILocalization>().GetText(textArray[i]);
                     dr["TopicValue"] = i;
                     dt.Rows.Add(dr);
                 }

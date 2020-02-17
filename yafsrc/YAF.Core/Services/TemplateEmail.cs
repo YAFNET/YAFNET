@@ -99,7 +99,7 @@ namespace YAF.Core.Services
         /// <summary>
         ///     Gets the service locator.
         /// </summary>
-        public IServiceLocator ServiceLocator => YafContext.Current.ServiceLocator;
+        public IServiceLocator ServiceLocator => BoardContext.Current.ServiceLocator;
 
         /// <summary>
         ///     Gets or sets TemplateLanguageFile.

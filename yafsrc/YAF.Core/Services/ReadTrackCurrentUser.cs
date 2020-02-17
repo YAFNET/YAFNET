@@ -104,7 +104,7 @@ namespace YAF.Core.Services
         /// <summary>
         ///     Gets the current user id.
         /// </summary>
-        protected int CurrentUserId => YafContext.Current.PageUserID;
+        protected int CurrentUserId => BoardContext.Current.PageUserID;
 
         /// <summary>
         ///     Gets a value indicating whether this user is guest.
@@ -112,7 +112,7 @@ namespace YAF.Core.Services
         /// <value>
         ///     <c>true</c> if this user is guest; otherwise, <c>false</c>.
         /// </value>
-        protected bool IsGuest => YafContext.Current.IsGuest;
+        protected bool IsGuest => BoardContext.Current.IsGuest;
 
         /// <summary>
         /// Gets a value indicating whether [use database read tracking].

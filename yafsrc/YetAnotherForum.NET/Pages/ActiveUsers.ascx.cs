@@ -183,7 +183,7 @@ namespace YAF.Pages
                 return;
             }
 
-            YafContext.Current.PageElements.RegisterJsBlock(
+            BoardContext.Current.PageElements.RegisterJsBlock(
                 "UnverifiedUserstablesorterLoadJs",
                 JavaScriptBlocks.LoadTableSorter(
                     "#ActiveUsers",

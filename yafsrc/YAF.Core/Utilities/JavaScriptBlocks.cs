@@ -187,9 +187,9 @@ namespace YAF.Core.Utilities
             $@" if( typeof(CKEDITOR) == 'undefined') {{
             function loadTimeAgo() {{
             
-		     moment.locale('{(YafContext.Current.CultureUser.IsSet()
-                                  ? YafContext.Current.CultureUser.Substring(0, 2)
-                                  : YafContext.Current.Get<BoardSettings>().Culture.Substring(0, 2))}');
+		     moment.locale('{(BoardContext.Current.CultureUser.IsSet()
+                                  ? BoardContext.Current.CultureUser.Substring(0, 2)
+                                  : BoardContext.Current.Get<BoardSettings>().Culture.Substring(0, 2))}');
 
              {Config.JQueryAlias}('abbr.timeago').each(function() {{
                   {Config.JQueryAlias}(this).html(function(index, value) {{
@@ -742,7 +742,7 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
                 formData: {{
                     forumID: '{forumId}',
                     boardID: '{boardId}',
-                    userID: '{YafContext.Current.PageUserID}',
+                    userID: '{BoardContext.Current.PageUserID}',
                     uploadFolder: '{BoardFolders.Current.Uploads}',
                     allowedUpload: true
                 }},
@@ -819,7 +819,7 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
                 formData: {{
                     forumID: '{forumId}',
                     boardID: '{boardId}',
-                    userID: '{YafContext.Current.PageUserID}',
+                    userID: '{BoardContext.Current.PageUserID}',
                     uploadFolder: '{BoardFolders.Current.Uploads}',
                     allowedUpload: true
                 }},
@@ -903,7 +903,7 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
             theme: 'bootstrap4',
             allowClear: true,
             cache: true,
-            {YafContext.Current.Get<ILocalization>().GetText("SELECT_LOCALE_JS")}
+            {BoardContext.Current.Get<ILocalization>().GetText("SELECT_LOCALE_JS")}
         }});";
         }
 

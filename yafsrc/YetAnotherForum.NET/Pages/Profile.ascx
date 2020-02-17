@@ -330,7 +330,7 @@
                 <div class="card mb-3">
                     <div class="card-header">
                         <YAF:LocalizedLabel ID="LocalizedLabel44" runat="server" 
-                                            LocalizedTag='<%# this.UserId == YafContext.Current.PageUserID ? "BUDDIES" : "BUDDIESTITLE"%>' />
+                                            LocalizedTag='<%# this.UserId == BoardContext.Current.PageUserID ? "BUDDIES" : "BUDDIESTITLE"%>' />
                     </div>
                     <div class="card-body">
                         <div runat="server" id="BuddyListTab" class="tab-pane" role="tabpanel">

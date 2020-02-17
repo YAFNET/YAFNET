@@ -84,7 +84,7 @@ namespace YAF.Core.Services
 
                 var boardID = context.Request.QueryString.Exists("b")
                                   ? context.Request.QueryString.GetFirstOrDefaultAs<int>("b")
-                                  : YafContext.Current.BoardSettings.BoardID;
+                                  : BoardContext.Current.BoardSettings.BoardID;
 
                 if (!this.Get<IPermissions>().CheckAccessRights(boardID, attachment.MessageID))
                 {
@@ -156,7 +156,7 @@ namespace YAF.Core.Services
             {
                 this.Get<ILogger>()
                     .Log(
-                        YafContext.Current.PageUserID,
+                        BoardContext.Current.PageUserID,
                         this,
                         $"URL: {context.Request.Url}<br />Referer URL: {(context.Request.UrlReferrer != null ? context.Request.UrlReferrer.AbsoluteUri : string.Empty)}<br />Exception: {x}",
                         EventLogTypes.Information);
@@ -189,7 +189,7 @@ namespace YAF.Core.Services
 
                 var boardID = context.Request.QueryString.Exists("b")
                                   ? context.Request.QueryString.GetFirstOrDefaultAs<int>("b")
-                                  : YafContext.Current.BoardSettings.BoardID;
+                                  : BoardContext.Current.BoardSettings.BoardID;
 
                 // check download permissions here
                 if (!this.Get<IPermissions>().CheckAccessRights(boardID, attachment.MessageID))
@@ -251,7 +251,7 @@ namespace YAF.Core.Services
             {
                 this.Get<ILogger>()
                     .Log(
-                        YafContext.Current.PageUserID,
+                        BoardContext.Current.PageUserID,
                         this,
                         $"URL: {context.Request.Url}<br />Referer URL: {(context.Request.UrlReferrer != null ? context.Request.UrlReferrer.AbsoluteUri : string.Empty)}<br />Exception: {x}",
                         EventLogTypes.Information);

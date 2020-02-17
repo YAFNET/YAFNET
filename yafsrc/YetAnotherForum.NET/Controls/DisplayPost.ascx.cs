@@ -183,10 +183,10 @@ namespace YAF.Controls
                     "onclick",
                     $"handleMultiQuoteButton(this, '{this.PostData.MessageId}', '{this.PostData.TopicId}')");
 
-                YafContext.Current.PageElements.RegisterJsBlockStartup(
+                BoardContext.Current.PageElements.RegisterJsBlockStartup(
                     "MultiQuoteButtonJs",
                     JavaScriptBlocks.MultiQuoteButtonJs);
-                YafContext.Current.PageElements.RegisterJsBlockStartup(
+                BoardContext.Current.PageElements.RegisterJsBlockStartup(
                     "MultiQuoteCallbackSuccessJS",
                     JavaScriptBlocks.MultiQuoteCallbackSuccessJs);
 
@@ -208,7 +208,7 @@ namespace YAF.Controls
                 this.ManageDropPlaceHolder.Visible = false;
             }
 
-            YafContext.Current.PageElements.RegisterJsBlockStartup(
+            BoardContext.Current.PageElements.RegisterJsBlockStartup(
                 "asynchCallFailedJs",
                 "function CallFailed(res){console.log(res);  }");
 
@@ -749,7 +749,7 @@ namespace YAF.Controls
                 Environment.NewLine,
                 JavaScriptBlocks.RemoveThanksJs(AddThankBoxHTML));
 
-            YafContext.Current.PageElements.RegisterJsBlockStartup("ThanksJs", thanksJs);
+            BoardContext.Current.PageElements.RegisterJsBlockStartup("ThanksJs", thanksJs);
 
             this.Thank.Visible = this.PostData.CanThankPost && !this.PageContext.IsGuest
                                                             && this.Get<BoardSettings>().EnableThanksMod;

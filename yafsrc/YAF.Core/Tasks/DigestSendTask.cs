@@ -138,7 +138,7 @@ namespace YAF.Core.Tasks
             boardSettings.SaveRegistry();
 
             // reload all settings from the DB
-            YafContext.Current.BoardSettings = null;
+            BoardContext.Current.BoardSettings = null;
 
             return true;
         }

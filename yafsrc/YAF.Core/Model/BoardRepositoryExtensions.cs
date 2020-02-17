@@ -295,8 +295,8 @@ namespace YAF.Core.Model
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
-            YafContext.Current.GetRepository<Registry>().Save("culture", culture, boardId);
-            YafContext.Current.GetRepository<Registry>().Save("language", languageFile, boardId);
+            BoardContext.Current.GetRepository<Registry>().Save("culture", culture, boardId);
+            BoardContext.Current.GetRepository<Registry>().Save("language", languageFile, boardId);
 
             repository.UpdateOnly(() => new Board { Name = name }, board => board.ID == boardId);
 

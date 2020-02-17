@@ -46,7 +46,7 @@
                     </div>
                     <div id="SearchResultsPlaceholder"
                         data-url="<%=BoardInfo.ForumClientFileRoot %>"
-                        data-userid="<%= YafContext.Current.PageUserID %>">
+                        data-userid="<%= BoardContext.Current.PageUserID %>">
                     </div>
                 </asp:PlaceHolder>
                 <asp:PlaceHolder ID="DescriptionRow" Visible="false" runat="server">

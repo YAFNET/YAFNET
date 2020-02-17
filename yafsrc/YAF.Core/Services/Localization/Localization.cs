@@ -310,15 +310,15 @@ namespace YAF.Core.Services.Localization
 #if !DEBUG
                 string filename;
 
-                if (YafContext.Current.PageIsNull() || YafContext.Current.LanguageFile.IsNotSet()
-                    || YafContext.Current.LanguageFile.IsNotSet()
-                    || !YafContext.Current.Get<BoardSettings>().AllowUserLanguage)
+                if (BoardContext.Current.PageIsNull() || BoardContext.Current.LanguageFile.IsNotSet()
+                    || BoardContext.Current.LanguageFile.IsNotSet()
+                    || !BoardContext.Current.Get<BoardSettings>().AllowUserLanguage)
                 {
-                    filename = YafContext.Current.Get<BoardSettings>().Language;
+                    filename = BoardContext.Current.Get<BoardSettings>().Language;
                 }
                 else
                 {
-                    filename = YafContext.Current.LanguageFile;
+                    filename = BoardContext.Current.LanguageFile;
                 }
 
                 if (filename.IsNotSet())
@@ -328,9 +328,9 @@ namespace YAF.Core.Services.Localization
 
                 HttpContext.Current.Cache.Remove($"Localizer.{filename}");
 #endif
-                YafContext.Current.Get<ILogger>()
+                BoardContext.Current.Get<ILogger>()
                     .Log(
-                        YafContext.Current.PageUserID,
+                        BoardContext.Current.PageUserID,
                         $"{page.ToLower()}.ascx",
                         $"Missing Translation For {page.ToUpper()}.{tag.ToUpper()}");
 
@@ -400,15 +400,15 @@ namespace YAF.Core.Services.Localization
                 }
                 else
                 {
-                    if (YafContext.Current.PageIsNull() || YafContext.Current.LanguageFile == string.Empty
-                        || YafContext.Current.LanguageFile == string.Empty
-                        || !YafContext.Current.Get<BoardSettings>().AllowUserLanguage)
+                    if (BoardContext.Current.PageIsNull() || BoardContext.Current.LanguageFile == string.Empty
+                        || BoardContext.Current.LanguageFile == string.Empty
+                        || !BoardContext.Current.Get<BoardSettings>().AllowUserLanguage)
                     {
-                        filename = YafContext.Current.Get<BoardSettings>().Language;
+                        filename = BoardContext.Current.Get<BoardSettings>().Language;
                     }
                     else
                     {
-                        filename = YafContext.Current.LanguageFile;
+                        filename = BoardContext.Current.LanguageFile;
                     }
                 }
 
@@ -417,9 +417,9 @@ namespace YAF.Core.Services.Localization
 
                 HttpContext.Current.Cache.Remove($"Localizer.{filename}");
 #endif
-                YafContext.Current.Get<ILogger>()
+                BoardContext.Current.Get<ILogger>()
                     .Log(
-                        YafContext.Current.PageUserID,
+                        BoardContext.Current.PageUserID,
                         $"{page.ToLower()}.ascx",
                         $"Missing Translation For {page.ToUpper()}.{tag.ToUpper()}");
 
@@ -503,17 +503,17 @@ namespace YAF.Core.Services.Localization
             }
 
 #if !DEBUG
-            if (this.localizer == null && YafContext.Current.Get<HttpContextBase>().Cache[$"Localizer.{fileName}"] != null) this.localizer = (Localizer)YafContext.Current.Get<HttpContextBase>().Cache[
+            if (this.localizer == null && BoardContext.Current.Get<HttpContextBase>().Cache[$"Localizer.{fileName}"] != null) this.localizer = (Localizer)BoardContext.Current.Get<HttpContextBase>().Cache[
                 $"Localizer.{fileName}"];
 #endif
             if (this.localizer == null)
             {
                 this.localizer =
                     new Localizer(
-                        YafContext.Current.Get<HttpContextBase>().Server.MapPath($"{BoardInfo.ForumServerFileRoot}languages/{fileName}"));
+                        BoardContext.Current.Get<HttpContextBase>().Server.MapPath($"{BoardInfo.ForumServerFileRoot}languages/{fileName}"));
 
 #if !DEBUG
-                YafContext.Current.Get<HttpContextBase>().Cache[$"Localizer.{fileName}"] = this.localizer;
+                BoardContext.Current.Get<HttpContextBase>().Cache[$"Localizer.{fileName}"] = this.localizer;
 #endif
             }
 
@@ -521,17 +521,17 @@ namespace YAF.Core.Services.Localization
             if (fileName.ToLower() != "english.xml")
             {
 #if !DEBUG
-                if (this.defaultLocale == null && YafContext.Current.Get<HttpContextBase>().Cache["DefaultLocale"] != null) this.defaultLocale = (Localizer)YafContext.Current.Get<HttpContextBase>().Cache["DefaultLocale"];
+                if (this.defaultLocale == null && BoardContext.Current.Get<HttpContextBase>().Cache["DefaultLocale"] != null) this.defaultLocale = (Localizer)BoardContext.Current.Get<HttpContextBase>().Cache["DefaultLocale"];
 #endif
 
                 if (this.defaultLocale == null)
                 {
                     this.defaultLocale =
                         new Localizer(
-                            YafContext.Current.Get<HttpContextBase>().Server.MapPath(
+                            BoardContext.Current.Get<HttpContextBase>().Server.MapPath(
                                 $"{BoardInfo.ForumServerFileRoot}languages/english.xml"));
 #if !DEBUG
-                    YafContext.Current.Get<HttpContextBase>().Cache["DefaultLocale"] = this.defaultLocale;
+                    BoardContext.Current.Get<HttpContextBase>().Cache["DefaultLocale"] = this.defaultLocale;
 #endif
                 }
             }
@@ -638,14 +638,14 @@ namespace YAF.Core.Services.Localization
 
             string filename;
 
-            if (YafContext.Current.PageIsNull() || YafContext.Current.Page["LanguageFile"] == null
-                || !YafContext.Current.Get<BoardSettings>().AllowUserLanguage)
+            if (BoardContext.Current.PageIsNull() || BoardContext.Current.Page["LanguageFile"] == null
+                || !BoardContext.Current.Get<BoardSettings>().AllowUserLanguage)
             {
-                filename = YafContext.Current.Get<BoardSettings>().Language;
+                filename = BoardContext.Current.Get<BoardSettings>().Language;
             }
             else
             {
-                filename = YafContext.Current.LanguageFile;
+                filename = BoardContext.Current.LanguageFile;
             }
 
             if (filename == null)

@@ -118,7 +118,7 @@ namespace YAF.Core.Services
                 context.Response.ContentEncoding = Encoding.UTF8;
                 context.Response.Cache.SetCacheability(HttpCacheability.Public);
                 context.Response.Cache.SetExpires(
-                    DateTime.UtcNow.AddMilliseconds(YafContext.Current.Get<BoardSettings>().OnlineStatusCacheTimeout));
+                    DateTime.UtcNow.AddMilliseconds(BoardContext.Current.Get<BoardSettings>().OnlineStatusCacheTimeout));
                 context.Response.Cache.SetLastModified(DateTime.UtcNow);
 
                 var avatarUrl = this.Get<IAvatars>().GetAvatarUrlForUser(userId);
@@ -131,8 +131,8 @@ namespace YAF.Core.Services
                     Constants.Cache.UsersOnlineStatus,
                     () =>
                     this.Get<YafDbBroker>().GetActiveList(
-                        false, YafContext.Current.Get<BoardSettings>().ShowCrawlersInActiveList),
-                    TimeSpan.FromMilliseconds(YafContext.Current.Get<BoardSettings>().OnlineStatusCacheTimeout));
+                        false, BoardContext.Current.Get<BoardSettings>().ShowCrawlersInActiveList),
+                    TimeSpan.FromMilliseconds(BoardContext.Current.Get<BoardSettings>().OnlineStatusCacheTimeout));
 
                 var userIsOnline =
                     activeUsers.AsEnumerable().Any(
@@ -143,7 +143,7 @@ namespace YAF.Core.Services
                 userName = HttpUtility.HtmlEncode(userName);
 
                 var location = userData.Profile.Country.IsSet()
-                                   ? YafContext.Current.Get<IHaveLocalization>().GetText(
+                                   ? BoardContext.Current.Get<IHaveLocalization>().GetText(
                                        "COUNTRY", userData.Profile.Country.Trim())
                                    : userData.Profile.Location;
 
@@ -170,7 +170,7 @@ namespace YAF.Core.Services
                     ProfileLink = BuildLink.GetLink(ForumPages.Profile, true, "u={0}&name={1}", userId, userName)*/
                 };
 
-                if (YafContext.Current.Get<BoardSettings>().EnableUserReputation)
+                if (BoardContext.Current.Get<BoardSettings>().EnableUserReputation)
                 {
                     userInfo.Points = (userData.Points.ToType<int>() > 0 ? "+" : string.Empty) + userData.Points;
                 }
@@ -181,7 +181,7 @@ namespace YAF.Core.Services
             }
             catch (Exception x)
             {
-                this.Get<ILogger>().Log(YafContext.Current.PageUserID, this, x, EventLogTypes.Information);
+                this.Get<ILogger>().Log(BoardContext.Current.PageUserID, this, x, EventLogTypes.Information);
 
                 context.Response.Write(
                     "Error: Resource has been moved or is unavailable. Please contact the forum admin.");
@@ -196,7 +196,7 @@ namespace YAF.Core.Services
         {
             try
             {
-                if (YafContext.Current == null)
+                if (BoardContext.Current == null)
                 {
                     context.Response.Write(
                    "Error: Resource has been moved or is unavailable. Please contact the forum admin.");
@@ -212,7 +212,7 @@ namespace YAF.Core.Services
                 context.Response.ContentEncoding = Encoding.UTF8;
                 context.Response.Cache.SetCacheability(HttpCacheability.Public);
                 context.Response.Cache.SetExpires(
-                    DateTime.UtcNow.AddMilliseconds(YafContext.Current.Get<BoardSettings>().OnlineStatusCacheTimeout));
+                    DateTime.UtcNow.AddMilliseconds(BoardContext.Current.Get<BoardSettings>().OnlineStatusCacheTimeout));
                 context.Response.Cache.SetLastModified(DateTime.UtcNow);
 
                 context.Response.Write(customBbCode.ToJson());
@@ -221,7 +221,7 @@ namespace YAF.Core.Services
             }
             catch (Exception x)
             {
-                this.Get<ILogger>().Log(YafContext.Current.PageUserID, this, x, EventLogTypes.Information);
+                this.Get<ILogger>().Log(BoardContext.Current.PageUserID, this, x, EventLogTypes.Information);
 
                 context.Response.Write(
                     "Error: Resource has been moved or is unavailable. Please contact the forum admin.");
@@ -238,7 +238,7 @@ namespace YAF.Core.Services
         {
             try
             {
-                if (YafContext.Current == null)
+                if (BoardContext.Current == null)
                 {
                     context.Response.Write(
                         "Error: Resource has been moved or is unavailable. Please contact the forum admin.");
@@ -248,7 +248,7 @@ namespace YAF.Core.Services
 
                 var searchQuery = context.Request.QueryString.GetFirstOrDefault("users");
 
-                var usersList = YafContext.Current.GetRepository<User>().Get(
+                var usersList = BoardContext.Current.GetRepository<User>().Get(
                     user => this.Get<BoardSettings>().EnableDisplayName
                                 ? user.DisplayName.StartsWith(searchQuery)
                                 : user.Name.StartsWith(searchQuery));
@@ -267,7 +267,7 @@ namespace YAF.Core.Services
             }
             catch (Exception x)
             {
-                this.Get<ILogger>().Log(YafContext.Current.PageUserID, this, x, EventLogTypes.Information);
+                this.Get<ILogger>().Log(BoardContext.Current.PageUserID, this, x, EventLogTypes.Information);
 
                 context.Response.Write(
                     "Error: Resource has been moved or is unavailable. Please contact the forum admin.");
@@ -308,7 +308,7 @@ namespace YAF.Core.Services
             }
             catch (Exception x)
             {
-                this.Get<ILogger>().Log(YafContext.Current.PageUserID, this, x, EventLogTypes.Information);
+                this.Get<ILogger>().Log(BoardContext.Current.PageUserID, this, x, EventLogTypes.Information);
 
                 context.Response.Write(
                     "Error: Resource has been moved or is unavailable. Please contact the forum admin.");
@@ -325,7 +325,7 @@ namespace YAF.Core.Services
         {
             try
             {
-                var user = YafContext.Current.GetRepository<User>()
+                var user = BoardContext.Current.GetRepository<User>()
                     .GetById(context.Request.QueryString.GetFirstOrDefaultAs<int>("u"));
 
                 if (user == null)
@@ -353,7 +353,7 @@ namespace YAF.Core.Services
             {
                 this.Get<ILogger>()
                    .Log(
-                       YafContext.Current.PageUserID,
+                       BoardContext.Current.PageUserID,
                        this,
                        $"URL: {context.Request.Url}<br />Referer URL: {(context.Request.UrlReferrer != null ? context.Request.UrlReferrer.AbsoluteUri : string.Empty)}<br />Exception: {x}",
                        EventLogTypes.Information);
@@ -389,7 +389,7 @@ namespace YAF.Core.Services
             }
             catch (Exception x)
             {
-                this.Get<ILogger>().Log(YafContext.Current.PageUserID, this, x);
+                this.Get<ILogger>().Log(BoardContext.Current.PageUserID, this, x);
                 context.Response.Write(
                     "Error: Resource has been moved or is unavailable. Please contact the forum admin.");
             }
@@ -490,7 +490,7 @@ namespace YAF.Core.Services
             {
                 // issue getting access to the avatar...
                 this.Get<ILogger>().Log(
-                    YafContext.Current.PageUserID,
+                    BoardContext.Current.PageUserID,
                     this,
                     $"URL: {avatarUrl}<br />Referer URL: {context.Request.UrlReferrer?.AbsoluteUri ?? string.Empty}<br />Exception: {exception}");
 

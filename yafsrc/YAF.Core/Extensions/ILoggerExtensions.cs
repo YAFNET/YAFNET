@@ -65,7 +65,7 @@ namespace YAF.Core.Extensions
         {
             CodeContracts.VerifyNotNull(logger, "logger");
 
-            var username = YafContext.Current.Get<IUserDisplayName>().GetName(userId);
+            var username = BoardContext.Current.Get<IUserDisplayName>().GetName(userId);
 
             var sourceDescription = "unknown";
 
@@ -112,7 +112,7 @@ namespace YAF.Core.Extensions
 
             if (userId.HasValue && userId > 0)
             {
-                username = YafContext.Current.Get<IUserDisplayName>().GetName(userId.Value);
+                username = BoardContext.Current.Get<IUserDisplayName>().GetName(userId.Value);
             }
 
             var sourceDescription = "unknown";
@@ -130,7 +130,7 @@ namespace YAF.Core.Extensions
 
             try
             {
-                message = $"Exception at URL: {YafContext.Current.Get<HttpRequestBase>().Url}";
+                message = $"Exception at URL: {BoardContext.Current.Get<HttpRequestBase>().Url}";
             }
             catch (Exception e)
             {

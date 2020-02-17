@@ -60,12 +60,12 @@ namespace YAF.Core.Extensions
 
             if (supportItem.LocalizedPage.IsSet() && supportItem.LocalizedTag.IsSet())
             {
-                return YafContext.Current.Get<ILocalization>()
+                return BoardContext.Current.Get<ILocalization>()
                     .GetText(supportItem.LocalizedPage, supportItem.LocalizedTag);
             }
 
             return supportItem.LocalizedTag.IsSet()
-                       ? YafContext.Current.Get<ILocalization>().GetText(supportItem.LocalizedTag)
+                       ? BoardContext.Current.Get<ILocalization>().GetText(supportItem.LocalizedTag)
                        : null;
         }
 

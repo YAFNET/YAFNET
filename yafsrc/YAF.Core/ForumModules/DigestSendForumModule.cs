@@ -58,7 +58,7 @@ namespace YAF.Core.ForumModules
         public override void Init()
         {
             // hook the page init for mail sending...
-            YafContext.Current.AfterInit += this.Current_AfterInit;
+            BoardContext.Current.AfterInit += this.Current_AfterInit;
         }
 
         #endregion

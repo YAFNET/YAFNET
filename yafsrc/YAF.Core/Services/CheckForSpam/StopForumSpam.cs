@@ -114,7 +114,7 @@ namespace YAF.Core.Services.CheckForSpam
             }
             catch (Exception ex)
             {
-                YafContext.Current.Get<ILogger>().Error(ex, "Error while Checking for Bot");
+                BoardContext.Current.Get<ILogger>().Error(ex, "Error while Checking for Bot");
 
                 return false;
             }
@@ -133,7 +133,7 @@ namespace YAF.Core.Services.CheckForSpam
             [CanBeNull] string userName)
         {
             var parameters =
-                $"username={userName}&ip_addr={ipAddress}&email={emailAddress}&api_key={YafContext.Current.Get<BoardSettings>().StopForumSpamApiKey}";
+                $"username={userName}&ip_addr={ipAddress}&email={emailAddress}&api_key={BoardContext.Current.Get<BoardSettings>().StopForumSpamApiKey}";
 
             var result = new HttpClient().PostRequest(
                 new Uri("http://www.stopforumspam.com/add.php"),
@@ -143,7 +143,7 @@ namespace YAF.Core.Services.CheckForSpam
 
             if (!result.Contains("success"))
             {
-                YafContext.Current.Get<ILogger>().Log(
+                BoardContext.Current.Get<ILogger>().Log(
                     null,
                     " Report to StopForumSpam.com Failed",
                     result);

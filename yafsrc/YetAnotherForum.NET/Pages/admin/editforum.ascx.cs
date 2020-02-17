@@ -375,7 +375,7 @@ namespace YAF.Pages.Admin
             }
             else
             {
-                this.AccessList.DataSource = YafContext.Current.GetRepository<Group>().GetByBoardId()
+                this.AccessList.DataSource = BoardContext.Current.GetRepository<Group>().GetByBoardId()
                     .Select(i => new { GroupID = i.ID, GroupName = i.Name, AccessMaskID = 0 });
                 this.AccessList.DataBind();
             }

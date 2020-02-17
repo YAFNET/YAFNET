@@ -107,19 +107,19 @@ namespace YAF.Core.Handlers
 
             string theme;
 
-            if (YafContext.Current.Page != null && YafContext.Current.Page["ThemeFile"] != null &&
-                YafContext.Current.BoardSettings.AllowUserTheme)
+            if (BoardContext.Current.Page != null && BoardContext.Current.Page["ThemeFile"] != null &&
+                BoardContext.Current.BoardSettings.AllowUserTheme)
             {
                 // use user-selected theme
-                theme = YafContext.Current.Page["ThemeFile"].ToString();
+                theme = BoardContext.Current.Page["ThemeFile"].ToString();
             }
-            else if (YafContext.Current.Page != null && YafContext.Current.Page["ForumTheme"] != null)
+            else if (BoardContext.Current.Page != null && BoardContext.Current.Page["ForumTheme"] != null)
             {
-                theme = YafContext.Current.Page["ForumTheme"].ToString();
+                theme = BoardContext.Current.Page["ForumTheme"].ToString();
             }
             else
             {
-                theme = YafContext.Current.BoardSettings.Theme;
+                theme = BoardContext.Current.BoardSettings.Theme;
             }
 
             if (!YafTheme.IsValidTheme(theme))

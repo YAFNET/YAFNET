@@ -70,10 +70,10 @@ namespace YAF.Web.Editors
         {
             base.Editor_PreRender(sender, e);
 
-            YafContext.Current.PageElements.AddScriptReference(
+            BoardContext.Current.PageElements.AddScriptReference(
                 "YafEditor", "yafEditor/yafEditor.min.js");
 
-            YafContext.Current.PageElements.RegisterJsBlock(
+            BoardContext.Current.PageElements.RegisterJsBlock(
                 "CreateYafEditorJs",
                 $@"var {this.SafeID}=new yafEditor('{this.SafeID}');
                          function setStyle(style,option) {{

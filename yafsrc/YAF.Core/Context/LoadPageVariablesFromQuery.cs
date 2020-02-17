@@ -86,9 +86,9 @@ namespace YAF.Core
             @event.Data.TopicID = queryString.GetFirstOrDefault("t").ToTypeOrDefault(0);
             @event.Data.MessageID = queryString.GetFirstOrDefault("m").ToTypeOrDefault(0);
 
-            if (YafContext.Current.Settings.CategoryID != 0)
+            if (BoardContext.Current.Settings.CategoryID != 0)
             {
-                @event.Data.CategoryID = YafContext.Current.Settings.CategoryID;
+                @event.Data.CategoryID = BoardContext.Current.Settings.CategoryID;
             }
         }
 

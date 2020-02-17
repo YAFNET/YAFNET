@@ -137,7 +137,7 @@ namespace YAF.Core.Services
                     lookup.OrderBy(s => s.Key).Where(x => percentage < x.Key).Select(x => x.Value).FirstOrDefault();
             }
 
-            return YafContext.Current.Get<ILocalization>().GetText("REPUTATION_VALUES", pageName);
+            return BoardContext.Current.Get<ILocalization>().GetText("REPUTATION_VALUES", pageName);
         }
 
         /// <summary>
@@ -182,11 +182,11 @@ namespace YAF.Core.Services
         {
             var percentage = points;
 
-            var minValue = YafContext.Current.Get<BoardSettings>().ReputationMaxNegative;
+            var minValue = BoardContext.Current.Get<BoardSettings>().ReputationMaxNegative;
 
-            var maxValue = YafContext.Current.Get<BoardSettings>().ReputationMaxPositive;
+            var maxValue = BoardContext.Current.Get<BoardSettings>().ReputationMaxPositive;
 
-            if (!YafContext.Current.Get<BoardSettings>().ReputationAllowNegative)
+            if (!BoardContext.Current.Get<BoardSettings>().ReputationAllowNegative)
             {
                 minValue = 0;
             }

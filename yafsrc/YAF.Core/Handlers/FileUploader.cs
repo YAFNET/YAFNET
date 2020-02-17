@@ -58,7 +58,7 @@ namespace YAF.Core.Handlers
         /// <summary>
         /// Gets the ServiceLocator.
         /// </summary>
-        public IServiceLocator ServiceLocator => YafContext.Current.ServiceLocator;
+        public IServiceLocator ServiceLocator => BoardContext.Current.ServiceLocator;
 
         #endregion
 

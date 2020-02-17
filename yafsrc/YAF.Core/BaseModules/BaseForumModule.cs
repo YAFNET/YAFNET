@@ -63,12 +63,12 @@ namespace YAF.Core.BaseModules
     /// <summary>
     /// Gets PageContext.
     /// </summary>
-    public YafContext PageContext => YafContext.Current;
+    public BoardContext PageContext => BoardContext.Current;
 
     /// <summary>
     ///   Gets ServiceLocator.
     /// </summary>
-    public virtual IServiceLocator ServiceLocator => YafContext.Current.ServiceLocator;
+    public virtual IServiceLocator ServiceLocator => BoardContext.Current.ServiceLocator;
 
     /// <summary>
     ///   Gets ServiceLocator.

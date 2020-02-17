@@ -91,7 +91,7 @@ namespace YAF.Core.Events
         /// <param name="event">The @event.</param>
         public void Handle(ForumPageUnloadEvent @event)
         {
-            /*/if (YafContext.Current.IsGuest && (!this.YafSession.LastVisit.HasValue || this.YafSession.LastVisit.Value == DateTimeHelper.SqlDbMinTime()))
+            /*/if (BoardContext.Current.IsGuest && (!this.YafSession.LastVisit.HasValue || this.YafSession.LastVisit.Value == DateTimeHelper.SqlDbMinTime()))
             //{
             //  // update last visit going forward...
             //  this.YafSession.LastVisit = DateTime.UtcNow;
@@ -114,12 +114,12 @@ namespace YAF.Core.Events
         {
             var previousVisitKey = "PreviousVisit";
 
-            if (!YafContext.Current.IsGuest && YafContext.Current.Page[previousVisitKey] != DBNull.Value
+            if (!BoardContext.Current.IsGuest && BoardContext.Current.Page[previousVisitKey] != DBNull.Value
                 && !this.YafSession.LastVisit.HasValue)
             {
-                this.YafSession.LastVisit = Convert.ToDateTime(YafContext.Current.Page[previousVisitKey]);
+                this.YafSession.LastVisit = Convert.ToDateTime(BoardContext.Current.Page[previousVisitKey]);
             }
-            else if (YafContext.Current.IsGuest && !this.YafSession.LastVisit.HasValue)
+            else if (BoardContext.Current.IsGuest && !this.YafSession.LastVisit.HasValue)
             {
                 if (this._requestBase.Cookies.Get(previousVisitKey) != null)
                 {

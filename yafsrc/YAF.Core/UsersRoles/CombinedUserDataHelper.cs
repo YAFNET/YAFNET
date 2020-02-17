@@ -110,7 +110,7 @@ namespace YAF.Core.UsersRoles
         ///   Initializes a new instance of the <see cref = "CombinedUserDataHelper" /> class.
         /// </summary>
         public CombinedUserDataHelper()
-            : this(YafContext.Current.PageUserID)
+            : this(BoardContext.Current.PageUserID)
         {
         }
 
@@ -158,7 +158,7 @@ namespace YAF.Core.UsersRoles
                 {
                     this.userDbRow = UserMembershipHelper.GetUserRowForID(
                         this.userId.Value,
-                        YafContext.Current.Get<BoardSettings>().AllowUserInfoCaching);
+                        BoardContext.Current.Get<BoardSettings>().AllowUserInfoCaching);
                 }
 
                 return this.userDbRow;
@@ -189,7 +189,7 @@ namespace YAF.Core.UsersRoles
         /// </summary>
         public bool DailyDigest =>
             this.DBRow.Field<bool?>("DailyDigest") ??
-            YafContext.Current.Get<BoardSettings>().DefaultSendDigestEmail;
+            BoardContext.Current.Get<BoardSettings>().DefaultSendDigestEmail;
 
         /// <summary>
         /// Enable Activity Stream (If checked you get Notifications for Mentions, Quotes and Thanks.
@@ -210,7 +210,7 @@ namespace YAF.Core.UsersRoles
             {
                 if (this.Membership == null && !this.IsGuest)
                 {
-                    YafContext.Current.Get<ILogger>()
+                    BoardContext.Current.Get<ILogger>()
                         .Log(
                             this.UserID,
                             "CombinedUserDataHelper.get_Email",

@@ -95,7 +95,7 @@ namespace YAF.Core.Services
         /// </param>
         public void AddIgnored(int ignoredUserId)
         {
-            YafContext.Current.GetRepository<IgnoreUser>().AddIgnoredUser(YafContext.Current.PageUserID, ignoredUserId);
+            BoardContext.Current.GetRepository<IgnoreUser>().AddIgnoredUser(BoardContext.Current.PageUserID, ignoredUserId);
             this.ClearIgnoreCache();
         }
 
@@ -105,7 +105,7 @@ namespace YAF.Core.Services
         public void ClearIgnoreCache()
         {
             // clear for the session
-            this.SessionStateBase.Remove(string.Format(Constants.Cache.UserIgnoreList, YafContext.Current.PageUserID));
+            this.SessionStateBase.Remove(string.Format(Constants.Cache.UserIgnoreList, BoardContext.Current.PageUserID));
         }
 
         /// <summary>
@@ -121,7 +121,7 @@ namespace YAF.Core.Services
         {
             if (this._userIgnoreList == null)
             {
-                this._userIgnoreList = this._dbBroker.UserIgnoredList(YafContext.Current.PageUserID);
+                this._userIgnoreList = this._dbBroker.UserIgnoredList(BoardContext.Current.PageUserID);
             }
 
             return this._userIgnoreList.Count > 0 && this._userIgnoreList.Contains(ignoredUserId);
@@ -135,7 +135,7 @@ namespace YAF.Core.Services
         /// </param>
         public void RemoveIgnored(int ignoredUserId)
         {
-            YafContext.Current.GetRepository<IgnoreUser>().Delete(YafContext.Current.PageUserID, ignoredUserId);
+            BoardContext.Current.GetRepository<IgnoreUser>().Delete(BoardContext.Current.PageUserID, ignoredUserId);
             this.ClearIgnoreCache();
         }
 

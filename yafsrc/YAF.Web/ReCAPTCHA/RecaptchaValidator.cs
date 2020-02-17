@@ -155,7 +155,7 @@ namespace YAF.Web.ReCAPTCHA
             }
             catch (WebException exception)
             {
-                YafContext.Current.Get<ILogger>().Log(YafContext.Current.PageUserID, this.GetType().Name, exception.ToString());
+                BoardContext.Current.Get<ILogger>().Log(BoardContext.Current.PageUserID, this.GetType().Name, exception.ToString());
 
                 return RecaptchaResponse.RecaptchaNotReachable;
             }

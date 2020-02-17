@@ -127,7 +127,7 @@ namespace YAF.Controls
         /// <param name="e">An <see cref="T:System.EventArgs" /> object that contains the event data.</param>
         protected override void OnPreRender([NotNull] EventArgs e)
         {
-            YafContext.Current.PageElements.RegisterJsBlockStartup(
+            BoardContext.Current.PageElements.RegisterJsBlockStartup(
                 "DatePickerJs",
                 JavaScriptBlocks.DatePickerLoadJs(
                     this.GetText("COMMON", "CAL_JQ_CULTURE_DFORMAT"),
@@ -396,10 +396,10 @@ namespace YAF.Controls
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void GetLocationOnClick(object sender, EventArgs e)
         {
-            var userIpLocator = YafContext.Current.Get<IIpInfoService>().GetUserIpLocator(
+            var userIpLocator = BoardContext.Current.Get<IIpInfoService>().GetUserIpLocator(
                 this.PageContext.CurrentForumPage.IsAdminPage
                     ? this.UserData.LastIP
-                    : YafContext.Current.Get<HttpRequestBase>().GetUserRealIPAddress());
+                    : BoardContext.Current.Get<HttpRequestBase>().GetUserRealIPAddress());
 
             if (userIpLocator["CountryCode"] != null && userIpLocator["CountryCode"].IsSet() && !userIpLocator["CountryCode"].Equals("-"))
             {

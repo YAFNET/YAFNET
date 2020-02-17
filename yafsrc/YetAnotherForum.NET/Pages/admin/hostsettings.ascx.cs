@@ -63,7 +63,7 @@ namespace YAF.Pages.Admin
         protected void IndexSearch_OnClick(object sender, EventArgs e)
         {
             this.Get<BoardSettings>().ForceUpdateSearchIndex = true;
-            ((YafLoadBoardSettings)YafContext.Current.BoardSettings).SaveRegistry();
+            ((YafLoadBoardSettings)BoardContext.Current.BoardSettings).SaveRegistry();
 
             this.PageContext.AddLoadMessage(this.GetText("FORCE_SEARCHINDED"), MessageTypes.info);
         }
@@ -164,7 +164,7 @@ namespace YAF.Pages.Admin
         protected override void OnPreRender([NotNull] EventArgs e)
         {
             // setup jQuery and YAF JS...
-            YafContext.Current.PageElements.RegisterJsBlock(
+            BoardContext.Current.PageElements.RegisterJsBlock(
                 "yafTabsJs",
                 JavaScriptBlocks.BootstrapNavsLoadJs("v-pills-tab", this.hidLastTab.ClientID));
 

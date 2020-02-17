@@ -118,7 +118,7 @@ namespace YAF.Dialogs
             {
                 if (this.quickReplyEditor.Text.Length <= 0)
                 {
-                    YafContext.Current.PageElements.RegisterJsBlockStartup(
+                    BoardContext.Current.PageElements.RegisterJsBlockStartup(
                         "openModalJs",
                         JavaScriptBlocks.OpenModalJs("QuickReplyDialog"));
 
@@ -131,7 +131,7 @@ namespace YAF.Dialogs
                 if (this.Get<BoardSettings>().MaxPostSize > 0
                     && this.quickReplyEditor.Text.Length >= this.Get<BoardSettings>().MaxPostSize)
                 {
-                    YafContext.Current.PageElements.RegisterJsBlockStartup(
+                    BoardContext.Current.PageElements.RegisterJsBlockStartup(
                         "openModalJs",
                         JavaScriptBlocks.OpenModalJs("QuickReplyDialog"));
 
@@ -142,7 +142,7 @@ namespace YAF.Dialogs
 
                 if (this.EnableCaptcha() && !CaptchaHelper.IsValid(this.tbCaptcha.Text.Trim()))
                 {
-                    YafContext.Current.PageElements.RegisterJsBlockStartup(
+                    BoardContext.Current.PageElements.RegisterJsBlockStartup(
                         "openModalJs",
                         JavaScriptBlocks.OpenModalJs("QuickReplyDialog"));
 
@@ -154,17 +154,17 @@ namespace YAF.Dialogs
                 if (!(this.PageContext.IsAdmin || this.PageContext.ForumModeratorAccess)
                     && this.Get<BoardSettings>().PostFloodDelay > 0)
                 {
-                    if (YafContext.Current.Get<ISession>().LastPost
+                    if (BoardContext.Current.Get<ISession>().LastPost
                         > DateTime.UtcNow.AddSeconds(-this.Get<BoardSettings>().PostFloodDelay))
                     {
-                        YafContext.Current.PageElements.RegisterJsBlockStartup(
+                        BoardContext.Current.PageElements.RegisterJsBlockStartup(
                             "openModalJs",
                             JavaScriptBlocks.OpenModalJs("QuickReplyDialog"));
 
                         this.PageContext.AddLoadMessage(
                             this.GetTextFormatted(
                                 "wait",
-                                (YafContext.Current.Get<ISession>().LastPost
+                                (BoardContext.Current.Get<ISession>().LastPost
                                  - DateTime.UtcNow.AddSeconds(-this.Get<BoardSettings>().PostFloodDelay)).Seconds),
                             MessageTypes.warning);
 
@@ -172,7 +172,7 @@ namespace YAF.Dialogs
                     }
                 }
 
-                YafContext.Current.Get<ISession>().LastPost = DateTime.UtcNow;
+                BoardContext.Current.Get<ISession>().LastPost = DateTime.UtcNow;
 
                 // post message...
                 long messageId = 0;
@@ -206,7 +206,7 @@ namespace YAF.Dialogs
                     // Check content for spam
                     if (this.Get<ISpamCheck>().CheckPostForSpam(
                         this.PageContext.IsGuest ? "Guest" : this.PageContext.PageUserName,
-                        YafContext.Current.Get<HttpRequestBase>().GetUserRealIPAddress(),
+                        BoardContext.Current.Get<HttpRequestBase>().GetUserRealIPAddress(),
                         this.quickReplyEditor.Text,
                         this.PageContext.IsGuest ? null : this.PageContext.User.Email,
                         out var spamResult))
@@ -247,7 +247,7 @@ namespace YAF.Dialogs
                                                 spamResult),
                                     EventLogTypes.SpamMessageDetected);
 
-                                YafContext.Current.PageElements.RegisterJsBlockStartup(
+                                BoardContext.Current.PageElements.RegisterJsBlockStartup(
                                     "openModalJs",
                                     JavaScriptBlocks.OpenModalJs("QuickReplyDialog"));
 
@@ -279,8 +279,8 @@ namespace YAF.Dialogs
                     }
 
                     // Check posts for urls if the user has only x posts
-                    if (YafContext.Current.CurrentUserData.NumPosts
-                        <= YafContext.Current.Get<BoardSettings>().IgnoreSpamWordCheckPostCount
+                    if (BoardContext.Current.CurrentUserData.NumPosts
+                        <= BoardContext.Current.Get<BoardSettings>().IgnoreSpamWordCheckPostCount
                         && !this.PageContext.IsAdmin && !this.PageContext.ForumModeratorAccess)
                     {
                         var urlCount = UrlHelper.CountUrls(this.quickReplyEditor.Text);
@@ -326,7 +326,7 @@ namespace YAF.Dialogs
                                                     spamResult),
                                         EventLogTypes.SpamMessageDetected);
 
-                                    YafContext.Current.PageElements.RegisterJsBlockStartup(
+                                    BoardContext.Current.PageElements.RegisterJsBlockStartup(
                                         "openModalJs",
                                         JavaScriptBlocks.OpenModalJs("QuickReplyDialog"));
 

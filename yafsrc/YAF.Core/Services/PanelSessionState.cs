@@ -50,29 +50,29 @@ namespace YAF.Core.Services
             var sessionPanelID = $"panelstate_{panelID}";
 
             // try to get panel state from session state first
-            if (YafContext.Current.Get<HttpSessionStateBase>()[sessionPanelID] != null)
+            if (BoardContext.Current.Get<HttpSessionStateBase>()[sessionPanelID] != null)
             {
-                return (CollapsiblePanelState)YafContext.Current.Get<HttpSessionStateBase>()[sessionPanelID];
+                return (CollapsiblePanelState)BoardContext.Current.Get<HttpSessionStateBase>()[sessionPanelID];
             }
 
             // if no panel state info is in session state, try cookie
-            if (YafContext.Current.Get<HttpRequestBase>().Cookies[sessionPanelID] != null)
+            if (BoardContext.Current.Get<HttpRequestBase>().Cookies[sessionPanelID] != null)
             {
                 try
                 {
                     // we must convert string to int, better get is safe
-                    if (YafContext.Current.Get<HttpRequestBase>() != null)
+                    if (BoardContext.Current.Get<HttpRequestBase>() != null)
                     {
                         return (CollapsiblePanelState)int.Parse(
-                            YafContext.Current.Get<HttpRequestBase>().Cookies[sessionPanelID].Value);
+                            BoardContext.Current.Get<HttpRequestBase>().Cookies[sessionPanelID].Value);
                     }
                 }
                 catch
                 {
                     // in case cookie has wrong value
-                    if (YafContext.Current.Get<HttpRequestBase>() != null)
+                    if (BoardContext.Current.Get<HttpRequestBase>() != null)
                     {
-                        YafContext.Current.Get<HttpRequestBase>().Cookies.Remove(sessionPanelID); // scrap wrong cookie
+                        BoardContext.Current.Get<HttpRequestBase>().Cookies.Remove(sessionPanelID); // scrap wrong cookie
                     }
 
                     return CollapsiblePanelState.None;
@@ -87,11 +87,11 @@ namespace YAF.Core.Services
         {
             var sessionPanelID = $"panelstate_{panelID}";
 
-            YafContext.Current.Get<HttpSessionStateBase>()[sessionPanelID] = value;
+            BoardContext.Current.Get<HttpSessionStateBase>()[sessionPanelID] = value;
 
             // create persistent cookie with visibility setting for panel
             var c = new HttpCookie(sessionPanelID, ((int)value).ToString()) { Expires = DateTime.UtcNow.AddYears(1) };
-            YafContext.Current.Get<HttpResponseBase>().SetCookie(c);
+            BoardContext.Current.Get<HttpResponseBase>().SetCookie(c);
         }
     }
 

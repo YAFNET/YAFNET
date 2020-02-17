@@ -69,7 +69,7 @@ namespace YAF.Controls
     {
       var groups = this.GetRepository<UserGroup>().List(this.PageContext.PageUserID);
 
-      if (YafContext.Current.BoardSettings.UseStyledNicks)
+      if (BoardContext.Current.BoardSettings.UseStyledNicks)
       {
         this.Get<IStyleTransform>().DecodeStyleByGroupList(groups, false);
       }

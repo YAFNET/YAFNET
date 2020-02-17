@@ -339,12 +339,12 @@ namespace YAF.Web.Controls
                                     ? this.GetText("ACTIVELOCATION", "FORUMFROMCATEGORY")
                                     : this.GetText("ACTIVELOCATION", "MAINPAGE"));
                         }
-                        else if (!YafContext.Current.IsAdmin && forumPageName.ToUpper().Contains("MODERATE_"))
+                        else if (!BoardContext.Current.IsAdmin && forumPageName.ToUpper().Contains("MODERATE_"))
                         {
                             // We shouldn't show moderators activity to all users but admins
                             outText.Append(this.GetText("ACTIVELOCATION", "MODERATE"));
                         }
-                        else if (!YafContext.Current.IsHostAdmin && forumPageName.ToUpper().Contains("ADMIN_"))
+                        else if (!BoardContext.Current.IsHostAdmin && forumPageName.ToUpper().Contains("ADMIN_"))
                         {
                             // We shouldn't show admin activity to all users 
                             outText.Append(this.GetText("ACTIVELOCATION", "ADMINTASK"));

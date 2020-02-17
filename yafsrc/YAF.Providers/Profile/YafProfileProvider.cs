@@ -105,7 +105,7 @@ namespace YAF.Providers.Profile
 
                 return this._userProfileCache ??
                        (this._userProfileCache =
-                        YafContext.Current.Get<IObjectStore>().GetOrSet(
+                        BoardContext.Current.Get<IObjectStore>().GetOrSet(
                           key, () => new ConcurrentDictionary<string, SettingsPropertyValueCollection>()));
             }
         }
@@ -615,7 +615,7 @@ namespace YAF.Providers.Profile
         /// </summary>
         private void ClearUserProfileCache()
         {
-            YafContext.Current.Get<IObjectStore>().Remove(
+            BoardContext.Current.Get<IObjectStore>().Remove(
               this.GenerateCacheKey("UserProfileDictionary"));
         }
 

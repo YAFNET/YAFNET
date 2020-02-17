@@ -101,9 +101,9 @@ namespace YAF.Core.Services
             this.ClearCache(toUserId);
 
             return this.GetRepository<Buddy>().AddRequest(
-                YafContext.Current.PageUserID,
+                BoardContext.Current.PageUserID,
                 toUserId,
-                YafContext.Current.BoardSettings.EnableDisplayName);
+                BoardContext.Current.BoardSettings.EnableDisplayName);
         }
 
         /// <summary>
@@ -116,7 +116,7 @@ namespace YAF.Core.Services
         {
             var dt = this.All();
             var dv = dt.DefaultView;
-            dv.RowFilter = $"Approved = 0 AND UserID = {YafContext.Current.PageUserID}";
+            dv.RowFilter = $"Approved = 0 AND UserID = {BoardContext.Current.PageUserID}";
 
             dv.Cast<DataRowView>().ForEach(drv => this.ApproveRequest((int)drv["FromUserID"], mutual));
         }
@@ -138,9 +138,9 @@ namespace YAF.Core.Services
             this.ClearCache(toUserId);
             return this.GetRepository<Buddy>().ApproveRequest(
                 toUserId,
-                YafContext.Current.PageUserID,
+                BoardContext.Current.PageUserID,
                 mutual,
-                YafContext.Current.BoardSettings.EnableDisplayName);
+                BoardContext.Current.BoardSettings.EnableDisplayName);
         }
 
         /// <summary>
@@ -151,7 +151,7 @@ namespace YAF.Core.Services
         /// </returns>
         public DataTable All()
         {
-            return this.dbBroker.UserBuddyList(YafContext.Current.PageUserID);
+            return this.dbBroker.UserBuddyList(BoardContext.Current.PageUserID);
         }
 
         /// <summary>
@@ -160,7 +160,7 @@ namespace YAF.Core.Services
         /// <param name="userId">The user identifier.</param>
         public void ClearCache(int userId)
         {
-            this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(YafContext.Current.PageUserID));
+            this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(BoardContext.Current.PageUserID));
             this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(userId));
         }
 
@@ -171,7 +171,7 @@ namespace YAF.Core.Services
         {
             var dt = this.All();
             var dv = dt.DefaultView;
-            dv.RowFilter = $"Approved = 0 AND UserID = {YafContext.Current.PageUserID}";
+            dv.RowFilter = $"Approved = 0 AND UserID = {BoardContext.Current.PageUserID}";
 
             dv.Cast<DataRowView>().Where(drv => Convert.ToDateTime(drv["Requested"]).AddDays(14) < DateTime.UtcNow)
                 .ForEach(drv => this.DenyRequest((int)drv["FromUserID"]));
@@ -191,8 +191,8 @@ namespace YAF.Core.Services
             this.ClearCache(toUserId);
             return this.GetRepository<Buddy>().DenyRequest(
                 toUserId,
-                YafContext.Current.PageUserID,
-                YafContext.Current.BoardSettings.EnableDisplayName);
+                BoardContext.Current.PageUserID,
+                BoardContext.Current.BoardSettings.EnableDisplayName);
         }
 
         /// <summary>
@@ -223,12 +223,12 @@ namespace YAF.Core.Services
         /// </returns>
         public bool IsBuddy(int buddyUserId, bool approved)
         {
-            if (buddyUserId == YafContext.Current.PageUserID)
+            if (buddyUserId == BoardContext.Current.PageUserID)
             {
                 return true;
             }
 
-            var userBuddyList = this.dbBroker.UserBuddyList(YafContext.Current.PageUserID);
+            var userBuddyList = this.dbBroker.UserBuddyList(BoardContext.Current.PageUserID);
 
             if (userBuddyList == null || !userBuddyList.HasRows())
             {
@@ -267,9 +267,9 @@ namespace YAF.Core.Services
         {
             this.ClearCache(toUserId);
             return this.GetRepository<Buddy>().Remove(
-                YafContext.Current.PageUserID,
+                BoardContext.Current.PageUserID,
                 toUserId,
-                YafContext.Current.BoardSettings.EnableDisplayName);
+                BoardContext.Current.BoardSettings.EnableDisplayName);
         }
 
         #endregion

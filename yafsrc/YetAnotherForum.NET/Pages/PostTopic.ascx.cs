@@ -263,7 +263,7 @@ namespace YAF.Pages
         protected override void OnPreRender([NotNull] EventArgs e)
         {
             // setup jQuery and Jquery Ui Tabs.
-            YafContext.Current.PageElements.RegisterJsBlock(
+            BoardContext.Current.PageElements.RegisterJsBlock(
                 "GetBoardTagsJs",
                 JavaScriptBlocks.GetBoardTagsJs(this.Tags.ClientID));
 
@@ -582,8 +582,8 @@ namespace YAF.Pages
             }
 
             // Check posts for urls if the user has only x posts
-            if (YafContext.Current.CurrentUserData.NumPosts
-                <= YafContext.Current.Get<BoardSettings>().IgnoreSpamWordCheckPostCount &&
+            if (BoardContext.Current.CurrentUserData.NumPosts
+                <= BoardContext.Current.Get<BoardSettings>().IgnoreSpamWordCheckPostCount &&
                 !this.PageContext.IsAdmin && !this.PageContext.ForumModeratorAccess)
             {
                 var urlCount = UrlHelper.CountUrls(this.forumEditor.Text);

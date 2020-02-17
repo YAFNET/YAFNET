@@ -71,7 +71,7 @@ namespace YAF.Core.Services
         /// </returns>
         public IDictionary<string, string> GetUserIpLocator()
         {
-            return this.GetUserIpLocator(YafContext.Current.Get<HttpRequestBase>().GetUserRealIPAddress());
+            return this.GetUserIpLocator(BoardContext.Current.Get<HttpRequestBase>().GetUserRealIPAddress());
         }
 
         /// <summary>
@@ -94,7 +94,7 @@ namespace YAF.Core.Services
                 ipAddress,
                 "text",
                 false,
-                YafContext.Current.CurrentForumPage.Localization.Culture.Name,
+                BoardContext.Current.CurrentForumPage.Localization.Culture.Name,
                 string.Empty,
                 string.Empty);
 

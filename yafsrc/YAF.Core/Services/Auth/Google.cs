@@ -163,9 +163,9 @@ namespace YAF.Core.Services.Auth
         /// </returns>
         public bool LoginOrCreateUser(HttpRequest request, string parameters, out string message)
         {
-            if (!YafContext.Current.Get<BoardSettings>().AllowSingleSignOn)
+            if (!BoardContext.Current.Get<BoardSettings>().AllowSingleSignOn)
             {
-                message = YafContext.Current.Get<ILocalization>().GetText("LOGIN", "SSO_DEACTIVATED");
+                message = BoardContext.Current.Get<ILocalization>().GetText("LOGIN", "SSO_DEACTIVATED");
 
                 return false;
             }
@@ -188,7 +188,7 @@ namespace YAF.Core.Services.Auth
             }
 
             // Check if user exists
-            var userName = YafContext.Current.Get<MembershipProvider>().GetUserNameByEmail(googleUser.Email);
+            var userName = BoardContext.Current.Get<MembershipProvider>().GetUserNameByEmail(googleUser.Email);
 
             if (userName.IsNotSet())
             {
@@ -199,11 +199,11 @@ namespace YAF.Core.Services.Auth
             var yafUser = YafUserProfile.GetProfile(userName);
 
             var yafUserData =
-                new CombinedUserDataHelper(YafContext.Current.Get<MembershipProvider>().GetUser(userName, true));
+                new CombinedUserDataHelper(BoardContext.Current.Get<MembershipProvider>().GetUser(userName, true));
 
             if (!yafUser.GoogleId.Equals(googleUser.UserID))
             {
-                message = YafContext.Current.Get<ILocalization>().GetText("LOGIN", "SSO_GOOGLE_FAILED2");
+                message = BoardContext.Current.Get<ILocalization>().GetText("LOGIN", "SSO_GOOGLE_FAILED2");
 
                 return false;
             }
@@ -250,18 +250,18 @@ namespace YAF.Core.Services.Auth
             }
 
             // Create User if not exists?!
-            if (!YafContext.Current.IsGuest && !YafContext.Current.Get<BoardSettings>().DisableRegistrations)
+            if (!BoardContext.Current.IsGuest && !BoardContext.Current.Get<BoardSettings>().DisableRegistrations)
             {
                 // Match the Email address?
-                if (googleUser.Email != YafContext.Current.CurrentUserData.Email)
+                if (googleUser.Email != BoardContext.Current.CurrentUserData.Email)
                 {
-                    message = YafContext.Current.Get<ILocalization>().GetText("LOGIN", "SSO_GOOGLENAME_NOTMATCH");
+                    message = BoardContext.Current.Get<ILocalization>().GetText("LOGIN", "SSO_GOOGLENAME_NOTMATCH");
 
                     return false;
                 }
 
                 // Update profile with Google informations
-                var userProfile = YafContext.Current.Profile;
+                var userProfile = BoardContext.Current.Profile;
 
                 userProfile.GoogleId = googleUser.UserID;
                 userProfile.Homepage = googleUser.ProfileURL;
@@ -271,16 +271,16 @@ namespace YAF.Core.Services.Auth
                 userProfile.Save();
 
                 // save avatar
-                YafContext.Current.GetRepository<User>().SaveAvatar(YafContext.Current.PageUserID, googleUser.ProfileImage, null, null);
+                BoardContext.Current.GetRepository<User>().SaveAvatar(BoardContext.Current.PageUserID, googleUser.ProfileImage, null, null);
 
-                SingleSignOnUser.LoginSuccess(AuthService.google, null, YafContext.Current.PageUserID, false);
+                SingleSignOnUser.LoginSuccess(AuthService.google, null, BoardContext.Current.PageUserID, false);
 
                 message = string.Empty;
 
                 return true;
             }
 
-            message = YafContext.Current.Get<ILocalization>().GetText("LOGIN", "SSO_GOOGLE_FAILED");
+            message = BoardContext.Current.Get<ILocalization>().GetText("LOGIN", "SSO_GOOGLE_FAILED");
             return false;
         }
 
@@ -334,53 +334,53 @@ namespace YAF.Core.Services.Auth
         /// </returns>
         private static bool CreateGoogleUser(GoogleUser googleUser, int userGender, out string message)
         {
-            if (YafContext.Current.Get<BoardSettings>().DisableRegistrations)
+            if (BoardContext.Current.Get<BoardSettings>().DisableRegistrations)
             {
-                message = YafContext.Current.Get<ILocalization>().GetText("LOGIN", "SSO_FAILED");
+                message = BoardContext.Current.Get<ILocalization>().GetText("LOGIN", "SSO_FAILED");
                 return false;
             }
 
             // Check user for bot
             var isPossibleSpamBot = false;
 
-            var userIpAddress = YafContext.Current.Get<HttpRequestBase>().GetUserRealIPAddress();
+            var userIpAddress = BoardContext.Current.Get<HttpRequestBase>().GetUserRealIPAddress();
 
             // Check content for spam
-            if (YafContext.Current.Get<ISpamCheck>().CheckUserForSpamBot(googleUser.UserName, googleUser.Email, userIpAddress, out var result))
+            if (BoardContext.Current.Get<ISpamCheck>().CheckUserForSpamBot(googleUser.UserName, googleUser.Email, userIpAddress, out var result))
             {
-                YafContext.Current.Get<ILogger>().Log(
+                BoardContext.Current.Get<ILogger>().Log(
                     null,
                     "Bot Detected",
                     $"Bot Check detected a possible SPAM BOT: (user name : '{googleUser.UserName}', email : '{googleUser.Email}', ip: '{userIpAddress}', reason : {result}), user was rejected.",
                     EventLogTypes.SpamBotDetected);
 
-                if (YafContext.Current.Get<BoardSettings>().BotHandlingOnRegister.Equals(1))
+                if (BoardContext.Current.Get<BoardSettings>().BotHandlingOnRegister.Equals(1))
                 {
                     // Flag user as spam bot
                     isPossibleSpamBot = true;
                 }
-                else if (YafContext.Current.Get<BoardSettings>().BotHandlingOnRegister.Equals(2))
+                else if (BoardContext.Current.Get<BoardSettings>().BotHandlingOnRegister.Equals(2))
                 {
-                    message = YafContext.Current.Get<ILocalization>().GetText("BOT_MESSAGE");
+                    message = BoardContext.Current.Get<ILocalization>().GetText("BOT_MESSAGE");
 
-                    if (!YafContext.Current.Get<BoardSettings>().BanBotIpOnDetection)
+                    if (!BoardContext.Current.Get<BoardSettings>().BanBotIpOnDetection)
                     {
                         return false;
                     }
 
-                    YafContext.Current.GetRepository<BannedIP>()
+                    BoardContext.Current.GetRepository<BannedIP>()
                         .Save(
                             null,
                             userIpAddress,
                             $"A spam Bot who was trying to register was banned by IP {userIpAddress}",
-                            YafContext.Current.PageUserID);
+                            BoardContext.Current.PageUserID);
 
                     // Clear cache
-                    YafContext.Current.Get<IDataCache>().Remove(Constants.Cache.BannedIP);
+                    BoardContext.Current.Get<IDataCache>().Remove(Constants.Cache.BannedIP);
 
-                    if (YafContext.Current.Get<BoardSettings>().LogBannedIP)
+                    if (BoardContext.Current.Get<BoardSettings>().LogBannedIP)
                     {
-                        YafContext.Current.Get<ILogger>()
+                        BoardContext.Current.Get<ILogger>()
                             .Log(
                                 null,
                                 "IP BAN of Bot During Registration",
@@ -392,7 +392,7 @@ namespace YAF.Core.Services.Auth
                 }
             }
 
-            var memberShipProvider = YafContext.Current.Get<MembershipProvider>();
+            var memberShipProvider = BoardContext.Current.Get<MembershipProvider>();
 
             var pass = Membership.GeneratePassword(32, 16);
             var securityAnswer = Membership.GeneratePassword(64, 30);
@@ -408,10 +408,10 @@ namespace YAF.Core.Services.Auth
                 out var status);
 
             // setup initial roles (if any) for this user
-            RoleMembershipHelper.SetupUserRoles(YafContext.Current.PageBoardID, googleUser.UserName);
+            RoleMembershipHelper.SetupUserRoles(BoardContext.Current.PageBoardID, googleUser.UserName);
 
             // create the user in the YAF DB as well as sync roles...
-            var userID = RoleMembershipHelper.CreateForumUser(user, YafContext.Current.PageBoardID);
+            var userID = RoleMembershipHelper.CreateForumUser(user, BoardContext.Current.PageBoardID);
 
             // create empty profile just so they have one
             var userProfile = YafUserProfile.GetProfile(googleUser.UserName);
@@ -424,9 +424,9 @@ namespace YAF.Core.Services.Auth
 
             userProfile.Gender = userGender;
 
-            if (YafContext.Current.Get<BoardSettings>().EnableIPInfoService)
+            if (BoardContext.Current.Get<BoardSettings>().EnableIPInfoService)
             {
-                var userIpLocator = YafContext.Current.Get<IIpInfoService>().GetUserIpLocator();
+                var userIpLocator = BoardContext.Current.Get<IIpInfoService>().GetUserIpLocator();
 
                 if (userIpLocator != null)
                 {
@@ -455,34 +455,34 @@ namespace YAF.Core.Services.Auth
             if (userID == null)
             {
                 // something is seriously wrong here -- redirect to failure...
-                message = YafContext.Current.Get<ILocalization>().GetText("LOGIN", "SSO_FAILED");
+                message = BoardContext.Current.Get<ILocalization>().GetText("LOGIN", "SSO_FAILED");
                 return false;
             }
 
-            if (YafContext.Current.Get<BoardSettings>().NotificationOnUserRegisterEmailList.IsSet())
+            if (BoardContext.Current.Get<BoardSettings>().NotificationOnUserRegisterEmailList.IsSet())
             {
                 // send user register notification to the following admin users...
-                YafContext.Current.Get<ISendNotification>().SendRegistrationNotificationEmail(user, userID.Value);
+                BoardContext.Current.Get<ISendNotification>().SendRegistrationNotificationEmail(user, userID.Value);
             }
 
             if (isPossibleSpamBot)
             {
-                YafContext.Current.Get<ISendNotification>().SendSpamBotNotificationToAdmins(user, userID.Value);
+                BoardContext.Current.Get<ISendNotification>().SendSpamBotNotificationToAdmins(user, userID.Value);
             }
 
             // send user register notification to the user...
-            YafContext.Current.Get<ISendNotification>()
+            BoardContext.Current.Get<ISendNotification>()
                 .SendRegistrationNotificationToUser(user, pass, securityAnswer, "NOTIFICATION_ON_GOOGLE_REGISTER");
 
             // save the time zone...
             var userId = UserMembershipHelper.GetUserIDFromProviderUserKey(user.ProviderUserKey);
 
-            var autoWatchTopicsEnabled = YafContext.Current.Get<BoardSettings>().DefaultNotificationSetting
+            var autoWatchTopicsEnabled = BoardContext.Current.Get<BoardSettings>().DefaultNotificationSetting
                                          == UserNotificationSetting.TopicsIPostToOrSubscribeTo;
 
-            YafContext.Current.GetRepository<User>().Save(
+            BoardContext.Current.GetRepository<User>().Save(
                 userId,
-                YafContext.Current.PageBoardID,
+                BoardContext.Current.PageBoardID,
                 googleUser.UserName,
                 googleUser.UserName,
                 googleUser.Email,
@@ -492,24 +492,24 @@ namespace YAF.Core.Services.Auth
                 null,
                 null,
                 null,
-                YafContext.Current.Get<BoardSettings>().DefaultNotificationSetting,
+                BoardContext.Current.Get<BoardSettings>().DefaultNotificationSetting,
                 autoWatchTopicsEnabled,
                 TimeZoneInfo.Local.SupportsDaylightSavingTime,
                 null,
                 null);
 
             // save the settings...
-            YafContext.Current.GetRepository<User>().SaveNotification(
+            BoardContext.Current.GetRepository<User>().SaveNotification(
                 userId,
                 true,
                 autoWatchTopicsEnabled,
-                YafContext.Current.Get<BoardSettings>().DefaultNotificationSetting.ToInt(),
-                YafContext.Current.Get<BoardSettings>().DefaultSendDigestEmail);
+                BoardContext.Current.Get<BoardSettings>().DefaultNotificationSetting.ToInt(),
+                BoardContext.Current.Get<BoardSettings>().DefaultSendDigestEmail);
 
             // save avatar
-            YafContext.Current.GetRepository<User>().SaveAvatar(userId, googleUser.ProfileImage, null, null);
+            BoardContext.Current.GetRepository<User>().SaveAvatar(userId, googleUser.ProfileImage, null, null);
 
-            YafContext.Current.Get<IRaiseEvent>().Raise(new NewUserRegisteredEvent(user, userId));
+            BoardContext.Current.Get<IRaiseEvent>().Raise(new NewUserRegisteredEvent(user, userId));
 
             SingleSignOnUser.LoginSuccess(AuthService.google, user.UserName, userId, true);
 

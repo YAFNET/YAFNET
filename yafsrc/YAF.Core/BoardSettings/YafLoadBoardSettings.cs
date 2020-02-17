@@ -86,7 +86,7 @@ namespace YAF.Core
                     return this.currentBoard;
                 }
 
-                var board = YafContext.Current.GetRepository<Board>().GetById(this._boardID);
+                var board = BoardContext.Current.GetRepository<Board>().GetById(this._boardID);
 
                 this.currentBoard = board ?? throw new EmptyBoardSettingException($"No data for board ID: {this._boardID}");
 
@@ -134,10 +134,10 @@ namespace YAF.Core
         public void SaveRegistry()
         {
             // loop through all values and commit them to the DB
-            this._reg.Keys.ForEach(key => YafContext.Current.GetRepository<Registry>().Save(key, this._reg[key]));
+            this._reg.Keys.ForEach(key => BoardContext.Current.GetRepository<Registry>().Save(key, this._reg[key]));
 
             this._regBoard.Keys.ForEach(
-                key => YafContext.Current.GetRepository<Registry>().Save(key, this._regBoard[key], this._boardID));
+                key => BoardContext.Current.GetRepository<Registry>().Save(key, this._regBoard[key], this._boardID));
         }
 
         /// <summary>
@@ -149,7 +149,7 @@ namespace YAF.Core
 
             if (this._regBoard.ContainsKey(key))
             {
-                YafContext.Current.GetRepository<Registry>().Save(key, this._regBoard[key], this._boardID);
+                BoardContext.Current.GetRepository<Registry>().Save(key, this._regBoard[key], this._boardID);
             }
         }
 
@@ -164,7 +164,7 @@ namespace YAF.Core
         {
             DataTable dataTable;
 
-            var registryList = YafContext.Current.GetRepository<Registry>().List();
+            var registryList = BoardContext.Current.GetRepository<Registry>().List();
 
             // get all the registry settings into our hash table
             registryList.ForEach(
@@ -176,7 +176,7 @@ namespace YAF.Core
                         }
                     });
 
-            var registryBoardList = YafContext.Current.GetRepository<Registry>().List(this._boardID);
+            var registryBoardList = BoardContext.Current.GetRepository<Registry>().List(this._boardID);
 
             // get all the registry settings into our hash table
             registryBoardList.ForEach(
@@ -203,11 +203,11 @@ namespace YAF.Core
             CodeContracts.VerifyNotNull(board, "board");
 
             var membershipAppName = board.MembershipAppName.IsNotSet()
-                                        ? YafContext.Current.Get<MembershipProvider>().ApplicationName
+                                        ? BoardContext.Current.Get<MembershipProvider>().ApplicationName
                                         : board.MembershipAppName;
 
             var rolesAppName = board.RolesAppName.IsNotSet()
-                                   ? YafContext.Current.Get<RoleProvider>().ApplicationName
+                                   ? BoardContext.Current.Get<RoleProvider>().ApplicationName
                                    : board.RolesAppName;
 
             return new LegacyBoardSettings(

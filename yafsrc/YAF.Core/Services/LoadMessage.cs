@@ -66,7 +66,7 @@ namespace YAF.Core.Services
                 this.SessionLoadString.Clear();
             }
 
-            YafContext.Current.Unload += this.CurrentUnload;
+            BoardContext.Current.Unload += this.CurrentUnload;
         }
 
         #endregion
@@ -98,12 +98,12 @@ namespace YAF.Core.Services
         {
             get
             {
-                if (YafContext.Current.Get<HttpSessionStateBase>()["LoadStringList"] == null)
+                if (BoardContext.Current.Get<HttpSessionStateBase>()["LoadStringList"] == null)
                 {
-                    YafContext.Current.Get<HttpSessionStateBase>()["LoadStringList"] = new List<MessageNotification>();
+                    BoardContext.Current.Get<HttpSessionStateBase>()["LoadStringList"] = new List<MessageNotification>();
                 }
 
-                return YafContext.Current.Get<HttpSessionStateBase>()["LoadStringList"] as List<MessageNotification>;
+                return BoardContext.Current.Get<HttpSessionStateBase>()["LoadStringList"] as List<MessageNotification>;
             }
         }
 

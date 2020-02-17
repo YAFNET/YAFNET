@@ -58,7 +58,7 @@ namespace YAF.Core.Handlers
         /// <summary>
         /// Gets ServiceLocator.
         /// </summary>
-        public IServiceLocator ServiceLocator => YafContext.Current.ServiceLocator;
+        public IServiceLocator ServiceLocator => BoardContext.Current.ServiceLocator;
 
         #endregion
 
@@ -77,7 +77,7 @@ namespace YAF.Core.Handlers
             var siteMap = new SiteMap();
 
             var forumList = this.GetRepository<Forum>().ListAll(
-                YafContext.Current.BoardSettings.BoardID,
+                BoardContext.Current.BoardSettings.BoardID,
                 UserMembershipHelper.GuestUserId);
 
             forumList.ForEach(

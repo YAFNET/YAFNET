@@ -251,7 +251,7 @@ namespace YAF.Core.Services.Localization
         /// </summary>
         private void InitCulture()
         {
-            if (!YafContext.Current.Get<StartupInitializeDb>().Initialized)
+            if (!BoardContext.Current.Get<StartupInitializeDb>().Initialized)
             {
                 return;
             }
@@ -262,17 +262,17 @@ namespace YAF.Core.Services.Localization
             // First set it to board culture
             try
             {
-                if (langCode.Equals(YafContext.Current.BoardSettings.Culture.Substring(0, 2)))
+                if (langCode.Equals(BoardContext.Current.BoardSettings.Culture.Substring(0, 2)))
                 {
-                    this.CurrentCulture = new CultureInfo(YafContext.Current.BoardSettings.Culture);
+                    this.CurrentCulture = new CultureInfo(BoardContext.Current.BoardSettings.Culture);
                 }
             }
             catch (Exception)
             {
-                this.CurrentCulture = new CultureInfo(YafContext.Current.BoardSettings.Culture);
+                this.CurrentCulture = new CultureInfo(BoardContext.Current.BoardSettings.Culture);
             }
 
-            var cultureUser = YafContext.Current.CultureUser;
+            var cultureUser = BoardContext.Current.CultureUser;
 
             if (!cultureUser.IsSet())
             {
@@ -292,7 +292,7 @@ namespace YAF.Core.Services.Localization
             }
             catch (Exception)
             {
-                this.CurrentCulture = new CultureInfo(YafContext.Current.BoardSettings.Culture);
+                this.CurrentCulture = new CultureInfo(BoardContext.Current.BoardSettings.Culture);
             }
         }
 

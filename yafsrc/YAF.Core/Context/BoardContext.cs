@@ -50,7 +50,7 @@ namespace YAF.Core
     /// <summary>
     /// Context class that accessible with the same instance from all locations
     /// </summary>
-    public class YafContext : UserPageBase, IDisposable, IHaveServiceLocator
+    public class BoardContext : UserPageBase, IDisposable, IHaveServiceLocator
     {
         #region Constants and Fields
 
@@ -89,12 +89,12 @@ namespace YAF.Core
         #region Constructors and Destructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="YafContext"/> class. YafContext Constructor
+        /// Initializes a new instance of the <see cref="BoardContext"/> class. YafContext Constructor
         /// </summary>
         /// <param name="contextLifetimeContainer">
         /// The context Lifetime Container.
         /// </param>
-        internal YafContext(ILifetimeScope contextLifetimeContainer)
+        internal BoardContext(ILifetimeScope contextLifetimeContainer)
         {
             this.contextLifetimeContainer = contextLifetimeContainer;
 
@@ -136,7 +136,7 @@ namespace YAF.Core
         /// <summary>
         /// Gets the instance of the Forum Context
         /// </summary>
-        public static YafContext Current => GlobalContainer.Container.Resolve<YafContext>();
+        public static BoardContext Current => GlobalContainer.Container.Resolve<BoardContext>();
 
         /// <summary>
         /// Gets or sets the Current Board Settings
@@ -183,7 +183,7 @@ namespace YAF.Core
         }
 
         /// <summary>
-        /// Gets the Access to the Context Global Variable Repository Class which is a helper class that accesses YafContext.Vars with strongly typed properties for primary variables.
+        /// Gets the Access to the Context Global Variable Repository Class which is a helper class that accesses BoardContext.Vars with strongly typed properties for primary variables.
         /// </summary>
         public ContextVariableRepository Globals { get; }
 

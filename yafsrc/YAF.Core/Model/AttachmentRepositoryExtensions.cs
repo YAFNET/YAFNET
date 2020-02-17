@@ -101,7 +101,7 @@ namespace YAF.Core.Model
                 catch (Exception e)
                 {
                     // error deleting that file... 
-                    YafContext.Current.Get<ILogger>().Warn(e, "Error Deleting Attachment");
+                    BoardContext.Current.Get<ILogger>().Warn(e, "Error Deleting Attachment");
                 }
             }
 

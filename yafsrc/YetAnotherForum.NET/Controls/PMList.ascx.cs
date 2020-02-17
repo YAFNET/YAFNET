@@ -402,7 +402,7 @@ namespace YAF.Controls
                 percentage = decimal.Round(total.ToType<decimal>() / limit.ToType<decimal>() * 100, 2);
             }
 
-            if (!YafContext.Current.IsAdmin)
+            if (!BoardContext.Current.IsAdmin)
             {
                 return this.HtmlEncode(this.GetTextFormatted(text, total, inbox, outbox, archive, limit, percentage));
             }

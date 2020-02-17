@@ -73,9 +73,9 @@ namespace YAF.Core.Services
             return new ThankYouInfo
                        {
                            MessageID = messageId,
-                           ThanksInfo = YafContext.Current.Get<IThankYou>().ThanksInfo(username, messageId),
-                           Text = YafContext.Current.Get<ILocalization>().GetText("BUTTON", textTag),
-                           Title = YafContext.Current.Get<ILocalization>().GetText("BUTTON", titleTag)
+                           ThanksInfo = BoardContext.Current.Get<IThankYou>().ThanksInfo(username, messageId),
+                           Text = BoardContext.Current.Get<ILocalization>().GetText("BUTTON", textTag),
+                           Title = BoardContext.Current.Get<ILocalization>().GetText("BUTTON", titleTag)
                        };
         }
 
@@ -94,7 +94,7 @@ namespace YAF.Core.Services
         /// </returns>
         public string ThanksInfo([NotNull] string username, int messageId)
         {
-            var thanksNumber = YafContext.Current.GetRepository<Thanks>().Count(t => t.MessageID == messageId);
+            var thanksNumber = BoardContext.Current.GetRepository<Thanks>().Count(t => t.MessageID == messageId);
 
             if (thanksNumber == 0)
             {
@@ -102,20 +102,20 @@ namespace YAF.Core.Services
             }
 
             var displayName = username;
-            if (YafContext.Current.Get<BoardSettings>().EnableDisplayName)
+            if (BoardContext.Current.Get<BoardSettings>().EnableDisplayName)
             {
                 // get the user's display name.
                 var mu = UserMembershipHelper.GetMembershipUserByName(username);
                 if (mu != null)
                 {
-                    displayName = YafContext.Current.Get<IUserDisplayName>().GetName(
+                    displayName = BoardContext.Current.Get<IUserDisplayName>().GetName(
                         UserMembershipHelper.GetUserIDFromProviderUserKey(mu.ProviderUserKey));
                 }
             }
 
-            displayName = YafContext.Current.Get<HttpServerUtilityBase>().HtmlEncode(displayName);
+            displayName = BoardContext.Current.Get<HttpServerUtilityBase>().HtmlEncode(displayName);
 
-            var thanksText = YafContext.Current.Get<ILocalization>()
+            var thanksText = BoardContext.Current.Get<ILocalization>()
                 .GetTextFormatted("THANKSINFO", thanksNumber, displayName);
 
             var thanks = GetThanks(messageId);
@@ -145,17 +145,17 @@ namespace YAF.Core.Services
         {
             var filler = new StringBuilder();
 
-            var thanks = YafContext.Current.GetRepository<Thanks>().MessageGetThanksList(messageId);
+            var thanks = BoardContext.Current.GetRepository<Thanks>().MessageGetThanksList(messageId);
 
             filler.Append("<ol>");
 
             thanks.ForEach(
                 dr =>
                     {
-                        var name = YafContext.Current.Get<BoardSettings>().EnableDisplayName
-                                       ? YafContext.Current.Get<HttpServerUtilityBase>()
+                        var name = BoardContext.Current.Get<BoardSettings>().EnableDisplayName
+                                       ? BoardContext.Current.Get<HttpServerUtilityBase>()
                                            .HtmlEncode(dr.Item2.DisplayName)
-                                       : YafContext.Current.Get<HttpServerUtilityBase>().HtmlEncode(dr.Item2.Name);
+                                       : BoardContext.Current.Get<HttpServerUtilityBase>().HtmlEncode(dr.Item2.Name);
 
                         // vzrus: quick fix for the incorrect link. URL rewriting don't work :(
                         filler.AppendFormat(
@@ -164,13 +164,13 @@ namespace YAF.Core.Services
                             BuildLink.GetLink(ForumPages.Profile, "u={0}&name={1}", dr.Item2.ID, name),
                             name);
 
-                        if (YafContext.Current.Get<BoardSettings>().ShowThanksDate)
+                        if (BoardContext.Current.Get<BoardSettings>().ShowThanksDate)
                         {
                             filler.AppendFormat(
                                 " {0}",
-                                YafContext.Current.Get<ILocalization>().GetTextFormatted(
+                                BoardContext.Current.Get<ILocalization>().GetTextFormatted(
                                     "ONDATE",
-                                    YafContext.Current.Get<IDateTime>().FormatDateShort(dr.Item1.ThanksDate)));
+                                    BoardContext.Current.Get<IDateTime>().FormatDateShort(dr.Item1.ThanksDate)));
                         }
 
                         filler.Append("</li>");

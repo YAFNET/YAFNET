@@ -164,7 +164,7 @@ namespace YAF.Dialogs
             // clear button is not necessary now
             this.Clear.Visible = false;
 
-            YafContext.Current.PageElements.RegisterJsBlockStartup(
+            BoardContext.Current.PageElements.RegisterJsBlockStartup(
                 "openModalJs",
                 JavaScriptBlocks.OpenModalJs("UserEditDialog"));
         }
@@ -203,7 +203,7 @@ namespace YAF.Dialogs
             // we need clear button displayed now
             this.Clear.Visible = true;
 
-            YafContext.Current.PageElements.RegisterJsBlockStartup(
+            BoardContext.Current.PageElements.RegisterJsBlockStartup(
                 "openModalJs",
                 JavaScriptBlocks.OpenModalJs("UserEditDialog"));
         }

@@ -84,8 +84,8 @@ namespace YAF.Web.Controls
                 Constants.Cache.UsersOnlineStatus,
                 () => this.Get<YafDbBroker>().GetActiveList(
                     false,
-                    YafContext.Current.BoardSettings.ShowCrawlersInActiveList),
-                TimeSpan.FromMilliseconds(YafContext.Current.BoardSettings.OnlineStatusCacheTimeout));
+                    BoardContext.Current.BoardSettings.ShowCrawlersInActiveList),
+                TimeSpan.FromMilliseconds(BoardContext.Current.BoardSettings.OnlineStatusCacheTimeout));
 
             output.BeginRender();
             output.WriteBeginTag(HtmlTextWriterTag.Span.ToString());

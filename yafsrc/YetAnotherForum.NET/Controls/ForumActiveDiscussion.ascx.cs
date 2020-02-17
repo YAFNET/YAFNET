@@ -226,11 +226,11 @@ namespace YAF.Controls
             {
                 this.Get<ISession>().UnreadTopics = 0;
 
-                if (YafContext.Current.Settings.CategoryID > 0)
+                if (BoardContext.Current.Settings.CategoryID > 0)
                 {
                     activeTopics = this.GetRepository<Topic>().LatestInCategoryAsDataTable(
                         this.PageContext.PageBoardID,
-                        YafContext.Current.Settings.CategoryID,
+                        BoardContext.Current.Settings.CategoryID,
                         this.Get<BoardSettings>().ActiveDiscussionsCount,
                         this.PageContext.PageUserID,
                         this.Get<BoardSettings>().UseStyledNicks,

@@ -99,7 +99,7 @@ namespace YAF.Core.Services
         {
             if (albumId.HasValue)
             {
-                var albums = YafContext.Current.GetRepository<UserAlbumImage>().List(albumId.Value);
+                var albums = BoardContext.Current.GetRepository<UserAlbumImage>().List(albumId.Value);
 
                 albums.ForEach(
                     dr =>
@@ -120,18 +120,18 @@ namespace YAF.Core.Services
                         finally
                         {
                             var imageIdDelete = dr.ID;
-                            YafContext.Current.GetRepository<UserAlbumImage>().DeleteById(imageIdDelete);
-                            YafContext.Current.GetRepository<UserAlbum>().DeleteCover(imageIdDelete);
+                            BoardContext.Current.GetRepository<UserAlbumImage>().DeleteById(imageIdDelete);
+                            BoardContext.Current.GetRepository<UserAlbum>().DeleteCover(imageIdDelete);
                         }
                     });
                 
-                YafContext.Current.GetRepository<UserAlbumImage>().Delete(a => a.AlbumID == albumId.ToType<int>());
+                BoardContext.Current.GetRepository<UserAlbumImage>().Delete(a => a.AlbumID == albumId.ToType<int>());
 
-                YafContext.Current.GetRepository<UserAlbum>().Delete(a => a.ID == albumId.ToType<int>());
+                BoardContext.Current.GetRepository<UserAlbum>().Delete(a => a.ID == albumId.ToType<int>());
             }
             else
             {
-                var image = YafContext.Current.GetRepository<UserAlbumImage>().GetImage(imageId.Value);
+                var image = BoardContext.Current.GetRepository<UserAlbumImage>().GetImage(imageId.Value);
 
                 var fileName = image.Item1.FileName;
                 var imgAlbumId = image.Item1.AlbumID.ToString();
@@ -148,8 +148,8 @@ namespace YAF.Core.Services
                 }
                 finally
                 {
-                    YafContext.Current.GetRepository<UserAlbumImage>().DeleteById(imageId.Value);
-                    YafContext.Current.GetRepository<UserAlbum>().DeleteCover(imageId.Value);
+                    BoardContext.Current.GetRepository<UserAlbumImage>().DeleteById(imageId.Value);
+                    BoardContext.Current.GetRepository<UserAlbum>().DeleteCover(imageId.Value);
                 }
             }
         }
@@ -171,15 +171,15 @@ namespace YAF.Core.Services
             // load the DB so YafContext can work...
             CodeContracts.VerifyNotNull(newTitle, "newTitle");
 
-            YafContext.Current.Get<StartupInitializeDb>().Run();
+            BoardContext.Current.Get<StartupInitializeDb>().Run();
 
             // newTitle = System.Web.HttpUtility.HtmlEncode(newTitle);
-            YafContext.Current.GetRepository<UserAlbum>().UpdateTitle(albumId, newTitle);
+            BoardContext.Current.GetRepository<UserAlbum>().UpdateTitle(albumId, newTitle);
 
             var returnObject = new ReturnClass { NewTitle = newTitle };
 
             returnObject.NewTitle = newTitle == string.Empty
-                                        ? YafContext.Current.Get<ILocalization>().GetText("ALBUM", "ALBUM_CHANGE_TITLE")
+                                        ? BoardContext.Current.Get<ILocalization>().GetText("ALBUM", "ALBUM_CHANGE_TITLE")
                                         : newTitle;
             returnObject.Id = $"0{albumId.ToString()}";
             return returnObject;
@@ -202,14 +202,14 @@ namespace YAF.Core.Services
             // load the DB so YafContext can work...
             CodeContracts.VerifyNotNull(newCaption, "newCaption");
 
-            YafContext.Current.Get<StartupInitializeDb>().Run();
+            BoardContext.Current.Get<StartupInitializeDb>().Run();
 
             // newCaption = System.Web.HttpUtility.HtmlEncode(newCaption);
-            YafContext.Current.GetRepository<UserAlbumImage>().UpdateCaption(imageId, newCaption);
+            BoardContext.Current.GetRepository<UserAlbumImage>().UpdateCaption(imageId, newCaption);
             var returnObject = new ReturnClass { NewTitle = newCaption };
 
             returnObject.NewTitle = newCaption == string.Empty
-                                        ? YafContext.Current.Get<ILocalization>().GetText(
+                                        ? BoardContext.Current.Get<ILocalization>().GetText(
                                             "ALBUM",
                                             "ALBUM_IMAGE_CHANGE_CAPTION")
                                         : newCaption;
@@ -281,7 +281,7 @@ namespace YAF.Core.Services
             catch (Exception x)
             {
                 this.Get<ILogger>().Log(
-                    YafContext.Current.PageUserID,
+                    BoardContext.Current.PageUserID,
                     this,
                     $"URL: {context.Request.Url}<br />Referer URL: {(context.Request.UrlReferrer != null ? context.Request.UrlReferrer.AbsoluteUri : string.Empty)}<br />Exception: {x}",
                     EventLogTypes.Information);
@@ -380,7 +380,7 @@ namespace YAF.Core.Services
             }
             catch (Exception x)
             {
-                this.Get<ILogger>().Log(YafContext.Current.PageUserID, this, x, EventLogTypes.Information);
+                this.Get<ILogger>().Log(BoardContext.Current.PageUserID, this, x, EventLogTypes.Information);
                 context.Response.Write(
                     "Error: Resource has been moved or is unavailable. Please contact the forum admin.");
             }
@@ -438,7 +438,7 @@ namespace YAF.Core.Services
             catch (Exception x)
             {
                 this.Get<ILogger>().Log(
-                    YafContext.Current.PageUserID,
+                    BoardContext.Current.PageUserID,
                     this,
                     $"URL: {context.Request.Url}<br />Referer URL: {(context.Request.UrlReferrer != null ? context.Request.UrlReferrer.AbsoluteUri : string.Empty)}<br />Exception: {x}",
                     EventLogTypes.Information);
@@ -470,7 +470,7 @@ namespace YAF.Core.Services
 
                 var boardID = context.Request.QueryString.Exists("b")
                                   ? context.Request.QueryString.GetFirstOrDefaultAs<int>("b")
-                                  : YafContext.Current.BoardSettings.BoardID;
+                                  : BoardContext.Current.BoardSettings.BoardID;
 
                 if (!this.Get<IPermissions>().CheckAccessRights(boardID, attachment.MessageID))
                 {
@@ -558,7 +558,7 @@ namespace YAF.Core.Services
             catch (Exception x)
             {
                 this.Get<ILogger>().Log(
-                    YafContext.Current.PageUserID,
+                    BoardContext.Current.PageUserID,
                     this,
                     $"URL: {context.Request.Url}<br />Referer URL: {(context.Request.UrlReferrer != null ? context.Request.UrlReferrer.AbsoluteUri : string.Empty)}<br />Exception: {x}",
                     EventLogTypes.Information);

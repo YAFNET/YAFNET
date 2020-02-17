@@ -161,7 +161,7 @@ namespace YAF.Pages.Moderate
 
                     // go to history page
                     var ff = e.CommandArgument.ToString().Split(',');
-                    YafContext.Current.Get<HttpResponseBase>().Redirect(
+                    BoardContext.Current.Get<HttpResponseBase>().Redirect(
                       BuildLink.GetLinkNotEscaped(ForumPages.MessageHistory, "f={0}&m={1}", ff[0], ff[1]));
                     break;
                 case "resolved":

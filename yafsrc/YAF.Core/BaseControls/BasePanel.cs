@@ -35,7 +35,7 @@ namespace YAF.Core.BaseControls
   #endregion
 
   /// <summary>
-  /// Control derived from Panel that includes a reference to the <see cref="Core.YafContext"/>.
+  /// Control derived from Panel that includes a reference to the <see cref="Core.BoardContext"/>.
   /// </summary>
   public class BasePanel : Panel, IHaveServiceLocator, IHaveLocalization
   {
@@ -80,7 +80,7 @@ namespace YAF.Core.BaseControls
     /// <summary>
     ///   Gets PageContext.
     /// </summary>
-    public YafContext PageContext => YafContext.Current;
+    public BoardContext PageContext => BoardContext.Current;
 
     /// <summary>
     ///   Gets ServiceLocator.
