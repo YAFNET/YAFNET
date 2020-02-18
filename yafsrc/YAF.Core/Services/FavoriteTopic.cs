@@ -42,7 +42,7 @@ namespace YAF.Core.Services
     /// <summary>
     ///     Favorite Topic Service for the current user.
     /// </summary>
-    public class YafFavoriteTopic : IFavoriteTopic, IHaveServiceLocator
+    public class FavoriteTopic : IFavoriteTopic, IHaveServiceLocator
     {
         #region Fields
 
@@ -56,7 +56,7 @@ namespace YAF.Core.Services
         #region Constructors and Destructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="YafFavoriteTopic"/> class.
+        /// Initializes a new instance of the <see cref="FavoriteTopic"/> class.
         /// </summary>
         /// <param name="sessionState">
         /// The session state.
@@ -67,7 +67,7 @@ namespace YAF.Core.Services
         /// <param name="treatCacheKey">
         /// The treat cache key.
         /// </param>
-        public YafFavoriteTopic(HttpSessionStateBase sessionState, IServiceLocator serviceLocator, ITreatCacheKey treatCacheKey)
+        public FavoriteTopic(HttpSessionStateBase sessionState, IServiceLocator serviceLocator, ITreatCacheKey treatCacheKey)
         {
             this.SessionState = sessionState;
             this.ServiceLocator = serviceLocator;
@@ -108,7 +108,7 @@ namespace YAF.Core.Services
         /// </returns>
         public int AddFavoriteTopic(int topicId)
         {
-            this.GetRepository<FavoriteTopic>().Insert(new FavoriteTopic { UserID = BoardContext.Current.PageUserID, TopicID = topicId });
+            this.GetRepository<YAF.Types.Models.FavoriteTopic>().Insert(new YAF.Types.Models.FavoriteTopic { UserID = BoardContext.Current.PageUserID, TopicID = topicId });
             this.ClearFavoriteTopicCache();
 
             return topicId;
@@ -138,7 +138,7 @@ namespace YAF.Core.Services
             return
                 this.Get<IDataCache>().GetOrSet(
                     string.Format(Constants.Cache.FavoriteTopicCount, topicId),
-                    () => this.GetRepository<FavoriteTopic>().Count(topicId),
+                    () => this.GetRepository<YAF.Types.Models.FavoriteTopic>().Count(topicId),
                     TimeSpan.FromMilliseconds(90000)).ToType<int>();
         }
 
@@ -151,17 +151,17 @@ namespace YAF.Core.Services
         /// <returns>
         /// a Data table containing all the current user's favorite topics in details.
         /// </returns>
-        public DataTable FavoriteTopicDetails(DateTime sinceDate)
+        public DataTable FavoriteTopicDetails(System.DateTime sinceDate)
         {
-            return this.GetRepository<FavoriteTopic>().Details(
-                BoardContext.Current.Settings.CategoryID == 0 ? null : (int?)BoardContext.Current.Settings.CategoryID, 
+            return this.GetRepository<YAF.Types.Models.FavoriteTopic>().Details(
+                BoardContext.Current.Settings.CategoryID == 0 ? null : (int?)BoardContext.Current.Settings.CategoryID,
                 BoardContext.Current.PageUserID, 
-                sinceDate, 
-                DateTime.UtcNow, 
+                sinceDate,
+                System.DateTime.UtcNow, 
                 // page index in db is 1 based!
                 0, 
                 // set the page size here
-                1000, 
+                1000,
                 BoardContext.Current.BoardSettings.UseStyledNicks, 
                 false);
         }
@@ -193,7 +193,7 @@ namespace YAF.Core.Services
         /// </returns>
         public int RemoveFavoriteTopic(int topicId)
         {
-            this.GetRepository<FavoriteTopic>().DeleteByUserAndTopic(BoardContext.Current.PageUserID, topicId);
+            this.GetRepository<YAF.Types.Models.FavoriteTopic>().DeleteByUserAndTopic(BoardContext.Current.PageUserID, topicId);
             this.ClearFavoriteTopicCache();
 
             return topicId;
@@ -210,7 +210,7 @@ namespace YAF.Core.Services
         {
             if (this._favoriteTopicList == null)
             {
-                this._favoriteTopicList = BoardContext.Current.Get<YafDbBroker>().FavoriteTopicList(BoardContext.Current.PageUserID);
+                this._favoriteTopicList = BoardContext.Current.Get<DataBroker>().FavoriteTopicList(BoardContext.Current.PageUserID);
             }
         }
 

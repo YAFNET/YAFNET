@@ -179,7 +179,7 @@ namespace YAF.Controls
         /// </summary>
         private void BindData()
         {
-            var ds = this.Get<YafDbBroker>().BoardLayout(
+            var ds = this.Get<DataBroker>().BoardLayout(
                 this.PageContext.PageBoardID,
                 this.PageContext.PageUserID,
                 this.PageContext.PageCategoryID,

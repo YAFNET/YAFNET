@@ -44,7 +44,7 @@ namespace YAF.Core
         /// <summary>
         ///   The _db broker.
         /// </summary>
-        private readonly YafDbBroker _dbBroker;
+        private readonly DataBroker _dbBroker;
 
         #endregion
 
@@ -59,7 +59,7 @@ namespace YAF.Core
         /// <param name="dbBroker">
         /// The db broker.
         /// </param>
-        public LoadPageLazyUserData([NotNull] IServiceLocator serviceLocator, [NotNull] YafDbBroker dbBroker)
+        public LoadPageLazyUserData([NotNull] IServiceLocator serviceLocator, [NotNull] DataBroker dbBroker)
         {
             this._dbBroker = dbBroker;
             this.ServiceLocator = serviceLocator;

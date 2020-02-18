@@ -74,9 +74,9 @@ namespace YAF.Core.Services
                 return true;
             }
 
-            var reputationVoteDate = voteDateToCheck.ToType<DateTime>();
+            var reputationVoteDate = voteDateToCheck.ToType<System.DateTime>();
 
-            return reputationVoteDate < DateTime.UtcNow.AddHours(-24);
+            return reputationVoteDate < System.DateTime.UtcNow.AddHours(-24);
         }
 
         /// <summary>

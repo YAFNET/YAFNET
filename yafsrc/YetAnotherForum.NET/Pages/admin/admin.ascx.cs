@@ -154,7 +154,7 @@ namespace YAF.Pages.Admin
 
                     if (!Config.IsAnyPortal)
                     {
-                        UserMembershipHelper.DeleteAllUnapproved(DateTime.UtcNow.AddDays(-daysValueAll.ToType<int>()));
+                        UserMembershipHelper.DeleteAllUnapproved(System.DateTime.UtcNow.AddDays(-daysValueAll.ToType<int>()));
                     }
                     else
                     {
@@ -410,17 +410,17 @@ namespace YAF.Pages.Admin
             this.NumTopics.Text = $"{row["NumTopics"]:N0}";
             this.NumUsers.Text = $"{row["NumUsers"]:N0}";
 
-            var span = DateTime.UtcNow - (DateTime)row["BoardStart"];
+            var span = System.DateTime.UtcNow - (System.DateTime)row["BoardStart"];
             double days = span.Days;
 
             this.BoardStart.Text = this.Get<IDateTime>().FormatDateTimeTopic(
                 this.Get<BoardSettings>().UseFarsiCalender
-                    ? PersianDateConverter.ToPersianDate((DateTime)row["BoardStart"])
+                    ? PersianDateConverter.ToPersianDate((System.DateTime)row["BoardStart"])
                     : row["BoardStart"]);
 
             this.BoardStartAgo.Text = new DisplayDateTime
-                                          {
-                                              DateTime = (DateTime)row["BoardStart"], Format = DateTimeFormat.BothTopic
+            {
+                                              DateTime = (System.DateTime)row["BoardStart"], Format = DateTimeFormat.BothTopic
                                           }.RenderToString();
 
             if (days < 1)

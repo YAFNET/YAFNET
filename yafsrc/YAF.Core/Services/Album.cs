@@ -271,8 +271,8 @@ namespace YAF.Core.Services
                 // output stream...
                 context.Response.OutputStream.Write(ms.ToArray(), 0, ms.Length.ToType<int>());
                 context.Response.Cache.SetCacheability(HttpCacheability.Public);
-                context.Response.Cache.SetExpires(DateTime.UtcNow.AddHours(2));
-                context.Response.Cache.SetLastModified(DateTime.UtcNow);
+                context.Response.Cache.SetExpires(System.DateTime.UtcNow.AddHours(2));
+                context.Response.Cache.SetLastModified(System.DateTime.UtcNow);
                 context.Response.Cache.SetETag(etag);
 
                 data.Dispose();
@@ -371,8 +371,8 @@ namespace YAF.Core.Services
                 // output stream...
                 context.Response.OutputStream.Write(ms.ToArray(), 0, ms.Length.ToType<int>());
                 context.Response.Cache.SetCacheability(HttpCacheability.Public);
-                context.Response.Cache.SetExpires(DateTime.UtcNow.AddHours(2));
-                context.Response.Cache.SetLastModified(DateTime.UtcNow);
+                context.Response.Cache.SetExpires(System.DateTime.UtcNow.AddHours(2));
+                context.Response.Cache.SetLastModified(System.DateTime.UtcNow);
                 context.Response.Cache.SetETag(etag);
 
                 data.Dispose();
@@ -548,8 +548,8 @@ namespace YAF.Core.Services
                 // output stream...
                 context.Response.OutputStream.Write(ms.ToArray(), 0, ms.Length.ToType<int>());
                 context.Response.Cache.SetCacheability(HttpCacheability.Public);
-                context.Response.Cache.SetExpires(DateTime.UtcNow.AddHours(2));
-                context.Response.Cache.SetLastModified(DateTime.UtcNow);
+                context.Response.Cache.SetExpires(System.DateTime.UtcNow.AddHours(2));
+                context.Response.Cache.SetLastModified(System.DateTime.UtcNow);
                 context.Response.Cache.SetETag(etag);
 
                 data.Dispose();

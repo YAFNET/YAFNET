@@ -331,7 +331,7 @@ namespace YAF.Web.Editors
 
             RenderButton(writer, "setStyle('indent','')", this.GetText("COMMON", "INDENT"), "indent");
 
-            var customBbCode = this.Get<YafDbBroker>().GetCustomBBCode().ToList();
+            var customBbCode = this.Get<DataBroker>().GetCustomBBCode().ToList();
 
             var customBbCodesWithToolbar = customBbCode.Where(code => code.UseToolbar == true).ToList();
             var customBbCodesWithNoToolbar =

@@ -847,9 +847,9 @@ namespace YAF.Pages
                 this.Get<BoardSettings>().UseStyledNicks,
                 !this.PageContext.IsGuest && this.Get<BoardSettings>().DisplayPoints,
                 DateTimeHelper.SqlDbMinTime(),
-                DateTime.UtcNow,
+                System.DateTime.UtcNow,
                 DateTimeHelper.SqlDbMinTime(),
-                DateTime.UtcNow,
+                System.DateTime.UtcNow,
                 this.Pager.CurrentPageIndex,
                 this.Pager.PageSize,
                 1,
@@ -906,9 +906,9 @@ namespace YAF.Pages
                     this.Get<BoardSettings>().UseStyledNicks,
                     !this.PageContext.IsGuest && this.Get<BoardSettings>().DisplayPoints,
                     DateTimeHelper.SqlDbMinTime(),
-                    DateTime.UtcNow,
+                    System.DateTime.UtcNow,
                     DateTimeHelper.SqlDbMinTime(),
-                    DateTime.UtcNow,
+                    System.DateTime.UtcNow,
                     this.Pager.CurrentPageIndex,
                     this.Pager.PageSize,
                     1,
@@ -954,7 +954,7 @@ namespace YAF.Pages
             // Add thanks info and styled nicks if they are enabled
             if (this.Get<BoardSettings>().EnableThanksMod)
             {
-                this.Get<YafDbBroker>().AddThanksInfo(pagedData);
+                this.Get<DataBroker>().AddThanksInfo(pagedData);
             }
 
             // if current index is 0 we are on the first page and the metadata can be added.
@@ -1037,7 +1037,7 @@ namespace YAF.Pages
                                                    ? this.Get<IReadTrackCurrentUser>().GetForumTopicRead(
                                                        this.PageContext.PageForumID,
                                                        this.PageContext.PageTopicID)
-                                                   : DateTime.UtcNow;
+                                                   : System.DateTime.UtcNow;
 
                                 using (var unread = this.GetRepository<Message>().FindUnreadAsDataTable(
                                     this.PageContext.PageTopicID,
@@ -1072,7 +1072,7 @@ namespace YAF.Pages
                             using (var unread = this.GetRepository<Message>().FindUnreadAsDataTable(
                                 this.PageContext.PageTopicID,
                                 0,
-                                DateTime.UtcNow,
+                                System.DateTime.UtcNow,
                                 showDeleted,
                                 userId))
                             {

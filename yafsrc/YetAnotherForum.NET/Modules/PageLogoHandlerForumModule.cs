@@ -88,7 +88,7 @@ namespace YAF.Modules
             bannerLink.ToolTip = this.GetText("TOOLBAR", "FORUM_TITLE");
 
 
-            var logoUrl = $"{BoardInfo.ForumClientFileRoot}{BoardFolders.Current.Logos}/{YafContext.Current.BoardSettings.ForumLogo}";
+            var logoUrl = $"{BoardInfo.ForumClientFileRoot}{BoardFolders.Current.Logos}/{BoardContext.Current.BoardSettings.ForumLogo}";
 
             bannerLink.Attributes.Add("style", $"background: url('{logoUrl}') no-repeat");
             

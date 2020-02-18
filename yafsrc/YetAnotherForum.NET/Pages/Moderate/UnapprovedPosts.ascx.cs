@@ -107,7 +107,7 @@ namespace YAF.Pages.Moderate
             else
             {
                 // fully format message (YafBBCode)
-                msg = this.Get<IFormatMessage>().FormatMessage(
+                msg = this.Get<IFormatMessage>().Format(
                     row["Message"].ToString(),
                     messageFlags,
                     row["IsModeratorChanged"].ToType<bool>());

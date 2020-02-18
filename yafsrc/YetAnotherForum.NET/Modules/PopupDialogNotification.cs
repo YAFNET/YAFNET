@@ -94,7 +94,7 @@ namespace YAF.Modules
                                   element: 'body', position: null, placement: {{ from: 'top', align: 'center' }}, delay: {this.Get<BoardSettings>().MessageNotifcationDuration} * 1000
                         }});}} }}";
 
-            YafContext.Current.PageElements.RegisterJsBlock(
+            BoardContext.Current.PageElements.RegisterJsBlock(
                 this,
                 this.ShowModalFunction,
                 javaScriptFunction);

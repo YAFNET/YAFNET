@@ -68,7 +68,7 @@ namespace YAF.Modules
         /// </summary>
         private static void RegisterJQuery()
         {
-            if (YafContext.Current.PageElements.PageElementExists("jquery"))
+            if (BoardContext.Current.PageElements.PageElementExists("jquery"))
             {
                 return;
             }
@@ -122,10 +122,10 @@ namespace YAF.Modules
                             LoadSuccessExpression = "window.jQuery"*/
                     });
 
-                YafContext.Current.PageElements.AddScriptReference("jquery");
+                BoardContext.Current.PageElements.AddScriptReference("jquery");
             }
 
-            YafContext.Current.PageElements.AddPageElement("jquery");
+            BoardContext.Current.PageElements.AddPageElement("jquery");
         }
         
         /// <summary>
@@ -179,7 +179,7 @@ namespace YAF.Modules
                         DebugPath = BoardInfo.GetURLToScripts("jquery.fileupload.comb.js")
                     });
 
-            YafContext.Current.PageElements.AddScriptReference(
+            BoardContext.Current.PageElements.AddScriptReference(
                 this.PageContext.CurrentForumPage.IsAdminPage ? "yafForumAdminExtensions" : "yafForumExtensions");
 
             this.PageContext.Vars["yafForumExtensions"] = true;
@@ -193,7 +193,7 @@ namespace YAF.Modules
         /// </param>
         private void RegisterCssFiles(int version)
         {
-            var element = YafContext.Current.CurrentForumPage.TopPageControl;
+            var element = BoardContext.Current.CurrentForumPage.TopPageControl;
 
             element.Controls.Add(
                 ControlHelper.MakeCssIncludeControl(

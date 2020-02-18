@@ -97,7 +97,7 @@ namespace YAF.Web.Controls
             // don't allow any HTML on signatures
             var signatureFlags = new MessageFlags { IsHtml = false };
 
-            var signatureRendered = this.Get<IFormatMessage>().FormatMessage(this.Signature, signatureFlags);
+            var signatureRendered = this.Get<IFormatMessage>().Format(this.Signature, signatureFlags);
 
             this.RenderModulesInBBCode(writer, signatureRendered, signatureFlags, this.DisplayUserID, this.MessageID);
         }

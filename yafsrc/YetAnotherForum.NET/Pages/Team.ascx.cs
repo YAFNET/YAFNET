@@ -139,7 +139,7 @@ namespace YAF.Pages
         [NotNull]
         protected List<Moderator> GetModerators()
         {
-            var moderators = this.Get<YafDbBroker>().GetAllModerators();
+            var moderators = this.Get<DataBroker>().GetAllModerators();
 
             var modsSorted = new List<Moderator>();
 

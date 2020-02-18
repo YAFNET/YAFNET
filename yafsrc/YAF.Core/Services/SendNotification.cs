@@ -101,7 +101,7 @@ namespace YAF.Core.Services
         /// <param name="isSpamMessage">if set to <c>true</c> [is spam message].</param>
         public void ToModeratorsThatMessageNeedsApproval(int forumId, int newMessageId, bool isSpamMessage)
         {
-            var moderatorsFiltered = this.Get<YafDbBroker>().GetAllModerators().Where(f => f.ForumID.Equals(forumId));
+            var moderatorsFiltered = this.Get<DataBroker>().GetAllModerators().Where(f => f.ForumID.Equals(forumId));
             var moderatorUserNames = new List<string>();
 
             moderatorsFiltered.ForEach(
@@ -200,7 +200,7 @@ namespace YAF.Core.Services
             try
             {
                 var moderatorsFiltered =
-                    this.Get<YafDbBroker>().GetAllModerators().Where(f => f.ForumID.Equals(pageForumID));
+                    this.Get<DataBroker>().GetAllModerators().Where(f => f.ForumID.Equals(pageForumID));
                 var moderatorUserNames = new List<string>();
 
                 moderatorsFiltered.ForEach(
@@ -774,7 +774,7 @@ namespace YAF.Core.Services
             CodeContracts.VerifyNotNull(email, "email");
             CodeContracts.VerifyNotNull(user, "user");
 
-            var hashInput = $"{DateTime.UtcNow}{email}{Security.CreatePassword(20)}";
+            var hashInput = $"{System.DateTime.UtcNow}{email}{Security.CreatePassword(20)}";
             var hash = FormsAuthentication.HashPasswordForStoringInConfigFile(hashInput, "md5");
 
             // save verification record...
@@ -812,7 +812,7 @@ namespace YAF.Core.Services
         /// </param>
         public void SendEmailChangeVerification([NotNull] string newEmail, [NotNull] int userId, string userName)
         {
-            var hashInput = $"{DateTime.UtcNow}{newEmail}{Security.CreatePassword(20)}";
+            var hashInput = $"{System.DateTime.UtcNow}{newEmail}{Security.CreatePassword(20)}";
             var hash = FormsAuthentication.HashPasswordForStoringInConfigFile(hashInput, "md5");
 
             // Create Email
@@ -850,7 +850,7 @@ namespace YAF.Core.Services
         /// <param name="email">The email.</param>
         /// <param name="userName">Name of the user.</param>
         public void SendUserSuspensionNotification(
-            [NotNull] DateTime suspendedUntil,
+            [NotNull] System.DateTime suspendedUntil,
             [NotNull] string suspendReason,
             [NotNull] string email,
             [NotNull] string userName)

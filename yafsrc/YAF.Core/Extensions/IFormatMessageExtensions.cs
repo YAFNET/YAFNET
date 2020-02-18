@@ -55,9 +55,9 @@ namespace YAF.Core.Extensions
     /// <returns>
     /// The formatted message.
     /// </returns>
-    public static string FormatMessage([NotNull] this IFormatMessage formatMessage, [NotNull] string message, [NotNull] MessageFlags messageFlags)
+    public static string Format([NotNull] this IFormatMessage formatMessage, [NotNull] string message, [NotNull] MessageFlags messageFlags)
     {
-      return formatMessage.FormatMessage(message, messageFlags, false, DateTime.UtcNow);
+      return formatMessage.Format(message, messageFlags, false, DateTime.UtcNow);
     }
 
     /// <summary>
@@ -78,12 +78,12 @@ namespace YAF.Core.Extensions
     /// <returns>
     /// The formatted message.
     /// </returns>
-    public static string FormatMessage([NotNull] this IFormatMessage formatMessage, 
+    public static string Format([NotNull] this IFormatMessage formatMessage, 
       [NotNull] string message, 
       [NotNull] MessageFlags messageFlags, 
       bool targetBlankOverride)
     {
-      return formatMessage.FormatMessage(message, messageFlags, targetBlankOverride, DateTime.UtcNow);
+      return formatMessage.Format(message, messageFlags, targetBlankOverride, DateTime.UtcNow);
     }
 
     #endregion

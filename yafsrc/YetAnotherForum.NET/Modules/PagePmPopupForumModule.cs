@@ -116,7 +116,7 @@ namespace YAF.Modules
                                           Text = this.GetText("COMMON", "NO"),
                                           CssClass = "btn btn-danger btn-sm",
                                           ForumPageLink =
-                                              new ForumLink { ForumPage = YafContext.Current.ForumPageType }
+                                              new ForumLink { ForumPage = BoardContext.Current.ForumPageType }
                                       });
 
                 this.Get<ISession>().LastPm = this.PageContext.LastUnreadPm;
@@ -144,7 +144,7 @@ namespace YAF.Modules
                                       Text = this.GetText("COMMON", "NO"),
                                       CssClass = "btn btn-danger btn-sm",
                                       ForumPageLink =
-                                          new ForumLink { ForumPage = YafContext.Current.ForumPageType }
+                                          new ForumLink { ForumPage = BoardContext.Current.ForumPageType }
                                   });
 
             this.Get<ISession>().LastPendingBuddies = this.PageContext.LastPendingBuddies;

@@ -40,7 +40,7 @@ namespace YAF.Core.Services
     /// <summary>
     /// The YAF DateTime.
     /// </summary>
-    public class YafDateTime : IDateTime
+    public class DateTime : IDateTime
     {
         #region Constants and Fields
 
@@ -89,7 +89,7 @@ namespace YAF.Core.Services
         /// <returns>
         /// The format date long.
         /// </returns>
-        public string FormatDateLong(DateTime dateTime)
+        public string FormatDateLong(System.DateTime dateTime)
         {
             string dateFormat;
             dateTime = TimeZoneInfo.ConvertTimeFromUtc(dateTime, BoardContext.Current.TimeZoneInfoUser);
@@ -121,7 +121,7 @@ namespace YAF.Core.Services
         /// <returns>
         /// Short formatted date.
         /// </returns>
-        public string FormatDateShort([NotNull] DateTime dateTime)
+        public string FormatDateShort([NotNull] System.DateTime dateTime)
         {
             string dateFormat;
             dateTime = TimeZoneInfo.ConvertTimeFromUtc(dateTime, BoardContext.Current.TimeZoneInfoUser);
@@ -151,9 +151,9 @@ namespace YAF.Core.Services
         /// The date Time.
         /// </param>
         /// <returns>
-        /// Formatted  <see cref="string"/> of the formatted <see cref="DateTime"/> Object.
+        /// Formatted  <see cref="string"/> of the formatted <see cref="System.DateTime"/> Object.
         /// </returns>
-        public string FormatDateTime([NotNull] DateTime dateTime)
+        public string FormatDateTime([NotNull] System.DateTime dateTime)
         {
             dateTime = TimeZoneInfo.ConvertTimeFromUtc(dateTime, BoardContext.Current.TimeZoneInfoUser);
 
@@ -188,7 +188,7 @@ namespace YAF.Core.Services
         /// <returns>
         /// The formatted string created from the DateTime object.
         /// </returns>
-        public string FormatDateTimeShort([NotNull] DateTime dateTime)
+        public string FormatDateTimeShort([NotNull] System.DateTime dateTime)
         {
             string dateFormat;
 
@@ -224,12 +224,12 @@ namespace YAF.Core.Services
         /// <returns>
         /// Formatted string of DateTime object
         /// </returns>
-        public string FormatDateTimeTopic([NotNull] DateTime dateTime)
+        public string FormatDateTimeTopic([NotNull] System.DateTime dateTime)
         {
             if (dateTime.Kind == DateTimeKind.Local)
-                dateTime = DateTime.SpecifyKind(dateTime, DateTimeKind.Unspecified);
+                dateTime = System.DateTime.SpecifyKind(dateTime, DateTimeKind.Unspecified);
             dateTime = TimeZoneInfo.ConvertTimeFromUtc(dateTime, BoardContext.Current.TimeZoneInfoUser);
-            var nowDateTime = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, BoardContext.Current.TimeZoneInfoUser);
+            var nowDateTime = TimeZoneInfo.ConvertTimeFromUtc(System.DateTime.UtcNow, BoardContext.Current.TimeZoneInfoUser);
 
             string dateFormat;
             try
@@ -278,7 +278,7 @@ namespace YAF.Core.Services
         /// <returns>
         /// The format time.
         /// </returns>
-        public string FormatTime(DateTime dateTime)
+        public string FormatTime(System.DateTime dateTime)
         {
             string dateFormat;
 
@@ -307,7 +307,7 @@ namespace YAF.Core.Services
         /// </summary>
         /// <param name="dateTime">The Date Time.</param>
         /// <returns>Returns the user Date Time</returns>
-        public DateTime GetUserDateTime(DateTime dateTime)
+        public System.DateTime GetUserDateTime(System.DateTime dateTime)
         {
             return TimeZoneInfo.ConvertTimeFromUtc(dateTime, BoardContext.Current.TimeZoneInfoUser);
         }
@@ -320,7 +320,7 @@ namespace YAF.Core.Services
         /// <returns>
         /// Returns the user Date Time
         /// </returns>
-        public DateTime GetUserDateTime(DateTime dateTime, TimeZoneInfo timeZone)
+        public System.DateTime GetUserDateTime(System.DateTime dateTime, TimeZoneInfo timeZone)
         {
             return TimeZoneInfo.ConvertTimeFromUtc(dateTime, timeZone);
         }

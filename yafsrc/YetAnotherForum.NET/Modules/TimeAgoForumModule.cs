@@ -68,7 +68,7 @@ namespace YAF.Modules
                 return;
             }
 
-            YafContext.Current.PageElements.RegisterJsBlockStartup("timeagoloadjs", JavaScriptBlocks.MomentLoadJs);
+            BoardContext.Current.PageElements.RegisterJsBlockStartup("timeagoloadjs", JavaScriptBlocks.MomentLoadJs);
             this.PageContext.Vars["RegisteredTimeago"] = true;
         }
 

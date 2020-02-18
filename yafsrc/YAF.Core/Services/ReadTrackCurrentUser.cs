@@ -73,11 +73,11 @@ namespace YAF.Core.Services
         /// <summary>
         ///     Gets the last visit.
         /// </summary>
-        public DateTime LastRead
+        public System.DateTime LastRead
         {
             get
             {
-                var lastRead = this.sessionState["LastRead"]?.ToType<DateTime?>();
+                var lastRead = this.sessionState["LastRead"]?.ToType<System.DateTime?>();
 
                 if (!lastRead.HasValue && this.UseDatabaseReadTracking)
                 {
@@ -134,9 +134,9 @@ namespace YAF.Core.Services
         /// <returns>
         ///     Returns the DateTime object from the Forum ID.
         /// </returns>
-        public DateTime GetForumRead(int forumId, DateTime? readTimeOverride = null)
+        public System.DateTime GetForumRead(int forumId, System.DateTime? readTimeOverride = null)
         {
-            DateTime? readTime;
+            System.DateTime? readTime;
 
             if (this.UseDatabaseReadTracking)
             {
@@ -168,9 +168,9 @@ namespace YAF.Core.Services
         /// <returns>
         ///     Returns the DateTime object from the topicID.
         /// </returns>
-        public DateTime GetTopicRead(int topicId, DateTime? readTimeOverride = null)
+        public System.DateTime GetTopicRead(int topicId, System.DateTime? readTimeOverride = null)
         {
-            DateTime? readTime;
+            System.DateTime? readTime;
 
             if (this.UseDatabaseReadTracking)
             {
@@ -207,7 +207,7 @@ namespace YAF.Core.Services
             }
             else
             {
-                this.Get<ISession>().SetForumRead(forumId, DateTime.UtcNow);
+                this.Get<ISession>().SetForumRead(forumId, System.DateTime.UtcNow);
             }
         }
 
@@ -223,7 +223,7 @@ namespace YAF.Core.Services
             }
             else
             {
-                this.Get<ISession>().SetTopicRead(topicId, DateTime.UtcNow);
+                this.Get<ISession>().SetTopicRead(topicId, System.DateTime.UtcNow);
             }
         }
 
@@ -238,13 +238,13 @@ namespace YAF.Core.Services
         /// <returns>
         ///     The get session forum read.
         /// </returns>
-        private DateTime? GetSessionForumRead(int forumId)
+        private System.DateTime? GetSessionForumRead(int forumId)
         {
             var forumReadHashtable = this.Get<ISession>().ForumRead;
 
             if (forumReadHashtable != null && forumReadHashtable.ContainsKey(forumId))
             {
-                return forumReadHashtable[forumId].ToType<DateTime>();
+                return forumReadHashtable[forumId].ToType<System.DateTime>();
             }
 
             return null;
@@ -257,13 +257,13 @@ namespace YAF.Core.Services
         /// <returns>
         ///     The get session topic read.
         /// </returns>
-        private DateTime? GetSessionTopicRead(int topicId)
+        private System.DateTime? GetSessionTopicRead(int topicId)
         {
             var topicReadHashtable = this.Get<ISession>().TopicRead;
 
             if (topicReadHashtable != null && topicReadHashtable.ContainsKey(topicId))
             {
-                return topicReadHashtable[topicId].ToType<DateTime>();
+                return topicReadHashtable[topicId].ToType<System.DateTime>();
             }
 
             return null;

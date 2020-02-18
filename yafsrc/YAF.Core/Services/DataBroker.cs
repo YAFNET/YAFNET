@@ -51,19 +51,19 @@ namespace YAF.Core.Services
     /// <summary>
     ///     Class used for multi-step DB operations so they can be cached, etc.
     /// </summary>
-    public class YafDbBroker : IHaveServiceLocator
+    public class DataBroker : IHaveServiceLocator
     {
         #region Constructors and Destructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="YafDbBroker" /> class.
+        /// Initializes a new instance of the <see cref="DataBroker" /> class.
         /// </summary>
         /// <param name="serviceLocator">The service locator.</param>
         /// <param name="boardSettings">The board settings.</param>
         /// <param name="httpSessionState">The http session state.</param>
         /// <param name="dataCache">The data cache.</param>
         /// <param name="dbFunction">The database function.</param>
-        public YafDbBroker(
+        public DataBroker(
             IServiceLocator serviceLocator,
             BoardSettings boardSettings,
             HttpSessionStateBase httpSessionState,
@@ -335,7 +335,7 @@ namespace YAF.Core.Services
             }
 
             // get fresh values
-            var favoriteTopics = this.GetRepository<FavoriteTopic>().Get(f => f.UserID == userID).Select(f => f.TopicID);
+            var favoriteTopics = this.GetRepository<YAF.Types.Models.FavoriteTopic>().Get(f => f.UserID == userID).Select(f => f.TopicID);
 
             // convert to list...
             favoriteTopicList = favoriteTopics.ToList();
@@ -469,7 +469,7 @@ namespace YAF.Core.Services
         /// <param name="timeFrame"> The time Frame. </param>
         /// <param name="maxCount"> The max Count. </param>
         /// <returns> The get simple forum topic. </returns>
-        public List<SimpleForum> GetSimpleForumTopic(int boardId, int userId, DateTime timeFrame, int maxCount)
+        public List<SimpleForum> GetSimpleForumTopic(int boardId, int userId, System.DateTime timeFrame, int maxCount)
         {
             var forumData = this.GetRepository<Forum>().ListAll(boardId, userId).AsEnumerable()
                 .Select(x => new SimpleForum { ForumID = x.Item1.ID, Name = x.Item1.Name }).ToList();
@@ -494,7 +494,7 @@ namespace YAF.Core.Services
                         forum1.ForumID,
                         userId,
                         timeFrame,
-                        DateTime.UtcNow,
+                        System.DateTime.UtcNow,
                         0,
                         maxCount,
                         false,
@@ -503,7 +503,7 @@ namespace YAF.Core.Services
 
                 // filter first...
                 forum.Topics =
-                    topics.Where(x => x.Field<DateTime>("LastPosted") >= timeFrame)
+                    topics.Where(x => x.Field<System.DateTime>("LastPosted") >= timeFrame)
                         .Select(x => this.LoadSimpleTopic(x, forum1))
                         .ToList();
             });
@@ -664,15 +664,15 @@ namespace YAF.Core.Services
             CodeContracts.VerifyNotNull(forum, "forum");
 
             return new SimpleTopic
-                       {
+            {
                            TopicID = row.Field<int>("TopicID"),
-                           CreatedDate = row.Field<DateTime>("Posted"),
+                           CreatedDate = row.Field<System.DateTime>("Posted"),
                            Subject = row.Field<string>("Subject"),
                            StartedUserID = row.Field<int>("UserID"),
                            StartedUserName =
                                UserMembershipHelper.GetDisplayNameFromID(row.Field<int>("UserID")),
                            Replies = row.Field<int>("Replies"),
-                           LastPostDate = row.Field<DateTime>("LastPosted"),
+                           LastPostDate = row.Field<System.DateTime>("LastPosted"),
                            LastUserID = row.Field<int>("LastUserID"),
                            LastUserName =
                                UserMembershipHelper.GetDisplayNameFromID(row.Field<int>("LastUserID")),

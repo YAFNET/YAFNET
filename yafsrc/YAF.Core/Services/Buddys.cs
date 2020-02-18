@@ -49,7 +49,7 @@ namespace YAF.Core.Services
         /// <summary>
         /// The DB broker.
         /// </summary>
-        private readonly YafDbBroker dbBroker;
+        private readonly DataBroker dbBroker;
 
         #endregion
 
@@ -64,7 +64,7 @@ namespace YAF.Core.Services
         /// <param name="dbBroker">
         /// The DB broker.
         /// </param>
-        public Buddys([NotNull] IServiceLocator serviceLocator, [NotNull] YafDbBroker dbBroker)
+        public Buddys([NotNull] IServiceLocator serviceLocator, [NotNull] DataBroker dbBroker)
         {
             this.ServiceLocator = serviceLocator;
             this.dbBroker = dbBroker;
@@ -173,7 +173,7 @@ namespace YAF.Core.Services
             var dv = dt.DefaultView;
             dv.RowFilter = $"Approved = 0 AND UserID = {BoardContext.Current.PageUserID}";
 
-            dv.Cast<DataRowView>().Where(drv => Convert.ToDateTime(drv["Requested"]).AddDays(14) < DateTime.UtcNow)
+            dv.Cast<DataRowView>().Where(drv => Convert.ToDateTime(drv["Requested"]).AddDays(14) < System.DateTime.UtcNow)
                 .ForEach(drv => this.DenyRequest((int)drv["FromUserID"]));
         }
 

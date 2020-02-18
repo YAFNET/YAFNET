@@ -92,7 +92,7 @@ namespace YAF.Types.Interfaces
         /// <returns>
         /// Returns the search results
         /// </returns>
-        List<SearchMessage> Search(int forumId, int userId, string input, string fieldName = "");
+        List<SearchMessage> DoSearch(int forumId, int userId, string input, string fieldName = "");
 
         /// <summary>
         /// Searches for similar words

@@ -586,7 +586,7 @@ namespace YAF.Pages
         /// </summary>
         private void ShowUserMedals()
         {
-            var userMedalsTable = this.Get<YafDbBroker>().UserMedals(this.UserId);
+            var userMedalsTable = this.Get<DataBroker>().UserMedals(this.UserId);
 
             if (!userMedalsTable.HasRows())
             {

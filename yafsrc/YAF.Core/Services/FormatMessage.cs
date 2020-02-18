@@ -49,7 +49,7 @@ namespace YAF.Core.Services
     /// <summary>
     /// YAF FormatMessage provides functions related to formatting the post messages.
     /// </summary>
-    public class YafFormatMessage : IFormatMessage, IHaveServiceLocator
+    public class FormatMessage : IFormatMessage, IHaveServiceLocator
     {
         #region Constants and Fields
 
@@ -89,7 +89,7 @@ namespace YAF.Core.Services
         #endregion
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Services.YafFormatMessage"/> class.
+        /// Initializes a new instance of the <see cref="Services.FormatMessage"/> class.
         /// </summary>
         /// <param name="serviceLocator">
         /// The service locator.
@@ -100,7 +100,7 @@ namespace YAF.Core.Services
         /// <param name="processReplaceRuleFactory">
         /// The process replace rule factory.
         /// </param>
-        public YafFormatMessage(
+        public FormatMessage(
             IServiceLocator serviceLocator,
             HttpServerUtilityBase httpServer,
             Func<IEnumerable<bool>, IProcessReplaceRules> processReplaceRuleFactory)
@@ -229,11 +229,11 @@ namespace YAF.Core.Services
         /// <returns>
         /// The formatted message.
         /// </returns>
-        public string FormatMessage(
+        public string Format(
             [NotNull] string message,
             [NotNull] MessageFlags messageFlags,
             bool targetBlankOverride,
-            DateTime messageLastEdited)
+            System.DateTime messageLastEdited)
         {
             var boardSettings = this.Get<BoardSettings>();
 
@@ -242,7 +242,7 @@ namespace YAF.Core.Services
             // check to see if no follow should be disabled since the message is properly aged
             if (useNoFollow && boardSettings.DisableNoFollowLinksAfterDay > 0)
             {
-                var messageAge = messageLastEdited - DateTime.UtcNow;
+                var messageAge = messageLastEdited - System.DateTime.UtcNow;
                 if (messageAge.Days > boardSettings.DisableNoFollowLinksAfterDay)
                 {
                     // disable no follow
@@ -365,7 +365,7 @@ namespace YAF.Core.Services
             int charsToFetch)
         {
             message =
-                $@"<table class=""{(altItem ? "content postContainer" : "content postContainer_Alt")}"" width=""100%""><tr><td>{this.FormatMessage(message, messageFlags, false)}</td></tr></table>";
+                $@"<table class=""{(altItem ? "content postContainer" : "content postContainer_Alt")}"" width=""100%""><tr><td>{this.Format(message, messageFlags, false)}</td></tr></table>";
 
             message = message.Replace("<div class=\"innerquote\">", "<blockquote>").Replace("[quote]", "</blockquote>");
 

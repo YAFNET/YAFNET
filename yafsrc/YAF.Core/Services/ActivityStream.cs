@@ -68,13 +68,13 @@ namespace YAF.Core.Services
             var flags = new ActivityFlags { CreatedTopic = true };
 
             var activity = new Activity
-                               {
+            {
                                    Flags = flags.BitValue,
                                    TopicID = topicID.ToType<int>(),
                                    MessageID = messageID,
                                    UserID = forumID,
                                    Notification = false,
-                                   Created = DateTime.UtcNow
+                                   Created = System.DateTime.UtcNow
                                };
 
             this.GetRepository<Activity>().Insert(activity);
@@ -93,13 +93,13 @@ namespace YAF.Core.Services
             var flags = new ActivityFlags { CreatedReply = true };
 
             var activity = new Activity
-                               {
+            {
                                    Flags = flags.BitValue,
                                    TopicID = topicID.ToType<int>(),
                                    MessageID = messageID,
                                    UserID = forumID,
                                    Notification = false,
-                                   Created = DateTime.UtcNow
+                                   Created = System.DateTime.UtcNow
             };
 
             this.GetRepository<Activity>().Insert(activity);
@@ -125,14 +125,14 @@ namespace YAF.Core.Services
             var flags = new ActivityFlags { WasMentioned = true };
 
             var activity = new Activity
-                               {
+            {
                                    Flags = flags.BitValue,
                                    FromUserID = fromUserId,
                                    TopicID = topicId,
                                    MessageID = messageId,
                                    UserID = userId,
                                    Notification = true,
-                                   Created = DateTime.UtcNow
+                                   Created = System.DateTime.UtcNow
             };
 
             this.GetRepository<Activity>().Insert(activity);
@@ -161,14 +161,14 @@ namespace YAF.Core.Services
             var flags = new ActivityFlags { WasQuoted = true };
 
             var activity = new Activity
-                               {
+            {
                                    Flags = flags.BitValue,
                                    FromUserID = fromUserId,
                                    TopicID = topicId,
                                    MessageID = messageId,
                                    UserID = userId,
                                    Notification = true,
-                                   Created = DateTime.UtcNow
+                                   Created = System.DateTime.UtcNow
                                };
 
             this.GetRepository<Activity>().Insert(activity);
@@ -197,14 +197,14 @@ namespace YAF.Core.Services
             var flags = new ActivityFlags { ReceivedThanks = true };
 
             var activity = new Activity
-                               {
+            {
                                    Flags = flags.BitValue,
                                    FromUserID = fromUserId,
                                    TopicID = topicId,
                                    MessageID = messageId,
                                    UserID = userId,
                                    Notification = true,
-                                   Created = DateTime.UtcNow
+                                   Created = System.DateTime.UtcNow
             };
 
             this.GetRepository<Activity>().Insert(activity);
@@ -233,14 +233,14 @@ namespace YAF.Core.Services
             var flags = new ActivityFlags { GivenThanks = true };
 
             var activity = new Activity
-                               {
+            {
                                    Flags = flags.BitValue,
                                    FromUserID = fromUserId,
                                    TopicID = topicId,
                                    MessageID = messageId,
                                    UserID = userId,
                                    Notification = false,
-                                   Created = DateTime.UtcNow
+                                   Created = System.DateTime.UtcNow
             };
 
             this.GetRepository<Activity>().Insert(activity);

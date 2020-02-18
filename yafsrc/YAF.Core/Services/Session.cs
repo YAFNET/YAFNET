@@ -168,13 +168,13 @@ namespace YAF.Core.Services
         /// <summary>
         ///   Gets or sets LastPm.
         /// </summary>
-        public DateTime LastPendingBuddies
+        public System.DateTime LastPendingBuddies
         {
             get
             {
                 if (this.SessionState["lastpendingbuddies"] != null)
                 {
-                    return (DateTime)this.SessionState["lastpendingbuddies"];
+                    return (System.DateTime)this.SessionState["lastpendingbuddies"];
                 }
 
                 return DateTimeHelper.SqlDbMinTime();
@@ -186,13 +186,13 @@ namespace YAF.Core.Services
         /// <summary>
         ///   Gets or sets LastPm.
         /// </summary>
-        public DateTime LastPm
+        public System.DateTime LastPm
         {
             get
             {
                 if (this.SessionState["lastpm"] != null)
                 {
-                    return (DateTime)this.SessionState["lastpm"];
+                    return (System.DateTime)this.SessionState["lastpm"];
                 }
 
                 return DateTimeHelper.SqlDbMinTime();
@@ -204,13 +204,13 @@ namespace YAF.Core.Services
         /// <summary>
         ///   Gets or sets LastPost.
         /// </summary>
-        public DateTime LastPost
+        public System.DateTime LastPost
         {
             get
             {
                 if (this.SessionState["lastpost"] != null)
                 {
-                    return (DateTime)this.SessionState["lastpost"];
+                    return (System.DateTime)this.SessionState["lastpost"];
                 }
 
                 return DateTimeHelper.SqlDbMinTime();
@@ -222,9 +222,9 @@ namespace YAF.Core.Services
         /// <summary>
         ///   Gets or sets LastVisit.
         /// </summary>
-        public DateTime? LastVisit
+        public System.DateTime? LastVisit
         {
-            get => (DateTime?)this.SessionState["lastvisit"];
+            get => (System.DateTime?)this.SessionState["lastvisit"];
 
             set
             {
@@ -312,7 +312,7 @@ namespace YAF.Core.Services
         /// <returns>
         /// A DateTime object of when the forum was last read.
         /// </returns>
-        public DateTime GetForumRead(int forumId)
+        public System.DateTime GetForumRead(int forumId)
         {
             var t = this.ForumRead;
             if (t == null || !t.ContainsKey(forumId))
@@ -320,7 +320,7 @@ namespace YAF.Core.Services
                 return this.LastVisit ?? DateTimeHelper.SqlDbMinTime();
             }
 
-            return (DateTime)t[forumId];
+            return (System.DateTime)t[forumId];
         }
 
         /// <summary>
@@ -332,7 +332,7 @@ namespace YAF.Core.Services
         /// <returns>
         /// The DateTime object from the topicID.
         /// </returns>
-        public DateTime GetTopicRead(int topicId)
+        public System.DateTime GetTopicRead(int topicId)
         {
             var t = this.TopicRead;
 
@@ -341,7 +341,7 @@ namespace YAF.Core.Services
                 return this.LastVisit ?? DateTimeHelper.SqlDbMinTime();
             }
 
-            return (DateTime)t[topicId];
+            return (System.DateTime)t[topicId];
         }
 
         /// <summary>
@@ -353,7 +353,7 @@ namespace YAF.Core.Services
         /// <param name="date">
         /// The DateTime you wish to set the read to.
         /// </param>
-        public void SetForumRead(int forumId, DateTime date)
+        public void SetForumRead(int forumId, System.DateTime date)
         {
             var t = this.ForumRead ?? new Hashtable();
 
@@ -370,7 +370,7 @@ namespace YAF.Core.Services
         /// <param name="date">
         /// The DateTime you wish to set the read to.
         /// </param>
-        public void SetTopicRead(int topicId, DateTime date)
+        public void SetTopicRead(int topicId, System.DateTime date)
         {
             var t = this.TopicRead ?? new Hashtable();
 

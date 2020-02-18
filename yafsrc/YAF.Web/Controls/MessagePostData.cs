@@ -238,7 +238,7 @@ namespace YAF.Web.Controls
                     editedMessageDateTime = this.Edited;
                 }
 
-                var formattedMessage = this.Get<IFormatMessage>().FormatMessage(
+                var formattedMessage = this.Get<IFormatMessage>().Format(
                     this.HighlightMessage(this.Message, true),
                     this.MessageFlags,
                     false,
@@ -266,7 +266,7 @@ namespace YAF.Web.Controls
             }
             else
             {
-                var formattedMessage = this.Get<IFormatMessage>().FormatMessage(
+                var formattedMessage = this.Get<IFormatMessage>().Format(
                     this.HighlightMessage(this.Message, true),
                     this.MessageFlags);
 

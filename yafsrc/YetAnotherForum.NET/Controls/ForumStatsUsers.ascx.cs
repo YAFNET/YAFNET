@@ -177,7 +177,7 @@ namespace YAF.Controls
             // Active users : Call this before forum_stats to clean up active users
             var activeUsers = this.Get<IDataCache>().GetOrSet(
                 Constants.Cache.UsersOnlineStatus,
-                () => this.Get<YafDbBroker>().GetActiveList(
+                () => this.Get<DataBroker>().GetActiveList(
                     false,
                     this.Get<BoardSettings>().ShowCrawlersInActiveList),
                 TimeSpan.FromMilliseconds(this.Get<BoardSettings>().OnlineStatusCacheTimeout));
@@ -194,7 +194,7 @@ namespace YAF.Controls
             {
                 var activeUsers30Day = this.Get<IDataCache>().GetOrSet(
                     Constants.Cache.VisitorsInTheLast30Days,
-                    () => this.Get<YafDbBroker>().GetRecentUsers(60 * 24 * 30),
+                    () => this.Get<DataBroker>().GetRecentUsers(60 * 24 * 30),
                     TimeSpan.FromMinutes(this.Get<BoardSettings>().ForumStatisticsCacheTimeout));
 
                 if (activeUsers30Day != null && activeUsers30Day.HasRows())
@@ -202,7 +202,7 @@ namespace YAF.Controls
                     activeUsers30Day.Locale = Thread.CurrentThread.CurrentCulture;
 
                     var activeUsers1Day1 = activeUsers30Day.Select(
-                        $"LastVisit >= '{DateTime.UtcNow.AddDays(-1).ToString(Thread.CurrentThread.CurrentCulture)}'");
+                        $"LastVisit >= '{System.DateTime.UtcNow.AddDays(-1).ToString(Thread.CurrentThread.CurrentCulture)}'");
 
                     this.RecentUsersCount.Text = this.GetTextFormatted(
                         "RECENT_ONLINE_USERS",
@@ -249,7 +249,7 @@ namespace YAF.Controls
                 this.MostUsersCount.Text = this.GetTextFormatted(
                     "MAX_ONLINE",
                     activeStats["ActiveUsers"],
-                    this.Get<IDateTime>().FormatDateTimeTopic(DateTime.UtcNow));
+                    this.Get<IDateTime>().FormatDateTimeTopic(System.DateTime.UtcNow));
             }
         }
 

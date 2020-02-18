@@ -46,7 +46,7 @@ namespace YAF.Core.Services
         /// <summary>
         /// The _db broker.
         /// </summary>
-        private readonly YafDbBroker _dbBroker;
+        private readonly DataBroker _dbBroker;
 
         /// <summary>
         ///   The _user ignore list.
@@ -66,7 +66,7 @@ namespace YAF.Core.Services
         /// <param name="dbBroker">
         /// The db broker.
         /// </param>
-        public UserIgnored([NotNull] HttpSessionStateBase sessionStateBase, [NotNull] YafDbBroker dbBroker)
+        public UserIgnored([NotNull] HttpSessionStateBase sessionStateBase, [NotNull] DataBroker dbBroker)
         {
             this.SessionStateBase = sessionStateBase;
             this._dbBroker = dbBroker;

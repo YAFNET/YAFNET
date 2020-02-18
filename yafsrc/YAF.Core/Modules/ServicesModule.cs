@@ -38,7 +38,6 @@ namespace YAF.Core.Modules
     using YAF.Core.Services;
     using YAF.Core.Services.Cache;
     using YAF.Core.Services.Startup;
-    using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Interfaces;
     using YAF.Utils;
@@ -69,20 +68,20 @@ namespace YAF.Core.Modules
         private static void RegisterServices(ContainerBuilder builder)
         {
             // optional defaults.
-            builder.RegisterType<YafSendMail>().As<ISendMail>().SingleInstance().PreserveExistingDefaults();
+            builder.RegisterType<SendMail>().As<ISendMail>().SingleInstance().PreserveExistingDefaults();
             builder.RegisterType<ActivityStream>().As<IActivityStream>().SingleInstance().PreserveExistingDefaults();
             builder.RegisterType<SendNotification>().As<ISendNotification>().InstancePerLifetimeScope()
                 .PreserveExistingDefaults();
-            builder.RegisterType<YafSearch>().As<ISearch>().InstancePerLifetimeScope().PreserveExistingDefaults();
+            builder.RegisterType<Search>().As<ISearch>().InstancePerLifetimeScope().PreserveExistingDefaults();
             builder.RegisterType<Digest>().As<IDigest>().InstancePerLifetimeScope().PreserveExistingDefaults();
             builder.RegisterType<DefaultUserDisplayName>().As<IUserDisplayName>().InstancePerLifetimeScope()
                 .PreserveExistingDefaults();
             builder.RegisterType<DefaultUrlBuilder>().As<IUrlBuilder>().InstancePerLifetimeScope()
                 .PreserveExistingDefaults();
             builder.RegisterType<BBCode>().As<IBBCode>().InstancePerLifetimeScope().PreserveExistingDefaults();
-            builder.RegisterType<YafFormatMessage>().As<IFormatMessage>().InstancePerLifetimeScope()
+            builder.RegisterType<FormatMessage>().As<IFormatMessage>().InstancePerLifetimeScope()
                 .PreserveExistingDefaults();
-            builder.RegisterType<YafDbBroker>().AsSelf().InstancePerLifetimeScope().PreserveExistingDefaults();
+            builder.RegisterType<DataBroker>().AsSelf().InstancePerLifetimeScope().PreserveExistingDefaults();
             builder.RegisterType<Avatars>().As<IAvatars>().InstancePerLifetimeScope().PreserveExistingDefaults();
             builder.RegisterType<Album>().As<IAlbum>().InstancePerLifetimeScope().PreserveExistingDefaults();
             builder.RegisterType<Attachments>().As<IAttachment>().InstancePerLifetimeScope().PreserveExistingDefaults();
@@ -106,7 +105,7 @@ namespace YAF.Core.Modules
 
             builder.RegisterType<Permissions>().As<IPermissions>().InstancePerLifetimeScope()
                 .PreserveExistingDefaults();
-            builder.RegisterType<YafDateTime>().As<IDateTime>().InstancePerLifetimeScope().PreserveExistingDefaults();
+            builder.RegisterType<DateTime>().As<IDateTime>().InstancePerLifetimeScope().PreserveExistingDefaults();
             builder.RegisterType<UserIgnored>().As<IUserIgnored>().InstancePerLifetimeScope()
                 .PreserveExistingDefaults();
             builder.RegisterType<Buddys>().As<IBuddy>().InstancePerLifetimeScope().PreserveExistingDefaults();
@@ -148,7 +147,7 @@ namespace YAF.Core.Modules
                 .ExternallyOwned().PreserveExistingDefaults();
 
             // favorite topic is based on YafContext
-            builder.RegisterType<YafFavoriteTopic>().As<IFavoriteTopic>().InstancePerYafContext()
+            builder.RegisterType<FavoriteTopic>().As<IFavoriteTopic>().InstancePerYafContext()
                 .PreserveExistingDefaults();
         }
 

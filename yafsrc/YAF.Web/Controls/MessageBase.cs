@@ -70,7 +70,7 @@ namespace YAF.Web.Controls
                     "CustomBBCodeRegExDictionary",
                     () =>
                         {
-                            var bbcodeTable = this.Get<YafDbBroker>().GetCustomBBCode();
+                            var bbcodeTable = this.Get<DataBroker>().GetCustomBBCode();
                             return
                                 bbcodeTable.Where(b => (b.UseModule ?? false) && b.ModuleClass.IsSet() && b.SearchRegex.IsSet()).ToDictionary(
                                     codeRow => codeRow, codeRow => new Regex(codeRow.SearchRegex, Options));

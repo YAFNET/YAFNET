@@ -58,7 +58,7 @@ namespace YAF.Core.Services
     /// </summary>
     /// <seealso cref="YAF.Types.Interfaces.ISearch" />
     /// <seealso cref="YAF.Types.Interfaces.IHaveServiceLocator" />
-    public class YafSearch : ISearch, IHaveServiceLocator, IDisposable
+    public class Search : ISearch, IHaveServiceLocator, IDisposable
     {
         /// <summary>
         /// The write lock file.
@@ -93,10 +93,10 @@ namespace YAF.Core.Services
         private SearcherManager searcherManager;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Services.YafSearch" /> class.
+        /// Initializes a new instance of the <see cref="Services.Search" /> class.
         /// </summary>
         /// <param name="serviceLocator">The service locator.</param>
-        public YafSearch([NotNull] IServiceLocator serviceLocator)
+        public Search([NotNull] IServiceLocator serviceLocator)
         {
             this.ServiceLocator = serviceLocator;
 
@@ -355,7 +355,7 @@ namespace YAF.Core.Services
         /// <returns>
         /// Returns the search results
         /// </returns>
-        public List<SearchMessage> Search(int forumId, int userId, string input, string fieldName = "")
+        public List<SearchMessage> DoSearch(int forumId, int userId, string input, string fieldName = "")
         {
             return input.IsNotSet()
                        ? new List<SearchMessage>()
@@ -516,12 +516,12 @@ namespace YAF.Core.Services
             }
 
             return new SearchMessage
-                       {
+            {
                            Topic = doc.Get("Topic"),
                            TopicId = doc.Get("TopicId").ToType<int>(),
                            TopicUrl = BuildLink.GetLink(ForumPages.Posts, "t={0}", doc.Get("TopicId").ToType<int>()),
                            Posted =
-                               doc.Get("Posted").ToType<DateTime>().ToString(
+                               doc.Get("Posted").ToType<System.DateTime>().ToString(
                                    "yyyy-MM-ddTHH:mm:ssZ",
                                    CultureInfo.InvariantCulture),
                            UserId = doc.Get("UserId").ToType<int>(),
@@ -646,7 +646,7 @@ namespace YAF.Core.Services
             var flags = doc.Get("Flags").ToType<int>();
             var messageFlags = new MessageFlags(flags);
 
-            var formattedMessage = this.Get<IFormatMessage>().FormatMessage(doc.Get("Message"), messageFlags);
+            var formattedMessage = this.Get<IFormatMessage>().Format(doc.Get("Message"), messageFlags);
 
             formattedMessage = this.Get<IBBCode>().FormatMessageWithCustomBBCode(
                 formattedMessage,
@@ -685,12 +685,12 @@ namespace YAF.Core.Services
             }
 
             return new SearchMessage
-                       {
+            {
                            MessageId = doc.Get("MessageId").ToType<int>(),
                            Message = message,
                            Flags = flags,
                            Posted =
-                               doc.Get("Posted").ToType<DateTime>().ToString(
+                               doc.Get("Posted").ToType<System.DateTime>().ToString(
                                    "yyyy-MM-ddTHH:mm:ssZ",
                                    CultureInfo.InvariantCulture),
                            UserName = doc.Get("Author"),

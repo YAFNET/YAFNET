@@ -118,8 +118,8 @@ namespace YAF.Core.Services
                 context.Response.ContentEncoding = Encoding.UTF8;
                 context.Response.Cache.SetCacheability(HttpCacheability.Public);
                 context.Response.Cache.SetExpires(
-                    DateTime.UtcNow.AddMilliseconds(BoardContext.Current.Get<BoardSettings>().OnlineStatusCacheTimeout));
-                context.Response.Cache.SetLastModified(DateTime.UtcNow);
+                    System.DateTime.UtcNow.AddMilliseconds(BoardContext.Current.Get<BoardSettings>().OnlineStatusCacheTimeout));
+                context.Response.Cache.SetLastModified(System.DateTime.UtcNow);
 
                 var avatarUrl = this.Get<IAvatars>().GetAvatarUrlForUser(userId);
 
@@ -130,7 +130,7 @@ namespace YAF.Core.Services
                 var activeUsers = this.Get<IDataCache>().GetOrSet(
                     Constants.Cache.UsersOnlineStatus,
                     () =>
-                    this.Get<YafDbBroker>().GetActiveList(
+                    this.Get<DataBroker>().GetActiveList(
                         false, BoardContext.Current.Get<BoardSettings>().ShowCrawlersInActiveList),
                     TimeSpan.FromMilliseconds(BoardContext.Current.Get<BoardSettings>().OnlineStatusCacheTimeout));
 
@@ -204,7 +204,7 @@ namespace YAF.Core.Services
                     return;
                 }
 
-                var customBbCode = this.Get<YafDbBroker>().GetCustomBBCode().ToList();
+                var customBbCode = this.Get<DataBroker>().GetCustomBBCode().ToList();
 
                 context.Response.Clear();
 
@@ -212,8 +212,8 @@ namespace YAF.Core.Services
                 context.Response.ContentEncoding = Encoding.UTF8;
                 context.Response.Cache.SetCacheability(HttpCacheability.Public);
                 context.Response.Cache.SetExpires(
-                    DateTime.UtcNow.AddMilliseconds(BoardContext.Current.Get<BoardSettings>().OnlineStatusCacheTimeout));
-                context.Response.Cache.SetLastModified(DateTime.UtcNow);
+                    System.DateTime.UtcNow.AddMilliseconds(BoardContext.Current.Get<BoardSettings>().OnlineStatusCacheTimeout));
+                context.Response.Cache.SetLastModified(System.DateTime.UtcNow);
 
                 context.Response.Write(customBbCode.ToJson());
 
@@ -344,8 +344,8 @@ namespace YAF.Core.Services
 
                 context.Response.ContentType = contentType;
                 context.Response.Cache.SetCacheability(HttpCacheability.Public);
-                context.Response.Cache.SetExpires(DateTime.UtcNow.AddHours(2));
-                context.Response.Cache.SetLastModified(DateTime.UtcNow);
+                context.Response.Cache.SetExpires(System.DateTime.UtcNow.AddHours(2));
+                context.Response.Cache.SetLastModified(System.DateTime.UtcNow);
 
                 context.Response.OutputStream.Write(data, 0, data.Length);
             }
@@ -478,8 +478,8 @@ namespace YAF.Core.Services
                             // Output the data
                             context.Response.ContentType = "image/jpeg";
                             context.Response.Cache.SetCacheability(HttpCacheability.Public);
-                            context.Response.Cache.SetExpires(DateTime.UtcNow.AddHours(2));
-                            context.Response.Cache.SetLastModified(DateTime.UtcNow);
+                            context.Response.Cache.SetExpires(System.DateTime.UtcNow.AddHours(2));
+                            context.Response.Cache.SetLastModified(System.DateTime.UtcNow);
                             context.Response.Cache.SetETag(etagCode);
                             bmp.Save(context.Response.OutputStream, ImageFormat.Jpeg);
                         }

@@ -40,7 +40,7 @@ namespace YAF.Core.Services
     /// <summary>
     ///     Functions to send email via SMTP
     /// </summary>
-    public class YafSendMail : ISendMail
+    public class SendMail : ISendMail
     {
         #region Public Methods and Operators
 

@@ -351,7 +351,7 @@ namespace YAF.Core.BBCode
                     "CustomBBCodeRegExDictionary",
                     () =>
                         {
-                            var bbcodeTable = this.Get<YafDbBroker>().GetCustomBBCode();
+                            var bbcodeTable = this.Get<DataBroker>().GetCustomBBCode();
                             return bbcodeTable
                                 .Where(b => (b.UseModule ?? false) && b.ModuleClass.IsSet() && b.SearchRegex.IsSet())
                                 .ToDictionary(codeRow => codeRow, codeRow => new Regex(codeRow.SearchRegex, Options));
@@ -1170,7 +1170,7 @@ namespace YAF.Core.BBCode
         /// </param>
         public void RegisterCustomBBCodePageElements(Page currentPage, Type currentType, string editorID)
         {
-            var bbCodeTable = this.Get<YafDbBroker>().GetCustomBBCode();
+            var bbCodeTable = this.Get<DataBroker>().GetCustomBBCode();
             const string ScriptID = "custombbcode";
             var jsScriptBuilder = new StringBuilder();
             var cssBuilder = new StringBuilder();
@@ -1239,7 +1239,7 @@ namespace YAF.Core.BBCode
         /// </param>
         protected void AddCustomBBCodeRules(IProcessReplaceRules rulesEngine)
         {
-            var bbcodeTable = this.Get<YafDbBroker>().GetCustomBBCode();
+            var bbcodeTable = this.Get<DataBroker>().GetCustomBBCode();
 
             // handle custom bbcodes row by row...
             bbcodeTable.Where(codeRow => !(codeRow.UseModule ?? false) && codeRow.SearchRegex.IsSet()).ForEach(
