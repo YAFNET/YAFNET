@@ -31,7 +31,7 @@
             <div class="px-3 py-1">
                 <div class="form-group">
                     <asp:Label runat="server" AssociatedControlID="SearchStringTag">
-                        <YAF:LocalizedLabel runat="server" LocalizedTag="Tag" />
+                        <YAF:LocalizedLabel runat="server" LocalizedTag="Tags" />
                     </asp:Label>
                     <asp:TextBox ID="SearchStringTag" runat="server" CssClass="form-control searchTagInput" />
                 </div>
