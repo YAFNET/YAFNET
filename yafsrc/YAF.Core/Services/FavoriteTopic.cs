@@ -25,17 +25,13 @@ namespace YAF.Core.Services
 {
     #region Using
 
-    using System;
-    using System.Collections.Generic;
-    using System.Data;
+    using System.Linq;
     using System.Web;
 
     using YAF.Core.Extensions;
     using YAF.Core.Model;
     using YAF.Types.Constants;
-    using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Types.Models;
 
     #endregion
 
@@ -44,15 +40,6 @@ namespace YAF.Core.Services
     /// </summary>
     public class FavoriteTopic : IFavoriteTopic, IHaveServiceLocator
     {
-        #region Fields
-
-        /// <summary>
-        ///     The _favorite Topic list.
-        /// </summary>
-        private List<int> _favoriteTopicList;
-
-        #endregion
-
         #region Constructors and Destructors
 
         /// <summary>
@@ -67,7 +54,10 @@ namespace YAF.Core.Services
         /// <param name="treatCacheKey">
         /// The treat cache key.
         /// </param>
-        public FavoriteTopic(HttpSessionStateBase sessionState, IServiceLocator serviceLocator, ITreatCacheKey treatCacheKey)
+        public FavoriteTopic(
+            HttpSessionStateBase sessionState,
+            IServiceLocator serviceLocator,
+            ITreatCacheKey treatCacheKey)
         {
             this.SessionState = sessionState;
             this.ServiceLocator = serviceLocator;
@@ -98,120 +88,66 @@ namespace YAF.Core.Services
         #region Public Methods and Operators
 
         /// <summary>
-        /// The add favorite topic.
+        /// Adds Topic to the Favorite Topics 
         /// </summary>
         /// <param name="topicId">
-        /// The topic ID.
+        /// The topic id.
         /// </param>
         /// <returns>
-        /// The add favorite topic.
+        /// The <see cref="int"/>.
         /// </returns>
         public int AddFavoriteTopic(int topicId)
         {
-            this.GetRepository<YAF.Types.Models.FavoriteTopic>().Insert(new YAF.Types.Models.FavoriteTopic { UserID = BoardContext.Current.PageUserID, TopicID = topicId });
+           var newTopicId = this.GetRepository<YAF.Types.Models.FavoriteTopic>().Insert(
+                new YAF.Types.Models.FavoriteTopic { UserID = BoardContext.Current.PageUserID, TopicID = topicId });
             this.ClearFavoriteTopicCache();
 
-            return topicId;
+            return newTopicId;
         }
 
         /// <summary>
-        ///     The clear favorite topic cache.
-        /// </summary>
-        public void ClearFavoriteTopicCache()
-        {
-            // clear for the session
-            this.SessionState.Remove(
-                this.TreatCacheKey.Treat(string.Format(Constants.Cache.FavoriteTopicList, BoardContext.Current.PageUserID)));
-        }
-
-        /// <summary>
-        /// The clear favorite topic cache.
-        /// </summary>
-        /// <param name="topicId">
-        /// The topic Id.
-        /// </param>
-        /// <returns>
-        /// The favorite topic count.
-        /// </returns>
-        public int FavoriteTopicCount(int topicId)
-        {
-            return
-                this.Get<IDataCache>().GetOrSet(
-                    string.Format(Constants.Cache.FavoriteTopicCount, topicId),
-                    () => this.GetRepository<YAF.Types.Models.FavoriteTopic>().Count(topicId),
-                    TimeSpan.FromMilliseconds(90000)).ToType<int>();
-        }
-
-        /// <summary>
-        /// the favorite topic details.
-        /// </summary>
-        /// <param name="sinceDate">
-        /// the since date.
-        /// </param>
-        /// <returns>
-        /// a Data table containing all the current user's favorite topics in details.
-        /// </returns>
-        public DataTable FavoriteTopicDetails(System.DateTime sinceDate)
-        {
-            return this.GetRepository<YAF.Types.Models.FavoriteTopic>().Details(
-                BoardContext.Current.Settings.CategoryID == 0 ? null : (int?)BoardContext.Current.Settings.CategoryID,
-                BoardContext.Current.PageUserID, 
-                sinceDate,
-                System.DateTime.UtcNow, 
-                // page index in db is 1 based!
-                0, 
-                // set the page size here
-                1000,
-                BoardContext.Current.BoardSettings.UseStyledNicks, 
-                false);
-        }
-
-        /// <summary>
-        /// The is favorite topic.
+        /// Checks if Topic is Favorite Topic
         /// </summary>
         /// <param name="topicID">
         /// The topic id.
         /// </param>
         /// <returns>
-        /// The is favorite topic.
+        /// The <see cref="bool"/>.
         /// </returns>
         public bool IsFavoriteTopic(int topicID)
         {
-            this.InitializeFavoriteTopicList();
+            var list = BoardContext.Current.Get<DataBroker>().FavoriteTopicList(BoardContext.Current.PageUserID);
 
-            return this._favoriteTopicList.Count > 0 && this._favoriteTopicList.Contains(topicID);
+            return list.Any() && list.Contains(topicID);
         }
 
         /// <summary>
-        /// The remove favorite topic.
+        /// Removes the Favorite Topic
         /// </summary>
         /// <param name="topicId">
         /// The favorite topic id.
         /// </param>
         /// <returns>
-        /// The remove favorite topic.
+        /// The <see cref="int"/>.
         /// </returns>
         public int RemoveFavoriteTopic(int topicId)
         {
-            this.GetRepository<YAF.Types.Models.FavoriteTopic>().DeleteByUserAndTopic(BoardContext.Current.PageUserID, topicId);
+            this.GetRepository<YAF.Types.Models.FavoriteTopic>()
+                .DeleteByUserAndTopic(BoardContext.Current.PageUserID, topicId);
             this.ClearFavoriteTopicCache();
 
             return topicId;
         }
 
-        #endregion
-
-        #region Methods
-
         /// <summary>
-        ///     The initialize favorite topic list.
+        ///     Clears the Favorite Topic Cache
         /// </summary>
-        private void InitializeFavoriteTopicList()
+        private void ClearFavoriteTopicCache()
         {
-            if (this._favoriteTopicList == null)
-            {
-                this._favoriteTopicList = BoardContext.Current.Get<DataBroker>().FavoriteTopicList(BoardContext.Current.PageUserID);
-            }
+            // clear for the session
+            this.SessionState.Remove(
+                this.TreatCacheKey.Treat(
+                    string.Format(Constants.Cache.FavoriteTopicList, BoardContext.Current.PageUserID)));
         }
 
         #endregion

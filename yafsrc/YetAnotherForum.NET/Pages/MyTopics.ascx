@@ -3,9 +3,7 @@
 
 <YAF:PageLinks runat="server" ID="PageLinks" />
 
-
-<br style="clear: both" />
-       <asp:Panel id="TopicsTabs" runat="server">
+<asp:Panel id="TopicsTabs" runat="server">
                <ul class="nav nav-tabs" role="tablist">
                  <li class="nav-item">
                      <a href="#ActiveTopicsTab" class="nav-link" data-toggle="tab" role="tab">
@@ -62,6 +60,6 @@
                 </div>
                 </asp:PlaceHolder>
                   </div>
-             </asp:Panel>
-        <asp:HiddenField runat="server" ID="hidLastTab" Value="ActiveTopicsTab" />
-        <asp:Button id="ChangeTab" OnClick="ChangeTabClick" runat="server" style="display:none" />
+</asp:Panel>
+<asp:HiddenField runat="server" ID="hidLastTab" Value="ActiveTopicsTab" />
+<asp:Button id="ChangeTab" OnClick="ChangeTabClick" runat="server" style="display:none" />

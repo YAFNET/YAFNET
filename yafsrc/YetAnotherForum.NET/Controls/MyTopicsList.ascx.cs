@@ -52,8 +52,6 @@ namespace YAF.Controls
     /// </summary>
     public partial class MyTopicsList : BaseUserControl
     {
-        /* Data Fields */
-
         #region Constants and Fields
 
         /// <summary>
@@ -390,7 +388,7 @@ namespace YAF.Controls
                     case TopicListMode.Favorite:
                         previousSince = this.Get<ISession>().FavoriteTopicSince;
                         this.Since.Items.Add(new ListItem(this.GetText("show_all"), "9999"));
-                        this.Since.SelectedIndex = 2;
+                        this.Since.SelectedIndex = this.Since.Items.Count - 1;
                         break;
                 }
 
