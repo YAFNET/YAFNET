@@ -25,7 +25,7 @@ namespace YAF.Core.Handlers
 
     using System;
 
-    using YAF.Core.Theme;
+    using YAF.Core.Services;
     using YAF.Types.Exceptions;
     using YAF.Types.Interfaces;
 
@@ -122,13 +122,13 @@ namespace YAF.Core.Handlers
                 theme = BoardContext.Current.BoardSettings.Theme;
             }
 
-            if (!YafTheme.IsValidTheme(theme))
+            if (!Services.Theme.IsValidTheme(theme))
             {
                 theme = "yaf";
             }
 
             // create the theme class
-            this.Theme = new YafTheme(theme);
+            this.Theme = new Theme(theme);
 
             this.AfterInit?.Invoke(this, new EventArgs());
         }

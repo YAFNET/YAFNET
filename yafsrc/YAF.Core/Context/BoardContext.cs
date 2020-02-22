@@ -89,7 +89,7 @@ namespace YAF.Core
         #region Constructors and Destructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="BoardContext"/> class. YafContext Constructor
+        /// Initializes a new instance of the <see cref="BoardContext"/> class. BoardContext Constructor
         /// </summary>
         /// <param name="contextLifetimeContainer">
         /// The context Lifetime Container.
@@ -120,12 +120,12 @@ namespace YAF.Core
         public event EventHandler<EventArgs> BeforeInit;
 
         /// <summary>
-        /// On YafContext Constructor Call
+        /// On BoardContext Constructor Call
         /// </summary>
         public event EventHandler<EventArgs> Init;
 
         /// <summary>
-        /// On YafContext Unload Call
+        /// On BoardContext Unload Call
         /// </summary>
         public event EventHandler<EventArgs> Unload;
 
@@ -242,7 +242,7 @@ namespace YAF.Core
         #region Public Indexers
 
         /// <summary>
-        /// Returns a value from the YafContext Global Instance Variables (Vars) collection.
+        /// Returns a value from the BoardContext Global Instance Variables (Vars) collection.
         /// </summary>
         /// <returns>
         /// Value if it's found, null if it doesn't exist.

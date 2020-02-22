@@ -245,7 +245,7 @@ namespace YAF.Types.Interfaces
         /// <returns>
         /// The <see cref="bool"/>.
         /// </returns>
-        public static bool IsYafContext([NotNull] this IServiceLocator serviceLocator)
+        public static bool IsBoardContext([NotNull] this IServiceLocator serviceLocator)
         {
             CodeContracts.VerifyNotNull(serviceLocator, "serviceLocator");
 

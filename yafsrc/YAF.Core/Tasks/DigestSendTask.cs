@@ -91,7 +91,7 @@ namespace YAF.Core.Tasks
         /// <returns>
         /// The is time to send digest for board.
         /// </returns>
-        private static bool IsTimeToSendDigestForBoard([NotNull] YafLoadBoardSettings boardSettings)
+        private static bool IsTimeToSendDigestForBoard([NotNull] LoadBoardSettings boardSettings)
         {
             CodeContracts.VerifyNotNull(boardSettings, "boardSettings");
 
@@ -155,7 +155,7 @@ namespace YAF.Core.Tasks
                 boardIds.ForEach(
                     boardId =>
                         {
-                            var boardSettings = new YafLoadBoardSettings(boardId);
+                            var boardSettings = new LoadBoardSettings(boardId);
 
                             if (!IsTimeToSendDigestForBoard(boardSettings))
                             {

@@ -26,7 +26,7 @@ namespace YAF.Core.UsersRoles
     using System;
 
     using YAF.Configuration;
-    using YAF.Core.Theme;
+    using YAF.Core.Services;
     using YAF.Types.Interfaces;
 
     /// <summary>
@@ -98,7 +98,7 @@ namespace YAF.Core.UsersRoles
                                    ? row["ThemeFile"].ToString()
                                    : theme;
             
-            if (!YafTheme.IsValidTheme(themeFile))
+            if (!Theme.IsValidTheme(themeFile))
             {
                 themeFile = "yaf";
             }

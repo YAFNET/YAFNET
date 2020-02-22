@@ -45,7 +45,7 @@ namespace YAF.Core
         /// <summary>
         /// The page yaf context name.
         /// </summary>
-        private const string PageYafContextName = "YAF.YafContext";
+        private const string PageBoardContextName = "YAF.BoardContext";
 
         /// <summary>
         /// The _container.
@@ -94,12 +94,12 @@ namespace YAF.Core
                     return _globalInstance ?? (_globalInstance = this.CreateContextInstance());
                 }
 
-                if (!(HttpContext.Current.Items[PageYafContextName] is BoardContext pageInstance))
+                if (!(HttpContext.Current.Items[PageBoardContextName] is BoardContext pageInstance))
                 {
                     pageInstance = this.CreateContextInstance();
 
                     // make sure it's put back in the page...
-                    HttpContext.Current.Items[PageYafContextName] = pageInstance;
+                    HttpContext.Current.Items[PageBoardContextName] = pageInstance;
                 }
 
                 return pageInstance;

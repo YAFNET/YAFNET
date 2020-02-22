@@ -146,7 +146,7 @@ namespace YAF.Core
 
             try
             {
-                // call from YafContext only -- so that the events have access to the full YafContext lifecycle.
+                // call from BoardContext only -- so that the events have access to the full BoardContext lifecycle.
                 BoardContext.Current.Get<IRaiseEvent>().RaiseIssolated(
                     new EventPreRequestPageExecute(page),
                     (m, ex) => this.Logger.Fatal(ex, $"Failed to Call Event Pre Request Page Execute Event {m}"));

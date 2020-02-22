@@ -130,7 +130,7 @@ namespace YAF.Core.Data.Filters
         /// </param>
         public void Run(DbFunctionType dbfunctionType, string operationName, IEnumerable<KeyValuePair<string, object>> parameters, object data)
         {
-            if (!this.ServiceLocator.IsYafContext() || !this._styledNickOperations.Contains(operationName.ToLower()) || dbfunctionType != DbFunctionType.DataTable)
+            if (!this.ServiceLocator.IsBoardContext() || !this._styledNickOperations.Contains(operationName.ToLower()) || dbfunctionType != DbFunctionType.DataTable)
             {
                 return;
             }

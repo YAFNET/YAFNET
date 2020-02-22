@@ -212,7 +212,7 @@ namespace YAF.Web.Controls
         {
             base.OnUnload(e);
 
-            // make sure the YafContext is disposed of...
+            // make sure the BoardContext is disposed of...
             BoardContext.Current.Dispose();
         }
 
@@ -311,7 +311,7 @@ namespace YAF.Web.Controls
             // only show header if show toolbar is enabled
             this.currentForumPage.ForumHeader.Visible = this.currentForumPage.ShowToolBar;
 
-            // set the YafContext ForumPage...
+            // set the BoardContext ForumPage...
             BoardContext.Current.CurrentForumPage = this.currentForumPage;
 
             // add the header control before the page rendering...

@@ -29,6 +29,7 @@ namespace YAF.Classes
 
     using YAF.Core;
     using YAF.RegisterV2;
+    using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Utils;
 

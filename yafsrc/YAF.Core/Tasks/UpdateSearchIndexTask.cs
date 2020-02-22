@@ -121,7 +121,7 @@ namespace YAF.Core.Tasks
         /// </returns>
         private static bool IsTimeToUpdateSearchIndex()
         {
-            var boardSettings = (YafLoadBoardSettings)BoardContext.Current.Get<BoardSettings>();
+            var boardSettings = (LoadBoardSettings)BoardContext.Current.Get<BoardSettings>();
             var lastSend = DateTime.MinValue;
             var sendEveryXHours = boardSettings.UpdateSearchIndexEveryXHours;
 

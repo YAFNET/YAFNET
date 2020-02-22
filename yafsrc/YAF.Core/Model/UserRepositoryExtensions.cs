@@ -695,7 +695,7 @@ namespace YAF.Core.Model
             [NotNull] int numPosts,
             [NotNull] int numPostCompare)
         {
-            return repository.DbFunction.GetData.user_listmembers(
+             return repository.DbFunction.GetData.user_listmembers(
                 BoardID: boardId,
                 UserID: userId,
                 Approved: approved,

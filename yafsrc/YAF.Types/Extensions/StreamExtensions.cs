@@ -36,6 +36,7 @@ namespace YAF.Types.Extensions
         /// Converts a Stream to a String.
         /// </summary>
         /// <param name="theStream">
+        /// The the Stream.
         /// </param>
         /// <returns>
         /// The stream to string. 

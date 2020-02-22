@@ -112,7 +112,7 @@ namespace YAF.Core
                     this._treatCacheKey.Treat(Constants.Cache.BoardSettings),
                     () =>
                         {
-                            var boardSettings = (BoardSettings)new YafLoadBoardSettings(this._haveBoardId.BoardID);
+                            var boardSettings = (BoardSettings)new LoadBoardSettings(this._haveBoardId.BoardID);
 
                             // inject
                             this._injectServices.Inject(boardSettings);

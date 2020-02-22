@@ -31,6 +31,7 @@ namespace YAF.Core
     using System.Threading;
 
     using YAF.Core.Services.Localization;
+    using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
 
     #endregion
