@@ -1,8 +1,8 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2019 Ingo Herbote
- * http://www.yetanotherforum.net/
+ * Copyright (C) 2014-2020 Ingo Herbote
+ * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -12,7 +12,7 @@
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
 
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
 
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
@@ -111,9 +111,9 @@ namespace YAF.Core
             {
                 object userKey = null;
 
-                if (YafContext.Current.User != null)
+                if (BoardContext.Current.User != null)
                 {
-                    userKey = YafContext.Current.User.ProviderUserKey;
+                    userKey = BoardContext.Current.User.ProviderUserKey;
                 }
 
                 var tries = 0;
@@ -130,9 +130,9 @@ namespace YAF.Core
 
                 do
                 {
-                    pageRow = this.GetRepository<ActiveAccess>().PageLoad(
+                    pageRow = this.GetRepository<ActiveAccess>().PageLoadAsDataRow(
                         this.Get<HttpSessionStateBase>().SessionID,
-                        YafContext.Current.PageBoardID,
+                        BoardContext.Current.PageBoardID,
                         userKey,
                         this.Get<HttpRequestBase>().GetUserRealIPAddress(),
                         location,
@@ -154,7 +154,7 @@ namespace YAF.Core
                         // create the user...
                         if (
                             !RoleMembershipHelper.DidCreateForumUser(
-                                YafContext.Current.User, YafContext.Current.PageBoardID))
+                                BoardContext.Current.User, BoardContext.Current.PageBoardID))
                         {
                             throw new ApplicationException("Failed to create new user.");
                         }
@@ -204,10 +204,10 @@ namespace YAF.Core
 
                 // log the user out...
                 // FormsAuthentication.SignOut();
-                if (YafContext.Current.ForumPageType != ForumPages.info)
+                if (BoardContext.Current.ForumPageType != ForumPages.Info)
                 {
                     // show a failure notice since something is probably up with membership...
-                    YafBuildLink.RedirectInfoPage(InfoMessage.Failure);
+                    BuildLink.RedirectInfoPage(InfoMessage.Failure);
                 }
                 else
                 {

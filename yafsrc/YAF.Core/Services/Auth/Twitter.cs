@@ -1,8 +1,8 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2019 Ingo Herbote
- * http://www.yetanotherforum.net/
+ * Copyright (C) 2014-2020 Ingo Herbote
+ * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -12,7 +12,7 @@
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
 
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
 
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
@@ -65,7 +65,7 @@ namespace YAF.Core.Services.Auth
             var oAuth = new OAuthTwitter
                             {
                                 CallBackUrl =
-                                    $"{YafForumInfo.ForumBaseUrl}auth.aspx?auth={AuthService.twitter}{(connectCurrentUser ? "&connectCurrent=true" : string.Empty)}", 
+                                    $"{BoardInfo.ForumBaseUrl}auth.aspx?auth={AuthService.twitter}{(connectCurrentUser ? "&connectCurrent=true" : string.Empty)}", 
                                 ConsumerKey = Config.TwitterConsumerKey, 
                                 ConsumerSecret = Config.TwitterConsumerSecret
                             };
@@ -110,7 +110,7 @@ namespace YAF.Core.Services.Auth
                 if (twitterUser.UserId > 0)
                 {
                     // Check if user exists
-                    var checkUser = YafContext.Current.Get<MembershipProvider>().GetUser(twitterUser.UserName, false);
+                    var checkUser = BoardContext.Current.Get<MembershipProvider>().GetUser(twitterUser.UserName, false);
 
                     // Login user if exists
                     if (checkUser == null)
@@ -126,7 +126,7 @@ namespace YAF.Core.Services.Auth
                     if (yafUser.Twitter.IsNotSet() && yafUser.TwitterId.IsNotSet())
                     {
                         // user with the same name exists but account is not connected, exit!
-                        message = YafContext.Current.Get<ILocalization>().GetText("LOGIN", "SSO_TWITTER_FAILED");
+                        message = BoardContext.Current.Get<ILocalization>().GetText("LOGIN", "SSO_TWITTER_FAILED");
 
                         return false;
                     }
@@ -141,7 +141,7 @@ namespace YAF.Core.Services.Auth
                         return true;
                     }
 
-                    message = YafContext.Current.Get<ILocalization>().GetText("LOGIN", "SSO_TWITTERID_NOTMATCH");
+                    message = BoardContext.Current.Get<ILocalization>().GetText("LOGIN", "SSO_TWITTERID_NOTMATCH");
 
                     return false;
 
@@ -149,7 +149,7 @@ namespace YAF.Core.Services.Auth
                 }
             }
 
-            message = YafContext.Current.Get<ILocalization>().GetText("LOGIN", "SSO_TWITTER_FAILED");
+            message = BoardContext.Current.Get<ILocalization>().GetText("LOGIN", "SSO_TWITTER_FAILED");
 
             return false;
         }
@@ -189,19 +189,19 @@ namespace YAF.Core.Services.Auth
                 if (twitterUser.UserId > 0)
                 {
                     // Create User if not exists?!
-                    if (!YafContext.Current.IsGuest && !YafContext.Current.Get<YafBoardSettings>().DisableRegistrations)
+                    if (!BoardContext.Current.IsGuest && !BoardContext.Current.Get<BoardSettings>().DisableRegistrations)
                     {
                         // Because twitter doesn't provide the email we need to match the user name...
-                        if (twitterUser.UserName != YafContext.Current.Profile.UserName)
+                        if (twitterUser.UserName != BoardContext.Current.Profile.UserName)
                         {
-                            message = YafContext.Current.Get<ILocalization>()
+                            message = BoardContext.Current.Get<ILocalization>()
                                 .GetText("LOGIN", "SSO_TWITTERNAME_NOTMATCH");
 
                             return false;
                         }
 
                         // Update profile with twitter informations
-                        var userProfile = YafContext.Current.Profile;
+                        var userProfile = BoardContext.Current.Profile;
 
                         userProfile.TwitterId = twitterUser.UserId.ToString();
                         userProfile.Twitter = twitterUser.UserName;
@@ -217,14 +217,14 @@ namespace YAF.Core.Services.Auth
                         // save avatar
                         if (twitterUser.ProfileImageUrl.IsSet())
                         {
-                            YafContext.Current.GetRepository<User>().SaveAvatar(
-                                YafContext.Current.PageUserID, 
+                            BoardContext.Current.GetRepository<User>().SaveAvatar(
+                                BoardContext.Current.PageUserID, 
                                 twitterUser.ProfileImageUrl, 
                                 null, 
                                 null);
                         }
 
-                        YafSingleSignOnUser.LoginSuccess(AuthService.twitter, null, YafContext.Current.PageUserID, false);
+                        SingleSignOnUser.LoginSuccess(AuthService.twitter, null, BoardContext.Current.PageUserID, false);
 
                         message = string.Empty;
 
@@ -233,7 +233,7 @@ namespace YAF.Core.Services.Auth
                 }
             }
 
-            message = YafContext.Current.Get<ILocalization>().GetText("LOGIN", "SSO_TWITTER_FAILED");
+            message = BoardContext.Current.Get<ILocalization>().GetText("LOGIN", "SSO_TWITTER_FAILED");
 
             return false;
         }
@@ -255,9 +255,9 @@ namespace YAF.Core.Services.Auth
         /// </returns>
         private static bool CreateTwitterUser(TwitterUser twitterUser, OAuthTwitter oAuth, out string message)
         {
-            if (YafContext.Current.Get<YafBoardSettings>().DisableRegistrations)
+            if (BoardContext.Current.Get<BoardSettings>().DisableRegistrations)
             {
-                message = YafContext.Current.Get<ILocalization>().GetText("LOGIN", "SSO_FAILED");
+                message = BoardContext.Current.Get<ILocalization>().GetText("LOGIN", "SSO_FAILED");
                 return false;
             }
 
@@ -269,45 +269,45 @@ namespace YAF.Core.Services.Auth
             string result;
             var isPossibleSpamBot = false;
 
-            var userIpAddress = YafContext.Current.Get<HttpRequestBase>().GetUserRealIPAddress();
+            var userIpAddress = BoardContext.Current.Get<HttpRequestBase>().GetUserRealIPAddress();
 
             // Check content for spam
             if (spamChecker.CheckUserForSpamBot(twitterUser.UserName, twitterUser.Email, userIpAddress, out result))
             {
-                YafContext.Current.Get<ILogger>().Log(
+                BoardContext.Current.Get<ILogger>().Log(
                     null,
                     "Bot Detected",
                     "Bot Check detected a possible SPAM BOT: (user name : '{0}', email : '{1}', ip: '{2}', reason : {3}), user was rejected."
                         .FormatWith(twitterUser.UserName, twitterUser.Email, userIpAddress, result),
                     EventLogTypes.SpamBotDetected);
 
-                if (YafContext.Current.Get<YafBoardSettings>().BotHandlingOnRegister.Equals(1))
+                if (BoardContext.Current.Get<BoardSettings>().BotHandlingOnRegister.Equals(1))
                 {
                     // Flag user as spam bot
                     isPossibleSpamBot = true;
                 }
-                else if (YafContext.Current.Get<YafBoardSettings>().BotHandlingOnRegister.Equals(2))
+                else if (BoardContext.Current.Get<BoardSettings>().BotHandlingOnRegister.Equals(2))
                 {
-                    message = YafContext.Current.Get<ILocalization>().GetText("BOT_MESSAGE");
+                    message = BoardContext.Current.Get<ILocalization>().GetText("BOT_MESSAGE");
 
-                    if (!YafContext.Current.Get<YafBoardSettings>().BanBotIpOnDetection)
+                    if (!BoardContext.Current.Get<BoardSettings>().BanBotIpOnDetection)
                     {
                         return false;
                     }
 
-                    YafContext.Current.GetRepository<BannedIP>()
+                    BoardContext.Current.GetRepository<BannedIP>()
                         .Save(
                             null,
                             userIpAddress,
                             "A spam Bot who was trying to register was banned by IP {0}".FormatWith(userIpAddress),
-                            YafContext.Current.PageUserID);
+                            BoardContext.Current.PageUserID);
 
                     // Clear cache
-                    YafContext.Current.Get<IDataCache>().Remove(Constants.Cache.BannedIP);
+                    BoardContext.Current.Get<IDataCache>().Remove(Constants.Cache.BannedIP);
 
-                    if (YafContext.Current.Get<YafBoardSettings>().LogBannedIP)
+                    if (BoardContext.Current.Get<BoardSettings>().LogBannedIP)
                     {
-                        YafContext.Current.Get<ILogger>()
+                        BoardContext.Current.Get<ILogger>()
                             .Log(
                                 null,
                                 "IP BAN of Bot During Registration",
@@ -321,7 +321,7 @@ namespace YAF.Core.Services.Auth
             }*/
 
             // Create User if not exists?!
-            var memberShipProvider = YafContext.Current.Get<MembershipProvider>();
+            var memberShipProvider = BoardContext.Current.Get<MembershipProvider>();
 
             var pass = Membership.GeneratePassword(32, 16);
             var securityAnswer = Membership.GeneratePassword(64, 30);
@@ -337,10 +337,10 @@ namespace YAF.Core.Services.Auth
                 out var status);
 
             // setup initial roles (if any) for this user
-            RoleMembershipHelper.SetupUserRoles(YafContext.Current.PageBoardID, twitterUser.UserName);
+            RoleMembershipHelper.SetupUserRoles(BoardContext.Current.PageBoardID, twitterUser.UserName);
 
             // create the user in the YAF DB as well as sync roles...
-            var userID = RoleMembershipHelper.CreateForumUser(user, YafContext.Current.PageBoardID);
+            var userID = RoleMembershipHelper.CreateForumUser(user, BoardContext.Current.PageBoardID);
 
             // create empty profile just so they have one
             var userProfile = YafUserProfile.GetProfile(twitterUser.UserName);
@@ -357,9 +357,9 @@ namespace YAF.Core.Services.Auth
             userProfile.Interests = twitterUser.Description;
             userProfile.Location = twitterUser.Location;
 
-            if (YafContext.Current.Get<YafBoardSettings>().EnableIPInfoService)
+            if (BoardContext.Current.Get<BoardSettings>().EnableIPInfoService)
             {
-                var userIpLocator = YafContext.Current.Get<IIpInfoService>().GetUserIpLocator();
+                var userIpLocator = BoardContext.Current.Get<IIpInfoService>().GetUserIpLocator();
 
                 if (userIpLocator != null)
                 {
@@ -388,15 +388,15 @@ namespace YAF.Core.Services.Auth
             if (userID == null)
             {
                 // something is seriously wrong here -- redirect to failure...
-                message = YafContext.Current.Get<ILocalization>().GetText("LOGIN", "SSO_TWITTER_FAILED");
+                message = BoardContext.Current.Get<ILocalization>().GetText("LOGIN", "SSO_TWITTER_FAILED");
 
                 return false;
             }
 
-            if (YafContext.Current.Get<YafBoardSettings>().NotificationOnUserRegisterEmailList.IsSet())
+            if (BoardContext.Current.Get<BoardSettings>().NotificationOnUserRegisterEmailList.IsSet())
             {
                 // send user register notification to the following admin users...
-                YafContext.Current.Get<ISendNotification>().SendRegistrationNotificationEmail(user, userID.Value);
+                BoardContext.Current.Get<ISendNotification>().SendRegistrationNotificationEmail(user, userID.Value);
             }
 
             // save the time zone...
@@ -405,12 +405,12 @@ namespace YAF.Core.Services.Auth
             // send user register notification to the following admin users...
             SendRegistrationMessageToTwitterUser(user, pass, securityAnswer, userId, oAuth);
 
-            var autoWatchTopicsEnabled = YafContext.Current.Get<YafBoardSettings>().DefaultNotificationSetting
+            var autoWatchTopicsEnabled = BoardContext.Current.Get<BoardSettings>().DefaultNotificationSetting
                                          == UserNotificationSetting.TopicsIPostToOrSubscribeTo;
 
-            YafContext.Current.GetRepository<User>().Save(
+            BoardContext.Current.GetRepository<User>().Save(
                 userId,
-                YafContext.Current.PageBoardID,
+                BoardContext.Current.PageBoardID,
                 twitterUser.UserName,
                 twitterUser.UserName,
                 email,
@@ -420,29 +420,29 @@ namespace YAF.Core.Services.Auth
                 null,
                 null,
                 null,
-                YafContext.Current.Get<YafBoardSettings>().DefaultNotificationSetting,
+                BoardContext.Current.Get<BoardSettings>().DefaultNotificationSetting,
                 autoWatchTopicsEnabled,
                 TimeZoneInfo.Local.SupportsDaylightSavingTime,
                 null,
                 null);
 
             // save the settings...
-            YafContext.Current.GetRepository<User>().SaveNotification(
-                 userId, 
-                true, 
-                autoWatchTopicsEnabled, 
-                YafContext.Current.Get<YafBoardSettings>().DefaultNotificationSetting, 
-                YafContext.Current.Get<YafBoardSettings>().DefaultSendDigestEmail);
+            BoardContext.Current.GetRepository<User>().SaveNotification(
+                userId,
+                true,
+                autoWatchTopicsEnabled,
+                BoardContext.Current.Get<BoardSettings>().DefaultNotificationSetting.ToInt(),
+                BoardContext.Current.Get<BoardSettings>().DefaultSendDigestEmail);
 
             // save avatar
             if (twitterUser.ProfileImageUrl.IsSet())
             {
-                YafContext.Current.GetRepository<User>().SaveAvatar(userId, twitterUser.ProfileImageUrl, null, null);
+                BoardContext.Current.GetRepository<User>().SaveAvatar(userId, twitterUser.ProfileImageUrl, null, null);
             }
 
             LoginTwitterSuccess(true, oAuth, userId, user);
 
-            message = YafContext.Current.Get<ILocalization>().GetText("LOGIN", "UPDATE_EMAIL");
+            message = BoardContext.Current.Get<ILocalization>().GetText("LOGIN", "UPDATE_EMAIL");
 
             return true;
         }
@@ -470,19 +470,19 @@ namespace YAF.Core.Services.Auth
         {
             if (newUser)
             {
-                YafContext.Current.Get<IRaiseEvent>().Raise(new NewUserRegisteredEvent(user, userId));
+                BoardContext.Current.Get<IRaiseEvent>().Raise(new NewUserRegisteredEvent(user, userId));
             }
             else
             {
                 // Clearing cache with old Active User Lazy Data ...
-                YafContext.Current.Get<IDataCache>().Remove(string.Format(Constants.Cache.ActiveUserLazyData, userId));
+                BoardContext.Current.Get<IDataCache>().Remove(string.Format(Constants.Cache.ActiveUserLazyData, userId));
             }
 
             // Store Tokens in Session (Could Bes Stored in DB but it would be a Security Problem)
-            YafContext.Current.Get<IYafSession>().TwitterToken = oAuth.Token;
-            YafContext.Current.Get<IYafSession>().TwitterTokenSecret = oAuth.TokenSecret;
+            BoardContext.Current.Get<ISession>().TwitterToken = oAuth.Token;
+            BoardContext.Current.Get<ISession>().TwitterTokenSecret = oAuth.TokenSecret;
 
-            YafSingleSignOnUser.LoginSuccess(AuthService.twitter, user.UserName, userId, true);
+            SingleSignOnUser.LoginSuccess(AuthService.twitter, user.UserName, userId, true);
         }
 
         /// <summary>
@@ -511,18 +511,22 @@ namespace YAF.Core.Services.Auth
             [NotNull] int userId, 
             OAuthTwitter oAuth)
         {
-            var notifyUser = new YafTemplateEmail();
+            var subject = string.Format(
+                BoardContext.Current.Get<ILocalization>().GetText("COMMON", "NOTIFICATION_ON_NEW_FACEBOOK_USER_SUBJECT"),
+                BoardContext.Current.Get<BoardSettings>().Name);
 
-            var subject =
-                string
-                    .Format(YafContext.Current.Get<ILocalization>()
-                        .GetText("COMMON", "NOTIFICATION_ON_NEW_FACEBOOK_USER_SUBJECT"), YafContext.Current.Get<YafBoardSettings>().Name);
+            var notifyUser = new TemplateEmail
+                                 {
+                                     TemplateParams =
+                                         {
+                                             ["{user}"] = user.UserName,
+                                             ["{email}"] = user.Email,
+                                             ["{pass}"] = pass,
+                                             ["{answer}"] = securityAnswer,
+                                             ["{forumname}"] = BoardContext.Current.Get<BoardSettings>().Name
+                                         }
+                                 };
 
-            notifyUser.TemplateParams["{user}"] = user.UserName;
-            notifyUser.TemplateParams["{email}"] = user.Email;
-            notifyUser.TemplateParams["{pass}"] = pass;
-            notifyUser.TemplateParams["{answer}"] = securityAnswer;
-            notifyUser.TemplateParams["{forumname}"] = YafContext.Current.Get<YafBoardSettings>().Name;
 
             var emailBody = notifyUser.ProcessTemplate("NOTIFICATION_ON_TWITTER_REGISTER");
 
@@ -531,19 +535,19 @@ namespace YAF.Core.Services.Auth
             // Send Message also as DM to Twitter.
             var tweetApi = new TweetAPI(oAuth);
 
-            var message = $"{subject}. {YafContext.Current.Get<ILocalization>().GetText("LOGIN", "TWITTER_DM")}";
+            var message = $"{subject}. {BoardContext.Current.Get<ILocalization>().GetText("LOGIN", "TWITTER_DM")}";
 
-            if (YafContext.Current.Get<YafBoardSettings>().AllowPrivateMessages)
+            if (BoardContext.Current.Get<BoardSettings>().AllowPrivateMessages)
             {
-                YafContext.Current.GetRepository<PMessage>().SendMessage(2, userId, subject, emailBody, messageFlags.BitValue, -1);
+                BoardContext.Current.GetRepository<PMessage>().SendMessage(2, userId, subject, emailBody, messageFlags.BitValue, -1);
             }
             else
             {
-                message = YafContext.Current.Get<ILocalization>()
+                message = BoardContext.Current.Get<ILocalization>()
                     .GetTextFormatted(
                         "LOGIN", 
                         "TWITTER_DM_ACCOUNT", 
-                        YafContext.Current.Get<YafBoardSettings>().Name, 
+                        BoardContext.Current.Get<BoardSettings>().Name, 
                         user.UserName, 
                         pass);
             }
@@ -554,7 +558,7 @@ namespace YAF.Core.Services.Auth
             }
             catch (Exception ex)
             {
-                YafContext.Current.Get<ILogger>().Error(ex, "Error while sending Twitter DM Message");
+                BoardContext.Current.Get<ILogger>().Error(ex, "Error while sending Twitter DM Message");
             }
         }
     }

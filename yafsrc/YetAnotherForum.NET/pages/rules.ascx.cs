@@ -1,8 +1,8 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2019 Ingo Herbote
- * http://www.yetanotherforum.net/
+ * Copyright (C) 2014-2020 Ingo Herbote
+ * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -12,7 +12,7 @@
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
 
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
 
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
@@ -43,14 +43,14 @@ namespace YAF.Pages
     /// <summary>
     /// Forum Rules Page.
     /// </summary>
-    public partial class rules : ForumPage
+    public partial class Rules : ForumPage
     {
         #region Constructors and Destructors
 
         /// <summary>
-        ///   Initializes a new instance of the <see cref = "rules" /> class.
+        ///   Initializes a new instance of the <see cref = "Rules" /> class.
         /// </summary>
-        public rules()
+        public Rules()
             : base("RULES")
         {
         }
@@ -79,12 +79,12 @@ namespace YAF.Pages
         /// </param>
         protected void Accept_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
-            if (!this.Get<YafBoardSettings>().UseSSLToRegister)
+            if (!this.Get<BoardSettings>().UseSSLToRegister)
             {
-                YafBuildLink.Redirect(ForumPages.register);
+                BuildLink.Redirect(ForumPages.Register);
             }
 
-            this.Get<HttpResponseBase>().Redirect(YafBuildLink.GetLink(ForumPages.register, true).Replace("http:", "https:"));
+            this.Get<HttpResponseBase>().Redirect(BuildLink.GetLink(ForumPages.Register, true).Replace("http:", "https:"));
         }
 
         /// <summary>
@@ -98,7 +98,7 @@ namespace YAF.Pages
         /// </param>
         protected void Cancel_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
-            YafBuildLink.Redirect(ForumPages.forum);
+            BuildLink.Redirect(ForumPages.forum);
         }
 
         /// <summary>
@@ -121,7 +121,7 @@ namespace YAF.Pages
 
             this.RulesText.Param0 = Config.GDPRControllerAddress.IsSet()
                                         ? Config.GDPRControllerAddress
-                                        : this.Get<YafBoardSettings>().ForumEmail;
+                                        : this.Get<BoardSettings>().ForumEmail;
 
             this.Accept.Visible = this.PageContext.IsGuest;
             this.Cancel.Visible = this.PageContext.IsGuest;

@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2020 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -12,7 +12,7 @@
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
 
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
 
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
@@ -117,7 +117,7 @@ namespace YAF.Pages.Admin
             // admin index
             this.PageLinks.AddLink(
                 this.GetText("ADMIN_ADMIN", "Administration"),
-                YafBuildLink.GetLink(ForumPages.admin_admin));
+                BuildLink.GetLink(ForumPages.admin_admin));
 
             // roles
             this.PageLinks.AddLink(this.GetText("ADMIN_GROUPS", "TITLE"), string.Empty);
@@ -156,7 +156,7 @@ namespace YAF.Pages.Admin
         protected void NewGroupClick([NotNull] object sender, [NotNull] EventArgs e)
         {
             // redirect to new role page
-            YafBuildLink.Redirect(ForumPages.admin_editgroup);
+            BuildLink.Redirect(ForumPages.admin_editgroup);
         }
 
         /// <summary>
@@ -177,7 +177,7 @@ namespace YAF.Pages.Admin
             }
 
             // sync roles just in case...
-            RoleMembershipHelper.SyncRoles(YafContext.Current.PageBoardID);
+            RoleMembershipHelper.SyncRoles(BoardContext.Current.PageBoardID);
 
             // bind data
             this.BindData();
@@ -222,7 +222,7 @@ namespace YAF.Pages.Admin
                         0);
 
                     // redirect to newly created role
-                    YafBuildLink.Redirect(ForumPages.admin_editgroup, "i={0}", groupId);
+                    BuildLink.Redirect(ForumPages.admin_editgroup, "i={0}", groupId);
                     break;
                 case "delete":
 
@@ -252,7 +252,7 @@ namespace YAF.Pages.Admin
                 case "edit":
 
                     // go to role editing page
-                    YafBuildLink.Redirect(ForumPages.admin_editgroup, "i={0}", e.CommandArgument);
+                    BuildLink.Redirect(ForumPages.admin_editgroup, "i={0}", e.CommandArgument);
                     break;
                 case "delete":
 

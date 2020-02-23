@@ -1,8 +1,8 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2019 Ingo Herbote
- * http://www.yetanotherforum.net/
+ * Copyright (C) 2014-2020 Ingo Herbote
+ * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -12,7 +12,7 @@
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
 
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
 
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
@@ -52,12 +52,12 @@ namespace YAF.Controls
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            if (!this.Get<YafBoardSettings>().ShowSimilarTopics)
+            if (!this.Get<BoardSettings>().ShowSimilarTopics)
             {
                 this.SimilarTopicsHolder.Visible = false;
                 return;
             }
-            
+
             this.BindData();
         }
 
@@ -68,7 +68,8 @@ namespace YAF.Controls
         {
             try
             {
-                var topicsList = this.GetRepository<Topic>().GetSimilarTopics(this.PageContext.PageUserID, this.PageContext.PageTopicName)
+                var topicsList = this.GetRepository<Topic>()
+                    .GetSimilarTopics(this.PageContext.PageUserID, this.PageContext.PageTopicName)
                     .Where(t => t.TopicId != this.PageContext.PageTopicID).Take(5).ToList();
 
                 if (!topicsList.Any())

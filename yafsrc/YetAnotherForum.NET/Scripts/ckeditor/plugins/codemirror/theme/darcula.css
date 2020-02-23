@@ -28,6 +28,8 @@
 .cm-s-darcula span.cm-bracket { color: #A9B7C6; }
 .cm-s-darcula span.cm-builtin { color: #FF9E59; }
 .cm-s-darcula span.cm-special { color: #FF9E59; }
+.cm-s-darcula span.cm-matchhighlight { color: #FFFFFF; background-color: rgba(50, 89, 48, .7); font-weight: normal;}
+.cm-s-darcula span.cm-searching { color: #FFFFFF; background-color: rgba(61, 115, 59, .7); font-weight: normal;}
 
 .cm-s-darcula .CodeMirror-cursor { border-left: 1px solid #A9B7C6; }
 .cm-s-darcula .CodeMirror-activeline-background { background: #323232; }

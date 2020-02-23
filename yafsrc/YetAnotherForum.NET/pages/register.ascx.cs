@@ -59,14 +59,14 @@ namespace YAF.Pages
     /// <summary>
     /// The User Register Page.
     /// </summary>
-    public partial class register : ForumPage
+    public partial class Register : ForumPage
     {
         #region Constructors and Destructors
 
         /// <summary>
-        ///   Initializes a new instance of the <see cref = "register" /> class.
+        ///   Initializes a new instance of the <see cref = "Register" /> class.
         /// </summary>
-        public register()
+        public Register()
             : base("REGISTER")
         {
         }
@@ -116,12 +116,12 @@ namespace YAF.Pages
         /// </param>
         protected void CreateUserWizard1_ContinueButtonClick([NotNull] object sender, [NotNull] EventArgs e)
         {
-            if (this.IsPossibleSpamBotInternalCheck && this.Get<YafBoardSettings>().BotHandlingOnRegister > 0)
+            if (this.IsPossibleSpamBotInternalCheck && this.Get<BoardSettings>().BotHandlingOnRegister > 0)
             {
                 return;
             }
 
-            if (!this.Get<YafBoardSettings>().EmailVerification)
+            if (!this.Get<BoardSettings>().EmailVerification)
             {
                 FormsAuthentication.SetAuthCookie(this.CreateUserWizard1.UserName, true);
             }
@@ -131,7 +131,7 @@ namespace YAF.Pages
             this.Get<IDataCache>().Remove(Constants.Cache.BoardUserStats);
 
             // redirect to the main forum URL      
-            YafBuildLink.Redirect(ForumPages.forum);
+            BuildLink.Redirect(ForumPages.forum);
         }
 
         /// <summary>
@@ -202,17 +202,17 @@ namespace YAF.Pages
             var user = UserMembershipHelper.GetUser(this.CreateUserWizard1.UserName);
 
             // setup initial roles (if any) for this user
-            RoleMembershipHelper.SetupUserRoles(YafContext.Current.PageBoardID, this.CreateUserWizard1.UserName);
+            RoleMembershipHelper.SetupUserRoles(BoardContext.Current.PageBoardID, this.CreateUserWizard1.UserName);
 
             var displayName = user.UserName;
 
-            if (this.Get<YafBoardSettings>().EnableDisplayName)
+            if (this.Get<BoardSettings>().EnableDisplayName)
             {
                 displayName = this.CreateUserStepContainer.FindControlAs<TextBox>("DisplayName").Text.Trim();
             }
 
             // create the user in the YAF DB as well as sync roles...
-            var userID = RoleMembershipHelper.CreateForumUser(user, displayName, YafContext.Current.PageBoardID);
+            var userID = RoleMembershipHelper.CreateForumUser(user, displayName, BoardContext.Current.PageBoardID);
 
             // create empty profile just so they have one
             var userProfile = YafUserProfile.GetProfile(this.CreateUserWizard1.UserName);
@@ -223,12 +223,12 @@ namespace YAF.Pages
             if (userID == null)
             {
                 // something is seriously wrong here -- redirect to failure...
-                YafBuildLink.RedirectInfoPage(InfoMessage.Failure);
+                BuildLink.RedirectInfoPage(InfoMessage.Failure);
             }
 
             if (this.IsPossibleSpamBot)
             {
-                if (this.Get<YafBoardSettings>().BotHandlingOnRegister.Equals(1))
+                if (this.Get<BoardSettings>().BotHandlingOnRegister.Equals(1))
                 {
                     this.Get<ISendNotification>().SendSpamBotNotificationToAdmins(user, userID.Value);
                 }
@@ -236,7 +236,7 @@ namespace YAF.Pages
             else
             {
                 // handle e-mail verification if needed
-                if (this.Get<YafBoardSettings>().EmailVerification)
+                if (this.Get<BoardSettings>().EmailVerification)
                 {
                     // get the user email
                     var emailTextBox =
@@ -251,7 +251,7 @@ namespace YAF.Pages
                     this.Get<ISendNotification>().SendUserWelcomeNotification(user, userID.Value);
                 }
 
-                if (this.Get<YafBoardSettings>().NotificationOnUserRegisterEmailList.IsSet())
+                if (this.Get<BoardSettings>().NotificationOnUserRegisterEmailList.IsSet())
                 {
                     // send user register notification to the following admin users...
                     this.Get<ISendNotification>().SendRegistrationNotificationEmail(user, userID.Value);
@@ -304,37 +304,37 @@ namespace YAF.Pages
                 return;
             }
 
-            if (userName.Length < this.Get<YafBoardSettings>().DisplayNameMinLength)
+            if (userName.Length < this.Get<BoardSettings>().DisplayNameMinLength)
             {
                 this.PageContext.AddLoadMessage(
-                    this.GetTextFormatted("USERNAME_TOOSMALL", this.Get<YafBoardSettings>().DisplayNameMinLength), 
+                    this.GetTextFormatted("USERNAME_TOOSMALL", this.Get<BoardSettings>().DisplayNameMinLength), 
                     MessageTypes.danger);
 
                 e.Cancel = true;
                 return;
             }
 
-            if (userName.Length > this.Get<YafBoardSettings>().UserNameMaxLength)
+            if (userName.Length > this.Get<BoardSettings>().UserNameMaxLength)
             {
                 this.PageContext.AddLoadMessage(
-                    this.GetTextFormatted("USERNAME_TOOLONG", this.Get<YafBoardSettings>().UserNameMaxLength), 
+                    this.GetTextFormatted("USERNAME_TOOLONG", this.Get<BoardSettings>().UserNameMaxLength), 
                     MessageTypes.danger);
 
                 e.Cancel = true;
                 return;
             }
 
-            if (this.Get<YafBoardSettings>().EnableDisplayName)
+            if (this.Get<BoardSettings>().EnableDisplayName)
             {
                 var displayName = this.CreateUserStepContainer.FindControlAs<TextBox>("DisplayName");
 
                 if (displayName != null)
                 {
                     // Check if name matches the required minimum length
-                    if (displayName.Text.Trim().Length < this.Get<YafBoardSettings>().DisplayNameMinLength)
+                    if (displayName.Text.Trim().Length < this.Get<BoardSettings>().DisplayNameMinLength)
                     {
                         this.PageContext.AddLoadMessage(
-                            this.GetTextFormatted("USERNAME_TOOSMALL", this.Get<YafBoardSettings>().DisplayNameMinLength), 
+                            this.GetTextFormatted("USERNAME_TOOSMALL", this.Get<BoardSettings>().DisplayNameMinLength), 
                             MessageTypes.warning);
                         e.Cancel = true;
 
@@ -342,10 +342,10 @@ namespace YAF.Pages
                     }
 
                     // Check if name matches the required minimum length
-                    if (displayName.Text.Length > this.Get<YafBoardSettings>().UserNameMaxLength)
+                    if (displayName.Text.Length > this.Get<BoardSettings>().UserNameMaxLength)
                     {
                         this.PageContext.AddLoadMessage(
-                            this.GetTextFormatted("USERNAME_TOOLONG", this.Get<YafBoardSettings>().UserNameMaxLength), 
+                            this.GetTextFormatted("USERNAME_TOOLONG", this.Get<BoardSettings>().UserNameMaxLength), 
                             MessageTypes.warning);
 
                         e.Cancel = true;
@@ -383,13 +383,13 @@ namespace YAF.Pages
                     $"Bot Check detected a possible SPAM BOT: (user name : '{userName}', email : '{this.CreateUserWizard1.Email}', ip: '{userIpAddress}', reason : {result}), user was rejected.", 
                     EventLogTypes.SpamBotDetected);
 
-                if (this.Get<YafBoardSettings>().BotHandlingOnRegister.Equals(2))
+                if (this.Get<BoardSettings>().BotHandlingOnRegister.Equals(2))
                 {
                     this.GetRepository<Registry>().IncrementBannedUsers();
 
                     this.PageContext.AddLoadMessage(this.GetText("BOT_MESSAGE"), MessageTypes.danger);
 
-                    if (this.Get<YafBoardSettings>().BanBotIpOnDetection)
+                    if (this.Get<BoardSettings>().BanBotIpOnDetection)
                     {
                         this.GetRepository<BannedIP>()
                             .Save(
@@ -401,7 +401,7 @@ namespace YAF.Pages
                         // Clear cache
                         this.Get<IDataCache>().Remove(Constants.Cache.BannedIP);
 
-                        if (YafContext.Current.Get<YafBoardSettings>().LogBannedIP)
+                        if (BoardContext.Current.Get<BoardSettings>().LogBannedIP)
                         {
                             this.Logger
                                 .Log(
@@ -413,16 +413,16 @@ namespace YAF.Pages
                     }
 
                     // Ban Name ?
-                    YafContext.Current.GetRepository<BannedName>().Save(null, userName, "Name was reported by the automatic spam system.");
+                    BoardContext.Current.GetRepository<BannedName>().Save(null, userName, "Name was reported by the automatic spam system.");
 
                     // Ban User Email?
-                    YafContext.Current.GetRepository<BannedEmail>().Save(null, this.CreateUserWizard1.Email, "Email was reported by the automatic spam system.");
+                    BoardContext.Current.GetRepository<BannedEmail>().Save(null, this.CreateUserWizard1.Email, "Email was reported by the automatic spam system.");
 
                     e.Cancel = true;
                 }
             }
 
-            switch (this.Get<YafBoardSettings>().CaptchaTypeRegister)
+            switch (this.Get<BoardSettings>().CaptchaTypeRegister)
             {
                 case 1:
                     {
@@ -509,7 +509,7 @@ namespace YAF.Pages
             var password = this.CreateUserStepContainer.FindControlAs<TextBox>("Password");
             var confirmPassword = this.CreateUserStepContainer.FindControlAs<TextBox>("ConfirmPassword");
 
-            YafContext.Current.PageElements.RegisterJsBlockStartup(
+            BoardContext.Current.PageElements.RegisterJsBlockStartup(
                 "passwordStrengthCheckJs",
                 JavaScriptBlocks.PasswordStrengthCheckerJs(
                     password.ClientID,
@@ -556,7 +556,7 @@ namespace YAF.Pages
 
             var dstUser = (CheckBox)this.CreateUserWizard1.FindWizardControlRecursive("DSTUser");
 
-            dstUser.Text = this.GetText("CP_EDITPROFILE", "DST");
+            dstUser.Text = this.GetText("EDIT_PROFILE", "DST");
 
             var facebookRegister = (ThemeButton)this.CreateUserWizard1.FindWizardControlRecursive("FacebookRegister");
             var twitterRegister = (ThemeButton)this.CreateUserWizard1.FindWizardControlRecursive("TwitterRegister");
@@ -568,10 +568,10 @@ namespace YAF.Pages
             {
                 loginButton.Visible = true;
                 loginButton.Text = this.GetText("LOGIN_INSTEAD");
-                loginButton.NavigateUrl = YafBuildLink.GetLink(ForumPages.login);
+                loginButton.NavigateUrl = BuildLink.GetLink(ForumPages.Login);
             }
 
-            if (this.Get<YafBoardSettings>().AllowSingleSignOn)
+            if (this.Get<BoardSettings>().AllowSingleSignOn)
             {
                 if (Config.FacebookAPIKey.IsSet() && Config.FacebookSecretKey.IsSet())
                 {
@@ -600,7 +600,7 @@ namespace YAF.Pages
             var country = (CountryImageListBox)this.CreateUserWizard1.FindWizardControlRecursive("Country");
             country.DataSource = StaticDataHelper.Country();
 
-            if (!this.Get<YafBoardSettings>().EmailVerification)
+            if (!this.Get<BoardSettings>().EmailVerification)
             {
                 // automatically log in created users
                 this.CreateUserWizard1.LoginCreatedUser = false;
@@ -620,13 +620,13 @@ namespace YAF.Pages
                     this.Get<IBBCode>().MakeHtml(this.GetText("ACCOUNT_CREATED_VERIFICATION"), false, true, false);
             }
 
-            this.CreateUserWizard1.ContinueDestinationPageUrl = YafForumInfo.ForumURL;
-            this.CreateUserWizard1.FinishDestinationPageUrl = YafForumInfo.ForumURL;
+            this.CreateUserWizard1.ContinueDestinationPageUrl = BoardInfo.ForumURL;
+            this.CreateUserWizard1.FinishDestinationPageUrl = BoardInfo.ForumURL;
 
             this.DataBind();
 
             // fill location field 
-            if (this.Get<YafBoardSettings>().EnableIPInfoService)
+            if (this.Get<BoardSettings>().EnableIPInfoService)
             {
                 try
                 {
@@ -647,7 +647,7 @@ namespace YAF.Pages
 
             this.CreateUserWizard1.FindWizardControlRecursive("UserName").Focus();
 
-            if (this.Get<YafBoardSettings>().CaptchaTypeRegister == 2)
+            if (this.Get<BoardSettings>().CaptchaTypeRegister == 2)
             {
                 this.SetupRecaptchaControl();
             }
@@ -665,7 +665,7 @@ namespace YAF.Pages
         protected void RefreshCaptcha_Click(object sender, EventArgs e)
         {
             var imgCaptcha = this.CreateUserStepContainer.FindControlAs<Image>("imgCaptcha");
-            imgCaptcha.ImageUrl = $"{YafForumInfo.ForumClientFileRoot}resource.ashx?c=1&t=";
+            imgCaptcha.ImageUrl = $"{BoardInfo.ForumClientFileRoot}resource.ashx?c=1&t=";
         }
 
         /// <summary>
@@ -679,7 +679,7 @@ namespace YAF.Pages
         /// </param>
         protected void FacebookRegisterClick(object sender, EventArgs e)
         {
-            YafBuildLink.Redirect(ForumPages.login, "auth={0}", AuthService.facebook);
+            BuildLink.Redirect(ForumPages.Login, "auth={0}", AuthService.facebook);
         }
 
         /// <summary>
@@ -693,7 +693,7 @@ namespace YAF.Pages
         /// </param>
         protected void TwitterRegisterClick(object sender, EventArgs e)
         {
-            YafBuildLink.Redirect(ForumPages.login, "auth={0}", AuthService.twitter);
+            BuildLink.Redirect(ForumPages.Login, "auth={0}", AuthService.twitter);
         }
 
         /// <summary>
@@ -707,7 +707,7 @@ namespace YAF.Pages
         /// </param>
         protected void GoogleRegisterClick(object sender, EventArgs e)
         {
-            YafBuildLink.Redirect(ForumPages.login, "auth={0}", AuthService.google);
+            BuildLink.Redirect(ForumPages.Login, "auth={0}", AuthService.google);
         }
 
         /// <summary>
@@ -741,9 +741,9 @@ namespace YAF.Pages
         {
             // Set Name lengths
             this.CreateUserStepContainer.FindControlAs<TextBox>("DisplayName").MaxLength =
-                this.Get<YafBoardSettings>().UserNameMaxLength;
+                this.Get<BoardSettings>().UserNameMaxLength;
             this.CreateUserStepContainer.FindControlAs<TextBox>("UserName").MaxLength =
-                this.Get<YafBoardSettings>().UserNameMaxLength;
+                this.Get<BoardSettings>().UserNameMaxLength;
 
             var usernameRequired = this.CreateUserStepContainer.FindControlAs<RequiredFieldValidator>(
                 "UserNameRequired");
@@ -771,11 +771,11 @@ namespace YAF.Pages
             var captchaPlaceHolder = this.CreateUserStepContainer.FindControlAs<PlaceHolder>("YafCaptchaHolder");
             var recaptchaPlaceHolder = this.CreateUserStepContainer.FindControlAs<PlaceHolder>("RecaptchaPlaceHolder");
 
-            if (this.Get<YafBoardSettings>().CaptchaTypeRegister == 1)
+            if (this.Get<BoardSettings>().CaptchaTypeRegister == 1)
             {
                 var imgCaptcha = this.CreateUserStepContainer.FindControlAs<Image>("imgCaptcha");
 
-                imgCaptcha.ImageUrl = $"{YafForumInfo.ForumClientFileRoot}resource.ashx?c=1&t={DateTime.UtcNow}";
+                imgCaptcha.ImageUrl = $"{BoardInfo.ForumClientFileRoot}resource.ashx?c=1&t={DateTime.UtcNow}";
 
                 var refreshCaptcha = this.CreateUserStepContainer.FindControlAs<LinkButton>("RefreshCaptcha");
 
@@ -790,9 +790,9 @@ namespace YAF.Pages
                 captchaPlaceHolder.Visible = false;
             }
 
-            recaptchaPlaceHolder.Visible = this.Get<YafBoardSettings>().CaptchaTypeRegister == 2;
+            recaptchaPlaceHolder.Visible = this.Get<BoardSettings>().CaptchaTypeRegister == 2;
 
-            SetupDisplayNameUI(this.CreateUserStepContainer, this.Get<YafBoardSettings>().EnableDisplayName);
+            SetupDisplayNameUI(this.CreateUserStepContainer, this.Get<BoardSettings>().EnableDisplayName);
 
             var questionAnswerPlaceHolder =
                 this.CreateUserStepContainer.FindControlAs<PlaceHolder>("QuestionAnswerPlaceHolder");
@@ -806,14 +806,14 @@ namespace YAF.Pages
         {
             this.CreateUserWizard1.FindWizardControlRecursive("RecaptchaPlaceHolder").Visible = true;
 
-            if (this.Get<YafBoardSettings>().RecaptchaPrivateKey.IsSet()
-                && this.Get<YafBoardSettings>().RecaptchaPublicKey.IsSet())
+            if (this.Get<BoardSettings>().RecaptchaPrivateKey.IsSet()
+                && this.Get<BoardSettings>().RecaptchaPublicKey.IsSet())
             {
                 return;
             }
 
             this.Logger.Log(this.PageContext.PageUserID, this, "secret or site key is required for reCAPTCHA!");
-            YafBuildLink.AccessDenied();
+            BuildLink.AccessDenied();
         }
 
         /// <summary>
@@ -822,7 +822,7 @@ namespace YAF.Pages
         /// <param name="country">The country.</param>
         private void FillLocationData([NotNull]ListControl country)
         {
-            var userIpLocator = YafContext.Current.Get<IIpInfoService>().GetUserIpLocator();
+            var userIpLocator = BoardContext.Current.Get<IIpInfoService>().GetUserIpLocator();
 
             if (userIpLocator == null)
             {
@@ -889,11 +889,11 @@ namespace YAF.Pages
 
                 var userIpAddress = this.Get<HttpRequestBase>().GetUserRealIPAddress();
 
-                if (this.Get<YafBoardSettings>().BotHandlingOnRegister.Equals(1))
+                if (this.Get<BoardSettings>().BotHandlingOnRegister.Equals(1))
                 {
                     this.Get<ISendNotification>().SendSpamBotNotificationToAdmins(user, userId);
                 }
-                else if (this.Get<YafBoardSettings>().BotHandlingOnRegister.Equals(2))
+                else if (this.Get<BoardSettings>().BotHandlingOnRegister.Equals(2))
                 {
                     // Kill user
                     UserMembershipHelper.DeleteAndBanUser(userId, user, userIpAddress);
@@ -930,7 +930,7 @@ namespace YAF.Pages
 
             userProfile.Save();
 
-            var autoWatchTopicsEnabled = this.Get<YafBoardSettings>().DefaultNotificationSetting
+            var autoWatchTopicsEnabled = this.Get<BoardSettings>().DefaultNotificationSetting
                                          == UserNotificationSetting.TopicsIPostToOrSubscribeTo;
 
             // save the time zone...
@@ -946,7 +946,7 @@ namespace YAF.Pages
                 null, 
                 null, 
                 null,
-                this.Get<YafBoardSettings>().DefaultNotificationSetting,
+                this.Get<BoardSettings>().DefaultNotificationSetting,
                 autoWatchTopicsEnabled,
                 dstUser.Checked, 
                 null, 
@@ -957,8 +957,8 @@ namespace YAF.Pages
                 userId, 
                 true, 
                 autoWatchTopicsEnabled, 
-                this.Get<YafBoardSettings>().DefaultNotificationSetting, 
-                this.Get<YafBoardSettings>().DefaultSendDigestEmail);
+                this.Get<BoardSettings>().DefaultNotificationSetting.ToInt(), 
+                this.Get<BoardSettings>().DefaultSendDigestEmail);
         }
 
         #endregion

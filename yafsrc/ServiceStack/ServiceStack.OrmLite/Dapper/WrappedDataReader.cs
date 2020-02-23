@@ -1,4 +1,4 @@
-﻿using System.Data;
+using System.Data;
 
 namespace ServiceStack.OrmLite.Dapper
 {
@@ -12,7 +12,6 @@ namespace ServiceStack.OrmLite.Dapper
         /// Obtain the underlying reader
         /// </summary>
         IDataReader Reader { get; }
-
         /// <summary>
         /// Obtain the underlying command
         /// </summary>

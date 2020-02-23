@@ -1,8 +1,8 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2019 Ingo Herbote
- * http://www.yetanotherforum.net/
+ * Copyright (C) 2014-2020 Ingo Herbote
+ * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -12,7 +12,7 @@
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
 
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
 
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
@@ -28,8 +28,6 @@ namespace YAF.Utils.Helpers
     using System.Linq;
     using System.Text.RegularExpressions;
 
-    using YAF.Types.Objects;
-
     /// <summary>
     /// The bb code helper.
     /// </summary>
@@ -44,14 +42,14 @@ namespace YAF.Utils.Helpers
         /// <returns>
         /// The <see cref="List"/>.
         /// </returns>
-        public static List<UserSimple> FindUserQuoting(string text)
+        public static List<string> FindUserQuoting(string text)
         {
             var mentions = Regex.Matches(
                 text,
                 @"\[quote\=(?<user>.+?);(?<messageId>.+?)\](?<inner>.+?)\[\/quote\]",
                 RegexOptions.Singleline);
 
-            return (from Match match in mentions select new UserSimple { UserName = match.Groups["user"].Value }).ToList();
+            return (from Match match in mentions select match.Groups["user"].Value).ToList();
         }
 
         /// <summary>
@@ -63,13 +61,12 @@ namespace YAF.Utils.Helpers
         /// <returns>
         /// The <see cref="List"/>.
         /// </returns>
-        public static List<UserSimple> FindMentions(string text)
+        public static List<string> FindMentions(string text)
         {
             var mentions = Regex.Matches(text, @"@\[userlink\](?<inner>.+?)\[\/userlink\]", RegexOptions.IgnoreCase);
 
-            return (from Match match in mentions select new UserSimple { UserName = match.Groups["inner"].Value }).ToList();
+            return (from Match match in mentions select match.Groups["inner"].Value).ToList();
         }
-
 
         /// <summary>
         /// The strip bb code.

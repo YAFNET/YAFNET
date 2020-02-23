@@ -1,8 +1,8 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2019 Ingo Herbote
- * http://www.yetanotherforum.net/
+ * Copyright (C) 2014-2020 Ingo Herbote
+ * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -12,7 +12,7 @@
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
 
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
 
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
@@ -30,6 +30,7 @@ namespace YAF.Controls
 
     using YAF.Core.BaseControls;
     using YAF.Types;
+    using YAF.Types.Constants;
 
     #endregion
 
@@ -41,16 +42,25 @@ namespace YAF.Controls
         #region Methods
 
         /// <summary>
-        /// The On PreRender event.
+        /// Handles the Load event of the Page control.
         /// </summary>
-        /// <param name="e">
-        /// the Event Arguments
-        /// </param>
-        protected override void OnPreRender([NotNull] EventArgs e)
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            base.OnPreRender(e);
+            this.AdminDropdown.CssClass = "nav-link dropdown-toggle";
+
+            if (this.PageContext.CurrentForumPage.IsAdminPage
+                && !(this.PageContext.ForumPageType == ForumPages.admin_hostsettings
+                     || this.PageContext.ForumPageType == ForumPages.admin_boards
+                     || this.PageContext.ForumPageType == ForumPages.admin_editboard
+                     || this.PageContext.ForumPageType == ForumPages.admin_pageaccessedit
+                     || this.PageContext.ForumPageType == ForumPages.admin_pageaccesslist))
+            {
+                this.AdminDropdown.CssClass = "nav-link dropdown-toggle active";
+            }
         }
 
-       #endregion
+        #endregion
     }
 }

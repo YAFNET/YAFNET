@@ -1,8 +1,8 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2019 Ingo Herbote
- * http://www.yetanotherforum.net/
+ * Copyright (C) 2014-2020 Ingo Herbote
+ * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -12,7 +12,7 @@
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
 
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
 
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
@@ -70,7 +70,7 @@ namespace YAF.Controls
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void AddAlbum_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
-            YafBuildLink.Redirect(ForumPages.cp_editalbumimages, "u={0}&a=new", this.UserID);
+            BuildLink.Redirect(ForumPages.EditAlbumImages, "u={0}&a=new", this.UserID);
         }
 
         /// <summary>
@@ -80,29 +80,7 @@ namespace YAF.Controls
         /// <param name="e">The <see cref="System.Web.UI.WebControls.RepeaterCommandEventArgs"/> instance containing the event data.</param>
         protected void Albums_ItemCommand([NotNull] object source, [NotNull] RepeaterCommandEventArgs e)
         {
-            YafBuildLink.Redirect(ForumPages.cp_editalbumimages, "a={0}", e.CommandArgument);
-        }
-
-        /// <summary>
-        /// Show a Random Cover if none is Set
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.Web.UI.WebControls.RepeaterItemEventArgs"/> instance containing the event data.</param>
-        protected void Albums_ItemDataBound([NotNull] object sender, [NotNull] RepeaterItemEventArgs e)
-        {
-            // tha_watcha: TODO: Currently disabled this function, until yaf 2.0 build
-            /*var coverImage = (Image)e.Item.FindControl("coverImage");
-
-                  if (coverImage == null) return;
-
-                  var curAlbum = DB.album_image_list(coverImage.AlternateText, null);
-
-                  Random random = new Random();
-
-                  if ((curAlbum != null) && curAlbum.HasRows())
-                  {
-                      coverImage.ImageUrl = String.Format("{0}resource.ashx?imgprv={1}", YafForumInfo.ForumClientFileRoot, curAlbum.Rows[random.Next(curAlbum.Rows.Count)]["ImageID"]);
-                  }*/
+            BuildLink.Redirect(ForumPages.EditAlbumImages, "a={0}", e.CommandArgument);
         }
 
         /// <summary>
@@ -114,14 +92,14 @@ namespace YAF.Controls
             if (this.UserID == this.PageContext.PageUserID)
             {
                 // Register Js Blocks.
-                YafContext.Current.PageElements.RegisterJsBlockStartup(
+                BoardContext.Current.PageElements.RegisterJsBlockStartup(
                     "AlbumEventsJs",
                     JavaScriptBlocks.AlbumEventsJs(
                         this.Get<ILocalization>().GetText("ALBUM_CHANGE_TITLE").ToJsString(),
                         this.Get<ILocalization>().GetText("ALBUM_IMAGE_CHANGE_CAPTION").ToJsString()));
-                YafContext.Current.PageElements.RegisterJsBlockStartup(
+                BoardContext.Current.PageElements.RegisterJsBlockStartup(
                     "ChangeAlbumTitleJs", JavaScriptBlocks.ChangeAlbumTitleJs);
-                YafContext.Current.PageElements.RegisterJsBlockStartup(
+                BoardContext.Current.PageElements.RegisterJsBlockStartup(
                     "AlbumCallbackSuccessJS", JavaScriptBlocks.AlbumCallbackSuccessJs);
             }
 
@@ -140,10 +118,10 @@ namespace YAF.Controls
                 return;
             }
 
-            var umhdn = UserMembershipHelper.GetDisplayNameFromID(this.UserID);
-            this.AlbumHeaderLabel.Param0 = this.Get<YafBoardSettings>().EnableDisplayName
-                                               ? this.HtmlEncode(umhdn)
-                                               : this.HtmlEncode(UserMembershipHelper.GetUserNameFromID(this.UserID));
+            this.AlbumHeaderLabel.Param0 = this.HtmlEncode(
+                this.Get<BoardSettings>().EnableDisplayName
+                    ? UserMembershipHelper.GetDisplayNameFromID(this.UserID)
+                    : UserMembershipHelper.GetUserNameFromID(this.UserID));
 
             this.BindData();
 
@@ -191,7 +169,7 @@ namespace YAF.Controls
         /// </summary>
         private void BindData()
         {
-            this.PagerTop.PageSize = this.Get<YafBoardSettings>().AlbumsPerPage;
+            this.PagerTop.PageSize = this.Get<BoardSettings>().AlbumsPerPage;
 
             // set the Data table
             var albumListDT = this.GetRepository<UserAlbum>().ListByUser(this.UserID);

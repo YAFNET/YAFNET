@@ -1,6 +1,7 @@
 ﻿function getSearchResultsData(pageNumber) {
     var searchInput = jQuery(".searchInput").val();
     var searchInputUser = jQuery(".searchUserInput").val();
+    var searchInputTag = jQuery(".searchTagInput").val();
     var useDisplayName = jQuery(".searchUserInput").data("display") === "True";
 
     // filter options
@@ -8,16 +9,20 @@
     var titleOnly = jQuery(".titleOnly").val();
     var searchWhat = jQuery(".searchWhat").val();
 
+    var minimumLength = jQuery("#SearchResultsPlaceholder").data("minimum");
+
     // Forum Filter
     var searchForum = parseInt(jQuery(".searchForum").val());
 
     var searchText = "";
 
-    if (searchInput.length && searchInput.length >= 4 || searchInputUser.length && searchInputUser.length >= 3) {
+    if (searchInput.length && searchInput.length >= minimumLength ||
+        searchInputUser.length && searchInputUser.length >= minimumLength ||
+        searchInputTag.length && searchInputTag.length >= minimumLength) {
 
         var replace;
 
-        if (searchInput.length && searchInput.length >= 4) {
+        if (searchInput.length && searchInput.length >= minimumLength) {
             if (titleOnly === "1") {
                 // ADD Topic Filter
                 if (searchWhat === "0") {
@@ -47,15 +52,25 @@
             }
         }
 
-        if (searchInputUser.length && searchInputUser.length >= 3) {
+        if (searchInputUser.length && searchInputUser.length >= minimumLength) {
             var author = useDisplayName ? "AuthorDisplay" : "Author";
 
             if (searchText.length) searchText += " ";
-        
+
             if (searchInput.length) {
                 searchText += "AND " + author + ":" + searchInputUser;
             } else {
                 searchText = "+" + author + ":" + searchInputUser;
+            }
+        }
+
+        if (searchInputTag.length && searchInputTag.length >= minimumLength) {
+            if (searchText.length) searchText += " ";
+
+            if (searchInput.length) {
+                searchText += "AND TopicTags:" + searchInputTag;
+            } else {
+                searchText = "+TopicTags:" + searchInputTag;
             }
         }
 
@@ -85,7 +100,7 @@
             },
             success: function(data) {
                 $("#loadModal").on("shown.bs.modal",
-                    function () {
+                    function() {
                         $("#loadModal").modal("hide");
                     });
                 var posted = $("#SearchResultsPlaceholder").data("posted");
@@ -101,13 +116,24 @@
                         "</div>");
 
                     $("#SearchResultsPagerTop, #SearchResultsPagerBottom").empty();
-                    
+
                 } else {
                     $.each(data.SearchResults,
-                        function(id, data) {
+                        function (id, data) {
                             var groupHolder = $("#SearchResultsPlaceholder");
 
-                            groupHolder.append('<div class="row"><div class="col"><div class="card border-0 w-100 mb-3">' +
+                            var tags = " ";
+
+                            if (data.TopicTags) {
+                                var topicTags = data.TopicTags.split(",");
+
+                                $(topicTags).each(function (index, d) {
+                                    tags += "<span class='badge badge-secondary mr-1'><i class='fas fa-tag mr-1'></i>" +  d  + "</span>";
+                                });
+                            }
+
+                            groupHolder.append(
+                                '<div class="row"><div class="col"><div class="card border-0 w-100 mb-3">' +
                                 '<div class="card-header bg-transparent border-top border-bottom-0 px-0 pb-0 pt-4 topicTitle"><h5> ' +
                                 '<a title="' +
                                 topic +
@@ -131,7 +157,7 @@
                                 '<div class="card-body px-0">' +
                                 '<h6 class="card-subtitle mb-2 text-muted">' +
                                 data.Description +
-                                "</h6>"+ 
+                                "</h6>" +
                                 '<p class="card-text messageContent">' +
                                 data.Message +
                                 "</p>" +
@@ -143,13 +169,15 @@
                                 '<i class="fa fa-circle fa-badge-bg fa-inverse fa-outline-inverse"></i> ' +
                                 '<i class="fa fa-clock fa-badge text-secondary"></i> ' +
                                 "</span>" +
-                                posted + " " +
+                                posted +
+                                " " +
                                 moment(data.Posted).fromNow() +
-                                " " + 
+                                " " +
                                 '<i class="fa fa-user fa-fw text-secondary"></i>' +
                                 by +
                                 " " +
                                 (useDisplayName ? data.UserDisplayName : data.UserName) +
+                                tags +
                                 "</small> " +
                                 "</div>" +
                                 "</div></div></div>");

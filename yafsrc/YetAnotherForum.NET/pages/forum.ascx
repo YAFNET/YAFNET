@@ -1,6 +1,6 @@
-<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.forum" Codebehind="forum.ascx.cs" %>
+<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.forum" Codebehind="Forum.ascx.cs" %>
 <%@ Register TagPrefix="YAF" TagName="ForumWelcome" Src="../controls/ForumWelcome.ascx" %>
-<%@ Register TagPrefix="YAF" TagName="ForumIconLegend" Src="../controls/ForumIconLegend.ascx" %>
+<%@ Register TagPrefix="YAF" TagName="ForumStatsUsers" Src="../controls/ForumStatsUsers.ascx" %>
 <%@ Register TagPrefix="YAF" TagName="ForumStatistics" Src="../controls/ForumStatistics.ascx" %>
 <%@ Register TagPrefix="YAF" TagName="ForumActiveDiscussion" Src="../controls/ForumActiveDiscussion.ascx" %>
 <%@ Register TagPrefix="YAF" TagName="ForumCategoryList" Src="../controls/ForumCategoryList.ascx" %>
@@ -14,18 +14,18 @@
     </div>
 </div>
 
-
 <YAF:PollList ID="PollList" runat="server"/>
 
 <YAF:ForumCategoryList ID="ForumCategoryList" runat="server"></YAF:ForumCategoryList>
-
-<YAF:ForumIconLegend ID="IconLegend" runat="server" />
 
 <div class="row">
     <div class="col">
         <div class="row">
             <YAF:ForumActiveDiscussion ID="ActiveDiscussions" runat="server" />
-            <YAF:ForumStatistics ID="ForumStats" runat="Server" />
+            <YAF:ForumStatsUsers ID="ForumStats" runat="Server" />
+        </div>
+        <div class="row">
+            <YAF:ForumStatistics ID="ForumStatistics" runat="Server" />
         </div>
     </div>
 </div>

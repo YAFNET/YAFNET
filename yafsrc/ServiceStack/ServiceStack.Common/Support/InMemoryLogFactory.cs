@@ -35,8 +35,8 @@ namespace ServiceStack.Support
         : ILog
     {
         private readonly object syncLock = new object();
-        public string LoggerName { get; }
-        public StringBuilder CombinedLog { get; }
+        public string LoggerName { get; private set; }
+        public StringBuilder CombinedLog { get; private set; }
         public List<string> DebugEntries { get; set; }
         public List<Exception> DebugExceptions { get; set; }
         public List<string> InfoEntries { get; set; }
@@ -95,7 +95,6 @@ namespace ServiceStack.Support
                     logExceptions.Add(ex);
                 }
             }
-
             if (message == null) return;
             AppendToLog(logEntries, message.ToString());
         }

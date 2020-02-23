@@ -1,4 +1,4 @@
-﻿<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.team" Codebehind="team.ascx.cs" %>
+﻿<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Team" Codebehind="Team.ascx.cs" %>
 
 <%@ Import Namespace="YAF.Types.Constants" %>
 <%@ Import Namespace="YAF.Types.Interfaces" %>
@@ -66,7 +66,7 @@
                                                      TextLocalizedTag="ADMIN_USER" TextLocalizedPage="PROFILE" 
                                                      Size="Small" Visible="false"
                                                      Icon="user-cog" Type="Secondary"
-                                                     NavigateUrl='<%# YafBuildLink.GetLinkNotEscaped( ForumPages.admin_edituser,"u={0}", this.Eval("UserID").ToType<int>() ) %>'>
+                                                     NavigateUrl='<%# BuildLink.GetLinkNotEscaped( ForumPages.admin_edituser,"u={0}", this.Eval("UserID").ToType<int>() ) %>'>
                                     </YAF:ThemeButton>
                                 </div>
                             </small>
@@ -79,9 +79,7 @@
             </div>
         </div>
     </div>
-</div>
-<div class="row" id="ModsTable" runat="server">
-    <div class="col">
+    <div class="col" id="ModsTable" runat="server">
         <div class="card mb-3">
             <div class="card-header">
                 <i class="fas fa-user-secret fa-fw text-secondary"></i>&nbsp;<YAF:LocalizedLabel 
@@ -106,7 +104,7 @@
                                                 Height="40px"
                                                 CssClass="rounded img-fluid"/>
                                      <YAF:UserLink ID="ModLink" runat="server" 
-                                                   ReplaceName='<%#  this.Eval(this.Get<YafBoardSettings>().EnableDisplayName ? "DisplayName" : "Name").ToString() %>' 
+                                                   ReplaceName='<%#  this.Eval(this.Get<BoardSettings>().EnableDisplayName ? "DisplayName" : "Name").ToString() %>' 
                                                    UserID='<%# this.Eval("ModeratorID").ToType<int>() %>' 
                                                    IsGuest="False" 
                                                    Style='<%# this.Eval("Style") %>'  />
@@ -125,10 +123,8 @@
                                                              TextLocalizedTag="GO" 
                                                              OnClick="GoToForum"></YAF:ThemeButton>
                                         </span>
-                                        <asp:DropDownList ID="ModForums" runat="server" CssClass="standardSelectMenu form-control">
+                                        <asp:DropDownList ID="ModForums" runat="server" CssClass="select2-select form-control">
                                         </asp:DropDownList>
-                                        
-                                        
                                     </div>
                                 </p>
                             <small>
@@ -148,7 +144,7 @@
                                                      TitleLocalizedPage="PROFILE" TitleLocalizedTag="ADMIN_USER"
                                                      TextLocalizedTag="ADMIN_USER" TextLocalizedPage="PROFILE"
                                                      Icon="user-cog" Type="Secondary"
-                                                     NavigateUrl='<%# YafBuildLink.GetLinkNotEscaped( ForumPages.admin_edituser,"u={0}", this.Eval("ModeratorID").ToType<int>() ) %>'>
+                                                     NavigateUrl='<%# BuildLink.GetLinkNotEscaped( ForumPages.admin_edituser,"u={0}", this.Eval("ModeratorID").ToType<int>() ) %>'>
                                     </YAF:ThemeButton>
                                 </div>
                             </small>

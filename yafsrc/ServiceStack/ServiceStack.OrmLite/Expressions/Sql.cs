@@ -1,6 +1,7 @@
+using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
+using System.Collections.Generic;
 
 namespace ServiceStack.OrmLite
 {
@@ -26,7 +27,6 @@ namespace ServiceStack.OrmLite
                     ret.Add(item);
                 }
             }
-
             return ret;
         }
 
@@ -34,9 +34,9 @@ namespace ServiceStack.OrmLite
 
         public static bool In<T, TItem>(T value, SqlExpression<TItem> query) => value != null && query != null;
 
-        public static string Desc<T>(T value) => value == null ? string.Empty : $"{value} DESC";
+        public static string Desc<T>(T value) => value == null ? "" : value + " DESC";
 
-        public static string As<T>(T value, object asValue) => value == null ? string.Empty : $"{value} AS {asValue}";
+        public static string As<T>(T value, object asValue) => value == null ? "" : $"{value} AS {asValue}";
 
         public static T Sum<T>(T value) => value;
 
@@ -62,9 +62,15 @@ namespace ServiceStack.OrmLite
 
         public static T AllFields<T>(T item) => item;
 
-        public static string JoinAlias(string property, string tableAlias) => tableAlias;
+	    [Obsolete("Use TableAlias")]
+	    public static string JoinAlias(string property, string tableAlias) => tableAlias;
 
-        public static T JoinAlias<T>(T property, string tableAlias) => default(T);
+	    public static string TableAlias(string property, string tableAlias) => tableAlias;
+
+	    [Obsolete("Use TableAlias")]
+	    public static T JoinAlias<T>(T property, string tableAlias) => default(T);
+
+	    public static T TableAlias<T>(T property, string tableAlias) => default(T);
 
         public static string Custom(string customSql) => customSql;
 

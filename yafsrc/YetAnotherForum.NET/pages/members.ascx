@@ -1,4 +1,4 @@
-<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.members" CodeBehind="members.ascx.cs" %>
+<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Members" CodeBehind="Members.ascx.cs" %>
 
 <%@ Import Namespace="YAF.Types.Interfaces" %>
 <%@ Import Namespace="YAF.Types.Extensions" %>
@@ -24,11 +24,79 @@
     <div class="col">
         <div class="card mb-3">
             <div class="card-header">
-                <i class="fas fa-users fa-fw text-secondary pr-1"></i>
-                <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" 
-                                    LocalizedTag="TITLE" />
-                <div class="float-right">
-                        &nbsp;
+                <div class="row justify-content-between">
+                    <div class="col-md-3">
+                        <i class="fas fa-users fa-fw text-secondary pr-1"></i>
+                        <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" 
+                                            LocalizedTag="TITLE" />
+                    </div>
+                    <div class="col-md-3 mt-1">
+                        <div class="btn-toolbar" role="toolbar">
+                            <div class="btn-group mr-2" role="group" aria-label="sort">
+                                <YAF:ThemeButton ID="Sort" runat="server"
+                                     CssClass="dropdown-toggle"
+                                     Type="Secondary"
+                                     DataToggle="dropdown"
+                                     TextLocalizedTag="SORT_BY"
+                                     Icon="sort" />
+                    <div class="dropdown-menu">
+                        <YAF:ThemeButton ID="SortUserNameAsc" runat="server"
+                                         CssClass="dropdown-item"
+                                         Type="None" 
+                                         OnClick="UserNameAsc_Click"
+                                         TextLocalizedTag="USERNAME_ASC"/>
+                        <YAF:ThemeButton ID="SortUserNameDesc" runat="server"
+                                         CssClass="dropdown-item"
+                                         Type="None" 
+                                         OnClick="UserNameDesc_Click"
+                                         TextLocalizedTag="USERNAME_DESC"/>
+                        <div class="dropdown-divider"></div>
+                        <YAF:ThemeButton ID="SortRankAsc" runat="server"
+                                         CssClass="dropdown-item"
+                                         Type="None" 
+                                         OnClick="RankAsc_Click"
+                                         TextLocalizedTag="USERNAME_ASC" />
+                        <YAF:ThemeButton ID="SortRankDesc" runat="server"
+                                         CssClass="dropdown-item"
+                                         Type="None" 
+                                         OnClick="RankDesc_Click"
+                                         TextLocalizedTag="USERNAME_DESC" />
+                        <div class="dropdown-divider"></div>
+                        <YAF:ThemeButton ID="SortJoinedAsc" runat="server"
+                                         CssClass="dropdown-item"
+                                         Type="None" 
+                                         OnClick="JoinedAsc_Click"
+                                         TextLocalizedTag="JOINED_ASC" />
+                        <YAF:ThemeButton ID="SortJoinedDesc" runat="server"
+                                         CssClass="dropdown-item"
+                                         Type="None" 
+                                         OnClick="JoinedDesc_Click"
+                                         TextLocalizedTag="JOINED_DESC" />
+                        <div class="dropdown-divider"></div>
+                        <YAF:ThemeButton ID="SortPostsAsc" runat="server"
+                                         CssClass="dropdown-item"
+                                         Type="None" 
+                                         OnClick="PostsAsc_Click"
+                                         TextLocalizedTag="POSTS_ASC" />
+                        <YAF:ThemeButton ID="SortPostsDesc" runat="server"
+                                         CssClass="dropdown-item"
+                                         Type="None" 
+                                         OnClick="PostsDesc_Click"
+                                         TextLocalizedTag="POSTS_DESC" />
+                        <div class="dropdown-divider"></div>
+                        <YAF:ThemeButton ID="SortLastVisitAsc" runat="server"
+                                         CssClass="dropdown-item"
+                                         Type="None" 
+                                         OnClick="LastVisitAsc_Click"
+                                         TextLocalizedTag="LASTVISIT_ASC" />
+                        <YAF:ThemeButton ID="SortLastVisitDesc" runat="server"
+                                         CssClass="dropdown-item"
+                                         Type="None" 
+                                         OnClick="LastVisitDesc_Click"
+                                         TextLocalizedTag="LASTVISIT_DESC" />
+                    </div>
+                            </div>
+                            <div class="btn-group dropleft" role="group" aria-label="Filters">
                         <YAF:ThemeButton runat="server"
                                          CssClass="dropdown-toggle"
                                          DataToggle="dropdown"
@@ -36,8 +104,9 @@
                                          Icon="filter"
                                          TextLocalizedTag="FILTER_DROPDOWN"
                                          TextLocalizedPage="ADMIN_USERS"></YAF:ThemeButton>
+                        
                         <div class="dropdown-menu">
-                            <div class="px-3 py-1">
+                            <div class="px-3 py-1" style="min-width:max-content">
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
                                         <asp:Label runat="server" AssociatedControlID="Group">
@@ -94,71 +163,58 @@
                                 </div>
                             </div>
                         </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="card-body">
                 <YAF:AlphaSort ID="AlphaSort1" runat="server" />
-                <YAF:Alert runat="server" ID="MobileInfo" Type="info" MobileOnly="True">
-                    <YAF:LocalizedLabel ID="LocalizedLabel220" runat="server" LocalizedTag="TABLE_RESPONSIVE" LocalizedPage="ADMIN_COMMON" />
-                    <span class="float-right"><i class="fa fa-hand-point-left fa-fw"></i></span>
-                </YAF:Alert>
-                <div class="table-responsive">
-                    <table class="table mt-3">
-                        <thead>
-                            <tr>
-                                <th scope="col">
-                                    <YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="Avatar" />
-                                </th>
-                                <th scope="col">
-                                    <asp:Label runat="server" ID="SortUserName" />
-                                    <asp:LinkButton runat="server" ID="UserName" OnClick="UserName_Click" />
-                                </th>
-                                <th scope="col">
-                                    <asp:Label runat="server" ID="SortRank" />
-                                    <asp:LinkButton runat="server" ID="Rank" OnClick="Rank_Click" />
-                                </th>
-                                <th scope="col">
-                                    <asp:Label runat="server" ID="SortJoined" />
-                                    <asp:LinkButton runat="server" ID="Joined" OnClick="Joined_Click" />
-                                </th>
-                                <th scope="col">
-                                    <asp:Label runat="server" ID="SortPosts" />
-                                    <asp:LinkButton runat="server" ID="Posts" OnClick="Posts_Click" />
-                                </th>
-                                <th scope="col">
-                                    <asp:Label runat="server" ID="SortLastVisit" />
-                                    <asp:LinkButton runat="server" ID="LastVisitLB" OnClick="LastVisitLB_Click" />
-                                </th>
-                            </tr>
-                        </thead>
-                        <asp:Repeater ID="MemberList" runat="server">
+                <asp:Repeater ID="MemberList" runat="server">
+                            <HeaderTemplate>
+                                <ul class="list-group">
+                            </HeaderTemplate>
+                            <FooterTemplate>
+                                </ul>
+                            </FooterTemplate>
                             <ItemTemplate>
-                                <tr>
-                                    <td>
+                                <li class="list-group-item list-group-item-action">
+                                <div class="d-flex w-100 justify-content-between">
+                                    <h5 class="mb-1 text-break">
                                         <img src="<%# this.GetAvatarUrlFileName(this.Eval("UserID").ToType<int>(), this.Eval("Avatar").ToString(), this.Eval("AvatarImage").ToString().IsSet(), this.Eval("Email").ToString()) %>" alt="<%# this.HtmlEncode(DataBinder.Eval(Container.DataItem,"Name").ToString()) %>"
-                                            title="<%# this.HtmlEncode(this.Get<YafBoardSettings>().EnableDisplayName ? this.Eval("DisplayName").ToString() : this.Eval("Name").ToString()) %>" 
+                                             title="<%# this.HtmlEncode(this.Eval(this.Get<BoardSettings>().EnableDisplayName ? "DisplayName" : "Name").ToString()) %>" 
                                              class="rounded img-fluid" />
-                                    </td>
-                                    <td>
-                                        <YAF:UserLink ID="UserProfileLink" runat="server" IsGuest="False" ReplaceName='<%# this.Get<YafBoardSettings>().EnableDisplayName ? this.Eval("DisplayName").ToString() : this.Eval("Name").ToString() %>' UserID='<%# this.Eval("UserID").ToType<int>() %>'
-                                            Style='<%# this.Eval("Style") %>' />
-                                    </td>
-                                    <td>
-                                        <%# this.Eval("RankName") %>
-                                    </td>
-                                    <td>
+                                        <YAF:UserLink ID="UserProfileLink" runat="server" 
+                                                      IsGuest="False" 
+                                                      ReplaceName='<%# this.Eval(this.Get<BoardSettings>().EnableDisplayName ? "DisplayName" : "Name").ToString() %>' 
+                                                      UserID='<%# this.Eval("UserID").ToType<int>() %>'
+                                                      Style='<%# this.Eval("Style") %>' />
+                                    </h5>
+                                    <small class="d-none d-md-block">
+                                        <strong><YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" 
+                                                                    LocalizedTag="JOINED"
+                                                                    LocalizedPage="POSTS"/>:</strong>
                                         <%# this.Get<IDateTime>().FormatDateLong((DateTime)((System.Data.DataRowView)Container.DataItem)["Joined"]) %>
-                                    </td>
-                                    <td>
-                                        <%# "{0:N0}".Fmt(((System.Data.DataRowView)Container.DataItem)["NumPosts"]) %>
-                                    </td>
-                                    <td>
-                                        <%# this.Get<IDateTime>().FormatDateLong((DateTime)((System.Data.DataRowView)Container.DataItem)["LastVisit"]) %>
-                                    </td>
-                                </tr>
+                                    </small>
+                                </div>
+                                <p class="mb-1">
+                                    <ul class="list-inline">
+                                        <li class="list-inline-item">
+                                            <strong><YAF:LocalizedLabel ID="LocalizedLabel8" runat="server" LocalizedTag="RANK"></YAF:LocalizedLabel></strong>
+                                            <%# this.Eval("RankName") %>
+                                        </li>
+                                        <li class="list-inline-item">
+                                            <strong><YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedTag="POSTS" LocalizedPage="ADMIN_USERS" />:</strong>
+                                            <%# "{0:N0}".Fmt(((System.Data.DataRowView)Container.DataItem)["NumPosts"]) %>
+                                        </li>
+                                        <li class="list-inline-item">
+                                            <strong><YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="LAST_VISIT" LocalizedPage="ADMIN_USERS" />:</strong>
+                                            <%# this.Get<IDateTime>().FormatDateLong((DateTime)((System.Data.DataRowView)Container.DataItem)["LastVisit"]) %>
+                                        </li>
+                                    </ul>
+                                </p>
+                            </li>
                             </ItemTemplate>
                         </asp:Repeater>
-                    </table>
-                </div>
             </div>
         </div>
     </div>

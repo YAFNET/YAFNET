@@ -1,8 +1,8 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2019 Ingo Herbote
- * http://www.yetanotherforum.net/
+ * Copyright (C) 2014-2020 Ingo Herbote
+ * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -12,7 +12,7 @@
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
 
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
 
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
@@ -29,6 +29,7 @@ namespace YAF.Classes
 
     using YAF.Core;
     using YAF.RegisterV2;
+    using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Utils;
 
@@ -40,7 +41,7 @@ namespace YAF.Classes
         /// <summary>
         /// Gets ServiceLocator.
         /// </summary>
-        public IServiceLocator ServiceLocator => YafContext.Current.ServiceLocator;
+        public IServiceLocator ServiceLocator => BoardContext.Current.ServiceLocator;
 
         /// <summary>
         /// Gets the latest version information.
@@ -59,7 +60,7 @@ namespace YAF.Classes
                 using (var reg = new RegisterV2 { Timeout = 30000 })
                 {
                     // load the latest info -- but only provide the current version information and the user's two-letter language information. Nothing trackable.))
-                    latestInfo = reg.LatestInfo(YafForumInfo.AppVersionCode, "US");
+                    latestInfo = reg.LatestInfo(BoardInfo.AppVersionCode, "US");
 
                     if (latestInfo != null)
                     {

@@ -1,8 +1,8 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2019 Ingo Herbote
- * http://www.yetanotherforum.net/
+ * Copyright (C) 2014-2020 Ingo Herbote
+ * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -11,7 +11,7 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -25,7 +25,7 @@ namespace YAF.Core.Handlers
 
     using System;
 
-    using YAF.Core.Theme;
+    using YAF.Core.Services;
     using YAF.Types.Exceptions;
     using YAF.Types.Interfaces;
 
@@ -107,28 +107,28 @@ namespace YAF.Core.Handlers
 
             string theme;
 
-            if (YafContext.Current.Page != null && YafContext.Current.Page["ThemeFile"] != null &&
-                YafContext.Current.BoardSettings.AllowUserTheme)
+            if (BoardContext.Current.Page != null && BoardContext.Current.Page["ThemeFile"] != null &&
+                BoardContext.Current.BoardSettings.AllowUserTheme)
             {
                 // use user-selected theme
-                theme = YafContext.Current.Page["ThemeFile"].ToString();
+                theme = BoardContext.Current.Page["ThemeFile"].ToString();
             }
-            else if (YafContext.Current.Page != null && YafContext.Current.Page["ForumTheme"] != null)
+            else if (BoardContext.Current.Page != null && BoardContext.Current.Page["ForumTheme"] != null)
             {
-                theme = YafContext.Current.Page["ForumTheme"].ToString();
+                theme = BoardContext.Current.Page["ForumTheme"].ToString();
             }
             else
             {
-                theme = YafContext.Current.BoardSettings.Theme;
+                theme = BoardContext.Current.BoardSettings.Theme;
             }
 
-            if (!YafTheme.IsValidTheme(theme))
+            if (!Services.Theme.IsValidTheme(theme))
             {
                 theme = "yaf";
             }
 
             // create the theme class
-            this.Theme = new YafTheme(theme);
+            this.Theme = new Theme(theme);
 
             this.AfterInit?.Invoke(this, new EventArgs());
         }

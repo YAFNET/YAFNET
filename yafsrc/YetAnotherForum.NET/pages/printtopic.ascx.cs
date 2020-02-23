@@ -1,8 +1,8 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2019 Ingo Herbote
- * http://www.yetanotherforum.net/
+ * Copyright (C) 2014-2020 Ingo Herbote
+ * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -12,7 +12,7 @@
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
 
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
 
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
@@ -50,14 +50,14 @@ namespace YAF.Pages
     /// <summary>
     /// Print topic Page.
     /// </summary>
-    public partial class printtopic : ForumPage
+    public partial class PrintTopic : ForumPage
     {
         #region Constructors and Destructors
 
         /// <summary>
-        ///   Initializes a new instance of the <see cref = "printtopic" /> class.
+        ///   Initializes a new instance of the <see cref = "PrintTopic" /> class.
         /// </summary>
-        public printtopic()
+        public PrintTopic()
             : base("PRINTTOPIC")
         {
         }
@@ -79,7 +79,7 @@ namespace YAF.Pages
 
             var message = row["Message"].ToString();
 
-            message = this.Get<IFormatMessage>().FormatMessage(message, new MessageFlags(row["Flags"].ToType<int>()));
+            message = this.Get<IFormatMessage>().Format(message, new MessageFlags(row["Flags"].ToType<int>()));
 
             // Remove HIDDEN Text
             message = this.Get<IFormatMessage>().RemoveHiddenBBCodeContent(message);
@@ -100,7 +100,7 @@ namespace YAF.Pages
         {
             var row = (DataRow)o;
             return
-                $"<strong>{this.GetText("postedby")}: {(this.Get<YafBoardSettings>().EnableDisplayName ? row["DisplayName"] : row["UserName"])}</strong> - {this.Get<IDateTime>().FormatDateTime((DateTime)row["Posted"])}";
+                $"<strong>{this.GetText("postedby")}: {(this.Get<BoardSettings>().EnableDisplayName ? row["DisplayName"] : row["UserName"])}</strong> - {this.Get<IDateTime>().FormatDateTime((DateTime)row["Posted"])}";
         }
 
         /// <summary>
@@ -116,7 +116,7 @@ namespace YAF.Pages
         {
             if (!this.Get<HttpRequestBase>().QueryString.Exists("t") || !this.PageContext.ForumReadAccess)
             {
-                YafBuildLink.AccessDenied();
+                BuildLink.AccessDenied();
             }
 
             this.ShowToolBar = false;
@@ -131,21 +131,21 @@ namespace YAF.Pages
                 this.PageLinks.AddRoot();
                 this.PageLinks.AddLink(
                     this.PageContext.PageCategoryName,
-                    YafBuildLink.GetLink(ForumPages.forum, "c={0}", this.PageContext.PageCategoryID));
+                    BuildLink.GetLink(ForumPages.forum, "c={0}", this.PageContext.PageCategoryID));
             }
 
             this.PageLinks.AddForum(this.PageContext.PageForumID);
             this.PageLinks.AddLink(
-                this.PageContext.PageTopicName, YafBuildLink.GetLink(ForumPages.posts, "t={0}", this.PageContext.PageTopicID));
+                this.PageContext.PageTopicName, BuildLink.GetLink(ForumPages.Posts, "t={0}", this.PageContext.PageTopicID));
             var showDeleted = false;
             var userId = 0;
-            if (this.Get<YafBoardSettings>().ShowDeletedMessagesToAll)
+            if (this.Get<BoardSettings>().ShowDeletedMessagesToAll)
             {
                 showDeleted = true;
             }
 
-            if (!showDeleted && (this.Get<YafBoardSettings>().ShowDeletedMessages &&
-                                 !this.Get<YafBoardSettings>().ShowDeletedMessagesToAll
+            if (!showDeleted && (this.Get<BoardSettings>().ShowDeletedMessages &&
+                                 !this.Get<BoardSettings>().ShowDeletedMessagesToAll
                                  || this.PageContext.IsAdmin ||
                                  this.PageContext.ForumModeratorAccess))
             {

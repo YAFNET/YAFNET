@@ -1,8 +1,8 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2019 Ingo Herbote
- * http://www.yetanotherforum.net/
+ * Copyright (C) 2014-2020 Ingo Herbote
+ * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -12,7 +12,7 @@
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
 
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
 
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
@@ -30,6 +30,7 @@ namespace YAF.Core.Tasks
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Tasks;
     using YAF.Types.Models;
 
     /// <summary>
@@ -81,14 +82,14 @@ namespace YAF.Core.Tasks
         public static bool Start(int boardId, int forumId, out string failureMessage)
         {
             failureMessage = string.Empty;
-            if (YafContext.Current.Get<ITaskModuleManager>() == null)
+            if (BoardContext.Current.Get<ITaskModuleManager>() == null)
             {
                 return false;
             }
 
-            if (!YafContext.Current.Get<ITaskModuleManager>().AreTasksRunning(BlockingTaskNames))
+            if (!BoardContext.Current.Get<ITaskModuleManager>().AreTasksRunning(BlockingTaskNames))
             {
-                YafContext.Current.Get<ITaskModuleManager>().StartTask(
+                BoardContext.Current.Get<ITaskModuleManager>().StartTask(
                     TaskName,
                     () => new ForumDeleteTask { Data = boardId, ForumId = forumId, ForumNewId = -1 });
             }
@@ -123,22 +124,14 @@ namespace YAF.Core.Tasks
         public static bool Start(int boardId, int forumOldId, int forumNewId, out string failureMessage)
         {
             failureMessage = string.Empty;
-            if (YafContext.Current.Get<ITaskModuleManager>() == null)
+            if (BoardContext.Current.Get<ITaskModuleManager>() == null)
             {
                 return false;
             }
 
-            if (!YafContext.Current.Get<ITaskModuleManager>().IsTaskRunning("ForumSaveTask"))
-            {
-                YafContext.Current.Get<ITaskModuleManager>().StartTask(
-                    TaskName,
-                    () => new ForumDeleteTask { Data = boardId, ForumId = forumOldId, ForumNewId = forumNewId });
-            }
-            else
-            {
-                failureMessage = "You can't delete forum while ForumSaveTask is running.";
-                return false;
-            }
+            BoardContext.Current.Get<ITaskModuleManager>().StartTask(
+                TaskName,
+                () => new ForumDeleteTask { Data = boardId, ForumId = forumOldId, ForumNewId = forumNewId });
 
             return true;
         }

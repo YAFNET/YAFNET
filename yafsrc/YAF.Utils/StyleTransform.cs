@@ -1,8 +1,8 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2019 Ingo Herbote
- * http://www.yetanotherforum.net/
+ * Copyright (C) 2014-2020 Ingo Herbote
+ * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -12,7 +12,7 @@
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
 
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
 
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
@@ -25,11 +25,13 @@ namespace YAF.Utils
 {
     #region Using
 
+    using System.Collections.Generic;
     using System.Data;
     using System.Linq;
 
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Models;
 
     #endregion
 
@@ -57,6 +59,23 @@ namespace YAF.Utils
             dr[columnName] = this.DecodeStyleByString(dr[columnName].ToString(), colorOnly);
         }
 
+        /// <summary>
+        /// The decode style Group
+        /// </summary>
+        /// <param name="group">
+        /// The group.
+        /// </param>
+        /// <param name="colorOnly">
+        /// The color only.
+        /// </param>
+        public void DecodeStyleByGroup(Group group, bool colorOnly = false)
+        {
+            if (group.Style.IsSet())
+            {
+                group.Style = this.DecodeStyleByString(group.Style, colorOnly);
+            }
+        }
+
         #endregion
 
         #region Implemented Interfaces
@@ -66,19 +85,19 @@ namespace YAF.Utils
         /// <summary>
         /// Decode Style by String
         /// </summary>
-        /// <param name="styleStr">The style str.</param>
+        /// <param name="style">The style string.</param>
         /// <param name="colorOnly">The color only.</param>
         /// <returns>
         /// The decode style by string.
         /// </returns>
-        public string DecodeStyleByString(string styleStr, bool colorOnly = false)
+        public string DecodeStyleByString(string style, bool colorOnly = false)
         {
-            var styleRow = styleStr.Trim().Split('/');
+            var styleRow = style.Trim().Split('/');
 
             styleRow.Select(s => s.Split('!')).Where(x => x.Length > 1).ForEach(
-                pair => { styleStr = colorOnly ? GetColorOnly(pair[1]) : pair[1]; });
+                pair => { style = colorOnly ? GetColorOnly(pair[1]) : pair[1]; });
             
-            return styleStr;
+            return style;
         }
 
         /// <summary>
@@ -109,6 +128,20 @@ namespace YAF.Utils
                     });
         }
 
+        /// <summary>
+        /// Decode Groups Styles
+        /// </summary>
+        /// <param name="list">
+        /// The list.
+        /// </param>
+        /// <param name="colorOnly">
+        /// The color only.
+        /// </param>
+        public void DecodeStyleByGroupList(List<Group> list, bool colorOnly = false)
+        {
+            list.ForEach(group => { this.DecodeStyleByGroup(group, colorOnly); });
+        }
+
         #endregion
 
         #endregion
@@ -116,7 +149,7 @@ namespace YAF.Utils
         #region Methods
 
         /// <summary>
-        /// The get color only.
+        /// Gets the color only
         /// </summary>
         /// <param name="styleString">
         /// The style string.

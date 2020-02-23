@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2020 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -12,7 +12,7 @@
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
 
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
 
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
@@ -55,14 +55,14 @@ namespace YAF.Pages
     /// <summary>
     /// The User Profile Page.
     /// </summary>
-    public partial class profile : ForumPage
+    public partial class Profile : ForumPage
     {
         #region Constructors and Destructors
 
         /// <summary>
-        ///   Initializes a new instance of the <see cref = "profile" /> class.
+        ///   Initializes a new instance of the <see cref = "Profile" /> class.
         /// </summary>
-        public profile()
+        public Profile()
             : base("PROFILE")
         {
         }
@@ -104,9 +104,6 @@ namespace YAF.Pages
         /// </param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            this.lnkThanks.Text = $"({this.GetText("VIEWTHANKS", "TITLE")})";
-            this.lnkThanks.Visible = this.Get<YafBoardSettings>().EnableThanksMod;
-
             // admin or moderator, set edit control to moderator mode...
             if (this.PageContext.IsAdmin || this.PageContext.IsForumModerator)
             {
@@ -117,12 +114,12 @@ namespace YAF.Pages
             {
                 this.UserId =
                     Security.StringToIntOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u"));
-                this.userGroupsRow.Visible = this.Get<YafBoardSettings>().ShowGroupsProfile || this.PageContext.IsAdmin;
+                this.userGroupsRow.Visible = this.Get<BoardSettings>().ShowGroupsProfile || this.PageContext.IsAdmin;
             }
 
             if (this.UserId == 0)
             {
-                YafBuildLink.AccessDenied(/*No such user exists*/);
+                BuildLink.AccessDenied(/*No such user exists*/);
             }
 
             this.BindData();
@@ -149,7 +146,7 @@ namespace YAF.Pages
 
                 thisButton.NavigateUrl = link;
                 thisButton.Attributes.Add("target", "_blank");
-                if (this.Get<YafBoardSettings>().UseNoFollowLinks)
+                if (this.Get<BoardSettings>().UseNoFollowLinks)
                 {
                     thisButton.Attributes.Add("rel", "nofollow");
                 }
@@ -188,16 +185,6 @@ namespace YAF.Pages
         }
 
         /// <summary>
-        /// Go to the View Thanks Page
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.Web.UI.WebControls.CommandEventArgs"/> instance containing the event data.</param>
-        protected void lnk_ViewThanks([NotNull] object sender, [NotNull] CommandEventArgs e)
-        {
-            YafBuildLink.Redirect(ForumPages.viewthanks, "u={0}", this.UserId);
-        }
-
-        /// <summary>
         /// add page links.
         /// </summary>
         /// <param name="userDisplayName">
@@ -209,8 +196,8 @@ namespace YAF.Pages
             this.PageLinks.AddRoot();
             this.PageLinks.AddLink(
                 this.GetText("MEMBERS"),
-                this.Get<IPermissions>().Check(this.Get<YafBoardSettings>().MembersListViewPermissions)
-                    ? YafBuildLink.GetLink(ForumPages.members)
+                this.Get<IPermissions>().Check(this.Get<BoardSettings>().MembersListViewPermissions)
+                    ? BuildLink.GetLink(ForumPages.Members)
                     : null);
             this.PageLinks.AddLink(userDisplayName, string.Empty);
         }
@@ -234,14 +221,19 @@ namespace YAF.Pages
             if (user == null || user.ProviderUserKey.ToString() == "0")
             {
                 // No such user exists or this is an nntp user ("0")
-                YafBuildLink.AccessDenied();
+                BuildLink.AccessDenied();
+            }
+
+            if (user.IsApproved == false)
+            {
+                BuildLink.AccessDenied();
             }
 
             var userData = new CombinedUserDataHelper(user, this.UserId);
 
             // populate user information controls...
             // Is BuddyList feature enabled?
-            if (this.Get<YafBoardSettings>().EnableBuddyList)
+            if (this.Get<BoardSettings>().EnableBuddyList)
             {
                 this.SetupBuddyList(this.UserId, userData);
             }
@@ -253,7 +245,7 @@ namespace YAF.Pages
             }
 
             var userNameOrDisplayName = this.HtmlEncode(
-                this.Get<YafBoardSettings>().EnableDisplayName ? userData.DisplayName : userData.UserName);
+                this.Get<BoardSettings>().EnableDisplayName ? userData.DisplayName : userData.UserName);
 
             this.SetupUserProfileInfo(userData);
 
@@ -279,8 +271,8 @@ namespace YAF.Pages
                     this.PageContext.PageUserID,
                     10).AsEnumerable();
 
-                this.SearchUser.NavigateUrl = YafBuildLink.GetLinkNotEscaped(
-                    ForumPages.search,
+                this.SearchUser.NavigateUrl = BuildLink.GetLinkNotEscaped(
+                    ForumPages.Search,
                     "postedby={0}",
                     userNameOrDisplayName);
             }
@@ -322,7 +314,7 @@ namespace YAF.Pages
                 this.lnkBuddy.Type = ButtonAction.Warning;
                 this.lnkBuddy.TextLocalizedPage = "PAGE";
                 this.lnkBuddy.CommandArgument = "removebuddy";
-                this.lnkBuddy.ReturnConfirmText = this.GetText("CP_EDITBUDDIES", "NOTIFICATION_REMOVE");
+                this.lnkBuddy.ReturnConfirmText = this.GetText("FRIENDS", "NOTIFICATION_REMOVE");
             }
             else if (this.Get<IBuddy>().IsBuddy((int)userData.DBRow["userID"], false))
             {
@@ -391,7 +383,7 @@ namespace YAF.Pages
             var isFriend = this.GetRepository<Buddy>().CheckIsFriend(this.PageContext.PageUserID, userData.UserID);
 
             this.PM.Visible = !userData.IsGuest && this.User != null
-                                                && this.Get<YafBoardSettings>().AllowPrivateMessages;
+                                                && this.Get<BoardSettings>().AllowPrivateMessages;
 
             if (this.PM.Visible)
             {
@@ -406,12 +398,12 @@ namespace YAF.Pages
                 }
             }
 
-            this.PM.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.pmessage, "u={0}", userData.UserID);
+            this.PM.NavigateUrl = BuildLink.GetLinkNotEscaped(ForumPages.PostPrivateMessage, "u={0}", userData.UserID);
             this.PM.ParamTitle0 = userName;
 
             // email link
             this.Email.Visible = !userData.IsGuest && this.User != null
-                                                   && this.Get<YafBoardSettings>().AllowEmailSending;
+                                                   && this.Get<BoardSettings>().AllowEmailSending;
 
             if (this.Email.Visible)
             {
@@ -426,7 +418,7 @@ namespace YAF.Pages
                 }
             }
 
-            this.Email.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.im_email, "u={0}", userData.UserID);
+            this.Email.NavigateUrl = BuildLink.GetLinkNotEscaped(ForumPages.Email, "u={0}", userData.UserID);
             if (this.PageContext.IsAdmin)
             {
                 this.Email.TitleNonLocalized = userData.Membership.Email;
@@ -435,7 +427,7 @@ namespace YAF.Pages
             this.Email.ParamTitle0 = userName;
 
             this.XMPP.Visible = this.User != null && userData.Profile.XMPP.IsSet();
-            this.XMPP.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.im_xmpp, "u={0}", userData.UserID);
+            this.XMPP.NavigateUrl = BuildLink.GetLinkNotEscaped(ForumPages.Xmpp, "u={0}", userData.UserID);
             this.XMPP.ParamTitle0 = userName;
 
             this.Skype.Visible = this.User != null && userData.Profile.Skype.IsSet();
@@ -569,7 +561,7 @@ namespace YAF.Pages
 
             this.ThanksToTimes.Text = thanksToArray[0].ToString();
             this.ThanksToPosts.Text = thanksToArray[1].ToString();
-            this.ReputationReceived.Text = YafReputation.GenerateReputationBar(userData.Points.Value, userData.UserID);
+            this.ReputationReceived.Text = this.Get<IReputation>().GenerateReputationBar(userData.Points.Value, userData.UserID);
 
             if (this.User != null && userData.Profile.Birthday >= DateTimeHelper.SqlDbMinTime())
             {
@@ -583,7 +575,7 @@ namespace YAF.Pages
             }
 
             // Show User Medals
-            if (this.Get<YafBoardSettings>().ShowMedals)
+            if (this.Get<BoardSettings>().ShowMedals)
             {
                 this.ShowUserMedals();
             }
@@ -594,7 +586,7 @@ namespace YAF.Pages
         /// </summary>
         private void ShowUserMedals()
         {
-            var userMedalsTable = this.Get<YafDbBroker>().UserMedals(this.UserId);
+            var userMedalsTable = this.Get<DataBroker>().UserMedals(this.UserId);
 
             if (!userMedalsTable.HasRows())
             {
@@ -638,12 +630,12 @@ namespace YAF.Pages
 
                     ribbonBar.AppendFormat(
                         "<img src=\"{0}{5}/{1}\" width=\"{2}\" height=\"{3}\" alt=\"{4}\" title=\"{4}\" class=\"mr-1\" />",
-                        YafForumInfo.ForumClientFileRoot,
+                        BoardInfo.ForumClientFileRoot,
                         r["SmallRibbonURL"],
                         r["SmallRibbonWidth"],
                         r["SmallRibbonHeight"],
                         title,
-                        YafBoardFolders.Current.Medals);
+                        BoardFolders.Current.Medals);
 
                     inRow++;
                 }
@@ -663,13 +655,13 @@ namespace YAF.Pages
                 {
                     medals.AppendFormat(
                         "<img src=\"{0}{6}/{1}\" width=\"{2}\" height=\"{3}\" alt=\"{4}{5}\" title=\"{4}{5}\" class=\"mr-1\" />",
-                        YafForumInfo.ForumClientFileRoot,
+                        BoardInfo.ForumClientFileRoot,
                         r["SmallMedalURL"],
                         r["SmallMedalWidth"],
                         r["SmallMedalHeight"],
                         r["Name"],
                         f.ShowMessage ? $": {r["Message"]}" : string.Empty,
-                        YafBoardFolders.Current.Medals);
+                        BoardFolders.Current.Medals);
                 }
 
                 // move to next row

@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2020 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -12,7 +12,7 @@
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
 
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
 
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
@@ -69,7 +69,7 @@ namespace YAF.Pages.Admin
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void CancelClick([NotNull] object sender, [NotNull] EventArgs e)
         {
-            YafBuildLink.Redirect(ForumPages.admin_forums);
+            BuildLink.Redirect(ForumPages.admin_forums);
         }
 
         /// <summary>
@@ -85,12 +85,12 @@ namespace YAF.Pages.Admin
                 var dr = dt.NewRow();
                 dr["FileID"] = 0;
                 dr["FileName"] =
-                    $"{YafForumInfo.ForumClientFileRoot}Content/images/spacer.gif"; // use spacer.gif for Description Entry
+                    $"{BoardInfo.ForumClientFileRoot}Content/images/spacer.gif"; // use spacer.gif for Description Entry
                 dr["Description"] = "None";
                 dt.Rows.Add(dr);
 
                 var dir = new DirectoryInfo(
-                    this.Get<HttpRequestBase>().MapPath($"{YafForumInfo.ForumServerFileRoot}{YafBoardFolders.Current.Categories}"));
+                    this.Get<HttpRequestBase>().MapPath($"{BoardInfo.ForumServerFileRoot}{BoardFolders.Current.Categories}"));
                 if (dir.Exists)
                 {
                     var files = dir.GetFiles("*.*");
@@ -107,7 +107,7 @@ namespace YAF.Pages.Admin
                             dr = dt.NewRow();
                             dr["FileID"] = fileId++;
                             dr["FileName"] =
-                                $"{YafForumInfo.ForumClientFileRoot}{YafBoardFolders.Current.Categories}/{file.Name}";
+                                $"{BoardInfo.ForumClientFileRoot}{BoardFolders.Current.Categories}/{file.Name}";
                             dr["Description"] = file.Name;
                             dt.Rows.Add(dr);
                         });
@@ -146,9 +146,9 @@ namespace YAF.Pages.Admin
             this.PageLinks.AddRoot();
             this.PageLinks.AddLink(
                 this.GetText("ADMIN_ADMIN", "Administration"),
-                YafBuildLink.GetLink(ForumPages.admin_admin));
+                BuildLink.GetLink(ForumPages.admin_admin));
 
-            this.PageLinks.AddLink(this.GetText("TEAM", "FORUMS"), YafBuildLink.GetLink(ForumPages.admin_forums));
+            this.PageLinks.AddLink(this.GetText("TEAM", "FORUMS"), BuildLink.GetLink(ForumPages.admin_forums));
             this.PageLinks.AddLink(this.GetText("ADMIN_EDITCATEGORY", "TITLE"), string.Empty);
 
             this.Page.Header.Title =
@@ -210,7 +210,7 @@ namespace YAF.Pages.Admin
             this.Get<IDataCache>().Remove(Constants.Cache.ForumCategory);
 
             // redirect
-            YafBuildLink.Redirect(ForumPages.admin_forums);
+            BuildLink.Redirect(ForumPages.admin_forums);
         }
 
         /// <summary>

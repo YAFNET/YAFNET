@@ -1,8 +1,8 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2019 Ingo Herbote
- * http://www.yetanotherforum.net/
+ * Copyright (C) 2014-2020 Ingo Herbote
+ * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -12,7 +12,7 @@
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
 
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
 
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
@@ -327,19 +327,6 @@ namespace YAF.Configuration
         public static string ProviderProvider => GetConfigValueAsString("YAF.ProfileProvider") ?? string.Empty;
 
         /// <summary>
-        ///     Gets RadEditorSkin.
-        /// </summary>
-        [NotNull]
-        public static string RadEditorSkin => GetConfigValueAsString("YAF.RadEditorSkin") ?? "Vista";
-
-        /// <summary>
-        ///     Gets RadEditorToolsFile.
-        /// </summary>
-        [NotNull]
-        public static string RadEditorToolsFile => GetConfigValueAsString("YAF.RadEditorToolsFile")
-                                                   ?? $"{ServerFileRoot}/Scripts/RadEditor/ToolsFile.xml";
-
-        /// <summary>
         ///     Gets RoleProvider.
         /// </summary>
         [NotNull]
@@ -408,36 +395,6 @@ namespace YAF.Configuration
         /// </summary>
         [NotNull]
         public static string UrlRewritingMode => GetConfigValueAsString("YAF.URLRewritingMode") ?? string.Empty;
-
-        /// <summary>
-        ///     Gets a value indicating whether UseRadEditorToolsFile.
-        /// </summary>
-        public static bool UseRadEditorToolsFile
-        {
-            get
-            {
-                var value = GetConfigValueAsString("YAF.UseRadEditorToolsFile");
-
-                if (!value.IsSet())
-                {
-                    return false;
-                }
-
-                switch (value.ToLower().Substring(0, 1))
-                {
-                    case "1":
-                    case "t":
-                    case "y":
-                        return true;
-                    case "0":
-                    case "f":
-                    case "n":
-                        return false;
-                }
-
-                return false;
-            }
-        }
 
         /// <summary>
         ///     Gets a value indicating whether Use an SSL connection for the SMTP server -- default is "false"

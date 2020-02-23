@@ -1,8 +1,8 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2019 Ingo Herbote
- * http://www.yetanotherforum.net/
+ * Copyright (C) 2014-2020 Ingo Herbote
+ * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -12,7 +12,7 @@
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
 
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
 
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
@@ -36,48 +36,38 @@ namespace YAF.Core.Model
     using YAF.Types.Models;
 
     /// <summary>
-    /// The ForumAcess Repository Extensions
+    /// The ForumAccess Repository Extensions
     /// </summary>
-    public static class ForumAcessRepositoryExtensions
+    public static class ForumAccessRepositoryExtensions
     {
         #region Public Methods and Operators
 
         /// <summary>
-        /// The forumaccess_group.
+        /// The group as data table.
         /// </summary>
-        /// <param name="groupID">
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="groupId">
         /// The group id.
         /// </param>
         /// <returns>
+        /// The <see cref="DataTable"/>.
         /// </returns>
-        public static DataTable GroupAsDataTable(this IRepository<ForumAccess> repository, [NotNull] int groupID)
+        public static DataTable GroupAsDataTable(this IRepository<ForumAccess> repository, [NotNull] int groupId)
         {
-            var dt = repository.DbFunction.GetData.forumaccess_group(GroupID: groupID);
+            var expression = OrmLiteConfig.DialectProvider.SqlExpression<ForumAccess>();
 
-            return repository.SortList((DataTable)dt, 0, 0, 0);
-        }
+            expression.Join<Forum>((access, forum) => forum.ID == access.ForumID)
+                .Join<Forum, Category>((forum, category) => category.ID == forum.CategoryID)
+                .Join<Category, Board>((category, board) => board.ID == category.BoardID)
+                .Where<ForumAccess>(access => access.GroupID == groupId).OrderBy<Board>(board => board.Name)
+                .OrderBy<Category>(category => category.SortOrder).OrderBy<Forum>(forum => forum.SortOrder);
 
-        /// <summary>
-        /// The user_accessmasks.
-        /// </summary>
-        /// <param name="boardID">
-        /// The board id.
-        /// </param>
-        /// <param name="userID">
-        /// The user id.
-        /// </param>
-        /// <returns>
-        /// </returns>
-        public static DataTable UserAccessMasksAsDataTable(
-            this IRepository<ForumAccess> repository,
-            [NotNull] int boardID,
-            [NotNull] int userID)
-        {
-            var dt = repository.DbFunction.GetData.user_accessmasks(BoardID: boardID, UserID: userID);
+            var list = repository.DbAccess.Execute(
+                db => db.Connection.SelectMulti<ForumAccess, Forum, Board, Category>(expression));
 
-            ///TODO: Recursion doesn't work here correctly at all because of UNION in underlying sql script.
-            /// Possibly the only acceptable solution will be splitting the UNIONed queries and displaying 2 "trees". Maybe another solution exists.
-            return repository.SortList((DataTable)dt, 0, 0, 0);
+            return repository.SortList(list, 0, 0);
         }
 
         /// <summary>
@@ -87,7 +77,11 @@ namespace YAF.Core.Model
         /// <param name="forumId">The forum identifier.</param>
         /// <param name="groupId">The group identifier.</param>
         /// <param name="accessMaskId">The access mask identifier.</param>
-        public static void Save(this IRepository<ForumAccess> repository, [NotNull] int forumId, [NotNull] int groupId, [NotNull] int accessMaskId)
+        public static void Save(
+            this IRepository<ForumAccess> repository,
+            [NotNull] int forumId,
+            [NotNull] int groupId,
+            [NotNull] int accessMaskId)
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
@@ -97,16 +91,46 @@ namespace YAF.Core.Model
         }
 
         /// <summary>
-        /// Gets the paged list of all users Album Images
+        /// Creates new Forum Access
         /// </summary>
-        /// <param name="repository">The repository.</param>
-        /// <param name="forumId">The forum identifier.</param>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="forumId">
+        /// The forum id.
+        /// </param>
+        /// <param name="groupId">
+        /// The group id.
+        /// </param>
+        /// <param name="accessMaskId">
+        /// The access mask id.
+        /// </param>
+        public static void Create(
+            this IRepository<ForumAccess> repository,
+            [NotNull] int forumId,
+            [NotNull] int groupId,
+            [NotNull] int accessMaskId)
+        {
+            CodeContracts.VerifyNotNull(repository, "repository");
+
+            repository.Insert(new ForumAccess { AccessMaskID = accessMaskId, GroupID = groupId, ForumID = forumId });
+        }
+
+        /// <summary>
+        /// Gets the forum access mask as List
+        /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="forumId">
+        /// The forum id.
+        /// </param>
         /// <returns>
-        /// Returns the list of entities
+        /// The <see cref="List"/>.
         /// </returns>
-        public static List<ForumAccessList> GetForumAccessList(
+        public static List<Tuple<ForumAccess, Group>> GetForumAccessList(
             [NotNull] this IRepository<ForumAccess> repository,
-            int forumId)
+            [NotNull] int forumId)
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
@@ -116,73 +140,55 @@ namespace YAF.Core.Model
                 .Where<ForumAccess, Group>((access, group) => access.ForumID == forumId)
                 .Select<ForumAccess, Group>((access, group) => new { access, GroupName = group.Name });
 
-            var results = new List<ForumAccessList>();
-
-            foreach (var result in repository.DbAccess.Execute(db => db.Connection.Select<dynamic>(expression)))
-            {
-                var item = new ForumAccessList
-                               {
-                                   GroupID = result.GroupID,
-                                   ForumID = result.ForumID,
-                                   AccessMaskID = result.AccessMaskID,
-                                   GroupName = result.GroupName
-                               };
-
-                results.Add(item);
-            }
-
-            return results;
+            return repository.DbAccess.Execute(db => db.Connection.SelectMulti<ForumAccess, Group>(expression));
         }
 
         #endregion
 
         /// <summary>
-        /// The userforumaccess_sort_list.
+        /// The sort list.
         /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
         /// <param name="listSource">
         /// The list source.
         /// </param>
         /// <param name="parentID">
         /// The parent id.
         /// </param>
-        /// <param name="categoryID">
-        /// The category id.
-        /// </param>
         /// <param name="startingIndent">
         /// The starting indent.
         /// </param>
         /// <returns>
+        /// The <see cref="DataTable"/>.
         /// </returns>
         [NotNull]
         private static DataTable SortList(
-            [NotNull] this IRepository<ForumAccess> repository, [NotNull] DataTable listSource, int parentID, int categoryID, int startingIndent)
+            [NotNull] this IRepository<ForumAccess> repository,
+            [NotNull] List<Tuple<ForumAccess, Forum, Board, Category>> listSource,
+            int parentID,
+            int startingIndent)
         {
             var listDestination = new DataTable();
 
-            listDestination.Columns.Add("ForumID", typeof(String));
-            listDestination.Columns.Add("ForumName", typeof(String));
+            listDestination.Columns.Add("ForumID", typeof(string));
+            listDestination.Columns.Add("ForumName", typeof(string));
 
-            // it is uset in two different procedures with different tables,
-            // so, we must add correct columns
-            if (listSource.Columns.IndexOf("AccessMaskName") >= 0)
-            {
-                listDestination.Columns.Add("AccessMaskName", typeof(String));
-            }
-            else
-            {
-                listDestination.Columns.Add("BoardName", typeof(String));
-                listDestination.Columns.Add("CategoryName", typeof(String));
-                listDestination.Columns.Add("AccessMaskId", typeof(Int32));
-            }
+            listDestination.Columns.Add("BoardName", typeof(string));
+            listDestination.Columns.Add("CategoryName", typeof(string));
+            listDestination.Columns.Add("AccessMaskId", typeof(int));
 
-            var dv = listSource.DefaultView;
-            repository.SortListRecursive(dv.ToTable(), listDestination, parentID, categoryID, startingIndent);
+            repository.SortListRecursive(listSource, listDestination, parentID, startingIndent);
             return listDestination;
         }
 
         /// <summary>
-        /// The userforumaccess_sort_list_recursive.
+        /// The sort list recursive.
         /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
         /// <param name="listSource">
         /// The list source.
         /// </param>
@@ -192,67 +198,55 @@ namespace YAF.Core.Model
         /// <param name="parentID">
         /// The parent id.
         /// </param>
-        /// <param name="categoryID">
-        /// The category id.
-        /// </param>
         /// <param name="currentIndent">
         /// The current indent.
         /// </param>
         private static void SortListRecursive(
-            [NotNull] this IRepository<ForumAccess> repository, [NotNull] DataTable listSource, [NotNull] DataTable listDestination, int parentID, int categoryID, int currentIndent)
+            [NotNull] this IRepository<ForumAccess> repository,
+            [NotNull] List<Tuple<ForumAccess, Forum, Board, Category>> listSource,
+            [NotNull] DataTable listDestination,
+            int parentID,
+            int currentIndent)
         {
-            foreach (DataRow row in listSource.Rows)
-            {
-                // see if this is a root-forum
-                if (row["ParentID"] == DBNull.Value)
-                {
-                    row["ParentID"] = 0;
-                }
-
-                if ((int)row["ParentID"] == parentID)
-                {
-                    var sIndent = string.Empty;
-
-                    for (var j = 0; j < currentIndent; j++)
+            listSource.ForEach(
+                row =>
                     {
-                        sIndent += "--";
-                    }
+                        // see if this is a root-forum
+                        if (!row.Item2.ParentID.HasValue)
+                        {
+                            row.Item2.ParentID = 0;
+                        }
 
-                    // import the row into the destination
-                    var newRow = listDestination.NewRow();
+                        if (row.Item2.ParentID.Value != parentID)
+                        {
+                            return;
+                        }
 
-                    newRow["ForumID"] = row["ForumID"];
-                    newRow["ForumName"] = $"{sIndent} {row["ForumName"]}";
-                    if (listDestination.Columns.IndexOf("AccessMaskName") >= 0)
-                    {
-                        newRow["AccessMaskName"] = row["AccessMaskName"];
-                    }
-                    else
-                    {
-                        newRow["BoardName"] = row["BoardName"];
-                        newRow["CategoryName"] = row["CategoryName"];
-                        newRow["AccessMaskId"] = row["AccessMaskId"];
-                    }
+                        var sIndent = string.Empty;
 
-                    listDestination.Rows.Add(newRow);
+                        for (var j = 0; j < currentIndent; j++)
+                        {
+                            sIndent += "--";
+                        }
 
-                    // recurse through the list...
-                    repository.SortListRecursive(
-                      listSource, listDestination, (int)row["ForumID"], categoryID, currentIndent + 1);
-                }
-            }
+                        // import the row into the destination
+                        var newRow = listDestination.NewRow();
+
+                        newRow["ForumID"] = row.Item2.ID;
+                        newRow["ForumName"] = $"{sIndent} {row.Item2.Name}";
+                        newRow["BoardName"] = row.Item3.Name;
+                        newRow["CategoryName"] = row.Item4.Name;
+                        newRow["AccessMaskId"] = row.Item1.AccessMaskID;
+
+                        listDestination.Rows.Add(newRow);
+
+                        // recurse through the list...
+                        repository.SortListRecursive(
+                            listSource,
+                            listDestination,
+                            row.Item2.ID,
+                            currentIndent + 1);
+                    });
         }
-    }
-
-    [Serializable]
-    public class ForumAccessList
-    {
-         public int GroupID { get; set; }
-
-        public int ForumID { get; set; }
-
-        public int AccessMaskID { get; set; }
-
-        public string GroupName { get; set; }
     }
 }

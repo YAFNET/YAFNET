@@ -22,7 +22,7 @@
                 <ul class="list-group">
             </HeaderTemplate>
             <ItemTemplate>
-                <li class="list-group-item list-group-item-action">
+                <li class="list-group-item list-group-item-action list-group-item-menu">
                     <div class="d-flex w-100 justify-content-between">
                         <h5 class="mb-1">
                             <%# this.Eval("Name") %>
@@ -53,6 +53,32 @@
                                          ReturnConfirmText='<%#  this.GetText("ADMIN_NNTPSERVERS", "DELETE_SERVER") %>'>
                         </YAF:ThemeButton>
                     </small>
+                    <div class="dropdown-menu context-menu" aria-labelledby="context menu">
+                        <YAF:ThemeButton runat="server" 
+                                         CommandName="edit" 
+                                         CommandArgument='<%# this.Eval( "ID") %>' 
+                                         Type="None" 
+                                         CssClass="dropdown-item"
+                                         Icon="edit" 
+                                         TextLocalizedTag="EDIT">
+                        </YAF:ThemeButton>
+                        <YAF:ThemeButton runat="server"  
+                                         Type="None" 
+                                         CssClass="dropdown-item"
+                                         CommandName="delete" 
+                                         CommandArgument='<%# this.Eval( "ID") %>'
+                                         Icon="trash" 
+                                         TextLocalizedTag="DELETE"
+                                         ReturnConfirmText='<%#  this.GetText("ADMIN_NNTPSERVERS", "DELETE_SERVER") %>'>
+                        </YAF:ThemeButton>
+                        <div class="dropdown-divider"></div>
+                        <YAF:ThemeButton ID="NewServer" runat="server" 
+                                         Type="None" 
+                                         CssClass="dropdown-item"
+                                         OnClick="NewServerClick"
+                                         Icon="plus-square" 
+                                         TextLocalizedTag="NEW_SERVER" />
+                    </div>
                 </li>
             </ItemTemplate>
                         <FooterTemplate>
@@ -61,12 +87,12 @@
         </asp:Repeater>
                     </div>
                     <div class="card-footer text-center">
-                    <YAF:ThemeButton ID="NewServer" runat="server" 
-                                     Type="Primary" 
-                                     OnClick="NewServerClick"
-                                     Icon="plus-square" 
-                                     TextLocalizedTag="NEW_SERVER" />
-                </div>
+                        <YAF:ThemeButton ID="NewServer" runat="server" 
+                                         Type="Primary" 
+                                         OnClick="NewServerClick"
+                                         Icon="plus-square" 
+                                         TextLocalizedTag="NEW_SERVER" />
+                    </div>
             </div>
         </div>
     </div>

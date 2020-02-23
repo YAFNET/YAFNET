@@ -56,7 +56,7 @@ namespace YAF.Dialogs
             get =>
                 this.ViewState["CancelButtonLink"] != null
                     ? (ForumLink)this.ViewState["CancelButtonLink"]
-                    : new ForumLink(YafContext.Current.ForumPageType);
+                    : new ForumLink(BoardContext.Current.ForumPageType);
 
             set => this.ViewState["CancelButtonLink"] = value;
         }
@@ -69,7 +69,7 @@ namespace YAF.Dialogs
             get =>
                 this.ViewState["OkButtonLink"] != null
                     ? (ForumLink)this.ViewState["OkButtonLink"]
-                    : new ForumLink(YafContext.Current.ForumPageType);
+                    : new ForumLink(BoardContext.Current.ForumPageType);
 
             set => this.ViewState["OkButtonLink"] = value;
         }
@@ -101,7 +101,7 @@ namespace YAF.Dialogs
             if (okay != null)
             {
                 this.OkButtonLink =
-                    okay.ForumPageLink ?? new ForumLink(YafContext.Current.ForumPageType);
+                    okay.ForumPageLink ?? new ForumLink(BoardContext.Current.ForumPageType);
 
                 if (okay.Text.IsSet())
                 {
@@ -119,7 +119,7 @@ namespace YAF.Dialogs
             if (cancel != null)
             {
                 this.CancelButtonLink =
-                    cancel.ForumPageLink ?? new ForumLink(YafContext.Current.ForumPageType);
+                    cancel.ForumPageLink ?? new ForumLink(BoardContext.Current.ForumPageType);
 
                 this.CancelButton.Visible = true;
 
@@ -133,7 +133,7 @@ namespace YAF.Dialogs
             {
                 this.CancelButton.Visible = false;
 
-                this.CancelButtonLink = new ForumLink(YafContext.Current.ForumPageType);
+                this.CancelButtonLink = new ForumLink(BoardContext.Current.ForumPageType);
             }
 
             var script = new StringBuilder();
@@ -166,7 +166,7 @@ namespace YAF.Dialogs
         /// </param>
         protected void CancelButton_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
-            if (this.CancelButtonLink.ForumPage.Equals(YafContext.Current.ForumPageType))
+            if (this.CancelButtonLink.ForumPage.Equals(BoardContext.Current.ForumPageType))
             {
                 // Make Sure the Current Page is correctly Returned with all query strings
                 this.Get<HttpResponseBase>().Redirect(this.Get<HttpRequestBase>().Url.ToString());
@@ -176,14 +176,14 @@ namespace YAF.Dialogs
                 if (this.CancelButtonLink.ForumLinkFormat.IsSet()
                     && !this.CancelButtonLink.ForumLinkArgs.IsNullOrEmptyDBField())
                 {
-                    YafBuildLink.Redirect(
+                    BuildLink.Redirect(
                         this.CancelButtonLink.ForumPage,
                         this.CancelButtonLink.ForumLinkFormat,
                         this.CancelButtonLink.ForumLinkArgs);
                 }
                 else
                 {
-                    YafBuildLink.Redirect(this.CancelButtonLink.ForumPage);
+                    BuildLink.Redirect(this.CancelButtonLink.ForumPage);
                 }
             }
         }
@@ -199,7 +199,7 @@ namespace YAF.Dialogs
         /// </param>
         protected void OkButton_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
-            if (this.OkButtonLink.ForumPage.Equals(YafContext.Current.ForumPageType))
+            if (this.OkButtonLink.ForumPage.Equals(BoardContext.Current.ForumPageType))
             {
                 // Make Sure the Current Page is correctly Returned with all query strings
                 this.Get<HttpResponseBase>().Redirect(this.Get<HttpRequestBase>().Url.ToString());
@@ -209,14 +209,14 @@ namespace YAF.Dialogs
                 if (this.OkButtonLink.ForumLinkFormat.IsSet()
                     && !this.OkButtonLink.ForumLinkArgs.IsNullOrEmptyDBField())
                 {
-                    YafBuildLink.Redirect(
+                    BuildLink.Redirect(
                         this.OkButtonLink.ForumPage,
                         this.OkButtonLink.ForumLinkFormat,
                         this.OkButtonLink.ForumLinkArgs);
                 }
                 else
                 {
-                    YafBuildLink.Redirect(this.OkButtonLink.ForumPage);
+                    BuildLink.Redirect(this.OkButtonLink.ForumPage);
                 }
             }
         }

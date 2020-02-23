@@ -126,7 +126,7 @@ namespace YAF.Dialogs
                     string.Format(this.GetText("ADMIN_USERS_IMPORT", "IMPORT_FAILED"), x.Message), MessageTypes.danger);
             }
 
-            YafBuildLink.Redirect(ForumPages.admin_users);
+            BuildLink.Redirect(ForumPages.admin_users);
         }
 
         /// <summary>
@@ -172,7 +172,7 @@ namespace YAF.Dialogs
 
                 var streamReader = new StreamReader(inputStream);
 
-                var headers = streamReader.ReadLine().Split(',');
+                var headers = streamReader.ReadLine()?.Split(',');
 
                 headers.ForEach(header => usersTable.Columns.Add(header));
 
@@ -234,7 +234,7 @@ namespace YAF.Dialogs
                 securityQuestion = (string)row["SecurityQuestion"];
             }
 
-            var user = YafContext.Current.Get<MembershipProvider>().CreateUser(
+            var user = BoardContext.Current.Get<MembershipProvider>().CreateUser(
                 (string)row["Name"],
                 pass,
                 (string)row["Email"],
@@ -242,13 +242,13 @@ namespace YAF.Dialogs
                 this.Get<MembershipProvider>().RequiresQuestionAndAnswer ? securityAnswer : null,
                 true,
                 null,
-                out var status);
+                out _);
 
             // setup initial roles (if any) for this user
-            RoleMembershipHelper.SetupUserRoles(YafContext.Current.PageBoardID, (string)row["Name"]);
+            RoleMembershipHelper.SetupUserRoles(BoardContext.Current.PageBoardID, (string)row["Name"]);
 
             // create the user in the YAF DB as well as sync roles...
-            var userID = RoleMembershipHelper.CreateForumUser(user, YafContext.Current.PageBoardID);
+            var userID = RoleMembershipHelper.CreateForumUser(user, BoardContext.Current.PageBoardID);
 
             // create empty profile just so they have one
             var userProfile = YafUserProfile.GetProfile((string)row["Name"]);
@@ -397,12 +397,12 @@ namespace YAF.Dialogs
                 int.TryParse((string)row["Timezone"], out timeZone);
             }
 
-            var autoWatchTopicsEnabled = this.Get<YafBoardSettings>().DefaultNotificationSetting
+            var autoWatchTopicsEnabled = this.Get<BoardSettings>().DefaultNotificationSetting
                                          == UserNotificationSetting.TopicsIPostToOrSubscribeTo;
 
             this.GetRepository<User>().Save(
                 userId,
-                YafContext.Current.PageBoardID,
+                BoardContext.Current.PageBoardID,
                 row["Name"],
                 row.Table.Columns.Contains("DisplayName") ? row["DisplayName"] : null,
                 row["Email"],
@@ -413,10 +413,9 @@ namespace YAF.Dialogs
                 row.Table.Columns.Contains("TextEditor") ? row["TextEditor"] : null,
                 null,
                 null,
-                this.Get<YafBoardSettings>().DefaultNotificationSetting,
+                this.Get<BoardSettings>().DefaultNotificationSetting,
                 autoWatchTopicsEnabled,
                 isDst,
-                null,
                 null);
 
             // save the settings...
@@ -424,8 +423,8 @@ namespace YAF.Dialogs
                 userId,
                 true,
                 autoWatchTopicsEnabled,
-                this.Get<YafBoardSettings>().DefaultNotificationSetting,
-                this.Get<YafBoardSettings>().DefaultSendDigestEmail);
+                this.Get<BoardSettings>().DefaultNotificationSetting.ToInt(),
+                this.Get<BoardSettings>().DefaultSendDigestEmail);
 
             importCount++;
 

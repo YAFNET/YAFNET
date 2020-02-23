@@ -1,8 +1,8 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2019 Ingo Herbote
- * http://www.yetanotherforum.net/
+ * Copyright (C) 2014-2020 Ingo Herbote
+ * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -12,7 +12,7 @@
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
 
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
 
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
@@ -118,7 +118,7 @@ namespace YAF.Controls
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void CancelClick([NotNull] object sender, [NotNull] EventArgs e)
         {
-            YafBuildLink.Redirect(this.PageContext.CurrentForumPage.IsAdminPage ? ForumPages.admin_users : ForumPages.cp_profile);
+            BuildLink.Redirect(this.PageContext.CurrentForumPage.IsAdminPage ? ForumPages.admin_users : ForumPages.Account);
         }
 
         /// <summary>
@@ -127,7 +127,7 @@ namespace YAF.Controls
         /// <param name="e">An <see cref="T:System.EventArgs" /> object that contains the event data.</param>
         protected override void OnPreRender([NotNull] EventArgs e)
         {
-            YafContext.Current.PageElements.RegisterJsBlockStartup(
+            BoardContext.Current.PageElements.RegisterJsBlockStartup(
                 "DatePickerJs",
                 JavaScriptBlocks.DatePickerLoadJs(
                     this.GetText("COMMON", "CAL_JQ_CULTURE_DFORMAT"),
@@ -167,8 +167,8 @@ namespace YAF.Controls
             this.Gender.Items.Add(this.GetText("PROFILE", "gender2"));
 
             // End Modifications for enhanced profile
-            this.DisplayNamePlaceholder.Visible = this.Get<YafBoardSettings>().EnableDisplayName
-                                                  && this.Get<YafBoardSettings>().AllowDisplayNameModification;
+            this.DisplayNamePlaceholder.Visible = this.Get<BoardSettings>().EnableDisplayName
+                                                  && this.Get<BoardSettings>().AllowDisplayNameModification;
 
             // override Place Holders for DNN, dnn users should only see the forum settings but not the profile page
             if (Config.IsDotNetNuke)
@@ -204,13 +204,13 @@ namespace YAF.Controls
                     return;
                 }
 
-                if (this.UserData.NumPosts < this.Get<YafBoardSettings>().IgnoreSpamWordCheckPostCount)
+                if (this.UserData.NumPosts < this.Get<BoardSettings>().IgnoreSpamWordCheckPostCount)
                 {
                     // Check for spam
                     if (this.Get<ISpamWordCheck>().CheckForSpamWord(this.HomePage.Text, out _))
                     {
                         // Log and Send Message to Admins
-                        if (this.Get<YafBoardSettings>().BotHandlingOnRegister.Equals(1))
+                        if (this.Get<BoardSettings>().BotHandlingOnRegister.Equals(1))
                         {
                             this.Logger.Log(
                                 null,
@@ -218,7 +218,7 @@ namespace YAF.Controls
                                 $"Internal Spam Word Check detected a SPAM BOT: (user name : '{userName}', user id : '{this.currentUserId}') after the user changed the profile Homepage url to: {this.HomePage.Text}",
                                 EventLogTypes.SpamBotDetected);
                         }
-                        else if (this.Get<YafBoardSettings>().BotHandlingOnRegister.Equals(2))
+                        else if (this.Get<BoardSettings>().BotHandlingOnRegister.Equals(2))
                         {
                             this.Logger.Log(
                                 null,
@@ -268,24 +268,24 @@ namespace YAF.Controls
 
             string displayName = null;
 
-            if (this.Get<YafBoardSettings>().EnableDisplayName
-                && this.Get<YafBoardSettings>().AllowDisplayNameModification)
+            if (this.Get<BoardSettings>().EnableDisplayName
+                && this.Get<BoardSettings>().AllowDisplayNameModification)
             {
                 // Check if name matches the required minimum length
-                if (this.DisplayName.Text.Trim().Length < this.Get<YafBoardSettings>().DisplayNameMinLength)
+                if (this.DisplayName.Text.Trim().Length < this.Get<BoardSettings>().DisplayNameMinLength)
                 {
                     this.PageContext.AddLoadMessage(
-                        this.GetTextFormatted("USERNAME_TOOLONG", this.Get<YafBoardSettings>().DisplayNameMinLength),
+                        this.GetTextFormatted("USERNAME_TOOLONG", this.Get<BoardSettings>().DisplayNameMinLength),
                         MessageTypes.warning);
 
                     return;
                 }
 
                 // Check if name matches the required minimum length
-                if (this.DisplayName.Text.Length > this.Get<YafBoardSettings>().UserNameMaxLength)
+                if (this.DisplayName.Text.Length > this.Get<BoardSettings>().UserNameMaxLength)
                 {
                     this.PageContext.AddLoadMessage(
-                        this.GetTextFormatted("USERNAME_TOOLONG", this.Get<YafBoardSettings>().UserNameMaxLength),
+                        this.GetTextFormatted("USERNAME_TOOLONG", this.Get<BoardSettings>().UserNameMaxLength),
                         MessageTypes.warning);
 
                     return;
@@ -309,7 +309,7 @@ namespace YAF.Controls
             if (this.Interests.Text.Trim().Length > 400)
             {
                 this.PageContext.AddLoadMessage(
-                    this.GetTextFormatted("FIELD_TOOLONG", this.GetText("CP_EDITPROFILE", "INTERESTS"), 400),
+                    this.GetTextFormatted("FIELD_TOOLONG", this.GetText("EDIT_PROFILE", "INTERESTS"), 400),
                     MessageTypes.warning);
 
                 return;
@@ -318,7 +318,7 @@ namespace YAF.Controls
             if (this.Occupation.Text.Trim().Length > 400)
             {
                 this.PageContext.AddLoadMessage(
-                    this.GetTextFormatted("FIELD_TOOLONG", this.GetText("CP_EDITPROFILE", "OCCUPATION"), 400),
+                    this.GetTextFormatted("FIELD_TOOLONG", this.GetText("EDIT_PROFILE", "OCCUPATION"), 400),
                     MessageTypes.warning);
 
                 return;
@@ -352,7 +352,7 @@ namespace YAF.Controls
 
             if (!this.PageContext.CurrentForumPage.IsAdminPage)
             {
-                YafBuildLink.Redirect(ForumPages.cp_profile);
+                BuildLink.Redirect(ForumPages.Account);
             }
             else
             {
@@ -396,10 +396,10 @@ namespace YAF.Controls
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void GetLocationOnClick(object sender, EventArgs e)
         {
-            var userIpLocator = YafContext.Current.Get<IIpInfoService>().GetUserIpLocator(
+            var userIpLocator = BoardContext.Current.Get<IIpInfoService>().GetUserIpLocator(
                 this.PageContext.CurrentForumPage.IsAdminPage
                     ? this.UserData.LastIP
-                    : YafContext.Current.Get<HttpRequestBase>().GetUserRealIPAddress());
+                    : BoardContext.Current.Get<HttpRequestBase>().GetUserRealIPAddress());
 
             if (userIpLocator["CountryCode"] != null && userIpLocator["CountryCode"].IsSet() && !userIpLocator["CountryCode"].Equals("-"))
             {
@@ -434,7 +434,7 @@ namespace YAF.Controls
 
             this.DataBind();
 
-            if (this.Get<YafBoardSettings>().UseFarsiCalender && this.CurrentCultureInfo.IsFarsiCulture())
+            if (this.Get<BoardSettings>().UseFarsiCalender && this.CurrentCultureInfo.IsFarsiCulture())
             {
                 this.Birthday.Text = this.UserData.Profile.Birthday > DateTimeHelper.SqlDbMinTime()
                                      || this.UserData.Profile.Birthday.IsNullOrEmptyDBField()
@@ -528,7 +528,7 @@ namespace YAF.Controls
 
             DateTime userBirthdate;
 
-            if (this.Get<YafBoardSettings>().UseFarsiCalender && this.CurrentCultureInfo.IsFarsiCulture())
+            if (this.Get<BoardSettings>().UseFarsiCalender && this.CurrentCultureInfo.IsFarsiCulture())
             {
                 try
                 {
@@ -597,8 +597,8 @@ namespace YAF.Controls
         private string GetCulture(bool overrideByPageUserCulture)
         {
             // Language and culture
-            var languageFile = this.Get<YafBoardSettings>().Language;
-            var culture4Tag = this.Get<YafBoardSettings>().Culture;
+            var languageFile = this.Get<BoardSettings>().Language;
+            var culture4Tag = this.Get<BoardSettings>().Culture;
 
             if (overrideByPageUserCulture)
             {

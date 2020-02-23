@@ -1,8 +1,8 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2019 Ingo Herbote
- * http://www.yetanotherforum.net/
+ * Copyright (C) 2014-2020 Ingo Herbote
+ * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -12,7 +12,7 @@
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
 
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
 
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
@@ -60,7 +60,7 @@ namespace YAF.Core.Services.Import
         {
             var importedCount = 0;
 
-            var repository = YafContext.Current.Get<IRepository<BBCode>>();
+            var repository = BoardContext.Current.Get<IRepository<BBCode>>();
 
             // import extensions...
             var dsBBCode = new DataSet();
@@ -71,55 +71,56 @@ namespace YAF.Core.Services.Import
                 var bbcodeList = repository.GetByBoardId(boardId);
 
                 // import any extensions that don't exist...
-                foreach (DataRow row in dsBBCode.Tables["YafBBCode"].Rows)
-                {
-                    var name = row["Name"].ToString();
+                dsBBCode.Tables["YafBBCode"].Rows.Cast<DataRow>().ForEach(
+                    row =>
+                        {
+                            var name = row["Name"].ToString();
 
-                    var bbCodeExtension = bbcodeList.FirstOrDefault(b => b.Name.Equals(name));
+                            var bbCodeExtension = bbcodeList.FirstOrDefault(b => b.Name.Equals(name));
 
-                    if (bbCodeExtension != null)
-                    {
-                        // update this bbcode...
-                        repository.Save(
-                            bbCodeExtension.ID,
-                            row["Name"].ToString(),
-                            row["Description"].ToString(),
-                            row["OnClickJS"].ToString(),
-                            row["DisplayJS"].ToString(),
-                            row["EditJS"].ToString(),
-                            row["DisplayCSS"].ToString(),
-                            row["SearchRegex"].ToString(),
-                            row["ReplaceRegex"].ToString(),
-                            row["Variables"].ToString(),
-                            row["UseModule"].ToType<bool>(),
-                            row["UseToolbar"].ToType<bool>(),
-                            row["ModuleClass"].ToString(),
-                            row["ExecOrder"].ToType<int>(),
-                            boardId);
-                    }
-                    else
-                    {
-                        // add this bbcode...
-                        repository.Save(
-                            null,
-                            row["Name"].ToString(),
-                            row["Description"].ToString(),
-                            row["OnClickJS"].ToString(),
-                            row["DisplayJS"].ToString(),
-                            row["EditJS"].ToString(),
-                            row["DisplayCSS"].ToString(),
-                            row["SearchRegex"].ToString(),
-                            row["ReplaceRegex"].ToString(),
-                            row["Variables"].ToString(),
-                            row["UseModule"].ToType<bool>(),
-                            row["UseToolbar"].ToType<bool>(),
-                            row["ModuleClass"].ToString(),
-                            row["ExecOrder"].ToType<int>(),
-                            boardId);
+                            if (bbCodeExtension != null)
+                            {
+                                // update this bbcode...
+                                repository.Save(
+                                    bbCodeExtension.ID,
+                                    row["Name"].ToString(),
+                                    row["Description"].ToString(),
+                                    row["OnClickJS"].ToString(),
+                                    row["DisplayJS"].ToString(),
+                                    row["EditJS"].ToString(),
+                                    row["DisplayCSS"].ToString(),
+                                    row["SearchRegex"].ToString(),
+                                    row["ReplaceRegex"].ToString(),
+                                    row["Variables"].ToString(),
+                                    row["UseModule"].ToType<bool>(),
+                                    row["UseToolbar"].ToType<bool>(),
+                                    row["ModuleClass"].ToString(),
+                                    row["ExecOrder"].ToType<int>(),
+                                    boardId);
+                            }
+                            else
+                            {
+                                // add this bbcode...
+                                repository.Save(
+                                    null,
+                                    row["Name"].ToString(),
+                                    row["Description"].ToString(),
+                                    row["OnClickJS"].ToString(),
+                                    row["DisplayJS"].ToString(),
+                                    row["EditJS"].ToString(),
+                                    row["DisplayCSS"].ToString(),
+                                    row["SearchRegex"].ToString(),
+                                    row["ReplaceRegex"].ToString(),
+                                    row["Variables"].ToString(),
+                                    row["UseModule"].ToType<bool>(),
+                                    row["UseToolbar"].ToType<bool>(),
+                                    row["ModuleClass"].ToString(),
+                                    row["ExecOrder"].ToType<int>(),
+                                    boardId);
 
-                        importedCount++;
-                    }
-                }
+                                importedCount++;
+                            }
+                        });
             }
             else
             {
@@ -152,7 +153,7 @@ namespace YAF.Core.Services.Import
 
             if (dsExtensions.Tables["YafExtension"]?.Columns["Extension"] != null)
             {
-                var repository = YafContext.Current.Get<IRepository<FileExtension>>();
+                var repository = BoardContext.Current.Get<IRepository<FileExtension>>();
 
                 var extensionList = repository.Get(e => e.BoardId == boardId);
 
@@ -201,7 +202,7 @@ namespace YAF.Core.Services.Import
         {
             var importedCount = 0;
 
-            var repository = YafContext.Current.Get<IRepository<BannedEmail>>();
+            var repository = BoardContext.Current.Get<IRepository<BannedEmail>>();
             var existingBannedEmailList = repository.Get(x => x.BoardID == boardId);
 
             using (var streamReader = new StreamReader(inputStream))
@@ -244,7 +245,7 @@ namespace YAF.Core.Services.Import
         {
             var importedCount = 0;
 
-            var repository = YafContext.Current.Get<IRepository<BannedIP>>();
+            var repository = BoardContext.Current.Get<IRepository<BannedIP>>();
             var existingBannedIPList = repository.Get(x => x.BoardID == boardId);
 
             using (var streamReader = new StreamReader(inputStream))
@@ -287,7 +288,7 @@ namespace YAF.Core.Services.Import
         {
             var importedCount = 0;
 
-            var repository = YafContext.Current.Get<IRepository<BannedName>>();
+            var repository = BoardContext.Current.Get<IRepository<BannedName>>();
             var existingBannedNameList = repository.Get(x => x.BoardID == boardId);
 
             using (var streamReader = new StreamReader(inputStream))
@@ -324,7 +325,7 @@ namespace YAF.Core.Services.Import
         {
             var importedCount = 0;
 
-            var repository = YafContext.Current.Get<IRepository<Spam_Words>>();
+            var repository = BoardContext.Current.Get<IRepository<Spam_Words>>();
 
             // import spam words...
             var spamWords = new DataSet();
@@ -338,13 +339,14 @@ namespace YAF.Core.Services.Import
             var spamWordsList = repository.Get(x => x.BoardID == boardId);
 
             // import any extensions that don't exist...
-            foreach (var row in spamWords.Tables["YafSpamWords"].Rows.Cast<DataRow>()
-                .Where(row => spamWordsList.Any(s => s.SpamWord == row["spamword"])))
-            {
-                // add this...
-                repository.Save(null, row["spamword"].ToString());
-                importedCount++;
-            }
+            spamWords.Tables["YafSpamWords"].Rows.Cast<DataRow>()
+                .Where(row => spamWordsList.Any(s => s.SpamWord == row["spamword"])).ForEach(
+                    row =>
+                        {
+                            // add this...
+                            repository.Save(null, row["spamword"].ToString());
+                            importedCount++;
+                        });
 
             return importedCount;
         }

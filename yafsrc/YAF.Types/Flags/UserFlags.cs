@@ -1,8 +1,8 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2019 Ingo Herbote
- * http://www.yetanotherforum.net/
+ * Copyright (C) 2014-2020 Ingo Herbote
+ * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -12,7 +12,7 @@
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
 
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
 
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
@@ -135,9 +135,13 @@ namespace YAF.Types.Flags
             /// </summary>
             IsDirty = 64,
 
+            /// <summary>
+            /// The moderated flag.
+            /// </summary>
+            Moderated = 128
+
             /*  for future use
-             *   xxxxx = 128,
-                 xxxxx = 256,
+             *   xxxxx = 256,
                  xxxxx = 512
                   */
         }
@@ -216,7 +220,7 @@ namespace YAF.Types.Flags
         /// <summary>
         /// Gets or sets a value indicating whether a user profile/personal data was changed. 
         /// The flag is set every time when a user profile changes.
-        /// Used for portal intgration.
+        /// Used for portal integration.
         /// </summary>
         public bool IsDirty
         {
@@ -224,6 +228,17 @@ namespace YAF.Types.Flags
             get => this[6];
 
             set => this[6] = value;
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether moderated.
+        /// </summary>
+        public bool Moderated
+        {
+            // int value 128
+            get => this[7];
+
+            set => this[7] = value;
         }
 
         #endregion

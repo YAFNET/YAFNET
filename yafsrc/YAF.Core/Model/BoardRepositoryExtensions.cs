@@ -1,8 +1,8 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2019 Ingo Herbote
- * http://www.yetanotherforum.net/
+ * Copyright (C) 2014-2020 Ingo Herbote
+ * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -12,7 +12,7 @@
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
 
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
 
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
@@ -32,9 +32,11 @@ namespace YAF.Core.Model
     using YAF.Core.Extensions;
     using YAF.Types;
     using YAF.Types.Extensions;
+    using YAF.Types.Extensions.Data;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
     using YAF.Types.Models;
+    using YAF.Utils.Helpers;
 
     /// <summary>
     ///     The board repository extensions.
@@ -251,7 +253,7 @@ namespace YAF.Core.Model
 
             if (dt.HasRows())
             {
-                return dt.Rows[0];
+                return dt.GetFirstRow();
             }
 
             dt =
@@ -279,32 +281,28 @@ namespace YAF.Core.Model
         }
 
         /// <summary>
-        /// The save.
+        /// Save Board Settings (Name, Culture and Language File)
         /// </summary>
         /// <param name="repository">The repository.</param>
-        /// <param name="boardID">The board id.</param>
+        /// <param name="boardId">The board id.</param>
         /// <param name="name">The name.</param>
         /// <param name="languageFile">The language file.</param>
         /// <param name="culture">The culture.</param>
-        /// <param name="allowThreaded">The allow threaded.</param>
         public static void Save(
             this IRepository<Board> repository,
-            int boardID,
+            int boardId,
             string name,
             string languageFile,
-            string culture,
-            bool allowThreaded)
+            string culture)
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
-            repository.DbFunction.Query.board_save(
-                BoardID: boardID,
-                Name: name,
-                LanguageFile: languageFile,
-                Culture: culture,
-                AllowThreaded: allowThreaded);
+            BoardContext.Current.GetRepository<Registry>().Save("culture", culture, boardId);
+            BoardContext.Current.GetRepository<Registry>().Save("language", languageFile, boardId);
 
-            repository.FireUpdated(boardID);
+            repository.UpdateOnly(() => new Board { Name = name }, board => board.ID == boardId);
+
+            repository.FireUpdated(boardId);
         }
 
         /// <summary>
@@ -323,7 +321,7 @@ namespace YAF.Core.Model
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
-            return ((DataTable)repository.DbFunction.GetData.board_stats(BoardID: boardID)).Rows[0];
+            return repository.DbFunction.GetAsDataTable(f => f.board_stats(BoardID: boardID)).GetFirstRow();
         }
 
         /// <summary>
@@ -342,7 +340,7 @@ namespace YAF.Core.Model
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
-            return ((DataTable)repository.DbFunction.GetData.board_userstats(BoardID: boardID)).Rows[0];
+            return repository.DbFunction.GetAsDataTable(f => f.board_userstats(BoardID: boardID)).GetFirstRow();
         }
 
         /// <summary>

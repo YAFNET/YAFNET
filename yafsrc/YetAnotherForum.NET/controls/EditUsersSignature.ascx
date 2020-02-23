@@ -2,17 +2,17 @@
 
 <h2 runat="server" id="trHeader">
     <YAF:LocalizedLabel runat="server" 
-                        LocalizedPage="CP_SIGNATURE" 
+                        LocalizedPage="EDIT_SIGNATURE" 
                         LocalizedTag="title" />
 </h2>
 <hr />
 <h4>
 <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" 
-                    LocalizedPage="CP_SIGNATURE"
+                    LocalizedPage="EDIT_SIGNATURE"
                     LocalizedTag="SIGNATURE_PREVIEW" />
 </h4>
-<div class="card">
-    <div class="card-body mb-3">
+<div class="card mb-3">
+    <div class="card-body">
         <asp:PlaceHolder id="PreviewLine" runat="server">
         </asp:PlaceHolder>
     </div>
@@ -24,7 +24,7 @@
 <YAF:Alert runat="server" Type="info">
     <h2>
         <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" 
-                            LocalizedPage="CP_SIGNATURE"
+                            LocalizedPage="EDIT_SIGNATURE"
                             LocalizedTag="SIGNATURE_PERMISSIONS" />
     </h2>
     <hr />

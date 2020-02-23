@@ -1,8 +1,8 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2019 Ingo Herbote
- * http://www.yetanotherforum.net/
+ * Copyright (C) 2014-2020 Ingo Herbote
+ * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -12,7 +12,7 @@
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
 
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
 
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
@@ -48,16 +48,6 @@ namespace YAF.Web.Controls
     public class MessagePost : MessageBase
     {
         #region Properties
-
-        /// <summary>
-        ///   Gets or sets a value indicating whether IsAlt.
-        /// </summary>
-        public virtual bool IsAlt
-        {
-            get => this.ViewState["IsAlt"] != null && Convert.ToBoolean(this.ViewState["IsAlt"]);
-
-            set => this.ViewState["IsAlt"] = value;
-        }
 
         /// <summary>
         ///   Gets or sets DisplayUserID.
@@ -237,7 +227,7 @@ namespace YAF.Web.Controls
         protected virtual void RenderEditedMessage(
             [NotNull] HtmlTextWriter writer, [NotNull] DateTime edited, [NotNull] string editReason, int? messageId)
         {
-            if (!this.Get<YafBoardSettings>().ShowEditedMessage)
+            if (!this.Get<BoardSettings>().ShowEditedMessage)
             {
                 return;
             }
@@ -256,7 +246,7 @@ namespace YAF.Web.Controls
 
             var messageHistoryButton =
                 $@"<hr />
-                   <p class=""mb-0""><a href=""{YafBuildLink.GetLink(ForumPages.messagehistory, "m={0}", messageId.ToType<int>())}"" class=""btn btn-secondary btn-sm mr-1"">
+                   <p class=""mb-0""><a href=""{BuildLink.GetLink(ForumPages.MessageHistory, "m={0}", messageId.ToType<int>())}"" class=""btn btn-secondary btn-sm mr-1"">
                          <i class=""fa fa-history fa-fw""></i>{this.GetText("MESSAGEHISTORY", "TITLE")}
                       </a></p>";
 
@@ -286,7 +276,7 @@ namespace YAF.Web.Controls
                           <span aria-hidden=""true"">&times;</span>
                       </button></div>",
                 this.GetText("GO_TO_ANSWER"),
-                YafBuildLink.GetLink(ForumPages.posts, "m={0}#post{0}", messageId));
+                BuildLink.GetLink(ForumPages.Posts, "m={0}#post{0}", messageId));
         }
 
         /// <summary>
@@ -309,7 +299,7 @@ namespace YAF.Web.Controls
             else
             {
                 var formattedMessage =
-                    this.Get<IFormatMessage>().FormatMessage(
+                    this.Get<IFormatMessage>().Format(
                         this.HighlightMessage(this.Message, true), this.MessageFlags);
 
                 // tha_watcha : Since HTML message and BBCode can be mixed now, message should be always replace BBCode

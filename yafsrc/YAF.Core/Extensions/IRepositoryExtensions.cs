@@ -1,8 +1,8 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2019 Ingo Herbote
- * http://www.yetanotherforum.net/
+ * Copyright (C) 2014-2020 Ingo Herbote
+ * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -12,7 +12,7 @@
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
 
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
 
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
@@ -35,6 +35,7 @@ namespace YAF.Core.Extensions
     using YAF.Configuration;
     using YAF.Types;
     using YAF.Types.Extensions;
+    using YAF.Types.Extensions.Data;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
 
@@ -240,7 +241,7 @@ namespace YAF.Core.Extensions
         /// <returns>
         /// The <see cref="bool" /> .
         /// </returns>
-        public static bool Upsert<T>(
+        public static int Upsert<T>(
             [NotNull] this IRepository<T> repository,
             [NotNull] T entity,
             IDbTransaction transaction = null)
@@ -249,7 +250,18 @@ namespace YAF.Core.Extensions
             CodeContracts.VerifyNotNull(entity, "entity");
             CodeContracts.VerifyNotNull(repository, "repository");
 
-            return entity.ID > 0 ? repository.Update(entity) : repository.Insert(entity) > 0;
+            var newId = entity.ID;
+
+            if (entity.ID > 0)
+            {
+                repository.Update(entity);
+            }
+            else
+            {
+                newId = repository.Insert(entity);
+            }
+
+            return newId;
         }
 
         /// <summary>
@@ -356,6 +368,20 @@ namespace YAF.Core.Extensions
             CodeContracts.VerifyNotNull(repository, "repository");
 
             return repository.DbAccess.UpdateOnly(updateFields, where, commandFilter);
+        }
+
+        /// <summary>
+        /// Returns true if the Query returns any records that match the supplied SqlExpression, E.g:
+        /// <para>db.Exists(db.From&lt;Person&gt;().Where(x =&gt; x.Age &lt; 50))</para>
+        /// </summary>
+        public static bool Exists<T>(
+            [NotNull] this IRepository<T> repository,
+            Expression<Func<T, bool>> where = null)
+            where T : class, IEntity, new()
+        {
+            CodeContracts.VerifyNotNull(repository, "repository");
+
+            return repository.DbAccess.Exists(where);
         }
 
         /// <summary>

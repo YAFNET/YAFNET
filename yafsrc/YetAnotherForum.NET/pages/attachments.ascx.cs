@@ -1,8 +1,8 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2019 Ingo Herbote
- * http://www.yetanotherforum.net/
+ * Copyright (C) 2014-2020 Ingo Herbote
+ * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -12,7 +12,7 @@
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
 
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
 
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
@@ -51,14 +51,14 @@ namespace YAF.Pages
     /// <summary>
     /// The attachments Page Class.
     /// </summary>
-    public partial class attachments : ForumPage
+    public partial class Attachments : ForumPage
     {
         #region Constructors and Destructors
 
         /// <summary>
-        ///   Initializes a new instance of the <see cref = "attachments" /> class.
+        ///   Initializes a new instance of the <see cref = "Attachments" /> class.
         /// </summary>
-        public attachments()
+        public Attachments()
             : base("ATTACHMENTS")
         {
         }
@@ -74,7 +74,7 @@ namespace YAF.Pages
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Back_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
-            YafBuildLink.Redirect(ForumPages.cp_profile);
+            BuildLink.Redirect(ForumPages.Account);
         }
 
         /// <summary>
@@ -125,10 +125,10 @@ namespace YAF.Pages
                                   ? UserMembershipHelper.GetDisplayNameFromID(this.PageContext.PageUserID)
                                   : UserMembershipHelper.GetUserNameFromID(this.PageContext.PageUserID);
             this.PageLinks.Clear();
-            this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+            this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, BuildLink.GetLink(ForumPages.forum));
             this.PageLinks.AddLink(
                 displayName,
-                YafBuildLink.GetLink(ForumPages.profile, "u={0}", this.PageContext.PageUserID, displayName));
+                BuildLink.GetLink(ForumPages.Profile, "u={0}", this.PageContext.PageUserID, displayName));
             this.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
 
             this.Back.TextLocalizedTag = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("t").IsNotSet()
@@ -150,7 +150,7 @@ namespace YAF.Pages
             var fileName = attach.FileName;
             var isImage = fileName.IsImageName();
             var url =
-                $"{YafForumInfo.ForumClientFileRoot}resource.ashx?i={attach.ID}&b={this.PageContext.PageBoardID}&editor=true";
+                $"{BoardInfo.ForumClientFileRoot}resource.ashx?i={attach.ID}&b={this.PageContext.PageBoardID}&editor=true";
 
             return isImage
                        ? $"<img src=\"{url}\" alt=\"{fileName}\" title=\"{fileName}\" data-url=\"{url}\"style=\"max-width:30px\" />"
@@ -178,13 +178,12 @@ namespace YAF.Pages
             this.BindData();
         }
         
-
         /// <summary>
         /// Binds the data.
         /// </summary>
         private void BindData()
         {
-            this.PagerTop.PageSize = this.Get<YafBoardSettings>().MemberListPageSize;
+            this.PagerTop.PageSize = this.Get<BoardSettings>().MemberListPageSize;
 
             var dt = this.GetRepository<Attachment>().GetPaged(
                 a => a.UserID == this.PageContext.PageUserID,

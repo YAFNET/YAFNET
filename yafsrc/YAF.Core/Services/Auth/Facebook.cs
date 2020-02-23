@@ -1,8 +1,8 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2019 Ingo Herbote
- * http://www.yetanotherforum.net/
+ * Copyright (C) 2014-2020 Ingo Herbote
+ * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -12,7 +12,7 @@
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
 
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
 
 
  * Unless required by applicable law or agreed to in writing,
@@ -31,6 +31,8 @@ namespace YAF.Core.Services.Auth
     using System.Web;
     using System.Web.Security;
 
+    using ServiceStack;
+
     using YAF.Configuration;
     using YAF.Core.Model;
     using YAF.Core.UsersRoles;
@@ -42,7 +44,6 @@ namespace YAF.Core.Services.Auth
     using YAF.Types.Models;
     using YAF.Types.Objects;
     using YAF.Utils;
-    using YAF.Utils.Extensions;
     using YAF.Utils.Helpers;
 
     /// <summary>
@@ -135,7 +136,7 @@ namespace YAF.Core.Services.Auth
         public string GenerateLoginUrl(bool generatePopUpUrl, bool connectCurrentUser = false)
         {
             var authUrl =
-                $"{YafForumInfo.ForumBaseUrl}auth.aspx?auth={AuthService.facebook}{(connectCurrentUser ? "&connectCurrent=true" : string.Empty)}";
+                $"{BoardInfo.ForumBaseUrl}auth.aspx?auth={AuthService.facebook}{(connectCurrentUser ? "&connectCurrent=true" : string.Empty)}";
 
             return authUrl;
         }
@@ -157,9 +158,9 @@ namespace YAF.Core.Services.Auth
         /// </returns>
         public bool LoginOrCreateUser(HttpRequest request, string parameters, out string message)
         {
-            if (!YafContext.Current.Get<YafBoardSettings>().AllowSingleSignOn)
+            if (!BoardContext.Current.Get<BoardSettings>().AllowSingleSignOn)
             {
-                message = YafContext.Current.Get<ILocalization>().GetText("LOGIN", "SSO_DEACTIVATED");
+                message = BoardContext.Current.Get<ILocalization>().GetText("LOGIN", "SSO_DEACTIVATED");
 
                 return false;
             }
@@ -174,13 +175,13 @@ namespace YAF.Core.Services.Auth
 
             if (facebookUser.Email.IsNotSet())
             {
-                message = YafContext.Current.Get<ILocalization>().GetText("LOGIN", "SSO_FACEBOOK_FAILED3");
+                message = BoardContext.Current.Get<ILocalization>().GetText("LOGIN", "SSO_FACEBOOK_FAILED3");
 
                 return false;
             }
 
             // Check if user exists
-            var userName = YafContext.Current.Get<MembershipProvider>().GetUserNameByEmail(facebookUser.Email);
+            var userName = BoardContext.Current.Get<MembershipProvider>().GetUserNameByEmail(facebookUser.Email);
 
             if (userName.IsNotSet())
             {
@@ -208,14 +209,14 @@ namespace YAF.Core.Services.Auth
             var yafUser = YafUserProfile.GetProfile(userName);
 
             var yafUserData =
-                new CombinedUserDataHelper(YafContext.Current.Get<MembershipProvider>().GetUser(userName, true));
+                new CombinedUserDataHelper(BoardContext.Current.Get<MembershipProvider>().GetUser(userName, true));
 
             // Legacy Handling
             if (ValidationHelper.IsNumeric(yafUser.Facebook))
             {
                 if (!yafUser.Facebook.Equals(facebookUser.UserID))
                 {
-                    message = YafContext.Current.Get<ILocalization>().GetText("LOGIN", "SSO_FACEBOOK_FAILED2");
+                    message = BoardContext.Current.Get<ILocalization>().GetText("LOGIN", "SSO_FACEBOOK_FAILED2");
 
                     return false;
                 }
@@ -223,12 +224,12 @@ namespace YAF.Core.Services.Auth
 
             if (!yafUser.FacebookId.Equals(facebookUser.UserID))
             {
-                message = YafContext.Current.Get<ILocalization>().GetText("LOGIN", "SSO_FACEBOOK_FAILED2");
+                message = BoardContext.Current.Get<ILocalization>().GetText("LOGIN", "SSO_FACEBOOK_FAILED2");
 
                 return false;
             }
 
-            YafSingleSignOnUser.LoginSuccess(AuthService.facebook, userName, yafUserData.UserID, true);
+            SingleSignOnUser.LoginSuccess(AuthService.facebook, userName, yafUserData.UserID, true);
 
             message = string.Empty;
 
@@ -276,18 +277,18 @@ namespace YAF.Core.Services.Auth
             }
 
             // Only validated logins can go here
-            if (!YafContext.Current.IsGuest)
+            if (!BoardContext.Current.IsGuest)
             {
                 // match the email address...
-                if (facebookUser.Email != YafContext.Current.CurrentUserData.Email)
+                if (facebookUser.Email != BoardContext.Current.CurrentUserData.Email)
                 {
-                    message = YafContext.Current.Get<ILocalization>().GetText("LOGIN", "SSO_FACEBOOKNAME_NOTMATCH");
+                    message = BoardContext.Current.Get<ILocalization>().GetText("LOGIN", "SSO_FACEBOOKNAME_NOTMATCH");
 
                     return false;
                 }
 
                 // Update profile with facebook informations
-                var userProfile = YafContext.Current.Profile;
+                var userProfile = BoardContext.Current.Profile;
 
                 userProfile.Facebook = facebookUser.ProfileURL;
                 userProfile.FacebookId = facebookUser.UserID;
@@ -315,20 +316,20 @@ namespace YAF.Core.Services.Auth
                 userProfile.Save();
 
                 // save avatar
-                YafContext.Current.GetRepository<User>().SaveAvatar(
-                    YafContext.Current.PageUserID,
+                BoardContext.Current.GetRepository<User>().SaveAvatar(
+                    BoardContext.Current.PageUserID,
                     $"https://graph.facebook.com/v3.3/{facebookUser.UserID}/picture",
                     null,
                     null);
 
-                YafSingleSignOnUser.LoginSuccess(AuthService.facebook, null, YafContext.Current.PageUserID, false);
+                SingleSignOnUser.LoginSuccess(AuthService.facebook, null, BoardContext.Current.PageUserID, false);
 
                 message = string.Empty;
 
                 return true;
             }
 
-            message = YafContext.Current.Get<ILocalization>().GetText("LOGIN", "SSO_FACEBOOK_FAILED");
+            message = BoardContext.Current.Get<ILocalization>().GetText("LOGIN", "SSO_FACEBOOK_FAILED");
             return false;
         }
 
@@ -382,53 +383,53 @@ namespace YAF.Core.Services.Auth
         /// </returns>
         private static bool CreateFacebookUser(FacebookUser facebookUser, int userGender, out string message)
         {
-            if (YafContext.Current.Get<YafBoardSettings>().DisableRegistrations)
+            if (BoardContext.Current.Get<BoardSettings>().DisableRegistrations)
             {
-                message = YafContext.Current.Get<ILocalization>().GetText("LOGIN", "SSO_FAILED");
+                message = BoardContext.Current.Get<ILocalization>().GetText("LOGIN", "SSO_FAILED");
                 return false;
             }
 
             // Check user for bot
             var isPossibleSpamBot = false;
 
-            var userIpAddress = YafContext.Current.Get<HttpRequestBase>().GetUserRealIPAddress();
+            var userIpAddress = BoardContext.Current.Get<HttpRequestBase>().GetUserRealIPAddress();
 
             // Check content for spam
-            if (YafContext.Current.Get<ISpamCheck>().CheckUserForSpamBot(facebookUser.UserName, facebookUser.Email, userIpAddress, out var result))
+            if (BoardContext.Current.Get<ISpamCheck>().CheckUserForSpamBot(facebookUser.UserName, facebookUser.Email, userIpAddress, out var result))
             {
-                YafContext.Current.Get<ILogger>().Log(
+                BoardContext.Current.Get<ILogger>().Log(
                     null,
                     "Bot Detected",
                     $"Bot Check detected a possible SPAM BOT: (user name : '{facebookUser.UserName}', email : '{facebookUser.Email}', ip: '{userIpAddress}', reason : {result}), user was rejected.",
                     EventLogTypes.SpamBotDetected);
 
-                if (YafContext.Current.Get<YafBoardSettings>().BotHandlingOnRegister.Equals(1))
+                if (BoardContext.Current.Get<BoardSettings>().BotHandlingOnRegister.Equals(1))
                 {
                     // Flag user as spam bot
                     isPossibleSpamBot = true;
                 }
-                else if (YafContext.Current.Get<YafBoardSettings>().BotHandlingOnRegister.Equals(2))
+                else if (BoardContext.Current.Get<BoardSettings>().BotHandlingOnRegister.Equals(2))
                 {
-                    message = YafContext.Current.Get<ILocalization>().GetText("BOT_MESSAGE");
+                    message = BoardContext.Current.Get<ILocalization>().GetText("BOT_MESSAGE");
 
-                    if (!YafContext.Current.Get<YafBoardSettings>().BanBotIpOnDetection)
+                    if (!BoardContext.Current.Get<BoardSettings>().BanBotIpOnDetection)
                     {
                         return false;
                     }
 
-                    YafContext.Current.GetRepository<BannedIP>()
+                    BoardContext.Current.GetRepository<BannedIP>()
                         .Save(
                             null,
                             userIpAddress,
                             $"A spam Bot who was trying to register was banned by IP {userIpAddress}",
-                            YafContext.Current.PageUserID);
+                            BoardContext.Current.PageUserID);
 
                     // Clear cache
-                    YafContext.Current.Get<IDataCache>().Remove(Constants.Cache.BannedIP);
+                    BoardContext.Current.Get<IDataCache>().Remove(Constants.Cache.BannedIP);
 
-                    if (YafContext.Current.Get<YafBoardSettings>().LogBannedIP)
+                    if (BoardContext.Current.Get<BoardSettings>().LogBannedIP)
                     {
-                        YafContext.Current.Get<ILogger>()
+                        BoardContext.Current.Get<ILogger>()
                             .Log(
                                 null,
                                 "IP BAN of Bot During Registration",
@@ -440,7 +441,7 @@ namespace YAF.Core.Services.Auth
                 }
             }
 
-            var memberShipProvider = YafContext.Current.Get<MembershipProvider>();
+            var memberShipProvider = BoardContext.Current.Get<MembershipProvider>();
 
             var pass = Membership.GeneratePassword(32, 16);
             var securityAnswer = Membership.GeneratePassword(64, 30);
@@ -456,10 +457,10 @@ namespace YAF.Core.Services.Auth
                 out var status);
 
             // setup initial roles (if any) for this user
-            RoleMembershipHelper.SetupUserRoles(YafContext.Current.PageBoardID, facebookUser.UserName);
+            RoleMembershipHelper.SetupUserRoles(BoardContext.Current.PageBoardID, facebookUser.UserName);
 
             // create the user in the YAF DB as well as sync roles...
-            var userID = RoleMembershipHelper.CreateForumUser(user, YafContext.Current.PageBoardID);
+            var userID = RoleMembershipHelper.CreateForumUser(user, BoardContext.Current.PageBoardID);
 
             // create empty profile just so they have one
             var userProfile = YafUserProfile.GetProfile(facebookUser.UserName);
@@ -490,9 +491,9 @@ namespace YAF.Core.Services.Auth
                 userProfile.Location = facebookUser.Location.Name;
             }
 
-            if (YafContext.Current.Get<YafBoardSettings>().EnableIPInfoService)
+            if (BoardContext.Current.Get<BoardSettings>().EnableIPInfoService)
             {
-                var userIpLocator = YafContext.Current.Get<IIpInfoService>().GetUserIpLocator();
+                var userIpLocator = BoardContext.Current.Get<IIpInfoService>().GetUserIpLocator();
 
                 if (userIpLocator != null)
                 {
@@ -508,34 +509,34 @@ namespace YAF.Core.Services.Auth
             if (userID == null)
             {
                 // something is seriously wrong here -- redirect to failure...
-                message = YafContext.Current.Get<ILocalization>().GetText("LOGIN", "SSO_FAILED");
+                message = BoardContext.Current.Get<ILocalization>().GetText("LOGIN", "SSO_FAILED");
                 return false;
             }
 
-            if (YafContext.Current.Get<YafBoardSettings>().NotificationOnUserRegisterEmailList.IsSet())
+            if (BoardContext.Current.Get<BoardSettings>().NotificationOnUserRegisterEmailList.IsSet())
             {
                 // send user register notification to the following admin users...
-                YafContext.Current.Get<ISendNotification>().SendRegistrationNotificationEmail(user, userID.Value);
+                BoardContext.Current.Get<ISendNotification>().SendRegistrationNotificationEmail(user, userID.Value);
             }
 
             if (isPossibleSpamBot)
             {
-                YafContext.Current.Get<ISendNotification>().SendSpamBotNotificationToAdmins(user, userID.Value);
+                BoardContext.Current.Get<ISendNotification>().SendSpamBotNotificationToAdmins(user, userID.Value);
             }
 
             // send user register notification to the user...
-            YafContext.Current.Get<ISendNotification>()
+            BoardContext.Current.Get<ISendNotification>()
                 .SendRegistrationNotificationToUser(user, pass, securityAnswer, "NOTIFICATION_ON_FACEBOOK_REGISTER");
 
             // save the time zone...
             var userId = UserMembershipHelper.GetUserIDFromProviderUserKey(user.ProviderUserKey);
 
-            var autoWatchTopicsEnabled = YafContext.Current.Get<YafBoardSettings>().DefaultNotificationSetting
+            var autoWatchTopicsEnabled = BoardContext.Current.Get<BoardSettings>().DefaultNotificationSetting
                                          == UserNotificationSetting.TopicsIPostToOrSubscribeTo;
 
-            YafContext.Current.GetRepository<User>().Save(
+            BoardContext.Current.GetRepository<User>().Save(
                 userId,
-                YafContext.Current.PageBoardID,
+                BoardContext.Current.PageBoardID,
                 facebookUser.UserName,
                 facebookUser.UserName,
                 facebookUser.Email,
@@ -545,30 +546,30 @@ namespace YAF.Core.Services.Auth
                 null,
                 null,
                 null,
-                YafContext.Current.Get<YafBoardSettings>().DefaultNotificationSetting,
+                BoardContext.Current.Get<BoardSettings>().DefaultNotificationSetting,
                 autoWatchTopicsEnabled,
                 TimeZoneInfo.Local.SupportsDaylightSavingTime,
                 null,
                 null);
 
             // save the settings...
-            YafContext.Current.GetRepository<User>().SaveNotification(
+            BoardContext.Current.GetRepository<User>().SaveNotification(
                 userId,
                 true,
                 autoWatchTopicsEnabled,
-                YafContext.Current.Get<YafBoardSettings>().DefaultNotificationSetting,
-                YafContext.Current.Get<YafBoardSettings>().DefaultSendDigestEmail);
+                BoardContext.Current.Get<BoardSettings>().DefaultNotificationSetting.ToInt(),
+                BoardContext.Current.Get<BoardSettings>().DefaultSendDigestEmail);
 
             // save avatar
-            YafContext.Current.GetRepository<User>().SaveAvatar(
+            BoardContext.Current.GetRepository<User>().SaveAvatar(
                 userId,
                 $"https://graph.facebook.com/v3.3/{facebookUser.UserID}/picture",
                 null,
                 null);
 
-            YafContext.Current.Get<IRaiseEvent>().Raise(new NewUserRegisteredEvent(user, userId));
+            BoardContext.Current.Get<IRaiseEvent>().Raise(new NewUserRegisteredEvent(user, userId));
 
-            YafSingleSignOnUser.LoginSuccess(AuthService.facebook, user.UserName, userId, true);
+            SingleSignOnUser.LoginSuccess(AuthService.facebook, user.UserName, userId, true);
 
             message = string.Empty;
 

@@ -1,8 +1,8 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2019 Ingo Herbote
- * http://www.yetanotherforum.net/
+ * Copyright (C) 2014-2020 Ingo Herbote
+ * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -12,7 +12,7 @@
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
 
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
 
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
@@ -37,6 +37,7 @@ namespace YAF.Pages
     using YAF.Core.Helpers;
     using YAF.Core.Model;
     using YAF.Core.Services;
+    using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
@@ -54,7 +55,7 @@ namespace YAF.Pages
     /// <summary>
     /// The topics list page
     /// </summary>
-    public partial class topics : ForumPage
+    public partial class Topics : ForumPage
     {
         #region Constants and Fields
 
@@ -73,10 +74,10 @@ namespace YAF.Pages
         #region Constructors and Destructors
 
         /// <summary>
-        ///   Initializes a new instance of the <see cref = "topics" /> class. 
+        ///   Initializes a new instance of the <see cref = "Topics" /> class. 
         ///   Overloads the topics page.
         /// </summary>
-        public topics()
+        public Topics()
             : base("TOPICS")
         {
         }
@@ -96,7 +97,7 @@ namespace YAF.Pages
         /// </returns>
         public DataTable StyleTransformDataTable([NotNull] DataTable dt)
         {
-            if (!this.Get<YafBoardSettings>().UseStyledNicks)
+            if (!this.Get<BoardSettings>().UseStyledNicks)
             {
                 return dt;
             }
@@ -112,31 +113,45 @@ namespace YAF.Pages
         #region Methods
 
         /// <summary>
-        /// Gets the sub forum title.
+        /// The On PreRender event.
         /// </summary>
-        /// <returns>The get sub forum title.</returns>
-        protected string GetSubForumTitle()
+        /// <param name="e">
+        /// the Event Arguments
+        /// </param>
+        protected override void OnPreRender([NotNull] EventArgs e)
         {
-            return this.GetTextFormatted("SUBFORUMS", this.HtmlEncode(this.PageContext.PageForumName));
+            this.PageContext.PageElements.RegisterJsBlockStartup(
+                "TopicStarterPopoverJs",
+                JavaScriptBlocks.TopicLinkPopoverJs(
+                    $"{this.GetText("TOPIC_STARTER")}&nbsp;...",
+                    ".topic-starter-popover",
+                    "hover"));
+
+            this.PageContext.PageElements.RegisterJsBlockStartup(
+                "TopicLinkPopoverJs",
+                JavaScriptBlocks.TopicLinkPopoverJs(
+                    $"{this.GetText("LASTPOST")}&nbsp;{this.GetText("SEARCH", "BY")} ...",
+                    ".topic-link-popover",
+                    "focus hover"));
+
+            var iconLegend = new IconLegend().RenderToString();
+
+            this.PageContext.PageElements.RegisterJsBlockStartup(
+                "TopicIconLegendPopoverJs",
+                JavaScriptBlocks.ForumIconLegendPopoverJs(
+                    iconLegend.ToJsString(),
+                    "topic-icon-legend-popvover"));
+
+            base.OnPreRender(e);
         }
 
         /// <summary>
-        /// The new topic_ click.
+        /// Gets the sub forum title.
         /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        protected void NewTopic_Click([NotNull] object sender, [NotNull] EventArgs e)
+        /// <returns>The get sub forum title.</returns>
+            protected string GetSubForumTitle()
         {
-            if (this.forum.ForumFlags.IsLocked)
-            {
-                this.PageContext.AddLoadMessage(this.GetText("WARN_FORUM_LOCKED"), MessageTypes.warning);
-                return;
-            }
-
-            if (!this.PageContext.ForumPostAccess)
-            {
-                YafBuildLink.AccessDenied(/*"You don't have access to post new topics in this forum."*/);
-            }
+            return this.GetTextFormatted("SUBFORUMS", this.HtmlEncode(this.PageContext.PageForumName));
         }
 
         /// <summary>
@@ -151,8 +166,8 @@ namespace YAF.Pages
                 return;
             }
 
-            YafBuildLink.Redirect(
-                ForumPages.search,
+            BuildLink.Redirect(
+                ForumPages.Search,
                 "search={0}&forum={1}",
                 this.forumSearch.Text,
                 this.PageContext.PageForumID);
@@ -171,8 +186,6 @@ namespace YAF.Pages
             this.ShowList.SelectedIndexChanged += this.ShowList_SelectedIndexChanged;
             this.MarkRead.Click += this.MarkRead_Click;
             this.Pager.PageChange += this.Pager_PageChange;
-            this.NewTopic1.Click += this.NewTopic_Click;
-            this.NewTopic2.Click += this.NewTopic_Click;
             this.WatchForum.Click += this.WatchForum_Click;
 
             base.OnInit(e);
@@ -185,11 +198,11 @@ namespace YAF.Pages
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            this.Get<IYafSession>().UnreadTopics = 0;
+            this.Get<ISession>().UnreadTopics = 0;
 
             this.RssFeed.AdditionalParameters = $"f={this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("f")}";
 
-            this.ForumJumpHolder.Visible = this.Get<YafBoardSettings>().ShowForumJump
+            this.ForumJumpHolder.Visible = this.Get<BoardSettings>().ShowForumJump
                                            && this.PageContext.Settings.LockedForum == 0;
 
             if (this.ForumSearchHolder.Visible)
@@ -206,7 +219,7 @@ namespace YAF.Pages
                     this.PageLinks.AddRoot();
                     this.PageLinks.AddLink(
                         this.PageContext.PageCategoryName,
-                        YafBuildLink.GetLink(ForumPages.forum, "c={0}", this.PageContext.PageCategoryID));
+                        BuildLink.GetLink(ForumPages.forum, "c={0}", this.PageContext.PageCategoryID));
                 }
 
                 this.PageLinks.AddForum(this.PageContext.PageForumID, true);
@@ -214,24 +227,24 @@ namespace YAF.Pages
                 this.ShowList.DataSource = StaticDataHelper.TopicTimes();
                 this.ShowList.DataTextField = "TopicText";
                 this.ShowList.DataValueField = "TopicValue";
-                this.showTopicListSelected = this.Get<IYafSession>().ShowList == -1
-                                                  ? this.Get<YafBoardSettings>().ShowTopicsDefault
-                                                  : this.Get<IYafSession>().ShowList;
+                this.showTopicListSelected = this.Get<ISession>().ShowList == -1
+                                                  ? this.Get<BoardSettings>().ShowTopicsDefault
+                                                  : this.Get<ISession>().ShowList;
 
                 this.moderate1.NavigateUrl =
                     this.moderate2.NavigateUrl =
-                    YafBuildLink.GetLinkNotEscaped(ForumPages.moderating, "f={0}", this.PageContext.PageForumID);
+                    BuildLink.GetLinkNotEscaped(ForumPages.Moderating, "f={0}", this.PageContext.PageForumID);
 
                 this.NewTopic1.NavigateUrl =
                     this.NewTopic2.NavigateUrl =
-                    YafBuildLink.GetLinkNotEscaped(ForumPages.postmessage, "f={0}", this.PageContext.PageForumID);
+                    BuildLink.GetLinkNotEscaped(ForumPages.PostTopic, "f={0}", this.PageContext.PageForumID);
 
                 this.HandleWatchForum();
             }
 
             if (!this.Get<HttpRequestBase>().QueryString.Exists("f"))
             {
-                YafBuildLink.AccessDenied();
+                BuildLink.AccessDenied();
             }
 
             if (this.PageContext.IsGuest && !this.PageContext.ForumReadAccess)
@@ -241,14 +254,10 @@ namespace YAF.Pages
             }
             else if (!this.PageContext.ForumReadAccess)
             {
-                YafBuildLink.AccessDenied();
+                BuildLink.AccessDenied();
             }
 
-            var dt = this.GetRepository<Forum>().List(
-                this.PageContext.PageBoardID,
-                this.PageContext.PageForumID);
-
-            this.forum = dt.FirstOrDefault();
+            this.forum = this.GetRepository<Forum>().GetById(this.PageContext.PageForumID);
 
             if (this.forum.RemoteURL.IsSet())
             {
@@ -326,14 +335,10 @@ namespace YAF.Pages
             }
             else
             {
-                var watch = this.GetRepository<WatchForum>().Check(this.PageContext.PageUserID, this.PageContext.PageForumID);
+                this.GetRepository<WatchForum>().Delete(
+                    w => w.ForumID == this.PageContext.PageForumID && w.UserID == this.PageContext.PageUserID);
 
-                if (watch != null)
-                {
-                    this.GetRepository<WatchForum>().DeleteById(watch.Value);
-
-                    this.PageContext.AddLoadMessage(this.GetText("INFO_UNWATCH_FORUM"), MessageTypes.success);
-                }
+                this.PageContext.AddLoadMessage(this.GetText("INFO_UNWATCH_FORUM"), MessageTypes.success);
             }
 
             this.HandleWatchForum();
@@ -346,7 +351,7 @@ namespace YAF.Pages
         /// </summary>
         private void BindData()
         {
-            var ds = this.Get<YafDbBroker>().BoardLayout(
+            var ds = this.Get<DataBroker>().BoardLayout(
                 this.PageContext.PageBoardID,
                 this.PageContext.PageUserID,
                 this.PageContext.PageCategoryID,
@@ -357,13 +362,13 @@ namespace YAF.Pages
                 this.SubForums.Visible = true;
             }
 
-            this.Pager.PageSize = this.Get<YafBoardSettings>().TopicsPerPage;
+            this.Pager.PageSize = this.Get<BoardSettings>().TopicsPerPage;
 
             // when userId is null it returns the count of all deleted messages
             /*int? userId = null;
 
             // get the userID to use for the deleted posts count...
-            if (!this.Get<YafBoardSettings>().ShowDeletedMessagesToAll)
+            if (!this.Get<BoardSettings>().ShowDeletedMessagesToAll)
             {
                 // only show deleted messages that belong to this user if they are not admin/mod
                 if (!this.PageContext.IsAdmin && !this.PageContext.ForumModeratorAccess)
@@ -377,18 +382,18 @@ namespace YAF.Pages
                 this.PageContext.PageForumID,
                 userId,
                 null,
-                DateTime.UtcNow,
+                System.DateTime.UtcNow,
                 0,
                 10,
-                this.Get<YafBoardSettings>().UseStyledNicks,
+                this.Get<BoardSettings>().UseStyledNicks,
                 true,
-                this.Get<YafBoardSettings>().UseReadTrackingByDatabase);
+                this.Get<BoardSettings>().UseReadTrackingByDatabase);
             if (dt != null)
             {
                 dt = this.StyleTransformDataTable(dt);
             }
 
-            var baseSize = this.Get<YafBoardSettings>().TopicsPerPage;
+            var baseSize = this.Get<BoardSettings>().TopicsPerPage;
 
             this.Announcements.DataSource = dt;
 
@@ -402,12 +407,12 @@ namespace YAF.Pages
                     this.PageContext.PageForumID,
                     userId,
                     DateTimeHelper.SqlDbMinTime(),
-                    DateTime.UtcNow,
+                    System.DateTime.UtcNow,
                     pagerCurrentPageIndex,
                     baseSize,
-                    this.Get<YafBoardSettings>().UseStyledNicks,
+                    this.Get<BoardSettings>().UseStyledNicks,
                     true,
-                    this.Get<YafBoardSettings>().UseReadTrackingByDatabase);
+                    this.Get<BoardSettings>().UseReadTrackingByDatabase);
                 if (topicList != null)
                 {
                     topicList = this.StyleTransformDataTable(topicList);
@@ -417,18 +422,18 @@ namespace YAF.Pages
             {
                 int[] days = { 1, 2, 7, 14, 31, 2 * 31, 6 * 31, 356 };
 
-                var date = DateTime.UtcNow.AddDays(-days[this.showTopicListSelected]);
+                var date = System.DateTime.UtcNow.AddDays(-days[this.showTopicListSelected]);
 
                 topicList = this.GetRepository<Topic>().ListAsDataTable(
                     this.PageContext.PageForumID,
                     userId,
                     date,
-                    DateTime.UtcNow,
+                    System.DateTime.UtcNow,
                     pagerCurrentPageIndex,
                     baseSize,
-                    this.Get<YafBoardSettings>().UseStyledNicks,
+                    this.Get<BoardSettings>().UseStyledNicks,
                     true,
-                    this.Get<YafBoardSettings>().UseReadTrackingByDatabase);
+                    this.Get<BoardSettings>().UseReadTrackingByDatabase);
 
                 if (topicList != null)
                 {
@@ -442,7 +447,7 @@ namespace YAF.Pages
 
             // setup the show topic list selection after data binding
             this.ShowList.SelectedIndex = this.showTopicListSelected;
-            this.Get<IYafSession>().ShowList = this.showTopicListSelected;
+            this.Get<ISession>().ShowList = this.showTopicListSelected;
 
             if (topicList != null && topicList.HasRows())
             {
@@ -526,7 +531,7 @@ namespace YAF.Pages
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         private void Topics_Unload([NotNull] object sender, [NotNull] EventArgs e)
         {
-            if (this.Get<IYafSession>().UnreadTopics == 0)
+            if (this.Get<ISession>().UnreadTopics == 0)
             {
                 this.Get<IReadTrackCurrentUser>().SetForumRead(this.PageContext.PageForumID);
             }

@@ -1,8 +1,8 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2019 Ingo Herbote
- * http://www.yetanotherforum.net/
+ * Copyright (C) 2014-2020 Ingo Herbote
+ * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -12,7 +12,7 @@
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
 
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
 
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
@@ -29,7 +29,7 @@ namespace YAF.Types.Constants
     public enum ForumPages
     {
         /// <summary>
-        /// The forum.
+        /// The Forum page.
         /// </summary>
         forum,
 
@@ -39,269 +39,269 @@ namespace YAF.Types.Constants
         topics,
 
         /// <summary>
-        /// The posts.
+        /// The Posts page.
         /// </summary>
-        posts,
+        Posts,
 
         /// <summary>
         /// The profile.
         /// </summary>
-        profile,
+        Profile,
 
         /// <summary>
-        /// The activeusers.
+        /// The ActiveUsers.
         /// </summary>
-        activeusers,
+        ActiveUsers,
 
         /// <summary>
         /// The moderating.
         /// </summary>
-        moderating,
+        Moderating,
 
         /// <summary>
-        /// The postmessage.
+        /// The post topic page.
         /// </summary>
-        postmessage,
+        PostTopic,
 
         /// <summary>
-        /// The deletemessage.
+        /// The post message page.
         /// </summary>
-        deletemessage,
+        PostMessage,
 
         /// <summary>
-        /// The movemessage.
+        /// The DeleteMessage page.
         /// </summary>
-        movemessage,
+        DeleteMessage,
 
         /// <summary>
-        /// The messagehistory page displays a user message changes.
+        /// The Move Message page.
         /// </summary>
-        messagehistory,
+        MoveMessage,
 
         /// <summary>
-        /// The mod_forumuser.
+        /// The MessageHistory page displays a user message changes.
         /// </summary>
-        mod_forumuser,
+        MessageHistory,
+
+        /// <summary>
+        /// The ModForumUser page.
+        /// </summary>
+        ModForumUser,
 
         /// <summary>
         /// The attachments.
         /// </summary>
-        attachments,
+        Attachments,
 
         /// <summary>
-        /// The pmessage.
+        /// The PostMessage.
         /// </summary>
-        pmessage,
+        PostPrivateMessage,
 
         /// <summary>
-        /// The movetopic.
+        /// The EmailTopic page.
         /// </summary>
-        movetopic,
+        EmailTopic,
 
         /// <summary>
-        /// The emailtopic.
+        /// The PrintTopic page.
         /// </summary>
-        emailtopic,
+        PrintTopic,
 
         /// <summary>
-        /// The printtopic.
+        /// The Members page.
         /// </summary>
-        printtopic,
-
-        /// <summary>
-        /// The members.
-        /// </summary>
-        members,
+        Members,
 
         /// <summary>
         /// The page to report posts message.
         /// </summary>
-        reportpost,
+        ReportPost,
 
         /// <summary>
-        /// The cp_pm.
+        /// The PM.
         /// </summary>
-        cp_pm,
+        PM,
 
         /// <summary>
-        /// The cp_profile.
+        /// The Account.
         /// </summary>
-        cp_profile,
+        Account,
 
         /// <summary>
-        /// The cp_editbuddies.
+        /// The Notification.
         /// </summary>
-        cp_editbuddies,
+        Notification,
+
+        /// <summary>
+        /// The Friends page.
+        /// </summary>
+        Friends,
 
         /// <summary>
         /// The album.
         /// </summary>
-        album,
+        Album,
 
         /// <summary>
-        /// The cp_editalbum.
+        /// The Albums.
         /// </summary>
-        albums,
+        Albums,
 
         /// <summary>
-        /// The cp_blockoptions.
+        /// The BlockOptions.
         /// </summary>
-        cp_blockoptions,
+        BlockOptions,
 
         /// <summary>
-        /// The cp_editalbumimages.
+        /// The EditAlbumImages.
         /// </summary>
-        cp_editalbumimages,
+        EditAlbumImages,
 
         /// <summary>
-        /// The cp_editprofile.
+        /// The EditProfile.
         /// </summary>
-        cp_editprofile,
+        EditProfile,
 
         /// <summary>
-        /// The cp_editsettings.
+        /// The EditSettings.
         /// </summary>
-        cp_editsettings,
+        EditSettings,
 
         /// <summary>
-        /// The cp_editavatar.
+        /// The EditAvatar.
         /// </summary>
-        cp_editavatar,
+        EditAvatar,
 
         /// <summary>
-        /// The cp_signature.
+        /// The EditSignature.
         /// </summary>
-        cp_signature,
+        EditSignature,
 
         /// <summary>
-        /// The cp_subscriptions.
+        /// The Subscriptions.
         /// </summary>
-        cp_subscriptions,
+        Subscriptions,
 
         /// <summary>
-        /// The cp_message.
+        /// The Message.
         /// </summary>
-        cp_message,
+        PrivateMessage,
 
         /// <summary>
-        /// The cp_changepassword.
+        /// The Change Password page.
         /// </summary>
-        cp_changepassword,
+        ChangePassword,
 
         /// <summary>
-        /// The login.
+        /// The Delete Account page.
         /// </summary>
-        login,
+        DeleteAccount,
+
+        /// <summary>
+        /// The Login page.
+        /// </summary>
+        Login,
 
         /// <summary>
         /// The approve.
         /// </summary>
-        approve,
+        Approve,
 
         /// <summary>
-        /// The info.
+        /// The Info page.
         /// </summary>
-        info,
+        Info,
 
         /// <summary>
-        /// The cookies
+        /// The cookies page.
         /// </summary>
-        cookies,
+        Cookies,
 
         /// <summary>
-        /// The rules.
+        /// The Rules page.
         /// </summary>
-        rules,
+        Rules,
 
         /// <summary>
-        /// The register.
+        /// The Register page.
         /// </summary>
-        register,
+        Register,
 
         /// <summary>
-        /// The search.
+        /// The Search page.
         /// </summary>
-        search,
+        Search,
 
         /// <summary>
-        /// The viewthanks
+        /// The My Topics page
         /// </summary>
-        viewthanks,
+        MyTopics,
 
         /// <summary>
-        /// The mytopics
+        /// The Logout page.
         /// </summary>
-        mytopics,
+        Logout,
 
         /// <summary>
-        /// The logout.
+        /// The moderate index page.
         /// </summary>
-        logout,
+        Moderate_Index,
 
         /// <summary>
-        /// The moderate_index.
+        /// The moderate reported posts page.
         /// </summary>
-        moderate_index,
+        Moderate_ReportedPosts,
 
         /// <summary>
-        /// The moderate_reportedposts.
+        /// The moderate unapproved posts page.
         /// </summary>
-        moderate_reportedposts,
+        Moderate_UnapprovedPosts,
 
         /// <summary>
-        /// The moderate_unapprovedposts.
+        /// The Error page.
         /// </summary>
-        moderate_unapprovedposts,
+        Error,
 
         /// <summary>
-        /// The error.
+        /// The avatar page.
         /// </summary>
-        error,
+        Avatar,
 
         /// <summary>
-        /// The avatar.
+        /// The XMPP page.
         /// </summary>
-        avatar,
+        Xmpp,
 
         /// <summary>
-        /// The im_xmpp.
+        /// The Email page.
         /// </summary>
-        im_xmpp,
+        Email,
 
         /// <summary>
-        /// The im_email.
+        /// The RSS Topic page.
         /// </summary>
-        im_email,
+        RssTopic,
 
         /// <summary>
-        /// The rsstopic.
+        /// The PollEdit page.
         /// </summary>
-        rsstopic,
+        PollEdit,
 
         /// <summary>
-        /// The rsstopic.
+        /// The help page.
         /// </summary>
-        polledit,
+        Help,
 
         /// <summary>
-        /// The help_index.
+        /// The Team page.
         /// </summary>
-        help_index,
+        Team,
 
         /// <summary>
-        /// The team page.
+        /// The RecoverPassword page.
         /// </summary>
-        team,
-
-        /// <summary>
-        /// The lastposts.
-        /// </summary>
-        lastposts,
-
-        /// <summary>
-        /// The recoverpassword.
-        /// </summary>
-        recoverpassword,
+        RecoverPassword,
 
         /// <summary>
         /// The admin_admin.

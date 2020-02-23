@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text.RegularExpressions;
@@ -25,8 +26,7 @@ namespace ServiceStack.Text
         /// <returns></returns>
         public static Type FindType(string typeName)
         {
-            Type type = null;
-            if (TypeCache.TryGetValue(typeName, out type)) return type;
+            if (TypeCache.TryGetValue(typeName, out var type)) return type;
 
             type = Type.GetType(typeName);
             if (type == null)
@@ -43,8 +43,7 @@ namespace ServiceStack.Text
                 snapshot = TypeCache;
                 newCache = new Dictionary<string, Type>(TypeCache) { [typeName] = type };
 
-            }
- while (!ReferenceEquals(
+            } while (!ReferenceEquals(
                 Interlocked.CompareExchange(ref TypeCache, newCache, snapshot), snapshot));
 
             return type;
@@ -62,8 +61,7 @@ namespace ServiceStack.Text
                 var interfaceType = t.GetInterfaces().FirstOrDefault(i => !t.GetInterfaces().Any(i2 => i2.GetInterfaces().Contains(i)));
                 if (interfaceType != null) return interfaceType;
             }
-
-            return t; // not safe to use interface, as it might be a superclass's one.
+            return t; // not safe to use interface, as it might be a superclass one.
         }
 
         /// <summary>
@@ -86,7 +84,15 @@ namespace ServiceStack.Text
         public static Type FindTypeFromLoadedAssemblies(string typeName)
         {
             var assemblies = PclExport.Instance.GetAllAssemblies();
-            return assemblies.Select(assembly => assembly.GetType(typeName)).FirstOrDefault(type => type != null);
+            foreach (var assembly in assemblies)
+            {
+                var type = assembly.GetType(typeName);
+                if (type != null)
+                {
+                    return type;
+                }
+            }
+            return null;
         }
 
         public static Assembly LoadAssembly(string assemblyPath)
@@ -103,14 +109,13 @@ namespace ServiceStack.Text
             {
                 assemblyPath = assemblyPath.Remove(0, FileUri.Length);
             }
-
             return assemblyPath;
         }
 
         static readonly Regex versionRegEx = new Regex(", Version=[^\\]]+", PclExport.Instance.RegexOptions);
         public static string ToTypeString(this Type type)
         {
-            return versionRegEx.Replace(type.AssemblyQualifiedName, string.Empty);
+            return versionRegEx.Replace(type.AssemblyQualifiedName, "");
         }
 
         public static string WriteType(Type type)

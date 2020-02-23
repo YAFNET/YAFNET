@@ -1068,6 +1068,24 @@ namespace YAF.Pages.Admin
         protected global::System.Web.UI.WebControls.CheckBox UseSSLToRegister;
 
         /// <summary>
+        /// HelpLabel175 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Web.Controls.HelpLabel HelpLabel175;
+
+        /// <summary>
+        /// ShowRulesForRegistration control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox ShowRulesForRegistration;
+
+        /// <summary>
         /// HelpLabel216 control.
         /// </summary>
         /// <remarks>
@@ -1228,24 +1246,6 @@ namespace YAF.Pages.Admin
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox ResizePostedImages;
-
-        /// <summary>
-        /// HelpLabel25 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Web.Controls.HelpLabel HelpLabel25;
-
-        /// <summary>
-        /// ImageAttachmentResizeCropped control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox ImageAttachmentResizeCropped;
 
         /// <summary>
         /// HelpLabel20 control.
@@ -2850,24 +2850,6 @@ namespace YAF.Pages.Admin
         protected global::System.Web.UI.WebControls.CheckBox BlankLinks;
 
         /// <summary>
-        /// ShowLastUnreadPostHelpLabel control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Web.Controls.HelpLabel ShowLastUnreadPostHelpLabel;
-
-        /// <summary>
-        /// ShowLastUnreadPost control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox ShowLastUnreadPost;
-
-        /// <summary>
         /// HelpLabel177 control.
         /// </summary>
         /// <remarks>
@@ -2994,24 +2976,6 @@ namespace YAF.Pages.Admin
         protected global::System.Web.UI.WebControls.CheckBox ShowYAFVersion;
 
         /// <summary>
-        /// HelpLabel153 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Web.Controls.HelpLabel HelpLabel153;
-
-        /// <summary>
-        /// ShowAvatarsInTopic control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox ShowAvatarsInTopic;
-
-        /// <summary>
         /// HelpLabel167 control.
         /// </summary>
         /// <remarks>
@@ -3100,24 +3064,6 @@ namespace YAF.Pages.Admin
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox ShowForumJump;
-
-        /// <summary>
-        /// HelpLabel174 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Web.Controls.HelpLabel HelpLabel174;
-
-        /// <summary>
-        /// DisplayJoinDate control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox DisplayJoinDate;
 
         /// <summary>
         /// HelpLabel169 control.
@@ -3210,24 +3156,6 @@ namespace YAF.Pages.Admin
         protected global::System.Web.UI.WebControls.CheckBox ShowModeratorList;
 
         /// <summary>
-        /// HelpLabel175 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Web.Controls.HelpLabel HelpLabel175;
-
-        /// <summary>
-        /// ShowRulesForRegistration control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox ShowRulesForRegistration;
-
-        /// <summary>
         /// HelpLabel178 control.
         /// </summary>
         /// <remarks>
@@ -3282,13 +3210,13 @@ namespace YAF.Pages.Admin
         protected global::System.Web.UI.WebControls.TextBox SubForumsInForumList;
 
         /// <summary>
-        /// HelpLabel31 control.
+        /// HelpLabel25 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.Controls.HelpLabel HelpLabel31;
+        protected global::YAF.Web.Controls.HelpLabel HelpLabel25;
 
         /// <summary>
         /// ShowScrollBackToTopButton control.

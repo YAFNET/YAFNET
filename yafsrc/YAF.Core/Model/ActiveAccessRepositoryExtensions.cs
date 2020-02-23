@@ -1,8 +1,8 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2019 Ingo Herbote
- * http://www.yetanotherforum.net/
+ * Copyright (C) 2014-2020 Ingo Herbote
+ * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -12,7 +12,7 @@
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
 
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
 
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
@@ -28,9 +28,10 @@ namespace YAF.Core.Model
     using System.Data.SqlClient;
 
     using YAF.Types;
-    using YAF.Types.Extensions;
+    using YAF.Types.Extensions.Data;
     using YAF.Types.Interfaces.Data;
     using YAF.Types.Models;
+    using YAF.Utils.Helpers;
 
     /// <summary>
     /// The active access repository extensions.
@@ -40,22 +41,22 @@ namespace YAF.Core.Model
         #region Public Methods and Operators
 
         /// <summary>
-        /// The pageload.
+        /// The Page Load as Data Row
         /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
         /// <param name="sessionID">
         /// The session id.
         /// </param>
         /// <param name="boardId">
         /// The board id.
         /// </param>
-        /// <param name="boardUid">
-        /// The board Uid.
-        /// </param>
         /// <param name="userKey">
         /// The user key.
         /// </param>
         /// <param name="ip">
-        /// The ip.
+        /// The IP Address.
         /// </param>
         /// <param name="location">
         /// The location.
@@ -87,15 +88,13 @@ namespace YAF.Core.Model
         /// <param name="isMobileDevice">
         /// The browser is a mobile device.
         /// </param>
-        /// <param name="donttrack">
-        /// The donttrack.
+        /// <param name="dontTrack">
+        /// The don't track.
         /// </param>
         /// <returns>
         /// Common User Info DataRow
         /// </returns>
-        /// <exception cref="ApplicationException">
-        /// </exception>
-        public static DataRow PageLoad(
+        public static DataRow PageLoadAsDataRow(
             this IRepository<ActiveAccess> repository,
             [NotNull] object sessionID,
             [NotNull] object boardId,
@@ -111,33 +110,33 @@ namespace YAF.Core.Model
             [NotNull] object messageID,
             [NotNull] object isCrawler,
             [NotNull] object isMobileDevice,
-            [NotNull] object donttrack)
+            [NotNull] object dontTrack)
         {
+            CodeContracts.VerifyNotNull(repository, "repository");
+
             var tries = 0;
             while (true)
             {
                 try
                 {
-                    using (DataTable dt = repository.DbFunction.GetData.pageload(
-                        SessionID: sessionID,
-                        BoardID: boardId ?? repository.BoardID,
-                        UserKey: userKey ?? DBNull.Value,
-                        IP: ip,
-                        Location: location,
-                        ForumPage: forumPage,
-                        Browser: browser,
-                        Platform: platform,
-                        CategoryID: categoryID,
-                        ForumID: forumID,
-                        TopicID: topicID,
-                        MessageID: messageID,
-                        IsCrawler: isCrawler,
-                        IsMobileDevice: isMobileDevice,
-                        DontTrack: donttrack,
-                        UTCTIMESTAMP: DateTime.UtcNow))
-                    {
-                        return dt.HasRows() ? dt.Rows[0] : null;
-                    }
+                   return repository.DbFunction.GetAsDataTable(
+                        cdb => cdb.pageload(
+                            SessionID: sessionID,
+                            BoardID: boardId ?? repository.BoardID,
+                            UserKey: userKey ?? DBNull.Value,
+                            IP: ip,
+                            Location: location,
+                            ForumPage: forumPage,
+                            Browser: browser,
+                            Platform: platform,
+                            CategoryID: categoryID,
+                            ForumID: forumID,
+                            TopicID: topicID,
+                            MessageID: messageID,
+                            IsCrawler: isCrawler,
+                            IsMobileDevice: isMobileDevice,
+                            DontTrack: dontTrack,
+                            UTCTIMESTAMP: DateTime.UtcNow)).GetFirstRow();
                 }
                 catch (SqlException x)
                 {
@@ -158,36 +157,37 @@ namespace YAF.Core.Model
         }
 
         /// <summary>
-        /// The usergroup_list.
-        /// </summary>
-        /// <param name="userId">
-        /// The user id.
-        /// </param>
-        /// <returns>
-        /// </returns>
-        public static DataTable ListAsDataTable(this IRepository<ActiveAccess> repository, [NotNull] object userId)
-        {
-            return repository.DbFunction.GetData.usergroup_list(UserID: userId);
-        }
-
-        /// <summary>
         /// Sets the Page Access for the specified user
         /// </summary>
-        /// <param name="boardId">The board identifier.</param>
-        /// <param name="userId">The user identifier.</param>
-        /// <param name="isGuest">The is guest.</param>
-        /// <returns></returns>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="boardId">
+        /// The board identifier.
+        /// </param>
+        /// <param name="userId">
+        /// The user identifier.
+        /// </param>
+        /// <param name="isGuest">
+        /// The is guest.
+        /// </param>
+        /// <returns>
+        /// The <see cref="DataTable"/>.
+        /// </returns>
         public static DataTable PageAccessAsDataTable(
             this IRepository<ActiveAccess> repository,
             object boardId,
             [NotNull] object userId,
             [NotNull] object isGuest)
         {
-            return repository.DbFunction.GetData.pageaccess(
-                BoardID: boardId ?? repository.BoardID,
-                UserID: userId,
-                IsGuest: isGuest,
-                UTCTIMESTAMP: DateTime.UtcNow);
+            CodeContracts.VerifyNotNull(repository, "repository");
+
+            return repository.DbFunction.GetAsDataTable(
+                cdb => cdb.pageaccess(
+                    BoardID: boardId ?? repository.BoardID,
+                    UserID: userId,
+                    IsGuest: isGuest,
+                    UTCTIMESTAMP: DateTime.UtcNow));
         }
 
         #endregion

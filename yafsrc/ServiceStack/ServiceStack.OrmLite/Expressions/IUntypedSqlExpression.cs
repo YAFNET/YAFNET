@@ -13,6 +13,7 @@ namespace ServiceStack.OrmLite
 
     public interface IUntypedSqlExpression : ISqlExpression
     {
+        string TableAlias { get; set; }
         bool PrefixFieldWithTableName { get; set; }
         bool WhereStatementWithoutWhereString { get; set; }
         IOrmLiteDialectProvider DialectProvider { get; set; }
@@ -64,6 +65,7 @@ namespace ServiceStack.OrmLite
         IUntypedSqlExpression ThenBy(string orderBy);
         IUntypedSqlExpression ThenBy<Table>(Expression<Func<Table, object>> keySelector);
         IUntypedSqlExpression OrderByDescending<Table>(Expression<Func<Table, object>> keySelector);
+        IUntypedSqlExpression OrderByDescending(string orderBy);
         IUntypedSqlExpression ThenByDescending(string orderBy);
         IUntypedSqlExpression ThenByDescending<Table>(Expression<Func<Table, object>> keySelector);
 
@@ -109,6 +111,12 @@ namespace ServiceStack.OrmLite
         public UntypedSqlExpressionProxy(SqlExpression<T> q)
         {
             this.q = q;
+        }
+
+        public string TableAlias
+        {
+            get => q.TableAlias;
+            set => q.TableAlias = value;
         }
 
         public bool PrefixFieldWithTableName
@@ -198,6 +206,7 @@ namespace ServiceStack.OrmLite
         }
 
         public ModelDefinition ModelDef => q.ModelDef;
+
 
         public IUntypedSqlExpression Clone()
         {
@@ -399,6 +408,12 @@ namespace ServiceStack.OrmLite
         public IUntypedSqlExpression OrderByDescending<Table>(Expression<Func<Table, object>> keySelector)
         {
             q.OrderByDescending(keySelector);
+            return this;
+        }
+
+        public IUntypedSqlExpression OrderByDescending(string orderBy)
+        {
+            q.OrderByDescending(orderBy);
             return this;
         }
 
@@ -648,7 +663,7 @@ namespace ServiceStack.OrmLite
             if (propertyName != null)
                 return dialect.Column<Table>(propertyName, prefixTable);
 
-            throw new ArgumentException($"Expected Lambda MemberExpression but received: {propertyExpression.Name}");
+            throw new ArgumentException("Expected Lambda MemberExpression but received: " + propertyExpression.Name);
         }
 
         public static string Column<Table>(this ISqlExpression sqlExpression, string propertyName, bool prefixTable = false) =>

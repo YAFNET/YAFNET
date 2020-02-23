@@ -1,6 +1,48 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Resources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" language="Lithuanian" code="lt">
+  <page name="ACCOUNT">
+    <Resource tag="ACTIVITY">Your Activity</Resource>
+    <Resource tag="ARCHIVE">Archive</Resource>
+    <Resource tag="CHANGE_PASSWORD">Change Password</Resource>
+    <Resource tag="CONTROL_PANEL">Valdymo skydas </Resource>
+    <Resource tag="CREATED_REPLY">Replied to a Post</Resource>
+    <Resource tag="CREATED_REPLY_MSG">Added an Reply to the Topic {0}</Resource>
+    <Resource tag="CREATED_TOPIC">Created a new Topic</Resource>
+    <Resource tag="CREATED_TOPIC_MSG">Created a new Topic {0}</Resource>
+    <Resource tag="DELETE_ACCOUNT">Delete Account</Resource>
+    <Resource tag="EDIT_AVATAR">Keisti Avataras </Resource>
+    <Resource tag="EDIT_PROFILE">Redaguoti profilį </Resource>
+    <Resource tag="EDIT_SETTINGS">Edit Settings</Resource>
+    <Resource tag="EDIT_SIGNATURE">Redaguoti Parašas </Resource>
+    <Resource tag="GIVEN_THANKS">Given Thanks to a Post</Resource>
+    <Resource tag="GIVEN_THANKS_MSG">Given Thanks to {0} in the Topic {1}</Resource>
+    <Resource tag="GROUPS">Jūs esate narys šių grupių: </Resource>
+    <Resource tag="INBOX">Gauti laiškai </Resource>
+    <Resource tag="ITEMS">Show Items</Resource>
+    <Resource tag="JOINED">Jūs buvote narys nuo: </Resource>
+    <Resource tag="MESSENGER">Messenger: </Resource>
+    <Resource tag="NEW_MESSAGE">Nauja žinutė </Resource>
+    <Resource tag="NUMPOSTS">Etatų skaičius: </Resource>
+    <Resource tag="PERSONAL_PROFILE">Asmeninis profilis: </Resource>
+    <Resource tag="RECEIVED_THANKS">Received a Thanks to a Post</Resource>
+    <Resource tag="RECEIVED_THANKS_MSG">Has Received a Thanks from {0} in the Topic {1}</Resource>
+    <Resource tag="SENTITEMS">Siùstieji </Resource>
+    <Resource tag="SIGNATURE">Parašas </Resource>
+    <Resource tag="SUBSCRIPTIONS">Prenumerata </Resource>
+    <Resource tag="UNREAD_ONLY">Show only unread Activity</Resource>
+    <Resource tag="VIEW_PROFILE">View Profile</Resource>
+    <Resource tag="WAS_MENTIONED">Was Mentioned</Resource>
+    <Resource tag="WAS_MENTIONED_MSG">Was Mentioned by {0} in the Topic {1}</Resource>
+    <Resource tag="WAS_QUOTED">Was Quoted</Resource>
+    <Resource tag="WAS_QUOTED_MSG">Was Quoted by {0} in the Topic {1}</Resource>
+    <Resource tag="YOUR_ACCOUNT">Jūsų sąskaita </Resource>
+    <Resource tag="YOUR_EMAIL">Jūsų el.pašto adresas: </Resource>
+    <Resource tag="YOUR_NOTIFIY">Your Notifications</Resource>
+    <Resource tag="YOUR_USERDISPLAYNAME">Your display name:</Resource>
+    <Resource tag="YOUR_USERNAME">Jūsų vartotojo vardas: </Resource>
+  </page>
   <page name="ACTIVELOCATION">
+    <Resource tag="ACCOUNT">Views a user profile</Resource>
     <Resource tag="ACTIVEUSERS">Views Active Users list</Resource>
     <Resource tag="ADMIN_ACCESSMASKS">Views access masks in admin section</Resource>
     <Resource tag="ADMIN_ADMIN">Views admin index</Resource>
@@ -75,25 +117,22 @@
     <Resource tag="APPROVE">Approves</Resource>
     <Resource tag="ATTACHMENTS">Handles attachments</Resource>
     <Resource tag="AVATAR">Views avatar</Resource>
+    <Resource tag="BLOCK_OPTIONS">Edits his Ignored users and block option</Resource>
+    <Resource tag="CHANGE_PASSWORD">Changes password</Resource>
     <Resource tag="COOKIES">Views the cookie policy page</Resource>
-    <Resource tag="CP_BLOCKOPTIONS">Edits his Ignored users and block option</Resource>
-    <Resource tag="CP_CHANGEPASSWORD">Changes password</Resource>
-    <Resource tag="CP_EDITALBUMIMAGES">Edits album images</Resource>
-    <Resource tag="CP_EDITAVATAR">Edits his avatar</Resource>
-    <Resource tag="CP_EDITBUDDIES">Edits Friends</Resource>
-    <Resource tag="CP_EDITPROFILE">Edits his profile</Resource>
-    <Resource tag="CP_EDITSETTINGS">Edit the user settings</Resource>
-    <Resource tag="CP_MESSAGE">Views Private Messages</Resource>
-    <Resource tag="CP_PM">Views Private Messages</Resource>
-    <Resource tag="CP_PROFILE">Views a user profile</Resource>
     <Resource tag="CP_PROFILE_OFUSER">Views profile of</Resource>
-    <Resource tag="CP_SIGNATURE">Edits his signature</Resource>
-    <Resource tag="CP_SUBSCRIPTIONS">Vies subscriptions</Resource>
+    <Resource tag="DELETE_ACCOUNT">User deletes his account</Resource>
     <Resource tag="DELETEMESSAGE">Deletes a message</Resource>
+    <Resource tag="EDIT_ALBUMIMAGES">Edits album images</Resource>
+    <Resource tag="EDIT_AVATAR">Edits his avatar</Resource>
+    <Resource tag="EDIT_PROFILE">Edits his profile</Resource>
+    <Resource tag="EDIT_SETTINGS">Edit the user settings</Resource>
+    <Resource tag="EDIT_SIGNATURE">Edits his signature</Resource>
     <Resource tag="EMAILTOPIC">Emails a topic</Resource>
     <Resource tag="ERROR">Gets error page</Resource>
     <Resource tag="FORUM">Views forum </Resource>
     <Resource tag="FORUMFROMCATEGORY">Views forums in a category</Resource>
+    <Resource tag="FRIENDS">Edits Friends</Resource>
     <Resource tag="HELP_INDEX">Views help index</Resource>
     <Resource tag="HELP_RECOVER">No data</Resource>
     <Resource tag="IM_AIM">Uses AIM</Resource>
@@ -110,6 +149,7 @@
     <Resource tag="LOGOUT">Logs out</Resource>
     <Resource tag="MAINPAGE">Views main forum page</Resource>
     <Resource tag="MEMBERS">Views members list</Resource>
+    <Resource tag="MESSAGE">Views Private Messages</Resource>
     <Resource tag="MESSAGEHISTORY">Views a message history</Resource>
     <Resource tag="MOD_FORUMUSER">Moderates a forum user</Resource>
     <Resource tag="MODERATE">Moderates</Resource>
@@ -120,6 +160,7 @@
     <Resource tag="MOVETOPIC">Moves a topic</Resource>
     <Resource tag="MYTOPICS">Views his favorite and active topics</Resource>
     <Resource tag="NODATA">No data available</Resource>
+    <Resource tag="PM">Views Private Messages</Resource>
     <Resource tag="PMESSAGE">Writes a PM</Resource>
     <Resource tag="POSTMESSAGE_FULL">Posts a message in topic </Resource>
     <Resource tag="POSTS">Views messages in topic </Resource>
@@ -134,6 +175,7 @@
     <Resource tag="RULES">Views forum rules</Resource>
     <Resource tag="SEARCH">Uses search</Resource>
     <Resource tag="SHOUTBOX">Uses shoutbox</Resource>
+    <Resource tag="SUBSCRIPTIONS">Vies subscriptions</Resource>
     <Resource tag="TEAM">Views team page</Resource>
     <Resource tag="TOPICINFORUM"> in forum </Resource>
     <Resource tag="TOPICS">Views topic </Resource>
@@ -996,8 +1038,6 @@
     <Resource tag="ALLOW_THANKS_HELP">If checked users can thank posts they consider useful.</Resource>
     <Resource tag="ALLOW_TOPIC_DESCRIPTION">Allow Topic Description:</Resource>
     <Resource tag="ALLOW_TOPIC_DESCRIPTION_HELP">If checked, users can add a topic description.</Resource>
-    <Resource tag="ALLOW_TOPIC_STATUS">Allow Topic Status Option:</Resource>
-    <Resource tag="ALLOW_TOPIC_STATUS_HELP">If checked, users select a Topic Status Option.</Resource>
     <Resource tag="ALLOW_TOPICS_DUPLICATENAME">Allow Topics With Same Name:</Resource>
     <Resource tag="ALLOW_TOPICS_DUPLICATENAME_HELP">Duplicate topic names are allowed to:</Resource>
     <Resource tag="ALLOW_USER_HIDE">Allow User To Hide Himself:</Resource>
@@ -1121,6 +1161,7 @@
     <Resource tag="FLOOT_DELAY">Post Flood Delay:</Resource>
     <Resource tag="FLOOT_DELAY_HELP">Number of seconds before another post can be entered (Does not apply to admins or mods).</Resource>
     <Resource tag="FORBIDDEN">Forbidden</Resource>
+    <Resource tag="FORCE_SEARCHINDED">Search Index Task started.</Resource>
     <Resource tag="FORUM_BASEURLMASK">Forum Base URL Mask:</Resource>
     <Resource tag="FORUM_BASEURLMASK_HELP">The full forward-facing url to this forum.</Resource>
     <Resource tag="FORUM_EDITOR">Forum Editor:</Resource>
@@ -1966,6 +2007,18 @@
     <Resource tag="UERLINKMOD_DESCRIPTION">Put User Name Here</Resource>
     <Resource tag="YOUTUBEMOD_DESCRIPTION">Put YouTube URL in Here</Resource>
   </page>
+  <page name="BLOCK_OPTIONS">
+    <Resource tag="BLOCK_BUDDYS">Block Friend Requests</Resource>
+    <Resource tag="BLOCK_BUDDYS">Block Private Messages</Resource>
+    <Resource tag="BLOCK_EMAILS">Block E-Mails</Resource>
+    <Resource tag="BLOCK_OPTIONS">Block Options</Resource>
+    <Resource tag="BLOCK_PMS">Block Private Messages</Resource>
+    <Resource tag="IGNORED_USERS">Ignored User List</Resource>
+    <Resource tag="NOTE_BLOCK">Admins and Users in the Friend List will be excluded from the Blocking!</Resource>
+    <Resource tag="NOTE_USERS">Posts of Ignored Users will be hidden. This does not include Quoted Posts</Resource>
+    <Resource tag="SELECT_OPTIONS">Options to Block other Users from Contacting you...</Resource>
+    <Resource tag="TITLE">User Block Options &amp; Ignored Users</Resource>
+  </page>
   <page name="BUDDY">
     <Resource tag="ADDBUDDY">Add as Friend</Resource>
     <Resource tag="AWAIT_BUDDY_APPROVAL">(Awaiting Friend Approval)</Resource>
@@ -2032,6 +2085,32 @@
     <Resource tag="BUTTON_UNLOCKTOPIC_TT">Unlock this topic</Resource>
     <Resource tag="BUTTON_UNTAGFAVORITE">Untag as favorite</Resource>
     <Resource tag="BUTTON_UNTAGFAVORITE_TT">Remove this topic from your Favorites List.</Resource>
+  </page>
+  <page name="CHANGE_PASSWORD">
+    <Resource tag="CHANGE_BUTTON">Submit</Resource>
+    <Resource tag="CHANGE_SUCCESS">Password has been successfully changed.</Resource>
+    <Resource tag="CONFIRM_PASSWORD">Confirm New Password:</Resource>
+    <Resource tag="EMPTY_ANSWER">New Answer is requiered.</Resource>
+    <Resource tag="EMPTY_PASSWORD">Please Enter your Current Password</Resource>
+    <Resource tag="EMPTY_QUESTION">New Question is requiered.</Resource>
+    <Resource tag="NEED_NEW_CONFIRM_PASSWORD">New Confirm Password is required.</Resource>
+    <Resource tag="NEED_NEW_PASSWORD">New Password is required.</Resource>
+    <Resource tag="NEED_OLD_PASSWORD">Old Password is required.</Resource>
+    <Resource tag="NEW_PASSWORD">New Password:</Resource>
+    <Resource tag="NO_PASSWORD_MATCH">New Passwords do not match.</Resource>
+    <Resource tag="OLD_PASSWORD">Old Password:</Resource>
+    <Resource tag="PASSWORD_BAD_LENGTH">New Password length minimum: {0}.</Resource>
+    <Resource tag="PASSWORD_INCORRECT">Password incorrect or New Password invalid.</Resource>
+    <Resource tag="PASSWORD_NOT_COMPLEX">Non-alphanumeric characters required: {1}.</Resource>
+    <Resource tag="PASSWORD_NOT_NEW">New Password must be different from the old one.</Resource>
+    <Resource tag="SECURITY_ANSWER_NEW">New Security Answer:</Resource>
+    <Resource tag="SECURITY_ANSWER_OLD">Current Password:</Resource>
+    <Resource tag="SECURITY_CHANGED">Password Question and Answer changed.</Resource>
+    <Resource tag="SECURITY_NOT_CHANGED">Change failed. Please re-enter your values and try again.</Resource>
+    <Resource tag="SECURITY_QUESTION_NEW">New Security Question:</Resource>
+    <Resource tag="SECURITY_QUESTION_OLD">Old Security Question:</Resource>
+    <Resource tag="TITLE">Change Password</Resource>
+    <Resource tag="TITLE_SECURITY">Change Security Question and Answer</Resource>
   </page>
   <page name="CHARACTER_CHECKER">
     <Resource tag="ISEMPTY">Message body can not be empty.Why do you want to post an empty message?</Resource>
@@ -2526,45 +2605,110 @@
     <Resource tag="ZM">Zambia</Resource>
     <Resource tag="ZW">Zimbabwe</Resource>
   </page>
-  <page name="CP_BLOCKOPTIONS">
-    <Resource tag="BLOCK_BUDDYS">Block Friend Requests</Resource>
-    <Resource tag="BLOCK_BUDDYS">Block Private Messages</Resource>
-    <Resource tag="BLOCK_EMAILS">Block E-Mails</Resource>
-    <Resource tag="BLOCK_OPTIONS">Block Options</Resource>
-    <Resource tag="BLOCK_PMS">Block Private Messages</Resource>
-    <Resource tag="IGNORED_USERS">Ignored User List</Resource>
-    <Resource tag="NOTE_BLOCK">Admins and Users in the Friend List will be excluded from the Blocking!</Resource>
-    <Resource tag="NOTE_USERS">Posts of Ignored Users will be hidden. This does not include Quoted Posts</Resource>
-    <Resource tag="SELECT_OPTIONS">Options to Block other Users from Contacting you...</Resource>
-    <Resource tag="TITLE">User Block Options &amp; Ignored Users</Resource>
+  <page name="DEFAULT">
+    <Resource tag="ACTIVE_DISCUSSIONS">Active Discussions </Resource>
+    <Resource tag="ACTIVE_USERS">Aktyvūs naudotojai </Resource>
+    <Resource tag="ACTIVE_USERS_COUNT1">{0:N0} aktyvių vartotojų </Resource>
+    <Resource tag="ACTIVE_USERS_COUNT2">{0:N0} aktyvių vartotojų </Resource>
+    <Resource tag="ACTIVE_USERS_GUESTS1">{0:N0} svečias </Resource>
+    <Resource tag="ACTIVE_USERS_GUESTS2">{0:N0} lankytojai </Resource>
+    <Resource tag="ACTIVE_USERS_HIDDEN">{0:N0} hidden</Resource>
+    <Resource tag="ACTIVE_USERS_MEMBERS1">{0:N0} narys </Resource>
+    <Resource tag="ACTIVE_USERS_MEMBERS2">{0:N0} nariai </Resource>
+    <Resource tag="ACTIVE_USERS_TIME">for last {0:N0} minutes</Resource>
+    <Resource tag="ALPHABET_FILTER">Alphabet filter</Resource>
+    <Resource tag="ALPHABET_FILTER_BY">Filter list by letter {0}.</Resource>
+    <Resource tag="ATOMICONTOOLTIPACTIVE">Subscribe to active topics via Atom.</Resource>
+    <Resource tag="ATOMICONTOOLTIPFAVORITE">Subscribe to your favorite topics via Atom.</Resource>
+    <Resource tag="ATOMICONTOOLTIPFORUM">Subscribe to forum Atom feed.</Resource>
+    <Resource tag="BY">iš {0} </Resource>
+    <Resource tag="CURRENT_TIME">Dabartinis laikas: {0}. </Resource>
+    <Resource tag="ERROR_FB_HOVERCARD">The requested user could not be found.</Resource>
+    <Resource tag="ERROR_HOVERCARD">Sorry, no data found or something went wrong.</Resource>
+    <Resource tag="ERROR_TWIT_HOVERCARD">Invalid username or you have exceeded Twitter request limit.&lt;br/&gt;&lt;small&gt;Please note, Twitter only allows 150 requests per hour.&lt;/small&gt;.</Resource>
+    <Resource tag="FORUM">Forumas </Resource>
+    <Resource tag="GO_LAST_POST">Eiti į paskutinį pranešimą </Resource>
+    <Resource tag="GO_LASTUNREAD_POST">Go to first unread</Resource>
+    <Resource tag="IN">į {0} </Resource>
+    <Resource tag="INFORMATION">Informacija </Resource>
+    <Resource tag="LAST_VISIT">Jūsų paskutinis apsilankymas: {0}. </Resource>
+    <Resource tag="LASTPOST">Last Post </Resource>
+    <Resource tag="LATEST_POSTS">Latest Posts </Resource>
+    <Resource tag="LOADING_FB_HOVERCARD">Loading Facebook Info ...</Resource>
+    <Resource tag="LOADING_HOVERCARD">Loading User Info ...</Resource>
+    <Resource tag="LOADING_TWIT_HOVERCARD">Loading Twitter Info ...</Resource>
+    <Resource tag="MAIN_FORUM_ATOM">Main Forum Atom</Resource>
+    <Resource tag="MAIN_FORUM_RSS">Main Forum RSS </Resource>
+    <Resource tag="MARKALL">Pažymėti visus forumus kaip skaitytus </Resource>
+    <Resource tag="MARKALL_MESSAGE">All forums has been marked as read</Resource>
+    <Resource tag="MODERATORS">Moderatoriai </Resource>
+    <Resource tag="MOST_ACTIVE">Most Active Users in the last {0} Days</Resource>
+    <Resource tag="NO_FORUM_ACCESS">(Nėra prieigos) </Resource>
+    <Resource tag="NO_POSTS">Komentarų nėra </Resource>
+    <Resource tag="ONDATE">on {0}</Resource>
+    <Resource tag="POSTS">Žinutės </Resource>
+    <Resource tag="RECENT_ONLINE_USERS">{0} Users were online within the last 24 hours, and {1} within the last 30 days.</Resource>
+    <Resource tag="RECENT_USERS">Recent Users</Resource>
+    <Resource tag="RSSICONTOOLTIPACTIVE">Subscribe to active topics via RSS.</Resource>
+    <Resource tag="RSSICONTOOLTIPFAVORITE">Subscribe to your favorite topics via RSS.</Resource>
+    <Resource tag="RSSICONTOOLTIPFORUM">Subscribe to forum RSS feed.</Resource>
+    <Resource tag="SHOW_UNREAD_ONLY">Show only Unread Topics.</Resource>
+    <Resource tag="STATS">Statistika </Resource>
+    <Resource tag="STATS_BIRTHDAYS">Today's Birthdays: </Resource>
+    <Resource tag="STATS_LASTMEMBER">Naujausias narys yra</Resource>
+    <Resource tag="STATS_LASTPOST">Paskutiniai komentarai {0} iš {1}. </Resource>
+    <Resource tag="STATS_MEMBERS">Mes {0:N0} registruoti nariai. </Resource>
+    <Resource tag="STATS_POSTS">Yra {0:N0} postų {1:N0} temomis {2:N0} forumuose. </Resource>
+    <Resource tag="STATS_SPAM">Anti Spam Statistics</Resource>
+    <Resource tag="STATS_SPAM_BANNED">{0} Spammers Permanently Banned</Resource>
+    <Resource tag="STATS_SPAM_DENIED">{0} Spammers Denied Registration</Resource>
+    <Resource tag="STATS_SPAM_REPORTED">{0} Spammers submitted to StopForumSpam.com</Resource>
+    <Resource tag="TOPICS">Temos </Resource>
+    <Resource tag="UNREAD0">Jūs {0} neskaitytų žinučių aplanke Gauti laiškai. </Resource>
+    <Resource tag="UNREAD1">Jūs {0} neskaitytų pranešimų į jūsų pašto dėžutę. </Resource>
+    <Resource tag="VIEWING">({0} Viewing) </Resource>
+    <Resource tag="VOTE_DOWN_TITLE">Remove -1 of the Users Reputation</Resource>
+    <Resource tag="VOTE_UP_TITLE">Add +1 to the Users Reputation.</Resource>
+    <Resource tag="WATCHFORUM_ALL">Watch all forums</Resource>
+    <Resource tag="WATCHFORUM_ALL_HELP">Watch all forums and get Email Notifications when a new Topic is created</Resource>
   </page>
-  <page name="CP_CHANGEPASSWORD">
-    <Resource tag="CHANGE_BUTTON">Submit</Resource>
-    <Resource tag="CHANGE_SUCCESS">Password has been successfully changed.</Resource>
-    <Resource tag="CONFIRM_PASSWORD">Confirm New Password:</Resource>
-    <Resource tag="EMPTY_ANSWER">New Answer is requiered.</Resource>
-    <Resource tag="EMPTY_PASSWORD">Please Enter your Current Password</Resource>
-    <Resource tag="EMPTY_QUESTION">New Question is requiered.</Resource>
-    <Resource tag="NEED_NEW_CONFIRM_PASSWORD">New Confirm Password is required.</Resource>
-    <Resource tag="NEED_NEW_PASSWORD">New Password is required.</Resource>
-    <Resource tag="NEED_OLD_PASSWORD">Old Password is required.</Resource>
-    <Resource tag="NEW_PASSWORD">New Password:</Resource>
-    <Resource tag="NO_PASSWORD_MATCH">New Passwords do not match.</Resource>
-    <Resource tag="OLD_PASSWORD">Old Password:</Resource>
-    <Resource tag="PASSWORD_BAD_LENGTH">New Password length minimum: {0}.</Resource>
-    <Resource tag="PASSWORD_INCORRECT">Password incorrect or New Password invalid.</Resource>
-    <Resource tag="PASSWORD_NOT_COMPLEX">Non-alphanumeric characters required: {1}.</Resource>
-    <Resource tag="PASSWORD_NOT_NEW">New Password must be different from the old one.</Resource>
-    <Resource tag="SECURITY_ANSWER_NEW">New Security Answer:</Resource>
-    <Resource tag="SECURITY_ANSWER_OLD">Current Password:</Resource>
-    <Resource tag="SECURITY_CHANGED">Password Question and Answer changed.</Resource>
-    <Resource tag="SECURITY_NOT_CHANGED">Change failed. Please re-enter your values and try again.</Resource>
-    <Resource tag="SECURITY_QUESTION_NEW">New Security Question:</Resource>
-    <Resource tag="SECURITY_QUESTION_OLD">Old Security Question:</Resource>
-    <Resource tag="TITLE">Change Password</Resource>
-    <Resource tag="TITLE_SECURITY">Change Security Question and Answer</Resource>
+  <page name="DELETE_ACCOUNT">
+    <Resource tag="CONFIRM">Are you absolutely sure you want to do this?</Resource>
+    <Resource tag="OPTION_DELETE_TEXT">This will delete your account permanently! All your content will be deleted. After that your account can not be restored</Resource>
+    <Resource tag="OPTION_DELETE_TITLE">Delete your Account (permanently)</Resource>
+    <Resource tag="OPTION_SUSPEND_TEXT">If you just want to take a break from the Forum, then this will suspend your account for 30 days. Your content is still visible</Resource>
+    <Resource tag="OPTION_SUSPEND_TITLE">Suspend your Account for 30 days</Resource>
+    <Resource tag="OPTIONS_TITLE">You have the option to...</Resource>
+    <Resource tag="TITLE">Delete Your {0} Account</Resource>
   </page>
-  <page name="CP_EDITALBUMIMAGES">
+  <page name="DELETEMESSAGE">
+    <Resource tag="DELETE">Delete</Resource>
+    <Resource tag="DELETE_ALL">Delete All Posts?</Resource>
+    <Resource tag="DELETE_REASON">Delete reason</Resource>
+    <Resource tag="ERASEMESSAGE">Erase message from the database (irreversible)</Resource>
+    <Resource tag="FROM">From:</Resource>
+    <Resource tag="LAST10">Last 10 Posts (In reverse order)</Resource>
+    <Resource tag="MESSAGE">Message:</Resource>
+    <Resource tag="POSTED">Posted:</Resource>
+    <Resource tag="PREVIEWTITLE">Message:</Resource>
+    <Resource tag="PRIORITY">Priority:</Resource>
+    <Resource tag="SUBJECT">Subject:</Resource>
+    <Resource tag="UNDELETE">Undelete</Resource>
+    <Resource tag="UNDELETE_REASON">Undelete reason</Resource>
+    <Resource tag="WAIT">You can't post in the next {0:N0} seconds.</Resource>
+  </page>
+  <page name="DIGEST">
+    <Resource tag="ACTIVETOPICS">Topics Active Today</Resource>
+    <Resource tag="COMMENTS">{0} comments</Resource>
+    <Resource tag="LASTBY">By {0}</Resource>
+    <Resource tag="LINK">More</Resource>
+    <Resource tag="NEWTOPICS">New Topics</Resource>
+    <Resource tag="REMOVALLINK">Adjust your notification settings.</Resource>
+    <Resource tag="REMOVALTEXT">Don't want to receive any more email?</Resource>
+    <Resource tag="STARTEDBY">Started by {0}</Resource>
+    <Resource tag="SUBJECT">Active and New Topics - Daily Digest for {0}</Resource>
+  </page>
+  <page name="EDIT_ALBUMIMAGES">
     <Resource tag="ALBUM_TITLE">Title</Resource>
     <Resource tag="ALBUMS">Albums</Resource>
     <Resource tag="ALBUMS_COUNT_LIMIT">You  can't create more then {0} albums.</Resource>
@@ -2577,7 +2721,7 @@
     <Resource tag="SELECT_FILE">Select an Image File ('.jpg', '.gif', '.png' or '.bmp') you want to upload.</Resource>
     <Resource tag="TITLE">Add/Edit Album</Resource>
   </page>
-  <page name="CP_EDITAVATAR">
+  <page name="EDIT_AVATAR">
     <Resource tag="AVATAR">Avataras </Resource>
     <Resource tag="AVATARCURRENT">Dabartinis Avataras </Resource>
     <Resource tag="AVATARDELETE">Atviras Avataras </Resource>
@@ -2606,31 +2750,9 @@
       pikselių. 
     </Resource>
   </page>
-  <page name="CP_EDITBUDDIES">
-    <Resource tag="APPROVE">Approve</Resource>
-    <Resource tag="APPROVE_ADD">Approve and Add</Resource>
-    <Resource tag="APPROVE_ADD_ALL">Approve and Add All</Resource>
-    <Resource tag="APPROVE_ALL">Approve All</Resource>
-    <Resource tag="BUDDYLIST">Friend List</Resource>
-    <Resource tag="BUDDYLIST_TT">Friends Control Panel</Resource>
-    <Resource tag="DENY">Deny</Resource>
-    <Resource tag="DENY_ALL">Deny All More Than 14 Days Old</Resource>
-    <Resource tag="EDIT_BUDDIES">Edit Friends</Resource>
-    <Resource tag="INFO_NO">You don't have any friends yet</Resource>
-    <Resource tag="INFO_PENDING">You don't have any pending requests</Resource>
-    <Resource tag="NOTIFICATION_APPROVEALL">Approve all requests?</Resource>
-    <Resource tag="NOTIFICATION_APPROVEALLADD">Approve all requests and add them to your Friend list too?</Resource>
-    <Resource tag="NOTIFICATION_DENY">Deny this request?</Resource>
-    <Resource tag="NOTIFICATION_REMOVE">Remove Friend?</Resource>
-    <Resource tag="NOTIFICATION_REMOVE_OLD_UNAPPROVED">Delete all unapproved requests more than 14 days old?</Resource>
-    <Resource tag="PENDING_REQUESTS">Pending Requests</Resource>
-    <Resource tag="POSTS">Posts</Resource>
-    <Resource tag="REQUEST_DATE">Request Date</Resource>
-    <Resource tag="YOUR_BUDDYLIST">Your Friend List</Resource>
-    <Resource tag="YOUR_REQUESTS">Your Requests</Resource>
-  </page>
-  <page name="CP_EDITPROFILE">
+  <page name="EDIT_PROFILE">
     <Resource tag="ABOUTYOU">Apie jus </Resource>
+    <Resource tag="ACTIVITY">Enable Activity Stream (If checked you get Notifications for Mentions, Quotes and Thanks.</Resource>
     <Resource tag="AIM">Your AIM Name:</Resource>
     <Resource tag="AUTOWATCH_TOPICS_NOTIFICATION">Watch every topic in which you have made a post and receive email notifications of activities in those topics?</Resource>
     <Resource tag="BAD_EMAIL">Jūs įvedėte nelegalios el. </Resource>
@@ -2704,84 +2826,10 @@
     <Resource tag="XMPP">Your Jabber ID:</Resource>
     <Resource tag="YIM">Your Yahoo ID:</Resource>
   </page>
-  <page name="CP_EDITSETTINGS">
+  <page name="EDIT_SETTINGS">
     <Resource tag="TITLE">Edit Settings</Resource>
   </page>
-  <page name="CP_MESSAGE">
-    <Resource tag="INBOX">Gauti laiškai </Resource>
-    <Resource tag="MSG_DELETED">Pranešimas buvo ištrintas. </Resource>
-    <Resource tag="POSTED">Paskelbta: </Resource>
-    <Resource tag="SENTITEMS">Siùstieji </Resource>
-  </page>
-  <page name="CP_PM">
-    <Resource tag="ARCHIVE">Archive</Resource>
-    <Resource tag="ARCHIVEALL">Archive All</Resource>
-    <Resource tag="ARCHIVESELECTED">Archive Selected</Resource>
-    <Resource tag="CONFIRM_ARCHIVEALL">Archive all messages?</Resource>
-    <Resource tag="CONFIRM_DELETE">Delete all selected messages?</Resource>
-    <Resource tag="CONFIRM_DELETEALL">Delete all messages?</Resource>
-    <Resource tag="DATE">Date</Resource>
-    <Resource tag="DELETEALL">Delete All</Resource>
-    <Resource tag="DELETESELECTED">Delete Selected</Resource>
-    <Resource tag="EXPORTALL">Export All</Resource>
-    <Resource tag="EXPORTFORMAT">Export Format:</Resource>
-    <Resource tag="EXPORTSELECTED">Export Selected</Resource>
-    <Resource tag="FROM">From</Resource>
-    <Resource tag="INBOX">Inbox</Resource>
-    <Resource tag="MARK_ALL_ASREAD">Mark All As Read</Resource>
-    <Resource tag="MARK_ASREAD">Mark As Read</Resource>
-    <Resource tag="MSG_ARCHIVED">Message was archived.</Resource>
-    <Resource tag="MSG_ARCHIVED+">{0} messages were archived.</Resource>
-    <Resource tag="MSG_DELETED">Message was deleted.</Resource>
-    <Resource tag="MSG_NOSELECTED">No Message Selected, nothing Exported.</Resource>
-    <Resource tag="MSGDELETED1">1 message was deleted.</Resource>
-    <Resource tag="MSGDELETED2">{0} messages were deleted.</Resource>
-    <Resource tag="NEW_MESSAGE">New Message</Resource>
-    <Resource tag="NO_MESSAGES">No messages were found.</Resource>
-    <Resource tag="POSTED">Posted:</Resource>
-    <Resource tag="SENTITEMS">Sent Items</Resource>
-    <Resource tag="SUBJECT">Subject</Resource>
-    <Resource tag="TITLE">Private Messages</Resource>
-    <Resource tag="TO">To</Resource>
-  </page>
-  <page name="CP_PROFILE">
-    <Resource tag="ACTIVITY">Your Activity</Resource>
-    <Resource tag="ARCHIVE">Archive</Resource>
-    <Resource tag="CHANGE_PASSWORD">Change Password</Resource>
-    <Resource tag="CONTROL_PANEL">Valdymo skydas </Resource>
-    <Resource tag="CREATED_REPLY">Replied to a Post</Resource>
-    <Resource tag="CREATED_REPLY_MSG">Added an Reply to the Topic {0}</Resource>
-    <Resource tag="CREATED_TOPIC">Created a new Topic</Resource>
-    <Resource tag="CREATED_TOPIC_MSG">Created a new Topic {0}</Resource>
-    <Resource tag="EDIT_AVATAR">Keisti Avataras </Resource>
-    <Resource tag="EDIT_PROFILE">Redaguoti profilį </Resource>
-    <Resource tag="EDIT_SETTINGS">Edit Settings</Resource>
-    <Resource tag="EDIT_SIGNATURE">Redaguoti Parašas </Resource>
-    <Resource tag="GIVEN_THANKS">Given Thanks to a Post</Resource>
-    <Resource tag="GIVEN_THANKS_MSG">Given Thanks to {0} in the Topic {1}</Resource>
-    <Resource tag="GROUPS">Jūs esate narys šių grupių: </Resource>
-    <Resource tag="INBOX">Gauti laiškai </Resource>
-    <Resource tag="JOINED">Jūs buvote narys nuo: </Resource>
-    <Resource tag="MESSENGER">Messenger: </Resource>
-    <Resource tag="NEW_MESSAGE">Nauja žinutė </Resource>
-    <Resource tag="NUMPOSTS">Etatų skaičius: </Resource>
-    <Resource tag="PERSONAL_PROFILE">Asmeninis profilis: </Resource>
-    <Resource tag="RECEIVED_THANKS">Received a Thanks to a Post</Resource>
-    <Resource tag="RECEIVED_THANKS_MSG">Has Received a Thanks from {0} in the Topic {1}</Resource>
-    <Resource tag="SENTITEMS">Siùstieji </Resource>
-    <Resource tag="SIGNATURE">Parašas </Resource>
-    <Resource tag="SUBSCRIPTIONS">Prenumerata </Resource>
-    <Resource tag="VIEW_PROFILE">View Profile</Resource>
-    <Resource tag="WAS_MENTIONED">Was Mentioned</Resource>
-    <Resource tag="WAS_MENTIONED_MSG">Was Mentioned by {0} in the Topic {1}</Resource>
-    <Resource tag="WAS_QUOTED">Was Quoted</Resource>
-    <Resource tag="WAS_QUOTED_MSG">Was Quoted by {0} in the Topic {1}</Resource>
-    <Resource tag="YOUR_ACCOUNT">Jūsų sąskaita </Resource>
-    <Resource tag="YOUR_EMAIL">Jūsų el.pašto adresas: </Resource>
-    <Resource tag="YOUR_USERDISPLAYNAME">Your display name:</Resource>
-    <Resource tag="YOUR_USERNAME">Jūsų vartotojo vardas: </Resource>
-  </page>
-  <page name="CP_SIGNATURE">
+  <page name="EDIT_SIGNATURE">
     <Resource tag="BBCODE_ALLOWEDALL">Your  signature can contain any BBCode.</Resource>
     <Resource tag="BBCODE_ALLOWEDLIST">You can use the following BBCodes: {0}.</Resource>
     <Resource tag="BBCODE_FORBIDDEN">Your signature should not contain BBCodes.</Resource>
@@ -2796,129 +2844,6 @@
     <Resource tag="SIGNATURE_PERMISSIONS">Signature Permissions</Resource>
     <Resource tag="SIGNATURE_PREVIEW">Signature Preview</Resource>
     <Resource tag="TITLE">Redaguoti Parašas </Resource>
-  </page>
-  <page name="CP_SUBSCRIPTIONS">
-    <Resource tag="ALLTOPICS">Notification for [b]all posts on all topics[/b]</Resource>
-    <Resource tag="DAILY_DIGEST">Receive once daily digest/summary of activity?</Resource>
-    <Resource tag="FORUM">Forumas </Resource>
-    <Resource tag="FORUMS">Forumai </Resource>
-    <Resource tag="LASTPOST">Last Post </Resource>
-    <Resource tag="LASTPOSTLINK">{0} iš {1} </Resource>
-    <Resource tag="NONOTIFICATION">Turn off notifications</Resource>
-    <Resource tag="NOTIFICATIONSELECTION">Select email notification preference:</Resource>
-    <Resource tag="REPLIES">Atsakymai </Resource>
-    <Resource tag="SAVED_NOTIFICATION_SETTING">Notification Email Settings Updated</Resource>
-    <Resource tag="TITLE">Prenumerata </Resource>
-    <Resource tag="TOPIC">Tema </Resource>
-    <Resource tag="TOPICS">Temos </Resource>
-    <Resource tag="TOPICSIPOSTTOORSUBSCRIBETO">Notification for topics [b]you've posted to[/b] or watched</Resource>
-    <Resource tag="TOPICSISUBSCRIBETO">Notification for topics or forums you've selectively watched (listed below)</Resource>
-    <Resource tag="UNSUBSCRIBE">Atsisakyti </Resource>
-    <Resource tag="VIEWS">Žiūrėti </Resource>
-    <Resource tag="WARN_SELECTFORUMS">
-      Prašome pasirinkti forumuose išeiti iš
-
-      pirmosios. 
-    </Resource>
-    <Resource tag="WARN_SELECTTOPICS">
-      Prašome pasirinkti temas išeiti iš
-
-      pirmosios. 
-    </Resource>
-  </page>
-  <page name="DEFAULT">
-    <Resource tag="ACTIVE_DISCUSSIONS">Active Discussions </Resource>
-    <Resource tag="ACTIVE_USERS">Aktyvūs naudotojai </Resource>
-    <Resource tag="ACTIVE_USERS_COUNT1">{0:N0} aktyvių vartotojų </Resource>
-    <Resource tag="ACTIVE_USERS_COUNT2">{0:N0} aktyvių vartotojų </Resource>
-    <Resource tag="ACTIVE_USERS_GUESTS1">{0:N0} svečias </Resource>
-    <Resource tag="ACTIVE_USERS_GUESTS2">{0:N0} lankytojai </Resource>
-    <Resource tag="ACTIVE_USERS_HIDDEN">{0:N0} hidden</Resource>
-    <Resource tag="ACTIVE_USERS_MEMBERS1">{0:N0} narys </Resource>
-    <Resource tag="ACTIVE_USERS_MEMBERS2">{0:N0} nariai </Resource>
-    <Resource tag="ACTIVE_USERS_TIME">for last {0:N0} minutes</Resource>
-    <Resource tag="ALPHABET_FILTER">Alphabet filter</Resource>
-    <Resource tag="ALPHABET_FILTER_BY">Filter list by letter {0}.</Resource>
-    <Resource tag="ATOMICONTOOLTIPACTIVE">Subscribe to active topics via Atom.</Resource>
-    <Resource tag="ATOMICONTOOLTIPFAVORITE">Subscribe to your favorite topics via Atom.</Resource>
-    <Resource tag="ATOMICONTOOLTIPFORUM">Subscribe to forum Atom feed.</Resource>
-    <Resource tag="BY">iš {0} </Resource>
-    <Resource tag="CURRENT_TIME">Dabartinis laikas: {0}. </Resource>
-    <Resource tag="ERROR_FB_HOVERCARD">The requested user could not be found.</Resource>
-    <Resource tag="ERROR_HOVERCARD">Sorry, no data found or something went wrong.</Resource>
-    <Resource tag="ERROR_TWIT_HOVERCARD">Invalid username or you have exceeded Twitter request limit.&lt;br/&gt;&lt;small&gt;Please note, Twitter only allows 150 requests per hour.&lt;/small&gt;.</Resource>
-    <Resource tag="FORUM">Forumas </Resource>
-    <Resource tag="GO_LAST_POST">Eiti į paskutinį pranešimą </Resource>
-    <Resource tag="GO_LASTUNREAD_POST">Go to first unread</Resource>
-    <Resource tag="IN">į {0} </Resource>
-    <Resource tag="INFORMATION">Informacija </Resource>
-    <Resource tag="LAST_VISIT">Jūsų paskutinis apsilankymas: {0}. </Resource>
-    <Resource tag="LASTPOST">Last Post </Resource>
-    <Resource tag="LATEST_POSTS">Latest Posts </Resource>
-    <Resource tag="LOADING_FB_HOVERCARD">Loading Facebook Info ...</Resource>
-    <Resource tag="LOADING_HOVERCARD">Loading User Info ...</Resource>
-    <Resource tag="LOADING_TWIT_HOVERCARD">Loading Twitter Info ...</Resource>
-    <Resource tag="MAIN_FORUM_ATOM">Main Forum Atom</Resource>
-    <Resource tag="MAIN_FORUM_RSS">Main Forum RSS </Resource>
-    <Resource tag="MARKALL">Pažymėti visus forumus kaip skaitytus </Resource>
-    <Resource tag="MARKALL_MESSAGE">All forums has been marked as read</Resource>
-    <Resource tag="MODERATORS">Moderatoriai </Resource>
-    <Resource tag="MOST_ACTIVE">Most Active Users in the last {0} Days</Resource>
-    <Resource tag="NO_FORUM_ACCESS">(Nėra prieigos) </Resource>
-    <Resource tag="NO_POSTS">Komentarų nėra </Resource>
-    <Resource tag="ONDATE">on {0}</Resource>
-    <Resource tag="POSTS">Žinutės </Resource>
-    <Resource tag="RECENT_ONLINE_USERS">{0} Users were online within the last 24 hours, and {1} within the last 30 days.</Resource>
-    <Resource tag="RECENT_USERS">Recent Users</Resource>
-    <Resource tag="RSSICONTOOLTIPACTIVE">Subscribe to active topics via RSS.</Resource>
-    <Resource tag="RSSICONTOOLTIPFAVORITE">Subscribe to your favorite topics via RSS.</Resource>
-    <Resource tag="RSSICONTOOLTIPFORUM">Subscribe to forum RSS feed.</Resource>
-    <Resource tag="SHOW_UNREAD_ONLY">Show only Unread Topics.</Resource>
-    <Resource tag="STATS">Statistika </Resource>
-    <Resource tag="STATS_BIRTHDAYS">Today's Birthdays: </Resource>
-    <Resource tag="STATS_LASTMEMBER">Naujausias narys yra</Resource>
-    <Resource tag="STATS_LASTPOST">Paskutiniai komentarai {0} iš {1}. </Resource>
-    <Resource tag="STATS_MEMBERS">Mes {0:N0} registruoti nariai. </Resource>
-    <Resource tag="STATS_POSTS">Yra {0:N0} postų {1:N0} temomis {2:N0} forumuose. </Resource>
-    <Resource tag="STATS_SPAM">Anti Spam Statistics</Resource>
-    <Resource tag="STATS_SPAM_BANNED">{0} Spammers Permanently Banned</Resource>
-    <Resource tag="STATS_SPAM_DENIED">{0} Spammers Denied Registration</Resource>
-    <Resource tag="STATS_SPAM_REPORTED">{0} Spammers submitted to StopForumSpam.com</Resource>
-    <Resource tag="TOPICS">Temos </Resource>
-    <Resource tag="UNREAD0">Jūs {0} neskaitytų žinučių aplanke Gauti laiškai. </Resource>
-    <Resource tag="UNREAD1">Jūs {0} neskaitytų pranešimų į jūsų pašto dėžutę. </Resource>
-    <Resource tag="VIEWING">({0} Viewing) </Resource>
-    <Resource tag="VOTE_DOWN_TITLE">Remove -1 of the Users Reputation</Resource>
-    <Resource tag="VOTE_UP_TITLE">Add +1 to the Users Reputation.</Resource>
-    <Resource tag="WATCHFORUM_ALL">Watch all forums</Resource>
-    <Resource tag="WATCHFORUM_ALL_HELP">Watch all forums and get Email Notifications when a new Topic is created</Resource>
-  </page>
-  <page name="DELETEMESSAGE">
-    <Resource tag="DELETE">Delete</Resource>
-    <Resource tag="DELETE_ALL">Delete All Posts?</Resource>
-    <Resource tag="DELETE_REASON">Delete reason</Resource>
-    <Resource tag="ERASEMESSAGE">Erase message from the database (irreversible)</Resource>
-    <Resource tag="FROM">From:</Resource>
-    <Resource tag="LAST10">Last 10 Posts (In reverse order)</Resource>
-    <Resource tag="MESSAGE">Message:</Resource>
-    <Resource tag="POSTED">Posted:</Resource>
-    <Resource tag="PREVIEWTITLE">Message:</Resource>
-    <Resource tag="PRIORITY">Priority:</Resource>
-    <Resource tag="SUBJECT">Subject:</Resource>
-    <Resource tag="UNDELETE">Undelete</Resource>
-    <Resource tag="UNDELETE_REASON">Undelete reason</Resource>
-    <Resource tag="WAIT">You can't post in the next {0:N0} seconds.</Resource>
-  </page>
-  <page name="DIGEST">
-    <Resource tag="ACTIVETOPICS">Topics Active Today</Resource>
-    <Resource tag="COMMENTS">{0} comments</Resource>
-    <Resource tag="LASTBY">By {0}</Resource>
-    <Resource tag="LINK">More</Resource>
-    <Resource tag="NEWTOPICS">New Topics</Resource>
-    <Resource tag="REMOVALLINK">Adjust your notification settings.</Resource>
-    <Resource tag="REMOVALTEXT">Don't want to receive any more email?</Resource>
-    <Resource tag="STARTEDBY">Started by {0}</Resource>
-    <Resource tag="SUBJECT">Active and New Topics - Daily Digest for {0}</Resource>
   </page>
   <page name="EMAILTOPIC">
     <Resource tag="FAILED">Nepavyko išsiųsti laišką.\n\n {0} </Resource>
@@ -2935,6 +2860,29 @@
     <Resource tag="INFORMATION">Information</Resource>
     <Resource tag="SQLERROR">Sql Script Error</Resource>
     <Resource tag="WARNING">Warning</Resource>
+  </page>
+  <page name="FRIENDS">
+    <Resource tag="APPROVE">Approve</Resource>
+    <Resource tag="APPROVE_ADD">Approve and Add</Resource>
+    <Resource tag="APPROVE_ADD_ALL">Approve and Add All</Resource>
+    <Resource tag="APPROVE_ALL">Approve All</Resource>
+    <Resource tag="BUDDYLIST">Friend List</Resource>
+    <Resource tag="BUDDYLIST_TT">Friends Control Panel</Resource>
+    <Resource tag="DENY">Deny</Resource>
+    <Resource tag="DENY_ALL">Deny All More Than 14 Days Old</Resource>
+    <Resource tag="EDIT_BUDDIES">Edit Friends</Resource>
+    <Resource tag="INFO_NO">You don't have any friends yet</Resource>
+    <Resource tag="INFO_PENDING">You don't have any pending requests</Resource>
+    <Resource tag="NOTIFICATION_APPROVEALL">Approve all requests?</Resource>
+    <Resource tag="NOTIFICATION_APPROVEALLADD">Approve all requests and add them to your Friend list too?</Resource>
+    <Resource tag="NOTIFICATION_DENY">Deny this request?</Resource>
+    <Resource tag="NOTIFICATION_REMOVE">Remove Friend?</Resource>
+    <Resource tag="NOTIFICATION_REMOVE_OLD_UNAPPROVED">Delete all unapproved requests more than 14 days old?</Resource>
+    <Resource tag="PENDING_REQUESTS">Pending Requests</Resource>
+    <Resource tag="POSTS">Posts</Resource>
+    <Resource tag="REQUEST_DATE">Request Date</Resource>
+    <Resource tag="YOUR_BUDDYLIST">Your Friend List</Resource>
+    <Resource tag="YOUR_REQUESTS">Your Requests</Resource>
   </page>
   <page name="HELP_INDEX">
     <Resource tag="ANOUNCECONTENT">&lt;p&gt;Announcements are special messages posted by the administrator or moderators. They are a simple one-way communication with the users and you can't reply. If you wish to discuss announcements, you will have to create a new thread in the forum.&lt;/p&gt;
@@ -4270,11 +4218,6 @@ Spoiler Content
 &lt;p&gt;For more control over the search, you can restrict your search to individual forums, or find posts or topics written by a specified user. You can also select how many Results should be shown per page.&lt;/p&gt;</Resource>
     <Resource tag="SEARCHINGTITLE">Searching Forums and Topics</Resource>
     <Resource tag="SEARCHLONGER">Search Input is to short, must be at least 3 letters.</Resource>
-    <Resource tag="SMILIESCONTENT">&lt;p&gt;Smilies are icons that can be used in your posts to express emotions or feelings. You might wish to use these to show that you are happy, sad, joking, or embarrassed. For example, if you are telling a joke or being sarcastic you may wish to add a wink instead of writing 'this is a joke'.
-&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;How to add smilies to a post message?&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;Some smilies can be accessed from the 'Post Reply' or 'New Topic' pages if your administrator has enabled this function. Clicking them will automatically insert them into your message. You can also type the character combinations for the smilies directly.&lt;/p&gt;</Resource>
-    <Resource tag="SMILIESTITLE">Smilies</Resource>
     <Resource tag="SUBSCRIPTIONSCONTENT">&lt;p&gt;Subscriptions are a way to keep track of different topics and/or forums. You can choose how you are notified about updates.&lt;/p&gt;
 &lt;p&gt;Or if you don't want to manually subscribe to a topic you want to follow you can turn on the Option 'Notification for topics you've posted to, watched or marked as favorite' in the E-mail Notification Preferences Page inside the User CP.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;How to  watch a topic?&lt;/strong&gt;&lt;/p&gt;
@@ -4490,6 +4433,12 @@ Spoiler Content
     <Resource tag="USERNAME_ASC">Name A-Z</Resource>
     <Resource tag="USERNAME_DESC">Name Z-A</Resource>
   </page>
+  <page name="MESSAGE">
+    <Resource tag="INBOX">Gauti laiškai </Resource>
+    <Resource tag="MSG_DELETED">Pranešimas buvo ištrintas. </Resource>
+    <Resource tag="POSTED">Paskelbta: </Resource>
+    <Resource tag="SENTITEMS">Siùstieji </Resource>
+  </page>
   <page name="MESSAGEHISTORY">
     <Resource tag="COMPARE_TITLE">Message Edit History Post Comparsion</Resource>
     <Resource tag="COMPARE_VERSIONS">Compare versions</Resource>
@@ -4631,6 +4580,45 @@ Spoiler Content
     <Resource tag="UNANSWEREDTOPICS">Unanswered Topics</Resource>
     <Resource tag="UNREADTOPICS">Unread Topics</Resource>
     <Resource tag="VIEWS">Views</Resource>
+  </page>
+  <page name="PM">
+    <Resource tag="ARCHIVE">Archive</Resource>
+    <Resource tag="ARCHIVEALL">Archive All</Resource>
+    <Resource tag="ARCHIVESELECTED">Archive Selected</Resource>
+    <Resource tag="CONFIRM_ARCHIVEALL">Archive all messages?</Resource>
+    <Resource tag="CONFIRM_DELETE">Delete all selected messages?</Resource>
+    <Resource tag="CONFIRM_DELETEALL">Delete all messages?</Resource>
+    <Resource tag="DATE">Date</Resource>
+    <Resource tag="DATE_ASC">Date asc</Resource>
+    <Resource tag="DATE_DESC">Date desc</Resource>
+    <Resource tag="DELETEALL">Delete All</Resource>
+    <Resource tag="DELETESELECTED">Delete Selected</Resource>
+    <Resource tag="EXPORTALL">Export All</Resource>
+    <Resource tag="EXPORTFORMAT">Export Format:</Resource>
+    <Resource tag="EXPORTSELECTED">Export Selected</Resource>
+    <Resource tag="FROM">From</Resource>
+    <Resource tag="FROM_ASC">From A-Z</Resource>
+    <Resource tag="FROM_DESC">From Z-A</Resource>
+    <Resource tag="INBOX">Inbox</Resource>
+    <Resource tag="MARK_ALL_ASREAD">Mark All As Read</Resource>
+    <Resource tag="MARK_ASREAD">Mark As Read</Resource>
+    <Resource tag="MSG_ARCHIVED">Message was archived.</Resource>
+    <Resource tag="MSG_ARCHIVED+">{0} messages were archived.</Resource>
+    <Resource tag="MSG_DELETED">Message was deleted.</Resource>
+    <Resource tag="MSG_NOSELECTED">No Message Selected, nothing Exported.</Resource>
+    <Resource tag="MSGDELETED1">1 message was deleted.</Resource>
+    <Resource tag="MSGDELETED2">{0} messages were deleted.</Resource>
+    <Resource tag="NEW_MESSAGE">New Message</Resource>
+    <Resource tag="NO_MESSAGES">No messages were found.</Resource>
+    <Resource tag="POSTED">Posted:</Resource>
+    <Resource tag="SENTITEMS">Sent Items</Resource>
+    <Resource tag="SUBJECT">Subject</Resource>
+    <Resource tag="SUBJECT_ASC">Subject A-Z</Resource>
+    <Resource tag="SUBJECT_DESC">Subject Z-A</Resource>
+    <Resource tag="TITLE">Private Messages</Resource>
+    <Resource tag="TO">To</Resource>
+    <Resource tag="TO_ASC">To A-Z</Resource>
+    <Resource tag="TO_DESC">To Z-A</Resource>
   </page>
   <page name="PMESSAGE">
     <Resource tag="ALLBUDDIES">All Friends</Resource>
@@ -4799,7 +4787,7 @@ Spoiler Content
     <Resource tag="EDITED">Edited</Resource>
     <Resource tag="EDITED_BY_MOD">by moderator</Resource>
     <Resource tag="EDITED_BY_USER">by user</Resource>
-    <Resource tag="EDITUSER">Edit</Resource>
+    <Resource tag="EDITUSER">Edit User</Resource>
     <Resource tag="EMAIL">Email</Resource>
     <Resource tag="EMAIL_TITLE">Send {0} an Email</Resource>
     <Resource tag="EMAILTOPIC">Siųsti šią temą </Resource>
@@ -4948,6 +4936,10 @@ Spoiler Content
     <Resource tag="XMPP_TITLE">Contact {0} via Jabber</Resource>
     <Resource tag="YIM">YAHOO</Resource>
     <Resource tag="YIM_TITLE">Contact {0} via Yahoo Instant Messenger</Resource>
+  </page>
+  <page name="POSTTOPIC">
+    <Resource tag="MESSAGE">Message:</Resource>
+    <Resource tag="TAGS">Tags:</Resource>
   </page>
   <page name="PRINTTOPIC">
     <Resource tag="POSTEDBY">Įrašė </Resource>
@@ -5446,6 +5438,35 @@ Spoiler Content
     <Resource tag="MUSTBELOGGEDIN">You must be logged in to use the shoutbox.</Resource>
     <Resource tag="SUBMIT">Submit</Resource>
     <Resource tag="TITLE">ShoutBox</Resource>
+  </page>
+  <page name="SUBSCRIPTIONS">
+    <Resource tag="ALLTOPICS">Notification for [b]all posts on all topics[/b]</Resource>
+    <Resource tag="DAILY_DIGEST">Receive once daily digest/summary of activity?</Resource>
+    <Resource tag="FORUM">Forumas </Resource>
+    <Resource tag="FORUMS">Forumai </Resource>
+    <Resource tag="LASTPOST">Last Post </Resource>
+    <Resource tag="LASTPOSTLINK">{0} iš {1} </Resource>
+    <Resource tag="NONOTIFICATION">Turn off notifications</Resource>
+    <Resource tag="NOTIFICATIONSELECTION">Select email notification preference:</Resource>
+    <Resource tag="REPLIES">Atsakymai </Resource>
+    <Resource tag="SAVED_NOTIFICATION_SETTING">Notification Email Settings Updated</Resource>
+    <Resource tag="TITLE">Prenumerata </Resource>
+    <Resource tag="TOPIC">Tema </Resource>
+    <Resource tag="TOPICS">Temos </Resource>
+    <Resource tag="TOPICSIPOSTTOORSUBSCRIBETO">Notification for topics [b]you've posted to[/b] or watched</Resource>
+    <Resource tag="TOPICSISUBSCRIBETO">Notification for topics or forums you've selectively watched (listed below)</Resource>
+    <Resource tag="UNSUBSCRIBE">Atsisakyti </Resource>
+    <Resource tag="VIEWS">Žiūrėti </Resource>
+    <Resource tag="WARN_SELECTFORUMS">
+      Prašome pasirinkti forumuose išeiti iš
+
+      pirmosios. 
+    </Resource>
+    <Resource tag="WARN_SELECTTOPICS">
+      Prašome pasirinkti temas išeiti iš
+
+      pirmosios. 
+    </Resource>
   </page>
   <page name="TEAM">
     <Resource tag="ADMINS">Administrators</Resource>
@@ -6444,8 +6465,12 @@ Visit {forumname} at {forumlink}
     <Resource tag="MYACTIVITY_TITLE">Shows your activity and Received Thanks, Mentions and Quotes.</Resource>
     <Resource tag="MYALBUMS">My Albums</Resource>
     <Resource tag="MYALBUMS_TITLE">Shows the Albums Page which shows all your albums.</Resource>
+    <Resource tag="MYNOTIFY">My Notifications</Resource>
+    <Resource tag="MYNOTIFY_TITLE">Shows your unread Received Thanks, Mentions and Quotes.</Resource>
     <Resource tag="MYPROFILE">Mano profilis </Resource>
     <Resource tag="MYPROFILE_TITLE">Shows the User Control Panel.</Resource>
+    <Resource tag="MYSETTINGS">My Settings</Resource>
+    <Resource tag="MYSETTINGs_TITLE">Edit your user details and settings.</Resource>
     <Resource tag="MYTOPICS">My Topics</Resource>
     <Resource tag="MYTOPICS_TITLE">Shows the Active and Favorite Topics.</Resource>
     <Resource tag="NEWPM">({0} Unread)</Resource>
@@ -6462,13 +6487,6 @@ Visit {forumname} at {forumlink}
     <Resource tag="WELCOME_GUEST_CONNECT">Wanna join the discussion?! </Resource>
     <Resource tag="WELCOME_GUEST_FULL">Welcome Guest! To enable all features please </Resource>
     <Resource tag="WELCOME_GUEST_NO">Welcome Guest! You can &lt;strong&gt;not&lt;/strong&gt; login or register.</Resource>
-  </page>
-  <page name="TOPIC_STATUS">
-    <Resource tag="FIXED">Fixed</Resource>
-    <Resource tag="INFORMATIC">Informative</Resource>
-    <Resource tag="ISSUE">Issue</Resource>
-    <Resource tag="QUESTION">Question</Resource>
-    <Resource tag="SOLVED">Solved</Resource>
   </page>
   <page name="TOPICS">
     <Resource tag="ALL">Visi </Resource>

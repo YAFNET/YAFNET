@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Text;
 
 namespace ServiceStack.Messaging
@@ -34,7 +35,7 @@ namespace ServiceStack.Messaging
             LastMessageProcessed = lastMessageProcessed;
         }
 
-        public string Name { get; }
+        public string Name { get; private set; }
         public DateTime? LastMessageProcessed { get; private set; }
         public int TotalMessagesProcessed { get; private set; }
         public int TotalMessagesFailed { get; private set; }
@@ -62,8 +63,29 @@ namespace ServiceStack.Messaging
             sb.AppendLine($"  TotalProcessed:                 {TotalMessagesProcessed}");
             sb.AppendLine($"  TotalRetries:                   {TotalRetries}");
             sb.AppendLine($"  TotalFailed:                    {TotalMessagesFailed}");
-            sb.AppendLine($"  LastMessageProcessed:           {LastMessageProcessed?.ToString() ?? string.Empty}");
+            sb.AppendLine($"  LastMessageProcessed:           {LastMessageProcessed?.ToString() ?? ""}");
             return sb.ToString();
+        }
+    }
+
+    public static class MessageHandlerStatsExtensions
+    {
+        public static IMessageHandlerStats CombineStats(this IEnumerable<IMessageHandlerStats> stats)
+        {
+            IMessageHandlerStats to = null;
+
+            if (stats != null)
+            {
+                foreach (var stat in stats)
+                {
+                    if (to == null)
+                        to = new MessageHandlerStats(stat.Name);
+
+                    to.Add(stat);
+                }
+            }
+
+            return to;
         }
     }
 }

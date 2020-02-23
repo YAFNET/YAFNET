@@ -7,13 +7,12 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace YAF.Controls {
-    using System.Web.UI.WebControls;
+namespace YAF.Controls
+{
 
-    using YAF.Web.Controls;
 
-    public partial class EditUsersGroups {
-        
+    public partial class EditUsersGroups
+    {
 
         /// <summary>
         /// UserGroups control.
@@ -22,8 +21,7 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected Repeater UserGroups;
-        
+        protected global::System.Web.UI.WebControls.Repeater UserGroups;
 
         /// <summary>
         /// SendEmail control.
@@ -32,8 +30,7 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected CheckBox SendEmail;
-        
+        protected global::System.Web.UI.WebControls.CheckBox SendEmail;
 
         /// <summary>
         /// Save control.
@@ -42,6 +39,6 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected ThemeButton Save;
+        protected global::YAF.Web.Controls.ThemeButton Save;
     }
 }

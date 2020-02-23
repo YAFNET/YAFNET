@@ -1,8 +1,8 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2019 Ingo Herbote
- * http://www.yetanotherforum.net/
+ * Copyright (C) 2014-2020 Ingo Herbote
+ * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -12,7 +12,7 @@
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
 
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
 
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
@@ -168,7 +168,7 @@ namespace YAF.Controls
         {
             this.PageContext.QueryIDs = new QueryStringIDHelper("u");
 
-            this.signatureEditor.BaseDir = $"{YafForumInfo.ForumClientFileRoot}Scripts";
+            this.signatureEditor.BaseDir = $"{BoardInfo.ForumClientFileRoot}Scripts";
 
             var sigData = this.GetRepository<User>()
                 .SignatureDataAsDataTable(this.CurrentUserID, this.PageContext.PageBoardID);
@@ -259,11 +259,11 @@ namespace YAF.Controls
         {
             if (this.InModeratorMode)
             {
-                YafBuildLink.Redirect(ForumPages.profile, "u={0}", this.CurrentUserID);
+                BuildLink.Redirect(ForumPages.Profile, "u={0}", this.CurrentUserID);
             }
             else
             {
-                YafBuildLink.Redirect(ForumPages.cp_profile);
+                BuildLink.Redirect(ForumPages.Account);
             }
         }
 
@@ -323,7 +323,7 @@ namespace YAF.Controls
                 {
                     var userData = new CombinedUserDataHelper(this.CurrentUserID);
 
-                    if (userData.NumPosts < this.Get<YafBoardSettings>().IgnoreSpamWordCheckPostCount)
+                    if (userData.NumPosts < this.Get<BoardSettings>().IgnoreSpamWordCheckPostCount)
                     {
                         // Check for spam
                         if (this.Get<ISpamWordCheck>().CheckForSpamWord(body, out var result))
@@ -332,7 +332,7 @@ namespace YAF.Controls
                             var userId = this.CurrentUserID;
 
                             // Log and Send Message to Admins
-                            if (this.Get<YafBoardSettings>().BotHandlingOnRegister.Equals(1))
+                            if (this.Get<BoardSettings>().BotHandlingOnRegister.Equals(1))
                             {
                                 this.Logger.Log(
                                     null,
@@ -343,7 +343,7 @@ namespace YAF.Controls
                                                  after the user included a spam word in his/her signature: {result}",
                                     EventLogTypes.SpamBotDetected);
                             }
-                            else if (this.Get<YafBoardSettings>().BotHandlingOnRegister.Equals(2))
+                            else if (this.Get<BoardSettings>().BotHandlingOnRegister.Equals(2))
                             {
                                 this.Logger.Log(
                                     null,

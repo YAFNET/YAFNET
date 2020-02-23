@@ -1,8 +1,8 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2019 Ingo Herbote
- * http://www.yetanotherforum.net/
+ * Copyright (C) 2014-2020 Ingo Herbote
+ * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -12,7 +12,7 @@
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
 
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
 
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
@@ -35,11 +35,6 @@ namespace YAF.Types.Constants
         public struct Cache
         {
             #region Constants and Fields
-
-            /// <summary>
-            /// The Album count for the User.
-            /// </summary>
-            public const string AlbumCountUser = "AlbumCountUser{0}";
 
             /// <summary>
             ///   The active discussions.
@@ -126,7 +121,6 @@ namespace YAF.Types.Constants
             /// </summary>
             public const string GuestGroupsCache = "GuestGroupsCache";
             
-
             /// <summary>
             ///   The group rank styles.
             /// </summary>
@@ -160,12 +154,7 @@ namespace YAF.Types.Constants
             /// <summary>
             /// The task module.
             /// </summary>
-            public const string TaskModule = "YafTaskModule";
-
-            /// <summary>
-            ///   The user boxes.
-            /// </summary>
-            public const string UserBoxes = "UserBoxes";
+            public const string TaskModule = "TaskModule";
 
             /// <summary>
             ///   The user buddies.
@@ -211,97 +200,14 @@ namespace YAF.Types.Constants
         }
 
         /// <summary>
-        /// Constants for UserBox templating
-        /// </summary>
-        public struct UserBox
-        {
-            #region Constants and Fields
-
-            /// <summary>
-            ///   The avatar.
-            /// </summary>
-            public const string Avatar = @"<yaf:avatar\s*/>";
-
-            /// <summary>
-            ///   The display template default.
-            /// </summary>
-            public const string DisplayTemplateDefault =
-              @"<yaf:avatar /><yaf:rankimage /><yaf:rank /><yaf:reputation /><yaf:medals /><yaf:groups /><yaf:joindate /><yaf:posts /><yaf:gender /><yaf:countryimage /><yaf:location /><yaf:thanksfrom /><yaf:thanksto />";
-
-            /// <summary>
-            ///   The gender.
-            /// </summary>
-            public const string Gender = @"<yaf:gender\s*/>";
-
-            /// <summary>
-            ///   The groups.
-            /// </summary>
-            public const string Groups = @"<yaf:groups\s*/>";
-
-            /// <summary>
-            ///   The join date.
-            /// </summary>
-            public const string JoinDate = @"<yaf:joindate\s*/>";
-
-            /// <summary>
-            ///   The location.
-            /// </summary>
-            public const string Location = @"<yaf:location\s*/>";
-            
-
-            /// <summary>
-            ///   The rank image.
-            /// </summary>
-            public const string CountryImage = @"<yaf:countryimage\s*/>";
-
-            /// <summary>
-            ///   The medals.
-            /// </summary>
-            public const string Medals = @"<yaf:medals\s*/>";
-
-            /// <summary>
-            ///   The Reputation (points).
-            /// </summary>
-            public const string Reputation = @"<yaf:reputation\s*/>";
-
-            /// <summary>
-            ///   The posts.
-            /// </summary>
-            public const string Posts = @"<yaf:posts\s*/>";
-
-            /// <summary>
-            ///   The rank.
-            /// </summary>
-            public const string Rank = @"<yaf:rank\s*/>";
-
-            /// <summary>
-            ///   The rank image.
-            /// </summary>
-            public const string RankImage = @"<yaf:rankimage\s*/>";
-
-            /// <summary>
-            ///   The thanks from.
-            /// </summary>
-            public const string ThanksFrom = @"<yaf:thanksfrom\s*/>";
-
-            /// <summary>
-            ///   The thanks to.
-            /// </summary>
-            public const string ThanksTo = @"<yaf:thanksto\s*/>";
-
-            #endregion
-        }
-
-        /// <summary>
         /// 
         /// </summary>
         public struct ForumRebuild
         {
-            public static readonly string[] BlockingTaskNames = {
-                                                                    "BoardDeleteTask", "BoardCreateTask",
-                                                                    "ForumDeleteTask", "ForumSaveTask",
-                                                                    "CategoryDeleteTask", "CategorySaveTask"
-                                                                };
+            public static readonly string[] BlockingTaskNames =
+                {
+                    "ForumDeleteTask"
+                };
         }
     }
 }

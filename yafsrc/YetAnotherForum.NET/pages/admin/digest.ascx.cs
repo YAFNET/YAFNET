@@ -1,8 +1,8 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2019 Ingo Herbote
- * http://www.yetanotherforum.net/
+ * Copyright (C) 2014-2020 Ingo Herbote
+ * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -12,7 +12,7 @@
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
 
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
 
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
@@ -27,6 +27,7 @@ namespace YAF.Pages.Admin
 
     using System;
     using System.Globalization;
+    using System.Text.RegularExpressions;
 
     using YAF.Configuration;
     using YAF.Core;
@@ -61,8 +62,8 @@ namespace YAF.Pages.Admin
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void ForceSendClick([NotNull] object sender, [NotNull] EventArgs e)
         {
-            this.Get<YafBoardSettings>().ForceDigestSend = true;
-            ((YafLoadBoardSettings)YafContext.Current.BoardSettings).SaveRegistry();
+            this.Get<BoardSettings>().ForceDigestSend = true;
+            ((LoadBoardSettings)BoardContext.Current.BoardSettings).SaveRegistry();
 
             this.PageContext.AddLoadMessage(this.GetText("ADMIN_DIGEST", "MSG_FORCE_SEND"), MessageTypes.success);
         }
@@ -91,13 +92,13 @@ namespace YAF.Pages.Admin
                 return;
             }
 
-            this.LastDigestSendLabel.Text = this.Get<YafBoardSettings>().LastDigestSend.IsNotSet()
+            this.LastDigestSendLabel.Text = this.Get<BoardSettings>().LastDigestSend.IsNotSet()
                                                 ? this.GetText("ADMIN_DIGEST", "DIGEST_NEVER")
                                                 : Convert.ToDateTime(
-                                                    this.Get<YafBoardSettings>().LastDigestSend,
+                                                    this.Get<BoardSettings>().LastDigestSend,
                                                     CultureInfo.InvariantCulture).ToString(CultureInfo.InvariantCulture);
 
-            this.DigestEnabled.Text = this.Get<YafBoardSettings>().AllowDigestEmail
+            this.DigestEnabled.Text = this.Get<BoardSettings>().AllowDigestEmail
                                           ? this.GetText("COMMON", "YES")
                                           : this.GetText("COMMON", "NO");
         }
@@ -111,7 +112,7 @@ namespace YAF.Pages.Admin
             this.PageLinks.AddRoot();
 
             this.PageLinks.AddLink(
-                this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
+                this.GetText("ADMIN_ADMIN", "Administration"), BuildLink.GetLink(ForumPages.admin_admin));
             this.PageLinks.AddLink(this.GetText("ADMIN_DIGEST", "TITLE"), string.Empty);
 
             this.Page.Header.Title =
@@ -136,15 +137,15 @@ namespace YAF.Pages.Admin
                     // send....
                     this.Get<IDigest>()
                         .SendDigest(
+                            string.Format(this.GetText("DIGEST", "SUBJECT"), this.PageContext.BoardSettings.Name),
                             digestHtml,
                             this.PageContext.BoardSettings.Name,
                             this.PageContext.BoardSettings.ForumEmail,
                             this.TextSendEmail.Text.Trim(),
-                            "Digest Send Test",
-                            this.SendMethod.SelectedItem.Text == "Queued");
+                            "Digest Send Test");
 
                     this.PageContext.AddLoadMessage(
-                        string.Format(this.GetText("ADMIN_DIGEST", "MSG_SEND_SUC"), this.SendMethod.SelectedItem.Text),
+                        this.GetTextFormatted("MSG_SEND_SUC", "Direct"),
                         MessageTypes.success);
                 }
                 catch (Exception ex)

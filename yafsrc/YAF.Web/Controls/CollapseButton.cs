@@ -1,8 +1,8 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
- * http://www.yetanotherforum.net/
+* Copyright (C) 2014-2020 Ingo Herbote
+ * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -11,7 +11,7 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -81,7 +81,7 @@ namespace YAF.Web.Controls
         /// <summary>
         ///   Gets PageContext.
         /// </summary>
-        public YafContext PageContext
+        public BoardContext PageContext
         {
             get
             {
@@ -91,7 +91,7 @@ namespace YAF.Web.Controls
                     return null;
                 }
 
-                return YafContext.Current;
+                return BoardContext.Current;
             }
         }
 
@@ -111,9 +111,9 @@ namespace YAF.Web.Controls
         /// </summary>
         public CollapsiblePanelState PanelState
         {
-            get => YafContext.Current.Get<IYafSession>().PanelState[this.PanelID];
+            get => BoardContext.Current.Get<ISession>().PanelState[this.PanelID];
 
-            set => YafContext.Current.Get<IYafSession>().PanelState[this.PanelID] = value;
+            set => BoardContext.Current.Get<ISession>().PanelState[this.PanelID] = value;
         }
 
         #endregion
@@ -180,7 +180,7 @@ namespace YAF.Web.Controls
         protected override void OnClick(EventArgs e)
         {
             // toggle the status...
-            YafContext.Current.Get<IYafSession>().PanelState.TogglePanelState(this.PanelID, this.DefaultState);
+            BoardContext.Current.Get<ISession>().PanelState.TogglePanelState(this.PanelID, this.DefaultState);
             this.UpdateAttachedVisibility();
 
             base.OnClick(e);
@@ -202,7 +202,7 @@ namespace YAF.Web.Controls
         {
             CodeContracts.VerifyNotNull(panelId, "panelID");
 
-            var stateValue = YafContext.Current.Get<IYafSession>().PanelState[panelId];
+            var stateValue = BoardContext.Current.Get<ISession>().PanelState[panelId];
 
             if (stateValue != CollapsiblePanelState.None)
             {
@@ -210,7 +210,7 @@ namespace YAF.Web.Controls
             }
 
             stateValue = defaultState;
-            YafContext.Current.Get<IYafSession>().PanelState[panelId] = defaultState;
+            BoardContext.Current.Get<ISession>().PanelState[panelId] = defaultState;
 
             return stateValue == CollapsiblePanelState.Expanded ? "minus-square" : "plus-square";
         }

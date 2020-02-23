@@ -27,8 +27,8 @@
         </div>
         <div id="AttachmentsListBox" class="content">
             <div id="PostAttachmentListPlaceholder"
-                data-url='<%= YafForumInfo.ForumClientFileRoot %>'
-                data-userid='<%= YafContext.Current.PageUserID %>'
+                data-url="<%= BoardInfo.ForumClientFileRoot %>"
+                data-userid="<%= BoardContext.Current.PageUserID %>"
                 data-notext="<%= this.GetText("ATTACHMENTS", "NO_ATTACHMENTS") %>"
                 style="clear: both;">
                 <ul class="PostAttachmentList">

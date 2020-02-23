@@ -1,8 +1,8 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2019 Ingo Herbote
- * http://www.yetanotherforum.net/
+ * Copyright (C) 2014-2020 Ingo Herbote
+ * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -12,7 +12,7 @@
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
 
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
 
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
@@ -86,7 +86,7 @@ namespace YAF.Pages.Admin
             switch (e.CommandName)
             {
                 case "edit":
-                    YafBuildLink.Redirect(ForumPages.admin_edituser, "u={0}", e.CommandArgument);
+                    BuildLink.Redirect(ForumPages.admin_edituser, "u={0}", e.CommandArgument);
                     break;
                 case "resendEmail":
                     var commandArgument = e.CommandArgument.ToString().Split(';');
@@ -95,21 +95,21 @@ namespace YAF.Pages.Admin
 
                     if (checkMail != null)
                     {
-                        var verifyEmail = new YafTemplateEmail("VERIFYEMAIL");
+                        var verifyEmail = new TemplateEmail("VERIFYEMAIL");
 
                         var subject = this.Get<ILocalization>()
-                            .GetTextFormatted("VERIFICATION_EMAIL_SUBJECT", this.Get<YafBoardSettings>().Name);
+                            .GetTextFormatted("VERIFICATION_EMAIL_SUBJECT", this.Get<BoardSettings>().Name);
 
-                        verifyEmail.TemplateParams["{link}"] = YafBuildLink.GetLinkNotEscaped(
-                            ForumPages.approve,
+                        verifyEmail.TemplateParams["{link}"] = BuildLink.GetLinkNotEscaped(
+                            ForumPages.Approve,
                             true,
                             "k={0}",
                             checkMail.Hash);
                         verifyEmail.TemplateParams["{key}"] = checkMail.Hash;
-                        verifyEmail.TemplateParams["{forumname}"] = this.Get<YafBoardSettings>().Name;
-                        verifyEmail.TemplateParams["{forumlink}"] = YafForumInfo.ForumURL;
+                        verifyEmail.TemplateParams["{forumname}"] = this.Get<BoardSettings>().Name;
+                        verifyEmail.TemplateParams["{forumlink}"] = BoardInfo.ForumURL;
 
-                        verifyEmail.SendEmail(new MailAddress(checkMail.Email, commandArgument[1]), subject, true);
+                        verifyEmail.SendEmail(new MailAddress(checkMail.Email, commandArgument[1]), subject);
 
                         this.PageContext.AddLoadMessage(
                             this.GetText("ADMIN_ADMIN", "MSG_MESSAGE_SEND"),
@@ -126,16 +126,6 @@ namespace YAF.Pages.Admin
 
                     break;
                 case "delete":
-                    var daysValue =
-                        this.PageContext.CurrentForumPage.FindControlRecursiveAs<TextBox>("DaysOld").Text.Trim();
-                    if (!ValidationHelper.IsValidInt(daysValue))
-                    {
-                        this.PageContext.AddLoadMessage(
-                            this.GetText("ADMIN_ADMIN", "MSG_VALID_DAYS"),
-                            MessageTypes.warning);
-                        return;
-                    }
-
                     if (!Config.IsAnyPortal)
                     {
                         UserMembershipHelper.DeleteUser(e.CommandArgument.ToType<int>());
@@ -164,10 +154,13 @@ namespace YAF.Pages.Admin
 
                     if (!Config.IsAnyPortal)
                     {
-                        UserMembershipHelper.DeleteAllUnapproved(DateTime.UtcNow.AddDays(-daysValueAll.ToType<int>()));
+                        UserMembershipHelper.DeleteAllUnapproved(System.DateTime.UtcNow.AddDays(-daysValueAll.ToType<int>()));
+                    }
+                    else
+                    {
+                        this.GetRepository<User>().DeleteOld(this.PageContext.PageBoardID, daysValueAll.ToType<int>());
                     }
 
-                    this.GetRepository<User>().DeleteOld(this.PageContext.PageBoardID, daysValueAll.ToType<int>());
                     this.BindData();
                     break;
                 case "approveall":
@@ -204,7 +197,7 @@ namespace YAF.Pages.Admin
             }
 
             return
-                $"<a target=\"_top\" href=\"{YafBuildLink.GetLink(ForumPages.topics, "f={0}&name={1}", forumId, forumName)}\">{forumName}</a>";
+                $"<a target=\"_top\" href=\"{BuildLink.GetLink(ForumPages.topics, "f={0}&name={1}", forumId, forumName)}\">{forumName}</a>";
         }
 
         /// <summary>
@@ -227,7 +220,7 @@ namespace YAF.Pages.Admin
             }
 
             return
-                $"<a target=\"_top\" href=\"{YafBuildLink.GetLink(ForumPages.posts, "t={0}", topicId)}\">{topicName}</a>";
+                $"<a target=\"_top\" href=\"{BuildLink.GetLink(ForumPages.Posts, "t={0}", topicId)}\">{topicName}</a>";
         }
 
         /// <summary>
@@ -315,7 +308,7 @@ namespace YAF.Pages.Admin
         {
             var latestInfo = new LatestInformationService().GetLatestVersionInformation();
 
-            if (latestInfo == null || BitConverter.ToInt64(latestInfo.Version, 0) <= BitConverter.ToInt64(YafForumInfo.AppVersionCode, 0))
+            if (latestInfo == null || BitConverter.ToInt64(latestInfo.Version, 0) <= BitConverter.ToInt64(BoardInfo.AppVersionCode, 0))
             {
                 return;
             }
@@ -349,7 +342,7 @@ namespace YAF.Pages.Admin
 
             if (activeUsers.HasRows())
             {
-                YafContext.Current.PageElements.RegisterJsBlock(
+                BoardContext.Current.PageElements.RegisterJsBlock(
                     "ActiveUsersTablesorterLoadJs",
                     JavaScriptBlocks.LoadTableSorter("#ActiveUsers", "sortList: [[0,0]]", "#ActiveUsersPager"));
             }
@@ -397,7 +390,7 @@ namespace YAF.Pages.Admin
 
                 if (unverifiedUsers.HasRows())
                 {
-                    YafContext.Current.PageElements.RegisterJsBlock(
+                    BoardContext.Current.PageElements.RegisterJsBlock(
                         "UnverifiedUserstablesorterLoadJs",
                         JavaScriptBlocks.LoadTableSorter(
                             "#UnverifiedUsers",
@@ -417,17 +410,17 @@ namespace YAF.Pages.Admin
             this.NumTopics.Text = $"{row["NumTopics"]:N0}";
             this.NumUsers.Text = $"{row["NumUsers"]:N0}";
 
-            var span = DateTime.UtcNow - (DateTime)row["BoardStart"];
+            var span = System.DateTime.UtcNow - (System.DateTime)row["BoardStart"];
             double days = span.Days;
 
             this.BoardStart.Text = this.Get<IDateTime>().FormatDateTimeTopic(
-                this.Get<YafBoardSettings>().UseFarsiCalender
-                    ? PersianDateConverter.ToPersianDate((DateTime)row["BoardStart"])
+                this.Get<BoardSettings>().UseFarsiCalender
+                    ? PersianDateConverter.ToPersianDate((System.DateTime)row["BoardStart"])
                     : row["BoardStart"]);
 
             this.BoardStartAgo.Text = new DisplayDateTime
-                                          {
-                                              DateTime = (DateTime)row["BoardStart"], Format = DateTimeFormat.BothTopic
+            {
+                                              DateTime = (System.DateTime)row["BoardStart"], Format = DateTimeFormat.BothTopic
                                           }.RenderToString();
 
             if (days < 1)

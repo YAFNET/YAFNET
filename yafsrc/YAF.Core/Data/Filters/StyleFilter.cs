@@ -1,8 +1,8 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2019 Ingo Herbote
- * http://www.yetanotherforum.net/
+ * Copyright (C) 2014-2020 Ingo Herbote
+ * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -12,7 +12,7 @@
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
 
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
 
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
@@ -78,7 +78,7 @@ namespace YAF.Core.Data.Filters
         /// <summary>
         ///     The _board settings.
         /// </summary>
-        public YafBoardSettings BoardSettings => this.Get<YafBoardSettings>();
+        public BoardSettings BoardSettings => this.Get<BoardSettings>();
 
         /// <summary>
         /// Gets or sets the service locator.
@@ -130,7 +130,7 @@ namespace YAF.Core.Data.Filters
         /// </param>
         public void Run(DbFunctionType dbfunctionType, string operationName, IEnumerable<KeyValuePair<string, object>> parameters, object data)
         {
-            if (!this.ServiceLocator.IsYafContext() || !this._styledNickOperations.Contains(operationName.ToLower()) || dbfunctionType != DbFunctionType.DataTable)
+            if (!this.ServiceLocator.IsBoardContext() || !this._styledNickOperations.Contains(operationName.ToLower()) || dbfunctionType != DbFunctionType.DataTable)
             {
                 return;
             }

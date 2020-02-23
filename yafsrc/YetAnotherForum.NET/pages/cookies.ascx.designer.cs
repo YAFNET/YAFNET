@@ -7,11 +7,13 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace YAF.Pages {
-    
-    
-    public partial class cookies {
-        
+namespace YAF.Pages
+{
+
+
+    public partial class Cookies
+    {
+
         /// <summary>
         /// PageLinks control.
         /// </summary>
@@ -20,7 +22,7 @@ namespace YAF.Pages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::YAF.Web.Controls.PageLinks PageLinks;
-        
+
         /// <summary>
         /// LocalizedLabel1 control.
         /// </summary>
@@ -29,7 +31,7 @@ namespace YAF.Pages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel1;
-        
+
         /// <summary>
         /// LocalizedLabel3 control.
         /// </summary>

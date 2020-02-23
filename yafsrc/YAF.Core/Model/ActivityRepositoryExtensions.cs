@@ -1,8 +1,8 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2019 Ingo Herbote
- * http://www.yetanotherforum.net/
+ * Copyright (C) 2014-2020 Ingo Herbote
+ * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -12,7 +12,7 @@
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
 
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
 
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
@@ -28,9 +28,10 @@ namespace YAF.Core.Model
 
     using YAF.Core.Extensions;
     using YAF.Types;
-    using YAF.Types.Constants;
+    using YAF.Types.EventProxies;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
+    using YAF.Types.Interfaces.Events;
     using YAF.Types.Models;
 
     /// <summary>
@@ -80,15 +81,57 @@ namespace YAF.Core.Model
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
-            var update = repository.UpdateOnly(
+            BoardContext.Current.Get<IRaiseEvent>().Raise(new UpdateUserEvent(userId));
+
+            repository.UpdateOnly(
                 () => new Activity { Notification = false },
                 a => a.UserID == userId && a.MessageID == messageId && a.Notification);
+        }
 
-            if (update > 0)
-            {
-                YafContext.Current.Get<IDataCache>().Remove(
-                    string.Format(Constants.Cache.ActiveUserLazyData, userId));
-            }
+        /// <summary>
+        /// Sets all Notifications as read for the topic
+        /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="userId">
+        /// The user id.
+        /// </param>
+        /// <param name="topicId">
+        /// The message id.
+        /// </param>
+        public static void UpdateTopicNotification(
+            this IRepository<Activity> repository,
+            int userId,
+            int topicId)
+        {
+            CodeContracts.VerifyNotNull(repository, "repository");
+
+            BoardContext.Current.Get<IRaiseEvent>().Raise(new UpdateUserEvent(userId));
+
+            repository.UpdateOnly(
+                () => new Activity { Notification = false },
+                a => a.UserID == userId && a.TopicID == topicId && a.Notification);
+        }
+
+        /// <summary>
+        /// Mark all Notifications as read for the user
+        /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="userId">
+        /// The user id.
+        /// </param>
+        public static void MarkAllAsRead(
+            this IRepository<Activity> repository,
+            int userId)
+        {
+            CodeContracts.VerifyNotNull(repository, "repository");
+
+            repository.UpdateOnly(
+                () => new Activity { Notification = false },
+                a => a.UserID == userId && a.Notification);
         }
 
         #endregion

@@ -273,10 +273,6 @@ if exists (select top 1 1 from  sys.indexes where object_id=object_id('[{databas
 go
 
 
-if exists (select top 1 1 from  sys.indexes where object_id=object_id('[{databaseOwner}].[{objectQualifier}Mail]') and name='PK_Mail')
-	alter table [{databaseOwner}].[{objectQualifier}Mail] drop constraint [PK_Mail]
-go
-
 
 if exists (select top 1 1 from  sys.indexes where object_id=object_id('[{databaseOwner}].[{objectQualifier}Message]') and name='PK_Message')
 	alter table [{databaseOwner}].[{objectQualifier}Message] drop constraint [PK_Message]
@@ -563,10 +559,6 @@ go
 
 if (select OBJECTPROPERTY(OBJECT_ID('[{databaseOwner}].[{objectQualifier}UserMedal]'), 'TableHasPrimaryKey')) = 0
 	alter table [{databaseOwner}].[{objectQualifier}UserMedal] with nocheck add constraint [PK_{objectQualifier}UserMedal] primary key clustered(MedalID,UserID)
-go
-
-if (select OBJECTPROPERTY(OBJECT_ID('[{databaseOwner}].[{objectQualifier}Mail]'), 'TableHasPrimaryKey')) = 0
-	alter table [{databaseOwner}].[{objectQualifier}Mail] with nocheck add constraint [PK_{objectQualifier}Mail] primary key clustered(MailID)
 go
 
 if (select OBJECTPROPERTY(OBJECT_ID('[{databaseOwner}].[{objectQualifier}UserProfile]'), 'TableHasPrimaryKey')) = 0

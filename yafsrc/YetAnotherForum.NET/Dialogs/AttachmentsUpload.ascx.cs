@@ -72,16 +72,16 @@ namespace YAF.Dialogs
             base.OnPreRender(e);
 
             // Setup Hover Card JS
-            YafContext.Current.PageElements.RegisterJsBlockStartup(
+            BoardContext.Current.PageElements.RegisterJsBlockStartup(
                 "fileUploadjs",
                 JavaScriptBlocks.FileUploadLoadJs(
                     string.Join("|", this.FileExtensions.Select(ext => ext.Extension)),
-                    this.Get<YafBoardSettings>().MaxFileSize,
-                    $"{YafForumInfo.ForumClientFileRoot}YafUploader.ashx",
+                    this.Get<BoardSettings>().MaxFileSize,
+                    $"{BoardInfo.ForumClientFileRoot}FileUploader.ashx",
                     this.PageContext.PageForumID,
                     this.PageContext.PageBoardID,
-                    this.Get<YafBoardSettings>().ImageAttachmentResizeWidth,
-                    this.Get<YafBoardSettings>().ImageAttachmentResizeHeight));
+                    this.Get<BoardSettings>().ImageAttachmentResizeWidth,
+                    this.Get<BoardSettings>().ImageAttachmentResizeHeight));
         }
 
         /// <summary>
@@ -92,7 +92,7 @@ namespace YAF.Dialogs
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
             // show disallowed or allowed localized text depending on the Board Setting
-            this.ExtensionTitle.LocalizedTag = this.Get<YafBoardSettings>().FileExtensionAreAllowed
+            this.ExtensionTitle.LocalizedTag = this.Get<BoardSettings>().FileExtensionAreAllowed
                                                    ? "ALLOWED_EXTENSIONS"
                                                    : "DISALLOWED_EXTENSIONS";
 
@@ -115,12 +115,12 @@ namespace YAF.Dialogs
                 this.ExtensionsList.Text = types;
             }
 
-            if (this.Get<YafBoardSettings>().MaxFileSize > 0)
+            if (this.Get<BoardSettings>().MaxFileSize > 0)
             {
                 this.UploadNodePlaceHold.Visible = true;
                 this.UploadNote.Text = this.GetTextFormatted(
                     "UPLOAD_NOTE",
-                    (this.Get<YafBoardSettings>().MaxFileSize / 1024).ToString());
+                    (this.Get<BoardSettings>().MaxFileSize / 1024).ToString());
             }
             else
             {

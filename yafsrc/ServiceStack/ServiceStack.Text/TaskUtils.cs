@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -10,6 +11,7 @@ namespace ServiceStack
 {
     public static class TaskUtils
     {
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Task<T> FromResult<T>(T result)
         {
             var taskSource = new TaskCompletionSource<T>();
@@ -17,6 +19,7 @@ namespace ServiceStack
             return taskSource.Task;
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Task<T> InTask<T>(this T result)
         {
             var taskSource = new TaskCompletionSource<T>();
@@ -24,6 +27,7 @@ namespace ServiceStack
             return taskSource.Task;
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Task<T> InTask<T>(this Exception ex)
         {
             var taskSource = new TaskCompletionSource<T>();
@@ -31,6 +35,7 @@ namespace ServiceStack
             return taskSource.Task;
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsSuccess(this Task task)
         {
             return !task.IsFaulted && task.IsCompleted;
@@ -43,7 +48,7 @@ namespace ServiceStack
 
         public static TaskScheduler SafeTaskScheduler()
         {
-            // Unit test runner
+            //Unit test runner
             if (SynchronizationContext.Current != null)
                 return TaskScheduler.FromCurrentSynchronizationContext();
 
@@ -83,7 +88,7 @@ namespace ServiceStack
             return tcs.Task;
         }
 
-        // http://stackoverflow.com/a/13904811/85785
+        //http://stackoverflow.com/a/13904811/85785
         public static Task EachAsync<T>(this IEnumerable<T> items, Func<T, int, Task> fn)
         {
             var tcs = new TaskCompletionSource<object>();

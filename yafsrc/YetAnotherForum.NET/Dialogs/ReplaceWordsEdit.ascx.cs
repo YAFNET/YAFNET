@@ -136,7 +136,7 @@ namespace YAF.Dialogs
 
             this.Get<IDataCache>().Remove(Constants.Cache.ReplaceWords);
 
-            YafBuildLink.Redirect(ForumPages.admin_replacewords);
+            BuildLink.Redirect(ForumPages.admin_replacewords);
         }
 
         #endregion

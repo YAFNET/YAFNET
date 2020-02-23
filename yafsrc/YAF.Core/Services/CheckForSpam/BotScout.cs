@@ -1,8 +1,8 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2019 Ingo Herbote
- * http://www.yetanotherforum.net/
+ * Copyright (C) 2014-2020 Ingo Herbote
+ * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -12,7 +12,7 @@
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
 
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
 
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
@@ -77,7 +77,7 @@ namespace YAF.Core.Services.CheckForSpam
                 const string BotScoutUrl = "http://www.botscout.com/test/?multi";
 
                 var url =
-                    $"{BotScoutUrl}{(ipAddress.IsSet() ? $"&ip={ipAddress}" : string.Empty)}{(emailAddress.IsSet() ? $"&mail={emailAddress}" : string.Empty)}{(userName.IsSet() ? $"&name={userName}" : string.Empty)}{(YafContext.Current.Get<YafBoardSettings>().BotScoutApiKey.IsSet() ? $"&key={YafContext.Current.Get<YafBoardSettings>().BotScoutApiKey}" : string.Empty)}";
+                    $"{BotScoutUrl}{(ipAddress.IsSet() ? $"&ip={ipAddress}" : string.Empty)}{(emailAddress.IsSet() ? $"&mail={emailAddress}" : string.Empty)}{(userName.IsSet() ? $"&name={userName}" : string.Empty)}{(BoardContext.Current.Get<BoardSettings>().BotScoutApiKey.IsSet() ? $"&key={BoardContext.Current.Get<BoardSettings>().BotScoutApiKey}" : string.Empty)}";
 
                 var webRequest = (HttpWebRequest)WebRequest.Create(url);
 
@@ -110,7 +110,7 @@ namespace YAF.Core.Services.CheckForSpam
             }
             catch (Exception ex)
             {
-                YafContext.Current.Get<ILogger>().Error(ex, "Error while Checking for Bot");
+                BoardContext.Current.Get<ILogger>().Error(ex, "Error while Checking for Bot");
 
                 responseText = ex.Message;
 

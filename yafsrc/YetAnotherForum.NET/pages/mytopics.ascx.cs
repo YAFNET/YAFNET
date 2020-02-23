@@ -1,8 +1,8 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2019 Ingo Herbote
- * http://www.yetanotherforum.net/
+ * Copyright (C) 2014-2020 Ingo Herbote
+ * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -12,7 +12,7 @@
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
 
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
 
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
@@ -32,7 +32,10 @@ namespace YAF.Pages
     using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Constants;
+    using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Utils.Helpers;
+    using YAF.Web.Controls;
     using YAF.Web.Extensions;
 
     #endregion
@@ -40,32 +43,44 @@ namespace YAF.Pages
     /// <summary>
     /// The my topics page.
     /// </summary>
-    public partial class mytopics : ForumPage
+    public partial class MyTopics : ForumPageRegistered
     {
         /// <summary>
         /// Indicates if the Active Tab was loaded
         /// </summary>
-        private bool activeloaded;
+        private bool activeLoaded;
 
         /// <summary>
         /// Indicates if the Unanswered Tab was loaded
         /// </summary>
-        private bool unansweredloaded;
+        private bool unansweredLoaded;
 
         /// <summary>
         /// Indicates if the Unread Tab was loaded
         /// </summary>
-        private bool unreadloaded;
+        private bool unreadLoaded;
 
         /// <summary>
         /// Indicates if the My Topics Tab was loaded
         /// </summary>
-        private bool mytopicsloaded;
+        private bool mytopicsLoaded;
 
         /// <summary>
         /// Indicates if the Favorite Tab was loaded
         /// </summary>
-        private bool favoriteloaded;
+        private bool favoriteLoaded;
+
+        #region Constructors and Destructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MyTopics"/> class.
+        /// </summary>
+        public MyTopics()
+            : base("MYTOPICS")
+        {
+        }
+
+        #endregion
 
         /// <summary>
         /// Gets or sets the current tab.
@@ -88,18 +103,6 @@ namespace YAF.Pages
             set => this.ViewState["CurrentTab"] = value;
         }
 
-        #region Constructors and Destructors
-
-        /// <summary>
-        ///   Initializes a new instance of the mytopics class.
-        /// </summary>
-        public mytopics()
-            : base("MYTOPICS")
-        {
-        }
-
-        #endregion
-
         #region Methods
 
         /// <summary>
@@ -110,13 +113,34 @@ namespace YAF.Pages
         /// </param>
         protected override void OnPreRender([NotNull] EventArgs e)
         {
-            // setup jQuery and Jquery Ui Tabs.
-            YafContext.Current.PageElements.RegisterJsBlock(
+            this.PageContext.PageElements.RegisterJsBlockStartup(
+                "TopicStarterPopoverJs",
+                JavaScriptBlocks.TopicLinkPopoverJs(
+                    $"{this.GetText("TOPIC_STARTER")}&nbsp;...",
+                    ".topic-starter-popover",
+                    "hover"));
+
+            this.PageContext.PageElements.RegisterJsBlockStartup(
+                "TopicLinkPopoverJs",
+                JavaScriptBlocks.TopicLinkPopoverJs(
+                    $"{this.GetText("LASTPOST")}&nbsp;{this.GetText("SEARCH", "BY")} ...",
+                    ".topic-link-popover",
+                    "focus hover"));
+
+            this.PageContext.PageElements.RegisterJsBlock(
                 "TopicsTabsJs",
                 JavaScriptBlocks.BootstrapTabsLoadJs(
                     this.TopicsTabs.ClientID,
                     this.hidLastTab.ClientID,
                     this.Page.ClientScript.GetPostBackEventReference(this.ChangeTab, string.Empty)));
+
+            var iconLegend = new IconLegend().RenderToString();
+
+            this.PageContext.PageElements.RegisterJsBlockStartup(
+                "TopicIconLegendPopoverJs",
+                JavaScriptBlocks.ForumIconLegendPopoverJs(
+                    iconLegend.ToJsString(),
+                    "topic-icon-legend-popvover"));
 
             base.OnPreRender(e);
         }
@@ -139,21 +163,12 @@ namespace YAF.Pages
                 return;
             }
 
-            this.UserTopicsTabTitle.Visible = !this.PageContext.IsGuest;
-            this.UserTopicsTabContent.Visible = !this.PageContext.IsGuest;
-
-            this.UnreadTopicsTabTitle.Visible = !this.PageContext.IsGuest &&
-                                                this.Get<YafBoardSettings>().UseReadTrackingByDatabase;
-            this.UnreadTopicsTabContent.Visible = !this.PageContext.IsGuest &&
-                                                  this.Get<YafBoardSettings>().UseReadTrackingByDatabase;
+            this.UnreadTopicsTabTitle.Visible = this.Get<BoardSettings>().UseReadTrackingByDatabase;
+            this.UnreadTopicsTabContent.Visible = this.Get<BoardSettings>().UseReadTrackingByDatabase;
 
             this.PageLinks.AddRoot();
 
-            this.PageLinks.AddLink(
-                this.PageContext.IsGuest ? this.GetText("GUESTTITLE") : this.GetText("MEMBERTITLE"), string.Empty);
-
-            this.ForumJumpHolder.Visible = this.Get<YafBoardSettings>().ShowForumJump &&
-                                           this.PageContext.Settings.LockedForum == 0;
+            this.PageLinks.AddLink(this.GetText("MEMBERTITLE"), string.Empty);
         }
 
         #endregion
@@ -196,7 +211,7 @@ namespace YAF.Pages
             {
                 case TopicListMode.Unanswered:
 
-                    if (!this.unansweredloaded)
+                    if (!this.unansweredLoaded)
                     {
                         this.UnansweredTopics.BindData();
 
@@ -208,17 +223,17 @@ namespace YAF.Pages
 
                         if (this.UserTopicsTabTitle.Visible)
                         {
-                            this.MyTopics.DataBind();
+                            this.MyTopicsTopics.DataBind();
                             this.FavoriteTopics.DataBind();
                         }
 
-                        this.unansweredloaded = true;
+                        this.unansweredLoaded = true;
                     }
 
                     break;
                 case TopicListMode.Unread:
 
-                    if (!this.unreadloaded)
+                    if (!this.unreadLoaded)
                     {
                         this.UnreadTopics.BindData();
 
@@ -227,19 +242,19 @@ namespace YAF.Pages
 
                         if (this.UserTopicsTabTitle.Visible)
                         {
-                            this.MyTopics.DataBind();
+                            this.MyTopicsTopics.DataBind();
                             this.FavoriteTopics.DataBind();
                         }
 
-                        this.unreadloaded = true;
+                        this.unreadLoaded = true;
                     }
 
                     break;
                 case TopicListMode.User:
 
-                    if (!this.mytopicsloaded)
+                    if (!this.mytopicsLoaded)
                     {
-                        this.MyTopics.BindData();
+                        this.MyTopicsTopics.BindData();
 
                         this.ActiveTopics.DataBind();
                         this.UnansweredTopics.DataBind();
@@ -253,11 +268,11 @@ namespace YAF.Pages
                             this.FavoriteTopics.DataBind();
                         }
 
-                        this.mytopicsloaded = true;
+                        this.mytopicsLoaded = true;
                     }
                     else
                     {
-                        this.MyTopics.DataBind();
+                        this.MyTopicsTopics.DataBind();
 
                         this.ActiveTopics.DataBind();
                         this.UnansweredTopics.DataBind();
@@ -275,7 +290,7 @@ namespace YAF.Pages
                     break;
                 case TopicListMode.Favorite:
 
-                    if (!this.favoriteloaded)
+                    if (!this.favoriteLoaded)
                     {
                         this.FavoriteTopics.BindData();
 
@@ -288,16 +303,16 @@ namespace YAF.Pages
 
                         if (this.UserTopicsTabTitle.Visible)
                         {
-                            this.MyTopics.DataBind();
+                            this.MyTopicsTopics.DataBind();
                         }
 
-                        this.favoriteloaded = true;
+                        this.favoriteLoaded = true;
                     }
 
                     break;
                 case TopicListMode.Active:
 
-                    if (!this.activeloaded)
+                    if (!this.activeLoaded)
                     {
                         this.ActiveTopics.DataBind();
                         this.UnansweredTopics.DataBind();
@@ -308,11 +323,11 @@ namespace YAF.Pages
 
                         if (this.UserTopicsTabTitle.Visible)
                         {
-                            this.MyTopics.DataBind();
+                            this.MyTopicsTopics.DataBind();
                             this.FavoriteTopics.DataBind();
                         }
 
-                        this.activeloaded = true;
+                        this.activeLoaded = true;
                     }
 
                     break;

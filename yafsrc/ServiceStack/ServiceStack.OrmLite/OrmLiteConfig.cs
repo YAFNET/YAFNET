@@ -20,12 +20,12 @@ namespace ServiceStack.OrmLite
     {
         public const string IdField = "Id";
 
-        private const int defaultCommandTimeout = 30;
+        private const int DefaultCommandTimeout = 30;
         private static int? commandTimeout;
 
         public static int CommandTimeout
         {
-            get => commandTimeout ?? defaultCommandTimeout;
+            get => commandTimeout ?? DefaultCommandTimeout;
             set => commandTimeout = value;
         }
 
@@ -36,48 +36,46 @@ namespace ServiceStack.OrmLite
             {
                 if (dialectProvider == null)
                 {
-                    throw new ArgumentNullException("DialectProvider",
+                    throw new ArgumentNullException(nameof(DialectProvider),
                         "You must set the singleton 'OrmLiteConfig.DialectProvider' to use the OrmLiteWriteExtensions");
                 }
-
                 return dialectProvider;
             }
-
             set => dialectProvider = value;
         }
 
         public static IOrmLiteDialectProvider GetDialectProvider(this IDbCommand dbCmd)
         {
-            return dbCmd is OrmLiteCommand ormLiteCmd 
-                ? ormLiteCmd.DialectProvider
+            return dbCmd is IHasDialectProvider hasDialectProvider 
+                ? hasDialectProvider.DialectProvider
                 : DialectProvider;
         }
 
         public static IOrmLiteDialectProvider GetDialectProvider(this IDbConnection db)
         {
-            return db is OrmLiteConnection ormLiteConn
-                ? ormLiteConn.DialectProvider
+            return db is IHasDialectProvider hasDialectProvider
+                ? hasDialectProvider.DialectProvider
                 : DialectProvider;
         }
 
         public static IOrmLiteExecFilter GetExecFilter(this IOrmLiteDialectProvider dialectProvider) {
             return dialectProvider != null
-                    ? dialectProvider.ExecFilter ?? ExecFilter
-                    : ExecFilter;
+                ? dialectProvider.ExecFilter ?? ExecFilter
+                : ExecFilter;
         }
 
         public static IOrmLiteExecFilter GetExecFilter(this IDbCommand dbCmd) {
-            var dialectProvider = dbCmd is OrmLiteCommand ormLiteCmd
-                ? ormLiteCmd.DialectProvider
+            var dialect = dbCmd is IHasDialectProvider hasDialectProvider
+                ? hasDialectProvider.DialectProvider
                 : DialectProvider;
-            return dialectProvider.GetExecFilter();
+            return dialect.GetExecFilter();
         }
 
         public static IOrmLiteExecFilter GetExecFilter(this IDbConnection db) {
-            var dialectProvider = db is OrmLiteConnection ormLiteConn
-                ? ormLiteConn.DialectProvider
+            var dialect = db is IHasDialectProvider hasDialectProvider
+                ? hasDialectProvider.DialectProvider
                 : DialectProvider;
-            return dialectProvider.GetExecFilter();
+            return dialect.GetExecFilter();
         }
 
         public static void SetLastCommandText(this IDbConnection db, string sql)
@@ -93,7 +91,7 @@ namespace ServiceStack.OrmLite
         public static void SetCommandTimeout(this IDbConnection db, int? commandTimeout)
         {
             if (!(db is OrmLiteConnection ormLiteConn))
-                throw new NotImplementedException(string.Format(RequiresOrmLiteConnection, "CommandTimeout"));
+                throw new NotImplementedException(string.Format(RequiresOrmLiteConnection,"CommandTimeout"));
 
             ormLiteConn.CommandTimeout = commandTimeout;
         }
@@ -135,12 +133,21 @@ namespace ServiceStack.OrmLite
             return dbConn;
         }
 
-        public static void ResetLogFactory(ILogFactory logFactory)
+        public static void ResetLogFactory(ILogFactory logFactory=null)
         {
+            logFactory = logFactory ?? LogManager.LogFactory;
             LogManager.LogFactory = logFactory;
-            OrmLiteResultsFilterExtensions.Log = LogManager.LogFactory.GetLogger(typeof(OrmLiteResultsFilterExtensions));
+            OrmLiteResultsFilterExtensions.Log = logFactory.GetLogger(typeof(OrmLiteResultsFilterExtensions));
+            OrmLiteWriteCommandExtensions.Log = logFactory.GetLogger(typeof(OrmLiteWriteCommandExtensions));
+            OrmLiteReadCommandExtensions.Log = logFactory.GetLogger(typeof(OrmLiteReadCommandExtensions));
+            OrmLiteResultsFilterExtensions.Log = logFactory.GetLogger(typeof(OrmLiteResultsFilterExtensions));
+            OrmLiteUtils.Log = logFactory.GetLogger(typeof(OrmLiteUtils));
+            OrmLiteWriteCommandExtensionsAsync.Log = logFactory.GetLogger(typeof(OrmLiteWriteCommandExtensionsAsync));
+            OrmLiteReadCommandExtensionsAsync.Log = logFactory.GetLogger(typeof(OrmLiteReadCommandExtensionsAsync));
+            OrmLiteResultsFilterExtensionsAsync.Log = logFactory.GetLogger(typeof(OrmLiteResultsFilterExtensionsAsync));
+            OrmLiteConverter.Log = logFactory.GetLogger(typeof(OrmLiteConverter));
         }
-
+        
         public static bool DisableColumnGuessFallback { get; set; }
         public static bool StripUpperInLike { get; set; } 
 #if NETSTANDARD2_0
@@ -154,7 +161,6 @@ namespace ServiceStack.OrmLite
                 var state = OrmLiteContext.OrmLiteState;
                 return state?.ResultsFilter;
             }
-
             set => OrmLiteContext.GetOrCreateState().ResultsFilter = value;
         }
 
@@ -170,7 +176,6 @@ namespace ServiceStack.OrmLite
                     ? dialectProvider.ExecFilter ?? execFilter 
                     : execFilter; 
             }
-
             set => execFilter = value;
         }
 
@@ -180,17 +185,21 @@ namespace ServiceStack.OrmLite
         public static Action<IDbCommand, object> InsertFilter { get; set; }
         public static Action<IDbCommand, object> UpdateFilter { get; set; }
         public static Action<IUntypedSqlExpression> SqlExpressionSelectFilter { get; set; }
+        public static Func<Type, string, string> LoadReferenceSelectFilter { get; set; }
+
 
         public static Func<string, string> StringFilter { get; set; }
 
         public static Func<FieldDefinition, object> OnDbNullFilter { get; set; }
+
+        public static Action<object> PopulatedObjectFilter { get; set; }
 
         public static Action<IDbCommand, Exception> ExceptionFilter { get; set; }
 
         public static bool ThrowOnError { get; set; }
 
         public static Func<string, string> SanitizeFieldNameForParamNameFn = fieldName =>
-            (fieldName ?? string.Empty).Replace(" ", string.Empty);
+            (fieldName ?? "").Replace(" ", "");
 
         public static bool IsCaseInsensitive { get; set; }
 
@@ -198,6 +207,12 @@ namespace ServiceStack.OrmLite
 
         public static bool SkipForeignKeys { get; set; }
 
+        public static bool IncludeTablePrefixes { get; set; }
+        
+        public static Action<IUntypedSqlExpression> SqlExpressionInitFilter { get; set; }
+
         public static Func<string, string> ParamNameFilter { get; set; }
+        
+        public static Action<ModelDefinition> OnModelDefinitionInit { get; set; }
     }
 }

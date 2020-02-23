@@ -1,5 +1,5 @@
 ﻿
-<%@ Control Language="C#" AutoEventWireup="true" Inherits="YAF.Pages.moderate.reportedposts"CodeBehind="reportedposts.ascx.cs" %>
+<%@ Control Language="C#" AutoEventWireup="true" Inherits="YAF.Pages.Moderate.ReportedPosts"CodeBehind="ReportedPosts.ascx.cs" %>
 <%@ Import Namespace="YAF.Types.Constants" %>
 <%@ Import Namespace="YAF.Types.Extensions" %>
 <%@ Import Namespace="ServiceStack" %>
@@ -25,7 +25,7 @@
                                             LocalizedTag="TOPIC" />
                         </span>
                         <a id="TopicLink" 
-                           href='<%# YafBuildLink.GetLink(ForumPages.posts, "t={0}", this.Eval("TopicID")) %>'
+                           href='<%# BuildLink.GetLink(ForumPages.Posts, "t={0}", this.Eval("TopicID")) %>'
                            runat="server"><%# this.Eval("Topic") %></a>
                         <div class="float-right text-muted">
                             <span class="font-weight-bold">
@@ -42,10 +42,12 @@
                             </span>
                             <YAF:UserLink ID="UserLink1" runat="server" UserID='<%# this.Eval("UserID").ToType<int>() %>' />
                             <YAF:ThemeButton ID="AdminUserButton" runat="server" 
-                                             Size="Small" Visible='<%# this.PageContext.IsAdmin %>'
+                                             Size="Small"
+                                             Visible="<%# this.PageContext.IsAdmin %>"
                                              TextLocalizedTag="ADMIN_USER" TextLocalizedPage="PROFILE"
-                                             NavigateUrl='<%# YafBuildLink.GetLinkNotEscaped( ForumPages.admin_edituser,"u={0}", this.Eval("UserID").ToType<int>() ) %>'
-                                             Icon="users-cog" Type="Secondary">
+                                             NavigateUrl='<%# BuildLink.GetLinkNotEscaped( ForumPages.admin_edituser,"u={0}", this.Eval("UserID").ToType<int>() ) %>'
+                                             Icon="users-cog" 
+                                             Type="Danger">
                             </YAF:ThemeButton>
                         </div>
                     </div>
@@ -62,7 +64,7 @@
                                 </span>
                                 <div class="mb-3">
                                     <YAF:MessagePostData ID="MessagePostPrimary" runat="server" 
-                                                         DataRow='<%# ((System.Data.DataRowView)Container.DataItem).Row %>'
+                                                         DataRow="<%# ((System.Data.DataRowView)Container.DataItem).Row %>"
                                                          ShowAttachments="false" 
                                                          ShowEditMessage="False" ShowSignature="False">
                                     </YAF:MessagePostData>

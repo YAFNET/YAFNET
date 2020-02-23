@@ -1,8 +1,8 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2019 Ingo Herbote
- * http://www.yetanotherforum.net/
+ * Copyright (C) 2014-2020 Ingo Herbote
+ * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -12,7 +12,7 @@
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
 
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
 
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
@@ -73,7 +73,7 @@ namespace YAF.Controls
 
             if (!this.PageContext.IsAdmin)
             {
-                YafBuildLink.AccessDenied();
+                BuildLink.AccessDenied();
             }
 
             if (!this.IsPostBack)
@@ -178,28 +178,19 @@ namespace YAF.Controls
                 {
                     var subject = this.GetTextFormatted(
                         "PASSWORDRETRIEVAL_EMAIL_SUBJECT",
-                        this.Get<YafBoardSettings>().Name);
-                    var logoUrl =
-                        $"{YafForumInfo.ForumClientFileRoot}{YafBoardFolders.Current.Logos}/{this.PageContext.BoardSettings.ForumLogo}";
-                    var themeCss =
-                        $"{this.Get<YafBoardSettings>().BaseUrlMask}{this.Get<ITheme>().BuildThemePath("bootstrap-forum.min.css")}";
+                        this.Get<BoardSettings>().Name);
 
                     // email a notification...
-                    var passwordRetrieval = new YafTemplateEmail("PASSWORDRETRIEVAL_ADMIN")
+                    var passwordRetrieval = new TemplateEmail("PASSWORDRETRIEVAL_ADMIN")
                                                 {
                                                     TemplateParams =
                                                         {
                                                             ["{username}"] = user.UserName,
-                                                            ["{password}"] = newPass,
-                                                            ["{forumname}"] = this.Get<YafBoardSettings>().Name,
-                                                            ["{forumlink}"] = YafForumInfo.ForumURL,
-                                                            ["{themecss}"] = themeCss,
-                                                            ["{logo}"] =
-                                                                $"{this.Get<YafBoardSettings>().BaseUrlMask}{logoUrl}"
+                                                            ["{password}"] = newPass
                                                         }
                                                 };
 
-                    passwordRetrieval.SendEmail(new MailAddress(user.Email, user.UserName), subject, true);
+                    passwordRetrieval.SendEmail(new MailAddress(user.Email, user.UserName), subject);
 
                     this.PageContext.AddLoadMessage(
                         this.Get<ILocalization>().GetText("ADMIN_EDITUSER", "MSG_PASS_CHANGED_NOTI"),
@@ -245,28 +236,28 @@ namespace YAF.Controls
 
                 var subject = this.GetTextFormatted(
                     "PASSWORDRETRIEVAL_EMAIL_SUBJECT",
-                    this.Get<YafBoardSettings>().Name);
+                    this.Get<BoardSettings>().Name);
                 var logoUrl =
-                    $"{YafForumInfo.ForumClientFileRoot}{YafBoardFolders.Current.Logos}/{this.PageContext.BoardSettings.ForumLogo}";
+                    $"{BoardInfo.ForumClientFileRoot}{BoardFolders.Current.Logos}/{this.PageContext.BoardSettings.ForumLogo}";
                 var themeCss =
-                    $"{this.Get<YafBoardSettings>().BaseUrlMask}{this.Get<ITheme>().BuildThemePath("bootstrap-forum.min.css")}";
+                    $"{this.Get<BoardSettings>().BaseUrlMask}{this.Get<ITheme>().BuildThemePath("bootstrap-forum.min.css")}";
 
                 // email a notification...
-                var passwordRetrieval = new YafTemplateEmail("PASSWORDRETRIEVAL_ADMIN")
+                var passwordRetrieval = new TemplateEmail("PASSWORDRETRIEVAL_ADMIN")
                                             {
                                                 TemplateParams =
                                                     {
                                                         ["{username}"] = user.UserName,
                                                         ["{password}"] = newPassword,
-                                                        ["{forumname}"] = this.Get<YafBoardSettings>().Name,
-                                                        ["{forumlink}"] = YafForumInfo.ForumURL,
+                                                        ["{forumname}"] = this.Get<BoardSettings>().Name,
+                                                        ["{forumlink}"] = BoardInfo.ForumURL,
                                                         ["{themecss}"] = themeCss,
                                                         ["{logo}"] =
-                                                            $"{this.Get<YafBoardSettings>().BaseUrlMask}{logoUrl}"
+                                                            $"{this.Get<BoardSettings>().BaseUrlMask}{logoUrl}"
                                                     }
                                             };
 
-                passwordRetrieval.SendEmail(new MailAddress(user.Email, user.UserName), subject, true);
+                passwordRetrieval.SendEmail(new MailAddress(user.Email, user.UserName), subject);
 
                 this.PageContext.AddLoadMessage(
                     this.Get<ILocalization>().GetText("ADMIN_EDITUSER", "MSG_PASS_RESET"),

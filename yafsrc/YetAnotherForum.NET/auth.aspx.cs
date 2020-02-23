@@ -1,8 +1,8 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2019 Ingo Herbote
- * http://www.yetanotherforum.net/
+ * Copyright (C) 2014-2020 Ingo Herbote
+ * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -12,7 +12,7 @@
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
 
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
 
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
@@ -60,32 +60,32 @@ namespace YAF
         {
             var closeScript = new StringBuilder();
 
-            closeScript.Append(value: "if (window.opener != null)");
+            closeScript.Append("if (window.opener != null)");
             closeScript.AppendFormat(
-                format: "{{window.opener.location.href = '{0}';window.close();}}",
-                arg0: YafBuildLink.GetLink(page: ForumPages.login).Replace(
-                    oldValue: "auth.aspx",
-                    newValue: "default.aspx"));
+                "{{window.opener.location.href = '{0}';window.close();}}",
+                BuildLink.GetLink(ForumPages.Login).Replace(
+                    "auth.aspx",
+                    "default.aspx"));
             closeScript.AppendFormat(
-                format: "else {{ window.location.href = '{0}' }}",
-                arg0: YafBuildLink.GetLink(page: ForumPages.login).Replace(
-                    oldValue: "auth.aspx",
-                    newValue: "default.aspx"));
+                "else {{ window.location.href = '{0}' }}",
+                BuildLink.GetLink(ForumPages.Login).Replace(
+                    "auth.aspx",
+                    "default.aspx"));
 
-            if (YafContext.Current.Get<HttpRequestBase>().QueryString.Exists(paramName: "denied"))
+            if (BoardContext.Current.Get<HttpRequestBase>().QueryString.Exists("denied"))
             {
-                YafContext.Current.Get<HttpResponseBase>().Clear();
+                BoardContext.Current.Get<HttpResponseBase>().Clear();
 
-                YafContext.Current.Get<HttpResponseBase>().Write(s: $"{ScriptBeginTag} {closeScript} {ScriptEndTag}");
+                BoardContext.Current.Get<HttpResponseBase>().Write($"{ScriptBeginTag} {closeScript} {ScriptEndTag}");
 
                 return;
             }
 
             var loginAuth = (AuthService)Enum.Parse(
-                enumType: typeof(AuthService),
-                value: YafContext.Current.Get<HttpRequestBase>().QueryString
-                    .GetFirstOrDefaultAs<string>(paramName: "auth"),
-                ignoreCase: true);
+                typeof(AuthService),
+                BoardContext.Current.Get<HttpRequestBase>().QueryString
+                    .GetFirstOrDefaultAs<string>("auth"),
+                true);
 
             switch (loginAuth)
             {
@@ -99,8 +99,8 @@ namespace YAF
                     this.HandleGoogleReturn();
                     break;
                 default:
-                    YafContext.Current.Get<HttpResponseBase>()
-                        .Write(s: $"{ScriptBeginTag} {closeScript} {ScriptEndTag}");
+                    BoardContext.Current.Get<HttpResponseBase>()
+                        .Write($"{ScriptBeginTag} {closeScript} {ScriptEndTag}");
                     break;
             }
         }
@@ -114,78 +114,78 @@ namespace YAF
 
             var twitterAuth = new Twitter();
 
-            if (YafContext.Current.Get<HttpRequestBase>().QueryString
-                .GetFirstOrDefaultAs<bool>(paramName: "connectCurrent"))
+            if (BoardContext.Current.Get<HttpRequestBase>().QueryString
+                .GetFirstOrDefaultAs<bool>("connectCurrent"))
             {
                 try
                 {
-                    twitterAuth.ConnectUser(request: this.Request, parameters: null, message: out message);
+                    twitterAuth.ConnectUser(this.Request, null, out message);
                 }
                 catch (Exception ex)
                 {
-                    YafContext.Current.Get<ILogger>().Error(
-                        ex: ex,
-                        format: "Error while trying to connect the twitter user");
+                    BoardContext.Current.Get<ILogger>().Error(
+                        ex,
+                        "Error while trying to connect the twitter user");
 
                     message = ex.Message;
                 }
 
                 if (message.IsSet())
                 {
-                    YafContext.Current.Get<HttpResponseBase>().Write(
-                        s: string.Format(
-                            format: "{2} alert('{0}');window.location.href = '{1}'; {3}",
+                    BoardContext.Current.Get<HttpResponseBase>().Write(
+                        string.Format(
+                            "{2} alert('{0}');window.location.href = '{1}'; {3}",
                             message,
-                            YafBuildLink.GetLink(page: ForumPages.login).Replace(
-                                oldValue: "auth.aspx",
-                                newValue: "default.aspx"),
+                            BuildLink.GetLink(ForumPages.Login).Replace(
+                                "auth.aspx",
+                                "default.aspx"),
                             ScriptBeginTag,
                             ScriptEndTag));
                 }
                 else
                 {
-                    YafBuildLink.Redirect(page: ForumPages.forum);
+                    BuildLink.Redirect(ForumPages.forum);
                 }
             }
             else
             {
                 try
                 {
-                    twitterAuth.LoginOrCreateUser(request: this.Request, parameters: null, message: out message);
+                    twitterAuth.LoginOrCreateUser(this.Request, null, out message);
                 }
                 catch (Exception ex)
                 {
-                    YafContext.Current.Get<ILogger>().Error(
-                        ex: ex,
-                        format: "Error while trying to login or register the twitter user");
+                    BoardContext.Current.Get<ILogger>().Error(
+                        ex,
+                        "Error while trying to login or register the twitter user");
 
                     message = ex.Message;
                 }
 
-                YafContext.Current.Get<HttpResponseBase>().Clear();
+                BoardContext.Current.Get<HttpResponseBase>().Clear();
 
                 if (message.IsSet())
                 {
-                    YafContext.Current.Get<HttpResponseBase>().Write(
-                        s: string.Format(
-                            format: "{2} alert('{0}');window.opener.location.href = '{1}';window.close(); {3}>",
+                    BoardContext.Current.Get<HttpResponseBase>().Write(
+                        string.Format(
+                            "{2} alert('{0}');window.opener.location.href = '{1}';window.close(); {3}>",
                             message,
-                            YafBuildLink.GetLink(page: ForumPages.login).Replace(
-                                oldValue: "auth.aspx",
-                                newValue: "default.aspx"),
+                            BuildLink.GetLink(ForumPages.Login).Replace(
+                                "auth.aspx",
+                                "default.aspx"),
                             ScriptBeginTag,
                             ScriptEndTag));
                 }
                 else
                 {
-                    YafContext.Current.Get<HttpResponseBase>().Write(
-                        s: string.Format(
-                            format: "{1} window.opener.location.href = '{0}';window.close(); {2}>",
-                            arg0: YafBuildLink.GetLink(page: ForumPages.forum).Replace(
-                                oldValue: "auth.aspx",
-                                newValue: "default.aspx"),
-                            arg1: ScriptBeginTag,
-                            arg2: ScriptEndTag));
+                    BoardContext.Current.Get<HttpResponseBase>().Write(
+                        string.Format(
+                            "{1} window.opener.location.href = '{0}';window.close(); {2}>",
+                            BuildLink.GetLink(ForumPages.forum).Replace(
+                                "auth.aspx",
+                                "default.aspx"),
+                            ScriptBeginTag,
+                            ScriptEndTag));
                 }
             }
         }
@@ -197,63 +197,63 @@ namespace YAF
         {
             var facebookAuth = new Facebook();
 
-            if (YafContext.Current.Get<HttpRequestBase>().QueryString.Exists(paramName: "code"))
+            if (BoardContext.Current.Get<HttpRequestBase>().QueryString.Exists("code"))
             {
-                var authorizationCode = YafContext.Current.Get<HttpRequestBase>().QueryString
-                    .GetFirstOrDefault(paramName: "code");
+                var authorizationCode = BoardContext.Current.Get<HttpRequestBase>().QueryString
+                    .GetFirstOrDefault("code");
                 var accessToken = facebookAuth.GetAccessToken(
-                    authorizationCode: authorizationCode,
-                    request: this.Request);
+                    authorizationCode,
+                    this.Request);
 
                 if (accessToken.IsNotSet())
                 {
-                    YafContext.Current.Get<HttpResponseBase>().Write(
-                        s: string.Format(
-                            format: "{2} alert('{0}');window.location.href = '{1}'; {3}",
-                            YafContext.Current.Get<ILocalization>().GetText(text: "AUTH_NO_ACCESS_TOKEN"),
-                            YafBuildLink.GetLink(page: ForumPages.login).Replace(
-                                oldValue: "auth.aspx",
-                                newValue: "default.aspx"),
+                    BoardContext.Current.Get<HttpResponseBase>().Write(
+                        string.Format(
+                            "{2} alert('{0}');window.location.href = '{1}'; {3}",
+                            BoardContext.Current.Get<ILocalization>().GetText("AUTH_NO_ACCESS_TOKEN"),
+                            BuildLink.GetLink(ForumPages.Login).Replace(
+                                "auth.aspx",
+                                "default.aspx"),
                             ScriptBeginTag,
                             ScriptEndTag));
 
                     return;
                 }
 
-                if (YafContext.Current.Get<HttpRequestBase>().QueryString.Exists(paramName: "state")
-                    && YafContext.Current.Get<HttpRequestBase>().QueryString.GetFirstOrDefault(paramName: "state")
+                if (BoardContext.Current.Get<HttpRequestBase>().QueryString.Exists("state")
+                    && BoardContext.Current.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("state")
                     == "connectCurrent")
                 {
                     string message;
 
                     try
                     {
-                        facebookAuth.ConnectUser(request: this.Request, parameters: accessToken, message: out message);
+                        facebookAuth.ConnectUser(this.Request, accessToken, out message);
                     }
                     catch (Exception ex)
                     {
-                        YafContext.Current.Get<ILogger>().Error(
-                            ex: ex,
-                            format: "Error while trying to connect the facebook user");
+                        BoardContext.Current.Get<ILogger>().Error(
+                            ex,
+                            "Error while trying to connect the facebook user");
 
                         message = ex.Message;
                     }
 
                     if (message.IsSet())
                     {
-                        YafContext.Current.Get<HttpResponseBase>().Write(
-                            s: string.Format(
-                                format: "{2} alert('{0}');window.location.href = '{1}'; {3}",
+                        BoardContext.Current.Get<HttpResponseBase>().Write(
+                            string.Format(
+                                "{2} alert('{0}');window.location.href = '{1}'; {3}",
                                 message,
-                                YafBuildLink.GetLink(page: ForumPages.forum).Replace(
-                                    oldValue: "auth.aspx",
-                                    newValue: "default.aspx"),
+                                BuildLink.GetLink(ForumPages.forum).Replace(
+                                    "auth.aspx",
+                                    "default.aspx"),
                                 ScriptBeginTag,
                                 ScriptEndTag));
                     }
                     else
                     {
-                        YafBuildLink.Redirect(page: ForumPages.forum);
+                        BuildLink.Redirect(ForumPages.forum);
                     }
                 }
                 else
@@ -263,58 +263,58 @@ namespace YAF
                     try
                     {
                         facebookAuth.LoginOrCreateUser(
-                            request: this.Request,
-                            parameters: accessToken,
-                            message: out message);
+                            this.Request,
+                            accessToken,
+                            out message);
                     }
                     catch (Exception ex)
                     {
-                        YafContext.Current.Get<ILogger>().Error(
-                            ex: ex,
-                            format: "Error while trying to login or register the facebook user");
+                        BoardContext.Current.Get<ILogger>().Error(
+                            ex,
+                            "Error while trying to login or register the facebook user");
 
                         message = ex.Message;
                     }
 
-                    YafContext.Current.Get<HttpResponseBase>().Clear();
+                    BoardContext.Current.Get<HttpResponseBase>().Clear();
 
                     if (message.IsSet())
                     {
-                        YafContext.Current.Get<HttpResponseBase>().Write(
-                            s: string.Format(
-                                format: "{2} alert('{0}');window.location.href = '{1}';window.close(); {3}",
+                        BoardContext.Current.Get<HttpResponseBase>().Write(
+                            string.Format(
+                                "{2} alert('{0}');window.location.href = '{1}';window.close(); {3}",
                                 message,
-                                YafBuildLink.GetLink(page: ForumPages.login).Replace(
-                                    oldValue: "auth.aspx",
-                                    newValue: "default.aspx"),
+                                BuildLink.GetLink(ForumPages.Login).Replace(
+                                    "auth.aspx",
+                                    "default.aspx"),
                                 ScriptBeginTag,
                                 ScriptEndTag));
                     }
                     else
                     {
-                        YafContext.Current.Get<HttpResponseBase>().Write(
-                            s: string.Format(
-                                format: "{1} window.location.href = '{0}';window.close(); {2}",
-                                arg0: YafBuildLink.GetLink(page: ForumPages.forum).Replace(
-                                    oldValue: "auth.aspx",
-                                    newValue: "default.aspx"),
-                                arg1: ScriptBeginTag,
-                                arg2: ScriptEndTag));
+                        BoardContext.Current.Get<HttpResponseBase>().Write(
+                            string.Format(
+                                "{1} window.location.href = '{0}';window.close(); {2}",
+                                BuildLink.GetLink(ForumPages.forum).Replace(
+                                    "auth.aspx",
+                                    "default.aspx"),
+                                ScriptBeginTag,
+                                ScriptEndTag));
                     }
                 }
             }
-            else if (YafContext.Current.Get<HttpRequestBase>().QueryString.Exists(paramName: "error"))
+            else if (BoardContext.Current.Get<HttpRequestBase>().QueryString.Exists("error"))
             {
                 // Return to login page if user cancels social login
-                YafContext.Current.Get<HttpResponseBase>()
-                    .Redirect(url: YafBuildLink.GetLink(page: ForumPages.login, fullUrl: true));
+                BoardContext.Current.Get<HttpResponseBase>()
+                    .Redirect(BuildLink.GetLink(ForumPages.Login, true));
             }
             else
             {
                 // Authorize first
-                YafContext.Current.Get<HttpResponseBase>().Redirect(
-                    url: facebookAuth.GetAuthorizeUrl(request: this.Request),
-                    endResponse: true);
+                BoardContext.Current.Get<HttpResponseBase>().Redirect(
+                    facebookAuth.GetAuthorizeUrl(this.Request),
+                    true);
             }
         }
 
@@ -325,65 +325,65 @@ namespace YAF
         {
             var googleAuth = new Google();
 
-            if (YafContext.Current.Get<HttpRequestBase>().QueryString.Exists(paramName: "code"))
+            if (BoardContext.Current.Get<HttpRequestBase>().QueryString.Exists("code"))
             {
-                var authorizationCode = YafContext.Current.Get<HttpRequestBase>().QueryString
-                    .GetFirstOrDefault(paramName: "code");
+                var authorizationCode = BoardContext.Current.Get<HttpRequestBase>().QueryString
+                    .GetFirstOrDefault("code");
                 var accessTokens = googleAuth.GetAccessToken(
-                    authorizationCode: authorizationCode,
-                    request: this.Request);
+                    authorizationCode,
+                    this.Request);
 
                 if (accessTokens.AccessToken == null)
                 {
-                    YafContext.Current.Get<HttpResponseBase>().Write(
-                        s: string.Format(
-                            format: "{2} alert('{0}');window.location.href = '{1}'; {3}",
-                            YafContext.Current.Get<ILocalization>().GetText(text: "AUTH_NO_ACCESS_TOKEN"),
-                            YafBuildLink.GetLink(page: ForumPages.login).Replace(
-                                oldValue: "auth.aspx",
-                                newValue: "default.aspx"),
+                    BoardContext.Current.Get<HttpResponseBase>().Write(
+                        string.Format(
+                            "{2} alert('{0}');window.location.href = '{1}'; {3}",
+                            BoardContext.Current.Get<ILocalization>().GetText("AUTH_NO_ACCESS_TOKEN"),
+                            BuildLink.GetLink(ForumPages.Login).Replace(
+                                "auth.aspx",
+                                "default.aspx"),
                             ScriptBeginTag,
                             ScriptEndTag));
 
                     return;
                 }
 
-                if (YafContext.Current.Get<HttpRequestBase>().QueryString
-                    .GetFirstOrDefaultAs<bool>(paramName: "connectCurrent"))
+                if (BoardContext.Current.Get<HttpRequestBase>().QueryString
+                    .GetFirstOrDefaultAs<bool>("connectCurrent"))
                 {
                     string message;
 
                     try
                     {
                         googleAuth.ConnectUser(
-                            request: this.Request,
-                            parameters: accessTokens.AccessToken,
-                            message: out message);
+                            this.Request,
+                            accessTokens.AccessToken,
+                            out message);
                     }
                     catch (Exception ex)
                     {
-                        YafContext.Current.Get<ILogger>().Error(
-                            ex: ex,
-                            format: "Error while trying to connect the google user");
+                        BoardContext.Current.Get<ILogger>().Error(
+                            ex,
+                            "Error while trying to connect the google user");
 
                         message = ex.Message;
                     }
 
                     if (message.IsSet())
                     {
-                        YafContext.Current.Get<HttpResponseBase>().Write(
-                            s: string.Format(
-                                format: "{2} alert('{0}');window.location.href = '{1}'; {3}",
+                        BoardContext.Current.Get<HttpResponseBase>().Write(
+                            string.Format(
+                                "{2} alert('{0}');window.location.href = '{1}'; {3}",
                                 message,
-                                YafBuildLink.GetLink(page: ForumPages.forum).Replace(
-                                    oldValue: "auth.aspx",
-                                    newValue: "default.aspx"),
+                                BuildLink.GetLink(ForumPages.forum).Replace(
+                                    "auth.aspx",
+                                    "default.aspx"),
                                 ScriptBeginTag,
                                 ScriptEndTag));
                     }
                     else
                     {
-                        YafBuildLink.Redirect(page: ForumPages.forum);
+                        BuildLink.Redirect(ForumPages.forum);
                     }
                 }
                 else
@@ -393,58 +393,58 @@ namespace YAF
                     try
                     {
                         googleAuth.LoginOrCreateUser(
-                            request: this.Request,
-                            parameters: accessTokens.AccessToken,
-                            message: out message);
+                            this.Request,
+                            accessTokens.AccessToken,
+                            out message);
                     }
                     catch (Exception ex)
                     {
-                        YafContext.Current.Get<ILogger>().Error(
-                            ex: ex,
-                            format: "Error while trying to login or register the google user");
+                        BoardContext.Current.Get<ILogger>().Error(
+                            ex,
+                            "Error while trying to login or register the google user");
 
                         message = ex.Message;
                     }
 
-                    YafContext.Current.Get<HttpResponseBase>().Clear();
+                    BoardContext.Current.Get<HttpResponseBase>().Clear();
 
                     if (message.IsSet())
                     {
-                        YafContext.Current.Get<HttpResponseBase>().Write(
-                            s: string.Format(
-                                format: "{2} alert('{0}');window.location.href = '{1}';window.close(); {3}",
+                        BoardContext.Current.Get<HttpResponseBase>().Write(
+                            string.Format(
+                                "{2} alert('{0}');window.location.href = '{1}';window.close(); {3}",
                                 message,
-                                YafBuildLink.GetLink(page: ForumPages.login).Replace(
-                                    oldValue: "auth.aspx",
-                                    newValue: "default.aspx"),
+                                BuildLink.GetLink(ForumPages.Login).Replace(
+                                    "auth.aspx",
+                                    "default.aspx"),
                                 ScriptBeginTag,
                                 ScriptEndTag));
                     }
                     else
                     {
-                        YafContext.Current.Get<HttpResponseBase>().Write(
-                            s: string.Format(
-                                format: "{1} window.location.href = '{0}';window.close(); {2}",
-                                arg0: YafBuildLink.GetLink(page: ForumPages.forum).Replace(
-                                    oldValue: "auth.aspx",
-                                    newValue: "default.aspx"),
-                                arg1: ScriptBeginTag,
-                                arg2: ScriptEndTag));
+                        BoardContext.Current.Get<HttpResponseBase>().Write(
+                            string.Format(
+                                "{1} window.location.href = '{0}';window.close(); {2}",
+                                BuildLink.GetLink(ForumPages.forum).Replace(
+                                    "auth.aspx",
+                                    "default.aspx"),
+                                ScriptBeginTag,
+                                ScriptEndTag));
                     }
                 }
             }
-            else if (YafContext.Current.Get<HttpRequestBase>().QueryString.Exists(paramName: "error"))
+            else if (BoardContext.Current.Get<HttpRequestBase>().QueryString.Exists("error"))
             {
                 // Return to login page if user cancels social login
-                YafContext.Current.Get<HttpResponseBase>()
-                    .Redirect(url: YafBuildLink.GetLink(page: ForumPages.login, fullUrl: true));
+                BoardContext.Current.Get<HttpResponseBase>()
+                    .Redirect(BuildLink.GetLink(ForumPages.Login, true));
             }
             else
             {
                 // Authorize first
-                YafContext.Current.Get<HttpResponseBase>().Redirect(
-                    url: googleAuth.GetAuthorizeUrl(request: this.Request),
-                    endResponse: true);
+                BoardContext.Current.Get<HttpResponseBase>().Redirect(
+                    googleAuth.GetAuthorizeUrl(this.Request),
+                    true);
             }
         }
     }

@@ -1,8 +1,8 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2019 Ingo Herbote
- * http://www.yetanotherforum.net/
+ * Copyright (C) 2014-2020 Ingo Herbote
+ * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -12,7 +12,7 @@
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
 
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
 
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
@@ -38,7 +38,7 @@ namespace YAF.Modules
     /// <summary>
     /// LanguageDirection Module
     /// </summary>
-    [YafModule(moduleName: "Language Direction Module", moduleAuthor: "Ingo Herbote", moduleVersion: 1)]
+    [YafModule("Language Direction Module", "Ingo Herbote", 1)]
     public class LanguageDirectionModule : SimpleBaseForumModule
     {
         /// <summary>
@@ -58,11 +58,11 @@ namespace YAF.Modules
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void ForumPage_PreRender([NotNull] object sender, [NotNull] EventArgs e)
         {
-            var body = this.CurrentForumPage.FindControlRecursiveBothAs<HtmlGenericControl>(id: "YafBody");
+            var body = this.CurrentForumPage.FindControlRecursiveBothAs<HtmlGenericControl>("YafBody");
 
             if (body != null && this.Get<ILocalization>().Culture.TextInfo.IsRightToLeft)
             {
-                body.Attributes.Add(key: "dir", value: "rtl");
+                body.Attributes.Add("dir", "rtl");
             }
         }
 

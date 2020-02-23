@@ -11,7 +11,7 @@ namespace YAF.Controls
 {
 
 
-    public partial class emaildigest
+    public partial class EmailDigest
     {
 
         /// <summary>

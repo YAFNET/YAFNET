@@ -1,8 +1,8 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2019 Ingo Herbote
- * http://www.yetanotherforum.net/
+ * Copyright (C) 2014-2020 Ingo Herbote
+ * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -12,7 +12,7 @@
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
 
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
 
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
@@ -110,7 +110,7 @@ namespace YAF.Core.UsersRoles
         ///   Initializes a new instance of the <see cref = "CombinedUserDataHelper" /> class.
         /// </summary>
         public CombinedUserDataHelper()
-            : this(YafContext.Current.PageUserID)
+            : this(BoardContext.Current.PageUserID)
         {
         }
 
@@ -158,7 +158,7 @@ namespace YAF.Core.UsersRoles
                 {
                     this.userDbRow = UserMembershipHelper.GetUserRowForID(
                         this.userId.Value,
-                        YafContext.Current.Get<YafBoardSettings>().AllowUserInfoCaching);
+                        BoardContext.Current.Get<BoardSettings>().AllowUserInfoCaching);
                 }
 
                 return this.userDbRow;
@@ -189,7 +189,12 @@ namespace YAF.Core.UsersRoles
         /// </summary>
         public bool DailyDigest =>
             this.DBRow.Field<bool?>("DailyDigest") ??
-            YafContext.Current.Get<YafBoardSettings>().DefaultSendDigestEmail;
+            BoardContext.Current.Get<BoardSettings>().DefaultSendDigestEmail;
+
+        /// <summary>
+        /// Enable Activity Stream (If checked you get Notifications for Mentions, Quotes and Thanks.
+        /// </summary>
+        public bool Activity => this.DBRow.Field<bool>("Activity");
 
         /// <summary>
         ///   Gets DisplayName.
@@ -205,7 +210,7 @@ namespace YAF.Core.UsersRoles
             {
                 if (this.Membership == null && !this.IsGuest)
                 {
-                    YafContext.Current.Get<ILogger>()
+                    BoardContext.Current.Get<ILogger>()
                         .Log(
                             this.UserID,
                             "CombinedUserDataHelper.get_Email",

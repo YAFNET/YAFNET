@@ -13,12 +13,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 
 namespace ServiceStack.Text.Controller
 {
 	public class CommandProcessor 
 	{
-		private object[] Controllers { get; }
+		private object[] Controllers { get; set; }
 
 		private readonly Dictionary<string, object> contextMap;
 
@@ -29,7 +30,7 @@ namespace ServiceStack.Text.Controller
 			this.contextMap = new Dictionary<string, object>();
             foreach (var x in controllers.ToList())
             {
-                this.contextMap[x.GetType().Name] = x;
+                contextMap[x.GetType().Name] = x;
             }
         }
 
@@ -42,7 +43,7 @@ namespace ServiceStack.Text.Controller
 			var pathInfo = PathInfo.Parse(actionParts[1]);
 
 		    if (!this.contextMap.TryGetValue(controllerName, out var context))
-		        throw new Exception($"UnknownContext: {controllerName}");
+		        throw new Exception("UnknownContext: " + controllerName);
 
             var methodName = pathInfo.ActionName;
 
@@ -73,7 +74,6 @@ namespace ServiceStack.Text.Controller
 				var argValue = TypeSerializer.DeserializeFromString(propertyValueString, propertyValueType);
 				convertedValues[i] = argValue;
 			}
-
 			return convertedValues;
 		}
 	}

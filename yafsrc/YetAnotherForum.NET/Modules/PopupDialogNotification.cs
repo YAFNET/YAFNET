@@ -1,8 +1,8 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2019 Ingo Herbote
- * http://www.yetanotherforum.net/
+ * Copyright (C) 2014-2020 Ingo Herbote
+ * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -12,7 +12,7 @@
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
 
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
 
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
@@ -85,21 +85,21 @@ namespace YAF.Modules
                       }}
 
                       $.notify({{
-                                   title: ""{this.Get<YafBoardSettings>().Name}"",
+                                   title: ""{this.Get<BoardSettings>().Name}"",
                                    message: newErrorStr,
                                    icon: iconFA
                             }},
                             {{
                                   type: newErrorType,
-                                  element: 'body', position: null, placement: {{ from: 'top', align: 'center' }}, delay: {this.Get<YafBoardSettings>().MessageNotifcationDuration} * 1000
+                                  element: 'body', position: null, placement: {{ from: 'top', align: 'center' }}, delay: {this.Get<BoardSettings>().MessageNotifcationDuration} * 1000
                         }});}} }}";
 
-            YafContext.Current.PageElements.RegisterJsBlock(
-                thisControl: this,
-                name: this.ShowModalFunction,
-                script: javaScriptFunction);
+            BoardContext.Current.PageElements.RegisterJsBlock(
+                this,
+                this.ShowModalFunction,
+                javaScriptFunction);
 
-            base.OnPreRender(e: e);
+            base.OnPreRender(e);
         }
 
         #endregion

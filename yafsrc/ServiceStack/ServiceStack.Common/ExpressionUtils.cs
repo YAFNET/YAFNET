@@ -52,11 +52,10 @@ namespace ServiceStack
                 return null;
 
             var to = new Dictionary<string, object>();
-            foreach (var binding in initExpr.Bindings)
+            foreach (MemberBinding binding in initExpr.Bindings)
             {
                 to[binding.Member.Name] = binding.GetValue();
             }
-
             return to;
         }
 
@@ -98,7 +97,7 @@ namespace ServiceStack
                     return new[] { member.Member.Name };
             }
 
-            throw new ArgumentException($"Invalid Fields List Expression: {expr}");
+            throw new ArgumentException("Invalid Fields List Expression: " + expr);
         }
 
         public static object GetValue(this MemberBinding binding)
@@ -118,7 +117,7 @@ namespace ServiceStack
                     {
                         Log.Error("Error compiling expression in MemberBinding.GetValue()", ex);
 
-                        // Fallback to compile and execute
+                        //Fallback to compile and execute
                         var member = Expression.Convert(assign.Expression, typeof(object));
                         var lambda = Expression.Lambda<Func<object>>(member);
                         var getter = lambda.Compile();

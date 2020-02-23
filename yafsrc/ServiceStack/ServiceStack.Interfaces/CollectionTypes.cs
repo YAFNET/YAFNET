@@ -8,17 +8,18 @@ using System.Runtime.Serialization;
 namespace ServiceStack
 {
     /*
-            * Useful collection DTO's that provide pretty Xml output for collection types, e.g.
-            * 
-            * ArrayOfIntId Ids { get; set; }		
-            * ... =>
-            * 
-            * <Ids>
-            *   <Id>1</Id>
-            *   <Id>2</Id>
-            *   <Id>3</Id>
-            * <Ids>
-            */
+    * Useful collection DTO's that provide pretty Xml output for collection types, e.g.
+    * 
+    * ArrayOfIntId Ids { get; set; }		
+    * ... =>
+    * 
+    * <Ids>
+    *   <Id>1</Id>
+    *   <Id>2</Id>
+    *   <Id>3</Id>
+    * <Ids>
+    */
+
     [CollectionDataContract(ItemName = "String")]
     public partial class ArrayOfString : List<string>
     {
@@ -26,15 +27,8 @@ namespace ServiceStack
         {
         }
 
-        public ArrayOfString(IEnumerable<string> collection)
-            : base(collection)
-        {
-        }
-
-        public ArrayOfString(params string[] args)
-            : base(args)
-        {
-        }
+        public ArrayOfString(IEnumerable<string> collection) : base(collection) { }
+        public ArrayOfString(params string[] args) : base(args) { }
     }
 
     [CollectionDataContract(ItemName = "Id")]
@@ -44,15 +38,8 @@ namespace ServiceStack
         {
         }
 
-        public ArrayOfStringId(IEnumerable<string> collection)
-            : base(collection)
-        {
-        }
-
-        public ArrayOfStringId(params string[] args)
-            : base(args)
-        {
-        }
+        public ArrayOfStringId(IEnumerable<string> collection) : base(collection) { }
+        public ArrayOfStringId(params string[] args) : base(args) { }
     }
 
     [CollectionDataContract(ItemName = "Guid")]
@@ -62,15 +49,8 @@ namespace ServiceStack
         {
         }
 
-        public ArrayOfGuid(IEnumerable<Guid> collection)
-            : base(collection)
-        {
-        }
-
-        public ArrayOfGuid(params Guid[] args)
-            : base(args)
-        {
-        }
+        public ArrayOfGuid(IEnumerable<Guid> collection) : base(collection) { }
+        public ArrayOfGuid(params Guid[] args) : base(args) { }
     }
 
     [CollectionDataContract(ItemName = "Id")]
@@ -80,15 +60,8 @@ namespace ServiceStack
         {
         }
 
-        public ArrayOfGuidId(IEnumerable<Guid> collection)
-            : base(collection)
-        {
-        }
-
-        public ArrayOfGuidId(params Guid[] args)
-            : base(args)
-        {
-        }
+        public ArrayOfGuidId(IEnumerable<Guid> collection) : base(collection) { }
+        public ArrayOfGuidId(params Guid[] args) : base(args) { }
     }
 
     [CollectionDataContract(ItemName = "Long")]
@@ -98,15 +71,8 @@ namespace ServiceStack
         {
         }
 
-        public ArrayOfLong(IEnumerable<long> collection)
-            : base(collection)
-        {
-        }
-
-        public ArrayOfLong(params long[] args)
-            : base(args)
-        {
-        }
+        public ArrayOfLong(IEnumerable<long> collection) : base(collection) { }
+        public ArrayOfLong(params long[] args) : base(args) { }
     }
 
     [CollectionDataContract(ItemName = "Id")]
@@ -116,15 +82,8 @@ namespace ServiceStack
         {
         }
 
-        public ArrayOfLongId(IEnumerable<long> collection)
-            : base(collection)
-        {
-        }
-
-        public ArrayOfLongId(params long[] args)
-            : base(args)
-        {
-        }
+        public ArrayOfLongId(IEnumerable<long> collection) : base(collection) { }
+        public ArrayOfLongId(params long[] args) : base(args) { }
     }
 
     [CollectionDataContract(ItemName = "Int")]
@@ -134,15 +93,8 @@ namespace ServiceStack
         {
         }
 
-        public ArrayOfInt(IEnumerable<int> collection)
-            : base(collection)
-        {
-        }
-
-        public ArrayOfInt(params int[] args)
-            : base(args)
-        {
-        }
+        public ArrayOfInt(IEnumerable<int> collection) : base(collection) { }
+        public ArrayOfInt(params int[] args) : base(args) { }
     }
 
     [CollectionDataContract(ItemName = "Id")]
@@ -152,14 +104,8 @@ namespace ServiceStack
         {
         }
 
-        public ArrayOfIntId(IEnumerable<int> collection)
-            : base(collection)
-        {
-        }
-
-        public ArrayOfIntId(params int[] args)
-            : base(args)
-        {
-        }
+        public ArrayOfIntId(IEnumerable<int> collection) : base(collection) { }
+        public ArrayOfIntId(params int[] args) : base(args) { }
     }
+
 }

@@ -1,10 +1,8 @@
 ﻿<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Controls.DisplayPost" EnableViewState="false" Codebehind="DisplayPost.ascx.cs" %>
-<%@ Register TagPrefix="YAF" TagName="DisplayPostFooter" Src="DisplayPostFooter.ascx" %>
 <%@ Import Namespace="YAF.Types.Constants" %>
 <%@ Import Namespace="YAF.Types.Interfaces" %>
-<%@ Import Namespace="YAF.Types.Extensions" %>
 <%@ Import Namespace="ServiceStack" %>
-<%@ Import Namespace="YAF.Core.Services" %>
+<%@ Import Namespace="System.Data" %>
 
 <asp:PlaceHolder runat="server" ID="ShowHideIgnoredUserPost" Visible="False">
     <YAF:Alert runat="server" Type="info" Dismissing="True">
@@ -14,7 +12,7 @@
                          TextLocalizedTag="TOGGLEPOST"
                          Icon="eye"
                          DataToggle="collapse"
-                         DataTarget='<%# this.MessageRow.ClientID %>'/>
+                         DataTarget="<%# this.MessageRow.ClientID %>"/>
     </YAF:Alert>
 </asp:PlaceHolder>
 
@@ -23,31 +21,17 @@
     <div class="row">
     <div class="col-xl-12">
         <div class="card mb-3">
-            <div class="card-header">
+            <div class="card-header py-1">
                 <div class="row">
                     <div class="col-auto d-none d-md-block">
                         <asp:Image runat="server" ID="Avatar" 
-                                   CssClass="rounded img-thumbnail img-avatar-sm" />
+                                   CssClass="img-avatar-sm mt-2" />
                     </div>
                     <div class="col-auto mr-auto">
                         <asp:PlaceHolder runat="server" ID="UserInfo">
                             <ul class="list-inline">
                                 <li class="list-inline-item">
-                                    <a id="post<%# this.DataRow["MessageID"] %>" 
-                                       href='<%# YafBuildLink.GetLink(ForumPages.posts,"m={0}#post{0}", this.DataRow["MessageID"]) %>'>
-                                        #<%# this.CurrentPage * this.Get<YafBoardSettings>().PostsPerPage + this.PostCount + 1%>
-                                    </a>
-                                </li>
-                                <li class="list-inline-item">
-                                    <YAF:UserLink  ID="UserProfileLink" runat="server" 
-                                                   UserID='<%# this.PostData.UserId%>'
-                                                   ReplaceName='<%#  this.Get<YafBoardSettings>().EnableDisplayName  ? this.DataRow["DisplayName"] : this.DataRow["UserName"]%>'
-                                                   PostfixText='<%# this.DataRow["IP"].ToString() == "NNTP" ? this.GetText("EXTERNALUSER") : string.Empty %>'
-                                                   Style='<%# this.DataRow["Style"]%>' 
-                                                   EnableHoverCard="False" 
-                                                   Suspended='<%# this.DataRow["Suspended"] != DBNull.Value && this.DataRow["Suspended"].ToType<DateTime>() > DateTime.UtcNow %>'
-                                                   CssClass="dropdown-toggle" />
-                                    <YAF:PopMenu runat="server" ID="PopMenu1" Control="UserName" />
+                                    <YAF:UserLink  ID="UserProfileLink" runat="server" />
                                     <YAF:ThemeButton ID="AddReputation" runat="server" 
                                                      CssClass='<%# "AddReputation_{0} mr-1".Fmt(this.DataRow["UserID"])%>'
                                                      Size="Small"
@@ -68,149 +52,231 @@
                                                      TitleLocalizedTag="VOTE_DOWN_TITLE"
                                                      OnClick="RemoveUserReputation">
                                     </YAF:ThemeButton>
-                                    <asp:Label ID="TopicStarterBadge" runat="server" 
-                                               CssClass="badge badge-dark mb-2"
-                                               Visible='<%# this.DataRow["TopicOwnerID"].ToType<int>().Equals(this.PostData.UserId) %>'
-                                               ToolTip='<%# this.GetText("POSTS","TOPIC_STARTER_HELP") %>'>
-                                        <YAF:LocalizedLabel ID="TopicStarterText" runat="server" 
-                                                            LocalizedTag="TOPIC_STARTER" 
-                                                            LocalizedPage="POSTS" />
-                                    </asp:Label>
-                                    <asp:Label runat="server" CssClass="badge badge-success" ID="MessageIsAnswerBadge" 
-                                               Visible='<%# this.PostData.PostIsAnswer %>'
-                                               ToolTip='<%# this.GetText("POSTS","MESSAGE_ANSWER_HELP") %>'>
-                                        <i class="fas fa-check fa-fw"></i>
-                                        <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="MESSAGE_ANSWER" LocalizedPage="POSTS" />
-                                    </asp:Label>
+                                    
                                 </li>
-                                <asp:PlaceHolder runat="server" Visible='<%# this.Get<YafBoardSettings>().ShowGroups %>'>
-                                    <li class="list-inline-item d-none d-md-inline-block"><%# this.GetUserRoles() %></li>
-                                </asp:PlaceHolder>
-                                
-                                <li class="list-inline-item d-none d-md-inline-block"><%# this.GetUserRank() %></li>
-                                <asp:PlaceHolder runat="server" ID="UserReputation" Visible='<%#this.Get<YafBoardSettings>().DisplayPoints && !this.DataRow["IsGuest"].ToType<bool>() %>'>
-                                    <li class="d-none d-md-block">
-                                        <%# YafReputation.GenerateReputationBar(this.DataRow["Points"].ToType<int>(), this.PostData.UserId) %>
+                                <asp:PlaceHolder runat="server" ID="IPHolder" Visible="False">
+                                    <li class="list-inline-item d-none d-md-inline-block">
+                                        <asp:Label id="IPInfo" runat="server" 
+                                                   Visible="false" 
+                                                   CssClass="badge badge-info">
+                                            <%# this.GetText("IP") %>:&nbsp;
+                                            <a id="IPLink1" href="#" target="_blank" runat="server" class="text-white"></a>			   
+                                        </asp:Label> 
                                     </li>
                                 </asp:PlaceHolder>
+                                <asp:PlaceHolder runat="server" ID="UserReputation" Visible='<%#this.Get<BoardSettings>().DisplayPoints && !this.DataRow.Field<bool>("IsGuest") %>'>
+                                    <li class="list-inline-item d-none d-md-inline-block" style="width:150px">
+                                        <%# this.Get<IReputation>().GenerateReputationBar(this.DataRow.Field<int>("Points"), this.PostData.UserId) %>
+                                    </li>
+                                </asp:PlaceHolder>
+                                <li class="list-inline-item d-block">
+                                    <span class="badge badge-secondary"><%# this.DataRow["RankName"]%></span>
+                                    <asp:Label ID="TopicStarterBadge" runat="server" 
+                                           CssClass="badge badge-dark mb-2"
+                                           Visible='<%# this.DataRow.Field<int>("TopicOwnerID").Equals(this.PostData.UserId) %>'
+                                           ToolTip='<%# this.GetText("POSTS","TOPIC_STARTER_HELP") %>'>
+                                    <YAF:LocalizedLabel ID="TopicStarterText" runat="server" 
+                                                        LocalizedTag="TOPIC_STARTER" 
+                                                        LocalizedPage="POSTS" />
+                                    </asp:Label>
+                                    <asp:Label runat="server" CssClass="badge badge-success" ID="MessageIsAnswerBadge" 
+                                           Visible="<%# this.PostData.PostIsAnswer %>"
+                                           ToolTip='<%# this.GetText("POSTS","MESSAGE_ANSWER_HELP") %>'>
+                                    <i class="fas fa-check fa-fw"></i>
+                                    <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="MESSAGE_ANSWER" LocalizedPage="POSTS" />
+                                    </asp:Label>
+                                </li>
                             </ul>
                         </asp:PlaceHolder>
                     </div>
-                    <div class="col-auto">
-                        <ul class="list-inline">
-                            <li class="list-inline-item d-none d-md-inline-block">
-                                <strong><YAF:LocalizedLabel runat="server" LocalizedTag="POSTS"></YAF:LocalizedLabel>:</strong>
-                                 <%# this.DataRow["Posts"] %>
-                            </li>
-                            <li class="list-inline-item d-none d-md-inline-block">
-                                <strong><YAF:LocalizedLabel runat="server" LocalizedTag="JOINED"></YAF:LocalizedLabel>:</strong>
-                                 <%# this.Get<IDateTime>().FormatDateShort((DateTime)this.DataRow["Joined"]) %>
-                            </li>
-                            <asp:PlaceHolder runat="server" ID="IPHolder" Visible="False">
-                                <li class="list-inline-item">
-                                    <asp:Label id="IPInfo" runat="server" 
-                                               Visible="false" 
-                                               CssClass="d-none d-md-inline-block"> 
-                                        &nbsp;&nbsp;
-                                        <strong>
-                                            <i class="fas fa-laptop fa-fw text-secondary"></i>&nbsp;<%# this.GetText("IP") %>:
-                                        </strong>&nbsp;
-                                        <a id="IPLink1" href="#" target="_blank" runat="server"></a>			   
-                                    </asp:Label> 
-                                </li>
+                    <asp:Panel runat="server" CssClass="col-auto dropleft" id="ToolsHolder">
+                        <YAF:ThemeButton ID="Tools1" runat="server"
+                                             Type="Link"
+                                             DataToggle="dropdown"
+                                             Icon="ellipsis-h" />
+                        <div class="dropdown-menu">
+                            <YAF:ThemeButton ID="MarkAsAnswer" runat="server" 
+                                             Visible="false" 
+                                             Type="None" 
+                                             TextLocalizedPage="POSTS" 
+                                             TextLocalizedTag="MARK_ANSWER" 
+                                             TitleLocalizedTag="MARK_ANSWER_TITLE"
+                                             DataToggle="tooltip"
+                                             Icon="check-square"
+                                             OnClick="MarkAsAnswerClick"
+                                             CssClass="dropdown-item" />
+                            <asp:PlaceHolder runat="server" ID="ManageDropPlaceHolder">
+                                <YAF:ThemeButton ID="Edit" runat="server"
+                                                 Type="None"
+                                                 Icon="edit"
+                                                 DataToggle="tooltip"
+                                                 TextLocalizedTag="BUTTON_EDIT"
+                                                 TitleLocalizedTag="BUTTON_EDIT_TT"
+                                                 CssClass="dropdown-item" />
+                                <YAF:ThemeButton ID="MovePost" runat="server"
+                                                 Type="None"
+                                                 Icon="arrows-alt"
+                                                 DataToggle="tooltip"
+                                                 TextLocalizedTag="BUTTON_MOVE"
+                                                 TitleLocalizedTag="BUTTON_MOVE_TT"
+                                                 CssClass="dropdown-item" />
+                                <YAF:ThemeButton ID="Delete" runat="server"
+                                                 Type="None"
+                                                 Icon="trash"
+                                                 DataToggle="tooltip"
+                                                 TextLocalizedTag="BUTTON_DELETE"
+                                                 TitleLocalizedTag="BUTTON_DELETE_TT"
+                                                 CssClass="dropdown-item" />
+                                <YAF:ThemeButton ID="UnDelete" runat="server"
+                                                 Type="None"
+                                                 Icon="trash-restore"
+                                                 DataToggle="tooltip"
+                                                 TextLocalizedTag="BUTTON_UNDELETE"
+                                                 TitleLocalizedTag="BUTTON_UNDELETE_TT"
+                                                 CssClass="dropdown-item" />
+                            <div class="dropdown-divider"></div>
                             </asp:PlaceHolder>
-                            <li class="list-inline-item">
-                                <time>
-                                    <span class="fa-stack">
-                                        <i class="fa fa-calendar-day fa-stack-1x text-secondary"></i>
-                                        <i class="fa fa-circle fa-badge-bg fa-inverse fa-outline-inverse"></i>
-                                        <i class="fa fa-clock fa-badge text-secondary"></i>
-                                    </span>
-                                    <YAF:DisplayDateTime id="DisplayDateTime" runat="server" 
-                                                         DateTime='<%# this.DataRow["Posted"] %>'>
-                                    </YAF:DisplayDateTime>
-                                </time>
-                            </li>
-                        </ul>
-                    </div>
+                            <asp:PlaceHolder runat="server" ID="UserDropHolder"></asp:PlaceHolder>
+                            <YAF:ThemeButton ID="ReportPost" runat="server"
+                                             Visible="false"
+                                             Type="None" 
+                                             TextLocalizedPage="POSTS" 
+                                             TextLocalizedTag="REPORTPOST"
+                                             Icon="exclamation-triangle"
+                                             TitleLocalizedTag="REPORTPOST_TITLE"
+                                             DataToggle="tooltip"
+                                             CssClass="dropdown-item" />
+                        </div>
+                    </asp:Panel>
                 </div>
             </div>
-            <div class="card-body">
-                <div class="row">
+            <div class="card-body pt-0">
+                <div class="d-flex justify-content-between border-bottom mb-3">
+                    <div>
+                        
+                            <YAF:Icon runat="server" 
+                                      IconName="calendar-day"
+                                      IconType="text-secondary"
+                                      IconNameBadge="clock" 
+                                      IconBadgeType="text-secondary"></YAF:Icon>
+                            <YAF:DisplayDateTime id="DisplayDateTime" runat="server" 
+                                                 DateTime='<%# this.DataRow["Posted"] %>'>
+                            </YAF:DisplayDateTime>
+                    </div>
+                    <div style="margin-top: 1px">
+                        <a id="post<%# this.DataRow["MessageID"] %>" 
+                           href='<%# BuildLink.GetLink(ForumPages.Posts,"m={0}#post{0}", this.DataRow["MessageID"]) %>'>
+                            #<%# this.CurrentPage * this.Get<BoardSettings>().PostsPerPage + this.PostCount + 1%>
+                        </a>
+                    </div>
+                </div>
+                <div class="row message">
                     <asp:panel id="panMessage" runat="server">
                             <YAF:MessagePostData runat="server"
-                                                 DataRow="<%# this.DataRow %>" 
-                                                 IsAltMessage="<%# this.IsAlt %>"
+                                                 DataRow="<%# this.DataRow %>"
                                                  ShowEditMessage="True">
                             </YAF:MessagePostData>
-                        </asp:panel>
-                </div>
-            </div>
-            <div class="card-footer">
-                <div class="row">
-                    <div class="col-md-2 px-0">
-                        <YAF:DisplayPostFooter ID="PostFooter" runat="server"
-                            DataRow="<%# this.DataRow %>"></YAF:DisplayPostFooter>
-                    </div>
-                    <div class="col-md-6 px-2">
-                        <div id="<%# "dvThanksInfo{0}".Fmt(this.DataRow["MessageID"]) %>" class="pl-1 small">
-                            <asp:Literal runat="server" Visible="false" ID="ThanksDataLiteral"></asp:Literal>
-                        </div>
-                        <div id="<%# "dvThanks{0}".Fmt(this.DataRow["MessageID"]) %>" class="pl-1 small">
-                            <asp:Literal runat="server" Visible="false" ID="thanksDataExtendedLiteral"></asp:Literal>
-                        </div>
-                    </div>
-                    <div class="col-md-4 px-0 d-flex flex-wrap">
-                        <span id="<%# "dvThankBox{0}".Fmt(this.DataRow["MessageID"]) %>">
-                            <YAF:ThemeButton ID="Thank" runat="server"
-                                Type="Link"
-                                Icon="thumbs-up"
-                                Visible="false"
-                                TextLocalizedTag="BUTTON_THANKS"
-                                TitleLocalizedTag="BUTTON_THANKS_TT" />
-                        </span>
-                        <YAF:ThemeButton ID="Manage" runat="server"
-                            CssClass="dropdown-toggle"
-                            Type="Link"
-                            DataToggle="dropdown"
-                            TextLocalizedTag="MANAGE_POST"
-                            Icon="cogs" />
-                        <div class="dropdown-menu" aria-labelledby='<%# this.Manage.ClientID %>'>
-                            <YAF:ThemeButton ID="Edit" runat="server"
-                                Type="None"
-                                CssClass="dropdown-item"
-                                Icon="edit"
-                                TextLocalizedTag="BUTTON_EDIT"
-                                TitleLocalizedTag="BUTTON_EDIT_TT" />
-                            <YAF:ThemeButton ID="MovePost" runat="server"
-                                Type="None"
-                                CssClass="dropdown-item"
-                                Icon="arrows-alt"
-                                TextLocalizedTag="BUTTON_MOVE"
-                                TitleLocalizedTag="BUTTON_MOVE_TT" />
-                            <YAF:ThemeButton ID="Delete" runat="server"
-                                Type="None"
-                                CssClass="dropdown-item"
-                                Icon="trash"
-                                TextLocalizedTag="BUTTON_DELETE"
-                                TitleLocalizedTag="BUTTON_DELETE_TT" />
-                            <YAF:ThemeButton ID="UnDelete" runat="server"
-                                Type="None"
-                                CssClass="dropdown-item"
-                                Icon="trash-alt"
-                                TextLocalizedTag="BUTTON_UNDELETE"
-                                TitleLocalizedTag="BUTTON_UNDELETE_TT" />
-                        </div>
-                        <YAF:ThemeButton ID="Quote" runat="server"
-                                         Type="Link"
+                    </asp:panel>
+                    <div class="dropdown-menu context-menu" aria-labelledby="context menu">
+                        <YAF:ThemeButton ID="Edit2" runat="server"
+                                         Type="None"
+                                         Icon="edit"
+                                         DataToggle="tooltip"
+                                         TextLocalizedTag="BUTTON_EDIT"
+                                         TitleLocalizedTag="BUTTON_EDIT_TT"
+                                         CssClass="dropdown-item"  />
+                        <YAF:ThemeButton ID="Quote2" runat="server"
+                                         Type="None"
                                          Icon="quote-left"
                                          TextLocalizedTag="BUTTON_QUOTE"
-                                         TitleLocalizedTag="BUTTON_QUOTE_TT" />
-                        <asp:CheckBox runat="server" ID="MultiQuote" 
-                                      CssClass="MultiQuoteButton custom-control custom-checkbox btn btn-link" />
+                                         DataToggle="tooltip"
+                                         TitleLocalizedTag="BUTTON_QUOTE_TT"
+                                         CssClass="dropdown-item" />
+                        <YAF:ThemeButton ID="QuickReplyLink" runat="server"
+                                         Type="None"
+                                         TextLocalizedTag="QUICKREPLY" TitleLocalizedTag="BUTTON_POSTREPLY_TT"
+                                         Icon="reply" 
+                                         DataToggle="modal"
+                                         DataTarget="QuickReplyDialog"
+                                         CssClass="dropdown-item" />
+                        <YAF:ThemeButton ID="Reply" runat="server"
+                                         Type="None"
+                                         TextLocalizedTag="REPLY" TitleLocalizedTag="BUTTON_POSTREPLY_TT"
+                                         Icon="reply"
+                                         CssClass="dropdown-item"  />
+                        <div class="dropdown-divider"></div>
+                        <YAF:ThemeButton ID="Move" runat="server"
+                                         Type="None"
+                                         Icon="arrows-alt"
+                                         DataToggle="tooltip"
+                                         TextLocalizedTag="BUTTON_MOVE"
+                                         TitleLocalizedTag="BUTTON_MOVE_TT"
+                                         CssClass="dropdown-item" />
+                        <YAF:ThemeButton ID="Delete2" runat="server"
+                                         Type="None"
+                                         Icon="trash"
+                                         DataToggle="tooltip"
+                                         TextLocalizedTag="BUTTON_DELETE"
+                                         TitleLocalizedTag="BUTTON_DELETE_TT"
+                                         CssClass="dropdown-item" />
+                        <YAF:ThemeButton ID="UnDelete2" runat="server"
+                                         Type="None"
+                                         Icon="trash-restore"
+                                         DataToggle="tooltip"
+                                         TextLocalizedTag="BUTTON_UNDELETE"
+                                         TitleLocalizedTag="BUTTON_UNDELETE_TT"
+                                         CssClass="dropdown-item" />
+                        <div class="dropdown-divider"></div>
+                        <asp:PlaceHolder runat="server" ID="UserDropHolder2"></asp:PlaceHolder>
+                        <YAF:ThemeButton ID="ReportPost2" runat="server"
+                                         Visible="false"
+                                         Type="None" 
+                                         TextLocalizedPage="POSTS" 
+                                         TextLocalizedTag="REPORTPOST"
+                                         Icon="exclamation-triangle"
+                                         TitleLocalizedTag="REPORTPOST_TITLE"
+                                         DataToggle="tooltip"
+                                         CssClass="dropdown-item" />
+                        
                     </div>
                 </div>
             </div>
+            <asp:PlaceHolder runat="server" ID="Footer">
+                <div class="card-footer py-0">
+                <div class="row">
+                    <div class="col px-0">
+                        <div id="<%# "dvThanksInfo{0}".Fmt(this.DataRow["MessageID"]) %>" class="small d-inline-flex">
+                            <asp:Literal runat="server" Visible="false" ID="ThanksDataLiteral"></asp:Literal>
+                        </div>
+                        <span id="<%# "dvThankBox{0}".Fmt(this.DataRow["MessageID"]) %>">
+                            <YAF:ThemeButton ID="Thank" runat="server"
+                                             Type="Link"
+                                             Icon="thumbs-up"
+                                             IconColor="text-primary"
+                                             Visible="false"
+                                             DataToggle="tooltip"
+                                             TextLocalizedTag="BUTTON_THANKS"
+                                             TitleLocalizedTag="BUTTON_THANKS_TT" />
+                        </span>
+                    </div>
+                    <div class="col-auto px-0 d-flex flex-wrap">
+                        <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+                            <div class="btn-group" role="group">
+                                <YAF:ThemeButton ID="Quote" runat="server"
+                                                 Type="Link"
+                                                 Icon="quote-left"
+                                                 IconColor="text-primary"
+                                                 TextLocalizedTag="BUTTON_QUOTE"
+                                                 DataToggle="tooltip"
+                                                 TitleLocalizedTag="BUTTON_QUOTE_TT" />
+                                <asp:CheckBox runat="server" ID="MultiQuote" 
+                                              CssClass="MultiQuoteButton custom-control custom-checkbox btn btn-link" />
+                            </div>
+                        </div>
+                        </div>
+                </div>
+            </div>
+            </asp:PlaceHolder>
         </div>
     </div>
     </div>

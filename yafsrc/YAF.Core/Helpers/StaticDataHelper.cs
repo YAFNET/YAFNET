@@ -1,8 +1,8 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2019 Ingo Herbote
- * http://www.yetanotherforum.net/
+ * Copyright (C) 2014-2020 Ingo Herbote
+ * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -12,7 +12,7 @@
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
 
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
 
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
@@ -91,7 +91,7 @@ namespace YAF.Core.Helpers
         /// </returns>
         public static DataTable Country()
         {
-            return Country(YafContext.Current.Get<ILocalization>());
+            return Country(BoardContext.Current.Get<ILocalization>());
         }
 
         /// <summary>
@@ -105,7 +105,7 @@ namespace YAF.Core.Helpers
         /// </returns>
         public static DataTable Country(string forceLanguage)
         {
-            var localization = new YafLocalization();
+            var localization = new Localization();
             localization.LoadTranslation(forceLanguage);
 
             return Country(localization);
@@ -152,7 +152,7 @@ namespace YAF.Core.Helpers
         /// </returns>
         public static DataTable Region(string culture)
         {
-            return Region(YafContext.Current.Get<ILocalization>(), culture);
+            return Region(BoardContext.Current.Get<ILocalization>(), culture);
         }
 
         /// <summary>
@@ -173,7 +173,7 @@ namespace YAF.Core.Helpers
 
                 // Get all language files info
                 var dir = new DirectoryInfo(
-                    YafContext.Current.Get<HttpRequestBase>().MapPath($"{YafForumInfo.ForumServerFileRoot}languages"));
+                    BoardContext.Current.Get<HttpRequestBase>().MapPath($"{BoardInfo.ForumServerFileRoot}languages"));
                 var files = dir.GetFiles("*.xml");
 
                 // Create an array with tags
@@ -247,7 +247,7 @@ namespace YAF.Core.Helpers
 
             // Get all language files info
             var dir = new DirectoryInfo(
-                YafContext.Current.Get<HttpRequestBase>().MapPath($"{YafForumInfo.ForumServerFileRoot}languages"));
+                BoardContext.Current.Get<HttpRequestBase>().MapPath($"{BoardInfo.ForumServerFileRoot}languages"));
             var files = dir.GetFiles(fileName);
 
             if (files.Length <= 0)
@@ -292,7 +292,7 @@ namespace YAF.Core.Helpers
                 dt.Columns.Add("FileName", typeof(string));
 
                 var dir = new DirectoryInfo(
-                    YafContext.Current.Get<HttpRequestBase>().MapPath($"{YafForumInfo.ForumServerFileRoot}languages"));
+                    BoardContext.Current.Get<HttpRequestBase>().MapPath($"{BoardInfo.ForumServerFileRoot}languages"));
                 var files = dir.GetFiles("*.xml");
 
                 files.ForEach(
@@ -325,8 +325,8 @@ namespace YAF.Core.Helpers
         public static List<string> Themes()
         {
             var dir = new DirectoryInfo(
-                YafContext.Current.Get<HttpRequestBase>().MapPath(
-                    $"{YafForumInfo.ForumServerFileRoot}/Content/Themes"));
+                BoardContext.Current.Get<HttpRequestBase>().MapPath(
+                    $"{BoardInfo.ForumServerFileRoot}/Content/Themes"));
 
             return dir.GetDirectories().Select(folder => folder.Name).ToList();
         }
@@ -391,9 +391,9 @@ namespace YAF.Core.Helpers
                 for (var i = 0; i < 8; i++)
                 {
                     var dr = dt.NewRow();
-                    dr["TopicText"] = YafContext.Current.Get<ILocalization>().TransPage == null
+                    dr["TopicText"] = BoardContext.Current.Get<ILocalization>().TransPage == null
                                           ? textArrayProp[i]
-                                          : YafContext.Current.Get<ILocalization>().GetText(textArray[i]);
+                                          : BoardContext.Current.Get<ILocalization>().GetText(textArray[i]);
                     dr["TopicValue"] = i;
                     dt.Rows.Add(dr);
                 }

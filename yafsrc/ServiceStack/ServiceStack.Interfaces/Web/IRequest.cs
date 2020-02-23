@@ -5,12 +5,11 @@ using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.IO;
+using System.Threading.Tasks;
 using ServiceStack.Configuration;
 
 namespace ServiceStack.Web
 {
-    using System.Net;
-
     /// <summary>
     /// A thin wrapper around each host's Request e.g: ASP.NET, HttpListener, MQ, etc
     /// </summary>
@@ -69,7 +68,7 @@ namespace ServiceStack.Web
         /// <summary>
         /// A Dictionary of HTTP Cookies sent with this Request
         /// </summary>
-        IDictionary<string, Cookie> Cookies { get; }
+        IDictionary<string, System.Net.Cookie> Cookies { get; }
 
         /// <summary>
         /// The expected Response ContentType for this request
@@ -77,7 +76,7 @@ namespace ServiceStack.Web
         string ResponseContentType { get; set; }
 
         /// <summary>
-        /// Whether the ResponseContentType has been explicitly overrided or whether it was just the default
+        /// Whether the ResponseContentType has been explicitly overriden or whether it was just the default
         /// </summary>
         bool HasExplicitResponseContentType { get; }
 
@@ -100,7 +99,6 @@ namespace ServiceStack.Web
         /// The HTTP POST'ed Form Data in a NameValueCollection
         /// </summary>
         NameValueCollection FormData { get; }
-
         /// <summary>
         /// Buffer the Request InputStream so it can be re-read
         /// </summary>
@@ -111,6 +109,12 @@ namespace ServiceStack.Web
         /// </summary>
         /// <returns></returns>
         string GetRawBody();
+
+        /// <summary>
+        /// The entire string contents of Request.InputStream async
+        /// </summary>
+        /// <returns></returns>
+        Task<string> GetRawBodyAsync();
 
         /// <summary>
         /// Relative URL containing /path/info?query=string

@@ -1,8 +1,8 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2019 Ingo Herbote
- * http://www.yetanotherforum.net/
+ * Copyright (C) 2014-2020 Ingo Herbote
+ * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -12,7 +12,7 @@
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
 
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
 
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
@@ -32,9 +32,9 @@ namespace YAF.Core
     using System.Linq;
     using System.Web;
 
-    using YAF.Core.Tasks;
     using YAF.Types;
     using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Tasks;
 
     #endregion
 
@@ -89,6 +89,7 @@ namespace YAF.Core
         public virtual bool AreTasksRunning([NotNull] string[] instanceNames)
         {
             var isRunning = false;
+            
             foreach (var s in instanceNames)
             {
                 isRunning = this.TryGetTask(s, out var task) && task.IsRunning;
@@ -105,6 +106,7 @@ namespace YAF.Core
         ///     Check if a Task is Running.
         /// </summary>
         /// <param name="instanceName">
+        /// The instance Name.
         /// </param>
         /// <returns>
         ///     The is task running.
@@ -132,25 +134,30 @@ namespace YAF.Core
         /// </param>
         public virtual void StopTask([NotNull] string instanceName)
         {
-            if (this.TryGetTask(instanceName, out var task))
+            if (!this.TryGetTask(instanceName, out var task))
             {
-                if (task != null && task.IsRunning && !(task is ICriticalBackgroundTask))
-                {
-                    if (this.TryRemoveTask(instanceName))
-                    {
-                        task.Dispose();
-                    }
-                }
+                return;
+            }
+
+            if (task == null || !task.IsRunning || task is ICriticalBackgroundTask)
+            {
+                return;
+            }
+
+            if (this.TryRemoveTask(instanceName))
+            {
+                task.Dispose();
             }
         }
 
         /// <summary>
-        ///     Check if a task exists in the task manager. May not be running.
+        /// Check if a task exists in the task manager. May not be running.
         /// </summary>
         /// <param name="instanceName">
+        /// The instance Name.
         /// </param>
         /// <returns>
-        ///     The task exists.
+        /// The task exists.
         /// </returns>
         public virtual bool TaskExists([NotNull] string instanceName)
         {
@@ -161,6 +168,7 @@ namespace YAF.Core
         ///     Attempt to get the instance of the task.
         /// </summary>
         /// <param name="instanceName">
+        /// The instance Name.
         /// </param>
         /// <returns>
         /// </returns>

@@ -1,8 +1,8 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2019 Ingo Herbote
- * http://www.yetanotherforum.net/
+ * Copyright (C) 2014-2020 Ingo Herbote
+ * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -12,7 +12,7 @@
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
 
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
 
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
@@ -87,7 +87,7 @@ namespace YAF.Pages.Admin
         protected override void OnPreRender([NotNull] EventArgs e)
         {
             // setup jQuery and Jquery Ui Tabs.
-            YafContext.Current.PageElements.RegisterJsBlock(
+            BoardContext.Current.PageElements.RegisterJsBlock(
                 "EditUserTabsJs",
                 JavaScriptBlocks.BootstrapTabsLoadJs(this.EditUserTabs.ClientID, this.hidLastTab.ClientID));
 
@@ -116,7 +116,7 @@ namespace YAF.Pages.Admin
             if (!this.PageContext.IsHostAdmin && this.IsUserHostAdmin(userRow))
             {
                 // user is not host admin and is attempted to edit host admin account...
-                YafBuildLink.AccessDenied();
+                BuildLink.AccessDenied();
             }
 
             if (this.IsPostBack)
@@ -124,7 +124,7 @@ namespace YAF.Pages.Admin
                 return;
             }
 
-            var userName = this.HtmlEncode(this.Get<YafBoardSettings>().EnableDisplayName
+            var userName = this.HtmlEncode(this.Get<BoardSettings>().EnableDisplayName
                                ? userRow["DisplayName"].ToString()
                                : userRow["Name"].ToString());
 
@@ -159,9 +159,9 @@ namespace YAF.Pages.Admin
         {
             this.PageLinks.AddRoot();
             this.PageLinks.AddLink(
-                this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
+                this.GetText("ADMIN_ADMIN", "Administration"), BuildLink.GetLink(ForumPages.admin_admin));
 
-            this.PageLinks.AddLink(this.GetText("ADMIN_USERS", "TITLE"), YafBuildLink.GetLink(ForumPages.admin_users));
+            this.PageLinks.AddLink(this.GetText("ADMIN_USERS", "TITLE"), BuildLink.GetLink(ForumPages.admin_users));
         }
 
         #endregion

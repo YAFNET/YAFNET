@@ -1,11 +1,10 @@
-﻿<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.profile" Codebehind="profile.ascx.cs" %>
+﻿<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Profile" Codebehind="Profile.ascx.cs" %>
 <%@ Import Namespace="YAF.Types.Constants" %>
 <%@ Import Namespace="YAF.Types.Extensions" %>
 <%@ Import Namespace="System.Data" %>
 
 <%@ Register TagPrefix="YAF" TagName="SignatureEdit" Src="../controls/EditUsersSignature.ascx" %>
 <%@ Register TagPrefix="YAF" TagName="SuspendUser" Src="../controls/EditUsersSuspend.ascx" %>
-<%@ Register TagPrefix="YAF" TagName="ForumAccess" Src="../controls/ForumProfileAccess.ascx" %>
 <%@ Register TagPrefix="YAF" TagName="BuddyList" Src="../controls/BuddyList.ascx" %>
 
 
@@ -18,13 +17,12 @@
                  <YAF:UserLabel ID="UserLabel1" runat="server" />
              </h1>
             <YAF:ThemeButton ID="lnkBuddy" runat="server" 
-                             OnCommand="lnk_AddBuddy"
-                             ReturnConfirmText='<%#this.GetText("CP_EDITBUDDIES", "NOTIFICATION_REMOVE") %>'/>
-            <YAF:ThemeButton  ID="PM" runat="server" Visible="false" 
-                              TextLocalizedPage="POSTS" TextLocalizedTag="PM" 
-                              TitleLocalizedTag="PM_TITLE" TitleLocalizedPage="POSTS"
-                              Icon="envelope-open-text"
-                              Type="Info"/>
+                             OnCommand="lnk_AddBuddy"/>
+            <YAF:ThemeButton ID="PM" runat="server" Visible="false" 
+                             TextLocalizedPage="POSTS" TextLocalizedTag="PM" 
+                             TitleLocalizedTag="PM_TITLE" TitleLocalizedPage="POSTS"
+                             Icon="envelope-open-text"
+                             Type="Info"/>
             <YAF:ThemeButton ID="Email" runat="server" Visible="false" 
                              TextLocalizedPage="POSTS" TextLocalizedTag="EMAIL" 
                              TitleLocalizedTag="EMAIL_TITLE" TitleLocalizedPage="POSTS"
@@ -32,7 +30,7 @@
                              Type="Info"/>
             <YAF:ThemeButton ID="AdminUserButton" runat="server" Visible="false"
                              TextLocalizedTag="ADMIN_USER" 
-                             NavigateUrl='<%# YafBuildLink.GetLinkNotEscaped( ForumPages.admin_edituser,"u={0}", this.UserId ) %>'
+                             NavigateUrl='<%# BuildLink.GetLinkNotEscaped( ForumPages.admin_edituser,"u={0}", this.UserId ) %>'
                              Icon="user-cog"
                              Type="Danger">
             </YAF:ThemeButton>
@@ -176,16 +174,15 @@
 								<asp:Literal runat="server" id="Stats" />
 							</li>
 
-							<asp:PlaceHolder id="divTF" runat="server" visible="<%# this.Get<YafBoardSettings>().EnableThanksMod %>">
+							<asp:PlaceHolder id="divTF" runat="server" visible="<%# this.Get<BoardSettings>().EnableThanksMod %>">
                                 <li class="list-group-item text-right">
                                 <span class="float-left font-weight-bold">
                                 <YAF:LocalizedLabel ID="LocalizedLabel10" runat="server" LocalizedTag="THANKSFROM" />
                                 </span>
-									<asp:Label ID="ThanksFrom" runat="server" />&nbsp;
-                                    <asp:LinkButton ID="lnkThanks" runat="server" OnCommand="lnk_ViewThanks"/>
+									<asp:Label ID="ThanksFrom" runat="server" />
 								</li>
 							</asp:PlaceHolder>
-							<asp:PlaceHolder id="divTTT" runat="server" visible="<%# this.Get<YafBoardSettings>().EnableThanksMod %>">
+							<asp:PlaceHolder id="divTTT" runat="server" visible="<%# this.Get<BoardSettings>().EnableThanksMod %>">
                                 <li class="list-group-item text-right">
                                 <span class="float-left font-weight-bold">
 									<YAF:LocalizedLabel ID="LocalizedLabel20" runat="server" LocalizedTag="THANKSTOTIMES" />
@@ -193,7 +190,7 @@
 									<asp:Label ID="ThanksToTimes" runat="server" />
 								</li>
 							</asp:PlaceHolder>
-							<asp:PlaceHolder id="divTTP" runat="server" visible="<%# this.Get<YafBoardSettings>().EnableThanksMod %>">
+							<asp:PlaceHolder id="divTTP" runat="server" visible="<%# this.Get<BoardSettings>().EnableThanksMod %>">
                                 <li class="list-group-item text-right">
                                 <span class="float-left font-weight-bold">
 									<YAF:LocalizedLabel ID="LocalizedLabel21" runat="server" LocalizedTag="THANKSTOPOSTS" />
@@ -201,7 +198,7 @@
 									<asp:Label ID="ThanksToPosts" runat="server" />
 								</li>
 							</asp:PlaceHolder>
-                            <asp:PlaceHolder id="divRR" runat="server" visible="<%# this.Get<YafBoardSettings>().EnableUserReputation %>">
+                            <asp:PlaceHolder id="divRR" runat="server" visible="<%# this.Get<BoardSettings>().EnableUserReputation %>">
                                 <li class="list-group-item">
                                     <span class="font-weight-bold">
                                         <YAF:LocalizedLabel ID="LocalizedLabel29" runat="server" LocalizedTag="REPUTATION_RECEIVED" />
@@ -277,7 +274,7 @@
                                         <YAF:LocalizedLabel ID="LocalizedLabel16" runat="server" LocalizedTag="topic" />
                                     </span><a 
                                                title='<%# this.GetText("COMMON", "VIEW_TOPIC") %>' 
-                                               href='<%# YafBuildLink.GetLink(ForumPages.posts,"t={0}",Container.DataItemToField<int>("TopicID")) %>'>
+                                               href='<%# BuildLink.GetLink(ForumPages.Posts,"t={0}",Container.DataItemToField<int>("TopicID")) %>'>
                                         <%# this.Get<IBadWordReplace>().Replace(this.HtmlEncode(Container.DataItemToField<string>("Subject"))) %>
                                     </a>
                                 </div>
@@ -303,13 +300,6 @@
                 <div class="card-body">
                     <nav>
                         <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                            <a class="nav-item nav-link active" 
-                               id="nav-access-tab" 
-                               data-toggle="tab" 
-                               href="#nav-access" 
-                               role="tab">
-                                <YAF:LocalizedLabel runat="server" LocalizedTag="FORUM_ACCESS" />
-                            </a>
                             <a class="nav-item nav-link" 
                                id="nav-suspend-tab" 
                                data-toggle="tab" 
@@ -327,10 +317,7 @@
                         </div>
                     </nav>
                     <div class="tab-content" id="nav-tabContent">
-                        <div class="tab-pane fade show active" id="nav-access" role="tabpanel">
-                            <YAF:ForumAccess runat="server" ID="ForumAccessControl" />
-                        </div>
-                        <div class="tab-pane fade" id="nav-suspend" role="tabpanel">
+                        <div class="tab-pane fade show active" id="nav-suspend" role="tabpanel">
                             <YAF:SuspendUser runat="server" ID="SuspendUserControl" ShowHeader="False" />
                         </div>
                         <div class="tab-pane fade" id="nav-signature" role="tabpanel">
@@ -343,7 +330,7 @@
                 <div class="card mb-3">
                     <div class="card-header">
                         <YAF:LocalizedLabel ID="LocalizedLabel44" runat="server" 
-                                            LocalizedTag='<%# this.UserId == YafContext.Current.PageUserID ? "BUDDIES" : "BUDDIESTITLE"%>' />
+                                            LocalizedTag='<%# this.UserId == BoardContext.Current.PageUserID ? "BUDDIES" : "BUDDIESTITLE"%>' />
                     </div>
                     <div class="card-body">
                         <div runat="server" id="BuddyListTab" class="tab-pane" role="tabpanel">

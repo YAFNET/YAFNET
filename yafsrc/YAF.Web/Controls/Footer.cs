@@ -123,7 +123,7 @@ namespace YAF.Web.Controls
         /// </param>
         private void RenderGeneratedAndDebug([NotNull] StringBuilder footer)
         {
-            if (this.Get<YafBoardSettings>().ShowPageGenerationTime)
+            if (this.Get<BoardSettings>().ShowPageGenerationTime)
             {
                 footer.Append(@"<br /><span class=""text-muted"">");
                 footer.AppendFormat(this.GetText("COMMON", "GENERATED"), this.Get<IStopWatch>().Duration);
@@ -182,7 +182,7 @@ namespace YAF.Web.Controls
 
             footer.AppendFormat(
                 @"<a target=""_top"" title=""{1}"" href=""{0}"">{1}</a> | ",
-                YafBuildLink.GetLink(ForumPages.rules),
+                BuildLink.GetLink(ForumPages.Rules),
                 this.GetText("COMMON", "PRIVACY_POLICY"));
         }
 
@@ -198,7 +198,7 @@ namespace YAF.Web.Controls
 
             // Copyright Link-back Algorithm
             // Please keep if you haven't purchased a removal or commercial license.
-            var domainKey = this.Get<YafBoardSettings>().CopyrightRemovalDomainKey;
+            var domainKey = this.Get<BoardSettings>().CopyrightRemovalDomainKey;
             var url = this.Get<HttpRequestBase>().Url;
 
             if (domainKey.IsSet() && url != null)
@@ -227,9 +227,9 @@ namespace YAF.Web.Controls
             footer.Append(this.GetText("COMMON", "POWERED_BY"));
             footer.Append(@" YAF.NET");
 
-            if (this.Get<YafBoardSettings>().ShowYAFVersion)
+            if (this.Get<BoardSettings>().ShowYAFVersion)
             {
-                footer.AppendFormat(" {0} ", YafForumInfo.AppVersionName);
+                footer.AppendFormat(" {0} ", BoardInfo.AppVersionName);
                 if (Config.IsDotNetNuke)
                 {
                     footer.Append(" Under DNN ");

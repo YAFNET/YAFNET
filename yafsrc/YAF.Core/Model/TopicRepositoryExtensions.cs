@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2020 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -12,7 +12,7 @@
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
 
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
 
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
@@ -58,7 +58,7 @@ namespace YAF.Core.Model
         /// <returns>Get List of similar topics</returns>
         public static List<SearchMessage> GetSimilarTopics(this IRepository<Topic> repository, [NotNull] int userId, [NotNull] string searchInput)
         {
-            return YafContext.Current.Get<ISearch>().SearchSimilar(userId, searchInput, "Topic");
+            return BoardContext.Current.Get<ISearch>().SearchSimilar(userId, searchInput, "Topic");
         }
         
         /// <summary>
@@ -749,6 +749,7 @@ namespace YAF.Core.Model
             [NotNull] DateTime posted,
             [NotNull] string blogPostId,
             [NotNull] int flags,
+            [CanBeNull] string topicTags,
             ref long messageId)
         {
             var dt = repository.DbFunction.GetData.topic_save(
@@ -778,18 +779,19 @@ namespace YAF.Core.Model
                                      Message = message,
                                      Flags = flags,
                                      Posted = posted.ToString(CultureInfo.InvariantCulture),
-                                     UserName = YafContext.Current.User.UserName,
-                                     UserDisplayName = YafContext.Current.CurrentUserData.DisplayName,
-                                     UserStyle = YafContext.Current.UserStyle,
-                                     UserId = YafContext.Current.PageUserID,
+                                     UserName = BoardContext.Current.User.UserName,
+                                     UserDisplayName = BoardContext.Current.CurrentUserData.DisplayName,
+                                     UserStyle = BoardContext.Current.UserStyle,
+                                     UserId = BoardContext.Current.PageUserID,
                                      TopicId = topicId.ToType<int>(),
                                      Topic = subject,
-                                     ForumId = YafContext.Current.PageForumID,
-                                     ForumName = YafContext.Current.PageForumName,
+                                     TopicTags = topicTags,
+                                     ForumId = BoardContext.Current.PageForumID,
+                                     ForumName = BoardContext.Current.PageForumName,
                                      Description = string.Empty
                                  };
 
-            YafContext.Current.Get<ISearch>().AddSearchIndexItem(newMessage);
+            BoardContext.Current.Get<ISearch>().AddSearchIndexItem(newMessage);
 
             return topicId;
         }
@@ -1142,12 +1144,12 @@ namespace YAF.Core.Model
             bool isLinked,
             bool eraseMessages)
         {
-            var useFileTable = YafContext.Current.Get<YafBoardSettings>().UseFileTable;
+            var useFileTable = BoardContext.Current.Get<BoardSettings>().UseFileTable;
 
             if (deleteLinked)
             {
                 // Delete replies
-                var replies = YafContext.Current.GetRepository<Message>().Get(m => m.ReplyTo == messageID).Select(x => x.ID);
+                var replies = BoardContext.Current.GetRepository<Message>().Get(m => m.ReplyTo == messageID).Select(x => x.ID);
 
                 replies.ForEach(
                     replyId => repository.DeleteRecursively(
@@ -1163,14 +1165,14 @@ namespace YAF.Core.Model
             // If the files are actually saved in the Hard Drive
             if (!useFileTable)
             {
-                YafContext.Current.GetRepository<Attachment>().DeleteByMessageId(messageID);
+                BoardContext.Current.GetRepository<Attachment>().DeleteByMessageId(messageID);
             }
 
             // Ederon : erase message for good
             if (eraseMessages)
             {
                 // Delete Message from Search Index
-                YafContext.Current.Get<ISearch>().ClearSearchIndexRecord(messageID);
+                BoardContext.Current.Get<ISearch>().ClearSearchIndexRecord(messageID);
 
                 repository.DbFunction.Scalar.message_delete(
                     MessageID: messageID,

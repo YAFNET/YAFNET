@@ -1,4 +1,4 @@
-﻿<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.postmessage" CodeBehind="postmessage.ascx.cs" %>
+﻿<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.PostMessage" CodeBehind="PostMessage.ascx.cs" %>
 <%@ Register TagPrefix="YAF" TagName="LastPosts" Src="../controls/LastPosts.ascx" %>
 <%@ Register TagPrefix="YAF" TagName="PostOptions" Src="../controls/PostOptions.ascx" %>
 <%@ Register TagPrefix="YAF" TagName="PostAttachments" Src="../controls/PostAttachments.ascx" %>
@@ -8,7 +8,7 @@
 
 <YAF:PageLinks ID="PageLinks" runat="server" />
 
-<YAF:PollList ID="PollList" ShowButtons="true" PollGroupId='<%# this.GetPollGroupID() %>' runat="server" />
+<YAF:PollList ID="PollList" ShowButtons="true" PollGroupId="<%# this.GetPollGroupID() %>" runat="server" />
 
 <div class="row">
     <div class="col-xl-12">
@@ -20,7 +20,11 @@
     <div class="col">
         <div class="card mb-3">
             <div class="card-header">
-                <i class="fas fa-comment-dots fa-fw text-secondary"></i>&nbsp;<asp:Label ID="Title" runat="server" />
+                <YAF:Icon runat="server"
+                          IconName="comment-dots"
+                          IconType="text-secondary">
+                </YAF:Icon>
+                <asp:Label ID="Title" runat="server" />
             </div>
             <div class="card-body">
                 <asp:PlaceHolder ID="PreviewRow" runat="server" Visible="false">
@@ -29,7 +33,7 @@
                     </asp:Label>
                     <asp:PlaceHolder ID="PreviewCell" runat="server">
                         <YAF:Alert Type="light" runat="server">
-                            <YAF:MessagePost ID="PreviewMessagePost" runat="server" />
+                            <YAF:MessagePost ID="PreviewMessagePost" runat="server"/>
                         </YAF:Alert>
                     </asp:PlaceHolder>
                 </asp:PlaceHolder>
@@ -44,8 +48,8 @@
                             autocomplete="off" />
                     </div>
                     <div id="SearchResultsPlaceholder"
-                        data-url='<%=YafForumInfo.ForumClientFileRoot %>'
-                        data-userid='<%= YafContext.Current.PageUserID %>'>
+                        data-url="<%=BoardInfo.ForumClientFileRoot %>"
+                        data-userid="<%= BoardContext.Current.PageUserID %>">
                     </div>
                 </asp:PlaceHolder>
                 <asp:PlaceHolder ID="DescriptionRow" Visible="false" runat="server">
@@ -72,7 +76,7 @@
                         <asp:Label runat="server" AssociatedControlID="Priority">
                             <YAF:LocalizedLabel runat="server" LocalizedTag="priority" />
                         </asp:Label>
-                        <asp:DropDownList ID="Priority" runat="server" CssClass="select2-select" />
+                        <asp:DropDownList ID="Priority" runat="server" CssClass="select2-image-select" />
                     </div>
                 </asp:PlaceHolder>
                 <asp:PlaceHolder ID="StyleRow" runat="server">
@@ -81,6 +85,16 @@
                             <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="STYLES" />
                         </asp:Label>
                         <asp:TextBox ID="TopicStylesTextBox" runat="server" CssClass="form-control" />
+                    </div>
+                </asp:PlaceHolder>
+                <asp:PlaceHolder ID="TagsHolder" runat="server">
+                    <div class="form-group">
+                        <asp:Label runat="server" AssociatedControlID="Tags">
+                            <YAF:LocalizedLabel runat="server" LocalizedTag="TAGS" />
+                        </asp:Label>
+                        <asp:TextBox runat="server" ID="Tags" 
+                                     CssClass="form-control">
+                        </asp:TextBox>
                     </div>
                 </asp:PlaceHolder>
                 <div class="form-group">
@@ -97,7 +111,8 @@
                         <strong>
                             <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="NOTE" LocalizedPage="COMMON" />
                         </strong>
-                        <YAF:LocalizedLabel ID="LocalizedLblMaxNumberOfPost" runat="server" LocalizedTag="MAXNUMBEROF" />
+                        <YAF:LocalizedLabel ID="LocalizedLblMaxNumberOfPost" runat="server" 
+                                            LocalizedTag="MAXNUMBEROF"/>
                     </YAF:Alert>
                     </div>
                 </asp:PlaceHolder>

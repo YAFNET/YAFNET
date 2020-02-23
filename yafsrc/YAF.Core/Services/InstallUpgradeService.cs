@@ -1,8 +1,8 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2019 Ingo Herbote
- * http://www.yetanotherforum.net/
+ * Copyright (C) 2014-2020 Ingo Herbote
+ * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -12,7 +12,7 @@
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
 
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
 
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
@@ -29,6 +29,8 @@ namespace YAF.Core.Services
     using System.IO;
     using System.Linq;
     using System.Web;
+
+    using ServiceStack.OrmLite;
 
     using YAF.Configuration;
     using YAF.Core.Extensions;
@@ -191,8 +193,8 @@ namespace YAF.Core.Services
                 adminProviderUserKey,
                 Config.CreateDistinctRoles && Config.IsAnyPortal ? "YAF " : string.Empty);
 
-            this.GetRepository<Registry>().Save("version", YafForumInfo.AppVersion.ToString());
-            this.GetRepository<Registry>().Save("versionname", YafForumInfo.AppVersionName);
+            this.GetRepository<Registry>().Save("version", BoardInfo.AppVersion.ToString());
+            this.GetRepository<Registry>().Save("versionname", BoardInfo.AppVersionName);
 
             this.ImportStatics();
         }
@@ -242,14 +244,18 @@ namespace YAF.Core.Services
 
             var prevVersion = this.GetRepository<Registry>().GetDbVersion();
 
-            this.GetRepository<Registry>().Save("version", YafForumInfo.AppVersion.ToString());
-            this.GetRepository<Registry>().Save("versionname", YafForumInfo.AppVersionName);
+            this.GetRepository<Registry>().Save("version", BoardInfo.AppVersion.ToString());
+            this.GetRepository<Registry>().Save("versionname", BoardInfo.AppVersionName);
+
+            // Handle Tables
+            this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<Tag>());
+            this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<TopicTag>());
 
             // Ederon : 9/7/2007
             // re-sync all boards - necessary for proper last post bubbling
             this.GetRepository<Board>().ReSync();
 
-            this.RaiseEvent.RaiseIssolated(new AfterUpgradeDatabaseEvent(prevVersion, YafForumInfo.AppVersion), null);
+            this.RaiseEvent.RaiseIssolated(new AfterUpgradeDatabaseEvent(prevVersion, BoardInfo.AppVersion), null);
 
             if (isForumInstalled)
             {
@@ -264,13 +270,19 @@ namespace YAF.Core.Services
                     this.GetRepository<Topic>().UnencodeAllTopicsSubjects(HttpUtility.HtmlDecode);
                 }
 
+                // initialize search index
+                if (this.Get<BoardSettings>().LastSearchIndexUpdated.IsNotSet())
+                {
+                    this.GetRepository<Registry>().Save("forceupdatesearchindex", "1");
+                }
+
                 // Check if BaseUrlMask is set and if not automatically write it
-                if (this.Get<YafBoardSettings>().BaseUrlMask.IsNotSet())
+                if (this.Get<BoardSettings>().BaseUrlMask.IsNotSet())
                 {
                     this.GetRepository<Registry>().Save("baseurlmask", BaseUrlBuilder.GetBaseUrlFromVariables());
                 }
 
-                this.GetRepository<Registry>().Save("cdvversion", this.Get<YafBoardSettings>().CdvVersion++);
+                this.GetRepository<Registry>().Save("cdvversion", this.Get<BoardSettings>().CdvVersion++);
             }
 
             if (this.IsForumInstalled)

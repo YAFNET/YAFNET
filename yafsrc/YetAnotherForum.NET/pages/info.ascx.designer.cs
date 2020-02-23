@@ -7,11 +7,13 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace YAF.Pages {
-    
-    
-    public partial class info {
-        
+namespace YAF.Pages
+{
+
+
+    public partial class Info
+    {
+
         /// <summary>
         /// PageLinks control.
         /// </summary>
@@ -20,7 +22,7 @@ namespace YAF.Pages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::YAF.Web.Controls.PageLinks PageLinks;
-        
+
         /// <summary>
         /// Title control.
         /// </summary>
@@ -29,7 +31,7 @@ namespace YAF.Pages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label Title;
-        
+
         /// <summary>
         /// Info control.
         /// </summary>
@@ -37,8 +39,8 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Info;
-        
+        protected global::System.Web.UI.WebControls.Label InfoLabel;
+
         /// <summary>
         /// Continue control.
         /// </summary>

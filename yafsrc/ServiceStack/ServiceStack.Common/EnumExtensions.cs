@@ -1,8 +1,14 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace ServiceStack
 {
+    public static class EnumUtils
+    {
+        public static IEnumerable<T> GetValues<T>() where T : Enum => Enum.GetValues(typeof(T)).Cast<T>();
+    }
+    
     public static class EnumExtensions
     {
         /// <summary>
@@ -19,7 +25,6 @@ namespace ServiceStack
         /// </summary>
         /// <param name="enum"></param>
         /// <returns></returns>
-#if !(NETFX_CORE)
         public static string ToDescription(this Enum @enum)
         {
             var type = @enum.GetType();
@@ -36,8 +41,11 @@ namespace ServiceStack
 
             return @enum.ToString();
         }
-
-#endif
+            
+        public static List<KeyValuePair<string, string>> ToKeyValuePairs<T>(this IEnumerable<T> enums) where T : Enum
+            => enums.Map(x => new KeyValuePair<string,string>(
+                x.ToString(),
+                x.ToDescription()));
 
         public static List<string> ToList(this Enum @enum)
         {
@@ -59,13 +67,13 @@ namespace ServiceStack
             switch (typeCode)
             {
                 case TypeCode.Byte:
-                    return ((byte)(object)@enum & (byte)(object)value) == (byte)(object)value;
+                    return (((byte)(object)@enum & (byte)(object)value) == (byte)(object)value);
                 case TypeCode.Int16:
-                    return ((short)(object)@enum & (short)(object)value) == (short)(object)value;
+                    return (((short)(object)@enum & (short)(object)value) == (short)(object)value);
                 case TypeCode.Int32:
-                    return ((int)(object)@enum & (int)(object)value) == (int)(object)value;
+                    return (((int)(object)@enum & (int)(object)value) == (int)(object)value);
                 case TypeCode.Int64:
-                    return ((long)(object)@enum & (long)(object)value) == (long)(object)value;
+                    return (((long)(object)@enum & (long)(object)value) == (long)(object)value);
                 default:
                     throw new NotSupportedException($"Enums of type {@enum.GetType().Name}");
             }

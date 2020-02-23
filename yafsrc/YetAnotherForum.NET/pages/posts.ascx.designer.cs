@@ -11,7 +11,7 @@ namespace YAF.Pages
 {
 
 
-    public partial class posts
+    public partial class Posts
     {
 
         /// <summary>
@@ -213,33 +213,6 @@ namespace YAF.Pages
         protected global::YAF.Web.Controls.PopMenu OptionsMenu;
 
         /// <summary>
-        /// ViewOptions control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder ViewOptions;
-
-        /// <summary>
-        /// ViewLink control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Web.Controls.ThemeButton ViewLink;
-
-        /// <summary>
-        /// ViewMenu control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Web.Controls.PopMenu ViewMenu;
-
-        /// <summary>
         /// MessageList control.
         /// </summary>
         /// <remarks>
@@ -348,13 +321,13 @@ namespace YAF.Pages
         protected global::YAF.Web.Controls.ThemeButton QuickReplyLink2;
 
         /// <summary>
-        /// ForumUsers1 control.
+        /// TopicTags control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.Controls.ForumUsers ForumUsers1;
+        protected global::YAF.Controls.TopicTags TopicTags;
 
         /// <summary>
         /// SimilarTopics control.
@@ -366,6 +339,15 @@ namespace YAF.Pages
         protected global::YAF.Controls.SimilarTopics SimilarTopics;
 
         /// <summary>
+        /// ForumUsers1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Web.Controls.ForumUsers ForumUsers1;
+
+        /// <summary>
         /// PageLinksBottom control.
         /// </summary>
         /// <remarks>
@@ -375,40 +357,13 @@ namespace YAF.Pages
         protected global::YAF.Web.Controls.PageLinks PageLinksBottom;
 
         /// <summary>
-        /// ForumJumpHolder control.
+        /// MoveTopicDialog control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder ForumJumpHolder;
-
-        /// <summary>
-        /// ForumJumpLabel control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Web.Controls.LocalizedLabel ForumJumpLabel;
-
-        /// <summary>
-        /// ForumJump1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Web.Controls.ForumJump ForumJump1;
-
-        /// <summary>
-        /// PageAccess1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Web.Controls.PageAccess PageAccess1;
+        protected global::YAF.Dialogs.MoveTopic MoveTopicDialog;
 
         /// <summary>
         /// QuickReplyDialog control.

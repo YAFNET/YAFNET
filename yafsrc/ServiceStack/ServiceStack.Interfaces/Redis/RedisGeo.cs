@@ -1,4 +1,7 @@
-﻿namespace ServiceStack.Redis
+﻿using System;
+using System.Globalization;
+
+namespace ServiceStack.Redis
 {
     public class RedisGeo
     {
@@ -30,7 +33,7 @@
     {
         public const string Meters = "m";
         public const string Kilometers = "km";
-        public const string Miles = "mo";
+        public const string Miles = "mi";
         public const string Feet = "ft";
     }
 }

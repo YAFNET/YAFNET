@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace ServiceStack.IO
 {
@@ -19,7 +20,7 @@ namespace ServiceStack.IO
 
         IVirtualDirectory GetDirectory(string virtualPath);
 
-        IEnumerable<IVirtualFile> GetAllMatchingFiles(string globPattern, int maxDepth = int.MaxValue);
+        IEnumerable<IVirtualFile> GetAllMatchingFiles(string globPattern, int maxDepth = Int32.MaxValue);
 
         IEnumerable<IVirtualFile> GetAllFiles();
         IEnumerable<IVirtualFile> GetRootFiles();

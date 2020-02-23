@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Data;
 
 namespace ServiceStack.OrmLite.Dapper
@@ -18,25 +18,23 @@ namespace ServiceStack.OrmLite.Dapper
                 if (enabled) AllowedCommandBehaviors |= behavior;
                 else AllowedCommandBehaviors &= ~behavior;
             }
-
             /// <summary>
             /// Gets or sets whether Dapper should use the CommandBehavior.SingleResult optimization
             /// </summary>
             /// <remarks>Note that a consequence of enabling this option is that errors that happen <b>after</b> the first select may not be reported</remarks>
             public static bool UseSingleResultOptimization
             {
-                get => (AllowedCommandBehaviors & CommandBehavior.SingleResult) != 0;
-                set => SetAllowedCommandBehaviors(CommandBehavior.SingleResult, value);
+                get { return (AllowedCommandBehaviors & CommandBehavior.SingleResult) != 0; }
+                set { SetAllowedCommandBehaviors(CommandBehavior.SingleResult, value); }
             }
-
             /// <summary>
             /// Gets or sets whether Dapper should use the CommandBehavior.SingleRow optimization
             /// </summary>
             /// <remarks>Note that on some DB providers this optimization can have adverse performance impact</remarks>
             public static bool UseSingleRowOptimization
             {
-                get => (AllowedCommandBehaviors & CommandBehavior.SingleRow) != 0;
-                set => SetAllowedCommandBehaviors(CommandBehavior.SingleRow, value);
+                get { return (AllowedCommandBehaviors & CommandBehavior.SingleRow) != 0; }
+                set { SetAllowedCommandBehaviors(CommandBehavior.SingleRow, value); }
             }
 
             internal static bool DisableCommandBehaviorOptimizations(CommandBehavior behavior, Exception ex)
@@ -51,7 +49,6 @@ namespace ServiceStack.OrmLite.Dapper
                         return true;
                     }
                 }
-
                 return false;
             }
 
@@ -91,7 +88,6 @@ namespace ServiceStack.OrmLite.Dapper
             /// default and must be enabled.
             /// </remarks>
             public static bool PadListExpansions { get; set; }
-
             /// <summary>
             /// If set (non-negative), when performing in-list expansions of integer types ("where id in @ids", etc), switch to a string_split based
             /// operation if there are more than this many elements. Note that this feautre requires SQL Server 2016 / compatibility level 130 (or above).

@@ -7,14 +7,12 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace YAF.Pages.Admin {
-    using System.Web.UI.WebControls;
+namespace YAF.Pages.Admin
+{
 
-    using YAF.Dialogs;
-    using YAF.Web.Controls;
 
-    public partial class spamwords {
-        
+    public partial class spamwords
+    {
 
         /// <summary>
         /// PageLinks control.
@@ -23,8 +21,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected PageLinks PageLinks;
-        
+        protected global::YAF.Web.Controls.PageLinks PageLinks;
 
         /// <summary>
         /// LocalizedLabel1 control.
@@ -33,8 +30,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected LocalizedLabel LocalizedLabel1;
-        
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel1;
 
         /// <summary>
         /// LocalizedLabel3 control.
@@ -43,8 +39,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected LocalizedLabel LocalizedLabel3;
-        
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel3;
 
         /// <summary>
         /// HelpLabel1 control.
@@ -53,8 +48,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected HelpLabel HelpLabel1;
-        
+        protected global::YAF.Web.Controls.HelpLabel HelpLabel1;
 
         /// <summary>
         /// SearchInput control.
@@ -63,8 +57,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected TextBox SearchInput;
-        
+        protected global::System.Web.UI.WebControls.TextBox SearchInput;
 
         /// <summary>
         /// search control.
@@ -73,8 +66,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected ThemeButton search;
-        
+        protected global::YAF.Web.Controls.ThemeButton search;
 
         /// <summary>
         /// PagerTop control.
@@ -83,8 +75,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected Pager PagerTop;
-        
+        protected global::YAF.Web.Controls.Pager PagerTop;
 
         /// <summary>
         /// list control.
@@ -93,8 +84,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected Repeater list;
-        
+        protected global::System.Web.UI.WebControls.Repeater list;
 
         /// <summary>
         /// Linkbutton4 control.
@@ -103,8 +93,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected ThemeButton Linkbutton4;
-        
+        protected global::YAF.Web.Controls.ThemeButton Linkbutton4;
 
         /// <summary>
         /// PagerBottom control.
@@ -113,8 +102,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected Pager PagerBottom;
-        
+        protected global::YAF.Web.Controls.Pager PagerBottom;
 
         /// <summary>
         /// ImportDialog control.
@@ -123,8 +111,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected SpamWordsImport ImportDialog;
-        
+        protected global::YAF.Dialogs.SpamWordsImport ImportDialog;
 
         /// <summary>
         /// EditDialog control.
@@ -133,6 +120,6 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected SpamWordsEdit EditDialog;
+        protected global::YAF.Dialogs.SpamWordsEdit EditDialog;
     }
 }

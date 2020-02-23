@@ -2,6 +2,8 @@ using System;
 using System.Linq;
 using System.Reflection;
 using ServiceStack.Model;
+using ServiceStack.Reflection;
+using ServiceStack.Text;
 
 namespace ServiceStack
 {
@@ -25,7 +27,6 @@ namespace ServiceStack
                 CanGetId = HasId<T>.GetId;
                 return;
             }
-
 #endif
 
             if (typeof(T).IsClass || typeof(T).IsInterface)
@@ -179,6 +180,11 @@ namespace ServiceStack
             return $"urn:{type.Name.ToLowerInvariant()}:{id}";
         }
 
+        public static string CreateUrn(string type, object id)
+        {
+            return $"urn:{type.ToLowerInvariant()}:{id}";
+        }
+
         public static string CreateUrn<T>(this T entity)
         {
             var id = GetId(entity);
@@ -191,7 +197,6 @@ namespace ServiceStack
             {
                 idValue = idValue.PadLeft(4, '0');
             }
-
             idValue = idValue.Replace(" ", "-");
 
             var rootDir = typeof(T).Name;
@@ -212,7 +217,6 @@ namespace ServiceStack
                     return pi;
                 }
             }
-
             return null;
         }
 

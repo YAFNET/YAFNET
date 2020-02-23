@@ -1,8 +1,8 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2019 Ingo Herbote
- * http://www.yetanotherforum.net/
+ * Copyright (C) 2014-2020 Ingo Herbote
+ * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -12,7 +12,7 @@
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
 
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
 
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
@@ -35,7 +35,7 @@ namespace YAF.Modules.BBCode
     /// <summary>
     /// Hide Group BBCode Module
     /// </summary>
-    public class GroupHide : YafBBCodeControl
+    public class GroupHide : BBCodeControl
     {
         /// <summary>
         /// The render.
@@ -63,7 +63,7 @@ namespace YAF.Modules.BBCode
             if (groupString.IsNotSet())
             {
                 // Hide from Guests only
-                if (YafContext.Current.IsGuest)
+                if (BoardContext.Current.IsGuest)
                 {
                     writer.Write(shownContentGuest);
                     return;
@@ -71,7 +71,7 @@ namespace YAF.Modules.BBCode
             }
             else
             {
-                if (YafContext.Current.IsGuest)
+                if (BoardContext.Current.IsGuest)
                 {
                     writer.Write(shownContentGuest);
                     return;
@@ -106,7 +106,7 @@ namespace YAF.Modules.BBCode
 
                 // Check For Role Hiding
                 if (RoleMembershipHelper.GetRolesForUser(
-                            YafContext.Current.User.UserName).Any(role => !groups.Any(role.Equals)))
+                            BoardContext.Current.User.UserName).Any(role => !groups.Any(role.Equals)))
                 {
                     shownContentGuest = hiddenContent;
                 }
@@ -114,7 +114,7 @@ namespace YAF.Modules.BBCode
                 // TODO : Check for Rank Hiding 
                 /*if (ranks.Any())
                 {
-                    var yafUserData = new CombinedUserDataHelper(YafContext.Current.CurrentUserData.PageUserID);
+                    var yafUserData = new CombinedUserDataHelper(BoardContext.Current.CurrentUserData.PageUserID);
 
                     if (!ranks.Where(rank => yafUserData.RankName.Equals(rank)).Any())
                     {
@@ -124,7 +124,7 @@ namespace YAF.Modules.BBCode
             }
 
             // Override Admin, or User is Post Author
-            if (YafContext.Current.IsAdmin || this.DisplayUserID == YafContext.Current.CurrentUserData.UserID)
+            if (BoardContext.Current.IsAdmin || this.DisplayUserID == BoardContext.Current.CurrentUserData.UserID)
             {
                 shownContentGuest = hiddenContent;
             }

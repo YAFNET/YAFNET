@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using ServiceStack.Configuration;
 
@@ -20,19 +21,20 @@ namespace ServiceStack
         public void Set<T>(string key, T value)
         {
             var textValue = value is string s
-                ? (string)(object)value
+                ? s
                 : value.ToJsv();
 
             settings[key] = textValue;
         }
 
-        public string GetString(string key) => settings.TryGetValue(key, out var value)
+        public string GetString(string key) => settings.TryGetValue(key, out string value)
             ? value
             : null;
 
         public IList<string> GetList(string key) => GetString(key).FromJsv<List<string>>();
 
         public IDictionary<string, string> GetDictionary(string key) => GetString(key).FromJsv<Dictionary<string, string>>();
+        public List<KeyValuePair<string, string>> GetKeyValuePairs(string key) => GetString(key).FromJsv<List<KeyValuePair<string, string>>>();
 
         public T Get<T>(string key) => GetString(key).FromJsv<T>();
 

@@ -1,8 +1,8 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2019 Ingo Herbote
- * http://www.yetanotherforum.net/
+ * Copyright (C) 2014-2020 Ingo Herbote
+ * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -12,7 +12,7 @@
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
 
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
 
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
@@ -29,11 +29,15 @@ namespace YAF.Core.Model
     using System.Data;
     using System.Data.SqlClient;
     using System.IO;
+    using System.Linq;
+
+    using ServiceStack.OrmLite;
 
     using YAF.Core.Extensions;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
+    using YAF.Types.Extensions.Data;
     using YAF.Types.Interfaces.Data;
     using YAF.Types.Models;
     using YAF.Types.Objects;
@@ -331,6 +335,29 @@ namespace YAF.Core.Model
         public static void DeleteOld(this IRepository<User> repository, [NotNull] int boardID, [NotNull] int days)
         {
             repository.DbFunction.Scalar.user_deleteold(BoardID: boardID, Days: days, UTCTIMESTAMP: DateTime.UtcNow);
+        }
+
+        /// <summary>
+        /// The watch mail list as data table.
+        /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="topicId">
+        /// The topic id.
+        /// </param>
+        /// <param name="userId">
+        /// The user id.
+        /// </param>
+        /// <returns>
+        /// The <see cref="DataTable"/>.
+        /// </returns>
+        public static DataTable WatchMailListAsDataTable(
+            this IRepository<User> repository,
+            [NotNull] int topicId,
+            [NotNull] int userId)
+        {
+            return repository.DbFunction.GetData.mail_list(TopicID: topicId, UserID: userId, UTCTIMESTAMP: DateTime.UtcNow);
         }
 
         /// <summary>
@@ -668,7 +695,7 @@ namespace YAF.Core.Model
             [NotNull] int numPosts,
             [NotNull] int numPostCompare)
         {
-            return repository.DbFunction.GetData.user_listmembers(
+             return repository.DbFunction.GetData.user_listmembers(
                 BoardID: boardId,
                 UserID: userId,
                 Approved: approved,
@@ -816,14 +843,8 @@ namespace YAF.Core.Model
             [NotNull] object autoWatchTopics,
             [NotNull] object dSTUser,
             [NotNull] object hideUser,
-            [NotNull] object notificationType,
-            [CanBeNull] DateTime? utcTimeStamp = null)
+            [NotNull] object notificationType)
         {
-            if (utcTimeStamp == null)
-            {
-                utcTimeStamp = DateTime.UtcNow;
-            }
-
             repository.DbFunction.Scalar.user_save(
                 UserID: userID,
                 BoardID: boardID,
@@ -841,7 +862,7 @@ namespace YAF.Core.Model
                 DSTUser: dSTUser,
                 HideUser: hideUser,
                 NotificationType: notificationType,
-                UTCTIMESTAMP: utcTimeStamp);
+                UTCTIMESTAMP: DateTime.UtcNow);
         }
 
         /// <summary>
@@ -898,7 +919,7 @@ namespace YAF.Core.Model
         /// <param name="repository">
         /// The repository.
         /// </param>
-        /// <param name="userID">
+        /// <param name="userId">
         /// The user id.
         /// </param>
         /// <param name="pmNotification">
@@ -915,18 +936,21 @@ namespace YAF.Core.Model
         /// </param>
         public static void SaveNotification(
             this IRepository<User> repository,
-            [NotNull] int userID,
+            [NotNull] int userId,
             [NotNull] bool pmNotification,
             [NotNull] bool autoWatchTopics,
-            [NotNull] object notificationType,
+            [CanBeNull] int? notificationType,
             [NotNull] bool dailyDigest)
         {
-            repository.DbFunction.Scalar.user_savenotification(
-                UserID: userID,
-                PMNotification: pmNotification,
-                AutoWatchTopics: autoWatchTopics,
-                NotificationType: notificationType,
-                DailyDigest: dailyDigest);
+            repository.UpdateOnly(
+                () => new User
+                          {
+                              PMNotification = pmNotification,
+                              AutoWatchTopics = autoWatchTopics,
+                              NotificationType = notificationType,
+                              DailyDigest = dailyDigest
+                          },
+                u => u.ID == userId);
         }
 
         /// <summary>
@@ -1217,6 +1241,30 @@ namespace YAF.Core.Model
             CodeContracts.VerifyNotNull(repository, "repository");
 
             repository.UpdateOnly(() => new User { BlockFlags = flags }, u => u.ID == userId);
+        }
+
+        /// <summary>
+        /// Gets if User is Suspended
+        /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="userId">
+        /// The user id.
+        /// </param>
+        /// <returns>
+        /// The <see cref="User"/>.
+        /// </returns>
+        public static DateTime? GetSuspended(this IRepository<User> repository, int userId)
+        {
+            CodeContracts.VerifyNotNull(repository, "repository");
+
+            var expression = OrmLiteConfig.DialectProvider.SqlExpression<User>();
+
+            expression.Where<User>(u => u.ID == userId).Select(u => u.Suspended);
+
+            return repository.DbAccess.Execute(
+                db => db.Connection.ColumnDistinct<DateTime?>(expression).FirstOrDefault());
         }
     }
 }

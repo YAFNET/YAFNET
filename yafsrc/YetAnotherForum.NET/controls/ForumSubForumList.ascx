@@ -4,10 +4,11 @@
 
 <asp:Repeater ID="SubforumList" runat="server" OnItemCreated="SubForumList_ItemCreated">
     <HeaderTemplate>
-        <div class="card"><div class="card-body px-0">        
+        <div class="card">
+        <div class="card-body pl-2 py-1">        
         <ul class="list-inline">
             <li class="list-inline-item">
-                <span class="font-weight-bold small">
+                <span class="font-weight-bold small text-secondary">
                     <YAF:LocalizedLabel ID="SubForums" LocalizedTag="SUBFORUMS" runat="server" />:
                 </span>
             </li>

@@ -7,13 +7,12 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace YAF.Pages.moderate {
-    using System.Web.UI.WebControls;
+namespace YAF.Pages.Moderate
+{
 
-    using YAF.Web.Controls;
 
-    public partial class unapprovedposts {
-        
+    public partial class UnapprovedPosts
+    {
 
         /// <summary>
         /// PageLinks control.
@@ -22,8 +21,7 @@ namespace YAF.Pages.moderate {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected PageLinks PageLinks;
-        
+        protected global::YAF.Web.Controls.PageLinks PageLinks;
 
         /// <summary>
         /// List control.
@@ -32,6 +30,6 @@ namespace YAF.Pages.moderate {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected Repeater List;
+        protected global::System.Web.UI.WebControls.Repeater List;
     }
 }

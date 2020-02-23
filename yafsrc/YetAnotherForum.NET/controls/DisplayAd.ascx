@@ -3,7 +3,7 @@
 
 <div class="row">
     <div class="col-xl-12">
-        <div class="card mb-3">
+        <div class="card bg-light mb-3">
             <div class="card-body">
                 <div class="row">
                     <div class="col">

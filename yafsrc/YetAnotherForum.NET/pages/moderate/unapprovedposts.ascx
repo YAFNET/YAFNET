@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" Inherits="YAF.Pages.moderate.unapprovedposts" CodeBehind="unapprovedposts.ascx.cs" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" Inherits="YAF.Pages.Moderate.UnapprovedPosts" CodeBehind="UnapprovedPosts.ascx.cs" %>
 
 <%@ Import Namespace="YAF.Types.Constants" %>
 <%@ Import Namespace="YAF.Types.Extensions" %>
@@ -23,7 +23,7 @@
                                 LocalizedTag="TOPIC" />
                         </span>
                         <a id="TopicLink"
-                           href='<%# YafBuildLink.GetLink(ForumPages.posts, "t={0}", this.Eval("TopicID")) %>'
+                           href='<%# BuildLink.GetLink(ForumPages.Posts, "t={0}", this.Eval("TopicID")) %>'
                            runat="server" 
                            Visible='<%# this.Eval("MessageCount").ToType<int>() > 0 %>'><%# this.Eval("Topic") %></a>
                          <asp:Label id="TopicName" 
@@ -34,17 +34,19 @@
                             <span class="font-weight-bold">
                                 <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="POSTED" />
                             </span>
-                            <%# this.Get<IDateTime>().FormatDateTimeShort( Convert.ToDateTime( this.Eval( "Posted" ) ) )%>
+                            <%# this.Get<IDateTime>().FormatDateTimeShort(this.Eval("Posted").ToType<DateTime>())%>
                             <span class="font-weight-bold">
                                 <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" 
                                                     LocalizedTag="POSTEDBY" LocalizedPage="REPORTPOST" />
                             </span>
                             <YAF:UserLink ID="UserName" runat="server" UserID='<%# this.Eval("UserID").ToType<int>() %>' />
                             <YAF:ThemeButton ID="AdminUserButton" runat="server" 
-                                             Size="Small" Visible='<%# this.PageContext.IsAdmin %>'
+                                             Size="Small"
+                                             Visible="<%# this.PageContext.IsAdmin %>"
                                              TextLocalizedTag="ADMIN_USER" TextLocalizedPage="PROFILE"
-                                             Icon="users-cog" Type="Secondary"
-                                             NavigateUrl='<%# YafBuildLink.GetLinkNotEscaped( ForumPages.admin_edituser,"u={0}", this.Eval("UserID").ToType<int>() ) %>'>
+                                             Icon="users-cog" 
+                                             Type="Danger"
+                                             NavigateUrl='<%# BuildLink.GetLinkNotEscaped( ForumPages.admin_edituser,"u={0}", this.Eval("UserID").ToType<int>() ) %>'>
                             </YAF:ThemeButton>
                         </div>
                     </div>

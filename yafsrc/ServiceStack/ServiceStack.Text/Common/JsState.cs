@@ -1,11 +1,12 @@
 using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 
 namespace ServiceStack.Text.Common
 {
     internal static class JsState
     {
-        // Exposing field for perf
+        //Exposing field for perf
         [ThreadStatic]
         internal static int WritingKeyCount = 0;
 
@@ -41,7 +42,10 @@ namespace ServiceStack.Text.Common
 
         internal static void UnRegisterSerializer<T>()
         {
-            InSerializerFns?.Remove(typeof(T));
+            if (InSerializerFns == null)
+                return;
+
+            InSerializerFns.Remove(typeof(T));
         }
 
         internal static bool InSerializer<T>()
@@ -62,13 +66,30 @@ namespace ServiceStack.Text.Common
 
         internal static void UnRegisterDeserializer<T>()
         {
-            InDeserializerFns?.Remove(typeof(T));
+            if (InDeserializerFns == null)
+                return;
+
+            InDeserializerFns.Remove(typeof(T));
         }
 
         internal static bool InDeserializer<T>()
         {
             return InDeserializerFns != null && InDeserializerFns.Contains(typeof(T));
         }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        internal static bool Traverse(object value)
+        {
+            if (++Depth <= JsConfig.MaxDepth) 
+                return true;
+            
+            Tracer.Instance.WriteError(
+                $"Exceeded MaxDepth limit of {JsConfig.MaxDepth} attempting to serialize {value.GetType().Name}");
+            return false;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        internal static void UnTraverse() => --Depth;
 
         internal static void Reset()
         {

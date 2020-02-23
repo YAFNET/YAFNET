@@ -1,5 +1,5 @@
 ﻿using System;
-using Console = YAF.Lucene.Net.Support.SystemConsole;
+using Console = YAF.Lucene.Net.Util.SystemConsole;
 
 namespace YAF.Lucene.Net.QueryParsers.Surround.Parser
 {

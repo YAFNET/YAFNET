@@ -1,8 +1,8 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2019 Ingo Herbote
- * http://www.yetanotherforum.net/
+ * Copyright (C) 2014-2020 Ingo Herbote
+ * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -12,7 +12,7 @@
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
 
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
 
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
@@ -27,6 +27,7 @@ namespace YAF.Pages
     #region Using
 
     using System;
+    using System.Net.Mail;
     using System.Web;
 
     using YAF.Core;
@@ -36,7 +37,6 @@ namespace YAF.Pages
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Types.Models;
     using YAF.Utils;
     using YAF.Web.Extensions;
 
@@ -45,14 +45,14 @@ namespace YAF.Pages
     /// <summary>
     /// The Share Topic via email
     /// </summary>
-    public partial class emailtopic : ForumPage
+    public partial class EmailTopic : ForumPage
     {
         #region Constructors and Destructors
 
         /// <summary>
-        ///   Initializes a new instance of the <see cref = "emailtopic" /> class.
+        ///   Initializes a new instance of the <see cref = "EmailTopic" /> class.
         /// </summary>
-        public emailtopic()
+        public EmailTopic()
             : base("EMAILTOPIC")
         {
         }
@@ -71,7 +71,7 @@ namespace YAF.Pages
             if (!this.Get<HttpRequestBase>().QueryString.Exists("t") || !this.PageContext.ForumReadAccess
                 || !this.PageContext.BoardSettings.AllowEmailTopic)
             {
-                YafBuildLink.AccessDenied();
+                BuildLink.AccessDenied();
             }
 
             if (this.IsPostBack)
@@ -81,26 +81,26 @@ namespace YAF.Pages
 
             if (this.PageContext.Settings.LockedForum == 0)
             {
-                this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, YafBuildLink.GetLink(ForumPages.forum));
+                this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, BuildLink.GetLink(ForumPages.forum));
                 this.PageLinks.AddLink(
                     this.PageContext.PageCategoryName,
-                    YafBuildLink.GetLink(ForumPages.forum, "c={0}", this.PageContext.PageCategoryID));
+                    BuildLink.GetLink(ForumPages.forum, "c={0}", this.PageContext.PageCategoryID));
             }
 
             this.PageLinks.AddForum(this.PageContext.PageForumID);
             this.PageLinks.AddLink(
                 this.PageContext.PageTopicName,
-                YafBuildLink.GetLink(ForumPages.posts, "t={0}", this.PageContext.PageTopicID));
+                BuildLink.GetLink(ForumPages.Posts, "t={0}", this.PageContext.PageTopicID));
 
             this.Subject.Text = this.PageContext.PageTopicName;
 
-            var emailTopic = new YafTemplateEmail
+            var emailTopic = new TemplateEmail
                                  {
                                      TemplateParams =
                                          {
                                              ["{link}"] =
-                                             YafBuildLink.GetLinkNotEscaped(
-                                                 ForumPages.posts,
+                                             BuildLink.GetLinkNotEscaped(
+                                                 ForumPages.Posts,
                                                  true,
                                                  "t={0}",
                                                  this.PageContext.PageTopicID),
@@ -126,15 +126,15 @@ namespace YAF.Pages
 
             try
             {
-                // send the email...
-                this.Get<ISendMail>().Send(
-                    this.PageContext.User.Email,
-                    this.EmailAddress.Text.Trim(),
-                    this.PageContext.BoardSettings.ForumEmail,
-                    this.Subject.Text.Trim(),
-                    this.Message.Text.Trim());
+                var emailTopic = new TemplateEmail("EMAILTOPIC")
+                                     {
+                                         TemplateParams = { ["{message}"] = this.Message.Text.Trim() }
+                                     };
 
-                YafBuildLink.Redirect(ForumPages.posts, "t={0}", this.PageContext.PageTopicID);
+                // send a change email message...
+                emailTopic.SendEmail(new MailAddress(this.EmailAddress.Text.Trim()), this.Subject.Text.Trim());
+
+                BuildLink.Redirect(ForumPages.Posts, "t={0}", this.PageContext.PageTopicID);
             }
             catch (Exception x)
             {

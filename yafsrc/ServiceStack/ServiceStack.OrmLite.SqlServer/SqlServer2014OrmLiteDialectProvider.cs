@@ -1,7 +1,6 @@
 ﻿using System;
-
-using ServiceStack.DataAnnotations;
 using ServiceStack.Text;
+using ServiceStack.DataAnnotations;
 
 namespace ServiceStack.OrmLite.SqlServer
 {
@@ -15,7 +14,7 @@ namespace ServiceStack.OrmLite.SqlServer
             if (fieldDef.IsRowVersion)
                 return $"{fieldDef.FieldName} rowversion NOT NULL";
 
-            var fieldDefinition = fieldDef.CustomFieldDefinition ??
+            var fieldDefinition = ResolveFragment(fieldDef.CustomFieldDefinition) ??
                 GetColumnTypeDefinition(fieldDef.ColumnType, fieldDef.FieldLength, fieldDef.Scale);
 
             var memTableAttrib = fieldDef.PropertyInfo?.ReflectedType.FirstAttribute<SqlServerMemoryOptimizedAttribute>();
@@ -60,18 +59,11 @@ namespace ServiceStack.OrmLite.SqlServer
                     sql.Append($" HASH WITH (BUCKET_COUNT = {bucketCount.Value})");
                 }
             }
-            else if (!isMemoryTable && fieldDef.IsUniqueIndex)
-            {
-                sql.Append(" UNIQUE");
-
-                if (fieldDef.IsNonClustered)
-                    sql.Append(" NONCLUSTERED");
-            }
             else
             {
                 if (isMemoryTable && bucketCount.HasValue)
                 {
-                    sql.Append($" NOT NULL INDEX {GetQuotedColumnName($"IDX_{fieldDef.FieldName}")}");
+                    sql.Append($" NOT NULL INDEX {GetQuotedColumnName("IDX_" + fieldDef.FieldName)}");
 
                     if (fieldDef.IsNonClustered)
                     {
@@ -126,13 +118,21 @@ namespace ServiceStack.OrmLite.SqlServer
                         sbColumns.Append(", \n  ");
 
                     sbColumns.Append(columnDefinition);
+                    
+                    var sqlConstraint = GetCheckConstraint(modelDef, fieldDef);
+                    if (sqlConstraint != null)
+                    {
+                        sbConstraints.Append(",\n" + sqlConstraint);
+                    }
 
                     if (fieldDef.ForeignKey == null || OrmLiteConfig.SkipForeignKeys)
                         continue;
 
                     var refModelDef = OrmLiteUtils.GetModelDefinition(fieldDef.ForeignKey.ReferenceType);
                     sbConstraints.Append(
-                        $", \n\n  CONSTRAINT {this.GetQuotedName(fieldDef.ForeignKey.GetForeignKeyName(modelDef, refModelDef, this.NamingStrategy, fieldDef))} FOREIGN KEY ({this.GetQuotedColumnName(fieldDef.FieldName)}) REFERENCES {this.GetQuotedTableName(refModelDef)} ({this.GetQuotedColumnName(refModelDef.PrimaryKey.FieldName)})");
+                        $", \n\n  CONSTRAINT {GetQuotedName(fieldDef.ForeignKey.GetForeignKeyName(modelDef, refModelDef, NamingStrategy, fieldDef))} " +
+                        $"FOREIGN KEY ({GetQuotedColumnName(fieldDef.FieldName)}) " +
+                        $"REFERENCES {GetQuotedTableName(refModelDef)} ({GetQuotedColumnName(refModelDef.PrimaryKey.FieldName)})");
 
                     sbConstraints.Append(GetForeignKeyOnDeleteClause(fieldDef.ForeignKey));
                     sbConstraints.Append(GetForeignKeyOnUpdateClause(fieldDef.ForeignKey));
@@ -168,13 +168,18 @@ namespace ServiceStack.OrmLite.SqlServer
                         if (hasFileTableDir) sbTableOptions.Append(" ,");
                         sbTableOptions.Append($" FILETABLE_COLLATE_FILENAME = {fileTableAttrib.FileTableCollateFileName ?? "database_default" }\n");
                     }
-
                     sbTableOptions.Append(")");
                 }
             }
+            
+            var uniqueConstraints = GetUniqueConstraints(modelDef);
+            if (uniqueConstraints != null)
+            {
+                sbConstraints.Append(",\n" + uniqueConstraints);
+            }
 
             var sql = $"CREATE TABLE {GetQuotedTableName(modelDef)} ";
-            sql += fileTableAttrib != null
+            sql += (fileTableAttrib != null)
                 ? $"\n AS FILETABLE{StringBuilderCache.ReturnAndFree(sbTableOptions)};"
                 : $"\n(\n  {StringBuilderCache.ReturnAndFree(sbColumns)}{StringBuilderCacheAlt.ReturnAndFree(sbConstraints)} \n){StringBuilderCache.ReturnAndFree(sbTableOptions)}; \n";
 

@@ -26,17 +26,18 @@
             <div class="card-body">
                 <div class="card-title h5">
                     <footer class="blockquote-footer">
-                        <YAF:UserLink ID="ProfileLink" runat="server" UserID='<%# Container.DataItemToField<int>("UserID") %>'
-                                      ReplaceName='<%# this.Get<YafBoardSettings>().EnableDisplayName ? Container.DataItemToField<string>("DisplayName") : Container.DataItemToField<string>("UserName") %>'
+                        <YAF:UserLink ID="ProfileLink" runat="server" 
+                                      UserID='<%# Container.DataItemToField<int>("UserID") %>'
+                                      ReplaceName='<%# this.Get<BoardSettings>().EnableDisplayName ? Container.DataItemToField<string>("DisplayName") : Container.DataItemToField<string>("UserName") %>'
                                       BlankTarget="true" />
                     </footer>
                 </div>
                 <div class="card-text">
-                    <YAF:MessagePostData ID="MessagePostPrimary" runat="server" DataRow='<%# (DataRow)Container.DataItem %>'
+                    <YAF:MessagePostData ID="MessagePostPrimary" runat="server" 
+                                         DataRow="<%# (DataRow)Container.DataItem %>"
                                          ShowAttachments="false">
                     </YAF:MessagePostData>
                 </div>
-
             </div>
             <div class="card-footer">
                 <small class="text-muted">

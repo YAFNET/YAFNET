@@ -12,9 +12,11 @@
 
 using System;
 using System.IO;
-
+using System.Text;
+using System.Reflection;
 using ServiceStack.Text.Common;
 using ServiceStack.Text.Json;
+using ServiceStack.Text.Pools;
 
 namespace ServiceStack.Text
 {
@@ -38,13 +40,12 @@ namespace ServiceStack.Text
 
         public T DeserializeFromReader(TextReader reader)
         {
-            return this.DeserializeFromString(reader.ReadToEnd());
+            return DeserializeFromString(reader.ReadToEnd());
         }
 
         public string SerializeToString(T value)
         {
             if (value == null) return null;
-            if (typeof(T) == typeof(string)) return value as string;
             if (typeof(T) == typeof(object) || typeof(T).IsAbstract || typeof(T).IsInterface)
             {
                 if (typeof(T).IsAbstract || typeof(T).IsInterface) JsState.IsWritingDynamic = true;
@@ -61,12 +62,6 @@ namespace ServiceStack.Text
         public void SerializeToWriter(T value, TextWriter writer)
         {
             if (value == null) return;
-            if (typeof(T) == typeof(string))
-            {
-                writer.Write(value);
-                return;
-            }
-
             if (typeof(T) == typeof(object) || typeof(T).IsAbstract || typeof(T).IsInterface)
             {
                 if (typeof(T).IsAbstract || typeof(T).IsInterface) JsState.IsWritingDynamic = true;

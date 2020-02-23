@@ -1,8 +1,8 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2019 Ingo Herbote
- * http://www.yetanotherforum.net/
+ * Copyright (C) 2014-2020 Ingo Herbote
+ * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -12,7 +12,7 @@
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
 
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
 
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
@@ -34,7 +34,7 @@ namespace YAF.Modules
     /// <summary>
     /// The page bb code registration.
     /// </summary>
-    [YafModule(moduleName: "Page BBCode Registration Module", moduleAuthor: "Tiny Gecko", moduleVersion: 1)]
+    [YafModule("Page BBCode Registration Module", "Tiny Gecko", 1)]
     public class PageBBCodeRegistration : SimpleBaseForumModule
     {
         #region Public Methods
@@ -46,14 +46,13 @@ namespace YAF.Modules
         {
             switch (this.PageContext.ForumPageType)
             {
-                case ForumPages.cp_message:
-                case ForumPages.search:
-                case ForumPages.lastposts:
-                case ForumPages.posts:
-                case ForumPages.profile:
+                case ForumPages.PrivateMessage:
+                case ForumPages.Search:
+                case ForumPages.Posts:
+                case ForumPages.Profile:
                     this.Get<IBBCode>().RegisterCustomBBCodePageElements(
-                        currentPage: this.PageContext.CurrentForumPage.Page,
-                        currentType: this.PageContext.CurrentForumPage.GetType());
+                        this.PageContext.CurrentForumPage.Page,
+                        this.PageContext.CurrentForumPage.GetType());
                     break;
             }
         }

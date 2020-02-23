@@ -1,8 +1,8 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2019 Ingo Herbote
- * http://www.yetanotherforum.net/
+ * Copyright (C) 2014-2020 Ingo Herbote
+ * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -12,7 +12,7 @@
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
 
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
 
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
@@ -38,7 +38,7 @@ namespace YAF.Modules.BBCode
     /// <summary>
     /// Hidden BBCode Module
     /// </summary>
-    public class HideBBCodeModule : YafBBCodeControl
+    public class HideBBCodeModule : BBCodeControl
     {
         /// <summary>
         /// The render.
@@ -83,13 +83,13 @@ namespace YAF.Modules.BBCode
 
             string shownContent;
 
-            if (YafContext.Current.IsAdmin)
+            if (BoardContext.Current.IsAdmin)
             {
                 writer.Write(hiddenContent);
                 return;
             }
 
-            var userId = YafContext.Current.CurrentUserData.UserID;
+            var userId = BoardContext.Current.CurrentUserData.UserID;
 
             if (postsCount > -1)
             {
@@ -102,14 +102,14 @@ namespace YAF.Modules.BBCode
 
                 var shownContentPost = $"<div class=\"alert alert-danger\" role=\"alert\">{descriptionPost}</div>";
 
-                if (YafContext.Current.IsGuest)
+                if (BoardContext.Current.IsGuest)
                 {
                     writer.Write(shownContentGuest);
                     return;
                 }
 
                 if (this.DisplayUserID == userId ||
-                    YafContext.Current.CurrentUserData.NumPosts >= postsCount)
+                    BoardContext.Current.CurrentUserData.NumPosts >= postsCount)
                 {
                     shownContent = hiddenContent;
                 }
@@ -129,7 +129,7 @@ namespace YAF.Modules.BBCode
 
                 var shownContentPost = $"<div class=\"alert alert-danger\" role=\"alert\">{descriptionPost}</div>";
 
-                if (YafContext.Current.IsGuest)
+                if (BoardContext.Current.IsGuest)
                 {
                     writer.Write(shownContentGuest);
                     return;
@@ -148,13 +148,13 @@ namespace YAF.Modules.BBCode
             else
             {
                 // Handle Hide Thanks
-                if (!this.Get<YafBoardSettings>().EnableThanksMod)
+                if (!this.Get<BoardSettings>().EnableThanksMod)
                 {
                     writer.Write(hiddenContent);
                     return;
                 }
 
-                if (YafContext.Current.IsGuest)
+                if (BoardContext.Current.IsGuest)
                 {
                     writer.Write(shownContentGuest);
                     return;

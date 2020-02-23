@@ -23,34 +23,14 @@
 
   <PropertyGroup>
     <TargetFrameworks>net472</TargetFrameworks>
-    <TargetFrameworks Condition="$([MSBuild]::IsOsPlatform('Windows'))">$(TargetFrameworks);net472</TargetFrameworks>
     <PackageTargetFallback Condition=" '$(TargetFramework)' == 'netstandard1.6' ">$(PackageTargetFallback);dnxcore50</PackageTargetFallback>
 
     <AssemblyTitle>Lucene.Net.Queries</AssemblyTitle>
     <Description>Extended Filters and Queries for the Lucene.Net full-text search engine library from The Apache Software Foundation.</Description>
     <PackageTags>$(PackageTags);query;queries</PackageTags>
-    <DocumentationFile></DocumentationFile>
     <NoWarn>$(NoWarn);1591;1573</NoWarn>
-    <AssemblyName>YAF.Lucene.Net.Queries</AssemblyName>
-    <RootNamespace>YAF.Lucene.Net.Queries</RootNamespace>
     <SignAssembly>true</SignAssembly>
-    <DelaySign>false</DelaySign>
-    <AssemblyOriginatorKeyFile>YetAnotherForum.NET.snk</AssemblyOriginatorKeyFile>
-    <AssemblyVersion>4.8.0.0</AssemblyVersion>
-    <FileVersion>4.8.0.0</FileVersion>
-  </PropertyGroup>
-
-  <PropertyGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
-    <DebugType>portable</DebugType>
-  </PropertyGroup>
-
-  <PropertyGroup Condition=" '$(TargetFramework)' == 'netstandard1.6' ">
-    <DebugType>portable</DebugType>
-  </PropertyGroup>
-
-  <PropertyGroup Condition=" '$(TargetFramework)' == 'net472' ">
-    <DefineConstants>$(DefineConstants);FEATURE_SERIALIZABLE_EXCEPTIONS</DefineConstants>
-    <DebugType>full</DebugType>
+    <AssemblyOriginatorKeyFile>Lucene.Net.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'net472' ">

@@ -4,7 +4,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-
+using System.Text;
 using ServiceStack.Text;
 using ServiceStack.Text.Common;
 
@@ -26,7 +26,6 @@ namespace ServiceStack
                     sb.Append(seperator);
                 sb.Append(value);
             }
-
             return StringBuilderThreadStatic.ReturnAndFree(sb);
         }
 
@@ -35,7 +34,7 @@ namespace ServiceStack
             return list == null || list.Count == 0;
         }
 
-        // TODO: make it work
+        //TODO: make it work
         public static IEnumerable<TFrom> SafeWhere<TFrom>(this List<TFrom> list, Func<TFrom, bool> predicate)
         {
             return list.Where(predicate);
@@ -43,7 +42,7 @@ namespace ServiceStack
 
         public static int NullableCount<T>(this List<T> list)
         {
-            return list?.Count ?? 0;
+            return list == null ? 0 : list.Count;
         }
 
         public static void AddIfNotExists<T>(this List<T> list, T item)

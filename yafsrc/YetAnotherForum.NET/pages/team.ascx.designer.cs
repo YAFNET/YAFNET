@@ -7,14 +7,12 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace YAF.Pages {
-    using System.Web.UI.HtmlControls;
-    using System.Web.UI.WebControls;
+namespace YAF.Pages
+{
 
-    using YAF.Web.Controls;
 
-    public partial class team {
-        
+    public partial class Team
+    {
 
         /// <summary>
         /// PageLinks control.
@@ -23,8 +21,7 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected PageLinks PageLinks;
-        
+        protected global::YAF.Web.Controls.PageLinks PageLinks;
 
         /// <summary>
         /// LocalizedLabel2 control.
@@ -33,8 +30,7 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected LocalizedLabel LocalizedLabel2;
-        
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel2;
 
         /// <summary>
         /// AdminsList control.
@@ -43,8 +39,7 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected Repeater AdminsList;
-        
+        protected global::System.Web.UI.WebControls.Repeater AdminsList;
 
         /// <summary>
         /// ModsTable control.
@@ -53,8 +48,7 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected HtmlGenericControl ModsTable;
-        
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl ModsTable;
 
         /// <summary>
         /// LocalizedLabel1 control.
@@ -63,8 +57,7 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected LocalizedLabel LocalizedLabel1;
-        
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel1;
 
         /// <summary>
         /// ModeratorsList control.
@@ -73,6 +66,6 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected Repeater ModeratorsList;
+        protected global::System.Web.UI.WebControls.Repeater ModeratorsList;
     }
 }

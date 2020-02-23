@@ -1,8 +1,8 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2019 Ingo Herbote
- * http://www.yetanotherforum.net/
+ * Copyright (C) 2014-2020 Ingo Herbote
+ * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -12,7 +12,7 @@
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
 
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
 
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
@@ -31,6 +31,7 @@ namespace YAF.Core
     using System.Threading;
 
     using YAF.Core.Services.Localization;
+    using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
 
     #endregion
@@ -145,7 +146,7 @@ namespace YAF.Core
                 {
                     var cultureCode = string.Empty;
 
-                    /*string [] tmp = YafContext.Current.Get<HttpRequestBase>().UserLanguages;
+                    /*string [] tmp = BoardContext.Current.Get<HttpRequestBase>().UserLanguages;
                               if ( tmp != null )
                               {
                                   cultureCode = tmp [0];
@@ -167,8 +168,8 @@ namespace YAF.Core
 #if DEBUG
                 catch (Exception ex)
                 {
-                    YafContext.Current.Get<ILogger>()
-                              .Error(ex, $"Error In Loading User Language for UserID {YafContext.Current.PageUserID}");
+                    BoardContext.Current.Get<ILogger>()
+                              .Error(ex, $"Error In Loading User Language for UserID {BoardContext.Current.PageUserID}");
 
                     throw new ApplicationException($"Error getting User Language.{Environment.NewLine}{ex}");
                 }
@@ -197,7 +198,7 @@ namespace YAF.Core
             {
                 this.BeforeInit?.Invoke(this, new EventArgs());
 
-                this.Localization = new YafLocalization(this.TranslationPage);
+                this.Localization = new Localization(this.TranslationPage);
 
                 this.AfterInit?.Invoke(this, new EventArgs());
             }

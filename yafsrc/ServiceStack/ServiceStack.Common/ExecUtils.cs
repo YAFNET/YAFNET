@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-
+using System.Threading;
 using ServiceStack.Logging;
+using ServiceStack.Script;
+
 #if NETSTANDARD2_0
 using System.Threading.Tasks;
 #endif
@@ -83,7 +85,6 @@ namespace ServiceStack
                 {
                     return;
                 }
-
                 SleepBackOffMultiplier(i);
             }
 
@@ -198,5 +199,8 @@ namespace ServiceStack
             var retries = Math.Min(retriesAttempted, MaxRetries);
             return (int)Math.Min((1L << retries) * baseDelay, maxBackOffMs);
         }
+
+        public static string ShellExec(string command, Dictionary<string, object> args=null) =>
+            new ProtectedScripts().sh(default, command, args);
     }
 }

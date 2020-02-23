@@ -1,8 +1,8 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2019 Ingo Herbote
- * http://www.yetanotherforum.net/
+ * Copyright (C) 2014-2020 Ingo Herbote
+ * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -12,7 +12,7 @@
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
 
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
 
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
@@ -141,8 +141,8 @@ namespace YAF.Web.Controls
                             writer.Write(
                                 @"<span class=""font-weight-bold"">{0}</span><a href=""{1}""> {2}</a> : {3}",
                                 this.GetText("RESOLVEDBY"),
-                                YafBuildLink.GetLink(
-                                    ForumPages.profile,
+                                BuildLink.GetLink(
+                                    ForumPages.Profile,
                                     "u={0}&name={1}",
                                     this.ResolvedBy.ToType<int>(),
                                     resolvedByDisplayName),
@@ -156,8 +156,8 @@ namespace YAF.Web.Controls
                                 ? this.Server.HtmlEncode(
                                     this.Get<IUserDisplayName>().GetName(reporter["UserID"].ToType<int>()))
                                 : this.Server.HtmlEncode(reporter["UserName"].ToString()),
-                            YafBuildLink.GetLink(
-                                ForumPages.profile,
+                            BuildLink.GetLink(
+                                ForumPages.Profile,
                                 "u={0}&name={1}",
                                 reporter["UserID"].ToType<int>(),
                                 reporter["UserName"].ToString()),
@@ -170,8 +170,8 @@ namespace YAF.Web.Controls
                                 ? this.Server.HtmlEncode(
                                     this.Get<IUserDisplayName>().GetName(reporter["UserID"].ToType<int>()))
                                 : this.Server.HtmlEncode(reporter["UserName"].ToString()),
-                            YafBuildLink.GetLink(
-                                ForumPages.pmessage,
+                            BuildLink.GetLink(
+                                ForumPages.PostPrivateMessage,
                                 "u={0}&r={1}",
                                 reporter["UserID"].ToType<int>(),
                                 this.MessageID),

@@ -1,8 +1,7 @@
 <%@ Control Language="C#" AutoEventWireup="true" EnableViewState="false"
 	Inherits="YAF.Controls.ForumIconLegend" Codebehind="ForumIconLegend.ascx.cs" %>
 
-
-<ul class="list-group list-group-horizontal-sm mb-3">
+<ul class="list-group">
     <li class="list-group-item d-flex align-items-center">
         <span class="fa-stack">        
         <i class="fas fa-comments fa-2x text-success"></i>&nbsp;
@@ -26,7 +25,7 @@
     <li class="list-group-item d-flex align-items-center">
         <span class="fa-stack small">
             <i class="fas fa-comments fa-stack-2x text-secondary"></i>
-            <i class="fas fa-lock fa-stack-1x text-warning" style="position:absolute; bottom:0px !important;text-align:right;line-height: 1em;"></i>
+            <i class="fas fa-lock fa-stack-1x text-warning" style="position:absolute; bottom:0 !important;text-align:right;line-height: 1em;"></i>
         </span>&nbsp;
         <span class="align-bottom">
             <YAF:LocalizedLabel ID="ForumLockedLabel" runat="server" 

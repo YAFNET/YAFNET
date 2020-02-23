@@ -1,8 +1,8 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2019 Ingo Herbote
- * http://www.yetanotherforum.net/
+ * Copyright (C) 2014-2020 Ingo Herbote
+ * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -12,7 +12,7 @@
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
 
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
 
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
@@ -35,7 +35,7 @@ namespace YAF.Modules
     /// <summary>
     ///     Generates the Favicon code inside the head section
     /// </summary>
-    [YafModule(moduleName: "Favicon Module", moduleAuthor: "Ingo Herbote", moduleVersion: 1)]
+    [YafModule("Favicon Module", "Ingo Herbote", 1)]
     public class FaviconModule : SimpleBaseForumModule
     {
         /// <summary>
@@ -54,7 +54,7 @@ namespace YAF.Modules
         private void CurrentForumPage_PreRender([NotNull] object sender, [NotNull] EventArgs e)
         {
             var head = this.ForumControl.Page.Header
-                       ?? this.CurrentForumPage.FindControlRecursiveBothAs<HtmlHead>(id: "YafHead");
+                       ?? this.CurrentForumPage.FindControlRecursiveBothAs<HtmlHead>("YafHead");
 
             if (head == null)
             {
@@ -62,31 +62,31 @@ namespace YAF.Modules
             }
 
             // Link tags
-            var appleTouchIcon = new HtmlLink { Href = YafForumInfo.GetURLToContent("favicons/apple-touch-icon.png") };
+            var appleTouchIcon = new HtmlLink { Href = BoardInfo.GetURLToContent("favicons/apple-touch-icon.png") };
             appleTouchIcon.Attributes.Add("rel", "apple-touch-icon");
             appleTouchIcon.Attributes.Add("sizes", "180x180");
             head.Controls.Add(appleTouchIcon);
 
-            var icon32 = new HtmlLink { Href = YafForumInfo.GetURLToContent("favicons/favicon-32x32.png") };
+            var icon32 = new HtmlLink { Href = BoardInfo.GetURLToContent("favicons/favicon-32x32.png") };
             icon32.Attributes.Add("rel", "icon");
             icon32.Attributes.Add("sizes", "32x32");
             head.Controls.Add(icon32);
 
-            var icon16 = new HtmlLink { Href = YafForumInfo.GetURLToContent("favicons/favicon-16x16.png") };
+            var icon16 = new HtmlLink { Href = BoardInfo.GetURLToContent("favicons/favicon-16x16.png") };
             icon16.Attributes.Add("rel", "icon");
             icon16.Attributes.Add("sizes", "16x16");
             head.Controls.Add(icon16);
 
-            var manifest = new HtmlLink { Href = YafForumInfo.GetURLToContent("favicons/site.webmanifest") };
+            var manifest = new HtmlLink { Href = BoardInfo.GetURLToContent("favicons/site.webmanifest") };
             manifest.Attributes.Add("rel", "manifest");
             head.Controls.Add(manifest);
 
-            var maskIcon = new HtmlLink { Href = YafForumInfo.GetURLToContent("favicons/safari-pinned-tab.svg") };
+            var maskIcon = new HtmlLink { Href = BoardInfo.GetURLToContent("favicons/safari-pinned-tab.svg") };
             maskIcon.Attributes.Add("rel", "mask-icon");
             maskIcon.Attributes.Add("color", "#5bbad5");
             head.Controls.Add(maskIcon);
 
-            var shortcutIcon = new HtmlLink { Href = YafForumInfo.GetURLToContent("favicons/favicon.ico") };
+            var shortcutIcon = new HtmlLink { Href = BoardInfo.GetURLToContent("favicons/favicon.ico") };
             shortcutIcon.Attributes.Add("rel", "shortcut icon");
             head.Controls.Add(shortcutIcon);
 
@@ -96,7 +96,7 @@ namespace YAF.Modules
                 new HtmlMeta
                     {
                         Name = "msapplication-config",
-                        Content = YafForumInfo.GetURLToContent("favicons/browserconfig.xml")
+                        Content = BoardInfo.GetURLToContent("favicons/browserconfig.xml")
                     });
             head.Controls.Add(new HtmlMeta { Name = "theme-color", Content = "#ffffff" });
         }

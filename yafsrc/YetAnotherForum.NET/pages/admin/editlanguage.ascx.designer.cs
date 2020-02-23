@@ -69,6 +69,15 @@ namespace YAF.Pages.Admin
         protected global::YAF.Web.Controls.ThemeButton btnLoadPageLocalization;
 
         /// <summary>
+        /// Info control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Web.Controls.Alert Info;
+
+        /// <summary>
         /// lblInfo control.
         /// </summary>
         /// <remarks>
@@ -76,24 +85,6 @@ namespace YAF.Pages.Admin
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblInfo;
-
-        /// <summary>
-        /// Alert2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Web.Controls.Alert Alert2;
-
-        /// <summary>
-        /// LocalizedLabel5 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel5;
 
         /// <summary>
         /// grdLocals control.

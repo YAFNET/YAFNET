@@ -1,8 +1,8 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2019 Ingo Herbote
- * http://www.yetanotherforum.net/
+ * Copyright (C) 2014-2020 Ingo Herbote
+ * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -12,7 +12,7 @@
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
 
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
 
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
@@ -126,7 +126,8 @@ namespace YAF.Controls
                                     IsGuest = this.IsGuestX.Checked,
                                     IsCaptchaExcluded = this.IsCaptchaExcluded.Checked,
                                     IsActiveExcluded = this.IsExcludedFromActiveUsers.Checked,
-                                    IsApproved = this.IsApproved.Checked
+                                    IsApproved = this.IsApproved.Checked,
+                                    Moderated = this.Moderated.Checked
                                 };
 
             this.GetRepository<User>().AdminSave(
@@ -158,18 +159,19 @@ namespace YAF.Controls
                 var row = dt.Rows[0];
                 var userFlags = new UserFlags(row["Flags"]);
 
-                this.Name.Text = (string)row["Name"];
+                this.Name.Text = row.Field<string>("Name");
                 this.DisplayName.Text = row.Field<string>("DisplayName");
-                this.Email.Text = row["Email"].ToString();
+                this.Email.Text = row.Field<string>("Email");
                 this.IsHostAdminX.Checked = userFlags.IsHostAdmin;
                 this.IsApproved.Checked = userFlags.IsApproved;
                 this.IsGuestX.Checked = userFlags.IsGuest;
                 this.IsCaptchaExcluded.Checked = userFlags.IsCaptchaExcluded;
                 this.IsExcludedFromActiveUsers.Checked = userFlags.IsActiveExcluded;
+                this.Moderated.Checked = userFlags.Moderated;
                 this.Joined.Text = row["Joined"].ToString();
-                this.IsFacebookUser.Checked = row["IsFacebookUser"].ToType<bool>();
-                this.IsTwitterUser.Checked = row["IsTwitterUser"].ToType<bool>();
-                this.IsGoogleUser.Checked = row["IsGoogleUser"].ToType<bool>();
+                this.IsFacebookUser.Checked = row.Field<bool>("IsFacebookUser");
+                this.IsTwitterUser.Checked = row.Field<bool>("IsTwitterUser");
+                this.IsGoogleUser.Checked = row.Field<bool>("IsGoogleUser");
                 this.LastVisit.Text = row["LastVisit"].ToString();
                 var item = this.RankID.Items.FindByValue(row["RankID"].ToString());
 

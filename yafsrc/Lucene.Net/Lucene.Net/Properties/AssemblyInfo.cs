@@ -6,7 +6,7 @@
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  * 
- * https://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  * 
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -15,8 +15,10 @@
  * limitations under the License.
  */
 
+using YAF.Lucene.Net;
 using System;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 
 //
 // General Information about an assembly is controlled through the following 
@@ -26,3 +28,11 @@ using System.Reflection;
 [assembly: AssemblyCulture("")]
 
 [assembly: CLSCompliant(true)]
+
+// We need InternalsVisibleTo in order to prevent making everything public just for the sake of testing.
+// This has broad implications because many methods are marked "protected internal", which means other assemblies
+// must update overridden methods to match.
+[assembly: InternalsVisibleTo("YAF.Lucene.Net.Analysis.Common, PublicKey=" + AssemblyKeys.PublicKey)]
+[assembly: InternalsVisibleTo("YAF.Lucene.Net.Highlighter, PublicKey=" + AssemblyKeys.PublicKey)]
+[assembly: InternalsVisibleTo("YAF.Lucene.Net.Queries, PublicKey=" + AssemblyKeys.PublicKey)]
+[assembly: InternalsVisibleTo("YAF.Lucene.Net.QueryParser, PublicKey=" + AssemblyKeys.PublicKey)]

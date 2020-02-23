@@ -87,11 +87,11 @@ namespace YAF.Dialogs
 
             if (this.EnableCaptcha())
             {
-                this.imgCaptcha.ImageUrl = $"{YafForumInfo.ForumClientFileRoot}resource.ashx?c=1";
+                this.imgCaptcha.ImageUrl = $"{BoardInfo.ForumClientFileRoot}resource.ashx?c=1";
                 this.CaptchaDiv.Visible = true;
             }
 
-            this.quickReplyEditor.BaseDir = $"{YafForumInfo.ForumClientFileRoot}Scripts";
+            this.quickReplyEditor.BaseDir = $"{BoardInfo.ForumClientFileRoot}Scripts";
 
             this.QuickReplyWatchTopic.Visible = !this.PageContext.IsGuest;
 
@@ -118,7 +118,7 @@ namespace YAF.Dialogs
             {
                 if (this.quickReplyEditor.Text.Length <= 0)
                 {
-                    YafContext.Current.PageElements.RegisterJsBlockStartup(
+                    BoardContext.Current.PageElements.RegisterJsBlockStartup(
                         "openModalJs",
                         JavaScriptBlocks.OpenModalJs("QuickReplyDialog"));
 
@@ -128,10 +128,10 @@ namespace YAF.Dialogs
                 }
 
                 // No need to check whitespace if they are actually posting something
-                if (this.Get<YafBoardSettings>().MaxPostSize > 0
-                    && this.quickReplyEditor.Text.Length >= this.Get<YafBoardSettings>().MaxPostSize)
+                if (this.Get<BoardSettings>().MaxPostSize > 0
+                    && this.quickReplyEditor.Text.Length >= this.Get<BoardSettings>().MaxPostSize)
                 {
-                    YafContext.Current.PageElements.RegisterJsBlockStartup(
+                    BoardContext.Current.PageElements.RegisterJsBlockStartup(
                         "openModalJs",
                         JavaScriptBlocks.OpenModalJs("QuickReplyDialog"));
 
@@ -142,7 +142,7 @@ namespace YAF.Dialogs
 
                 if (this.EnableCaptcha() && !CaptchaHelper.IsValid(this.tbCaptcha.Text.Trim()))
                 {
-                    YafContext.Current.PageElements.RegisterJsBlockStartup(
+                    BoardContext.Current.PageElements.RegisterJsBlockStartup(
                         "openModalJs",
                         JavaScriptBlocks.OpenModalJs("QuickReplyDialog"));
 
@@ -152,27 +152,27 @@ namespace YAF.Dialogs
                 }
 
                 if (!(this.PageContext.IsAdmin || this.PageContext.ForumModeratorAccess)
-                    && this.Get<YafBoardSettings>().PostFloodDelay > 0)
+                    && this.Get<BoardSettings>().PostFloodDelay > 0)
                 {
-                    if (YafContext.Current.Get<IYafSession>().LastPost
-                        > DateTime.UtcNow.AddSeconds(-this.Get<YafBoardSettings>().PostFloodDelay))
+                    if (BoardContext.Current.Get<ISession>().LastPost
+                        > DateTime.UtcNow.AddSeconds(-this.Get<BoardSettings>().PostFloodDelay))
                     {
-                        YafContext.Current.PageElements.RegisterJsBlockStartup(
+                        BoardContext.Current.PageElements.RegisterJsBlockStartup(
                             "openModalJs",
                             JavaScriptBlocks.OpenModalJs("QuickReplyDialog"));
 
                         this.PageContext.AddLoadMessage(
                             this.GetTextFormatted(
                                 "wait",
-                                (YafContext.Current.Get<IYafSession>().LastPost
-                                 - DateTime.UtcNow.AddSeconds(-this.Get<YafBoardSettings>().PostFloodDelay)).Seconds),
+                                (BoardContext.Current.Get<ISession>().LastPost
+                                 - DateTime.UtcNow.AddSeconds(-this.Get<BoardSettings>().PostFloodDelay)).Seconds),
                             MessageTypes.warning);
 
                         return;
                     }
                 }
 
-                YafContext.Current.Get<IYafSession>().LastPost = DateTime.UtcNow;
+                BoardContext.Current.Get<ISession>().LastPost = DateTime.UtcNow;
 
                 // post message...
                 long messageId = 0;
@@ -201,17 +201,17 @@ namespace YAF.Dialogs
 
                 // Check for SPAM
                 if (!this.PageContext.IsAdmin && !this.PageContext.ForumModeratorAccess
-                                              && !this.Get<YafBoardSettings>().SpamServiceType.Equals(0))
+                                              && !this.Get<BoardSettings>().SpamServiceType.Equals(0))
                 {
                     // Check content for spam
                     if (this.Get<ISpamCheck>().CheckPostForSpam(
                         this.PageContext.IsGuest ? "Guest" : this.PageContext.PageUserName,
-                        YafContext.Current.Get<HttpRequestBase>().GetUserRealIPAddress(),
+                        BoardContext.Current.Get<HttpRequestBase>().GetUserRealIPAddress(),
                         this.quickReplyEditor.Text,
                         this.PageContext.IsGuest ? null : this.PageContext.User.Email,
                         out var spamResult))
                     {
-                        switch (this.Get<YafBoardSettings>().SpamMessageHandling)
+                        switch (this.Get<BoardSettings>().SpamMessageHandling)
                         {
                             case 0:
                                 this.Logger.Log(
@@ -247,7 +247,7 @@ namespace YAF.Dialogs
                                                 spamResult),
                                     EventLogTypes.SpamMessageDetected);
 
-                                YafContext.Current.PageElements.RegisterJsBlockStartup(
+                                BoardContext.Current.PageElements.RegisterJsBlockStartup(
                                     "openModalJs",
                                     JavaScriptBlocks.OpenModalJs("QuickReplyDialog"));
 
@@ -279,8 +279,8 @@ namespace YAF.Dialogs
                     }
 
                     // Check posts for urls if the user has only x posts
-                    if (YafContext.Current.CurrentUserData.NumPosts
-                        <= YafContext.Current.Get<YafBoardSettings>().IgnoreSpamWordCheckPostCount
+                    if (BoardContext.Current.CurrentUserData.NumPosts
+                        <= BoardContext.Current.Get<BoardSettings>().IgnoreSpamWordCheckPostCount
                         && !this.PageContext.IsAdmin && !this.PageContext.ForumModeratorAccess)
                     {
                         var urlCount = UrlHelper.CountUrls(this.quickReplyEditor.Text);
@@ -290,7 +290,7 @@ namespace YAF.Dialogs
                             spamResult =
                                 $"The user posted {urlCount} urls but allowed only {this.PageContext.BoardSettings.AllowedNumberOfUrls}";
 
-                            switch (this.Get<YafBoardSettings>().SpamMessageHandling)
+                            switch (this.Get<BoardSettings>().SpamMessageHandling)
                             {
                                 case 0:
                                     this.Logger.Log(
@@ -326,7 +326,7 @@ namespace YAF.Dialogs
                                                     spamResult),
                                         EventLogTypes.SpamMessageDetected);
 
-                                    YafContext.Current.PageElements.RegisterJsBlockStartup(
+                                    BoardContext.Current.PageElements.RegisterJsBlockStartup(
                                         "openModalJs",
                                         JavaScriptBlocks.OpenModalJs("QuickReplyDialog"));
 
@@ -413,7 +413,7 @@ namespace YAF.Dialogs
                     // send new post notification to users watching this topic/forum
                     this.Get<ISendNotification>().ToWatchingUsers(messageId.ToType<int>());
 
-                    if (Config.IsDotNetNuke && !this.PageContext.IsGuest)
+                    if (!this.PageContext.IsGuest && this.PageContext.CurrentUserData.Activity)
                     {
                         this.Get<IActivityStream>().AddReplyToStream(
                             this.PageContext.PageForumID,
@@ -424,11 +424,11 @@ namespace YAF.Dialogs
                     }
 
                     // redirect to newly posted message
-                    YafBuildLink.Redirect(ForumPages.posts, "m={0}&#post{0}", messageId);
+                    BuildLink.Redirect(ForumPages.Posts, "m={0}&#post{0}", messageId);
                 }
                 else
                 {
-                    if (this.Get<YafBoardSettings>().EmailModeratorsOnModeratedPost)
+                    if (this.Get<BoardSettings>().EmailModeratorsOnModeratedPost)
                     {
                         // not approved, notifiy moderators
                         this.Get<ISendNotification>().ToModeratorsThatMessageNeedsApproval(
@@ -437,15 +437,15 @@ namespace YAF.Dialogs
                             isPossibleSpamMessage);
                     }
 
-                    var url = YafBuildLink.GetLink(ForumPages.topics, "f={0}", this.PageContext.PageForumID);
+                    var url = BuildLink.GetLink(ForumPages.topics, "f={0}", this.PageContext.PageForumID);
 
                     if (Config.IsRainbow)
                     {
-                        YafBuildLink.Redirect(ForumPages.info, "i=1");
+                        BuildLink.Redirect(ForumPages.Info, "i=1");
                     }
                     else
                     {
-                        YafBuildLink.Redirect(ForumPages.info, "i=1&url={0}", this.Server.UrlEncode(url));
+                        BuildLink.Redirect(ForumPages.Info, "i=1&url={0}", this.Server.UrlEncode(url));
                     }
                 }
             }
@@ -490,6 +490,12 @@ namespace YAF.Dialogs
         /// <returns>Returns if the forum needs to be moderated</returns>
         private bool CheckForumModerateStatus(Forum forumInfo)
         {
+            // User Moderate override
+            if (this.PageContext.Moderated)
+            {
+                return true;
+            }
+
             var forumModerated = forumInfo.Flags.BinaryAnd(ForumFlags.Flags.IsModerated);
 
             if (!forumModerated)

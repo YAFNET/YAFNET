@@ -1,8 +1,8 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2019 Ingo Herbote
- * http://www.yetanotherforum.net/
+ * Copyright (C) 2014-2020 Ingo Herbote
+ * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -12,7 +12,7 @@
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
 
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
 
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
@@ -74,23 +74,23 @@ namespace YAF.Core
 
             IDictionary<string, string> res = new ConcurrentDictionary<string, string>();
 
-            if (YafContext.Current.Get<YafBoardSettings>().IPLocatorResultsMapping.IsNotSet() ||
-                YafContext.Current.Get<YafBoardSettings>().IPLocatorUrlPath.IsNotSet())
+            if (BoardContext.Current.Get<BoardSettings>().IPLocatorResultsMapping.IsNotSet() ||
+                BoardContext.Current.Get<BoardSettings>().IPLocatorUrlPath.IsNotSet())
             {
                 return res;
             }
 
-            if (!YafContext.Current.Get<YafBoardSettings>().EnableIPInfoService)
+            if (!BoardContext.Current.Get<BoardSettings>().EnableIPInfoService)
             {
                 return res;
             }
 
             try
             {
-                var path = string.Format(YafContext.Current.Get<YafBoardSettings>().IPLocatorUrlPath, Utils.Helpers.IPHelper.GetIp4Address(ip));
+                var path = string.Format(BoardContext.Current.Get<BoardSettings>().IPLocatorUrlPath, Utils.Helpers.IPHelper.GetIp4Address(ip));
                 var client = new WebClient();
                 var result = client.DownloadString(path).Split(';');
-                var sray = YafContext.Current.Get<YafBoardSettings>().IPLocatorResultsMapping.Trim().Split(',');
+                var sray = BoardContext.Current.Get<BoardSettings>().IPLocatorResultsMapping.Trim().Split(',');
                 if (result.Length > 0 && result.Length == sray.Length)
                 {
                     const int i = 0;

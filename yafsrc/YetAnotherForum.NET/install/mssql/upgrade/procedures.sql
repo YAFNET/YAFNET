@@ -1355,18 +1355,6 @@ ELSE
 END
 GO
 
-CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}message_getthanks]
-    @MessageID int
-AS
-BEGIN
-    SELECT a.ThanksFromUserID as UserID, a.ThanksDate, b.Name, b.DisplayName
-    FROM [{databaseOwner}].[{objectQualifier}Thanks] a
-    Inner Join [{databaseOwner}].[{objectQualifier}User] b
-    ON (a.ThanksFromUserID = b.UserID) WHERE (MessageID=@MessageID)
-    ORDER BY a.ThanksDate DESC
-END
-GO
-
 CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}message_getallthanks]
     @MessageIDs varchar(max)
 AS
@@ -1436,38 +1424,6 @@ SELECT @ThanksToPostsNumber=(SELECT Count(DISTINCT MessageID) FROM [{databaseOwn
 END
 GO
 
-CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}user_viewallthanks] @UserID int, @PageUserID int
-AS
-    BEGIN
-        SELECT  t.ThanksFromUserID,
-                t.ThanksToUserID,
-                c.MessageID,
-                a.ForumID,
-                a.TopicID,
-                a.Topic,
-                b.UserID,
-				c.UserName,
-                c.MessageID,
-                c.Posted,
-                c.[Message],
-                c.Flags
-        FROM
-                [{databaseOwner}].[{objectQualifier}Thanks] t
-                join [{databaseOwner}].[{objectQualifier}Message] c  on c.MessageID = t.MessageID
-                join [{databaseOwner}].[{objectQualifier}Topic] a on a.TopicID = c.TopicID
-                join [{databaseOwner}].[{objectQualifier}User] b on c.UserID = b.UserID
-                join [{databaseOwner}].[{objectQualifier}ActiveAccess] x  on x.ForumID = a.ForumID
-        WHERE
-                c.IsDeleted = 0
-                AND c.IsApproved = 1
-                AND (t.ThanksFromUserID = @UserID OR t.ThanksToUserID = @UserID)
-                AND a.TopicMovedID IS NULL
-                AND a.IsDeleted = 0
-                AND x.UserID = @PageUserID
-                AND x.ReadAccess <> 0
-        ORDER BY c.Posted DESC
-    END
-Go
 /* End of procedures for "Thanks" Mod */
 
 create procedure [{databaseOwner}].[{objectQualifier}active_list](@BoardID int,@Guests bit=0,@ShowCrawlers bit=0,@ActiveTime int,@StyledNicks bit=0,@UTCTIMESTAMP datetime) as
@@ -1853,7 +1809,7 @@ begin
     declare @UserFlags				int
 
     -- Board
-    INSERT INTO [{databaseOwner}].[{objectQualifier}Board](Name, AllowThreaded, MembershipAppName, RolesAppName ) values(@BoardName,0, @MembershipAppName, @RolesAppName)
+    INSERT INTO [{databaseOwner}].[{objectQualifier}Board](Name, MembershipAppName, RolesAppName ) values(@BoardName, @MembershipAppName, @RolesAppName)
     SET @BoardID = SCOPE_IDENTITY()
 
     SET @TimeZone = (SELECT ISNULL([{databaseOwner}].[{objectQualifier}registry_value](N'TimeZone', @BoardID), N'Dateline Standard Time'))
@@ -2090,19 +2046,6 @@ BEGIN
 END
 GO
 
-create procedure [{databaseOwner}].[{objectQualifier}board_save](@BoardID int,@Name nvarchar(50), @LanguageFile nvarchar(50),@Culture varchar(10), @AllowThreaded bit) as
-begin
-
-        EXEC [{databaseOwner}].[{objectQualifier}registry_save] 'culture', @Culture, @BoardID
-        EXEC [{databaseOwner}].[{objectQualifier}registry_save] 'language', @LanguageFile, @BoardID
-        update [{databaseOwner}].[{objectQualifier}Board] set
-        Name = @Name,
-        AllowThreaded = @AllowThreaded
-    where BoardID=@BoardID
-    select @BoardID
-end
-GO
-
 create procedure [{databaseOwner}].[{objectQualifier}board_stats]
     @BoardID	int = null
 as
@@ -2222,13 +2165,6 @@ BEGIN
 
     UPDATE [{databaseOwner}].[{objectQualifier}Choice] SET Votes = Votes + 1 WHERE ChoiceID = @ChoiceID
 END
-GO
-
-create procedure [{databaseOwner}].[{objectQualifier}eventlog_create](@UserID int,@Source nvarchar(50),@Description nvarchar(max),@Type int,@UTCTIMESTAMP datetime) as
-begin
-        insert into [{databaseOwner}].[{objectQualifier}EventLog](UserID,Source,[Description],[Type])
-    values(@UserID,@Source,@Description,@Type)
-end
 GO
 
 create procedure [{databaseOwner}].[{objectQualifier}eventlog_deletebyuser]
@@ -2445,168 +2381,6 @@ begin
     delete from [{databaseOwner}].[{objectQualifier}Forum] where ForumID = @ForumID
 end
 
-GO
-
-create procedure [{databaseOwner}].[{objectQualifier}forum_list](@BoardID int,@ForumID int=null) as
-begin
-    if @ForumID = 0 set @ForumID = null
-    if @ForumID is null
-        select a.* from [{databaseOwner}].[{objectQualifier}Forum] a join [{databaseOwner}].[{objectQualifier}Category] b on b.CategoryID=a.CategoryID where b.BoardID=@BoardID order by a.SortOrder
-    else
-        select a.* from [{databaseOwner}].[{objectQualifier}Forum] a join [{databaseOwner}].[{objectQualifier}Category] b on b.CategoryID=a.CategoryID where b.BoardID=@BoardID and a.ForumID = @ForumID
-end
-GO
-
-CREATE procedure [{databaseOwner}].[{objectQualifier}forum_listall] (@BoardID int,@UserID int,@root int = 0) as
-begin
-    if @root = 0
-begin
-      select
-        b.CategoryID,
-        Category = b.Name,
-        a.ForumID,
-        Forum = a.Name,
-        Indent = 0,
-        a.ParentID,
-        a.PollGroupID
-    from
-        [{databaseOwner}].[{objectQualifier}Forum] a
-        join [{databaseOwner}].[{objectQualifier}Category] b on b.CategoryID=a.CategoryID
-        join [{databaseOwner}].[{objectQualifier}ActiveAccess] c   on c.ForumID=a.ForumID
-    where
-        c.UserID=@UserID and
-        b.BoardID=@BoardID and
-        CONVERT(int,c.ReadAccess) > 0
-    order by
-        b.SortOrder,
-        a.SortOrder,
-        b.CategoryID,
-        a.ForumID
-end
-else if  @root > 0
-begin
-    select
-        b.CategoryID,
-        Category = b.Name,
-        a.ForumID,
-        Forum = a.Name,
-        Indent = 0,
-        a.ParentID
-    from
-        [{databaseOwner}].[{objectQualifier}Forum] a
-        join [{databaseOwner}].[{objectQualifier}Category] b on b.CategoryID=a.CategoryID
-        join [{databaseOwner}].[{objectQualifier}ActiveAccess] c   on c.ForumID=a.ForumID
-    where
-        c.UserID=@UserID and
-        b.BoardID=@BoardID and
-        CONVERT(int,c.ReadAccess) > 0 and
-        a.ForumID = @root
-
-    order by
-        b.SortOrder,
-        a.SortOrder,
-        b.CategoryID,
-        a.ForumID
-end
-else
-begin
-    select
-        b.CategoryID,
-        Category = b.Name,
-        a.ForumID,
-        Forum = a.Name,
-        Indent = 0,
-        a.ParentID
-    from
-        [{databaseOwner}].[{objectQualifier}Forum] a
-        join [{databaseOwner}].[{objectQualifier}Category] b on b.CategoryID=a.CategoryID
-        join [{databaseOwner}].[{objectQualifier}ActiveAccess] c   on c.ForumID=a.ForumID
-    where
-        c.UserID=@UserID and
-        b.BoardID=@BoardID and
-        CONVERT(int,c.ReadAccess) > 0 and
-        b.CategoryID = -@root
-
-    order by
-        b.SortOrder,
-        a.SortOrder,
-        b.CategoryID,
-        a.ForumID
-end
-end
-GO
-
-CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}forum_listall_fromcat](@BoardID int,@CategoryID int) AS
-BEGIN
-        SELECT     b.CategoryID, b.Name AS Category, a.ForumID, a.Name AS Forum, a.ParentID, a.PollGroupID
-    FROM         [{databaseOwner}].[{objectQualifier}Forum] a INNER JOIN
-                          [{databaseOwner}].[{objectQualifier}Category] b ON b.CategoryID = a.CategoryID
-        WHERE
-            b.CategoryID=@CategoryID and
-            b.BoardID=@BoardID
-        ORDER BY
-            b.SortOrder,
-            a.SortOrder
-END
-GO
-
-create procedure [{databaseOwner}].[{objectQualifier}forum_listallmymoderated](@BoardID int,@UserID int) as
-begin
-        select
-        b.CategoryID,
-        Category = b.Name,
-        a.ForumID,
-        Forum = a.Name,
-        x.Indent
-    from
-        (select
-            b.ForumID,
-            Indent = 0
-        from
-            [{databaseOwner}].[{objectQualifier}Category] a
-            join [{databaseOwner}].[{objectQualifier}Forum] b on b.CategoryID=a.CategoryID
-        where
-            a.BoardID=@BoardID and
-            b.ParentID is null
-
-        union
-
-        select
-            c.ForumID,
-            Indent = 1
-        from
-            [{databaseOwner}].[{objectQualifier}Category] a
-            join [{databaseOwner}].[{objectQualifier}Forum] b on b.CategoryID=a.CategoryID
-            join [{databaseOwner}].[{objectQualifier}Forum] c on c.ParentID=b.ForumID
-        where
-            a.BoardID=@BoardID and
-            b.ParentID is null
-
-        union
-
-        select
-            d.ForumID,
-            Indent = 2
-        from
-            [{databaseOwner}].[{objectQualifier}Category] a
-            join [{databaseOwner}].[{objectQualifier}Forum] b on b.CategoryID=a.CategoryID
-            join [{databaseOwner}].[{objectQualifier}Forum] c on c.ParentID=b.ForumID
-            join [{databaseOwner}].[{objectQualifier}Forum] d on d.ParentID=c.ForumID
-        where
-            a.BoardID=@BoardID and
-            b.ParentID is null
-        ) as x
-        join [{databaseOwner}].[{objectQualifier}Forum] a on a.ForumID=x.ForumID
-        join [{databaseOwner}].[{objectQualifier}Category] b on b.CategoryID=a.CategoryID
-        join [{databaseOwner}].[{objectQualifier}ActiveAccess] c   on c.ForumID=a.ForumID
-    where
-        c.UserID=@UserID and
-        b.BoardID=@BoardID and
-        CONVERT(int,c.ModeratorAccess)>0
-    order by
-        b.SortOrder,
-        a.SortOrder
-end
 GO
 
 create procedure [{databaseOwner}].[{objectQualifier}forum_listpath](@ForumID int) as
@@ -2852,69 +2626,6 @@ BEGIN
 END
 GO
 
-CREATE procedure [{databaseOwner}].[{objectQualifier}forum_save](
-    @ForumID 		int=null,
-    @CategoryID		int,
-    @ParentID		int=null,
-    @Name			nvarchar(50),
-    @Description	nvarchar(255),
-    @SortOrder		smallint,
-    @Locked			bit,
-    @Hidden			bit,
-    @IsTest			bit,
-    @Moderated		bit,
-	@ModeratedPostCount int = null,
-	@IsModeratedNewTopicOnly bit,
-    @RemoteURL		nvarchar(100)=null,
-    @ThemeURL		nvarchar(100)=null,
-    @ImageURL       nvarchar(128)=null,
-    @Styles         nvarchar(255)=null,
-    @AccessMaskID	int = null
-) as
-begin
-    declare @BoardID	int
-    declare @Flags		int
-
-    set @Flags = 0
-    if @Locked<>0 set @Flags = @Flags | 1
-    if @Hidden<>0 set @Flags = @Flags | 2
-    if @IsTest<>0 set @Flags = @Flags | 4
-    if @Moderated<>0 set @Flags = @Flags | 8
-
-    if @ForumID = 0 set @ForumID = null
-    if @ParentID = 0 set @ParentID = null
-
-    if @ForumID is not null begin
-        update [{databaseOwner}].[{objectQualifier}Forum] set
-            ParentID=@ParentID,
-            Name=@Name,
-            [Description]=@Description,
-            SortOrder=@SortOrder,
-            CategoryID=@CategoryID,
-            RemoteURL = @RemoteURL,
-            ThemeURL = @ThemeURL,
-            ImageURL = @ImageURL,
-            Styles = @Styles,
-            Flags = @Flags,
-			ModeratedPostCount = @ModeratedPostCount,
-			IsModeratedNewTopicOnly = @IsModeratedNewTopicOnly
-        where ForumID=@ForumID
-    end
-    else begin
-
-        insert into [{databaseOwner}].[{objectQualifier}Forum](ParentID,Name,Description,SortOrder,CategoryID,NumTopics,NumPosts,RemoteURL,ThemeURL,Flags,ImageURL,Styles,ModeratedPostCount,IsModeratedNewTopicOnly)
-        values(@ParentID,@Name,@Description,@SortOrder,@CategoryID,0,0,@RemoteURL,@ThemeURL,@Flags,@ImageURL,@Styles,@ModeratedPostCount,@IsModeratedNewTopicOnly)
-        select @ForumID = SCOPE_IDENTITY()
-
-        insert into [{databaseOwner}].[{objectQualifier}ForumAccess](GroupID,ForumID,AccessMaskID)
-        select GroupID,@ForumID,@AccessMaskID
-        from [{databaseOwner}].[{objectQualifier}Group]
-        where BoardID IN (select BoardID from [{databaseOwner}].[{objectQualifier}Category] where CategoryID=@CategoryID)
-    end
-    select ForumID = @ForumID
-end
-GO
-
 create procedure [{databaseOwner}].[{objectQualifier}forum_updatelastpost](@ForumID int) as
 begin
     DECLARE @Posted DATETIME
@@ -2970,45 +2681,12 @@ begin
 end
 go
 
-
-CREATE procedure [{databaseOwner}].[{objectQualifier}forumaccess_group](@GroupID int) as
-begin
-        select
-        a.*,
-        ForumName = b.Name,
-        CategoryName = c.Name ,
-        CategoryID = b.CategoryID,
-        ParentID = b.ParentID,
-        BoardName = brd.Name
-    from
-        [{databaseOwner}].[{objectQualifier}ForumAccess] a
-        inner join [{databaseOwner}].[{objectQualifier}Forum] b on b.ForumID=a.ForumID
-        inner join [{databaseOwner}].[{objectQualifier}Category] c on c.CategoryID=b.CategoryID
-        inner join [{databaseOwner}].[{objectQualifier}Board] brd on brd.BoardID=c.BoardID
-    where
-        a.GroupID = @GroupID
-    order by
-        brd.Name,
-        c.SortOrder,
-        b.SortOrder
-end
-GO
-
 create procedure [{databaseOwner}].[{objectQualifier}group_delete](@GroupID int) as
 begin
     delete from [{databaseOwner}].[{objectQualifier}GroupMedal] where GroupID = @GroupID
     delete from [{databaseOwner}].[{objectQualifier}ForumAccess] where GroupID = @GroupID
     delete from [{databaseOwner}].[{objectQualifier}UserGroup] where GroupID = @GroupID
     delete from [{databaseOwner}].[{objectQualifier}Group] where GroupID = @GroupID
-end
-GO
-
-create procedure [{databaseOwner}].[{objectQualifier}group_list](@BoardID int,@GroupID int=null) as
-begin
-        if @GroupID is null
-        select * from [{databaseOwner}].[{objectQualifier}Group] where BoardID=@BoardID order by SortOrder
-    else
-        select * from [{databaseOwner}].[{objectQualifier}Group] where BoardID=@BoardID and GroupID=@GroupID
 end
 GO
 
@@ -3111,99 +2789,6 @@ SELECT 2  AS LegendID,[Name],Style,PMLimit, [Description],UsrSigChars,UsrSigBBCo
 WHERE BoardID = @BoardID GROUP BY SortOrder,[Name],Style,[Description],PMLimit,UsrSigChars,UsrSigBBCodes,UsrSigHTMLTags,UsrAlbums,UsrAlbumImages
 end
 GO
-
-create procedure [{databaseOwner}].[{objectQualifier}mail_createwatch]
-(
-    @TopicID int,
-    @From nvarchar(255),
-    @FromName nvarchar(255) = NULL,
-    @Subject nvarchar(100),
-    @Body nvarchar(max),
-    @BodyHtml nvarchar(max) = null,
-    @UserID int,
-    @UTCTIMESTAMP datetime
-)
-AS
-BEGIN
-    insert into [{databaseOwner}].[{objectQualifier}Mail](FromUser,FromUserName,ToUser,ToUserName,Created,[Subject],Body,BodyHtml)
-    select
-        @From,
-        @FromName,
-        b.Email,
-        b.Name,
-        @UTCTIMESTAMP ,
-        @Subject,
-        @Body,
-        @BodyHtml
-    from
-        [{databaseOwner}].[{objectQualifier}WatchTopic] a
-        inner join [{databaseOwner}].[{objectQualifier}User] b on b.UserID=a.UserID
-    where
-        b.UserID <> @UserID and
-        b.NotificationType NOT IN (10, 20) AND
-        a.TopicID = @TopicID and
-        (a.LastMail is null or a.LastMail < b.LastVisit)
-
-    insert into [{databaseOwner}].[{objectQualifier}Mail](FromUser,FromUserName,ToUser,ToUserName,Created,Subject,Body,BodyHtml)
-    select
-        @From,
-        @FromName,
-        b.Email,
-        b.Name,
-        @UTCTIMESTAMP,
-        @Subject,
-        @Body,
-        @BodyHtml
-    from
-        [{databaseOwner}].[{objectQualifier}WatchForum] a
-        inner join [{databaseOwner}].[{objectQualifier}User] b on b.UserID=a.UserID
-        inner join [{databaseOwner}].[{objectQualifier}Topic] c on c.ForumID=a.ForumID
-    where
-        b.UserID <> @UserID and
-        b.NotificationType NOT IN (10, 20) AND
-        c.TopicID = @TopicID and
-        (a.LastMail is null or a.LastMail < b.LastVisit) and
-        not exists(select 1 from [{databaseOwner}].[{objectQualifier}WatchTopic] x where x.UserID=b.UserID and x.TopicID=c.TopicID)
-
-    update [{databaseOwner}].[{objectQualifier}WatchTopic] set LastMail = @UTCTIMESTAMP
-    where TopicID = @TopicID
-    and UserID <> @UserID
-
-    update [{databaseOwner}].[{objectQualifier}WatchForum] set LastMail = @UTCTIMESTAMP
-    where ForumID = (select ForumID from [{databaseOwner}].[{objectQualifier}Topic] where TopicID = @TopicID)
-    and UserID <> @UserID
-end
-GO
-
-create procedure [{databaseOwner}].[{objectQualifier}mail_list]
-(
-    @ProcessID int,
-    @UTCTIMESTAMP datetime
-)
-AS
-begin
-	declare @count int
-
-	set @count = 10
-
-	update [{databaseOwner}].[{objectQualifier}Mail]
-	set
-		SendTries = SendTries + 1,
-		SendAttempt = DATEADD(n,5,@UTCTIMESTAMP),
-		ProcessID = @ProcessID
-	where
-		MailID in (select top (@count) MailID
-		           from [{databaseOwner}].[{objectQualifier}Mail] with (nolock)
-				   where SendAttempt is null or SendAttempt < @UTCTIMESTAMP)
-
-	select top (@count) *
-	from [{databaseOwner}].[{objectQualifier}Mail] with(nolock)
-	where ProcessID = @ProcessID
-	order by SendAttempt, Created desc
-
-	delete from [{databaseOwner}].[{objectQualifier}Mail] where ProcessID = @ProcessID
-end
-go
 
 create procedure [{databaseOwner}].[{objectQualifier}message_approve](@MessageID int) as begin
 
@@ -5132,7 +4717,6 @@ begin
         d.[Views],
         d.ForumID,
         RankName = c.Name,
-        c.RankImage,
         c.Style as RankStyle,
         Style = case(@StyledNicks)
             when 1 then  b.UserStyle
@@ -5193,7 +4777,6 @@ create procedure [{databaseOwner}].[{objectQualifier}rank_save](
     @IsStart	bit,
     @IsLadder	bit,
     @MinPosts	int,
-    @RankImage	nvarchar(50)=null,
     @PMLimit    int,
     @Style      nvarchar(255)=null,
     @SortOrder  smallint,
@@ -5221,7 +4804,6 @@ begin
             Name = @Name,
             Flags = @Flags,
             MinPosts = @MinPosts,
-            RankImage = @RankImage,
             PMLimit = @PMLimit,
             Style = @Style,
             SortOrder = @SortOrder,
@@ -5234,8 +4816,8 @@ begin
         where RankID = @RankID
     end
     else begin
-        insert into [{databaseOwner}].[{objectQualifier}Rank](BoardID,Name,Flags,MinPosts,RankImage, PMLimit,Style,SortOrder,Description,UsrSigChars,UsrSigBBCodes,UsrSigHTMLTags,UsrAlbums,UsrAlbumImages)
-        values(@BoardID,@Name,@Flags,@MinPosts,@RankImage,@PMLimit,@Style,@SortOrder,@Description,@UsrSigChars,@UsrSigBBCodes,@UsrSigHTMLTags,@UsrAlbums,@UsrAlbumImages);
+        insert into [{databaseOwner}].[{objectQualifier}Rank](BoardID,Name,Flags,MinPosts,PMLimit,Style,SortOrder,Description,UsrSigChars,UsrSigBBCodes,UsrSigHTMLTags,UsrAlbums,UsrAlbumImages)
+        values(@BoardID,@Name,@Flags,@MinPosts,@PMLimit,@Style,@SortOrder,@Description,@UsrSigChars,@UsrSigBBCodes,@UsrSigHTMLTags,@UsrAlbums,@UsrAlbumImages);
         set @RankID = SCOPE_IDENTITY()
         -- select @RankID = RankID from [{databaseOwner}].[{objectQualifier}Rank] where RankID = @@Identity;
     end
@@ -6483,65 +6065,6 @@ begin
 end
 GO
 
-create procedure [{databaseOwner}].[{objectQualifier}user_accessmasks](@BoardID int,@UserID int) as
-begin
-
-    select * from(
-        select
-            AccessMaskID	= e.AccessMaskID,
-            AccessMaskName	= e.Name,
-            ForumID			= f.ForumID,
-            ForumName		= f.Name,
-            CategoryID		= f.CategoryID,
-            ParentID		= f.ParentID
-        from
-            [{databaseOwner}].[{objectQualifier}User] a
-            join [{databaseOwner}].[{objectQualifier}UserGroup] b on b.UserID=a.UserID
-            join [{databaseOwner}].[{objectQualifier}Group] c on c.GroupID=b.GroupID
-            join [{databaseOwner}].[{objectQualifier}ForumAccess] d on d.GroupID=c.GroupID
-            join [{databaseOwner}].[{objectQualifier}AccessMask] e on e.AccessMaskID=d.AccessMaskID
-            join [{databaseOwner}].[{objectQualifier}Forum] f on f.ForumID=d.ForumID
-        where
-            a.UserID=@UserID and
-            c.BoardID=@BoardID
-        group by
-            e.AccessMaskID,
-            e.Name,
-            f.ForumID,
-            f.ParentID,
-            f.CategoryID,
-            f.Name
-
-        union
-
-        select
-            AccessMaskID	= c.AccessMaskID,
-            AccessMaskName	= c.Name,
-            ForumID			= d.ForumID,
-            ForumName		= d.Name,
-            CategoryID		= d.CategoryID,
-            ParentID		= d.ParentID
-        from
-            [{databaseOwner}].[{objectQualifier}User] a
-            join [{databaseOwner}].[{objectQualifier}UserForum] b on b.UserID=a.UserID
-            join [{databaseOwner}].[{objectQualifier}AccessMask] c on c.AccessMaskID=b.AccessMaskID
-            join [{databaseOwner}].[{objectQualifier}Forum] d on d.ForumID=b.ForumID
-        where
-            a.UserID=@UserID and
-            c.BoardID=@BoardID
-        group by
-            c.AccessMaskID,
-            c.Name,
-            d.ForumID,
-            d.ParentID,
-            d.CategoryID,
-            d.Name
-    ) as x
-    order by
-        ForumName, AccessMaskName
-end
-GO
-
 CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}user_activity_rank]
 (
     @BoardID AS int,
@@ -7059,6 +6582,8 @@ begin
         a.[IsActiveExcluded],
         a.[IsDST],
         a.[IsDirty],
+        a.[Moderated],
+        a.[Activity],
         a.[IsFacebookUser],
         a.[IsTwitterUser],
         a.[IsGoogleUser],
@@ -7124,6 +6649,8 @@ begin
         a.[IsActiveExcluded],
         a.[IsDST],
         a.[IsDirty],
+        a.[Moderated],
+        a.[Activity],
         a.[IsFacebookUser],
         a.[IsTwitterUser],
         a.[IsGoogleUser],
@@ -7179,6 +6706,8 @@ begin
         a.[IsActiveExcluded],
         a.[IsDST],
         a.[IsDirty],
+        a.[Moderated],
+        a.[Activity],
         a.[IsFacebookUser],
         a.[IsTwitterUser],
         a.[IsGoogleUser],
@@ -7239,6 +6768,8 @@ begin
         a.[IsApproved],
         a.[IsGuest],
         a.[IsCaptchaExcluded],
+        a.[Moderated],
+        a.[Activity],
         a.[IsActiveExcluded],
         a.[IsDST],
         a.[IsDirty],
@@ -7525,28 +7056,6 @@ BEGIN
 END
 GO
 
-CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}user_savenotification](
-    @UserID				int,
-    @PMNotification		bit = null,
-    @AutoWatchTopics    bit = null,
-    @NotificationType	int = null,
-    @DailyDigest		bit = null
-)
-AS
-BEGIN
-
-        UPDATE
-            [{databaseOwner}].[{objectQualifier}User]
-        SET
-            PMNotification = (CASE WHEN (@PMNotification is not null) THEN  @PMNotification ELSE PMNotification END),
-            AutoWatchTopics = (CASE WHEN (@AutoWatchTopics is not null) THEN  @AutoWatchTopics ELSE AutoWatchTopics END),
-            NotificationType =  (CASE WHEN (@NotificationType is not null) THEN  @NotificationType ELSE NotificationType END),
-            DailyDigest = (CASE WHEN (@DailyDigest is not null) THEN  @DailyDigest ELSE DailyDigest END)
-        WHERE
-            UserID = @UserID
-END
-GO
-
 CREATE procedure [{databaseOwner}].[{objectQualifier}user_save](
     @UserID				int,
     @BoardID			int,
@@ -7632,12 +7141,6 @@ begin
         end
 
     end
-end
-GO
-
-create procedure [{databaseOwner}].[{objectQualifier}user_setnotdirty](@UserID int) as
-begin
-    update [{databaseOwner}].[{objectQualifier}User] set Flags = Flags ^ 64 where UserID = @UserID
 end
 GO
 
@@ -7748,52 +7251,6 @@ begin
 end
 GO
 
-create procedure [{databaseOwner}].[{objectQualifier}userforum_list](@UserID int=null,@ForumID int=null) as
-begin
-
-    select
-        a.*,
-        b.AccessMaskID,
-        b.Accepted,
-        Access = c.Name
-    from
-        [{databaseOwner}].[{objectQualifier}User] a
-        join [{databaseOwner}].[{objectQualifier}UserForum] b on b.UserID=a.UserID
-        join [{databaseOwner}].[{objectQualifier}AccessMask] c on c.AccessMaskID=b.AccessMaskID
-    where
-        (@UserID is null or a.UserID=@UserID) and
-        (@ForumID is null or b.ForumID=@ForumID)
-    order by
-        a.Name
-end
-GO
-
-create procedure [{databaseOwner}].[{objectQualifier}userforum_save](@UserID int,@ForumID int,@AccessMaskID int,@UTCTIMESTAMP datetime) as
-begin
-
-    if exists(select 1 from [{databaseOwner}].[{objectQualifier}UserForum] where UserID=@UserID and ForumID=@ForumID)
-        update [{databaseOwner}].[{objectQualifier}UserForum] set AccessMaskID=@AccessMaskID where UserID=@UserID and ForumID=@ForumID
-    else
-        insert into [{databaseOwner}].[{objectQualifier}UserForum](UserID,ForumID,AccessMaskID,Invited,Accepted) values(@UserID,@ForumID,@AccessMaskID,@UTCTIMESTAMP ,1)
-end
-GO
-
-create procedure [{databaseOwner}].[{objectQualifier}usergroup_list](@UserID int) as begin
-
-    select
-        b.GroupID,
-        b.Name,
-        b.Style
-    from
-        [{databaseOwner}].[{objectQualifier}UserGroup] a
-        join [{databaseOwner}].[{objectQualifier}Group] b on b.GroupID=a.GroupID
-    where
-        a.UserID = @UserID
-    order by
-        b.Name
-end
-GO
-
 create procedure [{databaseOwner}].[{objectQualifier}usergroup_save](@UserID int,@GroupID int,@Member bit) as
 begin
 
@@ -7810,69 +7267,6 @@ begin
         join [{databaseOwner}].[{objectQualifier}Group] f on f.GroupID=e.GroupID WHERE e.UserID=@UserID AND f.Style IS NOT NULL ORDER BY f.SortOrder), (SELECT TOP 1 r.Style FROM [{databaseOwner}].[{objectQualifier}Rank] r where r.RankID = [{databaseOwner}].[{objectQualifier}User].RankID))
         WHERE UserID = @UserID
     end
-end
-GO
-
-create procedure [{databaseOwner}].[{objectQualifier}watchforum_add](@UserID int,@ForumID int,@UTCTIMESTAMP datetime) as
-begin
-
-    insert into [{databaseOwner}].[{objectQualifier}WatchForum](ForumID,UserID,Created)
-    select @ForumID, @UserID, @UTCTIMESTAMP
-    where not exists(select 1 from [{databaseOwner}].[{objectQualifier}WatchForum] where ForumID=@ForumID and UserID=@UserID)
-end
-GO
-
-create procedure [{databaseOwner}].[{objectQualifier}watchforum_list](@UserID int) as
-begin
-
-    select
-        a.*,
-        ForumName = b.Name,
-        [Messages] = (select count(1) from [{databaseOwner}].[{objectQualifier}Topic] x join [{databaseOwner}].[{objectQualifier}Message] y on y.TopicID=x.TopicID where x.ForumID=a.ForumID),
-        Topics = (select count(1) from [{databaseOwner}].[{objectQualifier}Topic] x where x.ForumID=a.ForumID and x.TopicMovedID is null),
-        b.LastPosted,
-        b.LastMessageID,
-        LastTopicID = (select TopicID from [{databaseOwner}].[{objectQualifier}Message] x where x.MessageID=b.LastMessageID),
-        lastUser.UserID,
-        LastUserName = lastUser.Name,
-        LastUserDisplayName = lastUser.DisplayName
-    from
-        [{databaseOwner}].[{objectQualifier}WatchForum] a
-        inner join [{databaseOwner}].[{objectQualifier}Forum] b on b.ForumID = a.ForumID
-        inner join [{databaseOwner}].[{objectQualifier}User] lastUser on lastUser.UserID = b.LastUserID
-    where
-        a.UserID = @UserID
-end
-GO
-
-create procedure [{databaseOwner}].[{objectQualifier}watchtopic_add](@UserID int,@TopicID int,@UTCTIMESTAMP datetime) as
-begin
-
-    insert into [{databaseOwner}].[{objectQualifier}WatchTopic](TopicID,UserID,Created)
-    select @TopicID, @UserID, @UTCTIMESTAMP
-    where not exists(select 1 from [{databaseOwner}].[{objectQualifier}WatchTopic] where TopicID=@TopicID and UserID=@UserID)
-end
-GO
-
-create procedure [{databaseOwner}].[{objectQualifier}watchtopic_list](@UserID int) as
-begin
-        select
-        a.*,
-        TopicName = b.Topic,
-        Replies = (select count(1) from [{databaseOwner}].[{objectQualifier}Message] x where x.TopicID=b.TopicID) -1,
-		b.ForumID,
-        b.[Views],
-        b.LastPosted,
-        b.LastMessageID,
-        b.LastUserID,
-        LastUserName = lastUser.Name,
-        LastUserDisplayName = lastUser.DisplayName
-    from
-        [{databaseOwner}].[{objectQualifier}WatchTopic] a
-        inner join [{databaseOwner}].[{objectQualifier}Topic] b on b.TopicID = a.TopicID
-        inner join [{databaseOwner}].[{objectQualifier}User] lastUser on lastUser.UserID = b.LastUserID
-    where
-        a.UserID = @UserID
 end
 GO
 
@@ -8822,6 +8216,7 @@ AS
                 JOIN [{databaseOwner}].[{objectQualifier}Rank] b ON b.RankID = a.RankID
                 JOIN [{databaseOwner}].[{objectQualifier}Buddy] c ON ( c.ToUserID = a.UserID
                                               AND c.FromUserID = @FromUserID
+                                              and a.IsApproved = 1
                                             )
         UNION
         SELECT  @FromUserID AS UserID,
@@ -8838,6 +8233,7 @@ AS
                 JOIN [{databaseOwner}].[{objectQualifier}Buddy] c ON ( ( c.Approved = 0 )
                                               AND ( c.ToUserID = @FromUserID )
                                               AND ( a.UserID = c.FromUserID )
+                                              and a.IsApproved = 1
                                             )
         ORDER BY a.Name
     END
@@ -9333,15 +8729,14 @@ begin
                                 join [{databaseOwner}].[{objectQualifier}Topic] b ON a.TopicID=b.TopicID
                                 join [{databaseOwner}].[{objectQualifier}Forum] c ON b.ForumID=c.ForumID
                                 join [{databaseOwner}].[{objectQualifier}Category] d ON c.CategoryID=d.CategoryID
-                                 where (a.Flags & 128)=128 and a.IsDeleted = 0 and b.IsDeleted = 0 and d.BoardID = @BoardID or a.IsApproved=0 and a.IsDeleted = 0 and b.IsDeleted = 0 AND d.BoardID = @BoardID
+                                join [{databaseOwner}].[{objectQualifier}ActiveAccess] access on access.ForumID=b.ForumID
+                                 where (a.Flags & 128)=128 and a.IsDeleted = 0 and b.IsDeleted = 0 and d.BoardID = @BoardID and CONVERT(int,access.ModeratorAccess)>0 and access.UserID=@UserID or 
+                                       a.IsApproved=0 and a.IsDeleted = 0 and b.IsDeleted = 0 AND d.BoardID = @BoardID and CONVERT(int,access.ModeratorAccess)>0 and access.UserID=@UserID
                             ),
 		ReceivedThanks      = (select count(1) from [{databaseOwner}].[{objectQualifier}Activity] where UserID=@UserID and (Flags & 1024)=1024 and Notification = 1),
 		Mention             = (select count(1) from [{databaseOwner}].[{objectQualifier}Activity] where UserID=@UserID and (Flags & 512)=512 and Notification = 1),
         Quoted             = (select count(1) from [{databaseOwner}].[{objectQualifier}Activity] where UserID=@UserID and (Flags & 4096)=4096 and Notification = 1),
         UnreadPrivate		= CASE WHEN @ShowUnreadPMs > 0 THEN (select count(1) from [{databaseOwner}].[{objectQualifier}UserPMessage] where UserID=@UserID and IsRead=0 and IsDeleted = 0 and IsArchived = 0) ELSE 0 END,
-        LastReceivedThanks  = (SELECT TOP 1 MessageID FROM [{databaseOwner}].[{objectQualifier}Activity] where UserID=@UserID and (Flags & 1024)=1024 and Notification = 1),
-	LastMention		    = (SELECT TOP 1 MessageID FROM [{databaseOwner}].[{objectQualifier}Activity] where UserID=@UserID and (Flags & 512)=512 and Notification = 1),
-        LastQuoted		    = (SELECT TOP 1 MessageID FROM [{databaseOwner}].[{objectQualifier}Activity] where UserID=@UserID and (Flags & 5096)=4096 and Notification = 1),
         LastUnreadPm		= CASE WHEN @ShowUnreadPMs > 0 THEN (SELECT TOP 1 Created FROM [{databaseOwner}].[{objectQualifier}PMessage] pm INNER JOIN [{databaseOwner}].[{objectQualifier}UserPMessage] upm ON pm.PMessageID = upm.PMessageID WHERE upm.UserID=@UserID and upm.IsRead=0  and upm.IsDeleted = 0 and upm.IsArchived = 0 ORDER BY pm.Created DESC) ELSE NULL END,
         PendingBuddies      = CASE WHEN @ShowPendingBuddies > 0 THEN (SELECT COUNT(ID) FROM [{databaseOwner}].[{objectQualifier}Buddy] WHERE ToUserID = @UserID AND Approved = 0) ELSE 0 END,
         LastPendingBuddies	= CASE WHEN @ShowPendingBuddies > 0 THEN (SELECT TOP 1 Requested FROM [{databaseOwner}].[{objectQualifier}Buddy] WHERE ToUserID=@UserID and Approved = 0 ORDER BY Requested DESC) ELSE NULL END,
@@ -9882,6 +9277,54 @@ BEGIN
     order by
         m.MessageID desc
 END
+GO
+
+create procedure [{databaseOwner}].[{objectQualifier}mail_list]
+(
+    @TopicID int,
+    @UserID int,
+    @UTCTIMESTAMP datetime
+)
+AS
+BEGIN
+    select
+        b.Email,
+        b.Name,
+        b.DisplayName,
+        b.LanguageFile
+    from
+        [{databaseOwner}].[{objectQualifier}WatchTopic] a
+        inner join [{databaseOwner}].[{objectQualifier}User] b on b.UserID=a.UserID
+    where
+        b.UserID <> @UserID and
+        b.NotificationType NOT IN (10, 20) AND
+        a.TopicID = @TopicID and
+        (a.LastMail is null or a.LastMail < b.LastVisit)
+    UNION
+    select
+        b.Email,
+        b.Name,
+        b.DisplayName,
+        b.LanguageFile
+    from
+        [{databaseOwner}].[{objectQualifier}WatchForum] a
+        inner join [{databaseOwner}].[{objectQualifier}User] b on b.UserID=a.UserID
+        inner join [{databaseOwner}].[{objectQualifier}Topic] c on c.ForumID=a.ForumID
+    where
+        b.UserID <> @UserID and
+        b.NotificationType NOT IN (10, 20) AND
+        c.TopicID = @TopicID and
+        (a.LastMail is null or a.LastMail < b.LastVisit) and
+        not exists(select 1 from [{databaseOwner}].[{objectQualifier}WatchTopic] x where x.UserID=b.UserID and x.TopicID=c.TopicID)
+
+    update [{databaseOwner}].[{objectQualifier}WatchTopic] set LastMail = @UTCTIMESTAMP
+    where TopicID = @TopicID
+    and UserID <> @UserID
+
+    update [{databaseOwner}].[{objectQualifier}WatchForum] set LastMail = @UTCTIMESTAMP
+    where ForumID = (select ForumID from [{databaseOwner}].[{objectQualifier}Topic] where TopicID = @TopicID)
+    and UserID <> @UserID
+end
 GO
 
 create procedure [{databaseOwner}].[{objectQualifier}user_savestyle](@GroupID int, @RankID int)  as

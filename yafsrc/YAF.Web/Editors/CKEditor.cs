@@ -1,8 +1,8 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2019 Ingo Herbote
- * http://www.yetanotherforum.net/
+ * Copyright (C) 2014-2020 Ingo Herbote
+ * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -12,7 +12,7 @@
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
 
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
 
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
@@ -67,9 +67,9 @@ namespace YAF.Web.Editors
         /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
         protected override void Editor_PreRender([NotNull] object sender, [NotNull] EventArgs e)
         {
-            YafContext.Current.PageElements.AddScriptReference("ckeditor", "ckeditor/ckeditor.js");
+            BoardContext.Current.PageElements.AddScriptReference("ckeditor", "ckeditor/ckeditor.js");
 
-            YafContext.Current.PageElements.AddScriptReference(
+            BoardContext.Current.PageElements.AddScriptReference(
                 "ckeditor-jQuery-Adapter",
                 "ckeditor/adapters/jquery.js");
 
@@ -100,7 +100,7 @@ namespace YAF.Web.Editors
         /// </summary>
         protected virtual void RegisterAttachScript()
         {
-            YafContext.Current.PageElements.RegisterJsBlock(
+            BoardContext.Current.PageElements.RegisterJsBlock(
                 "insertsmiley",
                 $@"function insertAttachment(id,url) {{
                                    var ckEditor = CKEDITOR.instances.{this.TextAreaControl.ClientID}; ckEditor.insertHtml( '[attach]' + id + '[/attach]' );

@@ -1,8 +1,8 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2019 Ingo Herbote
- * http://www.yetanotherforum.net/
+ * Copyright (C) 2014-2020 Ingo Herbote
+ * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -12,7 +12,7 @@
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
 
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
 
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
@@ -23,7 +23,7 @@
  */
 namespace YAF.Types.Interfaces.Data
 {
-	#region Using
+    #region Using
 
     using System.Collections.Generic;
     using System.Data;
@@ -31,20 +31,20 @@ namespace YAF.Types.Interfaces.Data
     #endregion
 
     /// <summary>
-	/// The db specific function.
-	/// </summary>
+    /// The db specific function.
+    /// </summary>
     public interface IDbSpecificFunction : IDbSortableOperation
-	{
-		#region Properties
+    {
+        #region Properties
 
-		/// <summary>
-		/// Gets ProviderName.
-		/// </summary>
-		string ProviderName { get; }
+        /// <summary>
+        /// Gets ProviderName.
+        /// </summary>
+        string ProviderName { get; }
 
-		#endregion
+        #endregion
 
-		#region Public Methods
+        #region Public Methods
 
         /// <summary>
         /// The execute.
@@ -66,12 +66,12 @@ namespace YAF.Types.Interfaces.Data
         /// The execute.
         /// </returns>
         bool Execute(
-	        DbFunctionType dbfunctionType,
-	        string operationName,
-	        IEnumerable<KeyValuePair<string, object>> parameters,
-	        out object result,
+            DbFunctionType dbfunctionType,
+            string operationName,
+            IEnumerable<KeyValuePair<string, object>> parameters,
+            out object result,
             IDbTransaction transaction = null);
 
-		#endregion
-	}
+        #endregion
+    }
 }

@@ -86,7 +86,7 @@
                 <ul class="list-group">
             </HeaderTemplate>
             <ItemTemplate>
-                <li class="list-group-item list-group-item-action">
+                <li class="list-group-item list-group-item-action list-group-item-menu">
                     <div class="d-flex w-100 justify-content-between text-break" onclick="javascript:$('<%# "#eventDetails{0}".Fmt(this.Eval("EventLogID")) %>').collapse('toggle');">
                         <h5 class="mb-1">
                             <asp:HiddenField ID="EventTypeID" Value='<%# this.Eval("Type")%>' runat="server"/>
@@ -127,6 +127,26 @@
                                          TextLocalizedTag="DELETE">
                         </YAF:ThemeButton>
                     </small>
+                    <div class="dropdown-menu context-menu" aria-labelledby="context menu">
+                        <YAF:ThemeButton runat="server" 
+                                         Type="None" 
+                                         CssClass="dropdown-item"
+                                         CommandName="delete" CommandArgument='<%# this.Eval( "EventLogID") %>'
+                                         ReturnConfirmText='<%# this.GetText("ADMIN_EVENTLOG", "CONFIRM_DELETE") %>'
+                                         Icon="trash" 
+                                         TextLocalizedTag="DELETE">
+                        </YAF:ThemeButton>
+                        <div class="dropdown-divider"></div>
+                        <YAF:ThemeButton runat="server" 
+                                         Visible="<%# this.List.Items.Count > 0 %>" 
+                                         Type="None" 
+                                         CssClass="dropdown-item"
+                                         Icon="trash" 
+                                         OnClick="DeleteAllClick" 
+                                         TextLocalizedPage="ADMIN_EVENTLOG" TextLocalizedTag="DELETE_ALLOWED"
+                                         ReturnConfirmText='<%#this.GetText("ADMIN_EVENTLOG", "CONFIRM_DELETE_ALL") %>'>
+                        </YAF:ThemeButton>
+                    </div>
                     
                       <div class="collapse mt-3" id="eventDetails<%# this.Eval("EventLogID") %>">
                           <div class="card card-body">
@@ -151,16 +171,15 @@
                                             LocalizedTag="NO_ENTRY"></YAF:LocalizedLabel>
                     </YAF:Alert>
                 </div>
-            <div class="card-footer text-center">
+            <asp:Panel CssClass="card-footer text-center" runat="server" ID="Footer" Visible="<%# this.List.Items.Count > 0 %>">
                 <YAF:ThemeButton runat="server" 
-                                 Visible="<%# this.List.Items.Count > 0 %>" 
                                  Type="Danger"
                                  Icon="trash" 
                                  OnClick="DeleteAllClick" 
                                  TextLocalizedPage="ADMIN_EVENTLOG" TextLocalizedTag="DELETE_ALLOWED"
                                  ReturnConfirmText='<%#this.GetText("ADMIN_EVENTLOG", "CONFIRM_DELETE_ALL") %>'>
                 </YAF:ThemeButton>
-            </div>
+            </asp:Panel>
         </div>
     <YAF:Pager ID="PagerBottom" runat="server" LinkedPager="PagerTop" />
                 </div>

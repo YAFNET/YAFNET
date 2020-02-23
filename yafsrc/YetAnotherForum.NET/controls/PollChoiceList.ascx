@@ -11,17 +11,23 @@
         <ul class="list-group">
     </HeaderTemplate>
     <ItemTemplate>
-        <li class="list-group-item">
+        <li class="list-group-item list-group-item-action">
             <asp:PlaceHolder id="VoteTr" runat="server">
-                <p>
-                <img id="ChoiceImage" src="" 
-                     alt='<%# this.HtmlEncode(this.Get<IBadWordReplace>().Replace(Convert.ToString(DataBinder.Eval(Container.DataItem, "Choice")))) %>' runat="server" />
-                    &nbsp;<asp:Label id="YourChoice" visible="false" runat="server" 
-                               CssClass="badge badge-success"
-                               ToolTip='<%# this.GetText("POLLEDIT", "POLL_VOTED") %>'>
-                        <i class="fa fa-check-circle fa-fw"></i>&nbsp;<%# this.GetText("POLLEDIT", "POLL_VOTED") %>
-                    </asp:Label>
-                </p>
+                <div class="d-flex w-100 justify-content-between">
+                    <h5>
+                        <img id="ChoiceImage" runat="server"
+                             class="img-thumbnail mr-1"
+                             alt='<%# this.HtmlEncode(this.Get<IBadWordReplace>().Replace(Convert.ToString(DataBinder.Eval(Container.DataItem, "Choice")))) %>' />
+                        <%# DataBinder.Eval(Container.DataItem, "Choice") %>
+                    </h5>
+                    <small>
+                        <asp:Label id="YourChoice" visible="false" runat="server" 
+                                   CssClass="badge badge-success"
+                                   ToolTip='<%# this.GetText("POLLEDIT", "POLL_VOTED") %>'>
+                            <i class="fa fa-check-circle fa-fw"></i>&nbsp;<%# this.GetText("POLLEDIT", "POLL_VOTED") %>
+                        </asp:Label>
+                    </small>
+                </div>
                          <p>
                           <asp:LinkButton ID="MyLinkButton1" 
                                            CssClass="btn btn-success btn-sm" 

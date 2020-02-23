@@ -367,27 +367,6 @@ if not exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{d
 	)
 GO
 
-if not exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}Mail]') and type in (N'U'))
-	create table [{databaseOwner}].[{objectQualifier}Mail](
-		[MailID] [int] IDENTITY(1,1) NOT NULL,
-		[FromUser] [nvarchar](255) NOT NULL,
-		[FromUserName] [nvarchar](255) NULL,
-		[ToUser] [nvarchar](255) NOT NULL,
-		[ToUserName] [nvarchar](255) NULL,
-		[Created] [datetime] NOT NULL,
-		[Subject] [nvarchar](100) NOT NULL,
-		[Body] [nvarchar](max) NOT NULL,
-		[BodyHtml] [nvarchar](max) NULL,
-		[SendTries] [int] NOT NULL constraint [DF_{objectQualifier}Mail_SendTries]  default (0),
-		[SendAttempt] [datetime] NULL,
-		[ProcessID] [int] NULL,
- constraint [PK_{objectQualifier}Mail] PRIMARY KEY CLUSTERED 
-(
-	[MailID] ASC
-)WITH (STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF)
-	)
-GO
-
 if not exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}Message]') and type in (N'U'))
 	create table [{databaseOwner}].[{objectQualifier}Message](
 		MessageID		    int IDENTITY (1,1) NOT NULL,
@@ -589,6 +568,8 @@ if not exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{d
 		[IsActiveExcluded] AS (CONVERT([bit],sign([Flags]&(16)),(0))),
 		[IsDST]	AS (CONVERT([bit],sign([Flags]&(32)),(0))),
 		[IsDirty]	AS (CONVERT([bit],sign([Flags]&(64)),(0))),
+		[Moderated]	AS (CONVERT([bit],sign([Flags]&(128)),(0))),
+		[Activity] [bit] NOT NULL constraint [DF_{objectQualifier}User_Activity] default (1),
 		[Culture] varchar (10) default (10),
 		[IsFacebookUser][bit] NOT NULL constraint [DF_{objectQualifier}User_IsFacebookUser] default (0),
 		[IsTwitterUser][bit] NOT NULL constraint [DF_{objectQualifier}User_IsTwitterUser] default (0),
@@ -706,7 +687,6 @@ if not exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{d
 		BoardID			 int NOT NULL,
 		Name			 nvarchar (50) NOT NULL,
 		MinPosts		 int NULL,
-		RankImage		 nvarchar (50) NULL,
 		Flags			 int not null constraint [DF_{objectQualifier}Rank_Flags] default (0),
 	    [PMLimit]        [int] NULL,
 	    [Style]          [nvarchar](255) NULL,
@@ -763,7 +743,6 @@ begin
 	create table [{databaseOwner}].[{objectQualifier}Board](
 		BoardID			int IDENTITY (1,1) NOT NULL,
 		Name			nvarchar(50) NOT NULL,
-		AllowThreaded	bit NOT NULL,
 		MembershipAppName nvarchar(255) NULL,
 		RolesAppName nvarchar(255) NULL,
  constraint [PK_{objectQualifier}Board] PRIMARY KEY CLUSTERED 
@@ -1059,6 +1038,12 @@ CREATE TABLE [{databaseOwner}].[{objectQualifier}Activity](
 	[MessageID] [int] NULL,
 	[FromUserID] [int] NULL,
 	[Notification]  bit NOT NULL default (0),
+	[CreatedTopic] AS (CONVERT([bit],sign([Flags]&(1)),(0))),
+	[CreatedReply] AS (CONVERT([bit],sign([Flags]&(8)),(0))),
+	[WasMentioned] AS (CONVERT([bit],sign([Flags]&(512)),(0))),
+	[ReceivedThanks] AS (CONVERT([bit],sign([Flags]&(1024)),(0))),
+	[GivenThanks] AS (CONVERT([bit],sign([Flags]&(2048)),(0))),
+	[WasQuoted] AS (CONVERT([bit],sign([Flags]&(4096)),(0))),
 	constraint [PK_{objectQualifier}Activity] primary key(ID)
 	)
 go

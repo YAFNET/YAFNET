@@ -1,8 +1,8 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2019 Ingo Herbote
- * http://www.yetanotherforum.net/
+ * Copyright (C) 2014-2020 Ingo Herbote
+ * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -12,7 +12,7 @@
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
 
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
 
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
@@ -79,7 +79,7 @@ namespace YAF.Controls
             // get the Forum Description
             var output = Convert.ToString(row["Forum"]);
 
-            output = int.Parse(row["ReadAccess"].ToString()) > 0 ? $"<a class=\"card-link small\" href=\"{YafBuildLink.GetLink(ForumPages.topics, "f={0}&name={1}", forumID, output)}\" title=\"{this.GetText("COMMON", "VIEW_FORUM")}\" >{output}</a>" : $"{output} {this.GetText("NO_FORUM_ACCESS")}";
+            output = int.Parse(row["ReadAccess"].ToString()) > 0 ? $"<a class=\"card-link small\" href=\"{BuildLink.GetLink(ForumPages.topics, "f={0}&name={1}", forumID, output)}\" title=\"{this.GetText("COMMON", "VIEW_FORUM")}\" >{output}</a>" : $"{output} {this.GetText("NO_FORUM_ACCESS")}";
 
             return output;
         }
@@ -136,7 +136,7 @@ namespace YAF.Controls
                         var dataSource = repeater.DataSource.ToType<IEnumerable>();
 
                         if (dataSource != null
-                            && dataSource.ToType<ArrayList>().Count >= this.Get<YafBoardSettings>().SubForumsInForumList)
+                            && dataSource.ToType<ArrayList>().Count >= this.Get<BoardSettings>().SubForumsInForumList)
                         {
                             e.Item.FindControl("CutOff").Visible = true;
                         }

@@ -6,6 +6,9 @@ namespace ServiceStack.IO
     {
         IVirtualPathProvider VirtualPathProvider { get; }
 
+        /// <summary>
+        /// The file extension without '.' prefix
+        /// </summary>
         string Extension { get; }
 
         string GetFileHash();
@@ -13,6 +16,12 @@ namespace ServiceStack.IO
         Stream OpenRead();
         StreamReader OpenText();
         string ReadAllText();
+
+        /// <summary>
+        /// Returns ReadOnlyMemory&lt;byte&gt; for binary files or
+        /// ReadOnlyMemory&lt;char&gt; for text files   
+        /// </summary>
+        object GetContents();
 
         long Length { get; }
 

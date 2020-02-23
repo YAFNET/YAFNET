@@ -1,8 +1,8 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2019 Ingo Herbote
- * http://www.yetanotherforum.net/
+ * Copyright (C) 2014-2020 Ingo Herbote
+ * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -12,7 +12,7 @@
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
 
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
 
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
@@ -143,7 +143,7 @@ namespace YAF.Controls
                 this.GetRepository<BannedEmail>().Save(
                     null,
                     user.Email,
-                    $"Email was reported by: {(this.Get<YafBoardSettings>().EnableDisplayName ? this.PageContext.CurrentUserData.DisplayName : this.PageContext.CurrentUserData.UserName)}");
+                    $"Email was reported by: {(this.Get<BoardSettings>().EnableDisplayName ? this.PageContext.CurrentUserData.DisplayName : this.PageContext.CurrentUserData.UserName)}");
             }
 
             // Ban User IP?
@@ -158,12 +158,12 @@ namespace YAF.Controls
                 this.GetRepository<BannedName>().Save(
                     null,
                     user.UserName,
-                    $"Name was reported by: {(this.Get<YafBoardSettings>().EnableDisplayName ? this.PageContext.CurrentUserData.DisplayName : this.PageContext.CurrentUserData.UserName)}");
+                    $"Name was reported by: {(this.Get<BoardSettings>().EnableDisplayName ? this.PageContext.CurrentUserData.DisplayName : this.PageContext.CurrentUserData.UserName)}");
             }
 
             this.DeleteAllUserMessages();
 
-            if (this.ReportUser.Checked && this.Get<YafBoardSettings>().StopForumSpamApiKey.IsSet()
+            if (this.ReportUser.Checked && this.Get<BoardSettings>().StopForumSpamApiKey.IsSet()
                                         && this.IPAddresses.Any())
             {
                 try
@@ -177,7 +177,7 @@ namespace YAF.Controls
                         this.Logger.Log(
                             this.PageContext.PageUserID,
                             "User Reported to StopForumSpam.com",
-                            $"User (Name:{user.UserName}/ID:{this.CurrentUserId}/IP:{this.IPAddresses.FirstOrDefault()}/Email:{user.Email}) Reported to StopForumSpam.com by {(this.Get<YafBoardSettings>().EnableDisplayName ? this.PageContext.CurrentUserData.DisplayName : this.PageContext.CurrentUserData.UserName)}",
+                            $"User (Name:{user.UserName}/ID:{this.CurrentUserId}/IP:{this.IPAddresses.FirstOrDefault()}/Email:{user.Email}) Reported to StopForumSpam.com by {(this.Get<BoardSettings>().EnableDisplayName ? this.PageContext.CurrentUserData.DisplayName : this.PageContext.CurrentUserData.UserName)}",
                             EventLogTypes.SpamBotReported);
                     }
                 }
@@ -216,7 +216,7 @@ namespace YAF.Controls
                             DBNull.Value))
                         {
                             // examine each if he's possible to delete
-                            foreach (DataRow row in dt.Rows)
+                            dt.Rows.Cast<DataRow>().ForEach(row =>
                             {
                                 if (row["IsGuest"].ToType<int>() > 0)
                                 {
@@ -230,21 +230,20 @@ namespace YAF.Controls
                                 if ((row["IsAdmin"] == DBNull.Value || row["IsAdmin"].ToType<int>() <= 0)
                                     && (row["IsHostAdmin"] == DBNull.Value || row["IsHostAdmin"].ToType<int>() <= 0))
                                 {
-                                    continue;
+                                    return;
                                 }
 
                                 // admin are not deletable either
                                 this.PageContext.AddLoadMessage(
                                     this.GetText("ADMIN_USERS", "MSG_DELETE_ADMIN"),
                                     MessageTypes.danger);
-                                return;
-                            }
+                            });
                         }
 
                         // all is good, user can be deleted
                         UserMembershipHelper.DeleteUser(this.CurrentUserId.ToType<int>());
 
-                        YafBuildLink.Redirect(ForumPages.admin_users);
+                        BuildLink.Redirect(ForumPages.admin_users);
                     }
 
                     break;
@@ -320,7 +319,7 @@ namespace YAF.Controls
                     "ADMIN_EDITUSER",
                     "LINK_USER_BAN",
                     this.CurrentUserId,
-                    YafBuildLink.GetLink(ForumPages.profile, "u={0}&name={1}", this.CurrentUserId, name),
+                    BuildLink.GetLink(ForumPages.Profile, "u={0}&name={1}", this.CurrentUserId, name),
                     this.HtmlEncode(name));
 
                 this.GetRepository<BannedIP>().Save(null, ip, linkUserBan, this.PageContext.PageUserID);
@@ -335,20 +334,20 @@ namespace YAF.Controls
         /// </summary>
         private void BindData()
         {
-            this.ViewPostsLink.NavigateUrl = YafBuildLink.GetLinkNotEscaped(
-                ForumPages.search,
+            this.ViewPostsLink.NavigateUrl = BuildLink.GetLinkNotEscaped(
+                ForumPages.Search,
                 "postedby={0}",
                 !this.CurrentUserDataHelper.IsGuest
-                    ? this.Get<YafBoardSettings>().EnableDisplayName ? this.CurrentUserDataHelper.DisplayName :
+                    ? this.Get<BoardSettings>().EnableDisplayName ? this.CurrentUserDataHelper.DisplayName :
                       this.CurrentUserDataHelper.UserName
                     : UserMembershipHelper.GuestUserName);
 
-            this.ReportUserRow.Visible = this.Get<YafBoardSettings>().StopForumSpamApiKey.IsSet();
+            this.ReportUserRow.Visible = this.Get<BoardSettings>().StopForumSpamApiKey.IsSet();
 
             // load ip address history for user...
             this.IPAddresses.Take(5).ForEach(
                 ipAddress => this.IpAddresses.Text +=
-                                 $@"<a href=""{string.Format(this.Get<YafBoardSettings>().IPInfoPageURL, ipAddress)}""
+                                 $@"<a href=""{string.Format(this.Get<BoardSettings>().IPInfoPageURL, ipAddress)}""
                                        target=""_blank"" 
                                        title=""{this.GetText("COMMON", "TT_IPDETAILS")}"">
                                        {ipAddress}
@@ -382,7 +381,7 @@ namespace YAF.Controls
 
                 // is user suspended?
                 this.SuspendedTo.Text =
-                    $"({this.GetText("PROFILE", "ENDS")} {this.Get<IDateTime>().FormatDateTime(this.CurrentUser.Suspended)})";
+                    $"<div class=\"alert alert-info\" role=\"alert\">{this.GetText("PROFILE", "ENDS")} {this.Get<IDateTime>().FormatDateTime(this.CurrentUser.Suspended)}</div>";
             }
 
             this.DataBind();

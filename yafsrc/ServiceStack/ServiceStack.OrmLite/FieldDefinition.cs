@@ -47,12 +47,14 @@ namespace ServiceStack.OrmLite
         public bool IsClustered { get; set; }
 
         public bool IsNonClustered { get; set; }
+        
+        public string IndexName { get; set; }
 
         public bool IsRowVersion { get; set; }
 
         public int? FieldLength { get; set; }  // Precision for Decimal Type
 
-        public int? Scale { get; set; }  // for decimal type
+        public int? Scale { get; set; }  //  for decimal type
 
         public string DefaultValue { get; set; }
 
@@ -74,7 +76,7 @@ namespace ServiceStack.OrmLite
         public string GetQuotedName(IOrmLiteDialectProvider dialectProvider)
         {
             return IsRowVersion
-                ? dialectProvider.GetRowVersionColumnName(this).ToString()
+                ? dialectProvider.GetRowVersionSelectColumn(this).ToString()
                 : dialectProvider.GetQuotedColumnName(FieldName);
         }
 
@@ -118,14 +120,14 @@ namespace ServiceStack.OrmLite
 
         public bool IsSelfRefField(FieldDefinition fieldDef)
         {
-            return fieldDef.Alias != null && this.IsSelfRefField(fieldDef.Alias)
+            return (fieldDef.Alias != null && IsSelfRefField(fieldDef.Alias))
                     || IsSelfRefField(fieldDef.Name);
         }
 
         public bool IsSelfRefField(string name)
         {
-            return this.Alias != null && $"{this.Alias}Id" == name
-                    || $"{this.Name}Id" == name;
+            return (Alias != null && Alias + "Id" == name)
+                    || Name + "Id" == name;
         }
 
         public FieldDefinition Clone(Action<FieldDefinition> modifier = null)
@@ -180,27 +182,26 @@ namespace ServiceStack.OrmLite
             ForeignKeyName = foreignKeyName;
         }
 
-        public Type ReferenceType { get; }
-        public string OnDelete { get; }
-        public string OnUpdate { get; }
-        public string ForeignKeyName { get; }
+        public Type ReferenceType { get; private set; }
+        public string OnDelete { get; private set; }
+        public string OnUpdate { get; private set; }
+        public string ForeignKeyName { get; private set; }
 
-        public string GetForeignKeyName(ModelDefinition modelDef, ModelDefinition refModelDef, INamingStrategy NamingStrategy, FieldDefinition fieldDef)
+        public string GetForeignKeyName(ModelDefinition modelDef, ModelDefinition refModelDef, INamingStrategy namingStrategy, FieldDefinition fieldDef)
         {
             if (ForeignKeyName.IsNullOrEmpty())
             {
                 var modelName = modelDef.IsInSchema
-                    ? $"{modelDef.Schema}_{NamingStrategy.GetTableName(modelDef.ModelName)}"
-                    : NamingStrategy.GetTableName(modelDef.ModelName);
+                    ? $"{modelDef.Schema}_{namingStrategy.GetTableName(modelDef.ModelName)}"
+                    : namingStrategy.GetTableName(modelDef.ModelName);
 
                 var refModelName = refModelDef.IsInSchema
-                    ? $"{refModelDef.Schema}_{NamingStrategy.GetTableName(refModelDef.ModelName)}"
-                    : NamingStrategy.GetTableName(refModelDef.ModelName);
+                    ? $"{refModelDef.Schema}_{namingStrategy.GetTableName(refModelDef.ModelName)}"
+                    : namingStrategy.GetTableName(refModelDef.ModelName);
 
                 var fkName = $"FK_{modelName}_{refModelName}_{fieldDef.FieldName}";
-                return NamingStrategy.ApplyNameRestrictions(fkName);
+                return namingStrategy.ApplyNameRestrictions(fkName);
             }
-
             return ForeignKeyName;
         }
     }

@@ -7,11 +7,13 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace YAF.Pages {
-    
-    
-    public partial class avatar {
-        
+namespace YAF.Pages
+{
+
+
+    public partial class Avatar
+    {
+
         /// <summary>
         /// PageLinks control.
         /// </summary>
@@ -20,7 +22,7 @@ namespace YAF.Pages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::YAF.Web.Controls.PageLinks PageLinks;
-        
+
         /// <summary>
         /// LocalizedLabel6 control.
         /// </summary>
@@ -29,7 +31,7 @@ namespace YAF.Pages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel6;
-        
+
         /// <summary>
         /// LocalizedLabel1 control.
         /// </summary>
@@ -38,7 +40,7 @@ namespace YAF.Pages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel1;
-        
+
         /// <summary>
         /// directories control.
         /// </summary>
@@ -47,7 +49,7 @@ namespace YAF.Pages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DataList directories;
-        
+
         /// <summary>
         /// files control.
         /// </summary>
@@ -56,7 +58,7 @@ namespace YAF.Pages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DataList files;
-        
+
         /// <summary>
         /// btnCancel control.
         /// </summary>

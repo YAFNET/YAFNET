@@ -1,8 +1,8 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2019 Ingo Herbote
- * http://www.yetanotherforum.net/
+ * Copyright (C) 2014-2020 Ingo Herbote
+ * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -12,7 +12,7 @@
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
 
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
 
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
@@ -144,6 +144,11 @@ namespace YAF.Core
         public bool IsCaptchaExcluded => this.userFlags != null && this.userFlags.IsCaptchaExcluded;
 
         /// <summary>
+        /// The moderated.
+        /// </summary>
+        public bool Moderated => this.userFlags != null && this.userFlags.Moderated;
+
+        /// <summary>
         ///   Gets a value indicating whether the current user IsCrawler (True).
         /// </summary>
         public bool IsCrawler => this.AccessNotNull("IsCrawler");
@@ -212,27 +217,6 @@ namespace YAF.Core
                                                   : Convert.ToDateTime(this.Page["LastPendingBuddies"]);
 
         /// <summary>
-        /// The last received thanks.
-        /// </summary>
-        public int LastReceivedThanks => this.Page["LastReceivedThanks"].ToString().IsNotSet()
-                                            ? 0
-                                            : this.Page["LastReceivedThanks"].ToType<int>();
-
-        /// <summary>
-        /// The last mention.
-        /// </summary>
-        public int LastMention => this.Page["LastMention"].ToString().IsNotSet()
-                                            ? 0
-                                            : this.Page["LastMention"].ToType<int>();
-
-        /// <summary>
-        /// The last quoted.
-        /// </summary>
-        public int LastQuoted => this.Page["LastQuoted"].ToString().IsNotSet()
-                                      ? 0
-                                      : this.Page["LastQuoted"].ToType<int>();
-
-        /// <summary>
         ///   Gets LastUnreadPm.
         /// </summary>
         public DateTime LastUnreadPm => this.Page["LastUnreadPm"].ToString().IsNotSet()
@@ -289,13 +273,13 @@ namespace YAF.Core
         /// <summary>
         ///   Gets PageBoardID.
         /// </summary>
-        public int PageBoardID => YafControlSettings.Current == null ? 1 : YafControlSettings.Current.BoardID;
+        public int PageBoardID => ControlSettings.Current == null ? 1 : ControlSettings.Current.BoardID;
 
         /// <summary>
         ///   Gets the CategoryID for the current page, or 0 if not in any category
         /// </summary>
-        public int PageCategoryID => YafContext.Current.Settings.CategoryID != 0
-                                         ? YafContext.Current.Settings.CategoryID
+        public int PageCategoryID => BoardContext.Current.Settings.CategoryID != 0
+                                         ? BoardContext.Current.Settings.CategoryID
                                          : this.PageValueAsInt("CategoryID");
 
         /// <summary>
@@ -310,7 +294,7 @@ namespace YAF.Core
         {
             get
             {
-                var isLockedForum = YafContext.Current.Settings.LockedForum;
+                var isLockedForum = BoardContext.Current.Settings.LockedForum;
 
                 return isLockedForum != 0 ? isLockedForum : this.PageValueAsInt("ForumID");
             }

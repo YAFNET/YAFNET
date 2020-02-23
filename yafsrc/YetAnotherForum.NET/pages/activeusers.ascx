@@ -1,4 +1,4 @@
-<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.activeusers" Codebehind="activeusers.ascx.cs" %>
+<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.ActiveUsers" Codebehind="ActiveUsers.ascx.cs" %>
 
 <%@ Import Namespace="YAF.Types.Interfaces" %>
 <%@ Import Namespace="YAF.Utils.Helpers" %>
@@ -11,13 +11,9 @@
             <div class="col-xl-12">
                 <div class="card mb-3">
                     <div class="card-header">
-                        <i class="fa fa-users fa-fw"></i> <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="title" />
+                        <i class="fa fa-users fa-fw text-secondary"></i> <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="title" />
                     </div>
                     <div class="card-body">
-                        <YAF:Alert runat="server" ID="MobileInfo" Type="info" MobileOnly="True">
-                            <YAF:LocalizedLabel ID="LocalizedLabel220" runat="server" LocalizedTag="TABLE_RESPONSIVE" LocalizedPage="ADMIN_COMMON" />
-                            <span class="float-right"><i class="fa fa-hand-point-left fa-fw"></i></span>
-                        </YAF:Alert>
                         <div class="table-responsive">
 	                        <table class="table tablesorter table-bordered table-striped" id="ActiveUsers">
                                 <thead class="thead-light">
@@ -62,7 +58,7 @@
                         <tr>
 				        <td>		
 					        <YAF:UserLink ID="NameLink" runat="server" 
-                                          ReplaceName='<%# this.Eval(this.Get<YafBoardSettings>().EnableDisplayName ? "UserDisplayName" : "UserName") %>' 
+                                          ReplaceName='<%# this.Eval(this.Get<BoardSettings>().EnableDisplayName ? "UserDisplayName" : "UserName") %>' 
                                           CrawlerName='<%# this.Eval("IsCrawler").ToType<int>() > 0 ? this.Eval("Browser").ToString() : string.Empty %>'
                                           UserID='<%# this.Eval("UserID").ToType<int>() %>' 
                                           Style='<%# this.Eval("Style").ToString() %>' />
@@ -109,8 +105,8 @@
                         </div>
                         </div>
             <div class="card-footer">
-            <div id="ActiveUsersPager" class=" tableSorterPager form-inline">
-                <select class="pagesize custom-select">
+            <div id="ActiveUsersPager" class="tableSorterPager form-inline">
+                <select class="pagesize custom-select custom-select-sm">
                     <option selected="selected"  value="10">10</option>
                     <option value="20">20</option>
                     <option value="30">30</option>
@@ -118,11 +114,11 @@
                 </select>
                 &nbsp;
                 <div class="btn-group"  role="group">
-                    <a href="#" class="first  btn btn-secondary btn-sm"><span><i class="fas fa-angle-double-left"></i></span></a>
-                    <a href="#" class="prev  btn btn-secondary btn-sm"><span><i class="fas fa-angle-left"></i></span></a>
+                    <a href="#" class="first btn btn-secondary btn-sm"><span><i class="fas fa-angle-double-left"></i></span></a>
+                    <a href="#" class="prev btn btn-secondary btn-sm"><span><i class="fas fa-angle-left"></i></span></a>
                     <input type="text" class="pagedisplay  btn btn-secondary btn-sm"  style="width:150px" />
                     <a href="#" class="next btn btn-secondary btn-sm"><span><i class="fas fa-angle-right"></i></span></a>
-                    <a href="#" class="last  btn btn-secondary btn-sm"><span><i class="fas fa-angle-double-right"></i></span></a>
+                    <a href="#" class="last btn btn-secondary btn-sm"><span><i class="fas fa-angle-double-right"></i></span></a>
                 </div>
             </div>
                 </div>

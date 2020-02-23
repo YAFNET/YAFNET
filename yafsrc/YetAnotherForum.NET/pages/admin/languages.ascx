@@ -17,13 +17,8 @@
                 <div class="card-body">
 		<asp:Repeater runat="server" ID="List">
 			<HeaderTemplate>
-                <YAF:Alert runat="server" ID="Alert2" Type="info" MobileOnly="True">
-                    <YAF:LocalizedLabel ID="LocalizedLabel6" runat="server"
-                                        LocalizedTag="TABLE_RESPONSIVE" 
-                                        LocalizedPage="ADMIN_COMMON" />
-                    <span class="float-right"><i class="fa fa-hand-point-left fa-fw"></i></span>
-                </YAF:Alert><div class="table-responsive">
-			    <table class="table tablesorter table-bordered table-striped">
+                <div class="table-responsive">
+			    <table class="table tablesorter table-bordered table-striped" id="language-table">
                     <thead class="thead-light">
                         <tr>
                             <th>

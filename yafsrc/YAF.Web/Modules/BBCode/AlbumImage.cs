@@ -1,8 +1,8 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2019 Ingo Herbote
- * http://www.yetanotherforum.net/
+ * Copyright (C) 2014-2020 Ingo Herbote
+ * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -12,7 +12,7 @@
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
 
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
 
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
@@ -34,7 +34,7 @@ namespace YAF.Modules.BBCode
     /// <summary>
     /// The Album Image BB Code Module.
     /// </summary>
-    public class AlbumImage : YafBBCodeControl
+    public class AlbumImage : BBCodeControl
     {
         /// <summary>
         /// Render The Album Image as Link with Image
@@ -48,14 +48,14 @@ namespace YAF.Modules.BBCode
 
             sb.AppendFormat(
                 @"<a href=""{0}resource.ashx?image={1}"" class=""attachedImage"" data-gallery title=""{1}"">",
-                YafForumInfo.ForumClientFileRoot,
+                BoardInfo.ForumClientFileRoot,
                 this.Parameters["inner"]);
 
             sb.AppendFormat(
                 @"<img src=""{0}resource.ashx?imgprv={1}"" class=""img-user-posted img-thumbnail"" style=""max-width:auto;max-height:{2}px"" alt=""{1}"" />",
-                YafForumInfo.ForumClientFileRoot,
+                BoardInfo.ForumClientFileRoot,
                 this.Parameters["inner"],
-                this.Get<YafBoardSettings>().ImageThumbnailMaxHeight);
+                this.Get<BoardSettings>().ImageThumbnailMaxHeight);
 
             sb.Append("</a>");
 

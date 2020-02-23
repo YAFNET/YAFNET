@@ -41,8 +41,8 @@ BEGIN TRY
 
 	-- PRINT N'Create YAF.Net Board:';
 	INSERT INTO  [{databaseOwner}].[{objectQualifier}Board]
-		   (Name, allowThreaded, MembershipAppName, RolesAppName, oModuleID)
-	SELECT ModuleTitle, 1, N'', N'', ModuleID
+		   (Name, MembershipAppName, RolesAppName, oModuleID)
+	SELECT ModuleTitle, N'', N'', ModuleID
 	 FROM  dbo.TabModules
 	 WHERE TabModuleID IN (SELECT Min(TabModuleID) FROM dbo.TabModules WHERE ModuleID = @oModuleID)
 
@@ -76,8 +76,8 @@ BEGIN TRY
 	-- PRINT N'Populate Ranks:';
 	MERGE INTO  [{databaseOwner}].[{objectQualifier}Rank] T
 	USING (SELECT * FROM  [{databaseOwner}].[{objectQualifier}Rank] WHERE BoardID = @tplBoardID) S ON T.BoardID = @BoardID AND T.Name = S.Name
-	WHEN NOT MATCHED THEN INSERT ( BoardID,   [Name],   MinPosts,   RankImage,   Flags,   PMLimit,   Style,   SortOrder,   Description,   UsrSigChars,   UsrSigBBCodes,   UsrSigHTMLTags,   UsrAlbums,   UsrAlbumImages)
-						  VALUES (@BoardID, S.[Name], S.MinPosts, S.RankImage, S.Flags, S.PMLimit, S.Style, S.SortOrder, S.Description, S.UsrSigChars, S.UsrSigBBCodes, S.UsrSigHTMLTags, S.UsrAlbums, S.UsrAlbumImages);
+	WHEN NOT MATCHED THEN INSERT ( BoardID,   [Name],   MinPosts,   Flags,   PMLimit,   Style,   SortOrder,   Description,   UsrSigChars,   UsrSigBBCodes,   UsrSigHTMLTags,   UsrAlbums,   UsrAlbumImages)
+						  VALUES (@BoardID, S.[Name], S.MinPosts, S.Flags, S.PMLimit, S.Style, S.SortOrder, S.Description, S.UsrSigChars, S.UsrSigBBCodes, S.UsrSigHTMLTags, S.UsrAlbums, S.UsrAlbumImages);
 
 	DECLARE @newRank smallint = (SELECT RankId FROM  [{databaseOwner}].[{objectQualifier}Rank] WHERE BoardID = @boardID AND MinPosts = 0)
 

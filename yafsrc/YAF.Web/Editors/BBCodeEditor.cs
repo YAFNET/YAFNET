@@ -1,8 +1,8 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2019 Ingo Herbote
- * http://www.yetanotherforum.net/
+ * Copyright (C) 2014-2020 Ingo Herbote
+ * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -12,7 +12,7 @@
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
 
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
 
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
@@ -105,9 +105,9 @@ namespace YAF.Web.Editors
         {
             base.Editor_PreRender(sender, e);
 
-            YafContext.Current.PageElements.AddScriptReference("YafEditor", "yafEditor/yafEditor.min.js");
+            BoardContext.Current.PageElements.AddScriptReference("YafEditor", "yafEditor/yafEditor.min.js");
 
-            YafContext.Current.PageElements.RegisterJsBlock(
+            BoardContext.Current.PageElements.RegisterJsBlock(
                 "CreateYafEditorJs",
                 $@"var {this.SafeID}=new yafEditor('{this.SafeID}');
                   function setStyle(style,option) {{
@@ -121,7 +121,7 @@ namespace YAF.Web.Editors
                           {{
             data: function(q) {{
                 if (q && q.length > 3) {{
-                    return {Config.JQueryAlias}.getJSON(""{YafForumInfo.ForumClientFileRoot}resource.ashx?users="" + q);
+                    return {Config.JQueryAlias}.getJSON(""{BoardInfo.ForumClientFileRoot}resource.ashx?users="" + q);
                            }}
                           }},
                           map: function(user)
@@ -138,16 +138,16 @@ namespace YAF.Web.Editors
                 var extensions = this.GetRepository<FileExtension>()
                     .Get(ext => ext.BoardId == this.PageContext.PageBoardID);
 
-                YafContext.Current.PageElements.RegisterJsBlock(
+                BoardContext.Current.PageElements.RegisterJsBlock(
                     "autoUpload",
                     JavaScriptBlocks.FileAutoUploadLoadJs(
                         string.Join("|", extensions.Select(ext => ext.Extension)),
-                        this.Get<YafBoardSettings>().MaxFileSize,
-                        $"{YafForumInfo.ForumClientFileRoot}YafUploader.ashx",
+                        this.Get<BoardSettings>().MaxFileSize,
+                        $"{BoardInfo.ForumClientFileRoot}FileUploader.ashx",
                         this.PageContext.PageForumID,
                         this.PageContext.PageBoardID,
-                        this.Get<YafBoardSettings>().ImageAttachmentResizeWidth,
-                        this.Get<YafBoardSettings>().ImageAttachmentResizeHeight));
+                        this.Get<BoardSettings>().ImageAttachmentResizeWidth,
+                        this.Get<BoardSettings>().ImageAttachmentResizeHeight));
             }
 
             // register custom YafBBCode javascript (if there is any)
@@ -263,7 +263,7 @@ namespace YAF.Web.Editors
 
             RenderButton(writer, "setStyle('img','')", this.GetText("COMMON", "TT_IMAGE"), "image");
 
-            if (this.Get<YafBoardSettings>().EnableAlbum && this.PageContext.UsrAlbums > 0
+            if (this.Get<BoardSettings>().EnableAlbum && this.PageContext.UsrAlbums > 0
                                                          && this.PageContext.NumAlbums > 0
                                                          && !this.PageContext.CurrentForumPage.IsAdminPage)
             {
@@ -331,7 +331,7 @@ namespace YAF.Web.Editors
 
             RenderButton(writer, "setStyle('indent','')", this.GetText("COMMON", "INDENT"), "indent");
 
-            var customBbCode = this.Get<YafDbBroker>().GetCustomBBCode().ToList();
+            var customBbCode = this.Get<DataBroker>().GetCustomBBCode().ToList();
 
             var customBbCodesWithToolbar = customBbCode.Where(code => code.UseToolbar == true).ToList();
             var customBbCodesWithNoToolbar =
@@ -444,8 +444,6 @@ namespace YAF.Web.Editors
             writer.Write("</div></div>");
 
             writer.Write("<div class=\"btn-group mt-1\" role =\"group\">");
-
-            RenderButton(writer, "SaveMessage()", this.GetText("COMMON", "TT_SAVE"), "save");
 
             writer.Write("</div>");
 

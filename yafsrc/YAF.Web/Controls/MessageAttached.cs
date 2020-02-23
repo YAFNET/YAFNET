@@ -1,8 +1,8 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2019 Ingo Herbote
- * http://www.yetanotherforum.net/
+ * Copyright (C) 2014-2020 Ingo Herbote
+ * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -12,7 +12,7 @@
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
 
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
 
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
@@ -97,7 +97,7 @@ namespace YAF.Web.Controls
             var stats = this.GetText("ATTACHMENTINFO");
             var fileIcon = "<i class=\"fa fa-file fa-fw\"></i>";
 
-            var settings = this.Get<YafBoardSettings>();
+            var settings = this.Get<BoardSettings>();
 
             var attachments = this.GetRepository<Attachment>().Get(a => a.MessageID == this.MessageID).Select(
                 attach => new
@@ -157,7 +157,7 @@ namespace YAF.Web.Controls
                                     {
                                         writer.Write(
                                             @"<div class=""attachedimg""><img src=""{0}resource.ashx?a={1}&b={3}"" alt=""{2}"" /></div>",
-                                            YafForumInfo.ForumClientFileRoot,
+                                            BoardInfo.ForumClientFileRoot,
                                             attachment.ID,
                                             this.HtmlEncode(attachment.FileName),
                                             settings.BoardID);
@@ -174,7 +174,7 @@ namespace YAF.Web.Controls
                                                       <img src=""{0}resource.ashx?p={1}&b={4}"" alt=""{3}"" title=""{2}"" />
                                                   </a>
                                               </div>",
-                                            YafForumInfo.ForumClientFileRoot,
+                                            BoardInfo.ForumClientFileRoot,
                                             attachment.ID,
                                             attachFilesText,
                                             this.HtmlEncode(attachment.FileName),
@@ -219,7 +219,7 @@ namespace YAF.Web.Controls
                                         @"{0} <a class=""attachedImageLink {{html:false,image:false,video:false}}"" href=""{1}resource.ashx?a={2}&b={5}"">{3}</a> 
                                               <span class=""attachmentinfo"">{4}</span>",
                                         fileIcon,
-                                        YafForumInfo.ForumClientFileRoot,
+                                        BoardInfo.ForumClientFileRoot,
                                         attachment.ID,
                                         attachment.FileName,
                                         string.Format(stats, kb, attachment.Downloads),

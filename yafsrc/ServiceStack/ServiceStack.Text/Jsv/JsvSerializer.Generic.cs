@@ -4,6 +4,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Text;
 using System.Threading;
 using ServiceStack.Text.Common;
 
@@ -15,7 +16,7 @@ namespace ServiceStack.Text.Jsv
 
         public T DeserializeFromString(string value, Type type)
         {
-            if (this.DeserializerCache.TryGetValue(type, out var parseFn)) return (T)parseFn(value);
+            if (DeserializerCache.TryGetValue(type, out var parseFn)) return (T)parseFn(value);
 
             var genericType = typeof(T).MakeGenericType(type);
             var mi = genericType.GetMethodInfo("DeserializeFromString", new[] { typeof(string) });
@@ -24,13 +25,12 @@ namespace ServiceStack.Text.Jsv
             Dictionary<Type, ParseStringDelegate> snapshot, newCache;
             do
             {
-                snapshot = this.DeserializerCache;
-                newCache = new Dictionary<Type, ParseStringDelegate>(this.DeserializerCache);
+                snapshot = DeserializerCache;
+                newCache = new Dictionary<Type, ParseStringDelegate>(DeserializerCache);
                 newCache[type] = parseFn;
 
-            }
- while (!ReferenceEquals(
-                Interlocked.CompareExchange(ref this.DeserializerCache, newCache, snapshot), snapshot));
+            } while (!ReferenceEquals(
+                Interlocked.CompareExchange(ref DeserializerCache, newCache, snapshot), snapshot));
 
             return (T)parseFn(value);
         }

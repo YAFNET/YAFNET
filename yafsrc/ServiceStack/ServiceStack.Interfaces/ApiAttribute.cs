@@ -11,19 +11,17 @@ namespace ServiceStack
         /// Generates body DTO parameter only if `DisableAutoDtoInBodyParam = false`
         /// </summary>
         public const int IfNotDisabled = 0;
-
         /// <summary>
         /// Always generate body DTO for request
         /// </summary>
         public const int Always = 1;
-
         /// <summary>
         /// Never generate body DTO for request
         /// </summary>
         public const int Never = 2;
     }
 
-    [AttributeUsage(AttributeTargets.Class)]
+    [AttributeUsage(AttributeTargets.Class, AllowMultiple = false, Inherited = true)]
     public class ApiAttribute : AttributeBase
     {
         /// <summary>

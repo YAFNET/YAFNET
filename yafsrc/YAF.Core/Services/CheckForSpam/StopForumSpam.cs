@@ -1,8 +1,8 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2019 Ingo Herbote
- * http://www.yetanotherforum.net/
+ * Copyright (C) 2014-2020 Ingo Herbote
+ * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -12,7 +12,7 @@
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
 
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
 
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
@@ -30,6 +30,8 @@ namespace YAF.Core.Services.CheckForSpam
     using System.IO;
     using System.Net;
     using System.Runtime.Serialization;
+
+    using ServiceStack;
 
     using YAF.Configuration;
     using YAF.Types;
@@ -112,7 +114,7 @@ namespace YAF.Core.Services.CheckForSpam
             }
             catch (Exception ex)
             {
-                YafContext.Current.Get<ILogger>().Error(ex, "Error while Checking for Bot");
+                BoardContext.Current.Get<ILogger>().Error(ex, "Error while Checking for Bot");
 
                 return false;
             }
@@ -131,7 +133,7 @@ namespace YAF.Core.Services.CheckForSpam
             [CanBeNull] string userName)
         {
             var parameters =
-                $"username={userName}&ip_addr={ipAddress}&email={emailAddress}&api_key={YafContext.Current.Get<YafBoardSettings>().StopForumSpamApiKey}";
+                $"username={userName}&ip_addr={ipAddress}&email={emailAddress}&api_key={BoardContext.Current.Get<BoardSettings>().StopForumSpamApiKey}";
 
             var result = new HttpClient().PostRequest(
                 new Uri("http://www.stopforumspam.com/add.php"),
@@ -141,7 +143,7 @@ namespace YAF.Core.Services.CheckForSpam
 
             if (!result.Contains("success"))
             {
-                YafContext.Current.Get<ILogger>().Log(
+                BoardContext.Current.Get<ILogger>().Log(
                     null,
                     " Report to StopForumSpam.com Failed",
                     result);

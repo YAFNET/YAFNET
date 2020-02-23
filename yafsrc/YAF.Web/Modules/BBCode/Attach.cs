@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2020 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -12,7 +12,7 @@
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
 
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
 
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
@@ -39,7 +39,7 @@ namespace YAF.Modules.BBCode
     /// <summary>
     /// The Attachment BB Code Module.
     /// </summary>
-    public class Attach : YafBBCodeControl
+    public class Attach : BBCodeControl
     {
         /// <summary>
         /// Render The Album Image as Link with Image
@@ -59,7 +59,7 @@ namespace YAF.Modules.BBCode
                 return;
             }
 
-            if (this.PageContext.ForumPageType == ForumPages.profile
+            if (this.PageContext.ForumPageType == ForumPages.Profile
                 || this.PageContext.ForumPageType == ForumPages.forum)
             {
                 writer.Write(@"<i class=""fa fa-file fa-fw""></i>&nbsp;{0}", attachment.FileName);
@@ -72,14 +72,14 @@ namespace YAF.Modules.BBCode
 
             // verify it's not too large to display
             // Ederon : 02/17/2009 - made it board setting
-            if (attachment.Bytes.ToType<int>() <= this.Get<YafBoardSettings>().PictureAttachmentDisplayTreshold)
+            if (attachment.Bytes.ToType<int>() <= this.Get<BoardSettings>().PictureAttachmentDisplayTreshold)
             {
                 // is it an image file?
                 showImage = filename.IsImageName();
             }
 
             // user doesn't have rights to download, don't show the image
-            if (!this.PageContext.ForumDownloadAccess)
+            if (!this.UserHasDownloadAccess())
             {
                 writer.Write(
                     @"<i class=""fa fa-file fa-fw""></i>&nbsp;{0} <span class=""badge badge-warning"" role=""alert"">{1}</span>",
@@ -93,16 +93,16 @@ namespace YAF.Modules.BBCode
             {
                 // user has rights to download, show him image
                 writer.Write(
-                    !this.Get<YafBoardSettings>().EnableImageAttachmentResize
+                    !this.Get<BoardSettings>().EnableImageAttachmentResize
                                 ? @"<img src=""{0}resource.ashx?a={1}&b={3}"" alt=""{2}"" class=""img-user-posted img-thumbnail"" style=""max-width:auto;max-height:{4}px"" />"
                                 : @"<a href=""{0}resource.ashx?i={1}&b={3}"" class=""attachedImage"" title=""{2}""  data-gallery>
                                             <img src=""{0}resource.ashx?p={1}&b={3}"" alt=""{2}"" class=""img-user-posted img-thumbnail"" style=""max-width:auto;max-height:{4}px"" />
                                         </a>",
-                    YafForumInfo.ForumClientFileRoot,
+                    BoardInfo.ForumClientFileRoot,
                     attachment.ID,
                     this.HtmlEncode(attachment.FileName),
                     this.PageContext.PageBoardID,
-                    this.Get<YafBoardSettings>().ImageThumbnailMaxHeight);
+                    this.Get<BoardSettings>().ImageThumbnailMaxHeight);
             }
             else
             {
@@ -113,12 +113,28 @@ namespace YAF.Modules.BBCode
                     @"<i class=""fa fa-file fa-fw""></i>&nbsp;
                          <a class=""attachedImageLink {{html:false,image:false,video:false}}"" href=""{0}resource.ashx?a={1}&b={4}"">{2}</a> 
                          <span class=""attachmentinfo"">{3}</span>",
-                    YafForumInfo.ForumClientFileRoot,
+                    BoardInfo.ForumClientFileRoot,
                     attachment.ID,
                     attachment.FileName,
                     this.GetTextFormatted("ATTACHMENTINFO", kb, attachment.Downloads),
                     this.PageContext.PageBoardID);
             }
+        }
+
+        /// <summary>
+        /// Checks if the user has download access.
+        /// </summary>
+        /// <returns>
+        /// The <see cref="bool"/>.
+        /// </returns>
+        private bool UserHasDownloadAccess()
+        {
+            if (this.PageContext.ForumPageType == ForumPages.PrivateMessage || this.PageContext.ForumPageType == ForumPages.PostPrivateMessage)
+            {
+                return true;
+            }
+
+            return this.PageContext.ForumDownloadAccess;
         }
     }
 }

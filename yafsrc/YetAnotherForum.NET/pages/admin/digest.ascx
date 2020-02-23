@@ -75,15 +75,6 @@
                                      CssClass="form-control" 
                                      TextMode="Email"></asp:TextBox>
                     </div>
-                    <div class="form-group">
-                        <YAF:HelpLabel ID="LocalizedLabel8" runat="server"
-                                       AssociatedControlID="SendMethod"
-                                       LocalizedTag="DIGEST_METHOD" LocalizedPage="ADMIN_DIGEST" />
-                        <asp:DropDownList ID="SendMethod" runat="server" CssClass="custom-select">
-                            <asp:ListItem Text="Direct" />
-                            <asp:ListItem Text="Queued" Selected="True" />
-                        </asp:DropDownList>
-                    </div>
                 </div>
                 <div class="card-footer text-center">
                     <YAF:ThemeButton ID="TestSend" runat="server" OnClick="TestSendClick" Type="Primary"

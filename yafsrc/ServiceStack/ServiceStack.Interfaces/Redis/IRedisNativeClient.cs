@@ -18,7 +18,7 @@ namespace ServiceStack.Redis
     public interface IRedisNativeClient
         : IDisposable
     {
-        // Redis utility operations
+        //Redis utility operations
         Dictionary<string, string> Info { get; }
         long Db { get; set; }
         long DbSize { get; }
@@ -57,7 +57,7 @@ namespace ServiceStack.Redis
         byte[] ClientList();
         void ClientPause(int timeOutMs);
 
-        // Common key-value Redis operations
+        //Common key-value Redis operations
         byte[][] Keys(string pattern);
         string Type(string key);
         long Exists(string key);
@@ -98,21 +98,21 @@ namespace ServiceStack.Redis
         long Ttl(string key);
         long PTtl(string key);
 
-        // Scan APIs
+        //Scan APIs
         ScanResult Scan(ulong cursor, int count = 10, string match = null);
         ScanResult SScan(string setId, ulong cursor, int count = 10, string match = null);
         ScanResult ZScan(string setId, ulong cursor, int count = 10, string match = null);
         ScanResult HScan(string hashId, ulong cursor, int count = 10, string match = null);
 
-        // Hyperlog
+        //Hyperlog
         bool PfAdd(string key, params byte[][] elements);
         long PfCount(string key);
         void PfMerge(string toKeyId, params string[] fromKeys);
 
-        // Redis Sort operation (works on lists, sets or hashes)
+        //Redis Sort operation (works on lists, sets or hashes)
         byte[][] Sort(string listOrSetId, SortOptions sortOptions);
 
-        // Redis List operations
+        //Redis List operations
         byte[][] LRange(string listId, int startingFrom, int endingAt);
         long RPush(string listId, byte[] value);
         long RPushX(string listId, byte[] value);
@@ -137,7 +137,7 @@ namespace ServiceStack.Redis
         byte[][] BRPopValue(string[] listIds, int timeOutSecs);
         byte[] BRPopLPush(string fromListId, string toListId, int timeOutSecs);
 
-        // Redis Set operations
+        //Redis Set operations
         byte[][] SMembers(string setId);
         long SAdd(string setId, byte[] value);
         long SAdd(string setId, byte[][] value);
@@ -156,7 +156,7 @@ namespace ServiceStack.Redis
         byte[] SRandMember(string setId);
 
 
-        // Redis Sorted Set operations
+        //Redis Sorted Set operations
         long ZAdd(string setId, double score, byte[] value);
         long ZAdd(string setId, long score, byte[] value);
         long ZRem(string setId, byte[] value);
@@ -188,7 +188,7 @@ namespace ServiceStack.Redis
         long ZLexCount(string setId, string min, string max);
         long ZRemRangeByLex(string setId, string min, string max);
 
-        // Redis Hash operations
+        //Redis Hash operations
         long HSet(string hashId, byte[] key, byte[] value);
         void HMSet(string hashId, byte[][] keys, byte[][] values);
         long HSetNX(string hashId, byte[] key, byte[] value);
@@ -203,7 +203,7 @@ namespace ServiceStack.Redis
         byte[][] HVals(string hashId);
         byte[][] HGetAll(string hashId);
 
-        // Redis GEO operations
+        //Redis GEO operations
         long GeoAdd(string key, double longitude, double latitude, string member);
         long GeoAdd(string key, params RedisGeo[] geoPoints);
         double GeoDist(string key, string fromMember, string toMember, string unit = null);
@@ -214,7 +214,7 @@ namespace ServiceStack.Redis
         List<RedisGeoResult> GeoRadiusByMember(string key, string member, double radius, string unit,
             bool withCoords = false, bool withDist = false, bool withHash = false, int? count = null, bool? asc = null);
 
-        // Redis Pub/Sub operations
+        //Redis Pub/Sub operations
         void Watch(params string[] keys);
         void UnWatch();
         long Publish(string toChannel, byte[] message);
@@ -225,7 +225,7 @@ namespace ServiceStack.Redis
         byte[][] ReceiveMessages();
         IRedisSubscription CreateSubscription();
 
-        // Redis LUA support
+        //Redis LUA support
         RedisData EvalCommand(string luaBody, int numberKeysInArgs, params byte[][] keys);
         RedisData EvalShaCommand(string sha1, int numberKeysInArgs, params byte[][] keys);
 

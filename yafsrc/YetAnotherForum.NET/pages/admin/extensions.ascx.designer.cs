@@ -7,14 +7,12 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace YAF.Pages.Admin {
-    using System.Web.UI.WebControls;
+namespace YAF.Pages.Admin
+{
 
-    using YAF.Dialogs;
-    using YAF.Web.Controls;
 
-    public partial class extensions {
-        
+    public partial class extensions
+    {
 
         /// <summary>
         /// PageLinks control.
@@ -23,8 +21,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected PageLinks PageLinks;
-        
+        protected global::YAF.Web.Controls.PageLinks PageLinks;
 
         /// <summary>
         /// ExtensionTitle control.
@@ -33,8 +30,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected Label ExtensionTitle;
-        
+        protected global::System.Web.UI.WebControls.Label ExtensionTitle;
 
         /// <summary>
         /// LocalizedLabel1 control.
@@ -43,8 +39,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected LocalizedLabel LocalizedLabel1;
-        
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel1;
 
         /// <summary>
         /// LocalizedLabel6 control.
@@ -53,8 +48,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected LocalizedLabel LocalizedLabel6;
-        
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel6;
 
         /// <summary>
         /// list control.
@@ -63,8 +57,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected Repeater list;
-        
+        protected global::System.Web.UI.WebControls.Repeater list;
 
         /// <summary>
         /// ImportDialog control.
@@ -73,8 +66,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected ExtensionsImport ImportDialog;
-        
+        protected global::YAF.Dialogs.ExtensionsImport ImportDialog;
 
         /// <summary>
         /// EditDialog control.
@@ -83,6 +75,6 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected ExtensionsEdit EditDialog;
+        protected global::YAF.Dialogs.ExtensionsEdit EditDialog;
     }
 }

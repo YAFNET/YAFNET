@@ -1,5 +1,5 @@
-/* PrismJS 1.17.1
-https://prismjs.com/download.html?#themes=prism-okaidia&languages=markup+css+clike+javascript+c+csharp+bash+basic+cpp+aspnet+css-extras+git+java+sql+python+visual-basic+vbnet&plugins=line-highlight+line-numbers+autolinker+toolbar+normalize-whitespace+copy-to-clipboard */
+/* PrismJS 1.19.0
+https://prismjs.com/download.html?#themes=prism-okaidia&languages=markup+css+clike+javascript+aspnet+bash+basic+c+csharp+cpp+css-extras+git+java+python+scss+sql+vbnet+visual-basic&plugins=line-highlight+line-numbers+autolinker+normalize-whitespace+toolbar+copy-to-clipboard */
 /**
  * okaidia theme for JavaScript, CSS and HTML
  * Loosely based on Monokai textmate theme by http://www.monokai.nl/
@@ -61,7 +61,7 @@ pre[class*="language-"] {
 	color: #f8f8f2;
 }
 
-.namespace {
+.token.namespace {
 	opacity: .7;
 }
 
@@ -133,7 +133,7 @@ pre[data-line] {
 	position: absolute;
 	left: 0;
 	right: 0;
-	padding: inherit;
+	padding: inherit 0;
 	margin-top: 1em; /* Same as .prism’s padding-top */
 
 	background: hsla(24, 20%, 50%,.08);

@@ -1,4 +1,4 @@
-﻿<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.login" CodeBehind="login.ascx.cs" %>
+﻿<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Login" CodeBehind="Login.ascx.cs" %>
 
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <asp:UpdatePanel ID="UpdateLoginPanel" runat="server" UpdateMode="Conditional">
@@ -9,8 +9,7 @@
                    OnLoggedIn="Login1_LoggedIn"
                    OnAuthenticate="Login1_Authenticate" 
                    VisibleWhenLoggedIn="True"
-                   CssClass="mx-auto"
-                   Width="400px">
+                   CssClass="mx-auto">
                 <LayoutTemplate>
                     <div class="row">
                         <div class="col-xl-12">

@@ -12,81 +12,64 @@
 /* global define */
 
 ;(function(factory) {
-  "use strict";
-  if (typeof define === "function" && define.amd) {
-    define(["jquery", "./blueimp-gallery"], factory);
+  'use strict'
+  if (typeof define === 'function' && define.amd) {
+    define(['jquery', './blueimp-gallery'], factory)
   } else {
-    factory(window.jQuery, window.blueimp.Gallery);
+    factory(window.jQuery, window.blueimp.Gallery)
   }
 })(function($, Gallery) {
-    "use strict";
+  'use strict'
 
-    // Global click handler to open links with data-gallery attribute
-    // in the Gallery lightbox:
-    $(document).on("click",
-        "[data-gallery]",
-        function(event) {
-            // Get the container id from the data-gallery attribute:
-            var id = $(this).data("gallery");
-            var widget = $(id);
-            var container =
-                (widget.length && widget) || $(Gallery.prototype.options.container);
-            var callbacks = {
-                onopen: function() {
-                    container.data("gallery", this).trigger("open");
-                    $("#blueimp-gallery").removeClass("d-none");
-                },
-                onopened: function() {
-                    container.trigger("opened");
-                },
-                onslide: function() {
-                    container.trigger("slide", arguments);
-                },
-                onslideend: function() {
-                    container.trigger("slideend", arguments);
-                },
-                onslidecomplete: function() {
-                    container.trigger("slidecomplete", arguments);
-                },
-                onclose: function() {
-                    container.trigger("close");
-                },
-                onclosed: function() {
-                    container.trigger("closed").removeData("gallery");
-                    $("#blueimp-gallery").addClass("d-none");
-                }
-            };
-            var indicatorOptions = {
-                // The tag name, Id, element or querySelector of the indicator container:
-                indicatorContainer: "ol",
-                // The class for the active indicator:
-                activeIndicatorClass: "active",
-                // The list object property (or data attribute) with the thumbnail URL,
-                // used as alternative to a thumbnail child element:
-                thumbnailProperty: "thumbnail",
-                // Defines if the gallery indicators should display a thumbnail:
-                thumbnailIndicators: true
-            }
-            var options = $.extend(
-                // Retrieve custom options from data-attributes
-                // on the Gallery widget:
-                container.data(),
-                {
-                    container: container[0],
-                    index: this,
-                    event: event
-                },
-                callbacks,
-                indicatorOptions
-            );
-            // Select all links with the same data-gallery attribute:
-            var links = $(this)
-                .closest("[data-gallery-group], body")
-                .find('[data-gallery="' + id + '"]');
-            if (options.filter) {
-                links = links.filter(options.filter);
-            }
-
-            return new Gallery(links, options);
-        });
-});
+  // Global click handler to open links with data-gallery attribute
+  // in the Gallery lightbox:
+  $(document).on('click', '[data-gallery]', function(event) {
+    // Get the container id from the data-gallery attribute:
+    var id = $(this).data('gallery')
+    var widget = $(id)
+    var container =
+      (widget.length && widget) || $(Gallery.prototype.options.container)
+    var callbacks = {
+      onopen: function() {
+        container.data('gallery', this).trigger('open')
+      },
+      onopened: function() {
+        container.trigger('opened')
+      },
+      onslide: function() {
+        container.trigger('slide', arguments)
+      },
+      onslideend: function() {
+        container.trigger('slideend', arguments)
+      },
+      onslidecomplete: function() {
+        container.trigger('slidecomplete', arguments)
+      },
+      onclose: function() {
+        container.trigger('close')
+      },
+      onclosed: function() {
+        container.trigger('closed').removeData('gallery')
+      }
+    }
+    var options = $.extend(
+      // Retrieve custom options from data-attributes
+      // on the Gallery widget:
+      container.data(),
+      {
+        container: container[0],
+        index: this,
+        event: event
+      },
+      callbacks
+    )
+    // Select all links with the same data-gallery attribute:
+    var links = $(this)
+      .closest('[data-gallery-group], body')
+      .find('[data-gallery="' + id + '"]')
+    if (options.filter) {
+      links = links.filter(options.filter)
+    }
+    return new Gallery(links, options)
+  })
+})

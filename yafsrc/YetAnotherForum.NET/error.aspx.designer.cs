@@ -7,11 +7,13 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace YAF {
-    
-    
-    public partial class Error {
-        
+namespace YAF
+{
+
+
+    public partial class Error
+    {
+
         /// <summary>
         /// ErrorMessage control.
         /// </summary>

@@ -1,6 +1,48 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Resources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" language="Persian" code="fa">
+  <page name="ACCOUNT">
+    <Resource tag="ACTIVITY">Your Activity</Resource>
+    <Resource tag="ARCHIVE">آرشیو</Resource>
+    <Resource tag="CHANGE_PASSWORD">تغییر رمز عبور</Resource>
+    <Resource tag="CONTROL_PANEL">کنترل پنل</Resource>
+    <Resource tag="CREATED_REPLY">Replied to a Post</Resource>
+    <Resource tag="CREATED_REPLY_MSG">Added an Reply to the Topic {0}</Resource>
+    <Resource tag="CREATED_TOPIC">Created a new Topic</Resource>
+    <Resource tag="CREATED_TOPIC_MSG">Created a new Topic {0}</Resource>
+    <Resource tag="DELETE_ACCOUNT">Delete Account</Resource>
+    <Resource tag="EDIT_AVATAR">ویرایش تصویر پروفایل</Resource>
+    <Resource tag="EDIT_PROFILE">ویرایش پروفایل</Resource>
+    <Resource tag="EDIT_SETTINGS">Edit Settings</Resource>
+    <Resource tag="EDIT_SIGNATURE">ویرایش امضا</Resource>
+    <Resource tag="GIVEN_THANKS">Given Thanks to a Post</Resource>
+    <Resource tag="GIVEN_THANKS_MSG">Given Thanks to {0} in the Topic {1}</Resource>
+    <Resource tag="GROUPS">شما عضو این گروه ها هستید:</Resource>
+    <Resource tag="INBOX">صندوق ورودی</Resource>
+    <Resource tag="ITEMS">Show Items</Resource>
+    <Resource tag="JOINED">شما از این تاریخ عضو بوده اید:</Resource>
+    <Resource tag="MESSENGER">مسنجر:</Resource>
+    <Resource tag="NEW_MESSAGE">پیغام جدید</Resource>
+    <Resource tag="NUMPOSTS">تعداد ارسال‌ها:</Resource>
+    <Resource tag="PERSONAL_PROFILE">پروفایل شخصی:</Resource>
+    <Resource tag="RECEIVED_THANKS">Received a Thanks to a Post</Resource>
+    <Resource tag="RECEIVED_THANKS_MSG">Has Received a Thanks from {0} in the Topic {1}</Resource>
+    <Resource tag="SENTITEMS">موارد ارسال شده</Resource>
+    <Resource tag="SIGNATURE">امضا</Resource>
+    <Resource tag="SUBSCRIPTIONS">تنظیمات اطلاع رسانی ایمیل</Resource>
+    <Resource tag="UNREAD_ONLY">Show only unread Activity</Resource>
+    <Resource tag="VIEW_PROFILE">نمایش پروفایل</Resource>
+    <Resource tag="WAS_MENTIONED">Was Mentioned</Resource>
+    <Resource tag="WAS_MENTIONED_MSG">Was Mentioned by {0} in the Topic {1}</Resource>
+    <Resource tag="WAS_QUOTED">Was Quoted</Resource>
+    <Resource tag="WAS_QUOTED_MSG">Was Quoted by {0} in the Topic {1}</Resource>
+    <Resource tag="YOUR_ACCOUNT">حساب کاربری شما:</Resource>
+    <Resource tag="YOUR_EMAIL">آدرس ایمیل شما:</Resource>
+    <Resource tag="YOUR_NOTIFIY">Your Notifications</Resource>
+    <Resource tag="YOUR_USERDISPLAYNAME">نام نمایشی شما:</Resource>
+    <Resource tag="YOUR_USERNAME">نام کاربری شما:</Resource>
+  </page>
   <page name="ACTIVELOCATION">
+    <Resource tag="ACCOUNT">نمایش تنظیمات پروفایل</Resource>
     <Resource tag="ACTIVEUSERS">در حال مشاهده لیست اعضای فعال</Resource>
     <Resource tag="ADMIN_ACCESSMASKS">در حال مشاهده تنظیمات دسترسی در بخش مدیر</Resource>
     <Resource tag="ADMIN_ADMIN">در حال مشاهده پانل مدیر</Resource>
@@ -75,25 +117,22 @@
     <Resource tag="APPROVE">تایید ها</Resource>
     <Resource tag="ATTACHMENTS">مدیریت فایل‌های ضمیمه</Resource>
     <Resource tag="AVATAR">نمایش تصویر پروفایل</Resource>
+    <Resource tag="BLOCK_OPTIONS">Edits his Ignored users and block option</Resource>
+    <Resource tag="CHANGE_PASSWORD">تغییر کلمه رمز</Resource>
     <Resource tag="COOKIES">Views the cookie policy page</Resource>
-    <Resource tag="CP_BLOCKOPTIONS">Edits his Ignored users and block option</Resource>
-    <Resource tag="CP_CHANGEPASSWORD">تغییر کلمه رمز</Resource>
-    <Resource tag="CP_EDITALBUMIMAGES">ویرایش تصاویر آلبوم</Resource>
-    <Resource tag="CP_EDITAVATAR">ویرایش تصویر پروفایل</Resource>
-    <Resource tag="CP_EDITBUDDIES">ویرایش دوستان</Resource>
-    <Resource tag="CP_EDITPROFILE">ویرایش پروفایل</Resource>
-    <Resource tag="CP_EDITSETTINGS">Edit the user settings</Resource>
-    <Resource tag="CP_MESSAGE">نمایش پیام‌های خصوصی</Resource>
-    <Resource tag="CP_PM">نمایش پیام‌های خصوصی</Resource>
-    <Resource tag="CP_PROFILE">نمایش تنظیمات پروفایل</Resource>
     <Resource tag="CP_PROFILE_OFUSER">نمایش پروفایل کاربر</Resource>
-    <Resource tag="CP_SIGNATURE">ویرایش امضا</Resource>
-    <Resource tag="CP_SUBSCRIPTIONS">نمایش اشتراک‌ها</Resource>
+    <Resource tag="DELETE_ACCOUNT">User deletes his account</Resource>
     <Resource tag="DELETEMESSAGE">حذف یک پیام</Resource>
+    <Resource tag="EDIT_ALBUMIMAGES">ویرایش تصاویر آلبوم</Resource>
+    <Resource tag="EDIT_AVATAR">ویرایش تصویر پروفایل</Resource>
+    <Resource tag="EDIT_PROFILE">ویرایش پروفایل</Resource>
+    <Resource tag="EDIT_SETTINGS">Edit the user settings</Resource>
+    <Resource tag="EDIT_SIGNATURE">ویرایش امضا</Resource>
     <Resource tag="EMAILTOPIC">ارسال یک موضوع</Resource>
     <Resource tag="ERROR">صفحه خطا</Resource>
     <Resource tag="FORUM">نمایش انجمن </Resource>
     <Resource tag="FORUMFROMCATEGORY">نمایش انجمن در یک رده</Resource>
+    <Resource tag="FRIENDS">ویرایش دوستان</Resource>
     <Resource tag="HELP_INDEX">نمایش فهرست راهنما</Resource>
     <Resource tag="HELP_RECOVER">بدون داده</Resource>
     <Resource tag="IM_AIM">استفاده از AIM</Resource>
@@ -110,6 +149,7 @@
     <Resource tag="LOGOUT">خروج</Resource>
     <Resource tag="MAINPAGE">نمایش صفحه اصلی انجمن</Resource>
     <Resource tag="MEMBERS">نمایش فهرست اعضا</Resource>
+    <Resource tag="MESSAGE">نمایش پیام‌های خصوصی</Resource>
     <Resource tag="MESSAGEHISTORY">نمایش تاریخچه یک پیام</Resource>
     <Resource tag="MOD_FORUMUSER">نظارت کاربر انجمن</Resource>
     <Resource tag="MODERATE">ناظران</Resource>
@@ -120,6 +160,7 @@
     <Resource tag="MOVETOPIC">انتقال یک موضوع</Resource>
     <Resource tag="MYTOPICS">نمایش موضوعات فعال و موردعلاقه کاربر</Resource>
     <Resource tag="NODATA">داده ای موجود نیست</Resource>
+    <Resource tag="PM">نمایش پیام‌های خصوصی</Resource>
     <Resource tag="PMESSAGE">نوشتن یک پیام خصوصی</Resource>
     <Resource tag="POSTMESSAGE_FULL">ارسال پیام در یک موضوع </Resource>
     <Resource tag="POSTS">نمایش پیام های یک موضوع </Resource>
@@ -134,6 +175,7 @@
     <Resource tag="RULES">نمایش قوانین انجمن</Resource>
     <Resource tag="SEARCH">استفاده از جستجو</Resource>
     <Resource tag="SHOUTBOX">استفاده از جعبه گفتگو</Resource>
+    <Resource tag="SUBSCRIPTIONS">نمایش اشتراک‌ها</Resource>
     <Resource tag="TEAM">نمایش صفحه گروه</Resource>
     <Resource tag="TOPICINFORUM"> در انجمن </Resource>
     <Resource tag="TOPICS">نمایش موضوع </Resource>
@@ -991,8 +1033,6 @@
     <Resource tag="ALLOW_THANKS_HELP">در صورت انتخاب به کاربران اجازه می دهید بتوانند از ارسال ها تشکر کنند.</Resource>
     <Resource tag="ALLOW_TOPIC_DESCRIPTION">مجوز توضیحات موضوع:</Resource>
     <Resource tag="ALLOW_TOPIC_DESCRIPTION_HELP">در صورت انتخاب کاربران می توانند برای موضوعات خود توضیحی وارد نمایند</Resource>
-    <Resource tag="ALLOW_TOPIC_STATUS">مجوز وضعیت موضوع:</Resource>
-    <Resource tag="ALLOW_TOPIC_STATUS_HELP">در صورت انتخاب کاربران می توانند وضعیت موضوع را مشخص نمایند</Resource>
     <Resource tag="ALLOW_TOPICS_DUPLICATENAME">مجوز وجود موضوعاتی با نام های مشابه:</Resource>
     <Resource tag="ALLOW_TOPICS_DUPLICATENAME_HELP">نام های تکراری موضوعات مجاز است برای :</Resource>
     <Resource tag="ALLOW_USER_HIDE">مجوز مخفی سازی کاربر:</Resource>
@@ -1117,6 +1157,7 @@
     <Resource tag="FLOOT_DELAY">تاخیر میان ارسال:</Resource>
     <Resource tag="FLOOT_DELAY_HELP">تعداد ثانیه ها قبل از ارسالی دیگر را می‌توانید وارد کنید. (این تنظیم محدودیتی برای مدیران و ناظران ایجاد نمی کند)</Resource>
     <Resource tag="FORBIDDEN">ممنوعیت</Resource>
+    <Resource tag="FORCE_SEARCHINDED">Search Index Task started.</Resource>
     <Resource tag="FORUM_BASEURLMASK">قالب دسترسی پایه‌ی انجمن</Resource>
     <Resource tag="FORUM_BASEURLMASK_HELP">The full forward-facing url to this forum.</Resource>
     <Resource tag="FORUM_EDITOR">ویرایشگر انجمن :</Resource>
@@ -1979,6 +2020,18 @@
     <Resource tag="UERLINKMOD_DESCRIPTION">نام کاربری را وارد کنید</Resource>
     <Resource tag="YOUTUBEMOD_DESCRIPTION">آدرس فيلم يوتيوب را اينجا قرار دهيد.</Resource>
   </page>
+  <page name="BLOCK_OPTIONS">
+    <Resource tag="BLOCK_BUDDYS">Block Friend Requests</Resource>
+    <Resource tag="BLOCK_BUDDYS">Block Private Messages</Resource>
+    <Resource tag="BLOCK_EMAILS">Block E-Mails</Resource>
+    <Resource tag="BLOCK_OPTIONS">Block Options</Resource>
+    <Resource tag="BLOCK_PMS">Block Private Messages</Resource>
+    <Resource tag="IGNORED_USERS">Ignored User List</Resource>
+    <Resource tag="NOTE_BLOCK">Admins and Users in the Friend List will be excluded from the Blocking!</Resource>
+    <Resource tag="NOTE_USERS">Posts of Ignored Users will be hidden. This does not include Quoted Posts</Resource>
+    <Resource tag="SELECT_OPTIONS">Options to Block other Users from Contacting you...</Resource>
+    <Resource tag="TITLE">User Block Options &amp; Ignored Users</Resource>
+  </page>
   <page name="BUDDY">
     <Resource tag="ADDBUDDY">اضافه کردن به عنوان دوست</Resource>
     <Resource tag="AWAIT_BUDDY_APPROVAL">(منتظر تائید از طرف دوست)</Resource>
@@ -2045,6 +2098,32 @@
     <Resource tag="BUTTON_UNLOCKTOPIC_TT">بازکردن قفل این عنوان</Resource>
     <Resource tag="BUTTON_UNTAGFAVORITE">حذف از علاقه مندی های من</Resource>
     <Resource tag="BUTTON_UNTAGFAVORITE_TT">این عنوان را از لیست عناوین مورد علاقه من حذف کن.</Resource>
+  </page>
+  <page name="CHANGE_PASSWORD">
+    <Resource tag="CHANGE_BUTTON">تائید</Resource>
+    <Resource tag="CHANGE_SUCCESS">رمز عبور با موفقیت تغییر پیدا کرد.</Resource>
+    <Resource tag="CONFIRM_PASSWORD">تکرار رمز عبور:</Resource>
+    <Resource tag="EMPTY_ANSWER">New Answer is requiered.</Resource>
+    <Resource tag="EMPTY_PASSWORD">Please Enter your Current Password</Resource>
+    <Resource tag="EMPTY_QUESTION">New Question is requiered.</Resource>
+    <Resource tag="NEED_NEW_CONFIRM_PASSWORD">تایپ مجدد رمز عبور ضروری است.</Resource>
+    <Resource tag="NEED_NEW_PASSWORD">رمز عبور جدید ضروری است.</Resource>
+    <Resource tag="NEED_OLD_PASSWORD">رمز عبور قدیمی ضروری است.</Resource>
+    <Resource tag="NEW_PASSWORD">رمز جدید:</Resource>
+    <Resource tag="NO_PASSWORD_MATCH">رمزهای جدید با هم همخوانی ندارند.</Resource>
+    <Resource tag="OLD_PASSWORD">رمز قدیمی:</Resource>
+    <Resource tag="PASSWORD_BAD_LENGTH">حداقل طول رمز جدید: {0}.</Resource>
+    <Resource tag="PASSWORD_INCORRECT">رمز اشتباه می باشد و یا رمز جدید نا معتبر است.</Resource>
+    <Resource tag="PASSWORD_NOT_COMPLEX">کاراکترهایی غیر حرفی نیاز است: {1}.</Resource>
+    <Resource tag="PASSWORD_NOT_NEW">رمزعبور جدید باید از قبلی متفاوت باشد.</Resource>
+    <Resource tag="SECURITY_ANSWER_NEW">New Security Answer:</Resource>
+    <Resource tag="SECURITY_ANSWER_OLD">Current Password:</Resource>
+    <Resource tag="SECURITY_CHANGED">Password Question and Answer changed.</Resource>
+    <Resource tag="SECURITY_NOT_CHANGED">Change failed. Please re-enter your values and try again.</Resource>
+    <Resource tag="SECURITY_QUESTION_NEW">New Security Question:</Resource>
+    <Resource tag="SECURITY_QUESTION_OLD">Old Security Question:</Resource>
+    <Resource tag="TITLE">تغییر رمز</Resource>
+    <Resource tag="TITLE_SECURITY">Change Security Question and Answer</Resource>
   </page>
   <page name="CHARACTER_CHECKER">
     <Resource tag="ISEMPTY">متن نمی تواند خالی باشد</Resource>
@@ -2492,274 +2571,6 @@
     <Resource tag="ZM">زامبیا</Resource>
     <Resource tag="ZW">زیمباوه</Resource>
   </page>
-  <page name="CP_BLOCKOPTIONS">
-    <Resource tag="BLOCK_BUDDYS">Block Friend Requests</Resource>
-    <Resource tag="BLOCK_BUDDYS">Block Private Messages</Resource>
-    <Resource tag="BLOCK_EMAILS">Block E-Mails</Resource>
-    <Resource tag="BLOCK_OPTIONS">Block Options</Resource>
-    <Resource tag="BLOCK_PMS">Block Private Messages</Resource>
-    <Resource tag="IGNORED_USERS">Ignored User List</Resource>
-    <Resource tag="NOTE_BLOCK">Admins and Users in the Friend List will be excluded from the Blocking!</Resource>
-    <Resource tag="NOTE_USERS">Posts of Ignored Users will be hidden. This does not include Quoted Posts</Resource>
-    <Resource tag="SELECT_OPTIONS">Options to Block other Users from Contacting you...</Resource>
-    <Resource tag="TITLE">User Block Options &amp; Ignored Users</Resource>
-  </page>
-  <page name="CP_CHANGEPASSWORD">
-    <Resource tag="CHANGE_BUTTON">تائید</Resource>
-    <Resource tag="CHANGE_SUCCESS">رمز عبور با موفقیت تغییر پیدا کرد.</Resource>
-    <Resource tag="CONFIRM_PASSWORD">تکرار رمز عبور:</Resource>
-    <Resource tag="EMPTY_ANSWER">New Answer is requiered.</Resource>
-    <Resource tag="EMPTY_PASSWORD">Please Enter your Current Password</Resource>
-    <Resource tag="EMPTY_QUESTION">New Question is requiered.</Resource>
-    <Resource tag="NEED_NEW_CONFIRM_PASSWORD">تایپ مجدد رمز عبور ضروری است.</Resource>
-    <Resource tag="NEED_NEW_PASSWORD">رمز عبور جدید ضروری است.</Resource>
-    <Resource tag="NEED_OLD_PASSWORD">رمز عبور قدیمی ضروری است.</Resource>
-    <Resource tag="NEW_PASSWORD">رمز جدید:</Resource>
-    <Resource tag="NO_PASSWORD_MATCH">رمزهای جدید با هم همخوانی ندارند.</Resource>
-    <Resource tag="OLD_PASSWORD">رمز قدیمی:</Resource>
-    <Resource tag="PASSWORD_BAD_LENGTH">حداقل طول رمز جدید: {0}.</Resource>
-    <Resource tag="PASSWORD_INCORRECT">رمز اشتباه می باشد و یا رمز جدید نا معتبر است.</Resource>
-    <Resource tag="PASSWORD_NOT_COMPLEX">کاراکترهایی غیر حرفی نیاز است: {1}.</Resource>
-    <Resource tag="PASSWORD_NOT_NEW">رمزعبور جدید باید از قبلی متفاوت باشد.</Resource>
-    <Resource tag="SECURITY_ANSWER_NEW">New Security Answer:</Resource>
-    <Resource tag="SECURITY_ANSWER_OLD">Current Password:</Resource>
-    <Resource tag="SECURITY_CHANGED">Password Question and Answer changed.</Resource>
-    <Resource tag="SECURITY_NOT_CHANGED">Change failed. Please re-enter your values and try again.</Resource>
-    <Resource tag="SECURITY_QUESTION_NEW">New Security Question:</Resource>
-    <Resource tag="SECURITY_QUESTION_OLD">Old Security Question:</Resource>
-    <Resource tag="TITLE">تغییر رمز</Resource>
-    <Resource tag="TITLE_SECURITY">Change Security Question and Answer</Resource>
-  </page>
-  <page name="CP_EDITALBUMIMAGES">
-    <Resource tag="ALBUM_TITLE">عنوان</Resource>
-    <Resource tag="ALBUMS">آلبوم‌ها</Resource>
-    <Resource tag="ALBUMS_COUNT_LIMIT">شما مجاز به ایجاد بیشتر از {0} آلبوم نمی باشد.</Resource>
-    <Resource tag="ASK_DELETEALBUM">آلبوم حذف شود؟</Resource>
-    <Resource tag="ASK_DELETEIMAGE">عکس حذف شود؟</Resource>
-    <Resource tag="ERROR_MAXALBUMS">شما مجاز به ایجاد آلبوم بیشتر به این حساب نمی باشید.</Resource>
-    <Resource tag="ERROR_TOOBIG">شما مجاز به ارسال تصویری با این حجم نمی باشید.</Resource>
-    <Resource tag="IMAGES_COUNT_LIMIT">تعداد عکس‌های مجاز شما به اتمام رسید. شما می توانید حداکثر {0} عکس را ارسال کنید.</Resource>
-    <Resource tag="IMAGES_INFO">توجه: هم‌اکنون این آلبوم {0} تصویر دارد و شما مجاز به داشتن {1} تصویر در هر آلبوم هستید. بیشترین حجم برای تصویر {2} کیلوبایت است</Resource>
-    <Resource tag="SELECT_FILE">یک فایل تصویر ('.jpg', '.gif', '.png' or '.bmp') که می خواهید آپلود کنید را انتخاب کنید</Resource>
-    <Resource tag="TITLE">افزودن/ ویرایش آلبوم</Resource>
-  </page>
-  <page name="CP_EDITAVATAR">
-    <Resource tag="AVATAR">تصویر پروفایل</Resource>
-    <Resource tag="AVATARCURRENT">تصویر پروفایل فعلی</Resource>
-    <Resource tag="AVATARDELETE">حذف تصویر پروفایل</Resource>
-    <Resource tag="AVATARNEW">انتخاب تصویر پروفایل جدید</Resource>
-    <Resource tag="AVATARREMOTE">آدرس تصویر پروفایل مورد نظر را وارد کنید:</Resource>
-    <Resource tag="AVATARTEXT">متن توضیحی برای تصویر پروفایل</Resource>
-    <Resource tag="AVATARUPLOAD">ارسال تصویر پروفایل از کامپیوتر:</Resource>
-    <Resource tag="INVALID_FILE">فایل آپلود شده یک فایل مجاز نمی باشد</Resource>
-    <Resource tag="NOAVATAR">[ بدون تصویر پروفایل ]</Resource>
-    <Resource tag="NOTE_LOCAL">نکته : اگر تصویر بزرگتر از {0} در {1} پیکسل باشدبه صورت خودکار کوچک می شود. و اندازه تصویر نمی تواند بیش از {2} کیلو بایت باشد.</Resource>
-    <Resource tag="NOTE_REMOTE">نکته : اگر تصویر بزرگتر از {0} در {1} پیکسل باشدبه صورت خودکار کوچک می شود.</Resource>
-    <Resource tag="OURAVATAR">تصویر پروفایل دلخواه خود را از تصاویر موجود سایت انتخاب کنید:</Resource>
-    <Resource tag="OURAVATAR_SELECT">برای انتخاب تصویر پروفایل اینجا را کلیک کنید</Resource>
-    <Resource tag="TITLE">تغییر تصویر پروفایل</Resource>
-    <Resource tag="WARN_BIGFILE">اندازه تصویر پروفایل شما نباید بیشتر از {0} بایت باشد.</Resource>
-    <Resource tag="WARN_FILESIZE">حجم تصویر شما {0} بایت بود.</Resource>
-    <Resource tag="WARN_RESIZED">عکس به طور خودکار تغییر اندازه داده شد.</Resource>
-    <Resource tag="WARN_SIZE">اندازه عکس انتخابی {0}x{1} پیکسل می باشد.</Resource>
-    <Resource tag="WARN_TOOBIG">اندازه عکس نمی تواند بزرگتر از {0}x{1} پیکسل باشد.</Resource>
-  </page>
-  <page name="CP_EDITBUDDIES">
-    <Resource tag="APPROVE">تائید</Resource>
-    <Resource tag="APPROVE_ADD">تائید و افزودن</Resource>
-    <Resource tag="APPROVE_ADD_ALL">تائید و افزودن همه</Resource>
-    <Resource tag="APPROVE_ALL">تائید همه</Resource>
-    <Resource tag="BUDDYLIST">لیست دوستان</Resource>
-    <Resource tag="BUDDYLIST_TT">کنترل پنل دوستان</Resource>
-    <Resource tag="DENY">رد</Resource>
-    <Resource tag="DENY_ALL">درخواستهای قدیمی تر از 14 روز رد شوند.</Resource>
-    <Resource tag="EDIT_BUDDIES">ویرایش دوستان</Resource>
-    <Resource tag="INFO_NO">You don't have any friends yet</Resource>
-    <Resource tag="INFO_PENDING">You don't have any pending requests</Resource>
-    <Resource tag="NOTIFICATION_APPROVEALL">تمام درخواستها تائید شوند؟</Resource>
-    <Resource tag="NOTIFICATION_APPROVEALLADD">آیا تمام درخواستها تائید و به لیست شمااضافه شوند؟</Resource>
-    <Resource tag="NOTIFICATION_DENY">درخواست رد شود؟</Resource>
-    <Resource tag="NOTIFICATION_REMOVE">حذف دوست؟</Resource>
-    <Resource tag="NOTIFICATION_REMOVE_OLD_UNAPPROVED">تمامی درخواستهای دوستی قدیمی تراز 14 روز حذف شوند؟</Resource>
-    <Resource tag="PENDING_REQUESTS">درخواست‌های در حال انتظار</Resource>
-    <Resource tag="POSTS">ارسال ها</Resource>
-    <Resource tag="REQUEST_DATE">تاریخ درخواست</Resource>
-    <Resource tag="YOUR_BUDDYLIST">دوستان من</Resource>
-    <Resource tag="YOUR_REQUESTS">درخواست‌های دوستی شما</Resource>
-  </page>
-  <page name="CP_EDITPROFILE">
-    <Resource tag="ABOUTYOU">درباره شما</Resource>
-    <Resource tag="AIM">نام AIM شما:</Resource>
-    <Resource tag="AUTOWATCH_TOPICS_NOTIFICATION">آیا مایلید از هر فعالیتی که در هر موضوعاتی که در آن ارسالی داشته اید مطلع شوید؟</Resource>
-    <Resource tag="BAD_EMAIL">آدرس ایمیلی که وارد کرده اید اشتباه میباشد.</Resource>
-    <Resource tag="BAD_FACEBOOK">آدرس پروفایل فیسبوک را نادرست وارد کرده اید</Resource>
-    <Resource tag="BAD_GOOGLE">آدرس پروفایل گوگل شامل یک مقدار نامعتبر است</Resource>
-    <Resource tag="BAD_HOME">آدرسی که به عنوان صفحه خانگی خود وارد کرده اید اشتباه می باشد.</Resource>
-    <Resource tag="BAD_ICQ">آدرس ایمیلی که برای سرویس ICQ وارد کرده اید اشتباه می‌باشد.</Resource>
-    <Resource tag="BAD_MSN">آدرس ایمیلی که برای سرویس MSN وارد کرده اید اشتباه می‌باشد.</Resource>
-    <Resource tag="BAD_WEBLOG">آدرسی که به عنوان وبلاگ خود وارد کرده اید اشتباه می‌باشد.</Resource>
-    <Resource tag="BAD_XMPP">شما برای حساب XMPP خود نامی نامعتبر وارد کرده اید.</Resource>
-    <Resource tag="BIRTHDAY">تولد</Resource>
-    <Resource tag="CHANGE_EMAIL">تغییر آدرس پست الکترونیکی</Resource>
-    <Resource tag="CITY">شهر:</Resource>
-    <Resource tag="COUNTRY">کشور:</Resource>
-    <Resource tag="DISPLAYNAME">نامی که می خواهید به دیگران نمایش داده شود؟</Resource>
-    <Resource tag="DST">ساعت تابستانی بصورت اتوماتیک تنظیم شود؟</Resource>
-    <Resource tag="DUPLICATED_EMAIL">آدرسی که برای پست الکترونیک وارد کرده اید در حال استفاده است.</Resource>
-    <Resource tag="EDIT_ALBUMS">ویرایش آلبوم‌ها</Resource>
-    <Resource tag="EMAIL">شما باید یک آدرس ایمیل معتبر داشته باشید.</Resource>
-    <Resource tag="FACEBOOK">آدرس پروفایل فیسبوک شما:</Resource>
-    <Resource tag="FIELD_TOOLONG">طول {0} نباید بیش از {1} کاراکتر باشد.</Resource>
-    <Resource tag="FORUM_SETTINGS">تنظیمات انجمن</Resource>
-    <Resource tag="GET_LOCATION">Get Location from IP Address</Resource>
-    <Resource tag="GOOGLE">آدرس پروفایل گوگل شما:</Resource>
-    <Resource tag="HIDEME">مخفی شدن من از لیست کاربران فعال</Resource>
-    <Resource tag="HOMEPAGE">صفحه اصلی</Resource>
-    <Resource tag="HOMEPAGE2">وبسایت شما (عمومی):</Resource>
-    <Resource tag="ICQ">شماره ICQ شما:</Resource>
-    <Resource tag="LOCATION">مکان</Resource>
-    <Resource tag="MAIL_SENT">ایمیلی به آدرس {0} ارسال شد.\n\nشما باید آدرس ایمیل خود را با باز کردن لینک ارسال شده برای شما مورد تائید قرار دهید.</Resource>
-    <Resource tag="MESSENGER">سرویس‌های پیام رسان</Resource>
-    <Resource tag="METAWEBLOG_API_ID">MetaWeblog API شناسه:</Resource>
-    <Resource tag="METAWEBLOG_API_ID_INSTRUCTIONS">(تنظیمات انتخابی که ممکن است برای بعضی بلاگها مورد نیاز باشد ( SubText به این تنظیمات نیازی ندارد ).اگر مطمئن نیستید بدون اولی امتحان کنید.</Resource>
-    <Resource tag="METAWEBLOG_API_URL">MetaWeblog API آدرس:</Resource>
-    <Resource tag="METAWEBLOG_API_USERNAME">MetaWeblog API نام کاربری:</Resource>
-    <Resource tag="METAWEBLOG_TITLE">ارسال به MetaWeblog (API تنظیمات)</Resource>
-    <Resource tag="MSN">شناسه MSN شما:</Resource>
-    <Resource tag="OVERRIDE_DEFAULT_THEMES">انتخاب قالب مختلف:</Resource>
-    <Resource tag="PM_EMAIL_NOTIFICATION">آیا مایل به دریافت ایمیل یادآوری در زمان دریافت پیغام خصوصی می‌باشید؟</Resource>
-    <Resource tag="REALNAME2">نام حقیقی شما چیست؟</Resource>
-    <Resource tag="REGION">وضعیت:</Resource>
-    <Resource tag="SELECT_LANGUAGE">مایل به استفاده از چه زبانی هستید:</Resource>
-    <Resource tag="SELECT_TEXTEDITOR">ویرایشگر متنی خود رار انتخاب کنید:</Resource>
-    <Resource tag="SELECT_THEME">قالب مورد علاقه خود را انتخاب کنید:</Resource>
-    <Resource tag="SKYPE">شناسه اسکایپ شما:</Resource>
-    <Resource tag="TIMEZONE">منطقه زمانی</Resource>
-    <Resource tag="TIMEZONE2">برای محاسبه تاریخ و زمان بر اساس موقعیت شما، منطقه زمانی شما باید تعیین شود.</Resource>
-    <Resource tag="TITLE">ویرایش پروفایل</Resource>
-    <Resource tag="TWITTER">نام توئیتر شما:</Resource>
-    <Resource tag="USE_MOBILE_THEME">قالب انجمن برای موبایل</Resource>
-    <Resource tag="WEBLOG2">آدرس وبلاگ شما:</Resource>
-    <Resource tag="WHERE">محل زندگی شما؟</Resource>
-    <Resource tag="XMPP">شناسه Jabber:</Resource>
-    <Resource tag="YIM">شناسه Yahoo:</Resource>
-  </page>
-  <page name="CP_EDITSETTINGS">
-    <Resource tag="TITLE">Edit Settings</Resource>
-  </page>
-  <page name="CP_MESSAGE">
-    <Resource tag="INBOX">صندوق دریافت</Resource>
-    <Resource tag="MSG_DELETED">پیغام حذف شد.</Resource>
-    <Resource tag="POSTED">ارسال شده:</Resource>
-    <Resource tag="SENTITEMS">موارد ارسال شده</Resource>
-  </page>
-  <page name="CP_PM">
-    <Resource tag="ARCHIVE">آرشیو</Resource>
-    <Resource tag="ARCHIVEALL">آرشیو همه</Resource>
-    <Resource tag="ARCHIVESELECTED">آرشیو کردن موارد انتخابی</Resource>
-    <Resource tag="CONFIRM_ARCHIVEALL">تمام پیغام‌ها آرشیو شوند؟</Resource>
-    <Resource tag="CONFIRM_DELETE">تمامی پیغام‌های انتخاب شده حذف شود؟</Resource>
-    <Resource tag="CONFIRM_DELETEALL">همه پیغام‌ها حذف شوند؟</Resource>
-    <Resource tag="DATE">تاریخ</Resource>
-    <Resource tag="DELETEALL">حذف همه</Resource>
-    <Resource tag="DELETESELECTED">حذف موارد انتخابی</Resource>
-    <Resource tag="EXPORTALL">برون‌بری همه</Resource>
-    <Resource tag="EXPORTFORMAT">قالب فایل برای برون‌بری :</Resource>
-    <Resource tag="EXPORTSELECTED">برون‌بری موارد انتخاب شده</Resource>
-    <Resource tag="FROM">از</Resource>
-    <Resource tag="INBOX">صندوق ورودی</Resource>
-    <Resource tag="MARK_ALL_ASREAD">علامت‌گذاری همه به‌عنوان خوانده‌شده</Resource>
-    <Resource tag="MARK_ASREAD">Mark As Read</Resource>
-    <Resource tag="MSG_ARCHIVED">پیغام آرشیو شد</Resource>
-    <Resource tag="MSG_ARCHIVED+">{0} پیغام آرشیو شد</Resource>
-    <Resource tag="MSG_DELETED">پیغام حذف شد.</Resource>
-    <Resource tag="MSG_NOSELECTED">پیامی انتخاب نشده، چیزی به خروجی نرفت.</Resource>
-    <Resource tag="MSGDELETED1">یک پیغام حذف شد</Resource>
-    <Resource tag="MSGDELETED2">{0} پیغام حذف شد.</Resource>
-    <Resource tag="NEW_MESSAGE">پیغام جدید</Resource>
-    <Resource tag="NO_MESSAGES">پیغامی پیدا نشد.</Resource>
-    <Resource tag="POSTED">ارسال شده:</Resource>
-    <Resource tag="SENTITEMS">موارد ارسال شده</Resource>
-    <Resource tag="SUBJECT">عنوان</Resource>
-    <Resource tag="TITLE">پیغام‌های شخصی</Resource>
-    <Resource tag="TO">به</Resource>
-  </page>
-  <page name="CP_PROFILE">
-    <Resource tag="ACTIVITY">Your Activity</Resource>
-    <Resource tag="ARCHIVE">آرشیو</Resource>
-    <Resource tag="CHANGE_PASSWORD">تغییر رمز عبور</Resource>
-    <Resource tag="CONTROL_PANEL">کنترل پنل</Resource>
-    <Resource tag="CREATED_REPLY">Replied to a Post</Resource>
-    <Resource tag="CREATED_REPLY_MSG">Added an Reply to the Topic {0}</Resource>
-    <Resource tag="CREATED_TOPIC">Created a new Topic</Resource>
-    <Resource tag="CREATED_TOPIC_MSG">Created a new Topic {0}</Resource>
-    <Resource tag="EDIT_AVATAR">ویرایش تصویر پروفایل</Resource>
-    <Resource tag="EDIT_PROFILE">ویرایش پروفایل</Resource>
-    <Resource tag="EDIT_SETTINGS">Edit Settings</Resource>
-    <Resource tag="EDIT_SIGNATURE">ویرایش امضا</Resource>
-    <Resource tag="GIVEN_THANKS">Given Thanks to a Post</Resource>
-    <Resource tag="GIVEN_THANKS_MSG">Given Thanks to {0} in the Topic {1}</Resource>
-    <Resource tag="GROUPS">شما عضو این گروه ها هستید:</Resource>
-    <Resource tag="INBOX">صندوق ورودی</Resource>
-    <Resource tag="JOINED">شما از این تاریخ عضو بوده اید:</Resource>
-    <Resource tag="MESSENGER">مسنجر:</Resource>
-    <Resource tag="NEW_MESSAGE">پیغام جدید</Resource>
-    <Resource tag="NUMPOSTS">تعداد ارسال‌ها:</Resource>
-    <Resource tag="PERSONAL_PROFILE">پروفایل شخصی:</Resource>
-    <Resource tag="RECEIVED_THANKS">Received a Thanks to a Post</Resource>
-    <Resource tag="RECEIVED_THANKS_MSG">Has Received a Thanks from {0} in the Topic {1}</Resource>
-    <Resource tag="SENTITEMS">موارد ارسال شده</Resource>
-    <Resource tag="SIGNATURE">امضا</Resource>
-    <Resource tag="SUBSCRIPTIONS">تنظیمات اطلاع رسانی ایمیل</Resource>
-    <Resource tag="VIEW_PROFILE">نمایش پروفایل</Resource>
-    <Resource tag="WAS_MENTIONED">Was Mentioned</Resource>
-    <Resource tag="WAS_MENTIONED_MSG">Was Mentioned by {0} in the Topic {1}</Resource>
-    <Resource tag="WAS_QUOTED">Was Quoted</Resource>
-    <Resource tag="WAS_QUOTED_MSG">Was Quoted by {0} in the Topic {1}</Resource>
-    <Resource tag="YOUR_ACCOUNT">حساب کاربری شما:</Resource>
-    <Resource tag="YOUR_EMAIL">آدرس ایمیل شما:</Resource>
-    <Resource tag="YOUR_USERDISPLAYNAME">نام نمایشی شما:</Resource>
-    <Resource tag="YOUR_USERNAME">نام کاربری شما:</Resource>
-  </page>
-  <page name="CP_SIGNATURE">
-    <Resource tag="BBCODE_ALLOWEDALL">امضا شما نباید شامل هیچ BBCode باشد.</Resource>
-    <Resource tag="BBCODE_ALLOWEDLIST">شما می توانید از BBCode های زیر استفاده کنید: {0}.
-    </Resource>
-    <Resource tag="BBCODE_FORBIDDEN">امضا شما نباید شامل BBCode باشد.</Resource>
-    <Resource tag="HTML_ALLOWEDALL">امضا شما نباید شامل هیچ تگ HTML باشد.</Resource>
-    <Resource tag="HTML_ALLOWEDLIST"> شما می توانید تگ های HTML زیر را استفاده کنید: {0}.
-    </Resource>
-    <Resource tag="HTML_FORBIDDEN">امضا شما نباید شامل تگ های HTML باشد.</Resource>
-    <Resource tag="SIGNATURE">امضا:</Resource>
-    <Resource tag="SIGNATURE_BBCODE_WRONG">امضا شما شامل BBCode های غیر مجاز {0} است.</Resource>
-    <Resource tag="SIGNATURE_CHARSMAX">امضا شما نمی تواند بیش از {0} حرف باشد.</Resource>
-    <Resource tag="SIGNATURE_MAX">امضا شما خیلی طولانی شده است. حداکثر طول {0} حرف می باشد.</Resource>
-    <Resource tag="SIGNATURE_NOEDIT">شما نمی توانید امضا خود را ویرایش کنید ولی قادر به حذف کلی آن هستید.</Resource>
-    <Resource tag="SIGNATURE_PERMISSIONS">مجوزهای امضا</Resource>
-    <Resource tag="SIGNATURE_PREVIEW">پیش نمایش امضا</Resource>
-    <Resource tag="TITLE">ویرایش امضا</Resource>
-  </page>
-  <page name="CP_SUBSCRIPTIONS">
-    <Resource tag="ALLTOPICS">اطلاع رسانی برای [b]تمام ارسال‌ها در تمام موضوعات[/b]</Resource>
-    <Resource tag="DAILY_DIGEST">دریافت روزانه خلاصه فعالیت ها؟</Resource>
-    <Resource tag="FORUM">انجمن</Resource>
-    <Resource tag="FORUMS">انجمن های دیده شده</Resource>
-    <Resource tag="LASTPOST">آخرین ارسال‌ها</Resource>
-    <Resource tag="LASTPOSTLINK">{0} بوسیله {1}</Resource>
-    <Resource tag="NONOTIFICATION">غیرفعال کردن اطلاع رسانی‌ها</Resource>
-    <Resource tag="NOTIFICATIONSELECTION">انتخاب تنظیمات ایمیل اطلاع رسانی:</Resource>
-    <Resource tag="REPLIES">پاسخ ها</Resource>
-    <Resource tag="SAVED_NOTIFICATION_SETTING">تنظیمات ایمیل اطلاع رسانی بروز شد.</Resource>
-    <Resource tag="TITLE">تنظیمات ایمیل اطلاع رسانی</Resource>
-    <Resource tag="TOPIC">موضوع</Resource>
-    <Resource tag="TOPICS">موضوعات مشاهده شده</Resource>
-    <Resource tag="TOPICSIPOSTTOORSUBSCRIBETO">اطلاع رسانی برای موضوعاتی که [b]شما در آن ارسالی داشته اید[/b] یا موضوعاتی که شما دیده اید و مورد علاقه تان است</Resource>
-    <Resource tag="TOPICSISUBSCRIBETO">اطلاع رسانی برای موضوعات و انجمن هایی که گزینشی آنها را دیده اید (در زیر لیست شده)</Resource>
-    <Resource tag="UNSUBSCRIBE">لغو اشتراک</Resource>
-    <Resource tag="VIEWS">نمایش ها</Resource>
-    <Resource tag="WARN_SELECTFORUMS">ابتدا باید انجمن مورد نظر را برای لغو اشتراک انتخاب کنید.</Resource>
-    <Resource tag="WARN_SELECTTOPICS">ابتدا باید عنوان مورد نظر را برای لغو اشتراک انتخاب کنید.</Resource>
-  </page>
   <page name="DEFAULT">
     <Resource tag="ACTIVE_DISCUSSIONS">موضوعات فعال</Resource>
     <Resource tag="ACTIVE_USERS">کاربران فعال</Resource>
@@ -2826,6 +2637,15 @@
     <Resource tag="WATCHFORUM_ALL">Watch all forums</Resource>
     <Resource tag="WATCHFORUM_ALL_HELP">Watch all forums and get Email Notifications when a new Topic is created</Resource>
   </page>
+  <page name="DELETE_ACCOUNT">
+    <Resource tag="CONFIRM">Are you absolutely sure you want to do this?</Resource>
+    <Resource tag="OPTION_DELETE_TEXT">This will delete your account permanently! All your content will be deleted. After that your account can not be restored</Resource>
+    <Resource tag="OPTION_DELETE_TITLE">Delete your Account (permanently)</Resource>
+    <Resource tag="OPTION_SUSPEND_TEXT">If you just want to take a break from the Forum, then this will suspend your account for 30 days. Your content is still visible</Resource>
+    <Resource tag="OPTION_SUSPEND_TITLE">Suspend your Account for 30 days</Resource>
+    <Resource tag="OPTIONS_TITLE">You have the option to...</Resource>
+    <Resource tag="TITLE">Delete Your {0} Account</Resource>
+  </page>
   <page name="DELETEMESSAGE">
     <Resource tag="DELETE">حذف</Resource>
     <Resource tag="DELETE_ALL">Delete All Posts?</Resource>
@@ -2853,6 +2673,119 @@
     <Resource tag="STARTEDBY">شروع شده بوسیله {0}</Resource>
     <Resource tag="SUBJECT">موضوعات جدید و فعال - خلاصه روزانه برای {0}</Resource>
   </page>
+  <page name="EDIT_ALBUMIMAGES">
+    <Resource tag="ALBUM_TITLE">عنوان</Resource>
+    <Resource tag="ALBUMS">آلبوم‌ها</Resource>
+    <Resource tag="ALBUMS_COUNT_LIMIT">شما مجاز به ایجاد بیشتر از {0} آلبوم نمی باشد.</Resource>
+    <Resource tag="ASK_DELETEALBUM">آلبوم حذف شود؟</Resource>
+    <Resource tag="ASK_DELETEIMAGE">عکس حذف شود؟</Resource>
+    <Resource tag="ERROR_MAXALBUMS">شما مجاز به ایجاد آلبوم بیشتر به این حساب نمی باشید.</Resource>
+    <Resource tag="ERROR_TOOBIG">شما مجاز به ارسال تصویری با این حجم نمی باشید.</Resource>
+    <Resource tag="IMAGES_COUNT_LIMIT">تعداد عکس‌های مجاز شما به اتمام رسید. شما می توانید حداکثر {0} عکس را ارسال کنید.</Resource>
+    <Resource tag="IMAGES_INFO">توجه: هم‌اکنون این آلبوم {0} تصویر دارد و شما مجاز به داشتن {1} تصویر در هر آلبوم هستید. بیشترین حجم برای تصویر {2} کیلوبایت است</Resource>
+    <Resource tag="SELECT_FILE">یک فایل تصویر ('.jpg', '.gif', '.png' or '.bmp') که می خواهید آپلود کنید را انتخاب کنید</Resource>
+    <Resource tag="TITLE">افزودن/ ویرایش آلبوم</Resource>
+  </page>
+  <page name="EDIT_AVATAR">
+    <Resource tag="AVATAR">تصویر پروفایل</Resource>
+    <Resource tag="AVATARCURRENT">تصویر پروفایل فعلی</Resource>
+    <Resource tag="AVATARDELETE">حذف تصویر پروفایل</Resource>
+    <Resource tag="AVATARNEW">انتخاب تصویر پروفایل جدید</Resource>
+    <Resource tag="AVATARREMOTE">آدرس تصویر پروفایل مورد نظر را وارد کنید:</Resource>
+    <Resource tag="AVATARTEXT">متن توضیحی برای تصویر پروفایل</Resource>
+    <Resource tag="AVATARUPLOAD">ارسال تصویر پروفایل از کامپیوتر:</Resource>
+    <Resource tag="INVALID_FILE">فایل آپلود شده یک فایل مجاز نمی باشد</Resource>
+    <Resource tag="NOAVATAR">[ بدون تصویر پروفایل ]</Resource>
+    <Resource tag="NOTE_LOCAL">نکته : اگر تصویر بزرگتر از {0} در {1} پیکسل باشدبه صورت خودکار کوچک می شود. و اندازه تصویر نمی تواند بیش از {2} کیلو بایت باشد.</Resource>
+    <Resource tag="NOTE_REMOTE">نکته : اگر تصویر بزرگتر از {0} در {1} پیکسل باشدبه صورت خودکار کوچک می شود.</Resource>
+    <Resource tag="OURAVATAR">تصویر پروفایل دلخواه خود را از تصاویر موجود سایت انتخاب کنید:</Resource>
+    <Resource tag="OURAVATAR_SELECT">برای انتخاب تصویر پروفایل اینجا را کلیک کنید</Resource>
+    <Resource tag="TITLE">تغییر تصویر پروفایل</Resource>
+    <Resource tag="WARN_BIGFILE">اندازه تصویر پروفایل شما نباید بیشتر از {0} بایت باشد.</Resource>
+    <Resource tag="WARN_FILESIZE">حجم تصویر شما {0} بایت بود.</Resource>
+    <Resource tag="WARN_RESIZED">عکس به طور خودکار تغییر اندازه داده شد.</Resource>
+    <Resource tag="WARN_SIZE">اندازه عکس انتخابی {0}x{1} پیکسل می باشد.</Resource>
+    <Resource tag="WARN_TOOBIG">اندازه عکس نمی تواند بزرگتر از {0}x{1} پیکسل باشد.</Resource>
+  </page>
+  <page name="EDIT_PROFILE">
+    <Resource tag="ABOUTYOU">درباره شما</Resource>
+    <Resource tag="ACTIVITY">Enable Activity Stream (If checked you get Notifications for Mentions, Quotes and Thanks.</Resource>
+    <Resource tag="AIM">نام AIM شما:</Resource>
+    <Resource tag="AUTOWATCH_TOPICS_NOTIFICATION">آیا مایلید از هر فعالیتی که در هر موضوعاتی که در آن ارسالی داشته اید مطلع شوید؟</Resource>
+    <Resource tag="BAD_EMAIL">آدرس ایمیلی که وارد کرده اید اشتباه میباشد.</Resource>
+    <Resource tag="BAD_FACEBOOK">آدرس پروفایل فیسبوک را نادرست وارد کرده اید</Resource>
+    <Resource tag="BAD_GOOGLE">آدرس پروفایل گوگل شامل یک مقدار نامعتبر است</Resource>
+    <Resource tag="BAD_HOME">آدرسی که به عنوان صفحه خانگی خود وارد کرده اید اشتباه می باشد.</Resource>
+    <Resource tag="BAD_ICQ">آدرس ایمیلی که برای سرویس ICQ وارد کرده اید اشتباه می‌باشد.</Resource>
+    <Resource tag="BAD_MSN">آدرس ایمیلی که برای سرویس MSN وارد کرده اید اشتباه می‌باشد.</Resource>
+    <Resource tag="BAD_WEBLOG">آدرسی که به عنوان وبلاگ خود وارد کرده اید اشتباه می‌باشد.</Resource>
+    <Resource tag="BAD_XMPP">شما برای حساب XMPP خود نامی نامعتبر وارد کرده اید.</Resource>
+    <Resource tag="BIRTHDAY">تولد</Resource>
+    <Resource tag="CHANGE_EMAIL">تغییر آدرس پست الکترونیکی</Resource>
+    <Resource tag="CITY">شهر:</Resource>
+    <Resource tag="COUNTRY">کشور:</Resource>
+    <Resource tag="DISPLAYNAME">نامی که می خواهید به دیگران نمایش داده شود؟</Resource>
+    <Resource tag="DST">ساعت تابستانی بصورت اتوماتیک تنظیم شود؟</Resource>
+    <Resource tag="DUPLICATED_EMAIL">آدرسی که برای پست الکترونیک وارد کرده اید در حال استفاده است.</Resource>
+    <Resource tag="EDIT_ALBUMS">ویرایش آلبوم‌ها</Resource>
+    <Resource tag="EMAIL">شما باید یک آدرس ایمیل معتبر داشته باشید.</Resource>
+    <Resource tag="FACEBOOK">آدرس پروفایل فیسبوک شما:</Resource>
+    <Resource tag="FIELD_TOOLONG">طول {0} نباید بیش از {1} کاراکتر باشد.</Resource>
+    <Resource tag="FORUM_SETTINGS">تنظیمات انجمن</Resource>
+    <Resource tag="GET_LOCATION">Get Location from IP Address</Resource>
+    <Resource tag="GOOGLE">آدرس پروفایل گوگل شما:</Resource>
+    <Resource tag="HIDEME">مخفی شدن من از لیست کاربران فعال</Resource>
+    <Resource tag="HOMEPAGE">صفحه اصلی</Resource>
+    <Resource tag="HOMEPAGE2">وبسایت شما (عمومی):</Resource>
+    <Resource tag="ICQ">شماره ICQ شما:</Resource>
+    <Resource tag="LOCATION">مکان</Resource>
+    <Resource tag="MAIL_SENT">ایمیلی به آدرس {0} ارسال شد.\n\nشما باید آدرس ایمیل خود را با باز کردن لینک ارسال شده برای شما مورد تائید قرار دهید.</Resource>
+    <Resource tag="MESSENGER">سرویس‌های پیام رسان</Resource>
+    <Resource tag="METAWEBLOG_API_ID">MetaWeblog API شناسه:</Resource>
+    <Resource tag="METAWEBLOG_API_ID_INSTRUCTIONS">(تنظیمات انتخابی که ممکن است برای بعضی بلاگها مورد نیاز باشد ( SubText به این تنظیمات نیازی ندارد ).اگر مطمئن نیستید بدون اولی امتحان کنید.</Resource>
+    <Resource tag="METAWEBLOG_API_URL">MetaWeblog API آدرس:</Resource>
+    <Resource tag="METAWEBLOG_API_USERNAME">MetaWeblog API نام کاربری:</Resource>
+    <Resource tag="METAWEBLOG_TITLE">ارسال به MetaWeblog (API تنظیمات)</Resource>
+    <Resource tag="MSN">شناسه MSN شما:</Resource>
+    <Resource tag="OVERRIDE_DEFAULT_THEMES">انتخاب قالب مختلف:</Resource>
+    <Resource tag="PM_EMAIL_NOTIFICATION">آیا مایل به دریافت ایمیل یادآوری در زمان دریافت پیغام خصوصی می‌باشید؟</Resource>
+    <Resource tag="REALNAME2">نام حقیقی شما چیست؟</Resource>
+    <Resource tag="REGION">وضعیت:</Resource>
+    <Resource tag="SELECT_LANGUAGE">مایل به استفاده از چه زبانی هستید:</Resource>
+    <Resource tag="SELECT_TEXTEDITOR">ویرایشگر متنی خود رار انتخاب کنید:</Resource>
+    <Resource tag="SELECT_THEME">قالب مورد علاقه خود را انتخاب کنید:</Resource>
+    <Resource tag="SKYPE">شناسه اسکایپ شما:</Resource>
+    <Resource tag="TIMEZONE">منطقه زمانی</Resource>
+    <Resource tag="TIMEZONE2">برای محاسبه تاریخ و زمان بر اساس موقعیت شما، منطقه زمانی شما باید تعیین شود.</Resource>
+    <Resource tag="TITLE">ویرایش پروفایل</Resource>
+    <Resource tag="TWITTER">نام توئیتر شما:</Resource>
+    <Resource tag="USE_MOBILE_THEME">قالب انجمن برای موبایل</Resource>
+    <Resource tag="WEBLOG2">آدرس وبلاگ شما:</Resource>
+    <Resource tag="WHERE">محل زندگی شما؟</Resource>
+    <Resource tag="XMPP">شناسه Jabber:</Resource>
+    <Resource tag="YIM">شناسه Yahoo:</Resource>
+  </page>
+  <page name="EDIT_SETTINGS">
+    <Resource tag="TITLE">Edit Settings</Resource>
+  </page>
+  <page name="EDIT_SIGNATURE">
+    <Resource tag="BBCODE_ALLOWEDALL">امضا شما نباید شامل هیچ BBCode باشد.</Resource>
+    <Resource tag="BBCODE_ALLOWEDLIST">شما می توانید از BBCode های زیر استفاده کنید: {0}.
+    </Resource>
+    <Resource tag="BBCODE_FORBIDDEN">امضا شما نباید شامل BBCode باشد.</Resource>
+    <Resource tag="HTML_ALLOWEDALL">امضا شما نباید شامل هیچ تگ HTML باشد.</Resource>
+    <Resource tag="HTML_ALLOWEDLIST"> شما می توانید تگ های HTML زیر را استفاده کنید: {0}.
+    </Resource>
+    <Resource tag="HTML_FORBIDDEN">امضا شما نباید شامل تگ های HTML باشد.</Resource>
+    <Resource tag="SIGNATURE">امضا:</Resource>
+    <Resource tag="SIGNATURE_BBCODE_WRONG">امضا شما شامل BBCode های غیر مجاز {0} است.</Resource>
+    <Resource tag="SIGNATURE_CHARSMAX">امضا شما نمی تواند بیش از {0} حرف باشد.</Resource>
+    <Resource tag="SIGNATURE_MAX">امضا شما خیلی طولانی شده است. حداکثر طول {0} حرف می باشد.</Resource>
+    <Resource tag="SIGNATURE_NOEDIT">شما نمی توانید امضا خود را ویرایش کنید ولی قادر به حذف کلی آن هستید.</Resource>
+    <Resource tag="SIGNATURE_PERMISSIONS">مجوزهای امضا</Resource>
+    <Resource tag="SIGNATURE_PREVIEW">پیش نمایش امضا</Resource>
+    <Resource tag="TITLE">ویرایش امضا</Resource>
+  </page>
   <page name="EMAILTOPIC">
     <Resource tag="FAILED">خطا در ارسال ایمیل.\n\n{0}</Resource>
     <Resource tag="MESSAGE">پیغام:</Resource>
@@ -2867,6 +2800,29 @@
     <Resource tag="INFORMATION">اطلاعات</Resource>
     <Resource tag="SQLERROR">خطای اسکریپت SQL</Resource>
     <Resource tag="WARNING">هشدار</Resource>
+  </page>
+  <page name="FRIENDS">
+    <Resource tag="APPROVE">تائید</Resource>
+    <Resource tag="APPROVE_ADD">تائید و افزودن</Resource>
+    <Resource tag="APPROVE_ADD_ALL">تائید و افزودن همه</Resource>
+    <Resource tag="APPROVE_ALL">تائید همه</Resource>
+    <Resource tag="BUDDYLIST">لیست دوستان</Resource>
+    <Resource tag="BUDDYLIST_TT">کنترل پنل دوستان</Resource>
+    <Resource tag="DENY">رد</Resource>
+    <Resource tag="DENY_ALL">درخواستهای قدیمی تر از 14 روز رد شوند.</Resource>
+    <Resource tag="EDIT_BUDDIES">ویرایش دوستان</Resource>
+    <Resource tag="INFO_NO">You don't have any friends yet</Resource>
+    <Resource tag="INFO_PENDING">You don't have any pending requests</Resource>
+    <Resource tag="NOTIFICATION_APPROVEALL">تمام درخواستها تائید شوند؟</Resource>
+    <Resource tag="NOTIFICATION_APPROVEALLADD">آیا تمام درخواستها تائید و به لیست شمااضافه شوند؟</Resource>
+    <Resource tag="NOTIFICATION_DENY">درخواست رد شود؟</Resource>
+    <Resource tag="NOTIFICATION_REMOVE">حذف دوست؟</Resource>
+    <Resource tag="NOTIFICATION_REMOVE_OLD_UNAPPROVED">تمامی درخواستهای دوستی قدیمی تراز 14 روز حذف شوند؟</Resource>
+    <Resource tag="PENDING_REQUESTS">درخواست‌های در حال انتظار</Resource>
+    <Resource tag="POSTS">ارسال ها</Resource>
+    <Resource tag="REQUEST_DATE">تاریخ درخواست</Resource>
+    <Resource tag="YOUR_BUDDYLIST">دوستان من</Resource>
+    <Resource tag="YOUR_REQUESTS">درخواست‌های دوستی شما</Resource>
   </page>
   <page name="HELP_INDEX">
     <Resource tag="ANOUNCECONTENT">&lt;p&gt;اطلاعیه ها، پیام هایی هستند که توسط مدیران و ناظران ارسال می شوند. آنها وسیله یک طرفه ای برای ارتباط با کاربران هستند که قادر به پاسخگویی آن نیستید. در صورتیکه تمایل به صحبت در مورد اطلاعیه دارید می توانید مبحث جدیدی را برای آن در انجمن باز کنید. &lt;/p&gt;
@@ -4224,17 +4180,14 @@
       &lt;p&gt;&lt;strong&gt;چگونه خندانک را وارد پیامم بکنم؟&lt;/strong&gt;&lt;/p&gt;
       &lt;p&gt;در صورت فعال بودن، خندانک ها در صفحه "ارسال پاسخ" و یا "مبحث جدید" قابل دسترسی هستند. برای وارد کردنشان کافی است رویشان کلیک کنید. همچنین می توانید ترکیب کاراکترهای مربوط به آن خندانک را از لیست خندانک ها، بطور دستی وارد کنید.  &lt;/p&gt;
     </Resource>
-    <Resource tag="SMILIESTITLE">خندانک ها</Resource>
-    <Resource tag="SUBSCRIPTIONSCONTENT">
-      &lt;p&gt;مشترک شدن یکی از راههای باخبر بودن از مباحث و تالارهای مختلف است. شما می توانید چگونگی خبررسانی از تغییرات را انتخاب کنید. &lt;/p&gt;
-      &lt;p&gt;اگر نخواهید که بطور دستی کلیه مباحث را برای دریافت اطلاع رسانی فعال کنید می توانید گزینه خبررسانی تالارها و مباحثی که در آن مشترک شده اید، ارسالی درآن داشته اید یا مورد علاقه اتان است" را در صفحه "تنظیمات اطلاع رسانی از طریق رایانامه" انتخاب کنید. "&lt;/p&gt;
-      &lt;p&gt;&lt;strong&gt;چگونه یک مبحث را دنبال کنم؟&lt;/strong&gt;&lt;/p&gt;
-      &lt;p&gt;برای پیگیری یک مبحث، برروی گزینه "انتخابها" در بالای صفحه مبحث مورد کلیک کرده و گزینه "پیگیری بحث" را بزنید.    &lt;/p&gt;
-      &lt;p&gt;&lt;strong&gt;چگونه فعالیت های یک تالار را پیگیری نمایم؟&lt;/strong&gt;&lt;/p&gt;
-      &lt;p&gt;برای اشتراک در یک تالار گزینه "پیگیری تالار" در پایین فهرست مباحث آن تالار کلیک نمایید.&lt;/p&gt;
-      &lt;p&gt;&lt;strong&gt;چگونه اشتراکات خود در مباحث و تالار ها را مدیریت نمایم؟&lt;/strong&gt;&lt;/p&gt;
-      &lt;p&gt;شما می توانید فهرست مشترکات خود را در مباحث و تالار ها، در قسمت "اشتراک ها" تحت "مشخصات فردی" در صفحه "تنظیمات من" مشاهده نمایید.&lt;/p&gt;
-    </Resource>
+    <Resource tag="SUBSCRIPTIONSCONTENT">&lt;p&gt;Subscriptions are a way to keep track of different topics and/or forums. You can choose how you are notified about updates.&lt;/p&gt;
+&lt;p&gt;Or if you don't want to manually subscribe to a topic you want to follow you can turn on the Option 'Notification for topics you've posted to, watched or marked as favorite' in the E-mail Notification Preferences Page inside the User CP.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;How to  watch a topic?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;To subscribe to a topic, click the 'Options' link at the top of the list of posts then click 'Watch this topic'.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;How to  watch a forum?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;To subscribe to a forum, click on the 'Watch Forum' link bellow the  list of topics.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;How do I manage my Subscriptions of Watched topics and forums?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;You can see the List of 'Watched Forums' and 'Watched Topics' from the 'Email Notification Preferences' Page of your User Controp Panel. There you can select which subscriptions you wish to delete by Clicking on the Unwatch button.&lt;/p&gt;</Resource>
     <Resource tag="SUBSCRIPTIONSTITLE">اشتراک و اطلاع رسانی</Resource>
     <Resource tag="SUBTITLE">راهنمای انجمن</Resource>
     <Resource tag="THANKSCONTENT">
@@ -4417,6 +4370,12 @@
     <Resource tag="USERNAME_ASC">Name A-Z</Resource>
     <Resource tag="USERNAME_DESC">Name Z-A</Resource>
   </page>
+  <page name="MESSAGE">
+    <Resource tag="INBOX">صندوق دریافت</Resource>
+    <Resource tag="MSG_DELETED">پیغام حذف شد.</Resource>
+    <Resource tag="POSTED">ارسال شده:</Resource>
+    <Resource tag="SENTITEMS">موارد ارسال شده</Resource>
+  </page>
   <page name="MESSAGEHISTORY">
     <Resource tag="COMPARE_TITLE">Message Edit History Post Comparsion</Resource>
     <Resource tag="COMPARE_VERSIONS">مقایسه نسخه‌ها</Resource>
@@ -4556,6 +4515,45 @@
     <Resource tag="UNANSWEREDTOPICS">موضوعات پاسخ داده نشده</Resource>
     <Resource tag="UNREADTOPICS">موضوعات خوانده نشده</Resource>
     <Resource tag="VIEWS">مشاهده</Resource>
+  </page>
+  <page name="PM">
+    <Resource tag="ARCHIVE">آرشیو</Resource>
+    <Resource tag="ARCHIVEALL">آرشیو همه</Resource>
+    <Resource tag="ARCHIVESELECTED">آرشیو کردن موارد انتخابی</Resource>
+    <Resource tag="CONFIRM_ARCHIVEALL">تمام پیغام‌ها آرشیو شوند؟</Resource>
+    <Resource tag="CONFIRM_DELETE">تمامی پیغام‌های انتخاب شده حذف شود؟</Resource>
+    <Resource tag="CONFIRM_DELETEALL">همه پیغام‌ها حذف شوند؟</Resource>
+    <Resource tag="DATE">تاریخ</Resource>
+    <Resource tag="DATE_ASC">Date asc</Resource>
+    <Resource tag="DATE_DESC">Date desc</Resource>
+    <Resource tag="DELETEALL">حذف همه</Resource>
+    <Resource tag="DELETESELECTED">حذف موارد انتخابی</Resource>
+    <Resource tag="EXPORTALL">برون‌بری همه</Resource>
+    <Resource tag="EXPORTFORMAT">قالب فایل برای برون‌بری :</Resource>
+    <Resource tag="EXPORTSELECTED">برون‌بری موارد انتخاب شده</Resource>
+    <Resource tag="FROM">از</Resource>
+    <Resource tag="FROM_ASC">From A-Z</Resource>
+    <Resource tag="FROM_DESC">From Z-A</Resource>
+    <Resource tag="INBOX">صندوق ورودی</Resource>
+    <Resource tag="MARK_ALL_ASREAD">علامت‌گذاری همه به‌عنوان خوانده‌شده</Resource>
+    <Resource tag="MARK_ASREAD">Mark As Read</Resource>
+    <Resource tag="MSG_ARCHIVED">پیغام آرشیو شد</Resource>
+    <Resource tag="MSG_ARCHIVED+">{0} پیغام آرشیو شد</Resource>
+    <Resource tag="MSG_DELETED">پیغام حذف شد.</Resource>
+    <Resource tag="MSG_NOSELECTED">پیامی انتخاب نشده، چیزی به خروجی نرفت.</Resource>
+    <Resource tag="MSGDELETED1">یک پیغام حذف شد</Resource>
+    <Resource tag="MSGDELETED2">{0} پیغام حذف شد.</Resource>
+    <Resource tag="NEW_MESSAGE">پیغام جدید</Resource>
+    <Resource tag="NO_MESSAGES">پیغامی پیدا نشد.</Resource>
+    <Resource tag="POSTED">ارسال شده:</Resource>
+    <Resource tag="SENTITEMS">موارد ارسال شده</Resource>
+    <Resource tag="SUBJECT">عنوان</Resource>
+    <Resource tag="SUBJECT_ASC">Subject A-Z</Resource>
+    <Resource tag="SUBJECT_DESC">Subject Z-A</Resource>
+    <Resource tag="TITLE">پیغام‌های شخصی</Resource>
+    <Resource tag="TO">به</Resource>
+    <Resource tag="TO_ASC">To A-Z</Resource>
+    <Resource tag="TO_DESC">To Z-A</Resource>
   </page>
   <page name="PMESSAGE">
     <Resource tag="ALLBUDDIES">تمام دوستان</Resource>
@@ -4837,6 +4835,10 @@
     <Resource tag="XMPP_TITLE">تماس با {0} از طریق Jabber</Resource>
     <Resource tag="YIM">یاهو</Resource>
     <Resource tag="YIM_TITLE">تماس با {0} از طریق Yahoo Messenger</Resource>
+  </page>
+  <page name="POSTTOPIC">
+    <Resource tag="MESSAGE">Message:</Resource>
+    <Resource tag="TAGS">Tags:</Resource>
   </page>
   <page name="PRINTTOPIC">
     <Resource tag="POSTEDBY">ارسال شده توسط:</Resource>
@@ -5325,6 +5327,27 @@
     <Resource tag="MUSTBELOGGEDIN">برای استفاده از گفتگو می بایست عضو باشید.</Resource>
     <Resource tag="SUBMIT">ارسال</Resource>
     <Resource tag="TITLE">گفتگو</Resource>
+  </page>
+  <page name="SUBSCRIPTIONS">
+    <Resource tag="ALLTOPICS">اطلاع رسانی برای [b]تمام ارسال‌ها در تمام موضوعات[/b]</Resource>
+    <Resource tag="DAILY_DIGEST">دریافت روزانه خلاصه فعالیت ها؟</Resource>
+    <Resource tag="FORUM">انجمن</Resource>
+    <Resource tag="FORUMS">انجمن های دیده شده</Resource>
+    <Resource tag="LASTPOST">آخرین ارسال‌ها</Resource>
+    <Resource tag="LASTPOSTLINK">{0} بوسیله {1}</Resource>
+    <Resource tag="NONOTIFICATION">غیرفعال کردن اطلاع رسانی‌ها</Resource>
+    <Resource tag="NOTIFICATIONSELECTION">انتخاب تنظیمات ایمیل اطلاع رسانی:</Resource>
+    <Resource tag="REPLIES">پاسخ ها</Resource>
+    <Resource tag="SAVED_NOTIFICATION_SETTING">تنظیمات ایمیل اطلاع رسانی بروز شد.</Resource>
+    <Resource tag="TITLE">تنظیمات ایمیل اطلاع رسانی</Resource>
+    <Resource tag="TOPIC">موضوع</Resource>
+    <Resource tag="TOPICS">موضوعات مشاهده شده</Resource>
+    <Resource tag="TOPICSIPOSTTOORSUBSCRIBETO">اطلاع رسانی برای موضوعاتی که [b]شما در آن ارسالی داشته اید[/b] یا موضوعاتی که شما دیده اید و مورد علاقه تان است</Resource>
+    <Resource tag="TOPICSISUBSCRIBETO">اطلاع رسانی برای موضوعات و انجمن هایی که گزینشی آنها را دیده اید (در زیر لیست شده)</Resource>
+    <Resource tag="UNSUBSCRIBE">لغو اشتراک</Resource>
+    <Resource tag="VIEWS">نمایش ها</Resource>
+    <Resource tag="WARN_SELECTFORUMS">ابتدا باید انجمن مورد نظر را برای لغو اشتراک انتخاب کنید.</Resource>
+    <Resource tag="WARN_SELECTTOPICS">ابتدا باید عنوان مورد نظر را برای لغو اشتراک انتخاب کنید.</Resource>
   </page>
   <page name="TEAM">
     <Resource tag="ADMINS">مدیران</Resource>
@@ -6303,8 +6326,12 @@
     <Resource tag="MYACTIVITY_TITLE">Shows your activity and Received Thanks, Mentions and Quotes.</Resource>
     <Resource tag="MYALBUMS">آلبوم‌های من</Resource>
     <Resource tag="MYALBUMS_TITLE">نمایش صفحه آلبوم ها برای نمایش تمام آلبوم ها</Resource>
+    <Resource tag="MYNOTIFY">My Notifications</Resource>
+    <Resource tag="MYNOTIFY_TITLE">Shows your unread Received Thanks, Mentions and Quotes.</Resource>
     <Resource tag="MYPROFILE">پروفایل من</Resource>
     <Resource tag="MYPROFILE_TITLE">نمایش کنترل پنل کاربر</Resource>
+    <Resource tag="MYSETTINGS">My Settings</Resource>
+    <Resource tag="MYSETTINGs_TITLE">Edit your user details and settings.</Resource>
     <Resource tag="MYTOPICS">موضوعات من</Resource>
     <Resource tag="MYTOPICS_TITLE">نمایش موضوعات فعال و مورد علاقه</Resource>
     <Resource tag="NEWPM">({0} پیغام خوانده نشده)</Resource>
@@ -6321,13 +6348,6 @@
     <Resource tag="WELCOME_GUEST_CONNECT">دوست دارید در بحث ها شرکت کنید؟! </Resource>
     <Resource tag="WELCOME_GUEST_FULL">میهمان عزیز خوش آمدید! برای بهره‌مندی از تمام امکانات لطفا وارد حساب کاربری خود شوید</Resource>
     <Resource tag="WELCOME_GUEST_NO">خوش آمدید! &lt;strong&gt;نمی توانید&lt;/strong&gt; ثبت نام کنید یا وارد شوید.</Resource>
-  </page>
-  <page name="TOPIC_STATUS">
-    <Resource tag="FIXED">برطرف شده</Resource>
-    <Resource tag="INFORMATIC">اطلاع رسانی</Resource>
-    <Resource tag="ISSUE">مشکل</Resource>
-    <Resource tag="QUESTION">سوال</Resource>
-    <Resource tag="SOLVED">حل شده</Resource>
   </page>
   <page name="TOPICS">
     <Resource tag="ALL">همه</Resource>

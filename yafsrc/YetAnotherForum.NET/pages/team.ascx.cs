@@ -1,8 +1,8 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2019 Ingo Herbote
- * http://www.yetanotherforum.net/
+ * Copyright (C) 2014-2020 Ingo Herbote
+ * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -12,7 +12,7 @@
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
 
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
 
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
@@ -53,7 +53,7 @@ namespace YAF.Pages
     /// <summary>
     /// The Team Page
     /// </summary>
-    public partial class team : ForumPage
+    public partial class Team : ForumPage
     {
         #region Constants and Fields
 
@@ -67,9 +67,9 @@ namespace YAF.Pages
         #region Constructors and Destructors
 
         /// <summary>
-        ///   Initializes a new instance of the <see cref = "team" /> class.
+        ///   Initializes a new instance of the <see cref = "Team" /> class.
         /// </summary>
-        public team()
+        public Team()
             : base("TEAM")
         {
         }
@@ -97,7 +97,7 @@ namespace YAF.Pages
 
             if (int.TryParse(modForums.SelectedValue, out var redirForum))
             {
-                YafBuildLink.Redirect(ForumPages.topics, "f={0}", modForums.SelectedValue);
+                BuildLink.Redirect(ForumPages.topics, "f={0}", modForums.SelectedValue);
             }
         }
 
@@ -119,10 +119,10 @@ namespace YAF.Pages
                 .GetOrSet(
                     Constants.Cache.BoardAdmins,
                     () =>
-                    this.GetRepository<User>().AdminList(this.Get<YafBoardSettings>().UseStyledNicks),
-                    TimeSpan.FromMinutes(this.Get<YafBoardSettings>().BoardModeratorsCacheTimeout));
+                    this.GetRepository<User>().AdminList(this.Get<BoardSettings>().UseStyledNicks),
+                    TimeSpan.FromMinutes(this.Get<BoardSettings>().BoardModeratorsCacheTimeout));
 
-            if (this.Get<YafBoardSettings>().UseStyledNicks)
+            if (this.Get<BoardSettings>().UseStyledNicks)
             {
                 this.Get<IStyleTransform>().DecodeStyleByTable(adminListDataTable, false);
             }
@@ -139,7 +139,7 @@ namespace YAF.Pages
         [NotNull]
         protected List<Moderator> GetModerators()
         {
-            var moderators = this.Get<YafDbBroker>().GetAllModerators();
+            var moderators = this.Get<DataBroker>().GetAllModerators();
 
             var modsSorted = new List<Moderator>();
 
@@ -205,7 +205,7 @@ namespace YAF.Pages
                 userId, avatarString, hasAvatarImage, email);
 
             return avatarUrl.IsNotSet()
-                       ? $"{YafForumInfo.ForumClientFileRoot}images/noavatar.svg"
+                       ? $"{BoardInfo.ForumClientFileRoot}images/noavatar.svg"
                        : avatarUrl;
         }
 
@@ -219,9 +219,9 @@ namespace YAF.Pages
         {
             base.OnInit(e);
 
-            if (!this.Get<IPermissions>().Check(this.Get<YafBoardSettings>().ShowTeamTo))
+            if (!this.Get<IPermissions>().Check(this.Get<BoardSettings>().ShowTeamTo))
             {
-                YafBuildLink.AccessDenied();
+                BuildLink.AccessDenied();
             }
         }
 
@@ -281,7 +281,7 @@ namespace YAF.Pages
 
             var itemDataItem = (DataRowView)e.Item.DataItem;
             var userid = itemDataItem["UserID"].ToType<int>();
-            var displayName = this.Get<YafBoardSettings>().EnableDisplayName ? itemDataItem.Row["DisplayName"].ToString() : itemDataItem.Row["Name"].ToString();
+            var displayName = this.Get<BoardSettings>().EnableDisplayName ? itemDataItem.Row["DisplayName"].ToString() : itemDataItem.Row["Name"].ToString();
 
             adminAvatar.ImageUrl = this.GetAvatarUrlFileName(
                 itemDataItem.Row["UserID"].ToType<int>(),
@@ -307,7 +307,7 @@ namespace YAF.Pages
             var blockFlags = new UserBlockFlags(itemDataItem.Row["BlockFlags"].ToType<int>());
             var isFriend = this.GetRepository<Buddy>().CheckIsFriend(this.PageContext.PageUserID, userid);
 
-            pm.Visible = !this.PageContext.IsGuest && this.User != null && this.Get<YafBoardSettings>().AllowPrivateMessages;
+            pm.Visible = !this.PageContext.IsGuest && this.User != null && this.Get<BoardSettings>().AllowPrivateMessages;
 
             if (pm.Visible)
             {
@@ -322,11 +322,11 @@ namespace YAF.Pages
                 }
             }
 
-            pm.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.pmessage, "u={0}", userid);
+            pm.NavigateUrl = BuildLink.GetLinkNotEscaped(ForumPages.PostPrivateMessage, "u={0}", userid);
             pm.ParamTitle0 = displayName;
 
             // email link
-            email.Visible = !this.PageContext.IsGuest && this.User != null && this.Get<YafBoardSettings>().AllowEmailSending;
+            email.Visible = !this.PageContext.IsGuest && this.User != null && this.Get<BoardSettings>().AllowEmailSending;
 
             if (email.Visible)
             {
@@ -340,7 +340,7 @@ namespace YAF.Pages
                     email.Visible = true;
                 }
 
-                email.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.im_email, "u={0}", userid);
+                email.NavigateUrl = BuildLink.GetLinkNotEscaped(ForumPages.Email, "u={0}", userid);
                 email.ParamTitle0 = displayName;
             }
         }
@@ -393,7 +393,7 @@ namespace YAF.Pages
 
             var itemDataItem = (Moderator)e.Item.DataItem;
             var userid = itemDataItem.ModeratorID.ToType<int>();
-            var displayName = this.Get<YafBoardSettings>().EnableDisplayName ? itemDataItem.DisplayName : itemDataItem.Name;
+            var displayName = this.Get<BoardSettings>().EnableDisplayName ? itemDataItem.DisplayName : itemDataItem.Name;
 
             var modAvatar = e.Item.FindControlAs<Image>("ModAvatar");
 
@@ -410,7 +410,7 @@ namespace YAF.Pages
 
             var isFriend = this.GetRepository<Buddy>().CheckIsFriend(this.PageContext.PageUserID, userid);
 
-            pm.Visible = !this.PageContext.IsGuest && this.User != null && this.Get<YafBoardSettings>().AllowPrivateMessages;
+            pm.Visible = !this.PageContext.IsGuest && this.User != null && this.Get<BoardSettings>().AllowPrivateMessages;
 
             if (pm.Visible)
             {
@@ -425,11 +425,11 @@ namespace YAF.Pages
                 }
             }
 
-            pm.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.pmessage, "u={0}", userid);
+            pm.NavigateUrl = BuildLink.GetLinkNotEscaped(ForumPages.PostPrivateMessage, "u={0}", userid);
             pm.ParamTitle0 = displayName;
 
             // email link
-            email.Visible = !this.PageContext.IsGuest && this.User != null && this.Get<YafBoardSettings>().AllowEmailSending;
+            email.Visible = !this.PageContext.IsGuest && this.User != null && this.Get<BoardSettings>().AllowEmailSending;
 
             if (email.Visible)
             {
@@ -443,7 +443,7 @@ namespace YAF.Pages
                     email.Visible = true;
                 }
 
-                email.NavigateUrl = YafBuildLink.GetLinkNotEscaped(ForumPages.im_email, "u={0}", userid);
+                email.NavigateUrl = BuildLink.GetLinkNotEscaped(ForumPages.Email, "u={0}", userid);
                 email.ParamTitle0 = displayName;
             }
         }

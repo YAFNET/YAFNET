@@ -4,12 +4,18 @@ namespace ServiceStack.OrmLite.SqlServer.Converters
 {
     public class SqlServerFloatConverter : FloatConverter
     {
-        public override string ColumnDefinition => "FLOAT";
+        public override string ColumnDefinition
+        {
+            get { return "FLOAT"; }
+        }
     }
 
     public class SqlServerDoubleConverter : DoubleConverter
     {
-        public override string ColumnDefinition => "FLOAT";
+        public override string ColumnDefinition
+        {
+            get { return "FLOAT"; }
+        }
     }
 
     public class SqlServerDecimalConverter : DecimalConverter

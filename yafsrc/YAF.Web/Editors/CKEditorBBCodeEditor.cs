@@ -1,8 +1,8 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2019 Ingo Herbote
- * http://www.yetanotherforum.net/
+ * Copyright (C) 2014-2020 Ingo Herbote
+ * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -12,7 +12,7 @@
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
 
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
 
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
@@ -66,14 +66,14 @@ namespace YAF.Web.Editors
         /// </summary>
         protected override void RegisterCKEditorCustomJS()
         {
-            YafContext.Current.PageElements.RegisterJsBlock(
+            BoardContext.Current.PageElements.RegisterJsBlock(
                 "editorlang",
-                $@"var editorLanguage = ""{(YafContext.Current.CultureUser.IsSet()
-                                                ? YafContext.Current.CultureUser.Substring(0, 2)
-                                                : this.Get<YafBoardSettings>().Culture.Substring(0, 2))}"";
-                        var editorMaxChar = {YafContext.Current.BoardSettings.MaxPostSize};");
+                $@"var editorLanguage = ""{(BoardContext.Current.CultureUser.IsSet()
+                                                ? BoardContext.Current.CultureUser.Substring(0, 2)
+                                                : this.Get<BoardSettings>().Culture.Substring(0, 2))}"";
+                        var editorMaxChar = {BoardContext.Current.BoardSettings.MaxPostSize};");
 
-            YafContext.Current.PageElements.AddScriptReference(
+            BoardContext.Current.PageElements.AddScriptReference(
                 "ckeditorinitbbcode",
                 "ckeditor/ckeditor_initbbcode.js");
         }

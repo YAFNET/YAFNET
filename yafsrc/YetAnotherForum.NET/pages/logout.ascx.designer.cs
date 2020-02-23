@@ -7,9 +7,11 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace YAF.Pages {
-    
-    
-    public partial class logout {
+namespace YAF.Pages
+{
+
+
+    public partial class Logout
+    {
     }
 }

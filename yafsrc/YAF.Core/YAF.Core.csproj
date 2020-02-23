@@ -67,9 +67,6 @@
     <Compile Update="BasePages\ForumPageRegistered.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Update="WebService\YafWebService.cs">
-      <SubType>Component</SubType>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Lucene.Net\Lucene.Net.Analysis.Common\YAF.Lucene.Net.Analysis.Common.csproj" />
@@ -83,7 +80,10 @@
     <ProjectReference Include="..\YAF.Utils\YAF.Utils.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Autofac" Version="4.9.4" />
+    <PackageReference Include="Autofac" Version="5.1.2" />
     <PackageReference Include="Farsi.Library" Version="2.7.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Theme\" />
   </ItemGroup>
 </Project>

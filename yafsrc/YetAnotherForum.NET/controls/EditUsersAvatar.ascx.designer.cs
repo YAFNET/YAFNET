@@ -7,14 +7,12 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace YAF.Controls {
-    using System.Web.UI.HtmlControls;
-    using System.Web.UI.WebControls;
+namespace YAF.Controls
+{
 
-    using YAF.Web.Controls;
 
-    public partial class EditUsersAvatar {
-        
+    public partial class EditUsersAvatar
+    {
 
         /// <summary>
         /// avatarImageTD control.
@@ -23,8 +21,7 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected PlaceHolder avatarImageTD;
-        
+        protected global::System.Web.UI.WebControls.PlaceHolder avatarImageTD;
 
         /// <summary>
         /// LocalizedLabel1 control.
@@ -33,8 +30,7 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected LocalizedLabel LocalizedLabel1;
-        
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel1;
 
         /// <summary>
         /// AvatarImg control.
@@ -43,8 +39,7 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected Image AvatarImg;
-        
+        protected global::System.Web.UI.WebControls.Image AvatarImg;
 
         /// <summary>
         /// NoAvatar control.
@@ -53,8 +48,7 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected Label NoAvatar;
-        
+        protected global::System.Web.UI.WebControls.Label NoAvatar;
 
         /// <summary>
         /// DeleteAvatar control.
@@ -63,8 +57,7 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected ThemeButton DeleteAvatar;
-        
+        protected global::YAF.Web.Controls.ThemeButton DeleteAvatar;
 
         /// <summary>
         /// AvatarOurs control.
@@ -73,8 +66,7 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected PlaceHolder AvatarOurs;
-        
+        protected global::System.Web.UI.WebControls.PlaceHolder AvatarOurs;
 
         /// <summary>
         /// LocalizedLabel3 control.
@@ -83,8 +75,7 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected LocalizedLabel LocalizedLabel3;
-        
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel3;
 
         /// <summary>
         /// OurAvatar control.
@@ -93,8 +84,7 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected HyperLink OurAvatar;
-        
+        protected global::System.Web.UI.WebControls.HyperLink OurAvatar;
 
         /// <summary>
         /// AvatarRemoteRow control.
@@ -103,8 +93,7 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected PlaceHolder AvatarRemoteRow;
-        
+        protected global::System.Web.UI.WebControls.PlaceHolder AvatarRemoteRow;
 
         /// <summary>
         /// LocalizedLabel4 control.
@@ -113,8 +102,7 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected LocalizedLabel LocalizedLabel4;
-        
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel4;
 
         /// <summary>
         /// Avatar control.
@@ -123,8 +111,7 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected TextBox Avatar;
-        
+        protected global::System.Web.UI.WebControls.TextBox Avatar;
 
         /// <summary>
         /// noteRemote control.
@@ -133,8 +120,7 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected Label noteRemote;
-        
+        protected global::System.Web.UI.WebControls.Label noteRemote;
 
         /// <summary>
         /// UpdateRemote control.
@@ -143,8 +129,7 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected ThemeButton UpdateRemote;
-        
+        protected global::YAF.Web.Controls.ThemeButton UpdateRemote;
 
         /// <summary>
         /// AvatarUploadRow control.
@@ -153,8 +138,7 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected PlaceHolder AvatarUploadRow;
-        
+        protected global::System.Web.UI.WebControls.PlaceHolder AvatarUploadRow;
 
         /// <summary>
         /// LocalizedLabel5 control.
@@ -163,8 +147,7 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected LocalizedLabel LocalizedLabel5;
-        
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel5;
 
         /// <summary>
         /// File control.
@@ -173,8 +156,7 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected HtmlInputFile File;
-        
+        protected global::System.Web.UI.HtmlControls.HtmlInputFile File;
 
         /// <summary>
         /// LocalizedLabel2 control.
@@ -183,8 +165,7 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected LocalizedLabel LocalizedLabel2;
-        
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel2;
 
         /// <summary>
         /// noteLocal control.
@@ -193,8 +174,7 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected Label noteLocal;
-        
+        protected global::System.Web.UI.WebControls.Label noteLocal;
 
         /// <summary>
         /// UpdateUpload control.
@@ -203,8 +183,7 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected ThemeButton UpdateUpload;
-        
+        protected global::YAF.Web.Controls.ThemeButton UpdateUpload;
 
         /// <summary>
         /// Back control.
@@ -213,6 +192,6 @@ namespace YAF.Controls {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected ThemeButton Back;
+        protected global::YAF.Web.Controls.ThemeButton Back;
     }
 }

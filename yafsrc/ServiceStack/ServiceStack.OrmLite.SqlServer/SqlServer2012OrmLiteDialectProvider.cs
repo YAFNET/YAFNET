@@ -14,13 +14,13 @@ namespace ServiceStack.OrmLite.SqlServer
 
         public override bool DoesSequenceExist(IDbCommand dbCmd, string sequenceName)
         {
-            var sql = "SELECT 1 FROM SYS.SEQUENCES WHERE object_id=object_id({0})"
+            var sql = "SELECT EXISTS(SELECT 1 FROM SYS.SEQUENCES WHERE object_id=object_id({0}))"
                 .SqlFmt(this, sequenceName);
 
             dbCmd.CommandText = sql;
-            var result = dbCmd.ExecuteScalar();
+            var result = dbCmd.ExecLongScalar();
 
-            return result != null;
+            return result == 1;
         }
 
         protected override string GetAutoIncrementDefinition(FieldDefinition fieldDef)
@@ -61,7 +61,6 @@ namespace ServiceStack.OrmLite.SqlServer
                     gens.AddIfNotExists(fieldDef.Sequence);
                 }
             }
-
             return gens;
         }
 
@@ -83,11 +82,11 @@ namespace ServiceStack.OrmLite.SqlServer
             {
                 if (orderByExpression.IsEmpty())
                 {
-                    var orderBy = offset == null && rows == 1 // Avoid for Single requests
+                    var orderBy = offset == null && rows == 1 //Avoid for Single requests
                         ? "1"
                         : this.GetQuotedColumnName(modelDef, modelDef.PrimaryKey);
 
-                    sb.Append($" ORDER BY {orderBy}");
+                    sb.Append(" ORDER BY " + orderBy);
                 }
 
                 sb.Append(" ").Append(SqlLimit(offset, rows));
@@ -102,7 +101,7 @@ namespace ServiceStack.OrmLite.SqlServer
             if (fieldDef.IsRowVersion)
                 return $"{fieldDef.FieldName} rowversion NOT NULL";
 
-            var fieldDefinition = fieldDef.CustomFieldDefinition ??
+            var fieldDefinition = ResolveFragment(fieldDef.CustomFieldDefinition) ??
                 GetColumnTypeDefinition(fieldDef.ColumnType, fieldDef.FieldLength, fieldDef.Scale);
 
             var sql = StringBuilderCache.Allocate();
@@ -121,6 +120,10 @@ namespace ServiceStack.OrmLite.SqlServer
             if (fieldDef.IsPrimaryKey)
             {
                 sql.Append(" PRIMARY KEY");
+
+                if (fieldDef.IsNonClustered)
+                    sql.Append(" NONCLUSTERED");
+ 
                 if (fieldDef.AutoIncrement)
                 {
                     sql.Append(" ").Append(AutoIncrementDefinition);
@@ -172,10 +175,10 @@ namespace ServiceStack.OrmLite.SqlServer
 
                     sbColumns.Append(columnDefinition);
 
-                    var sqlConstraint = GetCheckConstraint(fieldDef);
+                    var sqlConstraint = GetCheckConstraint(modelDef, fieldDef);
                     if (sqlConstraint != null)
                     {
-                        sbConstraints.Append($",\n{sqlConstraint}");
+                        sbConstraints.Append(",\n" + sqlConstraint);
                     }
 
                     if (fieldDef.ForeignKey == null || OrmLiteConfig.SkipForeignKeys)
@@ -183,7 +186,9 @@ namespace ServiceStack.OrmLite.SqlServer
 
                     var refModelDef = GetModel(fieldDef.ForeignKey.ReferenceType);
                     sbConstraints.Append(
-                        $", \n\n  CONSTRAINT {this.GetQuotedName(fieldDef.ForeignKey.GetForeignKeyName(modelDef, refModelDef, this.NamingStrategy, fieldDef))} FOREIGN KEY ({this.GetQuotedColumnName(fieldDef.FieldName)}) REFERENCES {this.GetQuotedTableName(refModelDef)} ({this.GetQuotedColumnName(refModelDef.PrimaryKey.FieldName)})");
+                        $", \n\n  CONSTRAINT {GetQuotedName(fieldDef.ForeignKey.GetForeignKeyName(modelDef, refModelDef, NamingStrategy, fieldDef))} " +
+                        $"FOREIGN KEY ({GetQuotedColumnName(fieldDef.FieldName)}) " +
+                        $"REFERENCES {GetQuotedTableName(refModelDef)} ({GetQuotedColumnName(refModelDef.PrimaryKey.FieldName)})");
 
                     sbConstraints.Append(GetForeignKeyOnDeleteClause(fieldDef.ForeignKey));
                     sbConstraints.Append(GetForeignKeyOnUpdateClause(fieldDef.ForeignKey));
@@ -207,7 +212,6 @@ namespace ServiceStack.OrmLite.SqlServer
 
                         sbTableOptions.Append($" FILETABLE_COLLATE_FILENAME = {fileTableAttrib.FileTableCollateFileName ?? "database_default" }\n");
                     }
-
                     sbTableOptions.Append(")");
                 }
             }
@@ -215,11 +219,11 @@ namespace ServiceStack.OrmLite.SqlServer
             var uniqueConstraints = GetUniqueConstraints(modelDef);
             if (uniqueConstraints != null)
             {
-                sbConstraints.Append($",\n{uniqueConstraints}");
+                sbConstraints.Append(",\n" + uniqueConstraints);
             }
 
             var sql = $"CREATE TABLE {GetQuotedTableName(modelDef)} ";
-            sql += fileTableAttrib != null
+            sql += (fileTableAttrib != null)
                 ? $"\n AS FILETABLE{StringBuilderCache.ReturnAndFree(sbTableOptions)};"
                 : $"\n(\n  {StringBuilderCache.ReturnAndFree(sbColumns)}{StringBuilderCacheAlt.ReturnAndFree(sbConstraints)} \n){StringBuilderCache.ReturnAndFree(sbTableOptions)}; \n";
 
@@ -232,6 +236,7 @@ namespace ServiceStack.OrmLite.SqlServer
             {
                 // Append condition statement to determine if SqlGeometry or SqlGeography type is Equal
                 // using the type's STEquals method
+                //
                 // SqlGeometry: https://msdn.microsoft.com/en-us/library/microsoft.sqlserver.types.sqlgeometry.stequals.aspx
                 // SqlGeography: https://msdn.microsoft.com/en-us/library/microsoft.sqlserver.types.sqlgeography.stequals.aspx
                 sqlFilter
@@ -254,6 +259,7 @@ namespace ServiceStack.OrmLite.SqlServer
             {
                 // Append condition statement to determine if SqlHierarchyId, SqlGeometry, or SqlGeography type is NULL
                 // using the type's IsNull property
+                //
                 // SqlHierarchyId: https://msdn.microsoft.com/en-us/library/microsoft.sqlserver.types.sqlhierarchyid.isnull.aspx
                 // SqlGeometry: https://msdn.microsoft.com/en-us/library/microsoft.sqlserver.types.sqlgeometry.isnull.aspx
                 // SqlGeography: https://msdn.microsoft.com/en-us/library/microsoft.sqlserver.types.sqlgeography.isnull.aspx

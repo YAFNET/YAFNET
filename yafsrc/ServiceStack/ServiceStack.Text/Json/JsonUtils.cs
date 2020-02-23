@@ -1,11 +1,9 @@
 //Copyright (c) ServiceStack, Inc. All Rights Reserved.
 //License: https://raw.github.com/ServiceStack/ServiceStack/master/license.txt
 
+using System;
 using System.IO;
 using System.Runtime.CompilerServices;
-#if NETSTANDARD2_0
-using Microsoft.Extensions.Primitives;
-#endif
 
 namespace ServiceStack.Text.Json
 {
@@ -44,7 +42,7 @@ namespace ServiceStack.Text.Json
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsWhiteSpace(char c)
         {
-            return c == ' ' || c >= '\x0009' && c <= '\x000d' || c == '\x00a0' || c == '\x0085';
+            return c == ' ' || (c >= '\x0009' && c <= '\x000d') || c == '\x00a0' || c == '\x0085';
         }
 
         public static void WriteString(TextWriter writer, string value)
@@ -55,8 +53,9 @@ namespace ServiceStack.Text.Json
                 return;
             }
 
-            var escapeHtmlChars = JsConfig.EscapeHtmlChars;
-            var escapeUnicode = JsConfig.EscapeUnicode;
+            var config = JsConfig.GetConfig();
+            var escapeHtmlChars = config.EscapeHtmlChars;
+            var escapeUnicode = config.EscapeUnicode;
 
             if (!HasAnyEscapeChars(value, escapeHtmlChars))
             {
@@ -72,7 +71,7 @@ namespace ServiceStack.Text.Json
             var len = value.Length;
             for (var i = 0; i < len; i++)
             {
-                var c = value[i];
+                char c = value[i];
 
                 switch (c)
                 {
@@ -184,7 +183,6 @@ namespace ServiceStack.Text.Json
                 if (escapeHtmlChars && (c == '<' || c == '>' || c == '&' || c == '=' || c == '\\'))
                     return true;
             }
-
             return false;
         }
 
@@ -214,11 +212,11 @@ namespace ServiceStack.Text.Json
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool IsJsObject(StringSegment value)
+        public static bool IsJsObject(ReadOnlySpan<char> value)
         {
             return !value.IsNullOrEmpty()
-                   && value.GetChar(0) == '{'
-                   && value.GetChar(value.Length - 1) == '}';
+               && value[0] == '{'
+               && value[value.Length - 1] == '}';
         }
 
 
@@ -231,11 +229,11 @@ namespace ServiceStack.Text.Json
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool IsJsArray(StringSegment value)
+        public static bool IsJsArray(ReadOnlySpan<char> value)
         {
             return !value.IsNullOrEmpty()
-                   && value.GetChar(0) == '['
-                   && value.GetChar(value.Length - 1) == ']';
+               && value[0] == '['
+               && value[value.Length - 1] == ']';
         }
 
     }

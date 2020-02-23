@@ -1,8 +1,8 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2019 Ingo Herbote
- * http://www.yetanotherforum.net/
+ * Copyright (C) 2014-2020 Ingo Herbote
+ * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -12,7 +12,7 @@
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
 
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
 
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
@@ -27,14 +27,15 @@ namespace YAF.Pages
     #region Using
 
     using System;
+    using System.Collections.Generic;
     using System.Data;
     using System.Linq;
     using System.Web.UI.WebControls;
 
     using YAF.Configuration;
-    using YAF.Controls;
     using YAF.Core;
     using YAF.Core.Model;
+    using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
@@ -52,14 +53,14 @@ namespace YAF.Pages
     /// <summary>
     /// Forum Moderating Page.
     /// </summary>
-    public partial class moderating : ForumPage
+    public partial class Moderating : ForumPage
     {
         #region Constructors and Destructors
 
         /// <summary>
-        ///   Initializes a new instance of the <see cref = "moderating" /> class.
+        ///   Initializes a new instance of the <see cref = "Moderating" /> class.
         /// </summary>
-        public moderating()
+        public Moderating()
             : base("MODERATING")
         {
         }
@@ -69,13 +70,38 @@ namespace YAF.Pages
         #region Methods
 
         /// <summary>
+        /// The On PreRender event.
+        /// </summary>
+        /// <param name="e">
+        /// the Event Arguments
+        /// </param>
+        protected override void OnPreRender([NotNull] EventArgs e)
+        {
+            this.PageContext.PageElements.RegisterJsBlockStartup(
+                "TopicStarterPopoverJs",
+                JavaScriptBlocks.TopicLinkPopoverJs(
+                    $"{this.GetText("TOPIC_STARTER")}&nbsp;...",
+                    ".topic-starter-popover",
+                    "hover"));
+
+            this.PageContext.PageElements.RegisterJsBlockStartup(
+                "TopicLinkPopoverJs",
+                JavaScriptBlocks.TopicLinkPopoverJs(
+                    $"{this.GetText("LASTPOST")}&nbsp;{this.GetText("SEARCH", "BY")} ...",
+                    ".topic-link-popover",
+                    "focus hover"));
+
+            base.OnPreRender(e);
+        }
+
+        /// <summary>
         /// Handles the Click event of the AddUser control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void AddUser_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
-            YafBuildLink.Redirect(ForumPages.mod_forumuser, "f={0}", this.PageContext.PageForumID);
+            BuildLink.Redirect(ForumPages.ModForumUser, "f={0}", this.PageContext.PageForumID);
         }
 
         /// <summary>
@@ -83,9 +109,9 @@ namespace YAF.Pages
         /// </summary>
         protected void BindData()
         {
-            this.PagerTop.PageSize = this.Get<YafBoardSettings>().TopicsPerPage;
+            this.PagerTop.PageSize = this.Get<BoardSettings>().TopicsPerPage;
 
-            var baseSize = this.Get<YafBoardSettings>().TopicsPerPage;
+            var baseSize = this.Get<BoardSettings>().TopicsPerPage;
             var currentPageIndex = this.PagerTop.CurrentPageIndex;
 
             var topicList = this.GetRepository<Topic>().ListAsDataTable(
@@ -100,7 +126,7 @@ namespace YAF.Pages
                 false);
 
             this.topiclist.DataSource = topicList;
-            this.UserList.DataSource = this.GetRepository<UserForum>().ListAsDataTable(null, this.PageContext.PageForumID);
+            this.UserList.DataSource = this.GetRepository<UserForum>().List(null, this.PageContext.PageForumID);
            
             if (topicList != null && topicList.HasRows())
             {
@@ -132,9 +158,7 @@ namespace YAF.Pages
         /// </param>
         protected void DeleteTopics_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
-            var list =
-                this.topiclist.Controls.OfType<RepeaterItem>().SelectMany(x => x.Controls.OfType<TopicLine>()).Where(
-                    x => x.IsSelected && x.TopicRowID.HasValue).ToList();
+            var list = this.GetSelectedTopics();
 
             if (!list.Any())
             {
@@ -180,9 +204,7 @@ namespace YAF.Pages
                     linkDays = ld;
                 }
 
-                var list = this.topiclist.Controls.OfType<RepeaterItem>()
-                    .SelectMany(x => x.Controls.OfType<TopicLine>()).Where(x => x.IsSelected && x.TopicRowID.HasValue)
-                    .ToList();
+                var list = this.GetSelectedTopics();
 
                 if (!list.Any())
                 {
@@ -217,7 +239,7 @@ namespace YAF.Pages
         {
             if (!this.PageContext.ForumModeratorAccess)
             {
-                YafBuildLink.AccessDenied();
+                BuildLink.AccessDenied();
             }
 
             if (!this.PageContext.IsForumModerator || !this.PageContext.IsAdmin)
@@ -232,7 +254,7 @@ namespace YAF.Pages
                     this.PageLinks.AddRoot();
                     this.PageLinks.AddLink(
                         this.PageContext.PageCategoryName,
-                        YafBuildLink.GetLink(ForumPages.forum, "c={0}", this.PageContext.PageCategoryID));
+                        BuildLink.GetLink(ForumPages.forum, "c={0}", this.PageContext.PageCategoryID));
                 }
 
                 this.PageLinks.AddForum(this.PageContext.PageForumID);
@@ -240,7 +262,7 @@ namespace YAF.Pages
 
                 this.PagerTop.PageSize = 25;
 
-                var showMoved = this.Get<YafBoardSettings>().ShowMoved;
+                var showMoved = this.Get<BoardSettings>().ShowMoved;
 
                 // Ederon : 7/14/2007 - by default, leave pointer is set on value defined on host level
                 this.LeavePointer.Checked = showMoved;
@@ -278,8 +300,8 @@ namespace YAF.Pages
             switch (e.CommandName)
             {
                 case "edit":
-                    YafBuildLink.Redirect(
-                        ForumPages.mod_forumuser, "f={0}&u={1}", this.PageContext.PageForumID, e.CommandArgument);
+                    BuildLink.Redirect(
+                        ForumPages.ModForumUser, "f={0}&u={1}", this.PageContext.PageForumID, e.CommandArgument);
                     break;
                 case "remove":
                     this.GetRepository<UserForum>().Delete(e.CommandArgument.ToType<int>(), this.PageContext.PageForumID);
@@ -293,20 +315,28 @@ namespace YAF.Pages
         }
 
         /// <summary>
-        /// The topic list item command.
+        /// Gets the selected topics
         /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.Web.UI.WebControls.RepeaterCommandEventArgs"/> instance containing the event data.</param>
-        protected void topiclist_ItemCommand([NotNull] object sender, [NotNull] RepeaterCommandEventArgs e)
+        /// <returns>
+        /// Returns the List of selected Topics
+        /// </returns>
+        private List<TopicContainer> GetSelectedTopics()
         {
-            switch (e.CommandName)
-            {
-                case "delete":
-                    this.GetRepository<Topic>().Delete(e.CommandArgument.ToType<int>());
-                    this.PageContext.AddLoadMessage(this.GetText("deleted"), MessageTypes.success);
-                    this.BindData();
-                    break;
-            }
+            var list = new List<TopicContainer>();
+
+            this.topiclist.Items.Cast<RepeaterItem>().ForEach(item =>
+                {
+                    var check = item.FindControlAs<CheckBox>("topicCheck");
+
+                    var topicContainer = item.FindControlAs<TopicContainer>("topicContainer");
+
+                    if (check.Checked)
+                    {
+                        list.Add(topicContainer);
+                    }
+                });
+
+            return list;
         }
 
         #endregion

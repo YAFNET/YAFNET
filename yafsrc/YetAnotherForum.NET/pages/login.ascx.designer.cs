@@ -7,11 +7,13 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace YAF.Pages {
-    
-    
-    public partial class login {
-        
+namespace YAF.Pages
+{
+
+
+    public partial class Login
+    {
+
         /// <summary>
         /// PageLinks control.
         /// </summary>
@@ -20,7 +22,7 @@ namespace YAF.Pages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::YAF.Web.Controls.PageLinks PageLinks;
-        
+
         /// <summary>
         /// UpdateLoginPanel control.
         /// </summary>
@@ -29,7 +31,7 @@ namespace YAF.Pages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.UpdatePanel UpdateLoginPanel;
-        
+
         /// <summary>
         /// Login1 control.
         /// </summary>

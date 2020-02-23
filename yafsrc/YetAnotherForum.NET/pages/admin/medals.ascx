@@ -23,7 +23,7 @@
                             <ul class="list-group">
                         </HeaderTemplate>
                         <ItemTemplate>
-                            <li class="list-group-item list-group-item-action">
+                            <li class="list-group-item list-group-item-action list-group-item-menu">
                              <div class="d-flex w-100 justify-content-between">
                                  <h5 class="mb-1 text-break">
                                      <%# this.RenderImages(Container.DataItem) %>
@@ -53,7 +53,7 @@
                                 <YAF:ThemeButton ID="ThemeButtonEdit" 
                                                  Type="Info" 
                                                  Size="Small"
-                                                 CommandName='edit' 
+                                                 CommandName="edit" 
                                                  CommandArgument='<%# this.Eval( "ID") %>'
                                                  TitleLocalizedTag="EDIT"
                                                  Icon="edit"
@@ -61,29 +61,27 @@
                                                  runat="server">
                                 </YAF:ThemeButton>
                                 <YAF:ThemeButton ID="ThemeButtonMoveUp" 
-                                                 CssClass="btn btn-warning btn-sm"
-                                                 CommandName='moveup' 
+                                                 Type="Warning"
+                                                 Size="Small"
+                                                 CommandName="moveup" 
                                                  CommandArgument='<%# this.Eval("ID") %>'
                                                  TitleLocalizedTag="MOVE_UP"
-                                                 TitleLocalizedPage="ADMIN_SMILIES"
                                                  Icon="level-up-alt"
                                                  TextLocalizedTag="MOVE_UP"
-                                                 TextLocalizedPage="ADMIN_SMILIES"
                                                  runat="server"/>
                                 <YAF:ThemeButton ID="ThemeButtonMoveDown" 
-                                                 CssClass="btn btn-warning btn-sm"
-                                                 CommandName='movedown' 
+                                                 Type="Warning"
+                                                 Size="Small"
+                                                 CommandName="movedown" 
                                                  CommandArgument='<%# this.Eval("ID") %>'
                                                  TitleLocalizedTag="MOVE_DOWN"
-                                                 TitleLocalizedPage="ADMIN_SMILIES"
                                                  Icon="level-down-alt"
                                                  TextLocalizedTag="MOVE_DOWN"
-                                                 TextLocalizedPage="ADMIN_SMILIES"
                                                  runat="server" />
                                 <YAF:ThemeButton ID="ThemeButtonDelete" 
                                                  Type="Danger" 
                                                  Size="Small"
-                                                 CommandName='delete' 
+                                                 CommandName="delete" 
                                                  CommandArgument='<%# this.Eval( "ID") %>'
                                                  TitleLocalizedTag="DELETE"
                                                  Icon="trash"
@@ -92,6 +90,55 @@
                                                  runat="server">
                                 </YAF:ThemeButton>
                             </small>
+                                <div class="dropdown-menu context-menu" aria-labelledby="context menu">
+                                    <YAF:ThemeButton ID="ThemeButton1" 
+                                                     Type="None" 
+                                                     CssClass="dropdown-item"
+                                                 CommandName="edit" 
+                                                 CommandArgument='<%# this.Eval( "ID") %>'
+                                                 TitleLocalizedTag="EDIT"
+                                                 Icon="edit"
+                                                 TextLocalizedTag="EDIT"
+                                                 runat="server">
+                                </YAF:ThemeButton>
+                                    <YAF:ThemeButton ID="ThemeButton4" 
+                                                     Type="None" 
+                                                     CssClass="dropdown-item"
+                                                     CommandName="delete" 
+                                                     CommandArgument='<%# this.Eval( "ID") %>'
+                                                     TitleLocalizedTag="DELETE"
+                                                     Icon="trash"
+                                                     TextLocalizedTag="DELETE"
+                                                     ReturnConfirmText='<%# this.GetText("ADMIN_MEDALS", "CONFIRM_DELETE") %>'
+                                                     runat="server">
+                                    </YAF:ThemeButton>
+                                    <div class="dropdown-divider"></div>
+                                    <YAF:ThemeButton ID="ThemeButton2" 
+                                                     Type="None" 
+                                                     CssClass="dropdown-item"
+                                                     CommandName="moveup" 
+                                                     CommandArgument='<%# this.Eval("ID") %>'
+                                                     TitleLocalizedTag="MOVE_UP"
+                                                     Icon="level-up-alt"
+                                                     TextLocalizedTag="MOVE_UP"
+                                                     runat="server"/>
+                                    <YAF:ThemeButton ID="ThemeButton3" 
+                                                     Type="None" 
+                                                     CssClass="dropdown-item"
+                                                     CommandName="movedown" 
+                                                     CommandArgument='<%# this.Eval("ID") %>'
+                                                     TitleLocalizedTag="MOVE_DOWN"
+                                                     Icon="level-down-alt"
+                                                     TextLocalizedTag="MOVE_DOWN"
+                                                     runat="server" />
+                                    <div class="dropdown-divider"></div>
+                                    <YAF:ThemeButton ID="NewMedal" runat="server" 
+                                                     OnClick="NewMedalClick" 
+                                                     Type="None" 
+                                                     CssClass="dropdown-item"
+                                                     Icon="plus-square" 
+                                                     TextLocalizedTag="NEW_MEDAL" />
+                                </div>
                             </li>
 			            </ItemTemplate>
                         <FooterTemplate>

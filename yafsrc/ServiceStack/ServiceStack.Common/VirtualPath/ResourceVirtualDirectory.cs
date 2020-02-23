@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using ServiceStack.IO;
 using ServiceStack.Logging;
+using ServiceStack.Text;
 
 namespace ServiceStack.VirtualPath
 {
@@ -113,7 +115,7 @@ namespace ServiceStack.VirtualPath
                 var mrInfo = resourceNames.FirstOrDefault(x => backingAssembly.GetManifestResourceInfo(x) != null);
                 if (mrInfo == null)
                 {
-                    Log.Warn($"Virtual file not found: {fullResourceName}");
+                    Log.Warn("Virtual file not found: " + fullResourceName);
                     return null;
                 }
 
@@ -143,11 +145,12 @@ namespace ServiceStack.VirtualPath
             if (file != null)
                 return file;
 
-            // ResourceDir reads /path/to/a.min.js as path.to.min.js and lays out as /path/to/a/min.js
+            //ResourceDir reads /path/to/a.min.js as path.to.min.js and lays out as /path/to/a/min.js
             var parts = fileName.SplitOnFirst('.');
             if (parts.Length > 1)
             {
-                if (this.GetDirectoryFromBackingDirectoryOrDefault(parts[0]) is ResourceVirtualDirectory dir)
+                var dir = GetDirectoryFromBackingDirectoryOrDefault(parts[0]) as ResourceVirtualDirectory;
+                if (dir != null)
                 {
                     return dir.GetFileFromBackingDirectoryOrDefault(parts[1]);
                 }
@@ -164,7 +167,7 @@ namespace ServiceStack.VirtualPath
         protected override IVirtualDirectory GetDirectoryFromBackingDirectoryOrDefault(string directoryName)
         {
             return Directories.FirstOrDefault(d => d.Name.EqualsIgnoreCase(directoryName)) ??
-                Directories.FirstOrDefault(d => d.Name.EqualsIgnoreCase((directoryName ?? string.Empty).Replace('-', '_')));
+                Directories.FirstOrDefault(d => d.Name.EqualsIgnoreCase((directoryName ?? "").Replace('-', '_')));
         }
 
         protected override string GetRealPathToRoot()

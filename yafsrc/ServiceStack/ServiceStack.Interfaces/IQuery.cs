@@ -4,7 +4,7 @@ using System.Runtime.Serialization;
 
 namespace ServiceStack
 {
-    // Interfaces and DTO's used in AutoQuery
+    //Interfaces and DTO's used in AutoQuery
     public interface IQuery : IMeta
     {
         /// <summary>
@@ -38,90 +38,43 @@ namespace ServiceStack
         string Fields { get; set; }
     }
 
-    public interface IQueryDb : IQuery
-    {
-    }
+    public interface IQueryDb : IQuery { }
+    public interface IQueryData : IQuery { }
 
-    public interface IQueryData : IQuery
-    {
-    }
+    public interface IQueryDb<From> : IQueryDb { }
+    public interface IQueryDb<From, Into> : IQueryDb { }
 
-    public interface IQueryDb<From> : IQueryDb
-    {
-    }
+    public interface IQueryData<From> : IQueryData { }
+    public interface IQueryData<From, Into> : IQueryData { }
 
-    public interface IQueryDb<From, Into> : IQueryDb
-    {
-    }
+    public interface IJoin { }
+    public interface IJoin<Source, Join1> : IJoin { }
+    public interface IJoin<Source, Join1, Join2> : IJoin { }
+    public interface IJoin<Source, Join1, Join2, Join3> : IJoin { }
+    public interface IJoin<Source, Join1, Join2, Join3, Join4> : IJoin { }
 
-    public interface IQueryData<From> : IQueryData
-    {
-    }
-
-    public interface IQueryData<From, Into> : IQueryData
-    {
-    }
-
-    public interface IJoin
-    {
-    }
-
-    public interface IJoin<Source, Join1> : IJoin
-    {
-    }
-
-    public interface IJoin<Source, Join1, Join2> : IJoin
-    {
-    }
-
-    public interface IJoin<Source, Join1, Join2, Join3> : IJoin
-    {
-    }
-
-    public interface IJoin<Source, Join1, Join2, Join3, Join4> : IJoin
-    {
-    }
-
-    public interface ILeftJoin<Source, Join1> : IJoin
-    {
-    }
-
-    public interface ILeftJoin<Source, Join1, Join2> : IJoin
-    {
-    }
-
-    public interface ILeftJoin<Source, Join1, Join2, Join3> : IJoin
-    {
-    }
-
-    public interface ILeftJoin<Source, Join1, Join2, Join3, Join4> : IJoin
-    {
-    }
+    public interface ILeftJoin<Source, Join1> : IJoin { }
+    public interface ILeftJoin<Source, Join1, Join2> : IJoin { }
+    public interface ILeftJoin<Source, Join1, Join2, Join3> : IJoin { }
+    public interface ILeftJoin<Source, Join1, Join2, Join3, Join4> : IJoin { }
 
     public enum QueryTerm
     {
         Default = 0,
-
         And = 1,
-
         Or = 2,
     }
-
     public enum ValueStyle
     {
         Single = 0,
-
         Multiple = 1,
-
         List = 2,
     }
 
-    [AttributeUsage(AttributeTargets.Class)]
+    [AttributeUsage(AttributeTargets.Class, AllowMultiple = false, Inherited = true)]
     public class QueryDbAttribute : AttributeBase
     {
-        public QueryDbAttribute()
-        {
-        }
+        public QueryDbAttribute() { }
 
         public QueryDbAttribute(QueryTerm defaultTerm)
         {
@@ -131,12 +84,10 @@ namespace ServiceStack
         public QueryTerm DefaultTerm { get; set; }
     }
 
-    [AttributeUsage(AttributeTargets.Class)]
+    [AttributeUsage(AttributeTargets.Class, AllowMultiple = false, Inherited = true)]
     public class QueryDataAttribute : AttributeBase
     {
-        public QueryDataAttribute()
-        {
-        }
+        public QueryDataAttribute() { }
 
         public QueryDataAttribute(QueryTerm defaultTerm)
         {
@@ -146,34 +97,27 @@ namespace ServiceStack
         public QueryTerm DefaultTerm { get; set; }
     }
 
-    [AttributeUsage(AttributeTargets.Property)]
+    [AttributeUsage(AttributeTargets.Property, AllowMultiple = false, Inherited = true)]
     public class QueryDbFieldAttribute : AttributeBase
     {
         public QueryTerm Term { get; set; }
-
         public string Operand { get; set; }
-
         public string Template { get; set; }
-
         public string Field { get; set; }
-
         public string ValueFormat { get; set; }
-
         public ValueStyle ValueStyle { get; set; }
-
         public int ValueArity { get; set; }
     }
 
-    [AttributeUsage(AttributeTargets.Property)]
+    [AttributeUsage(AttributeTargets.Property, AllowMultiple = false, Inherited = true)]
     public class QueryDataFieldAttribute : AttributeBase
     {
         public QueryTerm Term { get; set; }
-
         public string Condition { get; set; }
-
         public string Field { get; set; }
     }
 
+    [DataContract]
     public abstract class QueryBase : IQuery
     {
         [DataMember(Order = 1)]
@@ -198,26 +142,15 @@ namespace ServiceStack
         public virtual Dictionary<string, string> Meta { get; set; }
     }
 
-    public abstract class QueryDb<T> : QueryBase, IQueryDb<T>, IReturn<QueryResponse<T>>
-    {
-    }
+    public abstract class QueryDb<T> : QueryBase, IQueryDb<T>, IReturn<QueryResponse<T>> { }
+    public abstract class QueryDb<From, Into> : QueryBase, IQueryDb<From, Into>, IReturn<QueryResponse<Into>> { }
 
-    public abstract class QueryDb<From, Into> : QueryBase, IQueryDb<From, Into>, IReturn<QueryResponse<Into>>
-    {
-    }
-
-    public abstract class QueryData<T> : QueryBase, IQueryData<T>, IReturn<QueryResponse<T>>
-    {
-    }
-
-    public abstract class QueryData<From, Into> : QueryBase, IQueryData<From, Into>, IReturn<QueryResponse<Into>>
-    {
-    }
+    public abstract class QueryData<T> : QueryBase, IQueryData<T>, IReturn<QueryResponse<T>> { }
+    public abstract class QueryData<From, Into> : QueryBase, IQueryData<From, Into>, IReturn<QueryResponse<Into>> { }
 
     public interface IQueryResponse : IHasResponseStatus, IMeta
     {
         int Offset { get; set; }
-
         int Total { get; set; }
     }
 

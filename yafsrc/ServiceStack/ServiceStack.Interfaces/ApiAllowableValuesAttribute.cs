@@ -2,17 +2,17 @@
 //License: https://raw.github.com/ServiceStack/ServiceStack/master/license.txt
 
 using System;
+using System.Reflection;
 
 namespace ServiceStack
 {
-    [AttributeUsage(AttributeTargets.Property)]
+    [AttributeUsage(AttributeTargets.Property, AllowMultiple = false, Inherited = true)]
     public class ApiAllowableValuesAttribute : AttributeBase
     {
         public ApiAllowableValuesAttribute(string name)
         {
             this.Name = name;
         }
-
         public ApiAllowableValuesAttribute(string name, int min, int max) : this(name)
         {
             Type = "RANGE";
@@ -50,7 +50,6 @@ namespace ServiceStack
                 Values = listAction();
             }
         }
-
         /// <summary>
         /// Gets or sets parameter name with which allowable values will be associated.
         /// </summary>
@@ -62,9 +61,9 @@ namespace ServiceStack
 
         public int? Max { get; set; }
 
-        public string[] Values { get; set; }
+        public String[] Values { get; set; }
 
-        // TODO: should be implemented according to:
-        // https://github.com/wordnik/swagger-core/wiki/datatypes
+        //TODO: should be implemented according to:
+        //https://github.com/wordnik/swagger-core/wiki/datatypes
     }
 }

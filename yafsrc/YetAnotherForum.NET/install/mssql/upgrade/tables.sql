@@ -373,29 +373,6 @@ if not exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{d
 	)
 GO
 
-if not exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}Mail]') and type in (N'U'))
-begin
-	create table [{databaseOwner}].[{objectQualifier}Mail](
-		[MailID] [int] IDENTITY(1,1) NOT NULL,
-		[FromUser] [nvarchar](255) NOT NULL,
-		[FromUserName] [nvarchar](255) NULL,
-		[ToUser] [nvarchar](255) NOT NULL,
-		[ToUserName] [nvarchar](255) NULL,
-		[Created] [datetime] NOT NULL,
-		[Subject] [nvarchar](100) NOT NULL,
-		[Body] [nvarchar](max) NOT NULL,
-		[BodyHtml] [nvarchar](max) NULL,
-		[SendTries] [int] NOT NULL constraint [DF_{objectQualifier}Mail_SendTries]  default (0),
-		[SendAttempt] [datetime] NULL,
-		[ProcessID] [int] NULL,
- constraint [PK_{objectQualifier}Mail] PRIMARY KEY CLUSTERED 
-(
-	[MailID] ASC
-)WITH (STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF)
-	)
-end
-GO
-
 if not exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}Message]') and type in (N'U'))
 	create table [{databaseOwner}].[{objectQualifier}Message](
 		MessageID		    int IDENTITY (1,1) NOT NULL,
@@ -600,6 +577,7 @@ if not exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{d
 		[IsActiveExcluded] AS (CONVERT([bit],sign([Flags]&(16)),(0))),
 		[IsDST]	AS (CONVERT([bit],sign([Flags]&(32)),(0))),
 		[IsDirty]	AS (CONVERT([bit],sign([Flags]&(64)),(0))),
+		[Moderated]	AS (CONVERT([bit],sign([Flags]&(128)),(0))),
 		[Culture] varchar (10) default (10),
 		[IsFacebookUser][bit] NOT NULL constraint [DF_{objectQualifier}User_IsFacebookUser] default (0),
 		[IsTwitterUser][bit] NOT NULL constraint [DF_{objectQualifier}User_IsTwitterUser] default (0),
@@ -717,7 +695,6 @@ if not exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{d
 		BoardID			 int NOT NULL,
 		Name			 nvarchar (50) NOT NULL,
 		MinPosts		 int NULL,
-		RankImage		 nvarchar (50) NULL,
 		Flags			 int not null constraint [DF_{objectQualifier}Rank_Flags] default (0),
 	    [PMLimit]        [int] NULL,
 	    [Style]          [nvarchar](255) NULL,
@@ -774,7 +751,6 @@ begin
 	create table [{databaseOwner}].[{objectQualifier}Board](
 		BoardID			int IDENTITY (1,1) NOT NULL,
 		Name			nvarchar(50) NOT NULL,
-		AllowThreaded	bit NOT NULL,
 		MembershipAppName nvarchar(255) NULL,
 		RolesAppName nvarchar(255) NULL,
  constraint [PK_{objectQualifier}Board] PRIMARY KEY CLUSTERED 
@@ -1051,42 +1027,6 @@ GO
 if exists (select top 1 1 from sys.columns where object_id = object_id('[{databaseOwner}].[{objectQualifier}Board]') and name='BoardUID')
 begin
 alter table [{databaseOwner}].[{objectQualifier}Board] drop column  BoardUID
-end
-GO
-
--- Mail Table
-if not exists (select top 1 1 from sys.columns where object_id = object_id('[{databaseOwner}].[{objectQualifier}Mail]') and name='FromUserName')
-begin
-	alter table [{databaseOwner}].[{objectQualifier}Mail] add [FromUserName] [nvarchar](255) NULL
-	alter table [{databaseOwner}].[{objectQualifier}Mail] add [ToUserName] [nvarchar](255) NULL
-	alter table [{databaseOwner}].[{objectQualifier}Mail] add [BodyHtml] [nvarchar](max) NULL		
-	alter table [{databaseOwner}].[{objectQualifier}Mail] add [SendTries] [int] NOT NULL constraint [DF_{objectQualifier}Mail_SendTries]  default ((0))		
-	alter table [{databaseOwner}].[{objectQualifier}Mail] add [SendAttempt] [datetime] NULL
-	alter table [{databaseOwner}].[{objectQualifier}Mail] add [ProcessID] [int] NULL	
-end
-GO
-
-if exists (select top 1 1 from sys.columns where object_id = object_id('[{databaseOwner}].[{objectQualifier}Mail]') and name='FromUserName' and precision < 255)
-begin
-alter table [{databaseOwner}].[{objectQualifier}Mail] alter column [FromUserName] [nvarchar](255) NULL
-end
-GO
-
-if exists (select top 1 1 from sys.columns where object_id = object_id('[{databaseOwner}].[{objectQualifier}Mail]') and name='FromUser' and precision < 255)
-begin
-alter table [{databaseOwner}].[{objectQualifier}Mail] alter column [FromUser] [nvarchar](255) NULL
-end
-GO
-
-if exists (select top 1 1 from sys.columns where object_id = object_id('[{databaseOwner}].[{objectQualifier}Mail]') and name='ToUserName' and precision < 255)
-begin
-alter table [{databaseOwner}].[{objectQualifier}Mail] alter column [ToUserName] [nvarchar](255) NULL
-end
-GO
-
-if exists (select top 1 1 from sys.columns where object_id = object_id('[{databaseOwner}].[{objectQualifier}Mail]') and name='ToUser' and precision < 255)
-begin
-alter table [{databaseOwner}].[{objectQualifier}Mail] alter column [ToUser] [nvarchar](255) NULL
 end
 GO
 
@@ -2750,19 +2690,6 @@ begin
 end
 GO
 
--- Convert all ntext columns to nvarchar(max)
-if exists (select top 1 1 from sys.columns where object_id = object_id('[{databaseOwner}].[{objectQualifier}Mail]') and name = 'Body' and system_type_id = 99)
-begin
-    alter table [{databaseOwner}].[{objectQualifier}Mail] alter column [Body] nvarchar(max)
-end
-go
-
-if exists (select top 1 1 from sys.columns where object_id = object_id('[{databaseOwner}].[{objectQualifier}Mail]') and name = 'BodyHtml' and system_type_id = 99)
-begin
-    alter table [{databaseOwner}].[{objectQualifier}Mail] alter column [BodyHtml] nvarchar(max)
-end
-go
-
 if exists (select top 1 1 from sys.columns where object_id = object_id('[{databaseOwner}].[{objectQualifier}Message]') and name = 'Message' and system_type_id = 99
    and not exists(select * from sys.sysfulltextcatalogs where name = N'YafSearch'))
 begin
@@ -2887,4 +2814,68 @@ go
 
 if exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}EventLogGroupAccess]') and type in (N'U'))
 	drop table [{databaseOwner}].[{objectQualifier}EventLogGroupAccess]
+GO
+
+if exists (select top 1 1 from sys.columns where object_id = object_id('[{databaseOwner}].[{objectQualifier}Board]') and name='AllowThreaded')
+begin
+    alter table [{databaseOwner}].[{objectQualifier}Board] drop column AllowThreaded
+end
+GO
+
+if exists (select top 1 1 from sys.columns where object_id = object_id('[{databaseOwner}].[{objectQualifier}Rank]') and name='RankImage')
+begin
+    alter table [{databaseOwner}].[{objectQualifier}Rank] drop column RankImage
+end
+GO
+
+if not exists (select top 1 1 from sys.columns where object_id=object_id('[{databaseOwner}].[{objectQualifier}User]') and name='Moderated')
+begin
+	alter table [{databaseOwner}].[{objectQualifier}User] add [Moderated] AS (CONVERT([bit],sign([Flags]&(128)),(0)))
+end
+GO
+
+if not exists (select top 1 1 from sys.columns where object_id=object_id('[{databaseOwner}].[{objectQualifier}User]') and name='Activity')
+begin
+	alter table [{databaseOwner}].[{objectQualifier}User] add [Activity] [bit] NOT NULL constraint [DF_{objectQualifier}User_Activity] default (1)
+end
+GO
+
+if not exists (select top 1 1 from sys.columns where object_id=object_id('[{databaseOwner}].[{objectQualifier}Activity]') and name=N'CreatedTopic')
+begin
+	alter table [{databaseOwner}].[{objectQualifier}Activity] add [CreatedTopic] AS (CONVERT([bit],sign([Flags]&(1)),(0)))
+end
+GO
+
+if not exists (select top 1 1 from sys.columns where object_id=object_id('[{databaseOwner}].[{objectQualifier}Activity]') and name=N'CreatedReply')
+begin
+	alter table [{databaseOwner}].[{objectQualifier}Activity] add [CreatedReply] AS (CONVERT([bit],sign([Flags]&(8)),(0)))
+end
+GO
+
+if not exists (select top 1 1 from sys.columns where object_id=object_id('[{databaseOwner}].[{objectQualifier}Activity]') and name=N'WasMentioned')
+begin
+	alter table [{databaseOwner}].[{objectQualifier}Activity] add [WasMentioned] AS (CONVERT([bit],sign([Flags]&(512)),(0)))
+end
+GO
+
+if not exists (select top 1 1 from sys.columns where object_id=object_id('[{databaseOwner}].[{objectQualifier}Activity]') and name=N'ReceivedThanks')
+begin
+	alter table [{databaseOwner}].[{objectQualifier}Activity] add [ReceivedThanks] AS (CONVERT([bit],sign([Flags]&(1024)),(0)))
+end
+GO
+
+if not exists (select top 1 1 from sys.columns where object_id=object_id('[{databaseOwner}].[{objectQualifier}Activity]') and name=N'GivenThanks')
+begin
+	alter table [{databaseOwner}].[{objectQualifier}Activity] add [GivenThanks] AS (CONVERT([bit],sign([Flags]&(2048)),(0)))
+end
+GO
+
+if not exists (select top 1 1 from sys.columns where object_id=object_id('[{databaseOwner}].[{objectQualifier}Activity]') and name=N'WasQuoted')
+begin
+	alter table [{databaseOwner}].[{objectQualifier}Activity] add [WasQuoted] AS (CONVERT([bit],sign([Flags]&(4096)),(0)))
+end
+GO
+
+if exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}Mail]') and type in (N'U'))
+	drop table [{databaseOwner}].[{objectQualifier}Mail]
 GO

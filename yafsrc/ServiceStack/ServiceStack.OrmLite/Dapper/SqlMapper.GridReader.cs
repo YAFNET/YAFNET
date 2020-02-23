@@ -1,9 +1,8 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Globalization;
 using System.Linq;
-
+using System.Globalization;
 namespace ServiceStack.OrmLite.Dapper
 {
     public static partial class SqlMapper
@@ -149,16 +148,15 @@ namespace ServiceStack.OrmLite.Dapper
                 if (reader == null) throw new ObjectDisposedException(GetType().FullName, "The reader has been disposed; this can happen after all data has been consumed");
                 if (IsConsumed) throw new InvalidOperationException("Query results must be consumed in the correct order, and each result can only be consumed once");
                 var typedIdentity = identity.ForGrid(type, gridIndex);
-                var cache = GetCacheInfo(typedIdentity, null, addToCache);
+                CacheInfo cache = GetCacheInfo(typedIdentity, null, addToCache);
                 var deserializer = cache.Deserializer;
 
-                var hash = GetColumnHash(reader);
+                int hash = GetColumnHash(reader);
                 if (deserializer.Func == null || deserializer.Hash != hash)
                 {
                     deserializer = new DeserializerState(hash, GetDeserializer(type, reader, 0, -1, false));
                     cache.Deserializer = deserializer;
                 }
-
                 IsConsumed = true;
                 var result = ReadDeferred<T>(gridIndex, deserializer.Func, type);
                 return buffered ? result.ToList() : result;
@@ -170,21 +168,20 @@ namespace ServiceStack.OrmLite.Dapper
                 if (IsConsumed) throw new InvalidOperationException("Query results must be consumed in the correct order, and each result can only be consumed once");
                 IsConsumed = true;
 
-                var result = default(T);
+                T result = default(T);
                 if (reader.Read() && reader.FieldCount != 0)
                 {
                     var typedIdentity = identity.ForGrid(type, gridIndex);
-                    var cache = GetCacheInfo(typedIdentity, null, addToCache);
+                    CacheInfo cache = GetCacheInfo(typedIdentity, null, addToCache);
                     var deserializer = cache.Deserializer;
 
-                    var hash = GetColumnHash(reader);
+                    int hash = GetColumnHash(reader);
                     if (deserializer.Func == null || deserializer.Hash != hash)
                     {
                         deserializer = new DeserializerState(hash, GetDeserializer(type, reader, 0, -1, false));
                         cache.Deserializer = deserializer;
                     }
-
-                    var val = deserializer.Func(reader);
+                    object val = deserializer.Func(reader);
                     if (val == null || val is T)
                     {
                         result = (T)val;
@@ -194,31 +191,20 @@ namespace ServiceStack.OrmLite.Dapper
                         var convertToType = Nullable.GetUnderlyingType(type) ?? type;
                         result = (T)Convert.ChangeType(val, convertToType, CultureInfo.InvariantCulture);
                     }
-
                     if ((row & Row.Single) != 0 && reader.Read()) ThrowMultipleRows(row);
                     while (reader.Read()) { /* ignore subsequent rows */ }
                 }
-                else if ((row & Row.FirstOrDefault) == 0)
+                else if ((row & Row.FirstOrDefault) == 0) // demanding a row, and don't have one
                 {
-                    // demanding a row, and don't have one
                     ThrowZeroRows(row);
                 }
-
                 NextResult();
                 return result;
             }
 
             private IEnumerable<TReturn> MultiReadInternal<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TReturn>(Delegate func, string splitOn)
             {
-                var identity = this.identity.ForGrid(typeof(TReturn), new[] {
-                    typeof(TFirst),
-                    typeof(TSecond),
-                    typeof(TThird),
-                    typeof(TFourth),
-                    typeof(TFifth),
-                    typeof(TSixth),
-                    typeof(TSeventh)
-                }, gridIndex);
+                var identity = this.identity.ForGrid<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh>(typeof(TReturn), gridIndex);
 
                 IsConsumed = true;
 
@@ -377,7 +363,7 @@ namespace ServiceStack.OrmLite.Dapper
                     var convertToType = Nullable.GetUnderlyingType(effectiveType) ?? effectiveType;
                     while (index == gridIndex && reader.Read())
                     {
-                        var val = deserializer(reader);
+                        object val = deserializer(reader);
                         if (val == null || val is T)
                         {
                             yield return (T)val;
@@ -388,9 +374,8 @@ namespace ServiceStack.OrmLite.Dapper
                         }
                     }
                 }
-                finally
+                finally // finally so that First etc progresses things even when multiple rows
                 {
-                    // finally so that First etc progresses things even when multiple rows
                     if (index == gridIndex)
                     {
                         NextResult();
@@ -398,10 +383,7 @@ namespace ServiceStack.OrmLite.Dapper
                 }
             }
 
-            private int gridIndex;
-
-            private int readCount;
-
+            private int gridIndex, readCount;
             private readonly IParameterCallbacks callbacks;
 
             /// <summary>
@@ -444,7 +426,6 @@ namespace ServiceStack.OrmLite.Dapper
                     reader.Dispose();
                     reader = null;
                 }
-
                 if (Command != null)
                 {
                     Command.Dispose();

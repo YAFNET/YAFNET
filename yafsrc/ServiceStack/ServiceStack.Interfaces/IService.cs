@@ -8,14 +8,28 @@ namespace ServiceStack
     /// </summary>
     public interface IService { }
 
+    public interface IServiceBeforeFilter
+    {
+        void OnBeforeExecute(object requestDto);
+    }
+    public interface IServiceAfterFilter
+    {
+        object OnAfterExecute(object response);
+    }
+    public interface IServiceErrorFilter
+    {
+        System.Threading.Tasks.Task<object> OnExceptionAsync(object requestDto, System.Exception ex);
+    }
+    public interface IServiceFilters : IServiceBeforeFilter, IServiceAfterFilter, IServiceErrorFilter {}
+
     public interface IReturn { }
     public interface IReturn<T> : IReturn { }
     public interface IReturnVoid : IReturn { }
 
     /* Supported signatures: */
-    // Not used or needed, here in-case someone wants to know what the correct signatures should be
+    //Not used or needed, here in-case someone wants to know what the correct signatures should be
 
-    // Empty marker interfaces to enforce correct mappings
+    //Empty marker interfaces to enforce correct mappings
     public interface IVerb {}
     public interface IGet : IVerb { }
     public interface IPost : IVerb { }
@@ -23,6 +37,7 @@ namespace ServiceStack
     public interface IDelete : IVerb { }
     public interface IPatch : IVerb { }
     public interface IOptions : IVerb { }
+    public interface IStream : IVerb { }
 
     public interface IAny<T>
     {

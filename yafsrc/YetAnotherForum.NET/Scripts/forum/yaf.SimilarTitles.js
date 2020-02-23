@@ -1,6 +1,5 @@
 ﻿// Generic Functions
 jQuery(document).ready(function () {
-    // Numeric Spinner Inputs
     if (jQuery(".searchSimilarTopics").length) {
 
         jQuery(".searchSimilarTopics").keyup(function () {
@@ -9,7 +8,7 @@ jQuery(document).ready(function () {
                 searchText = input.val(),
                 searchPlaceHolder = jQuery("#SearchResultsPlaceholder");
 
-            if (searchText.length && searchText.length >= 5) {
+            if (searchText.length && searchText.length >= 4) {
 
                 var searchTopic = {};
                 searchTopic.ForumId = 0;
@@ -26,21 +25,21 @@ jQuery(document).ready(function () {
                     dataType: "json",
                     data: JSON.stringify(searchTopic),
                     contentType: "application/json; charset=utf-8",
-                    beforeSend: (function before() {
+                    beforeSend: function() {
                         searchPlaceHolder.empty();
                         searchPlaceHolder.remove("list-group");
                         // show loading screen 
                         $("#loadModal").modal("show");
-                    }),
-                    complete: (function before() {
+                    },
+                    complete: function() {
                         // show loading screen 
                         $("#loadModal").modal("hide");
-                    }),
-                    success: (function success(data) {
+                    },
+                    success: function(data) {
                         searchPlaceHolder.empty();
                         searchPlaceHolder.remove("list-group");
 
-                        if (data.SearchResults.length > 0) {
+                        if (data.TotalRecords > 0) {
                             var list = $('<ul class="list-group list-similar" />');
                             searchPlaceHolder.append(list);
 
@@ -54,10 +53,10 @@ jQuery(document).ready(function () {
                                         "</a></li>");
                                 });
                         }
-                    }),
-                    error: (function error(request) {
+                    },
+                    error: function(request) {
                         searchPlaceHolder.html(request.statusText).fadeIn(1000);
-                    })
+                    }
                 });
             }
 

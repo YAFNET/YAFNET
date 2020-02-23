@@ -1,10 +1,15 @@
 namespace YAF.Core.Model
 {
     using System;
+    using System.Collections.Generic;
     using System.Data;
+    using System.Linq;
+
+    using ServiceStack.OrmLite;
 
     using YAF.Types;
     using YAF.Types.Extensions;
+    using YAF.Types.Extensions.Data;
     using YAF.Types.Interfaces.Data;
     using YAF.Types.Models;
     using YAF.Utils.Helpers;

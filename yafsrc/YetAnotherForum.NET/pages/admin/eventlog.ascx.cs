@@ -1,8 +1,8 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2019 Ingo Herbote
- * http://www.yetanotherforum.net/
+ * Copyright (C) 2014-2020 Ingo Herbote
+ * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -12,7 +12,7 @@
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
 
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
 
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
@@ -233,14 +233,14 @@ namespace YAF.Pages.Admin
 
             var ci = this.Get<ILocalization>().Culture;
 
-            if (this.Get<YafBoardSettings>().UseFarsiCalender && ci.IsFarsiCulture())
+            if (this.Get<BoardSettings>().UseFarsiCalender && ci.IsFarsiCulture())
             {
                 this.SinceDate.Text = PersianDateConverter.ToPersianDate(PersianDate.MinValue).ToString("d");
                 this.ToDate.Text = PersianDateConverter.ToPersianDate(PersianDate.Now).ToString("d");
             }
             else
             {
-                this.SinceDate.Text = DateTime.UtcNow.AddDays(-this.Get<YafBoardSettings>().EventLogMaxDays).ToString(
+                this.SinceDate.Text = DateTime.UtcNow.AddDays(-this.Get<BoardSettings>().EventLogMaxDays).ToString(
                                              ci.DateTimeFormat.ShortDatePattern, CultureInfo.InvariantCulture);
                 this.ToDate.Text = DateTime.UtcNow.Date.ToString(
                                              ci.DateTimeFormat.ShortDatePattern, CultureInfo.InvariantCulture);
@@ -261,7 +261,7 @@ namespace YAF.Pages.Admin
 
             // administration index second
             this.PageLinks.AddLink(
-                this.GetText("ADMIN_ADMIN", "Administration"), YafBuildLink.GetLink(ForumPages.admin_admin));
+                this.GetText("ADMIN_ADMIN", "Administration"), BuildLink.GetLink(ForumPages.admin_admin));
 
             this.PageLinks.AddLink(this.GetText("ADMIN_EVENTLOG", "TITLE"), string.Empty);
 
@@ -297,18 +297,18 @@ namespace YAF.Pages.Admin
         /// </summary>
         private void BindData()
         {
-            var baseSize = this.Get<YafBoardSettings>().MemberListPageSize;
+            var baseSize = this.Get<BoardSettings>().MemberListPageSize;
             var currentPageIndex = this.PagerTop.CurrentPageIndex;
             this.PagerTop.PageSize = baseSize;
 
-            var sinceDate = DateTime.UtcNow.AddDays(-this.Get<YafBoardSettings>().EventLogMaxDays);
+            var sinceDate = DateTime.UtcNow.AddDays(-this.Get<BoardSettings>().EventLogMaxDays);
             var toDate = DateTime.UtcNow;
 
             var ci = this.Get<ILocalization>().Culture;
 
             if (this.SinceDate.Text.IsSet())
             {
-                if (this.Get<YafBoardSettings>().UseFarsiCalender && ci.IsFarsiCulture())
+                if (this.Get<BoardSettings>().UseFarsiCalender && ci.IsFarsiCulture())
                 {
                     var persianDate = new PersianDate(this.SinceDate.Text);
 
@@ -322,7 +322,7 @@ namespace YAF.Pages.Admin
 
             if (this.ToDate.Text.IsSet())
             {
-                if (this.Get<YafBoardSettings>().UseFarsiCalender && ci.IsFarsiCulture())
+                if (this.Get<BoardSettings>().UseFarsiCalender && ci.IsFarsiCulture())
                 {
                     var persianDate = new PersianDate(this.ToDate.Text);
 
@@ -338,8 +338,8 @@ namespace YAF.Pages.Admin
             var dt = this.GetRepository<EventLog>()
                                .List(
                                    this.PageContext.PageUserID,
-                                   this.Get<YafBoardSettings>().EventLogMaxMessages,
-                                   this.Get<YafBoardSettings>().EventLogMaxDays,
+                                   this.Get<BoardSettings>().EventLogMaxMessages,
+                                   this.Get<BoardSettings>().EventLogMaxDays,
                                    currentPageIndex,
                                    baseSize,
                                    sinceDate,

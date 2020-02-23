@@ -2379,7 +2379,7 @@ namespace YAF.Lucene.Net.Util.Fst
             {
             }
 
-            public override bool LessThan(NodeAndInCount a, NodeAndInCount b)
+            protected internal override bool LessThan(NodeAndInCount a, NodeAndInCount b)
             {
                 int cmp = a.CompareTo(b);
                 Debug.Assert(cmp != 0);

@@ -65,10 +65,18 @@
                                                         LocalizedTag="TIME" 
                                                         LocalizedPage="ADMIN_NNTPRETRIEVE" /> 
                                 </asp:Label>
-                                <asp:TextBox runat="server" ID="Seconds" 
-                                             Text="30" 
-                                             CssClass="form-control" 
-                                             TextMode="Number" />
+                                <div class="input-group">
+                                    <asp:TextBox runat="server" ID="Seconds" 
+                                                 Text="30" 
+                                                 CssClass="form-control" 
+                                                 TextMode="Number" />
+                                    <div class="input-group-append">
+                                        <div class="input-group-text">
+                                            <YAF:LocalizedLabel runat="server" 
+                                                                LocalizedTag="SECONDS"></YAF:LocalizedLabel>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

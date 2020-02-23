@@ -14,8 +14,8 @@
 
 // --Bootstrap extensions
 @import "select2/select2";
+@import "bootstrap-tagsinput";
 @import "select2/select2-bootstrap";
-@import "jquery.bootstrap-touchspin";
 @import "bootstrap-datetimepicker";
 @import "blueimp-gallery.scss";
 @import "bootstrap-suggest.scss";
@@ -112,4 +112,45 @@ span.form-check > label {
 // Small Avatars inside Posts
 .img-avatar-sm {
     max-height: 40px;
+}
+
+.img-navbar-avatar {
+    position: relative;
+    margin-bottom: 0;
+    display: inline-block;
+    max-width: 1.2rem;
+    max-height: 1.2rem;
+    font-size: 2rem;
+    vertical-align: middle;
+}
+
+// Quotes
+.blockquote-custom {
+    position: relative;
+    font-size: 1.1rem;
+}
+
+.blockquote-custom-icon {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: -20px;
+    left: 50px;
+}
+
+// Thanks Popover
+.popover-body-scrollable {
+    max-height: 200px;
+    overflow-y: scroll;
+}
+
+// Unread Icon
+.unread {
+    position: absolute;
+    top: 8px;
+    left:16px;
 }

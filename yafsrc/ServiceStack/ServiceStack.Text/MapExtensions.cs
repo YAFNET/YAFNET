@@ -11,7 +11,7 @@
 //
 
 using System.Collections.Generic;
-
+using System.Text;
 using ServiceStack.Text;
 using ServiceStack.Text.Common;
 
@@ -34,7 +34,6 @@ namespace ServiceStack
 
                 sb.Append(entry.Key).Append(keySeperator).Append(entry.Value);
             }
-
             return StringBuilderThreadStatic.ReturnAndFree(sb);
         }
     }

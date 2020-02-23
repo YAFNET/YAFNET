@@ -1,7 +1,6 @@
 ﻿using System;
-using System.Data;
 using System.Data.Common;
-
+using System.Data;
 using ServiceStack.Data;
 
 #pragma warning disable 1591 // xml doc comments warnings
@@ -10,185 +9,199 @@ namespace ServiceStack.MiniProfiler.Data
 {
     public class ProfiledCommand : DbCommand, IHasDbCommand
     {
+        private DbCommand _cmd;
         private DbConnection _conn;
         private DbTransaction _tran;
+        private IDbProfiler _profiler;
 
         public ProfiledCommand(DbCommand cmd, DbConnection conn, IDbProfiler profiler)
         {
-            if (cmd == null) throw new ArgumentNullException(nameof(cmd));
+            if (cmd == null) throw new ArgumentNullException("cmd");
 
-            this.DbCommand = cmd;
+            _cmd = cmd;
             _conn = conn;
 
             if (profiler != null)
             {
-                this.DbProfiler = profiler;
+                _profiler = profiler;
             }
         }
 
         public override string CommandText
         {
-            get => this.DbCommand.CommandText;
-            set => this.DbCommand.CommandText = value;
+            get { return _cmd.CommandText; }
+            set { _cmd.CommandText = value; }
         }
 
         public override int CommandTimeout
         {
-            get => this.DbCommand.CommandTimeout;
-            set => this.DbCommand.CommandTimeout = value;
+            get { return _cmd.CommandTimeout; }
+            set { _cmd.CommandTimeout = value; }
         }
 
         public override CommandType CommandType
         {
-            get => this.DbCommand.CommandType;
-            set => this.DbCommand.CommandType = value;
+            get { return _cmd.CommandType; }
+            set { _cmd.CommandType = value; }
         }
 
-        public DbCommand DbCommand { get; protected set; }
+        public DbCommand DbCommand
+        {
+            get { return _cmd; }
+            protected set { _cmd = value; }
+        }
 
-        IDbCommand IHasDbCommand.DbCommand => DbCommand;
+        IDbCommand IHasDbCommand.DbCommand
+        {
+            get { return DbCommand; }            
+        }
 
         protected override DbConnection DbConnection
         {
-            get => _conn;
+            get { return _conn; }
             set
             {
                 _conn = value;
-                this.DbCommand.Connection = !(value is ProfiledConnection awesomeConn) ? value : awesomeConn.WrappedConnection;
+                var awesomeConn = value as ProfiledConnection;
+                _cmd.Connection = awesomeConn == null ? value : awesomeConn.WrappedConnection;
             }
         }
 
-        protected override DbParameterCollection DbParameterCollection => this.DbCommand.Parameters;
+        protected override DbParameterCollection DbParameterCollection
+        {
+            get { return _cmd.Parameters; }
+        }
 
         protected override DbTransaction DbTransaction
         {
-            get => _tran;
+            get { return _tran; }
             set
             {
                 this._tran = value;
-                this.DbCommand.Transaction = !(value is ProfiledDbTransaction awesomeTran) || !(awesomeTran.DbTransaction is DbTransaction) ?
+                var awesomeTran = value as ProfiledDbTransaction;
+                _cmd.Transaction = awesomeTran == null || !(awesomeTran.DbTransaction is DbTransaction) ?
                     value : (DbTransaction)awesomeTran.DbTransaction;
             }
         }
 
-        protected IDbProfiler DbProfiler { get; set; }
+        protected IDbProfiler DbProfiler
+        {
+            get { return _profiler; }
+            set { _profiler = value; }
+        }
 
         public override bool DesignTimeVisible
         {
-            get => this.DbCommand.DesignTimeVisible;
-            set => this.DbCommand.DesignTimeVisible = value;
+            get { return _cmd.DesignTimeVisible; }
+            set { _cmd.DesignTimeVisible = value; }
         }
 
         public override UpdateRowSource UpdatedRowSource
         {
-            get => this.DbCommand.UpdatedRowSource;
-            set => this.DbCommand.UpdatedRowSource = value;
+            get { return _cmd.UpdatedRowSource; }
+            set { _cmd.UpdatedRowSource = value; }
         }
 
 
         protected override DbDataReader ExecuteDbDataReader(CommandBehavior behavior)
         {
-            if (this.DbProfiler == null || !this.DbProfiler.IsActive)
+            if (_profiler == null || !_profiler.IsActive)
             {
-                return this.DbCommand.ExecuteReader(behavior);
+                return _cmd.ExecuteReader(behavior);
             }
 
             DbDataReader result = null;
-            this.DbProfiler.ExecuteStart(this, ExecuteType.Reader);
+            _profiler.ExecuteStart(this, ExecuteType.Reader);
             try
             {
-                result = this.DbCommand.ExecuteReader(behavior);
-                result = new ProfiledDbDataReader(result, _conn, this.DbProfiler);
+                result = _cmd.ExecuteReader(behavior);
+                result = new ProfiledDbDataReader(result, _conn, _profiler);
             }
             catch (Exception e)
             {
-                this.DbProfiler.OnError(this, ExecuteType.Reader, e);
+                _profiler.OnError(this, ExecuteType.Reader, e);
                 throw;
             }
             finally
             {
-                this.DbProfiler.ExecuteFinish(this, ExecuteType.Reader, result);
+                _profiler.ExecuteFinish(this, ExecuteType.Reader, result);
             }
-
             return result;
         }
 
         public override int ExecuteNonQuery()
         {
-            if (this.DbProfiler == null || !this.DbProfiler.IsActive)
+            if (_profiler == null || !_profiler.IsActive)
             {
-                return this.DbCommand.ExecuteNonQuery();
+                return _cmd.ExecuteNonQuery();
             }
 
             int result;
 
-            this.DbProfiler.ExecuteStart(this, ExecuteType.NonQuery);
+            _profiler.ExecuteStart(this, ExecuteType.NonQuery);
             try
             {
-                result = this.DbCommand.ExecuteNonQuery();
+                result = _cmd.ExecuteNonQuery();
             }
             catch (Exception e)
             {
-                this.DbProfiler.OnError(this, ExecuteType.NonQuery, e);
+                _profiler.OnError(this, ExecuteType.NonQuery, e);
                 throw;
             }
             finally
             {
-                this.DbProfiler.ExecuteFinish(this, ExecuteType.NonQuery, null);
+                _profiler.ExecuteFinish(this, ExecuteType.NonQuery, null);
             }
-
             return result;
         }
 
         public override object ExecuteScalar()
         {
-            if (this.DbProfiler == null || !this.DbProfiler.IsActive)
+            if (_profiler == null || !_profiler.IsActive)
             {
-                return this.DbCommand.ExecuteScalar();
+                return _cmd.ExecuteScalar();
             }
 
             object result;
-            this.DbProfiler.ExecuteStart(this, ExecuteType.Scalar);
+            _profiler.ExecuteStart(this, ExecuteType.Scalar);
             try
             {
-                result = this.DbCommand.ExecuteScalar();
+                result = _cmd.ExecuteScalar();
             }
             catch (Exception e)
             {
-                this.DbProfiler.OnError(this, ExecuteType.Scalar, e);
+                _profiler.OnError(this, ExecuteType.Scalar, e);
                 throw;
             }
             finally
             {
-                this.DbProfiler.ExecuteFinish(this, ExecuteType.Scalar, null);
+                _profiler.ExecuteFinish(this, ExecuteType.Scalar, null);
             }
-
             return result;
         }
 
         public override void Cancel()
         {
-            this.DbCommand.Cancel();
+            _cmd.Cancel();
         }
 
         public override void Prepare()
         {
-            this.DbCommand.Prepare();
+            _cmd.Prepare();
         }
 
         protected override DbParameter CreateDbParameter()
         {
-            return this.DbCommand.CreateParameter();
+            return _cmd.CreateParameter();
         }
 
         protected override void Dispose(bool disposing)
         {
-            if (disposing)
+            if (disposing && _cmd != null)
             {
-                this.DbCommand?.Dispose();
+                _cmd.Dispose();
             }
-
-            this.DbCommand = null;
+            _cmd = null;
             base.Dispose(disposing);
         }
     }

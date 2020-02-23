@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2020 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -12,7 +12,7 @@
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
 
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
 
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
@@ -81,12 +81,12 @@ namespace YAF.Controls
                 var showDeleted = false;
                 var userId = 0;
 
-                if (this.Get<YafBoardSettings>().ShowDeletedMessagesToAll)
+                if (this.Get<BoardSettings>().ShowDeletedMessagesToAll)
                 {
                     showDeleted = true;
                 }
 
-                if (!showDeleted && this.Get<YafBoardSettings>().ShowDeletedMessages && !this.Get<YafBoardSettings>().ShowDeletedMessagesToAll || this.PageContext.IsAdmin
+                if (!showDeleted && this.Get<BoardSettings>().ShowDeletedMessages && !this.Get<BoardSettings>().ShowDeletedMessagesToAll || this.PageContext.IsAdmin
                     || this.PageContext.IsForumModerator)
                 {
                     userId = this.PageContext.PageUserID;

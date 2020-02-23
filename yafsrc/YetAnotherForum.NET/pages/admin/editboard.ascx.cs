@@ -1,8 +1,8 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2019 Ingo Herbote
- * http://www.yetanotherforum.net/
+ * Copyright (C) 2014-2020 Ingo Herbote
+ * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -12,7 +12,7 @@
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
 
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
 
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
@@ -110,7 +110,7 @@ namespace YAF.Pages.Admin
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void CancelClick([NotNull] object sender, [NotNull] EventArgs e)
         {
-            YafBuildLink.Redirect(ForumPages.admin_boards);
+            BuildLink.Redirect(ForumPages.admin_boards);
         }
 
         /// <summary>
@@ -162,11 +162,10 @@ namespace YAF.Pages.Admin
             var cult = StaticDataHelper.Cultures();
             var langFile = "english.xml";
 
-            foreach (var drow in
-                cult.Rows.Cast<DataRow>().Where(drow => drow["CultureTag"].ToString() == this.Culture.SelectedValue))
+            cult.Rows.Cast<DataRow>().Where(dataRow => dataRow["CultureTag"].ToString() == this.Culture.SelectedValue).ForEach(row => 
             {
-                langFile = (string)drow["CultureFile"];
-            }
+                langFile = (string)row["CultureFile"];
+            });
 
             if (createUserAndRoles)
             {
@@ -319,7 +318,7 @@ namespace YAF.Pages.Admin
 
             if (this.Culture.Items.Count > 0)
             {
-                this.Culture.Items.FindByValue(this.Get<YafBoardSettings>().Culture).Selected = true;
+                this.Culture.Items.FindByValue(this.Get<BoardSettings>().Culture).Selected = true;
             }
 
             if (this.BoardId != null)
@@ -329,7 +328,6 @@ namespace YAF.Pages.Admin
                 var board = this.GetRepository<Board>().GetById(this.BoardId.Value);
                 
                     this.Name.Text = board.Name;
-                    this.AllowThreaded.Checked = board.AllowThreaded;
 
                     var membershipAppName = board.MembershipAppName;
 
@@ -363,10 +361,10 @@ namespace YAF.Pages.Admin
             this.PageLinks.AddRoot();
             this.PageLinks.AddLink(
                 this.GetText("ADMIN_ADMIN", "Administration"),
-                YafBuildLink.GetLink(ForumPages.admin_admin));
+                BuildLink.GetLink(ForumPages.admin_admin));
             this.PageLinks.AddLink(
                 this.GetText("ADMIN_BOARDS", "TITLE"),
-                YafBuildLink.GetLink(ForumPages.admin_editboard));
+                BuildLink.GetLink(ForumPages.admin_editboard));
             this.PageLinks.AddLink(this.GetText("ADMIN_EDITBOARD", "TITLE"), string.Empty);
 
             this.Page.Header.Title =
@@ -426,19 +424,18 @@ namespace YAF.Pages.Admin
                 var cult = StaticDataHelper.Cultures();
                 var langFile = "en-US";
 
-                foreach (var drow in cult.Rows.Cast<DataRow>()
-                    .Where(drow => drow["CultureTag"].ToString() == this.Culture.SelectedValue))
+                cult.Rows.Cast<DataRow>()
+                    .Where(dataRow => dataRow["CultureTag"].ToString() == this.Culture.SelectedValue).ForEach(row =>
                 {
-                    langFile = drow["CultureFile"].ToString();
-                }
+                    langFile = row["CultureFile"].ToString();
+                });
 
                 // Save current board settings
                 this.GetRepository<Board>().Save(
                     this.BoardId ?? 0,
                     this.Name.Text.Trim(),
                     langFile,
-                    this.Culture.SelectedItem.Value,
-                    this.AllowThreaded.Checked);
+                    this.Culture.SelectedItem.Value);
             }
             else
             {
@@ -475,7 +472,7 @@ namespace YAF.Pages.Admin
 
             // Done
             this.PageContext.BoardSettings = null;
-            YafBuildLink.Redirect(ForumPages.admin_boards);
+            BuildLink.Redirect(ForumPages.admin_boards);
         }
 
         /// <summary>

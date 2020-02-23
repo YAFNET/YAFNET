@@ -1,6 +1,5 @@
 using System;
 using System.Data;
-
 using ServiceStack.OrmLite.SqlServer.Converters;
 using ServiceStack.Text;
 
@@ -26,6 +25,11 @@ namespace ServiceStack.OrmLite.SqlServer
         public override SqlExpression<T> OrderByRandom()
         {
             return base.OrderBy("NEWID()");
+        }
+
+        protected override PartialSqlString ToLengthPartialString(object arg)
+        {
+            return new PartialSqlString($"LEN({arg})");
         }
 
         protected override void ConvertToPlaceholderAndParameter(ref object right)
@@ -83,13 +87,13 @@ namespace ServiceStack.OrmLite.SqlServer
 
                 var value = fieldDef.GetValue(item);
                 if (excludeDefaults
-                    && (value == null || !fieldDef.IsNullable && value.Equals(value.GetType().GetDefaultValue())))
+                    && (value == null || (!fieldDef.IsNullable && value.Equals(value.GetType().GetDefaultValue()))))
                     continue;
 
                 if (setFields.Length > 0)
                     setFields.Append(", ");
 
-                var param = dialectProvider.AddParam(dbCmd, value, fieldDef);
+                var param = dialectProvider.AddUpdateParam(dbCmd, value, fieldDef);
                 setFields
                     .Append(dialectProvider.GetQuotedColumnName(fieldDef.FieldName))
                     .Append("=")
@@ -98,8 +102,7 @@ namespace ServiceStack.OrmLite.SqlServer
 
             var strFields = StringBuilderCache.ReturnAndFree(setFields);
             if (strFields.Length == 0)
-                throw new ArgumentException(
-                    $"No non-null or non-default values were provided for type: {typeof(T).Name}");
+                throw new ArgumentException("No non-null or non-default values were provided for type: " + typeof(T).Name);
 
             dbCmd.CommandText = $"UPDATE {dialectProvider.GetQuotedTableName(modelDef)} SET {strFields} {q.WhereExpression}";
         }

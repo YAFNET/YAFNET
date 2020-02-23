@@ -7,14 +7,12 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace YAF.Pages.Admin {
-    using System.Web.UI.WebControls;
+namespace YAF.Pages.Admin
+{
 
-    using YAF.Dialogs;
-    using YAF.Web.Controls;
 
-    public partial class nntpservers {
-        
+    public partial class nntpservers
+    {
 
         /// <summary>
         /// PageLinks control.
@@ -23,8 +21,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected PageLinks PageLinks;
-        
+        protected global::YAF.Web.Controls.PageLinks PageLinks;
 
         /// <summary>
         /// LocalizedLabel7 control.
@@ -33,8 +30,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected LocalizedLabel LocalizedLabel7;
-        
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel7;
 
         /// <summary>
         /// LocalizedLabel4 control.
@@ -43,8 +39,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected LocalizedLabel LocalizedLabel4;
-        
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel4;
 
         /// <summary>
         /// RankList control.
@@ -53,8 +48,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected Repeater RankList;
-        
+        protected global::System.Web.UI.WebControls.Repeater RankList;
 
         /// <summary>
         /// NewServer control.
@@ -63,8 +57,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected ThemeButton NewServer;
-        
+        protected global::YAF.Web.Controls.ThemeButton NewServer;
 
         /// <summary>
         /// EditDialog control.
@@ -73,6 +66,6 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected NntpServerEdit EditDialog;
+        protected global::YAF.Dialogs.NntpServerEdit EditDialog;
     }
 }

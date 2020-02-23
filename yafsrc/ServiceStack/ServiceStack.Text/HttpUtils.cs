@@ -21,35 +21,44 @@ namespace ServiceStack
 
         public static string AddQueryParam(this string url, string key, object val, bool encode = true)
         {
-            return url.AddQueryParam(key, val.ToString(), encode);
+            return url.AddQueryParam(key, val?.ToString(), encode);
         }
 
         public static string AddQueryParam(this string url, object key, string val, bool encode = true)
         {
-            return AddQueryParam(url, (key ?? string.Empty).ToString(), val, encode);
+            return AddQueryParam(url, key?.ToString(), val, encode);
         }
 
         public static string AddQueryParam(this string url, string key, string val, bool encode = true)
         {
-            if (string.IsNullOrEmpty(url)) return null;
+            if (url == null)
+                url = "";
+
+            if (key == null || val == null)
+                return url;
+            
             var prefix = string.Empty;
             if (!url.EndsWith("?") && !url.EndsWith("&"))
             {
                 prefix = url.IndexOf('?') == -1 ? "?" : "&";
             }
-
-            return $"{url}{prefix}{key}={(encode ? val.UrlEncode() : val)}";
+            return url + prefix + key + "=" + (encode ? val.UrlEncode() : val);
         }
 
         public static string SetQueryParam(this string url, string key, string val)
         {
-            if (string.IsNullOrEmpty(url)) return null;
+            if (url == null)
+                url = "";
+            
+            if (key == null || val == null)
+                return url;
+            
             var qsPos = url.IndexOf('?');
             if (qsPos != -1)
             {
-                var existingKeyPos = qsPos + 1 == url.IndexOf($"{key}=", qsPos, PclExport.Instance.InvariantComparison)
+                var existingKeyPos = qsPos + 1 == url.IndexOf(key + "=", qsPos, StringComparison.Ordinal)
                     ? qsPos
-                    : url.IndexOf($"&{key}", qsPos, PclExport.Instance.InvariantComparison);
+                    : url.IndexOf("&" + key, qsPos, StringComparison.Ordinal);
 
                 if (existingKeyPos != -1)
                 {
@@ -57,37 +66,48 @@ namespace ServiceStack
                     if (endPos == -1)
                         endPos = url.Length;
 
-                    var newUrl =
-                        $"{url.Substring(0, existingKeyPos + key.Length + 1)}={val.UrlEncode()}{url.Substring(endPos)}";
+                    var newUrl = url.Substring(0, existingKeyPos + key.Length + 1)
+                        + "="
+                        + val.UrlEncode()
+                        + url.Substring(endPos);
                     return newUrl;
                 }
             }
-
             var prefix = qsPos == -1 ? "?" : "&";
-            return $"{url}{prefix}{key}={val.UrlEncode()}";
+            return url + prefix + key + "=" + val.UrlEncode();
         }
 
         public static string AddHashParam(this string url, string key, object val)
         {
-            return url.AddHashParam(key, val.ToString());
+            return url.AddHashParam(key, val?.ToString());
         }
 
         public static string AddHashParam(this string url, string key, string val)
         {
-            if (string.IsNullOrEmpty(url)) return null;
+            if (url == null)
+                url = "";
+            
+            if (key == null || val == null)
+                return url;
+            
             var prefix = url.IndexOf('#') == -1 ? "#" : "/";
-            return $"{url}{prefix}{key}={val.UrlEncode()}";
+            return url + prefix + key + "=" + val.UrlEncode();
         }
 
         public static string SetHashParam(this string url, string key, string val)
         {
-            if (string.IsNullOrEmpty(url)) return null;
+            if (url == null)
+                url = "";
+            
+            if (key == null || val == null)
+                return url;
+            
             var hPos = url.IndexOf('#');
             if (hPos != -1)
             {
-                var existingKeyPos = hPos + 1 == url.IndexOf($"{key}=", hPos, PclExport.Instance.InvariantComparison)
+                var existingKeyPos = hPos + 1 == url.IndexOf(key + "=", hPos, PclExport.Instance.InvariantComparison)
                     ? hPos
-                    : url.IndexOf($"/{key}", hPos, PclExport.Instance.InvariantComparison);
+                    : url.IndexOf("/" + key, hPos, PclExport.Instance.InvariantComparison);
 
                 if (existingKeyPos != -1)
                 {
@@ -95,14 +115,15 @@ namespace ServiceStack
                     if (endPos == -1)
                         endPos = url.Length;
 
-                    var newUrl =
-                        $"{url.Substring(0, existingKeyPos + key.Length + 1)}={val.UrlEncode()}{url.Substring(endPos)}";
+                    var newUrl = url.Substring(0, existingKeyPos + key.Length + 1)
+                        + "="
+                        + val.UrlEncode()
+                        + url.Substring(endPos);
                     return newUrl;
                 }
             }
-
             var prefix = url.IndexOf('#') == -1 ? "#" : "/";
-            return $"{url}{prefix}{key}={val.UrlEncode()}";
+            return url + prefix + key + "=" + val.UrlEncode();
         }
 
         public static bool HasRequestBody(string httpMethod)
@@ -204,7 +225,7 @@ namespace ServiceStack
         public static string PostToUrl(this string url, object formData = null, string accept = "*/*",
             Action<HttpWebRequest> requestFilter = null, Action<HttpWebResponse> responseFilter = null)
         {
-            var postFormData = formData != null ? QueryStringSerializer.SerializeToString(formData) : null;
+            string postFormData = formData != null ? QueryStringSerializer.SerializeToString(formData) : null;
 
             return SendStringToUrl(url, method: "POST",
                 contentType: MimeTypes.FormUrlEncoded, requestBody: postFormData,
@@ -214,7 +235,7 @@ namespace ServiceStack
         public static Task<string> PostToUrlAsync(this string url, object formData = null, string accept = "*/*",
             Action<HttpWebRequest> requestFilter = null, Action<HttpWebResponse> responseFilter = null)
         {
-            var postFormData = formData != null ? QueryStringSerializer.SerializeToString(formData) : null;
+            string postFormData = formData != null ? QueryStringSerializer.SerializeToString(formData) : null;
 
             return SendStringToUrlAsync(url, method: "POST",
                 contentType: MimeTypes.FormUrlEncoded, requestBody: postFormData,
@@ -314,7 +335,7 @@ namespace ServiceStack
         public static string PutToUrl(this string url, object formData = null, string accept = "*/*",
             Action<HttpWebRequest> requestFilter = null, Action<HttpWebResponse> responseFilter = null)
         {
-            var postFormData = formData != null ? QueryStringSerializer.SerializeToString(formData) : null;
+            string postFormData = formData != null ? QueryStringSerializer.SerializeToString(formData) : null;
 
             return SendStringToUrl(url, method: "PUT",
                 contentType: MimeTypes.FormUrlEncoded, requestBody: postFormData,
@@ -324,7 +345,7 @@ namespace ServiceStack
         public static Task<string> PutToUrlAsync(this string url, object formData = null, string accept = "*/*",
             Action<HttpWebRequest> requestFilter = null, Action<HttpWebResponse> responseFilter = null)
         {
-            var postFormData = formData != null ? QueryStringSerializer.SerializeToString(formData) : null;
+            string postFormData = formData != null ? QueryStringSerializer.SerializeToString(formData) : null;
 
             return SendStringToUrlAsync(url, method: "PUT",
                 contentType: MimeTypes.FormUrlEncoded, requestBody: postFormData,
@@ -424,7 +445,7 @@ namespace ServiceStack
         public static string PatchToUrl(this string url, object formData = null, string accept = "*/*",
             Action<HttpWebRequest> requestFilter = null, Action<HttpWebResponse> responseFilter = null)
         {
-            var postFormData = formData != null ? QueryStringSerializer.SerializeToString(formData) : null;
+            string postFormData = formData != null ? QueryStringSerializer.SerializeToString(formData) : null;
 
             return SendStringToUrl(url, method: "PATCH",
                 contentType: MimeTypes.FormUrlEncoded, requestBody: postFormData,
@@ -434,7 +455,7 @@ namespace ServiceStack
         public static Task<string> PatchToUrlAsync(this string url, object formData = null, string accept = "*/*",
             Action<HttpWebRequest> requestFilter = null, Action<HttpWebResponse> responseFilter = null)
         {
-            var postFormData = formData != null ? QueryStringSerializer.SerializeToString(formData) : null;
+            string postFormData = formData != null ? QueryStringSerializer.SerializeToString(formData) : null;
 
             return SendStringToUrlAsync(url, method: "PATCH",
                 contentType: MimeTypes.FormUrlEncoded, requestBody: postFormData,
@@ -540,15 +561,13 @@ namespace ServiceStack
 
             using (var webRes = PclExport.Instance.GetResponse(webReq))
             using (var stream = webRes.GetResponseStream())
-            using (var reader = new StreamReader(stream, UseEncoding))
             {
                 responseFilter?.Invoke((HttpWebResponse)webRes);
-
-                return reader.ReadToEnd();
+                return stream.ReadToEnd(UseEncoding);
             }
         }
 
-        public static Task<string> SendStringToUrlAsync(this string url, string method = null, string requestBody = null,
+        public static async Task<string> SendStringToUrlAsync(this string url, string method = null, string requestBody = null,
             string contentType = null, string accept = "*/*", Action<HttpWebRequest> requestFilter = null,
             Action<HttpWebResponse> responseFilter = null)
         {
@@ -566,9 +585,7 @@ namespace ServiceStack
             if (ResultsFilter != null)
             {
                 var result = ResultsFilter.GetString(webReq, requestBody);
-                var tcsResult = new TaskCompletionSource<string>();
-                tcsResult.SetResult(result);
-                return tcsResult.Task;
+                return result;
             }
 
             if (requestBody != null)
@@ -580,34 +597,14 @@ namespace ServiceStack
                 }
             }
 
-            var taskWebRes = webReq.GetResponseAsync();
-            var tcs = new TaskCompletionSource<string>();
-
-            taskWebRes.ContinueWith(task =>
+            using (var webRes = await webReq.GetResponseAsync())
             {
-                if (task.Exception != null)
-                {
-                    tcs.SetException(task.Exception);
-                    return;
-                }
-
-                if (task.IsCanceled)
-                {
-                    tcs.SetCanceled();
-                    return;
-                }
-
-                var webRes = task.Result;
                 responseFilter?.Invoke((HttpWebResponse)webRes);
-
                 using (var stream = webRes.GetResponseStream())
-                using (var reader = new StreamReader(stream, UseEncoding))
                 {
-                    tcs.SetResult(reader.ReadToEnd());
+                    return await stream.ReadToEndAsync();
                 }
-            });
-
-            return tcs.Task;
+            }
         }
 
         public static byte[] GetBytesFromUrl(this string url, string accept = "*/*",
@@ -694,7 +691,7 @@ namespace ServiceStack
             }
         }
 
-        public static Task<byte[]> SendBytesToUrlAsync(this string url, string method = null,
+        public static async Task<byte[]> SendBytesToUrlAsync(this string url, string method = null,
             byte[] requestBody = null, string contentType = null, string accept = "*/*",
             Action<HttpWebRequest> requestFilter = null, Action<HttpWebResponse> responseFilter = null)
         {
@@ -712,9 +709,7 @@ namespace ServiceStack
             if (ResultsFilter != null)
             {
                 var result = ResultsFilter.GetBytes(webReq, requestBody);
-                var tcsResult = new TaskCompletionSource<byte[]>();
-                tcsResult.SetResult(result);
-                return tcsResult.Task;
+                return result;
             }
 
             if (requestBody != null)
@@ -725,33 +720,134 @@ namespace ServiceStack
                 }
             }
 
-            var taskWebRes = webReq.GetResponseAsync();
-            var tcs = new TaskCompletionSource<byte[]>();
+            var webRes = await webReq.GetResponseAsync();
+            responseFilter?.Invoke((HttpWebResponse)webRes);
 
-            taskWebRes.ContinueWith(task =>
+            using (var stream = webRes.GetResponseStream())
             {
-                if (task.Exception != null)
+                return stream.ReadFully();
+            }
+        }
+        
+        public static Stream GetStreamFromUrl(this string url, string accept = "*/*",
+            Action<HttpWebRequest> requestFilter = null, Action<HttpWebResponse> responseFilter = null)
+        {
+            return url.SendStreamToUrl(accept: accept, requestFilter: requestFilter, responseFilter: responseFilter);
+        }
+
+        public static Task<Stream> GetStreamFromUrlAsync(this string url, string accept = "*/*",
+            Action<HttpWebRequest> requestFilter = null, Action<HttpWebResponse> responseFilter = null)
+        {
+            return url.SendStreamToUrlAsync(accept: accept, requestFilter: requestFilter, responseFilter: responseFilter);
+        }
+
+        public static Stream PostStreamToUrl(this string url, Stream requestBody = null, string contentType = null, string accept = "*/*",
+            Action<HttpWebRequest> requestFilter = null, Action<HttpWebResponse> responseFilter = null)
+        {
+            return SendStreamToUrl(url, method: "POST",
+                contentType: contentType, requestBody: requestBody,
+                accept: accept, requestFilter: requestFilter, responseFilter: responseFilter);
+        }
+
+        public static Task<Stream> PostStreamToUrlAsync(this string url, Stream requestBody = null, string contentType = null, string accept = "*/*",
+            Action<HttpWebRequest> requestFilter = null, Action<HttpWebResponse> responseFilter = null)
+        {
+            return SendStreamToUrlAsync(url, method: "POST",
+                contentType: contentType, requestBody: requestBody,
+                accept: accept, requestFilter: requestFilter, responseFilter: responseFilter);
+        }
+
+        public static Stream PutStreamToUrl(this string url, Stream requestBody = null, string contentType = null, string accept = "*/*",
+            Action<HttpWebRequest> requestFilter = null, Action<HttpWebResponse> responseFilter = null)
+        {
+            return SendStreamToUrl(url, method: "PUT",
+                contentType: contentType, requestBody: requestBody,
+                accept: accept, requestFilter: requestFilter, responseFilter: responseFilter);
+        }
+
+        public static Task<Stream> PutStreamToUrlAsync(this string url, Stream requestBody = null, string contentType = null, string accept = "*/*",
+            Action<HttpWebRequest> requestFilter = null, Action<HttpWebResponse> responseFilter = null)
+        {
+            return SendStreamToUrlAsync(url, method: "PUT",
+                contentType: contentType, requestBody: requestBody,
+                accept: accept, requestFilter: requestFilter, responseFilter: responseFilter);
+        }
+
+        /// <summary>
+        /// Returns HttpWebResponse Stream which must be disposed
+        /// </summary>
+        public static Stream SendStreamToUrl(this string url, string method = null,
+            Stream requestBody = null, string contentType = null, string accept = "*/*",
+            Action<HttpWebRequest> requestFilter = null, Action<HttpWebResponse> responseFilter = null)
+        {
+            var webReq = (HttpWebRequest)WebRequest.Create(url);
+            if (method != null)
+                webReq.Method = method;
+
+            if (contentType != null)
+                webReq.ContentType = contentType;
+
+            webReq.Accept = accept;
+            PclExport.Instance.AddCompression(webReq);
+
+            requestFilter?.Invoke(webReq);
+
+            if (ResultsFilter != null)
+            {
+                return new MemoryStream(ResultsFilter.GetBytes(webReq, requestBody.ReadFully()));
+            }
+
+            if (requestBody != null)
+            {
+                using (var req = PclExport.Instance.GetRequestStream(webReq))
                 {
-                    tcs.SetException(task.Exception);
-                    return;
+                    requestBody.CopyTo(req);
                 }
+            }
 
-                if (task.IsCanceled)
+            var webRes = PclExport.Instance.GetResponse(webReq);
+            responseFilter?.Invoke((HttpWebResponse)webRes);
+
+            var stream = webRes.GetResponseStream();
+            return stream;
+        }
+
+        /// <summary>
+        /// Returns HttpWebResponse Stream which must be disposed
+        /// </summary>
+        public static async Task<Stream> SendStreamToUrlAsync(this string url, string method = null,
+            Stream requestBody = null, string contentType = null, string accept = "*/*",
+            Action<HttpWebRequest> requestFilter = null, Action<HttpWebResponse> responseFilter = null)
+        {
+            var webReq = (HttpWebRequest)WebRequest.Create(url);
+            if (method != null)
+                webReq.Method = method;
+            if (contentType != null)
+                webReq.ContentType = contentType;
+
+            webReq.Accept = accept;
+            PclExport.Instance.AddCompression(webReq);
+
+            requestFilter?.Invoke(webReq);
+
+            if (ResultsFilter != null)
+            {
+                return new MemoryStream(ResultsFilter.GetBytes(webReq, requestBody.ReadFully()));
+            }
+
+            if (requestBody != null)
+            {
+                using (var req = PclExport.Instance.GetRequestStream(webReq))
                 {
-                    tcs.SetCanceled();
-                    return;
+                    await requestBody.CopyToAsync(req);
                 }
+            }
 
-                var webRes = task.Result;
-                responseFilter?.Invoke((HttpWebResponse)webRes);
+            var webRes = await webReq.GetResponseAsync();
+            responseFilter?.Invoke((HttpWebResponse)webRes);
 
-                using (var stream = webRes.GetResponseStream())
-                {
-                    tcs.SetResult(stream.ReadFully());
-                }
-            });
-
-            return tcs.Task;
+            var stream = webRes.GetResponseStream();
+            return stream;
         }
 
         public static bool IsAny300(this Exception ex)
@@ -850,25 +946,21 @@ namespace ServiceStack
                 return null;
 
             var errorResponse = (HttpWebResponse)webEx.Response;
-            using (var reader = new StreamReader(errorResponse.GetResponseStream(), UseEncoding))
-            {
-                return reader.ReadToEnd();
-            }
+            return errorResponse.GetResponseStream().ReadToEnd(UseEncoding);
         }
 
         public static string ReadToEnd(this WebResponse webRes)
         {
             using (var stream = webRes.GetResponseStream())
-            using (var reader = new StreamReader(stream, UseEncoding))
             {
-                return reader.ReadToEnd();
+                return stream.ReadToEnd(UseEncoding);
             }
         }
 
         public static IEnumerable<string> ReadLines(this WebResponse webRes)
         {
             using (var stream = webRes.GetResponseStream())
-            using (var reader = new StreamReader(stream, UseEncoding))
+            using (var reader = new StreamReader(stream, UseEncoding, true, 1024, leaveOpen:true))
             {
                 string line;
                 while ((line = reader.ReadLine()) != null)
@@ -981,12 +1073,12 @@ namespace ServiceStack
 
             var boundary = Guid.NewGuid().ToString("N");
 
-            httpReq.ContentType = $"multipart/form-data; boundary=\"{boundary}\"";
+            httpReq.ContentType = "multipart/form-data; boundary=\"" + boundary + "\"";
 
             var boundarybytes = ("\r\n--" + boundary + "--\r\n").ToAsciiBytes();
 
-            var header =
-                $"\r\n--{boundary}\r\nContent-Disposition: form-data; name=\"{field}\"; filename=\"{fileName}\"\r\nContent-Type: {mimeType}\r\n\r\n";
+            var header = "\r\n--" + boundary +
+                         $"\r\nContent-Disposition: form-data; name=\"{field}\"; filename=\"{fileName}\"\r\nContent-Type: {mimeType}\r\n\r\n";
 
             var headerbytes = header.ToAsciiBytes();
 
@@ -1018,7 +1110,7 @@ namespace ServiceStack
                 throw new ArgumentNullException(nameof(fileName));
             var mimeType = MimeTypes.GetMimeType(fileName);
             if (mimeType == null)
-                throw new ArgumentException($"Mime-type not found for file: {fileName}");
+                throw new ArgumentException("Mime-type not found for file: " + fileName);
 
             UploadFile(webRequest, fileStream, fileName, mimeType);
         }
@@ -1052,7 +1144,7 @@ namespace ServiceStack
         }
     }
 
-    // Allow Exceptions to Customize HTTP StatusCode and StatusDescription returned
+    //Allow Exceptions to Customize HTTP StatusCode and StatusDescription returned
     public interface IHasStatusCode
     {
         int StatusCode { get; }
@@ -1083,35 +1175,35 @@ namespace ServiceStack
 
         public HttpResultsFilter(string stringResult = null, byte[] bytesResult = null)
         {
-            this.StringResult = stringResult;
-            this.BytesResult = bytesResult;
+            StringResult = stringResult;
+            BytesResult = bytesResult;
 
-            this.previousFilter = HttpUtils.ResultsFilter;
+            previousFilter = HttpUtils.ResultsFilter;
             HttpUtils.ResultsFilter = this;
         }
 
         public void Dispose()
         {
-            HttpUtils.ResultsFilter = this.previousFilter;
+            HttpUtils.ResultsFilter = previousFilter;
         }
 
         public string GetString(HttpWebRequest webReq, string reqBody)
         {
-            return this.StringResultFn != null
-                ? this.StringResultFn(webReq, reqBody)
-                : this.StringResult;
+            return StringResultFn != null
+                ? StringResultFn(webReq, reqBody)
+                : StringResult;
         }
 
         public byte[] GetBytes(HttpWebRequest webReq, byte[] reqBody)
         {
-            return this.BytesResultFn != null
-                ? this.BytesResultFn(webReq, reqBody)
-                : this.BytesResult;
+            return BytesResultFn != null
+                ? BytesResultFn(webReq, reqBody)
+                : BytesResult;
         }
 
         public void UploadStream(HttpWebRequest webRequest, Stream fileStream, string fileName)
         {
-            this.UploadFileFn?.Invoke(webRequest, fileStream, fileName);
+            UploadFileFn?.Invoke(webRequest, fileStream, fileName);
         }
     }
 }
@@ -1121,8 +1213,11 @@ namespace ServiceStack
     public static class MimeTypes
     {
         public static Dictionary<string, string> ExtensionMimeTypes = new Dictionary<string, string>();
+        public const string Utf8Suffix = "; charset=utf-8";
 
         public const string Html = "text/html";
+        public const string HtmlUtf8 = Html + Utf8Suffix;
+        public const string Css = "text/css";
         public const string Xml = "application/xml";
         public const string XmlText = "text/xml";
         public const string Json = "application/json";
@@ -1132,6 +1227,7 @@ namespace ServiceStack
         public const string Csv = "text/csv";
         public const string ProtoBuf = "application/x-protobuf";
         public const string JavaScript = "text/javascript";
+        public const string WebAssembly = "application/wasm";
 
         public const string FormUrlEncoded = "application/x-www-form-urlencoded";
         public const string MultiPartFormData = "multipart/form-data";
@@ -1144,7 +1240,11 @@ namespace ServiceStack
         public const string MarkdownText = "text/markdown";
         public const string MsgPack = "application/x-msgpack";
         public const string Wire = "application/x-wire";
+        public const string Compressed = "application/x-compressed";
         public const string NetSerializer = "application/x-netserializer";
+        public const string Excel = "application/excel";
+        public const string MsWord = "application/msword";
+        public const string Cert = "application/x-x509-ca-cert";
 
         public const string ImagePng = "image/png";
         public const string ImageGif = "image/gif";
@@ -1164,10 +1264,121 @@ namespace ServiceStack
             }
 
             var parts = mimeType.Split('/');
-            if (parts.Length == 1) return $".{parts[0]}";
-            if (parts.Length == 2) return $".{parts[1]}";
+            if (parts.Length == 1) return "." + parts[0];
+            if (parts.Length == 2) return "." + parts[1];
 
-            throw new NotSupportedException($"Unknown mimeType: {mimeType}");
+            throw new NotSupportedException("Unknown mimeType: " + mimeType);
+        }
+        
+        //lowercases and trims left part of content-type prior ';'
+        public static string GetRealContentType(string contentType)
+        {
+            if (contentType == null)
+                return null;
+
+            int start = -1, end = -1;
+
+            for(int i=0; i < contentType.Length; i++)
+            {
+                if (!char.IsWhiteSpace(contentType[i]))
+                {
+                    if (contentType[i] == ';')
+                        break;
+                    if (start == -1)
+                    {
+                        start = i;
+                    }
+                    end = i;
+                }
+            }
+
+            return start != -1 
+                    ? contentType.Substring(start, end - start + 1).ToLowerInvariant()
+                    :  null;
+        }
+
+        //Compares two string from start to ';' char, case-insensitive,
+        //ignoring (trimming) spaces at start and end
+        public static bool MatchesContentType(string contentType, string matchesContentType)
+        {
+            if (contentType == null || matchesContentType == null)
+                return false;
+            
+            int start = -1, matchStart = -1, matchEnd = -1;
+
+            for (var i=0; i < contentType.Length; i++)
+            {
+                if (char.IsWhiteSpace(contentType[i])) 
+                    continue;
+                start = i;
+                break;
+            }
+
+            for (var i=0; i < matchesContentType.Length; i++)
+            {
+                if (char.IsWhiteSpace(matchesContentType[i])) 
+                    continue;
+                if (matchesContentType[i] == ';')
+                    break;
+                if (matchStart == -1)
+                    matchStart = i;
+                matchEnd = i;
+            }
+            
+            return start != -1 && matchStart != -1 && matchEnd != -1
+                  && string.Compare(contentType, start,
+                        matchesContentType, matchStart, matchEnd - matchStart + 1,
+                        StringComparison.OrdinalIgnoreCase) == 0;
+        }
+        
+        public static Func<string, bool?> IsBinaryFilter { get; set; }
+
+        public static bool IsBinary(string contentType)
+        {
+            var userFilter = IsBinaryFilter?.Invoke(contentType);
+            if (userFilter != null)
+                return userFilter.Value;
+            
+            var realContentType = GetRealContentType(contentType);
+            switch (realContentType)
+            {
+                case ProtoBuf:
+                case MsgPack:
+                case Binary:
+                case Bson:
+                case Wire:
+                case Cert:
+                case Excel:
+                case MsWord:
+                case Compressed:
+                case WebAssembly:
+                    return true;
+            }
+
+            // Text format exceptions to below heuristics
+            switch (realContentType)
+            {
+                case ImageSvg:
+                    return false;
+            }
+
+            var primaryType = realContentType.LeftPart('/');
+            var secondaryType = realContentType.RightPart('/');
+            switch (primaryType)
+            {
+                case "image":
+                case "audio":
+                case "video":
+                    return true;
+            }
+
+            if (secondaryType.StartsWith("pkc")
+                || secondaryType.StartsWith("x-pkc")
+                || secondaryType.StartsWith("font")
+                || secondaryType.StartsWith("vnd.ms-"))
+                return true;
+
+            return false;
         }
 
         public static string GetMimeType(string fileNameOrExt)
@@ -1175,9 +1386,7 @@ namespace ServiceStack
             if (string.IsNullOrEmpty(fileNameOrExt))
                 throw new ArgumentNullException(nameof(fileNameOrExt));
 
-            var parts = fileNameOrExt.Split('.');
-            var fileExt = parts[parts.Length - 1];
-
+            var fileExt = fileNameOrExt.LastRightPart('.');
             if (ExtensionMimeTypes.TryGetValue(fileExt, out var mimeType))
             {
                 return mimeType;
@@ -1191,7 +1400,7 @@ namespace ServiceStack
                 case "tiff":
                 case "bmp":
                 case "webp":
-                    return $"image/{fileExt}";
+                    return "image/" + fileExt;
 
                 case "jpg":
                     return "image/jpeg";
@@ -1200,7 +1409,10 @@ namespace ServiceStack
                     return "image/tiff";
 
                 case "svg":
-                    return "image/svg+xml";
+                    return ImageSvg;
+                
+                case "ico":
+                    return "image/x-icon";
 
                 case "htm":
                 case "html":
@@ -1217,21 +1429,33 @@ namespace ServiceStack
                     return "text/jsx";
 
                 case "csv":
+                    return Csv;
                 case "css":
+                    return Css;
+                    
                 case "sgml":
-                    return $"text/{fileExt}";
+                    return "text/" + fileExt;
 
                 case "txt":
                     return "text/plain";
 
-                case "wav":
-                    return "audio/wav";
-
                 case "mp3":
                     return "audio/mpeg3";
 
+                case "au":
+                case "snd":
+                    return "audio/basic";
+                
+                case "aac":
+                case "ac3":
+                case "aiff":
+                case "m4a":
+                case "m4b":
+                case "m4p":
                 case "mid":
-                    return "audio/midi";
+                case "midi":
+                case "wav":
+                    return "audio/" + fileExt;
 
                 case "qt":
                 case "mov":
@@ -1240,30 +1464,85 @@ namespace ServiceStack
                 case "mpg":
                     return "video/mpeg";
 
-                case "avi":
-                case "mp4":
-                case "ogg":
-                case "webm":
-                    return $"video/{fileExt}";
-
                 case "ogv":
                     return "video/ogg";
 
+                case "3gpp":
+                case "avi":
+                case "dv":
+                case "divx":
+                case "ogg":
+                case "mp4":
+                case "webm":
+                    return "video/" + fileExt;
+
                 case "rtf":
-                    return $"application/{fileExt}";
+                    return "application/" + fileExt;
 
                 case "xls":
-                    return "application/x-excel";
+                case "xlt":
+                case "xla":
+                    return Excel;
+
+                case "xlsx":
+                    return "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+                case "xltx":
+                    return "application/vnd.openxmlformats-officedocument.spreadsheetml.template";
 
                 case "doc":
-                    return "application/msword";
+                case "dot":
+                    return MsWord;
+
+                case "docx":
+                    return "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
+                case "dotx":
+                    return "application/vnd.openxmlformats-officedocument.wordprocessingml.template";
 
                 case "ppt":
-                    return "application/powerpoint";
+                case "oit":
+                case "pps":
+                case "ppa":
+                    return "application/vnd.ms-powerpoint";
 
+                case "pptx":
+                    return "application/vnd.openxmlformats-officedocument.presentationml.presentation";
+                case "potx":
+                    return "application/vnd.openxmlformats-officedocument.presentationml.template";
+                case "ppsx":
+                    return "application/vnd.openxmlformats-officedocument.presentationml.slideshow";
+
+                case "mdb":
+                    return "application/vnd.ms-access";
+                
+                case "cer":
+                case "crt":
+                case "der":
+                    return Cert;
+
+                case "p10":
+                    return "application/pkcs10";
+                case "p12":
+                    return "application/x-pkcs12";
+                case "p7b":
+                case "spc":
+                    return "application/x-pkcs7-certificates";
+                case "p7c":
+                case "p7m":
+                    return "application/pkcs7-mime";
+                case "p7r":
+                    return "application/x-pkcs7-certreqresp";
+                case "p7s":
+                    return "application/pkcs7-signature";
+                case "sst":
+                    return "application/vnd.ms-pki.certstore";
+                
                 case "gz":
                 case "tgz":
-                    return "application/x-compressed";
+                case "zip":
+                case "rar":
+                case "lzh":
+                case "z":
+                    return Compressed;
 
                 case "eot":
                     return "application/vnd.ms-fontobject";
@@ -1275,9 +1554,51 @@ namespace ServiceStack
                     return "application/font-woff";
                 case "woff2":
                     return "application/font-woff2";
+                    
+                case "aaf":
+                case "aca":
+                case "asd":
+                case "bin":
+                case "cab":
+                case "chm":
+                case "class":
+                case "cur":
+                case "db":
+                case "dat":
+                case "deploy":
+                case "dll":
+                case "dsp":
+                case "exe":
+                case "fla":
+                case "ics":
+                case "inf":
+                case "java":
+                case "mix":
+                case "msi":
+                case "mso":
+                case "obj":
+                case "ocx":
+                case "prm":
+                case "prx":
+                case "psd":
+                case "psp":
+                case "qxd":
+                case "sea":
+                case "snp":
+                case "so":
+                case "sqlite":
+                case "toc":
+                case "u32":
+                case "xmp":
+                case "xsn":
+                case "xtp":
+                    return Binary;
+                    
+                case "wasm":
+                    return WebAssembly;
 
                 default:
-                    return $"application/{fileExt}";
+                    return "application/" + fileExt;
             }
         }
     }
@@ -1308,6 +1629,8 @@ namespace ServiceStack
 
         public const string XStatus = "X-Status";
 
+        public const string XPoweredBy = "X-Powered-By";
+        
         public const string Referer = "Referer";
 
         public const string CacheControl = "Cache-Control";
@@ -1446,7 +1769,7 @@ namespace ServiceStack
             "PATCH",      // https://datatracker.ietf.org/doc/draft-dusseault-http-patch/
             "SEARCH",     // https://datatracker.ietf.org/doc/draft-reschke-webdav-search/
             "BCOPY", "BDELETE", "BMOVE", "BPROPFIND", "BPROPPATCH", "NOTIFY",
-            "POLL",  "SUBSCRIBE", "UNSUBSCRIBE" // MS Exchange WebDav: http://msdn.microsoft.com/en-us/library/aa142917.aspx
+            "POLL",  "SUBSCRIBE", "UNSUBSCRIBE" //MS Exchange WebDav: http://msdn.microsoft.com/en-us/library/aa142917.aspx
         };
 
         public static HashSet<string> AllVerbs = new HashSet<string>(allVerbs);
@@ -1480,8 +1803,8 @@ namespace ServiceStack
         {
             if (!IsValid(compressionType))
             {
-                throw new NotSupportedException(
-                    $"{compressionType} is not a supported compression type. Valid types: gzip, deflate.");
+                throw new NotSupportedException(compressionType
+                    + " is not a supported compression type. Valid types: gzip, deflate.");
             }
         }
 
@@ -1491,9 +1814,10 @@ namespace ServiceStack
             {
                 case Deflate:
                 case GZip:
-                    return $".{compressionType}";
+                    return "." + compressionType;
                 default:
-                    throw new NotSupportedException($"Unknown compressionType: {compressionType}");
+                    throw new NotSupportedException(
+                        "Unknown compressionType: " + compressionType);
             }
         }
     }
@@ -1504,8 +1828,8 @@ namespace ServiceStack
         {
             if (statusCode >= 100 && statusCode < 600)
             {
-                var i = statusCode / 100;
-                var j = statusCode % 100;
+                int i = statusCode / 100;
+                int j = statusCode % 100;
 
                 if (j < Descriptions[i].Length)
                     return Descriptions[i][j];
@@ -1514,123 +1838,76 @@ namespace ServiceStack
             return string.Empty;
         }
 
-        private static readonly string[][] Descriptions = new[]
-                                                              {
+        private static readonly string[][] Descriptions = new string[][]
+        {
             null,
             new[]
-                {
-                    /* 100 */ "Continue",
-
-                    /* 101 */ "Switching Protocols",
-
-                    /* 102 */ "Processing"
-                },
+            { 
+                /* 100 */ "Continue",
+                /* 101 */ "Switching Protocols",
+                /* 102 */ "Processing"
+            },
             new[]
-                {
-                    /* 200 */ "OK",
-
-                    /* 201 */ "Created",
-
-                    /* 202 */ "Accepted",
-
-                    /* 203 */ "Non-Authoritative Information",
-
-                    /* 204 */ "No Content",
-
-                    /* 205 */ "Reset Content",
-
-                    /* 206 */ "Partial Content",
-
-                    /* 207 */ "Multi-Status"
-                },
+            { 
+                /* 200 */ "OK",
+                /* 201 */ "Created",
+                /* 202 */ "Accepted",
+                /* 203 */ "Non-Authoritative Information",
+                /* 204 */ "No Content",
+                /* 205 */ "Reset Content",
+                /* 206 */ "Partial Content",
+                /* 207 */ "Multi-Status"
+            },
             new[]
-                {
-                    /* 300 */ "Multiple Choices",
-
-                    /* 301 */ "Moved Permanently",
-
-                    /* 302 */ "Found",
-
-                    /* 303 */ "See Other",
-
-                    /* 304 */ "Not Modified",
-
-                    /* 305 */ "Use Proxy",
-
-                    /* 306 */ string.Empty,
-
-                    /* 307 */ "Temporary Redirect"
-                },
+            { 
+                /* 300 */ "Multiple Choices",
+                /* 301 */ "Moved Permanently",
+                /* 302 */ "Found",
+                /* 303 */ "See Other",
+                /* 304 */ "Not Modified",
+                /* 305 */ "Use Proxy",
+                /* 306 */ string.Empty,
+                /* 307 */ "Temporary Redirect"
+            },
             new[]
-                {
-                    /* 400 */ "Bad Request",
-
-                    /* 401 */ "Unauthorized",
-
-                    /* 402 */ "Payment Required",
-
-                    /* 403 */ "Forbidden",
-
-                    /* 404 */ "Not Found",
-
-                    /* 405 */ "Method Not Allowed",
-
-                    /* 406 */ "Not Acceptable",
-
-                    /* 407 */ "Proxy Authentication Required",
-
-                    /* 408 */ "Request Timeout",
-
-                    /* 409 */ "Conflict",
-
-                    /* 410 */ "Gone",
-
-                    /* 411 */ "Length Required",
-
-                    /* 412 */ "Precondition Failed",
-
-                    /* 413 */ "Request Entity Too Large",
-
-                    /* 414 */ "Request-Uri Too Long",
-
-                    /* 415 */ "Unsupported Media Type",
-
-                    /* 416 */ "Requested Range Not Satisfiable",
-
-                    /* 417 */ "Expectation Failed",
-
-                    /* 418 */ string.Empty,
-
-                    /* 419 */ string.Empty,
-
-                    /* 420 */ string.Empty,
-
-                    /* 421 */ string.Empty,
-
-                    /* 422 */ "Unprocessable Entity",
-
-                    /* 423 */ "Locked",
-
-                    /* 424 */ "Failed Dependency"
-                },
+            { 
+                /* 400 */ "Bad Request",
+                /* 401 */ "Unauthorized",
+                /* 402 */ "Payment Required",
+                /* 403 */ "Forbidden",
+                /* 404 */ "Not Found",
+                /* 405 */ "Method Not Allowed",
+                /* 406 */ "Not Acceptable",
+                /* 407 */ "Proxy Authentication Required",
+                /* 408 */ "Request Timeout",
+                /* 409 */ "Conflict",
+                /* 410 */ "Gone",
+                /* 411 */ "Length Required",
+                /* 412 */ "Precondition Failed",
+                /* 413 */ "Request Entity Too Large",
+                /* 414 */ "Request-Uri Too Long",
+                /* 415 */ "Unsupported Media Type",
+                /* 416 */ "Requested Range Not Satisfiable",
+                /* 417 */ "Expectation Failed",
+                /* 418 */ string.Empty,
+                /* 419 */ string.Empty,
+                /* 420 */ string.Empty,
+                /* 421 */ string.Empty,
+                /* 422 */ "Unprocessable Entity",
+                /* 423 */ "Locked",
+                /* 424 */ "Failed Dependency"
+            },
             new[]
-                {
-                    /* 500 */ "Internal Server Error",
-
-                    /* 501 */ "Not Implemented",
-
-                    /* 502 */ "Bad Gateway",
-
-                    /* 503 */ "Service Unavailable",
-
-                    /* 504 */ "Gateway Timeout",
-
-                    /* 505 */ "Http Version Not Supported",
-
-                    /* 506 */ string.Empty,
-
-                    /* 507 */ "Insufficient Storage"
-                }
-                                                              };
+            { 
+                /* 500 */ "Internal Server Error",
+                /* 501 */ "Not Implemented",
+                /* 502 */ "Bad Gateway",
+                /* 503 */ "Service Unavailable",
+                /* 504 */ "Gateway Timeout",
+                /* 505 */ "Http Version Not Supported",
+                /* 506 */ string.Empty,
+                /* 507 */ "Insufficient Storage"
+            }
+        };
     }
 }

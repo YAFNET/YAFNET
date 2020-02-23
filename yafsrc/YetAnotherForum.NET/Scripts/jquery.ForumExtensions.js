@@ -14765,7 +14765,7 @@
 })));
 
 /*!
-  * Bootstrap v4.3.1 (https://getbootstrap.com/)
+  * Bootstrap v4.4.1 (https://getbootstrap.com/)
   * Copyright 2011-2019 The Bootstrap Authors (https://github.com/twbs/bootstrap/graphs/contributors)
   * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
   */
@@ -14773,7 +14773,7 @@
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('jquery')) :
   typeof define === 'function' && define.amd ? define(['exports', 'jquery'], factory) :
   (global = global || self, factory(global.bootstrap = {}, global.jQuery));
-}(this, function (exports, $) { 'use strict';
+}(this, (function (exports, $) { 'use strict';
 
   $ = $ && $.hasOwnProperty('default') ? $['default'] : $;
 
@@ -14808,20 +14808,35 @@
     return obj;
   }
 
-  function _objectSpread(target) {
+  function ownKeys(object, enumerableOnly) {
+    var keys = Object.keys(object);
+
+    if (Object.getOwnPropertySymbols) {
+      var symbols = Object.getOwnPropertySymbols(object);
+      if (enumerableOnly) symbols = symbols.filter(function (sym) {
+        return Object.getOwnPropertyDescriptor(object, sym).enumerable;
+      });
+      keys.push.apply(keys, symbols);
+    }
+
+    return keys;
+  }
+
+  function _objectSpread2(target) {
     for (var i = 1; i < arguments.length; i++) {
       var source = arguments[i] != null ? arguments[i] : {};
-      var ownKeys = Object.keys(source);
 
-      if (typeof Object.getOwnPropertySymbols === 'function') {
-        ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) {
-          return Object.getOwnPropertyDescriptor(source, sym).enumerable;
-        }));
+      if (i % 2) {
+        ownKeys(Object(source), true).forEach(function (key) {
+          _defineProperty(target, key, source[key]);
+        });
+      } else if (Object.getOwnPropertyDescriptors) {
+        Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));
+      } else {
+        ownKeys(Object(source)).forEach(function (key) {
+          Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
+        });
       }
-
-      ownKeys.forEach(function (key) {
-        _defineProperty(target, key, source[key]);
-      });
     }
 
     return target;
@@ -14835,7 +14850,7 @@
 
   /**
    * --------------------------------------------------------------------------
-   * Bootstrap (v4.3.1): util.js
+   * Bootstrap (v4.4.1): util.js
    * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
    * --------------------------------------------------------------------------
    */
@@ -14984,8 +14999,25 @@
       }
 
       return Util.findShadowRoot(element.parentNode);
+    },
+    jQueryDetection: function jQueryDetection() {
+      if (typeof $ === 'undefined') {
+        throw new TypeError('Bootstrap\'s JavaScript requires jQuery. jQuery must be included before Bootstrap\'s JavaScript.');
+      }
+
+      var version = $.fn.jquery.split(' ')[0].split('.');
+      var minMajor = 1;
+      var ltMajor = 2;
+      var minMinor = 9;
+      var minPatch = 1;
+      var maxMajor = 4;
+
+      if (version[0] < ltMajor && version[1] < minMinor || version[0] === minMajor && version[1] === minMinor && version[2] < minPatch || version[0] >= maxMajor) {
+        throw new Error('Bootstrap\'s JavaScript requires at least jQuery v1.9.1 but less than v4.0.0');
+      }
     }
   };
+  Util.jQueryDetection();
   setTransitionEndSupport();
 
   /**
@@ -14995,7 +15027,7 @@
    */
 
   var NAME = 'alert';
-  var VERSION = '4.3.1';
+  var VERSION = '4.4.1';
   var DATA_KEY = 'bs.alert';
   var EVENT_KEY = "." + DATA_KEY;
   var DATA_API_KEY = '.data-api';
@@ -15012,13 +15044,12 @@
     ALERT: 'alert',
     FADE: 'fade',
     SHOW: 'show'
-    /**
-     * ------------------------------------------------------------------------
-     * Class Definition
-     * ------------------------------------------------------------------------
-     */
-
   };
+  /**
+   * ------------------------------------------------------------------------
+   * Class Definition
+   * ------------------------------------------------------------------------
+   */
 
   var Alert =
   /*#__PURE__*/
@@ -15160,7 +15191,7 @@
    */
 
   var NAME$1 = 'button';
-  var VERSION$1 = '4.3.1';
+  var VERSION$1 = '4.4.1';
   var DATA_KEY$1 = 'bs.button';
   var EVENT_KEY$1 = "." + DATA_KEY$1;
   var DATA_API_KEY$1 = '.data-api';
@@ -15172,21 +15203,23 @@
   };
   var Selector$1 = {
     DATA_TOGGLE_CARROT: '[data-toggle^="button"]',
-    DATA_TOGGLE: '[data-toggle="buttons"]',
+    DATA_TOGGLES: '[data-toggle="buttons"]',
+    DATA_TOGGLE: '[data-toggle="button"]',
+    DATA_TOGGLES_BUTTONS: '[data-toggle="buttons"] .btn',
     INPUT: 'input:not([type="hidden"])',
     ACTIVE: '.active',
     BUTTON: '.btn'
   };
   var Event$1 = {
     CLICK_DATA_API: "click" + EVENT_KEY$1 + DATA_API_KEY$1,
-    FOCUS_BLUR_DATA_API: "focus" + EVENT_KEY$1 + DATA_API_KEY$1 + " " + ("blur" + EVENT_KEY$1 + DATA_API_KEY$1)
-    /**
-     * ------------------------------------------------------------------------
-     * Class Definition
-     * ------------------------------------------------------------------------
-     */
-
+    FOCUS_BLUR_DATA_API: "focus" + EVENT_KEY$1 + DATA_API_KEY$1 + " " + ("blur" + EVENT_KEY$1 + DATA_API_KEY$1),
+    LOAD_DATA_API: "load" + EVENT_KEY$1 + DATA_API_KEY$1
   };
+  /**
+   * ------------------------------------------------------------------------
+   * Class Definition
+   * ------------------------------------------------------------------------
+   */
 
   var Button =
   /*#__PURE__*/
@@ -15202,7 +15235,7 @@
     _proto.toggle = function toggle() {
       var triggerChangeEvent = true;
       var addAriaPressed = true;
-      var rootElement = $(this._element).closest(Selector$1.DATA_TOGGLE)[0];
+      var rootElement = $(this._element).closest(Selector$1.DATA_TOGGLES)[0];
 
       if (rootElement) {
         var input = this._element.querySelector(Selector$1.INPUT);
@@ -15218,13 +15251,16 @@
                 $(activeElement).removeClass(ClassName$1.ACTIVE);
               }
             }
+          } else if (input.type === 'checkbox') {
+            if (this._element.tagName === 'LABEL' && input.checked === this._element.classList.contains(ClassName$1.ACTIVE)) {
+              triggerChangeEvent = false;
+            }
+          } else {
+            // if it's not a radio button or checkbox don't add a pointless/invalid checked property to the input
+            triggerChangeEvent = false;
           }
 
           if (triggerChangeEvent) {
-            if (input.hasAttribute('disabled') || rootElement.hasAttribute('disabled') || input.classList.contains('disabled') || rootElement.classList.contains('disabled')) {
-              return;
-            }
-
             input.checked = !this._element.classList.contains(ClassName$1.ACTIVE);
             $(input).trigger('change');
           }
@@ -15234,12 +15270,14 @@
         }
       }
 
-      if (addAriaPressed) {
-        this._element.setAttribute('aria-pressed', !this._element.classList.contains(ClassName$1.ACTIVE));
-      }
+      if (!(this._element.hasAttribute('disabled') || this._element.classList.contains('disabled'))) {
+        if (addAriaPressed) {
+          this._element.setAttribute('aria-pressed', !this._element.classList.contains(ClassName$1.ACTIVE));
+        }
 
-      if (triggerChangeEvent) {
-        $(this._element).toggleClass(ClassName$1.ACTIVE);
+        if (triggerChangeEvent) {
+          $(this._element).toggleClass(ClassName$1.ACTIVE);
+        }
       }
     };
 
@@ -15281,17 +15319,57 @@
 
 
   $(document).on(Event$1.CLICK_DATA_API, Selector$1.DATA_TOGGLE_CARROT, function (event) {
-    event.preventDefault();
     var button = event.target;
 
     if (!$(button).hasClass(ClassName$1.BUTTON)) {
-      button = $(button).closest(Selector$1.BUTTON);
+      button = $(button).closest(Selector$1.BUTTON)[0];
     }
 
-    Button._jQueryInterface.call($(button), 'toggle');
+    if (!button || button.hasAttribute('disabled') || button.classList.contains('disabled')) {
+      event.preventDefault(); // work around Firefox bug #1540995
+    } else {
+      var inputBtn = button.querySelector(Selector$1.INPUT);
+
+      if (inputBtn && (inputBtn.hasAttribute('disabled') || inputBtn.classList.contains('disabled'))) {
+        event.preventDefault(); // work around Firefox bug #1540995
+
+        return;
+      }
+
+      Button._jQueryInterface.call($(button), 'toggle');
+    }
   }).on(Event$1.FOCUS_BLUR_DATA_API, Selector$1.DATA_TOGGLE_CARROT, function (event) {
     var button = $(event.target).closest(Selector$1.BUTTON)[0];
     $(button).toggleClass(ClassName$1.FOCUS, /^focus(in)?$/.test(event.type));
+  });
+  $(window).on(Event$1.LOAD_DATA_API, function () {
+    // ensure correct active class is set to match the controls' actual values/states
+    // find all checkboxes/readio buttons inside data-toggle groups
+    var buttons = [].slice.call(document.querySelectorAll(Selector$1.DATA_TOGGLES_BUTTONS));
+
+    for (var i = 0, len = buttons.length; i < len; i++) {
+      var button = buttons[i];
+      var input = button.querySelector(Selector$1.INPUT);
+
+      if (input.checked || input.hasAttribute('checked')) {
+        button.classList.add(ClassName$1.ACTIVE);
+      } else {
+        button.classList.remove(ClassName$1.ACTIVE);
+      }
+    } // find all button toggles
+
+
+    buttons = [].slice.call(document.querySelectorAll(Selector$1.DATA_TOGGLE));
+
+    for (var _i = 0, _len = buttons.length; _i < _len; _i++) {
+      var _button = buttons[_i];
+
+      if (_button.getAttribute('aria-pressed') === 'true') {
+        _button.classList.add(ClassName$1.ACTIVE);
+      } else {
+        _button.classList.remove(ClassName$1.ACTIVE);
+      }
+    }
   });
   /**
    * ------------------------------------------------------------------------
@@ -15314,7 +15392,7 @@
    */
 
   var NAME$2 = 'carousel';
-  var VERSION$2 = '4.3.1';
+  var VERSION$2 = '4.4.1';
   var DATA_KEY$2 = 'bs.carousel';
   var EVENT_KEY$2 = "." + DATA_KEY$2;
   var DATA_API_KEY$2 = '.data-api';
@@ -15387,13 +15465,12 @@
   var PointerType = {
     TOUCH: 'touch',
     PEN: 'pen'
-    /**
-     * ------------------------------------------------------------------------
-     * Class Definition
-     * ------------------------------------------------------------------------
-     */
-
   };
+  /**
+   * ------------------------------------------------------------------------
+   * Class Definition
+   * ------------------------------------------------------------------------
+   */
 
   var Carousel =
   /*#__PURE__*/
@@ -15513,7 +15590,7 @@
     ;
 
     _proto._getConfig = function _getConfig(config) {
-      config = _objectSpread({}, Default, config);
+      config = _objectSpread2({}, Default, {}, config);
       Util.typeCheckConfig(NAME$2, config, DefaultType);
       return config;
     };
@@ -15525,7 +15602,8 @@
         return;
       }
 
-      var direction = absDeltax / this.touchDeltaX; // swipe left
+      var direction = absDeltax / this.touchDeltaX;
+      this.touchDeltaX = 0; // swipe left
 
       if (direction > 0) {
         this.prev();
@@ -15651,8 +15729,6 @@
           event.preventDefault();
           this.next();
           break;
-
-        default:
       }
     };
 
@@ -15804,10 +15880,10 @@
       return this.each(function () {
         var data = $(this).data(DATA_KEY$2);
 
-        var _config = _objectSpread({}, Default, $(this).data());
+        var _config = _objectSpread2({}, Default, {}, $(this).data());
 
         if (typeof config === 'object') {
-          _config = _objectSpread({}, _config, config);
+          _config = _objectSpread2({}, _config, {}, config);
         }
 
         var action = typeof config === 'string' ? config : _config.slide;
@@ -15845,7 +15921,7 @@
         return;
       }
 
-      var config = _objectSpread({}, $(target).data(), $(this).data());
+      var config = _objectSpread2({}, $(target).data(), {}, $(this).data());
 
       var slideIndex = this.getAttribute('data-slide-to');
 
@@ -15914,7 +15990,7 @@
    */
 
   var NAME$3 = 'collapse';
-  var VERSION$3 = '4.3.1';
+  var VERSION$3 = '4.4.1';
   var DATA_KEY$3 = 'bs.collapse';
   var EVENT_KEY$3 = "." + DATA_KEY$3;
   var DATA_API_KEY$3 = '.data-api';
@@ -15947,13 +16023,12 @@
   var Selector$3 = {
     ACTIVES: '.show, .collapsing',
     DATA_TOGGLE: '[data-toggle="collapse"]'
-    /**
-     * ------------------------------------------------------------------------
-     * Class Definition
-     * ------------------------------------------------------------------------
-     */
-
   };
+  /**
+   * ------------------------------------------------------------------------
+   * Class Definition
+   * ------------------------------------------------------------------------
+   */
 
   var Collapse =
   /*#__PURE__*/
@@ -16140,7 +16215,7 @@
     ;
 
     _proto._getConfig = function _getConfig(config) {
-      config = _objectSpread({}, Default$1, config);
+      config = _objectSpread2({}, Default$1, {}, config);
       config.toggle = Boolean(config.toggle); // Coerce string values
 
       Util.typeCheckConfig(NAME$3, config, DefaultType$1);
@@ -16194,7 +16269,7 @@
         var $this = $(this);
         var data = $this.data(DATA_KEY$3);
 
-        var _config = _objectSpread({}, Default$1, $this.data(), typeof config === 'object' && config ? config : {});
+        var _config = _objectSpread2({}, Default$1, {}, $this.data(), {}, typeof config === 'object' && config ? config : {});
 
         if (!data && _config.toggle && /show|hide/.test(config)) {
           _config.toggle = false;
@@ -16269,7 +16344,7 @@
 
   /**!
    * @fileOverview Kickass library to create and place poppers near their reference elements.
-   * @version 1.14.7
+   * @version 1.16.0
    * @license
    * Copyright (c) 2016 Federico Zivolo and contributors
    *
@@ -16291,16 +16366,17 @@
    * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
    * SOFTWARE.
    */
-  var isBrowser = typeof window !== 'undefined' && typeof document !== 'undefined';
+  var isBrowser = typeof window !== 'undefined' && typeof document !== 'undefined' && typeof navigator !== 'undefined';
 
-  var longerTimeoutBrowsers = ['Edge', 'Trident', 'Firefox'];
-  var timeoutDuration = 0;
-  for (var i = 0; i < longerTimeoutBrowsers.length; i += 1) {
-    if (isBrowser && navigator.userAgent.indexOf(longerTimeoutBrowsers[i]) >= 0) {
-      timeoutDuration = 1;
-      break;
+  var timeoutDuration = function () {
+    var longerTimeoutBrowsers = ['Edge', 'Trident', 'Firefox'];
+    for (var i = 0; i < longerTimeoutBrowsers.length; i += 1) {
+      if (isBrowser && navigator.userAgent.indexOf(longerTimeoutBrowsers[i]) >= 0) {
+        return 1;
+      }
     }
-  }
+    return 0;
+  }();
 
   function microtaskDebounce(fn) {
     var called = false;
@@ -16418,6 +16494,17 @@
     }
 
     return getScrollParent(getParentNode(element));
+  }
+
+  /**
+   * Returns the reference node of the reference object, or the reference object itself.
+   * @method
+   * @memberof Popper.Utils
+   * @param {Element|Object} reference - the reference element (the popper will be relative to this)
+   * @returns {Element} parent
+   */
+  function getReferenceNode(reference) {
+    return reference && reference.referenceNode ? reference.referenceNode : reference;
   }
 
   var isIE11 = isBrowser && !!(window.MSInputMethodContext && document.documentMode);
@@ -16728,8 +16815,8 @@
 
     // subtract scrollbar size from sizes
     var sizes = element.nodeName === 'HTML' ? getWindowSizes(element.ownerDocument) : {};
-    var width = sizes.width || element.clientWidth || result.right - result.left;
-    var height = sizes.height || element.clientHeight || result.bottom - result.top;
+    var width = sizes.width || element.clientWidth || result.width;
+    var height = sizes.height || element.clientHeight || result.height;
 
     var horizScrollbar = element.offsetWidth - width;
     var vertScrollbar = element.offsetHeight - height;
@@ -16881,7 +16968,7 @@
     // NOTE: 1 DOM access here
 
     var boundaries = { top: 0, left: 0 };
-    var offsetParent = fixedPosition ? getFixedPositionOffsetParent(popper) : findCommonOffsetParent(popper, reference);
+    var offsetParent = fixedPosition ? getFixedPositionOffsetParent(popper) : findCommonOffsetParent(popper, getReferenceNode(reference));
 
     // Handle viewport case
     if (boundariesElement === 'viewport') {
@@ -17009,7 +17096,7 @@
   function getReferenceOffsets(state, popper, reference) {
     var fixedPosition = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : null;
 
-    var commonOffsetParent = fixedPosition ? getFixedPositionOffsetParent(popper) : findCommonOffsetParent(popper, reference);
+    var commonOffsetParent = fixedPosition ? getFixedPositionOffsetParent(popper) : findCommonOffsetParent(popper, getReferenceNode(reference));
     return getOffsetRectRelativeToArbitraryNode(reference, commonOffsetParent, fixedPosition);
   }
 
@@ -17271,7 +17358,7 @@
 
     this.disableEventListeners();
 
-    // remove the popper if user explicity asked for the deletion on destroy
+    // remove the popper if user explicitly asked for the deletion on destroy
     // do not use `remove` because IE11 doesn't support it
     if (this.options.removeOnDestroy) {
       this.popper.parentNode.removeChild(this.popper);
@@ -17873,7 +17960,14 @@
 
       // flip the variation if required
       var isVertical = ['top', 'bottom'].indexOf(placement) !== -1;
-      var flippedVariation = !!options.flipVariations && (isVertical && variation === 'start' && overflowsLeft || isVertical && variation === 'end' && overflowsRight || !isVertical && variation === 'start' && overflowsTop || !isVertical && variation === 'end' && overflowsBottom);
+
+      // flips variation if reference element overflows boundaries
+      var flippedVariationByRef = !!options.flipVariations && (isVertical && variation === 'start' && overflowsLeft || isVertical && variation === 'end' && overflowsRight || !isVertical && variation === 'start' && overflowsTop || !isVertical && variation === 'end' && overflowsBottom);
+
+      // flips variation if popper content overflows boundaries
+      var flippedVariationByContent = !!options.flipVariationsByContent && (isVertical && variation === 'start' && overflowsRight || isVertical && variation === 'end' && overflowsLeft || !isVertical && variation === 'start' && overflowsBottom || !isVertical && variation === 'end' && overflowsTop);
+
+      var flippedVariation = flippedVariationByRef || flippedVariationByContent;
 
       if (overlapsRef || overflowsBoundaries || flippedVariation) {
         // this boolean to detect any flip loop
@@ -18480,7 +18574,23 @@
        * The popper will never be placed outside of the defined boundaries
        * (except if `keepTogether` is enabled)
        */
-      boundariesElement: 'viewport'
+      boundariesElement: 'viewport',
+      /**
+       * @prop {Boolean} flipVariations=false
+       * The popper will switch placement variation between `-start` and `-end` when
+       * the reference element overlaps its boundaries.
+       *
+       * The original placement should have a set variation.
+       */
+      flipVariations: false,
+      /**
+       * @prop {Boolean} flipVariationsByContent=false
+       * The popper will switch placement variation between `-start` and `-end` when
+       * the popper element overlaps its reference boundaries.
+       *
+       * The original placement should have a set variation.
+       */
+      flipVariationsByContent: false
     },
 
     /**
@@ -18697,8 +18807,8 @@
     /**
      * Creates a new Popper.js instance.
      * @class Popper
-     * @param {HTMLElement|referenceObject} reference - The reference element used to position the popper
-     * @param {HTMLElement} popper - The HTML element used as the popper
+     * @param {Element|referenceObject} reference - The reference element used to position the popper
+     * @param {Element} popper - The HTML / XML element used as the popper
      * @param {Object} options - Your custom options to override the ones defined in [Defaults](#defaults)
      * @return {Object} instance - The generated Popper.js instance
      */
@@ -18853,7 +18963,7 @@
    */
 
   var NAME$4 = 'dropdown';
-  var VERSION$4 = '4.3.1';
+  var VERSION$4 = '4.4.1';
   var DATA_KEY$4 = 'bs.dropdown';
   var EVENT_KEY$4 = "." + DATA_KEY$4;
   var DATA_API_KEY$4 = '.data-api';
@@ -18913,21 +19023,22 @@
     flip: true,
     boundary: 'scrollParent',
     reference: 'toggle',
-    display: 'dynamic'
+    display: 'dynamic',
+    popperConfig: null
   };
   var DefaultType$2 = {
     offset: '(number|string|function)',
     flip: 'boolean',
     boundary: '(string|element)',
     reference: '(string|element)',
-    display: 'string'
-    /**
-     * ------------------------------------------------------------------------
-     * Class Definition
-     * ------------------------------------------------------------------------
-     */
-
+    display: 'string',
+    popperConfig: '(null|object)'
   };
+  /**
+   * ------------------------------------------------------------------------
+   * Class Definition
+   * ------------------------------------------------------------------------
+   */
 
   var Dropdown =
   /*#__PURE__*/
@@ -18951,8 +19062,6 @@
         return;
       }
 
-      var parent = Dropdown._getParentFromElement(this._element);
-
       var isActive = $(this._menu).hasClass(ClassName$4.SHOW);
 
       Dropdown._clearMenus();
@@ -18961,10 +19070,25 @@
         return;
       }
 
+      this.show(true);
+    };
+
+    _proto.show = function show(usePopper) {
+      if (usePopper === void 0) {
+        usePopper = false;
+      }
+
+      if (this._element.disabled || $(this._element).hasClass(ClassName$4.DISABLED) || $(this._menu).hasClass(ClassName$4.SHOW)) {
+        return;
+      }
+
       var relatedTarget = {
         relatedTarget: this._element
       };
       var showEvent = $.Event(Event$4.SHOW, relatedTarget);
+
+      var parent = Dropdown._getParentFromElement(this._element);
+
       $(parent).trigger(showEvent);
 
       if (showEvent.isDefaultPrevented()) {
@@ -18972,7 +19096,7 @@
       } // Disable totally Popper.js for Dropdown in Navbar
 
 
-      if (!this._inNavbar) {
+      if (!this._inNavbar && usePopper) {
         /**
          * Check for Popper dependency
          * Popper - https://popper.js.org
@@ -19019,28 +19143,6 @@
       $(parent).toggleClass(ClassName$4.SHOW).trigger($.Event(Event$4.SHOWN, relatedTarget));
     };
 
-    _proto.show = function show() {
-      if (this._element.disabled || $(this._element).hasClass(ClassName$4.DISABLED) || $(this._menu).hasClass(ClassName$4.SHOW)) {
-        return;
-      }
-
-      var relatedTarget = {
-        relatedTarget: this._element
-      };
-      var showEvent = $.Event(Event$4.SHOW, relatedTarget);
-
-      var parent = Dropdown._getParentFromElement(this._element);
-
-      $(parent).trigger(showEvent);
-
-      if (showEvent.isDefaultPrevented()) {
-        return;
-      }
-
-      $(this._menu).toggleClass(ClassName$4.SHOW);
-      $(parent).toggleClass(ClassName$4.SHOW).trigger($.Event(Event$4.SHOWN, relatedTarget));
-    };
-
     _proto.hide = function hide() {
       if (this._element.disabled || $(this._element).hasClass(ClassName$4.DISABLED) || !$(this._menu).hasClass(ClassName$4.SHOW)) {
         return;
@@ -19057,6 +19159,10 @@
 
       if (hideEvent.isDefaultPrevented()) {
         return;
+      }
+
+      if (this._popper) {
+        this._popper.destroy();
       }
 
       $(this._menu).toggleClass(ClassName$4.SHOW);
@@ -19097,7 +19203,7 @@
     };
 
     _proto._getConfig = function _getConfig(config) {
-      config = _objectSpread({}, this.constructor.Default, $(this._element).data(), config);
+      config = _objectSpread2({}, this.constructor.Default, {}, $(this._element).data(), {}, config);
       Util.typeCheckConfig(NAME$4, config, this.constructor.DefaultType);
       return config;
     };
@@ -19146,7 +19252,7 @@
 
       if (typeof this._config.offset === 'function') {
         offset.fn = function (data) {
-          data.offsets = _objectSpread({}, data.offsets, _this2._config.offset(data.offsets, _this2._element) || {});
+          data.offsets = _objectSpread2({}, data.offsets, {}, _this2._config.offset(data.offsets, _this2._element) || {});
           return data;
         };
       } else {
@@ -19167,9 +19273,8 @@
           preventOverflow: {
             boundariesElement: this._config.boundary
           }
-        } // Disable Popper.js if we have a static display
-
-      };
+        }
+      }; // Disable Popper.js if we have a static display
 
       if (this._config.display === 'static') {
         popperConfig.modifiers.applyStyle = {
@@ -19177,7 +19282,7 @@
         };
       }
 
-      return popperConfig;
+      return _objectSpread2({}, popperConfig, {}, this._config.popperConfig);
     } // Static
     ;
 
@@ -19249,6 +19354,11 @@
         }
 
         toggles[i].setAttribute('aria-expanded', 'false');
+
+        if (context._popper) {
+          context._popper.destroy();
+        }
+
         $(dropdownMenu).removeClass(ClassName$4.SHOW);
         $(parent).removeClass(ClassName$4.SHOW).trigger($.Event(Event$4.HIDDEN, relatedTarget));
       }
@@ -19289,6 +19399,10 @@
 
       var isActive = $(parent).hasClass(ClassName$4.SHOW);
 
+      if (!isActive && event.which === ESCAPE_KEYCODE) {
+        return;
+      }
+
       if (!isActive || isActive && (event.which === ESCAPE_KEYCODE || event.which === SPACE_KEYCODE)) {
         if (event.which === ESCAPE_KEYCODE) {
           var toggle = parent.querySelector(Selector$4.DATA_TOGGLE);
@@ -19299,7 +19413,9 @@
         return;
       }
 
-      var items = [].slice.call(parent.querySelectorAll(Selector$4.VISIBLE_ITEMS));
+      var items = [].slice.call(parent.querySelectorAll(Selector$4.VISIBLE_ITEMS)).filter(function (item) {
+        return $(item).is(':visible');
+      });
 
       if (items.length === 0) {
         return;
@@ -19379,7 +19495,7 @@
    */
 
   var NAME$5 = 'modal';
-  var VERSION$5 = '4.3.1';
+  var VERSION$5 = '4.4.1';
   var DATA_KEY$5 = 'bs.modal';
   var EVENT_KEY$5 = "." + DATA_KEY$5;
   var DATA_API_KEY$5 = '.data-api';
@@ -19400,6 +19516,7 @@
   };
   var Event$5 = {
     HIDE: "hide" + EVENT_KEY$5,
+    HIDE_PREVENTED: "hidePrevented" + EVENT_KEY$5,
     HIDDEN: "hidden" + EVENT_KEY$5,
     SHOW: "show" + EVENT_KEY$5,
     SHOWN: "shown" + EVENT_KEY$5,
@@ -19417,7 +19534,8 @@
     BACKDROP: 'modal-backdrop',
     OPEN: 'modal-open',
     FADE: 'fade',
-    SHOW: 'show'
+    SHOW: 'show',
+    STATIC: 'modal-static'
   };
   var Selector$5 = {
     DIALOG: '.modal-dialog',
@@ -19426,13 +19544,12 @@
     DATA_DISMISS: '[data-dismiss="modal"]',
     FIXED_CONTENT: '.fixed-top, .fixed-bottom, .is-fixed, .sticky-top',
     STICKY_CONTENT: '.sticky-top'
-    /**
-     * ------------------------------------------------------------------------
-     * Class Definition
-     * ------------------------------------------------------------------------
-     */
-
   };
+  /**
+   * ------------------------------------------------------------------------
+   * Class Definition
+   * ------------------------------------------------------------------------
+   */
 
   var Modal =
   /*#__PURE__*/
@@ -19578,15 +19695,40 @@
     ;
 
     _proto._getConfig = function _getConfig(config) {
-      config = _objectSpread({}, Default$3, config);
+      config = _objectSpread2({}, Default$3, {}, config);
       Util.typeCheckConfig(NAME$5, config, DefaultType$3);
       return config;
     };
 
-    _proto._showElement = function _showElement(relatedTarget) {
+    _proto._triggerBackdropTransition = function _triggerBackdropTransition() {
       var _this3 = this;
 
+      if (this._config.backdrop === 'static') {
+        var hideEventPrevented = $.Event(Event$5.HIDE_PREVENTED);
+        $(this._element).trigger(hideEventPrevented);
+
+        if (hideEventPrevented.defaultPrevented) {
+          return;
+        }
+
+        this._element.classList.add(ClassName$5.STATIC);
+
+        var modalTransitionDuration = Util.getTransitionDurationFromElement(this._element);
+        $(this._element).one(Util.TRANSITION_END, function () {
+          _this3._element.classList.remove(ClassName$5.STATIC);
+        }).emulateTransitionEnd(modalTransitionDuration);
+
+        this._element.focus();
+      } else {
+        this.hide();
+      }
+    };
+
+    _proto._showElement = function _showElement(relatedTarget) {
+      var _this4 = this;
+
       var transition = $(this._element).hasClass(ClassName$5.FADE);
+      var modalBody = this._dialog ? this._dialog.querySelector(Selector$5.MODAL_BODY) : null;
 
       if (!this._element.parentNode || this._element.parentNode.nodeType !== Node.ELEMENT_NODE) {
         // Don't move modal's DOM position
@@ -19599,8 +19741,8 @@
 
       this._element.setAttribute('aria-modal', true);
 
-      if ($(this._dialog).hasClass(ClassName$5.SCROLLABLE)) {
-        this._dialog.querySelector(Selector$5.MODAL_BODY).scrollTop = 0;
+      if ($(this._dialog).hasClass(ClassName$5.SCROLLABLE) && modalBody) {
+        modalBody.scrollTop = 0;
       } else {
         this._element.scrollTop = 0;
       }
@@ -19620,12 +19762,12 @@
       });
 
       var transitionComplete = function transitionComplete() {
-        if (_this3._config.focus) {
-          _this3._element.focus();
+        if (_this4._config.focus) {
+          _this4._element.focus();
         }
 
-        _this3._isTransitioning = false;
-        $(_this3._element).trigger(shownEvent);
+        _this4._isTransitioning = false;
+        $(_this4._element).trigger(shownEvent);
       };
 
       if (transition) {
@@ -19637,25 +19779,23 @@
     };
 
     _proto._enforceFocus = function _enforceFocus() {
-      var _this4 = this;
+      var _this5 = this;
 
       $(document).off(Event$5.FOCUSIN) // Guard against infinite focus loop
       .on(Event$5.FOCUSIN, function (event) {
-        if (document !== event.target && _this4._element !== event.target && $(_this4._element).has(event.target).length === 0) {
-          _this4._element.focus();
+        if (document !== event.target && _this5._element !== event.target && $(_this5._element).has(event.target).length === 0) {
+          _this5._element.focus();
         }
       });
     };
 
     _proto._setEscapeEvent = function _setEscapeEvent() {
-      var _this5 = this;
+      var _this6 = this;
 
       if (this._isShown && this._config.keyboard) {
         $(this._element).on(Event$5.KEYDOWN_DISMISS, function (event) {
           if (event.which === ESCAPE_KEYCODE$1) {
-            event.preventDefault();
-
-            _this5.hide();
+            _this6._triggerBackdropTransition();
           }
         });
       } else if (!this._isShown) {
@@ -19664,11 +19804,11 @@
     };
 
     _proto._setResizeEvent = function _setResizeEvent() {
-      var _this6 = this;
+      var _this7 = this;
 
       if (this._isShown) {
         $(window).on(Event$5.RESIZE, function (event) {
-          return _this6.handleUpdate(event);
+          return _this7.handleUpdate(event);
         });
       } else {
         $(window).off(Event$5.RESIZE);
@@ -19676,7 +19816,7 @@
     };
 
     _proto._hideModal = function _hideModal() {
-      var _this7 = this;
+      var _this8 = this;
 
       this._element.style.display = 'none';
 
@@ -19689,11 +19829,11 @@
       this._showBackdrop(function () {
         $(document.body).removeClass(ClassName$5.OPEN);
 
-        _this7._resetAdjustments();
+        _this8._resetAdjustments();
 
-        _this7._resetScrollbar();
+        _this8._resetScrollbar();
 
-        $(_this7._element).trigger(Event$5.HIDDEN);
+        $(_this8._element).trigger(Event$5.HIDDEN);
       });
     };
 
@@ -19705,7 +19845,7 @@
     };
 
     _proto._showBackdrop = function _showBackdrop(callback) {
-      var _this8 = this;
+      var _this9 = this;
 
       var animate = $(this._element).hasClass(ClassName$5.FADE) ? ClassName$5.FADE : '';
 
@@ -19719,8 +19859,8 @@
 
         $(this._backdrop).appendTo(document.body);
         $(this._element).on(Event$5.CLICK_DISMISS, function (event) {
-          if (_this8._ignoreBackdropClick) {
-            _this8._ignoreBackdropClick = false;
+          if (_this9._ignoreBackdropClick) {
+            _this9._ignoreBackdropClick = false;
             return;
           }
 
@@ -19728,11 +19868,7 @@
             return;
           }
 
-          if (_this8._config.backdrop === 'static') {
-            _this8._element.focus();
-          } else {
-            _this8.hide();
-          }
+          _this9._triggerBackdropTransition();
         });
 
         if (animate) {
@@ -19756,7 +19892,7 @@
         $(this._backdrop).removeClass(ClassName$5.SHOW);
 
         var callbackRemove = function callbackRemove() {
-          _this8._removeBackdrop();
+          _this9._removeBackdrop();
 
           if (callback) {
             callback();
@@ -19803,7 +19939,7 @@
     };
 
     _proto._setScrollbar = function _setScrollbar() {
-      var _this9 = this;
+      var _this10 = this;
 
       if (this._isBodyOverflowing) {
         // Note: DOMNode.style.paddingRight returns the actual value or '' if not set
@@ -19814,13 +19950,13 @@
         $(fixedContent).each(function (index, element) {
           var actualPadding = element.style.paddingRight;
           var calculatedPadding = $(element).css('padding-right');
-          $(element).data('padding-right', actualPadding).css('padding-right', parseFloat(calculatedPadding) + _this9._scrollbarWidth + "px");
+          $(element).data('padding-right', actualPadding).css('padding-right', parseFloat(calculatedPadding) + _this10._scrollbarWidth + "px");
         }); // Adjust sticky content margin
 
         $(stickyContent).each(function (index, element) {
           var actualMargin = element.style.marginRight;
           var calculatedMargin = $(element).css('margin-right');
-          $(element).data('margin-right', actualMargin).css('margin-right', parseFloat(calculatedMargin) - _this9._scrollbarWidth + "px");
+          $(element).data('margin-right', actualMargin).css('margin-right', parseFloat(calculatedMargin) - _this10._scrollbarWidth + "px");
         }); // Adjust body padding
 
         var actualPadding = document.body.style.paddingRight;
@@ -19869,7 +20005,7 @@
       return this.each(function () {
         var data = $(this).data(DATA_KEY$5);
 
-        var _config = _objectSpread({}, Default$3, $(this).data(), typeof config === 'object' && config ? config : {});
+        var _config = _objectSpread2({}, Default$3, {}, $(this).data(), {}, typeof config === 'object' && config ? config : {});
 
         if (!data) {
           data = new Modal(this, _config);
@@ -19910,7 +20046,7 @@
 
 
   $(document).on(Event$5.CLICK_DATA_API, Selector$5.DATA_TOGGLE, function (event) {
-    var _this10 = this;
+    var _this11 = this;
 
     var target;
     var selector = Util.getSelectorFromElement(this);
@@ -19919,7 +20055,7 @@
       target = document.querySelector(selector);
     }
 
-    var config = $(target).data(DATA_KEY$5) ? 'toggle' : _objectSpread({}, $(target).data(), $(this).data());
+    var config = $(target).data(DATA_KEY$5) ? 'toggle' : _objectSpread2({}, $(target).data(), {}, $(this).data());
 
     if (this.tagName === 'A' || this.tagName === 'AREA') {
       event.preventDefault();
@@ -19932,8 +20068,8 @@
       }
 
       $target.one(Event$5.HIDDEN, function () {
-        if ($(_this10).is(':visible')) {
-          _this10.focus();
+        if ($(_this11).is(':visible')) {
+          _this11.focus();
         }
       });
     });
@@ -19956,7 +20092,7 @@
 
   /**
    * --------------------------------------------------------------------------
-   * Bootstrap (v4.3.1): tools/sanitizer.js
+   * Bootstrap (v4.4.1): tools/sanitizer.js
    * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
    * --------------------------------------------------------------------------
    */
@@ -19994,13 +20130,13 @@
     strong: [],
     u: [],
     ul: []
-    /**
-     * A pattern that recognizes a commonly useful subset of URLs that are safe.
-     *
-     * Shoutout to Angular 7 https://github.com/angular/angular/blob/7.2.4/packages/core/src/sanitization/url_sanitizer.ts
-     */
-
   };
+  /**
+   * A pattern that recognizes a commonly useful subset of URLs that are safe.
+   *
+   * Shoutout to Angular 7 https://github.com/angular/angular/blob/7.2.4/packages/core/src/sanitization/url_sanitizer.ts
+   */
+
   var SAFE_URL_PATTERN = /^(?:(?:https?|mailto|ftp|tel|file):|[^&:/?#]*(?:[/?#]|$))/gi;
   /**
    * A pattern that matches safe data URLs. Only matches image, video and audio types.
@@ -20067,7 +20203,7 @@
     };
 
     for (var i = 0, len = elements.length; i < len; i++) {
-      var _ret = _loop(i, len);
+      var _ret = _loop(i);
 
       if (_ret === "continue") continue;
     }
@@ -20082,7 +20218,7 @@
    */
 
   var NAME$6 = 'tooltip';
-  var VERSION$6 = '4.3.1';
+  var VERSION$6 = '4.4.1';
   var DATA_KEY$6 = 'bs.tooltip';
   var EVENT_KEY$6 = "." + DATA_KEY$6;
   var JQUERY_NO_CONFLICT$6 = $.fn[NAME$6];
@@ -20104,7 +20240,8 @@
     boundary: '(string|element)',
     sanitize: 'boolean',
     sanitizeFn: '(null|function)',
-    whiteList: 'object'
+    whiteList: 'object',
+    popperConfig: '(null|object)'
   };
   var AttachmentMap$1 = {
     AUTO: 'auto',
@@ -20128,7 +20265,8 @@
     boundary: 'scrollParent',
     sanitize: true,
     sanitizeFn: null,
-    whiteList: DefaultWhitelist
+    whiteList: DefaultWhitelist,
+    popperConfig: null
   };
   var HoverState = {
     SHOW: 'show',
@@ -20160,22 +20298,17 @@
     FOCUS: 'focus',
     CLICK: 'click',
     MANUAL: 'manual'
-    /**
-     * ------------------------------------------------------------------------
-     * Class Definition
-     * ------------------------------------------------------------------------
-     */
-
   };
+  /**
+   * ------------------------------------------------------------------------
+   * Class Definition
+   * ------------------------------------------------------------------------
+   */
 
   var Tooltip =
   /*#__PURE__*/
   function () {
     function Tooltip(element, config) {
-      /**
-       * Check for Popper dependency
-       * Popper - https://popper.js.org
-       */
       if (typeof Popper === 'undefined') {
         throw new TypeError('Bootstrap\'s tooltips require Popper.js (https://popper.js.org/)');
       } // private
@@ -20246,7 +20379,7 @@
       clearTimeout(this._timeout);
       $.removeData(this.element, this.constructor.DATA_KEY);
       $(this.element).off(this.constructor.EVENT_KEY);
-      $(this.element).closest('.modal').off('hide.bs.modal');
+      $(this.element).closest('.modal').off('hide.bs.modal', this._hideModalHandler);
 
       if (this.tip) {
         $(this.tip).remove();
@@ -20257,7 +20390,7 @@
       this._hoverState = null;
       this._activeTrigger = null;
 
-      if (this._popper !== null) {
+      if (this._popper) {
         this._popper.destroy();
       }
 
@@ -20310,29 +20443,7 @@
         }
 
         $(this.element).trigger(this.constructor.Event.INSERTED);
-        this._popper = new Popper(this.element, tip, {
-          placement: attachment,
-          modifiers: {
-            offset: this._getOffset(),
-            flip: {
-              behavior: this.config.fallbackPlacement
-            },
-            arrow: {
-              element: Selector$6.ARROW
-            },
-            preventOverflow: {
-              boundariesElement: this.config.boundary
-            }
-          },
-          onCreate: function onCreate(data) {
-            if (data.originalPlacement !== data.placement) {
-              _this._handlePopperPlacementChange(data);
-            }
-          },
-          onUpdate: function onUpdate(data) {
-            return _this._handlePopperPlacementChange(data);
-          }
-        });
+        this._popper = new Popper(this.element, tip, this._getPopperConfig(attachment));
         $(tip).addClass(ClassName$6.SHOW); // If this is a touch-enabled device we add extra
         // empty mouseover listeners to the body's immediate children;
         // only needed because of broken event delegation on iOS
@@ -20480,14 +20591,43 @@
     } // Private
     ;
 
-    _proto._getOffset = function _getOffset() {
+    _proto._getPopperConfig = function _getPopperConfig(attachment) {
       var _this3 = this;
+
+      var defaultBsConfig = {
+        placement: attachment,
+        modifiers: {
+          offset: this._getOffset(),
+          flip: {
+            behavior: this.config.fallbackPlacement
+          },
+          arrow: {
+            element: Selector$6.ARROW
+          },
+          preventOverflow: {
+            boundariesElement: this.config.boundary
+          }
+        },
+        onCreate: function onCreate(data) {
+          if (data.originalPlacement !== data.placement) {
+            _this3._handlePopperPlacementChange(data);
+          }
+        },
+        onUpdate: function onUpdate(data) {
+          return _this3._handlePopperPlacementChange(data);
+        }
+      };
+      return _objectSpread2({}, defaultBsConfig, {}, this.config.popperConfig);
+    };
+
+    _proto._getOffset = function _getOffset() {
+      var _this4 = this;
 
       var offset = {};
 
       if (typeof this.config.offset === 'function') {
         offset.fn = function (data) {
-          data.offsets = _objectSpread({}, data.offsets, _this3.config.offset(data.offsets, _this3.element) || {});
+          data.offsets = _objectSpread2({}, data.offsets, {}, _this4.config.offset(data.offsets, _this4.element) || {});
           return data;
         };
       } else {
@@ -20514,32 +20654,35 @@
     };
 
     _proto._setListeners = function _setListeners() {
-      var _this4 = this;
+      var _this5 = this;
 
       var triggers = this.config.trigger.split(' ');
       triggers.forEach(function (trigger) {
         if (trigger === 'click') {
-          $(_this4.element).on(_this4.constructor.Event.CLICK, _this4.config.selector, function (event) {
-            return _this4.toggle(event);
+          $(_this5.element).on(_this5.constructor.Event.CLICK, _this5.config.selector, function (event) {
+            return _this5.toggle(event);
           });
         } else if (trigger !== Trigger.MANUAL) {
-          var eventIn = trigger === Trigger.HOVER ? _this4.constructor.Event.MOUSEENTER : _this4.constructor.Event.FOCUSIN;
-          var eventOut = trigger === Trigger.HOVER ? _this4.constructor.Event.MOUSELEAVE : _this4.constructor.Event.FOCUSOUT;
-          $(_this4.element).on(eventIn, _this4.config.selector, function (event) {
-            return _this4._enter(event);
-          }).on(eventOut, _this4.config.selector, function (event) {
-            return _this4._leave(event);
+          var eventIn = trigger === Trigger.HOVER ? _this5.constructor.Event.MOUSEENTER : _this5.constructor.Event.FOCUSIN;
+          var eventOut = trigger === Trigger.HOVER ? _this5.constructor.Event.MOUSELEAVE : _this5.constructor.Event.FOCUSOUT;
+          $(_this5.element).on(eventIn, _this5.config.selector, function (event) {
+            return _this5._enter(event);
+          }).on(eventOut, _this5.config.selector, function (event) {
+            return _this5._leave(event);
           });
-        }
-      });
-      $(this.element).closest('.modal').on('hide.bs.modal', function () {
-        if (_this4.element) {
-          _this4.hide();
         }
       });
 
+      this._hideModalHandler = function () {
+        if (_this5.element) {
+          _this5.hide();
+        }
+      };
+
+      $(this.element).closest('.modal').on('hide.bs.modal', this._hideModalHandler);
+
       if (this.config.selector) {
-        this.config = _objectSpread({}, this.config, {
+        this.config = _objectSpread2({}, this.config, {
           trigger: 'manual',
           selector: ''
         });
@@ -20639,7 +20782,7 @@
           delete dataAttributes[dataAttr];
         }
       });
-      config = _objectSpread({}, this.constructor.Default, dataAttributes, typeof config === 'object' && config ? config : {});
+      config = _objectSpread2({}, this.constructor.Default, {}, dataAttributes, {}, typeof config === 'object' && config ? config : {});
 
       if (typeof config.delay === 'number') {
         config.delay = {
@@ -20799,21 +20942,21 @@
    */
 
   var NAME$7 = 'popover';
-  var VERSION$7 = '4.3.1';
+  var VERSION$7 = '4.4.1';
   var DATA_KEY$7 = 'bs.popover';
   var EVENT_KEY$7 = "." + DATA_KEY$7;
   var JQUERY_NO_CONFLICT$7 = $.fn[NAME$7];
   var CLASS_PREFIX$1 = 'bs-popover';
   var BSCLS_PREFIX_REGEX$1 = new RegExp("(^|\\s)" + CLASS_PREFIX$1 + "\\S+", 'g');
 
-  var Default$5 = _objectSpread({}, Tooltip.Default, {
+  var Default$5 = _objectSpread2({}, Tooltip.Default, {
     placement: 'right',
     trigger: 'click',
     content: '',
     template: '<div class="popover" role="tooltip">' + '<div class="arrow"></div>' + '<h3 class="popover-header"></h3>' + '<div class="popover-body"></div></div>'
   });
 
-  var DefaultType$5 = _objectSpread({}, Tooltip.DefaultType, {
+  var DefaultType$5 = _objectSpread2({}, Tooltip.DefaultType, {
     content: '(string|element|function)'
   });
 
@@ -20836,13 +20979,12 @@
     FOCUSOUT: "focusout" + EVENT_KEY$7,
     MOUSEENTER: "mouseenter" + EVENT_KEY$7,
     MOUSELEAVE: "mouseleave" + EVENT_KEY$7
-    /**
-     * ------------------------------------------------------------------------
-     * Class Definition
-     * ------------------------------------------------------------------------
-     */
-
   };
+  /**
+   * ------------------------------------------------------------------------
+   * Class Definition
+   * ------------------------------------------------------------------------
+   */
 
   var Popover =
   /*#__PURE__*/
@@ -20986,7 +21128,7 @@
    */
 
   var NAME$8 = 'scrollspy';
-  var VERSION$8 = '4.3.1';
+  var VERSION$8 = '4.4.1';
   var DATA_KEY$8 = 'bs.scrollspy';
   var EVENT_KEY$8 = "." + DATA_KEY$8;
   var DATA_API_KEY$6 = '.data-api';
@@ -21025,13 +21167,12 @@
   var OffsetMethod = {
     OFFSET: 'offset',
     POSITION: 'position'
-    /**
-     * ------------------------------------------------------------------------
-     * Class Definition
-     * ------------------------------------------------------------------------
-     */
-
   };
+  /**
+   * ------------------------------------------------------------------------
+   * Class Definition
+   * ------------------------------------------------------------------------
+   */
 
   var ScrollSpy =
   /*#__PURE__*/
@@ -21113,7 +21254,7 @@
     ;
 
     _proto._getConfig = function _getConfig(config) {
-      config = _objectSpread({}, Default$6, typeof config === 'object' && config ? config : {});
+      config = _objectSpread2({}, Default$6, {}, typeof config === 'object' && config ? config : {});
 
       if (typeof config.target !== 'string') {
         var id = $(config.target).attr('id');
@@ -21293,7 +21434,7 @@
    */
 
   var NAME$9 = 'tab';
-  var VERSION$9 = '4.3.1';
+  var VERSION$9 = '4.4.1';
   var DATA_KEY$9 = 'bs.tab';
   var EVENT_KEY$9 = "." + DATA_KEY$9;
   var DATA_API_KEY$7 = '.data-api';
@@ -21320,13 +21461,12 @@
     DATA_TOGGLE: '[data-toggle="tab"], [data-toggle="pill"], [data-toggle="list"]',
     DROPDOWN_TOGGLE: '.dropdown-toggle',
     DROPDOWN_ACTIVE_CHILD: '> .dropdown-menu .active'
-    /**
-     * ------------------------------------------------------------------------
-     * Class Definition
-     * ------------------------------------------------------------------------
-     */
-
   };
+  /**
+   * ------------------------------------------------------------------------
+   * Class Definition
+   * ------------------------------------------------------------------------
+   */
 
   var Tab =
   /*#__PURE__*/
@@ -21528,7 +21668,7 @@
    */
 
   var NAME$a = 'toast';
-  var VERSION$a = '4.3.1';
+  var VERSION$a = '4.4.1';
   var DATA_KEY$a = 'bs.toast';
   var EVENT_KEY$a = "." + DATA_KEY$a;
   var JQUERY_NO_CONFLICT$a = $.fn[NAME$a];
@@ -21557,13 +21697,12 @@
   };
   var Selector$a = {
     DATA_DISMISS: '[data-dismiss="toast"]'
-    /**
-     * ------------------------------------------------------------------------
-     * Class Definition
-     * ------------------------------------------------------------------------
-     */
-
   };
+  /**
+   * ------------------------------------------------------------------------
+   * Class Definition
+   * ------------------------------------------------------------------------
+   */
 
   var Toast =
   /*#__PURE__*/
@@ -21583,7 +21722,12 @@
     _proto.show = function show() {
       var _this = this;
 
-      $(this._element).trigger(Event$a.SHOW);
+      var showEvent = $.Event(Event$a.SHOW);
+      $(this._element).trigger(showEvent);
+
+      if (showEvent.isDefaultPrevented()) {
+        return;
+      }
 
       if (this._config.animation) {
         this._element.classList.add(ClassName$a.FADE);
@@ -21597,11 +21741,15 @@
         $(_this._element).trigger(Event$a.SHOWN);
 
         if (_this._config.autohide) {
-          _this.hide();
+          _this._timeout = setTimeout(function () {
+            _this.hide();
+          }, _this._config.delay);
         }
       };
 
       this._element.classList.remove(ClassName$a.HIDE);
+
+      Util.reflow(this._element);
 
       this._element.classList.add(ClassName$a.SHOWING);
 
@@ -21613,22 +21761,19 @@
       }
     };
 
-    _proto.hide = function hide(withoutTimeout) {
-      var _this2 = this;
-
+    _proto.hide = function hide() {
       if (!this._element.classList.contains(ClassName$a.SHOW)) {
         return;
       }
 
-      $(this._element).trigger(Event$a.HIDE);
+      var hideEvent = $.Event(Event$a.HIDE);
+      $(this._element).trigger(hideEvent);
 
-      if (withoutTimeout) {
-        this._close();
-      } else {
-        this._timeout = setTimeout(function () {
-          _this2._close();
-        }, this._config.delay);
+      if (hideEvent.isDefaultPrevented()) {
+        return;
       }
+
+      this._close();
     };
 
     _proto.dispose = function dispose() {
@@ -21647,26 +21792,26 @@
     ;
 
     _proto._getConfig = function _getConfig(config) {
-      config = _objectSpread({}, Default$7, $(this._element).data(), typeof config === 'object' && config ? config : {});
+      config = _objectSpread2({}, Default$7, {}, $(this._element).data(), {}, typeof config === 'object' && config ? config : {});
       Util.typeCheckConfig(NAME$a, config, this.constructor.DefaultType);
       return config;
     };
 
     _proto._setListeners = function _setListeners() {
-      var _this3 = this;
+      var _this2 = this;
 
       $(this._element).on(Event$a.CLICK_DISMISS, Selector$a.DATA_DISMISS, function () {
-        return _this3.hide(true);
+        return _this2.hide();
       });
     };
 
     _proto._close = function _close() {
-      var _this4 = this;
+      var _this3 = this;
 
       var complete = function complete() {
-        _this4._element.classList.add(ClassName$a.HIDE);
+        _this3._element.classList.add(ClassName$a.HIDE);
 
-        $(_this4._element).trigger(Event$a.HIDDEN);
+        $(_this3._element).trigger(Event$a.HIDDEN);
       };
 
       this._element.classList.remove(ClassName$a.SHOW);
@@ -21736,31 +21881,6 @@
     return Toast._jQueryInterface;
   };
 
-  /**
-   * --------------------------------------------------------------------------
-   * Bootstrap (v4.3.1): index.js
-   * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
-   * --------------------------------------------------------------------------
-   */
-
-  (function () {
-    if (typeof $ === 'undefined') {
-      throw new TypeError('Bootstrap\'s JavaScript requires jQuery. jQuery must be included before Bootstrap\'s JavaScript.');
-    }
-
-    var version = $.fn.jquery.split(' ')[0].split('.');
-    var minMajor = 1;
-    var ltMajor = 2;
-    var minMinor = 9;
-    var minPatch = 1;
-    var maxMajor = 4;
-
-    if (version[0] < ltMajor && version[1] < minMinor || version[0] === minMajor && version[1] === minMinor && version[2] < minPatch || version[0] >= maxMajor) {
-      throw new Error('Bootstrap\'s JavaScript requires at least jQuery v1.9.1 but less than v4.0.0');
-    }
-  })();
-
-  exports.Util = Util;
   exports.Alert = Alert;
   exports.Button = Button;
   exports.Carousel = Carousel;
@@ -21772,789 +21892,16 @@
   exports.Tab = Tab;
   exports.Toast = Toast;
   exports.Tooltip = Tooltip;
+  exports.Util = Util;
 
   Object.defineProperty(exports, '__esModule', { value: true });
 
-}));
+})));
 //# sourceMappingURL=bootstrap.bundle.js.map
 
-(function($) {
-    'use strict';
-
-    var _currentSpinnerId = 0;
-
-    function _scopedEventName(name, id) {
-        return name + '.touchspin_' + id;
-    }
-
-    function _scopeEventNames(names, id) {
-        return $.map(names,
-            function(name) {
-                return _scopedEventName(name, id);
-            });
-    }
-
-    $.fn.TouchSpin = function(options) {
-
-        if (options === 'destroy') {
-            this.each(function() {
-                var originalinput = $(this),
-                    originalinput_data = originalinput.data();
-                $(document).off(_scopeEventNames([
-                        'mouseup',
-                        'touchend',
-                        'touchcancel',
-                        'mousemove',
-                        'touchmove',
-                        'scroll',
-                        'scrollstart'
-                    ],
-                    originalinput_data.spinnerid).join(' '));
-            });
-            return;
-        }
-
-        var defaults = {
-            min: 0,
-            max: 100,
-            initval: '',
-            replacementval: '',
-            step: 1,
-            decimals: 0,
-            stepinterval: 100,
-            forcestepdivisibility: 'round', // none | floor | round | ceil
-            stepintervaldelay: 500,
-            verticalbuttons: false,
-            verticalupclass: 'glyphicon glyphicon-chevron-up',
-            verticaldownclass: 'glyphicon glyphicon-chevron-down',
-            prefix: '',
-            postfix: '',
-            prefix_extraclass: '',
-            postfix_extraclass: '',
-            booster: true,
-            boostat: 10,
-            maxboostedstep: false,
-            mousewheel: true,
-            buttondown_class: 'btn btn-secondary',
-            buttonup_class: 'btn btn-secondary',
-            buttondown_txt: '-',
-            buttonup_txt: '+'
-        };
-
-        var attributeMap = {
-            min: 'min',
-            max: 'max',
-            initval: 'init-val',
-            replacementval: 'replacement-val',
-            step: 'step',
-            decimals: 'decimals',
-            stepinterval: 'step-interval',
-            verticalbuttons: 'vertical-buttons',
-            verticalupclass: 'vertical-up-class',
-            verticaldownclass: 'vertical-down-class',
-            forcestepdivisibility: 'force-step-divisibility',
-            stepintervaldelay: 'step-interval-delay',
-            prefix: 'prefix',
-            postfix: 'postfix',
-            prefix_extraclass: 'prefix-extra-class',
-            postfix_extraclass: 'postfix-extra-class',
-            booster: 'booster',
-            boostat: 'boostat',
-            maxboostedstep: 'max-boosted-step',
-            mousewheel: 'mouse-wheel',
-            buttondown_class: 'button-down-class',
-            buttonup_class: 'button-up-class',
-            buttondown_txt: 'button-down-txt',
-            buttonup_txt: 'button-up-txt'
-        };
-
-        return this.each(function() {
-
-            var settings,
-                originalinput = $(this),
-                originalinput_data = originalinput.data(),
-                container,
-                elements,
-                value,
-                downSpinTimer,
-                upSpinTimer,
-                downDelayTimeout,
-                upDelayTimeout,
-                spincount = 0,
-                spinning = false;
-
-            init();
-
-
-            function init() {
-                if (originalinput.data('alreadyinitialized')) {
-                    return;
-                }
-
-                originalinput.data('alreadyinitialized', true);
-                _currentSpinnerId += 1;
-                originalinput.data('spinnerid', _currentSpinnerId);
-
-
-                if (!originalinput.is('input')) {
-                    console.log('Must be an input.');
-                    return;
-                }
-
-                _initSettings();
-                _setInitval();
-                _checkValue();
-                _buildHtml();
-                _initElements();
-                _hideEmptyPrefixPostfix();
-                _bindEvents();
-                _bindEventsInterface();
-                elements.input.css('display', 'block');
-            }
-
-            function _setInitval() {
-                if (settings.initval !== '' && originalinput.val() === '') {
-                    originalinput.val(settings.initval);
-                }
-            }
-
-            function changeSettings(newsettings) {
-                _updateSettings(newsettings);
-                _checkValue();
-
-                var value = elements.input.val();
-
-                if (value !== '') {
-                    value = Number(elements.input.val());
-                    elements.input.val(value.toFixed(settings.decimals));
-                }
-            }
-
-            function _initSettings() {
-                settings = $.extend({}, defaults, originalinput_data, _parseAttributes(), options);
-            }
-
-            function _parseAttributes() {
-                var data = {};
-                $.each(attributeMap,
-                    function(key, value) {
-                        var attrName = 'bts-' + value + '';
-                        if (originalinput.is('[data-' + attrName + ']')) {
-                            data[key] = originalinput.data(attrName);
-                        }
-                    });
-                return data;
-            }
-
-            function _updateSettings(newsettings) {
-                settings = $.extend({}, settings, newsettings);
-            }
-
-            function _buildHtml() {
-                var initval = originalinput.val(),
-                    parentelement = originalinput.parent();
-
-                if (initval !== '') {
-                    initval = Number(initval).toFixed(settings.decimals);
-                }
-
-                originalinput.data('initvalue', initval).val(initval);
-                originalinput.addClass('form-control');
-
-                if (parentelement.hasClass('input-group')) {
-                    _advanceInputGroup(parentelement);
-                } else {
-                    _buildInputGroup();
-                }
-            }
-
-            function _advanceInputGroup(parentelement) {
-                parentelement.addClass('bootstrap-touchspin');
-
-                var prev = originalinput.prev(),
-                    next = originalinput.next();
-
-                var downhtml,
-                    uphtml,
-                    prefixhtml = '<span class="input-group-addon bootstrap-touchspin-prefix">' +
-                        settings.prefix +
-                        '</span>',
-                    postfixhtml = '<span class="input-group-addon bootstrap-touchspin-postfix">' +
-                        settings.postfix +
-                        '</span>';
-
-                if (prev.hasClass('input-group-prepend')) {
-                    downhtml = '<button class="' +
-                        settings.buttondown_class +
-                        ' bootstrap-touchspin-down" type="button">' +
-                        settings.buttondown_txt +
-                        '</button>';
-                    prev.append(downhtml);
-                } else {
-                    downhtml = '<span class="input-group-prepend"><button class="' +
-                        settings.buttondown_class +
-                        ' bootstrap-touchspin-down" type="button">' +
-                        settings.buttondown_txt +
-                        '</button></span>';
-                    $(downhtml).insertBefore(originalinput);
-                }
-
-                if (next.hasClass('input-group-prepend')) {
-                    uphtml = '<button class="' +
-                        settings.buttonup_class +
-                        ' bootstrap-touchspin-up" type="button">' +
-                        settings.buttonup_txt +
-                        '</button>';
-                    next.prepend(uphtml);
-                } else {
-                    uphtml = '<span class="input-group-prepend"><button class="' +
-                        settings.buttonup_class +
-                        ' bootstrap-touchspin-up" type="button">' +
-                        settings.buttonup_txt +
-                        '</button></span>';
-                    $(uphtml).insertAfter(originalinput);
-                }
-
-                $(prefixhtml).insertBefore(originalinput);
-                $(postfixhtml).insertAfter(originalinput);
-
-                container = parentelement;
-            }
-
-            function _buildInputGroup() {
-                var html;
-
-                if (settings.verticalbuttons) {
-                    html =
-                        '<div class="input-group bootstrap-touchspin"><span class="input-group-addon bootstrap-touchspin-prefix">' +
-                        settings.prefix +
-                        '</span><span class="input-group-addon bootstrap-touchspin-postfix">' +
-                        settings.postfix +
-                        '</span><span class="input-group-btn-vertical"><button class="' +
-                        settings.buttondown_class +
-                        ' bootstrap-touchspin-up" type="button"><i class="' +
-                        settings.verticalupclass +
-                        '"></i></button><button class="' +
-                        settings.buttonup_class +
-                        ' bootstrap-touchspin-down" type="button"><i class="' +
-                        settings.verticaldownclass +
-                        '"></i></button></span></div>';
-                } else {
-                    if (settings.postfix === '') {
-                        html =
-                            '<div class="input-group bootstrap-touchspin"><span class="input-group-prepend"><button class="' +
-                            settings.buttondown_class +
-                            ' bootstrap-touchspin-down" type="button">' +
-                            settings.buttondown_txt +
-                            '</button></span><span class="input-group-addon bootstrap-touchspin-prefix">' +
-                            settings.prefix +
-                            '</span><span class="input-group-append"><button class="' +
-                            settings.buttonup_class +
-                            ' bootstrap-touchspin-up" type="button">' +
-                            settings.buttonup_txt +
-                            '</button></span></div>';
-                    } else {
-                        html =
-                            '<div class="input-group bootstrap-touchspin"><span class="input-group-prepend"><button class="' +
-                            settings.buttondown_class +
-                            ' bootstrap-touchspin-down" type="button">' +
-                            settings.buttondown_txt +
-                            '</button></span><span class="input-group-addon bootstrap-touchspin-prefix">' +
-                            settings.prefix +
-                            '</span><span class="input-group-append"><button class="btn btn-secondary" disabled>' +
-                            settings.postfix +
-                            '</button><button class="' +
-                            settings.buttonup_class +
-                            ' bootstrap-touchspin-up" type="button">' +
-                            settings.buttonup_txt +
-                            '</button></span></div>';
-                    }
-                    
-                }
-
-                container = $(html).insertBefore(originalinput);
-
-                $('.bootstrap-touchspin-prefix', container).after(originalinput);
-
-                if (originalinput.hasClass('input-sm')) {
-                    container.addClass('input-group-sm');
-                } else if (originalinput.hasClass('input-lg')) {
-                    container.addClass('input-group-lg');
-                }
-            }
-
-            function _initElements() {
-                elements = {
-                    down: $('.bootstrap-touchspin-down', container),
-                    up: $('.bootstrap-touchspin-up', container),
-                    input: $('input', container),
-                    prefix: $('.bootstrap-touchspin-prefix', container).addClass(settings.prefix_extraclass),
-                    postfix: $('.bootstrap-touchspin-postfix', container).addClass(settings.postfix_extraclass)
-                };
-            }
-
-            function _hideEmptyPrefixPostfix() {
-                if (settings.prefix === '') {
-                    elements.prefix.hide();
-                }
-
-                if (settings.postfix === '') {
-                    elements.postfix.hide();
-                }
-            }
-
-            function _bindEvents() {
-                originalinput.on('keydown',
-                    function(ev) {
-                        var code = ev.keyCode || ev.which;
-
-                        if (code === 38) {
-                            if (spinning !== 'up') {
-                                upOnce();
-                                startUpSpin();
-                            }
-                            ev.preventDefault();
-                        } else if (code === 40) {
-                            if (spinning !== 'down') {
-                                downOnce();
-                                startDownSpin();
-                            }
-                            ev.preventDefault();
-                        }
-                    });
-
-                originalinput.on('keyup',
-                    function(ev) {
-                        var code = ev.keyCode || ev.which;
-
-                        if (code === 38) {
-                            stopSpin();
-                        } else if (code === 40) {
-                            stopSpin();
-                        }
-                    });
-
-                originalinput.on('blur',
-                    function() {
-                        _checkValue();
-                    });
-
-                elements.down.on('keydown',
-                    function(ev) {
-                        var code = ev.keyCode || ev.which;
-
-                        if (code === 32 || code === 13) {
-                            if (spinning !== 'down') {
-                                downOnce();
-                                startDownSpin();
-                            }
-                            ev.preventDefault();
-                        }
-                    });
-
-                elements.down.on('keyup',
-                    function(ev) {
-                        var code = ev.keyCode || ev.which;
-
-                        if (code === 32 || code === 13) {
-                            stopSpin();
-                        }
-                    });
-
-                elements.up.on('keydown',
-                    function(ev) {
-                        var code = ev.keyCode || ev.which;
-
-                        if (code === 32 || code === 13) {
-                            if (spinning !== 'up') {
-                                upOnce();
-                                startUpSpin();
-                            }
-                            ev.preventDefault();
-                        }
-                    });
-
-                elements.up.on('keyup',
-                    function(ev) {
-                        var code = ev.keyCode || ev.which;
-
-                        if (code === 32 || code === 13) {
-                            stopSpin();
-                        }
-                    });
-
-                elements.down.on('mousedown.touchspin',
-                    function(ev) {
-                        elements.down.off('touchstart.touchspin'); // android 4 workaround
-
-                        if (originalinput.is(':disabled')) {
-                            return;
-                        }
-
-                        downOnce();
-                        startDownSpin();
-
-                        ev.preventDefault();
-                        ev.stopPropagation();
-                    });
-
-                elements.down.on('touchstart.touchspin',
-                    function(ev) {
-                        elements.down.off('mousedown.touchspin'); // android 4 workaround
-
-                        if (originalinput.is(':disabled')) {
-                            return;
-                        }
-
-                        downOnce();
-                        startDownSpin();
-
-                        ev.preventDefault();
-                        ev.stopPropagation();
-                    });
-
-                elements.up.on('mousedown.touchspin',
-                    function(ev) {
-                        elements.up.off('touchstart.touchspin'); // android 4 workaround
-
-                        if (originalinput.is(':disabled')) {
-                            return;
-                        }
-
-                        upOnce();
-                        startUpSpin();
-
-                        ev.preventDefault();
-                        ev.stopPropagation();
-                    });
-
-                elements.up.on('touchstart.touchspin',
-                    function(ev) {
-                        elements.up.off('mousedown.touchspin'); // android 4 workaround
-
-                        if (originalinput.is(':disabled')) {
-                            return;
-                        }
-
-                        upOnce();
-                        startUpSpin();
-
-                        ev.preventDefault();
-                        ev.stopPropagation();
-                    });
-
-                elements.up.on('mouseout touchleave touchend touchcancel',
-                    function(ev) {
-                        if (!spinning) {
-                            return;
-                        }
-
-                        ev.stopPropagation();
-                        stopSpin();
-                    });
-
-                elements.down.on('mouseout touchleave touchend touchcancel',
-                    function(ev) {
-                        if (!spinning) {
-                            return;
-                        }
-
-                        ev.stopPropagation();
-                        stopSpin();
-                    });
-
-                elements.down.on('mousemove touchmove',
-                    function(ev) {
-                        if (!spinning) {
-                            return;
-                        }
-
-                        ev.stopPropagation();
-                        ev.preventDefault();
-                    });
-
-                elements.up.on('mousemove touchmove',
-                    function(ev) {
-                        if (!spinning) {
-                            return;
-                        }
-
-                        ev.stopPropagation();
-                        ev.preventDefault();
-                    });
-
-                $(document).on(_scopeEventNames(['mouseup', 'touchend', 'touchcancel'], _currentSpinnerId).join(' '),
-                    function(ev) {
-                        if (!spinning) {
-                            return;
-                        }
-
-                        ev.preventDefault();
-                        stopSpin();
-                    });
-
-                $(document).on(
-                    _scopeEventNames(['mousemove', 'touchmove', 'scroll', 'scrollstart'], _currentSpinnerId).join(' '),
-                    function(ev) {
-                        if (!spinning) {
-                            return;
-                        }
-
-                        ev.preventDefault();
-                        stopSpin();
-                    });
-
-                originalinput.on('mousewheel DOMMouseScroll',
-                    function(ev) {
-                        if (!settings.mousewheel || !originalinput.is(':focus')) {
-                            return;
-                        }
-
-                        var delta = ev.originalEvent.wheelDelta || -ev.originalEvent.deltaY || -ev.originalEvent.detail;
-
-                        ev.stopPropagation();
-                        ev.preventDefault();
-
-                        if (delta < 0) {
-                            downOnce();
-                        } else {
-                            upOnce();
-                        }
-                    });
-            }
-
-            function _bindEventsInterface() {
-                originalinput.on('touchspin.uponce',
-                    function() {
-                        stopSpin();
-                        upOnce();
-                    });
-
-                originalinput.on('touchspin.downonce',
-                    function() {
-                        stopSpin();
-                        downOnce();
-                    });
-
-                originalinput.on('touchspin.startupspin',
-                    function() {
-                        startUpSpin();
-                    });
-
-                originalinput.on('touchspin.startdownspin',
-                    function() {
-                        startDownSpin();
-                    });
-
-                originalinput.on('touchspin.stopspin',
-                    function() {
-                        stopSpin();
-                    });
-
-                originalinput.on('touchspin.updatesettings',
-                    function(e, newsettings) {
-                        changeSettings(newsettings);
-                    });
-            }
-
-            function _forcestepdivisibility(value) {
-                switch (settings.forcestepdivisibility) {
-                case 'round':
-                    return (Math.round(value / settings.step) * settings.step).toFixed(settings.decimals);
-                case 'floor':
-                    return (Math.floor(value / settings.step) * settings.step).toFixed(settings.decimals);
-                case 'ceil':
-                    return (Math.ceil(value / settings.step) * settings.step).toFixed(settings.decimals);
-                default:
-                    return value;
-                }
-            }
-
-            function _checkValue() {
-                var val, parsedval, returnval;
-
-                val = originalinput.val();
-
-                if (val === '') {
-                    if (settings.replacementval !== '') {
-                        originalinput.val(settings.replacementval);
-                        originalinput.trigger('change');
-                    }
-                    return;
-                }
-
-                if (settings.decimals > 0 && val === '.') {
-                    return;
-                }
-
-                parsedval = parseFloat(val);
-
-                if (isNaN(parsedval)) {
-                    if (settings.replacementval !== '') {
-                        parsedval = settings.replacementval;
-                    } else {
-                        parsedval = 0;
-                    }
-                }
-
-                returnval = parsedval;
-
-                if (parsedval.toString() !== val) {
-                    returnval = parsedval;
-                }
-
-                if (parsedval < settings.min) {
-                    returnval = settings.min;
-                }
-
-                if (parsedval > settings.max) {
-                    returnval = settings.max;
-                }
-
-                returnval = _forcestepdivisibility(returnval);
-
-                if (Number(val).toString() !== returnval.toString()) {
-                    originalinput.val(returnval);
-                    originalinput.trigger('change');
-                }
-            }
-
-            function _getBoostedStep() {
-                if (!settings.booster) {
-                    return settings.step;
-                } else {
-                    var boosted = Math.pow(2, Math.floor(spincount / settings.boostat)) * settings.step;
-
-                    if (settings.maxboostedstep) {
-                        if (boosted > settings.maxboostedstep) {
-                            boosted = settings.maxboostedstep;
-                            value = Math.round((value / boosted)) * boosted;
-                        }
-                    }
-
-                    return Math.max(settings.step, boosted);
-                }
-            }
-
-            function upOnce() {
-                _checkValue();
-
-                value = parseFloat(elements.input.val());
-                if (isNaN(value)) {
-                    value = 0;
-                }
-
-                var initvalue = value,
-                    boostedstep = _getBoostedStep();
-
-                value = value + boostedstep;
-
-                if (value > settings.max) {
-                    value = settings.max;
-                    originalinput.trigger('touchspin.on.max');
-                    stopSpin();
-                }
-
-                elements.input.val(Number(value).toFixed(settings.decimals));
-
-                if (initvalue !== value) {
-                    originalinput.trigger('change');
-                }
-            }
-
-            function downOnce() {
-                _checkValue();
-
-                value = parseFloat(elements.input.val());
-                if (isNaN(value)) {
-                    value = 0;
-                }
-
-                var initvalue = value,
-                    boostedstep = _getBoostedStep();
-
-                value = value - boostedstep;
-
-                if (value < settings.min) {
-                    value = settings.min;
-                    originalinput.trigger('touchspin.on.min');
-                    stopSpin();
-                }
-
-                elements.input.val(value.toFixed(settings.decimals));
-
-                if (initvalue !== value) {
-                    originalinput.trigger('change');
-                }
-            }
-
-            function startDownSpin() {
-                stopSpin();
-
-                spincount = 0;
-                spinning = 'down';
-
-                originalinput.trigger('touchspin.on.startspin');
-                originalinput.trigger('touchspin.on.startdownspin');
-
-                downDelayTimeout = setTimeout(function() {
-                        downSpinTimer = setInterval(function() {
-                                spincount++;
-                                downOnce();
-                            },
-                            settings.stepinterval);
-                    },
-                    settings.stepintervaldelay);
-            }
-
-            function startUpSpin() {
-                stopSpin();
-
-                spincount = 0;
-                spinning = 'up';
-
-                originalinput.trigger('touchspin.on.startspin');
-                originalinput.trigger('touchspin.on.startupspin');
-
-                upDelayTimeout = setTimeout(function() {
-                        upSpinTimer = setInterval(function() {
-                                spincount++;
-                                upOnce();
-                            },
-                            settings.stepinterval);
-                    },
-                    settings.stepintervaldelay);
-            }
-
-            function stopSpin() {
-                clearTimeout(downDelayTimeout);
-                clearTimeout(upDelayTimeout);
-                clearInterval(downSpinTimer);
-                clearInterval(upSpinTimer);
-
-                switch (spinning) {
-                case 'up':
-                    originalinput.trigger('touchspin.on.stopupspin');
-                    originalinput.trigger('touchspin.on.stopspin');
-                    break;
-                case 'down':
-                    originalinput.trigger('touchspin.on.stopdownspin');
-                    originalinput.trigger('touchspin.on.stopspin');
-                    break;
-                }
-
-                spincount = 0;
-                spinning = false;
-            }
-
-        });
-
-    };
-
-})(jQuery);
 /*! @preserve
  * bootbox.js
- * version: 5.2.0
+ * version: 5.4.0
  * author: Nick Payne <nick@kurai.co.uk>
  * license: MIT
  * http://bootboxjs.com/
@@ -22622,7 +21969,13 @@
   var VERSION = '5.0.0';
   exports.VERSION = VERSION;
 
-  var locales = {};
+  var locales = {
+    en : {
+      OK      : 'OK',
+      CANCEL  : 'Cancel',
+      CONFIRM : 'OK'
+    }
+  };
 
   var templates = {
     dialog:
@@ -22715,7 +22068,7 @@
   };
 
 
-  // Register localized strings for the OK, Confirm, and Cancel buttons
+  // Register localized strings for the OK, CONFIRM, and CANCEL buttons
   exports.addLocale = function (name, values) {
     $.each(['OK', 'CANCEL', 'CONFIRM'], function (_, v) {
       if (!values[v]) {
@@ -22792,7 +22145,7 @@
     if ($.fn.modal === undefined) {
       throw new Error(
         '"$.fn.modal" is not defined; please double check you have included ' +
-        'the Bootstrap JavaScript library. See http://getbootstrap.com/javascript/ ' +
+        'the Bootstrap JavaScript library. See https://getbootstrap.com/docs/4.4/getting-started/javascript/ ' +
         'for more details.'
       );
     }
@@ -22832,8 +22185,7 @@
         button.data('bb-handler', key);
         button.addClass(b.className);
 
-        switch(key)
-        {
+        switch (key) {
           case 'ok':
           case 'confirm':
             button.addClass('bootbox-accept');
@@ -22867,8 +22219,7 @@
         console.warn('"size" requires Bootstrap 3.1.0 or higher. You appear to be using ' + options.fullBootstrapVersion + '. Please upgrade to use this option.');
       }
 
-      switch(options.size)
-      {
+      switch (options.size) {
         case 'small':
         case 'sm':
           innerDialog.addClass('modal-sm');
@@ -22879,24 +22230,25 @@
           innerDialog.addClass('modal-lg');
           break;
 
-        case 'xl':
         case 'extra-large':
+        case 'xl':
+          innerDialog.addClass('modal-xl');
+
           // Requires Bootstrap 4.2.0 or higher
           if (options.fullBootstrapVersion.substring(0, 3) < '4.2') {
             console.warn('Using size "xl"/"extra-large" requires Bootstrap 4.2.0 or higher. You appear to be using ' + options.fullBootstrapVersion + '. Please upgrade to use this option.');
           }
-          innerDialog.addClass('modal-xl');
           break;
       }
     }
 
-    if(options.scrollable){
+    if (options.scrollable) {
+      innerDialog.addClass('modal-dialog-scrollable');
+
       // Requires Bootstrap 4.3.0 or higher
       if (options.fullBootstrapVersion.substring(0, 3) < '4.3') {
         console.warn('Using "scrollable" requires Bootstrap 4.3.0 or higher. You appear to be using ' + options.fullBootstrapVersion + '. Please upgrade to use this option.');
       }
-
-      innerDialog.addClass('modal-dialog-scrollable');
     }
 
     if (options.title) {
@@ -22919,13 +22271,13 @@
       }
     }
 
-    if(options.centerVertical){
+    if (options.centerVertical) {
+      innerDialog.addClass('modal-dialog-centered');
+
       // Requires Bootstrap 4.0.0-beta.3 or higher
       if (options.fullBootstrapVersion < '4.0.0') {
         console.warn('"centerVertical" requires Bootstrap 4.0.0-beta.3 or higher. You appear to be using ' + options.fullBootstrapVersion + '. Please upgrade to use this option.');
       }
-
-      innerDialog.addClass('modal-dialog-centered');
     }
 
     // Bootstrap event listeners; these handle extra
@@ -22933,25 +22285,47 @@
     // modal has performed certain actions.
 
     // make sure we unbind any listeners once the dialog has definitively been dismissed
-      dialog.one('hide.bs.modal', function (e) {
-        if (e.target === this) {
-          dialog.off('escape.close.bb');
-          dialog.off('click');
-        }
-    });
+    dialog.one('hide.bs.modal', { dialog: dialog }, unbindModal);
 
-    dialog.one('hidden.bs.modal', function (e) {
-      // ensure we don't accidentally intercept hidden events triggered
-      // by children of the current dialog. We shouldn't need to handle this anymore, 
-      // now that Bootstrap namespaces its events, but still worth doing.
-      if (e.target === this) {
-        dialog.remove();
+    if (options.onHide) {
+      if ($.isFunction(options.onHide)) {
+        dialog.on('hide.bs.modal', options.onHide);
       }
-    });
+      else {
+        throw new Error('Argument supplied to "onHide" must be a function');
+      }
+    }
 
-    dialog.one('shown.bs.modal', function () {
-      dialog.find('.bootbox-accept:first').trigger('focus');
-    });
+    dialog.one('hidden.bs.modal', { dialog: dialog }, destroyModal);
+
+    if (options.onHidden) {
+      if ($.isFunction(options.onHidden)) {
+        dialog.on('hidden.bs.modal', options.onHidden);
+      }
+      else {
+        throw new Error('Argument supplied to "onHidden" must be a function');
+      }
+    }
+
+    if (options.onShow) {
+      if ($.isFunction(options.onShow)) {
+        dialog.on('show.bs.modal', options.onShow);
+      }
+      else {
+        throw new Error('Argument supplied to "onShow" must be a function');
+      }
+    }
+
+    dialog.one('shown.bs.modal', { dialog: dialog }, focusPrimaryButton);
+
+    if (options.onShown) {
+      if ($.isFunction(options.onShown)) {
+        dialog.on('shown.bs.modal', options.onShown);
+      }
+      else {
+        throw new Error('Argument supplied to "onShown" must be a function');
+      }
+    }
 
     // Bootbox event listeners; used to decouple some
     // behaviours from their respective triggers
@@ -22963,7 +22337,7 @@
       // We always only ever pass static/false to the actual
       // $.modal function because with "true" we can't trap
       // this event (the .modal-backdrop swallows it)
-      // However, we still want to sort of respect true
+      // However, we still want to sort-of respect true
       // and invoke the escape mechanism instead
       dialog.on('click.dismiss.bs.modal', function (e) {
         // @NOTE: the target varies in >= 3.3.x releases since the modal backdrop
@@ -22996,7 +22370,7 @@
       if (callbackKey !== undefined) {
         // Only process callbacks for buttons we recognize:
         processCallback(e, dialog, callbacks[callbackKey]);
-     }
+      }
     });
 
     dialog.on('click', '.bootbox-close-button', function (e) {
@@ -23013,7 +22387,7 @@
     });
 
     // the remainder of this method simply deals with adding our
-    // dialogent to the DOM, augmenting it with Bootstrap's modal
+    // dialog element to the DOM, augmenting it with Bootstrap's modal
     // functionality and then giving the resulting object back
     // to our caller
 
@@ -23121,6 +22495,7 @@
     // spawning the dialog to give us a chance to attach some handlers to
     // it, but we need to make sure we respect a preference not to show it
     shouldShow = (options.show === undefined) ? defaults.show : options.show;
+
     // This is required prior to calling the dialog builder below - we need to 
     // add an event handler just before the prompt is shown
     options.show = false;
@@ -23152,7 +22527,7 @@
               return $(this).val();
             }).get();
           }
-          else{
+          else {
             value = input.val();
           }
         }
@@ -23183,15 +22558,15 @@
       case 'email':
       case 'password':
         input.val(options.value);
-        
+
         if (options.placeholder) {
           input.attr('placeholder', options.placeholder);
         }
-    
+
         if (options.pattern) {
           input.attr('pattern', options.pattern);
         }
-    
+
         if (options.maxlength) {
           input.attr('maxlength', options.maxlength);
         }
@@ -23199,9 +22574,9 @@
         if (options.required) {
           input.prop({ 'required': true });
         }
-        
+
         if (options.rows && !isNaN(parseInt(options.rows))) {
-          if(options.inputType === 'textarea'){
+          if (options.inputType === 'textarea') {
             input.attr({ 'rows': options.rows });
           }
         }
@@ -23214,11 +22589,11 @@
       case 'number':
       case 'range':
         input.val(options.value);
-        
+
         if (options.placeholder) {
           input.attr('placeholder', options.placeholder);
         }
-    
+
         if (options.pattern) {
           input.attr('pattern', options.pattern);
         }
@@ -23226,14 +22601,14 @@
         if (options.required) {
           input.prop({ 'required': true });
         }
-        
+
         // These input types have extra attributes which affect their input validation.
         // Warning: For most browsers, date inputs are buggy in their implementation of 'step', so 
         // this attribute will have no effect. Therefore, we don't set the attribute for date inputs.
         // @see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/date#Setting_maximum_and_minimum_dates
         if (options.inputType !== 'date') {
           if (options.step) {
-            if (options.step === 'any' || (!isNaN(options.step) && parseInt(options.step) > 0)) {
+            if (options.step === 'any' || (!isNaN(options.step) && parseFloat(options.step) > 0)) {
               input.attr('step', options.step);
             }
             else {
@@ -23242,11 +22617,11 @@
           }
         }
 
-        if(minAndMaxAreValid(options.inputType, options.min, options.max)){
-          if(options.min !== undefined){
+        if (minAndMaxAreValid(options.inputType, options.min, options.max)) {
+          if (options.min !== undefined) {
             input.attr('min', options.min);
           }
-          if(options.max !== undefined){
+          if (options.max !== undefined) {
             input.attr('max', options.max);
           }
         }
@@ -23271,15 +22646,15 @@
         if (options.placeholder) {
           input.attr('placeholder', options.placeholder);
         }
-        
+
         if (options.required) {
           input.prop({ 'required': true });
         }
-        
+
         if (options.multiple) {
           input.prop({ 'multiple': true });
         }
-        
+
         each(inputOptions, function (_, option) {
           // assume the element to attach to is the input...
           var elem = input;
@@ -23423,7 +22798,7 @@
     promptDialog = exports.dialog(options);
 
     // clear the existing handler focusing the submit button...
-    promptDialog.off('shown.bs.modal');
+    promptDialog.off('shown.bs.modal', focusPrimaryButton);
 
     // ...and replace it with one focusing our input, if possible
     promptDialog.on('shown.bs.modal', function () {
@@ -23492,11 +22867,11 @@
   //  range of inputs and return valid options suitable for passing to bootbox.dialog
   function mergeDialogOptions(className, labels, properties, args) {
     var locale;
-    if(args && args[0]){
+    if (args && args[0]) {
       locale = args[0].locale || defaults.locale;
       var swapButtons = args[0].swapButtonOrder || defaults.swapButtonOrder;
 
-      if(swapButtons){
+      if (swapButtons) {
         labels = labels.reverse();
       }
     }
@@ -23619,13 +22994,13 @@
         button.label = key;
       }
 
-      if (!button.className) {     
+      if (!button.className) {
         var isPrimary = false;
-        if(options.swapButtonOrder){
+        if (options.swapButtonOrder) {
           isPrimary = index === 0;
         }
-        else{
-          isPrimary = index === total-1;
+        else {
+          isPrimary = index === total - 1;
         }
 
         if (total <= 2 && isPrimary) {
@@ -23657,6 +23032,29 @@
   }
 
 
+  function focusPrimaryButton(e) {
+    e.data.dialog.find('.bootbox-accept').first().trigger('focus');
+  }
+
+
+  function destroyModal(e) {
+    // ensure we don't accidentally intercept hidden events triggered
+    // by children of the current dialog. We shouldn't need to handle this anymore, 
+    // now that Bootstrap namespaces its events, but still worth doing.
+    if (e.target === e.data.dialog[0]) {
+      e.data.dialog.remove();
+    }
+  }
+
+
+  function unbindModal(e) {
+    if (e.target === e.data.dialog[0]) {
+      e.data.dialog.off('escape.close.bb');
+      e.data.dialog.off('click');
+    }
+  }
+
+
   //  Handle the invoked dialog callback
   function processCallback(e, dialog, callback) {
     e.stopPropagation();
@@ -23674,9 +23072,9 @@
       dialog.modal('hide');
     }
   }
-  
+
   // Validate `min` and `max` values based on the current `inputType` value
-  function minAndMaxAreValid(type, min, max){
+  function minAndMaxAreValid(type, min, max) {
     var result = false;
     var minValid = true;
     var maxValid = true;
@@ -23699,19 +23097,21 @@
     }
     else {
       if (min !== undefined && isNaN(min)) {
+        minValid = false;
         throw new Error('"min" must be a valid number. See https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#attr-min for more information.');
       }
 
       if (max !== undefined && isNaN(max)) {
+        maxValid = false;
         throw new Error('"max" must be a valid number. See https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#attr-max for more information.');
       }
     }
-    
-    if(minValid && maxValid){
-      if(max <= min){
+
+    if (minValid && maxValid) {
+      if (max <= min) {
         throw new Error('"max" must be greater than "min". See https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#attr-max for more information.');
       }
-      else{
+      else {
         result = true;
       }
     }
@@ -23719,22 +23119,13 @@
     return result;
   }
 
-  function timeIsValid(value){
+  function timeIsValid(value) {
     return /([01][0-9]|2[0-3]):[0-5][0-9]?:[0-5][0-9]/.test(value);
   }
 
-  function dateIsValid(value){
+  function dateIsValid(value) {
     return /(\d{4})-(\d{2})-(\d{2})/.test(value);
   }
-
-
-  //  Register the default locale
-  exports.addLocale('en', {
-    OK: 'OK',
-    CANCEL: 'Cancel',
-    CONFIRM: 'OK'
-  });
-
 
   //  The Bootbox object
   return exports;
@@ -27444,6 +26835,780 @@
     };
 
 }(jQuery));
+(function($) {
+    'use strict';
+
+    var _currentSpinnerId = 0;
+
+    function _scopedEventName(name, id) {
+        return name + '.touchspin_' + id;
+    }
+
+    function _scopeEventNames(names, id) {
+        return $.map(names,
+            function(name) {
+                return _scopedEventName(name, id);
+            });
+    }
+
+    $.fn.TouchSpin = function(options) {
+
+        if (options === 'destroy') {
+            this.each(function() {
+                var originalinput = $(this),
+                    originalinput_data = originalinput.data();
+                $(document).off(_scopeEventNames([
+                        'mouseup',
+                        'touchend',
+                        'touchcancel',
+                        'mousemove',
+                        'touchmove',
+                        'scroll',
+                        'scrollstart'
+                    ],
+                    originalinput_data.spinnerid).join(' '));
+            });
+            return;
+        }
+
+        var defaults = {
+            min: 0,
+            max: 100,
+            initval: '',
+            replacementval: '',
+            step: 1,
+            decimals: 0,
+            stepinterval: 100,
+            forcestepdivisibility: 'round', // none | floor | round | ceil
+            stepintervaldelay: 500,
+            verticalbuttons: false,
+            verticalupclass: 'glyphicon glyphicon-chevron-up',
+            verticaldownclass: 'glyphicon glyphicon-chevron-down',
+            prefix: '',
+            postfix: '',
+            prefix_extraclass: '',
+            postfix_extraclass: '',
+            booster: true,
+            boostat: 10,
+            maxboostedstep: false,
+            mousewheel: true,
+            buttondown_class: 'btn btn-secondary',
+            buttonup_class: 'btn btn-secondary',
+            buttondown_txt: '-',
+            buttonup_txt: '+'
+        };
+
+        var attributeMap = {
+            min: 'min',
+            max: 'max',
+            initval: 'init-val',
+            replacementval: 'replacement-val',
+            step: 'step',
+            decimals: 'decimals',
+            stepinterval: 'step-interval',
+            verticalbuttons: 'vertical-buttons',
+            verticalupclass: 'vertical-up-class',
+            verticaldownclass: 'vertical-down-class',
+            forcestepdivisibility: 'force-step-divisibility',
+            stepintervaldelay: 'step-interval-delay',
+            prefix: 'prefix',
+            postfix: 'postfix',
+            prefix_extraclass: 'prefix-extra-class',
+            postfix_extraclass: 'postfix-extra-class',
+            booster: 'booster',
+            boostat: 'boostat',
+            maxboostedstep: 'max-boosted-step',
+            mousewheel: 'mouse-wheel',
+            buttondown_class: 'button-down-class',
+            buttonup_class: 'button-up-class',
+            buttondown_txt: 'button-down-txt',
+            buttonup_txt: 'button-up-txt'
+        };
+
+        return this.each(function() {
+
+            var settings,
+                originalinput = $(this),
+                originalinput_data = originalinput.data(),
+                container,
+                elements,
+                value,
+                downSpinTimer,
+                upSpinTimer,
+                downDelayTimeout,
+                upDelayTimeout,
+                spincount = 0,
+                spinning = false;
+
+            init();
+
+
+            function init() {
+                if (originalinput.data('alreadyinitialized')) {
+                    return;
+                }
+
+                originalinput.data('alreadyinitialized', true);
+                _currentSpinnerId += 1;
+                originalinput.data('spinnerid', _currentSpinnerId);
+
+
+                if (!originalinput.is('input')) {
+                    console.log('Must be an input.');
+                    return;
+                }
+
+                _initSettings();
+                _setInitval();
+                _checkValue();
+                _buildHtml();
+                _initElements();
+                _hideEmptyPrefixPostfix();
+                _bindEvents();
+                _bindEventsInterface();
+                elements.input.css('display', 'block');
+            }
+
+            function _setInitval() {
+                if (settings.initval !== '' && originalinput.val() === '') {
+                    originalinput.val(settings.initval);
+                }
+            }
+
+            function changeSettings(newsettings) {
+                _updateSettings(newsettings);
+                _checkValue();
+
+                var value = elements.input.val();
+
+                if (value !== '') {
+                    value = Number(elements.input.val());
+                    elements.input.val(value.toFixed(settings.decimals));
+                }
+            }
+
+            function _initSettings() {
+                settings = $.extend({}, defaults, originalinput_data, _parseAttributes(), options);
+            }
+
+            function _parseAttributes() {
+                var data = {};
+                $.each(attributeMap,
+                    function(key, value) {
+                        var attrName = 'bts-' + value + '';
+                        if (originalinput.is('[data-' + attrName + ']')) {
+                            data[key] = originalinput.data(attrName);
+                        }
+                    });
+                return data;
+            }
+
+            function _updateSettings(newsettings) {
+                settings = $.extend({}, settings, newsettings);
+            }
+
+            function _buildHtml() {
+                var initval = originalinput.val(),
+                    parentelement = originalinput.parent();
+
+                if (initval !== '') {
+                    initval = Number(initval).toFixed(settings.decimals);
+                }
+
+                originalinput.data('initvalue', initval).val(initval);
+                originalinput.addClass('form-control');
+
+                if (parentelement.hasClass('input-group')) {
+                    _advanceInputGroup(parentelement);
+                } else {
+                    _buildInputGroup();
+                }
+            }
+
+            function _advanceInputGroup(parentelement) {
+                parentelement.addClass('bootstrap-touchspin');
+
+                var prev = originalinput.prev(),
+                    next = originalinput.next();
+
+                var downhtml,
+                    uphtml,
+                    prefixhtml = '<span class="input-group-addon bootstrap-touchspin-prefix">' +
+                        settings.prefix +
+                        '</span>',
+                    postfixhtml = '<span class="input-group-addon bootstrap-touchspin-postfix">' +
+                        settings.postfix +
+                        '</span>';
+
+                if (prev.hasClass('input-group-prepend')) {
+                    downhtml = '<button class="' +
+                        settings.buttondown_class +
+                        ' bootstrap-touchspin-down" type="button">' +
+                        settings.buttondown_txt +
+                        '</button>';
+                    prev.append(downhtml);
+                } else {
+                    downhtml = '<span class="input-group-prepend"><button class="' +
+                        settings.buttondown_class +
+                        ' bootstrap-touchspin-down" type="button">' +
+                        settings.buttondown_txt +
+                        '</button></span>';
+                    $(downhtml).insertBefore(originalinput);
+                }
+
+                if (next.hasClass('input-group-prepend')) {
+                    uphtml = '<button class="' +
+                        settings.buttonup_class +
+                        ' bootstrap-touchspin-up" type="button">' +
+                        settings.buttonup_txt +
+                        '</button>';
+                    next.prepend(uphtml);
+                } else {
+                    uphtml = '<span class="input-group-prepend"><button class="' +
+                        settings.buttonup_class +
+                        ' bootstrap-touchspin-up" type="button">' +
+                        settings.buttonup_txt +
+                        '</button></span>';
+                    $(uphtml).insertAfter(originalinput);
+                }
+
+                $(prefixhtml).insertBefore(originalinput);
+                $(postfixhtml).insertAfter(originalinput);
+
+                container = parentelement;
+            }
+
+            function _buildInputGroup() {
+                var html;
+
+                if (settings.verticalbuttons) {
+                    html =
+                        '<div class="input-group bootstrap-touchspin"><span class="input-group-addon bootstrap-touchspin-prefix">' +
+                        settings.prefix +
+                        '</span><span class="input-group-addon bootstrap-touchspin-postfix">' +
+                        settings.postfix +
+                        '</span><span class="input-group-btn-vertical"><button class="' +
+                        settings.buttondown_class +
+                        ' bootstrap-touchspin-up" type="button"><i class="' +
+                        settings.verticalupclass +
+                        '"></i></button><button class="' +
+                        settings.buttonup_class +
+                        ' bootstrap-touchspin-down" type="button"><i class="' +
+                        settings.verticaldownclass +
+                        '"></i></button></span></div>';
+                } else {
+                    if (settings.postfix === '') {
+                        html =
+                            '<div class="input-group bootstrap-touchspin"><span class="input-group-prepend"><button class="' +
+                            settings.buttondown_class +
+                            ' bootstrap-touchspin-down" type="button">' +
+                            settings.buttondown_txt +
+                            '</button></span><span class="input-group-addon bootstrap-touchspin-prefix">' +
+                            settings.prefix +
+                            '</span><span class="input-group-append"><button class="' +
+                            settings.buttonup_class +
+                            ' bootstrap-touchspin-up" type="button">' +
+                            settings.buttonup_txt +
+                            '</button></span></div>';
+                    } else {
+                        html =
+                            '<div class="input-group bootstrap-touchspin"><span class="input-group-prepend"><button class="' +
+                            settings.buttondown_class +
+                            ' bootstrap-touchspin-down" type="button">' +
+                            settings.buttondown_txt +
+                            '</button></span><span class="input-group-addon bootstrap-touchspin-prefix">' +
+                            settings.prefix +
+                            '</span><span class="input-group-append"><button class="btn btn-secondary" disabled>' +
+                            settings.postfix +
+                            '</button><button class="' +
+                            settings.buttonup_class +
+                            ' bootstrap-touchspin-up" type="button">' +
+                            settings.buttonup_txt +
+                            '</button></span></div>';
+                    }
+                    
+                }
+
+                container = $(html).insertBefore(originalinput);
+
+                $('.bootstrap-touchspin-prefix', container).after(originalinput);
+
+                if (originalinput.hasClass('input-sm')) {
+                    container.addClass('input-group-sm');
+                } else if (originalinput.hasClass('input-lg')) {
+                    container.addClass('input-group-lg');
+                }
+            }
+
+            function _initElements() {
+                elements = {
+                    down: $('.bootstrap-touchspin-down', container),
+                    up: $('.bootstrap-touchspin-up', container),
+                    input: $('input', container),
+                    prefix: $('.bootstrap-touchspin-prefix', container).addClass(settings.prefix_extraclass),
+                    postfix: $('.bootstrap-touchspin-postfix', container).addClass(settings.postfix_extraclass)
+                };
+            }
+
+            function _hideEmptyPrefixPostfix() {
+                if (settings.prefix === '') {
+                    elements.prefix.hide();
+                }
+
+                if (settings.postfix === '') {
+                    elements.postfix.hide();
+                }
+            }
+
+            function _bindEvents() {
+                originalinput.on('keydown',
+                    function(ev) {
+                        var code = ev.keyCode || ev.which;
+
+                        if (code === 38) {
+                            if (spinning !== 'up') {
+                                upOnce();
+                                startUpSpin();
+                            }
+                            ev.preventDefault();
+                        } else if (code === 40) {
+                            if (spinning !== 'down') {
+                                downOnce();
+                                startDownSpin();
+                            }
+                            ev.preventDefault();
+                        }
+                    });
+
+                originalinput.on('keyup',
+                    function(ev) {
+                        var code = ev.keyCode || ev.which;
+
+                        if (code === 38) {
+                            stopSpin();
+                        } else if (code === 40) {
+                            stopSpin();
+                        }
+                    });
+
+                originalinput.on('blur',
+                    function() {
+                        _checkValue();
+                    });
+
+                elements.down.on('keydown',
+                    function(ev) {
+                        var code = ev.keyCode || ev.which;
+
+                        if (code === 32 || code === 13) {
+                            if (spinning !== 'down') {
+                                downOnce();
+                                startDownSpin();
+                            }
+                            ev.preventDefault();
+                        }
+                    });
+
+                elements.down.on('keyup',
+                    function(ev) {
+                        var code = ev.keyCode || ev.which;
+
+                        if (code === 32 || code === 13) {
+                            stopSpin();
+                        }
+                    });
+
+                elements.up.on('keydown',
+                    function(ev) {
+                        var code = ev.keyCode || ev.which;
+
+                        if (code === 32 || code === 13) {
+                            if (spinning !== 'up') {
+                                upOnce();
+                                startUpSpin();
+                            }
+                            ev.preventDefault();
+                        }
+                    });
+
+                elements.up.on('keyup',
+                    function(ev) {
+                        var code = ev.keyCode || ev.which;
+
+                        if (code === 32 || code === 13) {
+                            stopSpin();
+                        }
+                    });
+
+                elements.down.on('mousedown.touchspin',
+                    function(ev) {
+                        elements.down.off('touchstart.touchspin'); // android 4 workaround
+
+                        if (originalinput.is(':disabled')) {
+                            return;
+                        }
+
+                        downOnce();
+                        startDownSpin();
+
+                        ev.preventDefault();
+                        ev.stopPropagation();
+                    });
+
+                elements.down.on('touchstart.touchspin',
+                    function(ev) {
+                        elements.down.off('mousedown.touchspin'); // android 4 workaround
+
+                        if (originalinput.is(':disabled')) {
+                            return;
+                        }
+
+                        downOnce();
+                        startDownSpin();
+
+                        ev.preventDefault();
+                        ev.stopPropagation();
+                    });
+
+                elements.up.on('mousedown.touchspin',
+                    function(ev) {
+                        elements.up.off('touchstart.touchspin'); // android 4 workaround
+
+                        if (originalinput.is(':disabled')) {
+                            return;
+                        }
+
+                        upOnce();
+                        startUpSpin();
+
+                        ev.preventDefault();
+                        ev.stopPropagation();
+                    });
+
+                elements.up.on('touchstart.touchspin',
+                    function(ev) {
+                        elements.up.off('mousedown.touchspin'); // android 4 workaround
+
+                        if (originalinput.is(':disabled')) {
+                            return;
+                        }
+
+                        upOnce();
+                        startUpSpin();
+
+                        ev.preventDefault();
+                        ev.stopPropagation();
+                    });
+
+                elements.up.on('mouseout touchleave touchend touchcancel',
+                    function(ev) {
+                        if (!spinning) {
+                            return;
+                        }
+
+                        ev.stopPropagation();
+                        stopSpin();
+                    });
+
+                elements.down.on('mouseout touchleave touchend touchcancel',
+                    function(ev) {
+                        if (!spinning) {
+                            return;
+                        }
+
+                        ev.stopPropagation();
+                        stopSpin();
+                    });
+
+                elements.down.on('mousemove touchmove',
+                    function(ev) {
+                        if (!spinning) {
+                            return;
+                        }
+
+                        ev.stopPropagation();
+                        ev.preventDefault();
+                    });
+
+                elements.up.on('mousemove touchmove',
+                    function(ev) {
+                        if (!spinning) {
+                            return;
+                        }
+
+                        ev.stopPropagation();
+                        ev.preventDefault();
+                    });
+
+                $(document).on(_scopeEventNames(['mouseup', 'touchend', 'touchcancel'], _currentSpinnerId).join(' '),
+                    function(ev) {
+                        if (!spinning) {
+                            return;
+                        }
+
+                        ev.preventDefault();
+                        stopSpin();
+                    });
+
+                $(document).on(
+                    _scopeEventNames(['mousemove', 'touchmove', 'scroll', 'scrollstart'], _currentSpinnerId).join(' '),
+                    function(ev) {
+                        if (!spinning) {
+                            return;
+                        }
+
+                        ev.preventDefault();
+                        stopSpin();
+                    });
+
+                originalinput.on('mousewheel DOMMouseScroll',
+                    function(ev) {
+                        if (!settings.mousewheel || !originalinput.is(':focus')) {
+                            return;
+                        }
+
+                        var delta = ev.originalEvent.wheelDelta || -ev.originalEvent.deltaY || -ev.originalEvent.detail;
+
+                        ev.stopPropagation();
+                        ev.preventDefault();
+
+                        if (delta < 0) {
+                            downOnce();
+                        } else {
+                            upOnce();
+                        }
+                    });
+            }
+
+            function _bindEventsInterface() {
+                originalinput.on('touchspin.uponce',
+                    function() {
+                        stopSpin();
+                        upOnce();
+                    });
+
+                originalinput.on('touchspin.downonce',
+                    function() {
+                        stopSpin();
+                        downOnce();
+                    });
+
+                originalinput.on('touchspin.startupspin',
+                    function() {
+                        startUpSpin();
+                    });
+
+                originalinput.on('touchspin.startdownspin',
+                    function() {
+                        startDownSpin();
+                    });
+
+                originalinput.on('touchspin.stopspin',
+                    function() {
+                        stopSpin();
+                    });
+
+                originalinput.on('touchspin.updatesettings',
+                    function(e, newsettings) {
+                        changeSettings(newsettings);
+                    });
+            }
+
+            function _forcestepdivisibility(value) {
+                switch (settings.forcestepdivisibility) {
+                case 'round':
+                    return (Math.round(value / settings.step) * settings.step).toFixed(settings.decimals);
+                case 'floor':
+                    return (Math.floor(value / settings.step) * settings.step).toFixed(settings.decimals);
+                case 'ceil':
+                    return (Math.ceil(value / settings.step) * settings.step).toFixed(settings.decimals);
+                default:
+                    return value;
+                }
+            }
+
+            function _checkValue() {
+                var val, parsedval, returnval;
+
+                val = originalinput.val();
+
+                if (val === '') {
+                    if (settings.replacementval !== '') {
+                        originalinput.val(settings.replacementval);
+                        originalinput.trigger('change');
+                    }
+                    return;
+                }
+
+                if (settings.decimals > 0 && val === '.') {
+                    return;
+                }
+
+                parsedval = parseFloat(val);
+
+                if (isNaN(parsedval)) {
+                    if (settings.replacementval !== '') {
+                        parsedval = settings.replacementval;
+                    } else {
+                        parsedval = 0;
+                    }
+                }
+
+                returnval = parsedval;
+
+                if (parsedval.toString() !== val) {
+                    returnval = parsedval;
+                }
+
+                if (parsedval < settings.min) {
+                    returnval = settings.min;
+                }
+
+                if (parsedval > settings.max) {
+                    returnval = settings.max;
+                }
+
+                returnval = _forcestepdivisibility(returnval);
+
+                if (Number(val).toString() !== returnval.toString()) {
+                    originalinput.val(returnval);
+                    originalinput.trigger('change');
+                }
+            }
+
+            function _getBoostedStep() {
+                if (!settings.booster) {
+                    return settings.step;
+                } else {
+                    var boosted = Math.pow(2, Math.floor(spincount / settings.boostat)) * settings.step;
+
+                    if (settings.maxboostedstep) {
+                        if (boosted > settings.maxboostedstep) {
+                            boosted = settings.maxboostedstep;
+                            value = Math.round((value / boosted)) * boosted;
+                        }
+                    }
+
+                    return Math.max(settings.step, boosted);
+                }
+            }
+
+            function upOnce() {
+                _checkValue();
+
+                value = parseFloat(elements.input.val());
+                if (isNaN(value)) {
+                    value = 0;
+                }
+
+                var initvalue = value,
+                    boostedstep = _getBoostedStep();
+
+                value = value + boostedstep;
+
+                if (value > settings.max) {
+                    value = settings.max;
+                    originalinput.trigger('touchspin.on.max');
+                    stopSpin();
+                }
+
+                elements.input.val(Number(value).toFixed(settings.decimals));
+
+                if (initvalue !== value) {
+                    originalinput.trigger('change');
+                }
+            }
+
+            function downOnce() {
+                _checkValue();
+
+                value = parseFloat(elements.input.val());
+                if (isNaN(value)) {
+                    value = 0;
+                }
+
+                var initvalue = value,
+                    boostedstep = _getBoostedStep();
+
+                value = value - boostedstep;
+
+                if (value < settings.min) {
+                    value = settings.min;
+                    originalinput.trigger('touchspin.on.min');
+                    stopSpin();
+                }
+
+                elements.input.val(value.toFixed(settings.decimals));
+
+                if (initvalue !== value) {
+                    originalinput.trigger('change');
+                }
+            }
+
+            function startDownSpin() {
+                stopSpin();
+
+                spincount = 0;
+                spinning = 'down';
+
+                originalinput.trigger('touchspin.on.startspin');
+                originalinput.trigger('touchspin.on.startdownspin');
+
+                downDelayTimeout = setTimeout(function() {
+                        downSpinTimer = setInterval(function() {
+                                spincount++;
+                                downOnce();
+                            },
+                            settings.stepinterval);
+                    },
+                    settings.stepintervaldelay);
+            }
+
+            function startUpSpin() {
+                stopSpin();
+
+                spincount = 0;
+                spinning = 'up';
+
+                originalinput.trigger('touchspin.on.startspin');
+                originalinput.trigger('touchspin.on.startupspin');
+
+                upDelayTimeout = setTimeout(function() {
+                        upSpinTimer = setInterval(function() {
+                                spincount++;
+                                upOnce();
+                            },
+                            settings.stepinterval);
+                    },
+                    settings.stepintervaldelay);
+            }
+
+            function stopSpin() {
+                clearTimeout(downDelayTimeout);
+                clearTimeout(upDelayTimeout);
+                clearInterval(downSpinTimer);
+                clearInterval(upSpinTimer);
+
+                switch (spinning) {
+                case 'up':
+                    originalinput.trigger('touchspin.on.stopupspin');
+                    originalinput.trigger('touchspin.on.stopspin');
+                    break;
+                case 'down':
+                    originalinput.trigger('touchspin.on.stopdownspin');
+                    originalinput.trigger('touchspin.on.stopspin');
+                    break;
+                }
+
+                spincount = 0;
+                spinning = false;
+            }
+
+        });
+
+    };
+
+})(jQuery);
 /*!
  * Select2 4.0.11
  * https://select2.github.io
@@ -33490,6 +33655,1473 @@ S2.define('jquery.select2',[
 }));
 
 /*
+ * bootstrap-tagsinput v0.8.0
+ * 
+ */
+
+(function ($) {
+  "use strict";
+
+  var defaultOptions = {
+    tagClass: function(item) {
+      return "badge badge-primary";
+    },
+    focusClass: "focus",
+    itemValue: function(item) {
+      return item ? item.toString() : item;
+    },
+    itemText: function(item) {
+      return this.itemValue(item);
+    },
+    itemTitle: function(item) {
+      return null;
+    },
+    freeInput: true,
+    addOnBlur: true,
+    maxTags: undefined,
+    maxChars: undefined,
+    confirmKeys: [13, 44],
+    delimiter: ",",
+    delimiterRegex: null,
+    cancelConfirmKeysOnEmpty: false,
+    onTagExists: function(item, $tag) {
+      $tag.hide().fadeIn();
+    },
+    trimValue: false,
+    allowDuplicates: false,
+    triggerChange: true,
+    editOnBackspace: false
+  };
+
+  /**
+   * Constructor function
+   */
+  function TagsInput(element, options) {
+    this.isInit = true;
+    this.itemsArray = [];
+
+    this.$element = $(element);
+    this.$element.addClass("sr-only");
+
+    this.isSelect = (element.tagName === "SELECT");
+    this.multiple = (this.isSelect && element.hasAttribute("multiple"));
+    this.objectItems = options && options.itemValue;
+    this.placeholderText = element.hasAttribute("placeholder") ? this.$element.attr("placeholder") : "";
+    this.inputSize = Math.max(1, this.placeholderText.length);
+
+    this.$container = $('<div class="bootstrap-tagsinput"></div>');
+    this.$input = $('<input type="text" placeholder="' + this.placeholderText + '"/>').appendTo(this.$container);
+
+    this.$element.before(this.$container);
+
+    this.build(options);
+    this.isInit = false;
+  }
+
+  TagsInput.prototype = {
+    constructor: TagsInput,
+
+    /**
+     * Adds the given item as a new tag. Pass true to dontPushVal to prevent
+     * updating the elements val()
+     */
+    add: function(item, dontPushVal, options) {
+      var self = this;
+
+      if (self.options.maxTags && self.itemsArray.length >= self.options.maxTags)
+        return;
+
+      // Ignore falsey values, except false
+      if (item !== false && !item)
+        return;
+
+      // Trim value
+      if (typeof item === "string" && self.options.trimValue) {
+        item = $.trim(item);
+      }
+
+      // Throw an error when trying to add an object while the itemValue option was not set
+      if (typeof item === "object" && !self.objectItems)
+        throw("Can't add objects when itemValue option is not set");
+
+      // Ignore strings only containg whitespace
+      if (item.toString().match(/^\s*$/))
+        return;
+
+      // If SELECT but not multiple, remove current tag
+      if (self.isSelect && !self.multiple && self.itemsArray.length > 0)
+        self.remove(self.itemsArray[0]);
+
+      if (typeof item === "string" && this.$element[0].tagName === "INPUT") {
+        var delimiter = (self.options.delimiterRegex) ? self.options.delimiterRegex : self.options.delimiter;
+        var items = item.split(delimiter);
+        if (items.length > 1) {
+          for (var i = 0; i < items.length; i++) {
+            this.add(items[i], true);
+          }
+
+          if (!dontPushVal)
+            self.pushVal(self.options.triggerChange);
+          return;
+        }
+      }
+
+      var itemValue = self.options.itemValue(item),
+          itemText = self.options.itemText(item),
+          tagClass = self.options.tagClass(item),
+          itemTitle = self.options.itemTitle(item);
+
+      // Ignore items allready added
+      var existing = $.grep(self.itemsArray, function(item) { return self.options.itemValue(item) === itemValue; } )[0];
+      if (existing && !self.options.allowDuplicates) {
+        // Invoke onTagExists
+        if (self.options.onTagExists) {
+          var $existingTag = $(".badge", self.$container).filter(function() { return $(this).data("item") === existing; });
+          self.options.onTagExists(item, $existingTag);
+        }
+        return;
+      }
+
+      // if length greater than limit
+      if (self.items().toString().length + item.length + 1 > self.options.maxInputLength)
+        return;
+
+      // raise beforeItemAdd arg
+      var beforeItemAddEvent = $.Event("beforeItemAdd", { item: item, cancel: false, options: options});
+      self.$element.trigger(beforeItemAddEvent);
+      if (beforeItemAddEvent.cancel)
+        return;
+
+      // register item in internal array and map
+      self.itemsArray.push(item);
+
+      // add a tag element
+
+        var $tag = $('<span class="' + htmlEncode(tagClass) + (itemTitle !== null ? ('" title="' + itemTitle) : "") + '"><i class="fas fa-tag mr-1"></i>' + htmlEncode(itemText) + '<span data-role="remove"></span></span>');
+      $tag.data("item", item);
+      self.findInputWrapper().before($tag);
+
+      // Check to see if the tag exists in its raw or uri-encoded form
+      var optionExists = (
+        $('option[value="' + encodeURIComponent(itemValue).replace(/"/g, '\\"') + '"]', self.$element).length ||
+        $('option[value="' + htmlEncode(itemValue).replace(/"/g, '\\"') + '"]', self.$element).length
+      );
+
+      // add <option /> if item represents a value not present in one of the <select />'s options
+      if (self.isSelect && !optionExists) {
+        var $option = $("<option selected>" + htmlEncode(itemText) + "</option>");
+        $option.data("item", item);
+        $option.attr("value", itemValue);
+        self.$element.append($option);
+      }
+
+      if (!dontPushVal)
+        self.pushVal(self.options.triggerChange);
+
+      // Add class when reached maxTags
+      if (self.options.maxTags === self.itemsArray.length || self.items().toString().length === self.options.maxInputLength)
+        self.$container.addClass("bootstrap-tagsinput-max");
+
+      // If using typeahead, once the tag has been added, clear the typeahead value so it does not stick around in the input.
+      if ($(".typeahead, .twitter-typeahead", self.$container).length) {
+        self.$input.typeahead("val", "");
+      }
+
+      if (this.isInit) {
+        self.$element.trigger($.Event("itemAddedOnInit", { item: item, options: options }));
+      } else {
+        self.$element.trigger($.Event("itemAdded", { item: item, options: options }));
+      }
+    },
+
+    /**
+     * Removes the given item. Pass true to dontPushVal to prevent updating the
+     * elements val()
+     */
+    remove: function(item, dontPushVal, options) {
+      var self = this;
+
+      if (self.objectItems) {
+        if (typeof item === "object")
+          item = $.grep(self.itemsArray, function(other) { return self.options.itemValue(other) ==  self.options.itemValue(item); } );
+        else
+          item = $.grep(self.itemsArray, function(other) { return self.options.itemValue(other) ==  item; } );
+
+        item = item[item.length-1];
+      }
+
+      if (item) {
+        var beforeItemRemoveEvent = $.Event("beforeItemRemove", { item: item, cancel: false, options: options });
+        self.$element.trigger(beforeItemRemoveEvent);
+        if (beforeItemRemoveEvent.cancel)
+          return;
+
+        $(".badge", self.$container).filter(function() { return $(this).data("item") === item; }).remove();
+        $("option", self.$element).filter(function() { return $(this).data("item") === item; }).remove();
+        if($.inArray(item, self.itemsArray) !== -1)
+          self.itemsArray.splice($.inArray(item, self.itemsArray), 1);
+      }
+
+      if (!dontPushVal)
+        self.pushVal(self.options.triggerChange);
+
+      // Remove class when reached maxTags
+      if (self.options.maxTags > self.itemsArray.length)
+        self.$container.removeClass("bootstrap-tagsinput-max");
+
+      self.$element.trigger($.Event("itemRemoved",  { item: item, options: options }));
+    },
+
+    /**
+     * Removes all items
+     */
+    removeAll: function() {
+      var self = this;
+
+      $(".badge", self.$container).remove();
+      $("option", self.$element).remove();
+
+      while(self.itemsArray.length > 0)
+        self.itemsArray.pop();
+
+      self.pushVal(self.options.triggerChange);
+    },
+
+    /**
+     * Refreshes the tags so they match the text/value of their corresponding
+     * item.
+     */
+    refresh: function() {
+      var self = this;
+      $(".badge", self.$container).each(function() {
+        var $tag = $(this),
+            item = $tag.data("item"),
+            itemValue = self.options.itemValue(item),
+            itemText = self.options.itemText(item),
+            tagClass = self.options.tagClass(item);
+
+          // Update tag's class and inner text
+          $tag.attr("class", null);
+          $tag.addClass("badge " + htmlEncode(tagClass));
+          $tag.contents().filter(function() {
+            return this.nodeType == 3;
+          })[0].nodeValue = htmlEncode(itemText);
+
+          if (self.isSelect) {
+            var option = $("option", self.$element).filter(function() { return $(this).data("item") === item; });
+            option.attr("value", itemValue);
+          }
+      });
+    },
+
+    /**
+     * Returns the items added as tags
+     */
+    items: function() {
+      return this.itemsArray;
+    },
+
+    /**
+     * Assembly value by retrieving the value of each item, and set it on the
+     * element.
+     */
+    pushVal: function() {
+      var self = this,
+          val = $.map(self.items(), function(item) {
+            return self.options.itemValue(item).toString();
+          });
+
+      self.$element.val( val.join(self.options.delimiter) );
+
+      if (self.options.triggerChange)
+        self.$element.trigger("change");
+    },
+
+    /**
+     * Initializes the tags input behaviour on the element
+     */
+    build: function(options) {
+      var self = this;
+
+      self.options = $.extend({}, defaultOptions, options);
+      // When itemValue is set, freeInput should always be false
+      if (self.objectItems)
+        self.options.freeInput = false;
+
+      makeOptionItemFunction(self.options, "itemValue");
+      makeOptionItemFunction(self.options, "itemText");
+      makeOptionFunction(self.options, "tagClass");
+
+      // Typeahead Bootstrap version 2.3.2
+      if (self.options.typeahead) {
+        var typeahead = self.options.typeahead || {};
+
+        makeOptionFunction(typeahead, "source");
+
+        self.$input.typeahead($.extend({}, typeahead, {
+          source: function (query, process) {
+            function processItems(items) {
+              var texts = [];
+
+              for (var i = 0; i < items.length; i++) {
+                var text = self.options.itemText(items[i]);
+                map[text] = items[i];
+                texts.push(text);
+              }
+              process(texts);
+            }
+
+            this.map = {};
+            var map = this.map,
+                data = typeahead.source(query);
+
+            if ($.isFunction(data.success)) {
+              // support for Angular callbacks
+              data.success(processItems);
+            } else if ($.isFunction(data.then)) {
+              // support for Angular promises
+              data.then(processItems);
+            } else {
+              // support for functions and jquery promises
+              $.when(data)
+               .then(processItems);
+            }
+          },
+          updater: function (text) {
+            self.add(this.map[text]);
+            return this.map[text];
+          },
+          matcher: function (text) {
+            return (text.toLowerCase().indexOf(this.query.trim().toLowerCase()) !== -1);
+          },
+          sorter: function (texts) {
+            return texts.sort();
+          },
+          highlighter: function (text) {
+            var regex = new RegExp( "(" + this.query + ")", "gi" );
+            return text.replace( regex, "<strong>$1</strong>" );
+          }
+        }));
+      }
+
+      // typeahead.js
+      if (self.options.typeaheadjs) {
+        // Determine if main configurations were passed or simply a dataset
+        var typeaheadjs = self.options.typeaheadjs;
+        if (!$.isArray(typeaheadjs)) {
+            typeaheadjs = [null, typeaheadjs];
+        }
+
+        $.fn.typeahead.apply(self.$input, typeaheadjs).on("typeahead:selected", $.proxy(function (obj, datum, name) {
+          var index = 0;
+          typeaheadjs.some(function(dataset, _index) {
+            if (dataset.name === name) {
+              index = _index;
+              return true;
+            }
+            return false;
+          });
+
+          // @TODO Dep: https://github.com/corejavascript/typeahead.js/issues/89
+          if (typeaheadjs[index].valueKey) {
+            self.add(datum[typeaheadjs[index].valueKey]);
+          } else {
+            self.add(datum);
+          }
+
+          self.$input.typeahead("val", "");
+        }, self));
+      }
+
+      self.$container.on("click", $.proxy(function(event) {
+        if (! self.$element.attr("disabled")) {
+          self.$input.removeAttr("disabled");
+        }
+        self.$input.focus();
+      }, self));
+
+        if (self.options.addOnBlur && self.options.freeInput) {
+          self.$input.on("focusout", $.proxy(function(event) {
+              // HACK: only process on focusout when no typeahead opened, to
+              //       avoid adding the typeahead text as tag
+              if ($(".typeahead, .twitter-typeahead", self.$container).length === 0) {
+                self.add(self.$input.val());
+                self.$input.val("");
+              }
+          }, self));
+        }
+
+      // Toggle the 'focus' css class on the container when it has focus
+      self.$container.on({
+        focusin: function() {
+          self.$container.addClass(self.options.focusClass);
+        },
+        focusout: function() {
+          self.$container.removeClass(self.options.focusClass);
+        },
+      });
+
+      self.$container.on("keydown", "input", $.proxy(function(event) {
+        var $input = $(event.target),
+            $inputWrapper = self.findInputWrapper();
+
+        if (self.$element.attr("disabled")) {
+          self.$input.attr("disabled", "disabled");
+          return;
+        }
+
+        switch (event.which) {
+          // BACKSPACE
+          case 8:
+            if (doGetCaretPosition($input[0]) === 0) {
+              var prev = $inputWrapper.prev();
+              if (prev.length) {
+                if (self.options.editOnBackspace === true) {
+                  $input.val(prev.data("item"));
+                }
+                self.remove(prev.data("item"));
+              }
+            }
+            break;
+
+          // DELETE
+          case 46:
+            if (doGetCaretPosition($input[0]) === 0) {
+              var next = $inputWrapper.next();
+              if (next.length) {
+                self.remove(next.data("item"));
+              }
+            }
+            break;
+
+          // LEFT ARROW
+          case 37:
+            // Try to move the input before the previous tag
+            var $prevTag = $inputWrapper.prev();
+            if ($input.val().length === 0 && $prevTag[0]) {
+              $prevTag.before($inputWrapper);
+              $input.focus();
+            }
+            break;
+          // RIGHT ARROW
+          case 39:
+            // Try to move the input after the next tag
+            var $nextTag = $inputWrapper.next();
+            if ($input.val().length === 0 && $nextTag[0]) {
+              $nextTag.after($inputWrapper);
+              $input.focus();
+            }
+            break;
+         default:
+             // ignore
+         }
+
+        // Reset internal input's size
+        var textLength = $input.val().length,
+            wordSpace = Math.ceil(textLength / 5),
+            size = textLength + wordSpace + 1;
+        $input.attr("size", Math.max(this.inputSize, size));
+      }, self));
+
+      self.$container.on("keypress", "input", $.proxy(function(event) {
+         var $input = $(event.target);
+
+         if (self.$element.attr("disabled")) {
+            self.$input.attr("disabled", "disabled");
+            return;
+         }
+
+         var text = $input.val(),
+         maxLengthReached = self.options.maxChars && text.length >= self.options.maxChars;
+         if (self.options.freeInput && (keyCombinationInList(event, self.options.confirmKeys) || maxLengthReached)) {
+            // Only attempt to add a tag if there is data in the field
+            if (text.length !== 0) {
+               self.add(maxLengthReached ? text.substr(0, self.options.maxChars) : text);
+               $input.val("");
+            }
+
+            // If the field is empty, let the event triggered fire as usual
+            if (self.options.cancelConfirmKeysOnEmpty === false) {
+                event.preventDefault();
+            }
+         }
+
+         // Reset internal input's size
+         var textLength = $input.val().length,
+            wordSpace = Math.ceil(textLength / 5),
+            size = textLength + wordSpace + 1;
+         $input.attr("size", Math.max(this.inputSize, size));
+      }, self));
+
+      // Remove icon clicked
+      self.$container.on("click", "[data-role=remove]", $.proxy(function(event) {
+        if (self.$element.attr("disabled")) {
+          return;
+        }
+        self.remove($(event.target).closest(".badge").data("item"));
+      }, self));
+
+      // Only add existing value as tags when using strings as tags
+      if (self.options.itemValue === defaultOptions.itemValue) {
+        if (self.$element[0].tagName === "INPUT") {
+            self.add(self.$element.val());
+        } else {
+          $("option", self.$element).each(function() {
+            self.add($(this).attr("value"), true);
+          });
+        }
+      }
+    },
+
+    /**
+     * Removes all tagsinput behaviour and unregsiter all event handlers
+     */
+    destroy: function() {
+      var self = this;
+
+      // Unbind events
+      self.$container.off("keypress", "input");
+      self.$container.off("click", "[role=remove]");
+
+      self.$container.remove();
+      self.$element.removeData("tagsinput");
+      self.$element.show();
+    },
+
+    /**
+     * Sets focus on the tagsinput
+     */
+    focus: function() {
+      this.$input.focus();
+    },
+
+    /**
+     * Returns the internal input element
+     */
+    input: function() {
+      return this.$input;
+    },
+
+    /**
+     * Returns the element which is wrapped around the internal input. This
+     * is normally the $container, but typeahead.js moves the $input element.
+     */
+    findInputWrapper: function() {
+      var elt = this.$input[0],
+          container = this.$container[0];
+      while(elt && elt.parentNode !== container)
+        elt = elt.parentNode;
+
+      return $(elt);
+    }
+  };
+
+  /**
+   * Register JQuery plugin
+   */
+  $.fn.tagsinput = function(arg1, arg2, arg3) {
+    var results = [];
+
+    this.each(function() {
+      var tagsinput = $(this).data("tagsinput");
+      // Initialize a new tags input
+      if (!tagsinput) {
+          tagsinput = new TagsInput(this, arg1);
+          $(this).data("tagsinput", tagsinput);
+          results.push(tagsinput);
+
+          if (this.tagName === "SELECT") {
+              $("option", $(this)).attr("selected", "selected");
+          }
+
+          // Init tags from $(this).val()
+          $(this).val($(this).val());
+      } else if (!arg1 && !arg2) {
+          // tagsinput already exists
+          // no function, trying to init
+          results.push(tagsinput);
+      } else if(tagsinput[arg1] !== undefined) {
+          // Invoke function on existing tags input
+            if(tagsinput[arg1].length === 3 && arg3 !== undefined){
+               var retVal = tagsinput[arg1](arg2, null, arg3);
+            }else{
+               var retVal = tagsinput[arg1](arg2);
+            }
+          if (retVal !== undefined)
+              results.push(retVal);
+      }
+    });
+
+    if ( typeof arg1 == "string") {
+      // Return the results from the invoked function calls
+      return results.length > 1 ? results : results[0];
+    } else {
+      return results;
+    }
+  };
+
+  $.fn.tagsinput.Constructor = TagsInput;
+
+  /**
+   * Most options support both a string or number as well as a function as
+   * option value. This function makes sure that the option with the given
+   * key in the given options is wrapped in a function
+   */
+  function makeOptionItemFunction(options, key) {
+    if (typeof options[key] !== "function") {
+      var propertyName = options[key];
+      options[key] = function(item) { return item[propertyName]; };
+    }
+  }
+  function makeOptionFunction(options, key) {
+    if (typeof options[key] !== "function") {
+      var value = options[key];
+      options[key] = function() { return value; };
+    }
+  }
+  /**
+   * HtmlEncodes the given value
+   */
+  var htmlEncodeContainer = $("<div />");
+  function htmlEncode(value) {
+    if (value) {
+      return htmlEncodeContainer.text(value).html();
+    } else {
+      return "";
+    }
+  }
+
+  /**
+   * Returns the position of the caret in the given input field
+   * http://flightschool.acylt.com/devnotes/caret-position-woes/
+   */
+  function doGetCaretPosition(oField) {
+    var iCaretPos = 0;
+    if (document.selection) {
+      oField.focus ();
+      var oSel = document.selection.createRange();
+      oSel.moveStart ("character", -oField.value.length);
+      iCaretPos = oSel.text.length;
+    } else if (oField.selectionStart || oField.selectionStart == "0") {
+      iCaretPos = oField.selectionStart;
+    }
+    return (iCaretPos);
+  }
+
+  /**
+    * Returns boolean indicates whether user has pressed an expected key combination.
+    * @param object keyPressEvent: JavaScript event object, refer
+    *     http://www.w3.org/TR/2003/WD-DOM-Level-3-Events-20030331/ecma-script-binding.html
+    * @param object lookupList: expected key combinations, as in:
+    *     [13, {which: 188, shiftKey: true}]
+    */
+  function keyCombinationInList(keyPressEvent, lookupList) {
+      var found = false;
+      $.each(lookupList, function (index, keyCombination) {
+          if (typeof (keyCombination) === "number" && keyPressEvent.which === keyCombination) {
+              found = true;
+              return false;
+          }
+
+          if (keyPressEvent.which === keyCombination.which) {
+              var alt = !keyCombination.hasOwnProperty("altKey") || keyPressEvent.altKey === keyCombination.altKey,
+                  shift = !keyCombination.hasOwnProperty("shiftKey") || keyPressEvent.shiftKey === keyCombination.shiftKey,
+                  ctrl = !keyCombination.hasOwnProperty("ctrlKey") || keyPressEvent.ctrlKey === keyCombination.ctrlKey;
+              if (alt && shift && ctrl) {
+                  found = true;
+                  return false;
+              }
+          }
+      });
+
+      return found;
+  }
+
+  /**
+   * Initialize tagsinput behaviour on inputs and selects which have
+   * data-role=tagsinput
+   */
+  $(function() {
+    $("input[data-role=tagsinput], select[multiple][data-role=tagsinput]").tagsinput();
+  });
+})(window.jQuery);
+
+/* =============================================================
+ * bootstrap3-typeahead.js v4.0.2
+ * https://github.com/bassjobsen/Bootstrap-3-Typeahead
+ * =============================================================
+ * Original written by @mdo and @fat
+ * =============================================================
+ * Copyright 2014 Bass Jobsen @bassjobsen
+ *
+ * Licensed under the Apache License, Version 2.0 (the 'License');
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an 'AS IS' BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * ============================================================ */
+
+
+(function (root, factory) {
+
+    'use strict';
+
+    // CommonJS module is defined
+    if (typeof module !== 'undefined' && module.exports) {
+        module.exports = factory(require('jquery'));
+    }
+    // AMD module is defined
+    else if (typeof define === 'function' && define.amd) {
+        define(['jquery'], function ($) {
+            return factory($);
+        });
+    } else {
+        factory(root.jQuery);
+    }
+
+}(this, function ($) {
+
+    'use strict';
+    // jshint laxcomma: true
+
+
+    /* TYPEAHEAD PUBLIC CLASS DEFINITION
+     * ================================= */
+
+    var Typeahead = function (element, options) {
+        this.$element = $(element);
+        this.options = $.extend({}, Typeahead.defaults, options);
+        this.matcher = this.options.matcher || this.matcher;
+        this.sorter = this.options.sorter || this.sorter;
+        this.select = this.options.select || this.select;
+        this.autoSelect = typeof this.options.autoSelect == 'boolean' ? this.options.autoSelect : true;
+        this.highlighter = this.options.highlighter || this.highlighter;
+        this.render = this.options.render || this.render;
+        this.updater = this.options.updater || this.updater;
+        this.displayText = this.options.displayText || this.displayText;
+        this.itemLink = this.options.itemLink || this.itemLink;
+        this.itemTitle = this.options.itemTitle || this.itemTitle;
+        this.followLinkOnSelect = this.options.followLinkOnSelect || this.followLinkOnSelect;
+        this.source = this.options.source;
+        this.delay = this.options.delay;
+        this.theme = this.options.theme && this.options.themes && this.options.themes[this.options.theme] || Typeahead.defaults.themes[Typeahead.defaults.theme];
+        this.$menu = $(this.options.menu || this.theme.menu);
+        this.$appendTo = this.options.appendTo ? $(this.options.appendTo) : null;
+        this.fitToElement = typeof this.options.fitToElement == 'boolean' ? this.options.fitToElement : false;
+        this.shown = false;
+        this.listen();
+        this.showHintOnFocus = typeof this.options.showHintOnFocus == 'boolean' || this.options.showHintOnFocus === 'all' ? this.options.showHintOnFocus : false;
+        this.afterSelect = this.options.afterSelect;
+        this.afterEmptySelect = this.options.afterEmptySelect;
+        this.addItem = false;
+        this.value = this.$element.val() || this.$element.text();
+        this.keyPressed = false;
+        this.focused = this.$element.is(':focus');
+        this.changeInputOnSelect = this.options.changeInputOnSelect || this.changeInputOnSelect;
+        this.changeInputOnMove = this.options.changeInputOnMove || this.changeInputOnMove;
+        this.openLinkInNewTab = this.options.openLinkInNewTab || this.openLinkInNewTab;
+        this.selectOnBlur = this.options.selectOnBlur || this.selectOnBlur;
+        this.showCategoryHeader = this.options.showCategoryHeader || this.showCategoryHeader;
+    };
+
+    Typeahead.prototype = {
+
+        constructor: Typeahead,
+
+
+        setDefault: function (val) {
+            // var val = this.$menu.find('.active').data('value');
+            this.$element.data('active', val);
+            if (this.autoSelect || val) {
+                var newVal = this.updater(val);
+                // Updater can be set to any random functions via "options" parameter in constructor above.
+                // Add null check for cases when updater returns void or undefined.
+                if (!newVal) {
+                    newVal = '';
+                }
+                this.$element
+                    .val(this.displayText(newVal) || newVal)
+                    .text(this.displayText(newVal) || newVal)
+                    .change();
+                this.afterSelect(newVal);
+            }
+            return this.hide();
+        },
+
+        select: function () {
+            var val = this.$menu.find('.active').data('value');
+
+            this.$element.data('active', val);
+            if (this.autoSelect || val) {
+                var newVal = this.updater(val);
+                // Updater can be set to any random functions via "options" parameter in constructor above.
+                // Add null check for cases when updater returns void or undefined.
+                if (!newVal) {
+                    newVal = '';
+                }
+
+                if (this.changeInputOnSelect) {
+                    this.$element
+                        .val(this.displayText(newVal) || newVal)
+                        .text(this.displayText(newVal) || newVal)
+                        .change();
+                }
+
+                if (this.followLinkOnSelect && this.itemLink(val)) {
+                    if (this.openLinkInNewTab) {
+                        window.open(this.itemLink(val), '_blank');
+                    } else {
+                        document.location = this.itemLink(val);
+                    }
+                    this.afterSelect(newVal);
+                } else if (this.followLinkOnSelect && !this.itemLink(val)) {
+                    this.afterEmptySelect(newVal);
+                } else {
+                    this.afterSelect(newVal);
+                }
+            } else {
+                this.afterEmptySelect();
+            }
+
+            return this.hide();
+        },
+
+        updater: function (item) {
+            return item;
+        },
+
+        setSource: function (source) {
+            this.source = source;
+        },
+
+        show: function () {
+            var pos = $.extend({}, this.$element.position(), {
+                height: this.$element[0].offsetHeight
+            });
+
+            var scrollHeight = typeof this.options.scrollHeight == 'function' ?
+                this.options.scrollHeight.call() :
+                this.options.scrollHeight;
+
+            var element;
+            if (this.shown) {
+                element = this.$menu;
+            } else if (this.$appendTo) {
+                element = this.$menu.appendTo(this.$appendTo);
+                this.hasSameParent = this.$appendTo.is(this.$element.parent());
+            } else {
+                element = this.$menu.insertAfter(this.$element);
+                this.hasSameParent = true;
+            }
+
+            if (!this.hasSameParent) {
+                // We cannot rely on the element position, need to position relative to the window
+                element.css('position', 'fixed');
+                var offset = this.$element.offset();
+                pos.top = offset.top;
+                pos.left = offset.left;
+            }
+            // The rules for bootstrap are: 'dropup' in the parent and 'dropdown-menu-right' in the element.
+            // Note that to get right alignment, you'll need to specify `menu` in the options to be:
+            // '<ul class="typeahead dropdown-menu" role="listbox"></ul>'
+            var dropup = $(element).parent().hasClass('dropup');
+            var newTop = dropup ? 'auto' : (pos.top + pos.height + scrollHeight);
+            var right = $(element).hasClass('dropdown-menu-right');
+            var newLeft = right ? 'auto' : pos.left;
+            // it seems like setting the css is a bad idea (just let Bootstrap do it), but I'll keep the old
+            // logic in place except for the dropup/right-align cases.
+            element.css({ top: newTop, left: newLeft }).show();
+
+            if (this.options.fitToElement === true) {
+                element.css('width', this.$element.outerWidth() + 'px');
+            }
+
+            this.shown = true;
+            return this;
+        },
+
+        hide: function () {
+            this.$menu.hide();
+            this.shown = false;
+            return this;
+        },
+
+        lookup: function (query) {
+            if (typeof(query) != 'undefined' && query !== null) {
+                this.query = query;
+            } else {
+                this.query = this.$element.val();
+            }
+
+            if (this.query.length < this.options.minLength && !this.options.showHintOnFocus) {
+                return this.shown ? this.hide() : this;
+            }
+
+            var worker = $.proxy(function () {
+
+                // Bloodhound (since 0.11) needs three arguments.
+                // Two of them are callback functions (sync and async) for local and remote data processing
+                // see https://github.com/twitter/typeahead.js/blob/master/src/bloodhound/bloodhound.js#L132
+                if ($.isFunction(this.source) && this.source.length === 3) {
+                    this.source(this.query, $.proxy(this.process, this), $.proxy(this.process, this));
+                } else if ($.isFunction(this.source)) {
+                    this.source(this.query, $.proxy(this.process, this));
+                } else if (this.source) {
+                    this.process(this.source);
+                }
+            }, this);
+
+            clearTimeout(this.lookupWorker);
+            this.lookupWorker = setTimeout(worker, this.delay);
+        },
+
+        process: function (items) {
+            var that = this;
+
+            items = $.grep(items, function (item) {
+                return that.matcher(item);
+            });
+
+            items = this.sorter(items);
+
+            if (!items.length && !this.options.addItem) {
+                return this.shown ? this.hide() : this;
+            }
+
+            if (items.length > 0) {
+                this.$element.data('active', items[0]);
+            } else {
+                this.$element.data('active', null);
+            }
+
+            if (this.options.items != 'all') {
+                items = items.slice(0, this.options.items);
+            }
+
+            // Add item
+            if (this.options.addItem) {
+                items.push(this.options.addItem);
+            }
+
+            return this.render(items).show();
+        },
+
+        matcher: function (item) {
+            var it = this.displayText(item);
+            return ~it.toLowerCase().indexOf(this.query.toLowerCase());
+        },
+
+        sorter: function (items) {
+            var beginswith = [];
+            var caseSensitive = [];
+            var caseInsensitive = [];
+            var item;
+
+            while ((item = items.shift())) {
+                var it = this.displayText(item);
+                if (!it.toLowerCase().indexOf(this.query.toLowerCase())) {
+                    beginswith.push(item);
+                } else if (~it.indexOf(this.query)) {
+                    caseSensitive.push(item);
+                } else {
+                    caseInsensitive.push(item);
+                }
+            }
+
+            return beginswith.concat(caseSensitive, caseInsensitive);
+        },
+
+        highlighter: function (item) {
+            var text = this.query;
+            if (text === '') {
+                return item;
+            }
+            var matches = item.match(/(>)([^<]*)(<)/g);
+            var first = [];
+            var second = [];
+            var i;
+            if (matches && matches.length) {
+                // html
+                for (i = 0; i < matches.length; ++i) {
+                    if (matches[i].length > 2) {// escape '><'
+                        first.push(matches[i]);
+                    }
+                }
+            } else {
+                // text
+                first = [];
+                first.push(item);
+            }
+            text = text.replace((/[\(\)\/\.\*\+\?\[\]]/g), function (mat) {
+                return '\\' + mat;
+            });
+            var reg = new RegExp(text, 'g');
+            var m;
+            for (i = 0; i < first.length; ++i) {
+                m = first[i].match(reg);
+                if (m && m.length > 0) {// find all text nodes matches
+                    second.push(first[i]);
+                }
+            }
+            for (i = 0; i < second.length; ++i) {
+                item = item.replace(second[i], second[i].replace(reg, '<strong>$&</strong>'));
+            }
+            return item;
+        },
+
+        render: function (items) {
+            var that = this;
+            var self = this;
+            var activeFound = false;
+            var data = [];
+            var _category = that.options.separator;
+
+            $.each(items, function (key, value) {
+                // inject separator
+                if (key > 0 && value[_category] !== items[key - 1][_category]) {
+                    data.push({
+                        __type: 'divider'
+                    });
+                }
+
+                if (this.showCategoryHeader) {
+                    // inject category header
+                    if (value[_category] && (key === 0 || value[_category] !== items[key - 1][_category])) {
+                        data.push({
+                            __type: 'category',
+                            name: value[_category]
+                        });
+                    }
+                }
+
+                data.push(value);
+            });
+
+            items = $(data).map(function (i, item) {
+                    if ((item.__type || false) == 'category'){
+                        return $(that.options.headerHtml || that.theme.headerHtml).text(item.name)[0];
+                    }
+
+                    if ((item.__type || false) == 'divider'){
+                        return $(that.options.headerDivider || that.theme.headerDivider)[0];
+                    }
+
+                    var text = self.displayText(item);
+                    i = $(that.options.item || that.theme.item).data('value', item);
+                    i.find(that.options.itemContentSelector || that.theme.itemContentSelector)
+                        .addBack(that.options.itemContentSelector || that.theme.itemContentSelector)
+                        .html(that.highlighter(text, item));
+                    if(that.options.followLinkOnSelect) {
+                        i.find('a').attr('href', self.itemLink(item));
+                    }
+                    i.find('a').attr('title', self.itemTitle(item));
+                    if (text == self.$element.val()) {
+                        i.addClass('active');
+                        self.$element.data('active', item);
+                        activeFound = true;
+                    }
+                    return i[0];
+                });
+
+            if (this.autoSelect && !activeFound) {
+                items.filter(':not(.dropdown-header)').first().addClass('active');
+                this.$element.data('active', items.first().data('value'));
+            }
+            this.$menu.html(items);
+            return this;
+        },
+
+        displayText: function (item) {
+            return typeof item !== 'undefined' && typeof item.name != 'undefined' ? item.name : item;
+        },
+
+        itemLink: function (item) {
+            return null;
+        },
+
+        itemTitle: function (item) {
+            return null;
+        },
+
+        next: function (event) {
+            var active = this.$menu.find('.active').removeClass('active');
+            var next = active.next();
+
+            if (!next.length) {
+                next = $(this.$menu.find($(this.options.item || this.theme.item).prop('tagName'))[0]);
+            }
+
+            while (next.hasClass('divider') || next.hasClass('dropdown-header')) {
+                next = next.next();
+            }
+
+            next.addClass('active');
+            // added for screen reader
+            var newVal = this.updater(next.data('value'));
+            if (this.changeInputOnMove) {
+                this.$element.val(this.displayText(newVal) || newVal);
+            }
+        },
+
+        prev: function (event) {
+            var active = this.$menu.find('.active').removeClass('active');
+            var prev = active.prev();
+
+            if (!prev.length) {
+                prev = this.$menu.find($(this.options.item || this.theme.item).prop('tagName')).last();
+            }
+
+            while (prev.hasClass('divider') || prev.hasClass('dropdown-header')) {
+                prev = prev.prev();
+            }
+
+            prev.addClass('active');
+            // added for screen reader
+            var newVal = this.updater(prev.data('value'));
+            if (this.changeInputOnMove) {
+                this.$element.val(this.displayText(newVal) || newVal);
+            }
+        },
+
+        listen: function () {
+            this.$element
+                .on('focus.bootstrap3Typeahead', $.proxy(this.focus, this))
+                .on('blur.bootstrap3Typeahead', $.proxy(this.blur, this))
+                .on('keypress.bootstrap3Typeahead', $.proxy(this.keypress, this))
+                .on('propertychange.bootstrap3Typeahead input.bootstrap3Typeahead', $.proxy(this.input, this))
+                .on('keyup.bootstrap3Typeahead', $.proxy(this.keyup, this));
+
+            if (this.eventSupported('keydown')) {
+                this.$element.on('keydown.bootstrap3Typeahead', $.proxy(this.keydown, this));
+            }
+
+            var itemTagName = $(this.options.item || this.theme.item).prop('tagName');
+            if ('ontouchstart' in document.documentElement && 'onmousemove' in document.documentElement) {
+		        this.$menu
+		            .on('touchstart', itemTagName, $.proxy(this.touchstart, this))
+		            .on('touchend', itemTagName, $.proxy(this.click, this))
+		            .on('click', $.proxy(this.click, this))
+		            .on('mouseenter', itemTagName, $.proxy(this.mouseenter, this))
+		            .on('mouseleave', itemTagName, $.proxy(this.mouseleave, this))
+		            .on('mousedown', $.proxy(this.mousedown,this));
+	        } else if ('ontouchstart' in document.documentElement) {
+		        this.$menu
+		            .on('touchstart', itemTagName, $.proxy(this.touchstart, this))
+		            .on('touchend', itemTagName, $.proxy(this.click, this));
+	        } else {
+                this.$menu
+                    .on('click', $.proxy(this.click, this))
+                    .on('mouseenter', itemTagName, $.proxy(this.mouseenter, this))
+                    .on('mouseleave', itemTagName, $.proxy(this.mouseleave, this))
+                    .on('mousedown', $.proxy(this.mousedown, this));
+            }
+        },
+
+        destroy: function () {
+            this.$element.data('typeahead', null);
+            this.$element.data('active', null);
+            this.$element
+                .unbind('focus.bootstrap3Typeahead')
+                .unbind('blur.bootstrap3Typeahead')
+                .unbind('keypress.bootstrap3Typeahead')
+                .unbind('propertychange.bootstrap3Typeahead input.bootstrap3Typeahead')
+                .unbind('keyup.bootstrap3Typeahead');
+
+            if (this.eventSupported('keydown')) {
+                this.$element.unbind('keydown.bootstrap3-typeahead');
+            }
+
+            this.$menu.remove();
+            this.destroyed = true;
+        },
+
+        eventSupported: function (eventName) {
+            var isSupported = eventName in this.$element;
+            if (!isSupported) {
+                this.$element.setAttribute(eventName, 'return;');
+                isSupported = typeof this.$element[eventName] === 'function';
+            }
+            return isSupported;
+        },
+
+        move: function (e) {
+            if (!this.shown) {
+                return;
+            }
+
+            switch (e.keyCode) {
+                case 9: // tab
+                case 13: // enter
+                case 27: // escape
+                    e.preventDefault();
+                    break;
+
+                case 38: // up arrow
+                    // with the shiftKey (this is actually the left parenthesis)
+                    if (e.shiftKey) {
+                        return;
+                    }
+                    e.preventDefault();
+                    this.prev();
+                    break;
+
+                case 40: // down arrow
+                    // with the shiftKey (this is actually the right parenthesis)
+                    if (e.shiftKey) {
+                        return;
+                    }
+                    e.preventDefault();
+                    this.next();
+                    break;
+            }
+        },
+
+        keydown: function (e) {
+            /**
+             * Prevent to make an ajax call while copying and pasting.
+             *
+             * @author Simone Sacchi
+             * @version 2018/01/18
+             */
+            if (e.keyCode === 17) { // ctrl
+                return;
+            }
+            this.keyPressed = true;
+            this.suppressKeyPressRepeat = ~$.inArray(e.keyCode, [40, 38, 9, 13, 27]);
+            if (!this.shown && e.keyCode == 40) {
+                this.lookup();
+            } else {
+                this.move(e);
+            }
+        },
+
+        keypress: function (e) {
+            if (this.suppressKeyPressRepeat) {
+                return;
+            }
+            this.move(e);
+        },
+
+        input: function (e) {
+            // This is a fixed for IE10/11 that fires the input event when a placehoder is changed
+            // (https://connect.microsoft.com/IE/feedback/details/810538/ie-11-fires-input-event-on-focus)
+            var currentValue = this.$element.val() || this.$element.text();
+            if (this.value !== currentValue) {
+                this.value = currentValue;
+                this.lookup();
+            }
+        },
+
+        keyup: function (e) {
+            if (this.destroyed) {
+                return;
+            }
+            switch (e.keyCode) {
+                case 40: // down arrow
+                case 38: // up arrow
+                case 16: // shift
+                case 17: // ctrl
+                case 18: // alt
+                    break;
+
+                case 9: // tab
+                    if (!this.shown || (this.showHintOnFocus && !this.keyPressed)) {
+                        return;
+                    }
+                    this.select();
+                    break;
+                case 13: // enter
+                    if (!this.shown) {
+                        return;
+                    }
+                    this.select();
+                    break;
+
+                case 27: // escape
+                    if (!this.shown) {
+                        return;
+                    }
+                    this.hide();
+                    break;
+            }
+
+        },
+
+        focus: function (e) {
+            if (!this.focused) {
+                this.focused = true;
+                this.keyPressed = false;
+                if (this.options.showHintOnFocus && this.skipShowHintOnFocus !== true) {
+                    if (this.options.showHintOnFocus === 'all') {
+                        this.lookup('');
+                    } else {
+                        this.lookup();
+                    }
+                }
+            }
+            if (this.skipShowHintOnFocus) {
+                this.skipShowHintOnFocus = false;
+            }
+        },
+
+        blur: function (e) {
+            if (!this.mousedover && !this.mouseddown && this.shown) {
+                if (this.selectOnBlur) {
+                    this.select();
+                }
+                this.hide();
+                this.focused = false;
+                this.keyPressed = false;
+            } else if (this.mouseddown) {
+                // This is for IE that blurs the input when user clicks on scroll.
+                // We set the focus back on the input and prevent the lookup to occur again
+                this.skipShowHintOnFocus = true;
+                this.$element.focus();
+                this.mouseddown = false;
+            }
+        },
+
+        click: function (e) {
+            e.preventDefault();
+            this.skipShowHintOnFocus = true;
+            this.select();
+            this.$element.focus();
+            this.hide();
+        },
+
+        mouseenter: function (e) {
+            this.mousedover = true;
+            this.$menu.find('.active').removeClass('active');
+            $(e.currentTarget).addClass('active');
+        },
+
+        mouseleave: function (e) {
+            this.mousedover = false;
+            if (!this.focused && this.shown) {
+                this.hide();
+            }
+        },
+
+        /**
+         * We track the mousedown for IE. When clicking on the menu scrollbar, IE makes the input blur thus hiding the menu.
+         */
+        mousedown: function (e) {
+            this.mouseddown = true;
+            this.$menu.one('mouseup', function (e) {
+                // IE won't fire this, but FF and Chrome will so we reset our flag for them here
+                this.mouseddown = false;
+            }.bind(this));
+        },
+
+        touchstart: function (e) {
+            e.preventDefault();
+            this.$menu.find('.active').removeClass('active');
+            $(e.currentTarget).addClass('active');
+        },
+
+        touchend: function (e) {
+            e.preventDefault();
+            this.select();
+            this.$element.focus();
+        }
+
+    };
+
+
+    /* TYPEAHEAD PLUGIN DEFINITION
+     * =========================== */
+
+    var old = $.fn.typeahead;
+
+    $.fn.typeahead = function (option) {
+        var arg = arguments;
+        if (typeof option == 'string' && option == 'getActive') {
+            return this.data('active');
+        }
+        return this.each(function () {
+            var $this = $(this);
+            var data = $this.data('typeahead');
+            var options = typeof option == 'object' && option;
+            if (!data) {
+                $this.data('typeahead', (data = new Typeahead(this, options)));
+            }
+            if (typeof option == 'string' && data[option]) {
+                if (arg.length > 1) {
+                    data[option].apply(data, Array.prototype.slice.call(arg, 1));
+                } else {
+                    data[option]();
+                }
+            }
+        });
+    };
+
+    Typeahead.defaults = {
+        source: [],
+        items: 8,
+        minLength: 1,
+        scrollHeight: 0,
+        autoSelect: true,
+        afterSelect: $.noop,
+        afterEmptySelect: $.noop,
+        addItem: false,
+        followLinkOnSelect: false,
+        delay: 0,
+        separator: 'category',
+        changeInputOnSelect: true,
+        changeInputOnMove: true,
+        openLinkInNewTab: false,
+        selectOnBlur: true,
+        showCategoryHeader: true,
+        theme: "bootstrap3",
+        themes: {
+        bootstrap3: {
+            menu: '<ul class="typeahead dropdown-menu" role="listbox"></ul>',
+            item: '<li><a class="dropdown-item" href="#" role="option"></a></li>',
+            itemContentSelector: "a",
+            headerHtml: '<li class="dropdown-header"></li>',
+            headerDivider: '<li class="divider" role="separator"></li>'
+        },
+        bootstrap4: {
+            menu: '<div class="typeahead dropdown-menu" role="listbox"></div>',
+            item: '<button class="dropdown-item" role="option"></button>',
+            itemContentSelector: '.dropdown-item',
+            headerHtml: '<h6 class="dropdown-header"></h6>',
+            headerDivider: '<div class="dropdown-divider"></div>'
+        }
+    }
+};
+
+    $.fn.typeahead.Constructor = Typeahead;
+
+    /* TYPEAHEAD NO CONFLICT
+     * =================== */
+
+    $.fn.typeahead.noConflict = function () {
+        $.fn.typeahead = old;
+        return this;
+    };
+
+
+    /* TYPEAHEAD DATA-API
+     * ================== */
+
+    $(document).on('focus.typeahead.data-api', '[data-provide="typeahead"]', function (e) {
+        var $this = $(this);
+        if ($this.data('typeahead')) {
+            return;
+        }
+        $this.typeahead($this.data());
+    });
+
+}));
+
+/*
  * blueimp Gallery JS
  * https://github.com/blueimp/Gallery
  *
@@ -35206,7 +36838,7 @@ S2.define('jquery.select2',[
 (function($) {
     $.fn.hovercard = function(options) {
 
-        //Set defauls for the control
+        //Set defaults for the control
         var defaults = {
             openOnLeft: false,
             openOnTop: false,
@@ -35214,15 +36846,8 @@ S2.define('jquery.select2',[
             detailsHTML: "",
             loadingHTML: "Loading...",
             errorHTML: "Sorry, no data found.",
-            twitterURL: "",
-            twitterScreenName: '',
-            showTwitterCard: false,
-            showYafCard: false,
-            facebookUserName: '',
-            showFacebookCard: false,
-            showCustomCard: false,
-            customCardJSON: {},
-            customDataUrl: '',
+            pointsText: "",
+            postsText: "",
             background: "#ffffff",
             delay: 0,
             autoAdjust: true,
@@ -35243,14 +36868,14 @@ S2.define('jquery.select2',[
             //add a relatively positioned class to the selected element
             obj.addClass("hc-name");
 
-            //if card image src provided then generate the image elementk
-            var hcImg = '';
+            //if card image src provided then generate the image element
+            var hcImg = "";
             if (options.cardImgSrc.length > 0) {
                 hcImg = '<img class="hc-pic" src="' + options.cardImgSrc + '" />';
             }
 
             //generate details span with html provided by the user
-            var hcDetails = '<div class="hc-details ui-widget ui-widget-content ui-corner-all" >' + hcImg + options.detailsHTML + '</div>';
+            var hcDetails = '<div class="hc-details" >' + hcImg + options.detailsHTML + "</div>";
 
             //append this detail after the selected element
             obj.after(hcDetails);
@@ -35262,70 +36887,30 @@ S2.define('jquery.select2',[
                 var $this = $(this);
                 adjustToViewPort($this);
 
-                // Up the z indiex for the .hc-name to overlay on .hc-details
+                // Up the z index for the .hc-name to overlay on .hc-details
                 obj.css("zIndex", "200");
 
                 var curHCDetails = $this.find(".hc-details").eq(0);
                 curHCDetails.stop(true, true).delay(options.delay).fadeIn();
 
-                //Default functionality on hoverin, and also allows callback
-                if (typeof options.onHoverIn == 'function') {
+                // Default functionality on hover in, and also allows callback
+                if (typeof options.onHoverIn == "function") {
 
                     //check for custom profile. If already loaded don't load again
                     var dataUrl;
-                    if (options.showCustomCard && curHCDetails.find('.s-card').length <= 0) {
-
-                        //Read data-hovercard url from the hovered element, otherwise look in the options. For custom card, complete url is required than just username.
-                        dataUrl = options.customDataUrl;
-                        if (typeof obj.attr('data-hovercard') == 'undefined') {
-                            //do nothing. detecting typeof obj.attr('data-hovercard') != 'undefined' didn't work as expected.
-                        } else if (obj.attr('data-hovercard').length > 0) {
-                            dataUrl = obj.attr('data-hovercard');
-                        }
-
-                        LoadSocialProfile("custom", "", dataUrl, curHCDetails, options.customCardJSON);
-                    }
 
                     //check for yaf profile. If already loaded don't load again
-                    if (options.showYafCard && curHCDetails.find('.s-card').length <= 0) {
+                    if (curHCDetails.find(".s-card").length <= 0) {
 
                         //Read data-hovercard url from the hovered element, otherwise look in the options. For custom card, complete url is required than just username.
                         dataUrl = options.customDataUrl;
-                        if (typeof obj.attr('data-hovercard') == 'undefined') {
+                        if (typeof obj.attr("data-hovercard") == "undefined") {
                             //do nothing. detecting typeof obj.attr('data-hovercard') != 'undefined' didn't work as expected.
-                        } else if (obj.attr('data-hovercard').length > 0) {
-                            dataUrl = obj.attr('data-hovercard');
+                        } else if (obj.attr("data-hovercard").length > 0) {
+                            dataUrl = obj.attr("data-hovercard");
                         }
 
-                        LoadSocialProfile("yaf", '', dataUrl, curHCDetails, options.customCardJSON);
-                    }
-
-                    //check for twitter profile. If already loaded don't load again
-                    if (options.showTwitterCard && curHCDetails.find('.s-card').eq(0).length <= 0) {
-
-                        //Look for twitter screen name in data-hovercard first, then in options, otherwise try with the hovered text
-                        var tUsername = options.twitterScreenName.length > 0 ? options.twitterScreenName : obj.text();
-                        if (typeof obj.attr('data-hovercard') == 'undefined') {
-                            //do nothing. detecting typeof obj.attr('data-hovercard') != 'undefined' didn't work as expected.
-                        } else if (obj.attr('data-hovercard').length > 0) {
-                            tUsername = obj.attr('data-hovercard');
-                        }
-
-                        LoadSocialProfile("twitter", obj.attr('href') + dataUrl, tUsername, curHCDetails);
-                    }
-
-                    //check for facebook profile. If already loaded don't load again
-                    if (options.showFacebookCard && curHCDetails.find('.s-card').eq(0).length <= 0) {
-
-                        //Look for twitter screen name in data-hovercard first, then in options, otherwise try with the hovered text
-                        var fbUsername = options.facebookUserName.length > 0 ? options.facebookUserName : obj.text();
-                        if (typeof obj.attr('data-hovercard') == 'undefined') {
-                            //do nothing. detecting typeof obj.attr('data-hovercard') != 'undefined' didn't work as expected.
-                        } else if (obj.attr('data-hovercard').length > 0) {
-                            fbUsername = obj.attr('data-hovercard');
-                        }
-
-                        LoadSocialProfile("facebook", "", fbUsername, curHCDetails);
+                        LoadSocialProfile("yaf", "", dataUrl, curHCDetails, options.customCardJSON);
                     }
 
                     $("body").on("keydown", function (event) {
@@ -35354,7 +36939,7 @@ S2.define('jquery.select2',[
                     //Undo the z indices
                     obj.css("zIndex", "50");
 
-                    if (typeof options.onHoverOut == 'function') {
+                    if (typeof options.onHoverOut == "function") {
                         options.onHoverOut.call(this);
                     }
                 });
@@ -35366,15 +36951,13 @@ S2.define('jquery.select2',[
 
             function adjustToViewPort(hcPreview) {
 
-                var hcDetails = hcPreview.find('.hc-details').eq(0);
+                var hcDetails = hcPreview.find(".hc-details").eq(0);
                 var hcPreviewRect = hcPreview[0].getBoundingClientRect();
 
-                var hcdTop = hcPreviewRect.top - 20; //Subtracting 20px of padding;
                 var hcdRight = hcPreviewRect.left + 35 + hcDetails.width(); //Adding 35px of padding;
                 var hcdBottom = hcPreviewRect.top + 35 + hcDetails.height(); //Adding 35px of padding;
-                var hcdLeft = hcPreviewRect.top - 10; //Subtracting 10px of padding;
-
-                //Check for forced open directions, or if need to be autoadjusted
+                
+                //Check for forced open directions, or if need to be auto adjusted
                 if (options.openOnLeft || (options.autoAdjust && (hcdRight > window.innerWidth))) {
                     hcDetails.addClass("hc-details-open-left");
                 } else {
@@ -35393,136 +36976,41 @@ S2.define('jquery.select2',[
                 var cardHTML, dataType, urlToRequest, customCallback, loadingHTML, errorHTML;
 
                 switch (type) {
-                case "twitter":
-                    {
-                        dataType = 'json',
-                        urlToRequest = options.twitterURL + username;
-                        cardHTML = function (profileData) {
-                            profileData = profileData[0];
-                            return '<div class="s-card s-card-pad">' +
-                                (profileData.profile_image_url ? ('<img class="s-img" src="' + profileData.profile_image_url + '" />') : '') +
-                                (profileData.name ? ('<label class="s-name">' + profileData.name + ' </label>') : '') +
-                                (profileData.screen_name ? ('(<a class="s-username" title="Visit Twitter profile for ' + profileData.name + '" href="http://twitter.com/' + profileData.screen_name + '">@' + profileData.screen_name + '</a>)<br/>') : '') +
-                                (profileData.location ? ('<label class="s-loc">' + profileData.location + '</label>') : '') +
-                                (profileData.description ? ('<p class="s-desc">' + profileData.description + '</p>') : '') +
-                                (profileData.url ? ('<a class="s-href" href="' + profileData.url + '">' + profileData.url + '</a><br/>') : '') +
-                                '<ul class="s-stats">' +
-                                (profileData.statuses_count ? ('<li>Tweets<br /><span class="s-count">' + profileData.statuses_count + '</span></li>') : '') +
-                                (profileData.friends_count ? ('<li>Following<br /><span class="s-count">' + profileData.friends_count + '</span></li>') : '') +
-                                (profileData.followers_count ? ('<li>Followers<br /><span class="s-count">' + profileData.followers_count + '</span></li>') : '') +
-                                '</ul>' +
-                                '</div>';
-                        };
-
-                        loadingHTML = options.loadingHTML;
-                        errorHTML = options.errorHTML;
-                        customCallback = function() {
-                        };
-
-                        //Append the twitter script to the document to add a follow button
-                        if ($('#t-follow-script').length <= 0) {
-                            var script = document.createElement('script');
-                            script.type = 'text/javascript';
-                            script.src = '//platform.twitter.com/widgets.js';
-                            script.id = 't-follow-script';
-                            $('body').append(script);
-                        }
-                        curHCDetails.append('<span class="s-action"><a href="https://twitter.com/' + username + '" class="twitter-follow-button" data-show-count="false" data-show-name="false" data-button="grey" data-width="65px" class="twitter-follow-button">Follow</a></span>');
-                        curHCDetails.append('<span class="s-action s-close"><a href="javascript:void(0)"><i class="fa fa-close fa-fw"></i></a></span>');
-                    }
-
-                    break;
-                case "facebook":
-                    {
-                        dataType = 'json',
-                        urlToRequest = 'https://graph.facebook.com/' + username,
-                        cardHTML = function(profileData) {
-                            return '<div class="s-card s-card-pad">' +
-                                '<img class="s-img" src="http://graph.facebook.com/' + profileData.id + '/picture" />' +
-                                '<label class="s-name">' + profileData.name + ' </label><br/>' +
-                                (profileData.link ? ('<a class="s-loc" href="' + profileData.link + '">' + profileData.link + '</a><br/>') : '') +
-                                (profileData.likes ? ('<label class="s-loc">Liked by </span> ' + profileData.likes + '</label><br/>') : '') +
-                                (profileData.description ? ('<p class="s-desc">' + profileData.description + '</p>') : '') +
-                                (profileData.start_time ? ('<p class="s-desc"><span class="s-strong">Start Time:</span><br/>' + profileData.start_time + '</p>') : '') +
-                                (profileData.end_time ? ('<p class="s-desc"><span class="s-strong">End Time:<br/>' + profileData.end_time + '</p>') : '') +
-                                (profileData.founded ? ('<p class="s-desc"><span class="s-strong">Founded:</span><br/>' + profileData.founded + '</p>') : '') +
-                                (profileData.mission ? ('<p class="s-desc"><span class="s-strong">Mission:</span><br/>' + profileData.mission + '</p>') : '') +
-                                (profileData.company_overview ? ('<p class="s-desc"><span class="s-strong">Overview:</span><br/>' + profileData.company_overview + '</p>') : '') +
-                                (profileData.products ? ('<p class="s-desc"><span class="s-strong">Products:</span><br/>' + profileData.products + '</p>') : '') +
-                                (profileData.website ? ('<p class="s-desc"><span class="s-strong">Web:</span><br/><a href="' + profileData.website + '">' + profileData.website + '</a></p>') : '') +
-                                (profileData.email ? ('<p class="s-desc"><span class="s-strong">Email:</span><br/><a href="' + profileData.email + '">' + profileData.email + '</a></p>') : '') +
-                                '</div>';
-                        };
-                        loadingHTML = options.loadingHTML;
-                        errorHTML = options.errorHTML;
-
-                        customCallback = function(profileData) {
-                            if ($('#fb-like' + profileData.id).length > 0) {
-                                curHCDetails.append('<span class="s-action">' + $('#fb-like' + profileData.id).html() + '</span>');
-                            } else {
-                                curHCDetails.append('<span class="s-action"><div class="fb-like" id="fb-like' + profileData.id + '"><iframe src="//www.facebook.com/plugins/like.php?href=' + profileData.link + ';send=false&amp;layout=standard&amp;width=90&amp;show_faces=false&amp;action=like&amp;layout=button_count&amp;font&amp;height=21&amp" scrolling="no" frameborder="0" style="border:none; overflow:hidden;width:77px;height:21px" allowTransparency="true"></iframe></div></span>');
-                                curHCDetails.append('<span class="s-action s-close"><a href="javascript:void(0)"><i class="fa fa-close fa-fw"></i></a></span>');
-                            }
-                        };
-                    }
-                    break;
-                case "custom":
-                    {
-                        dataType = 'jsonp',
-                        urlToRequest = username,
-                        cardHTML = function(profileData) {
-                            profileData = profileData[0];
-                            return '<div class="s-card s-card-pad">' +
-                                (profileData.image ? ('<img class="s-img" src=' + profileData.image + ' />') : '') +
-                                (profileData.name ? ('<label class="s-name">' + profileData.name + ' </label><br/>') : '') +
-                                (profileData.link ? ('<a class="s-loc" href="' + profileData.link + '">' + profileData.link + '</a><br/>') : '') +
-                                (profileData.bio ? ('<p class="s-desc">' + profileData.bio + '</p>') : '') +
-                                (profileData.website ? ('<p class="s-desc"><span class="s-strong">Web:</span><br/><a href="' + profileData.website + '">' + profileData.website + '</a></p>') : '') +
-                                (profileData.email ? ('<p class="s-desc"><span class="s-strong">Email:</span><br/><a href="' + profileData.email + '">' + profileData.email + '</a></p>') : '') +
-                                '</div>';
-                        };
-                        loadingHTML = options.loadingHTML;
-                        errorHTML = options.errorHTML;
-                        customCallback = function() {
-                        };
-                    }
-                    break;
                 case "yaf":
                     {
-                        dataType = 'json',
+                        dataType = "json",
                         urlToRequest = username,
                         cardHTML = function(profileData) {
 
-                            var online = profileData.Online ? 'green' : 'red';
+                            var online = profileData.Online ? "green" : "red";
                             var shtml = '<div class="s-card s-card-pad">' +
                                             '<div class="card rounded-0" style="width: 330px;">' +
                                                 '<div class="card-header position-relative">' +
-                                                    '<h6 class="card-title text-center">' + (profileData.RealName ? profileData.RealName : profileData.Name) + '</h6>' +
-                                                    (profileData.Avatar ? ('<img src="' + profileData.Avatar + '" class="rounded mx-auto d-block" style="width:75px" alt="" />') : '') +
-                                                    (profileData.Avatar ? ('<div class="position-absolute" style="top:0;right:0;border-width: 0 25px 25px 0; border-style: solid; border-color: transparent ' + online + ';" ></div>') : '') +
-                                                '</div>' +
+                                                    '<h6 class="card-title text-center">' + (profileData.RealName ? profileData.RealName : profileData.Name) + "</h6>" +
+                                                    (profileData.Avatar ? '<img src="' + profileData.Avatar + '" class="rounded mx-auto d-block" style="width:75px" alt="" />' : "") +
+                                                    (profileData.Avatar ? '<div class="position-absolute" style="top:0;right:0;border-width: 0 25px 25px 0; border-style: solid; border-color: transparent ' + online + ';" ></div>' : "") +
+                                                "</div>" +
                                             '<div class="card-body p-2">' +
-                                                '<ul class="list-group mt-1 mb-3">' +
-                                                    (profileData.Location ? ('<li class="list-group-item px-2 py-1">' + profileData.Location + '</li>') : '') +
-                                                    (profileData.Rank ? ('<li class="list-group-item px-2 py-1">' + profileData.Rank + '</li>') : '') +
-                                                    (profileData.Interests ? ('<li class="list-group-item px-2 py-1">' + profileData.Interests + '</li>') : '') +
-                                                    (profileData.Joined ? ('<li class="list-group-item px-2 py-1">Member since: ' + profileData.Joined + '</li>') : '') +
-                                                    (profileData.HomePage ? ('<li class="list-group-item px-2 py-1"><a href="' + profileData.HomePage + '" target="_blank">' + profileData.HomePage + '</a></li>') : '') +
-                                                '</ul >' +
+                                                '<ul class="list-unstyled mt-1 mb-3">' +
+                                (profileData.Location ? '<li class="px-2 py-1"><i class="fas fa-home mr-1"></i>' + profileData.Location + "</li>" : "") +
+                                (profileData.Rank ? '<li class="px-2 py-1"><i class="fas fa-graduation-cap mr-1"></i>' + profileData.Rank + "</li>" : "") +
+                                (profileData.Interests ? '<li class="px-2 py-1"><i class="fas fa-running mr-1"></i>' + profileData.Interests + "</li>" : "") +
+                                (profileData.Joined ? '<li class="px-2 py-1"><i class="fas fa-user-check mr-1"></i>' + profileData.Joined + "</li>" : "") +
+                                (profileData.HomePage ? '<li class="px-2 py-1"><i class="fas fa-globe mr-1"></i><a href="' + profileData.HomePage + '" target="_blank">' + profileData.HomePage + "</a></li>" : "") +
+                                                "</ul >" +
                                                 '<div class="row no-gutters">' +
                                                     '<div class="col-5 p-1 small bg-secondary text-white d-flex align-items-center justify-content-between">' +
-                                                        'Posts:&nbsp;<span class="badge badge-light rounded">' + profileData.Posts + '</span>' +
-                                                    '</div>' +
+                                                        options.postsText + ':&nbsp;<span class="badge badge-light rounded">' + profileData.Posts + "</span>" +
+                                                    "</div>" +
                                 (profileData.Points ? '<div class="flex-grow-1"></div>' +
                                                     '<div class="col-5 p-1 small bg-secondary text-white d-flex align-items-center justify-content-between">' +
-                                                        'Reputation:&nbsp;<span class="badge badge-light rounded">' + profileData.Points + '</span>' +
-                                                    '</div>' : "") +
-                                                '</div>' +
-                                                (profileData.ActionButtons ? ('<div class="row no-gutters">' + profileData.ActionButtons + '</div>') : '') +
-                                                '</div>' +
-                                            '</div>' +
-                                        '</div>';
-                            //alert (shtml);
+                                                        options.pointsText + ':&nbsp;<span class="badge badge-light rounded">' + profileData.Points + "</span>" +
+                                                    "</div>" : "") +
+                                                "</div>" +
+                                (profileData.ProfileLink ? '<div class="row no-gutters p-1"><a class="btn btn-secondary btn-sm" role="button" href="' + profileData.ProfileLink + '"><i class="fas fa-external-link-alt"></i></a></div>' : "") +
+                                                "</div>" +
+                                            "</div>" +
+                                        "</div>";
                             return shtml;
 
                         };
@@ -35535,55 +37023,49 @@ S2.define('jquery.select2',[
                     }
                     break;
                 default:
-                    {
-                    }
                     break;
                 }
 
                 if ($.isEmptyObject(customCardJSON)) {
 					$.ajax({
                         url: urlToRequest,
-                        type: 'GET',
+                        type: "GET",
                         dataType: dataType, //jsonp for cross domain request
                         timeout: 6000, //timeout if cross domain request didn't respond, or failed silently
                         // crossDomain: true,
                         cache: true,
                         beforeSend: function() {
-                            curHCDetails.find('.s-message').remove();
-                            curHCDetails.append('<p class="s-message">' + loadingHTML + '</p>');
+                            curHCDetails.find(".s-message").remove();
+                            curHCDetails.append('<p class="s-message">' + loadingHTML + "</p>");
                         },
                         success: function(data) {
                             if (data.length <= 0) {
-
-                                curHCDetails.find('.s-message').html(errorHTML);
+                                curHCDetails.find(".s-message").html(errorHTML);
                             } else {
-                                curHCDetails.find('.s-message').replaceWith(cardHTML(data));
-                                //curHCDetails.prepend(cardHTML(data));
+                                curHCDetails.find(".s-message").replaceWith(cardHTML(data));
 
                                 $(".hc-details").hide();
 
-                                adjustToViewPort(curHCDetails.closest('.hc-preview'));
+                                adjustToViewPort(curHCDetails.closest(".hc-preview"));
                                 curHCDetails.stop(true, true).delay(options.delay).fadeIn();
                                 customCallback(data);
                             }
                         },
-                        error: function(jqXHR, textStatus, errorThrown) {
-                            curHCDetails.find('.s-message').html(errorHTML + errorThrown);
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            curHCDetails.find(".s-message").html(errorHTML + errorThrown);
                         }
                     });
                 } else {
                     curHCDetails.prepend(cardHTML(customCardJSON));
                 }
             }
-
-            ;
         });
 
     };
 })(jQuery);
 
-(function ($) {
-    $.fn.hoverIntent = function (handlerIn, handlerOut, selector) {
+(function($) {
+    $.fn.hoverIntent = function(handlerIn, handlerOut, selector) {
 
         // default configuration values
         var cfg = {
@@ -35606,13 +37088,13 @@ S2.define('jquery.select2',[
         var cX, cY, pX, pY;
 
         // A private function for getting mouse position
-        var track = function (ev) {
+        var track = function(ev) {
             cX = ev.pageX;
             cY = ev.pageY;
         };
 
         // A private function for comparing current and previous mouse position
-        var compare = function (ev, ob) {
+        var compare = function(ev, ob) {
             ob.hoverIntent_t = clearTimeout(ob.hoverIntent_t);
             // compare mouse positions to see if they've crossed the threshold
             if ((Math.abs(pX - cX) + Math.abs(pY - cY)) < cfg.sensitivity) {
@@ -35622,43 +37104,51 @@ S2.define('jquery.select2',[
                 return cfg.over.apply(ob, [ev]);
             } else {
                 // set previous coordinates for next time
-                pX = cX; pY = cY;
+                pX = cX;
+                pY = cY;
                 // use self-calling timeout, guarantees intervals are spaced out properly (avoids JavaScript timer bugs)
-                ob.hoverIntent_t = setTimeout(function () { compare(ev, ob); }, cfg.interval);
+                ob.hoverIntent_t = setTimeout(function() { compare(ev, ob); }, cfg.interval);
             }
         };
 
         // A private function for delaying the mouseOut function
-        var delay = function (ev, ob) {
+        var delay = function(ev, ob) {
             ob.hoverIntent_t = clearTimeout(ob.hoverIntent_t);
             ob.hoverIntent_s = 0;
             return cfg.out.apply(ob, [ev]);
         };
 
         // A private function for handling mouse 'hovering'
-        var handleHover = function (e) {
+        var handleHover = function(e) {
             // copy objects to be passed into t (required for event object to be passed in IE)
             var ev = jQuery.extend({}, e);
             var ob = this;
 
             // cancel hoverIntent timer if it exists
-            if (ob.hoverIntent_t) { ob.hoverIntent_t = clearTimeout(ob.hoverIntent_t); }
+            if (ob.hoverIntent_t) {
+                ob.hoverIntent_t = clearTimeout(ob.hoverIntent_t);
+            }
 
             // if e.type == "mouseenter"
             if (e.type == "mouseenter") {
                 // set "previous" X and Y position based on initial entry point
-                pX = ev.pageX; pY = ev.pageY;
+                pX = ev.pageX;
+                pY = ev.pageY;
                 // update "current" X and Y position based on mousemove
                 $(ob).on("mousemove.hoverIntent", track);
                 // start polling interval (self-calling timeout) to compare mouse coordinates over time
-                if (ob.hoverIntent_s != 1) { ob.hoverIntent_t = setTimeout(function () { compare(ev, ob); }, cfg.interval); }
+                if (ob.hoverIntent_s != 1) {
+                    ob.hoverIntent_t = setTimeout(function() { compare(ev, ob); }, cfg.interval);
+                }
 
                 // else e.type == "mouseleave"
             } else {
                 // unbind expensive mousemove event
                 $(ob).off("mousemove.hoverIntent", track);
                 // if hoverIntent state is true, then call the mouseOut function after the specified delay
-                if (ob.hoverIntent_s == 1) { ob.hoverIntent_t = setTimeout(function () { delay(ev, ob); }, cfg.timeout); }
+                if (ob.hoverIntent_s == 1) {
+                    ob.hoverIntent_t = setTimeout(function() { delay(ev, ob); }, cfg.timeout);
+                }
             }
         };
 
@@ -35666,32 +37156,2664 @@ S2.define('jquery.select2',[
         return this.on({ 'mouseenter.hoverIntent': handleHover, 'mouseleave.hoverIntent': handleHover }, cfg.selector);
     };
 })(jQuery);
-/* PrismJS 1.17.1
-https://prismjs.com/download.html?#themes=prism-okaidia&languages=markup+css+clike+javascript+c+csharp+bash+basic+cpp+aspnet+css-extras+git+java+sql+python+visual-basic+vbnet&plugins=line-highlight+line-numbers+autolinker+toolbar+normalize-whitespace+copy-to-clipboard */
-var _self="undefined"!=typeof window?window:"undefined"!=typeof WorkerGlobalScope&&self instanceof WorkerGlobalScope?self:{},Prism=function(u){var c=/\blang(?:uage)?-([\w-]+)\b/i,a=0;var _={manual:u.Prism&&u.Prism.manual,disableWorkerMessageHandler:u.Prism&&u.Prism.disableWorkerMessageHandler,util:{encode:function(e){return e instanceof L?new L(e.type,_.util.encode(e.content),e.alias):Array.isArray(e)?e.map(_.util.encode):e.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/\u00a0/g," ")},type:function(e){return Object.prototype.toString.call(e).slice(8,-1)},objId:function(e){return e.__id||Object.defineProperty(e,"__id",{value:++a}),e.__id},clone:function n(e,r){var t,a,i=_.util.type(e);switch(r=r||{},i){case"Object":if(a=_.util.objId(e),r[a])return r[a];for(var o in t={},r[a]=t,e)e.hasOwnProperty(o)&&(t[o]=n(e[o],r));return t;case"Array":return a=_.util.objId(e),r[a]?r[a]:(t=[],r[a]=t,e.forEach(function(e,a){t[a]=n(e,r)}),t);default:return e}}},languages:{extend:function(e,a){var n=_.util.clone(_.languages[e]);for(var r in a)n[r]=a[r];return n},insertBefore:function(n,e,a,r){var t=(r=r||_.languages)[n],i={};for(var o in t)if(t.hasOwnProperty(o)){if(o==e)for(var l in a)a.hasOwnProperty(l)&&(i[l]=a[l]);a.hasOwnProperty(o)||(i[o]=t[o])}var s=r[n];return r[n]=i,_.languages.DFS(_.languages,function(e,a){a===s&&e!=n&&(this[e]=i)}),i},DFS:function e(a,n,r,t){t=t||{};var i=_.util.objId;for(var o in a)if(a.hasOwnProperty(o)){n.call(a,o,a[o],r||o);var l=a[o],s=_.util.type(l);"Object"!==s||t[i(l)]?"Array"!==s||t[i(l)]||(t[i(l)]=!0,e(l,n,o,t)):(t[i(l)]=!0,e(l,n,null,t))}}},plugins:{},highlightAll:function(e,a){_.highlightAllUnder(document,e,a)},highlightAllUnder:function(e,a,n){var r={callback:n,selector:'code[class*="language-"], [class*="language-"] code, code[class*="lang-"], [class*="lang-"] code'};_.hooks.run("before-highlightall",r);for(var t,i=e.querySelectorAll(r.selector),o=0;t=i[o++];)_.highlightElement(t,!0===a,r.callback)},highlightElement:function(e,a,n){var r=function(e){for(;e&&!c.test(e.className);)e=e.parentNode;return e?(e.className.match(c)||[,"none"])[1].toLowerCase():"none"}(e),t=_.languages[r];e.className=e.className.replace(c,"").replace(/\s+/g," ")+" language-"+r;var i=e.parentNode;i&&"pre"===i.nodeName.toLowerCase()&&(i.className=i.className.replace(c,"").replace(/\s+/g," ")+" language-"+r);var o={element:e,language:r,grammar:t,code:e.textContent};function l(e){o.highlightedCode=e,_.hooks.run("before-insert",o),o.element.innerHTML=o.highlightedCode,_.hooks.run("after-highlight",o),_.hooks.run("complete",o),n&&n.call(o.element)}if(_.hooks.run("before-sanity-check",o),!o.code)return _.hooks.run("complete",o),void(n&&n.call(o.element));if(_.hooks.run("before-highlight",o),o.grammar)if(a&&u.Worker){var s=new Worker(_.filename);s.onmessage=function(e){l(e.data)},s.postMessage(JSON.stringify({language:o.language,code:o.code,immediateClose:!0}))}else l(_.highlight(o.code,o.grammar,o.language));else l(_.util.encode(o.code))},highlight:function(e,a,n){var r={code:e,grammar:a,language:n};return _.hooks.run("before-tokenize",r),r.tokens=_.tokenize(r.code,r.grammar),_.hooks.run("after-tokenize",r),L.stringify(_.util.encode(r.tokens),r.language)},matchGrammar:function(e,a,n,r,t,i,o){for(var l in n)if(n.hasOwnProperty(l)&&n[l]){var s=n[l];s=Array.isArray(s)?s:[s];for(var u=0;u<s.length;++u){if(o&&o==l+","+u)return;var c=s[u],g=c.inside,f=!!c.lookbehind,h=!!c.greedy,d=0,m=c.alias;if(h&&!c.pattern.global){var p=c.pattern.toString().match(/[imsuy]*$/)[0];c.pattern=RegExp(c.pattern.source,p+"g")}c=c.pattern||c;for(var y=r,v=t;y<a.length;v+=a[y].length,++y){var k=a[y];if(a.length>e.length)return;if(!(k instanceof L)){if(h&&y!=a.length-1){if(c.lastIndex=v,!(x=c.exec(e)))break;for(var b=x.index+(f&&x[1]?x[1].length:0),w=x.index+x[0].length,A=y,P=v,O=a.length;A<O&&(P<w||!a[A].type&&!a[A-1].greedy);++A)(P+=a[A].length)<=b&&(++y,v=P);if(a[y]instanceof L)continue;j=A-y,k=e.slice(v,P),x.index-=v}else{c.lastIndex=0;var x=c.exec(k),j=1}if(x){f&&(d=x[1]?x[1].length:0);w=(b=x.index+d)+(x=x[0].slice(d)).length;var N=k.slice(0,b),S=k.slice(w),C=[y,j];N&&(++y,v+=N.length,C.push(N));var E=new L(l,g?_.tokenize(x,g):x,m,x,h);if(C.push(E),S&&C.push(S),Array.prototype.splice.apply(a,C),1!=j&&_.matchGrammar(e,a,n,y,v,!0,l+","+u),i)break}else if(i)break}}}}},tokenize:function(e,a){var n=[e],r=a.rest;if(r){for(var t in r)a[t]=r[t];delete a.rest}return _.matchGrammar(e,n,a,0,0,!1),n},hooks:{all:{},add:function(e,a){var n=_.hooks.all;n[e]=n[e]||[],n[e].push(a)},run:function(e,a){var n=_.hooks.all[e];if(n&&n.length)for(var r,t=0;r=n[t++];)r(a)}},Token:L};function L(e,a,n,r,t){this.type=e,this.content=a,this.alias=n,this.length=0|(r||"").length,this.greedy=!!t}if(u.Prism=_,L.stringify=function(e,a){if("string"==typeof e)return e;if(Array.isArray(e))return e.map(function(e){return L.stringify(e,a)}).join("");var n={type:e.type,content:L.stringify(e.content,a),tag:"span",classes:["token",e.type],attributes:{},language:a};if(e.alias){var r=Array.isArray(e.alias)?e.alias:[e.alias];Array.prototype.push.apply(n.classes,r)}_.hooks.run("wrap",n);var t=Object.keys(n.attributes).map(function(e){return e+'="'+(n.attributes[e]||"").replace(/"/g,"&quot;")+'"'}).join(" ");return"<"+n.tag+' class="'+n.classes.join(" ")+'"'+(t?" "+t:"")+">"+n.content+"</"+n.tag+">"},!u.document)return u.addEventListener&&(_.disableWorkerMessageHandler||u.addEventListener("message",function(e){var a=JSON.parse(e.data),n=a.language,r=a.code,t=a.immediateClose;u.postMessage(_.highlight(r,_.languages[n],n)),t&&u.close()},!1)),_;var e=document.currentScript||[].slice.call(document.getElementsByTagName("script")).pop();if(e&&(_.filename=e.src,e.hasAttribute("data-manual")&&(_.manual=!0)),!_.manual){function n(){_.manual||_.highlightAll()}"loading"!==document.readyState?window.requestAnimationFrame?window.requestAnimationFrame(n):window.setTimeout(n,16):document.addEventListener("DOMContentLoaded",n)}return _}(_self);"undefined"!=typeof module&&module.exports&&(module.exports=Prism),"undefined"!=typeof global&&(global.Prism=Prism);
-Prism.languages.markup={comment:/<!--[\s\S]*?-->/,prolog:/<\?[\s\S]+?\?>/,doctype:/<!DOCTYPE[\s\S]+?>/i,cdata:/<!\[CDATA\[[\s\S]*?]]>/i,tag:{pattern:/<\/?(?!\d)[^\s>\/=$<%]+(?:\s(?:\s*[^\s>\/=]+(?:\s*=\s*(?:"[^"]*"|'[^']*'|[^\s'">=]+(?=[\s>]))|(?=[\s/>])))+)?\s*\/?>/i,greedy:!0,inside:{tag:{pattern:/^<\/?[^\s>\/]+/i,inside:{punctuation:/^<\/?/,namespace:/^[^\s>\/:]+:/}},"attr-value":{pattern:/=\s*(?:"[^"]*"|'[^']*'|[^\s'">=]+)/i,inside:{punctuation:[/^=/,{pattern:/^(\s*)["']|["']$/,lookbehind:!0}]}},punctuation:/\/?>/,"attr-name":{pattern:/[^\s>\/]+/,inside:{namespace:/^[^\s>\/:]+:/}}}},entity:/&#?[\da-z]{1,8};/i},Prism.languages.markup.tag.inside["attr-value"].inside.entity=Prism.languages.markup.entity,Prism.hooks.add("wrap",function(a){"entity"===a.type&&(a.attributes.title=a.content.replace(/&amp;/,"&"))}),Object.defineProperty(Prism.languages.markup.tag,"addInlined",{value:function(a,e){var s={};s["language-"+e]={pattern:/(^<!\[CDATA\[)[\s\S]+?(?=\]\]>$)/i,lookbehind:!0,inside:Prism.languages[e]},s.cdata=/^<!\[CDATA\[|\]\]>$/i;var n={"included-cdata":{pattern:/<!\[CDATA\[[\s\S]*?\]\]>/i,inside:s}};n["language-"+e]={pattern:/[\s\S]+/,inside:Prism.languages[e]};var i={};i[a]={pattern:RegExp("(<__[\\s\\S]*?>)(?:<!\\[CDATA\\[[\\s\\S]*?\\]\\]>\\s*|[\\s\\S])*?(?=<\\/__>)".replace(/__/g,a),"i"),lookbehind:!0,greedy:!0,inside:n},Prism.languages.insertBefore("markup","cdata",i)}}),Prism.languages.xml=Prism.languages.extend("markup",{}),Prism.languages.html=Prism.languages.markup,Prism.languages.mathml=Prism.languages.markup,Prism.languages.svg=Prism.languages.markup;
-!function(s){var t=/("|')(?:\\(?:\r\n|[\s\S])|(?!\1)[^\\\r\n])*\1/;s.languages.css={comment:/\/\*[\s\S]*?\*\//,atrule:{pattern:/@[\w-]+[\s\S]*?(?:;|(?=\s*\{))/,inside:{rule:/@[\w-]+/}},url:{pattern:RegExp("url\\((?:"+t.source+"|[^\n\r()]*)\\)","i"),inside:{function:/^url/i,punctuation:/^\(|\)$/}},selector:RegExp("[^{}\\s](?:[^{};\"']|"+t.source+")*?(?=\\s*\\{)"),string:{pattern:t,greedy:!0},property:/[-_a-z\xA0-\uFFFF][-\w\xA0-\uFFFF]*(?=\s*:)/i,important:/!important\b/i,function:/[-a-z0-9]+(?=\()/i,punctuation:/[(){};:,]/},s.languages.css.atrule.inside.rest=s.languages.css;var e=s.languages.markup;e&&(e.tag.addInlined("style","css"),s.languages.insertBefore("inside","attr-value",{"style-attr":{pattern:/\s*style=("|')(?:\\[\s\S]|(?!\1)[^\\])*\1/i,inside:{"attr-name":{pattern:/^\s*style/i,inside:e.tag.inside},punctuation:/^\s*=\s*['"]|['"]\s*$/,"attr-value":{pattern:/.+/i,inside:s.languages.css}},alias:"language-css"}},e.tag))}(Prism);
-Prism.languages.clike={comment:[{pattern:/(^|[^\\])\/\*[\s\S]*?(?:\*\/|$)/,lookbehind:!0},{pattern:/(^|[^\\:])\/\/.*/,lookbehind:!0,greedy:!0}],string:{pattern:/(["'])(?:\\(?:\r\n|[\s\S])|(?!\1)[^\\\r\n])*\1/,greedy:!0},"class-name":{pattern:/((?:\b(?:class|interface|extends|implements|trait|instanceof|new)\s+)|(?:catch\s+\())[\w.\\]+/i,lookbehind:!0,inside:{punctuation:/[.\\]/}},keyword:/\b(?:if|else|while|do|for|return|in|instanceof|function|new|try|throw|catch|finally|null|break|continue)\b/,boolean:/\b(?:true|false)\b/,function:/\w+(?=\()/,number:/\b0x[\da-f]+\b|(?:\b\d+\.?\d*|\B\.\d+)(?:e[+-]?\d+)?/i,operator:/--?|\+\+?|!=?=?|<=?|>=?|==?=?|&&?|\|\|?|\?|\*|\/|~|\^|%/,punctuation:/[{}[\];(),.:]/};
-Prism.languages.javascript=Prism.languages.extend("clike",{"class-name":[Prism.languages.clike["class-name"],{pattern:/(^|[^$\w\xA0-\uFFFF])[_$A-Z\xA0-\uFFFF][$\w\xA0-\uFFFF]*(?=\.(?:prototype|constructor))/,lookbehind:!0}],keyword:[{pattern:/((?:^|})\s*)(?:catch|finally)\b/,lookbehind:!0},{pattern:/(^|[^.])\b(?:as|async(?=\s*(?:function\b|\(|[$\w\xA0-\uFFFF]|$))|await|break|case|class|const|continue|debugger|default|delete|do|else|enum|export|extends|for|from|function|get|if|implements|import|in|instanceof|interface|let|new|null|of|package|private|protected|public|return|set|static|super|switch|this|throw|try|typeof|undefined|var|void|while|with|yield)\b/,lookbehind:!0}],number:/\b(?:(?:0[xX](?:[\dA-Fa-f](?:_[\dA-Fa-f])?)+|0[bB](?:[01](?:_[01])?)+|0[oO](?:[0-7](?:_[0-7])?)+)n?|(?:\d(?:_\d)?)+n|NaN|Infinity)\b|(?:\b(?:\d(?:_\d)?)+\.?(?:\d(?:_\d)?)*|\B\.(?:\d(?:_\d)?)+)(?:[Ee][+-]?(?:\d(?:_\d)?)+)?/,function:/#?[_$a-zA-Z\xA0-\uFFFF][$\w\xA0-\uFFFF]*(?=\s*(?:\.\s*(?:apply|bind|call)\s*)?\()/,operator:/-[-=]?|\+[+=]?|!=?=?|<<?=?|>>?>?=?|=(?:==?|>)?|&[&=]?|\|[|=]?|\*\*?=?|\/=?|~|\^=?|%=?|\?|\.{3}/}),Prism.languages.javascript["class-name"][0].pattern=/(\b(?:class|interface|extends|implements|instanceof|new)\s+)[\w.\\]+/,Prism.languages.insertBefore("javascript","keyword",{regex:{pattern:/((?:^|[^$\w\xA0-\uFFFF."'\])\s])\s*)\/(\[(?:[^\]\\\r\n]|\\.)*]|\\.|[^/\\\[\r\n])+\/[gimyus]{0,6}(?=\s*($|[\r\n,.;})\]]))/,lookbehind:!0,greedy:!0},"function-variable":{pattern:/#?[_$a-zA-Z\xA0-\uFFFF][$\w\xA0-\uFFFF]*(?=\s*[=:]\s*(?:async\s*)?(?:\bfunction\b|(?:\((?:[^()]|\([^()]*\))*\)|[_$a-zA-Z\xA0-\uFFFF][$\w\xA0-\uFFFF]*)\s*=>))/,alias:"function"},parameter:[{pattern:/(function(?:\s+[_$A-Za-z\xA0-\uFFFF][$\w\xA0-\uFFFF]*)?\s*\(\s*)(?!\s)(?:[^()]|\([^()]*\))+?(?=\s*\))/,lookbehind:!0,inside:Prism.languages.javascript},{pattern:/[_$a-z\xA0-\uFFFF][$\w\xA0-\uFFFF]*(?=\s*=>)/i,inside:Prism.languages.javascript},{pattern:/(\(\s*)(?!\s)(?:[^()]|\([^()]*\))+?(?=\s*\)\s*=>)/,lookbehind:!0,inside:Prism.languages.javascript},{pattern:/((?:\b|\s|^)(?!(?:as|async|await|break|case|catch|class|const|continue|debugger|default|delete|do|else|enum|export|extends|finally|for|from|function|get|if|implements|import|in|instanceof|interface|let|new|null|of|package|private|protected|public|return|set|static|super|switch|this|throw|try|typeof|undefined|var|void|while|with|yield)(?![$\w\xA0-\uFFFF]))(?:[_$A-Za-z\xA0-\uFFFF][$\w\xA0-\uFFFF]*\s*)\(\s*)(?!\s)(?:[^()]|\([^()]*\))+?(?=\s*\)\s*\{)/,lookbehind:!0,inside:Prism.languages.javascript}],constant:/\b[A-Z](?:[A-Z_]|\dx?)*\b/}),Prism.languages.insertBefore("javascript","string",{"template-string":{pattern:/`(?:\\[\s\S]|\${(?:[^{}]|{(?:[^{}]|{[^}]*})*})+}|(?!\${)[^\\`])*`/,greedy:!0,inside:{"template-punctuation":{pattern:/^`|`$/,alias:"string"},interpolation:{pattern:/((?:^|[^\\])(?:\\{2})*)\${(?:[^{}]|{(?:[^{}]|{[^}]*})*})+}/,lookbehind:!0,inside:{"interpolation-punctuation":{pattern:/^\${|}$/,alias:"punctuation"},rest:Prism.languages.javascript}},string:/[\s\S]+/}}}),Prism.languages.markup&&Prism.languages.markup.tag.addInlined("script","javascript"),Prism.languages.js=Prism.languages.javascript;
-Prism.languages.c=Prism.languages.extend("clike",{"class-name":{pattern:/(\b(?:enum|struct)\s+)\w+/,lookbehind:!0},keyword:/\b(?:_Alignas|_Alignof|_Atomic|_Bool|_Complex|_Generic|_Imaginary|_Noreturn|_Static_assert|_Thread_local|asm|typeof|inline|auto|break|case|char|const|continue|default|do|double|else|enum|extern|float|for|goto|if|int|long|register|return|short|signed|sizeof|static|struct|switch|typedef|union|unsigned|void|volatile|while)\b/,operator:/>>=?|<<=?|->|([-+&|:])\1|[?:~]|[-+*/%&|^!=<>]=?/,number:/(?:\b0x(?:[\da-f]+\.?[\da-f]*|\.[\da-f]+)(?:p[+-]?\d+)?|(?:\b\d+\.?\d*|\B\.\d+)(?:e[+-]?\d+)?)[ful]*/i}),Prism.languages.insertBefore("c","string",{macro:{pattern:/(^\s*)#\s*[a-z]+(?:[^\r\n\\]|\\(?:\r\n|[\s\S]))*/im,lookbehind:!0,alias:"property",inside:{string:{pattern:/(#\s*include\s*)(?:<.+?>|("|')(?:\\?.)+?\2)/,lookbehind:!0},directive:{pattern:/(#\s*)\b(?:define|defined|elif|else|endif|error|ifdef|ifndef|if|import|include|line|pragma|undef|using)\b/,lookbehind:!0,alias:"keyword"}}},constant:/\b(?:__FILE__|__LINE__|__DATE__|__TIME__|__TIMESTAMP__|__func__|EOF|NULL|SEEK_CUR|SEEK_END|SEEK_SET|stdin|stdout|stderr)\b/}),delete Prism.languages.c.boolean;
-Prism.languages.csharp=Prism.languages.extend("clike",{keyword:/\b(?:abstract|add|alias|as|ascending|async|await|base|bool|break|byte|case|catch|char|checked|class|const|continue|decimal|default|delegate|descending|do|double|dynamic|else|enum|event|explicit|extern|false|finally|fixed|float|for|foreach|from|get|global|goto|group|if|implicit|in|int|interface|internal|into|is|join|let|lock|long|namespace|new|null|object|operator|orderby|out|override|params|partial|private|protected|public|readonly|ref|remove|return|sbyte|sealed|select|set|short|sizeof|stackalloc|static|string|struct|switch|this|throw|true|try|typeof|uint|ulong|unchecked|unsafe|ushort|using|value|var|virtual|void|volatile|where|while|yield)\b/,string:[{pattern:/@("|')(?:\1\1|\\[\s\S]|(?!\1)[^\\])*\1/,greedy:!0},{pattern:/("|')(?:\\.|(?!\1)[^\\\r\n])*?\1/,greedy:!0}],"class-name":[{pattern:/\b[A-Z]\w*(?:\.\w+)*\b(?=\s+\w+)/,inside:{punctuation:/\./}},{pattern:/(\[)[A-Z]\w*(?:\.\w+)*\b/,lookbehind:!0,inside:{punctuation:/\./}},{pattern:/(\b(?:class|interface)\s+[A-Z]\w*(?:\.\w+)*\s*:\s*)[A-Z]\w*(?:\.\w+)*\b/,lookbehind:!0,inside:{punctuation:/\./}},{pattern:/((?:\b(?:class|interface|new)\s+)|(?:catch\s+\())[A-Z]\w*(?:\.\w+)*\b/,lookbehind:!0,inside:{punctuation:/\./}}],number:/\b0x[\da-f]+\b|(?:\b\d+\.?\d*|\B\.\d+)f?/i,operator:/>>=?|<<=?|[-=]>|([-+&|?])\1|~|[-+*/%&|^!=<>]=?/,punctuation:/\?\.?|::|[{}[\];(),.:]/}),Prism.languages.insertBefore("csharp","class-name",{"generic-method":{pattern:/\w+\s*<[^>\r\n]+?>\s*(?=\()/,inside:{function:/^\w+/,"class-name":{pattern:/\b[A-Z]\w*(?:\.\w+)*\b/,inside:{punctuation:/\./}},keyword:Prism.languages.csharp.keyword,punctuation:/[<>(),.:]/}},preprocessor:{pattern:/(^\s*)#.*/m,lookbehind:!0,alias:"property",inside:{directive:{pattern:/(\s*#)\b(?:define|elif|else|endif|endregion|error|if|line|pragma|region|undef|warning)\b/,lookbehind:!0,alias:"keyword"}}}}),Prism.languages.dotnet=Prism.languages.cs=Prism.languages.csharp;
-!function(e){var t="\\b(?:BASH|BASHOPTS|BASH_ALIASES|BASH_ARGC|BASH_ARGV|BASH_CMDS|BASH_COMPLETION_COMPAT_DIR|BASH_LINENO|BASH_REMATCH|BASH_SOURCE|BASH_VERSINFO|BASH_VERSION|COLORTERM|COLUMNS|COMP_WORDBREAKS|DBUS_SESSION_BUS_ADDRESS|DEFAULTS_PATH|DESKTOP_SESSION|DIRSTACK|DISPLAY|EUID|GDMSESSION|GDM_LANG|GNOME_KEYRING_CONTROL|GNOME_KEYRING_PID|GPG_AGENT_INFO|GROUPS|HISTCONTROL|HISTFILE|HISTFILESIZE|HISTSIZE|HOME|HOSTNAME|HOSTTYPE|IFS|INSTANCE|JOB|LANG|LANGUAGE|LC_ADDRESS|LC_ALL|LC_IDENTIFICATION|LC_MEASUREMENT|LC_MONETARY|LC_NAME|LC_NUMERIC|LC_PAPER|LC_TELEPHONE|LC_TIME|LESSCLOSE|LESSOPEN|LINES|LOGNAME|LS_COLORS|MACHTYPE|MAILCHECK|MANDATORY_PATH|NO_AT_BRIDGE|OLDPWD|OPTERR|OPTIND|ORBIT_SOCKETDIR|OSTYPE|PAPERSIZE|PATH|PIPESTATUS|PPID|PS1|PS2|PS3|PS4|PWD|RANDOM|REPLY|SECONDS|SELINUX_INIT|SESSION|SESSIONTYPE|SESSION_MANAGER|SHELL|SHELLOPTS|SHLVL|SSH_AUTH_SOCK|TERM|UID|UPSTART_EVENTS|UPSTART_INSTANCE|UPSTART_JOB|UPSTART_SESSION|USER|WINDOWID|XAUTHORITY|XDG_CONFIG_DIRS|XDG_CURRENT_DESKTOP|XDG_DATA_DIRS|XDG_GREETER_DATA_DIR|XDG_MENU_PREFIX|XDG_RUNTIME_DIR|XDG_SEAT|XDG_SEAT_PATH|XDG_SESSION_DESKTOP|XDG_SESSION_ID|XDG_SESSION_PATH|XDG_SESSION_TYPE|XDG_VTNR|XMODIFIERS)\\b",n={environment:{pattern:RegExp("\\$"+t),alias:"constant"},variable:[{pattern:/\$?\(\([\s\S]+?\)\)/,greedy:!0,inside:{variable:[{pattern:/(^\$\(\([\s\S]+)\)\)/,lookbehind:!0},/^\$\(\(/],number:/\b0x[\dA-Fa-f]+\b|(?:\b\d+\.?\d*|\B\.\d+)(?:[Ee]-?\d+)?/,operator:/--?|-=|\+\+?|\+=|!=?|~|\*\*?|\*=|\/=?|%=?|<<=?|>>=?|<=?|>=?|==?|&&?|&=|\^=?|\|\|?|\|=|\?|:/,punctuation:/\(\(?|\)\)?|,|;/}},{pattern:/\$\((?:\([^)]+\)|[^()])+\)|`[^`]+`/,greedy:!0,inside:{variable:/^\$\(|^`|\)$|`$/}},{pattern:/\$\{[^}]+\}/,greedy:!0,inside:{operator:/:[-=?+]?|[!\/]|##?|%%?|\^\^?|,,?/,punctuation:/[\[\]]/,environment:{pattern:RegExp("(\\{)"+t),lookbehind:!0,alias:"constant"}}},/\$(?:\w+|[#?*!@$])/],entity:/\\(?:[abceEfnrtv\\"]|O?[0-7]{1,3}|x[0-9a-fA-F]{1,2}|u[0-9a-fA-F]{4}|U[0-9a-fA-F]{8})/};e.languages.bash={shebang:{pattern:/^#!\s*\/.*/,alias:"important"},comment:{pattern:/(^|[^"{\\$])#.*/,lookbehind:!0},"function-name":[{pattern:/(\bfunction\s+)\w+(?=(?:\s*\(?:\s*\))?\s*\{)/,lookbehind:!0,alias:"function"},{pattern:/\b\w+(?=\s*\(\s*\)\s*\{)/,alias:"function"}],"for-or-select":{pattern:/(\b(?:for|select)\s+)\w+(?=\s+in\s)/,alias:"variable",lookbehind:!0},"assign-left":{pattern:/(^|[\s;|&]|[<>]\()\w+(?=\+?=)/,inside:{environment:{pattern:RegExp("(^|[\\s;|&]|[<>]\\()"+t),lookbehind:!0,alias:"constant"}},alias:"variable",lookbehind:!0},string:[{pattern:/((?:^|[^<])<<-?\s*)(\w+?)\s*(?:\r?\n|\r)(?:[\s\S])*?(?:\r?\n|\r)\2/,lookbehind:!0,greedy:!0,inside:n},{pattern:/((?:^|[^<])<<-?\s*)(["'])(\w+)\2\s*(?:\r?\n|\r)(?:[\s\S])*?(?:\r?\n|\r)\3/,lookbehind:!0,greedy:!0},{pattern:/(["'])(?:\\[\s\S]|\$\([^)]+\)|`[^`]+`|(?!\1)[^\\])*\1/,greedy:!0,inside:n}],environment:{pattern:RegExp("\\$?"+t),alias:"constant"},variable:n.variable,function:{pattern:/(^|[\s;|&]|[<>]\()(?:add|apropos|apt|aptitude|apt-cache|apt-get|aspell|automysqlbackup|awk|basename|bash|bc|bconsole|bg|bzip2|cal|cat|cfdisk|chgrp|chkconfig|chmod|chown|chroot|cksum|clear|cmp|column|comm|cp|cron|crontab|csplit|curl|cut|date|dc|dd|ddrescue|debootstrap|df|diff|diff3|dig|dir|dircolors|dirname|dirs|dmesg|du|egrep|eject|env|ethtool|expand|expect|expr|fdformat|fdisk|fg|fgrep|file|find|fmt|fold|format|free|fsck|ftp|fuser|gawk|git|gparted|grep|groupadd|groupdel|groupmod|groups|grub-mkconfig|gzip|halt|head|hg|history|host|hostname|htop|iconv|id|ifconfig|ifdown|ifup|import|install|ip|jobs|join|kill|killall|less|link|ln|locate|logname|logrotate|look|lpc|lpr|lprint|lprintd|lprintq|lprm|ls|lsof|lynx|make|man|mc|mdadm|mkconfig|mkdir|mke2fs|mkfifo|mkfs|mkisofs|mknod|mkswap|mmv|more|most|mount|mtools|mtr|mutt|mv|nano|nc|netstat|nice|nl|nohup|notify-send|npm|nslookup|op|open|parted|passwd|paste|pathchk|ping|pkill|pnpm|popd|pr|printcap|printenv|ps|pushd|pv|quota|quotacheck|quotactl|ram|rar|rcp|reboot|remsync|rename|renice|rev|rm|rmdir|rpm|rsync|scp|screen|sdiff|sed|sendmail|seq|service|sftp|sh|shellcheck|shuf|shutdown|sleep|slocate|sort|split|ssh|stat|strace|su|sudo|sum|suspend|swapon|sync|tac|tail|tar|tee|time|timeout|top|touch|tr|traceroute|tsort|tty|umount|uname|unexpand|uniq|units|unrar|unshar|unzip|update-grub|uptime|useradd|userdel|usermod|users|uudecode|uuencode|v|vdir|vi|vim|virsh|vmstat|wait|watch|wc|wget|whereis|which|who|whoami|write|xargs|xdg-open|yarn|yes|zenity|zip|zsh|zypper)(?=$|[)\s;|&])/,lookbehind:!0},keyword:{pattern:/(^|[\s;|&]|[<>]\()(?:if|then|else|elif|fi|for|while|in|case|esac|function|select|do|done|until)(?=$|[)\s;|&])/,lookbehind:!0},builtin:{pattern:/(^|[\s;|&]|[<>]\()(?:\.|:|break|cd|continue|eval|exec|exit|export|getopts|hash|pwd|readonly|return|shift|test|times|trap|umask|unset|alias|bind|builtin|caller|command|declare|echo|enable|help|let|local|logout|mapfile|printf|read|readarray|source|type|typeset|ulimit|unalias|set|shopt)(?=$|[)\s;|&])/,lookbehind:!0,alias:"class-name"},boolean:{pattern:/(^|[\s;|&]|[<>]\()(?:true|false)(?=$|[)\s;|&])/,lookbehind:!0},"file-descriptor":{pattern:/\B&\d\b/,alias:"important"},operator:{pattern:/\d?<>|>\||\+=|==?|!=?|=~|<<[<-]?|[&\d]?>>|\d?[<>]&?|&[>&]?|\|[&|]?|<=?|>=?/,inside:{"file-descriptor":{pattern:/^\d/,alias:"important"}}},punctuation:/\$?\(\(?|\)\)?|\.\.|[{}[\];\\]/,number:{pattern:/(^|\s)(?:[1-9]\d*|0)(?:[.,]\d+)?\b/,lookbehind:!0}};for(var a=["comment","function-name","for-or-select","assign-left","string","environment","function","keyword","builtin","boolean","file-descriptor","operator","punctuation","number"],r=n.variable[1].inside,s=0;s<a.length;s++)r[a[s]]=e.languages.bash[a[s]];e.languages.shell=e.languages.bash}(Prism);
-Prism.languages.basic={comment:{pattern:/(?:!|REM\b).+/i,inside:{keyword:/^REM/i}},string:{pattern:/"(?:""|[!#$%&'()*,\/:;<=>?^_ +\-.A-Z\d])*"/i,greedy:!0},number:/(?:\b\d+\.?\d*|\B\.\d+)(?:E[+-]?\d+)?/i,keyword:/\b(?:AS|BEEP|BLOAD|BSAVE|CALL(?: ABSOLUTE)?|CASE|CHAIN|CHDIR|CLEAR|CLOSE|CLS|COM|COMMON|CONST|DATA|DECLARE|DEF(?: FN| SEG|DBL|INT|LNG|SNG|STR)|DIM|DO|DOUBLE|ELSE|ELSEIF|END|ENVIRON|ERASE|ERROR|EXIT|FIELD|FILES|FOR|FUNCTION|GET|GOSUB|GOTO|IF|INPUT|INTEGER|IOCTL|KEY|KILL|LINE INPUT|LOCATE|LOCK|LONG|LOOP|LSET|MKDIR|NAME|NEXT|OFF|ON(?: COM| ERROR| KEY| TIMER)?|OPEN|OPTION BASE|OUT|POKE|PUT|READ|REDIM|REM|RESTORE|RESUME|RETURN|RMDIR|RSET|RUN|SHARED|SINGLE|SELECT CASE|SHELL|SLEEP|STATIC|STEP|STOP|STRING|SUB|SWAP|SYSTEM|THEN|TIMER|TO|TROFF|TRON|TYPE|UNLOCK|UNTIL|USING|VIEW PRINT|WAIT|WEND|WHILE|WRITE)(?:\$|\b)/i,function:/\b(?:ABS|ACCESS|ACOS|ANGLE|AREA|ARITHMETIC|ARRAY|ASIN|ASK|AT|ATN|BASE|BEGIN|BREAK|CAUSE|CEIL|CHR|CLIP|COLLATE|COLOR|CON|COS|COSH|COT|CSC|DATE|DATUM|DEBUG|DECIMAL|DEF|DEG|DEGREES|DELETE|DET|DEVICE|DISPLAY|DOT|ELAPSED|EPS|ERASABLE|EXLINE|EXP|EXTERNAL|EXTYPE|FILETYPE|FIXED|FP|GO|GRAPH|HANDLER|IDN|IMAGE|IN|INT|INTERNAL|IP|IS|KEYED|LBOUND|LCASE|LEFT|LEN|LENGTH|LET|LINE|LINES|LOG|LOG10|LOG2|LTRIM|MARGIN|MAT|MAX|MAXNUM|MID|MIN|MISSING|MOD|NATIVE|NUL|NUMERIC|OF|OPTION|ORD|ORGANIZATION|OUTIN|OUTPUT|PI|POINT|POINTER|POINTS|POS|PRINT|PROGRAM|PROMPT|RAD|RADIANS|RANDOMIZE|RECORD|RECSIZE|RECTYPE|RELATIVE|REMAINDER|REPEAT|REST|RETRY|REWRITE|RIGHT|RND|ROUND|RTRIM|SAME|SEC|SELECT|SEQUENTIAL|SET|SETTER|SGN|SIN|SINH|SIZE|SKIP|SQR|STANDARD|STATUS|STR|STREAM|STYLE|TAB|TAN|TANH|TEMPLATE|TEXT|THERE|TIME|TIMEOUT|TRACE|TRANSFORM|TRUNCATE|UBOUND|UCASE|USE|VAL|VARIABLE|VIEWPORT|WHEN|WINDOW|WITH|ZER|ZONEWIDTH)(?:\$|\b)/i,operator:/<[=>]?|>=?|[+\-*\/^=&]|\b(?:AND|EQV|IMP|NOT|OR|XOR)\b/i,punctuation:/[,;:()]/};
-Prism.languages.cpp=Prism.languages.extend("c",{"class-name":{pattern:/(\b(?:class|enum|struct)\s+)\w+/,lookbehind:!0},keyword:/\b(?:alignas|alignof|asm|auto|bool|break|case|catch|char|char16_t|char32_t|class|compl|const|constexpr|const_cast|continue|decltype|default|delete|do|double|dynamic_cast|else|enum|explicit|export|extern|float|for|friend|goto|if|inline|int|int8_t|int16_t|int32_t|int64_t|uint8_t|uint16_t|uint32_t|uint64_t|long|mutable|namespace|new|noexcept|nullptr|operator|private|protected|public|register|reinterpret_cast|return|short|signed|sizeof|static|static_assert|static_cast|struct|switch|template|this|thread_local|throw|try|typedef|typeid|typename|union|unsigned|using|virtual|void|volatile|wchar_t|while)\b/,number:{pattern:/(?:\b0b[01']+|\b0x(?:[\da-f']+\.?[\da-f']*|\.[\da-f']+)(?:p[+-]?[\d']+)?|(?:\b[\d']+\.?[\d']*|\B\.[\d']+)(?:e[+-]?[\d']+)?)[ful]*/i,greedy:!0},operator:/>>=?|<<=?|->|([-+&|:])\1|[?:~]|[-+*/%&|^!=<>]=?|\b(?:and|and_eq|bitand|bitor|not|not_eq|or|or_eq|xor|xor_eq)\b/,boolean:/\b(?:true|false)\b/}),Prism.languages.insertBefore("cpp","string",{"raw-string":{pattern:/R"([^()\\ ]{0,16})\([\s\S]*?\)\1"/,alias:"string",greedy:!0}});
-Prism.languages.aspnet=Prism.languages.extend("markup",{"page-directive":{pattern:/<%\s*@.*%>/i,alias:"tag",inside:{"page-directive":{pattern:/<%\s*@\s*(?:Assembly|Control|Implements|Import|Master(?:Type)?|OutputCache|Page|PreviousPageType|Reference|Register)?|%>/i,alias:"tag"},rest:Prism.languages.markup.tag.inside}},directive:{pattern:/<%.*%>/i,alias:"tag",inside:{directive:{pattern:/<%\s*?[$=%#:]{0,2}|%>/i,alias:"tag"},rest:Prism.languages.csharp}}}),Prism.languages.aspnet.tag.pattern=/<(?!%)\/?[^\s>\/]+(?:\s+[^\s>\/=]+(?:=(?:("|')(?:\\[\s\S]|(?!\1)[^\\])*\1|[^\s'">=]+))?)*\s*\/?>/i,Prism.languages.insertBefore("inside","punctuation",{directive:Prism.languages.aspnet.directive},Prism.languages.aspnet.tag.inside["attr-value"]),Prism.languages.insertBefore("aspnet","comment",{"asp-comment":{pattern:/<%--[\s\S]*?--%>/,alias:["asp","comment"]}}),Prism.languages.insertBefore("aspnet",Prism.languages.javascript?"script":"tag",{"asp-script":{pattern:/(<script(?=.*runat=['"]?server['"]?)[\s\S]*?>)[\s\S]*?(?=<\/script>)/i,lookbehind:!0,alias:["asp","script"],inside:Prism.languages.csharp||{}}});
-!function(e){e.languages.css.selector={pattern:e.languages.css.selector,inside:{"pseudo-element":/:(?:after|before|first-letter|first-line|selection)|::[-\w]+/,"pseudo-class":/:[-\w]+/,class:/\.[-:.\w]+/,id:/#[-:.\w]+/,attribute:{pattern:/\[(?:[^[\]"']|("|')(?:\\(?:\r\n|[\s\S])|(?!\1)[^\\\r\n])*\1)*\]/,greedy:!0,inside:{punctuation:/^\[|\]$/,"case-sensitivity":{pattern:/(\s)[si]$/i,lookbehind:!0,alias:"keyword"},namespace:{pattern:/^(\s*)[-*\w\xA0-\uFFFF]*\|(?!=)/,lookbehind:!0,inside:{punctuation:/\|$/}},attribute:{pattern:/^(\s*)[-\w\xA0-\uFFFF]+/,lookbehind:!0},value:[/("|')(?:\\(?:\r\n|[\s\S])|(?!\1)[^\\\r\n])*\1/,{pattern:/(=\s*)[-\w\xA0-\uFFFF]+(?=\s*$)/,lookbehind:!0}],operator:/[|~*^$]?=/}},"n-th":[{pattern:/(\(\s*)[+-]?\d*[\dn](?:\s*[+-]\s*\d+)?(?=\s*\))/,lookbehind:!0,inside:{number:/[\dn]+/,operator:/[+-]/}},{pattern:/(\(\s*)(?:even|odd)(?=\s*\))/i,lookbehind:!0}],punctuation:/[()]/}},e.languages.insertBefore("css","property",{variable:{pattern:/(^|[^-\w\xA0-\uFFFF])--[-_a-z\xA0-\uFFFF][-\w\xA0-\uFFFF]*/i,lookbehind:!0}});var a={pattern:/(\d)(?:%|[a-z]+)/,lookbehind:!0},n={pattern:/(^|[^\w.-])-?\d*\.?\d+/,lookbehind:!0};e.languages.insertBefore("css","function",{operator:{pattern:/(\s)[+\-*\/](?=\s)/,lookbehind:!0},hexcode:{pattern:/\B#(?:[\da-f]{1,2}){3,4}\b/i,alias:"color"},color:[/\b(?:AliceBlue|AntiqueWhite|Aqua|Aquamarine|Azure|Beige|Bisque|Black|BlanchedAlmond|Blue|BlueViolet|Brown|BurlyWood|CadetBlue|Chartreuse|Chocolate|Coral|CornflowerBlue|Cornsilk|Crimson|Cyan|DarkBlue|DarkCyan|DarkGoldenRod|DarkGr[ae]y|DarkGreen|DarkKhaki|DarkMagenta|DarkOliveGreen|DarkOrange|DarkOrchid|DarkRed|DarkSalmon|DarkSeaGreen|DarkSlateBlue|DarkSlateGr[ae]y|DarkTurquoise|DarkViolet|DeepPink|DeepSkyBlue|DimGr[ae]y|DodgerBlue|FireBrick|FloralWhite|ForestGreen|Fuchsia|Gainsboro|GhostWhite|Gold|GoldenRod|Gr[ae]y|Green|GreenYellow|HoneyDew|HotPink|IndianRed|Indigo|Ivory|Khaki|Lavender|LavenderBlush|LawnGreen|LemonChiffon|LightBlue|LightCoral|LightCyan|LightGoldenRodYellow|LightGr[ae]y|LightGreen|LightPink|LightSalmon|LightSeaGreen|LightSkyBlue|LightSlateGr[ae]y|LightSteelBlue|LightYellow|Lime|LimeGreen|Linen|Magenta|Maroon|MediumAquaMarine|MediumBlue|MediumOrchid|MediumPurple|MediumSeaGreen|MediumSlateBlue|MediumSpringGreen|MediumTurquoise|MediumVioletRed|MidnightBlue|MintCream|MistyRose|Moccasin|NavajoWhite|Navy|OldLace|Olive|OliveDrab|Orange|OrangeRed|Orchid|PaleGoldenRod|PaleGreen|PaleTurquoise|PaleVioletRed|PapayaWhip|PeachPuff|Peru|Pink|Plum|PowderBlue|Purple|Red|RosyBrown|RoyalBlue|SaddleBrown|Salmon|SandyBrown|SeaGreen|SeaShell|Sienna|Silver|SkyBlue|SlateBlue|SlateGr[ae]y|Snow|SpringGreen|SteelBlue|Tan|Teal|Thistle|Tomato|Turquoise|Violet|Wheat|White|WhiteSmoke|Yellow|YellowGreen)\b/i,{pattern:/\b(?:rgb|hsl)\(\s*\d{1,3}\s*,\s*\d{1,3}%?\s*,\s*\d{1,3}%?\s*\)\B|\b(?:rgb|hsl)a\(\s*\d{1,3}\s*,\s*\d{1,3}%?\s*,\s*\d{1,3}%?\s*,\s*(?:0|0?\.\d+|1)\s*\)\B/i,inside:{unit:a,number:n,function:/[\w-]+(?=\()/,punctuation:/[(),]/}}],entity:/\\[\da-f]{1,8}/i,unit:a,number:n})}(Prism);
-Prism.languages.git={comment:/^#.*/m,deleted:/^[-–].*/m,inserted:/^\+.*/m,string:/("|')(?:\\.|(?!\1)[^\\\r\n])*\1/m,command:{pattern:/^.*\$ git .*$/m,inside:{parameter:/\s--?\w+/m}},coord:/^@@.*@@$/m,commit_sha1:/^commit \w{40}$/m};
-!function(e){var t=/\b(?:abstract|continue|for|new|switch|assert|default|goto|package|synchronized|boolean|do|if|private|this|break|double|implements|protected|throw|byte|else|import|public|throws|case|enum|instanceof|return|transient|catch|extends|int|short|try|char|final|interface|static|void|class|finally|long|strictfp|volatile|const|float|native|super|while|var|null|exports|module|open|opens|provides|requires|to|transitive|uses|with)\b/,a=/\b[A-Z](?:\w*[a-z]\w*)?\b/;e.languages.java=e.languages.extend("clike",{"class-name":[a,/\b[A-Z]\w*(?=\s+\w+\s*[;,=())])/],keyword:t,function:[e.languages.clike.function,{pattern:/(\:\:)[a-z_]\w*/,lookbehind:!0}],number:/\b0b[01][01_]*L?\b|\b0x[\da-f_]*\.?[\da-f_p+-]+\b|(?:\b\d[\d_]*\.?[\d_]*|\B\.\d[\d_]*)(?:e[+-]?\d[\d_]*)?[dfl]?/i,operator:{pattern:/(^|[^.])(?:<<=?|>>>?=?|->|([-+&|])\2|[?:~]|[-+*/%&|^!=<>]=?)/m,lookbehind:!0}}),e.languages.insertBefore("java","class-name",{annotation:{alias:"punctuation",pattern:/(^|[^.])@\w+/,lookbehind:!0},namespace:{pattern:/(\b(?:exports|import(?:\s+static)?|module|open|opens|package|provides|requires|to|transitive|uses|with)\s+)[a-z]\w*(\.[a-z]\w*)+/,lookbehind:!0,inside:{punctuation:/\./}},generics:{pattern:/<(?:[\w\s,.&?]|<(?:[\w\s,.&?]|<(?:[\w\s,.&?]|<[\w\s,.&?]*>)*>)*>)*>/,inside:{"class-name":a,keyword:t,punctuation:/[<>(),.:]/,operator:/[?&|]/}}})}(Prism);
-Prism.languages.sql={comment:{pattern:/(^|[^\\])(?:\/\*[\s\S]*?\*\/|(?:--|\/\/|#).*)/,lookbehind:!0},variable:[{pattern:/@(["'`])(?:\\[\s\S]|(?!\1)[^\\])+\1/,greedy:!0},/@[\w.$]+/],string:{pattern:/(^|[^@\\])("|')(?:\\[\s\S]|(?!\2)[^\\]|\2\2)*\2/,greedy:!0,lookbehind:!0},function:/\b(?:AVG|COUNT|FIRST|FORMAT|LAST|LCASE|LEN|MAX|MID|MIN|MOD|NOW|ROUND|SUM|UCASE)(?=\s*\()/i,keyword:/\b(?:ACTION|ADD|AFTER|ALGORITHM|ALL|ALTER|ANALYZE|ANY|APPLY|AS|ASC|AUTHORIZATION|AUTO_INCREMENT|BACKUP|BDB|BEGIN|BERKELEYDB|BIGINT|BINARY|BIT|BLOB|BOOL|BOOLEAN|BREAK|BROWSE|BTREE|BULK|BY|CALL|CASCADED?|CASE|CHAIN|CHAR(?:ACTER|SET)?|CHECK(?:POINT)?|CLOSE|CLUSTERED|COALESCE|COLLATE|COLUMNS?|COMMENT|COMMIT(?:TED)?|COMPUTE|CONNECT|CONSISTENT|CONSTRAINT|CONTAINS(?:TABLE)?|CONTINUE|CONVERT|CREATE|CROSS|CURRENT(?:_DATE|_TIME|_TIMESTAMP|_USER)?|CURSOR|CYCLE|DATA(?:BASES?)?|DATE(?:TIME)?|DAY|DBCC|DEALLOCATE|DEC|DECIMAL|DECLARE|DEFAULT|DEFINER|DELAYED|DELETE|DELIMITERS?|DENY|DESC|DESCRIBE|DETERMINISTIC|DISABLE|DISCARD|DISK|DISTINCT|DISTINCTROW|DISTRIBUTED|DO|DOUBLE|DROP|DUMMY|DUMP(?:FILE)?|DUPLICATE|ELSE(?:IF)?|ENABLE|ENCLOSED|END|ENGINE|ENUM|ERRLVL|ERRORS|ESCAPED?|EXCEPT|EXEC(?:UTE)?|EXISTS|EXIT|EXPLAIN|EXTENDED|FETCH|FIELDS|FILE|FILLFACTOR|FIRST|FIXED|FLOAT|FOLLOWING|FOR(?: EACH ROW)?|FORCE|FOREIGN|FREETEXT(?:TABLE)?|FROM|FULL|FUNCTION|GEOMETRY(?:COLLECTION)?|GLOBAL|GOTO|GRANT|GROUP|HANDLER|HASH|HAVING|HOLDLOCK|HOUR|IDENTITY(?:_INSERT|COL)?|IF|IGNORE|IMPORT|INDEX|INFILE|INNER|INNODB|INOUT|INSERT|INT|INTEGER|INTERSECT|INTERVAL|INTO|INVOKER|ISOLATION|ITERATE|JOIN|KEYS?|KILL|LANGUAGE|LAST|LEAVE|LEFT|LEVEL|LIMIT|LINENO|LINES|LINESTRING|LOAD|LOCAL|LOCK|LONG(?:BLOB|TEXT)|LOOP|MATCH(?:ED)?|MEDIUM(?:BLOB|INT|TEXT)|MERGE|MIDDLEINT|MINUTE|MODE|MODIFIES|MODIFY|MONTH|MULTI(?:LINESTRING|POINT|POLYGON)|NATIONAL|NATURAL|NCHAR|NEXT|NO|NONCLUSTERED|NULLIF|NUMERIC|OFF?|OFFSETS?|ON|OPEN(?:DATASOURCE|QUERY|ROWSET)?|OPTIMIZE|OPTION(?:ALLY)?|ORDER|OUT(?:ER|FILE)?|OVER|PARTIAL|PARTITION|PERCENT|PIVOT|PLAN|POINT|POLYGON|PRECEDING|PRECISION|PREPARE|PREV|PRIMARY|PRINT|PRIVILEGES|PROC(?:EDURE)?|PUBLIC|PURGE|QUICK|RAISERROR|READS?|REAL|RECONFIGURE|REFERENCES|RELEASE|RENAME|REPEAT(?:ABLE)?|REPLACE|REPLICATION|REQUIRE|RESIGNAL|RESTORE|RESTRICT|RETURNS?|REVOKE|RIGHT|ROLLBACK|ROUTINE|ROW(?:COUNT|GUIDCOL|S)?|RTREE|RULE|SAVE(?:POINT)?|SCHEMA|SECOND|SELECT|SERIAL(?:IZABLE)?|SESSION(?:_USER)?|SET(?:USER)?|SHARE|SHOW|SHUTDOWN|SIMPLE|SMALLINT|SNAPSHOT|SOME|SONAME|SQL|START(?:ING)?|STATISTICS|STATUS|STRIPED|SYSTEM_USER|TABLES?|TABLESPACE|TEMP(?:ORARY|TABLE)?|TERMINATED|TEXT(?:SIZE)?|THEN|TIME(?:STAMP)?|TINY(?:BLOB|INT|TEXT)|TOP?|TRAN(?:SACTIONS?)?|TRIGGER|TRUNCATE|TSEQUAL|TYPES?|UNBOUNDED|UNCOMMITTED|UNDEFINED|UNION|UNIQUE|UNLOCK|UNPIVOT|UNSIGNED|UPDATE(?:TEXT)?|USAGE|USE|USER|USING|VALUES?|VAR(?:BINARY|CHAR|CHARACTER|YING)|VIEW|WAITFOR|WARNINGS|WHEN|WHERE|WHILE|WITH(?: ROLLUP|IN)?|WORK|WRITE(?:TEXT)?|YEAR)\b/i,boolean:/\b(?:TRUE|FALSE|NULL)\b/i,number:/\b0x[\da-f]+\b|\b\d+\.?\d*|\B\.\d+\b/i,operator:/[-+*\/=%^~]|&&?|\|\|?|!=?|<(?:=>?|<|>)?|>[>=]?|\b(?:AND|BETWEEN|IN|LIKE|NOT|OR|IS|DIV|REGEXP|RLIKE|SOUNDS LIKE|XOR)\b/i,punctuation:/[;[\]()`,.]/};
-Prism.languages.python={comment:{pattern:/(^|[^\\])#.*/,lookbehind:!0},"string-interpolation":{pattern:/(?:f|rf|fr)(?:("""|''')[\s\S]+?\1|("|')(?:\\.|(?!\2)[^\\\r\n])*\2)/i,greedy:!0,inside:{interpolation:{pattern:/((?:^|[^{])(?:{{)*){(?!{)(?:[^{}]|{(?!{)(?:[^{}]|{(?!{)(?:[^{}])+})+})+}/,lookbehind:!0,inside:{"format-spec":{pattern:/(:)[^:(){}]+(?=}$)/,lookbehind:!0},"conversion-option":{pattern:/![sra](?=[:}]$)/,alias:"punctuation"},rest:null}},string:/[\s\S]+/}},"triple-quoted-string":{pattern:/(?:[rub]|rb|br)?("""|''')[\s\S]+?\1/i,greedy:!0,alias:"string"},string:{pattern:/(?:[rub]|rb|br)?("|')(?:\\.|(?!\1)[^\\\r\n])*\1/i,greedy:!0},function:{pattern:/((?:^|\s)def[ \t]+)[a-zA-Z_]\w*(?=\s*\()/g,lookbehind:!0},"class-name":{pattern:/(\bclass\s+)\w+/i,lookbehind:!0},decorator:{pattern:/(^\s*)@\w+(?:\.\w+)*/im,lookbehind:!0,alias:["annotation","punctuation"],inside:{punctuation:/\./}},keyword:/\b(?:and|as|assert|async|await|break|class|continue|def|del|elif|else|except|exec|finally|for|from|global|if|import|in|is|lambda|nonlocal|not|or|pass|print|raise|return|try|while|with|yield)\b/,builtin:/\b(?:__import__|abs|all|any|apply|ascii|basestring|bin|bool|buffer|bytearray|bytes|callable|chr|classmethod|cmp|coerce|compile|complex|delattr|dict|dir|divmod|enumerate|eval|execfile|file|filter|float|format|frozenset|getattr|globals|hasattr|hash|help|hex|id|input|int|intern|isinstance|issubclass|iter|len|list|locals|long|map|max|memoryview|min|next|object|oct|open|ord|pow|property|range|raw_input|reduce|reload|repr|reversed|round|set|setattr|slice|sorted|staticmethod|str|sum|super|tuple|type|unichr|unicode|vars|xrange|zip)\b/,boolean:/\b(?:True|False|None)\b/,number:/(?:\b(?=\d)|\B(?=\.))(?:0[bo])?(?:(?:\d|0x[\da-f])[\da-f]*\.?\d*|\.\d+)(?:e[+-]?\d+)?j?\b/i,operator:/[-+%=]=?|!=|\*\*?=?|\/\/?=?|<[<=>]?|>[=>]?|[&|^~]/,punctuation:/[{}[\];(),.:]/},Prism.languages.python["string-interpolation"].inside.interpolation.inside.rest=Prism.languages.python,Prism.languages.py=Prism.languages.python;
-Prism.languages["visual-basic"]={comment:{pattern:/(?:['‘’]|REM\b).*/i,inside:{keyword:/^REM/i}},directive:{pattern:/#(?:Const|Else|ElseIf|End|ExternalChecksum|ExternalSource|If|Region)(?:[^\S\r\n]_[^\S\r\n]*(?:\r\n?|\n)|.)+/i,alias:"comment",greedy:!0},string:{pattern:/\$?["“”](?:["“”]{2}|[^"“”])*["“”]C?/i,greedy:!0},date:{pattern:/#[^\S\r\n]*(?:\d+([/-])\d+\1\d+(?:[^\S\r\n]+(?:\d+[^\S\r\n]*(?:AM|PM)|\d+:\d+(?::\d+)?(?:[^\S\r\n]*(?:AM|PM))?))?|(?:\d+[^\S\r\n]*(?:AM|PM)|\d+:\d+(?::\d+)?(?:[^\S\r\n]*(?:AM|PM))?))[^\S\r\n]*#/i,alias:"builtin"},number:/(?:(?:\b\d+(?:\.\d+)?|\.\d+)(?:E[+-]?\d+)?|&[HO][\dA-F]+)(?:U?[ILS]|[FRD])?/i,boolean:/\b(?:True|False|Nothing)\b/i,keyword:/\b(?:AddHandler|AddressOf|Alias|And(?:Also)?|As|Boolean|ByRef|Byte|ByVal|Call|Case|Catch|C(?:Bool|Byte|Char|Date|Dbl|Dec|Int|Lng|Obj|SByte|Short|Sng|Str|Type|UInt|ULng|UShort)|Char|Class|Const|Continue|Date|Decimal|Declare|Default|Delegate|Dim|DirectCast|Do|Double|Each|Else(?:If)?|End(?:If)?|Enum|Erase|Error|Event|Exit|Finally|For|Friend|Function|Get(?:Type|XMLNamespace)?|Global|GoSub|GoTo|Handles|If|Implements|Imports|In|Inherits|Integer|Interface|Is|IsNot|Let|Lib|Like|Long|Loop|Me|Mod|Module|Must(?:Inherit|Override)|My(?:Base|Class)|Namespace|Narrowing|New|Next|Not(?:Inheritable|Overridable)?|Object|Of|On|Operator|Option(?:al)?|Or(?:Else)?|Out|Overloads|Overridable|Overrides|ParamArray|Partial|Private|Property|Protected|Public|RaiseEvent|ReadOnly|ReDim|RemoveHandler|Resume|Return|SByte|Select|Set|Shadows|Shared|short|Single|Static|Step|Stop|String|Structure|Sub|SyncLock|Then|Throw|To|Try|TryCast|TypeOf|U(?:Integer|Long|Short)|Using|Variant|Wend|When|While|Widening|With(?:Events)?|WriteOnly|Xor)\b/i,operator:[/[+\-*/\\^<=>&#@$%!]/,{pattern:/([^\S\r\n])_(?=[^\S\r\n]*[\r\n])/,lookbehind:!0}],punctuation:/[{}().,:?]/},Prism.languages.vb=Prism.languages["visual-basic"];
-Prism.languages.vbnet=Prism.languages.extend("basic",{keyword:/(?:\b(?:ADDHANDLER|ADDRESSOF|ALIAS|AND|ANDALSO|AS|BEEP|BLOAD|BOOLEAN|BSAVE|BYREF|BYTE|BYVAL|CALL(?: ABSOLUTE)?|CASE|CATCH|CBOOL|CBYTE|CCHAR|CDATE|CDEC|CDBL|CHAIN|CHAR|CHDIR|CINT|CLASS|CLEAR|CLNG|CLOSE|CLS|COBJ|COM|COMMON|CONST|CONTINUE|CSBYTE|CSHORT|CSNG|CSTR|CTYPE|CUINT|CULNG|CUSHORT|DATA|DATE|DECIMAL|DECLARE|DEFAULT|DEF(?: FN| SEG|DBL|INT|LNG|SNG|STR)|DELEGATE|DIM|DIRECTCAST|DO|DOUBLE|ELSE|ELSEIF|END|ENUM|ENVIRON|ERASE|ERROR|EVENT|EXIT|FALSE|FIELD|FILES|FINALLY|FOR(?: EACH)?|FRIEND|FUNCTION|GET|GETTYPE|GETXMLNAMESPACE|GLOBAL|GOSUB|GOTO|HANDLES|IF|IMPLEMENTS|IMPORTS|IN|INHERITS|INPUT|INTEGER|INTERFACE|IOCTL|IS|ISNOT|KEY|KILL|LINE INPUT|LET|LIB|LIKE|LOCATE|LOCK|LONG|LOOP|LSET|ME|MKDIR|MOD|MODULE|MUSTINHERIT|MUSTOVERRIDE|MYBASE|MYCLASS|NAME|NAMESPACE|NARROWING|NEW|NEXT|NOT|NOTHING|NOTINHERITABLE|NOTOVERRIDABLE|OBJECT|OF|OFF|ON(?: COM| ERROR| KEY| TIMER)?|OPERATOR|OPEN|OPTION(?: BASE)?|OPTIONAL|OR|ORELSE|OUT|OVERLOADS|OVERRIDABLE|OVERRIDES|PARAMARRAY|PARTIAL|POKE|PRIVATE|PROPERTY|PROTECTED|PUBLIC|PUT|RAISEEVENT|READ|READONLY|REDIM|REM|REMOVEHANDLER|RESTORE|RESUME|RETURN|RMDIR|RSET|RUN|SBYTE|SELECT(?: CASE)?|SET|SHADOWS|SHARED|SHORT|SINGLE|SHELL|SLEEP|STATIC|STEP|STOP|STRING|STRUCTURE|SUB|SYNCLOCK|SWAP|SYSTEM|THEN|THROW|TIMER|TO|TROFF|TRON|TRUE|TRY|TRYCAST|TYPE|TYPEOF|UINTEGER|ULONG|UNLOCK|UNTIL|USHORT|USING|VIEW PRINT|WAIT|WEND|WHEN|WHILE|WIDENING|WITH|WITHEVENTS|WRITE|WRITEONLY|XOR)|\B(?:#CONST|#ELSE|#ELSEIF|#END|#IF))(?:\$|\b)/i,comment:[{pattern:/(?:!|REM\b).+/i,inside:{keyword:/^REM/i}},{pattern:/(^|[^\\:])'.*/,lookbehind:!0}]});
-!function(){if("undefined"!=typeof self&&self.Prism&&self.document&&document.querySelector){var t,n=function(){if(void 0===t){var e=document.createElement("div");e.style.fontSize="13px",e.style.lineHeight="1.5",e.style.padding=0,e.style.border=0,e.innerHTML="&nbsp;<br />&nbsp;",document.body.appendChild(e),t=38===e.offsetHeight,document.body.removeChild(e)}return t},a=0;Prism.hooks.add("before-sanity-check",function(e){var t=e.element.parentNode,n=t&&t.getAttribute("data-line");if(t&&n&&/pre/i.test(t.nodeName)){var i=0;r(".line-highlight",t).forEach(function(e){i+=e.textContent.length,e.parentNode.removeChild(e)}),i&&/^( \n)+$/.test(e.code.slice(-i))&&(e.code=e.code.slice(0,-i))}}),Prism.hooks.add("complete",function e(t){var n=t.element.parentNode,i=n&&n.getAttribute("data-line");if(n&&i&&/pre/i.test(n.nodeName)){clearTimeout(a);var r=Prism.plugins.lineNumbers,o=t.plugins&&t.plugins.lineNumbers;if(l(n,"line-numbers")&&r&&!o)Prism.hooks.add("line-numbers",e);else s(n,i)(),a=setTimeout(u,1)}}),window.addEventListener("hashchange",u),window.addEventListener("resize",function(){var t=[];r("pre[data-line]").forEach(function(e){t.push(s(e))}),t.forEach(i)})}function r(e,t){return Array.prototype.slice.call((t||document).querySelectorAll(e))}function l(e,t){return t=" "+t+" ",-1<(" "+e.className+" ").replace(/[\n\t]/g," ").indexOf(t)}function i(e){e()}function s(u,e,d){var t=(e="string"==typeof e?e:u.getAttribute("data-line")).replace(/\s+/g,"").split(","),c=+u.getAttribute("data-line-offset")||0,f=(n()?parseInt:parseFloat)(getComputedStyle(u).lineHeight),h=l(u,"line-numbers"),p=h?u:u.querySelector("code")||u,m=[];return t.forEach(function(e){var t=e.split("-"),n=+t[0],i=+t[1]||n,r=u.querySelector('.line-highlight[data-range="'+e+'"]')||document.createElement("div");if(m.push(function(){r.setAttribute("aria-hidden","true"),r.setAttribute("data-range",e),r.className=(d||"")+" line-highlight"}),h&&Prism.plugins.lineNumbers){var o=Prism.plugins.lineNumbers.getLine(u,n),a=Prism.plugins.lineNumbers.getLine(u,i);if(o){var l=o.offsetTop+"px";m.push(function(){r.style.top=l})}if(a){var s=a.offsetTop-o.offsetTop+a.offsetHeight+"px";m.push(function(){r.style.height=s})}}else m.push(function(){r.setAttribute("data-start",n),n<i&&r.setAttribute("data-end",i),r.style.top=(n-c-1)*f+"px",r.textContent=new Array(i-n+2).join(" \n")});m.push(function(){p.appendChild(r)})}),function(){m.forEach(i)}}function u(){var e=location.hash.slice(1);r(".temporary.line-highlight").forEach(function(e){e.parentNode.removeChild(e)});var t=(e.match(/\.([\d,-]+)$/)||[,""])[1];if(t&&!document.getElementById(e)){var n=e.slice(0,e.lastIndexOf(".")),i=document.getElementById(n);if(i)i.hasAttribute("data-line")||i.setAttribute("data-line",""),s(i,t,"temporary ")(),document.querySelector(".temporary.line-highlight").scrollIntoView()}}}();
-!function(){if("undefined"!=typeof self&&self.Prism&&self.document){var l="line-numbers",c=/\n(?!$)/g,m=function(e){var t=a(e)["white-space"];if("pre-wrap"===t||"pre-line"===t){var n=e.querySelector("code"),r=e.querySelector(".line-numbers-rows"),s=e.querySelector(".line-numbers-sizer"),i=n.textContent.split(c);s||((s=document.createElement("span")).className="line-numbers-sizer",n.appendChild(s)),s.style.display="block",i.forEach(function(e,t){s.textContent=e||"\n";var n=s.getBoundingClientRect().height;r.children[t].style.height=n+"px"}),s.textContent="",s.style.display="none"}},a=function(e){return e?window.getComputedStyle?getComputedStyle(e):e.currentStyle||null:null};window.addEventListener("resize",function(){Array.prototype.forEach.call(document.querySelectorAll("pre."+l),m)}),Prism.hooks.add("complete",function(e){if(e.code){var t=e.element,n=t.parentNode;if(n&&/pre/i.test(n.nodeName)&&!t.querySelector(".line-numbers-rows")){for(var r=!1,s=/(?:^|\s)line-numbers(?:\s|$)/,i=t;i;i=i.parentNode)if(s.test(i.className)){r=!0;break}if(r){t.className=t.className.replace(s," "),s.test(n.className)||(n.className+=" line-numbers");var l,a=e.code.match(c),o=a?a.length+1:1,u=new Array(o+1).join("<span></span>");(l=document.createElement("span")).setAttribute("aria-hidden","true"),l.className="line-numbers-rows",l.innerHTML=u,n.hasAttribute("data-start")&&(n.style.counterReset="linenumber "+(parseInt(n.getAttribute("data-start"),10)-1)),e.element.appendChild(l),m(n),Prism.hooks.run("line-numbers",e)}}}}),Prism.hooks.add("line-numbers",function(e){e.plugins=e.plugins||{},e.plugins.lineNumbers=!0}),Prism.plugins.lineNumbers={getLine:function(e,t){if("PRE"===e.tagName&&e.classList.contains(l)){var n=e.querySelector(".line-numbers-rows"),r=parseInt(e.getAttribute("data-start"),10)||1,s=r+(n.children.length-1);t<r&&(t=r),s<t&&(t=s);var i=t-r;return n.children[i]}}}}}();
-!function(){if(("undefined"==typeof self||self.Prism)&&("undefined"==typeof global||global.Prism)){var t=/\b([a-z]{3,7}:\/\/|tel:)[\w\-+%~/.:=&@]+(?:\?[\w\-+%~/.:=?&!$'()*,;@]*)?(?:#[\w\-+%~/.:#=?&!$'()*,;@]*)?/,r=/\b\S+@[\w.]+[a-z]{2}/,a=/\[([^\]]+)]\(([^)]+)\)/,l=["comment","url","attr-value","string"];Prism.plugins.autolinker={processGrammar:function(i){i&&!i["url-link"]&&(Prism.languages.DFS(i,function(i,n,e){-1<l.indexOf(e)&&!Array.isArray(n)&&(n.pattern||(n=this[i]={pattern:n}),n.inside=n.inside||{},"comment"==e&&(n.inside["md-link"]=a),"attr-value"==e?Prism.languages.insertBefore("inside","punctuation",{"url-link":t},n):n.inside["url-link"]=t,n.inside["email-link"]=r)}),i["url-link"]=t,i["email-link"]=r)}},Prism.hooks.add("before-highlight",function(i){Prism.plugins.autolinker.processGrammar(i.grammar)}),Prism.hooks.add("wrap",function(i){if(/-link$/.test(i.type)){i.tag="a";var n=i.content;if("email-link"==i.type&&0!=n.indexOf("mailto:"))n="mailto:"+n;else if("md-link"==i.type){var e=i.content.match(a);n=e[2],i.content=e[1]}i.attributes.href=n;try{i.content=decodeURIComponent(i.content)}catch(i){}}})}}();
-!function(){if("undefined"!=typeof self&&self.Prism&&self.document){var r=[],i={},a=function(){};Prism.plugins.toolbar={};var t=Prism.plugins.toolbar.registerButton=function(t,a){var e;e="function"==typeof a?a:function(t){var e;return"function"==typeof a.onClick?((e=document.createElement("button")).type="button",e.addEventListener("click",function(){a.onClick.call(this,t)})):"string"==typeof a.url?(e=document.createElement("a")).href=a.url:e=document.createElement("span"),a.className&&e.classList.add(a.className),e.textContent=a.text,e},t in i?console.warn('There is a button with the key "'+t+'" registered already.'):r.push(i[t]=e)},e=Prism.plugins.toolbar.hook=function(n){var t=n.element.parentNode;if(t&&/pre/i.test(t.nodeName)&&!t.parentNode.classList.contains("code-toolbar")){var e=document.createElement("div");e.classList.add("code-toolbar"),t.parentNode.insertBefore(e,t),e.appendChild(t);var o=document.createElement("div");o.classList.add("toolbar"),document.body.hasAttribute("data-toolbar-order")&&(r=document.body.getAttribute("data-toolbar-order").split(",").map(function(t){return i[t]||a})),r.forEach(function(t){var e=t(n);if(e){var a=document.createElement("div");a.classList.add("toolbar-item"),a.appendChild(e),o.appendChild(a)}}),e.appendChild(o)}};t("label",function(t){var e=t.element.parentNode;if(e&&/pre/i.test(e.nodeName)&&e.hasAttribute("data-label")){var a,n,o=e.getAttribute("data-label");try{n=document.querySelector("template#"+o)}catch(t){}return n?a=n.content:(e.hasAttribute("data-url")?(a=document.createElement("a")).href=e.getAttribute("data-url"):a=document.createElement("span"),a.textContent=o),a}}),Prism.hooks.add("complete",e)}}();
-!function(){var i=Object.assign||function(e,n){for(var t in n)n.hasOwnProperty(t)&&(e[t]=n[t]);return e};function e(e){this.defaults=i({},e)}function l(e){for(var n=0,t=0;t<e.length;++t)e.charCodeAt(t)=="\t".charCodeAt(0)&&(n+=3);return e.length+n}e.prototype={setDefaults:function(e){this.defaults=i(this.defaults,e)},normalize:function(e,n){for(var t in n=i(this.defaults,n)){var r=t.replace(/-(\w)/g,function(e,n){return n.toUpperCase()});"normalize"!==t&&"setDefaults"!==r&&n[t]&&this[r]&&(e=this[r].call(this,e,n[t]))}return e},leftTrim:function(e){return e.replace(/^\s+/,"")},rightTrim:function(e){return e.replace(/\s+$/,"")},tabsToSpaces:function(e,n){return n=0|n||4,e.replace(/\t/g,new Array(++n).join(" "))},spacesToTabs:function(e,n){return n=0|n||4,e.replace(RegExp(" {"+n+"}","g"),"\t")},removeTrailing:function(e){return e.replace(/\s*?$/gm,"")},removeInitialLineFeed:function(e){return e.replace(/^(?:\r?\n|\r)/,"")},removeIndent:function(e){var n=e.match(/^[^\S\n\r]*(?=\S)/gm);return n&&n[0].length?(n.sort(function(e,n){return e.length-n.length}),n[0].length?e.replace(RegExp("^"+n[0],"gm"),""):e):e},indent:function(e,n){return e.replace(/^[^\S\n\r]*(?=\S)/gm,new Array(++n).join("\t")+"$&")},breakLines:function(e,n){n=!0===n?80:0|n||80;for(var t=e.split("\n"),r=0;r<t.length;++r)if(!(l(t[r])<=n)){for(var i=t[r].split(/(\s+)/g),o=0,a=0;a<i.length;++a){var s=l(i[a]);n<(o+=s)&&(i[a]="\n"+i[a],o=s)}t[r]=i.join("")}return t.join("\n")}},"undefined"!=typeof module&&module.exports&&(module.exports=e),"undefined"!=typeof Prism&&(Prism.plugins.NormalizeWhitespace=new e({"remove-trailing":!0,"remove-indent":!0,"left-trim":!0,"right-trim":!0}),Prism.hooks.add("before-sanity-check",function(e){var n=Prism.plugins.NormalizeWhitespace;if(!e.settings||!1!==e.settings["whitespace-normalization"])if(e.element&&e.element.parentNode||!e.code){var t=e.element.parentNode,r=/(?:^|\s)no-whitespace-normalization(?:\s|$)/;if(e.code&&t&&"pre"===t.nodeName.toLowerCase()&&!r.test(t.className)&&!r.test(e.element.className)){for(var i=t.childNodes,o="",a="",s=!1,l=0;l<i.length;++l){var c=i[l];c==e.element?s=!0:"#text"===c.nodeName&&(s?a+=c.nodeValue:o+=c.nodeValue,t.removeChild(c),--l)}if(e.element.children.length&&Prism.plugins.KeepMarkup){var u=o+e.element.innerHTML+a;e.element.innerHTML=n.normalize(u,e.settings),e.code=e.element.textContent}else e.code=o+e.code+a,e.code=n.normalize(e.code,e.settings)}}else e.code=n.normalize(e.code,e.settings)}))}();
-!function(){if("undefined"!=typeof self&&self.Prism&&self.document)if(Prism.plugins.toolbar){var r=window.ClipboardJS||void 0;r||"function"!=typeof require||(r=require("clipboard"));var i=[];if(!r){var o=document.createElement("script"),e=document.querySelector("head");o.onload=function(){if(r=window.ClipboardJS)for(;i.length;)i.pop()()},o.src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js",e.appendChild(o)}Prism.plugins.toolbar.registerButton("copy-to-clipboard",function(e){var t=document.createElement("button");return t.textContent="Copy",r?o():i.push(o),t;function o(){var o=new r(t,{text:function(){return e.code}});o.on("success",function(){t.textContent="Copied!",n()}),o.on("error",function(){t.textContent="Press Ctrl+C to copy",n()})}function n(){setTimeout(function(){t.textContent="Copy"},5e3)}})}else console.warn("Copy to Clipboard plugin loaded before Toolbar plugin.")}();
+/* PrismJS 1.19.0
+https://prismjs.com/download.html?#themes=prism-okaidia&languages=markup+css+clike+javascript+aspnet+bash+basic+c+csharp+cpp+css-extras+git+java+python+scss+sql+vbnet+visual-basic&plugins=line-highlight+line-numbers+autolinker+normalize-whitespace+toolbar+copy-to-clipboard */
+var _self = (typeof window !== 'undefined')
+	? window   // if in browser
+	: (
+		(typeof WorkerGlobalScope !== 'undefined' && self instanceof WorkerGlobalScope)
+		? self // if in worker
+		: {}   // if in node js
+	);
+
+/**
+ * Prism: Lightweight, robust, elegant syntax highlighting
+ * MIT license http://www.opensource.org/licenses/mit-license.php/
+ * @author Lea Verou http://lea.verou.me
+ */
+
+var Prism = (function (_self){
+
+// Private helper vars
+var lang = /\blang(?:uage)?-([\w-]+)\b/i;
+var uniqueId = 0;
+
+
+var _ = {
+	manual: _self.Prism && _self.Prism.manual,
+	disableWorkerMessageHandler: _self.Prism && _self.Prism.disableWorkerMessageHandler,
+	util: {
+		encode: function (tokens) {
+			if (tokens instanceof Token) {
+				return new Token(tokens.type, _.util.encode(tokens.content), tokens.alias);
+			} else if (Array.isArray(tokens)) {
+				return tokens.map(_.util.encode);
+			} else {
+				return tokens.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/\u00a0/g, ' ');
+			}
+		},
+
+		type: function (o) {
+			return Object.prototype.toString.call(o).slice(8, -1);
+		},
+
+		objId: function (obj) {
+			if (!obj['__id']) {
+				Object.defineProperty(obj, '__id', { value: ++uniqueId });
+			}
+			return obj['__id'];
+		},
+
+		// Deep clone a language definition (e.g. to extend it)
+		clone: function deepClone(o, visited) {
+			var clone, id, type = _.util.type(o);
+			visited = visited || {};
+
+			switch (type) {
+				case 'Object':
+					id = _.util.objId(o);
+					if (visited[id]) {
+						return visited[id];
+					}
+					clone = {};
+					visited[id] = clone;
+
+					for (var key in o) {
+						if (o.hasOwnProperty(key)) {
+							clone[key] = deepClone(o[key], visited);
+						}
+					}
+
+					return clone;
+
+				case 'Array':
+					id = _.util.objId(o);
+					if (visited[id]) {
+						return visited[id];
+					}
+					clone = [];
+					visited[id] = clone;
+
+					o.forEach(function (v, i) {
+						clone[i] = deepClone(v, visited);
+					});
+
+					return clone;
+
+				default:
+					return o;
+			}
+		},
+
+		/**
+		 * Returns the Prism language of the given element set by a `language-xxxx` or `lang-xxxx` class.
+		 *
+		 * If no language is set for the element or the element is `null` or `undefined`, `none` will be returned.
+		 *
+		 * @param {Element} element
+		 * @returns {string}
+		 */
+		getLanguage: function (element) {
+			while (element && !lang.test(element.className)) {
+				element = element.parentElement;
+			}
+			if (element) {
+				return (element.className.match(lang) || [, 'none'])[1].toLowerCase();
+			}
+			return 'none';
+		},
+
+		/**
+		 * Returns the script element that is currently executing.
+		 *
+		 * This does __not__ work for line script element.
+		 *
+		 * @returns {HTMLScriptElement | null}
+		 */
+		currentScript: function () {
+			if (typeof document === 'undefined') {
+				return null;
+			}
+			if ('currentScript' in document) {
+				return document.currentScript;
+			}
+
+			// IE11 workaround
+			// we'll get the src of the current script by parsing IE11's error stack trace
+			// this will not work for inline scripts
+
+			try {
+				throw new Error();
+			} catch (err) {
+				// Get file src url from stack. Specifically works with the format of stack traces in IE.
+				// A stack will look like this:
+				//
+				// Error
+				//    at _.util.currentScript (http://localhost/components/prism-core.js:119:5)
+				//    at Global code (http://localhost/components/prism-core.js:606:1)
+
+				var src = (/at [^(\r\n]*\((.*):.+:.+\)$/i.exec(err.stack) || [])[1];
+				if (src) {
+					var scripts = document.getElementsByTagName('script');
+					for (var i in scripts) {
+						if (scripts[i].src == src) {
+							return scripts[i];
+						}
+					}
+				}
+				return null;
+			}
+		}
+	},
+
+	languages: {
+		extend: function (id, redef) {
+			var lang = _.util.clone(_.languages[id]);
+
+			for (var key in redef) {
+				lang[key] = redef[key];
+			}
+
+			return lang;
+		},
+
+		/**
+		 * Insert a token before another token in a language literal
+		 * As this needs to recreate the object (we cannot actually insert before keys in object literals),
+		 * we cannot just provide an object, we need an object and a key.
+		 * @param inside The key (or language id) of the parent
+		 * @param before The key to insert before.
+		 * @param insert Object with the key/value pairs to insert
+		 * @param root The object that contains `inside`. If equal to Prism.languages, it can be omitted.
+		 */
+		insertBefore: function (inside, before, insert, root) {
+			root = root || _.languages;
+			var grammar = root[inside];
+			var ret = {};
+
+			for (var token in grammar) {
+				if (grammar.hasOwnProperty(token)) {
+
+					if (token == before) {
+						for (var newToken in insert) {
+							if (insert.hasOwnProperty(newToken)) {
+								ret[newToken] = insert[newToken];
+							}
+						}
+					}
+
+					// Do not insert token which also occur in insert. See #1525
+					if (!insert.hasOwnProperty(token)) {
+						ret[token] = grammar[token];
+					}
+				}
+			}
+
+			var old = root[inside];
+			root[inside] = ret;
+
+			// Update references in other language definitions
+			_.languages.DFS(_.languages, function(key, value) {
+				if (value === old && key != inside) {
+					this[key] = ret;
+				}
+			});
+
+			return ret;
+		},
+
+		// Traverse a language definition with Depth First Search
+		DFS: function DFS(o, callback, type, visited) {
+			visited = visited || {};
+
+			var objId = _.util.objId;
+
+			for (var i in o) {
+				if (o.hasOwnProperty(i)) {
+					callback.call(o, i, o[i], type || i);
+
+					var property = o[i],
+					    propertyType = _.util.type(property);
+
+					if (propertyType === 'Object' && !visited[objId(property)]) {
+						visited[objId(property)] = true;
+						DFS(property, callback, null, visited);
+					}
+					else if (propertyType === 'Array' && !visited[objId(property)]) {
+						visited[objId(property)] = true;
+						DFS(property, callback, i, visited);
+					}
+				}
+			}
+		}
+	},
+	plugins: {},
+
+	highlightAll: function(async, callback) {
+		_.highlightAllUnder(document, async, callback);
+	},
+
+	highlightAllUnder: function(container, async, callback) {
+		var env = {
+			callback: callback,
+			container: container,
+			selector: 'code[class*="language-"], [class*="language-"] code, code[class*="lang-"], [class*="lang-"] code'
+		};
+
+		_.hooks.run('before-highlightall', env);
+
+		env.elements = Array.prototype.slice.apply(env.container.querySelectorAll(env.selector));
+
+		_.hooks.run('before-all-elements-highlight', env);
+
+		for (var i = 0, element; element = env.elements[i++];) {
+			_.highlightElement(element, async === true, env.callback);
+		}
+	},
+
+	highlightElement: function(element, async, callback) {
+		// Find language
+		var language = _.util.getLanguage(element);
+		var grammar = _.languages[language];
+
+		// Set language on the element, if not present
+		element.className = element.className.replace(lang, '').replace(/\s+/g, ' ') + ' language-' + language;
+
+		// Set language on the parent, for styling
+		var parent = element.parentNode;
+		if (parent && parent.nodeName.toLowerCase() === 'pre') {
+			parent.className = parent.className.replace(lang, '').replace(/\s+/g, ' ') + ' language-' + language;
+		}
+
+		var code = element.textContent;
+
+		var env = {
+			element: element,
+			language: language,
+			grammar: grammar,
+			code: code
+		};
+
+		function insertHighlightedCode(highlightedCode) {
+			env.highlightedCode = highlightedCode;
+
+			_.hooks.run('before-insert', env);
+
+			env.element.innerHTML = env.highlightedCode;
+
+			_.hooks.run('after-highlight', env);
+			_.hooks.run('complete', env);
+			callback && callback.call(env.element);
+		}
+
+		_.hooks.run('before-sanity-check', env);
+
+		if (!env.code) {
+			_.hooks.run('complete', env);
+			callback && callback.call(env.element);
+			return;
+		}
+
+		_.hooks.run('before-highlight', env);
+
+		if (!env.grammar) {
+			insertHighlightedCode(_.util.encode(env.code));
+			return;
+		}
+
+		if (async && _self.Worker) {
+			var worker = new Worker(_.filename);
+
+			worker.onmessage = function(evt) {
+				insertHighlightedCode(evt.data);
+			};
+
+			worker.postMessage(JSON.stringify({
+				language: env.language,
+				code: env.code,
+				immediateClose: true
+			}));
+		}
+		else {
+			insertHighlightedCode(_.highlight(env.code, env.grammar, env.language));
+		}
+	},
+
+	highlight: function (text, grammar, language) {
+		var env = {
+			code: text,
+			grammar: grammar,
+			language: language
+		};
+		_.hooks.run('before-tokenize', env);
+		env.tokens = _.tokenize(env.code, env.grammar);
+		_.hooks.run('after-tokenize', env);
+		return Token.stringify(_.util.encode(env.tokens), env.language);
+	},
+
+	matchGrammar: function (text, strarr, grammar, index, startPos, oneshot, target) {
+		for (var token in grammar) {
+			if (!grammar.hasOwnProperty(token) || !grammar[token]) {
+				continue;
+			}
+
+			var patterns = grammar[token];
+			patterns = Array.isArray(patterns) ? patterns : [patterns];
+
+			for (var j = 0; j < patterns.length; ++j) {
+				if (target && target == token + ',' + j) {
+					return;
+				}
+
+				var pattern = patterns[j],
+					inside = pattern.inside,
+					lookbehind = !!pattern.lookbehind,
+					greedy = !!pattern.greedy,
+					lookbehindLength = 0,
+					alias = pattern.alias;
+
+				if (greedy && !pattern.pattern.global) {
+					// Without the global flag, lastIndex won't work
+					var flags = pattern.pattern.toString().match(/[imsuy]*$/)[0];
+					pattern.pattern = RegExp(pattern.pattern.source, flags + 'g');
+				}
+
+				pattern = pattern.pattern || pattern;
+
+				// Don’t cache length as it changes during the loop
+				for (var i = index, pos = startPos; i < strarr.length; pos += strarr[i].length, ++i) {
+
+					var str = strarr[i];
+
+					if (strarr.length > text.length) {
+						// Something went terribly wrong, ABORT, ABORT!
+						return;
+					}
+
+					if (str instanceof Token) {
+						continue;
+					}
+
+					if (greedy && i != strarr.length - 1) {
+						pattern.lastIndex = pos;
+						var match = pattern.exec(text);
+						if (!match) {
+							break;
+						}
+
+						var from = match.index + (lookbehind && match[1] ? match[1].length : 0),
+						    to = match.index + match[0].length,
+						    k = i,
+						    p = pos;
+
+						for (var len = strarr.length; k < len && (p < to || (!strarr[k].type && !strarr[k - 1].greedy)); ++k) {
+							p += strarr[k].length;
+							// Move the index i to the element in strarr that is closest to from
+							if (from >= p) {
+								++i;
+								pos = p;
+							}
+						}
+
+						// If strarr[i] is a Token, then the match starts inside another Token, which is invalid
+						if (strarr[i] instanceof Token) {
+							continue;
+						}
+
+						// Number of tokens to delete and replace with the new match
+						delNum = k - i;
+						str = text.slice(pos, p);
+						match.index -= pos;
+					} else {
+						pattern.lastIndex = 0;
+
+						var match = pattern.exec(str),
+							delNum = 1;
+					}
+
+					if (!match) {
+						if (oneshot) {
+							break;
+						}
+
+						continue;
+					}
+
+					if(lookbehind) {
+						lookbehindLength = match[1] ? match[1].length : 0;
+					}
+
+					var from = match.index + lookbehindLength,
+					    match = match[0].slice(lookbehindLength),
+					    to = from + match.length,
+					    before = str.slice(0, from),
+					    after = str.slice(to);
+
+					var args = [i, delNum];
+
+					if (before) {
+						++i;
+						pos += before.length;
+						args.push(before);
+					}
+
+					var wrapped = new Token(token, inside? _.tokenize(match, inside) : match, alias, match, greedy);
+
+					args.push(wrapped);
+
+					if (after) {
+						args.push(after);
+					}
+
+					Array.prototype.splice.apply(strarr, args);
+
+					if (delNum != 1)
+						_.matchGrammar(text, strarr, grammar, i, pos, true, token + ',' + j);
+
+					if (oneshot)
+						break;
+				}
+			}
+		}
+	},
+
+	tokenize: function(text, grammar) {
+		var strarr = [text];
+
+		var rest = grammar.rest;
+
+		if (rest) {
+			for (var token in rest) {
+				grammar[token] = rest[token];
+			}
+
+			delete grammar.rest;
+		}
+
+		_.matchGrammar(text, strarr, grammar, 0, 0, false);
+
+		return strarr;
+	},
+
+	hooks: {
+		all: {},
+
+		add: function (name, callback) {
+			var hooks = _.hooks.all;
+
+			hooks[name] = hooks[name] || [];
+
+			hooks[name].push(callback);
+		},
+
+		run: function (name, env) {
+			var callbacks = _.hooks.all[name];
+
+			if (!callbacks || !callbacks.length) {
+				return;
+			}
+
+			for (var i=0, callback; callback = callbacks[i++];) {
+				callback(env);
+			}
+		}
+	},
+
+	Token: Token
+};
+
+_self.Prism = _;
+
+function Token(type, content, alias, matchedStr, greedy) {
+	this.type = type;
+	this.content = content;
+	this.alias = alias;
+	// Copy of the full string this token was created from
+	this.length = (matchedStr || '').length|0;
+	this.greedy = !!greedy;
+}
+
+Token.stringify = function(o, language) {
+	if (typeof o == 'string') {
+		return o;
+	}
+
+	if (Array.isArray(o)) {
+		return o.map(function(element) {
+			return Token.stringify(element, language);
+		}).join('');
+	}
+
+	var env = {
+		type: o.type,
+		content: Token.stringify(o.content, language),
+		tag: 'span',
+		classes: ['token', o.type],
+		attributes: {},
+		language: language
+	};
+
+	if (o.alias) {
+		var aliases = Array.isArray(o.alias) ? o.alias : [o.alias];
+		Array.prototype.push.apply(env.classes, aliases);
+	}
+
+	_.hooks.run('wrap', env);
+
+	var attributes = Object.keys(env.attributes).map(function(name) {
+		return name + '="' + (env.attributes[name] || '').replace(/"/g, '&quot;') + '"';
+	}).join(' ');
+
+	return '<' + env.tag + ' class="' + env.classes.join(' ') + '"' + (attributes ? ' ' + attributes : '') + '>' + env.content + '</' + env.tag + '>';
+};
+
+if (!_self.document) {
+	if (!_self.addEventListener) {
+		// in Node.js
+		return _;
+	}
+
+	if (!_.disableWorkerMessageHandler) {
+		// In worker
+		_self.addEventListener('message', function (evt) {
+			var message = JSON.parse(evt.data),
+				lang = message.language,
+				code = message.code,
+				immediateClose = message.immediateClose;
+
+			_self.postMessage(_.highlight(code, _.languages[lang], lang));
+			if (immediateClose) {
+				_self.close();
+			}
+		}, false);
+	}
+
+	return _;
+}
+
+//Get current script and highlight
+var script = _.util.currentScript();
+
+if (script) {
+	_.filename = script.src;
+
+	if (script.hasAttribute('data-manual')) {
+		_.manual = true;
+	}
+}
+
+function highlightAutomaticallyCallback() {
+	if (!_.manual) {
+		_.highlightAll();
+	}
+}
+
+if (!_.manual) {
+	// If the document state is "loading", then we'll use DOMContentLoaded.
+	// If the document state is "interactive" and the prism.js script is deferred, then we'll also use the
+	// DOMContentLoaded event because there might be some plugins or languages which have also been deferred and they
+	// might take longer one animation frame to execute which can create a race condition where only some plugins have
+	// been loaded when Prism.highlightAll() is executed, depending on how fast resources are loaded.
+	// See https://github.com/PrismJS/prism/issues/2102
+	var readyState = document.readyState;
+	if (readyState === 'loading' || readyState === 'interactive' && script && script.defer) {
+		document.addEventListener('DOMContentLoaded', highlightAutomaticallyCallback);
+	} else {
+		if (window.requestAnimationFrame) {
+			window.requestAnimationFrame(highlightAutomaticallyCallback);
+		} else {
+			window.setTimeout(highlightAutomaticallyCallback, 16);
+		}
+	}
+}
+
+return _;
+
+})(_self);
+
+if (typeof module !== 'undefined' && module.exports) {
+	module.exports = Prism;
+}
+
+// hack for components to work correctly in node.js
+if (typeof global !== 'undefined') {
+	global.Prism = Prism;
+}
+;
+Prism.languages.markup = {
+	'comment': /<!--[\s\S]*?-->/,
+	'prolog': /<\?[\s\S]+?\?>/,
+	'doctype': {
+		pattern: /<!DOCTYPE(?:[^>"'[\]]|"[^"]*"|'[^']*')+(?:\[(?:(?!<!--)[^"'\]]|"[^"]*"|'[^']*'|<!--[\s\S]*?-->)*\]\s*)?>/i,
+		greedy: true
+	},
+	'cdata': /<!\[CDATA\[[\s\S]*?]]>/i,
+	'tag': {
+		pattern: /<\/?(?!\d)[^\s>\/=$<%]+(?:\s(?:\s*[^\s>\/=]+(?:\s*=\s*(?:"[^"]*"|'[^']*'|[^\s'">=]+(?=[\s>]))|(?=[\s/>])))+)?\s*\/?>/i,
+		greedy: true,
+		inside: {
+			'tag': {
+				pattern: /^<\/?[^\s>\/]+/i,
+				inside: {
+					'punctuation': /^<\/?/,
+					'namespace': /^[^\s>\/:]+:/
+				}
+			},
+			'attr-value': {
+				pattern: /=\s*(?:"[^"]*"|'[^']*'|[^\s'">=]+)/i,
+				inside: {
+					'punctuation': [
+						/^=/,
+						{
+							pattern: /^(\s*)["']|["']$/,
+							lookbehind: true
+						}
+					]
+				}
+			},
+			'punctuation': /\/?>/,
+			'attr-name': {
+				pattern: /[^\s>\/]+/,
+				inside: {
+					'namespace': /^[^\s>\/:]+:/
+				}
+			}
+
+		}
+	},
+	'entity': /&#?[\da-z]{1,8};/i
+};
+
+Prism.languages.markup['tag'].inside['attr-value'].inside['entity'] =
+	Prism.languages.markup['entity'];
+
+// Plugin to make entity title show the real entity, idea by Roman Komarov
+Prism.hooks.add('wrap', function(env) {
+
+	if (env.type === 'entity') {
+		env.attributes['title'] = env.content.replace(/&amp;/, '&');
+	}
+});
+
+Object.defineProperty(Prism.languages.markup.tag, 'addInlined', {
+	/**
+	 * Adds an inlined language to markup.
+	 *
+	 * An example of an inlined language is CSS with `<style>` tags.
+	 *
+	 * @param {string} tagName The name of the tag that contains the inlined language. This name will be treated as
+	 * case insensitive.
+	 * @param {string} lang The language key.
+	 * @example
+	 * addInlined('style', 'css');
+	 */
+	value: function addInlined(tagName, lang) {
+		var includedCdataInside = {};
+		includedCdataInside['language-' + lang] = {
+			pattern: /(^<!\[CDATA\[)[\s\S]+?(?=\]\]>$)/i,
+			lookbehind: true,
+			inside: Prism.languages[lang]
+		};
+		includedCdataInside['cdata'] = /^<!\[CDATA\[|\]\]>$/i;
+
+		var inside = {
+			'included-cdata': {
+				pattern: /<!\[CDATA\[[\s\S]*?\]\]>/i,
+				inside: includedCdataInside
+			}
+		};
+		inside['language-' + lang] = {
+			pattern: /[\s\S]+/,
+			inside: Prism.languages[lang]
+		};
+
+		var def = {};
+		def[tagName] = {
+			pattern: RegExp(/(<__[\s\S]*?>)(?:<!\[CDATA\[[\s\S]*?\]\]>\s*|[\s\S])*?(?=<\/__>)/.source.replace(/__/g, tagName), 'i'),
+			lookbehind: true,
+			greedy: true,
+			inside: inside
+		};
+
+		Prism.languages.insertBefore('markup', 'cdata', def);
+	}
+});
+
+Prism.languages.xml = Prism.languages.extend('markup', {});
+Prism.languages.html = Prism.languages.markup;
+Prism.languages.mathml = Prism.languages.markup;
+Prism.languages.svg = Prism.languages.markup;
+
+(function (Prism) {
+
+	var string = /("|')(?:\\(?:\r\n|[\s\S])|(?!\1)[^\\\r\n])*\1/;
+
+	Prism.languages.css = {
+		'comment': /\/\*[\s\S]*?\*\//,
+		'atrule': {
+			pattern: /@[\w-]+[\s\S]*?(?:;|(?=\s*\{))/,
+			inside: {
+				'rule': /@[\w-]+/
+				// See rest below
+			}
+		},
+		'url': {
+			pattern: RegExp('url\\((?:' + string.source + '|[^\n\r()]*)\\)', 'i'),
+			inside: {
+				'function': /^url/i,
+				'punctuation': /^\(|\)$/
+			}
+		},
+		'selector': RegExp('[^{}\\s](?:[^{};"\']|' + string.source + ')*?(?=\\s*\\{)'),
+		'string': {
+			pattern: string,
+			greedy: true
+		},
+		'property': /[-_a-z\xA0-\uFFFF][-\w\xA0-\uFFFF]*(?=\s*:)/i,
+		'important': /!important\b/i,
+		'function': /[-a-z0-9]+(?=\()/i,
+		'punctuation': /[(){};:,]/
+	};
+
+	Prism.languages.css['atrule'].inside.rest = Prism.languages.css;
+
+	var markup = Prism.languages.markup;
+	if (markup) {
+		markup.tag.addInlined('style', 'css');
+
+		Prism.languages.insertBefore('inside', 'attr-value', {
+			'style-attr': {
+				pattern: /\s*style=("|')(?:\\[\s\S]|(?!\1)[^\\])*\1/i,
+				inside: {
+					'attr-name': {
+						pattern: /^\s*style/i,
+						inside: markup.tag.inside
+					},
+					'punctuation': /^\s*=\s*['"]|['"]\s*$/,
+					'attr-value': {
+						pattern: /.+/i,
+						inside: Prism.languages.css
+					}
+				},
+				alias: 'language-css'
+			}
+		}, markup.tag);
+	}
+
+}(Prism));
+
+Prism.languages.clike = {
+	'comment': [
+		{
+			pattern: /(^|[^\\])\/\*[\s\S]*?(?:\*\/|$)/,
+			lookbehind: true
+		},
+		{
+			pattern: /(^|[^\\:])\/\/.*/,
+			lookbehind: true,
+			greedy: true
+		}
+	],
+	'string': {
+		pattern: /(["'])(?:\\(?:\r\n|[\s\S])|(?!\1)[^\\\r\n])*\1/,
+		greedy: true
+	},
+	'class-name': {
+		pattern: /(\b(?:class|interface|extends|implements|trait|instanceof|new)\s+|\bcatch\s+\()[\w.\\]+/i,
+		lookbehind: true,
+		inside: {
+			'punctuation': /[.\\]/
+		}
+	},
+	'keyword': /\b(?:if|else|while|do|for|return|in|instanceof|function|new|try|throw|catch|finally|null|break|continue)\b/,
+	'boolean': /\b(?:true|false)\b/,
+	'function': /\w+(?=\()/,
+	'number': /\b0x[\da-f]+\b|(?:\b\d+\.?\d*|\B\.\d+)(?:e[+-]?\d+)?/i,
+	'operator': /[<>]=?|[!=]=?=?|--?|\+\+?|&&?|\|\|?|[?*/~^%]/,
+	'punctuation': /[{}[\];(),.:]/
+};
+
+Prism.languages.javascript = Prism.languages.extend('clike', {
+	'class-name': [
+		Prism.languages.clike['class-name'],
+		{
+			pattern: /(^|[^$\w\xA0-\uFFFF])[_$A-Z\xA0-\uFFFF][$\w\xA0-\uFFFF]*(?=\.(?:prototype|constructor))/,
+			lookbehind: true
+		}
+	],
+	'keyword': [
+		{
+			pattern: /((?:^|})\s*)(?:catch|finally)\b/,
+			lookbehind: true
+		},
+		{
+			pattern: /(^|[^.]|\.\.\.\s*)\b(?:as|async(?=\s*(?:function\b|\(|[$\w\xA0-\uFFFF]|$))|await|break|case|class|const|continue|debugger|default|delete|do|else|enum|export|extends|for|from|function|get|if|implements|import|in|instanceof|interface|let|new|null|of|package|private|protected|public|return|set|static|super|switch|this|throw|try|typeof|undefined|var|void|while|with|yield)\b/,
+			lookbehind: true
+		},
+	],
+	'number': /\b(?:(?:0[xX](?:[\dA-Fa-f](?:_[\dA-Fa-f])?)+|0[bB](?:[01](?:_[01])?)+|0[oO](?:[0-7](?:_[0-7])?)+)n?|(?:\d(?:_\d)?)+n|NaN|Infinity)\b|(?:\b(?:\d(?:_\d)?)+\.?(?:\d(?:_\d)?)*|\B\.(?:\d(?:_\d)?)+)(?:[Ee][+-]?(?:\d(?:_\d)?)+)?/,
+	// Allow for all non-ASCII characters (See http://stackoverflow.com/a/2008444)
+	'function': /#?[_$a-zA-Z\xA0-\uFFFF][$\w\xA0-\uFFFF]*(?=\s*(?:\.\s*(?:apply|bind|call)\s*)?\()/,
+	'operator': /--|\+\+|\*\*=?|=>|&&|\|\||[!=]==|<<=?|>>>?=?|[-+*/%&|^!=<>]=?|\.{3}|\?[.?]?|[~:]/
+});
+
+Prism.languages.javascript['class-name'][0].pattern = /(\b(?:class|interface|extends|implements|instanceof|new)\s+)[\w.\\]+/;
+
+Prism.languages.insertBefore('javascript', 'keyword', {
+	'regex': {
+		pattern: /((?:^|[^$\w\xA0-\uFFFF."'\])\s])\s*)\/(?:\[(?:[^\]\\\r\n]|\\.)*]|\\.|[^/\\\[\r\n])+\/[gimyus]{0,6}(?=(?:\s|\/\*[\s\S]*?\*\/)*(?:$|[\r\n,.;:})\]]|\/\/))/,
+		lookbehind: true,
+		greedy: true
+	},
+	// This must be declared before keyword because we use "function" inside the look-forward
+	'function-variable': {
+		pattern: /#?[_$a-zA-Z\xA0-\uFFFF][$\w\xA0-\uFFFF]*(?=\s*[=:]\s*(?:async\s*)?(?:\bfunction\b|(?:\((?:[^()]|\([^()]*\))*\)|[_$a-zA-Z\xA0-\uFFFF][$\w\xA0-\uFFFF]*)\s*=>))/,
+		alias: 'function'
+	},
+	'parameter': [
+		{
+			pattern: /(function(?:\s+[_$A-Za-z\xA0-\uFFFF][$\w\xA0-\uFFFF]*)?\s*\(\s*)(?!\s)(?:[^()]|\([^()]*\))+?(?=\s*\))/,
+			lookbehind: true,
+			inside: Prism.languages.javascript
+		},
+		{
+			pattern: /[_$a-z\xA0-\uFFFF][$\w\xA0-\uFFFF]*(?=\s*=>)/i,
+			inside: Prism.languages.javascript
+		},
+		{
+			pattern: /(\(\s*)(?!\s)(?:[^()]|\([^()]*\))+?(?=\s*\)\s*=>)/,
+			lookbehind: true,
+			inside: Prism.languages.javascript
+		},
+		{
+			pattern: /((?:\b|\s|^)(?!(?:as|async|await|break|case|catch|class|const|continue|debugger|default|delete|do|else|enum|export|extends|finally|for|from|function|get|if|implements|import|in|instanceof|interface|let|new|null|of|package|private|protected|public|return|set|static|super|switch|this|throw|try|typeof|undefined|var|void|while|with|yield)(?![$\w\xA0-\uFFFF]))(?:[_$A-Za-z\xA0-\uFFFF][$\w\xA0-\uFFFF]*\s*)\(\s*)(?!\s)(?:[^()]|\([^()]*\))+?(?=\s*\)\s*\{)/,
+			lookbehind: true,
+			inside: Prism.languages.javascript
+		}
+	],
+	'constant': /\b[A-Z](?:[A-Z_]|\dx?)*\b/
+});
+
+Prism.languages.insertBefore('javascript', 'string', {
+	'template-string': {
+		pattern: /`(?:\\[\s\S]|\${(?:[^{}]|{(?:[^{}]|{[^}]*})*})+}|(?!\${)[^\\`])*`/,
+		greedy: true,
+		inside: {
+			'template-punctuation': {
+				pattern: /^`|`$/,
+				alias: 'string'
+			},
+			'interpolation': {
+				pattern: /((?:^|[^\\])(?:\\{2})*)\${(?:[^{}]|{(?:[^{}]|{[^}]*})*})+}/,
+				lookbehind: true,
+				inside: {
+					'interpolation-punctuation': {
+						pattern: /^\${|}$/,
+						alias: 'punctuation'
+					},
+					rest: Prism.languages.javascript
+				}
+			},
+			'string': /[\s\S]+/
+		}
+	}
+});
+
+if (Prism.languages.markup) {
+	Prism.languages.markup.tag.addInlined('script', 'javascript');
+}
+
+Prism.languages.js = Prism.languages.javascript;
+
+Prism.languages.csharp = Prism.languages.extend('clike', {
+	'keyword': /\b(?:abstract|add|alias|as|ascending|async|await|base|bool|break|byte|case|catch|char|checked|class|const|continue|decimal|default|delegate|descending|do|double|dynamic|else|enum|event|explicit|extern|false|finally|fixed|float|for|foreach|from|get|global|goto|group|if|implicit|in|int|interface|internal|into|is|join|let|lock|long|namespace|new|null|object|operator|orderby|out|override|params|partial|private|protected|public|readonly|ref|remove|return|sbyte|sealed|select|set|short|sizeof|stackalloc|static|string|struct|switch|this|throw|true|try|typeof|uint|ulong|unchecked|unsafe|ushort|using|value|var|virtual|void|volatile|where|while|yield)\b/,
+	'string': [
+		{
+			pattern: /@("|')(?:\1\1|\\[\s\S]|(?!\1)[^\\])*\1/,
+			greedy: true
+		},
+		{
+			pattern: /("|')(?:\\.|(?!\1)[^\\\r\n])*?\1/,
+			greedy: true
+		}
+	],
+	'class-name': [
+		{
+			// (Foo bar, Bar baz)
+			pattern: /\b[A-Z]\w*(?:\.\w+)*\b(?=\s+\w+)/,
+			inside: {
+				punctuation: /\./
+			}
+		},
+		{
+			// [Foo]
+			pattern: /(\[)[A-Z]\w*(?:\.\w+)*\b/,
+			lookbehind: true,
+			inside: {
+				punctuation: /\./
+			}
+		},
+		{
+			// class Foo : Bar
+			pattern: /(\b(?:class|interface)\s+[A-Z]\w*(?:\.\w+)*\s*:\s*)[A-Z]\w*(?:\.\w+)*\b/,
+			lookbehind: true,
+			inside: {
+				punctuation: /\./
+			}
+		},
+		{
+			// class Foo
+			pattern: /((?:\b(?:class|interface|new)\s+)|(?:catch\s+\())[A-Z]\w*(?:\.\w+)*\b/,
+			lookbehind: true,
+			inside: {
+				punctuation: /\./
+			}
+		}
+	],
+	'number': /\b0x[\da-f]+\b|(?:\b\d+\.?\d*|\B\.\d+)f?/i,
+	'operator': />>=?|<<=?|[-=]>|([-+&|?])\1|~|[-+*/%&|^!=<>]=?/,
+	'punctuation': /\?\.?|::|[{}[\];(),.:]/
+});
+
+Prism.languages.insertBefore('csharp', 'class-name', {
+	'generic-method': {
+		pattern: /\w+\s*<[^>\r\n]+?>\s*(?=\()/,
+		inside: {
+			function: /^\w+/,
+			'class-name': {
+				pattern: /\b[A-Z]\w*(?:\.\w+)*\b/,
+				inside: {
+					punctuation: /\./
+				}
+			},
+			keyword: Prism.languages.csharp.keyword,
+			punctuation: /[<>(),.:]/
+		}
+	},
+	'preprocessor': {
+		pattern: /(^\s*)#.*/m,
+		lookbehind: true,
+		alias: 'property',
+		inside: {
+			// highlight preprocessor directives as keywords
+			'directive': {
+				pattern: /(\s*#)\b(?:define|elif|else|endif|endregion|error|if|line|pragma|region|undef|warning)\b/,
+				lookbehind: true,
+				alias: 'keyword'
+			}
+		}
+	}
+});
+
+Prism.languages.dotnet = Prism.languages.cs = Prism.languages.csharp;
+
+Prism.languages.aspnet = Prism.languages.extend('markup', {
+	'page-directive': {
+		pattern: /<%\s*@.*%>/i,
+		alias: 'tag',
+		inside: {
+			'page-directive': {
+				pattern: /<%\s*@\s*(?:Assembly|Control|Implements|Import|Master(?:Type)?|OutputCache|Page|PreviousPageType|Reference|Register)?|%>/i,
+				alias: 'tag'
+			},
+			rest: Prism.languages.markup.tag.inside
+		}
+	},
+	'directive': {
+		pattern: /<%.*%>/i,
+		alias: 'tag',
+		inside: {
+			'directive': {
+				pattern: /<%\s*?[$=%#:]{0,2}|%>/i,
+				alias: 'tag'
+			},
+			rest: Prism.languages.csharp
+		}
+	}
+});
+// Regexp copied from prism-markup, with a negative look-ahead added
+Prism.languages.aspnet.tag.pattern = /<(?!%)\/?[^\s>\/]+(?:\s+[^\s>\/=]+(?:=(?:("|')(?:\\[\s\S]|(?!\1)[^\\])*\1|[^\s'">=]+))?)*\s*\/?>/i;
+
+// match directives of attribute value foo="<% Bar %>"
+Prism.languages.insertBefore('inside', 'punctuation', {
+	'directive': Prism.languages.aspnet['directive']
+}, Prism.languages.aspnet.tag.inside["attr-value"]);
+
+Prism.languages.insertBefore('aspnet', 'comment', {
+	'asp-comment': {
+		pattern: /<%--[\s\S]*?--%>/,
+		alias: ['asp', 'comment']
+	}
+});
+
+// script runat="server" contains csharp, not javascript
+Prism.languages.insertBefore('aspnet', Prism.languages.javascript ? 'script' : 'tag', {
+	'asp-script': {
+		pattern: /(<script(?=.*runat=['"]?server['"]?)[\s\S]*?>)[\s\S]*?(?=<\/script>)/i,
+		lookbehind: true,
+		alias: ['asp', 'script'],
+		inside: Prism.languages.csharp || {}
+	}
+});
+
+(function(Prism) {
+	// $ set | grep '^[A-Z][^[:space:]]*=' | cut -d= -f1 | tr '\n' '|'
+	// + LC_ALL, RANDOM, REPLY, SECONDS.
+	// + make sure PS1..4 are here as they are not always set,
+	// - some useless things.
+	var envVars = '\\b(?:BASH|BASHOPTS|BASH_ALIASES|BASH_ARGC|BASH_ARGV|BASH_CMDS|BASH_COMPLETION_COMPAT_DIR|BASH_LINENO|BASH_REMATCH|BASH_SOURCE|BASH_VERSINFO|BASH_VERSION|COLORTERM|COLUMNS|COMP_WORDBREAKS|DBUS_SESSION_BUS_ADDRESS|DEFAULTS_PATH|DESKTOP_SESSION|DIRSTACK|DISPLAY|EUID|GDMSESSION|GDM_LANG|GNOME_KEYRING_CONTROL|GNOME_KEYRING_PID|GPG_AGENT_INFO|GROUPS|HISTCONTROL|HISTFILE|HISTFILESIZE|HISTSIZE|HOME|HOSTNAME|HOSTTYPE|IFS|INSTANCE|JOB|LANG|LANGUAGE|LC_ADDRESS|LC_ALL|LC_IDENTIFICATION|LC_MEASUREMENT|LC_MONETARY|LC_NAME|LC_NUMERIC|LC_PAPER|LC_TELEPHONE|LC_TIME|LESSCLOSE|LESSOPEN|LINES|LOGNAME|LS_COLORS|MACHTYPE|MAILCHECK|MANDATORY_PATH|NO_AT_BRIDGE|OLDPWD|OPTERR|OPTIND|ORBIT_SOCKETDIR|OSTYPE|PAPERSIZE|PATH|PIPESTATUS|PPID|PS1|PS2|PS3|PS4|PWD|RANDOM|REPLY|SECONDS|SELINUX_INIT|SESSION|SESSIONTYPE|SESSION_MANAGER|SHELL|SHELLOPTS|SHLVL|SSH_AUTH_SOCK|TERM|UID|UPSTART_EVENTS|UPSTART_INSTANCE|UPSTART_JOB|UPSTART_SESSION|USER|WINDOWID|XAUTHORITY|XDG_CONFIG_DIRS|XDG_CURRENT_DESKTOP|XDG_DATA_DIRS|XDG_GREETER_DATA_DIR|XDG_MENU_PREFIX|XDG_RUNTIME_DIR|XDG_SEAT|XDG_SEAT_PATH|XDG_SESSION_DESKTOP|XDG_SESSION_ID|XDG_SESSION_PATH|XDG_SESSION_TYPE|XDG_VTNR|XMODIFIERS)\\b';
+	var insideString = {
+		'environment': {
+			pattern: RegExp("\\$" + envVars),
+			alias: 'constant'
+		},
+		'variable': [
+			// [0]: Arithmetic Environment
+			{
+				pattern: /\$?\(\([\s\S]+?\)\)/,
+				greedy: true,
+				inside: {
+					// If there is a $ sign at the beginning highlight $(( and )) as variable
+					'variable': [
+						{
+							pattern: /(^\$\(\([\s\S]+)\)\)/,
+							lookbehind: true
+						},
+						/^\$\(\(/
+					],
+					'number': /\b0x[\dA-Fa-f]+\b|(?:\b\d+\.?\d*|\B\.\d+)(?:[Ee]-?\d+)?/,
+					// Operators according to https://www.gnu.org/software/bash/manual/bashref.html#Shell-Arithmetic
+					'operator': /--?|-=|\+\+?|\+=|!=?|~|\*\*?|\*=|\/=?|%=?|<<=?|>>=?|<=?|>=?|==?|&&?|&=|\^=?|\|\|?|\|=|\?|:/,
+					// If there is no $ sign at the beginning highlight (( and )) as punctuation
+					'punctuation': /\(\(?|\)\)?|,|;/
+				}
+			},
+			// [1]: Command Substitution
+			{
+				pattern: /\$\((?:\([^)]+\)|[^()])+\)|`[^`]+`/,
+				greedy: true,
+				inside: {
+					'variable': /^\$\(|^`|\)$|`$/
+				}
+			},
+			// [2]: Brace expansion
+			{
+				pattern: /\$\{[^}]+\}/,
+				greedy: true,
+				inside: {
+					'operator': /:[-=?+]?|[!\/]|##?|%%?|\^\^?|,,?/,
+					'punctuation': /[\[\]]/,
+					'environment': {
+						pattern: RegExp("(\\{)" + envVars),
+						lookbehind: true,
+						alias: 'constant'
+					}
+				}
+			},
+			/\$(?:\w+|[#?*!@$])/
+		],
+		// Escape sequences from echo and printf's manuals, and escaped quotes.
+		'entity': /\\(?:[abceEfnrtv\\"]|O?[0-7]{1,3}|x[0-9a-fA-F]{1,2}|u[0-9a-fA-F]{4}|U[0-9a-fA-F]{8})/
+	};
+
+	Prism.languages.bash = {
+		'shebang': {
+			pattern: /^#!\s*\/.*/,
+			alias: 'important'
+		},
+		'comment': {
+			pattern: /(^|[^"{\\$])#.*/,
+			lookbehind: true
+		},
+		'function-name': [
+			// a) function foo {
+			// b) foo() {
+			// c) function foo() {
+			// but not “foo {”
+			{
+				// a) and c)
+				pattern: /(\bfunction\s+)\w+(?=(?:\s*\(?:\s*\))?\s*\{)/,
+				lookbehind: true,
+				alias: 'function'
+			},
+			{
+				// b)
+				pattern: /\b\w+(?=\s*\(\s*\)\s*\{)/,
+				alias: 'function'
+			}
+		],
+		// Highlight variable names as variables in for and select beginnings.
+		'for-or-select': {
+			pattern: /(\b(?:for|select)\s+)\w+(?=\s+in\s)/,
+			alias: 'variable',
+			lookbehind: true
+		},
+		// Highlight variable names as variables in the left-hand part
+		// of assignments (“=” and “+=”).
+		'assign-left': {
+			pattern: /(^|[\s;|&]|[<>]\()\w+(?=\+?=)/,
+			inside: {
+				'environment': {
+					pattern: RegExp("(^|[\\s;|&]|[<>]\\()" + envVars),
+					lookbehind: true,
+					alias: 'constant'
+				}
+			},
+			alias: 'variable',
+			lookbehind: true
+		},
+		'string': [
+			// Support for Here-documents https://en.wikipedia.org/wiki/Here_document
+			{
+				pattern: /((?:^|[^<])<<-?\s*)(\w+?)\s*(?:\r?\n|\r)[\s\S]*?(?:\r?\n|\r)\2/,
+				lookbehind: true,
+				greedy: true,
+				inside: insideString
+			},
+			// Here-document with quotes around the tag
+			// → No expansion (so no “inside”).
+			{
+				pattern: /((?:^|[^<])<<-?\s*)(["'])(\w+)\2\s*(?:\r?\n|\r)[\s\S]*?(?:\r?\n|\r)\3/,
+				lookbehind: true,
+				greedy: true
+			},
+			// “Normal” string
+			{
+				pattern: /(["'])(?:\\[\s\S]|\$\([^)]+\)|`[^`]+`|(?!\1)[^\\])*\1/,
+				greedy: true,
+				inside: insideString
+			}
+		],
+		'environment': {
+			pattern: RegExp("\\$?" + envVars),
+			alias: 'constant'
+		},
+		'variable': insideString.variable,
+		'function': {
+			pattern: /(^|[\s;|&]|[<>]\()(?:add|apropos|apt|aptitude|apt-cache|apt-get|aspell|automysqlbackup|awk|basename|bash|bc|bconsole|bg|bzip2|cal|cat|cfdisk|chgrp|chkconfig|chmod|chown|chroot|cksum|clear|cmp|column|comm|cp|cron|crontab|csplit|curl|cut|date|dc|dd|ddrescue|debootstrap|df|diff|diff3|dig|dir|dircolors|dirname|dirs|dmesg|du|egrep|eject|env|ethtool|expand|expect|expr|fdformat|fdisk|fg|fgrep|file|find|fmt|fold|format|free|fsck|ftp|fuser|gawk|git|gparted|grep|groupadd|groupdel|groupmod|groups|grub-mkconfig|gzip|halt|head|hg|history|host|hostname|htop|iconv|id|ifconfig|ifdown|ifup|import|install|ip|jobs|join|kill|killall|less|link|ln|locate|logname|logrotate|look|lpc|lpr|lprint|lprintd|lprintq|lprm|ls|lsof|lynx|make|man|mc|mdadm|mkconfig|mkdir|mke2fs|mkfifo|mkfs|mkisofs|mknod|mkswap|mmv|more|most|mount|mtools|mtr|mutt|mv|nano|nc|netstat|nice|nl|nohup|notify-send|npm|nslookup|op|open|parted|passwd|paste|pathchk|ping|pkill|pnpm|popd|pr|printcap|printenv|ps|pushd|pv|quota|quotacheck|quotactl|ram|rar|rcp|reboot|remsync|rename|renice|rev|rm|rmdir|rpm|rsync|scp|screen|sdiff|sed|sendmail|seq|service|sftp|sh|shellcheck|shuf|shutdown|sleep|slocate|sort|split|ssh|stat|strace|su|sudo|sum|suspend|swapon|sync|tac|tail|tar|tee|time|timeout|top|touch|tr|traceroute|tsort|tty|umount|uname|unexpand|uniq|units|unrar|unshar|unzip|update-grub|uptime|useradd|userdel|usermod|users|uudecode|uuencode|v|vdir|vi|vim|virsh|vmstat|wait|watch|wc|wget|whereis|which|who|whoami|write|xargs|xdg-open|yarn|yes|zenity|zip|zsh|zypper)(?=$|[)\s;|&])/,
+			lookbehind: true
+		},
+		'keyword': {
+			pattern: /(^|[\s;|&]|[<>]\()(?:if|then|else|elif|fi|for|while|in|case|esac|function|select|do|done|until)(?=$|[)\s;|&])/,
+			lookbehind: true
+		},
+		// https://www.gnu.org/software/bash/manual/html_node/Shell-Builtin-Commands.html
+		'builtin': {
+			pattern: /(^|[\s;|&]|[<>]\()(?:\.|:|break|cd|continue|eval|exec|exit|export|getopts|hash|pwd|readonly|return|shift|test|times|trap|umask|unset|alias|bind|builtin|caller|command|declare|echo|enable|help|let|local|logout|mapfile|printf|read|readarray|source|type|typeset|ulimit|unalias|set|shopt)(?=$|[)\s;|&])/,
+			lookbehind: true,
+			// Alias added to make those easier to distinguish from strings.
+			alias: 'class-name'
+		},
+		'boolean': {
+			pattern: /(^|[\s;|&]|[<>]\()(?:true|false)(?=$|[)\s;|&])/,
+			lookbehind: true
+		},
+		'file-descriptor': {
+			pattern: /\B&\d\b/,
+			alias: 'important'
+		},
+		'operator': {
+			// Lots of redirections here, but not just that.
+			pattern: /\d?<>|>\||\+=|==?|!=?|=~|<<[<-]?|[&\d]?>>|\d?[<>]&?|&[>&]?|\|[&|]?|<=?|>=?/,
+			inside: {
+				'file-descriptor': {
+					pattern: /^\d/,
+					alias: 'important'
+				}
+			}
+		},
+		'punctuation': /\$?\(\(?|\)\)?|\.\.|[{}[\];\\]/,
+		'number': {
+			pattern: /(^|\s)(?:[1-9]\d*|0)(?:[.,]\d+)?\b/,
+			lookbehind: true
+		}
+	};
+
+	/* Patterns in command substitution. */
+	var toBeCopied = [
+		'comment',
+		'function-name',
+		'for-or-select',
+		'assign-left',
+		'string',
+		'environment',
+		'function',
+		'keyword',
+		'builtin',
+		'boolean',
+		'file-descriptor',
+		'operator',
+		'punctuation',
+		'number'
+	];
+	var inside = insideString.variable[1].inside;
+	for(var i = 0; i < toBeCopied.length; i++) {
+		inside[toBeCopied[i]] = Prism.languages.bash[toBeCopied[i]];
+	}
+
+	Prism.languages.shell = Prism.languages.bash;
+})(Prism);
+
+Prism.languages.basic = {
+	'comment': {
+		pattern: /(?:!|REM\b).+/i,
+		inside: {
+			'keyword': /^REM/i
+		}
+	},
+	'string': {
+		pattern: /"(?:""|[!#$%&'()*,\/:;<=>?^_ +\-.A-Z\d])*"/i,
+		greedy: true
+	},
+	'number': /(?:\b\d+\.?\d*|\B\.\d+)(?:E[+-]?\d+)?/i,
+	'keyword': /\b(?:AS|BEEP|BLOAD|BSAVE|CALL(?: ABSOLUTE)?|CASE|CHAIN|CHDIR|CLEAR|CLOSE|CLS|COM|COMMON|CONST|DATA|DECLARE|DEF(?: FN| SEG|DBL|INT|LNG|SNG|STR)|DIM|DO|DOUBLE|ELSE|ELSEIF|END|ENVIRON|ERASE|ERROR|EXIT|FIELD|FILES|FOR|FUNCTION|GET|GOSUB|GOTO|IF|INPUT|INTEGER|IOCTL|KEY|KILL|LINE INPUT|LOCATE|LOCK|LONG|LOOP|LSET|MKDIR|NAME|NEXT|OFF|ON(?: COM| ERROR| KEY| TIMER)?|OPEN|OPTION BASE|OUT|POKE|PUT|READ|REDIM|REM|RESTORE|RESUME|RETURN|RMDIR|RSET|RUN|SHARED|SINGLE|SELECT CASE|SHELL|SLEEP|STATIC|STEP|STOP|STRING|SUB|SWAP|SYSTEM|THEN|TIMER|TO|TROFF|TRON|TYPE|UNLOCK|UNTIL|USING|VIEW PRINT|WAIT|WEND|WHILE|WRITE)(?:\$|\b)/i,
+	'function': /\b(?:ABS|ACCESS|ACOS|ANGLE|AREA|ARITHMETIC|ARRAY|ASIN|ASK|AT|ATN|BASE|BEGIN|BREAK|CAUSE|CEIL|CHR|CLIP|COLLATE|COLOR|CON|COS|COSH|COT|CSC|DATE|DATUM|DEBUG|DECIMAL|DEF|DEG|DEGREES|DELETE|DET|DEVICE|DISPLAY|DOT|ELAPSED|EPS|ERASABLE|EXLINE|EXP|EXTERNAL|EXTYPE|FILETYPE|FIXED|FP|GO|GRAPH|HANDLER|IDN|IMAGE|IN|INT|INTERNAL|IP|IS|KEYED|LBOUND|LCASE|LEFT|LEN|LENGTH|LET|LINE|LINES|LOG|LOG10|LOG2|LTRIM|MARGIN|MAT|MAX|MAXNUM|MID|MIN|MISSING|MOD|NATIVE|NUL|NUMERIC|OF|OPTION|ORD|ORGANIZATION|OUTIN|OUTPUT|PI|POINT|POINTER|POINTS|POS|PRINT|PROGRAM|PROMPT|RAD|RADIANS|RANDOMIZE|RECORD|RECSIZE|RECTYPE|RELATIVE|REMAINDER|REPEAT|REST|RETRY|REWRITE|RIGHT|RND|ROUND|RTRIM|SAME|SEC|SELECT|SEQUENTIAL|SET|SETTER|SGN|SIN|SINH|SIZE|SKIP|SQR|STANDARD|STATUS|STR|STREAM|STYLE|TAB|TAN|TANH|TEMPLATE|TEXT|THERE|TIME|TIMEOUT|TRACE|TRANSFORM|TRUNCATE|UBOUND|UCASE|USE|VAL|VARIABLE|VIEWPORT|WHEN|WINDOW|WITH|ZER|ZONEWIDTH)(?:\$|\b)/i,
+	'operator': /<[=>]?|>=?|[+\-*\/^=&]|\b(?:AND|EQV|IMP|NOT|OR|XOR)\b/i,
+	'punctuation': /[,;:()]/
+};
+Prism.languages.c = Prism.languages.extend('clike', {
+	'class-name': {
+		pattern: /(\b(?:enum|struct)\s+)\w+/,
+		lookbehind: true
+	},
+	'keyword': /\b(?:_Alignas|_Alignof|_Atomic|_Bool|_Complex|_Generic|_Imaginary|_Noreturn|_Static_assert|_Thread_local|asm|typeof|inline|auto|break|case|char|const|continue|default|do|double|else|enum|extern|float|for|goto|if|int|long|register|return|short|signed|sizeof|static|struct|switch|typedef|union|unsigned|void|volatile|while)\b/,
+	'operator': />>=?|<<=?|->|([-+&|:])\1|[?:~]|[-+*/%&|^!=<>]=?/,
+	'number': /(?:\b0x(?:[\da-f]+\.?[\da-f]*|\.[\da-f]+)(?:p[+-]?\d+)?|(?:\b\d+\.?\d*|\B\.\d+)(?:e[+-]?\d+)?)[ful]*/i
+});
+
+Prism.languages.insertBefore('c', 'string', {
+	'macro': {
+		// allow for multiline macro definitions
+		// spaces after the # character compile fine with gcc
+		pattern: /(^\s*)#\s*[a-z]+(?:[^\r\n\\]|\\(?:\r\n|[\s\S]))*/im,
+		lookbehind: true,
+		alias: 'property',
+		inside: {
+			// highlight the path of the include statement as a string
+			'string': {
+				pattern: /(#\s*include\s*)(?:<.+?>|("|')(?:\\?.)+?\2)/,
+				lookbehind: true
+			},
+			// highlight macro directives as keywords
+			'directive': {
+				pattern: /(#\s*)\b(?:define|defined|elif|else|endif|error|ifdef|ifndef|if|import|include|line|pragma|undef|using)\b/,
+				lookbehind: true,
+				alias: 'keyword'
+			}
+		}
+	},
+	// highlight predefined macros as constants
+	'constant': /\b(?:__FILE__|__LINE__|__DATE__|__TIME__|__TIMESTAMP__|__func__|EOF|NULL|SEEK_CUR|SEEK_END|SEEK_SET|stdin|stdout|stderr)\b/
+});
+
+delete Prism.languages.c['boolean'];
+
+Prism.languages.cpp = Prism.languages.extend('c', {
+	'class-name': {
+		pattern: /(\b(?:class|enum|struct)\s+)\w+/,
+		lookbehind: true
+	},
+	'keyword': /\b(?:alignas|alignof|asm|auto|bool|break|case|catch|char|char16_t|char32_t|class|compl|const|constexpr|const_cast|continue|decltype|default|delete|do|double|dynamic_cast|else|enum|explicit|export|extern|float|for|friend|goto|if|inline|int|int8_t|int16_t|int32_t|int64_t|uint8_t|uint16_t|uint32_t|uint64_t|long|mutable|namespace|new|noexcept|nullptr|operator|private|protected|public|register|reinterpret_cast|return|short|signed|sizeof|static|static_assert|static_cast|struct|switch|template|this|thread_local|throw|try|typedef|typeid|typename|union|unsigned|using|virtual|void|volatile|wchar_t|while)\b/,
+	'number': {
+		pattern: /(?:\b0b[01']+|\b0x(?:[\da-f']+\.?[\da-f']*|\.[\da-f']+)(?:p[+-]?[\d']+)?|(?:\b[\d']+\.?[\d']*|\B\.[\d']+)(?:e[+-]?[\d']+)?)[ful]*/i,
+		greedy: true
+	},
+	'operator': />>=?|<<=?|->|([-+&|:])\1|[?:~]|[-+*/%&|^!=<>]=?|\b(?:and|and_eq|bitand|bitor|not|not_eq|or|or_eq|xor|xor_eq)\b/,
+	'boolean': /\b(?:true|false)\b/
+});
+
+Prism.languages.insertBefore('cpp', 'string', {
+	'raw-string': {
+		pattern: /R"([^()\\ ]{0,16})\([\s\S]*?\)\1"/,
+		alias: 'string',
+		greedy: true
+	}
+});
+
+(function (Prism) {
+
+	Prism.languages.css.selector = {
+		pattern: Prism.languages.css.selector,
+		inside: {
+			'pseudo-element': /:(?:after|before|first-letter|first-line|selection)|::[-\w]+/,
+			'pseudo-class': /:[-\w]+/,
+			'class': /\.[-:.\w]+/,
+			'id': /#[-:.\w]+/,
+			'attribute': {
+				pattern: /\[(?:[^[\]"']|("|')(?:\\(?:\r\n|[\s\S])|(?!\1)[^\\\r\n])*\1)*\]/,
+				greedy: true,
+				inside: {
+					'punctuation': /^\[|\]$/,
+					'case-sensitivity': {
+						pattern: /(\s)[si]$/i,
+						lookbehind: true,
+						alias: 'keyword'
+					},
+					'namespace': {
+						pattern: /^(\s*)[-*\w\xA0-\uFFFF]*\|(?!=)/,
+						lookbehind: true,
+						inside: {
+							'punctuation': /\|$/
+						}
+					},
+					'attribute': {
+						pattern: /^(\s*)[-\w\xA0-\uFFFF]+/,
+						lookbehind: true
+					},
+					'value': [
+						/("|')(?:\\(?:\r\n|[\s\S])|(?!\1)[^\\\r\n])*\1/,
+						{
+							pattern: /(=\s*)[-\w\xA0-\uFFFF]+(?=\s*$)/,
+							lookbehind: true
+						}
+					],
+					'operator': /[|~*^$]?=/
+				}
+			},
+			'n-th': [
+				{
+					pattern: /(\(\s*)[+-]?\d*[\dn](?:\s*[+-]\s*\d+)?(?=\s*\))/,
+					lookbehind: true,
+					inside: {
+						'number': /[\dn]+/,
+						'operator': /[+-]/
+					}
+				},
+				{
+					pattern: /(\(\s*)(?:even|odd)(?=\s*\))/i,
+					lookbehind: true
+				}
+			],
+			'punctuation': /[()]/
+		}
+	};
+
+	Prism.languages.insertBefore('css', 'property', {
+		'variable': {
+			pattern: /(^|[^-\w\xA0-\uFFFF])--[-_a-z\xA0-\uFFFF][-\w\xA0-\uFFFF]*/i,
+			lookbehind: true
+		}
+	});
+
+	var unit = {
+		pattern: /(\d)(?:%|[a-z]+)/,
+		lookbehind: true
+	};
+	// 123 -123 .123 -.123 12.3 -12.3
+	var number = {
+		pattern: /(^|[^\w.-])-?\d*\.?\d+/,
+		lookbehind: true
+	};
+
+	Prism.languages.insertBefore('css', 'function', {
+		'operator': {
+			pattern: /(\s)[+\-*\/](?=\s)/,
+			lookbehind: true
+		},
+		// CAREFUL!
+		// Previewers and Inline color use hexcode and color.
+		'hexcode': {
+			pattern: /\B#(?:[\da-f]{1,2}){3,4}\b/i,
+			alias: 'color'
+		},
+		'color': [
+			/\b(?:AliceBlue|AntiqueWhite|Aqua|Aquamarine|Azure|Beige|Bisque|Black|BlanchedAlmond|Blue|BlueViolet|Brown|BurlyWood|CadetBlue|Chartreuse|Chocolate|Coral|CornflowerBlue|Cornsilk|Crimson|Cyan|DarkBlue|DarkCyan|DarkGoldenRod|DarkGr[ae]y|DarkGreen|DarkKhaki|DarkMagenta|DarkOliveGreen|DarkOrange|DarkOrchid|DarkRed|DarkSalmon|DarkSeaGreen|DarkSlateBlue|DarkSlateGr[ae]y|DarkTurquoise|DarkViolet|DeepPink|DeepSkyBlue|DimGr[ae]y|DodgerBlue|FireBrick|FloralWhite|ForestGreen|Fuchsia|Gainsboro|GhostWhite|Gold|GoldenRod|Gr[ae]y|Green|GreenYellow|HoneyDew|HotPink|IndianRed|Indigo|Ivory|Khaki|Lavender|LavenderBlush|LawnGreen|LemonChiffon|LightBlue|LightCoral|LightCyan|LightGoldenRodYellow|LightGr[ae]y|LightGreen|LightPink|LightSalmon|LightSeaGreen|LightSkyBlue|LightSlateGr[ae]y|LightSteelBlue|LightYellow|Lime|LimeGreen|Linen|Magenta|Maroon|MediumAquaMarine|MediumBlue|MediumOrchid|MediumPurple|MediumSeaGreen|MediumSlateBlue|MediumSpringGreen|MediumTurquoise|MediumVioletRed|MidnightBlue|MintCream|MistyRose|Moccasin|NavajoWhite|Navy|OldLace|Olive|OliveDrab|Orange|OrangeRed|Orchid|PaleGoldenRod|PaleGreen|PaleTurquoise|PaleVioletRed|PapayaWhip|PeachPuff|Peru|Pink|Plum|PowderBlue|Purple|Red|RosyBrown|RoyalBlue|SaddleBrown|Salmon|SandyBrown|SeaGreen|SeaShell|Sienna|Silver|SkyBlue|SlateBlue|SlateGr[ae]y|Snow|SpringGreen|SteelBlue|Tan|Teal|Thistle|Tomato|Turquoise|Violet|Wheat|White|WhiteSmoke|Yellow|YellowGreen)\b/i,
+			{
+				pattern: /\b(?:rgb|hsl)\(\s*\d{1,3}\s*,\s*\d{1,3}%?\s*,\s*\d{1,3}%?\s*\)\B|\b(?:rgb|hsl)a\(\s*\d{1,3}\s*,\s*\d{1,3}%?\s*,\s*\d{1,3}%?\s*,\s*(?:0|0?\.\d+|1)\s*\)\B/i,
+				inside: {
+					'unit': unit,
+					'number': number,
+					'function': /[\w-]+(?=\()/,
+					'punctuation': /[(),]/
+				}
+			}
+		],
+		'entity': /\\[\da-f]{1,8}/i,
+		'unit': unit,
+		'number': number
+	});
+
+})(Prism);
+
+Prism.languages.git = {
+	/*
+	 * A simple one line comment like in a git status command
+	 * For instance:
+	 * $ git status
+	 * # On branch infinite-scroll
+	 * # Your branch and 'origin/sharedBranches/frontendTeam/infinite-scroll' have diverged,
+	 * # and have 1 and 2 different commits each, respectively.
+	 * nothing to commit (working directory clean)
+	 */
+	'comment': /^#.*/m,
+
+	/*
+	 * Regexp to match the changed lines in a git diff output. Check the example below.
+	 */
+	'deleted': /^[-–].*/m,
+	'inserted': /^\+.*/m,
+
+	/*
+	 * a string (double and simple quote)
+	 */
+	'string': /("|')(?:\\.|(?!\1)[^\\\r\n])*\1/m,
+
+	/*
+	 * a git command. It starts with a random prompt finishing by a $, then "git" then some other parameters
+	 * For instance:
+	 * $ git add file.txt
+	 */
+	'command': {
+		pattern: /^.*\$ git .*$/m,
+		inside: {
+			/*
+			 * A git command can contain a parameter starting by a single or a double dash followed by a string
+			 * For instance:
+			 * $ git diff --cached
+			 * $ git log -p
+			 */
+			'parameter': /\s--?\w+/m
+		}
+	},
+
+	/*
+	 * Coordinates displayed in a git diff command
+	 * For instance:
+	 * $ git diff
+	 * diff --git file.txt file.txt
+	 * index 6214953..1d54a52 100644
+	 * --- file.txt
+	 * +++ file.txt
+	 * @@ -1 +1,2 @@
+	 * -Here's my tetx file
+	 * +Here's my text file
+	 * +And this is the second line
+	 */
+	'coord': /^@@.*@@$/m,
+
+	/*
+	 * Match a "commit [SHA1]" line in a git log output.
+	 * For instance:
+	 * $ git log
+	 * commit a11a14ef7e26f2ca62d4b35eac455ce636d0dc09
+	 * Author: lgiraudel
+	 * Date:   Mon Feb 17 11:18:34 2014 +0100
+	 *
+	 *     Add of a new line
+	 */
+	'commit_sha1': /^commit \w{40}$/m
+};
+
+(function (Prism) {
+
+	var keywords = /\b(?:abstract|assert|boolean|break|byte|case|catch|char|class|const|continue|default|do|double|else|enum|exports|extends|final|finally|float|for|goto|if|implements|import|instanceof|int|interface|long|module|native|new|null|open|opens|package|private|protected|provides|public|requires|return|short|static|strictfp|super|switch|synchronized|this|throw|throws|to|transient|transitive|try|uses|var|void|volatile|while|with|yield)\b/;
+
+	// based on the java naming conventions
+	var className = /\b[A-Z](?:\w*[a-z]\w*)?\b/;
+
+	Prism.languages.java = Prism.languages.extend('clike', {
+		'class-name': [
+			className,
+
+			// variables and parameters
+			// this to support class names (or generic parameters) which do not contain a lower case letter (also works for methods)
+			/\b[A-Z]\w*(?=\s+\w+\s*[;,=())])/
+		],
+		'keyword': keywords,
+		'function': [
+			Prism.languages.clike.function,
+			{
+				pattern: /(\:\:)[a-z_]\w*/,
+				lookbehind: true
+			}
+		],
+		'number': /\b0b[01][01_]*L?\b|\b0x[\da-f_]*\.?[\da-f_p+-]+\b|(?:\b\d[\d_]*\.?[\d_]*|\B\.\d[\d_]*)(?:e[+-]?\d[\d_]*)?[dfl]?/i,
+		'operator': {
+			pattern: /(^|[^.])(?:<<=?|>>>?=?|->|--|\+\+|&&|\|\||::|[?:~]|[-+*/%&|^!=<>]=?)/m,
+			lookbehind: true
+		}
+	});
+
+	Prism.languages.insertBefore('java', 'string', {
+		'triple-quoted-string': {
+			// http://openjdk.java.net/jeps/355#Description
+			pattern: /"""[ \t]*[\r\n](?:(?:"|"")?(?:\\.|[^"\\]))*"""/,
+			greedy: true,
+			alias: 'string'
+		}
+	});
+
+	Prism.languages.insertBefore('java', 'class-name', {
+		'annotation': {
+			alias: 'punctuation',
+			pattern: /(^|[^.])@\w+/,
+			lookbehind: true
+		},
+		'namespace': {
+			pattern: /(\b(?:exports|import(?:\s+static)?|module|open|opens|package|provides|requires|to|transitive|uses|with)\s+)[a-z]\w*(?:\.[a-z]\w*)+/,
+			lookbehind: true,
+			inside: {
+				'punctuation': /\./,
+			}
+		},
+		'generics': {
+			pattern: /<(?:[\w\s,.&?]|<(?:[\w\s,.&?]|<(?:[\w\s,.&?]|<[\w\s,.&?]*>)*>)*>)*>/,
+			inside: {
+				'class-name': className,
+				'keyword': keywords,
+				'punctuation': /[<>(),.:]/,
+				'operator': /[?&|]/
+			}
+		}
+	});
+}(Prism));
+
+Prism.languages.python = {
+	'comment': {
+		pattern: /(^|[^\\])#.*/,
+		lookbehind: true
+	},
+	'string-interpolation': {
+		pattern: /(?:f|rf|fr)(?:("""|''')[\s\S]+?\1|("|')(?:\\.|(?!\2)[^\\\r\n])*\2)/i,
+		greedy: true,
+		inside: {
+			'interpolation': {
+				// "{" <expression> <optional "!s", "!r", or "!a"> <optional ":" format specifier> "}"
+				pattern: /((?:^|[^{])(?:{{)*){(?!{)(?:[^{}]|{(?!{)(?:[^{}]|{(?!{)(?:[^{}])+})+})+}/,
+				lookbehind: true,
+				inside: {
+					'format-spec': {
+						pattern: /(:)[^:(){}]+(?=}$)/,
+						lookbehind: true
+					},
+					'conversion-option': {
+						pattern: /![sra](?=[:}]$)/,
+						alias: 'punctuation'
+					},
+					rest: null
+				}
+			},
+			'string': /[\s\S]+/
+		}
+	},
+	'triple-quoted-string': {
+		pattern: /(?:[rub]|rb|br)?("""|''')[\s\S]+?\1/i,
+		greedy: true,
+		alias: 'string'
+	},
+	'string': {
+		pattern: /(?:[rub]|rb|br)?("|')(?:\\.|(?!\1)[^\\\r\n])*\1/i,
+		greedy: true
+	},
+	'function': {
+		pattern: /((?:^|\s)def[ \t]+)[a-zA-Z_]\w*(?=\s*\()/g,
+		lookbehind: true
+	},
+	'class-name': {
+		pattern: /(\bclass\s+)\w+/i,
+		lookbehind: true
+	},
+	'decorator': {
+		pattern: /(^\s*)@\w+(?:\.\w+)*/im,
+		lookbehind: true,
+		alias: ['annotation', 'punctuation'],
+		inside: {
+			'punctuation': /\./
+		}
+	},
+	'keyword': /\b(?:and|as|assert|async|await|break|class|continue|def|del|elif|else|except|exec|finally|for|from|global|if|import|in|is|lambda|nonlocal|not|or|pass|print|raise|return|try|while|with|yield)\b/,
+	'builtin': /\b(?:__import__|abs|all|any|apply|ascii|basestring|bin|bool|buffer|bytearray|bytes|callable|chr|classmethod|cmp|coerce|compile|complex|delattr|dict|dir|divmod|enumerate|eval|execfile|file|filter|float|format|frozenset|getattr|globals|hasattr|hash|help|hex|id|input|int|intern|isinstance|issubclass|iter|len|list|locals|long|map|max|memoryview|min|next|object|oct|open|ord|pow|property|range|raw_input|reduce|reload|repr|reversed|round|set|setattr|slice|sorted|staticmethod|str|sum|super|tuple|type|unichr|unicode|vars|xrange|zip)\b/,
+	'boolean': /\b(?:True|False|None)\b/,
+	'number': /(?:\b(?=\d)|\B(?=\.))(?:0[bo])?(?:(?:\d|0x[\da-f])[\da-f]*\.?\d*|\.\d+)(?:e[+-]?\d+)?j?\b/i,
+	'operator': /[-+%=]=?|!=|\*\*?=?|\/\/?=?|<[<=>]?|>[=>]?|[&|^~]/,
+	'punctuation': /[{}[\];(),.:]/
+};
+
+Prism.languages.python['string-interpolation'].inside['interpolation'].inside.rest = Prism.languages.python;
+
+Prism.languages.py = Prism.languages.python;
+
+Prism.languages.scss = Prism.languages.extend('css', {
+	'comment': {
+		pattern: /(^|[^\\])(?:\/\*[\s\S]*?\*\/|\/\/.*)/,
+		lookbehind: true
+	},
+	'atrule': {
+		pattern: /@[\w-]+(?:\([^()]+\)|[^(])*?(?=\s+[{;])/,
+		inside: {
+			'rule': /@[\w-]+/
+			// See rest below
+		}
+	},
+	// url, compassified
+	'url': /(?:[-a-z]+-)?url(?=\()/i,
+	// CSS selector regex is not appropriate for Sass
+	// since there can be lot more things (var, @ directive, nesting..)
+	// a selector must start at the end of a property or after a brace (end of other rules or nesting)
+	// it can contain some characters that aren't used for defining rules or end of selector, & (parent selector), or interpolated variable
+	// the end of a selector is found when there is no rules in it ( {} or {\s}) or if there is a property (because an interpolated var
+	// can "pass" as a selector- e.g: proper#{$erty})
+	// this one was hard to do, so please be careful if you edit this one :)
+	'selector': {
+		// Initial look-ahead is used to prevent matching of blank selectors
+		pattern: /(?=\S)[^@;{}()]?(?:[^@;{}()]|#\{\$[-\w]+\})+(?=\s*\{(?:\}|\s|[^}]+[:{][^}]+))/m,
+		inside: {
+			'parent': {
+				pattern: /&/,
+				alias: 'important'
+			},
+			'placeholder': /%[-\w]+/,
+			'variable': /\$[-\w]+|#\{\$[-\w]+\}/
+		}
+	},
+	'property': {
+		pattern: /(?:[\w-]|\$[-\w]+|#\{\$[-\w]+\})+(?=\s*:)/,
+		inside: {
+			'variable': /\$[-\w]+|#\{\$[-\w]+\}/
+		}
+	}
+});
+
+Prism.languages.insertBefore('scss', 'atrule', {
+	'keyword': [
+		/@(?:if|else(?: if)?|for|each|while|import|extend|debug|warn|mixin|include|function|return|content)/i,
+		{
+			pattern: /( +)(?:from|through)(?= )/,
+			lookbehind: true
+		}
+	]
+});
+
+Prism.languages.insertBefore('scss', 'important', {
+	// var and interpolated vars
+	'variable': /\$[-\w]+|#\{\$[-\w]+\}/
+});
+
+Prism.languages.insertBefore('scss', 'function', {
+	'placeholder': {
+		pattern: /%[-\w]+/,
+		alias: 'selector'
+	},
+	'statement': {
+		pattern: /\B!(?:default|optional)\b/i,
+		alias: 'keyword'
+	},
+	'boolean': /\b(?:true|false)\b/,
+	'null': {
+		pattern: /\bnull\b/,
+		alias: 'keyword'
+	},
+	'operator': {
+		pattern: /(\s)(?:[-+*\/%]|[=!]=|<=?|>=?|and|or|not)(?=\s)/,
+		lookbehind: true
+	}
+});
+
+Prism.languages.scss['atrule'].inside.rest = Prism.languages.scss;
+
+Prism.languages.sql = {
+	'comment': {
+		pattern: /(^|[^\\])(?:\/\*[\s\S]*?\*\/|(?:--|\/\/|#).*)/,
+		lookbehind: true
+	},
+	'variable': [
+		{
+			pattern: /@(["'`])(?:\\[\s\S]|(?!\1)[^\\])+\1/,
+			greedy: true
+		},
+		/@[\w.$]+/
+	],
+	'string': {
+		pattern: /(^|[^@\\])("|')(?:\\[\s\S]|(?!\2)[^\\]|\2\2)*\2/,
+		greedy: true,
+		lookbehind: true
+	},
+	'function': /\b(?:AVG|COUNT|FIRST|FORMAT|LAST|LCASE|LEN|MAX|MID|MIN|MOD|NOW|ROUND|SUM|UCASE)(?=\s*\()/i, // Should we highlight user defined functions too?
+	'keyword': /\b(?:ACTION|ADD|AFTER|ALGORITHM|ALL|ALTER|ANALYZE|ANY|APPLY|AS|ASC|AUTHORIZATION|AUTO_INCREMENT|BACKUP|BDB|BEGIN|BERKELEYDB|BIGINT|BINARY|BIT|BLOB|BOOL|BOOLEAN|BREAK|BROWSE|BTREE|BULK|BY|CALL|CASCADED?|CASE|CHAIN|CHAR(?:ACTER|SET)?|CHECK(?:POINT)?|CLOSE|CLUSTERED|COALESCE|COLLATE|COLUMNS?|COMMENT|COMMIT(?:TED)?|COMPUTE|CONNECT|CONSISTENT|CONSTRAINT|CONTAINS(?:TABLE)?|CONTINUE|CONVERT|CREATE|CROSS|CURRENT(?:_DATE|_TIME|_TIMESTAMP|_USER)?|CURSOR|CYCLE|DATA(?:BASES?)?|DATE(?:TIME)?|DAY|DBCC|DEALLOCATE|DEC|DECIMAL|DECLARE|DEFAULT|DEFINER|DELAYED|DELETE|DELIMITERS?|DENY|DESC|DESCRIBE|DETERMINISTIC|DISABLE|DISCARD|DISK|DISTINCT|DISTINCTROW|DISTRIBUTED|DO|DOUBLE|DROP|DUMMY|DUMP(?:FILE)?|DUPLICATE|ELSE(?:IF)?|ENABLE|ENCLOSED|END|ENGINE|ENUM|ERRLVL|ERRORS|ESCAPED?|EXCEPT|EXEC(?:UTE)?|EXISTS|EXIT|EXPLAIN|EXTENDED|FETCH|FIELDS|FILE|FILLFACTOR|FIRST|FIXED|FLOAT|FOLLOWING|FOR(?: EACH ROW)?|FORCE|FOREIGN|FREETEXT(?:TABLE)?|FROM|FULL|FUNCTION|GEOMETRY(?:COLLECTION)?|GLOBAL|GOTO|GRANT|GROUP|HANDLER|HASH|HAVING|HOLDLOCK|HOUR|IDENTITY(?:_INSERT|COL)?|IF|IGNORE|IMPORT|INDEX|INFILE|INNER|INNODB|INOUT|INSERT|INT|INTEGER|INTERSECT|INTERVAL|INTO|INVOKER|ISOLATION|ITERATE|JOIN|KEYS?|KILL|LANGUAGE|LAST|LEAVE|LEFT|LEVEL|LIMIT|LINENO|LINES|LINESTRING|LOAD|LOCAL|LOCK|LONG(?:BLOB|TEXT)|LOOP|MATCH(?:ED)?|MEDIUM(?:BLOB|INT|TEXT)|MERGE|MIDDLEINT|MINUTE|MODE|MODIFIES|MODIFY|MONTH|MULTI(?:LINESTRING|POINT|POLYGON)|NATIONAL|NATURAL|NCHAR|NEXT|NO|NONCLUSTERED|NULLIF|NUMERIC|OFF?|OFFSETS?|ON|OPEN(?:DATASOURCE|QUERY|ROWSET)?|OPTIMIZE|OPTION(?:ALLY)?|ORDER|OUT(?:ER|FILE)?|OVER|PARTIAL|PARTITION|PERCENT|PIVOT|PLAN|POINT|POLYGON|PRECEDING|PRECISION|PREPARE|PREV|PRIMARY|PRINT|PRIVILEGES|PROC(?:EDURE)?|PUBLIC|PURGE|QUICK|RAISERROR|READS?|REAL|RECONFIGURE|REFERENCES|RELEASE|RENAME|REPEAT(?:ABLE)?|REPLACE|REPLICATION|REQUIRE|RESIGNAL|RESTORE|RESTRICT|RETURNS?|REVOKE|RIGHT|ROLLBACK|ROUTINE|ROW(?:COUNT|GUIDCOL|S)?|RTREE|RULE|SAVE(?:POINT)?|SCHEMA|SECOND|SELECT|SERIAL(?:IZABLE)?|SESSION(?:_USER)?|SET(?:USER)?|SHARE|SHOW|SHUTDOWN|SIMPLE|SMALLINT|SNAPSHOT|SOME|SONAME|SQL|START(?:ING)?|STATISTICS|STATUS|STRIPED|SYSTEM_USER|TABLES?|TABLESPACE|TEMP(?:ORARY|TABLE)?|TERMINATED|TEXT(?:SIZE)?|THEN|TIME(?:STAMP)?|TINY(?:BLOB|INT|TEXT)|TOP?|TRAN(?:SACTIONS?)?|TRIGGER|TRUNCATE|TSEQUAL|TYPES?|UNBOUNDED|UNCOMMITTED|UNDEFINED|UNION|UNIQUE|UNLOCK|UNPIVOT|UNSIGNED|UPDATE(?:TEXT)?|USAGE|USE|USER|USING|VALUES?|VAR(?:BINARY|CHAR|CHARACTER|YING)|VIEW|WAITFOR|WARNINGS|WHEN|WHERE|WHILE|WITH(?: ROLLUP|IN)?|WORK|WRITE(?:TEXT)?|YEAR)\b/i,
+	'boolean': /\b(?:TRUE|FALSE|NULL)\b/i,
+	'number': /\b0x[\da-f]+\b|\b\d+\.?\d*|\B\.\d+\b/i,
+	'operator': /[-+*\/=%^~]|&&?|\|\|?|!=?|<(?:=>?|<|>)?|>[>=]?|\b(?:AND|BETWEEN|IN|LIKE|NOT|OR|IS|DIV|REGEXP|RLIKE|SOUNDS LIKE|XOR)\b/i,
+	'punctuation': /[;[\]()`,.]/
+};
+
+Prism.languages.vbnet = Prism.languages.extend("basic", {
+	'keyword': /(?:\b(?:ADDHANDLER|ADDRESSOF|ALIAS|AND|ANDALSO|AS|BEEP|BLOAD|BOOLEAN|BSAVE|BYREF|BYTE|BYVAL|CALL(?: ABSOLUTE)?|CASE|CATCH|CBOOL|CBYTE|CCHAR|CDATE|CDEC|CDBL|CHAIN|CHAR|CHDIR|CINT|CLASS|CLEAR|CLNG|CLOSE|CLS|COBJ|COM|COMMON|CONST|CONTINUE|CSBYTE|CSHORT|CSNG|CSTR|CTYPE|CUINT|CULNG|CUSHORT|DATA|DATE|DECIMAL|DECLARE|DEFAULT|DEF(?: FN| SEG|DBL|INT|LNG|SNG|STR)|DELEGATE|DIM|DIRECTCAST|DO|DOUBLE|ELSE|ELSEIF|END|ENUM|ENVIRON|ERASE|ERROR|EVENT|EXIT|FALSE|FIELD|FILES|FINALLY|FOR(?: EACH)?|FRIEND|FUNCTION|GET|GETTYPE|GETXMLNAMESPACE|GLOBAL|GOSUB|GOTO|HANDLES|IF|IMPLEMENTS|IMPORTS|IN|INHERITS|INPUT|INTEGER|INTERFACE|IOCTL|IS|ISNOT|KEY|KILL|LINE INPUT|LET|LIB|LIKE|LOCATE|LOCK|LONG|LOOP|LSET|ME|MKDIR|MOD|MODULE|MUSTINHERIT|MUSTOVERRIDE|MYBASE|MYCLASS|NAME|NAMESPACE|NARROWING|NEW|NEXT|NOT|NOTHING|NOTINHERITABLE|NOTOVERRIDABLE|OBJECT|OF|OFF|ON(?: COM| ERROR| KEY| TIMER)?|OPERATOR|OPEN|OPTION(?: BASE)?|OPTIONAL|OR|ORELSE|OUT|OVERLOADS|OVERRIDABLE|OVERRIDES|PARAMARRAY|PARTIAL|POKE|PRIVATE|PROPERTY|PROTECTED|PUBLIC|PUT|RAISEEVENT|READ|READONLY|REDIM|REM|REMOVEHANDLER|RESTORE|RESUME|RETURN|RMDIR|RSET|RUN|SBYTE|SELECT(?: CASE)?|SET|SHADOWS|SHARED|SHORT|SINGLE|SHELL|SLEEP|STATIC|STEP|STOP|STRING|STRUCTURE|SUB|SYNCLOCK|SWAP|SYSTEM|THEN|THROW|TIMER|TO|TROFF|TRON|TRUE|TRY|TRYCAST|TYPE|TYPEOF|UINTEGER|ULONG|UNLOCK|UNTIL|USHORT|USING|VIEW PRINT|WAIT|WEND|WHEN|WHILE|WIDENING|WITH|WITHEVENTS|WRITE|WRITEONLY|XOR)|\B(?:#CONST|#ELSE|#ELSEIF|#END|#IF))(?:\$|\b)/i,
+	'comment': [
+		{
+			pattern: /(?:!|REM\b).+/i,
+			inside: {
+				'keyword': /^REM/i
+			}
+		},
+		{
+			pattern: /(^|[^\\:])'.*/,
+			lookbehind: true
+		}
+	]
+});
+
+Prism.languages['visual-basic'] = {
+	'comment': {
+		pattern: /(?:['‘’]|REM\b)(?:[^\r\n_]|_(?:\r\n?|\n)?)*/i,
+		inside: {
+			'keyword': /^REM/i
+		}
+	},
+	'directive': {
+		pattern: /#(?:Const|Else|ElseIf|End|ExternalChecksum|ExternalSource|If|Region)(?:[^\S\r\n]_[^\S\r\n]*(?:\r\n?|\n)|.)+/i,
+		alias: 'comment',
+		greedy: true
+	},
+	'string': {
+		pattern: /\$?["“”](?:["“”]{2}|[^"“”])*["“”]C?/i,
+		greedy: true
+	},
+	'date': {
+		pattern: /#[^\S\r\n]*(?:\d+([/-])\d+\1\d+(?:[^\S\r\n]+(?:\d+[^\S\r\n]*(?:AM|PM)|\d+:\d+(?::\d+)?(?:[^\S\r\n]*(?:AM|PM))?))?|(?:\d+[^\S\r\n]*(?:AM|PM)|\d+:\d+(?::\d+)?(?:[^\S\r\n]*(?:AM|PM))?))[^\S\r\n]*#/i,
+		alias: 'builtin'
+	},
+	'number': /(?:(?:\b\d+(?:\.\d+)?|\.\d+)(?:E[+-]?\d+)?|&[HO][\dA-F]+)(?:U?[ILS]|[FRD])?/i,
+	'boolean': /\b(?:True|False|Nothing)\b/i,
+	'keyword': /\b(?:AddHandler|AddressOf|Alias|And(?:Also)?|As|Boolean|ByRef|Byte|ByVal|Call|Case|Catch|C(?:Bool|Byte|Char|Date|Dbl|Dec|Int|Lng|Obj|SByte|Short|Sng|Str|Type|UInt|ULng|UShort)|Char|Class|Const|Continue|Date|Decimal|Declare|Default|Delegate|Dim|DirectCast|Do|Double|Each|Else(?:If)?|End(?:If)?|Enum|Erase|Error|Event|Exit|Finally|For|Friend|Function|Get(?:Type|XMLNamespace)?|Global|GoSub|GoTo|Handles|If|Implements|Imports|In|Inherits|Integer|Interface|Is|IsNot|Let|Lib|Like|Long|Loop|Me|Mod|Module|Must(?:Inherit|Override)|My(?:Base|Class)|Namespace|Narrowing|New|Next|Not(?:Inheritable|Overridable)?|Object|Of|On|Operator|Option(?:al)?|Or(?:Else)?|Out|Overloads|Overridable|Overrides|ParamArray|Partial|Private|Property|Protected|Public|RaiseEvent|ReadOnly|ReDim|RemoveHandler|Resume|Return|SByte|Select|Set|Shadows|Shared|short|Single|Static|Step|Stop|String|Structure|Sub|SyncLock|Then|Throw|To|Try|TryCast|TypeOf|U(?:Integer|Long|Short)|Using|Variant|Wend|When|While|Widening|With(?:Events)?|WriteOnly|Xor)\b/i,
+	'operator': [
+		/[+\-*/\\^<=>&#@$%!]/,
+		{
+			pattern: /([^\S\r\n])_(?=[^\S\r\n]*[\r\n])/,
+			lookbehind: true
+		}
+	],
+	'punctuation': /[{}().,:?]/
+};
+
+Prism.languages.vb = Prism.languages['visual-basic'];
+
+(function () {
+
+	if (typeof self === 'undefined' || !self.Prism || !self.document || !document.querySelector) {
+		return;
+	}
+
+	function $$(expr, con) {
+		return Array.prototype.slice.call((con || document).querySelectorAll(expr));
+	}
+
+	function hasClass(element, className) {
+		className = " " + className + " ";
+		return (" " + element.className + " ").replace(/[\n\t]/g, " ").indexOf(className) > -1
+	}
+
+	function callFunction(func) {
+		func();
+	}
+
+	// Some browsers round the line-height, others don't.
+	// We need to test for it to position the elements properly.
+	var isLineHeightRounded = (function () {
+		var res;
+		return function () {
+			if (typeof res === 'undefined') {
+				var d = document.createElement('div');
+				d.style.fontSize = '13px';
+				d.style.lineHeight = '1.5';
+				d.style.padding = 0;
+				d.style.border = 0;
+				d.innerHTML = '&nbsp;<br />&nbsp;';
+				document.body.appendChild(d);
+				// Browsers that round the line-height should have offsetHeight === 38
+				// The others should have 39.
+				res = d.offsetHeight === 38;
+				document.body.removeChild(d);
+			}
+			return res;
+		}
+	}());
+
+	/**
+	 * Highlights the lines of the given pre.
+	 *
+	 * This function is split into a DOM measuring and mutate phase to improve performance.
+	 * The returned function mutates the DOM when called.
+	 *
+	 * @param {HTMLElement} pre
+	 * @param {string} [lines]
+	 * @param {string} [classes='']
+	 * @returns {() => void}
+	 */
+	function highlightLines(pre, lines, classes) {
+		lines = typeof lines === 'string' ? lines : pre.getAttribute('data-line');
+
+		var ranges = lines.replace(/\s+/g, '').split(',');
+		var offset = +pre.getAttribute('data-line-offset') || 0;
+
+		var parseMethod = isLineHeightRounded() ? parseInt : parseFloat;
+		var lineHeight = parseMethod(getComputedStyle(pre).lineHeight);
+		var hasLineNumbers = hasClass(pre, 'line-numbers');
+		var parentElement = hasLineNumbers ? pre : pre.querySelector('code') || pre;
+		var mutateActions = /** @type {(() => void)[]} */ ([]);
+
+		ranges.forEach(function (currentRange) {
+			var range = currentRange.split('-');
+
+			var start = +range[0];
+			var end = +range[1] || start;
+
+			var line = pre.querySelector('.line-highlight[data-range="' + currentRange + '"]') || document.createElement('div');
+
+			mutateActions.push(function () {
+				line.setAttribute('aria-hidden', 'true');
+				line.setAttribute('data-range', currentRange);
+				line.className = (classes || '') + ' line-highlight';
+			});
+
+			// if the line-numbers plugin is enabled, then there is no reason for this plugin to display the line numbers
+			if (hasLineNumbers && Prism.plugins.lineNumbers) {
+				var startNode = Prism.plugins.lineNumbers.getLine(pre, start);
+				var endNode = Prism.plugins.lineNumbers.getLine(pre, end);
+
+				if (startNode) {
+					var top = startNode.offsetTop + 'px';
+					mutateActions.push(function () {
+						line.style.top = top;
+					});
+				}
+
+				if (endNode) {
+					var height = (endNode.offsetTop - startNode.offsetTop) + endNode.offsetHeight + 'px';
+					mutateActions.push(function () {
+						line.style.height = height;
+					});
+				}
+			} else {
+				mutateActions.push(function () {
+					line.setAttribute('data-start', start);
+
+					if (end > start) {
+						line.setAttribute('data-end', end);
+					}
+
+					line.style.top = (start - offset - 1) * lineHeight + 'px';
+
+					line.textContent = new Array(end - start + 2).join(' \n');
+				});
+			}
+
+			mutateActions.push(function () {
+				// allow this to play nicely with the line-numbers plugin
+				// need to attack to pre as when line-numbers is enabled, the code tag is relatively which screws up the positioning
+				parentElement.appendChild(line);
+			});
+		});
+
+		return function () {
+			mutateActions.forEach(callFunction);
+		};
+	}
+
+	function applyHash() {
+		var hash = location.hash.slice(1);
+
+		// Remove pre-existing temporary lines
+		$$('.temporary.line-highlight').forEach(function (line) {
+			line.parentNode.removeChild(line);
+		});
+
+		var range = (hash.match(/\.([\d,-]+)$/) || [, ''])[1];
+
+		if (!range || document.getElementById(hash)) {
+			return;
+		}
+
+		var id = hash.slice(0, hash.lastIndexOf('.')),
+			pre = document.getElementById(id);
+
+		if (!pre) {
+			return;
+		}
+
+		if (!pre.hasAttribute('data-line')) {
+			pre.setAttribute('data-line', '');
+		}
+
+		var mutateDom = highlightLines(pre, range, 'temporary ');
+		mutateDom();
+
+		document.querySelector('.temporary.line-highlight').scrollIntoView();
+	}
+
+	var fakeTimer = 0; // Hack to limit the number of times applyHash() runs
+
+	Prism.hooks.add('before-sanity-check', function (env) {
+		var pre = env.element.parentNode;
+		var lines = pre && pre.getAttribute('data-line');
+
+		if (!pre || !lines || !/pre/i.test(pre.nodeName)) {
+			return;
+		}
+
+		/*
+		 * Cleanup for other plugins (e.g. autoloader).
+		 *
+		 * Sometimes <code> blocks are highlighted multiple times. It is necessary
+		 * to cleanup any left-over tags, because the whitespace inside of the <div>
+		 * tags change the content of the <code> tag.
+		 */
+		var num = 0;
+		$$('.line-highlight', pre).forEach(function (line) {
+			num += line.textContent.length;
+			line.parentNode.removeChild(line);
+		});
+		// Remove extra whitespace
+		if (num && /^( \n)+$/.test(env.code.slice(-num))) {
+			env.code = env.code.slice(0, -num);
+		}
+	});
+
+	Prism.hooks.add('complete', function completeHook(env) {
+		var pre = env.element.parentNode;
+		var lines = pre && pre.getAttribute('data-line');
+
+		if (!pre || !lines || !/pre/i.test(pre.nodeName)) {
+			return;
+		}
+
+		clearTimeout(fakeTimer);
+
+		var hasLineNumbers = Prism.plugins.lineNumbers;
+		var isLineNumbersLoaded = env.plugins && env.plugins.lineNumbers;
+
+		if (hasClass(pre, 'line-numbers') && hasLineNumbers && !isLineNumbersLoaded) {
+			Prism.hooks.add('line-numbers', completeHook);
+		} else {
+			var mutateDom = highlightLines(pre, lines);
+			mutateDom();
+			fakeTimer = setTimeout(applyHash, 1);
+		}
+	});
+
+	window.addEventListener('hashchange', applyHash);
+	window.addEventListener('resize', function () {
+		var actions = [];
+		$$('pre[data-line]').forEach(function (pre) {
+			actions.push(highlightLines(pre));
+		});
+		actions.forEach(callFunction);
+	});
+
+})();
+
+(function () {
+
+	if (typeof self === 'undefined' || !self.Prism || !self.document) {
+		return;
+	}
+
+	/**
+	 * Plugin name which is used as a class name for <pre> which is activating the plugin
+	 * @type {String}
+	 */
+	var PLUGIN_NAME = 'line-numbers';
+
+	/**
+	 * Regular expression used for determining line breaks
+	 * @type {RegExp}
+	 */
+	var NEW_LINE_EXP = /\n(?!$)/g;
+
+	/**
+	 * Resizes line numbers spans according to height of line of code
+	 * @param {Element} element <pre> element
+	 */
+	var _resizeElement = function (element) {
+		var codeStyles = getStyles(element);
+		var whiteSpace = codeStyles['white-space'];
+
+		if (whiteSpace === 'pre-wrap' || whiteSpace === 'pre-line') {
+			var codeElement = element.querySelector('code');
+			var lineNumbersWrapper = element.querySelector('.line-numbers-rows');
+			var lineNumberSizer = element.querySelector('.line-numbers-sizer');
+			var codeLines = codeElement.textContent.split(NEW_LINE_EXP);
+
+			if (!lineNumberSizer) {
+				lineNumberSizer = document.createElement('span');
+				lineNumberSizer.className = 'line-numbers-sizer';
+
+				codeElement.appendChild(lineNumberSizer);
+			}
+
+			lineNumberSizer.style.display = 'block';
+
+			codeLines.forEach(function (line, lineNumber) {
+				lineNumberSizer.textContent = line || '\n';
+				var lineSize = lineNumberSizer.getBoundingClientRect().height;
+				lineNumbersWrapper.children[lineNumber].style.height = lineSize + 'px';
+			});
+
+			lineNumberSizer.textContent = '';
+			lineNumberSizer.style.display = 'none';
+		}
+	};
+
+	/**
+	 * Returns style declarations for the element
+	 * @param {Element} element
+	 */
+	var getStyles = function (element) {
+		if (!element) {
+			return null;
+		}
+
+		return window.getComputedStyle ? getComputedStyle(element) : (element.currentStyle || null);
+	};
+
+	window.addEventListener('resize', function () {
+		Array.prototype.forEach.call(document.querySelectorAll('pre.' + PLUGIN_NAME), _resizeElement);
+	});
+
+	Prism.hooks.add('complete', function (env) {
+		if (!env.code) {
+			return;
+		}
+
+		var code = env.element;
+		var pre = code.parentNode;
+
+		// works only for <code> wrapped inside <pre> (not inline)
+		if (!pre || !/pre/i.test(pre.nodeName)) {
+			return;
+		}
+
+		// Abort if line numbers already exists
+		if (code.querySelector('.line-numbers-rows')) {
+			return;
+		}
+
+		var addLineNumbers = false;
+		var lineNumbersRegex = /(?:^|\s)line-numbers(?:\s|$)/;
+
+		for (var element = code; element; element = element.parentNode) {
+			if (lineNumbersRegex.test(element.className)) {
+				addLineNumbers = true;
+				break;
+			}
+		}
+
+		// only add line numbers if <code> or one of its ancestors has the `line-numbers` class
+		if (!addLineNumbers) {
+			return;
+		}
+
+		// Remove the class 'line-numbers' from the <code>
+		code.className = code.className.replace(lineNumbersRegex, ' ');
+		// Add the class 'line-numbers' to the <pre>
+		if (!lineNumbersRegex.test(pre.className)) {
+			pre.className += ' line-numbers';
+		}
+
+		var match = env.code.match(NEW_LINE_EXP);
+		var linesNum = match ? match.length + 1 : 1;
+		var lineNumbersWrapper;
+
+		var lines = new Array(linesNum + 1).join('<span></span>');
+
+		lineNumbersWrapper = document.createElement('span');
+		lineNumbersWrapper.setAttribute('aria-hidden', 'true');
+		lineNumbersWrapper.className = 'line-numbers-rows';
+		lineNumbersWrapper.innerHTML = lines;
+
+		if (pre.hasAttribute('data-start')) {
+			pre.style.counterReset = 'linenumber ' + (parseInt(pre.getAttribute('data-start'), 10) - 1);
+		}
+
+		env.element.appendChild(lineNumbersWrapper);
+
+		_resizeElement(pre);
+
+		Prism.hooks.run('line-numbers', env);
+	});
+
+	Prism.hooks.add('line-numbers', function (env) {
+		env.plugins = env.plugins || {};
+		env.plugins.lineNumbers = true;
+	});
+
+	/**
+	 * Global exports
+	 */
+	Prism.plugins.lineNumbers = {
+		/**
+		 * Get node for provided line number
+		 * @param {Element} element pre element
+		 * @param {Number} number line number
+		 * @return {Element|undefined}
+		 */
+		getLine: function (element, number) {
+			if (element.tagName !== 'PRE' || !element.classList.contains(PLUGIN_NAME)) {
+				return;
+			}
+
+			var lineNumberRows = element.querySelector('.line-numbers-rows');
+			var lineNumberStart = parseInt(element.getAttribute('data-start'), 10) || 1;
+			var lineNumberEnd = lineNumberStart + (lineNumberRows.children.length - 1);
+
+			if (number < lineNumberStart) {
+				number = lineNumberStart;
+			}
+			if (number > lineNumberEnd) {
+				number = lineNumberEnd;
+			}
+
+			var lineIndex = number - lineNumberStart;
+
+			return lineNumberRows.children[lineIndex];
+		}
+	};
+
+}());
+
+(function(){
+
+if (
+	typeof self !== 'undefined' && !self.Prism ||
+	typeof global !== 'undefined' && !global.Prism
+) {
+	return;
+}
+
+var url = /\b([a-z]{3,7}:\/\/|tel:)[\w\-+%~/.:=&@]+(?:\?[\w\-+%~/.:=?&!$'()*,;@]*)?(?:#[\w\-+%~/.:#=?&!$'()*,;@]*)?/,
+    email = /\b\S+@[\w.]+[a-z]{2}/,
+    linkMd = /\[([^\]]+)]\(([^)]+)\)/,
+
+	// Tokens that may contain URLs and emails
+    candidates = ['comment', 'url', 'attr-value', 'string'];
+
+Prism.plugins.autolinker = {
+	processGrammar: function (grammar) {
+		// Abort if grammar has already been processed
+		if (!grammar || grammar['url-link']) {
+			return;
+		}
+		Prism.languages.DFS(grammar, function (key, def, type) {
+			if (candidates.indexOf(type) > -1 && !Array.isArray(def)) {
+				if (!def.pattern) {
+					def = this[key] = {
+						pattern: def
+					};
+				}
+
+				def.inside = def.inside || {};
+
+				if (type == 'comment') {
+					def.inside['md-link'] = linkMd;
+				}
+				if (type == 'attr-value') {
+					Prism.languages.insertBefore('inside', 'punctuation', { 'url-link': url }, def);
+				}
+				else {
+					def.inside['url-link'] = url;
+				}
+
+				def.inside['email-link'] = email;
+			}
+		});
+		grammar['url-link'] = url;
+		grammar['email-link'] = email;
+	}
+};
+
+Prism.hooks.add('before-highlight', function(env) {
+	Prism.plugins.autolinker.processGrammar(env.grammar);
+});
+
+Prism.hooks.add('wrap', function(env) {
+	if (/-link$/.test(env.type)) {
+		env.tag = 'a';
+
+		var href = env.content;
+
+		if (env.type == 'email-link' && href.indexOf('mailto:') != 0) {
+			href = 'mailto:' + href;
+		}
+		else if (env.type == 'md-link') {
+			// Markdown
+			var match = env.content.match(linkMd);
+
+			href = match[2];
+			env.content = match[1];
+		}
+
+		env.attributes.href = href;
+
+		// Silently catch any error thrown by decodeURIComponent (#1186)
+		try {
+			env.content = decodeURIComponent(env.content);
+		} catch(e) {}
+	}
+});
+
+})();
+
+(function() {
+
+var assign = Object.assign || function (obj1, obj2) {
+	for (var name in obj2) {
+		if (obj2.hasOwnProperty(name))
+			obj1[name] = obj2[name];
+	}
+	return obj1;
+}
+
+function NormalizeWhitespace(defaults) {
+	this.defaults = assign({}, defaults);
+}
+
+function toCamelCase(value) {
+	return value.replace(/-(\w)/g, function(match, firstChar) {
+		return firstChar.toUpperCase();
+	});
+}
+
+function tabLen(str) {
+	var res = 0;
+	for (var i = 0; i < str.length; ++i) {
+		if (str.charCodeAt(i) == '\t'.charCodeAt(0))
+			res += 3;
+	}
+	return str.length + res;
+}
+
+NormalizeWhitespace.prototype = {
+	setDefaults: function (defaults) {
+		this.defaults = assign(this.defaults, defaults);
+	},
+	normalize: function (input, settings) {
+		settings = assign(this.defaults, settings);
+
+		for (var name in settings) {
+			var methodName = toCamelCase(name);
+			if (name !== "normalize" && methodName !== 'setDefaults' &&
+					settings[name] && this[methodName]) {
+				input = this[methodName].call(this, input, settings[name]);
+			}
+		}
+
+		return input;
+	},
+
+	/*
+	 * Normalization methods
+	 */
+	leftTrim: function (input) {
+		return input.replace(/^\s+/, '');
+	},
+	rightTrim: function (input) {
+		return input.replace(/\s+$/, '');
+	},
+	tabsToSpaces: function (input, spaces) {
+		spaces = spaces|0 || 4;
+		return input.replace(/\t/g, new Array(++spaces).join(' '));
+	},
+	spacesToTabs: function (input, spaces) {
+		spaces = spaces|0 || 4;
+		return input.replace(RegExp(' {' + spaces + '}', 'g'), '\t');
+	},
+	removeTrailing: function (input) {
+		return input.replace(/\s*?$/gm, '');
+	},
+	// Support for deprecated plugin remove-initial-line-feed
+	removeInitialLineFeed: function (input) {
+		return input.replace(/^(?:\r?\n|\r)/, '');
+	},
+	removeIndent: function (input) {
+		var indents = input.match(/^[^\S\n\r]*(?=\S)/gm);
+
+		if (!indents || !indents[0].length)
+			return input;
+
+		indents.sort(function(a, b){return a.length - b.length; });
+
+		if (!indents[0].length)
+			return input;
+
+		return input.replace(RegExp('^' + indents[0], 'gm'), '');
+	},
+	indent: function (input, tabs) {
+		return input.replace(/^[^\S\n\r]*(?=\S)/gm, new Array(++tabs).join('\t') + '$&');
+	},
+	breakLines: function (input, characters) {
+		characters = (characters === true) ? 80 : characters|0 || 80;
+
+		var lines = input.split('\n');
+		for (var i = 0; i < lines.length; ++i) {
+			if (tabLen(lines[i]) <= characters)
+				continue;
+
+			var line = lines[i].split(/(\s+)/g),
+			    len = 0;
+
+			for (var j = 0; j < line.length; ++j) {
+				var tl = tabLen(line[j]);
+				len += tl;
+				if (len > characters) {
+					line[j] = '\n' + line[j];
+					len = tl;
+				}
+			}
+			lines[i] = line.join('');
+		}
+		return lines.join('\n');
+	}
+};
+
+// Support node modules
+if (typeof module !== 'undefined' && module.exports) {
+	module.exports = NormalizeWhitespace;
+}
+
+// Exit if prism is not loaded
+if (typeof Prism === 'undefined') {
+	return;
+}
+
+Prism.plugins.NormalizeWhitespace = new NormalizeWhitespace({
+	'remove-trailing': true,
+	'remove-indent': true,
+	'left-trim': true,
+	'right-trim': true,
+	/*'break-lines': 80,
+	'indent': 2,
+	'remove-initial-line-feed': false,
+	'tabs-to-spaces': 4,
+	'spaces-to-tabs': 4*/
+});
+
+Prism.hooks.add('before-sanity-check', function (env) {
+	var Normalizer = Prism.plugins.NormalizeWhitespace;
+
+	// Check settings
+	if (env.settings && env.settings['whitespace-normalization'] === false) {
+		return;
+	}
+
+	// Simple mode if there is no env.element
+	if ((!env.element || !env.element.parentNode) && env.code) {
+		env.code = Normalizer.normalize(env.code, env.settings);
+		return;
+	}
+
+	// Normal mode
+	var pre = env.element.parentNode;
+	var clsReg = /(?:^|\s)no-whitespace-normalization(?:\s|$)/;
+	if (!env.code || !pre || pre.nodeName.toLowerCase() !== 'pre' ||
+			clsReg.test(pre.className) || clsReg.test(env.element.className))
+		return;
+
+	var children = pre.childNodes,
+	    before = '',
+	    after = '',
+	    codeFound = false;
+
+	// Move surrounding whitespace from the <pre> tag into the <code> tag
+	for (var i = 0; i < children.length; ++i) {
+		var node = children[i];
+
+		if (node == env.element) {
+			codeFound = true;
+		} else if (node.nodeName === "#text") {
+			if (codeFound) {
+				after += node.nodeValue;
+			} else {
+				before += node.nodeValue;
+			}
+
+			pre.removeChild(node);
+			--i;
+		}
+	}
+
+	if (!env.element.children.length || !Prism.plugins.KeepMarkup) {
+		env.code = before + env.code + after;
+		env.code = Normalizer.normalize(env.code, env.settings);
+	} else {
+		// Preserve markup for keep-markup plugin
+		var html = before + env.element.innerHTML + after;
+		env.element.innerHTML = Normalizer.normalize(html, env.settings);
+		env.code = env.element.textContent;
+	}
+});
+
+}());
+
+(function(){
+	if (typeof self === 'undefined' || !self.Prism || !self.document) {
+		return;
+	}
+
+	var callbacks = [];
+	var map = {};
+	var noop = function() {};
+
+	Prism.plugins.toolbar = {};
+
+	/**
+	 * @typedef ButtonOptions
+	 * @property {string} text The text displayed.
+	 * @property {string} [url] The URL of the link which will be created.
+	 * @property {Function} [onClick] The event listener for the `click` event of the created button.
+	 * @property {string} [className] The class attribute to include with element.
+	 */
+
+	/**
+	 * Register a button callback with the toolbar.
+	 *
+	 * @param {string} key
+	 * @param {ButtonOptions|Function} opts
+	 */
+	var registerButton = Prism.plugins.toolbar.registerButton = function (key, opts) {
+		var callback;
+
+		if (typeof opts === 'function') {
+			callback = opts;
+		} else {
+			callback = function (env) {
+				var element;
+
+				if (typeof opts.onClick === 'function') {
+					element = document.createElement('button');
+					element.type = 'button';
+					element.addEventListener('click', function () {
+						opts.onClick.call(this, env);
+					});
+				} else if (typeof opts.url === 'string') {
+					element = document.createElement('a');
+					element.href = opts.url;
+				} else {
+					element = document.createElement('span');
+				}
+
+				if (opts.className) {
+					element.classList.add(opts.className);
+				}
+
+				element.textContent = opts.text;
+
+				return element;
+			};
+		}
+
+		if (key in map) {
+			console.warn('There is a button with the key "' + key + '" registered already.');
+			return;
+		}
+
+		callbacks.push(map[key] = callback);
+	};
+
+	/**
+	 * Post-highlight Prism hook callback.
+	 *
+	 * @param env
+	 */
+	var hook = Prism.plugins.toolbar.hook = function (env) {
+		// Check if inline or actual code block (credit to line-numbers plugin)
+		var pre = env.element.parentNode;
+		if (!pre || !/pre/i.test(pre.nodeName)) {
+			return;
+		}
+
+		// Autoloader rehighlights, so only do this once.
+		if (pre.parentNode.classList.contains('code-toolbar')) {
+			return;
+		}
+
+		// Create wrapper for <pre> to prevent scrolling toolbar with content
+		var wrapper = document.createElement("div");
+		wrapper.classList.add("code-toolbar");
+		pre.parentNode.insertBefore(wrapper, pre);
+		wrapper.appendChild(pre);
+
+		// Setup the toolbar
+		var toolbar = document.createElement('div');
+		toolbar.classList.add('toolbar');
+
+		if (document.body.hasAttribute('data-toolbar-order')) {
+			callbacks = document.body.getAttribute('data-toolbar-order').split(',').map(function(key) {
+				return map[key] || noop;
+			});
+		}
+
+		callbacks.forEach(function(callback) {
+			var element = callback(env);
+
+			if (!element) {
+				return;
+			}
+
+			var item = document.createElement('div');
+			item.classList.add('toolbar-item');
+
+			item.appendChild(element);
+			toolbar.appendChild(item);
+		});
+
+		// Add our toolbar to the currently created wrapper of <pre> tag
+		wrapper.appendChild(toolbar);
+	};
+
+	registerButton('label', function(env) {
+		var pre = env.element.parentNode;
+		if (!pre || !/pre/i.test(pre.nodeName)) {
+			return;
+		}
+
+		if (!pre.hasAttribute('data-label')) {
+			return;
+		}
+
+		var element, template;
+		var text = pre.getAttribute('data-label');
+		try {
+			// Any normal text will blow up this selector.
+			template = document.querySelector('template#' + text);
+		} catch (e) {}
+
+		if (template) {
+			element = template.content;
+		} else {
+			if (pre.hasAttribute('data-url')) {
+				element = document.createElement('a');
+				element.href = pre.getAttribute('data-url');
+			} else {
+				element = document.createElement('span');
+			}
+
+			element.textContent = text;
+		}
+
+		return element;
+	});
+
+	/**
+	 * Register the toolbar with Prism.
+	 */
+	Prism.hooks.add('complete', hook);
+})();
+
+(function(){
+	if (typeof self === 'undefined' || !self.Prism || !self.document) {
+		return;
+	}
+
+	if (!Prism.plugins.toolbar) {
+		console.warn('Copy to Clipboard plugin loaded before Toolbar plugin.');
+
+		return;
+	}
+
+	var ClipboardJS = window.ClipboardJS || undefined;
+
+	if (!ClipboardJS && typeof require === 'function') {
+		ClipboardJS = require('clipboard');
+	}
+
+	var callbacks = [];
+
+	if (!ClipboardJS) {
+		var script = document.createElement('script');
+		var head = document.querySelector('head');
+
+		script.onload = function() {
+			ClipboardJS = window.ClipboardJS;
+
+			if (ClipboardJS) {
+				while (callbacks.length) {
+					callbacks.pop()();
+				}
+			}
+		};
+
+		script.src = 'https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js';
+		head.appendChild(script);
+	}
+
+	Prism.plugins.toolbar.registerButton('copy-to-clipboard', function (env) {
+		var linkCopy = document.createElement('button');
+		linkCopy.textContent = 'Copy';
+
+		if (!ClipboardJS) {
+			callbacks.push(registerClipboard);
+		} else {
+			registerClipboard();
+		}
+
+		return linkCopy;
+
+		function registerClipboard() {
+			var clip = new ClipboardJS(linkCopy, {
+				'text': function () {
+					return env.code;
+				}
+			});
+
+			clip.on('success', function() {
+				linkCopy.textContent = 'Copied!';
+
+				resetText();
+			});
+			clip.on('error', function () {
+				linkCopy.textContent = 'Press Ctrl+C to copy';
+
+				resetText();
+			});
+		}
+
+		function resetText() {
+			setTimeout(function () {
+				linkCopy.textContent = 'Copy';
+			}, 5000);
+		}
+	});
+})();
+
 
 /*
  * Selected-Quoting for Messages based on the
@@ -35953,16 +40075,10 @@ Prism.languages.vbnet=Prism.languages.extend("basic",{keyword:/(?:\b(?:ADDHANDLE
 
 
 
-/*** This file is dynamically generated ***
-█████▄ ▄████▄   █████▄ ▄████▄ ██████   ███████▄ ▄████▄ █████▄ ██ ██████ ██  ██
-██  ██ ██  ██   ██  ██ ██  ██   ██     ██ ██ ██ ██  ██ ██  ██ ██ ██▄▄   ██▄▄██
-██  ██ ██  ██   ██  ██ ██  ██   ██     ██ ██ ██ ██  ██ ██  ██ ██ ██▀▀    ▀▀▀██
-█████▀ ▀████▀   ██  ██ ▀████▀   ██     ██ ██ ██ ▀████▀ █████▀ ██ ██     █████▀
-*/
-/*! tablesorter (FORK) - updated 2018-11-20 (v2.31.1)*/
+/*! tablesorter (FORK) - updated 2019-12-01 (v2.31.2)*/
 /* Includes widgets ( storage,uitheme,columns,filter,stickyHeaders,resizable,saveSort ) */
 (function(factory){if (typeof define === 'function' && define.amd){define(['jquery'], factory);} else if (typeof module === 'object' && typeof module.exports === 'object'){module.exports = factory(require('jquery'));} else {factory(jQuery);}}(function(jQuery) {
-/*! TableSorter (FORK) v2.31.1 *//*
+/*! TableSorter (FORK) v2.31.2 *//*
 * Client-side table sorting with ease!
 * @requires jQuery v1.2.6+
 *
@@ -35986,7 +40102,7 @@ Prism.languages.vbnet=Prism.languages.extend("basic",{keyword:/(?:\b(?:ADDHANDLE
 	'use strict';
 	var ts = $.tablesorter = {
 
-		version : '2.31.1',
+		version : '2.31.3',
 
 		parsers : [],
 		widgets : [],
@@ -40158,7 +44274,7 @@ Prism.languages.vbnet=Prism.languages.extend("basic",{keyword:/(?:\b(?:ADDHANDLE
 					event.preventDefault();
 					// init search with no delay
 					$( this ).attr( 'data-lastSearchTime', new Date().getTime() );
-					tsf.searching( table, eventType !== 'keypress', true, column );
+					tsf.searching( table, eventType !== 'keypress' || event.which === tskeyCodes.enter, true, column );
 				}
 			});
 		},
@@ -40233,12 +44349,14 @@ Prism.languages.vbnet=Prism.languages.extend("basic",{keyword:/(?:\b(?:ADDHANDLE
 			}
 			// return if the last search is the same; but filter === false when updating the search
 			// see example-widget-filter.html filter toggle buttons
-			if ( tsf.equalFilters(c, c.lastSearch, currentFilters) && filter !== false ) {
-				return;
-			} else if ( filter === false ) {
-				// force filter refresh
-				c.lastCombinedFilter = '';
-				c.lastSearch = [];
+			if ( tsf.equalFilters(c, c.lastSearch, currentFilters) ) {
+				if ( filter !== false ) {
+					return;
+				} else {
+					// force filter refresh
+					c.lastCombinedFilter = '';
+					c.lastSearch = [];
+				}
 			}
 			// define filter inside it is false
 			filters = filters || [];
@@ -42051,11 +46169,194 @@ Prism.languages.vbnet=Prism.languages.extend("basic",{keyword:/(?:\b(?:ADDHANDLE
 })(jQuery);
 return jQuery.tablesorter;}));
 
+(function(factory){if (typeof define === 'function' && define.amd){define(['jquery'], factory);} else if (typeof module === 'object' && typeof module.exports === 'object'){module.exports = factory(require('jquery'));} else {factory(jQuery);}}(function(jQuery){
+
 /*!
 * tablesorter (FORK) pager plugin
-* updated 2018-03-19 (v2.30.1)
+* updated 2018-08-27 (v2.31.0)
 */
-(function(n){"use strict";var t=n.tablesorter;n.extend({tablesorterPager:new function(){this.defaults={container:null,ajaxUrl:null,customAjaxUrl:function(n,t){return t},ajaxError:null,ajaxObject:{dataType:"json"},processAjaxOnInit:!0,ajaxProcessing:function(){return[0,[],null]},output:"{startRow} to {endRow} of {totalRows} rows",updateArrows:!0,page:0,pageReset:0,size:10,maxOptionSize:20,savePages:!0,storageKey:"tablesorter-pager",fixedHeight:!1,countChildRows:!1,removeRows:!1,cssFirst:".first",cssPrev:".prev",cssNext:".next",cssLast:".last",cssGoto:".gotoPage",cssPageDisplay:".pagedisplay",cssPageSize:".pagesize",cssErrorRow:"tablesorter-errorRow",cssDisabled:"disabled",totalRows:0,totalPages:0,filteredRows:0,filteredPages:0,ajaxCounter:0,currentFilters:[],startRow:0,endRow:0,$size:null,last:{}};var it="filterInit filterStart filterEnd sortEnd disablePager enablePager destroyPager updateComplete pageSize pageSet pageAndSize pagerUpdate refreshComplete ",s=this,h=function(n,t,i){var r,u="addClass",e="removeClass",o=t.cssDisabled,s=!!i,h=s||t.page===0,c=f(n,t),l=s||t.page===c-1||c===0;t.updateArrows&&(r=t.$container.find(t.cssFirst+","+t.cssPrev),r[h?u:e](o),r.each(function(){this.ariaDisabled=h}),r=t.$container.find(t.cssNext+","+t.cssLast),r[l?u:e](o),r.each(function(){this.ariaDisabled=l}))},p=function(n,i){var f,u,e,r=n.config,o=r.$table.hasClass("hasFilters");if(o&&!i.ajax)if(t.isEmptyObject(r.cache))i.filteredRows=i.totalRows=r.$tbodies.eq(0).children("tr").not(i.countChildRows?"":"."+r.cssChildRow).length;else for(i.filteredRows=0,f=r.cache[0].normalized,e=f.length,u=0;u<e;u++)i.filteredRows+=i.regexRows.test(f[u][r.columns].$row[0].className)?0:1;else o||(i.filteredRows=i.totalRows)},r=function(i,r,u){if(!r.initializing){var b,s,l,k,a,nt,y,d,c=i.config,g=c.namespace+"pager",o=e(r,r.size,"get");if(o==="all"&&(o=r.totalRows),r.countChildRows&&(s[s.length]=c.cssChildRow),r.totalPages=Math.ceil(r.totalRows/o),c.totalRows=r.totalRows,v(i,r),p(i,r),c.filteredRows=r.filteredRows,r.filteredPages=Math.ceil(r.filteredRows/o)||0,f(i,r)>=0){if(s=o*r.page>r.filteredRows&&u,r.page=s?r.pageReset||0:r.page,r.startRow=s?o*r.page+1:r.filteredRows===0?0:o*r.page+1,r.endRow=Math.min(r.filteredRows,r.totalRows,o*(r.page+1)),l=r.$container.find(r.cssPageDisplay),typeof r.output=="function"?b=r.output(i,r):(d=l.attr("data-pager-output"+(r.filteredRows<r.totalRows?"-filtered":""))||r.output,b=(r.ajaxData&&r.ajaxData.output?r.ajaxData.output||d:d).replace(/\{page([\-+]\d+)?\}/gi,function(n,t){return r.totalPages?r.page+(t?parseInt(t,10):1):0}).replace(/\{\w+(\s*:\s*\w+)?\}/gi,function(n){var f,e,u=n.replace(/[{}\s]/g,""),t=u.split(":"),i=r.ajaxData,o=/(rows?|pages?)$/i.test(u)?0:"";return/(startRow|page)/.test(t[0])&&t[1]==="input"?(f=(""+(t[0]==="page"?r.totalPages:r.totalRows)).length,e=t[0]==="page"?r.page+1:r.startRow,'<input type="text" class="ts-'+t[0]+'" style="max-width:'+f+'em" value="'+e+'"/>'):t.length>1&&i&&i[t[0]]?i[t[0]][t[1]]:r[u]||(i?i[u]:o)||o})),k=r.$container.find(r.cssGoto),k.length){for(s="",y=rt(i,r),nt=y.length,a=0;a<nt;a++)s+='<option value="'+y[a]+'">'+y[a]+"<\/option>";k.html(s).val(r.page+1)}l.length&&(l[l[0].nodeName==="INPUT"?"val":"html"](b),l.find(".ts-startRow, .ts-page").unbind("change"+g).bind("change"+g,function(){var t=n(this).val(),i=n(this).hasClass("ts-startRow")?Math.floor(t/o)+1:t;c.$table.triggerHandler("pageSet"+g,[i])}))}h(i,r);w(i,r);r.initialized&&u!==!1&&(t.debug(c,"pager")&&console.log("Pager >> Triggering pagerComplete"),c.$table.triggerHandler("pagerComplete",r),r.savePages&&t.storage&&t.storage(i,r.storageKey,{page:r.page,size:o===r.totalRows?"all":o}))}},rt=function(t,i){for(var v,s,p,c,h,e=f(t,i)||1,o=Math.ceil(e/i.maxOptionSize/5)*5,y=e>i.maxOptionSize,w=i.page+1,l=o,a=e-o,r=[1],b=y?o:1,u=b;u<=e;)r[r.length]=u,u=u+(y?o:1);if(r[r.length]=e,y){for(s=[],v=Math.max(Math.floor(i.maxOptionSize/o)-1,5),l=w-v,l<1&&(l=1),a=w+v,a>e&&(a=e),u=l;u<=a;u++)s[s.length]=u;r=n.grep(r,function(t,i){return n.inArray(t,r)===i});c=r.length;h=s.length;c-h>o/2&&c+h>i.maxOptionSize&&(p=Math.floor(c/2)-Math.floor(h/2),Array.prototype.splice.apply(r,[p,h]));r=r.concat(s)}return r=n.grep(r,function(t,i){return n.inArray(t,r)===i}).sort(function(n,t){return n-t})},w=function(t,i){var f,e,r,o=t.config,u=o.$tbodies.eq(0);u.find("tr.pagerSavedHeightSpacer").remove();i.fixedHeight&&!i.isDisabled&&(e=n.data(t,"pagerSavedHeight"),e&&(r=0,n(t).css("border-spacing").split(" ").length>1&&(r=n(t).css("border-spacing").split(" ")[1].replace(/[^-\d\.]/g,"")),f=e-u.height()+r*i.size-r,f>5&&n.data(t,"pagerLastSize")===i.size&&u.children("tr:visible").length<(i.size==="all"?i.totalRows:i.size)&&u.append('<tr class="pagerSavedHeightSpacer '+o.selectorRemove.slice(1)+'" style="height:'+f+'px;"><\/tr>')))},c=function(t,i){var u,f=t.config,r=f.$tbodies.eq(0);r.find("tr.pagerSavedHeightSpacer").remove();r.children("tr:visible").length||r.append('<tr class="pagerSavedHeightSpacer '+f.selectorRemove.slice(1)+'"><td>&nbsp<\/td><\/tr>');u=r.children("tr").eq(0).height()*(i.size==="all"?i.totalRows:i.size);n.data(t,"pagerSavedHeight",u);w(t,i);n.data(t,"pagerLastSize",i.size)},o=function(n,i){if(!i.ajaxUrl){var r,e=0,o=n.config,u=o.$tbodies.eq(0).children("tr"),c=u.length,l=i.size==="all"?i.totalRows:i.size,s=i.page*l,h=s+l,a=0,f=0;for(i.cacheIndex=[],r=0;r<c;r++)i.regexFiltered.test(u[r].className)||(f===s&&u[r].className.match(o.cssChildRow)?u[r].style.display="none":(u[r].style.display=f>=s&&f<h?"":"none",a!==f&&f>=s&&f<h&&(i.cacheIndex[i.cacheIndex.length]=r,a=f),f+=u[r].className.match(o.cssChildRow+"|"+o.selectorRemove.slice(1))&&!i.countChildRows?0:1,f===h&&u[r].style.display!=="none"&&u[r].className.match(t.css.cssHasChild)&&(e=r)));if(e>0&&u[e].className.match(t.css.cssHasChild))while(++e<c&&u[e].className.match(o.cssChildRow))u[e].style.display=""}},b=function(t,i){i.size=e(i,i.$container.find(i.cssPageSize).val(),"get");u(t,i.size,i);h(t,i);i.removeRows||(o(t,i),n(t).bind("sortEnd filterEnd ".split(" ").join(t.config.namespace+"pager "),function(){o(t,i)}))},k=function(i,u,f,o,s,h){if(typeof f.ajaxProcessing=="function"){u.config.$tbodies.eq(0).empty();var p,c,tt,k,ot,w,it,b,d,y,v,rt,ut,st,ft,l=u.config,et=l.$table,nt="",a=f.ajaxProcessing(i,u,o)||[0,[]];if(t.showError(u),h)t.debug(l,"pager")&&console.error("Pager >> Ajax Error",o,s,h),t.showError(u,o,s,h),l.$tbodies.eq(0).children("tr").detach(),f.totalRows=0;else{if(n.isArray(a)?(tt=isNaN(a[0])&&!isNaN(a[1]),ut=a[tt?1:0],f.totalRows=isNaN(ut)?f.totalRows||0:ut,l.totalRows=l.filteredRows=f.filteredRows=f.totalRows,v=f.totalRows===0?[]:a[tt?0:1]||[],y=a[2]):(f.ajaxData=a,l.totalRows=f.totalRows=a.total,l.filteredRows=f.filteredRows=typeof a.filteredRows!="undefined"?a.filteredRows:a.total,y=a.headers,v=a.rows||[]),rt=v&&v.length,v instanceof jQuery)f.processAjaxOnInit&&(l.$tbodies.eq(0).empty(),l.$tbodies.eq(0).append(v));else if(rt){for(p=0;p<rt;p++){for(nt+="<tr>",c=0;c<v[p].length;c++)nt+=/^\s*<td/.test(v[p][c])?n.trim(v[p][c]):"<td>"+v[p][c]+"<\/td>";nt+="<\/tr>"}f.processAjaxOnInit&&l.$tbodies.eq(0).html(nt)}if(f.processAjaxOnInit=!0,y)for(k=et.hasClass("hasStickyHeaders"),w=k?l.widgetOptions.$sticky.children("thead:first").children("tr:not(."+l.cssIgnoreRow+")").children():"",ot=et.find("tfoot tr:first").children(),it=l.$headers.filter("th "),st=it.length,c=0;c<st;c++)b=it.eq(c),b.find("."+t.css.icon).length?(d=b.find("."+t.css.icon).clone(!0),b.find("."+t.css.headerIn).html(y[c]).append(d),k&&w.length&&(d=w.eq(c).find("."+t.css.icon).clone(!0),w.eq(c).find("."+t.css.headerIn).html(y[c]).append(d))):(b.find("."+t.css.headerIn).html(y[c]),k&&w.length&&(f.$container=f.$container.add(l.widgetOptions.$sticky),w.eq(c).find("."+t.css.headerIn).html(y[c]))),ot.eq(c).html(y[c])}l.showProcessing&&t.isProcessing(u);ft=e(f,f.size,"get");f.totalPages=ft==="all"?1:Math.ceil(f.totalRows/ft);f.last.totalRows=f.totalRows;f.last.currentFilters=f.currentFilters;f.last.sortList=(l.sortList||[]).join(",");r(u,f,!1);t.updateCache(l,function(){f.initialized&&setTimeout(function(){t.debug(l,"pager")&&console.log("Pager >> Triggering pagerChange");et.triggerHandler("pagerChange",f);t.applyWidget(u);r(u,f,!0)},0)})}f.initialized||g(u,f)},ut=function(i,r){var u=ft(i,r),f=n(document),s,e=i.config,o=e.namespace+"pager";u!==""&&(e.showProcessing&&t.isProcessing(i,!0),f.bind("ajaxError"+o,function(n,t,u,e){k(null,i,r,t,u,e);f.unbind("ajaxError"+o)}),s=++r.ajaxCounter,r.last.ajaxUrl=u,r.ajaxObject.url=u,r.ajaxObject.success=function(n,t,u){s<r.ajaxCounter||(k(n,i,r,u),f.unbind("ajaxError"+o),typeof r.oldAjaxSuccess=="function"&&r.oldAjaxSuccess(n))},t.debug(e,"pager")&&console.log("Pager >> Ajax initialized",r.ajaxObject),n.ajax(r.ajaxObject))},ft=function(i,r){var u,h,a=i.config,f=r.ajaxUrl?r.ajaxUrl.replace(/\{page([\-+]\d+)?\}/,function(n,t){return r.page+(t?parseInt(t,10):0)}).replace(/\{size\}/g,r.size):"",l=a.sortList,c=r.currentFilters||n(i).data("lastSearch")||[],o=f.match(/\{\s*sort(?:List)?\s*:\s*(\w*)\s*\}/),s=f.match(/\{\s*filter(?:List)?\s*:\s*(\w*)\s*\}/),e=[];if(o){for(o=o[1],h=l.length,u=0;u<h;u++)e[e.length]=o+"["+l[u][0]+"]="+l[u][1];f=f.replace(/\{\s*sort(?:List)?\s*:\s*(\w*)\s*\}/g,e.length?e.join("&"):o);e=[]}if(s){for(s=s[1],h=c.length,u=0;u<h;u++)c[u]&&(e[e.length]=s+"["+u+"]="+encodeURIComponent(c[u]));f=f.replace(/\{\s*filter(?:List)?\s*:\s*(\w*)\s*\}/g,e.length?e.join("&"):s);r.currentFilters=c}return typeof r.customAjaxUrl=="function"&&(f=r.customAjaxUrl(i,f)),t.debug(a,"pager")&&console.log("Pager >> Ajax url = "+f),f},l=function(i,u,f){var h,e,c,s,b=n(i),l=i.config,a=t.debug(l,"pager"),v=l.$table.hasClass("hasFilters"),k=u&&u.length||0,p=f.size==="all"?f.totalRows:f.size,w=f.page*p;if(k<1){a&&console.warn("Pager >> No rows for pager to render");return}if(f.page>=f.totalPages&&y(i,f),f.cacheIndex=[],f.isDisabled=!1,f.initialized&&(a&&console.log("Pager >> Triggering pagerChange"),b.triggerHandler("pagerChange",f)),f.removeRows){for(t.clearTableBody(i),h=t.processTbody(i,l.$tbodies.eq(0),!0),e=v?0:w,c=v?0:w,s=0;s<p&&e<u.length;)v&&f.regexFiltered.test(u[e][0].className)||(c++,c>w&&s<=p&&(s++,f.cacheIndex[f.cacheIndex.length]=e,h.append(u[e]))),e++;t.processTbody(i,h,!1)}else o(i,f);r(i,f);i.isUpdating&&(a&&console.log("Pager >> Triggering updateComplete"),b.triggerHandler("updateComplete",[i,!0]))},d=function(i,r){var u,f,e;for(r.ajax?h(i,r,!0):(n.data(i,"pagerLastPage",r.page),n.data(i,"pagerLastSize",r.size),r.page=0,r.size=r.totalRows,r.totalPages=1,n(i).addClass("pagerDisabled").removeAttr("aria-describedby").find("tr.pagerSavedHeightSpacer").remove(),l(i,i.config.rowsCopy,r),r.isDisabled=!0,t.applyWidget(i),t.debug(i.config,"pager")&&console.log("Pager >> Disabled")),f=r.$container.find(r.cssGoto+","+r.cssPageSize+", .ts-startRow, .ts-page"),e=f.length,u=0;u<e;u++)f.eq(u).addClass(r.cssDisabled)[0].disabled=!0,f[u].ariaDisabled=!0},a=function(n){var r=n.config,u=r.pager;t.updateCache(r,function(){var t,f=[],e=n.config.cache[0].normalized;for(u.totalRows=e.length,t=0;t<u.totalRows;t++)f[f.length]=e[t][r.columns].$row;r.rowsCopy=f;i(n,u,!0)})},i=function(i,r,u){if(!r.isDisabled){var o,e=i.config,s=t.debug(e,"pager"),h=n(i),f=r.last;if(u!==!1&&r.initialized&&t.isEmptyObject(e.cache))return a(i);r.ajax&&t.hasWidget(i,"filter")&&!e.widgetOptions.filter_initialized||(v(i,r),p(i,r),f.currentFilters=(f.currentFilters||[]).join("")===""?[]:f.currentFilters,r.currentFilters=(r.currentFilters||[]).join("")===""?[]:r.currentFilters,f.page!==r.page||f.size!==r.size||f.totalRows!==r.totalRows||(f.currentFilters||[]).join(",")!==(r.currentFilters||[]).join(",")||(f.ajaxUrl||"")!==(r.ajaxObject.url||"")||(f.optAjaxUrl||"")!==(r.ajaxUrl||"")||f.sortList!==(e.sortList||[]).join(","))&&(s&&console.log("Pager >> Changing to page "+r.page),r.last={page:r.page,size:r.size,sortList:(e.sortList||[]).join(","),totalRows:r.totalRows,currentFilters:r.currentFilters||[],ajaxUrl:r.ajaxObject.url||"",optAjaxUrl:r.ajaxUrl||""},r.ajax?r.processAjaxOnInit||t.isEmptyObject(r.initialRows)?ut(i,r):(r.processAjaxOnInit=!0,o=r.initialRows,r.totalRows=typeof o.total!="undefined"?o.total:s?console.error("Pager >> No initial total page set!")||0:0,r.filteredRows=typeof o.filtered!="undefined"?o.filtered:s?console.error("Pager >> No initial filtered page set!")||0:0,g(i,r)):r.ajax||l(i,e.rowsCopy,r),n.data(i,"pagerLastPage",r.page),r.initialized&&u!==!1&&(s&&console.log("Pager >> Triggering pageMoved"),h.triggerHandler("pageMoved",r),t.applyWidget(i),i.isUpdating&&(s&&console.log("Pager >> Triggering updateComplete"),h.triggerHandler("updateComplete",[i,!0]))))}},f=function(n,i){return t.hasWidget(n,"filter")?Math.min(i.totalPages,i.filteredPages):i.totalPages},v=function(n,t){var i=f(n,t)-1;return t.page=parseInt(t.page,10),(t.page<0||isNaN(t.page))&&(t.page=0),t.page>i&&i>=0&&(t.page=i),t.page},e=function(n,t,i){var r=parseInt(t,10)||n.size||n.settings.size||10;return n.initialized&&(/all/i.test(r+" "+t)||r===n.totalRows)?n.$container.find(n.cssPageSize+' option[value="all"]').length?"all":n.totalRows:i==="get"?r:n.size},u=function(t,i,r){r.size=e(r,i,"get");r.$container.find(r.cssPageSize).val(r.size);n.data(t,"pagerLastPage",v(t,r));n.data(t,"pagerLastSize",r.size);r.totalPages=r.size==="all"?1:Math.ceil(r.totalRows/r.size);r.filteredPages=r.size==="all"?1:Math.ceil(r.filteredRows/r.size)},et=function(n,t){t.page=0;i(n,t)},y=function(n,t){t.page=f(n,t)-1;i(n,t)},ot=function(n,t){t.page++;var r=f(n,t)-1;t.page>=r&&(t.page=r);i(n,t)},st=function(n,t){t.page--;t.page<=0&&(t.page=0);i(n,t)},g=function(i,u){u.initialized=!0;u.initializing=!1;t.debug(i.config,"pager")&&console.log("Pager >> Triggering pagerInitialized");n(i).triggerHandler("pagerInitialized",u);t.applyWidget(i);r(i,u)},ht=function(t,i){var r=t.config;r.pager=n.extend(!0,{},n.tablesorterPager.defaults,i.settings);tt(t,i.settings)},ct=function(n,i){var r=n.config,u=r.namespace+"pager",f=[i.cssFirst,i.cssPrev,i.cssNext,i.cssLast,i.cssGoto,i.cssPageSize].join(",");d(n,i);i.$container.hide().find(f).unbind(u);r.appender=null;r.$table.unbind(u);t.storage&&t.storage(n,i.storageKey,"");delete r.pager;delete r.rowsCopy},nt=function(r,o,s){var h,v,l,a=r.config;o.$container.find(o.cssGoto+","+o.cssPageSize+",.ts-startRow, .ts-page").removeClass(o.cssDisabled).removeAttr("disabled").each(function(){this.ariaDisabled=!1});o.isDisabled=!1;o.page=n.data(r,"pagerLastPage")||o.page||0;l=o.$container.find(o.cssPageSize);v=l.find("option[selected]").val();o.size=n.data(r,"pagerLastSize")||e(o,v,"get");o.totalPages=o.size==="all"?1:Math.ceil(f(r,o)/o.size);u(r,o.size,o);r.id&&!a.$table.attr("aria-describedby")&&(l=o.$container.find(o.cssPageDisplay),h=l.attr("id"),h||(h=r.id+"_pager_info",l.attr("id",h)),a.$table.attr("aria-describedby",h));c(r,o);s&&(t.update(a),u(r,o.size,o),i(r,o),b(r,o),t.debug(a,"pager")&&console.log("Pager >> Enabled"))},tt=function(f,h){var w,tt,ut,k,v=f.config,ft=v.widgetOptions,g=t.debug(v,"pager"),l=v.pager=n.extend(!0,{},n.tablesorterPager.defaults,h),lt=v.$table,p=v.namespace+"pager",rt=l.$container=n(l.container).addClass("tablesorter-pager").show();l.settings=n.extend(!0,{},n.tablesorterPager.defaults,h);g&&console.log("Pager >> Initializing");l.oldAjaxSuccess=l.oldAjaxSuccess||l.ajaxObject.success;v.appender=s.appender;l.initializing=!0;l.savePages&&t.storage&&(w=t.storage(f,l.storageKey)||{},l.page=isNaN(w.page)?l.page:w.page,l.size=w.size==="all"?w.size:(isNaN(w.size)?l.size:w.size)||l.setSize||10,u(f,l.size,l));l.regexRows=new RegExp("("+(ft.filter_filteredRow||"filtered")+"|"+v.selectorRemove.slice(1)+"|"+v.cssChildRow+")");l.regexFiltered=new RegExp(ft.filter_filteredRow||"filtered");lt.unbind(it.split(" ").join(p+" ").replace(/\s+/g," ")).bind("filterInit filterStart ".split(" ").join(p+" "),function(r,u){l.currentFilters=n.isArray(u)?u:v.$table.data("lastSearch");var e;if(l.ajax&&r.type==="filterInit")return i(f,l,!1);e=t.filter.equalFilters?t.filter.equalFilters(v,v.lastSearch,l.currentFilters):(v.lastSearch||[]).join("")!==(l.currentFilters||[]).join("");r.type!=="filterStart"||l.pageReset===!1||e||(l.page=l.pageReset)}).bind("filterEnd sortEnd ".split(" ").join(p+" "),function(){l.currentFilters=v.$table.data("lastSearch");(l.initialized||l.initializing)&&(v.delayInit&&v.rowsCopy&&v.rowsCopy.length===0&&a(f),r(f,l,!1),i(f,l,!1),t.applyWidget(f))}).bind("disablePager"+p,function(n){n.stopPropagation();d(f,l)}).bind("enablePager"+p,function(n){n.stopPropagation();nt(f,l,!0)}).bind("destroyPager"+p,function(n){n.stopPropagation();ct(f,l)}).bind("resetToLoadState"+p,function(n){n.stopPropagation();ht(f,l)}).bind("updateComplete"+p,function(n,t,i){if(n.stopPropagation(),t&&!i&&!l.ajax){var u=v.$tbodies.eq(0).children("tr").not(v.selectorRemove);l.totalRows=u.length-(l.countChildRows?0:u.filter("."+v.cssChildRow).length);l.totalPages=l.size==="all"?1:Math.ceil(l.totalRows/l.size);u.length&&v.rowsCopy&&v.rowsCopy.length===0&&a(t);l.page>=l.totalPages&&y(t,l);o(t,l);c(t,l);r(t,l,!0)}}).bind("pageSize refreshComplete ".split(" ").join(p+" "),function(n,t){n.stopPropagation();u(f,e(l,t,"get"),l);i(f,l);o(f,l);r(f,l,!1)}).bind("pageSet pagerUpdate ".split(" ").join(p+" "),function(n,t){n.stopPropagation();n.type==="pagerUpdate"&&(t=typeof t=="undefined"?l.page+1:t,l.last.page=!0);l.page=(parseInt(t,10)||1)-1;i(f,l,!0);r(f,l,!1)}).bind("pageAndSize"+p,function(n,t,s){n.stopPropagation();l.page=(parseInt(t,10)||1)-1;u(f,e(l,s,"get"),l);i(f,l,!0);o(f,l);r(f,l,!1)});tt=[l.cssFirst,l.cssPrev,l.cssNext,l.cssLast];ut=[et,st,ot,y];g&&!rt.length&&console.warn('Pager >> "container" not found');rt.find(tt.join(",")).attr("tabindex",0).unbind("click"+p).bind("click"+p,function(t){t.stopPropagation();var i,r=n(this),u=tt.length;if(!r.hasClass(l.cssDisabled))for(i=0;i<u;i++)if(r.is(tt[i])){ut[i](f,l);break}});k=rt.find(l.cssGoto);k.length?k.unbind("change"+p).bind("change"+p,function(){l.page=n(this).val()-1;i(f,l,!0);r(f,l,!1)}):g&&console.warn('Pager >> "goto" selector not found');k=rt.find(l.cssPageSize);k.length?(k.find("option").removeAttr("selected"),k.unbind("change"+p).bind("change"+p,function(){if(!n(this).hasClass(l.cssDisabled)){var t=n(this).val();u(f,t,l);i(f,l);c(f,l)}return!1})):g&&console.warn('Pager >> "size" selector not found');l.initialized=!1;lt.triggerHandler("pagerBeforeInitialized",l);nt(f,l,!1);typeof l.ajaxUrl=="string"?(l.ajax=!0,v.widgetOptions.filter_serversideFiltering=!0,v.serverSideSorting=!0,i(f,l)):(l.ajax=!1,t.appendCache(v,!0),b(f,l));l.ajax||l.initialized||(l.initializing=!1,l.initialized=!0,u(f,l.size,l),i(f,l),g&&console.log("Pager >> Triggering pagerInitialized"),v.$table.triggerHandler("pagerInitialized",l),v.widgetOptions.filter_initialized&&t.hasWidget(f,"filter")||r(f,l,!1));v.widgetInit.pager=!0};s.appender=function(t,i){var f=t.config,u=f.pager;u.ajax||(f.rowsCopy=i,u.totalRows=u.countChildRows?f.$tbodies.eq(0).children("tr").length:i.length,u.size=n.data(t,"pagerLastSize")||u.size||u.settings.size||10,u.totalPages=u.size==="all"?1:Math.ceil(u.totalRows/u.size),l(t,i,u),r(t,u,!1))};s.construct=function(n){return this.each(function(){this.config&&this.hasInitialized&&tt(this,n)})}}});t.showError=function(t,i,r,u){var c=n(t),f=c[0].config,s=f&&f.widgetOptions,a=f.pager&&f.pager.cssErrorRow||s&&s.pager_css&&s.pager_css.errorRow||"tablesorter-errorRow",l=typeof i,o=!0,e="",h=function(){f.$table.find("thead").find(f.selectorRemove).remove()};if(!c.length){console.error("tablesorter showError: no table parameter passed");return}if(typeof f.pager.ajaxError=="function"){if(o=f.pager.ajaxError(f,i,r,u),o===!1)return h();e=o}else if(typeof s.pager_ajaxError=="function"){if(o=s.pager_ajaxError(f,i,r,u),o===!1)return h();e=o}if(e==="")if(l==="object")e=i.status===0?"Not connected, verify Network":i.status===404?"Requested page not found [404]":i.status===500?"Internal Server Error [500]":u==="parsererror"?"Requested JSON parse failed":u==="timeout"?"Time out error":u==="abort"?"Ajax Request aborted":"Uncaught error: "+i.statusText+" ["+i.status+"]";else if(l==="string")e=i;else return h();n(/tr\>/.test(e)?e:'<tr><td colspan="'+f.columns+'">'+e+"<\/td><\/tr>").click(function(){n(this).remove()}).appendTo(f.$table.find("thead:first")).addClass(a+" "+f.selectorRemove.slice(1)).attr({role:"alert","aria-live":"assertive"})};n.fn.extend({tablesorterPager:n.tablesorterPager.construct})})(jQuery);
+!function(M){"use strict";var T=M.tablesorter;M.extend({tablesorterPager:new function(){this.defaults={container:null,ajaxUrl:null,customAjaxUrl:function(e,t){return t},ajaxError:null,ajaxObject:{dataType:"json"},processAjaxOnInit:!0,ajaxProcessing:function(e){return e},output:"{startRow} to {endRow} of {totalRows} rows",updateArrows:!0,page:0,pageReset:0,size:10,maxOptionSize:20,savePages:!0,storageKey:"tablesorter-pager",fixedHeight:!1,countChildRows:!1,removeRows:!1,cssFirst:".first",cssPrev:".prev",cssNext:".next",cssLast:".last",cssGoto:".gotoPage",cssPageDisplay:".pagedisplay",cssPageSize:".pagesize",cssErrorRow:"tablesorter-errorRow",cssDisabled:"disabled",totalRows:0,totalPages:0,filteredRows:0,filteredPages:0,ajaxCounter:0,currentFilters:[],startRow:0,endRow:0,$size:null,last:{}};function u(e,t,a){var i,s="addClass",r="removeClass",o=t.cssDisabled,n=!!a,l=n||0===t.page,g=O(e,t),c=n||t.page===g-1||0===g;t.updateArrows&&((i=t.$container.find(t.cssFirst+","+t.cssPrev))[l?s:r](o),i.each(function(){this.ariaDisabled=l}),(i=t.$container.find(t.cssNext+","+t.cssLast))[c?s:r](o),i.each(function(){this.ariaDisabled=c}))}function h(e,t){var a,i,s,r=e.config,o=r.$table.hasClass("hasFilters");if(o&&!t.ajax)if(T.isEmptyObject(r.cache))t.filteredRows=t.totalRows=r.$tbodies.eq(0).children("tr").not(t.countChildRows?"":"."+r.cssChildRow).length;else for(t.filteredRows=0,s=(a=r.cache[0].normalized).length,i=0;i<s;i++)t.filteredRows+=t.regexRows.test(a[i][r.columns].$row[0].className)?0:1;else o||(t.filteredRows=t.totalRows)}function y(e,n,t){if(!n.initializing){var a,i,s,r,o,l,g,c,d=e.config,p=d.namespace+"pager",f=L(n,n.size,"get");if("all"===f&&(f=n.totalRows),n.countChildRows&&(i[i.length]=d.cssChildRow),n.totalPages=Math.ceil(n.totalRows/f),d.totalRows=n.totalRows,E(e,n),h(e,n),d.filteredRows=n.filteredRows,n.filteredPages=Math.ceil(n.filteredRows/f)||0,0<=O(e,n)){if(i=f*n.page>n.filteredRows&&t,n.page=i?n.pageReset||0:n.page,n.startRow=i?f*n.page+1:0===n.filteredRows?0:f*n.page+1,n.endRow=Math.min(n.filteredRows,n.totalRows,f*(n.page+1)),s=n.$container.find(n.cssPageDisplay),a="function"==typeof n.output?n.output(e,n):(c=s.attr("data-pager-output"+(n.filteredRows<n.totalRows?"-filtered":""))||n.output,(n.ajaxData&&n.ajaxData.output&&n.ajaxData.output||c).replace(/\{page([\-+]\d+)?\}/gi,function(e,t){return n.totalPages?n.page+(t?parseInt(t,10):1):0}).replace(/\{\w+(\s*:\s*\w+)?\}/gi,function(e){var t,a,i=e.replace(/[{}\s]/g,""),s=i.split(":"),r=n.ajaxData,o=/(rows?|pages?)$/i.test(i)?0:"";return/(startRow|page)/.test(s[0])&&"input"===s[1]?(t=(""+("page"===s[0]?n.totalPages:n.totalRows)).length,a="page"===s[0]?n.page+1:n.startRow,'<input type="text" class="ts-'+s[0]+'" style="max-width:'+t+'em" value="'+a+'"/>'):1<s.length&&r&&r[s[0]]?r[s[0]][s[1]]:n[i]||(r?r[i]:o)||o})),(r=n.$container.find(n.cssGoto)).length){for(i="",l=(g=I(e,n)).length,o=0;o<l;o++)i+='<option value="'+g[o]+'">'+g[o]+"</option>";r.html(i).val(n.page+1)}s.length&&(s["INPUT"===s[0].nodeName?"val":"html"](a),s.find(".ts-startRow, .ts-page").unbind("change"+p).bind("change"+p,function(){var e=M(this).val(),t=M(this).hasClass("ts-startRow")?Math.floor(e/f)+1:e;d.$table.triggerHandler("pageSet"+p,[t])}))}u(e,n),N(e,n),n.initialized&&!1!==t&&(T.debug(d,"pager")&&console.log("Pager >> Triggering pagerComplete"),d.$table.triggerHandler("pagerComplete",n),n.savePages&&T.storage&&T.storage(e,n.storageKey,{page:n.page,size:f===n.totalRows?"all":f}))}}function f(e,t){var a,i=e.config,s=i.$tbodies.eq(0);s.find("tr.pagerSavedHeightSpacer").remove(),s.children("tr:visible").length||s.append('<tr class="pagerSavedHeightSpacer '+i.selectorRemove.slice(1)+'"><td>&nbsp</td></tr>'),a=s.children("tr").eq(0).height()*("all"===t.size?t.totalRows:t.size),M.data(e,"pagerSavedHeight",a),N(e,t),M.data(e,"pagerLastSize",t.size)}function w(e,t){if(!t.ajaxUrl){var a,i=0,s=e.config,r=s.$tbodies.eq(0).children("tr"),o=r.length,n="all"===t.size?t.totalRows:t.size,l=t.page*n,g=l+n,c=0,d=0;for(t.cacheIndex=[],a=0;a<o;a++)t.regexFiltered.test(r[a].className)||(d===l&&r[a].className.match(s.cssChildRow)?r[a].style.display="none":(r[a].style.display=l<=d&&d<g?"":"none",c!==d&&l<=d&&d<g&&(t.cacheIndex[t.cacheIndex.length]=a,c=d),(d+=r[a].className.match(s.cssChildRow+"|"+s.selectorRemove.slice(1))&&!t.countChildRows?0:1)===g&&"none"!==r[a].style.display&&r[a].className.match(T.css.cssHasChild)&&(i=a)));if(0<i&&r[i].className.match(T.css.cssHasChild))for(;++i<o&&r[i].className.match(s.cssChildRow);)r[i].style.display=""}}function b(e,t){t.size=L(t,t.$container.find(t.cssPageSize).val(),"get"),D(e,t.size,t),u(e,t),t.removeRows||(w(e,t),M(e).bind("sortEnd filterEnd ".split(" ").join(e.config.namespace+"pager "),function(){w(e,t)}))}function R(e,t,a,i,s,r){if("function"==typeof a.ajaxProcessing){t.config.$tbodies.eq(0).empty();var o,n,l,g,c,d,p,f,u,h,w,b,R,z,x,j=t.config,P=j.$table,v="",m=a.ajaxProcessing(e,t,i)||[0,[]];if(T.showError(t),r)T.debug(j,"pager")&&console.error("Pager >> Ajax Error",i,s,r),T.showError(t,i,s,r),j.$tbodies.eq(0).children("tr").detach(),a.totalRows=0;else{if(M.isArray(m)?(R=m[(l=isNaN(m[0])&&!isNaN(m[1]))?1:0],a.totalRows=isNaN(R)?a.totalRows||0:R,j.totalRows=j.filteredRows=a.filteredRows=a.totalRows,w=0===a.totalRows?[]:m[l?0:1]||[],h=m[2]):(a.ajaxData=m,j.totalRows=a.totalRows=m.total,j.filteredRows=a.filteredRows=void 0!==m.filteredRows?m.filteredRows:m.total,h=m.headers,w=m.rows||[]),b=w&&w.length,w instanceof M)a.processAjaxOnInit&&(j.$tbodies.eq(0).empty(),j.$tbodies.eq(0).append(w));else if(b){for(o=0;o<b;o++){for(v+="<tr>",n=0;n<w[o].length;n++)v+=/^\s*<td/.test(w[o][n])?M.trim(w[o][n]):"<td>"+w[o][n]+"</td>";v+="</tr>"}a.processAjaxOnInit&&j.$tbodies.eq(0).html(v)}if(a.processAjaxOnInit=!0,h)for(d=(g=P.hasClass("hasStickyHeaders"))?j.widgetOptions.$sticky.children("thead:first").children("tr:not(."+j.cssIgnoreRow+")").children():"",c=P.find("tfoot tr:first").children(),z=(p=j.$headers.filter("th ")).length,n=0;n<z;n++)(f=p.eq(n)).find("."+T.css.icon).length?(u=f.find("."+T.css.icon).clone(!0),f.find("."+T.css.headerIn).html(h[n]).append(u),g&&d.length&&(u=d.eq(n).find("."+T.css.icon).clone(!0),d.eq(n).find("."+T.css.headerIn).html(h[n]).append(u))):(f.find("."+T.css.headerIn).html(h[n]),g&&d.length&&(a.$container=a.$container.add(j.widgetOptions.$sticky),d.eq(n).find("."+T.css.headerIn).html(h[n]))),c.eq(n).html(h[n])}j.showProcessing&&T.isProcessing(t),x=L(a,a.size,"get"),a.totalPages="all"===x?1:Math.ceil(a.totalRows/x),a.last.totalRows=a.totalRows,a.last.currentFilters=a.currentFilters,a.last.sortList=(j.sortList||[]).join(","),y(t,a,!1),T.updateCache(j,function(){a.initialized&&setTimeout(function(){T.debug(j,"pager")&&console.log("Pager >> Triggering pagerChange"),P.triggerHandler("pagerChange",a),T.applyWidget(t),y(t,a,!0)},0)})}a.initialized||U(t,a)}function z(e,t,a){var i,s,r,o,n=M(e),l=e.config,g=T.debug(l,"pager"),c=l.$table.hasClass("hasFilters"),d=t&&t.length||0,p="all"===a.size?a.totalRows:a.size,f=a.page*p;if(d<1)g&&console.warn("Pager >> No rows for pager to render");else{if(a.page>=a.totalPages&&q(e,a),a.cacheIndex=[],a.isDisabled=!1,a.initialized&&(g&&console.log("Pager >> Triggering pagerChange"),n.triggerHandler("pagerChange",a)),a.removeRows){for(T.clearTableBody(e),i=T.processTbody(e,l.$tbodies.eq(0),!0),r=s=c?0:f,o=0;o<p&&s<t.length;)c&&a.regexFiltered.test(t[s][0].className)||f<++r&&o<=p&&(o++,a.cacheIndex[a.cacheIndex.length]=s,i.append(t[s])),s++;T.processTbody(e,i,!1)}else w(e,a);y(e,a),e.isUpdating&&(g&&console.log("Pager >> Triggering updateComplete"),n.triggerHandler("updateComplete",[e,!0]))}}function x(e,t){var a,i,s;for(t.ajax?u(e,t,!0):(M.data(e,"pagerLastPage",t.page),M.data(e,"pagerLastSize",t.size),t.page=0,t.size=t.totalRows,t.totalPages=1,M(e).addClass("pagerDisabled").removeAttr("aria-describedby").find("tr.pagerSavedHeightSpacer").remove(),z(e,e.config.rowsCopy,t),t.isDisabled=!0,T.applyWidget(e),T.debug(e.config,"pager")&&console.log("Pager >> Disabled")),s=(i=t.$container.find(t.cssGoto+","+t.cssPageSize+", .ts-startRow, .ts-page")).length,a=0;a<s;a++)i.eq(a).addClass(t.cssDisabled)[0].disabled=!0,i[a].ariaDisabled=!0}function j(i){var s=i.config,r=s.pager;T.updateCache(s,function(){var e,t=[],a=i.config.cache[0].normalized;for(r.totalRows=a.length,e=0;e<r.totalRows;e++)t[t.length]=a[e][s.columns].$row;s.rowsCopy=t,F(i,r,!0)})}function P(e,t){t.page=0,F(e,t)}function v(e,t){t.page++;var a=O(e,t)-1;t.page>=a&&(t.page=a),F(e,t)}function m(e,t){t.page--,t.page<=0&&(t.page=0),F(e,t)}function C(e,t,a){var i,s,r,o=e.config;t.$container.find(t.cssGoto+","+t.cssPageSize+",.ts-startRow, .ts-page").removeClass(t.cssDisabled).removeAttr("disabled").each(function(){this.ariaDisabled=!1}),t.isDisabled=!1,t.page=M.data(e,"pagerLastPage")||t.page||0,s=(r=t.$container.find(t.cssPageSize)).find("option[selected]").val(),t.size=M.data(e,"pagerLastSize")||L(t,s,"get"),t.totalPages="all"===t.size?1:Math.ceil(O(e,t)/t.size),D(e,t.size,t),e.id&&!o.$table.attr("aria-describedby")&&((i=(r=t.$container.find(t.cssPageDisplay)).attr("id"))||(i=e.id+"_pager_info",r.attr("id",i)),o.$table.attr("aria-describedby",i)),f(e,t),a&&(T.update(o),D(e,t.size,t),F(e,t),b(e,t),T.debug(o,"pager")&&console.log("Pager >> Enabled"))}var S="filterInit filterStart filterEnd sortEnd disablePager enablePager destroyPager updateComplete pageSize pageSet pageAndSize pagerUpdate refreshComplete ",$=this,I=function(e,t){var a,i,s,r,o,n,l=O(e,t)||1,g=5*Math.ceil(l/t.maxOptionSize/5),c=l>t.maxOptionSize,d=t.page+1,p=g,f=l-g,u=[1];for(a=c?g:1;a<=l;)u[u.length]=a,a+=c?g:1;if(u[u.length]=l,c){for(s=[],(p=d-(i=Math.max(Math.floor(t.maxOptionSize/g)-1,5)))<1&&(p=1),l<(f=d+i)&&(f=l),a=p;a<=f;a++)s[s.length]=a;g/2<(o=(u=M.grep(u,function(e,t){return M.inArray(e,u)===t})).length)-(n=s.length)&&o+n>t.maxOptionSize&&(r=Math.floor(o/2)-Math.floor(n/2),Array.prototype.splice.apply(u,[r,n])),u=u.concat(s)}return u=M.grep(u,function(e,t){return M.inArray(e,u)===t}).sort(function(e,t){return e-t})},N=function(e,t){var a,i,s,r=e.config,o=r.$tbodies.eq(0);o.find("tr.pagerSavedHeightSpacer").remove(),t.fixedHeight&&!t.isDisabled&&(i=M.data(e,"pagerSavedHeight"))&&(s=0,1<M(e).css("border-spacing").split(" ").length&&(s=M(e).css("border-spacing").split(" ")[1].replace(/[^-\d\.]/g,"")),5<(a=i-o.height()+s*t.size-s)&&M.data(e,"pagerLastSize")===t.size&&o.children("tr:visible").length<("all"===t.size?t.totalRows:t.size)&&o.append('<tr class="pagerSavedHeightSpacer '+r.selectorRemove.slice(1)+'" style="height:'+a+'px;"></tr>'))},A=function(e,a){var t,i,s=e.config,r=a.ajaxUrl?a.ajaxUrl.replace(/\{page([\-+]\d+)?\}/,function(e,t){return a.page+(t?parseInt(t,10):0)}).replace(/\{size\}/g,a.size):"",o=s.sortList,n=a.currentFilters||M(e).data("lastSearch")||[],l=r.match(/\{\s*sort(?:List)?\s*:\s*(\w*)\s*\}/),g=r.match(/\{\s*filter(?:List)?\s*:\s*(\w*)\s*\}/),c=[];if(l){for(l=l[1],i=o.length,t=0;t<i;t++)c[c.length]=l+"["+o[t][0]+"]="+o[t][1];r=r.replace(/\{\s*sort(?:List)?\s*:\s*(\w*)\s*\}/g,c.length?c.join("&"):l),c=[]}if(g){for(g=g[1],i=n.length,t=0;t<i;t++)n[t]&&(c[c.length]=g+"["+t+"]="+encodeURIComponent(n[t]));r=r.replace(/\{\s*filter(?:List)?\s*:\s*(\w*)\s*\}/g,c.length?c.join("&"):g),a.currentFilters=n}return"function"==typeof a.customAjaxUrl&&(r=a.customAjaxUrl(e,r)),T.debug(s,"pager")&&console.log("Pager >> Ajax url = "+r),r},F=function(e,t,a){if(!t.isDisabled){var i,s,r,o,n,l,g,c,d=e.config,p=T.debug(d,"pager"),f=M(e),u=t.last;if(!1!==a&&t.initialized&&T.isEmptyObject(d.cache))return j(e);if(!t.ajax||!T.hasWidget(e,"filter")||d.widgetOptions.filter_initialized)if(E(e,t),h(e,t),u.currentFilters=""===(u.currentFilters||[]).join("")?[]:u.currentFilters,t.currentFilters=""===(t.currentFilters||[]).join("")?[]:t.currentFilters,u.page!==t.page||u.size!==t.size||u.totalRows!==t.totalRows||(u.currentFilters||[]).join(",")!==(t.currentFilters||[]).join(",")||(u.ajaxUrl||"")!==(t.ajaxObject.url||"")||(u.optAjaxUrl||"")!==(t.ajaxUrl||"")||u.sortList!==(d.sortList||[]).join(","))p&&console.log("Pager >> Changing to page "+t.page),t.last={page:t.page,size:t.size,sortList:(d.sortList||[]).join(","),totalRows:t.totalRows,currentFilters:t.currentFilters||[],ajaxUrl:t.ajaxObject.url||"",optAjaxUrl:t.ajaxUrl||""},t.ajax?t.processAjaxOnInit||T.isEmptyObject(t.initialRows)?(n=A(s=e,r=t),l=M(document),g=s.config,c=g.namespace+"pager",""!==n&&(g.showProcessing&&T.isProcessing(s,!0),l.bind("ajaxError"+c,function(e,t,a,i){R(null,s,r,t,a,i),l.unbind("ajaxError"+c)}),o=++r.ajaxCounter,r.last.ajaxUrl=n,r.ajaxObject.url=n,r.ajaxObject.success=function(e,t,a){o<r.ajaxCounter||(R(e,s,r,a),l.unbind("ajaxError"+c),"function"==typeof r.oldAjaxSuccess&&r.oldAjaxSuccess(e))},T.debug(g,"pager")&&console.log("Pager >> Ajax initialized",r.ajaxObject),M.ajax(r.ajaxObject))):(t.processAjaxOnInit=!0,i=t.initialRows,t.totalRows=void 0!==i.total?i.total:p&&console.error("Pager >> No initial total page set!")||0,t.filteredRows=void 0!==i.filtered?i.filtered:p&&console.error("Pager >> No initial filtered page set!")||0,U(e,t)):t.ajax||z(e,d.rowsCopy,t),M.data(e,"pagerLastPage",t.page),t.initialized&&!1!==a&&(p&&console.log("Pager >> Triggering pageMoved"),f.triggerHandler("pageMoved",t),T.applyWidget(e),e.isUpdating&&(p&&console.log("Pager >> Triggering updateComplete"),f.triggerHandler("updateComplete",[e,!0])))}},O=function(e,t){return T.hasWidget(e,"filter")?Math.min(t.totalPages,t.filteredPages):t.totalPages},E=function(e,t){var a=O(e,t)-1;return t.page=parseInt(t.page,10),(t.page<0||isNaN(t.page))&&(t.page=0),t.page>a&&0<=a&&(t.page=a),t.page},L=function(e,t,a){var i=parseInt(t,10)||e.size||e.settings.size||10;return e.initialized&&(/all/i.test(i+" "+t)||i===e.totalRows)?e.$container.find(e.cssPageSize+' option[value="all"]').length?"all":e.totalRows:"get"===a?i:e.size},D=function(e,t,a){a.size=L(a,t,"get"),a.$container.find(a.cssPageSize).val(a.size),M.data(e,"pagerLastPage",E(e,a)),M.data(e,"pagerLastSize",a.size),a.totalPages="all"===a.size?1:Math.ceil(a.totalRows/a.size),a.filteredPages="all"===a.size?1:Math.ceil(a.filteredRows/a.size)},q=function(e,t){t.page=O(e,t)-1,F(e,t)},U=function(e,t){t.initialized=!0,t.initializing=!1,T.debug(e.config,"pager")&&console.log("Pager >> Triggering pagerInitialized"),M(e).triggerHandler("pagerInitialized",t),T.applyWidget(e),y(e,t)},H=function(o,e){var t,s,r,a,n=o.config,i=n.widgetOptions,l=T.debug(n,"pager"),g=n.pager=M.extend(!0,{},M.tablesorterPager.defaults,e),c=n.$table,d=n.namespace+"pager",p=g.$container=M(g.container).addClass("tablesorter-pager").show();g.settings=M.extend(!0,{},M.tablesorterPager.defaults,e),l&&console.log("Pager >> Initializing"),g.oldAjaxSuccess=g.oldAjaxSuccess||g.ajaxObject.success,n.appender=$.appender,g.initializing=!0,g.savePages&&T.storage&&(t=T.storage(o,g.storageKey)||{},g.page=isNaN(t.page)?g.page:t.page,g.size="all"===t.size?t.size:(isNaN(t.size)?g.size:t.size)||g.setSize||10,D(o,g.size,g)),g.regexRows=new RegExp("("+(i.filter_filteredRow||"filtered")+"|"+n.selectorRemove.slice(1)+"|"+n.cssChildRow+")"),g.regexFiltered=new RegExp(i.filter_filteredRow||"filtered"),c.unbind(S.split(" ").join(d+" ").replace(/\s+/g," ")).bind("filterInit filterStart ".split(" ").join(d+" "),function(e,t){var a;if(g.currentFilters=M.isArray(t)?t:n.$table.data("lastSearch"),g.ajax&&"filterInit"===e.type)return F(o,g,!1);a=T.filter.equalFilters?T.filter.equalFilters(n,n.lastSearch,g.currentFilters):(n.lastSearch||[]).join("")!==(g.currentFilters||[]).join(""),"filterStart"!==e.type||!1===g.pageReset||a||(g.page=g.pageReset)}).bind("filterEnd sortEnd ".split(" ").join(d+" "),function(){g.currentFilters=n.$table.data("lastSearch"),(g.initialized||g.initializing)&&(n.delayInit&&n.rowsCopy&&0===n.rowsCopy.length&&j(o),y(o,g,!1),F(o,g,!1),T.applyWidget(o))}).bind("disablePager"+d,function(e){e.stopPropagation(),x(o,g)}).bind("enablePager"+d,function(e){e.stopPropagation(),C(o,g,!0)}).bind("destroyPager"+d,function(e){var t,a,i,s,r;e.stopPropagation(),a=g,i=(t=o).config,s=i.namespace+"pager",r=[a.cssFirst,a.cssPrev,a.cssNext,a.cssLast,a.cssGoto,a.cssPageSize].join(","),x(t,a),a.$container.hide().find(r).unbind(s),i.appender=null,i.$table.unbind(s),T.storage&&T.storage(t,a.storageKey,""),delete i.pager,delete i.rowsCopy}).bind("resetToLoadState"+d,function(e){var t,a;e.stopPropagation(),a=g,(t=o).config.pager=M.extend(!0,{},M.tablesorterPager.defaults,a.settings),H(t,a.settings)}).bind("updateComplete"+d,function(e,t,a){if(e.stopPropagation(),t&&!a&&!g.ajax){var i=n.$tbodies.eq(0).children("tr").not(n.selectorRemove);g.totalRows=i.length-(g.countChildRows?0:i.filter("."+n.cssChildRow).length),g.totalPages="all"===g.size?1:Math.ceil(g.totalRows/g.size),i.length&&n.rowsCopy&&0===n.rowsCopy.length&&j(t),g.page>=g.totalPages&&q(t,g),w(t,g),f(t,g),y(t,g,!0)}}).bind("pageSize refreshComplete ".split(" ").join(d+" "),function(e,t){e.stopPropagation(),D(o,L(g,t,"get"),g),F(o,g),w(o,g),y(o,g,!1)}).bind("pageSet pagerUpdate ".split(" ").join(d+" "),function(e,t){e.stopPropagation(),"pagerUpdate"===e.type&&(t=void 0===t?g.page+1:t,g.last.page=!0),g.page=(parseInt(t,10)||1)-1,F(o,g,!0),y(o,g,!1)}).bind("pageAndSize"+d,function(e,t,a){e.stopPropagation(),g.page=(parseInt(t,10)||1)-1,D(o,L(g,a,"get"),g),F(o,g,!0),w(o,g),y(o,g,!1)}),s=[g.cssFirst,g.cssPrev,g.cssNext,g.cssLast],r=[P,m,v,q],l&&!p.length&&console.warn('Pager >> "container" not found'),p.find(s.join(",")).attr("tabindex",0).unbind("click"+d).bind("click"+d,function(e){e.stopPropagation();var t,a=M(this),i=s.length;if(!a.hasClass(g.cssDisabled))for(t=0;t<i;t++)if(a.is(s[t])){r[t](o,g);break}}),(a=p.find(g.cssGoto)).length?a.unbind("change"+d).bind("change"+d,function(){g.page=M(this).val()-1,F(o,g,!0),y(o,g,!1)}):l&&console.warn('Pager >> "goto" selector not found'),(a=p.find(g.cssPageSize)).length?(a.find("option").removeAttr("selected"),a.unbind("change"+d).bind("change"+d,function(){if(!M(this).hasClass(g.cssDisabled)){var e=M(this).val();D(o,e,g),F(o,g),f(o,g)}return!1})):l&&console.warn('Pager >> "size" selector not found'),g.initialized=!1,c.triggerHandler("pagerBeforeInitialized",g),C(o,g,!1),"string"==typeof g.ajaxUrl?(g.ajax=!0,n.widgetOptions.filter_serversideFiltering=!0,n.serverSideSorting=!0,F(o,g)):(g.ajax=!1,T.appendCache(n,!0),b(o,g)),g.ajax||g.initialized||(g.initializing=!1,g.initialized=!0,D(o,g.size,g),F(o,g),l&&console.log("Pager >> Triggering pagerInitialized"),n.$table.triggerHandler("pagerInitialized",g),n.widgetOptions.filter_initialized&&T.hasWidget(o,"filter")||y(o,g,!1)),n.widgetInit.pager=!0};$.appender=function(e,t){var a=e.config,i=a.pager;i.ajax||(a.rowsCopy=t,i.totalRows=i.countChildRows?a.$tbodies.eq(0).children("tr").length:t.length,i.size=M.data(e,"pagerLastSize")||i.size||i.settings.size||10,i.totalPages="all"===i.size?1:Math.ceil(i.totalRows/i.size),z(e,t,i),y(e,i,!1))},$.construct=function(e){return this.each(function(){this.config&&this.hasInitialized&&H(this,e)})}}}),T.showError=function(e,t,a,i){function s(){o.$table.find("thead").find(o.selectorRemove).remove()}var r=M(e),o=r[0].config,n=o&&o.widgetOptions,l=o.pager&&o.pager.cssErrorRow||n&&n.pager_css&&n.pager_css.errorRow||"tablesorter-errorRow",g=typeof t,c=!0,d="";if(r.length){if("function"==typeof o.pager.ajaxError){if(!1===(c=o.pager.ajaxError(o,t,a,i)))return s();d=c}else if("function"==typeof n.pager_ajaxError){if(!1===(c=n.pager_ajaxError(o,t,a,i)))return s();d=c}if(""===d)if("object"==g)d=0===t.status?"Not connected, verify Network":404===t.status?"Requested page not found [404]":500===t.status?"Internal Server Error [500]":"parsererror"===i?"Requested JSON parse failed":"timeout"===i?"Time out error":"abort"===i?"Ajax Request aborted":"Uncaught error: "+t.statusText+" ["+t.status+"]";else{if("string"!=g)return s();d=t}M(/tr\>/.test(d)?d:'<tr><td colspan="'+o.columns+'">'+d+"</td></tr>").click(function(){M(this).remove()}).appendTo(o.$table.find("thead:first")).addClass(l+" "+o.selectorRemove.slice(1)).attr({role:"alert","aria-live":"assertive"})}else console.error("tablesorter showError: no table parameter passed")},M.fn.extend({tablesorterPager:M.tablesorterPager.construct})}(jQuery);return jQuery;}));
+
+/* Widget: reflow - updated 2/7/2015 (v2.19.0) *//*
+ * Requires tablesorter v2.8+ and jQuery 1.7+
+ * Also, this widget requires the following default css (modify as desired)
+
+  / * REQUIRED CSS: change your reflow breakpoint here (35em below) * /
+  @media ( max-width: 35em ) {
+    .ui-table-reflow td,
+    .ui-table-reflow th {
+      -webkit-box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      box-sizing: border-box;
+      float: right;
+      / * if not using the stickyHeaders widget (not the css3 version)
+       * the "!important" flag, and "height: auto" can be removed * /
+      width: 100% !important;
+      height: auto !important;
+    }
+    / * reflow widget * /
+    .ui-table-reflow tbody td[data-title]:before {
+      color: #469;
+      font-size: .9em;
+      content: attr(data-title);
+      float: left;
+      width: 50%;
+      white-space: pre-wrap;
+      text-align: bottom;
+      display: inline-block;
+    }
+    / * reflow2 widget * /
+    table.ui-table-reflow .ui-table-cell-label.ui-table-cell-label-top {
+      display: block;
+      padding: .4em 0;
+      margin: .4em 0;
+      text-transform: uppercase;
+      font-size: .9em;
+      font-weight: 400;
+    }
+    table.ui-table-reflow .ui-table-cell-label {
+      padding: .4em;
+      min-width: 30%;
+      display: inline-block;
+      margin: -.4em 1em -.4em -.4em;
+    }
+  }
+  .ui-table-reflow .ui-table-cell-label {
+    display: none;
+  }
+
+ */
+/*jshint browser:true, jquery:true, unused:false */
+/*global jQuery: false */
+;(function($) {
+	'use strict';
+
+	var ts = $.tablesorter,
+
+	tablereflow = {
+		// simple reflow
+		// add data-attribute to each cell which shows when media query is active
+		// this widget DOES NOT WORK on a table with multiple thead rows
+		init : function(table, c, wo) {
+			var $this,
+				title = wo.reflow_dataAttrib,
+				header = wo.reflow_headerAttrib,
+				headers = [];
+			c.$table
+				.addClass(wo.reflow_className)
+				.off('refresh.tsreflow updateComplete.tsreflow2')
+				// emulate jQuery Mobile refresh
+				// https://api.jquerymobile.com/table-reflow/#method-refresh
+				.on('refresh.tsreflow updateComplete.tsreflow2', function() {
+					tablereflow.init(table, c, wo);
+				});
+			c.$headers.each(function() {
+				$this = $(this);
+				headers.push( $.trim( $this.attr(header) || $this.text() ) );
+			});
+			c.$tbodies.children().each(function() {
+				$(this).children().each(function(i) {
+					$(this).attr(title, headers[i]);
+				});
+			});
+		},
+		init2: function(table, c, wo) {
+			var $this, $tbody, i, $hdr, txt, len,
+				cols = c.columns,
+				header = wo.reflow2_headerAttrib,
+				headers = [];
+			c.$table
+				.addClass(wo.reflow2_className)
+				.off('refresh.tsreflow2 updateComplete.tsreflow2')
+				// emulate jQuery Mobile refresh
+				// https://api.jquerymobile.com/table-reflow/#method-refresh
+				.on('refresh.tsreflow2 updateComplete.tsreflow2', function() {
+					tablereflow.init2(table, c, wo);
+				});
+
+			// add <b> to every table cell with thead cell contents
+			for (i = 0; i < cols; i++) {
+				$hdr = c.$headers.filter('[data-column="' + i + '"]');
+				if ($hdr.length > 1) {
+					txt = [];
+					/*jshint loopfunc:true */
+					$hdr.each(function() {
+						$this = $(this);
+						if (!$this.hasClass(wo.reflow2_classIgnore)) {
+							txt.push( $this.attr(header) || $this.text() );
+						}
+					});
+				} else {
+					txt = [ $hdr.attr(header) || $hdr.text() ];
+				}
+				headers.push( txt );
+			}
+			// include 'remove-me' class so these additional elements are removed before updating
+			txt = '<b class="' + c.selectorRemove.slice(1) + ' ' + wo.reflow2_labelClass;
+			c.$tbodies.children().each(function() {
+				$tbody = ts.processTbody(table, $(this), true);
+				$tbody.children().each(function(j) {
+					$this = $(this);
+					len = headers[j].length;
+					i = len - 1;
+					while (i >= 0) {
+						$this.prepend(txt + (i === 0 && len > 1 ? ' ' + wo.reflow2_labelTop : '') + '">' + headers[j][i] + '</b>');
+						i--;
+					}
+				});
+				ts.processTbody(table, $tbody, false);
+			});
+		},
+		remove : function(table, c, wo) {
+			c.$table.removeClass(wo.reflow_className);
+		},
+		remove2 : function(table, c, wo) {
+			c.$table.removeClass(wo.reflow2_className);
+		}
+	};
+
+	ts.addWidget({
+		id: 'reflow',
+		options: {
+			// class name added to make it responsive (class name within media query)
+			reflow_className    : 'ui-table-reflow',
+			// header attribute containing modified header name
+			reflow_headerAttrib : 'data-name',
+			// data attribute added to each tbody cell
+			reflow_dataAttrib   : 'data-title'
+		},
+		init: function(table, thisWidget, c, wo) {
+			tablereflow.init(table, c, wo);
+		},
+		remove: function(table, c, wo) {
+			tablereflow.remove(table, c, wo);
+		}
+	});
+
+	ts.addWidget({
+		id: 'reflow2',
+		options: {
+			// class name added to make it responsive (class name within media query)
+			reflow2_className    : 'ui-table-reflow',
+			// ignore header cell content with this class name
+			reflow2_classIgnore  : 'ui-table-reflow-ignore',
+			// header attribute containing modified header name
+			reflow2_headerAttrib : 'data-name',
+			// class name applied to thead labels
+			reflow2_labelClass   : 'ui-table-cell-label',
+			// class name applied to first row thead label
+			reflow2_labelTop     : 'ui-table-cell-label-top'
+		},
+		init: function(table, thisWidget, c, wo) {
+			tablereflow.init2(table, c, wo);
+		},
+		remove: function(table, c, wo) {
+			tablereflow.remove2(table, c, wo);
+		}
+	});
+
+})(jQuery);
+
 /***
 This is part of jsdifflib v1.0. <http://snowtide.com/jsdifflib>
 
@@ -53055,30 +57356,6 @@ $(function() {
 
 })(jQuery);
 
-// Cookie functions stolen from w3schools
-function setCookie(cname, cvalue, exdays) {
-    var d = new Date();
-    d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
-    var expires = "expires=" + d.toUTCString();
-    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
-}
-
-function getCookie(cname) {
-    var name = cname + "=";
-    var decodedCookie = decodeURIComponent(document.cookie);
-    var ca = decodedCookie.split(';');
-    for (var i = 0; i < ca.length; i++) {
-        var c = ca[i];
-        while (c.charAt(0) === ' ') {
-            c = c.substring(1);
-        }
-        if (c.indexOf(name) === 0) {
-            return c.substring(name.length, c.length);
-        }
-    }
-    return "";
-}
-
 // Helper Function for Select2
 function formatState(state) {
     if (!state.id) {
@@ -53134,10 +57411,10 @@ $(document).on("click",
                     }
                 },
                 callback: function (confirmed) {
-                    document.location.href = link;
-
                     if (confirmed) {
-                        if (typeof (blockUI) != "undefined") {
+                        document.location.href = link;
+
+                        if (typeof blockUI !== "undefined") {
                             window[blockUI]();
                         }
                     }
@@ -53209,7 +57486,7 @@ function getAlbumImagesData(pageSize, pageNumber, isPageChange) {
         type: "POST",
         data: JSON.stringify(pagedResults),
 		contentType: "application/json; charset=utf-8",
-		success: (function Success(data) {
+		success: function(data) {
             $("#PostAlbumsListPlaceholder ul").empty();
 
             $("#PostAlbumsLoader").hide();
@@ -53219,7 +57496,7 @@ function getAlbumImagesData(pageSize, pageNumber, isPageChange) {
                 var notext = $("#PostAlbumsListPlaceholder").data("notext");
 
                 list.append('<li><div class="alert alert-info text-break" role="alert" style="white-space:normal">' + notext + "</div></li>");
-			}
+            }
 
             $.each(data.AttachmentList, function (id, data) {
                 var list = $("#PostAlbumsListPlaceholder ul"),
@@ -53230,14 +57507,14 @@ function getAlbumImagesData(pageSize, pageNumber, isPageChange) {
                 if (data.DataURL) {
                     listItem.attr("title", "<img src=\"" + data.DataURL + "\" style=\"max-width:200px\" />");
                     listItem.attr("data-toggle", "tooltip");
-				}
+                }
 
-				listItem.append(data.IconImage);
+                listItem.append(data.IconImage);
 
-				list.append(listItem);
-			});
+                list.append(listItem);
+            });
 
-			setPageNumberAlbums(pageSize, pageNumber, data.TotalRecords);
+            setPageNumberAlbums(pageSize, pageNumber, data.TotalRecords);
 
             if (isPageChange) {
                 jQuery(".albums-toggle").dropdown("toggle");
@@ -53248,14 +57525,14 @@ function getAlbumImagesData(pageSize, pageNumber, isPageChange) {
                 template: '<div class="tooltip" role="tooltip"><div class="tooltip-arrow"></div><div class="tooltip-inner" style="max-width:250px"></div></div>',
                 placement: "top"
             });
-		}),
-        error: (function Error(request, status, error) {
+        },
+        error: function(request, status, error) {
             console.log(request);
             console.log(error);
             $("#PostAlbumsLoader").hide();
 
             $("#PostAlbumsListPlaceholder").html(request.statusText).fadeIn(1000);
-		})
+        }
 	});
 }
 
@@ -53358,17 +57635,17 @@ function getPaginationData(pageSize, pageNumber, isPageChange) {
         data: JSON.stringify(pagedResults),
 		contentType: "application/json; charset=utf-8",
 		dataType: "json",
-		success: (function Success(data, status) {
-			$("#PostAttachmentListPlaceholder ul").empty();
+		success: function(data) {
+            $("#PostAttachmentListPlaceholder ul").empty();
 
-			$("#PostAttachmentLoader").hide();
+            $("#PostAttachmentLoader").hide();
 
-			if (data.AttachmentList.length === 0) {
-				var list = $("#PostAttachmentListPlaceholder ul");
-				var notext = $("#PostAttachmentListPlaceholder").data("notext");
+            if (data.AttachmentList.length === 0) {
+                var list = $("#PostAttachmentListPlaceholder ul");
+                var notext = $("#PostAttachmentListPlaceholder").data("notext");
 
                 list.append('<li><div class="alert alert-info text-break" role="alert" style="white-space:normal">' + notext + "</div></li>");
-			}
+            }
 
             $.each(data.AttachmentList, function (id, data) {
                 var list = $("#PostAttachmentListPlaceholder ul"),
@@ -53381,9 +57658,9 @@ function getPaginationData(pageSize, pageNumber, isPageChange) {
                     listItem.attr("data-toggle", "tooltip");
                 }
 
-				listItem.append(data.IconImage);
+                listItem.append(data.IconImage);
 
-				list.append(listItem);
+                list.append(listItem);
             });
 
             setPageNumberAttach(pageSize, pageNumber, data.TotalRecords);
@@ -53398,12 +57675,12 @@ function getPaginationData(pageSize, pageNumber, isPageChange) {
                     '<div class="tooltip" role="tooltip"><div class="tooltip-arrow"></div><div class="tooltip-inner" style="max-width:250px"></div></div>',
                 placement: "top"
             });
-        }),
-		error: (function Error(request, status, error) {
-			$("#PostAttachmentLoader").hide();
+        },
+		error: function(request) {
+            $("#PostAttachmentLoader").hide();
 
-			$("#PostAttachmentListPlaceholder").html(request.statusText).fadeIn(1000);
-		})
+            $("#PostAttachmentListPlaceholder").html(request.statusText).fadeIn(1000);
+        }
 	});
 }
 
@@ -53489,9 +57766,144 @@ function setPageNumberAttach(pageSize, pageNumber, total) {
 
     pagerHolder.append(pagination);
 }
+function getNotifyData(pageSize, pageNumber, isPageChange) {
+    var yafUserID = $("#NotifyListPlaceholder").data("userid");
+
+    var pagedResults = {};
+
+    pagedResults.UserId = yafUserID;
+    pagedResults.PageSize = pageSize;
+    pagedResults.PageNumber = pageNumber;
+
+    var ajaxURL = $("#NotifyListPlaceholder").data("url") + "api/Notify/GetNotifications";
+
+	$.ajax({
+		type: "POST",
+		url: ajaxURL,
+        data: JSON.stringify(pagedResults),
+		contentType: "application/json; charset=utf-8",
+		dataType: "json",
+		success: function(data) {
+            $("#NotifyListPlaceholder ul").empty();
+
+            $("#Loader").hide();
+
+            if (data.AttachmentList.length > 0) {
+                $("#MarkRead").removeClass("d-none").addClass("d-block");
+
+                $.each(data.AttachmentList,
+                    function(id, data) {
+                        var list = $("#NotifyListPlaceholder ul"),
+                            listItem = $(
+                                '<li class="list-group-item list-group-item-action small text-wrap" style="width:15rem;" />');
+
+
+                        listItem.append(data.FileName);
+
+                        list.append(listItem);
+                    });
+
+                setPageNumberNotify(pageSize, pageNumber, data.TotalRecords);
+
+                if (isPageChange) {
+                    jQuery(".notify-toggle").dropdown("toggle");
+                }
+            }
+        },
+		error:  function(request) {
+            $("#Loader").hide();
+
+            $("#NotifyListPlaceholder").html(request.statusText).fadeIn(1000);
+		}
+	});
+}
+
+function setPageNumberNotify(pageSize, pageNumber, total) {
+    var pages = Math.ceil(total / pageSize);
+    var pagerHolder = $("#NotifyListPager"),
+        pagination = $('<ul class="pagination pagination-sm" />');
+
+    pagerHolder.empty();
+
+    pagination.wrap('<nav aria-label="Attachments Page Results" />');
+
+    if (pageNumber > 0) {
+        pagination.append('<li class="page-item"><a href="javascript:getNotifyData(' +
+            pageSize +
+            "," +
+            (pageNumber - 1) +
+            "," +
+            total +
+            ',true)" class="page-link"><i class="fas fa-angle-left"></i></a></li>');
+    }
+
+    var start = pageNumber - 2;
+    var end = pageNumber + 3;
+
+    if (start < 0) {
+        start = 0;
+    }
+
+    if (end > pages) {
+        end = pages;
+    }
+
+    if (start > 0) {
+        pagination.append('<li class="page-item"><a href="javascript:getNotifyData(' +
+            pageSize +
+            "," +
+            0 +
+            "," +
+            total +
+            ', true);" class="page-link">1</a></li>');
+        pagination.append('<li class="page-item disabled"><a class="page-link" href="#" tabindex="-1">...</a></li>');
+    }
+
+    for (var i = start; i < end; i++) {
+        if (i === pageNumber) {
+            pagination.append('<li class="page-item active"><span class="page-link">' + (i + 1) + "</span>");
+        } else {
+            pagination.append('<li class="page-item"><a href="javascript:getNotifyData(' +
+                pageSize +
+                "," +
+                i +
+                "," +
+                total +
+                ',true);" class="page-link">' +
+                (i + 1) +
+                "</a></li>");
+        }
+    }
+
+    if (end < pages) {
+        pagination.append('<li class="page-item disabled"><a class="page-link" href="#" tabindex="-1">...</a></li>');
+        pagination.append('<li class="page-item"><a href="javascript:getNotifyData(' +
+            pageSize +
+            "," +
+            (pages - 1) +
+            "," +
+            total +
+            ',true)" class="page-link">' +
+            pages +
+            "</a></li>");
+    }
+
+    if (pageNumber < pages - 1) {
+        pagination.append('<li class="page-item"><a href="javascript:getNotifyData(' +
+            pageSize +
+            "," +
+            (pageNumber + 1) +
+            "," +
+            total +
+            ',true)" class="page-link"><i class="fas fa-angle-right"></i></a></li>');
+    }
+
+    pagerHolder.append(pagination);
+}
 function getSearchResultsData(pageNumber) {
     var searchInput = jQuery(".searchInput").val();
     var searchInputUser = jQuery(".searchUserInput").val();
+    var searchInputTag = jQuery(".searchTagInput").val();
     var useDisplayName = jQuery(".searchUserInput").data("display") === "True";
 
     // filter options
@@ -53499,16 +57911,20 @@ function getSearchResultsData(pageNumber) {
     var titleOnly = jQuery(".titleOnly").val();
     var searchWhat = jQuery(".searchWhat").val();
 
+    var minimumLength = jQuery("#SearchResultsPlaceholder").data("minimum");
+
     // Forum Filter
     var searchForum = parseInt(jQuery(".searchForum").val());
 
     var searchText = "";
 
-    if (searchInput.length && searchInput.length >= 4 || searchInputUser.length && searchInputUser.length >= 3) {
+    if (searchInput.length && searchInput.length >= minimumLength ||
+        searchInputUser.length && searchInputUser.length >= minimumLength ||
+        searchInputTag.length && searchInputTag.length >= minimumLength) {
 
         var replace;
 
-        if (searchInput.length && searchInput.length >= 4) {
+        if (searchInput.length && searchInput.length >= minimumLength) {
             if (titleOnly === "1") {
                 // ADD Topic Filter
                 if (searchWhat === "0") {
@@ -53538,15 +57954,25 @@ function getSearchResultsData(pageNumber) {
             }
         }
 
-        if (searchInputUser.length && searchInputUser.length >= 3) {
+        if (searchInputUser.length && searchInputUser.length >= minimumLength) {
             var author = useDisplayName ? "AuthorDisplay" : "Author";
 
             if (searchText.length) searchText += " ";
-        
+
             if (searchInput.length) {
                 searchText += "AND " + author + ":" + searchInputUser;
             } else {
                 searchText = "+" + author + ":" + searchInputUser;
+            }
+        }
+
+        if (searchInputTag.length && searchInputTag.length >= minimumLength) {
+            if (searchText.length) searchText += " ";
+
+            if (searchInput.length) {
+                searchText += "AND TopicTags:" + searchInputTag;
+            } else {
+                searchText = "+TopicTags:" + searchInputTag;
             }
         }
 
@@ -53576,7 +58002,7 @@ function getSearchResultsData(pageNumber) {
             },
             success: function(data) {
                 $("#loadModal").on("shown.bs.modal",
-                    function () {
+                    function() {
                         $("#loadModal").modal("hide");
                     });
                 var posted = $("#SearchResultsPlaceholder").data("posted");
@@ -53592,13 +58018,24 @@ function getSearchResultsData(pageNumber) {
                         "</div>");
 
                     $("#SearchResultsPagerTop, #SearchResultsPagerBottom").empty();
-                    
+
                 } else {
                     $.each(data.SearchResults,
-                        function(id, data) {
+                        function (id, data) {
                             var groupHolder = $("#SearchResultsPlaceholder");
 
-                            groupHolder.append('<div class="row"><div class="col"><div class="card border-0 w-100 mb-3">' +
+                            var tags = " ";
+
+                            if (data.TopicTags) {
+                                var topicTags = data.TopicTags.split(",");
+
+                                $(topicTags).each(function (index, d) {
+                                    tags += "<span class='badge badge-secondary mr-1'><i class='fas fa-tag mr-1'></i>" +  d  + "</span>";
+                                });
+                            }
+
+                            groupHolder.append(
+                                '<div class="row"><div class="col"><div class="card border-0 w-100 mb-3">' +
                                 '<div class="card-header bg-transparent border-top border-bottom-0 px-0 pb-0 pt-4 topicTitle"><h5> ' +
                                 '<a title="' +
                                 topic +
@@ -53622,7 +58059,7 @@ function getSearchResultsData(pageNumber) {
                                 '<div class="card-body px-0">' +
                                 '<h6 class="card-subtitle mb-2 text-muted">' +
                                 data.Description +
-                                "</h6>"+ 
+                                "</h6>" +
                                 '<p class="card-text messageContent">' +
                                 data.Message +
                                 "</p>" +
@@ -53634,13 +58071,15 @@ function getSearchResultsData(pageNumber) {
                                 '<i class="fa fa-circle fa-badge-bg fa-inverse fa-outline-inverse"></i> ' +
                                 '<i class="fa fa-clock fa-badge text-secondary"></i> ' +
                                 "</span>" +
-                                posted + " " +
+                                posted +
+                                " " +
                                 moment(data.Posted).fromNow() +
-                                " " + 
+                                " " +
                                 '<i class="fa fa-user fa-fw text-secondary"></i>' +
                                 by +
                                 " " +
                                 (useDisplayName ? data.UserDisplayName : data.UserName) +
+                                tags +
                                 "</small> " +
                                 "</div>" +
                                 "</div></div></div>");
@@ -53720,7 +58159,6 @@ function setPageNumber(pageSize, pageNumber, total) {
 }
 // Generic Functions
 jQuery(document).ready(function () {
-    // Numeric Spinner Inputs
     if (jQuery(".searchSimilarTopics").length) {
 
         jQuery(".searchSimilarTopics").keyup(function () {
@@ -53729,7 +58167,7 @@ jQuery(document).ready(function () {
                 searchText = input.val(),
                 searchPlaceHolder = jQuery("#SearchResultsPlaceholder");
 
-            if (searchText.length && searchText.length >= 5) {
+            if (searchText.length && searchText.length >= 4) {
 
                 var searchTopic = {};
                 searchTopic.ForumId = 0;
@@ -53746,21 +58184,21 @@ jQuery(document).ready(function () {
                     dataType: "json",
                     data: JSON.stringify(searchTopic),
                     contentType: "application/json; charset=utf-8",
-                    beforeSend: (function before() {
+                    beforeSend: function() {
                         searchPlaceHolder.empty();
                         searchPlaceHolder.remove("list-group");
                         // show loading screen 
                         $("#loadModal").modal("show");
-                    }),
-                    complete: (function before() {
+                    },
+                    complete: function() {
                         // show loading screen 
                         $("#loadModal").modal("hide");
-                    }),
-                    success: (function success(data) {
+                    },
+                    success: function(data) {
                         searchPlaceHolder.empty();
                         searchPlaceHolder.remove("list-group");
 
-                        if (data.SearchResults.length > 0) {
+                        if (data.TotalRecords > 0) {
                             var list = $('<ul class="list-group list-similar" />');
                             searchPlaceHolder.append(list);
 
@@ -53774,10 +58212,10 @@ jQuery(document).ready(function () {
                                         "</a></li>");
                                 });
                         }
-                    }),
-                    error: (function error(request) {
+                    },
+                    error: function(request) {
                         searchPlaceHolder.html(request.statusText).fadeIn(1000);
-                    })
+                    }
                 });
             }
 
@@ -53809,15 +58247,6 @@ jQuery(document).ready(function () {
 
 		return false;
 	});
-    // Cookie alert
-    if (!getCookie("YAF-AcceptCookies")) {
-        $(".cookiealert").addClass("show");
-    }
-
-    $(".acceptcookies").click(function () {
-        setCookie("YAF-AcceptCookies", true, 180);
-        $(".cookiealert").removeClass("show");
-    });
 
     // Numeric Spinner Inputs
     jQuery("input[type='number']").TouchSpin({
@@ -53844,6 +58273,10 @@ jQuery(document).ready(function () {
         templateResult: formatState,
         templateSelection: formatState,
         width: "style"
+    });
+
+    jQuery(".thanks-popover").popover({
+        template: '<div class="popover" role="tooltip"><div class="arrow"></div><h3 class="popover-header"></h3><div class="popover-body popover-body-scrollable"></div></div>'
     });
 
     jQuery('[data-toggle="tooltip"]').tooltip();
@@ -53899,6 +58332,40 @@ jQuery(document).ready(function () {
                 getSearchResultsData(pageNumberSearch);
             }
 
-        });
+         });
     }
+
+    // Notify dropdown
+    $(".dropdown-notify").on("show.bs.dropdown",
+        function() {
+            var pageSize = 5;
+            var pageNumber = 0;
+            getNotifyData(pageSize, pageNumber, false);
+        });
+});
+jQuery(document).ready(function () {
+    $(".list-group-item-menu, .message").each(function () {
+
+        var contextMenu = $(this).find(".context-menu");
+
+        $(this).on("contextmenu", function (e) {
+            $(".context-menu").removeClass("show").hide();
+
+            contextMenu.css({
+                display: "block"
+            }).addClass("show").offset({ left: e.pageX, top: e.pageY });
+            return false;
+        }).on("click", function () {
+            contextMenu.removeClass("show").hide();
+        });
+
+        $(this).find(".context-menu a").on("click", function () {
+            contextMenu.removeClass("show").hide();
+        });
+
+        $("body").click(function () {
+            contextMenu.removeClass("show").hide();
+        });
+
+    });
 });

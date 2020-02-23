@@ -7,13 +7,12 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace YAF.Pages {
-    using System.Web.UI.WebControls;
+namespace YAF.Pages
+{
 
-    using YAF.Web.Controls;
 
-    public partial class ReportPost {
-        
+    public partial class ReportPost
+    {
 
         /// <summary>
         /// PageLinks control.
@@ -22,8 +21,7 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected PageLinks PageLinks;
-        
+        protected global::YAF.Web.Controls.PageLinks PageLinks;
 
         /// <summary>
         /// LocalizedLabel2 control.
@@ -32,8 +30,7 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected LocalizedLabel LocalizedLabel2;
-        
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel2;
 
         /// <summary>
         /// MessageList control.
@@ -42,8 +39,7 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected Repeater MessageList;
-        
+        protected global::System.Web.UI.WebControls.Repeater MessageList;
 
         /// <summary>
         /// LocalizedLabel3 control.
@@ -52,8 +48,7 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected LocalizedLabel LocalizedLabel3;
-        
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel3;
 
         /// <summary>
         /// EnterReportTextLabel control.
@@ -62,8 +57,7 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected LocalizedLabel EnterReportTextLabel;
-        
+        protected global::YAF.Web.Controls.LocalizedLabel EnterReportTextLabel;
 
         /// <summary>
         /// EditorLine control.
@@ -72,8 +66,7 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected PlaceHolder EditorLine;
-        
+        protected global::System.Web.UI.WebControls.PlaceHolder EditorLine;
 
         /// <summary>
         /// IncorrectReportLabel control.
@@ -82,8 +75,25 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected Label IncorrectReportLabel;
-        
+        protected global::System.Web.UI.WebControls.Label IncorrectReportLabel;
+
+        /// <summary>
+        /// LocalizedLabel4 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel4;
+
+        /// <summary>
+        /// LocalizedLblMaxNumberOfPost control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLblMaxNumberOfPost;
 
         /// <summary>
         /// btnReport control.
@@ -92,8 +102,7 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected ThemeButton btnReport;
-        
+        protected global::YAF.Web.Controls.ThemeButton btnReport;
 
         /// <summary>
         /// btnCancel control.
@@ -102,6 +111,6 @@ namespace YAF.Pages {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected ThemeButton btnCancel;
+        protected global::YAF.Web.Controls.ThemeButton btnCancel;
     }
 }

@@ -1,8 +1,8 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2019 Ingo Herbote
- * http://www.yetanotherforum.net/
+ * Copyright (C) 2014-2020 Ingo Herbote
+ * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -12,7 +12,7 @@
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
 
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
 
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
@@ -36,7 +36,7 @@ namespace YAF.Modules
     /// <summary>
     /// The Page Popup Module
     /// </summary>
-    [YafModule(moduleName: "Page Popup Module", moduleAuthor: "Tiny Gecko", moduleVersion: 1)]
+    [YafModule("Page Popup Module", "Tiny Gecko", 1)]
     public class PagePopupForumModule : SimpleBaseForumModule
     {
         #region Constants and Fields
@@ -87,11 +87,6 @@ namespace YAF.Modules
                 return;
             }
 
-            /*if (ScriptManager.GetCurrent(this.ForumControl.Page) == null)
-            {
-                return;
-            }*/
-
             // Get the clean JS string.
             message.Message = message.Message.ToJsString();
 
@@ -101,11 +96,11 @@ namespace YAF.Modules
             }
 
             this.PageContext.PageElements.RegisterJsBlockStartup(
-                thisControl: this.ForumControl.Page,
-                name: "modalNotification",
-                script: string
+                this.ForumControl.Page,
+                "modalNotification",
+                string
                     .Format(
-                        format: "var fpModal = function() {{ {2}('{0}', '{1}','{3}'); Sys.Application.remove_load(fpModal); }}; Sys.Application.add_load(fpModal);",
+                        "var fpModal = function() {{ {2}('{0}', '{1}','{3}'); Sys.Application.remove_load(fpModal); }}; Sys.Application.add_load(fpModal);",
                         message.Message,
                             message.MessageType.ToString().ToLower(),
                             this.errorPopup.ShowModalFunction,
@@ -117,7 +112,7 @@ namespace YAF.Modules
         /// </summary>
         private void AddErrorPopup()
         {
-            if (this.ForumControl.FindControl(id: "YafForumPageErrorPopup1") == null)
+            if (this.ForumControl.FindControl("YafForumPageErrorPopup1") == null)
             {
                 // add error control...
                 this.errorPopup = new PopupDialogNotification
@@ -125,12 +120,12 @@ namespace YAF.Modules
                         ID = "YafForumPageErrorPopup1"
                     };
 
-                this.ForumControl.Controls.Add(child: this.errorPopup);
+                this.ForumControl.Controls.Add(this.errorPopup);
             }
             else
             {
                 // reference existing control...
-                this.errorPopup = (PopupDialogNotification)this.ForumControl.FindControl(id: "YafForumPageErrorPopup1");
+                this.errorPopup = (PopupDialogNotification)this.ForumControl.FindControl("YafForumPageErrorPopup1");
             }
         }
 

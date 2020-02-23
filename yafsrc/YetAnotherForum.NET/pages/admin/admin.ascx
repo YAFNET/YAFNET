@@ -214,12 +214,6 @@
                         <div class="card-body">
                             <asp:Repeater ID="ActiveList" runat="server">
                     <HeaderTemplate>
-                        <YAF:Alert runat="server" Type="info" MobileOnly="True">
-                            <YAF:LocalizedLabel ID="LocalizedLabel220" runat="server" 
-                                                LocalizedTag="TABLE_RESPONSIVE" 
-                                                LocalizedPage="ADMIN_COMMON" />
-                            <span class="float-right"><i class="fa fa-hand-point-left fa-fw"></i></span>
-                        </YAF:Alert>
                         <div class="table-responsive">
                         <table class="table tablesorter table-bordered table-striped" id="ActiveUsers">
                             <thead class="thead-light">
@@ -253,7 +247,7 @@
                                       Style='<%# this.Eval("Style") %>' runat="server" />
                     </td>
                     <td>
-                        <a id="A1" href='<%# string.Format(this.Get<YafBoardSettings>().IPInfoPageURL, IPHelper.GetIp4Address(this.Eval("IP").ToString())) %>'
+                        <a id="A1" href='<%# string.Format(this.Get<BoardSettings>().IPInfoPageURL, IPHelper.GetIp4Address(this.Eval("IP").ToString())) %>'
                             title='<%# this.GetText("COMMON","TT_IPDETAILS") %>' target="_blank" runat="server">
                             <%# IPHelper.GetIp4Address(this.Eval("IP").ToString())%></a>
                     </td>
@@ -277,7 +271,7 @@
                         </table>
                         </div>
                         <div id="ActiveUsersPager" class=" tableSorterPager form-inline">
-                            <select class="pagesize custom-select">
+                            <select class="pagesize custom-select custom-select-sm">
 		                        <option selected="selected" value="10">10</option>
 		                        <option value="20">20</option>
                         	    <option value="30">30</option>
@@ -285,11 +279,11 @@
                             </select>
                             &nbsp;
                             <div class="btn-group"  role="group">
-                                <a href="#" class="first  btn btn-secondary btn-sm"><span><i class="fas fa-angle-double-left"></i></span></a>
-                                <a href="#" class="prev  btn btn-secondary btn-sm"><span><i class="fas fa-angle-left"></i></span></a>
+                                <a href="#" class="first btn btn-secondary btn-sm"><span><i class="fas fa-angle-double-left"></i></span></a>
+                                <a href="#" class="prev btn btn-secondary btn-sm"><span><i class="fas fa-angle-left"></i></span></a>
                                 <input type="text" class="pagedisplay  btn btn-secondary btn-sm"  style="width:150px" />
                                 <a href="#" class="next btn btn-secondary btn-sm"><span><i class="fas fa-angle-right"></i></span></a>
-                                <a href="#" class="last  btn btn-secondary btn-sm"><span><i class="fas fa-angle-double-right"></i></span></a>
+                                <a href="#" class="last btn btn-secondary btn-sm"><span><i class="fas fa-angle-double-right"></i></span></a>
                             </div>
                         </div>
                     </FooterTemplate>
@@ -315,12 +309,6 @@
                                     <asp:Repeater ID="UserList" runat="server" 
                                                   OnItemCommand="UserListItemCommand">
             <HeaderTemplate>
-                <YAF:Alert runat="server" ID="Alert2" Type="info" MobileOnly="True">
-                    <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server"
-                                        LocalizedTag="TABLE_RESPONSIVE" 
-                                        LocalizedPage="ADMIN_COMMON" />
-                    <span class="float-right"><i class="fa fa-hand-point-left fa-fw"></i></span>
-                </YAF:Alert>
                 <div class="table-responsive">
                 <table class="table tablesorter table-bordered table-striped" id="UnverifiedUsers">
                 <thead class="thead-light">
@@ -347,7 +335,9 @@
             <ItemTemplate>
                 <tr>
                     <td>
-                        <YAF:UserLink ID="UnverifiedUserLink" UserID='<%# this.Eval("UserID") %>' Style='<%# this.Eval("Style") %>'
+                        <YAF:UserLink ID="UnverifiedUserLink" 
+                                      UserID='<%# this.Eval("UserID") %>' 
+                                      Style='<%# this.Eval("Style") %>'
                             runat="server" />
                     </td>
                     <td>
@@ -360,20 +350,25 @@
                         <%# this.Get<IDateTime>().FormatDateTime((DateTime)this.Eval("Joined")) %>
                     </td>
                     <td>
-					    <div class="btn-group btn-group-sm float-right" role="group">
+                        <YAF:ThemeButton ID="Manage" runat="server"
+                                         CssClass="dropdown-toggle"
+                                         Type="Secondary"
+                                         DataToggle="dropdown"
+                                         Icon="ellipsis-v" />
+                        <div class="dropdown-menu">
                         <YAF:ThemeButton runat="server" 
                                          CommandName="resendEmail" 
                                          CommandArgument='<%# "{0};{1}".Fmt(this.Eval("Email"), this.Eval("Name")) %>'
                                          Icon="share" 
                                          TextLocalizedTag="ADMIN_RESEND_EMAIL"
-                                         Type="Info" 
-                                         Size="Small">
+                                         Type="None"
+                                         CssClass="dropdown-item">
                         </YAF:ThemeButton>
                         <YAF:ThemeButton runat="server" 
                                          CommandName="approve" 
                                          CommandArgument='<%# this.Eval("UserID") %>'
-                                         Type="Primary" 
-                                         Size="Small" 
+                                         Type="None"
+                                         CssClass="dropdown-item"
                                          ReturnConfirmText='<%# this.GetText("ADMIN_ADMIN", "CONFIRM_APPROVE") %>'
                                          Icon="check" 
                                          TextLocalizedTag="ADMIN_APPROVE">
@@ -381,9 +376,9 @@
                         <YAF:ThemeButton runat="server" 
                                          CommandName="delete" 
                                          CommandArgument='<%# this.Eval("UserID") %>'
-                                         Type="Danger" 
-                                         Size="Small" 
-                                         ReturnConfirmText='<%# this.GetText("ADMIN_ADMIN", "CONFIRM_DELETE_ALL") %>'
+                                         Type="None"
+                                         CssClass="dropdown-item" 
+                                         ReturnConfirmText='<%# this.GetText("ADMIN_ADMIN", "CONFIRM_DELETE") %>'
                                          Icon="trash" 
                                          TextLocalizedTag="ADMIN_DELETE">
                         </YAF:ThemeButton>
@@ -397,7 +392,7 @@
                 </table>
                 </div>
                     <div id="UnverifiedUsersPager" class=" tableSorterPager form-inline">
-                        <select class="pagesize custom-select">
+                        <select class="pagesize custom-select custom-select-sm">
 		                        <option selected="selected" value="10">10</option>
 		                        <option value="20">20</option>
                         	    <option value="30">30</option>
@@ -419,15 +414,16 @@
                                      Type="Primary" 
                                      Icon="check" 
                                      TextLocalizedTag="APROVE_ALL" 
-                                     ReturnConfirmText='<%# this.GetText("ADMIN_ADMIN", "CONFIRM_APROVE_ALL") %>'
-                        />&nbsp;
+                                     CssClass="mr-1"
+                                     ReturnConfirmText='<%# this.GetText("ADMIN_ADMIN", "CONFIRM_APROVE_ALL") %>'/>
+                    
                     <YAF:ThemeButton runat="server"
                                      CommandName="deleteall" 
                                      Type="Danger" 
                                      Icon="trash" 
                                      TextLocalizedTag="DELETE_ALL" 
                                      ReturnConfirmText='<%# this.GetText("ADMIN_ADMIN", "CONFIRM_DELETE_ALL") %>'
-                         />&nbsp;
+                                     CssClass="mr-1"/>
                     <asp:TextBox ID="DaysOld" runat="server" 
                                  MaxLength="5" 
                                  Text="14" 
@@ -437,8 +433,6 @@
                 </div>
             </FooterTemplate>
         </asp:Repeater>
-
-
                         </div>
                  </div>
           </div>

@@ -7,9 +7,20 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace YAF.Controls {
-    
-    
-    public partial class AdminMenu {
+namespace YAF.Controls
+{
+
+
+    public partial class AdminMenu
+    {
+
+        /// <summary>
+        /// AdminDropdown control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Web.Controls.ThemeButton AdminDropdown;
     }
 }

@@ -7,76 +7,58 @@
 		</h2>
 	<hr />
     <asp:PlaceHolder runat="server" ID="SuspendedHolder">
-
-        <h4>
-            <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedPage="PROFILE" LocalizedTag="SUSPEND_CURRENT" />
-        </h4>
-    <hr />
-
-        <h4>
-            <YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedPage="PROFILE" LocalizedTag="SUSPEND_REASON" />
-        </h4>
-        <p>
-            <asp:Label runat="server" ID="CurrentSuspendedReason"></asp:Label>
-        </p>
-    <hr />
-
-        <h4>
-            <YAF:LocalizedLabel ID="LocalizedLabel8" runat="server" LocalizedPage="PROFILE" LocalizedTag="SUSPEND_BY" />
-        </h4>
-        <p>
-            <YAF:UserLink runat="server" ID="SuspendedBy"></YAF:UserLink>
-        </p>
-    <hr />
-
-		<h4>
-			<YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedPage="PROFILE" LocalizedTag="ENDS" />
-		</h4>
-		<p>
-			<%= this.GetSuspendedTo() %>
-			&nbsp;<YAF:ThemeButton runat="server" ID="RemoveSuspension" 
-                                   Type="Danger" 
-                                   Size="Small" 
-                                   OnClick="RemoveSuspension_Click"
-                                   TextLocalizedTag="REMOVESUSPENSION"
-                                   Icon="flag"/>
-		</p>
-	<hr />
+        <div class="alert alert-warning" role="alert">
+            <h4 class="alert-heading">
+                <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedPage="PROFILE" LocalizedTag="SUSPEND_CURRENT" />
+            </h4>
+            <p><strong><YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedPage="PROFILE" LocalizedTag="SUSPEND_REASON" /></strong> 
+                <asp:Label runat="server" ID="CurrentSuspendedReason"></asp:Label>
+                <strong><YAF:LocalizedLabel ID="LocalizedLabel8" runat="server" LocalizedPage="PROFILE" LocalizedTag="SUSPEND_BY" /></strong>
+                <YAF:UserLink runat="server" ID="SuspendedBy"></YAF:UserLink>
+                <strong><YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedPage="PROFILE" LocalizedTag="ENDS" /></strong>
+                <%= this.GetSuspendedTo() %>
+            </p>
+            <hr/>
+            <p class="mb-0">
+                <YAF:ThemeButton runat="server" ID="RemoveSuspension" 
+                                 Type="Danger" 
+                                 Size="Small" 
+                                 OnClick="RemoveSuspension_Click"
+                                 TextLocalizedTag="REMOVESUSPENSION"
+                                 Icon="flag"/>
+            </p>
+        </div>
+        <hr/>
     </asp:PlaceHolder>
 
         <h2>
             <YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedPage="PROFILE" LocalizedTag="SUSPEND_NEW" />
         </h2>
-    <hr />
-
-        <h4>
-            <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedPage="PROFILE" LocalizedTag="SUSPEND_REASON" />
-        </h4>
-        <p>
-            <asp:TextBox Style="height:80px;" ID="SuspendedReason" runat="server" TextMode="MultiLine" CssClass="form-control"></asp:TextBox>
-        </p>
-    <hr />
-
-		<h4>
-			<YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedPage="PROFILE" LocalizedTag="SUSPEND_USER" />
-		</h4>
-		<p>
-			<asp:TextBox runat="server" ID="SuspendCount" CssClass="Numeric form-control" TextMode="Number" />&nbsp;
-            <div class="custom-control custom-radio custom-control-inline">
-            <asp:RadioButtonList
-				runat="server" ID="SuspendUnit" 
-                RepeatLayout="UnorderedList"
-                CssClass="list-unstyled" />
-            </div>
-		</p>
-	<hr />
+<div class="form-group">
+    <asp:Label runat="server" AssociatedControlID="SuspendedReason">
+        <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedPage="PROFILE" LocalizedTag="SUSPEND_REASON" />
+    </asp:Label>
+    <asp:TextBox Style="height:80px;" ID="SuspendedReason" runat="server" TextMode="MultiLine" CssClass="form-control"></asp:TextBox>
+</div>
+<div class="form-group">
+    <asp:Label runat="server" AssociatedControlID="SuspendCount">
+        <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedPage="PROFILE" LocalizedTag="SUSPEND_USER" />
+    </asp:Label>
+    <asp:TextBox runat="server" ID="SuspendCount" CssClass="form-control" TextMode="Number" />
+    <div class="custom-control custom-radio custom-control-inline mt-1">
+        <asp:RadioButtonList
+            runat="server" ID="SuspendUnit" 
+            RepeatLayout="UnorderedList"
+            CssClass="list-unstyled" />
+    </div>
+</div>
 <YAF:Alert runat="server" Type="info">
     <asp:Label runat="server" ID="SuspendInfo"></asp:Label>
 </YAF:Alert>
 
-                <div class="text-center">
-            <YAF:ThemeButton runat="server" ID="Suspend" OnClick="Suspend_Click" 
-                             Type="Primary"
-                             Icon="flag"
-                             TextLocalizedTag="SUSPEND"/>
-            </div>
+<div class="text-center">
+    <YAF:ThemeButton runat="server" ID="Suspend" OnClick="Suspend_Click" 
+                     Type="Primary"
+                     Icon="flag"
+                     TextLocalizedTag="SUSPEND"/>
+</div>

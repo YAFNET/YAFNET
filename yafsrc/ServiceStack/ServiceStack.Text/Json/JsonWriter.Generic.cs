@@ -25,8 +25,7 @@ namespace ServiceStack.Text.Json
                 newCache = new Dictionary<Type, WriteObjectDelegate>(WriteFnCache);
                 newCache.Remove(forType);
 
-            }
- while (!ReferenceEquals(
+            } while (!ReferenceEquals(
                 Interlocked.CompareExchange(ref WriteFnCache, newCache, snapshot), snapshot));
         }
 
@@ -50,8 +49,7 @@ namespace ServiceStack.Text.Json
                         [type] = writeFn
                     };
 
-                }
- while (!ReferenceEquals(
+                } while (!ReferenceEquals(
                     Interlocked.CompareExchange(ref WriteFnCache, newCache, snapshot), snapshot));
 
                 return writeFn;
@@ -85,8 +83,7 @@ namespace ServiceStack.Text.Json
                         [type] = writeFn
                     };
 
-                }
- while (!ReferenceEquals(
+                } while (!ReferenceEquals(
                     Interlocked.CompareExchange(ref JsonTypeInfoCache, newCache, snapshot), snapshot));
 
                 return writeFn;
@@ -108,12 +105,8 @@ namespace ServiceStack.Text.Json
 
             try
             {
-                if (++JsState.Depth > JsConfig.MaxDepth)
-                {
-                    Tracer.Instance.WriteError("Exceeded MaxDepth limit of {0} attempting to serialize {1}"
-                        .Fmt(JsConfig.MaxDepth, value.GetType().Name));
+                if (!JsState.Traverse(value))
                     return;
-                }
 
                 var type = value.GetType();
                 var writeFn = type == typeof(object)
@@ -127,7 +120,7 @@ namespace ServiceStack.Text.Json
             }
             finally
             {
-                JsState.Depth--;
+                JsState.UnTraverse();
             }
         }
 
@@ -139,17 +132,16 @@ namespace ServiceStack.Text.Json
         [MethodImpl(MethodImplOptions.NoInlining | MethodImplOptions.NoOptimization)]
         public static void InitAot<T>()
         {
-            JsonWriter<T>.WriteFn();
-            Instance.GetWriteFn<T>();
-            Instance.GetValueTypeToStringMethod(typeof(T));
-            JsWriter.GetTypeSerializer<JsonTypeSerializer>().GetWriteFn<T>();
+            Text.Json.JsonWriter<T>.WriteFn();
+            Text.Json.JsonWriter.Instance.GetWriteFn<T>();
+            Text.Json.JsonWriter.Instance.GetValueTypeToStringMethod(typeof(T));
+            JsWriter.GetTypeSerializer<Text.Json.JsonTypeSerializer>().GetWriteFn<T>();
         }
     }
 
     public class TypeInfo
     {
         internal bool EncodeMapKey;
-        internal bool IsNumeric;
     }
 
     /// <summary>
@@ -196,7 +188,6 @@ namespace ServiceStack.Text.Json
             TypeInfo = new TypeInfo
             {
                 EncodeMapKey = typeof(T) == typeof(bool) || isNumeric,
-                IsNumeric = isNumeric
             };
 
             CacheFn = typeof(T) == typeof(object)
@@ -206,33 +197,23 @@ namespace ServiceStack.Text.Json
 
         public static void WriteObject(TextWriter writer, object value)
         {
-#if __IOS__
-			if (writer == null) return;
-#endif
             TypeConfig<T>.Init();
 
             try
             {
-                if (++JsState.Depth > JsConfig.MaxDepth)
-                {
-                    Tracer.Instance.WriteError("Exceeded MaxDepth limit of {0} attempting to serialize {1}"
-                        .Fmt(JsConfig.MaxDepth, value.GetType().Name));
+                if (!JsState.Traverse(value))
                     return;
-                }
 
                 CacheFn(writer, value);
             }
             finally
             {
-                JsState.Depth--;
+                JsState.UnTraverse();
             }
         }
 
         public static void WriteRootObject(TextWriter writer, object value)
         {
-#if __IOS__
-			if (writer == null) return;
-#endif
             TypeConfig<T>.Init();
 
             JsState.Depth = 0;

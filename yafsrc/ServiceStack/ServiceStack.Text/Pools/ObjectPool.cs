@@ -4,12 +4,14 @@
 
     // define TRACE_LEAKS to get additional diagnostics that can lead to the leak sources. note: it will
     // make everything about 2-3x slower
+    // 
     // #define TRACE_LEAKS
 
     // define DETECT_LEAKS to detect possible leaks
     // #if DEBUG
     // #define DETECT_LEAKS  //for now always enable DETECT_LEAKS in debug.
     // #endif
+
     using System;
     using System.Diagnostics;
     using System.Threading;
@@ -17,7 +19,6 @@
 #if DETECT_LEAKS
 using System.Runtime.CompilerServices;
 #endif
-
     /// <summary>
     /// Generic implementation of object pooling pattern with predefined pool size limit. The main
     /// purpose is that limited number of frequently used objects can be kept in the pool for
@@ -38,7 +39,7 @@ using System.Runtime.CompilerServices;
     public class ObjectPool<T> where T : class
     {
 #if !PCL
-        [DebuggerDisplay("{" + nameof(Value) + ",nq}")]
+        [DebuggerDisplay("{Value,nq}")]
 #endif
         private struct Element
         {
@@ -81,7 +82,7 @@ using System.Runtime.CompilerServices;
             private string GetTrace()
             {
 #if TRACE_LEAKS
-                return Trace == null ? string.Empty : Trace.ToString();
+                return Trace == null ? "" : Trace.ToString();
 #else
                 return "Leak tracing information is disabled. Define TRACE_LEAKS on ObjectPool`1.cs to get more info \n";
 #endif
@@ -111,13 +112,13 @@ using System.Runtime.CompilerServices;
 #if !PCL
             Debug.Assert(size >= 1);
 #endif
-            this._factory = factory;
-            this._items = new Element[size - 1];
+            _factory = factory;
+            _items = new Element[size - 1];
         }
 
         private T CreateInstance()
         {
-            var inst = this._factory();
+            var inst = _factory();
             return inst;
         }
 
@@ -135,10 +136,10 @@ using System.Runtime.CompilerServices;
             // Note that the initial read is optimistically not synchronized. That is intentional. 
             // We will interlock only when we have a candidate. in a worst case we may miss some
             // recently returned objects. Not a big deal.
-            var inst = this._firstItem;
-            if (inst == null || inst != Interlocked.CompareExchange(ref this._firstItem, null, inst))
+            T inst = _firstItem;
+            if (inst == null || inst != Interlocked.CompareExchange(ref _firstItem, null, inst))
             {
-                inst = this.AllocateSlow();
+                inst = AllocateSlow();
             }
 
 #if DETECT_LEAKS
@@ -155,14 +156,14 @@ using System.Runtime.CompilerServices;
 
         private T AllocateSlow()
         {
-            var items = this._items;
+            var items = _items;
 
-            for (var i = 0; i < items.Length; i++)
+            for (int i = 0; i < items.Length; i++)
             {
                 // Note that the initial read is optimistically not synchronized. That is intentional. 
                 // We will interlock only when we have a candidate. in a worst case we may miss some
                 // recently returned objects. Not a big deal.
-                var inst = items[i].Value;
+                T inst = items[i].Value;
                 if (inst != null)
                 {
                     if (inst == Interlocked.CompareExchange(ref items[i].Value, null, inst))
@@ -172,7 +173,7 @@ using System.Runtime.CompilerServices;
                 }
             }
 
-            return this.CreateInstance();
+            return CreateInstance();
         }
 
         /// <summary>
@@ -185,26 +186,26 @@ using System.Runtime.CompilerServices;
         /// </remarks>
         public void Free(T obj)
         {
-            this.Validate(obj);
-            this.ForgetTrackedObject(obj);
+            Validate(obj);
+            ForgetTrackedObject(obj);
 
-            if (this._firstItem == null)
+            if (_firstItem == null)
             {
                 // Intentionally not using interlocked here. 
                 // In a worst case scenario two objects may be stored into same slot.
                 // It is very unlikely to happen and will only mean that one of the objects will get collected.
-                this._firstItem = obj;
+                _firstItem = obj;
             }
             else
             {
-                this.FreeSlow(obj);
+                FreeSlow(obj);
             }
         }
 
         private void FreeSlow(T obj)
         {
-            var items = this._items;
-            for (var i = 0; i < items.Length; i++)
+            var items = _items;
+            for (int i = 0; i < items.Length; i++)
             {
                 if (items[i].Value == null)
                 {
@@ -266,11 +267,11 @@ using System.Runtime.CompilerServices;
 #if !PCL
             Debug.Assert(obj != null, "freeing null?");
 
-            Debug.Assert(this._firstItem != obj, "freeing twice?");
+            Debug.Assert(_firstItem != obj, "freeing twice?");
 #endif
 
-            var items = this._items;
-            for (var i = 0; i < items.Length; i++)
+            var items = _items;
+            for (int i = 0; i < items.Length; i++)
             {
                 var value = items[i].Value;
                 if (value == null)

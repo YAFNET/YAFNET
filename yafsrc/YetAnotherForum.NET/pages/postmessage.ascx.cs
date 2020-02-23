@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2020 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -12,7 +12,7 @@
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
 
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
 
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
@@ -40,6 +40,7 @@ namespace YAF.Pages
     using YAF.Core.Helpers;
     using YAF.Core.Model;
     using YAF.Core.UsersRoles;
+    using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
@@ -56,7 +57,7 @@ namespace YAF.Pages
     /// <summary>
     /// The post message Page.
     /// </summary>
-    public partial class postmessage : ForumPage
+    public partial class PostMessage : ForumPage
     {
         #region Constants and Fields
 
@@ -90,9 +91,9 @@ namespace YAF.Pages
         #region Constructors and Destructors
 
         /// <summary>
-        ///   Initializes a new instance of the <see cref="postmessage" /> class.
+        /// Initializes a new instance of the <see cref="PostMessage"/> class.
         /// </summary>
-        public postmessage()
+        public PostMessage()
             : base("POSTMESSAGE")
         {
         }
@@ -135,12 +136,12 @@ namespace YAF.Pages
             if (this.TopicId != null || this.EditMessageId != null)
             {
                 // reply to existing topic or editing of existing topic
-                YafBuildLink.Redirect(ForumPages.posts, "t={0}", this.PageContext.PageTopicID);
+                BuildLink.Redirect(ForumPages.Posts, "t={0}", this.PageContext.PageTopicID);
             }
             else
             {
                 // new topic -- cancel back to forum
-                YafBuildLink.Redirect(ForumPages.topics, "f={0}", this.PageContext.PageForumID);
+                BuildLink.Redirect(ForumPages.topics, "f={0}", this.PageContext.PageForumID);
             }
         }
 
@@ -171,7 +172,7 @@ namespace YAF.Pages
             }
 
             // see if they've past that delay point
-            if (this.Get<IYafSession>().LastPost
+            if (this.Get<ISession>().LastPost
                 <= DateTime.UtcNow.AddSeconds(-this.PageContext.BoardSettings.PostFloodDelay)
                 || this.EditMessageId != null)
             {
@@ -181,7 +182,7 @@ namespace YAF.Pages
             this.PageContext.AddLoadMessage(
                 this.GetTextFormatted(
                     "wait",
-                    (this.Get<IYafSession>().LastPost
+                    (this.Get<ISession>().LastPost
                      - DateTime.UtcNow.AddSeconds(-this.PageContext.BoardSettings.PostFloodDelay)).Seconds),
                 MessageTypes.warning);
             return true;
@@ -330,6 +331,20 @@ namespace YAF.Pages
         }
 
         /// <summary>
+        /// Registers the java scripts
+        /// </summary>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+        protected override void OnPreRender([NotNull] EventArgs e)
+        {
+            // setup jQuery and Jquery Ui Tabs.
+            BoardContext.Current.PageElements.RegisterJsBlock(
+                "GetBoardTagsJs",
+                JavaScriptBlocks.GetBoardTagsJs(this.Tags.ClientID));
+
+            base.OnPreRender(e);
+        }
+
+        /// <summary>
         /// Handles the Load event of the Page control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
@@ -363,12 +378,12 @@ namespace YAF.Pages
                 {
                     if (currentMessage.TopicID.ToType<int>() != this.PageContext.PageTopicID)
                     {
-                        YafBuildLink.AccessDenied();
+                        BuildLink.AccessDenied();
                     }
 
                     if (!this.CanQuotePostCheck(this.topic))
                     {
-                        YafBuildLink.AccessDenied();
+                        BuildLink.AccessDenied();
                     }
 
                     this.PollGroupId = currentMessage.PollID.ToType<int>().IsNullOrEmptyDBField()
@@ -398,7 +413,7 @@ namespace YAF.Pages
 
                     if (!this.CanEditPostCheck(currentMessage, this.topic))
                     {
-                        YafBuildLink.AccessDenied();
+                        BuildLink.AccessDenied();
                     }
 
                     this.PollGroupId = currentMessage.PollID.ToType<int>().IsNullOrEmptyDBField()
@@ -419,22 +434,22 @@ namespace YAF.Pages
 
             if (this.PageContext.PageForumID == 0)
             {
-                YafBuildLink.AccessDenied();
+                BuildLink.AccessDenied();
             }
 
             if (this.Get<HttpRequestBase>()["t"] == null && this.Get<HttpRequestBase>()["m"] == null
                 && !this.PageContext.ForumPostAccess)
             {
-                YafBuildLink.AccessDenied();
+                BuildLink.AccessDenied();
             }
 
             if (this.Get<HttpRequestBase>()["t"] != null && !this.PageContext.ForumReplyAccess)
             {
-                YafBuildLink.AccessDenied();
+                BuildLink.AccessDenied();
             }
 
             // Message.EnableRTE = PageContext.BoardSettings.AllowRichEdit;
-            this.forumEditor.BaseDir = $"{YafForumInfo.ForumClientFileRoot}Scripts";
+            this.forumEditor.BaseDir = $"{BoardInfo.ForumClientFileRoot}Scripts";
 
             this.Title.Text = this.GetText("NEWTOPIC");
 
@@ -464,9 +479,30 @@ namespace YAF.Pages
                 var isNewTopic = this.TopicId == null && this.QuotedMessageId == null
                                   && this.EditMessageId == null;
 
-                this.Priority.Items.Add(new ListItem(this.GetText("normal"), "0"));
-                this.Priority.Items.Add(new ListItem(this.GetText("sticky"), "1"));
-                this.Priority.Items.Add(new ListItem(this.GetText("announcement"), "2"));
+                var normal = new ListItem(this.GetText("normal"), "0");
+
+                normal.Attributes.Add(
+                    "data-content",
+                    $"<span class='select2-image-select-icon'><i class='far fa-comment fa-fw text-secondary'></i>&nbsp;{this.GetText("normal")}</span>");
+
+                this.Priority.Items.Add(normal);
+
+                var sticky = new ListItem(this.GetText("sticky"), "1");
+
+                sticky.Attributes.Add(
+                    "data-content",
+                    $"<span class='select2-image-select-icon'><i class='far fa-sticky-note fa-fw text-secondary'></i>&nbsp;{this.GetText("sticky")}</span>");
+
+                this.Priority.Items.Add(sticky);
+
+                var announcement = new ListItem(this.GetText("announcement"), "2");
+
+                announcement.Attributes.Add(
+                    "data-content",
+                    $"<span class='select2-image-select-icon'><i class='fas fa-bullhorn fa-fw text-secondary'></i>&nbsp;{this.GetText("announcement")}</span>");
+
+                this.Priority.Items.Add(announcement);
+
                 this.Priority.SelectedIndex = 0;
 
                 // Allow the Styling of Topic Titles only for Mods or Admins
@@ -501,7 +537,7 @@ namespace YAF.Pages
                 if (this.PageContext.IsGuest && this.PageContext.BoardSettings.EnableCaptchaForGuests
                     || this.PageContext.BoardSettings.EnableCaptchaForPost && !this.PageContext.IsCaptchaExcluded)
                 {
-                    this.imgCaptcha.ImageUrl = $"{YafForumInfo.ForumClientFileRoot}resource.ashx?c=1";
+                    this.imgCaptcha.ImageUrl = $"{BoardInfo.ForumClientFileRoot}resource.ashx?c=1";
                     this.tr_captcha1.Visible = true;
                     this.tr_captcha2.Visible = true;
                 }
@@ -511,7 +547,7 @@ namespace YAF.Pages
                     this.PageLinks.AddRoot();
                     this.PageLinks.AddLink(
                         this.PageContext.PageCategoryName,
-                        YafBuildLink.GetLink(ForumPages.forum, "c={0}", this.PageContext.PageCategoryID));
+                        BuildLink.GetLink(ForumPages.forum, "c={0}", this.PageContext.PageCategoryID));
                 }
 
                 this.PageLinks.AddForum(this.PageContext.PageForumID);
@@ -531,16 +567,16 @@ namespace YAF.Pages
 
                     if (this.QuotedMessageId != null)
                     {
-                        if (this.Get<IYafSession>().MultiQuoteIds != null)
+                        if (this.Get<ISession>().MultiQuoteIds != null)
                         {
                             var quoteId = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("q").ToType<int>();
                             var multiQuote = new MultiQuote { MessageID = quoteId, TopicID = this.PageContext.PageTopicID };
 
                             if (
-                                !this.Get<IYafSession>()
+                                !this.Get<ISession>()
                                     .MultiQuoteIds.Any(m => m.MessageID.Equals(quoteId)))
                             {
-                                this.Get<IYafSession>()
+                                this.Get<ISession>()
                                     .MultiQuoteIds.Add(
                                         multiQuote);
                             }
@@ -566,7 +602,7 @@ namespace YAF.Pages
                                 0);
 
                             // quoting a reply to a topic...
-                            this.Get<IYafSession>().MultiQuoteIds
+                            this.Get<ISession>().MultiQuoteIds
                                 .Select(
                                     item => messages.AsEnumerable().Select(t => new TypedMessageList(t))
                                         .Where(m => m.MessageID == item.MessageID))
@@ -574,7 +610,7 @@ namespace YAF.Pages
                                     this.InitQuotedReply);
 
                             // Clear Multi-quotes
-                            this.Get<IYafSession>().MultiQuoteIds = null;
+                            this.Get<ISession>().MultiQuoteIds = null;
                         }
                         else
                         {
@@ -630,7 +666,42 @@ namespace YAF.Pages
         {
             if (!this.PageContext.ForumEditAccess)
             {
-                YafBuildLink.AccessDenied();
+                BuildLink.AccessDenied();
+            }
+
+            // Update Tags
+            if (this.TagsHolder.Visible)
+            {
+                this.GetRepository<TopicTag>().Delete(t => t.TopicID == this.PageContext.PageTopicID);
+
+                if (this.Tags.Text.IsSet())
+                {
+                    var tags = this.Tags.Text.Split(',');
+
+                    var boardTags = this.GetRepository<Tag>().GetByBoardId();
+
+                    tags.ForEach(
+                        tag =>
+                            {
+                                var existTag = boardTags.FirstOrDefault(t => t.TagName == tag);
+
+                                if (existTag != null)
+                                {
+                                    // add to topic
+                                    this.GetRepository<TopicTag>().Add(
+                                        existTag.ID,
+                                        this.PageContext.PageTopicID);
+                                }
+                                else
+                                {
+                                    // save new Tag
+                                    var newTagId = this.GetRepository<Tag>().Add(tag);
+
+                                    // add to topic
+                                    this.GetRepository<TopicTag>().Add(newTagId, this.PageContext.PageTopicID);
+                                }
+                            });
+                }
             }
 
             var subjectSave = string.Empty;
@@ -667,11 +738,11 @@ namespace YAF.Pages
                             if (attach.FileData == null)
                             {
                                 var oldFilePath = this.Get<HttpRequestBase>().MapPath(
-                                    $"{YafBoardFolders.Current.Uploads}/{attach.MessageID.ToString()}.{attach.FileName}.yafupload");
+                                    $"{BoardFolders.Current.Uploads}/{attach.MessageID.ToString()}.{attach.FileName}.yafupload");
 
                                 var newFilePath =
                                     this.Get<HttpRequestBase>().MapPath(
-                                        $"{YafBoardFolders.Current.Uploads}/u{attach.UserID}.{attach.FileName}.yafupload");
+                                        $"{BoardFolders.Current.Uploads}/u{attach.UserID}.{attach.FileName}.yafupload");
 
                                 File.Move(oldFilePath, newFilePath);
                             }
@@ -745,7 +816,7 @@ namespace YAF.Pages
 
             if (!this.PageContext.ForumPostAccess)
             {
-                YafBuildLink.AccessDenied();
+                BuildLink.AccessDenied();
             }
 
             // Check if Forum is Moderated
@@ -795,6 +866,7 @@ namespace YAF.Pages
                 DateTime.UtcNow,
                 string.Empty,
                 messageFlags.BitValue,
+                this.Tags.Text,
                 ref messageId);
 
             this.UpdateWatchTopic(this.PageContext.PageUserID, (int)topicId);
@@ -824,7 +896,7 @@ namespace YAF.Pages
         {
             if (!this.PageContext.ForumReplyAccess)
             {
-                YafBuildLink.AccessDenied();
+                BuildLink.AccessDenied();
             }
 
             // Check if Forum is Moderated
@@ -983,8 +1055,8 @@ namespace YAF.Pages
             }
 
             // Check posts for urls if the user has only x posts
-            if (YafContext.Current.CurrentUserData.NumPosts
-                <= YafContext.Current.Get<YafBoardSettings>().IgnoreSpamWordCheckPostCount &&
+            if (BoardContext.Current.CurrentUserData.NumPosts
+                <= BoardContext.Current.Get<BoardSettings>().IgnoreSpamWordCheckPostCount &&
                 !this.PageContext.IsAdmin && !this.PageContext.ForumModeratorAccess)
             {
                 var urlCount = UrlHelper.CountUrls(this.forumEditor.Text);
@@ -1058,7 +1130,7 @@ namespace YAF.Pages
             }
 
             // update the last post time...
-            this.Get<IYafSession>().LastPost = DateTime.UtcNow.AddSeconds(30);
+            this.Get<ISession>().LastPost = DateTime.UtcNow.AddSeconds(30);
 
             long messageId;
             long newTopic = 0;
@@ -1083,14 +1155,6 @@ namespace YAF.Pages
             // Check if message is approved
             var isApproved = this.GetRepository<Message>().GetById(messageId.ToType<int>()).MessageFlags.IsApproved;
 
-            /*using (var dt = this.GetRepository<Message>().ListAsDataTable(messageId.ToType<int>()))
-            {
-                foreach (DataRow row in dt.Rows)
-                {
-                    isApproved = row["Flags"].BinaryAnd(MessageFlags.Flags.IsApproved);
-                }
-            }*/
-
             // vzrus^ the poll access controls are enabled and this is a new topic - we add the variables
             var attachPollParameter = string.Empty;
             var returnForum = string.Empty;
@@ -1109,13 +1173,13 @@ namespace YAF.Pages
             {
                 this.Get<ISendNotification>().ToWatchingUsers(messageId.ToType<int>());
 
-                if (this.EditMessageId == null && !this.PageContext.IsGuest)
+                if (this.EditMessageId == null && !this.PageContext.IsGuest && this.PageContext.CurrentUserData.Activity)
                 {
                     // Handle Mentions
                     BBCodeHelper.FindMentions(this.forumEditor.Text).ForEach(
                         user =>
                             {
-                                var userId = this.Get<IUserDisplayName>().GetId(user.UserName).Value;
+                                var userId = this.Get<IUserDisplayName>().GetId(user).Value;
 
                                 if (userId != this.PageContext.PageUserID)
                                 {
@@ -1131,7 +1195,7 @@ namespace YAF.Pages
                     BBCodeHelper.FindUserQuoting(this.forumEditor.Text).ForEach(
                         user =>
                             {
-                                var userId = this.Get<IUserDisplayName>().GetId(user.UserName).Value;
+                                var userId = this.Get<IUserDisplayName>().GetId(user).Value;
 
                                 if (userId != this.PageContext.PageUserID)
                                 {
@@ -1152,26 +1216,17 @@ namespace YAF.Pages
                             this.PageContext.PageTopicName,
                             this.forumEditor.Text);
                     }
-                    else
-                    {
-                        this.Get<IActivityStream>().AddTopicToStream(
-                            Config.IsDotNetNuke ? this.PageContext.PageForumID : this.PageContext.PageUserID,
-                            newTopic,
-                            messageId.ToType<int>(),
-                            this.TopicSubjectTextBox.Text,
-                            this.forumEditor.Text);
-                    }
                 }
 
                 if (attachPollParameter.IsNotSet() || !this.PostOptions1.PollChecked)
                 {
                     // regular redirect...
-                    YafBuildLink.Redirect(ForumPages.posts, "m={0}#post{0}", messageId);
+                    BuildLink.Redirect(ForumPages.Posts, "m={0}#post{0}", messageId);
                 }
                 else
                 {
                     // poll edit redirect...
-                    YafBuildLink.Redirect(ForumPages.polledit, "{0}", attachPollParameter);
+                    BuildLink.Redirect(ForumPages.PollEdit, "{0}", attachPollParameter);
                 }
             }
             else
@@ -1194,25 +1249,25 @@ namespace YAF.Pages
                 }
 
                 // Tell user that his message will have to be approved by a moderator
-                var url = YafBuildLink.GetLink(ForumPages.topics, "f={0}", this.PageContext.PageForumID);
+                var url = BuildLink.GetLink(ForumPages.topics, "f={0}", this.PageContext.PageForumID);
 
                 if (this.PageContext.PageTopicID > 0 && this.topic.NumPosts > 1)
                 {
-                    url = YafBuildLink.GetLink(ForumPages.posts, "t={0}", this.PageContext.PageTopicID);
+                    url = BuildLink.GetLink(ForumPages.Posts, "t={0}", this.PageContext.PageTopicID);
                 }
 
                 if (attachPollParameter.Length <= 0)
                 {
-                    YafBuildLink.Redirect(ForumPages.info, "i=1&url={0}", this.Server.UrlEncode(url));
+                    BuildLink.Redirect(ForumPages.Info, "i=1&url={0}", this.Server.UrlEncode(url));
                 }
                 else
                 {
-                    YafBuildLink.Redirect(ForumPages.polledit, "&ra=1{0}{1}", attachPollParameter, returnForum);
+                    BuildLink.Redirect(ForumPages.PollEdit, "&ra=1{0}{1}", attachPollParameter, returnForum);
                 }
 
                 if (Config.IsRainbow)
                 {
-                    YafBuildLink.Redirect(ForumPages.info, "i=1");
+                    BuildLink.Redirect(ForumPages.Info, "i=1");
                 }
             }
         }
@@ -1237,18 +1292,6 @@ namespace YAF.Pages
                                                        };
 
             this.PreviewMessagePost.Message = this.forumEditor.Text;
-
-            if (!this.PageContext.BoardSettings.AllowSignatures)
-            {
-                return;
-            }
-
-            var userSig = this.GetRepository<User>().GetSignature(this.PageContext.PageUserID);
-
-            if (userSig.IsSet())
-            {
-                this.PreviewMessagePost.Signature = userSig;
-            }
         }
 
         /// <summary>
@@ -1278,8 +1321,7 @@ namespace YAF.Pages
             }
 
             // get  forum information
-            var forumInfo = this.GetRepository<Forum>()
-                .List(this.PageContext.PageBoardID, this.PageContext.PageForumID).FirstOrDefault();
+            var forumInfo = this.GetRepository<Forum>().GetById(this.PageContext.PageForumID);
 
             // Ederon : 9/9/2007 - moderator can edit in locked topics
             return !postLocked && !forumInfo.ForumFlags.IsLocked
@@ -1355,7 +1397,7 @@ namespace YAF.Pages
             // add topic link...
             this.PageLinks.AddLink(
                 this.Server.HtmlDecode(currentMessage.Topic),
-                YafBuildLink.GetLink(ForumPages.posts, "m={0}", this.EditMessageId));
+                BuildLink.GetLink(ForumPages.Posts, "m={0}", this.EditMessageId));
 
             // editing..
             this.PageLinks.AddLink(this.GetText("EDIT"));
@@ -1399,6 +1441,14 @@ namespace YAF.Pages
             this.EditReasonRow.Visible = true;
             this.ReasonEditor.Text = this.Server.HtmlDecode(currentMessage.EditReason);
             this.PostOptions1.PersistantChecked = currentMessage.Flags.IsPersistent;
+
+
+            var topicsList = this.GetRepository<TopicTag>().List(this.PageContext.PageTopicID);
+
+            if (topicsList.Any())
+            {
+                this.Tags.Text = topicsList.Select(t => t.Item2.TagName).ToDelimitedString(",");
+            }
         }
 
         /// <summary>
@@ -1457,12 +1507,14 @@ namespace YAF.Pages
             this.SubjectRow.Visible = false;
             this.DescriptionRow.Visible = false;
             this.StyleRow.Visible = false;
+            this.TagsHolder.Visible = false;
+
             this.Title.Text = this.GetText("reply");
 
             // add topic link...
             this.PageLinks.AddLink(
                 this.Server.HtmlDecode(topic.TopicName),
-                YafBuildLink.GetLink(ForumPages.posts, "t={0}", this.TopicId));
+                BuildLink.GetLink(ForumPages.Posts, "t={0}", this.TopicId));
 
             // add "reply" text...
             this.PageLinks.AddLink(this.GetText("reply"));
@@ -1509,6 +1561,12 @@ namespace YAF.Pages
         /// </returns>
         private bool CheckForumModerateStatus(Forum forumInfo, bool isNewTopic)
         {
+            // User Moderate override
+            if (this.PageContext.Moderated)
+            {
+                return true;
+            }
+
             var forumModerated = forumInfo.ForumFlags.IsModerated;
 
             if (!forumModerated)
@@ -1542,6 +1600,6 @@ namespace YAF.Pages
             this.PostAttachments1.Visible = !this.forumEditor.AllowsUploads && this.PageContext.ForumUploadAccess;
         }
 
-        #endregion
+#endregion
     }
 }

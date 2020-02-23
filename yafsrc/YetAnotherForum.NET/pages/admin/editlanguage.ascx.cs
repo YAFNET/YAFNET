@@ -1,8 +1,8 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2019 Ingo Herbote
- * http://www.yetanotherforum.net/
+ * Copyright (C) 2014-2020 Ingo Herbote
+ * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -12,7 +12,7 @@
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
 
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
 
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
@@ -39,6 +39,7 @@ namespace YAF.Pages.Admin
     using System.Xml.XPath;
 
     using YAF.Core;
+    using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
@@ -150,13 +151,26 @@ namespace YAF.Pages.Admin
         }
 
         /// <summary>
+        /// Registers the needed Java Scripts
+        /// </summary>
+        /// <param name="e">An <see cref="T:System.EventArgs"/> object that contains the event data.</param>
+        protected override void OnPreRender([NotNull] EventArgs e)
+        {
+           BoardContext.Current.PageElements.RegisterJsBlock(
+                "FixGridTableJs",
+                JavaScriptBlocks.FixGridTable(this.grdLocals.ClientID));
+
+           base.OnPreRender(e);
+        }
+
+        /// <summary>
         /// Handles the Load event of the Page control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            this.langPath = HttpContext.Current.Request.MapPath($"{YafForumInfo.ForumServerFileRoot}languages");
+            this.langPath = HttpContext.Current.Request.MapPath($"{BoardInfo.ForumServerFileRoot}languages");
 
             if (this.Get<HttpRequestBase>().QueryString.Exists("x"))
             {
@@ -180,7 +194,7 @@ namespace YAF.Pages.Admin
 
             if (this.update)
             {
-                this.lblInfo.Visible = true;
+                this.Info.Visible = true;
 
                 this.lblInfo.Text = this.GetText("ADMIN_EDITLANGUAGE", "AUTO_SYNC");
 
@@ -188,7 +202,7 @@ namespace YAF.Pages.Admin
             }
             else
             {
-                this.lblInfo.Visible = false;
+                this.Info.Visible = false;
             }
 
             this.grdLocals.DataSource = this.translations.FindAll(check => check.PageName.Equals("DEFAULT"));
@@ -203,11 +217,11 @@ namespace YAF.Pages.Admin
             this.PageLinks.AddRoot();
             this.PageLinks.AddLink(
                 this.GetText("ADMIN_ADMIN", "Administration"),
-                YafBuildLink.GetLink(ForumPages.admin_admin));
+                BuildLink.GetLink(ForumPages.admin_admin));
 
             this.PageLinks.AddLink(
                 this.GetText("ADMIN_LANGUAGES", "TITLE"),
-                YafBuildLink.GetLink(ForumPages.admin_languages));
+                BuildLink.GetLink(ForumPages.admin_languages));
             this.PageLinks.AddLink(this.GetText("ADMIN_EDITLANGUAGE", "TITLE"), string.Empty);
 
             this.Page.Header.Title =
@@ -221,7 +235,7 @@ namespace YAF.Pages.Admin
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         private static void CancelClick([NotNull] object sender, [NotNull] EventArgs e)
         {
-            YafBuildLink.Redirect(ForumPages.admin_languages);
+            BuildLink.Redirect(ForumPages.admin_languages);
         }
 
         /// <summary>
@@ -512,7 +526,7 @@ namespace YAF.Pages.Admin
                     {
                         var txtLocalized = item.FindControlAs<TextBox>("txtLocalized");
 
-                        var lblResourceName = (Label)item.FindControlAs<Label>("lblResourceName");
+                        var lblResourceName = item.FindControlAs<Label>("lblResourceName");
 
                         this.translations.Find(
                                 check => check.PageName.Equals(this.lblPageName.Text)

@@ -13,18 +13,20 @@
                 <YAF:Pager runat="server" ID="PagerTop" OnPageChange="Pager_PageChange" />
                 <asp:Repeater ID="TopicList" runat="server">
                     <ItemTemplate>
-                        <h5 class="card-title">
-                            <%# this.PrintForumName((System.Data.DataRowView)Container.DataItem) %>
-                        </h5>
-                        
-                        
                         <%# this.CreateTopicLine((System.Data.DataRowView)Container.DataItem) %>
-                        
                     </ItemTemplate>
+                    <SeparatorTemplate>
+                        <div class="row">
+                            <div class="col">
+                                <hr/>
+                            </div>
+                        </div>
+                    </SeparatorTemplate>
                 </asp:Repeater>
                 <YAF:Pager runat="server" ID="PagerBottom" LinkedPager="PagerTop" OnPageChange="Pager_PageChange" />
             </div>
-            <div class="card-footer">
+            <asp:Panel runat="server" ID="Footer" 
+                       CssClass="card-footer">
                 <div class="mb-1 form-inline">
                     <asp:Label runat="server" AssociatedControlID="Since">
                         <YAF:LocalizedLabel ID="SinceLabel" runat="server"
@@ -33,11 +35,11 @@
                     <asp:DropDownList ID="Since" runat="server" 
                                       AutoPostBack="True" 
                                       OnSelectedIndexChanged="Since_SelectedIndexChanged" 
-                                      CssClass="select2-select" />
+                                      CssClass="select2-select custom-select" />
                 </div>
-            </div>
-        </div>
+            </asp:Panel>
     </div>
+</div>
 </div>
 <div class="row">
     <div class="col">
@@ -51,4 +53,3 @@
         </div>
     </div>
 </div>
-

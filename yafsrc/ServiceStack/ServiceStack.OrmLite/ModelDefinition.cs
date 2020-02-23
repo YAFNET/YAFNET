@@ -12,9 +12,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
-
 using ServiceStack.DataAnnotations;
+using System.Linq.Expressions;
 
 namespace ServiceStack.OrmLite
 {
@@ -84,6 +83,40 @@ namespace ServiceStack.OrmLite
         private readonly object fieldDefLock = new object();
         private Dictionary<string, FieldDefinition> fieldDefinitionMap;
         private Func<string, string> fieldNameSanitizer;
+        
+        public FieldDefinition[] AutoIdFields { get; private set; }
+
+        public List<FieldDefinition> GetAutoIdFieldDefinitions()
+        {
+            var to = new List<FieldDefinition>();
+            foreach (var fieldDef in FieldDefinitionsArray)
+            {
+                if (fieldDef.AutoId)
+                {
+                    to.Add(fieldDef);
+                }
+            }
+            return to;
+        }
+
+        public FieldDefinition[] GetOrderedFieldDefinitions(ICollection<string> fieldNames, Func<string, string> sanitizeFieldName=null)
+        {
+            if (fieldNames == null)
+                throw new ArgumentNullException(nameof(fieldNames));
+            
+            var fieldDefs = new FieldDefinition[fieldNames.Count];
+
+            var i = 0;
+            foreach (var fieldName in fieldNames)
+            {                 
+                var fieldDef = sanitizeFieldName != null 
+                    ? GetFieldDefinition(fieldName, sanitizeFieldName)
+                    : GetFieldDefinition(fieldName);
+                fieldDefs[i++] = fieldDef ?? throw new ArgumentException($"Field '{fieldName}' not found in '{ModelName}'");
+            }
+
+            return fieldDefs;
+        }
 
         public Dictionary<string, FieldDefinition> GetFieldDefinitionMap(Func<string, string> sanitizeFieldName)
         {
@@ -98,7 +131,6 @@ namespace ServiceStack.OrmLite
                 {
                     fieldDefinitionMap[sanitizeFieldName(fieldDef.FieldName)] = fieldDef;
                 }
-
                 return fieldDefinitionMap;
             }
         }
@@ -121,26 +153,52 @@ namespace ServiceStack.OrmLite
                     if (f.Alias == fieldName)
                         return f;
                 }
-
                 foreach (var f in FieldDefinitionsArray)
                 {
                     if (f.Name == fieldName)
                         return f;
                 }
-
                 foreach (var f in FieldDefinitionsWithAliases)
                 {
                     if (string.Equals(f.Alias, fieldName, StringComparison.OrdinalIgnoreCase))
                         return f;
                 }
-
                 foreach (var f in FieldDefinitionsArray)
                 {
                     if (string.Equals(f.Name, fieldName, StringComparison.OrdinalIgnoreCase))
                         return f;
                 }
             }
+            return null;
+        }
 
+        public FieldDefinition GetFieldDefinition(string fieldName, Func<string, string> sanitizeFieldName)
+        {
+            if (fieldName != null)
+            {
+                foreach (var f in FieldDefinitionsWithAliases)
+                {
+                    if (f.Alias == fieldName || sanitizeFieldName(f.Alias) == fieldName)
+                        return f;
+                }
+                foreach (var f in FieldDefinitionsArray)
+                {
+                    if (f.Name == fieldName || sanitizeFieldName(f.Name) == fieldName)
+                        return f;
+                }
+                foreach (var f in FieldDefinitionsWithAliases)
+                {
+                    if (string.Equals(f.Alias, fieldName, StringComparison.OrdinalIgnoreCase) ||
+                        string.Equals(sanitizeFieldName(f.Alias), fieldName, StringComparison.OrdinalIgnoreCase))
+                        return f;
+                }
+                foreach (var f in FieldDefinitionsArray)
+                {
+                    if (string.Equals(f.Name, fieldName, StringComparison.OrdinalIgnoreCase) ||
+                        string.Equals(sanitizeFieldName(f.Name), fieldName, StringComparison.OrdinalIgnoreCase))
+                        return f;
+                }
+            }
             return null;
         }
 
@@ -154,7 +212,6 @@ namespace ServiceStack.OrmLite
                 if (predicate(f.Alias))
                     return f;
             }
-
             foreach (var f in FieldDefinitionsArray)
             {
                 if (predicate(f.Name))
@@ -174,18 +231,22 @@ namespace ServiceStack.OrmLite
             var allItems = new List<FieldDefinition>(FieldDefinitions);
             allItems.AddRange(IgnoredFieldDefinitions);
             AllFieldDefinitionsArray = allItems.ToArray();
+
+            AutoIdFields = GetAutoIdFieldDefinitions().ToArray();
+
+            OrmLiteConfig.OnModelDefinitionInit?.Invoke(this);
         }
 
         public bool IsRefField(FieldDefinition fieldDef)
         {
-            return fieldDef.Alias != null && this.IsRefField(fieldDef.Alias)
+            return (fieldDef.Alias != null && IsRefField(fieldDef.Alias))
                     || IsRefField(fieldDef.Name);
         }
 
         private bool IsRefField(string name)
         {
-            return this.Alias != null && $"{this.Alias}Id" == name
-                    || $"{this.Name}Id" == name;
+            return (Alias != null && Alias + "Id" == name)
+                    || Name + "Id" == name;
         }
 
         public override string ToString()

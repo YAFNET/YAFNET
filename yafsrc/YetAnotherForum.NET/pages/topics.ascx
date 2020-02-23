@@ -1,4 +1,4 @@
-﻿<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.topics" Codebehind="topics.ascx.cs" %>
+﻿<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Topics" Codebehind="Topics.ascx.cs" %>
 <%@ Import Namespace="YAF.Types.Interfaces" %>
 <%@ Import Namespace="ServiceStack" %>
 <%@ Import Namespace="YAF.Core.Extensions" %>
@@ -39,7 +39,6 @@
         <YAF:ThemeButton ID="NewTopic1" runat="server" 
                          CssClass="float-right mr-1"
                          TextLocalizedTag="BUTTON_NEWTOPIC" TitleLocalizedTag="BUTTON_NEWTOPIC_TT" 
-                         OnClick="NewTopic_Click"
                          Icon="plus"/>
     </div>
 </div>
@@ -70,7 +69,7 @@
                         <asp:PlaceHolder runat="server" Visible="<%# this.Announcements.Items.Count > 0 %>">
                             <div class="row">
                                 <div class="col">
-                                    <hr/>
+                                    <hr />
                                 </div>
                             </div>
                         </asp:PlaceHolder>
@@ -84,7 +83,7 @@
                     <SeparatorTemplate>
                         <div class="row">
                             <div class="col">
-                                <hr/>
+                                <hr />
                             </div>
                         </div>
                     </SeparatorTemplate>
@@ -96,7 +95,7 @@
                         <YAF:LocalizedLabel ID="LocalizedLabel11" runat="server" LocalizedTag="showtopics" />:
                     </div>
                     <div class="col-sm-9">
-                        <asp:DropDownList ID="ShowList" runat="server" AutoPostBack="True" CssClass="select2-select" />                            
+                        <asp:DropDownList ID="ShowList" runat="server" AutoPostBack="True" CssClass="custom-select" />                            
                     </div>
                 </div>
                 <asp:PlaceHolder ID="ForumJumpHolder" runat="server">
@@ -173,16 +172,6 @@
             <YAF:ThemeButton ID="NewTopic2" runat="server" 
                              CssClass="float-right mr-1"
                              TextLocalizedTag="BUTTON_NEWTOPIC" TitleLocalizedTag="BUTTON_NEWTOPIC_TT" 
-                             OnClick="NewTopic_Click"
                              Icon="plus"/>
     </div>
-</div>
-
-<div class="row justify-content-between">
-<div class="col-md py-3">
-    <YAF:IconLegend ID="IconLegend1" runat="server" />
-</div>
-<div class="col-md py-3">
-    <YAF:PageAccess ID="PageAccess1" runat="server" />
-</div>
 </div>

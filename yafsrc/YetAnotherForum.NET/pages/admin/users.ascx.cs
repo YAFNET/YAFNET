@@ -1,8 +1,8 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2019 Ingo Herbote
- * http://www.yetanotherforum.net/
+ * Copyright (C) 2014-2020 Ingo Herbote
+ * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -12,7 +12,7 @@
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
 
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
 
  * Unless required by applicable law or agreed to in writing,
  * Unless required by applicable law or agreed to in writing,
@@ -46,6 +46,7 @@ namespace YAF.Pages.Admin
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
+    using YAF.Types.Flags;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
     using YAF.Utils;
@@ -69,7 +70,7 @@ namespace YAF.Pages.Admin
         public void NewUserClick([NotNull] object sender, [NotNull] EventArgs e)
         {
             // redirect to create new user page
-            YafBuildLink.Redirect(ForumPages.admin_reguser);
+            BuildLink.Redirect(ForumPages.admin_reguser);
         }
 
         /// <summary>
@@ -84,7 +85,7 @@ namespace YAF.Pages.Admin
                 case "edit":
 
                     // we are going to edit user - redirect to edit page
-                    YafBuildLink.Redirect(ForumPages.admin_edituser, "u={0}", e.CommandArgument);
+                    BuildLink.Redirect(ForumPages.admin_edituser, "u={0}", e.CommandArgument);
                     break;
                 case "delete":
 
@@ -105,7 +106,7 @@ namespace YAF.Pages.Admin
                         DBNull.Value))
                     {
                         // examine each if he's possible to delete
-                        foreach (DataRow row in dataTable.Rows)
+                        dataTable.Rows.Cast<DataRow>().ForEach(row =>
                         {
                             if (row["IsGuest"].ToType<int>() > 0)
                             {
@@ -119,15 +120,14 @@ namespace YAF.Pages.Admin
                             if ((row["IsAdmin"] == DBNull.Value || row["IsAdmin"].ToType<int>() <= 0)
                                 && (row["IsHostAdmin"] == DBNull.Value || row["IsHostAdmin"].ToType<int>() <= 0))
                             {
-                                continue;
+                               return;
                             }
 
                             // admin are not deletable either
                             this.PageContext.AddLoadMessage(
                                 this.GetText("ADMIN_USERS", "MSG_DELETE_ADMIN"),
                                 MessageTypes.danger);
-                            return;
-                        }
+                        });
                     }
 
                     // all is good, user can be deleted
@@ -160,7 +160,7 @@ namespace YAF.Pages.Admin
         public void Reset_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
             // re-direct to self.
-            YafBuildLink.Redirect(ForumPages.admin_users);
+            BuildLink.Redirect(ForumPages.admin_users);
         }
 
         /// <summary>
@@ -197,6 +197,23 @@ namespace YAF.Pages.Admin
                            this.Get<IDateTime>().FormatDateTime(suspendedUntil.ToType<DateTime>()));
         }
 
+        /// <summary>
+        /// The get is user disabled label.
+        /// </summary>
+        /// <param name="userFlag">
+        /// The user Flag.
+        /// </param>
+        /// <returns>
+        /// The <see cref="string"/>.
+        /// </returns>
+        protected string GetIsUserDisabledLabel(object userFlag)
+        {
+            var flag = new UserFlags((int)userFlag);
+            return flag.IsApproved
+                       ? string.Empty
+                       : $@"<span class=""badge badge-warning"">{this.GetText("DISABLED")}</span>";
+        }
+
         #endregion
 
         #region Methods
@@ -212,7 +229,7 @@ namespace YAF.Pages.Admin
                 JavaScriptBlocks.BlockUiExecuteJs("SyncUsersMessage", $"#{this.SyncUsers.ClientID}"));
 
             // setup jQuery and Jquery Ui Tabs.
-            YafContext.Current.PageElements.RegisterJsBlock("dropDownToggleJs", JavaScriptBlocks.DropDownToggleJs());
+            BoardContext.Current.PageElements.RegisterJsBlock("dropDownToggleJs", JavaScriptBlocks.DropDownToggleJs());
 
             base.OnPreRender(e);
         }
@@ -228,7 +245,7 @@ namespace YAF.Pages.Admin
             // link to administration index
             this.PageLinks.AddLink(
                 this.GetText("ADMIN_ADMIN", "Administration"),
-                YafBuildLink.GetLink(ForumPages.admin_admin));
+                BuildLink.GetLink(ForumPages.admin_admin));
 
             // current page label (no link)
             this.PageLinks.AddLink(this.GetText("ADMIN_USERS", "TITLE"), string.Empty);
@@ -242,7 +259,7 @@ namespace YAF.Pages.Admin
         /// </summary>
         protected void InitSinceDropdown()
         {
-            var lastVisit = this.Get<IYafSession>().LastVisit;
+            var lastVisit = this.Get<ISession>().LastVisit;
 
             // value 0, for since last visit
             this.Since.Items.Add(
@@ -367,7 +384,21 @@ namespace YAF.Pages.Admin
             this.UpdateStatusTimer.Enabled = false;
 
             // done here...
-            YafBuildLink.Redirect(ForumPages.admin_users);
+            BuildLink.Redirect(ForumPages.admin_users);
+        }
+
+        /// <summary>
+        /// The lock accounts click.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        protected void LockAccountsClick(object sender, EventArgs e)
+        {
+            UserMembershipHelper.LockInactiveAccounts(DateTime.UtcNow.AddYears(-this.YearsOld.Text.ToType<int>()));
         }
 
         /// <summary>
@@ -415,7 +446,7 @@ namespace YAF.Pages.Admin
             // we want to filter topics since last visit
             if (sinceValue == 0)
             {
-                sinceDate = this.Get<IYafSession>().LastVisit ?? DateTime.UtcNow;
+                sinceDate = this.Get<ISession>().LastVisit ?? DateTime.UtcNow;
             }
 
             // we are going to page results

@@ -1,8 +1,8 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2019 Ingo Herbote
- * http://www.yetanotherforum.net/
+ * Copyright (C) 2014-2020 Ingo Herbote
+ * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -12,7 +12,7 @@
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
 
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
 
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
@@ -111,7 +111,7 @@ namespace YAF.Install
         /// <summary>
         ///     Gets ServiceLocator.
         /// </summary>
-        public IServiceLocator ServiceLocator => YafContext.Current.ServiceLocator;
+        public IServiceLocator ServiceLocator => BoardContext.Current.ServiceLocator;
 
         #endregion
 
@@ -271,9 +271,9 @@ namespace YAF.Install
 
             string DynamicConnectionString()
             {
-                if (YafContext.Current.Vars.ContainsKey("ConnectionString"))
+                if (BoardContext.Current.Vars.ContainsKey("ConnectionString"))
                 {
-                    return YafContext.Current.Vars["ConnectionString"] as string;
+                    return BoardContext.Current.Vars["ConnectionString"] as string;
                 }
 
                 return previousProvider();
@@ -345,7 +345,7 @@ namespace YAF.Install
         protected void TestDBConnection_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
             // attempt to connect selected DB...
-            YafContext.Current["ConnectionString"] = this.CurrentConnString;
+            BoardContext.Current["ConnectionString"] = this.CurrentConnString;
 
             if (!this.InstallUpgradeService.TestDatabaseConnection(out var message))
             {
@@ -367,7 +367,7 @@ namespace YAF.Install
             }
 
             // we're done with it...
-            YafContext.Current.Vars.Remove("ConnectionString");
+            BoardContext.Current.Vars.Remove("ConnectionString");
         }
 
         /// <summary>
@@ -387,7 +387,7 @@ namespace YAF.Install
             UpdateStatusLabel(this.lblPermissionApp, DirectoryHasWritePermission(this.Server.MapPath("~/")) ? 2 : 0);
             UpdateStatusLabel(
                 this.lblPermissionUpload,
-                DirectoryHasWritePermission(this.Server.MapPath(YafBoardFolders.Current.Uploads)) ? 2 : 0);
+                DirectoryHasWritePermission(this.Server.MapPath(BoardFolders.Current.Uploads)) ? 2 : 0);
         }
 
         /// <summary>
@@ -451,7 +451,7 @@ namespace YAF.Install
             // done here...
             try
             {
-                this.Get<HttpResponseBase>().Redirect(YafBuildLink.GetLink(ForumPages.forum));
+                this.Get<HttpResponseBase>().Redirect(BuildLink.GetLink(ForumPages.forum));
             }
             catch (Exception)
             {
@@ -592,7 +592,7 @@ namespace YAF.Install
         protected void Wizard_FinishButtonClick([NotNull] object sender, [NotNull] WizardNavigationEventArgs e)
         {
             // reset the board settings...
-            YafContext.Current.BoardSettings = null;
+            BoardContext.Current.BoardSettings = null;
 
             this.Get<HttpResponseBase>().Redirect("~/");
         }
@@ -692,7 +692,7 @@ namespace YAF.Install
                         this.CurrentVersionName.Text = version < 0
                                                            ? "New"
                                                            : $"{versionName} ({version})";
-                        this.UpgradeVersionName.Text = $"{YafForumInfo.AppVersionName} ({YafForumInfo.AppVersion})";
+                        this.UpgradeVersionName.Text = $"{BoardInfo.AppVersionName} ({BoardInfo.AppVersion})";
                     }
                     else
                     {
@@ -1106,7 +1106,7 @@ namespace YAF.Install
                 if (!this.IsConfigPasswordSet)
                 {
                     // fake the board settings
-                    YafContext.Current.BoardSettings = new YafBoardSettings();
+                    BoardContext.Current.BoardSettings = new BoardSettings();
                 }
 
                 this.TimeZones.DataSource = StaticDataHelper.TimeZones();

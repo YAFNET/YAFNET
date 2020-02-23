@@ -6,9 +6,15 @@ namespace ServiceStack.OrmLite.SqlServer.Converters
 {
     public class SqlServerBoolConverter : BoolConverter
     {
-        public override string ColumnDefinition => "BIT";
+        public override string ColumnDefinition
+        {
+            get { return "BIT"; }
+        }
 
-        public override DbType DbType => DbType.Boolean;
+        public override DbType DbType
+        {
+            get { return DbType.Boolean; }
+        }
 
         public override object ToDbValue(Type fieldType, object value)
         {

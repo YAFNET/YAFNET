@@ -1,8 +1,8 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2019 Ingo Herbote
- * http://www.yetanotherforum.net/
+ * Copyright (C) 2014-2020 Ingo Herbote
+ * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -12,7 +12,7 @@
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
 
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
 
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
@@ -55,12 +55,12 @@ namespace YAF
             var errorMessage = @"There has been a serious error loading the forum. No further information is available.";
 
             // show error message if one was provided...
-            if (this.Session[name: "StartupException"] != null)
+            if (this.Session["StartupException"] != null)
             {
                 errorMessage =
-                    $"<strong>Error:</strong> {this.Server.HtmlEncode(s: this.Session[name: "StartupException"].ToString())}";
+                    $"<strong>Error:</strong> {this.Server.HtmlEncode(this.Session["StartupException"].ToString())}";
 
-                this.Session[name: "StartupException"] = null;
+                this.Session["StartupException"] = null;
             }
 
             this.ErrorMessage.Text = errorMessage;

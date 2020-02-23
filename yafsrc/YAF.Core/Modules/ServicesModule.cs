@@ -1,8 +1,8 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2019 Ingo Herbote
- * http://www.yetanotherforum.net/
+ * Copyright (C) 2014-2020 Ingo Herbote
+ * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -12,7 +12,7 @@
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
 
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
 
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
@@ -38,7 +38,7 @@ namespace YAF.Core.Modules
     using YAF.Core.Services;
     using YAF.Core.Services.Cache;
     using YAF.Core.Services.Startup;
-    using YAF.Types;
+    using YAF.Types.Constants;
     using YAF.Types.Interfaces;
     using YAF.Utils;
 
@@ -55,117 +55,117 @@ namespace YAF.Core.Modules
         /// <param name="containerBuilder">The container builder.</param>
         protected override void Load(ContainerBuilder containerBuilder)
         {
-            this.RegisterServices();
-            this.RegisterStartupServices();
+            RegisterServices(containerBuilder);
+            RegisterStartupServices(containerBuilder);
         }
 
         /// <summary>
-        ///     The register services.
+        /// The register services.
         /// </summary>
-        private void RegisterServices()
+        /// <param name="builder">
+        /// The builder.
+        /// </param>
+        private static void RegisterServices(ContainerBuilder builder)
         {
-            var builder = new ContainerBuilder();
-
             // optional defaults.
-            builder.RegisterType<YafSendMail>().As<ISendMail>().SingleInstance().PreserveExistingDefaults();
-            builder.RegisterType<YafActivityStream>().As<IActivityStream>().SingleInstance().PreserveExistingDefaults();
-            builder.RegisterType<YafSendNotification>().As<ISendNotification>().InstancePerLifetimeScope().PreserveExistingDefaults();
-            builder.RegisterType<YafSearch>().As<ISearch>().InstancePerLifetimeScope().PreserveExistingDefaults();
-            builder.RegisterType<YafDigest>().As<IDigest>().InstancePerLifetimeScope().PreserveExistingDefaults();
-            builder.RegisterType<DefaultUserDisplayName>().As<IUserDisplayName>().InstancePerLifetimeScope().PreserveExistingDefaults();
-            builder.RegisterType<DefaultUrlBuilder>().As<IUrlBuilder>().InstancePerLifetimeScope().PreserveExistingDefaults();
-            builder.RegisterType<YafBBCode>().As<IBBCode>().InstancePerLifetimeScope().PreserveExistingDefaults();
-            builder.RegisterType<YafFormatMessage>().As<IFormatMessage>().InstancePerLifetimeScope().PreserveExistingDefaults();
-            builder.RegisterType<YafDbBroker>().AsSelf().InstancePerLifetimeScope().PreserveExistingDefaults();
-            builder.RegisterType<YafAvatars>().As<IAvatars>().InstancePerLifetimeScope().PreserveExistingDefaults();
-            builder.RegisterType<YafAlbum>().As<IAlbum>().InstancePerLifetimeScope().PreserveExistingDefaults();
-            builder.RegisterType<YafAttachment>().As<IAttachment>().InstancePerLifetimeScope().PreserveExistingDefaults();
-            builder.RegisterType<YafResources>().As<IResources>().InstancePerLifetimeScope().PreserveExistingDefaults();
-            builder.RegisterType<IpInfoService>().As<IIpInfoService>().InstancePerLifetimeScope().PreserveExistingDefaults();
-            builder.RegisterType<TreatCacheKeyWithBoard>().As<ITreatCacheKey>().InstancePerLifetimeScope().PreserveExistingDefaults();
-            builder.RegisterType<CurrentBoardId>().As<IHaveBoardID>().InstancePerLifetimeScope().PreserveExistingDefaults();
+            builder.RegisterType<SendMail>().As<ISendMail>().SingleInstance().PreserveExistingDefaults();
+            builder.RegisterType<ActivityStream>().As<IActivityStream>().SingleInstance().PreserveExistingDefaults();
+            builder.RegisterType<SendNotification>().As<ISendNotification>().InstancePerLifetimeScope()
+                .PreserveExistingDefaults();
+            builder.RegisterType<Search>().As<ISearch>().InstancePerLifetimeScope().PreserveExistingDefaults();
+            builder.RegisterType<Digest>().As<IDigest>().InstancePerLifetimeScope().PreserveExistingDefaults();
+            builder.RegisterType<DefaultUserDisplayName>().As<IUserDisplayName>().InstancePerLifetimeScope()
+                .PreserveExistingDefaults();
+            builder.RegisterType<DefaultUrlBuilder>().As<IUrlBuilder>().InstancePerLifetimeScope()
+                .PreserveExistingDefaults();
+            builder.RegisterType<BBCode>().As<IBBCode>().InstancePerLifetimeScope().PreserveExistingDefaults();
+            builder.RegisterType<FormatMessage>().As<IFormatMessage>().InstancePerLifetimeScope()
+                .PreserveExistingDefaults();
+            builder.RegisterType<DataBroker>().AsSelf().InstancePerLifetimeScope().PreserveExistingDefaults();
+            builder.RegisterType<Avatars>().As<IAvatars>().InstancePerLifetimeScope().PreserveExistingDefaults();
+            builder.RegisterType<Album>().As<IAlbum>().InstancePerLifetimeScope().PreserveExistingDefaults();
+            builder.RegisterType<Attachments>().As<IAttachment>().InstancePerLifetimeScope().PreserveExistingDefaults();
+            builder.RegisterType<Reputation>().As<IReputation>().InstancePerLifetimeScope().PreserveExistingDefaults();
+            builder.RegisterType<Resources>().As<IResources>().InstancePerLifetimeScope().PreserveExistingDefaults();
+            builder.RegisterType<IpInfoService>().As<IIpInfoService>().InstancePerLifetimeScope()
+                .PreserveExistingDefaults();
+            builder.RegisterType<TreatCacheKeyWithBoard>().As<ITreatCacheKey>().InstancePerLifetimeScope()
+                .PreserveExistingDefaults();
+            builder.RegisterType<CurrentBoardId>().As<IHaveBoardID>().InstancePerLifetimeScope()
+                .PreserveExistingDefaults();
 
-            builder.RegisterType<YafReadTrackCurrentUser>().As<IReadTrackCurrentUser>().InstancePerYafContext().PreserveExistingDefaults();
+            builder.RegisterType<ReadTrackCurrentUser>().As<IReadTrackCurrentUser>().InstancePerBoardContext()
+                .PreserveExistingDefaults();
 
-            builder.RegisterType<YafSession>().As<IYafSession>().InstancePerLifetimeScope().PreserveExistingDefaults();
-            builder.RegisterType<YafBadWordReplace>().As<IBadWordReplace>().SingleInstance().PreserveExistingDefaults();
-            builder.RegisterType<YafSpamWordCheck>().As<ISpamWordCheck>().SingleInstance().PreserveExistingDefaults();
-            builder.RegisterType<YafSpamCheck>().As<ISpamCheck>().SingleInstance().PreserveExistingDefaults();
-            builder.RegisterType<YafThankYou>().As<IThankYou>().SingleInstance().PreserveExistingDefaults();
+            builder.RegisterType<Session>().As<ISession>().InstancePerLifetimeScope().PreserveExistingDefaults();
+            builder.RegisterType<BadWordReplace>().As<IBadWordReplace>().SingleInstance().PreserveExistingDefaults();
+            builder.RegisterType<SpamWordCheck>().As<ISpamWordCheck>().SingleInstance().PreserveExistingDefaults();
+            builder.RegisterType<SpamCheck>().As<ISpamCheck>().SingleInstance().PreserveExistingDefaults();
+            builder.RegisterType<ThankYou>().As<IThankYou>().SingleInstance().PreserveExistingDefaults();
 
-            builder.RegisterType<YafPermissions>().As<IPermissions>().InstancePerLifetimeScope().PreserveExistingDefaults();
-            builder.RegisterType<YafDateTime>().As<IDateTime>().InstancePerLifetimeScope().PreserveExistingDefaults();
-            builder.RegisterType<YafUserIgnored>().As<IUserIgnored>().InstancePerLifetimeScope().PreserveExistingDefaults();
-            builder.RegisterType<YafBuddy>().As<IBuddy>().InstancePerLifetimeScope().PreserveExistingDefaults();
+            builder.RegisterType<Permissions>().As<IPermissions>().InstancePerLifetimeScope()
+                .PreserveExistingDefaults();
+            builder.RegisterType<DateTime>().As<IDateTime>().InstancePerLifetimeScope().PreserveExistingDefaults();
+            builder.RegisterType<UserIgnored>().As<IUserIgnored>().InstancePerLifetimeScope()
+                .PreserveExistingDefaults();
+            builder.RegisterType<Buddys>().As<IBuddy>().InstancePerLifetimeScope().PreserveExistingDefaults();
 
             builder.RegisterType<InstallUpgradeService>().AsSelf().PreserveExistingDefaults();
 
             // builder.RegisterType<RewriteUrlBuilder>().Named<IUrlBuilder>("rewriter").InstancePerLifetimeScope();
-            builder.RegisterType<YafStopWatch>()
-                .As<IStopWatch>()
-                .InstancePerMatchingLifetimeScope(YafLifetimeScope.Context)
-                .PreserveExistingDefaults();
+            builder.RegisterType<StopWatch>().As<IStopWatch>()
+                .InstancePerMatchingLifetimeScope(LifetimeScope.Context).PreserveExistingDefaults();
 
             // localization registration...
             builder.RegisterType<LocalizationProvider>().InstancePerLifetimeScope().PreserveExistingDefaults();
-            builder.Register(k => k.Resolve<IComponentContext>().Resolve<LocalizationProvider>().Localization).PreserveExistingDefaults();
+            builder.Register(k => k.Resolve<IComponentContext>().Resolve<LocalizationProvider>().Localization)
+                .PreserveExistingDefaults();
 
             // theme registration...
             builder.RegisterType<ThemeProvider>().InstancePerLifetimeScope().PreserveExistingDefaults();
-            builder.Register(k => k.Resolve<IComponentContext>().Resolve<ThemeProvider>().Theme).PreserveExistingDefaults();
+            builder.Register(k => k.Resolve<IComponentContext>().Resolve<ThemeProvider>().Theme)
+                .PreserveExistingDefaults();
 
             // replace rules registration...
-            builder.RegisterType<ProcessReplaceRulesProvider>()
-                .AsSelf()
-                .As<IReadOnlyProvider<IProcessReplaceRules>>()
-                .InstancePerLifetimeScope()
-                .PreserveExistingDefaults();
+            builder.RegisterType<ProcessReplaceRulesProvider>().AsSelf().As<IReadOnlyProvider<IProcessReplaceRules>>()
+                .InstancePerLifetimeScope().PreserveExistingDefaults();
 
             builder.Register((k, p) => k.Resolve<IComponentContext>().Resolve<ProcessReplaceRulesProvider>(p).Instance)
-                .InstancePerLifetimeScope()
-                .PreserveExistingDefaults();
+                .InstancePerLifetimeScope().PreserveExistingDefaults();
 
             // module resolution bindings...
-            builder.RegisterGeneric(typeof(StandardModuleManager<>)).As(typeof(IModuleManager<>)).InstancePerLifetimeScope();
-
-            // background emailing...
-            builder.RegisterType<YafSendMailThreaded>().As<ISendMailThreaded>().PreserveExistingDefaults();
+            builder.RegisterGeneric(typeof(StandardModuleManager<>)).As(typeof(IModuleManager<>))
+                .InstancePerLifetimeScope();
 
             // style transformation...
-            builder.RegisterType<StyleTransform>().As<IStyleTransform>().InstancePerYafContext().PreserveExistingDefaults();
-
-            // board settings...
-            builder.RegisterType<CurrentBoardSettings>().AsSelf().InstancePerYafContext().PreserveExistingDefaults();
-            builder.Register(k => k.Resolve<IComponentContext>().Resolve<CurrentBoardSettings>().Instance)
-                .ExternallyOwned()
+            builder.RegisterType<StyleTransform>().As<IStyleTransform>().InstancePerBoardContext()
                 .PreserveExistingDefaults();
 
-            // favorite topic is based on YafContext
-            builder.RegisterType<YafFavoriteTopic>().As<IFavoriteTopic>().InstancePerYafContext().PreserveExistingDefaults();
+            // board settings...
+            builder.RegisterType<CurrentBoardSettings>().AsSelf().InstancePerBoardContext().PreserveExistingDefaults();
+            builder.Register(k => k.Resolve<IComponentContext>().Resolve<CurrentBoardSettings>().Instance)
+                .ExternallyOwned().PreserveExistingDefaults();
 
-            this.UpdateRegistry(builder);
+            // favorite topic is based on BoardContext
+            builder.RegisterType<FavoriteTopic>().As<IFavoriteTopic>().InstancePerBoardContext()
+                .PreserveExistingDefaults();
         }
 
         /// <summary>
-        ///     The register services.
+        /// The register startup services.
         /// </summary>
-        private void RegisterStartupServices()
+        /// <param name="builder">
+        /// The builder.
+        /// </param>
+        private static void RegisterStartupServices(ContainerBuilder builder)
         {
-            var builder = new ContainerBuilder();
-
-            builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly())
-                .AssignableTo<IStartupService>()
-                .As<IStartupService>()
-                .InstancePerLifetimeScope();
+            builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly()).AssignableTo<IStartupService>()
+                .As<IStartupService>().InstancePerLifetimeScope();
 
             builder.Register(
-                x => x.Resolve<IComponentContext>()
-                    .Resolve<IEnumerable<IStartupService>>()
-                    .FirstOrDefault(t => t is StartupInitializeDb) as
-                    StartupInitializeDb)
+                    x => x.Resolve<IComponentContext>().Resolve<IEnumerable<IStartupService>>()
+                             .FirstOrDefault(t => t is StartupInitializeDb) as StartupInitializeDb)
                 .InstancePerLifetimeScope();
-
-            this.UpdateRegistry(builder);
         }
 
         #endregion

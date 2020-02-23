@@ -4,14 +4,14 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using ServiceStack.Text;
 
 namespace ServiceStack
 {
-    using System.Collections;
-
     public static class PathUtils
     {
         public static string MapAbsolutePath(this string relativePath, string appendPartialPathModifier)
@@ -33,7 +33,6 @@ namespace ServiceStack
                 ? PclExport.Instance.MapAbsolutePath(relativePath, $"{sep}..{sep}..{sep}..")
                 : PclExport.Instance.MapAbsolutePath(relativePath, $"{sep}..{sep}..");
         }
-
         /// <summary>
         /// Maps the path of a file in the context of a VS 2017+ multi-platform project in a Console App
         /// </summary>
@@ -67,7 +66,7 @@ namespace ServiceStack
         public static string MapHostAbsolutePath(this string relativePath)
         {
             var sep = PclExport.Instance.DirSep;
-#if !NETSTANDARD2_0
+#if !NETSTANDARD
             return PclExport.Instance.MapAbsolutePath(relativePath, $"{sep}..");
 #else
             return PclExport.Instance.MapAbsolutePath(relativePath, $"{sep}..{sep}..{sep}..");
@@ -108,13 +107,40 @@ namespace ServiceStack
             return dirPath;
         }
 
+        private static readonly char[] Slashes = { '/', '\\' };
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)] //only trim/allocate if need to
+        private static string TrimEndIf(this string path, char[] chars)
+        {
+            if (string.IsNullOrEmpty(path) || chars == null || chars.Length == 0)
+                return path;
+                
+            var lastChar = path[path.Length - 1];
+            foreach (var c in chars)
+            {
+                if (c == lastChar)
+                    return path.TrimEnd(chars);
+            }
+            return path;
+        }
+
+        public static string CombineWith(this string path, string withPath)
+        {
+            if (path == null)
+                path = "";
+            if (string.IsNullOrEmpty(withPath))
+                return path;
+            var startPath = path.TrimEndIf(Slashes);
+            return startPath + (withPath[0] == '/' ? withPath : "/" + withPath);
+        }
+        
         public static string CombineWith(this string path, params string[] thesePaths)
         {
             if (path == null)
-                path = string.Empty;
+                path = "";
 
             if (thesePaths.Length == 1 && thesePaths[0] == null) return path;
-            var startPath = path.Length > 1 ? path.TrimEnd('/', '\\') : path;
+            var startPath = path.TrimEndIf(Slashes);
 
             var sb = StringBuilderThreadStatic.Allocate();
             sb.Append(startPath);
@@ -127,7 +153,7 @@ namespace ServiceStack
             if (thesePaths.Length == 1 && thesePaths[0] == null) return path;
 
             var sb = StringBuilderThreadStatic.Allocate();
-            sb.Append(path.TrimEnd('/', '\\'));
+            sb.Append(path.TrimEndIf(Slashes));
             AppendPaths(sb, ToStrings(thesePaths));
             return StringBuilderThreadStatic.ReturnAndFree(sb);
         }
@@ -140,7 +166,7 @@ namespace ServiceStack
             var schemePos = path.IndexOf("://", StringComparison.Ordinal);
             var prefix = schemePos >= 0
                 ? path.Substring(0, schemePos + 3)
-                : string.Empty;
+                : "";
 
             var parts = path.Substring(prefix.Length).Split('/').ToList();
             var combinedPaths = new List<string>();
@@ -157,10 +183,10 @@ namespace ServiceStack
 
             var resolvedPath = string.Join("/", combinedPaths);
             if (path[0] == '/' && prefix.Length == 0)
-                resolvedPath = $"{'/'}{resolvedPath}";
+                resolvedPath = "/" + resolvedPath;
 
             return path[path.Length - 1] == '/' && resolvedPath.Length > 0
-                ? $"{prefix}{resolvedPath}{'/'}"
+                ? prefix + resolvedPath + "/"
                 : prefix + resolvedPath;
         }
 
@@ -171,11 +197,10 @@ namespace ServiceStack
             {
                 to[i] = thesePaths[i].ToString();
             }
-
             return to;
         }
 
-        internal static List<To> Map<To>(IEnumerable items, Func<object, To> converter)
+        internal static List<To> Map<To>(System.Collections.IEnumerable items, Func<object, To> converter)
         {
             if (items == null)
                 return new List<To>();
@@ -185,7 +210,6 @@ namespace ServiceStack
             {
                 list.Add(converter(item));
             }
-
             return list;
         }    
     }

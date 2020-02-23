@@ -1,13 +1,24 @@
 using System;
 using System.Collections.Generic;
+using System.Data.Common;
 using System.Linq;
 using System.Linq.Expressions;
-
+using System.Text;
 using ServiceStack.Text;
 
 namespace ServiceStack.OrmLite
 {
     public delegate string JoinFormatDelegate(IOrmLiteDialectProvider dialect, ModelDefinition tableDef, string joinExpr);
+
+    public class TableOptions
+    {
+        public string Expression { get; set; }
+        public string Alias { get; set; }
+
+        internal JoinFormatDelegate JoinFormat;
+        internal ModelDefinition ModelDef;
+        internal string ParamName;
+    }
 
     public abstract partial class SqlExpression<T> : ISqlExpression
     {
@@ -23,23 +34,30 @@ namespace ServiceStack.OrmLite
             return InternalJoin("INNER JOIN", joinExpr);
         }
 
-        public SqlExpression<T> Join<Target>(Expression<Func<T, Target, bool>> joinExpr, JoinFormatDelegate joinFormat)
+        public SqlExpression<T> Join<Target>(Expression<Func<T, Target, bool>> joinExpr, TableOptions options)
         {
-            if (joinFormat == null)
-                throw new ArgumentNullException(nameof(joinFormat));
-
-            return InternalJoin("INNER JOIN", joinExpr, joinFormat);
+            if (options == null)
+                throw new ArgumentNullException(nameof(options));
+            
+            if (options.Expression != null)
+                throw new ArgumentException("Can't set both Join Expression and TableOptions Expression");
+            
+            return InternalJoin("INNER JOIN", joinExpr, options);
         }
+        
+        public SqlExpression<T> Join<Target>(Expression<Func<T, Target, bool>> joinExpr, JoinFormatDelegate joinFormat) => 
+            InternalJoin("INNER JOIN", joinExpr, joinFormat ?? throw new ArgumentNullException(nameof(joinFormat)));
 
         public SqlExpression<T> Join<Source, Target>(Expression<Func<Source, Target, bool>> joinExpr = null)
         {
             return InternalJoin("INNER JOIN", joinExpr);
         }
 
-        public SqlExpression<T> Join<Source, Target>(Expression<Func<Source, Target, bool>> joinExpr, JoinFormatDelegate joinFormat)
-        {
-            return InternalJoin("INNER JOIN", joinExpr, joinFormat);
-        }
+        public SqlExpression<T> Join<Source, Target>(Expression<Func<Source, Target, bool>> joinExpr, JoinFormatDelegate joinFormat) => 
+            InternalJoin("INNER JOIN", joinExpr, joinFormat);
+
+        public SqlExpression<T> Join<Source, Target>(Expression<Func<Source, Target, bool>> joinExpr, TableOptions options) => 
+            InternalJoin("INNER JOIN", joinExpr, options);
 
         public SqlExpression<T> Join(Type sourceType, Type targetType, Expression joinExpr = null)
         {
@@ -51,23 +69,22 @@ namespace ServiceStack.OrmLite
             return InternalJoin("LEFT JOIN", joinExpr);
         }
 
-        public SqlExpression<T> LeftJoin<Target>(Expression<Func<T, Target, bool>> joinExpr, JoinFormatDelegate joinFormat)
-        {
-            if (joinFormat == null)
-                throw new ArgumentNullException(nameof(joinFormat));
+        public SqlExpression<T> LeftJoin<Target>(Expression<Func<T, Target, bool>> joinExpr, JoinFormatDelegate joinFormat) => 
+            InternalJoin("LEFT JOIN", joinExpr, joinFormat ?? throw new ArgumentNullException(nameof(joinFormat)));
 
-            return InternalJoin("LEFT JOIN", joinExpr, joinFormat);
-        }
+        public SqlExpression<T> LeftJoin<Target>(Expression<Func<T, Target, bool>> joinExpr, TableOptions options) => 
+            InternalJoin("LEFT JOIN", joinExpr, options ?? throw new ArgumentNullException(nameof(options)));
 
         public SqlExpression<T> LeftJoin<Source, Target>(Expression<Func<Source, Target, bool>> joinExpr = null)
         {
             return InternalJoin("LEFT JOIN", joinExpr);
         }
 
-        public SqlExpression<T> LeftJoin<Source, Target>(Expression<Func<Source, Target, bool>> joinExpr, JoinFormatDelegate joinFormat)
-        {
-            return InternalJoin("LEFT JOIN", joinExpr, joinFormat);
-        }
+        public SqlExpression<T> LeftJoin<Source, Target>(Expression<Func<Source, Target, bool>> joinExpr, JoinFormatDelegate joinFormat) => 
+            InternalJoin("LEFT JOIN", joinExpr, joinFormat);
+
+        public SqlExpression<T> LeftJoin<Source, Target>(Expression<Func<Source, Target, bool>> joinExpr, TableOptions options) => 
+            InternalJoin("LEFT JOIN", joinExpr, options);
 
         public SqlExpression<T> LeftJoin(Type sourceType, Type targetType, Expression joinExpr = null)
         {
@@ -79,23 +96,22 @@ namespace ServiceStack.OrmLite
             return InternalJoin("RIGHT JOIN", joinExpr);
         }
 
-        public SqlExpression<T> RightJoin<Target>(Expression<Func<T, Target, bool>> joinExpr, JoinFormatDelegate joinFormat)
-        {
-            if (joinFormat == null)
-                throw new ArgumentNullException(nameof(joinFormat));
+        public SqlExpression<T> RightJoin<Target>(Expression<Func<T, Target, bool>> joinExpr, JoinFormatDelegate joinFormat) => 
+            InternalJoin("RIGHT JOIN", joinExpr, joinFormat ?? throw new ArgumentNullException(nameof(joinFormat)));
 
-            return InternalJoin("RIGHT JOIN", joinExpr, joinFormat);
-        }
+        public SqlExpression<T> RightJoin<Target>(Expression<Func<T, Target, bool>> joinExpr, TableOptions options) => 
+            InternalJoin("RIGHT JOIN", joinExpr, options ?? throw new ArgumentNullException(nameof(options)));
 
         public SqlExpression<T> RightJoin<Source, Target>(Expression<Func<Source, Target, bool>> joinExpr = null)
         {
             return InternalJoin("RIGHT JOIN", joinExpr);
         }
 
-        public SqlExpression<T> RightJoin<Source, Target>(Expression<Func<Source, Target, bool>> joinExpr, JoinFormatDelegate joinFormat)
-        {
-            return InternalJoin("RIGHT JOIN", joinExpr, joinFormat);
-        }
+        public SqlExpression<T> RightJoin<Source, Target>(Expression<Func<Source, Target, bool>> joinExpr, JoinFormatDelegate joinFormat) => 
+            InternalJoin("RIGHT JOIN", joinExpr, joinFormat);
+
+        public SqlExpression<T> RightJoin<Source, Target>(Expression<Func<Source, Target, bool>> joinExpr, TableOptions options) => 
+            InternalJoin("RIGHT JOIN", joinExpr, options);
 
         public SqlExpression<T> FullJoin<Target>(Expression<Func<T, Target, bool>> joinExpr = null)
         {
@@ -117,14 +133,17 @@ namespace ServiceStack.OrmLite
             return InternalJoin("CROSS JOIN", joinExpr);
         }
 
-        protected SqlExpression<T> InternalJoin<Source, Target>(string joinType, Expression<Func<Source, Target, bool>> joinExpr, JoinFormatDelegate joinFormat = null)
+        protected SqlExpression<T> InternalJoin<Source, Target>(string joinType, Expression<Func<Source, Target, bool>> joinExpr, JoinFormatDelegate joinFormat) =>
+            InternalJoin(joinType, joinExpr, joinFormat != null ? new TableOptions { JoinFormat = joinFormat } : null);
+
+        protected SqlExpression<T> InternalJoin<Source, Target>(string joinType, Expression<Func<Source, Target, bool>> joinExpr, TableOptions options = null)
         {
             var sourceDef = typeof(Source).GetModelDefinition();
             var targetDef = typeof(Target).GetModelDefinition();
 
-            return InternalJoin(joinType, joinExpr, sourceDef, targetDef, joinFormat);
+            return InternalJoin(joinType, joinExpr, sourceDef, targetDef, options);
         }
-
+        
         protected SqlExpression<T> InternalJoin<Source, Target>(string joinType, Expression joinExpr)
         {
             var sourceDef = typeof(Source).GetModelDefinition();
@@ -169,31 +188,50 @@ namespace ServiceStack.OrmLite
                 return string.Empty;
             }
 
-            return
-                $"{(isCrossJoin ? "WHERE" : "ON")}\n({this.DialectProvider.GetQuotedTableName(parentDef)}.{this.SqlColumn(parentDef.PrimaryKey.FieldName)} = {this.DialectProvider.GetQuotedTableName(childDef)}.{this.SqlColumn(refField.FieldName)})";
+            return string.Format("{0}\n({1}.{2} = {3}.{4})",
+                isCrossJoin ? "WHERE" : "ON",
+                DialectProvider.GetQuotedTableName(parentDef),
+                SqlColumn(parentDef.PrimaryKey.FieldName),
+                DialectProvider.GetQuotedTableName(childDef),
+                SqlColumn(refField.FieldName));
         }
 
         public SqlExpression<T> CustomJoin(string joinString)
         {
             PrefixFieldWithTableName = true;
-            FromExpression += $" {joinString}";
+            FromExpression += " " + joinString;
             return this;
         }
 
-        protected virtual SqlExpression<T> InternalJoin(string joinType, Expression joinExpr, ModelDefinition sourceDef, ModelDefinition targetDef, JoinFormatDelegate joinFormat = null)
+        private TableOptions joinAlias;
+
+        protected virtual SqlExpression<T> InternalJoin(string joinType, Expression joinExpr, ModelDefinition sourceDef, ModelDefinition targetDef, TableOptions options = null)
         {
             PrefixFieldWithTableName = true;
 
-            // Changes how Sql Expressions are generated.
-            useFieldName = true;
-            this.Sep = " ";
+            Reset();
+            
+            var joinFormat = options?.JoinFormat;
+            if (options?.Alias != null) //Set joinAlias
+            {
+                options.ParamName = joinExpr is LambdaExpression l && l.Parameters.Count == 2
+                    ? l.Parameters[1].Name
+                    : null;
+                if (options.ParamName != null)
+                {
+                    joinFormat = null;
+                    options.ModelDef = targetDef;
+                    joinAlias = options;
+                }
+            } 
+            
 
             if (!tableDefs.Contains(sourceDef))
                 tableDefs.Add(sourceDef);
             if (!tableDefs.Contains(targetDef))
                 tableDefs.Add(targetDef);
 
-            var isCrossJoin = "CROSS JOIN".Equals(joinType);
+            var isCrossJoin = "CROSS JOIN" == joinType;
 
             var sqlExpr = joinExpr != null 
                 ? InternalCreateSqlFromExpression(joinExpr, isCrossJoin)
@@ -205,14 +243,27 @@ namespace ServiceStack.OrmLite
 
             FromExpression += joinFormat != null
                 ? $" {joinType} {joinFormat(DialectProvider, joinDef, sqlExpr)}"
-                : $" {joinType} {SqlTable(joinDef)} {sqlExpr}";
+                : joinAlias != null
+                    ? $" {joinType} {SqlTable(joinDef)} {DialectProvider.GetQuotedName(joinAlias.Alias)} {sqlExpr}"
+                    : $" {joinType} {SqlTable(joinDef)} {sqlExpr}";
+
+
+            if (joinAlias != null) //Unset joinAlias
+            {
+                joinAlias = null;
+                if (options != null)
+                {
+                    options.ParamName = null;
+                    options.ModelDef = null;
+                }
+            }
 
             return this;
         }
 
         public string SelectInto<TModel>()
         {
-            if (this.CustomSelect && this.OnlyFields == null || typeof(TModel) == typeof(T) && !this.PrefixFieldWithTableName)
+            if ((CustomSelect && OnlyFields == null) || (typeof(TModel) == typeof(T) && !PrefixFieldWithTableName))
             {
                 return ToSelectStatement();
             }
@@ -225,13 +276,13 @@ namespace ServiceStack.OrmLite
 
             if (typeof(TModel) != typeof(List<object>) && 
                 typeof(TModel) != typeof(Dictionary<string, object>) &&
-                typeof(TModel) != typeof(object))
+                typeof(TModel) != typeof(object) && //dynamic
+                !typeof(TModel).IsValueTuple())
             {
-                // dynamic
                 selectDef = typeof(TModel).GetModelDefinition();
                 if (selectDef != modelDef && tableDefs.Contains(selectDef))
                 {
-                    orderedDefs = tableDefs.ToList(); // clone
+                    orderedDefs = tableDefs.ToList(); //clone
                     orderedDefs.Remove(selectDef);
                     orderedDefs.Insert(0, selectDef);
                 }
@@ -262,12 +313,12 @@ namespace ServiceStack.OrmLite
                                     }
                                     else
                                     {
-                                        sbSelect.Append(DialectProvider.GetRowVersionColumnName(fieldDef, DialectProvider.GetTableName(tableDef.ModelName)));
+                                        sbSelect.Append(DialectProvider.GetRowVersionSelectColumn(fieldDef, DialectProvider.GetTableName(tableDef.ModelName)));
                                     }
                                 }
                                 else
                                 {
-                                    sbSelect.Append($"{fieldDef.CustomSelect} AS {fieldDef.FieldName}");
+                                    sbSelect.Append(fieldDef.CustomSelect + " AS " + fieldDef.FieldName);
                                 }
 
                                 continue;
@@ -288,18 +339,24 @@ namespace ServiceStack.OrmLite
                             if (sbSelect.Length > 0)
                                 sbSelect.Append(", ");
 
+                            var tableAlias = tableDef == modelDef // Use TableAlias if source modelDef
+                                ? TableAlias
+                                : null;
+                                    
                             if (fieldDef.CustomSelect == null)
                             {
                                 if (!fieldDef.IsRowVersion)
                                 {
-                                    sbSelect.Append(GetQuotedColumnName(tableDef, tableFieldDef.Name));
+                                    sbSelect.Append(tableAlias == null 
+                                        ? GetQuotedColumnName(tableDef, tableFieldDef.Name)
+                                        : GetQuotedColumnName(tableDef, tableAlias, tableFieldDef.Name));
 
                                     if (tableFieldDef.RequiresAlias)
                                         sbSelect.Append(" AS ").Append(SqlColumn(fieldDef.Name));
                                 }
                                 else
                                 {
-                                    sbSelect.Append(DialectProvider.GetRowVersionColumnName(fieldDef, DialectProvider.GetTableName(tableDef.ModelName)));
+                                    sbSelect.Append(DialectProvider.GetRowVersionSelectColumn(fieldDef, DialectProvider.GetTableName(tableAlias ?? tableDef.ModelName)));
                                 }
                             }
                             else
@@ -330,7 +387,11 @@ namespace ServiceStack.OrmLite
                             if (sbSelect.Length > 0)
                                 sbSelect.Append(", ");
 
-                            sbSelect.Append($"{DialectProvider.GetQuotedColumnName(tableDef, matchingField)} as {SqlColumn(fieldDef.Name)}");
+                            var tableAlias = tableDef == modelDef // Use TableAlias if source modelDef
+                                ? TableAlias
+                                : null;
+                                    
+                            sbSelect.Append($"{DialectProvider.GetQuotedColumnName(tableDef, tableAlias, matchingField)} as {SqlColumn(fieldDef.Name)}");
                             
                             break;
                         }
@@ -341,7 +402,7 @@ namespace ServiceStack.OrmLite
             var select = StringBuilderCache.ReturnAndFree(sbSelect);
 
             var columns = select.Length > 0 ? select : "*";
-            SelectExpression = $"SELECT {(this.selectDistinct ? "DISTINCT " : string.Empty)}{columns}";
+            SelectExpression = "SELECT " + (selectDistinct ? "DISTINCT " : "") + columns;
 
             return ToSelectStatement();
         }
@@ -444,38 +505,31 @@ namespace ServiceStack.OrmLite
 
         public virtual SqlExpression<T> Or<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, bool>> predicate) => AppendToWhere("OR", predicate);
 
-        public Tuple<ModelDefinition, FieldDefinition> FirstMatchingField(string fieldName)
+        public Tuple<ModelDefinition,FieldDefinition> FirstMatchingField(string fieldName)
         {
             foreach (var tableDef in tableDefs)
             {
-                var firstField = tableDef.FieldDefinitions.FirstOrDefault(
-                    x => string.Compare(x.Name, fieldName, StringComparison.OrdinalIgnoreCase) == 0 || string.Compare(
-                             x.FieldName,
-                             fieldName,
-                             StringComparison.OrdinalIgnoreCase) == 0);
+                var firstField = tableDef.FieldDefinitions.FirstOrDefault(x => 
+                    string.Compare(x.Name, fieldName, StringComparison.OrdinalIgnoreCase) == 0
+                 || string.Compare(x.FieldName, fieldName, StringComparison.OrdinalIgnoreCase) == 0);
 
                 if (firstField != null)
                 {
                     return Tuple.Create(tableDef, firstField);
                 }
             }
-
-            // Fallback to fully qualified '{Table}{Field}' property convention
+            //Fallback to fully qualified '{Table}{Field}' property convention
             foreach (var tableDef in tableDefs)
             {
-                var firstField = tableDef.FieldDefinitions.FirstOrDefault(
-                    x => string.Compare(tableDef.Name + x.Name, fieldName, StringComparison.OrdinalIgnoreCase) == 0
-                         || string.Compare(
-                             tableDef.ModelName + x.FieldName,
-                             fieldName,
-                             StringComparison.OrdinalIgnoreCase) == 0);
+                var firstField = tableDef.FieldDefinitions.FirstOrDefault(x =>
+                    string.Compare(tableDef.Name + x.Name, fieldName, StringComparison.OrdinalIgnoreCase) == 0
+                 || string.Compare(tableDef.ModelName + x.FieldName, fieldName, StringComparison.OrdinalIgnoreCase) == 0);
 
                 if (firstField != null)
                 {
                     return Tuple.Create(tableDef, firstField);
                 }
             }
-
             return null;
         }
     }

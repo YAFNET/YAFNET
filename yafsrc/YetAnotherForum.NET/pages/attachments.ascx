@@ -1,20 +1,14 @@
-﻿<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.attachments" Codebehind="attachments.ascx.cs" %>
+﻿<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Attachments" Codebehind="Attachments.ascx.cs" %>
 
 <%@ Import Namespace="YAF.Types.Extensions" %>
 
 <YAF:PageLinks runat="server" ID="PageLinks" />
 
 <div class="row">
-    <div class="col-xl-12">
-        <h2><YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="TITLE" /></h2>
+    <div class="col-sm-auto">
+        <YAF:ProfileMenu runat="server"></YAF:ProfileMenu>
     </div>
-</div>
-
-<div class="row">
-<div class="col-sm-auto">
-    <YAF:ProfileMenu ID="ProfileMenu1" runat="server" />
-</div>
-<div class="col">
+    <div class="col">
 <div class="row">
     <div class="col">
         <div class="card mb-3">
@@ -38,7 +32,7 @@
                                 <%# this.Eval( "FileName") %> <em>(<%# this.Eval("Bytes").ToType<int>() / 1024%> kb)</em>
                             
                                 <YAF:ThemeButton ID="ThemeButtonDelete" runat="server"
-                                                 CommandName='delete' CommandArgument='<%# this.Eval( "ID") %>' 
+                                                 CommandName="delete" CommandArgument='<%# this.Eval( "ID") %>' 
                                                  TitleLocalizedTag="DELETE" 
                                                  TextLocalizedTag="DELETE"
                                                  Icon="trash"
@@ -58,6 +52,7 @@
                                  OnClick="DeleteAttachments_Click"
                                  Icon="trash"
                                  Type="Danger"
+                                 Visible="<%# this.List.Items.Count > 0 %>"
                                  CssClass="m-3"/>
                 <YAF:Pager ID="PagerBottom" runat="server" LinkedPager="PagerTop" />
             </div>

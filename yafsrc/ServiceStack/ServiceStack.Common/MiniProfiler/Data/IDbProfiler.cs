@@ -15,7 +15,6 @@ namespace ServiceStack.MiniProfiler.Data
         /// <param name="executeType"></param>
         void ExecuteStart(DbCommand profiledDbCommand, ExecuteType executeType);
         
-
         /// <summary>
         /// Called when a reader finishes executing
         /// </summary>

@@ -22,15 +22,6 @@ jQuery(document).ready(function () {
 
 		return false;
 	});
-    // Cookie alert
-    if (!getCookie("YAF-AcceptCookies")) {
-        $(".cookiealert").addClass("show");
-    }
-
-    $(".acceptcookies").click(function () {
-        setCookie("YAF-AcceptCookies", true, 180);
-        $(".cookiealert").removeClass("show");
-    });
 
     // Numeric Spinner Inputs
     jQuery("input[type='number']").TouchSpin({
@@ -57,6 +48,10 @@ jQuery(document).ready(function () {
         templateResult: formatState,
         templateSelection: formatState,
         width: "style"
+    });
+
+    jQuery(".thanks-popover").popover({
+        template: '<div class="popover" role="tooltip"><div class="arrow"></div><h3 class="popover-header"></h3><div class="popover-body popover-body-scrollable"></div></div>'
     });
 
     jQuery('[data-toggle="tooltip"]').tooltip();
@@ -112,6 +107,14 @@ jQuery(document).ready(function () {
                 getSearchResultsData(pageNumberSearch);
             }
 
-        });
+         });
     }
+
+    // Notify dropdown
+    $(".dropdown-notify").on("show.bs.dropdown",
+        function() {
+            var pageSize = 5;
+            var pageNumber = 0;
+            getNotifyData(pageSize, pageNumber, false);
+        });
 });

@@ -2,8 +2,6 @@ using System.Collections.Generic;
 
 namespace ServiceStack.Configuration
 {
-    using ServiceStack.Web;
-
     public interface IAppSettings
     {
         Dictionary<string, string> GetAll();
@@ -20,6 +18,8 @@ namespace ServiceStack.Configuration
 
         IDictionary<string, string> GetDictionary(string key);
 
+        List<KeyValuePair<string, string>> GetKeyValuePairs(string key);
+
         T Get<T>(string name);
 
         T Get<T>(string name, T defaultValue);
@@ -27,6 +27,6 @@ namespace ServiceStack.Configuration
 
     public interface IRuntimeAppSettings
     {
-        T Get<T>(IRequest request, string name, T defaultValue);
+        T Get<T>(Web.IRequest request, string name, T defaultValue);
     }
 }

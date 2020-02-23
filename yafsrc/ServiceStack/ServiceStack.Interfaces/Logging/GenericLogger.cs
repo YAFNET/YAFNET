@@ -25,7 +25,8 @@ namespace ServiceStack.Logging
             if (CaptureLogs)
                 Logs.AppendLine(message);
 
-            this.OnMessage?.Invoke(message);
+            if (OnMessage != null)
+                OnMessage(message);
         }
 
         /// <summary>
@@ -46,12 +47,11 @@ namespace ServiceStack.Logging
         /// </summary>
         public virtual void Log(object message, Exception exception)
         {
-            var msg = message == null ? string.Empty : message.ToString();
+            string msg = message == null ? string.Empty : message.ToString();
             if (exception != null)
             {
-                msg += $", Exception: {exception.Message}";
+                msg += ", Exception: " + exception.Message;
             }
-
             OnLog(msg);
         }
 
@@ -60,7 +60,7 @@ namespace ServiceStack.Logging
         /// </summary>
         public virtual void LogFormat(object message, params object[] args)
         {
-            var msg = message == null ? string.Empty : message.ToString();
+            string msg = message == null ? string.Empty : message.ToString();
             OnLog(string.Format(msg, args));
         }
 
@@ -69,7 +69,7 @@ namespace ServiceStack.Logging
         /// </summary>
         public virtual void Log(object message)
         {
-            var msg = message == null ? string.Empty : message.ToString();
+            string msg = message == null ? string.Empty : message.ToString();
             OnLog(msg);
         }
 

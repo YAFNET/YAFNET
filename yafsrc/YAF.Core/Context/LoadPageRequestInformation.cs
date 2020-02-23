@@ -1,8 +1,8 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2019 Ingo Herbote
- * http://www.yetanotherforum.net/
+ * Copyright (C) 2014-2020 Ingo Herbote
+ * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -12,7 +12,7 @@
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
 
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
 
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
@@ -104,7 +104,7 @@ namespace YAF.Core
                 out var isSearchEngine,
                 out var dontTrack);
 
-            dontTrack = !this.Get<YafBoardSettings>().ShowCrawlersInActiveList && isSearchEngine;
+            dontTrack = !this.Get<BoardSettings>().ShowCrawlersInActiveList && isSearchEngine;
 
             // don't track if this is a feed reader. May be to make it switchable in host settings.
             // we don't have page 'g' token for the feed page.
@@ -120,7 +120,7 @@ namespace YAF.Core
             @event.Data.Browser = browser;
             @event.Data.Platform = platform;
 
-            YafContext.Current.Vars["DontTrack"] = dontTrack;
+            BoardContext.Current.Vars["DontTrack"] = dontTrack;
         }
 
         #endregion

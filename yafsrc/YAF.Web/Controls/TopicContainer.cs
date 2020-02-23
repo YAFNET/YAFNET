@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2020 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -12,7 +12,7 @@
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
 
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
 
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
@@ -26,6 +26,7 @@ namespace YAF.Web.Controls
 {
     using System;
     using System.Data;
+    using System.Globalization;
     using System.Text;
     using System.Web.UI;
     using System.Web.UI.WebControls;
@@ -47,20 +48,6 @@ namespace YAF.Web.Controls
     [ToolboxData("<{0}:TopicContainer runat=server></{0}:TopicContainer>")]
     public class TopicContainer : BaseControl
     {
-        #region Constants and Fields
-
-        /// <summary>
-        ///   The last post tooltip string.
-        /// </summary>
-        private string altLastPost;
-
-        /// <summary>
-        ///   The first unread post tooltip string.
-        /// </summary>
-        private string altFirstUnreadPost;
-
-        #endregion
-
         #region Properties
 
         /// <summary>
@@ -81,31 +68,8 @@ namespace YAF.Web.Controls
             set
             {
                 this.TopicRow = value as DataRowView;
-                this.TopicRowID = this.TopicRow["LinkTopicID"].ToType<int>();
+                this.TopicRowID = this.TopicRow?["LinkTopicID"].ToType<int>();
             }
-        }
-
-        /// <summary>
-        ///   Gets or sets a value indicating whether IsAlt.
-        /// </summary>
-        public bool IsAlt { get; set; }
-
-        /// <summary>
-        ///   Gets or sets a value indicating whether ShowTopicPosted.
-        /// </summary>
-        public bool ShowTopicPosted
-        {
-            get
-            {
-                if (this.ViewState["ShowTopicPosted"] == null)
-                {
-                    return true;
-                }
-
-                return (bool)this.ViewState["ShowTopicPosted"];
-            }
-
-            set => this.ViewState["ShowTopicPosted"] = value;
         }
 
         /// <summary>
@@ -139,10 +103,10 @@ namespace YAF.Web.Controls
         /// </returns>
         public bool IsPopularTopic(DateTime lastPosted, DataRowView row)
         {
-            if (lastPosted > DateTime.Now.AddDays(-this.Get<YafBoardSettings>().PopularTopicDays))
+            if (lastPosted > DateTime.Now.AddDays(-this.Get<BoardSettings>().PopularTopicDays))
             {
-                return row["Replies"].ToType<int>() >= this.Get<YafBoardSettings>().PopularTopicReplys
-                       || row["Views"].ToType<int>() >= this.Get<YafBoardSettings>().PopularTopicViews;
+                return row["Replies"].ToType<int>() >= this.Get<BoardSettings>().PopularTopicReplys
+                       || row["Views"].ToType<int>() >= this.Get<BoardSettings>().PopularTopicViews;
             }
 
             return false;
@@ -174,7 +138,8 @@ namespace YAF.Web.Controls
                 writer.Write("<h5>");
             }
 
-            writer.Write($"<span class=\"fa-stack fa-1x\">{this.GetTopicImage(this.TopicRow, lastRead)}</span>");
+            writer.Write($@"<a tabindex=""0"" class=""topic-icon-legend-popvover"" role=""button"" data-toggle=""popover"" href=""#!"">
+                                <span class=""fa-stack fa-1x\"">{this.GetTopicImage(this.TopicRow, lastRead)}</span></a>");
 
             var priorityMessage = this.GetPriorityMessage(this.TopicRow);
 
@@ -185,52 +150,53 @@ namespace YAF.Web.Controls
 
             var topicLink = new HyperLink
                                 {
-                                    NavigateUrl =
-                                        YafBuildLink.GetLinkNotEscaped(ForumPages.posts, "t={0}", this.TopicRow["LinkTopicID"]),
-                                    ToolTip = this.Get<IFormatMessage>().GetCleanedTopicMessage(
-                                        this.TopicRow["FirstMessage"],
-                                        this.TopicRow["LinkTopicID"]).MessageTruncated,
-                                    Text = this.FormatTopicName()
+                                    NavigateUrl = BuildLink.GetLinkNotEscaped(
+                                        ForumPages.Posts,
+                                        "t={0}",
+                                        this.TopicRow["LinkTopicID"]),
+                                    Text = this.FormatTopicName(),
+                                    CssClass = "topic-starter-popover"
                                 };
+
+            topicLink.Attributes.Add("data-toggle", "popover");
+
+            var topicStartedDateTime = this.TopicRow["Posted"].ToType<DateTime>();
+
+            var formattedStartedDatetime = this.Get<BoardSettings>().ShowRelativeTime
+                                               ? topicStartedDateTime.ToString(
+                                                   "yyyy-MM-ddTHH:mm:ssZ",
+                                                   CultureInfo.InvariantCulture)
+                                               : this.Get<IDateTime>().Format(
+                                                   DateTimeFormat.BothTopic,
+                                                   topicStartedDateTime);
 
             var topicStarterLink = new UserLink
                                        {
                                            UserID = this.TopicRow["UserID"].ToType<int>(),
                                            ReplaceName = this
-                                               .TopicRow[this.Get<YafBoardSettings>().EnableDisplayName
+                                               .TopicRow[this.Get<BoardSettings>().EnableDisplayName
                                                              ? "StarterDisplay"
                                                              : "Starter"].ToString(),
                                            Style = this.TopicRow["StarterStyle"].ToString()
                                        };
-            var startDate = new DisplayDateTime
-                                {
-                                    Format = DateTimeFormat.BothTopic,
-                                    DateTime = this.TopicRow["Posted"],
-                                    Visible = this.ShowTopicPosted
-                                };
 
-            var userLast = new UserLink
-                               {
-                                   UserID = this.TopicRow["LastUserID"].ToType<int>(),
-                                   ReplaceName = this
-                                       .TopicRow[this.Get<YafBoardSettings>().EnableDisplayName
-                                                     ? "LastUserDisplayName"
-                                                     : "LastUserName"].ToString(),
-                                   Style = this.TopicRow["LastUserStyle"].ToString()
-                               };
+            var span = this.Get<BoardSettings>().ShowRelativeTime ? @"<span class=""popover-timeago"">" : "<span>";
 
-            var lastDate = new DisplayDateTime
-                               {
-                                   Format = DateTimeFormat.BothTopic,
-                                   DateTime = this.TopicRow["LastPosted"],
-                                   Visible = this.ShowTopicPosted,
-                               };
+            topicLink.Attributes.Add(
+                "data-content",
+                $@"{topicStarterLink.RenderToString()}
+                          <span class=""fa-stack"">
+                                                    <i class=""fa fa-calendar-day fa-stack-1x text-secondary""></i>
+                                                    <i class=""fa fa-circle fa-badge-bg fa-inverse fa-outline-inverse""></i>
+                                                    <i class=""fa fa-clock fa-badge text-secondary""></i>
+                                                </span>&nbsp;{span}{formattedStartedDatetime}</span>
+                         ");
 
             if (!this.TopicRow["LastMessageID"].IsNullOrEmptyDBField())
             {
                 if (this.TopicRow["LastPosted"].ToType<DateTime>() > lastRead)
                 {
-                    writer.Write("&nbsp;<span class=\"badge badge-success\">{0}</span>", this.GetText("NEW_POSTS"));
+                    writer.Write("<span class=\"badge badge-success\">{0}</span>&nbsp;", this.GetText("NEW_POSTS"));
                 }
             }
 
@@ -240,29 +206,16 @@ namespace YAF.Web.Controls
 
             if (favoriteCount > 0)
             {
-                writer.Write("&nbsp;<span class=\"badge badge-info\" title=\"{0}\"><i class=\"fas fa-star\"></i> +{1}</span>", this.GetText("FAVORITE_COUNT_TT"), favoriteCount);
+                writer.Write(
+                    "&nbsp;<span class=\"badge badge-info\" title=\"{0}\" data-toggle=\"tooltip\"><i class=\"fas fa-star\"></i> +{1}</span>",
+                    this.GetText("FAVORITE_COUNT_TT"),
+                    favoriteCount);
             }
 
-            writer.Write(" </h5>");
-
-            if (this.TopicRow["Description"].ToString().IsSet())
-            {
-                writer.Write($"<span class=\"font-italic\">{this.Get<IBadWordReplace>().Replace(this.HtmlEncode(this.TopicRow["Description"]))}</span>");
-            }
-
-            writer.Write(" <p class=\"card-text\">");
-
-            writer.Write(topicStarterLink.RenderToString());
-            writer.Write(@"<span class=""fa-stack"">
-                <i class=""fa fa-calendar-day fa-stack-1x text-secondary""></i>
-                <i class=""fa fa-circle fa-badge-bg fa-inverse fa-outline-inverse""></i>
-                <i class=""fa fa-clock fa-badge text-secondary""></i>
-                </span>&nbsp;");
-            writer.Write(startDate.RenderToString());
-
+            // Render Pager
             var actualPostCount = this.TopicRow["Replies"].ToType<int>() + 1;
 
-            if (this.Get<YafBoardSettings>().ShowDeletedMessages)
+            if (this.Get<BoardSettings>().ShowDeletedMessages)
             {
                 // add deleted posts not included in replies...");
                 actualPostCount += this.TopicRow["NumPostsDeleted"].ToType<int>();
@@ -270,78 +223,119 @@ namespace YAF.Web.Controls
 
             var pager = this.CreatePostPager(
                 actualPostCount,
-                this.Get<YafBoardSettings>().PostsPerPage,
+                this.Get<BoardSettings>().PostsPerPage,
                 this.TopicRow["LinkTopicID"].ToType<int>());
 
-            if (pager != string.Empty)
+            if (pager.IsSet())
             {
-                writer.Write("<span> - <i class=\"fa fa-copy fa-fw text-secondary\"></i>{0}</span>", pager);
+                writer.Write("&nbsp;<div class=\"btn-group btn-group-sm mb-1\" role=\"group\" aria-label\"topic pager\">{0}</div>", pager);
             }
 
-            writer.Write("</p>");
+            writer.Write(" </h5>");
+
             writer.Write("</div>");
-            writer.Write("<div class=\"col-md-2\">");
-            writer.Write("<ul>");
-            writer.Write("<li class=\"list-unstyled\">");
+            writer.Write("<div class=\"col-md-2 text-secondary\">");
+            writer.Write("<div class=\"d-flex flex-row flex-md-column justify-content-between justify-content-md-start\">");
+            writer.Write("<div>");
             writer.Write("{0}: ", this.GetText("MODERATE", "REPLIES"));
             writer.Write(this.FormatReplies());
-            writer.Write(" </li>");
-            writer.Write("<li class=\"list-unstyled\">");
+            writer.Write(" </div>");
+            writer.Write("<div>");
             writer.Write("{0}: ", this.GetText("MODERATE", "VIEWS"));
             writer.Write(this.FormatViews());
-            writer.Write("   </li>");
-            writer.Write("  </ul>");
+            writer.Write("   </div>");
+            writer.Write("  </div>");
             writer.Write(" </div>");
 
             if (!this.TopicRow["LastMessageID"].IsNullOrEmptyDBField())
             {
-                writer.Write(" <div class=\"col-md-4\">");
-                writer.Write(" <h6>");
+                writer.Write("<div class=\"col-md-4 text-secondary\">");
+
+                writer.Write($"{this.GetText("LASTPOST")}:");
+
+                var infoLastPost = new ThemeButton
+                                       {
+                                           Size = ButtonSize.Small,
+                                           Icon = "info-circle",
+                                           IconCssClass = "fas fa-lg",
+                                           IconColor = "text-info",
+                                           Type = ButtonAction.Link,
+                                           DataToggle = "popover",
+                                           CssClass = "topic-link-popover",
+                                           NavigateUrl = "#!"
+                                       };
+
+                var lastPostedDateTime = this.TopicRow["LastPosted"].ToType<DateTime>();
+
+                var formattedDatetime = this.Get<BoardSettings>().ShowRelativeTime
+                                            ? lastPostedDateTime.ToString(
+                                                "yyyy-MM-ddTHH:mm:ssZ",
+                                                CultureInfo.InvariantCulture)
+                                            : this.Get<IDateTime>().Format(
+                                                DateTimeFormat.BothTopic,
+                                                lastPostedDateTime);
+
+                var userLast = new UserLink
+                                   {
+                                       UserID = this.TopicRow["LastUserID"].ToType<int>(),
+                                       ReplaceName = this
+                                           .TopicRow[this.Get<BoardSettings>().EnableDisplayName
+                                                         ? "LastUserDisplayName"
+                                                         : "LastUserName"].ToString(),
+                                       Style = this.TopicRow["LastUserStyle"].ToString()
+                                   };
+
+                infoLastPost.DataContent = $@"
+                          {userLast.RenderToString()}
+                          <span class=""fa-stack"">
+                                                    <i class=""fa fa-calendar-day fa-stack-1x text-secondary""></i>
+                                                    <i class=""fa fa-circle fa-badge-bg fa-inverse fa-outline-inverse""></i>
+                                                    <i class=""fa fa-clock fa-badge text-secondary""></i>
+                                                </span>&nbsp;{span}{formattedDatetime}</span>
+                         ";
+
+                infoLastPost.TextLocalizedTag = "by";
+                infoLastPost.TextLocalizedPage = "DEFAULT";
+                infoLastPost.ParamText0 = this
+                    .TopicRow[this.Get<BoardSettings>().EnableDisplayName
+                                  ? "LastUserDisplayName"
+                                  : "LastUserName"].ToString();
+
+                writer.Write(infoLastPost.RenderToString());
 
                 var gotoLastPost = new ThemeButton
                                        {
-                                           NavigateUrl = YafBuildLink.GetLink(
-                                               ForumPages.posts,
-                                               "m={0}#post{0}",
-                                               this.TopicRow["LastMessageID"]),
+                                           NavigateUrl =
+                                               BuildLink.GetLink(
+                                                   ForumPages.Posts,
+                                                   "m={0}#post{0}",
+                                                   this.TopicRow["LastMessageID"]),
                                            Size = ButtonSize.Small,
                                            Icon = "share-square",
                                            Type = ButtonAction.OutlineSecondary,
                                            TitleLocalizedTag = "GO_LAST_POST",
-                                           DataToggle = "tooltip",
-                                           CssClass = "mr-1"
+                                           DataToggle = "tooltip"
                                        };
 
                 var gotoLastUnread = new ThemeButton
                                          {
                                              NavigateUrl =
-                                                 YafBuildLink.GetLink(
-                                                     ForumPages.posts,
+                                                 BuildLink.GetLink(
+                                                     ForumPages.Posts,
                                                      "t={0}&find=unread",
                                                      this.TopicRow["TopicID"]),
                                              Size = ButtonSize.Small,
                                              Icon = "book-reader",
                                              Type = ButtonAction.OutlineSecondary,
                                              TitleLocalizedTag = "GO_LASTUNREAD_POST",
-                                             DataToggle = "tooltip",
-                                             Visible = this.Get<YafBoardSettings>().ShowLastUnreadPost
+                                             DataToggle = "tooltip"
                                          };
 
-                writer.Write(gotoLastPost.RenderToString());
+                writer.Write(@"<div class=""btn-group"" role=""group"">");
                 writer.Write(gotoLastUnread.RenderToString());
-                writer.Write("</h6>");
-                writer.Write(" <hr/>");
-                writer.Write(" <h6 class=\"text-secondary\">");
-                writer.Write("{0} {1}:", this.GetText("LASTPOST"), this.GetText("SEARCH", "BY"));
-                writer.Write(userLast.RenderToString());
-
-                writer.Write(@"&nbsp;<span class=""fa-stack"">
-                    <i class=""fa fa-calendar-day fa-stack-1x text-secondary""></i>
-                    <i class=""fa fa-circle fa-badge-bg fa-inverse fa-outline-inverse""></i>
-                    <i class=""fa fa-clock fa-badge text-secondary""></i>
-                    </span>&nbsp;");
-                writer.Write(lastDate.RenderToString());
-                writer.Write("</h6>");
+                writer.Write(gotoLastPost.RenderToString());
+                writer.Write("</div>");
+                
                 writer.Write("</div>");
             }
 
@@ -377,7 +371,7 @@ namespace YAF.Web.Controls
 
             if (pageCount > NumToDisplay)
             {
-                strReturn.AppendLine(this.MakeLink("1", YafBuildLink.GetLink(ForumPages.posts, "t={0}", topicID), 1));
+                strReturn.AppendLine(this.MakeLink("1", BuildLink.GetLink(ForumPages.Posts, "t={0}", topicID), 1));
                 strReturn.AppendLine(" ... ");
 
                 // show links from the end
@@ -388,7 +382,7 @@ namespace YAF.Web.Controls
                     strReturn.AppendLine(
                         this.MakeLink(
                             post.ToString(),
-                            YafBuildLink.GetLink(ForumPages.posts, "t={0}&p={1}", topicID, post),
+                            BuildLink.GetLink(ForumPages.Posts, "t={0}&p={1}", topicID, post),
                             post));
                 }
             }
@@ -401,7 +395,7 @@ namespace YAF.Web.Controls
                     strReturn.AppendLine(
                         this.MakeLink(
                             post.ToString(),
-                            YafBuildLink.GetLink(ForumPages.posts, "t={0}&p={1}", topicID, post),
+                            BuildLink.GetLink(ForumPages.Posts, "t={0}&p={1}", topicID, post),
                             post));
                 }
             }
@@ -427,7 +421,7 @@ namespace YAF.Web.Controls
                 return repStr;
             }
 
-            if (this.Get<YafBoardSettings>().ShowDeletedMessages && numDeleted > 0)
+            if (this.Get<BoardSettings>().ShowDeletedMessages && numDeleted > 0)
             {
                 repStr = $"{replies + numDeleted:N0}";
             }
@@ -462,7 +456,7 @@ namespace YAF.Web.Controls
         {
             var topicSubject = this.Get<IBadWordReplace>().Replace(this.HtmlEncode(this.TopicRow["Subject"]));
 
-            var styles = this.Get<YafBoardSettings>().UseStyledTopicTitles
+            var styles = this.Get<BoardSettings>().UseStyledTopicTitles
                              ? this.Get<IStyleTransform>().DecodeStyleByString(this.TopicRow["Styles"].ToString())
                              : string.Empty;
 
@@ -507,11 +501,11 @@ namespace YAF.Web.Controls
                 {
                     case 1:
                         strReturn =
-                            $"<span class=\"badge badge-secondary\"><i class=\"fa fa-sticky-note fa-fw\"></i> {this.GetText("STICKY")}</span>";
+                            $"<span class=\"badge badge-warning\"><i class=\"fa fa-sticky-note fa-fw\"></i> {this.GetText("STICKY")}</span>";
                         break;
                     case 2:
                         strReturn =
-                            $"<span class=\"badge badge-secondary\"><i class=\"fa fa-bullhorn fa-fw\"></i> {this.GetText("ANNOUNCEMENT")}</span>";
+                            $"<span class=\"badge badge-primary\"><i class=\"fa fa-bullhorn fa-fw\"></i> {this.GetText("ANNOUNCEMENT")}</span>";
                         break;
                 }
             }
@@ -552,7 +546,7 @@ namespace YAF.Web.Controls
 
             if (lastPosted > lastRead)
             {
-                this.Get<IYafSession>().UnreadTopics++;
+                this.Get<ISession>().UnreadTopics++;
 
                 if (row["PollID"] != DBNull.Value)
                 {

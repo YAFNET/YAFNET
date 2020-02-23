@@ -1,8 +1,8 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2019 Ingo Herbote
- * http://www.yetanotherforum.net/
+ * Copyright (C) 2014-2020 Ingo Herbote
+ * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -12,7 +12,7 @@
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
 
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
 
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
@@ -23,76 +23,46 @@
  */
 namespace YAF.Types.Interfaces
 {
-  using System;
-  using System.Data;
-
-  /// <summary>
-  /// The i favorite topic.
-  /// </summary>
-  public interface IFavoriteTopic
-  {
-    #region Public Methods
-
     /// <summary>
-    /// The add favorite topic.
+    /// The FavoriteTopic interface.
     /// </summary>
-    /// <param name="topicId">
-    /// The topic ID.
-    /// </param>
-    /// <returns>
-    /// The add favorite topic.
-    /// </returns>
-    int AddFavoriteTopic(int topicId);
+    public interface IFavoriteTopic
+    {
+        #region Public Methods
 
-    /// <summary>
-    /// The clear favorite topic cache.
-    /// </summary>
-    void ClearFavoriteTopicCache();
+        /// <summary>
+        /// Adds Topic to the Favorite Topics 
+        /// </summary>
+        /// <param name="topicId">
+        /// The topic id.
+        /// </param>
+        /// <returns>
+        /// The <see cref="int"/>.
+        /// </returns>
+        int AddFavoriteTopic(int topicId);
 
-    /// <summary>
-    /// The clear favorite topic cache.
-    /// </summary>
-    /// <param name="topicId">
-    /// The topic Id.
-    /// </param>
-    /// <returns>
-    /// The favorite topic count.
-    /// </returns>
-    int FavoriteTopicCount(int topicId);
+        /// <summary>
+        /// Checks if Topic is Favorite Topic
+        /// </summary>
+        /// <param name="topicID">
+        /// The topic id.
+        /// </param>
+        /// <returns>
+        /// The <see cref="bool"/>.
+        /// </returns>
+        bool IsFavoriteTopic(int topicID);
 
-    /// <summary>
-    /// the favorite topic details.
-    /// </summary>
-    /// <param name="sinceDate">
-    /// the since date.
-    /// </param>
-    /// <returns>
-    /// a Data table containing all the current user's favorite topics in details.
-    /// </returns>
-    DataTable FavoriteTopicDetails(DateTime sinceDate);
+        /// <summary>
+        /// The remove favorite topic.
+        /// </summary>
+        /// <param name="topicId">
+        /// The favorite topic id.
+        /// </param>
+        /// <returns>
+        /// The <see cref="int"/>.
+        /// </returns>
+        int RemoveFavoriteTopic(int topicId);
 
-    /// <summary>
-    /// The is favorite topic.
-    /// </summary>
-    /// <param name="topicID">
-    /// The topic id.
-    /// </param>
-    /// <returns>
-    /// The is favorite topic.
-    /// </returns>
-    bool IsFavoriteTopic(int topicID);
-
-    /// <summary>
-    /// The remove favorite topic.
-    /// </summary>
-    /// <param name="topicId">
-    /// The favorite topic id.
-    /// </param>
-    /// <returns>
-    /// The remove favorite topic.
-    /// </returns>
-    int RemoveFavoriteTopic(int topicId);
-
-    #endregion
-  }
+        #endregion
+    }
 }

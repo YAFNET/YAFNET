@@ -1,12 +1,12 @@
 using J2N.Threading;
-using YAF.Lucene.Net.Support;
+using YAF.Lucene.Net.Util;
 using System;
 using System.Globalization;
 using System.IO;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading;
-using Console = YAF.Lucene.Net.Support.SystemConsole;
+using Console = YAF.Lucene.Net.Util.SystemConsole;
 
 namespace YAF.Lucene.Net.Store
 {

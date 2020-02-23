@@ -1,8 +1,8 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2019 Ingo Herbote
- * http://www.yetanotherforum.net/
+ * Copyright (C) 2014-2020 Ingo Herbote
+ * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -12,7 +12,7 @@
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
 
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
 
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
@@ -39,6 +39,7 @@ namespace YAF.Pages
     using YAF.Core.UsersRoles;
     using YAF.Types;
     using YAF.Types.Constants;
+    using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
     using YAF.Utils;
@@ -50,14 +51,14 @@ namespace YAF.Pages
     /// <summary>
     /// The recover Password Page.
     /// </summary>
-    public partial class recoverpassword : ForumPage
+    public partial class RecoverPassword : ForumPage
     {
         #region Constructors and Destructors
 
         /// <summary>
-        ///   Initializes a new instance of the <see cref = "recoverpassword" /> class.
+        ///   Initializes a new instance of the <see cref = "RecoverPassword" /> class.
         /// </summary>
-        public recoverpassword()
+        public RecoverPassword()
             : base("RECOVER_PASSWORD")
         {
         }
@@ -164,30 +165,22 @@ namespace YAF.Pages
             // the rest is the password...
             var password = body.Substring(0, body.IndexOf('\n'));
 
-            var subject = this.GetTextFormatted("PASSWORDRETRIEVAL_EMAIL_SUBJECT", this.Get<YafBoardSettings>().Name);
-            var logoUrl =
-                $"{YafForumInfo.ForumClientFileRoot}{YafBoardFolders.Current.Logos}/{this.PageContext.BoardSettings.ForumLogo}";
-            var themeCss =
-                $"{this.Get<YafBoardSettings>().BaseUrlMask}{this.Get<ITheme>().BuildThemePath("bootstrap-forum.min.css")}";
+            var subject = this.GetTextFormatted("PASSWORDRETRIEVAL_EMAIL_SUBJECT", this.Get<BoardSettings>().Name);
 
             var userIpAddress = this.Get<HttpRequestBase>().GetUserRealIPAddress();
 
             // get the e-mail ready from the real template.
-            var passwordRetrieval = new YafTemplateEmail("PASSWORDRETRIEVAL")
+            var passwordRetrieval = new TemplateEmail("PASSWORDRETRIEVAL")
                                         {
                                             TemplateParams =
                                                 {
                                                     ["{username}"] = userName,
                                                     ["{password}"] = password,
-                                                    ["{ipaddress}"] = userIpAddress,
-                                                    ["{forumname}"] = this.Get<YafBoardSettings>().Name,
-                                                    ["{forumlink}"] = $"{YafForumInfo.ForumURL}",
-                                                    ["{themecss}"] = themeCss,
-                                                    ["{logo}"] = $"{this.Get<YafBoardSettings>().BaseUrlMask}{logoUrl}"
+                                                    ["{ipaddress}"] = userIpAddress
                                                 }
                                         };
 
-            passwordRetrieval.SendEmail(e.Message.To[0], subject, true);
+            passwordRetrieval.SendEmail(e.Message.To[0], subject);
 
             // log password reset attempt
             this.Logger.Log(
@@ -243,7 +236,7 @@ namespace YAF.Pages
             else
             {
                 // Standard user name login
-                if (this.Get<YafBoardSettings>().EnableDisplayName)
+                if (this.Get<BoardSettings>().EnableDisplayName)
                 {
                     // Display name login
                     var id = this.Get<IUserDisplayName>().GetId(this.PasswordRecovery1.UserName);
@@ -272,7 +265,7 @@ namespace YAF.Pages
                 return;
             }
 
-            if (this.Get<YafBoardSettings>().EmailVerification)
+            if (this.Get<BoardSettings>().EmailVerification)
             {
                 // get the hash from the db associated with this user...
                 var checkTyped = this.GetRepository<CheckEmail>().ListTyped(user.Email).FirstOrDefault();
@@ -280,22 +273,22 @@ namespace YAF.Pages
                 if (checkTyped != null)
                 {
                     // re-send verification email instead of lost password...
-                    var verifyEmail = new YafTemplateEmail("VERIFYEMAIL");
+                    var verifyEmail = new TemplateEmail("VERIFYEMAIL");
 
                     var subject = this.GetTextFormatted(
                         "VERIFICATION_EMAIL_SUBJECT",
-                        this.Get<YafBoardSettings>().Name);
+                        this.Get<BoardSettings>().Name);
 
-                    verifyEmail.TemplateParams["{link}"] = YafBuildLink.GetLinkNotEscaped(
-                        ForumPages.approve,
+                    verifyEmail.TemplateParams["{link}"] = BuildLink.GetLinkNotEscaped(
+                        ForumPages.Approve,
                         true,
                         "k={0}",
                         checkTyped.Hash);
                     verifyEmail.TemplateParams["{key}"] = checkTyped.Hash;
-                    verifyEmail.TemplateParams["{forumname}"] = this.Get<YafBoardSettings>().Name;
-                    verifyEmail.TemplateParams["{forumlink}"] = $"{YafForumInfo.ForumURL}";
+                    verifyEmail.TemplateParams["{forumname}"] = this.Get<BoardSettings>().Name;
+                    verifyEmail.TemplateParams["{forumlink}"] = $"{BoardInfo.ForumURL}";
 
-                    verifyEmail.SendEmail(new MailAddress(user.Email, user.UserName), subject, true);
+                    verifyEmail.SendEmail(new MailAddress(user.Email, user.UserName), subject);
 
                     this.PageContext.LoadMessage.AddSession(
                         this.GetTextFormatted("ACCOUNT_NOT_APPROVED_VERIFICATION", user.Email),
@@ -312,7 +305,7 @@ namespace YAF.Pages
             e.Cancel = true;
 
             // nothing they can do here... redirect to login...
-            YafBuildLink.Redirect(ForumPages.login);
+            BuildLink.Redirect(ForumPages.Login);
         }
 
         /// <summary>
@@ -326,7 +319,7 @@ namespace YAF.Pages
         /// </param>
         protected void SubmitButton_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
-            YafBuildLink.Redirect(ForumPages.login);
+            BuildLink.Redirect(ForumPages.Login);
         }
 
         #endregion

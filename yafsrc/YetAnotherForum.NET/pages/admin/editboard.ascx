@@ -17,29 +17,20 @@
                     <i class="fa fa-globe fa-fw text-secondary"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_EDITBOARD" />
                 </div>
                 <div class="card-body">
-                    <div class="form-group">
-                        <YAF:HelpLabel ID="HelpLabel1" runat="server" 
-                                       AssociatedControlID="Name"
-                                       LocalizedTag="NAME" LocalizedPage="ADMIN_EDITBOARD" />
-                        <asp:TextBox ID="Name" runat="server" 
-                                     CssClass="form-control"></asp:TextBox>
-                    </div>
                     <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <YAF:HelpLabel ID="HelpLabel1" runat="server" 
+                                           AssociatedControlID="Name"
+                                           LocalizedTag="NAME" LocalizedPage="ADMIN_EDITBOARD" />
+                            <asp:TextBox ID="Name" runat="server" 
+                                         CssClass="form-control"></asp:TextBox>
+                        </div>
                         <div class="form-group col-md-6">
                             <YAF:HelpLabel ID="HelpLabel2" runat="server" 
                                            AssociatedControlID="Culture"
                                            LocalizedTag="CULTURE" LocalizedPage="ADMIN_EDITBOARD" />
                             <asp:DropDownList ID="Culture" runat="server" 
                                               CssClass="custom-select" />
-                        </div>
-                        <div class="form-group col-md-6">
-                            <YAF:HelpLabel ID="HelpLabel3" runat="server" 
-                                           AssociatedControlID="AllowThreaded"
-                                           LocalizedTag="THREADED" LocalizedPage="ADMIN_EDITBOARD" />
-                            <div class="custom-control custom-switch">
-                                <asp:CheckBox runat="server" ID="AllowThreaded" 
-                                              Text="&nbsp;" />
-                            </div> 
                         </div>
                     </div>
                     <asp:PlaceHolder runat="server" ID="BoardMembershipAppNameHolder">

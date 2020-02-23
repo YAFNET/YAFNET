@@ -1,23 +1,27 @@
-﻿<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.posts" Codebehind="posts.ascx.cs" %>
+﻿<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Posts" Codebehind="Posts.ascx.cs" %>
 <%@ Import Namespace="YAF.Types.Interfaces" %>
 <%@ Import Namespace="YAF.Types.Extensions" %>
 <%@ Import Namespace="System.Data" %>
 <%@ Import Namespace="ServiceStack" %>
 <%@ Import Namespace="YAF.Core.Extensions" %>
+
 <%@ Register TagPrefix="YAF" TagName="DisplayPost" Src="../controls/DisplayPost.ascx" %>
 <%@ Register TagPrefix="YAF" TagName="DisplayConnect" Src="../controls/DisplayConnect.ascx" %>
 <%@ Register TagPrefix="YAF" TagName="DisplayAd" Src="../controls/DisplayAd.ascx" %>
 <%@ Register TagPrefix="YAF" TagName="PollList" Src="../controls/PollList.ascx" %>
 <%@ Register TagPrefix="YAF" TagName="SimilarTopics" Src="../controls/SimilarTopics.ascx" %>
+<%@ Register TagPrefix="YAF" TagName="TopicTags" Src="../controls/TopicTags.ascx" %>
+
+<%@ Register TagPrefix="modal" TagName="MoveTopic" Src="../Dialogs/MoveTopic.ascx" %>
 <%@ Register TagPrefix="modal" TagName="QuickReply" Src="../Dialogs/QuickReply.ascx" %>
 
 
 <YAF:PageLinks ID="PageLinks" runat="server" />
 
-<YAF:PollList ID="PollList" TopicId='<%# this.PageContext.PageTopicID %>' 
-              ShowButtons='<%# this.ShowPollButtons() %>' 
-              Visible='<%# this.PollGroupId() > 0 %>' 
-              PollGroupId='<%# this.PollGroupId() %>' runat="server"/>
+<YAF:PollList ID="PollList" TopicId="<%# this.PageContext.PageTopicID %>" 
+              ShowButtons="<%# this.ShowPollButtons() %>" 
+              Visible="<%# this.PollGroupId() > 0 %>" 
+              PollGroupId="<%# this.PollGroupId() %>" runat="server"/>
 
 <a id="top"></a>
 
@@ -29,9 +33,10 @@
         <div class="mt-n1">
             <span id="dvFavorite1">
                 <YAF:ThemeButton ID="TagFavorite1" runat="server"
-                    Type="Secondary"
-                    TextLocalizedTag="BUTTON_TAGFAVORITE" TitleLocalizedTag="BUTTON_TAGFAVORITE_TT"
-                    Icon="star" />
+                                 Type="Secondary"
+                                 TextLocalizedTag="BUTTON_TAGFAVORITE" TitleLocalizedTag="BUTTON_TAGFAVORITE_TT"
+                                 Icon="star"
+                                 IconColor="text-warning"/>
             </span>
             <YAF:ThemeButton ID="Tools1" runat="server"
                 CssClass="dropdown-toggle"
@@ -40,13 +45,14 @@
                 TextLocalizedTag="MANAGE_TOPIC"
                 TextLocalizedPage="POSTS"
                 Icon="cogs" />
-            <div class="dropdown-menu" aria-labelledby='<%# this.Tools1.ClientID %>'>
+            <div class="dropdown-menu" aria-labelledby="<%# this.Tools1.ClientID %>">
                 <YAF:ThemeButton ID="MoveTopic1" runat="server"
-                    CssClass="dropdown-item"
-                    Type="None"
-                    OnClick="MoveTopic_Click"
-                    TextLocalizedTag="BUTTON_MOVETOPIC" TitleLocalizedTag="BUTTON_MOVETOPIC_TT"
-                    Icon="arrows-alt" />
+                                 CssClass="dropdown-item"
+                                 Type="None" 
+                                 DataToggle="modal" 
+                                 DataTarget="MoveTopicDialog" 
+                                 TextLocalizedTag="BUTTON_MOVETOPIC" TitleLocalizedTag="BUTTON_MOVETOPIC_TT"
+                                 Icon="arrows-alt" />
                 <YAF:ThemeButton ID="UnlockTopic1" runat="server"
                     Type="None"
                     CssClass="dropdown-item"
@@ -69,7 +75,6 @@
             </div>
             <YAF:ThemeButton ID="NewTopic1" runat="server"
                 Type="Secondary"
-                OnClick="NewTopic_Click"
                 TextLocalizedTag="BUTTON_NEWTOPIC" TitleLocalizedTag="BUTTON_NEWTOPIC_TT"
                 Icon="comment" />
             <YAF:ThemeButton ID="PostReplyLink1" runat="server"
@@ -78,9 +83,9 @@
                 TextLocalizedTag="BUTTON_POSTREPLY" TitleLocalizedTag="BUTTON_POSTREPLY_TT"
                 Icon="reply" />
             <YAF:ThemeButton ID="QuickReplyLink1" runat="server"
-                Type="Primary"
-                TextLocalizedTag="QUICKREPLY" TitleLocalizedTag="BUTTON_POSTREPLY_TT"
-                Icon="reply" 
+                             Type="Primary"
+                             TextLocalizedTag="QUICKREPLY" TitleLocalizedTag="BUTTON_POSTREPLY_TT"
+                             Icon="reply" 
                              DataToggle="modal"
                              DataTarget="QuickReplyDialog" />
         </div>
@@ -144,19 +149,6 @@
                     </asp:UpdatePanel>
                     <YAF:PopMenu runat="server" ID="OptionsMenu" Control="OptionsLink" />
                 </li>
-                <li class="nav-item dropdown">
-                    <asp:PlaceHolder ID="ViewOptions" runat="server">
-                        <YAF:ThemeButton runat="server" ID="ViewLink"
-                                         TextLocalizedTag="VIEW" TitleLocalizedTag="VIEW_TOOLTIP"
-                                         Icon="book"
-                                         Type="Link"
-                                         CssClass="dropdown-toggle"
-                                         DataToggle="dropdown">
-                        </YAF:ThemeButton>
-                    
-                    </asp:PlaceHolder>
-                    <YAF:PopMenu ID="ViewMenu" runat="server" Control="ViewLink" />
-                </li>
             </ul>
         </div>
     </nav>
@@ -164,36 +156,22 @@
 </div>
 <asp:Repeater ID="MessageList" runat="server" OnItemCreated="MessageList_OnItemCreated">
     <ItemTemplate>
-        <%# this.GetThreadedRow(Container.DataItem) %>
         <YAF:DisplayPost ID="DisplayPost1" runat="server" 
                          DataRow="<%# Container.DataItem.ToType<DataRow>() %>"
-                         Visible="<%# this.IsCurrentMessage(Container.DataItem) %>" 
                          PostCount="<%# Container.ItemIndex %>" 
-                         CurrentPage="<%# this.Pager.CurrentPageIndex %>" 
-                         IsThreaded="<%# this.IsThreaded %>" />
+                         CurrentPage="<%# this.Pager.CurrentPageIndex %>" />
         <YAF:DisplayAd ID="DisplayAd" runat="server" Visible="False" />
         <YAF:DisplayConnect ID="DisplayConnect" runat="server" Visible="False" />
     </ItemTemplate>
-    <AlternatingItemTemplate>        
-        <%# this.GetThreadedRow(Container.DataItem) %>
-        <YAF:DisplayPost ID="DisplayPostAlt" runat="server" 
-                         DataRow="<%# Container.DataItem.ToType<DataRow>() %>"
-                         IsAlt="True" Visible="<%#this.IsCurrentMessage(Container.DataItem)%>" 
-                         PostCount="<%# Container.ItemIndex %>" 
-                         CurrentPage="<%# this.Pager.CurrentPageIndex %>" 
-                         IsThreaded="<%#this.IsThreaded%>" />
-        <YAF:DisplayAd ID="DisplayAd" runat="server" Visible="False" />
-        <YAF:DisplayConnect ID="DisplayConnect" runat="server" Visible="False" />
-    </AlternatingItemTemplate>
 </asp:Repeater>
 
-<asp:PlaceHolder runat="server" Visible="<%# this.Get<IPermissions>().Check(this.Get<YafBoardSettings>().PostsFeedAccess) %>">
+<asp:PlaceHolder runat="server" Visible="<%# this.Get<IPermissions>().Check(this.Get<BoardSettings>().PostsFeedAccess) %>">
     <div class="row mb-3">
         <div class="col">
             <YAF:RssFeedLink ID="RssFeed" runat="server"
                              FeedType="Posts"  
                              AdditionalParameters='<%# "t={0}".Fmt(this.PageContext.PageTopicID) %>' 
-                             Visible="<%# this.Get<IPermissions>().Check(this.Get<YafBoardSettings>().PostsFeedAccess) %>" 
+                             Visible="<%# this.Get<IPermissions>().Check(this.Get<BoardSettings>().PostsFeedAccess) %>" 
             />
         </div>
     </div>                         
@@ -207,7 +185,8 @@
             <YAF:ThemeButton ID="TagFavorite2" runat="server" 
                              Type="Secondary"
                              TextLocalizedTag="BUTTON_TAGFAVORITE" TitleLocalizedTag="BUTTON_TAGFAVORITE_TT"
-                             Icon="star" />
+                             Icon="star"
+                             IconColor="text-warning"/>
         </span>
         <YAF:ThemeButton ID="Tools2" runat="server" 
                              CssClass="dropdown-toggle"
@@ -215,11 +194,12 @@
                              DataToggle="dropdown"
                              TextLocalizedTag="MANAGE_TOPIC"
                              Icon="cogs" />
-            <div class="dropdown-menu" aria-labelledby='<%# this.Tools1.ClientID %>'>
+            <div class="dropdown-menu" aria-labelledby="<%# this.Tools1.ClientID %>">
                 <YAF:ThemeButton ID="MoveTopic2" runat="server"
                                  Type="None"
                                  CssClass="dropdown-item"
-                                 OnClick="MoveTopic_Click" 
+                                 DataToggle="modal" 
+                                 DataTarget="MoveTopicDialog" 
                                  TextLocalizedTag="BUTTON_MOVETOPIC" TitleLocalizedTag="BUTTON_MOVETOPIC_TT"
                                  Icon="arrows-alt" />
                 <YAF:ThemeButton ID="UnlockTopic2" runat="server" 
@@ -244,7 +224,6 @@
             </div>
             <YAF:ThemeButton ID="NewTopic2" runat="server" 
                              Type="Secondary"
-                             OnClick="NewTopic_Click" 
                              TextLocalizedTag="BUTTON_NEWTOPIC" TitleLocalizedTag="BUTTON_NEWTOPIC_TT"
                              Icon="comment" />
             <YAF:ThemeButton ID="PostReplyLink2" runat="server" 
@@ -260,37 +239,15 @@
                              DataTarget="QuickReplyDialog"/>
     </div>
 </div>
+<YAF:TopicTags ID="TopicTags"  runat="server" />
 <div class="row mb-3">
-    <div class="col align-self-start">
-        <YAF:ForumUsers ID="ForumUsers1" runat="server" />
-    </div>
     <YAF:SimilarTopics ID="SimilarTopics"  runat="server">
     </YAF:SimilarTopics>
+    <div class="col">
+        <YAF:ForumUsers ID="ForumUsers1" runat="server" />
+    </div>
 </div>
 <YAF:PageLinks ID="PageLinksBottom" runat="server" LinkedPageLinkID="PageLinks" />
-<%--<div class="row">
-    <div class="col">
-        <asp:PlaceHolder ID="ForumJumpHolder" runat="server">
-                <YAF:LocalizedLabel ID="ForumJumpLabel" runat="server" LocalizedTag="FORUM_JUMP" />
-                &nbsp;<YAF:ForumJump ID="ForumJump1" runat="server" />
-        </asp:PlaceHolder>
-        </div>
-        <div class="col col-md-4 offset-md-4">
-            <YAF:PageAccess ID="PageAccess1" runat="server" />
-        </div>
-</div>--%>
 
-
-<div class="row justify-content-between">
-    <div class="col-md py-3">
-        <asp:PlaceHolder ID="ForumJumpHolder" runat="server">
-            <YAF:LocalizedLabel ID="ForumJumpLabel" runat="server" LocalizedTag="FORUM_JUMP" />
-            &nbsp;<YAF:ForumJump ID="ForumJump1" runat="server" />
-        </asp:PlaceHolder>
-    </div>
-    <div class="col-md py-3">
-        <YAF:PageAccess ID="PageAccess1" runat="server" />
-    </div>
-</div>
-
+<modal:MoveTopic ID="MoveTopicDialog" runat="server" />
 <modal:QuickReply ID="QuickReplyDialog" runat="server" />

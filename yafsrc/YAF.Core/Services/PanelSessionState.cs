@@ -1,8 +1,8 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2019 Ingo Herbote
- * http://www.yetanotherforum.net/
+ * Copyright (C) 2014-2020 Ingo Herbote
+ * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -12,7 +12,7 @@
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
 
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
 
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
@@ -50,29 +50,29 @@ namespace YAF.Core.Services
             var sessionPanelID = $"panelstate_{panelID}";
 
             // try to get panel state from session state first
-            if (YafContext.Current.Get<HttpSessionStateBase>()[sessionPanelID] != null)
+            if (BoardContext.Current.Get<HttpSessionStateBase>()[sessionPanelID] != null)
             {
-                return (CollapsiblePanelState)YafContext.Current.Get<HttpSessionStateBase>()[sessionPanelID];
+                return (CollapsiblePanelState)BoardContext.Current.Get<HttpSessionStateBase>()[sessionPanelID];
             }
 
             // if no panel state info is in session state, try cookie
-            if (YafContext.Current.Get<HttpRequestBase>().Cookies[sessionPanelID] != null)
+            if (BoardContext.Current.Get<HttpRequestBase>().Cookies[sessionPanelID] != null)
             {
                 try
                 {
                     // we must convert string to int, better get is safe
-                    if (YafContext.Current.Get<HttpRequestBase>() != null)
+                    if (BoardContext.Current.Get<HttpRequestBase>() != null)
                     {
                         return (CollapsiblePanelState)int.Parse(
-                            YafContext.Current.Get<HttpRequestBase>().Cookies[sessionPanelID].Value);
+                            BoardContext.Current.Get<HttpRequestBase>().Cookies[sessionPanelID].Value);
                     }
                 }
                 catch
                 {
                     // in case cookie has wrong value
-                    if (YafContext.Current.Get<HttpRequestBase>() != null)
+                    if (BoardContext.Current.Get<HttpRequestBase>() != null)
                     {
-                        YafContext.Current.Get<HttpRequestBase>().Cookies.Remove(sessionPanelID); // scrap wrong cookie
+                        BoardContext.Current.Get<HttpRequestBase>().Cookies.Remove(sessionPanelID); // scrap wrong cookie
                     }
 
                     return CollapsiblePanelState.None;
@@ -87,11 +87,11 @@ namespace YAF.Core.Services
         {
             var sessionPanelID = $"panelstate_{panelID}";
 
-            YafContext.Current.Get<HttpSessionStateBase>()[sessionPanelID] = value;
+            BoardContext.Current.Get<HttpSessionStateBase>()[sessionPanelID] = value;
 
             // create persistent cookie with visibility setting for panel
-            var c = new HttpCookie(sessionPanelID, ((int)value).ToString()) { Expires = DateTime.UtcNow.AddYears(1) };
-            YafContext.Current.Get<HttpResponseBase>().SetCookie(c);
+            var c = new HttpCookie(sessionPanelID, ((int)value).ToString()) { Expires = System.DateTime.UtcNow.AddYears(1) };
+            BoardContext.Current.Get<HttpResponseBase>().SetCookie(c);
         }
     }
 

@@ -1,8 +1,8 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2019 Ingo Herbote
- * http://www.yetanotherforum.net/
+ * Copyright (C) 2014-2020 Ingo Herbote
+ * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -12,7 +12,7 @@
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
 
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
 
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
@@ -35,19 +35,19 @@ namespace YAF.Types.Interfaces
         /// <summary>
         /// Deletes the specified album/image.
         /// </summary>
-        /// <param name="upDir">
-        /// The Upload dir.
+        /// <param name="uploadFolder">
+        /// The Upload folder.
         /// </param>
         /// <param name="albumId">
         /// The album id.
         /// </param>
-        /// <param name="userID">
+        /// <param name="userId">
         /// The user id.
         /// </param>
-        /// <param name="imageID">
+        /// <param name="imageId">
         /// The image id.
         /// </param>
-        void AlbumImageDelete([NotNull] object upDir, [CanBeNull] object albumId, int userID, [NotNull] object imageID);
+        void AlbumImageDelete([NotNull] string uploadFolder, [CanBeNull] int? albumId, int userId, [CanBeNull] int? imageId);
 
         /// <summary>
         /// The change album title.
@@ -106,7 +106,7 @@ namespace YAF.Types.Interfaces
         /// </summary>
         /// <param name="context">The context.</param>
         /// <param name="localizationFile">The localization file.</param>
-        /// <param name="previewCropped">if set to <c>true</c> [preview cropped].</param>
+        /// <param name="preview">if set to <c>true</c> [preview cropped].</param>
         void GetResponseImagePreview([NotNull] HttpContext context, string localizationFile, bool preview);
     }
 }

@@ -1,8 +1,8 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2019 Ingo Herbote
- * http://www.yetanotherforum.net/
+ * Copyright (C) 2014-2020 Ingo Herbote
+ * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -12,7 +12,7 @@
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
 
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
 
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
@@ -27,6 +27,7 @@ namespace YAF.Controls
 
     using System;
     using System.Data;
+    using System.Linq;
     using System.Web.UI.WebControls;
 
     using YAF.Configuration;
@@ -69,7 +70,7 @@ namespace YAF.Controls
             var image = new Image
                             {
                                 ImageUrl =
-                                    $"{YafForumInfo.ForumClientFileRoot}{YafBoardFolders.Current.Categories}/{row["CategoryImage"]}",
+                                    $"{BoardInfo.ForumClientFileRoot}{BoardFolders.Current.Categories}/{row["CategoryImage"]}",
                                 AlternateText = row["Name"].ToString() 
             };
 
@@ -106,8 +107,17 @@ namespace YAF.Controls
                 false,
                 false);
 
-            dt.AsEnumerable().Select(r => r["ForumID"].ToType<int>()).ForEach(
-                forumId => this.GetRepository<WatchForum>().Add(this.PageContext.PageUserID, forumId));
+            var watchForums = this.GetRepository<WatchForum>().List(this.PageContext.PageUserID);
+
+            dt.AsEnumerable().Select(r => r.Field<int>("ForumID")).ForEach(
+                forumId =>
+                    {
+                        if (!watchForums.Any(
+                                w => w.Item1.ForumID == forumId && w.Item1.UserID == this.PageContext.PageUserID))
+                        {
+                            this.GetRepository<WatchForum>().Add(this.PageContext.PageUserID, forumId);
+                        }
+                    });
 
             this.PageContext.AddLoadMessage(this.GetText("SAVED_NOTIFICATION_SETTING"), MessageTypes.success);
 
@@ -169,7 +179,7 @@ namespace YAF.Controls
         /// </summary>
         private void BindData()
         {
-            var ds = this.Get<YafDbBroker>().BoardLayout(
+            var ds = this.Get<DataBroker>().BoardLayout(
                 this.PageContext.PageBoardID,
                 this.PageContext.PageUserID,
                 this.PageContext.PageCategoryID,

@@ -1,5 +1,5 @@
 /*!
- * Bootstrap v4.3.1 (https://getbootstrap.com/)
+ * Bootstrap v4.4.1 (https://getbootstrap.com/)
  * Copyright 2011-2019 The Bootstrap Authors
  * Copyright 2011-2019 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
@@ -43,6 +43,7 @@
 @import "utilities";
 @import "print";
 
+
 .custom-radio label {
     @extend .custom-control-label
 }
@@ -70,4 +71,8 @@
 
 .custom-switch input {
     @extend .custom-control-input;
+}
+
+.bootstrap-tagsinput {
+    @extend .form-control;
 }

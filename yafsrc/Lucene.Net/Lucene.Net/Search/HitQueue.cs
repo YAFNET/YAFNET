@@ -74,7 +74,7 @@ namespace YAF.Lucene.Net.Search
             return new ScoreDoc(int.MaxValue, float.NegativeInfinity);
         }
 
-        public override sealed bool LessThan(ScoreDoc hitA, ScoreDoc hitB)
+        protected internal override sealed bool LessThan(ScoreDoc hitA, ScoreDoc hitB)
         {
             if (hitA.Score == hitB.Score)
             {

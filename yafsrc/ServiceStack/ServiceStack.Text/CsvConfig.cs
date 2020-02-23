@@ -25,7 +25,6 @@ namespace ServiceStack.Text
         public static string ItemSeperatorString
         {
             get => tsItemSeperatorString ?? sItemSeperatorString ?? JsWriter.ItemSeperatorString;
-
             set
             {
                 tsItemSeperatorString = value;
@@ -40,7 +39,6 @@ namespace ServiceStack.Text
         public static string ItemDelimiterString
         {
             get => tsItemDelimiterString ?? sItemDelimiterString ?? JsWriter.QuoteString;
-
             set
             {
                 tsItemDelimiterString = value;
@@ -58,7 +56,6 @@ namespace ServiceStack.Text
         internal static string EscapedItemDelimiterString
         {
             get => tsEscapedItemDelimiterString ?? sEscapedItemDelimiterString ?? DefaultEscapedItemDelimiterString;
-
             set
             {
                 tsEscapedItemDelimiterString = value;
@@ -74,7 +71,6 @@ namespace ServiceStack.Text
         public static string[] EscapeStrings
         {
             get => tsEscapeStrings ?? sEscapeStrings ?? defaultEscapeStrings;
-
             private set
             {
                 tsEscapeStrings = value;
@@ -98,7 +94,6 @@ namespace ServiceStack.Text
         public static string RowSeparatorString
         {
             get => tsRowSeparatorString ?? sRowSeparatorString ?? "\r\n";
-
             set
             {
                 tsRowSeparatorString = value;
@@ -126,7 +121,6 @@ namespace ServiceStack.Text
         public static Dictionary<string, string> CustomHeadersMap
         {
             get => customHeadersMap;
-
             set
             {
                 customHeadersMap = value;
@@ -157,7 +151,6 @@ namespace ServiceStack.Text
                     if (oValue == null) continue;
                     customHeadersMap[pi.Name] = oValue.ToString();
                 }
-
                 CsvWriter<T>.ConfigureCustomHeaders(customHeadersMap);
             }
         }

@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2020 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -12,7 +12,7 @@
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
 
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
 
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
@@ -32,7 +32,6 @@ namespace YAF.Web.Controls
     using System.Linq;
     using System.Web.UI;
 
-    using YAF.Configuration;
     using YAF.Core.BaseControls;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
@@ -93,18 +92,18 @@ namespace YAF.Web.Controls
         {
             if (this.ForumId == 0)
             {
-                YafBuildLink.Redirect(ForumPages.forum);
+                BuildLink.Redirect(ForumPages.forum);
                 return;
             }
 
             if (this.ForumId < 0)
             {
                 // categories are negative
-                YafBuildLink.Redirect(ForumPages.forum, "c={0}", -this.ForumId);
+                BuildLink.Redirect(ForumPages.forum, "c={0}", -this.ForumId);
                 return;
             }
 
-            YafBuildLink.Redirect(ForumPages.topics, "f={0}", this.ForumId);
+            BuildLink.Redirect(ForumPages.topics, "f={0}", this.ForumId);
         }
 
         #endregion
@@ -127,17 +126,20 @@ namespace YAF.Web.Controls
         /// </param>
         protected override void Render([NotNull] HtmlTextWriter writer)
         {
-            var forumJump =
-                this.Get<IDataCache>().GetOrSet(
-                    string.Format(
-                        Constants.Cache.ForumJump, this.PageContext.User != null ? this.PageContext.PageUserID.ToString() : "Guest"),
-                    () => this.GetRepository<Types.Models.Forum>().ListAllSortedAsDataTable(this.PageContext.PageBoardID, this.PageContext.PageUserID),
-                    TimeSpan.FromMinutes(5));
+            var forumJump = this.Get<IDataCache>().GetOrSet(
+                string.Format(
+                    Constants.Cache.ForumJump,
+                    this.PageContext.User != null ? this.PageContext.PageUserID.ToString() : "Guest"),
+                () => this.GetRepository<Types.Models.Forum>().ListAllSortedAsDataTable(
+                    this.PageContext.PageBoardID,
+                    this.PageContext.PageUserID),
+                TimeSpan.FromMinutes(5));
 
             writer.WriteLine(
-                $@"<select name=""{this.UniqueID}"" onchange=""{this.Page.ClientScript.GetPostBackClientHyperlink(this, this.ID)}"" id=""{this.ClientID}"" class=""custom-select"">");
-
-            writer.WriteLine(@"<option value=""0"">{0}</option>", this.Get<YafBoardSettings>().Name);
+                $@"<select name=""{this.UniqueID}"" 
+                             onchange=""{this.Page.ClientScript.GetPostBackClientHyperlink(this, this.ID)}"" 
+                             id=""{this.ClientID}"" 
+                             class=""select2-image-select"">");
 
             var forumId = this.PageContext.PageForumID;
             if (forumId <= 0)
@@ -145,17 +147,22 @@ namespace YAF.Web.Controls
                 writer.WriteLine("<option/>");
             }
 
-           forumJump.Rows.Cast<DataRow>().ForEach(
+            forumJump.Rows.Cast<DataRow>().ForEach(
                 row =>
-                {
-                    writer.WriteLine(
-                        @"<option {2}value=""{0}"">&nbsp;&nbsp;{1}</option>",
-                        row["ForumID"],
-                        this.HtmlEncode(row["Title"]),
-                        Convert.ToString(row["ForumID"]) == forumId.ToString() ? @"selected=""selected"" " : string.Empty);
-                });
+                    {
+                        var title = this.HtmlEncode(row["Title"]);
 
-           writer.WriteLine("</select>");
+                        writer.WriteLine(
+                            @"<option {2}value=""{0}"" data-content=""{3}"">&nbsp;&nbsp;{1}</option>",
+                            row["ForumID"],
+                            title,
+                            row["ForumID"].ToString() == forumId.ToString()
+                                ? @"selected=""selected"" "
+                                : string.Empty,
+                            $"<span class='select2-image-select-icon'><i class='fas fa-{row["Icon"]} fa-fw text-secondary'></i>&nbsp;{title}</span>");
+                    });
+
+            writer.WriteLine("</select>");
         }
 
         /// <summary>

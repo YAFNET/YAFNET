@@ -1,8 +1,8 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2019 Ingo Herbote
- * http://www.yetanotherforum.net/
+ * Copyright (C) 2014-2020 Ingo Herbote
+ * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -12,7 +12,7 @@
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
 
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
 
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
@@ -22,7 +22,7 @@
  * under the License.
  */
 
-namespace YAF.Pages.moderate
+namespace YAF.Pages.Moderate
 {
     #region Using
 
@@ -47,15 +47,15 @@ namespace YAF.Pages.moderate
     /// <summary>
     /// Moderating Page for Unapproved Posts.
     /// </summary>
-    public partial class unapprovedposts : ModerateForumPage
+    public partial class UnapprovedPosts : ModerateForumPage
     {
         #region Constructors and Destructors
 
         /// <summary>
-        ///   Initializes a new instance of the <see cref = "unapprovedposts" /> class. 
+        ///   Initializes a new instance of the <see cref = "UnapprovedPosts" /> class. 
         ///   Default constructor.
         /// </summary>
-        public unapprovedposts()
+        public UnapprovedPosts()
             : base("MODERATE_FORUM")
         {
         }
@@ -75,7 +75,7 @@ namespace YAF.Pages.moderate
             // moderation index
             this.PageLinks.AddLink(
                 this.GetText("MODERATE_DEFAULT", "TITLE"),
-                YafBuildLink.GetLink(ForumPages.moderate_index));
+                BuildLink.GetLink(ForumPages.Moderate_Index));
 
             // current page
             this.PageLinks.AddLink(this.PageContext.PageForumName);
@@ -107,7 +107,7 @@ namespace YAF.Pages.moderate
             else
             {
                 // fully format message (YafBBCode)
-                msg = this.Get<IFormatMessage>().FormatMessage(
+                msg = this.Get<IFormatMessage>().Format(
                     row["Message"].ToString(),
                     messageFlags,
                     row["IsModeratorChanged"].ToType<bool>());
@@ -157,7 +157,7 @@ namespace YAF.Pages.moderate
             if (!messageList.HasRows())
             {
                 // redirect back to the moderate main if no messages found
-                YafBuildLink.Redirect(ForumPages.moderate_index);
+                BuildLink.Redirect(ForumPages.Moderate_Index);
             }
             else
             {

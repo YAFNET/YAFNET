@@ -1,8 +1,8 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2019 Ingo Herbote
- * http://www.yetanotherforum.net/
+ * Copyright (C) 2014-2020 Ingo Herbote
+ * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -12,7 +12,7 @@
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
 
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
 
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
@@ -54,14 +54,14 @@ namespace YAF.Pages
     /// <summary>
     /// The Forum Login Page.
     /// </summary>
-    public partial class login : ForumPage
+    public partial class Login : ForumPage
     {
         #region Constructors and Destructors
 
         /// <summary>
-        ///   Initializes a new instance of the <see cref="login" /> class.
+        ///   Initializes a new instance of the <see cref="Login" /> class.
         /// </summary>
-        public login()
+        public Login()
             : base("LOGIN")
         {
         }
@@ -107,21 +107,23 @@ namespace YAF.Pages
             }
 
             // display name login...
-            if (this.Get<YafBoardSettings>().EnableDisplayName)
+            if (this.Get<BoardSettings>().EnableDisplayName)
             {
                 // Display name login
                 var id = this.Get<IUserDisplayName>().GetId(username);
 
-                if (id.HasValue)
+                if (!id.HasValue)
                 {
-                    // get the username associated with this id...
-                    var realUsername = UserMembershipHelper.GetUserNameFromID(id.Value);
+                    return null;
+                }
 
-                    // validate again...
-                    if (this.Get<MembershipProvider>().ValidateUser(realUsername, password))
-                    {
-                        return realUsername;
-                    }
+                // get the username associated with this id...
+                var realUsername = UserMembershipHelper.GetUserNameFromID(id.Value);
+
+                // validate again...
+                if (this.Get<MembershipProvider>().ValidateUser(realUsername, password))
+                {
+                    return realUsername;
                 }
             }
 
@@ -147,11 +149,13 @@ namespace YAF.Pages
 
             var realUserName = this.GetValidUsername(username, password);
 
-            if (realUserName.IsSet())
+            if (realUserName.IsNotSet())
             {
-                this.Login1.UserName = realUserName;
-                e.Authenticated = true;
+                return;
             }
+
+            this.Login1.UserName = realUserName;
+            e.Authenticated = true;
         }
 
         /// <summary>
@@ -226,15 +230,15 @@ namespace YAF.Pages
             this.PageLinks.AddLink(this.GetText("title"));
 
             // Login1.CreateUserText = "Sign up for a new account.";
-            // Login1.CreateUserUrl = YafBuildLink.GetLink( ForumPages.register );
+            // Login1.CreateUserUrl = BuildLink.GetLink( ForumPages.register );
             this.Login1.PasswordRecoveryText = this.GetText("lostpassword");
-            this.Login1.PasswordRecoveryUrl = YafBuildLink.GetLink(ForumPages.recoverpassword);
+            this.Login1.PasswordRecoveryUrl = BuildLink.GetLink(ForumPages.RecoverPassword);
             this.Login1.FailureText = this.GetText("password_error");
 
             this.Login1.DestinationPageUrl =
                 this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("ReturnUrl").IsSet()
                     ? this.HtmlEncode(this.Server.UrlDecode(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("ReturnUrl")))
-                    : YafBuildLink.GetLink(ForumPages.forum);
+                    : BuildLink.GetLink(ForumPages.forum);
 
             // localize controls
             var rememberMe = this.Login1.FindControlAs<CheckBox>("RememberMe");
@@ -301,14 +305,14 @@ namespace YAF.Pages
             }
 
             if (registerLinkPlaceHolder != null && this.PageContext.IsGuest
-                && !this.Get<YafBoardSettings>().DisableRegistrations && !Config.IsAnyPortal)
+                && !this.Get<BoardSettings>().DisableRegistrations && !Config.IsAnyPortal)
             {
                 registerLinkPlaceHolder.Visible = true;
 
                 registerLink.TextLocalizedTag = "REGISTER_INSTEAD";
             }
 
-            if (this.Get<YafBoardSettings>().AllowSingleSignOn
+            if (this.Get<BoardSettings>().AllowSingleSignOn
                 && (Config.FacebookAPIKey.IsSet() || Config.TwitterConsumerKey.IsSet() || Config.GoogleClientID.IsSet()))
             {
                 singleSignOnRow.Visible = true;
@@ -392,7 +396,7 @@ namespace YAF.Pages
                                 {
                                     try
                                     {
-                                        var twitterLoginUrl = YafSingleSignOnUser.GenerateLoginUrl(AuthService.twitter, true);
+                                        var twitterLoginUrl = SingleSignOnUser.GenerateLoginUrl(AuthService.twitter, true);
 
                                         // Redirect the user to Twitter for authorization.
                                         twitterLogin.Attributes.Add("onclick", twitterLoginUrl);
@@ -437,7 +441,7 @@ namespace YAF.Pages
                                 {
                                     try
                                     {
-                                        var facebookLoginUrl = YafSingleSignOnUser.GenerateLoginUrl(AuthService.facebook, true);
+                                        var facebookLoginUrl = SingleSignOnUser.GenerateLoginUrl(AuthService.facebook, true);
 
                                         // Redirect the user to Twitter for authorization.
                                         facebookLogin.Attributes.Add(
@@ -484,7 +488,7 @@ namespace YAF.Pages
                                 {
                                     try
                                     {
-                                        var googleLoginUrl = YafSingleSignOnUser.GenerateLoginUrl(AuthService.google, true);
+                                        var googleLoginUrl = SingleSignOnUser.GenerateLoginUrl(AuthService.google, true);
 
                                         // Redirect the user to Twitter for authorization.
                                         googleLogin.Attributes.Add(
@@ -521,7 +525,7 @@ namespace YAF.Pages
         /// </param>
         protected void PasswordRecovery_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
-            YafBuildLink.Redirect(ForumPages.recoverpassword);
+            BuildLink.Redirect(ForumPages.RecoverPassword);
         }
 
         /// <summary>
@@ -531,7 +535,7 @@ namespace YAF.Pages
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void FacebookFormClick(object sender, EventArgs e)
         {
-            YafBuildLink.Redirect(ForumPages.login, "auth={0}", "facebook");
+            BuildLink.Redirect(ForumPages.Login, "auth={0}", "facebook");
         }
 
         /// <summary>
@@ -541,7 +545,7 @@ namespace YAF.Pages
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void TwitterFormClick(object sender, EventArgs e)
         {
-            YafBuildLink.Redirect(ForumPages.login, "auth={0}", "twitter");
+            BuildLink.Redirect(ForumPages.Login, "auth={0}", "twitter");
         }
 
         /// <summary>
@@ -551,7 +555,7 @@ namespace YAF.Pages
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void GoogleFormClick(object sender, EventArgs e)
         {
-            YafBuildLink.Redirect(ForumPages.login, "auth={0}", "google");
+            BuildLink.Redirect(ForumPages.Login, "auth={0}", "google");
         }
 
         /// <summary>
@@ -561,8 +565,8 @@ namespace YAF.Pages
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void RegisterLinkClick(object sender, EventArgs e)
         {
-            YafBuildLink.Redirect(
-                this.Get<YafBoardSettings>().ShowRulesForRegistration ? ForumPages.rules : ForumPages.register);
+            BuildLink.Redirect(
+                this.Get<BoardSettings>().ShowRulesForRegistration ? ForumPages.Rules : ForumPages.Register);
         }
 
         /// <summary>
@@ -572,7 +576,7 @@ namespace YAF.Pages
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void CancelAuthLoginClick(object sender, EventArgs e)
         {
-            YafBuildLink.Redirect(ForumPages.login);
+            BuildLink.Redirect(ForumPages.Login);
         }
 
         /// <summary>
@@ -612,7 +616,7 @@ namespace YAF.Pages
                         {
                             case AuthService.twitter:
                                 {
-                                    this.Login1.DestinationPageUrl = YafSingleSignOnUser.GenerateLoginUrl(
+                                    this.Login1.DestinationPageUrl = SingleSignOnUser.GenerateLoginUrl(
                                         AuthService.twitter,
                                         false,
                                         true);
@@ -621,7 +625,7 @@ namespace YAF.Pages
                                 break;
                             case AuthService.facebook:
                                 {
-                                    this.Login1.DestinationPageUrl = YafSingleSignOnUser.GenerateLoginUrl(
+                                    this.Login1.DestinationPageUrl = SingleSignOnUser.GenerateLoginUrl(
                                         AuthService.facebook,
                                         false,
                                         true);
@@ -630,7 +634,7 @@ namespace YAF.Pages
                                 break;
                             case AuthService.google:
                                 {
-                                    this.Login1.DestinationPageUrl = YafSingleSignOnUser.GenerateLoginUrl(
+                                    this.Login1.DestinationPageUrl = SingleSignOnUser.GenerateLoginUrl(
                                         AuthService.google,
                                         false,
                                         true);

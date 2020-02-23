@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2019 Ingo Herbote
+ * Copyright (C) 2014-2020 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -12,7 +12,7 @@
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
 
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
 
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
@@ -56,9 +56,9 @@ namespace YAF.Controls
     #endregion
 
     /// <summary>
-    /// The email_digest.
+    /// The Email Digest Control.
     /// </summary>
-    public partial class emaildigest : BaseUserControl
+    public partial class EmailDigest : BaseUserControl
     {
         #region Constants and Fields
 
@@ -108,8 +108,8 @@ namespace YAF.Controls
                 var topicsFlattened = this.forumData.SelectMany(x => x.Topics);
 
                 return topicsFlattened.Where(
-                    t => t.LastPostDate > DateTime.Now.AddHours(this.topicHours)
-                         && t.CreatedDate < DateTime.Now.AddHours(this.topicHours)).GroupBy(x => x.Forum);
+                    t => t.LastPostDate > System.DateTime.Now.AddHours(this.topicHours)
+                         && t.CreatedDate < System.DateTime.Now.AddHours(this.topicHours)).GroupBy(x => x.Forum);
             }
         }
 
@@ -129,7 +129,7 @@ namespace YAF.Controls
         /// <value>
         /// The board settings.
         /// </value>
-        public YafBoardSettings BoardSettings { get; set; }
+        public BoardSettings BoardSettings { get; set; }
 
         /// <summary>
         ///   Gets NewTopics.
@@ -142,7 +142,7 @@ namespace YAF.Controls
                 // flatten...
                 var topicsFlattened = this.forumData.SelectMany(x => x.Topics);
 
-                return topicsFlattened.Where(t => t.CreatedDate > DateTime.Now.AddHours(this.topicHours))
+                return topicsFlattened.Where(t => t.CreatedDate > System.DateTime.Now.AddHours(this.topicHours)).OrderByDescending(x => x.LastPostDate)
                     .GroupBy(x => x.Forum);
             }
         }
@@ -196,7 +196,7 @@ namespace YAF.Controls
         {
             if (this.languageFile.IsSet() && this.localization == null)
             {
-                this.localization = new YafLocalization();
+                this.localization = new Localization();
                 this.localization.LoadTranslation(this.languageFile);
             }
             else if (this.localization == null)
@@ -251,13 +251,13 @@ namespace YAF.Controls
 
             if (HttpContext.Current != null)
             {
-                this.BoardSettings = YafContext.Current.BoardSettings.BoardID.Equals(this.BoardID)
-                                         ? YafContext.Current.BoardSettings
-                                         : new YafLoadBoardSettings(this.BoardID);
+                this.BoardSettings = BoardContext.Current.BoardSettings.BoardID.Equals(this.BoardID)
+                                         ? BoardContext.Current.BoardSettings
+                                         : new LoadBoardSettings(this.BoardID);
             }
             else
             {
-                this.BoardSettings = new YafLoadBoardSettings(this.BoardID);
+                this.BoardSettings = new LoadBoardSettings(this.BoardID);
             }
 
             this.Get<StartupInitializeDb>().Run();
@@ -297,10 +297,10 @@ namespace YAF.Controls
             // get topic hours...
             this.topicHours = -this.BoardSettings.DigestSendEveryXHours;
 
-            this.forumData = this.Get<YafDbBroker>().GetSimpleForumTopic(
+            this.forumData = this.Get<DataBroker>().GetSimpleForumTopic(
                 this.BoardID,
                 this.CurrentUserID,
-                DateTime.Now.AddHours(this.topicHours),
+                System.DateTime.Now.AddHours(this.topicHours),
                 9999);
 
             if (!this.NewTopics.Any() && !this.ActiveTopics.Any())
@@ -327,11 +327,11 @@ namespace YAF.Controls
                 this.BoardSettings.AllowUserTheme,
                 this.BoardSettings.Theme);
 
-            var subject = this.GetTextFormatted("SUBJECT", this.BoardSettings.Name);
+            var subject = string.Format(this.GetText("SUBJECT"), this.BoardSettings.Name);
 
             this.YafHead.Controls.Add(
                 ControlHelper.MakeCssIncludeControl(
-                    YafForumInfo.GetURLToContentThemes(theme.CombineWith("bootstrap-forum.min.css"))));
+                    BoardInfo.GetURLToContentThemes(theme.CombineWith("bootstrap-forum.min.css"))));
 
             if (subject.IsSet())
             {

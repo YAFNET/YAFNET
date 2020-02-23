@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-
+using System.Text;
 using ServiceStack.Data;
 using ServiceStack.Text;
 
@@ -31,7 +31,6 @@ namespace ServiceStack.OrmLite
                     .Append(parameter.Value.ToJsv())
                     .Append(" : ").AppendLine((parameter.Value ?? DBNull.Value).GetType().Name);
             }
-
             sb.AppendLine();
 
             return StringBuilderCache.ReturnAndFree(sb);
@@ -59,7 +58,7 @@ namespace ServiceStack.OrmLite
         /// Execute any arbitrary raw SQL with db params.
         /// </summary>
         /// <returns>number of rows affected</returns>
-        public static int ExecuteSql(this IDbConnection dbConn, string sql, Dictionary<string, object> dbParams)
+        public static int ExecuteSql(this IDbConnection dbConn, string sql, Dictionary<string,object> dbParams)
         {
             return dbConn.Exec(dbCmd => dbCmd.ExecuteSql(sql, dbParams));
         }
@@ -90,6 +89,24 @@ namespace ServiceStack.OrmLite
         public static void InsertUsingDefaults<T>(this IDbConnection dbConn, params T[] objs)
         {
             dbConn.Exec(dbCmd => dbCmd.InsertUsingDefaults(objs));
+        }
+
+        /// <summary>
+        /// Insert results from SELECT SqlExpression, use selectIdentity to retrieve the last insert AutoIncrement id (if any). E.g:
+        /// <para>db.InsertIntoSelect&lt;Contact&gt;(db.From&lt;Person&gt;().Select(x => new { x.Id, Surname == x.LastName }))</para>
+        /// </summary>
+        public static long InsertIntoSelect<T>(this IDbConnection dbConn, ISqlExpression query)
+        {
+            return dbConn.Exec(dbCmd => dbCmd.InsertIntoSelect<T>(query, commandFilter: null));
+        }
+
+        /// <summary>
+        /// Insert results from SELECT SqlExpression, use selectIdentity to retrieve the last insert AutoIncrement id (if any). E.g:
+        /// <para>db.InsertIntoSelect&lt;Contact&gt;(db.From&lt;Person&gt;().Select(x => new { x.Id, Surname == x.LastName }))</para>
+        /// </summary>
+        public static long InsertIntoSelect<T>(this IDbConnection dbConn, ISqlExpression query, Action<IDbCommand> commandFilter)
+        {
+            return dbConn.Exec(dbCmd => dbCmd.InsertIntoSelect<T>(query, commandFilter: commandFilter));
         }
 
         /// <summary>
@@ -150,7 +167,6 @@ namespace ServiceStack.OrmLite
         {
             return dbConn.Exec(dbCmd => dbCmd.Update(objs, commandFilter:null));
         }
-
         public static int Update<T>(this IDbConnection dbConn, Action<IDbCommand> commandFilter, params T[] objs)
         {
             return dbConn.Exec(dbCmd => dbCmd.Update(objs, commandFilter));
@@ -288,7 +304,7 @@ namespace ServiceStack.OrmLite
 
         /// <summary>
         /// Delete rows using a SqlFormat filter. E.g:
-        /// <para>db.Delete&lt;Person&gt;("Age > @age", new { age = 42 })</para>
+        /// <para>db.Delete(typeof(Person), "Age > @age", new { age = 42 })</para>
         /// </summary>
         /// <returns>number of rows deleted</returns>
         public static int Delete(this IDbConnection dbConn, Type tableType, string sqlFilter, object anonType)

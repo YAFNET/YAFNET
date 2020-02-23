@@ -65,7 +65,7 @@ namespace YAF.Dialogs
                 return;
             }
 
-            var showMoved = this.Get<YafBoardSettings>().ShowMoved;
+            var showMoved = this.Get<BoardSettings>().ShowMoved;
 
             // Ederon : 7/14/2007 - by default, leave pointer is set on value defined on host level
             this.LeavePointer.Checked = showMoved;
@@ -130,7 +130,7 @@ namespace YAF.Dialogs
                     linkDays.Value);
             }
 
-            YafBuildLink.Redirect(ForumPages.topics, "f={0}", this.PageContext.PageForumID);
+            BuildLink.Redirect(ForumPages.topics, "f={0}", this.PageContext.PageForumID);
         }
 
         #endregion

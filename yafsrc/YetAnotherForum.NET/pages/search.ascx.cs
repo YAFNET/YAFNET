@@ -1,8 +1,8 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2019 Ingo Herbote
- * http://www.yetanotherforum.net/
+ * Copyright (C) 2014-2020 Ingo Herbote
+ * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -12,7 +12,7 @@
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
 
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
 
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
@@ -45,15 +45,15 @@ namespace YAF.Pages
     /// <summary>
     /// The Search Page.
     /// </summary>
-    public partial class search : ForumPage
+    public partial class Search : ForumPage
     {
         #region Constructors and Destructors
 
         /// <summary>
-        ///   Initializes a new instance of the <see cref = "search" /> class.
+        ///   Initializes a new instance of the <see cref = "Search" /> class.
         ///   The search page constructor.
         /// </summary>
-        public search()
+        public Search()
             : base("SEARCH")
         {
         }
@@ -71,7 +71,7 @@ namespace YAF.Pages
         protected override void OnPreRender([NotNull] EventArgs e)
         {
             // setup jQuery and Jquery Ui Tabs.
-            YafContext.Current.PageElements.RegisterJsBlock(
+            BoardContext.Current.PageElements.RegisterJsBlock(
                 "dropDownToggleJs",
                 JavaScriptBlocks.DropDownToggleJs());
 
@@ -99,7 +99,7 @@ namespace YAF.Pages
             this.PageLinks.AddRoot();
             this.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
 
-            this.txtSearchStringFromWho.Attributes.Add("data-display", this.Get<YafBoardSettings>().EnableDisplayName.ToString());
+            this.txtSearchStringFromWho.Attributes.Add("data-display", this.Get<BoardSettings>().EnableDisplayName.ToString());
 
             // Load result dropdown
             this.listResInPage.Items.Add(new ListItem(this.GetText("result5"), "5"));
@@ -163,7 +163,22 @@ namespace YAF.Pages
 
             if (doSearch)
             {
-                YafContext.Current.PageElements.RegisterJsBlockStartup(
+                BoardContext.Current.PageElements.RegisterJsBlockStartup(
+                    "openModalJs",
+                    JavaScriptBlocks.DoSearchJs());
+            }
+
+            var tag = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("tag");
+
+            if (tag.IsSet())
+            {
+                this.SearchStringTag.Text = this.Server.UrlDecode(tag);
+                doSearch = true;
+            }
+
+            if (doSearch)
+            {
+                BoardContext.Current.PageElements.RegisterJsBlockStartup(
                     "openModalJs",
                     JavaScriptBlocks.DoSearchJs());
             }

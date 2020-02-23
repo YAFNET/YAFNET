@@ -1,8 +1,8 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2019 Ingo Herbote
- * http://www.yetanotherforum.net/
+ * Copyright (C) 2014-2020 Ingo Herbote
+ * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -12,7 +12,7 @@
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
 
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
 
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
@@ -68,7 +68,7 @@ namespace YAF.Modules
         /// </summary>
         private static void RegisterJQuery()
         {
-            if (YafContext.Current.PageElements.PageElementExists("jquery"))
+            if (BoardContext.Current.PageElements.PageElementExists("jquery"))
             {
                 return;
             }
@@ -100,12 +100,12 @@ namespace YAF.Modules
                 {
                     jqueryUrl = !Config.JQueryOverrideFile.StartsWith("http")
                                 && !Config.JQueryOverrideFile.StartsWith("//")
-                                    ? YafForumInfo.GetURLToScripts(Config.JQueryOverrideFile)
+                                    ? BoardInfo.GetURLToScripts(Config.JQueryOverrideFile)
                                     : Config.JQueryOverrideFile;
                 }
                 else
                 {
-                    jqueryUrl = YafForumInfo.GetURLToScripts($"jquery-{Config.JQueryVersion}.min.js");
+                    jqueryUrl = BoardInfo.GetURLToScripts($"jquery-{Config.JQueryVersion}.min.js");
                 }
 
                 // load jQuery
@@ -115,17 +115,17 @@ namespace YAF.Modules
                     new ScriptResourceDefinition
                     {
                         Path = jqueryUrl,
-                        DebugPath = YafForumInfo.GetURLToScripts($"jquery-{Config.JQueryVersion}.js"),
+                        DebugPath = BoardInfo.GetURLToScripts($"jquery-{Config.JQueryVersion}.js"),
                         CdnPath = $"//ajax.aspnetcdn.com/ajax/jQuery/jquery-{Config.JQueryVersion}.min.js",
                         CdnDebugPath = $"//ajax.aspnetcdn.com/ajax/jQuery/jquery-{Config.JQueryVersion}.js",
                         CdnSupportsSecureConnection = true/*,
                             LoadSuccessExpression = "window.jQuery"*/
                     });
 
-                YafContext.Current.PageElements.AddScriptReference("jquery");
+                BoardContext.Current.PageElements.AddScriptReference("jquery");
             }
 
-            YafContext.Current.PageElements.AddPageElement("jquery");
+            BoardContext.Current.PageElements.AddPageElement("jquery");
         }
         
         /// <summary>
@@ -136,7 +136,7 @@ namespace YAF.Modules
         private void CurrentForumPageLoad([NotNull] object sender, [NotNull] EventArgs e)
         {
             // Load CSS First
-            this.RegisterCssFiles(this.Get<YafBoardSettings>().CdvVersion);
+            this.RegisterCssFiles(this.Get<BoardSettings>().CdvVersion);
         }
 
         /// <summary>
@@ -153,33 +153,33 @@ namespace YAF.Modules
                 return;
             }
 
-            var version = this.Get<YafBoardSettings>().CdvVersion;
+            var version = this.Get<BoardSettings>().CdvVersion;
 
             ScriptManager.ScriptResourceMapping.AddDefinition(
                 "yafForumAdminExtensions",
                 new ScriptResourceDefinition
                     {
-                        Path = YafForumInfo.GetURLToScripts($"jquery.ForumAdminExtensions.min.js?v={version}"),
-                        DebugPath = YafForumInfo.GetURLToScripts($"jquery.ForumAdminExtensions.js?v={version}")
+                        Path = BoardInfo.GetURLToScripts($"jquery.ForumAdminExtensions.min.js?v={version}"),
+                        DebugPath = BoardInfo.GetURLToScripts($"jquery.ForumAdminExtensions.js?v={version}")
                 });
 
             ScriptManager.ScriptResourceMapping.AddDefinition(
                 "yafForumExtensions",
                 new ScriptResourceDefinition
                     {
-                        Path = YafForumInfo.GetURLToScripts($"jquery.ForumExtensions.min.js?v={version}"),
-                        DebugPath = YafForumInfo.GetURLToScripts($"jquery.ForumExtensions.js?v={version}")
+                        Path = BoardInfo.GetURLToScripts($"jquery.ForumExtensions.min.js?v={version}"),
+                        DebugPath = BoardInfo.GetURLToScripts($"jquery.ForumExtensions.js?v={version}")
                 });
 
             ScriptManager.ScriptResourceMapping.AddDefinition(
                 "FileUploadScript",
                 new ScriptResourceDefinition
                     {
-                        Path = YafForumInfo.GetURLToScripts("jquery.fileupload.comb.min.js"),
-                        DebugPath = YafForumInfo.GetURLToScripts("jquery.fileupload.comb.js")
+                        Path = BoardInfo.GetURLToScripts("jquery.fileupload.comb.min.js"),
+                        DebugPath = BoardInfo.GetURLToScripts("jquery.fileupload.comb.js")
                     });
 
-            YafContext.Current.PageElements.AddScriptReference(
+            BoardContext.Current.PageElements.AddScriptReference(
                 this.PageContext.CurrentForumPage.IsAdminPage ? "yafForumAdminExtensions" : "yafForumExtensions");
 
             this.PageContext.Vars["yafForumExtensions"] = true;
@@ -193,7 +193,7 @@ namespace YAF.Modules
         /// </param>
         private void RegisterCssFiles(int version)
         {
-            var element = YafContext.Current.CurrentForumPage.TopPageControl;
+            var element = BoardContext.Current.CurrentForumPage.TopPageControl;
 
             element.Controls.Add(
                 ControlHelper.MakeCssIncludeControl(
@@ -202,7 +202,7 @@ namespace YAF.Modules
             // make the style sheet link controls.
             element.Controls.Add(
                 ControlHelper.MakeCssIncludeControl(
-                    YafForumInfo.GetURLToContent(
+                    BoardInfo.GetURLToContent(
                         this.PageContext.CurrentForumPage.IsAdminPage
                             ? $"forum-admin.min.css?v={version}"
                             : $"forum.min.css?v={version}")));

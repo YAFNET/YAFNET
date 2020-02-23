@@ -1,8 +1,8 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2019 Ingo Herbote
- * http://www.yetanotherforum.net/
+ * Copyright (C) 2014-2020 Ingo Herbote
+ * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -12,7 +12,7 @@
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
 
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
 
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
@@ -57,21 +57,21 @@ namespace YAF.Core.UsersRoles
         {
             get
             {
-                int? guestUserID = YafContext.Current.Get<IDataCache>().GetOrSet(
+                int? guestUserID = BoardContext.Current.Get<IDataCache>().GetOrSet(
                     Constants.Cache.GuestUserID,
                     () =>
                         {
                             // get the guest user for this board...
                             guestUserID =
-                                YafContext.Current.GetRepository<User>().GetGuestUserId(YafContext.Current.PageBoardID)
-                                ?? YafContext.Current.GetRepository<User>()
-                                    .GetGuestUserId(YafContext.Current.PageBoardID);
+                                BoardContext.Current.GetRepository<User>().GetGuestUserId(BoardContext.Current.PageBoardID)
+                                ?? BoardContext.Current.GetRepository<User>()
+                                    .GetGuestUserId(BoardContext.Current.PageBoardID);
 
                             if (!guestUserID.HasValue)
                             {
                                 // failure...
                                 throw new NoValidGuestUserForBoardException(
-                                    $"Could not locate the guest user for the board id {YafContext.Current.PageBoardID}. You might have deleted the guest group or removed the guest user.");
+                                    $"Could not locate the guest user for the board id {BoardContext.Current.PageBoardID}. You might have deleted the guest group or removed the guest user.");
                             }
 
                             return guestUserID.Value;
@@ -85,7 +85,7 @@ namespace YAF.Core.UsersRoles
         /// Gets the Username of the Guest user for the current board.
         /// </summary>
         public static string GuestUserName =>
-            YafContext.Current.GetRepository<User>().ListAsDataTable(YafContext.Current.PageBoardID, GuestUserId, true)
+            BoardContext.Current.GetRepository<User>().ListAsDataTable(BoardContext.Current.PageBoardID, GuestUserId, true)
                 .GetFirstRowColumnAsValue<string>("Name", null);
 
         #endregion
@@ -113,11 +113,11 @@ namespace YAF.Core.UsersRoles
                         {
                             // approve this user...
                             user.IsApproved = true;
-                            YafContext.Current.Get<MembershipProvider>().UpdateUser(user);
+                            BoardContext.Current.Get<MembershipProvider>().UpdateUser(user);
                             var id = GetUserIDFromProviderUserKey(user.ProviderUserKey);
                             if (id > 0)
                             {
-                                YafContext.Current.GetRepository<User>().Approve(id);
+                                BoardContext.Current.GetRepository<User>().Approve(id);
                             }
                         });
 
@@ -147,14 +147,14 @@ namespace YAF.Core.UsersRoles
                 user.IsApproved = true;
             }
 
-            YafContext.Current.Get<MembershipProvider>().UpdateUser(user);
-            YafContext.Current.GetRepository<User>().Approve(userID);
+            BoardContext.Current.Get<MembershipProvider>().UpdateUser(user);
+            BoardContext.Current.GetRepository<User>().Approve(userID);
 
             return true;
         }
 
         /// <summary>
-        /// The delete all unapproved.
+        /// Deletes all Unapproved Users older then Cut Off DateTime
         /// </summary>
         /// <param name="createdCutoff">
         /// The created cutoff.
@@ -176,18 +176,40 @@ namespace YAF.Core.UsersRoles
                         user =>
                             {
                                 // delete this user...
-                                YafContext.Current.GetRepository<User>()
+                                BoardContext.Current.GetRepository<User>()
                                     .Delete(GetUserIDFromProviderUserKey(user.ProviderUserKey));
-                                YafContext.Current.Get<MembershipProvider>().DeleteUser(user.UserName, true);
-                                YafContext.Current.Get<ILogger>().Log(
-                                    YafContext.Current.PageUserID,
+                                BoardContext.Current.Get<MembershipProvider>().DeleteUser(user.UserName, true);
+                                BoardContext.Current.Get<ILogger>().Log(
+                                    BoardContext.Current.PageUserID,
                                     "UserMembershipHelper.DeleteAllUnapproved",
-                                    $"User {user.UserName} was deleted by user id {YafContext.Current.PageUserID} as unapproved.",
+                                    $"User {user.UserName} was deleted by user id {BoardContext.Current.PageUserID} as unapproved.",
                                     EventLogTypes.UserDeleted);
                             });
 
                 pageCount++;
             }
+        }
+
+        /// <summary>
+        /// De-active all User accounts which are not active for x years
+        /// </summary>
+        /// <param name="createdCutoff">
+        /// The created cutoff.
+        /// </param>
+        public static void LockInactiveAccounts(DateTime createdCutoff)
+        {
+            var allUsers = GetAllUsers();
+
+            // iterate through each one...
+            allUsers.Cast<MembershipUser>().Where(user => !user.IsApproved && user.LastActivityDate < createdCutoff)
+                .ForEach(
+                    user =>
+                        {
+                            // Set user to un-approve...
+                            user.IsApproved = false;
+
+                            BoardContext.Current.Get<MembershipProvider>().UpdateUser(user);
+                        });
         }
 
         /// <summary>
@@ -209,15 +231,15 @@ namespace YAF.Core.UsersRoles
 
             // Delete the images/albums both from database and physically.
             var uploadFolderPath = HttpContext.Current.Server.MapPath(
-                string.Concat(BaseUrlBuilder.ServerFileRoot, YafBoardFolders.Current.Uploads));
+                string.Concat(BaseUrlBuilder.ServerFileRoot, BoardFolders.Current.Uploads));
 
-            var dt = YafContext.Current.GetRepository<UserAlbum>().ListByUser(userID);
+            var dt = BoardContext.Current.GetRepository<UserAlbum>().ListByUser(userID);
 
-            dt.ForEach(dr => YafContext.Current.Get<IAlbum>().AlbumImageDelete(uploadFolderPath, dr.ID, userID, null));
+            dt.ForEach(dr => BoardContext.Current.Get<IAlbum>().AlbumImageDelete(uploadFolderPath, dr.ID, userID, null));
 
             // Check if there are any avatar images in the uploads folder
-            if (!YafContext.Current.Get<YafBoardSettings>().UseFileTable
-                && YafContext.Current.Get<YafBoardSettings>().AvatarUpload)
+            if (!BoardContext.Current.Get<BoardSettings>().UseFileTable
+                && BoardContext.Current.Get<BoardSettings>().AvatarUpload)
             {
                 string[] imageExtensions = { "jpg", "jpeg", "gif", "png", "bmp" };
 
@@ -231,18 +253,18 @@ namespace YAF.Core.UsersRoles
                         });
             }
 
-            YafContext.Current.Get<MembershipProvider>().DeleteUser(userName, true);
-            YafContext.Current.GetRepository<User>().Delete(userID);
-            YafContext.Current.Get<ILogger>().Log(
-                YafContext.Current.PageUserID,
+            BoardContext.Current.Get<MembershipProvider>().DeleteUser(userName, true);
+            BoardContext.Current.GetRepository<User>().Delete(userID);
+            BoardContext.Current.Get<ILogger>().Log(
+                BoardContext.Current.PageUserID,
                 "UserMembershipHelper.DeleteUser",
-                $"User {userName} was deleted by {(isBotAutoDelete ? "the automatic spam check system" : YafContext.Current.PageUserName)}.",
+                $"User {userName} was deleted by {(isBotAutoDelete ? "the automatic spam check system" : BoardContext.Current.PageUserName)}.",
                 EventLogTypes.UserDeleted);
 
             // clear the cache
-            YafContext.Current.Get<IDataCache>().Remove(Constants.Cache.UsersOnlineStatus);
-            YafContext.Current.Get<IDataCache>().Remove(Constants.Cache.BoardUserStats);
-            YafContext.Current.Get<IDataCache>().Remove(Constants.Cache.UsersDisplayNameCollection);
+            BoardContext.Current.Get<IDataCache>().Remove(Constants.Cache.UsersOnlineStatus);
+            BoardContext.Current.Get<IDataCache>().Remove(Constants.Cache.BoardUserStats);
+            BoardContext.Current.Get<IDataCache>().Remove(Constants.Cache.UsersDisplayNameCollection);
 
             return true;
         }
@@ -259,23 +281,23 @@ namespace YAF.Core.UsersRoles
         public static bool DeleteAndBanUser(int userID, MembershipUser user, string userIpAddress)
         {
             // Update Anti SPAM Stats
-            YafContext.Current.GetRepository<Registry>().IncrementBannedUsers();
+            BoardContext.Current.GetRepository<Registry>().IncrementBannedUsers();
 
             // Ban IP ?
-            if (YafContext.Current.Get<YafBoardSettings>().BanBotIpOnDetection)
+            if (BoardContext.Current.Get<BoardSettings>().BanBotIpOnDetection)
             {
-                YafContext.Current.GetRepository<BannedIP>().Save(
+                BoardContext.Current.GetRepository<BannedIP>().Save(
                     null,
                     userIpAddress,
                     $"A spam Bot who was trying to register was banned by IP {userIpAddress}",
                     userID);
 
                 // Clear cache
-                YafContext.Current.Get<IDataCache>().Remove(Constants.Cache.BannedIP);
+                BoardContext.Current.Get<IDataCache>().Remove(Constants.Cache.BannedIP);
 
-                if (YafContext.Current.Get<YafBoardSettings>().LogBannedIP)
+                if (BoardContext.Current.Get<BoardSettings>().LogBannedIP)
                 {
-                    YafContext.Current.Get<ILogger>().Log(
+                    BoardContext.Current.Get<ILogger>().Log(
                         userID,
                         "IP BAN of Bot",
                         $"A spam Bot who was banned by IP {userIpAddress}",
@@ -284,43 +306,43 @@ namespace YAF.Core.UsersRoles
             }
 
             // Ban Name ?
-            YafContext.Current.GetRepository<BannedName>().Save(
+            BoardContext.Current.GetRepository<BannedName>().Save(
                 null,
                 user.UserName,
                 "Name was reported by the automatic spam system.");
 
             // Ban User Email?
-            YafContext.Current.GetRepository<BannedEmail>().Save(
+            BoardContext.Current.GetRepository<BannedEmail>().Save(
                 null,
                 user.Email,
                 "Email was reported by the automatic spam system.");
 
             // Delete the images/albums both from database and physically.
             var uploadDir = HttpContext.Current.Server.MapPath(
-                string.Concat(BaseUrlBuilder.ServerFileRoot, YafBoardFolders.Current.Uploads));
+                string.Concat(BaseUrlBuilder.ServerFileRoot, BoardFolders.Current.Uploads));
 
-            var dt = YafContext.Current.GetRepository<UserAlbum>().ListByUser(userID);
+            var dt = BoardContext.Current.GetRepository<UserAlbum>().ListByUser(userID);
 
-            dt.ForEach(dr => YafContext.Current.Get<IAlbum>().AlbumImageDelete(uploadDir, dr.ID, userID, null));
+            dt.ForEach(dr => BoardContext.Current.Get<IAlbum>().AlbumImageDelete(uploadDir, dr.ID, userID, null));
 
             // delete posts...
-            var messageIds = YafContext.Current.GetRepository<Message>().GetAllUserMessages(userID).Select(m => m.ID)
+            var messageIds = BoardContext.Current.GetRepository<Message>().GetAllUserMessages(userID).Select(m => m.ID)
                 .Distinct().ToList();
 
-            messageIds.ForEach(x => YafContext.Current.GetRepository<Message>().Delete(x, true, string.Empty, 1, true));
+            messageIds.ForEach(x => BoardContext.Current.GetRepository<Message>().Delete(x, true, string.Empty, 1, true));
 
-            YafContext.Current.Get<MembershipProvider>().DeleteUser(user.UserName, true);
-            YafContext.Current.GetRepository<User>().Delete(userID);
-            YafContext.Current.Get<ILogger>().Log(
-                YafContext.Current.PageUserID,
+            BoardContext.Current.Get<MembershipProvider>().DeleteUser(user.UserName, true);
+            BoardContext.Current.GetRepository<User>().Delete(userID);
+            BoardContext.Current.Get<ILogger>().Log(
+                BoardContext.Current.PageUserID,
                 "UserMembershipHelper.DeleteUser",
                 $"User {user.UserName} was deleted by the automatic spam check system.",
                 EventLogTypes.UserDeleted);
 
             // clear the cache
-            YafContext.Current.Get<IDataCache>().Remove(Constants.Cache.UsersOnlineStatus);
-            YafContext.Current.Get<IDataCache>().Remove(Constants.Cache.BoardUserStats);
-            YafContext.Current.Get<IDataCache>().Remove(Constants.Cache.UsersDisplayNameCollection);
+            BoardContext.Current.Get<IDataCache>().Remove(Constants.Cache.UsersOnlineStatus);
+            BoardContext.Current.Get<IDataCache>().Remove(Constants.Cache.BoardUserStats);
+            BoardContext.Current.Get<IDataCache>().Remove(Constants.Cache.UsersDisplayNameCollection);
 
             return true;
         }
@@ -336,7 +358,7 @@ namespace YAF.Core.UsersRoles
         /// </returns>
         public static MembershipUserCollection FindUsersByEmail(string email)
         {
-            return YafContext.Current.Get<MembershipProvider>().FindUsersByEmail(email, 0, 999999, out _);
+            return BoardContext.Current.Get<MembershipProvider>().FindUsersByEmail(email, 0, 999999, out _);
         }
 
         /// <summary>
@@ -350,7 +372,7 @@ namespace YAF.Core.UsersRoles
         /// </returns>
         public static MembershipUserCollection FindUsersByName(string username)
         {
-            return YafContext.Current.Get<MembershipProvider>().FindUsersByName(username, 0, 999999, out _);
+            return BoardContext.Current.Get<MembershipProvider>().FindUsersByName(username, 0, 999999, out _);
         }
 
         /// <summary>
@@ -370,7 +392,7 @@ namespace YAF.Core.UsersRoles
         /// </returns>
         public static MembershipUserCollection GetAllUsers(int pageCount, out int exitCount, int userNumber)
         {
-            var muc = YafContext.Current.Get<MembershipProvider>().GetAllUsers(pageCount, 1000, out var totalRecords);
+            var muc = BoardContext.Current.Get<MembershipProvider>().GetAllUsers(pageCount, 1000, out var totalRecords);
             exitCount = totalRecords;
             return muc;
         }
@@ -467,7 +489,7 @@ namespace YAF.Core.UsersRoles
         /// </returns>
         public static object GetProviderUserKeyFromID(long userID)
         {
-            return GetProviderUserKeyFromID(userID, YafContext.Current.PageBoardID);
+            return GetProviderUserKeyFromID(userID, BoardContext.Current.PageBoardID);
         }
 
         /// <summary>
@@ -530,7 +552,7 @@ namespace YAF.Core.UsersRoles
         /// </returns>
         public static MembershipUser GetUser(string username, bool updateOnlineStatus)
         {
-            return YafContext.Current.Get<MembershipProvider>().GetUser(username, updateOnlineStatus);
+            return BoardContext.Current.Get<MembershipProvider>().GetUser(username, updateOnlineStatus);
         }
 
         /// <summary>
@@ -542,7 +564,7 @@ namespace YAF.Core.UsersRoles
         /// </returns>
         public static MembershipUser GetUser(object providerKey)
         {
-            return YafContext.Current.Get<MembershipProvider>().GetUser(providerKey, false);
+            return BoardContext.Current.Get<MembershipProvider>().GetUser(providerKey, false);
         }
 
         /// <summary>
@@ -553,7 +575,7 @@ namespace YAF.Core.UsersRoles
         /// </returns>
         public static string ApplicationName()
         {
-            return YafContext.Current.Get<MembershipProvider>().ApplicationName;
+            return BoardContext.Current.Get<MembershipProvider>().ApplicationName;
         }
 
         /// <summary>
@@ -566,7 +588,7 @@ namespace YAF.Core.UsersRoles
         /// </returns>
         public static MembershipUser GetUser(object providerKey, bool updateOnlineStatus)
         {
-            return YafContext.Current.Get<MembershipProvider>().GetUser(providerKey, updateOnlineStatus);
+            return BoardContext.Current.Get<MembershipProvider>().GetUser(providerKey, updateOnlineStatus);
         }
 
         /// <summary>
@@ -578,8 +600,8 @@ namespace YAF.Core.UsersRoles
         /// </returns>
         public static MembershipUser GetUser(bool updateOnlineStatus)
         {
-            return YafContext.Current.Get<HttpContextBase>().User != null
-                   && YafContext.Current.Get<HttpContextBase>().User.Identity.IsAuthenticated
+            return BoardContext.Current.Get<HttpContextBase>().User != null
+                   && BoardContext.Current.Get<HttpContextBase>().User.Identity.IsAuthenticated
                        ? GetUser(HttpContext.Current.User.Identity.Name, updateOnlineStatus)
                        : null;
         }
@@ -593,8 +615,8 @@ namespace YAF.Core.UsersRoles
         /// </returns>
         public static int GetUserIDFromProviderUserKey(object providerUserKey)
         {
-            return YafContext.Current.GetRepository<User>().GetUserId(
-                YafContext.Current.PageBoardID,
+            return BoardContext.Current.GetRepository<User>().GetUserId(
+                BoardContext.Current.PageBoardID,
                 providerUserKey.ToString());
         }
 
@@ -664,7 +686,7 @@ namespace YAF.Core.UsersRoles
         /// </returns>
         public static DataRow GetUserRowForID(long userID, bool allowCached)
         {
-            return GetUserRowForID(userID, YafContext.Current.PageBoardID, allowCached);
+            return GetUserRowForID(userID, BoardContext.Current.PageBoardID, allowCached);
         }
 
         /// <summary>
@@ -678,18 +700,18 @@ namespace YAF.Core.UsersRoles
         /// </returns>
         public static DataRow GetUserRowForID(long userID, int? boardID, bool allowCached)
         {
-            var boardId = boardID ?? YafContext.Current.PageBoardID;
+            var boardId = boardID ?? BoardContext.Current.PageBoardID;
 
             if (!allowCached)
             {
-                return YafContext.Current.GetRepository<User>()
+                return BoardContext.Current.GetRepository<User>()
                     .ListAsDataTable(boardId, userID.ToType<int>(), DBNull.Value).GetFirstRow();
             }
 
             // get the item cached...
-            return YafContext.Current.Get<IDataCache>().GetOrSet(
+            return BoardContext.Current.Get<IDataCache>().GetOrSet(
                 string.Format(Constants.Cache.UserListForID, userID),
-                () => YafContext.Current.GetRepository<User>()
+                () => BoardContext.Current.GetRepository<User>()
                     .ListAsDataTable(boardId, userID.ToType<int>(), DBNull.Value),
                 TimeSpan.FromMinutes(5)).GetFirstRow();
         }
@@ -798,10 +820,10 @@ namespace YAF.Core.UsersRoles
 
             user.Email = newEmail;
 
-            YafContext.Current.Get<MembershipProvider>().UpdateUser(user);
+            BoardContext.Current.Get<MembershipProvider>().UpdateUser(user);
 
-            YafContext.Current.GetRepository<User>().Aspnet(
-                YafContext.Current.PageBoardID,
+            BoardContext.Current.GetRepository<User>().Aspnet(
+                BoardContext.Current.PageBoardID,
                 user.UserName,
                 null,
                 newEmail,

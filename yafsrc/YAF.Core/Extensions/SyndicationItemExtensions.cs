@@ -1,8 +1,8 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2019 Ingo Herbote
- * http://www.yetanotherforum.net/
+ * Copyright (C) 2014-2020 Ingo Herbote
+ * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -12,7 +12,7 @@
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
 
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
 
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
@@ -83,9 +83,9 @@ namespace YAF.Core.Extensions
             List<SyndicationLink> links)
         {
             var si = new SyndicationItem(
-                         YafContext.Current.Get<IBadWordReplace>().Replace(title),
+                         BoardContext.Current.Get<IBadWordReplace>().Replace(title),
                          new TextSyndicationContent(
-                             YafContext.Current.Get<IBadWordReplace>().Replace(content),
+                             BoardContext.Current.Get<IBadWordReplace>().Replace(content),
                              TextSyndicationContentKind.Html),
                          new Uri(link),
                          id,
@@ -99,13 +99,13 @@ namespace YAF.Core.Extensions
             if (summary.IsNotSet())
             {
                 si.Summary = new TextSyndicationContent(
-                    YafContext.Current.Get<IBadWordReplace>().Replace(content),
+                    BoardContext.Current.Get<IBadWordReplace>().Replace(content),
                     TextSyndicationContentKind.Html);
             }
             else
             {
                 si.Summary = new TextSyndicationContent(
-                    YafContext.Current.Get<IBadWordReplace>().Replace(summary),
+                    BoardContext.Current.Get<IBadWordReplace>().Replace(summary),
                     TextSyndicationContentKind.Html);
             }
 
@@ -167,7 +167,7 @@ namespace YAF.Core.Extensions
             string userDisplayName)
         {
             string userNameToShow;
-            if (YafContext.Current.BoardSettings.EnableDisplayName)
+            if (BoardContext.Current.BoardSettings.EnableDisplayName)
             {
                 userNameToShow = userDisplayName.IsNotSet()
                                      ? UserMembershipHelper.GetDisplayNameFromID(userId)
@@ -181,7 +181,7 @@ namespace YAF.Core.Extensions
             return new SyndicationPerson(
                 userEmail,
                 userNameToShow,
-                YafBuildLink.GetLinkNotEscaped(ForumPages.profile, true, "u={0}&name={1}", userId, userNameToShow));
+                BuildLink.GetLinkNotEscaped(ForumPages.Profile, true, "u={0}&name={1}", userId, userNameToShow));
         }
 
         /// <summary>
@@ -214,8 +214,8 @@ namespace YAF.Core.Extensions
             DateTime posted)
         {
             var si = new SyndicationItem(
-                YafContext.Current.Get<IBadWordReplace>().Replace(title),
-                new TextSyndicationContent(YafContext.Current.Get<IBadWordReplace>().Replace(content)),
+                BoardContext.Current.Get<IBadWordReplace>().Replace(title),
+                new TextSyndicationContent(BoardContext.Current.Get<IBadWordReplace>().Replace(content)),
                 new Uri(link),
                 id,
                 new DateTimeOffset(posted));

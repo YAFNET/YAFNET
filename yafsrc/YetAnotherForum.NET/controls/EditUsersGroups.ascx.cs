@@ -1,8 +1,8 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2019 Ingo Herbote
- * http://www.yetanotherforum.net/
+ * Copyright (C) 2014-2020 Ingo Herbote
+ * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -12,7 +12,7 @@
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
 
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
 
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
@@ -75,7 +75,7 @@ namespace YAF.Controls
         protected void Cancel_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
             // redirect to user admin page.
-            YafBuildLink.Redirect(ForumPages.admin_users);
+            BuildLink.Redirect(ForumPages.admin_users);
         }
 
         /// <summary>
@@ -145,8 +145,7 @@ namespace YAF.Controls
                 var roleID = int.Parse(item.FindControlAs<Label>("GroupID").Text);
 
                 // get role name
-                var roleName = this.GetRepository<Group>().List(boardId: this.PageContext.PageBoardID, groupId: roleID)
-                    .FirstOrDefault().Name;
+                var roleName = this.GetRepository<Group>().GetById(roleID).Name;
 
                 // is user supposed to be in that role?
                 var isChecked = item.FindControlAs<CheckBox>("GroupMember").Checked;

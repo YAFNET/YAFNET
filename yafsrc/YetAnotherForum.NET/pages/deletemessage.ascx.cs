@@ -1,8 +1,8 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2019 Ingo Herbote
- * http://www.yetanotherforum.net/
+ * Copyright (C) 2014-2020 Ingo Herbote
+ * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -12,7 +12,7 @@
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
 
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
 
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
@@ -49,7 +49,7 @@ namespace YAF.Pages
     /// <summary>
     /// The Delete Message Page.
     /// </summary>
-    public partial class deletemessage : ForumPage
+    public partial class DeleteMessage : ForumPage
     {
         #region Constants and Fields
 
@@ -83,9 +83,9 @@ namespace YAF.Pages
         #region Constructors and Destructors
 
         /// <summary>
-        ///   Initializes a new instance of the <see cref = "deletemessage" /> class.
+        ///   Initializes a new instance of the <see cref = "DeleteMessage" /> class.
         /// </summary>
-        public deletemessage()
+        public DeleteMessage()
             : base("DELETEMESSAGE")
         {
         }
@@ -127,14 +127,14 @@ namespace YAF.Pages
         {
             get
             {
-                if (this.PageContext.IsAdmin || this.Get<YafBoardSettings>().LockPosts <= 0)
+                if (this.PageContext.IsAdmin || this.Get<BoardSettings>().LockPosts <= 0)
                 {
                     return false;
                 }
 
                 var edited = this._messageRow["Edited"].ToType<DateTime>();
 
-                return edited.AddDays(this.Get<YafBoardSettings>().LockPosts) < DateTime.UtcNow;
+                return edited.AddDays(this.Get<BoardSettings>().LockPosts) < DateTime.UtcNow;
             }
         }
 
@@ -153,12 +153,12 @@ namespace YAF.Pages
                 || this.Get<HttpRequestBase>().QueryString.Exists("m"))
             {
                 // reply to existing topic or editing of existing topic
-                YafBuildLink.Redirect(ForumPages.posts, "t={0}", this.PageContext.PageTopicID);
+                BuildLink.Redirect(ForumPages.Posts, "t={0}", this.PageContext.PageTopicID);
             }
             else
             {
                 // new topic -- cancel back to forum
-                YafBuildLink.Redirect(ForumPages.topics, "f={0}", this.PageContext.PageForumID);
+                BuildLink.Redirect(ForumPages.topics, "f={0}", this.PageContext.PageForumID);
             }
         }
 
@@ -223,7 +223,7 @@ namespace YAF.Pages
                 if (!this.PageContext.ForumModeratorAccess
                     && this.PageContext.PageUserID != (int)this._messageRow["UserID"])
                 {
-                    YafBuildLink.AccessDenied();
+                    BuildLink.AccessDenied();
                 }
             }
 
@@ -234,19 +234,19 @@ namespace YAF.Pages
 
             if (this.PageContext.PageForumID == 0)
             {
-                YafBuildLink.AccessDenied();
+                BuildLink.AccessDenied();
             }
 
             if (!this.Get<HttpRequestBase>().QueryString.Exists("t")
                 && !this.PageContext.ForumPostAccess)
             {
-                YafBuildLink.AccessDenied();
+                BuildLink.AccessDenied();
             }
 
             if (this.Get<HttpRequestBase>().QueryString.Exists("t")
                 && !this.PageContext.ForumReplyAccess)
             {
-                YafBuildLink.AccessDenied();
+                BuildLink.AccessDenied();
             }
 
             if (this.IsPostBack)
@@ -258,7 +258,7 @@ namespace YAF.Pages
             this.PageLinks.AddRoot();
             this.PageLinks.AddLink(
                 this.PageContext.PageCategoryName,
-                YafBuildLink.GetLink(ForumPages.forum, "c={0}", this.PageContext.PageCategoryID));
+                BuildLink.GetLink(ForumPages.forum, "c={0}", this.PageContext.PageCategoryID));
             this.PageLinks.AddForum(this.PageContext.PageForumID);
 
             this.EraseMessage.Checked = false;
@@ -299,15 +299,19 @@ namespace YAF.Pages
             {
                 this.Title.Text = this.GetText("EDIT");
                 this.Delete.TextLocalizedTag = "UNDELETE";
+                this.Delete.Icon = "trash-restore";
             }
 
             this.Subject.Text = Convert.ToString(this._messageRow["Topic"]);
             this.DeleteReasonRow.Visible = true;
             this.ReasonEditor.Text = Convert.ToString(this._messageRow["DeleteReason"]);
 
-            // populate the message preview with the message datarow...
+            // populate the message preview with the message data-row...
             this.MessagePreview.Message = this._messageRow["message"].ToString();
-            this.MessagePreview.MessageFlags = new MessageFlags(this._messageRow["Flags"]);
+
+            var messageFlags = new MessageFlags(this._messageRow["Flags"]) { IsDeleted = false };
+
+            this.MessagePreview.MessageFlags = messageFlags;
         }
 
         /// <summary>
@@ -342,7 +346,7 @@ namespace YAF.Pages
                 }
             }
 
-            // Toogle delete message -- if the message is currently deleted it will be undeleted.
+            // Toggle delete message -- if the message is currently deleted it will be un-deleted.
             // If it's not deleted it will be marked deleted.
             // If it is the last message of the topic, the topic is also deleted
             this.GetRepository<Message>().Delete(tmpMessageID.ToType<int>(),
@@ -358,11 +362,11 @@ namespace YAF.Pages
             // If topic has been deleted, redirect to topic list for active forum, else show remaining posts for topic
             if (topic == null)
             {
-                YafBuildLink.Redirect(ForumPages.topics, "f={0}", tmpForumID);
+                BuildLink.Redirect(ForumPages.topics, "f={0}", tmpForumID);
             }
             else
             {
-                YafBuildLink.Redirect(ForumPages.posts, "t={0}", tmpTopicID);
+                BuildLink.Redirect(ForumPages.Posts, "t={0}", tmpTopicID);
             }
         }
 

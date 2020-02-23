@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -27,27 +27,10 @@ namespace ServiceStack.OrmLite.Dapper
             _type = type;
         }
 
-#if NETSTANDARD1_3
-        private static bool IsParameterMatch(ParameterInfo[] x, ParameterInfo[] y)
-        {
-            if (ReferenceEquals(x, y)) return true;
-            if (x == null || y == null) return false;
-            if (x.Length != y.Length) return false;
-            for (int i = 0; i < x.Length; i++)
-                if (x[i].ParameterType != y[i].ParameterType) return false;
-            return true;
-        }
-#endif
         internal static MethodInfo GetPropertySetter(PropertyInfo propertyInfo, Type type)
         {
             if (propertyInfo.DeclaringType == type) return propertyInfo.GetSetMethod(true);
-#if NETSTANDARD1_3
-            return propertyInfo.DeclaringType.GetProperties(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance)
-                    .Single(x => x.Name == propertyInfo.Name
-                        && x.PropertyType == propertyInfo.PropertyType
-                        && IsParameterMatch(x.GetIndexParameters(), propertyInfo.GetIndexParameters())
-                        ).GetSetMethod(true);
-#else
+
             return propertyInfo.DeclaringType.GetProperty(
                    propertyInfo.Name,
                    BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance,
@@ -55,7 +38,6 @@ namespace ServiceStack.OrmLite.Dapper
                    propertyInfo.PropertyType,
                    propertyInfo.GetIndexParameters().Select(p => p.ParameterType).ToArray(),
                    null).GetSetMethod(true);
-#endif
         }
 
         internal static List<PropertyInfo> GetSettableProps(Type t)
@@ -80,16 +62,16 @@ namespace ServiceStack.OrmLite.Dapper
         public ConstructorInfo FindConstructor(string[] names, Type[] types)
         {
             var constructors = _type.GetConstructors(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
-            foreach (var ctor in constructors.OrderBy(c => c.IsPublic ? 0 : c.IsPrivate ? 2 : 1).ThenBy(c => c.GetParameters().Length))
+            foreach (ConstructorInfo ctor in constructors.OrderBy(c => c.IsPublic ? 0 : (c.IsPrivate ? 2 : 1)).ThenBy(c => c.GetParameters().Length))
             {
-                var ctorParameters = ctor.GetParameters();
+                ParameterInfo[] ctorParameters = ctor.GetParameters();
                 if (ctorParameters.Length == 0)
                     return ctor;
 
                 if (ctorParameters.Length != types.Length)
                     continue;
 
-                var i = 0;
+                int i = 0;
                 for (; i < ctorParameters.Length; i++)
                 {
                     if (!string.Equals(ctorParameters[i].Name, names[i], StringComparison.OrdinalIgnoreCase))
@@ -97,10 +79,10 @@ namespace ServiceStack.OrmLite.Dapper
                     if (types[i] == typeof(byte[]) && ctorParameters[i].ParameterType.FullName == SqlMapper.LinqBinary)
                         continue;
                     var unboxedType = Nullable.GetUnderlyingType(ctorParameters[i].ParameterType) ?? ctorParameters[i].ParameterType;
-                    if (unboxedType != types[i] && !SqlMapper.HasTypeHandler(unboxedType)
-                        && !(unboxedType.IsEnum() && Enum.GetUnderlyingType(unboxedType) == types[i])
+                    if ((unboxedType != types[i] && !SqlMapper.HasTypeHandler(unboxedType))
+                        && !(unboxedType.IsEnum && Enum.GetUnderlyingType(unboxedType) == types[i])
                         && !(unboxedType == typeof(char) && types[i] == typeof(string))
-                        && !(unboxedType.IsEnum() && types[i] == typeof(string)))
+                        && !(unboxedType.IsEnum && types[i] == typeof(string)))
                     {
                         break;
                     }
@@ -119,11 +101,7 @@ namespace ServiceStack.OrmLite.Dapper
         public ConstructorInfo FindExplicitConstructor()
         {
             var constructors = _type.GetConstructors(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
-#if NETSTANDARD1_3
-            var withAttr = constructors.Where(c => c.CustomAttributes.Any(x => x.AttributeType == typeof(ExplicitConstructorAttribute))).ToList();
-#else
             var withAttr = constructors.Where(c => c.GetCustomAttributes(typeof(ExplicitConstructorAttribute), true).Length > 0).ToList();
-#endif
 
             if (withAttr.Count == 1)
             {
@@ -158,15 +136,15 @@ namespace ServiceStack.OrmLite.Dapper
 
             if (property == null && MatchNamesWithUnderscores)
             {
-                property = Properties.Find(p => string.Equals(p.Name, columnName.Replace("_", string.Empty), StringComparison.Ordinal))
-                    ?? Properties.Find(p => string.Equals(p.Name, columnName.Replace("_", string.Empty), StringComparison.OrdinalIgnoreCase));
+                property = Properties.Find(p => string.Equals(p.Name, columnName.Replace("_", ""), StringComparison.Ordinal))
+                    ?? Properties.Find(p => string.Equals(p.Name, columnName.Replace("_", ""), StringComparison.OrdinalIgnoreCase));
             }
 
             if (property != null)
                 return new SimpleMemberMap(columnName, property);
 
             // roslyn automatically implemented properties, in particular for get-only properties: <{Name}>k__BackingField;
-            var backingFieldName = $"<{columnName}>k__BackingField";
+            var backingFieldName = "<" + columnName + ">k__BackingField";
 
             // preference order is:
             // exact match over underscre match, exact case over wrong case, backing fields over regular fields, match-inc-underscores over match-exc-underscores
@@ -177,8 +155,8 @@ namespace ServiceStack.OrmLite.Dapper
 
             if (field == null && MatchNamesWithUnderscores)
             {
-                var effectiveColumnName = columnName.Replace("_", string.Empty);
-                backingFieldName = $"<{effectiveColumnName}>k__BackingField";
+                var effectiveColumnName = columnName.Replace("_", "");
+                backingFieldName = "<" + effectiveColumnName + ">k__BackingField";
 
                 field = _fields.Find(p => string.Equals(p.Name, effectiveColumnName, StringComparison.Ordinal))
                     ?? _fields.Find(p => string.Equals(p.Name, backingFieldName, StringComparison.Ordinal))
@@ -191,7 +169,6 @@ namespace ServiceStack.OrmLite.Dapper
 
             return null;
         }
-
         /// <summary>
         /// Should column names like User_Id be allowed to match properties/fields like UserId ?
         /// </summary>

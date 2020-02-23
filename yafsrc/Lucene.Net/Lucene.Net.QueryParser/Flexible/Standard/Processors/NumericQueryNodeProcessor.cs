@@ -7,7 +7,7 @@ using YAF.Lucene.Net.QueryParsers.Flexible.Core.Processors;
 using YAF.Lucene.Net.QueryParsers.Flexible.Messages;
 using YAF.Lucene.Net.QueryParsers.Flexible.Standard.Config;
 using YAF.Lucene.Net.QueryParsers.Flexible.Standard.Nodes;
-using YAF.Lucene.Net.Support;
+using YAF.Lucene.Net.Util;
 using System;
 using System.Collections.Generic;
 

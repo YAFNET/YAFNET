@@ -11,6 +11,8 @@
 // Licensed under the same terms of ServiceStack.
 //
 
+using System;
+using System.Collections.Generic;
 using System.Text;
 using ServiceStack.Text.Common;
 
@@ -40,7 +42,7 @@ namespace ServiceStack.Text
                         if (next == JsWriter.MapEndChar || next == JsWriter.ListEndChar)
                         {
                             sb.Append(current);
-                            sb.Append(serializedText[++i]); // eat next
+                            sb.Append(serializedText[++i]); //eat next
                             continue;
                         }
 

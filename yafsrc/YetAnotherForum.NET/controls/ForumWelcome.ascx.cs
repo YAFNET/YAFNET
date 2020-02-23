@@ -1,8 +1,8 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2019 Ingo Herbote
- * http://www.yetanotherforum.net/
+ * Copyright (C) 2014-2020 Ingo Herbote
+ * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -12,7 +12,7 @@
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
 
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
 
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
@@ -28,7 +28,6 @@ namespace YAF.Controls
     using System;
 
     using YAF.Core.BaseControls;
-    using YAF.Types;
     using YAF.Types.Interfaces;
     using YAF.Utils.Helpers;
 
@@ -39,30 +38,19 @@ namespace YAF.Controls
     /// </summary>
     public partial class ForumWelcome : BaseUserControl
     {
-        #region Constructors and Destructors
-
-        /// <summary>
-        ///   Initializes a new instance of the <see cref = "ForumWelcome" /> class.
-        /// </summary>
-        public ForumWelcome()
-        {
-            this.PreRender += this.ForumWelcomePreRender;
-        }
-
-        #endregion
-
         #region Methods
 
         /// <summary>
-        /// Handles the PreRender event of the ForumWelcome control.
+        /// Handles the PreRender event
         /// </summary>
-        /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        private void ForumWelcomePreRender([NotNull] object sender, [NotNull] EventArgs e)
+        protected override void OnPreRender(EventArgs e)
         {
+            base.OnPreRender(e);
+
             this.TimeNow.Text = this.GetTextFormatted("Current_Time", this.Get<IDateTime>().FormatTime(DateTime.UtcNow));
 
-            var lastVisit = this.Get<IYafSession>().LastVisit;
+            var lastVisit = this.Get<ISession>().LastVisit;
 
             if (lastVisit.HasValue && lastVisit.Value != DateTimeHelper.SqlDbMinTime())
             {

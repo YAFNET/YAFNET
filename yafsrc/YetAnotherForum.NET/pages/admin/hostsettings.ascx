@@ -526,6 +526,14 @@
                                     </div>
                                 </div>
                             </asp:PlaceHolder>
+                            <div class="form-group">
+                                <YAF:HelpLabel ID="HelpLabel175" runat="server" 
+                                               AssociatedControlID="ShowRulesForRegistration"
+                                               LocalizedTag="RULES_ONREGISTER" LocalizedPage="ADMIN_HOSTSETTINGS" />
+                                <div class="custom-control custom-switch">
+                                    <asp:CheckBox Text="&nbsp;" ID="ShowRulesForRegistration" runat="server" />
+                                </div>
+                            </div>
                         </div>
                     </asp:PlaceHolder>
                     <div class="tab-pane fade" id="attachments" role="tabpanel" aria-labelledby="attachments-tab">
@@ -545,7 +553,6 @@
                             <asp:TextBox CssClass="form-control" ID="MaxFileSize" runat="server"></asp:TextBox>
                         </div>
                     </div>
-                    
                     <div class="tab-pane fade" id="albums" role="tabpanel" aria-labelledby="albums-tab">
                         <div class="form-group">
                             <YAF:HelpLabel ID="HelpLabel32" runat="server" 
@@ -600,14 +607,6 @@
                                     <div class="custom-control custom-switch">
                                         <asp:CheckBox Text="&nbsp;" ID="ResizePostedImages" runat="server" />
                                     </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <YAF:HelpLabel ID="HelpLabel25" runat="server" 
-                                               AssociatedControlID="ImageAttachmentResizeCropped"
-                                               LocalizedTag="CROP_IMAGE_ATTACH" LocalizedPage="ADMIN_HOSTSETTINGS" />
-                                <div class="custom-control custom-switch">
-                                    <asp:CheckBox Text="&nbsp;" ID="ImageAttachmentResizeCropped" runat="server"></asp:CheckBox>
                                 </div>
                             </div>
                             <div class="form-row">
@@ -887,7 +886,7 @@
                                 <asp:CheckBox Text="&nbsp;" ID="EnableBuddyList" runat="server"></asp:CheckBox>
                             </div>
                         </div>
-                        <div class="form-group">
+                       <div class="form-group">
                             <YAF:HelpLabel ID="HelpLabel103" runat="server"
                                            AssociatedControlID="RemoveNestedQuotes"
                                            LocalizedTag="REMOVE_NESTED_QUOTES" LocalizedPage="ADMIN_HOSTSETTINGS" />
@@ -1390,14 +1389,6 @@
                 </div>
             </div>
             <div class="form-group col-md-6">
-                <YAF:HelpLabel ID="ShowLastUnreadPostHelpLabel" runat="server" 
-                               AssociatedControlID="ShowLastUnreadPost"  
-                               LocalizedTag="SHOW_UNREAD_LINKS" LocalizedPage="ADMIN_HOSTSETTINGS" />
-                <div class="custom-control custom-switch">
-                    <asp:CheckBox Text="&nbsp;" ID="ShowLastUnreadPost" runat="server"></asp:CheckBox>
-                </div>
-            </div>
-            <div class="form-group col-md-6">
                 <YAF:HelpLabel ID="HelpLabel177" runat="server" 
                                AssociatedControlID="UseNoFollowLinks"
                                LocalizedTag="NOFOLLOW_LINKTAGS" LocalizedPage="ADMIN_HOSTSETTINGS" />
@@ -1461,15 +1452,7 @@
                 </div>
             </div>
         </div>
-    <div class="form-group">
-            <YAF:HelpLabel ID="HelpLabel153" runat="server" 
-                           AssociatedControlID="ShowAvatarsInTopic"
-                           LocalizedTag="SHOW_AVATARS_TOPICLISTS" LocalizedPage="ADMIN_HOSTSETTINGS" />
-            <div class="custom-control custom-switch">
-                <asp:CheckBox Text="&nbsp;" ID="ShowAvatarsInTopic" runat="server"></asp:CheckBox>
-            </div>
-        </div>
-    <div class="form-row">
+                    <div class="form-row">
         <div class="form-group col-md-6">
             <YAF:HelpLabel ID="HelpLabel167" runat="server" 
                            AssociatedControlID="ShowGroups"
@@ -1516,15 +1499,6 @@
     </div>
     <div class="form-row">
         <div class="form-group col-md-6">
-            <YAF:HelpLabel ID="HelpLabel174" runat="server" 
-                           AssociatedControlID="DisplayJoinDate"
-                           LocalizedTag="SHOW_JOINDATE" LocalizedPage="ADMIN_HOSTSETTINGS" />
-            <div class="custom-control custom-switch">
-                <asp:CheckBox Text="&nbsp;" ID="DisplayJoinDate" runat="server"></asp:CheckBox>
-
-            </div>
-        </div>
-        <div class="form-group col-md-6">
             <YAF:HelpLabel ID="HelpLabel169" runat="server" 
                            AssociatedControlID="ShowMedals"
                            LocalizedTag="SHOW_MEDALS" LocalizedPage="ADMIN_HOSTSETTINGS" />
@@ -1565,14 +1539,6 @@
             </div>
         </div>
     </div>
-    <div class="form-group">
-        <YAF:HelpLabel ID="HelpLabel175" runat="server" 
-                       AssociatedControlID="ShowRulesForRegistration"
-                       LocalizedTag="RULES_ONREGISTER" LocalizedPage="ADMIN_HOSTSETTINGS" />
-        <div class="custom-control custom-switch">
-            <asp:CheckBox Text="&nbsp;" ID="ShowRulesForRegistration" runat="server" />
-        </div>
-    </div>
     <div class="form-row">
         <div class="form-group col-md-6">
             <YAF:HelpLabel ID="HelpLabel178" runat="server" 
@@ -1593,10 +1559,10 @@
             <asp:TextBox CssClass="form-control" ID="SubForumsInForumList" runat="server"></asp:TextBox>
         </div>
     </div>
-	 <div class="form-group">
-         <YAF:HelpLabel ID="HelpLabel31" runat="server" 
-                        AssociatedControlID="ShowScrollBackToTopButton"
-                        LocalizedTag="SHOW_SCROLL" LocalizedPage="ADMIN_HOSTSETTINGS" />
+                    <div class="form-group">
+                        <YAF:HelpLabel ID="HelpLabel25" runat="server" 
+                                       AssociatedControlID="ShowScrollBackToTopButton"
+                                       LocalizedTag="SHOW_SCROLL" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         <div class="custom-control custom-switch">
                             <asp:CheckBox Text="&nbsp;" ID="ShowScrollBackToTopButton" runat="server"></asp:CheckBox>
                         </div>
@@ -2225,17 +2191,3 @@
     </div>
 
 <asp:HiddenField runat="server" ID="hidLastTab" Value="View1" />
-
-<div>
-    <div id="SearchIndexMessage" style="display:none">
-        <div class="card text-white text-center bg-danger mb-3">
-            <div class="card-body">
-                <blockquote class="blockquote">
-                    <footer>
-                        <div class="fa-3x"><i class="fas fa-spinner fa-pulse"></i></div>
-                    </footer>
-                </blockquote>
-            </div>
-        </div>
-    </div>
-</div>

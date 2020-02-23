@@ -1,8 +1,8 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2019 Ingo Herbote
- * http://www.yetanotherforum.net/
+ * Copyright (C) 2014-2020 Ingo Herbote
+ * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -12,7 +12,7 @@
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
 
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
 
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
@@ -46,14 +46,14 @@ namespace YAF.Pages
     /// <summary>
     /// Move Message Page
     /// </summary>
-    public partial class movemessage : ForumPage
+    public partial class MoveMessage : ForumPage
     {
         #region Constructors and Destructors
 
         /// <summary>
-        ///   Initializes a new instance of the <see cref = "movemessage" /> class.
+        ///   Initializes a new instance of the <see cref = "MoveMessage" /> class.
         /// </summary>
-        public movemessage()
+        public MoveMessage()
             : base("MOVEMESSAGE")
         {
         }
@@ -63,13 +63,16 @@ namespace YAF.Pages
         #region Methods
 
         /// <summary>
-        /// Raises the <see cref="E:System.Web.UI.Control.Init"/> event.
+        /// Handles the PreRender event
         /// </summary>
-        /// <param name="e">An <see cref="T:System.EventArgs"/> object that contains the event data.</param>
-        protected override void OnInit([NotNull] EventArgs e)
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+        protected override void OnPreRender(EventArgs e)
         {
-            this.PreRender += this.MoveMessage_PreRender;
-            base.OnInit(e);
+            base.OnPreRender(e);
+
+            this.PageContext.PageElements.RegisterJsBlockStartup(
+                "fileUploadjs",
+                JavaScriptBlocks.SelectTopicsLoadJs(this.ForumList.ClientID));
         }
 
         /// <summary>
@@ -91,7 +94,7 @@ namespace YAF.Pages
                     topicId.ToType<int>(),
                     true);
 
-                YafBuildLink.Redirect(ForumPages.topics, "f={0}", this.PageContext.PageForumID);
+                BuildLink.Redirect(ForumPages.topics, "f={0}", this.PageContext.PageForumID);
             }
             else
             {
@@ -141,7 +144,7 @@ namespace YAF.Pages
                     true);
             }
 
-            YafBuildLink.Redirect(ForumPages.topics, "f={0}", this.PageContext.PageForumID);
+            BuildLink.Redirect(ForumPages.topics, "f={0}", this.PageContext.PageForumID);
         }
 
         /// <summary>
@@ -153,7 +156,7 @@ namespace YAF.Pages
         {
             if (!this.Get<HttpRequestBase>().QueryString.Exists("m") || !this.PageContext.ForumModeratorAccess)
             {
-                YafBuildLink.AccessDenied();
+                BuildLink.AccessDenied();
             }
 
             if (this.IsPostBack)
@@ -165,11 +168,11 @@ namespace YAF.Pages
 
             this.PageLinks.AddLink(
                 this.PageContext.PageCategoryName,
-                YafBuildLink.GetLink(ForumPages.forum, "c={0}", this.PageContext.PageCategoryID));
+                BuildLink.GetLink(ForumPages.forum, "c={0}", this.PageContext.PageCategoryID));
             this.PageLinks.AddForum(this.PageContext.PageForumID);
             this.PageLinks.AddLink(
                 this.PageContext.PageTopicName,
-                YafBuildLink.GetLink(ForumPages.posts, "t={0}", this.PageContext.PageTopicID));
+                BuildLink.GetLink(ForumPages.Posts, "t={0}", this.PageContext.PageTopicID));
 
             this.PageLinks.AddLink(this.GetText("MOVE_MESSAGE"));
 
@@ -192,18 +195,6 @@ namespace YAF.Pages
         protected void TopicsList_SelectedIndexChanged([NotNull] object sender, [NotNull] EventArgs e)
         {
             this.Move.Visible = this.TopicsList.SelectedValue != string.Empty;
-        }
-
-        /// <summary>
-        /// Handles the PreRender event of the AttachmentsUploadDialog control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        private void MoveMessage_PreRender([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            YafContext.Current.PageElements.RegisterJsBlockStartup(
-                "fileUploadjs",
-                JavaScriptBlocks.SelectTopicsLoadJs(this.ForumList.ClientID));
         }
 
         #endregion

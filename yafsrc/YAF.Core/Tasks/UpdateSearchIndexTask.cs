@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2019 Ingo Herbote
+* Copyright (C) 2014-2020 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -12,7 +12,7 @@
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
 
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
 
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
@@ -51,7 +51,6 @@ namespace YAF.Core.Tasks
         public UpdateSearchIndexTask()
         {
             // set interval values...
-            this.RunPeriodMs = 3600000;
             this.StartDelayMs = 30000;
         }
 
@@ -77,17 +76,17 @@ namespace YAF.Core.Tasks
             {
                 Thread.BeginCriticalRegion();
 
-                if (YafContext.Current == null)
+                if (BoardContext.Current == null)
                 {
                     return;
                 }
+
+                var forums = this.GetRepository<Forum>().List(BoardContext.Current.PageBoardID, null);
 
                 if (!IsTimeToUpdateSearchIndex())
                 {
                     return;
                 }
-
-                var forums = this.GetRepository<Forum>().List(YafContext.Current.PageBoardID, null);
 
                 forums.ForEach(
                     forum =>
@@ -122,9 +121,22 @@ namespace YAF.Core.Tasks
         /// </returns>
         private static bool IsTimeToUpdateSearchIndex()
         {
-            var boardSettings = (YafLoadBoardSettings)YafContext.Current.Get<YafBoardSettings>();
+            var boardSettings = (LoadBoardSettings)BoardContext.Current.Get<BoardSettings>();
             var lastSend = DateTime.MinValue;
             var sendEveryXHours = boardSettings.UpdateSearchIndexEveryXHours;
+
+            if (boardSettings.ForceUpdateSearchIndex)
+            {
+                boardSettings.LastSearchIndexUpdated = DateTime.Now.ToString(CultureInfo.InvariantCulture);
+                boardSettings.ForceUpdateSearchIndex = false;
+
+                boardSettings.SaveRegistry();
+
+                // reload all settings from the DB
+                BoardContext.Current.BoardSettings = null;
+
+                return true;
+            }
 
             if (boardSettings.LastSearchIndexUpdated.IsSet())
             {
@@ -153,7 +165,7 @@ namespace YAF.Core.Tasks
             boardSettings.SaveRegistry();
 
             // reload all settings from the DB
-            YafContext.Current.BoardSettings = null;
+            BoardContext.Current.BoardSettings = null;
 
             return true;
         }

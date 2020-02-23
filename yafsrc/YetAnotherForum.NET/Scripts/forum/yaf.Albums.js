@@ -14,7 +14,7 @@
         type: "POST",
         data: JSON.stringify(pagedResults),
 		contentType: "application/json; charset=utf-8",
-		success: (function Success(data) {
+		success: function(data) {
             $("#PostAlbumsListPlaceholder ul").empty();
 
             $("#PostAlbumsLoader").hide();
@@ -24,7 +24,7 @@
                 var notext = $("#PostAlbumsListPlaceholder").data("notext");
 
                 list.append('<li><div class="alert alert-info text-break" role="alert" style="white-space:normal">' + notext + "</div></li>");
-			}
+            }
 
             $.each(data.AttachmentList, function (id, data) {
                 var list = $("#PostAlbumsListPlaceholder ul"),
@@ -35,14 +35,14 @@
                 if (data.DataURL) {
                     listItem.attr("title", "<img src=\"" + data.DataURL + "\" style=\"max-width:200px\" />");
                     listItem.attr("data-toggle", "tooltip");
-				}
+                }
 
-				listItem.append(data.IconImage);
+                listItem.append(data.IconImage);
 
-				list.append(listItem);
-			});
+                list.append(listItem);
+            });
 
-			setPageNumberAlbums(pageSize, pageNumber, data.TotalRecords);
+            setPageNumberAlbums(pageSize, pageNumber, data.TotalRecords);
 
             if (isPageChange) {
                 jQuery(".albums-toggle").dropdown("toggle");
@@ -53,14 +53,14 @@
                 template: '<div class="tooltip" role="tooltip"><div class="tooltip-arrow"></div><div class="tooltip-inner" style="max-width:250px"></div></div>',
                 placement: "top"
             });
-		}),
-        error: (function Error(request, status, error) {
+        },
+        error: function(request, status, error) {
             console.log(request);
             console.log(error);
             $("#PostAlbumsLoader").hide();
 
             $("#PostAlbumsListPlaceholder").html(request.statusText).fadeIn(1000);
-		})
+        }
 	});
 }
 

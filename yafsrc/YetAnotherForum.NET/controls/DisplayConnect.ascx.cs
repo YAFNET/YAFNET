@@ -1,8 +1,8 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2019 Ingo Herbote
- * http://www.yetanotherforum.net/
+ * Copyright (C) 2014-2020 Ingo Herbote
+ * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -12,7 +12,7 @@
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
 
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
 
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
@@ -74,7 +74,7 @@ namespace YAF.Controls
                                         {
                                             TextLocalizedTag = "LOGIN_CONNECT",
                                             TextLocalizedPage = "TOOLBAR",
-                                            ParamText0 = this.Get<YafBoardSettings>().Name,
+                                            ParamText0 = this.Get<BoardSettings>().Name,
                                             TitleLocalizedTag = "LOGIN",
                                             TitleLocalizedPage = "TOOLBAR",
                                             Type = ButtonAction.Link,
@@ -88,7 +88,7 @@ namespace YAF.Controls
                     isLoginAllowed = true;
                 }
 
-                if (!this.Get<YafBoardSettings>().DisableRegistrations)
+                if (!this.Get<BoardSettings>().DisableRegistrations)
                 {
                     // show register link
                     var registerLink = new ThemeButton
@@ -100,12 +100,12 @@ namespace YAF.Controls
                                                Type = ButtonAction.Link,
                                                Icon = "user-plus",
                                                NavigateUrl =
-                                                   this.Get<YafBoardSettings>().ShowRulesForRegistration
-                                                       ? YafBuildLink.GetLink(ForumPages.rules)
-                                                       : !this.Get<YafBoardSettings>().UseSSLToRegister
-                                                           ? YafBuildLink.GetLink(ForumPages.register)
-                                                           : YafBuildLink.GetLink(
-                                                               ForumPages.register,
+                                                   this.Get<BoardSettings>().ShowRulesForRegistration
+                                                       ? BuildLink.GetLink(ForumPages.Rules)
+                                                       : !this.Get<BoardSettings>().UseSSLToRegister
+                                                           ? BuildLink.GetLink(ForumPages.Register)
+                                                           : BuildLink.GetLink(
+                                                               ForumPages.Register,
                                                                true).Replace("http:", "https:")
                                            };
 
@@ -130,7 +130,7 @@ namespace YAF.Controls
                     return;
                 }
 
-                if (this.Get<YafBoardSettings>().AllowSingleSignOn
+                if (this.Get<BoardSettings>().AllowSingleSignOn
                     && (Config.FacebookAPIKey.IsSet() || Config.TwitterConsumerKey.IsSet()
                         || Config.GoogleClientID.IsSet()))
                 {
@@ -198,7 +198,7 @@ namespace YAF.Controls
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void FacebookFormClick(object sender, EventArgs e)
         {
-            YafBuildLink.Redirect(ForumPages.login, "auth={0}", "facebook");
+            BuildLink.Redirect(ForumPages.Login, "auth={0}", "facebook");
         }
 
         /// <summary>
@@ -208,7 +208,7 @@ namespace YAF.Controls
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void TwitterFormClick(object sender, EventArgs e)
         {
-            YafBuildLink.Redirect(ForumPages.login, "auth={0}", "twitter");
+            BuildLink.Redirect(ForumPages.Login, "auth={0}", "twitter");
         }
 
         /// <summary>
@@ -218,7 +218,7 @@ namespace YAF.Controls
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void GoogleFormClick(object sender, EventArgs e)
         {
-            YafBuildLink.Redirect(ForumPages.login, "auth={0}", "google");
+            BuildLink.Redirect(ForumPages.Login, "auth={0}", "google");
         }
 
         #endregion

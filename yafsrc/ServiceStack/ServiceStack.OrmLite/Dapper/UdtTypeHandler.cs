@@ -1,12 +1,10 @@
-﻿using System;
+using System;
 using System.Data;
 
 namespace ServiceStack.OrmLite.Dapper
 {
     public static partial class SqlMapper
     {
-#if !NETSTANDARD1_3 && !NETSTANDARD2_0
-
         /// <summary>
         /// A type handler for data-types that are supported by the underlying provider, but which need
         /// a well-known UdtTypeName to be specified
@@ -14,7 +12,6 @@ namespace ServiceStack.OrmLite.Dapper
         public class UdtTypeHandler : ITypeHandler
         {
             private readonly string udtTypeName;
-
             /// <summary>
             /// Creates a new instance of UdtTypeHandler with the specified <see cref="UdtTypeHandler"/>.
             /// </summary>
@@ -35,13 +32,8 @@ namespace ServiceStack.OrmLite.Dapper
 #pragma warning disable 0618
                 parameter.Value = SanitizeParameterValue(value);
 #pragma warning restore 0618
-                if (parameter is System.Data.SqlClient.SqlParameter && !(value is DBNull))
-                {
-                    ((System.Data.SqlClient.SqlParameter)parameter).SqlDbType = SqlDbType.Udt;
-                    ((System.Data.SqlClient.SqlParameter)parameter).UdtTypeName = udtTypeName;
-                }
+                if(!(value is DBNull)) StructuredHelper.ConfigureUDT(parameter, udtTypeName);
             }
         }
-#endif
     }
 }

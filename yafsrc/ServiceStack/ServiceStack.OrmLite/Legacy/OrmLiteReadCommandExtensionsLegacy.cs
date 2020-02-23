@@ -33,7 +33,6 @@ namespace ServiceStack.OrmLite.Legacy
                 sql.Append(" WHERE ");
                 sql.Append(sqlFilter);
             }
-
             return StringBuilderCache.ReturnAndFree(sql);
         }
 
@@ -48,7 +47,6 @@ namespace ServiceStack.OrmLite.Legacy
                 {
                     yield return item;
                 }
-
                 yield break;
             }
 
