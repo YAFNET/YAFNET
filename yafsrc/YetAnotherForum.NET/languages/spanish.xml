@@ -237,6 +237,8 @@
     <Resource tag="HEADER3">Estadísticas para</Resource>
     <Resource tag="MSG_MESSAGE_SEND">Verification Mail was send again to the User.</Resource>
     <Resource tag="MSG_VALID_DAYS">Debes ingresar un valor entero válido para días.</Resource>
+    <Resource tag="NEW_VERSION">A New Version is available!</Resource>
+    <Resource tag="NEW_VERSION_DOWNLOAD">Go to Downloads page</Resource>
     <Resource tag="NUM_POSTS">Número de publicaciones:</Resource>
     <Resource tag="NUM_TOPICS">Número de temas:</Resource>
     <Resource tag="NUM_USERS">Número de usuarios:</Resource>

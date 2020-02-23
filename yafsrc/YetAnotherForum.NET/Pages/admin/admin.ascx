@@ -12,12 +12,14 @@
             </div>
     <asp:PlaceHolder ID="UpdateHightlight" runat="server" Visible="false">
         <YAF:Alert runat="server" Type="info">
-            <asp:HyperLink ID="UpdateLinkHighlight" runat="server" Target="_blank"></asp:HyperLink>
-        </YAF:Alert>
-    </asp:PlaceHolder>
-    <asp:PlaceHolder ID="UpdateWarning" runat="server" Visible="false">
-        <YAF:Alert runat="server" Type="danger">
-            <asp:HyperLink ID="UpdateLinkWarning" runat="server" Target="_blank"></asp:HyperLink>
+            <YAF:Icon runat="server" IconName="box-open" IconType="text-info"></YAF:Icon>
+            <YAF:LocalizedLabel runat="server"
+                                LocalizedTag="NEW_VERSION"></YAF:LocalizedLabel>
+            <YAF:ThemeButton ID="UpdateLinkHighlight" runat="server" 
+                             TextLocalizedTag="NEW_VERSION_DOWNLOAD"
+                             NavigateUrl="https://yetanotherforum.net/download"
+                             Type="Info"
+                             Icon="cloud-download-alt"></YAF:ThemeButton>
         </YAF:Alert>
     </asp:PlaceHolder>
     <div class="row">
