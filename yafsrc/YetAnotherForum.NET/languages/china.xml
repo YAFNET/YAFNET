@@ -237,6 +237,8 @@
     <Resource tag="HEADER3">Statistics for</Resource>
     <Resource tag="MSG_MESSAGE_SEND">Verification Mail was send again to the User.</Resource>
     <Resource tag="MSG_VALID_DAYS">You should enter a valid integer value for days.</Resource>
+    <Resource tag="NEW_VERSION">A New Version is available!</Resource>
+    <Resource tag="NEW_VERSION_DOWNLOAD">Go to Downloads page</Resource>
     <Resource tag="NUM_POSTS">帖子数:</Resource>
     <Resource tag="NUM_TOPICS">主题数:</Resource>
     <Resource tag="NUM_USERS">用户数:</Resource>

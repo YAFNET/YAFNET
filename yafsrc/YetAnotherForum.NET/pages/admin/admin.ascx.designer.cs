@@ -39,25 +39,7 @@ namespace YAF.Pages.Admin
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink UpdateLinkHighlight;
-
-        /// <summary>
-        /// UpdateWarning control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder UpdateWarning;
-
-        /// <summary>
-        /// UpdateLinkWarning control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink UpdateLinkWarning;
+        protected global::YAF.Web.Controls.ThemeButton UpdateLinkHighlight;
 
         /// <summary>
         /// LocalizedLabel1 control.
