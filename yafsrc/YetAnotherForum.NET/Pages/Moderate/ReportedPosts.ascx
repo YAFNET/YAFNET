@@ -42,10 +42,12 @@
                             </span>
                             <YAF:UserLink ID="UserLink1" runat="server" UserID='<%# this.Eval("UserID").ToType<int>() %>' />
                             <YAF:ThemeButton ID="AdminUserButton" runat="server" 
-                                             Size="Small" Visible='<%# this.PageContext.IsAdmin %>'
+                                             Size="Small"
+                                             Visible="<%# this.PageContext.IsAdmin %>"
                                              TextLocalizedTag="ADMIN_USER" TextLocalizedPage="PROFILE"
                                              NavigateUrl='<%# BuildLink.GetLinkNotEscaped( ForumPages.admin_edituser,"u={0}", this.Eval("UserID").ToType<int>() ) %>'
-                                             Icon="users-cog" Type="Secondary">
+                                             Icon="users-cog" 
+                                             Type="Danger">
                             </YAF:ThemeButton>
                         </div>
                     </div>
@@ -62,7 +64,7 @@
                                 </span>
                                 <div class="mb-3">
                                     <YAF:MessagePostData ID="MessagePostPrimary" runat="server" 
-                                                         DataRow='<%# ((System.Data.DataRowView)Container.DataItem).Row %>'
+                                                         DataRow="<%# ((System.Data.DataRowView)Container.DataItem).Row %>"
                                                          ShowAttachments="false" 
                                                          ShowEditMessage="False" ShowSignature="False">
                                     </YAF:MessagePostData>
