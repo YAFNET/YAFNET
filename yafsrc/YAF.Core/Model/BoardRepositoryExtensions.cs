@@ -32,9 +32,11 @@ namespace YAF.Core.Model
     using YAF.Core.Extensions;
     using YAF.Types;
     using YAF.Types.Extensions;
+    using YAF.Types.Extensions.Data;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
     using YAF.Types.Models;
+    using YAF.Utils.Helpers;
 
     /// <summary>
     ///     The board repository extensions.
@@ -251,7 +253,7 @@ namespace YAF.Core.Model
 
             if (dt.HasRows())
             {
-                return dt.Rows[0];
+                return dt.GetFirstRow();
             }
 
             dt =
@@ -319,7 +321,7 @@ namespace YAF.Core.Model
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
-            return ((DataTable)repository.DbFunction.GetData.board_stats(BoardID: boardID)).Rows[0];
+            return repository.DbFunction.GetAsDataTable(f => f.board_stats(BoardID: boardID)).GetFirstRow();
         }
 
         /// <summary>
@@ -338,7 +340,7 @@ namespace YAF.Core.Model
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
-            return ((DataTable)repository.DbFunction.GetData.board_userstats(BoardID: boardID)).Rows[0];
+            return repository.DbFunction.GetAsDataTable(f => f.board_userstats(BoardID: boardID)).GetFirstRow();
         }
 
         /// <summary>

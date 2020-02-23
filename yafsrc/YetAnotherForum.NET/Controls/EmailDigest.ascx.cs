@@ -253,11 +253,11 @@ namespace YAF.Controls
             {
                 this.BoardSettings = BoardContext.Current.BoardSettings.BoardID.Equals(this.BoardID)
                                          ? BoardContext.Current.BoardSettings
-                                         : new YafLoadBoardSettings(this.BoardID);
+                                         : new LoadBoardSettings(this.BoardID);
             }
             else
             {
-                this.BoardSettings = new YafLoadBoardSettings(this.BoardID);
+                this.BoardSettings = new LoadBoardSettings(this.BoardID);
             }
 
             this.Get<StartupInitializeDb>().Run();

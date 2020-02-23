@@ -178,7 +178,7 @@ namespace YAF.Core.Services
                 userKey = user.ProviderUserKey;
             }
 
-            var pageRow = BoardContext.Current.GetRepository<ActiveAccess>().PageLoad(
+            var pageRow = BoardContext.Current.GetRepository<ActiveAccess>().PageLoadAsDataRow(
                 HttpContext.Current.Session.SessionID,
                 boardId,
                 userKey,

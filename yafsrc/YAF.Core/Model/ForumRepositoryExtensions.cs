@@ -568,7 +568,7 @@ namespace YAF.Core.Model
             [NotNull] object boardId)
         {
             var forumUnsorted =
-                (DataTable)repository.DbFunction.GetData.forum_moderatelist(BoardID: boardId, UserID: userId);
+                repository.DbFunction.GetAsDataTable(f => f.forum_moderatelist(BoardID: boardId, UserID: userId));
 
             var forumListSorted = forumUnsorted.Clone();
 

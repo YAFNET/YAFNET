@@ -29,8 +29,10 @@ namespace YAF.Core.Model
 
     using YAF.Core.Extensions;
     using YAF.Types;
+    using YAF.Types.Extensions.Data;
     using YAF.Types.Interfaces.Data;
     using YAF.Types.Models;
+    using YAF.Utils.Helpers;
 
     /// <summary>
     ///     The active repository extensions.
@@ -210,8 +212,8 @@ namespace YAF.Core.Model
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
-            return ((DataTable)repository.DbFunction.GetData.active_stats(BoardID: boardId ?? repository.BoardID))
-                .Rows[0];
+            return repository.DbFunction.GetAsDataTable(
+                f => f.active_stats(BoardID: boardId ?? repository.BoardID)).GetFirstRow();
         }
 
         /// <summary>

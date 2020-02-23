@@ -130,7 +130,7 @@ namespace YAF.Core
 
                 do
                 {
-                    pageRow = this.GetRepository<ActiveAccess>().PageLoad(
+                    pageRow = this.GetRepository<ActiveAccess>().PageLoadAsDataRow(
                         this.Get<HttpSessionStateBase>().SessionID,
                         BoardContext.Current.PageBoardID,
                         userKey,

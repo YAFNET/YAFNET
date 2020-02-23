@@ -294,7 +294,7 @@ namespace YAF.Pages.Admin
             boardSettings.DigestSendEveryXHours = hours;
 
             // save the settings to the database
-            ((YafLoadBoardSettings)boardSettings).SaveRegistry();
+            ((LoadBoardSettings)boardSettings).SaveRegistry();
 
             // Reload forum settings
             this.PageContext.BoardSettings = null;
@@ -350,7 +350,7 @@ namespace YAF.Pages.Admin
             boardSettings.BoardAnnouncementType = this.BoardAnnouncementType.SelectedValue;
 
             // save the settings to the database
-            ((YafLoadBoardSettings)boardSettings).SaveRegistry();
+            ((LoadBoardSettings)boardSettings).SaveRegistry();
 
             // Reload forum settings
             this.PageContext.BoardSettings = null;
@@ -376,7 +376,7 @@ namespace YAF.Pages.Admin
             boardSettings.BoardAnnouncementType = this.BoardAnnouncementType.SelectedValue;
 
             // save the settings to the database
-            ((YafLoadBoardSettings)boardSettings).SaveRegistry();
+            ((LoadBoardSettings)boardSettings).SaveRegistry();
 
             // Reload forum settings
             this.PageContext.BoardSettings = null;
@@ -392,7 +392,7 @@ namespace YAF.Pages.Admin
         protected void IncreaseVersionOnClick(object sender, EventArgs e)
         {
             this.Get<BoardSettings>().CdvVersion++;
-            ((YafLoadBoardSettings)this.Get<BoardSettings>()).SaveRegistry();
+            ((LoadBoardSettings)this.Get<BoardSettings>()).SaveRegistry();
 
             this.CdvVersion.Text = this.Get<BoardSettings>().CdvVersion.ToString();
         }

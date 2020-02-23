@@ -63,7 +63,7 @@ namespace YAF.Pages.Admin
         protected void IndexSearch_OnClick(object sender, EventArgs e)
         {
             this.Get<BoardSettings>().ForceUpdateSearchIndex = true;
-            ((YafLoadBoardSettings)BoardContext.Current.BoardSettings).SaveRegistry();
+            ((LoadBoardSettings)BoardContext.Current.BoardSettings).SaveRegistry();
 
             this.PageContext.AddLoadMessage(this.GetText("FORCE_SEARCHINDED"), MessageTypes.info);
         }
@@ -347,7 +347,7 @@ namespace YAF.Pages.Admin
                     });
 
             // save the settings to the database
-            ((YafLoadBoardSettings)this.Get<BoardSettings>()).SaveRegistry();
+            ((LoadBoardSettings)this.Get<BoardSettings>()).SaveRegistry();
 
             // reload all settings from the DB
             this.PageContext.BoardSettings = null;
