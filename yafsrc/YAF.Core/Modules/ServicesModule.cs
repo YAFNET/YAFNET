@@ -94,7 +94,7 @@ namespace YAF.Core.Modules
             builder.RegisterType<CurrentBoardId>().As<IHaveBoardID>().InstancePerLifetimeScope()
                 .PreserveExistingDefaults();
 
-            builder.RegisterType<ReadTrackCurrentUser>().As<IReadTrackCurrentUser>().InstancePerYafContext()
+            builder.RegisterType<ReadTrackCurrentUser>().As<IReadTrackCurrentUser>().InstancePerBoardContext()
                 .PreserveExistingDefaults();
 
             builder.RegisterType<Session>().As<ISession>().InstancePerLifetimeScope().PreserveExistingDefaults();
@@ -138,16 +138,16 @@ namespace YAF.Core.Modules
                 .InstancePerLifetimeScope();
 
             // style transformation...
-            builder.RegisterType<StyleTransform>().As<IStyleTransform>().InstancePerYafContext()
+            builder.RegisterType<StyleTransform>().As<IStyleTransform>().InstancePerBoardContext()
                 .PreserveExistingDefaults();
 
             // board settings...
-            builder.RegisterType<CurrentBoardSettings>().AsSelf().InstancePerYafContext().PreserveExistingDefaults();
+            builder.RegisterType<CurrentBoardSettings>().AsSelf().InstancePerBoardContext().PreserveExistingDefaults();
             builder.Register(k => k.Resolve<IComponentContext>().Resolve<CurrentBoardSettings>().Instance)
                 .ExternallyOwned().PreserveExistingDefaults();
 
-            // favorite topic is based on YafContext
-            builder.RegisterType<FavoriteTopic>().As<IFavoriteTopic>().InstancePerYafContext()
+            // favorite topic is based on BoardContext
+            builder.RegisterType<FavoriteTopic>().As<IFavoriteTopic>().InstancePerBoardContext()
                 .PreserveExistingDefaults();
         }
 

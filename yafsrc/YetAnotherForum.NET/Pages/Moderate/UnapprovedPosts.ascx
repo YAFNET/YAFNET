@@ -41,9 +41,11 @@
                             </span>
                             <YAF:UserLink ID="UserName" runat="server" UserID='<%# this.Eval("UserID").ToType<int>() %>' />
                             <YAF:ThemeButton ID="AdminUserButton" runat="server" 
-                                             Size="Small" Visible='<%# this.PageContext.IsAdmin %>'
+                                             Size="Small"
+                                             Visible="<%# this.PageContext.IsAdmin %>"
                                              TextLocalizedTag="ADMIN_USER" TextLocalizedPage="PROFILE"
-                                             Icon="users-cog" Type="Secondary"
+                                             Icon="users-cog" 
+                                             Type="Danger"
                                              NavigateUrl='<%# BuildLink.GetLinkNotEscaped( ForumPages.admin_edituser,"u={0}", this.Eval("UserID").ToType<int>() ) %>'>
                             </YAF:ThemeButton>
                         </div>

@@ -65,7 +65,7 @@ namespace YAF.Controls
                 boardSettings.BoardAnnouncement = string.Empty;
 
                 // save the settings to the database
-                ((YafLoadBoardSettings)boardSettings).SaveRegistry();
+                ((LoadBoardSettings)boardSettings).SaveRegistry();
 
                 // Reload forum settings
                 this.PageContext.BoardSettings = null;

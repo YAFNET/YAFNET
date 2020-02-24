@@ -67,11 +67,15 @@ namespace YAF.Core.Modules
         {
             CodeContracts.VerifyNotNull(builder, "builder");
 
-            builder.Register(c => new HttpContextWrapper(HttpContext.Current)).As<HttpContextBase>().InstancePerYafContext();
-            builder.Register(c => c.Resolve<HttpContextBase>().Request).As<HttpRequestBase>().InstancePerYafContext();
-            builder.Register(c => c.Resolve<HttpContextBase>().Response).As<HttpResponseBase>().InstancePerYafContext();
-            builder.Register(c => c.Resolve<HttpContextBase>().Server).As<HttpServerUtilityBase>().InstancePerYafContext();
-            builder.Register(c => c.Resolve<HttpContextBase>().Session).As<HttpSessionStateBase>().InstancePerYafContext();
+            builder.Register(c => new HttpContextWrapper(HttpContext.Current)).As<HttpContextBase>()
+                .InstancePerBoardContext();
+            builder.Register(c => c.Resolve<HttpContextBase>().Request).As<HttpRequestBase>().InstancePerBoardContext();
+            builder.Register(c => c.Resolve<HttpContextBase>().Response).As<HttpResponseBase>()
+                .InstancePerBoardContext();
+            builder.Register(c => c.Resolve<HttpContextBase>().Server).As<HttpServerUtilityBase>()
+                .InstancePerBoardContext();
+            builder.Register(c => c.Resolve<HttpContextBase>().Session).As<HttpSessionStateBase>()
+                .InstancePerBoardContext();
         }
 
         #endregion

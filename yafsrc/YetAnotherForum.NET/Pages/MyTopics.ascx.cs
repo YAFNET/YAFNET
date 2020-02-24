@@ -163,18 +163,12 @@ namespace YAF.Pages
                 return;
             }
 
-            this.UserTopicsTabTitle.Visible = !this.PageContext.IsGuest;
-            this.UserTopicsTabContent.Visible = !this.PageContext.IsGuest;
-
-            this.UnreadTopicsTabTitle.Visible = !this.PageContext.IsGuest &&
-                                                this.Get<BoardSettings>().UseReadTrackingByDatabase;
-            this.UnreadTopicsTabContent.Visible = !this.PageContext.IsGuest &&
-                                                  this.Get<BoardSettings>().UseReadTrackingByDatabase;
+            this.UnreadTopicsTabTitle.Visible = this.Get<BoardSettings>().UseReadTrackingByDatabase;
+            this.UnreadTopicsTabContent.Visible = this.Get<BoardSettings>().UseReadTrackingByDatabase;
 
             this.PageLinks.AddRoot();
 
-            this.PageLinks.AddLink(
-                this.PageContext.IsGuest ? this.GetText("GUESTTITLE") : this.GetText("MEMBERTITLE"), string.Empty);
+            this.PageLinks.AddLink(this.GetText("MEMBERTITLE"), string.Empty);
         }
 
         #endregion

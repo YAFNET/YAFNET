@@ -277,15 +277,7 @@ namespace YAF.Pages.Admin
 
             this.BindData();
 
-            try
-            {
-                this.ShowUpgradeMessage();
-            }
-            catch (Exception)
-            {
-                this.UpdateHightlight.Visible = false;
-                this.UpdateWarning.Visible = false;
-            }
+            this.ShowUpgradeMessage();
         }
 
         /// <summary>
@@ -306,31 +298,15 @@ namespace YAF.Pages.Admin
         /// </summary>
         private void ShowUpgradeMessage()
         {
-            var latestInfo = new LatestInformationService().GetLatestVersionInformation();
+            var latestInfo = new LatestInformationService().GetLatestVersion();
 
-            if (latestInfo == null || BitConverter.ToInt64(latestInfo.Version, 0) <= BitConverter.ToInt64(BoardInfo.AppVersionCode, 0))
+            if (latestInfo == null || BitConverter.ToInt64(latestInfo, 0) <= BitConverter.ToInt64(BoardInfo.AppVersionCode, 0))
             {
                 return;
             }
 
             // updateLink
-            var updateLink = new Action<HyperLink>(
-                link =>
-                {
-                    link.Text = latestInfo.Message;
-                    link.NavigateUrl = latestInfo.Link;
-                });
-
-            if (latestInfo.IsWarning)
-            {
-                this.UpdateWarning.Visible = true;
-                updateLink(this.UpdateLinkWarning);
-            }
-            else
-            {
-                this.UpdateHightlight.Visible = true;
-                updateLink(this.UpdateLinkHighlight);
-            }
+            this.UpdateHightlight.Visible = true;
         }
 
         /// <summary>
@@ -460,7 +436,6 @@ namespace YAF.Pages.Admin
         /// </returns>
         private DataTable GetActiveUsersData(bool showGuests, bool showCrawlers)
         {
-            // vzrus: Here should not be a common cache as it's should be individual for each user because of ActiveLocationcontrol to hide unavailable places.
             var activeUsers = this.GetRepository<Active>()
                 .ListUserAsDataTable(
                     this.PageContext.PageUserID,
@@ -480,7 +455,7 @@ namespace YAF.Pages.Admin
         /// </returns>
         private int? GetSelectedBoardId()
         {
-            // check dropdown only if user is hostadmin
+            // check dropdown only if user is host admin
             if (!this.PageContext.IsHostAdmin)
             {
                 return this.PageContext.PageBoardID;

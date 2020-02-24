@@ -122,6 +122,7 @@ namespace YAF.Core.Model
         /// The find last read.
         /// </param>
         /// <param name="boardId">
+        /// The board Id.
         /// </param>
         /// <returns>
         /// The <see cref="DataTable"/>.

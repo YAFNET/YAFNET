@@ -41,9 +41,9 @@ namespace YAF.Core
     #endregion
 
     /// <summary>
-    ///     The YAF load board settings.
+    ///     The Load board settings.
     /// </summary>
-    public class YafLoadBoardSettings : BoardSettings
+    public class LoadBoardSettings : BoardSettings
     {
         #region Fields
 
@@ -57,12 +57,12 @@ namespace YAF.Core
         #region Constructors and Destructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="YafLoadBoardSettings"/> class.
+        /// Initializes a new instance of the <see cref="LoadBoardSettings"/> class.
         /// </summary>
         /// <param name="boardId">
         /// The board id.
         /// </param>
-        public YafLoadBoardSettings([NotNull] int boardId)
+        public LoadBoardSettings([NotNull] int boardId)
         {
             this._boardID = boardId;
 

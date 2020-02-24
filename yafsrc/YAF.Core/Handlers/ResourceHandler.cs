@@ -41,7 +41,7 @@ namespace YAF.Core.Handlers
     /// <summary>
     /// YAF Resource Handler for all kind of Stuff (Avatars, Attachments, Albums, etc.)
     /// </summary>
-    public class YafResourceHandler : IHttpHandler, IReadOnlySessionState, IHaveServiceLocator
+    public class ResourceHandler : IHttpHandler, IReadOnlySessionState, IHaveServiceLocator
     {
         #region Properties
 

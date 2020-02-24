@@ -82,8 +82,8 @@ namespace YAF.Core.Modules
             // register generic IRepository handler, which can be easily overriden by more advanced repository handler
             builder.RegisterGeneric(typeof(BasicRepository<>)).As(typeof(IRepository<>)).InstancePerDependency();
 
-            // register filters -- even if they require YafContext, they MUST BE REGISTERED UNDER GENERAL SCOPE
-            // Do the YafContext check inside the constructor and throw an exception if it's required.
+            // register filters -- even if they require BoardContext, they MUST BE REGISTERED UNDER GENERAL SCOPE
+            // Do the BoardContext check inside the constructor and throw an exception if it's required.
             builder.RegisterType<StyleFilter>().As<IDbDataFilter>();
         }
 
@@ -115,7 +115,7 @@ namespace YAF.Core.Modules
             builder.RegisterType<AutoFacServiceLocatorProvider>().AsSelf().As<IServiceLocator>().As<IInjectServices>()
                 .InstancePerLifetimeScope();
 
-            // YafContext registration...
+            // BoardContext registration...
             builder.RegisterType<BoardContextPageProvider>().AsSelf().As<IReadOnlyProvider<BoardContext>>().SingleInstance()
                 .PreserveExistingDefaults();
             builder.Register((k) => k.Resolve<IComponentContext>().Resolve<BoardContextPageProvider>().Instance)
@@ -132,7 +132,7 @@ namespace YAF.Core.Modules
             builder.Register(k => k.Resolve<IComponentContext>().Resolve<CurrentTaskModuleProvider>().Instance)
                 .ExternallyOwned().PreserveExistingDefaults();
 
-            builder.RegisterType<YafNntp>().As<INewsreader>().InstancePerLifetimeScope().PreserveExistingDefaults();
+            builder.RegisterType<Nntp>().As<INewsreader>().InstancePerLifetimeScope().PreserveExistingDefaults();
 
             // cache bindings.
             builder.RegisterType<StaticLockObject>().As<IHaveLockObject>().SingleInstance().PreserveExistingDefaults();

@@ -31,7 +31,7 @@ namespace YAF.Types.Interfaces
         /// <summary>
         ///   Gets the Theme.
         /// </summary>
-        string Theme { get; }
+        string ThemeFile { get; }
 
         #endregion
 

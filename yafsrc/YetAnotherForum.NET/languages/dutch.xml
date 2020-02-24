@@ -237,6 +237,8 @@
     <Resource tag="HEADER3">Statistieken voor</Resource>
     <Resource tag="MSG_MESSAGE_SEND">Verification Mail was send again to the User.</Resource>
     <Resource tag="MSG_VALID_DAYS">Je moet een nummer invullen voor het aantal dagen.</Resource>
+    <Resource tag="NEW_VERSION">A New Version is available!</Resource>
+    <Resource tag="NEW_VERSION_DOWNLOAD">Go to Downloads page</Resource>
     <Resource tag="NUM_POSTS">Aantal posts:</Resource>
     <Resource tag="NUM_TOPICS">Aantal topics:</Resource>
     <Resource tag="NUM_USERS">Aantal leden:</Resource>

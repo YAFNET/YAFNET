@@ -30,7 +30,6 @@ namespace YAF.Classes
     using YAF.Core;
     using YAF.RegisterV2;
     using YAF.Types.Interfaces;
-    using YAF.Utils;
 
     /// <summary>
     /// LatestInformation service class
@@ -46,9 +45,9 @@ namespace YAF.Classes
         /// Gets the latest version information.
         /// </summary>
         /// <returns>Returns the LatestVersionInformation</returns>
-        public LatestVersionInformation GetLatestVersionInformation()
+        public byte[] GetLatestVersion()
         {
-            if (this.Get<HttpApplicationStateBase>()["YafRegistrationLatestInformation"] is LatestVersionInformation
+            if (this.Get<HttpApplicationStateBase>()["YafRegistrationLatestInformation"] is byte[]
                     latestInfo)
             {
                 return latestInfo;
@@ -56,15 +55,14 @@ namespace YAF.Classes
 
             try
             {
-                using (var reg = new RegisterV2 { Timeout = 30000 })
-                {
-                    // load the latest info -- but only provide the current version information and the user's two-letter language information. Nothing trackable.))
-                    latestInfo = reg.LatestInfo(BoardInfo.AppVersionCode, "US");
+                var reg = new RegisterV2 { Timeout = 30000 };
 
-                    if (latestInfo != null)
-                    {
-                        this.Get<HttpApplicationStateBase>().Set("YafRegistrationLatestInformation", latestInfo);
-                    }
+                // load the latest version
+                latestInfo = reg.LatestVersion();
+
+                if (latestInfo != null)
+                {
+                    this.Get<HttpApplicationStateBase>().Set("YafRegistrationLatestInformation", latestInfo);
                 }
             }
 

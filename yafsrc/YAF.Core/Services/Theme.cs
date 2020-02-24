@@ -20,7 +20,7 @@
  * under the License.
  */
 
-namespace YAF.Core.Theme
+namespace YAF.Core.Services
 {
     #region Using
 
@@ -39,19 +39,19 @@ namespace YAF.Core.Theme
     /// <summary>
     /// The YAF theme.
     /// </summary>
-    public class YafTheme : ITheme
+    public class Theme : ITheme
     {
         #region Constructors and Destructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="YafTheme"/> class.
+        /// Initializes a new instance of the <see cref="Theme"/> class.
         /// </summary>
-        /// <param name="theme">
+        /// <param name="themeFile">
         /// The theme.
         /// </param>
-        public YafTheme(string theme)
+        public Theme(string themeFile)
         {
-            this.Theme = theme;
+            this.ThemeFile = themeFile;
         }
 
         #endregion
@@ -61,7 +61,7 @@ namespace YAF.Core.Theme
         /// <summary>
         ///   Gets or sets the current Theme File
         /// </summary>
-        public string Theme { get; set; }
+        public string ThemeFile { get; set; }
 
         #endregion
 
@@ -94,7 +94,7 @@ namespace YAF.Core.Theme
         {
             CodeContracts.VerifyNotNull(filename, "filename");
 
-            return BoardInfo.GetURLToContentThemes(this.Theme.CombineWith(filename));
+            return BoardInfo.GetURLToContentThemes(this.ThemeFile.CombineWith(filename));
         }
 
         #endregion

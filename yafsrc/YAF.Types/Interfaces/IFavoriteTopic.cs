@@ -23,76 +23,46 @@
  */
 namespace YAF.Types.Interfaces
 {
-  using System;
-  using System.Data;
-
-  /// <summary>
-  /// The i favorite topic.
-  /// </summary>
-  public interface IFavoriteTopic
-  {
-    #region Public Methods
-
     /// <summary>
-    /// The add favorite topic.
+    /// The FavoriteTopic interface.
     /// </summary>
-    /// <param name="topicId">
-    /// The topic ID.
-    /// </param>
-    /// <returns>
-    /// The add favorite topic.
-    /// </returns>
-    int AddFavoriteTopic(int topicId);
+    public interface IFavoriteTopic
+    {
+        #region Public Methods
 
-    /// <summary>
-    /// The clear favorite topic cache.
-    /// </summary>
-    void ClearFavoriteTopicCache();
+        /// <summary>
+        /// Adds Topic to the Favorite Topics 
+        /// </summary>
+        /// <param name="topicId">
+        /// The topic id.
+        /// </param>
+        /// <returns>
+        /// The <see cref="int"/>.
+        /// </returns>
+        int AddFavoriteTopic(int topicId);
 
-    /// <summary>
-    /// The clear favorite topic cache.
-    /// </summary>
-    /// <param name="topicId">
-    /// The topic Id.
-    /// </param>
-    /// <returns>
-    /// The favorite topic count.
-    /// </returns>
-    int FavoriteTopicCount(int topicId);
+        /// <summary>
+        /// Checks if Topic is Favorite Topic
+        /// </summary>
+        /// <param name="topicID">
+        /// The topic id.
+        /// </param>
+        /// <returns>
+        /// The <see cref="bool"/>.
+        /// </returns>
+        bool IsFavoriteTopic(int topicID);
 
-    /// <summary>
-    /// the favorite topic details.
-    /// </summary>
-    /// <param name="sinceDate">
-    /// the since date.
-    /// </param>
-    /// <returns>
-    /// a Data table containing all the current user's favorite topics in details.
-    /// </returns>
-    DataTable FavoriteTopicDetails(DateTime sinceDate);
+        /// <summary>
+        /// The remove favorite topic.
+        /// </summary>
+        /// <param name="topicId">
+        /// The favorite topic id.
+        /// </param>
+        /// <returns>
+        /// The <see cref="int"/>.
+        /// </returns>
+        int RemoveFavoriteTopic(int topicId);
 
-    /// <summary>
-    /// The is favorite topic.
-    /// </summary>
-    /// <param name="topicID">
-    /// The topic id.
-    /// </param>
-    /// <returns>
-    /// The is favorite topic.
-    /// </returns>
-    bool IsFavoriteTopic(int topicID);
-
-    /// <summary>
-    /// The remove favorite topic.
-    /// </summary>
-    /// <param name="topicId">
-    /// The favorite topic id.
-    /// </param>
-    /// <returns>
-    /// The remove favorite topic.
-    /// </returns>
-    int RemoveFavoriteTopic(int topicId);
-
-    #endregion
-  }
+        #endregion
+    }
 }
