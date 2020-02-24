@@ -5,7 +5,10 @@ set /p $MSBUILDROOT=<temp.txt
 del temp.txt
 
 "%ProgramFiles(x86)%\Microsoft Visual Studio\Installer\vswhere.exe" -property installationVersion > temp.txt
-set /p $MSBUILDVER=<temp.txt
+Rem lower VS version
+Rem set /p $MSBUILDVER=<temp.txt
+Rem higher/unique VS
+for /f "delims==" %%a in (temp.txt) do set $MSBUILDVER=%%a
 del temp.txt
 
 for /f "tokens=1 delims=." %%G in ("%$MSBUILDVER%") do set Current=%%G.0
