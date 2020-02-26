@@ -81,6 +81,11 @@ namespace YAF.Web.Controls
                 return;
             }
 
+            if (!this.PageContext.BoardSettings.ShowAtomLink && !this.PageContext.BoardSettings.ShowAtomLink)
+            {
+                return;
+            }
+
             output.BeginRender();
 
             // write button
