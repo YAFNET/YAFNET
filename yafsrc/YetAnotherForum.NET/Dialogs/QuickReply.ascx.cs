@@ -68,7 +68,7 @@ namespace YAF.Dialogs
         protected override void OnInit([NotNull] EventArgs e)
         {
             // Quick Reply Modification Begin
-            this.quickReplyEditor = new BasicBBCodeEditor();
+            this.quickReplyEditor = new CKEditorHtmlEditor();
 
             base.OnInit(e);
         }
