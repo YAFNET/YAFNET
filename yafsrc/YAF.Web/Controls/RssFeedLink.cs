@@ -99,57 +99,52 @@ namespace YAF.Web.Controls
             output.Write(HtmlTextWriter.TagRightChar);
 
             // icon
-            output.WriteBeginTag("i");
-            output.WriteAttribute("class", "fa fa-rss-square");
-            output.Write(HtmlTextWriter.TagRightChar);
-            output.WriteEndTag("i");
+            new Icon { IconName = "rss-square" }.RenderControl(output);
 
             output.WriteEndTag("button");
 
             // write dropdown
             output.WriteBeginTag("div");
-            output.WriteAttribute("class", "dropdown-menu dropdown-menu-right");
+            output.WriteAttribute(HtmlTextWriterAttribute.Class.ToString(), "dropdown-menu dropdown-menu-right");
             output.WriteAttribute("aria-labelledby", this.ClientID);
             output.Write(HtmlTextWriter.TagRightChar);
 
             // Render Rss Menu Item
             if (this.PageContext.BoardSettings.ShowAtomLink)
             {
-                output.WriteBeginTag("a");
-                output.WriteAttribute("class", "dropdown-item");
-                output.WriteAttribute(
-                    "href",
-                    BuildLink.GetLink(
-                        ForumPages.RssTopic,
-                        "pg={0}&ft={1}{2}",
-                        this.FeedType.ToInt(),
-                        0,
-                        this.AdditionalParameters.IsNotSet()
-                            ? string.Empty
-                            : $"&{this.AdditionalParameters}"));
-                output.Write(HtmlTextWriter.TagRightChar);
-                output.Write(@"<i class=""fas fa-rss""></i>&nbsp;{0}", this.GetText("ATOMFEED"));
-                output.WriteEndTag("a");
+                new ThemeButton
+                    {
+                        CssClass = "dropdown-item",
+                        Type = ButtonAction.None,
+                        Icon = "rss",
+                        Text = this.GetText("ATOMFEED"),
+                        NavigateUrl = BuildLink.GetLink(
+                            ForumPages.RssTopic,
+                            "pg={0}&ft={1}{2}",
+                            this.FeedType.ToInt(),
+                            0,
+                            this.AdditionalParameters.IsNotSet() ? string.Empty : $"&{this.AdditionalParameters}")
+                    }.RenderControl(output);
             }
 
             // Render Atom Menu Item
             if (this.PageContext.BoardSettings.ShowRSSLink)
             {
-                output.WriteBeginTag("a");
-                output.WriteAttribute("class", "dropdown-item");
-                output.WriteAttribute(
-                    "href",
-                    BuildLink.GetLink(
-                        ForumPages.RssTopic,
-                        "pg={0}&ft={1}{2}",
-                        this.FeedType.ToInt(),
-                        1,
-                        this.AdditionalParameters.IsNotSet()
-                            ? string.Empty
-                            : $"&{this.AdditionalParameters}"));
-                output.Write(HtmlTextWriter.TagRightChar);
-                output.Write(@"<i class=""fas fa-rss""></i>&nbsp;{0}", this.GetText("RSSFEED"));
-                output.WriteEndTag("a");
+                new ThemeButton
+                    {
+                        CssClass = "dropdown-item",
+                        Type = ButtonAction.None,
+                        Icon = "rss-square",
+                        Text = this.GetText("RSSFEED"),
+                        NavigateUrl = BuildLink.GetLink(
+                            ForumPages.RssTopic,
+                            "pg={0}&ft={1}{2}",
+                            this.FeedType.ToInt(),
+                            1,
+                            this.AdditionalParameters.IsNotSet()
+                                ? string.Empty
+                                : $"&{this.AdditionalParameters}")
+                }.RenderControl(output);
             }
 
             output.WriteEndTag("div");
