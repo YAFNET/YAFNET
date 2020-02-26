@@ -47,20 +47,6 @@
         <asp:DropDownList runat="server" ID="Theme" CssClass="select2-select" />
         </div>
     </asp:PlaceHolder>
-    <asp:PlaceHolder runat="server" id="TrTextEditors">
-        <div class="form-group">
-        <asp:Label runat="server" AssociatedControlID="ForumEditor">
-            <YAF:LocalizedLabel ID="LocalizedLabel19" runat="server" LocalizedPage="EDIT_PROFILE"
-                LocalizedTag="SELECT_TEXTEDITOR" />
-        </asp:Label>
-        
-         <asp:DropDownList ID="ForumEditor" runat="server" 
-                           CssClass="select2-select"
-                           DataValueField="Value" 
-                           DataTextField="Name">
-         </asp:DropDownList>
-        </div>
-    </asp:PlaceHolder>
     <asp:PlaceHolder runat="server" id="UserLanguageRow">
         <div class="form-group">
         <asp:Label runat="server" AssociatedControlID="Culture">
