@@ -1623,24 +1623,6 @@
                     </div>
                     <div class="card-body">
                         <div class="form-group">
-                            <YAF:HelpLabel ID="HelpLabel88" runat="server" 
-                                           AssociatedControlID="ForumEditor" 
-                                           LocalizedTag="FORUM_EDITOR" LocalizedPage="ADMIN_HOSTSETTINGS" />
-                            <asp:DropDownList ID="ForumEditor" runat="server" 
-                                              CssClass="custom-select" 
-                                              DataValueField="Value" 
-                                              DataTextField="Name">
-                            </asp:DropDownList>
-                        </div>
-                        <div class="form-group">
-                            <YAF:HelpLabel ID="HelpLabel160" runat="server" 
-                                           AssociatedControlID="AllowUsersTextEditor" 
-                                           LocalizedTag="ALLOW_USERTEXTEDITOR" LocalizedPage="ADMIN_HOSTSETTINGS" />
-                            <div class="custom-control custom-switch">
-                                <asp:CheckBox runat="server" ID="AllowUsersTextEditor" Text="&nbsp;" />
-                            </div>
-                        </div>
-                        <div class="form-group">
                             <YAF:HelpLabel ID="HelpLabel87" runat="server"
                                            AssociatedControlID="AcceptedHTML"
                                            LocalizedTag="ACCEPT_HTML" LocalizedPage="ADMIN_HOSTSETTINGS" />

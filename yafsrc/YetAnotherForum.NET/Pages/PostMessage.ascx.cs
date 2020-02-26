@@ -367,9 +367,7 @@ namespace YAF.Pages
                 if (this.Get<HttpRequestBase>().QueryString.Exists("text"))
                 {
                     var quotedMessage =
-                        this.Get<IBBCode>()
-                            .ConvertHtmltoBBCodeForEdit(
-                                this.Server.UrlDecode(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("text")));
+                        this.Server.UrlDecode(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("text"));
 
                     currentMessage.Message =
                         HtmlHelper.StripHtml(HtmlHelper.CleanHtmlString(quotedMessage));
@@ -452,19 +450,6 @@ namespace YAF.Pages
             this.forumEditor.BaseDir = $"{BoardInfo.ForumClientFileRoot}Scripts";
 
             this.Title.Text = this.GetText("NEWTOPIC");
-
-            if (this.PageContext.BoardSettings.MaxPostSize == 0)
-            {
-                this.LocalizedLblMaxNumberOfPost.Visible = false;
-                this.maxCharRow.Visible = false;
-            }
-            else
-            {
-                this.LocalizedLblMaxNumberOfPost.Visible = true;
-                this.LocalizedLblMaxNumberOfPost.Param0 =
-                    this.PageContext.BoardSettings.MaxPostSize.ToString(CultureInfo.InvariantCulture);
-                this.maxCharRow.Visible = true;
-            }
 
             this.HandleUploadControls();
 
@@ -1370,12 +1355,6 @@ namespace YAF.Pages
                 currentMessage.Message = this.Get<IBBCode>().ConvertBBCodeToHtmlForEdit(currentMessage.Message);
             }
 
-            if (this.forumEditor.UsesBBCode && currentMessage.Flags.IsHtml)
-            {
-                // If the message is in HTML but the editor uses YafBBCode, convert the message text to BBCode
-                currentMessage.Message = this.Get<IBBCode>().ConvertHtmltoBBCodeForEdit(currentMessage.Message);
-            }
-
             this.forumEditor.Text = currentMessage.Message;
 
             // Convert Message Attachments to new [Attach] BBCode Attachments
@@ -1470,12 +1449,6 @@ namespace YAF.Pages
             {
                 // If the message is in YafBBCode but the editor uses HTML, convert the message text to HTML
                 messageContent = this.Get<IBBCode>().ConvertBBCodeToHtmlForEdit(messageContent);
-            }
-
-            if (this.forumEditor.UsesBBCode && message.Flags.IsHtml)
-            {
-                // If the message is in HTML but the editor uses YafBBCode, convert the message text to BBCode
-                messageContent = this.Get<IBBCode>().ConvertHtmltoBBCodeForEdit(messageContent);
             }
 
             // Ensure quoted replies have bad words removed from them

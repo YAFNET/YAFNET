@@ -416,8 +416,6 @@ namespace YAF.Pages.Admin
         /// </summary>
         private void BindData()
         {
-            this.ForumEditor.DataSource = ForumEditorHelper.GetFilteredEditorList();
-
             this.DataBind();
 
             // load Board Setting collection information...

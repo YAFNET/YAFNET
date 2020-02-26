@@ -291,19 +291,6 @@ namespace YAF.Pages
 
             this.Title.Text = this.GetText("NEWTOPIC");
 
-            if (this.PageContext.BoardSettings.MaxPostSize == 0)
-            {
-                this.LocalizedLblMaxNumberOfPost.Visible = false;
-                this.maxCharRow.Visible = false;
-            }
-            else
-            {
-                this.LocalizedLblMaxNumberOfPost.Visible = true;
-                this.LocalizedLblMaxNumberOfPost.Param0 =
-                    this.PageContext.BoardSettings.MaxPostSize.ToString(CultureInfo.InvariantCulture);
-                this.maxCharRow.Visible = true;
-            }
-
             this.HandleUploadControls();
 
             if (this.IsPostBack)
