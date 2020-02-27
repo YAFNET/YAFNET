@@ -545,7 +545,6 @@ namespace YAF.Core.Services.Auth
                 null,
                 null,
                 null,
-                null,
                 BoardContext.Current.Get<BoardSettings>().DefaultNotificationSetting,
                 autoWatchTopicsEnabled,
                 TimeZoneInfo.Local.SupportsDaylightSavingTime,

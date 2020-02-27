@@ -143,11 +143,6 @@ namespace YAF.Core.UsersRoles
         public string CultureUser => this.DBRow.Field<string>("CultureUser");
 
         /// <summary>
-        ///   Gets User's Text Editor.
-        /// </summary>
-        public string TextEditor => this.DBRow.Field<string>("TextEditor");
-
-        /// <summary>
         ///   Gets DBRow.
         /// </summary>
         public DataRow DBRow

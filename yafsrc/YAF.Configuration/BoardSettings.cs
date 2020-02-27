@@ -820,16 +820,6 @@ namespace YAF.Configuration
         }
 
         /// <summary>
-        /// Gets or sets ForumEditor.
-        /// </summary>
-        public string ForumEditor
-        {
-            get => this._reg.GetValue("ForumEditor", "1");
-
-            set => this._reg.SetValue("ForumEditor", value);
-        }
-
-        /// <summary>
         /// Gets or sets PostFloodDelay.
         /// </summary>
         public int PostFloodDelay
@@ -1254,16 +1244,6 @@ namespace YAF.Configuration
             get => this._reg.GetValue("ShowEditedMessage", true);
 
             set => this._reg.SetValue("ShowEditedMessage", value);
-        }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether AllowUsersTextEditor.
-        /// </summary>
-        public bool AllowUsersTextEditor
-        {
-            get => this._reg.GetValue("AllowUsersTextEditor", false);
-
-            set => this._reg.SetValue("AllowUsersTextEditor", value);
         }
 
         /// <summary>

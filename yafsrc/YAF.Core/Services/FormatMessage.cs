@@ -359,11 +359,13 @@ namespace YAF.Core.Services
         /// </returns>
         [NotNull]
         public string FormatSyndicationMessage(
+            /**/
             [NotNull] string message,
             [NotNull] MessageFlags messageFlags,
             bool altItem,
             int charsToFetch)
         {
+            // todo : Remove table?!
             message =
                 $@"<table class=""{(altItem ? "content postContainer" : "content postContainer_Alt")}"" width=""100%""><tr><td>{this.Format(message, messageFlags, false)}</td></tr></table>";
 
@@ -409,46 +411,50 @@ namespace YAF.Core.Services
                             var returnMsg = topicMessage.ToString();
                             var keywordList = new List<string>();
 
-                            if (returnMsg.IsSet())
+                            if (returnMsg.IsNotSet())
                             {
-                                // process message... clean html, strip html, remove bbcode, etc...
-                                returnMsg = BBCodeHelper
-                                    .StripBBCode(HtmlHelper.StripHtml(HtmlHelper.CleanHtmlString(returnMsg)))
-                                    .RemoveMultipleWhitespace();
+                                return new MessageCleaned(returnMsg.Truncate(200), keywordList);
+                            }
 
-                                // encode Message For Security Reasons
-                                returnMsg = this.HttpServer.HtmlEncode(returnMsg);
+                            // process message... clean html, strip html, remove bbcode, etc...
+                            returnMsg = BBCodeHelper
+                                .StripBBCode(HtmlHelper.StripHtml(HtmlHelper.CleanHtmlString(returnMsg)))
+                                .RemoveMultipleWhitespace();
 
-                                if (returnMsg.IsNotSet())
+                            // encode Message For Security Reasons
+                            returnMsg = this.HttpServer.HtmlEncode(returnMsg);
+
+                            if (returnMsg.IsNotSet())
+                            {
+                                returnMsg = string.Empty;
+                            }
+                            else
+                            {
+                                // get string without punctuation
+                                var keywordCleaned = new string(
+                                        returnMsg.Where(c => !char.IsPunctuation(c) || char.IsWhiteSpace(c))
+                                            .ToArray())
+                                    .Trim().ToLower();
+
+                                if (keywordCleaned.Length <= 5)
                                 {
-                                    returnMsg = string.Empty;
+                                    return new MessageCleaned(returnMsg.Truncate(200), keywordList);
                                 }
-                                else
+
+                                // create keywords...
+                                keywordList = keywordCleaned.StringToList(' ', commonWords);
+
+                                // clean up the list a bit...
+                                keywordList = keywordList.GetNewNoEmptyStrings().GetNewNoSmallStrings(5)
+                                    .Where(x => !char.IsNumber(x[0])).Distinct().ToList();
+
+                                // sort...
+                                keywordList.Sort();
+
+                                // get maximum of 20 keywords...
+                                if (keywordList.Count > 20)
                                 {
-                                    // get string without punctuation
-                                    var keywordCleaned = new string(
-                                            returnMsg.Where(c => !char.IsPunctuation(c) || char.IsWhiteSpace(c))
-                                                .ToArray())
-                                        .Trim().ToLower();
-
-                                    if (keywordCleaned.Length > 5)
-                                    {
-                                        // create keywords...
-                                        keywordList = keywordCleaned.StringToList(' ', commonWords);
-
-                                        // clean up the list a bit...
-                                        keywordList = keywordList.GetNewNoEmptyStrings().GetNewNoSmallStrings(5)
-                                            .Where(x => !char.IsNumber(x[0])).Distinct().ToList();
-
-                                        // sort...
-                                        keywordList.Sort();
-
-                                        // get maximum of 20 keywords...
-                                        if (keywordList.Count > 20)
-                                        {
-                                            keywordList = keywordList.GetRange(0, 20);
-                                        }
-                                    }
+                                    keywordList = keywordList.GetRange(0, 20);
                                 }
                             }
 
@@ -619,45 +625,6 @@ namespace YAF.Core.Services
             html = !allowHtml
                        ? this.HttpServer.HtmlEncode(html)
                        : RemoveHtmlByList(html, this.Get<BoardSettings>().AcceptedHTML.Split(','));
-
-            return html;
-        }
-
-        /// <summary>
-        /// The repair html.
-        /// </summary>
-        /// <param name="html">
-        /// The html.
-        /// </param>
-        /// <param name="allowHtml">
-        /// The allow html.
-        /// </param>
-        /// <param name="matchList">
-        /// The match List.
-        /// </param>
-        /// <returns>
-        /// The repaired html.
-        /// </returns>
-        public string RepairHtml(
-            [NotNull] string html,
-            [NotNull] bool allowHtml,
-            [NotNull] IEnumerable<string> matchList)
-        {
-            // vzrus: NNTP temporary tweaks to wipe out server hangs. Put it here as it can be in every place.
-            // These are '\n\r' things related to multiline regexps.
-            var mc1 = Regex.Matches(html, "[^\r]\n[^\r]", RegexOptions.IgnoreCase);
-            for (var i = mc1.Count - 1; i >= 0; i--)
-            {
-                html = html.Insert(mc1[i].Index + 1, " \r");
-            }
-
-            var mc2 = Regex.Matches(html, "[^\r]\n\r\n[^\r]", RegexOptions.IgnoreCase);
-            for (var i = mc2.Count - 1; i >= 0; i--)
-            {
-                html = html.Insert(mc2[i].Index + 1, " \r");
-            }
-
-            html = !allowHtml ? this.HttpServer.HtmlEncode(html) : RemoveHtmlByList(html, matchList);
 
             return html;
         }

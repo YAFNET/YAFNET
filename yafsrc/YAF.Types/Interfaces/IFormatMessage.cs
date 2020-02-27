@@ -189,23 +189,6 @@ namespace YAF.Types.Interfaces
         /// <param name="allowHtml">
         /// The allow html.
         /// </param>
-        /// <param name="matchList">
-        /// The match List.
-        /// </param>
-        /// <returns>
-        /// The repaired html.
-        /// </returns>
-        string RepairHtml([NotNull] string html, bool allowHtml, [NotNull] IEnumerable<string> matchList);
-
-        /// <summary>
-        /// The repair html.
-        /// </summary>
-        /// <param name="html">
-        /// The html.
-        /// </param>
-        /// <param name="allowHtml">
-        /// The allow html.
-        /// </param>
         /// <returns>
         /// The repaired html.
         /// </returns>

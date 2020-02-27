@@ -183,9 +183,6 @@ namespace YAF.Types.Models
         [StringLength(10)]
         public string Culture { get; set; }
 
-        [StringLength(50)]
-        public string TextEditor { get; set; }
-
         [Compute]
         public bool? IsGuest { get; set; }
 
