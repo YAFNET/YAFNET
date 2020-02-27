@@ -7,11 +7,13 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace YAF.Install {
-    
-    
-    public partial class _default {
-        
+namespace YAF.Install
+{
+
+
+    public partial class _default
+    {
+
         /// <summary>
         /// YafHead control.
         /// </summary>
@@ -20,7 +22,7 @@ namespace YAF.Install {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlHead YafHead;
-        
+
         /// <summary>
         /// YafMetaScriptingLanguage control.
         /// </summary>
@@ -29,7 +31,7 @@ namespace YAF.Install {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlMeta YafMetaScriptingLanguage;
-        
+
         /// <summary>
         /// YafMetaStyles control.
         /// </summary>
@@ -38,7 +40,7 @@ namespace YAF.Install {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlMeta YafMetaStyles;
-        
+
         /// <summary>
         /// Form1 control.
         /// </summary>
@@ -47,7 +49,7 @@ namespace YAF.Install {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlForm Form1;
-        
+
         /// <summary>
         /// ScriptManager1 control.
         /// </summary>
@@ -56,7 +58,7 @@ namespace YAF.Install {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.ScriptManager ScriptManager1;
-        
+
         /// <summary>
         /// InstallWizard control.
         /// </summary>
@@ -65,7 +67,7 @@ namespace YAF.Install {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Wizard InstallWizard;
-        
+
         /// <summary>
         /// WizWelcome control.
         /// </summary>
@@ -74,7 +76,7 @@ namespace YAF.Install {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.WizardStep WizWelcome;
-        
+
         /// <summary>
         /// WizWelcomeUpgrade control.
         /// </summary>
@@ -83,7 +85,7 @@ namespace YAF.Install {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.WizardStep WizWelcomeUpgrade;
-        
+
         /// <summary>
         /// CurrentVersionName control.
         /// </summary>
@@ -92,7 +94,7 @@ namespace YAF.Install {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Literal CurrentVersionName;
-        
+
         /// <summary>
         /// UpgradeVersionName control.
         /// </summary>
@@ -101,7 +103,7 @@ namespace YAF.Install {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Literal UpgradeVersionName;
-        
+
         /// <summary>
         /// WizValidatePermission control.
         /// </summary>
@@ -110,7 +112,7 @@ namespace YAF.Install {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.WizardStep WizValidatePermission;
-        
+
         /// <summary>
         /// lblPermissionApp control.
         /// </summary>
@@ -119,7 +121,7 @@ namespace YAF.Install {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblPermissionApp;
-        
+
         /// <summary>
         /// lblPermissionUpload control.
         /// </summary>
@@ -128,7 +130,7 @@ namespace YAF.Install {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblPermissionUpload;
-        
+
         /// <summary>
         /// btnTestPermissions control.
         /// </summary>
@@ -136,8 +138,8 @@ namespace YAF.Install {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.Controls.ModernButton btnTestPermissions;
-        
+        protected global::YAF.Web.Controls.ThemeButton btnTestPermissions;
+
         /// <summary>
         /// WizCreatePassword control.
         /// </summary>
@@ -146,7 +148,7 @@ namespace YAF.Install {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.WizardStep WizCreatePassword;
-        
+
         /// <summary>
         /// lblConfigPasswordAppSettingFile control.
         /// </summary>
@@ -155,7 +157,7 @@ namespace YAF.Install {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblConfigPasswordAppSettingFile;
-        
+
         /// <summary>
         /// txtCreatePassword1 control.
         /// </summary>
@@ -164,7 +166,7 @@ namespace YAF.Install {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtCreatePassword1;
-        
+
         /// <summary>
         /// txtCreatePassword2 control.
         /// </summary>
@@ -173,7 +175,7 @@ namespace YAF.Install {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtCreatePassword2;
-        
+
         /// <summary>
         /// WizEnterPassword control.
         /// </summary>
@@ -182,7 +184,7 @@ namespace YAF.Install {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.WizardStep WizEnterPassword;
-        
+
         /// <summary>
         /// txtEnteredPassword control.
         /// </summary>
@@ -191,7 +193,7 @@ namespace YAF.Install {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtEnteredPassword;
-        
+
         /// <summary>
         /// WizManuallySetPassword control.
         /// </summary>
@@ -200,7 +202,7 @@ namespace YAF.Install {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.WizardStep WizManuallySetPassword;
-        
+
         /// <summary>
         /// lblAppSettingsFile2 control.
         /// </summary>
@@ -209,7 +211,7 @@ namespace YAF.Install {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblAppSettingsFile2;
-        
+
         /// <summary>
         /// WizDatabaseConnection control.
         /// </summary>
@@ -218,7 +220,7 @@ namespace YAF.Install {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.WizardStep WizDatabaseConnection;
-        
+
         /// <summary>
         /// rblYAFDatabase control.
         /// </summary>
@@ -227,7 +229,7 @@ namespace YAF.Install {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RadioButtonList rblYAFDatabase;
-        
+
         /// <summary>
         /// ExistingConnectionHolder control.
         /// </summary>
@@ -236,7 +238,7 @@ namespace YAF.Install {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.PlaceHolder ExistingConnectionHolder;
-        
+
         /// <summary>
         /// lbConnections control.
         /// </summary>
@@ -245,7 +247,7 @@ namespace YAF.Install {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList lbConnections;
-        
+
         /// <summary>
         /// NewConnectionHolder control.
         /// </summary>
@@ -254,7 +256,7 @@ namespace YAF.Install {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.PlaceHolder NewConnectionHolder;
-        
+
         /// <summary>
         /// lblConnStringAppSettingName control.
         /// </summary>
@@ -263,7 +265,7 @@ namespace YAF.Install {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblConnStringAppSettingName;
-        
+
         /// <summary>
         /// Parameter1_Name control.
         /// </summary>
@@ -272,7 +274,7 @@ namespace YAF.Install {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label Parameter1_Name;
-        
+
         /// <summary>
         /// Parameter1_Value control.
         /// </summary>
@@ -281,7 +283,7 @@ namespace YAF.Install {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox Parameter1_Value;
-        
+
         /// <summary>
         /// Parameter2_Name control.
         /// </summary>
@@ -290,7 +292,7 @@ namespace YAF.Install {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label Parameter2_Name;
-        
+
         /// <summary>
         /// Parameter2_Value control.
         /// </summary>
@@ -299,7 +301,7 @@ namespace YAF.Install {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox Parameter2_Value;
-        
+
         /// <summary>
         /// Parameter3_Name control.
         /// </summary>
@@ -308,7 +310,7 @@ namespace YAF.Install {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label Parameter3_Name;
-        
+
         /// <summary>
         /// Parameter3_Value control.
         /// </summary>
@@ -317,7 +319,7 @@ namespace YAF.Install {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox Parameter3_Value;
-        
+
         /// <summary>
         /// Parameter4_Name control.
         /// </summary>
@@ -326,7 +328,7 @@ namespace YAF.Install {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label Parameter4_Name;
-        
+
         /// <summary>
         /// Parameter4_Value control.
         /// </summary>
@@ -335,7 +337,7 @@ namespace YAF.Install {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox Parameter4_Value;
-        
+
         /// <summary>
         /// Parameter5_Name control.
         /// </summary>
@@ -344,7 +346,7 @@ namespace YAF.Install {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label Parameter5_Name;
-        
+
         /// <summary>
         /// Parameter5_Value control.
         /// </summary>
@@ -353,7 +355,7 @@ namespace YAF.Install {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox Parameter5_Value;
-        
+
         /// <summary>
         /// Parameter6_Name control.
         /// </summary>
@@ -362,7 +364,7 @@ namespace YAF.Install {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label Parameter6_Name;
-        
+
         /// <summary>
         /// Parameter6_Value control.
         /// </summary>
@@ -371,7 +373,7 @@ namespace YAF.Install {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox Parameter6_Value;
-        
+
         /// <summary>
         /// Parameter7_Name control.
         /// </summary>
@@ -380,7 +382,7 @@ namespace YAF.Install {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label Parameter7_Name;
-        
+
         /// <summary>
         /// Parameter7_Value control.
         /// </summary>
@@ -389,7 +391,7 @@ namespace YAF.Install {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox Parameter7_Value;
-        
+
         /// <summary>
         /// Parameter8_Name control.
         /// </summary>
@@ -398,7 +400,7 @@ namespace YAF.Install {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label Parameter8_Name;
-        
+
         /// <summary>
         /// Parameter8_Value control.
         /// </summary>
@@ -407,7 +409,7 @@ namespace YAF.Install {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox Parameter8_Value;
-        
+
         /// <summary>
         /// Parameter9_Name control.
         /// </summary>
@@ -416,7 +418,7 @@ namespace YAF.Install {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label Parameter9_Name;
-        
+
         /// <summary>
         /// Parameter9_Value control.
         /// </summary>
@@ -425,7 +427,7 @@ namespace YAF.Install {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox Parameter9_Value;
-        
+
         /// <summary>
         /// Parameter10_Name control.
         /// </summary>
@@ -434,7 +436,7 @@ namespace YAF.Install {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label Parameter10_Name;
-        
+
         /// <summary>
         /// Parameter10_Value control.
         /// </summary>
@@ -443,7 +445,7 @@ namespace YAF.Install {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox Parameter10_Value;
-        
+
         /// <summary>
         /// Parameter11_Value control.
         /// </summary>
@@ -452,7 +454,7 @@ namespace YAF.Install {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox Parameter11_Value;
-        
+
         /// <summary>
         /// Parameter12_Value control.
         /// </summary>
@@ -461,7 +463,7 @@ namespace YAF.Install {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox Parameter12_Value;
-        
+
         /// <summary>
         /// Parameter13_Value control.
         /// </summary>
@@ -470,7 +472,7 @@ namespace YAF.Install {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox Parameter13_Value;
-        
+
         /// <summary>
         /// Parameter14_Value control.
         /// </summary>
@@ -479,7 +481,7 @@ namespace YAF.Install {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox Parameter14_Value;
-        
+
         /// <summary>
         /// Parameter15_Value control.
         /// </summary>
@@ -488,7 +490,7 @@ namespace YAF.Install {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox Parameter15_Value;
-        
+
         /// <summary>
         /// Parameter16_Value control.
         /// </summary>
@@ -497,7 +499,7 @@ namespace YAF.Install {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox Parameter16_Value;
-        
+
         /// <summary>
         /// Parameter17_Value control.
         /// </summary>
@@ -506,7 +508,7 @@ namespace YAF.Install {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox Parameter17_Value;
-        
+
         /// <summary>
         /// Parameter18_Value control.
         /// </summary>
@@ -515,7 +517,7 @@ namespace YAF.Install {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox Parameter18_Value;
-        
+
         /// <summary>
         /// Parameter19_Value control.
         /// </summary>
@@ -524,7 +526,7 @@ namespace YAF.Install {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox Parameter19_Value;
-        
+
         /// <summary>
         /// DBUsernamePasswordHolder control.
         /// </summary>
@@ -533,7 +535,7 @@ namespace YAF.Install {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.PlaceHolder DBUsernamePasswordHolder;
-        
+
         /// <summary>
         /// txtDBUserID control.
         /// </summary>
@@ -542,7 +544,7 @@ namespace YAF.Install {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtDBUserID;
-        
+
         /// <summary>
         /// txtDBPassword control.
         /// </summary>
@@ -551,7 +553,7 @@ namespace YAF.Install {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtDBPassword;
-        
+
         /// <summary>
         /// btnTestDBConnection control.
         /// </summary>
@@ -559,8 +561,8 @@ namespace YAF.Install {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.Controls.ModernButton btnTestDBConnection;
-        
+        protected global::YAF.Web.Controls.ThemeButton btnTestDBConnection;
+
         /// <summary>
         /// ConnectionInfoHolder control.
         /// </summary>
@@ -569,7 +571,7 @@ namespace YAF.Install {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.PlaceHolder ConnectionInfoHolder;
-        
+
         /// <summary>
         /// lblConnectionDetails control.
         /// </summary>
@@ -578,7 +580,7 @@ namespace YAF.Install {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Literal lblConnectionDetails;
-        
+
         /// <summary>
         /// WizManualDatabaseConnection control.
         /// </summary>
@@ -587,7 +589,7 @@ namespace YAF.Install {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.WizardStep WizManualDatabaseConnection;
-        
+
         /// <summary>
         /// NoWriteAppSettingsHolder control.
         /// </summary>
@@ -596,7 +598,7 @@ namespace YAF.Install {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.PlaceHolder NoWriteAppSettingsHolder;
-        
+
         /// <summary>
         /// lblAppSettingsFile control.
         /// </summary>
@@ -605,7 +607,7 @@ namespace YAF.Install {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblAppSettingsFile;
-        
+
         /// <summary>
         /// lblConnectionStringName control.
         /// </summary>
@@ -614,7 +616,7 @@ namespace YAF.Install {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblConnectionStringName;
-        
+
         /// <summary>
         /// NoWriteDBSettingsHolder control.
         /// </summary>
@@ -623,7 +625,7 @@ namespace YAF.Install {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.PlaceHolder NoWriteDBSettingsHolder;
-        
+
         /// <summary>
         /// lblDBSettingsFile control.
         /// </summary>
@@ -632,7 +634,7 @@ namespace YAF.Install {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblDBSettingsFile;
-        
+
         /// <summary>
         /// lblDBConnStringName control.
         /// </summary>
@@ -641,7 +643,7 @@ namespace YAF.Install {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblDBConnStringName;
-        
+
         /// <summary>
         /// lblDBConnStringValue control.
         /// </summary>
@@ -650,7 +652,7 @@ namespace YAF.Install {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblDBConnStringValue;
-        
+
         /// <summary>
         /// WizTestSettings control.
         /// </summary>
@@ -659,7 +661,7 @@ namespace YAF.Install {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.WizardStep WizTestSettings;
-        
+
         /// <summary>
         /// btnTestDBConnectionManual control.
         /// </summary>
@@ -667,8 +669,8 @@ namespace YAF.Install {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.Controls.ModernButton btnTestDBConnectionManual;
-        
+        protected global::YAF.Web.Controls.ThemeButton btnTestDBConnectionManual;
+
         /// <summary>
         /// ManualConnectionInfoHolder control.
         /// </summary>
@@ -677,7 +679,7 @@ namespace YAF.Install {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.PlaceHolder ManualConnectionInfoHolder;
-        
+
         /// <summary>
         /// lblConnectionDetailsManual control.
         /// </summary>
@@ -686,7 +688,7 @@ namespace YAF.Install {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Literal lblConnectionDetailsManual;
-        
+
         /// <summary>
         /// txtTestFromEmail control.
         /// </summary>
@@ -695,7 +697,7 @@ namespace YAF.Install {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtTestFromEmail;
-        
+
         /// <summary>
         /// txtTestToEmail control.
         /// </summary>
@@ -704,7 +706,7 @@ namespace YAF.Install {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtTestToEmail;
-        
+
         /// <summary>
         /// btnTestSmtp control.
         /// </summary>
@@ -712,8 +714,8 @@ namespace YAF.Install {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.Controls.ModernButton btnTestSmtp;
-        
+        protected global::YAF.Web.Controls.ThemeButton btnTestSmtp;
+
         /// <summary>
         /// SmtpInfoHolder control.
         /// </summary>
@@ -722,7 +724,7 @@ namespace YAF.Install {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.PlaceHolder SmtpInfoHolder;
-        
+
         /// <summary>
         /// lblSmtpTestDetails control.
         /// </summary>
@@ -731,7 +733,7 @@ namespace YAF.Install {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Literal lblSmtpTestDetails;
-        
+
         /// <summary>
         /// WizInitDatabase control.
         /// </summary>
@@ -740,7 +742,7 @@ namespace YAF.Install {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.WizardStep WizInitDatabase;
-        
+
         /// <summary>
         /// UpgradeExtensions control.
         /// </summary>
@@ -749,7 +751,7 @@ namespace YAF.Install {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox UpgradeExtensions;
-        
+
         /// <summary>
         /// WizCreateForum control.
         /// </summary>
@@ -758,7 +760,7 @@ namespace YAF.Install {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.WizardStep WizCreateForum;
-        
+
         /// <summary>
         /// TheForumName control.
         /// </summary>
@@ -767,7 +769,7 @@ namespace YAF.Install {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox TheForumName;
-        
+
         /// <summary>
         /// Label6 control.
         /// </summary>
@@ -776,7 +778,7 @@ namespace YAF.Install {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label Label6;
-        
+
         /// <summary>
         /// TimeZones control.
         /// </summary>
@@ -785,7 +787,7 @@ namespace YAF.Install {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList TimeZones;
-        
+
         /// <summary>
         /// Label7 control.
         /// </summary>
@@ -794,7 +796,7 @@ namespace YAF.Install {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label Label7;
-        
+
         /// <summary>
         /// Culture control.
         /// </summary>
@@ -803,7 +805,7 @@ namespace YAF.Install {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList Culture;
-        
+
         /// <summary>
         /// ForumEmailAddress control.
         /// </summary>
@@ -812,7 +814,7 @@ namespace YAF.Install {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox ForumEmailAddress;
-        
+
         /// <summary>
         /// ForumBaseUrlMask control.
         /// </summary>
@@ -821,7 +823,7 @@ namespace YAF.Install {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox ForumBaseUrlMask;
-        
+
         /// <summary>
         /// UserChoice control.
         /// </summary>
@@ -830,7 +832,7 @@ namespace YAF.Install {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RadioButtonList UserChoice;
-        
+
         /// <summary>
         /// ExistingUserHolder control.
         /// </summary>
@@ -839,7 +841,7 @@ namespace YAF.Install {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.PlaceHolder ExistingUserHolder;
-        
+
         /// <summary>
         /// ExistingUserName control.
         /// </summary>
@@ -848,7 +850,7 @@ namespace YAF.Install {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox ExistingUserName;
-        
+
         /// <summary>
         /// CreateAdminUserHolder control.
         /// </summary>
@@ -857,7 +859,7 @@ namespace YAF.Install {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.PlaceHolder CreateAdminUserHolder;
-        
+
         /// <summary>
         /// UserName control.
         /// </summary>
@@ -866,7 +868,7 @@ namespace YAF.Install {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox UserName;
-        
+
         /// <summary>
         /// AdminEmail control.
         /// </summary>
@@ -875,7 +877,7 @@ namespace YAF.Install {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox AdminEmail;
-        
+
         /// <summary>
         /// Password1 control.
         /// </summary>
@@ -884,7 +886,7 @@ namespace YAF.Install {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox Password1;
-        
+
         /// <summary>
         /// Password2 control.
         /// </summary>
@@ -893,7 +895,7 @@ namespace YAF.Install {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox Password2;
-        
+
         /// <summary>
         /// SecurityQuestion control.
         /// </summary>
@@ -902,7 +904,7 @@ namespace YAF.Install {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox SecurityQuestion;
-        
+
         /// <summary>
         /// SecurityAnswer control.
         /// </summary>
@@ -911,7 +913,7 @@ namespace YAF.Install {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox SecurityAnswer;
-        
+
         /// <summary>
         /// WizMigrateUsers control.
         /// </summary>
@@ -920,7 +922,7 @@ namespace YAF.Install {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.WizardStep WizMigrateUsers;
-        
+
         /// <summary>
         /// lblMigrateUsersCount control.
         /// </summary>
@@ -929,7 +931,7 @@ namespace YAF.Install {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblMigrateUsersCount;
-        
+
         /// <summary>
         /// skipMigration control.
         /// </summary>
@@ -938,7 +940,7 @@ namespace YAF.Install {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox skipMigration;
-        
+
         /// <summary>
         /// WizMigratingUsers control.
         /// </summary>
@@ -947,7 +949,7 @@ namespace YAF.Install {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.WizardStep WizMigratingUsers;
-        
+
         /// <summary>
         /// LoadingCheckPanel control.
         /// </summary>
@@ -956,7 +958,7 @@ namespace YAF.Install {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.UpdatePanel LoadingCheckPanel;
-        
+
         /// <summary>
         /// UpdateStatusTimer control.
         /// </summary>
@@ -965,7 +967,7 @@ namespace YAF.Install {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.Timer UpdateStatusTimer;
-        
+
         /// <summary>
         /// WizFinished control.
         /// </summary>
