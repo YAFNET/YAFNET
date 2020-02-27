@@ -211,7 +211,10 @@ namespace YAF.Dialogs
             var userName = this.Login1.FindControlAs<TextBox>("UserName");
             var password = this.Login1.FindControlAs<TextBox>("Password");
             var forumLogin = this.Login1.FindControlAs<Button>("LoginButton");
+            var registerLink = this.Login1.FindControlAs<LinkButton>("RegisterLink");
             var passwordRecovery = this.Login1.FindControlAs<LinkButton>("PasswordRecovery");
+
+            var singleSignOnHolder = this.Login1.FindControlAs<PlaceHolder>("SingleSignOnHolder");
 
             var faceBookHolder = this.Login1.FindControlAs<PlaceHolder>("FaceBookHolder");
             var facebookRegister = this.Login1.FindControlAs<ThemeButton>("FacebookRegister");
@@ -276,8 +279,18 @@ namespace YAF.Dialogs
                     googleRegister.TitleLocalizedTag = "AUTH_CONNECT_HELP";
                     googleRegister.ParamTitle0 = "Google";
                 }
+                singleSignOnHolder.Visible = twitterHolder.Visible || faceBookHolder.Visible || googleHolder.Visible;
+            }
+            else
+            { 
+                singleSignOnHolder.Visible = false; 
             }
 
+            if (this.PageContext.IsGuest && !this.Get<BoardSettings>().DisableRegistrations && !Config.IsAnyPortal)
+            {
+                registerLink.Visible = true;
+                registerLink.Text = this.GetText("register_instead");
+            }
             this.DataBind();
         }
 
@@ -341,5 +354,17 @@ namespace YAF.Dialogs
         {
             BuildLink.Redirect(ForumPages.Login, "auth={0}", AuthService.google);
         }
+        /// <summary>
+        /// Redirects to the Register Page
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        protected void RegisterLink_Click(object sender, EventArgs e)
+        {
+            BuildLink.Redirect(
+                this.Get<BoardSettings>().ShowRulesForRegistration ? ForumPages.Rules : ForumPages.Register);
+        }
+
+
     }
 }

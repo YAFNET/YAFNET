@@ -7,12 +7,12 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace YAF.Dialogs {
-    using System.Web.UI;
-    using System.Web.UI.WebControls;
+namespace YAF.Dialogs
+{
 
-    public partial class LoginBox {
-        
+
+    public partial class LoginBox
+    {
 
         /// <summary>
         /// UpdateLoginPanel control.
@@ -21,8 +21,7 @@ namespace YAF.Dialogs {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected UpdatePanel UpdateLoginPanel;
-        
+        protected global::System.Web.UI.UpdatePanel UpdateLoginPanel;
 
         /// <summary>
         /// Login1 control.
@@ -31,6 +30,6 @@ namespace YAF.Dialogs {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected Login Login1;
+        protected global::System.Web.UI.WebControls.Login Login1;
     }
 }
