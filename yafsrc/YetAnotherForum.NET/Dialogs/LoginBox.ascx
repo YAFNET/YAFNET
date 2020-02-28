@@ -9,8 +9,8 @@
             OnAuthenticate="Login1_Authenticate"
             VisibleWhenLoggedIn="True">
             <LayoutTemplate>
-                <div id="LoginBox" class="modal fade" role="dialog">
-                    <div class="modal-dialog modal-lg" role="document">
+                <div id="LoginBox" class="modal fade" role="dialog" aria-labelledby="LocalizedLabel1" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h5 class="modal-title">

@@ -138,7 +138,7 @@ namespace YAF.Controls
             }
 
             this.OurAvatar.NavigateUrl = BuildLink.GetLinkNotEscaped(ForumPages.Avatar, addAdminParam);
-            this.OurAvatar.Text = this.GetText("EDIT_AVATAR", "OURAVATAR_SELECT");
+            this.OurAvatar.Text = @"<i class='fas fa-hand-point-right'></i>" + " " + this.GetText("EDIT_AVATAR", "OURAVATAR_SELECT");
 
             this.noteRemote.Text = this.GetTextFormatted(
                 "NOTE_REMOTE",

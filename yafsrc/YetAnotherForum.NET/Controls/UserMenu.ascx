@@ -3,8 +3,8 @@
 
 <li class="nav-item dropdown">
     <YAF:Themebutton runat="server" ID="UserDropDown">
-        <span class="badge badge-light">
-            <asp:Image runat="server" ID="UserAvatar" CssClass="img-navbar-avatar mr-1 rounded"/>
+        <span class="badge badge-light p-0 border border-light mr-1">
+            <asp:Image runat="server" ID="UserAvatar" CssClass="img-navbar-avatar rounded"/>
         </span>
         <%= this.Get<BoardSettings>().EnableDisplayName ? 
                 this.PageContext.CurrentUserData.DisplayName : 
