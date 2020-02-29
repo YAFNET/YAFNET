@@ -150,7 +150,7 @@ namespace YAF.Web.Controls
             // setup initial image state...
             this.Text =
                 $"<i class=\"fas fa-{GetCollapsiblePanelIcon(this.PanelID, this.DefaultState)} text-primary\"></i>";
-            this.CssClass = $"btn btn-link{(this.CssClass.Length > 0 ? $" {this.CssClass}" : string.Empty)}";
+            this.CssClass = $"px-0 mr-2{(this.CssClass.Length > 0 ? $" {this.CssClass}" : string.Empty)}";
 
             this.Attributes.Add("aria-label", "collapse button");
 
