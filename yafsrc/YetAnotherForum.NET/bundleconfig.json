@@ -53,7 +53,8 @@
       "Scripts/forum/yaf.SearchResults.js",
       "Scripts/forum/yaf.SimilarTitles.js",
       "Scripts/forum/yaf.Main.js",
-      "Scripts/forum/yaf.contextMenu.js"
+      "Scripts/forum/yaf.contextMenu.js",
+      "Scripts/forum/yaf.FileBrowser.js"
     ]
   },
   {
