@@ -28,6 +28,21 @@
   background-color: #f5f5f5;
 }
 
+/* Help sidebar */
+.sidebar-sticky ul > li:nth-child(odd) {
+    background: #f1f1f1;
+}
+.sidebar-sticky ul > li:hover {
+    background-color: rgba(52, 138, 199, 0.44) !important;
+}
+.sidebar-sticky ul > li.active {
+    background-color: rgba(116, 116, 191, 0.44) !important;
+}
+.sidebar-sticky ul > li a.nav-link {
+    display: block;
+    color: #343a40;
+}
+
 /* TABS */
 .tab-content {
     padding-top: 10px;

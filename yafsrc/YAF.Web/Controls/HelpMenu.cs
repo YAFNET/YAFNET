@@ -105,7 +105,7 @@ namespace YAF.Web.Controls
             }
 
             html.AppendFormat(
-                @"<h6 class=""sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted""><span class=""text-uppercase font-weight-bold""><a class=""text-secondary text-bold"" href=""{2}"" {3}>{0} &amp; {1}</a></span></h6>",
+                @"<h6 class=""sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted""><span class=""text-uppercase font-weight-bold""><a class=""text-secondary text-bold"" href=""{2}"" {3}>{0} / {1}</a></span></h6>",
                 this.GetText("HELP_INDEX", "INDEX"),
                 this.GetText("BTNSEARCH"),
                 BuildLink.GetLink(ForumPages.Help, "faq=index"),
@@ -122,7 +122,7 @@ namespace YAF.Web.Controls
                 category =>
                     {
                         html.AppendFormat(
-                            @"<h6 class=""sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted""><span>{0}</span></h6>",
+                            @"<h6 class=""sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 py-3 mb-0 text-light bg-dark""><span>{0}</span></h6>",
                             this.GetText("HELP_INDEX", category.HelpCategory));
 
                         htmlDropDown.AppendFormat(
@@ -138,7 +138,7 @@ namespace YAF.Web.Controls
 
                                     if (helpPage.HelpPage.ToLower().Equals(faqPage))
                                     {
-                                        selectedStyle = @"style=""color:red;""";
+                                        selectedStyle = " text-info";
                                     }
 
                                     if (helpPage.HelpPage.Equals("REGISTRATION"))
@@ -149,7 +149,7 @@ namespace YAF.Web.Controls
                                         }
 
                                         html.AppendFormat(
-                                            @"<li class=""nav-item""><a href=""{0}"" {2} title=""{1}"" class=""nav-link"">{1}</a></li>",
+                                            @"<li class=""nav-item""><a href=""{0}"" title=""{1}"" class=""nav-link{2}"">{1}</a></li>",
                                             BuildLink.GetLink(
                                                 ForumPages.Help,
                                                 $"faq={helpPage.HelpPage.ToLower()}"),
@@ -166,7 +166,7 @@ namespace YAF.Web.Controls
                                     else
                                     {
                                         html.AppendFormat(
-                                            @"<li class=""nav-item""><a href=""{0}"" {2} title=""{1}"" class=""nav-link"">{1}</a></li>",
+                                            @"<li class=""nav-item""><a href=""{0}"" title=""{1}"" class=""nav-link{2}"">{1}</a></li>",
                                             BuildLink.GetLink(
                                                 ForumPages.Help,
                                                 $"faq={helpPage.HelpPage.ToLower()}"),
