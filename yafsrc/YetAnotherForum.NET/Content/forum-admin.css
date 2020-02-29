@@ -192,11 +192,11 @@
   animation-name: fadeOutUp; }
 
 /*!
- * Font Awesome Free 5.12.0 by @fontawesome - https://fontawesome.com
+ * Font Awesome Free 5.12.1 by @fontawesome - https://fontawesome.com
  * License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
  */
 /*!
- * Font Awesome Free 5.12.0 by @fontawesome - https://fontawesome.com
+ * Font Awesome Free 5.12.1 by @fontawesome - https://fontawesome.com
  * License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
  */
 .fa,
@@ -1400,6 +1400,9 @@ readers do not read off random characters that represent icons */
 .fa-d-and-d-beyond:before {
   content: "\f6ca"; }
 
+.fa-dailymotion:before {
+  content: "\f952"; }
+
 .fa-dashcube:before {
   content: "\f210"; }
 
@@ -2441,6 +2444,9 @@ readers do not read off random characters that represent icons */
 .fa-instagram:before {
   content: "\f16d"; }
 
+.fa-instagram-square:before {
+  content: "\f955"; }
+
 .fa-intercom:before {
   content: "\f7af"; }
 
@@ -2839,6 +2845,9 @@ readers do not read off random characters that represent icons */
 
 .fa-mixcloud:before {
   content: "\f289"; }
+
+.fa-mixer:before {
+  content: "\f956"; }
 
 .fa-mizuni:before {
   content: "\f3cc"; }
@@ -3544,6 +3553,9 @@ readers do not read off random characters that represent icons */
 
 .fa-shoe-prints:before {
   content: "\f54b"; }
+
+.fa-shopify:before {
+  content: "\f957"; }
 
 .fa-shopping-bag:before {
   content: "\f290"; }
@@ -4614,7 +4626,7 @@ readers do not read off random characters that represent icons */
   width: auto; }
 
 /*!
- * Font Awesome Free 5.12.0 by @fontawesome - https://fontawesome.com
+ * Font Awesome Free 5.12.1 by @fontawesome - https://fontawesome.com
  * License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
  */
 @font-face {
@@ -4631,22 +4643,23 @@ readers do not read off random characters that represent icons */
   font-weight: 900; }
 
 /*!
- * Font Awesome Free 5.12.0 by @fontawesome - https://fontawesome.com
+ * Font Awesome Free 5.12.1 by @fontawesome - https://fontawesome.com
  * License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
  */
 @font-face {
   font-family: 'Font Awesome 5 Brands';
   font-style: normal;
-  font-weight: normal;
+  font-weight: 400;
   font-display: auto;
   src: url("webfonts/fa-brands-400.eot");
   src: url("webfonts/fa-brands-400.eot?#iefix") format("embedded-opentype"), url("webfonts/fa-brands-400.woff2") format("woff2"), url("webfonts/fa-brands-400.woff") format("woff"), url("webfonts/fa-brands-400.ttf") format("truetype"), url("webfonts/fa-brands-400.svg#fontawesome") format("svg"); }
 
 .fab {
-  font-family: 'Font Awesome 5 Brands'; }
+  font-family: 'Font Awesome 5 Brands';
+  font-weight: 400; }
 
 /*!
- * Font Awesome Free 5.12.0 by @fontawesome - https://fontawesome.com
+ * Font Awesome Free 5.12.1 by @fontawesome - https://fontawesome.com
  * License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
  */
 @font-face {
@@ -7409,6 +7422,20 @@ select.is-valid ~ .select2-container--bootstrap4 .select2-selection {
   color: #262626;
   text-decoration: none;
   background-color: #f5f5f5; }
+
+/* Help sidebar */
+.sidebar-sticky ul > li:nth-child(odd) {
+  background: #f1f1f1; }
+
+.sidebar-sticky ul > li:hover {
+  background-color: rgba(52, 138, 199, 0.44) !important; }
+
+.sidebar-sticky ul > li.active {
+  background-color: rgba(116, 116, 191, 0.44) !important; }
+
+.sidebar-sticky ul > li a.nav-link {
+  display: block;
+  color: #343a40; }
 
 /* TABS */
 .tab-content {
