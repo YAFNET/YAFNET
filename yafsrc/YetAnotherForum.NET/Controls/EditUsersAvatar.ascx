@@ -85,13 +85,6 @@
                                         LocalizedPage="EDIT_AVATAR"
                                         LocalizedTag="AVATARUPLOAD" />
                                 </asp:Label>
-                                <script>
-                                    document.querySelector('.custom-file-input').addEventListener('change', function (e) {
-                                        var fileName = document.getElementById('<%= File.ClientID %>').files[0].name;
-                                        var nextSibling = e.target.nextElementSibling
-                                        nextSibling.innerText = fileName
-                                    })
-                                </script>
                             </div>
                         </div>
                     </div>
