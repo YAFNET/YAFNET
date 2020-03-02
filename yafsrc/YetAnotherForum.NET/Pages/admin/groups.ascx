@@ -9,7 +9,7 @@
         <h1><YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_GROUPS" /></h1>
     </div>
     </div>
-    <div class="row" runat="server" Visible='<%# this.RoleListNet.Items.Count > 0 %>'>
+    <div class="row" runat="server" Visible="<%# this.RoleListNet.Items.Count > 0 %>">
         <div class="col-xl-12">
             <div class="card mb-3">
                 <div class="card-header">
@@ -178,8 +178,7 @@
                                        CssClass="<%# this.GetItemColorString(((YAF.Types.Models.Group)Container.DataItem).Style) %>">
                                 <%#((YAF.Types.Models.Group)Container.DataItem).Style.IsSet() && this.Eval("Style").ToString().Trim().Length > 0 ? "" : this.GetItemName(false)%>
                             </asp:Label>
-                            <YAF:RoleRankStyles ID="RoleRankStylesGroups" 
-                                                RawStyles="<%# ((YAF.Types.Models.Group)Container.DataItem).Style %>" runat="server" />
+                            <code><%# ((YAF.Types.Models.Group)Container.DataItem).Style %></code>
                         </li>
                         <li class="list-inline-item">
                             <YAF:LocalizedLabel ID="HelpLabel7" runat="server" 
