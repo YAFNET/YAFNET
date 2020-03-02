@@ -6568,7 +6568,6 @@ begin
 		a.SuspendedBy,
         a.LanguageFile,
         a.ThemeFile,
-        a.TextEditor,
         a.[PMNotification],
         a.[AutoWatchTopics],
         a.[DailyDigest],
@@ -6635,7 +6634,6 @@ begin
         a.Suspended,
         a.LanguageFile,
         a.ThemeFile,
-        a.TextEditor,
         a.[PMNotification],
         a.[AutoWatchTopics],
         a.[DailyDigest],
@@ -6693,7 +6691,6 @@ begin
         a.Suspended,
         a.LanguageFile,
         a.ThemeFile,
-        a.TextEditor,
         a.[PMNotification],
         a.[AutoWatchTopics],
         a.[DailyDigest],
@@ -6757,7 +6754,6 @@ begin
         a.Suspended,
         a.LanguageFile,
         a.ThemeFile,
-        a.TextEditor,
         a.[PMNotification],
         a.[AutoWatchTopics],
         a.[DailyDigest],
@@ -7024,7 +7020,7 @@ begin
 
     if @@ROWCOUNT<1
     begin
-        exec [{databaseOwner}].[{objectQualifier}user_save] null,@BoardID,@UserName,@UserName,@Email,@TimeZonetmp,null,null,null,null,null, 1, null, null, null, 0, 0,@UTCTIMESTAMP
+        exec [{databaseOwner}].[{objectQualifier}user_save] null,@BoardID,@UserName,@UserName,@Email,@TimeZonetmp,null,null,null,null, 1, null, null, null, 0, 0,@UTCTIMESTAMP
 
         -- The next one is not safe, but this procedure is only used for testing
         select @UserID = @@IDENTITY
@@ -7066,7 +7062,6 @@ CREATE procedure [{databaseOwner}].[{objectQualifier}user_save](
     @LanguageFile		nvarchar(50) = null,
     @Culture		    varchar(10) = null,
     @ThemeFile			nvarchar(50) = null,
-    @TextEditor			nvarchar(50) = null,
     @Approved			bit = null,
     @PMNotification		bit = null,
     @AutoWatchTopics    bit = null,
@@ -7122,7 +7117,6 @@ begin
             LanguageFile = @LanguageFile,
             ThemeFile = @ThemeFile,
             Culture = @Culture,
-            TextEditor = @TextEditor,
             PMNotification = (CASE WHEN (@PMNotification is not null) THEN  @PMNotification ELSE PMNotification END),
             AutoWatchTopics = (CASE WHEN (@AutoWatchTopics is not null) THEN  @AutoWatchTopics ELSE AutoWatchTopics END),
             NotificationType =  (CASE WHEN (@NotificationType is not null) THEN  @NotificationType ELSE NotificationType END),
@@ -8717,7 +8711,6 @@ begin
 		SuspendedReason     = a.SuspendedReason,
         ThemeFile			= a.ThemeFile,
         LanguageFile		= a.LanguageFile,
-        TextEditor		    = a.TextEditor,
         TimeZoneUser		= a.TimeZone,
         CultureUser		    = a.Culture,
         IsGuest				= SIGN(a.IsGuest),

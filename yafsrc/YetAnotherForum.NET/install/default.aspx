@@ -55,7 +55,7 @@
                        
                     </p>
                    
-                    <div class="warningMessage">
+                    <div class="alert alert-warning">
                         <%# YAF.App_GlobalResources.Install.WarningUpgrade %>
                     </div>
                     
@@ -72,25 +72,23 @@
                     <ul class="standardList">
                         <li>
                             <asp:Label ID="lblPermissionApp" runat="server" 
-                                       CssClass="infoLabel float-right">
+                                       CssClass="badge badge-info float-right">
                                 <%# YAF.App_GlobalResources.Install.Unchecked %>
                             </asp:Label>
                             <%# YAF.App_GlobalResources.Install.PermissionApp %>
                         </li>
                         <li>
                             <asp:Label ID="lblPermissionUpload" runat="server" 
-                                       CssClass="infoLabel float-right">
+                                       CssClass="badge badge-info float-right">
                                 <%# YAF.App_GlobalResources.Install.Unchecked %>
                             </asp:Label>
                             <%# YAF.App_GlobalResources.Install.PermissionUpload %>
                         </li>
                     </ul>
-                    <YAF:ModernButton ID="btnTestPermissions" runat="server" 
-                                      Text="<%# YAF.App_GlobalResources.Install.TestPermission %>" 
-                                      CssClass="btn btn-info" 
-                                      EnableLoadingAnimation="True"
-                                      OnClick="TestPermissions_Click" 
-                                      data-style="expand-left" />
+                    <YAF:ThemeButton ID="btnTestPermissions" runat="server" 
+                                     Type="Info"
+                                     Text="<%# YAF.App_GlobalResources.Install.TestPermission %>" 
+                                     OnClick="TestPermissions_Click" />
                 </asp:WizardStep> 
                 <asp:WizardStep ID="WizCreatePassword" runat="server" Title="Create Config Password">
                     <h4>
@@ -124,8 +122,8 @@
                     <p class="descriptionText">
                         <%# YAF.App_GlobalResources.Install.EnterConfigPasswordDesc %>
                     </p>
-                    <div class="infoMessage">
-                        <span class="infoLabel"><%# YAF.App_GlobalResources.Install.Note %></span> 
+                    <div class="alert alert-info">
+                        <span class="badge badge-info"><%# YAF.App_GlobalResources.Install.Note %></span> 
                         <%# YAF.App_GlobalResources.Install.UpgradeNote %>
                     </div>
                     <asp:TextBox ID="txtEnteredPassword" runat="server" TextMode="Password" Type="Password"
@@ -141,15 +139,15 @@
                     <p class="descriptionText">
                         <%# YAF.App_GlobalResources.Install.ManuallyPasswordDesc %>
                     </p>
-                    <div class="errorMessage">
-                        <span class="errorLabel"><%# YAF.App_GlobalResources.Install.Error %></span> <%# YAF.App_GlobalResources.Install.ManuallyPasswordError %>
+                    <div class="alert alert-danger">
+                        <span class="badge badge-danger"><%# YAF.App_GlobalResources.Install.Error %></span> <%# YAF.App_GlobalResources.Install.ManuallyPasswordError %>
                     </div>
                     <p><%# YAF.App_GlobalResources.Install.OpenFile %>
                         <strong>
                             <asp:Label runat="server" ID="lblAppSettingsFile2">web.config</asp:Label></strong>
                         <%# YAF.App_GlobalResources.Install.OpenFileDesc %>
                     </p>
-                    <code>&lt;add key="YAF.ConfigPassword" value="<span style='color: #0000FF'>YourPassword</span>"/&gt;</code>
+                    <code>&lt;add key="YAF.ConfigPassword" value="<span class="text-primary">YourPassword</span>"/&gt;</code>
                     <br/>
                 </asp:WizardStep>
                 <asp:WizardStep runat="server" Title="Database Connection" ID="WizDatabaseConnection">
@@ -179,8 +177,8 @@
                         <h4>
                             <%# YAF.App_GlobalResources.Install.ConnectionNew %>
                         </h4>
-                        <div class="infoMessage">
-                            <span class="infoLabel"><%# YAF.App_GlobalResources.Install.Note %></span> 
+                        <div class="alert alert-info">
+                            <span class="font-weight-bold"><%# YAF.App_GlobalResources.Install.Note %></span> 
                             <%# YAF.App_GlobalResources.Install.ConnectionNewNote %>"<asp:Label ID="lblConnStringAppSettingName"
                             runat="server" Text="yafnet" />".
                         </div>
@@ -303,13 +301,10 @@
                         </asp:PlaceHolder>
                     </asp:PlaceHolder>
                     <hr/>
-                    <YAF:ModernButton ID="btnTestDBConnection" runat="server" 
-                                      CssClass="btn btn-info" 
-                                      EnableLoadingAnimation="True" 
-                                      Text="<%# YAF.App_GlobalResources.Install.TestConnection %>"
-                                      OnClick="TestDBConnection_Click" 
-                                      OnClientClick="return true;" 
-                                      data-style="expand-left" />
+                    <YAF:ThemeButton ID="btnTestDBConnection" runat="server"
+                                     Type="Info"
+                                     Text="<%# YAF.App_GlobalResources.Install.TestConnection %>"
+                                     OnClick="TestDBConnection_Click"/>
                     <asp:PlaceHolder ID="ConnectionInfoHolder" runat="server" Visible="false">
                         <hr/>
                         <asp:Literal ID="lblConnectionDetails" runat="server"></asp:Literal>
@@ -320,8 +315,8 @@
                         <h4>
                             <%# YAF.App_GlobalResources.Install.NoWriteAppSettings %>
                         </h4>
-                        <div class="errorMessage">
-                            <span class="errorLabel">
+                        <div class="alert alert-danger">
+                            <span class="badge badge-danger">
                                 <%# YAF.App_GlobalResources.Install.Error %>
                             </span> 
                             <%# YAF.App_GlobalResources.Install.NoWriteAppSettingsNote %>
@@ -337,8 +332,8 @@
                         <h4>
                             <%# YAF.App_GlobalResources.Install.NoWriteConnSettings %>
                         </h4>
-                        <div class="errorMessage">
-                            <span class="errorLabel">
+                        <div class="alert alert-danger">
+                            <span class="badge badge-danger">
                                 <%# YAF.App_GlobalResources.Install.Error %>
                             </span> 
                             <%# YAF.App_GlobalResources.Install.NoWriteConnSettingsNote %>
@@ -366,12 +361,10 @@
                     <h4>
                         <%# YAF.App_GlobalResources.Install.ConnectionTest %>
                     </h4>
-                    <YAF:ModernButton ID="btnTestDBConnectionManual" runat="server" 
-                                      CssClass="btn btn-info" 
-                                      EnableLoadingAnimation="True" 
-                                      Text="<%# YAF.App_GlobalResources.Install.ConnectionTest %>" 
-                                      OnClick="TestDBConnectionManual_Click" 
-                                      data-style="expand-left" />
+                    <YAF:ThemeButton ID="btnTestDBConnectionManual" runat="server" 
+                                     Type="Info"
+                                     Text="<%# YAF.App_GlobalResources.Install.ConnectionTest %>" 
+                                     OnClick="TestDBConnectionManual_Click"/>
                     <asp:PlaceHolder ID="ManualConnectionInfoHolder" runat="server" Visible="false">
                         <hr/>
                         <asp:Literal ID="lblConnectionDetailsManual" runat="server"></asp:Literal>
@@ -399,12 +392,10 @@
                                  LabelText="<%# YAF.App_GlobalResources.Install.ToEmail %>"
                                  CssClass="form-control"/>
                     </div>
-                    <YAF:ModernButton ID="btnTestSmtp" runat="server" 
-                                      Text="<%# YAF.App_GlobalResources.Install.TestEmail %>" 
-                                      CssClass="btn btn-info" 
-                                      EnableLoadingAnimation="True" 
-                                      OnClick="TestSmtp_Click" 
-                                      data-style="expand-left" />
+                    <YAF:ThemeButton ID="btnTestSmtp" runat="server" 
+                                     Text="<%# YAF.App_GlobalResources.Install.TestEmail %>" 
+                                     Type="Info" 
+                                     OnClick="TestSmtp_Click" />
                     <asp:PlaceHolder ID="SmtpInfoHolder" runat="server" Visible="false">
                         <hr/>
                         <asp:Literal ID="lblSmtpTestDetails" runat="server"></asp:Literal>
@@ -558,8 +549,8 @@
                     <p class="descriptionText">
                         <%# YAF.App_GlobalResources.Install.MigrateDesc %>
                     </p> 
-                    <div class="infoMessage">
-                        <span class="infoLabel">
+                    <div class="alert alert-info">
+                        <span class="badge badge-info">
                             <%# YAF.App_GlobalResources.Install.Note %>
                         </span> 
                         <%# YAF.App_GlobalResources.Install.MigrateNote %>
@@ -576,7 +567,7 @@
                     <asp:UpdatePanel ID="LoadingCheckPanel" runat="server">
                         <ContentTemplate>
                             <asp:Timer ID="UpdateStatusTimer" runat="server" Interval="5000" OnTick="UpdateStatusTimer_Tick" />
-                            <div style="text-align: center" class="infoMessage">
+                            <div style="text-align: center" class="alert alert-info">
                                 <div class="fa-3x">
                                     <i class="fas fa-spinner fa-pulse"></i>
                                 </div>
@@ -597,15 +588,16 @@
                 </asp:WizardStep>
             </WizardSteps>
             <FinishNavigationTemplate>
-                <YAF:ModernButton ID="FinishPreviousButton" runat="server" 
-                                  CausesValidation="False" 
-                                  CommandName="MovePrevious"
-                                  Text="<%# YAF.App_GlobalResources.Install.Previous %>" 
-                                  CssClass="btn btn-secondary" />
-                <YAF:ModernButton ID="FinishButton" runat="server" 
-                                  CssClass="btn btn-success" 
-                                  CommandName="MoveComplete"
-                                  Text="<%# YAF.App_GlobalResources.Install.Finish %>" />
+                <YAF:ThemeButton ID="FinishPreviousButton" runat="server" 
+                                 CommandName="MovePrevious"
+                                 Icon="arrow-alt-circle-left"
+                                 Text="<%# YAF.App_GlobalResources.Install.Previous %>" 
+                                 Type="Secondary" />
+                <YAF:ThemeButton ID="FinishButton" runat="server" 
+                                 Icon="check-circle"
+                                 Type="Success"
+                                 CommandName="MoveComplete"
+                                 Text="<%# YAF.App_GlobalResources.Install.Finish %>" />
             </FinishNavigationTemplate>
             <LayoutTemplate>
                 <div class="yafWizard modal fade" data-backdrop="false">
@@ -636,7 +628,7 @@
                                     <asp:DropDownList ID="Languages" runat="server" 
                                                       AutoPostBack="true"
                                                       CssClass="custom-select"
-                                                      Visible='<%# !YAF.Configuration.Config.IsDotNetNuke %>'>
+                                                      Visible="<%# !YAF.Configuration.Config.IsDotNetNuke %>">
                                         <asp:ListItem Text="Arabic" Value="ar"/>
                                         <asp:ListItem Text="Chinese (Simplified)" Value="zh-CN"/>
                                         <asp:ListItem Text="Chinese (Traditional)" Value="zh-TW"/>
@@ -667,10 +659,10 @@
                                 </span>
                             </div>
                             <div class="modal-body">
-                                <asp:PlaceHolder ID="ErrorMessage" runat="server" Visible="false">
-                                    <div class="warningMessageDismissable">
+                                <asp:PlaceHolder ID="errorMessage" runat="server" Visible="false">
+                                    <div class="alert alert-warning">
                                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                                        <asp:Literal runat="server" ID="ErrorMessageContent"></asp:Literal>
+                                        <asp:Literal runat="server" ID="errorMessageContent"></asp:Literal>
                                     </div>
                                 </asp:PlaceHolder>
                                 <asp:PlaceHolder ID="WizardStepPlaceHolder" runat="server" />
@@ -683,23 +675,24 @@
                 </div>
             </LayoutTemplate>
             <StartNavigationTemplate>
-                    <YAF:ModernButton ID="StartNextButton" CssClass="btn btn-primary" EnableLoadingAnimation="True" runat="server" 
-                        CommandName="MoveNext" Text="<%# YAF.App_GlobalResources.Install.Next %>" data-style="expand-left" />
+                    <YAF:ThemeButton ID="StartNextButton" runat="server"
+                                     Icon="arrow-alt-circle-right"
+                                     Type="Secondary"
+                                     CommandName="MoveNext" 
+                                     Text="<%# YAF.App_GlobalResources.Install.Next %>"/>
             </StartNavigationTemplate>
             <StepNavigationTemplate>
-                    <YAF:ModernButton ID="StepPreviousButton" runat="server" 
-                                      CssClass="btn btn-secondary" 
-                                      Visible="false"
-                                      CausesValidation="False"
-                                      CommandName="MovePrevious" 
-                                      Text="<%# YAF.App_GlobalResources.Install.Previous %>" />
-                    <YAF:ModernButton ID="StepNextButton" runat="server" 
-                                      CssClass="btn btn-primary" 
-                                      EnableLoadingAnimation="True"
-                                      OnClientClick="return true;" 
-                                      CommandName="MoveNext" 
-                                      Text="<%# YAF.App_GlobalResources.Install.Next %>"
-                                      data-style="expand-left" />
+                    <YAF:ThemeButton ID="StepPreviousButton" runat="server" 
+                                     Type="Secondary"
+                                     Icon="arrow-alt-circle-left"
+                                     Visible="false"
+                                     CommandName="MovePrevious" 
+                                     Text="<%# YAF.App_GlobalResources.Install.Previous %>" />
+                    <YAF:ThemeButton ID="StepNextButton" runat="server" 
+                                     Type="Primary"
+                                     Icon="arrow-alt-circle-right"
+                                     CommandName="MoveNext" 
+                                     Text="<%# YAF.App_GlobalResources.Install.Next %>" />
             </StepNavigationTemplate>
         </asp:Wizard>
     </form>

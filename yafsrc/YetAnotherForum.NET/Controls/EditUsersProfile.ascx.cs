@@ -337,7 +337,6 @@ namespace YAF.Controls
                 this.UserData.LanguageFile,
                 this.UserData.CultureUser,
                 this.UserData.ThemeFile,
-                this.UserData.TextEditor,
                 null,
                 null,
                 null,

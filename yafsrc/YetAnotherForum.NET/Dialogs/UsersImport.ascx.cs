@@ -410,7 +410,6 @@ namespace YAF.Dialogs
                 row.Table.Columns.Contains("LanguageFile") ? row["LanguageFile"] : null,
                 row.Table.Columns.Contains("Culture") ? row["Culture"] : null,
                 row.Table.Columns.Contains("ThemeFile") ? row["ThemeFile"] : null,
-                row.Table.Columns.Contains("TextEditor") ? row["TextEditor"] : null,
                 null,
                 null,
                 this.Get<BoardSettings>().DefaultNotificationSetting,

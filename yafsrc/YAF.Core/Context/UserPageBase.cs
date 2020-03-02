@@ -347,11 +347,6 @@ namespace YAF.Core
         public string SuspendedReason => this.IsSuspended ? this.Page["SuspendedReason"].ToString() : string.Empty;
 
         /// <summary>
-        ///   Gets the user text editor
-        /// </summary>
-        public string TextEditor => this.PageValueAsString("TextEditor");
-
-        /// <summary>
         ///   Gets the time zone offset for the user
         /// </summary>
         public string TimeZoneUser => this.Page["TimeZoneUser"].ToString();

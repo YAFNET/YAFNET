@@ -47,7 +47,7 @@ namespace YAF.Types.Constants
             public const string ActiveUserLazyData = "ActiveUserLazyData{0}";
 
             /// <summary>
-            ///   The banned ip.
+            ///   The banned IP.
             /// </summary>
             public const string BannedIP = "BannedIP";
 
@@ -84,11 +84,6 @@ namespace YAF.Types.Constants
             /// <summary>
             ///   The favorite topic list.
             /// </summary>
-            public const string FavoriteTopicCount = "FavoriteTopicId{0}";
-
-            /// <summary>
-            ///   The favorite topic list.
-            /// </summary>
             public const string FavoriteTopicList = "FavoriteTopicList{0}";
 
             /// <summary>
@@ -116,11 +111,6 @@ namespace YAF.Types.Constants
             /// </summary>
             public const string ForumModerators = "ForumModerators";
 
-            /// <summary>
-            ///   The guest groups cache.
-            /// </summary>
-            public const string GuestGroupsCache = "GuestGroupsCache";
-            
             /// <summary>
             ///   The group rank styles.
             /// </summary>
@@ -200,10 +190,13 @@ namespace YAF.Types.Constants
         }
 
         /// <summary>
-        /// 
+        /// The forum rebuild.
         /// </summary>
         public struct ForumRebuild
         {
+            /// <summary>
+            /// The blocking task names.
+            /// </summary>
             public static readonly string[] BlockingTaskNames =
                 {
                     "ForumDeleteTask"

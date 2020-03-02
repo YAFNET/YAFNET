@@ -179,13 +179,5 @@ namespace YAF.Types.Interfaces
         ///   Gets UserName.
         /// </summary>
         string UserName { get; }
-
-        /// <summary>
-        /// Gets the text editor.
-        /// </summary>
-        /// <value>
-        /// The text editor.
-        /// </value>
-        string TextEditor { get; }
     }
 }

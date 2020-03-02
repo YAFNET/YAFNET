@@ -3,8 +3,6 @@
     "outputFileName": "Scripts/InstallWizard.comb.js",
     "inputFiles": [
       "Scripts/jquery-3.4.1.js",
-      "Scripts/spin.js",
-      "Scripts/ladda.js",
       "Scripts/select2.js",
       "Scripts/bootstrap.bundle.js",
       "Scripts/forum/InstallWizard.js"
@@ -33,7 +31,6 @@
       "Scripts/bootbox.js",
       "Scripts/bootstrap-datetimepicker.js",
       "Scripts/bootstrap-notify.js",
-      "Scripts/bootstrap-suggest.js",
       "Scripts/jquery.bootstrap-touchspin.js",
       "Scripts/select2.js",
       "Scripts/bootstrap-tagsinput.js",
@@ -48,8 +45,6 @@
       "Scripts/tablesorter/extras/jquery.tablesorter.pager.min.js",
       "Scripts/tablesorter/widgets/widget-reflow.js",
       "Scripts/jsdifflib.js",
-      "Scripts/emojipicker/jquery.emojis.js",
-      "Scripts/emojipicker/jquery.emojipicker.js",
       "Scripts/forum/yaf.Utilities.js",
       "Scripts/forum/yaf.MessageHistory.js",
       "Scripts/forum/yaf.Albums.js",
@@ -58,7 +53,8 @@
       "Scripts/forum/yaf.SearchResults.js",
       "Scripts/forum/yaf.SimilarTitles.js",
       "Scripts/forum/yaf.Main.js",
-      "Scripts/forum/yaf.contextMenu.js"
+      "Scripts/forum/yaf.contextMenu.js",
+      "Scripts/forum/yaf.FileBrowser.js"
     ]
   },
   {
@@ -79,9 +75,6 @@
       "Scripts/tablesorter/jquery.tablesorter.combined.js",
       "Scripts/tablesorter/extras/jquery.tablesorter.pager.min.js",
       "Scripts/tablesorter/widgets/widget-reflow.js",
-      "Scripts/emojipicker/jquery.emojis.js",
-      "Scripts/emojipicker/jquery.emojipicker.js",
-      "Scripts/cookiealert-standalone.js",
       "Scripts/forum/yaf.Utilities.js",
       "Scripts/forum/yaf.Albums.js",
       "Scripts/forum/yaf.Notify.js",
@@ -96,12 +89,6 @@
     "inputFiles": [
       "Content/jQuery.FileUpload/jquery.fileupload-ui.css",
       "Content/jQuery.FileUpload/jquery.fileupload.css"
-    ]
-  },
-  {
-    "outputFileName": "Scripts/yafEditor/yafEditor.min.js",
-    "inputFiles": [
-      "Scripts/yafEditor/yafEditor.js"
     ]
   },
   {

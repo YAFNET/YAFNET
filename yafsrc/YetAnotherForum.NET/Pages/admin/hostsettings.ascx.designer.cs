@@ -3318,42 +3318,6 @@ namespace YAF.Pages.Admin
         protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel66;
 
         /// <summary>
-        /// HelpLabel88 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Web.Controls.HelpLabel HelpLabel88;
-
-        /// <summary>
-        /// ForumEditor control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ForumEditor;
-
-        /// <summary>
-        /// HelpLabel160 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Web.Controls.HelpLabel HelpLabel160;
-
-        /// <summary>
-        /// AllowUsersTextEditor control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox AllowUsersTextEditor;
-
-        /// <summary>
         /// HelpLabel87 control.
         /// </summary>
         /// <remarks>

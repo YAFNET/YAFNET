@@ -100,17 +100,6 @@
                         <!-- editor goes here -->
                     </asp:PlaceHolder>
                 </div>
-                <asp:PlaceHolder runat="server" ID="maxCharRow">
-                    <div class="d-sm-none d-md-block">
-                    <YAF:Alert runat="server" Type="info">
-                        <strong>
-                            <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="NOTE" LocalizedPage="COMMON" />
-                        </strong>
-                        <YAF:LocalizedLabel ID="LocalizedLblMaxNumberOfPost" runat="server" 
-                                            LocalizedTag="MAXNUMBEROF"/>
-                    </YAF:Alert>
-                    </div>
-                </asp:PlaceHolder>
                 <YAF:PostOptions ID="PostOptions1" runat="server"></YAF:PostOptions>
 
                 <YAF:PostAttachments ID="PostAttachments1" runat="server" Visible="False"></YAF:PostAttachments>

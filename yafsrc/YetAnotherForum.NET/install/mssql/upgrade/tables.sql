@@ -564,7 +564,6 @@ if not exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{d
 		SuspendedBy     int not null default (0),
 		LanguageFile	nvarchar(50) NULL,
 		ThemeFile		nvarchar(50) NULL,
-		TextEditor		nvarchar(50) NULL,
 		[PMNotification] [bit] NOT NULL constraint [DF_{objectQualifier}User_PMNotification] default (1),
 		[AutoWatchTopics] [bit] NOT NULL constraint [DF_{objectQualifier}User_AutoWatchTopics] default (0),
 		[DailyDigest] [bit] NOT NULL constraint [DF_{objectQualifier}User_DailyDigest] default (0),
@@ -1161,12 +1160,6 @@ GO
 if not exists (select top 1 1 from sys.columns where object_id=object_id('[{databaseOwner}].[{objectQualifier}Topic]') and name='IsQuestion')
 begin
 	alter table [{databaseOwner}].[{objectQualifier}Topic] add IsQuestion AS (CONVERT([bit],sign([Flags]&(1024)),(0)))
-end
-GO
-
-if not exists (select top 1 1 from sys.columns where object_id=object_id('[{databaseOwner}].[{objectQualifier}User]') and name='TextEditor')
-begin
-	alter table [{databaseOwner}].[{objectQualifier}User] add TextEditor nvarchar(50) NULL
 end
 GO
 

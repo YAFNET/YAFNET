@@ -554,7 +554,6 @@ if not exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{d
 		SuspendedBy     int not null default (0),
 		LanguageFile	nvarchar(50) NULL,
 		ThemeFile		nvarchar(50) NULL,
-		TextEditor		nvarchar(50) NULL,
 		[PMNotification] [bit] NOT NULL constraint [DF_{objectQualifier}User_PMNotification] default (1),
 		[AutoWatchTopics] [bit] NOT NULL constraint [DF_{objectQualifier}User_AutoWatchTopics] default (0),
 		[DailyDigest] [bit] NOT NULL constraint [DF_{objectQualifier}User_DailyDigest] default (0),

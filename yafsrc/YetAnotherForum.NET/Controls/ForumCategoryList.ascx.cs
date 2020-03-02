@@ -71,12 +71,14 @@ namespace YAF.Controls
                             {
                                 ImageUrl =
                                     $"{BoardInfo.ForumClientFileRoot}{BoardFolders.Current.Categories}/{row["CategoryImage"]}",
-                                AlternateText = row["Name"].ToString() 
-            };
+                                AlternateText = row["Name"].ToString()
+                            };
+
+            var icon = new Icon { IconName = "folder", IconType = "text-warning" };
 
             return hasCategoryImage
                        ? $"{image.RenderToString()}&nbsp;"
-                       : @"<i class=""fas fa-folder fa-fw text-warning"" aria-hidden=""true""></i>&nbsp;";
+                       : $"{icon.RenderToString()}&nbsp;";
         }
 
         /// <summary>
@@ -123,17 +125,16 @@ namespace YAF.Controls
 
             this.BindData();
         }
-        
 
         /// <summary>
-         /// The mark all_ click.
-         /// </summary>
-         /// <param name="sender">
-         /// The sender.
-         /// </param>
-         /// <param name="e">
-         /// The e.
-         /// </param>
+        /// The mark all_ click.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
         protected void MarkAllClick([NotNull] object sender, [NotNull] EventArgs e)
         {
             var markAll = (ThemeButton)sender;

@@ -320,7 +320,7 @@ namespace YAF.Install
                     this.lblConnectionDetailsManual,
                     Install.ConnectionDetails,
                     $"{Install.ConnectionFailed} {message}",
-                    "error");
+                    "danger");
             }
             else
             {
@@ -354,7 +354,7 @@ namespace YAF.Install
                     this.lblConnectionDetails,
                     Install.ConnectionDetails,
                     $"{Install.ConnectionFailed} {message}",
-                    "error");
+                    "danger");
             }
             else
             {
@@ -425,7 +425,7 @@ namespace YAF.Install
                     this.lblSmtpTestDetails,
                     Install.SmtpTestDetails,
                     $"{Install.ConnectionFailed} {x.Message}",
-                    "error");
+                    "danger");
             }
         }
 
@@ -836,11 +836,7 @@ namespace YAF.Install
             infoHolder.Visible = true;
 
             detailsLiteral.Text =
-                string.Format(
-                    "<div class=\"{0}Message\"><span class=\"{0}Label\">{1}</span> {2}</div>",
-                    cssClass,
-                        detailsTitle,
-                        info);
+                $"<div class=\"alert alert-{cssClass}\"><span class=\"badge badge-{cssClass}\">{detailsTitle}</span> {info}</div>";
         }
 
         /// <summary>
@@ -854,15 +850,15 @@ namespace YAF.Install
             {
                 case 0:
                     theLabel.Text = Install.No;
-                    theLabel.CssClass = "errorLabel float-right";
+                    theLabel.CssClass = "badge badge-danger float-right";
                     break;
                 case 1:
                     theLabel.Text = Install.Unchecked;
-                    theLabel.CssClass = "infoLabel float-right";
+                    theLabel.CssClass = "badge badge-info float-right";
                     break;
                 case 2:
                     theLabel.Text = Install.Yes;
-                    theLabel.CssClass = "successLabel float-right";
+                    theLabel.CssClass = "badge badge-success float-right";
                     break;
             }
         }
@@ -1032,10 +1028,8 @@ namespace YAF.Install
                 return;
             }
 
-            foreach (ConnectionStringSettings connectionString in ConfigurationManager.ConnectionStrings)
-            {
-                this.lbConnections.Items.Add(connectionString.Name);
-            }
+            ConfigurationManager.ConnectionStrings.Cast<ConnectionStringSettings>().ForEach(
+                connectionString => this.lbConnections.Items.Add(connectionString.Name));
 
             var item = this.lbConnections.Items.FindByText("yafnet");
 

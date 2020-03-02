@@ -725,146 +725,12 @@ div.code-toolbar > .toolbar span:focus {
   -webkit-animation-name: fadeOutUp;
   animation-name: fadeOutUp; }
 
-.emojiPickerIconWrap {
-  display: inline-block;
-  position: relative; }
-
-.emojiPickerIcon {
-  position: absolute;
-  top: 0;
-  right: 0;
-  cursor: pointer; }
-
-.emojiPicker {
-  display: none;
-  outline: none;
-  border: none; }
-
-.emojiPicker div.emoji {
-  width: 1.5em;
-  height: 1.3em;
-  position: relative;
-  display: inline-block; }
-
-.emojiPicker span.emoji {
-  width: 1.5em;
-  height: 1.3em;
-  position: relative;
-  overflow: hidden;
-  text-indent: -9999px;
-  vertical-align: middle; }
-
-.emojiPicker .hidden {
-  display: none; }
-
-.emojiPicker nav {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  position: relative;
-  z-index: 0;
-  background-color: #eee;
-  border-top-left-radius: 4px;
-  border-top-right-radius: 4px;
-  border-bottom: 1px solid #ddd; }
-
-.emojiPicker nav div.tab {
-  position: relative;
-  -webkit-box-flex: 1;
-      -ms-flex-positive: 1;
-          flex-grow: 1;
-  top: 1px;
-  display: inline-block;
-  margin: 2% 0 0 0;
-  padding: 2% 2% 1% 2%;
-  text-align: center;
-  border: 1px solid #eee;
-  border-top-left-radius: 4px;
-  border-top-right-radius: 4px;
-  cursor: pointer; }
-
-.emojiPicker nav div.tab:hover {
-  background-color: #ddd; }
-
-.emojiPicker nav div.tab.active {
-  background-color: #fff;
-  -webkit-box-shadow: 0 0 3px #ccc;
-          box-shadow: 0 0 3px #ccc;
-  border: 1px solid #ddd;
-  border-bottom: none; }
-
-.emojiPicker nav div.tab:first-of-type {
-  margin-left: 1%; }
-
-.emojiPicker nav div.tab:last-of-type {
-  margin-right: 1%; }
-
-.emojiPicker nav div.tab .emoji {
-  width: 1.1em;
-  height: 1.1em; }
-
-.emojiPicker .sections {
-  overflow: scroll;
-  position: relative;
-  background: #fff;
-  z-index: 10; }
-
-.emojiPicker section {
-  overflow: hidden;
-  width: 100%;
-  padding-top: 1%; }
-
-.emojiPicker section h1 {
-  clear: both;
-  margin: 0;
-  padding: 2%;
-  color: #444;
-  font-size: 14px;
-  text-transform: capitalize; }
-
-.emojiPicker section em {
-  float: left;
-  display: inline-block;
-  padding: 2%;
-  border-radius: 4px;
-  cursor: pointer;
-  font-style: normal; }
-
-.emojiPicker section em:hover {
-  background-color: #eee; }
-
-.emojiPicker section em div {
-  width: 40px;
-  margin: 1%; }
-
-.emojiPicker section em div:hover {
-  cursor: pointer; }
-
-.emojiPicker section .wrap {
-  width: 100%; }
-
-.emojiPicker section.search .wrap {
-  padding-top: 1%; }
-
-.emojiPicker section.search input {
-  display: block;
-  width: 96%;
-  height: 28px;
-  margin: 2%;
-  padding: 1%;
-  font-size: 12px;
-  border: 1px solid #ddd;
-  border-radius: 4px; }
-
-.emojiPicker .shortcode {
-  display: none; }
-
 /*!
- * Font Awesome Free 5.12.0 by @fontawesome - https://fontawesome.com
+ * Font Awesome Free 5.12.1 by @fontawesome - https://fontawesome.com
  * License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
  */
 /*!
- * Font Awesome Free 5.12.0 by @fontawesome - https://fontawesome.com
+ * Font Awesome Free 5.12.1 by @fontawesome - https://fontawesome.com
  * License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
  */
 .fa,
@@ -2068,6 +1934,9 @@ readers do not read off random characters that represent icons */
 .fa-d-and-d-beyond:before {
   content: "\f6ca"; }
 
+.fa-dailymotion:before {
+  content: "\f952"; }
+
 .fa-dashcube:before {
   content: "\f210"; }
 
@@ -3109,6 +2978,9 @@ readers do not read off random characters that represent icons */
 .fa-instagram:before {
   content: "\f16d"; }
 
+.fa-instagram-square:before {
+  content: "\f955"; }
+
 .fa-intercom:before {
   content: "\f7af"; }
 
@@ -3507,6 +3379,9 @@ readers do not read off random characters that represent icons */
 
 .fa-mixcloud:before {
   content: "\f289"; }
+
+.fa-mixer:before {
+  content: "\f956"; }
 
 .fa-mizuni:before {
   content: "\f3cc"; }
@@ -4212,6 +4087,9 @@ readers do not read off random characters that represent icons */
 
 .fa-shoe-prints:before {
   content: "\f54b"; }
+
+.fa-shopify:before {
+  content: "\f957"; }
 
 .fa-shopping-bag:before {
   content: "\f290"; }
@@ -5282,7 +5160,7 @@ readers do not read off random characters that represent icons */
   width: auto; }
 
 /*!
- * Font Awesome Free 5.12.0 by @fontawesome - https://fontawesome.com
+ * Font Awesome Free 5.12.1 by @fontawesome - https://fontawesome.com
  * License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
  */
 @font-face {
@@ -5299,22 +5177,23 @@ readers do not read off random characters that represent icons */
   font-weight: 900; }
 
 /*!
- * Font Awesome Free 5.12.0 by @fontawesome - https://fontawesome.com
+ * Font Awesome Free 5.12.1 by @fontawesome - https://fontawesome.com
  * License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
  */
 @font-face {
   font-family: 'Font Awesome 5 Brands';
   font-style: normal;
-  font-weight: normal;
+  font-weight: 400;
   font-display: auto;
   src: url("webfonts/fa-brands-400.eot");
   src: url("webfonts/fa-brands-400.eot?#iefix") format("embedded-opentype"), url("webfonts/fa-brands-400.woff2") format("woff2"), url("webfonts/fa-brands-400.woff") format("woff"), url("webfonts/fa-brands-400.ttf") format("truetype"), url("webfonts/fa-brands-400.svg#fontawesome") format("svg"); }
 
 .fab {
-  font-family: 'Font Awesome 5 Brands'; }
+  font-family: 'Font Awesome 5 Brands';
+  font-weight: 400; }
 
 /*!
- * Font Awesome Free 5.12.0 by @fontawesome - https://fontawesome.com
+ * Font Awesome Free 5.12.1 by @fontawesome - https://fontawesome.com
  * License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
  */
 @font-face {
@@ -8297,19 +8176,6 @@ body:last-child .blueimp-gallery > .play-pause {
 body:last-child .blueimp-gallery-playing > .play-pause {
   background-position: -20px 0; }
 
-.suggest {
-  top: 7px;
-  z-index: 30;
-  text-align: left; }
-  .suggest > .dropdown-menu {
-    margin-top: 15px;
-    position: absolute; }
-    .suggest > .dropdown-menu > a.dropdown-item {
-      border-top: 1px solid #eeeeee;
-      padding: 5px 10px; }
-      .suggest > .dropdown-menu > a.dropdown-item:first-child {
-        border-top: 0; }
-
 /* Attachments List Drop Down */
 .AttachmentListMenu {
   width: 300px;
@@ -8434,6 +8300,20 @@ body:last-child .blueimp-gallery-playing > .play-pause {
   text-decoration: none;
   background-color: #f5f5f5; }
 
+/* Help sidebar */
+.sidebar-sticky ul > li:nth-child(odd) {
+  background: #f1f1f1; }
+
+.sidebar-sticky ul > li:hover {
+  background-color: rgba(52, 138, 199, 0.44) !important; }
+
+.sidebar-sticky ul > li.active {
+  background-color: rgba(116, 116, 191, 0.44) !important; }
+
+.sidebar-sticky ul > li a.nav-link {
+  display: block;
+  color: #343a40; }
+
 /* TABS */
 .tab-content {
   padding-top: 10px; }
@@ -8457,12 +8337,6 @@ body:last-child .blueimp-gallery-playing > .play-pause {
   padding: 0;
   max-width: 300px;
   min-width: 300px; }
-
-.BBCodeEditor {
-  margin-top: 10px; }
-
-.editorColorMenu {
-  background-color: #ccc; }
 
 .AlbumImageList li {
   width: 60px;
