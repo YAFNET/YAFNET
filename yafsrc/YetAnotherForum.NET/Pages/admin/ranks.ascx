@@ -33,7 +33,7 @@
                     </small>
                 </div>
                 <p>
-                    <asp:PlaceHolder runat="server" Visible='<%# ((YAF.Types.Models.Rank)Container.DataItem).Description.IsSet() %>'>
+                    <asp:PlaceHolder runat="server" Visible="<%# ((YAF.Types.Models.Rank)Container.DataItem).Description.IsSet() %>">
                         <YAF:LocalizedLabel ID="HelpLabel6" runat="server" LocalizedTag="DESCRIPTION" LocalizedPage="ADMIN_EDITGROUP">
                         </YAF:LocalizedLabel>
                         &nbsp;<%# this.Eval("Description") %>
@@ -84,17 +84,16 @@
                             <YAF:LocalizedLabel  ID="HelpLabel13" runat="server" 
                                                  LocalizedTag="STYLE" LocalizedPage="ADMIN_EDITGROUP" />&nbsp;
                             <asp:Label ID="Label12" runat="server" 
-                                       CssClass='<%# this.GetItemColorString(((YAF.Types.Models.Rank)Container.DataItem).Style) %>'>
+                                       CssClass="<%# this.GetItemColorString(((YAF.Types.Models.Rank)Container.DataItem).Style) %>">
                                 <%# ((YAF.Types.Models.Rank)Container.DataItem).Style.IsSet() && ((YAF.Types.Models.Rank)Container.DataItem).Style.Trim().Length > 0 ? "" : this.GetItemName(false)%>
                             </asp:Label>
-                            <YAF:RoleRankStyles ID="RoleRankStylesRanks" 
-                                                RawStyles='<%# ((YAF.Types.Models.Rank)Container.DataItem).Style %>' runat="server" />
+                            <code><%# ((YAF.Types.Models.Rank)Container.DataItem).Style %></code>
                         </li>
                         <li class="list-inline-item">
                             <YAF:LocalizedLabel ID="HelpLabel7" runat="server" 
                                                 LocalizedTag="SIGNATURE_LENGTH" LocalizedPage="ADMIN_EDITGROUP" />
                             <asp:Label ID="Label5" runat="server" 
-                                       CssClass='<%# this.GetItemColorString(((YAF.Types.Models.Rank)Container.DataItem).UsrSigChars.ToString()) %>'>
+                                       CssClass="<%# this.GetItemColorString(((YAF.Types.Models.Rank)Container.DataItem).UsrSigChars.ToString()) %>">
                                 <%# ((YAF.Types.Models.Rank)Container.DataItem).UsrSigChars.ToString().IsSet() ? this.Eval("UsrSigChars").ToString() : this.GetItemName(false) %>
                             </asp:Label>
                         </li>
@@ -102,7 +101,7 @@
                             <YAF:LocalizedLabel ID="HelpLabel8" runat="server" 
                                                 LocalizedTag="SIG_BBCODES" LocalizedPage="ADMIN_EDITGROUP" />
                             <asp:Label ID="Label7" runat="server" 
-                                       CssClass='<%# this.GetItemColorString(((YAF.Types.Models.Rank)Container.DataItem).UsrSigBBCodes) %>'>
+                                       CssClass="<%# this.GetItemColorString(((YAF.Types.Models.Rank)Container.DataItem).UsrSigBBCodes) %>">
                                 <%# ((YAF.Types.Models.Rank)Container.DataItem).UsrSigBBCodes.IsSet() ? this.Eval("UsrSigBBCodes").ToString() : this.GetItemName(false) %>
                             </asp:Label>
                         </li>
@@ -110,7 +109,7 @@
                             <YAF:LocalizedLabel ID="HelpLabel9" runat="server" 
                                                 LocalizedTag="SIG_HTML" LocalizedPage="ADMIN_EDITGROUP" />
                             <asp:Label ID="Label8" runat="server" 
-                                       CssClass='<%# this.GetItemColorString(((YAF.Types.Models.Rank)Container.DataItem).UsrSigHTMLTags) %>'>
+                                       CssClass="<%# this.GetItemColorString(((YAF.Types.Models.Rank)Container.DataItem).UsrSigHTMLTags) %>">
                                 <%#  ((YAF.Types.Models.Rank)Container.DataItem).UsrSigHTMLTags.IsSet() ? this.Eval("UsrSigHTMLTags").ToString() : this.GetItemName(false)%>
                             </asp:Label>
                         </li>
