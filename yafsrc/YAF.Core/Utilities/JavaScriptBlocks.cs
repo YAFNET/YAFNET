@@ -184,8 +184,7 @@ namespace YAF.Core.Utilities
         ///   Gets the MomentJS Load JS.
         /// </summary>
         public static string MomentLoadJs =>
-            $@" if( typeof(CKEDITOR) == 'undefined') {{
-            function loadTimeAgo() {{
+            $@"function loadTimeAgo() {{
             
 		     moment.locale('{(BoardContext.Current.CultureUser.IsSet()
                                   ? BoardContext.Current.CultureUser.Substring(0, 2)
@@ -200,8 +199,7 @@ namespace YAF.Core.Utilities
 
             Prism.highlightAll();
 			      }}
-                   Sys.WebForms.PageRequestManager.getInstance().add_pageLoaded(loadTimeAgo);
-                   }};";
+                   Sys.WebForms.PageRequestManager.getInstance().add_pageLoaded(loadTimeAgo);";
 
         #endregion
 
