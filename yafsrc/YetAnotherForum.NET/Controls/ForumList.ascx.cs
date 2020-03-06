@@ -183,7 +183,7 @@ namespace YAF.Controls
                                 ? row["Description"].ToString()
                                 : this.GetText("COMMON", "VIEW_FORUM");
 
-                output = row["RemoteURL"] != DBNull.Value && row["RemoteURL"].ToString().IsSet()
+                output = !row["RemoteURL"].IsNullOrEmptyDBField()
                              ? $"<a href=\"{row["RemoteURL"]}\" title=\"{this.GetText("COMMON", "VIEW_FORUM")}\" target=\"_blank\">{this.Page.HtmlEncode(output)}&nbsp;<i class=\"fas fa-external-link-alt fa-fw\"></i></a>"
                              : $"<a href=\"{BuildLink.GetLink(ForumPages.topics, "f={0}&name={1}", forumID, output)}\" data-toggle=\"tooltip\" title=\"{title}\">{this.Page.HtmlEncode(output)}</a>";
             }
@@ -246,7 +246,7 @@ namespace YAF.Controls
                                        <i class=""fas fa-lock fa-stack-1x text-warning"" style=""position:absolute; bottom:0px !important;text-align:right;line-height: 1em;""></i>
                                    </span></a>";
                     }
-                    else if (lastPosted > lastRead && row["ReadAccess"].ToType<int>() > 0)
+                    else if (lastPosted > lastRead && row.Field<int>("ReadAccess") > 0)
                     {
                         icon.Text =
                             @"<a tabindex=""0"" class=""forum-icon-legend-popvover"" role=""button"" data-toggle=""popover"">
@@ -312,7 +312,7 @@ namespace YAF.Controls
                 return;
             }
 
-            if (row["RemoteURL"] != DBNull.Value)
+            if (!row["RemoteURL"].IsNullOrEmptyDBField())
             {
                 return;
             }
@@ -378,7 +378,7 @@ namespace YAF.Controls
             var arrayList = new ArrayList();
 
             this.SubDataSource.Rows.Cast<DataRow>()
-                .Where(dataRow => row["ForumID"].ToType<int>() == dataRow["ParentID"].ToType<int>())
+                .Where(dataRow => row.Field<int>("ForumID") == dataRow.Field<int>("ParentID"))
                 .Where(subRow => arrayList.Count < this.Get<BoardSettings>().SubForumsInForumList)
                 .ForEach(value => arrayList.Add(value));
 
@@ -398,7 +398,7 @@ namespace YAF.Controls
         /// </returns>
         protected string GetViewing([NotNull] DataRow row)
         {
-            var viewing = row["Viewing"].ToType<int>();
+            var viewing = row.Field<int>("Viewing");
 
             return viewing > 0
                        ? $"<i class=\"far fa-eye text-secondary\" title=\"{this.GetTextFormatted("VIEWING", viewing)}\"></i> {viewing}"
@@ -415,7 +415,7 @@ namespace YAF.Controls
         protected bool HasSubForums([NotNull] DataRow row)
         {
             return this.SubDataSource != null && this.SubDataSource.Rows.Cast<DataRow>().Any(
-                       dataRow => row["ForumID"].ToType<int>() == dataRow["ParentID"].ToType<int>());
+                       dataRow => row.Field<int>("ForumID") == dataRow.Field<int>("ParentID"));
         }
 
         /// <summary>
@@ -450,7 +450,7 @@ namespace YAF.Controls
         /// </returns>
         protected string Posts([NotNull] DataRow row)
         {
-            return row["RemoteURL"] == DBNull.Value ? $"{row["Posts"]:N0}" : "-";
+            return row["RemoteURL"].IsNullOrEmptyDBField() ? $"{row["Posts"]:N0}" : "-";
         }
 
         /// <summary>
@@ -464,7 +464,7 @@ namespace YAF.Controls
         /// </returns>
         protected string Topics([NotNull] DataRow row)
         {
-            return row["RemoteURL"] == DBNull.Value ? $"{row["Topics"]:N0}" : "-";
+            return row["RemoteURL"].IsNullOrEmptyDBField()  ? $"{row["Topics"]:N0}" : "-";
         }
 
         #endregion

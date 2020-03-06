@@ -8,10 +8,6 @@
     "inputFile": "Content/InstallWizard.scss"
   },
   {
-    "outputFile": "Content/jquery.hovercard.css",
-    "inputFile": "Content/jquery.hovercard.scss"
-  },
-  {
     "outputFile": "Content/forum-admin.css",
     "inputFile": "Content/forum-admin.scss"
   },
