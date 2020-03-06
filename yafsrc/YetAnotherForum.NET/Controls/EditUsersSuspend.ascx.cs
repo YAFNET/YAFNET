@@ -127,9 +127,17 @@ namespace YAF.Controls
             }
 
             // add items to the dropdown
-            this.SuspendUnit.Items.Add(new ListItem(this.GetText("PROFILE", "DAYS"), "1"));
-            this.SuspendUnit.Items.Add(new ListItem(this.GetText("PROFILE", "HOURS"), "2"));
-            this.SuspendUnit.Items.Add(new ListItem(this.GetText("PROFILE", "MINUTES"), "3"));
+            ListItem Item = new ListItem();
+            Item.Attributes.Add("class", "pr-2");
+            Item.Text = this.GetText("PROFILE", "DAYS");
+            Item.Value = "1";
+            this.SuspendUnit.Items.Add(Item);
+            Item.Text = this.GetText("PROFILE", "HOURS");
+            Item.Value = "2";
+            this.SuspendUnit.Items.Add(Item);
+            Item.Text = this.GetText("PROFILE", "MINUTES");
+            Item.Value = "3";
+            this.SuspendUnit.Items.Add(Item);
 
             // select hours
             this.SuspendUnit.SelectedIndex = 1;

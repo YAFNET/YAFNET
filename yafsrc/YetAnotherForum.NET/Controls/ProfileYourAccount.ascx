@@ -12,7 +12,7 @@
     </div>
 <div class="col">
 <ul class="list-group">
-    <li class="list-group-item text-muted" contenteditable="false">
+    <li class="list-group-item font-weight-bold text-light bg-secondary" contenteditable="false">
         <YAF:LocalizedLabel ID="YourAccountLocalized" runat="server" LocalizedTag="YOUR_ACCOUNT" />
     </li>
     <li class="list-group-item text-right">

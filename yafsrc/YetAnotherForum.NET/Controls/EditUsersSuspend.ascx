@@ -5,7 +5,7 @@
 <h2 runat="server" id="trHeader">
 			<YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedPage="PROFILE" LocalizedTag="SUSPEND_USER" />
 		</h2>
-	<hr />
+
     <asp:PlaceHolder runat="server" ID="SuspendedHolder">
         <div class="alert alert-warning" role="alert">
             <h4 class="alert-heading">
@@ -49,7 +49,7 @@
         <asp:RadioButtonList
             runat="server" ID="SuspendUnit" 
             RepeatLayout="UnorderedList"
-            CssClass="list-unstyled" />
+            CssClass="list-unstyled d-inline-flex mt-2" />
     </div>
 </div>
 <YAF:Alert runat="server" Type="info">
