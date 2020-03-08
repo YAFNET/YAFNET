@@ -24,7 +24,7 @@
                                                                CssClass="font-weight-bold" />
                                                 <YAF:ThemeButton runat="server" ID="Info"
                                                                  Icon="info-circle"
-                                                                 IconColor="text-info"
+                                                                 IconColor="text-secondary"
                                                                  IconCssClass="fas fa-lg"
                                                                  Type="Link"
                                                                  DataToggle="popover"
