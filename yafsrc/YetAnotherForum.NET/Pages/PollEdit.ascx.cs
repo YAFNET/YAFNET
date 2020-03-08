@@ -917,19 +917,19 @@ namespace YAF.Pages
                     BuildLink.Redirect(ForumPages.topics, "f={0}", retvalue);
                     break;
                 case "ef":
-                    BuildLink.Redirect(ForumPages.admin_editforum, "f={0}", retvalue);
+                    BuildLink.Redirect(ForumPages.Admin_EditForum, "f={0}", retvalue);
                     break;
                 case "c":
                     BuildLink.Redirect(ForumPages.forum, "c={0}", retvalue);
                     break;
                 case "ec":
-                    BuildLink.Redirect(ForumPages.admin_editcategory, "c={0}", retvalue);
+                    BuildLink.Redirect(ForumPages.Admin_EditCategory, "c={0}", retvalue);
                     break;
                 case "b":
                     BuildLink.Redirect(ForumPages.forum);
                     break;
                 case "eb":
-                    BuildLink.Redirect(ForumPages.admin_editboard, "b={0}", retvalue);
+                    BuildLink.Redirect(ForumPages.Admin_EditBoard, "b={0}", retvalue);
                     break;
                 default:
                     BuildLink.RedirectInfoPage(InfoMessage.Invalid);

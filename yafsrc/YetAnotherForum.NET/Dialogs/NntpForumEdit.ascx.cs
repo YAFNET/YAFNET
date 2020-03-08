@@ -145,7 +145,7 @@ namespace YAF.Dialogs
                 this.Active.Checked,
                 dateCutOff == DateTime.MinValue ? null : (DateTime?)dateCutOff);
 
-            BuildLink.Redirect(ForumPages.admin_nntpforums);
+            BuildLink.Redirect(ForumPages.Admin_NntpForums);
         }
 
         #endregion

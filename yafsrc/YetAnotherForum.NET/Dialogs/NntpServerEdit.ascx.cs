@@ -131,7 +131,7 @@ namespace YAF.Dialogs
                 this.UserName.Text.Length > 0 ? this.UserName.Text : null,
                 this.UserPass.Text.Length > 0 ? this.UserPass.Text : null);
 
-            BuildLink.Redirect(ForumPages.admin_nntpservers);
+            BuildLink.Redirect(ForumPages.Admin_NntpServers);
         }
 
         #endregion

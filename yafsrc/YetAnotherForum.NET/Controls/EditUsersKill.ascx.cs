@@ -243,7 +243,7 @@ namespace YAF.Controls
                         // all is good, user can be deleted
                         UserMembershipHelper.DeleteUser(this.CurrentUserId.ToType<int>());
 
-                        BuildLink.Redirect(ForumPages.admin_users);
+                        BuildLink.Redirect(ForumPages.Admin_Users);
                     }
 
                     break;

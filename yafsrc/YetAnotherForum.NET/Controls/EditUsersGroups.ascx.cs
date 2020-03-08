@@ -75,7 +75,7 @@ namespace YAF.Controls
         protected void Cancel_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
             // redirect to user admin page.
-            BuildLink.Redirect(ForumPages.admin_users);
+            BuildLink.Redirect(ForumPages.Admin_Users);
         }
 
         /// <summary>

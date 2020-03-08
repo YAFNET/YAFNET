@@ -141,7 +141,7 @@ namespace YAF.Pages
                     if (this.returnUserID > 0)
                     {
                         link = BuildLink.GetLink(
-                            ForumPages.admin_edituser,
+                            ForumPages.Admin_EditUser,
                             "u={0}&av={1}",
                             this.returnUserID,
                             this.Server.UrlEncode($"{directoryPath}/{encodedFileName}"));
@@ -290,7 +290,7 @@ namespace YAF.Pages
             if (this.returnUserID > 0)
             {
                 this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), string.Empty);
-                this.PageLinks.AddLink("Users", BuildLink.GetLink(ForumPages.admin_users));
+                this.PageLinks.AddLink("Users", BuildLink.GetLink(ForumPages.Admin_Users));
             }
             else
             {

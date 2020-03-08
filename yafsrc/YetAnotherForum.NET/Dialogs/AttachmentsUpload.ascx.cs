@@ -26,18 +26,13 @@ namespace YAF.Dialogs
     #region Using
 
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
 
     using YAF.Configuration;
     using YAF.Core;
     using YAF.Core.BaseControls;
-    using YAF.Core.Extensions;
     using YAF.Core.Utilities;
     using YAF.Types;
-    using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Types.Models;
     using YAF.Utils;
 
     #endregion
@@ -47,20 +42,6 @@ namespace YAF.Dialogs
     /// </summary>
     public partial class AttachmentsUpload : BaseUserControl
     {
-        /// <summary>
-        /// Gets the file extensions.
-        /// </summary>
-        /// <value>
-        /// The file extensions.
-        /// </value>
-        private IEnumerable<FileExtension> FileExtensions
-        {
-            get
-            {
-                return this.GetRepository<FileExtension>().Get(e => e.BoardId == this.PageContext.PageBoardID);
-            }
-        }
-
         #region Methods
 
         /// <summary>
@@ -75,7 +56,7 @@ namespace YAF.Dialogs
             BoardContext.Current.PageElements.RegisterJsBlockStartup(
                 "fileUploadjs",
                 JavaScriptBlocks.FileUploadLoadJs(
-                    string.Join("|", this.FileExtensions.Select(ext => ext.Extension)),
+                    this.Get<BoardSettings>().AllowedFileExtensions.Replace(",", "|"),
                     this.Get<BoardSettings>().MaxFileSize,
                     $"{BoardInfo.ForumClientFileRoot}FileUploader.ashx",
                     this.PageContext.PageForumID,
@@ -96,24 +77,7 @@ namespace YAF.Dialogs
                                                    ? "ALLOWED_EXTENSIONS"
                                                    : "DISALLOWED_EXTENSIONS";
 
-            var types = string.Empty;
-            var first = true;
-
-            this.FileExtensions.ForEach(
-                extension =>
-                    {
-                        types += $"{(first ? string.Empty : ", ")}*.{extension.Extension}";
-
-                        if (first)
-                        {
-                            first = false;
-                        }
-                    });
-            
-            if (types.IsSet())
-            {
-                this.ExtensionsList.Text = types;
-            }
+            this.ExtensionsList.Text = this.Get<BoardSettings>().AllowedFileExtensions.Replace(",", ", ");
 
             if (this.Get<BoardSettings>().MaxFileSize > 0)
             {

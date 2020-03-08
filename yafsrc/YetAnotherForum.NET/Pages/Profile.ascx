@@ -30,7 +30,7 @@
                              Type="Info"/>
             <YAF:ThemeButton ID="AdminUserButton" runat="server" Visible="false"
                              TextLocalizedTag="ADMIN_USER" 
-                             NavigateUrl='<%# BuildLink.GetLinkNotEscaped( ForumPages.admin_edituser,"u={0}", this.UserId ) %>'
+                             NavigateUrl='<%# BuildLink.GetLinkNotEscaped( ForumPages.Admin_EditUser,"u={0}", this.UserId ) %>'
                              Icon="user-cog"
                              Type="Danger">
             </YAF:ThemeButton>
