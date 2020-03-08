@@ -125,9 +125,9 @@
                 <YAF:ThemeButton ID="PostReply" runat="server"
                                  CssClass="mt-1"
                                  OnClick="PostReply_Click"
-                                 TextLocalizedTag="SAVE" TitleLocalizedTag="SAVE_TITLE"
+                                 TextLocalizedTag="NEWTOPIC"
                                  Type="Primary" 
-                                 Icon="save" />
+                                 Icon="comment-medical" />
                 <YAF:ThemeButton ID="Cancel" runat="server"
                                  CssClass="mt-1"
                                  OnClick="Cancel_Click"
