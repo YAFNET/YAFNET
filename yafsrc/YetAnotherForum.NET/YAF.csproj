@@ -597,13 +597,6 @@
     <Compile Include="Dialogs\NntpServerEdit.ascx.designer.cs">
       <DependentUpon>NntpServerEdit.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Dialogs\ExtensionsEdit.ascx.cs">
-      <DependentUpon>ExtensionsEdit.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Dialogs\ExtensionsEdit.ascx.designer.cs">
-      <DependentUpon>ExtensionsEdit.ascx</DependentUpon>
-    </Compile>
     <Compile Include="Dialogs\ReplaceWordsEdit.ascx.cs">
       <DependentUpon>ReplaceWordsEdit.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -617,13 +610,6 @@
     </Compile>
     <Compile Include="Dialogs\UsersImport.ascx.designer.cs">
       <DependentUpon>UsersImport.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="Dialogs\ExtensionsImport.ascx.cs">
-      <DependentUpon>ExtensionsImport.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Dialogs\ExtensionsImport.ascx.designer.cs">
-      <DependentUpon>ExtensionsImport.ascx</DependentUpon>
     </Compile>
     <Compile Include="Dialogs\ReplaceWordsImport.ascx.cs">
       <DependentUpon>ReplaceWordsImport.ascx</DependentUpon>
@@ -784,9 +770,6 @@
     </Compile>
     <Compile Include="Pages\admin\eventlog.ascx.designer.cs">
       <DependentUpon>eventlog.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="Pages\admin\extensions.ascx.designer.cs">
-      <DependentUpon>extensions.ascx</DependentUpon>
     </Compile>
     <Compile Include="Pages\admin\forums.ascx.designer.cs">
       <DependentUpon>forums.ascx</DependentUpon>
@@ -1152,6 +1135,7 @@
     <Content Include="Content\fontawesome\LICENSE-fontawesome.txt" />
     <Content Include="Content\select2\select2.css" />
     <Content Include="Content\images\spacer.gif" />
+    <Content Include="Content\tablesorter\jquery.tablesorter.pager.css" />
     <Content Include="Content\Themes\cerulean\bootstrap-forum.css">
       <DependentUpon>bootstrap-forum.scss</DependentUpon>
     </Content>
@@ -1901,7 +1885,6 @@
     <Content Include="Content\fontawesome\_stacked.scss" />
     <Content Include="Content\fontawesome\_variables.scss" />
     <Content Include="Content\fontawesome\fontawesome-all.scss" />
-    <Content Include="Content\bootstrap-suggest.scss" />
     <Content Include="Content\bootstrap\bootstrap.min.css.gz">
       <DependentUpon>bootstrap.min.css</DependentUpon>
     </Content>
@@ -1916,14 +1899,7 @@
     <Content Include="Content\InstallWizard.min.css">
       <DependentUpon>InstallWizard.css</DependentUpon>
     </Content>
-    <Content Include="Content\jquery.emojipicker.css" />
     <Content Include="Content\jQuery.FileUpload\jquery.fileupload.css" />
-    <Content Include="Content\jquery.hovercard.css">
-      <DependentUpon>jquery.hovercard.scss</DependentUpon>
-    </Content>
-    <Content Include="Content\jquery.hovercard.min.css">
-      <DependentUpon>jquery.hovercard.css</DependentUpon>
-    </Content>
     <Content Include="Content\images\InstallBackground.jpg" />
     <Content Include="Content\jQuery.FileUpload\jquery.fileupload-ui.css" />
     <Content Include="Content\jquery.fileupload.comb.css" />
@@ -1933,7 +1909,6 @@
     <Content Include="Content\prism.css" />
     <Content Include="Content\jquery.selectedQuoting.css" />
     <Content Include="Content\select2\select2-bootstrap.css" />
-    <Content Include="Content\tablesorter\jquery.tablesorter.pager.min.css" />
     <Content Include="Content\tablesorter\theme.bootstrap_4.min.css" />
     <Content Include="Content\Themes\cyborg\bootstrap-forum.css">
       <DependentUpon>bootstrap-forum.scss</DependentUpon>
@@ -2020,10 +1995,8 @@
     <Content Include="Dialogs\BannedEmailEdit.ascx" />
     <Content Include="Dialogs\NntpForumEdit.ascx" />
     <Content Include="Dialogs\NntpServerEdit.ascx" />
-    <Content Include="Dialogs\ExtensionsEdit.ascx" />
     <Content Include="Dialogs\ReplaceWordsEdit.ascx" />
     <Content Include="Dialogs\UsersImport.ascx" />
-    <Content Include="Dialogs\ExtensionsImport.ascx" />
     <Content Include="Dialogs\ReplaceWordsImport.ascx" />
     <Content Include="Dialogs\SpamWordsEdit.ascx" />
     <Content Include="Dialogs\BannedEmailImport.ascx" />
@@ -2154,7 +2127,6 @@
     <Content Include="Pages\admin\editrank.ascx" />
     <Content Include="Pages\admin\edituser.ascx" />
     <Content Include="Pages\admin\eventlog.ascx" />
-    <Content Include="Pages\admin\extensions.ascx" />
     <Content Include="Pages\admin\forums.ascx" />
     <Content Include="Pages\admin\groups.ascx" />
     <Content Include="Pages\admin\hostsettings.ascx" />
@@ -2237,7 +2209,6 @@
     <Content Include="Scripts\bootbox.js" />
     <Content Include="Scripts\bootstrap-datetimepicker.js" />
     <Content Include="Scripts\bootstrap-notify.js" />
-    <Content Include="Scripts\bootstrap-suggest.js" />
     <None Include="Content\forum-admin.scss" />
     <Content Include="recommended-azure.web.config">
       <SubType>Designer</SubType>
@@ -2251,7 +2222,6 @@
     <Content Include="Scripts\ckeditor\CHANGES.md" />
     <Content Include="Scripts\ckeditor\ckeditor.js" />
     <Content Include="Scripts\ckeditor\ckeditor_init.js" />
-    <Content Include="Scripts\ckeditor\ckeditor_initbbcode.js" />
     <Content Include="Scripts\ckeditor\config.js" />
     <Content Include="Scripts\ckeditor\contents.css" />
     <Content Include="Scripts\ckeditor\lang\af.js" />
@@ -2394,14 +2364,114 @@
     <Content Include="Scripts\ckeditor\plugins\about\dialogs\about.js" />
     <Content Include="Scripts\ckeditor\plugins\about\dialogs\hidpi\logo_ckeditor.png" />
     <Content Include="Scripts\ckeditor\plugins\about\dialogs\logo_ckeditor.png" />
+    <Content Include="Scripts\ckeditor\plugins\autocomplete\skins\default.css" />
+    <Content Include="Scripts\ckeditor\plugins\autoembed\lang\ar.js" />
+    <Content Include="Scripts\ckeditor\plugins\autoembed\lang\az.js" />
+    <Content Include="Scripts\ckeditor\plugins\autoembed\lang\bg.js" />
+    <Content Include="Scripts\ckeditor\plugins\autoembed\lang\ca.js" />
+    <Content Include="Scripts\ckeditor\plugins\autoembed\lang\cs.js" />
+    <Content Include="Scripts\ckeditor\plugins\autoembed\lang\da.js" />
+    <Content Include="Scripts\ckeditor\plugins\autoembed\lang\de-ch.js" />
+    <Content Include="Scripts\ckeditor\plugins\autoembed\lang\de.js" />
+    <Content Include="Scripts\ckeditor\plugins\autoembed\lang\el.js" />
+    <Content Include="Scripts\ckeditor\plugins\autoembed\lang\en-au.js" />
+    <Content Include="Scripts\ckeditor\plugins\autoembed\lang\en.js" />
+    <Content Include="Scripts\ckeditor\plugins\autoembed\lang\eo.js" />
+    <Content Include="Scripts\ckeditor\plugins\autoembed\lang\es-mx.js" />
+    <Content Include="Scripts\ckeditor\plugins\autoembed\lang\es.js" />
+    <Content Include="Scripts\ckeditor\plugins\autoembed\lang\et.js" />
+    <Content Include="Scripts\ckeditor\plugins\autoembed\lang\eu.js" />
+    <Content Include="Scripts\ckeditor\plugins\autoembed\lang\fa.js" />
+    <Content Include="Scripts\ckeditor\plugins\autoembed\lang\fr.js" />
+    <Content Include="Scripts\ckeditor\plugins\autoembed\lang\gl.js" />
+    <Content Include="Scripts\ckeditor\plugins\autoembed\lang\hr.js" />
+    <Content Include="Scripts\ckeditor\plugins\autoembed\lang\hu.js" />
+    <Content Include="Scripts\ckeditor\plugins\autoembed\lang\it.js" />
+    <Content Include="Scripts\ckeditor\plugins\autoembed\lang\ja.js" />
+    <Content Include="Scripts\ckeditor\plugins\autoembed\lang\km.js" />
+    <Content Include="Scripts\ckeditor\plugins\autoembed\lang\ko.js" />
+    <Content Include="Scripts\ckeditor\plugins\autoembed\lang\ku.js" />
+    <Content Include="Scripts\ckeditor\plugins\autoembed\lang\lt.js" />
+    <Content Include="Scripts\ckeditor\plugins\autoembed\lang\lv.js" />
+    <Content Include="Scripts\ckeditor\plugins\autoembed\lang\mk.js" />
+    <Content Include="Scripts\ckeditor\plugins\autoembed\lang\nb.js" />
+    <Content Include="Scripts\ckeditor\plugins\autoembed\lang\nl.js" />
+    <Content Include="Scripts\ckeditor\plugins\autoembed\lang\oc.js" />
+    <Content Include="Scripts\ckeditor\plugins\autoembed\lang\pl.js" />
+    <Content Include="Scripts\ckeditor\plugins\autoembed\lang\pt-br.js" />
+    <Content Include="Scripts\ckeditor\plugins\autoembed\lang\pt.js" />
+    <Content Include="Scripts\ckeditor\plugins\autoembed\lang\ro.js" />
+    <Content Include="Scripts\ckeditor\plugins\autoembed\lang\ru.js" />
+    <Content Include="Scripts\ckeditor\plugins\autoembed\lang\sk.js" />
+    <Content Include="Scripts\ckeditor\plugins\autoembed\lang\sq.js" />
+    <Content Include="Scripts\ckeditor\plugins\autoembed\lang\sr-latn.js" />
+    <Content Include="Scripts\ckeditor\plugins\autoembed\lang\sr.js" />
+    <Content Include="Scripts\ckeditor\plugins\autoembed\lang\sv.js" />
+    <Content Include="Scripts\ckeditor\plugins\autoembed\lang\tr.js" />
+    <Content Include="Scripts\ckeditor\plugins\autoembed\lang\ug.js" />
+    <Content Include="Scripts\ckeditor\plugins\autoembed\lang\uk.js" />
+    <Content Include="Scripts\ckeditor\plugins\autoembed\lang\vi.js" />
+    <Content Include="Scripts\ckeditor\plugins\autoembed\lang\zh-cn.js" />
+    <Content Include="Scripts\ckeditor\plugins\autoembed\lang\zh.js" />
+    <Content Include="Scripts\ckeditor\plugins\autoembed\plugin.js" />
+    <Content Include="Scripts\ckeditor\plugins\autolink\plugin.js" />
     <Content Include="Scripts\ckeditor\plugins\autosave\css\autosave.min.css" />
     <Content Include="Scripts\ckeditor\plugins\autosave\js\extensions.min.js" />
-    <Content Include="Scripts\ckeditor\plugins\bbcodehtml\plugin.js" />
+    <Content Include="Scripts\ckeditor\plugins\codesnippet\plugin.js" />
+    <Content Include="Scripts\ckeditor\plugins\embedbase\dialogs\embedbase.js" />
+    <Content Include="Scripts\ckeditor\plugins\embedbase\lang\ar.js" />
+    <Content Include="Scripts\ckeditor\plugins\embedbase\lang\az.js" />
+    <Content Include="Scripts\ckeditor\plugins\embedbase\lang\bg.js" />
+    <Content Include="Scripts\ckeditor\plugins\embedbase\lang\ca.js" />
+    <Content Include="Scripts\ckeditor\plugins\embedbase\lang\cs.js" />
+    <Content Include="Scripts\ckeditor\plugins\embedbase\lang\da.js" />
+    <Content Include="Scripts\ckeditor\plugins\embedbase\lang\de-ch.js" />
+    <Content Include="Scripts\ckeditor\plugins\embedbase\lang\de.js" />
+    <Content Include="Scripts\ckeditor\plugins\embedbase\lang\en-au.js" />
+    <Content Include="Scripts\ckeditor\plugins\embedbase\lang\en.js" />
+    <Content Include="Scripts\ckeditor\plugins\embedbase\lang\eo.js" />
+    <Content Include="Scripts\ckeditor\plugins\embedbase\lang\es-mx.js" />
+    <Content Include="Scripts\ckeditor\plugins\embedbase\lang\es.js" />
+    <Content Include="Scripts\ckeditor\plugins\embedbase\lang\et.js" />
+    <Content Include="Scripts\ckeditor\plugins\embedbase\lang\eu.js" />
+    <Content Include="Scripts\ckeditor\plugins\embedbase\lang\fr.js" />
+    <Content Include="Scripts\ckeditor\plugins\embedbase\lang\gl.js" />
+    <Content Include="Scripts\ckeditor\plugins\embedbase\lang\hr.js" />
+    <Content Include="Scripts\ckeditor\plugins\embedbase\lang\hu.js" />
+    <Content Include="Scripts\ckeditor\plugins\embedbase\lang\id.js" />
+    <Content Include="Scripts\ckeditor\plugins\embedbase\lang\it.js" />
+    <Content Include="Scripts\ckeditor\plugins\embedbase\lang\ja.js" />
+    <Content Include="Scripts\ckeditor\plugins\embedbase\lang\ko.js" />
+    <Content Include="Scripts\ckeditor\plugins\embedbase\lang\ku.js" />
+    <Content Include="Scripts\ckeditor\plugins\embedbase\lang\lv.js" />
+    <Content Include="Scripts\ckeditor\plugins\embedbase\lang\nb.js" />
+    <Content Include="Scripts\ckeditor\plugins\embedbase\lang\nl.js" />
+    <Content Include="Scripts\ckeditor\plugins\embedbase\lang\oc.js" />
+    <Content Include="Scripts\ckeditor\plugins\embedbase\lang\pl.js" />
+    <Content Include="Scripts\ckeditor\plugins\embedbase\lang\pt-br.js" />
+    <Content Include="Scripts\ckeditor\plugins\embedbase\lang\pt.js" />
+    <Content Include="Scripts\ckeditor\plugins\embedbase\lang\ro.js" />
+    <Content Include="Scripts\ckeditor\plugins\embedbase\lang\ru.js" />
+    <Content Include="Scripts\ckeditor\plugins\embedbase\lang\sk.js" />
+    <Content Include="Scripts\ckeditor\plugins\embedbase\lang\sq.js" />
+    <Content Include="Scripts\ckeditor\plugins\embedbase\lang\sr-latn.js" />
+    <Content Include="Scripts\ckeditor\plugins\embedbase\lang\sr.js" />
+    <Content Include="Scripts\ckeditor\plugins\embedbase\lang\sv.js" />
+    <Content Include="Scripts\ckeditor\plugins\embedbase\lang\tr.js" />
+    <Content Include="Scripts\ckeditor\plugins\embedbase\lang\ug.js" />
+    <Content Include="Scripts\ckeditor\plugins\embedbase\lang\uk.js" />
+    <Content Include="Scripts\ckeditor\plugins\embedbase\lang\zh-cn.js" />
+    <Content Include="Scripts\ckeditor\plugins\embedbase\lang\zh.js" />
+    <Content Include="Scripts\ckeditor\plugins\embedbase\plugin.js" />
+    <Content Include="Scripts\ckeditor\plugins\embed\icons\embed.png" />
+    <Content Include="Scripts\ckeditor\plugins\embed\icons\hidpi\embed.png" />
+    <Content Include="Scripts\ckeditor\plugins\embed\plugin.js" />
+    <Content Include="Scripts\ckeditor\plugins\highlight\lang\en.js" />
+    <Content Include="Scripts\ckeditor\plugins\highlight\plugin.js" />
     <Content Include="Scripts\ckeditor\plugins\bbcodeselector\dialogs\bbcodeselector.js" />
     <Content Include="Scripts\ckeditor\plugins\bbcodeselector\images\yafbbcode.gif" />
     <Content Include="Scripts\ckeditor\plugins\bbcodeselector\lang\en.js" />
     <Content Include="Scripts\ckeditor\plugins\bbcodeselector\plugin.js" />
-    <Content Include="Scripts\ckeditor\plugins\bbcode\plugin.js" />
     <Content Include="Scripts\ckeditor\plugins\clipboard\dialogs\paste.js" />
     <Content Include="Scripts\ckeditor\plugins\codemirror\css\codemirror.min.css" />
     <Content Include="Scripts\ckeditor\plugins\codemirror\images\autocomplete.png" />
@@ -2420,11 +2490,14 @@
     <Content Include="Scripts\ckeditor\plugins\codemirror\js\codemirror.mode.javascript.min.js" />
     <Content Include="Scripts\ckeditor\plugins\codemirror\js\codemirror.mode.php.min.js" />
     <Content Include="Scripts\ckeditor\plugins\codemirror\js\codemirror.mode.twig.min.js" />
+    <Content Include="Scripts\ckeditor\plugins\codemirror\plugin.js" />
     <Content Include="Scripts\ckeditor\plugins\codemirror\theme\3024-day.css" />
     <Content Include="Scripts\ckeditor\plugins\codemirror\theme\3024-night.css" />
     <Content Include="Scripts\ckeditor\plugins\codemirror\theme\abcdef.css" />
     <Content Include="Scripts\ckeditor\plugins\codemirror\theme\ambiance-mobile.css" />
     <Content Include="Scripts\ckeditor\plugins\codemirror\theme\ambiance.css" />
+    <Content Include="Scripts\ckeditor\plugins\codemirror\theme\ayu-dark.css" />
+    <Content Include="Scripts\ckeditor\plugins\codemirror\theme\ayu-mirage.css" />
     <Content Include="Scripts\ckeditor\plugins\codemirror\theme\base16-dark.css" />
     <Content Include="Scripts\ckeditor\plugins\codemirror\theme\base16-light.css" />
     <Content Include="Scripts\ckeditor\plugins\codemirror\theme\bespin.css" />
@@ -2446,11 +2519,15 @@
     <Content Include="Scripts\ckeditor\plugins\codemirror\theme\lesser-dark.css" />
     <Content Include="Scripts\ckeditor\plugins\codemirror\theme\liquibyte.css" />
     <Content Include="Scripts\ckeditor\plugins\codemirror\theme\lucario.css" />
+    <Content Include="Scripts\ckeditor\plugins\codemirror\theme\material-darker.css" />
+    <Content Include="Scripts\ckeditor\plugins\codemirror\theme\material-ocean.css" />
+    <Content Include="Scripts\ckeditor\plugins\codemirror\theme\material-palenight.css" />
     <Content Include="Scripts\ckeditor\plugins\codemirror\theme\material.css" />
     <Content Include="Scripts\ckeditor\plugins\codemirror\theme\mbo.css" />
     <Content Include="Scripts\ckeditor\plugins\codemirror\theme\mdn-like.css" />
     <Content Include="Scripts\ckeditor\plugins\codemirror\theme\midnight.css" />
     <Content Include="Scripts\ckeditor\plugins\codemirror\theme\monokai.css" />
+    <Content Include="Scripts\ckeditor\plugins\codemirror\theme\moxer.css" />
     <Content Include="Scripts\ckeditor\plugins\codemirror\theme\neat.css" />
     <Content Include="Scripts\ckeditor\plugins\codemirror\theme\neo.css" />
     <Content Include="Scripts\ckeditor\plugins\codemirror\theme\night.css" />
@@ -2477,6 +2554,55 @@
     <Content Include="Scripts\ckeditor\plugins\codemirror\theme\yeti.css" />
     <Content Include="Scripts\ckeditor\plugins\codemirror\theme\yonce.css" />
     <Content Include="Scripts\ckeditor\plugins\codemirror\theme\zenburn.css" />
+    <Content Include="Scripts\ckeditor\plugins\codesnippet\dialogs\codesnippet.js" />
+    <Content Include="Scripts\ckeditor\plugins\codesnippet\lib\highlight\highlight.pack.js" />
+    <Content Include="Scripts\ckeditor\plugins\codesnippet\lib\highlight\styles\arta.css" />
+    <Content Include="Scripts\ckeditor\plugins\codesnippet\lib\highlight\styles\ascetic.css" />
+    <Content Include="Scripts\ckeditor\plugins\codesnippet\lib\highlight\styles\atelier-dune.dark.css" />
+    <Content Include="Scripts\ckeditor\plugins\codesnippet\lib\highlight\styles\atelier-dune.light.css" />
+    <Content Include="Scripts\ckeditor\plugins\codesnippet\lib\highlight\styles\atelier-forest.dark.css" />
+    <Content Include="Scripts\ckeditor\plugins\codesnippet\lib\highlight\styles\atelier-forest.light.css" />
+    <Content Include="Scripts\ckeditor\plugins\codesnippet\lib\highlight\styles\atelier-heath.dark.css" />
+    <Content Include="Scripts\ckeditor\plugins\codesnippet\lib\highlight\styles\atelier-heath.light.css" />
+    <Content Include="Scripts\ckeditor\plugins\codesnippet\lib\highlight\styles\atelier-lakeside.dark.css" />
+    <Content Include="Scripts\ckeditor\plugins\codesnippet\lib\highlight\styles\atelier-lakeside.light.css" />
+    <Content Include="Scripts\ckeditor\plugins\codesnippet\lib\highlight\styles\atelier-seaside.dark.css" />
+    <Content Include="Scripts\ckeditor\plugins\codesnippet\lib\highlight\styles\atelier-seaside.light.css" />
+    <Content Include="Scripts\ckeditor\plugins\codesnippet\lib\highlight\styles\brown_paper.css" />
+    <Content Include="Scripts\ckeditor\plugins\codesnippet\lib\highlight\styles\brown_papersq.png" />
+    <Content Include="Scripts\ckeditor\plugins\codesnippet\lib\highlight\styles\dark.css" />
+    <Content Include="Scripts\ckeditor\plugins\codesnippet\lib\highlight\styles\default.css" />
+    <Content Include="Scripts\ckeditor\plugins\codesnippet\lib\highlight\styles\docco.css" />
+    <Content Include="Scripts\ckeditor\plugins\codesnippet\lib\highlight\styles\far.css" />
+    <Content Include="Scripts\ckeditor\plugins\codesnippet\lib\highlight\styles\foundation.css" />
+    <Content Include="Scripts\ckeditor\plugins\codesnippet\lib\highlight\styles\github.css" />
+    <Content Include="Scripts\ckeditor\plugins\codesnippet\lib\highlight\styles\googlecode.css" />
+    <Content Include="Scripts\ckeditor\plugins\codesnippet\lib\highlight\styles\idea.css" />
+    <Content Include="Scripts\ckeditor\plugins\codesnippet\lib\highlight\styles\ir_black.css" />
+    <Content Include="Scripts\ckeditor\plugins\codesnippet\lib\highlight\styles\magula.css" />
+    <Content Include="Scripts\ckeditor\plugins\codesnippet\lib\highlight\styles\mono-blue.css" />
+    <Content Include="Scripts\ckeditor\plugins\codesnippet\lib\highlight\styles\monokai.css" />
+    <Content Include="Scripts\ckeditor\plugins\codesnippet\lib\highlight\styles\monokai_sublime.css" />
+    <Content Include="Scripts\ckeditor\plugins\codesnippet\lib\highlight\styles\obsidian.css" />
+    <Content Include="Scripts\ckeditor\plugins\codesnippet\lib\highlight\styles\paraiso.dark.css" />
+    <Content Include="Scripts\ckeditor\plugins\codesnippet\lib\highlight\styles\paraiso.light.css" />
+    <Content Include="Scripts\ckeditor\plugins\codesnippet\lib\highlight\styles\pojoaque.css" />
+    <Content Include="Scripts\ckeditor\plugins\codesnippet\lib\highlight\styles\pojoaque.jpg" />
+    <Content Include="Scripts\ckeditor\plugins\codesnippet\lib\highlight\styles\railscasts.css" />
+    <Content Include="Scripts\ckeditor\plugins\codesnippet\lib\highlight\styles\rainbow.css" />
+    <Content Include="Scripts\ckeditor\plugins\codesnippet\lib\highlight\styles\school_book.css" />
+    <Content Include="Scripts\ckeditor\plugins\codesnippet\lib\highlight\styles\school_book.png" />
+    <Content Include="Scripts\ckeditor\plugins\codesnippet\lib\highlight\styles\solarized_dark.css" />
+    <Content Include="Scripts\ckeditor\plugins\codesnippet\lib\highlight\styles\solarized_light.css" />
+    <Content Include="Scripts\ckeditor\plugins\codesnippet\lib\highlight\styles\sunburst.css" />
+    <Content Include="Scripts\ckeditor\plugins\codesnippet\lib\highlight\styles\tomorrow-night-blue.css" />
+    <Content Include="Scripts\ckeditor\plugins\codesnippet\lib\highlight\styles\tomorrow-night-bright.css" />
+    <Content Include="Scripts\ckeditor\plugins\codesnippet\lib\highlight\styles\tomorrow-night-eighties.css" />
+    <Content Include="Scripts\ckeditor\plugins\codesnippet\lib\highlight\styles\tomorrow-night.css" />
+    <Content Include="Scripts\ckeditor\plugins\codesnippet\lib\highlight\styles\tomorrow.css" />
+    <Content Include="Scripts\ckeditor\plugins\codesnippet\lib\highlight\styles\vs.css" />
+    <Content Include="Scripts\ckeditor\plugins\codesnippet\lib\highlight\styles\xcode.css" />
+    <Content Include="Scripts\ckeditor\plugins\codesnippet\lib\highlight\styles\zenburn.css" />
     <Content Include="Scripts\ckeditor\plugins\colordialog\dialogs\colordialog.css" />
     <Content Include="Scripts\ckeditor\plugins\colordialog\dialogs\colordialog.js" />
     <Content Include="Scripts\ckeditor\plugins\copyformatting\cursors\cursor-disabled.svg" />
@@ -2485,14 +2611,9 @@
     <Content Include="Scripts\ckeditor\plugins\dialog\dialogDefinition.js" />
     <Content Include="Scripts\ckeditor\plugins\dialog\styles\dialog.css" />
     <Content Include="Scripts\ckeditor\plugins\div\dialogs\div.js" />
-    <Content Include="Scripts\ckeditor\plugins\emojione\.bower.json" />
-    <Content Include="Scripts\ckeditor\plugins\emojione\.gitignore" />
-    <Content Include="Scripts\ckeditor\plugins\emojione\bower.json" />
-    <Content Include="Scripts\ckeditor\plugins\emojione\dialogs\emojione.js" />
-    <Content Include="Scripts\ckeditor\plugins\emojione\libs\emojione\emojione.min.js" />
-    <Content Include="Scripts\ckeditor\plugins\emojione\README.md" />
-    <Content Include="Scripts\ckeditor\plugins\emojione\styles\emojione-awesome.css" />
-    <Content Include="Scripts\ckeditor\plugins\emojione\styles\emojione.css" />
+    <Content Include="Scripts\ckeditor\plugins\emoji\assets\iconsall.png" />
+    <Content Include="Scripts\ckeditor\plugins\emoji\assets\iconsall.svg" />
+    <Content Include="Scripts\ckeditor\plugins\emoji\skins\default.css" />
     <Content Include="Scripts\ckeditor\plugins\find\dialogs\find.js" />
     <Content Include="Scripts\ckeditor\plugins\forms\dialogs\button.js" />
     <Content Include="Scripts\ckeditor\plugins\forms\dialogs\checkbox.js" />
@@ -2521,6 +2642,11 @@
     <Content Include="Scripts\ckeditor\plugins\pastefromword\filter\default.js" />
     <Content Include="Scripts\ckeditor\plugins\pastetools\filter\common.js" />
     <Content Include="Scripts\ckeditor\plugins\preview\preview.html" />
+    <Content Include="Scripts\ckeditor\plugins\prism\LICENSE.txt" />
+    <Content Include="Scripts\ckeditor\plugins\prism\plugin.js" />
+    <Content Include="Scripts\ckeditor\plugins\quote\icons\quote.png" />
+    <Content Include="Scripts\ckeditor\plugins\quote\lang\en.js" />
+    <Content Include="Scripts\ckeditor\plugins\quote\plugin.js" />
     <Content Include="Scripts\ckeditor\plugins\scayt\CHANGELOG.md" />
     <Content Include="Scripts\ckeditor\plugins\scayt\dialogs\dialog.css" />
     <Content Include="Scripts\ckeditor\plugins\scayt\dialogs\options.js" />
@@ -2646,7 +2772,6 @@
     <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\zh.js" />
     <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\_translationstatus.txt" />
     <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\specialchar.js" />
-    <Content Include="Scripts\ckeditor\plugins\syntaxhighlight\dialogs\syntaxhighlight.js" />
     <Content Include="Scripts\ckeditor\plugins\tableselection\styles\tableselection.css" />
     <Content Include="Scripts\ckeditor\plugins\tabletools\dialogs\tableCell.js" />
     <Content Include="Scripts\ckeditor\plugins\table\dialogs\table.js" />
@@ -2690,9 +2815,6 @@
     <Content Include="Scripts\ckeditor\skins\moono-lisa\images\spinner.gif" />
     <Content Include="Scripts\ckeditor\skins\moono-lisa\readme.md" />
     <Content Include="Scripts\ckeditor\styles.js" />
-    <Content Include="Scripts\ckeditor\yaf_contents.css" />
-    <Content Include="Scripts\emojipicker\jquery.emojipicker.js" />
-    <Content Include="Scripts\emojipicker\jquery.emojis.js" />
     <Content Include="Scripts\forum\yaf.Albums.js" />
     <Content Include="Scripts\forum\yaf.Notify.js" />
     <Content Include="Scripts\forum\yaf.FileBrowser.js" />
@@ -2742,24 +2864,15 @@
     <Content Include="Scripts\moment-with-locales.min.js">
       <DependentUpon>moment-with-locales.js</DependentUpon>
     </Content>
-    <Content Include="Scripts\spin.min.js">
-      <DependentUpon>spin.js</DependentUpon>
-    </Content>
     <Content Include="Scripts\jsdifflib.js" />
-    <Content Include="Scripts\ladda.js" />
     <Content Include="Scripts\prism.js" />
     <Content Include="Scripts\jquery.selectedQuoting.js" />
     <Content Include="Scripts\select2.js" />
-    <Content Include="Scripts\spin.js" />
-    <Content Include="Scripts\tablesorter\extras\jquery.tablesorter.pager.min.js" />
+    <Content Include="Scripts\tablesorter\extras\jquery.tablesorter.pager.js" />
     <Content Include="Scripts\tablesorter\jquery.tablesorter.combined.js" />
     <Content Include="Scripts\forum\yaf.Utilities.js" />
     <Content Include="Scripts\tablesorter\widgets\widget-reflow.js" />
     <Content Include="Scripts\bootstrap-tagsinput.js" />
-    <Content Include="Scripts\yafEditor\yafEditor.js" />
-    <Content Include="Scripts\yafEditor\yafEditor.min.js">
-      <DependentUpon>yafEditor.js</DependentUpon>
-    </Content>
     <Content Include="Scripts\forum\InstallWizard.js" />
     <Content Include="Scripts\jquery.hovercard.js" />
     <Content Include="Scripts\jquery.ForumExtensions.js" />
@@ -2974,10 +3087,6 @@
     </Compile>
     <Compile Include="Pages\admin\eventlog.ascx.cs">
       <DependentUpon>eventlog.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Pages\admin\extensions.ascx.cs">
-      <DependentUpon>extensions.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Pages\admin\forums.ascx.cs">
@@ -3216,7 +3325,6 @@
     </None>
     <Content Include="Content\Themes\yaf\bootstrap-forum.scss" />
     <Content Include="Content\forum\dropdowns.scss" />
-    <Content Include="Content\forum\editor.scss" />
     <Content Include="Content\forum\social-icons.scss" />
     <Content Include="Content\forum\button-scroll.scss" />
     <Content Include="Content\forum\logo.scss" />
@@ -3226,7 +3334,6 @@
     </Content>
     <None Include="Content\InstallWizard.scss" />
     <None Include="Content\jsdifflib.scss" />
-    <Content Include="Content\forum\Install\ladda.scss" />
     <Content Include="Content\Themes\cerulean\_bootswatch.scss" />
     <Content Include="Content\Themes\cerulean\_variables.scss" />
     <Content Include="Content\Themes\cosmo\_bootswatch.scss" />
@@ -3365,6 +3472,12 @@
     </Content>
     <Content Include="Scripts\forum\yaf.MessageHistory.js" />
     <Content Include="Scripts\forum\yaf.Attachments.js" />
+    <Content Include="Scripts\ckeditor\plugins\codesnippet\lib\highlight\CHANGES.md" />
+    <Content Include="Scripts\ckeditor\plugins\codesnippet\lib\highlight\LICENSE" />
+    <Content Include="Scripts\ckeditor\plugins\codesnippet\lib\highlight\README.md" />
+    <Content Include="Scripts\ckeditor\plugins\codesnippet\lib\highlight\README.ru.md" />
+    <Content Include="Scripts\ckeditor\plugins\emoji\emoji.json" />
+    <Content Include="Scripts\ckeditor\plugins\prism\README.md" />
     <None Include="Web References\RegisterV2\LatestVersionInformation.datasource">
       <DependentUpon>Reference.map</DependentUpon>
     </None>
@@ -3426,6 +3539,9 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Properties\PublishProfiles\" />
+    <Folder Include="Scripts\ckeditor\plugins\codemirror\icons\" />
+    <Folder Include="Scripts\ckeditor\plugins\codemirror\lang\" />
+    <Folder Include="Scripts\ckeditor\plugins\prism\lib\" />
     <Folder Include="uploads\" />
   </ItemGroup>
   <ItemGroup>
@@ -3557,9 +3673,6 @@ RD /S /Q "$(TargetDir)zh-TW\"</PostBuildEvent>
   <PropertyGroup>
     <TempFolder>$([System.IO.Path]::GetTempPath())</TempFolder>
   </PropertyGroup>
-  <ItemGroup>
-    <BrowsersListNodeJsFiles Include="$(TempFolder)\WebCompiler*\node_modules\browserslist\node.js" />
-  </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="App_GlobalResources\Install.resx">
       <SubType>Designer</SubType>
