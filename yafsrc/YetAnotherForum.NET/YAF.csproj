@@ -667,175 +667,175 @@
     <Compile Include="Pages\ActiveUsers.ascx.designer.cs">
       <DependentUpon>ActiveUsers.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Pages\admin\accessmasks.ascx.designer.cs">
-      <DependentUpon>accessmasks.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\AccessMasks.ascx.designer.cs">
+      <DependentUpon>AccessMasks.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Pages\admin\admin.ascx.designer.cs">
-      <DependentUpon>admin.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\Admin.ascx.designer.cs">
+      <DependentUpon>Admin.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Pages\admin\bannedemail.ascx.cs">
-      <DependentUpon>bannedemail.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\BannedEmail.ascx.cs">
+      <DependentUpon>BannedEmail.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Pages\admin\bannedemail.ascx.designer.cs">
-      <DependentUpon>bannedemail.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\BannedEmail.ascx.designer.cs">
+      <DependentUpon>BannedEmail.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Pages\admin\bannedip.ascx.designer.cs">
-      <DependentUpon>bannedip.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\BannedIp.ascx.designer.cs">
+      <DependentUpon>BannedIp.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Pages\admin\bannedname.ascx.cs">
-      <DependentUpon>bannedname.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\BannedName.ascx.cs">
+      <DependentUpon>BannedName.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Pages\admin\bannedname.ascx.designer.cs">
-      <DependentUpon>bannedname.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\BannedName.ascx.designer.cs">
+      <DependentUpon>BannedName.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Pages\admin\bbcode.ascx.designer.cs">
-      <DependentUpon>bbcode.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\BBCode.ascx.designer.cs">
+      <DependentUpon>BBCode.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Pages\admin\bbcode_edit.ascx.designer.cs">
-      <DependentUpon>bbcode_edit.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\BBCode_Edit.ascx.designer.cs">
+      <DependentUpon>BBCode_Edit.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Pages\admin\boards.ascx.designer.cs">
-      <DependentUpon>boards.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\Boards.ascx.designer.cs">
+      <DependentUpon>Boards.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Pages\admin\boardsettings.ascx.designer.cs">
-      <DependentUpon>boardsettings.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\Settings.ascx.designer.cs">
+      <DependentUpon>Settings.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Pages\admin\spamlog.ascx.cs">
-      <DependentUpon>spamlog.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\SpamLog.ascx.cs">
+      <DependentUpon>SpamLog.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Pages\admin\spamlog.ascx.designer.cs">
-      <DependentUpon>spamlog.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\SpamLog.ascx.designer.cs">
+      <DependentUpon>SpamLog.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Pages\admin\pageaccessedit.ascx.cs">
-      <DependentUpon>pageaccessedit.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\PageAccessEdit.ascx.cs">
+      <DependentUpon>PageAccessEdit.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Pages\admin\pageaccessedit.ascx.designer.cs">
-      <DependentUpon>pageaccessedit.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\PageAccessEdit.ascx.designer.cs">
+      <DependentUpon>PageAccessEdit.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Pages\admin\pageaccesslist.ascx.cs">
-      <DependentUpon>pageaccesslist.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\PageAccessList.ascx.cs">
+      <DependentUpon>PageAccessList.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Pages\admin\pageaccesslist.ascx.designer.cs">
-      <DependentUpon>pageaccesslist.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\PageAccessList.ascx.designer.cs">
+      <DependentUpon>PageAccessList.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Pages\admin\deleteforum.ascx.cs">
-      <DependentUpon>deleteforum.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\DeleteForum.ascx.cs">
+      <DependentUpon>DeleteForum.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Pages\admin\deleteforum.ascx.designer.cs">
-      <DependentUpon>deleteforum.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\DeleteForum.ascx.designer.cs">
+      <DependentUpon>DeleteForum.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Pages\admin\digest.ascx.cs">
-      <DependentUpon>digest.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\Digest.ascx.cs">
+      <DependentUpon>Digest.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Pages\admin\digest.ascx.designer.cs">
-      <DependentUpon>digest.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\Digest.ascx.designer.cs">
+      <DependentUpon>Digest.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Pages\admin\editaccessmask.ascx.designer.cs">
-      <DependentUpon>editaccessmask.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\EditAccessMask.ascx.designer.cs">
+      <DependentUpon>EditAccessMask.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Pages\admin\editboard.ascx.designer.cs">
-      <DependentUpon>editboard.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\EditBoard.ascx.designer.cs">
+      <DependentUpon>EditBoard.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Pages\admin\editcategory.ascx.designer.cs">
-      <DependentUpon>editcategory.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\EditCategory.ascx.designer.cs">
+      <DependentUpon>EditCategory.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Pages\admin\editforum.ascx.designer.cs">
-      <DependentUpon>editforum.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\EditForum.ascx.designer.cs">
+      <DependentUpon>EditForum.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Pages\admin\editgroup.ascx.designer.cs">
-      <DependentUpon>editgroup.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\EditGroup.ascx.designer.cs">
+      <DependentUpon>EditGroup.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Pages\admin\editlanguage.ascx.cs">
-      <DependentUpon>editlanguage.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\EditLanguage.ascx.cs">
+      <DependentUpon>EditLanguage.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Pages\admin\editlanguage.ascx.designer.cs">
-      <DependentUpon>editlanguage.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\EditLanguage.ascx.designer.cs">
+      <DependentUpon>EditLanguage.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Pages\admin\editmedal.ascx.designer.cs">
-      <DependentUpon>editmedal.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\EditMedal.ascx.designer.cs">
+      <DependentUpon>EditMedal.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Pages\admin\editrank.ascx.designer.cs">
-      <DependentUpon>editrank.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\EditRank.ascx.designer.cs">
+      <DependentUpon>EditRank.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Pages\admin\edituser.ascx.designer.cs">
-      <DependentUpon>edituser.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\EditUser.ascx.designer.cs">
+      <DependentUpon>EditUser.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Pages\admin\eventlog.ascx.designer.cs">
-      <DependentUpon>eventlog.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\EventLog.ascx.designer.cs">
+      <DependentUpon>EventLog.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Pages\admin\forums.ascx.designer.cs">
-      <DependentUpon>forums.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\Forums.ascx.designer.cs">
+      <DependentUpon>Forums.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Pages\admin\groups.ascx.designer.cs">
-      <DependentUpon>groups.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\Groups.ascx.designer.cs">
+      <DependentUpon>Groups.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Pages\admin\hostsettings.ascx.designer.cs">
-      <DependentUpon>hostsettings.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\HostSettings.ascx.designer.cs">
+      <DependentUpon>HostSettings.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Pages\admin\languages.ascx.cs">
-      <DependentUpon>languages.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\Languages.ascx.cs">
+      <DependentUpon>Languages.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Pages\admin\languages.ascx.designer.cs">
-      <DependentUpon>languages.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\Languages.ascx.designer.cs">
+      <DependentUpon>Languages.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Pages\admin\mail.ascx.designer.cs">
-      <DependentUpon>mail.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\Mail.ascx.designer.cs">
+      <DependentUpon>Mail.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Pages\admin\medals.ascx.designer.cs">
-      <DependentUpon>medals.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\Medals.ascx.designer.cs">
+      <DependentUpon>Medals.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Pages\admin\nntpforums.ascx.designer.cs">
-      <DependentUpon>nntpforums.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\NntpForums.ascx.designer.cs">
+      <DependentUpon>NntpForums.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Pages\admin\nntpretrieve.ascx.designer.cs">
-      <DependentUpon>nntpretrieve.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\NntpRetrieve.ascx.designer.cs">
+      <DependentUpon>NntpRetrieve.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Pages\admin\nntpservers.ascx.designer.cs">
-      <DependentUpon>nntpservers.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\NntpServers.ascx.designer.cs">
+      <DependentUpon>NntpServers.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Pages\admin\pm.ascx.designer.cs">
-      <DependentUpon>pm.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\Pm.ascx.designer.cs">
+      <DependentUpon>Pm.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Pages\admin\prune.ascx.designer.cs">
-      <DependentUpon>prune.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\Prune.ascx.designer.cs">
+      <DependentUpon>Prune.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Pages\admin\ranks.ascx.designer.cs">
-      <DependentUpon>ranks.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\Ranks.ascx.designer.cs">
+      <DependentUpon>Ranks.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Pages\admin\reguser.ascx.designer.cs">
-      <DependentUpon>reguser.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\RegisterUser.ascx.designer.cs">
+      <DependentUpon>RegisterUser.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Pages\admin\reindex.ascx.designer.cs">
-      <DependentUpon>reindex.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\ReIndex.ascx.designer.cs">
+      <DependentUpon>ReIndex.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Pages\admin\replacewords.ascx.designer.cs">
-      <DependentUpon>replacewords.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\ReplaceWords.ascx.designer.cs">
+      <DependentUpon>ReplaceWords.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Pages\admin\restartapp.ascx.cs">
-      <DependentUpon>restartapp.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\RestartApp.ascx.cs">
+      <DependentUpon>RestartApp.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Pages\admin\restartapp.ascx.designer.cs">
-      <DependentUpon>restartapp.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\RestartApp.ascx.designer.cs">
+      <DependentUpon>RestartApp.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Pages\admin\runsql.ascx.designer.cs">
-      <DependentUpon>runsql.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\RunSql.ascx.designer.cs">
+      <DependentUpon>RunSql.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Pages\admin\spamwords.ascx.cs">
-      <DependentUpon>spamwords.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\SpamWords.ascx.cs">
+      <DependentUpon>SpamWords.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Pages\admin\spamwords.ascx.designer.cs">
-      <DependentUpon>spamwords.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\SpamWords.ascx.designer.cs">
+      <DependentUpon>SpamWords.ascx</DependentUpon>
     </Compile>
     <Compile Include="Dialogs\SpamWordsImport.ascx.cs">
       <DependentUpon>SpamWordsImport.ascx</DependentUpon>
@@ -844,18 +844,18 @@
     <Compile Include="Dialogs\SpamWordsImport.ascx.designer.cs">
       <DependentUpon>SpamWordsImport.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Pages\admin\taskmanager.ascx.cs">
-      <DependentUpon>taskmanager.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\TaskManager.ascx.cs">
+      <DependentUpon>TaskManager.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Pages\admin\taskmanager.ascx.designer.cs">
-      <DependentUpon>taskmanager.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\TaskManager.ascx.designer.cs">
+      <DependentUpon>TaskManager.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Pages\admin\users.ascx.designer.cs">
-      <DependentUpon>users.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\Users.ascx.designer.cs">
+      <DependentUpon>Users.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Pages\admin\version.ascx.designer.cs">
-      <DependentUpon>version.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\Version.ascx.designer.cs">
+      <DependentUpon>Version.ascx</DependentUpon>
     </Compile>
     <Compile Include="Pages\Album.ascx.cs">
       <DependentUpon>Album.ascx</DependentUpon>
@@ -2051,13 +2051,13 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="languages\estonian.xml" />
-    <Content Include="Pages\admin\bannedemail.ascx" />
-    <Content Include="Pages\admin\bannedname.ascx" />
-    <Content Include="Pages\admin\spamlog.ascx" />
-    <Content Include="Pages\admin\pageaccessedit.ascx" />
-    <Content Include="Pages\admin\pageaccesslist.ascx" />
-    <Content Include="Pages\admin\deleteforum.ascx" />
-    <Content Include="Pages\admin\spamwords.ascx" />
+    <Content Include="Pages\Admin\BannedEmail.ascx" />
+    <Content Include="Pages\Admin\BannedName.ascx" />
+    <Content Include="Pages\Admin\SpamLog.ascx" />
+    <Content Include="Pages\Admin\PageAccessEdit.ascx" />
+    <Content Include="Pages\Admin\PageAccessList.ascx" />
+    <Content Include="Pages\Admin\DeleteForum.ascx" />
+    <Content Include="Pages\Admin\SpamWords.ascx" />
     <Content Include="Dialogs\SpamWordsImport.ascx" />
     <Content Include="Images\Categories\categoryImageSample.gif" />
     <Content Include="Images\Forums\forumImageSample.gif" />
@@ -2109,44 +2109,44 @@
     <Content Include="languages\turkish.xml" />
     <Content Include="languages\vietnam.xml" />
     <Content Include="Pages\ActiveUsers.ascx" />
-    <Content Include="Pages\admin\accessmasks.ascx" />
-    <Content Include="Pages\admin\admin.ascx" />
-    <Content Include="Pages\admin\bannedip.ascx" />
-    <Content Include="Pages\admin\bbcode.ascx" />
-    <Content Include="Pages\admin\bbcode_edit.ascx" />
-    <Content Include="Pages\admin\boards.ascx" />
-    <Content Include="Pages\admin\boardsettings.ascx" />
-    <Content Include="Pages\admin\digest.ascx" />
-    <Content Include="Pages\admin\editaccessmask.ascx" />
-    <Content Include="Pages\admin\editboard.ascx" />
-    <Content Include="Pages\admin\editcategory.ascx" />
-    <Content Include="Pages\admin\editforum.ascx" />
-    <Content Include="Pages\admin\editgroup.ascx" />
-    <Content Include="Pages\admin\editlanguage.ascx" />
-    <Content Include="Pages\admin\editmedal.ascx" />
-    <Content Include="Pages\admin\editrank.ascx" />
-    <Content Include="Pages\admin\edituser.ascx" />
-    <Content Include="Pages\admin\eventlog.ascx" />
-    <Content Include="Pages\admin\forums.ascx" />
-    <Content Include="Pages\admin\groups.ascx" />
-    <Content Include="Pages\admin\hostsettings.ascx" />
-    <Content Include="Pages\admin\languages.ascx" />
-    <Content Include="Pages\admin\mail.ascx" />
-    <Content Include="Pages\admin\medals.ascx" />
-    <Content Include="Pages\admin\nntpforums.ascx" />
-    <Content Include="Pages\admin\nntpretrieve.ascx" />
-    <Content Include="Pages\admin\nntpservers.ascx" />
-    <Content Include="Pages\admin\pm.ascx" />
-    <Content Include="Pages\admin\prune.ascx" />
-    <Content Include="Pages\admin\ranks.ascx" />
-    <Content Include="Pages\admin\reguser.ascx" />
-    <Content Include="Pages\admin\reindex.ascx" />
-    <Content Include="Pages\admin\replacewords.ascx" />
-    <Content Include="Pages\admin\restartapp.ascx" />
-    <Content Include="Pages\admin\runsql.ascx" />
-    <Content Include="Pages\admin\taskmanager.ascx" />
-    <Content Include="Pages\admin\users.ascx" />
-    <Content Include="Pages\admin\version.ascx" />
+    <Content Include="Pages\Admin\AccessMasks.ascx" />
+    <Content Include="Pages\Admin\Admin.ascx" />
+    <Content Include="Pages\Admin\BannedIp.ascx" />
+    <Content Include="Pages\Admin\BBCode.ascx" />
+    <Content Include="Pages\Admin\BBCode_Edit.ascx" />
+    <Content Include="Pages\Admin\Boards.ascx" />
+    <Content Include="Pages\Admin\Settings.ascx" />
+    <Content Include="Pages\Admin\Digest.ascx" />
+    <Content Include="Pages\Admin\EditAccessMask.ascx" />
+    <Content Include="Pages\Admin\EditBoard.ascx" />
+    <Content Include="Pages\Admin\EditCategory.ascx" />
+    <Content Include="Pages\Admin\EditForum.ascx" />
+    <Content Include="Pages\Admin\EditGroup.ascx" />
+    <Content Include="Pages\Admin\EditLanguage.ascx" />
+    <Content Include="Pages\Admin\EditMedal.ascx" />
+    <Content Include="Pages\Admin\EditRank.ascx" />
+    <Content Include="Pages\Admin\EditUser.ascx" />
+    <Content Include="Pages\Admin\EventLog.ascx" />
+    <Content Include="Pages\Admin\Forums.ascx" />
+    <Content Include="Pages\Admin\Groups.ascx" />
+    <Content Include="Pages\Admin\HostSettings.ascx" />
+    <Content Include="Pages\Admin\Languages.ascx" />
+    <Content Include="Pages\Admin\Mail.ascx" />
+    <Content Include="Pages\Admin\Medals.ascx" />
+    <Content Include="Pages\Admin\NntpForums.ascx" />
+    <Content Include="Pages\Admin\NntpRetrieve.ascx" />
+    <Content Include="Pages\Admin\NntpServers.ascx" />
+    <Content Include="Pages\Admin\Pm.ascx" />
+    <Content Include="Pages\Admin\Prune.ascx" />
+    <Content Include="Pages\Admin\Ranks.ascx" />
+    <Content Include="Pages\Admin\RegisterUser.ascx" />
+    <Content Include="Pages\Admin\ReIndex.ascx" />
+    <Content Include="Pages\Admin\ReplaceWords.ascx" />
+    <Content Include="Pages\Admin\RestartApp.ascx" />
+    <Content Include="Pages\Admin\RunSql.ascx" />
+    <Content Include="Pages\Admin\TaskManager.ascx" />
+    <Content Include="Pages\Admin\Users.ascx" />
+    <Content Include="Pages\Admin\Version.ascx" />
     <Content Include="Pages\Album.ascx" />
     <Content Include="Pages\Albums.ascx" />
     <Content Include="Pages\Approve.ascx" />
@@ -3025,136 +3025,136 @@
       <DependentUpon>ActiveUsers.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Pages\admin\accessmasks.ascx.cs">
-      <DependentUpon>accessmasks.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\AccessMasks.ascx.cs">
+      <DependentUpon>AccessMasks.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Pages\admin\admin.ascx.cs">
-      <DependentUpon>admin.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\Admin.ascx.cs">
+      <DependentUpon>Admin.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Pages\admin\bannedip.ascx.cs">
-      <DependentUpon>bannedip.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\BannedIp.ascx.cs">
+      <DependentUpon>BannedIp.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Pages\admin\bbcode.ascx.cs">
-      <DependentUpon>bbcode.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\BBCode.ascx.cs">
+      <DependentUpon>BBCode.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Pages\admin\bbcode_edit.ascx.cs">
-      <DependentUpon>bbcode_edit.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\BBCode_Edit.ascx.cs">
+      <DependentUpon>BBCode_Edit.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Pages\admin\boards.ascx.cs">
-      <DependentUpon>boards.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\Boards.ascx.cs">
+      <DependentUpon>Boards.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Pages\admin\boardsettings.ascx.cs">
-      <DependentUpon>boardsettings.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\Settings.ascx.cs">
+      <DependentUpon>Settings.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Pages\admin\editaccessmask.ascx.cs">
-      <DependentUpon>editaccessmask.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\EditAccessMask.ascx.cs">
+      <DependentUpon>EditAccessMask.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Pages\admin\editboard.ascx.cs">
-      <DependentUpon>editboard.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\EditBoard.ascx.cs">
+      <DependentUpon>EditBoard.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Pages\admin\editcategory.ascx.cs">
-      <DependentUpon>editcategory.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\EditCategory.ascx.cs">
+      <DependentUpon>EditCategory.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Pages\admin\editforum.ascx.cs">
-      <DependentUpon>editforum.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\EditForum.ascx.cs">
+      <DependentUpon>EditForum.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Pages\admin\editgroup.ascx.cs">
-      <DependentUpon>editgroup.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\EditGroup.ascx.cs">
+      <DependentUpon>EditGroup.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Pages\admin\editmedal.ascx.cs">
-      <DependentUpon>editmedal.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\EditMedal.ascx.cs">
+      <DependentUpon>EditMedal.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Pages\admin\editrank.ascx.cs">
-      <DependentUpon>editrank.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\EditRank.ascx.cs">
+      <DependentUpon>EditRank.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Pages\admin\edituser.ascx.cs">
-      <DependentUpon>edituser.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\EditUser.ascx.cs">
+      <DependentUpon>EditUser.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Pages\admin\eventlog.ascx.cs">
-      <DependentUpon>eventlog.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\EventLog.ascx.cs">
+      <DependentUpon>EventLog.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Pages\admin\forums.ascx.cs">
-      <DependentUpon>forums.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\Forums.ascx.cs">
+      <DependentUpon>Forums.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Pages\admin\groups.ascx.cs">
-      <DependentUpon>groups.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\Groups.ascx.cs">
+      <DependentUpon>Groups.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Pages\admin\hostsettings.ascx.cs">
-      <DependentUpon>hostsettings.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\HostSettings.ascx.cs">
+      <DependentUpon>HostSettings.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Pages\admin\mail.ascx.cs">
-      <DependentUpon>mail.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\Mail.ascx.cs">
+      <DependentUpon>Mail.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Pages\admin\medals.ascx.cs">
-      <DependentUpon>medals.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\Medals.ascx.cs">
+      <DependentUpon>Medals.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Pages\admin\nntpforums.ascx.cs">
-      <DependentUpon>nntpforums.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\NntpForums.ascx.cs">
+      <DependentUpon>NntpForums.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Pages\admin\nntpretrieve.ascx.cs">
-      <DependentUpon>nntpretrieve.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\NntpRetrieve.ascx.cs">
+      <DependentUpon>NntpRetrieve.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Pages\admin\nntpservers.ascx.cs">
-      <DependentUpon>nntpservers.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\NntpServers.ascx.cs">
+      <DependentUpon>NntpServers.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Pages\admin\pm.ascx.cs">
-      <DependentUpon>pm.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\Pm.ascx.cs">
+      <DependentUpon>Pm.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Pages\admin\prune.ascx.cs">
-      <DependentUpon>prune.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\Prune.ascx.cs">
+      <DependentUpon>Prune.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Pages\admin\ranks.ascx.cs">
-      <DependentUpon>ranks.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\Ranks.ascx.cs">
+      <DependentUpon>Ranks.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Pages\admin\reguser.ascx.cs">
-      <DependentUpon>reguser.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\RegisterUser.ascx.cs">
+      <DependentUpon>RegisterUser.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Pages\admin\reindex.ascx.cs">
-      <DependentUpon>reindex.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\ReIndex.ascx.cs">
+      <DependentUpon>ReIndex.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Pages\admin\replacewords.ascx.cs">
-      <DependentUpon>replacewords.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\ReplaceWords.ascx.cs">
+      <DependentUpon>ReplaceWords.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Pages\admin\runsql.ascx.cs">
-      <DependentUpon>runsql.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\RunSql.ascx.cs">
+      <DependentUpon>RunSql.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Pages\admin\users.ascx.cs">
-      <DependentUpon>users.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\Users.ascx.cs">
+      <DependentUpon>Users.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Pages\admin\version.ascx.cs">
-      <DependentUpon>version.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\Version.ascx.cs">
+      <DependentUpon>Version.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Pages\Approve.ascx.cs">
