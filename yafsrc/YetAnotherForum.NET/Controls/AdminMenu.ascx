@@ -25,7 +25,7 @@
                                                  this.PageContext.ForumPageType == ForumPages.Admin_EditCategory || 
                                                  this.PageContext.ForumPageType == ForumPages.Admin_Forums || 
                                                  this.PageContext.ForumPageType == ForumPages.Admin_ReplaceWords || 
-                                                 this.PageContext.ForumPageType == ForumPages.Admin_BBCode || 
+                                                 this.PageContext.ForumPageType == ForumPages.Admin_BBCodes || 
                                                  this.PageContext.ForumPageType == ForumPages.Admin_BBCode_Edit || 
                                                  this.PageContext.ForumPageType == ForumPages.Admin_Languages ||
                                                  this.PageContext.ForumPageType == ForumPages.Admin_EditLanguage  ? " active" : ""%>">
@@ -57,9 +57,9 @@
                                                     LocalizedTag="admin_replacewords" LocalizedPage="ADMINMENU"></YAF:LocalizedLabel>
                             </a>
                         </li>
-           <li class="dropdown-item<%= this.PageContext.ForumPageType == ForumPages.Admin_BBCode ||
+           <li class="dropdown-item<%= this.PageContext.ForumPageType == ForumPages.Admin_BBCodes ||
                                                     this.PageContext.ForumPageType == ForumPages.Admin_BBCode_Edit ? " active" : ""%>">
-                            <a href="<%= BuildLink.GetLink(ForumPages.Admin_BBCode) %>">
+                            <a href="<%= BuildLink.GetLink(ForumPages.Admin_BBCodes) %>">
                                 <i class="fa fa-plug fa-fw"></i>&nbsp;
                                 <YAF:LocalizedLabel runat="server" 
                                                     LocalizedTag="admin_bbcode" LocalizedPage="ADMINMENU"></YAF:LocalizedLabel>
@@ -78,9 +78,9 @@
                         <!---->
     <li class="dropdown-item dropdown-submenu<%= this.PageContext.ForumPageType == ForumPages.Admin_SpamLog || 
                                                  this.PageContext.ForumPageType == ForumPages.Admin_SpamWords || 
-                                                 this.PageContext.ForumPageType == ForumPages.Admin_BannedEmail || 
-                                                 this.PageContext.ForumPageType == ForumPages.Admin_BannedIp || 
-                                                 this.PageContext.ForumPageType == ForumPages.Admin_BannedName ? " active" : ""%>">
+                                                 this.PageContext.ForumPageType == ForumPages.Admin_BannedEmails || 
+                                                 this.PageContext.ForumPageType == ForumPages.Admin_BannedIps || 
+                                                 this.PageContext.ForumPageType == ForumPages.Admin_BannedNames ? " active" : ""%>">
                             <a href="#" 
                                data-toggle="dropdown" 
                                class="dropdown-toggle"><i class="fa fa-shield-alt fa-fw"></i>&nbsp;<YAF:LocalizedLabel runat="server"
@@ -100,22 +100,22 @@
                                                     LocalizedTag="admin_spamwords" LocalizedPage="ADMINMENU"></YAF:LocalizedLabel>
                             </a>
                         </li>
-                        <li class="dropdown-item<%= this.PageContext.ForumPageType == ForumPages.Admin_BannedEmail ? " active" : ""%>">
-                            <a href="<%= BuildLink.GetLink(ForumPages.Admin_BannedEmail) %>">
+                        <li class="dropdown-item<%= this.PageContext.ForumPageType == ForumPages.Admin_BannedEmails ? " active" : ""%>">
+                            <a href="<%= BuildLink.GetLink(ForumPages.Admin_BannedEmails) %>">
                                 <i class="fa fa-hand-paper fa-fw"></i>&nbsp;
                                 <YAF:LocalizedLabel runat="server" 
                                                     LocalizedTag="admin_bannedemail" LocalizedPage="ADMINMENU"></YAF:LocalizedLabel>
                             </a>
                         </li>
-                        <li class="dropdown-item<%= this.PageContext.ForumPageType == ForumPages.Admin_BannedIp ? " active" : ""%>">
-                            <a href="<%= BuildLink.GetLink(ForumPages.Admin_BannedIp) %>">
+                        <li class="dropdown-item<%= this.PageContext.ForumPageType == ForumPages.Admin_BannedIps ? " active" : ""%>">
+                            <a href="<%= BuildLink.GetLink(ForumPages.Admin_BannedIps) %>">
                                 <i class="fa fa-hand-paper fa-fw"></i>&nbsp;
                                 <YAF:LocalizedLabel runat="server" 
                                                     LocalizedTag="admin_bannedip" LocalizedPage="ADMINMENU"></YAF:LocalizedLabel>
                             </a>
                         </li>
-                        <li class="dropdown-item<%= this.PageContext.ForumPageType == ForumPages.Admin_BannedName ? " active" : ""%>">
-                            <a href="<%= BuildLink.GetLink(ForumPages.Admin_BannedName) %>">
+                        <li class="dropdown-item<%= this.PageContext.ForumPageType == ForumPages.Admin_BannedNames ? " active" : ""%>">
+                            <a href="<%= BuildLink.GetLink(ForumPages.Admin_BannedNames) %>">
                                 <i class="fa fa-hand-paper fa-fw"></i>&nbsp;
                                 <YAF:LocalizedLabel runat="server" 
                                                     LocalizedTag="admin_bannedname" LocalizedPage="ADMINMENU"></YAF:LocalizedLabel>

@@ -11,7 +11,7 @@ namespace YAF.Pages.Admin
 {
 
 
-    public partial class BannedName
+    public partial class BannedNames
     {
 
         /// <summary>

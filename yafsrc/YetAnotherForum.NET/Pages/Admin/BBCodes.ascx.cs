@@ -48,7 +48,7 @@ namespace YAF.Pages.Admin
     /// <summary>
     /// The Admin bbcode Page.
     /// </summary>
-    public partial class BBCode : AdminPage
+    public partial class BBCodes : AdminPage
     {
         #region Methods
 

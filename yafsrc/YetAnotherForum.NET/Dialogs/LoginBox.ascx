@@ -118,10 +118,10 @@
                                 </div>
                             </div>
                             <div class="modal-footer clearfix">
-                                <asp:LinkButton ID="RegisterLink" runat="server"
-                                    CssClass="btn btn-secondary mr-auto"
-                                    CausesValidation="false"
-                                    OnClick="RegisterLink_Click" />
+                                <YAF:ThemeButton ID="RegisterLink" runat="server"
+                                                 Type="Link"
+                                                 CssClass="mr-auto"
+                                                 OnClick="RegisterLink_Click" />
 
                                 <asp:Button ID="LoginButton" runat="server"
                                     CommandName="Login"

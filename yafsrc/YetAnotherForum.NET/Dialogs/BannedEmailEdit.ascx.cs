@@ -111,7 +111,7 @@ namespace YAF.Dialogs
                     this.BanReason.Text.Trim());
 
                 // go back to banned IP's administration page
-                BuildLink.Redirect(ForumPages.Admin_BannedEmail);
+                BuildLink.Redirect(ForumPages.Admin_BannedEmails);
             }
         }
 

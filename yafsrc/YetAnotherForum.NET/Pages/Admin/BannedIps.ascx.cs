@@ -1,4 +1,4 @@
-﻿/* Yet Another Forum.NET
+/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2020 Ingo Herbote
@@ -41,15 +41,16 @@ namespace YAF.Pages.Admin
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Models;
     using YAF.Utils;
     using YAF.Web.Extensions;
 
     #endregion
 
     /// <summary>
-    /// The Admin Banned Emails Page.
+    /// The Admin Banned IP Page.
     /// </summary>
-    public partial class BannedEmail : AdminPage
+    public partial class BannedIps : AdminPage
     {
         #region Methods
 
@@ -78,10 +79,10 @@ namespace YAF.Pages.Admin
                 this.GetText("ADMIN_ADMIN", "Administration"),
                 BuildLink.GetLink(ForumPages.Admin_Admin));
 
-            this.PageLinks.AddLink(this.GetText("ADMIN_BANNEDEMAIL", "TITLE"), string.Empty);
+            this.PageLinks.AddLink(this.GetText("ADMIN_BANNEDIP", "TITLE"), string.Empty);
 
             this.Page.Header.Title =
-                $"{this.GetText("ADMIN_ADMIN", "Administration")} - {this.GetText("ADMIN_BANNEDEMAIL", "TITLE")}";
+                $"{this.GetText("ADMIN_ADMIN", "Administration")} - {this.GetText("ADMIN_BANNEDIP", "TITLE")}";
         }
 
         /// <summary>
@@ -109,7 +110,7 @@ namespace YAF.Pages.Admin
                     break;
                 case "export":
                     {
-                        var bannedEmails = this.GetRepository<Types.Models.BannedEmail>().GetByBoardId();
+                        var bannedIps = this.GetRepository<BannedIP>().GetByBoardId();
 
                         this.Get<HttpResponseBase>().Clear();
                         this.Get<HttpResponseBase>().ClearContent();
@@ -117,15 +118,16 @@ namespace YAF.Pages.Admin
 
                         this.Get<HttpResponseBase>().ContentType = "application/vnd.text";
                         this.Get<HttpResponseBase>()
-                            .AppendHeader("content-disposition", "attachment; filename=BannedEmailsExport.txt");
+                            .AppendHeader("content-disposition", "attachment; filename=BannedIpsExport.txt");
 
                         var streamWriter = new StreamWriter(this.Get<HttpResponseBase>().OutputStream);
 
-                        foreach (var email in bannedEmails)
-                        {
-                            streamWriter.Write(email.Mask);
-                            streamWriter.Write(streamWriter.NewLine);
-                        }
+                        bannedIps.ForEach(
+                            ip =>
+                                {
+                                    streamWriter.Write(ip.Mask);
+                                    streamWriter.Write(streamWriter.NewLine);
+                                });
 
                         streamWriter.Close();
 
@@ -135,13 +137,25 @@ namespace YAF.Pages.Admin
                     break;
                 case "delete":
                     {
-                        this.GetRepository<Types.Models.BannedEmail>().DeleteById(e.CommandArgument.ToType<int>());
+                        var id = e.CommandArgument.ToType<int>();
+                        var ipAddress = this.GetIPFromID(id);
+
+                        this.GetRepository<BannedIP>().DeleteById(id);
 
                         this.PageContext.AddLoadMessage(
-                            this.GetText("ADMIN_BANNEDEMAIL", "MSG_REMOVEBAN_EMAIL"),
-                            MessageTypes.success);
+                            this.GetTextFormatted("MSG_REMOVEBAN_IP", ipAddress), MessageTypes.success);
 
                         this.BindData();
+
+                        if (BoardContext.Current.Get<BoardSettings>().LogBannedIP)
+                        {
+                            this.Get<ILogger>()
+                                .Log(
+                                    this.PageContext.PageUserID,
+                                    " YAF.Pages.Admin.bannedip",
+                                    $"IP or mask {ipAddress} was deleted by {(this.Get<BoardSettings>().EnableDisplayName ? this.PageContext.CurrentUserData.DisplayName : this.PageContext.CurrentUserData.UserName)}.",
+                                    EventLogTypes.IpBanLifted);
+                        }
                     }
 
                     break;
@@ -170,6 +184,18 @@ namespace YAF.Pages.Admin
         }
 
         /// <summary>
+        /// Helper to get mask from ID.
+        /// </summary>
+        /// <param name="id">The ID.</param>
+        /// <returns>
+        /// Returns the IP
+        /// </returns>
+        private string GetIPFromID(int id)
+        {
+            return this.GetRepository<BannedIP>().GetById(id).Mask;
+        }
+
+        /// <summary>
         /// Binds the data.
         /// </summary>
         private void BindData()
@@ -178,18 +204,18 @@ namespace YAF.Pages.Admin
 
             var searchText = this.SearchInput.Text.Trim();
 
-            List<Types.Models.BannedEmail> bannedList;
+            List<BannedIP> bannedList;
 
             if (searchText.IsSet())
             {
-                bannedList = this.GetRepository<Types.Models.BannedEmail>().GetPaged(
+                bannedList = this.GetRepository<BannedIP>().GetPaged(
                     x => x.BoardID == this.PageContext.PageBoardID && x.Mask == searchText,
                     this.PagerTop.CurrentPageIndex,
                     this.PagerTop.PageSize);
             }
             else
             {
-                bannedList = this.GetRepository<Types.Models.BannedEmail>().GetPaged(
+                bannedList = this.GetRepository<BannedIP>().GetPaged(
                     x => x.BoardID == this.PageContext.PageBoardID,
                     this.PagerTop.CurrentPageIndex,
                     this.PagerTop.PageSize);
@@ -198,7 +224,7 @@ namespace YAF.Pages.Admin
             this.list.DataSource = bannedList;
 
             this.PagerTop.Count = bannedList != null && bannedList.Any()
-                                      ? this.GetRepository<Types.Models.BannedEmail>()
+                                      ? this.GetRepository<BannedIP>()
                                           .Count(x => x.BoardID == this.PageContext.PageBoardID).ToType<int>()
                                       : 0;
 

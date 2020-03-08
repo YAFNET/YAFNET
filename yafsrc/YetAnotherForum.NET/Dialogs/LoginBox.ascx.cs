@@ -211,7 +211,7 @@ namespace YAF.Dialogs
             var userName = this.Login1.FindControlAs<TextBox>("UserName");
             var password = this.Login1.FindControlAs<TextBox>("Password");
             var forumLogin = this.Login1.FindControlAs<Button>("LoginButton");
-            var registerLink = this.Login1.FindControlAs<LinkButton>("RegisterLink");
+            var registerLink = this.Login1.FindControlAs<ThemeButton>("RegisterLink");
             var passwordRecovery = this.Login1.FindControlAs<LinkButton>("PasswordRecovery");
 
             var singleSignOnHolder = this.Login1.FindControlAs<PlaceHolder>("SingleSignOnHolder");

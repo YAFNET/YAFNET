@@ -102,7 +102,7 @@ namespace YAF.Pages.Admin
             this.Get<IDataCache>().Remove(Constants.Cache.CustomBBCode);
             this.Get<IObjectStore>().RemoveOf<IProcessReplaceRules>();
 
-            BuildLink.Redirect(ForumPages.Admin_BBCode);
+            BuildLink.Redirect(ForumPages.Admin_BBCodes);
         }
 
         /// <summary>
@@ -140,7 +140,7 @@ namespace YAF.Pages.Admin
         /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
         protected void Cancel_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
-            BuildLink.Redirect(ForumPages.Admin_BBCode);
+            BuildLink.Redirect(ForumPages.Admin_BBCodes);
         }
 
         /// <summary>
@@ -160,7 +160,7 @@ namespace YAF.Pages.Admin
                     BuildLink.GetLink(ForumPages.Admin_Admin));
                 this.PageLinks.AddLink(
                     this.GetText("ADMIN_BBCODE", "TITLE"),
-                    BuildLink.GetLink(ForumPages.Admin_BBCode));
+                    BuildLink.GetLink(ForumPages.Admin_BBCodes));
                 this.PageLinks.AddLink(
                     string.Format(this.GetText("ADMIN_BBCODE_EDIT", "TITLE"), strAddEdit),
                     string.Empty);

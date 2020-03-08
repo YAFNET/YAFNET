@@ -11,7 +11,7 @@ namespace YAF.Pages.Admin
 {
 
 
-    public partial class BannedIp
+    public partial class BannedEmails
     {
 
         /// <summary>
@@ -24,13 +24,13 @@ namespace YAF.Pages.Admin
         protected global::YAF.Web.Controls.PageLinks PageLinks;
 
         /// <summary>
-        /// LocalizedLabel1 control.
+        /// LocalizedLabel2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel1;
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel2;
 
         /// <summary>
         /// PagerTop control.
@@ -102,7 +102,7 @@ namespace YAF.Pages.Admin
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Dialogs.BannedIpImport ImportDialog;
+        protected global::YAF.Dialogs.BannedEmailImport ImportDialog;
 
         /// <summary>
         /// EditDialog control.
@@ -111,6 +111,6 @@ namespace YAF.Pages.Admin
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Dialogs.BannedIpEdit EditDialog;
+        protected global::YAF.Dialogs.BannedEmailEdit EditDialog;
     }
 }

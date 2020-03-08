@@ -427,7 +427,7 @@ namespace YAF.Pages
             this.Email.ParamTitle0 = userName;
 
             this.XMPP.Visible = this.User != null && userData.Profile.XMPP.IsSet();
-            this.XMPP.NavigateUrl = BuildLink.GetLinkNotEscaped(ForumPages.Xmpp, "u={0}", userData.UserID);
+            this.XMPP.NavigateUrl = BuildLink.GetLinkNotEscaped(ForumPages.Jabber, "u={0}", userData.UserID);
             this.XMPP.ParamTitle0 = userName;
 
             this.Skype.Visible = this.User != null && userData.Profile.Skype.IsSet();

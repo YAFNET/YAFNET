@@ -47,9 +47,9 @@ namespace YAF.Pages.Admin
     #endregion
 
     /// <summary>
-    /// The Admin Banned Names Page.
+    /// The Admin Banned Emails Page.
     /// </summary>
-    public partial class BannedName : AdminPage
+    public partial class BannedEmails : AdminPage
     {
         #region Methods
 
@@ -78,10 +78,10 @@ namespace YAF.Pages.Admin
                 this.GetText("ADMIN_ADMIN", "Administration"),
                 BuildLink.GetLink(ForumPages.Admin_Admin));
 
-            this.PageLinks.AddLink(this.GetText("ADMIN_BANNEDNAME", "TITLE"), string.Empty);
+            this.PageLinks.AddLink(this.GetText("ADMIN_BANNEDEMAIL", "TITLE"), string.Empty);
 
             this.Page.Header.Title =
-                $"{this.GetText("ADMIN_ADMIN", "Administration")} - {this.GetText("ADMIN_BANNEDNAME", "TITLE")}";
+                $"{this.GetText("ADMIN_ADMIN", "Administration")} - {this.GetText("ADMIN_BANNEDEMAIL", "TITLE")}";
         }
 
         /// <summary>
@@ -109,7 +109,7 @@ namespace YAF.Pages.Admin
                     break;
                 case "export":
                     {
-                        var bannedNames = this.GetRepository<Types.Models.BannedName>().Get(x => x.BoardID == this.PageContext.PageBoardID);
+                        var bannedEmails = this.GetRepository<Types.Models.BannedEmail>().GetByBoardId();
 
                         this.Get<HttpResponseBase>().Clear();
                         this.Get<HttpResponseBase>().ClearContent();
@@ -121,11 +121,11 @@ namespace YAF.Pages.Admin
 
                         var streamWriter = new StreamWriter(this.Get<HttpResponseBase>().OutputStream);
 
-                        foreach (var name in bannedNames)
+                        bannedEmails.ForEach(email =>
                         {
-                            streamWriter.Write(name.Mask);
+                            streamWriter.Write(email.Mask);
                             streamWriter.Write(streamWriter.NewLine);
-                        }
+                        });
 
                         streamWriter.Close();
 
@@ -135,10 +135,10 @@ namespace YAF.Pages.Admin
                     break;
                 case "delete":
                     {
-                        this.GetRepository<Types.Models.BannedName>().DeleteById(e.CommandArgument.ToType<int>());
+                        this.GetRepository<Types.Models.BannedEmail>().DeleteById(e.CommandArgument.ToType<int>());
 
                         this.PageContext.AddLoadMessage(
-                            this.GetText("ADMIN_BANNEDNAME", "MSG_REMOVEBAN_NAME"),
+                            this.GetText("ADMIN_BANNEDEMAIL", "MSG_REMOVEBAN_EMAIL"),
                             MessageTypes.success);
 
                         this.BindData();
@@ -178,18 +178,18 @@ namespace YAF.Pages.Admin
 
             var searchText = this.SearchInput.Text.Trim();
 
-            List<Types.Models.BannedName> bannedList;
+            List<Types.Models.BannedEmail> bannedList;
 
             if (searchText.IsSet())
             {
-                bannedList = this.GetRepository<Types.Models.BannedName>().GetPaged(
+                bannedList = this.GetRepository<Types.Models.BannedEmail>().GetPaged(
                     x => x.BoardID == this.PageContext.PageBoardID && x.Mask == searchText,
                     this.PagerTop.CurrentPageIndex,
                     this.PagerTop.PageSize);
             }
             else
             {
-                bannedList = this.GetRepository<Types.Models.BannedName>().GetPaged(
+                bannedList = this.GetRepository<Types.Models.BannedEmail>().GetPaged(
                     x => x.BoardID == this.PageContext.PageBoardID,
                     this.PagerTop.CurrentPageIndex,
                     this.PagerTop.PageSize);
@@ -198,7 +198,7 @@ namespace YAF.Pages.Admin
             this.list.DataSource = bannedList;
 
             this.PagerTop.Count = bannedList != null && bannedList.Any()
-                                      ? this.GetRepository<Types.Models.BannedName>()
+                                      ? this.GetRepository<Types.Models.BannedEmail>()
                                           .Count(x => x.BoardID == this.PageContext.PageBoardID).ToType<int>()
                                       : 0;
 

@@ -1,4 +1,4 @@
-<%@ Control Language="C#" AutoEventWireup="true" Inherits="YAF.Pages.Admin.BBCode" Codebehind="BBCode.ascx.cs" %>
+<%@ Control Language="C#" AutoEventWireup="true" Inherits="YAF.Pages.Admin.BBCodes" Codebehind="BBCodes.ascx.cs" %>
 
 <%@ Import Namespace="YAF.Types.Interfaces" %>
 

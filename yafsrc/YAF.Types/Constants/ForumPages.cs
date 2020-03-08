@@ -269,9 +269,9 @@ namespace YAF.Types.Constants
         Avatar,
 
         /// <summary>
-        /// The XMPP page.
+        /// The Jabber page.
         /// </summary>
-        Xmpp,
+        Jabber,
 
         /// <summary>
         /// The Email page.
@@ -331,17 +331,17 @@ namespace YAF.Types.Constants
         /// <summary>
         /// The Admin banned email page.
         /// </summary>
-        Admin_BannedEmail,
+        Admin_BannedEmails,
 
         /// <summary>
         /// The Admin banned IP page.
         /// </summary>
-        Admin_BannedIp,
+        Admin_BannedIps,
 
         /// <summary>
         /// The Admin banned name page.
         /// </summary>
-        Admin_BannedName,
+        Admin_BannedNames,
 
         /// <summary>
         /// The Admin access masks page.
@@ -486,7 +486,7 @@ namespace YAF.Types.Constants
         /// <summary>
         /// The Admin BBCode page.
         /// </summary>
-        Admin_BBCode,
+        Admin_BBCodes,
 
         /// <summary>
         /// The Admin BBCode edit page.
