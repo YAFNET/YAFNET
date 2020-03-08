@@ -673,25 +673,25 @@
     <Compile Include="Pages\Admin\Admin.ascx.designer.cs">
       <DependentUpon>Admin.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Admin\BannedEmail.ascx.cs">
-      <DependentUpon>BannedEmail.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\BannedEmails.ascx.cs">
+      <DependentUpon>BannedEmails.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Pages\Admin\BannedEmail.ascx.designer.cs">
-      <DependentUpon>BannedEmail.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\BannedEmails.ascx.designer.cs">
+      <DependentUpon>BannedEmails.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Admin\BannedIp.ascx.designer.cs">
-      <DependentUpon>BannedIp.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\BannedIps.ascx.designer.cs">
+      <DependentUpon>BannedIps.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Admin\BannedName.ascx.cs">
-      <DependentUpon>BannedName.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\BannedNames.ascx.cs">
+      <DependentUpon>BannedNames.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Pages\Admin\BannedName.ascx.designer.cs">
-      <DependentUpon>BannedName.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\BannedNames.ascx.designer.cs">
+      <DependentUpon>BannedNames.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Admin\BBCode.ascx.designer.cs">
-      <DependentUpon>BBCode.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\BBCodes.ascx.designer.cs">
+      <DependentUpon>BBCodes.ascx</DependentUpon>
     </Compile>
     <Compile Include="Pages\Admin\BBCode_Edit.ascx.designer.cs">
       <DependentUpon>BBCode_Edit.ascx</DependentUpon>
@@ -986,12 +986,12 @@
     <Compile Include="Pages\Email.ascx.designer.cs">
       <DependentUpon>Email.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Xmpp.ascx.cs">
-      <DependentUpon>Xmpp.ascx</DependentUpon>
+    <Compile Include="Pages\Jabber.ascx.cs">
+      <DependentUpon>Jabber.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Pages\Xmpp.ascx.designer.cs">
-      <DependentUpon>Xmpp.ascx</DependentUpon>
+    <Compile Include="Pages\Jabber.ascx.designer.cs">
+      <DependentUpon>Jabber.ascx</DependentUpon>
     </Compile>
     <Compile Include="Pages\Info.ascx.designer.cs">
       <DependentUpon>Info.ascx</DependentUpon>
@@ -2051,8 +2051,8 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="languages\estonian.xml" />
-    <Content Include="Pages\Admin\BannedEmail.ascx" />
-    <Content Include="Pages\Admin\BannedName.ascx" />
+    <Content Include="Pages\Admin\BannedEmails.ascx" />
+    <Content Include="Pages\Admin\BannedNames.ascx" />
     <Content Include="Pages\Admin\SpamLog.ascx" />
     <Content Include="Pages\Admin\PageAccessEdit.ascx" />
     <Content Include="Pages\Admin\PageAccessList.ascx" />
@@ -2111,8 +2111,8 @@
     <Content Include="Pages\ActiveUsers.ascx" />
     <Content Include="Pages\Admin\AccessMasks.ascx" />
     <Content Include="Pages\Admin\Admin.ascx" />
-    <Content Include="Pages\Admin\BannedIp.ascx" />
-    <Content Include="Pages\Admin\BBCode.ascx" />
+    <Content Include="Pages\Admin\BannedIps.ascx" />
+    <Content Include="Pages\Admin\BBCodes.ascx" />
     <Content Include="Pages\Admin\BBCode_Edit.ascx" />
     <Content Include="Pages\Admin\Boards.ascx" />
     <Content Include="Pages\Admin\Settings.ascx" />
@@ -2174,7 +2174,7 @@
     <Content Include="Pages\Forum.ascx" />
     <Content Include="Pages\Help.ascx" />
     <Content Include="Pages\Email.ascx" />
-    <Content Include="Pages\Xmpp.ascx" />
+    <Content Include="Pages\Jabber.ascx" />
     <Content Include="Pages\Info.ascx" />
     <Content Include="Pages\Login.ascx" />
     <Content Include="Pages\Logout.ascx" />
@@ -3033,12 +3033,12 @@
       <DependentUpon>Admin.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Pages\Admin\BannedIp.ascx.cs">
-      <DependentUpon>BannedIp.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\BannedIps.ascx.cs">
+      <DependentUpon>BannedIps.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Pages\Admin\BBCode.ascx.cs">
-      <DependentUpon>BBCode.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\BBCodes.ascx.cs">
+      <DependentUpon>BBCodes.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Pages\Admin\BBCode_Edit.ascx.cs">
@@ -3837,7 +3837,7 @@ RD /S /Q "$(TargetDir)zh-TW\"</PostBuildEvent>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties compilerconfig_1json__JSONSchema="" bundleconfig_1json__JSONSchema="" />
+      <UserProperties bundleconfig_1json__JSONSchema="" compilerconfig_1json__JSONSchema="" />
     </VisualStudio>
   </ProjectExtensions>
   <Import Project="..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets" Condition="Exists('..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets')" />
