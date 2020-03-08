@@ -258,7 +258,7 @@ namespace YAF.Web.Controls
                                            Size = ButtonSize.Small,
                                            Icon = "info-circle",
                                            IconCssClass = "fas fa-lg",
-                                           IconColor = "text-info",
+                                           IconColor = "text-secondary",
                                            Type = ButtonAction.Link,
                                            DataToggle = "popover",
                                            CssClass = "topic-link-popover",
