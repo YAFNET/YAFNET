@@ -29,72 +29,72 @@ namespace YAF.Core.BBCode.ReplaceRules
     using YAF.Utils;
 
     /// <summary>
-  /// For the font size with replace
-  /// </summary>
-  public class PostTopicRegexReplaceRule : VariableRegexReplaceRule
-  {
-    #region Constructors and Destructors
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="PostTopicRegexReplaceRule"/> class.
+    /// For the font size with replace
     /// </summary>
-    /// <param name="regExSearch">
-    /// The reg ex search.
-    /// </param>
-    /// <param name="regExReplace">
-    /// The reg ex replace.
-    /// </param>
-    /// <param name="regExOptions">
-    /// The reg ex options.
-    /// </param>
-    public PostTopicRegexReplaceRule(string regExSearch, string regExReplace, RegexOptions regExOptions)
-      : base(regExSearch, regExReplace, regExOptions, new[] { "post", "topic" })
+    public class PostTopicRegexReplaceRule : VariableRegexReplaceRule
     {
-      this.RuleRank = 200;
-    }
+        #region Constructors and Destructors
 
-    #endregion
-
-    #region Methods
-
-    /// <summary>
-    /// The manage variable value.
-    /// </summary>
-    /// <param name="variableName">
-    /// The variable name.
-    /// </param>
-    /// <param name="variableValue">
-    /// The variable value.
-    /// </param>
-    /// <param name="handlingValue">
-    /// The handling value.
-    /// </param>
-    /// <returns>
-    /// The manage variable value.
-    /// </returns>
-    protected override string ManageVariableValue(string variableName, string variableValue, string handlingValue)
-    {
-        if (variableName != "post" && variableName != "topic")
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PostTopicRegexReplaceRule"/> class.
+        /// </summary>
+        /// <param name="regExSearch">
+        /// The Search Regex
+        /// </param>
+        /// <param name="regExReplace">
+        /// The Replace Regex.
+        /// </param>
+        /// <param name="regExOptions">
+        /// The Regex options.
+        /// </param>
+        public PostTopicRegexReplaceRule(string regExSearch, string regExReplace, RegexOptions regExOptions)
+            : base(regExSearch, regExReplace, regExOptions, new[] { "post", "topic" })
         {
-            return variableValue;
+            this.RuleRank = 200;
         }
 
-        if (!int.TryParse(variableValue, out var id))
-        {
-            return variableValue;
-        }
+        #endregion
 
-        switch (variableName)
+        #region Methods
+
+        /// <summary>
+        /// The manage variable value.
+        /// </summary>
+        /// <param name="variableName">
+        /// The variable name.
+        /// </param>
+        /// <param name="variableValue">
+        /// The variable value.
+        /// </param>
+        /// <param name="handlingValue">
+        /// The handling value.
+        /// </param>
+        /// <returns>
+        /// The <see cref="string"/>.
+        /// </returns>
+        protected override string ManageVariableValue(string variableName, string variableValue, string handlingValue)
         {
-            case "post":
-                return BuildLink.GetLink(ForumPages.Posts, "m={0}#post{0}", id);
-            case "topic":
-                return BuildLink.GetLink(ForumPages.Posts, "t={0}", id);
-            default:
+            if (variableName != "post" && variableName != "topic")
+            {
                 return variableValue;
-        }
-    }
+            }
 
-    #endregion
-  }
+            if (!int.TryParse(variableValue, out var id))
+            {
+                return variableValue;
+            }
+
+            switch (variableName)
+            {
+                case "post":
+                    return BuildLink.GetLink(ForumPages.Posts, "m={0}#post{0}", id);
+                case "topic":
+                    return BuildLink.GetLink(ForumPages.Posts, "t={0}", id);
+                default:
+                    return variableValue;
+            }
+        }
+
+        #endregion
+    }
 }

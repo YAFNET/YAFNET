@@ -1044,6 +1044,8 @@
     <Resource tag="ALLOW_USERS_POLLIMAGES_HELP">Als deze is aangevinkt, kunnen gebruikers plaatjes als keuzes gebruiken.</Resource>
     <Resource tag="ALLOW_USERTEXTEDITOR">Gebruikers mogen tekstverwerker kiezen</Resource>
     <Resource tag="ALLOW_USERTEXTEDITOR_HELP">Gebruikers kunnen kiezen tussen verschillende tekstverwerkers in hun profiel.</Resource>
+    <Resource tag="ALLOWED_EXTENSIONS">Allowed File Extensions:</Resource>
+    <Resource tag="ALLOWED_EXTENSIONS_HELP">The list of allowed File Extensions for Attachments.</Resource>
     <Resource tag="AMOUNT_OF_SUBFORUMS">Sub Forums In Forums List:</Resource>
     <Resource tag="AMOUNT_OF_SUBFORUMS_HELP">The amount of Sub Forums In Forums List.</Resource>
     <Resource tag="APP_CORES">Processor Cores:</Resource>

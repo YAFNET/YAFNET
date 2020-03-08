@@ -32,286 +32,304 @@ namespace YAF.Core.BBCode.ReplaceRules
     using YAF.Types.Interfaces;
 
     /// <summary>
-  /// For complex regex with variable/default and truncate support
-  /// </summary>
-  public class VariableRegexReplaceRule : SimpleRegexReplaceRule
-  {
-    #region Constants and Fields
-
-    /// <summary>
-    ///   The _truncate length.
+    /// For complex regex with variable/default and truncate support
     /// </summary>
-    protected int _truncateLength;
-
-    /// <summary>
-    ///   The _variable defaults.
-    /// </summary>
-    protected string[] _variableDefaults;
-
-    /// <summary>
-    ///   The _variables.
-    /// </summary>
-    protected string[] _variables;
-
-    #endregion
-
-    #region Constructors and Destructors
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="VariableRegexReplaceRule"/> class.
-    /// </summary>
-    /// <param name="regExSearch">
-    /// The reg ex search.
-    /// </param>
-    /// <param name="regExReplace">
-    /// The reg ex replace.
-    /// </param>
-    /// <param name="variables">
-    /// The variables.
-    /// </param>
-    /// <param name="varDefaults">
-    /// The var defaults.
-    /// </param>
-    /// <param name="truncateLength">
-    /// The truncate length.
-    /// </param>
-    public VariableRegexReplaceRule(
-      Regex regExSearch, string regExReplace, string[] variables, string[] varDefaults, int truncateLength)
-      : base(regExSearch, regExReplace)
+    public class VariableRegexReplaceRule : SimpleRegexReplaceRule
     {
-      this._variables = variables;
-      this._variableDefaults = varDefaults;
-      this._truncateLength = truncateLength;
-    }
+        #region Constants and Fields
 
-    /// <summary>
-    /// Initializes a new instance of the <see cref="VariableRegexReplaceRule"/> class.
-    /// </summary>
-    /// <param name="regExSearch">
-    /// The reg ex search.
-    /// </param>
-    /// <param name="regExReplace">
-    /// The reg ex replace.
-    /// </param>
-    /// <param name="variables">
-    /// The variables.
-    /// </param>
-    /// <param name="varDefaults">
-    /// The var defaults.
-    /// </param>
-    public VariableRegexReplaceRule(Regex regExSearch, string regExReplace, string[] variables, string[] varDefaults)
-      : this(regExSearch, regExReplace, variables, varDefaults, 0)
-    {
-    }
+        /// <summary>
+        ///   The truncate length.
+        /// </summary>
+        protected readonly int TruncateLength;
 
-    /// <summary>
-    /// Initializes a new instance of the <see cref="VariableRegexReplaceRule"/> class.
-    /// </summary>
-    /// <param name="regExSearch">
-    /// The reg ex search.
-    /// </param>
-    /// <param name="regExReplace">
-    /// The reg ex replace.
-    /// </param>
-    /// <param name="variables">
-    /// The variables.
-    /// </param>
-    public VariableRegexReplaceRule(Regex regExSearch, string regExReplace, string[] variables)
-      : this(regExSearch, regExReplace, variables, null, 0)
-    {
-    }
+        /// <summary>
+        ///   The variable defaults.
+        /// </summary>
+        protected readonly string[] VariableDefaults;
 
-    /// <summary>
-    /// Initializes a new instance of the <see cref="VariableRegexReplaceRule"/> class.
-    /// </summary>
-    /// <param name="regExSearch">
-    /// The reg ex search.
-    /// </param>
-    /// <param name="regExReplace">
-    /// The reg ex replace.
-    /// </param>
-    /// <param name="regExOptions">
-    /// The reg ex options.
-    /// </param>
-    /// <param name="variables">
-    /// The variables.
-    /// </param>
-    /// <param name="varDefaults">
-    /// The var defaults.
-    /// </param>
-    /// <param name="truncateLength">
-    /// The truncate length.
-    /// </param>
-    public VariableRegexReplaceRule(
-      string regExSearch, 
-      string regExReplace, 
-      RegexOptions regExOptions, 
-      string[] variables, 
-      string[] varDefaults, 
-      int truncateLength)
-      : base(regExSearch, regExReplace, regExOptions)
-    {
-      this._variables = variables;
-      this._variableDefaults = varDefaults;
-      this._truncateLength = truncateLength;
-    }
+        /// <summary>
+        ///   The variables.
+        /// </summary>
+        protected readonly string[] Variables;
 
-    /// <summary>
-    /// Initializes a new instance of the <see cref="VariableRegexReplaceRule"/> class.
-    /// </summary>
-    /// <param name="regExSearch">
-    /// The reg ex search.
-    /// </param>
-    /// <param name="regExReplace">
-    /// The reg ex replace.
-    /// </param>
-    /// <param name="regExOptions">
-    /// The reg ex options.
-    /// </param>
-    /// <param name="variables">
-    /// The variables.
-    /// </param>
-    /// <param name="varDefaults">
-    /// The var defaults.
-    /// </param>
-    public VariableRegexReplaceRule(
-      string regExSearch, string regExReplace, RegexOptions regExOptions, string[] variables, string[] varDefaults)
-      : this(regExSearch, regExReplace, regExOptions, variables, varDefaults, 0)
-    {
-    }
+        #endregion
 
-    /// <summary>
-    /// Initializes a new instance of the <see cref="VariableRegexReplaceRule"/> class.
-    /// </summary>
-    /// <param name="regExSearch">
-    /// The reg ex search.
-    /// </param>
-    /// <param name="regExReplace">
-    /// The reg ex replace.
-    /// </param>
-    /// <param name="regExOptions">
-    /// The reg ex options.
-    /// </param>
-    /// <param name="variables">
-    /// The variables.
-    /// </param>
-    public VariableRegexReplaceRule(
-      string regExSearch, string regExReplace, RegexOptions regExOptions, string[] variables)
-      : this(regExSearch, regExReplace, regExOptions, variables, null, 0)
-    {
-    }
+        #region Constructors and Destructors
 
-    #endregion
-
-    #region Public Methods
-
-    /// <summary>
-    /// The replace.
-    /// </summary>
-    /// <param name="text">
-    /// The text.
-    /// </param>
-    /// <param name="replacement">
-    /// The replacement.
-    /// </param>
-    public override void Replace(ref string text, IReplaceBlocks replacement)
-    {
-      var sb = new StringBuilder(text);
-
-      var m = this._regExSearch.Match(text);
-      while (m.Success)
-      {
-        var innerReplace = new StringBuilder(this._regExReplace);
-        var i = 0;
-
-        this._variables.ForEach(
-            tVar =>
-                {
-                    var varName = tVar;
-                    var handlingValue = string.Empty;
-
-                    if (varName.Contains(":"))
-                    {
-                        // has handling section
-                        var tmpSplit = varName.Split(':');
-                        varName = tmpSplit[0];
-                        handlingValue = tmpSplit[1];
-                    }
-
-                    var tValue = m.Groups[varName].Value;
-
-                    if (this._variableDefaults != null && tValue.Length == 0)
-                    {
-                        // use default instead
-                        tValue = this._variableDefaults[i];
-                    }
-
-                    innerReplace.Replace($"${{{varName}}}", this.ManageVariableValue(varName, tValue, handlingValue));
-                    i++;
-                });
-
-        innerReplace.Replace("${inner}", m.Groups["inner"].Value);
-
-        if (this._truncateLength > 0)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="VariableRegexReplaceRule"/> class.
+        /// </summary>
+        /// <param name="regExSearch">
+        /// The Search Regex
+        /// </param>
+        /// <param name="regExReplace">
+        /// The Replace Regex.
+        /// </param>
+        /// <param name="variables">
+        /// The variables.
+        /// </param>
+        /// <param name="defaults">
+        /// The defaults.
+        /// </param>
+        /// <param name="truncateLength">
+        /// The truncate length.
+        /// </param>
+        public VariableRegexReplaceRule(
+            Regex regExSearch,
+            string regExReplace,
+            string[] variables,
+            string[] defaults,
+            int truncateLength)
+            : base(regExSearch, regExReplace)
         {
-          // special handling to truncate urls
-          innerReplace.Replace(
-            "${innertrunc}", m.Groups["inner"].Value.TruncateMiddle(this._truncateLength));
+            this.Variables = variables;
+            this.VariableDefaults = defaults;
+            this.TruncateLength = truncateLength;
         }
 
-        // pulls the html's into the replacement collection before it's inserted back into the main text
-        replacement.ReplaceHtmlFromText(ref innerReplace);
-
-        // remove old bbcode...
-        sb.Remove(m.Groups[0].Index, m.Groups[0].Length);
-
-        // insert replaced value(s)
-        sb.Insert(m.Groups[0].Index, innerReplace.ToString());
-
-        // text = text.Substring( 0, m.Groups [0].Index ) + tStr + text.Substring( m.Groups [0].Index + m.Groups [0].Length );
-        m = this._regExSearch.Match(sb.ToString());
-      }
-
-      text = sb.ToString();
-    }
-
-    #endregion
-
-    #region Methods
-
-    /// <summary>
-    /// Override to change default variable handling...
-    /// </summary>
-    /// <param name="variableName">
-    /// </param>
-    /// <param name="variableValue">
-    /// </param>
-    /// <param name="handlingValue">
-    /// variable transformation desired
-    /// </param>
-    /// <returns>
-    /// The manage variable value.
-    /// </returns>
-    protected virtual string ManageVariableValue(string variableName, string variableValue, string handlingValue)
-    {
-        if (!handlingValue.IsSet())
+        /// <summary>
+        /// Initializes a new instance of the <see cref="VariableRegexReplaceRule"/> class.
+        /// </summary>
+        /// <param name="regExSearch">
+        /// The Search Regex.
+        /// </param>
+        /// <param name="regExReplace">
+        /// The Replace Regex.
+        /// </param>
+        /// <param name="variables">
+        /// The variables.
+        /// </param>
+        /// <param name="defaults">
+        /// The defaults.
+        /// </param>
+        public VariableRegexReplaceRule(
+            Regex regExSearch,
+            string regExReplace,
+            string[] variables,
+            string[] defaults)
+            : this(regExSearch, regExReplace, variables, defaults, 0)
         {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="VariableRegexReplaceRule"/> class.
+        /// </summary>
+        /// <param name="regExSearch">
+        /// The Search Regex.
+        /// </param>
+        /// <param name="regExReplace">
+        /// The Replace Regex.
+        /// </param>
+        /// <param name="variables">
+        /// The variables.
+        /// </param>
+        public VariableRegexReplaceRule(Regex regExSearch, string regExReplace, string[] variables)
+            : this(regExSearch, regExReplace, variables, null, 0)
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="VariableRegexReplaceRule"/> class.
+        /// </summary>
+        /// <param name="regExSearch">
+        /// The Search Regex.
+        /// </param>
+        /// <param name="regExReplace">
+        /// The Replace Regex.
+        /// </param>
+        /// <param name="regExOptions">
+        /// The Regex options.
+        /// </param>
+        /// <param name="variables">
+        /// The variables.
+        /// </param>
+        /// <param name="defaults">
+        /// The defaults.
+        /// </param>
+        /// <param name="truncateLength">
+        /// The truncate length.
+        /// </param>
+        public VariableRegexReplaceRule(
+            string regExSearch,
+            string regExReplace,
+            RegexOptions regExOptions,
+            string[] variables,
+            string[] defaults,
+            int truncateLength)
+            : base(regExSearch, regExReplace, regExOptions)
+        {
+            this.Variables = variables;
+            this.VariableDefaults = defaults;
+            this.TruncateLength = truncateLength;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="VariableRegexReplaceRule"/> class.
+        /// </summary>
+        /// <param name="regExSearch">
+        /// The Search Regex.
+        /// </param>
+        /// <param name="regExReplace">
+        /// The Replace Regex.
+        /// </param>
+        /// <param name="regExOptions">
+        /// The Regex options.
+        /// </param>
+        /// <param name="variables">
+        /// The variables.
+        /// </param>
+        /// <param name="defaults">
+        /// The defaults.
+        /// </param>
+        public VariableRegexReplaceRule(
+            string regExSearch,
+            string regExReplace,
+            RegexOptions regExOptions,
+            string[] variables,
+            string[] defaults)
+            : this(regExSearch, regExReplace, regExOptions, variables, defaults, 0)
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="VariableRegexReplaceRule"/> class.
+        /// </summary>
+        /// <param name="regExSearch">
+        /// The Search Regex.
+        /// </param>
+        /// <param name="regExReplace">
+        /// The Replace Regex.
+        /// </param>
+        /// <param name="regExOptions">
+        /// The Regex options.
+        /// </param>
+        /// <param name="variables">
+        /// The variables.
+        /// </param>
+        public VariableRegexReplaceRule(
+            string regExSearch,
+            string regExReplace,
+            RegexOptions regExOptions,
+            string[] variables)
+            : this(regExSearch, regExReplace, regExOptions, variables, null, 0)
+        {
+        }
+
+        #endregion
+
+        #region Public Methods
+
+        /// <summary>
+        /// The replace.
+        /// </summary>
+        /// <param name="text">
+        /// The text.
+        /// </param>
+        /// <param name="replacement">
+        /// The replacement.
+        /// </param>
+        public override void Replace(ref string text, IReplaceBlocks replacement)
+        {
+            var sb = new StringBuilder(text);
+
+            var m = this.RegExSearch.Match(text);
+            while (m.Success)
+            {
+                var innerReplace = new StringBuilder(this.RegExReplace);
+                var i = 0;
+
+                this.Variables.ForEach(
+                    tVar =>
+                        {
+                            var varName = tVar;
+                            var handlingValue = string.Empty;
+
+                            if (varName.Contains(":"))
+                            {
+                                // has handling section
+                                var tmpSplit = varName.Split(':');
+                                varName = tmpSplit[0];
+                                handlingValue = tmpSplit[1];
+                            }
+
+                            var tValue = m.Groups[varName].Value;
+
+                            if (this.VariableDefaults != null && tValue.Length == 0)
+                            {
+                                // use default instead
+                                tValue = this.VariableDefaults[i];
+                            }
+
+                            innerReplace.Replace(
+                                $"${{{varName}}}",
+                                this.ManageVariableValue(varName, tValue, handlingValue));
+                            i++;
+                        });
+
+                innerReplace.Replace("${inner}", m.Groups["inner"].Value);
+
+                if (this.TruncateLength > 0)
+                {
+                    // special handling to truncate urls
+                    innerReplace.Replace("${innertrunc}", m.Groups["inner"].Value.TruncateMiddle(this.TruncateLength));
+                }
+
+                // pulls the html's into the replacement collection before it's inserted back into the main text
+                replacement.ReplaceHtmlFromText(ref innerReplace);
+
+                // remove old bbcode...
+                sb.Remove(m.Groups[0].Index, m.Groups[0].Length);
+
+                // insert replaced value(s)
+                sb.Insert(m.Groups[0].Index, innerReplace.ToString());
+
+                // text = text.Substring( 0, m.Groups [0].Index ) + tStr + text.Substring( m.Groups [0].Index + m.Groups [0].Length );
+                m = this.RegExSearch.Match(sb.ToString());
+            }
+
+            text = sb.ToString();
+        }
+
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        /// Override to change default variable handling...
+        /// </summary>
+        /// <param name="variableName">
+        /// The variable Name.
+        /// </param>
+        /// <param name="variableValue">
+        /// The variable Value.
+        /// </param>
+        /// <param name="handlingValue">
+        /// variable transformation desired
+        /// </param>
+        /// <returns>
+        /// The <see cref="string"/>.
+        /// </returns>
+        protected virtual string ManageVariableValue(string variableName, string variableValue, string handlingValue)
+        {
+            if (!handlingValue.IsSet())
+            {
+                return variableValue;
+            }
+
+            switch (handlingValue.ToLower())
+            {
+                case "decode":
+                    variableValue = HttpUtility.HtmlDecode(variableValue);
+                    break;
+                case "encode":
+                    variableValue = HttpUtility.HtmlEncode(variableValue);
+                    break;
+            }
+
             return variableValue;
         }
 
-        switch (handlingValue.ToLower())
-        {
-            case "decode":
-                variableValue = HttpUtility.HtmlDecode(variableValue);
-                break;
-            case "encode":
-                variableValue = HttpUtility.HtmlEncode(variableValue);
-                break;
-        }
-
-        return variableValue;
+        #endregion
     }
-
-    #endregion
-  }
 }

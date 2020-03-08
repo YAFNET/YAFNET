@@ -552,6 +552,12 @@
                                            LocalizedTag="MAX_FILESIZE" LocalizedPage="ADMIN_HOSTSETTINGS" />
                             <asp:TextBox CssClass="form-control" ID="MaxFileSize" runat="server"></asp:TextBox>
                         </div>
+                        <div class="form-group">
+                            <YAF:HelpLabel ID="HelpLabel31" runat="server" 
+                                           AssociatedControlID="AllowedFileExtensions"
+                                           LocalizedTag="ALLOWED_EXTENSIONS" LocalizedPage="ADMIN_HOSTSETTINGS" />
+                            <asp:TextBox CssClass="form-control" ID="AllowedFileExtensions" runat="server"></asp:TextBox>
+                        </div>
                     </div>
                     <div class="tab-pane fade" id="albums" role="tabpanel" aria-labelledby="albums-tab">
                         <div class="form-group">

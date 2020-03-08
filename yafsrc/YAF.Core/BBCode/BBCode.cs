@@ -36,7 +36,6 @@ namespace YAF.Core.BBCode
 
     using YAF.Configuration;
     using YAF.Core.BBCode.ReplaceRules;
-    using YAF.Core.Extensions;
     using YAF.Core.Services;
     using YAF.Types;
     using YAF.Types.Extensions;
@@ -226,10 +225,10 @@ namespace YAF.Core.BBCode
                 // NOTE : Do not convert BBQuotes, BBCodes and Custom BBCodes to HTML when editing -- "[quote]...[/quote]", and [code]..[/code] will remain in plaintext in the rich text editor
                 this.CreateBBCodeRules(
                     ruleEngine,
-                    false,
                     true,
                     this.Get<BoardSettings>().UseNoFollowLinks,
-                    false /*convertBBQuotes*/);
+                    false,
+                    true);
             }
 
             ruleEngine.Process(ref message);
@@ -238,21 +237,29 @@ namespace YAF.Core.BBCode
         }
 
         /// <summary>
-        /// Creates the rules that convert <see cref="BBCode" /> to HTML
+        /// Creates the rules that convert <see cref="BBCode"/> to HTML
         /// </summary>
-        /// <param name="ruleEngine">The rule Engine.</param>
-        /// <param name="isHtml">if set to <c>true</c> [is HTML].</param>
-        /// <param name="doFormatting">The do Formatting.</param>
-        /// <param name="targetBlankOverride">The target Blank Override.</param>
-        /// <param name="useNoFollow">The use No Follow.</param>
-        /// <param name="convertBBQuotes">The convert BB Quotes.</param>
+        /// <param name="ruleEngine">
+        /// The rule Engine.
+        /// </param>
+        /// <param name="doFormatting">
+        /// The do Formatting.
+        /// </param>
+        /// <param name="targetBlankOverride">
+        /// The target Blank Override.
+        /// </param>
+        /// <param name="useNoFollow">
+        /// The use No Follow.
+        /// </param>
+        /// <param name="isEditMode">
+        /// Indicates if the formatting is for the Editor.
+        /// </param>
         public void CreateBBCodeRules(
             IProcessReplaceRules ruleEngine,
-            bool isHtml,
             bool doFormatting,
             bool targetBlankOverride,
             bool useNoFollow,
-            bool convertBBQuotes)
+            bool isEditMode = false)
         {
             var target = this.Get<BoardSettings>().BlankLinks || targetBlankOverride
                              ? "target=\"_blank\""
@@ -391,9 +398,6 @@ namespace YAF.Core.BBCode
                 // lists
                 ruleEngine.AddRule(
                     new SimpleRegexReplaceRule(@"\[list\](?<inner>(.*?))\[/list\]", "<ul>${inner}</ul>", Options));
-
-                /*ruleEngine.AddRule(
-                                    new VariableRegexReplaceRule(_rgxList2, "<ol type=\"${type}\">${inner}</ol>", _options, new[] { "type" }));*/
                 ruleEngine.AddRule(
                     new SimpleRegexReplaceRule(
                         @"\[list=1\](?<inner>(.*?))\[/list\]",
@@ -510,14 +514,13 @@ namespace YAF.Core.BBCode
                 // Ensure the newline rule is processed after the HR rule, otherwise the newline characters in the HR regex will never match
                 ruleEngine.AddRule(horizontalLineRule);
 
-                ruleEngine.AddRule(!isHtml ? breakRule : new SingleRegexReplaceRule(@"\r\n", "<p>", Options));
+                ruleEngine.AddRule(isEditMode ? breakRule : new SingleRegexReplaceRule(@"\r\n", "<p>", Options));
             }
 
-            if (convertBBQuotes)
-            {
                 // add rule for code block type with syntax highlighting
                 ruleEngine.AddRule(
-                    new SyntaxHighlightedCodeRegexReplaceRule(
+                    new SyntaxHighlighterRegexReplaceRule(
+                        isEditMode,
                         new Regex(@"\[code=(?<language>[^\]]*)\](?<inner>(.*?))\[/code\]", Options),
                         @"<div class=""code"">${inner}</div>")
                         {
@@ -529,7 +532,8 @@ namespace YAF.Core.BBCode
 
                 // add rule for code block type with no syntax highlighting
                 ruleEngine.AddRule(
-                    new SyntaxHighlightedCodeRegexReplaceRule(
+                    new SyntaxHighlighterRegexReplaceRule(
+                        isEditMode,
                         new Regex(@"\[code\](?<inner>(.*?))\[/code\]", Options),
                         @"<div class=""code"">${inner}</div>"));
 
@@ -557,9 +561,8 @@ namespace YAF.Core.BBCode
                 // and finally the closing quote tag
                 ruleEngine.AddRule(
                     new SingleRegexReplaceRule(@"\[/quote\]", "</p></blockquote>", Options) { RuleRank = 63 });
-            }
 
-            // post and topic rules...
+                // post and topic rules...
             ruleEngine.AddRule(
                 new PostTopicRegexReplaceRule(
                     @"\[post=(?<post>[0-9]*)\](?<inner>(.*?))\[/post\]",
@@ -620,9 +623,6 @@ namespace YAF.Core.BBCode
         /// <param name="inputString">
         /// Input string containing BBCode to convert to HTML
         /// </param>
-        /// <param name="isHtml">
-        /// The is Html.
-        /// </param>
         /// <param name="doFormatting">
         /// The do Formatting.
         /// </param>
@@ -632,7 +632,7 @@ namespace YAF.Core.BBCode
         /// <returns>
         /// The make html.
         /// </returns>
-        public string MakeHtml(string inputString, bool isHtml, bool doFormatting, bool targetBlankOverride)
+        public string MakeHtml(string inputString, bool doFormatting, bool targetBlankOverride)
         {
             var ruleEngine = this.ProcessReplaceRulesFactory(
                 new[] { doFormatting, targetBlankOverride, this.Get<BoardSettings>().UseNoFollowLinks });
@@ -641,7 +641,6 @@ namespace YAF.Core.BBCode
             {
                 this.CreateBBCodeRules(
                     ruleEngine,
-                    isHtml,
                     doFormatting,
                     targetBlankOverride,
                     this.Get<BoardSettings>().UseNoFollowLinks);

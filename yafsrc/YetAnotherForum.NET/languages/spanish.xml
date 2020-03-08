@@ -1045,6 +1045,8 @@
     <Resource tag="ALLOW_USERS_POLLIMAGES_HELP">Si está activada, los usuarios pueden añadir imágenes como opciones de una encuesta.</Resource>
     <Resource tag="ALLOW_USERTEXTEDITOR">Permitir a los usuarios elegir el editor de texto.</Resource>
     <Resource tag="ALLOW_USERTEXTEDITOR_HELP">Permitir a los usuarios elegir el editor de texto en sus perfiles.</Resource>
+    <Resource tag="ALLOWED_EXTENSIONS">Allowed File Extensions:</Resource>
+    <Resource tag="ALLOWED_EXTENSIONS_HELP">The list of allowed File Extensions for Attachments.</Resource>
     <Resource tag="AMOUNT_OF_SUBFORUMS">Sub Forums In Forums List:</Resource>
     <Resource tag="AMOUNT_OF_SUBFORUMS_HELP">The amount of Sub Forums In Forums List.</Resource>
     <Resource tag="APP_CORES">Núcleos del procesador:</Resource>

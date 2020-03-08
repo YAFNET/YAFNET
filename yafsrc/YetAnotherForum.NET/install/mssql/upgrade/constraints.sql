@@ -1084,10 +1084,6 @@ if not exists (select top 1 1 from sys.objects where name='FK_{objectQualifier}E
 	alter table [{databaseOwner}].[{objectQualifier}EventLog] add constraint [FK_{objectQualifier}EventLog_{objectQualifier}User] foreign key(UserID) references [{databaseOwner}].[{objectQualifier}User](UserID) on delete cascade
 go
 
-if not exists (select top 1 1 from sys.objects where name='FK_{objectQualifier}Extension_{objectQualifier}Board' and parent_object_id=object_id('[{databaseOwner}].[{objectQualifier}Extension]') and type in (N'F'))
-	alter table [{databaseOwner}].[{objectQualifier}Extension] add constraint [FK_{objectQualifier}Extension_{objectQualifier}Board] foreign key(BoardId) references [{databaseOwner}].[{objectQualifier}Board](BoardID) on delete cascade
-go
-
 if not exists (select top 1 1 from sys.objects where name=N'FK_{objectQualifier}BBCode_Board' and parent_object_id=object_id(N'[{databaseOwner}].[{objectQualifier}BBCode]') and type in (N'F'))
     ALTER TABLE [{databaseOwner}].[{objectQualifier}BBCode] ADD CONSTRAINT [FK_{objectQualifier}BBCode_Board] FOREIGN KEY([BoardID]) REFERENCES [{databaseOwner}].[{objectQualifier}Board] ([BoardID]) ON DELETE NO ACTION
 GO
@@ -1165,10 +1161,6 @@ go
 
 if OBJECTPROPERTY(OBJECT_ID('DF_{objectQualifier}EventLog_Type'), 'IsConstraint')= 0
 	alter table [{databaseOwner}].[{objectQualifier}EventLog] add constraint [DF_{objectQualifier}EventLog_Type] default(0) for Type
-go
-
-if OBJECTPROPERTY(OBJECT_ID('DF_{objectQualifier}Extension_BoardID'), 'IsConstraint')= 0
-	alter table [{databaseOwner}].[{objectQualifier}Extension] add constraint [DF_{objectQualifier}Extension_BoardID] default(1) for BoardID
 go
 
 if OBJECTPROPERTY(OBJECT_ID('DF_{objectQualifier}ActiveAccess_IsGuestX'), 'IsConstraint')= 0

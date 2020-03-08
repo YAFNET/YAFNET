@@ -1953,7 +1953,6 @@ begin
     delete from [{databaseOwner}].[{objectQualifier}Rank] where BoardID=@BoardID
     delete from [{databaseOwner}].[{objectQualifier}AccessMask] where BoardID=@BoardID
     delete from [{databaseOwner}].[{objectQualifier}BBCode] where BoardID=@BoardID
-    delete from [{databaseOwner}].[{objectQualifier}Extension] where BoardId=@BoardID
     delete from [{databaseOwner}].[{objectQualifier}Medal] where BoardID=@BoardID
     delete from [{databaseOwner}].[{objectQualifier}Replace_Words] where BoardId=@BoardID
 	delete from [{databaseOwner}].[{objectQualifier}Spam_Words] where BoardId=@BoardID

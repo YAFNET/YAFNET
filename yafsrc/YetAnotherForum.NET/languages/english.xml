@@ -32,9 +32,6 @@
   <Resource tag="ADMIN_EDITRANK">Edits ranks</Resource>
   <Resource tag="ADMIN_EDITUSER">Edits a user</Resource>
   <Resource tag="ADMIN_EVENTLOG">Views/edits event log</Resource>
-  <Resource tag="ADMIN_EXTENSIONS_EDIT">Edits extensions</Resource>
-  <Resource tag="ADMIN_EXTENSIONS_IMPORT">Imports extensions</Resource>
-  <Resource tag="ADMIN_EXTESIONS">View extensions</Resource>
   <Resource tag="ADMIN_FORUMS">Views forums in admin section</Resource>
   <Resource tag="ADMIN_GROUPS">Views groups in admin section</Resource>
   <Resource tag="ADMIN_HOSTSETTING">Views/edits hosts settings</Resource>
@@ -894,34 +891,6 @@
   <Resource tag="TYPES">Type</Resource>
   <Resource tag="TYPES_HELP">Choose to restrict the Log to certain types of events.</Resource>
  </page>
- <page name="ADMIN_EXTENSIONS">
-  <Resource tag="ADD">Add</Resource>
-  <Resource tag="SAVE">Save Extension</Resource>
-  <Resource tag="CONFIRM_DELETE">Delete this Extension?</Resource>
-  <Resource tag="EXPORT">Export to XML</Resource>
-  <Resource tag="HEADER">Allowed File Extensions</Resource>
-  <Resource tag="IMPORT">Import from XML</Resource>
-  <Resource tag="TITLE">File Extensions</Resource>
- </page>
- <page name="ADMIN_EXTENSIONS_EDIT">
-  <Resource tag="FILE_EXTENSION">File Extension:</Resource>
-  <Resource tag="FILE_EXTENSION_HELP">Example: Enter "jpg" for a JPEG graphic file.</Resource>
-  <Resource tag="HEADER">Add/Edit Allowed File Extensions</Resource>
-  <Resource tag="MSG_ENTER">You must enter something.</Resource>
-  <Resource tag="MSG_REMOVE">Remove the period in the extension.</Resource>
-  <Resource tag="TITLE">Add File Extension</Resource>
-  <Resource tag="TITLE_EDIT">Edit File Extension</Resource>
- </page>
- <page name="ADMIN_EXTENSIONS_IMPORT">
-  <Resource tag="HEADER">Import Extension List</Resource>
-  <Resource tag="IMPORT">Import List</Resource>
-  <Resource tag="IMPORT_FAILED">Failed to import: {0}</Resource>
-  <Resource tag="IMPORT_FILE">Select Import File:</Resource>
-  <Resource tag="IMPORT_FILE_HELP">Must be *.xml file</Resource>
-  <Resource tag="IMPORT_NOTHING">Nothing imported: no new extension was found in the upload.</Resource>
-  <Resource tag="IMPORT_SUCESS">{0} new extension(s) imported successfully.</Resource>
-  <Resource tag="TITLE">Import Extensions</Resource>
- </page>
  <page name="ADMIN_FORUMS">
   <Resource tag="CONFIRM_DELETE">Permanently delete this Forum including ALL topics, polls, attachments and messages associated with it?</Resource>
   <Resource tag="CONFIRM_DELETE_CAT">Delete this category?</Resource>
@@ -980,6 +949,8 @@
   <Resource tag="ALLOW_EMAIL_CHANGE_HELP">Allow users to change their email address.</Resource>
   <Resource tag="ALLOW_EMAIL_TOPIC">Allow Email Topic:</Resource>
   <Resource tag="ALLOW_EMAIL_TOPIC_HELP">If checked, users will be allowed to email topics.</Resource>
+   <Resource tag="ALLOWED_EXTENSIONS">Allowed File Extensions:</Resource>
+   <Resource tag="ALLOWED_EXTENSIONS_HELP">The list of allowed File Extensions for Attachments.</Resource>
   <Resource tag="ALLOW_FORUMS_DUPLICATENAME">Allow Forums With Same Name:</Resource>
   <Resource tag="ALLOW_FORUMS_DUPLICATENAME_HELP">If checked forums with duplicated names can be created.</Resource>
   <Resource tag="ALLOW_GRAVATARS">Allow Gravatars:</Resource>

@@ -1044,6 +1044,8 @@
     <Resource tag="ALLOW_USERS_POLLIMAGES_HELP">If enabled Users can add images as poll options.</Resource>
     <Resource tag="ALLOW_USERTEXTEDITOR">Allow users to pick text editor</Resource>
     <Resource tag="ALLOW_USERTEXTEDITOR_HELP">Allow users to pick text editor in their profiles.</Resource>
+    <Resource tag="ALLOWED_EXTENSIONS">Allowed File Extensions:</Resource>
+    <Resource tag="ALLOWED_EXTENSIONS_HELP">The list of allowed File Extensions for Attachments.</Resource>
     <Resource tag="AMOUNT_OF_SUBFORUMS">Sub Forums In Forums List:</Resource>
     <Resource tag="AMOUNT_OF_SUBFORUMS_HELP">The amount of Sub Forums In Forums List.</Resource>
     <Resource tag="APP_CORES">Processor Cores:</Resource>
@@ -4230,18 +4232,18 @@ Spoiler Content
     <Resource tag="CHARSET">#ABCDEFGHIJKLMNOPQRSTUVWXYZ</Resource>
   </page>
   <page name="LOGIN">
-    <Resource tag="AUTO">Ricordami</Resource>
     <Resource tag="AUTH_CONNECT">Continua con {0}</Resource>
-    <Resource tag="AUTH_CONNECT_HELP">Accedi o registrati tramit {0} oppure collega un account forum a {0}.</Resource>
     <Resource tag="AUTH_CONNECT_ACCOUNT">Collega un account forum esistente ad un account {0}. Prima devi accedere al forum. {1}</Resource>
-    <Resource tag="AUTH_CONNECT_TWITTER">&lt;strong&gt;Per collegare i due account, il nome utente Twitter deve essere uguale a quello del forum.&lt;/strong&gt;</Resource>
     <Resource tag="AUTH_CONNECT_FACEBOOK">&lt;strong&gt;Per collegare i due account, l'indirizzo e-mail Facebook deve corrispondere a quello usato sul forum.&lt;/strong&gt;</Resource>
     <Resource tag="AUTH_CONNECT_GOOGLE">&lt;strong&gt;Per collegare i due account, l'indirizzo e-mail Google deve corrispondere a quello usato sul forum.&lt;/strong&gt;</Resource>
+    <Resource tag="AUTH_CONNECT_HELP">Accedi o registrati tramit {0} oppure collega un account forum a {0}.</Resource>
+    <Resource tag="AUTH_CONNECT_TWITTER">&lt;strong&gt;Per collegare i due account, il nome utente Twitter deve essere uguale a quello del forum.&lt;/strong&gt;</Resource>
     <Resource tag="AUTH_LOGIN_EXISTING">Accedi con un account collegato a {0}. Se non esiste nessun account, verrà creato automaticamente un nuovo account nel forum.</Resource>
     <Resource tag="AUTH_NO_ACCESS_TOKEN">Impossibile generare il token di accesso!</Resource>
+    <Resource tag="AUTO">Ricordami</Resource>
+    <Resource tag="BOTH_USERNAME_EMAIL">E' necessario indicare sia il nome utente sia l'indirizzo e-mail.</Resource>
     <Resource tag="CAPS_LOCK">BLOC MAIUSC è attivato</Resource>
     <Resource tag="CONNECT_VIA">Oppure accedi tramite</Resource>
-    <Resource tag="BOTH_USERNAME_EMAIL">E' necessario indicare sia il nome utente sia l'indirizzo e-mail.</Resource>
     <Resource tag="EMAIL">Indirizzo e-mail</Resource>
     <Resource tag="EMAIL_SENT_PASSWORD">E-mail con nuova password inviata.</Resource>
     <Resource tag="FACEBOOK_LOGIN">Accedi tramite Facebook</Resource>

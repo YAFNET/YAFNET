@@ -25,7 +25,6 @@
                                                  this.PageContext.ForumPageType == ForumPages.admin_editcategory || 
                                                  this.PageContext.ForumPageType == ForumPages.admin_forums || 
                                                  this.PageContext.ForumPageType == ForumPages.admin_replacewords || 
-                                                 this.PageContext.ForumPageType == ForumPages.admin_extensions || 
                                                  this.PageContext.ForumPageType == ForumPages.admin_bbcode || 
                                                  this.PageContext.ForumPageType == ForumPages.admin_bbcode_edit || 
                                                  this.PageContext.ForumPageType == ForumPages.admin_languages ||
@@ -58,14 +57,7 @@
                                                     LocalizedTag="admin_replacewords" LocalizedPage="ADMINMENU"></YAF:LocalizedLabel>
                             </a>
                         </li>
-                        <li class="dropdown-item<%= this.PageContext.ForumPageType == ForumPages.admin_extensions ? " active" : ""%>">
-                            <a href="<%= BuildLink.GetLink(ForumPages.admin_extensions) %>">
-                                <i class="fa fa-puzzle-piece fa-fw"></i>&nbsp;
-                                <YAF:LocalizedLabel runat="server" 
-                                                    LocalizedTag="admin_extensions" LocalizedPage="ADMINMENU"></YAF:LocalizedLabel>
-                            </a>
-                        </li>
-                        <li class="dropdown-item<%= this.PageContext.ForumPageType == ForumPages.admin_bbcode ||
+           <li class="dropdown-item<%= this.PageContext.ForumPageType == ForumPages.admin_bbcode ||
                                                     this.PageContext.ForumPageType == ForumPages.admin_bbcode_edit ? " active" : ""%>">
                             <a href="<%= BuildLink.GetLink(ForumPages.admin_bbcode) %>">
                                 <i class="fa fa-plug fa-fw"></i>&nbsp;

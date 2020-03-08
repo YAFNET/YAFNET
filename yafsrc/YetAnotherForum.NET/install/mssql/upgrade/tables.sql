@@ -880,17 +880,6 @@ begin
 end
 GO
 
-if not exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}Extension]') and type in (N'U'))
-BEGIN
-	CREATE TABLE [{databaseOwner}].[{objectQualifier}Extension](
-		ExtensionID int IDENTITY(1,1) NOT NULL,
-		BoardId int NOT NULL,
-		Extension nvarchar(10) NOT NULL,
-		constraint [PK_{objectQualifier}Extension] PRIMARY KEY(ExtensionID)
-	)
-END
-GO
-
 if not exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}BBCode]') and type in (N'U'))
 begin
 	create table [{databaseOwner}].[{objectQualifier}BBCode](
@@ -2871,4 +2860,8 @@ GO
 
 if exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}Mail]') and type in (N'U'))
 	drop table [{databaseOwner}].[{objectQualifier}Mail]
+GO
+
+if exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}Extension]') and type in (N'U'))
+	drop table [{databaseOwner}].[{objectQualifier}Extension]
 GO

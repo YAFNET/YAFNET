@@ -42,7 +42,7 @@
       "Scripts/prism.js",
       "Scripts/jquery.selectedQuoting.js",
       "Scripts/tablesorter/jquery.tablesorter.combined.js",
-      "Scripts/tablesorter/extras/jquery.tablesorter.pager.min.js",
+      "Scripts/tablesorter/extras/jquery.tablesorter.pager.js",
       "Scripts/tablesorter/widgets/widget-reflow.js",
       "Scripts/jsdifflib.js",
       "Scripts/forum/yaf.Utilities.js",

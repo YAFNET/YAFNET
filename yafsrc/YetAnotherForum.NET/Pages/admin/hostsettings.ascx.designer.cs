@@ -1122,6 +1122,24 @@ namespace YAF.Pages.Admin
         protected global::System.Web.UI.WebControls.TextBox MaxFileSize;
 
         /// <summary>
+        /// HelpLabel31 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Web.Controls.HelpLabel HelpLabel31;
+
+        /// <summary>
+        /// AllowedFileExtensions control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox AllowedFileExtensions;
+
+        /// <summary>
         /// HelpLabel32 control.
         /// </summary>
         /// <remarks>

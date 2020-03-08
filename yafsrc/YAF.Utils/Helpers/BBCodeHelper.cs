@@ -81,29 +81,5 @@ namespace YAF.Utils.Helpers
         {
             return Regex.Replace(text, @"\[(.|\n)*?\]", string.Empty);
         }
-
-        /// <summary>
-        /// Strip Quote BB Code Quotes including the quoted text
-        /// </summary>
-        /// <param name="text">Text to check
-        /// </param>
-        /// <returns>The Cleaned Text
-        /// </returns>
-        public static string StripBBCodeQuotes(string text)
-        {
-            return Regex.Replace(text, @"\[quote[^\]]*](.|\n)*?\[/quote\]", string.Empty, RegexOptions.Multiline);
-        }
-
-        /// <summary>
-        /// Strip BB Code Urls
-        /// </summary>
-        /// <param name="text">Text to check
-        /// </param>
-        /// <returns>The Cleaned Text
-        /// </returns>
-        public static string StripBBCodeUrls(string text)
-        {
-            return Regex.Replace(text, @"\[url[^\]]*](.|\n)*?\[/url\]", string.Empty, RegexOptions.Singleline);
-        }
     }
 }

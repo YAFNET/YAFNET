@@ -533,12 +533,6 @@ namespace YAF.Pages.Admin
             // load default bbcode if available...
             loadWrapper("install/bbCodeExtensions.xml", s => DataImport.BBCodeExtensionImport(newBoardId, s));
 
-            // load default extensions if available...
-            loadWrapper("install/fileExtensions.xml", s => DataImport.FileExtensionImport(newBoardId, s));
-
-            // load default spam word if available...
-            loadWrapper("install/SpamWords.xml", s => DataImport.SpamWordsImport(newBoardId, s));
-
             return newBoardId;
         }
 

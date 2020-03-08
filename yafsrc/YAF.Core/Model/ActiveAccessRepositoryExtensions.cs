@@ -119,24 +119,24 @@ namespace YAF.Core.Model
             {
                 try
                 {
-                   return repository.DbFunction.GetAsDataTable(
-                        cdb => cdb.pageload(
-                            SessionID: sessionID,
-                            BoardID: boardId ?? repository.BoardID,
-                            UserKey: userKey ?? DBNull.Value,
-                            IP: ip,
-                            Location: location,
-                            ForumPage: forumPage,
-                            Browser: browser,
-                            Platform: platform,
-                            CategoryID: categoryID,
-                            ForumID: forumID,
-                            TopicID: topicID,
-                            MessageID: messageID,
-                            IsCrawler: isCrawler,
-                            IsMobileDevice: isMobileDevice,
-                            DontTrack: dontTrack,
-                            UTCTIMESTAMP: DateTime.UtcNow)).GetFirstRow();
+                     return repository.DbFunction.GetAsDataTable(
+                          cdb => cdb.pageload(
+                              SessionID: sessionID,
+                              BoardID: boardId ?? repository.BoardID,
+                              UserKey: userKey ?? DBNull.Value,
+                              IP: ip,
+                              Location: location,
+                              ForumPage: forumPage,
+                              Browser: browser,
+                              Platform: platform,
+                              CategoryID: categoryID,
+                              ForumID: forumID,
+                              TopicID: topicID,
+                              MessageID: messageID,
+                              IsCrawler: isCrawler,
+                              IsMobileDevice: isMobileDevice,
+                              DontTrack: dontTrack,
+                              UTCTIMESTAMP: DateTime.UtcNow)).GetFirstRow();
                 }
                 catch (SqlException x)
                 {

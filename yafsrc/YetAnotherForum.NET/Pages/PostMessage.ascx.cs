@@ -28,7 +28,6 @@ namespace YAF.Pages
 
     using System;
     using System.Data;
-    using System.Globalization;
     using System.IO;
     using System.Linq;
     using System.Web;
@@ -1369,6 +1368,15 @@ namespace YAF.Pages
                         });
             }
 
+            if (this.forumEditor.UsesHTML && currentMessage.Flags.IsBBCode)
+            {
+                this.forumEditor.Text = this.Get<IBBCode>().FormatMessageWithCustomBBCode(
+                    this.forumEditor.Text,
+                    currentMessage.Flags,
+                    currentMessage.UserID,
+                    currentMessage.MessageID);
+            }
+
             this.Title.Text = this.GetText("EDIT");
             this.PostReply.TextLocalizedTag = "SAVE";
             this.PostReply.TextLocalizedPage = "COMMON";
@@ -1459,8 +1467,20 @@ namespace YAF.Pages
 
             // Quote the original message
             this.forumEditor.Text +=
-                $"[quote={this.Get<IUserDisplayName>().GetName(message.UserID.ToType<int>())};{message.MessageID}]{messageContent}[/quote]\n\n"
+                $"[quote={this.Get<IUserDisplayName>().GetName(message.UserID.ToType<int>())};{message.MessageID}]{messageContent}[/quote]\r\n"
                     .TrimStart();
+
+            if (this.forumEditor.UsesHTML && message.Flags.IsBBCode)
+            {
+                // If the message is in YafBBCode but the editor uses HTML, convert the message text to HTML
+                this.forumEditor.Text = this.Get<IBBCode>().ConvertBBCodeToHtmlForEdit(this.forumEditor.Text);
+
+                this.forumEditor.Text = this.Get<IBBCode>().FormatMessageWithCustomBBCode(
+                    this.forumEditor.Text,
+                    message.Flags,
+                    message.UserID,
+                    message.MessageID);
+            }
         }
 
         /// <summary>

@@ -484,11 +484,6 @@ namespace YAF.Types.Constants
         admin_spamwords,
 
         /// <summary>
-        /// The admin_extensions.
-        /// </summary>
-        admin_extensions,
-
-        /// <summary>
         /// The admin_bbcode.
         /// </summary>
         admin_bbcode,

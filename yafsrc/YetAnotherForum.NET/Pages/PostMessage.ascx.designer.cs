@@ -285,15 +285,6 @@ namespace YAF.Pages
         protected global::System.Web.UI.WebControls.TextBox ReasonEditor;
 
         /// <summary>
-        /// Preview control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Web.Controls.ThemeButton Preview;
-
-        /// <summary>
         /// PostReply control.
         /// </summary>
         /// <remarks>

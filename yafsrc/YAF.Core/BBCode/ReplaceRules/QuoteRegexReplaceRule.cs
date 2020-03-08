@@ -69,19 +69,19 @@ namespace YAF.Core.BBCode.ReplaceRules
         {
             var sb = new StringBuilder(text);
 
-            var match = this._regExSearch.Match(text);
+            var match = this.RegExSearch.Match(text);
 
             while (match.Success)
             {
-                var innerReplace = new StringBuilder(this._regExReplace);
+                var innerReplace = new StringBuilder(this.RegExReplace);
                 var i = 0;
 
-                if (this._truncateLength > 0)
+                if (this.TruncateLength > 0)
                 {
                     // special handling to truncate urls
                     innerReplace.Replace(
                         "${innertrunc}",
-                        match.Groups["inner"].Value.TruncateMiddle(this._truncateLength));
+                        match.Groups["inner"].Value.TruncateMiddle(this.TruncateLength));
                 }
 
                 var quote = match.Groups["quote"].Value;
@@ -124,7 +124,7 @@ namespace YAF.Core.BBCode.ReplaceRules
 
                 innerReplace.Replace("${quote}", quote);
 
-                this._variables.ForEach(
+                this.Variables.ForEach(
                     variable =>
                         {
                             var varName = variable;
@@ -140,10 +140,10 @@ namespace YAF.Core.BBCode.ReplaceRules
 
                             var value = match.Groups[varName].Value;
 
-                            if (this._variableDefaults != null && value.Length == 0)
+                            if (this.VariableDefaults != null && value.Length == 0)
                             {
                                 // use default instead
-                                value = this._variableDefaults[i];
+                                value = this.VariableDefaults[i];
                             }
 
                             innerReplace.Replace(
@@ -164,7 +164,7 @@ namespace YAF.Core.BBCode.ReplaceRules
                 sb.Insert(match.Groups[0].Index, innerReplace.ToString());
 
                 // text = text.Substring( 0, m.Groups [0].Index ) + tStr + text.Substring( m.Groups [0].Index + m.Groups [0].Length );
-                match = this._regExSearch.Match(sb.ToString());
+                match = this.RegExSearch.Match(sb.ToString());
             }
 
             text = sb.ToString();

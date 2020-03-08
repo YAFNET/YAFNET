@@ -443,8 +443,7 @@ namespace YAF.Pages
 
             // If we don't get a match from the db, then the extension is not allowed
             // also, check to see an image is being uploaded.
-            if (Array.IndexOf(imageExtensions, extension) == -1 || this.GetRepository<FileExtension>()
-                    .Get(e => e.BoardId == this.PageContext.PageBoardID && e.Extension == extension).Count == 0)
+            if (Array.IndexOf(imageExtensions, extension) == -1)
             {
                 this.PageContext.AddLoadMessage(this.GetTextFormatted("FILEERROR", extension), MessageTypes.warning);
                 return false;

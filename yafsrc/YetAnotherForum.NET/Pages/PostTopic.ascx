@@ -122,12 +122,6 @@
                 </asp:PlaceHolder>
             </div>
             <div class="card-footer text-center">
-                <YAF:ThemeButton ID="Preview" runat="server"
-                                 CssClass="mt-1"
-                                 OnClick="Preview_Click"
-                                 TextLocalizedTag="PREVIEW" TitleLocalizedTag="PREVIEW_TITLE"
-                                 Type="Secondary" 
-                                 Icon="image" />
                 <YAF:ThemeButton ID="PostReply" runat="server"
                                  CssClass="mt-1"
                                  OnClick="PostReply_Click"
@@ -144,19 +138,6 @@
         </div>
     </div>
 </div>
-
-
-<script type="text/javascript">
-
-    var prm = Sys.WebForms.PageRequestManager.getInstance();
-
-    prm.add_beginRequest(beginRequest);
-
-    function beginRequest() {
-        prm._scrollPosition = null;
-    }
-
-</script>
 
 <YAF:LastPosts ID="LastPosts1" runat="server" Visible="false" />
 <YAF:AttachmentsUploadDialog ID="UploadDialog" runat="server" Visible="False"></YAF:AttachmentsUploadDialog>

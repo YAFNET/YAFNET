@@ -24,33 +24,51 @@
 namespace YAF.Core.BBCode.ReplaceRules
 {
     using System.Text.RegularExpressions;
-
+    
     using YAF.Types.Interfaces;
 
     /// <summary>
-    /// Simple code block regular express replace
+    /// Syntax Highlighted code block regular express replace
     /// </summary>
-    public class CodeRegexReplaceRule : SimpleRegexReplaceRule
+    public class SyntaxHighlighterRegexReplaceRule : SimpleRegexReplaceRule
     {
+        #region Constants and Fields
+
+        /// <summary>
+        ///   The _syntax highlighter.
+        /// </summary>
+        private readonly HighLighter syntaxHighlighter = new HighLighter();
+
+        #endregion
+
         #region Constructors and Destructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="CodeRegexReplaceRule"/> class.
+        /// Initializes a new instance of the <see cref="SyntaxHighlighterRegexReplaceRule"/> class.
         /// </summary>
+        /// <param name="isEditMode">
+        /// Indicates if the formatting is for the Editor.
+        /// </param>
         /// <param name="regExSearch">
-        /// The Search Regex
+        /// The Search Regex.
         /// </param>
         /// <param name="regExReplace">
         /// The Replace Regex.
         /// </param>
-        public CodeRegexReplaceRule(Regex regExSearch, string regExReplace)
+        public SyntaxHighlighterRegexReplaceRule(bool isEditMode, Regex regExSearch, string regExReplace)
             : base(regExSearch, regExReplace)
         {
-            // default high rank...
-            this.RuleRank = 2;
+            this.isEditMode = isEditMode;
+            this.syntaxHighlighter.ReplaceEnter = true;
+            this.RuleRank = 1;
         }
 
         #endregion
+
+        /// <summary>
+        /// Indicates if the formatting is for the Editor.
+        /// </summary>
+        private bool isEditMode { get; set; }
 
         #region Public Methods
 
@@ -66,13 +84,21 @@ namespace YAF.Core.BBCode.ReplaceRules
         public override void Replace(ref string text, IReplaceBlocks replacement)
         {
             var m = this.RegExSearch.Match(text);
+
             while (m.Success)
             {
-                var replaceItem = this.RegExReplace.Replace("${inner}", this.GetInnerValue(m.Groups["inner"].Value));
+                var inner = this.syntaxHighlighter.ColorText(
+                    this.GetInnerValue(m.Groups["inner"].Value), m.Groups["language"].Value, this.isEditMode);
 
+                var replaceItem = this.RegExReplace.Replace("${inner}", inner);
+
+                // pulls the html's into the replacement collection before it's inserted back into the main text
                 var replaceIndex = replacement.Add(replaceItem);
-                text =
-                    $"{text.Substring(0, m.Groups[0].Index)}{replacement.Get(replaceIndex)}{text.Substring(m.Groups[0].Index + m.Groups[0].Length)}";
+
+                text = string.Format("{0}{1}{2}",
+                    text.Substring(0, m.Groups[0].Index),
+                    replacement.Get(replaceIndex),
+                    text.Substring(m.Groups[0].Index + m.Groups[0].Length));
 
                 m = this.RegExSearch.Match(text);
             }
@@ -91,12 +117,6 @@ namespace YAF.Core.BBCode.ReplaceRules
         /// </returns>
         protected override string GetInnerValue(string innerValue)
         {
-            innerValue = innerValue.Replace("\t", "&nbsp; &nbsp;&nbsp;");
-            innerValue = innerValue.Replace("[", "&#91;");
-            innerValue = innerValue.Replace("]", "&#93;");
-            innerValue = innerValue.Replace("<", "&lt;");
-            innerValue = innerValue.Replace(">", "&gt;");
-            innerValue = innerValue.Replace("\r\n", "<br />");
             return innerValue;
         }
 
