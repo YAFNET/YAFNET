@@ -9,7 +9,7 @@
     </div>
     <div class="col">
         <div class="card">
-            <div class="card-header text-uppercase">
+            <div class="card-header">
                 <YAF:Icon runat="server"
                           IconName="user-cog"
                           IconType="text-secondary"></YAF:Icon>

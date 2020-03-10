@@ -197,11 +197,11 @@ namespace YAF.Types.Extensions.Data
             CodeContracts.VerifyNotNull(dbAccess, "dbAccess");
             CodeContracts.VerifyNotNull(cmd, "cmd");
 
-            return dbAccess.GetDataset(cmd, dbTransaction).Tables[0];
+            return dbAccess.GetDataSet(cmd, dbTransaction).Tables[0];
         }
 
         /// <summary>
-        /// Gets the dataset.
+        /// Gets the DataSet.
         /// </summary>
         /// <param name="dbAccess">The DB access.</param>
         /// <param name="cmd">The command.</param>
@@ -209,7 +209,7 @@ namespace YAF.Types.Extensions.Data
         /// <returns>
         /// The <see cref="DataSet" /> .
         /// </returns>
-        public static DataSet GetDataset(
+        public static DataSet GetDataSet(
             [NotNull] this IDbAccess dbAccess,
             [NotNull] IDbCommand cmd,
             [CanBeNull] IDbTransaction dbTransaction = null)

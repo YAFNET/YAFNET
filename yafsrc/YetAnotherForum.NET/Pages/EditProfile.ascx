@@ -11,7 +11,7 @@
     </div>
     <div class="col">
         <div class="card">
-            <div class="card-header text-uppercase">
+            <div class="card-header">
                 <YAF:Icon runat="server"
                           IconName="user-edit"
                           IconType="text-secondary"></YAF:Icon>

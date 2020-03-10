@@ -32,13 +32,13 @@ namespace YAF.Modules
     using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Attributes;
-    
+
     #endregion
 
     /// <summary>
     /// The time ago module.
     /// </summary>
-    [YafModule("Time Ago Javascript Loading Module", "Tiny Gecko", 1)]
+    [Module("Time Ago Javascript Loading Module", "Tiny Gecko", 1)]
     public class TimeAgoForumModule : SimpleBaseForumModule
     {
         #region Public Methods
@@ -67,7 +67,7 @@ namespace YAF.Modules
             {
                 return;
             }
-            
+
             BoardContext.Current.PageElements.RegisterJsBlockStartup("timeagoloadjs", JavaScriptBlocks.MomentLoadJs);
             this.PageContext.Vars["RegisteredTimeago"] = true;
         }

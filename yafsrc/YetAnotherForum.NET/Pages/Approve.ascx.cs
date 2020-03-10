@@ -27,6 +27,7 @@ namespace YAF.Pages
     #region Using
 
     using System;
+    using System.Data;
     using System.Web;
     using System.Web.Security;
 
@@ -88,8 +89,8 @@ namespace YAF.Pages
 
             var keyVerified = !userRow["ProviderUserKey"].IsNullOrEmptyDBField();
 
-            this.approved.Visible = keyVerified;
-            this.error.Visible = !keyVerified;
+            this.Approved.Visible = keyVerified;
+            this.Error.Visible = !keyVerified;
 
             if (!keyVerified)
             {
@@ -104,7 +105,7 @@ namespace YAF.Pages
                 user.IsApproved = true;
 
                 // Send welcome mail/pm to user
-                this.Get<ISendNotification>().SendUserWelcomeNotification(user, userRow["UserID"].ToType<int>());
+                this.Get<ISendNotification>().SendUserWelcomeNotification(user, userRow.Field<int>("UserID"));
             }
 
             // update the email if anything was returned...
@@ -149,8 +150,8 @@ namespace YAF.Pages
             }
             else
             {
-                this.approved.Visible = false;
-                this.error.Visible = !this.approved.Visible;
+                this.Approved.Visible = false;
+                this.Error.Visible = true;
             }
         }
 

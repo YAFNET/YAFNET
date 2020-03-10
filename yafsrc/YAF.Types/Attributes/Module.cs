@@ -21,52 +21,49 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Core.ForumModules
-{
-    #region Using
 
+namespace YAF.Types.Attributes
+{
     using System;
 
-    using YAF.Core.BaseModules;
-    using YAF.Core.Tasks;
-    using YAF.Types;
-    using YAF.Types.Attributes;
-    using YAF.Types.Interfaces;
-
-    #endregion
-
     /// <summary>
-    /// The Update Search Index Task
+    /// The YAF module.
     /// </summary>
-    /// <seealso cref="BaseForumModule" />
-    [Module("Update Search Index Task Forum Module", "Tiny Gecko", 1)]
-    public class UpdateSearchIndexTaskForumModule : BaseForumModule
+    [AttributeUsage(AttributeTargets.Class)]
+    public class Module : Attribute
     {
-        #region Public Methods
-
         /// <summary>
-        /// The init.
+        /// Initializes a new instance of the <see cref="Module"/> class.
         /// </summary>
-        public override void Init()
+        /// <param name="moduleName">
+        /// The module name.
+        /// </param>
+        /// <param name="moduleAuthor">
+        /// The module author.
+        /// </param>
+        /// <param name="moduleVersion">
+        /// The module version.
+        /// </param>
+        public Module(string moduleName, string moduleAuthor, int moduleVersion)
         {
-            // hook the page init for mail sending...
-            this.PageContext.AfterInit += this.CurrentAfterInit;
+            this.ModuleName = moduleName;
+            this.ModuleAuthor = moduleAuthor;
+            this.ModuleVersion = moduleVersion;
         }
 
-        #endregion
-
-        #region Methods
+        /// <summary>
+        /// Gets or sets ModuleName.
+        /// </summary>
+        public string ModuleName { get; set; }
 
         /// <summary>
-        /// Currents the after initialize.
+        /// Gets or sets ModuleAuthor.
         /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        private void CurrentAfterInit([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            this.Get<ITaskModuleManager>().StartTask(UpdateSearchIndexTask.TaskName, () => new UpdateSearchIndexTask());
-        }
+        public string ModuleAuthor { get; set; }
 
-        #endregion
+        /// <summary>
+        /// Gets or sets ModuleVersion.
+        /// </summary>
+        public int ModuleVersion { get; set; }
     }
 }

@@ -30,7 +30,7 @@
             Type="Info" />
         <YAF:ThemeButton ID="AdminUserButton" runat="server" Visible="false"
             TextLocalizedTag="ADMIN_USER"
-            NavigateUrl='<%# BuildLink.GetLinkNotEscaped( ForumPages.admin_edituser,"u={0}", this.UserId ) %>'
+            NavigateUrl='<%# BuildLink.GetLinkNotEscaped(ForumPages.Admin_EditUser,"u={0}", this.UserId) %>'
             Icon="user-cog"
             Type="Danger">
         </YAF:ThemeButton>
@@ -46,7 +46,7 @@
     <div class="col-md-3">
         <!--left col-->
         <ul class="list-group mb-3">
-            <li class="list-group-item text-light bg-primary text-uppercase">
+            <li class="list-group-item text-light bg-primary">
                 <YAF:LocalizedLabel runat="server" LocalizedTag="profile" />
             </li>
             <li class="list-group-item text-right">
@@ -165,7 +165,7 @@
             </div>
         </asp:PlaceHolder>
         <ul class="list-group mb-3">
-            <li class="list-group-item text-light bg-primary text-uppercase">
+            <li class="list-group-item text-light bg-primary">
                 <YAF:LocalizedLabel ID="LocalizedLabel41" runat="server" LocalizedTag="STATISTICS" />
             </li>
             <li class="list-group-item d-flex justify-content-between align-items-end">
@@ -218,7 +218,7 @@
         </ul>
         <asp:PlaceHolder runat="server" ID="SocialMediaHolder">
             <div class="card mb-3">
-                <div class="card-header text-light bg-primary text-uppercase">
+                <div class="card-header text-light bg-primary">
                     <YAF:LocalizedLabel runat="server"
                         LocalizedTag="SOCIAL_MEDIA">
                     </YAF:LocalizedLabel>
@@ -260,7 +260,7 @@
             </div>
         </asp:PlaceHolder>
         <div class="card mb-3">
-            <div class="card-header text-uppercase">
+            <div class="card-header">
                 <YAF:LocalizedLabel ID="LocalizedLabel43" runat="server" LocalizedTag="LAST10" />
             </div>
             <div class="card-body">
@@ -297,7 +297,7 @@
             </div>
         </div>
         <div runat="server" id="ModerateTab" class="card mb-3">
-            <div class="card-header text-uppercase">
+            <div class="card-header">
                 <YAF:LocalizedLabel ID="LocalizedLabel46" runat="server" LocalizedTag="MODERATION" />
             </div>
             <div class="card-body">
@@ -331,7 +331,7 @@
         </div>
         <asp:PlaceHolder runat="server" ID="BuddyCard">
             <div class="card mb-3">
-                <div class="card-header text-uppercase">
+                <div class="card-header">
                     <YAF:LocalizedLabel ID="LocalizedLabel44" runat="server"
                         LocalizedTag='<%# this.UserId == BoardContext.Current.PageUserID ? "BUDDIES" : "BUDDIESTITLE"%>' />
                 </div>

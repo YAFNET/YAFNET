@@ -38,7 +38,7 @@ namespace YAF.Modules
     /// <summary>
     /// LanguageDirection Module
     /// </summary>
-    [YafModule("Language Direction Module", "Ingo Herbote", 1)]
+    [Module("Language Direction Module", "Ingo Herbote", 1)]
     public class LanguageDirectionModule : SimpleBaseForumModule
     {
         /// <summary>

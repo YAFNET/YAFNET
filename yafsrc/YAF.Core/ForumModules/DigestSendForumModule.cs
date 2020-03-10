@@ -38,7 +38,7 @@ namespace YAF.Core.ForumModules
     /// <summary>
     /// The mail sending module.
     /// </summary>
-    [YafModule("Digest Send Starting Module", "Tiny Gecko", 1)]
+    [Module("Digest Send Starting Module", "Tiny Gecko", 1)]
     public class DigestSendForumModule : BaseForumModule
     {
         #region Constants and Fields

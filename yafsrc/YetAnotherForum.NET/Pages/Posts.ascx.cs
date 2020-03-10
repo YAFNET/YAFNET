@@ -1263,14 +1263,14 @@ namespace YAF.Pages
                     BuildLink.Redirect(
                         ForumPages.RssTopic,
                         "pg={0}&t={1}&ft=0",
-                        YafRssFeeds.Posts.ToInt(),
+                        RssFeeds.Posts.ToInt(),
                         this.PageContext.PageTopicID);
                     break;
                 case "atomfeed":
                     BuildLink.Redirect(
                         ForumPages.RssTopic,
                         "pg={0}&t={1}&ft=1",
-                        YafRssFeeds.Posts.ToInt(),
+                        RssFeeds.Posts.ToInt(),
                         this.PageContext.PageTopicID);
                     break;
                 default:

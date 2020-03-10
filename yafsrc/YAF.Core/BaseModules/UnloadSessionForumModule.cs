@@ -39,7 +39,7 @@ namespace YAF.Core.BaseModules
     /// <summary>
     /// The unload session module.
     /// </summary>
-    [YafModule("Unload Session Module", "Tiny Gecko", 1)]
+    [Module("Unload Session Module", "Tiny Gecko", 1)]
     public class UnloadSessionForumModule : BaseForumModule
     {
         #region Properties

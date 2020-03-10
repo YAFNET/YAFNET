@@ -59,9 +59,9 @@ namespace YAF.Web.Controls
         /// <value>
         /// The type of the feed.
         /// </value>
-        public YafRssFeeds FeedType
+        public RssFeeds FeedType
         {
-            get => this.ViewState["FeedType"]?.ToEnum<YafRssFeeds>() ?? YafRssFeeds.Forum;
+            get => this.ViewState["FeedType"]?.ToEnum<RssFeeds>() ?? RssFeeds.Forum;
 
             set => this.ViewState["FeedType"] = value;
         }

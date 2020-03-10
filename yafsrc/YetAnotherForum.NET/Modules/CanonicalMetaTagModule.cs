@@ -40,7 +40,7 @@ namespace YAF.Modules
     /// <summary>
     ///     Generates a canonical meta tag to fight the dreaded duplicate content SEO warning
     /// </summary>
-    [YafModule("Canonical Meta Tag Module", "BonzoFestoon", 1)]
+    [Module("Canonical Meta Tag Module", "BonzoFestoon", 1)]
     public class CanonicalMetaTagModule : SimpleBaseForumModule
     {
         /// <summary>

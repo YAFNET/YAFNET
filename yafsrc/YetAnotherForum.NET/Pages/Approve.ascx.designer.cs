@@ -42,13 +42,13 @@ namespace YAF.Pages
         protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel1;
 
         /// <summary>
-        /// approved control.
+        /// Approved control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder approved;
+        protected global::YAF.Web.Controls.Alert Approved;
 
         /// <summary>
         /// LocalizedLabel2 control.
@@ -60,13 +60,13 @@ namespace YAF.Pages
         protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel2;
 
         /// <summary>
-        /// error control.
+        /// Error control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder error;
+        protected global::YAF.Web.Controls.Alert Error;
 
         /// <summary>
         /// LocalizedLabel4 control.

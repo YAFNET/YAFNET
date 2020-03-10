@@ -34,7 +34,7 @@ namespace YAF.Modules
     /// <summary>
     /// The page bb code registration.
     /// </summary>
-    [YafModule("Page BBCode Registration Module", "Tiny Gecko", 1)]
+    [Module("Page BBCode Registration Module", "Tiny Gecko", 1)]
     public class PageBBCodeRegistration : SimpleBaseForumModule
     {
         #region Public Methods

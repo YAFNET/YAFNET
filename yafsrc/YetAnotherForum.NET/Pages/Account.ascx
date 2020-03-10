@@ -16,8 +16,8 @@
                         <YAF:Icon runat="server" 
                                   IconName="address-card"
                                   IconType="text-secondary"></YAF:Icon>
-                        <span class="text-uppercase"><YAF:LocalizedLabel ID="ControlPanel" runat="server" 
-                                            LocalizedTag="YOUR_ACCOUNT" /></span>
+                        <YAF:LocalizedLabel ID="ControlPanel" runat="server" 
+                                            LocalizedTag="YOUR_ACCOUNT" />
                     </div>
                     <div class="card-body">
                         <YAF:ProfileYourAccount ID="YourAccount" runat="server" />

@@ -12,9 +12,9 @@
                         <YAF:Icon runat="server" 
                                   IconName="stream"
                                   IconType="text-secondary"></YAF:Icon>
-                        <span class="text-uppercase"><YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" 
+                        <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" 
                                             LocalizedTag="ACTIVITY"
-                                            LocalizedPage="ACCOUNT" /></span>
+                                            LocalizedPage="ACCOUNT" />
                     </div>
                     <div class="col-auto">
                         <div class="btn-group dropleft" role="group" aria-label="Filters">

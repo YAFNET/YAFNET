@@ -498,14 +498,14 @@ namespace YAF.Controls
                     this.RssFeed.Visible = false;
                     break;
                 case TopicListMode.Active:
-                    this.RssFeed.FeedType = YafRssFeeds.Active;
+                    this.RssFeed.FeedType = RssFeeds.Active;
                     this.RssFeed.AdditionalParameters =
                         $"txt={this.Server.UrlEncode(this.HtmlEncode(this.Since.Items[this.Since.SelectedIndex].Text))}&d={this.Server.UrlEncode(this.HtmlEncode(this.sinceDate.ToString(CultureInfo.InvariantCulture)))}";
 
                     this.RssFeed.Visible = accessActive;
                     break;
                 case TopicListMode.Favorite:
-                    this.RssFeed.FeedType = YafRssFeeds.Favorite;
+                    this.RssFeed.FeedType = RssFeeds.Favorite;
                     this.RssFeed.AdditionalParameters =
                         $"txt={this.Server.UrlEncode(this.HtmlEncode(this.Since.Items[this.Since.SelectedIndex].Text))}&d={this.Server.UrlEncode(this.HtmlEncode(this.sinceDate.ToString(CultureInfo.InvariantCulture)))}";
                     this.RssFeed.Visible = accessFavorite;

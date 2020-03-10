@@ -36,7 +36,7 @@ namespace YAF.Modules
     /// <summary>
     /// The Page Popup Module
     /// </summary>
-    [YafModule("Page Popup Module", "Tiny Gecko", 1)]
+    [Module("Page Popup Module", "Tiny Gecko", 1)]
     public class PagePopupForumModule : SimpleBaseForumModule
     {
         #region Constants and Fields

@@ -38,13 +38,13 @@ namespace YAF.Modules
   /// <summary>
   /// Module that handles page permission feature
   /// </summary>
-  [YafModule("Page Permission Module", "Tiny Gecko", 1)]
+  [Module("Page Permission Module", "Tiny Gecko", 1)]
   public class PagePermissionForumModule : SimpleBaseForumModule
   {
     #region Constants and Fields
 
     /// <summary>
-    /// The _permissions.
+    /// The permissions.
     /// </summary>
     private readonly IPermissions permissions;
 

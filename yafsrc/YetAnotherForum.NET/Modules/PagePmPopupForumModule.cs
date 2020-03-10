@@ -40,7 +40,7 @@ namespace YAF.Modules
     /// <summary>
     /// The Page PM Popup Module
     /// </summary>
-    [YafModule("Page PopUp Module", "Tiny Gecko", 1)]
+    [Module("Page PopUp Module", "Tiny Gecko", 1)]
     public class PagePmPopupForumModule : SimpleBaseForumModule
     {
         #region Public Methods

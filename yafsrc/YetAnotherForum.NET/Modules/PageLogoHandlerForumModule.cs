@@ -42,7 +42,7 @@ namespace YAF.Modules
     /// <summary>
     /// Page Logo Handler Module
     /// </summary>
-    [YafModule("Page Logo Handler Module", "Tiny Gecko", 1)]
+    [Module("Page Logo Handler Module", "Tiny Gecko", 1)]
     public class PageLogoHandlerForumModule : SimpleBaseForumModule
     {
         #region Public Methods
@@ -86,7 +86,6 @@ namespace YAF.Modules
 
             bannerLink.NavigateUrl = BuildLink.GetLink(ForumPages.forum);
             bannerLink.ToolTip = this.GetText("TOOLBAR", "FORUM_TITLE");
-
 
             var logoUrl = $"{BoardInfo.ForumClientFileRoot}{BoardFolders.Current.Logos}/{BoardContext.Current.BoardSettings.ForumLogo}";
 

@@ -39,15 +39,6 @@ namespace YAF.Modules
     /// </summary>
     public class SimpleBaseForumModule : BaseForumModule
     {
-        #region Constants and Fields
-
-        /// <summary>
-        ///   The _forum page type.
-        /// </summary>
-        protected ForumPages _forumPageType;
-
-        #endregion
-
         #region Properties
 
         /// <summary>

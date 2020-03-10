@@ -61,14 +61,14 @@ namespace YAF.Core.Syndication
         /// <param name="feedType">The feed source.</param>
         /// <param name="sf">The feed type Atom/RSS.</param>
         /// <param name="urlAlphaNum">The alphanumerically encoded base site Url.</param>
-        public YafSyndicationFeed([NotNull] string subTitle, YafRssFeeds feedType, int sf, [NotNull] string urlAlphaNum)
+        public YafSyndicationFeed([NotNull] string subTitle, RssFeeds feedType, int sf, [NotNull] string urlAlphaNum)
         {
             this.Copyright =
                 new TextSyndicationContent($"Copyright {DateTime.Now.Year} {BoardContext.Current.BoardSettings.Name}");
             this.Description = new TextSyndicationContent(
-                $"{BoardContext.Current.BoardSettings.Name} - {(sf == YafSyndicationFormats.Atom.ToInt() ? BoardContext.Current.Get<ILocalization>().GetText("ATOMFEED") : BoardContext.Current.Get<ILocalization>().GetText("RSSFEED"))}");
+                $"{BoardContext.Current.BoardSettings.Name} - {(sf == SyndicationFormats.Atom.ToInt() ? BoardContext.Current.Get<ILocalization>().GetText("ATOMFEED") : BoardContext.Current.Get<ILocalization>().GetText("RSSFEED"))}");
             this.Title = new TextSyndicationContent(
-                $"{(sf == YafSyndicationFormats.Atom.ToInt() ? BoardContext.Current.Get<ILocalization>().GetText("ATOMFEED") : BoardContext.Current.Get<ILocalization>().GetText("RSSFEED"))} - {BoardContext.Current.BoardSettings.Name} - {subTitle}");
+                $"{(sf == SyndicationFormats.Atom.ToInt() ? BoardContext.Current.Get<ILocalization>().GetText("ATOMFEED") : BoardContext.Current.Get<ILocalization>().GetText("RSSFEED"))} - {BoardContext.Current.BoardSettings.Name} - {subTitle}");
 
             // Alternate link
             this.Links.Add(SyndicationLink.CreateAlternateLink(new Uri(BaseUrlBuilder.BaseUrl)));
@@ -85,7 +85,7 @@ namespace YAF.Core.Syndication
                 $"{BaseUrlBuilder.BaseUrl}{BoardInfo.ForumClientFileRoot}{BoardFolders.Current.Logos}/{BoardContext.Current.BoardSettings.ForumLogo}");
 
             this.Id =
-                $"urn:{urlAlphaNum}:{(sf == YafSyndicationFormats.Atom.ToInt() ? BoardContext.Current.Get<ILocalization>().GetText("ATOMFEED") : BoardContext.Current.Get<ILocalization>().GetText("RSSFEED"))}:{BoardContext.Current.BoardSettings.Name}:{subTitle}:{BoardContext.Current.PageBoardID}"
+                $"urn:{urlAlphaNum}:{(sf == SyndicationFormats.Atom.ToInt() ? BoardContext.Current.Get<ILocalization>().GetText("ATOMFEED") : BoardContext.Current.Get<ILocalization>().GetText("RSSFEED"))}:{BoardContext.Current.BoardSettings.Name}:{subTitle}:{BoardContext.Current.PageBoardID}"
                     .Unidecode();
 
             this.Id = this.Id.Replace(" ", string.Empty);
