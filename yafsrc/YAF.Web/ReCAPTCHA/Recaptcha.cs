@@ -58,11 +58,6 @@ namespace YAF.Web.Controls
         /// </summary>
         private RecaptchaResponse recaptchaResponse;
 
-        /// <summary>
-        ///   The skip reCAPTCHA.
-        /// </summary>
-        private bool skipRecaptcha;
-
         #endregion
 
         #region Constructors and Destructors
@@ -72,7 +67,7 @@ namespace YAF.Web.Controls
         /// </summary>
         public RecaptchaControl()
         {
-            this.skipRecaptcha = false;
+            this.SkipRecaptcha = false;
             this.SecretKey = BoardContext.Current.Get<BoardSettings>().RecaptchaPrivateKey;
             this.SiteKey = BoardContext.Current.Get<BoardSettings>().RecaptchaPublicKey;
         }
@@ -102,7 +97,7 @@ namespace YAF.Web.Controls
         {
             get
             {
-                if (this.skipRecaptcha)
+                if (this.SkipRecaptcha)
                 {
                     return true;
                 }
@@ -138,12 +133,7 @@ namespace YAF.Web.Controls
         [Description("Set this to true to stop reCAPTCHA validation. Useful for testing platform.")]
         [DefaultValue(false)]
         [Category("Settings")]
-        public bool SkipRecaptcha
-        {
-            get => this.skipRecaptcha;
-
-            set => this.skipRecaptcha = value;
-        }
+        public bool SkipRecaptcha { get; set; }
 
         #endregion
 
@@ -156,7 +146,7 @@ namespace YAF.Web.Controls
         /// </summary>
         public void Validate()
         {
-            if (this.skipRecaptcha)
+            if (this.SkipRecaptcha)
             {
                 this.recaptchaResponse = RecaptchaResponse.Valid;
             }
@@ -215,7 +205,7 @@ namespace YAF.Web.Controls
         /// <param name="writer">The <see cref="T:System.Web.UI.HtmlTextWriter" /> object that receives the control content.</param>
         protected override void Render([NotNull] HtmlTextWriter writer)
         {
-            if (this.skipRecaptcha)
+            if (this.SkipRecaptcha)
             {
                 writer.WriteLine(
                     "reCAPTCHA validation is skipped. Set SkipRecaptcha property to false to enable validation.");

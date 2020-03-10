@@ -38,7 +38,7 @@ namespace YAF.Modules
     /// <summary>
     /// The page requires secure connection module.
     /// </summary>
-    [YafModule("Page Requires Secure Connection Module", "Tiny Gecko", 1)]
+    [Module("Page Requires Secure Connection Module", "Tiny Gecko", 1)]
     public class PageRequiresSecureConnectionForumModule : SimpleBaseForumModule
     {
         #region Public Methods

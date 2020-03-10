@@ -37,18 +37,9 @@ namespace YAF.Modules
     /// <summary>
     /// Module that handles individual page security features -- needs to be expanded.
     /// </summary>
-    [YafModule("Page Security Module", "Tiny Gecko", 1)]
+    [Module("Page Security Module", "Tiny Gecko", 1)]
     public class PageSecurityForumModule : SimpleBaseForumModule
     {
-        #region Constants and Fields
-
-        /// <summary>
-        /// The _page pre load.
-        /// </summary>
-        private readonly IFireEvent<ForumPagePreLoadEvent> _pagePreLoad;
-
-        #endregion
-
         #region Constructors and Destructors
 
         /// <summary>
@@ -59,8 +50,7 @@ namespace YAF.Modules
         /// </param>
         public PageSecurityForumModule([NotNull] IFireEvent<ForumPagePreLoadEvent> pagePreLoad)
         {
-            this._pagePreLoad = pagePreLoad;
-            this._pagePreLoad.HandleEvent += this.PagePreLoad_HandleEvent;
+            pagePreLoad.HandleEvent += this.PagePreLoad_HandleEvent;
         }
 
         #endregion

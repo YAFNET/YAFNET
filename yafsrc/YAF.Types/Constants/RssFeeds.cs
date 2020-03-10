@@ -21,49 +21,46 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-
-namespace YAF.Types.Attributes
+namespace YAF.Types.Constants
 {
-  using System;
-
   /// <summary>
-  /// The YAF module.
+  /// The YAF RSS feeds.
   /// </summary>
-  [AttributeUsage(AttributeTargets.Class)]
-  public class YafModule : Attribute
+  public enum RssFeeds
   {
-      /// <summary>
-    /// Initializes a new instance of the <see cref="YafModule"/> class.
+    /// <summary>
+    ///   The latest posts.
     /// </summary>
-    /// <param name="moduleName">
-    /// The module name.
-    /// </param>
-    /// <param name="moduleAuthor">
-    /// The module author.
-    /// </param>
-    /// <param name="moduleVersion">
-    /// The module version.
-    /// </param>
-    public YafModule(string moduleName, string moduleAuthor, int moduleVersion)
-    {
-      this.ModuleName = moduleName;
-      this.ModuleAuthor = moduleAuthor;
-      this.ModuleVersion = moduleVersion;
-    }
+    LatestPosts, 
 
     /// <summary>
-    /// Gets or sets ModuleName.
+    ///   The latest announcements.
     /// </summary>
-    public string ModuleName { get; set; }
+    LatestAnnouncements, 
 
     /// <summary>
-    /// Gets or sets ModuleAuthor.
+    ///   The posts.
     /// </summary>
-    public string ModuleAuthor { get; set; }
+    Posts, 
 
     /// <summary>
-    /// Gets or sets ModuleVersion.
+    ///   The forum.
     /// </summary>
-    public int ModuleVersion { get; set; }
+    Forum, 
+
+    /// <summary>
+    ///   The topics.
+    /// </summary>
+    Topics, 
+
+    /// <summary>
+    ///   The active.
+    /// </summary>
+    Active, 
+
+    /// <summary>
+    ///   The favorite.
+    /// </summary>
+    Favorite
   }
 }

@@ -171,7 +171,7 @@ namespace YAF.Core.URLBuilder
 
                             if (parser["pg"].IsSet())
                             {
-                                description = parser["pg"].ToEnum<YafRssFeeds>().ToString().ToLower();
+                                description = parser["pg"].ToEnum<RssFeeds>().ToString().ToLower();
                             }
 
                             if (parser["f"].IsSet())
@@ -191,7 +191,7 @@ namespace YAF.Core.URLBuilder
 
                             if (parser["ft"].IsSet())
                             {
-                                description += parser["ft"].ToType<int>() == YafSyndicationFormats.Atom.ToInt()
+                                description += parser["ft"].ToType<int>() == SyndicationFormats.Atom.ToInt()
                                                    ? "-atom"
                                                    : "-rss";
                             }

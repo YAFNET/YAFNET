@@ -35,7 +35,7 @@ namespace YAF.Modules
     /// <summary>
     ///     Generates the Favicon code inside the head section
     /// </summary>
-    [YafModule("Favicon Module", "Ingo Herbote", 1)]
+    [Module("Favicon Module", "Ingo Herbote", 1)]
     public class FaviconModule : SimpleBaseForumModule
     {
         /// <summary>

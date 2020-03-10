@@ -45,7 +45,7 @@ namespace YAF.Modules
     /// <summary>
     /// Automatic JavaScript Loading Module
     /// </summary>
-    [YafModule("JavaScript Loading Module", "Ingo Herbote", 1)]
+    [Module("JavaScript Loading Module", "Ingo Herbote", 1)]
     public class ScriptsLoaderModule : SimpleBaseForumModule
     {
         #region Public Methods
