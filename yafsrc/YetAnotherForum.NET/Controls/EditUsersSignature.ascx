@@ -5,7 +5,7 @@
                         LocalizedPage="EDIT_SIGNATURE" 
                         LocalizedTag="title" />
 </h2>
-<hr />
+
 <h4>
 <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" 
                     LocalizedPage="EDIT_SIGNATURE"

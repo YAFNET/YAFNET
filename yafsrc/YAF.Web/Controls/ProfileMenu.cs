@@ -319,7 +319,7 @@ namespace YAF.Web.Controls
         {
             stringBuilder.AppendFormat(
                 this.PageContext.ForumPageType == page
-                    ? @"<a class=""{3} active"" href=""{0}"" title=""{2}"" data-toggle=""tooltip""><i class=""fas fa-{4} mr-1 text-secondary""></i>{1}</a>"
+                    ? @"<a class=""{3} active"" href=""{0}"" title=""{2}"" data-toggle=""tooltip""><i class=""fas fa-{4} mr-1 text-light""></i>{1}</a>"
                     : @"<a class=""{3}"" href=""{0}"" title=""{2}"" data-toggle=""tooltip""><i class=""fas fa-{4} mr-1 text-secondary""></i>{1}</a>",
                 parameter.IsSet() ? BuildLink.GetLink(page, parameter) : BuildLink.GetLink(page),
                 getText,
