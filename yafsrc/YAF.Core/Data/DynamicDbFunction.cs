@@ -40,7 +40,7 @@ namespace YAF.Core.Data
     #endregion
 
     /// <summary>
-    ///     The dynamic db function.
+    ///     The dynamic DB functions.
     /// </summary>
     public class DynamicDbFunction : IDbFunctionSession
     {
@@ -78,11 +78,6 @@ namespace YAF.Core.Data
         /// </summary>
         private readonly TryInvokeMemberProxy _scalarProxy;
 
-        /// <summary>
-        ///     The _db transaction.
-        /// </summary>
-        private IDbTransaction _dbTransaction;
-
         #endregion
 
         #region Constructors and Destructors
@@ -117,12 +112,7 @@ namespace YAF.Core.Data
         /// <summary>
         ///     Gets or sets UnitOfWork.
         /// </summary>
-        public IDbTransaction DbTransaction
-        {
-            get => this._dbTransaction;
-
-            protected set => this._dbTransaction = value;
-        }
+        public IDbTransaction DbTransaction { get; protected set; }
 
         /// <summary>
         ///     Gets GetData.
@@ -175,21 +165,21 @@ namespace YAF.Core.Data
         /// </summary>
         public void Dispose()
         {
-            if (this._dbTransaction == null)
+            if (this.DbTransaction == null)
             {
                 return;
             }
 
-            if (this._dbTransaction.Connection != null)
+            if (this.DbTransaction.Connection != null)
             {
-                if (this._dbTransaction.Connection.State == ConnectionState.Open)
+                if (this.DbTransaction.Connection.State == ConnectionState.Open)
                 {
-                    this._dbTransaction.Connection.Close();
+                    this.DbTransaction.Connection.Close();
                 }
             }
 
-            this._dbTransaction.Dispose();
-            this._dbTransaction = null;
+            this.DbTransaction.Dispose();
+            this.DbTransaction = null;
         }
 
         #endregion
@@ -320,7 +310,13 @@ namespace YAF.Core.Data
                 DbFunctionType.DataTable, 
                 binder, 
                 this.MapParameters(binder.CallInfo, args), 
-                (cmd) => this._dbAccessProvider.Instance.GetData(cmd, this.DbTransaction), 
+                (cmd) =>
+                    {
+                        // Inject Command Timeout
+                        cmd.CommandTimeout = Configuration.Config.SqlCommandTimeout.ToType<int>();
+
+                        return this._dbAccessProvider.Instance.GetData(cmd, this.DbTransaction);
+                    }, 
                 out result);
         }
 
@@ -346,7 +342,7 @@ namespace YAF.Core.Data
                 DbFunctionType.DataSet, 
                 binder, 
                 this.MapParameters(binder.CallInfo, args), 
-                (cmd) => this._dbAccessProvider.Instance.GetDataset(cmd, this.DbTransaction), 
+                (cmd) => this._dbAccessProvider.Instance.GetDataSet(cmd, this.DbTransaction), 
                 out result);
         }
 
