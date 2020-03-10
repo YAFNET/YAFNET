@@ -79,15 +79,6 @@ namespace YAF.Web.Controls
 
             switch (themeImageTag)
             {
-                case "POLL_NEW":
-                    return
-                        iconNew.Fmt("poll-h");
-                case "STICKY_NEW":
-                    return
-                        iconNew.Fmt("sticky-note");
-                case "ANNOUNCEMENT_NEW":
-                    return
-                        iconNew.Fmt("bullhorn");
                 case "NEW_POSTS_LOCKED":
                     return
                         iconNew.Fmt("lock");
@@ -97,14 +88,6 @@ namespace YAF.Web.Controls
                 case "NEW_POSTS":
                     return
                         iconNew.Fmt("comment");
-                case "POLL":
-                    return icon.Fmt("poll-h");
-                case "STICKY":
-                    return
-                        icon.Fmt("sticky-note");
-                case "ANNOUNCEMENT":
-                    return
-                        icon.Fmt("bullhorn");
                 case "NO_NEW_POSTS_LOCKED":
                     return
                         icon.Fmt("lock");
@@ -133,15 +116,13 @@ namespace YAF.Web.Controls
             string[] themeImageTags =
                 {
                     "TOPIC_NEW", "TOPIC", "TOPIC_HOT_NEW", "TOPIC_HOT", "TOPIC_NEW_LOCKED", "TOPIC_LOCKED",
-                    "TOPIC_ANNOUNCEMENT_NEW", "TOPIC_ANNOUNCEMENT", "TOPIC_STICKY_NEW", "TOPIC_STICKY",
-                    "TOPIC_POLL_NEW", "TOPIC_POLL", "TOPIC_MOVED"
+                    "TOPIC_MOVED"
                 };
 
             string[] localizedTags =
                 {
                     "NEW_POSTS", "NO_NEW_POSTS", "HOT_NEW_POSTS", "HOT_NO_NEW_POSTS", "NEW_POSTS_LOCKED",
-                    "NO_NEW_POSTS_LOCKED", "ANNOUNCEMENT_NEW", "ANNOUNCEMENT", "STICKY_NEW", "STICKY", "POLL_NEW",
-                    "POLL", "MOVED"
+                    "NO_NEW_POSTS_LOCKED", "MOVED"
                 };
 
             HtmlGenericControl row = null;
