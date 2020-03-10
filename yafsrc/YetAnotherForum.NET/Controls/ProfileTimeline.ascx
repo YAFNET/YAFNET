@@ -8,15 +8,15 @@
         <div class="card mb-3 mt-2" id="activity">
             <div class="card-header">
                 <div class="row justify-content-between">
-                    <div class="col-md-3">
+                    <div class="col-auto">
                         <YAF:Icon runat="server" 
                                   IconName="stream"
                                   IconType="text-secondary"></YAF:Icon>
-                        <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" 
+                        <span class="text-uppercase"><YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" 
                                             LocalizedTag="ACTIVITY"
-                                            LocalizedPage="ACCOUNT" />
+                                            LocalizedPage="ACCOUNT" /></span>
                     </div>
-                    <div class="col-md-2 mt-1">
+                    <div class="col-auto">
                         <div class="btn-group dropleft" role="group" aria-label="Filters">
                             <YAF:ThemeButton runat="server"
                                      CssClass="dropdown-toggle"
@@ -52,13 +52,13 @@
                                                      Size="Small"
                                                      Icon="sync">
                                     </YAF:ThemeButton>
-                                    &nbsp;
+
                                     <YAF:ThemeButton ID="Reset" runat="server"
                                                      OnClick="ResetClick"
                                                      TextLocalizedTag="CLEAR"
                                                      Type="Secondary"
                                                      Size="Small"
-                                                     Icon="trash">
+                                                     Icon="trash" CssClass="float-right">
                                     </YAF:ThemeButton>
                                 </div>
                             </div>
@@ -70,9 +70,9 @@
                 <asp:Repeater runat="server" ID="ActivityStream" 
                               OnItemDataBound="ActivityStream_OnItemDataBound" 
                               OnItemCommand="ActivityStream_OnItemCommand">
-                    <HeaderTemplate>
+<%--                    <HeaderTemplate>
                         <div class="container">
-                    </HeaderTemplate>
+                    </HeaderTemplate>--%>
                     <ItemTemplate>
                         <div class="row">
                             <div class="col-auto text-center flex-column d-none d-sm-flex">
@@ -112,9 +112,9 @@
                             </div>
                         </div>
                     </ItemTemplate>
-                    <FooterTemplate>
+<%--                    <FooterTemplate>
                     </div>
-                    </FooterTemplate>
+                    </FooterTemplate>--%>
                 </asp:Repeater>
             </div>
             <div class="card-footer">

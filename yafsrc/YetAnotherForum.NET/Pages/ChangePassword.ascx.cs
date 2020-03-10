@@ -184,9 +184,13 @@ namespace YAF.Pages
             // 1. Password incorrect or New Password invalid.
             // 2. New Password length minimum: {0}.t
             // 3. Non-alphanumeric characters required: {1}.
-            var failureText = this.GetText("PASSWORD_INCORRECT");
-            failureText += $"<br />{this.GetText("PASSWORD_BAD_LENGTH")}";
-            failureText += $"<br />{this.GetText("PASSWORD_NOT_COMPLEX")}";
+            var failureText = "<div class=\"alert alert-danger col-12\" role=\"alert\">";
+            failureText += "<ul>";
+            failureText += $"<li>{this.GetText("PASSWORD_INCORRECT")}</li>";
+            failureText += $"<li>{this.GetText("PASSWORD_BAD_LENGTH")}</li>";
+            failureText += $"<li>{this.GetText("PASSWORD_NOT_COMPLEX")}</li>";
+            failureText += "</ul>";
+            failureText += "</div>";
 
             this.ChangePassword1.ChangePasswordFailureText = failureText;
 
@@ -213,6 +217,6 @@ namespace YAF.Pages
             this.DataBind();
         }
 
-       #endregion
+        #endregion
     }
 }
