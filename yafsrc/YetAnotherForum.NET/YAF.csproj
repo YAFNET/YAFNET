@@ -597,13 +597,6 @@
     <Compile Include="Dialogs\NntpServerEdit.ascx.designer.cs">
       <DependentUpon>NntpServerEdit.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Dialogs\ExtensionsEdit.ascx.cs">
-      <DependentUpon>ExtensionsEdit.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Dialogs\ExtensionsEdit.ascx.designer.cs">
-      <DependentUpon>ExtensionsEdit.ascx</DependentUpon>
-    </Compile>
     <Compile Include="Dialogs\ReplaceWordsEdit.ascx.cs">
       <DependentUpon>ReplaceWordsEdit.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -617,13 +610,6 @@
     </Compile>
     <Compile Include="Dialogs\UsersImport.ascx.designer.cs">
       <DependentUpon>UsersImport.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="Dialogs\ExtensionsImport.ascx.cs">
-      <DependentUpon>ExtensionsImport.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Dialogs\ExtensionsImport.ascx.designer.cs">
-      <DependentUpon>ExtensionsImport.ascx</DependentUpon>
     </Compile>
     <Compile Include="Dialogs\ReplaceWordsImport.ascx.cs">
       <DependentUpon>ReplaceWordsImport.ascx</DependentUpon>
@@ -681,178 +667,175 @@
     <Compile Include="Pages\ActiveUsers.ascx.designer.cs">
       <DependentUpon>ActiveUsers.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Pages\admin\accessmasks.ascx.designer.cs">
-      <DependentUpon>accessmasks.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\AccessMasks.ascx.designer.cs">
+      <DependentUpon>AccessMasks.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Pages\admin\admin.ascx.designer.cs">
-      <DependentUpon>admin.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\Admin.ascx.designer.cs">
+      <DependentUpon>Admin.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Pages\admin\bannedemail.ascx.cs">
-      <DependentUpon>bannedemail.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\BannedEmails.ascx.cs">
+      <DependentUpon>BannedEmails.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Pages\admin\bannedemail.ascx.designer.cs">
-      <DependentUpon>bannedemail.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\BannedEmails.ascx.designer.cs">
+      <DependentUpon>BannedEmails.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Pages\admin\bannedip.ascx.designer.cs">
-      <DependentUpon>bannedip.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\BannedIps.ascx.designer.cs">
+      <DependentUpon>BannedIps.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Pages\admin\bannedname.ascx.cs">
-      <DependentUpon>bannedname.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\BannedNames.ascx.cs">
+      <DependentUpon>BannedNames.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Pages\admin\bannedname.ascx.designer.cs">
-      <DependentUpon>bannedname.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\BannedNames.ascx.designer.cs">
+      <DependentUpon>BannedNames.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Pages\admin\bbcode.ascx.designer.cs">
-      <DependentUpon>bbcode.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\BBCodes.ascx.designer.cs">
+      <DependentUpon>BBCodes.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Pages\admin\bbcode_edit.ascx.designer.cs">
-      <DependentUpon>bbcode_edit.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\BBCode_Edit.ascx.designer.cs">
+      <DependentUpon>BBCode_Edit.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Pages\admin\boards.ascx.designer.cs">
-      <DependentUpon>boards.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\Boards.ascx.designer.cs">
+      <DependentUpon>Boards.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Pages\admin\boardsettings.ascx.designer.cs">
-      <DependentUpon>boardsettings.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\Settings.ascx.designer.cs">
+      <DependentUpon>Settings.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Pages\admin\spamlog.ascx.cs">
-      <DependentUpon>spamlog.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\SpamLog.ascx.cs">
+      <DependentUpon>SpamLog.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Pages\admin\spamlog.ascx.designer.cs">
-      <DependentUpon>spamlog.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\SpamLog.ascx.designer.cs">
+      <DependentUpon>SpamLog.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Pages\admin\pageaccessedit.ascx.cs">
-      <DependentUpon>pageaccessedit.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\PageAccessEdit.ascx.cs">
+      <DependentUpon>PageAccessEdit.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Pages\admin\pageaccessedit.ascx.designer.cs">
-      <DependentUpon>pageaccessedit.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\PageAccessEdit.ascx.designer.cs">
+      <DependentUpon>PageAccessEdit.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Pages\admin\pageaccesslist.ascx.cs">
-      <DependentUpon>pageaccesslist.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\PageAccessList.ascx.cs">
+      <DependentUpon>PageAccessList.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Pages\admin\pageaccesslist.ascx.designer.cs">
-      <DependentUpon>pageaccesslist.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\PageAccessList.ascx.designer.cs">
+      <DependentUpon>PageAccessList.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Pages\admin\deleteforum.ascx.cs">
-      <DependentUpon>deleteforum.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\DeleteForum.ascx.cs">
+      <DependentUpon>DeleteForum.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Pages\admin\deleteforum.ascx.designer.cs">
-      <DependentUpon>deleteforum.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\DeleteForum.ascx.designer.cs">
+      <DependentUpon>DeleteForum.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Pages\admin\digest.ascx.cs">
-      <DependentUpon>digest.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\Digest.ascx.cs">
+      <DependentUpon>Digest.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Pages\admin\digest.ascx.designer.cs">
-      <DependentUpon>digest.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\Digest.ascx.designer.cs">
+      <DependentUpon>Digest.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Pages\admin\editaccessmask.ascx.designer.cs">
-      <DependentUpon>editaccessmask.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\EditAccessMask.ascx.designer.cs">
+      <DependentUpon>EditAccessMask.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Pages\admin\editboard.ascx.designer.cs">
-      <DependentUpon>editboard.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\EditBoard.ascx.designer.cs">
+      <DependentUpon>EditBoard.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Pages\admin\editcategory.ascx.designer.cs">
-      <DependentUpon>editcategory.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\EditCategory.ascx.designer.cs">
+      <DependentUpon>EditCategory.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Pages\admin\editforum.ascx.designer.cs">
-      <DependentUpon>editforum.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\EditForum.ascx.designer.cs">
+      <DependentUpon>EditForum.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Pages\admin\editgroup.ascx.designer.cs">
-      <DependentUpon>editgroup.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\EditGroup.ascx.designer.cs">
+      <DependentUpon>EditGroup.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Pages\admin\editlanguage.ascx.cs">
-      <DependentUpon>editlanguage.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\EditLanguage.ascx.cs">
+      <DependentUpon>EditLanguage.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Pages\admin\editlanguage.ascx.designer.cs">
-      <DependentUpon>editlanguage.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\EditLanguage.ascx.designer.cs">
+      <DependentUpon>EditLanguage.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Pages\admin\editmedal.ascx.designer.cs">
-      <DependentUpon>editmedal.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\EditMedal.ascx.designer.cs">
+      <DependentUpon>EditMedal.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Pages\admin\editrank.ascx.designer.cs">
-      <DependentUpon>editrank.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\EditRank.ascx.designer.cs">
+      <DependentUpon>EditRank.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Pages\admin\edituser.ascx.designer.cs">
-      <DependentUpon>edituser.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\EditUser.ascx.designer.cs">
+      <DependentUpon>EditUser.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Pages\admin\eventlog.ascx.designer.cs">
-      <DependentUpon>eventlog.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\EventLog.ascx.designer.cs">
+      <DependentUpon>EventLog.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Pages\admin\extensions.ascx.designer.cs">
-      <DependentUpon>extensions.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\Forums.ascx.designer.cs">
+      <DependentUpon>Forums.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Pages\admin\forums.ascx.designer.cs">
-      <DependentUpon>forums.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\Groups.ascx.designer.cs">
+      <DependentUpon>Groups.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Pages\admin\groups.ascx.designer.cs">
-      <DependentUpon>groups.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\HostSettings.ascx.designer.cs">
+      <DependentUpon>HostSettings.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Pages\admin\hostsettings.ascx.designer.cs">
-      <DependentUpon>hostsettings.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="Pages\admin\languages.ascx.cs">
-      <DependentUpon>languages.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\Languages.ascx.cs">
+      <DependentUpon>Languages.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Pages\admin\languages.ascx.designer.cs">
-      <DependentUpon>languages.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\Languages.ascx.designer.cs">
+      <DependentUpon>Languages.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Pages\admin\mail.ascx.designer.cs">
-      <DependentUpon>mail.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\Mail.ascx.designer.cs">
+      <DependentUpon>Mail.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Pages\admin\medals.ascx.designer.cs">
-      <DependentUpon>medals.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\Medals.ascx.designer.cs">
+      <DependentUpon>Medals.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Pages\admin\nntpforums.ascx.designer.cs">
-      <DependentUpon>nntpforums.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\NntpForums.ascx.designer.cs">
+      <DependentUpon>NntpForums.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Pages\admin\nntpretrieve.ascx.designer.cs">
-      <DependentUpon>nntpretrieve.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\NntpRetrieve.ascx.designer.cs">
+      <DependentUpon>NntpRetrieve.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Pages\admin\nntpservers.ascx.designer.cs">
-      <DependentUpon>nntpservers.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\NntpServers.ascx.designer.cs">
+      <DependentUpon>NntpServers.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Pages\admin\pm.ascx.designer.cs">
-      <DependentUpon>pm.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\Pm.ascx.designer.cs">
+      <DependentUpon>Pm.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Pages\admin\prune.ascx.designer.cs">
-      <DependentUpon>prune.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\Prune.ascx.designer.cs">
+      <DependentUpon>Prune.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Pages\admin\ranks.ascx.designer.cs">
-      <DependentUpon>ranks.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\Ranks.ascx.designer.cs">
+      <DependentUpon>Ranks.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Pages\admin\reguser.ascx.designer.cs">
-      <DependentUpon>reguser.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\RegisterUser.ascx.designer.cs">
+      <DependentUpon>RegisterUser.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Pages\admin\reindex.ascx.designer.cs">
-      <DependentUpon>reindex.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\ReIndex.ascx.designer.cs">
+      <DependentUpon>ReIndex.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Pages\admin\replacewords.ascx.designer.cs">
-      <DependentUpon>replacewords.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\ReplaceWords.ascx.designer.cs">
+      <DependentUpon>ReplaceWords.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Pages\admin\restartapp.ascx.cs">
-      <DependentUpon>restartapp.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\RestartApp.ascx.cs">
+      <DependentUpon>RestartApp.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Pages\admin\restartapp.ascx.designer.cs">
-      <DependentUpon>restartapp.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\RestartApp.ascx.designer.cs">
+      <DependentUpon>RestartApp.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Pages\admin\runsql.ascx.designer.cs">
-      <DependentUpon>runsql.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\RunSql.ascx.designer.cs">
+      <DependentUpon>RunSql.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Pages\admin\spamwords.ascx.cs">
-      <DependentUpon>spamwords.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\SpamWords.ascx.cs">
+      <DependentUpon>SpamWords.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Pages\admin\spamwords.ascx.designer.cs">
-      <DependentUpon>spamwords.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\SpamWords.ascx.designer.cs">
+      <DependentUpon>SpamWords.ascx</DependentUpon>
     </Compile>
     <Compile Include="Dialogs\SpamWordsImport.ascx.cs">
       <DependentUpon>SpamWordsImport.ascx</DependentUpon>
@@ -861,18 +844,18 @@
     <Compile Include="Dialogs\SpamWordsImport.ascx.designer.cs">
       <DependentUpon>SpamWordsImport.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Pages\admin\taskmanager.ascx.cs">
-      <DependentUpon>taskmanager.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\TaskManager.ascx.cs">
+      <DependentUpon>TaskManager.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Pages\admin\taskmanager.ascx.designer.cs">
-      <DependentUpon>taskmanager.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\TaskManager.ascx.designer.cs">
+      <DependentUpon>TaskManager.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Pages\admin\users.ascx.designer.cs">
-      <DependentUpon>users.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\Users.ascx.designer.cs">
+      <DependentUpon>Users.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Pages\admin\version.ascx.designer.cs">
-      <DependentUpon>version.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\Version.ascx.designer.cs">
+      <DependentUpon>Version.ascx</DependentUpon>
     </Compile>
     <Compile Include="Pages\Album.ascx.cs">
       <DependentUpon>Album.ascx</DependentUpon>
@@ -1003,12 +986,12 @@
     <Compile Include="Pages\Email.ascx.designer.cs">
       <DependentUpon>Email.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Xmpp.ascx.cs">
-      <DependentUpon>Xmpp.ascx</DependentUpon>
+    <Compile Include="Pages\Jabber.ascx.cs">
+      <DependentUpon>Jabber.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Pages\Xmpp.ascx.designer.cs">
-      <DependentUpon>Xmpp.ascx</DependentUpon>
+    <Compile Include="Pages\Jabber.ascx.designer.cs">
+      <DependentUpon>Jabber.ascx</DependentUpon>
     </Compile>
     <Compile Include="Pages\Info.ascx.designer.cs">
       <DependentUpon>Info.ascx</DependentUpon>
@@ -1152,6 +1135,7 @@
     <Content Include="Content\fontawesome\LICENSE-fontawesome.txt" />
     <Content Include="Content\select2\select2.css" />
     <Content Include="Content\images\spacer.gif" />
+    <Content Include="Content\tablesorter\jquery.tablesorter.pager.css" />
     <Content Include="Content\Themes\cerulean\bootstrap-forum.css">
       <DependentUpon>bootstrap-forum.scss</DependentUpon>
     </Content>
@@ -1901,7 +1885,6 @@
     <Content Include="Content\fontawesome\_stacked.scss" />
     <Content Include="Content\fontawesome\_variables.scss" />
     <Content Include="Content\fontawesome\fontawesome-all.scss" />
-    <Content Include="Content\bootstrap-suggest.scss" />
     <Content Include="Content\bootstrap\bootstrap.min.css.gz">
       <DependentUpon>bootstrap.min.css</DependentUpon>
     </Content>
@@ -1916,14 +1899,7 @@
     <Content Include="Content\InstallWizard.min.css">
       <DependentUpon>InstallWizard.css</DependentUpon>
     </Content>
-    <Content Include="Content\jquery.emojipicker.css" />
     <Content Include="Content\jQuery.FileUpload\jquery.fileupload.css" />
-    <Content Include="Content\jquery.hovercard.css">
-      <DependentUpon>jquery.hovercard.scss</DependentUpon>
-    </Content>
-    <Content Include="Content\jquery.hovercard.min.css">
-      <DependentUpon>jquery.hovercard.css</DependentUpon>
-    </Content>
     <Content Include="Content\images\InstallBackground.jpg" />
     <Content Include="Content\jQuery.FileUpload\jquery.fileupload-ui.css" />
     <Content Include="Content\jquery.fileupload.comb.css" />
@@ -1933,7 +1909,6 @@
     <Content Include="Content\prism.css" />
     <Content Include="Content\jquery.selectedQuoting.css" />
     <Content Include="Content\select2\select2-bootstrap.css" />
-    <Content Include="Content\tablesorter\jquery.tablesorter.pager.min.css" />
     <Content Include="Content\tablesorter\theme.bootstrap_4.min.css" />
     <Content Include="Content\Themes\cyborg\bootstrap-forum.css">
       <DependentUpon>bootstrap-forum.scss</DependentUpon>
@@ -2020,10 +1995,8 @@
     <Content Include="Dialogs\BannedEmailEdit.ascx" />
     <Content Include="Dialogs\NntpForumEdit.ascx" />
     <Content Include="Dialogs\NntpServerEdit.ascx" />
-    <Content Include="Dialogs\ExtensionsEdit.ascx" />
     <Content Include="Dialogs\ReplaceWordsEdit.ascx" />
     <Content Include="Dialogs\UsersImport.ascx" />
-    <Content Include="Dialogs\ExtensionsImport.ascx" />
     <Content Include="Dialogs\ReplaceWordsImport.ascx" />
     <Content Include="Dialogs\SpamWordsEdit.ascx" />
     <Content Include="Dialogs\BannedEmailImport.ascx" />
@@ -2078,13 +2051,13 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="languages\estonian.xml" />
-    <Content Include="Pages\admin\bannedemail.ascx" />
-    <Content Include="Pages\admin\bannedname.ascx" />
-    <Content Include="Pages\admin\spamlog.ascx" />
-    <Content Include="Pages\admin\pageaccessedit.ascx" />
-    <Content Include="Pages\admin\pageaccesslist.ascx" />
-    <Content Include="Pages\admin\deleteforum.ascx" />
-    <Content Include="Pages\admin\spamwords.ascx" />
+    <Content Include="Pages\Admin\BannedEmails.ascx" />
+    <Content Include="Pages\Admin\BannedNames.ascx" />
+    <Content Include="Pages\Admin\SpamLog.ascx" />
+    <Content Include="Pages\Admin\PageAccessEdit.ascx" />
+    <Content Include="Pages\Admin\PageAccessList.ascx" />
+    <Content Include="Pages\Admin\DeleteForum.ascx" />
+    <Content Include="Pages\Admin\SpamWords.ascx" />
     <Content Include="Dialogs\SpamWordsImport.ascx" />
     <Content Include="Images\Categories\categoryImageSample.gif" />
     <Content Include="Images\Forums\forumImageSample.gif" />
@@ -2136,45 +2109,44 @@
     <Content Include="languages\turkish.xml" />
     <Content Include="languages\vietnam.xml" />
     <Content Include="Pages\ActiveUsers.ascx" />
-    <Content Include="Pages\admin\accessmasks.ascx" />
-    <Content Include="Pages\admin\admin.ascx" />
-    <Content Include="Pages\admin\bannedip.ascx" />
-    <Content Include="Pages\admin\bbcode.ascx" />
-    <Content Include="Pages\admin\bbcode_edit.ascx" />
-    <Content Include="Pages\admin\boards.ascx" />
-    <Content Include="Pages\admin\boardsettings.ascx" />
-    <Content Include="Pages\admin\digest.ascx" />
-    <Content Include="Pages\admin\editaccessmask.ascx" />
-    <Content Include="Pages\admin\editboard.ascx" />
-    <Content Include="Pages\admin\editcategory.ascx" />
-    <Content Include="Pages\admin\editforum.ascx" />
-    <Content Include="Pages\admin\editgroup.ascx" />
-    <Content Include="Pages\admin\editlanguage.ascx" />
-    <Content Include="Pages\admin\editmedal.ascx" />
-    <Content Include="Pages\admin\editrank.ascx" />
-    <Content Include="Pages\admin\edituser.ascx" />
-    <Content Include="Pages\admin\eventlog.ascx" />
-    <Content Include="Pages\admin\extensions.ascx" />
-    <Content Include="Pages\admin\forums.ascx" />
-    <Content Include="Pages\admin\groups.ascx" />
-    <Content Include="Pages\admin\hostsettings.ascx" />
-    <Content Include="Pages\admin\languages.ascx" />
-    <Content Include="Pages\admin\mail.ascx" />
-    <Content Include="Pages\admin\medals.ascx" />
-    <Content Include="Pages\admin\nntpforums.ascx" />
-    <Content Include="Pages\admin\nntpretrieve.ascx" />
-    <Content Include="Pages\admin\nntpservers.ascx" />
-    <Content Include="Pages\admin\pm.ascx" />
-    <Content Include="Pages\admin\prune.ascx" />
-    <Content Include="Pages\admin\ranks.ascx" />
-    <Content Include="Pages\admin\reguser.ascx" />
-    <Content Include="Pages\admin\reindex.ascx" />
-    <Content Include="Pages\admin\replacewords.ascx" />
-    <Content Include="Pages\admin\restartapp.ascx" />
-    <Content Include="Pages\admin\runsql.ascx" />
-    <Content Include="Pages\admin\taskmanager.ascx" />
-    <Content Include="Pages\admin\users.ascx" />
-    <Content Include="Pages\admin\version.ascx" />
+    <Content Include="Pages\Admin\AccessMasks.ascx" />
+    <Content Include="Pages\Admin\Admin.ascx" />
+    <Content Include="Pages\Admin\BannedIps.ascx" />
+    <Content Include="Pages\Admin\BBCodes.ascx" />
+    <Content Include="Pages\Admin\BBCode_Edit.ascx" />
+    <Content Include="Pages\Admin\Boards.ascx" />
+    <Content Include="Pages\Admin\Settings.ascx" />
+    <Content Include="Pages\Admin\Digest.ascx" />
+    <Content Include="Pages\Admin\EditAccessMask.ascx" />
+    <Content Include="Pages\Admin\EditBoard.ascx" />
+    <Content Include="Pages\Admin\EditCategory.ascx" />
+    <Content Include="Pages\Admin\EditForum.ascx" />
+    <Content Include="Pages\Admin\EditGroup.ascx" />
+    <Content Include="Pages\Admin\EditLanguage.ascx" />
+    <Content Include="Pages\Admin\EditMedal.ascx" />
+    <Content Include="Pages\Admin\EditRank.ascx" />
+    <Content Include="Pages\Admin\EditUser.ascx" />
+    <Content Include="Pages\Admin\EventLog.ascx" />
+    <Content Include="Pages\Admin\Forums.ascx" />
+    <Content Include="Pages\Admin\Groups.ascx" />
+    <Content Include="Pages\Admin\HostSettings.ascx" />
+    <Content Include="Pages\Admin\Languages.ascx" />
+    <Content Include="Pages\Admin\Mail.ascx" />
+    <Content Include="Pages\Admin\Medals.ascx" />
+    <Content Include="Pages\Admin\NntpForums.ascx" />
+    <Content Include="Pages\Admin\NntpRetrieve.ascx" />
+    <Content Include="Pages\Admin\NntpServers.ascx" />
+    <Content Include="Pages\Admin\Pm.ascx" />
+    <Content Include="Pages\Admin\Prune.ascx" />
+    <Content Include="Pages\Admin\Ranks.ascx" />
+    <Content Include="Pages\Admin\RegisterUser.ascx" />
+    <Content Include="Pages\Admin\ReIndex.ascx" />
+    <Content Include="Pages\Admin\ReplaceWords.ascx" />
+    <Content Include="Pages\Admin\RestartApp.ascx" />
+    <Content Include="Pages\Admin\RunSql.ascx" />
+    <Content Include="Pages\Admin\TaskManager.ascx" />
+    <Content Include="Pages\Admin\Users.ascx" />
+    <Content Include="Pages\Admin\Version.ascx" />
     <Content Include="Pages\Album.ascx" />
     <Content Include="Pages\Albums.ascx" />
     <Content Include="Pages\Approve.ascx" />
@@ -2202,7 +2174,7 @@
     <Content Include="Pages\Forum.ascx" />
     <Content Include="Pages\Help.ascx" />
     <Content Include="Pages\Email.ascx" />
-    <Content Include="Pages\Xmpp.ascx" />
+    <Content Include="Pages\Jabber.ascx" />
     <Content Include="Pages\Info.ascx" />
     <Content Include="Pages\Login.ascx" />
     <Content Include="Pages\Logout.ascx" />
@@ -2237,7 +2209,6 @@
     <Content Include="Scripts\bootbox.js" />
     <Content Include="Scripts\bootstrap-datetimepicker.js" />
     <Content Include="Scripts\bootstrap-notify.js" />
-    <Content Include="Scripts\bootstrap-suggest.js" />
     <None Include="Content\forum-admin.scss" />
     <Content Include="recommended-azure.web.config">
       <SubType>Designer</SubType>
@@ -2251,7 +2222,6 @@
     <Content Include="Scripts\ckeditor\CHANGES.md" />
     <Content Include="Scripts\ckeditor\ckeditor.js" />
     <Content Include="Scripts\ckeditor\ckeditor_init.js" />
-    <Content Include="Scripts\ckeditor\ckeditor_initbbcode.js" />
     <Content Include="Scripts\ckeditor\config.js" />
     <Content Include="Scripts\ckeditor\contents.css" />
     <Content Include="Scripts\ckeditor\lang\af.js" />
@@ -2394,14 +2364,114 @@
     <Content Include="Scripts\ckeditor\plugins\about\dialogs\about.js" />
     <Content Include="Scripts\ckeditor\plugins\about\dialogs\hidpi\logo_ckeditor.png" />
     <Content Include="Scripts\ckeditor\plugins\about\dialogs\logo_ckeditor.png" />
+    <Content Include="Scripts\ckeditor\plugins\autocomplete\skins\default.css" />
+    <Content Include="Scripts\ckeditor\plugins\autoembed\lang\ar.js" />
+    <Content Include="Scripts\ckeditor\plugins\autoembed\lang\az.js" />
+    <Content Include="Scripts\ckeditor\plugins\autoembed\lang\bg.js" />
+    <Content Include="Scripts\ckeditor\plugins\autoembed\lang\ca.js" />
+    <Content Include="Scripts\ckeditor\plugins\autoembed\lang\cs.js" />
+    <Content Include="Scripts\ckeditor\plugins\autoembed\lang\da.js" />
+    <Content Include="Scripts\ckeditor\plugins\autoembed\lang\de-ch.js" />
+    <Content Include="Scripts\ckeditor\plugins\autoembed\lang\de.js" />
+    <Content Include="Scripts\ckeditor\plugins\autoembed\lang\el.js" />
+    <Content Include="Scripts\ckeditor\plugins\autoembed\lang\en-au.js" />
+    <Content Include="Scripts\ckeditor\plugins\autoembed\lang\en.js" />
+    <Content Include="Scripts\ckeditor\plugins\autoembed\lang\eo.js" />
+    <Content Include="Scripts\ckeditor\plugins\autoembed\lang\es-mx.js" />
+    <Content Include="Scripts\ckeditor\plugins\autoembed\lang\es.js" />
+    <Content Include="Scripts\ckeditor\plugins\autoembed\lang\et.js" />
+    <Content Include="Scripts\ckeditor\plugins\autoembed\lang\eu.js" />
+    <Content Include="Scripts\ckeditor\plugins\autoembed\lang\fa.js" />
+    <Content Include="Scripts\ckeditor\plugins\autoembed\lang\fr.js" />
+    <Content Include="Scripts\ckeditor\plugins\autoembed\lang\gl.js" />
+    <Content Include="Scripts\ckeditor\plugins\autoembed\lang\hr.js" />
+    <Content Include="Scripts\ckeditor\plugins\autoembed\lang\hu.js" />
+    <Content Include="Scripts\ckeditor\plugins\autoembed\lang\it.js" />
+    <Content Include="Scripts\ckeditor\plugins\autoembed\lang\ja.js" />
+    <Content Include="Scripts\ckeditor\plugins\autoembed\lang\km.js" />
+    <Content Include="Scripts\ckeditor\plugins\autoembed\lang\ko.js" />
+    <Content Include="Scripts\ckeditor\plugins\autoembed\lang\ku.js" />
+    <Content Include="Scripts\ckeditor\plugins\autoembed\lang\lt.js" />
+    <Content Include="Scripts\ckeditor\plugins\autoembed\lang\lv.js" />
+    <Content Include="Scripts\ckeditor\plugins\autoembed\lang\mk.js" />
+    <Content Include="Scripts\ckeditor\plugins\autoembed\lang\nb.js" />
+    <Content Include="Scripts\ckeditor\plugins\autoembed\lang\nl.js" />
+    <Content Include="Scripts\ckeditor\plugins\autoembed\lang\oc.js" />
+    <Content Include="Scripts\ckeditor\plugins\autoembed\lang\pl.js" />
+    <Content Include="Scripts\ckeditor\plugins\autoembed\lang\pt-br.js" />
+    <Content Include="Scripts\ckeditor\plugins\autoembed\lang\pt.js" />
+    <Content Include="Scripts\ckeditor\plugins\autoembed\lang\ro.js" />
+    <Content Include="Scripts\ckeditor\plugins\autoembed\lang\ru.js" />
+    <Content Include="Scripts\ckeditor\plugins\autoembed\lang\sk.js" />
+    <Content Include="Scripts\ckeditor\plugins\autoembed\lang\sq.js" />
+    <Content Include="Scripts\ckeditor\plugins\autoembed\lang\sr-latn.js" />
+    <Content Include="Scripts\ckeditor\plugins\autoembed\lang\sr.js" />
+    <Content Include="Scripts\ckeditor\plugins\autoembed\lang\sv.js" />
+    <Content Include="Scripts\ckeditor\plugins\autoembed\lang\tr.js" />
+    <Content Include="Scripts\ckeditor\plugins\autoembed\lang\ug.js" />
+    <Content Include="Scripts\ckeditor\plugins\autoembed\lang\uk.js" />
+    <Content Include="Scripts\ckeditor\plugins\autoembed\lang\vi.js" />
+    <Content Include="Scripts\ckeditor\plugins\autoembed\lang\zh-cn.js" />
+    <Content Include="Scripts\ckeditor\plugins\autoembed\lang\zh.js" />
+    <Content Include="Scripts\ckeditor\plugins\autoembed\plugin.js" />
+    <Content Include="Scripts\ckeditor\plugins\autolink\plugin.js" />
     <Content Include="Scripts\ckeditor\plugins\autosave\css\autosave.min.css" />
     <Content Include="Scripts\ckeditor\plugins\autosave\js\extensions.min.js" />
-    <Content Include="Scripts\ckeditor\plugins\bbcodehtml\plugin.js" />
+    <Content Include="Scripts\ckeditor\plugins\codesnippet\plugin.js" />
+    <Content Include="Scripts\ckeditor\plugins\embedbase\dialogs\embedbase.js" />
+    <Content Include="Scripts\ckeditor\plugins\embedbase\lang\ar.js" />
+    <Content Include="Scripts\ckeditor\plugins\embedbase\lang\az.js" />
+    <Content Include="Scripts\ckeditor\plugins\embedbase\lang\bg.js" />
+    <Content Include="Scripts\ckeditor\plugins\embedbase\lang\ca.js" />
+    <Content Include="Scripts\ckeditor\plugins\embedbase\lang\cs.js" />
+    <Content Include="Scripts\ckeditor\plugins\embedbase\lang\da.js" />
+    <Content Include="Scripts\ckeditor\plugins\embedbase\lang\de-ch.js" />
+    <Content Include="Scripts\ckeditor\plugins\embedbase\lang\de.js" />
+    <Content Include="Scripts\ckeditor\plugins\embedbase\lang\en-au.js" />
+    <Content Include="Scripts\ckeditor\plugins\embedbase\lang\en.js" />
+    <Content Include="Scripts\ckeditor\plugins\embedbase\lang\eo.js" />
+    <Content Include="Scripts\ckeditor\plugins\embedbase\lang\es-mx.js" />
+    <Content Include="Scripts\ckeditor\plugins\embedbase\lang\es.js" />
+    <Content Include="Scripts\ckeditor\plugins\embedbase\lang\et.js" />
+    <Content Include="Scripts\ckeditor\plugins\embedbase\lang\eu.js" />
+    <Content Include="Scripts\ckeditor\plugins\embedbase\lang\fr.js" />
+    <Content Include="Scripts\ckeditor\plugins\embedbase\lang\gl.js" />
+    <Content Include="Scripts\ckeditor\plugins\embedbase\lang\hr.js" />
+    <Content Include="Scripts\ckeditor\plugins\embedbase\lang\hu.js" />
+    <Content Include="Scripts\ckeditor\plugins\embedbase\lang\id.js" />
+    <Content Include="Scripts\ckeditor\plugins\embedbase\lang\it.js" />
+    <Content Include="Scripts\ckeditor\plugins\embedbase\lang\ja.js" />
+    <Content Include="Scripts\ckeditor\plugins\embedbase\lang\ko.js" />
+    <Content Include="Scripts\ckeditor\plugins\embedbase\lang\ku.js" />
+    <Content Include="Scripts\ckeditor\plugins\embedbase\lang\lv.js" />
+    <Content Include="Scripts\ckeditor\plugins\embedbase\lang\nb.js" />
+    <Content Include="Scripts\ckeditor\plugins\embedbase\lang\nl.js" />
+    <Content Include="Scripts\ckeditor\plugins\embedbase\lang\oc.js" />
+    <Content Include="Scripts\ckeditor\plugins\embedbase\lang\pl.js" />
+    <Content Include="Scripts\ckeditor\plugins\embedbase\lang\pt-br.js" />
+    <Content Include="Scripts\ckeditor\plugins\embedbase\lang\pt.js" />
+    <Content Include="Scripts\ckeditor\plugins\embedbase\lang\ro.js" />
+    <Content Include="Scripts\ckeditor\plugins\embedbase\lang\ru.js" />
+    <Content Include="Scripts\ckeditor\plugins\embedbase\lang\sk.js" />
+    <Content Include="Scripts\ckeditor\plugins\embedbase\lang\sq.js" />
+    <Content Include="Scripts\ckeditor\plugins\embedbase\lang\sr-latn.js" />
+    <Content Include="Scripts\ckeditor\plugins\embedbase\lang\sr.js" />
+    <Content Include="Scripts\ckeditor\plugins\embedbase\lang\sv.js" />
+    <Content Include="Scripts\ckeditor\plugins\embedbase\lang\tr.js" />
+    <Content Include="Scripts\ckeditor\plugins\embedbase\lang\ug.js" />
+    <Content Include="Scripts\ckeditor\plugins\embedbase\lang\uk.js" />
+    <Content Include="Scripts\ckeditor\plugins\embedbase\lang\zh-cn.js" />
+    <Content Include="Scripts\ckeditor\plugins\embedbase\lang\zh.js" />
+    <Content Include="Scripts\ckeditor\plugins\embedbase\plugin.js" />
+    <Content Include="Scripts\ckeditor\plugins\embed\icons\embed.png" />
+    <Content Include="Scripts\ckeditor\plugins\embed\icons\hidpi\embed.png" />
+    <Content Include="Scripts\ckeditor\plugins\embed\plugin.js" />
+    <Content Include="Scripts\ckeditor\plugins\highlight\lang\en.js" />
+    <Content Include="Scripts\ckeditor\plugins\highlight\plugin.js" />
     <Content Include="Scripts\ckeditor\plugins\bbcodeselector\dialogs\bbcodeselector.js" />
     <Content Include="Scripts\ckeditor\plugins\bbcodeselector\images\yafbbcode.gif" />
     <Content Include="Scripts\ckeditor\plugins\bbcodeselector\lang\en.js" />
     <Content Include="Scripts\ckeditor\plugins\bbcodeselector\plugin.js" />
-    <Content Include="Scripts\ckeditor\plugins\bbcode\plugin.js" />
     <Content Include="Scripts\ckeditor\plugins\clipboard\dialogs\paste.js" />
     <Content Include="Scripts\ckeditor\plugins\codemirror\css\codemirror.min.css" />
     <Content Include="Scripts\ckeditor\plugins\codemirror\images\autocomplete.png" />
@@ -2420,11 +2490,14 @@
     <Content Include="Scripts\ckeditor\plugins\codemirror\js\codemirror.mode.javascript.min.js" />
     <Content Include="Scripts\ckeditor\plugins\codemirror\js\codemirror.mode.php.min.js" />
     <Content Include="Scripts\ckeditor\plugins\codemirror\js\codemirror.mode.twig.min.js" />
+    <Content Include="Scripts\ckeditor\plugins\codemirror\plugin.js" />
     <Content Include="Scripts\ckeditor\plugins\codemirror\theme\3024-day.css" />
     <Content Include="Scripts\ckeditor\plugins\codemirror\theme\3024-night.css" />
     <Content Include="Scripts\ckeditor\plugins\codemirror\theme\abcdef.css" />
     <Content Include="Scripts\ckeditor\plugins\codemirror\theme\ambiance-mobile.css" />
     <Content Include="Scripts\ckeditor\plugins\codemirror\theme\ambiance.css" />
+    <Content Include="Scripts\ckeditor\plugins\codemirror\theme\ayu-dark.css" />
+    <Content Include="Scripts\ckeditor\plugins\codemirror\theme\ayu-mirage.css" />
     <Content Include="Scripts\ckeditor\plugins\codemirror\theme\base16-dark.css" />
     <Content Include="Scripts\ckeditor\plugins\codemirror\theme\base16-light.css" />
     <Content Include="Scripts\ckeditor\plugins\codemirror\theme\bespin.css" />
@@ -2446,11 +2519,15 @@
     <Content Include="Scripts\ckeditor\plugins\codemirror\theme\lesser-dark.css" />
     <Content Include="Scripts\ckeditor\plugins\codemirror\theme\liquibyte.css" />
     <Content Include="Scripts\ckeditor\plugins\codemirror\theme\lucario.css" />
+    <Content Include="Scripts\ckeditor\plugins\codemirror\theme\material-darker.css" />
+    <Content Include="Scripts\ckeditor\plugins\codemirror\theme\material-ocean.css" />
+    <Content Include="Scripts\ckeditor\plugins\codemirror\theme\material-palenight.css" />
     <Content Include="Scripts\ckeditor\plugins\codemirror\theme\material.css" />
     <Content Include="Scripts\ckeditor\plugins\codemirror\theme\mbo.css" />
     <Content Include="Scripts\ckeditor\plugins\codemirror\theme\mdn-like.css" />
     <Content Include="Scripts\ckeditor\plugins\codemirror\theme\midnight.css" />
     <Content Include="Scripts\ckeditor\plugins\codemirror\theme\monokai.css" />
+    <Content Include="Scripts\ckeditor\plugins\codemirror\theme\moxer.css" />
     <Content Include="Scripts\ckeditor\plugins\codemirror\theme\neat.css" />
     <Content Include="Scripts\ckeditor\plugins\codemirror\theme\neo.css" />
     <Content Include="Scripts\ckeditor\plugins\codemirror\theme\night.css" />
@@ -2477,6 +2554,55 @@
     <Content Include="Scripts\ckeditor\plugins\codemirror\theme\yeti.css" />
     <Content Include="Scripts\ckeditor\plugins\codemirror\theme\yonce.css" />
     <Content Include="Scripts\ckeditor\plugins\codemirror\theme\zenburn.css" />
+    <Content Include="Scripts\ckeditor\plugins\codesnippet\dialogs\codesnippet.js" />
+    <Content Include="Scripts\ckeditor\plugins\codesnippet\lib\highlight\highlight.pack.js" />
+    <Content Include="Scripts\ckeditor\plugins\codesnippet\lib\highlight\styles\arta.css" />
+    <Content Include="Scripts\ckeditor\plugins\codesnippet\lib\highlight\styles\ascetic.css" />
+    <Content Include="Scripts\ckeditor\plugins\codesnippet\lib\highlight\styles\atelier-dune.dark.css" />
+    <Content Include="Scripts\ckeditor\plugins\codesnippet\lib\highlight\styles\atelier-dune.light.css" />
+    <Content Include="Scripts\ckeditor\plugins\codesnippet\lib\highlight\styles\atelier-forest.dark.css" />
+    <Content Include="Scripts\ckeditor\plugins\codesnippet\lib\highlight\styles\atelier-forest.light.css" />
+    <Content Include="Scripts\ckeditor\plugins\codesnippet\lib\highlight\styles\atelier-heath.dark.css" />
+    <Content Include="Scripts\ckeditor\plugins\codesnippet\lib\highlight\styles\atelier-heath.light.css" />
+    <Content Include="Scripts\ckeditor\plugins\codesnippet\lib\highlight\styles\atelier-lakeside.dark.css" />
+    <Content Include="Scripts\ckeditor\plugins\codesnippet\lib\highlight\styles\atelier-lakeside.light.css" />
+    <Content Include="Scripts\ckeditor\plugins\codesnippet\lib\highlight\styles\atelier-seaside.dark.css" />
+    <Content Include="Scripts\ckeditor\plugins\codesnippet\lib\highlight\styles\atelier-seaside.light.css" />
+    <Content Include="Scripts\ckeditor\plugins\codesnippet\lib\highlight\styles\brown_paper.css" />
+    <Content Include="Scripts\ckeditor\plugins\codesnippet\lib\highlight\styles\brown_papersq.png" />
+    <Content Include="Scripts\ckeditor\plugins\codesnippet\lib\highlight\styles\dark.css" />
+    <Content Include="Scripts\ckeditor\plugins\codesnippet\lib\highlight\styles\default.css" />
+    <Content Include="Scripts\ckeditor\plugins\codesnippet\lib\highlight\styles\docco.css" />
+    <Content Include="Scripts\ckeditor\plugins\codesnippet\lib\highlight\styles\far.css" />
+    <Content Include="Scripts\ckeditor\plugins\codesnippet\lib\highlight\styles\foundation.css" />
+    <Content Include="Scripts\ckeditor\plugins\codesnippet\lib\highlight\styles\github.css" />
+    <Content Include="Scripts\ckeditor\plugins\codesnippet\lib\highlight\styles\googlecode.css" />
+    <Content Include="Scripts\ckeditor\plugins\codesnippet\lib\highlight\styles\idea.css" />
+    <Content Include="Scripts\ckeditor\plugins\codesnippet\lib\highlight\styles\ir_black.css" />
+    <Content Include="Scripts\ckeditor\plugins\codesnippet\lib\highlight\styles\magula.css" />
+    <Content Include="Scripts\ckeditor\plugins\codesnippet\lib\highlight\styles\mono-blue.css" />
+    <Content Include="Scripts\ckeditor\plugins\codesnippet\lib\highlight\styles\monokai.css" />
+    <Content Include="Scripts\ckeditor\plugins\codesnippet\lib\highlight\styles\monokai_sublime.css" />
+    <Content Include="Scripts\ckeditor\plugins\codesnippet\lib\highlight\styles\obsidian.css" />
+    <Content Include="Scripts\ckeditor\plugins\codesnippet\lib\highlight\styles\paraiso.dark.css" />
+    <Content Include="Scripts\ckeditor\plugins\codesnippet\lib\highlight\styles\paraiso.light.css" />
+    <Content Include="Scripts\ckeditor\plugins\codesnippet\lib\highlight\styles\pojoaque.css" />
+    <Content Include="Scripts\ckeditor\plugins\codesnippet\lib\highlight\styles\pojoaque.jpg" />
+    <Content Include="Scripts\ckeditor\plugins\codesnippet\lib\highlight\styles\railscasts.css" />
+    <Content Include="Scripts\ckeditor\plugins\codesnippet\lib\highlight\styles\rainbow.css" />
+    <Content Include="Scripts\ckeditor\plugins\codesnippet\lib\highlight\styles\school_book.css" />
+    <Content Include="Scripts\ckeditor\plugins\codesnippet\lib\highlight\styles\school_book.png" />
+    <Content Include="Scripts\ckeditor\plugins\codesnippet\lib\highlight\styles\solarized_dark.css" />
+    <Content Include="Scripts\ckeditor\plugins\codesnippet\lib\highlight\styles\solarized_light.css" />
+    <Content Include="Scripts\ckeditor\plugins\codesnippet\lib\highlight\styles\sunburst.css" />
+    <Content Include="Scripts\ckeditor\plugins\codesnippet\lib\highlight\styles\tomorrow-night-blue.css" />
+    <Content Include="Scripts\ckeditor\plugins\codesnippet\lib\highlight\styles\tomorrow-night-bright.css" />
+    <Content Include="Scripts\ckeditor\plugins\codesnippet\lib\highlight\styles\tomorrow-night-eighties.css" />
+    <Content Include="Scripts\ckeditor\plugins\codesnippet\lib\highlight\styles\tomorrow-night.css" />
+    <Content Include="Scripts\ckeditor\plugins\codesnippet\lib\highlight\styles\tomorrow.css" />
+    <Content Include="Scripts\ckeditor\plugins\codesnippet\lib\highlight\styles\vs.css" />
+    <Content Include="Scripts\ckeditor\plugins\codesnippet\lib\highlight\styles\xcode.css" />
+    <Content Include="Scripts\ckeditor\plugins\codesnippet\lib\highlight\styles\zenburn.css" />
     <Content Include="Scripts\ckeditor\plugins\colordialog\dialogs\colordialog.css" />
     <Content Include="Scripts\ckeditor\plugins\colordialog\dialogs\colordialog.js" />
     <Content Include="Scripts\ckeditor\plugins\copyformatting\cursors\cursor-disabled.svg" />
@@ -2485,14 +2611,9 @@
     <Content Include="Scripts\ckeditor\plugins\dialog\dialogDefinition.js" />
     <Content Include="Scripts\ckeditor\plugins\dialog\styles\dialog.css" />
     <Content Include="Scripts\ckeditor\plugins\div\dialogs\div.js" />
-    <Content Include="Scripts\ckeditor\plugins\emojione\.bower.json" />
-    <Content Include="Scripts\ckeditor\plugins\emojione\.gitignore" />
-    <Content Include="Scripts\ckeditor\plugins\emojione\bower.json" />
-    <Content Include="Scripts\ckeditor\plugins\emojione\dialogs\emojione.js" />
-    <Content Include="Scripts\ckeditor\plugins\emojione\libs\emojione\emojione.min.js" />
-    <Content Include="Scripts\ckeditor\plugins\emojione\README.md" />
-    <Content Include="Scripts\ckeditor\plugins\emojione\styles\emojione-awesome.css" />
-    <Content Include="Scripts\ckeditor\plugins\emojione\styles\emojione.css" />
+    <Content Include="Scripts\ckeditor\plugins\emoji\assets\iconsall.png" />
+    <Content Include="Scripts\ckeditor\plugins\emoji\assets\iconsall.svg" />
+    <Content Include="Scripts\ckeditor\plugins\emoji\skins\default.css" />
     <Content Include="Scripts\ckeditor\plugins\find\dialogs\find.js" />
     <Content Include="Scripts\ckeditor\plugins\forms\dialogs\button.js" />
     <Content Include="Scripts\ckeditor\plugins\forms\dialogs\checkbox.js" />
@@ -2521,6 +2642,11 @@
     <Content Include="Scripts\ckeditor\plugins\pastefromword\filter\default.js" />
     <Content Include="Scripts\ckeditor\plugins\pastetools\filter\common.js" />
     <Content Include="Scripts\ckeditor\plugins\preview\preview.html" />
+    <Content Include="Scripts\ckeditor\plugins\prism\LICENSE.txt" />
+    <Content Include="Scripts\ckeditor\plugins\prism\plugin.js" />
+    <Content Include="Scripts\ckeditor\plugins\quote\icons\quote.png" />
+    <Content Include="Scripts\ckeditor\plugins\quote\lang\en.js" />
+    <Content Include="Scripts\ckeditor\plugins\quote\plugin.js" />
     <Content Include="Scripts\ckeditor\plugins\scayt\CHANGELOG.md" />
     <Content Include="Scripts\ckeditor\plugins\scayt\dialogs\dialog.css" />
     <Content Include="Scripts\ckeditor\plugins\scayt\dialogs\options.js" />
@@ -2646,7 +2772,6 @@
     <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\zh.js" />
     <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\_translationstatus.txt" />
     <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\specialchar.js" />
-    <Content Include="Scripts\ckeditor\plugins\syntaxhighlight\dialogs\syntaxhighlight.js" />
     <Content Include="Scripts\ckeditor\plugins\tableselection\styles\tableselection.css" />
     <Content Include="Scripts\ckeditor\plugins\tabletools\dialogs\tableCell.js" />
     <Content Include="Scripts\ckeditor\plugins\table\dialogs\table.js" />
@@ -2690,9 +2815,6 @@
     <Content Include="Scripts\ckeditor\skins\moono-lisa\images\spinner.gif" />
     <Content Include="Scripts\ckeditor\skins\moono-lisa\readme.md" />
     <Content Include="Scripts\ckeditor\styles.js" />
-    <Content Include="Scripts\ckeditor\yaf_contents.css" />
-    <Content Include="Scripts\emojipicker\jquery.emojipicker.js" />
-    <Content Include="Scripts\emojipicker\jquery.emojis.js" />
     <Content Include="Scripts\forum\yaf.Albums.js" />
     <Content Include="Scripts\forum\yaf.Notify.js" />
     <Content Include="Scripts\forum\yaf.FileBrowser.js" />
@@ -2742,24 +2864,15 @@
     <Content Include="Scripts\moment-with-locales.min.js">
       <DependentUpon>moment-with-locales.js</DependentUpon>
     </Content>
-    <Content Include="Scripts\spin.min.js">
-      <DependentUpon>spin.js</DependentUpon>
-    </Content>
     <Content Include="Scripts\jsdifflib.js" />
-    <Content Include="Scripts\ladda.js" />
     <Content Include="Scripts\prism.js" />
     <Content Include="Scripts\jquery.selectedQuoting.js" />
     <Content Include="Scripts\select2.js" />
-    <Content Include="Scripts\spin.js" />
-    <Content Include="Scripts\tablesorter\extras\jquery.tablesorter.pager.min.js" />
+    <Content Include="Scripts\tablesorter\extras\jquery.tablesorter.pager.js" />
     <Content Include="Scripts\tablesorter\jquery.tablesorter.combined.js" />
     <Content Include="Scripts\forum\yaf.Utilities.js" />
     <Content Include="Scripts\tablesorter\widgets\widget-reflow.js" />
     <Content Include="Scripts\bootstrap-tagsinput.js" />
-    <Content Include="Scripts\yafEditor\yafEditor.js" />
-    <Content Include="Scripts\yafEditor\yafEditor.min.js">
-      <DependentUpon>yafEditor.js</DependentUpon>
-    </Content>
     <Content Include="Scripts\forum\InstallWizard.js" />
     <Content Include="Scripts\jquery.hovercard.js" />
     <Content Include="Scripts\jquery.ForumExtensions.js" />
@@ -2912,140 +3025,136 @@
       <DependentUpon>ActiveUsers.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Pages\admin\accessmasks.ascx.cs">
-      <DependentUpon>accessmasks.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\AccessMasks.ascx.cs">
+      <DependentUpon>AccessMasks.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Pages\admin\admin.ascx.cs">
-      <DependentUpon>admin.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\Admin.ascx.cs">
+      <DependentUpon>Admin.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Pages\admin\bannedip.ascx.cs">
-      <DependentUpon>bannedip.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\BannedIps.ascx.cs">
+      <DependentUpon>BannedIps.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Pages\admin\bbcode.ascx.cs">
-      <DependentUpon>bbcode.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\BBCodes.ascx.cs">
+      <DependentUpon>BBCodes.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Pages\admin\bbcode_edit.ascx.cs">
-      <DependentUpon>bbcode_edit.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\BBCode_Edit.ascx.cs">
+      <DependentUpon>BBCode_Edit.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Pages\admin\boards.ascx.cs">
-      <DependentUpon>boards.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\Boards.ascx.cs">
+      <DependentUpon>Boards.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Pages\admin\boardsettings.ascx.cs">
-      <DependentUpon>boardsettings.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\Settings.ascx.cs">
+      <DependentUpon>Settings.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Pages\admin\editaccessmask.ascx.cs">
-      <DependentUpon>editaccessmask.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\EditAccessMask.ascx.cs">
+      <DependentUpon>EditAccessMask.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Pages\admin\editboard.ascx.cs">
-      <DependentUpon>editboard.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\EditBoard.ascx.cs">
+      <DependentUpon>EditBoard.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Pages\admin\editcategory.ascx.cs">
-      <DependentUpon>editcategory.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\EditCategory.ascx.cs">
+      <DependentUpon>EditCategory.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Pages\admin\editforum.ascx.cs">
-      <DependentUpon>editforum.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\EditForum.ascx.cs">
+      <DependentUpon>EditForum.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Pages\admin\editgroup.ascx.cs">
-      <DependentUpon>editgroup.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\EditGroup.ascx.cs">
+      <DependentUpon>EditGroup.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Pages\admin\editmedal.ascx.cs">
-      <DependentUpon>editmedal.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\EditMedal.ascx.cs">
+      <DependentUpon>EditMedal.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Pages\admin\editrank.ascx.cs">
-      <DependentUpon>editrank.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\EditRank.ascx.cs">
+      <DependentUpon>EditRank.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Pages\admin\edituser.ascx.cs">
-      <DependentUpon>edituser.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\EditUser.ascx.cs">
+      <DependentUpon>EditUser.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Pages\admin\eventlog.ascx.cs">
-      <DependentUpon>eventlog.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\EventLog.ascx.cs">
+      <DependentUpon>EventLog.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Pages\admin\extensions.ascx.cs">
-      <DependentUpon>extensions.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\Forums.ascx.cs">
+      <DependentUpon>Forums.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Pages\admin\forums.ascx.cs">
-      <DependentUpon>forums.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\Groups.ascx.cs">
+      <DependentUpon>Groups.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Pages\admin\groups.ascx.cs">
-      <DependentUpon>groups.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\HostSettings.ascx.cs">
+      <DependentUpon>HostSettings.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Pages\admin\hostsettings.ascx.cs">
-      <DependentUpon>hostsettings.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\Mail.ascx.cs">
+      <DependentUpon>Mail.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Pages\admin\mail.ascx.cs">
-      <DependentUpon>mail.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\Medals.ascx.cs">
+      <DependentUpon>Medals.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Pages\admin\medals.ascx.cs">
-      <DependentUpon>medals.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\NntpForums.ascx.cs">
+      <DependentUpon>NntpForums.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Pages\admin\nntpforums.ascx.cs">
-      <DependentUpon>nntpforums.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\NntpRetrieve.ascx.cs">
+      <DependentUpon>NntpRetrieve.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Pages\admin\nntpretrieve.ascx.cs">
-      <DependentUpon>nntpretrieve.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\NntpServers.ascx.cs">
+      <DependentUpon>NntpServers.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Pages\admin\nntpservers.ascx.cs">
-      <DependentUpon>nntpservers.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\Pm.ascx.cs">
+      <DependentUpon>Pm.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Pages\admin\pm.ascx.cs">
-      <DependentUpon>pm.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\Prune.ascx.cs">
+      <DependentUpon>Prune.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Pages\admin\prune.ascx.cs">
-      <DependentUpon>prune.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\Ranks.ascx.cs">
+      <DependentUpon>Ranks.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Pages\admin\ranks.ascx.cs">
-      <DependentUpon>ranks.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\RegisterUser.ascx.cs">
+      <DependentUpon>RegisterUser.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Pages\admin\reguser.ascx.cs">
-      <DependentUpon>reguser.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\ReIndex.ascx.cs">
+      <DependentUpon>ReIndex.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Pages\admin\reindex.ascx.cs">
-      <DependentUpon>reindex.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\ReplaceWords.ascx.cs">
+      <DependentUpon>ReplaceWords.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Pages\admin\replacewords.ascx.cs">
-      <DependentUpon>replacewords.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\RunSql.ascx.cs">
+      <DependentUpon>RunSql.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Pages\admin\runsql.ascx.cs">
-      <DependentUpon>runsql.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\Users.ascx.cs">
+      <DependentUpon>Users.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Pages\admin\users.ascx.cs">
-      <DependentUpon>users.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Pages\admin\version.ascx.cs">
-      <DependentUpon>version.ascx</DependentUpon>
+    <Compile Include="Pages\Admin\Version.ascx.cs">
+      <DependentUpon>Version.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Pages\Approve.ascx.cs">
@@ -3216,7 +3325,6 @@
     </None>
     <Content Include="Content\Themes\yaf\bootstrap-forum.scss" />
     <Content Include="Content\forum\dropdowns.scss" />
-    <Content Include="Content\forum\editor.scss" />
     <Content Include="Content\forum\social-icons.scss" />
     <Content Include="Content\forum\button-scroll.scss" />
     <Content Include="Content\forum\logo.scss" />
@@ -3226,7 +3334,6 @@
     </Content>
     <None Include="Content\InstallWizard.scss" />
     <None Include="Content\jsdifflib.scss" />
-    <Content Include="Content\forum\Install\ladda.scss" />
     <Content Include="Content\Themes\cerulean\_bootswatch.scss" />
     <Content Include="Content\Themes\cerulean\_variables.scss" />
     <Content Include="Content\Themes\cosmo\_bootswatch.scss" />
@@ -3365,6 +3472,12 @@
     </Content>
     <Content Include="Scripts\forum\yaf.MessageHistory.js" />
     <Content Include="Scripts\forum\yaf.Attachments.js" />
+    <Content Include="Scripts\ckeditor\plugins\codesnippet\lib\highlight\CHANGES.md" />
+    <Content Include="Scripts\ckeditor\plugins\codesnippet\lib\highlight\LICENSE" />
+    <Content Include="Scripts\ckeditor\plugins\codesnippet\lib\highlight\README.md" />
+    <Content Include="Scripts\ckeditor\plugins\codesnippet\lib\highlight\README.ru.md" />
+    <Content Include="Scripts\ckeditor\plugins\emoji\emoji.json" />
+    <Content Include="Scripts\ckeditor\plugins\prism\README.md" />
     <None Include="Web References\RegisterV2\LatestVersionInformation.datasource">
       <DependentUpon>Reference.map</DependentUpon>
     </None>
@@ -3426,6 +3539,9 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Properties\PublishProfiles\" />
+    <Folder Include="Scripts\ckeditor\plugins\codemirror\icons\" />
+    <Folder Include="Scripts\ckeditor\plugins\codemirror\lang\" />
+    <Folder Include="Scripts\ckeditor\plugins\prism\lib\" />
     <Folder Include="uploads\" />
   </ItemGroup>
   <ItemGroup>
@@ -3557,9 +3673,6 @@ RD /S /Q "$(TargetDir)zh-TW\"</PostBuildEvent>
   <PropertyGroup>
     <TempFolder>$([System.IO.Path]::GetTempPath())</TempFolder>
   </PropertyGroup>
-  <ItemGroup>
-    <BrowsersListNodeJsFiles Include="$(TempFolder)\WebCompiler*\node_modules\browserslist\node.js" />
-  </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="App_GlobalResources\Install.resx">
       <SubType>Designer</SubType>
@@ -3724,7 +3837,7 @@ RD /S /Q "$(TargetDir)zh-TW\"</PostBuildEvent>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties compilerconfig_1json__JSONSchema="" bundleconfig_1json__JSONSchema="" />
+      <UserProperties bundleconfig_1json__JSONSchema="" compilerconfig_1json__JSONSchema="" />
     </VisualStudio>
   </ProjectExtensions>
   <Import Project="..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets" Condition="Exists('..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets')" />

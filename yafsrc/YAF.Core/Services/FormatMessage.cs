@@ -56,8 +56,8 @@ namespace YAF.Core.Services
         /// <summary>
         ///   format message regex
         /// </summary>
-        private const RegexOptions Options = RegexOptions.IgnoreCase | RegexOptions.Multiline;
-
+        //private const RegexOptions Options = RegexOptions.IgnoreCase | RegexOptions.Multiline;
+        /*
         /// <summary>
         /// The mail regex
         /// </summary>
@@ -85,7 +85,7 @@ namespace YAF.Core.Services
         private static readonly Regex RgxUrl3 = new Regex(
             @"(?<before>^|[ ]|\[[A-Za-z0-9]\]|\[\*\]|[A-Za-z0-9])(?<!http://)(?<inner>www\.(?:[\w-]+\.)+[\w-]+(?:/[\w-./?%+#&=;,~]*)?)",
             Options | RegexOptions.Compiled);
-
+            */
         #endregion
 
         /// <summary>
@@ -260,16 +260,14 @@ namespace YAF.Core.Services
             // see if the rules are already populated...
             if (!ruleEngine.HasRules)
             {
-                // populate
-
                 // get rules for YafBBCode
                 this.Get<IBBCode>().CreateBBCodeRules(
                     ruleEngine,
-                    messageFlags.IsHtml,
                     true,
                     targetBlankOverride,
                     useNoFollow);
 
+                /*
                 // add email rule
                 // vzrus: it's freezing  when post body contains full email address.
                 // the fix provided by community 
@@ -325,7 +323,7 @@ namespace YAF.Core.Services
                                      RuleRank = 44 
                                   };
 
-                ruleEngine.AddRule(url);
+                ruleEngine.AddRule(url);*/
             }
 
             message = this.Get<IBadWordReplace>().Replace(message);

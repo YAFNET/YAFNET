@@ -81,9 +81,6 @@ namespace YAF.Types.Interfaces
         /// <param name="ruleEngine">
         /// The rule Engine.
         /// </param>
-        /// <param name="isHtml">
-        /// The is Html.
-        /// </param>
         /// <param name="doFormatting">
         /// The do Formatting.
         /// </param>
@@ -93,16 +90,15 @@ namespace YAF.Types.Interfaces
         /// <param name="useNoFollow">
         /// The use No Follow.
         /// </param>
-        /// <param name="convertBBQuotes">
-        /// The convert BB Quotes.
+        /// <param name="isEditMode">
+        /// Indicates if the formatting is for the Editor.
         /// </param>
         void CreateBBCodeRules(
             [NotNull] IProcessReplaceRules ruleEngine,
-            bool isHtml,
             bool doFormatting,
             bool targetBlankOverride,
             bool useNoFollow,
-            bool convertBBQuotes);
+            bool isEditMode = false);
 
         /// <summary>
         /// Handles localization for a Custom BBCode Elements using
@@ -122,9 +118,6 @@ namespace YAF.Types.Interfaces
         /// <param name="inputString">
         /// Input string containing BBCode to convert to HTML
         /// </param>
-        /// <param name="isHtml">
-        /// The is Html.
-        /// </param>
         /// <param name="doFormatting">
         /// The do Formatting.
         /// </param>
@@ -134,7 +127,7 @@ namespace YAF.Types.Interfaces
         /// <returns>
         /// The make html.
         /// </returns>
-        string MakeHtml([NotNull] string inputString, bool isHtml, bool doFormatting, bool targetBlankOverride);
+        string MakeHtml([NotNull] string inputString, bool doFormatting, bool targetBlankOverride);
 
         /// <summary>
         /// Helper function that dandles registering "Custom BBCode" JavaScript (if there is any)

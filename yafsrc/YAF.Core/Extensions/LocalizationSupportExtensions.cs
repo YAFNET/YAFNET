@@ -86,10 +86,10 @@ namespace YAF.Core.Extensions
 
             var localizedItem = supportedItem.Localize(currentControl);
 
-            // convert from YafBBCode to HTML
+            // convert from BBCode to HTML
             if (supportedItem.EnableBBCode)
             {
-                localizedItem = currentControl.Get<IBBCode>().MakeHtml(localizedItem, false, true, false);
+                localizedItem = currentControl.Get<IBBCode>().MakeHtml(localizedItem, true, true);
             }
 
             return localizedItem.Fmt(supportedItem.Param0, supportedItem.Param1, supportedItem.Param2);

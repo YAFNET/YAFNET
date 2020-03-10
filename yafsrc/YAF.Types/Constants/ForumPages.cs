@@ -269,9 +269,9 @@ namespace YAF.Types.Constants
         Avatar,
 
         /// <summary>
-        /// The XMPP page.
+        /// The Jabber page.
         /// </summary>
-        Xmpp,
+        Jabber,
 
         /// <summary>
         /// The Email page.
@@ -304,233 +304,228 @@ namespace YAF.Types.Constants
         RecoverPassword,
 
         /// <summary>
-        /// The admin_admin.
+        /// The Admin admin page.
         /// </summary>
-        admin_admin,
+        Admin_Admin,
 
         /// <summary>
-        /// The admin_hostsettings.
+        /// The Admin host settings page.
         /// </summary>
-        admin_hostsettings,
+        Admin_HostSettings,
 
         /// <summary>
-        /// The admin_boards.
+        /// The Admin boards.
         /// </summary>
-        admin_boards,
+        Admin_Boards,
 
         /// <summary>
-        /// The admin_boardsettings.
+        /// The Admin board settings page.
         /// </summary>
-        admin_boardsettings,
+        Admin_Settings,
 
         /// <summary>
-        /// The admin_forums.
+        /// The Admin forums page.
         /// </summary>
-        admin_forums,
+        Admin_Forums,
 
         /// <summary>
-        /// The admin_bannedemail.
+        /// The Admin banned email page.
         /// </summary>
-        admin_bannedemail,
+        Admin_BannedEmails,
 
         /// <summary>
-        /// The admin_bannedip.
+        /// The Admin banned IP page.
         /// </summary>
-        admin_bannedip,
+        Admin_BannedIps,
 
         /// <summary>
-        /// The admin_bannedname.
+        /// The Admin banned name page.
         /// </summary>
-        admin_bannedname,
+        Admin_BannedNames,
 
         /// <summary>
-        /// The admin_accessmasks.
+        /// The Admin access masks page.
         /// </summary>
-        admin_accessmasks,
+        Admin_AccessMasks,
 
         /// <summary>
-        /// The admin_groups.
+        /// The Admin groups page.
         /// </summary>
-        admin_groups,
+        Admin_Groups,
 
         /// <summary>
-        /// The admin_users.
+        /// The Admin users page.
         /// </summary>
-        admin_users,
+        Admin_Users,
 
         /// <summary>
-        /// The admin_ranks.
+        /// The Admin ranks page.
         /// </summary>
-        admin_ranks,
+        Admin_Ranks,
 
         /// <summary>
-        /// The admin_mail.
+        /// The Admin mail page.
         /// </summary>
-        admin_mail,
+        Admin_Mail,
 
         /// <summary>
-        /// The admin_medals.
+        /// The Admin medals page.
         /// </summary>
-        admin_medals,
+        Admin_Medals,
 
         /// <summary>
-        /// The admin_pageaccesslist.
+        /// The Admin page access list page.
         /// </summary>
-        admin_pageaccesslist,
+        Admin_PageAccessList,
 
         /// <summary>
-        /// The admin_pageaccessedit.
+        /// The Admin page access edit page.
         /// </summary>
-        admin_pageaccessedit,
+        Admin_PageAccessEdit,
 
         /// <summary>
-        /// The admin_prune.
+        /// The Admin prune page.
         /// </summary>
-        admin_prune,
+        Admin_Prune,
 
         /// <summary>
-        /// The admin_pm.
+        /// The Admin pm page.
         /// </summary>
-        admin_pm,
+        Admin_Pm,
 
         /// <summary>
-        /// The admin_eventlog.
+        /// The Admin event log page.
         /// </summary>
-        admin_eventlog,
+        Admin_EventLog,
 
         /// <summary>
-        /// The admin_spamlog.
+        /// The Admin spam log page.
         /// </summary>
-        admin_spamlog,
+        Admin_SpamLog,
 
         /// <summary>
-        /// The admin_nntpservers.
+        /// The Admin nntp servers page.
         /// </summary>
-        admin_nntpservers,
+        Admin_NntpServers,
 
         /// <summary>
-        /// The admin_nntpforums.
+        /// The Admin nntp forums page.
         /// </summary>
-        admin_nntpforums,
+        Admin_NntpForums,
 
         /// <summary>
-        /// The admin_nntpretrieve.
+        /// The Admin nntp retrieve page.
         /// </summary>
-        admin_nntpretrieve,
+        Admin_NntpRetrieve,
 
         /// <summary>
-        /// The admin_version.
+        /// The Admin version page.
         /// </summary>
-        admin_version,
+        Admin_Version,
 
         /// <summary>
-        /// The admin_editaccessmask.
+        /// The Admin edit access mask page.
         /// </summary>
-        admin_editaccessmask,
+        Admin_EditAccessMask,
 
         /// <summary>
-        /// The admin_editboard.
+        /// The Admin edit board page.
         /// </summary>
-        admin_editboard,
+        Admin_EditBoard,
 
         /// <summary>
-        /// The admin_editcategory.
+        /// The Admin edit category page.
         /// </summary>
-        admin_editcategory,
+        Admin_EditCategory,
 
         /// <summary>
-        /// The admin_editforum.
+        /// The Admin edit forum page.
         /// </summary>
-        admin_editforum,
+        Admin_EditForum,
 
         /// <summary>
-        /// The admin_deleteforum.
+        /// The Admin delete forum.
         /// </summary>
-        admin_deleteforum,
+        Admin_DeleteForum,
 
         /// <summary>
-        /// The admin_editgroup.
+        /// The Admin edit group page.
         /// </summary>
-        admin_editgroup,
+        Admin_EditGroup,
 
         /// <summary>
-        /// The admin_editmedal.
+        /// The Admin edit medal page.
         /// </summary>
-        admin_editmedal,
+        Admin_EditMedal,
 
         /// <summary>
-        /// The admin_editrank.
+        /// The Admin edit rank page.
         /// </summary>
-        admin_editrank,
+        Admin_EditRank,
 
         /// <summary>
-        /// The admin_edituser.
+        /// The Admin edit user page.
         /// </summary>
-        admin_edituser,
+        Admin_EditUser,
 
         /// <summary>
-        /// The admin_reguser.
+        /// The Admin register user page.
         /// </summary>
-        admin_reguser,
+        Admin_RegisterUser,
 
         /// <summary>
-        /// The admin_replacewords.
+        /// The Admin replace words page.
         /// </summary>
-        admin_replacewords,
+        Admin_ReplaceWords,
 
         /// <summary>
-        /// The admin spam words
+        /// The admin spam words page.
         /// </summary>
-        admin_spamwords,
+        Admin_SpamWords,
 
         /// <summary>
-        /// The admin_extensions.
+        /// The Admin BBCode page.
         /// </summary>
-        admin_extensions,
+        Admin_BBCodes,
 
         /// <summary>
-        /// The admin_bbcode.
+        /// The Admin BBCode edit page.
         /// </summary>
-        admin_bbcode,
+        Admin_BBCode_Edit,
 
         /// <summary>
-        /// The admin_bbcode_edit.
+        /// The Admin languages page.
         /// </summary>
-        admin_bbcode_edit,
+        Admin_Languages,
 
         /// <summary>
-        /// The admin_languages.
+        /// The Admin edit language page.
         /// </summary>
-        admin_languages,
+        Admin_EditLanguage,
 
         /// <summary>
-        /// The admin_editlanguage.
+        /// The Admin re index page.
         /// </summary>
-        admin_editlanguage,
+        Admin_ReIndex,
 
         /// <summary>
-        /// The admin_reindex.
+        /// The Admin run SQL page.
         /// </summary>
-        admin_reindex,
+        Admin_RunSql,
 
         /// <summary>
-        /// The admin_runsql.
+        /// The Admin task manager page.
         /// </summary>
-        admin_runsql,
+        Admin_TaskManager,
 
         /// <summary>
-        /// The admin_taskmanager.
+        /// The Admin restart app page.
         /// </summary>
-        admin_taskmanager,
-
-        /// <summary>
-        /// The admin_restartapp.
-        /// </summary>
-        admin_restartapp,
+        Admin_RestartApp,
 
         /// <summary>
         /// Digest Admin page
         /// </summary>
-        admin_digest
+        Admin_Digest
     }
 }

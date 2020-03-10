@@ -45,7 +45,7 @@
                                              Size="Small"
                                              Visible="<%# this.PageContext.IsAdmin %>"
                                              TextLocalizedTag="ADMIN_USER" TextLocalizedPage="PROFILE"
-                                             NavigateUrl='<%# BuildLink.GetLinkNotEscaped( ForumPages.admin_edituser,"u={0}", this.Eval("UserID").ToType<int>() ) %>'
+                                             NavigateUrl='<%# BuildLink.GetLinkNotEscaped( ForumPages.Admin_EditUser,"u={0}", this.Eval("UserID").ToType<int>() ) %>'
                                              Icon="users-cog" 
                                              Type="Danger">
                             </YAF:ThemeButton>

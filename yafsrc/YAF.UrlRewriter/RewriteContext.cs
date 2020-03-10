@@ -18,6 +18,7 @@ namespace YAF.UrlRewriter
     using System.Text.RegularExpressions;
     using System.Web;
 
+    using YAF.Types.Extensions;
     using YAF.UrlRewriter.Configuration;
     using YAF.UrlRewriter.Utilities;
 
@@ -50,20 +51,14 @@ namespace YAF.UrlRewriter
             this.Location = rawUrl;
 
             // Initialise the Properties collection from all the server variables, headers and cookies.
-            foreach (var key in httpContext.ServerVariables.AllKeys)
-            {
-                this.Properties.Add(key, httpContext.ServerVariables[key]);
-            }
 
-            foreach (var key in httpContext.RequestHeaders.AllKeys)
-            {
-                this.Properties.Add(key, httpContext.RequestHeaders[key]);
-            }
+            httpContext.ServerVariables.AllKeys.ForEach(key => this.Properties.Add(key, httpContext.ServerVariables[(string)key]));
 
-            foreach (var key in httpContext.RequestCookies.AllKeys)
-            {
-                this.Properties.Add(key, httpContext.RequestCookies[key].Value);
-            }
+            httpContext.RequestHeaders.AllKeys.ForEach(
+                key => this.Properties.Add(key, httpContext.RequestHeaders[(string)key]));
+
+            httpContext.RequestCookies.AllKeys.ForEach(
+                key => this.Properties.Add(key, httpContext.RequestCookies[(string)key].Value));
         }
 
         /// <summary>

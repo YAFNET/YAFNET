@@ -118,7 +118,7 @@ namespace YAF.Controls
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void CancelClick([NotNull] object sender, [NotNull] EventArgs e)
         {
-            BuildLink.Redirect(this.PageContext.CurrentForumPage.IsAdminPage ? ForumPages.admin_users : ForumPages.Account);
+            BuildLink.Redirect(this.PageContext.CurrentForumPage.IsAdminPage ? ForumPages.Admin_Users : ForumPages.Account);
         }
 
         /// <summary>

@@ -129,7 +129,7 @@ namespace YAF.Dialogs
 
                  this.Get<IDataCache>().Remove(Constants.Cache.SpamWords);
 
-                 BuildLink.Redirect(ForumPages.admin_spamwords);
+                 BuildLink.Redirect(ForumPages.Admin_SpamWords);
             }
         }
 

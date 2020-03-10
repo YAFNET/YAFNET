@@ -43,20 +43,20 @@
                                              TextLocalizedTag="HOST"
                                              TextLocalizedPage="TOOLBAR" />
                             <div class="dropdown-menu" aria-labelledby="hostDropdown">
-                            <a href="<%= BuildLink.GetLink(ForumPages.admin_hostsettings) %>"
-                               class="<%= this.PageContext.ForumPageType == ForumPages.admin_hostsettings ? "dropdown-item active" : "dropdown-item" %>">
+                            <a href="<%= BuildLink.GetLink(ForumPages.Admin_HostSettings) %>"
+                               class="<%= this.PageContext.ForumPageType == ForumPages.Admin_HostSettings ? "dropdown-item active" : "dropdown-item" %>">
                             <i class="fa fa-cog fa-fw"></i>&nbsp;
                                 <YAF:LocalizedLabel runat="server" 
                                                     LocalizedTag="admin_hostsettings"></YAF:LocalizedLabel>
                             </a>
-                            <a href="<%= BuildLink.GetLink(ForumPages.admin_boards) %>"
-                               class="<%= this.PageContext.ForumPageType == ForumPages.admin_boards || this.PageContext.ForumPageType == ForumPages.admin_editboard ? "dropdown-item active" : "dropdown-item" %>">
+                            <a href="<%= BuildLink.GetLink(ForumPages.Admin_Boards) %>"
+                               class="<%= this.PageContext.ForumPageType == ForumPages.Admin_Boards || this.PageContext.ForumPageType == ForumPages.Admin_EditBoard ? "dropdown-item active" : "dropdown-item" %>">
                                 <i class="fa fa-globe fa-fw"></i>&nbsp;
                                 <YAF:LocalizedLabel runat="server" 
                                                     LocalizedTag="admin_boards" LocalizedPage="adminmenu"></YAF:LocalizedLabel>
                             </a>
-                            <a href="<%= BuildLink.GetLink(ForumPages.admin_pageaccesslist) %>"
-                               class="<%= this.PageContext.ForumPageType == ForumPages.admin_pageaccesslist || this.PageContext.ForumPageType == ForumPages.admin_pageaccessedit ? "dropdown-item active" : "dropdown-item" %>">
+                            <a href="<%= BuildLink.GetLink(ForumPages.Admin_PageAccessList) %>"
+                               class="<%= this.PageContext.ForumPageType == ForumPages.Admin_PageAccessList || this.PageContext.ForumPageType == ForumPages.Admin_PageAccessEdit ? "dropdown-item active" : "dropdown-item" %>">
                                 <i class="fa fa-building fa-fw"></i>&nbsp;
                                 <YAF:LocalizedLabel runat="server" 
                                                     LocalizedTag="admin_pageaccesslist"></YAF:LocalizedLabel>
@@ -67,23 +67,23 @@
                     <asp:PlaceHolder runat="server" ID="ModerateHolder" Visible="False">
                         <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" id="moderateDropdown" data-toggle="dropdown" 
-                           href="<%= BuildLink.GetLink(ForumPages.admin_hostsettings) %>" 
+                           href="<%= BuildLink.GetLink(ForumPages.Admin_HostSettings) %>" 
                            role="button" 
                            aria-haspopup="true" aria-expanded="false">
                            <%= this.GetText("TOOLBAR", "HOST")  %>
                         </a>
                         <div class="dropdown-menu" aria-labelledby="moderateDropdown">
-                            <a href="<%= BuildLink.GetLink(ForumPages.admin_hostsettings) %>"
+                            <a href="<%= BuildLink.GetLink(ForumPages.Admin_HostSettings) %>"
                                class="dropdown-item">
                             <i class="fa fa-cog fa-fw"></i>&nbsp;
                                 <YAF:LocalizedLabel runat="server" LocalizedTag="admin_hostsettings"></YAF:LocalizedLabel>
                             </a>
-                            <a href="<%= BuildLink.GetLink(ForumPages.admin_boards) %>"
+                            <a href="<%= BuildLink.GetLink(ForumPages.Admin_Boards) %>"
                                class="dropdown-item">
                                 <i class="fa fa-globe fa-fw"></i>&nbsp;
                                 <YAF:LocalizedLabel runat="server" LocalizedTag="admin_boards"></YAF:LocalizedLabel>
                             </a>
-                            <a href="<%= BuildLink.GetLink(ForumPages.admin_pageaccesslist) %>"
+                            <a href="<%= BuildLink.GetLink(ForumPages.Admin_PageAccessList) %>"
                                class="dropdown-item">
                                 <i class="fa fa-building fa-fw"></i>&nbsp;
                                 <YAF:LocalizedLabel runat="server" LocalizedTag="admin_pageaccesslist"></YAF:LocalizedLabel>

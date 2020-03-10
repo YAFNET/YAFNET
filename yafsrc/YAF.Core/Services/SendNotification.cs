@@ -641,7 +641,7 @@ namespace YAF.Core.Services
                                       TemplateParams =
                                           {
                                               ["{adminlink}"] = BuildLink.GetLinkNotEscaped(
-                                                  ForumPages.admin_edituser,
+                                                  ForumPages.Admin_EditUser,
                                                   true,
                                                   "u={0}",
                                                   userId),
@@ -692,7 +692,7 @@ namespace YAF.Core.Services
                                                       TemplateParams =
                                                           {
                                                               ["{adminlink}"] = BuildLink.GetLinkNotEscaped(
-                                                                  ForumPages.admin_edituser,
+                                                                  ForumPages.Admin_EditUser,
                                                                   true,
                                                                   "u={0}",
                                                                   userId),

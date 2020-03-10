@@ -101,7 +101,7 @@ namespace YAF.Controls
         protected void CancelClick([NotNull] object sender, [NotNull] EventArgs e)
         {
             BuildLink.Redirect(
-                this.PageContext.CurrentForumPage.IsAdminPage ? ForumPages.admin_users : ForumPages.Account);
+                this.PageContext.CurrentForumPage.IsAdminPage ? ForumPages.Admin_Users : ForumPages.Account);
         }
 
         /// <summary>

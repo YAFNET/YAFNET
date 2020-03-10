@@ -166,7 +166,7 @@ namespace YAF.Dialogs
             }
 
             // go back to banned IP's administration page
-            BuildLink.Redirect(ForumPages.admin_bannedip);
+            BuildLink.Redirect(ForumPages.Admin_BannedIps);
         }
 
         #endregion

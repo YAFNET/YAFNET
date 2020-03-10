@@ -553,7 +553,7 @@ namespace YAF.Controls
                             TextLocalizedPage = "POSTS",
                             TextLocalizedTag = "EDITUSER",
                             CssClass = "dropdown-item",
-                            NavigateUrl = BuildLink.GetLink(ForumPages.admin_edituser, "u={0}", this.PostData.UserId)
+                            NavigateUrl = BuildLink.GetLink(ForumPages.Admin_EditUser, "u={0}", this.PostData.UserId)
                         });
                 this.UserDropHolder2.Controls.Add(
                     new ThemeButton
@@ -563,7 +563,7 @@ namespace YAF.Controls
                             TextLocalizedPage = "POSTS",
                             TextLocalizedTag = "EDITUSER",
                             CssClass = "dropdown-item",
-                            NavigateUrl = BuildLink.GetLink(ForumPages.admin_edituser, "u={0}", this.PostData.UserId)
+                            NavigateUrl = BuildLink.GetLink(ForumPages.Admin_EditUser, "u={0}", this.PostData.UserId)
                         });
             }
 

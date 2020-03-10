@@ -46,7 +46,7 @@
                                              TextLocalizedTag="ADMIN_USER" TextLocalizedPage="PROFILE"
                                              Icon="users-cog" 
                                              Type="Danger"
-                                             NavigateUrl='<%# BuildLink.GetLinkNotEscaped( ForumPages.admin_edituser,"u={0}", this.Eval("UserID").ToType<int>() ) %>'>
+                                             NavigateUrl='<%# BuildLink.GetLinkNotEscaped( ForumPages.Admin_EditUser,"u={0}", this.Eval("UserID").ToType<int>() ) %>'>
                             </YAF:ThemeButton>
                         </div>
                     </div>

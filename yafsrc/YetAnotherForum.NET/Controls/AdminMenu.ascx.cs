@@ -51,11 +51,11 @@ namespace YAF.Controls
             this.AdminDropdown.CssClass = "nav-link dropdown-toggle";
 
             if (this.PageContext.CurrentForumPage.IsAdminPage
-                && !(this.PageContext.ForumPageType == ForumPages.admin_hostsettings
-                     || this.PageContext.ForumPageType == ForumPages.admin_boards
-                     || this.PageContext.ForumPageType == ForumPages.admin_editboard
-                     || this.PageContext.ForumPageType == ForumPages.admin_pageaccessedit
-                     || this.PageContext.ForumPageType == ForumPages.admin_pageaccesslist))
+                && !(this.PageContext.ForumPageType == ForumPages.Admin_HostSettings
+                     || this.PageContext.ForumPageType == ForumPages.Admin_Boards
+                     || this.PageContext.ForumPageType == ForumPages.Admin_EditBoard
+                     || this.PageContext.ForumPageType == ForumPages.Admin_PageAccessEdit
+                     || this.PageContext.ForumPageType == ForumPages.Admin_PageAccessList))
             {
                 this.AdminDropdown.CssClass = "nav-link dropdown-toggle active";
             }

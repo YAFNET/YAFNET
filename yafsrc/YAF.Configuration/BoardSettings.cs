@@ -2267,9 +2267,25 @@ namespace YAF.Configuration
         /// </summary>
         public string AcceptedHTML
         {
-            get => this._reg.GetValue("AcceptedHTML", "br,hr,b,i,u,a,div,ol,ul,li,blockquote,img,span,p,em,strong,font,pre,h1,h2,h3,h4,h5,h6,address");
+            get =>
+                this._reg.GetValue(
+                    "AcceptedHTML",
+                    "br,hr,b,i,u,a,div,ol,ul,li,blockquote,img,span,p,em,strong,font,pre,h1,h2,h3,h4,h5,h6,address");
 
             set => this._reg.SetValue("AcceptedHTML", value.ToLower());
+        }
+
+        /// <summary>
+        /// Gets or sets the allowed file extensions.
+        /// </summary>
+        public string AllowedFileExtensions
+        {
+            get =>
+                this._reg.GetValue(
+                    "AllowedFileExtensions",
+                    "bmp,doc,gif,jpg,jpeg,mov,mp3,mpg,png,rar,tif,txt,xls,xml,zip");
+
+            set => this._reg.SetValue("AllowedFileExtensions", value.ToLower());
         }
 
         /// <summary>

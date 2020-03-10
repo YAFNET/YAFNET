@@ -126,7 +126,7 @@ namespace YAF.Dialogs
                     string.Format(this.GetText("ADMIN_USERS_IMPORT", "IMPORT_FAILED"), x.Message), MessageTypes.danger);
             }
 
-            BuildLink.Redirect(ForumPages.admin_users);
+            BuildLink.Redirect(ForumPages.Admin_Users);
         }
 
         /// <summary>

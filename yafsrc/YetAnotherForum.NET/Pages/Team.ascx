@@ -66,7 +66,7 @@
                                                      TextLocalizedTag="ADMIN_USER" TextLocalizedPage="PROFILE" 
                                                      Size="Small" Visible="false"
                                                      Icon="user-cog" Type="Secondary"
-                                                     NavigateUrl='<%# BuildLink.GetLinkNotEscaped( ForumPages.admin_edituser,"u={0}", this.Eval("UserID").ToType<int>() ) %>'>
+                                                     NavigateUrl='<%# BuildLink.GetLinkNotEscaped( ForumPages.Admin_EditUser,"u={0}", this.Eval("UserID").ToType<int>() ) %>'>
                                     </YAF:ThemeButton>
                                 </div>
                             </small>
@@ -144,7 +144,7 @@
                                                      TitleLocalizedPage="PROFILE" TitleLocalizedTag="ADMIN_USER"
                                                      TextLocalizedTag="ADMIN_USER" TextLocalizedPage="PROFILE"
                                                      Icon="user-cog" Type="Secondary"
-                                                     NavigateUrl='<%# BuildLink.GetLinkNotEscaped( ForumPages.admin_edituser,"u={0}", this.Eval("ModeratorID").ToType<int>() ) %>'>
+                                                     NavigateUrl='<%# BuildLink.GetLinkNotEscaped( ForumPages.Admin_EditUser,"u={0}", this.Eval("ModeratorID").ToType<int>() ) %>'>
                                     </YAF:ThemeButton>
                                 </div>
                             </small>

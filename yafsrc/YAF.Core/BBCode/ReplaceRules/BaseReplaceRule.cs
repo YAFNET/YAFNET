@@ -65,8 +65,6 @@ namespace YAF.Core.BBCode.ReplaceRules
     /// <param name="replacement">
     /// The replacement.
     /// </param>
-    /// <exception cref="NotImplementedException">
-    /// </exception>
     public abstract void Replace(ref string text, IReplaceBlocks replacement);
 
     #endregion
@@ -77,13 +75,11 @@ namespace YAF.Core.BBCode.ReplaceRules
     /// The compare to.
     /// </summary>
     /// <param name="obj">
-    /// The obj.
+    /// The object to compare to.
     /// </param>
     /// <returns>
-    /// The compare to.
+    /// The <see cref="int"/>.
     /// </returns>
-    /// <exception cref="ArgumentException">
-    /// </exception>
     public int CompareTo(object obj)
     {
         if (!(obj is BaseReplaceRule otherRule))

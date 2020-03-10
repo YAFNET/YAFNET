@@ -26,13 +26,13 @@
                     <YAF:Alert runat="server" Type="danger">
                         <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="email_verify_failed" />
                     </YAF:Alert>
-                    <div class="form-group">
-                        <asp:Label runat="server" AssociatedControlID="key">
-                            <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="enter_key" />
-                        </asp:Label>
-                        <asp:TextBox ID="key" runat="server" CssClass="form-control" />
-                    </div>
                 </asp:PlaceHolder>
+                <div class="form-group">
+                    <asp:Label runat="server" AssociatedControlID="key">
+                        <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="enter_key" />
+                    </asp:Label>
+                    <asp:TextBox ID="key" runat="server" CssClass="form-control" />
+                </div>
             </div>
             <div class="card-footer text-center">
                 <YAF:ThemeButton ID="ValidateKey" runat="server" 

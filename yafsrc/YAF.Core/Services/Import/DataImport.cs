@@ -131,62 +131,6 @@ namespace YAF.Core.Services.Import
         }
 
         /// <summary>
-        /// The file extension import.
-        /// </summary>
-        /// <param name="boardId">
-        /// The board id.
-        /// </param>
-        /// <param name="inputStream">
-        /// The input stream.
-        /// </param>
-        /// <returns>
-        /// Returns How Many Extensions where imported.
-        /// </returns>
-        /// <exception cref="Exception">Import stream is not expected format.
-        /// </exception>
-        public static int FileExtensionImport(int boardId, Stream inputStream)
-        {
-            var importedCount = 0;
-
-            var dsExtensions = new DataSet();
-            dsExtensions.ReadXml(inputStream);
-
-            if (dsExtensions.Tables["YafExtension"]?.Columns["Extension"] != null)
-            {
-                var repository = BoardContext.Current.Get<IRepository<FileExtension>>();
-
-                var extensionList = repository.Get(e => e.BoardId == boardId);
-
-                // import any extensions that don't exist...
-                var extensionsToImport = dsExtensions.Tables["YafExtension"].Rows.Cast<DataRow>()
-                    .Select(row => row["Extension"].ToString()).ToList();
-
-                foreach (var newExtension in extensionsToImport.Where(
-                    ext => !extensionList.Any(
-                               e => string.Equals(e.Extension, ext, StringComparison.OrdinalIgnoreCase))))
-                {
-                    try
-                    {
-                        // add this...
-                        repository.Insert(new FileExtension { BoardId = boardId, Extension = newExtension });
-                    }
-                    catch
-                    {
-                        // LAZY CODER ALERT: Ignore errors, probably duplicates.
-                    }
-
-                    importedCount++;
-                }
-            }
-            else
-            {
-                throw new Exception("Import stream is not expected format.");
-            }
-
-            return importedCount;
-        }
-
-        /// <summary>
         /// Import List of Banned Email Addresses
         /// </summary>
         /// <param name="boardId">The board id.</param>

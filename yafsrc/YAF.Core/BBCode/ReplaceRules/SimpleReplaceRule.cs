@@ -34,14 +34,14 @@ namespace YAF.Core.BBCode.ReplaceRules
     #region Constants and Fields
 
     /// <summary>
-    ///   The _find.
+    ///   The find.
     /// </summary>
-    private readonly string _find;
+    private readonly string find;
 
     /// <summary>
-    ///   The _replace.
+    ///   The replace.
     /// </summary>
-    private readonly string _replace;
+    private readonly string replace;
 
     #endregion
 
@@ -58,8 +58,8 @@ namespace YAF.Core.BBCode.ReplaceRules
     /// </param>
     public SimpleReplaceRule(string find, string replace)
     {
-      this._find = find;
-      this._replace = replace;
+      this.find = find;
+      this.replace = replace;
 
       // lower the rank by default
       this.RuleRank = 100;
@@ -72,7 +72,7 @@ namespace YAF.Core.BBCode.ReplaceRules
     /// <summary>
     ///   Gets RuleDescription.
     /// </summary>
-    public override string RuleDescription => $"Find = \"{this._find}\"";
+    public override string RuleDescription => $"Find = \"{this.find}\"";
 
     #endregion
 
@@ -89,20 +89,21 @@ namespace YAF.Core.BBCode.ReplaceRules
     /// </param>
     public override void Replace(ref string text, IReplaceBlocks replacement)
     {
-      var index = -1;
+      int index;
 
       do
       {
-        
-        index = text.FastIndexOf(this._find);
+          index = text.FastIndexOf(this.find);
 
-        if (index >= 0)
+        if (index < 0)
         {
-          // replace it...
-          var replaceIndex = replacement.Add(this._replace);
-          text = text.Substring(0, index) + replacement.Get(replaceIndex) +
-                 text.Substring(index + this._find.Length);
+            continue;
         }
+
+        // replace it...
+        var replaceIndex = replacement.Add(this.replace);
+        text = text.Substring(0, index) + replacement.Get(replaceIndex) +
+               text.Substring(index + this.find.Length);
       }
       while (index >= 0);
     }

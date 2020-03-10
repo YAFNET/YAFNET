@@ -39,6 +39,7 @@ namespace YAF.Pages
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
     using YAF.Utils;
+    using YAF.Utils.Helpers;
     using YAF.Web.Extensions;
 
     #endregion
@@ -82,10 +83,10 @@ namespace YAF.Pages
         /// </param>
         public void ValidateKey_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
-            var userRow = this.GetRepository<CheckEmail>().Update(this.key.Text).Rows[0];
+            var userRow = this.GetRepository<CheckEmail>().Update(this.key.Text);
             var userEmail = userRow["Email"].ToString();
 
-            var keyVerified = userRow["ProviderUserKey"] != DBNull.Value;
+            var keyVerified = !userRow["ProviderUserKey"].IsNullOrEmptyDBField();
 
             this.approved.Visible = keyVerified;
             this.error.Visible = !keyVerified;

@@ -1,6 +1,6 @@
 /*!
 * tablesorter (FORK) pager plugin
-* updated 2018-03-19 (v2.30.1)
+* updated 2020-03-03 (v2.31.3)
 */
 /*jshint browser:true, jquery:true, unused:false */
 ;(function($) {
@@ -52,7 +52,7 @@
 				//   ],
 				//   [ "header1", "header2", ... "headerN" ] // optional
 				// ]
-				ajaxProcessing: function( /* ajax */ ) { return [ 0, [], null ]; },
+				ajaxProcessing: function(data) { return data; },
 
 				// output default: '{page}/{totalPages}'
 				// possible variables: {size}, {page}, {totalPages}, {filteredPages}, {startRow},
@@ -367,7 +367,7 @@
 					sz = p.size === 'all' ? p.totalRows : p.size,
 					s = ( p.page * sz ),
 					e =  s + sz,
-					last = 0, // for cache indexing
+					last = -1, // for cache indexing
 					j = 0; // size counter
 					p.cacheIndex = [];
 					for ( i = 0; i < l; i++ ) {
@@ -456,7 +456,7 @@
 							th = result[2]; // headers
 						}
 						l = d && d.length;
-						if (d instanceof jQuery) {
+						if (d instanceof $) {
 							if (p.processAjaxOnInit) {
 								// append jQuery object
 								c.$tbodies.eq(0).empty();

@@ -175,7 +175,7 @@ namespace YAF.Dialogs
             }
 
             // re-bind data
-            BuildLink.Redirect(ForumPages.admin_editmedal, "medalid={0}", this.MedalId.Value);
+            BuildLink.Redirect(ForumPages.Admin_EditMedal, "medalid={0}", this.MedalId.Value);
         }
 
         #endregion

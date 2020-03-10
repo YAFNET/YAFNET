@@ -38,10 +38,10 @@ namespace YAF.Core.BBCode.ReplaceRules
         /// Initializes a new instance of the <see cref="CodeRegexReplaceRule"/> class.
         /// </summary>
         /// <param name="regExSearch">
-        /// The reg ex search.
+        /// The Search Regex
         /// </param>
         /// <param name="regExReplace">
-        /// The reg ex replace.
+        /// The Replace Regex.
         /// </param>
         public CodeRegexReplaceRule(Regex regExSearch, string regExReplace)
             : base(regExSearch, regExReplace)
@@ -65,16 +65,16 @@ namespace YAF.Core.BBCode.ReplaceRules
         /// </param>
         public override void Replace(ref string text, IReplaceBlocks replacement)
         {
-            var m = this._regExSearch.Match(text);
+            var m = this.RegExSearch.Match(text);
             while (m.Success)
             {
-                var replaceItem = this._regExReplace.Replace("${inner}", this.GetInnerValue(m.Groups["inner"].Value));
+                var replaceItem = this.RegExReplace.Replace("${inner}", this.GetInnerValue(m.Groups["inner"].Value));
 
                 var replaceIndex = replacement.Add(replaceItem);
-                text = text.Substring(0, m.Groups[0].Index) + replacement.Get(replaceIndex)
-                                                            + text.Substring(m.Groups[0].Index + m.Groups[0].Length);
+                text =
+                    $"{text.Substring(0, m.Groups[0].Index)}{replacement.Get(replaceIndex)}{text.Substring(m.Groups[0].Index + m.Groups[0].Length)}";
 
-                m = this._regExSearch.Match(text);
+                m = this.RegExSearch.Match(text);
             }
         }
 

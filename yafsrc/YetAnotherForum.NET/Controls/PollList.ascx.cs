@@ -1395,30 +1395,30 @@ namespace YAF.Controls
                     }
 
                     break;
-                case ForumPages.admin_editforum:
+                case ForumPages.Admin_EditForum:
 
                     // This is a poll on edit forum page
                     if (this.EditForumId > 0)
                     {
-                        BuildLink.Redirect(ForumPages.admin_editforum, "f={0}", this.ForumId);
+                        BuildLink.Redirect(ForumPages.Admin_EditForum, "f={0}", this.ForumId);
                     }
 
                     break;
-                case ForumPages.admin_editcategory:
+                case ForumPages.Admin_EditCategory:
 
                     // this is a poll on edit category page
                     if (this.EditCategoryId > 0)
                     {
-                        BuildLink.Redirect(ForumPages.admin_editcategory, "c={0}", this.EditCategoryId);
+                        BuildLink.Redirect(ForumPages.Admin_EditCategory, "c={0}", this.EditCategoryId);
                     }
 
                     break;
-                case ForumPages.admin_editboard:
+                case ForumPages.Admin_EditBoard:
 
                     // this is a poll on edit board page
                     if (this.EditBoardId > 0)
                     {
-                        BuildLink.Redirect(ForumPages.admin_editboard, "b={0}", this.EditBoardId);
+                        BuildLink.Redirect(ForumPages.Admin_EditBoard, "b={0}", this.EditBoardId);
                     }
 
                     break;

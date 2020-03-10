@@ -59,11 +59,6 @@ namespace YAF.Core.Services
         private const string BbcodeImport = "bbCodeExtensions.xml";
 
         /// <summary>
-        ///     The File type extensions import xml file.
-        /// </summary>
-        private const string FileImport = "fileExtensions.xml";
-
-        /// <summary>
         ///     The Spam Words list import xml file.
         /// </summary>
         private const string SpamWordsImport = "SpamWords.xml";
@@ -478,9 +473,6 @@ namespace YAF.Core.Services
 
                         // load default bbcode if available...
                         loadWrapper(BbcodeImport, s => DataImport.BBCodeExtensionImport(board.ID, s));
-
-                        // load default extensions if available...
-                        loadWrapper(FileImport, s => DataImport.FileExtensionImport(board.ID, s));
 
                         // load default spam word if available...
                         loadWrapper(SpamWordsImport, s => DataImport.SpamWordsImport(board.ID, s));
