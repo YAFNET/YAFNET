@@ -30,7 +30,7 @@
             Type="Info" />
         <YAF:ThemeButton ID="AdminUserButton" runat="server" Visible="false"
             TextLocalizedTag="ADMIN_USER"
-            NavigateUrl='<%# BuildLink.GetLinkNotEscaped( ForumPages.admin_edituser,"u={0}", this.UserId ) %>'
+            NavigateUrl='<%# BuildLink.GetLinkNotEscaped(ForumPages.Admin_EditUser,"u={0}", this.UserId) %>'
             Icon="user-cog"
             Type="Danger">
         </YAF:ThemeButton>
@@ -46,7 +46,7 @@
     <div class="col-md-3">
         <!--left col-->
         <ul class="list-group mb-3">
-            <li class="list-group-item text-light bg-primary text-uppercase">
+            <li class="list-group-item text-light bg-primary">
                 <YAF:LocalizedLabel runat="server" LocalizedTag="profile" />
             </li>
             <li class="list-group-item text-right">
@@ -165,7 +165,7 @@
             </div>
         </asp:PlaceHolder>
         <ul class="list-group mb-3">
-            <li class="list-group-item text-light bg-primary text-uppercase">
+            <li class="list-group-item text-light bg-primary">
                 <YAF:LocalizedLabel ID="LocalizedLabel41" runat="server" LocalizedTag="STATISTICS" />
             </li>
             <li class="list-group-item d-flex justify-content-between align-items-end">
@@ -218,7 +218,7 @@
         </ul>
         <asp:PlaceHolder runat="server" ID="SocialMediaHolder">
             <div class="card mb-3">
-                <div class="card-header text-light bg-primary text-uppercase">
+                <div class="card-header text-light bg-primary">
                     <YAF:LocalizedLabel runat="server"
                         LocalizedTag="SOCIAL_MEDIA">
                     </YAF:LocalizedLabel>
