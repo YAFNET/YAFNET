@@ -260,7 +260,7 @@
             </div>
         </asp:PlaceHolder>
         <div class="card mb-3">
-            <div class="card-header text-uppercase">
+            <div class="card-header">
                 <YAF:LocalizedLabel ID="LocalizedLabel43" runat="server" LocalizedTag="LAST10" />
             </div>
             <div class="card-body">
@@ -297,7 +297,7 @@
             </div>
         </div>
         <div runat="server" id="ModerateTab" class="card mb-3">
-            <div class="card-header text-uppercase">
+            <div class="card-header">
                 <YAF:LocalizedLabel ID="LocalizedLabel46" runat="server" LocalizedTag="MODERATION" />
             </div>
             <div class="card-body">
@@ -331,7 +331,7 @@
         </div>
         <asp:PlaceHolder runat="server" ID="BuddyCard">
             <div class="card mb-3">
-                <div class="card-header text-uppercase">
+                <div class="card-header">
                     <YAF:LocalizedLabel ID="LocalizedLabel44" runat="server"
                         LocalizedTag='<%# this.UserId == BoardContext.Current.PageUserID ? "BUDDIES" : "BUDDIESTITLE"%>' />
                 </div>
