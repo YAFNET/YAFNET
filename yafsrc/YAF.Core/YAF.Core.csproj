@@ -83,7 +83,4 @@
     <PackageReference Include="Autofac" Version="5.1.2" />
     <PackageReference Include="Farsi.Library" Version="2.7.0" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Theme\" />
-  </ItemGroup>
 </Project>
