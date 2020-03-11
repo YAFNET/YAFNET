@@ -128,22 +128,18 @@ namespace YAF.Utils
 
             var queryBuilder = new StringBuilder();
 
-            foreach (string key in this.Parameters)
-            {
-                var value = this.Parameters[key];
+            this.Parameters.Cast<string>().Where(k => !excludeValues.Contains(k)).ForEach(
+                key =>
+                    {
+                        var value = this.Parameters[key];
 
-                if (excludeValues.Contains(key))
-                {
-                    continue;
-                }
+                        if (queryBuilder.Length > 0)
+                        {
+                            queryBuilder.Append("&");
+                        }
 
-                if (queryBuilder.Length > 0)
-                {
-                    queryBuilder.Append("&");
-                }
-
-                queryBuilder.AppendFormat("{0}={1}", key, value);
-            }
+                        queryBuilder.AppendFormat("{0}={1}", key, value);
+                    });
 
             return queryBuilder.ToString();
         }
@@ -176,7 +172,7 @@ namespace YAF.Utils
 
             var arrayPairs = urlTemp.Split('&');
 
-            foreach (var nvalue in from pair in arrayPairs where pair.IsSet() select pair.Trim().Split('='))
+            (from pair in arrayPairs where pair.IsSet() select pair.Trim().Split('=')).ForEach(nvalue =>
             {
                 if (nvalue.Length == 1)
                 {
@@ -188,7 +184,7 @@ namespace YAF.Utils
                     var chunks = nvalue[1].Split(',');
                     this.Parameters.Add(nvalue[0], chunks.FirstOrDefault() ?? string.Empty);
                 }
-            }
+            });
         }
 
         #endregion

@@ -28,7 +28,7 @@ namespace YAF.Types.Interfaces
   /// <summary>
   /// The YAF user profile interface.
   /// </summary>
-  public interface IYafUserProfile
+  public interface IUserProfile
   {
     #region Properties
 
@@ -41,21 +41,6 @@ namespace YAF.Types.Interfaces
     /// Gets or sets Blog.
     /// </summary>
     string Blog { get; set; }
-
-    /// <summary>
-    /// Gets or sets BlogServicePassword.
-    /// </summary>
-    string BlogServicePassword { get; set; }
-
-    /// <summary>
-    /// Gets or sets BlogServiceUrl.
-    /// </summary>
-    string BlogServiceUrl { get; set; }
-
-    /// <summary>
-    /// Gets or sets BlogServiceUsername.
-    /// </summary>
-    string BlogServiceUsername { get; set; }
 
     /// <summary>
     /// Gets or sets Gender.

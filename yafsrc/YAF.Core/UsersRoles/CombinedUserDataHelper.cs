@@ -66,7 +66,7 @@ namespace YAF.Core.UsersRoles
         /// <summary>
         ///   The _user profile.
         /// </summary>
-        private YafUserProfile userProfile;
+        private UserProfile userProfile;
 
         #endregion
 
@@ -290,14 +290,14 @@ namespace YAF.Core.UsersRoles
         /// <summary>
         ///   Gets Profile.
         /// </summary>
-        public IYafUserProfile Profile
+        public IUserProfile Profile
         {
             get
             {
                 if (this.userProfile == null && this.UserName.IsSet())
                 {
                     // init the profile...
-                    this.userProfile = YafUserProfile.GetProfile(this.UserName);
+                    this.userProfile = UserProfile.GetProfile(this.UserName);
                 }
 
                 return this.userProfile;

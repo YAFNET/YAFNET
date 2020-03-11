@@ -119,7 +119,7 @@ namespace YAF.Core.Services.Auth
                     }
 
                     // LOGIN Existing User
-                    var yafUser = YafUserProfile.GetProfile(checkUser.UserName);
+                    var yafUser = Utils.UserProfile.GetProfile(checkUser.UserName);
 
                     var yafUserData = new CombinedUserDataHelper(checkUser);
 
@@ -343,7 +343,7 @@ namespace YAF.Core.Services.Auth
             var userID = RoleMembershipHelper.CreateForumUser(user, BoardContext.Current.PageBoardID);
 
             // create empty profile just so they have one
-            var userProfile = YafUserProfile.GetProfile(twitterUser.UserName);
+            var userProfile = Utils.UserProfile.GetProfile(twitterUser.UserName);
 
             // setup their initial profile information
             userProfile.Save();

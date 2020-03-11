@@ -135,7 +135,7 @@ namespace YAF.Types.Interfaces
         /// <summary>
         ///   Gets Profile.
         /// </summary>
-        IYafUserProfile Profile { get; }
+        IUserProfile Profile { get; }
 
         /// <summary>
         ///   Gets RankName.

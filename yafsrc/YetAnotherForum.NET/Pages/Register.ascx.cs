@@ -215,7 +215,7 @@ namespace YAF.Pages
             var userID = RoleMembershipHelper.CreateForumUser(user, displayName, BoardContext.Current.PageBoardID);
 
             // create empty profile just so they have one
-            var userProfile = YafUserProfile.GetProfile(this.CreateUserWizard1.UserName);
+            var userProfile = Utils.UserProfile.GetProfile(this.CreateUserWizard1.UserName);
 
             // setup their initial profile information
             userProfile.Save();
@@ -873,7 +873,7 @@ namespace YAF.Pages
             var dstUser = (CheckBox)this.CreateUserWizard1.FindWizardControlRecursive("DSTUser");
 
             // setup/save the profile
-            var userProfile = YafUserProfile.GetProfile(this.CreateUserWizard1.UserName);
+            var userProfile = Utils.UserProfile.GetProfile(this.CreateUserWizard1.UserName);
 
             if (country.SelectedValue != null)
             {
