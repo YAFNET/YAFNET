@@ -61,7 +61,7 @@ namespace YAF.Core.Helpers
         /// <summary>
         /// The _user profile.
         /// </summary>
-        private YafUserProfile userProfile;
+        private UserProfile userProfile;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PostDataHelperWrapper"/> class.
@@ -112,7 +112,7 @@ namespace YAF.Core.Helpers
         /// <summary>
         /// Gets UserProfile.
         /// </summary>
-        public YafUserProfile UserProfile
+        public UserProfile UserProfile
         {
             get
             {
@@ -124,7 +124,7 @@ namespace YAF.Core.Helpers
                 // setup instance of the user profile...
                 if (this.DataRow != null)
                 {
-                    this.userProfile = YafUserProfile.GetProfile(UserMembershipHelper.GetUserNameFromID(this.UserId));
+                    this.userProfile = UserProfile.GetProfile(UserMembershipHelper.GetUserNameFromID(this.UserId));
                 }
 
                 return this.userProfile;

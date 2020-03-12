@@ -43,7 +43,7 @@ namespace YAF.Core
     /// <summary>
     ///     The Load board settings.
     /// </summary>
-    public class LoadBoardSettings : BoardSettings
+    public sealed class LoadBoardSettings : BoardSettings
     {
         #region Fields
 
@@ -64,7 +64,7 @@ namespace YAF.Core
         /// </param>
         public LoadBoardSettings([NotNull] int boardId)
         {
-            this._boardID = boardId;
+            this.BoardId = boardId;
 
             // get all the registry values for the forum
             this.LoadBoardSettingsFromDB();
@@ -75,9 +75,39 @@ namespace YAF.Core
         #region Properties
 
         /// <summary>
+        /// Gets or sets the legacy board settings.
+        /// </summary>
+        protected override LegacyBoardSettings LegacySettings
+        {
+            get => base.LegacySettings ?? (base.LegacySettings = SetupLegacyBoardSettings(this.CurrentBoard));
+
+            set => base.LegacySettings = value;
+        }
+
+        /// <summary>
+        /// Gets or sets the _membership app name.
+        /// </summary>
+        protected override string membershipAppName
+        {
+            get => base.membershipAppName ?? (base.membershipAppName = this.LegacySettings.MembershipAppName);
+
+            set => base.membershipAppName = value;
+        }
+
+        /// <summary>
+        /// Gets or sets the _roles app name.
+        /// </summary>
+        protected override string rolesAppName
+        {
+            get => base.rolesAppName ?? (base.rolesAppName = this.LegacySettings.RolesAppName);
+
+            set => base.rolesAppName = value;
+        }
+
+        /// <summary>
         /// Gets the current board.
         /// </summary>
-        protected Board CurrentBoard
+        private Board CurrentBoard
         {
             get
             {
@@ -86,42 +116,12 @@ namespace YAF.Core
                     return this.currentBoard;
                 }
 
-                var board = BoardContext.Current.GetRepository<Board>().GetById(this._boardID);
+                var board = BoardContext.Current.GetRepository<Board>().GetById(this.BoardId);
 
-                this.currentBoard = board ?? throw new EmptyBoardSettingException($"No data for board ID: {this._boardID}");
+                this.currentBoard = board ?? throw new EmptyBoardSettingException($"No data for board ID: {this.BoardId}");
 
                 return this.currentBoard;
             }
-        }
-
-        /// <summary>
-        /// Gets or sets the _legacy board settings.
-        /// </summary>
-        protected override LegacyBoardSettings _legacyBoardSettings
-        {
-            get => base._legacyBoardSettings ?? (base._legacyBoardSettings = SetupLegacyBoardSettings(this.CurrentBoard));
-
-            set => base._legacyBoardSettings = value;
-        }
-
-        /// <summary>
-        /// Gets or sets the _membership app name.
-        /// </summary>
-        protected override string _membershipAppName
-        {
-            get => base._membershipAppName ?? (base._membershipAppName = this._legacyBoardSettings.MembershipAppName);
-
-            set => base._membershipAppName = value;
-        }
-
-        /// <summary>
-        /// Gets or sets the _roles app name.
-        /// </summary>
-        protected override string _rolesAppName
-        {
-            get => base._rolesAppName ?? (base._rolesAppName = this._legacyBoardSettings.RolesAppName);
-
-            set => base._rolesAppName = value;
         }
 
         #endregion
@@ -134,60 +134,15 @@ namespace YAF.Core
         public void SaveRegistry()
         {
             // loop through all values and commit them to the DB
-            this._reg.Keys.ForEach(key => BoardContext.Current.GetRepository<Registry>().Save(key, this._reg[key]));
+            this.Registry.Keys.ForEach(key => BoardContext.Current.GetRepository<Registry>().Save(key, this.Registry[key]));
 
-            this._regBoard.Keys.ForEach(
-                key => BoardContext.Current.GetRepository<Registry>().Save(key, this._regBoard[key], this._boardID));
-        }
-
-        /// <summary>
-        /// Saves just the guest user id backup setting for this board.
-        /// </summary>
-        public void SaveGuestUserIdBackup()
-        {
-            var key = "GuestUserIdBackup";
-
-            if (this._regBoard.ContainsKey(key))
-            {
-                BoardContext.Current.GetRepository<Registry>().Save(key, this._regBoard[key], this._boardID);
-            }
+            this.RegistryBoard.Keys.ForEach(
+                key => BoardContext.Current.GetRepository<Registry>().Save(key, this.RegistryBoard[key], this.BoardId));
         }
 
         #endregion
 
         #region Methods
-
-        /// <summary>
-        /// Loads the board settings from database.
-        /// </summary>
-        protected void LoadBoardSettingsFromDB()
-        {
-            DataTable dataTable;
-
-            var registryList = BoardContext.Current.GetRepository<Registry>().List();
-
-            // get all the registry settings into our hash table
-            registryList.ForEach(
-                row =>
-                    {
-                        if (!this._reg.ContainsKey(row.Name.ToLower()))
-                        {
-                            this._reg.Add(row.Name.ToLower(), row.Value.IsNotSet() ? null : row.Value);
-                        }
-                    });
-
-            var registryBoardList = BoardContext.Current.GetRepository<Registry>().List(this._boardID);
-
-            // get all the registry settings into our hash table
-            registryBoardList.ForEach(
-                row =>
-                    {
-                        if (!this._regBoard.ContainsKey(row.Name.ToLower()))
-                        {
-                            this._regBoard.Add(row.Name.ToLower(), row.Value.IsNotSet() ? null : row.Value);
-                        }
-                    });
-        }
 
         /// <summary>
         /// The setup legacy board settings.
@@ -211,9 +166,41 @@ namespace YAF.Core
                                    : board.RolesAppName;
 
             return new LegacyBoardSettings(
-                board.Name, 
-                membershipAppName, 
+                board.Name,
+                membershipAppName,
                 rolesAppName);
+        }
+
+        /// <summary>
+        /// Loads the board settings from database.
+        /// </summary>
+        private void LoadBoardSettingsFromDB()
+        {
+            DataTable dataTable;
+
+            var registryList = BoardContext.Current.GetRepository<Registry>().List();
+
+            // get all the registry settings into our hash table
+            registryList.ForEach(
+                row =>
+                    {
+                        if (!this.Registry.ContainsKey(row.Name.ToLower()))
+                        {
+                            this.Registry.Add(row.Name.ToLower(), row.Value.IsNotSet() ? null : row.Value);
+                        }
+                    });
+
+            var registryBoardList = BoardContext.Current.GetRepository<Registry>().List(this.BoardId);
+
+            // get all the registry settings into our hash table
+            registryBoardList.ForEach(
+                row =>
+                    {
+                        if (!this.RegistryBoard.ContainsKey(row.Name.ToLower()))
+                        {
+                            this.RegistryBoard.Add(row.Name.ToLower(), row.Value.IsNotSet() ? null : row.Value);
+                        }
+                    });
         }
 
         #endregion

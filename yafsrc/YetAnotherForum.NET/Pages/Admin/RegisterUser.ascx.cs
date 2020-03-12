@@ -108,7 +108,7 @@ namespace YAF.Pages.Admin
             var userId = RoleMembershipHelper.CreateForumUser(user, BoardContext.Current.PageBoardID);
 
             // create profile
-            var userProfile = YafUserProfile.GetProfile(newUsername);
+            var userProfile = Utils.UserProfile.GetProfile(newUsername);
 
             // setup their initial profile information
             userProfile.Location = this.Location.Text.Trim();

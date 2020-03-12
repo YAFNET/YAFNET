@@ -206,7 +206,7 @@ namespace YAF.Core.Services.Auth
                 return CreateFacebookUser(facebookUser, userGender, out message);
             }
 
-            var yafUser = YafUserProfile.GetProfile(userName);
+            var yafUser = Utils.UserProfile.GetProfile(userName);
 
             var yafUserData =
                 new CombinedUserDataHelper(BoardContext.Current.Get<MembershipProvider>().GetUser(userName, true));
@@ -463,7 +463,7 @@ namespace YAF.Core.Services.Auth
             var userID = RoleMembershipHelper.CreateForumUser(user, BoardContext.Current.PageBoardID);
 
             // create empty profile just so they have one
-            var userProfile = YafUserProfile.GetProfile(facebookUser.UserName);
+            var userProfile = Utils.UserProfile.GetProfile(facebookUser.UserName);
 
             // setup their initial profile information
             userProfile.Save();

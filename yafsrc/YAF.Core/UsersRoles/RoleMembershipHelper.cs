@@ -559,7 +559,7 @@ namespace YAF.Core.UsersRoles
                             if (isLegacyYafDB)
                             {
                                 // copy profile data over...
-                                var userProfile = YafUserProfile.GetProfile(name);
+                                var userProfile = Utils.UserProfile.GetProfile(name);
 
                                 if (dataTable.Columns.Contains("ICQ") && !row["ICQ"].IsNullOrEmptyDBField())
                                 {

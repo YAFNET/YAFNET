@@ -36,7 +36,7 @@ namespace YAF.Utils
   /// <summary>
   /// The YAF user profile.
   /// </summary>
-  public class YafUserProfile : ProfileBase, IYafUserProfile
+  public class UserProfile : ProfileBase, IUserProfile
   {
     #region Properties
 
@@ -62,42 +62,6 @@ namespace YAF.Utils
       get => base["Blog"] as string;
 
       set => base["Blog"] = value;
-    }
-
-    /// <summary>
-    /// Gets or sets BlogServicePassword.
-    /// </summary>
-    [SettingsAllowAnonymous(false)]
-    [CustomProviderData("BlogServicePassword;nvarchar;255")]
-    public string BlogServicePassword
-    {
-      get => base["BlogServicePassword"] as string;
-
-      set => base["BlogServicePassword"] = value;
-    }
-
-    /// <summary>
-    /// Gets or sets BlogServiceUrl.
-    /// </summary>
-    [SettingsAllowAnonymous(false)]
-    [CustomProviderData("BlogServiceUrl;nvarchar;255")]
-    public string BlogServiceUrl
-    {
-      get => base["BlogServiceUrl"] as string;
-
-      set => base["BlogServiceUrl"] = value;
-    }
-
-    /// <summary>
-    /// Gets or sets BlogServiceUsername.
-    /// </summary>
-    [SettingsAllowAnonymous(false)]
-    [CustomProviderData("BlogServiceUsername;nvarchar;255")]
-    public string BlogServiceUsername
-    {
-      get => base["BlogServiceUsername"] as string;
-
-      set => base["BlogServiceUsername"] = value;
     }
 
     /// <summary>
@@ -329,9 +293,9 @@ namespace YAF.Utils
     /// <returns>
     /// The get profile.
     /// </returns>
-    public static YafUserProfile GetProfile(string userName)
+    public static UserProfile GetProfile(string userName)
     {
-      return Create(userName) as YafUserProfile;
+      return Create(userName) as UserProfile;
     }
 
     #endregion

@@ -502,7 +502,7 @@ namespace YAF.Controls
         /// </param>
         private void UpdateUserProfile([NotNull] string userName)
         {
-            var userProfile = YafUserProfile.GetProfile(userName);
+            var userProfile = Utils.UserProfile.GetProfile(userName);
 
             userProfile.Country = this.Country.SelectedItem != null
                                       ? this.Country.SelectedItem.Value.Trim()

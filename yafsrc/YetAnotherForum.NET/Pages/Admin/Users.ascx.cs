@@ -544,13 +544,10 @@ namespace YAF.Pages.Admin
 
             // Add Profile Columns
             usersList.Columns.Add("RealName");
-            usersList.Columns.Add("BlogServiceUrl");
             usersList.Columns.Add("Blog");
             usersList.Columns.Add("Gender");
             usersList.Columns.Add("MSN");
             usersList.Columns.Add("Birthday");
-            usersList.Columns.Add("BlogServiceUsername");
-            usersList.Columns.Add("BlogServicePassword");
             usersList.Columns.Add("AIM");
             usersList.Columns.Add("GoogleTalk");
             usersList.Columns.Add("Location");
@@ -577,15 +574,13 @@ namespace YAF.Pages.Admin
 
             usersList.Rows.Cast<DataRow>().ForEach(user =>
             {
-                var userProfile = YafUserProfile.GetProfile((string)user["Name"]);
+                var userProfile = Utils.UserProfile.GetProfile((string)user["Name"]);
 
                 // Add Profile Fields to User List Table.
                 user["RealName"] = userProfile.RealName;
                 user["Blog"] = userProfile.Blog;
                 user["Gender"] = userProfile.Gender;
                 user["Birthday"] = userProfile.Birthday;
-                user["BlogServiceUsername"] = userProfile.BlogServiceUsername;
-                user["BlogServicePassword"] = userProfile.BlogServicePassword;
                 user["GoogleId"] = userProfile.GoogleId;
                 user["Location"] = userProfile.Location;
                 user["Country"] = userProfile.Country;

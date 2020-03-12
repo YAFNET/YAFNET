@@ -234,7 +234,7 @@ namespace YAF.Pages.Admin
 
             try
             {
-                location = YafUserProfile.GetProfile(userName).Location;
+                location = Utils.UserProfile.GetProfile(userName).Location;
 
                 if (location.IsNotSet())
                 {

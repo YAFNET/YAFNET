@@ -26,9 +26,10 @@ namespace YAF.Web.Controls
 {
     using System.ComponentModel;
     using System.Web.UI;
-
+    
     using YAF.Core.BaseControls;
     using YAF.Types.Constants;
+    using YAF.Types.Extensions;
 
     /// <summary>
     /// Alert Message Control
@@ -37,6 +38,13 @@ namespace YAF.Web.Controls
     [ToolboxData("<{0}:Alert runat=server></{0}:Alert>")]
     public class Alert : BaseControl
     {
+        /// <summary>
+        /// Gets or sets the CSS class.
+        /// </summary>
+        [Category("Appearance")]
+        [DefaultValue("")]
+        public string CssClass { get; set; }
+
         /// <summary>
         /// Gets or sets a value indicating whether dismissing.
         /// </summary>
@@ -74,7 +82,16 @@ namespace YAF.Web.Controls
 
             writer.WriteBeginTag(HtmlTextWriterTag.Div.ToString());
 
-            var cssClass = this.MobileOnly ? " d-sm-none" : string.Empty;
+            string cssClass;
+
+            if (this.CssClass.IsSet())
+            {
+                cssClass = this.MobileOnly ? $" d-sm-none {this.CssClass}" : $" {this.CssClass}";
+            }
+            else
+            {
+                cssClass = this.MobileOnly ? " d-sm-none" : string.Empty;
+            }
 
             writer.WriteAttribute(
                 HtmlTextWriterAttribute.Class.ToString(),

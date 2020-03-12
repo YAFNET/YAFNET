@@ -1356,24 +1356,6 @@ namespace YAF.Pages.Admin
         protected global::System.Web.UI.WebControls.CheckBox ScriptManagerScriptsCDNHosted;
 
         /// <summary>
-        /// HelpLabel228 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Web.Controls.HelpLabel HelpLabel228;
-
-        /// <summary>
-        /// JqueryCDNHosted control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox JqueryCDNHosted;
-
-        /// <summary>
         /// Save control.
         /// </summary>
         /// <remarks>
@@ -2992,24 +2974,6 @@ namespace YAF.Pages.Admin
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox ShowYAFVersion;
-
-        /// <summary>
-        /// HelpLabel167 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Web.Controls.HelpLabel HelpLabel167;
-
-        /// <summary>
-        /// ShowGroups control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox ShowGroups;
 
         /// <summary>
         /// HelpLabel168 control.

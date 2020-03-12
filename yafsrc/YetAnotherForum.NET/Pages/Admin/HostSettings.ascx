@@ -654,14 +654,6 @@
                                     <asp:CheckBox Text="&nbsp;" ID="ScriptManagerScriptsCDNHosted" runat="server" />
                                 </div>
                             </div>
-                            <div class="form-group col-md-6">
-                                <YAF:HelpLabel ID="HelpLabel228" runat="server" 
-                                               AssociatedControlID="JqueryCDNHosted"
-                                               LocalizedTag="CDN_JQUERY" LocalizedPage="ADMIN_HOSTSETTINGS" />
-                                <div class="custom-control custom-switch">
-                                    <asp:CheckBox Text="&nbsp;" ID="JqueryCDNHosted" runat="server"></asp:CheckBox>
-                                </div>
-                            </div>
                         </div>
                     </div>
                     </div>
@@ -1459,15 +1451,6 @@
             </div>
         </div>
                     <div class="form-row">
-        <div class="form-group col-md-6">
-            <YAF:HelpLabel ID="HelpLabel167" runat="server" 
-                           AssociatedControlID="ShowGroups"
-                           LocalizedTag="SHOW_GROUPS" LocalizedPage="ADMIN_HOSTSETTINGS" />
-            <div class="custom-control custom-switch">
-                <asp:CheckBox Text="&nbsp;" ID="ShowGroups" runat="server"></asp:CheckBox>
-
-            </div>
-        </div>
         <div class="form-group col-md-6">
             <YAF:HelpLabel ID="HelpLabel168" runat="server" 
                            AssociatedControlID="ShowGroupsProfile"
