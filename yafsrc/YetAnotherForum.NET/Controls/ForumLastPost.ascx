@@ -10,7 +10,7 @@
             </asp:PlaceHolder>
             <YAF:ThemeButton runat="server" ID="Info"
                              Icon="info-circle"
-                             IconColor="text-secondary"
+                             IconColor="text-info"
                              IconCssClass="fas fa-lg"
                              Type="Link"
                              DataToggle="popover"
@@ -18,7 +18,7 @@
                              CssClass="topic-link-popover">
             </YAF:ThemeButton>
         </div>
-        <div>
+        <div class="d-flex align-items-end">
             <div class="btn-group" role="group">
                 <YAF:ThemeButton runat="server" ID="ImageLastUnreadMessageLink" 
                                  Size="Small"
