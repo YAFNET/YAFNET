@@ -133,7 +133,6 @@ namespace YAF.Core.Tasks
             // we're good to send -- update latest send so no duplication...
             boardSettings.LastDigestSend = DateTime.Now.ToString(CultureInfo.InvariantCulture);
             boardSettings.ForceDigestSend = false;
-            boardSettings.SaveGuestUserIdBackup();
 
             boardSettings.SaveRegistry();
 

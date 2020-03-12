@@ -46,19 +46,19 @@ namespace YAF.Core.Services.Localization
         #region Constants and Fields
 
         /// <summary>
-        ///   The _current page.
+        ///   The current page.
         /// </summary>
-        private string _currentPage = string.Empty;
+        private string currentPage = string.Empty;
 
         /// <summary>
-        ///   The _file name.
+        ///   The file name.
         /// </summary>
-        private string _fileName = string.Empty;
+        private string fileName = string.Empty;
 
         /// <summary>
-        /// The _localization resources.
+        /// The localization resources.
         /// </summary>
-        private LanguageResources _localizationLanguageResources;
+        private LanguageResources localizationLanguageResources;
 
         #endregion
 
@@ -79,7 +79,7 @@ namespace YAF.Core.Services.Localization
         /// </param>
         public Localizer(string fileName)
         {
-            this._fileName = fileName;
+            this.fileName = fileName;
             this.LoadFile();
             this.InitCulture();
         }
@@ -110,11 +110,11 @@ namespace YAF.Core.Services.Localization
             Func<LanuageResourcesPageResource, bool> predicate)
         {
             var pagePointer =
-                this._localizationLanguageResources.page.FirstOrDefault(p => p.name.ToUpper().Equals(this._currentPage));
+                this.localizationLanguageResources.page.FirstOrDefault(p => p.name.ToUpper().Equals(this.currentPage));
 
             return pagePointer != null
                        ? pagePointer.Resource.Where(predicate)
-                       : this._localizationLanguageResources.page.SelectMany(p => p.Resource).Where(predicate);
+                       : this.localizationLanguageResources.page.SelectMany(p => p.Resource).Where(predicate);
         }
 
         /// <summary>
@@ -130,31 +130,11 @@ namespace YAF.Core.Services.Localization
             Func<LanuageResourcesPageResource, bool> predicate)
         {
             var pagePointer =
-                this._localizationLanguageResources.page.FirstOrDefault(p => p.name.ToUpper().Equals(this._currentPage));
+                this.localizationLanguageResources.page.FirstOrDefault(p => p.name.ToUpper().Equals(this.currentPage));
 
             return pagePointer != null
                        ? pagePointer.Resource.Where(predicate)
-                       : this._localizationLanguageResources.page.SelectMany(p => p.Resource).Where(predicate);
-        }
-
-        /// <summary>
-        /// The get nodes using query.
-        /// </summary>
-        /// <param name="predicate">
-        /// The predicate.
-        /// </param>
-        /// <returns>
-        /// The Nodes.
-        /// </returns>
-        public IEnumerable<LanuageResourcesPageResource> GetRegionNodesUsingQuery(
-            Func<LanuageResourcesPageResource, bool> predicate)
-        {
-            var pagePointer =
-                this._localizationLanguageResources.page.FirstOrDefault(p => p.name.ToUpper().Equals(this._currentPage));
-
-            return pagePointer != null
-                       ? pagePointer.Resource.Where(predicate)
-                       : this._localizationLanguageResources.page.SelectMany(p => p.Resource).Where(predicate);
+                       : this.localizationLanguageResources.page.SelectMany(p => p.Resource).Where(predicate);
         }
 
         /// <summary>
@@ -170,7 +150,7 @@ namespace YAF.Core.Services.Localization
             tag = tag.ToUpper();
 
             var pagePointer =
-                this._localizationLanguageResources.page.FirstOrDefault(p => p.name.Equals(this._currentPage));
+                this.localizationLanguageResources.page.FirstOrDefault(p => p.name.Equals(this.currentPage));
 
             LanuageResourcesPageResource pageResource = null;
 
@@ -183,7 +163,7 @@ namespace YAF.Core.Services.Localization
             {
                 // attempt to find the tag anywhere...
                 pageResource =
-                    this._localizationLanguageResources.page.SelectMany(p => p.Resource)
+                    this.localizationLanguageResources.page.SelectMany(p => p.Resource)
                         .FirstOrDefault(r => r.tag.Equals(tag));
             }
 
@@ -212,12 +192,12 @@ namespace YAF.Core.Services.Localization
         /// <summary>
         /// The load file.
         /// </summary>
-        /// <param name="fileName">
+        /// <param name="file">
         /// The file name.
         /// </param>
-        public void LoadFile(string fileName)
+        public void LoadFile(string file)
         {
-            this._fileName = fileName;
+            this.fileName = file;
             this.LoadFile();
         }
 
@@ -229,7 +209,7 @@ namespace YAF.Core.Services.Localization
         /// </param>
         public void SetPage(string page)
         {
-            if (this._currentPage == page)
+            if (this.currentPage == page)
             {
                 return;
             }
@@ -239,7 +219,7 @@ namespace YAF.Core.Services.Localization
                 page = "DEFAULT";
             }
 
-            this._currentPage = page.ToUpper();
+            this.currentPage = page.ToUpper();
         }
 
         #endregion
@@ -301,14 +281,14 @@ namespace YAF.Core.Services.Localization
         /// </summary>
         private void LoadFile()
         {
-            if (this._fileName == string.Empty || !File.Exists(this._fileName))
+            if (this.fileName == string.Empty || !File.Exists(this.fileName))
             {
-                throw new ApplicationException($"Invalid language file {this._fileName}");
+                throw new ApplicationException($"Invalid language file {this.fileName}");
             }
 
-            this._localizationLanguageResources = new LoadSerializedXmlFile<LanguageResources>().FromFile(
-                this._fileName,
-                $"LOCALIZATIONFILE{this._fileName}",
+            this.localizationLanguageResources = new LoadSerializedXmlFile<LanguageResources>().FromFile(
+                this.fileName,
+                $"LOCALIZATIONFILE{this.fileName}",
                 r =>
                     {
                         // transform the page and tag name ToUpper...
@@ -316,13 +296,13 @@ namespace YAF.Core.Services.Localization
                         r.page.ForEach(p => p.Resource.ForEach(i => i.tag = i.tag.ToUpper()));
                     });
 
-            var userLanguageCode = this._localizationLanguageResources.code.IsSet()
-                                       ? this._localizationLanguageResources.code.Trim()
+            var userLanguageCode = this.localizationLanguageResources.code.IsSet()
+                                       ? this.localizationLanguageResources.code.Trim()
                                        : "en-US";
 
             if (userLanguageCode.Length > 5)
             {
-                userLanguageCode = this._localizationLanguageResources.code.Trim().Substring(0, 2);
+                userLanguageCode = this.localizationLanguageResources.code.Trim().Substring(0, 2);
             }
 
             this.CurrentCulture = new CultureInfo(userLanguageCode);
