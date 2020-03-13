@@ -315,7 +315,7 @@ namespace YAF.Pages
 
             sticky.Attributes.Add(
                 "data-content",
-                $"<span class='select2-image-select-icon'><i class='far fa-thumbtack fa-fw text-secondary'></i>&nbsp;{this.GetText("sticky")}</span>");
+                $"<span class='select2-image-select-icon'><i class='fas fa-thumbtack fa-fw text-secondary'></i>&nbsp;{this.GetText("sticky")}</span>");
 
             this.Priority.Items.Add(sticky);
 
