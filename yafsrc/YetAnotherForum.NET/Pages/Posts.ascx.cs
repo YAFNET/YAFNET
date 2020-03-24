@@ -273,12 +273,13 @@ namespace YAF.Pages
                         "email", this.GetText("EMAILTOPIC"), "fa fa-paper-plane");
                 }
 
-                this.ShareMenu.AddClientScriptItem(
+            this.ShareMenu.AddClientScriptItem(
                     this.GetText("LINKBACK_TOPIC"),
                     $@"bootbox.prompt({{ 
                                       title: '{this.GetText("LINKBACK_TOPIC")}',
                                       message: '{this.GetText("LINKBACK_TOPIC_PROMT")}',
 	                                  value: '{topicUrl}',
+                                      buttons: {{cancel:{{label:'{this.GetText("CANCEL")}'}}, confirm:{{label:'{this.GetText("OK")}'}}}},
                                       callback: function(){{}}
 	                              }});",
                     "fa fa-link");

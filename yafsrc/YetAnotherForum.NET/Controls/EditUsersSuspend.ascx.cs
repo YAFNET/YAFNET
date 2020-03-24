@@ -130,6 +130,8 @@ namespace YAF.Controls
             this.SuspendUnit.Items.Add(new ListItem(this.GetText("PROFILE", "DAYS"), "1"));
             this.SuspendUnit.Items.Add(new ListItem(this.GetText("PROFILE", "HOURS"), "2"));
             this.SuspendUnit.Items.Add(new ListItem(this.GetText("PROFILE", "MINUTES"), "3"));
+            foreach (ListItem listItem in this.SuspendUnit.Items)
+                listItem.Attributes.Add("class", "pr-2");
 
             // select hours
             this.SuspendUnit.SelectedIndex = 1;
