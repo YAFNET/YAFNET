@@ -23,14 +23,12 @@
  */
 namespace YAF.Modules
 {
-    using System.Text;
     using System.Web.UI;
 
     using YAF.Core.BBCode;
     using YAF.Core.Extensions;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Utils.Helpers;
     using YAF.Web.Controls;
 
     /// <summary>
@@ -57,8 +55,6 @@ namespace YAF.Modules
 
             if (userId.HasValue)
             {
-                var stringBuilder = new StringBuilder();
-
                 var userLink = new UserLink
                                    {
                                        UserID = userId.ToType<int>(),
@@ -67,14 +63,12 @@ namespace YAF.Modules
                                        ID = $"UserLinkBBCodeFor{userId}"
                                    };
 
-                stringBuilder.AppendLine("<!-- BEGIN userlink -->");
-                stringBuilder.AppendLine(@"<span>");
-                stringBuilder.AppendLine(userLink.RenderToString());
+                writer.Write("<!-- BEGIN userlink -->");
+                writer.Write(@"<span>");
+                userLink.RenderControl(writer);
 
-                stringBuilder.AppendLine("</span>");
-                stringBuilder.AppendLine("<!-- END userlink -->");
-
-                writer.Write(stringBuilder.ToString());
+                writer.Write("</span>");
+                writer.Write("<!-- END userlink -->");
             }
             else
             {

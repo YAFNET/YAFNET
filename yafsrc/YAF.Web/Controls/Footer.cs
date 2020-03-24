@@ -27,18 +27,21 @@ namespace YAF.Web.Controls
     #region Using
 
     using System;
-
+    using System.Data;
+    using System.IO;
+    using System.Linq;
 #if DEBUG
     using System.Collections.Generic;
     using System.Linq;
     using System.Reflection;
 #endif
-    using System.Text;
     using System.Web;
     using System.Web.UI;
 
     using YAF.Configuration;
+    using YAF.Core;
     using YAF.Core.BaseControls;
+    using YAF.Core.Helpers;
 #if DEBUG
     using YAF.Core.Data.Profiling;
 #endif
@@ -99,38 +102,35 @@ namespace YAF.Web.Controls
         protected void RenderRegular([NotNull] ref HtmlTextWriter writer)
         {
             // BEGIN FOOTER
-            var footer = new StringBuilder();
-
             this.Get<IStopWatch>().Stop();
 
-            footer.Append(@"<div class=""clearfix""></div><footer class=""footer""><div class=""text-right"">");
+            writer.Write(@"<div class=""clearfix""></div><footer class=""footer""><div class=""text-right"">");
 
-            this.RenderRulesLink(footer);
+            this.RenderLanguageSelection(writer);
 
-            this.RenderVersion(footer);
+            this.RenderRulesLink(writer);
 
-            this.RenderGeneratedAndDebug(footer);
+            this.RenderVersion(writer);
 
-            // write CSS, Refresh, then header...
-            writer.Write(footer);
+            this.RenderGeneratedAndDebug(writer);
         }
 
         /// <summary>
         /// The render generated and debug.
         /// </summary>
-        /// <param name="footer">
-        /// The footer.
+        /// <param name="writer">
+        /// The writer.
         /// </param>
-        private void RenderGeneratedAndDebug([NotNull] StringBuilder footer)
+        private void RenderGeneratedAndDebug([NotNull] TextWriter writer)
         {
             if (this.Get<BoardSettings>().ShowPageGenerationTime)
             {
-                footer.Append(@"<br /><span class=""text-muted"">");
-                footer.AppendFormat(this.GetText("COMMON", "GENERATED"), this.Get<IStopWatch>().Duration);
-                footer.Append("</span>");
+                writer.Write(@"<br /><span class=""text-muted"">");
+                writer.Write(this.GetText("COMMON", "GENERATED"), this.Get<IStopWatch>().Duration);
+                writer.Write("</span>");
             }
 
-            footer.Append(@"</div></footer>");
+            writer.Write(@"</div></footer>");
 
 #if DEBUG
             if (!this.PageContext.IsAdmin)
@@ -138,49 +138,99 @@ namespace YAF.Web.Controls
                 return;
             }
 
-            footer.AppendFormat(
+            writer.Write(
                 @"<br /><br /><div style=""margin:auto;padding:5px;text-align:right;font-size:7pt;""><span style=""color:#990000"">YAF Compiled in <strong>DEBUG MODE</strong></span>.<br />Recompile in <strong>RELEASE MODE</strong> to remove this information:");
-            footer.Append(@"<br /><br /><a href=""http://validator.w3.org/check?uri=referer"" >XHTML</a> | ");
-            footer.Append(@"<a href=""http://jigsaw.w3.org/css-validator/check/referer"" >CSS</a><br /><br />");
+            writer.Write(@"<br /><br /><a href=""http://validator.w3.org/check?uri=referer"" >XHTML</a> | ");
+            writer.Write(@"<a href=""http://jigsaw.w3.org/css-validator/check/referer"" >CSS</a><br /><br />");
 
             var extensions = this.Get<IList<Assembly>>("ExtensionAssemblies").Select(a => a.FullName).ToList();
 
             if (extensions.Any(x => x.Contains("PublicKeyToken=f3828393ba2d803c")))
             {
-                footer.Append("Offical YAF.NET Release: Modules with Public Key of f3828393ba2d803c Loaded.");
+                writer.Write("Offical YAF.NET Release: Modules with Public Key of f3828393ba2d803c Loaded.");
             }
 
             if (extensions.Any(x => x.Contains(".Module")))
             {
-                footer.AppendFormat(
+                writer.Write(
                     @"<br /><br />Extensions Loaded: <span style=""color: green"">{0}</span>",
                     extensions.Where(x => x.Contains(".Module")).ToDelimitedString("<br />"));
             }
 
-            footer.AppendFormat(
+            writer.Write(
                 @"<br /><br /><b>{0}</b> SQL Queries: <b>{1:N3}</b> Seconds (<b>{2:N2}%</b> of Total Page Load Time).<br />{3}",
                 QueryCounter.Count,
                 QueryCounter.Duration,
                 100 * QueryCounter.Duration / this.Get<IStopWatch>().Duration,
                 QueryCounter.Commands);
-            footer.Append("</div>");
+            writer.Write("</div>");
 #endif
+        }
+
+        /// <summary>
+        /// Renders the language selection for Guests.
+        /// </summary>
+        /// <param name="writer">
+        /// The writer.
+        /// </param>
+        private void RenderLanguageSelection([NotNull] HtmlTextWriter writer)
+        {
+            if (!this.PageContext.IsGuest)
+            {
+                return;
+            }
+
+            var languageButton = new ThemeButton
+                                     {
+                                         Type = ButtonAction.Link,
+                                         DataToggle = "dropdown",
+                                         CssClass = "dropdown-toggle",
+                                         
+                                         NavigateUrl = "#"
+                                     };
+
+            languageButton.RenderControl(writer);
+
+            writer.Write(@"<div class=""dropdown-menu"" aria-labelledby=""dropdownMenuButton"">");
+
+            StaticDataHelper.Cultures().Rows.Cast<DataRow>().ForEach(
+                row =>
+                    {
+                        if (this.Get<BoardSettings>().Language.Equals(row["CultureFile"]))
+                        {
+                            languageButton.Text = "Language is: " + row["CultureNativeName"];
+
+                            writer.Write(
+                                @"<a class=""dropdown-item active"" href=""#"">{0}</a>",
+                                row["CultureNativeName"]);
+                        }
+                        else
+                        {
+                            writer.Write(
+                                @"<a class=""dropdown-item"" href=""#"">{0}</a>",
+                                row["CultureNativeName"]);
+                        }
+                    });
+
+           writer.Write("</div>");
+
+            writer.Write("|&nbsp;");
         }
 
         /// <summary>
         /// Renders the rules link.
         /// </summary>
-        /// <param name="footer">The footer.</param>
-        private void RenderRulesLink([NotNull] StringBuilder footer)
+        /// <param name="writer">
+        /// The writer.
+        /// </param>
+        private void RenderRulesLink([NotNull] TextWriter writer)
         {
-            CodeContracts.VerifyNotNull(footer, "footer");
-
             if (Config.IsAnyPortal)
             {
                 return;
             }
 
-            footer.AppendFormat(
+            writer.Write(
                 @"<a target=""_top"" title=""{1}"" href=""{0}"">{1}</a> | ",
                 BuildLink.GetLink(ForumPages.Rules),
                 this.GetText("COMMON", "PRIVACY_POLICY"));
@@ -189,13 +239,11 @@ namespace YAF.Web.Controls
         /// <summary>
         /// The render version.
         /// </summary>
-        /// <param name="footer">
-        /// The footer.
+        /// <param name="writer">
+        /// The writer.
         /// </param>
-        private void RenderVersion([NotNull] StringBuilder footer)
+        private void RenderVersion([NotNull] TextWriter writer)
         {
-            CodeContracts.VerifyNotNull(footer, "footer");
-
             // Copyright Link-back Algorithm
             // Please keep if you haven't purchased a removal or commercial license.
             var domainKey = this.Get<BoardSettings>().CopyrightRemovalDomainKey;
@@ -223,32 +271,32 @@ namespace YAF.Web.Controls
                 }
             }
 
-            footer.Append(@"<a target=""_top"" title=""YetAnotherForum.NET"" href=""http://www.yetanotherforum.net"">");
-            footer.Append(this.GetText("COMMON", "POWERED_BY"));
-            footer.Append(@" YAF.NET");
+            writer.Write(@"<a target=""_top"" title=""YetAnotherForum.NET"" href=""http://www.yetanotherforum.net"">");
+            writer.Write(this.GetText("COMMON", "POWERED_BY"));
+            writer.Write(@" YAF.NET");
 
             if (this.Get<BoardSettings>().ShowYAFVersion)
             {
-                footer.AppendFormat(" {0} ", BoardInfo.AppVersionName);
+                writer.Write(" {0} ", BoardInfo.AppVersionName);
                 if (Config.IsDotNetNuke)
                 {
-                    footer.Append(" Under DNN ");
+                    writer.Write(" Under DNN ");
                 }
                 else if (Config.IsRainbow)
                 {
-                    footer.Append(" Under Rainbow ");
+                    writer.Write(" Under Rainbow ");
                 }
                 else if (Config.IsMojoPortal)
                 {
-                    footer.Append(" Under MojoPortal ");
+                    writer.Write(" Under MojoPortal ");
                 }
                 else if (Config.IsPortalomatic)
                 {
-                    footer.Append(" Under Portalomatic ");
+                    writer.Write(" Under Portalomatic ");
                 }
             }
 
-            footer.AppendFormat(
+            writer.Write(
                 @"</a> | <a target=""_top"" title=""{0}"" href=""{1}"">YAF.NET &copy; 2003-{2}, Yet Another Forum.NET</a>",
                 "YetAnotherForum.NET",
                 "https://www.yetanotherforum.net",
@@ -257,4 +305,4 @@ namespace YAF.Web.Controls
 
         #endregion
     }
-}
+} 

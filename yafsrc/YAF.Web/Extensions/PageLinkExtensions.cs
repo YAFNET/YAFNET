@@ -112,7 +112,7 @@ namespace YAF.Web.Extensions
                 links.Rows.Cast<DataRow>().ForEach(
                     row =>
                         {
-                            if (noForumLink && row["ForumID"].ToType<int>() == forumId)
+                            if (noForumLink && row.Field<int>("ForumID") == forumId)
                             {
                                 pageLinks.AddLink(row["Name"].ToString(), string.Empty);
                             }

@@ -21,26 +21,26 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Modules
+namespace YAF.Web.Modules.BBCode
 {
-  using System.Web.UI;
+    using System.Web.UI;
 
-  using YAF.Core.BBCode;
+    using YAF.Core.BBCode;
 
-  /// <summary>
-  /// The example bb code module.
-  /// </summary>
-  public class ExampleBBCodeModule : BBCodeControl
-  {
-      /// <summary>
-    /// The render.
+    /// <summary>
+    /// The example bb code module.
     /// </summary>
-    /// <param name="writer">
-    /// The writer.
-    /// </param>
-    protected override void Render(HtmlTextWriter writer)
+    public class ExampleBBCodeModule : BBCodeControl
     {
-      writer.Write($"Hello, you wrote this: {this.Parameters["inner"]}");
+        /// <summary>
+        /// The render.
+        /// </summary>
+        /// <param name="writer">
+        /// The writer.
+        /// </param>
+        protected override void Render(HtmlTextWriter writer)
+        {
+            writer.Write($"Hello, you wrote this: {this.Parameters["inner"]}");
+        }
     }
-  }
 }
