@@ -8510,3 +8510,6 @@ legend {
 .forum-logo {
   height: 125px;
   display: block; }
+
+.blockquote-custom {
+  font-size: 0.875rem; }
