@@ -202,14 +202,14 @@ namespace YAF.Core.Helpers
                     }
                 }
 
-                var cultures = CultureInfo.GetCultures(CultureTypes.SpecificCultures);
+                var cultures = CultureInfo.GetCultures(CultureTypes.NeutralCultures);
 
                 cultures.ForEach(
                     ci =>
                         {
                             for (var j = 0; j < files.Length; j++)
                             {
-                                if (ci.IsNeutralCulture || !tags[1, j].ToLower().Substring(0, 2)
+                                if (!tags[1, j].ToLower().Substring(0, 2)
                                         .Contains(ci.TwoLetterISOLanguageName.ToLower()))
                                 {
                                     continue;
@@ -221,6 +221,7 @@ namespace YAF.Core.Helpers
                                 dr["CultureEnglishName"] = ci.EnglishName;
                                 dr["CultureNativeName"] = ci.NativeName;
                                 dr["CultureDisplayName"] = ci.DisplayName;
+
                                 dt.Rows.Add(dr);
                             }
                         });
@@ -243,7 +244,7 @@ namespace YAF.Core.Helpers
                 return "en-US";
             }
 
-            string rawTag = null;
+            string rawTag;
 
             // Get all language files info
             var dir = new DirectoryInfo(
@@ -263,57 +264,16 @@ namespace YAF.Core.Helpers
             }
             catch (Exception)
             {
+                return "en-US";
             }
 
             var cultures = CultureInfo.GetCultures(CultureTypes.SpecificCultures);
 
-            foreach (var ci in cultures.Where(
-                ci => !ci.IsNeutralCulture
-                      && rawTag.ToLower().Substring(0, 2).Contains(ci.TwoLetterISOLanguageName.ToLower())
-                      && ci.IetfLanguageTag.Length == 5))
-            {
-                return ci.IetfLanguageTag;
-            }
-
-            return "en-US";
-        }
-
-        /// <summary>
-        /// The languages.
-        /// </summary>
-        /// <returns>
-        /// Returns a Data Table with all Languages
-        /// </returns>
-        public static DataTable Languages()
-        {
-            using (var dt = new DataTable("Languages"))
-            {
-                dt.Columns.Add("Language", typeof(string));
-                dt.Columns.Add("FileName", typeof(string));
-
-                var dir = new DirectoryInfo(
-                    BoardContext.Current.Get<HttpRequestBase>().MapPath($"{BoardInfo.ForumServerFileRoot}languages"));
-                var files = dir.GetFiles("*.xml");
-
-                files.ForEach(
-                    file =>
-                        {
-                            try
-                            {
-                                var doc = new XmlDocument();
-                                doc.Load((string)file.FullName);
-                                var dr = dt.NewRow();
-                                dr["Language"] = doc.DocumentElement.Attributes["language"].Value;
-                                dr["FileName"] = file.Name;
-                                dt.Rows.Add(dr);
-                            }
-                            catch (Exception)
-                            {
-                            }
-                        });
-
-                return dt;
-            }
+            return cultures.FirstOrDefault(
+                    ci => !ci.IsNeutralCulture
+                          && rawTag.ToLower().Substring(0, 2).Contains(ci.TwoLetterISOLanguageName.ToLower())
+                          && ci.IetfLanguageTag.Length == 5)
+                ?.IetfLanguageTag;
         }
 
         /// <summary>
@@ -361,7 +321,6 @@ namespace YAF.Core.Helpers
                 return dt;
             }
         }
-
 
         /// <summary>
         /// Gets all topic times.

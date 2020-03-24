@@ -43,6 +43,75 @@ namespace YAF.Core.Utilities
         #region Properties
 
         /// <summary>
+        ///   Gets the script for changing the album title.
+        /// </summary>
+        /// <returns>
+        ///   the change album title js.
+        /// </returns>
+        [NotNull]
+        public static string ChangeAlbumTitleJs =>
+            $@"function changeAlbumTitle(albumId, txtTitleId){{
+                     var newTitleTxt = {Config.JQueryAlias}('#' + txtTitleId).val();
+            {Config.JQueryAlias}.ajax({{
+                    url: '{BoardInfo.ForumClientFileRoot}{WebApiConfig.UrlPrefix}/Album/ChangeAlbumTitle',
+                    type: 'POST',
+                    contentType: 'application/json;charset=utf-8',
+                    data: JSON.stringify({{ AlbumId: albumId, NewTitle: newTitleTxt  }}),
+                    dataType: 'json',
+                    success: changeTitleSuccess,
+                    error: function(x, e)  {{
+                             console.log('An Error has occured!');
+                             console.log(x.responseText);
+                             console.log(x.status);
+                    }}
+                 }});
+               }}";
+
+        /// <summary>
+        ///   Gets the script for changing the image caption.
+        /// </summary>
+        /// <returns></returns>
+        [NotNull]
+        public static string ChangeImageCaptionJs =>
+            $@"function changeImageCaption(imageID, txtTitleId){{
+                        var newImgTitleTxt = {Config.JQueryAlias}('#' + txtTitleId).val();
+              {Config.JQueryAlias}.ajax({{
+                    url: '{BoardInfo.ForumClientFileRoot}{WebApiConfig.UrlPrefix}/Album/ChangeImageCaption',
+                    type: 'POST',
+                    contentType: 'application/json;charset=utf-8',
+                    data: JSON.stringify({{ ImageId: imageID, NewCaption: newImgTitleTxt  }}),
+                    dataType: 'json',
+                    success: changeTitleSuccess,
+                    error: function(x, e)  {{
+                             console.log('An Error has occured!');
+                             console.log(x.responseText);
+                             console.log(x.status);
+                    }}
+                 }});
+               }}";
+
+        /// <summary>
+        ///   Gets the MomentJS Load JS.
+        /// </summary>
+        public static string MomentLoadJs =>
+            $@"function loadTimeAgo() {{
+            
+		     moment.locale('{(BoardContext.Current.CultureUser.IsSet()
+                                  ? BoardContext.Current.CultureUser.Substring(0, 2)
+                                  : BoardContext.Current.Get<BoardSettings>().Culture.Substring(0, 2))}');
+
+             {Config.JQueryAlias}('abbr.timeago').each(function() {{
+                  {Config.JQueryAlias}(this).html(function(index, value) {{
+                                          return moment(value).fromNow();
+                  }});
+                  {Config.JQueryAlias}(this).removeClass('timeago');
+            }});
+
+            Prism.highlightAll();
+			      }}
+                   Sys.WebForms.PageRequestManager.getInstance().add_pageLoaded(loadTimeAgo);";
+
+        /// <summary>
         ///   Gets the script for album/image title/image callback.
         /// </summary>
         /// <returns>
@@ -131,75 +200,6 @@ namespace YAF.Core.Utilities
             $("">input[type=text]"", "".bootstrap-tagsinput"").val("""");
         }}, 1);
     }});";
-
-        /// <summary>
-        ///   Gets the script for changing the album title.
-        /// </summary>
-        /// <returns>
-        ///   the change album title js.
-        /// </returns>
-        [NotNull]
-        public static string ChangeAlbumTitleJs =>
-            $@"function changeAlbumTitle(albumId, txtTitleId){{
-                     var newTitleTxt = {Config.JQueryAlias}('#' + txtTitleId).val();
-            {Config.JQueryAlias}.ajax({{
-                    url: '{BoardInfo.ForumClientFileRoot}{WebApiConfig.UrlPrefix}/Album/ChangeAlbumTitle',
-                    type: 'POST',
-                    contentType: 'application/json;charset=utf-8',
-                    data: JSON.stringify({{ AlbumId: albumId, NewTitle: newTitleTxt  }}),
-                    dataType: 'json',
-                    success: changeTitleSuccess,
-                    error: function(x, e)  {{
-                             console.log('An Error has occured!');
-                             console.log(x.responseText);
-                             console.log(x.status);
-                    }}
-                 }});
-               }}";
-
-        /// <summary>
-        ///   Gets the script for changing the image caption.
-        /// </summary>
-        /// <returns></returns>
-        [NotNull]
-        public static string ChangeImageCaptionJs =>
-            $@"function changeImageCaption(imageID, txtTitleId){{
-                        var newImgTitleTxt = {Config.JQueryAlias}('#' + txtTitleId).val();
-              {Config.JQueryAlias}.ajax({{
-                    url: '{BoardInfo.ForumClientFileRoot}{WebApiConfig.UrlPrefix}/Album/ChangeImageCaption',
-                    type: 'POST',
-                    contentType: 'application/json;charset=utf-8',
-                    data: JSON.stringify({{ ImageId: imageID, NewCaption: newImgTitleTxt  }}),
-                    dataType: 'json',
-                    success: changeTitleSuccess,
-                    error: function(x, e)  {{
-                             console.log('An Error has occured!');
-                             console.log(x.responseText);
-                             console.log(x.status);
-                    }}
-                 }});
-               }}";
-
-        /// <summary>
-        ///   Gets the MomentJS Load JS.
-        /// </summary>
-        public static string MomentLoadJs =>
-            $@"function loadTimeAgo() {{
-            
-		     moment.locale('{(BoardContext.Current.CultureUser.IsSet()
-                                  ? BoardContext.Current.CultureUser.Substring(0, 2)
-                                  : BoardContext.Current.Get<BoardSettings>().Culture.Substring(0, 2))}');
-
-             {Config.JQueryAlias}('abbr.timeago').each(function() {{
-                  {Config.JQueryAlias}(this).html(function(index, value) {{
-                                          return moment(value).fromNow();
-                  }});
-                  {Config.JQueryAlias}(this).removeClass('timeago');
-            }});
-
-            Prism.highlightAll();
-			      }}
-                   Sys.WebForms.PageRequestManager.getInstance().add_pageLoaded(loadTimeAgo);";
 
         #endregion
 
@@ -414,7 +414,7 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
         /// <returns>
         /// Returns the the Bootstrap Tab Load JS string
         /// </returns>
-        public static string BootstrapNavsLoadJs([NotNull] string tabId, string hiddenId)
+        public static string BootstrapTabLoadJs([NotNull] string tabId, string hiddenId)
         {
             return $@"{Config.JQueryAlias}(document).ready(function() {{
             var selectedTab = {Config.JQueryAlias}(""#{hiddenId}"");

@@ -102,10 +102,6 @@ namespace YAF.Core.Handlers
                 {
                     this.Get<IResources>().GetUserInfo(context);
                 }
-                else if (context.Request.QueryString.Exists("bbcodelist"))
-                {
-                    this.Get<IResources>().GetCustomBBCodes(context);
-                }
                 else if (context.Request.QueryString.Exists("users"))
                 {
                     this.Get<IResources>().GetMentionUsers(context);
