@@ -159,6 +159,7 @@ namespace YAF.Core.Services
                                         TemplateLanguageFile = languageFile,
                                         TemplateParams =
                                             {
+                                                ["{user}"] = userName,
                                                 ["{adminlink}"] = adminLink,
                                                 ["{themecss}"] = themeCss,
                                                 ["{forumlink}"] = forumLink
