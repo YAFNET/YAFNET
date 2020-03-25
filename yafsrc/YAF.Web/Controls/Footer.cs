@@ -27,9 +27,7 @@ namespace YAF.Web.Controls
     #region Using
 
     using System;
-    using System.Data;
     using System.IO;
-    using System.Linq;
 #if DEBUG
     using System.Collections.Generic;
     using System.Linq;
@@ -41,7 +39,6 @@ namespace YAF.Web.Controls
     using YAF.Configuration;
     using YAF.Core;
     using YAF.Core.BaseControls;
-    using YAF.Core.Helpers;
 #if DEBUG
     using YAF.Core.Data.Profiling;
 #endif
@@ -106,8 +103,6 @@ namespace YAF.Web.Controls
 
             writer.Write(@"<div class=""clearfix""></div><footer class=""footer""><div class=""text-right"">");
 
-            this.RenderLanguageSelection(writer);
-
             this.RenderRulesLink(writer);
 
             this.RenderVersion(writer);
@@ -165,56 +160,6 @@ namespace YAF.Web.Controls
                 QueryCounter.Commands);
             writer.Write("</div>");
 #endif
-        }
-
-        /// <summary>
-        /// Renders the language selection for Guests.
-        /// </summary>
-        /// <param name="writer">
-        /// The writer.
-        /// </param>
-        private void RenderLanguageSelection([NotNull] HtmlTextWriter writer)
-        {
-            if (!this.PageContext.IsGuest)
-            {
-                return;
-            }
-
-            var languageButton = new ThemeButton
-                                     {
-                                         Type = ButtonAction.Link,
-                                         DataToggle = "dropdown",
-                                         CssClass = "dropdown-toggle",
-                                         
-                                         NavigateUrl = "#"
-                                     };
-
-            languageButton.RenderControl(writer);
-
-            writer.Write(@"<div class=""dropdown-menu"" aria-labelledby=""dropdownMenuButton"">");
-
-            StaticDataHelper.Cultures().Rows.Cast<DataRow>().ForEach(
-                row =>
-                    {
-                        if (this.Get<BoardSettings>().Language.Equals(row["CultureFile"]))
-                        {
-                            languageButton.Text = "Language is: " + row["CultureNativeName"];
-
-                            writer.Write(
-                                @"<a class=""dropdown-item active"" href=""#"">{0}</a>",
-                                row["CultureNativeName"]);
-                        }
-                        else
-                        {
-                            writer.Write(
-                                @"<a class=""dropdown-item"" href=""#"">{0}</a>",
-                                row["CultureNativeName"]);
-                        }
-                    });
-
-           writer.Write("</div>");
-
-            writer.Write("|&nbsp;");
         }
 
         /// <summary>
