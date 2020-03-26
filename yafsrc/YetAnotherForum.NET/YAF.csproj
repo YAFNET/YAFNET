@@ -308,9 +308,6 @@
     <Compile Include="auth.aspx.designer.cs">
       <DependentUpon>auth.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Classes\ForumPageBase.cs">
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
     <Compile Include="Classes\LatestInformationService.cs" />
     <Compile Include="Classes\MembershipUpgradeEvent.cs" />
     <Compile Include="controls\TopicTags.ascx.cs">
