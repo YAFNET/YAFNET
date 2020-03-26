@@ -27,11 +27,8 @@ namespace YAF.Core
     #region Using
 
     using System;
-    using System.Globalization;
-    using System.Threading;
-
+    
     using YAF.Core.Services.Localization;
-    using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
 
     #endregion
@@ -44,36 +41,31 @@ namespace YAF.Core
         #region Constants and Fields
 
         /// <summary>
-        ///   The _init culture.
+        ///   The localization is Initialized flag.
         /// </summary>
-        private bool _initCulture;
+        private bool initLocalization;
 
         /// <summary>
-        ///   The _init localization.
+        ///   The localization.
         /// </summary>
-        private bool _initLocalization;
+        private ILocalization localization;
 
         /// <summary>
-        ///   The _localization.
+        ///   The trans page.
         /// </summary>
-        private ILocalization _localization;
-
-        /// <summary>
-        ///   The _trans page.
-        /// </summary>
-        private string _transPage = string.Empty;
+        private string transPage = string.Empty;
 
         #endregion
 
         #region Events
 
         /// <summary>
-        ///   The after init.
+        ///   The after initializing Event.
         /// </summary>
         public event EventHandler<EventArgs> AfterInit;
 
         /// <summary>
-        ///   The before init.
+        ///   The before initializing Event.
         /// </summary>
         public event EventHandler<EventArgs> BeforeInit;
 
@@ -88,45 +80,41 @@ namespace YAF.Core
         {
             get
             {
-                if (!this._initLocalization)
+                if (!this.initLocalization)
                 {
                     this.InitLocalization();
                 }
 
-                if (!this._initCulture)
-                {
-                    this.InitCulture();
-                }
-
-                return this._localization;
+                return this.localization;
             }
 
             set
             {
-                this._localization = value;
-                this._initLocalization = value != null;
-                this._initCulture = value != null;
+                this.localization = value;
+                this.initLocalization = value != null;
             }
         }
 
         /// <summary>
-        ///   Current TransPage for Localization
+        ///   Gets or sets the Current TransPage for Localization
         /// </summary>
         public string TranslationPage
         {
-            get => this._transPage;
+            get => this.transPage;
 
             set
             {
-                if (value != this._transPage)
+                if (value == this.transPage)
                 {
-                    this._transPage = value;
+                    return;
+                }
 
-                    if (this._initLocalization)
-                    {
-                        // re-init localization
-                        this.Localization = null;
-                    }
+                this.transPage = value;
+
+                if (this.initLocalization)
+                {
+                    // re-init localization
+                    this.Localization = null;
                 }
             }
         }
@@ -136,72 +124,20 @@ namespace YAF.Core
         #region Methods
 
         /// <summary>
-        /// Set the culture and UI culture to the browser's accept language
-        /// </summary>
-        protected void InitCulture()
-        {
-            if (!this._initCulture)
-            {
-                try
-                {
-                    var cultureCode = string.Empty;
-
-                    /*string [] tmp = BoardContext.Current.Get<HttpRequestBase>().UserLanguages;
-                              if ( tmp != null )
-                              {
-                                  cultureCode = tmp [0];
-                                  if ( cultureCode.IndexOf( ';' ) >= 0 )
-                                  {
-                                      cultureCode = cultureCode.Substring( 0, cultureCode.IndexOf( ';' ) ).Replace( '_', '-' );
-                                  }
-                              }
-                              else
-                              {
-                                  cultureCode = "en-US";
-                              }*/
-                    cultureCode = this._localization.LanguageCode;
-
-                    Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(cultureCode);
-                    Thread.CurrentThread.CurrentUICulture = new CultureInfo(cultureCode);
-                }
-
-#if DEBUG
-                catch (Exception ex)
-                {
-                    BoardContext.Current.Get<ILogger>()
-                              .Error(ex, $"Error In Loading User Language for UserID {BoardContext.Current.PageUserID}");
-
-                    throw new ApplicationException($"Error getting User Language.{Environment.NewLine}{ex}");
-                }
-
-#else
-				catch ( Exception )
-				{
-					// set to default...
-					Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture( "en-US" );
-					Thread.CurrentThread.CurrentUICulture = new CultureInfo( "en-US" );
-				}
-
-#endif
-
-                // mark as setup...
-                this._initCulture = true;
-            }
-        }
-
-        /// <summary>
         /// Set up the localization
         /// </summary>
         protected void InitLocalization()
         {
-            if (!this._initLocalization)
+            if (this.initLocalization)
             {
-                this.BeforeInit?.Invoke(this, new EventArgs());
-
-                this.Localization = new Localization(this.TranslationPage);
-
-                this.AfterInit?.Invoke(this, new EventArgs());
+                return;
             }
+
+            this.BeforeInit?.Invoke(this, new EventArgs());
+
+            this.Localization = new Localization(this.TranslationPage);
+
+            this.AfterInit?.Invoke(this, new EventArgs());
         }
 
         #endregion

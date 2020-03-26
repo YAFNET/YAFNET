@@ -34,6 +34,7 @@ namespace YAF.Core.Services.Localization
 
     using YAF.Configuration;
     using YAF.Core.Extensions;
+    using YAF.Core.UsersRoles;
     using YAF.Types;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
@@ -47,6 +48,16 @@ namespace YAF.Core.Services.Localization
     public class Localization : ILocalization
     {
         #region Constants and Fields
+
+        /// <summary>
+        /// The begin no parse regex.
+        /// </summary>
+        private static readonly Regex BeginNoParseRegex = new Regex(@"(?<!\[noparse\])(?<inner>\[b\])", RegexOptions.Compiled);
+
+        /// <summary>
+        /// The end no parse regex.
+        /// </summary>
+        private static readonly Regex EndNoParseRegex = new Regex(@"(?<inner>\[/b\])(?!\[/noparse\])", RegexOptions.Compiled);
 
         /// <summary>
         ///   The _culture.
@@ -110,6 +121,7 @@ namespace YAF.Core.Services.Localization
                 }
 
                 this.culture = this.LoadTranslation();
+
                 return this.culture;
 
                 // fall back to current culture if there is some error
@@ -284,16 +296,6 @@ namespace YAF.Core.Services.Localization
         }
 
         /// <summary>
-        /// The _rgx begin.
-        /// </summary>
-        private static readonly Regex _rgxBegin = new Regex(@"(?<!\[noparse\])(?<inner>\[b\])", RegexOptions.Compiled);
-
-        /// <summary>
-        /// The _rgx end.
-        /// </summary>
-        private static readonly Regex _rgxEnd = new Regex(@"(?<inner>\[/b\])(?!\[/noparse\])", RegexOptions.Compiled);
-
-        /// <summary>
         /// Gets the localized text
         /// </summary>
         /// <param name="page">The page.</param>
@@ -311,14 +313,18 @@ namespace YAF.Core.Services.Localization
                 string filename;
 
                 if (BoardContext.Current.PageIsNull() || BoardContext.Current.LanguageFile.IsNotSet()
-                    || BoardContext.Current.LanguageFile.IsNotSet()
                     || !BoardContext.Current.Get<BoardSettings>().AllowUserLanguage)
                 {
-                    filename = BoardContext.Current.Get<BoardSettings>().Language;
+                    filename = BoardContext.Current.IsGuest
+                                   ? UserHelper.GetGuestUserLanguageFile()
+                                   : BoardContext.Current.Get<BoardSettings>().Language;
                 }
                 else
                 {
-                    filename = BoardContext.Current.LanguageFile;
+                    filename = BoardContext.Current.IsGuest
+                                   ? UserHelper.GetGuestUserLanguageFile()
+                                   : BoardContext.Current.LanguageFile;
+
                 }
 
                 if (filename.IsNotSet())
@@ -337,8 +343,8 @@ namespace YAF.Core.Services.Localization
                 return $"[{page.ToUpper()}.{tag.ToUpper()}]";
             }
 
-            localizedText = _rgxBegin.Replace(localizedText, "<strong>");
-            localizedText = _rgxEnd.Replace(localizedText, "</strong>");
+            localizedText = BeginNoParseRegex.Replace(localizedText, "<strong>");
+            localizedText = EndNoParseRegex.Replace(localizedText, "</strong>");
 
             localizedText = localizedText.Replace("[noparse]", string.Empty);
             localizedText = localizedText.Replace("[/noparse]", string.Empty);
@@ -400,20 +406,26 @@ namespace YAF.Core.Services.Localization
                 }
                 else
                 {
-                    if (BoardContext.Current.PageIsNull() || BoardContext.Current.LanguageFile == string.Empty
-                        || BoardContext.Current.LanguageFile == string.Empty
+                    if (BoardContext.Current.PageIsNull() || BoardContext.Current.LanguageFile.IsNotSet()
                         || !BoardContext.Current.Get<BoardSettings>().AllowUserLanguage)
                     {
-                        filename = BoardContext.Current.Get<BoardSettings>().Language;
+                        filename = BoardContext.Current.IsGuest
+                                       ? UserHelper.GetGuestUserLanguageFile()
+                                       : BoardContext.Current.Get<BoardSettings>().Language;
                     }
                     else
                     {
-                        filename = BoardContext.Current.LanguageFile;
+                        filename = BoardContext.Current.IsGuest
+                                       ? UserHelper.GetGuestUserLanguageFile()
+                                       : BoardContext.Current.LanguageFile;
                     }
                 }
 
 
-                if (filename == string.Empty) filename = "english.xml";
+                if (filename == string.Empty)
+                {
+                    filename = "english.xml";
+                }
 
                 HttpContext.Current.Cache.Remove($"Localizer.{filename}");
 #endif
@@ -641,11 +653,15 @@ namespace YAF.Core.Services.Localization
             if (BoardContext.Current.PageIsNull() || BoardContext.Current.Page["LanguageFile"] == null
                 || !BoardContext.Current.Get<BoardSettings>().AllowUserLanguage)
             {
-                filename = BoardContext.Current.Get<BoardSettings>().Language;
+                filename = BoardContext.Current.IsGuest
+                               ? UserHelper.GetGuestUserLanguageFile()
+                               : BoardContext.Current.Get<BoardSettings>().Language;
             }
             else
             {
-                filename = BoardContext.Current.LanguageFile;
+                filename = BoardContext.Current.IsGuest
+                               ? UserHelper.GetGuestUserLanguageFile()
+                               : BoardContext.Current.LanguageFile;
             }
 
             if (filename == null)
@@ -689,6 +705,7 @@ namespace YAF.Core.Services.Localization
 
             this.defaultLocale.SetPage(page);
             this.defaultLocale.GetText(tag, out localizedText);
+
             if (localizedText != null)
             {
                 localizedText = $"{'['}{localizedText}{']'}";

@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" ValidateRequest="false" Inherits="YAF.ForumPageBase" MaintainScrollPositionOnPostback="true" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" ValidateRequest="false" Inherits="YAF.Core.BasePages.ForumPageBase" MaintainScrollPositionOnPostback="true" %>
 <%@ Register TagPrefix="YAF" Assembly="YAF.Web" Namespace="YAF.Web.Controls" %>
 
 <script runat="server">
@@ -20,6 +20,7 @@
     <title></title>
 </head>
 <body id="YafBody" runat="server">
+
     <asp:HyperLink runat="server" id="BannerLink" CssClass="forum-logo my-4">
     </asp:HyperLink>
     <YAF:Form id="form1" runat="server" enctype="multipart/form-data">

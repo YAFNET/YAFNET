@@ -24,8 +24,12 @@
 namespace YAF.Core.UsersRoles
 {
     using System;
+    using System.Data;
+    using System.Globalization;
+    using System.Linq;
 
     using YAF.Configuration;
+    using YAF.Core.Helpers;
     using YAF.Core.Services;
     using YAF.Types.Interfaces;
 
@@ -55,6 +59,27 @@ namespace YAF.Core.UsersRoles
             }
 
             return null;
+        }
+
+        /// <summary>
+        /// Gets the Guest User Language File based on the current Browser Language
+        /// </summary>
+        /// <returns>
+        /// The <see cref="string"/>.
+        /// </returns>
+        public static string GetGuestUserLanguageFile()
+        {
+            var languages = BoardContext.Current.Get<IDataCache>().GetOrSet(
+                "Languages",
+                StaticDataHelper.NeutralCultures,
+                TimeSpan.FromDays(30));
+
+            var languageRow = languages.Rows.Cast<DataRow>().FirstOrDefault(
+                row => row["CultureTag"].Equals(CultureInfo.CurrentCulture.TwoLetterISOLanguageName));
+
+            return languageRow != null
+                       ? languageRow["CultureFile"].ToString()
+                       : BoardContext.Current.Get<BoardSettings>().Language;
         }
 
         /// <summary>
