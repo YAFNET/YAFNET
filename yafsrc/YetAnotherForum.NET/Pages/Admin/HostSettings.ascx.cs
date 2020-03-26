@@ -165,7 +165,7 @@ namespace YAF.Pages.Admin
             // setup jQuery and YAF JS...
             BoardContext.Current.PageElements.RegisterJsBlock(
                 "yafTabsJs",
-                JavaScriptBlocks.BootstrapNavsLoadJs("v-pills-tab", this.hidLastTab.ClientID));
+                JavaScriptBlocks.BootstrapTabLoadJs("v-pills-tab", this.hidLastTab.ClientID));
 
             base.OnPreRender(e);
         }
