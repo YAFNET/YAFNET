@@ -633,12 +633,16 @@ namespace YAF.Core.Services
         {
             var emails = this.BoardSettings.NotificationOnUserRegisterEmailList.Split(';');
 
-            var subject = this.Get<ILocalization>().GetTextFormatted(
-                "NOTIFICATION_ON_USER_REGISTER_EMAIL_SUBJECT",
+            var subject = string.Format(
+                this.Get<ILocalization>().GetText(
+                    "COMMON",
+                    "NOTIFICATION_ON_USER_REGISTER_EMAIL_SUBJECT",
+                    this.BoardSettings.Language),
                 this.BoardSettings.Name);
 
             var notifyAdmin = new TemplateEmail("NOTIFICATION_ON_USER_REGISTER")
                                   {
+                                      TemplateLanguageFile = this.BoardSettings.Language,
                                       TemplateParams =
                                           {
                                               ["{adminlink}"] = BuildLink.GetLinkNotEscaped(
@@ -650,9 +654,9 @@ namespace YAF.Core.Services
                                               ["{email}"] = user.Email
                                           }
                                   };
-            Parallel.ForEach(
-                emails.Where(email => email.Trim().IsSet()),
-                email => notifyAdmin.SendEmail(new MailAddress(email.Trim()), subject));
+                                  Parallel.ForEach(
+                                      emails.Where(email => email.Trim().IsSet()),
+                                      email => notifyAdmin.SendEmail(new MailAddress(email.Trim()), subject));
         }
 
         /// <summary>
