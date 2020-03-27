@@ -1112,7 +1112,6 @@
     </EmbeddedResource>
     <Content Include="auth.aspx" />
     <Content Include="BuildScripts\MSBuild.ExtensionPack.Tasks.Targets" />
-    <None Include="Content\blueimp-gallery.scss" />
     <Content Include="Content\bootstrap-tagsinput.css" />
     <Content Include="Content\bootstrap-datetimepicker.css" />
     <Content Include="Content\bootstrap\bootstrap.css">
@@ -1886,6 +1885,7 @@
       <DependentUpon>bootstrap.min.css</DependentUpon>
     </Content>
     <Content Include="Content\favicons\site.webmanifest" />
+    <Content Include="Content\blueimp-gallery.scss" />
     <None Include="Content\forum\attachments-upload.scss" />
     <None Include="Content\forum\cookie-alert.scss" />
     <Content Include="Content\images\error.svg" />
@@ -2201,8 +2201,9 @@
     <Content Include="Pages\Topics.ascx" />
     <Content Include="Resources\HelpMenuList.xml" />
     <Content Include="Resources\ProviderExceptions.xml" />
-    <Content Include="Scripts\blueimp-gallery-indicator.js" />
-    <Content Include="Scripts\blueimp-gallery.js" />
+    <Content Include="Scripts\blueimp-gallery\blueimp-gallery-indicator.js" />
+    <Content Include="Scripts\blueimp-gallery\blueimp-gallery.js" />
+    <Content Include="Scripts\blueimp-gallery\jquery.blueimp-gallery.js" />
     <Content Include="Scripts\bootbox.js" />
     <Content Include="Scripts\bootstrap-datetimepicker.js" />
     <Content Include="Scripts\bootstrap-notify.js" />
@@ -2830,7 +2831,6 @@
       <DependentUpon>jquery-3.4.1.min.js</DependentUpon>
     </Content>
     <Content Include="Scripts\jquery.blockUI.js" />
-    <Content Include="Scripts\jquery.blueimp-gallery.js" />
     <Content Include="Scripts\jquery.bootstrap-touchspin.js" />
     <Content Include="Scripts\jquery.FileUpload\canvas-to-blob.min.js" />
     <Content Include="Scripts\jquery.FileUpload\cors\jquery.postmessage-transport.js" />
@@ -2866,6 +2866,9 @@
     <Content Include="Scripts\jquery.selectedQuoting.js" />
     <Content Include="Scripts\select2.js" />
     <Content Include="Scripts\tablesorter\extras\jquery.tablesorter.pager.js" />
+    <Content Include="Scripts\tablesorter\extras\jquery.tablesorter.pager.min.js">
+      <DependentUpon>jquery.tablesorter.pager.js</DependentUpon>
+    </Content>
     <Content Include="Scripts\tablesorter\jquery.tablesorter.combined.js" />
     <Content Include="Scripts\forum\yaf.Utilities.js" />
     <Content Include="Scripts\tablesorter\widgets\widget-reflow.js" />
@@ -3325,6 +3328,7 @@
     <Content Include="Content\forum\social-icons.scss" />
     <Content Include="Content\forum\button-scroll.scss" />
     <Content Include="Content\forum\logo.scss" />
+    <Content Include="Content\forum\quotes.scss" />
     <None Include="Content\forum\user-albums.scss" />
     <Content Include="Content\InstallWizard.min.css.gz">
       <DependentUpon>InstallWizard.min.css</DependentUpon>
