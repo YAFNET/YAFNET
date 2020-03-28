@@ -32,7 +32,6 @@ namespace YAF.Core.Services
     using System.Globalization;
     using System.Linq;
     using System.Net.Mail;
-    using System.Threading.Tasks;
     using System.Web;
     using System.Web.Security;
 
@@ -349,7 +348,9 @@ namespace YAF.Core.Services
             catch (Exception x)
             {
                 // report exception to the forum's event log
-                this.Get<ILogger>().Error(x, $"Send PM Notification Error for UserID {BoardContext.Current.PageUserID}");
+                this.Get<ILogger>().Error(
+                    x,
+                    $"Send PM Notification Error for UserID {BoardContext.Current.PageUserID}");
 
                 // tell user about failure
                 BoardContext.Current.AddLoadMessage(
@@ -631,14 +632,23 @@ namespace YAF.Core.Services
         /// <param name="userId">The user id.</param>
         public void SendRegistrationNotificationEmail([NotNull] MembershipUser user, int userId)
         {
+            if (this.BoardSettings.NotificationOnUserRegisterEmailList.IsNotSet())
+            {
+                return;
+            }
+
             var emails = this.BoardSettings.NotificationOnUserRegisterEmailList.Split(';');
 
-            var subject = this.Get<ILocalization>().GetTextFormatted(
-                "NOTIFICATION_ON_USER_REGISTER_EMAIL_SUBJECT",
+            var subject = string.Format(
+                this.Get<ILocalization>().GetText(
+                    "COMMON",
+                    "NOTIFICATION_ON_USER_REGISTER_EMAIL_SUBJECT",
+                    this.BoardSettings.Language),
                 this.BoardSettings.Name);
 
             var notifyAdmin = new TemplateEmail("NOTIFICATION_ON_USER_REGISTER")
                                   {
+                                      TemplateLanguageFile = this.BoardSettings.Language,
                                       TemplateParams =
                                           {
                                               ["{adminlink}"] = BuildLink.GetLinkNotEscaped(
@@ -650,9 +660,9 @@ namespace YAF.Core.Services
                                               ["{email}"] = user.Email
                                           }
                                   };
-            Parallel.ForEach(
-                emails.Where(email => email.Trim().IsSet()),
-                email => notifyAdmin.SendEmail(new MailAddress(email.Trim()), subject));
+
+            emails.Where(email => email.Trim().IsSet())
+                .ForEach(email => notifyAdmin.SendEmail(new MailAddress(email.Trim()), subject));
         }
 
         /// <summary>
@@ -671,7 +681,8 @@ namespace YAF.Core.Services
                 return;
             }
 
-            using (var dt = this.GetRepository<User>().EmailsAsDataTable(BoardContext.Current.PageBoardID, adminGroupId))
+            using (var dt = this.GetRepository<User>()
+                .EmailsAsDataTable(BoardContext.Current.PageBoardID, adminGroupId))
             {
                 dt.Rows.Cast<DataRow>().ForEach(
                     row =>
