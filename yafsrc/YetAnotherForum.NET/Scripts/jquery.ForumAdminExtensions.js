@@ -26239,12 +26239,12 @@
 
 }));
 (function($) {
-    'use strict';
+    "use strict";
 
     var _currentSpinnerId = 0;
 
     function _scopedEventName(name, id) {
-        return name + '.touchspin_' + id;
+        return name + ".touchspin_" + id;
     }
 
     function _scopeEventNames(names, id) {
@@ -26256,20 +26256,20 @@
 
     $.fn.TouchSpin = function(options) {
 
-        if (options === 'destroy') {
+        if (options === "destroy") {
             this.each(function() {
                 var originalinput = $(this),
                     originalinput_data = originalinput.data();
                 $(document).off(_scopeEventNames([
-                        'mouseup',
-                        'touchend',
-                        'touchcancel',
-                        'mousemove',
-                        'touchmove',
-                        'scroll',
-                        'scrollstart'
+                        "mouseup",
+                        "touchend",
+                        "touchcancel",
+                        "mousemove",
+                        "touchmove",
+                        "scroll",
+                        "scrollstart"
                     ],
-                    originalinput_data.spinnerid).join(' '));
+                    originalinput_data.spinnerid).join(" "));
             });
             return;
         }
@@ -26277,55 +26277,55 @@
         var defaults = {
             min: 0,
             max: 100,
-            initval: '',
-            replacementval: '',
+            initval: "",
+            replacementval: "",
             step: 1,
             decimals: 0,
             stepinterval: 100,
-            forcestepdivisibility: 'round', // none | floor | round | ceil
+            forcestepdivisibility: "round", // none | floor | round | ceil
             stepintervaldelay: 500,
             verticalbuttons: false,
-            verticalupclass: 'glyphicon glyphicon-chevron-up',
-            verticaldownclass: 'glyphicon glyphicon-chevron-down',
-            prefix: '',
-            postfix: '',
-            prefix_extraclass: '',
-            postfix_extraclass: '',
+            verticalupclass: "glyphicon glyphicon-chevron-up",
+            verticaldownclass: "glyphicon glyphicon-chevron-down",
+            prefix: "",
+            postfix: "",
+            prefix_extraclass: "",
+            postfix_extraclass: "",
             booster: true,
             boostat: 10,
             maxboostedstep: false,
             mousewheel: true,
-            buttondown_class: 'btn btn-secondary',
-            buttonup_class: 'btn btn-secondary',
-            buttondown_txt: '-',
-            buttonup_txt: '+'
+            buttondown_class: "btn btn-secondary",
+            buttonup_class: "btn btn-secondary",
+            buttondown_txt: "-",
+            buttonup_txt: "+"
         };
 
         var attributeMap = {
-            min: 'min',
-            max: 'max',
-            initval: 'init-val',
-            replacementval: 'replacement-val',
-            step: 'step',
-            decimals: 'decimals',
-            stepinterval: 'step-interval',
-            verticalbuttons: 'vertical-buttons',
-            verticalupclass: 'vertical-up-class',
-            verticaldownclass: 'vertical-down-class',
-            forcestepdivisibility: 'force-step-divisibility',
-            stepintervaldelay: 'step-interval-delay',
-            prefix: 'prefix',
-            postfix: 'postfix',
-            prefix_extraclass: 'prefix-extra-class',
-            postfix_extraclass: 'postfix-extra-class',
-            booster: 'booster',
-            boostat: 'boostat',
-            maxboostedstep: 'max-boosted-step',
-            mousewheel: 'mouse-wheel',
-            buttondown_class: 'button-down-class',
-            buttonup_class: 'button-up-class',
-            buttondown_txt: 'button-down-txt',
-            buttonup_txt: 'button-up-txt'
+            min: "min",
+            max: "max",
+            initval: "init-val",
+            replacementval: "replacement-val",
+            step: "step",
+            decimals: "decimals",
+            stepinterval: "step-interval",
+            verticalbuttons: "vertical-buttons",
+            verticalupclass: "vertical-up-class",
+            verticaldownclass: "vertical-down-class",
+            forcestepdivisibility: "force-step-divisibility",
+            stepintervaldelay: "step-interval-delay",
+            prefix: "prefix",
+            postfix: "postfix",
+            prefix_extraclass: "prefix-extra-class",
+            postfix_extraclass: "postfix-extra-class",
+            booster: "booster",
+            boostat: "boostat",
+            maxboostedstep: "max-boosted-step",
+            mousewheel: "mouse-wheel",
+            buttondown_class: "button-down-class",
+            buttonup_class: "button-up-class",
+            buttondown_txt: "button-down-txt",
+            buttonup_txt: "button-up-txt"
         };
 
         return this.each(function() {
@@ -26347,17 +26347,17 @@
 
 
             function init() {
-                if (originalinput.data('alreadyinitialized')) {
+                if (originalinput.data("alreadyinitialized")) {
                     return;
                 }
 
-                originalinput.data('alreadyinitialized', true);
+                originalinput.data("alreadyinitialized", true);
                 _currentSpinnerId += 1;
-                originalinput.data('spinnerid', _currentSpinnerId);
+                originalinput.data("spinnerid", _currentSpinnerId);
 
 
-                if (!originalinput.is('input')) {
-                    console.log('Must be an input.');
+                if (!originalinput.is("input")) {
+                    console.log("Must be an input.");
                     return;
                 }
 
@@ -26369,11 +26369,11 @@
                 _hideEmptyPrefixPostfix();
                 _bindEvents();
                 _bindEventsInterface();
-                elements.input.css('display', 'block');
+                elements.input.css("display", "block");
             }
 
             function _setInitval() {
-                if (settings.initval !== '' && originalinput.val() === '') {
+                if (settings.initval !== "" && originalinput.val() === "") {
                     originalinput.val(settings.initval);
                 }
             }
@@ -26384,7 +26384,7 @@
 
                 var value = elements.input.val();
 
-                if (value !== '') {
+                if (value !== "") {
                     value = Number(elements.input.val());
                     elements.input.val(value.toFixed(settings.decimals));
                 }
@@ -26398,8 +26398,8 @@
                 var data = {};
                 $.each(attributeMap,
                     function(key, value) {
-                        var attrName = 'bts-' + value + '';
-                        if (originalinput.is('[data-' + attrName + ']')) {
+                        var attrName = "bts-" + value + "";
+                        if (originalinput.is("[data-" + attrName + "]")) {
                             data[key] = originalinput.data(attrName);
                         }
                     });
@@ -26414,14 +26414,14 @@
                 var initval = originalinput.val(),
                     parentelement = originalinput.parent();
 
-                if (initval !== '') {
+                if (initval !== "") {
                     initval = Number(initval).toFixed(settings.decimals);
                 }
 
-                originalinput.data('initvalue', initval).val(initval);
-                originalinput.addClass('form-control');
+                originalinput.data("initvalue", initval).val(initval);
+                originalinput.addClass("form-control");
 
-                if (parentelement.hasClass('input-group')) {
+                if (parentelement.hasClass("input-group")) {
                     _advanceInputGroup(parentelement);
                 } else {
                     _buildInputGroup();
@@ -26429,7 +26429,7 @@
             }
 
             function _advanceInputGroup(parentelement) {
-                parentelement.addClass('bootstrap-touchspin');
+                parentelement.addClass("bootstrap-touchspin");
 
                 var prev = originalinput.prev(),
                     next = originalinput.next();
@@ -26438,40 +26438,40 @@
                     uphtml,
                     prefixhtml = '<span class="input-group-addon bootstrap-touchspin-prefix">' +
                         settings.prefix +
-                        '</span>',
+                        "</span>",
                     postfixhtml = '<span class="input-group-addon bootstrap-touchspin-postfix">' +
                         settings.postfix +
-                        '</span>';
+                        "</span>";
 
-                if (prev.hasClass('input-group-prepend')) {
+                if (prev.hasClass("input-group-prepend")) {
                     downhtml = '<button class="' +
                         settings.buttondown_class +
                         ' bootstrap-touchspin-down" type="button">' +
                         settings.buttondown_txt +
-                        '</button>';
+                        "</button>";
                     prev.append(downhtml);
                 } else {
                     downhtml = '<span class="input-group-prepend"><button class="' +
                         settings.buttondown_class +
                         ' bootstrap-touchspin-down" type="button">' +
                         settings.buttondown_txt +
-                        '</button></span>';
+                        "</button></span>";
                     $(downhtml).insertBefore(originalinput);
                 }
 
-                if (next.hasClass('input-group-prepend')) {
+                if (next.hasClass("input-group-prepend")) {
                     uphtml = '<button class="' +
                         settings.buttonup_class +
                         ' bootstrap-touchspin-up" type="button">' +
                         settings.buttonup_txt +
-                        '</button>';
+                        "</button>";
                     next.prepend(uphtml);
                 } else {
                     uphtml = '<span class="input-group-prepend"><button class="' +
                         settings.buttonup_class +
                         ' bootstrap-touchspin-up" type="button">' +
                         settings.buttonup_txt +
-                        '</button></span>';
+                        "</button></span>";
                     $(uphtml).insertAfter(originalinput);
                 }
 
@@ -26500,7 +26500,7 @@
                         settings.verticaldownclass +
                         '"></i></button></span></div>';
                 } else {
-                    if (settings.postfix === '') {
+                    if (settings.postfix === "") {
                         html =
                             '<div class="input-group bootstrap-touchspin"><span class="input-group-prepend"><button class="' +
                             settings.buttondown_class +
@@ -26512,7 +26512,7 @@
                             settings.buttonup_class +
                             ' bootstrap-touchspin-up" type="button">' +
                             settings.buttonup_txt +
-                            '</button></span></div>';
+                            "</button></span></div>";
                     } else {
                         html =
                             '<div class="input-group bootstrap-touchspin"><span class="input-group-prepend"><button class="' +
@@ -26527,55 +26527,55 @@
                             settings.buttonup_class +
                             ' bootstrap-touchspin-up" type="button">' +
                             settings.buttonup_txt +
-                            '</button></span></div>';
+                            "</button></span></div>";
                     }
                     
                 }
 
                 container = $(html).insertBefore(originalinput);
 
-                $('.bootstrap-touchspin-prefix', container).after(originalinput);
+                $(".bootstrap-touchspin-prefix", container).after(originalinput);
 
-                if (originalinput.hasClass('input-sm')) {
-                    container.addClass('input-group-sm');
-                } else if (originalinput.hasClass('input-lg')) {
-                    container.addClass('input-group-lg');
+                if (originalinput.hasClass("input-sm")) {
+                    container.addClass("input-group-sm");
+                } else if (originalinput.hasClass("input-lg")) {
+                    container.addClass("input-group-lg");
                 }
             }
 
             function _initElements() {
                 elements = {
-                    down: $('.bootstrap-touchspin-down', container),
-                    up: $('.bootstrap-touchspin-up', container),
-                    input: $('input', container),
-                    prefix: $('.bootstrap-touchspin-prefix', container).addClass(settings.prefix_extraclass),
-                    postfix: $('.bootstrap-touchspin-postfix', container).addClass(settings.postfix_extraclass)
+                    down: $(".bootstrap-touchspin-down", container),
+                    up: $(".bootstrap-touchspin-up", container),
+                    input: $("input", container),
+                    prefix: $(".bootstrap-touchspin-prefix", container).addClass(settings.prefix_extraclass),
+                    postfix: $(".bootstrap-touchspin-postfix", container).addClass(settings.postfix_extraclass)
                 };
             }
 
             function _hideEmptyPrefixPostfix() {
-                if (settings.prefix === '') {
+                if (settings.prefix === "") {
                     elements.prefix.hide();
                 }
 
-                if (settings.postfix === '') {
+                if (settings.postfix === "") {
                     elements.postfix.hide();
                 }
             }
 
             function _bindEvents() {
-                originalinput.on('keydown',
+                originalinput.on("keydown",
                     function(ev) {
                         var code = ev.keyCode || ev.which;
 
                         if (code === 38) {
-                            if (spinning !== 'up') {
+                            if (spinning !== "up") {
                                 upOnce();
                                 startUpSpin();
                             }
                             ev.preventDefault();
                         } else if (code === 40) {
-                            if (spinning !== 'down') {
+                            if (spinning !== "down") {
                                 downOnce();
                                 startDownSpin();
                             }
@@ -26583,7 +26583,7 @@
                         }
                     });
 
-                originalinput.on('keyup',
+                originalinput.on("keyup",
                     function(ev) {
                         var code = ev.keyCode || ev.which;
 
@@ -26594,17 +26594,17 @@
                         }
                     });
 
-                originalinput.on('blur',
+                originalinput.on("blur",
                     function() {
                         _checkValue();
                     });
 
-                elements.down.on('keydown',
+                elements.down.on("keydown",
                     function(ev) {
                         var code = ev.keyCode || ev.which;
 
                         if (code === 32 || code === 13) {
-                            if (spinning !== 'down') {
+                            if (spinning !== "down") {
                                 downOnce();
                                 startDownSpin();
                             }
@@ -26612,7 +26612,7 @@
                         }
                     });
 
-                elements.down.on('keyup',
+                elements.down.on("keyup",
                     function(ev) {
                         var code = ev.keyCode || ev.which;
 
@@ -26621,12 +26621,12 @@
                         }
                     });
 
-                elements.up.on('keydown',
+                elements.up.on("keydown",
                     function(ev) {
                         var code = ev.keyCode || ev.which;
 
                         if (code === 32 || code === 13) {
-                            if (spinning !== 'up') {
+                            if (spinning !== "up") {
                                 upOnce();
                                 startUpSpin();
                             }
@@ -26634,7 +26634,7 @@
                         }
                     });
 
-                elements.up.on('keyup',
+                elements.up.on("keyup",
                     function(ev) {
                         var code = ev.keyCode || ev.which;
 
@@ -26643,11 +26643,11 @@
                         }
                     });
 
-                elements.down.on('mousedown.touchspin',
+                elements.down.on("mousedown.touchspin",
                     function(ev) {
-                        elements.down.off('touchstart.touchspin'); // android 4 workaround
+                        elements.down.off("touchstart.touchspin"); // android 4 workaround
 
-                        if (originalinput.is(':disabled')) {
+                        if (originalinput.is(":disabled")) {
                             return;
                         }
 
@@ -26658,11 +26658,11 @@
                         ev.stopPropagation();
                     });
 
-                elements.down.on('touchstart.touchspin',
+                elements.down.on("touchstart.touchspin",
                     function(ev) {
-                        elements.down.off('mousedown.touchspin'); // android 4 workaround
+                        elements.down.off("mousedown.touchspin"); // android 4 workaround
 
-                        if (originalinput.is(':disabled')) {
+                        if (originalinput.is(":disabled")) {
                             return;
                         }
 
@@ -26673,11 +26673,11 @@
                         ev.stopPropagation();
                     });
 
-                elements.up.on('mousedown.touchspin',
+                elements.up.on("mousedown.touchspin",
                     function(ev) {
-                        elements.up.off('touchstart.touchspin'); // android 4 workaround
+                        elements.up.off("touchstart.touchspin"); // android 4 workaround
 
-                        if (originalinput.is(':disabled')) {
+                        if (originalinput.is(":disabled")) {
                             return;
                         }
 
@@ -26688,11 +26688,11 @@
                         ev.stopPropagation();
                     });
 
-                elements.up.on('touchstart.touchspin',
+                elements.up.on("touchstart.touchspin",
                     function(ev) {
-                        elements.up.off('mousedown.touchspin'); // android 4 workaround
+                        elements.up.off("mousedown.touchspin"); // android 4 workaround
 
-                        if (originalinput.is(':disabled')) {
+                        if (originalinput.is(":disabled")) {
                             return;
                         }
 
@@ -26703,7 +26703,7 @@
                         ev.stopPropagation();
                     });
 
-                elements.up.on('mouseout touchleave touchend touchcancel',
+                elements.up.on("mouseout touchleave touchend touchcancel",
                     function(ev) {
                         if (!spinning) {
                             return;
@@ -26713,7 +26713,7 @@
                         stopSpin();
                     });
 
-                elements.down.on('mouseout touchleave touchend touchcancel',
+                elements.down.on("mouseout touchleave touchend touchcancel",
                     function(ev) {
                         if (!spinning) {
                             return;
@@ -26723,7 +26723,7 @@
                         stopSpin();
                     });
 
-                elements.down.on('mousemove touchmove',
+                elements.down.on("mousemove touchmove",
                     function(ev) {
                         if (!spinning) {
                             return;
@@ -26733,7 +26733,7 @@
                         ev.preventDefault();
                     });
 
-                elements.up.on('mousemove touchmove',
+                elements.up.on("mousemove touchmove",
                     function(ev) {
                         if (!spinning) {
                             return;
@@ -26743,7 +26743,7 @@
                         ev.preventDefault();
                     });
 
-                $(document).on(_scopeEventNames(['mouseup', 'touchend', 'touchcancel'], _currentSpinnerId).join(' '),
+                $(document).on(_scopeEventNames(["mouseup", "touchend", "touchcancel"], _currentSpinnerId).join(" "),
                     function(ev) {
                         if (!spinning) {
                             return;
@@ -26754,7 +26754,7 @@
                     });
 
                 $(document).on(
-                    _scopeEventNames(['mousemove', 'touchmove', 'scroll', 'scrollstart'], _currentSpinnerId).join(' '),
+                    _scopeEventNames(["mousemove", "touchmove", "scroll", "scrollstart"], _currentSpinnerId).join(" "),
                     function(ev) {
                         if (!spinning) {
                             return;
@@ -26764,9 +26764,9 @@
                         stopSpin();
                     });
 
-                originalinput.on('mousewheel DOMMouseScroll',
+                originalinput.on("mousewheel DOMMouseScroll",
                     function(ev) {
-                        if (!settings.mousewheel || !originalinput.is(':focus')) {
+                        if (!settings.mousewheel || !originalinput.is(":focus")) {
                             return;
                         }
 
@@ -26784,34 +26784,34 @@
             }
 
             function _bindEventsInterface() {
-                originalinput.on('touchspin.uponce',
+                originalinput.on("touchspin.uponce",
                     function() {
                         stopSpin();
                         upOnce();
                     });
 
-                originalinput.on('touchspin.downonce',
+                originalinput.on("touchspin.downonce",
                     function() {
                         stopSpin();
                         downOnce();
                     });
 
-                originalinput.on('touchspin.startupspin',
+                originalinput.on("touchspin.startupspin",
                     function() {
                         startUpSpin();
                     });
 
-                originalinput.on('touchspin.startdownspin',
+                originalinput.on("touchspin.startdownspin",
                     function() {
                         startDownSpin();
                     });
 
-                originalinput.on('touchspin.stopspin',
+                originalinput.on("touchspin.stopspin",
                     function() {
                         stopSpin();
                     });
 
-                originalinput.on('touchspin.updatesettings',
+                originalinput.on("touchspin.updatesettings",
                     function(e, newsettings) {
                         changeSettings(newsettings);
                     });
@@ -26819,11 +26819,11 @@
 
             function _forcestepdivisibility(value) {
                 switch (settings.forcestepdivisibility) {
-                case 'round':
+                case "round":
                     return (Math.round(value / settings.step) * settings.step).toFixed(settings.decimals);
-                case 'floor':
+                case "floor":
                     return (Math.floor(value / settings.step) * settings.step).toFixed(settings.decimals);
-                case 'ceil':
+                case "ceil":
                     return (Math.ceil(value / settings.step) * settings.step).toFixed(settings.decimals);
                 default:
                     return value;
@@ -26835,22 +26835,22 @@
 
                 val = originalinput.val();
 
-                if (val === '') {
-                    if (settings.replacementval !== '') {
+                if (val === "") {
+                    if (settings.replacementval !== "") {
                         originalinput.val(settings.replacementval);
-                        originalinput.trigger('change');
+                        originalinput.trigger("change");
                     }
                     return;
                 }
 
-                if (settings.decimals > 0 && val === '.') {
+                if (settings.decimals > 0 && val === ".") {
                     return;
                 }
 
                 parsedval = parseFloat(val);
 
                 if (isNaN(parsedval)) {
-                    if (settings.replacementval !== '') {
+                    if (settings.replacementval !== "") {
                         parsedval = settings.replacementval;
                     } else {
                         parsedval = 0;
@@ -26875,7 +26875,7 @@
 
                 if (Number(val).toString() !== returnval.toString()) {
                     originalinput.val(returnval);
-                    originalinput.trigger('change');
+                    originalinput.trigger("change");
                 }
             }
 
@@ -26911,14 +26911,14 @@
 
                 if (value > settings.max) {
                     value = settings.max;
-                    originalinput.trigger('touchspin.on.max');
+                    originalinput.trigger("touchspin.on.max");
                     stopSpin();
                 }
 
                 elements.input.val(Number(value).toFixed(settings.decimals));
 
                 if (initvalue !== value) {
-                    originalinput.trigger('change');
+                    originalinput.trigger("change");
                 }
             }
 
@@ -26937,14 +26937,14 @@
 
                 if (value < settings.min) {
                     value = settings.min;
-                    originalinput.trigger('touchspin.on.min');
+                    originalinput.trigger("touchspin.on.min");
                     stopSpin();
                 }
 
                 elements.input.val(value.toFixed(settings.decimals));
 
                 if (initvalue !== value) {
-                    originalinput.trigger('change');
+                    originalinput.trigger("change");
                 }
             }
 
@@ -26952,10 +26952,10 @@
                 stopSpin();
 
                 spincount = 0;
-                spinning = 'down';
+                spinning = "down";
 
-                originalinput.trigger('touchspin.on.startspin');
-                originalinput.trigger('touchspin.on.startdownspin');
+                originalinput.trigger("touchspin.on.startspin");
+                originalinput.trigger("touchspin.on.startdownspin");
 
                 downDelayTimeout = setTimeout(function() {
                         downSpinTimer = setInterval(function() {
@@ -26971,10 +26971,10 @@
                 stopSpin();
 
                 spincount = 0;
-                spinning = 'up';
+                spinning = "up";
 
-                originalinput.trigger('touchspin.on.startspin');
-                originalinput.trigger('touchspin.on.startupspin');
+                originalinput.trigger("touchspin.on.startspin");
+                originalinput.trigger("touchspin.on.startupspin");
 
                 upDelayTimeout = setTimeout(function() {
                         upSpinTimer = setInterval(function() {
@@ -26993,13 +26993,13 @@
                 clearInterval(upSpinTimer);
 
                 switch (spinning) {
-                case 'up':
-                    originalinput.trigger('touchspin.on.stopupspin');
-                    originalinput.trigger('touchspin.on.stopspin');
+                case "up":
+                    originalinput.trigger("touchspin.on.stopupspin");
+                    originalinput.trigger("touchspin.on.stopspin");
                     break;
-                case 'down':
-                    originalinput.trigger('touchspin.on.stopdownspin');
-                    originalinput.trigger('touchspin.on.stopspin');
+                case "down":
+                    originalinput.trigger("touchspin.on.stopdownspin");
+                    originalinput.trigger("touchspin.on.stopspin");
                     break;
                 }
 
@@ -33139,18 +33139,18 @@ S2.define('jquery.select2',[
 
 /* eslint-disable no-param-reassign */
 
-;(function(factory) {
-  "use strict";
-  if (typeof define === "function" && define.amd) {
+;(function (factory) {
+  'use strict';
+  if (typeof define === 'function' && define.amd) {
     // Register as an anonymous AMD module:
-    define(["./blueimp-helper"], factory);
+    define(['./blueimp-helper'], factory);
   } else {
     // Browser globals:
     window.blueimp = window.blueimp || {};
     window.blueimp.Gallery = factory(window.blueimp.helper || window.jQuery);
   }
-})(function($) {
-  "use strict";
+})(function ($) {
+  'use strict';
 
   /**
    * Gallery constructor
@@ -33172,7 +33172,7 @@ S2.define('jquery.select2',[
     }
     if (!list || !list.length) {
       this.console.log(
-        "blueimp Gallery: No or empty list provided as first argument.",
+        'blueimp Gallery: No or empty list provided as first argument.',
         list
       );
       return;
@@ -33186,51 +33186,51 @@ S2.define('jquery.select2',[
   $.extend(Gallery.prototype, {
     options: {
       // The Id, element or querySelector of the gallery widget:
-      container: "#blueimp-gallery",
+      container: '#blueimp-gallery',
       // The tag name, Id, element or querySelector of the slides container:
-      slidesContainer: "div",
+      slidesContainer: 'div',
       // The tag name, Id, element or querySelector of the title element:
-      titleElement: "h3",
+      titleElement: 'h3',
       // The class to add when the gallery is visible:
-      displayClass: "blueimp-gallery-display",
+      displayClass: 'blueimp-gallery-display',
       // The class to add when the gallery controls are visible:
-      controlsClass: "blueimp-gallery-controls",
+      controlsClass: 'blueimp-gallery-controls',
       // The class to add when the gallery only displays one element:
-      singleClass: "blueimp-gallery-single",
+      singleClass: 'blueimp-gallery-single',
       // The class to add when the left edge has been reached:
-      leftEdgeClass: "blueimp-gallery-left",
+      leftEdgeClass: 'blueimp-gallery-left',
       // The class to add when the right edge has been reached:
-      rightEdgeClass: "blueimp-gallery-right",
+      rightEdgeClass: 'blueimp-gallery-right',
       // The class to add when the automatic slideshow is active:
-      playingClass: "blueimp-gallery-playing",
+      playingClass: 'blueimp-gallery-playing',
       // The class for all slides:
-      slideClass: "slide",
+      slideClass: 'slide',
       // The slide class for loading elements:
-      slideLoadingClass: "slide-loading",
+      slideLoadingClass: 'slide-loading',
       // The slide class for elements that failed to load:
-      slideErrorClass: "slide-error",
+      slideErrorClass: 'slide-error',
       // The class for the content element loaded into each slide:
-      slideContentClass: "slide-content",
+      slideContentClass: 'slide-content',
       // The class for the "toggle" control:
-      toggleClass: "toggle",
+      toggleClass: 'toggle',
       // The class for the "prev" control:
-      prevClass: "prev",
+      prevClass: 'prev',
       // The class for the "next" control:
-      nextClass: "next",
+      nextClass: 'next',
       // The class for the "close" control:
-      closeClass: "close",
+      closeClass: 'close',
       // The class for the "play-pause" toggle control:
-      playPauseClass: "play-pause",
+      playPauseClass: 'play-pause',
       // The list object property (or data attribute) with the object type:
-      typeProperty: "type",
+      typeProperty: 'type',
       // The list object property (or data attribute) with the object title:
-      titleProperty: "title",
+      titleProperty: 'title',
       // The list object property (or data attribute) with the object alt text:
-      altTextProperty: "alt",
+      altTextProperty: 'alt',
       // The list object property (or data attribute) with the object URL:
-      urlProperty: "href",
+      urlProperty: 'href',
       // The list object property (or data attribute) with the object srcset URL(s):
-      srcsetProperty: "urlset",
+      srcsetProperty: 'urlset',
       // The gallery listens for transitionend events before triggering the
       // opened and closed events, unless the following option is set to false:
       displayTransition: true,
@@ -33277,7 +33277,7 @@ S2.define('jquery.select2',[
       // Delay in milliseconds between slides for the automatic slideshow:
       slideshowInterval: 5000,
       // The direction the slides are moving: ltr=LeftToRight or rtl=RightToLeft
-      slideshowDirection: "ltr",
+      slideshowDirection: 'ltr',
       // The starting index as integer.
       // Can also be an object of the given list,
       // or an equal object with the same url property:
@@ -33333,12 +33333,12 @@ S2.define('jquery.select2',[
     },
 
     console:
-      window.console && typeof window.console.log === "function"
+      window.console && typeof window.console.log === 'function'
         ? window.console
-        : { log: function() {} },
+        : { log: function () {} },
 
     // Detect touch, transition, transform and background-size support:
-    support: (function(element) {
+    support: (function (element) {
       var support = {
         touch:
           window.ontouchstart !== undefined ||
@@ -33346,20 +33346,20 @@ S2.define('jquery.select2',[
       };
       var transitions = {
         webkitTransition: {
-          end: "webkitTransitionEnd",
-          prefix: "-webkit-"
+          end: 'webkitTransitionEnd',
+          prefix: '-webkit-'
         },
         MozTransition: {
-          end: "transitionend",
-          prefix: "-moz-"
+          end: 'transitionend',
+          prefix: '-moz-'
         },
         OTransition: {
-          end: "otransitionend",
-          prefix: "-o-"
+          end: 'otransitionend',
+          prefix: '-o-'
         },
         transition: {
-          end: "transitionend",
-          prefix: ""
+          end: 'transitionend',
+          prefix: ''
         }
       };
       var prop;
@@ -33382,44 +33382,44 @@ S2.define('jquery.select2',[
         var translateZ;
         document.body.appendChild(element);
         if (transition) {
-          prop = transition.name.slice(0, -9) + "ransform";
+          prop = transition.name.slice(0, -9) + 'ransform';
           if (element.style[prop] !== undefined) {
-            element.style[prop] = "translateZ(0)";
+            element.style[prop] = 'translateZ(0)';
             translateZ = window
               .getComputedStyle(element)
-              .getPropertyValue(transition.prefix + "transform");
+              .getPropertyValue(transition.prefix + 'transform');
             support.transform = {
               prefix: transition.prefix,
               name: prop,
               translate: true,
-              translateZ: !!translateZ && translateZ !== "none"
+              translateZ: !!translateZ && translateZ !== 'none'
             };
           }
         }
         if (element.style.backgroundSize !== undefined) {
           support.backgroundSize = {};
-          element.style.backgroundSize = "contain";
+          element.style.backgroundSize = 'contain';
           support.backgroundSize.contain =
             window
               .getComputedStyle(element)
-              .getPropertyValue("background-size") === "contain";
-          element.style.backgroundSize = "cover";
+              .getPropertyValue('background-size') === 'contain';
+          element.style.backgroundSize = 'cover';
           support.backgroundSize.cover =
             window
               .getComputedStyle(element)
-              .getPropertyValue("background-size") === "cover";
+              .getPropertyValue('background-size') === 'cover';
         }
         document.body.removeChild(element);
       }
       if (document.body) {
         elementTests();
       } else {
-        $(document).on("DOMContentLoaded", elementTests);
+        $(document).on('DOMContentLoaded', elementTests);
       }
       return support;
       // Test element, has to be standard HTML and must not be hidden
       // for the CSS3 tests using window.getComputedStyle to be applicable:
-    })(document.createElement("div")),
+    })(document.createElement('div')),
 
     requestAnimationFrame:
       window.requestAnimationFrame ||
@@ -33432,7 +33432,7 @@ S2.define('jquery.select2',[
       window.webkitCancelAnimationFrame ||
       window.mozCancelAnimationFrame,
 
-    initialize: function() {
+    initialize: function () {
       this.initStartIndex();
       if (this.initWidget() === false) {
         return false;
@@ -33448,7 +33448,7 @@ S2.define('jquery.select2',[
       }
     },
 
-    slide: function(to, speed) {
+    slide: function (to, speed) {
       window.clearTimeout(this.timeout);
       var index = this.index;
       var direction;
@@ -33503,39 +33503,39 @@ S2.define('jquery.select2',[
       this.onslide(to);
     },
 
-    getIndex: function() {
+    getIndex: function () {
       return this.index;
     },
 
-    getNumber: function() {
+    getNumber: function () {
       return this.num;
     },
 
-    prev: function() {
+    prev: function () {
       if (this.options.continuous || this.index) {
         this.slide(this.index - 1);
       }
     },
 
-    next: function() {
+    next: function () {
       if (this.options.continuous || this.index < this.num - 1) {
         this.slide(this.index + 1);
       }
     },
 
-    play: function(time) {
+    play: function (time) {
       var that = this;
       var nextIndex =
-        this.index + (this.options.slideshowDirection === "rtl" ? -1 : 1);
+        this.index + (this.options.slideshowDirection === 'rtl' ? -1 : 1);
       window.clearTimeout(this.timeout);
       this.interval = time || this.options.slideshowInterval;
       if (this.elements[this.index] > 1) {
         this.timeout = this.setTimeout(
           (!this.requestAnimationFrame && this.slide) ||
-            function(to, speed) {
+            function (to, speed) {
               that.animationFrameId = that.requestAnimationFrame.call(
                 window,
-                function() {
+                function () {
                   that.slide(to, speed);
                 }
               );
@@ -33547,7 +33547,7 @@ S2.define('jquery.select2',[
       this.container.addClass(this.options.playingClass);
     },
 
-    pause: function() {
+    pause: function () {
       window.clearTimeout(this.timeout);
       this.interval = null;
       if (this.cancelAnimationFrame) {
@@ -33557,7 +33557,7 @@ S2.define('jquery.select2',[
       this.container.removeClass(this.options.playingClass);
     },
 
-    add: function(list) {
+    add: function (list) {
       var i;
       if (!list.concat) {
         // Make a real array out of the list to add:
@@ -33584,18 +33584,18 @@ S2.define('jquery.select2',[
       this.initSlides(true);
     },
 
-    resetSlides: function() {
+    resetSlides: function () {
       this.slidesContainer.empty();
       this.unloadAllSlides();
       this.slides = [];
     },
 
-    handleClose: function() {
+    handleClose: function () {
       var options = this.options;
       this.destroyEventListeners();
       // Cancel the slideshow:
       this.pause();
-      this.container[0].style.display = "none";
+      this.container[0].style.display = 'none';
       this.container
         .removeClass(options.displayClass)
         .removeClass(options.singleClass)
@@ -33612,7 +33612,7 @@ S2.define('jquery.select2',[
       }
     },
 
-    close: function() {
+    close: function () {
       var that = this;
 
       /**
@@ -33637,50 +33637,50 @@ S2.define('jquery.select2',[
       }
     },
 
-    circle: function(index) {
+    circle: function (index) {
       // Always return a number inside of the slides index range:
       return (this.num + (index % this.num)) % this.num;
     },
 
-    move: function(index, dist, speed) {
+    move: function (index, dist, speed) {
       this.translateX(index, dist, speed);
       this.positions[index] = dist;
     },
 
-    translate: function(index, x, y, speed) {
+    translate: function (index, x, y, speed) {
       if (!this.slides[index]) return;
       var style = this.slides[index].style;
       var transition = this.support.transition;
       var transform = this.support.transform;
-      style[transition.name + "Duration"] = speed + "ms";
+      style[transition.name + 'Duration'] = speed + 'ms';
       style[transform.name] =
-        "translate(" +
+        'translate(' +
         x +
-        "px, " +
+        'px, ' +
         y +
-        "px)" +
-        (transform.translateZ ? " translateZ(0)" : "");
+        'px)' +
+        (transform.translateZ ? ' translateZ(0)' : '');
     },
 
-    translateX: function(index, x, speed) {
+    translateX: function (index, x, speed) {
       this.translate(index, x, 0, speed);
     },
 
-    translateY: function(index, y, speed) {
+    translateY: function (index, y, speed) {
       this.translate(index, 0, y, speed);
     },
 
-    animate: function(from, to, speed) {
+    animate: function (from, to, speed) {
       if (!speed) {
-        this.slidesContainer[0].style.left = to + "px";
+        this.slidesContainer[0].style.left = to + 'px';
         return;
       }
       var that = this;
       var start = new Date().getTime();
-      var timer = window.setInterval(function() {
+      var timer = window.setInterval(function () {
         var timeElap = new Date().getTime() - start;
         if (timeElap > speed) {
-          that.slidesContainer[0].style.left = to + "px";
+          that.slidesContainer[0].style.left = to + 'px';
           that.ontransitionend();
           window.clearInterval(timer);
           return;
@@ -33688,11 +33688,11 @@ S2.define('jquery.select2',[
         that.slidesContainer[0].style.left =
           (to - from) * (Math.floor((timeElap / speed) * 100) / 100) +
           from +
-          "px";
+          'px';
       }, 4);
     },
 
-    preventDefault: function(event) {
+    preventDefault: function (event) {
       if (event.preventDefault) {
         event.preventDefault();
       } else {
@@ -33700,7 +33700,7 @@ S2.define('jquery.select2',[
       }
     },
 
-    stopPropagation: function(event) {
+    stopPropagation: function (event) {
       if (event.stopPropagation) {
         event.stopPropagation();
       } else {
@@ -33708,18 +33708,18 @@ S2.define('jquery.select2',[
       }
     },
 
-    onresize: function() {
+    onresize: function () {
       this.initSlides(true);
     },
 
-    onmousedown: function(event) {
+    onmousedown: function (event) {
       // Trigger on clicks of the left mouse button only
       // and exclude video & audio elements:
       if (
         event.which &&
         event.which === 1 &&
-        event.target.nodeName !== "VIDEO" &&
-        event.target.nodeName !== "AUDIO"
+        event.target.nodeName !== 'VIDEO' &&
+        event.target.nodeName !== 'AUDIO'
       ) {
         // Preventing the default mousedown action is required
         // to make touch emulation work with Firefox:
@@ -33734,7 +33734,7 @@ S2.define('jquery.select2',[
       }
     },
 
-    onmousemove: function(event) {
+    onmousemove: function (event) {
       if (this.touchStart) {
         ;(event.originalEvent || event).touches = [
           {
@@ -33746,14 +33746,14 @@ S2.define('jquery.select2',[
       }
     },
 
-    onmouseup: function(event) {
+    onmouseup: function (event) {
       if (this.touchStart) {
         this.ontouchend(event);
         delete this.touchStart;
       }
     },
 
-    onmouseout: function(event) {
+    onmouseout: function (event) {
       if (this.touchStart) {
         var target = event.target;
         var related = event.relatedTarget;
@@ -33763,7 +33763,7 @@ S2.define('jquery.select2',[
       }
     },
 
-    ontouchstart: function(event) {
+    ontouchstart: function (event) {
       if (this.options.stopTouchEventsPropagation) {
         this.stopPropagation(event);
       }
@@ -33783,7 +33783,7 @@ S2.define('jquery.select2',[
       this.touchDelta = {};
     },
 
-    ontouchmove: function(event) {
+    ontouchmove: function (event) {
       if (this.options.stopTouchEventsPropagation) {
         this.stopPropagation(event);
       }
@@ -33795,9 +33795,9 @@ S2.define('jquery.select2',[
       var touchDeltaX;
       var indices;
       // Ensure this is a one touch swipe and not, e.g. a pinch:
-      if (touches.length > 1 || (scale && scale !== 1)) {
+        if (touches.length > 1 || (scale && scale !== 1)) {
         return;
-      }
+        }
       if (this.options.disableScroll) {
         event.preventDefault();
       }
@@ -33846,7 +33846,7 @@ S2.define('jquery.select2',[
       }
     },
 
-    ontouchend: function(event) {
+    ontouchend: function (event) {
       if (this.options.stopTouchEventsPropagation) {
         this.stopPropagation(event);
       }
@@ -33923,14 +33923,14 @@ S2.define('jquery.select2',[
       }
     },
 
-    ontouchcancel: function(event) {
+    ontouchcancel: function (event) {
       if (this.touchStart) {
         this.ontouchend(event);
         delete this.touchStart;
       }
     },
 
-    ontransitionend: function(event) {
+    ontransitionend: function (event) {
       var slide = this.slides[this.index];
       if (!event || slide === event.target) {
         if (this.interval) {
@@ -33940,7 +33940,7 @@ S2.define('jquery.select2',[
       }
     },
 
-    oncomplete: function(event) {
+    oncomplete: function (event) {
       var target = event.target || event.srcElement;
       var parent = target && target.parentNode;
       var index;
@@ -33949,7 +33949,7 @@ S2.define('jquery.select2',[
       }
       index = this.getNodeIndex(parent);
       $(parent).removeClass(this.options.slideLoadingClass);
-      if (event.type === "error") {
+      if (event.type === 'error') {
         $(parent).addClass(this.options.slideErrorClass);
         this.elements[index] = 3; // Fail
       } else {
@@ -33965,15 +33965,15 @@ S2.define('jquery.select2',[
       this.setTimeout(this.options.onslidecomplete, [index, parent]);
     },
 
-    onload: function(event) {
+    onload: function (event) {
       this.oncomplete(event);
     },
 
-    onerror: function(event) {
+    onerror: function (event) {
       this.oncomplete(event);
     },
 
-    onkeydown: function(event) {
+    onkeydown: function (event) {
       switch (event.which || event.keyCode) {
         case 13: // Return
           if (this.options.toggleControlsOnReturn) {
@@ -34009,7 +34009,7 @@ S2.define('jquery.select2',[
       }
     },
 
-    handleClick: function(event) {
+    handleClick: function (event) {
       var options = this.options;
       var target = event.target || event.srcElement;
       var parent = target.parentNode;
@@ -34064,7 +34064,7 @@ S2.define('jquery.select2',[
       }
     },
 
-    onclick: function(event) {
+    onclick: function (event) {
       if (
         this.options.emulateTouchEvents &&
         this.touchDelta &&
@@ -34076,7 +34076,7 @@ S2.define('jquery.select2',[
       return this.handleClick(event);
     },
 
-    updateEdgeClasses: function(index) {
+    updateEdgeClasses: function (index) {
       if (!index) {
         this.container.addClass(this.options.leftEdgeClass);
       } else {
@@ -34089,7 +34089,7 @@ S2.define('jquery.select2',[
       }
     },
 
-    handleSlide: function(index) {
+    handleSlide: function (index) {
       if (!this.options.continuous) {
         this.updateEdgeClasses(index);
       }
@@ -34100,13 +34100,13 @@ S2.define('jquery.select2',[
       this.setTitle(index);
     },
 
-    onslide: function(index) {
+    onslide: function (index) {
       this.index = index;
       this.handleSlide(index);
       this.setTimeout(this.options.onslide, [index, this.slides[index]]);
     },
 
-    setTitle: function(index) {
+    setTitle: function (index) {
       var firstChild = this.slides[index].firstChild;
       var text = firstChild.title || firstChild.alt;
       var titleElement = this.titleElement;
@@ -34118,17 +34118,17 @@ S2.define('jquery.select2',[
       }
     },
 
-    setTimeout: function(func, args, wait) {
+    setTimeout: function (func, args, wait) {
       var that = this;
       return (
         func &&
-        window.setTimeout(function() {
+        window.setTimeout(function () {
           func.apply(that, args || []);
         }, wait || 0)
       );
     },
 
-    imageFactory: function(obj, callback) {
+    imageFactory: function (obj, callback) {
       var that = this;
       var img = this.imagePrototype.cloneNode(false);
       var url = obj;
@@ -34157,9 +34157,9 @@ S2.define('jquery.select2',[
             return that.setTimeout(callbackWrapper, [event]);
           }
           called = true;
-          $(img).off("load error", callbackWrapper);
+          $(img).off('load error', callbackWrapper);
           if (backgroundSize) {
-            if (event.type === "load") {
+            if (event.type === 'load') {
               element.style.background = 'url("' + url + '") center no-repeat';
               element.style.backgroundSize = backgroundSize;
             }
@@ -34167,14 +34167,14 @@ S2.define('jquery.select2',[
           callback(event);
         }
       }
-      if (typeof url !== "string") {
+      if (typeof url !== 'string') {
         url = this.getItemProperty(obj, this.options.urlProperty);
         title = this.getItemProperty(obj, this.options.titleProperty);
         altText =
           this.getItemProperty(obj, this.options.altTextProperty) || title;
       }
       if (backgroundSize === true) {
-        backgroundSize = "contain";
+        backgroundSize = 'contain';
       }
       backgroundSize =
         this.support.backgroundSize &&
@@ -34192,34 +34192,34 @@ S2.define('jquery.select2',[
       if (altText) {
         element.alt = altText;
       }
-      $(img).on("load error", callbackWrapper);
+      $(img).on('load error', callbackWrapper);
       img.src = url;
       return element;
     },
 
-    createElement: function(obj, callback) {
+    createElement: function (obj, callback) {
       var type = obj && this.getItemProperty(obj, this.options.typeProperty);
       var factory =
-        (type && this[type.split("/")[0] + "Factory"]) || this.imageFactory;
+        (type && this[type.split('/')[0] + 'Factory']) || this.imageFactory;
       var element = obj && factory.call(this, obj, callback);
       var srcset = this.getItemProperty(obj, this.options.srcsetProperty);
       if (!element) {
         element = this.elementPrototype.cloneNode(false);
         this.setTimeout(callback, [
           {
-            type: "error",
+            type: 'error',
             target: element
           }
         ]);
       }
       if (srcset) {
-        element.setAttribute("srcset", srcset);
+        element.setAttribute('srcset', srcset);
       }
       $(element).addClass(this.options.slideContentClass);
       return element;
     },
 
-    loadElement: function(index) {
+    loadElement: function (index) {
       if (!this.elements[index]) {
         if (this.slides[index].firstChild) {
           this.elements[index] = $(this.slides[index]).hasClass(
@@ -34237,7 +34237,7 @@ S2.define('jquery.select2',[
       }
     },
 
-    loadElements: function(index) {
+    loadElements: function (index) {
       var limit = Math.min(this.num, this.options.preloadRange * 2 + 1);
       var j = index;
       var i;
@@ -34254,7 +34254,7 @@ S2.define('jquery.select2',[
       }
     },
 
-    unloadElements: function(index) {
+    unloadElements: function (index) {
       var i, diff;
       for (i in this.elements) {
         if (Object.prototype.hasOwnProperty.call(this.elements, i)) {
@@ -34270,18 +34270,18 @@ S2.define('jquery.select2',[
       }
     },
 
-    addSlide: function(index) {
+    addSlide: function (index) {
       var slide = this.slidePrototype.cloneNode(false);
-      slide.setAttribute("data-index", index);
+      slide.setAttribute('data-index', index);
       this.slidesContainer[0].appendChild(slide);
       this.slides.push(slide);
     },
 
-    positionSlide: function(index) {
+    positionSlide: function (index) {
       var slide = this.slides[index];
-      slide.style.width = this.slideWidth + "px";
+      slide.style.width = this.slideWidth + 'px';
       if (this.support.transform) {
-        slide.style.left = index * -this.slideWidth + "px";
+        slide.style.left = index * -this.slideWidth + 'px';
         this.move(
           index,
           this.index > index
@@ -34294,15 +34294,15 @@ S2.define('jquery.select2',[
       }
     },
 
-    initSlides: function(reload) {
+    initSlides: function (reload) {
       var clearSlides, i;
       if (!reload) {
         this.positions = [];
         this.positions.length = this.num;
         this.elements = {};
-        this.imagePrototype = document.createElement("img");
-        this.elementPrototype = document.createElement("div");
-        this.slidePrototype = document.createElement("div");
+        this.imagePrototype = document.createElement('img');
+        this.elementPrototype = document.createElement('div');
+        this.slidePrototype = document.createElement('div');
         $(this.slidePrototype).addClass(this.options.slideClass);
         this.slides = this.slidesContainer[0].children;
         clearSlides =
@@ -34310,7 +34310,7 @@ S2.define('jquery.select2',[
       }
       this.slideWidth = this.container[0].clientWidth;
       this.slideHeight = this.container[0].clientHeight;
-      this.slidesContainer[0].style.width = this.num * this.slideWidth + "px";
+      this.slidesContainer[0].style.width = this.num * this.slideWidth + 'px';
       if (clearSlides) {
         this.resetSlides();
       }
@@ -34327,11 +34327,11 @@ S2.define('jquery.select2',[
       }
       if (!this.support.transform) {
         this.slidesContainer[0].style.left =
-          this.index * -this.slideWidth + "px";
+          this.index * -this.slideWidth + 'px';
       }
     },
 
-    unloadSlide: function(index) {
+    unloadSlide: function (index) {
       var slide, firstChild;
       slide = this.slides[index];
       firstChild = slide.firstChild;
@@ -34340,14 +34340,14 @@ S2.define('jquery.select2',[
       }
     },
 
-    unloadAllSlides: function() {
+    unloadAllSlides: function () {
       var i, len;
       for (i = 0, len = this.slides.length; i < len; i++) {
         this.unloadSlide(i);
       }
     },
 
-    toggleControls: function() {
+    toggleControls: function () {
       var controlsClass = this.options.controlsClass;
       if (this.container.hasClass(controlsClass)) {
         this.container.removeClass(controlsClass);
@@ -34356,7 +34356,7 @@ S2.define('jquery.select2',[
       }
     },
 
-    toggleSlideshow: function() {
+    toggleSlideshow: function () {
       if (!this.interval) {
         this.play();
       } else {
@@ -34364,17 +34364,17 @@ S2.define('jquery.select2',[
       }
     },
 
-    getNodeIndex: function(element) {
-      return parseInt(element.getAttribute("data-index"), 10);
+    getNodeIndex: function (element) {
+      return parseInt(element.getAttribute('data-index'), 10);
     },
 
-    getNestedProperty: function(obj, property) {
+    getNestedProperty: function (obj, property) {
       property.replace(
         // Matches native JavaScript notation in a String,
         // e.g. '["doubleQuoteProp"].dotProp[2]'
         // eslint-disable-next-line no-useless-escape
         /\[(?:'([^']+)'|"([^"]+)"|(\d+))\]|(?:(?:^|\.)([^\.\[]+))/g,
-        function(str, singleQuoteProp, doubleQuoteProp, arrayIndex, dotProp) {
+        function (str, singleQuoteProp, doubleQuoteProp, arrayIndex, dotProp) {
           var prop =
             dotProp ||
             singleQuoteProp ||
@@ -34388,20 +34388,20 @@ S2.define('jquery.select2',[
       return obj;
     },
 
-    getDataProperty: function(obj, property) {
+    getDataProperty: function (obj, property) {
       var key;
       var prop;
       if (obj.dataset) {
-        key = property.replace(/-([a-z])/g, function(_, b) {
+        key = property.replace(/-([a-z])/g, function (_, b) {
           return b.toUpperCase();
         });
         prop = obj.dataset[key];
       } else if (obj.getAttribute) {
         prop = obj.getAttribute(
-          "data-" + property.replace(/([A-Z])/g, "-$1").toLowerCase()
+          'data-' + property.replace(/([A-Z])/g, '-$1').toLowerCase()
         );
       }
-      if (typeof prop === "string") {
+      if (typeof prop === 'string') {
         // eslint-disable-next-line no-useless-escape
         if (
           /^(true|false|null|-?\d+(\.\d+)?|\{[\s\S]*\}|\[[\s\S]*\])$/.test(prop)
@@ -34416,7 +34416,7 @@ S2.define('jquery.select2',[
       }
     },
 
-    getItemProperty: function(obj, property) {
+    getItemProperty: function (obj, property) {
       var prop = this.getDataProperty(obj, property);
       if (prop === undefined) {
         prop = obj[property];
@@ -34427,12 +34427,12 @@ S2.define('jquery.select2',[
       return prop;
     },
 
-    initStartIndex: function() {
+    initStartIndex: function () {
       var index = this.options.index;
       var urlProperty = this.options.urlProperty;
       var i;
       // Check if the index is given as a list object:
-      if (index && typeof index !== "number") {
+      if (index && typeof index !== 'number') {
         for (i = 0; i < this.num; i += 1) {
           if (
             this.list[i] === index ||
@@ -34448,7 +34448,7 @@ S2.define('jquery.select2',[
       this.index = this.circle(parseInt(index, 10) || 0);
     },
 
-    initEventListeners: function() {
+    initEventListeners: function () {
       var that = this;
       var slidesContainer = this.slidesContainer;
 
@@ -34460,21 +34460,21 @@ S2.define('jquery.select2',[
       function proxyListener(event) {
         var type =
           that.support.transition && that.support.transition.end === event.type
-            ? "transitionend"
+            ? 'transitionend'
             : event.type;
-        that["on" + type](event);
+        that['on' + type](event);
       }
-      $(window).on("resize", proxyListener);
-      $(document.body).on("keydown", proxyListener);
-      this.container.on("click", proxyListener);
+      $(window).on('resize', proxyListener);
+      $(document.body).on('keydown', proxyListener);
+      this.container.on('click', proxyListener);
       if (this.support.touch) {
         slidesContainer.on(
-          "touchstart touchmove touchend touchcancel",
+          'touchstart touchmove touchend touchcancel',
           proxyListener
         );
       } else if (this.options.emulateTouchEvents && this.support.transition) {
         slidesContainer.on(
-          "mousedown mousemove mouseup mouseout",
+          'mousedown mousemove mouseup mouseout',
           proxyListener
         );
       }
@@ -34484,20 +34484,20 @@ S2.define('jquery.select2',[
       this.proxyListener = proxyListener;
     },
 
-    destroyEventListeners: function() {
+    destroyEventListeners: function () {
       var slidesContainer = this.slidesContainer;
       var proxyListener = this.proxyListener;
-      $(window).off("resize", proxyListener);
-      $(document.body).off("keydown", proxyListener);
-      this.container.off("click", proxyListener);
+      $(window).off('resize', proxyListener);
+      $(document.body).off('keydown', proxyListener);
+      this.container.off('click', proxyListener);
       if (this.support.touch) {
         slidesContainer.off(
-          "touchstart touchmove touchend touchcancel",
+          'touchstart touchmove touchend touchcancel',
           proxyListener
         );
       } else if (this.options.emulateTouchEvents && this.support.transition) {
         slidesContainer.off(
-          "mousedown mousemove mouseup mouseout",
+          'mousedown mousemove mouseup mouseout',
           proxyListener
         );
       }
@@ -34506,13 +34506,13 @@ S2.define('jquery.select2',[
       }
     },
 
-    handleOpen: function() {
+    handleOpen: function () {
       if (this.options.onopened) {
         this.options.onopened.call(this);
       }
     },
 
-    initWidget: function() {
+    initWidget: function () {
       var that = this;
 
       /**
@@ -34529,7 +34529,7 @@ S2.define('jquery.select2',[
       this.container = $(this.options.container);
       if (!this.container.length) {
         this.console.log(
-          "blueimp Gallery: Widget container not found.",
+          'blueimp Gallery: Widget container not found.',
           this.options.container
         );
         return false;
@@ -34539,7 +34539,7 @@ S2.define('jquery.select2',[
         .first();
       if (!this.slidesContainer.length) {
         this.console.log(
-          "blueimp Gallery: Slides container not found.",
+          'blueimp Gallery: Slides container not found.',
           this.options.slidesContainer
         );
         return false;
@@ -34559,14 +34559,14 @@ S2.define('jquery.select2',[
       if (this.options.hidePageScrollbars) {
         // Hide the page scrollbars:
         this.bodyOverflowStyle = document.body.style.overflow;
-        document.body.style.overflow = "hidden";
+        document.body.style.overflow = 'hidden';
       }
-      this.container[0].style.display = "block";
+      this.container[0].style.display = 'block';
       this.initSlides();
       this.container.addClass(this.options.displayClass);
     },
 
-    initOptions: function(options) {
+    initOptions: function (options) {
       // Create a copy of the prototype options:
       this.options = $.extend({}, this.options);
       // Check if carousel mode is enabled:
@@ -34608,45 +34608,47 @@ S2.define('jquery.select2',[
 
 /* global define */
 
-;(function(factory) {
+;(function (factory) {
   "use strict";
   if (typeof define === "function" && define.amd) {
     define(["jquery", "./blueimp-gallery"], factory);
   } else {
     factory(window.jQuery, window.blueimp.Gallery);
   }
-})(function($, Gallery) {
+})(function ($, Gallery) {
   "use strict";
 
   // Global click handler to open links with data-gallery attribute
   // in the Gallery lightbox:
-  $(document).on("click", "[data-gallery]", function(event) {
+  $(document).on("click", "[data-gallery]", function (event) {
     // Get the container id from the data-gallery attribute:
     var id = $(this).data("gallery");
     var widget = $(id);
     var container =
       (widget.length && widget) || $(Gallery.prototype.options.container);
     var callbacks = {
-      onopen: function() {
-        container.data("gallery", this).trigger("open");
+      onopen: function () {
+            container.data("gallery", this).trigger("open");
+            $("#blueimp-gallery").removeClass("d-none");
       },
-      onopened: function() {
+      onopened: function () {
         container.trigger("opened");
       },
-      onslide: function() {
+      onslide: function () {
         container.trigger("slide", arguments);
       },
-      onslideend: function() {
+      onslideend: function () {
         container.trigger("slideend", arguments);
       },
-      onslidecomplete: function() {
+      onslidecomplete: function () {
         container.trigger("slidecomplete", arguments);
       },
-      onclose: function() {
-        container.trigger("close");
+      onclose: function () {
+          container.trigger("close");
       },
-      onclosed: function() {
-        container.trigger("closed").removeData("gallery");
+      onclosed: function () {
+          container.trigger("closed").removeData("gallery");
+          $("#blueimp-gallery").addClass("d-none");
       }
     };
     var options = $.extend(
@@ -44376,6 +44378,11 @@ Prism.hooks.add('before-sanity-check', function (env) {
 })(jQuery);
 return jQuery.tablesorter;}));
 
+/*!
+* tablesorter (FORK) pager plugin
+* updated 2020-03-03 (v2.31.3)
+*/
+(function(n){"use strict";var t=n.tablesorter;n.extend({tablesorterPager:new function(){this.defaults={container:null,ajaxUrl:null,customAjaxUrl:function(n,t){return t},ajaxError:null,ajaxObject:{dataType:"json"},processAjaxOnInit:!0,ajaxProcessing:function(n){return n},output:"{startRow} to {endRow} of {totalRows} rows",updateArrows:!0,page:0,pageReset:0,size:10,maxOptionSize:20,savePages:!0,storageKey:"tablesorter-pager",fixedHeight:!1,countChildRows:!1,removeRows:!1,cssFirst:".first",cssPrev:".prev",cssNext:".next",cssLast:".last",cssGoto:".gotoPage",cssPageDisplay:".pagedisplay",cssPageSize:".pagesize",cssErrorRow:"tablesorter-errorRow",cssDisabled:"disabled",totalRows:0,totalPages:0,filteredRows:0,filteredPages:0,ajaxCounter:0,currentFilters:[],startRow:0,endRow:0,$size:null,last:{}};var it="filterInit filterStart filterEnd sortEnd disablePager enablePager destroyPager updateComplete pageSize pageSet pageAndSize pagerUpdate refreshComplete ",s=this,h=function(n,t,i){var r,u="addClass",e="removeClass",o=t.cssDisabled,s=!!i,h=s||t.page===0,c=f(n,t),l=s||t.page===c-1||c===0;t.updateArrows&&(r=t.$container.find(t.cssFirst+","+t.cssPrev),r[h?u:e](o),r.each(function(){this.ariaDisabled=h}),r=t.$container.find(t.cssNext+","+t.cssLast),r[l?u:e](o),r.each(function(){this.ariaDisabled=l}))},p=function(n,i){var f,u,e,r=n.config,o=r.$table.hasClass("hasFilters");if(o&&!i.ajax)if(t.isEmptyObject(r.cache))i.filteredRows=i.totalRows=r.$tbodies.eq(0).children("tr").not(i.countChildRows?"":"."+r.cssChildRow).length;else for(i.filteredRows=0,f=r.cache[0].normalized,e=f.length,u=0;u<e;u++)i.filteredRows+=i.regexRows.test(f[u][r.columns].$row[0].className)?0:1;else o||(i.filteredRows=i.totalRows)},r=function(i,r,u){if(!r.initializing){var b,s,l,k,a,nt,y,d,c=i.config,g=c.namespace+"pager",o=e(r,r.size,"get");if(o==="all"&&(o=r.totalRows),r.countChildRows&&(s[s.length]=c.cssChildRow),r.totalPages=Math.ceil(r.totalRows/o),c.totalRows=r.totalRows,v(i,r),p(i,r),c.filteredRows=r.filteredRows,r.filteredPages=Math.ceil(r.filteredRows/o)||0,f(i,r)>=0){if(s=o*r.page>r.filteredRows&&u,r.page=s?r.pageReset||0:r.page,r.startRow=s?o*r.page+1:r.filteredRows===0?0:o*r.page+1,r.endRow=Math.min(r.filteredRows,r.totalRows,o*(r.page+1)),l=r.$container.find(r.cssPageDisplay),typeof r.output=="function"?b=r.output(i,r):(d=l.attr("data-pager-output"+(r.filteredRows<r.totalRows?"-filtered":""))||r.output,b=(r.ajaxData&&r.ajaxData.output?r.ajaxData.output||d:d).replace(/\{page([\-+]\d+)?\}/gi,function(n,t){return r.totalPages?r.page+(t?parseInt(t,10):1):0}).replace(/\{\w+(\s*:\s*\w+)?\}/gi,function(n){var f,e,u=n.replace(/[{}\s]/g,""),t=u.split(":"),i=r.ajaxData,o=/(rows?|pages?)$/i.test(u)?0:"";return/(startRow|page)/.test(t[0])&&t[1]==="input"?(f=(""+(t[0]==="page"?r.totalPages:r.totalRows)).length,e=t[0]==="page"?r.page+1:r.startRow,'<input type="text" class="ts-'+t[0]+'" style="max-width:'+f+'em" value="'+e+'"/>'):t.length>1&&i&&i[t[0]]?i[t[0]][t[1]]:r[u]||(i?i[u]:o)||o})),k=r.$container.find(r.cssGoto),k.length){for(s="",y=rt(i,r),nt=y.length,a=0;a<nt;a++)s+='<option value="'+y[a]+'">'+y[a]+"<\/option>";k.html(s).val(r.page+1)}l.length&&(l[l[0].nodeName==="INPUT"?"val":"html"](b),l.find(".ts-startRow, .ts-page").unbind("change"+g).bind("change"+g,function(){var t=n(this).val(),i=n(this).hasClass("ts-startRow")?Math.floor(t/o)+1:t;c.$table.triggerHandler("pageSet"+g,[i])}))}h(i,r);w(i,r);r.initialized&&u!==!1&&(t.debug(c,"pager")&&console.log("Pager >> Triggering pagerComplete"),c.$table.triggerHandler("pagerComplete",r),r.savePages&&t.storage&&t.storage(i,r.storageKey,{page:r.page,size:o===r.totalRows?"all":o}))}},rt=function(t,i){for(var v,s,p,c,h,e=f(t,i)||1,o=Math.ceil(e/i.maxOptionSize/5)*5,y=e>i.maxOptionSize,w=i.page+1,l=o,a=e-o,r=[1],b=y?o:1,u=b;u<=e;)r[r.length]=u,u=u+(y?o:1);if(r[r.length]=e,y){for(s=[],v=Math.max(Math.floor(i.maxOptionSize/o)-1,5),l=w-v,l<1&&(l=1),a=w+v,a>e&&(a=e),u=l;u<=a;u++)s[s.length]=u;r=n.grep(r,function(t,i){return n.inArray(t,r)===i});c=r.length;h=s.length;c-h>o/2&&c+h>i.maxOptionSize&&(p=Math.floor(c/2)-Math.floor(h/2),Array.prototype.splice.apply(r,[p,h]));r=r.concat(s)}return r=n.grep(r,function(t,i){return n.inArray(t,r)===i}).sort(function(n,t){return n-t})},w=function(t,i){var f,e,r,o=t.config,u=o.$tbodies.eq(0);u.find("tr.pagerSavedHeightSpacer").remove();i.fixedHeight&&!i.isDisabled&&(e=n.data(t,"pagerSavedHeight"),e&&(r=0,n(t).css("border-spacing").split(" ").length>1&&(r=n(t).css("border-spacing").split(" ")[1].replace(/[^-\d\.]/g,"")),f=e-u.height()+r*i.size-r,f>5&&n.data(t,"pagerLastSize")===i.size&&u.children("tr:visible").length<(i.size==="all"?i.totalRows:i.size)&&u.append('<tr class="pagerSavedHeightSpacer '+o.selectorRemove.slice(1)+'" style="height:'+f+'px;"><\/tr>')))},c=function(t,i){var u,f=t.config,r=f.$tbodies.eq(0);r.find("tr.pagerSavedHeightSpacer").remove();r.children("tr:visible").length||r.append('<tr class="pagerSavedHeightSpacer '+f.selectorRemove.slice(1)+'"><td>&nbsp<\/td><\/tr>');u=r.children("tr").eq(0).height()*(i.size==="all"?i.totalRows:i.size);n.data(t,"pagerSavedHeight",u);w(t,i);n.data(t,"pagerLastSize",i.size)},o=function(n,i){if(!i.ajaxUrl){var r,e=0,o=n.config,u=o.$tbodies.eq(0).children("tr"),c=u.length,l=i.size==="all"?i.totalRows:i.size,s=i.page*l,h=s+l,a=-1,f=0;for(i.cacheIndex=[],r=0;r<c;r++)i.regexFiltered.test(u[r].className)||(f===s&&u[r].className.match(o.cssChildRow)?u[r].style.display="none":(u[r].style.display=f>=s&&f<h?"":"none",a!==f&&f>=s&&f<h&&(i.cacheIndex[i.cacheIndex.length]=r,a=f),f+=u[r].className.match(o.cssChildRow+"|"+o.selectorRemove.slice(1))&&!i.countChildRows?0:1,f===h&&u[r].style.display!=="none"&&u[r].className.match(t.css.cssHasChild)&&(e=r)));if(e>0&&u[e].className.match(t.css.cssHasChild))while(++e<c&&u[e].className.match(o.cssChildRow))u[e].style.display=""}},b=function(t,i){i.size=e(i,i.$container.find(i.cssPageSize).val(),"get");u(t,i.size,i);h(t,i);i.removeRows||(o(t,i),n(t).bind("sortEnd filterEnd ".split(" ").join(t.config.namespace+"pager "),function(){o(t,i)}))},k=function(i,u,f,o,s,h){if(typeof f.ajaxProcessing=="function"){u.config.$tbodies.eq(0).empty();var p,c,tt,k,ot,w,it,b,d,y,v,rt,ut,st,ft,l=u.config,et=l.$table,nt="",a=f.ajaxProcessing(i,u,o)||[0,[]];if(t.showError(u),h)t.debug(l,"pager")&&console.error("Pager >> Ajax Error",o,s,h),t.showError(u,o,s,h),l.$tbodies.eq(0).children("tr").detach(),f.totalRows=0;else{if(n.isArray(a)?(tt=isNaN(a[0])&&!isNaN(a[1]),ut=a[tt?1:0],f.totalRows=isNaN(ut)?f.totalRows||0:ut,l.totalRows=l.filteredRows=f.filteredRows=f.totalRows,v=f.totalRows===0?[]:a[tt?0:1]||[],y=a[2]):(f.ajaxData=a,l.totalRows=f.totalRows=a.total,l.filteredRows=f.filteredRows=typeof a.filteredRows!="undefined"?a.filteredRows:a.total,y=a.headers,v=a.rows||[]),rt=v&&v.length,v instanceof n)f.processAjaxOnInit&&(l.$tbodies.eq(0).empty(),l.$tbodies.eq(0).append(v));else if(rt){for(p=0;p<rt;p++){for(nt+="<tr>",c=0;c<v[p].length;c++)nt+=/^\s*<td/.test(v[p][c])?n.trim(v[p][c]):"<td>"+v[p][c]+"<\/td>";nt+="<\/tr>"}f.processAjaxOnInit&&l.$tbodies.eq(0).html(nt)}if(f.processAjaxOnInit=!0,y)for(k=et.hasClass("hasStickyHeaders"),w=k?l.widgetOptions.$sticky.children("thead:first").children("tr:not(."+l.cssIgnoreRow+")").children():"",ot=et.find("tfoot tr:first").children(),it=l.$headers.filter("th "),st=it.length,c=0;c<st;c++)b=it.eq(c),b.find("."+t.css.icon).length?(d=b.find("."+t.css.icon).clone(!0),b.find("."+t.css.headerIn).html(y[c]).append(d),k&&w.length&&(d=w.eq(c).find("."+t.css.icon).clone(!0),w.eq(c).find("."+t.css.headerIn).html(y[c]).append(d))):(b.find("."+t.css.headerIn).html(y[c]),k&&w.length&&(f.$container=f.$container.add(l.widgetOptions.$sticky),w.eq(c).find("."+t.css.headerIn).html(y[c]))),ot.eq(c).html(y[c])}l.showProcessing&&t.isProcessing(u);ft=e(f,f.size,"get");f.totalPages=ft==="all"?1:Math.ceil(f.totalRows/ft);f.last.totalRows=f.totalRows;f.last.currentFilters=f.currentFilters;f.last.sortList=(l.sortList||[]).join(",");r(u,f,!1);t.updateCache(l,function(){f.initialized&&setTimeout(function(){t.debug(l,"pager")&&console.log("Pager >> Triggering pagerChange");et.triggerHandler("pagerChange",f);t.applyWidget(u);r(u,f,!0)},0)})}f.initialized||g(u,f)},ut=function(i,r){var u=ft(i,r),f=n(document),s,e=i.config,o=e.namespace+"pager";u!==""&&(e.showProcessing&&t.isProcessing(i,!0),f.bind("ajaxError"+o,function(n,t,u,e){k(null,i,r,t,u,e);f.unbind("ajaxError"+o)}),s=++r.ajaxCounter,r.last.ajaxUrl=u,r.ajaxObject.url=u,r.ajaxObject.success=function(n,t,u){s<r.ajaxCounter||(k(n,i,r,u),f.unbind("ajaxError"+o),typeof r.oldAjaxSuccess=="function"&&r.oldAjaxSuccess(n))},t.debug(e,"pager")&&console.log("Pager >> Ajax initialized",r.ajaxObject),n.ajax(r.ajaxObject))},ft=function(i,r){var u,h,a=i.config,f=r.ajaxUrl?r.ajaxUrl.replace(/\{page([\-+]\d+)?\}/,function(n,t){return r.page+(t?parseInt(t,10):0)}).replace(/\{size\}/g,r.size):"",l=a.sortList,c=r.currentFilters||n(i).data("lastSearch")||[],o=f.match(/\{\s*sort(?:List)?\s*:\s*(\w*)\s*\}/),s=f.match(/\{\s*filter(?:List)?\s*:\s*(\w*)\s*\}/),e=[];if(o){for(o=o[1],h=l.length,u=0;u<h;u++)e[e.length]=o+"["+l[u][0]+"]="+l[u][1];f=f.replace(/\{\s*sort(?:List)?\s*:\s*(\w*)\s*\}/g,e.length?e.join("&"):o);e=[]}if(s){for(s=s[1],h=c.length,u=0;u<h;u++)c[u]&&(e[e.length]=s+"["+u+"]="+encodeURIComponent(c[u]));f=f.replace(/\{\s*filter(?:List)?\s*:\s*(\w*)\s*\}/g,e.length?e.join("&"):s);r.currentFilters=c}return typeof r.customAjaxUrl=="function"&&(f=r.customAjaxUrl(i,f)),t.debug(a,"pager")&&console.log("Pager >> Ajax url = "+f),f},l=function(i,u,f){var h,e,c,s,b=n(i),l=i.config,a=t.debug(l,"pager"),v=l.$table.hasClass("hasFilters"),k=u&&u.length||0,p=f.size==="all"?f.totalRows:f.size,w=f.page*p;if(k<1){a&&console.warn("Pager >> No rows for pager to render");return}if(f.page>=f.totalPages&&y(i,f),f.cacheIndex=[],f.isDisabled=!1,f.initialized&&(a&&console.log("Pager >> Triggering pagerChange"),b.triggerHandler("pagerChange",f)),f.removeRows){for(t.clearTableBody(i),h=t.processTbody(i,l.$tbodies.eq(0),!0),e=v?0:w,c=v?0:w,s=0;s<p&&e<u.length;)v&&f.regexFiltered.test(u[e][0].className)||(c++,c>w&&s<=p&&(s++,f.cacheIndex[f.cacheIndex.length]=e,h.append(u[e]))),e++;t.processTbody(i,h,!1)}else o(i,f);r(i,f);i.isUpdating&&(a&&console.log("Pager >> Triggering updateComplete"),b.triggerHandler("updateComplete",[i,!0]))},d=function(i,r){var u,f,e;for(r.ajax?h(i,r,!0):(n.data(i,"pagerLastPage",r.page),n.data(i,"pagerLastSize",r.size),r.page=0,r.size=r.totalRows,r.totalPages=1,n(i).addClass("pagerDisabled").removeAttr("aria-describedby").find("tr.pagerSavedHeightSpacer").remove(),l(i,i.config.rowsCopy,r),r.isDisabled=!0,t.applyWidget(i),t.debug(i.config,"pager")&&console.log("Pager >> Disabled")),f=r.$container.find(r.cssGoto+","+r.cssPageSize+", .ts-startRow, .ts-page"),e=f.length,u=0;u<e;u++)f.eq(u).addClass(r.cssDisabled)[0].disabled=!0,f[u].ariaDisabled=!0},a=function(n){var r=n.config,u=r.pager;t.updateCache(r,function(){var t,f=[],e=n.config.cache[0].normalized;for(u.totalRows=e.length,t=0;t<u.totalRows;t++)f[f.length]=e[t][r.columns].$row;r.rowsCopy=f;i(n,u,!0)})},i=function(i,r,u){if(!r.isDisabled){var o,e=i.config,s=t.debug(e,"pager"),h=n(i),f=r.last;if(u!==!1&&r.initialized&&t.isEmptyObject(e.cache))return a(i);r.ajax&&t.hasWidget(i,"filter")&&!e.widgetOptions.filter_initialized||(v(i,r),p(i,r),f.currentFilters=(f.currentFilters||[]).join("")===""?[]:f.currentFilters,r.currentFilters=(r.currentFilters||[]).join("")===""?[]:r.currentFilters,f.page!==r.page||f.size!==r.size||f.totalRows!==r.totalRows||(f.currentFilters||[]).join(",")!==(r.currentFilters||[]).join(",")||(f.ajaxUrl||"")!==(r.ajaxObject.url||"")||(f.optAjaxUrl||"")!==(r.ajaxUrl||"")||f.sortList!==(e.sortList||[]).join(","))&&(s&&console.log("Pager >> Changing to page "+r.page),r.last={page:r.page,size:r.size,sortList:(e.sortList||[]).join(","),totalRows:r.totalRows,currentFilters:r.currentFilters||[],ajaxUrl:r.ajaxObject.url||"",optAjaxUrl:r.ajaxUrl||""},r.ajax?r.processAjaxOnInit||t.isEmptyObject(r.initialRows)?ut(i,r):(r.processAjaxOnInit=!0,o=r.initialRows,r.totalRows=typeof o.total!="undefined"?o.total:s?console.error("Pager >> No initial total page set!")||0:0,r.filteredRows=typeof o.filtered!="undefined"?o.filtered:s?console.error("Pager >> No initial filtered page set!")||0:0,g(i,r)):r.ajax||l(i,e.rowsCopy,r),n.data(i,"pagerLastPage",r.page),r.initialized&&u!==!1&&(s&&console.log("Pager >> Triggering pageMoved"),h.triggerHandler("pageMoved",r),t.applyWidget(i),i.isUpdating&&(s&&console.log("Pager >> Triggering updateComplete"),h.triggerHandler("updateComplete",[i,!0]))))}},f=function(n,i){return t.hasWidget(n,"filter")?Math.min(i.totalPages,i.filteredPages):i.totalPages},v=function(n,t){var i=f(n,t)-1;return t.page=parseInt(t.page,10),(t.page<0||isNaN(t.page))&&(t.page=0),t.page>i&&i>=0&&(t.page=i),t.page},e=function(n,t,i){var r=parseInt(t,10)||n.size||n.settings.size||10;return n.initialized&&(/all/i.test(r+" "+t)||r===n.totalRows)?n.$container.find(n.cssPageSize+' option[value="all"]').length?"all":n.totalRows:i==="get"?r:n.size},u=function(t,i,r){r.size=e(r,i,"get");r.$container.find(r.cssPageSize).val(r.size);n.data(t,"pagerLastPage",v(t,r));n.data(t,"pagerLastSize",r.size);r.totalPages=r.size==="all"?1:Math.ceil(r.totalRows/r.size);r.filteredPages=r.size==="all"?1:Math.ceil(r.filteredRows/r.size)},et=function(n,t){t.page=0;i(n,t)},y=function(n,t){t.page=f(n,t)-1;i(n,t)},ot=function(n,t){t.page++;var r=f(n,t)-1;t.page>=r&&(t.page=r);i(n,t)},st=function(n,t){t.page--;t.page<=0&&(t.page=0);i(n,t)},g=function(i,u){u.initialized=!0;u.initializing=!1;t.debug(i.config,"pager")&&console.log("Pager >> Triggering pagerInitialized");n(i).triggerHandler("pagerInitialized",u);t.applyWidget(i);r(i,u)},ht=function(t,i){var r=t.config;r.pager=n.extend(!0,{},n.tablesorterPager.defaults,i.settings);tt(t,i.settings)},ct=function(n,i){var r=n.config,u=r.namespace+"pager",f=[i.cssFirst,i.cssPrev,i.cssNext,i.cssLast,i.cssGoto,i.cssPageSize].join(",");d(n,i);i.$container.hide().find(f).unbind(u);r.appender=null;r.$table.unbind(u);t.storage&&t.storage(n,i.storageKey,"");delete r.pager;delete r.rowsCopy},nt=function(r,o,s){var h,v,l,a=r.config;o.$container.find(o.cssGoto+","+o.cssPageSize+",.ts-startRow, .ts-page").removeClass(o.cssDisabled).removeAttr("disabled").each(function(){this.ariaDisabled=!1});o.isDisabled=!1;o.page=n.data(r,"pagerLastPage")||o.page||0;l=o.$container.find(o.cssPageSize);v=l.find("option[selected]").val();o.size=n.data(r,"pagerLastSize")||e(o,v,"get");o.totalPages=o.size==="all"?1:Math.ceil(f(r,o)/o.size);u(r,o.size,o);r.id&&!a.$table.attr("aria-describedby")&&(l=o.$container.find(o.cssPageDisplay),h=l.attr("id"),h||(h=r.id+"_pager_info",l.attr("id",h)),a.$table.attr("aria-describedby",h));c(r,o);s&&(t.update(a),u(r,o.size,o),i(r,o),b(r,o),t.debug(a,"pager")&&console.log("Pager >> Enabled"))},tt=function(f,h){var w,tt,ut,k,v=f.config,ft=v.widgetOptions,g=t.debug(v,"pager"),l=v.pager=n.extend(!0,{},n.tablesorterPager.defaults,h),lt=v.$table,p=v.namespace+"pager",rt=l.$container=n(l.container).addClass("tablesorter-pager").show();l.settings=n.extend(!0,{},n.tablesorterPager.defaults,h);g&&console.log("Pager >> Initializing");l.oldAjaxSuccess=l.oldAjaxSuccess||l.ajaxObject.success;v.appender=s.appender;l.initializing=!0;l.savePages&&t.storage&&(w=t.storage(f,l.storageKey)||{},l.page=isNaN(w.page)?l.page:w.page,l.size=w.size==="all"?w.size:(isNaN(w.size)?l.size:w.size)||l.setSize||10,u(f,l.size,l));l.regexRows=new RegExp("("+(ft.filter_filteredRow||"filtered")+"|"+v.selectorRemove.slice(1)+"|"+v.cssChildRow+")");l.regexFiltered=new RegExp(ft.filter_filteredRow||"filtered");lt.unbind(it.split(" ").join(p+" ").replace(/\s+/g," ")).bind("filterInit filterStart ".split(" ").join(p+" "),function(r,u){l.currentFilters=n.isArray(u)?u:v.$table.data("lastSearch");var e;if(l.ajax&&r.type==="filterInit")return i(f,l,!1);e=t.filter.equalFilters?t.filter.equalFilters(v,v.lastSearch,l.currentFilters):(v.lastSearch||[]).join("")!==(l.currentFilters||[]).join("");r.type!=="filterStart"||l.pageReset===!1||e||(l.page=l.pageReset)}).bind("filterEnd sortEnd ".split(" ").join(p+" "),function(){l.currentFilters=v.$table.data("lastSearch");(l.initialized||l.initializing)&&(v.delayInit&&v.rowsCopy&&v.rowsCopy.length===0&&a(f),r(f,l,!1),i(f,l,!1),t.applyWidget(f))}).bind("disablePager"+p,function(n){n.stopPropagation();d(f,l)}).bind("enablePager"+p,function(n){n.stopPropagation();nt(f,l,!0)}).bind("destroyPager"+p,function(n){n.stopPropagation();ct(f,l)}).bind("resetToLoadState"+p,function(n){n.stopPropagation();ht(f,l)}).bind("updateComplete"+p,function(n,t,i){if(n.stopPropagation(),t&&!i&&!l.ajax){var u=v.$tbodies.eq(0).children("tr").not(v.selectorRemove);l.totalRows=u.length-(l.countChildRows?0:u.filter("."+v.cssChildRow).length);l.totalPages=l.size==="all"?1:Math.ceil(l.totalRows/l.size);u.length&&v.rowsCopy&&v.rowsCopy.length===0&&a(t);l.page>=l.totalPages&&y(t,l);o(t,l);c(t,l);r(t,l,!0)}}).bind("pageSize refreshComplete ".split(" ").join(p+" "),function(n,t){n.stopPropagation();u(f,e(l,t,"get"),l);i(f,l);o(f,l);r(f,l,!1)}).bind("pageSet pagerUpdate ".split(" ").join(p+" "),function(n,t){n.stopPropagation();n.type==="pagerUpdate"&&(t=typeof t=="undefined"?l.page+1:t,l.last.page=!0);l.page=(parseInt(t,10)||1)-1;i(f,l,!0);r(f,l,!1)}).bind("pageAndSize"+p,function(n,t,s){n.stopPropagation();l.page=(parseInt(t,10)||1)-1;u(f,e(l,s,"get"),l);i(f,l,!0);o(f,l);r(f,l,!1)});tt=[l.cssFirst,l.cssPrev,l.cssNext,l.cssLast];ut=[et,st,ot,y];g&&!rt.length&&console.warn('Pager >> "container" not found');rt.find(tt.join(",")).attr("tabindex",0).unbind("click"+p).bind("click"+p,function(t){t.stopPropagation();var i,r=n(this),u=tt.length;if(!r.hasClass(l.cssDisabled))for(i=0;i<u;i++)if(r.is(tt[i])){ut[i](f,l);break}});k=rt.find(l.cssGoto);k.length?k.unbind("change"+p).bind("change"+p,function(){l.page=n(this).val()-1;i(f,l,!0);r(f,l,!1)}):g&&console.warn('Pager >> "goto" selector not found');k=rt.find(l.cssPageSize);k.length?(k.find("option").removeAttr("selected"),k.unbind("change"+p).bind("change"+p,function(){if(!n(this).hasClass(l.cssDisabled)){var t=n(this).val();u(f,t,l);i(f,l);c(f,l)}return!1})):g&&console.warn('Pager >> "size" selector not found');l.initialized=!1;lt.triggerHandler("pagerBeforeInitialized",l);nt(f,l,!1);typeof l.ajaxUrl=="string"?(l.ajax=!0,v.widgetOptions.filter_serversideFiltering=!0,v.serverSideSorting=!0,i(f,l)):(l.ajax=!1,t.appendCache(v,!0),b(f,l));l.ajax||l.initialized||(l.initializing=!1,l.initialized=!0,u(f,l.size,l),i(f,l),g&&console.log("Pager >> Triggering pagerInitialized"),v.$table.triggerHandler("pagerInitialized",l),v.widgetOptions.filter_initialized&&t.hasWidget(f,"filter")||r(f,l,!1));v.widgetInit.pager=!0};s.appender=function(t,i){var f=t.config,u=f.pager;u.ajax||(f.rowsCopy=i,u.totalRows=u.countChildRows?f.$tbodies.eq(0).children("tr").length:i.length,u.size=n.data(t,"pagerLastSize")||u.size||u.settings.size||10,u.totalPages=u.size==="all"?1:Math.ceil(u.totalRows/u.size),l(t,i,u),r(t,u,!1))};s.construct=function(n){return this.each(function(){this.config&&this.hasInitialized&&tt(this,n)})}}});t.showError=function(t,i,r,u){var c=n(t),f=c[0].config,s=f&&f.widgetOptions,a=f.pager&&f.pager.cssErrorRow||s&&s.pager_css&&s.pager_css.errorRow||"tablesorter-errorRow",l=typeof i,o=!0,e="",h=function(){f.$table.find("thead").find(f.selectorRemove).remove()};if(!c.length){console.error("tablesorter showError: no table parameter passed");return}if(typeof f.pager.ajaxError=="function"){if(o=f.pager.ajaxError(f,i,r,u),o===!1)return h();e=o}else if(typeof s.pager_ajaxError=="function"){if(o=s.pager_ajaxError(f,i,r,u),o===!1)return h();e=o}if(e==="")if(l==="object")e=i.status===0?"Not connected, verify Network":i.status===404?"Requested page not found [404]":i.status===500?"Internal Server Error [500]":u==="parsererror"?"Requested JSON parse failed":u==="timeout"?"Time out error":u==="abort"?"Ajax Request aborted":"Uncaught error: "+i.statusText+" ["+i.status+"]";else if(l==="string")e=i;else return h();n(/tr\>/.test(e)?e:'<tr><td colspan="'+f.columns+'">'+e+"<\/td><\/tr>").click(function(){n(this).remove()}).appendTo(f.$table.find("thead:first")).addClass(a+" "+f.selectorRemove.slice(1)).attr({role:"alert","aria-live":"assertive"})};n.fn.extend({tablesorterPager:n.tablesorterPager.construct})})(jQuery);
 /* Widget: reflow - updated 2/7/2015 (v2.19.0) *//*
  * Requires tablesorter v2.8+ and jQuery 1.7+
  * Also, this widget requires the following default css (modify as desired)
@@ -45047,7 +45054,10 @@ jQuery(document).ready(function () {
     jQuery(".img-user-posted").each(function () {
         var image = jQuery(this);
 
-        if (image.parents(".selectionQuoteable").length && image.parent().attr("class") !== "yafsignature") {
+        
+
+        if (image.parents(".selectionQuoteable").length && image.parent().attr("class") !== "card-body py-0") {
+
             var messageId = image.parents(".selectionQuoteable")[0].id;
 
             if (!image.parents("a").length) {
