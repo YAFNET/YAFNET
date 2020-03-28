@@ -27,6 +27,7 @@ namespace YAF.Core.Model
 
     using YAF.Core.Extensions;
     using YAF.Types;
+    using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
     using YAF.Types.Models;
 
@@ -68,16 +69,38 @@ namespace YAF.Core.Model
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
-            repository.Upsert(
-                new BannedIP
-                    {
-                        BoardID = boardId ?? repository.BoardID,
-                        ID = id ?? 0,
-                        Mask = mask,
-                        Reason = reason,
-                        UserID = userId,
-                        Since = DateTime.Now
-                });
+            if (id.HasValue)
+            {
+                repository.Upsert(
+                    new BannedIP
+                        {
+                            BoardID = boardId ?? repository.BoardID,
+                            ID = id.Value,
+                            Mask = mask,
+                            Reason = reason,
+                            UserID = userId,
+                            Since = DateTime.Now
+                        });
+
+                repository.FireUpdated(id.Value);
+            }
+            else
+            {
+                var banned = repository.GetSingle(b => b.BoardID == repository.BoardID && b.Mask == mask);
+
+                if (banned == null)
+                {
+                    repository.Upsert(
+                        new BannedIP
+                            {
+                                BoardID = boardId ?? repository.BoardID,
+                                Mask = mask,
+                                Reason = reason,
+                                UserID = userId,
+                                Since = DateTime.Now
+                            });
+                }
+            }
         }
 
         #endregion
