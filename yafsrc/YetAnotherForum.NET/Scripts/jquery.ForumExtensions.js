@@ -27610,7 +27610,7 @@
 
 })(jQuery);
 /*!
- * Select2 4.0.11
+ * Select2 4.0.13
  * https://select2.github.io
  *
  * Released under the MIT license
@@ -29167,6 +29167,27 @@ S2.define('select2/selection/base',[
     throw new Error('The `update` method must be defined in child classes.');
   };
 
+  /**
+   * Helper method to abstract the "enabled" (not "disabled") state of this
+   * object.
+   *
+   * @return {true} if the instance is not disabled.
+   * @return {false} if the instance is disabled.
+   */
+  BaseSelection.prototype.isEnabled = function () {
+    return !this.isDisabled();
+  };
+
+  /**
+   * Helper method to abstract the "disabled" state of this object.
+   *
+   * @return {true} if the disabled option is true.
+   * @return {false} if the disabled option is false.
+   */
+  BaseSelection.prototype.isDisabled = function () {
+    return this.options.get('disabled');
+  };
+
   return BaseSelection;
 });
 
@@ -29317,7 +29338,7 @@ S2.define('select2/selection/multiple',[
       '.select2-selection__choice__remove',
       function (evt) {
         // Ignore the event if it is disabled
-        if (self.options.get('disabled')) {
+        if (self.isDisabled()) {
           return;
         }
 
@@ -29478,7 +29499,7 @@ S2.define('select2/selection/allowClear',[
 
   AllowClear.prototype._handleClear = function (_, evt) {
     // Ignore the event if it is disabled
-    if (this.options.get('disabled')) {
+    if (this.isDisabled()) {
       return;
     }
 
@@ -29521,7 +29542,7 @@ S2.define('select2/selection/allowClear',[
       }
     }
 
-    this.$element.trigger('change');
+    this.$element.trigger('input').trigger('change');
 
     this.trigger('toggle', {});
   };
@@ -29544,7 +29565,7 @@ S2.define('select2/selection/allowClear',[
       return;
     }
 
-    var removeAll = this.options.get('translations').get('removeAllItems');   
+    var removeAll = this.options.get('translations').get('removeAllItems');
 
     var $remove = $(
       '<span class="select2-selection__clear" title="' + removeAll() +'">' +
@@ -30812,7 +30833,7 @@ S2.define('select2/data/select',[
     if ($(data.element).is('option')) {
       data.element.selected = true;
 
-      this.$element.trigger('change');
+      this.$element.trigger('input').trigger('change');
 
       return;
     }
@@ -30833,13 +30854,13 @@ S2.define('select2/data/select',[
         }
 
         self.$element.val(val);
-        self.$element.trigger('change');
+        self.$element.trigger('input').trigger('change');
       });
     } else {
       var val = data.id;
 
       this.$element.val(val);
-      this.$element.trigger('change');
+      this.$element.trigger('input').trigger('change');
     }
   };
 
@@ -30855,7 +30876,7 @@ S2.define('select2/data/select',[
     if ($(data.element).is('option')) {
       data.element.selected = false;
 
-      this.$element.trigger('change');
+      this.$element.trigger('input').trigger('change');
 
       return;
     }
@@ -30873,7 +30894,7 @@ S2.define('select2/data/select',[
 
       self.$element.val(val);
 
-      self.$element.trigger('change');
+      self.$element.trigger('input').trigger('change');
     });
   };
 
@@ -32109,7 +32130,10 @@ S2.define('select2/dropdown/attachBody',[
       left: 0
     };
 
-    if ($.contains(document.body, $offsetParent[0])) {
+    if (
+      $.contains(document.body, $offsetParent[0]) ||
+      $offsetParent[0].isConnected
+      ) {
       parentOffset = $offsetParent.offset();
     }
 
@@ -33153,8 +33177,8 @@ S2.define('select2/core',[
 
     if (observer != null) {
       this._observer = new observer(function (mutations) {
-        $.each(mutations, self._syncA);
-        $.each(mutations, self._syncS);
+        self._syncA();
+        self._syncS(null, mutations);
       });
       this._observer.observe(this.$element[0], {
         attributes: true,
@@ -33276,7 +33300,7 @@ S2.define('select2/core',[
       if (self.isOpen()) {
         if (key === KEYS.ESC || key === KEYS.TAB ||
             (key === KEYS.UP && evt.altKey)) {
-          self.close();
+          self.close(evt);
 
           evt.preventDefault();
         } else if (key === KEYS.ENTER) {
@@ -33310,7 +33334,7 @@ S2.define('select2/core',[
   Select2.prototype._syncAttributes = function () {
     this.options.set('disabled', this.$element.prop('disabled'));
 
-    if (this.options.get('disabled')) {
+    if (this.isDisabled()) {
       if (this.isOpen()) {
         this.close();
       }
@@ -33321,7 +33345,7 @@ S2.define('select2/core',[
     }
   };
 
-  Select2.prototype._syncSubtree = function (evt, mutations) {
+  Select2.prototype._isChangeMutation = function (evt, mutations) {
     var changed = false;
     var self = this;
 
@@ -33349,7 +33373,22 @@ S2.define('select2/core',[
       }
     } else if (mutations.removedNodes && mutations.removedNodes.length > 0) {
       changed = true;
+    } else if ($.isArray(mutations)) {
+      $.each(mutations, function(evt, mutation) {
+        if (self._isChangeMutation(evt, mutation)) {
+          // We've found a change mutation.
+          // Let's escape from the loop and continue
+          changed = true;
+          return false;
+        }
+      });
     }
+    return changed;
+  };
+
+  Select2.prototype._syncSubtree = function (evt, mutations) {
+    var changed = this._isChangeMutation(evt, mutations);
+    var self = this;
 
     // Only re-pull the data if we think there is a change
     if (changed) {
@@ -33400,7 +33439,7 @@ S2.define('select2/core',[
   };
 
   Select2.prototype.toggleDropdown = function () {
-    if (this.options.get('disabled')) {
+    if (this.isDisabled()) {
       return;
     }
 
@@ -33416,15 +33455,40 @@ S2.define('select2/core',[
       return;
     }
 
+    if (this.isDisabled()) {
+      return;
+    }
+
     this.trigger('query', {});
   };
 
-  Select2.prototype.close = function () {
+  Select2.prototype.close = function (evt) {
     if (!this.isOpen()) {
       return;
     }
 
-    this.trigger('close', {});
+    this.trigger('close', { originalEvent : evt });
+  };
+
+  /**
+   * Helper method to abstract the "enabled" (not "disabled") state of this
+   * object.
+   *
+   * @return {true} if the instance is not disabled.
+   * @return {false} if the instance is disabled.
+   */
+  Select2.prototype.isEnabled = function () {
+    return !this.isDisabled();
+  };
+
+  /**
+   * Helper method to abstract the "disabled" state of this object.
+   *
+   * @return {true} if the disabled option is true.
+   * @return {false} if the disabled option is false.
+   */
+  Select2.prototype.isDisabled = function () {
+    return this.options.get('disabled');
   };
 
   Select2.prototype.isOpen = function () {
@@ -33501,7 +33565,7 @@ S2.define('select2/core',[
       });
     }
 
-    this.$element.val(newVal).trigger('change');
+    this.$element.val(newVal).trigger('input').trigger('change');
   };
 
   Select2.prototype.destroy = function () {
@@ -35139,7 +35203,7 @@ S2.define('jquery.select2',[
 
 /* eslint-disable no-param-reassign */
 
-;(function(factory) {
+;(function (factory) {
   'use strict';
   if (typeof define === 'function' && define.amd) {
     // Register as an anonymous AMD module:
@@ -35149,7 +35213,7 @@ S2.define('jquery.select2',[
     window.blueimp = window.blueimp || {};
     window.blueimp.Gallery = factory(window.blueimp.helper || window.jQuery);
   }
-})(function($) {
+})(function ($) {
   'use strict';
 
   /**
@@ -35276,6 +35340,8 @@ S2.define('jquery.select2',[
       startSlideshow: false,
       // Delay in milliseconds between slides for the automatic slideshow:
       slideshowInterval: 5000,
+      // The direction the slides are moving: ltr=LeftToRight or rtl=RightToLeft
+      slideshowDirection: 'ltr',
       // The starting index as integer.
       // Can also be an object of the given list,
       // or an equal object with the same url property:
@@ -35333,10 +35399,10 @@ S2.define('jquery.select2',[
     console:
       window.console && typeof window.console.log === 'function'
         ? window.console
-        : { log: function() {} },
+        : { log: function () {} },
 
     // Detect touch, transition, transform and background-size support:
-    support: (function(element) {
+    support: (function (element) {
       var support = {
         touch:
           window.ontouchstart !== undefined ||
@@ -35430,7 +35496,7 @@ S2.define('jquery.select2',[
       window.webkitCancelAnimationFrame ||
       window.mozCancelAnimationFrame,
 
-    initialize: function() {
+    initialize: function () {
       this.initStartIndex();
       if (this.initWidget() === false) {
         return false;
@@ -35446,7 +35512,7 @@ S2.define('jquery.select2',[
       }
     },
 
-    slide: function(to, speed) {
+    slide: function (to, speed) {
       window.clearTimeout(this.timeout);
       var index = this.index;
       var direction;
@@ -35501,49 +35567,51 @@ S2.define('jquery.select2',[
       this.onslide(to);
     },
 
-    getIndex: function() {
+    getIndex: function () {
       return this.index;
     },
 
-    getNumber: function() {
+    getNumber: function () {
       return this.num;
     },
 
-    prev: function() {
+    prev: function () {
       if (this.options.continuous || this.index) {
         this.slide(this.index - 1);
       }
     },
 
-    next: function() {
+    next: function () {
       if (this.options.continuous || this.index < this.num - 1) {
         this.slide(this.index + 1);
       }
     },
 
-    play: function(time) {
+    play: function (time) {
       var that = this;
+      var nextIndex =
+        this.index + (this.options.slideshowDirection === 'rtl' ? -1 : 1);
       window.clearTimeout(this.timeout);
       this.interval = time || this.options.slideshowInterval;
       if (this.elements[this.index] > 1) {
         this.timeout = this.setTimeout(
           (!this.requestAnimationFrame && this.slide) ||
-            function(to, speed) {
+            function (to, speed) {
               that.animationFrameId = that.requestAnimationFrame.call(
                 window,
-                function() {
+                function () {
                   that.slide(to, speed);
                 }
               );
             },
-          [this.index + 1, this.options.slideshowTransitionSpeed],
+          [nextIndex, this.options.slideshowTransitionSpeed],
           this.interval
         );
       }
       this.container.addClass(this.options.playingClass);
     },
 
-    pause: function() {
+    pause: function () {
       window.clearTimeout(this.timeout);
       this.interval = null;
       if (this.cancelAnimationFrame) {
@@ -35553,7 +35621,7 @@ S2.define('jquery.select2',[
       this.container.removeClass(this.options.playingClass);
     },
 
-    add: function(list) {
+    add: function (list) {
       var i;
       if (!list.concat) {
         // Make a real array out of the list to add:
@@ -35580,13 +35648,13 @@ S2.define('jquery.select2',[
       this.initSlides(true);
     },
 
-    resetSlides: function() {
+    resetSlides: function () {
       this.slidesContainer.empty();
       this.unloadAllSlides();
       this.slides = [];
     },
 
-    handleClose: function() {
+    handleClose: function () {
       var options = this.options;
       this.destroyEventListeners();
       // Cancel the slideshow:
@@ -35608,7 +35676,7 @@ S2.define('jquery.select2',[
       }
     },
 
-    close: function() {
+    close: function () {
       var that = this;
 
       /**
@@ -35633,17 +35701,17 @@ S2.define('jquery.select2',[
       }
     },
 
-    circle: function(index) {
+    circle: function (index) {
       // Always return a number inside of the slides index range:
       return (this.num + (index % this.num)) % this.num;
     },
 
-    move: function(index, dist, speed) {
+    move: function (index, dist, speed) {
       this.translateX(index, dist, speed);
       this.positions[index] = dist;
     },
 
-    translate: function(index, x, y, speed) {
+    translate: function (index, x, y, speed) {
       if (!this.slides[index]) return;
       var style = this.slides[index].style;
       var transition = this.support.transition;
@@ -35658,22 +35726,22 @@ S2.define('jquery.select2',[
         (transform.translateZ ? ' translateZ(0)' : '');
     },
 
-    translateX: function(index, x, speed) {
+    translateX: function (index, x, speed) {
       this.translate(index, x, 0, speed);
     },
 
-    translateY: function(index, y, speed) {
+    translateY: function (index, y, speed) {
       this.translate(index, 0, y, speed);
     },
 
-    animate: function(from, to, speed) {
+    animate: function (from, to, speed) {
       if (!speed) {
         this.slidesContainer[0].style.left = to + 'px';
         return;
       }
       var that = this;
       var start = new Date().getTime();
-      var timer = window.setInterval(function() {
+      var timer = window.setInterval(function () {
         var timeElap = new Date().getTime() - start;
         if (timeElap > speed) {
           that.slidesContainer[0].style.left = to + 'px';
@@ -35688,7 +35756,7 @@ S2.define('jquery.select2',[
       }, 4);
     },
 
-    preventDefault: function(event) {
+    preventDefault: function (event) {
       if (event.preventDefault) {
         event.preventDefault();
       } else {
@@ -35696,7 +35764,7 @@ S2.define('jquery.select2',[
       }
     },
 
-    stopPropagation: function(event) {
+    stopPropagation: function (event) {
       if (event.stopPropagation) {
         event.stopPropagation();
       } else {
@@ -35704,11 +35772,11 @@ S2.define('jquery.select2',[
       }
     },
 
-    onresize: function() {
+    onresize: function () {
       this.initSlides(true);
     },
 
-    onmousedown: function(event) {
+    onmousedown: function (event) {
       // Trigger on clicks of the left mouse button only
       // and exclude video & audio elements:
       if (
@@ -35730,7 +35798,7 @@ S2.define('jquery.select2',[
       }
     },
 
-    onmousemove: function(event) {
+    onmousemove: function (event) {
       if (this.touchStart) {
         ;(event.originalEvent || event).touches = [
           {
@@ -35742,14 +35810,14 @@ S2.define('jquery.select2',[
       }
     },
 
-    onmouseup: function(event) {
+    onmouseup: function (event) {
       if (this.touchStart) {
         this.ontouchend(event);
         delete this.touchStart;
       }
     },
 
-    onmouseout: function(event) {
+    onmouseout: function (event) {
       if (this.touchStart) {
         var target = event.target;
         var related = event.relatedTarget;
@@ -35759,7 +35827,7 @@ S2.define('jquery.select2',[
       }
     },
 
-    ontouchstart: function(event) {
+    ontouchstart: function (event) {
       if (this.options.stopTouchEventsPropagation) {
         this.stopPropagation(event);
       }
@@ -35779,7 +35847,7 @@ S2.define('jquery.select2',[
       this.touchDelta = {};
     },
 
-    ontouchmove: function(event) {
+    ontouchmove: function (event) {
       if (this.options.stopTouchEventsPropagation) {
         this.stopPropagation(event);
       }
@@ -35791,9 +35859,9 @@ S2.define('jquery.select2',[
       var touchDeltaX;
       var indices;
       // Ensure this is a one touch swipe and not, e.g. a pinch:
-      if (touches.length > 1 || (scale && scale !== 1)) {
+        if (touches.length > 1 || (scale && scale !== 1)) {
         return;
-      }
+        }
       if (this.options.disableScroll) {
         event.preventDefault();
       }
@@ -35842,7 +35910,7 @@ S2.define('jquery.select2',[
       }
     },
 
-    ontouchend: function(event) {
+    ontouchend: function (event) {
       if (this.options.stopTouchEventsPropagation) {
         this.stopPropagation(event);
       }
@@ -35919,14 +35987,14 @@ S2.define('jquery.select2',[
       }
     },
 
-    ontouchcancel: function(event) {
+    ontouchcancel: function (event) {
       if (this.touchStart) {
         this.ontouchend(event);
         delete this.touchStart;
       }
     },
 
-    ontransitionend: function(event) {
+    ontransitionend: function (event) {
       var slide = this.slides[this.index];
       if (!event || slide === event.target) {
         if (this.interval) {
@@ -35936,7 +36004,7 @@ S2.define('jquery.select2',[
       }
     },
 
-    oncomplete: function(event) {
+    oncomplete: function (event) {
       var target = event.target || event.srcElement;
       var parent = target && target.parentNode;
       var index;
@@ -35961,15 +36029,15 @@ S2.define('jquery.select2',[
       this.setTimeout(this.options.onslidecomplete, [index, parent]);
     },
 
-    onload: function(event) {
+    onload: function (event) {
       this.oncomplete(event);
     },
 
-    onerror: function(event) {
+    onerror: function (event) {
       this.oncomplete(event);
     },
 
-    onkeydown: function(event) {
+    onkeydown: function (event) {
       switch (event.which || event.keyCode) {
         case 13: // Return
           if (this.options.toggleControlsOnReturn) {
@@ -36005,7 +36073,7 @@ S2.define('jquery.select2',[
       }
     },
 
-    handleClick: function(event) {
+    handleClick: function (event) {
       var options = this.options;
       var target = event.target || event.srcElement;
       var parent = target.parentNode;
@@ -36060,7 +36128,7 @@ S2.define('jquery.select2',[
       }
     },
 
-    onclick: function(event) {
+    onclick: function (event) {
       if (
         this.options.emulateTouchEvents &&
         this.touchDelta &&
@@ -36072,7 +36140,7 @@ S2.define('jquery.select2',[
       return this.handleClick(event);
     },
 
-    updateEdgeClasses: function(index) {
+    updateEdgeClasses: function (index) {
       if (!index) {
         this.container.addClass(this.options.leftEdgeClass);
       } else {
@@ -36085,7 +36153,7 @@ S2.define('jquery.select2',[
       }
     },
 
-    handleSlide: function(index) {
+    handleSlide: function (index) {
       if (!this.options.continuous) {
         this.updateEdgeClasses(index);
       }
@@ -36096,13 +36164,13 @@ S2.define('jquery.select2',[
       this.setTitle(index);
     },
 
-    onslide: function(index) {
+    onslide: function (index) {
       this.index = index;
       this.handleSlide(index);
       this.setTimeout(this.options.onslide, [index, this.slides[index]]);
     },
 
-    setTitle: function(index) {
+    setTitle: function (index) {
       var firstChild = this.slides[index].firstChild;
       var text = firstChild.title || firstChild.alt;
       var titleElement = this.titleElement;
@@ -36114,17 +36182,17 @@ S2.define('jquery.select2',[
       }
     },
 
-    setTimeout: function(func, args, wait) {
+    setTimeout: function (func, args, wait) {
       var that = this;
       return (
         func &&
-        window.setTimeout(function() {
+        window.setTimeout(function () {
           func.apply(that, args || []);
         }, wait || 0)
       );
     },
 
-    imageFactory: function(obj, callback) {
+    imageFactory: function (obj, callback) {
       var that = this;
       var img = this.imagePrototype.cloneNode(false);
       var url = obj;
@@ -36193,7 +36261,7 @@ S2.define('jquery.select2',[
       return element;
     },
 
-    createElement: function(obj, callback) {
+    createElement: function (obj, callback) {
       var type = obj && this.getItemProperty(obj, this.options.typeProperty);
       var factory =
         (type && this[type.split('/')[0] + 'Factory']) || this.imageFactory;
@@ -36215,7 +36283,7 @@ S2.define('jquery.select2',[
       return element;
     },
 
-    loadElement: function(index) {
+    loadElement: function (index) {
       if (!this.elements[index]) {
         if (this.slides[index].firstChild) {
           this.elements[index] = $(this.slides[index]).hasClass(
@@ -36233,7 +36301,7 @@ S2.define('jquery.select2',[
       }
     },
 
-    loadElements: function(index) {
+    loadElements: function (index) {
       var limit = Math.min(this.num, this.options.preloadRange * 2 + 1);
       var j = index;
       var i;
@@ -36250,7 +36318,7 @@ S2.define('jquery.select2',[
       }
     },
 
-    unloadElements: function(index) {
+    unloadElements: function (index) {
       var i, diff;
       for (i in this.elements) {
         if (Object.prototype.hasOwnProperty.call(this.elements, i)) {
@@ -36266,14 +36334,14 @@ S2.define('jquery.select2',[
       }
     },
 
-    addSlide: function(index) {
+    addSlide: function (index) {
       var slide = this.slidePrototype.cloneNode(false);
       slide.setAttribute('data-index', index);
       this.slidesContainer[0].appendChild(slide);
       this.slides.push(slide);
     },
 
-    positionSlide: function(index) {
+    positionSlide: function (index) {
       var slide = this.slides[index];
       slide.style.width = this.slideWidth + 'px';
       if (this.support.transform) {
@@ -36290,7 +36358,7 @@ S2.define('jquery.select2',[
       }
     },
 
-    initSlides: function(reload) {
+    initSlides: function (reload) {
       var clearSlides, i;
       if (!reload) {
         this.positions = [];
@@ -36327,7 +36395,7 @@ S2.define('jquery.select2',[
       }
     },
 
-    unloadSlide: function(index) {
+    unloadSlide: function (index) {
       var slide, firstChild;
       slide = this.slides[index];
       firstChild = slide.firstChild;
@@ -36336,14 +36404,14 @@ S2.define('jquery.select2',[
       }
     },
 
-    unloadAllSlides: function() {
+    unloadAllSlides: function () {
       var i, len;
       for (i = 0, len = this.slides.length; i < len; i++) {
         this.unloadSlide(i);
       }
     },
 
-    toggleControls: function() {
+    toggleControls: function () {
       var controlsClass = this.options.controlsClass;
       if (this.container.hasClass(controlsClass)) {
         this.container.removeClass(controlsClass);
@@ -36352,7 +36420,7 @@ S2.define('jquery.select2',[
       }
     },
 
-    toggleSlideshow: function() {
+    toggleSlideshow: function () {
       if (!this.interval) {
         this.play();
       } else {
@@ -36360,17 +36428,17 @@ S2.define('jquery.select2',[
       }
     },
 
-    getNodeIndex: function(element) {
+    getNodeIndex: function (element) {
       return parseInt(element.getAttribute('data-index'), 10);
     },
 
-    getNestedProperty: function(obj, property) {
+    getNestedProperty: function (obj, property) {
       property.replace(
         // Matches native JavaScript notation in a String,
         // e.g. '["doubleQuoteProp"].dotProp[2]'
         // eslint-disable-next-line no-useless-escape
         /\[(?:'([^']+)'|"([^"]+)"|(\d+))\]|(?:(?:^|\.)([^\.\[]+))/g,
-        function(str, singleQuoteProp, doubleQuoteProp, arrayIndex, dotProp) {
+        function (str, singleQuoteProp, doubleQuoteProp, arrayIndex, dotProp) {
           var prop =
             dotProp ||
             singleQuoteProp ||
@@ -36384,11 +36452,11 @@ S2.define('jquery.select2',[
       return obj;
     },
 
-    getDataProperty: function(obj, property) {
+    getDataProperty: function (obj, property) {
       var key;
       var prop;
       if (obj.dataset) {
-        key = property.replace(/-([a-z])/g, function(_, b) {
+        key = property.replace(/-([a-z])/g, function (_, b) {
           return b.toUpperCase();
         });
         prop = obj.dataset[key];
@@ -36412,7 +36480,7 @@ S2.define('jquery.select2',[
       }
     },
 
-    getItemProperty: function(obj, property) {
+    getItemProperty: function (obj, property) {
       var prop = this.getDataProperty(obj, property);
       if (prop === undefined) {
         prop = obj[property];
@@ -36423,7 +36491,7 @@ S2.define('jquery.select2',[
       return prop;
     },
 
-    initStartIndex: function() {
+    initStartIndex: function () {
       var index = this.options.index;
       var urlProperty = this.options.urlProperty;
       var i;
@@ -36444,7 +36512,7 @@ S2.define('jquery.select2',[
       this.index = this.circle(parseInt(index, 10) || 0);
     },
 
-    initEventListeners: function() {
+    initEventListeners: function () {
       var that = this;
       var slidesContainer = this.slidesContainer;
 
@@ -36480,7 +36548,7 @@ S2.define('jquery.select2',[
       this.proxyListener = proxyListener;
     },
 
-    destroyEventListeners: function() {
+    destroyEventListeners: function () {
       var slidesContainer = this.slidesContainer;
       var proxyListener = this.proxyListener;
       $(window).off('resize', proxyListener);
@@ -36502,13 +36570,13 @@ S2.define('jquery.select2',[
       }
     },
 
-    handleOpen: function() {
+    handleOpen: function () {
       if (this.options.onopened) {
         this.options.onopened.call(this);
       }
     },
 
-    initWidget: function() {
+    initWidget: function () {
       var that = this;
 
       /**
@@ -36562,7 +36630,7 @@ S2.define('jquery.select2',[
       this.container.addClass(this.options.displayClass);
     },
 
-    initOptions: function(options) {
+    initOptions: function (options) {
       // Create a copy of the prototype options:
       this.options = $.extend({}, this.options);
       // Check if carousel mode is enabled:
@@ -36604,138 +36672,138 @@ S2.define('jquery.select2',[
 
 /* global define */
 
-;(function(factory) {
-  "use strict";
-  if (typeof define === "function" && define.amd) {
+;(function (factory) {
+  'use strict'
+  if (typeof define === 'function' && define.amd) {
     // Register as an anonymous AMD module:
-    define(["./blueimp-helper", "./blueimp-gallery"], factory);
+    define(['./blueimp-helper', './blueimp-gallery'], factory)
   } else {
     // Browser globals:
-    factory(window.blueimp.helper || window.jQuery, window.blueimp.Gallery);
+    factory(window.blueimp.helper || window.jQuery, window.blueimp.Gallery)
   }
-})(function($, Gallery) {
-  "use strict";
+})(function ($, Gallery) {
+  'use strict'
 
   $.extend(Gallery.prototype.options, {
     // The tag name, Id, element or querySelector of the indicator container:
-    indicatorContainer: "ol",
+    indicatorContainer: 'ol',
     // The class for the active indicator:
-    activeIndicatorClass: "active",
+    activeIndicatorClass: 'active',
     // The list object property (or data attribute) with the thumbnail URL,
     // used as alternative to a thumbnail child element:
-    thumbnailProperty: "thumbnail",
+    thumbnailProperty: 'thumbnail',
     // Defines if the gallery indicators should display a thumbnail:
     thumbnailIndicators: true
-  });
+  })
 
-  var initSlides = Gallery.prototype.initSlides;
-  var addSlide = Gallery.prototype.addSlide;
-  var resetSlides = Gallery.prototype.resetSlides;
-  var handleClick = Gallery.prototype.handleClick;
-  var handleSlide = Gallery.prototype.handleSlide;
-  var handleClose = Gallery.prototype.handleClose;
+  var initSlides = Gallery.prototype.initSlides
+  var addSlide = Gallery.prototype.addSlide
+  var resetSlides = Gallery.prototype.resetSlides
+  var handleClick = Gallery.prototype.handleClick
+  var handleSlide = Gallery.prototype.handleSlide
+  var handleClose = Gallery.prototype.handleClose
 
   $.extend(Gallery.prototype, {
-    createIndicator: function(obj) {
-      var indicator = this.indicatorPrototype.cloneNode(false);
-      var title = this.getItemProperty(obj, this.options.titleProperty);
-      var thumbnailProperty = this.options.thumbnailProperty;
-      var thumbnailUrl;
-      var thumbnail;
+    createIndicator: function (obj) {
+      var indicator = this.indicatorPrototype.cloneNode(false)
+      var title = this.getItemProperty(obj, this.options.titleProperty)
+      var thumbnailProperty = this.options.thumbnailProperty
+      var thumbnailUrl
+      var thumbnail
       if (this.options.thumbnailIndicators) {
         if (thumbnailProperty) {
-          thumbnailUrl = this.getItemProperty(obj, thumbnailProperty);
+          thumbnailUrl = this.getItemProperty(obj, thumbnailProperty)
         }
         if (thumbnailUrl === undefined) {
-          thumbnail = obj.getElementsByTagName && $(obj).find("img")[0];
+          thumbnail = obj.getElementsByTagName && $(obj).find('img')[0]
           if (thumbnail) {
-            thumbnailUrl = thumbnail.src;
+            thumbnailUrl = thumbnail.src
           }
         }
         if (thumbnailUrl) {
-          indicator.style.backgroundImage = 'url("' + thumbnailUrl + '")';
+          indicator.style.backgroundImage = 'url("' + thumbnailUrl + '")'
         }
       }
       if (title) {
-        indicator.title = title;
+        indicator.title = title
       }
-      return indicator;
+      return indicator
     },
 
-    addIndicator: function(index) {
-        if (this.indicatorContainer.length) {
-        var indicator = this.createIndicator(this.list[index]);
-        indicator.setAttribute("data-index", index);
-        this.indicatorContainer[0].appendChild(indicator);
-        this.indicators.push(indicator);
+    addIndicator: function (index) {
+      if (this.indicatorContainer.length) {
+        var indicator = this.createIndicator(this.list[index])
+        indicator.setAttribute('data-index', index)
+        this.indicatorContainer[0].appendChild(indicator)
+        this.indicators.push(indicator)
       }
     },
 
-    setActiveIndicator: function(index) {
+    setActiveIndicator: function (index) {
       if (this.indicators) {
         if (this.activeIndicator) {
-          this.activeIndicator.removeClass(this.options.activeIndicatorClass);
+          this.activeIndicator.removeClass(this.options.activeIndicatorClass)
         }
-        this.activeIndicator = $(this.indicators[index]);
-        this.activeIndicator.addClass(this.options.activeIndicatorClass);
+        this.activeIndicator = $(this.indicators[index])
+        this.activeIndicator.addClass(this.options.activeIndicatorClass)
       }
     },
 
-    initSlides: function(reload) {
+    initSlides: function (reload) {
       if (!reload) {
         this.indicatorContainer = this.container.find(
           this.options.indicatorContainer
-        );
+        )
         if (this.indicatorContainer.length) {
-          this.indicatorPrototype = document.createElement("li");
-          this.indicators = this.indicatorContainer[0].children;
+          this.indicatorPrototype = document.createElement('li')
+          this.indicators = this.indicatorContainer[0].children
         }
       }
-      initSlides.call(this, reload);
+      initSlides.call(this, reload)
     },
 
-    addSlide: function(index) {
-      addSlide.call(this, index);
-      this.addIndicator(index);
+    addSlide: function (index) {
+      addSlide.call(this, index)
+      this.addIndicator(index)
     },
 
-    resetSlides: function() {
-      resetSlides.call(this);
-      this.indicatorContainer.empty();
-      this.indicators = [];
+    resetSlides: function () {
+      resetSlides.call(this)
+      this.indicatorContainer.empty()
+      this.indicators = []
     },
 
-    handleClick: function(event) {
-      var target = event.target || event.srcElement;
-      var parent = target.parentNode;
+    handleClick: function (event) {
+      var target = event.target || event.srcElement
+      var parent = target.parentNode
       if (parent === this.indicatorContainer[0]) {
         // Click on indicator element
-        this.preventDefault(event);
-        this.slide(this.getNodeIndex(target));
+        this.preventDefault(event)
+        this.slide(this.getNodeIndex(target))
       } else if (parent.parentNode === this.indicatorContainer[0]) {
         // Click on indicator child element
-        this.preventDefault(event);
-        this.slide(this.getNodeIndex(parent));
+        this.preventDefault(event)
+        this.slide(this.getNodeIndex(parent))
       } else {
-        return handleClick.call(this, event);
+        return handleClick.call(this, event)
       }
     },
 
-    handleSlide: function(index) {
-      handleSlide.call(this, index);
-      this.setActiveIndicator(index);
+    handleSlide: function (index) {
+      handleSlide.call(this, index)
+      this.setActiveIndicator(index)
     },
 
-    handleClose: function() {
+    handleClose: function () {
       if (this.activeIndicator) {
-        this.activeIndicator.removeClass(this.options.activeIndicatorClass);
+        this.activeIndicator.removeClass(this.options.activeIndicatorClass)
       }
-      handleClose.call(this);
+      handleClose.call(this)
     }
-  });
+  })
 
-  return Gallery;
-});
+  return Gallery
+})
 
 /*
  * blueimp Gallery jQuery plugin
@@ -36750,85 +36818,71 @@ S2.define('jquery.select2',[
 
 /* global define */
 
-;(function(factory) {
+;(function (factory) {
   "use strict";
   if (typeof define === "function" && define.amd) {
     define(["jquery", "./blueimp-gallery"], factory);
   } else {
     factory(window.jQuery, window.blueimp.Gallery);
   }
-})(function($, Gallery) {
-    "use strict";
+})(function ($, Gallery) {
+  "use strict";
 
-    // Global click handler to open links with data-gallery attribute
-    // in the Gallery lightbox:
-    $(document).on("click",
-        "[data-gallery]",
-        function(event) {
-            // Get the container id from the data-gallery attribute:
-            var id = $(this).data("gallery");
-            var widget = $(id);
-            var container =
-                (widget.length && widget) || $(Gallery.prototype.options.container);
-            var callbacks = {
-                onopen: function() {
-                    container.data("gallery", this).trigger("open");
-                    $("#blueimp-gallery").removeClass("d-none");
-                },
-                onopened: function() {
-                    container.trigger("opened");
-                },
-                onslide: function() {
-                    container.trigger("slide", arguments);
-                },
-                onslideend: function() {
-                    container.trigger("slideend", arguments);
-                },
-                onslidecomplete: function() {
-                    container.trigger("slidecomplete", arguments);
-                },
-                onclose: function() {
-                    container.trigger("close");
-                },
-                onclosed: function() {
-                    container.trigger("closed").removeData("gallery");
-                    $("#blueimp-gallery").addClass("d-none");
-                }
-            };
-            var indicatorOptions = {
-                // The tag name, Id, element or querySelector of the indicator container:
-                indicatorContainer: "ol",
-                // The class for the active indicator:
-                activeIndicatorClass: "active",
-                // The list object property (or data attribute) with the thumbnail URL,
-                // used as alternative to a thumbnail child element:
-                thumbnailProperty: "thumbnail",
-                // Defines if the gallery indicators should display a thumbnail:
-                thumbnailIndicators: true
-            }
-            var options = $.extend(
-                // Retrieve custom options from data-attributes
-                // on the Gallery widget:
-                container.data(),
-                {
-                    container: container[0],
-                    index: this,
-                    event: event
-                },
-                callbacks,
-                indicatorOptions
-            );
-            // Select all links with the same data-gallery attribute:
-            var links = $(this)
-                .closest("[data-gallery-group], body")
-                .find('[data-gallery="' + id + '"]');
-            if (options.filter) {
-                links = links.filter(options.filter);
-            }
-
-            return new Gallery(links, options);
-        });
+  // Global click handler to open links with data-gallery attribute
+  // in the Gallery lightbox:
+  $(document).on("click", "[data-gallery]", function (event) {
+    // Get the container id from the data-gallery attribute:
+    var id = $(this).data("gallery");
+    var widget = $(id);
+    var container =
+      (widget.length && widget) || $(Gallery.prototype.options.container);
+    var callbacks = {
+      onopen: function () {
+            container.data("gallery", this).trigger("open");
+            $("#blueimp-gallery").removeClass("d-none");
+      },
+      onopened: function () {
+        container.trigger("opened");
+      },
+      onslide: function () {
+        container.trigger("slide", arguments);
+      },
+      onslideend: function () {
+        container.trigger("slideend", arguments);
+      },
+      onslidecomplete: function () {
+        container.trigger("slidecomplete", arguments);
+      },
+      onclose: function () {
+          container.trigger("close");
+      },
+      onclosed: function () {
+          container.trigger("closed").removeData("gallery");
+          $("#blueimp-gallery").addClass("d-none");
+      }
+    };
+    var options = $.extend(
+      // Retrieve custom options from data-attributes
+      // on the Gallery widget:
+      container.data(),
+      {
+        container: container[0],
+        index: this,
+        event: event
+      },
+      callbacks
+    );
+    // Select all links with the same data-gallery attribute:
+    var links = $(this)
+      .closest("[data-gallery-group], body")
+      .find('[data-gallery="' + id + '"]');
+    if (options.filter) {
+      links = links.filter(options.filter);
+    }
+    return new Gallery(links, options);
+  });
 });
+
 //Title: Hovercard plugin by PC
 //Documentation: http://designwithpc.com/Plugins/Hovercard
 //Author: PC
