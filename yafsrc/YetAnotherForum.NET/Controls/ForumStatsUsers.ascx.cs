@@ -28,8 +28,7 @@ namespace YAF.Controls
     using System;
     using System.Data;
     using System.Text;
-    using System.Threading;
-
+    
     using YAF.Configuration;
     using YAF.Core.BaseControls;
     using YAF.Core.Extensions;
@@ -199,10 +198,8 @@ namespace YAF.Controls
 
                 if (activeUsers30Day != null && activeUsers30Day.HasRows())
                 {
-                    activeUsers30Day.Locale = Thread.CurrentThread.CurrentCulture;
-
                     var activeUsers1Day1 = activeUsers30Day.Select(
-                        $"LastVisit >= '{System.DateTime.UtcNow.AddDays(-1).ToString(Thread.CurrentThread.CurrentCulture)}'");
+                        $"LastVisit >= '{System.DateTime.UtcNow.AddDays(-1)}'");
 
                     this.RecentUsersCount.Text = this.GetTextFormatted(
                         "RECENT_ONLINE_USERS",
