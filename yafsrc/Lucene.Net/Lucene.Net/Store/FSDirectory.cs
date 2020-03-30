@@ -27,8 +27,8 @@ namespace YAF.Lucene.Net.Store
      * limitations under the License.
      */
 
-    using Constants = Lucene.Net.Util.Constants;
-    using IOUtils = Lucene.Net.Util.IOUtils;
+    using Constants = YAF.Lucene.Net.Util.Constants;
+    using IOUtils = YAF.Lucene.Net.Util.IOUtils;
 
     /// <summary>
     /// Base class for <see cref="Directory"/> implementations that store index
@@ -464,7 +464,7 @@ namespace YAF.Lucene.Net.Store
             get { return chunkSize; }
         }
 
-        ///// <summary>
+        /// <summary>
         /// Writes output with <see cref="FileStream.Write(byte[], int, int)"/>
         /// </summary>
         // LUCENENET specific: Since FileStream does its own buffering, this class was refactored

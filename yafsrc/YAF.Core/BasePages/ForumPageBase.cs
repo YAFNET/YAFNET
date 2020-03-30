@@ -21,11 +21,13 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF
+namespace YAF.Core.BasePages
 {
     #region Using
 
     using System;
+    using System.Globalization;
+    using System.Threading;
     using System.Web;
     using System.Web.UI;
 
@@ -33,7 +35,6 @@ namespace YAF
     using YAF.Core;
     using YAF.Core.Extensions;
     using YAF.Core.Services.Startup;
-    using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Interfaces;
 
@@ -64,11 +65,36 @@ namespace YAF
         #region Public Methods
 
         /// <summary>
+        /// The initialize culture.
+        /// </summary>
+        protected override void InitializeCulture()
+        {
+            var language = "en-US";
+
+            if (this.Session["language"] != null)
+            {
+                language = this.Session["language"].ToString();
+            }
+            else
+            {
+                // Detect User's Language.
+                if (this.Request.UserLanguages != null)
+                {
+                    // Set the Language.
+                    language = this.Request.UserLanguages[0];
+                }
+            }
+
+            SetLanguageUsingThread(language);
+        }
+
+        /// <summary>
         /// Handles the Error event of the Page control.
         /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        public void Page_Error([NotNull] object sender, [NotNull] EventArgs e)
+        /// <param name="e">
+        /// The <see cref="EventArgs"/> instance containing the event data.
+        /// </param>
+        protected override void OnError(EventArgs e)
         {
             if (!this.Get<StartupInitializeDb>().Initialized)
             {
@@ -94,6 +120,22 @@ namespace YAF
                         error.Source,
                         error);
             }
+
+            base.OnError(e);
+        }
+
+        /// <summary>
+        /// The set language using thread.
+        /// </summary>
+        /// <param name="selectedLanguage">
+        /// The selected language.
+        /// </param>
+        private static void SetLanguageUsingThread(string selectedLanguage)
+        {
+            var info = CultureInfo.CreateSpecificCulture(selectedLanguage);
+
+            Thread.CurrentThread.CurrentUICulture = info;
+            Thread.CurrentThread.CurrentCulture = info;
         }
 
         #endregion

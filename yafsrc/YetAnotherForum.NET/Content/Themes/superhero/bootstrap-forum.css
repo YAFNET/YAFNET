@@ -8480,3 +8480,6 @@ label,
 .forum-logo {
   height: 125px;
   display: block; }
+
+.blockquote-custom {
+  font-size: 1rem; }

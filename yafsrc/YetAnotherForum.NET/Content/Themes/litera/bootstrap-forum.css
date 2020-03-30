@@ -8508,3 +8508,6 @@ table,
 .forum-logo {
   height: 125px;
   display: block; }
+
+.blockquote-custom {
+  font-size: 1.063rem; }

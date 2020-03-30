@@ -221,9 +221,85 @@ namespace YAF.Core.Helpers
                                 dr["CultureEnglishName"] = ci.EnglishName;
                                 dr["CultureNativeName"] = ci.NativeName;
                                 dr["CultureDisplayName"] = ci.DisplayName;
+
                                 dt.Rows.Add(dr);
                             }
                         });
+
+                return dt;
+            }
+        }
+
+        /// <summary>
+        /// The cultures IetfLangTags (4-letter).
+        /// </summary>
+        /// <returns>
+        /// The cultures filtered by first 2 letters in the language tag in a language file
+        /// </returns>
+        public static DataTable NeutralCultures()
+        {
+            using (var dt = new DataTable("Cultures"))
+            {
+                dt.Columns.Add("CultureTag", typeof(string));
+                dt.Columns.Add("CultureFile", typeof(string));
+                dt.Columns.Add("CultureEnglishName", typeof(string));
+                dt.Columns.Add("CultureNativeName", typeof(string));
+                dt.Columns.Add("CultureDisplayName", typeof(string));
+
+                // Get all language files info
+                var dir = new DirectoryInfo(
+                    BoardContext.Current.Get<HttpRequestBase>().MapPath($"{BoardInfo.ForumServerFileRoot}languages"));
+                var files = dir.GetFiles("*.xml");
+
+                // Create an array with tags
+                var tags = new string[2, files.Length];
+
+                // Extract available language tags into the array
+                for (var i = 0; i < files.Length; i++)
+                {
+                    try
+                    {
+                        var doc = new XmlDocument();
+                        doc.Load(files[i].FullName);
+                        tags[0, i] = files[i].Name;
+                        var attr = doc.DocumentElement.Attributes["code"];
+                        if (attr != null)
+                        {
+                            tags[1, i] = attr.Value.Trim();
+                        }
+                        else
+                        {
+                            tags[1, i] = "en-US";
+                        }
+                    }
+                    catch (Exception)
+                    {
+                    }
+                }
+
+                var cultures = CultureInfo.GetCultures(CultureTypes.NeutralCultures);
+
+                cultures.ForEach(
+                    ci =>
+                    {
+                        for (var j = 0; j < files.Length; j++)
+                        {
+                            if (!tags[1, j].ToLower().Substring(0, 2)
+                                    .Contains(ci.TwoLetterISOLanguageName.ToLower()))
+                            {
+                                continue;
+                            }
+
+                            var dr = dt.NewRow();
+                            dr["CultureTag"] = ci.IetfLanguageTag;
+                            dr["CultureFile"] = tags[0, j];
+                            dr["CultureEnglishName"] = ci.EnglishName;
+                            dr["CultureNativeName"] = ci.NativeName;
+                            dr["CultureDisplayName"] = ci.DisplayName;
+
+                            dt.Rows.Add(dr);
+                        }
+                    });
 
                 return dt;
             }
@@ -243,7 +319,7 @@ namespace YAF.Core.Helpers
                 return "en-US";
             }
 
-            string rawTag = null;
+            string rawTag;
 
             // Get all language files info
             var dir = new DirectoryInfo(
@@ -263,57 +339,16 @@ namespace YAF.Core.Helpers
             }
             catch (Exception)
             {
+                return "en-US";
             }
 
             var cultures = CultureInfo.GetCultures(CultureTypes.SpecificCultures);
 
-            foreach (var ci in cultures.Where(
-                ci => !ci.IsNeutralCulture
-                      && rawTag.ToLower().Substring(0, 2).Contains(ci.TwoLetterISOLanguageName.ToLower())
-                      && ci.IetfLanguageTag.Length == 5))
-            {
-                return ci.IetfLanguageTag;
-            }
-
-            return "en-US";
-        }
-
-        /// <summary>
-        /// The languages.
-        /// </summary>
-        /// <returns>
-        /// Returns a Data Table with all Languages
-        /// </returns>
-        public static DataTable Languages()
-        {
-            using (var dt = new DataTable("Languages"))
-            {
-                dt.Columns.Add("Language", typeof(string));
-                dt.Columns.Add("FileName", typeof(string));
-
-                var dir = new DirectoryInfo(
-                    BoardContext.Current.Get<HttpRequestBase>().MapPath($"{BoardInfo.ForumServerFileRoot}languages"));
-                var files = dir.GetFiles("*.xml");
-
-                files.ForEach(
-                    file =>
-                        {
-                            try
-                            {
-                                var doc = new XmlDocument();
-                                doc.Load((string)file.FullName);
-                                var dr = dt.NewRow();
-                                dr["Language"] = doc.DocumentElement.Attributes["language"].Value;
-                                dr["FileName"] = file.Name;
-                                dt.Rows.Add(dr);
-                            }
-                            catch (Exception)
-                            {
-                            }
-                        });
-
-                return dt;
-            }
+            return cultures.FirstOrDefault(
+                    ci => !ci.IsNeutralCulture
+                          && rawTag.ToLower().Substring(0, 2).Contains(ci.TwoLetterISOLanguageName.ToLower())
+                          && ci.IetfLanguageTag.Length == 5)
+                ?.IetfLanguageTag;
         }
 
         /// <summary>
@@ -361,7 +396,6 @@ namespace YAF.Core.Helpers
                 return dt;
             }
         }
-
 
         /// <summary>
         /// Gets all topic times.

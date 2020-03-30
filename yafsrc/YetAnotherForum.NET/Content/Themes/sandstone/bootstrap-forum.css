@@ -8431,3 +8431,6 @@ a.text-dark:hover, a.text-dark:focus {
 .forum-logo {
   height: 125px;
   display: block; }
+
+.blockquote-custom {
+  font-size: 0.875rem; }

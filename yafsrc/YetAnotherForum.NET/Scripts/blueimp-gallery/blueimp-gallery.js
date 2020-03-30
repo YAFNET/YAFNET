@@ -16,18 +16,18 @@
 
 /* eslint-disable no-param-reassign */
 
-;(function(factory) {
-  "use strict";
-  if (typeof define === "function" && define.amd) {
+;(function (factory) {
+  'use strict';
+  if (typeof define === 'function' && define.amd) {
     // Register as an anonymous AMD module:
-    define(["./blueimp-helper"], factory);
+    define(['./blueimp-helper'], factory);
   } else {
     // Browser globals:
     window.blueimp = window.blueimp || {};
     window.blueimp.Gallery = factory(window.blueimp.helper || window.jQuery);
   }
-})(function($) {
-  "use strict";
+})(function ($) {
+  'use strict';
 
   /**
    * Gallery constructor
@@ -49,7 +49,7 @@
     }
     if (!list || !list.length) {
       this.console.log(
-        "blueimp Gallery: No or empty list provided as first argument.",
+        'blueimp Gallery: No or empty list provided as first argument.',
         list
       );
       return;
@@ -63,51 +63,51 @@
   $.extend(Gallery.prototype, {
     options: {
       // The Id, element or querySelector of the gallery widget:
-      container: "#blueimp-gallery",
+      container: '#blueimp-gallery',
       // The tag name, Id, element or querySelector of the slides container:
-      slidesContainer: "div",
+      slidesContainer: 'div',
       // The tag name, Id, element or querySelector of the title element:
-      titleElement: "h3",
+      titleElement: 'h3',
       // The class to add when the gallery is visible:
-      displayClass: "blueimp-gallery-display",
+      displayClass: 'blueimp-gallery-display',
       // The class to add when the gallery controls are visible:
-      controlsClass: "blueimp-gallery-controls",
+      controlsClass: 'blueimp-gallery-controls',
       // The class to add when the gallery only displays one element:
-      singleClass: "blueimp-gallery-single",
+      singleClass: 'blueimp-gallery-single',
       // The class to add when the left edge has been reached:
-      leftEdgeClass: "blueimp-gallery-left",
+      leftEdgeClass: 'blueimp-gallery-left',
       // The class to add when the right edge has been reached:
-      rightEdgeClass: "blueimp-gallery-right",
+      rightEdgeClass: 'blueimp-gallery-right',
       // The class to add when the automatic slideshow is active:
-      playingClass: "blueimp-gallery-playing",
+      playingClass: 'blueimp-gallery-playing',
       // The class for all slides:
-      slideClass: "slide",
+      slideClass: 'slide',
       // The slide class for loading elements:
-      slideLoadingClass: "slide-loading",
+      slideLoadingClass: 'slide-loading',
       // The slide class for elements that failed to load:
-      slideErrorClass: "slide-error",
+      slideErrorClass: 'slide-error',
       // The class for the content element loaded into each slide:
-      slideContentClass: "slide-content",
+      slideContentClass: 'slide-content',
       // The class for the "toggle" control:
-      toggleClass: "toggle",
+      toggleClass: 'toggle',
       // The class for the "prev" control:
-      prevClass: "prev",
+      prevClass: 'prev',
       // The class for the "next" control:
-      nextClass: "next",
+      nextClass: 'next',
       // The class for the "close" control:
-      closeClass: "close",
+      closeClass: 'close',
       // The class for the "play-pause" toggle control:
-      playPauseClass: "play-pause",
+      playPauseClass: 'play-pause',
       // The list object property (or data attribute) with the object type:
-      typeProperty: "type",
+      typeProperty: 'type',
       // The list object property (or data attribute) with the object title:
-      titleProperty: "title",
+      titleProperty: 'title',
       // The list object property (or data attribute) with the object alt text:
-      altTextProperty: "alt",
+      altTextProperty: 'alt',
       // The list object property (or data attribute) with the object URL:
-      urlProperty: "href",
+      urlProperty: 'href',
       // The list object property (or data attribute) with the object srcset URL(s):
-      srcsetProperty: "urlset",
+      srcsetProperty: 'urlset',
       // The gallery listens for transitionend events before triggering the
       // opened and closed events, unless the following option is set to false:
       displayTransition: true,
@@ -154,7 +154,7 @@
       // Delay in milliseconds between slides for the automatic slideshow:
       slideshowInterval: 5000,
       // The direction the slides are moving: ltr=LeftToRight or rtl=RightToLeft
-      slideshowDirection: "ltr",
+      slideshowDirection: 'ltr',
       // The starting index as integer.
       // Can also be an object of the given list,
       // or an equal object with the same url property:
@@ -210,12 +210,12 @@
     },
 
     console:
-      window.console && typeof window.console.log === "function"
+      window.console && typeof window.console.log === 'function'
         ? window.console
-        : { log: function() {} },
+        : { log: function () {} },
 
     // Detect touch, transition, transform and background-size support:
-    support: (function(element) {
+    support: (function (element) {
       var support = {
         touch:
           window.ontouchstart !== undefined ||
@@ -223,20 +223,20 @@
       };
       var transitions = {
         webkitTransition: {
-          end: "webkitTransitionEnd",
-          prefix: "-webkit-"
+          end: 'webkitTransitionEnd',
+          prefix: '-webkit-'
         },
         MozTransition: {
-          end: "transitionend",
-          prefix: "-moz-"
+          end: 'transitionend',
+          prefix: '-moz-'
         },
         OTransition: {
-          end: "otransitionend",
-          prefix: "-o-"
+          end: 'otransitionend',
+          prefix: '-o-'
         },
         transition: {
-          end: "transitionend",
-          prefix: ""
+          end: 'transitionend',
+          prefix: ''
         }
       };
       var prop;
@@ -259,44 +259,44 @@
         var translateZ;
         document.body.appendChild(element);
         if (transition) {
-          prop = transition.name.slice(0, -9) + "ransform";
+          prop = transition.name.slice(0, -9) + 'ransform';
           if (element.style[prop] !== undefined) {
-            element.style[prop] = "translateZ(0)";
+            element.style[prop] = 'translateZ(0)';
             translateZ = window
               .getComputedStyle(element)
-              .getPropertyValue(transition.prefix + "transform");
+              .getPropertyValue(transition.prefix + 'transform');
             support.transform = {
               prefix: transition.prefix,
               name: prop,
               translate: true,
-              translateZ: !!translateZ && translateZ !== "none"
+              translateZ: !!translateZ && translateZ !== 'none'
             };
           }
         }
         if (element.style.backgroundSize !== undefined) {
           support.backgroundSize = {};
-          element.style.backgroundSize = "contain";
+          element.style.backgroundSize = 'contain';
           support.backgroundSize.contain =
             window
               .getComputedStyle(element)
-              .getPropertyValue("background-size") === "contain";
-          element.style.backgroundSize = "cover";
+              .getPropertyValue('background-size') === 'contain';
+          element.style.backgroundSize = 'cover';
           support.backgroundSize.cover =
             window
               .getComputedStyle(element)
-              .getPropertyValue("background-size") === "cover";
+              .getPropertyValue('background-size') === 'cover';
         }
         document.body.removeChild(element);
       }
       if (document.body) {
         elementTests();
       } else {
-        $(document).on("DOMContentLoaded", elementTests);
+        $(document).on('DOMContentLoaded', elementTests);
       }
       return support;
       // Test element, has to be standard HTML and must not be hidden
       // for the CSS3 tests using window.getComputedStyle to be applicable:
-    })(document.createElement("div")),
+    })(document.createElement('div')),
 
     requestAnimationFrame:
       window.requestAnimationFrame ||
@@ -309,7 +309,7 @@
       window.webkitCancelAnimationFrame ||
       window.mozCancelAnimationFrame,
 
-    initialize: function() {
+    initialize: function () {
       this.initStartIndex();
       if (this.initWidget() === false) {
         return false;
@@ -325,7 +325,7 @@
       }
     },
 
-    slide: function(to, speed) {
+    slide: function (to, speed) {
       window.clearTimeout(this.timeout);
       var index = this.index;
       var direction;
@@ -380,39 +380,39 @@
       this.onslide(to);
     },
 
-    getIndex: function() {
+    getIndex: function () {
       return this.index;
     },
 
-    getNumber: function() {
+    getNumber: function () {
       return this.num;
     },
 
-    prev: function() {
+    prev: function () {
       if (this.options.continuous || this.index) {
         this.slide(this.index - 1);
       }
     },
 
-    next: function() {
+    next: function () {
       if (this.options.continuous || this.index < this.num - 1) {
         this.slide(this.index + 1);
       }
     },
 
-    play: function(time) {
+    play: function (time) {
       var that = this;
       var nextIndex =
-        this.index + (this.options.slideshowDirection === "rtl" ? -1 : 1);
+        this.index + (this.options.slideshowDirection === 'rtl' ? -1 : 1);
       window.clearTimeout(this.timeout);
       this.interval = time || this.options.slideshowInterval;
       if (this.elements[this.index] > 1) {
         this.timeout = this.setTimeout(
           (!this.requestAnimationFrame && this.slide) ||
-            function(to, speed) {
+            function (to, speed) {
               that.animationFrameId = that.requestAnimationFrame.call(
                 window,
-                function() {
+                function () {
                   that.slide(to, speed);
                 }
               );
@@ -424,7 +424,7 @@
       this.container.addClass(this.options.playingClass);
     },
 
-    pause: function() {
+    pause: function () {
       window.clearTimeout(this.timeout);
       this.interval = null;
       if (this.cancelAnimationFrame) {
@@ -434,7 +434,7 @@
       this.container.removeClass(this.options.playingClass);
     },
 
-    add: function(list) {
+    add: function (list) {
       var i;
       if (!list.concat) {
         // Make a real array out of the list to add:
@@ -461,18 +461,18 @@
       this.initSlides(true);
     },
 
-    resetSlides: function() {
+    resetSlides: function () {
       this.slidesContainer.empty();
       this.unloadAllSlides();
       this.slides = [];
     },
 
-    handleClose: function() {
+    handleClose: function () {
       var options = this.options;
       this.destroyEventListeners();
       // Cancel the slideshow:
       this.pause();
-      this.container[0].style.display = "none";
+      this.container[0].style.display = 'none';
       this.container
         .removeClass(options.displayClass)
         .removeClass(options.singleClass)
@@ -489,7 +489,7 @@
       }
     },
 
-    close: function() {
+    close: function () {
       var that = this;
 
       /**
@@ -514,50 +514,50 @@
       }
     },
 
-    circle: function(index) {
+    circle: function (index) {
       // Always return a number inside of the slides index range:
       return (this.num + (index % this.num)) % this.num;
     },
 
-    move: function(index, dist, speed) {
+    move: function (index, dist, speed) {
       this.translateX(index, dist, speed);
       this.positions[index] = dist;
     },
 
-    translate: function(index, x, y, speed) {
+    translate: function (index, x, y, speed) {
       if (!this.slides[index]) return;
       var style = this.slides[index].style;
       var transition = this.support.transition;
       var transform = this.support.transform;
-      style[transition.name + "Duration"] = speed + "ms";
+      style[transition.name + 'Duration'] = speed + 'ms';
       style[transform.name] =
-        "translate(" +
+        'translate(' +
         x +
-        "px, " +
+        'px, ' +
         y +
-        "px)" +
-        (transform.translateZ ? " translateZ(0)" : "");
+        'px)' +
+        (transform.translateZ ? ' translateZ(0)' : '');
     },
 
-    translateX: function(index, x, speed) {
+    translateX: function (index, x, speed) {
       this.translate(index, x, 0, speed);
     },
 
-    translateY: function(index, y, speed) {
+    translateY: function (index, y, speed) {
       this.translate(index, 0, y, speed);
     },
 
-    animate: function(from, to, speed) {
+    animate: function (from, to, speed) {
       if (!speed) {
-        this.slidesContainer[0].style.left = to + "px";
+        this.slidesContainer[0].style.left = to + 'px';
         return;
       }
       var that = this;
       var start = new Date().getTime();
-      var timer = window.setInterval(function() {
+      var timer = window.setInterval(function () {
         var timeElap = new Date().getTime() - start;
         if (timeElap > speed) {
-          that.slidesContainer[0].style.left = to + "px";
+          that.slidesContainer[0].style.left = to + 'px';
           that.ontransitionend();
           window.clearInterval(timer);
           return;
@@ -565,11 +565,11 @@
         that.slidesContainer[0].style.left =
           (to - from) * (Math.floor((timeElap / speed) * 100) / 100) +
           from +
-          "px";
+          'px';
       }, 4);
     },
 
-    preventDefault: function(event) {
+    preventDefault: function (event) {
       if (event.preventDefault) {
         event.preventDefault();
       } else {
@@ -577,7 +577,7 @@
       }
     },
 
-    stopPropagation: function(event) {
+    stopPropagation: function (event) {
       if (event.stopPropagation) {
         event.stopPropagation();
       } else {
@@ -585,18 +585,18 @@
       }
     },
 
-    onresize: function() {
+    onresize: function () {
       this.initSlides(true);
     },
 
-    onmousedown: function(event) {
+    onmousedown: function (event) {
       // Trigger on clicks of the left mouse button only
       // and exclude video & audio elements:
       if (
         event.which &&
         event.which === 1 &&
-        event.target.nodeName !== "VIDEO" &&
-        event.target.nodeName !== "AUDIO"
+        event.target.nodeName !== 'VIDEO' &&
+        event.target.nodeName !== 'AUDIO'
       ) {
         // Preventing the default mousedown action is required
         // to make touch emulation work with Firefox:
@@ -611,7 +611,7 @@
       }
     },
 
-    onmousemove: function(event) {
+    onmousemove: function (event) {
       if (this.touchStart) {
         ;(event.originalEvent || event).touches = [
           {
@@ -623,14 +623,14 @@
       }
     },
 
-    onmouseup: function(event) {
+    onmouseup: function (event) {
       if (this.touchStart) {
         this.ontouchend(event);
         delete this.touchStart;
       }
     },
 
-    onmouseout: function(event) {
+    onmouseout: function (event) {
       if (this.touchStart) {
         var target = event.target;
         var related = event.relatedTarget;
@@ -640,7 +640,7 @@
       }
     },
 
-    ontouchstart: function(event) {
+    ontouchstart: function (event) {
       if (this.options.stopTouchEventsPropagation) {
         this.stopPropagation(event);
       }
@@ -660,7 +660,7 @@
       this.touchDelta = {};
     },
 
-    ontouchmove: function(event) {
+    ontouchmove: function (event) {
       if (this.options.stopTouchEventsPropagation) {
         this.stopPropagation(event);
       }
@@ -672,9 +672,9 @@
       var touchDeltaX;
       var indices;
       // Ensure this is a one touch swipe and not, e.g. a pinch:
-      if (touches.length > 1 || (scale && scale !== 1)) {
+        if (touches.length > 1 || (scale && scale !== 1)) {
         return;
-      }
+        }
       if (this.options.disableScroll) {
         event.preventDefault();
       }
@@ -723,7 +723,7 @@
       }
     },
 
-    ontouchend: function(event) {
+    ontouchend: function (event) {
       if (this.options.stopTouchEventsPropagation) {
         this.stopPropagation(event);
       }
@@ -800,14 +800,14 @@
       }
     },
 
-    ontouchcancel: function(event) {
+    ontouchcancel: function (event) {
       if (this.touchStart) {
         this.ontouchend(event);
         delete this.touchStart;
       }
     },
 
-    ontransitionend: function(event) {
+    ontransitionend: function (event) {
       var slide = this.slides[this.index];
       if (!event || slide === event.target) {
         if (this.interval) {
@@ -817,7 +817,7 @@
       }
     },
 
-    oncomplete: function(event) {
+    oncomplete: function (event) {
       var target = event.target || event.srcElement;
       var parent = target && target.parentNode;
       var index;
@@ -826,7 +826,7 @@
       }
       index = this.getNodeIndex(parent);
       $(parent).removeClass(this.options.slideLoadingClass);
-      if (event.type === "error") {
+      if (event.type === 'error') {
         $(parent).addClass(this.options.slideErrorClass);
         this.elements[index] = 3; // Fail
       } else {
@@ -842,15 +842,15 @@
       this.setTimeout(this.options.onslidecomplete, [index, parent]);
     },
 
-    onload: function(event) {
+    onload: function (event) {
       this.oncomplete(event);
     },
 
-    onerror: function(event) {
+    onerror: function (event) {
       this.oncomplete(event);
     },
 
-    onkeydown: function(event) {
+    onkeydown: function (event) {
       switch (event.which || event.keyCode) {
         case 13: // Return
           if (this.options.toggleControlsOnReturn) {
@@ -886,7 +886,7 @@
       }
     },
 
-    handleClick: function(event) {
+    handleClick: function (event) {
       var options = this.options;
       var target = event.target || event.srcElement;
       var parent = target.parentNode;
@@ -941,7 +941,7 @@
       }
     },
 
-    onclick: function(event) {
+    onclick: function (event) {
       if (
         this.options.emulateTouchEvents &&
         this.touchDelta &&
@@ -953,7 +953,7 @@
       return this.handleClick(event);
     },
 
-    updateEdgeClasses: function(index) {
+    updateEdgeClasses: function (index) {
       if (!index) {
         this.container.addClass(this.options.leftEdgeClass);
       } else {
@@ -966,7 +966,7 @@
       }
     },
 
-    handleSlide: function(index) {
+    handleSlide: function (index) {
       if (!this.options.continuous) {
         this.updateEdgeClasses(index);
       }
@@ -977,13 +977,13 @@
       this.setTitle(index);
     },
 
-    onslide: function(index) {
+    onslide: function (index) {
       this.index = index;
       this.handleSlide(index);
       this.setTimeout(this.options.onslide, [index, this.slides[index]]);
     },
 
-    setTitle: function(index) {
+    setTitle: function (index) {
       var firstChild = this.slides[index].firstChild;
       var text = firstChild.title || firstChild.alt;
       var titleElement = this.titleElement;
@@ -995,17 +995,17 @@
       }
     },
 
-    setTimeout: function(func, args, wait) {
+    setTimeout: function (func, args, wait) {
       var that = this;
       return (
         func &&
-        window.setTimeout(function() {
+        window.setTimeout(function () {
           func.apply(that, args || []);
         }, wait || 0)
       );
     },
 
-    imageFactory: function(obj, callback) {
+    imageFactory: function (obj, callback) {
       var that = this;
       var img = this.imagePrototype.cloneNode(false);
       var url = obj;
@@ -1034,9 +1034,9 @@
             return that.setTimeout(callbackWrapper, [event]);
           }
           called = true;
-          $(img).off("load error", callbackWrapper);
+          $(img).off('load error', callbackWrapper);
           if (backgroundSize) {
-            if (event.type === "load") {
+            if (event.type === 'load') {
               element.style.background = 'url("' + url + '") center no-repeat';
               element.style.backgroundSize = backgroundSize;
             }
@@ -1044,14 +1044,14 @@
           callback(event);
         }
       }
-      if (typeof url !== "string") {
+      if (typeof url !== 'string') {
         url = this.getItemProperty(obj, this.options.urlProperty);
         title = this.getItemProperty(obj, this.options.titleProperty);
         altText =
           this.getItemProperty(obj, this.options.altTextProperty) || title;
       }
       if (backgroundSize === true) {
-        backgroundSize = "contain";
+        backgroundSize = 'contain';
       }
       backgroundSize =
         this.support.backgroundSize &&
@@ -1069,34 +1069,34 @@
       if (altText) {
         element.alt = altText;
       }
-      $(img).on("load error", callbackWrapper);
+      $(img).on('load error', callbackWrapper);
       img.src = url;
       return element;
     },
 
-    createElement: function(obj, callback) {
+    createElement: function (obj, callback) {
       var type = obj && this.getItemProperty(obj, this.options.typeProperty);
       var factory =
-        (type && this[type.split("/")[0] + "Factory"]) || this.imageFactory;
+        (type && this[type.split('/')[0] + 'Factory']) || this.imageFactory;
       var element = obj && factory.call(this, obj, callback);
       var srcset = this.getItemProperty(obj, this.options.srcsetProperty);
       if (!element) {
         element = this.elementPrototype.cloneNode(false);
         this.setTimeout(callback, [
           {
-            type: "error",
+            type: 'error',
             target: element
           }
         ]);
       }
       if (srcset) {
-        element.setAttribute("srcset", srcset);
+        element.setAttribute('srcset', srcset);
       }
       $(element).addClass(this.options.slideContentClass);
       return element;
     },
 
-    loadElement: function(index) {
+    loadElement: function (index) {
       if (!this.elements[index]) {
         if (this.slides[index].firstChild) {
           this.elements[index] = $(this.slides[index]).hasClass(
@@ -1114,7 +1114,7 @@
       }
     },
 
-    loadElements: function(index) {
+    loadElements: function (index) {
       var limit = Math.min(this.num, this.options.preloadRange * 2 + 1);
       var j = index;
       var i;
@@ -1131,7 +1131,7 @@
       }
     },
 
-    unloadElements: function(index) {
+    unloadElements: function (index) {
       var i, diff;
       for (i in this.elements) {
         if (Object.prototype.hasOwnProperty.call(this.elements, i)) {
@@ -1147,18 +1147,18 @@
       }
     },
 
-    addSlide: function(index) {
+    addSlide: function (index) {
       var slide = this.slidePrototype.cloneNode(false);
-      slide.setAttribute("data-index", index);
+      slide.setAttribute('data-index', index);
       this.slidesContainer[0].appendChild(slide);
       this.slides.push(slide);
     },
 
-    positionSlide: function(index) {
+    positionSlide: function (index) {
       var slide = this.slides[index];
-      slide.style.width = this.slideWidth + "px";
+      slide.style.width = this.slideWidth + 'px';
       if (this.support.transform) {
-        slide.style.left = index * -this.slideWidth + "px";
+        slide.style.left = index * -this.slideWidth + 'px';
         this.move(
           index,
           this.index > index
@@ -1171,15 +1171,15 @@
       }
     },
 
-    initSlides: function(reload) {
+    initSlides: function (reload) {
       var clearSlides, i;
       if (!reload) {
         this.positions = [];
         this.positions.length = this.num;
         this.elements = {};
-        this.imagePrototype = document.createElement("img");
-        this.elementPrototype = document.createElement("div");
-        this.slidePrototype = document.createElement("div");
+        this.imagePrototype = document.createElement('img');
+        this.elementPrototype = document.createElement('div');
+        this.slidePrototype = document.createElement('div');
         $(this.slidePrototype).addClass(this.options.slideClass);
         this.slides = this.slidesContainer[0].children;
         clearSlides =
@@ -1187,7 +1187,7 @@
       }
       this.slideWidth = this.container[0].clientWidth;
       this.slideHeight = this.container[0].clientHeight;
-      this.slidesContainer[0].style.width = this.num * this.slideWidth + "px";
+      this.slidesContainer[0].style.width = this.num * this.slideWidth + 'px';
       if (clearSlides) {
         this.resetSlides();
       }
@@ -1204,11 +1204,11 @@
       }
       if (!this.support.transform) {
         this.slidesContainer[0].style.left =
-          this.index * -this.slideWidth + "px";
+          this.index * -this.slideWidth + 'px';
       }
     },
 
-    unloadSlide: function(index) {
+    unloadSlide: function (index) {
       var slide, firstChild;
       slide = this.slides[index];
       firstChild = slide.firstChild;
@@ -1217,14 +1217,14 @@
       }
     },
 
-    unloadAllSlides: function() {
+    unloadAllSlides: function () {
       var i, len;
       for (i = 0, len = this.slides.length; i < len; i++) {
         this.unloadSlide(i);
       }
     },
 
-    toggleControls: function() {
+    toggleControls: function () {
       var controlsClass = this.options.controlsClass;
       if (this.container.hasClass(controlsClass)) {
         this.container.removeClass(controlsClass);
@@ -1233,7 +1233,7 @@
       }
     },
 
-    toggleSlideshow: function() {
+    toggleSlideshow: function () {
       if (!this.interval) {
         this.play();
       } else {
@@ -1241,17 +1241,17 @@
       }
     },
 
-    getNodeIndex: function(element) {
-      return parseInt(element.getAttribute("data-index"), 10);
+    getNodeIndex: function (element) {
+      return parseInt(element.getAttribute('data-index'), 10);
     },
 
-    getNestedProperty: function(obj, property) {
+    getNestedProperty: function (obj, property) {
       property.replace(
         // Matches native JavaScript notation in a String,
         // e.g. '["doubleQuoteProp"].dotProp[2]'
         // eslint-disable-next-line no-useless-escape
         /\[(?:'([^']+)'|"([^"]+)"|(\d+))\]|(?:(?:^|\.)([^\.\[]+))/g,
-        function(str, singleQuoteProp, doubleQuoteProp, arrayIndex, dotProp) {
+        function (str, singleQuoteProp, doubleQuoteProp, arrayIndex, dotProp) {
           var prop =
             dotProp ||
             singleQuoteProp ||
@@ -1265,20 +1265,20 @@
       return obj;
     },
 
-    getDataProperty: function(obj, property) {
+    getDataProperty: function (obj, property) {
       var key;
       var prop;
       if (obj.dataset) {
-        key = property.replace(/-([a-z])/g, function(_, b) {
+        key = property.replace(/-([a-z])/g, function (_, b) {
           return b.toUpperCase();
         });
         prop = obj.dataset[key];
       } else if (obj.getAttribute) {
         prop = obj.getAttribute(
-          "data-" + property.replace(/([A-Z])/g, "-$1").toLowerCase()
+          'data-' + property.replace(/([A-Z])/g, '-$1').toLowerCase()
         );
       }
-      if (typeof prop === "string") {
+      if (typeof prop === 'string') {
         // eslint-disable-next-line no-useless-escape
         if (
           /^(true|false|null|-?\d+(\.\d+)?|\{[\s\S]*\}|\[[\s\S]*\])$/.test(prop)
@@ -1293,7 +1293,7 @@
       }
     },
 
-    getItemProperty: function(obj, property) {
+    getItemProperty: function (obj, property) {
       var prop = this.getDataProperty(obj, property);
       if (prop === undefined) {
         prop = obj[property];
@@ -1304,12 +1304,12 @@
       return prop;
     },
 
-    initStartIndex: function() {
+    initStartIndex: function () {
       var index = this.options.index;
       var urlProperty = this.options.urlProperty;
       var i;
       // Check if the index is given as a list object:
-      if (index && typeof index !== "number") {
+      if (index && typeof index !== 'number') {
         for (i = 0; i < this.num; i += 1) {
           if (
             this.list[i] === index ||
@@ -1325,7 +1325,7 @@
       this.index = this.circle(parseInt(index, 10) || 0);
     },
 
-    initEventListeners: function() {
+    initEventListeners: function () {
       var that = this;
       var slidesContainer = this.slidesContainer;
 
@@ -1337,21 +1337,21 @@
       function proxyListener(event) {
         var type =
           that.support.transition && that.support.transition.end === event.type
-            ? "transitionend"
+            ? 'transitionend'
             : event.type;
-        that["on" + type](event);
+        that['on' + type](event);
       }
-      $(window).on("resize", proxyListener);
-      $(document.body).on("keydown", proxyListener);
-      this.container.on("click", proxyListener);
+      $(window).on('resize', proxyListener);
+      $(document.body).on('keydown', proxyListener);
+      this.container.on('click', proxyListener);
       if (this.support.touch) {
         slidesContainer.on(
-          "touchstart touchmove touchend touchcancel",
+          'touchstart touchmove touchend touchcancel',
           proxyListener
         );
       } else if (this.options.emulateTouchEvents && this.support.transition) {
         slidesContainer.on(
-          "mousedown mousemove mouseup mouseout",
+          'mousedown mousemove mouseup mouseout',
           proxyListener
         );
       }
@@ -1361,20 +1361,20 @@
       this.proxyListener = proxyListener;
     },
 
-    destroyEventListeners: function() {
+    destroyEventListeners: function () {
       var slidesContainer = this.slidesContainer;
       var proxyListener = this.proxyListener;
-      $(window).off("resize", proxyListener);
-      $(document.body).off("keydown", proxyListener);
-      this.container.off("click", proxyListener);
+      $(window).off('resize', proxyListener);
+      $(document.body).off('keydown', proxyListener);
+      this.container.off('click', proxyListener);
       if (this.support.touch) {
         slidesContainer.off(
-          "touchstart touchmove touchend touchcancel",
+          'touchstart touchmove touchend touchcancel',
           proxyListener
         );
       } else if (this.options.emulateTouchEvents && this.support.transition) {
         slidesContainer.off(
-          "mousedown mousemove mouseup mouseout",
+          'mousedown mousemove mouseup mouseout',
           proxyListener
         );
       }
@@ -1383,13 +1383,13 @@
       }
     },
 
-    handleOpen: function() {
+    handleOpen: function () {
       if (this.options.onopened) {
         this.options.onopened.call(this);
       }
     },
 
-    initWidget: function() {
+    initWidget: function () {
       var that = this;
 
       /**
@@ -1406,7 +1406,7 @@
       this.container = $(this.options.container);
       if (!this.container.length) {
         this.console.log(
-          "blueimp Gallery: Widget container not found.",
+          'blueimp Gallery: Widget container not found.',
           this.options.container
         );
         return false;
@@ -1416,7 +1416,7 @@
         .first();
       if (!this.slidesContainer.length) {
         this.console.log(
-          "blueimp Gallery: Slides container not found.",
+          'blueimp Gallery: Slides container not found.',
           this.options.slidesContainer
         );
         return false;
@@ -1436,14 +1436,14 @@
       if (this.options.hidePageScrollbars) {
         // Hide the page scrollbars:
         this.bodyOverflowStyle = document.body.style.overflow;
-        document.body.style.overflow = "hidden";
+        document.body.style.overflow = 'hidden';
       }
-      this.container[0].style.display = "block";
+      this.container[0].style.display = 'block';
       this.initSlides();
       this.container.addClass(this.options.displayClass);
     },
 
-    initOptions: function(options) {
+    initOptions: function (options) {
       // Create a copy of the prototype options:
       this.options = $.extend({}, this.options);
       // Check if carousel mode is enabled:

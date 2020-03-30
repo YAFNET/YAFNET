@@ -23,7 +23,6 @@
  */
 namespace YAF.Modules.BBCode
 {
-    using System.Text;
     using System.Web.UI;
 
     using YAF.Configuration;
@@ -44,22 +43,18 @@ namespace YAF.Modules.BBCode
         /// </param>
         protected override void Render(HtmlTextWriter writer)
         {
-            var sb = new StringBuilder();
-
-            sb.AppendFormat(
+            writer.Write(
                 @"<a href=""{0}resource.ashx?image={1}"" class=""attachedImage"" data-gallery title=""{1}"">",
                 BoardInfo.ForumClientFileRoot,
                 this.Parameters["inner"]);
 
-            sb.AppendFormat(
+            writer.Write(
                 @"<img src=""{0}resource.ashx?imgprv={1}"" class=""img-user-posted img-thumbnail"" style=""max-width:auto;max-height:{2}px"" alt=""{1}"" />",
                 BoardInfo.ForumClientFileRoot,
                 this.Parameters["inner"],
                 this.Get<BoardSettings>().ImageThumbnailMaxHeight);
 
-            sb.Append("</a>");
-
-            writer.Write(sb.ToString());
+            writer.Write("</a>");
         }
     }
 }

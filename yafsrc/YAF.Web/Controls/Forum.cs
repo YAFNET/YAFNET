@@ -354,10 +354,10 @@ namespace YAF.Web.Controls
             }
 
             // Add smart Scroll
-            if (Config.IsAnyPortal)
+            /*if (Config.IsAnyPortal)
             {
                 this.Controls.Add(new SmartScroller());
-            }
+            }*/
 
             if (this.Get<BoardSettings>().ShowScrollBackToTopButton)
             {

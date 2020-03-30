@@ -190,17 +190,17 @@ namespace YAF.Web.Controls
         {
             if (this.ClientID.IsSet())
             {
-                output.WriteAttribute("id", this.ClientID);
+                output.WriteAttribute(HtmlTextWriterAttribute.Id.ToString(), this.ClientID);
             }
 
             if (this.Style.IsSet())
             {
-                output.WriteAttribute("style", this.HtmlEncode(this.Style));
+                output.WriteAttribute(HtmlTextWriterAttribute.Style.ToString(), this.HtmlEncode(this.Style));
             }
 
             if (this.OnClick.IsSet())
             {
-                output.WriteAttribute("onclick", this.OnClick);
+                output.WriteAttribute(HtmlTextWriterAttribute.Onclick.ToString(), this.OnClick);
             }
 
             if (this.OnMouseOver.IsSet())
@@ -210,7 +210,7 @@ namespace YAF.Web.Controls
 
             if (this.CssClass.IsSet())
             {
-                output.WriteAttribute("class", this.CssClass);
+                output.WriteAttribute(HtmlTextWriterAttribute.Class.ToString(), this.CssClass);
             }
         }
 
