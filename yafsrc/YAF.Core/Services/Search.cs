@@ -516,14 +516,11 @@ namespace YAF.Core.Services
             }
 
             return new SearchMessage
-            {
+                       {
                            Topic = doc.Get("Topic"),
                            TopicId = doc.Get("TopicId").ToType<int>(),
                            TopicUrl = BuildLink.GetLink(ForumPages.Posts, "t={0}", doc.Get("TopicId").ToType<int>()),
-                           Posted =
-                               doc.Get("Posted").ToType<System.DateTime>().ToString(
-                                   "yyyy-MM-ddTHH:mm:ssZ",
-                                   CultureInfo.InvariantCulture),
+                           Posted = doc.Get("Posted"),
                            UserId = doc.Get("UserId").ToType<int>(),
                            UserName = doc.Get("Author"),
                            UserDisplayName = doc.Get("AuthorDisplay"),
@@ -685,14 +682,11 @@ namespace YAF.Core.Services
             }
 
             return new SearchMessage
-            {
+                       {
                            MessageId = doc.Get("MessageId").ToType<int>(),
                            Message = message,
                            Flags = flags,
-                           Posted =
-                               doc.Get("Posted").ToType<System.DateTime>().ToString(
-                                   "yyyy-MM-ddTHH:mm:ssZ",
-                                   CultureInfo.InvariantCulture),
+                           Posted = doc.Get("Posted"),
                            UserName = doc.Get("Author"),
                            UserId = doc.Get("UserId").ToType<int>(),
                            TopicId = doc.Get("TopicId").ToType<int>(),
@@ -702,10 +696,7 @@ namespace YAF.Core.Services
                            Description = doc.Get("Description"),
                            TopicUrl = BuildLink.GetLink(ForumPages.Posts, "t={0}", doc.Get("TopicId").ToType<int>()),
                            MessageUrl =
-                               BuildLink.GetLink(
-                                   ForumPages.Posts,
-                                   "m={0}#post{0}",
-                                   doc.Get("MessageId").ToType<int>()),
+                               BuildLink.GetLink(ForumPages.Posts, "m={0}#post{0}", doc.Get("MessageId").ToType<int>()),
                            ForumUrl = BuildLink.GetLink(ForumPages.forum, "f={0}", doc.Get("ForumId").ToType<int>()),
                            UserDisplayName = doc.Get("AuthorDisplay"),
                            ForumName = doc.Get("ForumName"),
