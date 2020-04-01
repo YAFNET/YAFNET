@@ -99,7 +99,15 @@
                     </ItemTemplate>
                     <FooterTemplate>
                         </ul>
+                    <YAF:Alert runat="server" ID="NoInfo" 
+                               Type="success" 
+                               Visible="<%# this.DeletedTopics.Items.Count == 0 %>">
+                        <i class="fa fa-check fa-fw text-success"></i>
+                        <YAF:LocalizedLabel runat="server"
+                                            LocalizedTag="NO_ENTRY"></YAF:LocalizedLabel>
+                    </YAF:Alert>
                         </div>
+                         <asp:PlaceHolder runat="server" Visible="<%# this.DeletedTopics.Items.Count > 0 %>">
                         <div class="card-footer text-center">
                             <YAF:ThemeButton runat="server" 
                                              CommandName="delete_all" 
@@ -118,9 +126,10 @@
                                              TextLocalizedPage="ADMIN_RESTORE">
                             </YAF:ThemeButton>
                         </div>
+                    </asp:PlaceHolder>
                     </FooterTemplate>
                 </asp:Repeater>
-                    </div>
+            </div>
             <YAF:Pager ID="PagerBottom" runat="server" LinkedPager="PagerTop" />
             
     </div>
