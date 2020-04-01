@@ -18,7 +18,7 @@
 </div>
 <div class="row">
     <div class="col-xl-12">
-             <YAF:Pager ID="PagerTop" runat="server" OnPageChange="PagerTop_PageChange" />
+        <YAF:Pager ID="PagerTop" runat="server" OnPageChange="PagerTop_PageChange" />
             <div class="card mb-3">
                 <div class="card-header">
                     <i class="fa fa-hand-paper fa-fw text-secondary pr-1"></i>
@@ -45,6 +45,7 @@
                                 <div class="form-group">
                                     <YAF:ThemeButton ID="search" runat="server" 
                                                      Type="Primary" 
+                                                     CssClass="btn-block"
                                                      TextLocalizedTag="BTNSEARCH" 
                                                      TextLocalizedPage="SEARCH" 
                                                      Icon="search"

@@ -1601,10 +1601,22 @@
   <Resource tag="PRUNE_FORUM_HELP">Select a forum.</Resource>
   <Resource tag="PRUNE_INFO">NOTE: Prune Task is currently RUNNING. Cannot start a new prune task until it's finished.</Resource>
   <Resource tag="PRUNE_PERMANENT">Permanently remove from DB:</Resource>
-  <Resource tag="PRUNE_PERMANENT_HELP">All Topics marked with the Deleted flag will be permanently deleted.</Resource>
+  <Resource tag="PRUNE_PERMANENT_HELP">If checked topics will be deleted from the databse, otherwise the topics will only be flagged as deleted.</Resource>
   <Resource tag="PRUNE_START">Start Prune Task</Resource>
+   <Resource tag="RESTORE_TOPIC">Restore Topic</Resource>
   <Resource tag="TITLE">Prune Topics</Resource>
+   <Resource tag="TITLE_HELP">Option to delete All Topics that are not marked as persistent.</Resource>
  </page>
+  <page name="ADMIN_RESTORE">
+    <Resource tag="DELETE_ALL_ZERO">Delete all with 0 Posts</Resource>
+    <Resource tag="FILTER">Search by Topic Name</Resource>
+    <Resource tag="FILTER_HELP">Filter list by Topic Name</Resource>
+    <Resource tag="MSG_DELETED">Topics deleted</Resource>
+    <Resource tag="MSG_RESTORED">Topic restored</Resource>
+    <Resource tag="SEARCH">Reload</Resource>
+    <Resource tag="TITLE">Restore &amp; Delete Topics</Resource>
+    <Resource tag="TITLE_HELP">Option to restore topics that are flagged as deleted topics, or to permanently delete them from the database.</Resource>
+  </page>
  <page name="ADMIN_RANKS">
   <Resource tag="COMMAND">Command</Resource>
   <Resource tag="CONFIRM_DELETE">Delete this rank?</Resource>
@@ -1840,6 +1852,7 @@
   <Resource tag="admin_prune">Prune Topics</Resource>
   <Resource tag="admin_ranks">Ranks</Resource>
   <Resource tag="admin_reindex">DB Maintenance</Resource>
+   <Resource tag="admin_restore">Restore &amp; Delete Topics</Resource>
   <Resource tag="admin_replacewords">Replace Words</Resource>
   <Resource tag="ADMIN_SPAMLOG">Spam Event Log</Resource>
   <Resource tag="admin_spamwords">Spam Check Words</Resource>

@@ -1037,6 +1037,40 @@ namespace YAF.Core.Model
                     });
         }
 
+        /// <summary>
+        /// Get Deleted Topics
+        /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="boardId">
+        /// The board id.
+        /// </param>
+        /// <param name="filter">
+        /// The filter.
+        /// </param>
+        /// <returns>
+        /// The <see cref="List"/>.
+        /// </returns>
+        public static List<Topic> GetDeletedTopics(this IRepository<Topic> repository, [NotNull] int boardId, [CanBeNull] string filter)
+        {
+            CodeContracts.VerifyNotNull(repository, "repository");
+
+            var deletedTopics = new List<Topic>();
+
+            BoardContext.Current.GetRepository<Forum>().List(BoardContext.Current.PageBoardID, null).ForEach(
+                forum =>
+                    {
+                        deletedTopics.AddRange(
+                            filter.IsSet()
+                                ? repository.Get(
+                                    t => t.IsDeleted == true && t.ForumID == forum.ID && t.TopicName.Contains(filter))
+                                : repository.Get(t => t.IsDeleted == true && t.ForumID == forum.ID));
+                    });
+
+            return deletedTopics;
+        }
+
         #endregion
 
         /// <summary>

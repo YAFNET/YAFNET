@@ -1654,7 +1654,9 @@
     <Resource tag="PRUNE_PERMANENT">Dauerhaft aus der DB entfernen:</Resource>
     <Resource tag="PRUNE_PERMANENT_HELP">Alle Themen die mit als Gelöscht gekennzeichnet sind werden gelöscht.</Resource>
     <Resource tag="PRUNE_START">Prune Task starten</Resource>
+    <Resource tag="RESTORE_TOPIC">Restore Topic</Resource>
     <Resource tag="TITLE">Themen zusammenführen</Resource>
+    <Resource tag="TITLE_HELP">Option to delete All Topics that are not marked as persistent.</Resource>
   </page>
   <page name="ADMIN_RANKS">
     <Resource tag="COMMAND">Kommando</Resource>
@@ -1733,6 +1735,16 @@
     <Resource tag="INFO">Neustart der Anwendung, alle Konfigurationsdateien werden neugeladen.</Resource>
     <Resource tag="MSG_TRUST">Sie müssen Vollen Zugriff auf die Anwendung haben. Neustarten fehlgeschlagen.</Resource>
     <Resource tag="TITLE">Anwendung (YAF) neustarten</Resource>
+  </page>
+  <page name="ADMIN_RESTORE">
+    <Resource tag="DELETE_ALL_ZERO">Delete all with 0 Posts</Resource>
+    <Resource tag="FILTER">Search by Topic Name</Resource>
+    <Resource tag="FILTER_HELP">Filter list by Topic Name</Resource>
+    <Resource tag="MSG_DELETED">Topics deleted</Resource>
+    <Resource tag="MSG_RESTORED">Topic restored</Resource>
+    <Resource tag="SEARCH">Reload</Resource>
+    <Resource tag="TITLE">Restore &amp; Delete Topics</Resource>
+    <Resource tag="TITLE_HELP">Option to restore topics that are flagged as deleted topics, or to permanently delete them from the database.</Resource>
   </page>
   <page name="ADMIN_RUNSQL">
     <Resource tag="HEADER">SQL Query ausführen</Resource>
@@ -1896,6 +1908,7 @@
     <Resource tag="admin_reindex">DB Warten</Resource>
     <Resource tag="admin_replacewords">Ersetzen von Wörtern</Resource>
     <Resource tag="admin_restartapp">Anwendung neustarten</Resource>
+    <Resource tag="admin_restore">Restore &amp; Delete Topics</Resource>
     <Resource tag="admin_runsql">SQL Query ausführen</Resource>
     <Resource tag="ADMIN_SPAMLOG">Spam Ereignisprotokoll</Resource>
     <Resource tag="admin_spamwords">Spam Check Wörter</Resource>
