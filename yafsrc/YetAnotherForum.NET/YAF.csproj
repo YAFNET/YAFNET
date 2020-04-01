@@ -713,6 +713,13 @@
     <Compile Include="Pages\admin\boardsettings.ascx.designer.cs">
       <DependentUpon>boardsettings.ascx</DependentUpon>
     </Compile>
+    <Compile Include="Pages\admin\restore.ascx.cs">
+      <DependentUpon>restore.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\admin\restore.ascx.designer.cs">
+      <DependentUpon>restore.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Pages\admin\spamlog.ascx.cs">
       <DependentUpon>spamlog.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2077,6 +2084,7 @@
     <Content Include="languages\estonian.xml" />
     <Content Include="Pages\admin\bannedemail.ascx" />
     <Content Include="Pages\admin\bannedname.ascx" />
+    <Content Include="Pages\admin\restore.ascx" />
     <Content Include="Pages\admin\spamlog.ascx" />
     <Content Include="Pages\admin\pageaccessedit.ascx" />
     <Content Include="Pages\admin\pageaccesslist.ascx" />
@@ -3721,7 +3729,7 @@ RD /S /Q "$(TargetDir)zh-TW\"</PostBuildEvent>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties compilerconfig_1json__JSONSchema="" bundleconfig_1json__JSONSchema="" />
+      <UserProperties bundleconfig_1json__JSONSchema="" compilerconfig_1json__JSONSchema="" />
     </VisualStudio>
   </ProjectExtensions>
   <Import Project="..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets" Condition="Exists('..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets')" />
