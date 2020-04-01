@@ -27,6 +27,7 @@ namespace YAF.Controls
 
     using System;
     using System.Data;
+    using System.Globalization;
     using System.Text;
     
     using YAF.Configuration;
@@ -40,6 +41,7 @@ namespace YAF.Controls
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
     using YAF.Utils;
+    using YAF.Utils.Helpers;
 
     #endregion
 
@@ -199,7 +201,7 @@ namespace YAF.Controls
                 if (activeUsers30Day != null && activeUsers30Day.HasRows())
                 {
                     var activeUsers1Day1 = activeUsers30Day.Select(
-                        $"LastVisit >= '{System.DateTime.UtcNow.AddDays(-1)}'");
+                        $"LastVisit >= #{System.DateTime.UtcNow.AddDays(-1).ToString(CultureInfo.InvariantCulture)}#");
 
                     this.RecentUsersCount.Text = this.GetTextFormatted(
                         "RECENT_ONLINE_USERS",
@@ -231,7 +233,7 @@ namespace YAF.Controls
             var userStatisticsDataRow = this.Get<IDataCache>().GetOrSet(
                 Constants.Cache.BoardUserStats,
                 () => this.GetRepository<Board>().UserStats(this.PageContext.PageBoardID).Table,
-                TimeSpan.FromMinutes(this.Get<BoardSettings>().BoardUserStatsCacheTimeout)).Rows[0];
+                TimeSpan.FromMinutes(this.Get<BoardSettings>().BoardUserStatsCacheTimeout)).GetFirstRow();
 
             // show max users...
             if (!userStatisticsDataRow.IsNull("MaxUsers"))
