@@ -516,7 +516,7 @@ namespace YAF.Core.Model
                         ShowPendingBuddies: showPendingBuddies,
                         ShowUnreadPMs: showUnreadPMs,
                         ShowUserAlbums: showUserAlbums,
-                        ShowUserStyle: styledNicks).Rows[0];
+                        ShowUserStyle: styledNicks).GetFirstRow();
                 }
                 catch (SqlException x)
                 {

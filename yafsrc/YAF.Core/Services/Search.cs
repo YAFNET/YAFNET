@@ -26,7 +26,6 @@ namespace YAF.Core.Services
 {
     using System;
     using System.Collections.Generic;
-    using System.Globalization;
     using System.IO;
     using System.Linq;
     using System.Threading;
@@ -203,13 +202,31 @@ namespace YAF.Core.Services
         }
 
         /// <summary>
-        /// Clears the search index record.
+        /// Delete Search Index Record by Message Id.
         /// </summary>
-        /// <param name="messageId">The message identifier.</param>
-        public void ClearSearchIndexRecord(int messageId)
+        /// <param name="messageId">
+        /// The message id.
+        /// </param>
+        public void DeleteSearchIndexRecordByMessageId(int messageId)
         {
             // remove older index entry
             var searchQuery = new TermQuery(new Term("MessageId", messageId.ToString()));
+
+            this.Writer.DeleteDocuments(searchQuery);
+
+            this.Optimize();
+        }
+
+        /// <summary>
+        /// Delete Search Index Record by Topic Id.
+        /// </summary>
+        /// <param name="topicId">
+        /// The topic Id.
+        /// </param>
+        public void DeleteSearchIndexRecordByTopicId(int topicId)
+        {
+            // remove older index entry
+            var searchQuery = new TermQuery(new Term("TopicId", topicId.ToString()));
 
             this.Writer.DeleteDocuments(searchQuery);
 

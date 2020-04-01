@@ -364,7 +364,7 @@ namespace YAF.Core.Model
         /// The board id.
         /// </param>
         /// <param name="numOfPostsToRetrieve">
-        /// The num of posts to retrieve.
+        /// The number of posts to retrieve.
         /// </param>
         /// <param name="pageUserId">
         /// The page User Id.
@@ -396,24 +396,24 @@ namespace YAF.Core.Model
         /// <param name="forumId">
         /// The forum id.
         /// </param>
-        /// <param name="newTopicSubj">
-        /// The new topic subj.
+        /// <param name="newTopicSubject">
+        /// The new topic subject.
         /// </param>
         /// <returns>
         /// Returns the new Topic ID
         /// </returns>
         public static long CreateByMessage(
-            this IRepository<Topic> repository, [NotNull] int messageId, [NotNull] int forumId, [NotNull] string newTopicSubj)
+            this IRepository<Topic> repository, [NotNull] int messageId, [NotNull] int forumId, [NotNull] string newTopicSubject)
         {
             return long.Parse(repository.DbFunction.GetData.topic_create_by_message(
                 MessageID: messageId,
                 ForumID: forumId,
-                Subject: newTopicSubj,
-                UTCTIMESTAMP: DateTime.UtcNow).Rows[0]["TopicID"].ToString());
+                Subject: newTopicSubject,
+                UTCTIMESTAMP: DateTime.UtcNow).GetFirstRow()["TopicID"].ToString());
         }
 
         /// <summary>
-        /// The rss_topic_latest.
+        /// Get the Latest Topics for the RSS Feed.
         /// </summary>
         /// <param name="repository">
         /// The repository.
@@ -422,7 +422,7 @@ namespace YAF.Core.Model
         /// The board Id.
         /// </param>
         /// <param name="numOfPostsToRetrieve">
-        /// The num of posts to retrieve.
+        /// The number of posts to retrieve.
         /// </param>
         /// <param name="pageUserId">
         /// The page UserId id.
@@ -479,7 +479,7 @@ namespace YAF.Core.Model
         /// The board Id.
         /// </param>
         /// <param name="numOfPostsToRetrieve">
-        /// The num of posts to retrieve.
+        /// The number of posts to retrieve.
         /// </param>
         /// <param name="pageUserId">
         /// The page UserId id.
@@ -527,7 +527,7 @@ namespace YAF.Core.Model
         /// The category Id.
         /// </param>
         /// <param name="numOfPostsToRetrieve">
-        /// The num of posts to retrieve.
+        /// The number of posts to retrieve.
         /// </param>
         /// <param name="pageUserId">
         /// The page UserId id.
@@ -660,16 +660,17 @@ namespace YAF.Core.Model
         /// <returns>
         /// The <see cref="DataTable"/>.
         /// </returns>
-        public static DataTable AnnouncementsAsDataTable(this IRepository<Topic> repository,
-                                                         [NotNull] int forumId,
-                                                         [CanBeNull] int? userId,
-                                                         [CanBeNull] DateTime? sinceDate,
-                                                         [CanBeNull] DateTime? toDate,
-                                                         [NotNull] int pageIndex,
-                                                         [NotNull] int pageSize,
-                                                         [NotNull] bool useStyledNicks,
-                                                         [NotNull] bool showMoved,
-                                                         [CanBeNull] bool findLastRead)
+        public static DataTable AnnouncementsAsDataTable(
+            this IRepository<Topic> repository,
+            [NotNull] int forumId,
+            [CanBeNull] int? userId,
+            [CanBeNull] DateTime? sinceDate,
+            [CanBeNull] DateTime? toDate,
+            [NotNull] int pageIndex,
+            [NotNull] int pageSize,
+            [NotNull] bool useStyledNicks,
+            [NotNull] bool showMoved,
+            [CanBeNull] bool findLastRead)
         {
             return repository.DbFunction.GetData.announcements_list(
                 ForumID: forumId,
@@ -717,7 +718,7 @@ namespace YAF.Core.Model
         /// The user name.
         /// </param>
         /// <param name="ip">
-        /// The ip.
+        /// The IP Address.
         /// </param>
         /// <param name="posted">
         /// The posted.
@@ -727,6 +728,9 @@ namespace YAF.Core.Model
         /// </param>
         /// <param name="flags">
         /// The flags.
+        /// </param>
+        /// <param name="topicTags">
+        /// The topic Tags.
         /// </param>
         /// <param name="messageId">
         /// The message Id.
@@ -880,17 +884,19 @@ namespace YAF.Core.Model
         /// <param name="repository">
         /// The repository.
         /// </param>
-        /// <param name="topicID">
+        /// <param name="topicId">
         /// The topic id.
         /// </param>
         /// <param name="eraseTopic">
         /// The erase topic.
         /// </param>
-        public static void Delete(this IRepository<Topic> repository, [NotNull] int topicID, [NotNull] bool eraseTopic)
+        public static void Delete(this IRepository<Topic> repository, [NotNull] int topicId, [NotNull] bool eraseTopic)
         {
-            repository.DeleteAttachments(topicID);
+            repository.DeleteAttachments(topicId);
 
-            repository.DbFunction.Scalar.topic_delete(TopicID: topicID, EraseTopic: eraseTopic);
+            BoardContext.Current.Get<ISearch>().DeleteSearchIndexRecordByTopicId(topicId);
+
+            repository.DbFunction.Scalar.topic_delete(TopicID: topicId, EraseTopic: eraseTopic);
         }
 
         /// <summary>
@@ -1009,7 +1015,7 @@ namespace YAF.Core.Model
         /// The repository.
         /// </param>
         /// <param name="decodeTopicFunc">
-        /// The decode topic func.
+        /// The decode topic function
         /// </param>
         public static void UnencodeAllTopicsSubjects(this IRepository<Topic> repository, [NotNull] Func<string, string> decodeTopicFunc)
         {
@@ -1099,49 +1105,6 @@ namespace YAF.Core.Model
         }
 
         /// <summary>
-        /// Delete message and all subsequent related messages to that ID
-        /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
-        /// <param name="messageID">
-        /// The message id.
-        /// </param>
-        /// <param name="isModeratorChanged">
-        /// The is moderator changed.
-        /// </param>
-        /// <param name="deleteReason">
-        /// The delete reason.
-        /// </param>
-        /// <param name="isDeleteAction">
-        /// The is delete action.
-        /// </param>
-        /// <param name="deleteLinked">
-        /// The delete linked.
-        /// </param>
-        /// <param name="isLinked">
-        /// The is linked.
-        /// </param>
-        private static void DeleteRecursively(
-            this IRepository<Topic> repository,
-            [NotNull] int messageID,
-            bool isModeratorChanged,
-            [NotNull] string deleteReason,
-            int isDeleteAction,
-            bool deleteLinked,
-            bool isLinked)
-        {
-            repository.DeleteRecursively(
-                messageID,
-                isModeratorChanged,
-                deleteReason,
-                isDeleteAction,
-                deleteLinked,
-                isLinked,
-                false);
-        }
-
-        /// <summary>
         /// The message_delete recursively.
         /// </summary>
         /// <param name="repository">
@@ -1162,9 +1125,6 @@ namespace YAF.Core.Model
         /// <param name="deleteLinked">
         /// The delete linked.
         /// </param>
-        /// <param name="isLinked">
-        /// The is linked.
-        /// </param>
         /// <param name="eraseMessages">
         /// The erase messages.
         /// </param>
@@ -1175,7 +1135,6 @@ namespace YAF.Core.Model
             [NotNull] string deleteReason,
             int isDeleteAction,
             bool deleteLinked,
-            bool isLinked,
             bool eraseMessages)
         {
             var useFileTable = BoardContext.Current.Get<BoardSettings>().UseFileTable;
@@ -1192,7 +1151,6 @@ namespace YAF.Core.Model
                         deleteReason,
                         isDeleteAction,
                         true,
-                        isLinked,
                         eraseMessages));
             }
 
@@ -1206,11 +1164,11 @@ namespace YAF.Core.Model
             if (eraseMessages)
             {
                 // Delete Message from Search Index
-                BoardContext.Current.Get<ISearch>().ClearSearchIndexRecord(messageID);
+                BoardContext.Current.Get<ISearch>().DeleteSearchIndexRecordByMessageId(messageID);
 
                 repository.DbFunction.Scalar.message_delete(
                     MessageID: messageID,
-                    EraseMessage: eraseMessages);
+                    EraseMessage: true);
             }
             else
             {

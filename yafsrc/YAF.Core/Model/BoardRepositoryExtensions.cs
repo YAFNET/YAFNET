@@ -261,7 +261,7 @@ namespace YAF.Core.Model
                 repository.DbFunction.GetData.board_poststats(
                     BoardID: boardID, StyledNicks: styledNicks, ShowNoCountPosts: showNoCountPosts, GetDefaults: 1);
 
-            return dt.HasRows() ? dt.Rows[0] : null;
+            return dt.GetFirstRow();
         }
 
         /// <summary>
