@@ -866,12 +866,16 @@ namespace YAF.Core.Model
         /// <param name="repository">
         /// The repository.
         /// </param>
-        /// <param name="topicID">
+        /// <param name="topicId">
         /// The topic id.
         /// </param>
-        public static void Delete(this IRepository<Topic> repository, [NotNull] int topicID)
+        public static void Delete(this IRepository<Topic> repository, [NotNull] int topicId)
         {
-            repository.Delete(topicID, false);
+            repository.DeleteAttachments(topicId);
+
+            BoardContext.Current.Get<ISearch>().DeleteSearchIndexRecordByTopicId(topicId);
+
+            repository.Delete(topicId, false);
         }
 
         /// <summary>
@@ -1206,7 +1210,7 @@ namespace YAF.Core.Model
             if (eraseMessages)
             {
                 // Delete Message from Search Index
-                BoardContext.Current.Get<ISearch>().ClearSearchIndexRecord(messageID);
+                BoardContext.Current.Get<ISearch>().DeleteSearchIndexRecordByMessageId(messageID);
 
                 repository.DbFunction.Scalar.message_delete(
                     MessageID: messageID,

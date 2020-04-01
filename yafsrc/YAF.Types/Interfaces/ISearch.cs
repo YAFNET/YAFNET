@@ -47,10 +47,20 @@ namespace YAF.Types.Interfaces
         bool ClearSearchIndex();
 
         /// <summary>
-        /// Clears the search index record.
+        /// Delete Search Index Record by Message Id.
         /// </summary>
-        /// <param name="messageId">The message identifier.</param>
-        void ClearSearchIndexRecord(int messageId);
+        /// <param name="messageId">
+        /// The message id.
+        /// </param>
+        void DeleteSearchIndexRecordByMessageId(int messageId);
+
+        /// <summary>
+        /// Delete Search Index Record by Topic Id.
+        /// </summary>
+        /// <param name="topicId">
+        /// The topic Id.
+        /// </param>
+        void DeleteSearchIndexRecordByTopicId(int topicId);
 
         /// <summary>
         /// Adds the search index

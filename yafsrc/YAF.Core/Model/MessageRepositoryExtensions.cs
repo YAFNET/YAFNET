@@ -958,7 +958,7 @@ namespace YAF.Core.Model
             if (eraseMessages)
             {
                 // Delete Message from Search Index
-                BoardContext.Current.Get<ISearch>().ClearSearchIndexRecord(messageID);
+                BoardContext.Current.Get<ISearch>().DeleteSearchIndexRecordByMessageId(messageID);
 
                 repository.DbFunction.Scalar.message_delete(MessageID: messageID, EraseMessage: true);
             }
