@@ -11,7 +11,7 @@ namespace YAF.Pages.Admin
 {
 
 
-    public partial class prune
+    public partial class restore
     {
 
         /// <summary>
@@ -33,84 +33,57 @@ namespace YAF.Pages.Admin
         protected global::YAF.Web.Controls.HelpLabel LocalizedLabel1;
 
         /// <summary>
-        /// LocalizedLabel5 control.
+        /// PagerTop control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.Controls.HelpLabel LocalizedLabel5;
+        protected global::YAF.Web.Controls.Pager PagerTop;
 
         /// <summary>
-        /// lblPruneInfo control.
+        /// HelpLabel1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblPruneInfo;
+        protected global::YAF.Web.Controls.HelpLabel HelpLabel1;
 
         /// <summary>
-        /// LocalizedLabel4 control.
+        /// HelpLabel2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.Controls.HelpLabel LocalizedLabel4;
+        protected global::YAF.Web.Controls.HelpLabel HelpLabel2;
 
         /// <summary>
-        /// forumlist control.
+        /// Filter control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList forumlist;
+        protected global::System.Web.UI.WebControls.TextBox Filter;
 
         /// <summary>
-        /// LocalizedLabel3 control.
+        /// DeletedTopics control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.Controls.HelpLabel LocalizedLabel3;
+        protected global::System.Web.UI.WebControls.Repeater DeletedTopics;
 
         /// <summary>
-        /// days control.
+        /// PagerBottom control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox days;
-
-        /// <summary>
-        /// LocalizedLabel2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Web.Controls.HelpLabel LocalizedLabel2;
-
-        /// <summary>
-        /// permDeleteChkBox control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox permDeleteChkBox;
-
-        /// <summary>
-        /// commit control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Web.Controls.ThemeButton commit;
+        protected global::YAF.Web.Controls.Pager PagerBottom;
     }
 }

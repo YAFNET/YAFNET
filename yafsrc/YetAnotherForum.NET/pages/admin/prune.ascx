@@ -1,4 +1,5 @@
 <%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Admin.prune" CodeBehind="prune.ascx.cs" %>
+<%@ Import Namespace="YAF.Types.Constants" %>
 
 
 <YAF:PageLinks runat="server" ID="PageLinks" />
@@ -6,7 +7,9 @@
 <div class="row">
     <div class="col-xl-12">
         <h1>
-            <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_PRUNE" />
+            <YAF:HelpLabel ID="LocalizedLabel1" runat="server" 
+                                LocalizedTag="TITLE" 
+                                LocalizedPage="ADMIN_PRUNE" />
         </h1>
     </div>
 </div>
@@ -14,9 +17,12 @@
     <div class="col-xl-12">
         <div class="card mb-3">
             <div class="card-header">
-                <i class="fa fa-trash fa-fw text-secondary"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel5" runat="server"
-                    LocalizedTag="TITLE"
-                    LocalizedPage="ADMIN_PRUNE" />
+                <YAF:Icon runat="server"
+                          IconName="trash pr-1"
+                          IconType="text-secondary"></YAF:Icon>
+                <YAF:HelpLabel ID="LocalizedLabel5" runat="server"
+                                    LocalizedTag="TITLE"
+                                    LocalizedPage="ADMIN_PRUNE" />
             </div>
             <div class="card-body">
                 <asp:Label ID="lblPruneInfo" runat="server"></asp:Label>

@@ -79,7 +79,9 @@ namespace YAF.Pages.Admin
         protected override void CreatePageLinks()
         {
             this.PageLinks.AddRoot();
-            this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), BuildLink.GetLink(ForumPages.admin_admin));
+            this.PageLinks.AddLink(
+                this.GetText("ADMIN_ADMIN", "Administration"),
+                BuildLink.GetLink(ForumPages.admin_admin));
             this.PageLinks.AddLink(this.GetText("ADMIN_PRUNE", "TITLE"), string.Empty);
 
             this.Page.Header.Title =
@@ -108,7 +110,12 @@ namespace YAF.Pages.Admin
         private void BindData()
         {
             this.forumlist.DataSource = this.GetRepository<Forum>().ListReadAsDataTable(
-                this.PageContext.PageBoardID, this.PageContext.PageUserID, null, null, false, false);
+                this.PageContext.PageBoardID,
+                this.PageContext.PageUserID,
+                null,
+                null,
+                false,
+                false);
 
             this.forumlist.DataValueField = "ForumID";
             this.forumlist.DataTextField = "Forum";
