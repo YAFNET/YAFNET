@@ -63,8 +63,13 @@
                     <asp:DropDownList ID="listResInPage" runat="server" CssClass="custom-select resultsPage" />
                 </div>
             </div>
-            <div class="px-3 text-center pb-2">
-                <button type="button" class="btn btn-primary btn-sm w-25"><%= this.Get<ILocalization>().GetText("COMMON", "OK") %></button>
+            <div class="px-3">
+                <YAF:ThemeButton runat="server"
+                                 Type="Primary"
+                                 Size="Small"
+                                 TextLocalizedTag="OK"
+                                 TextLocalizedPage="COMMON"
+                                 CssClass="btn-block"></YAF:ThemeButton>
             </div>
         </div>
     </div>
