@@ -1,12 +1,19 @@
 YetAnotherForum.NET Changelog
 ====================
 
+# YetAnotherForum.NET v2.3.1.03
+* [NEW #549] Admin option to restore or permanently delete old topics that are deleted
+* Language for guests is now based on current browser Language
+* Bug fixes
+
+
 # YetAnotherForum.NET v2.3.1.02
 * [FIXED #541] Create Poll
 * [FIXED #539] Admin Groups & Ranks Page
 * [FIXED] Topics & Post count in Forum List 
 
-* # YetAnotherForum.NET v2.3.1.01
+
+# YetAnotherForum.NET v2.3.1.01
 * [FIXED] YAF Upgrade Message
 * [FIXED] Hide RSS Feed dropdown if rss & atom feeds are disabled
 

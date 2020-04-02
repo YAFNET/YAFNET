@@ -174,13 +174,11 @@ namespace YAF.Pages
                 BuildLink.AccessDenied();
             }
 
-            var topicFlags  = this.topic.TopicFlags;
-
-            topicFlags.IsLocked = true;
+            this.topic.TopicFlags.IsLocked = true;
 
             this.GetRepository<Topic>().LockTopic(
                 this.PageContext.PageTopicID,
-                topicFlags.BitValue);
+                this.topic.TopicFlags.BitValue);
 
             this.BindData();
             this.PageContext.AddLoadMessage(this.GetText("INFO_TOPIC_LOCKED"), MessageTypes.info);
@@ -676,22 +674,19 @@ namespace YAF.Pages
                 BuildLink.AccessDenied(/*"You are not a forum moderator."*/);
             }
 
-            var topicFlags = this.topic.TopicFlags;
-
-            topicFlags.IsLocked = false;
+            this.topic.TopicFlags.IsLocked = false;
 
             this.GetRepository<Topic>().LockTopic(
                 this.PageContext.PageTopicID,
-                topicFlags.BitValue);
+                this.topic.TopicFlags.BitValue);
 
-            this.BindData();
             this.PageContext.AddLoadMessage(this.GetText("INFO_TOPIC_UNLOCKED"), MessageTypes.info);
-            this.LockTopic1.Visible = !this.LockTopic1.Visible;
-            this.UnlockTopic1.Visible = !this.UnlockTopic1.Visible;
-            this.LockTopic2.Visible = this.LockTopic1.Visible;
-            this.UnlockTopic2.Visible = this.UnlockTopic1.Visible;
-            this.PostReplyLink1.Visible = this.PageContext.ForumReplyAccess;
-            this.PostReplyLink2.Visible = this.PageContext.ForumReplyAccess;
+
+            this.LockTopic1.Visible = true;
+            this.LockTopic2.Visible = true;
+
+            this.UnlockTopic1.Visible = false;
+            this.UnlockTopic2.Visible = false;
         }
 
         /// <summary>
