@@ -58312,7 +58312,7 @@ jQuery(document).ready(function () {
         max: 720
     });
 
-    $(".yaf-net .select2-select").each(function () {
+    $(".yafnet .select2-select").each(function () {
         $(this).select2({
             theme: "bootstrap4",
             dropdownAutoWidth: true,
@@ -58321,7 +58321,7 @@ jQuery(document).ready(function () {
         });
     });
 
-    jQuery(".yaf-net .select2-image-select").select2({
+    jQuery(".yafnet .select2-image-select").select2({
         theme: "bootstrap4",
         dropdownAutoWidth: true,
         templateResult: formatState,
