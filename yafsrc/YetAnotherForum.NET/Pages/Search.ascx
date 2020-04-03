@@ -48,7 +48,7 @@
                     <asp:Label runat="server" AssociatedControlID="listForum">
                         <YAF:LocalizedLabel runat="server" LocalizedTag="SEARCH_IN" />
                     </asp:Label>
-                    <asp:DropDownList ID="listForum" runat="server" CssClass="custom-select searchForum" />
+                    <asp:DropDownList ID="listForum" runat="server" CssClass="select2-image-select searchForum" />
                 </div>
                 <div class="form-group">
                     <asp:Label runat="server" AssociatedControlID="TitleOnly">

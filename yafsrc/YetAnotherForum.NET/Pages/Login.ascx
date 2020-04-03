@@ -72,7 +72,7 @@
                                 <div class="card-footer">
                                     <asp:Button ID="PasswordRecovery" runat="server" 
                                                 CausesValidation="false" 
-                                                CssClass="btn btn-secondary btn-sm"
+                                                CssClass="btn btn-secondary btn-sm mb-1"
                                                 OnClick="PasswordRecovery_Click" />
                                     <asp:PlaceHolder ID="RegisterLinkPlaceHolder" runat="server" Visible="false">
                                         <YAF:ThemeButton ID="RegisterLink" runat="server"
@@ -130,13 +130,14 @@
                                            </asp:PlaceHolder>
                                            <asp:PlaceHolder id="GoogleHolder" runat="server" 
                                                             Visible="false">
-                                              <YAF:ThemeButton id="GoogleLogin" runat="server" 
+                                               <YAF:ThemeButton id="GoogleLogin" runat="server" 
                                                                Type="None"
                                                                Size="Small"
                                                                Icon="google"
                                                                IconCssClass="fab"
                                                                CssClass="btn btn-social btn-google mr-2"
                                                                TextLocalizedTag="GOOGLE_LOGIN" />
+
                                            </asp:PlaceHolder>
                                            <YAF:ThemeButton runat="server" ID="Cancel" 
                                                             Visible="False" 

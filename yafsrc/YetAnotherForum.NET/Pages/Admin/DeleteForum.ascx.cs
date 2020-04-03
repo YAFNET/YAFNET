@@ -27,7 +27,9 @@ namespace YAF.Pages.Admin
     #region Using
 
     using System;
+    using System.Linq;
     using System.Web;
+    using System.Web.UI.WebControls;
 
     using YAF.Core;
     using YAF.Core.Extensions;
@@ -187,6 +189,11 @@ namespace YAF.Pages.Admin
             this.ForumList.DataValueField = "ID";
             this.ForumList.DataTextField = "Name";
             this.ForumList.DataBind();
+
+            this.ForumList.Items.Cast<ListItem>().ForEach(
+                item => item.Attributes.Add(
+                    "data-content",
+                    $"<span class=\"select2-image-select-icon\"><i class=\"fas fa-comments fa-fw text-secondary\"></i><span><span>&nbsp;{item.Text}</span>"));
         }
 
         /// <summary>
@@ -197,6 +204,8 @@ namespace YAF.Pages.Admin
         private void MoveTopicsCheckedChanged(object sender, EventArgs e)
         {
             this.ForumList.Enabled = this.MoveTopics.Checked;
+
+            this.BindParentList();
         }
 
         /// <summary>

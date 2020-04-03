@@ -37,6 +37,7 @@ namespace YAF.Dialogs
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
     using YAF.Utils;
+    using YAF.Web.Extensions;
 
     #endregion
 
@@ -78,9 +79,11 @@ namespace YAF.Dialogs
                 this.LinkDays.Text = "1";
             }
 
-            this.ForumList.DataSource = this.GetRepository<Forum>().ListAllSortedAsDataTable(
+            var forumList = this.GetRepository<Forum>().ListAllSortedAsDataTable(
                 this.PageContext.PageBoardID,
                 this.PageContext.PageUserID);
+
+            this.ForumList.AddForumAndCategoryIcons(forumList);
 
             this.DataBind();
 
