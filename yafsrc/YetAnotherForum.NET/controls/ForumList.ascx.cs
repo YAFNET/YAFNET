@@ -401,7 +401,7 @@ namespace YAF.Controls
             var viewing = row.Field<int>("Viewing");
 
             return viewing > 0
-                       ? $"<i class=\"far fa-eye text-secondary\" title=\"{this.GetTextFormatted("VIEWING", viewing)}\"></i> {viewing}"
+                       ? $"<i class=\"far fa-eye\" title=\"{this.GetTextFormatted("VIEWING", viewing)}\"></i> {viewing}"
                        : string.Empty;
         }
 

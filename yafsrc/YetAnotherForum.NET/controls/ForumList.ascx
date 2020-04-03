@@ -16,7 +16,7 @@
     </SeparatorTemplate>
 	<ItemTemplate>        
         <div class="row">
-            <div class='<%# ((System.Data.DataRow)Container.DataItem)["RemoteURL"].IsNullOrEmptyDBField() ? "col-md-6" : "col" %>'>
+            <div class='<%# ((System.Data.DataRow)Container.DataItem)["RemoteURL"].IsNullOrEmptyDBField() ? "col-md-8" : "col" %>'>
                 <h5>
                     <asp:PlaceHolder runat="server" ID="ForumIcon"></asp:PlaceHolder>
                     <asp:Image id="ForumImage1" Visible="false" runat="server" />
@@ -27,29 +27,41 @@
                                Visible='<%# ((System.Data.DataRow)Container.DataItem)["Viewing"].ToType<int>() > 0 %>'>
                         <%# this.GetViewing((System.Data.DataRow)Container.DataItem) %>
                     </asp:Label>
+                    <asp:PlaceHolder runat="server" Visible='<%# ((System.Data.DataRow)Container.DataItem)["RemoteURL"].IsNullOrEmptyDBField() %>'>
+                        <asp:Label runat="server" 
+                                   CssClass="badge badge-light mr-1"
+                                   ToolTip='<%# this.GetText("TOPICS") %>'
+                                   data-toggle="tooltip">
+                            <YAF:Icon runat="server" 
+                                      IconName="comments" 
+                                      IconStyle="far"></YAF:Icon>
+                            <%# this.Topics((System.Data.DataRow)Container.DataItem) %>
+                        </asp:Label>
+                        <asp:Label runat="server"
+                                   CssClass="badge badge-light" 
+                                   ToolTip='<%# this.GetText("Posts") %>'
+                                   data-toggle="tooltip">
+                            <YAF:Icon runat="server" 
+                                      IconName="comment"
+                                      IconStyle="far"></YAF:Icon>
+                            <%# this.Posts((System.Data.DataRow)Container.DataItem) %>
+                        </asp:Label>
+                    </asp:PlaceHolder>
                     <YAF:ForumModeratorList ID="ForumModeratorListMob" Visible="false" runat="server"  />
                 </h5>
+                <%# ((System.Data.DataRow)Container.DataItem)["Description"]  %>
                 <YAF:ForumSubForumList ID="SubForumList" runat="server"
                                        DataSource="<%# this.GetSubForums((System.Data.DataRow)Container.DataItem ) %>"
                                        Visible="<%# this.HasSubForums((System.Data.DataRow)Container.DataItem) %>" />
             </div>
             <asp:PlaceHolder runat="server" Visible='<%# ((System.Data.DataRow)Container.DataItem)["RemoteURL"].IsNullOrEmptyDBField() %>'>
-                <div class="col-md-2 text-secondary">
-                    <div class="d-flex flex-row flex-md-column justify-content-between justify-content-md-start">
-                        <div>
-                            <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server"
-                                                LocalizedTag="TOPICS" />:
-                            <%# this.Topics((System.Data.DataRow)Container.DataItem) %>
-                        </div>
-                        <div>
-                            <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server"
-                                                LocalizedTag="POSTS" />:
-                            <%# this.Posts((System.Data.DataRow)Container.DataItem) %>
-                        </div>
+                <div class="col-md-4 text-secondary">
+                <div class="card bg-light card-post-last">
+                    <div class="card-body py-2 pl-2">
+                        <YAF:ForumLastPost ID="lastPost" runat="server" 
+                                           DataRow="<%# (System.Data.DataRow)Container.DataItem %>"/>
                     </div>
                 </div>
-                <div class="col-md-4 text-secondary">
-                    <YAF:ForumLastPost ID="lastPost" runat="server" DataRow="<%# (System.Data.DataRow)Container.DataItem %>"/>
                 </div>
             </asp:PlaceHolder>
         </div>

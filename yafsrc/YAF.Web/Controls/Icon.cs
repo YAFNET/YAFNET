@@ -48,6 +48,12 @@ namespace YAF.Web.Controls
         public string IconName { get; set; }
 
         /// <summary>
+        /// Gets or sets the icon style.
+        /// </summary>
+        [DefaultValue("fas")]
+        public string IconStyle { get; set; }
+
+        /// <summary>
         /// Gets or sets the icon type.
         /// </summary>
         public string IconType { get; set; }
@@ -99,29 +105,36 @@ namespace YAF.Web.Controls
                                                     $"fa-fw {this.IconType} mr-1" :
                             this.IconNameBadge.IsSet() ? "fa-stack-1x" : "fa-fw mr-1";
 
+            if (this.IconStyle.IsNotSet())
+            {
+                this.IconStyle = "fas";
+            }
+
             writer.WriteAttribute(
                 HtmlTextWriterAttribute.Class.ToString(),
-                $"fa fa-{this.IconName} {className}");
+                $"{this.IconStyle} fa-{this.IconName} {className}");
 
             writer.Write(HtmlTextWriter.TagRightChar);
 
             writer.WriteEndTag(HtmlTextWriterTag.I.ToString());
 
-            if (this.IconNameBadge.IsSet())
+            if (!this.IconNameBadge.IsSet())
             {
-                writer.Write(@"<i class=""fa fa-circle fa-badge-bg fa-inverse fa-outline-inverse""></i>");
-                writer.WriteBeginTag(HtmlTextWriterTag.I.ToString());
-
-                writer.WriteAttribute(
-                    HtmlTextWriterAttribute.Class.ToString(),
-                    $"fa fa-{this.IconNameBadge} fa-badge {this.IconBadgeType}");
-
-                writer.Write(HtmlTextWriter.TagRightChar);
-                writer.WriteEndTag(HtmlTextWriterTag.I.ToString());
-
-                // Render Stack Icons
-                writer.WriteEndTag(HtmlTextWriterTag.Span.ToString());
+                return;
             }
+
+            writer.Write(@"<i class=""fa fa-circle fa-badge-bg fa-inverse fa-outline-inverse""></i>");
+            writer.WriteBeginTag(HtmlTextWriterTag.I.ToString());
+
+            writer.WriteAttribute(
+                HtmlTextWriterAttribute.Class.ToString(),
+                $"fa fa-{this.IconNameBadge} fa-badge {this.IconBadgeType}");
+
+            writer.Write(HtmlTextWriter.TagRightChar);
+            writer.WriteEndTag(HtmlTextWriterTag.I.ToString());
+
+            // Render Stack Icons
+            writer.WriteEndTag(HtmlTextWriterTag.Span.ToString());
         }
     }
 }

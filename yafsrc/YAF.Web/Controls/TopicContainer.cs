@@ -126,19 +126,18 @@ namespace YAF.Web.Controls
             var lastRead = this.Get<IReadTrackCurrentUser>().GetForumTopicRead(
                 this.TopicRow["ForumID"].ToType<int>(),
                 this.TopicRow["TopicID"].ToType<int>(),
-                this.TopicRow["LastForumAccess"].ToType<DateTime?>()
-                ?? DateTimeHelper.SqlDbMinTime(),
-                this.TopicRow["LastTopicAccess"].ToType<DateTime?>()
-                ?? DateTimeHelper.SqlDbMinTime());
+                this.TopicRow["LastForumAccess"].ToType<DateTime?>() ?? DateTimeHelper.SqlDbMinTime(),
+                this.TopicRow["LastTopicAccess"].ToType<DateTime?>() ?? DateTimeHelper.SqlDbMinTime());
 
             if (!this.AllowSelection)
             {
                 writer.Write("<div class=\"row\">");
-                writer.Write("<div class=\"col-md-6\">");
+                writer.Write("<div class=\"col-md-8\">");
                 writer.Write("<h5>");
             }
 
-            writer.Write($@"<a tabindex=""0"" class=""topic-icon-legend-popvover"" role=""button"" data-toggle=""popover"" href=""#!"">
+            writer.Write(
+                $@"<a tabindex=""0"" class=""topic-icon-legend-popvover"" role=""button"" data-toggle=""popover"" href=""#!"">
                                 <span class=""fa-stack fa-1x\"">{this.GetTopicImage(this.TopicRow, lastRead)}</span></a>");
 
             var priorityMessage = this.GetPriorityMessage(this.TopicRow);
@@ -149,14 +148,14 @@ namespace YAF.Web.Controls
             }
 
             var topicLink = new HyperLink
-                                {
-                                    NavigateUrl = BuildLink.GetLinkNotEscaped(
+            {
+                NavigateUrl = BuildLink.GetLinkNotEscaped(
                                         ForumPages.Posts,
                                         "t={0}",
                                         this.TopicRow["LinkTopicID"]),
-                                    Text = this.FormatTopicName(),
-                                    CssClass = "topic-starter-popover"
-                                };
+                Text = this.FormatTopicName(),
+                CssClass = "topic-starter-popover"
+            };
 
             topicLink.Attributes.Add("data-toggle", "popover");
 
@@ -171,14 +170,14 @@ namespace YAF.Web.Controls
                                                    topicStartedDateTime);
 
             var topicStarterLink = new UserLink
-                                       {
-                                           UserID = this.TopicRow["UserID"].ToType<int>(),
-                                           ReplaceName = this
+            {
+                UserID = this.TopicRow["UserID"].ToType<int>(),
+                ReplaceName = this
                                                .TopicRow[this.Get<BoardSettings>().EnableDisplayName
                                                              ? "StarterDisplay"
                                                              : "Starter"].ToString(),
-                                           Style = this.TopicRow["StarterStyle"].ToString()
-                                       };
+                Style = this.TopicRow["StarterStyle"].ToString()
+            };
 
             var span = this.Get<BoardSettings>().ShowRelativeTime ? @"<span class=""popover-timeago"">" : "<span>";
 
@@ -207,10 +206,39 @@ namespace YAF.Web.Controls
             if (favoriteCount > 0)
             {
                 writer.Write(
-                    "&nbsp;<span class=\"badge badge-info\" title=\"{0}\" data-toggle=\"tooltip\"><i class=\"fas fa-star\"></i> +{1}</span>",
+                    "<span class=\"badge badge-info ml-1\" title=\"{0}\" data-toggle=\"tooltip\"><i class=\"fas fa-star\"></i> +{1}</span>",
                     this.GetText("FAVORITE_COUNT_TT"),
                     favoriteCount);
             }
+
+            // Render Replies & Views
+            writer.Write(
+                "<span class=\"badge badge-light ml-1 mr-1\" title=\"{0}\" data-toggle=\"tooltip\"><i class=\"far fa-comment pr-1\"></i>{1}</span>",
+                this.GetText("MODERATE", "REPLIES"),
+                this.FormatReplies());
+
+            writer.Write(
+                "<span class=\"badge badge-light\" title=\"{0}\" data-toggle=\"tooltip\"><i class=\"far fa-eye pr-1\"></i>{1}</span>",
+                this.GetText("MODERATE", "VIEWS"),
+                this.FormatViews());
+
+            /*dsdsad
+
+            writer.Write("<div class=\"col-md-2 text-secondary\">");
+            writer.Write(
+                "<div class=\"d-flex flex-row flex-md-column justify-content-between justify-content-md-start\">");
+            writer.Write("<div>");
+            writer.Write("{0}: ", this.GetText("MODERATE", "REPLIES"));
+            writer.Write(this.FormatReplies());
+            writer.Write(" </div>");
+            writer.Write("<div>");
+            writer.Write("{0}: ", this.GetText("MODERATE", "VIEWS"));
+            writer.Write(this.FormatViews());
+            writer.Write("   </div>");
+            writer.Write("  </div>");
+            writer.Write(" </div>");
+            */
+            //////
 
             // Render Pager
             var actualPostCount = this.TopicRow["Replies"].ToType<int>() + 1;
@@ -228,24 +256,14 @@ namespace YAF.Web.Controls
 
             if (pager.IsSet())
             {
-                writer.Write("&nbsp;<div class=\"btn-group btn-group-sm mb-1\" role=\"group\" aria-label\"topic pager\">{0}</div>", pager);
+                writer.Write(
+                    "&nbsp;<div class=\"btn-group btn-group-sm mb-1\" role=\"group\" aria-label\"topic pager\">{0}</div>",
+                    pager);
             }
 
             writer.Write(" </h5>");
 
             writer.Write("</div>");
-            writer.Write("<div class=\"col-md-2 text-secondary\">");
-            writer.Write("<div class=\"d-flex flex-row flex-md-column justify-content-between justify-content-md-start\">");
-            writer.Write("<div>");
-            writer.Write("{0}: ", this.GetText("MODERATE", "REPLIES"));
-            writer.Write(this.FormatReplies());
-            writer.Write(" </div>");
-            writer.Write("<div>");
-            writer.Write("{0}: ", this.GetText("MODERATE", "VIEWS"));
-            writer.Write(this.FormatViews());
-            writer.Write("   </div>");
-            writer.Write("  </div>");
-            writer.Write(" </div>");
 
             if (!this.TopicRow["LastMessageID"].IsNullOrEmptyDBField())
             {
@@ -254,16 +272,16 @@ namespace YAF.Web.Controls
                 writer.Write($"{this.GetText("LASTPOST")}:");
 
                 var infoLastPost = new ThemeButton
-                                       {
-                                           Size = ButtonSize.Small,
-                                           Icon = "info-circle",
-                                           IconCssClass = "fas fa-lg",
-                                           IconColor = "text-secondary",
-                                           Type = ButtonAction.Link,
-                                           DataToggle = "popover",
-                                           CssClass = "topic-link-popover",
-                                           NavigateUrl = "#!"
-                                       };
+                {
+                    Size = ButtonSize.Small,
+                    Icon = "info-circle",
+                    IconCssClass = "fas fa-lg",
+                    IconColor = "text-secondary",
+                    Type = ButtonAction.Link,
+                    DataToggle = "popover",
+                    CssClass = "topic-link-popover",
+                    NavigateUrl = "#!"
+                };
 
                 var lastPostedDateTime = this.TopicRow["LastPosted"].ToType<DateTime>();
 
@@ -276,14 +294,14 @@ namespace YAF.Web.Controls
                                                 lastPostedDateTime);
 
                 var userLast = new UserLink
-                                   {
-                                       UserID = this.TopicRow["LastUserID"].ToType<int>(),
-                                       ReplaceName = this
+                {
+                    UserID = this.TopicRow["LastUserID"].ToType<int>(),
+                    ReplaceName = this
                                            .TopicRow[this.Get<BoardSettings>().EnableDisplayName
                                                          ? "LastUserDisplayName"
                                                          : "LastUserName"].ToString(),
-                                       Style = this.TopicRow["LastUserStyle"].ToString()
-                                   };
+                    Style = this.TopicRow["LastUserStyle"].ToString()
+                };
 
                 infoLastPost.DataContent = $@"
                           {userLast.RenderToString()}
@@ -297,45 +315,44 @@ namespace YAF.Web.Controls
                 infoLastPost.TextLocalizedTag = "by";
                 infoLastPost.TextLocalizedPage = "DEFAULT";
                 infoLastPost.ParamText0 = this
-                    .TopicRow[this.Get<BoardSettings>().EnableDisplayName
-                                  ? "LastUserDisplayName"
-                                  : "LastUserName"].ToString();
+                    .TopicRow[this.Get<BoardSettings>().EnableDisplayName ? "LastUserDisplayName" : "LastUserName"]
+                    .ToString();
 
                 writer.Write(infoLastPost.RenderToString());
 
                 var gotoLastPost = new ThemeButton
-                                       {
-                                           NavigateUrl =
+                {
+                    NavigateUrl =
                                                BuildLink.GetLink(
                                                    ForumPages.Posts,
                                                    "m={0}#post{0}",
                                                    this.TopicRow["LastMessageID"]),
-                                           Size = ButtonSize.Small,
-                                           Icon = "share-square",
-                                           Type = ButtonAction.OutlineSecondary,
-                                           TitleLocalizedTag = "GO_LAST_POST",
-                                           DataToggle = "tooltip"
-                                       };
+                    Size = ButtonSize.Small,
+                    Icon = "share-square",
+                    Type = ButtonAction.OutlineSecondary,
+                    TitleLocalizedTag = "GO_LAST_POST",
+                    DataToggle = "tooltip"
+                };
 
                 var gotoLastUnread = new ThemeButton
-                                         {
-                                             NavigateUrl =
+                {
+                    NavigateUrl =
                                                  BuildLink.GetLink(
                                                      ForumPages.Posts,
                                                      "t={0}&find=unread",
                                                      this.TopicRow["TopicID"]),
-                                             Size = ButtonSize.Small,
-                                             Icon = "book-reader",
-                                             Type = ButtonAction.OutlineSecondary,
-                                             TitleLocalizedTag = "GO_LASTUNREAD_POST",
-                                             DataToggle = "tooltip"
-                                         };
+                    Size = ButtonSize.Small,
+                    Icon = "book-reader",
+                    Type = ButtonAction.OutlineSecondary,
+                    TitleLocalizedTag = "GO_LASTUNREAD_POST",
+                    DataToggle = "tooltip"
+                };
 
                 writer.Write(@"<div class=""btn-group"" role=""group"">");
                 writer.Write(gotoLastUnread.RenderToString());
                 writer.Write(gotoLastPost.RenderToString());
                 writer.Write("</div>");
-                
+
                 writer.Write("</div>");
             }
 
@@ -501,7 +518,7 @@ namespace YAF.Web.Controls
                 {
                     case 1:
                         strReturn =
-                            $"<span class=\"badge badge-warning\"><i class=\"fa fa-sticky-note fa-fw\"></i> {this.GetText("STICKY")}</span>";
+                            $"<span class=\"badge badge-warning\"><i class=\"fa fa-thumbtack fa-fw\"></i> {this.GetText("STICKY")}</span>";
                         break;
                     case 2:
                         strReturn =
@@ -544,71 +561,30 @@ namespace YAF.Web.Controls
                     "<i class=\"fa fa-comment fa-stack-2x text-secondary\"></i><i class=\"fa fa-arrows-alt fa-stack-1x fa-inverse\"></i>";
             }
 
+            var topic = isHotTopic ? "fire" : "comment";
+
             if (lastPosted > lastRead)
             {
                 this.Get<ISession>().UnreadTopics++;
 
-                if (row["PollID"] != DBNull.Value)
+                if (topicFlags.IsLocked || forumFlags.IsLocked)
                 {
                     return
-                        "<i class=\"fa fa-comment fa-stack-2x text-success\"></i><i class=\"fa fa-poll-h fa-stack-1x fa-inverse\"></i>";
+                        "<i class=\"fa fa-comment fa-stack-2x text-success\"></i><i class=\"fa fa-lock fa-stack-1x fa-inverse\"></i>";
                 }
 
-                switch (row["Priority"].ToString())
-                {
-                    case "1":
-                        return
-                            "<i class=\"fa fa-comment fa-stack-2x text-success\"></i><i class=\"fa fa-sticky-note fa-stack-1x fa-inverse\"></i>";
-                    case "2":
-                        return
-                            "<i class=\"fa fa-comment fa-stack-2x text-success\"></i><i class=\"fa fa-bullhorn fa-stack-1x fa-inverse\"></i>";
-                    default:
-                        if (topicFlags.IsLocked || forumFlags.IsLocked)
-                        {
-                            return
-                                "<i class=\"fa fa-comment fa-stack-2x text-success\"></i><i class=\"fa fa-lock fa-stack-1x fa-inverse\"></i>";
-                        }
-
-                        if (isHotTopic)
-                        {
-                            return
-                                "<i class=\"fa fa-comment fa-stack-2x text-success\"></i><i class=\"fa fa-fire fa-stack-1x fa-inverse\"></i>";
-                        }
-
-                        return
-                            "<i class=\"fa fa-comment fa-stack-2x text-success\"></i><i class=\"fa fa-comment fa-stack-1x fa-inverse\"></i>";
-                }
+                return
+                    $"<i class=\"fa fa-comment fa-stack-2x text-success\"></i><i class=\"fa fa-{topic} fa-stack-1x fa-inverse\"></i>";
             }
 
-            if (row["PollID"] != DBNull.Value)
+            if (topicFlags.IsLocked || forumFlags.IsLocked)
             {
-                return "<i class=\"fa fa-comment fa-stack-2x text-secondary\"></i><i class=\"fa fa-poll fa-stack-1x fa-inverse\"></i>";
+                return
+                    "<i class=\"fa fa-comment fa-stack-2x text-secondary\"></i><i class=\"fa fa-lock fa-stack-1x fa-inverse\"></i>";
             }
 
-            switch (row["Priority"].ToString())
-            {
-                case "1":
-                    return
-                        "<i class=\"fa fa-comment fa-stack-2x text-secondary\"></i><i class=\"fa fa-sticky-note fa-stack-1x fa-inverse\"></i>";
-                case "2":
-                    return
-                        "<i class=\"fa fa-comment fa-stack-2x text-secondary\"></i><i class=\"fa fa-bullhorn fa-stack-1x fa-inverse\"></i>";
-                default:
-                    if (topicFlags.IsLocked || forumFlags.IsLocked)
-                    {
-                        return
-                            "<i class=\"fa fa-comment fa-stack-2x text-secondary\"></i><i class=\"fa fa-lock fa-stack-1x fa-inverse\"></i>";
-                    }
-
-                    if (isHotTopic)
-                    {
-                        return
-                            "<i class=\"fa fa-comment fa-stack-2x text-secondary\"></i><i class=\"fa fa-fire fa-stack-1x fa-inverse\"></i>";
-                    }
-
-                    return
-                        "<i class=\"fa fa-comment fa-stack-2x text-secondary\"></i><i class=\"fa fa-comment fa-stack-1x fa-inverse\"></i>";
-            }
+            return
+                $"<i class=\"fa fa-comment fa-stack-2x text-secondary\"></i><i class=\"fa fa-{topic} fa-stack-1x fa-inverse\"></i>";
         }
 
         /// <summary>
