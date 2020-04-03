@@ -22,8 +22,8 @@ namespace YAF.Lucene.Net.Util.Fst
      * limitations under the License.
      */
 
-    using PackedInt32s = Lucene.Net.Util.Packed.PackedInt32s;
-    using PagedGrowableWriter = Lucene.Net.Util.Packed.PagedGrowableWriter;
+    using PackedInt32s = YAF.Lucene.Net.Util.Packed.PackedInt32s;
+    using PagedGrowableWriter = YAF.Lucene.Net.Util.Packed.PagedGrowableWriter;
 
     /// <summary>
     /// Used to dedup states (lookup already-frozen states)

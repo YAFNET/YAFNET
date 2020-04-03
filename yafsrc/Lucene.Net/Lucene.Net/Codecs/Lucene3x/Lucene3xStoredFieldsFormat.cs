@@ -1,5 +1,5 @@
 using System;
-using Directory = Lucene.Net.Store.Directory;
+using Directory = YAF.Lucene.Net.Store.Directory;
 
 namespace YAF.Lucene.Net.Codecs.Lucene3x
 {
@@ -20,9 +20,9 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
      * limitations under the License.
      */
 
-    using FieldInfos = Lucene.Net.Index.FieldInfos;
-    using IOContext = Lucene.Net.Store.IOContext;
-    using SegmentInfo = Lucene.Net.Index.SegmentInfo;
+    using FieldInfos = YAF.Lucene.Net.Index.FieldInfos;
+    using IOContext = YAF.Lucene.Net.Store.IOContext;
+    using SegmentInfo = YAF.Lucene.Net.Index.SegmentInfo;
 
     [Obsolete("Only for reading existing 3.x indexes")]
     internal class Lucene3xStoredFieldsFormat : StoredFieldsFormat

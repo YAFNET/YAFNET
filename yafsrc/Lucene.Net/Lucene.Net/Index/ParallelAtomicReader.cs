@@ -25,7 +25,7 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using IBits = Lucene.Net.Util.IBits;
+    using IBits = YAF.Lucene.Net.Util.IBits;
 
     /// <summary>
     /// An <see cref="AtomicReader"/> which reads multiple, parallel indexes.  Each index

@@ -22,11 +22,11 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using BinaryDocValuesUpdate = Lucene.Net.Index.DocValuesUpdate.BinaryDocValuesUpdate;
-    using BytesRef = Lucene.Net.Util.BytesRef;
-    using NumericDocValuesUpdate = Lucene.Net.Index.DocValuesUpdate.NumericDocValuesUpdate;
-    using Query = Lucene.Net.Search.Query;
-    using QueryAndLimit = Lucene.Net.Index.BufferedUpdatesStream.QueryAndLimit;
+    using BinaryDocValuesUpdate = YAF.Lucene.Net.Index.DocValuesUpdate.BinaryDocValuesUpdate;
+    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
+    using NumericDocValuesUpdate = YAF.Lucene.Net.Index.DocValuesUpdate.NumericDocValuesUpdate;
+    using Query = YAF.Lucene.Net.Search.Query;
+    using QueryAndLimit = YAF.Lucene.Net.Index.BufferedUpdatesStream.QueryAndLimit;
 
     internal class CoalescedUpdates
     {

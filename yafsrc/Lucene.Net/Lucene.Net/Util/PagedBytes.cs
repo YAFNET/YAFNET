@@ -21,9 +21,9 @@ namespace YAF.Lucene.Net.Util
      * limitations under the License.
      */
 
-    using DataInput = Lucene.Net.Store.DataInput;
-    using DataOutput = Lucene.Net.Store.DataOutput;
-    using IndexInput = Lucene.Net.Store.IndexInput;
+    using DataInput = YAF.Lucene.Net.Store.DataInput;
+    using DataOutput = YAF.Lucene.Net.Store.DataOutput;
+    using IndexInput = YAF.Lucene.Net.Store.IndexInput;
 
     /// <summary>
     /// Represents a logical <see cref="T:byte[]"/> as a series of pages.  You

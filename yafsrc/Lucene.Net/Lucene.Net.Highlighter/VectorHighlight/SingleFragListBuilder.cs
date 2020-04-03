@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using WeightedPhraseInfo = Lucene.Net.Search.VectorHighlight.FieldPhraseList.WeightedPhraseInfo;
+using WeightedPhraseInfo = YAF.Lucene.Net.Search.VectorHighlight.FieldPhraseList.WeightedPhraseInfo;
 
 namespace YAF.Lucene.Net.Search.VectorHighlight
 {

@@ -20,7 +20,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
      * limitations under the License.
      */
 
-    using SegmentInfo = Lucene.Net.Index.SegmentInfo;
+    using SegmentInfo = YAF.Lucene.Net.Index.SegmentInfo;
 
     /// <summary>
     /// Lucene3x ReadOnly <see cref="SegmentInfoFormat"/> implementation.

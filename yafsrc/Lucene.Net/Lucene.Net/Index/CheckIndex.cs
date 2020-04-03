@@ -9,7 +9,7 @@ using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Threading;
-using Console = Lucene.Net.Util.SystemConsole;
+using Console = YAF.Lucene.Net.Util.SystemConsole;
 
 namespace YAF.Lucene.Net.Index
 {
@@ -30,21 +30,21 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using IBits = Lucene.Net.Util.IBits;
-    using BlockTreeTermsReader = Lucene.Net.Codecs.BlockTreeTermsReader;
-    using BytesRef = Lucene.Net.Util.BytesRef;
-    using Codec = Lucene.Net.Codecs.Codec;
-    using Directory = Lucene.Net.Store.Directory;
-    using DocIdSetIterator = Lucene.Net.Search.DocIdSetIterator;
+    using IBits = YAF.Lucene.Net.Util.IBits;
+    using BlockTreeTermsReader = YAF.Lucene.Net.Codecs.BlockTreeTermsReader;
+    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
+    using Codec = YAF.Lucene.Net.Codecs.Codec;
+    using Directory = YAF.Lucene.Net.Store.Directory;
+    using DocIdSetIterator = YAF.Lucene.Net.Search.DocIdSetIterator;
     using Document = Documents.Document;
-    using DocValuesStatus = Lucene.Net.Index.CheckIndex.Status.DocValuesStatus;
-    using FixedBitSet = Lucene.Net.Util.FixedBitSet;
-    using IndexInput = Lucene.Net.Store.IndexInput;
-    using IOContext = Lucene.Net.Store.IOContext;
-    using Int64BitSet = Lucene.Net.Util.Int64BitSet;
-    using Lucene3xSegmentInfoFormat = Lucene.Net.Codecs.Lucene3x.Lucene3xSegmentInfoFormat;
-    using PostingsFormat = Lucene.Net.Codecs.PostingsFormat;
-    using StringHelper = Lucene.Net.Util.StringHelper;
+    using DocValuesStatus = YAF.Lucene.Net.Index.CheckIndex.Status.DocValuesStatus;
+    using FixedBitSet = YAF.Lucene.Net.Util.FixedBitSet;
+    using IndexInput = YAF.Lucene.Net.Store.IndexInput;
+    using IOContext = YAF.Lucene.Net.Store.IOContext;
+    using Int64BitSet = YAF.Lucene.Net.Util.Int64BitSet;
+    using Lucene3xSegmentInfoFormat = YAF.Lucene.Net.Codecs.Lucene3x.Lucene3xSegmentInfoFormat;
+    using PostingsFormat = YAF.Lucene.Net.Codecs.PostingsFormat;
+    using StringHelper = YAF.Lucene.Net.Util.StringHelper;
 
     /// <summary>
     /// Basic tool and API to check the health of an index and

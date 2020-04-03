@@ -1,8 +1,8 @@
 ﻿using YAF.Lucene.Net.Support;
 using System.Collections.Generic;
 using System.Text;
-using Toffs = Lucene.Net.Search.VectorHighlight.FieldPhraseList.WeightedPhraseInfo.Toffs;
-using WeightedPhraseInfo = Lucene.Net.Search.VectorHighlight.FieldPhraseList.WeightedPhraseInfo;
+using Toffs = YAF.Lucene.Net.Search.VectorHighlight.FieldPhraseList.WeightedPhraseInfo.Toffs;
+using WeightedPhraseInfo = YAF.Lucene.Net.Search.VectorHighlight.FieldPhraseList.WeightedPhraseInfo;
 
 namespace YAF.Lucene.Net.Search.VectorHighlight
 {

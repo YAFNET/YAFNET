@@ -26,18 +26,18 @@ namespace YAF.Lucene.Net.Search
      * limitations under the License.
      */
 
-    using AtomicReaderContext = Lucene.Net.Index.AtomicReaderContext;
-    using DefaultSimilarity = Lucene.Net.Search.Similarities.DefaultSimilarity;
+    using AtomicReaderContext = YAF.Lucene.Net.Index.AtomicReaderContext;
+    using DefaultSimilarity = YAF.Lucene.Net.Search.Similarities.DefaultSimilarity;
     using Document = Documents.Document;
-    using IndexReader = Lucene.Net.Index.IndexReader;
-    using IndexReaderContext = Lucene.Net.Index.IndexReaderContext;
-    using MultiFields = Lucene.Net.Index.MultiFields;
-    using ReaderUtil = Lucene.Net.Index.ReaderUtil;
-    using Similarity = Lucene.Net.Search.Similarities.Similarity;
-    using StoredFieldVisitor = Lucene.Net.Index.StoredFieldVisitor;
-    using Term = Lucene.Net.Index.Term;
-    using TermContext = Lucene.Net.Index.TermContext;
-    using Terms = Lucene.Net.Index.Terms;
+    using IndexReader = YAF.Lucene.Net.Index.IndexReader;
+    using IndexReaderContext = YAF.Lucene.Net.Index.IndexReaderContext;
+    using MultiFields = YAF.Lucene.Net.Index.MultiFields;
+    using ReaderUtil = YAF.Lucene.Net.Index.ReaderUtil;
+    using Similarity = YAF.Lucene.Net.Search.Similarities.Similarity;
+    using StoredFieldVisitor = YAF.Lucene.Net.Index.StoredFieldVisitor;
+    using Term = YAF.Lucene.Net.Index.Term;
+    using TermContext = YAF.Lucene.Net.Index.TermContext;
+    using Terms = YAF.Lucene.Net.Index.Terms;
 
     /// <summary>
     /// Implements search over a single <see cref="Index.IndexReader"/>.

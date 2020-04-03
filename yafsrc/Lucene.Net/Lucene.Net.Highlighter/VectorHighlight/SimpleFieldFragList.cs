@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
-using SubInfo = Lucene.Net.Search.VectorHighlight.FieldFragList.WeightedFragInfo.SubInfo;
-using WeightedPhraseInfo = Lucene.Net.Search.VectorHighlight.FieldPhraseList.WeightedPhraseInfo;
+using SubInfo = YAF.Lucene.Net.Search.VectorHighlight.FieldFragList.WeightedFragInfo.SubInfo;
+using WeightedPhraseInfo = YAF.Lucene.Net.Search.VectorHighlight.FieldPhraseList.WeightedPhraseInfo;
 
 namespace YAF.Lucene.Net.Search.VectorHighlight
 {

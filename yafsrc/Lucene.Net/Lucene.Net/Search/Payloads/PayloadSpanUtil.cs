@@ -20,15 +20,15 @@ namespace YAF.Lucene.Net.Search.Payloads
      * limitations under the License.
      */
 
-    using AtomicReaderContext = Lucene.Net.Index.AtomicReaderContext;
-    using IndexReaderContext = Lucene.Net.Index.IndexReaderContext;
-    using SpanNearQuery = Lucene.Net.Search.Spans.SpanNearQuery;
-    using SpanOrQuery = Lucene.Net.Search.Spans.SpanOrQuery;
-    using SpanQuery = Lucene.Net.Search.Spans.SpanQuery;
-    using Spans = Lucene.Net.Search.Spans.Spans;
-    using SpanTermQuery = Lucene.Net.Search.Spans.SpanTermQuery;
-    using Term = Lucene.Net.Index.Term;
-    using TermContext = Lucene.Net.Index.TermContext;
+    using AtomicReaderContext = YAF.Lucene.Net.Index.AtomicReaderContext;
+    using IndexReaderContext = YAF.Lucene.Net.Index.IndexReaderContext;
+    using SpanNearQuery = YAF.Lucene.Net.Search.Spans.SpanNearQuery;
+    using SpanOrQuery = YAF.Lucene.Net.Search.Spans.SpanOrQuery;
+    using SpanQuery = YAF.Lucene.Net.Search.Spans.SpanQuery;
+    using Spans = YAF.Lucene.Net.Search.Spans.Spans;
+    using SpanTermQuery = YAF.Lucene.Net.Search.Spans.SpanTermQuery;
+    using Term = YAF.Lucene.Net.Index.Term;
+    using TermContext = YAF.Lucene.Net.Index.TermContext;
 
     /// <summary>
     /// Experimental class to get set of payloads for most standard Lucene queries.

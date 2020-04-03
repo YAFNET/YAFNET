@@ -23,9 +23,9 @@ namespace YAF.Lucene.Net.Search
      * limitations under the License.
      */
 
-    using FixedBitSet = Lucene.Net.Util.FixedBitSet;
-    using Similarity = Lucene.Net.Search.Similarities.Similarity;
-    using Term = Lucene.Net.Index.Term;
+    using FixedBitSet = YAF.Lucene.Net.Util.FixedBitSet;
+    using Similarity = YAF.Lucene.Net.Search.Similarities.Similarity;
+    using Term = YAF.Lucene.Net.Index.Term;
 
     internal sealed class SloppyPhraseScorer : Scorer
     {

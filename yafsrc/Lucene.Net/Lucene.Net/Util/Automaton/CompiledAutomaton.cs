@@ -24,10 +24,10 @@ namespace YAF.Lucene.Net.Util.Automaton
      * limitations under the License.
      */
 
-    using PrefixTermsEnum = Lucene.Net.Search.PrefixTermsEnum;
-    using SingleTermsEnum = Lucene.Net.Index.SingleTermsEnum;
-    using Terms = Lucene.Net.Index.Terms;
-    using TermsEnum = Lucene.Net.Index.TermsEnum;
+    using PrefixTermsEnum = YAF.Lucene.Net.Search.PrefixTermsEnum;
+    using SingleTermsEnum = YAF.Lucene.Net.Index.SingleTermsEnum;
+    using Terms = YAF.Lucene.Net.Index.Terms;
+    using TermsEnum = YAF.Lucene.Net.Index.TermsEnum;
 
     /// <summary>
     /// Immutable class holding compiled details for a given

@@ -20,8 +20,8 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using IOUtils = Lucene.Net.Util.IOUtils;
-    using TokenStream = Lucene.Net.Analysis.TokenStream;
+    using IOUtils = YAF.Lucene.Net.Util.IOUtils;
+    using TokenStream = YAF.Lucene.Net.Analysis.TokenStream;
 
     /// <summary>
     /// Holds state for inverting all occurrences of a single

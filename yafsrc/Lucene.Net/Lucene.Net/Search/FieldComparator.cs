@@ -21,11 +21,11 @@ namespace YAF.Lucene.Net.Search
      * limitations under the License.
      */
 
-    using AtomicReaderContext = Lucene.Net.Index.AtomicReaderContext;
-    using BinaryDocValues = Lucene.Net.Index.BinaryDocValues;
-    using BytesRef = Lucene.Net.Util.BytesRef;
-    using IBits = Lucene.Net.Util.IBits;
-    using SortedDocValues = Lucene.Net.Index.SortedDocValues;
+    using AtomicReaderContext = YAF.Lucene.Net.Index.AtomicReaderContext;
+    using BinaryDocValues = YAF.Lucene.Net.Index.BinaryDocValues;
+    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
+    using IBits = YAF.Lucene.Net.Util.IBits;
+    using SortedDocValues = YAF.Lucene.Net.Index.SortedDocValues;
 
     /// <summary>
     /// Expert: a <see cref="FieldComparer"/> compares hits so as to determine their

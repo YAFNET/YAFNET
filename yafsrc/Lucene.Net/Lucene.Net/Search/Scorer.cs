@@ -19,7 +19,7 @@ namespace YAF.Lucene.Net.Search
      * limitations under the License.
      */
 
-    using DocsEnum = Lucene.Net.Index.DocsEnum;
+    using DocsEnum = YAF.Lucene.Net.Index.DocsEnum;
 
     /// <summary>
     /// Expert: Common scoring functionality for different types of queries.

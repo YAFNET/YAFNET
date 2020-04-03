@@ -27,24 +27,24 @@ namespace YAF.Lucene.Net.Search
      * limitations under the License.
      */
 
-    using Attribute = Lucene.Net.Util.Attribute;
-    using AttributeSource = Lucene.Net.Util.AttributeSource;
-    using Automaton = Lucene.Net.Util.Automaton.Automaton;
-    using BasicAutomata = Lucene.Net.Util.Automaton.BasicAutomata;
-    using BasicOperations = Lucene.Net.Util.Automaton.BasicOperations;
-    using IBits = Lucene.Net.Util.IBits;
-    using ByteRunAutomaton = Lucene.Net.Util.Automaton.ByteRunAutomaton;
-    using BytesRef = Lucene.Net.Util.BytesRef;
-    using CompiledAutomaton = Lucene.Net.Util.Automaton.CompiledAutomaton;
-    using DocsAndPositionsEnum = Lucene.Net.Index.DocsAndPositionsEnum;
-    using DocsEnum = Lucene.Net.Index.DocsEnum;
-    using FilteredTermsEnum = Lucene.Net.Index.FilteredTermsEnum;
-    using LevenshteinAutomata = Lucene.Net.Util.Automaton.LevenshteinAutomata;
-    using Term = Lucene.Net.Index.Term;
-    using Terms = Lucene.Net.Index.Terms;
-    using TermsEnum = Lucene.Net.Index.TermsEnum;
-    using TermState = Lucene.Net.Index.TermState;
-    using UnicodeUtil = Lucene.Net.Util.UnicodeUtil;
+    using Attribute = YAF.Lucene.Net.Util.Attribute;
+    using AttributeSource = YAF.Lucene.Net.Util.AttributeSource;
+    using Automaton = YAF.Lucene.Net.Util.Automaton.Automaton;
+    using BasicAutomata = YAF.Lucene.Net.Util.Automaton.BasicAutomata;
+    using BasicOperations = YAF.Lucene.Net.Util.Automaton.BasicOperations;
+    using IBits = YAF.Lucene.Net.Util.IBits;
+    using ByteRunAutomaton = YAF.Lucene.Net.Util.Automaton.ByteRunAutomaton;
+    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
+    using CompiledAutomaton = YAF.Lucene.Net.Util.Automaton.CompiledAutomaton;
+    using DocsAndPositionsEnum = YAF.Lucene.Net.Index.DocsAndPositionsEnum;
+    using DocsEnum = YAF.Lucene.Net.Index.DocsEnum;
+    using FilteredTermsEnum = YAF.Lucene.Net.Index.FilteredTermsEnum;
+    using LevenshteinAutomata = YAF.Lucene.Net.Util.Automaton.LevenshteinAutomata;
+    using Term = YAF.Lucene.Net.Index.Term;
+    using Terms = YAF.Lucene.Net.Index.Terms;
+    using TermsEnum = YAF.Lucene.Net.Index.TermsEnum;
+    using TermState = YAF.Lucene.Net.Index.TermState;
+    using UnicodeUtil = YAF.Lucene.Net.Util.UnicodeUtil;
 
     /// <summary>
     /// Subclass of <see cref="TermsEnum"/> for enumerating all terms that are similar

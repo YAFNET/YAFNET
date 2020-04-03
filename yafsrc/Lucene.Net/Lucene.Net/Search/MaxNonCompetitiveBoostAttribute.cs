@@ -1,5 +1,5 @@
 using YAF.Lucene.Net.Util;
-using BytesRef = Lucene.Net.Util.BytesRef;
+using BytesRef = YAF.Lucene.Net.Util.BytesRef;
 
 namespace YAF.Lucene.Net.Search
 {
