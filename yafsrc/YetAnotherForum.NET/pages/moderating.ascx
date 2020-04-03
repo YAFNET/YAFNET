@@ -105,7 +105,7 @@
                     <asp:DropDownList ID="ForumList" runat="server" 
                                       DataValueField="ForumID" 
                                       DataTextField="Title" 
-                                      CssClass="form-control" />
+                                      CssClass="select2-image-select" />
                 </div>
                 <div class="dropdown-divider"></div>
                 <div id="trLeaveLink" runat="server" 

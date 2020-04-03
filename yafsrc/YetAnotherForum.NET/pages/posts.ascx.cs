@@ -180,12 +180,13 @@ namespace YAF.Pages
                 this.PageContext.PageTopicID,
                 this.topic.TopicFlags.BitValue);
 
-            this.BindData();
-            this.PageContext.AddLoadMessage(this.GetText("INFO_TOPIC_LOCKED"), MessageTypes.info);
-            this.LockTopic1.Visible = !this.LockTopic1.Visible;
-            this.UnlockTopic1.Visible = !this.UnlockTopic1.Visible;
-            this.LockTopic2.Visible = this.LockTopic1.Visible;
-            this.UnlockTopic2.Visible = this.UnlockTopic1.Visible;
+             this.PageContext.AddLoadMessage(this.GetText("INFO_TOPIC_LOCKED"), MessageTypes.info);
+
+            this.LockTopic1.Visible = false;
+            this.LockTopic2.Visible = false;
+
+            this.UnlockTopic1.Visible = true;
+            this.UnlockTopic2.Visible = true;
         }
 
         /// <summary>

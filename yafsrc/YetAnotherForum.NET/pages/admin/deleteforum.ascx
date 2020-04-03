@@ -37,7 +37,7 @@
                                        LocalizedTag="NEW_FORUM" LocalizedPage="ADMIN_DELETEFORUM" />
                         <asp:DropDownList ID="ForumList" runat="server" 
                                           Enabled="false" 
-                                          CssClass="custom-select">
+                                          CssClass="select2-image-select">
                         </asp:DropDownList>
                     </div>
                 </div>

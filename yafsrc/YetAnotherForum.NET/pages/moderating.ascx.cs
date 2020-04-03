@@ -133,9 +133,11 @@ namespace YAF.Pages
                 this.PagerTop.Count = topicList.AsEnumerable().First().Field<int>("TotalRows");
             }
 
-            this.ForumList.DataSource = this.GetRepository<Forum>().ListAllSortedAsDataTable(
+            var forumList = this.GetRepository<Forum>().ListAllSortedAsDataTable(
                 this.PageContext.PageBoardID,
                 this.PageContext.PageUserID);
+
+            this.ForumList.AddForumAndCategoryIcons(forumList);
 
             this.DataBind();
 

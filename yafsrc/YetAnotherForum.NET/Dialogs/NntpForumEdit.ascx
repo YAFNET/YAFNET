@@ -37,7 +37,7 @@
                                            AssociatedControlID="ForumID"
                                            LocalizedTag="FORUM" LocalizedPage="ADMIN_EDITNNTPFORUM" />
                             <asp:DropDownList ID="ForumID" runat="server" 
-                                              CssClass="custom-select" />
+                                              CssClass="select2-image-select" />
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-6">

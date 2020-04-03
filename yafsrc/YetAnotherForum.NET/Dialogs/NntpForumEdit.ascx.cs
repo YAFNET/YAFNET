@@ -38,6 +38,7 @@ namespace YAF.Dialogs
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
     using YAF.Utils;
+    using YAF.Web.Extensions;
 
     #endregion
 
@@ -72,8 +73,12 @@ namespace YAF.Dialogs
             this.NntpServerID.DataTextField = "Name";
             this.NntpServerID.DataBind();
 
-            this.ForumID.DataSource = this.GetRepository<Forum>().ListAllSortedAsDataTable(
-                this.PageContext.PageBoardID, this.PageContext.PageUserID);
+            var forumList = this.GetRepository<Forum>().ListAllSortedAsDataTable(
+                this.PageContext.PageBoardID,
+                this.PageContext.PageUserID);
+
+            this.ForumID.AddForumAndCategoryIcons(forumList);
+
             this.ForumID.DataValueField = "ForumID";
             this.ForumID.DataTextField = "Title";
             this.ForumID.DataBind();
