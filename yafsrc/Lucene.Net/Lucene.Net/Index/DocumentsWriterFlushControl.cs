@@ -25,8 +25,8 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using InfoStream = Lucene.Net.Util.InfoStream;
-    using ThreadState = Lucene.Net.Index.DocumentsWriterPerThreadPool.ThreadState;
+    using InfoStream = YAF.Lucene.Net.Util.InfoStream;
+    using ThreadState = YAF.Lucene.Net.Index.DocumentsWriterPerThreadPool.ThreadState;
 
     /// <summary>
     /// This class controls <see cref="DocumentsWriterPerThread"/> flushing during

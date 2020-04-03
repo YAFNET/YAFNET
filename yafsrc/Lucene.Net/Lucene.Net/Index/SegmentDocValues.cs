@@ -24,11 +24,11 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using Directory = Lucene.Net.Store.Directory;
-    using DocValuesFormat = Lucene.Net.Codecs.DocValuesFormat;
-    using DocValuesProducer = Lucene.Net.Codecs.DocValuesProducer;
-    using IOContext = Lucene.Net.Store.IOContext;
-    using IOUtils = Lucene.Net.Util.IOUtils;
+    using Directory = YAF.Lucene.Net.Store.Directory;
+    using DocValuesFormat = YAF.Lucene.Net.Codecs.DocValuesFormat;
+    using DocValuesProducer = YAF.Lucene.Net.Codecs.DocValuesProducer;
+    using IOContext = YAF.Lucene.Net.Store.IOContext;
+    using IOUtils = YAF.Lucene.Net.Util.IOUtils;
 
     /// <summary>
     /// Manages the <see cref="DocValuesProducer"/> held by <see cref="SegmentReader"/> and

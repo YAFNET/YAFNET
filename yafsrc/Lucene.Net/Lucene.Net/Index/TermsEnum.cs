@@ -21,9 +21,9 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using AttributeSource = Lucene.Net.Util.AttributeSource;
-    using IBits = Lucene.Net.Util.IBits;
-    using BytesRef = Lucene.Net.Util.BytesRef;
+    using AttributeSource = YAF.Lucene.Net.Util.AttributeSource;
+    using IBits = YAF.Lucene.Net.Util.IBits;
+    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
 
     /// <summary>
     /// Iterator to seek (<see cref="SeekCeil(BytesRef)"/>, 

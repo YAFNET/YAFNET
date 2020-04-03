@@ -23,9 +23,9 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using Directory = Lucene.Net.Store.Directory;
-    using IOContext = Lucene.Net.Store.IOContext;
-    using IOUtils = Lucene.Net.Util.IOUtils;
+    using Directory = YAF.Lucene.Net.Store.Directory;
+    using IOContext = YAF.Lucene.Net.Store.IOContext;
+    using IOUtils = YAF.Lucene.Net.Util.IOUtils;
 
     internal sealed class StandardDirectoryReader : DirectoryReader
     {

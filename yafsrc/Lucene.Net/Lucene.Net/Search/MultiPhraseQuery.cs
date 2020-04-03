@@ -25,23 +25,23 @@ namespace YAF.Lucene.Net.Search
      * limitations under the License.
      */
 
-    using ArrayUtil = Lucene.Net.Util.ArrayUtil;
-    using AtomicReader = Lucene.Net.Index.AtomicReader;
-    using AtomicReaderContext = Lucene.Net.Index.AtomicReaderContext;
-    using IBits = Lucene.Net.Util.IBits;
-    using BytesRef = Lucene.Net.Util.BytesRef;
-    using DocsAndPositionsEnum = Lucene.Net.Index.DocsAndPositionsEnum;
-    using DocsEnum = Lucene.Net.Index.DocsEnum;
-    using IndexReader = Lucene.Net.Index.IndexReader;
-    using IndexReaderContext = Lucene.Net.Index.IndexReaderContext;
-    using Similarity = Lucene.Net.Search.Similarities.Similarity;
-    using SimScorer = Lucene.Net.Search.Similarities.Similarity.SimScorer;
-    using Term = Lucene.Net.Index.Term;
-    using TermContext = Lucene.Net.Index.TermContext;
-    using Terms = Lucene.Net.Index.Terms;
-    using TermsEnum = Lucene.Net.Index.TermsEnum;
-    using TermState = Lucene.Net.Index.TermState;
-    using ToStringUtils = Lucene.Net.Util.ToStringUtils;
+    using ArrayUtil = YAF.Lucene.Net.Util.ArrayUtil;
+    using AtomicReader = YAF.Lucene.Net.Index.AtomicReader;
+    using AtomicReaderContext = YAF.Lucene.Net.Index.AtomicReaderContext;
+    using IBits = YAF.Lucene.Net.Util.IBits;
+    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
+    using DocsAndPositionsEnum = YAF.Lucene.Net.Index.DocsAndPositionsEnum;
+    using DocsEnum = YAF.Lucene.Net.Index.DocsEnum;
+    using IndexReader = YAF.Lucene.Net.Index.IndexReader;
+    using IndexReaderContext = YAF.Lucene.Net.Index.IndexReaderContext;
+    using Similarity = YAF.Lucene.Net.Search.Similarities.Similarity;
+    using SimScorer = YAF.Lucene.Net.Search.Similarities.Similarity.SimScorer;
+    using Term = YAF.Lucene.Net.Index.Term;
+    using TermContext = YAF.Lucene.Net.Index.TermContext;
+    using Terms = YAF.Lucene.Net.Index.Terms;
+    using TermsEnum = YAF.Lucene.Net.Index.TermsEnum;
+    using TermState = YAF.Lucene.Net.Index.TermState;
+    using ToStringUtils = YAF.Lucene.Net.Util.ToStringUtils;
     using System.Collections;
     using J2N.Collections.Generic.Extensions;
 

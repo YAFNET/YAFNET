@@ -23,7 +23,7 @@ namespace YAF.Lucene.Net.Search
      * limitations under the License.
      */
 
-    using ArrayUtil = Lucene.Net.Util.ArrayUtil;
+    using ArrayUtil = YAF.Lucene.Net.Util.ArrayUtil;
 
     /// <summary>
     /// A <see cref="Scorer"/> for OR like queries, counterpart of <see cref="ConjunctionScorer"/>.

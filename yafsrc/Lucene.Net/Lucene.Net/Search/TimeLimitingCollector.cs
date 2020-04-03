@@ -25,8 +25,8 @@ namespace YAF.Lucene.Net.Search
      * limitations under the License.
      */
 
-    using AtomicReaderContext = Lucene.Net.Index.AtomicReaderContext;
-    using Counter = Lucene.Net.Util.Counter;
+    using AtomicReaderContext = YAF.Lucene.Net.Index.AtomicReaderContext;
+    using Counter = YAF.Lucene.Net.Util.Counter;
 
     /// <summary>
     /// The <see cref="TimeLimitingCollector"/> is used to timeout search requests that

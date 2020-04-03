@@ -23,11 +23,11 @@ namespace YAF.Lucene.Net.Util
      * limitations under the License.
      */
 
-    using ByteArrayDataInput = Lucene.Net.Store.ByteArrayDataInput;
-    using DocIdSet = Lucene.Net.Search.DocIdSet;
-    using DocIdSetIterator = Lucene.Net.Search.DocIdSetIterator;
-    using MonotonicAppendingInt64Buffer = Lucene.Net.Util.Packed.MonotonicAppendingInt64Buffer;
-    using PackedInt32s = Lucene.Net.Util.Packed.PackedInt32s;
+    using ByteArrayDataInput = YAF.Lucene.Net.Store.ByteArrayDataInput;
+    using DocIdSet = YAF.Lucene.Net.Search.DocIdSet;
+    using DocIdSetIterator = YAF.Lucene.Net.Search.DocIdSetIterator;
+    using MonotonicAppendingInt64Buffer = YAF.Lucene.Net.Util.Packed.MonotonicAppendingInt64Buffer;
+    using PackedInt32s = YAF.Lucene.Net.Util.Packed.PackedInt32s;
 
     /// <summary>
     /// <see cref="DocIdSet"/> implementation based on word-aligned hybrid encoding on

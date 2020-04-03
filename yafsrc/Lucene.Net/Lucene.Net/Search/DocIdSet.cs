@@ -19,7 +19,7 @@ namespace YAF.Lucene.Net.Search
      * limitations under the License.
      */
 
-    using IBits = Lucene.Net.Util.IBits;
+    using IBits = YAF.Lucene.Net.Util.IBits;
 
     /// <summary>
     /// A <see cref="DocIdSet"/> contains a set of doc ids. Implementing classes must

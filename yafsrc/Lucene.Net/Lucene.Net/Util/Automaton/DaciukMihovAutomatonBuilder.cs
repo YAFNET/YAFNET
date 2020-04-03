@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using JCG = J2N.Collections.Generic;
-using Arrays = Lucene.Net.Support.Arrays;
+using Arrays = YAF.Lucene.Net.Support.Arrays;
 
 namespace YAF.Lucene.Net.Util.Automaton
 {

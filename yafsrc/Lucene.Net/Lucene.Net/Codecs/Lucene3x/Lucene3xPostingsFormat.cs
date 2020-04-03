@@ -1,6 +1,6 @@
 using System;
-using SegmentReadState = Lucene.Net.Index.SegmentReadState;
-using SegmentWriteState = Lucene.Net.Index.SegmentWriteState;
+using SegmentReadState = YAF.Lucene.Net.Index.SegmentReadState;
+using SegmentWriteState = YAF.Lucene.Net.Index.SegmentWriteState;
 
 namespace YAF.Lucene.Net.Codecs.Lucene3x
 {

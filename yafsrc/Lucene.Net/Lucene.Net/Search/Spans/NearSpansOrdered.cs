@@ -24,12 +24,12 @@ namespace YAF.Lucene.Net.Search.Spans
      * limitations under the License.
      */
 
-    using ArrayUtil = Lucene.Net.Util.ArrayUtil;
-    using AtomicReaderContext = Lucene.Net.Index.AtomicReaderContext;
-    using IBits = Lucene.Net.Util.IBits;
-    using InPlaceMergeSorter = Lucene.Net.Util.InPlaceMergeSorter;
-    using Term = Lucene.Net.Index.Term;
-    using TermContext = Lucene.Net.Index.TermContext;
+    using ArrayUtil = YAF.Lucene.Net.Util.ArrayUtil;
+    using AtomicReaderContext = YAF.Lucene.Net.Index.AtomicReaderContext;
+    using IBits = YAF.Lucene.Net.Util.IBits;
+    using InPlaceMergeSorter = YAF.Lucene.Net.Util.InPlaceMergeSorter;
+    using Term = YAF.Lucene.Net.Index.Term;
+    using TermContext = YAF.Lucene.Net.Index.TermContext;
 
     /// <summary>
     /// A <see cref="Spans"/> that is formed from the ordered subspans of a <see cref="SpanNearQuery"/>

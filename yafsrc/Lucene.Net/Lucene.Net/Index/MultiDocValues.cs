@@ -22,13 +22,13 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using AppendingPackedInt64Buffer = Lucene.Net.Util.Packed.AppendingPackedInt64Buffer;
-    using IBits = Lucene.Net.Util.IBits;
-    using BytesRef = Lucene.Net.Util.BytesRef;
-    using MonotonicAppendingInt64Buffer = Lucene.Net.Util.Packed.MonotonicAppendingInt64Buffer;
-    using PackedInt32s = Lucene.Net.Util.Packed.PackedInt32s;
-    using TermsEnumIndex = Lucene.Net.Index.MultiTermsEnum.TermsEnumIndex;
-    using TermsEnumWithSlice = Lucene.Net.Index.MultiTermsEnum.TermsEnumWithSlice;
+    using AppendingPackedInt64Buffer = YAF.Lucene.Net.Util.Packed.AppendingPackedInt64Buffer;
+    using IBits = YAF.Lucene.Net.Util.IBits;
+    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
+    using MonotonicAppendingInt64Buffer = YAF.Lucene.Net.Util.Packed.MonotonicAppendingInt64Buffer;
+    using PackedInt32s = YAF.Lucene.Net.Util.Packed.PackedInt32s;
+    using TermsEnumIndex = YAF.Lucene.Net.Index.MultiTermsEnum.TermsEnumIndex;
+    using TermsEnumWithSlice = YAF.Lucene.Net.Index.MultiTermsEnum.TermsEnumWithSlice;
 
     /// <summary>
     /// A wrapper for <see cref="CompositeReader"/> providing access to <see cref="DocValues"/>.

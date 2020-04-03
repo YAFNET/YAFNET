@@ -7,9 +7,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using SubInfo = Lucene.Net.Search.VectorHighlight.FieldFragList.WeightedFragInfo.SubInfo;
-using Toffs = Lucene.Net.Search.VectorHighlight.FieldPhraseList.WeightedPhraseInfo.Toffs;
-using WeightedFragInfo = Lucene.Net.Search.VectorHighlight.FieldFragList.WeightedFragInfo;
+using SubInfo = YAF.Lucene.Net.Search.VectorHighlight.FieldFragList.WeightedFragInfo.SubInfo;
+using Toffs = YAF.Lucene.Net.Search.VectorHighlight.FieldPhraseList.WeightedPhraseInfo.Toffs;
+using WeightedFragInfo = YAF.Lucene.Net.Search.VectorHighlight.FieldFragList.WeightedFragInfo;
 
 namespace YAF.Lucene.Net.Search.VectorHighlight
 {

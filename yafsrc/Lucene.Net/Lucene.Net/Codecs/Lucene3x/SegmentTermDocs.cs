@@ -1,6 +1,6 @@
 using System;
 using System.Diagnostics;
-using IBits = Lucene.Net.Util.IBits;
+using IBits = YAF.Lucene.Net.Util.IBits;
 
 namespace YAF.Lucene.Net.Codecs.Lucene3x
 {
@@ -21,11 +21,11 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
      * limitations under the License.
      */
 
-    using FieldInfo = Lucene.Net.Index.FieldInfo;
-    using FieldInfos = Lucene.Net.Index.FieldInfos;
-    using IndexInput = Lucene.Net.Store.IndexInput;
-    using IndexOptions = Lucene.Net.Index.IndexOptions;
-    using Term = Lucene.Net.Index.Term;
+    using FieldInfo = YAF.Lucene.Net.Index.FieldInfo;
+    using FieldInfos = YAF.Lucene.Net.Index.FieldInfos;
+    using IndexInput = YAF.Lucene.Net.Store.IndexInput;
+    using IndexOptions = YAF.Lucene.Net.Index.IndexOptions;
+    using Term = YAF.Lucene.Net.Index.Term;
 
     /// <summary>
     /// @lucene.experimental

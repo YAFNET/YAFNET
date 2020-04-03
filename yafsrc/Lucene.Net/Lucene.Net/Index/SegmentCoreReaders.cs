@@ -26,17 +26,17 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using Codec = Lucene.Net.Codecs.Codec;
-    using CompoundFileDirectory = Lucene.Net.Store.CompoundFileDirectory;
-    using Directory = Lucene.Net.Store.Directory;
-    using DocValuesProducer = Lucene.Net.Codecs.DocValuesProducer;
-    using FieldsProducer = Lucene.Net.Codecs.FieldsProducer;
-    using ICoreDisposedListener = Lucene.Net.Index.SegmentReader.ICoreDisposedListener;
-    using IOContext = Lucene.Net.Store.IOContext;
-    using IOUtils = Lucene.Net.Util.IOUtils;
-    using PostingsFormat = Lucene.Net.Codecs.PostingsFormat;
-    using StoredFieldsReader = Lucene.Net.Codecs.StoredFieldsReader;
-    using TermVectorsReader = Lucene.Net.Codecs.TermVectorsReader;
+    using Codec = YAF.Lucene.Net.Codecs.Codec;
+    using CompoundFileDirectory = YAF.Lucene.Net.Store.CompoundFileDirectory;
+    using Directory = YAF.Lucene.Net.Store.Directory;
+    using DocValuesProducer = YAF.Lucene.Net.Codecs.DocValuesProducer;
+    using FieldsProducer = YAF.Lucene.Net.Codecs.FieldsProducer;
+    using ICoreDisposedListener = YAF.Lucene.Net.Index.SegmentReader.ICoreDisposedListener;
+    using IOContext = YAF.Lucene.Net.Store.IOContext;
+    using IOUtils = YAF.Lucene.Net.Util.IOUtils;
+    using PostingsFormat = YAF.Lucene.Net.Codecs.PostingsFormat;
+    using StoredFieldsReader = YAF.Lucene.Net.Codecs.StoredFieldsReader;
+    using TermVectorsReader = YAF.Lucene.Net.Codecs.TermVectorsReader;
 
     /// <summary>
     /// Holds core readers that are shared (unchanged) when

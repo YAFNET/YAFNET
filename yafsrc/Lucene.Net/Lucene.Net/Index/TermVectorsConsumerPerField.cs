@@ -23,12 +23,12 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using ByteBlockPool = Lucene.Net.Util.ByteBlockPool;
-    using BytesRef = Lucene.Net.Util.BytesRef;
-    using OffsetAttribute = Lucene.Net.Analysis.TokenAttributes.OffsetAttribute;
-    using PayloadAttribute = Lucene.Net.Analysis.TokenAttributes.PayloadAttribute;
-    using RamUsageEstimator = Lucene.Net.Util.RamUsageEstimator;
-    using TermVectorsWriter = Lucene.Net.Codecs.TermVectorsWriter;
+    using ByteBlockPool = YAF.Lucene.Net.Util.ByteBlockPool;
+    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
+    using OffsetAttribute = YAF.Lucene.Net.Analysis.TokenAttributes.OffsetAttribute;
+    using PayloadAttribute = YAF.Lucene.Net.Analysis.TokenAttributes.PayloadAttribute;
+    using RamUsageEstimator = YAF.Lucene.Net.Util.RamUsageEstimator;
+    using TermVectorsWriter = YAF.Lucene.Net.Codecs.TermVectorsWriter;
 
     internal sealed class TermVectorsConsumerPerField : TermsHashConsumerPerField
     {

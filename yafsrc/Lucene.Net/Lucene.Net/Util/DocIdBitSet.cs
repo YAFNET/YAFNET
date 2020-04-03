@@ -20,8 +20,8 @@ namespace YAF.Lucene.Net.Util
      * limitations under the License.
      */
 
-    using DocIdSet = Lucene.Net.Search.DocIdSet;
-    using DocIdSetIterator = Lucene.Net.Search.DocIdSetIterator;
+    using DocIdSet = YAF.Lucene.Net.Search.DocIdSet;
+    using DocIdSetIterator = YAF.Lucene.Net.Search.DocIdSetIterator;
 
     /// <summary>
     /// Simple <see cref="DocIdSet"/> and <see cref="DocIdSetIterator"/> backed by a <see cref="BitArray"/> 

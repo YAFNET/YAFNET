@@ -2,7 +2,7 @@ using YAF.Lucene.Net.Util;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using Console = Lucene.Net.Util.SystemConsole;
+using Console = YAF.Lucene.Net.Util.SystemConsole;
 
 namespace YAF.Lucene.Net.Index
 {
@@ -23,11 +23,11 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using CommandLineUtil = Lucene.Net.Util.CommandLineUtil;
-    using Constants = Lucene.Net.Util.Constants;
-    using Directory = Lucene.Net.Store.Directory;
-    using FSDirectory = Lucene.Net.Store.FSDirectory;
-    using InfoStream = Lucene.Net.Util.InfoStream;
+    using CommandLineUtil = YAF.Lucene.Net.Util.CommandLineUtil;
+    using Constants = YAF.Lucene.Net.Util.Constants;
+    using Directory = YAF.Lucene.Net.Store.Directory;
+    using FSDirectory = YAF.Lucene.Net.Store.FSDirectory;
+    using InfoStream = YAF.Lucene.Net.Util.InfoStream;
 
     /// <summary>
     /// This is an easy-to-use tool that upgrades all segments of an index from previous Lucene versions
