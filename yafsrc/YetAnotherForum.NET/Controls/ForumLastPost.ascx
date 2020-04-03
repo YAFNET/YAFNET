@@ -40,7 +40,7 @@
 </asp:PlaceHolder>
 
 <asp:PlaceHolder runat="server" ID="NoPostsPlaceHolder">
-    <YAF:Alert runat="server" Type="info">
+    <span class="font-italic">
         <YAF:LocalizedLabel ID="NoPostsLabel" runat="server" LocalizedTag="NO_POSTS" />
-    </YAF:Alert>
+    </span>
 </asp:PlaceHolder>
