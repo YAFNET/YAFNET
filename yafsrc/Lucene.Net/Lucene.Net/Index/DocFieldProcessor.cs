@@ -24,11 +24,11 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using ArrayUtil = YAF.Lucene.Net.Util.ArrayUtil;
-    using Codec = YAF.Lucene.Net.Codecs.Codec;
-    using Counter = YAF.Lucene.Net.Util.Counter;
-    using FieldInfosWriter = YAF.Lucene.Net.Codecs.FieldInfosWriter;
-    using IOContext = YAF.Lucene.Net.Store.IOContext;
+    using ArrayUtil = Lucene.Net.Util.ArrayUtil;
+    using Codec = Lucene.Net.Codecs.Codec;
+    using Counter = Lucene.Net.Util.Counter;
+    using FieldInfosWriter = Lucene.Net.Codecs.FieldInfosWriter;
+    using IOContext = Lucene.Net.Store.IOContext;
 
     /// <summary>
     /// This is a <see cref="DocConsumer"/> that gathers all fields under the
@@ -284,19 +284,7 @@ namespace YAF.Lucene.Net.Index
             }
         }
 
-        private static readonly IComparer<DocFieldProcessorPerField> fieldsComp = new ComparerAnonymousInnerClassHelper();
-
-        private class ComparerAnonymousInnerClassHelper : IComparer<DocFieldProcessorPerField>
-        {
-            public ComparerAnonymousInnerClassHelper()
-            {
-            }
-
-            public virtual int Compare(DocFieldProcessorPerField o1, DocFieldProcessorPerField o2)
-            {
-                return o1.fieldInfo.Name.CompareToOrdinal(o2.fieldInfo.Name);
-            }
-        }
+        private static readonly IComparer<DocFieldProcessorPerField> fieldsComp = Comparer<DocFieldProcessorPerField>.Create((o1, o2) => o1.fieldInfo.Name.CompareToOrdinal(o2.fieldInfo.Name));
 
         [MethodImpl(MethodImplOptions.NoInlining)]
         internal override void FinishDocument()

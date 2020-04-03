@@ -19,7 +19,7 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
+    using BytesRef = Lucene.Net.Util.BytesRef;
 
     /// <summary>
     /// Exposes multi-valued view over a single-valued instance.

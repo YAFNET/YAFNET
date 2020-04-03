@@ -20,7 +20,7 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using Constants = YAF.Lucene.Net.Util.Constants;
+    using Constants = Lucene.Net.Util.Constants;
 
     /// <summary>
     /// This <see cref="MergePolicy"/> is used for upgrading all existing segments of

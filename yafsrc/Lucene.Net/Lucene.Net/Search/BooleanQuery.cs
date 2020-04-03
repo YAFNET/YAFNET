@@ -29,13 +29,13 @@ namespace YAF.Lucene.Net.Search
      * limitations under the License.
      */
 
-    using AtomicReaderContext = YAF.Lucene.Net.Index.AtomicReaderContext;
-    using IBits = YAF.Lucene.Net.Util.IBits;
-    using IndexReader = YAF.Lucene.Net.Index.IndexReader;
-    using Occur_e = YAF.Lucene.Net.Search.Occur;
-    using Similarity = YAF.Lucene.Net.Search.Similarities.Similarity;
-    using Term = YAF.Lucene.Net.Index.Term;
-    using ToStringUtils = YAF.Lucene.Net.Util.ToStringUtils;
+    using AtomicReaderContext = Lucene.Net.Index.AtomicReaderContext;
+    using IBits = Lucene.Net.Util.IBits;
+    using IndexReader = Lucene.Net.Index.IndexReader;
+    using Occur_e = Lucene.Net.Search.Occur;
+    using Similarity = Lucene.Net.Search.Similarities.Similarity;
+    using Term = Lucene.Net.Index.Term;
+    using ToStringUtils = Lucene.Net.Util.ToStringUtils;
 
     /// <summary>
     /// A <see cref="Query"/> that matches documents matching boolean combinations of other

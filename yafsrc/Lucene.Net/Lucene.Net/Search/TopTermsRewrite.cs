@@ -23,13 +23,13 @@ namespace YAF.Lucene.Net.Search
     * limitations under the License.
     */
 
-    using ArrayUtil = YAF.Lucene.Net.Util.ArrayUtil;
-    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
-    using IndexReader = YAF.Lucene.Net.Index.IndexReader;
-    using Term = YAF.Lucene.Net.Index.Term;
-    using TermContext = YAF.Lucene.Net.Index.TermContext;
-    using TermsEnum = YAF.Lucene.Net.Index.TermsEnum;
-    using TermState = YAF.Lucene.Net.Index.TermState;
+    using ArrayUtil = Lucene.Net.Util.ArrayUtil;
+    using BytesRef = Lucene.Net.Util.BytesRef;
+    using IndexReader = Lucene.Net.Index.IndexReader;
+    using Term = Lucene.Net.Index.Term;
+    using TermContext = Lucene.Net.Index.TermContext;
+    using TermsEnum = Lucene.Net.Index.TermsEnum;
+    using TermState = Lucene.Net.Index.TermState;
 
     internal interface ITopTermsRewrite
     {
@@ -244,21 +244,12 @@ namespace YAF.Lucene.Net.Search
             return false;
         }
 
-        private static readonly IComparer<ScoreTerm> scoreTermSortByTermComp = new ComparerAnonymousInnerClassHelper();
-
-        private class ComparerAnonymousInnerClassHelper : IComparer<ScoreTerm>
+        private static readonly IComparer<ScoreTerm> scoreTermSortByTermComp = Comparer<ScoreTerm>.Create((st1, st2) =>
         {
-            public ComparerAnonymousInnerClassHelper()
-            {
-            }
-
-            public virtual int Compare(ScoreTerm st1, ScoreTerm st2)
-            {
-                Debug.Assert(st1.TermComp == st2.TermComp, "term comparer should not change between segments");
-                return st1.TermComp.Compare(st1.Bytes, st2.Bytes);
-            }
-        }
-
+            Debug.Assert(st1.TermComp == st2.TermComp, "term comparer should not change between segments");
+            return st1.TermComp.Compare(st1.Bytes, st2.Bytes);
+        });
+        
         internal sealed class ScoreTerm : IComparable<ScoreTerm>
         {
             public IComparer<BytesRef> TermComp { get; private set; }

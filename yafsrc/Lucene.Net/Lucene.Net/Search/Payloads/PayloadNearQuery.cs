@@ -21,18 +21,18 @@ namespace YAF.Lucene.Net.Search.Payloads
      * limitations under the License.
      */
 
-    using AtomicReaderContext = YAF.Lucene.Net.Index.AtomicReaderContext;
-    using IBits = YAF.Lucene.Net.Util.IBits;
-    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
-    using NearSpansOrdered = YAF.Lucene.Net.Search.Spans.NearSpansOrdered;
-    using NearSpansUnordered = YAF.Lucene.Net.Search.Spans.NearSpansUnordered;
-    using Similarity = YAF.Lucene.Net.Search.Similarities.Similarity;
-    using SpanNearQuery = YAF.Lucene.Net.Search.Spans.SpanNearQuery;
-    using SpanQuery = YAF.Lucene.Net.Search.Spans.SpanQuery;
-    using Spans = YAF.Lucene.Net.Search.Spans.Spans;
-    using SpanScorer = YAF.Lucene.Net.Search.Spans.SpanScorer;
-    using SpanWeight = YAF.Lucene.Net.Search.Spans.SpanWeight;
-    using ToStringUtils = YAF.Lucene.Net.Util.ToStringUtils;
+    using AtomicReaderContext = Lucene.Net.Index.AtomicReaderContext;
+    using IBits = Lucene.Net.Util.IBits;
+    using BytesRef = Lucene.Net.Util.BytesRef;
+    using NearSpansOrdered = Lucene.Net.Search.Spans.NearSpansOrdered;
+    using NearSpansUnordered = Lucene.Net.Search.Spans.NearSpansUnordered;
+    using Similarity = Lucene.Net.Search.Similarities.Similarity;
+    using SpanNearQuery = Lucene.Net.Search.Spans.SpanNearQuery;
+    using SpanQuery = Lucene.Net.Search.Spans.SpanQuery;
+    using Spans = Lucene.Net.Search.Spans.Spans;
+    using SpanScorer = Lucene.Net.Search.Spans.SpanScorer;
+    using SpanWeight = Lucene.Net.Search.Spans.SpanWeight;
+    using ToStringUtils = Lucene.Net.Util.ToStringUtils;
 
     /// <summary>
     /// This class is very similar to

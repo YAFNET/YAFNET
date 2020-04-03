@@ -27,15 +27,15 @@ namespace YAF.Lucene.Net.Util.Fst
      * limitations under the License.
      */
 
-    using ByteArrayDataOutput = YAF.Lucene.Net.Store.ByteArrayDataOutput;
-    using CodecUtil = YAF.Lucene.Net.Codecs.CodecUtil;
-    using DataInput = YAF.Lucene.Net.Store.DataInput;
-    using DataOutput = YAF.Lucene.Net.Store.DataOutput;
-    using GrowableWriter = YAF.Lucene.Net.Util.Packed.GrowableWriter;
-    using InputStreamDataInput = YAF.Lucene.Net.Store.InputStreamDataInput;
-    using OutputStreamDataOutput = YAF.Lucene.Net.Store.OutputStreamDataOutput;
-    using PackedInt32s = YAF.Lucene.Net.Util.Packed.PackedInt32s;
-    using RAMOutputStream = YAF.Lucene.Net.Store.RAMOutputStream;
+    using ByteArrayDataOutput = Lucene.Net.Store.ByteArrayDataOutput;
+    using CodecUtil = Lucene.Net.Codecs.CodecUtil;
+    using DataInput = Lucene.Net.Store.DataInput;
+    using DataOutput = Lucene.Net.Store.DataOutput;
+    using GrowableWriter = Lucene.Net.Util.Packed.GrowableWriter;
+    using InputStreamDataInput = Lucene.Net.Store.InputStreamDataInput;
+    using OutputStreamDataOutput = Lucene.Net.Store.OutputStreamDataOutput;
+    using PackedInt32s = Lucene.Net.Util.Packed.PackedInt32s;
+    using RAMOutputStream = Lucene.Net.Store.RAMOutputStream;
 
     // TODO: break this into WritableFST and ReadOnlyFST.. then
     // we can have subclasses of ReadOnlyFST to handle the

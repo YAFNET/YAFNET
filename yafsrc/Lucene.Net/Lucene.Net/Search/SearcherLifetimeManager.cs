@@ -24,8 +24,8 @@ namespace YAF.Lucene.Net.Search
      * limitations under the License.
      */
 
-    using DirectoryReader = YAF.Lucene.Net.Index.DirectoryReader;
-    using IOUtils = YAF.Lucene.Net.Util.IOUtils;
+    using DirectoryReader = Lucene.Net.Index.DirectoryReader;
+    using IOUtils = Lucene.Net.Util.IOUtils;
 
     /// <summary>
     /// Keeps track of current plus old <see cref="IndexSearcher"/>s, disposing

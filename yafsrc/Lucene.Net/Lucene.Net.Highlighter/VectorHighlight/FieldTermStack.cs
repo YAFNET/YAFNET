@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text;
 using System.Threading.Tasks;
-using TermInfo = YAF.Lucene.Net.Search.VectorHighlight.FieldTermStack.TermInfo;
+using TermInfo = Lucene.Net.Search.VectorHighlight.FieldTermStack.TermInfo;
 
 namespace YAF.Lucene.Net.Search.VectorHighlight
 {

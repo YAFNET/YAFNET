@@ -19,7 +19,7 @@ namespace YAF.Lucene.Net.Search
      * limitations under the License.
      */
 
-    using ArrayUtil = YAF.Lucene.Net.Util.ArrayUtil;
+    using ArrayUtil = Lucene.Net.Util.ArrayUtil;
 
     /// <summary>
     /// Scorer for conjunctions, sets of queries, all of which are required. </summary>
@@ -46,21 +46,7 @@ namespace YAF.Lucene.Net.Search
             }
             // Sort the array the first time to allow the least frequent DocsEnum to
             // lead the matching.
-            ArrayUtil.TimSort(m_docsAndFreqs, new ComparerAnonymousInnerClassHelper(this));
-
-            lead = m_docsAndFreqs[0]; // least frequent DocsEnum leads the intersection
-        }
-
-        private class ComparerAnonymousInnerClassHelper : IComparer<DocsAndFreqs>
-        {
-            private readonly ConjunctionScorer outerInstance;
-
-            public ComparerAnonymousInnerClassHelper(ConjunctionScorer outerInstance)
-            {
-                this.outerInstance = outerInstance;
-            }
-
-            public virtual int Compare(DocsAndFreqs o1, DocsAndFreqs o2)
+            ArrayUtil.TimSort(m_docsAndFreqs, Comparer<DocsAndFreqs>.Create((o1, o2) =>
             {
                 if (o1.Cost < o2.Cost)
                 {
@@ -74,7 +60,9 @@ namespace YAF.Lucene.Net.Search
                 {
                     return 0;
                 }
-            }
+            }));
+
+            lead = m_docsAndFreqs[0]; // least frequent DocsEnum leads the intersection
         }
 
         private int DoNext(int doc)

@@ -21,7 +21,7 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
+    using BytesRef = Lucene.Net.Util.BytesRef;
 
     /// <summary>
     /// A <see cref="Term"/> represents a word from text.  This is the unit of search.  It is

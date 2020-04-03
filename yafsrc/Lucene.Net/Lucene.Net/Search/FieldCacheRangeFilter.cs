@@ -21,11 +21,11 @@ namespace YAF.Lucene.Net.Search
      * limitations under the License.
      */
 
-    using AtomicReaderContext = YAF.Lucene.Net.Index.AtomicReaderContext;
-    using IBits = YAF.Lucene.Net.Util.IBits;
-    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
-    using NumericUtils = YAF.Lucene.Net.Util.NumericUtils;
-    using SortedDocValues = YAF.Lucene.Net.Index.SortedDocValues;
+    using AtomicReaderContext = Lucene.Net.Index.AtomicReaderContext;
+    using IBits = Lucene.Net.Util.IBits;
+    using BytesRef = Lucene.Net.Util.BytesRef;
+    using NumericUtils = Lucene.Net.Util.NumericUtils;
+    using SortedDocValues = Lucene.Net.Index.SortedDocValues;
 
     /// <summary>
     /// A range filter built on top of a cached single term field (in <see cref="IFieldCache"/>).

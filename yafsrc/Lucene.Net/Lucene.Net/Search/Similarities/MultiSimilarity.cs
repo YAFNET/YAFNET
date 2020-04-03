@@ -17,9 +17,9 @@ namespace YAF.Lucene.Net.Search.Similarities
      * limitations under the License.
      */
 
-    using AtomicReaderContext = YAF.Lucene.Net.Index.AtomicReaderContext;
-    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
-    using FieldInvertState = YAF.Lucene.Net.Index.FieldInvertState;
+    using AtomicReaderContext = Lucene.Net.Index.AtomicReaderContext;
+    using BytesRef = Lucene.Net.Util.BytesRef;
+    using FieldInvertState = Lucene.Net.Index.FieldInvertState;
 
     /// <summary>
     /// Implements the CombSUM method for combining evidence from multiple

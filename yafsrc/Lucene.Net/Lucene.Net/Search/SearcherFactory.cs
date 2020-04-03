@@ -17,7 +17,7 @@ namespace YAF.Lucene.Net.Search
      * limitations under the License.
      */
 
-    using IndexReader = YAF.Lucene.Net.Index.IndexReader;
+    using IndexReader = Lucene.Net.Index.IndexReader;
 
     /// <summary>
     /// Factory class used by <see cref="SearcherManager"/> to

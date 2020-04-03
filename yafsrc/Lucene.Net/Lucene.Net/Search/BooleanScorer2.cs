@@ -20,7 +20,7 @@ namespace YAF.Lucene.Net.Search
      * limitations under the License.
      */
 
-    using BooleanWeight = YAF.Lucene.Net.Search.BooleanQuery.BooleanWeight;
+    using BooleanWeight = Lucene.Net.Search.BooleanQuery.BooleanWeight;
 
     /// <summary>
     /// See the description in <see cref="BooleanScorer"/> comparing

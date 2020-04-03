@@ -20,13 +20,13 @@ namespace YAF.Lucene.Net.Search
      * limitations under the License.
      */
 
-    using AttributeSource = YAF.Lucene.Net.Util.AttributeSource;
-    using LevenshteinAutomata = YAF.Lucene.Net.Util.Automaton.LevenshteinAutomata;
-    using SingleTermsEnum = YAF.Lucene.Net.Index.SingleTermsEnum;
-    using Term = YAF.Lucene.Net.Index.Term;
-    using Terms = YAF.Lucene.Net.Index.Terms;
-    using TermsEnum = YAF.Lucene.Net.Index.TermsEnum;
-    using ToStringUtils = YAF.Lucene.Net.Util.ToStringUtils;
+    using AttributeSource = Lucene.Net.Util.AttributeSource;
+    using LevenshteinAutomata = Lucene.Net.Util.Automaton.LevenshteinAutomata;
+    using SingleTermsEnum = Lucene.Net.Index.SingleTermsEnum;
+    using Term = Lucene.Net.Index.Term;
+    using Terms = Lucene.Net.Index.Terms;
+    using TermsEnum = Lucene.Net.Index.TermsEnum;
+    using ToStringUtils = Lucene.Net.Util.ToStringUtils;
 
     /// <summary>
     /// Implements the fuzzy search query. The similarity measurement

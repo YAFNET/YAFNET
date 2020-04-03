@@ -26,7 +26,7 @@ namespace YAF.Lucene.Net.Util
      * limitations under the License.
      */
 
-    using IndexReader = YAF.Lucene.Net.Index.IndexReader;
+    using IndexReader = Lucene.Net.Index.IndexReader;
 
     /// <summary>
     /// <para>

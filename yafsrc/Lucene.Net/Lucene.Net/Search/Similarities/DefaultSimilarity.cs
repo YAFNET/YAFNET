@@ -19,9 +19,9 @@ namespace YAF.Lucene.Net.Search.Similarities
      * limitations under the License.
      */
 
-    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
-    using FieldInvertState = YAF.Lucene.Net.Index.FieldInvertState;
-    using SmallSingle = YAF.Lucene.Net.Util.SmallSingle;
+    using BytesRef = Lucene.Net.Util.BytesRef;
+    using FieldInvertState = Lucene.Net.Index.FieldInvertState;
+    using SmallSingle = Lucene.Net.Util.SmallSingle;
 
     /// <summary>
     /// Expert: Default scoring implementation which encodes (<see cref="EncodeNormValue(float)"/>)

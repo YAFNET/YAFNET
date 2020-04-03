@@ -20,12 +20,12 @@ namespace YAF.Lucene.Net.Search
      * limitations under the License.
      */
 
-    using AttributeSource = YAF.Lucene.Net.Util.AttributeSource;
-    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
-    using Term = YAF.Lucene.Net.Index.Term;
-    using Terms = YAF.Lucene.Net.Index.Terms;
-    using TermsEnum = YAF.Lucene.Net.Index.TermsEnum;
-    using ToStringUtils = YAF.Lucene.Net.Util.ToStringUtils;
+    using AttributeSource = Lucene.Net.Util.AttributeSource;
+    using BytesRef = Lucene.Net.Util.BytesRef;
+    using Term = Lucene.Net.Index.Term;
+    using Terms = Lucene.Net.Index.Terms;
+    using TermsEnum = Lucene.Net.Index.TermsEnum;
+    using ToStringUtils = Lucene.Net.Util.ToStringUtils;
 
     /// <summary>
     /// A <see cref="Query"/> that matches documents within an range of terms.

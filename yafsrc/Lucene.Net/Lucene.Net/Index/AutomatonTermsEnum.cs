@@ -21,12 +21,12 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using ByteRunAutomaton = YAF.Lucene.Net.Util.Automaton.ByteRunAutomaton;
-    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
-    using CompiledAutomaton = YAF.Lucene.Net.Util.Automaton.CompiledAutomaton;
-    using Int32sRef = YAF.Lucene.Net.Util.Int32sRef;
-    using StringHelper = YAF.Lucene.Net.Util.StringHelper;
-    using Transition = YAF.Lucene.Net.Util.Automaton.Transition;
+    using ByteRunAutomaton = Lucene.Net.Util.Automaton.ByteRunAutomaton;
+    using BytesRef = Lucene.Net.Util.BytesRef;
+    using CompiledAutomaton = Lucene.Net.Util.Automaton.CompiledAutomaton;
+    using Int32sRef = Lucene.Net.Util.Int32sRef;
+    using StringHelper = Lucene.Net.Util.StringHelper;
+    using Transition = Lucene.Net.Util.Automaton.Transition;
 
     /// <summary>
     /// A <see cref="FilteredTermsEnum"/> that enumerates terms based upon what is accepted by a

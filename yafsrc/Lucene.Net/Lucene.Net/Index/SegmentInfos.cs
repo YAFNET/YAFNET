@@ -32,18 +32,18 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using ChecksumIndexInput = YAF.Lucene.Net.Store.ChecksumIndexInput;
-    using Codec = YAF.Lucene.Net.Codecs.Codec;
-    using CodecUtil = YAF.Lucene.Net.Codecs.CodecUtil;
-    using Directory = YAF.Lucene.Net.Store.Directory;
-    using IndexInput = YAF.Lucene.Net.Store.IndexInput;
-    using IndexOutput = YAF.Lucene.Net.Store.IndexOutput;
-    using IOContext = YAF.Lucene.Net.Store.IOContext;
-    using IOUtils = YAF.Lucene.Net.Util.IOUtils;
-    using Lucene3xCodec = YAF.Lucene.Net.Codecs.Lucene3x.Lucene3xCodec;
-    using Lucene3xSegmentInfoFormat = YAF.Lucene.Net.Codecs.Lucene3x.Lucene3xSegmentInfoFormat;
-    using Lucene3xSegmentInfoReader = YAF.Lucene.Net.Codecs.Lucene3x.Lucene3xSegmentInfoReader;
-    using StringHelper = YAF.Lucene.Net.Util.StringHelper;
+    using ChecksumIndexInput = Lucene.Net.Store.ChecksumIndexInput;
+    using Codec = Lucene.Net.Codecs.Codec;
+    using CodecUtil = Lucene.Net.Codecs.CodecUtil;
+    using Directory = Lucene.Net.Store.Directory;
+    using IndexInput = Lucene.Net.Store.IndexInput;
+    using IndexOutput = Lucene.Net.Store.IndexOutput;
+    using IOContext = Lucene.Net.Store.IOContext;
+    using IOUtils = Lucene.Net.Util.IOUtils;
+    using Lucene3xCodec = Lucene.Net.Codecs.Lucene3x.Lucene3xCodec;
+    using Lucene3xSegmentInfoFormat = Lucene.Net.Codecs.Lucene3x.Lucene3xSegmentInfoFormat;
+    using Lucene3xSegmentInfoReader = Lucene.Net.Codecs.Lucene3x.Lucene3xSegmentInfoReader;
+    using StringHelper = Lucene.Net.Util.StringHelper;
 
     /// <summary>
     /// A collection of segmentInfo objects with methods for operating on

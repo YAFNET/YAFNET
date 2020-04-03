@@ -25,7 +25,7 @@ namespace YAF.Lucene.Net.Util
      * limitations under the License.
      */
 
-    using DirectAllocator = YAF.Lucene.Net.Util.ByteBlockPool.DirectAllocator;
+    using DirectAllocator = Lucene.Net.Util.ByteBlockPool.DirectAllocator;
 
     /// <summary>
     /// <see cref="BytesRefHash"/> is a special purpose hash-map like data-structure

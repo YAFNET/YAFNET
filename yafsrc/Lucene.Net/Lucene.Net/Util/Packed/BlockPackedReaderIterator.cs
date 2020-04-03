@@ -21,8 +21,8 @@ namespace YAF.Lucene.Net.Util.Packed
      * limitations under the License.
      */
 
-    using DataInput = YAF.Lucene.Net.Store.DataInput;
-    using IndexInput = YAF.Lucene.Net.Store.IndexInput;
+    using DataInput = Lucene.Net.Store.DataInput;
+    using IndexInput = Lucene.Net.Store.IndexInput;
 
     /// <summary>
     /// Reader for sequences of <see cref="long"/>s written with <see cref="BlockPackedWriter"/>. 

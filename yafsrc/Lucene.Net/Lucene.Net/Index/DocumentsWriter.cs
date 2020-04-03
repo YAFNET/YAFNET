@@ -27,17 +27,17 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using Analyzer = YAF.Lucene.Net.Analysis.Analyzer;
-    using BinaryDocValuesUpdate = YAF.Lucene.Net.Index.DocValuesUpdate.BinaryDocValuesUpdate;
-    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
-    using Directory = YAF.Lucene.Net.Store.Directory;
-    using IEvent = YAF.Lucene.Net.Index.IndexWriter.IEvent;
-    using FlushedSegment = YAF.Lucene.Net.Index.DocumentsWriterPerThread.FlushedSegment;
-    using InfoStream = YAF.Lucene.Net.Util.InfoStream;
-    using NumericDocValuesUpdate = YAF.Lucene.Net.Index.DocValuesUpdate.NumericDocValuesUpdate;
-    using Query = YAF.Lucene.Net.Search.Query;
-    using SegmentFlushTicket = YAF.Lucene.Net.Index.DocumentsWriterFlushQueue.SegmentFlushTicket;
-    using ThreadState = YAF.Lucene.Net.Index.DocumentsWriterPerThreadPool.ThreadState;
+    using Analyzer = Lucene.Net.Analysis.Analyzer;
+    using BinaryDocValuesUpdate = Lucene.Net.Index.DocValuesUpdate.BinaryDocValuesUpdate;
+    using BytesRef = Lucene.Net.Util.BytesRef;
+    using Directory = Lucene.Net.Store.Directory;
+    using IEvent = Lucene.Net.Index.IndexWriter.IEvent;
+    using FlushedSegment = Lucene.Net.Index.DocumentsWriterPerThread.FlushedSegment;
+    using InfoStream = Lucene.Net.Util.InfoStream;
+    using NumericDocValuesUpdate = Lucene.Net.Index.DocValuesUpdate.NumericDocValuesUpdate;
+    using Query = Lucene.Net.Search.Query;
+    using SegmentFlushTicket = Lucene.Net.Index.DocumentsWriterFlushQueue.SegmentFlushTicket;
+    using ThreadState = Lucene.Net.Index.DocumentsWriterPerThreadPool.ThreadState;
 
     /// <summary>
     /// This class accepts multiple added documents and directly

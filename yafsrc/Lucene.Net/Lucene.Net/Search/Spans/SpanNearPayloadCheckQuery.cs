@@ -22,7 +22,7 @@ namespace YAF.Lucene.Net.Search.Spans
      * limitations under the License.
      */
 
-    using ToStringUtils = YAF.Lucene.Net.Util.ToStringUtils;
+    using ToStringUtils = Lucene.Net.Util.ToStringUtils;
 
     /// <summary>
     /// Only return those matches that have a specific payload at

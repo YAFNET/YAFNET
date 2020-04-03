@@ -17,12 +17,12 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using Directory = YAF.Lucene.Net.Store.Directory;
-    using InfoStream = YAF.Lucene.Net.Util.InfoStream;
-    using IOContext = YAF.Lucene.Net.Store.IOContext;
-    using IMutableBits = YAF.Lucene.Net.Util.IMutableBits;
-    using PerFieldPostingsFormat = YAF.Lucene.Net.Codecs.PerField.PerFieldPostingsFormat; // javadocs
-    using PostingsFormat = YAF.Lucene.Net.Codecs.PostingsFormat; // javadocs
+    using Directory = Lucene.Net.Store.Directory;
+    using InfoStream = Lucene.Net.Util.InfoStream;
+    using IOContext = Lucene.Net.Store.IOContext;
+    using IMutableBits = Lucene.Net.Util.IMutableBits;
+    using PerFieldPostingsFormat = Lucene.Net.Codecs.PerField.PerFieldPostingsFormat; // javadocs
+    using PostingsFormat = Lucene.Net.Codecs.PostingsFormat; // javadocs
 
     /// <summary>
     /// Holder class for common parameters used during write.
