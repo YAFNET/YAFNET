@@ -49,7 +49,9 @@
                     </asp:PlaceHolder>
                     <YAF:ForumModeratorList ID="ForumModeratorListMob" Visible="false" runat="server"  />
                 </h5>
-                <%# ((System.Data.DataRow)Container.DataItem)["Description"]  %>
+                <h6 class="card-subtitle text-muted">
+                    <%# ((System.Data.DataRow)Container.DataItem)["Description"]  %>
+                </h6>
                 <YAF:ForumSubForumList ID="SubForumList" runat="server"
                                        DataSource="<%# this.GetSubForums((System.Data.DataRow)Container.DataItem ) %>"
                                        Visible="<%# this.HasSubForums((System.Data.DataRow)Container.DataItem) %>" />
