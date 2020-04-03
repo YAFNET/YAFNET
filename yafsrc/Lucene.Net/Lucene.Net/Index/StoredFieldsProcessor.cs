@@ -22,12 +22,12 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using ArrayUtil = YAF.Lucene.Net.Util.ArrayUtil;
-    using Codec = YAF.Lucene.Net.Codecs.Codec;
-    using IOContext = YAF.Lucene.Net.Store.IOContext;
-    using IOUtils = YAF.Lucene.Net.Util.IOUtils;
-    using RamUsageEstimator = YAF.Lucene.Net.Util.RamUsageEstimator;
-    using StoredFieldsWriter = YAF.Lucene.Net.Codecs.StoredFieldsWriter;
+    using ArrayUtil = Lucene.Net.Util.ArrayUtil;
+    using Codec = Lucene.Net.Codecs.Codec;
+    using IOContext = Lucene.Net.Store.IOContext;
+    using IOUtils = Lucene.Net.Util.IOUtils;
+    using RamUsageEstimator = Lucene.Net.Util.RamUsageEstimator;
+    using StoredFieldsWriter = Lucene.Net.Codecs.StoredFieldsWriter;
 
     /// <summary>
     /// This is a <see cref="StoredFieldsConsumer"/> that writes stored fields. </summary>

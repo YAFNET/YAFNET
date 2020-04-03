@@ -22,7 +22,7 @@ namespace YAF.Lucene.Net.Search
 	 * limitations under the License.
 	 */
 
-    using TrackingIndexWriter = YAF.Lucene.Net.Index.TrackingIndexWriter;
+    using TrackingIndexWriter = Lucene.Net.Index.TrackingIndexWriter;
 
     /// <summary>
     /// Utility class that runs a thread to manage periodic

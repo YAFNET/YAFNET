@@ -24,12 +24,12 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using CodecUtil = YAF.Lucene.Net.Codecs.CodecUtil;
-    using Directory = YAF.Lucene.Net.Store.Directory;
-    using IndexInput = YAF.Lucene.Net.Store.IndexInput;
-    using IndexOutput = YAF.Lucene.Net.Store.IndexOutput;
-    using IOContext = YAF.Lucene.Net.Store.IOContext;
-    using IOUtils = YAF.Lucene.Net.Util.IOUtils;
+    using CodecUtil = Lucene.Net.Codecs.CodecUtil;
+    using Directory = Lucene.Net.Store.Directory;
+    using IndexInput = Lucene.Net.Store.IndexInput;
+    using IndexOutput = Lucene.Net.Store.IndexOutput;
+    using IOContext = Lucene.Net.Store.IOContext;
+    using IOUtils = Lucene.Net.Util.IOUtils;
 
     /// <summary>
     /// A <see cref="SnapshotDeletionPolicy"/> which adds a persistence layer so that

@@ -23,16 +23,16 @@ namespace YAF.Lucene.Net.Search
      * limitations under the License.
      */
 
-    using AtomicReader = YAF.Lucene.Net.Index.AtomicReader;
-    using BinaryDocValues = YAF.Lucene.Net.Index.BinaryDocValues;
-    using IBits = YAF.Lucene.Net.Util.IBits;
-    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
-    using NumericUtils = YAF.Lucene.Net.Util.NumericUtils;
-    using RamUsageEstimator = YAF.Lucene.Net.Util.RamUsageEstimator;
-    using SortedDocValues = YAF.Lucene.Net.Index.SortedDocValues;
-    using SortedSetDocValues = YAF.Lucene.Net.Index.SortedSetDocValues;
-    using Terms = YAF.Lucene.Net.Index.Terms;
-    using TermsEnum = YAF.Lucene.Net.Index.TermsEnum;
+    using AtomicReader = Lucene.Net.Index.AtomicReader;
+    using BinaryDocValues = Lucene.Net.Index.BinaryDocValues;
+    using IBits = Lucene.Net.Util.IBits;
+    using BytesRef = Lucene.Net.Util.BytesRef;
+    using NumericUtils = Lucene.Net.Util.NumericUtils;
+    using RamUsageEstimator = Lucene.Net.Util.RamUsageEstimator;
+    using SortedDocValues = Lucene.Net.Index.SortedDocValues;
+    using SortedSetDocValues = Lucene.Net.Index.SortedSetDocValues;
+    using Terms = Lucene.Net.Index.Terms;
+    using TermsEnum = Lucene.Net.Index.TermsEnum;
 
     /// <summary>
     /// Expert: Maintains caches of term values.

@@ -21,7 +21,7 @@ namespace YAF.Lucene.Net.Index
      */
 
     // javadocs
-    using IBits = YAF.Lucene.Net.Util.IBits;
+    using IBits = Lucene.Net.Util.IBits;
 
     /// <summary>
     /// <see cref="AtomicReader"/> is an abstract class, providing an interface for accessing an

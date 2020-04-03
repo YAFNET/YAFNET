@@ -26,9 +26,9 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using CollectionUtil = YAF.Lucene.Net.Util.CollectionUtil;
-    using Directory = YAF.Lucene.Net.Store.Directory;
-    using InfoStream = YAF.Lucene.Net.Util.InfoStream;
+    using CollectionUtil = Lucene.Net.Util.CollectionUtil;
+    using Directory = Lucene.Net.Store.Directory;
+    using InfoStream = Lucene.Net.Util.InfoStream;
 
     /// <summary>
     /// This class keeps track of each SegmentInfos instance that

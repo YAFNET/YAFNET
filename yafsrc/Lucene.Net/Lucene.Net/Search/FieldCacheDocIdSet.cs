@@ -17,9 +17,9 @@ namespace YAF.Lucene.Net.Search
      * limitations under the License.
      */
 
-    using IBits = YAF.Lucene.Net.Util.IBits;
-    using FixedBitSet = YAF.Lucene.Net.Util.FixedBitSet;
-    using OpenBitSet = YAF.Lucene.Net.Util.OpenBitSet;
+    using IBits = Lucene.Net.Util.IBits;
+    using FixedBitSet = Lucene.Net.Util.FixedBitSet;
+    using OpenBitSet = Lucene.Net.Util.OpenBitSet;
 
     /// <summary>
     /// Base class for <see cref="DocIdSet"/> to be used with <see cref="IFieldCache"/>. The implementation

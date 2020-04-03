@@ -20,17 +20,17 @@ namespace YAF.Lucene.Net.Search
      * limitations under the License.
      */
 
-    using ArrayUtil = YAF.Lucene.Net.Util.ArrayUtil;
-    using ByteBlockPool = YAF.Lucene.Net.Util.ByteBlockPool;
-    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
-    using BytesRefHash = YAF.Lucene.Net.Util.BytesRefHash;
-    using IndexReader = YAF.Lucene.Net.Index.IndexReader;
-    using RamUsageEstimator = YAF.Lucene.Net.Util.RamUsageEstimator;
-    using RewriteMethod = YAF.Lucene.Net.Search.MultiTermQuery.RewriteMethod;
-    using Term = YAF.Lucene.Net.Index.Term;
-    using TermContext = YAF.Lucene.Net.Index.TermContext;
-    using TermsEnum = YAF.Lucene.Net.Index.TermsEnum;
-    using TermState = YAF.Lucene.Net.Index.TermState;
+    using ArrayUtil = Lucene.Net.Util.ArrayUtil;
+    using ByteBlockPool = Lucene.Net.Util.ByteBlockPool;
+    using BytesRef = Lucene.Net.Util.BytesRef;
+    using BytesRefHash = Lucene.Net.Util.BytesRefHash;
+    using IndexReader = Lucene.Net.Index.IndexReader;
+    using RamUsageEstimator = Lucene.Net.Util.RamUsageEstimator;
+    using RewriteMethod = Lucene.Net.Search.MultiTermQuery.RewriteMethod;
+    using Term = Lucene.Net.Index.Term;
+    using TermContext = Lucene.Net.Index.TermContext;
+    using TermsEnum = Lucene.Net.Index.TermsEnum;
+    using TermState = Lucene.Net.Index.TermState;
 
     /// <summary>
     /// Base rewrite method that translates each term into a query, and keeps

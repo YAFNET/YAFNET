@@ -17,7 +17,7 @@ namespace YAF.Lucene.Net.Util.Packed
      * limitations under the License.
      */
 
-    using Mutable = YAF.Lucene.Net.Util.Packed.PackedInt32s.Mutable;
+    using Mutable = Lucene.Net.Util.Packed.PackedInt32s.Mutable;
 
     /// <summary>
     /// A <see cref="PagedGrowableWriter"/>. This class slices data into fixed-size blocks

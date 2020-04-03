@@ -23,7 +23,7 @@ namespace YAF.Lucene.Net.Util.Packed
      * limitations under the License.
      */
 
-    using DataInput = YAF.Lucene.Net.Store.DataInput;
+    using DataInput = Lucene.Net.Store.DataInput;
 
     /// <summary>
     /// This class is similar to <see cref="Packed64"/> except that it trades space for

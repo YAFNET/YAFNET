@@ -25,16 +25,16 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using IBits = YAF.Lucene.Net.Util.IBits;
-    using Codec = YAF.Lucene.Net.Codecs.Codec;
-    using CompoundFileDirectory = YAF.Lucene.Net.Store.CompoundFileDirectory;
-    using Directory = YAF.Lucene.Net.Store.Directory;
-    using DocValuesFormat = YAF.Lucene.Net.Codecs.DocValuesFormat;
-    using DocValuesProducer = YAF.Lucene.Net.Codecs.DocValuesProducer;
-    using IOContext = YAF.Lucene.Net.Store.IOContext;
-    using IOUtils = YAF.Lucene.Net.Util.IOUtils;
-    using StoredFieldsReader = YAF.Lucene.Net.Codecs.StoredFieldsReader;
-    using TermVectorsReader = YAF.Lucene.Net.Codecs.TermVectorsReader;
+    using IBits = Lucene.Net.Util.IBits;
+    using Codec = Lucene.Net.Codecs.Codec;
+    using CompoundFileDirectory = Lucene.Net.Store.CompoundFileDirectory;
+    using Directory = Lucene.Net.Store.Directory;
+    using DocValuesFormat = Lucene.Net.Codecs.DocValuesFormat;
+    using DocValuesProducer = Lucene.Net.Codecs.DocValuesProducer;
+    using IOContext = Lucene.Net.Store.IOContext;
+    using IOUtils = Lucene.Net.Util.IOUtils;
+    using StoredFieldsReader = Lucene.Net.Codecs.StoredFieldsReader;
+    using TermVectorsReader = Lucene.Net.Codecs.TermVectorsReader;
 
     /// <summary>
     /// <see cref="IndexReader"/> implementation over a single segment.

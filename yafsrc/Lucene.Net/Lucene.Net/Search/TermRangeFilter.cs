@@ -17,7 +17,7 @@ namespace YAF.Lucene.Net.Search
      * limitations under the License.
      */
 
-    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
+    using BytesRef = Lucene.Net.Util.BytesRef;
 
     /// <summary>
     /// A <see cref="Filter"/> that restricts search results to a range of term

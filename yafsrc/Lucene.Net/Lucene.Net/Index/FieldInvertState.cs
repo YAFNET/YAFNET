@@ -18,7 +18,7 @@ namespace YAF.Lucene.Net.Index
      */
 
     // javadocs
-    using AttributeSource = YAF.Lucene.Net.Util.AttributeSource;
+    using AttributeSource = Lucene.Net.Util.AttributeSource;
 
     /// <summary>
     /// This class tracks the number and position / offset parameters of terms

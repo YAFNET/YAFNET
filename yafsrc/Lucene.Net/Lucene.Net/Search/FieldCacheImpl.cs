@@ -29,27 +29,27 @@ namespace YAF.Lucene.Net.Search
      * limitations under the License.
      */
 
-    using AtomicReader = YAF.Lucene.Net.Index.AtomicReader;
-    using BinaryDocValues = YAF.Lucene.Net.Index.BinaryDocValues;
-    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
-    using DocsEnum = YAF.Lucene.Net.Index.DocsEnum;
-    using DocTermOrds = YAF.Lucene.Net.Index.DocTermOrds;
-    using DocValues = YAF.Lucene.Net.Index.DocValues;
-    using FieldCacheSanityChecker = YAF.Lucene.Net.Util.FieldCacheSanityChecker;
-    using FieldInfo = YAF.Lucene.Net.Index.FieldInfo;
-    using FixedBitSet = YAF.Lucene.Net.Util.FixedBitSet;
-    using GrowableWriter = YAF.Lucene.Net.Util.Packed.GrowableWriter;
-    using IBits = YAF.Lucene.Net.Util.IBits;
-    using IndexReader = YAF.Lucene.Net.Index.IndexReader;
-    using MonotonicAppendingInt64Buffer = YAF.Lucene.Net.Util.Packed.MonotonicAppendingInt64Buffer;
-    using NumericDocValues = YAF.Lucene.Net.Index.NumericDocValues;
-    using PackedInt32s = YAF.Lucene.Net.Util.Packed.PackedInt32s;
-    using PagedBytes = YAF.Lucene.Net.Util.PagedBytes;
-    using SegmentReader = YAF.Lucene.Net.Index.SegmentReader;
-    using SortedDocValues = YAF.Lucene.Net.Index.SortedDocValues;
-    using SortedSetDocValues = YAF.Lucene.Net.Index.SortedSetDocValues;
-    using Terms = YAF.Lucene.Net.Index.Terms;
-    using TermsEnum = YAF.Lucene.Net.Index.TermsEnum;
+    using AtomicReader = Lucene.Net.Index.AtomicReader;
+    using BinaryDocValues = Lucene.Net.Index.BinaryDocValues;
+    using BytesRef = Lucene.Net.Util.BytesRef;
+    using DocsEnum = Lucene.Net.Index.DocsEnum;
+    using DocTermOrds = Lucene.Net.Index.DocTermOrds;
+    using DocValues = Lucene.Net.Index.DocValues;
+    using FieldCacheSanityChecker = Lucene.Net.Util.FieldCacheSanityChecker;
+    using FieldInfo = Lucene.Net.Index.FieldInfo;
+    using FixedBitSet = Lucene.Net.Util.FixedBitSet;
+    using GrowableWriter = Lucene.Net.Util.Packed.GrowableWriter;
+    using IBits = Lucene.Net.Util.IBits;
+    using IndexReader = Lucene.Net.Index.IndexReader;
+    using MonotonicAppendingInt64Buffer = Lucene.Net.Util.Packed.MonotonicAppendingInt64Buffer;
+    using NumericDocValues = Lucene.Net.Index.NumericDocValues;
+    using PackedInt32s = Lucene.Net.Util.Packed.PackedInt32s;
+    using PagedBytes = Lucene.Net.Util.PagedBytes;
+    using SegmentReader = Lucene.Net.Index.SegmentReader;
+    using SortedDocValues = Lucene.Net.Index.SortedDocValues;
+    using SortedSetDocValues = Lucene.Net.Index.SortedSetDocValues;
+    using Terms = Lucene.Net.Index.Terms;
+    using TermsEnum = Lucene.Net.Index.TermsEnum;
 
     /// <summary>
     /// Expert: The default cache implementation, storing all values in memory.

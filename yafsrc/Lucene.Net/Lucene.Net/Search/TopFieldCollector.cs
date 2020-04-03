@@ -19,8 +19,8 @@ namespace YAF.Lucene.Net.Search
      * limitations under the License.
      */
 
-    using AtomicReaderContext = YAF.Lucene.Net.Index.AtomicReaderContext;
-    using Entry = YAF.Lucene.Net.Search.FieldValueHitQueue.Entry;
+    using AtomicReaderContext = Lucene.Net.Index.AtomicReaderContext;
+    using Entry = Lucene.Net.Search.FieldValueHitQueue.Entry;
 
     /// <summary>
     /// A <see cref="ICollector"/> that sorts by <see cref="SortField"/> using

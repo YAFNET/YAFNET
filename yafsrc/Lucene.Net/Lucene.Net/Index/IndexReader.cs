@@ -28,10 +28,10 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using Directory = YAF.Lucene.Net.Store.Directory;
+    using Directory = Lucene.Net.Store.Directory;
     using Document = Documents.Document;
     using DocumentStoredFieldVisitor = DocumentStoredFieldVisitor;
-    using IOUtils = YAF.Lucene.Net.Util.IOUtils;
+    using IOUtils = Lucene.Net.Util.IOUtils;
 
     /// <summary>
     /// <see cref="IndexReader"/> is an abstract class, providing an interface for accessing an

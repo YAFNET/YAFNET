@@ -21,7 +21,7 @@ namespace YAF.Lucene.Net.Util.Packed
      * limitations under the License.
      */
 
-    using DataInput = YAF.Lucene.Net.Store.DataInput;
+    using DataInput = Lucene.Net.Store.DataInput;
 
     internal sealed class PackedReaderIterator : PackedInt32s.ReaderIterator
     {

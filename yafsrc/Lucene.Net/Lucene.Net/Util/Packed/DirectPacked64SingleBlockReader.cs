@@ -19,7 +19,7 @@ namespace YAF.Lucene.Net.Util.Packed
      * limitations under the License.
      */
 
-    using IndexInput = YAF.Lucene.Net.Store.IndexInput;
+    using IndexInput = Lucene.Net.Store.IndexInput;
 
     internal sealed class DirectPacked64SingleBlockReader : PackedInt32s.ReaderImpl
     {

@@ -22,7 +22,7 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using ThreadState = YAF.Lucene.Net.Index.DocumentsWriterPerThreadPool.ThreadState; //javadoc
+    using ThreadState = Lucene.Net.Index.DocumentsWriterPerThreadPool.ThreadState; //javadoc
 
     /// <summary>
     /// A <see cref="DocumentsWriterPerThreadPool"/> implementation that tries to assign an

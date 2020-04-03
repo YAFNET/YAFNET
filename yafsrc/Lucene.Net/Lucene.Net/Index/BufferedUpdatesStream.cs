@@ -25,13 +25,13 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
-    using DocIdSet = YAF.Lucene.Net.Search.DocIdSet;
-    using DocIdSetIterator = YAF.Lucene.Net.Search.DocIdSetIterator;
-    using InfoStream = YAF.Lucene.Net.Util.InfoStream;
-    using IOContext = YAF.Lucene.Net.Store.IOContext;
-    using Query = YAF.Lucene.Net.Search.Query;
-    using QueryWrapperFilter = YAF.Lucene.Net.Search.QueryWrapperFilter;
+    using BytesRef = Lucene.Net.Util.BytesRef;
+    using DocIdSet = Lucene.Net.Search.DocIdSet;
+    using DocIdSetIterator = Lucene.Net.Search.DocIdSetIterator;
+    using InfoStream = Lucene.Net.Util.InfoStream;
+    using IOContext = Lucene.Net.Store.IOContext;
+    using Query = Lucene.Net.Search.Query;
+    using QueryWrapperFilter = Lucene.Net.Search.QueryWrapperFilter;
 
     /// <summary>
     /// Tracks the stream of BufferedDeletes.
@@ -140,15 +140,7 @@ namespace YAF.Lucene.Net.Index
         }
 
         // Sorts SegmentInfos from smallest to biggest bufferedDelGen:
-        private static readonly IComparer<SegmentCommitInfo> sortSegInfoByDelGen = new ComparerAnonymousInnerClassHelper();
-
-        private class ComparerAnonymousInnerClassHelper : IComparer<SegmentCommitInfo>
-        {
-            public ComparerAnonymousInnerClassHelper()
-            {
-            }
-
-            public virtual int Compare(SegmentCommitInfo si1, SegmentCommitInfo si2)
+        private static readonly IComparer<SegmentCommitInfo> sortSegInfoByDelGen = Comparer<SegmentCommitInfo>.Create((si1, si2) =>
             {
                 long cmp = si1.BufferedDeletesGen - si2.BufferedDeletesGen;
                 if (cmp > 0)
@@ -163,8 +155,7 @@ namespace YAF.Lucene.Net.Index
                 {
                     return 0;
                 }
-            }
-        }
+            });
 
         /// <summary>
         /// Resolves the buffered deleted Term/Query/docIDs, into

@@ -21,7 +21,7 @@ namespace YAF.Lucene.Net.Search
 
     using YAF.Lucene.Net.Index;
     using YAF.Lucene.Net.Support;
-    using Similarity = YAF.Lucene.Net.Search.Similarities.Similarity;
+    using Similarity = Lucene.Net.Search.Similarities.Similarity;
 
     internal sealed class ExactPhraseScorer : Scorer
     {

@@ -23,11 +23,11 @@ namespace YAF.Lucene.Net.Util
      * limitations under the License.
      */
 
-    using ByteArrayDataInput = YAF.Lucene.Net.Store.ByteArrayDataInput;
-    using DocIdSet = YAF.Lucene.Net.Search.DocIdSet;
-    using DocIdSetIterator = YAF.Lucene.Net.Search.DocIdSetIterator;
-    using MonotonicAppendingInt64Buffer = YAF.Lucene.Net.Util.Packed.MonotonicAppendingInt64Buffer;
-    using PackedInt32s = YAF.Lucene.Net.Util.Packed.PackedInt32s;
+    using ByteArrayDataInput = Lucene.Net.Store.ByteArrayDataInput;
+    using DocIdSet = Lucene.Net.Search.DocIdSet;
+    using DocIdSetIterator = Lucene.Net.Search.DocIdSetIterator;
+    using MonotonicAppendingInt64Buffer = Lucene.Net.Util.Packed.MonotonicAppendingInt64Buffer;
+    using PackedInt32s = Lucene.Net.Util.Packed.PackedInt32s;
 
     /// <summary>
     /// <see cref="DocIdSet"/> implementation based on word-aligned hybrid encoding on
@@ -98,20 +98,8 @@ namespace YAF.Lucene.Net.Util
             return buffer;
         }
 
-        private static readonly IComparer<Iterator> SERIALIZED_LENGTH_COMPARER = new ComparerAnonymousInnerClassHelper();
-
-        private class ComparerAnonymousInnerClassHelper : IComparer<Iterator>
-        {
-            public ComparerAnonymousInnerClassHelper()
-            {
-            }
-
-            public virtual int Compare(Iterator wi1, Iterator wi2)
-            {
-                return wi1.@in.Length - wi2.@in.Length;
-            }
-        }
-
+        private static readonly IComparer<Iterator> SERIALIZED_LENGTH_COMPARER = Comparer<Iterator>.Create((wi1, wi2) => wi1.@in.Length - wi2.@in.Length);
+        
         /// <summary>
         /// Same as <see cref="Intersect(ICollection{WAH8DocIdSet}, int)"/> with the default index interval. </summary>
         public static WAH8DocIdSet Intersect(ICollection<WAH8DocIdSet> docIdSets)
@@ -178,7 +166,7 @@ namespace YAF.Lucene.Net.Util
                 Debug.Assert(word != 0);
                 builder.AddWord(wordNum, word);
                 ++wordNum;
-            mainContinue: ;
+            mainContinue:;
             }
             //mainBreak:
             return builder.Build();
@@ -902,9 +890,9 @@ namespace YAF.Lucene.Net.Util
         /// Return the memory usage of this class in bytes. </summary>
         public long RamBytesUsed()
         {
-            return RamUsageEstimator.AlignObjectSize(3 * RamUsageEstimator.NUM_BYTES_OBJECT_REF + 2 * RamUsageEstimator.NUM_BYTES_INT32) 
-                + RamUsageEstimator.SizeOf(data) 
-                + positions.RamBytesUsed() 
+            return RamUsageEstimator.AlignObjectSize(3 * RamUsageEstimator.NUM_BYTES_OBJECT_REF + 2 * RamUsageEstimator.NUM_BYTES_INT32)
+                + RamUsageEstimator.SizeOf(data)
+                + positions.RamBytesUsed()
                 + wordNums.RamBytesUsed();
         }
     }

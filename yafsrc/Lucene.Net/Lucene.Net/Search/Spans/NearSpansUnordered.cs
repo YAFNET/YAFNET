@@ -23,10 +23,10 @@ namespace YAF.Lucene.Net.Search.Spans
      * limitations under the License.
      */
 
-    using AtomicReaderContext = YAF.Lucene.Net.Index.AtomicReaderContext;
-    using IBits = YAF.Lucene.Net.Util.IBits;
-    using Term = YAF.Lucene.Net.Index.Term;
-    using TermContext = YAF.Lucene.Net.Index.TermContext;
+    using AtomicReaderContext = Lucene.Net.Index.AtomicReaderContext;
+    using IBits = Lucene.Net.Util.IBits;
+    using Term = Lucene.Net.Index.Term;
+    using TermContext = Lucene.Net.Index.TermContext;
 
     /// <summary>
     /// Similar to <see cref="NearSpansOrdered"/>, but for the unordered case.

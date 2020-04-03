@@ -19,9 +19,9 @@ namespace YAF.Lucene.Net.Search
      * limitations under the License.
      */
 
-    using Attribute = YAF.Lucene.Net.Util.Attribute;
-    using IAttribute = YAF.Lucene.Net.Util.IAttribute;
-    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
+    using Attribute = Lucene.Net.Util.Attribute;
+    using IAttribute = Lucene.Net.Util.IAttribute;
+    using BytesRef = Lucene.Net.Util.BytesRef;
 
     /// <summary>
     /// Implementation class for <see cref="IMaxNonCompetitiveBoostAttribute"/>.

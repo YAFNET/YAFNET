@@ -22,19 +22,19 @@ namespace YAF.Lucene.Net.Search
      * limitations under the License.
      */
 
-    using AtomicReader = YAF.Lucene.Net.Index.AtomicReader;
-    using AtomicReaderContext = YAF.Lucene.Net.Index.AtomicReaderContext;
-    using IBits = YAF.Lucene.Net.Util.IBits;
-    using DocsEnum = YAF.Lucene.Net.Index.DocsEnum;
-    using IndexReaderContext = YAF.Lucene.Net.Index.IndexReaderContext;
-    using ReaderUtil = YAF.Lucene.Net.Index.ReaderUtil;
-    using Similarity = YAF.Lucene.Net.Search.Similarities.Similarity;
-    using SimScorer = YAF.Lucene.Net.Search.Similarities.Similarity.SimScorer;
-    using Term = YAF.Lucene.Net.Index.Term;
-    using TermContext = YAF.Lucene.Net.Index.TermContext;
-    using TermsEnum = YAF.Lucene.Net.Index.TermsEnum;
-    using TermState = YAF.Lucene.Net.Index.TermState;
-    using ToStringUtils = YAF.Lucene.Net.Util.ToStringUtils;
+    using AtomicReader = Lucene.Net.Index.AtomicReader;
+    using AtomicReaderContext = Lucene.Net.Index.AtomicReaderContext;
+    using IBits = Lucene.Net.Util.IBits;
+    using DocsEnum = Lucene.Net.Index.DocsEnum;
+    using IndexReaderContext = Lucene.Net.Index.IndexReaderContext;
+    using ReaderUtil = Lucene.Net.Index.ReaderUtil;
+    using Similarity = Lucene.Net.Search.Similarities.Similarity;
+    using SimScorer = Lucene.Net.Search.Similarities.Similarity.SimScorer;
+    using Term = Lucene.Net.Index.Term;
+    using TermContext = Lucene.Net.Index.TermContext;
+    using TermsEnum = Lucene.Net.Index.TermsEnum;
+    using TermState = Lucene.Net.Index.TermState;
+    using ToStringUtils = Lucene.Net.Util.ToStringUtils;
 
     /// <summary>
     /// A <see cref="Query"/> that matches documents containing a term.
