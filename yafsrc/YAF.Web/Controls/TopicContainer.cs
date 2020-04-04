@@ -222,24 +222,6 @@ namespace YAF.Web.Controls
                 this.GetText("MODERATE", "VIEWS"),
                 this.FormatViews());
 
-            /*dsdsad
-
-            writer.Write("<div class=\"col-md-2 text-secondary\">");
-            writer.Write(
-                "<div class=\"d-flex flex-row flex-md-column justify-content-between justify-content-md-start\">");
-            writer.Write("<div>");
-            writer.Write("{0}: ", this.GetText("MODERATE", "REPLIES"));
-            writer.Write(this.FormatReplies());
-            writer.Write(" </div>");
-            writer.Write("<div>");
-            writer.Write("{0}: ", this.GetText("MODERATE", "VIEWS"));
-            writer.Write(this.FormatViews());
-            writer.Write("   </div>");
-            writer.Write("  </div>");
-            writer.Write(" </div>");
-            */
-            //////
-
             // Render Pager
             var actualPostCount = this.TopicRow["Replies"].ToType<int>() + 1;
 
@@ -262,6 +244,13 @@ namespace YAF.Web.Controls
             }
 
             writer.Write(" </h5>");
+
+            var topicDescription = this.TopicRow["Description"].ToString();
+
+            if (topicDescription.IsSet())
+            {
+                writer.Write($"<h6 class=\"card-subtitle text-muted\">{topicDescription}</h6>");
+            }
 
             writer.Write("</div>");
 
