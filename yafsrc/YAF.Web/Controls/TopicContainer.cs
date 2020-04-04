@@ -263,6 +263,8 @@ namespace YAF.Web.Controls
 
             writer.Write(" </h5>");
 
+            writer.Write(this.TopicRow["Description"]);
+
             writer.Write("</div>");
 
             if (!this.TopicRow["LastMessageID"].IsNullOrEmptyDBField())
