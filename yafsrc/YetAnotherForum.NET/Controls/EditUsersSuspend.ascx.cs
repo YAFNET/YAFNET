@@ -342,7 +342,7 @@ namespace YAF.Controls
                 }
 
                 // get user's data in form of data row
-                var user = dt.Rows[0];
+                var user = dt.GetFirstRow();
 
                 // if user is not suspended, hide row with suspend information and remove suspension button
                 this.SuspendedHolder.Visible = !user.IsNull("Suspended");

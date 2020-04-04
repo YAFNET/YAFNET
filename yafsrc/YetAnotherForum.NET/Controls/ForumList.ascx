@@ -49,21 +49,19 @@
                     </asp:PlaceHolder>
                     <YAF:ForumModeratorList ID="ForumModeratorListMob" Visible="false" runat="server"  />
                 </h5>
-                <h6 class="card-subtitle text-muted">
-                    <%# ((System.Data.DataRow)Container.DataItem)["Description"]  %>
-                </h6>
+                <h6 class="card-subtitle text-muted"><%# ((System.Data.DataRow)Container.DataItem)["Description"]  %></h6>
                 <YAF:ForumSubForumList ID="SubForumList" runat="server"
                                        DataSource="<%# this.GetSubForums((System.Data.DataRow)Container.DataItem ) %>"
                                        Visible="<%# this.HasSubForums((System.Data.DataRow)Container.DataItem) %>" />
             </div>
             <asp:PlaceHolder runat="server" Visible='<%# ((System.Data.DataRow)Container.DataItem)["RemoteURL"].IsNullOrEmptyDBField() %>'>
                 <div class="col-md-4 text-secondary">
-                <div class="card bg-light card-post-last">
-                    <div class="card-body py-2 pl-2">
-                        <YAF:ForumLastPost ID="lastPost" runat="server" 
-                                           DataRow="<%# (System.Data.DataRow)Container.DataItem %>"/>
+                    <div class="card bg-light card-post-last">
+                        <div class="card-body py-2 pl-2">
+                            <YAF:ForumLastPost ID="lastPost" runat="server" 
+                                               DataRow="<%# (System.Data.DataRow)Container.DataItem %>"/>
+                        </div>
                     </div>
-                </div>
                 </div>
             </asp:PlaceHolder>
         </div>

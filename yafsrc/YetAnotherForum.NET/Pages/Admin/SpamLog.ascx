@@ -66,6 +66,7 @@
                                 <div class="form-group">
                                     <YAF:ThemeButton ID="ApplyButton" runat="server"
                                                      Type="Primary" 
+                                                     CssClass="btn-block"
                                                      OnClick="ApplyButtonClick"
                                                      TextLocalizedPage="ADMIN_EVENTLOG" 
                                                      TextLocalizedTag="APPLY" 

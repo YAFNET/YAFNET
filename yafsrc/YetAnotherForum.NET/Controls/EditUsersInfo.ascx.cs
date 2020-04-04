@@ -156,7 +156,7 @@ namespace YAF.Controls
 
             using (var dt = this.GetRepository<User>().ListAsDataTable(this.PageContext.PageBoardID, this.CurrentUserID, null))
             {
-                var row = dt.Rows[0];
+                var row = dt.GetFirstRow();
                 var userFlags = new UserFlags(row["Flags"]);
 
                 this.Name.Text = row.Field<string>("Name");

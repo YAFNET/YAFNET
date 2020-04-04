@@ -43,7 +43,6 @@ namespace YAF.Pages.Admin
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Types.Models;
     using YAF.Utils;
     using YAF.Web.Extensions;
 
@@ -200,7 +199,6 @@ namespace YAF.Pages.Admin
                     this.GetText("COMMON", "CAL_JQ_CULTURE_DFORMAT"),
                     this.GetText("COMMON", "CAL_JQ_CULTURE")));
 
-
             this.PageContext.PageElements.RegisterJsBlock("dropDownToggleJs", JavaScriptBlocks.DropDownToggleJs());
 
             base.OnPreRender(e);
@@ -219,17 +217,46 @@ namespace YAF.Pages.Admin
                 return;
             }
 
-            this.Types.Items.Add(new ListItem(this.GetText("ALL"), "-1"));
+            var allItem = new ListItem(this.GetText("ALL"), "-1");
 
-            foreach (int eventTypeId in Enum.GetValues(typeof(EventLogTypes)))
-            {
-                var eventTypeName = this.Get<ILocalization>().GetText(
-                    "ADMIN_EVENTLOGROUPACCESS",
-                    $"LT_{Enum.GetName(typeof(EventLogTypes), eventTypeId)?.ToUpperInvariant()}");
+            allItem.Attributes.Add(
+                "data-content",
+                $"<span class=\"select2-image-select-icon\"><i class=\"fas fa-filter fa-fw text-secondary\"></i>&nbsp;{this.GetText("ALL")}</span>");
 
-                this.Types.Items.Add(
-                    new ListItem(eventTypeName, eventTypeId.ToString()));
-            }
+            this.Types.Items.Add(allItem);
+
+            EnumExtensions.GetAllItems<EventLogTypes>().ForEach(
+                type =>
+                    {
+                        var icon = type switch
+                            {
+                                EventLogTypes.Error => "radiation",
+                                EventLogTypes.Warning => "exclamation-triangle",
+                                EventLogTypes.Information => "exclamation",
+                                EventLogTypes.Debug => "exclamation-triangle",
+                                EventLogTypes.Trace => "exclamation-triangle",
+                                EventLogTypes.SqlError => "exclamation-triangle",
+                                EventLogTypes.UserSuspended => "user-clock",
+                                EventLogTypes.UserUnsuspended => "user-check",
+                                EventLogTypes.UserDeleted => "user-alt-slash",
+                                EventLogTypes.IpBanSet => "hand-paper",
+                                EventLogTypes.IpBanLifted => "slash",
+                                EventLogTypes.IpBanDetected => "hand-paper",
+                                EventLogTypes.SpamBotReported => "user-ninja",
+                                EventLogTypes.SpamBotDetected => "user-lock",
+                                EventLogTypes.SpamMessageReported => "flag",
+                                EventLogTypes.SpamMessageDetected => "shield-alt",
+                                _ => "exclamation-circle"
+                            };
+
+                        var item = new ListItem { Value = type.ToInt().ToString(), Text = type.ToString() };
+
+                        item.Attributes.Add(
+                            "data-content",
+                            $"<span class=\"select2-image-select-icon\"><i class=\"fas fa-{icon} fa-fw text-secondary\"></i>&nbsp;{type}</span>");
+
+                        this.Types.Items.Add(item);
+                    });
 
             var ci = this.Get<ILocalization>().Culture;
 
