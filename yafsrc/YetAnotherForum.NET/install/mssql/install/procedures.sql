@@ -3902,7 +3902,6 @@ BEGIN
 
         DELETE FROM  [{databaseOwner}].[{objectQualifier}topic] WHERE TopicMovedID = @TopicID
 
-        delete [{databaseOwner}].[{objectQualifier}Activity] where TopicID = @TopicID
         DELETE  [{databaseOwner}].[{objectQualifier}Attachment] WHERE MessageID IN (SELECT MessageID FROM  [{databaseOwner}].[{objectQualifier}message] WHERE TopicID = @TopicID)
         DELETE  [{databaseOwner}].[{objectQualifier}MessageHistory] WHERE MessageID IN (SELECT MessageID FROM  [{databaseOwner}].[{objectQualifier}message] WHERE TopicID = @TopicID)
 
@@ -3946,6 +3945,8 @@ BEGIN
 
 		EXEC [{databaseOwner}].[{objectQualifier}pollgroup_remove] @pollID, @TopicID, null, null, null, 0, 0
 
+        delete [{databaseOwner}].[{objectQualifier}TopicTag] where TopicID = @TopicID
+		delete [{databaseOwner}].[{objectQualifier}Activity] where TopicID = @TopicID
         DELETE  [{databaseOwner}].[{objectQualifier}WatchTopic] WHERE TopicID = @TopicID
         DELETE  [{databaseOwner}].[{objectQualifier}TopicReadTracking] WHERE TopicID = @TopicID
         DELETE  [{databaseOwner}].[{objectQualifier}FavoriteTopic]  WHERE TopicID = @TopicID
