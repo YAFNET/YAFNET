@@ -23,115 +23,95 @@
  */
 namespace YAF.Controls
 {
-  #region Using
+    #region Using
 
-  using System;
+    using System;
 
-  using YAF.Core.BaseControls;
-  using YAF.Types;
-
-  #endregion
-
-  /// <summary>
-  /// The post options.
-  /// </summary>
-  public partial class PostOptions : BaseUserControl
-  {
-    #region Properties
-
-    /// <summary>
-    ///   Gets or sets a value indicating whether IsQuestionChecked.
-    /// </summary>
-    public bool IsQuestionChecked
-    {
-      get => this.chkIsQuestion.Checked;
-
-      set => this.chkIsQuestion.Checked = value;
-    }
-
-    /// <summary>
-    ///   Gets or sets a value indicating whether IsQuestionVisible.
-    /// </summary>
-    public bool IsQuestionVisible
-    {
-      get => this.liQuestion.Visible;
-
-      set => this.liQuestion.Visible = value;
-    }
-
-    /// <summary>
-    ///   Gets or sets a value indicating whether Persistent Checked.
-    /// </summary>
-    public bool PersistantChecked
-    {
-      get => this.Persistency.Checked;
-
-      set => this.Persistency.Checked = value;
-    }
-
-    /// <summary>
-    ///   Gets or sets a value indicating whether Persistent Option Visible.
-    /// </summary>
-    public bool PersistentOptionVisible
-    {
-      get => this.liPersistency.Visible;
-
-      set => this.liPersistency.Visible = value;
-    }
-
-    /// <summary>
-    ///   Gets or sets a value indicating whether Poll Option is Visible.
-    /// </summary>
-    public bool PollChecked
-    {
-      get => this.AddPollCheckBox.Checked;
-
-      set => this.AddPollCheckBox.Checked = value;
-    }
-
-    /// <summary>
-    ///   Gets or sets a value indicating whether Poll Option is Visible.
-    /// </summary>
-    public bool PollOptionVisible
-    {
-      get => this.liAddPoll.Visible;
-
-      set => this.liAddPoll.Visible = value;
-    }
-
-    /// <summary>
-    ///   Gets or sets a value indicating whether WatchChecked.
-    /// </summary>
-    public bool WatchChecked
-    {
-      get => this.TopicWatch.Checked;
-
-      set => this.TopicWatch.Checked = value;
-    }
-
-    /// <summary>
-    ///   Gets or sets a value indicating whether WatchOptionVisible.
-    /// </summary>
-    public bool WatchOptionVisible
-    {
-      get => this.liTopicWatch.Visible;
-
-      set => this.liTopicWatch.Visible = value;
-    }
+    using YAF.Core.BaseControls;
+    using YAF.Types;
 
     #endregion
 
-    #region Methods
-
     /// <summary>
-    /// Handles the Load event of the Page control.
+    /// The post options.
     /// </summary>
-    /// <param name="sender">The source of the event.</param>
-    /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    public partial class PostOptions : BaseUserControl
     {
-    }
+        #region Properties
 
-    #endregion
-  }
+        /// <summary>
+        ///   Gets or sets a value indicating whether Persistent Checked.
+        /// </summary>
+        public bool PersistentChecked
+        {
+            get => this.Persistency.Checked;
+
+            set => this.Persistency.Checked = value;
+        }
+
+        /// <summary>
+        ///   Gets or sets a value indicating whether Persistent Option Visible.
+        /// </summary>
+        public bool PersistentOptionVisible
+        {
+            get => this.liPersistency.Visible;
+
+            set => this.liPersistency.Visible = value;
+        }
+
+        /// <summary>
+        ///   Gets or sets a value indicating whether Poll Option is Visible.
+        /// </summary>
+        public bool PollChecked
+        {
+            get => this.AddPollCheckBox.Checked;
+
+            set => this.AddPollCheckBox.Checked = value;
+        }
+
+        /// <summary>
+        ///   Gets or sets a value indicating whether Poll Option is Visible.
+        /// </summary>
+        public bool PollOptionVisible
+        {
+            get => this.liAddPoll.Visible;
+
+            set => this.liAddPoll.Visible = value;
+        }
+
+        /// <summary>
+        ///   Gets or sets a value indicating whether WatchChecked.
+        /// </summary>
+        public bool WatchChecked
+        {
+            get => this.TopicWatch.Checked;
+
+            set => this.TopicWatch.Checked = value;
+        }
+
+        /// <summary>
+        ///   Gets or sets a value indicating whether WatchOptionVisible.
+        /// </summary>
+        public bool WatchOptionVisible
+        {
+            get => this.liTopicWatch.Visible;
+
+            set => this.liTopicWatch.Visible = value;
+        }
+
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        /// Handles the Load event of the Page control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+        {
+        }
+
+        #endregion
+    }
 }
