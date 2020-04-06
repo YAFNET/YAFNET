@@ -434,7 +434,7 @@ namespace YAF.Pages
                                {
                                    IsHtml = this.forumEditor.UsesHTML,
                                    IsBBCode = this.forumEditor.UsesBBCode,
-                                   IsPersistent = this.PostOptions1.PersistantChecked,
+                                   IsPersistent = this.PostOptions1.PersistentChecked,
                                    IsApproved = this.spamApproved
                                };
 

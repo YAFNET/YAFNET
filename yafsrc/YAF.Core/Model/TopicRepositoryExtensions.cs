@@ -31,9 +31,12 @@ namespace YAF.Core.Model
     using System.Globalization;
     using System.Linq;
 
+    using ServiceStack.OrmLite;
+
     using YAF.Configuration;
     using YAF.Core.Extensions;
     using YAF.Types;
+    using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
@@ -896,9 +899,15 @@ namespace YAF.Core.Model
 
             BoardContext.Current.Get<ISearch>().DeleteSearchIndexRecordByTopicId(topicId);
 
+            BoardContext.Current.Get<ILogger>().Log(
+                BoardContext.Current.PageUserName,
+                null,
+                BoardContext.Current.Get<ILocalization>().GetTextFormatted("DELETED_TOPIC", topicId),
+                EventLogTypes.Information);
+
             repository.DbFunction.Scalar.topic_delete(TopicID: topicId, EraseTopic: eraseTopic);
         }
-
+        
         /// <summary>
         /// The check for duplicate topic.
         /// </summary>
@@ -1017,7 +1026,7 @@ namespace YAF.Core.Model
         /// <param name="decodeTopicFunc">
         /// The decode topic function
         /// </param>
-        public static void UnencodeAllTopicsSubjects(this IRepository<Topic> repository, [NotNull] Func<string, string> decodeTopicFunc)
+        public static void UnEncodeAllTopicsSubjects(this IRepository<Topic> repository, [NotNull] Func<string, string> decodeTopicFunc)
         {
             var topics = repository.SimpleList(0, 99999999);
 
@@ -1058,23 +1067,26 @@ namespace YAF.Core.Model
         /// <returns>
         /// The <see cref="List"/>.
         /// </returns>
-        public static List<Topic> GetDeletedTopics(this IRepository<Topic> repository, [NotNull] int boardId, [CanBeNull] string filter)
+        public static List<Tuple<Forum, Topic>> GetDeletedTopics(this IRepository<Topic> repository, [NotNull] int boardId, [CanBeNull] string filter)
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
-            var deletedTopics = new List<Topic>();
+            var expression = OrmLiteConfig.DialectProvider.SqlExpression<Forum>();
 
-            BoardContext.Current.GetRepository<Forum>().List(BoardContext.Current.PageBoardID, null).ForEach(
-                forum =>
-                    {
-                        deletedTopics.AddRange(
-                            filter.IsSet()
-                                ? repository.Get(
-                                    t => t.IsDeleted == true && t.ForumID == forum.ID && t.TopicName.Contains(filter))
-                                : repository.Get(t => t.IsDeleted == true && t.ForumID == forum.ID));
-                    });
-
-            return deletedTopics;
+            if (filter.IsSet())
+            {
+                expression.Join<Forum, Category>((forum, category) => category.ID == forum.CategoryID)
+                    .Join<Topic>((f, t) => t.ForumID == f.ID).Where<Topic, Category>(
+                        (t, category) => category.BoardID == boardId && t.IsDeleted == true && t.TopicName.Contains(filter)).Select();
+            }
+            else
+            {
+                expression.Join<Forum, Category>((forum, category) => category.ID == forum.CategoryID)
+                    .Join<Topic>((f, t) => t.ForumID == f.ID).Where<Topic, Category>(
+                        (t, category) => category.BoardID == boardId && t.IsDeleted == true).Select();
+            }
+            
+            return repository.DbAccess.Execute(db => db.Connection.SelectMulti<Forum, Topic>(expression));
         }
 
         #endregion

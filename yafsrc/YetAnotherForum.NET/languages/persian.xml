@@ -1769,9 +1769,12 @@
     <Resource tag="FILTER_HELP">Filter list by Topic Name</Resource>
     <Resource tag="MSG_DELETED">Topics deleted</Resource>
     <Resource tag="MSG_RESTORED">Topic restored</Resource>
+    <Resource tag="RESTORE_MESSAGE">Restore Message</Resource>
     <Resource tag="SEARCH">Reload</Resource>
     <Resource tag="TITLE">Restore &amp; Delete Topics</Resource>
     <Resource tag="TITLE_HELP">Option to restore topics that are flagged as deleted topics, or to permanently delete them from the database.</Resource>
+    <Resource tag="TITLE_MESSAGE">Restore &amp; Delete Messages</Resource>
+    <Resource tag="TITLE_MESSAGE_HELP">Option to restore Messages that are flagged as deleted messages, or to permanently delete them from the database.</Resource>
   </page>
   <page name="ADMIN_RUNSQL">
     <Resource tag="HEADER">اجرای کوئری اس کیو ال</Resource>
@@ -2188,6 +2191,8 @@
     <Resource tag="COPY">کپی</Resource>
     <Resource tag="CUSTOM_BBCODE">BBCode های بیشتر</Resource>
     <Resource tag="DELETE">حذف</Resource>
+    <Resource tag="DELETED_MESSAGE">Message with ID: {0} Deleted</Resource>
+    <Resource tag="DELETED_TOPIC">Topic with ID: {0} Deleted</Resource>
     <Resource tag="DISALLOWED">غیرمجاز</Resource>
     <Resource tag="DOWNLOAD">دانلود</Resource>
     <Resource tag="EDIT">ویرایش</Resource>
