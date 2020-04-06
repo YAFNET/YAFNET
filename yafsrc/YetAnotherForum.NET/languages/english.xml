@@ -1630,7 +1630,7 @@
   <Resource tag="PRUNE_FORUM_HELP">Select a forum.</Resource>
   <Resource tag="PRUNE_INFO">NOTE: Prune Task is currently RUNNING. Cannot start a new prune task until it's finished.</Resource>
   <Resource tag="PRUNE_PERMANENT">Permanently remove from DB:</Resource>
-  <Resource tag="PRUNE_PERMANENT_HELP">If checked topics will be deleted from the databse, otherwise the topics will only be flagged as deleted.</Resource>
+  <Resource tag="PRUNE_PERMANENT_HELP">If checked topics will be deleted from the database, otherwise the topics will only be flagged as deleted.</Resource>
   <Resource tag="PRUNE_START">Start Prune Task</Resource>
   <Resource tag="TITLE">Prune Topics</Resource>
    <Resource tag="TITLE_HELP">Option to delete All Topics that are not marked as persistent.</Resource>
@@ -1641,9 +1641,13 @@
     <Resource tag="FILTER_HELP">Filter list by Topic Name</Resource>
     <Resource tag="MSG_DELETED">Topics deleted</Resource>
     <Resource tag="MSG_RESTORED">Topic restored</Resource>
+    <Resource tag="RESTORE_MESSAGE">Restore Message</Resource>
+    <Resource tag="RESTORE_TOPIC">Restore Topic</Resource>
     <Resource tag="SEARCH">Reload</Resource>
     <Resource tag="TITLE">Restore &amp; Delete Topics</Resource>
     <Resource tag="TITLE_HELP">Option to restore topics that are flagged as deleted topics, or to permanently delete them from the database.</Resource>
+    <Resource tag="TITLE_MESSAGE">Restore &amp; Delete Messages</Resource>
+    <Resource tag="TITLE_MESSAGE_HELP">Option to restore Messages that are flagged as deleted messages, or to permanently delete them from the database.</Resource>
   </page>
  <page name="ADMIN_RANKS">
   <Resource tag="COMMAND">Command</Resource>
@@ -2091,6 +2095,8 @@
   <Resource tag="COPY">Copy</Resource>
   <Resource tag="CUSTOM_BBCODE">More BBCode</Resource>
   <Resource tag="DELETE">Delete</Resource>
+   <Resource tag="DELETED_MESSAGE">Message with ID: {0} Deleted</Resource>
+   <Resource tag="DELETED_TOPIC">Topic with ID: {0} Deleted</Resource>
   <Resource tag="DISALLOWED">Disallowed</Resource>
   <Resource tag="DOWNLOAD">Download</Resource>
   <Resource tag="EDIT">Edit</Resource>

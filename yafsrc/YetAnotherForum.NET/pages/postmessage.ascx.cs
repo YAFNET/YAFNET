@@ -770,7 +770,7 @@ namespace YAF.Pages
                     =
                     this
                     .PostOptions1
-                    .PersistantChecked
+                    .PersistentChecked
             };
 
             var isModeratorChanged = this.PageContext.PageUserID != this.ownerUserId;
@@ -847,7 +847,7 @@ namespace YAF.Pages
                                {
                                    IsHtml = this.forumEditor.UsesHTML,
                                    IsBBCode = this.forumEditor.UsesBBCode,
-                                   IsPersistent = this.PostOptions1.PersistantChecked,
+                                   IsPersistent = this.PostOptions1.PersistentChecked,
                                    IsApproved = this.spamApproved
                                };
 
@@ -929,7 +929,7 @@ namespace YAF.Pages
                                {
                                    IsHtml = this.forumEditor.UsesHTML,
                                    IsBBCode = this.forumEditor.UsesBBCode,
-                                   IsPersistent = this.PostOptions1.PersistantChecked,
+                                   IsPersistent = this.PostOptions1.PersistentChecked,
                                    IsApproved = isSpamApproved
                                };
 
@@ -1440,7 +1440,7 @@ namespace YAF.Pages
 
             this.EditReasonRow.Visible = true;
             this.ReasonEditor.Text = this.Server.HtmlDecode(currentMessage.EditReason);
-            this.PostOptions1.PersistantChecked = currentMessage.Flags.IsPersistent;
+            this.PostOptions1.PersistentChecked = currentMessage.Flags.IsPersistent;
 
 
             var topicsList = this.GetRepository<TopicTag>().List(this.PageContext.PageTopicID);
