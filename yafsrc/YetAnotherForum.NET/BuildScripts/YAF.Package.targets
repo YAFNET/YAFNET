@@ -163,6 +163,8 @@
           DestinationFiles="$(MSBuildProjectDirectory)\Package\recommended.web.config"/>
     <Copy SourceFiles="$(MSBuildProjectDirectory)\recommended-azure.web.config" 
           DestinationFiles="$(MSBuildProjectDirectory)\Package\recommended-azure.web.config"/>
+    <Copy SourceFiles="$(MSBuildProjectDirectory)\Robots.txt"
+          DestinationFolder="$(MSBuildProjectDirectory)\Package\"/>
 
     <CreateItem Include="$(MSBuildProjectDirectory)\Package\**\*.*">
       <Output TaskParameter="Include" ItemName="OutputContentInstall" />
@@ -194,6 +196,8 @@
           DestinationFiles="$(MSBuildProjectDirectory)\Package\deploy\YetAnotherForum.NET\web.config"/>
     <Copy SourceFiles="$(MSBuildProjectDirectory)\recommended-azure.web.config" 
           DestinationFiles="$(MSBuildProjectDirectory)\Package\deploy\YetAnotherForum.NET\recommended-azure.web.config"/>
+    <Copy SourceFiles="$(MSBuildProjectDirectory)\Robots.txt"
+          DestinationFolder="$(MSBuildProjectDirectory)\Package\deploy\YetAnotherForum.NET\"/>
     <Copy SourceFiles="$(MSBuildProjectDirectory)\..\deploy\InstallSQL.sql" 
           DestinationFolder="$(MSBuildProjectDirectory)\Package\deploy" />
     <Copy SourceFiles="$(MSBuildProjectDirectory)\..\deploy\Manifest.xml" 

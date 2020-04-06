@@ -2209,6 +2209,7 @@
     <Content Include="Pages\Topics.ascx" />
     <Content Include="Resources\HelpMenuList.xml" />
     <Content Include="Resources\ProviderExceptions.xml" />
+    <Content Include="Robots.txt" />
     <Content Include="Scripts\blueimp-gallery\blueimp-gallery-indicator.js" />
     <Content Include="Scripts\blueimp-gallery\blueimp-gallery.js" />
     <Content Include="Scripts\blueimp-gallery\jquery.blueimp-gallery.js" />
@@ -2423,6 +2424,10 @@
     <Content Include="Scripts\ckeditor\plugins\autolink\plugin.js" />
     <Content Include="Scripts\ckeditor\plugins\autosave\css\autosave.min.css" />
     <Content Include="Scripts\ckeditor\plugins\autosave\js\extensions.min.js" />
+    <Content Include="Scripts\ckeditor\plugins\bbcodeselector\dialogs\bbcodeselector.js" />
+    <Content Include="Scripts\ckeditor\plugins\bbcodeselector\images\yafbbcode.gif" />
+    <Content Include="Scripts\ckeditor\plugins\bbcodeselector\lang\en.js" />
+    <Content Include="Scripts\ckeditor\plugins\bbcodeselector\plugin.js" />
     <Content Include="Scripts\ckeditor\plugins\codesnippet\plugin.js" />
     <Content Include="Scripts\ckeditor\plugins\embedbase\dialogs\embedbase.js" />
     <Content Include="Scripts\ckeditor\plugins\embedbase\lang\ar.js" />
