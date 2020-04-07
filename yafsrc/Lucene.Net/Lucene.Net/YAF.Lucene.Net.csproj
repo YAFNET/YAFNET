@@ -54,4 +54,11 @@
     <None Update="C:\Users\Watcher\Documents\GitHub\lucenenet\NOTICE.txt" Link="Sandbox\NOTICE.txt" />
   </ItemGroup>
 
+  <ItemGroup>
+    <InternalsVisibleTo Include="YAF.Lucene.Net.Analysis.Common" />
+    <InternalsVisibleTo Include="YAF.Lucene.Net.Highlighter" />
+    <InternalsVisibleTo Include="YAF.Lucene.Net.Queries" />
+    <InternalsVisibleTo Include="YAF.Lucene.Net.QueryParser" />
+  </ItemGroup>
+
 </Project>
