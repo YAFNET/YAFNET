@@ -15,7 +15,7 @@ Disallow: /Pages/
 Disallow: /Pages/Admin/
 Disallow: /Pages/Moderate/
 Disallow: /Resources/
-Disallow: /Portals/
+Disallow: /Boards/
 Disallow: /Scripts/
 Disallow: /Upload/
 Disallow: /YafAjax.asmx
