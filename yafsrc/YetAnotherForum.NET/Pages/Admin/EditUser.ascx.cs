@@ -110,7 +110,7 @@ namespace YAF.Pages.Admin
                 return;
             }
 
-            var userRow = dt.Rows[0];
+            var userRow = dt.GetFirstRow();
 
             // do admin permission check...
             if (!this.PageContext.IsHostAdmin && this.IsUserHostAdmin(userRow))

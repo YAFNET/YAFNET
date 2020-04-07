@@ -389,6 +389,11 @@ namespace YAF.Types.Constants
         Admin_Prune,
 
         /// <summary>
+        /// The Admin Restore page.
+        /// </summary>
+        Admin_Restore,
+
+        /// <summary>
         /// The Admin pm page.
         /// </summary>
         Admin_Pm,

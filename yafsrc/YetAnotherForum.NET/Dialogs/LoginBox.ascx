@@ -65,10 +65,10 @@
                                                     </div>
                                                 </div>
                                                 <div class="form-group col-md-6 text-right">
-                                                    <asp:LinkButton ID="PasswordRecovery" runat="server"
-                                                        CssClass="btn btn-secondary btn-sm mb-3"
-                                                        CausesValidation="false"
-                                                        OnClick="PasswordRecovery_Click" />
+                                                    <asp:Button ID="LoginButton" runat="server"
+                                                                CommandName="Login"
+                                                                ValidationGroup="Login1"
+                                                                CssClass="btn btn-primary" />
                                                 </div>
                                             </div>
                                         </div>
@@ -117,16 +117,16 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="modal-footer clearfix">
+                            <div class="modal-footer">
+                                
+                                <asp:LinkButton ID="PasswordRecovery" runat="server"
+                                                CssClass="btn btn-secondary btn-sm mb-1"
+                                                CausesValidation="false"
+                                                OnClick="PasswordRecovery_Click" />
                                 <YAF:ThemeButton ID="RegisterLink" runat="server"
-                                                 Type="Link"
-                                                 CssClass="mr-auto"
+                                                 Size="Small"
+                                                 Type="OutlineSecondary"
                                                  OnClick="RegisterLink_Click" />
-
-                                <asp:Button ID="LoginButton" runat="server"
-                                    CommandName="Login"
-                                    ValidationGroup="Login1"
-                                    CssClass="btn btn-primary" />
                             </div>
                         </div>
                     </div>

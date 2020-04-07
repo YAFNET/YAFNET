@@ -130,8 +130,6 @@ namespace YAF.Controls
             this.SuspendUnit.Items.Add(new ListItem(this.GetText("PROFILE", "DAYS"), "1"));
             this.SuspendUnit.Items.Add(new ListItem(this.GetText("PROFILE", "HOURS"), "2"));
             this.SuspendUnit.Items.Add(new ListItem(this.GetText("PROFILE", "MINUTES"), "3"));
-            foreach (ListItem listItem in this.SuspendUnit.Items)
-                listItem.Attributes.Add("class", "pr-2");
 
             // select hours
             this.SuspendUnit.SelectedIndex = 1;
@@ -344,7 +342,7 @@ namespace YAF.Controls
                 }
 
                 // get user's data in form of data row
-                var user = dt.Rows[0];
+                var user = dt.GetFirstRow();
 
                 // if user is not suspended, hide row with suspend information and remove suspension button
                 this.SuspendedHolder.Visible = !user.IsNull("Suspended");

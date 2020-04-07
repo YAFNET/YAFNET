@@ -34,6 +34,7 @@ namespace YAF.Core.Model
     using YAF.Configuration;
     using YAF.Core.Extensions;
     using YAF.Types;
+    using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Extensions.Data;
     using YAF.Types.Flags;
@@ -49,6 +50,33 @@ namespace YAF.Core.Model
     public static class MessageRepositoryExtensions
     {
         #region Public Methods and Operators
+
+        /// <summary>
+        /// Get Deleted Topics
+        /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="boardId">
+        /// The board id.
+        /// </param>
+        /// <returns>
+        /// The <see cref="List"/>.
+        /// </returns>
+        public static List<Tuple<Forum, Topic, Message>> GetDeletedMessages(
+            this IRepository<Message> repository,
+            [NotNull] int boardId)
+        {
+            CodeContracts.VerifyNotNull(repository, "repository");
+
+            var expression = OrmLiteConfig.DialectProvider.SqlExpression<Forum>();
+
+            expression.Join<Forum, Category>((forum, category) => category.ID == forum.CategoryID)
+                .Join<Topic>((f, t) => t.ForumID == f.ID).Join<Topic, Message>((t, m) => m.TopicID == t.ID)
+                .Where<Message, Category>((m, category) => category.BoardID == boardId && m.IsDeleted == true).Select();
+
+            return repository.DbAccess.Execute(db => db.Connection.SelectMulti<Forum, Topic, Message>(expression));
+        }
 
         /// <summary>
         /// Gets all the post by a user.
@@ -958,7 +986,13 @@ namespace YAF.Core.Model
             if (eraseMessages)
             {
                 // Delete Message from Search Index
-                BoardContext.Current.Get<ISearch>().ClearSearchIndexRecord(messageID);
+                BoardContext.Current.Get<ISearch>().DeleteSearchIndexRecordByMessageId(messageID);
+
+                BoardContext.Current.Get<ILogger>().Log(
+                    BoardContext.Current.PageUserName,
+                    null,
+                    BoardContext.Current.Get<ILocalization>().GetTextFormatted("DELETED_MESSAGE", messageID),
+                    EventLogTypes.Information);
 
                 repository.DbFunction.Scalar.message_delete(MessageID: messageID, EraseMessage: true);
             }

@@ -1652,7 +1652,9 @@
     <Resource tag="PRUNE_PERMANENT">Навсегда удалить из базы данных:</Resource>
     <Resource tag="PRUNE_PERMANENT_HELP">Все темы с помеченные как удалённые будут удалены.</Resource>
     <Resource tag="PRUNE_START">Начать задачу очистки</Resource>
+    <Resource tag="RESTORE_TOPIC">Restore Topic</Resource>
     <Resource tag="TITLE">Почистить темы</Resource>
+    <Resource tag="TITLE_HELP">Option to delete All Topics that are not marked as persistent.</Resource>
   </page>
   <page name="ADMIN_RANKS">
     <Resource tag="COMMAND">Действие</Resource>
@@ -1731,6 +1733,19 @@
     <Resource tag="INFO">Перезапуск приложения перезагрузит все файлы .config.</Resource>
     <Resource tag="MSG_TRUST">Вы должны обладать правами High/Unrestricted Trust для перезапуска. Не получилось!</Resource>
     <Resource tag="TITLE">Перезапуск</Resource>
+  </page>
+  <page name="ADMIN_RESTORE">
+    <Resource tag="DELETE_ALL_ZERO">Delete all with 0 Posts</Resource>
+    <Resource tag="FILTER">Search by Topic Name</Resource>
+    <Resource tag="FILTER_HELP">Filter list by Topic Name</Resource>
+    <Resource tag="MSG_DELETED">Topics deleted</Resource>
+    <Resource tag="MSG_RESTORED">Topic restored</Resource>
+    <Resource tag="RESTORE_MESSAGE">Restore Message</Resource>
+    <Resource tag="SEARCH">Reload</Resource>
+    <Resource tag="TITLE">Restore &amp; Delete Topics</Resource>
+    <Resource tag="TITLE_HELP">Option to restore topics that are flagged as deleted topics, or to permanently delete them from the database.</Resource>
+    <Resource tag="TITLE_MESSAGE">Restore &amp; Delete Messages</Resource>
+    <Resource tag="TITLE_MESSAGE_HELP">Option to restore Messages that are flagged as deleted messages, or to permanently delete them from the database.</Resource>
   </page>
   <page name="ADMIN_RUNSQL">
     <Resource tag="HEADER">Запрос SQL</Resource>
@@ -1894,6 +1909,7 @@
     <Resource tag="admin_reindex">Обслуживание БД</Resource>
     <Resource tag="admin_replacewords">Замена слов</Resource>
     <Resource tag="admin_restartapp">Перезапуск приложения</Resource>
+    <Resource tag="admin_restore">Restore &amp; Delete Topics</Resource>
     <Resource tag="admin_runsql">Выполнить запрос SQL</Resource>
     <Resource tag="ADMIN_SPAMLOG">Spam Event Log</Resource>
     <Resource tag="admin_spamwords">Spam Check Words</Resource>
@@ -2140,6 +2156,8 @@
     <Resource tag="COPY">Клонировать</Resource>
     <Resource tag="CUSTOM_BBCODE">Больше BBCode</Resource>
     <Resource tag="DELETE">Удалить</Resource>
+    <Resource tag="DELETED_MESSAGE">Message with ID: {0} Deleted</Resource>
+    <Resource tag="DELETED_TOPIC">Topic with ID: {0} Deleted</Resource>
     <Resource tag="DISALLOWED">Запрещено</Resource>
     <Resource tag="DOWNLOAD">Загрузка</Resource>
     <Resource tag="EDIT">Редактировать</Resource>

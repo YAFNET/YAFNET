@@ -59,18 +59,21 @@
                                     <i class="fa fa-calendar-day fa-fw"></i>
                                 </button>
                             </span>
-                            <asp:TextBox ID="ToDate" runat="server" CssClass="form-control"></asp:TextBox>
+                            <asp:TextBox ID="ToDate" runat="server" 
+                                         CssClass="form-control"></asp:TextBox>
                         </div>
                     </div>
                     <div class="form-group">
                         <YAF:HelpLabel ID="HelpLabel1" runat="server" 
                                        AssociatedControlID="Types"
                                        LocalizedPage="ADMIN_EVENTLOG" LocalizedTag="TYPES" />
-                        <asp:DropDownList ID="Types" runat="server" CssClass="custom-select"></asp:DropDownList>
+                        <asp:DropDownList ID="Types" runat="server" 
+                                          CssClass="select2-image-select"></asp:DropDownList>
                     </div>
                                 <div class="form-group">
                                     <YAF:ThemeButton ID="ApplyButton" runat="server"
                                                      Type="Primary" 
+                                                     CssClass="btn-block"
                                                      OnClick="ApplyButtonClick"
                                                      TextLocalizedPage="ADMIN_EVENTLOG" 
                                                      TextLocalizedTag="APPLY" 

@@ -307,7 +307,7 @@ namespace YAF.Pages
 
             normal.Attributes.Add(
                 "data-content",
-                $"<span class='select2-image-select-icon'><i class='fas fa-comment fa-fw text-secondary'></i>&nbsp;{this.GetText("normal")}</span>");
+                $"<span class='select2-image-select-icon'><i class='far fa-comment fa-fw text-secondary'></i>&nbsp;{this.GetText("normal")}</span>");
 
             this.Priority.Items.Add(normal);
 
@@ -434,7 +434,7 @@ namespace YAF.Pages
                                {
                                    IsHtml = this.forumEditor.UsesHTML,
                                    IsBBCode = this.forumEditor.UsesBBCode,
-                                   IsPersistent = this.PostOptions1.PersistantChecked,
+                                   IsPersistent = this.PostOptions1.PersistentChecked,
                                    IsApproved = this.spamApproved
                                };
 

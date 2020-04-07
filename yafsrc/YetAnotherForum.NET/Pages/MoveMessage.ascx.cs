@@ -176,9 +176,12 @@ namespace YAF.Pages
 
             this.PageLinks.AddLink(this.GetText("MOVE_MESSAGE"));
 
-            this.ForumList.DataSource = this.GetRepository<Forum>().ListAllSortedAsDataTable(
+            var forumList = this.GetRepository<Forum>().ListAllSortedAsDataTable(
                 this.PageContext.PageBoardID,
                 this.PageContext.PageUserID);
+
+            this.ForumList.AddForumAndCategoryIcons(forumList);
+
             this.ForumList.DataTextField = "Title";
             this.ForumList.DataValueField = "ForumID";
             this.DataBind();

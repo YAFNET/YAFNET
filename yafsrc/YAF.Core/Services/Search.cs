@@ -26,7 +26,6 @@ namespace YAF.Core.Services
 {
     using System;
     using System.Collections.Generic;
-    using System.Globalization;
     using System.IO;
     using System.Linq;
     using System.Threading;
@@ -203,13 +202,31 @@ namespace YAF.Core.Services
         }
 
         /// <summary>
-        /// Clears the search index record.
+        /// Delete Search Index Record by Message Id.
         /// </summary>
-        /// <param name="messageId">The message identifier.</param>
-        public void ClearSearchIndexRecord(int messageId)
+        /// <param name="messageId">
+        /// The message id.
+        /// </param>
+        public void DeleteSearchIndexRecordByMessageId(int messageId)
         {
             // remove older index entry
             var searchQuery = new TermQuery(new Term("MessageId", messageId.ToString()));
+
+            this.Writer.DeleteDocuments(searchQuery);
+
+            this.Optimize();
+        }
+
+        /// <summary>
+        /// Delete Search Index Record by Topic Id.
+        /// </summary>
+        /// <param name="topicId">
+        /// The topic Id.
+        /// </param>
+        public void DeleteSearchIndexRecordByTopicId(int topicId)
+        {
+            // remove older index entry
+            var searchQuery = new TermQuery(new Term("TopicId", topicId.ToString()));
 
             this.Writer.DeleteDocuments(searchQuery);
 
@@ -516,14 +533,11 @@ namespace YAF.Core.Services
             }
 
             return new SearchMessage
-            {
+                       {
                            Topic = doc.Get("Topic"),
                            TopicId = doc.Get("TopicId").ToType<int>(),
                            TopicUrl = BuildLink.GetLink(ForumPages.Posts, "t={0}", doc.Get("TopicId").ToType<int>()),
-                           Posted =
-                               doc.Get("Posted").ToType<System.DateTime>().ToString(
-                                   "yyyy-MM-ddTHH:mm:ssZ",
-                                   CultureInfo.InvariantCulture),
+                           Posted = doc.Get("Posted"),
                            UserId = doc.Get("UserId").ToType<int>(),
                            UserName = doc.Get("Author"),
                            UserDisplayName = doc.Get("AuthorDisplay"),
@@ -685,14 +699,11 @@ namespace YAF.Core.Services
             }
 
             return new SearchMessage
-            {
+                       {
                            MessageId = doc.Get("MessageId").ToType<int>(),
                            Message = message,
                            Flags = flags,
-                           Posted =
-                               doc.Get("Posted").ToType<System.DateTime>().ToString(
-                                   "yyyy-MM-ddTHH:mm:ssZ",
-                                   CultureInfo.InvariantCulture),
+                           Posted = doc.Get("Posted"),
                            UserName = doc.Get("Author"),
                            UserId = doc.Get("UserId").ToType<int>(),
                            TopicId = doc.Get("TopicId").ToType<int>(),
@@ -702,10 +713,7 @@ namespace YAF.Core.Services
                            Description = doc.Get("Description"),
                            TopicUrl = BuildLink.GetLink(ForumPages.Posts, "t={0}", doc.Get("TopicId").ToType<int>()),
                            MessageUrl =
-                               BuildLink.GetLink(
-                                   ForumPages.Posts,
-                                   "m={0}#post{0}",
-                                   doc.Get("MessageId").ToType<int>()),
+                               BuildLink.GetLink(ForumPages.Posts, "m={0}#post{0}", doc.Get("MessageId").ToType<int>()),
                            ForumUrl = BuildLink.GetLink(ForumPages.forum, "f={0}", doc.Get("ForumId").ToType<int>()),
                            UserDisplayName = doc.Get("AuthorDisplay"),
                            ForumName = doc.Get("ForumName"),

@@ -321,7 +321,7 @@ namespace YAF.Controls
                 this.currentUserId,
                 null))
             {
-                row = dt.Rows[0];
+                row = dt.GetFirstRow();
             }
 
             this.AvatarImg.Visible = true;

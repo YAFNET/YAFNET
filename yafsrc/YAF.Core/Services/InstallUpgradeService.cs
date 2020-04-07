@@ -262,7 +262,7 @@ namespace YAF.Core.Services
                 if (prevVersion < 42)
                 {
                     // un-html encode all topic subject names...
-                    this.GetRepository<Topic>().UnencodeAllTopicsSubjects(HttpUtility.HtmlDecode);
+                    this.GetRepository<Topic>().UnEncodeAllTopicsSubjects(HttpUtility.HtmlDecode);
                 }
 
                 // initialize search index

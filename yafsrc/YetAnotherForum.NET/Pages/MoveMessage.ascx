@@ -23,7 +23,7 @@
                                             LocalizedTag="select_forum_moveto" />
                     </asp:Label>
                     <asp:DropDownList ID="ForumList" runat="server" 
-                                      CssClass="select2-select" 
+                                      CssClass="select2-image-select" 
                                       AutoPostBack="True" 
                                       OnSelectedIndexChanged="ForumList_SelectedIndexChanged" />
                 </div>

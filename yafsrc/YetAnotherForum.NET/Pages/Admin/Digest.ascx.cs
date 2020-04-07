@@ -27,7 +27,6 @@ namespace YAF.Pages.Admin
 
     using System;
     using System.Globalization;
-    using System.Text.RegularExpressions;
 
     using YAF.Configuration;
     using YAF.Core;

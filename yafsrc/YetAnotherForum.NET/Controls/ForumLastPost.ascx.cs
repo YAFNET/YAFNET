@@ -96,6 +96,7 @@ namespace YAF.Controls
                     ForumPages.Posts, "t={0}", this.DataRow["LastTopicID"]);
 
                 this.topicLink.ToolTip = this.GetText("COMMON", "VIEW_TOPIC");
+                this.topicLink.Attributes.Add("data-toggle", "tooltip");
 
                 var styles = this.Get<BoardSettings>().UseStyledTopicTitles
                                  ? this.Get<IStyleTransform>().DecodeStyleByString(

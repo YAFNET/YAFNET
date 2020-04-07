@@ -1664,7 +1664,9 @@
     <Resource tag="PRUNE_PERMANENT">Verwijder definitief uit DB:</Resource>
     <Resource tag="PRUNE_PERMANENT_HELP">Alle Topics die gemarkeerd zijn als 'Verwijderd', zullen definitief worden verwijderd.</Resource>
     <Resource tag="PRUNE_START">Start Opschoontaak</Resource>
+    <Resource tag="RESTORE_TOPIC">Restore Topic</Resource>
     <Resource tag="TITLE">Schoon Topics</Resource>
+    <Resource tag="TITLE_HELP">Option to delete All Topics that are not marked as persistent.</Resource>
   </page>
   <page name="ADMIN_RANKS">
     <Resource tag="COMMAND">Commando</Resource>
@@ -1743,6 +1745,19 @@
     <Resource tag="INFO">Het herstarten van de applicatie laadt alle config bestanden opnieuw.</Resource>
     <Resource tag="MSG_TRUST">Je moet High/Unrestricted Trust hebben om de applicatie te Unloaden. De herstart is niet gelukt.</Resource>
     <Resource tag="TITLE">Herstart Applicatie</Resource>
+  </page>
+  <page name="ADMIN_RESTORE">
+    <Resource tag="DELETE_ALL_ZERO">Delete all with 0 Posts</Resource>
+    <Resource tag="FILTER">Search by Topic Name</Resource>
+    <Resource tag="FILTER_HELP">Filter list by Topic Name</Resource>
+    <Resource tag="MSG_DELETED">Topics deleted</Resource>
+    <Resource tag="MSG_RESTORED">Topic restored</Resource>
+    <Resource tag="RESTORE_MESSAGE">Restore Message</Resource>
+    <Resource tag="SEARCH">Reload</Resource>
+    <Resource tag="TITLE">Restore &amp; Delete Topics</Resource>
+    <Resource tag="TITLE_HELP">Option to restore topics that are flagged as deleted topics, or to permanently delete them from the database.</Resource>
+    <Resource tag="TITLE_MESSAGE">Restore &amp; Delete Messages</Resource>
+    <Resource tag="TITLE_MESSAGE_HELP">Option to restore Messages that are flagged as deleted messages, or to permanently delete them from the database.</Resource>
   </page>
   <page name="ADMIN_RUNSQL">
     <Resource tag="HEADER">Voer SQL Query uit</Resource>
@@ -1906,6 +1921,7 @@
     <Resource tag="admin_reindex">DB Onderhoud</Resource>
     <Resource tag="admin_replacewords">Vervangwoorden</Resource>
     <Resource tag="admin_restartapp">Herstart Forum</Resource>
+    <Resource tag="admin_restore">Restore &amp; Delete Topics</Resource>
     <Resource tag="admin_runsql">Draai SQL Query</Resource>
     <Resource tag="ADMIN_SPAMLOG">Spam Event Log</Resource>
     <Resource tag="admin_spamwords">Spam Check Words</Resource>
@@ -2152,6 +2168,8 @@
     <Resource tag="COPY">Kopi&amp;euml;er</Resource>
     <Resource tag="CUSTOM_BBCODE">Meer BBCode</Resource>
     <Resource tag="DELETE">Verwijder</Resource>
+    <Resource tag="DELETED_MESSAGE">Message with ID: {0} Deleted</Resource>
+    <Resource tag="DELETED_TOPIC">Topic with ID: {0} Deleted</Resource>
     <Resource tag="DISALLOWED">Niet toegestaan</Resource>
     <Resource tag="DOWNLOAD">Downloaden</Resource>
     <Resource tag="EDIT">Bewerk</Resource>

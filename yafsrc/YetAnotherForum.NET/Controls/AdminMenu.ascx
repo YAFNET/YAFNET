@@ -198,6 +198,7 @@
                         </li>
                         <!---->
     <li class="dropdown-item dropdown-submenu<%= this.PageContext.ForumPageType == ForumPages.Admin_Prune || 
+                                                 this.PageContext.ForumPageType == ForumPages.Admin_Restore || 
                                                  this.PageContext.ForumPageType == ForumPages.Admin_TaskManager || 
                                                  this.PageContext.ForumPageType == ForumPages.Admin_EventLog || 
                                                  this.PageContext.ForumPageType == ForumPages.Admin_RestartApp ? " active" : ""%>">
@@ -210,6 +211,13 @@
                                     <YAF:LocalizedLabel runat="server" 
                                                         LocalizedTag="admin_prune" LocalizedPage="ADMINMENU"></YAF:LocalizedLabel>
                                 </a>
+                                </li>
+                                <li class="dropdown-item<%= this.PageContext.ForumPageType == ForumPages.Admin_Restore ? " active" : ""%>">
+                                    <a href="<%= BuildLink.GetLink(ForumPages.Admin_Restore) %>">
+                                        <i class="fa fa-trash-restore fa-fw"></i>&nbsp;
+                                        <YAF:LocalizedLabel runat="server" 
+                                                            LocalizedTag="ADMIN_RESTORE" LocalizedPage="ADMINMENU"></YAF:LocalizedLabel>
+                                    </a>
                                 </li>
                                 <li class="dropdown-item<%= this.PageContext.ForumPageType == ForumPages.Admin_Pm ? " active" : ""%>">
                                     <a href="<%= BuildLink.GetLink(ForumPages.Admin_Pm) %>">

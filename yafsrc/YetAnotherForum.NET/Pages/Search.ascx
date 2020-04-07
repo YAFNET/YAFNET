@@ -48,7 +48,7 @@
                     <asp:Label runat="server" AssociatedControlID="listForum">
                         <YAF:LocalizedLabel runat="server" LocalizedTag="SEARCH_IN" />
                     </asp:Label>
-                    <asp:DropDownList ID="listForum" runat="server" CssClass="custom-select searchForum" />
+                    <asp:DropDownList ID="listForum" runat="server" CssClass="select2-image-select searchForum" />
                 </div>
                 <div class="form-group">
                     <asp:Label runat="server" AssociatedControlID="TitleOnly">
@@ -63,8 +63,13 @@
                     <asp:DropDownList ID="listResInPage" runat="server" CssClass="custom-select resultsPage" />
                 </div>
             </div>
-            <div class="px-3 text-center pb-2">
-                <button type="button" class="btn btn-primary btn-sm w-25"><%= this.Get<ILocalization>().GetText("COMMON", "OK") %></button>
+            <div class="px-3">
+                <YAF:ThemeButton runat="server"
+                                 Type="Primary"
+                                 Size="Small"
+                                 TextLocalizedTag="OK"
+                                 TextLocalizedPage="COMMON"
+                                 CssClass="btn-block"></YAF:ThemeButton>
             </div>
         </div>
     </div>

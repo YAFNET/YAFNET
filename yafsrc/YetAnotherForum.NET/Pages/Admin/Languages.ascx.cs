@@ -54,7 +54,7 @@ namespace YAF.Pages.Admin
         /// <param name="e">An <see cref="T:System.EventArgs"/> object that contains the event data.</param>
         protected override void OnInit([NotNull] EventArgs e)
         {
-            this.List.ItemCommand += this.List_ItemCommand;
+            this.List.ItemCommand += List_ItemCommand;
 
             base.OnInit(e);
         }
@@ -98,6 +98,21 @@ namespace YAF.Pages.Admin
         }
 
         /// <summary>
+        /// The list_ item command.
+        /// </summary>
+        /// <param name="source">The source of the event.</param>
+        /// <param name="e">The <see cref="System.Web.UI.WebControls.RepeaterCommandEventArgs"/> instance containing the event data.</param>
+        private static void List_ItemCommand([NotNull] object source, [NotNull] RepeaterCommandEventArgs e)
+        {
+            switch (e.CommandName)
+            {
+                case "edit":
+                    BuildLink.Redirect(ForumPages.Admin_EditLanguage, "x={0}", e.CommandArgument);
+                    break;
+            }
+        }
+
+        /// <summary>
         /// Binds the data.
         /// </summary>
         private void BindData()
@@ -113,21 +128,6 @@ namespace YAF.Pages.Admin
                    cultureTable.HasRows() ? "headers: { 4: { sorter: false }}" : null));
 
             this.DataBind();
-        }
-
-        /// <summary>
-        /// The list_ item command.
-        /// </summary>
-        /// <param name="source">The source of the event.</param>
-        /// <param name="e">The <see cref="System.Web.UI.WebControls.RepeaterCommandEventArgs"/> instance containing the event data.</param>
-        private void List_ItemCommand([NotNull] object source, [NotNull] RepeaterCommandEventArgs e)
-        {
-            switch (e.CommandName)
-            {
-                case "edit":
-                    BuildLink.Redirect(ForumPages.Admin_EditLanguage, "x={0}", e.CommandArgument);
-                    break;
-            }
         }
 
         #endregion

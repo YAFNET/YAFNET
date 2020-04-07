@@ -46,6 +46,7 @@
                                 <div class="form-group">
                                     <YAF:ThemeButton ID="search" runat="server"  
                                                      Type="Primary"
+                                                     CssClass="btn-block"
                                                      TextLocalizedTag="BTNSEARCH" 
                                                      TextLocalizedPage="SEARCH" 
                                                      Icon="search"

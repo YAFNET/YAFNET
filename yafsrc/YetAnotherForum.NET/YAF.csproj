@@ -696,6 +696,13 @@
     <Compile Include="Pages\Admin\Boards.ascx.designer.cs">
       <DependentUpon>Boards.ascx</DependentUpon>
     </Compile>
+    <Compile Include="Pages\Admin\Restore.ascx.cs">
+      <DependentUpon>Restore.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Admin\Restore.ascx.designer.cs">
+      <DependentUpon>Restore.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Pages\Admin\Settings.ascx.designer.cs">
       <DependentUpon>Settings.ascx</DependentUpon>
     </Compile>
@@ -2050,6 +2057,7 @@
     <Content Include="languages\estonian.xml" />
     <Content Include="Pages\Admin\BannedEmails.ascx" />
     <Content Include="Pages\Admin\BannedNames.ascx" />
+    <Content Include="Pages\Admin\Restore.ascx" />
     <Content Include="Pages\Admin\SpamLog.ascx" />
     <Content Include="Pages\Admin\PageAccessEdit.ascx" />
     <Content Include="Pages\Admin\PageAccessList.ascx" />
@@ -2201,6 +2209,7 @@
     <Content Include="Pages\Topics.ascx" />
     <Content Include="Resources\HelpMenuList.xml" />
     <Content Include="Resources\ProviderExceptions.xml" />
+    <Content Include="Robots.txt" />
     <Content Include="Scripts\blueimp-gallery\blueimp-gallery-indicator.js" />
     <Content Include="Scripts\blueimp-gallery\blueimp-gallery.js" />
     <Content Include="Scripts\blueimp-gallery\jquery.blueimp-gallery.js" />
@@ -2415,6 +2424,10 @@
     <Content Include="Scripts\ckeditor\plugins\autolink\plugin.js" />
     <Content Include="Scripts\ckeditor\plugins\autosave\css\autosave.min.css" />
     <Content Include="Scripts\ckeditor\plugins\autosave\js\extensions.min.js" />
+    <Content Include="Scripts\ckeditor\plugins\bbcodeselector\dialogs\bbcodeselector.js" />
+    <Content Include="Scripts\ckeditor\plugins\bbcodeselector\images\yafbbcode.gif" />
+    <Content Include="Scripts\ckeditor\plugins\bbcodeselector\lang\en.js" />
+    <Content Include="Scripts\ckeditor\plugins\bbcodeselector\plugin.js" />
     <Content Include="Scripts\ckeditor\plugins\codesnippet\plugin.js" />
     <Content Include="Scripts\ckeditor\plugins\embedbase\dialogs\embedbase.js" />
     <Content Include="Scripts\ckeditor\plugins\embedbase\lang\ar.js" />
@@ -2466,10 +2479,6 @@
     <Content Include="Scripts\ckeditor\plugins\embed\plugin.js" />
     <Content Include="Scripts\ckeditor\plugins\highlight\lang\en.js" />
     <Content Include="Scripts\ckeditor\plugins\highlight\plugin.js" />
-    <Content Include="Scripts\ckeditor\plugins\bbcodeselector\dialogs\bbcodeselector.js" />
-    <Content Include="Scripts\ckeditor\plugins\bbcodeselector\images\yafbbcode.gif" />
-    <Content Include="Scripts\ckeditor\plugins\bbcodeselector\lang\en.js" />
-    <Content Include="Scripts\ckeditor\plugins\bbcodeselector\plugin.js" />
     <Content Include="Scripts\ckeditor\plugins\clipboard\dialogs\paste.js" />
     <Content Include="Scripts\ckeditor\plugins\codemirror\css\codemirror.min.css" />
     <Content Include="Scripts\ckeditor\plugins\codemirror\images\autocomplete.png" />
@@ -2488,7 +2497,6 @@
     <Content Include="Scripts\ckeditor\plugins\codemirror\js\codemirror.mode.javascript.min.js" />
     <Content Include="Scripts\ckeditor\plugins\codemirror\js\codemirror.mode.php.min.js" />
     <Content Include="Scripts\ckeditor\plugins\codemirror\js\codemirror.mode.twig.min.js" />
-    <Content Include="Scripts\ckeditor\plugins\codemirror\plugin.js" />
     <Content Include="Scripts\ckeditor\plugins\codemirror\theme\3024-day.css" />
     <Content Include="Scripts\ckeditor\plugins\codemirror\theme\3024-night.css" />
     <Content Include="Scripts\ckeditor\plugins\codemirror\theme\abcdef.css" />
@@ -2771,14 +2779,6 @@
     <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\_translationstatus.txt" />
     <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\specialchar.js" />
     <Content Include="Scripts\ckeditor\plugins\tableselection\styles\tableselection.css" />
-    <Content Include="Scripts\ckeditor\plugins\tabletools\dialogs\tableCell.js" />
-    <Content Include="Scripts\ckeditor\plugins\table\dialogs\table.js" />
-    <Content Include="Scripts\ckeditor\plugins\templates\dialogs\templates.css" />
-    <Content Include="Scripts\ckeditor\plugins\templates\dialogs\templates.js" />
-    <Content Include="Scripts\ckeditor\plugins\templates\templates\default.js" />
-    <Content Include="Scripts\ckeditor\plugins\templates\templates\images\template1.gif" />
-    <Content Include="Scripts\ckeditor\plugins\templates\templates\images\template2.gif" />
-    <Content Include="Scripts\ckeditor\plugins\templates\templates\images\template3.gif" />
     <Content Include="Scripts\ckeditor\plugins\widget\images\handle.png" />
     <Content Include="Scripts\ckeditor\plugins\wordcount\css\wordcount.css" />
     <Content Include="Scripts\ckeditor\plugins\wsc\dialogs\ciframe.html" />

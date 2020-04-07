@@ -22,7 +22,7 @@
                             <asp:DropDownList ID="ForumList" runat="server"
                                               DataValueField="ForumID" 
                                               DataTextField="Title" 
-                                              CssClass="select2-select" />
+                                              CssClass="select2-image-select" />
                         </div>
                         <asp:PlaceHolder id="trLeaveLink" runat="server">
                             <div class="form-group">

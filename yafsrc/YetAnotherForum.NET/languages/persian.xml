@@ -1666,7 +1666,9 @@
     <Resource tag="PRUNE_PERMANENT">حذف دائم از پایگه داده:</Resource>
     <Resource tag="PRUNE_PERMANENT_HELP">تمام موضوعات مشخص شده با عنوان حذف شده حذف دائم خواهند شد.</Resource>
     <Resource tag="PRUNE_START">آغاز فرمان اصلاح</Resource>
+    <Resource tag="RESTORE_TOPIC">Restore Topic</Resource>
     <Resource tag="TITLE">اصلاح موضوعات</Resource>
+    <Resource tag="TITLE_HELP">Option to delete All Topics that are not marked as persistent.</Resource>
   </page>
   <page name="ADMIN_RANKS">
     <Resource tag="COMMAND">فرمان</Resource>
@@ -1760,6 +1762,19 @@
     <Resource tag="MSG_TRUST">برای بارگذاری برنامه می بایست High/Unrestricted Trust داشته باشید.شروع مجدد شکست خورد.
     </Resource>
     <Resource tag="TITLE">شروع مجدد برنامه</Resource>
+  </page>
+  <page name="ADMIN_RESTORE">
+    <Resource tag="DELETE_ALL_ZERO">Delete all with 0 Posts</Resource>
+    <Resource tag="FILTER">Search by Topic Name</Resource>
+    <Resource tag="FILTER_HELP">Filter list by Topic Name</Resource>
+    <Resource tag="MSG_DELETED">Topics deleted</Resource>
+    <Resource tag="MSG_RESTORED">Topic restored</Resource>
+    <Resource tag="RESTORE_MESSAGE">Restore Message</Resource>
+    <Resource tag="SEARCH">Reload</Resource>
+    <Resource tag="TITLE">Restore &amp; Delete Topics</Resource>
+    <Resource tag="TITLE_HELP">Option to restore topics that are flagged as deleted topics, or to permanently delete them from the database.</Resource>
+    <Resource tag="TITLE_MESSAGE">Restore &amp; Delete Messages</Resource>
+    <Resource tag="TITLE_MESSAGE_HELP">Option to restore Messages that are flagged as deleted messages, or to permanently delete them from the database.</Resource>
   </page>
   <page name="ADMIN_RUNSQL">
     <Resource tag="HEADER">اجرای کوئری اس کیو ال</Resource>
@@ -1926,6 +1941,7 @@
     <Resource tag="admin_reindex">نگهداری پایگاه داده</Resource>
     <Resource tag="admin_replacewords">جایگزینی کلمات</Resource>
     <Resource tag="admin_restartapp">شروع مجدد برنامه</Resource>
+    <Resource tag="admin_restore">Restore &amp; Delete Topics</Resource>
     <Resource tag="admin_runsql">اجرای کوئری SQL</Resource>
     <Resource tag="ADMIN_SPAMLOG">لاگ اسپم</Resource>
     <Resource tag="admin_spamwords">بررسی کلمات اسپم</Resource>
@@ -2175,6 +2191,8 @@
     <Resource tag="COPY">کپی</Resource>
     <Resource tag="CUSTOM_BBCODE">BBCode های بیشتر</Resource>
     <Resource tag="DELETE">حذف</Resource>
+    <Resource tag="DELETED_MESSAGE">Message with ID: {0} Deleted</Resource>
+    <Resource tag="DELETED_TOPIC">Topic with ID: {0} Deleted</Resource>
     <Resource tag="DISALLOWED">غیرمجاز</Resource>
     <Resource tag="DOWNLOAD">دانلود</Resource>
     <Resource tag="EDIT">ویرایش</Resource>

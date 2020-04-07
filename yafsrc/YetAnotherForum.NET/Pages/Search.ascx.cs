@@ -119,9 +119,11 @@ namespace YAF.Pages
             this.listSearchWhat.SelectedIndex = 2;
 
             // Load forum's combo
-            this.listForum.DataSource = this.GetRepository<Forum>().ListAllSortedAsDataTable(
+            var forumList = this.GetRepository<Forum>().ListAllSortedAsDataTable(
                 this.PageContext.PageBoardID,
                 this.PageContext.PageUserID);
+
+            this.listForum.AddForumAndCategoryIcons(forumList);
 
             this.listForum.DataValueField = "ForumID";
             this.listForum.DataTextField = "Title";

@@ -13,12 +13,6 @@
                     <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="POLLADD" />?
                 </asp:Label>
             </div>
-            <div id="liQuestion" runat="server" visible="false" class="custom-control custom-checkbox">
-                <asp:CheckBox ID="chkIsQuestion" runat="server" />
-                <asp:Label runat="server" AssociatedControlID="IsQuestionLael">
-                    <YAF:LocalizedLabel ID="IsQuestionLael" runat="server" LocalizedTag="ISQUESTION"/> 
-                </asp:Label>
-            </div>
             <div id="liPersistency" runat="server" class="custom-control custom-checkbox">
                 <asp:CheckBox ID="Persistency" runat="server" Checked="True"/>
                 <asp:Label runat="server" AssociatedControlID="Persistency">

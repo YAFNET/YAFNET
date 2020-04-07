@@ -132,7 +132,7 @@ namespace YAF.Web.Controls
             if (!this.AllowSelection)
             {
                 writer.Write("<div class=\"row\">");
-                writer.Write("<div class=\"col-md-6\">");
+                writer.Write("<div class=\"col-md-8\">");
                 writer.Write("<h5>");
             }
 
@@ -148,14 +148,14 @@ namespace YAF.Web.Controls
             }
 
             var topicLink = new HyperLink
-                                {
-                                    NavigateUrl = BuildLink.GetLinkNotEscaped(
+            {
+                NavigateUrl = BuildLink.GetLinkNotEscaped(
                                         ForumPages.Posts,
                                         "t={0}",
                                         this.TopicRow["LinkTopicID"]),
-                                    Text = this.FormatTopicName(),
-                                    CssClass = "topic-starter-popover"
-                                };
+                Text = this.FormatTopicName(),
+                CssClass = "topic-starter-popover"
+            };
 
             topicLink.Attributes.Add("data-toggle", "popover");
 
@@ -170,14 +170,14 @@ namespace YAF.Web.Controls
                                                    topicStartedDateTime);
 
             var topicStarterLink = new UserLink
-                                       {
-                                           UserID = this.TopicRow["UserID"].ToType<int>(),
-                                           ReplaceName = this
+            {
+                UserID = this.TopicRow["UserID"].ToType<int>(),
+                ReplaceName = this
                                                .TopicRow[this.Get<BoardSettings>().EnableDisplayName
                                                              ? "StarterDisplay"
                                                              : "Starter"].ToString(),
-                                           Style = this.TopicRow["StarterStyle"].ToString()
-                                       };
+                Style = this.TopicRow["StarterStyle"].ToString()
+            };
 
             var span = this.Get<BoardSettings>().ShowRelativeTime ? @"<span class=""popover-timeago"">" : "<span>";
 
@@ -206,10 +206,21 @@ namespace YAF.Web.Controls
             if (favoriteCount > 0)
             {
                 writer.Write(
-                    "&nbsp;<span class=\"badge badge-info\" title=\"{0}\" data-toggle=\"tooltip\"><i class=\"fas fa-star\"></i> +{1}</span>",
+                    "<span class=\"badge badge-info ml-1\" title=\"{0}\" data-toggle=\"tooltip\"><i class=\"fas fa-star\"></i> +{1}</span>",
                     this.GetText("FAVORITE_COUNT_TT"),
                     favoriteCount);
             }
+
+            // Render Replies & Views
+            writer.Write(
+                "<span class=\"badge badge-light ml-1 mr-1\" title=\"{0}\" data-toggle=\"tooltip\"><i class=\"far fa-comment pr-1\"></i>{1}</span>",
+                this.GetText("MODERATE", "REPLIES"),
+                this.FormatReplies());
+
+            writer.Write(
+                "<span class=\"badge badge-light\" title=\"{0}\" data-toggle=\"tooltip\"><i class=\"far fa-eye pr-1\"></i>{1}</span>",
+                this.GetText("MODERATE", "VIEWS"),
+                this.FormatViews());
 
             // Render Pager
             var actualPostCount = this.TopicRow["Replies"].ToType<int>() + 1;
@@ -234,20 +245,14 @@ namespace YAF.Web.Controls
 
             writer.Write(" </h5>");
 
+            var topicDescription = this.TopicRow["Description"].ToString();
+
+            if (topicDescription.IsSet())
+            {
+                writer.Write($"<h6 class=\"card-subtitle text-muted\">{topicDescription}</h6>");
+            }
+
             writer.Write("</div>");
-            writer.Write("<div class=\"col-md-2 text-secondary\">");
-            writer.Write(
-                "<div class=\"d-flex flex-row flex-md-column justify-content-between justify-content-md-start\">");
-            writer.Write("<div>");
-            writer.Write("{0}: ", this.GetText("MODERATE", "REPLIES"));
-            writer.Write(this.FormatReplies());
-            writer.Write(" </div>");
-            writer.Write("<div>");
-            writer.Write("{0}: ", this.GetText("MODERATE", "VIEWS"));
-            writer.Write(this.FormatViews());
-            writer.Write("   </div>");
-            writer.Write("  </div>");
-            writer.Write(" </div>");
 
             if (!this.TopicRow["LastMessageID"].IsNullOrEmptyDBField())
             {
@@ -256,16 +261,16 @@ namespace YAF.Web.Controls
                 writer.Write($"{this.GetText("LASTPOST")}:");
 
                 var infoLastPost = new ThemeButton
-                                       {
-                                           Size = ButtonSize.Small,
-                                           Icon = "info-circle",
-                                           IconCssClass = "fas fa-lg",
-                                           IconColor = "text-secondary",
-                                           Type = ButtonAction.Link,
-                                           DataToggle = "popover",
-                                           CssClass = "topic-link-popover",
-                                           NavigateUrl = "#!"
-                                       };
+                {
+                    Size = ButtonSize.Small,
+                    Icon = "info-circle",
+                    IconCssClass = "fas fa-lg",
+                    IconColor = "text-secondary",
+                    Type = ButtonAction.Link,
+                    DataToggle = "popover",
+                    CssClass = "topic-link-popover",
+                    NavigateUrl = "#!"
+                };
 
                 var lastPostedDateTime = this.TopicRow["LastPosted"].ToType<DateTime>();
 
@@ -278,14 +283,14 @@ namespace YAF.Web.Controls
                                                 lastPostedDateTime);
 
                 var userLast = new UserLink
-                                   {
-                                       UserID = this.TopicRow["LastUserID"].ToType<int>(),
-                                       ReplaceName = this
+                {
+                    UserID = this.TopicRow["LastUserID"].ToType<int>(),
+                    ReplaceName = this
                                            .TopicRow[this.Get<BoardSettings>().EnableDisplayName
                                                          ? "LastUserDisplayName"
                                                          : "LastUserName"].ToString(),
-                                       Style = this.TopicRow["LastUserStyle"].ToString()
-                                   };
+                    Style = this.TopicRow["LastUserStyle"].ToString()
+                };
 
                 infoLastPost.DataContent = $@"
                           {userLast.RenderToString()}
@@ -305,32 +310,32 @@ namespace YAF.Web.Controls
                 writer.Write(infoLastPost.RenderToString());
 
                 var gotoLastPost = new ThemeButton
-                                       {
-                                           NavigateUrl =
+                {
+                    NavigateUrl =
                                                BuildLink.GetLink(
                                                    ForumPages.Posts,
                                                    "m={0}#post{0}",
                                                    this.TopicRow["LastMessageID"]),
-                                           Size = ButtonSize.Small,
-                                           Icon = "share-square",
-                                           Type = ButtonAction.OutlineSecondary,
-                                           TitleLocalizedTag = "GO_LAST_POST",
-                                           DataToggle = "tooltip"
-                                       };
+                    Size = ButtonSize.Small,
+                    Icon = "share-square",
+                    Type = ButtonAction.OutlineSecondary,
+                    TitleLocalizedTag = "GO_LAST_POST",
+                    DataToggle = "tooltip"
+                };
 
                 var gotoLastUnread = new ThemeButton
-                                         {
-                                             NavigateUrl =
+                {
+                    NavigateUrl =
                                                  BuildLink.GetLink(
                                                      ForumPages.Posts,
                                                      "t={0}&find=unread",
                                                      this.TopicRow["TopicID"]),
-                                             Size = ButtonSize.Small,
-                                             Icon = "book-reader",
-                                             Type = ButtonAction.OutlineSecondary,
-                                             TitleLocalizedTag = "GO_LASTUNREAD_POST",
-                                             DataToggle = "tooltip"
-                                         };
+                    Size = ButtonSize.Small,
+                    Icon = "book-reader",
+                    Type = ButtonAction.OutlineSecondary,
+                    TitleLocalizedTag = "GO_LASTUNREAD_POST",
+                    DataToggle = "tooltip"
+                };
 
                 writer.Write(@"<div class=""btn-group"" role=""group"">");
                 writer.Write(gotoLastUnread.RenderToString());

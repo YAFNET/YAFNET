@@ -9,10 +9,6 @@ namespace ServiceStack
     {
         public static Exception GetInnerMostException(this Exception ex)
         {
-            if (ex == null)
-            {
-                throw new ArgumentNullException("ex");
-            }
             while (ex.InnerException != null)
             {
                 ex = ex.InnerException;
