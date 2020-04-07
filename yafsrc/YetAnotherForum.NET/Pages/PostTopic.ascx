@@ -156,18 +156,4 @@
     </div>
 </div>
 
-
-<script type="text/javascript">
-
-    var prm = Sys.WebForms.PageRequestManager.getInstance();
-
-    prm.add_beginRequest(beginRequest);
-
-    function beginRequest() {
-        prm._scrollPosition = null;
-    }
-
-</script>
-
-<YAF:LastPosts ID="LastPosts1" runat="server" Visible="false" />
 <YAF:AttachmentsUploadDialog ID="UploadDialog" runat="server" Visible="False"></YAF:AttachmentsUploadDialog>
