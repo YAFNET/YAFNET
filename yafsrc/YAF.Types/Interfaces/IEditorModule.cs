@@ -31,11 +31,6 @@ namespace YAF.Types.Interfaces
     #region Properties
 
     /// <summary>
-    /// Gets or sets StyleSheet.
-    /// </summary>
-    string StyleSheet { get; set; }
-
-    /// <summary>
     /// Gets or sets Text.
     /// </summary>
     string Text { get; set; }
@@ -49,20 +44,6 @@ namespace YAF.Types.Interfaces
     /// Gets a value indicating whether UsesHTML.
     /// </summary>
     bool UsesHTML { get; }
-
-    #endregion
-
-    #region Public Methods
-
-    /// <summary>
-    /// Resolves the Url -- bad idea, needs to be replaced by an interface.
-    /// </summary>
-    /// <param name="relativeUrl">
-    /// </param>
-    /// <returns>
-    /// The resolve url.
-    /// </returns>
-    string ResolveUrl([NotNull] string relativeUrl);
 
     #endregion
   }

@@ -50,13 +50,14 @@
             </div>
             <div class="card-body">
                 <div class="form-group">
-                    <asp:Label runat="server" AssociatedControlID="EditorLine">
+                    <h6 class="card-subtitle mb-2 text-muted">
                         <YAF:LocalizedLabel ID="EnterReportTextLabel" runat="server" 
                                             LocalizedTag="ENTER_TEXT" />
-                    </asp:Label>
+                    </h6>
                     <asp:PlaceHolder id="EditorLine" runat="server">
                         <asp:Label ID="IncorrectReportLabel" runat="server"></asp:Label>
-                        <!-- editor goes here -->
+                        <asp:TextBox runat="server" ID="Report"
+                                     CssClass="form-control"></asp:TextBox>
                     </asp:PlaceHolder>
                 </div>
                 <div class="d-sm-none d-md-block">

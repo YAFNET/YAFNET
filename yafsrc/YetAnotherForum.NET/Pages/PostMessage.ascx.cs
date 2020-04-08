@@ -445,9 +445,6 @@ namespace YAF.Pages
                 BuildLink.AccessDenied();
             }
 
-            // Message.EnableRTE = PageContext.BoardSettings.AllowRichEdit;
-            this.forumEditor.BaseDir = $"{BoardInfo.ForumClientFileRoot}Scripts";
-
             this.Title.Text = this.GetText("NEWTOPIC");
 
             this.HandleUploadControls();
@@ -1589,8 +1586,6 @@ namespace YAF.Pages
         {
             this.forumEditor.UserCanUpload = this.PageContext.ForumUploadAccess;
             this.UploadDialog.Visible = this.PageContext.ForumUploadAccess;
-
-            this.PostAttachments1.Visible = !this.forumEditor.AllowsUploads && this.PageContext.ForumUploadAccess;
         }
 
 #endregion

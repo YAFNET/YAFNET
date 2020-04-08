@@ -15,10 +15,10 @@
         data: JSON.stringify(pagedResults),
 		contentType: "application/json; charset=utf-8",
 		dataType: "json",
-		success: function(data) {
+        success: function (data) {
             $("#PostAttachmentListPlaceholder ul").empty();
 
-            $("#PostAttachmentLoader").hide();
+            $("div#PostAttachmentLoader").hide();
 
             if (data.AttachmentList.length === 0) {
                 var list = $("#PostAttachmentListPlaceholder ul");
@@ -29,14 +29,9 @@
 
             $.each(data.AttachmentList, function (id, data) {
                 var list = $("#PostAttachmentListPlaceholder ul"),
-                    listItem = $('<li class="list-group-item" style="white-space: nowrap; cursor: pointer;" />');
+                    listItem = $('<li class="list-group-item list-group-item-action" style="white-space: nowrap; cursor: pointer;" />');
 
                 listItem.attr("onclick", data.OnClick);
-
-                if (data.DataURL) {
-                    listItem.attr("title", "<img src=\"" + data.DataURL + "\" class=\"img-thumbnail\" />");
-                    listItem.attr("data-toggle", "tooltip");
-                }
 
                 listItem.append(data.IconImage);
 
@@ -44,20 +39,9 @@
             });
 
             setPageNumberAttach(pageSize, pageNumber, data.TotalRecords);
-
-            if (isPageChange) {
-                jQuery(".attachments-toggle").dropdown("toggle");
-            }
-
-            jQuery("#PostAttachmentListPlaceholder ul li").tooltip({
-                html: true,
-                template:
-                    '<div class="tooltip" role="tooltip"><div class="tooltip-arrow"></div><div class="tooltip-inner" style="max-width:250px"></div></div>',
-                placement: "top"
-            });
         },
 		error: function(request) {
-            $("#PostAttachmentLoader").hide();
+            $("div#PostAttachmentLoader").hide();
 
             $("#PostAttachmentListPlaceholder").html(request.statusText).fadeIn(1000);
         }
@@ -66,7 +50,7 @@
 
 function setPageNumberAttach(pageSize, pageNumber, total) {
     var pages = Math.ceil(total / pageSize);
-    var pagerHolder = $("#AttachmentsListPager"),
+    var pagerHolder = $("div#AttachmentsListPager"),
         pagination = $('<ul class="pagination pagination-sm" />');
 
     pagerHolder.empty();

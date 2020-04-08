@@ -134,23 +134,44 @@ namespace YAF.Core.Model
                                 IsLocked = locked, IsHidden = hidden, IsTest = isTest, IsModerated = moderated
                             };
 
-            return repository.Upsert(
-                new Forum
-                    {
-                        ParentID = parentID,
-                        ID = forumID ?? 0,
-                        Name = name,
-                        Description = description,
-                        SortOrder = sortOrder,
-                        CategoryID = categoryID,
-                        RemoteURL = remoteURL,
-                        ThemeURL = themeURL,
-                        ImageURL = imageURL,
-                        Styles = styles,
-                        Flags = flags.BitValue,
-                        ModeratedPostCount = moderatedPostCount,
-                        IsModeratedNewTopicOnly = isModeratedNewTopicOnly
-                    });
+            if (!forumID.HasValue)
+            {
+                return repository.Insert(
+                    new Forum
+                        {
+                            Name = name,
+                            Description = description,
+                            SortOrder = sortOrder,
+                            CategoryID = categoryID,
+                            RemoteURL = remoteURL,
+                            ThemeURL = themeURL,
+                            ImageURL = imageURL,
+                            Styles = styles,
+                            Flags = flags.BitValue,
+                            ModeratedPostCount = moderatedPostCount,
+                            IsModeratedNewTopicOnly = isModeratedNewTopicOnly
+                        });
+            }
+
+            repository.UpdateOnly(
+                () => new Forum
+                          {
+                              ParentID = parentID,
+                              Name = name,
+                              Description = description,
+                              SortOrder = sortOrder,
+                              CategoryID = categoryID,
+                              RemoteURL = remoteURL,
+                              ThemeURL = themeURL,
+                              ImageURL = imageURL,
+                              Styles = styles,
+                              Flags = flags.BitValue,
+                              ModeratedPostCount = moderatedPostCount,
+                              IsModeratedNewTopicOnly = isModeratedNewTopicOnly
+                          },
+                f => f.ID == forumID);
+
+            return forumID.Value;
         }
 
         /// <summary>

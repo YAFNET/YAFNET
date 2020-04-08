@@ -1527,9 +1527,10 @@ namespace YAF.Configuration
         /// <summary>
         /// Gets or sets a value indicating whether ShowRSSLink.
         /// </summary>
+        [Obsolete("Remove Feeds")]
         public bool ShowRSSLink
         {
-            get => this.Registry.GetValue("ShowRSSLink", true);
+            get => this.Registry.GetValue("ShowRSSLink", false);
 
             set => this.Registry.SetValue("ShowRSSLink", value);
         }
@@ -1537,9 +1538,10 @@ namespace YAF.Configuration
         /// <summary>
         /// Gets or sets a value indicating whether ShowAtomLink.
         /// </summary>
+        [Obsolete("Remove Feeds")]
         public bool ShowAtomLink
         {
-            get => this.Registry.GetValue("ShowAtomLink", true);
+            get => this.Registry.GetValue("ShowAtomLink", false);
 
             set => this.Registry.SetValue("ShowAtomLink", value);
         }
@@ -2209,6 +2211,7 @@ namespace YAF.Configuration
         /// <summary>
         /// Gets or sets AcceptedHTML.
         /// </summary>
+        [Obsolete("No longer used")]
         public string AcceptedHTML
         {
             get =>

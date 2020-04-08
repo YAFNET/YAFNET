@@ -680,7 +680,7 @@ namespace YAF.Pages
                 else if (this.categoryId > 0)
                 {
                     // category id should not be null here
-                    pgidt = this.GetRepository<Category>().Listread(this.PageContext.PageUserID, this.categoryId)
+                    pgidt = this.GetRepository<Category>().ListReadAsDataTable(this.PageContext.PageUserID, this.categoryId)
                         .GetFirstRowColumnAsValue("PollGroupID", 0);
                 }
 

@@ -122,17 +122,6 @@ namespace YAF.Pages.Admin
         }
 
         /// <summary>
-        /// Resets the Replace Rules Cache
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        protected void ReplaceRulesCacheResetClick([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            this.Get<IObjectStore>().RemoveOf<IProcessReplaceRules>();
-            this.CheckCache();
-        }
-
-        /// <summary>
         /// Resets the Forum Statistics Cache
         /// </summary>
         /// <param name="sender">The source of the event.</param>

@@ -47,8 +47,7 @@ namespace YAF.Core.Model
         /// </summary>
         /// <param name="repository">The repository.</param>
         /// <returns>Returns the highest sort order.</returns>
-        public static int GetHighestSortOrder(
-            this IRepository<Category> repository)
+        public static int GetHighestSortOrder(this IRepository<Category> repository)
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
@@ -90,11 +89,18 @@ namespace YAF.Core.Model
         /// <returns>
         /// The <see cref="DataTable" />.
         /// </returns>
-        public static DataTable Listread(this IRepository<Category> repository, int userID, int? categoryID, int? boardId = null)
+        public static DataTable ListReadAsDataTable(
+            this IRepository<Category> repository,
+            int userID,
+            int? categoryID,
+            int? boardId = null)
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
-            return repository.DbFunction.GetData.category_listread(BoardID: boardId ?? repository.BoardID, UserID: userID, CategoryID: categoryID);
+            return repository.DbFunction.GetData.category_listread(
+                BoardID: boardId ?? repository.BoardID,
+                UserID: userID,
+                CategoryID: categoryID);
         }
 
         /// <summary>
@@ -107,7 +113,12 @@ namespace YAF.Core.Model
         /// <param name="sortOrder">The sort order.</param>
         /// <param name="boardId">The board id.</param>
         public static void Save(
-            this IRepository<Category> repository, int? categoryId, string name, string categoryImage, short sortOrder, int? boardId = null)
+            this IRepository<Category> repository,
+            int? categoryId,
+            string name,
+            string categoryImage,
+            short sortOrder,
+            int? boardId = null)
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 
@@ -119,7 +130,7 @@ namespace YAF.Core.Model
                         Name = name,
                         SortOrder = sortOrder,
                         CategoryImage = categoryImage
-                });
+                    });
         }
 
         /// <summary>
@@ -137,7 +148,10 @@ namespace YAF.Core.Model
         /// <returns>
         /// Returns the Categories list
         /// </returns>
-        public static DataTable SimpleListAsDataTable(this IRepository<Category> repository, [CanBeNull] int startId = 0, [CanBeNull] int limit = 500)
+        public static DataTable SimpleListAsDataTable(
+            this IRepository<Category> repository,
+            [CanBeNull] int startId = 0,
+            [CanBeNull] int limit = 500)
         {
             CodeContracts.VerifyNotNull(repository, "repository");
 

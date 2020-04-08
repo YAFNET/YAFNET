@@ -8,11 +8,7 @@
     <div class="col-sm-auto">
         <YAF:ProfileMenu runat="server"></YAF:ProfileMenu>
     </div>
-<div class="col">
-<asp:UpdatePanel ID="SignatureUpdatePanel" runat="server">
-    <ContentTemplate>
+    <div class="col">
         <YAF:SignatureEdit runat="server" ID="SignatureEditor" />
-    </ContentTemplate>
-</asp:UpdatePanel>
     </div>
 </div>

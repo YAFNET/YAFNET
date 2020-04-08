@@ -126,6 +126,7 @@ namespace YAF.Web.Controls
                     ? this.AsDateTime.ToString("yyyy-MM-ddTHH:mm:ssZ", CultureInfo.InvariantCulture)
                     : formattedDatetime,
                 formattedDatetime);
+
             writer.WriteLine();
         }
 

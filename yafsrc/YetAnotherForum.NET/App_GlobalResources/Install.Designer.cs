@@ -1042,7 +1042,7 @@ namespace YAF.App_GlobalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Upgrade BBCode Extensions, File Extensions and Spam Words.
+        ///   Looks up a localized string similar to Upgrade BBCode Extensions and Spam Words.
         /// </summary>
         public static string UpgradeExtensions {
             get {

@@ -79,15 +79,12 @@ namespace YAF.Utils.Helpers
         public static T GetFirstRowColumnAsValue<T>(
             [NotNull] this DataTable dt, [NotNull] string columnName, T defaultValue)
         {
-            if (dt.HasRows() && dt.Columns.Contains(columnName))
+            if (!dt.HasRows() || !dt.Columns.Contains(columnName))
             {
-                if (dt.Rows[0][columnName] != DBNull.Value)
-                {
-                    return dt.Rows[0][columnName].ToType<T>();
-                }
+                return defaultValue;
             }
 
-            return defaultValue;
+            return dt.Rows[0][columnName] != DBNull.Value ? dt.Rows[0][columnName].ToType<T>() : defaultValue;
         }
 
         /// <summary>

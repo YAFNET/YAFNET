@@ -23839,8 +23839,6 @@ S2.define('jquery.select2',[
   Object.defineProperty(exports, '__esModule', { value: true });
 
 })));
-//# sourceMappingURL=bootstrap.bundle.js.map
-
 (function ($) {
 	$(document).ready(function() {
         $(".yafWizard").modal("show",

@@ -44,7 +44,7 @@ namespace YAF.Core.Helpers
         /// </returns>
         public static ForumEditor GetCurrentForumEditor()
         {
-            return BoardContext.Current.Get<IModuleManager<ForumEditor>>().GetBy("5");
+            return BoardContext.Current.Get<IModuleManager<ForumEditor>>().GetBy("4");
         }
 
         #endregion

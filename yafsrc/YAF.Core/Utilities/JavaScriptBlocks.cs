@@ -686,6 +686,149 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
         #endregion
 
         /// <summary>
+        /// The CKEditor Load JS.
+        /// </summary>
+        /// <param name="editorId">
+        /// The editor Id.
+        /// </param>
+        /// <param name="editorLanguage">
+        /// The editor language.
+        /// </param>
+        /// <param name="maxCharacters">
+        /// The max characters.
+        /// </param>
+        /// <param name="themeCssUrl">
+        /// The theme CSS url.
+        /// </param>
+        /// <param name="forumCssUrl">
+        /// The forum CSS url.
+        /// </param>
+        /// <returns>
+        /// The <see cref="string"/>.
+        /// </returns>
+        [NotNull]
+        public static string CKEditorLoadJs(
+            [NotNull] string editorId,
+            [NotNull] string editorLanguage,
+            [NotNull] int maxCharacters,
+            [NotNull] string themeCssUrl,
+            [NotNull] string forumCssUrl)
+        {
+            return $@"{Config.JQueryAlias}(document).ready(function() {{
+                      var yafCKEditor = {Config.JQueryAlias}(""#{editorId}"").ckeditor({{
+                          extraPlugins: ""bbcode,mentions,highlight,bbcodeselector,syntaxhighlight,emoji,wordcount,autolink,albumsbrowser,attachments,quote"",
+                          removePlugins: 'bidi,dialogadvtab,div,filebrowser,flash,format,forms,horizontalrule,iframe,liststyle,pagebreak,showborders,stylescombo,table,tabletools,templates',
+		                  toolbar: [
+                                       [""Source""],
+                                       [""Cut"", ""Copy"", ""Paste""], [""Undo"", ""Redo"", ""-"", ""Find"", ""Replace"", ""-"", ""SelectAll"", ""RemoveFormat""],
+                                       [""-"", ""NumberedList"", ""BulletedList""],
+                                       [""-"", ""Link"", ""Unlink"", ""attachments"", ""Image"", ""albumsbrowser""],
+                                       [""EmojiPanel"", ""quote"", ""Syntaxhighlight"",""bbcodeselector""],
+                                       [""About""],
+                                       ""/"",
+                                       [""Bold"", ""Italic"", ""Underline"", ""-"", ""TextColor"", ""FontSize"",""highlight""],
+                                       [""JustifyLeft"", ""JustifyCenter"", ""JustifyRight"", ""PasteText""],
+                                       [""Outdent"", ""Indent""]
+                                   ],
+		                  entities_greek: false,
+                          entities_latin: false,
+                          language: '{editorLanguage}',
+                          disableObjectResizing: true,
+		                  fontSize_sizes: ""30/30%;50/50%;100/100%;120/120%;150/150%;200/200%;300/300%"",
+		                  forcePasteAsPlainText: true,
+		                  contentsCss: [""{themeCssUrl}"", ""{forumCssUrl}""],
+                          autosave:
+                          {{
+                              saveDetectionSelectors: ""a[id*='_PostReply'],a[id*='Cancel'],a[id*='_Preview']""
+                          }},
+                          wordcount:
+                          {{
+                              maxCharCount: {maxCharacters},
+                              showParagraphs: false,
+                              showWordCount: false,
+                              showCharCount: true,
+		                  	  countHTML: true
+                          }},
+		                  mentions: [ {{ feed:  CKEDITOR.basePath.replace('Scripts/ckeditor/', '') + 'resource.ashx?users={{encodedQuery}}',
+                                         itemTemplate: '<li data-id=""{{id}}""><i class=""fas fa-user pr-1""></i><strong class=""username"">{{name}}</strong></li>',
+		                                 outputTemplate: '@[userlink]{{name}}[/userlink]'
+          		                      }} ]
+                          }});
+
+                      {Config.JQueryAlias}(""a[id*='_PostReply'],a[id*='_Save'],a[id*='_Preview']"").click(function () {{
+                          yafCKEditor.editor.updateElement();
+                      }});
+                  }});
+
+                  CKEDITOR.on('instanceReady', function (ev) {{
+                     ev.editor.document.on('drop', function (event) {{
+                       {Config.JQueryAlias}('.EditorDiv').yafFileUpload(""send"", {{files: event.data.$.dataTransfer.files}});
+                     }});
+                  }});";
+        }
+
+        /// <summary>
+        /// The CKEditor Load JS.
+        /// </summary>
+        /// <param name="editorId">
+        /// The editor Id.
+        /// </param>
+        /// <param name="editorLanguage">
+        /// The editor language.
+        /// </param>
+        /// <param name="maxCharacters">
+        /// The max characters.
+        /// </param>
+        /// <param name="themeCssUrl">
+        /// The theme CSS url.
+        /// </param>
+        /// <param name="forumCssUrl">
+        /// The forum CSS url.
+        /// </param>
+        /// <returns>
+        /// The <see cref="string"/>.
+        /// </returns>
+        [NotNull]
+        public static string CKEditorBasicLoadJs(
+            [NotNull] string editorId,
+            [NotNull] string editorLanguage,
+            [NotNull] int maxCharacters,
+            [NotNull] string themeCssUrl,
+            [NotNull] string forumCssUrl)
+        {
+            return $@"{Config.JQueryAlias}(document).ready(function() {{
+                      var yafCKEditor = {Config.JQueryAlias}(""#{editorId}"").ckeditor({{
+                          extraPlugins: ""bbcode,mentions,wordcount,autolink,quote"",
+                          removePlugins: 'autosave,bidi,dialogadvtab,div,filebrowser,flash,format,forms,horizontalrule,iframe,liststyle,pagebreak,showborders,stylescombo,table,tabletools,templates',
+		                  toolbar: [[""Source""],[""quote""],[""Bold"", ""Italic"", ""Underline""],[""Link"", ""Unlink"", ""Image""]],
+		                  entities_greek: false,
+                          entities_latin: false,
+                          language: '{editorLanguage}',
+                          disableObjectResizing: true,
+		                  fontSize_sizes: ""30/30%;50/50%;100/100%;120/120%;150/150%;200/200%;300/300%"",
+		                  forcePasteAsPlainText: true,
+		                  contentsCss: [""{themeCssUrl}"", ""{forumCssUrl}""],
+                          wordcount:
+                          {{
+                              maxCharCount: {maxCharacters},
+                              showParagraphs: false,
+                              showWordCount: false,
+                              showCharCount: true,
+		                  	  countHTML: true
+                          }},
+		                  mentions: [ {{ feed:  CKEDITOR.basePath.replace('Scripts/ckeditor/', '') + 'resource.ashx?users={{encodedQuery}}',
+                                         itemTemplate: '<li data-id=""{{id}}""><i class=""fas fa-user pr-1""></i><strong class=""username"">{{name}}</strong></li>',
+		                                 outputTemplate: '@[userlink]{{name}}[/userlink]'
+          		                      }} ]
+                          }});
+
+                          {Config.JQueryAlias}(""a[id*='_QuickReplyDialog'],a[id*='_SignatureEdit']']"").click(function () {{
+                              yafCKEditor.editor.updateElement();
+                          }});
+                  }});";
+        }
+
+        /// <summary>
         /// Gets the FileUpload Java Script.
         /// </summary>
         /// <param name="acceptedFileTypes">
@@ -709,6 +852,9 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
         /// <param name="imageMaxHeight">
         /// The image Max Height.
         /// </param>
+        /// <param name="editorId">
+        /// The editor Id.
+        /// </param>
         /// <returns>
         /// Returns the FileUpload Java Script.
         /// </returns>
@@ -720,11 +866,10 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
             [NotNull] int forumId,
             [NotNull] int boardId,
             [NotNull] int imageMaxWidth,
-            [NotNull] int imageMaxHeight)
+            [NotNull] int imageMaxHeight,
+            [NotNull] string editorId)
         {
-            return $@"{Config.JQueryAlias}(function() {{
-
-            {Config.JQueryAlias}('.BBCodeEditor').yafFileUpload({{
+            return $@"{Config.JQueryAlias}('.EditorDiv').yafFileUpload({{
                 url: '{fileUploaderUrl}',
                 acceptFileTypes: new RegExp('(\.|\/)(' + '{acceptedFileTypes}' + ')', 'i'),
                 imageMaxWidth: {imageMaxWidth},
@@ -735,7 +880,8 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
                 dataType: 'json',
                 {(maxFileSize > 0 ? $"maxFileSize: {maxFileSize}," : string.Empty)}
                 done: function (e, data) {{
-                    insertAttachment(data.result[0].fileID, data.result[0].fileID); 
+                    var ckEditor = CKEDITOR.instances.{editorId}; 
+                    ckEditor.insertHtml( '[attach]' + data.result[0].fileID + '[/attach]' );
                 }},
                 formData: {{
                     forumID: '{forumId}',
@@ -744,10 +890,9 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
                     uploadFolder: '{BoardFolders.Current.Uploads}',
                     allowedUpload: true
                 }},
-                dropZone: {Config.JQueryAlias}('.BBCodeEditor'),
-                pasteZone: {Config.JQueryAlias}('.BBCodeEditor')
-            }});
-        }});";
+                dropZone: {Config.JQueryAlias}('.EditorDiv'),
+                pasteZone: {Config.JQueryAlias}('.EditorDiv')
+            }});";
         }
 
         /// <summary>
@@ -802,7 +947,7 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
                     {Config.JQueryAlias}('#fileupload .alert-danger').toggle();
                 }},
                 done: function (e, data) {{
-                    insertAttachment(data.result[0].fileID, data.result[0].fileID);
+                    CKEDITOR.tools.insertAttachment(data.result[0].fileID);
                     {Config.JQueryAlias}('#fileupload').find('.files li:first').remove();
 
                     if ({Config.JQueryAlias}('#fileupload').find('.files li').length == 0) {{
