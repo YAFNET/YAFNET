@@ -74,17 +74,18 @@
                                  Icon="trash" />
             </div>
             <YAF:ThemeButton ID="NewTopic1" runat="server"
-                             Type="Primary"
+                             Type="Secondary"
                              TextLocalizedTag="BUTTON_NEWTOPIC" TitleLocalizedTag="BUTTON_NEWTOPIC_TT"
+                             CssClass="ml-1"
                              Icon="plus" />
             <YAF:ThemeButton ID="PostReplyLink1" runat="server"
-                             Type="Secondary"
+                             Type="Primary"
                              CssClass="ml-1"
                              OnClick="PostReplyLink_Click"
                              TextLocalizedTag="BUTTON_POSTREPLY" TitleLocalizedTag="BUTTON_POSTREPLY_TT"
                              Icon="reply" />
             <YAF:ThemeButton ID="QuickReplyLink1" runat="server"
-                             Type="Secondary"
+                             Type="Primary"
                              CssClass="ml-1"
                              TextLocalizedTag="QUICKREPLY" TitleLocalizedTag="BUTTON_POSTREPLY_TT"
                              Icon="reply"
@@ -231,17 +232,18 @@
                                  Icon="trash" />
             </div>
             <YAF:ThemeButton ID="NewTopic2" runat="server"
-                             Type="Primary"
+                             Type="Secondary"
                              TextLocalizedTag="BUTTON_NEWTOPIC" TitleLocalizedTag="BUTTON_NEWTOPIC_TT"
+                             CssClass="ml-1"
                              Icon="comment" />
             <YAF:ThemeButton ID="PostReplyLink2" runat="server"
-                             Type="Secondary"
+                             Type="Primary"
                              CssClass="ml-1"
                              OnClick="PostReplyLink_Click"
                              TextLocalizedTag="BUTTON_POSTREPLY" TitleLocalizedTag="BUTTON_POSTREPLY_TT"
                              Icon="reply" />
             <YAF:ThemeButton ID="QuickReplyLink2" runat="server"
-                             Type="Secondary"
+                             Type="Primary"
                              CssClass="ml-1"
                              TextLocalizedTag="QUICKREPLY" TitleLocalizedTag="BUTTON_POSTREPLY_TT"
                              Icon="reply"

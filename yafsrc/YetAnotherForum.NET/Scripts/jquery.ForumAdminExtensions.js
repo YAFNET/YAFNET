@@ -42015,14 +42015,9 @@ function getAlbumImagesData(pageSize, pageNumber, isPageChange) {
 
             $.each(data.AttachmentList, function (id, data) {
                 var list = $("#PostAlbumsListPlaceholder ul"),
-                    listItem = $('<li class="list-group-item" style="white-space: nowrap; cursor: pointer;" />');
+                    listItem = $('<li class="list-group-item list-group-item-action" style="white-space: nowrap; cursor: pointer;" />');
 
                 listItem.attr("onclick", data.OnClick);
-
-                if (data.DataURL) {
-                    listItem.attr("title", "<img src=\"" + data.DataURL + "\" style=\"max-width:200px\" />");
-                    listItem.attr("data-toggle", "tooltip");
-                }
 
                 listItem.append(data.IconImage);
 

@@ -1,10 +1,8 @@
-﻿.AlbumImageList li {
-    width: 60px;
-    height: 80px;
-    float: left;
-    list-style: none;
+﻿.list-group-albums {
+
     img {
-      max-width: 60px;
-      max-height: 80px;
+        cursor: pointer;
+        max-width: 60px;
+        max-height: 80px;
     }
-  }
+}

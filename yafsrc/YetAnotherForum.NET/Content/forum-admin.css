@@ -7408,15 +7408,6 @@ select.is-valid ~ .select2-container--bootstrap4 .select2-selection {
   border: 0; }
 
 /* Attachments List Drop Down */
-.AttachmentListMenu {
-  width: 300px;
-  padding: 0; }
-  .AttachmentListMenu li {
-    list-style: none; }
-    .AttachmentListMenu li span {
-      padding: 0 0 0 10px;
-      vertical-align: super; }
-
 #AttachmentsListPager {
   padding: 0 5px 0 5px; }
 
@@ -7424,7 +7415,7 @@ select.is-valid ~ .select2-container--bootstrap4 .select2-selection {
   padding: 0px 5px 4px 5px;
   margin: -5px 0px 26px 0px; }
   .AttachmentList span {
-    width: 210px;
+    width: 200px;
     display: inline-block;
     white-space: nowrap;
     overflow: hidden;
@@ -7432,34 +7423,12 @@ select.is-valid ~ .select2-container--bootstrap4 .select2-selection {
     text-overflow: ellipsis; }
   .AttachmentList .attachment-icon {
     vertical-align: top;
-    padding-left: 5px; }
-
-.AttachmentList li img,
-.PostAttachmentList li img {
-  width: 24px;
-  height: 24px;
-  vertical-align: top;
-  padding-left: 5px; }
-
-.PostAttachmentList {
-  padding: 0;
-  list-style: none; }
-  .PostAttachmentList .attachment-icon {
+    padding-right: 5px; }
+  .AttachmentList img {
+    width: 24px;
+    height: 24px;
     vertical-align: top;
-    padding-left: 5px; }
-  .PostAttachmentList li {
-    border-bottom: 1px dotted black;
-    padding: 5px 0 5px 0; }
-    .PostAttachmentList li span {
-      text-decoration: underline;
-      padding: 0 0 0 5px;
-      vertical-align: super;
-      width: 400px;
-      display: inline-block;
-      white-space: nowrap;
-      overflow: hidden;
-      -ms-text-overflow: ellipsis;
-      text-overflow: ellipsis; }
+    padding-right: 5px; }
 
 .UploadNewFileLine {
   text-align: center;
@@ -7473,6 +7442,9 @@ select.is-valid ~ .select2-container--bootstrap4 .select2-selection {
   text-align: center; }
 
 /* Attachments Upload Dialog */
+div#UploadDialog {
+  z-index: 50000 !important; }
+
 #UploadFilesBox {
   min-width: 480px;
   width: 480px;
@@ -7491,9 +7463,6 @@ select.is-valid ~ .select2-container--bootstrap4 .select2-selection {
 
 #fileupload .name {
   width: 288px;
-  -ms-word-break: break-all;
-  -moz-word-break: break-all;
-  -o-word-break: break-all;
   word-break: break-all;
   font-weight: bold; }
 
@@ -7569,14 +7538,10 @@ select.is-valid ~ .select2-container--bootstrap4 .select2-selection {
   max-width: 300px;
   min-width: 300px; }
 
-.AlbumImageList li {
-  width: 60px;
-  height: 80px;
-  float: left;
-  list-style: none; }
-  .AlbumImageList li img {
-    max-width: 60px;
-    max-height: 80px; }
+.list-group-albums img {
+  cursor: pointer;
+  max-width: 60px;
+  max-height: 80px; }
 
 .cookiealert {
   position: fixed;

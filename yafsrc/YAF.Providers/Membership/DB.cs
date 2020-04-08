@@ -38,6 +38,7 @@ namespace YAF.Providers.Membership
     using YAF.Types.Extensions;
     using YAF.Types.Extensions.Data;
     using YAF.Types.Interfaces.Data;
+    using YAF.Utils.Helpers;
 
     #endregion
 
@@ -389,9 +390,10 @@ namespace YAF.Providers.Membership
                 cmd.Parameters.AddWithValue("@UserKey", providerUserKey);
                 cmd.Parameters.AddWithValue("@UserIsOnline", userIsOnline);
                 cmd.Parameters.AddWithValue("@UTCTIMESTAMP", DateTime.UtcNow);
+
                 using (var dt = this.DbAccess.GetData(cmd))
                 {
-                    return dt.HasRows() ? dt.Rows[0] : null;
+                    return dt.GetFirstRow();
                 }
             }
         }

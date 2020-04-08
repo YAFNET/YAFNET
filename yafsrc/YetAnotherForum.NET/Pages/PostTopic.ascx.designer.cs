@@ -33,33 +33,6 @@ namespace YAF.Pages
         protected global::System.Web.UI.WebControls.Label Title;
 
         /// <summary>
-        /// PreviewRow control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder PreviewRow;
-
-        /// <summary>
-        /// PreviewCell control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder PreviewCell;
-
-        /// <summary>
-        /// PreviewMessagePost control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Web.Controls.MessagePost PreviewMessagePost;
-
-        /// <summary>
         /// SubjectRow control.
         /// </summary>
         /// <remarks>
@@ -195,6 +168,33 @@ namespace YAF.Pages
         protected global::System.Web.UI.WebControls.PlaceHolder EditorLine;
 
         /// <summary>
+        /// PreviewRow control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.PlaceHolder PreviewRow;
+
+        /// <summary>
+        /// PreviewCell control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.PlaceHolder PreviewCell;
+
+        /// <summary>
+        /// PreviewMessagePost control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Web.Controls.MessagePost PreviewMessagePost;
+
+        /// <summary>
         /// PostOptions1 control.
         /// </summary>
         /// <remarks>
@@ -202,15 +202,6 @@ namespace YAF.Pages
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::YAF.Controls.PostOptions PostOptions1;
-
-        /// <summary>
-        /// PostAttachments1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Controls.PostAttachments PostAttachments1;
 
         /// <summary>
         /// tr_captcha1 control.
@@ -249,6 +240,15 @@ namespace YAF.Pages
         protected global::System.Web.UI.WebControls.TextBox tbCaptcha;
 
         /// <summary>
+        /// Preview control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Web.Controls.ThemeButton Preview;
+
+        /// <summary>
         /// PostReply control.
         /// </summary>
         /// <remarks>
@@ -265,15 +265,6 @@ namespace YAF.Pages
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::YAF.Web.Controls.ThemeButton Cancel;
-
-        /// <summary>
-        /// LastPosts1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Controls.LastPosts LastPosts1;
 
         /// <summary>
         /// UploadDialog control.

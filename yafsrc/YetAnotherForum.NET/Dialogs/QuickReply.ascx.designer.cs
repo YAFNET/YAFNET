@@ -7,14 +7,12 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace YAF.Dialogs {
-    using System.Web.UI.HtmlControls;
-    using System.Web.UI.WebControls;
+namespace YAF.Dialogs
+{
 
-    using YAF.Web.Controls;
 
-    public partial class QuickReply {
-        
+    public partial class QuickReply
+    {
 
         /// <summary>
         /// QuickReplyLine control.
@@ -23,8 +21,7 @@ namespace YAF.Dialogs {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected HtmlGenericControl QuickReplyLine;
-        
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl QuickReplyLine;
 
         /// <summary>
         /// CaptchaDiv control.
@@ -33,8 +30,7 @@ namespace YAF.Dialogs {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected HtmlGenericControl CaptchaDiv;
-        
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl CaptchaDiv;
 
         /// <summary>
         /// LocalizedLabel13 control.
@@ -43,8 +39,7 @@ namespace YAF.Dialogs {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected LocalizedLabel LocalizedLabel13;
-        
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel13;
 
         /// <summary>
         /// imgCaptcha control.
@@ -53,8 +48,7 @@ namespace YAF.Dialogs {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected Image imgCaptcha;
-        
+        protected global::System.Web.UI.WebControls.Image imgCaptcha;
 
         /// <summary>
         /// LocalizedLabel14 control.
@@ -63,8 +57,7 @@ namespace YAF.Dialogs {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected LocalizedLabel LocalizedLabel14;
-        
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel14;
 
         /// <summary>
         /// tbCaptcha control.
@@ -73,8 +66,7 @@ namespace YAF.Dialogs {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected TextBox tbCaptcha;
-        
+        protected global::System.Web.UI.WebControls.TextBox tbCaptcha;
 
         /// <summary>
         /// QuickReplyWatchTopic control.
@@ -83,8 +75,7 @@ namespace YAF.Dialogs {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected PlaceHolder QuickReplyWatchTopic;
-        
+        protected global::System.Web.UI.WebControls.PlaceHolder QuickReplyWatchTopic;
 
         /// <summary>
         /// TopicWatch control.
@@ -93,8 +84,7 @@ namespace YAF.Dialogs {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected CheckBox TopicWatch;
-        
+        protected global::System.Web.UI.WebControls.CheckBox TopicWatch;
 
         /// <summary>
         /// TopicWatchLabel control.
@@ -103,8 +93,7 @@ namespace YAF.Dialogs {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected LocalizedLabel TopicWatchLabel;
-        
+        protected global::YAF.Web.Controls.LocalizedLabel TopicWatchLabel;
 
         /// <summary>
         /// Reply control.
@@ -113,6 +102,6 @@ namespace YAF.Dialogs {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected ThemeButton Reply;
+        protected global::YAF.Web.Controls.ThemeButton Reply;
     }
 }

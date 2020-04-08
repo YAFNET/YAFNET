@@ -29,8 +29,9 @@ namespace YAF.Providers.Membership
 
   using YAF.Providers.Utils;
   using YAF.Types.Extensions;
+  using YAF.Utils.Helpers;
 
-    #endregion
+  #endregion
 
   /// <summary>
   /// The user password info.
@@ -237,12 +238,15 @@ namespace YAF.Providers.Membership
     {
       var userData = DB.Current.GetUserPasswordInfo(appName, username, updateUser);
 
-      if (userData.HasRows())
+      if (!userData.HasRows())
       {
-        var userInfo = userData.Rows[0];
+          return null;
+      }
 
-        // create a new instance of the UserPasswordInfo class
-        return new UserPasswordInfo(
+      var userInfo = userData.GetFirstRow();
+
+      // create a new instance of the UserPasswordInfo class
+      return new UserPasswordInfo(
           userInfo["Password"].ToStringDBNull(), 
           userInfo["PasswordSalt"].ToStringDBNull(), 
           userInfo["PasswordQuestion"].ToStringDBNull(), 
@@ -258,10 +262,8 @@ namespace YAF.Providers.Membership
           hashCase, 
           hashRemoveChars, 
           msCompliant);
-      }
 
       // nothing found, return null.
-      return null;
     }
 
     /// <summary>

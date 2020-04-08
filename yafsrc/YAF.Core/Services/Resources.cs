@@ -191,6 +191,47 @@ namespace YAF.Core.Services
         }
 
         /// <summary>
+        /// Gets the list of all Custom BB Codes
+        /// </summary>
+        /// <param name="context">The context.</param>
+        public void GetCustomBBCodes([NotNull] HttpContext context)
+        {
+            try
+            {
+                if (BoardContext.Current == null)
+                {
+                    context.Response.Write(
+                        "Error: Resource has been moved or is unavailable. Please contact the forum admin.");
+
+                    return;
+                }
+
+                var customBbCode = this.Get<DataBroker>().GetCustomBBCode()
+                    .Where(e => e.Name != "ALBUMIMG" && e.Name != "ATTACH").Select(e => e.Name).ToList();
+
+                context.Response.Clear();
+
+                context.Response.ContentType = "application/json";
+                context.Response.ContentEncoding = Encoding.UTF8;
+                context.Response.Cache.SetCacheability(HttpCacheability.Public);
+                context.Response.Cache.SetExpires(
+                    System.DateTime.UtcNow.AddMilliseconds(BoardContext.Current.Get<BoardSettings>().OnlineStatusCacheTimeout));
+                context.Response.Cache.SetLastModified(System.DateTime.UtcNow);
+
+                context.Response.Write(customBbCode.ToJson());
+
+                HttpContext.Current.ApplicationInstance.CompleteRequest();
+            }
+            catch (Exception x)
+            {
+                this.Get<ILogger>().Log(BoardContext.Current.PageUserID, this, x, EventLogTypes.Information);
+
+                context.Response.Write(
+                    "Error: Resource has been moved or is unavailable. Please contact the forum admin.");
+            }
+        }
+
+        /// <summary>
         /// Get all Mentioned Users
         /// </summary>
         /// <param name="context">

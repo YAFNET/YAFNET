@@ -27,7 +27,6 @@ namespace YAF.Pages
     #region Using
 
     using System;
-    using System.Globalization;
     using System.Linq;
     using System.Web;
     using System.Web.UI.WebControls;
@@ -883,8 +882,6 @@ namespace YAF.Pages
         {
             this.forumEditor.UserCanUpload = this.PageContext.ForumUploadAccess;
             this.UploadDialog.Visible = this.PageContext.ForumUploadAccess;
-
-            this.PostAttachments1.Visible = !this.forumEditor.AllowsUploads && this.PageContext.ForumUploadAccess;
         }
 
         #endregion

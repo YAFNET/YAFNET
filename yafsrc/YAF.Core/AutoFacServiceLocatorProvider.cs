@@ -44,7 +44,7 @@ namespace YAF.Core
     #endregion
 
     /// <summary>
-    ///     The auto fac service locator provider.
+    ///     The AutoFac service locator provider.
     /// </summary>
     public class AutoFacServiceLocatorProvider : IScopeServiceLocator, IInjectServices
     {

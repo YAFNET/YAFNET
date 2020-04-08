@@ -63,7 +63,7 @@ namespace YAF.Core.Controllers
         [HttpPost]
         public IHttpActionResult GetAttachments(PagedResults pagedResults)
         {
-            var userId = pagedResults.UserId;
+            var userId = BoardContext.Current.PageUserID;
             var pageSize = pagedResults.PageSize;
             var pageNumber = pagedResults.PageNumber;
 
@@ -83,13 +83,13 @@ namespace YAF.Core.Controllers
                         var description = $"{attach.FileName} ({attach.Bytes / 1024} kb)";
 
                         var iconImage = attach.FileName.IsImageName()
-                                            ? $@"<img class=""popupitemIcon"" src=""{url}"" alt=""{description}"" title=""{description}"" />"
+                                            ? $@"<img src=""{url}"" alt=""{description}"" title=""{description}"" />"
                                             : "<i class=\"far fa-file-alt attachment-icon\"></i>";
 
                         var attachment = new AttachmentItem
                                              {
                                                  FileName = attach.FileName,
-                                                 OnClick = $"insertAttachment('{attach.ID}', '{url}')",
+                                                 OnClick = $"CKEDITOR.tools.insertAttachment('{attach.ID}')",
                                                  IconImage = $@"{iconImage}<span>{description}</span>"
                                              };
 

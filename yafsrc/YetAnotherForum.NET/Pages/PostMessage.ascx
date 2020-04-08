@@ -1,7 +1,6 @@
 ﻿<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.PostMessage" CodeBehind="PostMessage.ascx.cs" %>
 <%@ Register TagPrefix="YAF" TagName="LastPosts" Src="../controls/LastPosts.ascx" %>
 <%@ Register TagPrefix="YAF" TagName="PostOptions" Src="../controls/PostOptions.ascx" %>
-<%@ Register TagPrefix="YAF" TagName="PostAttachments" Src="../controls/PostAttachments.ascx" %>
 <%@ Register TagPrefix="YAF" TagName="PollList" Src="../controls/PollList.ascx" %>
 <%@ Register TagPrefix="YAF" TagName="AttachmentsUploadDialog" Src="../Dialogs/AttachmentsUpload.ascx" %>
 
@@ -107,8 +106,6 @@
                 </div>
                 <YAF:PostOptions ID="PostOptions1" runat="server"></YAF:PostOptions>
 
-                <YAF:PostAttachments ID="PostAttachments1" runat="server" Visible="False"></YAF:PostAttachments>
-
                 <asp:PlaceHolder ID="tr_captcha1" runat="server" Visible="false">
                     <div class="form-group">
                         <asp:Label runat="server">
@@ -120,7 +117,8 @@
                 <asp:PlaceHolder ID="tr_captcha2" runat="server" Visible="false">
                     <div class="form-group">
                         <asp:Label runat="server" AssociatedControlID="tbCaptcha">
-                        <YAF:LocalizedLabel runat="server" LocalizedTag="Captcha_Enter" />
+                            <YAF:LocalizedLabel runat="server" 
+                                                LocalizedTag="Captcha_Enter" />
                         </asp:Label>
                         <asp:TextBox ID="tbCaptcha" runat="server" CssClass="form-control" />
                     </div>
@@ -128,13 +126,20 @@
                 <asp:PlaceHolder ID="EditReasonRow" runat="server">
                     <div class="form-group">
                         <asp:Label runat="server" AssociatedControlID="ReasonEditor">
-                <YAF:LocalizedLabel runat="server" LocalizedTag="EditReason" />
+                            <YAF:LocalizedLabel runat="server" 
+                                                LocalizedTag="EditReason" />
                         </asp:Label>
                         <asp:TextBox ID="ReasonEditor" runat="server" CssClass="form-control" />
                     </div>
                 </asp:PlaceHolder>
             </div>
             <div class="card-footer text-center">
+                <YAF:ThemeButton ID="Preview" runat="server"
+                                 CssClass="mt-1"
+                                 OnClick="Preview_Click"
+                                 TextLocalizedTag="PREVIEW" TitleLocalizedTag="PREVIEW_TITLE"
+                                 Type="Secondary" 
+                                 Icon="image" />
                 <YAF:ThemeButton ID="PostReply" runat="server"
                                  CssClass="mt-1"
                                  OnClick="PostReply_Click"

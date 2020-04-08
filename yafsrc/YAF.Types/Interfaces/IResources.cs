@@ -37,6 +37,12 @@ namespace YAF.Types.Interfaces
         void GetUserInfo([NotNull] HttpContext context);
 
         /// <summary>
+        /// Gets the list of all Custom BB Codes
+        /// </summary>
+        /// <param name="context">The context.</param>
+        void GetCustomBBCodes([NotNull] HttpContext context);
+
+        /// <summary>
         /// Get all Mentioned Users
         /// </summary>
         /// <param name="context">

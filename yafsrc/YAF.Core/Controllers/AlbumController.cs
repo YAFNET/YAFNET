@@ -101,7 +101,7 @@ namespace YAF.Core.Controllers
         [HttpPost]
         public IHttpActionResult GetAlbumImages(PagedResults pagedResults)
         {
-            var userId = pagedResults.UserId;
+            var userId = BoardContext.Current.PageUserID;
             var pageSize = pagedResults.PageSize;
             var pageNumber = pagedResults.PageNumber;
 
@@ -120,9 +120,9 @@ namespace YAF.Core.Controllers
                         var attachment = new AttachmentItem
                                              {
                                                  FileName = image.FileName,
-                                                 OnClick = $"setStyle('AlbumImgId', '{image.ID}')",
+                                                 OnClick = $"CKEDITOR.tools.insertAlbumImage('{image.ID}')",
                                                  IconImage =
-                                                     $@"<img class=""popupitemIcon"" src=""{url}"" alt=""{(image.Caption.IsSet() ? image.Caption : image.FileName)}"" title=""{(image.Caption.IsSet() ? image.Caption : image.FileName)}"" width=""40"" height=""40"" />",
+                                                     $@"<img src=""{url}"" alt=""{(image.Caption.IsSet() ? image.Caption : image.FileName)}"" title=""{(image.Caption.IsSet() ? image.Caption : image.FileName)}"" width=""40"" height=""40"" />",
                                                  DataURL = url
                                              };
 

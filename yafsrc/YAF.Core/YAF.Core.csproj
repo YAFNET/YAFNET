@@ -38,7 +38,7 @@
     <PackageReference Include="Microsoft.AspNet.WebApi.WebHost" Version="5.2.7" />
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
-    <PackageReference Include="System.ComponentModel.Composition" Version="5.0.0-preview.1.20120.5" />
+    <PackageReference Include="System.ComponentModel.Composition" Version="5.0.0-preview.2.20160.6" />
     <PackageReference Include="System.Data.DataSetExtensions" Version="4.6.0-preview3.19128.7" />
   </ItemGroup>
   <ItemGroup>
@@ -53,6 +53,9 @@
   <ItemGroup>
     <Compile Include="..\GlobalAssemblyInfo.cs" Link="Properties\GlobalAssemblyInfo.cs" />
     <Compile Update="BaseControls\BaseUserControl.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Update="BasePages\ForumPageBase.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Update="BasePages\ModerateForumPage.cs">

@@ -82,6 +82,11 @@ namespace YAF.Core.BBCode.ReplaceRules
 
             if (size > 9)
             {
+                return $"{size}%";
+            }
+
+            if (size == 9)
+            {
                 return $"{size}px"; 
             }
 

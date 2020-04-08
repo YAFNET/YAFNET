@@ -448,7 +448,7 @@
     <value>Upgrade</value>
   </data>
   <data name="UpgradeExtensions" xml:space="preserve">
-    <value>Upgrade BBCode Extensions, File Extensions and Spam Words</value>
+    <value>Upgrade BBCode Extensions and Spam Words</value>
   </data>
   <data name="UpgradeFinish" xml:space="preserve">
     <value>Your forum has now been upgraded to the latest version.</value>

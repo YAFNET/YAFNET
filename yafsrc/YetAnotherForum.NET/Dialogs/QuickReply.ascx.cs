@@ -68,7 +68,7 @@ namespace YAF.Dialogs
         protected override void OnInit([NotNull] EventArgs e)
         {
             // Quick Reply Modification Begin
-            this.quickReplyEditor = new CKEditorHtmlEditor();
+            this.quickReplyEditor = new CKEditorBBCodeEditorBasic();
 
             base.OnInit(e);
         }
@@ -175,7 +175,6 @@ namespace YAF.Dialogs
                 BoardContext.Current.Get<ISession>().LastPost = DateTime.UtcNow;
 
                 // post message...
-                long messageId = 0;
                 object replyTo = -1;
                 var message = this.quickReplyEditor.Text;
                 long topicId = this.PageContext.PageTopicID;
@@ -384,7 +383,7 @@ namespace YAF.Dialogs
                                        };
 
                 // Bypass Approval if Admin or Moderator.
-                messageId = this.GetRepository<Message>().SaveNew(
+                var messageId = this.GetRepository<Message>().SaveNew(
                     topicId,
                     this.PageContext.PageUserID,
                     message,
@@ -430,7 +429,7 @@ namespace YAF.Dialogs
                 {
                     if (this.Get<BoardSettings>().EmailModeratorsOnModeratedPost)
                     {
-                        // not approved, notifiy moderators
+                        // not approved, notify moderators
                         this.Get<ISendNotification>().ToModeratorsThatMessageNeedsApproval(
                             this.PageContext.PageForumID,
                             messageId.ToType<int>(),

@@ -144,7 +144,7 @@ namespace YAF.Controls
         protected override void OnInit([NotNull] EventArgs e)
         {
             // since signatures are so small only allow YafBBCode in them...
-            this.signatureEditor = new CKEditorHtmlEditor { UserCanUpload = false };
+            this.signatureEditor = new CKEditorBBCodeEditor { UserCanUpload = false };
 
             this.EditorLine.Controls.Add(this.signatureEditor);
 
