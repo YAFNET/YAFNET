@@ -78,6 +78,15 @@ namespace YAF.Pages
         protected global::System.Web.UI.WebControls.Label IncorrectReportLabel;
 
         /// <summary>
+        /// Report control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox Report;
+
+        /// <summary>
         /// LocalizedLabel4 control.
         /// </summary>
         /// <remarks>

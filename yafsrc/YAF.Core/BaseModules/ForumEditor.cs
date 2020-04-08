@@ -21,17 +21,16 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF.Core
 {
     #region Using
 
-    using System.Text.RegularExpressions;
     using System.Web.UI;
     using System.Web.UI.HtmlControls;
 
     using YAF.Core.BaseControls;
     using YAF.Types;
-    using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
 
     #endregion
@@ -42,26 +41,11 @@ namespace YAF.Core
     public abstract class ForumEditor : BaseControl, IEditorModule
     {
         #region Properties
-
+        
         /// <summary>
         ///   Gets a value indicating whether Active.
         /// </summary>
         public abstract bool Active { get; }
-
-        /// <summary>
-        ///   Sets BaseDir.
-        /// </summary>
-        public virtual string BaseDir
-        {
-            set
-            {
-                this._baseDir = value;
-                if (!this._baseDir.EndsWith("/"))
-                {
-                    this._baseDir += "/";
-                }
-            }
-        }
 
         /// <summary>
         ///   Gets Description.
@@ -72,19 +56,6 @@ namespace YAF.Core
         ///   Gets ModuleId.
         /// </summary>
         public virtual string ModuleId => this.Description.GetHashCode().ToString();
-
-        /// <summary>
-        ///   Gets or sets StyleSheet.
-        /// </summary>
-        [NotNull]
-        public virtual string StyleSheet
-        {
-            get => string.Empty;
-
-            set
-            {
-            }
-        }
 
         /// <summary>
         ///   Gets or sets Text.
@@ -127,43 +98,12 @@ namespace YAF.Core
         #region Constants and Fields
 
         /// <summary>
-        ///   The _base dir.
-        /// </summary>
-        protected string _baseDir = string.Empty;
-
-        /// <summary>
         /// Gets or sets a value indicating whether [_allow uploads].
         /// </summary>
         /// <value>
         ///   <c>true</c> if [_allow uploads]; otherwise, <c>false</c>.
         /// </value>
         protected bool _userCanUpload { get; set; }
-
-        /// <summary>
-        ///   The _options.
-        /// </summary>
-        protected RegexOptions _options = RegexOptions.IgnoreCase | RegexOptions.Multiline;
-
-        #endregion
-
-        #region Public Methods
-
-        /// <summary>
-        /// Converts a URL into one that is usable on the requesting client.
-        /// </summary>
-        /// <param name="relativeUrl">The URL associated with the <see cref="P:System.Web.UI.Control.TemplateSourceDirectory" /> property.</param>
-        /// <returns>
-        /// The converted URL.
-        /// </returns>
-        public new string ResolveUrl([NotNull] string relativeUrl)
-        {
-            if (this._baseDir.IsSet())
-            {
-                return this._baseDir + relativeUrl;
-            }
-
-            return base.ResolveUrl(relativeUrl);
-        }
 
         #endregion
 
@@ -181,31 +121,6 @@ namespace YAF.Core
             newDiv.Attributes.Add("class", "EditorDiv");
             newDiv.Controls.Add(editor);
             this.Controls.Add(newDiv);
-        }
-
-        /// <summary>
-        /// The replace.
-        /// </summary>
-        /// <param name="txt">
-        /// The txt.
-        /// </param>
-        /// <param name="match">
-        /// The match.
-        /// </param>
-        /// <param name="replacement">
-        /// The replacement.
-        /// </param>
-        /// <returns>
-        /// The replace.
-        /// </returns>
-        protected virtual string Replace([NotNull] string txt, [NotNull] string match, [NotNull] string replacement)
-        {
-            while (Regex.IsMatch(txt, match, this._options))
-            {
-                txt = Regex.Replace(txt, match, replacement, this._options);
-            }
-
-            return txt;
         }
 
         #endregion

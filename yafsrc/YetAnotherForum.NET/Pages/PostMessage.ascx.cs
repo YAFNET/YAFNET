@@ -445,9 +445,6 @@ namespace YAF.Pages
                 BuildLink.AccessDenied();
             }
 
-            // Message.EnableRTE = PageContext.BoardSettings.AllowRichEdit;
-            this.forumEditor.BaseDir = $"{BoardInfo.ForumClientFileRoot}Scripts";
-
             this.Title.Text = this.GetText("NEWTOPIC");
 
             this.HandleUploadControls();

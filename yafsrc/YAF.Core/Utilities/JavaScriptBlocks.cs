@@ -800,7 +800,7 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
                       var yafCKEditor = {Config.JQueryAlias}(""#{editorId}"").ckeditor({{
                           extraPlugins: ""bbcode,mentions,wordcount,autolink,quote"",
                           removePlugins: 'autosave,bidi,dialogadvtab,div,filebrowser,flash,format,forms,horizontalrule,iframe,liststyle,pagebreak,showborders,stylescombo,table,tabletools,templates',
-		                  toolbar: [[""Source""],[""quote""],[""Bold"", ""Italic"", ""Underline""]],
+		                  toolbar: [[""Source""],[""quote""],[""Bold"", ""Italic"", ""Underline""],[""Link"", ""Unlink"", ""Image""]],
 		                  entities_greek: false,
                           entities_latin: false,
                           language: '{editorLanguage}',
@@ -820,6 +820,10 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
                                          itemTemplate: '<li data-id=""{{id}}""><i class=""fas fa-user pr-1""></i><strong class=""username"">{{name}}</strong></li>',
 		                                 outputTemplate: '@[userlink]{{name}}[/userlink]'
           		                      }} ]
+                          }});
+
+                          {Config.JQueryAlias}(""a[id*='_QuickReplyDialog'],a[id*='_SignatureEdit']']"").click(function () {{
+                              yafCKEditor.editor.updateElement();
                           }});
                   }});";
         }

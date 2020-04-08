@@ -63,7 +63,7 @@ namespace YAF.Pages
         /// <summary>
         ///   message body editor
         /// </summary>
-        protected ForumEditor _editor;
+        private ForumEditor editor;
 
         #endregion
 
@@ -278,14 +278,14 @@ namespace YAF.Pages
         {
             // create editor based on administrator's settings
             // get the forum editor based on the settings
-            this._editor = ForumEditorHelper.GetCurrentForumEditor();
+            this.editor = ForumEditorHelper.GetCurrentForumEditor();
 
-            this.EditorLine.Controls.Add(this._editor);
+            this.EditorLine.Controls.Add(this.editor);
 
-            this._editor.UserCanUpload = this.Get<BoardSettings>().AllowPrivateMessageAttachments;
+            this.editor.UserCanUpload = this.Get<BoardSettings>().AllowPrivateMessageAttachments;
 
             // add editor to the page
-            this.EditorLine.Controls.Add(this._editor);
+            this.EditorLine.Controls.Add(this.editor);
         }
 
         /// <summary>
@@ -300,9 +300,6 @@ namespace YAF.Pages
             {
                 this.RedirectNoAccess();
             }
-
-            // set attributes of editor
-            this._editor.BaseDir = $"{BoardInfo.ForumClientFileRoot}Scripts";
 
             // this needs to be done just once, not during post-backs
             if (this.IsPostBack)
@@ -386,7 +383,7 @@ namespace YAF.Pages
                 body = $"[QUOTE={displayName}]{body}[/QUOTE]";
 
                 // we don't want any whitespaces at the beginning of message
-                this._editor.Text = body.TrimStart();
+                this.editor.Text = body.TrimStart();
 
                 if (isReport)
                 {
@@ -408,13 +405,13 @@ namespace YAF.Pages
 
                         this.PmSubjectTextBox.Text = this.GetTextFormatted("REPORT_SUBJECT", displayName);
 
-                        var bodyReport = $"[QUOTE={displayName}]{row["Body"].ToString()}[/QUOTE]";
+                        var bodyReport = $"[QUOTE={displayName}]{row["Body"]}[/QUOTE]";
 
                         // Quote the original message
                         bodyReport = this.GetTextFormatted("REPORT_BODY", bodyReport);
 
                         // we don't want any whitespaces at the beginning of message
-                        this._editor.Text = bodyReport.TrimStart();
+                        this.editor.Text = bodyReport.TrimStart();
                     }
                     else
                     {
@@ -480,7 +477,7 @@ namespace YAF.Pages
 
                     // Replace DateTime delimiter '??' by ': ' 
                     // we don't want any whitespaces at the beginning of message
-                    this._editor.Text = quoteList[i].Replace("??", ": ") + this._editor.Text.TrimStart();
+                    this.editor.Text = quoteList[i].Replace("??", ": ") + this.editor.Text.TrimStart();
                 }
             }
             else if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u").IsSet())
@@ -538,9 +535,9 @@ namespace YAF.Pages
             // make preview row visible
             this.PreviewRow.Visible = true;
 
-            this.PreviewMessagePost.MessageFlags.IsHtml = this._editor.UsesHTML;
-            this.PreviewMessagePost.MessageFlags.IsBBCode = this._editor.UsesBBCode;
-            this.PreviewMessagePost.Message = this._editor.Text;
+            this.PreviewMessagePost.MessageFlags.IsHtml = this.editor.UsesHTML;
+            this.PreviewMessagePost.MessageFlags.IsBBCode = this.editor.UsesBBCode;
+            this.PreviewMessagePost.Message = this.editor.Text;
 
             if (!this.Get<BoardSettings>().AllowSignatures)
             {
@@ -592,7 +589,7 @@ namespace YAF.Pages
             }
 
             // message is required
-            if (this._editor.Text.Trim().Length <= 0)
+            if (this.editor.Text.Trim().Length <= 0)
             {
                 BoardContext.Current.AddLoadMessage(this.GetText("need_message"), MessageTypes.warning);
                 return;
@@ -601,11 +598,11 @@ namespace YAF.Pages
             if (this.ToList.SelectedItem != null && this.ToList.SelectedItem.Value == "0")
             {
                 // administrator is sending PMs to all users           
-                var body = this._editor.Text;
+                var body = this.editor.Text;
                 var messageFlags = new MessageFlags
                                        {
-                                           IsHtml = this._editor.UsesHTML,
-                                           IsBBCode = this._editor.UsesBBCode
+                                           IsHtml = this.editor.UsesHTML,
+                                           IsBBCode = this.editor.UsesBBCode
                                        };
                 
                 // test user's PM count
@@ -660,7 +657,7 @@ namespace YAF.Pages
                     return;
                 }
 
-                if (!this.VerifyMessageAllowed(recipients.Count, this._editor.Text))
+                if (!this.VerifyMessageAllowed(recipients.Count, this.editor.Text))
                 {
                     return;
                 }
@@ -718,12 +715,12 @@ namespace YAF.Pages
                     userId =>
 
                         {
-                            var body = this._editor.Text;
+                            var body = this.editor.Text;
 
                             var messageFlags = new MessageFlags
                                                    {
-                                                       IsHtml = this._editor.UsesHTML,
-                                                       IsBBCode = this._editor.UsesBBCode
+                                                       IsHtml = this.editor.UsesHTML,
+                                                       IsBBCode = this.editor.UsesBBCode
                                                    };
 
                             this.GetRepository<PMessage>().SendMessage(

@@ -91,8 +91,6 @@ namespace YAF.Dialogs
                 this.CaptchaDiv.Visible = true;
             }
 
-            this.quickReplyEditor.BaseDir = $"{BoardInfo.ForumClientFileRoot}Scripts";
-
             this.QuickReplyWatchTopic.Visible = !this.PageContext.IsGuest;
 
             if (!this.PageContext.IsGuest)

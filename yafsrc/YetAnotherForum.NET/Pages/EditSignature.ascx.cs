@@ -67,7 +67,6 @@ namespace YAF.Pages
             if (!this.Get<BoardSettings>().AllowSignatures
                 && !(this.PageContext.IsAdmin || this.PageContext.IsForumModerator))
             {
-                // Not accessbile...
                 BuildLink.AccessDenied();
             }
 

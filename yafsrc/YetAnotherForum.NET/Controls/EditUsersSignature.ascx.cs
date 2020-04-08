@@ -143,8 +143,8 @@ namespace YAF.Controls
         /// <param name="e">An <see cref="T:System.EventArgs" /> object that contains the event data.</param>
         protected override void OnInit([NotNull] EventArgs e)
         {
-            // since signatures are so small only allow YafBBCode in them...
-            this.signatureEditor = new CKEditorBBCodeEditor { UserCanUpload = false };
+            // Quick Reply Modification Begin
+            this.signatureEditor = new CKEditorBBCodeEditorBasic { UserCanUpload = false };
 
             this.EditorLine.Controls.Add(this.signatureEditor);
 
@@ -155,7 +155,6 @@ namespace YAF.Controls
             this.preview.Click += this.Preview_Click;
             this.cancel.Click += this.Cancel_Click;
 
-            InitializeComponent();
             base.OnInit(e);
         }
 
@@ -167,8 +166,6 @@ namespace YAF.Controls
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
             this.PageContext.QueryIDs = new QueryStringIDHelper("u");
-
-            this.signatureEditor.BaseDir = $"{BoardInfo.ForumClientFileRoot}Scripts";
 
             var sigData = this.GetRepository<User>()
                 .SignatureDataAsDataTable(this.CurrentUserID, this.PageContext.PageBoardID);
@@ -242,14 +239,6 @@ namespace YAF.Controls
         protected void Page_PreRender([NotNull] object sender, [NotNull] EventArgs e)
         {
             this.trHeader.Visible = this.ShowHeader;
-        }
-
-        /// <summary>
-        /// Required method for Designer support - do not modify
-        ///   the contents of this method with the code editor.
-        /// </summary>
-        private static void InitializeComponent()
-        {
         }
 
         /// <summary>

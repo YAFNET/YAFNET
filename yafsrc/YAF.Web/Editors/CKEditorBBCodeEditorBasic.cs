@@ -59,6 +59,11 @@ namespace YAF.Web.Editors
         /// </summary>
         public override bool UsesHTML => false;
 
+        /// <summary>
+        /// The allows uploads.
+        /// </summary>
+        public override bool AllowsUploads => false;
+
         #endregion
 
         #region Methods

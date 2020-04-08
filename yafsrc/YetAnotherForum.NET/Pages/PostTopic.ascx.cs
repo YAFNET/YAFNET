@@ -286,8 +286,6 @@ namespace YAF.Pages
                 BuildLink.AccessDenied();
             }
 
-            this.forumEditor.BaseDir = $"{BoardInfo.ForumClientFileRoot}Scripts";
-
             this.Title.Text = this.GetText("NEWTOPIC");
 
             this.HandleUploadControls();

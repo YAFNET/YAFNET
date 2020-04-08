@@ -76,7 +76,7 @@ namespace YAF.Web.Editors
                 "ckeditor-jQuery-Adapter",
                 "ckeditor/adapters/jquery.js");
 
-            if (this.UserCanUpload)
+            if (this.UserCanUpload && this.AllowsUploads)
             {
                 BoardContext.Current.PageElements.RegisterJsBlock(
                     "autoUpload",
@@ -106,9 +106,6 @@ namespace YAF.Web.Editors
         protected override void OnInit([NotNull] EventArgs e)
         {
             base.OnInit(e);
-
-            this.TextAreaControl.Attributes.CssStyle.Add("width", "100%");
-            this.TextAreaControl.Attributes.CssStyle.Add("height", "350px");
         }
 
         /// <summary>

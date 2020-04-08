@@ -32,7 +32,6 @@ namespace YAF.Pages
     using YAF.Configuration;
     using YAF.Core;
     using YAF.Core.Extensions;
-    using YAF.Core.Helpers;
     using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;
@@ -56,13 +55,6 @@ namespace YAF.Pages
         /// </summary>
         private int messageID;
 
-        // message body editor
-
-        /// <summary>
-        ///   The _editor.
-        /// </summary>
-        private ForumEditor reportEditor;
-
         #endregion
 
         #region Constructors and Destructors
@@ -80,7 +72,7 @@ namespace YAF.Pages
         #region Methods
 
         /// <summary>
-        /// The btn cancel query_ click.
+        /// The btn cancel_ click.
         /// </summary>
         /// <param name="sender">
         /// The sender.
@@ -105,7 +97,7 @@ namespace YAF.Pages
         /// </param>
         protected void BtnReport_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
-            if (this.reportEditor.Text.Length > this.Get<BoardSettings>().MaxReportPostChars)
+            if (this.Report.Text.Length > this.Get<BoardSettings>().MaxReportPostChars)
             {
                 this.IncorrectReportLabel.Text = this.GetTextFormatted(
                     "REPORTTEXT_TOOLONG",
@@ -119,7 +111,7 @@ namespace YAF.Pages
                 this.messageID,
                 this.PageContext.PageUserID,
                 DateTime.UtcNow,
-                this.reportEditor.Text);
+                this.Report.Text);
 
             // Send Notification to Mods about the Reported Post.
             if (this.Get<BoardSettings>().EmailModeratorsOnReportedPost)
@@ -130,7 +122,7 @@ namespace YAF.Pages
                         this.PageContext.PageForumID,
                         this.messageID,
                         this.PageContext.PageUserID,
-                        this.reportEditor.Text);
+                        this.Report.Text);
             }
 
             // Redirect to reported post
@@ -144,11 +136,7 @@ namespace YAF.Pages
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Page_Init([NotNull] object sender, [NotNull] EventArgs e)
         {
-            // get the forum editor based on the settings
-            this.reportEditor = ForumEditorHelper.GetCurrentForumEditor();
-
-            // add editor to the page
-            this.EditorLine.Controls.Add(this.reportEditor);
+            this.Report.MaxLength = this.Get<BoardSettings>().MaxReportPostChars;
         }
 
         /// <summary>
@@ -158,9 +146,6 @@ namespace YAF.Pages
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            // set attributes of editor
-            this.reportEditor.BaseDir = $"{BoardInfo.ForumClientFileRoot}Scripts";
-
             if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("m").IsSet())
             {
                 // We check here if the user have access to the option

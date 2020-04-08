@@ -71,6 +71,7 @@
       "Scripts/blueimp-gallery/jquery.blueimp-gallery.js",
       "Scripts/jquery.blockUI.js",
       "Scripts/jquery.hovercard.js",
+      "Scripts/prism.js",
       "Scripts/tablesorter/jquery.tablesorter.combined.js",
       "Scripts/tablesorter/extras/jquery.tablesorter.pager.min.js",
       "Scripts/tablesorter/widgets/widget-reflow.js",
