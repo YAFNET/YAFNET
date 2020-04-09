@@ -267,6 +267,11 @@ namespace YAF.Controls
                                        this.Get<IPermissions>()
                                            .Check(this.Get<BoardSettings>().PostLatestFeedAccess);
 
+            if (!this.Get<BoardSettings>().ShowRSSLink && !this.Get<BoardSettings>().ShowAtomLink)
+            {
+                this.Footer.Visible = false;
+            }
+
             this.LatestPosts.DataSource = activeTopics;
             this.LatestPosts.DataBind();
 
