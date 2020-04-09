@@ -1,31 +1,31 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Resources xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" language="Italiano" code="it">
   <page name="ACCOUNT">
-    <Resource tag="ACTIVITY">Your Activity</Resource>
+    <Resource tag="ACTIVITY">La tua attività</Resource>
     <Resource tag="ARCHIVE">Archivio</Resource>
-    <Resource tag="CHANGE_PASSWORD">Cambia password</Resource>
+    <Resource tag="CHANGE_PASSWORD">Modifica password</Resource>
     <Resource tag="CONTROL_PANEL">Pannello di controllo</Resource>
-    <Resource tag="CREATED_REPLY">Replied to a Post</Resource>
-    <Resource tag="CREATED_REPLY_MSG">Added an Reply to the Topic {0}</Resource>
-    <Resource tag="CREATED_TOPIC">Created a new Topic</Resource>
-    <Resource tag="CREATED_TOPIC_MSG">Created a new Topic {0}</Resource>
-    <Resource tag="DELETE_ACCOUNT">Delete Account</Resource>
-    <Resource tag="EDIT_AVATAR">Modifica avatar</Resource>
+    <Resource tag="CREATED_REPLY">Risposta ad un Messaggio</Resource>
+    <Resource tag="CREATED_REPLY_MSG">Inviato un Commento al Topic {0}</Resource>
+    <Resource tag="CREATED_TOPIC">Creazione di nuove Discussioni</Resource>
+    <Resource tag="CREATED_TOPIC_MSG">Creata la nuova Discussione {0}</Resource>
+    <Resource tag="DELETE_ACCOUNT">Elimina Account</Resource>
+    <Resource tag="EDIT_AVATAR">Modifica Avatar</Resource>
     <Resource tag="EDIT_PROFILE">Modifica profilo</Resource>
-    <Resource tag="EDIT_SETTINGS">Edit Settings</Resource>
+    <Resource tag="EDIT_SETTINGS">Modifica impostazioni</Resource>
     <Resource tag="EDIT_SIGNATURE">Modifica firma</Resource>
-    <Resource tag="GIVEN_THANKS">Given Thanks to a Post</Resource>
-    <Resource tag="GIVEN_THANKS_MSG">Given Thanks to {0} in the Topic {1}</Resource>
-    <Resource tag="GROUPS">Tu sei membro di questi gruppi:</Resource>
+    <Resource tag="GIVEN_THANKS">Ringraziamento ad un Messaggio</Resource>
+    <Resource tag="GIVEN_THANKS_MSG">Ringraziato {0} nella Discussione {1}</Resource>
+    <Resource tag="GROUPS">Membro nei gruppi:</Resource>
     <Resource tag="INBOX">In arrivo</Resource>
-    <Resource tag="ITEMS">Show Items</Resource>
-    <Resource tag="JOINED">Iscritto:</Resource>
+    <Resource tag="ITEMS">Elementi visualizzati</Resource>
+    <Resource tag="JOINED">Iscritto dal:</Resource>
     <Resource tag="MESSENGER">Messaggi privati</Resource>
     <Resource tag="NEW_MESSAGE">Nuovo messaggio</Resource>
     <Resource tag="NUMPOSTS">Numero di messaggi:</Resource>
     <Resource tag="PERSONAL_PROFILE">Profilo personale:</Resource>
-    <Resource tag="RECEIVED_THANKS">Received a Thanks to a Post</Resource>
-    <Resource tag="RECEIVED_THANKS_MSG">Has Received a Thanks from {0} in the Topic {1}</Resource>
+    <Resource tag="RECEIVED_THANKS">Ricevuto un ringraziamento ad un messaggio</Resource>
+    <Resource tag="RECEIVED_THANKS_MSG">Ha ricevuto un ringraziamento da {0} nel Topic {1}</Resource>
     <Resource tag="SENTITEMS">Inviati</Resource>
     <Resource tag="SIGNATURE">Firma</Resource>
     <Resource tag="SUBSCRIPTIONS">Notifiche</Resource>
@@ -36,10 +36,10 @@
     <Resource tag="WAS_QUOTED">Was Quoted</Resource>
     <Resource tag="WAS_QUOTED_MSG">Was Quoted by {0} in the Topic {1}</Resource>
     <Resource tag="YOUR_ACCOUNT">Il tuo account</Resource>
-    <Resource tag="YOUR_EMAIL">Il tuo indirizzo e-mail:</Resource>
+    <Resource tag="YOUR_EMAIL">Indirizzo e-mail:</Resource>
     <Resource tag="YOUR_NOTIFIY">Your Notifications</Resource>
     <Resource tag="YOUR_USERDISPLAYNAME">Il tuo nome visualizzato:</Resource>
-    <Resource tag="YOUR_USERNAME">Il tuo nome utente:</Resource>
+    <Resource tag="YOUR_USERNAME">Nome utente:</Resource>
   </page>
   <page name="ACTIVELOCATION">
     <Resource tag="ACCOUNT">Views a user profile</Resource>
@@ -342,7 +342,7 @@
   <page name="ADMIN_BBCODE">
     <Resource tag="ADD">Add new BBCode</Resource>
     <Resource tag="CONFIRM_DELETE">Delete this YafBBCode Extension?</Resource>
-    <Resource tag="DESCRIPTION">Description</Resource>
+    <Resource tag="DESCRIPTION">Descrizione</Resource>
     <Resource tag="EXPORT">Export Selected to XML</Resource>
     <Resource tag="HEADER">BBCode Extensions</Resource>
     <Resource tag="MSG_NOTHING_SELECTED">Nothing selected to export.</Resource>
@@ -454,11 +454,11 @@
     <Resource tag="TITLE">Board Settings</Resource>
   </page>
   <page name="ADMIN_COMMON">
-    <Resource tag="CANCEL">Cancel</Resource>
-    <Resource tag="CLEAR">Clear</Resource>
+    <Resource tag="CANCEL">Annulla</Resource>
+    <Resource tag="CLEAR">Cancella</Resource>
     <Resource tag="DISABLED">Disabled</Resource>
     <Resource tag="NO">No</Resource>
-    <Resource tag="SAVE">Save</Resource>
+    <Resource tag="SAVE">Salva</Resource>
     <Resource tag="TABLE_RESPONSIVE">Swipe Table to the left to Reveal More Data</Resource>
     <Resource tag="YES">Yes</Resource>
   </page>
@@ -1045,7 +1045,7 @@
     <Resource tag="ALLOW_USERTEXTEDITOR">Allow users to pick text editor</Resource>
     <Resource tag="ALLOW_USERTEXTEDITOR_HELP">Allow users to pick text editor in their profiles.</Resource>
     <Resource tag="ALLOWED_EXTENSIONS">Allowed File Extensions:</Resource>
-    <Resource tag="ALLOWED_EXTENSIONS_HELP">The list of allowed File Extensions for Attachments.</Resource>
+    <Resource tag="ALLOWED_EXTENSIONS_HELP">The list of allowed File Extensions for Attachments.</Resource>																		  
     <Resource tag="AMOUNT_OF_SUBFORUMS">Sub Forums In Forums List:</Resource>
     <Resource tag="AMOUNT_OF_SUBFORUMS_HELP">The amount of Sub Forums In Forums List.</Resource>
     <Resource tag="APP_CORES">Processor Cores:</Resource>
@@ -1124,13 +1124,13 @@
     <Resource tag="EDITOR_BASCIC_HELP">Editor Toolbar used for Signatures ans Quick Replies.</Resource>
     <Resource tag="EDITOR_BASIC">Editor Toolbar Basic:</Resource>
     <Resource tag="EDITOR_FULL">Editor Toolbar Full:</Resource>
-    <Resource tag="EDITOR_FULL_HELP">Editor Toolbar used for Posting and Private Messages.</Resource>
+    <Resource tag="EDITOR_FULL_HELP">Editor Toolbar used for Posting and Private Messages.</Resource>																									   
     <Resource tag="EMAIL_VERIFICATION">Require E-mail Verification:</Resource>
     <Resource tag="EMAIL_VERIFICATION_HELP">If unchecked users will not need to verify their e-mail address.</Resource>
     <Resource tag="ENABLE_ABLBUMS">Enable Album Feature:</Resource>
     <Resource tag="ENABLE_ABLBUMS_HELP">If checked, album feature is enabled. You should set allowed number of images and albums for each group and/or rank too, to enable the feature.</Resource>
     <Resource tag="ENABLE_ACTIVITY">Enable Activity Stream:</Resource>
-    <Resource tag="ENABLE_ACTIVITY_HELP">If checked the user gets Notifications for Mentions, Quotes and Thanks.</Resource>
+    <Resource tag="ENABLE_ACTIVITY_HELP"> the user gets Notifications for Mentions, Quotes and Thanks.</Resource>
     <Resource tag="ENABLE_BUDDYLIST">Enable Buddy List:</Resource>
     <Resource tag="ENABLE_BUDDYLIST_HELP">If checked users can add each other as buddies.</Resource>
     <Resource tag="ENABLE_CALENDER">Enable calendar:</Resource>
@@ -1670,9 +1670,9 @@
     <Resource tag="PRUNE_PERMANENT">Permanently remove from DB:</Resource>
     <Resource tag="PRUNE_PERMANENT_HELP">All Topics marked with the Deleted flag will be permanently deleted.</Resource>
     <Resource tag="PRUNE_START">Start Prune Task</Resource>
-    <Resource tag="RESTORE_TOPIC">Restore Topic</Resource>
+    <Resource tag="RESTORE_TOPIC">Restore Topic</Resource>														  
     <Resource tag="TITLE">Prune Topics</Resource>
-    <Resource tag="TITLE_HELP">Option to delete All Topics that are not marked as persistent.</Resource>
+																										    <Resource tag="TITLE_HELP">Option to delete All Topics that are not marked as persistent.</Resource>
   </page>
   <page name="ADMIN_RANKS">
     <Resource tag="COMMAND">Command</Resource>
@@ -1764,7 +1764,7 @@
     <Resource tag="TITLE_HELP">Option to restore topics that are flagged as deleted topics, or to permanently delete them from the database.</Resource>
     <Resource tag="TITLE_MESSAGE">Restore &amp; Delete Messages</Resource>
     <Resource tag="TITLE_MESSAGE_HELP">Option to restore Messages that are flagged as deleted messages, or to permanently delete them from the database.</Resource>
-  </page>
+  </page>							 
   <page name="ADMIN_RUNSQL">
     <Resource tag="HEADER">Run SQL Query</Resource>
     <Resource tag="RUN_QUERY">Run Query</Resource>
@@ -1856,11 +1856,11 @@
     <Resource tag="FILTER">Filter by join date since:</Resource>
     <Resource tag="FILTER_BY_GROUP">Filter by Group...</Resource>
     <Resource tag="FILTER_BY_RANK">Filter by Rank...</Resource>
-    <Resource tag="FILTER_DROPDOWN">Filter</Resource>
+    <Resource tag="FILTER_DROPDOWN">Filtro</Resource>
     <Resource tag="FILTER_NO">[No Filter]</Resource>
     <Resource tag="HEADER">Search Users</Resource>
     <Resource tag="IMPORT">Import User(s)</Resource>
-    <Resource tag="LAST_VISIT">Last Visit</Resource>
+    <Resource tag="LAST_VISIT">Ultimo accesso</Resource>
     <Resource tag="LOCK_INACTIVE">Lock inactive accounts</Resource>
     <Resource tag="LOCK_INACTIVE_HELP">Lock inactive accounts older then x years. This will not delete there content (like posted messages)</Resource>
     <Resource tag="MSG_DELETE_ADMIN">You can't delete the Admin.</Resource>
@@ -1868,7 +1868,7 @@
     <Resource tag="MSG_SELF_DELETE">You can't delete yourself.</Resource>
     <Resource tag="NAME_CONTAINS">User Name Contains:</Resource>
     <Resource tag="NEW_USER">New User</Resource>
-    <Resource tag="POSTS">Posts</Resource>
+    <Resource tag="POSTS">Messaggi</Resource>
     <Resource tag="RANK">Rank:</Resource>
     <Resource tag="ROLE">Role:</Resource>
     <Resource tag="SEARCH">Search</Resource>
@@ -1927,7 +1927,7 @@
     <Resource tag="admin_reindex">DB Maintenance</Resource>
     <Resource tag="admin_replacewords">Replace Words</Resource>
     <Resource tag="admin_restartapp">Restart App</Resource>
-    <Resource tag="admin_restore">Restore &amp; Delete Topics</Resource>
+    <Resource tag="admin_restore">Restore &amp; Delete Topics</Resource>																		
     <Resource tag="admin_runsql">Run SQL Query</Resource>
     <Resource tag="ADMIN_SPAMLOG">Spam Event Log</Resource>
     <Resource tag="admin_spamwords">Spam Check Words</Resource>
@@ -1989,7 +1989,7 @@
     <Resource tag="UPLOAD_TOOBIG">Non puoi allegare file piu' grandi di {1} KB. La dimensione del tuo file e' {0} KB.</Resource>
   </page>
   <page name="AVATAR">
-    <Resource tag="CANCEL_TITLE">Torna alla pagina di modifica avatar senza selezionarne uno.</Resource>
+    <Resource tag="CANCEL_TITLE">Torna alla pagina di modifica Avatar senza selezionarne uno.</Resource>
     <Resource tag="EDITPROFILE">Cambia avatar</Resource>
     <Resource tag="TITLE">Avatar</Resource>
     <Resource tag="UP_TITLE">Vai alla cartella superiore.</Resource>
@@ -2024,16 +2024,16 @@
     <Resource tag="YOUTUBEMOD_DESCRIPTION">URL condividi YouTube. Togliere s da https.</Resource>
   </page>
   <page name="BLOCK_OPTIONS">
-    <Resource tag="BLOCK_BUDDYS">Block Friend Requests</Resource>
-    <Resource tag="BLOCK_BUDDYS">Block Private Messages</Resource>
-    <Resource tag="BLOCK_EMAILS">Block E-Mails</Resource>
-    <Resource tag="BLOCK_OPTIONS">Block Options</Resource>
-    <Resource tag="BLOCK_PMS">Block Private Messages</Resource>
-    <Resource tag="IGNORED_USERS">Ignored User List</Resource>
-    <Resource tag="NOTE_BLOCK">Admins and Users in the Friend List will be excluded from the Blocking!</Resource>
-    <Resource tag="NOTE_USERS">Posts of Ignored Users will be hidden. This does not include Quoted Posts</Resource>
-    <Resource tag="SELECT_OPTIONS">Options to Block other Users from Contacting you...</Resource>
-    <Resource tag="TITLE">User Block Options &amp; Ignored Users</Resource>
+    <Resource tag="BLOCK_BUDDYS">Blocca richieste di amicizia</Resource>
+    <Resource tag="BLOCK_BUDDYS">Blocca richieste di amicizia</Resource>
+    <Resource tag="BLOCK_EMAILS">Blocca e-mail</Resource>
+    <Resource tag="BLOCK_OPTIONS">Opzioni di blocco</Resource>
+    <Resource tag="BLOCK_PMS">Blocca messaggi privati</Resource>
+    <Resource tag="IGNORED_USERS">Lista utenti ignorati</Resource>
+    <Resource tag="NOTE_BLOCK">Amministratori e utenti che sono nella lista degli amici sono esclusi dal blocco!</Resource>
+    <Resource tag="NOTE_USERS">I messaggi degli utenti ignorati saranno invisibili. Questo non include i messaggi citati</Resource>
+    <Resource tag="SELECT_OPTIONS">Opzioni per bloccare gli altri utenti dal contattarti...</Resource>
+    <Resource tag="TITLE">Opzioni blocco o ignora utenti</Resource>
   </page>
   <page name="BUDDY">
     <Resource tag="ADDBUDDY">Aggiungi come amico</Resource>
@@ -2077,7 +2077,7 @@
     <Resource tag="BUTTON_MULTI_QUOTE_TT">Multi-cita questo messaggio</Resource>
     <Resource tag="BUTTON_NEWPM">Nuovo MP</Resource>
     <Resource tag="BUTTON_NEWPM_TT">Crea un nuovo messaggio privato</Resource>
-    <Resource tag="BUTTON_NEWTOPIC">Nuova discussione</Resource>
+    <Resource tag="BUTTON_NEWTOPIC">Inizia una nuova discussione</Resource>
     <Resource tag="BUTTON_NEWTOPIC_TT">Inserisci una nuova discussione in questo forum</Resource>
     <Resource tag="BUTTON_POSTREPLY">Rispondi</Resource>
     <Resource tag="BUTTON_POSTREPLY_TT">Inserisci una risposta in questa discussione</Resource>
@@ -2089,8 +2089,8 @@
     <Resource tag="BUTTON_RETWEET">Retweet</Resource>
     <Resource tag="BUTTON_RETWEET_TT">Retweet questo messaggio</Resource>
     <Resource tag="BUTTON_SETCOVER">Imposta come copertina</Resource>
-    <Resource tag="BUTTON_TAGFAVORITE">Segna come preferita</Resource>
-    <Resource tag="BUTTON_TAGFAVORITE_TT">Segna questa discussione come preferita</Resource>
+    <Resource tag="BUTTON_TAGFAVORITE">Aggiungi a preferite</Resource>
+    <Resource tag="BUTTON_TAGFAVORITE_TT">Aggiungi questa discussione fra quelle preferite</Resource>
     <Resource tag="BUTTON_THANKS">Grazie</Resource>
     <Resource tag="BUTTON_THANKS_TT">Ringrazia l'autore del post</Resource>
     <Resource tag="BUTTON_THANKSDELETE">Elimina i ringraziamenti</Resource>
@@ -2099,34 +2099,34 @@
     <Resource tag="BUTTON_UNDELETE_TT">Ripristina questo messaggio</Resource>
     <Resource tag="BUTTON_UNLOCKTOPIC">Apri discussione</Resource>
     <Resource tag="BUTTON_UNLOCKTOPIC_TT">Apri questa discussione</Resource>
-    <Resource tag="BUTTON_UNTAGFAVORITE">Segna questa discussione come normale</Resource>
-    <Resource tag="BUTTON_UNTAGFAVORITE_TT">Elimina questa discussione dal tuo elenco discussioni preferite.</Resource>
+    <Resource tag="BUTTON_UNTAGFAVORITE">Rimuovi da preferite</Resource>
+    <Resource tag="BUTTON_UNTAGFAVORITE_TT">Elimina questa discussione dal tuo elenco di discussioni preferite.</Resource>
   </page>
   <page name="CHANGE_PASSWORD">
-    <Resource tag="CHANGE_BUTTON">Cambia</Resource>
-    <Resource tag="CHANGE_SUCCESS">Password cambiata.</Resource>
+    <Resource tag="CHANGE_BUTTON">Modifica</Resource>
+    <Resource tag="CHANGE_SUCCESS">Password modificata con successo.</Resource>
     <Resource tag="CONFIRM_PASSWORD">Conferma nuova password:</Resource>
-    <Resource tag="EMPTY_ANSWER">New Answer is requiered.</Resource>
-    <Resource tag="EMPTY_PASSWORD">Please Enter your Current Password</Resource>
-    <Resource tag="EMPTY_QUESTION">New Question is requiered.</Resource>
-    <Resource tag="NEED_NEW_CONFIRM_PASSWORD">E' necessario confermare la nuova password.</Resource>
-    <Resource tag="NEED_NEW_PASSWORD">E' necessaria la nuova password.</Resource>
-    <Resource tag="NEED_OLD_PASSWORD">E' necessaria la vecchia password.</Resource>
+    <Resource tag="EMPTY_ANSWER">Inserire una nuova risposta.</Resource>
+    <Resource tag="EMPTY_PASSWORD">Inserire la vecchia risposta</Resource>
+    <Resource tag="EMPTY_QUESTION">Inserire una nuova domanda.</Resource>
+    <Resource tag="NEED_NEW_CONFIRM_PASSWORD">Confermare la nuova password.</Resource>
+    <Resource tag="NEED_NEW_PASSWORD">Inserire la nuova password.</Resource>
+    <Resource tag="NEED_OLD_PASSWORD">Inserire la vecchia password.</Resource>
     <Resource tag="NEW_PASSWORD">Nuova password:</Resource>
-    <Resource tag="NO_PASSWORD_MATCH">Le nuove password indicate non corrispondono.</Resource>
+    <Resource tag="NO_PASSWORD_MATCH">Le nuove password non sono uguali.</Resource>
     <Resource tag="OLD_PASSWORD">Vecchia password:</Resource>
     <Resource tag="PASSWORD_BAD_LENGTH">Lunghezza minima della nuova password: {0}.</Resource>
     <Resource tag="PASSWORD_INCORRECT">Password errata o nuova password non valida.</Resource>
-    <Resource tag="PASSWORD_NOT_COMPLEX">Caratteri speciali necessari: {1}.</Resource>
-    <Resource tag="PASSWORD_NOT_NEW">La nuova password deve essere diversa dalla precedente.</Resource>
-    <Resource tag="SECURITY_ANSWER_NEW">New Security Answer:</Resource>
-    <Resource tag="SECURITY_ANSWER_OLD">Current Password:</Resource>
-    <Resource tag="SECURITY_CHANGED">Password Question and Answer changed.</Resource>
-    <Resource tag="SECURITY_NOT_CHANGED">Change failed. Please re-enter your values and try again.</Resource>
-    <Resource tag="SECURITY_QUESTION_NEW">New Security Question:</Resource>
-    <Resource tag="SECURITY_QUESTION_OLD">Old Security Question:</Resource>
-    <Resource tag="TITLE">Cambia password</Resource>
-    <Resource tag="TITLE_SECURITY">Change Security Question and Answer</Resource>
+    <Resource tag="PASSWORD_NOT_COMPLEX">Caratteri speciali richiesti: {1}.</Resource>
+    <Resource tag="PASSWORD_NOT_NEW">La nuova password deve essere diversa dalla vecchia.</Resource>
+    <Resource tag="SECURITY_ANSWER_NEW">Nuova risposta:</Resource>
+    <Resource tag="SECURITY_ANSWER_OLD">Vecchia risposta:</Resource>
+    <Resource tag="SECURITY_CHANGED">Domanda di sicurezza modificata con successo.</Resource>
+    <Resource tag="SECURITY_NOT_CHANGED">Modifica fallita. Inserisci nuovamente i dati richiesti e riprova.</Resource>
+    <Resource tag="SECURITY_QUESTION_NEW">Nuova domanda di sicurezza:</Resource>
+    <Resource tag="SECURITY_QUESTION_OLD">Vecchia domanda di sicurezza:</Resource>
+    <Resource tag="TITLE">Modifica password</Resource>
+    <Resource tag="TITLE_SECURITY">Modifica la domanda di sicurezza</Resource>
   </page>
   <page name="CHARACTER_CHECKER">
     <Resource tag="ISEMPTY">Il corpo del messaggio non può essere vuoto.</Resource>
@@ -2145,7 +2145,7 @@
     <Resource tag="BBCODE_QUOTE">Citazione:</Resource>
     <Resource tag="BBCODE_QUOTEPOSTED">Postato in origine da: {0}</Resource>
     <Resource tag="BBCODE_QUOTEPOSTED_TT">Vai al messaggio citato</Resource>
-    <Resource tag="BBCODE_QUOTEWROTE">{0} ha scritto:</Resource>
+    <Resource tag="BBCODE_QUOTEWROTE">Messaggio originale di [b]{0}[/b]:</Resource>
     <Resource tag="CAL_JQ_CULTURE">it</Resource>
     <Resource tag="CAL_JQ_CULTURE_DFORMAT">dd/MM/YYYY</Resource>
     <Resource tag="CAL_JQ_TT">Click per selezionare la data</Resource>
@@ -2175,7 +2175,7 @@
     <Resource tag="CUSTOM_BBCODE">Tag addizionali:</Resource>
     <Resource tag="DELETE">Elimina</Resource>
     <Resource tag="DELETED_MESSAGE">Message with ID: {0} Deleted</Resource>
-    <Resource tag="DELETED_TOPIC">Topic with ID: {0} Deleted</Resource>
+    <Resource tag="DELETED_TOPIC">Topic with ID: {0} Deleted</Resource>																		   
     <Resource tag="DISALLOWED">Non permesso</Resource>
     <Resource tag="DOWNLOAD">Scarica</Resource>
     <Resource tag="EDIT">Modifica</Resource>
@@ -2204,7 +2204,7 @@
     <Resource tag="IN_FORUM">in Forum: {0}</Resource>
     <Resource tag="LOADING">In caricamento...</Resource>
     <Resource tag="MANAGE">Manage</Resource>
-    <Resource tag="MAX_ONLINE">Il numero massimo di utenti registrati in linea è stato {0} il {1}. Ora sul forum:</Resource>
+    <Resource tag="MAX_ONLINE">Il numero massimo di utenti registrati contemporaneamente in linea è stato {0} il {1}.</Resource>
     <Resource tag="MENU">Menu</Resource>
     <Resource tag="MESSAGE">Messaggio</Resource>
     <Resource tag="MOBILE_FULLSITE">Mostra sito completo</Resource>
@@ -2578,7 +2578,7 @@
   </page>
   <page name="DEFAULT">
     <Resource tag="ACTIVE_DISCUSSIONS">Discussioni attive</Resource>
-    <Resource tag="ACTIVE_USERS">In tempo reale</Resource>
+    <Resource tag="ACTIVE_USERS">Utenti attivi</Resource>
     <Resource tag="ACTIVE_USERS_COUNT1">{0:N0} visitatore</Resource>
     <Resource tag="ACTIVE_USERS_COUNT2">{0:N0} visitatori</Resource>
     <Resource tag="ACTIVE_USERS_GUESTS1">{0:N0} ospite</Resource>
@@ -2612,11 +2612,11 @@
     <Resource tag="MARKALL">Contrassegna tutti i forum come letti</Resource>
     <Resource tag="MARKALL_MESSAGE">All forums has been marked as read</Resource>
     <Resource tag="MODERATORS">Moderatori</Resource>
-    <Resource tag="MOST_ACTIVE">Most Active Users in the last {0} Days</Resource>
+    <Resource tag="MOST_ACTIVE">Utenti più attivi negli ultimi {0} giorni</Resource>
     <Resource tag="NO_FORUM_ACCESS">(Nessun Accesso)</Resource>
     <Resource tag="NO_POSTS">Nessun messaggio</Resource>
     <Resource tag="ONDATE">il {0}</Resource>
-    <Resource tag="POSTS">Messaggi</Resource>
+    <Resource tag="POSTS">Commenti</Resource>
     <Resource tag="RECENT_ONLINE_USERS">{0} utenti registrati nelle ultime 24 ore e {1} negli ultimi 30 giorni. Visti nelle ultime 24 ore:</Resource>
     <Resource tag="RECENT_USERS">Di recente</Resource>
     <Resource tag="RSSICONTOOLTIPACTIVE">Sottoscrivi le discussioni attive tramite RSS.</Resource>
@@ -2637,10 +2637,10 @@
     <Resource tag="UNREAD0">Hai {0} messaggi privati non letti.</Resource>
     <Resource tag="UNREAD1">Hai {0} messaggio privato non letto.</Resource>
     <Resource tag="VIEWING">({0} sfogliano il forum)</Resource>
-    <Resource tag="VOTE_DOWN_TITLE">-1 per il karma dell'utente.</Resource>
-    <Resource tag="VOTE_UP_TITLE">+1 per il karma dell'utente.</Resource>
-    <Resource tag="WATCHFORUM_ALL">Watch all forums</Resource>
-    <Resource tag="WATCHFORUM_ALL_HELP">Watch all forums and get Email Notifications when a new Topic is created</Resource>
+    <Resource tag="VOTE_DOWN_TITLE">-1 per aumentare la reputazione dell'utente.</Resource>
+    <Resource tag="VOTE_UP_TITLE">+1 per diminuire la reputazione dell'utente.</Resource>
+    <Resource tag="WATCHFORUM_ALL">Segui tutti i forum</Resource>
+    <Resource tag="WATCHFORUM_ALL_HELP">Segui tutti i forum e ottieni una mail di notifica quando viene aggiunta una nuova discussione</Resource>
   </page>
   <page name="DELETE_ACCOUNT">
     <Resource tag="CONFIRM">Are you absolutely sure you want to do this?</Resource>
@@ -2694,18 +2694,18 @@
   <page name="EDIT_AVATAR">
     <Resource tag="AVATAR">Avatar</Resource>
     <Resource tag="AVATARCURRENT">Avatar attuale</Resource>
-    <Resource tag="AVATARDELETE">Cancella avatar</Resource>
-    <Resource tag="AVATARNEW">Scegli un nuovo avatar</Resource>
-    <Resource tag="AVATARREMOTE">Inserisci l'URL dell'immagine per l'avatar da Internet:</Resource>
-    <Resource tag="AVATARTEXT">Testo di spiegazione dell'avatar</Resource>
-    <Resource tag="AVATARUPLOAD">Carica un avatar dal tuo computer:</Resource>
+    <Resource tag="AVATARDELETE">Cancella Avatar</Resource>
+    <Resource tag="AVATARNEW">Scegli un nuovo Avatar</Resource>
+    <Resource tag="AVATARREMOTE">Per utilizzare un'immagine disponibile sul web, inserire il link all'immagine:</Resource>
+    <Resource tag="AVATARTEXT">Testo di spiegazione dell'Avatar</Resource>
+    <Resource tag="AVATARUPLOAD">Carica un Avatar dal tuo computer:</Resource>
     <Resource tag="INVALID_FILE">Il file caricato non risulta essere un'immagine.</Resource>
     <Resource tag="NOAVATAR">[ Nessun avatar ]</Resource>
-    <Resource tag="NOTE_LOCAL">Attenzione: l'immagine sarà ridimensionata automaticamente se più grande di {0}x{1} pixel. Inoltre, l'immagine non può occupare più di {2} KB.</Resource>
+    <Resource tag="NOTE_LOCAL">Attenzione: l'immagine sarà ridimensionata automaticamente se più grande di {0}x{1} pixel. Inoltre, il file non può avere una dimensione maggiore di {2} KB.</Resource>
     <Resource tag="NOTE_REMOTE">Attenzione: l'immagine sarà ridimensionata automaticamente se più grande di {0}x{1} pixel.</Resource>
-    <Resource tag="OURAVATAR">Seleziona il tuo avatar dalla nostra raccolta:</Resource>
-    <Resource tag="OURAVATAR_SELECT">Clicca qui per selezionare un avatar</Resource>
-    <Resource tag="TITLE">Modifica avatar</Resource>
+    <Resource tag="OURAVATAR">Seleziona il tuo Avatar dalla nostra raccolta:</Resource>
+    <Resource tag="OURAVATAR_SELECT">Clicca qui per selezionare un Avatar</Resource>
+    <Resource tag="TITLE">Modifica Avatar</Resource>
     <Resource tag="WARN_BIGFILE">La dimensione della tua immagine non può essere maggiore di {0} bytes.</Resource>
     <Resource tag="WARN_FILESIZE">La dimensione della tua immagine era {0} bytes.</Resource>
     <Resource tag="WARN_RESIZED">L'immagine è stata ridimensionata.</Resource>
@@ -2714,7 +2714,7 @@
   </page>
   <page name="EDIT_PROFILE">
     <Resource tag="ABOUTYOU">Su di te...</Resource>
-    <Resource tag="ACTIVITY">Enable Activity Stream (If checked you get Notifications for Mentions, Quotes and Thanks.</Resource>
+    <Resource tag="ACTIVITY">Abilita Activity Stream (lista delle attività recenti). Selezionare per ottenere notifiche su citazioni e ringraziamenti.</Resource>
     <Resource tag="AIM">Il tuo nome AIM:</Resource>
     <Resource tag="AUTOWATCH_TOPICS_NOTIFICATION">Vuoi seguire tutte le discussioni in cui hai scritto e ricevere un'e-mail di notifica ad ogni nuovo messaggio in esse?</Resource>
     <Resource tag="BAD_EMAIL">Hai inserito un'e-mail non valida.</Resource>
@@ -2725,27 +2725,27 @@
     <Resource tag="BAD_MSN">Hai inserito un indirizzo e-mail non valido per il tuo account MSN.</Resource>
     <Resource tag="BAD_WEBLOG">Hai inserito un indirizzo non valido per il tuo weblog.</Resource>
     <Resource tag="BAD_XMPP">Hai inserito un nome non valido per il tuo account XMPP.</Resource>
-    <Resource tag="BIRTHDAY">Compleanno (aggiungere un giorno)</Resource>
+    <Resource tag="BIRTHDAY">Data di nascita</Resource>
     <Resource tag="CHANGE_EMAIL">Cambia indirizzo e-mail</Resource>
-    <Resource tag="CITY">Città natale:</Resource>
+    <Resource tag="CITY">Città:</Resource>
     <Resource tag="COUNTRY">Nazione:</Resource>
     <Resource tag="DISPLAYNAME">Che nome vuoi mostrare agli altri?</Resource>
     <Resource tag="DST">Passa automaticamente all'ora legale</Resource>
     <Resource tag="DUPLICATED_EMAIL">L'e-mail inserita risulta già in uso.</Resource>
     <Resource tag="EDIT_ALBUMS">Modifica album</Resource>
-    <Resource tag="EMAIL">Devi sempre avere un indizzo e-mail valido</Resource>
+    <Resource tag="EMAIL">Devi mantenere sempre un indizzo e-mail valido</Resource>
     <Resource tag="FACEBOOK">L'ID del tuo profilo Facebook:</Resource>
     <Resource tag="FIELD_TOOLONG">La lunghezza di {0} non puo' superare {1} caratteri.</Resource>
     <Resource tag="FORUM_SETTINGS">Impostazioni forum</Resource>
-    <Resource tag="GET_LOCATION">Get Location from IP Address</Resource>
+    <Resource tag="GET_LOCATION">Ottieni la località dall'indirizzo IP in uso</Resource>
     <Resource tag="GOOGLE">URL del tuo profilo Google:</Resource>
     <Resource tag="HIDEME">Invisibile</Resource>
     <Resource tag="HOMEPAGE">Home page:</Resource>
     <Resource tag="HOMEPAGE2">Home page personale:</Resource>
     <Resource tag="ICQ">Il tuo numero ICQ:</Resource>
     <Resource tag="LOCATION">Da dove scrivi?</Resource>
-    <Resource tag="MAIL_SENT">E-mail inviata a {0}. Validare il nuovo indirizzo e-mail cliccando sul link nel messaggio affinche' le modifiche abbiano effetto.</Resource>
-    <Resource tag="MESSENGER">Servizi di instant messaging</Resource>
+    <Resource tag="MAIL_SENT">E-mail inviata a {0}. Affinché le modifiche abbiano effetto, convalidare il nuovo indirizzo e-mail cliccando sul link nel messaggio.</Resource>
+    <Resource tag="MESSENGER">Servizi di messaggeria istantanea</Resource>
     <Resource tag="METAWEBLOG_API_ID">ID API MetaWeblog:</Resource>
     <Resource tag="METAWEBLOG_API_ID_INSTRUCTIONS">(Impostazione opzionale che [b]potrebbe[/b] essere necessaria per alcuni blog (non necessaria per SubText). Provare prima senza, in caso di dubbio.</Resource>
     <Resource tag="METAWEBLOG_API_URL">URL API MetaWeblog:</Resource>
@@ -2753,8 +2753,8 @@
     <Resource tag="METAWEBLOG_TITLE">Invia su MetaWeblog (impostazioni API)</Resource>
     <Resource tag="MSN">Il tuo nome MSN (Live-ID):</Resource>
     <Resource tag="OVERRIDE_DEFAULT_THEMES">Seleziona un tema personalizzato per il forum:</Resource>
-    <Resource tag="PM_EMAIL_NOTIFICATION">Vuoi ricevere una notifica in e-mail quando hai un nuovo messaggio privato?</Resource>
-    <Resource tag="REALNAME2">Qual è il tuo vero nome?</Resource>
+    <Resource tag="PM_EMAIL_NOTIFICATION">Vuoi ricevere una notifica via e-mail ogni qualvolta ti viene inviato un nuovo messaggio privato?</Resource>
+    <Resource tag="REALNAME2">Nome reale:</Resource>
     <Resource tag="REGION">Provincia:</Resource>
     <Resource tag="SELECT_LANGUAGE">La tua lingua:</Resource>
     <Resource tag="SELECT_TEXTEDITOR">Scegli il tuo editor di testo:</Resource>
@@ -2766,9 +2766,9 @@
     <Resource tag="TWITTER">Il tuo nome Twitter:</Resource>
     <Resource tag="TWITTER_ID">Il tuo ID Twitter:</Resource>
     <Resource tag="USE_MOBILE_THEME">Usa un tema speciale coi dispositivi mobili.</Resource>
-    <Resource tag="USE_SINGLESIGNON">Vuoi usare il single sign-on?&lt;br /&gt;Devi aver impostato qui sopra l'ID del tuo profilo Facebook oppure i tuoi ID e nome Twitter.</Resource>
+    <Resource tag="USE_SINGLESIGNON">Vuoi usare il single sign-on (autenticazione unica)?&lt;br /&gt;Devi aver impostato qui sopra l'ID del tuo profilo Facebook oppure i tuoi ID e nome Twitter.</Resource>
     <Resource tag="WEBLOG2">Il tuo Weblog:</Resource>
-    <Resource tag="WHERE">Da dove scrivi?</Resource>
+    <Resource tag="WHERE">Dove vivi?</Resource>
     <Resource tag="XMPP">Il tuo ID Jabber:</Resource>
     <Resource tag="YIM">Il tuo ID Yahoo:</Resource>
   </page>
@@ -2792,13 +2792,13 @@
     <Resource tag="TITLE">Modifica firma</Resource>
   </page>
   <page name="EMAILTOPIC">
-    <Resource tag="FAILED">Invio e-mail fallitto.\n\n{0}</Resource>
+    <Resource tag="FAILED">Invio e-mail fallito.\n\n{0}</Resource>
     <Resource tag="MESSAGE">Messaggio:</Resource>
     <Resource tag="NEED_EMAIL">Devi inserire un indirizzo e-mail.</Resource>
-    <Resource tag="SEND">Invia e-mail</Resource>
+    <Resource tag="SEND">Invia</Resource>
     <Resource tag="SUBJECT">Soggetto:</Resource>
-    <Resource tag="TITLE">Manda una pagina a un amico</Resource>
-    <Resource tag="TO">Manda a (indirizzo e-mail):</Resource>
+    <Resource tag="TITLE">Invia una pagina ad un amico</Resource>
+    <Resource tag="TO">Invia a (indirizzo e-mail):</Resource>
   </page>
   <page name="EVENTLOG_EVENTS">
     <Resource tag="ERROR">Error</Resource>
@@ -2830,10 +2830,10 @@
     <Resource tag="YOUR_REQUESTS">Le tue richieste</Resource>
   </page>
   <page name="HELP_INDEX">
-    <Resource tag="ANOUNCECONTENT">&lt;p&gt;Announcements are special messages posted by the administrator or moderators. They are a simple one-way communication with the users and you can't reply. If you wish to discuss announcements, you will have to create a new thread in the forum.&lt;/p&gt;
-&lt;p&gt;Announcement topics are displayed at the top of forum listing pages, above regular and sticky topics.&lt;/p&gt;
+    <Resource tag="ANOUNCECONTENT">&lt;p&gt;Gli annunci sono messaggi speciali inseriti da amministratori o moderatori. Si tratta di una comunicazione a senso unico verso l'utente dove quest'ultimo è impossibilitato a rispondere. Per discutere sul contenuto di un annuncio è necessario creare un nuovo argomento nel forum.&lt;/p&gt;
+&lt;p&gt;Gli annunci vengono visualizzati nella parte più alta della pagina, in posizione superiore ad argomenti normali ed evidenziati.&lt;/p&gt;
         </Resource>
-    <Resource tag="ANOUNCETITLE">Announcements</Resource>
+    <Resource tag="ANOUNCETITLE">Annunci</Resource>
     <Resource tag="ATTACHMENTSCONTENT">&lt;p&gt;To attach a file to a post, you need to be using the main 'Post Reply' or 'New Topic' page and not 'Quick Reply', or Click the 'Attach' button to on an existing Message.&lt;/p&gt;
 &lt;p&gt;On this page, below the message box, you will find a Check box 'Attach files to this post?'. When you Click on the 'Post' button you are redirected to the Attachments Page where you can Upload and Attach Files.&lt;/p&gt;
 &lt;p&gt;To upload a file from your computer, click the 'Browse' button and locate the file. Once you have selected a file, click 'Upload'.&lt;/p&gt;
@@ -3934,9 +3934,9 @@ Spoiler Content
 &lt;p&gt;To view information about a particular member, click on the user name. This will take you to their public profile page.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;What is the Header?&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;The Header on top of every page has links to help you move around. With one click you can reach areas such as: My Profile, Help (which you are reading now), Search and other  useful features..&lt;/p&gt;</Resource>
-    <Resource tag="FORUMSTITLE">Forums, Topics and Messages</Resource>
-    <Resource tag="GENERALTOPICS">General Forum Usage</Resource>
-    <Resource tag="INDEX">Index</Resource>
+    <Resource tag="FORUMSTITLE">Forum, Argomenti e Messaggi</Resource>
+    <Resource tag="GENERALTOPICS">Utilizzo generale del forum</Resource>
+    <Resource tag="INDEX">Indice</Resource>
     <Resource tag="MAILSETTINGSCONTENT">&lt;p&gt;On the 'Email Notification Preferences' Page inside your User Control Panel you can set up, what type of Email Notifications you want to receive.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Turn off notifications - &lt;/strong&gt;This Options turns off all Notifications and you won’t receive any emails.&lt;/p&gt;
 &lt;p&gt; &lt;strong&gt;Notification for all posts on all topics&lt;/strong&gt; - You will receive Instant Email Notifications when someone has posted a new Message.&lt;/p&gt;
@@ -4136,12 +4136,12 @@ Spoiler Content
 &lt;p&gt;If the administrator has enabled Feed syndication, you can get the Feeds for a forums, topics and active topics.&lt;/p&gt;
 &lt;p&gt;Most modern browsers have facilities for reading RSS feeds and will automatically detect the availability of feeds on YAF forum pages.&lt;/p&gt;</Resource>
     <Resource tag="RSSTITLE">RSS &amp; Atom Feeds</Resource>
-    <Resource tag="SEARCHFOR">Enter keywords to search for:</Resource>
+    <Resource tag="SEARCHFOR">Inserisci le parole chiave da ricercare:</Resource>
     <Resource tag="SEARCHHELP">Search Help</Resource>
-    <Resource tag="SEARCHHELPTITLE">Search Help Topics</Resource>
+    <Resource tag="SEARCHHELPTITLE">Indice e Ricerca</Resource>
     <Resource tag="SEARCHINGCONTENT">&lt;p&gt;To quickly find a thread or post of interest anywhere on the forums, click on the 'Search' link in the Header. Then, type in the keyword or phrase you wish to search for.&lt;/p&gt;
 &lt;p&gt;For more control over the search, you can restrict your search to individual forums, or find posts or topics written by a specified user. You can also select how many Results should be shown per page.&lt;/p&gt;</Resource>
-    <Resource tag="SEARCHINGTITLE">Searching Forums and Topics</Resource>
+    <Resource tag="SEARCHINGTITLE">Ricercare in Forum e Argomenti</Resource>
     <Resource tag="SEARCHLONGER">Search Input is to short, must be at least 3 letters.</Resource>
     <Resource tag="SUBSCRIPTIONSCONTENT">&lt;p&gt;Subscriptions are a way to keep track of different topics and/or forums. You can choose how you are notified about updates.&lt;/p&gt;
 &lt;p&gt;Or if you don't want to manually subscribe to a topic you want to follow you can turn on the Option 'Notification for topics you've posted to, watched or marked as favorite' in the E-mail Notification Preferences Page inside the User CP.&lt;/p&gt;
@@ -4152,7 +4152,7 @@ Spoiler Content
 &lt;p&gt;&lt;strong&gt;How do I manage my Subscriptions of Watched topics and forums?&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;You can see the List of 'Watched Forums' and 'Watched Topics' from the 'Email Notification Preferences' Page of your User Controp Panel. There you can select which subscriptions you wish to delete by Clicking on the Unwatch button.&lt;/p&gt;</Resource>
     <Resource tag="SUBSCRIPTIONSTITLE">Subscriptions &amp; Notifications</Resource>
-    <Resource tag="SUBTITLE">Forum Help</Resource>
+    <Resource tag="SUBTITLE">Help</Resource>
     <Resource tag="THANKSCONTENT">&lt;p&gt;The 'Thanks' - System is a function that allows you to give back another user a positive feedback, for example he or she has posted a message you find useful or helps you to solve a problem.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;How to give a User a Thanks?&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;If you want to give an User an 'Thank' press the 'Thank' Button inside the Post you want to add it, after that you find your Name in the List of User who gave a Thank at the end of the Message. You can also remove your Thank at any time.&lt;/p&gt;
@@ -4172,11 +4172,11 @@ Spoiler Content
 &lt;/ul&gt;
 </Resource>
     <Resource tag="THREADOPTTITLE">Topic Options</Resource>
-    <Resource tag="TITLE">YetAnotherForum.NET Help</Resource>
-    <Resource tag="WELCOME">Qui puoi trovare le risposte alle domande sul funzionamento del forum. Usa i collegamenti a sinistra o la ricerca qui sotto. </Resource>
+    <Resource tag="TITLE">Help sul Forum</Resource>
+    <Resource tag="WELCOME">Qui puoi trovare le risposte alle domande sull'utilizzo del forum. Consulta l'elenco delle funzioni oppure utilizza la funzionalità di ricerca. </Resource>
   </page>
   <page name="ICONLEGEND">
-    <Resource tag="ANNOUNCEMENT">Annuncio</Resource>
+    <Resource tag="ANNOUNCEMENT">ANNUNCIO</Resource>
     <Resource tag="ANNOUNCEMENT_NEW">Annuncio (nuovi messaggi)</Resource>
     <Resource tag="FORUM_LOCKED">Forum chiuso</Resource>
     <Resource tag="HOT_NEW_POSTS">Discussione hot (nuovi messaggi)</Resource>
@@ -4188,8 +4188,8 @@ Spoiler Content
     <Resource tag="NO_NEW_POSTS_LOCKED">Discussione bloccata</Resource>
     <Resource tag="POLL">Sondaggio</Resource>
     <Resource tag="POLL_NEW">Sondaggio (nuovi messaggi)</Resource>
-    <Resource tag="STICKY">Discussione in rilievo</Resource>
-    <Resource tag="STICKY_NEW">Discussione in rilievo (nuovi messaggi)</Resource>
+    <Resource tag="STICKY">IN EVIDENZA</Resource>
+    <Resource tag="STICKY_NEW">Discussione in evidenza (nuovi messaggi)</Resource>
   </page>
   <page name="IM_AIM">
     <Resource tag="TITLE">AOL Instant Messenger</Resource>
@@ -4258,12 +4258,12 @@ Spoiler Content
     <Resource tag="AUTH_CONNECT_ACCOUNT">Collega un account forum esistente ad un account {0}. Prima devi accedere al forum. {1}</Resource>
     <Resource tag="AUTH_CONNECT_FACEBOOK">&lt;strong&gt;Per collegare i due account, l'indirizzo e-mail Facebook deve corrispondere a quello usato sul forum.&lt;/strong&gt;</Resource>
     <Resource tag="AUTH_CONNECT_GOOGLE">&lt;strong&gt;Per collegare i due account, l'indirizzo e-mail Google deve corrispondere a quello usato sul forum.&lt;/strong&gt;</Resource>
-    <Resource tag="AUTH_CONNECT_HELP">Accedi o registrati tramit {0} oppure collega un account forum a {0}.</Resource>
-    <Resource tag="AUTH_CONNECT_TWITTER">&lt;strong&gt;Per collegare i due account, il nome utente Twitter deve essere uguale a quello del forum.&lt;/strong&gt;</Resource>
+	<Resource tag="AUTH_CONNECT_HELP">Accedi o registrati tramit {0} oppure collega un account forum a {0}.</Resource>																													  
+    <Resource tag="AUTH_CONNECT_TWITTER">&lt;strong&gt;Per collegare i due account, il nome utente Twitter deve essere uguale a quello del forum.&lt;/strong&gt;</Resource>																													      
     <Resource tag="AUTH_LOGIN_EXISTING">Accedi con un account collegato a {0}. Se non esiste nessun account, verrà creato automaticamente un nuovo account nel forum.</Resource>
     <Resource tag="AUTH_NO_ACCESS_TOKEN">Impossibile generare il token di accesso!</Resource>
-    <Resource tag="AUTO">Ricordami</Resource>
-    <Resource tag="BOTH_USERNAME_EMAIL">E' necessario indicare sia il nome utente sia l'indirizzo e-mail.</Resource>
+    <Resource tag="AUTO">Ricordami</Resource>											 
+    <Resource tag="BOTH_USERNAME_EMAIL">E' necessario indicare sia il nome utente sia l'indirizzo e-mail.</Resource>																													
     <Resource tag="CAPS_LOCK">BLOC MAIUSC è attivato</Resource>
     <Resource tag="CONNECT_VIA">Oppure accedi tramite</Resource>
     <Resource tag="EMAIL">Indirizzo e-mail</Resource>
@@ -4306,30 +4306,30 @@ Spoiler Content
     <Resource tag="AVATAR">Avatar</Resource>
     <Resource tag="INVALIDPOSTSVALUE">Hai inserito un valore non valido per il numero di messaggi.</Resource>
     <Resource tag="JOINED">Registrato:</Resource>
-    <Resource tag="JOINED_ASC">Joined asc</Resource>
-    <Resource tag="JOINED_DESC">Joined desc</Resource>
+    <Resource tag="JOINED_ASC">Data iscrizione crescente</Resource>
+    <Resource tag="JOINED_DESC">Data iscrizione decrescente</Resource>
     <Resource tag="LASTVISIT">Ultima visita</Resource>
-    <Resource tag="LASTVISIT_ASC">Last visit asc</Resource>
-    <Resource tag="LASTVISIT_DESC">Last visit desc</Resource>
+    <Resource tag="LASTVISIT_ASC">Data ultima visita crescente</Resource>
+    <Resource tag="LASTVISIT_DESC">Data ultima visita decrescente</Resource>
     <Resource tag="NUMPOSTSEQUAL">è uguale a</Resource>
     <Resource tag="NUMPOSTSLESSOREQUAL">è inferiore od uguale a</Resource>
     <Resource tag="NUMPOSTSMOREOREQUAL">è maggiore od uguale a</Resource>
     <Resource tag="PAGES">{0} pagine:</Resource>
     <Resource tag="POSTS">Messaggi</Resource>
-    <Resource tag="POSTS_ASC">Posts asc</Resource>
-    <Resource tag="POSTS_DESC">Posts desc</Resource>
-    <Resource tag="RANK">Ruolo</Resource>
-    <Resource tag="RANK_ASC">Rank A-Z</Resource>
-    <Resource tag="RANK_DESC">Rank Z-A</Resource>
+    <Resource tag="POSTS_ASC">Numero messaggi crescente</Resource>
+    <Resource tag="POSTS_DESC">Numero messaggi decrescente</Resource>
+    <Resource tag="RANK">Rank</Resource>
+    <Resource tag="RANK_ASC">Rank crescente</Resource>
+    <Resource tag="RANK_DESC">Rank decrescente</Resource>
     <Resource tag="SEARCH_MEMBER">Il nome utente contiene:</Resource>
     <Resource tag="SEARCH_MEMBERS">Cerca utenti</Resource>
     <Resource tag="SEARCH_RANK">Rank:</Resource>
-    <Resource tag="SEARCH_ROLE">Ruoli:</Resource>
-    <Resource tag="SORT_BY">Sort by</Resource>
+    <Resource tag="SEARCH_ROLE">Ruolo:</Resource>
+    <Resource tag="SORT_BY">Ordina per</Resource>
     <Resource tag="TITLE">Utenti</Resource>
     <Resource tag="USERNAME">Nome utente</Resource>
-    <Resource tag="USERNAME_ASC">Name A-Z</Resource>
-    <Resource tag="USERNAME_DESC">Name Z-A</Resource>
+    <Resource tag="USERNAME_ASC">Nome utente crescente</Resource>
+    <Resource tag="USERNAME_DESC">Nome utente decrescente</Resource>
   </page>
   <page name="MESSAGE">
     <Resource tag="INBOX">In arrivo</Resource>
@@ -4389,7 +4389,7 @@ Spoiler Content
     <Resource tag="NOMODERATION">Al momento non ci sono messaggi in attesa di approvazione né segnalati.</Resource>
     <Resource tag="NOTHING">You need to select atleast one topic</Resource>
     <Resource tag="REMOVE">Rimuovi</Resource>
-    <Resource tag="REPLIES">Risposte</Resource>
+    <Resource tag="REPLIES">Commenti</Resource>
     <Resource tag="TITLE">Moderazione</Resource>
     <Resource tag="TOPIC_STARTER">Autore del topic</Resource>
     <Resource tag="TOPICLINK_DELETED">Collegamento al topic cancellato.</Resource>
@@ -4621,7 +4621,7 @@ Spoiler Content
     <Resource tag="MESSAGE">Messaggio:</Resource>
     <Resource tag="NEED_SUBJECT">Per favore inserisci un oggetto per la discussione.</Resource>
     <Resource tag="NEWPOSTOPTIONS">Opzioni:</Resource>
-    <Resource tag="NEWTOPIC">Apri nuova discussione</Resource>
+    <Resource tag="NEWTOPIC">Inserisci una nuova discussione</Resource>
     <Resource tag="NORMAL">Normale</Resource>
     <Resource tag="PERSISTENCY">Persistente</Resource>
     <Resource tag="PERSISTENCY_INFO">I topic persistenti non sono cancellabili per trascorsi limiti di tempo</Resource>
@@ -4673,7 +4673,7 @@ Spoiler Content
     <Resource tag="EDITUSER">Edit User</Resource>
     <Resource tag="EMAIL">E-mail</Resource>
     <Resource tag="EMAIL_TITLE">Invia un'e-mail a {0}</Resource>
-    <Resource tag="EMAILTOPIC">Invia questa discussione tramite e-mail</Resource>
+    <Resource tag="EMAILTOPIC">Invia e-mail della discussione</Resource>
     <Resource tag="EMPTY_MESSAGE">Devi scrivere qualcosa nel tuo messaggio.</Resource>
     <Resource tag="FACEBOOK">Facebook</Resource>
     <Resource tag="FACEBOOK_SHARE_TOPIC">Condividi su Facebook</Resource>
@@ -4699,14 +4699,14 @@ Spoiler Content
     <Resource tag="INFO_TOPIC_UNLOCKED">Discussione sbloccata.</Resource>
     <Resource tag="INFO_UNWATCH_TOPIC">Non riceverai notifiche quando saranno inseriti nuovi messaggi in questa discussione.</Resource>
     <Resource tag="INFO_VOTED">Grazie per il tuo voto!</Resource>
-    <Resource tag="INFO_WATCH_TOPIC">D'ora in poi riceverai una notifica quando saranno inseriti nuovi messaggi in questa discussione.</Resource>
+    <Resource tag="INFO_WATCH_TOPIC">Riceverai una notifica quando saranno inseriti nuovi messaggi in questa discussione.</Resource>
     <Resource tag="IP">IP</Resource>
     <Resource tag="JOINED">Iscritto</Resource>
-    <Resource tag="LINKBACK_TOPIC">URL per linkare la discussione</Resource>
-    <Resource tag="LINKBACK_TOPIC_PROMT">Usa il seguente URL per linkare la discussione su un altro sito.</Resource>
+    <Resource tag="LINKBACK_TOPIC">Collegamento (URL) alla discussione</Resource>
+    <Resource tag="LINKBACK_TOPIC_PROMT">Utilizza su un altro sito questo collegamento (URL) alla discussione.</Resource>
     <Resource tag="LOCATION">Scrive da</Resource>
     <Resource tag="MANAGE_POST">Manage Message</Resource>
-    <Resource tag="MANAGE_TOPIC">Manage Topic</Resource>
+    <Resource tag="MANAGE_TOPIC">Amministra discussione</Resource>
     <Resource tag="MARK_ANSWER">Mark As Answer</Resource>
     <Resource tag="MARK_ANSWER_REMOVE">Remove As Answer</Resource>
     <Resource tag="MARK_ANSWER_REMOVE_TITLE">Unmark this Message as answer</Resource>
@@ -4737,13 +4737,13 @@ Spoiler Content
     <Resource tag="QUOTE_SELECTED">Cita testo selezionato</Resource>
     <Resource tag="RANK">Rank</Resource>
     <Resource tag="REDDIT_TOPIC">Reddit questa discussione</Resource>
-    <Resource tag="REP_VOTE_DOWN_MSG">-1 per il karma di {0} assegnato.</Resource>
+    <Resource tag="REP_VOTE_DOWN_MSG">-1 per la reputazione di {0} assegnato.</Resource>
     <Resource tag="REP_VOTE_TITLE">Grazie per aver votato!</Resource>
-    <Resource tag="REP_VOTE_UP_MSG">+1 per il karma di {0} assegnato.</Resource>
+    <Resource tag="REP_VOTE_UP_MSG">+1 per la reputazione di {0} assegnato.</Resource>
     <Resource tag="REPORTEDFEEDBACK">Grazie per aver segnalato questo messaggio.</Resource>
     <Resource tag="REPORTPOST">Segnala come messaggio inappropriato</Resource>
     <Resource tag="REPORTPOST_TITLE">Segnala messaggio</Resource>
-    <Resource tag="REPUTATION">Karma</Resource>
+    <Resource tag="REPUTATION">Reputazione</Resource>
     <Resource tag="RETWEET_TOPIC">Retweet questa discussione</Resource>
     <Resource tag="RSSTOPIC">Feed RSS</Resource>
     <Resource tag="SHARE">Condividi</Resource>
@@ -4768,10 +4768,10 @@ Spoiler Content
     <Resource tag="TOGGLEPOST">Mostra/nascondi messaggio</Resource>
     <Resource tag="TOGGLEUSERPOSTS_HIDE">Nascondi i messaggi dell'utente</Resource>
     <Resource tag="TOGGLEUSERPOSTS_SHOW">Mostra i messaggi dell'utente</Resource>
-    <Resource tag="TOOLS">Tools</Resource>
+    <Resource tag="TOOLS">Strumenti</Resource>
     <Resource tag="TOP">Torna su</Resource>
-    <Resource tag="TOPIC_STARTER">Topic Starter</Resource>
-    <Resource tag="TOPIC_STARTER_HELP">Indicates that this user has started this topic</Resource>
+    <Resource tag="TOPIC_STARTER">Creatore della discussione</Resource>
+    <Resource tag="TOPIC_STARTER_HELP">Indica che questo utente ha creato questa discussione</Resource>
     <Resource tag="TOPICBROWSERS">Utenti che leggono la discussione</Resource>
     <Resource tag="TOTAL">Totale</Resource>
     <Resource tag="TUMBLR_TOPIC">Condividi su Tumblr</Resource>
@@ -4801,7 +4801,7 @@ Spoiler Content
     <Resource tag="YIM_TITLE">Contatta {0} tramite Yahoo Instant Messenger</Resource>
   </page>
   <page name="POSTTOPIC">
-    <Resource tag="MESSAGE">Message:</Resource>
+    <Resource tag="MESSAGE">Messaggio:</Resource>
     <Resource tag="TAGS">Tags:</Resource>
   </page>
   <page name="PRINTTOPIC">
@@ -4840,7 +4840,7 @@ Spoiler Content
     <Resource tag="LOCATION">Da dove scrivi:</Resource>
     <Resource tag="MEDALS">Medaglie:</Resource>
     <Resource tag="MEMBERS">Membri</Resource>
-    <Resource tag="MINUTES">minuti</Resource>
+    <Resource tag="MINUTES">Minuti</Resource>
     <Resource tag="MODERATION">Moderazione</Resource>
     <Resource tag="MONTH">month</Resource>
     <Resource tag="MSN">MSN Messenger:</Resource>
@@ -4855,8 +4855,8 @@ Spoiler Content
     <Resource tag="REALNAME">Nome reale:</Resource>
     <Resource tag="REGION">Provincia:</Resource>
     <Resource tag="REMOVESUSPENSION">Annulla sospensione</Resource>
-    <Resource tag="REPUTATION_RECEIVED">+1 per il karma ricevuti dagli altri utenti:</Resource>
-    <Resource tag="SEARCHUSER">Visualizza tutti i post di un utente</Resource>
+    <Resource tag="REPUTATION_RECEIVED">+1 per la reputazione ricevuti dagli altri utenti:</Resource>
+    <Resource tag="SEARCHUSER">Visualizza tutti i messaggi dell'utente</Resource>
     <Resource tag="SKYPE">ID Skype:</Resource>
     <Resource tag="SOCIAL_MEDIA">Social Media</Resource>
     <Resource tag="STATISTICS">Statistiche</Resource>
@@ -4864,9 +4864,9 @@ Spoiler Content
     <Resource tag="SUSPEND_BY">Sospeso da:</Resource>
     <Resource tag="SUSPEND_CURRENT">Sospensione in corso</Resource>
     <Resource tag="SUSPEND_INFO">&lt;strong&gt;NOTE&lt;/strong&gt; La sospensione si basa su data e ora locali dell'utente: {0}.</Resource>
-    <Resource tag="SUSPEND_NEW">New Suspension</Resource>
+    <Resource tag="SUSPEND_NEW">Sospensione</Resource>
     <Resource tag="SUSPEND_REASON">Motivo della sospensione:</Resource>
-    <Resource tag="SUSPEND_USER">Sospendi utente:</Resource>
+    <Resource tag="SUSPEND_USER">Sospendi utente per:</Resource>
     <Resource tag="THANKSFROM">Ringraziamenti:</Resource>
     <Resource tag="THANKSTOPOSTS">Numero di messaggi per i quali questo utente è stato ringraziato:</Resource>
     <Resource tag="THANKSTOTIMES">Numero di ringraziamenti ricevuti da questo utente:</Resource>
@@ -5064,13 +5064,13 @@ Spoiler Content
     <Resource tag="SEND_TITLE">Segnala il messaggio con le motivazioni di cui sopra</Resource>
   </page>
   <page name="REPUTATION_VALUES">
-    <Resource tag="EXALTED">Schumacher mi fa un baffo</Resource>
-    <Resource tag="FRIENDLY">Alcuni GP vinti</Resource>
-    <Resource tag="HONORED">Un campionato del mondo</Resource>
-    <Resource tag="NEUTRAL">Alcune pole position</Resource>
-    <Resource tag="UNFRIENDLY">Metà schieramento</Resource>
-    <Resource tag="VALUE_0">Fermo ai box</Resource>
-    <Resource tag="VALUE_20">Non qualificato</Resource>
+    <Resource tag="EXALTED">Glorificato</Resource>
+    <Resource tag="FRIENDLY">Amichevole</Resource>
+    <Resource tag="HONORED">Onorato</Resource>
+    <Resource tag="NEUTRAL">Neutro</Resource>
+    <Resource tag="UNFRIENDLY">Avverso</Resource>
+    <Resource tag="VALUE_0">Odiato</Resource>
+    <Resource tag="VALUE_20">Ostile</Resource>
   </page>
   <page name="RTE">
     <Resource tag="BOLD">Grassetto</Resource>
@@ -5296,20 +5296,20 @@ Spoiler Content
   </page>
   <page name="SUBSCRIPTIONS">
     <Resource tag="ALLTOPICS"> Ricevi notifiche per [b]tutti i nuovi messaggi in tutte le discussioni[/b]</Resource>
-    <Resource tag="DAILY_DIGEST">Vuoi ricevere un riassunto giornaliero delle attivita' del forum?</Resource>
+    <Resource tag="DAILY_DIGEST">Vuoi ricevere un riassunto giornaliero dell'attività del forum?</Resource>
     <Resource tag="FORUM">Forum</Resource>
-    <Resource tag="FORUMS">Forum controllati</Resource>
+    <Resource tag="FORUMS">Forum seguiti</Resource>
     <Resource tag="LASTPOST">Ultimo messaggio</Resource>
     <Resource tag="LASTPOSTLINK">{0} da {1}</Resource>
-    <Resource tag="NONOTIFICATION"> Disattiva notifiche</Resource>
-    <Resource tag="NOTIFICATIONSELECTION">Preferenze di notifica tramite e-mail:</Resource>
+    <Resource tag="NONOTIFICATION">Disattiva invio notifiche</Resource>
+    <Resource tag="NOTIFICATIONSELECTION">Configurazione notifiche via e-mail:</Resource>
     <Resource tag="REPLIES">Risposte</Resource>
     <Resource tag="SAVED_NOTIFICATION_SETTING">Impostazioni notifiche tramite e-mail modificate</Resource>
     <Resource tag="TITLE">Impostazioni notifiche e-mail</Resource>
     <Resource tag="TOPIC">Topic</Resource>
     <Resource tag="TOPICS">Discussioni</Resource>
-    <Resource tag="TOPICSIPOSTTOORSUBSCRIBETO"> Ricevi notifiche per le discussioni [b]che aprirai d'ora in avanti[/b] o che sono incluse in forum che stai controllando o che hai aggiunto alle preferite (elenco qui sotto)</Resource>
-    <Resource tag="TOPICSISUBSCRIBETO"> Ricevi notifiche per le discussioni che sono incluse in forum che stai controllando o che hai aggiunto alle preferite (elenco qui sotto) </Resource>
+    <Resource tag="TOPICSIPOSTTOORSUBSCRIBETO">Ricevi notifiche per le discussioni [b]che aprirai d'ora in avanti[/b] o che sono incluse in forum che stai seguendo o che hai aggiunto alle preferite (elenco qui sotto)</Resource>
+    <Resource tag="TOPICSISUBSCRIBETO"> Ricevi notifiche per le discussioni che sono incluse in forum che stai seguendo o che hai aggiunto alle preferite (elenco qui sotto) </Resource>
     <Resource tag="UNSUBSCRIBE">Elimina</Resource>
     <Resource tag="VIEWS">Visite</Resource>
     <Resource tag="WARN_SELECTFORUMS">Per favore, seleziona per primi i forum da non controllare piu'.</Resource>
@@ -5375,7 +5375,7 @@ Se non hai richiesto il cambiamento della tua e-mail, ignora semplicemente quest
     <Resource tag="EMAILTOPIC">
 Ciao!
 
-{user} pensa che tu sia interessato a leggere ciò che segue:
+{user} pensa che tu sia interessato a questo:
 
 {link}
 </Resource>
@@ -5390,7 +5390,7 @@ Ciao!
      &lt;div class="container"&gt;
      &lt;div class="mx-auto mt-4 mb-3 text-center" style="width:100px;height:40px;background: url('{logo}') no-repeat"&gt;
      &lt;/div&gt;
-     &lt;div class="card mb-4" style="border-top: 5px solid #3761b5;"&gt;
+     &lt;div class="card mb-4"&gt;
      &lt;div class="card-body"&gt;
      &lt;h4 class="text-center"&gt; {message}&lt;/p&gt;
      &lt;/div&gt;
@@ -6284,28 +6284,28 @@ Visita il forum {forumname} su {forumlink}
   <page name="TOOLBAR">
     <Resource tag="ACTIVETOPICS">Discussioni attive</Resource>
     <Resource tag="ACTIVETOPICS_TITLE">Mostra la pagina delle discussini attive</Resource>
-    <Resource tag="ADMIN">Amministrazione</Resource>
+    <Resource tag="ADMIN">Admin</Resource>
     <Resource tag="ADMIN_TITLE">Mostra l'area di amministrazione.</Resource>
     <Resource tag="BUDDIES">Amici</Resource>
     <Resource tag="BUDDIES_TITLE">Mostra elenco amici.</Resource>
     <Resource tag="BUDDYREQUEST">({0} in attesa)</Resource>
     <Resource tag="DISABLED_REGISTER"> Le nuove registrazioni sono sospese.</Resource>
     <Resource tag="FORUM_TITLE">Mostra la pagina principale del forum.</Resource>
-    <Resource tag="HELP">Aiuto</Resource>
-    <Resource tag="HELP_TITLE">Mostra le pagine di aiuto.</Resource>
+    <Resource tag="HELP">Help</Resource>
+    <Resource tag="HELP_TITLE">Accedi alle pagine di aiuto sull'utilizzo del forum.</Resource>
     <Resource tag="HOST">Host</Resource>
     <Resource tag="HOST_TITLE">Mostra le impostazioni host.</Resource>
     <Resource tag="INBOX">MP</Resource>
     <Resource tag="INBOX_TITLE">Mostra messaggi in arrivo.</Resource>
     <Resource tag="LOGGED_IN_AS">Accesso effettuato come: {0}</Resource>
     <Resource tag="LOGIN">Accedi</Resource>
-    <Resource tag="LOGIN_CONNECT">Accedi al tuo account forum {0}</Resource>
+    <Resource tag="LOGIN_CONNECT">Accedi al tuo account su {0}</Resource>
     <Resource tag="LOGIN_TITLE">Mostra il controllo per l'accesso al forum.</Resource>
     <Resource tag="LOGOUT">Disconnetti</Resource>
     <Resource tag="LOGOUT_QUESTION">Vuoi davvero disconnetterti?</Resource>
     <Resource tag="LOGOUT_TITLE">Disconnetti dal forum.</Resource>
     <Resource tag="MEMBERS">Utenti</Resource>
-    <Resource tag="MEMBERS_TITLE">Apri l'elenco utenti.</Resource>
+    <Resource tag="MEMBERS_TITLE">Accedi all'elenco degli utenti del forum.</Resource>
     <Resource tag="MODERATE">Moderazione</Resource>
     <Resource tag="MODERATE_NEW">({0} Need Moderating)</Resource>
     <Resource tag="MODERATE_TITLE">Mostra la pagina di moderazione dove si possono visualizzare i messaggi non approvati e segnalati.</Resource>
@@ -6315,66 +6315,66 @@ Visita il forum {forumname} su {forumlink}
     <Resource tag="MYALBUMS_TITLE">Mostra la pagina dei tuoi album.</Resource>
     <Resource tag="MYNOTIFY">My Notifications</Resource>
     <Resource tag="MYNOTIFY_TITLE">Shows your unread Received Thanks, Mentions and Quotes.</Resource>
-    <Resource tag="MYPROFILE">Profilo</Resource>
+    <Resource tag="MYPROFILE">Profilo utente</Resource>
     <Resource tag="MYPROFILE_TITLE">Mostra il pannello di controllo del profilo utente.</Resource>
-    <Resource tag="MYSETTINGS">My Settings</Resource>
-    <Resource tag="MYSETTINGs_TITLE">Edit your user details and settings.</Resource>
+    <Resource tag="MYSETTINGS">Impostazioni</Resource>
+    <Resource tag="MYSETTINGS_TITLE">Personalizza dettagli utente.</Resource>
     <Resource tag="MYTOPICS">Le mie discussioni</Resource>
     <Resource tag="MYTOPICS_TITLE">Mostra discussioni attive e preferite.</Resource>
     <Resource tag="NEWPM">({0} non letti)</Resource>
     <Resource tag="REGISTER">Registrati</Resource>
-    <Resource tag="REGISTER_CONNECT">o crea un nuovo account forum.</Resource>
+    <Resource tag="REGISTER_CONNECT">Crea un nuovo account.</Resource>
     <Resource tag="REGISTER_TITLE">Mostra il modulo per la registrazione.</Resource>
     <Resource tag="SEARCH">Ricerca</Resource>
-    <Resource tag="SEARCH_TITLE">Usa la ricerca del forum.</Resource>
+    <Resource tag="SEARCH_TITLE">Accedi alla funzionalità di ricerca del forum.</Resource>
     <Resource tag="SEARCHKEYWORD">Cerca parole chiave...</Resource>
     <Resource tag="TEAM">Team</Resource>
     <Resource tag="TEAM_TITLE">Mostra la pagina del team del forum con l'elenco amministratori e moderatori.</Resource>
     <Resource tag="UNREADTOPICS">Ci sono {0} discussioni con messaggi da leggere</Resource>
     <Resource tag="WELCOME_GUEST">Benvenuto, ospite.</Resource>
-    <Resource tag="WELCOME_GUEST_CONNECT">Wanna join the discussion?!</Resource>
+    <Resource tag="WELCOME_GUEST_CONNECT">Vuoi partecipare alla discussione?!</Resource>
     <Resource tag="WELCOME_GUEST_FULL">Benvenuto, ospite. Per visualizzare tutti i contenuti:</Resource>
     <Resource tag="WELCOME_GUEST_NO">Benvenuto ospite! &lt;strong&gt;Non&lt;/strong&gt; puoi accedere né registrarti.</Resource>
   </page>
   <page name="TOPICS">
-    <Resource tag="ALL">Tutti</Resource>
+    <Resource tag="ALL">Tutte</Resource>
     <Resource tag="ATOMFEED">Feed Atom</Resource>
     <Resource tag="BY">di {0}</Resource>
     <Resource tag="CREATED">Creato</Resource>
     <Resource tag="FAVORITE_COUNT_TT">Numero di volte in cui è stato aggiunto ai preferiti</Resource>
     <Resource tag="FORUM">Forum</Resource>
-    <Resource tag="FORUMUSERS">Utenti che sfogliano il forum</Resource>
+    <Resource tag="FORUMUSERS">Utenti che stanno consultando il forum</Resource>
     <Resource tag="GOTO_POST_PAGER">[ Vai a Pagina: {0} ]</Resource>
     <Resource tag="INFO_UNWATCH_FORUM">Non riceverai più notifiche quando saranno inseriti nuovi messaggi in questo forum.</Resource>
     <Resource tag="INFO_WATCH_FORUM">Riceverai una notifica quando sarà inserita una nuova discussione in questo forum.</Resource>
-    <Resource tag="LAST_DAY">dall'ultimo giorno</Resource>
-    <Resource tag="LAST_MONTH">dall'ultimo mese</Resource>
-    <Resource tag="LAST_SIX_MONTHS">dagli ultimi sei mesi</Resource>
-    <Resource tag="LAST_TWO_DAYS">dagli ultimi due giorni</Resource>
-    <Resource tag="LAST_TWO_MONTHS">dagli ultimi due mesi</Resource>
-    <Resource tag="LAST_TWO_WEEKS">dalle ultime due settimane</Resource>
-    <Resource tag="LAST_WEEK">dall'ultima settimana</Resource>
-    <Resource tag="LAST_YEAR">dall'ultimo anno</Resource>
+    <Resource tag="LAST_DAY">ultimo giorno</Resource>
+    <Resource tag="LAST_MONTH">ultimo mese</Resource>
+    <Resource tag="LAST_SIX_MONTHS">ultimi sei mesi</Resource>
+    <Resource tag="LAST_TWO_DAYS">ultimi due giorni</Resource>
+    <Resource tag="LAST_TWO_MONTHS">ultimi due mesi</Resource>
+    <Resource tag="LAST_TWO_WEEKS">ultime due settimane</Resource>
+    <Resource tag="LAST_WEEK">ultima settimana</Resource>
+    <Resource tag="LAST_YEAR">ultimo anno</Resource>
     <Resource tag="LASTPOST">Ultimo messaggio</Resource>
     <Resource tag="MARKREAD">Segna questo forum come letto</Resource>
     <Resource tag="NO_POSTS">Nessun messaggio</Resource>
     <Resource tag="NO_TOPICS">The Forum currently has no Topics</Resource>
     <Resource tag="OK_TT">Cerca questo forum</Resource>
     <Resource tag="POSTS">Messaggi</Resource>
-    <Resource tag="REPLIES">Risposte</Resource>
+    <Resource tag="REPLIES">Commenti</Resource>
     <Resource tag="RSSFEED">Feed Rss</Resource>
-    <Resource tag="SEARCH_FORUM">Cerca tutto il forum</Resource>
+    <Resource tag="SEARCH_FORUM">Cerca in questo forum</Resource>
     <Resource tag="SHOWTOPICS">Mostra discussioni</Resource>
     <Resource tag="SUBFORUMS">{0} Sottoforum</Resource>
     <Resource tag="TODAYAT">[b]Oggi[/b] alle {0:t}</Resource>
-    <Resource tag="TOPIC_STARTER">OP discussione</Resource>
+    <Resource tag="TOPIC_STARTER">Creatore della discussione</Resource>
     <Resource tag="TOPICS">Discussioni</Resource>
-    <Resource tag="UNWATCHFORUM">Non controllare il forum</Resource>
+    <Resource tag="UNWATCHFORUM">Non seguire il forum</Resource>
     <Resource tag="USER_AVATAR">{0}'s Avatar</Resource>
     <Resource tag="VIEWS">Visualizzazioni</Resource>
     <Resource tag="WARN_FORUM_LOCKED">Il forum è chiuso.</Resource>
     <Resource tag="WARN_LOGIN_FORUMWATCH">Devi essere registrato per guardare il forum.</Resource>
-    <Resource tag="WATCHFORUM">Controlla il forum</Resource>
+    <Resource tag="WATCHFORUM">Segui il forum</Resource>
     <Resource tag="YESTERDAYAT">[b]Ieri[/b] alle {0:t}</Resource>
   </page>
   <page name="VIEWTHANKS">

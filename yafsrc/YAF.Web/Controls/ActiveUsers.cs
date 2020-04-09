@@ -258,6 +258,9 @@ namespace YAF.Web.Controls
 
                         writer.Write(@"</li>");
                     });
+
+            // writes ending tag
+            writer.Write(@"</ul>");
         }
 
         #endregion

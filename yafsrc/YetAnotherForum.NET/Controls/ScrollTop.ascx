@@ -3,8 +3,8 @@
 
 <div class="scroll-top">
     <YAF:ThemeButton runat="server" ID="ScrollButton" 
-                     CssClass="btn-scroll"
+                     CssClass="btn-scroll btn-sm"
                      Icon="angle-double-up"
-                     Type="OutlineSecondary">
+                     Type="Secondary">
     </YAF:ThemeButton>
 </div>
