@@ -2236,7 +2236,7 @@
     <Content Include="Pages\Topics.ascx" />
     <Content Include="Resources\HelpMenuList.xml" />
     <Content Include="Resources\ProviderExceptions.xml" />
-    <Content Include="Robots.txt" />
+    <Content Include="robots.txt" />
     <Content Include="Scripts\blueimp-gallery-indicator.js" />
     <Content Include="Scripts\blueimp-gallery.js" />
     <Content Include="Scripts\bootbox.js" />
@@ -3729,7 +3729,7 @@ RD /S /Q "$(TargetDir)zh-TW\"</PostBuildEvent>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties bundleconfig_1json__JSONSchema="" compilerconfig_1json__JSONSchema="" />
+      <UserProperties compilerconfig_1json__JSONSchema="" bundleconfig_1json__JSONSchema="" />
     </VisualStudio>
   </ProjectExtensions>
   <Import Project="..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets" Condition="Exists('..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets')" />
