@@ -276,9 +276,9 @@ namespace YAF.Pages
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Page_Init([NotNull] object sender, [NotNull] EventArgs e)
         {
-            // create editor based on administrator's settings
-            // get the forum editor based on the settings
             this.editor = ForumEditorHelper.GetCurrentForumEditor();
+
+            this.editor.MaxCharacters = this.PageContext.BoardSettings.MaxPostSize;
 
             this.EditorLine.Controls.Add(this.editor);
 
@@ -385,38 +385,40 @@ namespace YAF.Pages
                 // we don't want any whitespaces at the beginning of message
                 this.editor.Text = body.TrimStart();
 
-                if (isReport)
+                if (!isReport)
                 {
-                    var users = this.GetRepository<User>().UserList(
-                        BoardContext.Current.PageBoardID,
-                        null,
-                        true,
-                        null,
-                        null,
-                        null).ToList();
+                    return;
+                }
 
-                    var hostUser = users.FirstOrDefault(u => u.IsHostAdmin > 0);
+                var users = this.GetRepository<User>().UserList(
+                    BoardContext.Current.PageBoardID,
+                    null,
+                    true,
+                    null,
+                    null,
+                    null).ToList();
 
-                    if (hostUser != null)
-                    {
-                        this.To.Text = this.Get<BoardSettings>().EnableDisplayName
-                                           ? hostUser.DisplayName
-                                           : hostUser.Name;
+                var hostUser = users.FirstOrDefault(u => u.IsHostAdmin > 0);
 
-                        this.PmSubjectTextBox.Text = this.GetTextFormatted("REPORT_SUBJECT", displayName);
+                if (hostUser != null)
+                {
+                    this.To.Text = this.Get<BoardSettings>().EnableDisplayName
+                                       ? hostUser.DisplayName
+                                       : hostUser.Name;
 
-                        var bodyReport = $"[QUOTE={displayName}]{row["Body"]}[/QUOTE]";
+                    this.PmSubjectTextBox.Text = this.GetTextFormatted("REPORT_SUBJECT", displayName);
 
-                        // Quote the original message
-                        bodyReport = this.GetTextFormatted("REPORT_BODY", bodyReport);
+                    var bodyReport = $"[QUOTE={displayName}]{row["Body"]}[/QUOTE]";
 
-                        // we don't want any whitespaces at the beginning of message
-                        this.editor.Text = bodyReport.TrimStart();
-                    }
-                    else
-                    {
-                        BuildLink.AccessDenied();
-                    }
+                    // Quote the original message
+                    bodyReport = this.GetTextFormatted("REPORT_BODY", bodyReport);
+
+                    // we don't want any whitespaces at the beginning of message
+                    this.editor.Text = bodyReport.TrimStart();
+                }
+                else
+                {
+                    BuildLink.AccessDenied();
                 }
             }
             else if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u").IsSet()

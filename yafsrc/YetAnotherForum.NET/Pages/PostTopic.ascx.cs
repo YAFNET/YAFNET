@@ -249,6 +249,7 @@ namespace YAF.Pages
             }
 
             this.forumEditor = ForumEditorHelper.GetCurrentForumEditor();
+            this.forumEditor.MaxCharacters = this.PageContext.BoardSettings.MaxPostSize;
 
             this.EditorLine.Controls.Add(this.forumEditor);
 

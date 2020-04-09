@@ -81,29 +81,17 @@ namespace YAF.Core
         public virtual bool AllowsUploads => false;
 
         /// <summary>
+        /// Gets or sets the max characters.
+        /// </summary>
+        public virtual int MaxCharacters { get; set; }
+
+        /// <summary>
         /// Gets or sets a value indicating whether [user can upload].
         /// </summary>
         /// <value>
         ///   <c>true</c> if [allow uploads]; otherwise, <c>false</c>.
         /// </value>
-        public virtual bool UserCanUpload
-        {
-            get => this._userCanUpload;
-
-            set => this._userCanUpload = value;
-        }
-
-        #endregion
-
-        #region Constants and Fields
-
-        /// <summary>
-        /// Gets or sets a value indicating whether [_allow uploads].
-        /// </summary>
-        /// <value>
-        ///   <c>true</c> if [_allow uploads]; otherwise, <c>false</c>.
-        /// </value>
-        protected bool _userCanUpload { get; set; }
+        public virtual bool UserCanUpload { get; set; }
 
         #endregion
 

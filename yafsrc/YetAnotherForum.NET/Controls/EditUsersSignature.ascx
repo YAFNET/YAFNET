@@ -21,17 +21,6 @@
             <!-- editor goes here -->
 </asp:PlaceHolder>
 <hr />
-<YAF:Alert runat="server" Type="info">
-    <h2>
-        <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" 
-                            LocalizedPage="EDIT_SIGNATURE"
-                            LocalizedTag="SIGNATURE_PERMISSIONS" />
-    </h2>
-    <hr />
-    <div class="text-break">
-        <asp:Label ID="TagsAllowedWarning" runat="server" />
-    </div>
-</YAF:Alert>
 <div class="text-lg-center">
     <YAF:ThemeButton ID="preview" runat="server"
                      Type="Secondary"

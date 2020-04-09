@@ -123,6 +123,7 @@ namespace YAF.Web.Controls
                 return;
             }
 
+            // Render Stack Icons
             writer.Write(@"<i class=""fa fa-circle fa-badge-bg fa-inverse fa-outline-inverse""></i>");
             writer.WriteBeginTag(HtmlTextWriterTag.I.ToString());
 
@@ -133,7 +134,6 @@ namespace YAF.Web.Controls
             writer.Write(HtmlTextWriter.TagRightChar);
             writer.WriteEndTag(HtmlTextWriterTag.I.ToString());
 
-            // Render Stack Icons
             writer.WriteEndTag(HtmlTextWriterTag.Span.ToString());
         }
     }

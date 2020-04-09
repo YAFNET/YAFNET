@@ -80,7 +80,7 @@ namespace YAF.Web.Editors
                     BoardContext.Current.CultureUser.IsSet()
                         ? BoardContext.Current.CultureUser.Substring(0, 2)
                         : this.Get<BoardSettings>().Culture.Substring(0, 2),
-                    this.Get<BoardSettings>().MaxPostSize,
+                    this.MaxCharacters,
                     this.Get<ITheme>().BuildThemePath("bootstrap-forum.min.css"),
                     BoardInfo.GetURLToContent("forum.min.css"),
                     this.Get<BoardSettings>().EditorToolbarBasic));

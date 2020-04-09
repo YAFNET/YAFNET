@@ -443,12 +443,12 @@ namespace YAF.Core.Model
         /// <returns>
         /// Data Table
         /// </returns>
-        public static DataTable SignatureDataAsDataTable(
+        public static DataRow SignatureDataAsDataRow(
             this IRepository<User> repository,
             [NotNull] int userID,
             [NotNull] int boardID)
         {
-            return repository.DbFunction.GetData.user_getsignaturedata(BoardID: boardID, UserID: userID);
+            return repository.DbFunction.GetAsDataTable(t => t.user_getsignaturedata(BoardID: boardID, UserID: userID)).GetFirstRow();
         }
 
         /// <summary>
