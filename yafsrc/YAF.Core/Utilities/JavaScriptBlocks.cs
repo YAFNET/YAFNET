@@ -703,6 +703,9 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
         /// <param name="forumCssUrl">
         /// The forum CSS url.
         /// </param>
+        /// <param name="enableAlbums">
+        /// The enable Albums.
+        /// </param>
         /// <returns>
         /// The <see cref="string"/>.
         /// </returns>
@@ -712,7 +715,8 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
             [NotNull] string editorLanguage,
             [NotNull] int maxCharacters,
             [NotNull] string themeCssUrl,
-            [NotNull] string forumCssUrl)
+            [NotNull] string forumCssUrl,
+            [NotNull] bool enableAlbums)
         {
             return $@"{Config.JQueryAlias}(document).ready(function() {{
                       var yafCKEditor = {Config.JQueryAlias}(""#{editorId}"").ckeditor({{
@@ -722,7 +726,7 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
                                        [""Source""],
                                        [""Cut"", ""Copy"", ""Paste""], [""Undo"", ""Redo"", ""-"", ""Find"", ""Replace"", ""-"", ""SelectAll"", ""RemoveFormat""],
                                        [""-"", ""NumberedList"", ""BulletedList""],
-                                       [""-"", ""Link"", ""Unlink"", ""attachments"", ""Image"", ""albumsbrowser""],
+                                       [""-"", ""Link"", ""Unlink"", ""attachments"", ""Image""{(enableAlbums ? @", ""albumsbrowser""" : "")}],
                                        [""EmojiPanel"", ""quote"", ""Syntaxhighlight"",""bbcodeselector""],
                                        [""About""],
                                        ""/"",
@@ -822,7 +826,7 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
           		                      }} ]
                           }});
 
-                          {Config.JQueryAlias}(""a[id*='_QuickReplyDialog'],a[id*='_SignatureEdit']']"").click(function () {{
+                          {Config.JQueryAlias}(""a[id*='_QuickReplyDialog'],a[id*='_SignatureEdit']"").click(function () {{
                               yafCKEditor.editor.updateElement();
                           }});
                   }});";
