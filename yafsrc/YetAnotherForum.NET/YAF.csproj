@@ -1131,7 +1131,6 @@
     <Content Include="Content\fontawesome\LICENSE-fontawesome.txt" />
     <Content Include="Content\select2\select2.css" />
     <Content Include="Content\images\spacer.gif" />
-    <Content Include="Content\tablesorter\jquery.tablesorter.pager.css" />
     <Content Include="Content\Themes\cerulean\bootstrap-forum.css">
       <DependentUpon>bootstrap-forum.scss</DependentUpon>
     </Content>
@@ -3661,7 +3660,7 @@ RD /S /Q "$(TargetDir)zh-TW\"</PostBuildEvent>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties bundleconfig_1json__JSONSchema="" compilerconfig_1json__JSONSchema="" />
+      <UserProperties compilerconfig_1json__JSONSchema="" bundleconfig_1json__JSONSchema="" />
     </VisualStudio>
   </ProjectExtensions>
   <Import Project="..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets" Condition="Exists('..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets')" />
