@@ -153,8 +153,7 @@
             <div class="card-body pt-0">
                 <div class="d-flex justify-content-between border-bottom mb-3">
                     <div>
-                        
-                            <YAF:Icon runat="server" 
+                        <YAF:Icon runat="server" 
                                       IconName="calendar-day"
                                       IconType="text-secondary"
                                       IconNameBadge="clock" 
