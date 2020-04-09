@@ -161,7 +161,11 @@ namespace YAF.Controls
                                             this.PostData.MessageId);
 
             this.Quote.Visible = this.Quote2.Visible =
-                                     !this.PostData.PostDeleted && this.PostData.CanReply && !this.PostData.IsLocked;
+                                     this.Reply.Visible =
+                                         this.ReplyFooter.Visible =
+                                             this.QuickReplyLink.Visible =
+                                                 !this.PostData.PostDeleted && this.PostData.CanReply
+                                                                            && !this.PostData.IsLocked;
 
             if (!this.PageContext.IsMobileDevice)
             {
@@ -197,7 +201,12 @@ namespace YAF.Controls
                     "MultiQuoteCallbackSuccessJS",
                     JavaScriptBlocks.MultiQuoteCallbackSuccessJs);
 
-                this.MultiQuote.Text = this.GetText("BUTTON_MULTI_QUOTE");
+                var icon = new Icon { IconName = "quote-left", IconNameBadge = "plus" };
+
+                this.MultiQuote.Text = this.PageContext.IsMobileDevice
+                                           ? icon.RenderToString()
+                                           : $"{icon.RenderToString()}&nbsp;{this.GetText("BUTTON_MULTI_QUOTE")}";
+
                 this.MultiQuote.ToolTip = this.GetText("BUTTON_MULTI_QUOTE_TT");
             }
 

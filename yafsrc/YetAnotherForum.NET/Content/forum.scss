@@ -43,8 +43,16 @@
 }
 
 // -- MultiQuote Button
-.MultiQuoteButton{
-    display:inline-block;
+.MultiQuoteButton {
+    display: inline-block;
+
+    label {
+        margin-top: -1px;
+    }
+
+    .fa-stack {
+        margin-top: -2px;
+    }
 }
 
 .list-inline {

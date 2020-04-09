@@ -8647,6 +8647,10 @@ body:last-child .blueimp-gallery-playing > .play-pause {
 
 .MultiQuoteButton {
   display: inline-block; }
+  .MultiQuoteButton label {
+    margin-top: -1px; }
+  .MultiQuoteButton .fa-stack {
+    margin-top: -2px; }
 
 .list-inline {
   margin: 0; }
