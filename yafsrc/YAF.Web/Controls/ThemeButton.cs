@@ -583,12 +583,12 @@ namespace YAF.Web.Controls
                 var iconColorClass = this.IconColor.IsSet() ? $" {this.IconColor}" : this.IconColor;
 
                 output.Write("<i class=\"{2} fa-{0} fa-fw{1}\"></i>", this.Icon, iconColorClass, this.IconCssClass);
+
                 // space separator only for icon + text
-                if (this.TextLocalizedTag.IsSet())
+                if (this.TextLocalizedTag.IsSet() || this.Text.IsSet())
                 {
                     output.Write("&nbsp;");
                 }
-
             }
 
             if (this.Text.IsSet())
