@@ -1131,7 +1131,6 @@
     <Content Include="Content\fontawesome\LICENSE-fontawesome.txt" />
     <Content Include="Content\select2\select2.css" />
     <Content Include="Content\images\spacer.gif" />
-    <Content Include="Content\tablesorter\jquery.tablesorter.pager.css" />
     <Content Include="Content\Themes\cerulean\bootstrap-forum.css">
       <DependentUpon>bootstrap-forum.scss</DependentUpon>
     </Content>
@@ -2064,7 +2063,6 @@
     <Content Include="install\default.aspx">
       <SubType>Form</SubType>
     </Content>
-    <Content Include="install\FileExtensions.xml" />
     <Content Include="install\mssql\upgrade\constraints.sql" />
     <Content Include="install\mssql\upgrade\functions.sql" />
     <Content Include="install\mssql\upgrade\indexes.sql" />

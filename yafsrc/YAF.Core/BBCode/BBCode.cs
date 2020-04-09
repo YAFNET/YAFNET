@@ -214,6 +214,7 @@ namespace YAF.Core.BBCode
         /// <returns>
         /// The converted text
         /// </returns>
+        [Obsolete]
         public string ConvertBBCodeToHtmlForEdit(string message)
         {
             // get the rules engine from the creator...
@@ -223,17 +224,307 @@ namespace YAF.Core.BBCode
             if (!ruleEngine.HasRules)
             {
                 // NOTE : Do not convert BBQuotes, BBCodes and Custom BBCodes to HTML when editing -- "[quote]...[/quote]", and [code]..[/code] will remain in plaintext in the rich text editor
-                this.CreateBBCodeRules(
-                    ruleEngine,
-                    true,
-                    this.Get<BoardSettings>().UseNoFollowLinks,
-                    false,
-                    true);
+                this.CreateBBCodeRules(ruleEngine, true, this.Get<BoardSettings>().UseNoFollowLinks, false, true);
             }
 
             ruleEngine.Process(ref message);
 
             return message;
+        }
+
+        /// <summary>
+        /// Converts a message containing HTML to YAF BBCode for editing in a rich BBCode editor.
+        /// </summary>
+        /// <param name="message">
+        /// String containing the body of the message to convert
+        /// </param>
+        /// <returns>
+        /// The converted text
+        /// </returns>
+        public string ConvertHtmlToBBCodeForEdit([NotNull] string message)
+        {
+            const bool DoFormatting = true;
+            const bool TargetBlankOverride = false;
+            const bool ForBBCodeEditing = true;
+
+            // get the rules engine from the creator...
+            var ruleEngine = this.ProcessReplaceRulesFactory(
+                new[]
+                    {
+                        DoFormatting, TargetBlankOverride, this.Get<BoardSettings>().UseNoFollowLinks, ForBBCodeEditing
+                    });
+
+            if (!ruleEngine.HasRules)
+            {
+                this.CreateHtmlRules(ruleEngine);
+            }
+
+            ruleEngine.Process(ref message);
+
+            return message;
+        }
+
+        /// <summary>
+        /// Creates the rules that convert HTML to <see cref="BBCode"/>
+        /// </summary>
+        /// <param name="ruleEngine">
+        /// The rule Engine.
+        /// </param>
+        public void CreateHtmlRules(IProcessReplaceRules ruleEngine)
+        {
+            // alignment
+            ruleEngine.AddRule(
+                new SimpleRegexReplaceRule(
+                    "<div align=\"center\">(?<inner>(.*?))</div>",
+                    "[center]${inner}[/center]",
+                    Options));
+            ruleEngine.AddRule(
+                new SimpleRegexReplaceRule(
+                    "<div align=\"left\">(?<inner>(.*?))</div>",
+                    "[left]${inner}[/left]",
+                    Options));
+            ruleEngine.AddRule(
+                new SimpleRegexReplaceRule(
+                    "<div align=\"right\">(?<inner>(.*?))</div>",
+                    "[right]${inner}[/right]",
+                    Options));
+
+            // alignment
+            ruleEngine.AddRule(
+                new SimpleRegexReplaceRule(
+                    "<p style=\"text-align: center;\">(?<inner>(.*?))</p>",
+                    "[center]${inner}[/center]",
+                    Options));
+            ruleEngine.AddRule(
+                new SimpleRegexReplaceRule(
+                    "<p style=\"text-align: left;\">(?<inner>(.*?))</p>",
+                    "[left]${inner}[/left]",
+                    Options));
+            ruleEngine.AddRule(
+                new SimpleRegexReplaceRule(
+                    "<p style=\"text-align: right;\">(?<inner>(.*?))</p>",
+                    "[right]${inner}[/right]",
+                    Options));
+
+            // handle font sizes -- this rule class internally handles the "size" variable
+            ruleEngine.AddRule(
+                new VariableRegexReplaceRule(
+                    @"<span style=""font-size:(?<size>(.*?))px;"">(?<inner>(.*?))</span>",
+                    "[size=${size}]${inner}[/size]",
+                    Options,
+                    new[]
+                        {
+                            "size"
+                        }) { RuleRank = 10 });
+
+            // font
+            ruleEngine.AddRule(
+                new VariableRegexReplaceRule(
+                    @"<span style=""font-family: (?<font>(.*?));"">(?<inner>(.*?))</span>",
+                    "[font=${font}]${inner}[/font]",
+                    Options,
+                    new[] { "font" }));
+
+            // color
+            ruleEngine.AddRule(
+                new VariableRegexReplaceRule(
+                    @"<span style=""color: (?<color>(\#?[-a-z0-9]*));"">(?<inner>(.*?))</span>",
+                    "[color=${color}]${inner}[/color]",
+                    Options,
+                    new[] { "color" }));
+
+            // lists
+            ruleEngine.AddRule(
+                new SimpleRegexReplaceRule("<ul>(?<inner>(.*?))</ul>", "[list]${inner}[/list]", Options));
+
+            ruleEngine.AddRule(
+                new SimpleRegexReplaceRule(
+                    "<ol type=\"1\">(?<inner>(.*?))</ol>",
+                    "[list=1]${inner}[/list]",
+                    RegexOptions.Singleline));
+            ruleEngine.AddRule(
+                new SimpleRegexReplaceRule("<ol>(?<inner>(.*?))</ol>", "[list=i]${inner}[/list]", Options));
+
+            ruleEngine.AddRule(
+                new SimpleRegexReplaceRule(
+                    "<ol style=\"list-style-type:number\">(?<inner>(.*?))</ol>",
+                    "[list=1]${inner}[/list]",
+                    RegexOptions.Singleline));
+
+            ruleEngine.AddRule(
+                new SimpleRegexReplaceRule(
+                    "<ol type=\"a\">(?<inner>(.*?))</ol>",
+                    "[list=a]${inner}[/list]",
+                    RegexOptions.Singleline));
+            ruleEngine.AddRule(
+                new SimpleRegexReplaceRule(
+                    "<ol type=\"A\">(?<inner>(.*?))</ol>",
+                    "[list=A]${inner}[/list]",
+                    RegexOptions.Singleline));
+
+            ruleEngine.AddRule(
+                new SimpleRegexReplaceRule(
+                    "<ol style=\"list-style-type:lower-alpha\">(?<inner>(.*?))</ol>",
+                    "[list=a]${inner}[/list]",
+                    RegexOptions.Singleline));
+            ruleEngine.AddRule(
+                new SimpleRegexReplaceRule(
+                    "<ol style=\"list-style-type:upper-alpha\">(?<inner>(.*?))</ol>",
+                    "[list=A]${inner}[/list]",
+                    RegexOptions.Singleline));
+
+            ruleEngine.AddRule(
+                new SimpleRegexReplaceRule(
+                    "<ol type=\"i\">(?<inner>(.*?))</ol>",
+                    "[list=i]${inner}[/list]",
+                    RegexOptions.Singleline));
+            ruleEngine.AddRule(
+                new SimpleRegexReplaceRule(
+                    "<ol type=\"I\">(?<inner>(.*?))</ol>",
+                    "[list=I]${inner}[/list]",
+                    RegexOptions.Singleline));
+
+            ruleEngine.AddRule(
+                new SimpleRegexReplaceRule(
+                    "<ol style=\"list-style-type:lower-roman\">(?<inner>(.*?))</ol>",
+                    "[list=i]${inner}[/list]",
+                    RegexOptions.Singleline));
+            ruleEngine.AddRule(
+                new SimpleRegexReplaceRule(
+                    "<ol style=\"list-style-type:upper-roman\">(?<inner>(.*?))</ol>",
+                    "[list=I]${inner}[/list]",
+                    RegexOptions.Singleline));
+
+            // bullets
+            ruleEngine.AddRule(new SingleRegexReplaceRule("<li>", "[*]", Options));
+
+            // alignment
+            ruleEngine.AddRule(
+                new SimpleRegexReplaceRule(
+                    "<div align=\"center\">(?<inner>(.*?))</div>",
+                    "[center]${inner}[/center]",
+                    Options));
+            ruleEngine.AddRule(
+                new SimpleRegexReplaceRule(
+                    "<div align=\"left\">(?<inner>(.*?))</div>",
+                    "[left]${inner}[/left]",
+                    Options));
+            ruleEngine.AddRule(
+                new SimpleRegexReplaceRule(
+                    "<div align=\"right\">(?<inner>(.*?))</div>",
+                    "[right]${inner}[/right]",
+                    Options));
+
+            // alignment
+            ruleEngine.AddRule(
+                new SimpleRegexReplaceRule(
+                    "<p style=\"text-align: center;\">(?<inner>(.*?))</p>",
+                    "[center]${inner}[/center]",
+                    Options));
+            ruleEngine.AddRule(
+                new SimpleRegexReplaceRule(
+                    "<p style=\"text-align: left;\">(?<inner>(.*?))</p>",
+                    "[left]${inner}[/left]",
+                    Options));
+            ruleEngine.AddRule(
+                new SimpleRegexReplaceRule(
+                    "<p style=\"text-align: right;\">(?<inner>(.*?))</p>",
+                    "[right]${inner}[/right]",
+                    Options));
+
+            // Indent text
+            ruleEngine.AddRule(
+                new SimpleRegexReplaceRule(
+                    "<div style=\"margin-left:40px\">(?<inner>(.*?))</div>",
+                    "[indent]${inner}[/indent]",
+                    Options));
+
+            ruleEngine.AddRule(new SingleRegexReplaceRule("<b>", "[b]", Options) { RuleRank = 4 });
+            ruleEngine.AddRule(new SingleRegexReplaceRule("</b>", "[/b]", Options) { RuleRank = 5 });
+
+            ruleEngine.AddRule(new SingleRegexReplaceRule("<strong>", "[b]", Options) { RuleRank = 3 });
+            ruleEngine.AddRule(new SingleRegexReplaceRule("</strong>", "[/b]", Options) { RuleRank = 4 });
+
+            ruleEngine.AddRule(new SingleRegexReplaceRule("<s>", "[s]", Options));
+            ruleEngine.AddRule(new SingleRegexReplaceRule("</s>", "[/s]", Options));
+
+            ruleEngine.AddRule(new SingleRegexReplaceRule("<em>", "[i]", Options));
+            ruleEngine.AddRule(new SingleRegexReplaceRule("</em>", "[/i]", Options));
+
+            ruleEngine.AddRule(new SingleRegexReplaceRule("<u>", "[u]", Options));
+            ruleEngine.AddRule(new SingleRegexReplaceRule("</u>", "[/u]", Options));
+            ruleEngine.AddRule(
+                new SimpleRegexReplaceRule(
+                    @"<span style=""text-decoration: underline;"">(?<inner>(.*?))</span>",
+                    "[u]${inner}[/u]",
+                    Options));
+
+            // urls
+            ruleEngine.AddRule(
+                new VariableRegexReplaceRule(
+                    @"<a.*?href=""(?<inner>(.*?))"".*?>(?<description>(.*?))</a>",
+                    "[url=${inner}]${description}[/url]",
+                    Options,
+                    new[]
+                        {
+                            "description"
+                        }) { RuleRank = 2 });
+
+            // e-mails
+            ruleEngine.AddRule(
+                new VariableRegexReplaceRule(
+                    @"<a.*?href=""mailto:(?<email>(.*?))"".*?>(?<inner>(.*?))</a>",
+                    "[email=${email}]${inner}[/email]",
+                    Options,
+                    new[]
+                        {
+                            "email"
+                        }) { RuleRank = 1 });
+
+            ruleEngine.AddRule(
+                new VariableRegexReplaceRule(
+                    @"<img.*?src=""(?<inner>(.*?))"".*?alt=""(?<description>(.*?))"".*?/>",
+                    "[img=${inner}]${description}[/img]",
+                    Options,
+                    new[] { "description" }));
+
+            ruleEngine.AddRule(
+                new SimpleRegexReplaceRule(
+                    @"<span class=""highlight"">(?<inner>(.*?))</span>",
+                    "[h]${inner}[/h]",
+                    Options));
+
+            // CODE Tags
+            ruleEngine.AddRule(
+                new VariableRegexReplaceRule(
+                    @"<div class=""code"">.*?<div class=""innercode"">.*?<pre class=""brush:(?<language>(.*?));"">(?<inner>(.*?))</pre>.*?</div>",
+                    "[code=${language}]${inner}[/code]",
+                    Options,
+                    new[]
+                        {
+                            "language"
+                        }) { RuleRank = 97 });
+
+            ruleEngine.AddRule(
+                new SimpleRegexReplaceRule(
+                    "<div class=\"code\">.*?<div class=\"innercode\">(?<inner>(.*?))</div>",
+                    "[code]${inner}[/code]",
+                    Options)
+                    {
+                        RuleRank = 98
+                    });
+
+            ruleEngine.AddRule(new SimpleRegexReplaceRule("<br />", "\r\n", Options));
+            ruleEngine.AddRule(new SimpleRegexReplaceRule("<br>", "\r\n", Options));
+
+            // Format paragraphs
+            ruleEngine.AddRule(new SimpleRegexReplaceRule("<p>", "\r\n\r\n", Options));
+            ruleEngine.AddRule(new SimpleRegexReplaceRule("</p>", "[br]", Options));
+
+            ruleEngine.AddRule(new SimpleRegexReplaceRule("&nbsp;", string.Empty, Options));
+
+            // remove remaining tags
+            ruleEngine.AddRule(new SimpleRegexReplaceRule("<[^>]+>", string.Empty, Options) { RuleRank = 100 });
         }
 
         /// <summary>
@@ -507,9 +798,12 @@ namespace YAF.Core.BBCode
 
                 // Multiline, since ^ must match beginning of line
                 var breakRule = new SingleRegexReplaceRule(
-                                 "\r\n",
-                                 "<br />",
-                                 RegexOptions.IgnoreCase | RegexOptions.Multiline) { RuleRank = horizontalLineRule.RuleRank + 1 };
+                                    "\r\n",
+                                    "<br />",
+                                    RegexOptions.IgnoreCase | RegexOptions.Multiline)
+                                    {
+                                        RuleRank = horizontalLineRule.RuleRank + 1
+                                    };
 
                 // Ensure the newline rule is processed after the HR rule, otherwise the newline characters in the HR regex will never match
                 ruleEngine.AddRule(horizontalLineRule);
@@ -517,52 +811,52 @@ namespace YAF.Core.BBCode
                 ruleEngine.AddRule(isEditMode ? breakRule : new SingleRegexReplaceRule(@"\r\n", "<p>", Options));
             }
 
-                // add rule for code block type with syntax highlighting
-                ruleEngine.AddRule(
-                    new SyntaxHighlighterRegexReplaceRule(
-                        isEditMode,
-                        new Regex(@"\[code=(?<language>[^\]]*)\](?<inner>(.*?))\[/code\]", Options),
-                        @"<div class=""code"">${inner}</div>")
-                        {
-                            RuleRank = 2
-                        });
+            // add rule for code block type with syntax highlighting
+            ruleEngine.AddRule(
+                new SyntaxHighlighterRegexReplaceRule(
+                    isEditMode,
+                    new Regex(@"\[code=(?<language>[^\]]*)\](?<inner>(.*?))\[/code\]", Options),
+                    @"<div class=""code"">${inner}</div>")
+                    {
+                        RuleRank = 2
+                    });
 
-                // handle custom BBCode
-                this.AddCustomBBCodeRules(ruleEngine);
+            // handle custom BBCode
+            this.AddCustomBBCodeRules(ruleEngine);
 
-                // add rule for code block type with no syntax highlighting
-                ruleEngine.AddRule(
-                    new SyntaxHighlighterRegexReplaceRule(
-                        isEditMode,
-                        new Regex(@"\[code\](?<inner>(.*?))\[/code\]", Options),
-                        @"<div class=""code"">${inner}</div>"));
+            // add rule for code block type with no syntax highlighting
+            ruleEngine.AddRule(
+                new SyntaxHighlighterRegexReplaceRule(
+                    isEditMode,
+                    new Regex(@"\[code\](?<inner>(.*?))\[/code\]", Options),
+                    @"<div class=""code"">${inner}</div>"));
 
-                ruleEngine.AddRule(
-                    new QuoteRegexReplaceRule(
-                        @"\[quote=(?<quote>(.*?))]",
-                        @"<blockquote class=""blockquote blockquote-custom p-3 mt-4 mb-0 border border-secondary rounded"">
+            ruleEngine.AddRule(
+                new QuoteRegexReplaceRule(
+                    @"\[quote=(?<quote>(.*?))]",
+                    @"<blockquote class=""blockquote blockquote-custom p-3 mt-4 mb-0 border border-secondary rounded"">
                                          <div class=""blockquote-custom-icon bg-secondary"">
                                              <i class=""fa fa-quote-left fa-sm text-white""></i>
                                          </div>${quote}",
-                        Options));
+                    Options));
 
-                // simple open quote tag
-                var simpleOpenQuoteReplace =
-                    $@"<blockquote class=""blockquote blockquote-custom p-3 mt-4 mb-0 border border-secondary rounded"">
+            // simple open quote tag
+            var simpleOpenQuoteReplace =
+                $@"<blockquote class=""blockquote blockquote-custom p-3 mt-4 mb-0 border border-secondary rounded"">
                           <div class=""blockquote-custom-icon bg-secondary"">
                               <i class=""fa fa-quote-left fa-sm text-white""></i>
                           </div>
                           <footer class=""blockquote-footer pt-1 mt-3""><cite>{localQuoteStr}</cite></footer>
                           <p class=""mb-0 mt-2"">";
 
-                ruleEngine.AddRule(
-                    new SimpleRegexReplaceRule(@"\[quote\]", simpleOpenQuoteReplace, Options) { RuleRank = 62 });
+            ruleEngine.AddRule(
+                new SimpleRegexReplaceRule(@"\[quote\]", simpleOpenQuoteReplace, Options) { RuleRank = 62 });
 
-                // and finally the closing quote tag
-                ruleEngine.AddRule(
-                    new SingleRegexReplaceRule(@"\[/quote\]", "</p></blockquote>", Options) { RuleRank = 63 });
+            // and finally the closing quote tag
+            ruleEngine.AddRule(
+                new SingleRegexReplaceRule(@"\[/quote\]", "</p></blockquote>", Options) { RuleRank = 63 });
 
-                // post and topic rules...
+            // post and topic rules...
             ruleEngine.AddRule(
                 new PostTopicRegexReplaceRule(
                     @"\[post=(?<post>[0-9]*)\](?<inner>(.*?))\[/post\]",

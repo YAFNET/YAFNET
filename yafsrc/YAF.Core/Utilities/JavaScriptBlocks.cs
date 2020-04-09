@@ -703,6 +703,9 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
         /// <param name="forumCssUrl">
         /// The forum CSS url.
         /// </param>
+        /// <param name="toolbar">
+        /// The toolbar.
+        /// </param>
         /// <returns>
         /// The <see cref="string"/>.
         /// </returns>
@@ -712,24 +715,14 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
             [NotNull] string editorLanguage,
             [NotNull] int maxCharacters,
             [NotNull] string themeCssUrl,
-            [NotNull] string forumCssUrl)
+            [NotNull] string forumCssUrl,
+            [NotNull] string toolbar)
         {
             return $@"{Config.JQueryAlias}(document).ready(function() {{
                       var yafCKEditor = {Config.JQueryAlias}(""#{editorId}"").ckeditor({{
                           extraPlugins: ""bbcode,mentions,highlight,bbcodeselector,syntaxhighlight,emoji,wordcount,autolink,albumsbrowser,attachments,quote"",
                           removePlugins: 'bidi,dialogadvtab,div,filebrowser,flash,format,forms,horizontalrule,iframe,liststyle,pagebreak,showborders,stylescombo,table,tabletools,templates',
-		                  toolbar: [
-                                       [""Source""],
-                                       [""Cut"", ""Copy"", ""Paste""], [""Undo"", ""Redo"", ""-"", ""Find"", ""Replace"", ""-"", ""SelectAll"", ""RemoveFormat""],
-                                       [""-"", ""NumberedList"", ""BulletedList""],
-                                       [""-"", ""Link"", ""Unlink"", ""attachments"", ""Image"", ""albumsbrowser""],
-                                       [""EmojiPanel"", ""quote"", ""Syntaxhighlight"",""bbcodeselector""],
-                                       [""About""],
-                                       ""/"",
-                                       [""Bold"", ""Italic"", ""Underline"", ""-"", ""TextColor"", ""FontSize"",""highlight""],
-                                       [""JustifyLeft"", ""JustifyCenter"", ""JustifyRight"", ""PasteText""],
-                                       [""Outdent"", ""Indent""]
-                                   ],
+		                  toolbar: [{toolbar}],
 		                  entities_greek: false,
                           entities_latin: false,
                           language: '{editorLanguage}',
@@ -785,6 +778,9 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
         /// <param name="forumCssUrl">
         /// The forum CSS url.
         /// </param>
+        /// <param name="toolbar">
+        /// The toolbar.
+        /// </param>
         /// <returns>
         /// The <see cref="string"/>.
         /// </returns>
@@ -794,13 +790,14 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
             [NotNull] string editorLanguage,
             [NotNull] int maxCharacters,
             [NotNull] string themeCssUrl,
-            [NotNull] string forumCssUrl)
+            [NotNull] string forumCssUrl,
+            [NotNull] string toolbar)
         {
             return $@"{Config.JQueryAlias}(document).ready(function() {{
                       var yafCKEditor = {Config.JQueryAlias}(""#{editorId}"").ckeditor({{
                           extraPlugins: ""bbcode,mentions,wordcount,autolink,quote"",
                           removePlugins: 'autosave,bidi,dialogadvtab,div,filebrowser,flash,format,forms,horizontalrule,iframe,liststyle,pagebreak,showborders,stylescombo,table,tabletools,templates',
-		                  toolbar: [[""Source""],[""quote""],[""Bold"", ""Italic"", ""Underline""],[""Link"", ""Unlink"", ""Image""]],
+		                  toolbar: [{toolbar}],
 		                  entities_greek: false,
                           entities_latin: false,
                           language: '{editorLanguage}',
@@ -822,7 +819,7 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
           		                      }} ]
                           }});
 
-                          {Config.JQueryAlias}(""a[id*='_QuickReplyDialog'],a[id*='_SignatureEdit']']"").click(function () {{
+                          {Config.JQueryAlias}(""a[id*='_QuickReplyDialog'],a[id*='_SignatureEdit']"").click(function () {{
                               yafCKEditor.editor.updateElement();
                           }});
                   }});";

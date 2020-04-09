@@ -708,7 +708,7 @@ namespace YAF.Pages
                 .FirstOrDefault();
 
             // Remove Message Attachments
-            if (editMessage.HasAttachments.HasValue && editMessage.HasAttachments.Value)
+            if (editMessage?.HasAttachments != null && editMessage.HasAttachments.Value)
             {
                 var attachments = this.GetRepository<Attachment>().Get(a => a.MessageID == this.EditMessageId.ToType<int>());
 
@@ -1345,10 +1345,16 @@ namespace YAF.Pages
         /// </param>
         private void InitEditedPost([NotNull] TypedMessageList currentMessage)
         {
-            if (this.forumEditor.UsesHTML && currentMessage.Flags.IsBBCode)
+            /*if (this.forumEditor.UsesHTML && currentMessage.Flags.IsBBCode)
             {
                 // If the message is in YafBBCode but the editor uses HTML, convert the message text to HTML
                 currentMessage.Message = this.Get<IBBCode>().ConvertBBCodeToHtmlForEdit(currentMessage.Message);
+            }*/
+
+            if (this.forumEditor.UsesBBCode && currentMessage.Flags.IsHtml)
+            {
+                // If the message is in HTML but the editor uses YafBBCode, convert the message text to BBCode
+                currentMessage.Message = this.Get<IBBCode>().ConvertHtmlToBBCodeForEdit(currentMessage.Message);
             }
 
             this.forumEditor.Text = currentMessage.Message;
@@ -1426,7 +1432,6 @@ namespace YAF.Pages
             this.ReasonEditor.Text = this.Server.HtmlDecode(currentMessage.EditReason);
             this.PostOptions1.PersistentChecked = currentMessage.Flags.IsPersistent;
 
-
             var topicsList = this.GetRepository<TopicTag>().List(this.PageContext.PageTopicID);
 
             if (topicsList.Any())
@@ -1450,10 +1455,16 @@ namespace YAF.Pages
                 messageContent = this.Get<IFormatMessage>().RemoveNestedQuotes(messageContent);
             }
 
-            if (this.forumEditor.UsesHTML && message.Flags.IsBBCode)
+            /*if (this.forumEditor.UsesHTML && message.Flags.IsBBCode)
             {
                 // If the message is in YafBBCode but the editor uses HTML, convert the message text to HTML
                 messageContent = this.Get<IBBCode>().ConvertBBCodeToHtmlForEdit(messageContent);
+            }*/
+
+            if (this.forumEditor.UsesBBCode && message.Flags.IsHtml)
+            {
+                // If the message is in HTML but the editor uses YafBBCode, convert the message text to BBCode
+                messageContent = this.Get<IBBCode>().ConvertHtmlToBBCodeForEdit(messageContent);
             }
 
             // Ensure quoted replies have bad words removed from them
@@ -1467,7 +1478,7 @@ namespace YAF.Pages
                 $"[quote={this.Get<IUserDisplayName>().GetName(message.UserID.ToType<int>())};{message.MessageID}]{messageContent}[/quote]\r\n"
                     .TrimStart();
 
-            if (this.forumEditor.UsesHTML && message.Flags.IsBBCode)
+            /*if (this.forumEditor.UsesHTML && message.Flags.IsBBCode)
             {
                 // If the message is in YafBBCode but the editor uses HTML, convert the message text to HTML
                 this.forumEditor.Text = this.Get<IBBCode>().ConvertBBCodeToHtmlForEdit(this.forumEditor.Text);
@@ -1477,7 +1488,7 @@ namespace YAF.Pages
                     message.Flags,
                     message.UserID,
                     message.MessageID);
-            }
+            }*/
         }
 
         /// <summary>
@@ -1485,12 +1496,17 @@ namespace YAF.Pages
         /// </summary>
         private void InitReplyToTopic()
         {
-            var topic = this.GetRepository<Topic>().GetById(this.TopicId.ToType<int>());
+            //var topic = this.GetRepository<Topic>().GetById(this.TopicId.ToType<int>());
 
             // Ederon : 9/9/2007 - moderators can reply in locked topics
-            if (topic.TopicFlags.IsLocked && !this.PageContext.ForumModeratorAccess)
+            if (this.topic.TopicFlags.IsLocked && !this.PageContext.ForumModeratorAccess)
             {
-                this.Get<HttpResponseBase>().Redirect(this.Get<HttpRequestBase>().UrlReferrer.ToString());
+                var urlReferrer = this.Get<HttpRequestBase>().UrlReferrer;
+
+                if (urlReferrer != null)
+                {
+                    this.Get<HttpResponseBase>().Redirect(urlReferrer.ToString());
+                }
             }
 
             this.PriorityRow.Visible = false;
@@ -1503,7 +1519,7 @@ namespace YAF.Pages
 
             // add topic link...
             this.PageLinks.AddLink(
-                this.Server.HtmlDecode(topic.TopicName),
+                this.Server.HtmlDecode(this.topic.TopicName),
                 BuildLink.GetLink(ForumPages.Posts, "t={0}", this.TopicId));
 
             // add "reply" text...

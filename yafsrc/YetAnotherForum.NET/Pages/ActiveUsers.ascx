@@ -116,7 +116,7 @@
                 <div class="btn-group"  role="group">
                     <a href="#" class="first btn btn-secondary btn-sm"><span><i class="fas fa-angle-double-left"></i></span></a>
                     <a href="#" class="prev btn btn-secondary btn-sm"><span><i class="fas fa-angle-left"></i></span></a>
-                    <input type="text" class="pagedisplay  btn btn-secondary btn-sm"  style="width:150px" />
+                    <input type="button" class="pagedisplay  btn btn-secondary btn-sm disabled"  style="width:150px" />
                     <a href="#" class="next btn btn-secondary btn-sm"><span><i class="fas fa-angle-right"></i></span></a>
                     <a href="#" class="last btn btn-secondary btn-sm"><span><i class="fas fa-angle-double-right"></i></span></a>
                 </div>

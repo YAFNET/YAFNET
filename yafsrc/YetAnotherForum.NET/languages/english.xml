@@ -923,8 +923,6 @@
  <page name="ADMIN_HOSTSETTINGS">
   <Resource tag="ABANDON_TRACKUSR">Abandon Sessions for "Don't Track" Users:</Resource>
   <Resource tag="ABANDON_TRACKUSR_HELP">Automatically abandon sessions for users who are marked as "Don't Track" such as Search Engines and Bots. Enable if you're having any session issues.</Resource>
-  <Resource tag="ACCEPT_HTML">Accepted HTML Tags:</Resource>
-  <Resource tag="ACCEPT_HTML_HELP">Comma separated list (no spaces) of HTML tags that are allowed in posts using HTML editors.</Resource>
   <Resource tag="ACTIVE_USERTIME">Active Users Time:</Resource>
   <Resource tag="ACTIVE_USERTIME_HELP">Number of minutes to display users in Active Users list.</Resource>
   <Resource tag="ACTIVETOPIC_FEEDS_ACCESS">Active Topics Feeds Access:</Resource>
@@ -1052,7 +1050,11 @@
   <Resource tag="DISPLAY_TRESHOLD_IMGATTACH_HELP">Maximum size of picture attachment to display as picture. Pictures over this size will be displayed as links.</Resource>
   <Resource tag="DYNAMIC_METATAGS">Add Dynamic Page Meta Tags:</Resource>
   <Resource tag="DYNAMIC_METATAGS_HELP">If checked, description and keywords meta tags will be created dynamically on the post pages.</Resource>
-  <Resource tag="EMAIL_VERIFICATION">Require Email Verification:</Resource>
+   <Resource tag="EDITOR_BASIC">Editor Toolbar Basic:</Resource>
+   <Resource tag="EDITOR_BASCIC_HELP">Editor Toolbar used for Signatures ans Quick Replies.</Resource>
+   <Resource tag="EDITOR_FULL">Editor Toolbar Full:</Resource>
+   <Resource tag="EDITOR_FULL_HELP">Editor Toolbar used for Posting and Private Messages.</Resource>
+   <Resource tag="EMAIL_VERIFICATION">Require Email Verification:</Resource>
   <Resource tag="EMAIL_VERIFICATION_HELP">If unchecked users will not need to verify their email address.</Resource>
   <Resource tag="ENABLE_ABLBUMS">Enable Album Feature:</Resource>
   <Resource tag="ENABLE_ABLBUMS_HELP">If checked, album feature is enabled. You should set allowed number of images and albums for each group and/or rank too, to enable the feature.</Resource>
@@ -2515,7 +2517,7 @@
   <Resource tag="NOTE_LOCAL">Note If the Image is larger than {0}x{1} pixels, it will be automatically resized. And the size of your image can't be more than {2} KB.</Resource>
   <Resource tag="NOTE_REMOTE">Note: If the Image is larger than {0}x{1} pixels, it will be automatically resized.</Resource>
   <Resource tag="OURAVATAR">Select your Avatar from our Collection:</Resource>
-  <Resource tag="OURAVATAR_SELECT">Click here to select an Avatar</Resource>
+  <Resource tag="OURAVATAR_SELECT">Open Gallery</Resource>
   <Resource tag="TITLE">Modify Avatar</Resource>
   <Resource tag="WARN_BIGFILE">The size of your image can't be more than {0} bytes.</Resource>
   <Resource tag="WARN_FILESIZE">The size of your image was {0} bytes.</Resource>

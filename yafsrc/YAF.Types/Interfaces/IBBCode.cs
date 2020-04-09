@@ -73,7 +73,19 @@ namespace YAF.Types.Interfaces
         /// <returns>
         /// The converted text
         /// </returns>
+        [Obsolete]
         string ConvertBBCodeToHtmlForEdit([NotNull] string message);
+
+        /// <summary>
+        /// Converts a message containing HTML to BBCode for editing.
+        /// </summary>
+        /// <param name="message">
+        /// String containing the body of the message to convert
+        /// </param>
+        /// <returns>
+        /// The converted text
+        /// </returns>
+        string ConvertHtmlToBBCodeForEdit([NotNull] string message);
 
         /// <summary>
         /// Creates the rules that convert BBCode to HTML

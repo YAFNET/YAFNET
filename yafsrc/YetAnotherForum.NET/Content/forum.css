@@ -472,65 +472,11 @@ div.code-toolbar > .toolbar span:focus {
   background-size: 20px;
   background-position: 0 -1px; }
 
-#selectionSharerPopunder.fixed {
-  -webkit-transition: bottom 0.5s ease-in-out;
-  transition: bottom 0.5s ease-in-out;
-  width: 100%;
-  position: fixed;
-  left: 0;
-  bottom: -50px; }
-
 .selectionSharer {
   transition: -webkit-transform 0.6s ease-in-out; }
 
 .selectionSharer.moveDown {
   -webkit-transform: translate3d(0, 60px, 0); }
-
-#selectionSharerPopunder {
-  position: absolute;
-  left: 0;
-  width: 100%;
-  height: 0px;
-  -webkit-transition: height 0.5s ease-in-out;
-  transition: height 0.5s ease-in-out;
-  background: #ccc;
-  border: none;
-  -webkit-box-shadow: inset 0px 10px 5px -10px rgba(0, 0, 0, 0.5), inset 0px -10px 5px -10px rgba(0, 0, 0, 0.5);
-          box-shadow: inset 0px 10px 5px -10px rgba(0, 0, 0, 0.5), inset 0px -10px 5px -10px rgba(0, 0, 0, 0.5);
-  border-radius: 0;
-  overflow: hidden; }
-
-#selectionSharerPopunder.show {
-  height: 50px; }
-
-.selectionSharerPlaceholder {
-  height: 1em;
-  margin-bottom: -2em;
-  -webkit-transition: height 0.5s ease-in-out;
-  transition: height 0.5s ease-in-out; }
-
-.selectionSharerPlaceholder.show {
-  height: 50px !important; }
-
-#selectionSharerPopunder-inner ul {
-  overflow: hidden;
-  float: right;
-  margin: 0px; }
-
-#selectionSharerPopunder-inner ul li {
-  padding: 5px;
-  overflow: hidden; }
-
-#selectionSharerPopunder-inner label {
-  color: white;
-  font-weight: 300;
-  line-height: 50px;
-  margin: 0px 20px 0px 10px; }
-
-#selectionSharerPopunder-inner a {
-  width: 30px;
-  height: 30px;
-  background-size: 30px; }
 
 .hc-preview {
   position: relative;

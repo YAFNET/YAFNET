@@ -162,6 +162,13 @@ namespace YAF.Controls
 
             this.Quote.Visible = this.Quote2.Visible =
                                      !this.PostData.PostDeleted && this.PostData.CanReply && !this.PostData.IsLocked;
+
+            if (!this.PageContext.IsMobileDevice)
+            {
+                this.Quote.Text = this.GetText("BUTTON_QUOTE_TT");
+                this.ReplyFooter.Text = this.GetText("REPLY");
+            }
+
             this.MultiQuote.Visible = !this.PostData.PostDeleted && this.PostData.CanReply && !this.PostData.IsLocked;
 
             this.Quote.NavigateUrl = this.Quote2.NavigateUrl = BuildLink.GetLinkNotEscaped(
@@ -171,11 +178,11 @@ namespace YAF.Controls
                                          this.PageContext.PageForumID,
                                          this.PostData.MessageId);
 
-            this.Reply.NavigateUrl = BuildLink.GetLinkNotEscaped(
-                ForumPages.PostMessage,
-                "t={0}&f={1}",
-                this.PageContext.PageTopicID,
-                this.PageContext.PageForumID);
+            this.Reply.NavigateUrl = this.ReplyFooter.NavigateUrl = BuildLink.GetLinkNotEscaped(
+                                         ForumPages.PostMessage,
+                                         "t={0}&f={1}",
+                                         this.PageContext.PageTopicID,
+                                         this.PageContext.PageForumID);
 
             if (this.MultiQuote.Visible)
             {
@@ -190,7 +197,11 @@ namespace YAF.Controls
                     "MultiQuoteCallbackSuccessJS",
                     JavaScriptBlocks.MultiQuoteCallbackSuccessJs);
 
-                this.MultiQuote.Text = this.GetText("BUTTON_MULTI_QUOTE");
+                var icon = new Icon { IconName = "quote-left"};
+
+                this.MultiQuote.Text = this.PageContext.IsMobileDevice
+                                           ? $"+&nbsp;{icon.RenderToString()}"
+                                           : $"{icon.RenderToString()}&nbsp;{this.GetText("BUTTON_MULTI_QUOTE")}";
                 this.MultiQuote.ToolTip = this.GetText("BUTTON_MULTI_QUOTE_TT");
             }
 
@@ -738,26 +749,35 @@ namespace YAF.Controls
             }
 
             // Register Javascript
-            const string AddThankBoxHTML =
+            var addThankBoxHTML =
+                this.PageContext.IsMobileDevice ?
+                "'<a class=\"btn btn-link\" href=\"javascript:addThanks(' + response.MessageID + ');\" onclick=\"jQuery(this).blur();\" title=' + response.Title + '><span><i class=\"fas fa-heart text-danger fa-fw\"></i></span></a>'" :
                 "'<a class=\"btn btn-link\" href=\"javascript:addThanks(' + response.MessageID + ');\" onclick=\"jQuery(this).blur();\" title=' + response.Title + '><span><i class=\"fas fa-heart text-danger fa-fw\"></i>&nbsp;' + response.Text + '</span></a>'";
 
-            const string RemoveThankBoxHTML =
+            var removeThankBoxHTML =
+                this.PageContext.IsMobileDevice ?
+                "'<a class=\"btn btn-link\" href=\"javascript:removeThanks(' + response.MessageID + ');\" onclick=\"jQuery(this).blur();\" title=' + response.Title + '><span><i class=\"far fa-heart fa-fw\"></i></a>'" :
                 "'<a class=\"btn btn-link\" href=\"javascript:removeThanks(' + response.MessageID + ');\" onclick=\"jQuery(this).blur();\" title=' + response.Title + '><span><i class=\"far fa-heart fa-fw\"></i>&nbsp;' + response.Text + '</span></a>'";
 
             var thanksJs = "{0}{1}{2}".Fmt(
-                JavaScriptBlocks.AddThanksJs(RemoveThankBoxHTML),
+                JavaScriptBlocks.AddThanksJs(removeThankBoxHTML),
                 Environment.NewLine,
-                JavaScriptBlocks.RemoveThanksJs(AddThankBoxHTML));
+                JavaScriptBlocks.RemoveThanksJs(addThankBoxHTML));
 
-            BoardContext.Current.PageElements.RegisterJsBlockStartup("ThanksJs", thanksJs);
+            this.PageContext.PageElements.RegisterJsBlockStartup("ThanksJs", thanksJs);
 
             this.Thank.Visible = this.PostData.CanThankPost && !this.PageContext.IsGuest
                                                             && this.Get<BoardSettings>().EnableThanksMod;
 
-            if (Convert.ToBoolean(this.DataRow["IsThankedByUser"]))
+            if (this.DataRow.Field<bool>("IsThankedByUser"))
             {
                 this.Thank.NavigateUrl = $"javascript:removeThanks({this.DataRow["MessageID"]});";
-                this.Thank.TextLocalizedTag = "BUTTON_THANKSDELETE";
+
+                if (!this.PageContext.IsMobileDevice)
+                {
+                    this.Thank.Text = this.GetText("BUTTON_THANKSDELETE");
+                }
+
                 this.Thank.TitleLocalizedTag = "BUTTON_THANKSDELETE_TT";
                 this.Thank.Icon = "heart";
                 this.Thank.IconCssClass = "far";
@@ -765,7 +785,12 @@ namespace YAF.Controls
             else
             {
                 this.Thank.NavigateUrl = $"javascript:addThanks({this.DataRow["MessageID"]});";
-                this.Thank.TextLocalizedTag = "BUTTON_THANKS";
+
+                if (!this.PageContext.IsMobileDevice)
+                {
+                    this.Thank.Text = this.GetText("BUTTON_THANKS");
+                }
+
                 this.Thank.TitleLocalizedTag = "BUTTON_THANKS_TT";
                 this.Thank.Icon = "heart";
                 this.Thank.IconCssClass = "fas";

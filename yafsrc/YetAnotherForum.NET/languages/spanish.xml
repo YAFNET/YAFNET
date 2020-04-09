@@ -1122,6 +1122,10 @@
     <Resource tag="DISPLAYNAME_MIN_LENGTH_HELP">Longitud mínima para los nombres a mostrar.</Resource>
     <Resource tag="DYNAMIC_METATAGS">Añadir meta etiquetas dinámicas de página</Resource>
     <Resource tag="DYNAMIC_METATAGS_HELP">Si está seleccionado, la descripción y meta etiquetas de palabras clave serán creadas dinámicamente en las páginas de las publicaciones.</Resource>
+    <Resource tag="EDITOR_BASCIC_HELP">Editor Toolbar used for Signatures ans Quick Replies.</Resource>
+    <Resource tag="EDITOR_BASIC">Editor Toolbar Basic:</Resource>
+    <Resource tag="EDITOR_FULL">Editor Toolbar Full:</Resource>
+    <Resource tag="EDITOR_FULL_HELP">Editor Toolbar used for Posting and Private Messages.</Resource>
     <Resource tag="EMAIL_VERIFICATION">Necesita verificación de email:</Resource>
     <Resource tag="EMAIL_VERIFICATION_HELP">Si no está seleccionado, los usuarios no necesitan verificar su dirección de email.</Resource>
     <Resource tag="ENABLE_ABLBUMS">Activar funcionalidad de álbum:</Resource>

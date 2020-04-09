@@ -2211,15 +2211,37 @@ namespace YAF.Configuration
         /// <summary>
         /// Gets or sets AcceptedHTML.
         /// </summary>
-        [Obsolete("No longer used")]
         public string AcceptedHTML
+        {
+            get => this.Registry.GetValue("AcceptedHTML", "br,hr,b,i,u,a,div,ol,ul,li,blockquote,img,span,p,em,strong,font,pre,h1,h2,h3,h4,h5,h6,address");
+
+            set => this.Registry.SetValue("AcceptedHTML", value.ToLower());
+        }
+
+        /// <summary>
+        /// Gets or sets the editor toolbar full.
+        /// </summary>
+        public string EditorToolbarFull
         {
             get =>
                 this.Registry.GetValue(
-                    "AcceptedHTML",
-                    "br,hr,b,i,u,a,div,ol,ul,li,blockquote,img,span,p,em,strong,font,pre,h1,h2,h3,h4,h5,h6,address");
+                    "EditorToolbarFull",
+                    "[\"Source\"],[\"Cut\", \"Copy\", \"Paste\"], [\"Undo\", \"Redo\", \"-\", \"Find\", \"Replace\", \"-\", \"SelectAll\", \"RemoveFormat\"],[\"About\"],\"/\",[\"Bold\", \"Italic\", \"Underline\", \"-\", \"TextColor\", \"FontSize\",\"highlight\"],[\"-\", \"JustifyLeft\", \"JustifyCenter\", \"JustifyRight\"],[\"-\", \"Outdent\", \"Indent\"],[\"EmojiPanel\"],[\"-\", \"Link\", \"Unlink\", \"-\", \"attachments\", \"-\", \"Image\", \"albumsbrowser\"], [\"-\", \"NumberedList\", \"BulletedList\"],[\"quote\", \"Syntaxhighlight\",\"bbcodeselector\"]");
 
-            set => this.Registry.SetValue("AcceptedHTML", value.ToLower());
+            set => this.Registry.SetValue("EditorToolbarFull", value);
+        }
+
+        /// <summary>
+        /// Gets or sets the editor toolbar basic.
+        /// </summary>
+        public string EditorToolbarBasic
+        {
+            get =>
+                this.Registry.GetValue(
+                    "EditorToolbarBasic",
+                    "[\"Source\"],[\"quote\"],[\"Bold\", \"Italic\", \"Underline\"],[\"Link\", \"Unlink\", \"Image\"]");
+
+            set => this.Registry.SetValue("EditorToolbarBasic", value);
         }
 
         /// <summary>

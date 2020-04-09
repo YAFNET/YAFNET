@@ -26,10 +26,10 @@
 		}
 	} );
 
-	var bbcodeMap = { b: 'strong', u: 'u', i: 'em', s: 's', color: 'span', size: 'span', left: 'div', right: 'div', center: 'div', justify: 'div', url: 'a', email: 'span', img: 'span', '*': 'li', list: 'ol', h: 'mark' },
+	var bbcodeMap = { b: 'strong', u: 'u', i: 'em', s: 's', color: 'span', size: 'span', left: 'div', right: 'div', center: 'div', justify: 'div', indend: 'div', url: 'a', email: 'span', img: 'span', '*': 'li', list: 'ol', h: 'mark' },
 		convertMap = { strong: 'b', b: 'b', u: 'u', em: 'i', i: 'i', s: 's', li: '*',mark: 'h' },
 		tagnameMap = { strong: 'b', em: 'i', u: 'u', s: 's', li: '*', ul: 'list', ol: 'list', a: 'link', img: 'img', mark: 'h' },
-		stylesMap = { color: 'color', size: 'font-size', left: 'text-align', center: 'text-align', right: 'text-align', justify: 'text-align' },
+		stylesMap = { color: 'color', size: 'font-size', left: 'text-align', center: 'text-align', right: 'text-align', justify: 'text-align', indend: 'margin-left' },
 		attributesMap = { url: 'href', email: 'mailhref', list: 'listType' };
 
 	// List of block-like tags.
@@ -127,9 +127,13 @@
 						optionPart = parts[ 2 ];
 
 					// Special handling of justify tags, these provide the alignment as a tag name (#2248).
-					if ( part == 'left' || part == 'right' || part == 'center' || part == 'justify' ) {
+                    if ( part == 'left' || part == 'right' || part == 'center' || part == 'justify') {
 						optionPart = part;
 					}
+
+                    if (part == 'indend') {
+                        optionPart = "40px;";
+                    }
 
 					if ( optionPart ) {
 						if ( part == 'list' ) {
@@ -742,6 +746,13 @@
 							element.name = alignment;
 							return null;
 						}
+
+                        var marginleft = CKEDITOR.tools.parseCssText(element.attributes.style, 1)['margin-left'] || '';
+
+						if (marginleft) {
+                            element.name = "indend";
+                            return null;
+                        }
 					},
 
 					// Remove any bogus br from the end of a pseudo block,

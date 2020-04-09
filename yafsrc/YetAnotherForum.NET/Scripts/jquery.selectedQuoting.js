@@ -47,88 +47,11 @@
             return direction;
         };
 
-        this.showPopunder = function () {
-            self.popunder = self.popunder || document.getElementById("selectionSharerPopunder");
-
-            var sel = window.getSelection();
-            var selection = self.getSelectionText(sel);
-
-            if (sel.isCollapsed || selection.length < 10 || !selection.match(/ /))
-                return self.hidePopunder();
-
-            if (self.popunder.classList.contains("fixed"))
-                return self.popunder.style.bottom = 0;
-
-            var range = sel.getRangeAt(0);
-            var node = range.endContainer.parentNode; // The <p> where the selection ends
-
-            // If the popunder is currently displayed
-            if (self.popunder.classList.contains("show")) {
-                // If the popunder is already at the right place, we do nothing
-                if (Math.ceil(self.popunder.getBoundingClientRect().top) == Math.ceil(node.getBoundingClientRect().bottom))
-                    return;
-
-                // Otherwise, we first hide it and the we try again
-                return self.hidePopunder(self.showPopunder);
-            }
-
-            if (node.nextElementSibling) {
-                // We need to push down all the following siblings
-                self.pushSiblings(node);
-            } else {
-                // We need to append a new element to push all the content below
-                if (!self.placeholder) {
-                    self.placeholder = document.createElement("div");
-                    self.placeholder.className = "selectionSharerPlaceholder";
-                }
-
-                // If we add a div between two <p> that have a 1em margin, the space between them
-                // will become 2x 1em. So we give the placeholder a negative margin to avoid that
-                var margin = window.getComputedStyle(node).marginBottom;
-                self.placeholder.style.height = margin;
-                self.placeholder.style.marginBottom = (-2 * parseInt(margin, 10)) + "px";
-                node.parentNode.insertBefore(self.placeholder);
-            }
-
-            // scroll offset
-            var offsetTop = window.pageYOffset + node.getBoundingClientRect().bottom;
-            self.popunder.style.top = Math.ceil(offsetTop) + "px";
-
-            setTimeout(function() {
-                if (self.placeholder) self.placeholder.classList.add("show");
-                self.popunder.classList.add("show");
-            }, 0);
-
-        };
-
         this.pushSiblings = function(el) {
             while (el = el.nextElementSibling) {
                 el.classList.add("selectionSharer");
                 el.classList.add("moveDown");
             }
-        };
-
-        this.hidePopunder = function(cb) {
-            cb = cb || function() {};
-
-            if (self.popunder == "fixed") {
-                self.popunder.style.bottom = "-50px";
-                return cb();
-            }
-
-            self.popunder.classList.remove("show");
-            if (self.placeholder) self.placeholder.classList.remove("show");
-            // We need to push back up all the siblings
-            var els = document.getElementsByClassName("moveDown");
-            while (el = els[0]) {
-                el.classList.remove("moveDown");
-            }
-
-            // CSS3 transition takes 0.6s
-            setTimeout(function() {
-                if (self.placeholder) document.body.insertBefore(self.placeholder);
-                cb();
-            }, 600);
         };
 
         this.show = function(e) {
@@ -200,25 +123,12 @@
                 + '  <div class="selectionSharerPopover-clip"><span class="selectionSharerPopover-arrow"></span></div>'
                 + "</div>";
 
-            var popunderHTML = '<div id="selectionSharerPopunder" class="selectionSharer">'
-                + '  <div id="selectionSharerPopunder-inner">'
-                + "    <label>" + self.ToolTip + "</label>"
-                + "    <ul>"
-                + '      <li><a class="action quote" id="Message' + self.parentID + '" href="" title="' + self.ToolTip + '"><i class="fas fa-quote-left"></i></a></li>'
-                + "    </ul>"
-                + "  </div>"
-                + "</div>";
-
 
             self.$popover = $(popoverHTML);
 
             self.$popover.find("a.quote").click(self.shareQuote);
 
             $("body").append(self.$popover);
-
-            self.$popunder = $(popunderHTML);
-            self.$popunder.find("a.quote").click(self.shareQuote);
-            $("body").append(self.$popunder);
         };
 
         this.setElements = function(elements) {
@@ -239,9 +149,6 @@
             if (self.lastSelectionChanged) {
                 clearTimeout(self.lastSelectionChanged);
             }
-            self.lastSelectionChanged = setTimeout(function() {
-                self.showPopunder(e);
-            }, 300);
         };
 
         this.render();
