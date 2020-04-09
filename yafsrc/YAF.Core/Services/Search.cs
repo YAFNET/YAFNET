@@ -38,7 +38,7 @@ namespace YAF.Core.Services
     using YAF.Lucene.Net.Analysis.Standard;
     using YAF.Lucene.Net.Documents;
     using YAF.Lucene.Net.Index;
-	using YAF.Lucene.Net.Queries;							 
+    using YAF.Lucene.Net.Queries;
     using YAF.Lucene.Net.QueryParsers.Classic;
     using YAF.Lucene.Net.Search;
     using YAF.Lucene.Net.Search.Highlight;
@@ -852,7 +852,8 @@ namespace YAF.Core.Services
                 // sort by date
                 var sort = new Sort(new SortField("MessageId", SortFieldType.STRING, true));
 
-                BooleanFilter fil = new BooleanFilter();
+                var fil = new BooleanFilter();
+
                 // search this forum
                 if (forumId > 0)
                 {
@@ -860,20 +861,21 @@ namespace YAF.Core.Services
                 }
                 else
                 {
-                    // filter useraccess
+                    // filter user access
                     if (userAccessList.Any())
                     {
-                        foreach (var ua in
-                        from ua in userAccessList
-                        where !ua.ReadAccess
-                        select ua)
-                        {
-                            fil.Add(new FilterClause(new TermsFilter(new Term("ForumId", ua.ForumID.ToString())), Occur.MUST_NOT));
-                        }
+                        userAccessList.Where(a => !a.ReadAccess).ForEach(
+                            access =>
+                                {
+                                    fil.Add(
+                                        new FilterClause(
+                                            new TermsFilter(new Term("ForumId", access.ForumID.ToString())),
+                                            Occur.MUST_NOT));
+                                });
                     }
                 }
 
-				var hits = searcher.Search(query, fil.Any() ? fil : null, hitsLimit, sort).ScoreDocs;
+                var hits = searcher.Search(query, fil.Any() ? fil : null, hitsLimit, sort).ScoreDocs;
 
                 totalHits = hits.Length;
                 var highlighter = new Highlighter(formatter, scorer) { TextFragmenter = fragmenter };
