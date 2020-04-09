@@ -88,7 +88,7 @@ namespace YAF.Controls
             var lastPostedDateLabel = new DisplayDateTime { Format = DateTimeFormat.BothTopic };
 
             var topicSubject = this.Get<IBadWordReplace>().Replace(this.HtmlEncode(currentRow["Topic"]))
-                .Truncate(70, "...");
+                .Truncate(70);
 
             var styles = this.Get<BoardSettings>().UseStyledTopicTitles
                              ? this.Get<IStyleTransform>().DecodeStyleByString(currentRow["Styles"].ToString())
@@ -266,6 +266,11 @@ namespace YAF.Controls
             this.RssFeed.Visible = this.Footer.Visible =
                                        this.Get<IPermissions>()
                                            .Check(this.Get<BoardSettings>().PostLatestFeedAccess);
+
+            if (!this.Get<BoardSettings>().ShowRSSLink && !this.Get<BoardSettings>().ShowAtomLink)
+            {
+                this.Footer.Visible = false;
+            }
 
             this.LatestPosts.DataSource = activeTopics;
             this.LatestPosts.DataBind();
