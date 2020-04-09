@@ -2700,7 +2700,7 @@
     <Resource tag="NOTE_LOCAL">Note If the Image is larger than {0}x{1} pixels, it will be automatically resized. And the size of your image can't be more than {2} KB.</Resource>
     <Resource tag="NOTE_REMOTE">Note: If the Image is larger than {0}x{1} pixels, it will be automatically resized.</Resource>
     <Resource tag="OURAVATAR">Select your Avatar from our Collection:</Resource>
-    <Resource tag="OURAVATAR_SELECT">Click Here to Select an Avatar</Resource>
+    <Resource tag="OURAVATAR_SELECT">Open Gallery</Resource>
     <Resource tag="TITLE">Modify Avatar</Resource>
     <Resource tag="WARN_BIGFILE">The size of your image can't be more than {0} bytes.</Resource>
     <Resource tag="WARN_FILESIZE">The size of your image was {0} bytes.</Resource>
