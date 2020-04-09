@@ -197,7 +197,11 @@ namespace YAF.Controls
                     "MultiQuoteCallbackSuccessJS",
                     JavaScriptBlocks.MultiQuoteCallbackSuccessJs);
 
-                this.MultiQuote.Text = this.GetText("BUTTON_MULTI_QUOTE");
+                var icon = new Icon { IconName = "quote-left"};
+
+                this.MultiQuote.Text = this.PageContext.IsMobileDevice
+                                           ? $"+&nbsp;{icon.RenderToString()}"
+                                           : $"{icon.RenderToString()}&nbsp;{this.GetText("BUTTON_MULTI_QUOTE")}";
                 this.MultiQuote.ToolTip = this.GetText("BUTTON_MULTI_QUOTE_TT");
             }
 
