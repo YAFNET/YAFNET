@@ -255,18 +255,22 @@
                                              IconColor="text-primary"
                                              Visible="false"
                                              DataToggle="tooltip"
-                                             TextLocalizedTag="BUTTON_THANKS"
                                              TitleLocalizedTag="BUTTON_THANKS_TT" />
                         </span>
                     </div>
                     <div class="col-auto px-0 d-flex flex-wrap">
                         <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
                             <div class="btn-group" role="group">
+                                <YAF:ThemeButton ID="ReplyFooter" runat="server"
+                                                 Type="Link"
+                                                 TitleLocalizedTag="BUTTON_POSTREPLY_TT"
+                                                 Icon="reply"
+                                                 IconColor="text-primary"
+                                                 DataToggle="tooltip"  />
                                 <YAF:ThemeButton ID="Quote" runat="server"
                                                  Type="Link"
                                                  Icon="quote-left"
                                                  IconColor="text-primary"
-                                                 TextLocalizedTag="BUTTON_QUOTE"
                                                  DataToggle="tooltip"
                                                  TitleLocalizedTag="BUTTON_QUOTE_TT" />
                                 <asp:CheckBox runat="server" ID="MultiQuote" 
