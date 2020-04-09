@@ -40,6 +40,10 @@
             <YAF:LocalizedLabel ID="LocalizedLabel16" runat="server" 
                                 LocalizedTag="HOST_ADVERTS" LocalizedPage="ADMIN_HOSTSETTINGS" />
         </a>
+                <a href="#View5" class="nav-link" data-toggle="pill" role="tab">
+                    <YAF:LocalizedLabel ID="LocalizedLabel17" runat="server" 
+                                        LocalizedTag="HOST_EDITORS" LocalizedPage="ADMIN_HOSTSETTINGS" />
+                </a>
                 <a href="#View6" class="nav-link" data-toggle="pill" role="tab">
             <YAF:LocalizedLabel ID="LocalizedLabel18" runat="server" 
                                 LocalizedTag="HOST_PERMISSION" LocalizedPage="ADMIN_HOSTSETTINGS" />
@@ -84,6 +88,10 @@
             <YAF:LocalizedLabel ID="LocalizedLabel47" runat="server" 
                                 LocalizedTag="HOST_ADVERTS" LocalizedPage="ADMIN_HOSTSETTINGS" />
         </a>
+            <a href="#View5" class="nav-link" data-toggle="pill" role="tab">
+                <YAF:LocalizedLabel ID="LocalizedLabel48" runat="server" 
+                                    LocalizedTag="HOST_EDITORS" LocalizedPage="ADMIN_HOSTSETTINGS" />
+            </a>
             <a href="#View6" class="nav-link" data-toggle="pill" role="tab">
             <YAF:LocalizedLabel ID="LocalizedLabel49" runat="server" 
                                 LocalizedTag="HOST_PERMISSION" LocalizedPage="ADMIN_HOSTSETTINGS" />
@@ -1592,6 +1600,42 @@
                         </YAF:ThemeButton>
                     </div>
                 </div>
+            </div><div class="tab-pane fade" id="View5" role="tabpanel">
+        <div class="card mb-3">
+            <div class="card-header">
+                <i class="fa fa-cog fa-fw text-secondary"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel65" runat="server" 
+                                                                                        LocalizedTag="TITLE" 
+                                                                                        LocalizedPage="ADMIN_HOSTSETTINGS" />
+                - <YAF:LocalizedLabel ID="LocalizedLabel66" runat="server" 
+                                      LocalizedTag="HEADER_EDITORS" 
+                                      LocalizedPage="ADMIN_HOSTSETTINGS" />
+            </div>
+            <div class="card-body">
+                <div class="form-group">
+                    <YAF:HelpLabel ID="HelpLabel87" runat="server"
+                                   AssociatedControlID="EditorToolbarBasic"
+                                   LocalizedTag="EDITOR_BASIC" LocalizedPage="ADMIN_HOSTSETTINGS" />
+                    <asp:TextBox ID="EditorToolbarBasic" runat="server"
+                                 CssClass="form-control" 
+                                 Height="150px"
+                                 TextMode="MultiLine"></asp:TextBox>
+                </div>
+                <div class="form-group">
+                    <YAF:HelpLabel ID="HelpLabel37" runat="server"
+                                   AssociatedControlID="EditorToolbarFull"
+                                   LocalizedTag="EDITOR_FULL" LocalizedPage="ADMIN_HOSTSETTINGS" />
+                    <asp:TextBox ID="EditorToolbarFull" runat="server"
+                                 CssClass="form-control" 
+                                 Height="150px"
+                                 TextMode="MultiLine"></asp:TextBox>
+                </div>
+            </div>
+            <div class="card-footer text-lg-center">
+                <YAF:ThemeButton ID="ThemeButton6" runat="server"  Type="Primary" OnClick="SaveClick"
+                                 Icon="save" TextLocalizedTag="SAVE_SETTINGS" TextLocalizedPage="ADMIN_HOSTSETTINGS">
+                </YAF:ThemeButton>
+            </div>
+        </div>
             </div><div class="tab-pane fade" id="View6" role="tabpanel">
                 <div class="card mb-3">
                     <div class="card-header">

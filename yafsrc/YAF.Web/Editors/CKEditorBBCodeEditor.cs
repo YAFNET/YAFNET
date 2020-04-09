@@ -73,6 +73,15 @@ namespace YAF.Web.Editors
         /// </summary>
         protected override void RegisterCKEditorCustomJS()
         {
+            var toolbar = this.Get<BoardSettings>().EditorToolbarFull;
+
+            if (!(this.Get<BoardSettings>().EnableAlbum && this.PageContext.UsrAlbums > 0
+                                                        && this.PageContext.NumAlbums > 0))
+            {
+                // remove albums
+                toolbar = toolbar.Replace(", \"albumsbrowser\"", string.Empty);
+            }
+
             BoardContext.Current.PageElements.RegisterJsBlock(
                 "ckeditorinitbbcode",
                 JavaScriptBlocks.CKEditorLoadJs(
@@ -80,11 +89,10 @@ namespace YAF.Web.Editors
                     BoardContext.Current.CultureUser.IsSet()
                         ? BoardContext.Current.CultureUser.Substring(0, 2)
                         : this.Get<BoardSettings>().Culture.Substring(0, 2),
-                    BoardContext.Current.BoardSettings.MaxPostSize,
+                    this.Get<BoardSettings>().MaxPostSize,
                     this.Get<ITheme>().BuildThemePath("bootstrap-forum.min.css"),
                     BoardInfo.GetURLToContent("forum.min.css"),
-                    this.Get<BoardSettings>().EnableAlbum && this.PageContext.UsrAlbums > 0
-                                                          && this.PageContext.NumAlbums > 0));
+                    toolbar));
         }
 
         #endregion
