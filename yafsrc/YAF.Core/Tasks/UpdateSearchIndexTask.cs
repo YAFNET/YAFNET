@@ -152,9 +152,8 @@ namespace YAF.Core.Tasks
                 }
             }
 
-            var updateIndex = (lastSend == DateTime.MinValue)
-                            || (lastSend < DateTime.Now.AddHours(-sendEveryXHours)
-                            && DateTime.Now < DateTime.Today.AddHours(6));
+            var updateIndex = lastSend < DateTime.Now.AddHours(-sendEveryXHours)
+                             && DateTime.Now < DateTime.Today.AddHours(6);
 
             if (!updateIndex)
             {

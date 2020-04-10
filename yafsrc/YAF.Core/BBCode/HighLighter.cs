@@ -81,23 +81,14 @@ namespace YAF.Core.BBCode
         {
             language = language.ToLower();
 
-            language = language.Replace("\"", string.Empty);
-
-            switch (language)
-            {
-                case "cs":
-                    language = "csharp";
-                    break;
-                case "xml":
-                    language = "markup";
-                    break;
-                case "plain":
-                    language = "markup";
-                    break;
-                case "":
-                    language = "markup";
-                    break;
-            }
+            language = language switch
+                {
+                    "cs" => "csharp",
+                    "xml" => "markup",
+                    "plain" => "markup",
+                    "" => "markup",
+                    _ => language.Replace("\"", string.Empty)
+                };
 
             var tmpOutput = new StringBuilder();
 

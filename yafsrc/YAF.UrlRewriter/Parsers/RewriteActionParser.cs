@@ -73,20 +73,20 @@ namespace YAF.UrlRewriter.Parsers
                 return RewriteProcessing.ContinueProcessing;
             }
 
-            switch (processing)
-            {
-                case Constants.AttrValueRestart:
-                    return RewriteProcessing.RestartProcessing;
-
-                case Constants.AttrValueStop: 
-                    return RewriteProcessing.StopProcessing;
-
-                case Constants.AttrValueContinue:
-                    return RewriteProcessing.ContinueProcessing;
-
-                default:
-                    throw new ConfigurationErrorsException(MessageProvider.FormatString(Message.ValueOfProcessingAttribute, processing, Constants.AttrValueContinue, Constants.AttrValueRestart, Constants.AttrValueStop), node);
-            }
+            return processing switch
+                {
+                    Constants.AttrValueRestart => RewriteProcessing.RestartProcessing,
+                    Constants.AttrValueStop => RewriteProcessing.StopProcessing,
+                    Constants.AttrValueContinue => RewriteProcessing.ContinueProcessing,
+                    _ => throw new ConfigurationErrorsException(
+                             MessageProvider.FormatString(
+                                 Message.ValueOfProcessingAttribute,
+                                 processing,
+                                 Constants.AttrValueContinue,
+                                 Constants.AttrValueRestart,
+                                 Constants.AttrValueStop),
+                             node)
+                };
         }
     }
 }

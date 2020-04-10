@@ -196,7 +196,7 @@ namespace YAF.Configuration
         /// <summary>
         ///     Gets a value indicating whether IsAnyPortal.
         /// </summary>
-        public static bool IsAnyPortal => IsDotNetNuke || IsMojoPortal || IsRainbow || IsPortal || IsPortalomatic;
+        public static bool IsAnyPortal => IsDotNetNuke || IsMojoPortal || IsRainbow || IsPortal;
 
         /// <summary>
         ///     Gets a value indicating whether IsDotNetNuke.
@@ -237,11 +237,6 @@ namespace YAF.Configuration
         ///     Gets a value indicating whether IsPortal.
         /// </summary>
         public static bool IsPortal => HttpContext.Current.Session != null && HttpContext.Current.Session["YetAnotherPortal.net"] != null;
-
-        /// <summary>
-        ///     Gets a value indicating whether Is Portalomatic.
-        /// </summary>
-        public static bool IsPortalomatic => HttpContext.Current.Session != null && HttpContext.Current.Session["Portalomatic.NET"] != null;
 
         /// <summary>
         ///     Gets a value indicating whether IsRainbow.

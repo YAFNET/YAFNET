@@ -260,29 +260,22 @@ namespace YAF.Controls
             var count = int.Parse(this.SuspendCount.Text);
 
             // what time units are used for suspending
-            switch (this.SuspendUnit.SelectedValue)
-            {
-                // days
-                case "1":
-
+            suspend = this.SuspendUnit.SelectedValue switch
+                {
+                    // days
+                    "1" =>
                     // add user inserted suspension time to current time
-                    suspend = suspend.AddDays(count);
-                    break;
-
-                // hours
-                case "2":
-
+                    suspend.AddDays(count),
+                    // hours
+                    "2" =>
                     // add user inserted suspension time to current time
-                    suspend = suspend.AddHours(count);
-                    break;
-
-                // minutes
-                case "3":
-
+                    suspend.AddHours(count),
+                    // minutes
+                    "3" =>
                     // add user inserted suspension time to current time
-                    suspend = suspend.AddHours(count);
-                    break;
-            }
+                    suspend.AddHours(count),
+                    _ => suspend
+                };
 
             // suspend user by calling appropriate method
             this.GetRepository<User>().Suspend(

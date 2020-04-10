@@ -90,21 +90,13 @@ namespace YAF.Pages.Admin
                 // find out of what type event log entry is
                 var eventType = (EventLogTypes)row["Type"].ToType<int>();
 
-                switch (eventType)
-                {
-                    case EventLogTypes.Error:
-                        cssClass = "danger";
-                        break;
-                    case EventLogTypes.Warning:
-                        cssClass = "warning";
-                        break;
-                    case EventLogTypes.Information:
-                        cssClass = "info";
-                        break;
-                    default:
-                        cssClass = "active";
-                        break;
-                }
+                cssClass = eventType switch
+                    {
+                        EventLogTypes.Error => "danger",
+                        EventLogTypes.Warning => "warning",
+                        EventLogTypes.Information => "info",
+                        _ => "active"
+                    };
             }
             catch (Exception)
             {

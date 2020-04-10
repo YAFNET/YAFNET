@@ -37,7 +37,6 @@ namespace YAF.Web.Controls
     using System.Web.UI;
 
     using YAF.Configuration;
-    using YAF.Core;
     using YAF.Core.BaseControls;
 #if DEBUG
     using YAF.Core.Data.Profiling;
@@ -134,9 +133,7 @@ namespace YAF.Web.Controls
             }
 
             writer.Write(
-                @"<br /><br /><div style=""margin:auto;padding:5px;text-align:right;font-size:7pt;""><span style=""color:#990000"">YAF Compiled in <strong>DEBUG MODE</strong></span>.<br />Recompile in <strong>RELEASE MODE</strong> to remove this information:");
-            writer.Write(@"<br /><br /><a href=""http://validator.w3.org/check?uri=referer"" >XHTML</a> | ");
-            writer.Write(@"<a href=""http://jigsaw.w3.org/css-validator/check/referer"" >CSS</a><br /><br />");
+                @"<br /><br /><div style=""margin:auto;padding:5px;text-align:right;font-size:7pt;""><span class=""text-danger"">YAF Compiled in <strong>DEBUG MODE</strong></span>.<br />Recompile in <strong>RELEASE MODE</strong> to remove this information:");
 
             var extensions = this.Get<IList<Assembly>>("ExtensionAssemblies").Select(a => a.FullName).ToList();
 
@@ -223,6 +220,7 @@ namespace YAF.Web.Controls
             if (this.Get<BoardSettings>().ShowYAFVersion)
             {
                 writer.Write(" {0} ", BoardInfo.AppVersionName);
+
                 if (Config.IsDotNetNuke)
                 {
                     writer.Write(" Under DNN ");
@@ -234,10 +232,6 @@ namespace YAF.Web.Controls
                 else if (Config.IsMojoPortal)
                 {
                     writer.Write(" Under MojoPortal ");
-                }
-                else if (Config.IsPortalomatic)
-                {
-                    writer.Write(" Under Portalomatic ");
                 }
             }
 

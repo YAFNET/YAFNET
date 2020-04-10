@@ -56,7 +56,6 @@ namespace YAF.Core.Nntp
         /// The error code.
         /// </param>
         public NntpException(int errorCode)
-            : base()
         {
             this.BuildNntpException(errorCode, null);
         }
@@ -71,7 +70,6 @@ namespace YAF.Core.Nntp
         /// The request.
         /// </param>
         public NntpException(int errorCode, string request)
-            : base()
         {
             this.BuildNntpException(errorCode, request);
         }
@@ -86,7 +84,6 @@ namespace YAF.Core.Nntp
         /// The request.
         /// </param>
         public NntpException(string response, string request)
-            : base()
         {
             this._message = response;
             this.ErrorCode = 999;
@@ -121,69 +118,30 @@ namespace YAF.Core.Nntp
         {
             this.ErrorCode = errorCode;
             this.Request = request;
-            switch (errorCode)
-            {
-                case 281:
-                    this._message = "Authentication accepted.";
-                    break;
-                case 288:
-                    this._message = "Binary data to follow.";
-                    break;
-                case 381:
-                    this._message = "More authentication information required.";
-                    break;
-                case 400:
-                    this._message = "Service disconnected.";
-                    break;
-                case 411:
-                    this._message = "No such newsgroup.";
-                    break;
-                case 412:
-                    this._message = "No newsgroup current selected.";
-                    break;
-                case 420:
-                    this._message = "No current article has been selected.";
-                    break;
-                case 423:
-                    this._message = "No such article number in this group.";
-                    break;
-                case 430:
-                    this._message = "No such article found.";
-                    break;
-                case 436:
-                    this._message = "Transfer failed - try again later.";
-                    break;
-                case 440:
-                    this._message = "Posting not allowed.";
-                    break;
-                case 441:
-                    this._message = "Posting failed.";
-                    break;
-                case 480:
-                    this._message = "Authentication required.";
-                    break;
-                case 481:
-                    this._message = "More authentication information required.";
-                    break;
-                case 482:
-                    this._message = "Authentication rejected.";
-                    break;
-                case 500:
-                    this._message = "Command not understood.";
-                    break;
-                case 501:
-                    this._message = "Command syntax error.";
-                    break;
-                case 502:
-                    this._message = "No permission.";
-                    break;
-                case 503:
-                    this._message = "Program error, function not performed.";
-                    break;
-                default:
-                    this._message = "Unknown error.";
-                    break;
-            }
+
+            this._message = errorCode switch
+                {
+                    281 => "Authentication accepted.",
+                    288 => "Binary data to follow.",
+                    381 => "More authentication information required.",
+                    400 => "Service disconnected.",
+                    411 => "No such newsgroup.",
+                    412 => "No newsgroup current selected.",
+                    420 => "No current article has been selected.",
+                    423 => "No such article number in this group.",
+                    430 => "No such article found.",
+                    436 => "Transfer failed - try again later.",
+                    440 => "Posting not allowed.",
+                    441 => "Posting failed.",
+                    480 => "Authentication required.",
+                    481 => "More authentication information required.",
+                    482 => "Authentication rejected.",
+                    500 => "Command not understood.",
+                    501 => "Command syntax error.",
+                    502 => "No permission.",
+                    503 => "Program error, function not performed.",
+                    _ => "Unknown error."
+                };
         }
 
         /// <summary>

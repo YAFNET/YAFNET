@@ -83,29 +83,30 @@ namespace YAF.Core.Services
         {
             result = string.Empty;
 
-            if (BoardContext.Current.Get<BoardSettings>().SpamServiceType.Equals(0))
+            if (this.Get<BoardSettings>().SpamServiceType.Equals(0))
             {
                 return false;
             }
 
             if (BoardContext.Current.CurrentUserData.NumPosts
-                >= BoardContext.Current.Get<BoardSettings>().IgnoreSpamWordCheckPostCount)
+                >= this.Get<BoardSettings>().IgnoreSpamWordCheckPostCount)
             {
                 return false;
             }
 
-            switch (BoardContext.Current.Get<BoardSettings>().SpamServiceType)
+            switch (this.Get<BoardSettings>().SpamServiceType)
             {
                 case 2:
                     {
-                        return BoardContext.Current.Get<BoardSettings>().AkismetApiKey.IsSet()
-                               && CheckWithAkismet(userName, postMessage, ipAddress, out result);
+                        return this.Get<BoardSettings>().AkismetApiKey.IsSet()
+                                     && CheckWithAkismet(userName, postMessage, ipAddress, out result);
                     }
 
                 case 1:
                 case 3:
                     {
-                        return BoardContext.Current.Get<ISpamWordCheck>().CheckForSpamWord(postMessage, out result);
+                        return this.Get<ISpamWordCheck>()
+                            .CheckForSpamWord(postMessage, out result);
                     }
             }
 

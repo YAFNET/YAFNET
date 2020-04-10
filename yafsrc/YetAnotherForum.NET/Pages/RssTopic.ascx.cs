@@ -90,20 +90,19 @@ namespace YAF.Pages
             }
 
             // Atom feed as variable
-            var atomFeedByVar = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("ft")
+            var atomFeedByVar = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("type")
                                  == SyndicationFormats.Atom.ToInt().ToString();
 
             YafSyndicationFeed feed = null;
 
             // var syndicationItems = new List<SyndicationItem>();
-            var lastPostIcon = string.Empty;
             var lastPostName = this.GetText("DEFAULT", "GO_LAST_POST");
 
             RssFeeds feedType;
 
             try
             {
-                feedType = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("pg").ToEnum<RssFeeds>(true);
+                feedType = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("feed").ToEnum<RssFeeds>(true);
             }
             catch
             {
@@ -122,7 +121,7 @@ namespace YAF.Pages
                         BuildLink.AccessDenied();
                     }
 
-                    this.GetPostLatestFeed(ref feed, feedType, atomFeedByVar, lastPostIcon, lastPostName);
+                    this.GetPostLatestFeed(ref feed, feedType, atomFeedByVar, lastPostName);
                     break;
 
                     // Latest Announcements feed
@@ -184,7 +183,7 @@ namespace YAF.Pages
                     {
                         if (int.TryParse(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("f"), out var forumId))
                         {
-                            this.GetTopicsFeed(ref feed, feedType, atomFeedByVar, lastPostIcon, lastPostName, forumId);
+                            this.GetTopicsFeed(ref feed, feedType, atomFeedByVar, lastPostName, forumId);
                         }
                     }
 
@@ -206,7 +205,7 @@ namespace YAF.Pages
                         categoryActiveId = categoryActiveIntId;
                     }
 
-                    this.GetActiveFeed(ref feed, feedType, atomFeedByVar, lastPostIcon, lastPostName, categoryActiveId);
+                    this.GetActiveFeed(ref feed, feedType, atomFeedByVar, lastPostName, categoryActiveId);
 
                     break;
                 case RssFeeds.Favorite:
@@ -224,7 +223,7 @@ namespace YAF.Pages
                         categoryFavId = categoryFavIntId;
                     }
 
-                    this.GetFavoriteFeed(ref feed, feedType, atomFeedByVar, lastPostIcon, lastPostName, categoryFavId);
+                    this.GetFavoriteFeed(ref feed, feedType, atomFeedByVar, lastPostName, categoryFavId);
                     break;
                 default:
                     BuildLink.AccessDenied();
@@ -304,7 +303,6 @@ namespace YAF.Pages
         /// The method to return latest topic content to display in a feed.
         /// </summary>
         /// <param name="link">A link to an active topic.</param>
-        /// <param name="imgUrl">A latest topic icon Url.</param>
         /// <param name="imgAlt">A latest topic icon Alt text.</param>
         /// <param name="linkName">A latest topic displayed link name</param>
         /// <param name="text">An active topic first message content/partial content.</param>
@@ -315,8 +313,6 @@ namespace YAF.Pages
         /// </returns>
         private static string GetPostLatestContent(
             [NotNull] string link,
-            [NotNull] string imgUrl,
-            [NotNull] string imgAlt,
             [NotNull] string linkName,
             [NotNull] string text,
             int flags,
@@ -325,25 +321,21 @@ namespace YAF.Pages
             text = BoardContext.Current.Get<IFormatMessage>().FormatSyndicationMessage(
                 text, new MessageFlags(flags), altItem, 4000);
 
-            return
-                string
-                    .Format(@"{0}<table><tr><td><a href=""{1}"" ><img src=""{2}"" alt =""{3}"" title =""{3}"" /></a></td></tr><table>", text, link, imgUrl, imgAlt, linkName);
+            return $@"{text}<a href=""{link}"" >{linkName}</a>";
         }
 
         /// <summary>
-        /// The method creates YafSyndicationFeed for Active topics.
+        /// The method creates SyndicationFeed for Active topics.
         /// </summary>
         /// <param name="feed">The YafSyndicationFeed.</param>
         /// <param name="feedType">The FeedType.</param>
         /// <param name="atomFeedByVar">The Atom feed checker.</param>
-        /// <param name="lastPostIcon">The icon for last post link.</param>
         /// <param name="lastPostName">The last post name.</param>
         /// <param name="categoryActiveId">The category active id.</param>
         private void GetActiveFeed(
             [NotNull] ref YafSyndicationFeed feed,
             RssFeeds feedType,
             bool atomFeedByVar,
-            [NotNull] string lastPostIcon,
             [NotNull] string lastPostName,
             [NotNull] object categoryActiveId)
         {
@@ -410,38 +402,42 @@ namespace YAF.Pages
                         "LastPosted",
                         toActDate))
             {
-                foreach (DataRow row in dt.Rows)
+                foreach (var row in dt.Rows.Cast<DataRow>().Where(row => !row["TopicMovedID"].IsNullOrEmptyDBField()))
                 {
-                    if (!row["TopicMovedID"].IsNullOrEmptyDBField())
-                    {
-                        continue;
-                    }
-
                     var lastPosted = Convert.ToDateTime(row["LastPosted"]) + this.Get<IDateTime>().TimeOffset;
 
                     if (syndicationItems.Count <= 0)
                     {
                         feed.Authors.Add(
                             SyndicationItemExtensions.NewSyndicationPerson(
-                                string.Empty, row["UserID"].ToType<long>(), null, null));
+                                string.Empty,
+                                row["UserID"].ToType<long>(),
+                                null,
+                                null));
                         feed.LastUpdatedTime = DateTime.UtcNow + this.Get<IDateTime>().TimeOffset;
                     }
 
                     feed.Contributors.Add(
                         SyndicationItemExtensions.NewSyndicationPerson(
-                            string.Empty, row["LastUserID"].ToType<long>(), null, null));
+                            string.Empty,
+                            row["LastUserID"].ToType<long>(),
+                            null,
+                            null));
 
                     var messageLink = BuildLink.GetLinkNotEscaped(
-                        ForumPages.Posts, true, "m={0}#post{0}", row["LastMessageID"]);
+                        ForumPages.Posts,
+                        true,
+                        "m={0}#post{0}",
+                        row["LastMessageID"]);
                     syndicationItems.AddSyndicationItem(
                         row["Subject"].ToString(),
                         GetPostLatestContent(
                             messageLink,
-                            lastPostIcon,
                             lastPostName,
                             lastPostName,
-                            string.Empty,
-                            !row["LastMessageFlags"].IsNullOrEmptyDBField() ? row["LastMessageFlags"].ToType<int>() : 22,
+                            !row["LastMessageFlags"].IsNullOrEmptyDBField()
+                                ? row["LastMessageFlags"].ToType<int>()
+                                : 22,
                             false),
                         null,
                         messageLink,
@@ -456,19 +452,17 @@ namespace YAF.Pages
         }
 
         /// <summary>
-        /// The method creates YafSyndicationFeed for Favorite topics.
+        /// method the SyndicationFeed for Favorite topics.
         /// </summary>
         /// <param name="feed">The YafSyndicationFeed.</param>
         /// <param name="feedType">The FeedType.</param>
         /// <param name="atomFeedByVar">The Atom feed checker.</param>
-        /// <param name="lastPostIcon">The icon for last post link.</param>
         /// <param name="lastPostName">The last post name.</param>
         /// <param name="categoryActiveId">The category active id.</param>
         private void GetFavoriteFeed(
             [NotNull] ref YafSyndicationFeed feed,
             RssFeeds feedType,
             bool atomFeedByVar,
-            [NotNull] string lastPostIcon,
             [NotNull] string lastPostName,
             [NotNull] object categoryActiveId)
         {
@@ -526,19 +520,15 @@ namespace YAF.Pages
                 var feedNameAlphaNum =
                     new Regex(@"[^A-Za-z0-9]", RegexOptions.IgnoreCase)
                         .Replace(toFavText, string.Empty);
+
                 feed = new YafSyndicationFeed(
                     $"{this.GetText("MYTOPICS", "FAVORITETOPICS")} - {toFavText}",
                     feedType,
                     atomFeedByVar ? SyndicationFormats.Atom.ToInt() : SyndicationFormats.Rss.ToInt(),
                     urlAlphaNum);
 
-                foreach (DataRow row in dt.Rows)
+                foreach (DataRow row in dt.Rows.Cast<DataRow>().Where(row => !row["TopicMovedID"].IsNullOrEmptyDBField()))
                 {
-                    if (!row["TopicMovedID"].IsNullOrEmptyDBField())
-                    {
-                        continue;
-                    }
-
                     var lastPosted = Convert.ToDateTime(row["LastPosted"]) + this.Get<IDateTime>().TimeOffset;
 
                     if (syndicationItems.Count <= 0)
@@ -558,10 +548,8 @@ namespace YAF.Pages
                         GetPostLatestContent(
                             BuildLink.GetLinkNotEscaped(
                                 ForumPages.Posts, true, "m={0}#post{0}", row["LastMessageID"]),
-                            lastPostIcon,
                             lastPostName,
                             lastPostName,
-                            string.Empty,
                             !row["LastMessageFlags"].IsNullOrEmptyDBField() ? row["LastMessageFlags"].ToType<int>() : 22,
                             false),
                         null,
@@ -747,24 +735,20 @@ namespace YAF.Pages
                         attachment.Bytes.ToType<long>()));
             }
 
-
             return attachementLinks;
         }
 
         /// <summary>
-        /// The method creates YafSyndicationFeed for topics in a forum.
+        /// The method creates Syndication Feed for topics in a forum.
         /// </summary>
         /// <param name="feed">
-        /// The YafSyndicationFeed.
+        /// The SyndicationFeed.
         /// </param>
         /// <param name="feedType">
         /// The FeedType.
         /// </param>
         /// <param name="atomFeedByVar">
         /// The Atom feed checker.
-        /// </param>
-        /// <param name="lastPostIcon">
-        /// The icon for last post link.
         /// </param>
         /// <param name="lastPostName">
         /// The last post name.
@@ -773,7 +757,6 @@ namespace YAF.Pages
             [NotNull] ref YafSyndicationFeed feed,
             RssFeeds feedType,
             bool atomFeedByVar,
-            [NotNull] string lastPostIcon,
             [NotNull] string lastPostName)
         {
             var syndicationItems = new List<SyndicationItem>();
@@ -827,8 +810,6 @@ namespace YAF.Pages
                             row["Topic"].ToString(),
                             GetPostLatestContent(
                                 messageLink,
-                                lastPostIcon,
-                                lastPostName,
                                 lastPostName,
                                 row["LastMessage"].ToString(),
                                 !row["LastMessageFlags"].IsNullOrEmptyDBField()
@@ -971,7 +952,7 @@ namespace YAF.Pages
         }
 
         /// <summary>
-        /// The method creates YAF SyndicationFeed for topics in a forum.
+        /// The method creates SyndicationFeed for topics in a forum.
         /// </summary>
         /// <param name="feed">
         /// The YAF SyndicationFeed.
@@ -981,9 +962,6 @@ namespace YAF.Pages
         /// </param>
         /// <param name="atomFeedByVar">
         /// The Atom feed checker.
-        /// </param>
-        /// <param name="lastPostIcon">
-        /// The icon for last post link.
         /// </param>
         /// <param name="lastPostName">
         /// The last post name.
@@ -995,7 +973,6 @@ namespace YAF.Pages
             [NotNull] ref YafSyndicationFeed feed,
             RssFeeds feedType,
             bool atomFeedByVar,
-            [NotNull] string lastPostIcon,
             [NotNull] string lastPostName,
             int forumId)
         {
@@ -1036,8 +1013,6 @@ namespace YAF.Pages
                         GetPostLatestContent(
                             BuildLink.GetLinkNotEscaped(
                                 ForumPages.Posts, true, "m={0}#post{0}", row["LastMessageID"]),
-                            lastPostIcon,
-                            lastPostName,
                             lastPostName,
                             row["LastMessage"].ToString(),
                             !row["LastMessageFlags"].IsNullOrEmptyDBField() ? row["LastMessageFlags"].ToType<int>() : 22,

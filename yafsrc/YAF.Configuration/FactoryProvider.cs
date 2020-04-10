@@ -115,10 +115,6 @@ namespace YAF.Configuration
                 {
                     urlAssembly = "Portal.UrlBuilder,Portal";
                 }
-                else if (Config.IsPortalomatic)
-                {
-                    urlAssembly = "Portalomatic.NET.Utils.URLBuilder,Portalomatic.NET.Utils";
-                }
                 else if (Config.EnableURLRewriting)
                 {
                     urlAssembly = "YAF.Core.URLBuilder.AdvancedUrlRewriter,YAF.Core";

@@ -734,14 +734,10 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
                           {{
                               saveDetectionSelectors: ""a[id*='_PostReply'],a[id*='Cancel'],a[id*='_Preview']""
                           }},
-                          codemirror: {{mode: ""bbcode""}},
+                          codemirror: {{mode: ""bbcode"",  theme: ""monokai""}},
                           wordcount:
                           {{
-                              maxCharCount: {maxCharacters},
-                              showParagraphs: false,
-                              showWordCount: false,
-                              showCharCount: true,
-		                  	  countHTML: true
+                              maxCharCount: {maxCharacters},showParagraphs: false,showWordCount: false,showCharCount: true,countHTML: true
                           }},
 		                  mentions: [ {{ feed:  CKEDITOR.basePath.replace('Scripts/ckeditor/', '') + 'resource.ashx?users={{encodedQuery}}',
                                          itemTemplate: '<li data-id=""{{id}}""><i class=""fas fa-user pr-1""></i><strong class=""username"">{{name}}</strong></li>',
@@ -803,18 +799,13 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
                           entities_latin: false,
                           language: '{editorLanguage}',
                           disableObjectResizing: true,
-		                  fontSize_sizes: ""30/30%;50/50%;100/100%;120/120%;150/150%;200/200%;300/300%"",
 		                  forcePasteAsPlainText: true,
 		                  contentsCss: [""{themeCssUrl}"", ""{forumCssUrl}""],
                           wordcount:
                           {{
-                              maxCharCount: {maxCharacters},
-                              showParagraphs: false,
-                              showWordCount: false,
-                              showCharCount: true,
-		                  	  countHTML: true
+                              maxCharCount: {maxCharacters},showParagraphs: false,showWordCount: false,showCharCount: true,countHTML: true
                           }},
-                          codemirror: {{mode: ""bbcode""}},
+                          codemirror: {{mode: ""bbcode"",  theme: ""monokai""}},
 		                  mentions: [ {{ feed:  CKEDITOR.basePath.replace('Scripts/ckeditor/', '') + 'resource.ashx?users={{encodedQuery}}',
                                          itemTemplate: '<li data-id=""{{id}}""><i class=""fas fa-user pr-1""></i><strong class=""username"">{{name}}</strong></li>',
 		                                 outputTemplate: '@[userlink]{{name}}[/userlink]'

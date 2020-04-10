@@ -227,19 +227,14 @@ namespace YAF.Controls
 
                 // In what mode should this control work?
                 // Refer to "rptBuddy_ItemCreate" event for more info.
-                switch (this.Mode)
-                {
-                    case 1:
-                    case 2:
-                        buddyListDataView.RowFilter = "Approved = 1";
-                        break;
-                    case 3:
-                        buddyListDataView.RowFilter = $"Approved = 0 AND FromUserID <> {this.CurrentUserID}";
-                        break;
-                    case 4:
-                        buddyListDataView.RowFilter = $"Approved = 0 AND FromUserID = {this.CurrentUserID}";
-                        break;
-                }
+                buddyListDataView.RowFilter = this.Mode switch
+                    {
+                        1 => "Approved = 1",
+                        2 => "Approved = 1",
+                        3 => $"Approved = 0 AND FromUserID <> {this.CurrentUserID}",
+                        4 => $"Approved = 0 AND FromUserID = {this.CurrentUserID}",
+                        _ => buddyListDataView.RowFilter
+                    };
 
                 this.Pager.Count = buddyListDataView.Count;
 

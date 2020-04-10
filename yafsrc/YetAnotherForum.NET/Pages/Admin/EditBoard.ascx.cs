@@ -32,7 +32,6 @@ namespace YAF.Pages.Admin
     using System.Linq;
     using System.Web;
     using System.Web.Security;
-    using System.Web.UI.WebControls;
 
     using Core.Services.Import;
 
@@ -83,25 +82,6 @@ namespace YAF.Pages.Admin
         #endregion
 
         #region Methods
-
-        /// <summary>
-        /// The bind data_ access mask id.
-        /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
-        protected void BindDataAccessMaskId([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            if (sender is DropDownList dropDownList)
-            {
-                dropDownList.DataSource = this.GetRepository<AccessMask>().GetByBoardId();
-                dropDownList.DataValueField = "ID";
-                dropDownList.DataTextField = "Name";
-            }
-        }
 
         /// <summary>
         /// Cancel Edit/Create and return Back to the Boards Listening
@@ -260,38 +240,19 @@ namespace YAF.Pages.Admin
         [NotNull]
         protected string GetMembershipErrorMessage(MembershipCreateStatus status)
         {
-            switch (status)
-            {
-                case MembershipCreateStatus.DuplicateUserName:
-                    return this.GetText("ADMIN_EDITBOARD", "STATUS_DUP_NAME");
-
-                case MembershipCreateStatus.DuplicateEmail:
-                    return this.GetText("ADMIN_EDITBOARD", "STATUS_DUP_EMAIL");
-
-                case MembershipCreateStatus.InvalidPassword:
-                    return this.GetText("ADMIN_EDITBOARD", "STATUS_INVAL_PASS");
-
-                case MembershipCreateStatus.InvalidEmail:
-                    return this.GetText("ADMIN_EDITBOARD", "STATUS_INVAL_MAIL");
-
-                case MembershipCreateStatus.InvalidAnswer:
-                    return this.GetText("ADMIN_EDITBOARD", "STATUS_INVAL_ANSWER");
-
-                case MembershipCreateStatus.InvalidQuestion:
-                    return this.GetText("ADMIN_EDITBOARD", "STATUS_INVAL_QUESTION");
-
-                case MembershipCreateStatus.InvalidUserName:
-                    return this.GetText("ADMIN_EDITBOARD", "STATUS_INVAL_NAME");
-
-                case MembershipCreateStatus.ProviderError:
-                    return this.GetText("ADMIN_EDITBOARD", "STATUS_PROVIDER_ERR");
-
-                case MembershipCreateStatus.UserRejected:
-                    return this.GetText("ADMIN_EDITBOARD", "STATUS_USR_REJECTED");
-
-                default:
-                    return this.GetText("ADMIN_EDITBOARD", "STATUS_UNKNOWN");
-            }
+            return status switch
+                {
+                    MembershipCreateStatus.DuplicateUserName => this.GetText("ADMIN_EDITBOARD", "STATUS_DUP_NAME"),
+                    MembershipCreateStatus.DuplicateEmail => this.GetText("ADMIN_EDITBOARD", "STATUS_DUP_EMAIL"),
+                    MembershipCreateStatus.InvalidPassword => this.GetText("ADMIN_EDITBOARD", "STATUS_INVAL_PASS"),
+                    MembershipCreateStatus.InvalidEmail => this.GetText("ADMIN_EDITBOARD", "STATUS_INVAL_MAIL"),
+                    MembershipCreateStatus.InvalidAnswer => this.GetText("ADMIN_EDITBOARD", "STATUS_INVAL_ANSWER"),
+                    MembershipCreateStatus.InvalidQuestion => this.GetText("ADMIN_EDITBOARD", "STATUS_INVAL_QUESTION"),
+                    MembershipCreateStatus.InvalidUserName => this.GetText("ADMIN_EDITBOARD", "STATUS_INVAL_NAME"),
+                    MembershipCreateStatus.ProviderError => this.GetText("ADMIN_EDITBOARD", "STATUS_PROVIDER_ERR"),
+                    MembershipCreateStatus.UserRejected => this.GetText("ADMIN_EDITBOARD", "STATUS_USR_REJECTED"),
+                    _ => this.GetText("ADMIN_EDITBOARD", "STATUS_UNKNOWN")
+                };
         }
 
         /// <summary>

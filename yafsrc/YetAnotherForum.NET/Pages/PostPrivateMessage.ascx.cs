@@ -798,11 +798,7 @@ namespace YAF.Pages
                             this.Logger.Log(
                                 this.PageContext.PageUserID,
                                 "Spam Message Detected",
-                                string
-                                    .Format(
-                                        "Spam Check detected possible SPAM ({1}) posted by User: {0}, post was rejected",
-                                        this.PageContext.PageUserName,
-                                            spamResult),
+                                $"Spam Check detected possible SPAM ({spamResult}) posted by User: {this.PageContext.PageUserName}, post was rejected",
                                 EventLogTypes.SpamMessageDetected);
 
                             this.PageContext.AddLoadMessage(this.GetText("SPAM_MESSAGE"), MessageTypes.danger);
@@ -812,11 +808,7 @@ namespace YAF.Pages
                             this.Logger.Log(
                                 this.PageContext.PageUserID,
                                 "Spam Message Detected",
-                                string
-                                    .Format(
-                                        "Spam Check detected possible SPAM ({1}) posted by User: {0}, user was deleted and bannded",
-                                        this.PageContext.PageUserName,
-                                            spamResult),
+                                $"Spam Check detected possible SPAM ({spamResult}) posted by User: {this.PageContext.PageUserName}, user was deleted and bannded",
                                 EventLogTypes.SpamMessageDetected);
 
                             var userIp =
@@ -842,74 +834,61 @@ namespace YAF.Pages
                 {
                     var urlCount = UrlHelper.CountUrls(message);
 
-                    if (urlCount > this.PageContext.BoardSettings.AllowedNumberOfUrls)
+                    if (urlCount <= this.PageContext.BoardSettings.AllowedNumberOfUrls)
                     {
-                        spamResult =
-                            $"The user posted {urlCount} urls but allowed only {this.PageContext.BoardSettings.AllowedNumberOfUrls}";
-
-                        switch (this.Get<BoardSettings>().SpamMessageHandling)
-                        {
-                            case 0:
-                                this.Logger.Log(
-                                    this.PageContext.PageUserID,
-                                    "Spam Message Detected",
-                                    string.Format(
-                                        "Spam Check detected possible SPAM ({1}) posted by User: {0}",
-                                        this.PageContext.PageUserName,
-                                            spamResult),
-                                    EventLogTypes.SpamMessageDetected);
-                                break;
-                            case 1:
-                                this.Logger.Log(
-                                    this.PageContext.PageUserID,
-                                    "Spam Message Detected",
-                                    string
-                                        .Format(
-                                            "Spam Check detected possible SPAM ({1}) posted by User: {0}, it was flagged as unapproved post",
-                                            this.PageContext.IsGuest ? "Guest" : this.PageContext.PageUserName,
-                                                spamResult),
-                                    EventLogTypes.SpamMessageDetected);
-                                break;
-                            case 2:
-                                this.Logger.Log(
-                                    this.PageContext.PageUserID,
-                                    "Spam Message Detected",
-                                    string
-                                        .Format(
-                                            "Spam Check detected possible SPAM ({1}) posted by User: {0}, post was rejected",
-                                            this.PageContext.PageUserName,
-                                                spamResult),
-                                    EventLogTypes.SpamMessageDetected);
-
-                                this.PageContext.AddLoadMessage(this.GetText("SPAM_MESSAGE"), MessageTypes.danger);
-
-                                break;
-                            case 3:
-                                this.Logger.Log(
-                                    this.PageContext.PageUserID,
-                                    "Spam Message Detected",
-                                    string
-                                        .Format(
-                                            "Spam Check detected possible SPAM ({1}) posted by User: {0}, user was deleted and bannded",
-                                            this.PageContext.PageUserName,
-                                                spamResult),
-                                    EventLogTypes.SpamMessageDetected);
-
-                                var userIp =
-                                    new CombinedUserDataHelper(
-                                        this.PageContext.CurrentUserData.Membership,
-                                        this.PageContext.PageUserID).LastIP;
-
-                                UserMembershipHelper.DeleteAndBanUser(
-                                    this.PageContext.PageUserID,
-                                    this.PageContext.CurrentUserData.Membership,
-                                    userIp);
-
-                                break;
-                        }
-
-                        return false;
+                        return true;
                     }
+
+                    spamResult =
+                        $"The user posted {urlCount} urls but allowed only {this.PageContext.BoardSettings.AllowedNumberOfUrls}";
+
+                    switch (this.Get<BoardSettings>().SpamMessageHandling)
+                    {
+                        case 0:
+                            this.Logger.Log(
+                                this.PageContext.PageUserID,
+                                "Spam Message Detected",
+                                $"Spam Check detected possible SPAM ({spamResult}) posted by User: {this.PageContext.PageUserName}",
+                                EventLogTypes.SpamMessageDetected);
+                            break;
+                        case 1:
+                            this.Logger.Log(
+                                this.PageContext.PageUserID,
+                                "Spam Message Detected",
+                                $"Spam Check detected possible SPAM ({spamResult}) posted by User: {(this.PageContext.IsGuest ? "Guest" : this.PageContext.PageUserName)}, it was flagged as unapproved post",
+                                EventLogTypes.SpamMessageDetected);
+                            break;
+                        case 2:
+                            this.Logger.Log(
+                                this.PageContext.PageUserID,
+                                "Spam Message Detected",
+                                $"Spam Check detected possible SPAM ({spamResult}) posted by User: {this.PageContext.PageUserName}, post was rejected",
+                                EventLogTypes.SpamMessageDetected);
+
+                            this.PageContext.AddLoadMessage(this.GetText("SPAM_MESSAGE"), MessageTypes.danger);
+
+                            break;
+                        case 3:
+                            this.Logger.Log(
+                                this.PageContext.PageUserID,
+                                "Spam Message Detected",
+                                $"Spam Check detected possible SPAM ({spamResult}) posted by User: {this.PageContext.PageUserName}, user was deleted and bannded",
+                                EventLogTypes.SpamMessageDetected);
+
+                            var userIp =
+                                new CombinedUserDataHelper(
+                                    this.PageContext.CurrentUserData.Membership,
+                                    this.PageContext.PageUserID).LastIP;
+
+                            UserMembershipHelper.DeleteAndBanUser(
+                                this.PageContext.PageUserID,
+                                this.PageContext.CurrentUserData.Membership,
+                                userIp);
+
+                            break;
+                    }
+
+                    return false;
                 }
 
                 return true;

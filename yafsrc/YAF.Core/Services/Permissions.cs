@@ -44,7 +44,7 @@ namespace YAF.Core.Services
     #endregion
 
     /// <summary>
-    /// The yaf permissions.
+    /// The permissions.
     /// </summary>
     public class Permissions : IPermissions
     {
@@ -53,7 +53,7 @@ namespace YAF.Core.Services
         #region IPermissions
 
         /// <summary>
-        /// The check.
+        /// Check Viewing Permissions
         /// </summary>
         /// <param name="permission">
         /// The permission.
@@ -63,15 +63,12 @@ namespace YAF.Core.Services
         /// </returns>
         public bool Check(ViewPermissions permission)
         {
-            switch (permission)
-            {
-                case ViewPermissions.Everyone:
-                    return true;
-                case ViewPermissions.RegisteredUsers:
-                    return !BoardContext.Current.IsGuest;
-                default:
-                    return BoardContext.Current.IsAdmin;
-            }
+            return permission switch
+                {
+                    ViewPermissions.Everyone => true,
+                    ViewPermissions.RegisteredUsers => !BoardContext.Current.IsGuest,
+                    _ => BoardContext.Current.IsAdmin
+                };
         }
 
         /// <summary>
@@ -84,55 +81,57 @@ namespace YAF.Core.Services
         {
             var noAccess = true;
 
-            if (!this.Check(permission))
+            if (this.Check(permission))
             {
-                if (permission == ViewPermissions.RegisteredUsers)
+                return;
+            }
+
+            if (permission == ViewPermissions.RegisteredUsers)
+            {
+                if (!Config.AllowLoginAndLogoff && BoardContext.Current.BoardSettings.CustomLoginRedirectUrl.IsSet())
                 {
-                    if (!Config.AllowLoginAndLogoff && BoardContext.Current.BoardSettings.CustomLoginRedirectUrl.IsSet())
-                    {
-                        var loginRedirectUrl = BoardContext.Current.BoardSettings.CustomLoginRedirectUrl;
+                    var loginRedirectUrl = BoardContext.Current.BoardSettings.CustomLoginRedirectUrl;
 
-                        if (loginRedirectUrl.Contains("{0}"))
-                        {
-                            // process for return url..
-                            loginRedirectUrl = string.Format(
-                                loginRedirectUrl, HttpUtility.UrlEncode(
-                                    General.GetSafeRawUrl(BoardContext.Current.Get<HttpRequestBase>().Url.ToString())));
-                        }
-
-                        // allow custom redirect...
-                        BoardContext.Current.Get<HttpResponseBase>().Redirect(loginRedirectUrl);
-                        noAccess = false;
-                    }
-                    else if (!Config.AllowLoginAndLogoff && Config.IsDotNetNuke)
+                    if (loginRedirectUrl.Contains("{0}"))
                     {
-                        // automatic DNN redirect...
-                        var appPath = HostingEnvironment.ApplicationVirtualPath;
-                        if (!appPath.EndsWith("/"))
-                        {
-                            appPath += "/";
-                        }
+                        // process for return url..
+                        loginRedirectUrl = string.Format(
+                            loginRedirectUrl, HttpUtility.UrlEncode(
+                                General.GetSafeRawUrl(BoardContext.Current.Get<HttpRequestBase>().Url.ToString())));
+                    }
 
-                        // redirect to DNN login...
-                        BoardContext.Current.Get<HttpResponseBase>().Redirect(
-                            $"{appPath}Login.aspx?ReturnUrl={HttpUtility.UrlEncode(General.GetSafeRawUrl())}");
-                        noAccess = false;
-                    }
-                    else if (Config.AllowLoginAndLogoff)
-                    {
-                        BuildLink.Redirect(
-                            ForumPages.Login,
-                            "ReturnUrl={0}",
-                            HttpUtility.UrlEncode(General.GetSafeRawUrl()));
-                        noAccess = false;
-                    }
+                    // allow custom redirect...
+                    BoardContext.Current.Get<HttpResponseBase>().Redirect(loginRedirectUrl);
+                    noAccess = false;
                 }
-
-                // fall-through with no access...
-                if (noAccess)
+                else if (!Config.AllowLoginAndLogoff && Config.IsDotNetNuke)
                 {
-                    BuildLink.AccessDenied();
+                    // automatic DNN redirect...
+                    var appPath = HostingEnvironment.ApplicationVirtualPath;
+                    if (!appPath.EndsWith("/"))
+                    {
+                        appPath += "/";
+                    }
+
+                    // redirect to DNN login...
+                    BoardContext.Current.Get<HttpResponseBase>().Redirect(
+                        $"{appPath}Login.aspx?ReturnUrl={HttpUtility.UrlEncode(General.GetSafeRawUrl())}");
+                    noAccess = false;
                 }
+                else if (Config.AllowLoginAndLogoff)
+                {
+                    BuildLink.Redirect(
+                        ForumPages.Login,
+                        "ReturnUrl={0}",
+                        HttpUtility.UrlEncode(General.GetSafeRawUrl()));
+                    noAccess = false;
+                }
+            }
+
+            // fall-through with no access...
+            if (noAccess)
+            {
+                BuildLink.AccessDenied();
             }
         }
 

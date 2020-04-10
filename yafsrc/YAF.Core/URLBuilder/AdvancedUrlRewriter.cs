@@ -169,9 +169,9 @@ namespace YAF.Core.URLBuilder
                         case ForumPages.RssTopic:
                             pageName += "/";
 
-                            if (parser["pg"].IsSet())
+                            if (parser["feed"].IsSet())
                             {
-                                description = parser["pg"].ToEnum<RssFeeds>().ToString().ToLower();
+                                description = parser["feed"].ToEnum<RssFeeds>().ToString().ToLower();
                             }
 
                             if (parser["f"].IsSet())
@@ -187,13 +187,6 @@ namespace YAF.Core.URLBuilder
                             if (parser["c"].IsSet())
                             {
                                 description += $"_{UrlRewriteHelper.GetCategoryName(parser["c"].ToType<int>())}";
-                            }
-
-                            if (parser["ft"].IsSet())
-                            {
-                                description += parser["ft"].ToType<int>() == SyndicationFormats.Atom.ToInt()
-                                                   ? "-atom"
-                                                   : "-rss";
                             }
 
                             handlePage = true;
@@ -230,11 +223,18 @@ namespace YAF.Core.URLBuilder
 
                 if (isFeed)
                 {
-                    if (parser["ft"] != null)
+                    if (parser["type"] != null)
                     {
-                        var page = parser["ft"].ToType<int>();
-                        newUrl += $"ft{page}";
-                        parser.Parameters.Remove("ft");
+                        var page = parser["type"].ToType<int>();
+                        newUrl += $"type{page}";
+                        parser.Parameters.Remove("type");
+                    }
+
+                    if (parser["feed"] != null)
+                    {
+                        var page = parser["feed"].ToType<int>();
+                        newUrl += $"feed{page}";
+                        parser.Parameters.Remove("feed");
                     }
 
                     if (parser["f"] != null)

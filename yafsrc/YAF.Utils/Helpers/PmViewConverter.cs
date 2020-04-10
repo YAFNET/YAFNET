@@ -47,17 +47,13 @@
                 return PmView.Inbox;
             }
 
-            switch (param.ToLower())
-            {
-                case "out":
-                    return PmView.Outbox;
-                case "in":
-                    return PmView.Inbox;
-                case "arch":
-                    return PmView.Archive;
-                default: // Inbox by default
-                    return PmView.Inbox;
-            }
+            return param.ToLower() switch
+                {
+                    "out" => PmView.Outbox,
+                    "in" => PmView.Inbox,
+                    "arch" => PmView.Archive,
+                    _ => PmView.Inbox
+                };
         }
 
         /// <summary>
@@ -70,17 +66,13 @@
         [CanBeNull]
         public static string ToQueryStringParam(PmView view)
         {
-            switch (view)
-            {
-                case PmView.Outbox:
-                    return "out";
-                case PmView.Inbox:
-                    return "in";
-                case PmView.Archive:
-                    return "arch";
-                default:
-                    return null;
-            }
+            return view switch
+                {
+                    PmView.Outbox => "out",
+                    PmView.Inbox => "in",
+                    PmView.Archive => "arch",
+                    _ => null
+                };
         }
 
         #endregion

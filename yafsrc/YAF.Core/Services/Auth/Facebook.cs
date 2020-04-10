@@ -192,15 +192,12 @@ namespace YAF.Core.Services.Auth
                     return CreateFacebookUser(facebookUser, userGender, out message);
                 }
 
-                switch (facebookUser.Gender)
-                {
-                    case "male":
-                        userGender = 1;
-                        break;
-                    case "female":
-                        userGender = 2;
-                        break;
-                }
+                userGender = facebookUser.Gender switch
+                    {
+                        "male" => 1,
+                        "female" => 2,
+                        _ => userGender
+                    };
 
                 // Create User if not exists?!
                 return CreateFacebookUser(facebookUser, userGender, out message);

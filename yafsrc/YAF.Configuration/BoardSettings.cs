@@ -1527,7 +1527,6 @@ namespace YAF.Configuration
         /// <summary>
         /// Gets or sets a value indicating whether ShowRSSLink.
         /// </summary>
-        [Obsolete("Remove Feeds")]
         public bool ShowRSSLink
         {
             get => this.Registry.GetValue("ShowRSSLink", false);
@@ -1538,7 +1537,6 @@ namespace YAF.Configuration
         /// <summary>
         /// Gets or sets a value indicating whether ShowAtomLink.
         /// </summary>
-        [Obsolete("Remove Feeds")]
         public bool ShowAtomLink
         {
             get => this.Registry.GetValue("ShowAtomLink", false);

@@ -322,26 +322,16 @@ namespace YAF.Pages.Admin
             var count = int.Parse(this.BoardAnnouncementUntil.Text);
 
             // what time units are used for suspending
-            switch (this.BoardAnnouncementUntilUnit.SelectedValue)
-            {
-                // days
-                case "1":
-
-                    boardAnnouncementUntil = boardAnnouncementUntil.AddDays(count);
-                    break;
-
-                // hours
-                case "2":
-
-                    boardAnnouncementUntil = boardAnnouncementUntil.AddHours(count);
-                    break;
-
-                // month
-                case "3":
-
-                    boardAnnouncementUntil = boardAnnouncementUntil.AddMonths(count);
-                    break;
-            }
+            boardAnnouncementUntil = this.BoardAnnouncementUntilUnit.SelectedValue switch
+                {
+                    // days
+                    "1" => boardAnnouncementUntil.AddDays(count),
+                    // hours
+                    "2" => boardAnnouncementUntil.AddHours(count),
+                    // month
+                    "3" => boardAnnouncementUntil.AddMonths(count),
+                    _ => boardAnnouncementUntil
+                };
 
             var boardSettings = this.Get<BoardSettings>();
 

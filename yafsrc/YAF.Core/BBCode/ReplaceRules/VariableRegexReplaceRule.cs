@@ -317,15 +317,12 @@ namespace YAF.Core.BBCode.ReplaceRules
                 return variableValue;
             }
 
-            switch (handlingValue.ToLower())
-            {
-                case "decode":
-                    variableValue = HttpUtility.HtmlDecode(variableValue);
-                    break;
-                case "encode":
-                    variableValue = HttpUtility.HtmlEncode(variableValue);
-                    break;
-            }
+            variableValue = handlingValue.ToLower() switch
+                {
+                    "decode" => HttpUtility.HtmlDecode(variableValue),
+                    "encode" => HttpUtility.HtmlEncode(variableValue),
+                    _ => variableValue
+                };
 
             return variableValue;
         }

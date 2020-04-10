@@ -63,7 +63,7 @@ namespace YAF.Pages
         /// <summary>
         /// Indicates if the My Topics Tab was loaded
         /// </summary>
-        private bool mytopicsLoaded;
+        private bool myTopicsLoaded;
 
         /// <summary>
         /// Indicates if the Favorite Tab was loaded
@@ -180,24 +180,14 @@ namespace YAF.Pages
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void ChangeTabClick(object sender, EventArgs e)
         {
-            switch (this.hidLastTab.Value)
-            {
-                case "UnansweredTopicsTab":
-                    this.CurrentTab = TopicListMode.Unanswered;
-                    break;
-                case "UnreadTopicsTab":
-                    this.CurrentTab = TopicListMode.Unread;
-                    break;
-                case "MyTopicsTab":
-                    this.CurrentTab = TopicListMode.User;
-                    break;
-                case "FavoriteTopicsTab":
-                    this.CurrentTab = TopicListMode.Favorite;
-                    break;
-                default:
-                    this.CurrentTab = TopicListMode.Active;
-                    break;
-            }
+            this.CurrentTab = this.hidLastTab.Value switch
+                {
+                    "UnansweredTopicsTab" => TopicListMode.Unanswered,
+                    "UnreadTopicsTab" => TopicListMode.Unread,
+                    "MyTopicsTab" => TopicListMode.User,
+                    "FavoriteTopicsTab" => TopicListMode.Favorite,
+                    _ => TopicListMode.Active
+                };
 
             this.RefreshTab();
         }
@@ -252,7 +242,7 @@ namespace YAF.Pages
                     break;
                 case TopicListMode.User:
 
-                    if (!this.mytopicsLoaded)
+                    if (!this.myTopicsLoaded)
                     {
                         this.MyTopicsTopics.BindData();
 
@@ -268,7 +258,7 @@ namespace YAF.Pages
                             this.FavoriteTopics.DataBind();
                         }
 
-                        this.mytopicsLoaded = true;
+                        this.myTopicsLoaded = true;
                     }
                     else
                     {

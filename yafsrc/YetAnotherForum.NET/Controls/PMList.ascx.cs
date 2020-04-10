@@ -186,18 +186,13 @@ namespace YAF.Controls
 
             using (var dv = this.GetRepository<PMessage>().ListAsDataTable(toUserId, fromUserId, null).DefaultView)
             {
-                switch (this.View)
-                {
-                    case PmView.Inbox:
-                        dv.RowFilter = "IsDeleted = False AND IsArchived = False";
-                        break;
-                    case PmView.Outbox:
-                        dv.RowFilter = "IsInOutbox = True AND IsArchived = False";
-                        break;
-                    case PmView.Archive:
-                        dv.RowFilter = "IsArchived = True";
-                        break;
-                }
+                dv.RowFilter = this.View switch
+                    {
+                        PmView.Inbox => "IsDeleted = False AND IsArchived = False",
+                        PmView.Outbox => "IsInOutbox = True AND IsArchived = False",
+                        PmView.Archive => "IsArchived = True",
+                        _ => dv.RowFilter
+                    };
 
                 dv.Cast<DataRowView>().ForEach(
                     item =>
@@ -425,18 +420,13 @@ namespace YAF.Controls
             using (var dv = this.GetRepository<PMessage>().ListAsDataTable(this.PageContext.PageUserID, null, null)
                 .DefaultView)
             {
-                switch (this.View)
-                {
-                    case PmView.Inbox:
-                        dv.RowFilter = "IsRead = False AND IsDeleted = False AND IsArchived = False";
-                        break;
-                    case PmView.Outbox:
-                        dv.RowFilter = "IsRead = False AND IsDeleted = False AND IsArchived = False";
-                        break;
-                    case PmView.Archive:
-                        dv.RowFilter = "IsRead = False AND IsArchived = True";
-                        break;
-                }
+                dv.RowFilter = this.View switch
+                    {
+                        PmView.Inbox => "IsRead = False AND IsDeleted = False AND IsArchived = False",
+                        PmView.Outbox => "IsRead = False AND IsDeleted = False AND IsArchived = False",
+                        PmView.Archive => "IsRead = False AND IsArchived = True",
+                        _ => dv.RowFilter
+                    };
 
                 dv.Cast<DataRowView>().ForEach(
                     item =>
@@ -627,18 +617,13 @@ namespace YAF.Controls
 
             using (var dv = this.GetRepository<PMessage>().ListAsDataTable(toUserId, fromUserId, null).DefaultView)
             {
-                switch (this.View)
-                {
-                    case PmView.Inbox:
-                        dv.RowFilter = "IsDeleted = False AND IsArchived = False";
-                        break;
-                    case PmView.Outbox:
-                        dv.RowFilter = "IsInOutbox = True AND IsArchived = False";
-                        break;
-                    case PmView.Archive:
-                        dv.RowFilter = "IsArchived = True";
-                        break;
-                }
+                dv.RowFilter = this.View switch
+                    {
+                        PmView.Inbox => "IsDeleted = False AND IsArchived = False",
+                        PmView.Outbox => "IsInOutbox = True AND IsArchived = False",
+                        PmView.Archive => "IsArchived = True",
+                        _ => dv.RowFilter
+                    };
 
                 dv.Sort = $"{this.ViewState["SortField"]} {(this.ViewState["SortAsc"].ToType<bool>() ? "asc" : "desc")}";
 

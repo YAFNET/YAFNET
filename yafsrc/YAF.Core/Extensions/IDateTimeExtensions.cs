@@ -35,7 +35,7 @@ namespace YAF.Core.Extensions
   #endregion
 
   /// <summary>
-  /// The yaf date time extensions.
+  /// The DateTime extensions.
   /// </summary>
   public static class IDateTimeExtensions
   {
@@ -45,7 +45,7 @@ namespace YAF.Core.Extensions
     /// Format objectDateTime according to the format enum. "[error]" if the value is invalid.
     /// </summary>
     /// <param name="dateTimeInstance">
-    /// The yaf date time.
+    /// The datetime.
     /// </param>
     /// <param name="format">
     /// The format.
@@ -63,30 +63,18 @@ namespace YAF.Core.Extensions
 
       try
       {
-        var dateTime = Convert.ToDateTime(objectDateTime);
+          var dateTime = Convert.ToDateTime(objectDateTime);
 
-        switch (format)
-        {
-          case DateTimeFormat.BothDateShort:
-            return dateTimeInstance.FormatDateTimeShort(dateTime);
-
-          case DateTimeFormat.BothTopic:
-            return dateTimeInstance.FormatDateTimeTopic(dateTime);
-
-          case DateTimeFormat.DateLong:
-            return dateTimeInstance.FormatDateLong(dateTime);
-
-          case DateTimeFormat.DateShort:
-            return dateTimeInstance.FormatDateShort(dateTime);
-
-          case DateTimeFormat.Time:
-            return dateTimeInstance.FormatTime(dateTime);
-          
-          case DateTimeFormat.Both:
-          default:
-            return dateTimeInstance.FormatDateTime(dateTime);
-
-        }
+          return format switch
+              {
+                  DateTimeFormat.BothDateShort => dateTimeInstance.FormatDateTimeShort(dateTime),
+                  DateTimeFormat.BothTopic => dateTimeInstance.FormatDateTimeTopic(dateTime),
+                  DateTimeFormat.DateLong => dateTimeInstance.FormatDateLong(dateTime),
+                  DateTimeFormat.DateShort => dateTimeInstance.FormatDateShort(dateTime),
+                  DateTimeFormat.Time => dateTimeInstance.FormatTime(dateTime),
+                  DateTimeFormat.Both => dateTimeInstance.FormatDateTime(dateTime),
+                  _ => dateTimeInstance.FormatDateTime(dateTime)
+              };
       }
       catch
       {
@@ -275,7 +263,7 @@ namespace YAF.Core.Extensions
     /// The yaf date time.
     /// </param>
     /// <returns>
-    /// Returnes the minimal date time suitable for database.
+    /// Returns the minimal date time suitable for database.
     /// </returns>
     public static DateTime SqlDbMinTime([NotNull] this DateTime dateTimeInstance)
     {

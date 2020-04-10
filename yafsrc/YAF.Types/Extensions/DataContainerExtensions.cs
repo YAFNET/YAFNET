@@ -56,16 +56,12 @@ namespace YAF.Types.Extensions
                 return default;
             }
 
-            switch (container.DataItem)
-            {
-                case DataRow _:
-                    return container.DataItem.ToType<DataRow>().Field<T>(fieldName);
-                case DataRowView _:
-                    return container.DataItem.ToType<DataRowView>()[fieldName].ToType<T>();
-                default:
-                    // not sure about this "fall-through"
-                    return container.DataItem.ToType<T>();
-            }
+            return container.DataItem switch
+                {
+                    DataRow _ => container.DataItem.ToType<DataRow>().Field<T>(fieldName),
+                    DataRowView _ => container.DataItem.ToType<DataRowView>()[fieldName].ToType<T>(),
+                    _ => container.DataItem.ToType<T>()
+                };
         }
 
         /// <summary>

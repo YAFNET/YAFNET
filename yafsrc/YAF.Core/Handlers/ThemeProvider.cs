@@ -105,30 +105,30 @@ namespace YAF.Core.Handlers
 
             this.BeforeInit?.Invoke(this, new EventArgs());
 
-            string theme;
+            string themeFile;
 
             if (BoardContext.Current.Page != null && BoardContext.Current.Page["ThemeFile"] != null &&
                 BoardContext.Current.BoardSettings.AllowUserTheme)
             {
                 // use user-selected theme
-                theme = BoardContext.Current.Page["ThemeFile"].ToString();
+                themeFile = BoardContext.Current.Page["ThemeFile"].ToString();
             }
             else if (BoardContext.Current.Page != null && BoardContext.Current.Page["ForumTheme"] != null)
             {
-                theme = BoardContext.Current.Page["ForumTheme"].ToString();
+                themeFile = BoardContext.Current.Page["ForumTheme"].ToString();
             }
             else
             {
-                theme = BoardContext.Current.BoardSettings.Theme;
+                themeFile = BoardContext.Current.BoardSettings.Theme;
             }
 
-            if (!Services.Theme.IsValidTheme(theme))
+            if (!Services.Theme.IsValidTheme(themeFile))
             {
-                theme = "yaf";
+                themeFile = "yaf";
             }
 
             // create the theme class
-            this.Theme = new Theme(theme);
+            this.Theme = new Theme(themeFile);
 
             this.AfterInit?.Invoke(this, new EventArgs());
         }

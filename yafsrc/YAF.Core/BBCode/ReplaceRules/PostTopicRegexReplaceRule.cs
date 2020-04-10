@@ -84,15 +84,12 @@ namespace YAF.Core.BBCode.ReplaceRules
                 return variableValue;
             }
 
-            switch (variableName)
-            {
-                case "post":
-                    return BuildLink.GetLink(ForumPages.Posts, "m={0}#post{0}", id);
-                case "topic":
-                    return BuildLink.GetLink(ForumPages.Posts, "t={0}", id);
-                default:
-                    return variableValue;
-            }
+            return variableName switch
+                {
+                    "post" => BuildLink.GetLink(ForumPages.Posts, "m={0}#post{0}", id),
+                    "topic" => BuildLink.GetLink(ForumPages.Posts, "t={0}", id),
+                    _ => variableValue
+                };
         }
 
         #endregion

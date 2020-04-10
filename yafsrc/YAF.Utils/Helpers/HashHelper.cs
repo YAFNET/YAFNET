@@ -189,15 +189,12 @@ namespace YAF.Utils.Helpers
             var hashedString = hashHex ? hashedBytes.ToHexString() : Convert.ToBase64String(hashedBytes);
 
             // Adjust the case of the hash output
-            switch (hashCaseType)
-            {
-                case HashCaseType.Upper:
-                    hashedString = hashedString.ToUpper();
-                    break;
-                case HashCaseType.Lower:
-                    hashedString = hashedString.ToLower();
-                    break;
-            }
+            hashedString = hashCaseType switch
+                {
+                    HashCaseType.Upper => hashedString.ToUpper(),
+                    HashCaseType.Lower => hashedString.ToLower(),
+                    _ => hashedString
+                };
 
             if (hashRemoveChars.IsSet())
             {
