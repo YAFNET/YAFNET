@@ -796,7 +796,7 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
         {
             return $@"{Config.JQueryAlias}(document).ready(function() {{
                       var yafCKEditor = {Config.JQueryAlias}(""#{editorId}"").ckeditor({{
-                          extraPlugins: ""bbcode,mentions,wordcount,autolink,quote"",
+                          extraPlugins: ""bbcode,mentions,wordcount,autolink,quote,codemirror"",
                           removePlugins: 'autosave,bidi,dialogadvtab,div,filebrowser,flash,format,forms,horizontalrule,iframe,liststyle,pagebreak,showborders,stylescombo,table,tabletools,templates',
 		                  toolbar: [{toolbar}],
 		                  entities_greek: false,
@@ -814,6 +814,7 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
                               showCharCount: true,
 		                  	  countHTML: true
                           }},
+                          codemirror: {{mode: ""bbcode""}},
 		                  mentions: [ {{ feed:  CKEDITOR.basePath.replace('Scripts/ckeditor/', '') + 'resource.ashx?users={{encodedQuery}}',
                                          itemTemplate: '<li data-id=""{{id}}""><i class=""fas fa-user pr-1""></i><strong class=""username"">{{name}}</strong></li>',
 		                                 outputTemplate: '@[userlink]{{name}}[/userlink]'

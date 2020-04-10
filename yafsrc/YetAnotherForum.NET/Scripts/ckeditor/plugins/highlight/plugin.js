@@ -21,7 +21,6 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-
 CKEDITOR.plugins.add("highlight",
     {
         lang: ["en"],
@@ -30,20 +29,45 @@ CKEDITOR.plugins.add("highlight",
                 {
                     modes: { wysiwyg: 1, source: 1 },
                     exec: function() {
-                        var writer = new CKEDITOR.htmlWriter();
+                        if (editor.mode === "source") {
+                            var selection = window["codemirror_" + editor.id].getSelection();
 
-                        var selection = editor.getSelection();
-                        if (!selection) {
-                            CKEDITOR.htmlParser.fragment.fromBBCode("[h] [/h]").writeHtml(writer);
+                            if (selection.length > 0) {
+                                window["codemirror_" + editor.id].replaceSelection("[h]" + selection + "[/h]");
+                            }
+                            else {
 
-                            editor.insertHtml(writer.getHtml());
+                                var doc = window["codemirror_" + editor.id].getDoc();
+                                var cursor = doc.getCursor();
+
+                                var pos = {
+                                    line: cursor.line,
+                                    ch: cursor.ch
+                                }
+
+                                doc.replaceRange("[h][/h]", pos);
+
+                                window["codemirror_" + editor.id].focus();
+                                window["codemirror_" + editor.id].setCursor({ line: cursor.line, ch: cursor.ch + 3 });
+
+                            }
                         } else {
 
-                            var text = selection.getSelectedText();
+                            var writer = new CKEDITOR.htmlWriter();
 
-                            CKEDITOR.htmlParser.fragment.fromBBCode("[h]" + text + "[/h]").writeHtml(writer);
+                            var selection = editor.getSelection();
+                            if (!selection) {
+                                CKEDITOR.htmlParser.fragment.fromBBCode("[h] [/h]").writeHtml(writer);
 
-                            editor.insertHtml(writer.getHtml());
+                                editor.insertHtml(writer.getHtml());
+                            } else {
+
+                                var text = selection.getSelectedText();
+
+                                CKEDITOR.htmlParser.fragment.fromBBCode("[h]" + text + "[/h]").writeHtml(writer);
+
+                                editor.insertHtml(writer.getHtml());
+                            }
                         }
                     }
                 });

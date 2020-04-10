@@ -21,7 +21,6 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-
 CKEDITOR.dialog.add("attachmentsDialog",
     function(editor) {
         return {
@@ -32,7 +31,7 @@ CKEDITOR.dialog.add("attachmentsDialog",
                 this.getElement().removeClass('cke_reset_all');
             },
             onShow: function() {
-                if (jQuery("#PostAttachmentListPlaceholder").length) {
+                if ($("#PostAttachmentListPlaceholder").length) {
                     var pageSize = 5;
                     var pageNumber = 0;
                     getPaginationData(pageSize, pageNumber, false);
@@ -76,17 +75,37 @@ CKEDITOR.dialog.add("attachmentsDialog",
         lang: 'en',
         init: function(editor) {
 
-            editor.addCommand("attachmentsStart",
-                new CKEDITOR.dialogCommand("attachmentsDialog")), CKEDITOR.tools.insertAttachment = function(b) {
-                var c, d;
-                console.log(b), a = CKEDITOR.currentInstance, c = CKEDITOR.dialog.getCurrent(), d =
-                        '[attach]' + b + '[/attach]',
-                    a.config.allowedContent = !0, a.insertHtml(d.trim()), c.hide()
-            }, editor.ui.addButton("attachments",
+            var command = editor.addCommand("attachmentsStart", new CKEDITOR.dialogCommand("attachmentsDialog"));
+            command.modes = { wysiwyg: 1, source: 1 };
+
+            CKEDITOR.tools.insertAttachment = function(id) {
+                var dialog = CKEDITOR.dialog.getCurrent()
+                var currentEditor = CKEDITOR.currentInstance;
+
+                var insert = '[attach]' + id + '[/attach]';
+
+                if (editor.mode === "source") {
+                    var doc = window["codemirror_" + editor.id].getDoc();
+                    var cursor = doc.getCursor();
+
+                    var pos = {
+                        line: cursor.line,
+                        ch: cursor.ch
+                    }
+
+                    doc.replaceRange(insert, pos);
+                } else {
+                    currentEditor.insertHtml(insert);
+                }
+
+                dialog.hide();
+            };
+
+            editor.ui.addButton("attachments",
                 {
                     label: editor.lang.attachments.title,
                     command: "attachmentsStart",
                     icon: this.path + "images/paperclip-solid.svg"
-                })
+                });
         }
-        });
+    });

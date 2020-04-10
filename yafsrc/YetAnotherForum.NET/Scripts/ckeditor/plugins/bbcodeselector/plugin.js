@@ -21,7 +21,6 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-
 CKEDITOR.plugins.add("bbcodeselector",
     {
         requires: ["dialog"],
@@ -37,7 +36,7 @@ CKEDITOR.plugins.add("bbcodeselector",
                 });
             var b = "bbcodeselector";
             var c = editor.addCommand(b, new CKEDITOR.dialogCommand(b));
-            c.modes = { wysiwyg: 1, source: 0 };
+            c.modes = { wysiwyg: 1, source: 1 };
             c.canUndo = false;
             editor.ui.addButton("bbcodeselector",
                 {

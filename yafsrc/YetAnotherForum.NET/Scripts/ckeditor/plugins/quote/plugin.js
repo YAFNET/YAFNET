@@ -21,7 +21,6 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-
 CKEDITOR.plugins.add("quote",
     {
         lang: ["en"],
@@ -30,20 +29,45 @@ CKEDITOR.plugins.add("quote",
                 {
                     modes: { wysiwyg: 1, source: 1 },
                     exec: function() {
-                        var writer = new CKEDITOR.htmlWriter();
 
-                        var selection = editor.getSelection();
-                        if (!selection) {
-                            CKEDITOR.htmlParser.fragment.fromBBCode("[quote] [/qoute]").writeHtml(writer);
+                        if (editor.mode === "source") {
+                            var selection = window["codemirror_" + editor.id].getSelection();
 
-                            editor.insertHtml(writer.getHtml());
+                            if (selection.length > 0) {
+                                window["codemirror_" + editor.id].replaceSelection("[quote]" + selection + "[/quote]");
+                            } else {
+
+                                var doc = window["codemirror_" + editor.id].getDoc();
+                                var cursor = doc.getCursor();
+
+                                var pos = {
+                                    line: cursor.line,
+                                    ch: cursor.ch
+                                }
+
+                                doc.replaceRange("[quote][/quote]", pos);
+
+                                window["codemirror_" + editor.id].focus();
+                                window["codemirror_" + editor.id].setCursor({ line: cursor.line, ch: cursor.ch + 7 });
+
+                            }
                         } else {
+                            var writer = new CKEDITOR.htmlWriter();
 
-                            var text = selection.getSelectedText();
+                            var selection = editor.getSelection();
+                            if (!selection) {
+                                CKEDITOR.htmlParser.fragment.fromBBCode("[quote] [/qoute]").writeHtml(writer);
 
-                            CKEDITOR.htmlParser.fragment.fromBBCode("[quote]" + text + "[/qoute]").writeHtml(writer);
+                                editor.insertHtml(writer.getHtml());
+                            } else {
 
-                            editor.insertHtml(writer.getHtml());
+                                var text = selection.getSelectedText();
+
+                                CKEDITOR.htmlParser.fragment.fromBBCode("[quote]" + text + "[/qoute]")
+                                    .writeHtml(writer);
+
+                                editor.insertHtml(writer.getHtml());
+                            }
                         }
                     }
                 });

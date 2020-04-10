@@ -21,12 +21,13 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-
 CKEDITOR.plugins.add( "syntaxhighlight", {
 	requires : "dialog",
 	lang : "en,de,fr,zh-cn", // %REMOVE_LINE_CORE%
 	init : function( editor ) {
-		editor.addCommand( "syntaxhighlightDialog", new CKEDITOR.dialogCommand("syntaxhighlightDialog") );
+		var command = editor.addCommand( "syntaxhighlightDialog", new CKEDITOR.dialogCommand("syntaxhighlightDialog") );
+		command.modes = { wysiwyg: 1, source: 1 };
+		
 		editor.ui.addButton && editor.ui.addButton( "Syntaxhighlight",
 		{
 			label : editor.lang.syntaxhighlight.title,
@@ -46,6 +47,5 @@ CKEDITOR.plugins.add( "syntaxhighlight", {
 		}
 
 		CKEDITOR.dialog.add( "syntaxhighlightDialog", this.path + "dialogs/syntaxhighlight.js" );
-	
-	}
+    }
 });
