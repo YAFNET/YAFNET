@@ -27,6 +27,7 @@ namespace YAF.Types.Extensions
 
     using System;
     using System.Collections.Generic;
+    using System.Linq;
 
     using YAF.Types.Attributes;
 
@@ -49,10 +50,7 @@ namespace YAF.Types.Extensions
         /// </returns>
         public static IEnumerable<T> GetAllItems<T>() where T : struct
         {
-            foreach (var item in Enum.GetValues(typeof(T)))
-            {
-                yield return (T)item;
-            }
+            return Enum.GetValues(typeof(T)).Cast<T>();
         }
 
         /// <summary>

@@ -48,7 +48,6 @@
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Abstractions" />
     <Reference Include="System.Web.ApplicationServices" />
-    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Web.Extensions" />
   </ItemGroup>
   <ItemGroup>

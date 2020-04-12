@@ -89,12 +89,6 @@ namespace YAF.Web.Editors
         /// </value>
         public override bool AllowsUploads => false;
 
-        /// <summary>
-        ///   Gets the Safe ID.
-        /// </summary>
-        [NotNull]
-        protected string SafeID => this.TextAreaControl.ClientID.Replace("$", "_");
-
         #endregion
 
         #region Methods

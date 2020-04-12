@@ -224,11 +224,13 @@ namespace YAF.Types.Extensions.Data
 
                         IDbDataAdapter dataAdapter = dbAccess.DbProviderFactory.CreateDataAdapter();
 
-                        if (dataAdapter != null)
+                        if (dataAdapter == null)
                         {
-                            dataAdapter.SelectCommand = cmd;
-                            dataAdapter.Fill(ds);
+                            return ds;
                         }
+
+                        dataAdapter.SelectCommand = cmd;
+                        dataAdapter.Fill(ds);
 
                         return ds;
                     },

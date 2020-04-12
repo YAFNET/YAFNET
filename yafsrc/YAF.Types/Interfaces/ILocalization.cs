@@ -26,7 +26,6 @@ namespace YAF.Types.Interfaces
     using System;
     using System.Collections.Generic;
     using System.Globalization;
-    using System.Web;
 
     /// <summary>
     /// The Localization interface.

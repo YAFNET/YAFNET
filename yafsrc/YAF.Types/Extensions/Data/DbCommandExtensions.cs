@@ -97,20 +97,23 @@ namespace YAF.Types.Extensions.Data
                     p.Value = asString;
                 }
 
-                if (item is Guid)
+                switch (item)
                 {
-                    p.Value = item.ToString();
-                    p.DbType = DbType.String;
-                    p.Size = 4000;
-                }
-                else if (item is ExpandoObject)
-                {
-                    var d = (IDictionary<string, object>)item;
-                    p.Value = d.Values.FirstOrDefault();
-                }
-                else
-                {
-                    p.Value = item;
+                    case Guid _:
+                        p.Value = item.ToString();
+                        p.DbType = DbType.String;
+                        p.Size = 4000;
+                        break;
+                    case ExpandoObject _:
+                        {
+                            var d = (IDictionary<string, object>)item;
+                            p.Value = d.Values.FirstOrDefault();
+                            break;
+                        }
+
+                    default:
+                        p.Value = item;
+                        break;
                 }
             }
 

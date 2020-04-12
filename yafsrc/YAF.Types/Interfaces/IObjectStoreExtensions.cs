@@ -63,7 +63,7 @@ namespace YAF.Types.Interfaces
         return (T)item;
       }
 
-      return default(T);
+      return default;
     }
 
     /// <summary>
@@ -76,12 +76,9 @@ namespace YAF.Types.Interfaces
     /// </typeparam>
     public static void RemoveOf<T>([NotNull] this IObjectStore objectStore)
     {
-      CodeContracts.VerifyNotNull(objectStore, "objectStore");
+        CodeContracts.VerifyNotNull(objectStore, "objectStore");
 
-      foreach (var i in objectStore.GetAll<T>().ToList())
-      {
-        objectStore.Remove(i.Key);
-      }
+        objectStore.GetAll<T>().ToList().ForEach(i => objectStore.Remove(i.Key));
     }
 
     /// <summary>
@@ -140,13 +137,10 @@ namespace YAF.Types.Interfaces
     public static void RemoveOf<T>(
       [NotNull] this IObjectStore objectStore, [NotNull] Func<KeyValuePair<string, T>, bool> whereFunc)
     {
-      CodeContracts.VerifyNotNull(objectStore, "objectStore");
-      CodeContracts.VerifyNotNull(whereFunc, "whereFunc");
+        CodeContracts.VerifyNotNull(objectStore, "objectStore");
+        CodeContracts.VerifyNotNull(whereFunc, "whereFunc");
 
-      foreach (var i in objectStore.GetAll<T>().Where(whereFunc).ToList())
-      {
-        objectStore.Remove(i.Key);
-      }
+        objectStore.GetAll<T>().Where(whereFunc).ToList().ForEach(i => objectStore.Remove(i.Key));
     }
 
     /// <summary>
@@ -163,13 +157,10 @@ namespace YAF.Types.Interfaces
     public static void Remove(
       [NotNull] this IObjectStore objectStore, [NotNull] Func<string, bool> whereFunc)
     {
-      CodeContracts.VerifyNotNull(objectStore, "objectStore");
-      CodeContracts.VerifyNotNull(whereFunc, "whereFunc");
+        CodeContracts.VerifyNotNull(objectStore, "objectStore");
+        CodeContracts.VerifyNotNull(whereFunc, "whereFunc");
 
-      foreach (var i in objectStore.GetAll<object>().Where(k => whereFunc(k.Key)).ToList())
-      {
-        objectStore.Remove(i.Key);
-      }
+        objectStore.GetAll<object>().Where(k => whereFunc(k.Key)).ToList().ForEach(i => objectStore.Remove(i.Key));
     }
 
     #endregion

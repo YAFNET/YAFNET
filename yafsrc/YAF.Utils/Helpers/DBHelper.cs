@@ -28,8 +28,6 @@ namespace YAF.Utils.Helpers
     using System;
     using System.Collections.Generic;
     using System.Data;
-    using System.Data.Common;
-    using System.Linq;
 
     using YAF.Types;
     using YAF.Types.Constants;
@@ -90,16 +88,16 @@ namespace YAF.Utils.Helpers
         /// <summary>
         /// Gets the first row of the data table or redirects to invalid request
         /// </summary>
-        /// <param name="dt">
-        /// The dt.
+        /// <param name="dataTable">
+        /// The data Table.
         /// </param>
         /// <returns>
         /// The get first row or invalid.
         /// </returns>
         [CanBeNull]
-        public static DataRow GetFirstRowOrInvalid([NotNull] this DataTable dt)
+        public static DataRow GetFirstRowOrInvalid([NotNull] this DataTable dataTable)
         {
-            var row = dt.GetFirstRow();
+            var row = dataTable.GetFirstRow();
 
             if (row != null)
             {
@@ -117,7 +115,7 @@ namespace YAF.Utils.Helpers
         /// </summary>
         /// <param name="columnValue">The column value.</param>
         /// <returns>
-        /// The is <see langword="null"/> or empty db field.
+        /// The is <see langword="null"/> or empty database field.
         /// </returns>
         public static bool IsNullOrEmptyDBField([NotNull] this object columnValue)
         {
@@ -147,43 +145,6 @@ namespace YAF.Utils.Helpers
             CodeContracts.VerifyNotNull(createNew, "createNew");
 
             return dataTable.AsEnumerable().Select(createNew);
-        }
-
-        /// <summary>
-        /// The to trace string.
-        /// </summary>
-        /// <param name="command">
-        /// The command.
-        /// </param>
-        /// <returns>
-        /// Returns the Debug String
-        /// </returns>
-        public static string ToDebugString([NotNull] this IDbCommand command)
-        {
-            CodeContracts.VerifyNotNull(command, "command");
-
-            var debugString = command.CommandText;
-
-            try
-            {
-                if (command.Parameters != null && command.Parameters.Count > 0)
-                {
-                    var parameters = command.Parameters.Cast<DbParameter>().ToList();
-
-                    var sqlParams =
-                        parameters.Select(
-                            p =>
-                                $@"@{p.ParameterName} = {(p.Value == null ? "NULL" : $"'{p.Value.ToString().Replace("'", "''")}'")}");
-
-                    debugString += $" {sqlParams.ToDelimitedString(", ")}";
-                }
-            }
-            catch (Exception ex)
-            {
-                debugString += $"Error in getting parameters {ex}";
-            }
-
-            return debugString;
         }
 
         #endregion

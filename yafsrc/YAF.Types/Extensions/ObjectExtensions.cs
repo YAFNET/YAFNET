@@ -452,17 +452,17 @@ namespace YAF.Types.Extensions
         {
             if (instance == null)
             {
-                return default(T);
+                return default;
             }
 
             if (Equals(instance, default(T)))
             {
-                return default(T);
+                return default;
             }
 
             if (Equals(instance, DBNull.Value))
             {
-                return default(T);
+                return default;
             }
 
             var instanceType = instance.GetType();
@@ -471,7 +471,7 @@ namespace YAF.Types.Extensions
             {
                 if ((instance as string).IsNotSet())
                 {
-                    return default(T);
+                    return default;
                 }
             }
             else if (instanceType.IsClass && !(instance is IConvertible))

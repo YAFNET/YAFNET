@@ -133,11 +133,13 @@ namespace YAF.Utils.Helpers.MinifyUtils
                             throw new Exception($"Error: JSMIN unterminated string literal: {this.theA}\n");
                         }
 
-                        if (this.theA == '\\')
+                        if (this.theA != '\\')
                         {
-                            this.Put(this.theA);
-                            this.theA = this.Get();
+                            continue;
                         }
+
+                        this.Put(this.theA);
+                        this.theA = this.Get();
                     }
                 }
             }

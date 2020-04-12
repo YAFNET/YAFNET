@@ -63,23 +63,6 @@ namespace YAF.Utils.Helpers.ImageUtils
     // ====================================================================
     #region Constructors and Destructors
 
-    /// <summary>
-    /// Initializes a new instance of the <see cref="CaptchaImage"/> class.
-    /// </summary>
-    /// <param name="s">
-    /// The s.
-    /// </param>
-    /// <param name="width">
-    /// The width.
-    /// </param>
-    /// <param name="height">
-    /// The height.
-    /// </param>
-    public CaptchaImage([NotNull] string s, int width, int height)
-      : this(s, width, height, string.Empty)
-    {
-    }
-
     // ====================================================================
     // Initializes a new instance of the CaptchaImage class using the
     // specified text, width, height and font family.

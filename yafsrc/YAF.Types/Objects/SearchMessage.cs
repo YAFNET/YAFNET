@@ -26,10 +26,8 @@ namespace YAF.Types.Objects
     #region Using
 
     using System;
-    using System.Collections.Generic;
     using System.Data;
     using System.Globalization;
-    using System.Linq;
 
     #endregion
 

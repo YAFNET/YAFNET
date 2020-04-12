@@ -113,20 +113,6 @@ namespace YAF.Utils.Helpers
             this.InitIDs(idNames, failInvalid);
         }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="QueryStringIDHelper"/> class.
-        /// </summary>
-        /// <param name="idNames">
-        /// The id names.
-        /// </param>
-        /// <param name="errorOnInvalid">
-        /// The error on invalid.
-        /// </param>
-        public QueryStringIDHelper(string[] idNames, bool[] errorOnInvalid)
-        {
-            this.InitIDs(idNames, errorOnInvalid);
-        }
-
         #endregion
 
         #region Properties

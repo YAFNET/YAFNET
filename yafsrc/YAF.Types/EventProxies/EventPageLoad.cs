@@ -23,48 +23,48 @@
  */
 namespace YAF.Types.EventProxies
 {
-	using System.Collections.Generic;
-	using System.Dynamic;
+    using System.Collections.Generic;
+    using System.Dynamic;
 
     using YAF.Types.Interfaces.Events;
 
     /// <summary>
-	/// The page load event.
-	/// </summary>
-	public class InitPageLoadEvent : IAmEvent
-	{
-		#region Constants and Fields
-
-		/// <summary>
-		/// The _the expando data.
-		/// </summary>
-		private readonly ExpandoObject _theExpandoData = new ExpandoObject();
-
-		#endregion
-
-		#region Constructors and Destructors
-
-		/// <summary>
-		/// Initializes a new instance of the <see cref="InitPageLoadEvent"/> class.
-		/// </summary>
-		public InitPageLoadEvent()
-		{
-		}
-
-		#endregion
-
-		#region Properties
-
-		/// <summary>
-		/// Gets Data.
-		/// </summary>
-		public dynamic Data => this._theExpandoData;
+    /// The page load event.
+    /// </summary>
+    public class InitPageLoadEvent : IAmEvent
+    {
+        #region Constants and Fields
 
         /// <summary>
-		///   Gets or sets PageLoadData.
-		/// </summary>
-		public IDictionary<string, object> DataDictionary => (IDictionary<string, object>)this._theExpandoData;
+        /// The the expando data.
+        /// </summary>
+        private readonly ExpandoObject theExpandoData = new ExpandoObject();
 
         #endregion
-	}
+
+        #region Constructors and Destructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="InitPageLoadEvent"/> class.
+        /// </summary>
+        public InitPageLoadEvent()
+        {
+        }
+
+        #endregion
+
+        #region Properties
+
+        /// <summary>
+        /// Gets Data.
+        /// </summary>
+        public dynamic Data => this.theExpandoData;
+
+        /// <summary>
+        ///   Gets or sets PageLoadData.
+        /// </summary>
+        public IDictionary<string, object> DataDictionary => this.theExpandoData;
+
+        #endregion
+    }
 }

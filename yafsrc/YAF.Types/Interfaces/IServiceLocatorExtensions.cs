@@ -270,7 +270,7 @@ namespace YAF.Types.Interfaces
         {
             CodeContracts.VerifyNotNull(serviceLocator, "serviceLocator");
 
-            instance = default(TService);
+            instance = default;
 
             if (!serviceLocator.TryGet(typeof(TService), out var tempInstance))
             {
@@ -304,7 +304,7 @@ namespace YAF.Types.Interfaces
             CodeContracts.VerifyNotNull(serviceLocator, "serviceLocator");
             CodeContracts.VerifyNotNull(named, "named");
 
-            instance = default(TService);
+            instance = default;
 
             if (!serviceLocator.TryGet(typeof(TService), named, out var tempInstance))
             {

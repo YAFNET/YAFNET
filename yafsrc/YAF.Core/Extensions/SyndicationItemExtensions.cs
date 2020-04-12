@@ -219,6 +219,7 @@ namespace YAF.Core.Extensions
                 new Uri(link),
                 id,
                 new DateTimeOffset(posted));
+
             currentList.Add(si);
         }
 
