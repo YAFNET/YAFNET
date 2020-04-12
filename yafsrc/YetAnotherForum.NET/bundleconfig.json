@@ -2,7 +2,7 @@
   {
     "outputFileName": "Scripts/InstallWizard.comb.js",
     "inputFiles": [
-      "Scripts/jquery-3.4.1.js",
+      "Scripts/jquery-3.5.0.js",
       "Scripts/select2.js",
       "Scripts/bootstrap.bundle.js",
       "Scripts/forum/InstallWizard.js"
@@ -11,7 +11,7 @@
   {
     "outputFileName": "Scripts/jquery.fileupload.comb.js",
     "inputFiles": [
-      "Scripts/jquery.FileUpload/cors/jquery.ui.widget.js",
+      "Scripts/jquery.FileUpload/vendor/jquery.ui.widget.js",
       "Scripts/jquery.FileUpload/tmpl.min.js",
       "Scripts/jquery.FileUpload/load-image.all.min.js",
       "Scripts/jquery.FileUpload/canvas-to-blob.min.js",
