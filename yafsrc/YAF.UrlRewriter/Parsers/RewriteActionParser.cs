@@ -56,7 +56,7 @@ namespace YAF.UrlRewriter.Parsers
 
             var to = node.GetRequiredAttribute(Constants.AttrTo, true);
 
-            var processing = this.ParseProcessing(node);
+            var processing = ParseProcessing(node);
 
             var action = new RewriteAction(to, processing);
             this.ParseConditions(node, action.Conditions, false, config);
@@ -64,7 +64,7 @@ namespace YAF.UrlRewriter.Parsers
             return action;
         }
 
-        private RewriteProcessing ParseProcessing(XmlNode node)
+        private static RewriteProcessing ParseProcessing(XmlNode node)
         {
             var processing = node.GetOptionalAttribute(Constants.AttrProcessing);
             if (processing == null)

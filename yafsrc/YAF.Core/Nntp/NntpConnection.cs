@@ -27,10 +27,14 @@ namespace YAF.Core.Nntp
     using System.Collections;
     using System.Collections.Generic;
     using System.IO;
+    using System.Linq;
     using System.Net.Sockets;
     using System.Runtime.CompilerServices;
     using System.Text;
     using System.Text.RegularExpressions;
+
+    using YAF.Types.Extensions;
+    using YAF.Types.Objects.Nntp;
 
     /// <summary>
     /// The nntp connection.
@@ -162,57 +166,61 @@ namespace YAF.Core.Nntp
         /// </exception>
         private Response MakeRequest(string request)
         {
-            if (request != null)
+            while (true)
             {
-                this.sw.WriteLine(request);
-                this.onRequest?.Invoke($"SEND: {request}");
-            }
-
-            int code;
-
-            // vzrus: Here can be an IO exception
-            // No connecting news server or the connection was broken because of an invalid request.
-            var line = this.sr.ReadLine();
-
-            if (this.onRequest != null && line != null)
-            {
-                this.onRequest($"RECEIVE: {line}");
-            }
-
-            try
-            {
-                code = int.Parse(line.Substring(0, 3));
-            }
-            catch (NullReferenceException)
-            {
-                this.Reset();
-                throw new NntpException(line, request);
-            }
-            catch (ArgumentOutOfRangeException)
-            {
-                this.Reset();
-                throw new NntpException(line, request);
-            }
-            catch (ArgumentNullException)
-            {
-                this.Reset();
-                throw new NntpException(line, request);
-            }
-            catch (FormatException)
-            {
-                this.Reset();
-                throw new NntpException(line, request);
-            }
-
-            if (code == 480)
-            {
-                if (this.SendIdentity())
+                if (request != null)
                 {
-                    return this.MakeRequest(request);
+                    this.sw.WriteLine(request);
+                    this.onRequest?.Invoke($"SEND: {request}");
                 }
-            }
 
-            return new Response(code, line.Length >= 5 ? line.Substring(4) : null, request);
+                int code;
+
+                // vzrus: Here can be an IO exception
+                // No connecting news server or the connection was broken because of an invalid request.
+                var line = this.sr.ReadLine();
+
+                if (this.onRequest != null && line != null)
+                {
+                    this.onRequest($"RECEIVE: {line}");
+                }
+
+                try
+                {
+                    code = int.Parse(line.Substring(0, 3));
+                }
+                catch (NullReferenceException)
+                {
+                    this.Reset();
+                    throw new NntpException(line, request);
+                }
+                catch (ArgumentOutOfRangeException)
+                {
+                    this.Reset();
+                    throw new NntpException(line, request);
+                }
+                catch (ArgumentNullException)
+                {
+                    this.Reset();
+                    throw new NntpException(line, request);
+                }
+                catch (FormatException)
+                {
+                    this.Reset();
+                    throw new NntpException(line, request);
+                }
+
+                if (code == 480)
+                {
+                    if (this.SendIdentity())
+                    {
+                        continue;
+                    }
+                }
+
+                return new Response(code, line.Length >= 5 ? line.Substring(4) : null, request);
+                break;
+            }
         }
 
         /// <summary>
@@ -381,7 +389,7 @@ namespace YAF.Core.Nntp
                         ms.Seek(0, SeekOrigin.Begin);
                         var bytes = new byte[ms.Length];
                         ms.Read(bytes, 0, (int)ms.Length);
-                        var attach = new Attachment($"{messageId} - {m.Groups[1]}", m.Groups[1].ToString(), bytes);
+                        var attach = new NntpAttachment($"{messageId} - {m.Groups[1]}", m.Groups[1].ToString(), bytes);
                         list.Add(attach);
                         ms.Close();
                     }
@@ -400,7 +408,7 @@ namespace YAF.Core.Nntp
                          {
                              IsHtml = false,
                              Text = sb.ToString(),
-                             Attachments = (Attachment[])list.ToArray(typeof(Attachment))
+                             Attachments = (NntpAttachment[])list.ToArray(typeof(NntpAttachment))
                          };
             return ab;
         }
@@ -428,7 +436,7 @@ namespace YAF.Core.Nntp
                 body = new ArticleBody { IsHtml = true };
                 this.ConvertMIMEContent(messageId, part, sb, attachmentList);
                 body.Text = sb.ToString();
-                body.Attachments = (Attachment[])attachmentList.ToArray(typeof(Attachment));
+                body.Attachments = (NntpAttachment[])attachmentList.ToArray(typeof(NntpAttachment));
             }
             finally
             {
@@ -465,10 +473,8 @@ namespace YAF.Core.Nntp
             var m = Regex.Match(part.ContentType, @"MULTIPART", RegexOptions.IgnoreCase);
             if (m.Success)
             {
-                foreach (MIMEPart subPart in part.EmbeddedPartList)
-                {
-                    this.ConvertMIMEContent(messageId, subPart, sb, attachmentList);
-                }
+                part.EmbeddedPartList.Cast<MIMEPart>().ForEach(
+                    subPart => this.ConvertMIMEContent(messageId, subPart, sb, attachmentList));
 
                 return;
             }
@@ -481,7 +487,7 @@ namespace YAF.Core.Nntp
                 return;
             }
 
-            var attachment = new Attachment($"{messageId} - {part.Filename}", part.Filename, part.BinaryData);
+            var attachment = new NntpAttachment($"{messageId} - {part.Filename}", part.Filename, part.BinaryData);
             attachmentList.Add(attachment);
         }
 
@@ -586,13 +592,13 @@ namespace YAF.Core.Nntp
                 res = this.MakeRequest($"AUTHINFO PASS {this.password}");
             }
 
-            if (res.Code != 281)
+            if (res.Code == 281)
             {
-                this.Reset();
-                throw new NntpException(res.Code, "AUTHINFO PASS ******");
+                return true;
             }
 
-            return true;
+            this.Reset();
+            throw new NntpException(res.Code, "AUTHINFO PASS ******");
         }
 
         /// <summary>
@@ -661,41 +667,6 @@ namespace YAF.Core.Nntp
             }
 
             return list;
-        }
-
-        /// <summary>
-        /// The get message id.
-        /// </summary>
-        /// <param name="articleId">
-        /// The article id.
-        /// </param>
-        /// <returns>
-        /// The get message id.
-        /// </returns>
-        /// <exception cref="NntpException">
-        /// </exception>
-        [MethodImpl(MethodImplOptions.Synchronized)]
-        public string GetMessageId(int articleId)
-        {
-            if (this.ConnectedServer == null)
-            {
-                throw new NntpException("No connecting newsserver.");
-            }
-
-            if (this.ConnectedGroup == null)
-            {
-                throw new NntpException("No connecting newsgroup.");
-            }
-
-            var res = this.MakeRequest($"STAT {articleId}");
-            if (res.Code != 223)
-            {
-                throw new NntpException(res.Code, res.Request);
-            }
-
-            var i = res.Message.IndexOf('<');
-            var j = res.Message.IndexOf('>');
-            return res.Message.Substring(i, j - i + 1);
         }
 
         /// <summary>

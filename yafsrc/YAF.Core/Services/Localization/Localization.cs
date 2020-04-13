@@ -33,6 +33,7 @@ namespace YAF.Core.Services.Localization
     using System.Web;
 
     using YAF.Configuration;
+    using YAF.Core.Context;
     using YAF.Core.Extensions;
     using YAF.Core.UsersRoles;
     using YAF.Types;

@@ -27,11 +27,9 @@ namespace YAF.Core.BaseControls
     #region Using
 
     using System;
-    using System.Web;
-    using System.Web.Compilation;
     using System.Web.UI;
-    using System.Web.Util;
 
+    using YAF.Core.Context;
     using YAF.Types.Interfaces;
 
     #endregion

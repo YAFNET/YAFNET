@@ -35,12 +35,14 @@ namespace YAF.Core.Services.Auth
     using ServiceStack;
 
     using YAF.Configuration;
+    using YAF.Core.Context;
     using YAF.Core.Model;
     using YAF.Core.UsersRoles;
     using YAF.Types.Constants;
     using YAF.Types.EventProxies;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Auth;
     using YAF.Types.Interfaces.Events;
     using YAF.Types.Models;
     using YAF.Types.Objects;

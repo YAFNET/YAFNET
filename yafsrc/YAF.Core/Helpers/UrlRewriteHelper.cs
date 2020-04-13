@@ -33,6 +33,7 @@ namespace YAF.Core.Helpers
     using System.Web.Caching;
 
     using YAF.Configuration;
+    using YAF.Core.Context;
     using YAF.Core.Model;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;

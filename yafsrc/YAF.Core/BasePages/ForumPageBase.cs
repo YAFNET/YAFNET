@@ -33,6 +33,7 @@ namespace YAF.Core.BasePages
 
     using YAF.Configuration;
     using YAF.Core;
+    using YAF.Core.Context;
     using YAF.Core.Extensions;
     using YAF.Core.Services.Startup;
     using YAF.Types.Constants;

@@ -33,6 +33,7 @@ namespace YAF.Pages.Admin
     using System.Xml.Linq;
 
     using YAF.Core;
+    using YAF.Core.BasePages;
     using YAF.Core.Extensions;
     using YAF.Types;
     using YAF.Types.Constants;

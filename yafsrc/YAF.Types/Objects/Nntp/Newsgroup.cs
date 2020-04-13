@@ -21,7 +21,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Core.Nntp
+namespace YAF.Types.Objects.Nntp
 {
     using System;
 
@@ -44,13 +44,6 @@ namespace YAF.Core.Nntp
         /// The low.
         /// </summary>
         protected int low;
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Newsgroup"/> class.
-        /// </summary>
-        public Newsgroup()
-        {
-        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Newsgroup"/> class.

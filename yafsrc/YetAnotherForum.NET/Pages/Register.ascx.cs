@@ -36,7 +36,8 @@ namespace YAF.Pages
     using System.Web.UI.WebControls;
 
     using YAF.Configuration;
-    using YAF.Core;
+    using YAF.Core.BasePages;
+    using YAF.Core.Context;
     using YAF.Core.Extensions;
     using YAF.Core.Helpers;
     using YAF.Core.Model;
@@ -519,9 +520,6 @@ namespace YAF.Pages
 
             this.CreateUserWizard1.MembershipProvider = Config.MembershipProvider;
 
-            this.PageLinks.AddRoot();
-            this.PageLinks.AddLink(this.GetText("TITLE"));
-
             // handle the CreateUser Step localization
             this.SetupCreateUserStep();
 
@@ -628,6 +626,15 @@ namespace YAF.Pages
             {
                 this.SetupRecaptchaControl();
             }
+        }
+
+        /// <summary>
+        /// Create the Page links.
+        /// </summary>
+        protected override void CreatePageLinks()
+        {
+            this.PageLinks.AddRoot();
+            this.PageLinks.AddLink(this.GetText("TITLE"));
         }
 
         /// <summary>

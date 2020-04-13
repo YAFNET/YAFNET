@@ -31,6 +31,7 @@ namespace YAF.Pages
 
     using YAF.Configuration;
     using YAF.Core;
+    using YAF.Core.BasePages;
     using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;
@@ -103,6 +104,14 @@ namespace YAF.Pages
             // Initialize the Album Image List control.
             this.AlbumImageList1.UserID = (int)userId;
             this.AlbumImageList1.AlbumID = (int)albumId;
+        }
+
+        /// <summary>
+        /// Create the Page links.
+        /// </summary>
+        protected override void CreatePageLinks()
+        {
+
         }
 
         /// <summary>

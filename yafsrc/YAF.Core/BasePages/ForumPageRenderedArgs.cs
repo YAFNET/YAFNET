@@ -21,12 +21,12 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Core
+namespace YAF.Core.BasePages
 {
-  using System;
-  using System.Web.UI;
+    using System;
+    using System.Web.UI;
 
-  /// <summary>
+    /// <summary>
   /// EventArgs class for the PageTitleSet event
   /// </summary>
   public class ForumPageRenderedArgs : EventArgs

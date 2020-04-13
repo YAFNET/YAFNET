@@ -29,6 +29,7 @@ namespace YAF.Web.Editors
 
     using YAF.Configuration;
     using YAF.Core;
+    using YAF.Core.Context;
     using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Interfaces;
@@ -57,7 +58,7 @@ namespace YAF.Web.Editors
         ///   Gets SafeID.
         /// </summary>
         [NotNull]
-        protected new string SafeID => this.TextAreaControl.ClientID.Replace("$", "_");
+        protected string SafeID => this.TextAreaControl.ClientID.Replace("$", "_");
 
         #endregion
 
@@ -93,7 +94,7 @@ namespace YAF.Web.Editors
 
             this.RegisterCKEditorCustomJS();
 
-            // register custom YafBBCode javascript (if there is any)
+            // register custom BBCode javascript (if there is any)
             // this call is supposed to be after editor load since it may use
             // JS variables created in editor_load...
             this.Get<IBBCode>().RegisterCustomBBCodePageElements(this.Page, this.GetType(), this.SafeID);

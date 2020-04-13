@@ -29,7 +29,7 @@ namespace YAF.Pages
     using System;
 
     using YAF.Configuration;
-    using YAF.Core;
+    using YAF.Core.BasePages;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Interfaces;
@@ -69,12 +69,13 @@ namespace YAF.Pages
             {
                 BuildLink.AccessDenied();
             }
+        }
 
-            if (this.IsPostBack)
-            {
-                return;
-            }
-
+        /// <summary>
+        /// Create the Page links.
+        /// </summary>
+        protected override void CreatePageLinks()
+        {
             this.PageLinks.AddRoot();
             this.PageLinks.AddLink(
                 this.Get<BoardSettings>().EnableDisplayName

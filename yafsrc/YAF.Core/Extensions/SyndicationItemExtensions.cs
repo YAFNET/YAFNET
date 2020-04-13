@@ -27,6 +27,7 @@ namespace YAF.Core.Extensions
     using System.Collections.Generic;
     using System.ServiceModel.Syndication;
 
+    using YAF.Core.Context;
     using YAF.Core.Syndication;
     using YAF.Core.UsersRoles;
     using YAF.Types.Constants;

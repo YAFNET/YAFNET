@@ -38,7 +38,8 @@ namespace YAF.Pages.Admin
 
     using YAF.Classes;
     using YAF.Configuration;
-    using YAF.Core;
+    using YAF.Core.BasePages;
+    using YAF.Core.Context;
     using YAF.Core.Extensions;
     using YAF.Core.Helpers;
     using YAF.Core.Model;

@@ -26,6 +26,7 @@ namespace YAF.Core.Model
     using System.Collections.Generic;
     using System.Linq;
 
+    using YAF.Core.Context;
     using YAF.Core.Extensions;
     using YAF.Types;
     using YAF.Types.EventProxies;

@@ -30,7 +30,8 @@ namespace YAF.Pages.Admin
     using System.Data;
 
     using YAF.Configuration;
-    using YAF.Core;
+    using YAF.Core.BasePages;
+    using YAF.Core.Context;
     using YAF.Core.Model;
     using YAF.Core.UsersRoles;
     using YAF.Core.Utilities;

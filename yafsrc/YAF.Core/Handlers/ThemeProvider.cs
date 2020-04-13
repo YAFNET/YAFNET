@@ -25,6 +25,7 @@ namespace YAF.Core.Handlers
 
     using System;
 
+    using YAF.Core.Context;
     using YAF.Core.Services;
     using YAF.Types.Exceptions;
     using YAF.Types.Interfaces;

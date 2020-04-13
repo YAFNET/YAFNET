@@ -31,7 +31,7 @@ namespace YAF.Pages
     using System.Web.UI.WebControls;
 
     using YAF.Configuration;
-    using YAF.Core;
+    using YAF.Core.BasePages;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
     using YAF.Types;
@@ -254,13 +254,6 @@ namespace YAF.Pages
                 return;
             }
 
-            // setup page links
-            this.PageLinks.AddRoot();
-            this.PageLinks.AddLink(
-                this.PageContext.PageCategoryName,
-                BuildLink.GetLink(ForumPages.forum, "c={0}", this.PageContext.PageCategoryID));
-            this.PageLinks.AddForum(this.PageContext.PageForumID);
-
             this.EraseMessage.Checked = false;
             this.EraseMessage.Text = this.GetText("erasemessage");
             this.EraseRow.Visible = false;
@@ -312,6 +305,19 @@ namespace YAF.Pages
             var messageFlags = new MessageFlags(this._messageRow["Flags"]) { IsDeleted = false };
 
             this.MessagePreview.MessageFlags = messageFlags;
+        }
+
+        /// <summary>
+        /// Create the Page links.
+        /// </summary>
+        protected override void CreatePageLinks()
+        {
+            // setup page links
+            this.PageLinks.AddRoot();
+            this.PageLinks.AddLink(
+                this.PageContext.PageCategoryName,
+                BuildLink.GetLink(ForumPages.forum, "c={0}", this.PageContext.PageCategoryID));
+            this.PageLinks.AddForum(this.PageContext.PageForumID);
         }
 
         /// <summary>

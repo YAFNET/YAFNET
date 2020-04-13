@@ -31,7 +31,8 @@ namespace YAF.Pages
     using System.Linq;
     using System.Web;
 
-    using YAF.Core;
+    using YAF.Core.BasePages;
+    using YAF.Core.Context;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
     using YAF.Core.Utilities;

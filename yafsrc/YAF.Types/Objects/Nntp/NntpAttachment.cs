@@ -21,17 +21,17 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Core.Nntp
+namespace YAF.Types.Objects.Nntp
 {
     using System.IO;
 
     /// <summary>
     /// The attachment.
     /// </summary>
-    public class Attachment
+    public class NntpAttachment
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="Attachment"/> class.
+        /// Initializes a new instance of the <see cref="NntpAttachment"/> class.
         /// </summary>
         /// <param name="id">
         /// The id.
@@ -42,7 +42,7 @@ namespace YAF.Core.Nntp
         /// <param name="binaryData">
         /// The binary data.
         /// </param>
-        public Attachment(string id, string filename, byte[] binaryData)
+        public NntpAttachment(string id, string filename, byte[] binaryData)
         {
             this.Id = id;
             this.Filename = filename;

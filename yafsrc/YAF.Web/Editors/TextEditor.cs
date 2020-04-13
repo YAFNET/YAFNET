@@ -28,7 +28,7 @@ namespace YAF.Web.Editors
     using System;
     using System.Web.UI.HtmlControls;
 
-    using YAF.Core;
+    using YAF.Core.BaseModules;
     using YAF.Types;
 
     #endregion

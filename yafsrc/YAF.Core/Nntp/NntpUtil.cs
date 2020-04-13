@@ -33,11 +33,12 @@ namespace YAF.Core.Nntp
   using System.Text.RegularExpressions;
   using System.Web;
 
-  using YAF.Core;
+  using YAF.Core.Context;
   using YAF.Core.Extensions;
   using YAF.Types;
   using YAF.Types.Extensions;
   using YAF.Types.Interfaces;
+  using YAF.Types.Objects.Nntp;
 
   #endregion
 

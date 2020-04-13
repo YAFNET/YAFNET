@@ -31,7 +31,7 @@ namespace YAF.Pages
     using System.Web.UI.WebControls;
 
     using YAF.Configuration;
-    using YAF.Core;
+    using YAF.Core.BasePages;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
@@ -124,7 +124,7 @@ namespace YAF.Pages
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
-        private void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+        protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
             if (Config.IsDotNetNuke)
             {
@@ -137,17 +137,6 @@ namespace YAF.Pages
             {
                 // Not accessible...
                 BuildLink.AccessDenied();
-            }
-
-            if (!this.IsPostBack)
-            {
-                this.PageLinks.AddRoot();
-                this.PageLinks.AddLink(
-                    this.Get<BoardSettings>().EnableDisplayName
-                        ? this.PageContext.CurrentUserData.DisplayName
-                        : this.PageContext.PageUserName,
-                    BuildLink.GetLink(ForumPages.Account));
-                this.PageLinks.AddLink(this.GetText("TITLE"));
             }
 
             var oldPasswordRequired =
@@ -215,6 +204,20 @@ namespace YAF.Pages
             }
 
             this.DataBind();
+        }
+
+        /// <summary>
+        /// Create the Page links.
+        /// </summary>
+        protected override void CreatePageLinks()
+        {
+            this.PageLinks.AddRoot();
+            this.PageLinks.AddLink(
+                this.Get<BoardSettings>().EnableDisplayName
+                    ? this.PageContext.CurrentUserData.DisplayName
+                    : this.PageContext.PageUserName,
+                BuildLink.GetLink(ForumPages.Account));
+            this.PageLinks.AddLink(this.GetText("TITLE"));
         }
 
         #endregion

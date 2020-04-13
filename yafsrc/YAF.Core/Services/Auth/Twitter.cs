@@ -30,6 +30,7 @@ namespace YAF.Core.Services.Auth
     using System.Web.Security;
 
     using YAF.Configuration;
+    using YAF.Core.Context;
     using YAF.Core.Model;
     using YAF.Core.UsersRoles;
     using YAF.Types;
@@ -38,6 +39,7 @@ namespace YAF.Core.Services.Auth
     using YAF.Types.Extensions;
     using YAF.Types.Flags;
     using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Auth;
     using YAF.Types.Interfaces.Events;
     using YAF.Types.Models;
     using YAF.Types.Objects;

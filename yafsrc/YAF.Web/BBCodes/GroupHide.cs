@@ -29,6 +29,7 @@ namespace YAF.Web.BBCodes
 
     using YAF.Core;
     using YAF.Core.BBCode;
+    using YAF.Core.Context;
     using YAF.Core.UsersRoles;
     using YAF.Types.Extensions;
 

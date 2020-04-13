@@ -26,6 +26,7 @@ namespace YAF.Core.Extensions
     using System;
     using System.Web;
 
+    using YAF.Core.Context;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;

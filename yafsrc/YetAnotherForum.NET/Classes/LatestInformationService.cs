@@ -28,6 +28,7 @@ namespace YAF.Classes
     using System.Web;
 
     using YAF.Core;
+    using YAF.Core.Context;
     using YAF.RegisterV2;
 #if DEBUG
     using YAF.Types.Extensions;

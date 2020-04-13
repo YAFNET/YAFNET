@@ -34,7 +34,8 @@ namespace YAF.Pages
     using System.Web.UI.WebControls;
 
     using YAF.Configuration;
-    using YAF.Core;
+    using YAF.Core.BasePages;
+    using YAF.Core.Context;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
     using YAF.Types.Constants;
@@ -236,8 +237,6 @@ namespace YAF.Pages
                 return;
             }
 
-            this.AddPageLinks();
-
             // Admin can attach an existing group if it's a new poll - this.pollID <= 0
             if (!this.PageContext.IsAdmin && !this.PageContext.ForumModeratorAccess)
             {
@@ -282,7 +281,7 @@ namespace YAF.Pages
         /// <summary>
         /// Adds page links to the page
         /// </summary>
-        private void AddPageLinks()
+        protected override void CreatePageLinks()
         {
             this.PageLinks.AddRoot();
 

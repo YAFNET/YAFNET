@@ -31,6 +31,7 @@ namespace YAF.Pages
 
     using YAF.Configuration;
     using YAF.Core;
+    using YAF.Core.BasePages;
     using YAF.Core.UsersRoles;
     using YAF.Types;
     using YAF.Types.Constants;
@@ -95,7 +96,6 @@ namespace YAF.Pages
 
             var displayName = UserMembershipHelper.GetDisplayNameFromID(userId);
 
-            // Generate the Page Links.
             this.PageLinks.Clear();
             this.PageLinks.AddRoot();
             this.PageLinks.AddLink(
@@ -107,6 +107,14 @@ namespace YAF.Pages
 
             // Initialize the Album List control.
             this.AlbumList1.UserID = userId.ToType<int>();
+        }
+
+        /// <summary>
+        /// Create the Page links.
+        /// </summary>
+        protected override void CreatePageLinks()
+        {
+            // 
         }
 
         #endregion

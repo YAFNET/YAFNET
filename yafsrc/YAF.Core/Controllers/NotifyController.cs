@@ -29,6 +29,7 @@ namespace YAF.Core.Controllers
     using System.Web.Http;
     using System.Web.UI.WebControls;
 
+    using YAF.Core.Context;
     using YAF.Core.Extensions;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;

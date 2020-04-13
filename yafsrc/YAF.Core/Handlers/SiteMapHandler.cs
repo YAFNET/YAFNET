@@ -31,6 +31,7 @@ namespace YAF.Core.Handlers
     using System.Xml.Serialization;
 
     using YAF.Core;
+    using YAF.Core.Context;
     using YAF.Core.Model;
     using YAF.Core.UsersRoles;
     using YAF.Types;

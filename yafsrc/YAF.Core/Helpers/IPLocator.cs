@@ -22,20 +22,22 @@
  * under the License.
  */
 
-namespace YAF.Core
+namespace YAF.Core.Helpers
 {
   #region Using
 
-    using System.Collections.Concurrent;
-    using System.Collections.Generic;
-    using System.Net;
-    using System.Xml.Serialization;
-    using YAF.Configuration;
-    using YAF.Types;
-    using YAF.Types.Extensions;
-    using YAF.Types.Interfaces;
+  using System.Collections.Concurrent;
+  using System.Collections.Generic;
+  using System.Net;
+  using System.Xml.Serialization;
 
-    #endregion
+  using YAF.Configuration;
+  using YAF.Core.Context;
+  using YAF.Types;
+  using YAF.Types.Extensions;
+  using YAF.Types.Interfaces;
+
+  #endregion
 
     /// <summary>
     /// The IP details.
@@ -112,7 +114,7 @@ namespace YAF.Core
   /// <summary>
   /// The ip locator.
   /// </summary>
-  [XmlRootAttribute(ElementName = "Response", IsNullable = false)]
+  [XmlRoot(ElementName = "Response", IsNullable = false)]
   public class IpLocator
   {
       #region Constants and Fields

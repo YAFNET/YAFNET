@@ -36,7 +36,9 @@ namespace YAF.Pages
     using System.Web.UI.WebControls;
 
     using YAF.Configuration;
-    using YAF.Core;
+    using YAF.Core.BaseModules;
+    using YAF.Core.BasePages;
+    using YAF.Core.Context;
     using YAF.Core.Extensions;
     using YAF.Core.Helpers;
     using YAF.Core.Model;
@@ -306,9 +308,6 @@ namespace YAF.Pages
             {
                 return;
             }
-
-            // create page links
-            this.CreatePageLinks();
 
             // only administrators can send messages to all users
             this.AllUsers.Visible = BoardContext.Current.IsAdmin;

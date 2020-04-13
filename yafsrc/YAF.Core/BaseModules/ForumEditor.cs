@@ -22,7 +22,7 @@
  * under the License.
  */
 
-namespace YAF.Core
+namespace YAF.Core.BaseModules
 {
     #region Using
 

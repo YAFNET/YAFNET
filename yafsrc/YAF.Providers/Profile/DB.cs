@@ -35,6 +35,7 @@ namespace YAF.Providers.Profile
 
     using YAF.Configuration.Pattern;
     using YAF.Core;
+    using YAF.Core.Context;
     using YAF.Core.Data;
     using YAF.Data.MsSql.Functions;
     using YAF.Providers.Utils;

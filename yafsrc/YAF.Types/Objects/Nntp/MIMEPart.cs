@@ -21,49 +21,53 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Core.Nntp
+namespace YAF.Types.Objects.Nntp
 {
-    using System;
     using System.Collections;
 
     /// <summary>
-    /// The article.
+    /// The mime part.
     /// </summary>
-    public class Article
+    public class MIMEPart
     {
         /// <summary>
-        /// Gets or sets MessageId.
+        /// Gets or sets BinaryData.
         /// </summary>
-        public string MessageId { get; set; }
+        public byte[] BinaryData { get; set; }
 
         /// <summary>
-        /// Gets or sets ArticleId.
+        /// Gets or sets Boundary.
         /// </summary>
-        public int ArticleId { get; set; }
+        public string Boundary { get; set; }
 
         /// <summary>
-        /// Gets or sets Header.
+        /// Gets or sets ContentType.
         /// </summary>
-        public ArticleHeader Header { get; set; }
+        public string ContentType { get; set; }
 
         /// <summary>
-        /// Gets or sets Body.
+        /// Gets or sets ContentTransferEncoding.
         /// </summary>
-        public ArticleBody Body { get; set; }
+        public string ContentTransferEncoding { get; set; }
 
         /// <summary>
-        /// Gets or sets LastReply.
+        /// Gets or sets Charset.
         /// </summary>
-        public DateTime LastReply { get; set; }
+        public string Charset { get; set; }
 
         /// <summary>
-        /// Gets or sets Children.
+        /// Gets or sets Filename.
         /// </summary>
-        public ArrayList Children { get; set; }
+        public string Filename { get; set; }
 
         /// <summary>
-        /// Gets or sets the mime part.
+        /// Gets or sets Text.
         /// </summary>
-        public MIMEPart MimePart { get; set; }
+        public string Text { get; set; }
+
+        /// <summary>
+        /// Gets or sets EmbeddedPartList.
+        /// </summary>
+        public ArrayList EmbeddedPartList { get; set; }
     }
 }

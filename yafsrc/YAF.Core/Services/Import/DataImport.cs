@@ -30,6 +30,7 @@ namespace YAF.Core.Services.Import
     using System.Linq;
     using System.Net;
 
+    using YAF.Core.Context;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
     using YAF.Types.Extensions;

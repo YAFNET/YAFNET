@@ -30,6 +30,7 @@ namespace YAF.Core.Services
     using System.Web.Hosting;
 
     using YAF.Configuration;
+    using YAF.Core.Context;
     using YAF.Core.Model;
     using YAF.Core.Services.Startup;
     using YAF.Core.UsersRoles;

@@ -66,7 +66,7 @@ namespace YAF.UrlRewriter.Parsers
             return rule;
         }
 
-        private static void ReadActions(XmlNode node, IList<IRewriteAction> actions, IRewriterConfiguration config)
+        private static void ReadActions(XmlNode node, ICollection<IRewriteAction> actions, IRewriterConfiguration config)
         {
             var childNode = node.FirstChild;
             while (childNode != null)

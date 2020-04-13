@@ -22,7 +22,7 @@
  * under the License.
  */
 
-namespace YAF.Core
+namespace YAF.Core.Context
 {
     #region Using
 
@@ -34,6 +34,8 @@ namespace YAF.Core
 
     using YAF.Configuration;
     using YAF.Configuration.Pattern;
+    using YAF.Core.BasePages;
+    using YAF.Core.Helpers;
     using YAF.Core.Services;
     using YAF.Core.UsersRoles;
     using YAF.Types;

@@ -38,7 +38,8 @@ namespace YAF.Pages.Admin
     using System.Xml;
     using System.Xml.XPath;
 
-    using YAF.Core;
+    using YAF.Core.BasePages;
+    using YAF.Core.Context;
     using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Constants;

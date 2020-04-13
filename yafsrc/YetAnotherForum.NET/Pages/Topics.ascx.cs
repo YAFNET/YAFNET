@@ -32,7 +32,7 @@ namespace YAF.Pages
     using System.Web;
 
     using YAF.Configuration;
-    using YAF.Core;
+    using YAF.Core.BasePages;
     using YAF.Core.Extensions;
     using YAF.Core.Helpers;
     using YAF.Core.Model;
@@ -213,17 +213,6 @@ namespace YAF.Pages
 
             if (!this.IsPostBack)
             {
-                // PageLinks.Clear();
-                if (this.PageContext.Settings.LockedForum == 0)
-                {
-                    this.PageLinks.AddRoot();
-                    this.PageLinks.AddLink(
-                        this.PageContext.PageCategoryName,
-                        BuildLink.GetLink(ForumPages.forum, "c={0}", this.PageContext.PageCategoryID));
-                }
-
-                this.PageLinks.AddForum(this.PageContext.PageForumID, true);
-
                 this.ShowList.DataSource = StaticDataHelper.TopicTimes();
                 this.ShowList.DataTextField = "TopicText";
                 this.ShowList.DataValueField = "TopicValue";
@@ -291,6 +280,23 @@ namespace YAF.Pages
 
             this.moderate1.Visible = false;
             this.moderate2.Visible = false;
+        }
+
+        /// <summary>
+        /// Create the Page links.
+        /// </summary>
+        protected override void CreatePageLinks()
+        {
+            // PageLinks.Clear();
+            if (this.PageContext.Settings.LockedForum == 0)
+            {
+                this.PageLinks.AddRoot();
+                this.PageLinks.AddLink(
+                    this.PageContext.PageCategoryName,
+                    BuildLink.GetLink(ForumPages.forum, "c={0}", this.PageContext.PageCategoryID));
+            }
+
+            this.PageLinks.AddForum(this.PageContext.PageForumID, true);
         }
 
         /// <summary>

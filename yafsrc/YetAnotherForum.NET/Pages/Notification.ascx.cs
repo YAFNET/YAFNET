@@ -26,11 +26,8 @@ namespace YAF.Pages
 {
     #region Using
 
-    using System;
-
     using YAF.Configuration;
-    using YAF.Core;
-    using YAF.Types;
+    using YAF.Core.BasePages;
     using YAF.Types.Constants;
     using YAF.Types.Interfaces;
     using YAF.Utils;
@@ -58,17 +55,10 @@ namespace YAF.Pages
         #region Methods
 
         /// <summary>
-        /// Handles the Load event of the Page control.
+        /// Create the Page links.
         /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
-        protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+        protected override void CreatePageLinks()
         {
-            if (this.IsPostBack)
-            {
-                return;
-            }
-
             this.PageLinks.AddRoot();
             this.PageLinks.AddLink(
                 this.Get<BoardSettings>().EnableDisplayName

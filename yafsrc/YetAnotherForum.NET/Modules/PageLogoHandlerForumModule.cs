@@ -30,6 +30,7 @@ namespace YAF.Modules
 
     using YAF.Configuration;
     using YAF.Core;
+    using YAF.Core.Context;
     using YAF.Types;
     using YAF.Types.Attributes;
     using YAF.Types.Constants;

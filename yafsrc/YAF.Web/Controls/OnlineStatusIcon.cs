@@ -32,6 +32,7 @@ namespace YAF.Web.Controls
 
     using YAF.Core;
     using YAF.Core.BaseControls;
+    using YAF.Core.Context;
     using YAF.Core.Services;
     using YAF.Types;
     using YAF.Types.Constants;

@@ -22,7 +22,7 @@
  * under the License.
  */
 
-namespace YAF.Core.Services.Auth
+namespace YAF.Types.Interfaces.Auth
 {
     using System.Web;
 

@@ -30,8 +30,8 @@ namespace YAF.Controls
     using System.Data;
     
     using YAF.Configuration;
-    using YAF.Core;
     using YAF.Core.BaseControls;
+    using YAF.Core.BaseModules;
     using YAF.Core.Model;
     using YAF.Core.UsersRoles;
     using YAF.Types;

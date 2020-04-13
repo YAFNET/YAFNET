@@ -28,6 +28,7 @@ namespace YAF.Core.Model
     using System.Data.SqlClient;
 
     using YAF.Configuration;
+    using YAF.Core.Context;
     using YAF.Core.Extensions;
     using YAF.Types;
     using YAF.Types.Extensions;

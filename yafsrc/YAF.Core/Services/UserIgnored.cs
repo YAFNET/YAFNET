@@ -28,6 +28,7 @@ namespace YAF.Core.Services
     using System.Collections.Generic;
     using System.Web;
 
+    using YAF.Core.Context;
     using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;

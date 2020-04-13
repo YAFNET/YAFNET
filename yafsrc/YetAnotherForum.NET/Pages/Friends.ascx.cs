@@ -29,7 +29,8 @@ namespace YAF.Pages
 
     using YAF.Configuration;
     using YAF.Controls;
-    using YAF.Core;
+    using YAF.Core.BasePages;
+    using YAF.Core.Context;
     using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Constants;
@@ -81,18 +82,21 @@ namespace YAF.Pages
         /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            if (!this.IsPostBack)
-            {
-                this.PageLinks.AddRoot();
-                this.PageLinks.AddLink(
-                    this.Get<BoardSettings>().EnableDisplayName
-                        ? this.PageContext.CurrentUserData.DisplayName
-                        : this.PageContext.PageUserName,
-                    BuildLink.GetLink(ForumPages.Account));
-                this.PageLinks.AddLink(this.GetText("BUDDYLIST_TT"), string.Empty);
-            }
-
             this.BindData();
+        }
+
+        /// <summary>
+        /// Create the Page links.
+        /// </summary>
+        protected override void CreatePageLinks()
+        {
+            this.PageLinks.AddRoot();
+            this.PageLinks.AddLink(
+                this.Get<BoardSettings>().EnableDisplayName
+                    ? this.PageContext.CurrentUserData.DisplayName
+                    : this.PageContext.PageUserName,
+                BuildLink.GetLink(ForumPages.Account));
+            this.PageLinks.AddLink(this.GetText("BUDDYLIST_TT"), string.Empty);
         }
 
         /// <summary>

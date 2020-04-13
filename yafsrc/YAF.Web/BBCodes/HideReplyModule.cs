@@ -28,6 +28,7 @@ namespace YAF.Web.BBCodes
 
     using YAF.Core;
     using YAF.Core.BBCode;
+    using YAF.Core.Context;
     using YAF.Core.Model;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;

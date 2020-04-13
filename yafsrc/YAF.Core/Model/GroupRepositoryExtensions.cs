@@ -88,25 +88,6 @@ namespace YAF.Core.Model
         }
 
         /// <summary>
-        /// Returns info about all Groups and Rank styles.
-        ///   Used in GroupRankStyles cache.
-        ///   Usage: LegendID = 1 - Select Groups, LegendID = 2 - select Ranks by Name
-        /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
-        /// <param name="boardID">
-        /// The board ID.
-        /// </param>
-        /// <returns>
-        /// The <see cref="DataTable"/>.
-        /// </returns>
-        public static DataTable RankStyleAsDataTable(this IRepository<Group> repository, [NotNull] object boardID)
-        {
-            return repository.DbFunction.GetData.group_rank_style(BoardID: boardID);
-        }
-
-        /// <summary>
         /// The group_save.
         /// </summary>
         /// <param name="repository">

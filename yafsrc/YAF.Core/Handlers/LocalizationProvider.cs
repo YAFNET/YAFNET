@@ -22,12 +22,12 @@
  * under the License.
  */
 
-namespace YAF.Core
+namespace YAF.Core.Handlers
 {
     #region Using
 
     using System;
-    
+
     using YAF.Core.Services.Localization;
     using YAF.Types.Interfaces;
 

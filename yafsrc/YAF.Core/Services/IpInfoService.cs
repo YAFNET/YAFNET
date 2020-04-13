@@ -30,6 +30,8 @@ namespace YAF.Core.Services
     using System.Web;
 
     using YAF.Core;
+    using YAF.Core.Context;
+    using YAF.Core.Helpers;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;

@@ -28,6 +28,7 @@ namespace YAF.Core.Services
     using System.Linq;
     using System.Web;
 
+    using YAF.Core.Context;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
     using YAF.Types.Constants;

@@ -21,7 +21,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Core
+namespace YAF.Core.BasePages
 {
     #region Using
 
@@ -32,10 +32,12 @@ namespace YAF.Core
     using System.Web.UI.WebControls;
 
     using YAF.Configuration;
-    using YAF.Core.Extensions;
+    using YAF.Core.Context;
 #if DEBUG
     using YAF.Core.Data.Profiling;
 #endif
+    using YAF.Core.Extensions;
+    using YAF.Core.Handlers;
     using YAF.Types;
     using YAF.Types.Attributes;
     using YAF.Types.Constants;
@@ -58,11 +60,6 @@ namespace YAF.Core
                                       IHaveLocalization
     {
         #region Constants and Fields
-
-        /// <summary>
-        ///   Cache for the page
-        /// </summary>
-        private readonly Hashtable _pageCache;
 
         /// <summary>
         ///   The _trans page.
@@ -108,7 +105,7 @@ namespace YAF.Core
             this.Get<IInjectServices>().Inject(this);
 
             // create empty hashtable for cache entries));
-            this._pageCache = new Hashtable();
+            this.PageCache = new Hashtable();
 
             this._transPage = transPage;
             this.Init += this.ForumPage_Init;
@@ -131,12 +128,6 @@ namespace YAF.Core
         #endregion
 
         #region Properties
-
-        /// <summary>
-        ///   Gets a value indicating whether CanLogin.
-        /// </summary>
-        [Obsolete("Useless property that always returns true. Do not use anymore.")]
-        public bool CanLogin => true;
 
         /// <summary>
         ///   Gets or sets DataCache.
@@ -203,7 +194,7 @@ namespace YAF.Core
         /// <summary>
         ///   Gets cache associated with this page.
         /// </summary>
-        public Hashtable PageCache => this._pageCache;
+        public Hashtable PageCache { get; }
 
         /// <summary>
         ///   Gets the current forum Context (helper reference)
@@ -255,7 +246,7 @@ namespace YAF.Core
                     return this._topPageControl;
                 }
 
-                if (Page?.Header != null)
+                if (this.Page?.Header != null)
                 {
                     this._topPageControl = this.Page.Header;
                 }
@@ -362,9 +353,6 @@ namespace YAF.Core
         /// </summary>
         protected virtual void CreatePageLinks()
         {
-            // forum index
-            // this.PageLinks.AddRoot();
-
             // Page link creation goes to this method (overloads in descendant classes)
         }
 
@@ -410,7 +398,7 @@ namespace YAF.Core
             // set the current translation page...
             this.Get<LocalizationProvider>().TranslationPage = this._transPage;
 
-            // fire preload event...
+            // fire pre-load event...
             this.Get<IRaiseEvent>().Raise(new ForumPagePreLoadEvent());
         }
 
@@ -426,9 +414,12 @@ namespace YAF.Core
                 Security.CheckRequestValidity(this.Request);
             }
 
-           // this.CreatePageLinks(); 
+            if (!this.IsPostBack)
+            {
+                this.CreatePageLinks();
+            }
 
-            // fire preload event...
+            // fire pre-load event...
             this.Get<IRaiseEvent>().Raise(new ForumPagePostLoadEvent());
         }
 
@@ -441,14 +432,6 @@ namespace YAF.Core
         {
             this.Get<IRaiseEvent>().Raise(new ForumPagePreRenderEvent());
 
-            // sets up the head elements in addition to the Css and image elements));
-           // this.SetupHeaderElements();
-
-            // setup the forum control header & footer properties
-            /*if (this.ForumHeader != null)
-            {
-                this.ForumHeader.Visible = this.ShowToolBar;
-            }*/
             this.ForumFooter.Visible = this.ShowFooter;
         }
 
@@ -462,7 +445,7 @@ namespace YAF.Core
             this.Get<IRaiseEvent>().Raise(new ForumPageUnloadEvent());
 
             // release cache
-            this._pageCache?.Clear();
+            this.PageCache?.Clear();
         }
 
         #endregion

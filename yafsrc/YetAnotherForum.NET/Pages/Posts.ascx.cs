@@ -37,7 +37,7 @@ namespace YAF.Pages
 
     using YAF.Configuration;
     using YAF.Controls;
-    using YAF.Core;
+    using YAF.Core.BasePages;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
     using YAF.Core.Services;
@@ -272,7 +272,7 @@ namespace YAF.Pages
                         "email", this.GetText("EMAILTOPIC"), "fa fa-paper-plane");
                 }
 
-            this.ShareMenu.AddClientScriptItem(
+                this.ShareMenu.AddClientScriptItem(
                     this.GetText("LINKBACK_TOPIC"),
                     $@"bootbox.prompt({{ 
                                       title: '{this.GetText("LINKBACK_TOPIC")}',
@@ -444,14 +444,6 @@ namespace YAF.Pages
                     }
                 }
 
-                if (this.PageContext.Settings.LockedForum == 0)
-                {
-                    this.PageLinks.AddRoot();
-                    this.PageLinks.AddLink(
-                        this.PageContext.PageCategoryName,
-                        BuildLink.GetLink(ForumPages.forum, "c={0}", this.PageContext.PageCategoryID));
-                }
-
                 this.NewTopic2.NavigateUrl =
                     this.NewTopic1.NavigateUrl =
                     BuildLink.GetLinkNotEscaped(ForumPages.PostTopic, "f={0}", this.PageContext.PageForumID);
@@ -463,11 +455,6 @@ namespace YAF.Pages
                         "t={0}&f={1}",
                         this.PageContext.PageTopicID,
                         this.PageContext.PageForumID);
-
-                this.PageLinks.AddForum(this.PageContext.PageForumID);
-                this.PageLinks.AddLink(
-                    this.Get<IBadWordReplace>().Replace(this.Server.HtmlDecode(this.PageContext.PageTopicName)),
-                    string.Empty);
 
                 var topicSubject = this.Get<IBadWordReplace>().Replace(this.HtmlEncode(this.topic.TopicName));
 
@@ -559,6 +546,25 @@ namespace YAF.Pages
             #endregion
 
             this.BindData();
+        }
+
+        /// <summary>
+        /// The create page links.
+        /// </summary>
+        protected override void CreatePageLinks()
+        {
+            if (this.PageContext.Settings.LockedForum == 0)
+            {
+                this.PageLinks.AddRoot();
+                this.PageLinks.AddLink(
+                    this.PageContext.PageCategoryName,
+                    BuildLink.GetLink(ForumPages.forum, "c={0}", this.PageContext.PageCategoryID));
+            }
+
+            this.PageLinks.AddForum(this.PageContext.PageForumID);
+            this.PageLinks.AddLink(
+                this.Get<IBadWordReplace>().Replace(this.Server.HtmlDecode(this.PageContext.PageTopicName)),
+                string.Empty);
         }
 
         /// <summary>

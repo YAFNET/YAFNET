@@ -40,6 +40,7 @@ namespace YAF.Install
     using YAF.Configuration;
     using YAF.Core;
     using YAF.Core.BasePages;
+    using YAF.Core.Context;
     using YAF.Core.Extensions;
     using YAF.Core.Helpers;
     using YAF.Core.Model;
@@ -220,39 +221,19 @@ namespace YAF.Install
         [NotNull]
         public string GetMembershipErrorMessage(MembershipCreateStatus status)
         {
-            switch (status)
-            {
-                case MembershipCreateStatus.DuplicateUserName:
-                    return Install.DuplicateUserName;
-
-                case MembershipCreateStatus.DuplicateEmail:
-                    return Install.DuplicateEmail;
-
-                case MembershipCreateStatus.InvalidPassword:
-                    return Install.InvalidPassword;
-
-                case MembershipCreateStatus.InvalidEmail:
-                    return Install.InvalidEmail;
-
-                case MembershipCreateStatus.InvalidAnswer:
-                    return Install.InvalidAnswer;
-
-                case MembershipCreateStatus.InvalidQuestion:
-                    return Install.InvalidQuestion;
-
-                case MembershipCreateStatus.InvalidUserName:
-                    return Install.InvalidUserName;
-
-                case MembershipCreateStatus.ProviderError:
-                    return Install.ProviderError;
-
-                case MembershipCreateStatus.UserRejected:
-                    return Install.UserRejected;
-
-                default:
-                    return
-                        Install.UnknownError;
-            }
+            return status switch
+                {
+                    MembershipCreateStatus.DuplicateUserName => Install.DuplicateUserName,
+                    MembershipCreateStatus.DuplicateEmail => Install.DuplicateEmail,
+                    MembershipCreateStatus.InvalidPassword => Install.InvalidPassword,
+                    MembershipCreateStatus.InvalidEmail => Install.InvalidEmail,
+                    MembershipCreateStatus.InvalidAnswer => Install.InvalidAnswer,
+                    MembershipCreateStatus.InvalidQuestion => Install.InvalidQuestion,
+                    MembershipCreateStatus.InvalidUserName => Install.InvalidUserName,
+                    MembershipCreateStatus.ProviderError => Install.ProviderError,
+                    MembershipCreateStatus.UserRejected => Install.UserRejected,
+                    _ => Install.UnknownError
+                };
         }
 
         #endregion

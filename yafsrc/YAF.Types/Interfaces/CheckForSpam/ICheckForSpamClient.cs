@@ -17,81 +17,81 @@
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.* 
 */
 
-namespace YAF.Core.Services.CheckForSpam
+namespace YAF.Types.Interfaces.CheckForSpam
 {
     #region Using
 
     using System;
+    using System.Net;
 
+    using YAF.Core.Services.CheckForSpam;
     using YAF.Types;
 
     #endregion
 
     /// <summary>
-    /// The AntiSpam TypePad client: http://antispam.typepad.com
+    /// Interface that communicates with a spam client.
     /// </summary>
-    public class AntiSpamTypePadClient : CheckForSpamClientBase
+    public interface ICheckForSpamClient
     {
-        #region Constructors and Destructors
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="AntiSpamTypePadClient"/> class.
-        /// </summary>
-        /// <param name="apiKey">
-        /// The api key.
-        /// </param>
-        /// <param name="blogUrl">
-        /// The blog url.
-        /// </param>
-        /// <param name="httpClient">
-        /// The http client.
-        /// </param>
-        public AntiSpamTypePadClient([NotNull] string apiKey, [NotNull] Uri blogUrl, [NotNull] HttpClient httpClient)
-            : base(apiKey, blogUrl, httpClient)
-        {
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="AntiSpamTypePadClient"/> class.
-        /// </summary>
-        /// <param name="apiKey">
-        /// The api key.
-        /// </param>
-        /// <param name="rootUrl">
-        /// The root url.
-        /// </param>
-        public AntiSpamTypePadClient([NotNull] string apiKey, [NotNull] Uri rootUrl)
-            : base(apiKey, rootUrl)
-        {
-        }
-
-        #endregion
-
         #region Properties
 
         /// <summary>
-        /// Gets CheckUrlFormat.
+        ///   Gets or sets the Akismet API key.
         /// </summary>
-        [NotNull]
-        protected override string CheckUrlFormat => "http://{0}.api.antispam.typepad.com/1.1/comment-check";
+        /// <value>The API key.</value>
+        string ApiKey { get; set; }
 
         /// <summary>
-        /// Gets SubmitHamUrlFormat.
+        ///   Gets or sets the root URL to the blog.
         /// </summary>
-        [NotNull]
-        protected override string SubmitHamUrlFormat => "http://{0}.api.antispam.typepad.com/1.1/submit-ham";
+        /// <value>The blog URL.</value>
+        Uri RootUrl { get; set; }
 
         /// <summary>
-        /// Gets SubmitSpamUrlFormat.
+        ///   Gets or sets the timeout in milliseconds for the http request to the client.
         /// </summary>
-        [NotNull]
-        protected override string SubmitSpamUrlFormat => "http://{0}.api.antispam.typepad.com/1.1/submit-spam";
+        /// <value>The timeout.</value>
+        int Timeout { get; set; }
 
         /// <summary>
-        /// Gets SubmitVerifyKeyFormat.
+        ///   Gets or sets the User Agent for the Client.  
+        ///   Do not confuse this with the user agent for the comment 
+        ///   being checked.
         /// </summary>
-        [NotNull]
-        protected override string SubmitVerifyKeyFormat => "http://api.antispam.typepad.com/1.1/verify-key";
+        string UserAgent { get; set; }
+
+        #endregion
+
+        #region Public Methods
+
+        /// <summary>
+        /// Checks the comment and returns true if it is spam, otherwise false.
+        /// </summary>
+        /// <param name="comment">The comment.</param>
+        /// <param name="result">The result.</param>
+        /// <returns>
+        /// The check comment for spam.
+        /// </returns>
+        bool CheckCommentForSpam([NotNull] IComment comment, out string result);
+
+        /// <summary>
+        /// Submits a comment to the client that should not have been 
+        ///   flagged as SPAM (a false positive).
+        /// </summary>
+        /// <param name="comment">
+        /// The comment.
+        /// </param>
+        void SubmitHam([NotNull] IComment comment);
+
+        /// <summary>
+        /// Submits a comment to the client that should have been 
+        ///   flagged as SPAM, but was not flagged.
+        /// </summary>
+        /// <param name="comment">
+        /// The comment.
+        /// </param>
+        void SubmitSpam([NotNull] IComment comment);
 
         #endregion
     }

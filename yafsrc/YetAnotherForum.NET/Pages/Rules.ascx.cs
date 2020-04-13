@@ -30,7 +30,7 @@ namespace YAF.Pages
     using System.Web;
 
     using YAF.Configuration;
-    using YAF.Core;
+    using YAF.Core.BasePages;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
@@ -84,7 +84,8 @@ namespace YAF.Pages
                 BuildLink.Redirect(ForumPages.Register);
             }
 
-            this.Get<HttpResponseBase>().Redirect(BuildLink.GetLink(ForumPages.Register, true).Replace("http:", "https:"));
+            this.Get<HttpResponseBase>()
+                .Redirect(BuildLink.GetLink(ForumPages.Register, true).Replace("http:", "https:"));
         }
 
         /// <summary>
@@ -102,21 +103,10 @@ namespace YAF.Pages
         }
 
         /// <summary>
-        /// The page_ load.
+        /// Create the Page links.
         /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
-        protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+        protected override void CreatePageLinks()
         {
-            if (this.IsPostBack)
-            {
-                return;
-            }
-
             this.PageLinks.AddRoot();
 
             this.RulesText.Param0 = Config.GDPRControllerAddress.IsSet()

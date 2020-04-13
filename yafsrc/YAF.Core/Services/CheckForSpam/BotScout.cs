@@ -31,9 +31,11 @@ namespace YAF.Core.Services.CheckForSpam
     using System.Net;
 
     using YAF.Configuration;
+    using YAF.Core.Context;
     using YAF.Types;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.CheckForSpam;
 
     #endregion
 

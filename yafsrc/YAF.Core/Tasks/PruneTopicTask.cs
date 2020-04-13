@@ -25,6 +25,7 @@ namespace YAF.Core.Tasks
 {
     using System;
 
+    using YAF.Core.Context;
     using YAF.Core.Model;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;

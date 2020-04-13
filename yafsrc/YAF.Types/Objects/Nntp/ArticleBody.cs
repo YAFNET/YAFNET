@@ -21,7 +21,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Core.Nntp
+namespace YAF.Types.Objects.Nntp
 {
     /// <summary>
   /// The article body.
@@ -41,6 +41,6 @@ namespace YAF.Core.Nntp
     /// <summary>
     /// Gets or sets Attachments.
     /// </summary>
-    public Attachment[] Attachments { get; set; }
+    public NntpAttachment[] Attachments { get; set; }
   }
 }

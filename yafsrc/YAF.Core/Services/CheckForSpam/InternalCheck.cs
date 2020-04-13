@@ -30,11 +30,13 @@ namespace YAF.Core.Services.CheckForSpam
     using System.Linq;
     using System.Text.RegularExpressions;
 
+    using YAF.Core.Context;
     using YAF.Core.Extensions;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.CheckForSpam;
     using YAF.Types.Interfaces.Data;
     using YAF.Types.Models;
 

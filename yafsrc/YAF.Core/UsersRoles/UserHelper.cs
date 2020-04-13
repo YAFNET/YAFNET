@@ -29,6 +29,7 @@ namespace YAF.Core.UsersRoles
     using System.Linq;
 
     using YAF.Configuration;
+    using YAF.Core.Context;
     using YAF.Core.Helpers;
     using YAF.Core.Services;
     using YAF.Types.Interfaces;

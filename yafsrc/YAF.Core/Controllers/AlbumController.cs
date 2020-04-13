@@ -30,6 +30,7 @@ namespace YAF.Core.Controllers
 
     using Newtonsoft.Json.Linq;
 
+    using YAF.Core.Context;
     using YAF.Core.Model;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;

@@ -31,7 +31,7 @@ namespace YAF.Pages
     using System.Web;
     using System.Web.Security;
 
-    using YAF.Core;
+    using YAF.Core.BasePages;
     using YAF.Core.Model;
     using YAF.Core.UsersRoles;
     using YAF.Types;
@@ -140,9 +140,6 @@ namespace YAF.Pages
                 return;
             }
 
-            this.PageLinks.AddRoot();
-            this.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
-
             if (this.Get<HttpRequestBase>().QueryString.Exists("k"))
             {
                 this.key.Text = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("k");
@@ -153,6 +150,15 @@ namespace YAF.Pages
                 this.Approved.Visible = false;
                 this.Error.Visible = true;
             }
+        }
+
+        /// <summary>
+        /// Create the Page links.
+        /// </summary>
+        protected override void CreatePageLinks()
+        {
+            this.PageLinks.AddRoot();
+            this.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
         }
 
         #endregion

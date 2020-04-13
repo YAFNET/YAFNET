@@ -29,7 +29,7 @@ namespace YAF.Pages
     using System;
     using System.Web;
 
-    using YAF.Core;
+    using YAF.Core.BasePages;
     using YAF.Core.Model;
     using YAF.Core.Utilities;
     using YAF.Types;
@@ -164,18 +164,6 @@ namespace YAF.Pages
                 return;
             }
 
-            this.PageLinks.AddRoot();
-
-            this.PageLinks.AddLink(
-                this.PageContext.PageCategoryName,
-                BuildLink.GetLink(ForumPages.forum, "c={0}", this.PageContext.PageCategoryID));
-            this.PageLinks.AddForum(this.PageContext.PageForumID);
-            this.PageLinks.AddLink(
-                this.PageContext.PageTopicName,
-                BuildLink.GetLink(ForumPages.Posts, "t={0}", this.PageContext.PageTopicID));
-
-            this.PageLinks.AddLink(this.GetText("MOVE_MESSAGE"));
-
             var forumList = this.GetRepository<Forum>().ListAllSortedAsDataTable(
                 this.PageContext.PageBoardID,
                 this.PageContext.PageUserID);
@@ -188,6 +176,24 @@ namespace YAF.Pages
 
             this.ForumList.Items.FindByValue(this.PageContext.PageForumID.ToString()).Selected = true;
             this.ForumList_SelectedIndexChanged(this.ForumList, e);
+        }
+
+        /// <summary>
+        /// Create the Page links.
+        /// </summary>
+        protected override void CreatePageLinks()
+        {
+            this.PageLinks.AddRoot();
+
+            this.PageLinks.AddLink(
+                this.PageContext.PageCategoryName,
+                BuildLink.GetLink(ForumPages.forum, "c={0}", this.PageContext.PageCategoryID));
+            this.PageLinks.AddForum(this.PageContext.PageForumID);
+            this.PageLinks.AddLink(
+                this.PageContext.PageTopicName,
+                BuildLink.GetLink(ForumPages.Posts, "t={0}", this.PageContext.PageTopicID));
+
+            this.PageLinks.AddLink(this.GetText("MOVE_MESSAGE"));
         }
 
         /// <summary>

@@ -30,6 +30,7 @@ namespace YAF.Pages
     using System.Web;
 
     using YAF.Core;
+    using YAF.Core.BasePages;
     using YAF.Core.UsersRoles;
     using YAF.Types;
     using YAF.Types.Constants;

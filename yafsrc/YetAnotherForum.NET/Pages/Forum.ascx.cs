@@ -28,7 +28,7 @@ namespace YAF.Pages
     using System;
 
     using YAF.Configuration;
-    using YAF.Core;
+    using YAF.Core.BasePages;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Interfaces;
@@ -83,6 +83,19 @@ namespace YAF.Pages
                 return;
             }
 
+            if (this.PageContext.PageCategoryID == 0)
+            {
+                return;
+            }
+
+            this.Welcome.Visible = false;
+        }
+
+        /// <summary>
+        /// The create page links.
+        /// </summary>
+        protected override void CreatePageLinks()
+        {
             this.PageLinks.AddRoot();
 
             if (this.PageContext.PageCategoryID == 0)
@@ -93,7 +106,6 @@ namespace YAF.Pages
             this.PageLinks.AddLink(
                 this.PageContext.PageCategoryName,
                 BuildLink.GetLink(ForumPages.forum, "c={0}", this.PageContext.PageCategoryID));
-            this.Welcome.Visible = false;
         }
 
         #endregion

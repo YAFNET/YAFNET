@@ -28,6 +28,7 @@ namespace YAF.Core.Services
     using System.Net.Mail;
     
     using YAF.Configuration;
+    using YAF.Core.Context;
     using YAF.Core.Extensions;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;

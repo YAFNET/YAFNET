@@ -30,7 +30,7 @@ namespace YAF.Pages.Moderate
     using System.Data;
     using System.Web.UI.WebControls;
 
-    using YAF.Core;
+    using YAF.Core.BasePages;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
     using YAF.Types;
@@ -139,9 +139,6 @@ namespace YAF.Pages.Moderate
             {
                 return;
             }
-
-            // create page links
-            this.CreatePageLinks();
 
             // bind data
             this.BindData();

@@ -28,28 +28,11 @@ namespace YAF.Core.Services.CheckForSpam
     #endregion
 
     /// <summary>
-    /// The akismet spam client.
+    /// The Akismet spam client.
     /// </summary>
     public class AkismetSpamClient : CheckForSpamClientBase
     {
         #region Constructors and Destructors
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="AkismetSpamClient"/> class.
-        /// </summary>
-        /// <param name="apiKey">
-        /// The api key.
-        /// </param>
-        /// <param name="blogUrl">
-        /// The blog url.
-        /// </param>
-        /// <param name="httpClient">
-        /// The http client.
-        /// </param>
-        public AkismetSpamClient([NotNull] string apiKey, [NotNull] Uri blogUrl, [NotNull] HttpClient httpClient)
-            : base(apiKey, blogUrl, httpClient)
-        {
-        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AkismetSpamClient"/> class.

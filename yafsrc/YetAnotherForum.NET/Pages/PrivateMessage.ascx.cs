@@ -31,7 +31,7 @@ namespace YAF.Pages
     using System.Web.UI.WebControls;
 
     using YAF.Configuration;
-    using YAF.Core;
+    using YAF.Core.BasePages;
     using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;
@@ -140,17 +140,23 @@ namespace YAF.Pages
                 BuildLink.AccessDenied();
             }
 
+            // handle custom YafBBCode javascript or CSS...
+            this.Get<IBBCode>().RegisterCustomBBCodePageElements(this.Page, this.GetType());
+
+            this.BindData();
+        }
+
+        /// <summary>
+        /// Create the Page links.
+        /// </summary>
+        protected override void CreatePageLinks()
+        {
             this.PageLinks.AddRoot();
             this.PageLinks.AddLink(
                 this.Get<BoardSettings>().EnableDisplayName
                     ? this.PageContext.CurrentUserData.DisplayName
                     : this.PageContext.PageUserName,
                 BuildLink.GetLink(ForumPages.Account));
-
-            // handle custom YafBBCode javascript or CSS...
-            this.Get<IBBCode>().RegisterCustomBBCodePageElements(this.Page, this.GetType());
-
-            this.BindData();
         }
 
         /// <summary>

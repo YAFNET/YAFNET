@@ -33,7 +33,7 @@ namespace YAF.UrlRewriter.Conditions
         /// <summary>
         /// The property name.
         /// </summary>
-        public string PropertyName { get; } = string.Empty;
+        public string PropertyName { get; }
 
         /// <summary>
         /// Determines if the condition is matched.
@@ -48,18 +48,19 @@ namespace YAF.UrlRewriter.Conditions
             }
 
             var property = context.Properties[this.PropertyName];
-            if (property != null)
-            {
-                var match = this.Pattern.Match(property);
-                if (match.Success)
-                {
-                    context.LastMatch = match;
-                }
 
-                return match.Success;
+            if (property == null)
+            {
+                return false;
             }
 
-            return false;
+            var match = this.Pattern.Match(property);
+            if (match.Success)
+            {
+                context.LastMatch = match;
+            }
+
+            return match.Success;
         }
     }
 }

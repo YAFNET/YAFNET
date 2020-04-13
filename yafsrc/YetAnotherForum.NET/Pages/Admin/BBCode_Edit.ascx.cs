@@ -29,14 +29,13 @@ namespace YAF.Pages.Admin
     using System;
     using System.Web;
 
-    using YAF.Core;
+    using YAF.Core.BasePages;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Types.Models;
     using YAF.Utils;
     using YAF.Utils.Helpers;
     using YAF.Web.Extensions;
@@ -44,7 +43,7 @@ namespace YAF.Pages.Admin
     #endregion
 
     /// <summary>
-    /// The bbcode_edit.
+    /// The BBCode Admin Edit Page.
     /// </summary>
     public partial class BBCode_Edit : AdminPage
     {
@@ -150,25 +149,28 @@ namespace YAF.Pages.Admin
         /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            var strAddEdit = this.BBCodeID == null ? this.GetText("COMMON", "ADD") : this.GetText("COMMON", "EDIT");
-
             if (!this.IsPostBack)
             {
-                this.PageLinks.AddRoot();
-                this.PageLinks.AddLink(
-                    this.GetText("ADMIN_ADMIN", "Administration"),
-                    BuildLink.GetLink(ForumPages.Admin_Admin));
-                this.PageLinks.AddLink(
-                    this.GetText("ADMIN_BBCODE", "TITLE"),
-                    BuildLink.GetLink(ForumPages.Admin_BBCodes));
-                this.PageLinks.AddLink(
-                    string.Format(this.GetText("ADMIN_BBCODE_EDIT", "TITLE"), strAddEdit),
-                    string.Empty);
-
-                this.Page.Header.Title =
-                    $"{this.GetText("ADMIN_ADMIN", "Administration")} - {this.GetText("ADMIN_BBCODE", "TITLE")} - {string.Format(this.GetText("ADMIN_BBCODE_EDIT", "TITLE"), strAddEdit)}";
                 this.BindData();
             }
+        }
+
+        /// <summary>
+        /// Create the Page links.
+        /// </summary>
+        protected override void CreatePageLinks()
+        {
+            var strAddEdit = this.BBCodeID == null ? this.GetText("COMMON", "ADD") : this.GetText("COMMON", "EDIT");
+
+            this.PageLinks.AddRoot();
+            this.PageLinks.AddLink(
+                this.GetText("ADMIN_ADMIN", "Administration"),
+                BuildLink.GetLink(ForumPages.Admin_Admin));
+            this.PageLinks.AddLink(this.GetText("ADMIN_BBCODE", "TITLE"), BuildLink.GetLink(ForumPages.Admin_BBCodes));
+            this.PageLinks.AddLink(string.Format(this.GetText("ADMIN_BBCODE_EDIT", "TITLE"), strAddEdit), string.Empty);
+
+            this.Page.Header.Title =
+                $"{this.GetText("ADMIN_ADMIN", "Administration")} - {this.GetText("ADMIN_BBCODE", "TITLE")} - {string.Format(this.GetText("ADMIN_BBCODE_EDIT", "TITLE"), strAddEdit)}";
         }
 
         #endregion

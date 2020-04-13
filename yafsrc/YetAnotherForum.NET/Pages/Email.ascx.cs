@@ -31,7 +31,7 @@ namespace YAF.Pages
     using System.Web;
 
     using YAF.Configuration;
-    using YAF.Core;
+    using YAF.Core.BasePages;
     using YAF.Core.Extensions;
     using YAF.Core.UsersRoles;
     using YAF.Types;
@@ -116,6 +116,14 @@ namespace YAF.Pages
                         this.PageContext.BoardSettings.EnableDisplayName ? displayName : user.UserName));
                 this.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
             }
+        }
+
+        /// <summary>
+        /// Create the Page links.
+        /// </summary>
+        protected override void CreatePageLinks()
+        {
+
         }
 
         /// <summary>

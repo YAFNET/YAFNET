@@ -28,6 +28,7 @@ namespace YAF.Core.BaseControls
   using System;
   using System.Web.UI.WebControls;
 
+  using YAF.Core.Context;
   using YAF.Types;
   using YAF.Types.Extensions;
   using YAF.Types.Interfaces;
@@ -35,7 +36,7 @@ namespace YAF.Core.BaseControls
   #endregion
 
   /// <summary>
-  /// Control derived from Panel that includes a reference to the <see cref="Core.BoardContext"/>.
+  /// Control derived from Panel that includes a reference to the <see cref="BoardContext"/>.
   /// </summary>
   public class BasePanel : Panel, IHaveServiceLocator, IHaveLocalization
   {

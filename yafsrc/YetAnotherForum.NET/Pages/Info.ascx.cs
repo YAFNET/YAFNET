@@ -28,7 +28,7 @@ namespace YAF.Pages
     using System;
     using System.Web;
 
-    using YAF.Core;
+    using YAF.Core.BasePages;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
@@ -179,9 +179,6 @@ namespace YAF.Pages
             // set continue button URL and visibility
             this.Continue.NavigateUrl = this.RefreshURL;
             this.Continue.Visible = this.RefreshURL != null;
-
-            // create page links - must be placed after switch to display correct title (last breadcrumb trail)
-            this.CreatePageLinks();
         }
 
         #endregion

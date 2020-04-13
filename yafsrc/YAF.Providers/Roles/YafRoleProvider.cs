@@ -31,6 +31,7 @@ namespace YAF.Providers.Roles
     using System.Web.Security;
 
     using YAF.Core;
+    using YAF.Core.Context;
     using YAF.Providers.Utils;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;

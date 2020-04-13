@@ -52,13 +52,13 @@ namespace YAF.UrlRewriter
 
             // Initialise the Properties collection from all the server variables, headers and cookies.
 
-            httpContext.ServerVariables.AllKeys.ForEach(key => this.Properties.Add(key, httpContext.ServerVariables[(string)key]));
+            httpContext.ServerVariables.AllKeys.ForEach(key => this.Properties.Add(key, httpContext.ServerVariables[key]));
 
             httpContext.RequestHeaders.AllKeys.ForEach(
-                key => this.Properties.Add(key, httpContext.RequestHeaders[(string)key]));
+                key => this.Properties.Add(key, httpContext.RequestHeaders[key]));
 
             httpContext.RequestCookies.AllKeys.ForEach(
-                key => this.Properties.Add(key, httpContext.RequestCookies[(string)key].Value));
+                key => this.Properties.Add(key, httpContext.RequestCookies[key].Value));
         }
 
         /// <summary>

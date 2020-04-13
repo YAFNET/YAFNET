@@ -28,7 +28,7 @@ namespace YAF.Pages
     using System;
 
     using YAF.Configuration;
-    using YAF.Core;
+    using YAF.Core.BasePages;
     using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Constants;
@@ -165,7 +165,13 @@ namespace YAF.Pages
 
             this.UnreadTopicsTabTitle.Visible = this.Get<BoardSettings>().UseReadTrackingByDatabase;
             this.UnreadTopicsTabContent.Visible = this.Get<BoardSettings>().UseReadTrackingByDatabase;
+        }
 
+        /// <summary>
+        /// Create the Page links.
+        /// </summary>
+        protected override void CreatePageLinks()
+        {
             this.PageLinks.AddRoot();
 
             this.PageLinks.AddLink(this.GetText("MEMBERTITLE"), string.Empty);

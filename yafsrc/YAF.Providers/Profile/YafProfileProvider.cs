@@ -37,6 +37,7 @@ namespace YAF.Providers.Profile
     using System.Web.Profile;
 
     using YAF.Core;
+    using YAF.Core.Context;
     using YAF.Providers.Utils;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;

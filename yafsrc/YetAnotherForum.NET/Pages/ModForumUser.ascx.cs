@@ -32,7 +32,7 @@ namespace YAF.Pages
     using System.Web;
 
     using YAF.Configuration;
-    using YAF.Core;
+    using YAF.Core.BasePages;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
     using YAF.Core.UsersRoles;
@@ -193,9 +193,6 @@ namespace YAF.Pages
             {
                 return;
             }
-
-            // create page links
-            this.CreatePageLinks();
 
             // load localized texts for buttons
             this.FindUsers.Text = this.GetText("FIND");

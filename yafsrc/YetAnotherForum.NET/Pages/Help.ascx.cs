@@ -34,7 +34,7 @@ namespace YAF.Pages
     using System.Xml.Serialization;
 
     using YAF.Configuration;
-    using YAF.Core;
+    using YAF.Core.BasePages;
     using YAF.Core.Extensions;
     using YAF.Types;
     using YAF.Types.Constants;
@@ -140,6 +140,14 @@ namespace YAF.Pages
                 this.SubTitle.Text = this.GetText("subtitle");
                 this.HelpContent.Text = this.GetText("welcome");
             }
+        }
+
+        /// <summary>
+        /// Create the Page links.
+        /// </summary>
+        protected override void CreatePageLinks()
+        {
+
         }
 
         /// <summary>

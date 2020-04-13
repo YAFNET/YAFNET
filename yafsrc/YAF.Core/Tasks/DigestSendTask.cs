@@ -33,6 +33,7 @@ namespace YAF.Core.Tasks
     using System.Web;
 
     using YAF.Configuration;
+    using YAF.Core.Context;
     using YAF.Core.Model;
     using YAF.Core.UsersRoles;
     using YAF.Types;

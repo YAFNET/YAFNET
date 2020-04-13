@@ -27,6 +27,7 @@ namespace YAF.Core.Helpers
     using System;
     using System.Data;
 
+    using YAF.Core.Context;
     using YAF.Core.UsersRoles;
     using YAF.Types.Extensions;
     using YAF.Types.Flags;

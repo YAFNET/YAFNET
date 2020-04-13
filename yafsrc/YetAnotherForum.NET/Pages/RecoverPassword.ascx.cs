@@ -33,7 +33,7 @@ namespace YAF.Pages
     using System.Web.UI.WebControls;
 
     using YAF.Configuration;
-    using YAF.Core;
+    using YAF.Core.BasePages;
     using YAF.Core.Model;
     using YAF.Core.Services;
     using YAF.Core.UsersRoles;
@@ -90,9 +90,6 @@ namespace YAF.Pages
 
             this.PasswordRecovery1.MembershipProvider = Config.MembershipProvider;
 
-            this.PageLinks.AddRoot();
-            this.PageLinks.AddLink(this.GetText("TITLE"));
-
             // handle localization
             var usernameRequired =
                 this.PasswordRecovery1.UserNameTemplateContainer.FindControlAs<RequiredFieldValidator>(
@@ -114,6 +111,15 @@ namespace YAF.Pages
             this.PasswordRecovery1.QuestionFailureText = this.GetText("QUESTION_FAILURE");
 
             this.DataBind();
+        }
+
+        /// <summary>
+        /// Create the Page links.
+        /// </summary>
+        protected override void CreatePageLinks()
+        {
+            this.PageLinks.AddRoot();
+            this.PageLinks.AddLink(this.GetText("TITLE"));
         }
 
         /// <summary>

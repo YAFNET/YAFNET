@@ -29,6 +29,7 @@ namespace YAF.Core.Controllers
     using System.Linq;
     using System.Web.Http;
 
+    using YAF.Core.Context;
     using YAF.Core.Model;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;

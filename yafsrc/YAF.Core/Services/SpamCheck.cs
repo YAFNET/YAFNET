@@ -29,6 +29,7 @@ namespace YAF.Core.Services
     using System.Web;
 
     using YAF.Configuration;
+    using YAF.Core.Context;
     using YAF.Core.Services.CheckForSpam;
     using YAF.Types;
     using YAF.Types.Extensions;

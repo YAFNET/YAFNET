@@ -23,10 +23,10 @@
  */
 namespace YAF.Types.Interfaces.Tasks
 {
-  /// <summary>
-  /// The i critical startup service.
-  /// </summary>
-  public interface ICriticalStartupService
-  {
-  }
+    /// <summary>
+    /// The i critical startup service.
+    /// </summary>
+    public interface ICriticalStartupService
+    {
+    }
 }

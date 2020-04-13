@@ -33,7 +33,7 @@ namespace YAF.Pages
     using System.Web.UI.WebControls;
 
     using YAF.Configuration;
-    using YAF.Core;
+    using YAF.Core.BasePages;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
     using YAF.Core.Services;
@@ -241,10 +241,16 @@ namespace YAF.Pages
                 return;
             }
 
+            this.BindData();
+        }
+
+        /// <summary>
+        /// Create the Page links.
+        /// </summary>
+        protected override void CreatePageLinks()
+        {
             this.PageLinks.AddRoot();
             this.PageLinks.AddLink(this.GetText("TEAM", "TITLE"), string.Empty);
-
-            this.BindData();
         }
 
         /// <summary>
@@ -407,7 +413,6 @@ namespace YAF.Pages
                 return;
             }
 
-
             var isFriend = this.GetRepository<Buddy>().CheckIsFriend(this.PageContext.PageUserID, userid);
 
             pm.Visible = !this.PageContext.IsGuest && this.User != null && this.Get<BoardSettings>().AllowPrivateMessages;
@@ -431,21 +436,23 @@ namespace YAF.Pages
             // email link
             email.Visible = !this.PageContext.IsGuest && this.User != null && this.Get<BoardSettings>().AllowEmailSending;
 
-            if (email.Visible)
+            if (!email.Visible)
             {
-                if (mod.Block.BlockEmails && !this.PageContext.IsAdmin)
-                {
-                    email.Visible = false;
-                }
-
-                if (this.PageContext.IsAdmin || isFriend)
-                {
-                    email.Visible = true;
-                }
-
-                email.NavigateUrl = BuildLink.GetLinkNotEscaped(ForumPages.Email, "u={0}", userid);
-                email.ParamTitle0 = displayName;
+                return;
             }
+
+            if (mod.Block.BlockEmails && !this.PageContext.IsAdmin)
+            {
+                email.Visible = false;
+            }
+
+            if (this.PageContext.IsAdmin || isFriend)
+            {
+                email.Visible = true;
+            }
+
+            email.NavigateUrl = BuildLink.GetLinkNotEscaped(ForumPages.Email, "u={0}", userid);
+            email.ParamTitle0 = displayName;
         }
 
         /// <summary>

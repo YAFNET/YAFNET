@@ -26,6 +26,7 @@ namespace YAF.Core.Services
 {
     using System.Web.Security;
 
+    using YAF.Core.Context;
     using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;

@@ -38,7 +38,7 @@ namespace YAF.UrlRewriter
         /// Constructor.
         /// </summary>
         /// <param name="httpContext">The HTTP context facade.</param>
-        /// <param param name="configurationManager">The configuration manager facade.</param>
+        /// <param name="configurationManager">The configuration manager facade.</param>
         /// <param name="configuration">The URL rewriter configuration.</param>
         public RewriterEngine(
             IHttpContext httpContext,
@@ -368,7 +368,7 @@ namespace YAF.UrlRewriter
             set => this._httpContext.Items[ContextQueryString] = value;
         }
 
-        private string Reduce(IRewriteContext context, StringReader reader)
+        private string Reduce(IRewriteContext context, TextReader reader)
         {
             string result;
             var ch = (char)reader.Read();

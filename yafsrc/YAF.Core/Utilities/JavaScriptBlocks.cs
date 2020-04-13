@@ -27,6 +27,7 @@ namespace YAF.Core.Utilities
 
     using YAF.Configuration;
     using YAF.Core;
+    using YAF.Core.Context;
     using YAF.Core.Context.Start;
     using YAF.Types;
     using YAF.Types.Extensions;

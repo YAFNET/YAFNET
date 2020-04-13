@@ -32,7 +32,9 @@ namespace YAF.Pages
     using System.Web.UI.WebControls;
 
     using YAF.Configuration;
-    using YAF.Core;
+    using YAF.Core.BaseModules;
+    using YAF.Core.BasePages;
+    using YAF.Core.Context;
     using YAF.Core.Extensions;
     using YAF.Core.Helpers;
     using YAF.Core.Model;
@@ -362,6 +364,22 @@ namespace YAF.Pages
                 this.tr_captcha2.Visible = true;
             }
 
+            // enable similar topics search
+            this.TopicSubjectTextBox.CssClass += " searchSimilarTopics";
+
+            // form user is only for "Guest"
+            this.From.Text = this.Get<IUserDisplayName>().GetName(this.PageContext.PageUserID);
+            if (this.User != null)
+            {
+                this.FromRow.Visible = false;
+            }
+        }
+
+        /// <summary>
+        /// Create the Page links.
+        /// </summary>
+        protected override void CreatePageLinks()
+        {
             if (this.PageContext.Settings.LockedForum == 0)
             {
                 this.PageLinks.AddRoot();
@@ -374,16 +392,6 @@ namespace YAF.Pages
 
             // add the "New Topic" page link last...
             this.PageLinks.AddLink(this.GetText("NEWTOPIC"));
-
-            // enable similar topics search
-            this.TopicSubjectTextBox.CssClass += " searchSimilarTopics";
-
-            // form user is only for "Guest"
-            this.From.Text = this.Get<IUserDisplayName>().GetName(this.PageContext.PageUserID);
-            if (this.User != null)
-            {
-                this.FromRow.Visible = false;
-            }
         }
 
         /// <summary>

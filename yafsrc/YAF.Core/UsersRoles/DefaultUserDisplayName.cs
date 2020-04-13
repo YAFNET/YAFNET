@@ -32,6 +32,7 @@ namespace YAF.Core
     using System.Linq;
 
     using YAF.Configuration;
+    using YAF.Core.Context;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
     using YAF.Core.UsersRoles;

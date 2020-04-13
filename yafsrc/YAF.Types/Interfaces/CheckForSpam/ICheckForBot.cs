@@ -22,7 +22,7 @@
  * under the License.
  */
 
-namespace YAF.Core.Services.CheckForSpam
+namespace YAF.Types.Interfaces.CheckForSpam
 {
     using YAF.Types;
 

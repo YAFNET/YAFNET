@@ -29,6 +29,7 @@ namespace YAF.Core.Syndication
     using System.ServiceModel.Syndication;
 
     using YAF.Configuration;
+    using YAF.Core.Context;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;

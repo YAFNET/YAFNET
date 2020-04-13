@@ -25,6 +25,8 @@ namespace YAF.Core.Helpers
 {
     #region Using
 
+    using YAF.Core.BaseModules;
+    using YAF.Core.Context;
     using YAF.Types.Interfaces;
 
     #endregion

@@ -31,6 +31,8 @@ namespace YAF.Core.Services.Localization
     using System.IO;
     using System.Linq;
 
+    using YAF.Core.Context;
+    using YAF.Core.Helpers;
     using YAF.Core.Services.Startup;
     using YAF.Types;
     using YAF.Types.Extensions;

@@ -22,88 +22,70 @@ namespace YAF.Core.Services.CheckForSpam
     #region Using
 
     using System;
+    using System.Collections.Specialized;
     using System.Net;
-
-    using YAF.Types;
 
     #endregion
 
     /// <summary>
-    /// Interface that communicates with a spam client.
+    /// Defines the base information about a comment submitted to the client.
     /// </summary>
-    public interface ICheckForSpamClient
+    public interface IComment
     {
         #region Properties
 
         /// <summary>
-        ///   Gets or sets the Akismet API key.
+        ///   Gets the name submitted with the comment.
         /// </summary>
-        /// <value>The API key.</value>
-        string ApiKey { get; set; }
+        string Author { get; }
 
         /// <summary>
-        ///   Gets or sets the proxy to use.
+        ///   Gets the email submitted with the comment.
         /// </summary>
-        /// <value>The proxy.</value>
-        IWebProxy Proxy { get; set; }
+        string AuthorEmail { get; }
 
         /// <summary>
-        ///   Gets or sets the root URL to the blog.
+        ///   Gets the url submitted if provided.
         /// </summary>
-        /// <value>The blog URL.</value>
-        Uri RootUrl { get; set; }
+        Uri AuthorUrl { get; }
 
         /// <summary>
-        ///   Gets or sets the timeout in milliseconds for the http request to the client.
+        ///   May be one of the following: {blank}, "comment", "trackback", "pingback", or a made-up value 
+        ///   like "registration".
         /// </summary>
-        /// <value>The timeout.</value>
-        int Timeout { get; set; }
+        string CommentType { get; }
 
         /// <summary>
-        ///   Gets or sets the User Agent for the Client.  
-        ///   Do not confuse this with the user agent for the comment 
-        ///   being checked.
+        ///   Gets the Content of the comment
         /// </summary>
-        string UserAgent { get; set; }
-
-        #endregion
-
-        #region Public Methods
+        string Content { get; }
 
         /// <summary>
-        /// Checks the comment and returns true if it is spam, otherwise false.
+        ///   Gets the IPAddress of the submitter
         /// </summary>
-        /// <param name="comment">The comment.</param>
-        /// <param name="result">The result.</param>
-        /// <returns>
-        /// The check comment for spam.
-        /// </returns>
-        bool CheckCommentForSpam([NotNull] IComment comment, out string result);
+        IPAddress IPAddress { get; }
 
         /// <summary>
-        /// Submits a comment to the client that should not have been 
-        ///   flagged as SPAM (a false positive).
+        ///   Permanent location of the entry the comment was 
+        ///   submitted to.
         /// </summary>
-        /// <param name="comment">
-        /// </param>
-        void SubmitHam([NotNull] IComment comment);
+        Uri Permalink { get; }
 
         /// <summary>
-        /// Submits a comment to the client that should have been 
-        ///   flagged as SPAM, but was not flagged.
+        ///   The HTTP_REFERER header value of the 
+        ///   originating comment.
         /// </summary>
-        /// <param name="comment">
-        /// </param>
-        void SubmitSpam([NotNull] IComment comment);
+        string Referrer { get; }
 
         /// <summary>
-        /// Verifies the API key.  You really only need to
-        ///   call this once, perhaps at startup.
+        ///   Optional collection of various server environment variables.
         /// </summary>
-        /// <returns>
-        /// The verify api key.
-        /// </returns>
-        bool VerifyApiKey();
+        NameValueCollection ServerEnvironmentVariables { get; }
+
+        /// <summary>
+        ///   User agent of the requester. (Required)
+        /// </summary>
+        string UserAgent { get; }
 
         #endregion
     }

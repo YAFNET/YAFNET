@@ -24,7 +24,6 @@
 
 namespace YAF.Pages
 {
-    // YAF.Pages
     #region Using
 
     using System;
@@ -32,7 +31,7 @@ namespace YAF.Pages
     using System.Web;
 
     using YAF.Configuration;
-    using YAF.Core;
+    using YAF.Core.BasePages;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
     using YAF.Types;
@@ -126,17 +125,6 @@ namespace YAF.Pages
                 return;
             }
 
-            if (this.PageContext.Settings.LockedForum == 0)
-            {
-                this.PageLinks.AddRoot();
-                this.PageLinks.AddLink(
-                    this.PageContext.PageCategoryName,
-                    BuildLink.GetLink(ForumPages.forum, "c={0}", this.PageContext.PageCategoryID));
-            }
-
-            this.PageLinks.AddForum(this.PageContext.PageForumID);
-            this.PageLinks.AddLink(
-                this.PageContext.PageTopicName, BuildLink.GetLink(ForumPages.Posts, "t={0}", this.PageContext.PageTopicID));
             var showDeleted = false;
             var userId = 0;
             if (this.Get<BoardSettings>().ShowDeletedMessagesToAll)
@@ -175,6 +163,24 @@ namespace YAF.Pages
             this.Posts.DataSource = dt.AsEnumerable();
 
             this.DataBind();
+        }
+
+        /// <summary>
+        /// Create the Page links.
+        /// </summary>
+        protected override void CreatePageLinks()
+        {
+            if (this.PageContext.Settings.LockedForum == 0)
+            {
+                this.PageLinks.AddRoot();
+                this.PageLinks.AddLink(
+                    this.PageContext.PageCategoryName,
+                    BuildLink.GetLink(ForumPages.forum, "c={0}", this.PageContext.PageCategoryID));
+            }
+
+            this.PageLinks.AddForum(this.PageContext.PageForumID);
+            this.PageLinks.AddLink(
+                this.PageContext.PageTopicName, BuildLink.GetLink(ForumPages.Posts, "t={0}", this.PageContext.PageTopicID));
         }
 
         #endregion

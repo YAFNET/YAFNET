@@ -75,7 +75,7 @@ namespace YAF.UrlRewriter.Utilities
         }
 
         /// <summary>
-        /// Deteremines if the given IP address is in the range.
+        /// Determines if the given IP address is in the range.
         /// </summary>
         /// <param name="address">The IP address.</param>
         /// <returns>True if the address is in the range.</returns>

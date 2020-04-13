@@ -30,7 +30,8 @@ namespace YAF.Pages
     using System.Web;
 
     using YAF.Configuration;
-    using YAF.Core;
+    using YAF.Core.BasePages;
+    using YAF.Core.Context;
     using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Constants;
@@ -111,6 +112,15 @@ namespace YAF.Pages
                 this.hidLastTab.Value = $"View{(int)this.View}";
             }
 
+            this.NewPM.NavigateUrl = BuildLink.GetLinkNotEscaped(ForumPages.PostPrivateMessage);
+            this.NewPM2.NavigateUrl = this.NewPM.NavigateUrl;
+        }
+
+        /// <summary>
+        /// Create the Page links.
+        /// </summary>
+        protected override void CreatePageLinks()
+        {
             this.PageLinks.AddRoot();
             this.PageLinks.AddLink(
                 this.Get<BoardSettings>().EnableDisplayName
@@ -118,9 +128,6 @@ namespace YAF.Pages
                     : this.PageContext.PageUserName,
                 BuildLink.GetLink(ForumPages.Account));
             this.PageLinks.AddLink(this.GetText("TITLE"));
-
-            this.NewPM.NavigateUrl = BuildLink.GetLinkNotEscaped(ForumPages.PostPrivateMessage);
-            this.NewPM2.NavigateUrl = this.NewPM.NavigateUrl;
         }
 
         #endregion

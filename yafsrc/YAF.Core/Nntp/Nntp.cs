@@ -30,6 +30,7 @@ namespace YAF.Core.Nntp
     using System.Linq;
     using System.Web;
 
+    using YAF.Core.Context;
     using YAF.Core.Model;
     using YAF.Core.UsersRoles;
     using YAF.Types;
@@ -37,6 +38,7 @@ namespace YAF.Core.Nntp
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
     using YAF.Types.Objects;
+    using YAF.Types.Objects.Nntp;
 
     #endregion
 

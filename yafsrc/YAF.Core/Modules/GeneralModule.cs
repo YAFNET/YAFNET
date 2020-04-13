@@ -31,8 +31,12 @@ namespace YAF.Core.Modules
 
     using Autofac;
 
+    using YAF.Core.BaseModules;
+    using YAF.Core.Context;
     using YAF.Core.Data;
     using YAF.Core.Data.Filters;
+    using YAF.Core.Events;
+    using YAF.Core.Helpers;
     using YAF.Core.Nntp;
     using YAF.Core.Services.Cache;
     using YAF.Types.Interfaces;

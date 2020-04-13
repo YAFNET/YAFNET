@@ -31,6 +31,7 @@ namespace YAF.Core.Model
 
     using ServiceStack.OrmLite;
 
+    using YAF.Core.Context;
     using YAF.Core.Data;
     using YAF.Core.Extensions;
     using YAF.Types;

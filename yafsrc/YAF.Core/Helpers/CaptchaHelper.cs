@@ -21,7 +21,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Core
+namespace YAF.Core.Helpers
 {
   #region Using
 
@@ -29,6 +29,7 @@ namespace YAF.Core
   using System.Web;
   using System.Web.Caching;
 
+  using YAF.Core.Context;
   using YAF.Types;
   using YAF.Types.Extensions;
   using YAF.Types.Interfaces;

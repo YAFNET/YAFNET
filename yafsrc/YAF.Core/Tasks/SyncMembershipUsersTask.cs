@@ -27,6 +27,7 @@ namespace YAF.Core.Tasks
 
   using System;
 
+  using YAF.Core.Context;
   using YAF.Core.UsersRoles;
   using YAF.Types;
   using YAF.Types.Extensions;

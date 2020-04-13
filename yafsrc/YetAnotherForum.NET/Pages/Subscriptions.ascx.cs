@@ -29,11 +29,10 @@ namespace YAF.Pages
 
     using System;
     using System.Collections.Generic;
-    using System.Data;
     using System.Linq;
     using System.Web.UI.WebControls;
     using YAF.Configuration;
-    using YAF.Core;
+    using YAF.Core.BasePages;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
     using YAF.Types;
@@ -82,14 +81,6 @@ namespace YAF.Pages
 
             this.BindData();
 
-            this.PageLinks.AddRoot();
-            this.PageLinks.AddLink(
-                    this.Get<BoardSettings>().EnableDisplayName
-                        ? this.PageContext.CurrentUserData.DisplayName
-                        : this.PageContext.PageUserName,
-                    BuildLink.GetLink(ForumPages.Account));
-            this.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
-
             this.DailyDigestRow.Visible = this.Get<BoardSettings>().AllowDigestEmail;
             this.PMNotificationRow.Visible = this.Get<BoardSettings>().AllowPMEmailNotification;
 
@@ -116,6 +107,20 @@ namespace YAF.Pages
 
             // update the ui...
             this.UpdateSubscribeUi(this.PageContext.CurrentUserData.NotificationSetting);
+        }
+
+        /// <summary>
+        /// Create the Page links.
+        /// </summary>
+        protected override void CreatePageLinks()
+        {
+            this.PageLinks.AddRoot();
+            this.PageLinks.AddLink(
+                this.Get<BoardSettings>().EnableDisplayName
+                    ? this.PageContext.CurrentUserData.DisplayName
+                    : this.PageContext.PageUserName,
+                BuildLink.GetLink(ForumPages.Account));
+            this.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
         }
 
         /// <summary>

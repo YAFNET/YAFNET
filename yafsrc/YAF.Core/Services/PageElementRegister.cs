@@ -30,6 +30,7 @@ namespace YAF.Core.Services
     using System.Web.UI;
 
     using YAF.Core;
+    using YAF.Core.Context;
     using YAF.Utils;
     using YAF.Utils.Helpers;
 

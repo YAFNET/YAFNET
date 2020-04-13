@@ -36,7 +36,7 @@ namespace YAF.Pages.Admin
     using Core.Services.Import;
 
     using YAF.Configuration;
-    using YAF.Core;
+    using YAF.Core.BasePages;
     using YAF.Core.Extensions;
     using YAF.Core.Helpers;
     using YAF.Core.Model;

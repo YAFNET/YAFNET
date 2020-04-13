@@ -27,6 +27,7 @@ namespace YAF.Core.BBCode.ReplaceRules
     using System.Text;
     using System.Text.RegularExpressions;
 
+    using YAF.Core.Context;
     using YAF.Core.Extensions;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;

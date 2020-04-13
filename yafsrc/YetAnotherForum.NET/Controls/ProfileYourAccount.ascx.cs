@@ -29,6 +29,7 @@ namespace YAF.Controls
 
   using YAF.Core;
   using YAF.Core.BaseControls;
+  using YAF.Core.Context;
   using YAF.Core.Extensions;
   using YAF.Core.Model;
   using YAF.Types;
