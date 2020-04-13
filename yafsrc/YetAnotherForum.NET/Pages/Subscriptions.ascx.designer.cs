@@ -33,15 +33,6 @@ namespace YAF.Pages
         protected global::System.Web.UI.UpdatePanel PreferencesUpdatePanel;
 
         /// <summary>
-        /// LocalizedLabel12 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel12;
-
-        /// <summary>
         /// LocalizedLabel200 control.
         /// </summary>
         /// <remarks>

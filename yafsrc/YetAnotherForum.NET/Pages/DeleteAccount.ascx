@@ -11,11 +11,9 @@
             <div class="col">
                 <div class="card mb-3">
                     <div class="card-header">
-                        <YAF:Icon runat="server" 
-                                  IconName="user-alt-slash"
-                                  IconType="text-secondary"></YAF:Icon>
-                        <YAF:LocalizedLabel ID="LocalizedLabel12" runat="server" 
-                                            LocalizedTag="TITLE" LocalizedPage="DELETE_ACCOUNT" />
+                        <YAF:IconHeader runat="server"
+                                        IconName="user-alt-slash"
+                                        LocalizedPage="DELETE_ACCOUNT" />
                     </div>
                     <div class="card-body">
                         <h6 class="card-title">

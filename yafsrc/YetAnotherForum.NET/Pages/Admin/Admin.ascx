@@ -5,11 +5,11 @@
 <%@ Import Namespace="YAF.Types.Extensions" %>
 <%@ Import Namespace="ServiceStack" %>
 <YAF:PageLinks ID="PageLinks" runat="server" />
-                <div class="row">
-                <div class="col-xl-12">
-                    <h1>Dashboard</h1>
-                </div>
-            </div>
+<div class="row">
+    <div class="col-xl-12">
+        <h1><YAF:LocalizedLabel ID="LocalizedLabel18" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_ADMIN" /></h1>
+    </div>
+</div>
     <asp:PlaceHolder ID="UpdateHightlight" runat="server" Visible="false">
         <YAF:Alert runat="server" Type="info">
             <YAF:Icon runat="server" IconName="box-open" IconType="text-info"></YAF:Icon>
@@ -26,10 +26,10 @@
              <div class="col-xl-12">
                     <div class="card mb-3">
                         <div class="card-header form-inline">
-                            <i class="fa fa-tachometer-alt fa-fw text-secondary pr-1"></i>
-                            <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server"
-                                                LocalizedTag="HEADER3" 
-                                                LocalizedPage="ADMIN_ADMIN" />&nbsp;
+                            <YAF:IconHeader runat="server"
+                                            IconName="tachometer-alt"
+                                            LocalizedTag="HEADER3"
+                                            LocalizedPage="ADMIN_ADMIN"></YAF:IconHeader>&nbsp;
                             <asp:DropDownList ID="BoardStatsSelect" runat="server" 
                                               DataTextField="Name" 
                                               DataValueField="ID"
@@ -208,10 +208,10 @@
              <div class="col-xl-12">
                     <div class="card mb-3">
                         <div class="card-header">
-                            <i class="fa fa-users fa-fw text-secondary pr-1"></i>
-                            <YAF:LocalizedLabel ID="LocalizedLabel21" runat="server" 
-                                                LocalizedTag="HEADER1" 
-                                                LocalizedPage="ADMIN_ADMIN" />
+                            <YAF:IconHeader runat="server"
+                                            IconName="users"
+                                            LocalizedTag="HEADER1"
+                                            LocalizedPage="ADMIN_ADMIN"></YAF:IconHeader>
                         </div>
                         <div class="card-body">
                             <asp:Repeater ID="ActiveList" runat="server">
@@ -302,10 +302,10 @@
              <div class="col-xl-12">
                     <div class="card mb-3">
                         <div class="card-header">
-                            <i class="fa fa-user-plus fa-fw text-secondary pr-1"></i>
-                            <YAF:LocalizedLabel ID="LocalizedLabel19" runat="server" 
-                                                LocalizedTag="HEADER2" 
-                                                LocalizedPage="ADMIN_ADMIN" />
+                            <YAF:IconHeader runat="server"
+                                            IconName="user-plus"
+                                            LocalizedTag="HEADER2"
+                                            LocalizedPage="ADMIN_ADMIN"></YAF:IconHeader>
                         </div>
                         <div class="card-body">
                                     <asp:Repeater ID="UserList" runat="server" 

@@ -33,15 +33,6 @@ namespace YAF.Pages.Admin
         protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel1;
 
         /// <summary>
-        /// LocalizedLabel6 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel6;
-
-        /// <summary>
         /// HelpLabel1 control.
         /// </summary>
         /// <remarks>
@@ -330,15 +321,6 @@ namespace YAF.Pages.Admin
         protected global::YAF.Web.Controls.ThemeButton Cancel;
 
         /// <summary>
-        /// LocalizedLabel11 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel11;
-
-        /// <summary>
         /// GroupList control.
         /// </summary>
         /// <remarks>
@@ -355,15 +337,6 @@ namespace YAF.Pages.Admin
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::YAF.Web.Controls.ThemeButton AddGroup;
-
-        /// <summary>
-        /// LocalizedLabel12 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel12;
 
         /// <summary>
         /// UserList control.

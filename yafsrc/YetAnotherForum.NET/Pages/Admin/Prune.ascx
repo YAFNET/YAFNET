@@ -16,12 +16,9 @@
     <div class="col-xl-12">
         <div class="card mb-3">
             <div class="card-header">
-                <YAF:Icon runat="server"
-                          IconName="trash pr-1"
-                          IconType="text-secondary"></YAF:Icon>
-                <YAF:HelpLabel ID="LocalizedLabel5" runat="server"
-                                    LocalizedTag="TITLE"
-                                    LocalizedPage="ADMIN_PRUNE" />
+                <YAF:IconHeader runat="server"
+                                IconName="trash"
+                                LocalizedPage="ADMIN_PRUNE"></YAF:IconHeader>
             </div>
             <div class="card-body">
                 <asp:Label ID="lblPruneInfo" runat="server"></asp:Label>

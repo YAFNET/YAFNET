@@ -13,7 +13,8 @@
     <div class="col">
         <div class="card mb-3">
             <div class="card-header">
-                <i class="fa fa-envelope-open fa-fw text-secondary"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="TITLE" />
+                <YAF:IconHeader runat="server"
+                                IconName="envelope-open"></YAF:IconHeader>
             </div>
             <div class="card-body text-center">
                 <form>

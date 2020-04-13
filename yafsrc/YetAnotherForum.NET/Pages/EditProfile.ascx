@@ -12,10 +12,9 @@
     <div class="col">
         <div class="card">
             <div class="card-header">
-                <YAF:Icon runat="server"
-                          IconName="user-edit"
-                          IconType="text-secondary"></YAF:Icon>
-                <YAF:LocalizedLabel runat="server" LocalizedTag="EDIT_PROFILE"></YAF:LocalizedLabel>
+                <YAF:IconHeader runat="server"
+                                IconName="user-edit"
+                                LocalizedTag="EDIT_PROFILE" />
             </div>
             <div class="card-body">
                 <YAF:ProfileEdit runat="server" ID="ProfileEditor" />

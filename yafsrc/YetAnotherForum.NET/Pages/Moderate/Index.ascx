@@ -14,10 +14,10 @@
             <div class="col">
                 <div class="card mb-3">
                     <div class="card-header">
-                        <YAF:Icon runat="server"
-                                  IconName="folder"
-                                  IconType="text-warning"></YAF:Icon>
-                        <%# this.Eval( "Name") %>
+                        <YAF:IconHeader runat="server"
+                                        IconName="globe"
+                                        Text='<%# this.Eval( "Name") %>'
+                                        LocalizedPage="ADMIN_BOARDS"></YAF:IconHeader>
                     </div>
                     <div class="card-body text-center">
                         <asp:Repeater ID="ForumList" runat="server" 

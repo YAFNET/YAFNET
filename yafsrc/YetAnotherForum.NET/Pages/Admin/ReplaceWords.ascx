@@ -18,7 +18,9 @@
         <div class="col-xl-12">
             <div class="card mb-3">
                 <div class="card-header">
-                    <i class="fa fa-sticky-note fa-fw text-secondary"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_REPLACEWORDS" />
+                    <YAF:IconHeader runat="server"
+                                    IconName="sticky-note"
+                                    LocalizedPage="ADMIN_REPLACEWORDS"></YAF:IconHeader>
                 </div>
                 <div class="card-body">
                     <ul class="list-group">
@@ -41,25 +43,27 @@
                     <%# this.HtmlEncode(this.Eval("goodword")) %>
                 </p>
                 <small>
-                    <YAF:ThemeButton ID="btnEdit" runat="server"
-                                     Type="Info" 
-                                     Size="Small" 
-                                     CommandName="edit" 
-                                     CommandArgument='<%# this.Eval("ID") %>'
-                                     TextLocalizedTag="EDIT"
-                                     TitleLocalizedTag="EDIT" 
-                                     Icon="edit">
-                    </YAF:ThemeButton>
-                    <YAF:ThemeButton ID="ThemeButtonDelete" runat="server" 
-                                     Type="Danger" 
-                                     Size="Small" 
-                                     CommandName="delete"
-                                     TextLocalizedTag="DELETE"
-                                     CommandArgument='<%# this.Eval( "ID") %>' 
-                                     TitleLocalizedTag="DELETE" 
-                                     Icon="trash"
-                                     ReturnConfirmText='<%# this.GetText("ADMIN_REPLACEWORDS", "MSG_DELETE") %>'>
-                    </YAF:ThemeButton>
+                    <div class="btn-group btn-group-sm">
+                        <YAF:ThemeButton ID="btnEdit" runat="server"
+                                         Type="Info" 
+                                         Size="Small" 
+                                         CommandName="edit" 
+                                         CommandArgument='<%# this.Eval("ID") %>'
+                                         TextLocalizedTag="EDIT"
+                                         TitleLocalizedTag="EDIT" 
+                                         Icon="edit">
+                        </YAF:ThemeButton>
+                        <YAF:ThemeButton ID="ThemeButtonDelete" runat="server" 
+                                         Type="Danger" 
+                                         Size="Small" 
+                                         CommandName="delete"
+                                         TextLocalizedTag="DELETE"
+                                         CommandArgument='<%# this.Eval( "ID") %>' 
+                                         TitleLocalizedTag="DELETE" 
+                                         Icon="trash"
+                                         ReturnConfirmText='<%# this.GetText("ADMIN_REPLACEWORDS", "MSG_DELETE") %>'>
+                        </YAF:ThemeButton>
+                    </div>
                 </small>
                 <div class="dropdown-menu context-menu" aria-labelledby="context menu">
                     <YAF:ThemeButton ID="ThemeButton1" runat="server"

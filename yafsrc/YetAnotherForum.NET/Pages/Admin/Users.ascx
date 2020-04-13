@@ -21,10 +21,9 @@
     <YAF:Pager ID="PagerTop" runat="server" OnPageChange="PagerTopPageChange" UsePostBack="True" />
     <div class="card mb-3">
                 <div class="card-header">
-                    <i class="fa fa-user fa-fw text-secondary pr-1"></i>
-                    <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" 
-                                        LocalizedTag="TITLE" 
-                                        LocalizedPage="ADMIN_USERS" />
+                    <YAF:IconHeader runat="server"
+                                    IconName="users"
+                                    LocalizedPage="ADMIN_USERS"></YAF:IconHeader>
                     <div class="float-right">
                         <YAF:ThemeButton runat="server"
                                          CssClass="dropdown-toggle"
@@ -179,26 +178,28 @@
                                     </ul>
                                 </p>
                                 <small>
-                                    <YAF:ThemeButton ID="ThemeButtonEdit" runat="server" 
-                                                     Type="Info" 
-                                                     Size="Small" 
-                                                     CommandName="edit" 
-                                                     CommandArgument='<%# DataBinder.Eval(Container.DataItem, "UserID") %>'
-                                                     TextLocalizedTag="EDIT" 
-                                                     TitleLocalizedTag="EDIT" 
-                                                     Icon="edit">
-                                    </YAF:ThemeButton>
-                                    <YAF:ThemeButton ID="ThemeButtonDelete" runat="server"
-                                                     ReturnConfirmText='<%# this.GetText("ADMIN_USERS", "CONFIRM_DELETE") %>' 
-                                                     Type="Danger" 
-                                                     Size="Small" 
-                                                     CommandName="delete" 
-                                                     CommandArgument='<%# DataBinder.Eval(Container.DataItem, "UserID") %>'
-                                                     TextLocalizedTag="DELETE" 
-                                                     TitleLocalizedTag="DELETE"
-                                                     Icon="trash" 
-                                                     Visible='<%# DataBinder.Eval(Container.DataItem, "IsGuest").ToType<bool>() == false && !Config.IsDotNetNuke %>'>
-                                    </YAF:ThemeButton>
+                                    <div class="btn-group btn-group-sm">
+                                        <YAF:ThemeButton ID="ThemeButtonEdit" runat="server" 
+                                                         Type="Info" 
+                                                         Size="Small" 
+                                                         CommandName="edit" 
+                                                         CommandArgument='<%# DataBinder.Eval(Container.DataItem, "UserID") %>'
+                                                         TextLocalizedTag="EDIT" 
+                                                         TitleLocalizedTag="EDIT" 
+                                                         Icon="edit">
+                                        </YAF:ThemeButton>
+                                        <YAF:ThemeButton ID="ThemeButtonDelete" runat="server"
+                                                         ReturnConfirmText='<%# this.GetText("ADMIN_USERS", "CONFIRM_DELETE") %>' 
+                                                         Type="Danger" 
+                                                         Size="Small" 
+                                                         CommandName="delete" 
+                                                         CommandArgument='<%# DataBinder.Eval(Container.DataItem, "UserID") %>'
+                                                         TextLocalizedTag="DELETE" 
+                                                         TitleLocalizedTag="DELETE"
+                                                         Icon="trash" 
+                                                         Visible='<%# DataBinder.Eval(Container.DataItem, "IsGuest").ToType<bool>() == false && !Config.IsDotNetNuke %>'>
+                                        </YAF:ThemeButton>
+                                    </div>
                                 </small>
                                 <div class="dropdown-menu context-menu" aria-labelledby="context menu">
                                     <YAF:ThemeButton ID="ThemeButton1" runat="server" 

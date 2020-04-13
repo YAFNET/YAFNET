@@ -15,10 +15,9 @@
         <div class="col-xl-12">
             <div class="card mb-3">
                 <div class="card-header">
-                    <i class="fa fa-newspaper fa-fw text-secondary pr-1"></i>
-                    <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server"
-                                        LocalizedTag="HEADER"
-                                        LocalizedPage="ADMIN_NNTPRETRIEVE" />
+                    <YAF:IconHeader runat="server"
+                                    IconName="newspaper"
+                                    LocalizedPage="ADMIN_NNTPRETRIEVE"></YAF:IconHeader>
                     </div>
                 <div class="card-body">
                     <asp:Repeater runat="server" ID="List">

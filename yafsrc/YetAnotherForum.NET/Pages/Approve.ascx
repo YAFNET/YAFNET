@@ -14,11 +14,8 @@
     <div class="col">
         <div class="card mb-3">
             <div class="card-header">
-                <YAF:Icon runat="server"
-                          IconName="check-dobule"
-                          IconType="text-secondary pr-1"></YAF:Icon>
-                <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" 
-                                    LocalizedTag="title" />
+                <YAF:IconHeader runat="server"
+                                IconName="check-double"></YAF:IconHeader>
             </div>
             <div class="card-body text-center">
                 <YAF:Alert runat="server" ID="Approved"

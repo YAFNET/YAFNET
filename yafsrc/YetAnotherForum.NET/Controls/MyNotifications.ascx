@@ -9,11 +9,9 @@
             <div class="card-header">
                 <div class="row justify-content-between">
                     <div class="col-md-3">
-                        <YAF:Icon runat="server" 
-                                  IconName="bell"
-                                  IconType="text-secondary"></YAF:Icon>
-                        <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" 
-                                            LocalizedTag="YOUR_NOTIFIY" />
+                        <YAF:IconHeader runat="server"
+                                        IconName="bell"
+                                        LocalizedTag="YOUR_NOTIFIY" />
                     </div>
                     <div class="col-md-2 mt-1">
                         <div class="btn-group dropleft" role="group" aria-label="Filters">

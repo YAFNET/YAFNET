@@ -13,8 +13,9 @@
     <div class="col">
         <div class="card mb-3">
             <div class="card-header">
-                <i class="fa fa-arrows-alt fa-fw text-secondary"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel8" runat="server" 
-                                                                                LocalizedTag="MOVE_TITLE" />
+                <YAF:IconHeader runat="server"
+                                IconName="arrows-alt"
+                                LocalizedTag="MOVE_TITLE"/>
             </div>
             <div class="card-body text-center">
                 <div class="form-group">
@@ -51,7 +52,9 @@
     <div class="col">
         <div class="card mb-3">
             <div class="card-header">
-                <i class="fa fa-cut fa-fw text-secondary"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="SPLIT_TITLE" />
+                <YAF:IconHeader runat="server"
+                                IconName="cut"
+                                LocalizedTag="SPLIT_TITLE"/>
             </div>
             <div class="card-body text-center">
                 <div class="form-group">

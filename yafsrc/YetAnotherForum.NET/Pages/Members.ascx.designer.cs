@@ -33,15 +33,6 @@ namespace YAF.Pages
         protected global::YAF.Web.Controls.Pager Pager;
 
         /// <summary>
-        /// LocalizedLabel1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel1;
-
-        /// <summary>
         /// Sort control.
         /// </summary>
         /// <remarks>

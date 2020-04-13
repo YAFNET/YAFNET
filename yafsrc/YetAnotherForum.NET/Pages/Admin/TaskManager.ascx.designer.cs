@@ -33,15 +33,6 @@ namespace YAF.Pages.Admin
         protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel4;
 
         /// <summary>
-        /// lblTaskCount control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblTaskCount;
-
-        /// <summary>
         /// taskRepeater control.
         /// </summary>
         /// <remarks>

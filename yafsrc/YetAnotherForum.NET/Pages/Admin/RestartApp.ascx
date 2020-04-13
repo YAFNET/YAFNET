@@ -12,9 +12,9 @@
         <div class="col-xl-12">
             <div class="card mb-3">
                 <div class="card-header">
-                    <i class="fa fa-sync fa-fw text-secondary"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" 
-                                                                              LocalizedTag="TITLE" 
-                                                                              LocalizedPage="ADMIN_RESTARTAPP" />
+                    <YAF:IconHeader runat="server"
+                                    IconName="sync"
+                                    LocalizedPage="ADMIN_RESTARTAPP"></YAF:IconHeader>
                 </div>
                 <div class="card-body text-center">
                     <p class="card-text">

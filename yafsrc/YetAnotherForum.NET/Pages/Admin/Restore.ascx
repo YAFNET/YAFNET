@@ -20,12 +20,9 @@
         <YAF:Pager ID="PagerTop" runat="server" OnPageChange="PagerTop_PageChange" />
         <div class="card mb-3">
             <div class="card-header">
-                <YAF:Icon runat="server"
-                          IconName="trash-restore pr-1"
-                          IconType="text-secondary"></YAF:Icon>
-                <YAF:HelpLabel ID="HelpLabel1" runat="server" 
-                               LocalizedTag="TITLE" 
-                               LocalizedPage="ADMIN_RESTORE" />
+                <YAF:IconHeader runat="server"
+                                IconName="trash-restore"
+                                LocalizedPage="ADMIN_RESTORE"></YAF:IconHeader>
                 <div class="float-right">
                     <YAF:ThemeButton runat="server"
                                      CssClass="dropdown-toggle"
@@ -141,12 +138,10 @@
         <YAF:Pager ID="PagerMessages" runat="server" OnPageChange="PagerTop_PageChange" />
         <div class="card mb-3">
             <div class="card-header">
-                <YAF:Icon runat="server"
-                          IconName="trash-restore pr-1"
-                          IconType="text-secondary"></YAF:Icon>
-                <YAF:HelpLabel ID="HelpLabel3" runat="server" 
-                               LocalizedTag="TITLE_MESSAGE" 
-                               LocalizedPage="ADMIN_RESTORE" />
+                <YAF:IconHeader runat="server"
+                                IconName="trash-restore"
+                                LocalizedTag="TITLE_MESSAGE" 
+                                LocalizedPage="ADMIN_RESTORE"></YAF:IconHeader>
             </div>
                 <asp:Repeater runat="server" ID="DeletedMessages" OnItemCommand="Messages_ItemCommand">
                     <HeaderTemplate>

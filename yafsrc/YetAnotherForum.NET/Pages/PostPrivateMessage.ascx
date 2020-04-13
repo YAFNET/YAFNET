@@ -17,8 +17,8 @@
     <div class="col">
         <div class="card mb-3">
             <div class="card-header">
-                <i class="fa fa-envelope-open-text fa-fw text-secondary"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" 
-                                                                                  LocalizedTag="TITLE" />
+                <YAF:IconHeader runat="server"
+                                IconName="envelope-open-text"/>
             </div>
             <div class="card-body">
                 <asp:PlaceHolder id="PreviewRow" runat="server" visible="false">

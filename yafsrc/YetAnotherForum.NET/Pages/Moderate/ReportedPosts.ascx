@@ -20,10 +20,9 @@
             <div class="col-xl-12">
                 <div class="card mb-3">
                     <div class="card-header">
-                        <i class="fa fa-comment fa-fw text-secondary pr-1"></i>
-                        <span class="font-weight-bold"><YAF:LocalizedLabel ID="TopicLabel" runat="server"
-                                            LocalizedTag="TOPIC" />
-                        </span>
+                        <YAF:IconHeader runat="server"
+                                        IconName="comment"
+                                        LocalizedTag="TOPIC"></YAF:IconHeader>
                         <a id="TopicLink" 
                            href='<%# BuildLink.GetLink(ForumPages.Posts, "t={0}", this.Eval("TopicID")) %>'
                            runat="server"><%# this.Eval("Topic") %></a>

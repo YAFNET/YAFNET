@@ -20,7 +20,8 @@
 		<UserNameTemplate>
                 <div class="card">
                     <div class="card-header">
-                        <i class="fa fa-key fa-fw text-secondary"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="TITLE" />
+                        <YAF:IconHeader runat="server"
+                                        IconName="key"/>
                     </div>
                     <div class="card-body">
                         <h5 class="card-subtitle mb-2 text-muted">
@@ -56,8 +57,10 @@
 		</UserNameTemplate>
 		<QuestionTemplate>
                 <div class="card">
-                    <div class="card-header">
-                        <i class="fa fa-key fa-fw text-secondary"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="IDENTITY_CONFIRMATION_TITLE" />
+                    <div class="card-header">                        
+                        <YAF:IconHeader runat="server"
+                                        IconName="key"
+                                        LocalizedTag="IDENTITY_CONFIRMATION_TITLE" />
                     </div>
                     <div class="card-body">
                         <h5 class="card-subtitle mb-2 text-muted">
@@ -107,7 +110,8 @@
 		<SuccessTemplate>
                 <div class="card">
                     <div class="card-header">
-                        <i class="fa fa-key fa-fw text-secondary"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel9" runat="server" LocalizedTag="TITLE" />
+                        <YAF:IconHeader runat="server"
+                                        IconName="key"/>
                     </div>
                     <div class="card-body">
                         <p class="card-text">

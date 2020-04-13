@@ -42,22 +42,13 @@ namespace YAF.Pages.Admin
         protected global::System.Web.UI.WebControls.Label Label1;
 
         /// <summary>
-        /// LocalizedLabel2 control.
+        /// IconHeader control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel2;
-
-        /// <summary>
-        /// ForumNameTitle control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label ForumNameTitle;
+        protected global::YAF.Web.Controls.IconHeader IconHeader;
 
         /// <summary>
         /// HelpLabel3 control.

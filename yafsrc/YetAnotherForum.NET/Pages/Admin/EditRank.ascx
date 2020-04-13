@@ -14,10 +14,9 @@
         <div class="col-xl-12">
             <div class="card mb-3">
                 <div class="card-header">
-                    <i class="fa fa-graduation-cap fa-fw text-secondary pr-1"></i>
-                    <YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" 
-                                        LocalizedTag="TITLE" 
-                                        LocalizedPage="ADMIN_EDITRANK" />
+                    <YAF:IconHeader runat="server"
+                                    IconName="graduation-cap"
+                                    LocalizedPage="ADMIN_EDITRANK"></YAF:IconHeader>
                 </div>
                 <div class="card-body">
                     <div class="form-row">

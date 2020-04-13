@@ -22,10 +22,9 @@
             <YAF:Pager ID="PagerTop" runat="server" OnPageChange="PagerTop_PageChange" />
             <div class="card mb-3">
                 <div class="card-header">
-                    <i class="fa fa-hand-paper fa-fw text-secondary pr-1"></i>
-                    <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" 
-                                        LocalizedTag="TITLE" 
-                                        LocalizedPage="ADMIN_BANNEDEMAIL" />
+                    <YAF:IconHeader runat="server"
+                                    IconName="hand-paper"
+                                    LocalizedPage="ADMIN_BANNEDEMAIL"></YAF:IconHeader>
                     <div class="float-right">
                         <YAF:ThemeButton runat="server"
                                          CssClass="dropdown-toggle"
@@ -84,22 +83,24 @@
                     <%# this.Eval("Reason") %>
                 </p>
                 <small>
-                    <YAF:ThemeButton ID="ThemeButtonEdit" 
-                                     Type="Info" Size="Small" 
-                                     CommandName="edit" CommandArgument='<%# this.Eval("ID") %>'
-                                     TextLocalizedTag="EDIT"
-                                     TitleLocalizedTag="EDIT" 
-                                     Icon="edit" runat="server">
-                    </YAF:ThemeButton>
-                    <YAF:ThemeButton ID="ThemeButtonDelete" 
-                                     Type="Danger" 
-                                     Size="Small" 
-                                     CommandName="delete" CommandArgument='<%# this.Eval("ID") %>'
-                                     TextLocalizedTag="DELETE" 
-                                     ReturnConfirmText='<%# this.GetText("ADMIN_BANNEDIP", "MSG_DELETE") %>'
-                                     TitleLocalizedTag="DELETE"
-                                     Icon="trash" runat="server">
-                    </YAF:ThemeButton>
+                    <div class="btn-group btn-group-sm">
+                        <YAF:ThemeButton ID="ThemeButtonEdit" 
+                                         Type="Info" Size="Small" 
+                                         CommandName="edit" CommandArgument='<%# this.Eval("ID") %>'
+                                         TextLocalizedTag="EDIT"
+                                         TitleLocalizedTag="EDIT" 
+                                         Icon="edit" runat="server">
+                        </YAF:ThemeButton>
+                        <YAF:ThemeButton ID="ThemeButtonDelete" 
+                                         Type="Danger" 
+                                         Size="Small" 
+                                         CommandName="delete" CommandArgument='<%# this.Eval("ID") %>'
+                                         TextLocalizedTag="DELETE" 
+                                         ReturnConfirmText='<%# this.GetText("ADMIN_BANNEDIP", "MSG_DELETE") %>'
+                                         TitleLocalizedTag="DELETE"
+                                         Icon="trash" runat="server">
+                        </YAF:ThemeButton>
+                    </div>
                 </small>
                 <div class="dropdown-menu context-menu" aria-labelledby="context menu">
                     <YAF:ThemeButton ID="ThemeButton1" 

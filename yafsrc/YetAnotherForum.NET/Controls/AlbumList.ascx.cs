@@ -119,7 +119,7 @@ namespace YAF.Controls
                 return;
             }
 
-            this.AlbumHeaderLabel.Param0 = this.HtmlEncode(
+            this.IconHeader.Param0 = this.HtmlEncode(
                 this.Get<BoardSettings>().EnableDisplayName
                     ? UserMembershipHelper.GetDisplayNameFromID(this.UserID)
                     : UserMembershipHelper.GetUserNameFromID(this.UserID));

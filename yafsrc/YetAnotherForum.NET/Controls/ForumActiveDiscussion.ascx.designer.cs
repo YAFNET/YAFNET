@@ -24,15 +24,6 @@ namespace YAF.Controls
         protected global::System.Web.UI.WebControls.PlaceHolder ActiveDiscussionPlaceHolder;
 
         /// <summary>
-        /// ActiveDiscussionHeader control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Web.Controls.LocalizedLabel ActiveDiscussionHeader;
-
-        /// <summary>
         /// LatestPosts control.
         /// </summary>
         /// <remarks>

@@ -12,7 +12,9 @@
             <div class="col">
             <div class="card bg-light  mb-3">
             <div class="card-header">
-                <i class="fa fa-question-circle fa-fw text-secondary"></i>&nbsp; <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="question" />
+                <YAF:IconHeader runat="server"
+                                IconName="question-circle"
+                                LocalizedTag="question" />
                 :
                 <asp:Label ID="QuestionLabel"
                            Text='<%# this.GetPollQuestion(DataBinder.Eval(Container.DataItem, "PollID"))%>'  runat="server"></asp:Label>

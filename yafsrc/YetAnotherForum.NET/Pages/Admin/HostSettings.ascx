@@ -120,9 +120,9 @@
             <div class="tab-pane fade" id="View0" role="tabpanel">
                 <div class="card mb-3">
                     <div class="card-header">
-                        <i class="fa fa-cog fa-fw text-secondary"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel55" runat="server" 
-                                                                                                LocalizedTag="TITLE" 
-                                                                                                LocalizedPage="ADMIN_HOSTSETTINGS" />
+                        <YAF:IconHeader runat="server"
+                                        IconName="cog"
+                                        LocalizedPage="ADMIN_HOSTSETTING"></YAF:IconHeader>
                         - <YAF:LocalizedLabel ID="LocalizedLabel56" runat="server" LocalizedTag="HEADER_SERVER_INFO" LocalizedPage="ADMIN_HOSTSETTINGS" />
                     </div>
                     <div class="card-body">
@@ -174,9 +174,9 @@
             <div class="tab-pane fade" id="View1" role="tabpanel">
                 <div class="card mb-3">
                     <div class="card-header">
-                        <i class="fa fa-cog fa-fw text-secondary"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel57" runat="server" 
-                                                                                                LocalizedTag="TITLE" 
-                                                                                                LocalizedPage="ADMIN_HOSTSETTINGS" />
+                        <YAF:IconHeader runat="server"
+                                        IconName="cog"
+                                        LocalizedPage="ADMIN_HOSTSETTING"></YAF:IconHeader>
                         - <YAF:LocalizedLabel ID="LocalizedLabel58" runat="server" 
                                               LocalizedTag="HEADER_SETUP" 
                                               LocalizedPage="ADMIN_HOSTSETTINGS" />
@@ -670,9 +670,9 @@
             <div class="tab-pane fade" id="View2" role="tabpanel">
                 <div class="card mb-3">
                     <div class="card-header">
-                        <i class="fa fa-cog fa-fw text-secondary"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel59" runat="server" 
-                                                                                                LocalizedTag="TITLE" 
-                                                                                                LocalizedPage="ADMIN_HOSTSETTINGS" />
+                        <YAF:IconHeader runat="server"
+                                        IconName="cog"
+                                        LocalizedPage="ADMIN_HOSTSETTING"></YAF:IconHeader>
                         - <YAF:LocalizedLabel ID="LocalizedLabel60" runat="server" 
                                               LocalizedTag="HEADER_SERVER_INFO" 
                                               LocalizedPage="HEADER_FEATURES" />
@@ -1311,9 +1311,9 @@
             <div class="tab-pane fade" id="View3" role="tabpanel">
                 <div class="card mb-3">
                     <div class="card-header">
-                        <i class="fa fa-cog fa-fw text-secondary"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel61" runat="server" 
-                                                                                                LocalizedTag="TITLE" 
-                                                                                                LocalizedPage="ADMIN_HOSTSETTINGS" />
+                        <YAF:IconHeader runat="server"
+                                        IconName="cog"
+                                        LocalizedPage="ADMIN_HOSTSETTING"></YAF:IconHeader>
                         - <YAF:LocalizedLabel ID="LocalizedLabel62" runat="server" 
                                               LocalizedTag="HEADER_DISPLAY" 
                                               LocalizedPage="ADMIN_HOSTSETTINGS" />
@@ -1567,9 +1567,9 @@
             <div class="tab-pane fade" id="View4" role="tabpanel">
                 <div class="card mb-3">
                     <div class="card-header">
-                        <i class="fa fa-cog fa-fw text-secondary"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel63" runat="server" 
-                                                                                                LocalizedTag="TITLE" 
-                                                                                                LocalizedPage="ADMIN_HOSTSETTINGS" />
+                        <YAF:IconHeader runat="server"
+                                        IconName="cog"
+                                        LocalizedPage="ADMIN_HOSTSETTING"></YAF:IconHeader>
                         - <YAF:LocalizedLabel ID="LocalizedLabel64" runat="server" 
                                               LocalizedTag="HEADER_ADVERTS" 
                                               LocalizedPage="ADMIN_HOSTSETTINGS" />
@@ -1603,9 +1603,9 @@
             </div><div class="tab-pane fade" id="View5" role="tabpanel">
         <div class="card mb-3">
             <div class="card-header">
-                <i class="fa fa-cog fa-fw text-secondary"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel65" runat="server" 
-                                                                                        LocalizedTag="TITLE" 
-                                                                                        LocalizedPage="ADMIN_HOSTSETTINGS" />
+                <YAF:IconHeader runat="server"
+                                IconName="cog"
+                                LocalizedPage="ADMIN_HOSTSETTING"></YAF:IconHeader>
                 - <YAF:LocalizedLabel ID="LocalizedLabel66" runat="server" 
                                       LocalizedTag="HEADER_EDITORS" 
                                       LocalizedPage="ADMIN_HOSTSETTINGS" />
@@ -1639,9 +1639,9 @@
             </div><div class="tab-pane fade" id="View6" role="tabpanel">
                 <div class="card mb-3">
                     <div class="card-header">
-                        <i class="fa fa-cog fa-fw text-secondary"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel67" runat="server" 
-                                                                                                LocalizedTag="TITLE" 
-                                                                                                LocalizedPage="ADMIN_HOSTSETTINGS" />
+                        <YAF:IconHeader runat="server"
+                                        IconName="cog"
+                                        LocalizedPage="ADMIN_HOSTSETTING"></YAF:IconHeader>
                         - <YAF:LocalizedLabel ID="LocalizedLabel68" runat="server" 
                                               LocalizedTag="HEADER_PERMISSION" 
                                               LocalizedPage="ADMIN_HOSTSETTINGS" />
@@ -1787,9 +1787,9 @@
         <div class="tab-pane fade" id="View8" role="tabpanel">
                 <div class="card mb-3">
                     <div class="card-header">
-                        <i class="fa fa-cog fa-fw text-secondary"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel71" runat="server" 
-                                                                                                LocalizedTag="TITLE" 
-                                                                                                LocalizedPage="ADMIN_HOSTSETTINGS" />
+                        <YAF:IconHeader runat="server"
+                                        IconName="cog"
+                                        LocalizedPage="ADMIN_HOSTSETTING"></YAF:IconHeader>
                         - <YAF:LocalizedLabel ID="LocalizedLabel72" runat="server" 
                                               LocalizedTag="HEADER_AVATARS" 
                                               LocalizedPage="ADMIN_HOSTSETTINGS" />
@@ -1875,9 +1875,9 @@
         <div class="tab-pane fade" id="View9" role="tabpanel">
                 <div class="card mb-3">
                     <div class="card-header">
-                        <i class="fa fa-cog fa-fw text-secondary"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel73" runat="server" 
-                                                                                                LocalizedTag="TITLE" 
-                                                                                                LocalizedPage="ADMIN_HOSTSETTINGS" />
+                        <YAF:IconHeader runat="server"
+                                        IconName="cog"
+                                        LocalizedPage="ADMIN_HOSTSETTING"></YAF:IconHeader>
                         - <YAF:LocalizedLabel ID="LocalizedLabel74" runat="server" 
                                               LocalizedTag="HEADER_CACHE" 
                                               LocalizedPage="ADMIN_HOSTSETTINGS" />
@@ -1990,9 +1990,9 @@
         <div class="tab-pane fade" id="View10" role="tabpanel">
                 <div class="card mb-3">
                     <div class="card-header">
-                        <i class="fa fa-cog fa-fw text-secondary"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel75" runat="server" 
-                                                                                                LocalizedTag="TITLE" 
-                                                                                                LocalizedPage="ADMIN_HOSTSETTINGS" />
+                        <YAF:IconHeader runat="server"
+                                        IconName="cog"
+                                        LocalizedPage="ADMIN_HOSTSETTING"></YAF:IconHeader>
                         - <YAF:LocalizedLabel ID="LocalizedLabel76" runat="server" 
                                               LocalizedTag="HEADER_SEARCH" 
                                               LocalizedPage="ADMIN_HOSTSETTINGS" />
@@ -2044,9 +2044,9 @@
         <div class="tab-pane fade" id="View11" role="tabpanel">
             <div class="card mb-3">
                 <div class="card-header">
-                    <i class="fa fa-cog fa-fw text-secondary"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel77" runat="server" 
-                                                                                            LocalizedTag="TITLE" 
-                                                                                            LocalizedPage="ADMIN_HOSTSETTINGS" />
+                    <YAF:IconHeader runat="server"
+                                    IconName="cog"
+                                    LocalizedPage="ADMIN_HOSTSETTING"></YAF:IconHeader>
                     - <YAF:LocalizedLabel ID="LocalizedLabel78" runat="server" 
                                           LocalizedTag="HEADER_LOG" 
                                           LocalizedPage="ADMIN_HOSTSETTINGS" />

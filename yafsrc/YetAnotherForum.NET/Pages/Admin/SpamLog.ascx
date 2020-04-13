@@ -20,10 +20,9 @@
                 <YAF:Pager ID="PagerTop" runat="server" OnPageChange="PagerTopPageChange" />
             <div class="card mb-3">
                 <div class="card-header">
-                    <i class="fa fa-shield-alt fa-fw text-secondary pr-1"></i>
-                    <YAF:LocalizedLabel ID="LocalizedLabel8" runat="server" 
-                                        LocalizedTag="TITLE" 
-                                        LocalizedPage="ADMIN_SPAMLOG" />
+                    <YAF:IconHeader runat="server"
+                                    IconName="shield-alt"
+                                    LocalizedPage="ADMIN_SPAMLOG"></YAF:IconHeader>
                     <div class="float-right">
                         &nbsp;
                         <YAF:ThemeButton runat="server"
@@ -105,22 +104,24 @@
                         <%# this.HtmlEncode(this.Eval( "Name")).IsSet() ? this.HtmlEncode(this.Eval( "Name")) : "N/A" %>&nbsp;
                     </p>
                     <small>
-                        <YAF:ThemeButton runat="server"
-                                         Type="Info"
-                                         Size="Small"
-                                         TextLocalizedTag="SHOW" TextLocalizedPage="ADMIN_EVENTLOG"
-                                         Icon="caret-square-down"
-                                         DataToggle="collapse"
-                                         DataTarget='<%# "eventDetails{0}".Fmt(this.Eval("EventLogID")) %>'>
-                        </YAF:ThemeButton>
-                        <YAF:ThemeButton runat="server" 
-                                         Type="Danger"
-                                         Size="Small"
-                                         CommandName="delete" CommandArgument='<%# this.Eval( "EventLogID") %>'
-                                         ReturnConfirmText='<%# this.GetText("ADMIN_EVENTLOG", "CONFIRM_DELETE") %>'
-                                         Icon="trash" 
-                                         TextLocalizedTag="DELETE">
-                        </YAF:ThemeButton>
+                        <div class="btn-group btn-group-sm">
+                            <YAF:ThemeButton runat="server"
+                                             Type="Info"
+                                             Size="Small"
+                                             TextLocalizedTag="SHOW" TextLocalizedPage="ADMIN_EVENTLOG"
+                                             Icon="caret-square-down"
+                                             DataToggle="collapse"
+                                             DataTarget='<%# "eventDetails{0}".Fmt(this.Eval("EventLogID")) %>'>
+                            </YAF:ThemeButton>
+                            <YAF:ThemeButton runat="server" 
+                                             Type="Danger"
+                                             Size="Small"
+                                             CommandName="delete" CommandArgument='<%# this.Eval( "EventLogID") %>'
+                                             ReturnConfirmText='<%# this.GetText("ADMIN_EVENTLOG", "CONFIRM_DELETE") %>'
+                                             Icon="trash" 
+                                             TextLocalizedTag="DELETE">
+                            </YAF:ThemeButton>
+                        </div>
                     </small>
                     <div class="dropdown-menu context-menu" aria-labelledby="context menu">
                         <YAF:ThemeButton runat="server" 

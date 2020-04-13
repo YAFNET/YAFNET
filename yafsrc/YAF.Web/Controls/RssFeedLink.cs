@@ -115,7 +115,7 @@ namespace YAF.Web.Controls
                 new ThemeButton
                     {
                         CssClass = "dropdown-item",
-                        Type = ButtonAction.None,
+                        Type = ButtonStyle.None,
                         Icon = "rss",
                         Text = this.GetText("ATOMFEED"),
                         NavigateUrl = BuildLink.GetLink(
@@ -133,7 +133,7 @@ namespace YAF.Web.Controls
                 new ThemeButton
                     {
                         CssClass = "dropdown-item",
-                        Type = ButtonAction.None,
+                        Type = ButtonStyle.None,
                         Icon = "rss-square",
                         Text = this.GetText("RSSFEED"),
                         NavigateUrl = BuildLink.GetLink(

@@ -40,6 +40,7 @@ namespace YAF.Web.Controls
     using YAF.Types.Interfaces;
 
     using AttributeCollection = System.Web.UI.AttributeCollection;
+    using ButtonStyle = YAF.Types.Constants.ButtonStyle;
 
     #endregion
 
@@ -120,10 +121,10 @@ namespace YAF.Web.Controls
         /// Gets or sets the behavior mode (single-line, multiline, or password) of the <see cref="T:System.Web.UI.WebControls.TextBox" /> control.
         /// </summary>
         [Category("Appearance")]
-        [DefaultValue(ButtonAction.Primary)]
-        public ButtonAction Type
+        [DefaultValue(ButtonStyle.Primary)]
+        public ButtonStyle Type
         {
-            get => this.ViewState["Type"]?.ToType<ButtonAction>() ?? ButtonAction.Primary;
+            get => this.ViewState["Type"]?.ToType<ButtonStyle>() ?? ButtonStyle.Primary;
 
             set => this.ViewState["Type"] = value;
         }
@@ -610,35 +611,35 @@ namespace YAF.Web.Controls
         /// <param name="mode">The button action.</param>
         /// <returns>Returns the CSS Class for the button</returns>
         /// <exception cref="InvalidOperationException">Exception when other value</exception>
-        private static string GetAttributeValue(ButtonAction mode)
+        private static string GetAttributeValue(ButtonStyle mode)
         {
             switch (mode)
             {
-                case ButtonAction.Primary:
+                case ButtonStyle.Primary:
                     return "btn btn-primary";
-                case ButtonAction.Secondary:
+                case ButtonStyle.Secondary:
                     return "btn btn-secondary";
-                case ButtonAction.OutlineSecondary:
+                case ButtonStyle.OutlineSecondary:
                     return "btn btn-outline-secondary";
-                case ButtonAction.Success:
+                case ButtonStyle.Success:
                     return "btn btn-success";
-                case ButtonAction.OutlineSuccess:
+                case ButtonStyle.OutlineSuccess:
                     return "btn btn-outline-success";
-                case ButtonAction.Danger:
+                case ButtonStyle.Danger:
                     return "btn btn-danger";
-                case ButtonAction.Warning:
+                case ButtonStyle.Warning:
                     return "btn btn-warning";
-                case ButtonAction.Info:
+                case ButtonStyle.Info:
                     return "btn btn-info";
-                case ButtonAction.OutlineInfo:
+                case ButtonStyle.OutlineInfo:
                     return "btn btn-outline-info";
-                case ButtonAction.Light:
+                case ButtonStyle.Light:
                     return "btn btn-light";
-                case ButtonAction.Dark:
+                case ButtonStyle.Dark:
                     return "btn btn-dark";
-                case ButtonAction.Link:
+                case ButtonStyle.Link:
                     return "btn btn-link";
-                case ButtonAction.None:
+                case ButtonStyle.None:
                     return string.Empty;
                 default:
                     throw new InvalidOperationException();

@@ -13,11 +13,9 @@
             <div class="col">
                 <div class="card mb-3">
                     <div class="card-header">
-                        <YAF:Icon runat="server" 
-                                  IconName="address-card"
-                                  IconType="text-secondary"></YAF:Icon>
-                        <YAF:LocalizedLabel ID="ControlPanel" runat="server" 
-                                            LocalizedTag="YOUR_ACCOUNT" />
+                        <YAF:IconHeader runat="server"
+                                        IconName="address-card"
+                                        LocalizedTag="YOUR_ACCOUNT" />
                     </div>
                     <div class="card-body">
                         <YAF:ProfileYourAccount ID="YourAccount" runat="server" />

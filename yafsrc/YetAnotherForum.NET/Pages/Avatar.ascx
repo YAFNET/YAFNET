@@ -13,7 +13,8 @@
     <div class="col">
         <div class="card mb-3">
             <div class="card-header">
-                <i class="fa fa-user-tie fa-fw text-secondary"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="TITLE" />
+                <YAF:IconHeader runat="server"
+                                IconName="user-tie"></YAF:IconHeader>
             </div>
             <div class="card-body">
                 <asp:DataList runat="server" ID="directories" Width="100%" RepeatColumns="5" OnItemDataBound="Directories_Bind"

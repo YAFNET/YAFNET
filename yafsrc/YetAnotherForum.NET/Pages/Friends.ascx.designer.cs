@@ -60,15 +60,6 @@ namespace YAF.Pages
         protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel3;
 
         /// <summary>
-        /// LocalizedLabel4 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel4;
-
-        /// <summary>
         /// BuddyList1 control.
         /// </summary>
         /// <remarks>
@@ -78,15 +69,6 @@ namespace YAF.Pages
         protected global::YAF.Controls.BuddyList BuddyList1;
 
         /// <summary>
-        /// LocalizedLabel5 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel5;
-
-        /// <summary>
         /// PendingBuddyList control.
         /// </summary>
         /// <remarks>
@@ -94,15 +76,6 @@ namespace YAF.Pages
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::YAF.Controls.BuddyList PendingBuddyList;
-
-        /// <summary>
-        /// LocalizedLabel7 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel7;
 
         /// <summary>
         /// BuddyRequested control.

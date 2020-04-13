@@ -45,8 +45,10 @@
 <div class="row">
     <div class="col">
         <div class="card mb-3">
-            <div class="card-header">
-                <i class="fa fa-exclamation-triangle fa-fw text-secondary"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="HEADER" />
+            <div class="card-header">                
+                <YAF:IconHeader runat="server"
+                                IconName="exclamation-triangle"
+                                LocalizedTag="HEADER"/>
             </div>
             <div class="card-body">
                 <div class="form-group">

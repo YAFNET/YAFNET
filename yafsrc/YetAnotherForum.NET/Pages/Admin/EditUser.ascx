@@ -22,7 +22,8 @@
         <div class="col-xl-12">
             <div class="card mb-3">
                 <div class="card-header">
-                    <i class="fa fa-user-edit fa-fw text-secondary"></i>&nbsp;<asp:Label  runat="server" ID="Header2"/>
+                    <YAF:IconHeader runat="server" ID="IconHeader"
+                                    IconName="user-edit"></YAF:IconHeader>
                 </div>
                 <div class="card-body">
                     <asp:Panel id="EditUserTabs" runat="server">

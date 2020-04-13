@@ -53,6 +53,8 @@ namespace YAF.Controls
     using YAF.Utils.Helpers;
     using YAF.Web.Controls;
 
+    using ButtonStyle = YAF.Types.Constants.ButtonStyle;
+
     #endregion
 
     /// <summary>
@@ -536,7 +538,7 @@ namespace YAF.Controls
             this.UserDropHolder.Controls.Add(
                 new ThemeButton
                     {
-                        Type = ButtonAction.None,
+                        Type = ButtonStyle.None,
                         Icon = "th-list",
                         TextLocalizedPage = "PAGE",
                         TextLocalizedTag = "SEARCHUSER",
@@ -549,7 +551,7 @@ namespace YAF.Controls
             this.UserDropHolder2.Controls.Add(
                 new ThemeButton
                     {
-                        Type = ButtonAction.None,
+                        Type = ButtonStyle.None,
                         Icon = "th-list",
                         TextLocalizedPage = "PAGE",
                         TextLocalizedTag = "SEARCHUSER",
@@ -565,7 +567,7 @@ namespace YAF.Controls
                 this.UserDropHolder.Controls.Add(
                     new ThemeButton
                         {
-                            Type = ButtonAction.None,
+                            Type = ButtonStyle.None,
                             Icon = "cogs",
                             TextLocalizedPage = "POSTS",
                             TextLocalizedTag = "EDITUSER",
@@ -575,7 +577,7 @@ namespace YAF.Controls
                 this.UserDropHolder2.Controls.Add(
                     new ThemeButton
                         {
-                            Type = ButtonAction.None,
+                            Type = ButtonStyle.None,
                             Icon = "cogs",
                             TextLocalizedPage = "POSTS",
                             TextLocalizedTag = "EDITUSER",
@@ -590,7 +592,7 @@ namespace YAF.Controls
                 {
                     var showButton = new ThemeButton
                                          {
-                                             Type = ButtonAction.None,
+                                             Type = ButtonStyle.None,
                                              Icon = "eye",
                                              TextLocalizedPage = "POSTS",
                                              TextLocalizedTag = "TOGGLEUSERPOSTS_SHOW",
@@ -609,7 +611,7 @@ namespace YAF.Controls
                 {
                     var hideButton = new ThemeButton
                                          {
-                                             Type = ButtonAction.None,
+                                             Type = ButtonStyle.None,
                                              Icon = "eye-slash",
                                              TextLocalizedPage = "POSTS",
                                              TextLocalizedTag = "TOGGLEUSERPOSTS_HIDE",
@@ -636,7 +638,7 @@ namespace YAF.Controls
                 {
                     var addFriendButton = new ThemeButton
                                               {
-                                                  Type = ButtonAction.None,
+                                                  Type = ButtonStyle.None,
                                                   Icon = "user-plus",
                                                   TextLocalizedPage = "BUDDY",
                                                   TextLocalizedTag = "ADDBUDDY",
@@ -670,7 +672,7 @@ namespace YAF.Controls
                     // Are the users approved buddies? Add the "Remove buddy" item.
                     var removeFriendButton = new ThemeButton
                                                  {
-                                                     Type = ButtonAction.None,
+                                                     Type = ButtonStyle.None,
                                                      Icon = "user-times",
                                                      TextLocalizedPage = "BUDDY",
                                                      TextLocalizedTag = "REMOVEBUDDY",

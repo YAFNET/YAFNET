@@ -13,9 +13,10 @@
         <div class="col-xl-12">
             <div class="card mb-3">
                 <div class="card-header">
-                    <i class="fa fa-users fa-fw text-secondary"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" 
-                                                                               LocalizedTag="PROVIDER_ROLES" 
-                                                                               LocalizedPage="ADMIN_GROUPS" />
+                    <YAF:IconHeader runat="server"
+                                    IconName="users"
+                                    LocalizedTag="PROVIDER_ROLES" 
+                                    LocalizedPage="ADMIN_GROUPS"></YAF:IconHeader>
                 </div>
                 <div class="card-body">
                     <YAF:Alert runat="server" Type="danger">
@@ -38,25 +39,27 @@
                      </small>
                  </div>
                      <small>
-                    <YAF:ThemeButton ID="ThemeButtonAdd" runat="server"
-                                     Type="Info" 
-                                     Size="Small"
-                                     CommandName="add" CommandArgument="<%# Container.DataItem %>"
-                                     TitleLocalizedTag="ADD_ROLETOYAF"
-                                     TitleLocalizedPage="ADMIN_GROUPS"
-                                     TextLocalizedTag="ADD_ROLETOYAF"
-                                     TextLocalizedPage="ADMIN_GROUPS"
-                                     Icon="plus-circle">
-                    </YAF:ThemeButton>
-                    <YAF:ThemeButton ID="ThemeButtonDelete" runat="server"
-                                     Type="Danger" 
-                                     Size="Small"
-                                     CommandName="delete" CommandArgument="<%# Container.DataItem %>"
-                                     TitleLocalizedTag="DELETE"
-                                     Icon="trash"
-                                     TextLocalizedTag="DELETE"
-                                     ReturnConfirmText='<%# this.GetText("ADMIN_GROUPS", "CONFIRM_DELETE") %>'>
-                    </YAF:ThemeButton>
+                         <div class="btn-group btn-group-sm">
+                             <YAF:ThemeButton ID="ThemeButtonAdd" runat="server"
+                                              Type="Info" 
+                                              Size="Small"
+                                              CommandName="add" CommandArgument="<%# Container.DataItem %>"
+                                              TitleLocalizedTag="ADD_ROLETOYAF"
+                                              TitleLocalizedPage="ADMIN_GROUPS"
+                                              TextLocalizedTag="ADD_ROLETOYAF"
+                                              TextLocalizedPage="ADMIN_GROUPS"
+                                              Icon="plus-circle">
+                             </YAF:ThemeButton>
+                             <YAF:ThemeButton ID="ThemeButtonDelete" runat="server"
+                                              Type="Danger" 
+                                              Size="Small"
+                                              CommandName="delete" CommandArgument="<%# Container.DataItem %>"
+                                              TitleLocalizedTag="DELETE"
+                                              Icon="trash"
+                                              TextLocalizedTag="DELETE"
+                                              ReturnConfirmText='<%# this.GetText("ADMIN_GROUPS", "CONFIRM_DELETE") %>'>
+                             </YAF:ThemeButton>
+                         </div>
                      </small>
             </li>
 			</ItemTemplate>
@@ -74,9 +77,10 @@
     <div class="col-xl-12">
         <div class="card mb-3">
                 <div class="card-header">
-                    <i class="fa fa-users fa-fw text-secondary"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" 
-                                                                               LocalizedTag="HEADER" 
-                                                                               LocalizedPage="ADMIN_GROUPS" />
+                    <YAF:IconHeader runat="server"
+                                    IconName="users"
+                                    LocalizedTag="HEADER" 
+                                    LocalizedPage="ADMIN_GROUPS"></YAF:IconHeader>
                 </div>
                 <div class="card-body">
                     <YAF:Alert runat="server" Type="danger">

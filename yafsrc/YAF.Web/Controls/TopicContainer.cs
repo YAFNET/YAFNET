@@ -266,7 +266,7 @@ namespace YAF.Web.Controls
                     Icon = "info-circle",
                     IconCssClass = "fas fa-lg",
                     IconColor = "text-secondary",
-                    Type = ButtonAction.Link,
+                    Type = ButtonStyle.Link,
                     DataToggle = "popover",
                     CssClass = "topic-link-popover",
                     NavigateUrl = "#!"
@@ -318,7 +318,7 @@ namespace YAF.Web.Controls
                                                    this.TopicRow["LastMessageID"]),
                     Size = ButtonSize.Small,
                     Icon = "share-square",
-                    Type = ButtonAction.OutlineSecondary,
+                    Type = ButtonStyle.OutlineSecondary,
                     TitleLocalizedTag = "GO_LAST_POST",
                     DataToggle = "tooltip"
                 };
@@ -332,7 +332,7 @@ namespace YAF.Web.Controls
                                                      this.TopicRow["TopicID"]),
                     Size = ButtonSize.Small,
                     Icon = "book-reader",
-                    Type = ButtonAction.OutlineSecondary,
+                    Type = ButtonStyle.OutlineSecondary,
                     TitleLocalizedTag = "GO_LASTUNREAD_POST",
                     DataToggle = "tooltip"
                 };

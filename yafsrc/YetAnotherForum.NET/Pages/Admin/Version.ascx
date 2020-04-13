@@ -5,25 +5,24 @@
 <YAF:PageLinks runat="server" ID="PageLinks" />
     <div class="row">
     <div class="col-xl-12">
-         <h1><yaf:LocalizedLabel id="LocalizedLabel1" runat="server" 
+         <h1><YAF:LocalizedLabel id="LocalizedLabel1" runat="server" 
                                  LocalizedTag="TITLE" 
-                                 Localizedpage="ADMIN_VERSION"></yaf:LocalizedLabel></h1>
+                                 Localizedpage="ADMIN_VERSION"></YAF:LocalizedLabel></h1>
     </div>
 </div>
 <div class="row">
     <div class="col-xl-12">
         <div class="card mb-3">
             <div class="card-header">
-                <i class="fa fa-info fa-fw text-secondary"></i>&nbsp;
-                <yaf:LocalizedLabel id="LocalizedLabel2" runat="server" 
-                                    LocalizedTag="TITLE" 
-                                    LocalizedPage="ADMIN_VERSION"></yaf:LocalizedLabel>
+                <YAF:IconHeader runat="server"
+                                IconName="info"
+                                LocalizedPage="ADMIN_VERSION"></YAF:IconHeader>
             </div>
             <div class="card-body">
                 <asp:placeholder runat="server" id="UpgradeVersionHolder" visible="false">
                     <YAF:Alert runat="server" Type="info">
-                        <yaf:LocalizedLabel id="Upgrade" runat="server" localizedtag="UPGRADE_VERSION"
-                                            localizedpage="ADMIN_VERSION"></yaf:LocalizedLabel>
+                        <YAF:LocalizedLabel id="Upgrade" runat="server" localizedtag="UPGRADE_VERSION"
+                                            localizedpage="ADMIN_VERSION"></YAF:LocalizedLabel>
                     </YAF:Alert>
                 </asp:placeholder>
                 <p class="card-text">

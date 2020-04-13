@@ -18,11 +18,10 @@
                 <asp:Repeater ID="bbCodeList" runat="server" OnItemCommand="BbCodeListItemCommand">
                     <HeaderTemplate>
                         <div class="card-header">
-                            <i class="fa fa-plug fa-fw text-secondary"></i>&nbsp;<YAF:LocalizedLabel 
-                                                                      ID="LocalizedLabel2" 
-                                                                      runat="server" 
-                                                                      LocalizedTag="HEADER" 
-                                                                      LocalizedPage="ADMIN_BBCODE" />
+                            <YAF:IconHeader runat="server"
+                                            IconName="plug"
+                                            LocalizedTag="HEADER" 
+                                            LocalizedPage="ADMIN_BBCODE"></YAF:IconHeader>
                         </div>
                         <div class="card-body">
                             <ul class="list-group">
@@ -41,24 +40,26 @@
                                 <p class="mb-1">
                                     <%# this.Get<IBBCode>().LocalizeCustomBBCodeElement(this.Eval("Description").ToString())%></p>
                                 <small>
-                                     <YAF:ThemeButton ID="ThemeButtonEdit" 
-                                                      Type="Info" 
-                                                      Size="Small"
+                                    <div class="btn-group btn-group-sm">
+                                        <YAF:ThemeButton ID="ThemeButtonEdit" 
+                                                         Type="Info" 
+                                                         Size="Small"
                                                          CommandName="edit" CommandArgument='<%# this.Eval( "ID") %>'
                                                          TitleLocalizedTag="EDIT"
                                                          Icon="edit"
                                                          TextLocalizedTag="EDIT"
                                                          runat="server">
-                                    </YAF:ThemeButton>
-                                    <YAF:ThemeButton ID="ThemeButtonDelete" 
-                                                     Type="Danger" 
-                                                     Size="Small"
-                                                     CommandName="delete" CommandArgument='<%# this.Eval( "ID") %>'
-                                                     TitleLocalizedTag="DELETE"
-                                                     Icon="trash"
-                                                     TextLocalizedTag="DELETE"
-                                                     ReturnConfirmText='<%# this.GetText("ADMIN_BBCODE", "CONFIRM_DELETE") %>'  runat="server">
-                                    </YAF:ThemeButton>
+                                        </YAF:ThemeButton>
+                                        <YAF:ThemeButton ID="ThemeButtonDelete" 
+                                                         Type="Danger" 
+                                                         Size="Small"
+                                                         CommandName="delete" CommandArgument='<%# this.Eval( "ID") %>'
+                                                         TitleLocalizedTag="DELETE"
+                                                         Icon="trash"
+                                                         TextLocalizedTag="DELETE"
+                                                         ReturnConfirmText='<%# this.GetText("ADMIN_BBCODE", "CONFIRM_DELETE") %>'  runat="server">
+                                        </YAF:ThemeButton>
+                                    </div>
                                 </small>
                                 <div class="dropdown-menu context-menu" aria-labelledby="context menu">
                                     <YAF:ThemeButton ID="ThemeButton1" 

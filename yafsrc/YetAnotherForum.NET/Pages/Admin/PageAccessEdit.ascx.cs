@@ -272,9 +272,8 @@ namespace YAF.Pages.Admin
                             found = false;
                         });
 
-                this.UserName.Text = this.HtmlEncode(
-                    this.Get<IUserDisplayName>()
-                        .GetName(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u").ToType<int>()));
+                this.IconHeader.Text =
+                    $"{this.GetText("HEADER")}{this.GetText("USERNAME")}: <strong>{this.HtmlEncode(this.Get<IUserDisplayName>().GetName(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u").ToType<int>()))}</strong>";
 
                 // get admin pages list with access flags.
                 this.AccessList.DataSource = adminPageAccesses.AsEnumerable();

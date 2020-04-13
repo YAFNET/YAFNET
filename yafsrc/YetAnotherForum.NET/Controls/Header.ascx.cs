@@ -189,7 +189,7 @@ namespace YAF.Controls
             var link = new ThemeButton
                            {
                                TitleLocalizedTag = linkToolTip,
-                               Type = ButtonAction.None,
+                               Type = ButtonStyle.None,
                                TitleLocalizedPage = "TOOLBAR",
                                NavigateUrl = linkUrl,
                                Text = icon.IsSet()

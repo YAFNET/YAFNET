@@ -6,9 +6,9 @@
     <div class="col">
         <div class="card mb-3">
             <div class="card-header">
-                <i class="fa fa-poll-h fa-fw"></i>&nbsp; <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" 
-                                                                                   LocalizedPage="POLLEDIT" 
-                                                                                   LocalizedTag="POLLHEADER" />
+                <YAF:IconHeader runat="server"
+                                IconName="poll-h"
+                                LocalizedTag="POLLHEADER"/>
             </div>
             <div class="card-body">
                 <asp:PlaceHolder id="PollRow1" runat="server" visible="true">

@@ -7,10 +7,10 @@
                 <div class="col">
                     <div class="card mb-3">
                         <div class="card-header d-flex align-items-center">
-                            <span class="fa-stack">
-                                <i class="fas fa-users fa-2x fa-fw text-secondary"></i>
-                            </span>
-                            &nbsp;<YAF:LocalizedLabel ID="ActiveUsersLabel" runat="server" LocalizedTag="ACTIVE_USERS" />
+                            <YAF:IconHeader runat="server"
+                                            IconName="users"
+                                            IconSize="fa-2x"
+                                            LocalizedTag="ACTIVE_USERS" />
                         </div>
                         <div class="card-body">
                             <p class="card-text"><asp:Label runat="server" ID="ActiveUserCount" /></p>
@@ -30,10 +30,10 @@
                     <div class="col">
                         <div class="card mb-3">
                             <div class="card-header d-flex align-items-center">
-                                <span class="fa-stack">
-                                    <i class="fas fa-users fa-2x fa-fw text-secondary"></i>
-                                </span>
-                                &nbsp;<YAF:LocalizedLabel ID="RecentUsersLabel" runat="server" LocalizedTag="RECENT_USERS" />
+                                <YAF:IconHeader runat="server"
+                                                IconName="users"
+                                                IconSize="fa-2x"
+                                                LocalizedTag="RECENT_USERS" />
                             </div>
                             <div class="card-body">
                                 <YAF:ActiveUsers ID="RecentUsers" runat="server" InstantId="RecentUsersOneDay" Visible="False">

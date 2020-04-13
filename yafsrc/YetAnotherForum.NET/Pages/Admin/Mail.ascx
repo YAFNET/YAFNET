@@ -14,9 +14,9 @@
         <div class="col-xl-12">
             <div class="card mb-3">
                 <div class="card-header">
-                    <i class="fa fa-envelope fa-fw text-secondary pr-1"></i>
-                    <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server"
-                                        LocalizedTag="HEADER" LocalizedPage="ADMIN_MAIL" />
+                    <YAF:IconHeader runat="server"
+                                    IconName="envelope"
+                                    LocalizedPage="ADMIN_MAIL"></YAF:IconHeader>
 			     </div>
                 <div class="card-body">
                     <div class="form-group">

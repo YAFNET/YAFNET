@@ -50,6 +50,8 @@ namespace YAF.Pages
     using YAF.Web.Controls;
     using YAF.Web.Extensions;
 
+    using ButtonStyle = YAF.Types.Constants.ButtonStyle;
+
     #endregion
 
     /// <summary>
@@ -311,7 +313,7 @@ namespace YAF.Pages
                 this.lnkBuddy.Visible = true;
                 this.lnkBuddy.Icon = "user-minus";
                 this.lnkBuddy.TextLocalizedTag = "REMOVEBUDDY";
-                this.lnkBuddy.Type = ButtonAction.Warning;
+                this.lnkBuddy.Type = ButtonStyle.Warning;
                 this.lnkBuddy.TextLocalizedPage = "PAGE";
                 this.lnkBuddy.CommandArgument = "removebuddy";
                 this.lnkBuddy.ReturnConfirmText = this.GetText("FRIENDS", "NOTIFICATION_REMOVE");
@@ -328,7 +330,7 @@ namespace YAF.Pages
                     this.lnkBuddy.TextLocalizedTag = "ADDBUDDY";
                     this.lnkBuddy.TextLocalizedPage = "PAGE";
                     this.lnkBuddy.Icon = "user-plus";
-                    this.lnkBuddy.Type = ButtonAction.Success;
+                    this.lnkBuddy.Type = ButtonStyle.Success;
 
                     this.lnkBuddy.CommandArgument = "addbuddy";
                 }

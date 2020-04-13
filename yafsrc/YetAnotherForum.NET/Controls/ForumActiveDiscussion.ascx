@@ -4,12 +4,11 @@
 <div class="col-md-6">
     <asp:PlaceHolder runat="server" ID="ActiveDiscussionPlaceHolder">
                         <div class="card mb-3">
-                            <div class="card-header">
-                                <span class="fa-stack">
-                                    <i class="fas fa-comments fa-2x fa-fw text-secondary mr-1"></i>
-                                </span>
-                                <YAF:LocalizedLabel runat="server" ID="ActiveDiscussionHeader"
-                                                    LocalizedTag="ACTIVE_DISCUSSIONS" />
+                            <div class="card-header d-flex align-items-center">
+                                <YAF:IconHeader runat="server"
+                                                IconName="comments"
+                                                IconSize="fa-2x"
+                                                LocalizedTag="ACTIVE_DISCUSSIONS" />
                             </div>
                             <asp:Repeater runat="server" ID="LatestPosts" 
                                               OnItemDataBound="LatestPosts_ItemDataBound">

@@ -10,7 +10,8 @@
     <div class="col">
         <div class="card mb-3">
             <div class="card-header">
-                <i class="fa fa-lock fa-fw text-secondary"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="TITLE" />
+                <YAF:IconHeader runat="server"
+                                IconName="lock"></YAF:IconHeader>
             </div>
             <div class="card-body">
                 <ul class="nav nav-tabs  d-flex flex-nowrap mb-0" id="myTab" role="tablist" style="overflow-x: auto; overflow-y: hidden; white-space: nowrap;">

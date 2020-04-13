@@ -20,8 +20,8 @@
                         <div class="col">
                             <div class="card mb-3">
                                 <div class="card-header">
-                                    <i class="fa fa-sign-in-alt fa-fw text-secondary pr-1"></i>
-                                    <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="title" />
+                                    <YAF:IconHeader runat="server"
+                                                    IconName="sign-in-alt"></YAF:IconHeader>
                                 </div>
                                 <div class="card-body">
                                     <asp:PlaceHolder runat="server" id="SingleSignOnOptionsRow" Visible="False">

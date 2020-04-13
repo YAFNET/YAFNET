@@ -11,8 +11,9 @@
             <div class="col">
                 <div class="card mb-3">
                     <div class="card-header">
-                        <i class="fas fa-user-lock fa-fw text-secondary"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel12" runat="server" 
-                                                                                                      LocalizedTag="BLOCK_OPTIONS" />
+                        <YAF:IconHeader runat="server"
+                                        IconName="user-lock"
+                                        LocalizedTag="BLOCK_OPTIONS" />
                     </div>
                     <div class="card-body">
                         <h6 class="card-title">

@@ -77,7 +77,7 @@ namespace YAF.Controls
                                             ParamText0 = this.Get<BoardSettings>().Name,
                                             TitleLocalizedTag = "LOGIN",
                                             TitleLocalizedPage = "TOOLBAR",
-                                            Type = ButtonAction.Link,
+                                            Type = ButtonStyle.Link,
                                             Icon = "sign-in-alt",
                                             NavigateUrl = "javascript:void(0);",
                                             CssClass = "LoginLink"
@@ -97,7 +97,7 @@ namespace YAF.Controls
                                                TextLocalizedPage = "TOOLBAR",
                                                TitleLocalizedTag = "REGISTER",
                                                TitleLocalizedPage = "TOOLBAR",
-                                               Type = ButtonAction.Link,
+                                               Type = ButtonStyle.Link,
                                                Icon = "user-plus",
                                                NavigateUrl =
                                                    this.Get<BoardSettings>().ShowRulesForRegistration

@@ -14,7 +14,11 @@
         <div class="col-xl-12">
             <div class="card mb-3">
                 <div class="card-header">
-                    <i class="fa fa-tasks fa-fw text-secondary"></i>&nbsp;<asp:Label ID="lblTaskCount" runat="server"></asp:Label>
+                    <YAF:IconHeader runat="server"
+                                    IconName="tasks"
+                                    LocalizedTag="HEADER"
+                                    LocalizedPage="ADMIN_TASKMANAGER"
+                                    Param0="<%# this.Get<ITaskModuleManager>().TaskCount.ToString() %>"></YAF:IconHeader>
                     </div>
                 <div class="card-body">
         <asp:Repeater ID="taskRepeater" runat="server" OnItemCommand="TaskRepeaterItemCommand">

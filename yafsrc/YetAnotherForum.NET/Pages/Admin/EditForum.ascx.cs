@@ -205,7 +205,9 @@ namespace YAF.Pages.Admin
             if (!this.Get<HttpRequestBase>().QueryString.Exists("fa")
                 && this.Get<HttpRequestBase>().QueryString.Exists("copy") || !forumId.HasValue)
             {
-                this.LocalizedLabel1.LocalizedTag = this.LocalizedLabel2.LocalizedTag = "NEW_FORUM";
+                this.LocalizedLabel1.LocalizedTag = "NEW_FORUM";
+
+                this.IconHeader.Text = this.GetText("NEW_FORUM");
 
                 var sortOrder = 1;
 
@@ -238,8 +240,9 @@ namespace YAF.Pages.Admin
             this.HideNoAccess.Checked = row.ForumFlags.IsHidden;
             this.Locked.Checked = row.ForumFlags.IsLocked;
             this.IsTest.Checked = row.ForumFlags.IsTest;
-            this.ForumNameTitle.Text = this.Label1.Text = this.Name.Text;
             this.Moderated.Checked = row.ForumFlags.IsModerated;
+
+            this.IconHeader.Text = $"{this.GetText("ADMIN_EDITFORUM", "HEADER1")} <strong>{this.Name.Text}</strong>";
 
             this.ModeratedPostCountRow.Visible = this.Moderated.Checked;
             this.ModerateNewTopicOnlyRow.Visible = this.Moderated.Checked;

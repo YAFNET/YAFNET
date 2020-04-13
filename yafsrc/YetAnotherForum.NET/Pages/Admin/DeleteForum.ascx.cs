@@ -111,7 +111,7 @@ namespace YAF.Pages.Admin
             }
             else
             {
-                this.ForumNameTitle.Text = forum.Name;
+                this.IconHeader.Text = $"{this.GetText("HEADER1")}: <strong>{forum.Name}</strong>";
 
                 // populate parent forums list with forums according to selected category
                 this.BindParentList();

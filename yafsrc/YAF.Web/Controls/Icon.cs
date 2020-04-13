@@ -29,7 +29,9 @@ namespace YAF.Web.Controls
 
     using YAF.Core.BaseControls;
     using YAF.Types;
+    using YAF.Types.Constants;
     using YAF.Types.Extensions;
+    using YAF.Utils.Helpers;
 
     /// <summary>
     /// The icon.
@@ -52,6 +54,12 @@ namespace YAF.Web.Controls
         /// </summary>
         [DefaultValue("fas")]
         public string IconStyle { get; set; }
+
+        /// <summary>
+        /// Gets or sets the size.
+        /// </summary>
+        [CanBeNull]
+        public string IconSize { get; set; } 
 
         /// <summary>
         /// Gets or sets the icon type.
@@ -104,6 +112,11 @@ namespace YAF.Web.Controls
             var className = this.IconType.IsSet() ? this.IconNameBadge.IsSet() ? $"fa-stack-1x {this.IconType}" :
                                                     $"fa-fw {this.IconType} mr-1" :
                             this.IconNameBadge.IsSet() ? "fa-stack-1x" : "fa-fw mr-1";
+
+            if (this.IconSize.IsSet())
+            {
+                className += $" {this.IconSize}";
+            }
 
             if (this.IconStyle.IsNotSet())
             {

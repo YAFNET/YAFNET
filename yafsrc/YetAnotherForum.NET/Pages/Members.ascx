@@ -26,11 +26,8 @@
             <div class="card-header">
                 <div class="row justify-content-between">
                     <div class="col-md-3">
-                        <YAF:Icon runat="server"
-                                  IconName="users"
-                                  IconType="text-secondary"></YAF:Icon>
-                        <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" 
-                                            LocalizedTag="TITLE" />
+                        <YAF:IconHeader runat="server"
+                                        IconName="users"></YAF:IconHeader>
                     </div>
                     <div class="col-md-3 mt-1">
                         <div class="btn-toolbar" role="toolbar">

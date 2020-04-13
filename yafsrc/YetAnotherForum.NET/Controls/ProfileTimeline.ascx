@@ -9,12 +9,10 @@
             <div class="card-header">
                 <div class="row justify-content-between">
                     <div class="col-auto">
-                        <YAF:Icon runat="server" 
-                                  IconName="stream"
-                                  IconType="text-secondary"></YAF:Icon>
-                        <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" 
-                                            LocalizedTag="ACTIVITY"
-                                            LocalizedPage="ACCOUNT" />
+                        <YAF:IconHeader runat="server"
+                                        IconName="stream"
+                                        LocalizedTag="ACTIVITY"
+                                        LocalizedPage="ACCOUNT" />
                     </div>
                     <div class="col-auto">
                         <div class="btn-group dropleft" role="group" aria-label="Filters">

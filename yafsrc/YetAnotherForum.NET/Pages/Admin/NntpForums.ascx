@@ -14,7 +14,9 @@
         <div class="col-xl-12">
             <div class="card mb-3">
                 <div class="card-header">
-                    <i class="fa fa-newspaper fa-fw text-secondary"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_NNTPFORUMS" />
+                    <YAF:IconHeader runat="server"
+                                    IconName="newspaper"
+                                    LocalizedPage="ADMIN_NNTPFORUMS"></YAF:IconHeader>
                     </div>
                 <div class="card-body">
                     <asp:Repeater ID="RankList" OnItemCommand="RankListItemCommand" runat="server">
@@ -46,23 +48,25 @@
                         <%# this.Eval( "ForumName") %>
                     </p>
                     <small>
-                        <YAF:ThemeButton ID="ThemeButtonEdit" 
-                                         Type="Info" 
-                                         Size="Small" runat="server"
-                                         CommandName="edit" 
-                                         CommandArgument='<%# this.Eval("NntpForumID") %>'
-                                         Icon="edit" 
-                                         TextLocalizedTag="EDIT">
-                        </YAF:ThemeButton>
-                        <YAF:ThemeButton ID="ThemeButtonDelete" 
-                                         Type="Danger" 
-                                         Size="Small" runat="server"
-                                         CommandName="delete" 
-                                         CommandArgument='<%# this.Eval("NntpForumID") %>'
-                                         Icon="trash" 
-                                         TextLocalizedTag="DELETE"
-                                         ReturnConfirmText='<%# this.GetText("ADMIN_NNTPFORUMS", "DELETE_FORUM") %>'>
-                        </YAF:ThemeButton>
+                        <div class="btn-group btn-group-sm">
+                            <YAF:ThemeButton ID="ThemeButtonEdit" 
+                                             Type="Info" 
+                                             Size="Small" runat="server"
+                                             CommandName="edit" 
+                                             CommandArgument='<%# this.Eval("NntpForumID") %>'
+                                             Icon="edit" 
+                                             TextLocalizedTag="EDIT">
+                            </YAF:ThemeButton>
+                            <YAF:ThemeButton ID="ThemeButtonDelete" 
+                                             Type="Danger" 
+                                             Size="Small" runat="server"
+                                             CommandName="delete" 
+                                             CommandArgument='<%# this.Eval("NntpForumID") %>'
+                                             Icon="trash" 
+                                             TextLocalizedTag="DELETE"
+                                             ReturnConfirmText='<%# this.GetText("ADMIN_NNTPFORUMS", "DELETE_FORUM") %>'>
+                            </YAF:ThemeButton>
+                        </div>
                     </small>
                     <div class="dropdown-menu context-menu" aria-labelledby="context menu">
                         <YAF:ThemeButton ID="ThemeButton1" 

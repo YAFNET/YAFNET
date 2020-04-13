@@ -6,7 +6,10 @@
     <div class="col">
         <div class="card mb-3">
             <div class="card-header">
-                <i class="fa fa-user-tie fa-fw text-secondary"></i>&nbsp;<YAF:LocalizedLabel runat="server" LocalizedPage="EDIT_AVATAR" LocalizedTag="title" />
+                <YAF:IconHeader runat="server"
+                                IconName="user-tie"
+                                LocalizedPage="EDIT_AVATAR" 
+                                LocalizedTag="title" />
             </div>
             <div class="card-body">
                 <asp:PlaceHolder runat="server" ID="avatarImageTD">

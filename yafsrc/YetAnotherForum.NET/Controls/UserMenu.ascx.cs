@@ -46,6 +46,8 @@ namespace YAF.Controls
     using YAF.Types.Objects;
     using YAF.Utils;
 
+    using ButtonStyle = YAF.Types.Constants.ButtonStyle;
+
     #endregion
 
     /// <summary>
@@ -454,7 +456,7 @@ namespace YAF.Controls
             this.UserAvatar.ImageUrl = this.Get<IAvatars>().GetAvatarUrlForCurrentUser();
 
             this.UserDropDown.DataToggle = "dropdown";
-            this.UserDropDown.Type = ButtonAction.None;
+            this.UserDropDown.Type = ButtonStyle.None;
 
             if (this.PageContext.ForumPageType == ForumPages.Account
                 || this.PageContext.ForumPageType == ForumPages.EditProfile

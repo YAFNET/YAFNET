@@ -13,10 +13,10 @@
         <div class="col-xl-12">
             <div class="card mb-3">
                 <div class="card-header">
-                    <i class="fa fa-comments fa-fw text-secondary pr-1"></i>
-                    <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" 
-                                        LocalizedTag="admin_forums" 
-                                        LocalizedPage="ADMINMENU" />
+                    <YAF:IconHeader runat="server"
+                                    IconName="comments"
+                                    LocalizedTag="admin_forums" 
+                                    LocalizedPage="ADMINMENU"></YAF:IconHeader>
                  </div>
                 <div class="card-body">
 		<asp:Repeater ID="CategoryList" runat="server" OnItemCommand="CategoryList_ItemCommand" OnItemDataBound="CategoryList_OnItemDataBound">
@@ -35,22 +35,24 @@
                     </small>
                 </div>
                 <small>
-                    <YAF:ThemeButton ID="ThemeButtonEdit" runat="server" 
-                                     Type="Info" 
-                                     Size="Small"
-                                     CommandName="edit" CommandArgument='<%# this.Eval( "ID") %>'
-                                     TitleLocalizedTag="EDIT" Icon="edit"
-                                     TextLocalizedTag="EDIT">
-                    </YAF:ThemeButton>
-                    <YAF:ThemeButton ID="ThemeButtonDelete" runat="server" 
-                                     Type="Danger" 
-                                     Size="Small"
-                                     ReturnConfirmText='<%# this.GetText("ADMIN_FORUMS", "CONFIRM_DELETE_CAT") %>'
-                                     CommandName="delete" CommandArgument='<%# this.Eval( "ID") %>'
-                                     TitleLocalizedTag="DELETE" 
-                                     Icon="trash"
-                                     TextLocalizedTag="DELETE">
-                    </YAF:ThemeButton>
+                    <div class="btn-group btn-group-sm">
+                        <YAF:ThemeButton ID="ThemeButtonEdit" runat="server" 
+                                         Type="Info" 
+                                         Size="Small"
+                                         CommandName="edit" CommandArgument='<%# this.Eval( "ID") %>'
+                                         TitleLocalizedTag="EDIT" Icon="edit"
+                                         TextLocalizedTag="EDIT">
+                        </YAF:ThemeButton>
+                        <YAF:ThemeButton ID="ThemeButtonDelete" runat="server" 
+                                         Type="Danger" 
+                                         Size="Small"
+                                         ReturnConfirmText='<%# this.GetText("ADMIN_FORUMS", "CONFIRM_DELETE_CAT") %>'
+                                         CommandName="delete" CommandArgument='<%# this.Eval( "ID") %>'
+                                         TitleLocalizedTag="DELETE" 
+                                         Icon="trash"
+                                         TextLocalizedTag="DELETE">
+                        </YAF:ThemeButton>
+                    </div>
                     <div class="dropdown-menu context-menu" aria-labelledby="context menu">
                         <YAF:ThemeButton ID="ThemeButton1" runat="server" 
                                          Type="None" 
@@ -101,22 +103,27 @@
                                 <%# this.HtmlEncode(DataBinder.Eval(Container.DataItem, "Description")) %>
                             </p>
                             <small>
-                                <YAF:ThemeButton ID="btnEdit" 
-                                                 Type="Info" 
-                                                 Size="Small"
-                                                 CommandName="edit" CommandArgument='<%# this.Eval( "ID") %>'
-                                                 TextLocalizedTag="EDIT"
-                                                 TitleLocalizedTag="EDIT" Icon="edit" runat="server"></YAF:ThemeButton>
-                                <YAF:ThemeButton ID="btnDuplicate" 
-                                                 Type="Info" 
-                                                 Size="Small"
-                                                 CommandName="copy" CommandArgument='<%# this.Eval( "ID") %>'
-                                                 TextLocalizedTag="COPY"
-                                                 TitleLocalizedTag="COPY" Icon="copy" runat="server"></YAF:ThemeButton>
-                                <YAF:ThemeButton ID="btnDelete" Type="Danger" Size="Small"
-                                                 CommandName="delete" CommandArgument='<%# this.Eval( "ID") %>'
-                                                 TextLocalizedTag="DELETE"
-                                                 TitleLocalizedTag="DELETE" Icon="trash" runat="server"></YAF:ThemeButton>
+                                <div class="btn-group btn-group-sm">
+                                    <YAF:ThemeButton ID="btnEdit" 
+                                                     Type="Info" 
+                                                     Size="Small"
+                                                     CommandName="edit" CommandArgument='<%# this.Eval( "ID") %>'
+                                                     TextLocalizedTag="EDIT"
+                                                     TitleLocalizedTag="EDIT" 
+                                                     Icon="edit" runat="server"></YAF:ThemeButton>
+                                    <YAF:ThemeButton ID="btnDuplicate" 
+                                                     Type="Info" 
+                                                     Size="Small"
+                                                     CommandName="copy" CommandArgument='<%# this.Eval( "ID") %>'
+                                                     TextLocalizedTag="COPY"
+                                                     TitleLocalizedTag="COPY" 
+                                                     Icon="copy" runat="server"></YAF:ThemeButton>
+                                    <YAF:ThemeButton ID="btnDelete" Type="Danger" Size="Small"
+                                                     CommandName="delete" CommandArgument='<%# this.Eval( "ID") %>'
+                                                     TextLocalizedTag="DELETE"
+                                                     TitleLocalizedTag="DELETE" 
+                                                     Icon="trash" runat="server"></YAF:ThemeButton>
+                                </div>
                             </small>
                             <div class="dropdown-menu context-menu" aria-labelledby="context menu">
                                 <YAF:ThemeButton ID="ThemeButton3" 

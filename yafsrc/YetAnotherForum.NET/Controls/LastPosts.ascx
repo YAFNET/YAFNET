@@ -11,7 +11,9 @@
             <div class="col">
         <div class="card mb-3">
         <div class="card-header">
-            <i class="fas fa-comment fa-fw text-secondary"></i>&nbsp;<YAF:LocalizedLabel ID="Last10" LocalizedTag="LAST10" runat="server" />
+            <YAF:IconHeader runat="server"
+                            IconName="comment"
+                            LocalizedTag="LAST10" />
         </div>
         <div class="card-body p-2" style="overflow-y: auto; height: 400px;">
     </HeaderTemplate>

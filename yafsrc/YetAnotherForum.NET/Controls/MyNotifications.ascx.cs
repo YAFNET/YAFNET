@@ -167,7 +167,7 @@ namespace YAF.Controls
                                             ForumPages.Posts,
                                             "m={0}#post{0}",
                                             activity.MessageID.Value),
-                                    Type = ButtonAction.None,
+                                    Type = ButtonStyle.None,
                                     Text = this.GetRepository<Topic>().GetById(activity.TopicID.Value).TopicName,
                                     Icon = "comment"
                                 };

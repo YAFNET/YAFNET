@@ -11,7 +11,8 @@
             <div class="col-xl-12">
                 <div class="card mb-3">
                     <div class="card-header">
-                        <i class="fa fa-users fa-fw text-secondary"></i> <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="title" />
+                        <YAF:IconHeader runat="server"
+                                        IconName="users"></YAF:IconHeader>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">

@@ -17,14 +17,8 @@
         <div class="col-xl-12">
             <div class="card mb-3">
                 <div class="card-header">
-                    <YAF:Icon runat="server" 
-                              IconName="comments"
-                              IconType="text-secondary"></YAF:Icon>
-                    <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" 
-                                        LocalizedTag="HEADER1" 
-                                        LocalizedPage="ADMIN_EDITFORUM" />
-                    <asp:Label ID="ForumNameTitle" runat="server"
-                               CssClass="font-weight-bold"></asp:Label>
+                    <YAF:IconHeader runat="server" ID="IconHeader"
+                                    IconName="comments"></YAF:IconHeader>
                 </div>
                 <div class="card-body">
                     <div class="form-row">

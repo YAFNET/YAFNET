@@ -13,9 +13,10 @@
         <div class="col-xl-12">
             <div class="card mb-3">
                 <div class="card-header">
-                    <i class="fa fa-user-plus fa-fw text-secondary"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel14" runat="server" 
-                                                                                             LocalizedTag="HEADER2" 
-                                                                                             LocalizedPage="ADMIN_REGUSER" />
+                    <YAF:IconHeader runat="server"
+                                    IconName="user-plus"
+                                    LocalizedTag="HEADER2" 
+                                    LocalizedPage="ADMIN_REGUSER"></YAF:IconHeader>
                 </div>
                 <div class="card-body">
                     <div class="form-row">

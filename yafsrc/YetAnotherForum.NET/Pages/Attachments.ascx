@@ -13,8 +13,8 @@
     <div class="col">
         <div class="card mb-3">
             <div class="card-header">
-                <i class="fa fa-paperclip fa-fw text-secondary"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" 
-                                                                                  LocalizedTag="TITLE" />
+                <YAF:IconHeader runat="server"
+                                IconName="paperclip"></YAF:IconHeader>
             </div>
             <div class="card-body">
                 <YAF:Pager ID="PagerTop" runat="server" OnPageChange="PagerTop_PageChange" />

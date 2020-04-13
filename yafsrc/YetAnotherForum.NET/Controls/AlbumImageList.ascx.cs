@@ -31,7 +31,6 @@ namespace YAF.Controls
     using System.Web.UI.WebControls;
 
     using YAF.Configuration;
-    using YAF.Core;
     using YAF.Core.BaseControls;
     using YAF.Core.Context;
     using YAF.Core.Extensions;
@@ -118,13 +117,13 @@ namespace YAF.Controls
             if (setCover.CommandArgument == this._coverImageID)
             {
                 setCover.TextLocalizedTag = "BUTTON_RESETCOVER";
-                setCover.Type = ButtonAction.Danger;
+                setCover.Type = ButtonStyle.Danger;
                 setCover.Icon = "trash";
             }
             else
             {
                 setCover.TextLocalizedTag = "BUTTON_SETCOVER";
-                setCover.Type = ButtonAction.Success;
+                setCover.Type = ButtonStyle.Success;
                 setCover.Icon = "tag";
             }
         }

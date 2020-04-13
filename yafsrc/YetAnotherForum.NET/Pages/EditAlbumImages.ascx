@@ -12,7 +12,8 @@
     <div class="col">
         <div class="card mb-3">
             <div class="card-header">
-                <i class="fa fa-images fa-fw text-secondary"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="title" />
+                <YAF:IconHeader runat="server"
+                                IconName="images"></YAF:IconHeader>
             </div>
             <div class="card-body text-center">
                 <asp:PlaceHolder id="TitleRow" runat="server">

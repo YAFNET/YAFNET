@@ -33,13 +33,13 @@ namespace YAF.Pages.Admin
         protected global::System.Web.UI.WebControls.Label Header;
 
         /// <summary>
-        /// Header2 control.
+        /// IconHeader control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Header2;
+        protected global::YAF.Web.Controls.IconHeader IconHeader;
 
         /// <summary>
         /// EditUserTabs control.

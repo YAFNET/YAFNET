@@ -16,7 +16,8 @@
             <div class="col">
                 <div class="card mb-3">
                     <div class="card-header">
-                        <i class="fa fa-envelope fa-fw text-secondary"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel12" runat="server" LocalizedTag="TITLE" />
+                        <YAF:IconHeader runat="server"
+                                        IconName="envelope" />
                     </div>
                     <div class="card-body">
                         

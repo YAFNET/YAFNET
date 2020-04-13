@@ -339,7 +339,7 @@ namespace YAF.Web.Controls
                 var link = new ThemeButton
                                {
                                    NavigateUrl = this.GetLinkUrl(1, postBack),
-                                   Type = ButtonAction.Secondary,
+                                   Type = ButtonStyle.Secondary,
                                    TextLocalizedPage = "COMMON",
                                    TextLocalizedTag = "GOTOFIRSTPAGE_TT",
                                    Icon = "angle-double-left"
@@ -353,7 +353,7 @@ namespace YAF.Web.Controls
                 var link = new ThemeButton
                                {
                                    NavigateUrl = this.GetLinkUrl(this.CurrentPageIndex, postBack),
-                                   Type = ButtonAction.Secondary,
+                                   Type = ButtonStyle.Secondary,
                                    TextLocalizedPage = "COMMON",
                                    TextLocalizedTag = "GOTOPREVPAGE_TT",
                                    Icon = "angle-left"
@@ -369,7 +369,7 @@ namespace YAF.Web.Controls
                 var link = new ThemeButton
                                {
                                    NavigateUrl = this.GetLinkUrl(i + 1, postBack),
-                                   Type = ButtonAction.Secondary,
+                                   Type = ButtonStyle.Secondary,
                                    Text = page
                                };
 
@@ -386,7 +386,7 @@ namespace YAF.Web.Controls
                 var link = new ThemeButton
                                {
                                    NavigateUrl = this.GetLinkUrl(this.CurrentPageIndex + 2, postBack),
-                                   Type = ButtonAction.Secondary,
+                                   Type = ButtonStyle.Secondary,
                                    TextLocalizedPage = "COMMON",
                                    TextLocalizedTag = "GOTONEXTPAGE_TT",
                                    Icon = "angle-right"
@@ -403,7 +403,7 @@ namespace YAF.Web.Controls
             new ThemeButton
                 {
                     NavigateUrl = this.GetLinkUrl(this.PageCount(), postBack),
-                    Type = ButtonAction.Secondary,
+                    Type = ButtonStyle.Secondary,
                     TextLocalizedPage = "COMMON",
                     TextLocalizedTag = "GOTOLASTPAGE_TT",
                     Icon = "angle-double-right"

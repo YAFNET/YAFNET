@@ -14,7 +14,9 @@
         <div class="col-xl-12">
             <div class="card mb-3">
                 <div class="card-header">
-                    <i class="fa fa-globe fa-fw text-secondary"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_EDITBOARD" />
+                    <YAF:IconHeader runat="server"
+                                    IconName="globe"
+                                    LocalizedPage="ADMIN_EDITBOARD"></YAF:IconHeader>
                 </div>
                 <div class="card-body">
                     <div class="form-row">

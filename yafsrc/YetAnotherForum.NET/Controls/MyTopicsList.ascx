@@ -5,9 +5,10 @@
     <div class="col">
         <div class="card mb-3">
             <div class="card-header">
-                <i class="fa fa-comments fa-fw text-secondary"></i>&nbsp;<YAF:LocalizedLabel runat="server" ID="Title" 
-                                                                              LocalizedPage="MYTOPICS"
-                                                                              LocalizedTag="ActiveTopics"></YAF:LocalizedLabel>
+                <YAF:IconHeader runat="server" ID="IconHeader"
+                                IconName="comments"
+                                LocalizedPage="MYTOPICS"
+                                LocalizedTag="ActiveTopics" />
             </div>
             <div class="card-body">
                 <YAF:Pager runat="server" ID="PagerTop" OnPageChange="Pager_PageChange" />

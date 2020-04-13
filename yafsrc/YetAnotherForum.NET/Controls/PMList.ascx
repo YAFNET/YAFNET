@@ -12,7 +12,7 @@
                      DataToggle="dropdown"
                      TextLocalizedTag="SORT_BY"
                      Icon="sort"
-                     Visible='<%# this.Messages.Items.Count > 0 %>'/>
+                     Visible="<%# this.Messages.Items.Count > 0 %>"/>
     <div class="dropdown-menu">
         <YAF:ThemeButton ID="SortFromAsc" runat="server"
                          CssClass="dropdown-item"

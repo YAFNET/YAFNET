@@ -14,8 +14,8 @@
     <div class="col">
         <div class="card mb-3">
             <div class="card-header">
-                <i class="fa fa-user-secret fa-fw text-secondary"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" 
-                                                                                 LocalizedTag="TITLE" />
+                <YAF:IconHeader runat="server"
+                                IconName="user-secret"/>
             </div>
             <div class="card-body text-center">
                 <div class="input-group mb-3">

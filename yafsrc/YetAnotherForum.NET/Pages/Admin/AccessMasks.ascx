@@ -14,9 +14,9 @@
     <div class="col-xl-12">
         <div class="card mb-3">
             <div class="card-header">
-                <i class="fa fa-universal-access fa-fw text-secondary"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" 
-                                                                                                         LocalizedTag="TITLE"  
-                                                                                                         LocalizedPage="ADMIN_ACCESSMASKS" />
+                <YAF:IconHeader runat="server"
+                                IconName="universal-access"
+                                LocalizedPage="ADMIN_ACCESSMASKS"></YAF:IconHeader>
             </div>
             <div class="card-body">
                 <asp:Repeater ID="List" runat="server" OnItemCommand="ListItemCommand">
@@ -135,25 +135,28 @@
 					</ul>
                         </p>
                     <small>
-                        <YAF:ThemeButton ID="ThemeButtonEdit" runat="server"
-                                         Type="Info" 
-                                         Size="Small"
-                                         CommandName="edit" 
-                                         CommandArgument='<%# this.Eval( "ID") %>'
-                                         TitleLocalizedTag="EDIT"
-                                         Icon="edit"
-                                         TextLocalizedTag="EDIT">
-                        </YAF:ThemeButton>
-                        <YAF:ThemeButton ID="ThemeButtonDelete" runat="server"
-                                         Type="Danger" 
-                                         Size="Small"
-                                         CommandName="delete" 
-                                         CommandArgument='<%# this.Eval( "ID") %>'
-                                         TitleLocalizedTag="DELETE"
-                                         Icon="trash"
-                                         TextLocalizedTag="DELETE"
-                                         ReturnConfirmText='<%# this.GetText("ADMIN_ACCESSMASKS", "CONFIRM_DELETE") %>'>
-                        </YAF:ThemeButton>
+                        <div class="btn-group btn-group-sm">
+                            <YAF:ThemeButton ID="ThemeButtonEdit" runat="server"
+                                             Type="Info" 
+                                             Size="Small"
+                                             CommandName="edit" 
+                                             CommandArgument='<%# this.Eval( "ID") %>'
+                                             TitleLocalizedTag="EDIT"
+                                             Icon="edit"
+                                             TextLocalizedTag="EDIT">
+                            </YAF:ThemeButton>
+                            <YAF:ThemeButton ID="ThemeButtonDelete" runat="server"
+                                             Type="Danger" 
+                                             Size="Small"
+                                             CommandName="delete" 
+                                             CommandArgument='<%# this.Eval( "ID") %>'
+                                             TitleLocalizedTag="DELETE"
+                                             Icon="trash"
+                                             TextLocalizedTag="DELETE"
+                                             ReturnConfirmText='<%# this.GetText("ADMIN_ACCESSMASKS", "CONFIRM_DELETE") %>'>
+                            </YAF:ThemeButton>
+                        </div>
+                        
                         <div class="dropdown-menu context-menu" aria-labelledby="context menu">
                             <YAF:ThemeButton ID="ThemeButton1" runat="server"
                                              Type="None" 

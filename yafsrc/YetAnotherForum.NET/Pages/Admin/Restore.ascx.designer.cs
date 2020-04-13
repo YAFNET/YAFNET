@@ -42,15 +42,6 @@ namespace YAF.Pages.Admin
         protected global::YAF.Web.Controls.Pager PagerTop;
 
         /// <summary>
-        /// HelpLabel1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Web.Controls.HelpLabel HelpLabel1;
-
-        /// <summary>
         /// HelpLabel2 control.
         /// </summary>
         /// <remarks>
@@ -94,15 +85,6 @@ namespace YAF.Pages.Admin
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::YAF.Web.Controls.Pager PagerMessages;
-
-        /// <summary>
-        /// HelpLabel3 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Web.Controls.HelpLabel HelpLabel3;
 
         /// <summary>
         /// DeletedMessages control.

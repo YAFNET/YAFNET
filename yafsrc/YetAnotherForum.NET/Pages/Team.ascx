@@ -14,10 +14,10 @@
     <div class="col">
         <div class="card mb-3">
             <div class="card-header">
-                <i class="fas fa-user-shield fa-fw text-secondary"></i>&nbsp;<YAF:LocalizedLabel 
-                                                                 ID="LocalizedLabel2"
-                                                                 runat="server" 
-                                                                 LocalizedTag="Admins" LocalizedPage="TEAM" />
+                <YAF:IconHeader runat="server"
+                                IconName="user-shield"
+                                LocalizedTag="Admins" 
+                                LocalizedPage="TEAM"></YAF:IconHeader>
             </div>
             <div class="card-body">
                 <asp:Repeater ID="AdminsList" runat="server" OnItemDataBound="AdminsList_OnItemDataBound">
@@ -82,10 +82,10 @@
     <div class="col" id="ModsTable" runat="server">
         <div class="card mb-3">
             <div class="card-header">
-                <i class="fas fa-user-secret fa-fw text-secondary"></i>&nbsp;<YAF:LocalizedLabel 
-                                                                 ID="LocalizedLabel1" 
-                                                                 runat="server" 
-                                                                 LocalizedTag="MODS" LocalizedPage="TEAM" />
+                <YAF:IconHeader runat="server"
+                                IconName="user-secret"
+                                LocalizedTag="MODS" 
+                                LocalizedPage="TEAM"></YAF:IconHeader>
             </div>
             <div class="card-body">
                 <asp:Repeater ID="ModeratorsList" runat="server" OnItemDataBound="ModeratorsList_OnItemDataBound">
