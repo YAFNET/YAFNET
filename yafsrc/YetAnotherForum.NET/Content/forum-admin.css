@@ -7542,9 +7542,10 @@ div#UploadDialog {
   right: 10px; }
 
 .btn-scroll {
-  position: absolute;
+  position: fixed;
   right: 20px;
-  bottom: 20px; }
+  bottom: 20px;
+  z-index: 999; }
 
 #YafBody {
   padding-right: 15px;
