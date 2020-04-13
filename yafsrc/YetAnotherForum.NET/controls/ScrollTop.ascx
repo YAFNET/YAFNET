@@ -4,6 +4,7 @@
 <div class="scroll-top">
     <YAF:ThemeButton runat="server" ID="ScrollButton" 
                      CssClass="btn-scroll"
+                     Size="Small"
                      Icon="angle-double-up"
                      Type="OutlineSecondary">
     </YAF:ThemeButton>

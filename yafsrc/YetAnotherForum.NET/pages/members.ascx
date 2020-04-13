@@ -26,7 +26,9 @@
             <div class="card-header">
                 <div class="row justify-content-between">
                     <div class="col-md-3">
-                        <i class="fas fa-users fa-fw text-secondary pr-1"></i>
+                        <YAF:Icon runat="server"
+                                  IconName="users"
+                                  IconType="text-secondary"></YAF:Icon>
                         <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" 
                                             LocalizedTag="TITLE" />
                     </div>
@@ -55,12 +57,12 @@
                                          CssClass="dropdown-item"
                                          Type="None" 
                                          OnClick="RankAsc_Click"
-                                         TextLocalizedTag="USERNAME_ASC" />
+                                         TextLocalizedTag="RANK_ASC" />
                         <YAF:ThemeButton ID="SortRankDesc" runat="server"
                                          CssClass="dropdown-item"
                                          Type="None" 
                                          OnClick="RankDesc_Click"
-                                         TextLocalizedTag="USERNAME_DESC" />
+                                         TextLocalizedTag="RANK_DESC" />
                         <div class="dropdown-divider"></div>
                         <YAF:ThemeButton ID="SortJoinedAsc" runat="server"
                                          CssClass="dropdown-item"
@@ -110,25 +112,31 @@
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
                                         <asp:Label runat="server" AssociatedControlID="Group">
-                                            <YAF:LocalizedLabel ID="SearchRolesLocalizedLabel" runat="server" LocalizedTag="Search_Role" />
+                                            <YAF:LocalizedLabel ID="SearchRolesLocalizedLabel" runat="server" 
+                                                                LocalizedTag="Search_Role" />
                                         </asp:Label>
-                                        <asp:DropDownList ID="Group" runat="server" CssClass="select2-select">
+                                        <asp:DropDownList ID="Group" runat="server" 
+                                                          CssClass="select2-select">
                                         </asp:DropDownList>
                                     </div>
                                     <div class="form-group col-md-6">
                                         <asp:Label runat="server" AssociatedControlID="Ranks">
-                                            <YAF:LocalizedLabel ID="SearchRankLocalizedLabel" runat="server" LocalizedTag="Search_Rank" />
+                                            <YAF:LocalizedLabel ID="SearchRankLocalizedLabel" runat="server" 
+                                                                LocalizedTag="Search_Rank" />
                                         </asp:Label>
-                                        <asp:DropDownList ID="Ranks" runat="server" CssClass="select2-select">
+                                        <asp:DropDownList ID="Ranks" runat="server" 
+                                                          CssClass="select2-select">
                                         </asp:DropDownList>
                                     </div>
                                 </div>
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
                                         <asp:Label runat="server" AssociatedControlID="NumPostDDL">
-                                            <YAF:LocalizedLabel ID="NumPostsLabel" runat="server" LocalizedTag="NUMPOSTS" />
+                                            <YAF:LocalizedLabel ID="NumPostsLabel" runat="server" 
+                                                                LocalizedTag="NUMPOSTS" />
                                         </asp:Label>
-                                        <asp:DropDownList ID="NumPostDDL" runat="server" CssClass="select2-select">
+                                        <asp:DropDownList ID="NumPostDDL" runat="server" 
+                                                          CssClass="select2-select">
                                         </asp:DropDownList>
                                     </div>
                                     <div class="form-group col-md-6">
@@ -140,9 +148,11 @@
                                 </div>
                                 <div class="form-group">
                                     <asp:Label runat="server" AssociatedControlID="UserSearchName">
-                                        <YAF:LocalizedLabel ID="SearchMemberLocalizedLabel" runat="server" LocalizedTag="Search_Member" />
+                                        <YAF:LocalizedLabel ID="SearchMemberLocalizedLabel" runat="server" 
+                                                            LocalizedTag="Search_Member" />
                                     </asp:Label>
-                                    <asp:TextBox ID="UserSearchName" runat="server" CssClass="form-control"></asp:TextBox>
+                                    <asp:TextBox ID="UserSearchName" runat="server" 
+                                                 CssClass="form-control"></asp:TextBox>
                                 </div>
                                 <div class="form-group">
                                     <YAF:ThemeButton ID="SearchByUserName" runat="server"
