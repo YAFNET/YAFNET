@@ -38,6 +38,7 @@ namespace YAF.Core.Services
     using YAF.Lucene.Net.Analysis.Standard;
     using YAF.Lucene.Net.Documents;
     using YAF.Lucene.Net.Index;
+    using YAF.Lucene.Net.Queries;
     using YAF.Lucene.Net.QueryParsers.Classic;
     using YAF.Lucene.Net.Search;
     using YAF.Lucene.Net.Search.Highlight;
@@ -276,11 +277,11 @@ namespace YAF.Core.Services
                                   new StoredField("Flags", message.Flags.ToString()),
                                   new StoredField("Posted", message.Posted),
                                   new StringField("UserId", message.UserId.ToString(), Field.Store.YES),
-                                  new StoredField("TopicId", message.TopicId.ToString()),
+                                  new StringField("TopicId", message.TopicId.ToString(), Field.Store.YES),
                                   new TextField("Topic", message.Topic, Field.Store.YES),
                                   new TextField("TopicTags", message.TopicTags, Field.Store.YES),
                                   new StringField("ForumName", message.ForumName, Field.Store.YES),
-                                  new StoredField("ForumId", message.ForumId.ToString()),
+                                  new StringField("ForumId", message.ForumId.ToString(), Field.Store.YES),
                                   new TextField("Author", name, Field.Store.YES),
                                   new TextField("AuthorDisplay", userDisplayName, Field.Store.YES),
                                   new StoredField("AuthorStyle", userStyle),
@@ -327,10 +328,10 @@ namespace YAF.Core.Services
                                   new StoredField("Flags", message.Flags.ToString()),
                                   new StoredField("Posted", message.Posted),
                                   new StringField("UserId", message.UserId.ToString(), Field.Store.YES),
-                                  new StoredField("TopicId", message.TopicId.ToString()),
+                                  new StringField("TopicId", message.TopicId.ToString(), Field.Store.YES),
                                   new TextField("Topic", message.Topic, Field.Store.YES),
                                   new StringField("ForumName", message.ForumName, Field.Store.YES),
-                                  new StoredField("ForumId", message.ForumId.ToString()),
+                                  new StringField("ForumId", message.ForumId.ToString(), Field.Store.YES),
                                   new TextField("Author", name, Field.Store.YES),
                                   new TextField("AuthorDisplay", userDisplayName, Field.Store.YES),
                                   new StoredField("AuthorStyle", userStyle),
@@ -575,10 +576,10 @@ namespace YAF.Core.Services
                                   new StoredField("Flags", message.Flags.ToString()),
                                   new StoredField("Posted", message.Posted),
                                   new StringField("UserId", message.UserId.ToString(), Field.Store.YES),
-                                  new StoredField("TopicId", message.TopicId.ToString()),
+                                  new StringField("TopicId", message.TopicId.ToString(), Field.Store.YES),
                                   new TextField("Topic", message.Topic, Field.Store.YES),
                                   new StringField("ForumName", message.ForumName, Field.Store.YES),
-                                  new StoredField("ForumId", message.ForumId.ToString()),
+                                  new StringField("ForumId", message.ForumId.ToString(), Field.Store.YES),
                                   new TextField("Author", name, Field.Store.YES),
                                   new TextField("AuthorDisplay", userDisplayName, Field.Store.YES),
                                   new StoredField("AuthorStyle", userStyle),
@@ -850,7 +851,31 @@ namespace YAF.Core.Services
 
                 // sort by date
                 var sort = new Sort(new SortField("MessageId", SortFieldType.STRING, true));
-                var hits = searcher.Search(query, null, hitsLimit, sort).ScoreDocs;
+
+                var fil = new BooleanFilter();
+
+                // search this forum
+                if (forumId > 0)
+                {
+                    fil.Add(new FilterClause(new TermsFilter(new Term("ForumId", forumId.ToString())), Occur.SHOULD));
+                }
+                else
+                {
+                    // filter user access
+                    if (userAccessList.Any())
+                    {
+                        userAccessList.Where(a => !a.ReadAccess).ForEach(
+                            access =>
+                                {
+                                    fil.Add(
+                                        new FilterClause(
+                                            new TermsFilter(new Term("ForumId", access.ForumID.ToString())),
+                                            Occur.MUST_NOT));
+                                });
+                    }
+                }
+
+                var hits = searcher.Search(query, fil.Any() ? fil : null, hitsLimit, sort).ScoreDocs;
 
                 totalHits = hits.Length;
                 var highlighter = new Highlighter(formatter, scorer) { TextFragmenter = fragmenter };
