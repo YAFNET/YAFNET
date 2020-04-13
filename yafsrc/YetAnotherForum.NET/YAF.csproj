@@ -310,6 +310,13 @@
     </Compile>
     <Compile Include="Classes\LatestInformationService.cs" />
     <Compile Include="Classes\MembershipUpgradeEvent.cs" />
+    <Compile Include="controls\MostActiveUsers.ascx.cs">
+      <DependentUpon>MostActiveUsers.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="controls\MostActiveUsers.ascx.designer.cs">
+      <DependentUpon>MostActiveUsers.ascx</DependentUpon>
+    </Compile>
     <Compile Include="controls\TopicTags.ascx.cs">
       <DependentUpon>TopicTags.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1927,6 +1934,7 @@
     <Content Include="Content\webfonts\fa-brands-400.svg" />
     <Content Include="Content\webfonts\fa-regular-400.svg" />
     <Content Include="Content\webfonts\fa-solid-900.svg" />
+    <Content Include="controls\MostActiveUsers.ascx" />
     <Content Include="controls\TopicTags.ascx" />
     <Content Include="controls\UserMenu.ascx" />
     <Content Include="controls\AdminMenu.ascx" />
@@ -3802,7 +3810,7 @@ RD /S /Q "$(TargetDir)zh-TW\"</PostBuildEvent>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties compilerconfig_1json__JSONSchema="" bundleconfig_1json__JSONSchema="" />
+      <UserProperties bundleconfig_1json__JSONSchema="" compilerconfig_1json__JSONSchema="" />
     </VisualStudio>
   </ProjectExtensions>
   <Import Project="..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets" Condition="Exists('..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets')" />
