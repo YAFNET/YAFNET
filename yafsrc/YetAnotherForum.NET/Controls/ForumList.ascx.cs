@@ -44,6 +44,7 @@ namespace YAF.Controls
     using YAF.Types.Interfaces;
     using YAF.Utils;
     using YAF.Utils.Helpers;
+    using YAF.Web.Controls;
 
     #endregion
 
@@ -227,11 +228,23 @@ namespace YAF.Controls
             {
                 var forumIcon = e.Item.FindControlAs<PlaceHolder>("ForumIcon");
 
+                var forumIconNew = new Icon { IconName = "comments", IconSize = "fa-2x", IconType = "text-success" };
+                var forumIconNormal =
+                    new Icon { IconName = "comments", IconSize = "fa-2x", IconType = "text-secondary" };
+                var forumIconLocked = new Icon
+                                          {
+                                              IconName = "comments",
+                                              IconStackName = "lock",
+                                              IconStackType = "text-warning",
+                                              IconStackSize = "fa-1x",
+                                              IconType = "text-secondary"
+                                          };
+
                 var icon = new Literal
                                {
                                    Text =
-                                       @"<a tabindex=""0"" class=""forum-icon-legend-popvover"" role=""button"" data-toggle=""popover"">
-                                                      <i class=""fas fa-comments fa-1x text-success""></i>
+                                       $@"<a tabindex=""0"" class=""forum-icon-legend-popvover"" role=""button"" data-toggle=""popover"">
+                                                      {forumIconNew.RenderToString()}
                                                   </a>"
                                };
 
@@ -240,25 +253,23 @@ namespace YAF.Controls
                     if (flags.IsLocked)
                     {
                         icon.Text =
-                            @"<a tabindex=""0"" class=""forum-icon-legend-popvover"" role=""button"" data-toggle=""popover"">
-                                   <span class=""fa-stack"">
-                                       <i class=""fas fa-comments fa-stack-2x text-secondary""></i>
-                                       <i class=""fas fa-lock fa-stack-1x text-warning"" style=""position:absolute; bottom:0px !important;text-align:right;line-height: 1em;""></i>
-                                   </span></a>";
+                            $@"<a tabindex=""0"" class=""forum-icon-legend-popvover"" role=""button"" data-toggle=""popover"">
+                                   {forumIconLocked}
+                               </a>";
                     }
                     else if (lastPosted > lastRead && row.Field<int>("ReadAccess") > 0)
                     {
                         icon.Text =
-                            @"<a tabindex=""0"" class=""forum-icon-legend-popvover"" role=""button"" data-toggle=""popover"">
-                                   <span class=""fa-stack""><i class=""fas fa-comments fa-2x text-success""></i></span>
+                            $@"<a tabindex=""0"" class=""forum-icon-legend-popvover"" role=""button"" data-toggle=""popover"">
+                                    {forumIconNew.RenderToString()}
                                </a>";
                     }
                     else
                     {
                         icon.Text =
-                            @"<a tabindex=""0"" class=""forum-icon-legend-popvover"" role=""button"" data-toggle=""popover"">
+                            $@"<a tabindex=""0"" class=""forum-icon-legend-popvover"" role=""button"" data-toggle=""popover"">
                                   <span class=""fa-stack"">
-                                      <i class=""fas fa-comments fa-2x text-secondary""></i>
+                                       {forumIconNormal.RenderToString()}
                                   </span>
                               </a>";
                     }
@@ -469,4 +480,4 @@ namespace YAF.Controls
 
         #endregion
     }
-}
+} 

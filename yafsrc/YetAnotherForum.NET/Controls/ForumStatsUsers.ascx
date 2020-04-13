@@ -1,5 +1,7 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" EnableViewState="false" Inherits="YAF.Controls.ForumStatsUsers" Codebehind="ForumStatsUsers.ascx.cs" %>
 
+<%@ Register TagPrefix="YAF" TagName="MostActiveUsers" Src="MostActiveUsers.ascx" %>
+
 <asp:UpdatePanel ID="UpdateStatsPanel" runat="server" UpdateMode="Conditional" class="col">
     <ContentTemplate>
         <asp:PlaceHolder runat="server" ID="InformationPlaceHolder">

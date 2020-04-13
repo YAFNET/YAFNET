@@ -54,6 +54,16 @@ namespace YAF.Web.Controls
         public string IconName { get; set; }
 
         /// <summary>
+        /// Gets or sets the icon type.
+        /// </summary>
+        public string IconType { get; set; }
+
+        /// <summary>
+        /// Gets or sets the icon style.
+        /// </summary>
+        public string IconStyle { get; set; }
+
+        /// <summary>
         /// Gets or sets the icon size.
         /// </summary>
         public string IconSize { get; set; }
@@ -100,7 +110,17 @@ namespace YAF.Web.Controls
         {
             output.BeginRender();
 
-            var icon = new Icon { IconName = this.IconName, IconType = "text-secondary", IconSize = this.IconSize };
+            if (string.IsNullOrEmpty(this.IconType))
+            {
+                this.IconType = "text-secondary";
+            }
+
+            var icon = new Icon { IconName = this.IconName, IconType = this.IconType, IconSize = this.IconSize };
+
+            if (this.IconStyle.IsSet())
+            {
+                icon.IconStyle = this.IconStyle;
+            }
 
             icon.RenderControl(output);
 

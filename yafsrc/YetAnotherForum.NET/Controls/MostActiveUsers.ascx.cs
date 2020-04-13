@@ -21,14 +21,13 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-
-namespace YAF.Web.Controls
+namespace YAF.Controls
 {
     #region Using
 
     using System;
     using System.Data;
-    using System.Web.UI;
+    using System.Web.UI.WebControls;
 
     using YAF.Core.BaseControls;
     using YAF.Core.Model;
@@ -37,14 +36,17 @@ namespace YAF.Web.Controls
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
+    using YAF.Utils.Helpers;
+    using YAF.Web.Controls;
+
+    using DateTime = System.DateTime;
 
     #endregion
 
     /// <summary>
     /// The most active users.
     /// </summary>
-    [ToolboxData("<{0}:MostActiveUsers runat=\"server\"></{0}:MostActiveUsers>")]
-    public class MostActiveUsers : BaseControl
+    public partial class MostActiveUsers : BaseUserControl
     {
         #region Properties
 
@@ -63,14 +65,51 @@ namespace YAF.Web.Controls
         #region Methods
 
         /// <summary>
-        /// Renders the Most Active Users Card.
+        /// Handles the Load event of the Page control.
         /// </summary>
-        /// <param name="writer">
-        /// The writer.
-        /// </param>
-        protected override void Render([NotNull] HtmlTextWriter writer)
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            var rankDt = this.Get<IDataCache>().GetOrSet(
+            if (this.IsPostBack)
+            {
+                return;
+            }
+
+            // bind data
+            this.BindData();
+        }
+
+        /// <summary>
+        /// The users_ on item data bound.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        protected void Users_OnItemDataBound(object sender, RepeaterItemEventArgs e)
+        {
+            if (e.Item.ItemType != ListItemType.Item && e.Item.ItemType != ListItemType.AlternatingItem)
+            {
+                return;
+            }
+
+            var row = (DataRowView)e.Item.DataItem;
+
+            var userLink = e.Item.FindControlAs<UserLink>("UserLink");
+
+            // render UserLink...
+            userLink.UserID = row["ID"].ToType<int>();
+        }
+
+        /// <summary>
+        /// Binds the Data.
+        /// </summary>
+        private void BindData()
+        {
+            var users = this.Get<IDataCache>().GetOrSet(
                 Constants.Cache.MostActiveUsers,
                 () => this.GetRepository<User>().ActivityRankAsDataTable(
                     this.PageContext.PageBoardID,
@@ -78,39 +117,10 @@ namespace YAF.Web.Controls
                     this.DisplayNumber),
                 TimeSpan.FromMinutes(5));
 
-            if (!rankDt.HasRows())
-            {
-                return;
-            }
+            this.Users.DataSource = users;
+            this.Users.DataBind();
 
-            writer.BeginRender();
-
-            writer.Write(@"<div class=""card mb-3"">");
-            writer.Write(@"<div class=""card-header""><span class=""fa-stack"">");
-            writer.Write(
-                @"<i class=""fas fa-chart-line fa-2x fa-fw text-secondary""></i></span>&nbsp;{0}</div>",
-                this.GetTextFormatted("MOST_ACTIVE", this.LastNumOfDays));
-            writer.Write(@"<div class=""card-body"">");
-
-            writer.Write(@"<ol class=""mb-0"">");
-
-            rankDt.AsEnumerable().ForEach(
-                row =>
-                    {
-                        writer.Write("<li>");
-
-                        // render UserLink...
-                        var userLink = new UserLink { UserID = row.Field<int>("ID"), };
-                        userLink.RenderControl(writer);
-
-                        writer.Write(" ");
-                        writer.Write($@"({row.Field<int>("NumOfPosts")})");
-                        writer.Write("</li>");
-                    });
-
-            writer.Write("</ol>");
-            writer.Write("</div></div>");
-            writer.EndRender();
+            this.IconHeader.Param0 = this.LastNumOfDays.ToString();
         }
 
         #endregion

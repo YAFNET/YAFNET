@@ -11,34 +11,25 @@ namespace YAF.Controls
 {
 
 
-    public partial class ForumIconLegend
+    public partial class MostActiveUsers
     {
 
         /// <summary>
-        /// NewPostsLabel control.
+        /// IconHeader control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.Controls.LocalizedLabel NewPostsLabel;
+        protected global::YAF.Web.Controls.IconHeader IconHeader;
 
         /// <summary>
-        /// NoNewPostsLabel control.
+        /// Users control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.Controls.LocalizedLabel NoNewPostsLabel;
-
-        /// <summary>
-        /// ForumLockedLabel control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Web.Controls.LocalizedLabel ForumLockedLabel;
+        protected global::System.Web.UI.WebControls.Repeater Users;
     }
 }

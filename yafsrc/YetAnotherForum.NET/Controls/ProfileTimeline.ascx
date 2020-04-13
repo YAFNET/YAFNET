@@ -68,9 +68,6 @@
                 <asp:Repeater runat="server" ID="ActivityStream" 
                               OnItemDataBound="ActivityStream_OnItemDataBound" 
                               OnItemCommand="ActivityStream_OnItemCommand">
-<%--                    <HeaderTemplate>
-                        <div class="container">
-                    </HeaderTemplate>--%>
                     <ItemTemplate>
                         <div class="row">
                             <div class="col-auto text-center flex-column d-none d-sm-flex">
@@ -110,9 +107,6 @@
                             </div>
                         </div>
                     </ItemTemplate>
-<%--                    <FooterTemplate>
-                    </div>
-                    </FooterTemplate>--%>
                 </asp:Repeater>
             </div>
             <div class="card-footer">

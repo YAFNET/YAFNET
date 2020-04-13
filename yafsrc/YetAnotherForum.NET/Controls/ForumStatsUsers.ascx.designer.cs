@@ -93,6 +93,6 @@ namespace YAF.Controls
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.Controls.MostActiveUsers MostActiveList;
+        protected global::YAF.Controls.MostActiveUsers MostActiveList;
     }
 }
