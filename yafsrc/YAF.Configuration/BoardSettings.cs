@@ -24,6 +24,7 @@
 namespace YAF.Configuration
 {
     using System;
+    using System.Globalization;
     using System.Web.Security;
 
     using YAF.Configuration.Pattern;
@@ -2450,9 +2451,12 @@ namespace YAF.Configuration
         /// <summary>
         /// Gets or sets the board announcement until.
         /// </summary>
-        public DateTime? BoardAnnouncementUntil
+        public string BoardAnnouncementUntil
         {
-            get => this.RegistryBoard.GetValue("BoardAnnouncementUntil", DateTime.MinValue);
+            get =>
+                this.RegistryBoard.GetValue(
+                    "BoardAnnouncementUntil",
+                    DateTime.MinValue.ToString(CultureInfo.InvariantCulture));
 
             set => this.RegistryBoard.SetValue("BoardAnnouncementUntil", value);
         }
