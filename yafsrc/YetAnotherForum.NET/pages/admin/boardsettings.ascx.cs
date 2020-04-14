@@ -28,6 +28,7 @@ namespace YAF.Pages.Admin
 
     using System;
     using System.Data;
+    using System.Globalization;
     using System.IO;
     using System.Linq;
     using System.Web;
@@ -316,7 +317,7 @@ namespace YAF.Pages.Admin
         /// </param>
         protected void SaveAnnouncementClick([NotNull] object sender, [NotNull] EventArgs e)
         {
-            var boardAnnouncementUntil = DateTime.UtcNow;
+            var boardAnnouncementUntil = DateTime.Now;
 
             // number inserted by suspending user
             var count = int.Parse(this.BoardAnnouncementUntil.Text);
@@ -345,7 +346,7 @@ namespace YAF.Pages.Admin
 
             var boardSettings = this.Get<BoardSettings>();
 
-            boardSettings.BoardAnnouncementUntil = boardAnnouncementUntil;
+            boardSettings.BoardAnnouncementUntil = boardAnnouncementUntil.ToString(CultureInfo.InvariantCulture);
             boardSettings.BoardAnnouncement = this.BoardAnnouncement.Text;
             boardSettings.BoardAnnouncementType = this.BoardAnnouncementType.SelectedValue;
 
@@ -371,7 +372,7 @@ namespace YAF.Pages.Admin
         {
             var boardSettings = this.Get<BoardSettings>();
 
-            boardSettings.BoardAnnouncementUntil = DateTime.MinValue;
+            boardSettings.BoardAnnouncementUntil = DateTime.MinValue.ToString(CultureInfo.InvariantCulture);
             boardSettings.BoardAnnouncement = this.BoardAnnouncement.Text;
             boardSettings.BoardAnnouncementType = this.BoardAnnouncementType.SelectedValue;
 

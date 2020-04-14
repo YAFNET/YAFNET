@@ -26,6 +26,7 @@ namespace YAF.Controls
     #region Using
 
     using System;
+    using System.Globalization;
 
     using YAF.Configuration;
     using YAF.Core;
@@ -57,11 +58,15 @@ namespace YAF.Controls
                 return;
             }
 
-            if (this.Get<BoardSettings>().BoardAnnouncementUntil <= DateTime.UtcNow)
+            var dateTime = Convert.ToDateTime(
+                this.Get<BoardSettings>().BoardAnnouncementUntil,
+                CultureInfo.InvariantCulture); 
+
+            if (dateTime <= DateTime.Now)
             {
                 var boardSettings = this.Get<BoardSettings>();
 
-                boardSettings.BoardAnnouncementUntil = DateTime.MinValue;
+                boardSettings.BoardAnnouncementUntil = DateTime.MinValue.ToString(CultureInfo.InvariantCulture);
                 boardSettings.BoardAnnouncement = string.Empty;
 
                 // save the settings to the database

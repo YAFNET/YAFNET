@@ -142,6 +142,7 @@ namespace YAF.Pages
             }
 
             this.GetRepository<Topic>().Delete(this.PageContext.PageTopicID, true);
+
             BuildLink.Redirect(ForumPages.topics, "f={0}", this.PageContext.PageForumID);
         }
 

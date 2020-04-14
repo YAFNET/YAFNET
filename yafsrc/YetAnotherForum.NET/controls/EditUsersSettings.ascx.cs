@@ -136,7 +136,7 @@ namespace YAF.Controls
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            this.Page.Form.DefaultButton = this.UpdateProfile.UniqueID;
+            //this.Page.Form.DefaultButton = this.UpdateProfile.UniqueID;
 
             this.PageContext.QueryIDs = new QueryStringIDHelper("u");
 
