@@ -142,6 +142,7 @@ namespace YAF.Pages
             }
 
             this.GetRepository<Topic>().Delete(this.PageContext.PageTopicID, true);
+
             BuildLink.Redirect(ForumPages.topics, "f={0}", this.PageContext.PageForumID);
         }
 
@@ -526,20 +527,6 @@ namespace YAF.Pages
                     this.UnlockTopic1.Visible = !this.LockTopic1.Visible;
                     this.LockTopic2.Visible = this.LockTopic1.Visible;
                     this.UnlockTopic2.Visible = !this.LockTopic2.Visible;
-                }
-
-                if (this.PageContext.ForumReplyAccess ||
-                    (!this.topic.TopicFlags.IsLocked || !this.forumFlags.IsLocked) && this.PageContext.ForumModeratorAccess)
-                {
-                    this.PageContext.PageElements.RegisterJsBlockStartup(
-                        "SelectedQuotingJs",
-                        JavaScriptBlocks.SelectedQuotingJs(
-                            BuildLink.GetLinkNotEscaped(
-                                ForumPages.PostMessage,
-                                "t={0}&f={1}",
-                                this.PageContext.PageTopicID,
-                                this.PageContext.PageForumID),
-                                this.GetText("POSTS", "QUOTE_SELECTED")));
                 }
             }
 

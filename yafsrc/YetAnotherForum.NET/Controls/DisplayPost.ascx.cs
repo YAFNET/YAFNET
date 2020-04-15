@@ -170,6 +170,26 @@ namespace YAF.Controls
                                                  !this.PostData.PostDeleted && this.PostData.CanReply
                                                                             && !this.PostData.IsLocked;
 
+            if (!this.PostData.PostDeleted && this.PostData.CanReply
+                                           && !this.PostData.IsLocked)
+            {
+                this.ContextMenu.Attributes.Add(
+                    "data-url",
+                    BuildLink.GetLinkNotEscaped(
+                        ForumPages.PostMessage,
+                        "t={0}&f={1}",
+                        this.PageContext.PageTopicID,
+                        this.PageContext.PageForumID));
+
+                this.ContextMenu.Attributes.Add(
+                    "data-quote",
+                    this.GetText("COMMON", "SELECTED_QUOTE"));
+            }
+
+            this.ContextMenu.Attributes.Add(
+                "data-search",
+                this.GetText("COMMON", "SELECTED_SEARCH"));
+
             if (!this.PageContext.IsMobileDevice)
             {
                 this.Quote.Text = this.GetText("BUTTON_QUOTE_TT");

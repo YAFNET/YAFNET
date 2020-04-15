@@ -2778,7 +2778,6 @@
     </Content>
     <Content Include="Scripts\jsdifflib.js" />
     <Content Include="Scripts\prism.js" />
-    <Content Include="Scripts\jquery.selectedQuoting.js" />
     <Content Include="Scripts\select2.js" />
     <Content Include="Scripts\tablesorter\extras\jquery.tablesorter.pager.js" />
     <Content Include="Scripts\tablesorter\extras\jquery.tablesorter.pager.min.js">

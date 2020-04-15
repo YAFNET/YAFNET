@@ -267,13 +267,13 @@ namespace YAF.Controls
         protected global::System.Web.UI.WebControls.Panel panMessage;
 
         /// <summary>
-        /// Edit2 control.
+        /// ContextMenu control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.Controls.ThemeButton Edit2;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl ContextMenu;
 
         /// <summary>
         /// Quote2 control.
@@ -301,6 +301,15 @@ namespace YAF.Controls
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::YAF.Web.Controls.ThemeButton Reply;
+
+        /// <summary>
+        /// Edit2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Web.Controls.ThemeButton Edit2;
 
         /// <summary>
         /// Move control.

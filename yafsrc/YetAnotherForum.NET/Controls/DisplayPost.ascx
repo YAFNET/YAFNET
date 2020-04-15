@@ -176,14 +176,7 @@
                                                  ShowEditMessage="True">
                             </YAF:MessagePostData>
                     </asp:panel>
-                    <div class="dropdown-menu context-menu" aria-labelledby="context menu">
-                        <YAF:ThemeButton ID="Edit2" runat="server"
-                                         Type="None"
-                                         Icon="edit"
-                                         DataToggle="tooltip"
-                                         TextLocalizedTag="BUTTON_EDIT"
-                                         TitleLocalizedTag="BUTTON_EDIT_TT"
-                                         CssClass="dropdown-item"  />
+                    <div class="dropdown-menu context-menu" aria-labelledby="context menu" ID="ContextMenu" runat="server">
                         <YAF:ThemeButton ID="Quote2" runat="server"
                                          Type="None"
                                          Icon="quote-left"
@@ -204,6 +197,13 @@
                                          Icon="reply"
                                          CssClass="dropdown-item"  />
                         <div class="dropdown-divider"></div>
+                        <YAF:ThemeButton ID="Edit2" runat="server"
+                                         Type="None"
+                                         Icon="edit"
+                                         DataToggle="tooltip"
+                                         TextLocalizedTag="BUTTON_EDIT"
+                                         TitleLocalizedTag="BUTTON_EDIT_TT"
+                                         CssClass="dropdown-item"  />
                         <YAF:ThemeButton ID="Move" runat="server"
                                          Type="None"
                                          Icon="arrows-alt"
