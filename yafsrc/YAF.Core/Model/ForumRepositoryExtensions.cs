@@ -503,12 +503,10 @@ namespace YAF.Core.Model
         /// </returns>
         public static bool Delete(this IRepository<Forum> repository, [NotNull] int forumID)
         {
-            if (BoardContext.Current.GetRepository<Forum>().Count(f => f.ParentID == forumID) > 0)
+            if (repository.Exists(f => f.ParentID == forumID))
             {
                 return false;
             }
-
-            DeleteAttachments(forumID);
 
             repository.DbFunction.Scalar.forum_delete(ForumID: forumID);
 
@@ -532,7 +530,7 @@ namespace YAF.Core.Model
         /// </returns>
         public static bool Move(this IRepository<Forum> repository, [NotNull] int forumOldID, [NotNull] int forumNewID)
         {
-            if (BoardContext.Current.GetRepository<Forum>().Count(f => f.ParentID == forumOldID) > 0)
+            if (repository.Exists(f => f.ParentID == forumOldID))
             {
                 return false;
             }
@@ -624,19 +622,6 @@ namespace YAF.Core.Model
         }
 
         #endregion
-
-        /// <summary>
-        /// Deletes attachments out of a entire forum
-        /// </summary>
-        /// <param name="forumID">
-        /// The forum ID.
-        /// </param>
-        private static void DeleteAttachments([NotNull] int forumID)
-        {
-            var topicRepository = BoardContext.Current.GetRepository<Topic>();
-
-            topicRepository.Get(t => t.ForumID == forumID).ForEach(t => topicRepository.Delete(t.ID, true));
-        }
 
         /// <summary>
         /// The SortList.
