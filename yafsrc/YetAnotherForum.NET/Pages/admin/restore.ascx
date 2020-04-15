@@ -112,14 +112,23 @@
                     <asp:PlaceHolder runat="server" Visible="<%# this.DeletedTopics.Items.Count > 0 %>">
                         <div class="card-footer text-center">
                             <YAF:ThemeButton runat="server" 
+                                             CommandName="restore_all" 
+                                             CssClass="mr-1"
+                                             ID="ThemeButton3" 
+                                             Type="Success"
+                                             Icon="trash-restore" 
+                                             TextLocalizedTag="RESTORE"
+                                             TextLocalizedPage="ADMIN_EVENTLOG">
+                            </YAF:ThemeButton>
+                            <YAF:ThemeButton runat="server" 
                                              CommandName="delete_all" 
                                              ID="Linkbutton4" 
+                                             CssClass="mr-1"
                                              Type="Danger"
                                              Icon="dumpster" 
                                              TextLocalizedTag="DELETE_ALL"
                                              TextLocalizedPage="ADMIN_EVENTLOG">
                             </YAF:ThemeButton>
-                            &nbsp;
                             <YAF:ThemeButton runat="server" 
                                              CommandName="delete_zero" 
                                              ID="ThemeButton2" 

@@ -136,6 +136,47 @@ namespace YAF.Pages.Admin
                     }
 
                     break;
+                case "restore_all":
+                    {
+                        var topicIds = (from RepeaterItem item in this.DeletedTopics.Items
+                                        select item.FindControlAs<HiddenField>("hiddenID")
+                                        into hiddenId
+                                        select hiddenId.Value.ToType<int>()).ToList();
+
+                        topicIds.ForEach(
+                            topicID =>
+                                {
+                                    var getFirstMessage = this.GetRepository<Message>()
+                                        .GetSingle(m => m.TopicID == topicID && m.Position == 0);
+
+                                    if (getFirstMessage != null)
+                                    {
+                                        this.GetRepository<Message>().Delete(
+                                            getFirstMessage.ID,
+                                            true,
+                                            string.Empty,
+                                            0,
+                                            true,
+                                            false);
+                                    }
+
+                                    var topic = this.GetRepository<Topic>().GetById(topicID);
+
+                                    var flags = topic.TopicFlags;
+
+                                    flags.IsDeleted = false;
+
+                                    this.GetRepository<Topic>().UpdateOnly(
+                                        () => new Topic { Flags = flags.BitValue },
+                                        t => t.ID == topicID);
+                                });
+
+                        this.PageContext.AddLoadMessage(this.GetText("MSG_RESTORED"), MessageTypes.success);
+
+                        this.BindData();
+                    }
+
+                    break;
                 case "delete_all":
                     {
                         var topicIds = (from RepeaterItem item in this.DeletedTopics.Items
@@ -154,7 +195,7 @@ namespace YAF.Pages.Admin
 
                     break;
 
-                case "delete_complete":
+                /*case "delete_complete":
                     {
                         var deletedTopics = this.GetRepository<Topic>().GetDeletedTopics(
                             BoardContext.Current.PageBoardID,
@@ -167,7 +208,7 @@ namespace YAF.Pages.Admin
                         this.BindData();
                     }
 
-                    break;
+                    break;*/
                 case "delete_zero":
                     {
                         var deletedTopics = this.GetRepository<Topic>()

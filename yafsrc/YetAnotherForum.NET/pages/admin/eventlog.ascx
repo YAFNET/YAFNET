@@ -89,19 +89,20 @@
             </HeaderTemplate>
             <ItemTemplate>
                 <li class="list-group-item list-group-item-action list-group-item-menu">
-                    <div class="d-flex w-100 justify-content-between text-break" onclick="javascript:$('<%# "#eventDetails{0}".Fmt(this.Eval("EventLogID")) %>').collapse('toggle');">
+                    <div class="d-flex w-100 justify-content-between text-break" 
+                         onclick="javascript:$('<%# ".btn-toggle-{0}".Fmt(this.Eval("EventLogID")) %>').click();">
                         <h5 class="mb-1">
                             <asp:HiddenField ID="EventTypeID" Value='<%# this.Eval("Type")%>' runat="server"/>
                             <%# this.EventIcon(Container.DataItem) %>
                             <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" 
-                                                                               LocalizedTag="SOURCE" 
-                                                                               LocalizedPage="ADMIN_EVENTLOG" />:&nbsp;
+                                                LocalizedTag="SOURCE" 
+                                                LocalizedPage="ADMIN_EVENTLOG" />:&nbsp;
                             <%# this.HtmlEncode(this.Eval( "Source")).IsSet() ? this.HtmlEncode(this.Eval( "Source")) : "N/A" %>
                         </h5>
                         <small class="d-none d-md-block">
-                            <span class="font-weight-bold"><YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" 
-                                                                               LocalizedTag="TIME" 
-                                                                               LocalizedPage="ADMIN_EVENTLOG" />:</span>&nbsp;
+                            <YAF:Icon runat="server" 
+                                      IconName="calendar-day"
+                                      IconNameBadge="clock"></YAF:Icon>
                             <%# this.Get<IDateTime>().FormatDateTimeTopic(Container.DataItemToField<DateTime>("EventTime")) %>
                         </small>
                     </div>
@@ -117,6 +118,7 @@
                                          Size="Small"
                                          TextLocalizedTag="SHOW" TextLocalizedPage="ADMIN_EVENTLOG"
                                          Icon="caret-square-down"
+                                         CssClass='<%# "btn-toggle-{0}".Fmt(this.Eval("EventLogID")) %>'
                                          DataToggle="collapse"
                                          DataTarget='<%# "eventDetails{0}".Fmt(this.Eval("EventLogID")) %>'>
                         </YAF:ThemeButton>
