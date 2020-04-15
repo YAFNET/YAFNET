@@ -991,7 +991,7 @@ namespace YAF.Core.Model
 
                 BoardContext.Current.Get<ILogger>().Log(
                     BoardContext.Current.PageUserName,
-                    null,
+                    "YAF",
                     BoardContext.Current.Get<ILocalization>().GetTextFormatted("DELETED_MESSAGE", messageID),
                     EventLogTypes.Information);
 

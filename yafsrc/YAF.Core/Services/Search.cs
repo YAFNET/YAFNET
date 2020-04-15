@@ -383,15 +383,26 @@ namespace YAF.Core.Services
         /// <summary>
         /// Searches for similar words
         /// </summary>
-        /// <param name="userId">The user identifier.</param>
-        /// <param name="input">The input.</param>
-        /// <param name="fieldName">Name of the field.</param>
+        /// <param name="userId">
+        /// The user identifier.
+        /// </param>
+        /// <param name="filter">
+        /// The filter.
+        /// </param>
+        /// <param name="input">
+        /// The input.
+        /// </param>
+        /// <param name="fieldName">
+        /// Name of the field.
+        /// </param>
         /// <returns>
         /// Returns the list of search results.
         /// </returns>
-        public List<SearchMessage> SearchSimilar(int userId, string input, string fieldName = "")
+        public List<SearchMessage> SearchSimilar(int userId, string filter, string input, string fieldName = "")
         {
-           return input.IsNotSet() ? new List<SearchMessage>() : this.SearchSimilarIndex(userId, input, fieldName);
+            return input.IsNotSet()
+                       ? new List<SearchMessage>()
+                       : this.SearchSimilarIndex(userId, filter, input, fieldName);
         }
 
         /// <summary>
@@ -898,13 +909,22 @@ namespace YAF.Core.Services
         /// <summary>
         /// Searches for similar words
         /// </summary>
-        /// <param name="userId">The user identifier.</param>
-        /// <param name="searchQuery">The search query.</param>
-        /// <param name="searchField">The search field.</param>
+        /// <param name="userId">
+        /// The user identifier.
+        /// </param>
+        /// <param name="filter">
+        /// The filter.
+        /// </param>
+        /// <param name="searchQuery">
+        /// The search query.
+        /// </param>
+        /// <param name="searchField">
+        /// The search field.
+        /// </param>
         /// <returns>
         /// Returns the Search results
         /// </returns>
-        private List<SearchMessage> SearchSimilarIndex(int userId, string searchQuery, string searchField)
+        private List<SearchMessage> SearchSimilarIndex(int userId, string filter, string searchQuery, string searchField)
         {
             if (searchQuery.Replace("*", string.Empty).Replace("?", string.Empty).IsNotSet())
             {
@@ -921,12 +941,17 @@ namespace YAF.Core.Services
                 return new List<SearchMessage>();
             }
 
+            var booleanFilter = new BooleanFilter
+                                    {
+                                        new FilterClause(new TermsFilter(new Term("TopicId", filter)), Occur.MUST_NOT)
+                                    };
+
             var hitsLimit = this.Get<BoardSettings>().ReturnSearchMax;
 
             var parser = new QueryParser(MatchVersion, searchField, this.standardAnalyzer);
             var query = ParseQuery(searchQuery, parser);
 
-            var hits = searcher.Search(query, hitsLimit).ScoreDocs;
+            var hits = searcher.Search(query, booleanFilter, hitsLimit).ScoreDocs;
 
             var results = MapSearchToDataList(searcher, hits, userAccessList);
 

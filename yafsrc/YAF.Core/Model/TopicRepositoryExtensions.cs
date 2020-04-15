@@ -54,18 +54,6 @@ namespace YAF.Core.Model
         #region Public Methods and Operators
 
         /// <summary>
-        /// Gets the similar topics.
-        /// </summary>
-        /// <param name="repository">The repository.</param>
-        /// <param name="userId">The user identifier.</param>
-        /// <param name="searchInput">The search input.</param>
-        /// <returns>Get List of similar topics</returns>
-        public static List<SearchMessage> GetSimilarTopics(this IRepository<Topic> repository, [NotNull] int userId, [NotNull] string searchInput)
-        {
-            return BoardContext.Current.Get<ISearch>().SearchSimilar(userId, searchInput, "Topic");
-        }
-        
-        /// <summary>
         /// Sets the answer message.
         /// </summary>
         /// <param name="repository">The repository.</param>
@@ -902,7 +890,7 @@ namespace YAF.Core.Model
 
             BoardContext.Current.Get<ILogger>().Log(
                 BoardContext.Current.PageUserName,
-                null,
+                "YAF",
                 BoardContext.Current.Get<ILocalization>().GetTextFormatted("DELETED_TOPIC", topicId),
                 EventLogTypes.Information);
 

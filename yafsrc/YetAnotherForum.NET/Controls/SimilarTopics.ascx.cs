@@ -28,13 +28,11 @@ namespace YAF.Controls
 
     using System;
     using System.Linq;
-
+    
     using YAF.Configuration;
     using YAF.Core.BaseControls;
-    using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Interfaces;
-    using YAF.Types.Models;
 
     #endregion
 
@@ -68,9 +66,11 @@ namespace YAF.Controls
         {
             try
             {
-                var topicsList = this.GetRepository<Topic>()
-                    .GetSimilarTopics(this.PageContext.PageUserID, this.PageContext.PageTopicName)
-                    .Where(t => t.TopicId != this.PageContext.PageTopicID).Take(5).ToList();
+                var topicsList = this.Get<ISearch>().SearchSimilar(
+                    this.PageContext.PageUserID,
+                    this.PageContext.PageTopicID.ToString(),
+                    this.PageContext.PageTopicName,
+                    "Topic").Take(5).ToList();
 
                 if (!topicsList.Any())
                 {
