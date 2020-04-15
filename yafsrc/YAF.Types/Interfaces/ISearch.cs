@@ -107,11 +107,22 @@ namespace YAF.Types.Interfaces
         /// <summary>
         /// Searches for similar words
         /// </summary>
-        /// <param name="userId">The user identifier.</param>
-        /// <param name="input">The input.</param>
-        /// <param name="fieldName">Name of the field.</param>
-        /// <returns>Returns the list of search results.</returns>
-        List<SearchMessage> SearchSimilar(int userId, string input, string fieldName = "");
+        /// <param name="userId">
+        /// The user identifier.
+        /// </param>
+        /// <param name="filter">
+        /// The filter.
+        /// </param>
+        /// <param name="input">
+        /// The input.
+        /// </param>
+        /// <param name="fieldName">
+        /// Name of the field.
+        /// </param>
+        /// <returns>
+        /// Returns the list of search results.
+        /// </returns>
+        List<SearchMessage> SearchSimilar(int userId, string filter, string input, string fieldName = "");
 
         /// <summary>
         /// Searches the paged.
