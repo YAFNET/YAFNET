@@ -8511,3 +8511,29 @@ table,
 
 .blockquote-custom {
   font-size: 1.063rem; }
+
+.dropdown-menu > .active > a {
+  color: #fff; }
+
+.dropdown-menu > li > a {
+  color: #212529; }
+
+.dropdown-menu > li > a:hover,
+.dropdown-menu > li > a:focus {
+  color: #16181b;
+  text-decoration: none;
+  background-color: #f8f9fa; }
+
+/* Help sidebar */
+.sidebar-sticky ul > li:nth-child(odd) {
+  background: #f8f9fa; }
+
+.sidebar-sticky ul > li:hover {
+  background-color: #f8f9fa; }
+
+.sidebar-sticky ul > li.active {
+  background-color: #4582EC; }
+
+.sidebar-sticky ul > li a.nav-link {
+  display: block;
+  color: #343a40; }

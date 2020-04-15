@@ -8218,3 +8218,29 @@ th {
 
 .blockquote-custom {
   font-size: 0.875rem; }
+
+.dropdown-menu > .active > a {
+  color: #fff; }
+
+.dropdown-menu > li > a {
+  color: #1a1a1a; }
+
+.dropdown-menu > li > a:hover,
+.dropdown-menu > li > a:focus {
+  color: #0d0d0d;
+  text-decoration: none;
+  background-color: #f8f9fa; }
+
+/* Help sidebar */
+.sidebar-sticky ul > li:nth-child(odd) {
+  background: #fff; }
+
+.sidebar-sticky ul > li:hover {
+  background-color: #f8f9fa; }
+
+.sidebar-sticky ul > li.active {
+  background-color: #1a1a1a; }
+
+.sidebar-sticky ul > li a.nav-link {
+  display: block;
+  color: #343a40; }

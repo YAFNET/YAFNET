@@ -1,6 +1,5 @@
 ﻿@import "jsdifflib.scss";
 @import "prism";
-@import "jquery.selectedQuoting";
 @import "jquery.hovercard.scss";
 @import "bootstrap-notify";
 
@@ -75,11 +74,6 @@
     overflow-y: scroll;
 }
 
-.navbar-round {
-    border-radius: 4px;
-    border: 1px solid #e7e7e7;
-}
-
 #passwordStrength {
     padding: 0 .7em;
 
@@ -141,4 +135,9 @@
     position: absolute;
     top: 8px;
     left:16px;
+}
+
+/* TABS */
+.tab-content {
+    padding-top: 10px;
 }

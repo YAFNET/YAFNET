@@ -8696,3 +8696,29 @@ legend {
 
 .blockquote-custom {
   font-size: 0.9375rem; }
+
+.dropdown-menu > .active > a {
+  color: #fff; }
+
+.dropdown-menu > li > a {
+  color: #272B30; }
+
+.dropdown-menu > li > a:hover,
+.dropdown-menu > li > a:focus {
+  color: #fff;
+  text-decoration: none;
+  background-color: #272B30; }
+
+/* Help sidebar */
+.sidebar-sticky ul > li:nth-child(odd) {
+  background: #e9ecef; }
+
+.sidebar-sticky ul > li:hover {
+  background-color: #272B30; }
+
+.sidebar-sticky ul > li.active {
+  background-color: #3A3F44; }
+
+.sidebar-sticky ul > li a.nav-link {
+  display: block;
+  color: #3A3F44; }

@@ -8487,3 +8487,29 @@ legend {
 
 .blockquote-custom {
   font-size: 1rem; }
+
+.dropdown-menu > .active > a {
+  color: #fff; }
+
+.dropdown-menu > li > a {
+  color: #212529; }
+
+.dropdown-menu > li > a:hover,
+.dropdown-menu > li > a:focus {
+  color: #fff;
+  text-decoration: none;
+  background-color: #F3969A; }
+
+/* Help sidebar */
+.sidebar-sticky ul > li:nth-child(odd) {
+  background: #f8f9fa; }
+
+.sidebar-sticky ul > li:hover {
+  background-color: #F3969A; }
+
+.sidebar-sticky ul > li.active {
+  background-color: #78C2AD; }
+
+.sidebar-sticky ul > li a.nav-link {
+  display: block;
+  color: #343a40; }

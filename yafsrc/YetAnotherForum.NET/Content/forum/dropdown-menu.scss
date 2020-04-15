@@ -1,0 +1,29 @@
+﻿.dropdown-menu > .active > a{
+    color:$white;
+}
+
+.dropdown-menu > li > a {
+    color: $gray-900;
+}
+.dropdown-menu > li > a:hover,
+.dropdown-menu > li > a:focus {
+    color: $dropdown-link-hover-color;
+    text-decoration: none;
+    background-color: $dropdown-link-hover-bg;
+}
+
+/* Help sidebar */
+.sidebar-sticky ul > li:nth-child(odd) {
+    background: $light;
+}
+.sidebar-sticky ul > li:hover {
+    background-color: $dropdown-link-hover-bg
+}
+.sidebar-sticky ul > li.active {
+    background-color: $dropdown-link-active-bg;
+}
+.sidebar-sticky ul > li a.nav-link {
+    display: block;
+    color: $gray-800;
+}
+

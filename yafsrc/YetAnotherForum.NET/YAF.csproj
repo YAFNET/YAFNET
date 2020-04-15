@@ -1910,7 +1910,6 @@
       <DependentUpon>jquery.fileupload.comb.css</DependentUpon>
     </Content>
     <Content Include="Content\prism.css" />
-    <Content Include="Content\jquery.selectedQuoting.css" />
     <Content Include="Content\select2\select2-bootstrap.css" />
     <Content Include="Content\tablesorter\theme.bootstrap_4.min.css" />
     <Content Include="Content\Themes\cyborg\bootstrap-forum.css">
@@ -2299,72 +2298,6 @@
     <Content Include="Scripts\ckeditor\lang\zh-cn.js" />
     <Content Include="Scripts\ckeditor\lang\zh.js" />
     <Content Include="Scripts\ckeditor\LICENSE.md" />
-    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\a11yhelp.js" />
-    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\af.js" />
-    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\ar.js" />
-    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\az.js" />
-    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\bg.js" />
-    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\ca.js" />
-    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\cs.js" />
-    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\cy.js" />
-    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\da.js" />
-    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\de-ch.js" />
-    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\de.js" />
-    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\el.js" />
-    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\en-au.js" />
-    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\en-gb.js" />
-    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\en.js" />
-    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\eo.js" />
-    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\es-mx.js" />
-    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\es.js" />
-    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\et.js" />
-    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\eu.js" />
-    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\fa.js" />
-    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\fi.js" />
-    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\fo.js" />
-    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\fr-ca.js" />
-    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\fr.js" />
-    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\gl.js" />
-    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\gu.js" />
-    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\he.js" />
-    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\hi.js" />
-    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\hr.js" />
-    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\hu.js" />
-    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\id.js" />
-    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\it.js" />
-    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\ja.js" />
-    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\km.js" />
-    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\ko.js" />
-    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\ku.js" />
-    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\lt.js" />
-    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\lv.js" />
-    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\mk.js" />
-    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\mn.js" />
-    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\nb.js" />
-    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\nl.js" />
-    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\no.js" />
-    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\oc.js" />
-    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\pl.js" />
-    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\pt-br.js" />
-    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\pt.js" />
-    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\ro.js" />
-    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\ru.js" />
-    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\si.js" />
-    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\sk.js" />
-    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\sl.js" />
-    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\sq.js" />
-    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\sr-latn.js" />
-    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\sr.js" />
-    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\sv.js" />
-    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\th.js" />
-    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\tr.js" />
-    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\tt.js" />
-    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\ug.js" />
-    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\uk.js" />
-    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\vi.js" />
-    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\zh-cn.js" />
-    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\zh.js" />
-    <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\_translationstatus.txt" />
     <Content Include="Scripts\ckeditor\plugins\about\dialogs\about.js" />
     <Content Include="Scripts\ckeditor\plugins\about\dialogs\hidpi\logo_ckeditor.png" />
     <Content Include="Scripts\ckeditor\plugins\about\dialogs\logo_ckeditor.png" />
@@ -2805,6 +2738,7 @@
     <Content Include="Scripts\forum\yaf.contextMenu.js" />
     <Content Include="Scripts\forum\yaf.SearchResults.js" />
     <Content Include="Scripts\forum\yaf.SimilarTitles.js" />
+    <Content Include="Scripts\hammer.min.js" />
     <Content Include="Scripts\InstallWizard.comb.js" />
     <Content Include="Scripts\InstallWizard.comb.min.js">
       <DependentUpon>InstallWizard.comb.js</DependentUpon>
@@ -3310,6 +3244,7 @@
     <Content Include="Content\forum\button-scroll.scss" />
     <Content Include="Content\forum\logo.scss" />
     <Content Include="Content\forum\quotes.scss" />
+    <Content Include="Content\forum\dropdown-menu.scss" />
     <None Include="Content\forum\user-albums.scss" />
     <Content Include="Content\InstallWizard.min.css.gz">
       <DependentUpon>InstallWizard.min.css</DependentUpon>
@@ -3810,7 +3745,7 @@ RD /S /Q "$(TargetDir)zh-TW\"</PostBuildEvent>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties bundleconfig_1json__JSONSchema="" compilerconfig_1json__JSONSchema="" />
+      <UserProperties compilerconfig_1json__JSONSchema="" bundleconfig_1json__JSONSchema="" />
     </VisualStudio>
   </ProjectExtensions>
   <Import Project="..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets" Condition="Exists('..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets')" />

@@ -8454,3 +8454,29 @@ a.text-dark:hover, a.text-dark:focus {
 
 .blockquote-custom {
   font-size: 0.9375rem; }
+
+.dropdown-menu > .active > a {
+  color: #fff; }
+
+.dropdown-menu > li > a {
+  color: #212529; }
+
+.dropdown-menu > li > a:hover,
+.dropdown-menu > li > a:focus {
+  color: #fff;
+  text-decoration: none;
+  background-color: #2C3E50; }
+
+/* Help sidebar */
+.sidebar-sticky ul > li:nth-child(odd) {
+  background: #ecf0f1; }
+
+.sidebar-sticky ul > li:hover {
+  background-color: #2C3E50; }
+
+.sidebar-sticky ul > li.active {
+  background-color: #2C3E50; }
+
+.sidebar-sticky ul > li a.nav-link {
+  display: block;
+  color: #343a40; }

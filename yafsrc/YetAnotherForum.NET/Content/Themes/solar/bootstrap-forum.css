@@ -8566,3 +8566,29 @@ a.text-dark:hover, a.text-dark:focus {
 
 .blockquote-custom {
   font-size: 1rem; }
+
+.dropdown-menu > .active > a {
+  color: #fff; }
+
+.dropdown-menu > li > a {
+  color: #002B36; }
+
+.dropdown-menu > li > a:hover,
+.dropdown-menu > li > a:focus {
+  color: rgba(255, 255, 255, 0.75);
+  text-decoration: none;
+  background-color: #002B36; }
+
+/* Help sidebar */
+.sidebar-sticky ul > li:nth-child(odd) {
+  background: #FDF6E3; }
+
+.sidebar-sticky ul > li:hover {
+  background-color: #002B36; }
+
+.sidebar-sticky ul > li.active {
+  background-color: #073642; }
+
+.sidebar-sticky ul > li a.nav-link {
+  display: block;
+  color: #073642; }
