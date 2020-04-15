@@ -85,17 +85,16 @@ namespace YAF.Pages.Admin
 
             string cssClass, icon;
 
-            var eventType = EventLogTypes.Information;
+            EventLogTypes eventType;
 
             try
             {
                 // find out of what type event log entry is
-                eventType = (EventLogTypes)row["Type"].ToType<int>();
+                eventType = row["Type"].ToEnum<EventLogTypes>();
             }
             catch (Exception)
             {
-                icon = "exclamation";
-                cssClass = "info";
+                eventType = EventLogTypes.Information;
             }
 
             switch (eventType)
@@ -200,6 +199,12 @@ namespace YAF.Pages.Admin
                     this.GetText("COMMON", "CAL_JQ_CULTURE")));
 
             this.PageContext.PageElements.RegisterJsBlock("dropDownToggleJs", JavaScriptBlocks.DropDownToggleJs());
+
+            this.PageContext.PageElements.RegisterJsBlock(
+                "collapseToggleJs",
+                JavaScriptBlocks.CollapseToggleJs(
+                    this.GetText("ADMIN_EVENTLOG", "HIDE"),
+                    this.GetText("ADMIN_EVENTLOG", "SHOW")));
 
             base.OnPreRender(e);
         }

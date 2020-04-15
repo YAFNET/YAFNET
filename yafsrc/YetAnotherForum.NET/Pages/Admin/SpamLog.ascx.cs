@@ -88,7 +88,7 @@ namespace YAF.Pages.Admin
             try
             {
                 // find out of what type event log entry is
-                var eventType = (EventLogTypes)row["Type"].ToType<int>();
+                var eventType = row["Type"].ToEnum<EventLogTypes>();
 
                 cssClass = eventType switch
                     {
@@ -132,6 +132,12 @@ namespace YAF.Pages.Admin
                    this.GetText("COMMON", "CAL_JQ_CULTURE")));
 
             this.PageContext.PageElements.RegisterJsBlock("dropDownToggleJs", JavaScriptBlocks.DropDownToggleJs());
+
+            this.PageContext.PageElements.RegisterJsBlock(
+                "collapseToggleJs",
+                JavaScriptBlocks.CollapseToggleJs(
+                    this.GetText("ADMIN_EVENTLOG", "HIDE"),
+                    this.GetText("ADMIN_EVENTLOG", "SHOW")));
 
             base.OnPreRender(e);
         }

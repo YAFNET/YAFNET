@@ -26,7 +26,6 @@ namespace YAF.Core.Utilities
     #region Using
 
     using YAF.Configuration;
-    using YAF.Core;
     using YAF.Core.Context;
     using YAF.Core.Context.Start;
     using YAF.Types;
@@ -454,6 +453,32 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
                  }});
                  }});
                 }});";
+        }
+
+        /// <summary>
+        /// The drop down toggle JS.
+        /// </summary>
+        /// <param name="hideText">
+        /// The hide Text.
+        /// </param>
+        /// <param name="showText">
+        /// The show Text.
+        /// </param>
+        /// <returns>
+        /// The <see cref="string"/>.
+        /// </returns>
+        public static string CollapseToggleJs(string hideText, string showText)
+        {
+            return $@"{Config.JQueryAlias}(document).ready(function() {{
+                          {Config.JQueryAlias}('a[data-toggle=""collapse""]').click(function() {{
+                              var button = $(this);
+                              if (button.attr(""aria-expanded"") == ""false"") {{
+                                  button.html('<i class=""fa fa-caret-square-up fa-fw""></i>&nbsp;{hideText}');
+                              }} else {{
+                                  button.html('<i class=""fa fa-caret-square-down fa-fw""></i>&nbsp;{showText}');
+                              }}
+                          }});
+                      }});";
         }
 
         /// <summary>
