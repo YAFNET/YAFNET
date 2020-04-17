@@ -26,12 +26,12 @@ namespace YAF.Lucene.Net.Analysis.Util
     /// <summary>
     /// A StringBuilder that allows one to access the array.
     /// </summary>
-    public class OpenStringBuilder : ICharSequence
+    public class OpenStringBuilder : IAppendable, ICharSequence
     {
         protected char[] m_buf;
         protected int m_len;
 
-        public OpenStringBuilder() 
+        public OpenStringBuilder()
             : this(32)
         {
         }
@@ -73,15 +73,15 @@ namespace YAF.Lucene.Net.Analysis.Util
 
         public virtual int Capacity => m_buf.Length;
 
-        public virtual OpenStringBuilder Append(ICharSequence csq) 
+        public virtual OpenStringBuilder Append(ICharSequence csq)
         {
             return Append(csq, 0, csq.Length);
         }
 
-        public virtual OpenStringBuilder Append(ICharSequence csq, int startIndex, int length) // LUCENENET TODO: API - change to startIndex/length to match .NET
+        public virtual OpenStringBuilder Append(ICharSequence csq, int startIndex, int count) // LUCENENET specific: changed to startIndex/length to match .NET
         {
-            EnsureCapacity(length - startIndex);
-            for (int i = startIndex; i < length; i++)
+            EnsureCapacity(count);
+            for (int i = startIndex; i < startIndex + count; i++)
             {
                 UnsafeWrite(csq[i]);
             }
@@ -95,29 +95,47 @@ namespace YAF.Lucene.Net.Analysis.Util
         }
 
         // LUCENENET specific - overload for string (more common in .NET than ICharSequence)
-        public virtual OpenStringBuilder Append(string csq, int startIndex, int length) // LUCENENET TODO: API - change to startIndex/length to match .NET
+        public virtual OpenStringBuilder Append(string csq, int startIndex, int count) // LUCENENET specific: changed to startIndex/length to match .NET
         {
-            EnsureCapacity(length - startIndex);
-            for (int i = startIndex; i < length; i++)
+            EnsureCapacity(count);
+            for (int i = startIndex; i < startIndex + count; i++)
             {
                 UnsafeWrite(csq[i]);
             }
             return this;
         }
 
-        // LUCENENET specific - overload for StringBuilder
+        // LUCENENET specific - char sequence overload for StringBuilder
         public virtual OpenStringBuilder Append(StringBuilder csq)
         {
             return Append(csq, 0, csq.Length);
         }
 
-        // LUCENENET specific - overload for StringBuilder
-        public virtual OpenStringBuilder Append(StringBuilder csq, int startIndex, int length) // LUCENENET TODO: API - change to startIndex/length to match .NET
+        // LUCENENET specific - char sequence overload for StringBuilder
+        public virtual OpenStringBuilder Append(StringBuilder csq, int startIndex, int count) // LUCENENET specific: changed to startIndex/length to match .NET
         {
-            EnsureCapacity(length - startIndex);
-            for (int i = startIndex; i < length; i++)
+            EnsureCapacity(count);
+            for (int i = startIndex; i < startIndex + count; i++)
             {
                 UnsafeWrite(csq[i]);
+            }
+            return this;
+        }
+
+        // LUCENENET specific - char sequence overload for char[]
+        public virtual OpenStringBuilder Append(char[] value)
+        {
+            Write(value);
+            return this;
+        }
+
+        // LUCENENET specific - char sequence overload for char[]
+        public virtual OpenStringBuilder Append(char[] value, int startIndex, int count)
+        {
+            EnsureCapacity(count);
+            for (int i = startIndex; i < startIndex + count; i++)
+            {
+                UnsafeWrite(value[i]);
             }
             return this;
         }
@@ -270,5 +288,54 @@ namespace YAF.Lucene.Net.Analysis.Util
         {
             return new string(m_buf, 0, Length);
         }
+
+        #region IAppendable Members
+
+        IAppendable IAppendable.Append(char value)
+        {
+            return Append(value);
+        }
+
+        IAppendable IAppendable.Append(string value)
+        {
+            return Append(value);
+        }
+
+        IAppendable IAppendable.Append(string value, int startIndex, int count)
+        {
+            return Append(value, startIndex, count);
+        }
+
+        IAppendable IAppendable.Append(StringBuilder value)
+        {
+            return Append(value);
+        }
+
+        IAppendable IAppendable.Append(StringBuilder value, int startIndex, int count)
+        {
+            return Append(value, startIndex, count);
+        }
+
+        IAppendable IAppendable.Append(char[] value)
+        {
+            return Append(value);
+        }
+
+        IAppendable IAppendable.Append(char[] value, int startIndex, int count)
+        {
+            return Append(value, startIndex, count);
+        }
+
+        IAppendable IAppendable.Append(ICharSequence value)
+        {
+            return Append(value);
+        }
+
+        IAppendable IAppendable.Append(ICharSequence value, int startIndex, int count)
+        {
+            return Append(value, startIndex, count);
+        }
+
+        #endregion IAppendable Members
     }
 }
