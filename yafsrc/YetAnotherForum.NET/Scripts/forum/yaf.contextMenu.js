@@ -7,61 +7,65 @@ jQuery(document).ready(function () {
 
         var messageID = $(this).find(".selectionQuoteable").attr("id");
 
-        delete Hammer.defaults.cssProps.userSelect;
+        if (window.matchMedia("only screen and (max-width: 760px)").matches) {
+            delete Hammer.defaults.cssProps.userSelect;
 
-        Hammer($(this)[0], { prevent_default: false, stop_browser_behavior: false }).on("press", function (e) {
 
-            if (isMessageContext) {
-                var selectedText = getSelectedMessageText();
+            Hammer($(this)[0], { prevent_default: false, stop_browser_behavior: false }).on("press",
+                function(e) {
 
-                if (selectedText.length) {
-                    var searchItem = contextMenu.find(".item-search");
+                    if (isMessageContext) {
+                        var selectedText = getSelectedMessageText();
 
-                    if (searchItem.length) {
-                        searchItem.remove();
+                        if (selectedText.length) {
+                            var searchItem = contextMenu.find(".item-search");
+
+                            if (searchItem.length) {
+                                searchItem.remove();
+                            }
+
+                            var selectedItem = contextMenu.find(".item-selected-quoting");
+
+                            if (selectedItem.length) {
+                                selectedItem.remove();
+                            }
+
+                            var selectedDivider = contextMenu.find(".selected-divider");
+
+                            if (selectedDivider.length) {
+                                selectedDivider.remove();
+                            }
+
+                            if (contextMenu.data("url").length) {
+                                contextMenu.prepend('<a href="javascript:goToURL(\'' +
+                                    messageID +
+                                    '\',\'' +
+                                    selectedText +
+                                    '\',\'' +
+                                    contextMenu.data("url") +
+                                    '\')" class="dropdown-item item-selected-quoting"><i class="fas fa-quote-left fa-fw"></i>&nbsp;' +
+                                    contextMenu.data("quote") +
+                                    '</a>');
+                            }
+
+                            contextMenu.prepend('<div class="dropdown-divider selected-divider"></div>');
+
+                            contextMenu.prepend(
+                                '<a href="javascript:searchText(\'' +
+                                selectedText +
+                                '\')" class="dropdown-item item-search"><i class="fas fa-search fa-fw"></i>&nbsp;' +
+                                contextMenu.data("search") +
+                                ' "' +
+                                selectedText +
+                                '"</a>');
+                        }
                     }
 
-                    var selectedItem = contextMenu.find(".item-selected-quoting");
-
-                    if (selectedItem.length) {
-                        selectedItem.remove();
-                    }
-
-                    var selectedDivider = contextMenu.find(".selected-divider");
-
-                    if (selectedDivider.length) {
-                        selectedDivider.remove();
-                    }
-
-                    if (contextMenu.data("url").length) {
-                        contextMenu.prepend('<a href="javascript:goToURL(\'' +
-                            messageID +
-                            '\',\'' +
-                            selectedText +
-                            '\',\'' +
-                            contextMenu.data("url") +
-                            '\')" class="dropdown-item item-selected-quoting"><i class="fas fa-quote-left fa-fw"></i>&nbsp;' +
-                            contextMenu.data("quote") +
-                            '</a>');
-                    }
-
-                    contextMenu.prepend('<div class="dropdown-divider selected-divider"></div>');
-
-                    contextMenu.prepend(
-                        '<a href="javascript:searchText(\'' +
-                        selectedText +
-                        '\')" class="dropdown-item item-search"><i class="fas fa-search fa-fw"></i>&nbsp;' +
-                        contextMenu.data("search") +
-                        ' "' +
-                        selectedText +
-                        '"</a>');
-                }
-            }
-
-            contextMenu.css({
-                display: "block"
-            }).addClass("show").offset({ left: e.srcEvent.pageX, top: e.srcEvent.pageY });
-        });
+                    contextMenu.css({
+                        display: "block"
+                    }).addClass("show").offset({ left: e.srcEvent.pageX, top: e.srcEvent.pageY });
+                });
+        }
 
         $(this).on("contextmenu", function (e) {
             if (isMessageContext) {
@@ -144,18 +148,16 @@ function searchText(input) {
 }
 
 function getSelectedMessageText() {
-    var html = "", text = "";
+    var text = "";
     var sel = window.getSelection();
     if (sel.rangeCount) {
         var container = document.createElement("div");
         for (var i = 0, len = sel.rangeCount; i < len; ++i) {
             container.appendChild(sel.getRangeAt(i).cloneContents());
         }
-        text = container.textContent;
-        html = container.innerHTML;
+        text = container.textContent || container.innerText;
     }
 
-    var selectedText = html || text;
-
-    return selectedText.replace(/<p[^>]*>/ig, "\n").replace(/<\/p>|  /ig, "").trim();
+    return text.replace(/<p[^>]*>/ig, "\n").replace(/<\/p>|  /ig, "").replace("(", "").replace(")", "")
+        .replace("\"", "").replace("'", "").replace("\'", "").replace(";", "").trim();
 }
