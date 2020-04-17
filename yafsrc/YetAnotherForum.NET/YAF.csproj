@@ -1906,9 +1906,6 @@
     <Content Include="Content\fontawesome\_variables.scss" />
     <Content Include="Content\fontawesome\fontawesome-all.scss" />
     <Content Include="Content\bootstrap-suggest.scss" />
-    <Content Include="Content\bootstrap\bootstrap.min.css.gz">
-      <DependentUpon>bootstrap.min.css</DependentUpon>
-    </Content>
     <Content Include="Content\favicons\site.webmanifest" />
     <None Include="Content\forum\attachments-upload.scss" />
     <None Include="Content\forum\cookie-alert.scss" />
@@ -2719,9 +2716,7 @@
     <Content Include="Scripts\jquery.blueimp-gallery.js" />
     <Content Include="Scripts\jquery.bootstrap-touchspin.js" />
     <Content Include="Scripts\jquery.FileUpload\canvas-to-blob.min.js" />
-    <Content Include="Scripts\jquery.FileUpload\cors\jquery.postmessage-transport.js" />
     <Content Include="Scripts\jquery.FileUpload\cors\jquery.ui.widget.js" />
-    <Content Include="Scripts\jquery.FileUpload\cors\jquery.xdr-transport.js" />
     <Content Include="Scripts\jquery.FileUpload\jquery.fileupload-audio.js" />
     <Content Include="Scripts\jquery.FileUpload\jquery.fileupload-image.js" />
     <Content Include="Scripts\jquery.FileUpload\jquery.fileupload-process.js" />
@@ -3226,9 +3221,6 @@
     <Content Include="Content\forum\button-scroll.scss" />
     <Content Include="Content\forum\logo.scss" />
     <None Include="Content\forum\user-albums.scss" />
-    <Content Include="Content\InstallWizard.min.css.gz">
-      <DependentUpon>InstallWizard.min.css</DependentUpon>
-    </Content>
     <None Include="Content\InstallWizard.scss" />
     <None Include="Content\jsdifflib.scss" />
     <Content Include="Content\forum\Install\ladda.scss" />
@@ -3308,18 +3300,6 @@
     <Content Include="Content\webfonts\fa-solid-900.woff" />
     <Content Include="Content\webfonts\fa-solid-900.woff2" />
     <Content Include="Content\Themes\yaf\_variables.scss" />
-    <Content Include="Content\Themes\yeti\bootstrap-forum.min.css.gz">
-      <DependentUpon>bootstrap-forum.min.css</DependentUpon>
-    </Content>
-    <Content Include="Content\Themes\united\bootstrap-forum.min.css.gz">
-      <DependentUpon>bootstrap-forum.min.css</DependentUpon>
-    </Content>
-    <Content Include="Content\Themes\superhero\bootstrap-forum.min.css.gz">
-      <DependentUpon>bootstrap-forum.min.css</DependentUpon>
-    </Content>
-    <Content Include="Content\Themes\spacelab\bootstrap-forum.min.css.gz">
-      <DependentUpon>bootstrap-forum.min.css</DependentUpon>
-    </Content>
     <Content Include="Content\Themes\solar\bootstrap-forum.min.css.gz">
       <DependentUpon>bootstrap-forum.min.css</DependentUpon>
     </Content>
