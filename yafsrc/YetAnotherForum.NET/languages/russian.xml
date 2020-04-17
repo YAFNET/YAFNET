@@ -245,6 +245,7 @@
     <Resource tag="POSTS_DAY">Сообщений в день:</Resource>
     <Resource tag="SIZE_DATABASE">Размер базы данных:</Resource>
     <Resource tag="STATS_DONTCOUNT">Эта статистика не учитывает удалённые посты и темы.</Resource>
+    <Resource tag="TITLE">Dashboard</Resource>
     <Resource tag="TOPICS_DAY">Тем в день:</Resource>
     <Resource tag="USERS_DAY">Пользователей в день:</Resource>
   </page>
@@ -2254,6 +2255,8 @@
                 }
           }
   </Resource>
+    <Resource tag="SELECTED_QUOTE">Quote Selected Text</Resource>
+    <Resource tag="SELECTED_SEARCH">Search Google for ...</Resource>
     <Resource tag="SHOWHIDE">Показать/Скрыть</Resource>
     <Resource tag="SUBMIT">Отправить</Resource>
     <Resource tag="TOPIC_NOTIFICATION_SUBJECT">Уведомление о новом сообщении в теме по подписке(От {0})</Resource>

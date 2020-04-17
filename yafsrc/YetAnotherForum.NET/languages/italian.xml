@@ -245,6 +245,7 @@
     <Resource tag="POSTS_DAY">Posts per day:</Resource>
     <Resource tag="SIZE_DATABASE">Size of database:</Resource>
     <Resource tag="STATS_DONTCOUNT">These statistics don't count deleted topics and posts.</Resource>
+    <Resource tag="TITLE">Dashboard</Resource>
     <Resource tag="TOPICS_DAY">Topics per day:</Resource>
     <Resource tag="USERS_DAY">Users per day:</Resource>
   </page>
@@ -1045,7 +1046,7 @@
     <Resource tag="ALLOW_USERTEXTEDITOR">Allow users to pick text editor</Resource>
     <Resource tag="ALLOW_USERTEXTEDITOR_HELP">Allow users to pick text editor in their profiles.</Resource>
     <Resource tag="ALLOWED_EXTENSIONS">Allowed File Extensions:</Resource>
-    <Resource tag="ALLOWED_EXTENSIONS_HELP">The list of allowed File Extensions for Attachments.</Resource>																		  
+    <Resource tag="ALLOWED_EXTENSIONS_HELP">The list of allowed File Extensions for Attachments.</Resource>
     <Resource tag="AMOUNT_OF_SUBFORUMS">Sub Forums In Forums List:</Resource>
     <Resource tag="AMOUNT_OF_SUBFORUMS_HELP">The amount of Sub Forums In Forums List.</Resource>
     <Resource tag="APP_CORES">Processor Cores:</Resource>
@@ -1124,7 +1125,7 @@
     <Resource tag="EDITOR_BASCIC_HELP">Editor Toolbar used for Signatures ans Quick Replies.</Resource>
     <Resource tag="EDITOR_BASIC">Editor Toolbar Basic:</Resource>
     <Resource tag="EDITOR_FULL">Editor Toolbar Full:</Resource>
-    <Resource tag="EDITOR_FULL_HELP">Editor Toolbar used for Posting and Private Messages.</Resource>																									   
+    <Resource tag="EDITOR_FULL_HELP">Editor Toolbar used for Posting and Private Messages.</Resource>
     <Resource tag="EMAIL_VERIFICATION">Require E-mail Verification:</Resource>
     <Resource tag="EMAIL_VERIFICATION_HELP">If unchecked users will not need to verify their e-mail address.</Resource>
     <Resource tag="ENABLE_ABLBUMS">Enable Album Feature:</Resource>
@@ -1670,9 +1671,9 @@
     <Resource tag="PRUNE_PERMANENT">Permanently remove from DB:</Resource>
     <Resource tag="PRUNE_PERMANENT_HELP">All Topics marked with the Deleted flag will be permanently deleted.</Resource>
     <Resource tag="PRUNE_START">Start Prune Task</Resource>
-    <Resource tag="RESTORE_TOPIC">Restore Topic</Resource>														  
+    <Resource tag="RESTORE_TOPIC">Restore Topic</Resource>
     <Resource tag="TITLE">Prune Topics</Resource>
-																										    <Resource tag="TITLE_HELP">Option to delete All Topics that are not marked as persistent.</Resource>
+    <Resource tag="TITLE_HELP">Option to delete All Topics that are not marked as persistent.</Resource>
   </page>
   <page name="ADMIN_RANKS">
     <Resource tag="COMMAND">Command</Resource>
@@ -1764,7 +1765,7 @@
     <Resource tag="TITLE_HELP">Option to restore topics that are flagged as deleted topics, or to permanently delete them from the database.</Resource>
     <Resource tag="TITLE_MESSAGE">Restore &amp; Delete Messages</Resource>
     <Resource tag="TITLE_MESSAGE_HELP">Option to restore Messages that are flagged as deleted messages, or to permanently delete them from the database.</Resource>
-  </page>							 
+  </page>
   <page name="ADMIN_RUNSQL">
     <Resource tag="HEADER">Run SQL Query</Resource>
     <Resource tag="RUN_QUERY">Run Query</Resource>
@@ -1927,7 +1928,7 @@
     <Resource tag="admin_reindex">DB Maintenance</Resource>
     <Resource tag="admin_replacewords">Replace Words</Resource>
     <Resource tag="admin_restartapp">Restart App</Resource>
-    <Resource tag="admin_restore">Restore &amp; Delete Topics</Resource>																		
+    <Resource tag="admin_restore">Restore &amp; Delete Topics</Resource>
     <Resource tag="admin_runsql">Run SQL Query</Resource>
     <Resource tag="ADMIN_SPAMLOG">Spam Event Log</Resource>
     <Resource tag="admin_spamwords">Spam Check Words</Resource>
@@ -2175,7 +2176,7 @@
     <Resource tag="CUSTOM_BBCODE">Tag addizionali:</Resource>
     <Resource tag="DELETE">Elimina</Resource>
     <Resource tag="DELETED_MESSAGE">Message with ID: {0} Deleted</Resource>
-    <Resource tag="DELETED_TOPIC">Topic with ID: {0} Deleted</Resource>																		   
+    <Resource tag="DELETED_TOPIC">Topic with ID: {0} Deleted</Resource>
     <Resource tag="DISALLOWED">Non permesso</Resource>
     <Resource tag="DOWNLOAD">Scarica</Resource>
     <Resource tag="EDIT">Modifica</Resource>
@@ -2268,6 +2269,8 @@
                 }
           }
   </Resource>
+    <Resource tag="SELECTED_QUOTE">Quote Selected Text</Resource>
+    <Resource tag="SELECTED_SEARCH">Search Google for ...</Resource>
     <Resource tag="SHOWHIDE">Mostra/nascondi</Resource>
     <Resource tag="SUBMIT">Invia</Resource>
     <Resource tag="TOPIC_NOTIFICATION_SUBJECT">Notifica di nuovo messaggio in discussione sottoscritta (da {0})</Resource>
@@ -4258,12 +4261,12 @@ Spoiler Content
     <Resource tag="AUTH_CONNECT_ACCOUNT">Collega un account forum esistente ad un account {0}. Prima devi accedere al forum. {1}</Resource>
     <Resource tag="AUTH_CONNECT_FACEBOOK">&lt;strong&gt;Per collegare i due account, l'indirizzo e-mail Facebook deve corrispondere a quello usato sul forum.&lt;/strong&gt;</Resource>
     <Resource tag="AUTH_CONNECT_GOOGLE">&lt;strong&gt;Per collegare i due account, l'indirizzo e-mail Google deve corrispondere a quello usato sul forum.&lt;/strong&gt;</Resource>
-	<Resource tag="AUTH_CONNECT_HELP">Accedi o registrati tramit {0} oppure collega un account forum a {0}.</Resource>																													  
-    <Resource tag="AUTH_CONNECT_TWITTER">&lt;strong&gt;Per collegare i due account, il nome utente Twitter deve essere uguale a quello del forum.&lt;/strong&gt;</Resource>																													      
+    <Resource tag="AUTH_CONNECT_HELP">Accedi o registrati tramit {0} oppure collega un account forum a {0}.</Resource>
+    <Resource tag="AUTH_CONNECT_TWITTER">&lt;strong&gt;Per collegare i due account, il nome utente Twitter deve essere uguale a quello del forum.&lt;/strong&gt;</Resource>
     <Resource tag="AUTH_LOGIN_EXISTING">Accedi con un account collegato a {0}. Se non esiste nessun account, verrà creato automaticamente un nuovo account nel forum.</Resource>
     <Resource tag="AUTH_NO_ACCESS_TOKEN">Impossibile generare il token di accesso!</Resource>
-    <Resource tag="AUTO">Ricordami</Resource>											 
-    <Resource tag="BOTH_USERNAME_EMAIL">E' necessario indicare sia il nome utente sia l'indirizzo e-mail.</Resource>																													
+    <Resource tag="AUTO">Ricordami</Resource>
+    <Resource tag="BOTH_USERNAME_EMAIL">E' necessario indicare sia il nome utente sia l'indirizzo e-mail.</Resource>
     <Resource tag="CAPS_LOCK">BLOC MAIUSC è attivato</Resource>
     <Resource tag="CONNECT_VIA">Oppure accedi tramite</Resource>
     <Resource tag="EMAIL">Indirizzo e-mail</Resource>

@@ -245,6 +245,7 @@
     <Resource tag="POSTS_DAY">Posts per dag:</Resource>
     <Resource tag="SIZE_DATABASE">Grootte van de database:</Resource>
     <Resource tag="STATS_DONTCOUNT">Deze cijfers tellen niet de verwijderde topics en posts mee.</Resource>
+    <Resource tag="TITLE">Dashboard</Resource>
     <Resource tag="TOPICS_DAY">Topics per dag:</Resource>
     <Resource tag="USERS_DAY">Nieuwe gebruikers per dag:</Resource>
   </page>
@@ -2266,6 +2267,8 @@
                 }
           }
   </Resource>
+    <Resource tag="SELECTED_QUOTE">Quote Selected Text</Resource>
+    <Resource tag="SELECTED_SEARCH">Search Google for ...</Resource>
     <Resource tag="SHOWHIDE">Laat zien/Verberg</Resource>
     <Resource tag="SUBMIT">Vastleggen</Resource>
     <Resource tag="TOPIC_NOTIFICATION_SUBJECT">Melding van plaatsing nieuw bericht (van {0})</Resource>

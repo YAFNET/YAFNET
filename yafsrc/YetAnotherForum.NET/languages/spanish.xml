@@ -245,6 +245,7 @@
     <Resource tag="POSTS_DAY">Publicaciones por día:</Resource>
     <Resource tag="SIZE_DATABASE">Tamaño de la BD:</Resource>
     <Resource tag="STATS_DONTCOUNT">Estas estadísticas no contabilizan temas y publicaciones eliminadas.</Resource>
+    <Resource tag="TITLE">Dashboard</Resource>
     <Resource tag="TOPICS_DAY">Temas por día:</Resource>
     <Resource tag="USERS_DAY">Usuarios por día:</Resource>
   </page>
@@ -2278,6 +2279,8 @@
       }
       }
     </Resource>
+    <Resource tag="SELECTED_QUOTE">Quote Selected Text</Resource>
+    <Resource tag="SELECTED_SEARCH">Search Google for ...</Resource>
     <Resource tag="SHOWHIDE">Mostrar/Ocultar</Resource>
     <Resource tag="SUBMIT">Enviar</Resource>
     <Resource tag="TOPIC_NOTIFICATION_SUBJECT">Suscripción a un tema - Notificación de nuevo mensaje (de {0})</Resource>

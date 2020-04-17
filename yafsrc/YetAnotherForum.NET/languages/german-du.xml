@@ -245,6 +245,7 @@
     <Resource tag="POSTS_DAY">Beiträge pro Tag:</Resource>
     <Resource tag="SIZE_DATABASE">Größe der Datenbank:</Resource>
     <Resource tag="STATS_DONTCOUNT">Diese Statistiken zählen nicht für gelöschte Themen und Beiträge.</Resource>
+    <Resource tag="TITLE">Dashboard</Resource>
     <Resource tag="TOPICS_DAY">Themen pro Tag:</Resource>
     <Resource tag="USERS_DAY">Benutzer pro Tag:</Resource>
   </page>
@@ -2251,6 +2252,8 @@
       }
       }
     </Resource>
+    <Resource tag="SELECTED_QUOTE">Quote Selected Text</Resource>
+    <Resource tag="SELECTED_SEARCH">Search Google for ...</Resource>
     <Resource tag="SHOWHIDE">Zeigen/Verstecken</Resource>
     <Resource tag="SUBMIT">Abschicken</Resource>
     <Resource tag="TOPIC_NOTIFICATION_SUBJECT">Mitteilung bei neuen Themen (Von {0})</Resource>

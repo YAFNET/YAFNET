@@ -245,6 +245,7 @@
     <Resource tag="POSTS_DAY">Posts per day:</Resource>
     <Resource tag="SIZE_DATABASE">Size of database:</Resource>
     <Resource tag="STATS_DONTCOUNT">These statistics don't count deleted topics and posts.</Resource>
+    <Resource tag="TITLE">Dashboard</Resource>
     <Resource tag="TOPICS_DAY">Topics per day:</Resource>
     <Resource tag="USERS_DAY">Users per day:</Resource>
   </page>
@@ -2269,6 +2270,8 @@
                 }
           }
   </Resource>
+    <Resource tag="SELECTED_QUOTE">Quote Selected Text</Resource>
+    <Resource tag="SELECTED_SEARCH">Search Google for ...</Resource>
     <Resource tag="SHOWHIDE">Show/Hide</Resource>
     <Resource tag="SUBMIT">Saada</Resource>
     <Resource tag="TOPIC_NOTIFICATION_SUBJECT">Teema infotellimus, teavituse uue postituse kohta (kasutajalt {0})</Resource>

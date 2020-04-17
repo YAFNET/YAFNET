@@ -245,6 +245,7 @@
     <Resource tag="POSTS_DAY">ارسال در روز:</Resource>
     <Resource tag="SIZE_DATABASE">حجم پایگاه داده:</Resource>
     <Resource tag="STATS_DONTCOUNT">این آمار تعداد ارسال ها و موضوعات حذف شده را به حساب نمی آورد</Resource>
+    <Resource tag="TITLE">Dashboard</Resource>
     <Resource tag="TOPICS_DAY">موضوعات در روز:</Resource>
     <Resource tag="USERS_DAY">کاربران در روز:</Resource>
   </page>
@@ -2289,6 +2290,8 @@
       }
       }
     </Resource>
+    <Resource tag="SELECTED_QUOTE">Quote Selected Text</Resource>
+    <Resource tag="SELECTED_SEARCH">Search Google for ...</Resource>
     <Resource tag="SHOWHIDE">نمایش/عدم نمایش</Resource>
     <Resource tag="SUBMIT">تایید</Resource>
     <Resource tag="TOPIC_NOTIFICATION_SUBJECT">اشتراک در دریافت جدیدترین مطالب  (از {0})</Resource>
