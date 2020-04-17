@@ -522,7 +522,6 @@ namespace YAF.Web.Controls
             nameLabel.Attributes.Add("style", this.HtmlEncode(styles));
 
             return nameLabel.RenderToString();
-
         }
 
         /// <summary>

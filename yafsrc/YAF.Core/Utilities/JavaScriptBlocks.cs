@@ -1067,21 +1067,6 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
         }
 
         /// <summary>
-        /// Gets the Selected Quoting Java Script
-        /// </summary>
-        /// <param name="postUrl">The post URL.</param>
-        /// <param name="toolTipText">The tool tip text.</param>
-        /// <returns>Returns the the Selected Quoting Java Script</returns>
-        [NotNull]
-        public static string SelectedQuotingJs([NotNull] string postUrl, string toolTipText)
-        {
-            return $@"{Config.JQueryAlias}('.selectionQuoteable').each(function () {{
-                         var $this = jQuery(this);
-                         $this.selectedQuoting({{ URL: '{postUrl}', ToolTip: '{toolTipText}' }});
-                     }});";
-        }
-
-        /// <summary>
         /// Gets the Passwords strength checker Java Script.
         /// </summary>
         /// <param name="passwordClientId">The password client identifier.</param>
