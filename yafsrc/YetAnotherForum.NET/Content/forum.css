@@ -8100,14 +8100,14 @@ select.is-valid ~ .select2-container--bootstrap4 .select2-selection {
   background: rgba(0, 0, 0, 0.9);
   opacity: 0;
   display: none;
-  direction: ltr;
-  -ms-touch-action: none;
-  touch-action: none; }
+  direction: ltr; }
   .blueimp-gallery > .slides {
     position: relative;
     height: 100%;
     overflow: hidden; }
     .blueimp-gallery > .slides > .slide {
+      -ms-touch-action: pinch-zoom !important;
+          touch-action: pinch-zoom !important;
       position: relative;
       float: left;
       height: 100%;
@@ -8632,9 +8632,10 @@ body:last-child .blueimp-gallery-playing > .play-pause {
   right: 10px; }
 
 .btn-scroll {
-  position: absolute;
+  position: fixed;
   right: 20px;
-  bottom: 20px; }
+  bottom: 20px;
+  z-index: 999; }
 
 #YafBody {
   padding-right: 15px;
