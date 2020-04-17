@@ -34,11 +34,10 @@ $border_color_1: #fff;
     opacity: 0;
     display: none;
     direction: ltr;
-    -ms-touch-action: none;
-    touch-action: none;
 
     > .slides {
         > .slide {
+            touch-action: pinch-zoom !important;
             > .slide-content {
                 position: absolute;
                 top: 0;
