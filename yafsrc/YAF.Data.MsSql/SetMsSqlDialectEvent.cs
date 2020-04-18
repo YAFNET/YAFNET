@@ -25,7 +25,6 @@ namespace YAF.Data.MsSql
 {
     using ServiceStack.OrmLite;
 
-    using YAF.Core.Data;
     using YAF.Core.Events;
     using YAF.Types.Attributes;
     using YAF.Types.Interfaces.Events;
@@ -55,11 +54,15 @@ namespace YAF.Data.MsSql
         /// </param>
         public void Handle(InitDatabaseProviderEvent @event)
         {
-            if (@event.ProviderName == MsSqlDbAccess.ProviderTypeName)
+            if (@event.ProviderName != MsSqlDbAccess.ProviderTypeName)
             {
-                // set the OrmLite dialect provider...
-                OrmLiteConfig.DialectProvider = YafSqlServer2012OrmLiteDialectProvider.Instance;
+                return;
             }
+
+            // set the OrmLite dialect provider...
+            OrmLiteConfig.DialectProvider = YafSqlServer2012OrmLiteDialectProvider.Instance;
+
+            OrmLiteConfig.DialectProvider.GetStringConverter().UseUnicode = true;
         }
 
         #endregion
