@@ -90,7 +90,7 @@ namespace YAF.Web.Controls
 
                 try
                 {
-                    return Convert.ToDateTime(this.DateTime);
+                    return Convert.ToDateTime(this.DateTime, CultureInfo.InvariantCulture);
                 }
                 catch (InvalidCastException)
                 {
