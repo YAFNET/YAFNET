@@ -1086,8 +1086,8 @@
     <Compile Include="Pages\Cookies.ascx.designer.cs">
       <DependentUpon>Cookies.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Rules.ascx.designer.cs">
-      <DependentUpon>Rules.ascx</DependentUpon>
+    <Compile Include="Pages\RulesAndPrivacy.ascx.designer.cs">
+      <DependentUpon>RulesAndPrivacy.ascx</DependentUpon>
     </Compile>
     <Compile Include="Pages\Search.ascx.designer.cs">
       <DependentUpon>Search.ascx</DependentUpon>
@@ -2197,7 +2197,7 @@
     <Content Include="Pages\ReportPost.ascx" />
     <Content Include="Pages\RssTopic.ascx" />
     <Content Include="Pages\Cookies.ascx" />
-    <Content Include="Pages\Rules.ascx" />
+    <Content Include="Pages\RulesAndPrivacy.ascx" />
     <Content Include="Pages\Search.ascx" />
     <Content Include="Pages\Team.ascx" />
     <Content Include="Pages\Topics.ascx" />
@@ -3200,8 +3200,8 @@
       <DependentUpon>RssTopic.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Pages\Rules.ascx.cs">
-      <DependentUpon>Rules.ascx</DependentUpon>
+    <Compile Include="Pages\RulesAndPrivacy.ascx.cs">
+      <DependentUpon>RulesAndPrivacy.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Pages\Search.ascx.cs">
@@ -3687,7 +3687,7 @@ RD /S /Q "$(TargetDir)zh-TW\"</PostBuildEvent>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties compilerconfig_1json__JSONSchema="" bundleconfig_1json__JSONSchema="" />
+      <UserProperties bundleconfig_1json__JSONSchema="" compilerconfig_1json__JSONSchema="" />
     </VisualStudio>
   </ProjectExtensions>
   <Import Project="..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets" Condition="Exists('..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets')" />

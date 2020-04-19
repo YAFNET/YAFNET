@@ -219,9 +219,9 @@ namespace YAF.Types.Constants
         Cookies,
 
         /// <summary>
-        /// The Rules page.
+        /// The Rules & Privacy page.
         /// </summary>
-        Rules,
+        RulesAndPrivacy,
 
         /// <summary>
         /// The Register page.

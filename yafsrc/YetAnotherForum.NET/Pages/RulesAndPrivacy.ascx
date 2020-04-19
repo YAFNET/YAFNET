@@ -1,9 +1,12 @@
-<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Rules" Codebehind="Rules.ascx.cs" %>
+<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.RulesAndPrivacy" Codebehind="RulesAndPrivacy.ascx.cs" %>
 
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <div class="row">
     <div class="col-xl-12">
-        <h1><YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="TITLE" /></h1>
+        <h1>
+            <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" 
+                                LocalizedTag="TITLE" />
+        </h1>
     </div>
 </div>
 <div class="row">
@@ -11,12 +14,15 @@
         <div class="card mb-3">
             <div class="card-header">
                 <YAF:IconHeader runat="server"
-                                IconName="user-secret"/>
+                                IconName="user-secret"
+                                LocalizedTag="TITLE"
+                                LocalizedPage="RULES"/>
             </div>
             <div class="card-body">
                 <YAF:LocalizedLabel runat="server" LocalizedTag="RULES_TEXT" EnableBBCode="true" ID="RulesText" />
             </div>
-            <div class="card-footer text-center">
+            <asp:Panel runat="server" ID="Footer" 
+                       CssClass="card-footer text-center">
                 <YAF:ThemeButton ID="Accept" runat="server" 
                                  TextLocalizedTag="ACCEPT" 
                                  Type="Success"
@@ -27,7 +33,7 @@
                                  Type="Danger"
                                  Icon="hand-paper"
                                  OnClick="Cancel_Click" />
-            </div>
+            </asp:Panel>
         </div>
     </div>
 </div>

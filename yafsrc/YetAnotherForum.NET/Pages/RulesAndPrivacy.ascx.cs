@@ -43,14 +43,14 @@ namespace YAF.Pages
     /// <summary>
     /// Forum Rules Page.
     /// </summary>
-    public partial class Rules : ForumPage
+    public partial class RulesAndPrivacy : ForumPage
     {
         #region Constructors and Destructors
 
         /// <summary>
-        ///   Initializes a new instance of the <see cref = "Rules" /> class.
+        ///   Initializes a new instance of the <see cref = "RulesAndPrivacy" /> class.
         /// </summary>
-        public Rules()
+        public RulesAndPrivacy()
             : base("RULES")
         {
         }
@@ -109,12 +109,26 @@ namespace YAF.Pages
         {
             this.PageLinks.AddRoot();
 
+            // current page label (no link)
+            this.PageLinks.AddLink(this.GetText("TITLE"));
+        }
+
+        /// <summary>
+        /// Handles the Load event of the Page control.
+        /// </summary>
+        /// <param name="sender">
+        /// The source of the event.
+        /// </param>
+        /// <param name="e">
+        /// The <see cref="EventArgs"/> instance containing the event data.
+        /// </param>
+        protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+        {
             this.RulesText.Param0 = Config.GDPRControllerAddress.IsSet()
                                         ? Config.GDPRControllerAddress
                                         : this.Get<BoardSettings>().ForumEmail;
 
-            this.Accept.Visible = this.PageContext.IsGuest;
-            this.Cancel.Visible = this.PageContext.IsGuest;
+            this.Footer.Visible = this.PageContext.IsGuest;
         }
 
         #endregion
