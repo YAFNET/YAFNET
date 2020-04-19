@@ -21,13 +21,13 @@
     <div class="row">
     <div class="col-xl-12">
         <div class="card mb-3">
-            <div class="card-header py-1">
-                <div class="row">
-                    <div class="col-auto d-none d-md-block">
+            <div class="card-header py-1 px-2">
+                <div class="d-flex">
+                    <div class="mr-2">
                         <asp:Image runat="server" ID="Avatar" 
                                    CssClass="img-avatar-sm mt-2" />
                     </div>
-                    <div class="col-auto mr-auto">
+                    <div>
                         <asp:PlaceHolder runat="server" ID="UserInfo">
                             <ul class="list-inline">
                                 <li class="list-inline-item">
@@ -89,11 +89,12 @@
                             </ul>
                         </asp:PlaceHolder>
                     </div>
-                    <asp:Panel runat="server" CssClass="col-auto dropleft" id="ToolsHolder">
+                    <asp:Panel runat="server" CssClass="ml-auto dropleft" id="ToolsHolder">
                         <YAF:ThemeButton ID="Tools1" runat="server"
-                                             Type="Link"
-                                             DataToggle="dropdown"
-                                             Icon="ellipsis-h" />
+                                         Type="Link"
+                                         DataToggle="dropdown"
+                                         TitleLocalizedTag="TOOLS"
+                                         Icon="ellipsis-h" />
                         <div class="dropdown-menu">
                             <YAF:ThemeButton ID="MarkAsAnswer" runat="server" 
                                              Visible="false" 

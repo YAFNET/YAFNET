@@ -110,17 +110,17 @@ namespace YAF.Core.BBCode.ReplaceRules
                     }
 
                     quote = postId.IsSet()
-                                ? $@"<footer class=""blockquote-footer pt-1 mt-3"">
+                                ? $@"<footer class=""blockquote-footer"">
                                          <cite>{localQuotePosted.Replace("{0}", userName)}&nbsp;<a href=""{BuildLink.GetLink(ForumPages.Posts, "m={0}#post{0}", postId)}""><i class=""fas fa-external-link-alt""></i></a></cite></footer>
                                          <p class=""mb-0 mt-2"">"
-                                : $@"<footer class=""blockquote-footer pt-1 mt-3"">
-                                         <cite>{localQuoteWrote.Replace("{0}", quote)}</cite></footer><p class=""mb-0 mt-2"">";
+                                : $@"<footer class=""blockquote-footer"">
+                                         <cite>{localQuoteWrote.Replace("{0}", quote)}</cite></footer><p class=""mb-0"">";
                 }
                 else
                 {
                     quote =
-                        $@"<footer class=""blockquote-footer pt-1 mt-3"">
-                               <cite>{localQuoteWrote.Replace("{0}", quote)}</cite></footer><p class=""mb-0 mt-2"">";
+                        $@"<footer class=""blockquote-footer"">
+                               <cite>{localQuoteWrote.Replace("{0}", quote)}</cite></footer><p class=""mb-0"">";
                 }
 
                 innerReplace.Replace("${quote}", quote);

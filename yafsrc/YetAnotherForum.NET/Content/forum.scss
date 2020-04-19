@@ -110,6 +110,11 @@
 // Quotes
 .blockquote-custom {
     position: relative;
+    margin-top: .25rem;
+
+    > .blockquote-custom {
+        margin-top: 2rem;
+    }
 }
 
 .blockquote-custom-icon {
