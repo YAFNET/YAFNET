@@ -487,7 +487,8 @@ div.code-toolbar > .toolbar span:focus {
   display: inline-block !important;
   float: none !important;
   cursor: pointer;
-  z-index: 50; }
+  z-index: 50;
+  padding: 0.25rem 0.5rem 0.25rem 0; }
 
 .hc-details {
   left: -10px;
@@ -8700,7 +8701,9 @@ body:last-child .blueimp-gallery-playing > .play-pause {
 
 .blockquote-custom {
   position: relative;
-  font-size: 1.1rem; }
+  margin-top: .25rem; }
+  .blockquote-custom > .blockquote-custom {
+    margin-top: 2rem; }
 
 .blockquote-custom-icon {
   width: 35px;

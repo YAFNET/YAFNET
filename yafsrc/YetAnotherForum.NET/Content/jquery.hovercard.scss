@@ -4,11 +4,12 @@
 }
 
 .hc-name {
-  position: relative;
-  display: inline-block !important;
-  float: none !important;
-  cursor: pointer;
-  z-index: 50;
+    position: relative;
+    display: inline-block !important;
+    float: none !important;
+    cursor: pointer;
+    z-index: 50;
+    padding: 0.25rem 0.5rem 0.25rem 0;
 }
 
 .hc-details {

@@ -7,7 +7,8 @@
   display: inline-block !important;
   float: none !important;
   cursor: pointer;
-  z-index: 50; }
+  z-index: 50;
+  padding: 0.25rem 0.5rem 0.25rem 0; }
 
 .hc-details {
   left: -10px;
@@ -7597,9 +7598,10 @@ select.is-valid ~ .select2-container--bootstrap4 .select2-selection {
   right: 10px; }
 
 .btn-scroll {
-  position: absolute;
+  position: fixed;
   right: 20px;
-  bottom: 20px; }
+  bottom: 20px;
+  z-index: 999; }
 
 #YafBody {
   padding-right: 15px;
