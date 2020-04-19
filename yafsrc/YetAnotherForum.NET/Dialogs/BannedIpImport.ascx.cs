@@ -62,7 +62,7 @@ namespace YAF.Dialogs
 
             try
             {
-                var importedCount = DataImport.BannedIpAdressesImport(
+                var importedCount = DataImport.BannedIpAddressesImport(
                     this.PageContext.PageBoardID,
                     this.PageContext.PageUserID,
                     this.importFile.PostedFile.InputStream);

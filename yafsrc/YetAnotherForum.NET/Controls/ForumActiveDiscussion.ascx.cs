@@ -32,7 +32,6 @@ namespace YAF.Controls
     using System.Web.UI.WebControls;
 
     using YAF.Configuration;
-    using YAF.Core;
     using YAF.Core.BaseControls;
     using YAF.Core.Context;
     using YAF.Core.Extensions;
@@ -80,7 +79,7 @@ namespace YAF.Controls
                 ForumPages.Posts, "m={0}#post{0}", currentRow["LastMessageID"]);
 
             // get the controls
-            var postIcon = e.Item.FindControlAs<PlaceHolder>("PostIcon");
+            var postIcon = e.Item.FindControlAs<Label>("PostIcon");
             var textMessageLink = e.Item.FindControlAs<HyperLink>("TextMessageLink");
             var info = e.Item.FindControlAs<ThemeButton>("Info");
             var imageMessageLink = e.Item.FindControlAs<ThemeButton>("GoToLastPost");
@@ -88,8 +87,7 @@ namespace YAF.Controls
             var lastUserLink = new UserLink();
             var lastPostedDateLabel = new DisplayDateTime { Format = DateTimeFormat.BothTopic };
 
-            var topicSubject = this.Get<IBadWordReplace>().Replace(this.HtmlEncode(currentRow["Topic"]))
-                .Truncate(70, "...");
+            var topicSubject = this.Get<IBadWordReplace>().Replace(this.HtmlEncode(currentRow["Topic"]));
 
             var styles = this.Get<BoardSettings>().UseStyledTopicTitles
                              ? this.Get<IStyleTransform>().DecodeStyleByString(currentRow["Styles"].ToString())
@@ -146,21 +144,12 @@ namespace YAF.Controls
                         currentRow["LastForumAccess"].ToType<DateTime?>() ?? DateTimeHelper.SqlDbMinTime(),
                         currentRow["LastTopicAccess"].ToType<DateTime?>() ?? DateTimeHelper.SqlDbMinTime());
 
-                var topicsIcon = new Icon
-                                          {
-                                              IconName = "comment",
-                                              IconStackName = "comment",
-                                              IconStackType = "fa-inverse",
-                                              IconStackSize = "fa-1x",
-                                              IconType = DateTime.Parse(currentRow["LastPosted"].ToString()) > lastRead ? "text-success" : "text-secondary"
-                };
+                if (DateTime.Parse(currentRow["LastPosted"].ToString()) > lastRead)
+                {
+                    postIcon.CssClass = "badge badge-success";
 
-                postIcon.Controls.Add(
-                    new Literal
-                    {
-                        Text = 
-                                topicsIcon.RenderToString()
-                    });
+                    postIcon.Text = this.GetText("NEW_MESSAGE");
+                }
             }
 
             var lastPostedDateTime = currentRow["LastPosted"].ToType<DateTime>();

@@ -31,7 +31,6 @@ namespace YAF.Dialogs
     using System.Web.UI.WebControls;
 
     using YAF.Configuration;
-    using YAF.Core;
     using YAF.Core.BaseControls;
     using YAF.Core.Context;
     using YAF.Core.Model;
@@ -280,6 +279,7 @@ namespace YAF.Dialogs
                     googleRegister.TitleLocalizedTag = "AUTH_CONNECT_HELP";
                     googleRegister.ParamTitle0 = "Google";
                 }
+
                 singleSignOnHolder.Visible = twitterHolder.Visible || faceBookHolder.Visible || googleHolder.Visible;
             }
             else
@@ -292,6 +292,7 @@ namespace YAF.Dialogs
                 registerLink.Visible = true;
                 registerLink.Text = this.GetText("register_instead");
             }
+
             this.DataBind();
         }
 
@@ -355,6 +356,7 @@ namespace YAF.Dialogs
         {
             BuildLink.Redirect(ForumPages.Login, "auth={0}", AuthService.google);
         }
+
         /// <summary>
         /// Redirects to the Register Page
         /// </summary>
@@ -363,9 +365,7 @@ namespace YAF.Dialogs
         protected void RegisterLink_Click(object sender, EventArgs e)
         {
             BuildLink.Redirect(
-                this.Get<BoardSettings>().ShowRulesForRegistration ? ForumPages.Rules : ForumPages.Register);
+                this.Get<BoardSettings>().ShowRulesForRegistration ? ForumPages.RulesAndPrivacy : ForumPages.Register);
         }
-
-
     }
 }

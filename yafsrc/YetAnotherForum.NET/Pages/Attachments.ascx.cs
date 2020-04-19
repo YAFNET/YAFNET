@@ -32,7 +32,6 @@ namespace YAF.Pages
     using System.Web.UI.WebControls;
 
     using YAF.Configuration;
-    using YAF.Core;
     using YAF.Core.BasePages;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
@@ -126,7 +125,7 @@ namespace YAF.Pages
                                   ? UserMembershipHelper.GetDisplayNameFromID(this.PageContext.PageUserID)
                                   : UserMembershipHelper.GetUserNameFromID(this.PageContext.PageUserID);
             this.PageLinks.Clear();
-            this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, BuildLink.GetLink(ForumPages.forum));
+            this.PageLinks.AddRoot();
             this.PageLinks.AddLink(
                 displayName,
                 BuildLink.GetLink(ForumPages.Profile, "u={0}", this.PageContext.PageUserID, displayName));

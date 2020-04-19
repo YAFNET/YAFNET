@@ -31,6 +31,7 @@ namespace YAF.Core.Services.Cache
     using System.Web.Caching;
 
     using YAF.Types;
+    using YAF.Types.Constants;
     using YAF.Types.EventProxies;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Events;
@@ -42,8 +43,6 @@ namespace YAF.Core.Services.Cache
   /// </summary>
   public class HttpRuntimeCache : IDataCache
   {
-    private const string YafCacheKey = "YAFCACHE";
-
     #region Constants and Fields
 
     /// <summary>
@@ -127,7 +126,7 @@ namespace YAF.Core.Services.Cache
 
       while (dictionaryEnumerator.MoveNext())
       {
-        if (!dictionaryEnumerator.Key.ToString().StartsWith($"{YafCacheKey}$"))
+        if (!dictionaryEnumerator.Key.ToString().StartsWith($"{Constants.Cache.YafCacheKey}$"))
         {
           continue;
         }
@@ -317,7 +316,7 @@ namespace YAF.Core.Services.Cache
     private string CreateKey([NotNull] string key)
     {
         key = key.Replace('$', '.');
-        return this._treatCacheKey.Treat($"{YafCacheKey}${key}");
+        return this._treatCacheKey.Treat($"{Constants.Cache.YafCacheKey}${key}");
     }
 
     /// <summary>

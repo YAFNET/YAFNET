@@ -84,7 +84,7 @@ namespace YAF.Data.MsSql
         /// Gets the name of the schema.
         /// </summary>
         /// <param name="name">The name.</param>
-        /// <returns>Returns the name of the schmema</returns>
+        /// <returns>Returns the name of the schema</returns>
         public string GetSchemaName(string name)
         {
             return name;
@@ -94,7 +94,7 @@ namespace YAF.Data.MsSql
         /// Gets the name of the schema.
         /// </summary>
         /// <param name="modelDef">The model definition.</param>
-        /// <returns>Returns the name of the schmema</returns>
+        /// <returns>Returns the name of the schema</returns>
         public string GetSchemaName(ModelDefinition modelDef)
         {
             return this.GetSchemaName(modelDef.Schema);

@@ -29,7 +29,6 @@ namespace YAF.Pages
   using System;
   using System.Web;
 
-  using YAF.Core;
   using YAF.Core.BasePages;
   using YAF.Types;
   using YAF.Types.Extensions;
@@ -58,18 +57,6 @@ namespace YAF.Pages
     #region Methods
 
     /// <summary>
-    /// The on init.
-    /// </summary>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    protected override void OnInit([NotNull] EventArgs e)
-    {
-      this.InitializeComponent();
-      base.OnInit(e);
-    }
-
-    /// <summary>
     /// The page_ load.
     /// </summary>
     /// <param name="sender">
@@ -82,14 +69,6 @@ namespace YAF.Pages
     {
       this.ErrorMessageHolder.Text =
           $"An error has occured in '{this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("aspxerrorpath")}'.";
-    }
-
-    /// <summary>
-    /// Required method for Designer support - do not modify
-    ///   the contents of this method with the code editor.
-    /// </summary>
-    private void InitializeComponent()
-    {
     }
 
     #endregion

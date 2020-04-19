@@ -43,6 +43,9 @@ namespace YAF.Data.MsSql
     /// </summary>
     public class MsSqlDbAccess : DbAccessBase
     {
+        /// <summary>
+        /// The provider type name.
+        /// </summary>
         public const string ProviderTypeName = "System.Data.SqlClient";
 
         #region Constructors and Destructors

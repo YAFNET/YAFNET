@@ -30,7 +30,6 @@ namespace YAF.Pages
     using System.Net.Mail;
     using System.Web;
 
-    using YAF.Core;
     using YAF.Core.BasePages;
     using YAF.Core.Extensions;
     using YAF.Core.Services;
@@ -82,13 +81,13 @@ namespace YAF.Pages
 
             if (this.PageContext.Settings.LockedForum == 0)
             {
-                this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, BuildLink.GetLink(ForumPages.forum));
-                this.PageLinks.AddLink(
-                    this.PageContext.PageCategoryName,
-                    BuildLink.GetLink(ForumPages.forum, "c={0}", this.PageContext.PageCategoryID));
+                this.PageLinks.AddRoot();
+
+                this.PageLinks.AddCategory(this.PageContext.PageCategoryName, this.PageContext.PageCategoryID);
             }
 
             this.PageLinks.AddForum(this.PageContext.PageForumID);
+
             this.PageLinks.AddLink(
                 this.PageContext.PageTopicName,
                 BuildLink.GetLink(ForumPages.Posts, "t={0}", this.PageContext.PageTopicID));

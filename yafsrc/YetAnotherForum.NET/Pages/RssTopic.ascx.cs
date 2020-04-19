@@ -37,7 +37,6 @@ namespace YAF.Pages
     using System.Xml;
 
     using YAF.Configuration;
-    using YAF.Core;
     using YAF.Core.BasePages;
     using YAF.Core.Context;
     using YAF.Core.Extensions;

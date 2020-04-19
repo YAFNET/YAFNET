@@ -24,16 +24,11 @@
 
 namespace YAF.Web.Extensions
 {
-    using System.Data;
-    using System.Linq;
-
     using YAF.Configuration;
-    using YAF.Core;
     using YAF.Core.Context;
-    using YAF.Core.Model;
+    using YAF.Core.Extensions;
     using YAF.Types;
     using YAF.Types.Constants;
-    using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Objects;
     using YAF.Utils;
@@ -92,7 +87,7 @@ namespace YAF.Web.Extensions
             CodeContracts.VerifyNotNull(pageLinks, "pageLinks");
             CodeContracts.VerifyNotNull(title, "title");
 
-            pageLinks.Add(new PageLink() { Title = title.Trim(), URL = url?.Trim() });
+            pageLinks.Add(new PageLink { Title = title.Trim(), URL = url?.Trim() });
 
             return pageLinks;
         }
@@ -108,22 +103,22 @@ namespace YAF.Web.Extensions
         {
             CodeContracts.VerifyNotNull(pageLinks, "pageLinks");
 
-            using (var links = BoardContext.Current.GetRepository<Forum>().ListPathAsDataTable(forumId))
+            if (BoardContext.Current.PageParentForumID.HasValue)
             {
-                links.Rows.Cast<DataRow>().ForEach(
-                    row =>
-                        {
-                            if (noForumLink && row.Field<int>("ForumID") == forumId)
-                            {
-                                pageLinks.AddLink(row["Name"].ToString(), string.Empty);
-                            }
-                            else
-                            {
-                                pageLinks.AddLink(
-                                    row["Name"].ToString(),
-                                    BuildLink.GetLink(ForumPages.topics, "f={0}", row["ForumID"]));
-                            }
-                        });
+                var parent = BoardContext.Current.GetRepository<Forum>()
+                    .GetById(BoardContext.Current.PageParentForumID.Value);
+
+                if (parent != null)
+                {
+                    pageLinks.AddLink(parent.Name, BuildLink.GetLink(ForumPages.topics, "f={0}", parent.ID));
+                }
+            }
+
+            if (BoardContext.Current.PageForumID == forumId)
+            {
+                pageLinks.AddLink(
+                    BoardContext.Current.PageForumName,
+                    noForumLink ? string.Empty : BuildLink.GetLink(ForumPages.topics, "f={0}", forumId));
             }
 
             return pageLinks;

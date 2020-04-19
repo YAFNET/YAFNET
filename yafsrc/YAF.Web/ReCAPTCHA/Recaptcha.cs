@@ -32,7 +32,6 @@ namespace YAF.Web.Controls
     using System.Web.UI.WebControls;
 
     using YAF.Configuration;
-    using YAF.Core;
     using YAF.Core.Context;
     using YAF.Types;
     using YAF.Types.Extensions;
@@ -184,7 +183,6 @@ namespace YAF.Web.Controls
         /// Raises the <see cref="E:System.Web.UI.Control.Init" /> event.
         /// </summary>
         /// <param name="e">An <see cref="T:System.EventArgs" /> object that contains the event data.</param>
-        /// <exception cref="System.ApplicationException">reCAPTCHA needs to be configured with a public & private key.</exception>
         protected override void OnInit([NotNull] EventArgs e)
         {
             base.OnInit(e);

@@ -186,6 +186,11 @@ namespace YAF.Types.Constants
             /// </summary>
             public const string VisitorsInTheLast30Days = "VisitorsInTheLast30Days";
 
+            /// <summary>
+            /// The YAF Cache key.
+            /// </summary>
+            public const string YafCacheKey = "YAFCACHE";
+
             #endregion
         }
 

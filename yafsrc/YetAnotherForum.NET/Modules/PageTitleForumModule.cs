@@ -67,13 +67,6 @@ namespace YAF.Modules
             this.CurrentForumPage.Load += this.ForumPage_Load;
         }
 
-        /// <summary>
-        /// The init before page.
-        /// </summary>
-        public override void InitBeforePage()
-        {
-        }
-
         #endregion
 
         #region Methods

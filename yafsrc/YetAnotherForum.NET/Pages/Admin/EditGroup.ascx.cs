@@ -32,7 +32,6 @@ namespace YAF.Pages.Admin
     using System.Web.Security;
     using System.Web.UI.WebControls;
 
-    using YAF.Core;
     using YAF.Core.BasePages;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
@@ -105,7 +104,7 @@ namespace YAF.Pages.Admin
         protected override void CreatePageLinks()
         {
             // forum index
-            this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, BuildLink.GetLink(ForumPages.forum));
+            this.PageLinks.AddRoot();
 
             // admin index
             this.PageLinks.AddLink(

@@ -572,7 +572,7 @@ namespace YAF.Pages
         protected void RegisterLinkClick(object sender, EventArgs e)
         {
             BuildLink.Redirect(
-                this.Get<BoardSettings>().ShowRulesForRegistration ? ForumPages.Rules : ForumPages.Register);
+                this.Get<BoardSettings>().ShowRulesForRegistration ? ForumPages.RulesAndPrivacy : ForumPages.Register);
         }
 
         /// <summary>

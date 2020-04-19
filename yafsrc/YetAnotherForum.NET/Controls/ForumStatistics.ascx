@@ -1,7 +1,6 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" EnableViewState="false" Inherits="YAF.Controls.ForumStatistics" Codebehind="ForumStatistics.ascx.cs" %>
 
-<asp:UpdatePanel ID="UpdateStatsPanel" runat="server" UpdateMode="Conditional" class="col">
-    <ContentTemplate>
+
         <div class="card mb-3">
             <div class="card-header d-flex align-items-center">
                 <YAF:IconHeader runat="server"
@@ -55,5 +54,3 @@
                     </asp:PlaceHolder>
                 </div>
         </div>
-    </ContentTemplate>
-</asp:UpdatePanel>

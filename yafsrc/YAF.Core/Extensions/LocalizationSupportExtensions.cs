@@ -27,7 +27,6 @@ namespace YAF.Core.Extensions
 
     using ServiceStack;
 
-    using YAF.Core;
     using YAF.Core.BaseControls;
     using YAF.Core.Context;
     using YAF.Types;

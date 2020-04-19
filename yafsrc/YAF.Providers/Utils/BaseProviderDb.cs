@@ -25,10 +25,7 @@ namespace YAF.Providers.Utils
             {
                 var access = new MsSqlDbAccess(DbProviderFactories.GetFactory, new QueryProfile());
                 var old = access.Information.ConnectionString;
-                access.Information.ConnectionString = () =>
-                {
-                    return ProviderConnectionStrings.TryGetValue(connectionStringAppKeyName, out var connStr) ? connStr : old();
-                };
+                access.Information.ConnectionString = () => ProviderConnectionStrings.TryGetValue(connectionStringAppKeyName, out var connStr) ? connStr : old();
 
                 return access;
             });

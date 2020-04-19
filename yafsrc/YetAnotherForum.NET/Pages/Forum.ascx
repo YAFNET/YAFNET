@@ -16,16 +16,17 @@
 
 <YAF:PollList ID="PollList" runat="server"/>
 
-<YAF:ForumCategoryList ID="ForumCategoryList" runat="server"></YAF:ForumCategoryList>
-
+<div class="row">
+    <div class="col-md-8">
+        <YAF:ForumCategoryList ID="ForumCategoryList" runat="server" />
+    </div>
+    <div class="col-md-4">
+        <YAF:ForumActiveDiscussion ID="ActiveDiscussions" runat="server" />
+        <YAF:ForumStatsUsers ID="ForumStats" runat="Server" />
+    </div>
+</div>
 <div class="row">
     <div class="col">
-        <div class="row">
-            <YAF:ForumActiveDiscussion ID="ActiveDiscussions" runat="server" />
-            <YAF:ForumStatsUsers ID="ForumStats" runat="Server" />
-        </div>
-        <div class="row">
-            <YAF:ForumStatistics ID="ForumStatistics" runat="Server" />
-        </div>
+        <YAF:ForumStatistics ID="ForumStatistics" runat="Server" />
     </div>
 </div>

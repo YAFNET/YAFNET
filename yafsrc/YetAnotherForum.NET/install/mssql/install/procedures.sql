@@ -1074,47 +1074,6 @@ end
 
 GO
 
-create procedure [{databaseOwner}].[{objectQualifier}forum_listpath](@ForumID int) as
-begin
-declare @tbllpath TABLE (ForumID int, Name nvarchar(255), Indent int);
-declare @Indent int;
-declare @CurrentParentID int;
-declare @CurrentForumID int;
-declare @CurrentForumName nvarchar(255);
-
--- Flag if a record was selected
-declare @Selectcount int;
-
--- Forum 1000 is a legal value... always use -1 instead
-SET @CurrentParentID = -1;
-
-SET @Indent = 0;
-	while (@CurrentParentID IS NOT NULL and @Indent < 1000)
-      begin
-	   set @Selectcount = 0;
-       select
-			@Selectcount = 1,
-            @CurrentForumID =  a.ForumID,
-            @CurrentParentID = a.ParentID,
-            @CurrentForumName = a.Name
-        from
-             [{databaseOwner}].[{objectQualifier}Forum] a
-        where
-            a.ForumID=@ForumID;
-
-		if @Selectcount = 0
-		begin
-			break;
-		end
-            Insert into @tbllpath(ForumID, Name,Indent)
-            values (@CurrentForumID,@CurrentForumName,@Indent)
-            SET @ForumID = @CurrentParentID;
-            SET @Indent = @Indent + 1;
-     end
-     select ForumID, Name from  @tbllpath order by Indent Desc;
-end
-GO
-
 create procedure [{databaseOwner}].[{objectQualifier}forum_listread](@BoardID int,@UserID int,@CategoryID int=null,@ParentID int=null, @StyledNicks bit=null,	@FindLastRead bit = 0) as
 begin
 declare @tbl1 table
@@ -2589,7 +2548,8 @@ begin
         ForumName			= (select Name from [{databaseOwner}].[{objectQualifier}Forum] where ForumID = @ForumID),
         TopicID				= @TopicID,
         TopicName			= (select Topic from [{databaseOwner}].[{objectQualifier}Topic] where TopicID = @TopicID),
-        ForumTheme			= (select ThemeURL from [{databaseOwner}].[{objectQualifier}Forum] where ForumID = @ForumID)
+        ForumTheme			= (select ThemeURL from [{databaseOwner}].[{objectQualifier}Forum] where ForumID = @ForumID),
+		ParentForumID       = (select ParentID from [{databaseOwner}].[{objectQualifier}Forum] where ForumID = @ForumID)
 
 end
 GO

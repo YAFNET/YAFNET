@@ -35,7 +35,6 @@ namespace YAF.Core.Services.Import
     using YAF.Core.Model;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Types.Interfaces.Data;
     using YAF.Types.Models;
 
     /// <summary>
@@ -61,7 +60,7 @@ namespace YAF.Core.Services.Import
         {
             var importedCount = 0;
 
-            var repository = BoardContext.Current.Get<IRepository<BBCode>>();
+            var repository = BoardContext.Current.GetRepository<BBCode>();
 
             // import extensions...
             var dsBBCode = new DataSet();
@@ -143,11 +142,11 @@ namespace YAF.Core.Services.Import
         /// <exception cref="Exception">
         /// Import stream is not expected format.
         /// </exception>
-        public static int BannedEmailAdressesImport(int boardId, int userId, Stream inputStream)
+        public static int BannedEmailAddressesImport(int boardId, int userId, Stream inputStream)
         {
             var importedCount = 0;
 
-            var repository = BoardContext.Current.Get<IRepository<BannedEmail>>();
+            var repository = BoardContext.Current.GetRepository<BannedEmail>();
             var existingBannedEmailList = repository.Get(x => x.BoardID == boardId);
 
             using (var streamReader = new StreamReader(inputStream))
@@ -186,11 +185,11 @@ namespace YAF.Core.Services.Import
         /// <exception cref="Exception">
         /// Import stream is not expected format.
         /// </exception>
-        public static int BannedIpAdressesImport(int boardId, int userId, Stream inputStream)
+        public static int BannedIpAddressesImport(int boardId, int userId, Stream inputStream)
         {
             var importedCount = 0;
 
-            var repository = BoardContext.Current.Get<IRepository<BannedIP>>();
+            var repository = BoardContext.Current.GetRepository<BannedIP>();
             var existingBannedIPList = repository.Get(x => x.BoardID == boardId);
 
             using (var streamReader = new StreamReader(inputStream))
@@ -233,7 +232,7 @@ namespace YAF.Core.Services.Import
         {
             var importedCount = 0;
 
-            var repository = BoardContext.Current.Get<IRepository<BannedName>>();
+            var repository = BoardContext.Current.GetRepository<BannedName>();
             var existingBannedNameList = repository.Get(x => x.BoardID == boardId);
 
             using (var streamReader = new StreamReader(inputStream))
@@ -270,7 +269,7 @@ namespace YAF.Core.Services.Import
         {
             var importedCount = 0;
 
-            var repository = BoardContext.Current.Get<IRepository<Spam_Words>>();
+            var repository = BoardContext.Current.GetRepository<Spam_Words>();
 
             // import spam words...
             var spamWords = new DataSet();

@@ -414,7 +414,7 @@ namespace YAF.Controls
                     this.GetText("TOOLBAR", "REGISTER"),
                     "REGISTER_TITLE",
                     this.Get<BoardSettings>().ShowRulesForRegistration
-                        ? BuildLink.GetLink(ForumPages.Rules)
+                        ? BuildLink.GetLink(ForumPages.RulesAndPrivacy)
                         : !this.Get<BoardSettings>().UseSSLToRegister
                             ? BuildLink.GetLink(ForumPages.Register)
                             : BuildLink.GetLink(ForumPages.Register, true).Replace("http:", "https:"),
@@ -484,7 +484,7 @@ namespace YAF.Controls
                                                Text = this.GetText("TOOLBAR", "REGISTER"),
                                                NavigateUrl =
                                                    this.Get<BoardSettings>().ShowRulesForRegistration
-                                                       ? BuildLink.GetLink(ForumPages.Rules)
+                                                       ? BuildLink.GetLink(ForumPages.RulesAndPrivacy)
                                                        : !this.Get<BoardSettings>().UseSSLToRegister
                                                            ? BuildLink.GetLink(ForumPages.Register)
                                                            : BuildLink.GetLink(

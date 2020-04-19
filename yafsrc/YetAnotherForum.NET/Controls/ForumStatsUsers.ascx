@@ -2,12 +2,8 @@
 
 <%@ Register TagPrefix="YAF" TagName="MostActiveUsers" Src="MostActiveUsers.ascx" %>
 
-<asp:UpdatePanel ID="UpdateStatsPanel" runat="server" UpdateMode="Conditional" class="col">
-    <ContentTemplate>
-        <asp:PlaceHolder runat="server" ID="InformationPlaceHolder">
-            <div class="row">
-                <div class="col">
-                    <div class="card mb-3">
+<asp:PlaceHolder runat="server" ID="InformationPlaceHolder">
+            <div class="card mb-3">
                         <div class="card-header d-flex align-items-center">
                             <YAF:IconHeader runat="server"
                                             IconName="users"
@@ -25,12 +21,8 @@
                             </small>
                         </div>
                     </div>
-                </div>
-            </div>
             <asp:PlaceHolder runat="server" ID="RecentUsersPlaceHolder" Visible="True">
-                <div class="row">
-                    <div class="col">
-                        <div class="card mb-3">
+                <div class="card mb-3">
                             <div class="card-header d-flex align-items-center">
                                 <YAF:IconHeader runat="server"
                                                 IconName="users"
@@ -47,14 +39,6 @@
                                 </small>
                             </div>
                         </div>
-                    </div>
-                </div>
             </asp:PlaceHolder>
-            <div class="row">
-                <div class="col">
-                    <YAF:MostActiveUsers ID="MostActiveList" runat="server" DisplayNumber="10" />
-                </div>
-            </div>
+            <YAF:MostActiveUsers ID="MostActiveList" runat="server" DisplayNumber="10" />
         </asp:PlaceHolder>
-    </ContentTemplate>
-</asp:UpdatePanel>

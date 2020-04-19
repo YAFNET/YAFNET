@@ -21,13 +21,14 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-using System.Collections.Specialized;
-using System.Configuration.Provider;
-using System.Web.Security;
 
 namespace YAFProviders.Passthru
 {
-  /// <summary>
+    using System.Collections.Specialized;
+    using System.Configuration.Provider;
+    using System.Web.Security;
+
+    /// <summary>
   /// The yaf membership pass thru.
   /// </summary>
   internal class YAFMembershipPassThru : MembershipProvider

@@ -352,23 +352,6 @@ namespace YAF.Core.Model
         }
 
         /// <summary>
-        /// Sorry no idea what this does
-        /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
-        /// <param name="forumID">
-        /// The forum ID.
-        /// </param>
-        /// <returns>
-        /// The <see cref="DataTable"/>.
-        /// </returns>
-        public static DataTable ListPathAsDataTable([NotNull] this IRepository<Forum> repository, [NotNull] int forumID)
-        {
-            return repository.DbFunction.GetData.forum_listpath(ForumID: forumID);
-        }
-
-        /// <summary>
         /// Lists read topics
         /// </summary>
         /// <param name="repository">

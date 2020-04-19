@@ -29,7 +29,6 @@ namespace YAF.Pages
     using System;
     using System.Web;
 
-    using YAF.Core;
     using YAF.Core.BasePages;
     using YAF.Core.UsersRoles;
     using YAF.Types;
@@ -107,7 +106,7 @@ namespace YAF.Pages
 
             var displayNameHe = UserMembershipHelper.GetDisplayNameFromID(this.UserID);
 
-            this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, BuildLink.GetLink(ForumPages.forum));
+            this.PageLinks.AddRoot();
             this.PageLinks.AddLink(
                 this.PageContext.BoardSettings.EnableDisplayName ? displayNameHe : userHe.UserName,
                 BuildLink.GetLink(

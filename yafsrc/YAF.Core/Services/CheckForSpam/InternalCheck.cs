@@ -37,7 +37,6 @@ namespace YAF.Core.Services.CheckForSpam
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.CheckForSpam;
-    using YAF.Types.Interfaces.Data;
     using YAF.Types.Models;
 
     #endregion
@@ -81,37 +80,34 @@ namespace YAF.Core.Services.CheckForSpam
 
             try
             {
-                var bannedEmailRepository = BoardContext.Current.Get<IRepository<BannedEmail>>();
-                var bannedIPRepository = BoardContext.Current.Get<IRepository<BannedIP>>();
+                var bannedEmailRepository = BoardContext.Current.GetRepository<BannedEmail>();
+                var bannedIPRepository = BoardContext.Current.GetRepository<BannedIP>();
 
                 var bannedIpList = BoardContext.Current.Get<IDataCache>().GetOrSet(
                     Constants.Cache.BannedIP,
                     () => bannedIPRepository.Get(x => x.BoardID == BoardContext.Current.PageBoardID)
                         .Select(x => x.Mask.Trim()).ToList());
 
-                var bannedNameRepository = BoardContext.Current.Get<IRepository<BannedName>>();
+                var bannedNameRepository = BoardContext.Current.GetRepository<BannedName>();
 
                 var isBot = false;
 
-                foreach (var email in bannedEmailRepository.Get(x => x.BoardID == BoardContext.Current.PageBoardID))
+                try
                 {
-                    try
-                    {
-                        if (!Regex.Match(emailAddress, email.Mask).Success)
-                        {
-                            continue;
-                        }
+                    var banned = bannedEmailRepository.Get(x => x.BoardID == BoardContext.Current.PageBoardID)
+                        .FirstOrDefault(b => Regex.Match(emailAddress, b.Mask).Success);
 
+                    if (banned != null)
+                    {
                         responseText = $"internal detection found email address {emailAddress}";
                         isBot = true;
-                        break;
                     }
-                    catch (Exception ex)
-                    {
-                        BoardContext.Current.Get<ILogger>().Error(
-                            ex,
-                            $"Error while Checking for Bot Email (Check: {email.Mask})");
-                    }
+                }
+                catch (Exception ex)
+                {
+                    BoardContext.Current.Get<ILogger>().Error(
+                        ex,
+                        $"Error while Checking for Bot Email");
                 }
 
                 if (bannedIpList.Any(i => i.Equals(ipAddress)))

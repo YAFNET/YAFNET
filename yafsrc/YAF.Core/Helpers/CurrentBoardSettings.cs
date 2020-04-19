@@ -43,24 +43,24 @@ namespace YAF.Core.Helpers
         #region Fields
 
         /// <summary>
-        ///     The _application state base.
+        ///     The application state base.
         /// </summary>
-        private readonly HttpApplicationStateBase _applicationStateBase;
+        private readonly HttpApplicationStateBase applicationStateBase;
 
         /// <summary>
-        ///     The _have board id.
+        ///     The have board id.
         /// </summary>
-        private readonly IHaveBoardID _haveBoardId;
+        private readonly IHaveBoardID haveBoardId;
 
         /// <summary>
-        ///     The _inject services.
+        ///     The inject services.
         /// </summary>
-        private readonly IInjectServices _injectServices;
+        private readonly IInjectServices injectServices;
 
         /// <summary>
-        ///     The _treat cache key.
+        ///     The treat cache key.
         /// </summary>
-        private readonly ITreatCacheKey _treatCacheKey;
+        private readonly ITreatCacheKey treatCacheKey;
 
         #endregion
 
@@ -79,6 +79,7 @@ namespace YAF.Core.Helpers
         /// The have board id.
         /// </param>
         /// <param name="treatCacheKey">
+        /// The treat Cache Key.
         /// </param>
         public CurrentBoardSettings(
             [NotNull] HttpApplicationStateBase applicationStateBase,
@@ -91,10 +92,10 @@ namespace YAF.Core.Helpers
             CodeContracts.VerifyNotNull(haveBoardId, "haveBoardId");
             CodeContracts.VerifyNotNull(treatCacheKey, "treatCacheKey");
 
-            this._applicationStateBase = applicationStateBase;
-            this._injectServices = injectServices;
-            this._haveBoardId = haveBoardId;
-            this._treatCacheKey = treatCacheKey;
+            this.applicationStateBase = applicationStateBase;
+            this.injectServices = injectServices;
+            this.haveBoardId = haveBoardId;
+            this.treatCacheKey = treatCacheKey;
         }
 
         #endregion
@@ -108,20 +109,20 @@ namespace YAF.Core.Helpers
         {
             get
             {
-                return this._applicationStateBase.GetOrSet(
-                    this._treatCacheKey.Treat(Constants.Cache.BoardSettings),
+                return this.applicationStateBase.GetOrSet(
+                    this.treatCacheKey.Treat(Constants.Cache.BoardSettings),
                     () =>
                         {
-                            var boardSettings = (BoardSettings)new LoadBoardSettings(this._haveBoardId.BoardID);
+                            var boardSettings = (BoardSettings)new LoadBoardSettings(this.haveBoardId.BoardID);
 
                             // inject
-                            this._injectServices.Inject(boardSettings);
+                            this.injectServices.Inject(boardSettings);
 
                             return boardSettings;
                         });
             }
 
-            set => this._applicationStateBase.Set(this._treatCacheKey.Treat(Constants.Cache.BoardSettings), value);
+            set => this.applicationStateBase.Set(this.treatCacheKey.Treat(Constants.Cache.BoardSettings), value);
         }
 
         #endregion

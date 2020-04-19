@@ -101,7 +101,7 @@ namespace YAF.Controls
                                                Icon = "user-plus",
                                                NavigateUrl =
                                                    this.Get<BoardSettings>().ShowRulesForRegistration
-                                                       ? BuildLink.GetLink(ForumPages.Rules)
+                                                       ? BuildLink.GetLink(ForumPages.RulesAndPrivacy)
                                                        : !this.Get<BoardSettings>().UseSSLToRegister
                                                            ? BuildLink.GetLink(ForumPages.Register)
                                                            : BuildLink.GetLink(

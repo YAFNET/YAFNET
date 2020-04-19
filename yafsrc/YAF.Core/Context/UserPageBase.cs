@@ -288,6 +288,19 @@ namespace YAF.Core.Context
         public string PageCategoryName => this.PageValueAsString("CategoryName");
 
         /// <summary>
+        ///   Gets the Parent ForumID for the current page, or 0 if not in any forum
+        /// </summary>
+        public int? PageParentForumID
+        {
+            get
+            {
+                var isLockedForum = BoardContext.Current.Settings.LockedForum;
+
+                return isLockedForum != 0 ? isLockedForum : this.PageValueAsInt("ParentForumID");
+            }
+        }
+
+        /// <summary>
         ///   Gets the ForumID for the current page, or 0 if not in any forum
         /// </summary>
         public int PageForumID

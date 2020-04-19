@@ -174,7 +174,7 @@ namespace YAF.Web.Controls
 
             writer.Write(
                 @"<a target=""_top"" title=""{1}"" href=""{0}"">{1}</a> | ",
-                BuildLink.GetLink(ForumPages.Rules),
+                BuildLink.GetLink(ForumPages.RulesAndPrivacy),
                 this.GetText("COMMON", "PRIVACY_POLICY"));
         }
 
