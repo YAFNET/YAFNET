@@ -1171,7 +1171,10 @@ namespace YAF.Pages
             // Create notification emails
             if (isApproved)
             {
-                this.Get<ISendNotification>().ToWatchingUsers(messageId.ToType<int>());
+                if (this.EditMessageId == null)
+                {
+                    this.Get<ISendNotification>().ToWatchingUsers(messageId.ToType<int>());
+                }
 
                 if (this.EditMessageId == null && !this.PageContext.IsGuest && this.PageContext.CurrentUserData.Activity)
                 {
@@ -1441,7 +1444,6 @@ namespace YAF.Pages
             this.EditReasonRow.Visible = true;
             this.ReasonEditor.Text = this.Server.HtmlDecode(currentMessage.EditReason);
             this.PostOptions1.PersistentChecked = currentMessage.Flags.IsPersistent;
-
 
             var topicsList = this.GetRepository<TopicTag>().List(this.PageContext.PageTopicID);
 

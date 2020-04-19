@@ -894,13 +894,9 @@ namespace YAF.Pages
 
             if (!postListDataTable.HasRows())
             {
-                var userAgent = this.Get<HttpRequestBase>().UserAgent + "browser:"+ this.Get<HttpRequestBase>().Browser.Browser;
-
-
                 throw new NoPostsFoundForTopicException(
                     this.PageContext.PageTopicID,
                     this.PageContext.PageUserID,
-                    userAgent,
                     userId,
                     this.IsPostBack || this.PageContext.IsCrawler ? 0 : 1,
                     showDeleted,
