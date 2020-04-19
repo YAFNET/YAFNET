@@ -90,7 +90,7 @@ namespace YAF.Web.Controls
 
                 try
                 {
-                    return Convert.ToDateTime(this.DateTime);
+                    return Convert.ToDateTime(this.DateTime, CultureInfo.InvariantCulture);
                 }
                 catch (InvalidCastException)
                 {
@@ -126,6 +126,7 @@ namespace YAF.Web.Controls
                     ? this.AsDateTime.ToString("yyyy-MM-ddTHH:mm:ssZ", CultureInfo.InvariantCulture)
                     : formattedDatetime,
                 formattedDatetime);
+
             writer.WriteLine();
         }
 
