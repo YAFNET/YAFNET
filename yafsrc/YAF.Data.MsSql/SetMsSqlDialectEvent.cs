@@ -25,7 +25,7 @@ namespace YAF.Data.MsSql
 {
     using ServiceStack.OrmLite;
 
-    using YAF.Core.Events;
+    using YAF.Core.Data;
     using YAF.Types.Attributes;
     using YAF.Types.Interfaces.Events;
 
