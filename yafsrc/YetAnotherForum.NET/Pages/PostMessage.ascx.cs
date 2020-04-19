@@ -1128,7 +1128,10 @@ namespace YAF.Pages
             // Create notification emails
             if (isApproved)
             {
-                this.Get<ISendNotification>().ToWatchingUsers(messageId.ToType<int>());
+                if (this.EditMessageId == null)
+                {
+                    this.Get<ISendNotification>().ToWatchingUsers(messageId.ToType<int>());
+                }
 
                 if (this.EditMessageId == null && !this.PageContext.IsGuest && this.PageContext.CurrentUserData.Activity)
                 {
