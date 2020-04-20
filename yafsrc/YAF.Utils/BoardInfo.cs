@@ -88,7 +88,7 @@ namespace YAF.Utils
         /// <summary>
         /// Gets the Current YAF Database Version
         /// </summary>
-        public static int AppVersion => 75;
+        public static int AppVersion => 77;
 
         /// <summary>
         /// Gets the Current YAF Application Version
