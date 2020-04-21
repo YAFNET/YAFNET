@@ -144,7 +144,7 @@ namespace YAF
                 }
                 else
                 {
-                    BuildLink.Redirect(ForumPages.forum);
+                    BuildLink.Redirect(ForumPages.Board);
                 }
             }
             else
@@ -181,7 +181,7 @@ namespace YAF
                     BoardContext.Current.Get<HttpResponseBase>().Write(
                         string.Format(
                             "{1} window.opener.location.href = '{0}';window.close(); {2}>",
-                            BuildLink.GetLink(ForumPages.forum).Replace(
+                            BuildLink.GetLink(ForumPages.Board).Replace(
                                 "auth.aspx",
                                 "default.aspx"),
                             ScriptBeginTag,
@@ -245,7 +245,7 @@ namespace YAF
                             string.Format(
                                 "{2} alert('{0}');window.location.href = '{1}'; {3}",
                                 message,
-                                BuildLink.GetLink(ForumPages.forum).Replace(
+                                BuildLink.GetLink(ForumPages.Board).Replace(
                                     "auth.aspx",
                                     "default.aspx"),
                                 ScriptBeginTag,
@@ -253,7 +253,7 @@ namespace YAF
                     }
                     else
                     {
-                        BuildLink.Redirect(ForumPages.forum);
+                        BuildLink.Redirect(ForumPages.Board);
                     }
                 }
                 else
@@ -295,7 +295,7 @@ namespace YAF
                         BoardContext.Current.Get<HttpResponseBase>().Write(
                             string.Format(
                                 "{1} window.location.href = '{0}';window.close(); {2}",
-                                BuildLink.GetLink(ForumPages.forum).Replace(
+                                BuildLink.GetLink(ForumPages.Board).Replace(
                                     "auth.aspx",
                                     "default.aspx"),
                                 ScriptBeginTag,
@@ -375,7 +375,7 @@ namespace YAF
                             string.Format(
                                 "{2} alert('{0}');window.location.href = '{1}'; {3}",
                                 message,
-                                BuildLink.GetLink(ForumPages.forum).Replace(
+                                BuildLink.GetLink(ForumPages.Board).Replace(
                                     "auth.aspx",
                                     "default.aspx"),
                                 ScriptBeginTag,
@@ -383,7 +383,7 @@ namespace YAF
                     }
                     else
                     {
-                        BuildLink.Redirect(ForumPages.forum);
+                        BuildLink.Redirect(ForumPages.Board);
                     }
                 }
                 else
@@ -425,7 +425,7 @@ namespace YAF
                         BoardContext.Current.Get<HttpResponseBase>().Write(
                             string.Format(
                                 "{1} window.location.href = '{0}';window.close(); {2}",
-                                BuildLink.GetLink(ForumPages.forum).Replace(
+                                BuildLink.GetLink(ForumPages.Board).Replace(
                                     "auth.aspx",
                                     "default.aspx"),
                                 ScriptBeginTag,
