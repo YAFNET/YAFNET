@@ -180,11 +180,15 @@ namespace YAF.Core.UsersRoles
                                 BoardContext.Current.GetRepository<User>()
                                     .Delete(GetUserIDFromProviderUserKey(user.ProviderUserKey));
                                 BoardContext.Current.Get<MembershipProvider>().DeleteUser(user.UserName, true);
-                                BoardContext.Current.Get<ILogger>().Log(
-                                    BoardContext.Current.PageUserID,
-                                    "UserMembershipHelper.DeleteAllUnapproved",
-                                    $"User {user.UserName} was deleted by user id {BoardContext.Current.PageUserID} as unapproved.",
-                                    EventLogTypes.UserDeleted);
+
+                                if (BoardContext.Current.Get<BoardSettings>().LogUserDeleted)
+                                {
+                                    BoardContext.Current.Get<ILogger>().Log(
+                                        BoardContext.Current.PageUserID,
+                                        "UserMembershipHelper.DeleteAllUnapproved",
+                                        $"User {user.UserName} was deleted by user id {BoardContext.Current.PageUserID} as unapproved.",
+                                        EventLogTypes.UserDeleted);
+                                }
                             });
 
                 pageCount++;
@@ -256,11 +260,15 @@ namespace YAF.Core.UsersRoles
 
             BoardContext.Current.Get<MembershipProvider>().DeleteUser(userName, true);
             BoardContext.Current.GetRepository<User>().Delete(userID);
-            BoardContext.Current.Get<ILogger>().Log(
-                BoardContext.Current.PageUserID,
-                "UserMembershipHelper.DeleteUser",
-                $"User {userName} was deleted by {(isBotAutoDelete ? "the automatic spam check system" : BoardContext.Current.PageUserName)}.",
-                EventLogTypes.UserDeleted);
+
+            if (BoardContext.Current.Get<BoardSettings>().LogUserDeleted)
+            {
+                BoardContext.Current.Get<ILogger>().Log(
+                    BoardContext.Current.PageUserID,
+                    "UserMembershipHelper.DeleteUser",
+                    $"User {userName} was deleted by {(isBotAutoDelete ? "the automatic spam check system" : BoardContext.Current.PageUserName)}.",
+                    EventLogTypes.UserDeleted);
+            }
 
             // clear the cache
             BoardContext.Current.Get<IDataCache>().Remove(Constants.Cache.UsersOnlineStatus);
@@ -334,11 +342,15 @@ namespace YAF.Core.UsersRoles
 
             BoardContext.Current.Get<MembershipProvider>().DeleteUser(user.UserName, true);
             BoardContext.Current.GetRepository<User>().Delete(userID);
-            BoardContext.Current.Get<ILogger>().Log(
-                BoardContext.Current.PageUserID,
-                "UserMembershipHelper.DeleteUser",
-                $"User {user.UserName} was deleted by the automatic spam check system.",
-                EventLogTypes.UserDeleted);
+
+            if (BoardContext.Current.Get<BoardSettings>().LogUserDeleted)
+            {
+                BoardContext.Current.Get<ILogger>().Log(
+                    BoardContext.Current.PageUserID,
+                    "UserMembershipHelper.DeleteUser",
+                    $"User {user.UserName} was deleted by the automatic spam check system.",
+                    EventLogTypes.UserDeleted);
+            }
 
             // clear the cache
             BoardContext.Current.Get<IDataCache>().Remove(Constants.Cache.UsersOnlineStatus);
