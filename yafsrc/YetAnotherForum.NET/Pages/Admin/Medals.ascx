@@ -13,7 +13,7 @@
             <div class="card mb-3">
                 <div class="card-header">
                     <YAF:IconHeader runat="server"
-                                    IconName="trophy"
+                                    IconName="medal"
                                     LocalizedPage="ADMIN_MEDALS"></YAF:IconHeader>
                 </div>
                 <div class="card-body">

@@ -175,7 +175,7 @@
                                 <li class="dropdown-item<%= this.PageContext.ForumPageType == ForumPages.Admin_Medals ||
                                                             this.PageContext.ForumPageType == ForumPages.Admin_EditMedal ? " active" : ""%>">
                                     <a href="<%= BuildLink.GetLink(ForumPages.Admin_Medals) %>">
-                                    <i class="fa fa-trophy fa-fw"></i>&nbsp;
+                                    <i class="fa fa-medal fa-fw"></i>&nbsp;
                                     <YAF:LocalizedLabel runat="server" 
                                                         LocalizedTag="admin_medals" LocalizedPage="ADMINMENU"></YAF:LocalizedLabel>
                                 </a>

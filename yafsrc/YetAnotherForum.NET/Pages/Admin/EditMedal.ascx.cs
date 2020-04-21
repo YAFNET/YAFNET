@@ -466,7 +466,7 @@ namespace YAF.Pages.Admin
                 this.GetRepository<Medal>().GroupMedalListAsDataTable(null, this.CurrentMedalId);
             this.GroupList.DataBind();
 
-            var medal = this.GetRepository<Medal>().GetById(this.CurrentMedalId.Value);
+            var medal = this.GetRepository<Medal>().GetSingle(m => m.ID == this.CurrentMedalId.Value);
 
             // set controls
             this.Name.Text = medal.Name;
