@@ -447,10 +447,6 @@
     <Resource tag="BOARD_EMAIL_ONREGISTER_HELP">Semi-colon (;) separated list of emails to send a notification to on user registration.</Resource>
     <Resource tag="BOARD_EMAIL_REPORTMODS">Email Moderators On a Reported Post:</Resource>
     <Resource tag="BOARD_EMAIL_REPORTMODS_HELP">Should all the moderators of a forum be notified if someone reported a post?</Resource>
-    <Resource tag="BOARD_FILE_EXTENSIONS">File Extensions List is:</Resource>
-    <Resource tag="BOARD_FILE_EXTENSIONS_HELP">Is the list of file extensions allowed files or disallowed files (less secure)?</Resource>
-    <Resource tag="BOARD_JQ_THEME">jQuery UI Theme:</Resource>
-    <Resource tag="BOARD_JQ_THEME_HELP">The jQuery UI Theme to use on this board for the Tabs and Accordion.</Resource>
     <Resource tag="BOARD_LOGO">Board Logo:</Resource>
     <Resource tag="BOARD_LOGO_HELP">Select a Board Logo or use the default YAF Board Logo.</Resource>
     <Resource tag="BOARD_LOGO_SELECT">Select a Board logo</Resource>
@@ -461,8 +457,6 @@
     <Resource tag="BOARD_SETUP">Board Setup</Resource>
     <Resource tag="BOARD_THEME">Theme:</Resource>
     <Resource tag="BOARD_THEME_HELP">The theme to use on this board.</Resource>
-    <Resource tag="BOARD_THEME_LOGO">Allow Themed Logo:</Resource>
-    <Resource tag="BOARD_THEME_LOGO_HELP">Gets logo from theme file (Does not work in portal).</Resource>
     <Resource tag="BOARD_THREADED">Allow Threaded:</Resource>
     <Resource tag="BOARD_THREADED_HELP">Allow threaded view for posts.</Resource>
     <Resource tag="BOARD_TOPIC_DEFAULT">Show Topic Default:</Resource>
@@ -1061,8 +1055,6 @@
     <Resource tag="ALLOW_SIGNATURE_HELP">Allow users to create signatures. You should set allowed number of characters and BBCodes for each group and/or rank to really enable the feature.</Resource>
     <Resource tag="ALLOW_THANKS">Allow Users to Thank Posts:</Resource>
     <Resource tag="ALLOW_THANKS_HELP">If checked users can thank posts they consider useful.</Resource>
-    <Resource tag="ALLOW_TOPIC_DESCRIPTION">Allow Topic Description:</Resource>
-    <Resource tag="ALLOW_TOPIC_DESCRIPTION_HELP">If checked, users can add a topic description.</Resource>
     <Resource tag="ALLOW_TOPICS_DUPLICATENAME">Allow Topics With Same Name:</Resource>
     <Resource tag="ALLOW_TOPICS_DUPLICATENAME_HELP">Duplicate topic names are allowed to:</Resource>
     <Resource tag="ALLOW_USER_HIDE">Allow User To Hide Himself:</Resource>
@@ -1319,8 +1311,6 @@
     <Resource tag="MAX_POST_SIZE_HELP">Maximum size of a post in bytes. Set to 0 for unlimited (not recommended).</Resource>
     <Resource tag="MAX_SEARCH_RESULTS">Max Search Results:</Resource>
     <Resource tag="MAX_SEARCH_RESULTS_HELP">Maximum number of search results that can be returned. Enter "0" for unlimited (not recommended).</Resource>
-    <Resource tag="MAX_WORD_LENGTH">Max Word Length:</Resource>
-    <Resource tag="MAX_WORD_LENGTH_HELP">Use it to limit number of a word characters in topic names and some other places.</Resource>
     <Resource tag="MEDALS_TEMPLATE">Medals template:</Resource>
     <Resource tag="MEDALS_TEMPLATE_HELP">Template for rendering user's medals.</Resource>
     <Resource tag="MEMBERLIST_PAGE_SIZE">Member List Page Size:</Resource>
@@ -1546,6 +1536,8 @@
     <Resource tag="TOPICS_PER_PAGE_HELP">Number of topics to show per page.</Resource>
     <Resource tag="TWITTER_USERNAME">Twitter Username for Retweets:</Resource>
     <Resource tag="TWITTER_USERNAME_HELP">Twitter Username that is mentioned when Retweeting a Topic or Message.</Resource>
+    <Resource tag="TWOCOLUMN_BOARD">Use 2 Column Board layout</Resource>
+    <Resource tag="TWOCOLUMN_BOARD_HELP">If enabled show forums in the left column and forum discussions and Stats in the Right Column</Resource>
     <Resource tag="UNHANDLED_USERAGENT_LOG">Enable Unhandled UserAgent Log:</Resource>
     <Resource tag="UNHANDLED_USERAGENT_LOG_HELP">If checked, all unhandled UserAgent strings are logged.</Resource>
     <Resource tag="USE_FARSI_CALENDER">Use Farsi (Shamsi) Persian Calender:</Resource>

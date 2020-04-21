@@ -68,32 +68,6 @@ namespace YAF.Types.Extensions
         }
 
         /// <summary>
-        /// Function to check a max word length, used i.e. in topic names.
-        /// </summary>
-        /// <param name="text">
-        /// The raw string to format
-        /// </param>
-        /// <param name="maxWordLength">
-        /// The max Word Length.
-        /// </param>
-        /// <returns>
-        /// The formatted string
-        /// </returns>
-        public static bool AreAnyWordsOverMaxLength([NotNull] this string text, int maxWordLength)
-        {
-            CodeContracts.VerifyNotNull(text, "text");
-
-            if (maxWordLength <= 0 || text.Length <= 0)
-            {
-                return false;
-            }
-
-            var overMax = text.Split(' ').Where(w => w.IsSet() && w.Length > maxWordLength);
-
-            return overMax.Any();
-        }
-
-        /// <summary>
         /// Fast index of.
         /// </summary>
         /// <param name="source">The source.</param>
@@ -209,9 +183,15 @@ namespace YAF.Types.Extensions
         /// <summary>
         /// Removes empty strings from the list
         /// </summary>
-        /// <param name="inputList">The input list.</param>
-        /// <returns></returns>
-        /// <exception cref="ArgumentNullException"><paramref name="inputList" /> is <c>null</c>.</exception>
+        /// <param name="inputList">
+        /// The input list.
+        /// </param>
+        /// <exception cref="ArgumentNullException">
+        /// <paramref name="inputList"/> is <c>null</c>.
+        /// </exception>
+        /// <returns>
+        /// The <see cref="List"/>.
+        /// </returns>
         [NotNull]
         public static List<string> GetNewNoEmptyStrings([NotNull] this IEnumerable<string> inputList)
         {

@@ -425,10 +425,6 @@
     <Resource tag="BOARD_EMAIL_ONREGISTER_HELP">Puntkomma (;) gescheiden lijst van mailadressen die bericht worden bij registratie van een nieuwe gebruiker.</Resource>
     <Resource tag="BOARD_EMAIL_REPORTMODS">E-mail de Moderatoren wanneer een post wordt gerapporteerd:</Resource>
     <Resource tag="BOARD_EMAIL_REPORTMODS_HELP">Moeten alle moderatoren bericht krijgen als iemand een bericht rapporteert?</Resource>
-    <Resource tag="BOARD_FILE_EXTENSIONS">Lijst van bestandsextensies:</Resource>
-    <Resource tag="BOARD_FILE_EXTENSIONS_HELP">Is de lijst van bestandstypen voor goed- of afgekeurde typen. (minder veilig)?</Resource>
-    <Resource tag="BOARD_JQ_THEME">jQuery UI Thema:</Resource>
-    <Resource tag="BOARD_JQ_THEME_HELP">Het jQuery UI Thema om op dit board te gebruiken voor de Tabs en de Accordion.</Resource>
     <Resource tag="BOARD_LOGO">Board Logo:</Resource>
     <Resource tag="BOARD_LOGO_HELP">Select a Board Logo or use the default YAF Board Logo.</Resource>
     <Resource tag="BOARD_LOGO_SELECT">Select a Board logo</Resource>
@@ -439,8 +435,6 @@
     <Resource tag="BOARD_SETUP">Board Installatie</Resource>
     <Resource tag="BOARD_THEME">Thema:</Resource>
     <Resource tag="BOARD_THEME_HELP">Theme om op dit board te gebruiken.</Resource>
-    <Resource tag="BOARD_THEME_LOGO">Sta Logo uit thema toe:</Resource>
-    <Resource tag="BOARD_THEME_LOGO_HELP">Logo uit thema gebruiken (Werkt niet in het portaal).</Resource>
     <Resource tag="BOARD_THREADED">Sta flexibele weergave toe:</Resource>
     <Resource tag="BOARD_THREADED_HELP">Sta flexibele weergave (boomstructuur) toe.</Resource>
     <Resource tag="BOARD_TOPIC_DEFAULT">Standaard Topic:</Resource>
@@ -1035,8 +1029,6 @@
     <Resource tag="ALLOW_SIGNATURE_HELP">Gebruikers mogen handtekeningen maken. Je moet wel het aantal karakters/toestaan van BBCodes instellen voor elke groep en/of Rang om het te activeren.</Resource>
     <Resource tag="ALLOW_THANKS">Sta Bedankjes toe:</Resource>
     <Resource tag="ALLOW_THANKS_HELP">Als deze is aangevinkt, kunnen Gebruikers elkaar bedanken voor nuttige posts.</Resource>
-    <Resource tag="ALLOW_TOPIC_DESCRIPTION">Laat Topic beschrijving toe:</Resource>
-    <Resource tag="ALLOW_TOPIC_DESCRIPTION_HELP">Als deze is aangevinkt, kunnen gebruikers een beschrijving van het topic toevoegen.</Resource>
     <Resource tag="ALLOW_TOPICS_DUPLICATENAME">Sta meerdere Topics met dezelfde naam toe:</Resource>
     <Resource tag="ALLOW_TOPICS_DUPLICATENAME_HELP">Dubbele Topicnamen toegestaan voor:</Resource>
     <Resource tag="ALLOW_USER_HIDE">Gebruikers mogen zich onzichtbaar maken:</Resource>
@@ -1294,8 +1286,6 @@
     <Resource tag="MAX_POST_SIZE_HELP">De maximale grootte van een bericht in bytes. Op 0 zetten voor ongelimiteerde grootte (niet aanbevolen).</Resource>
     <Resource tag="MAX_SEARCH_RESULTS">Maximaal aantal Zoekresultaten:</Resource>
     <Resource tag="MAX_SEARCH_RESULTS_HELP">Maximum aantal zoekresultaten wat weergegeven wordt. Bij "0" worden alle zoekresultaten weergegeven (niet aanbevolen).</Resource>
-    <Resource tag="MAX_WORD_LENGTH">Maximale Woord Lengte:</Resource>
-    <Resource tag="MAX_WORD_LENGTH_HELP">Gebruik dit om het aantal letters per woord in topictitels (en sommige andere plaatsen) te limiteren.</Resource>
     <Resource tag="MEDALS_TEMPLATE">Medailles template:</Resource>
     <Resource tag="MEDALS_TEMPLATE_HELP">Sjabloon om de medailles op te bouwen.</Resource>
     <Resource tag="MEMBERLIST_PAGE_SIZE">Gebruikerslijst Pagina grootte:</Resource>
@@ -1521,6 +1511,8 @@
     <Resource tag="TOPICS_PER_PAGE_HELP">Aantal Topics per Pagina.</Resource>
     <Resource tag="TWITTER_USERNAME">Twitter Gebruikersnaam voor Retweets:</Resource>
     <Resource tag="TWITTER_USERNAME_HELP">De Twitter Gebruikersnaam die wordt gebruikt als een topic of een bericht wordt geretweet.</Resource>
+    <Resource tag="TWOCOLUMN_BOARD">Use 2 Column Board layout</Resource>
+    <Resource tag="TWOCOLUMN_BOARD_HELP">If enabled show forums in the left column and forum discussions and Stats in the Right Column</Resource>
     <Resource tag="UNHANDLED_USERAGENT_LOG">Zet Onbehandelde UserAgent Log aan:</Resource>
     <Resource tag="UNHANDLED_USERAGENT_LOG_HELP">Als deze aangevinkt is, worden alle onbehandelde UserAgent teksten gelogd.</Resource>
     <Resource tag="USE_FARSI_CALENDER">Gebruik de Farsi (Shamsi) Persische Kalender:</Resource>

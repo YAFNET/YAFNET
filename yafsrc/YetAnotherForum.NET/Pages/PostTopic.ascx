@@ -38,17 +38,15 @@
                         data-userid="<%= BoardContext.Current.PageUserID %>">
                     </div>
                 </asp:PlaceHolder>
-                <asp:PlaceHolder ID="DescriptionRow" Visible="false" runat="server">
-                    <div class="form-group">
-                        <asp:Label runat="server" AssociatedControlID="TopicDescriptionTextBox">
-                            <YAF:LocalizedLabel ID="TopicDescriptionLabel" runat="server" LocalizedTag="description" />
-                        </asp:Label>
-                        <asp:TextBox ID="TopicDescriptionTextBox" runat="server"
-                            CssClass="form-control"
-                            MaxLength="100"
-                            autocomplete="off" />
-                    </div>
-                </asp:PlaceHolder>
+                <div class="form-group">
+                    <asp:Label runat="server" AssociatedControlID="TopicDescriptionTextBox">
+                        <YAF:LocalizedLabel ID="TopicDescriptionLabel" runat="server" LocalizedTag="description" />
+                    </asp:Label>
+                    <asp:TextBox ID="TopicDescriptionTextBox" runat="server"
+                                 CssClass="form-control"
+                                 MaxLength="100"
+                                 autocomplete="off" />
+                </div>
                 <asp:PlaceHolder ID="FromRow" runat="server">
                     <div class="form-group">
                         <asp:Label runat="server" AssociatedControlID="From">

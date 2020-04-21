@@ -425,10 +425,6 @@
     <Resource tag="BOARD_EMAIL_ONREGISTER_HELP">Разделённый точкой с запятой (;) список адресов электронной почты дял посылки уведомлений при регистрации нового пользователя.</Resource>
     <Resource tag="BOARD_EMAIL_REPORTMODS">Отправить модератором сообщение Email при жалобе:</Resource>
     <Resource tag="BOARD_EMAIL_REPORTMODS_HELP">Должны ли все модераторы форума быть уведомлены если кто-то пожаловался на сообщение?</Resource>
-    <Resource tag="BOARD_FILE_EXTENSIONS">Список разрешённых расширений файлов:</Resource>
-    <Resource tag="BOARD_FILE_EXTENSIONS_HELP">Список разрешённых/запрещённых расширений файлов. Последнее менее безопасно.</Resource>
-    <Resource tag="BOARD_JQ_THEME">Тема jQuery UI:</Resource>
-    <Resource tag="BOARD_JQ_THEME_HELP">Тема jQuery UI для использования на этой конференции для вкладок и аккордеона.</Resource>
     <Resource tag="BOARD_LOGO">Board Logo:</Resource>
     <Resource tag="BOARD_LOGO_HELP">Select a Board Logo or use the default YAF Board Logo.</Resource>
     <Resource tag="BOARD_LOGO_SELECT">Select a Board logo</Resource>
@@ -439,8 +435,6 @@
     <Resource tag="BOARD_SETUP">Настройки текущей конференции</Resource>
     <Resource tag="BOARD_THEME">Тема:</Resource>
     <Resource tag="BOARD_THEME_HELP">Тема, используемая по умолчанию во всех форумах конференции.</Resource>
-    <Resource tag="BOARD_THEME_LOGO">Разрешить логотип из темы:</Resource>
-    <Resource tag="BOARD_THEME_LOGO_HELP">Загружать логотип из темы. Не работает при интеграции</Resource>
     <Resource tag="BOARD_THREADED">Разрешить отображение в виде дерева:</Resource>
     <Resource tag="BOARD_THREADED_HELP">Разрешить отображение в виде дерева для сообщений.</Resource>
     <Resource tag="BOARD_TOPIC_DEFAULT">Показывать темы по умолчанию:</Resource>
@@ -1035,8 +1029,6 @@
     <Resource tag="ALLOW_SIGNATURE_HELP">Разрешить пользователям добавлять подписи к сообщениям. Вы должны также установить параметры подписи(кол-во символов, разрешённые BBCode...) для каждой роли и/или статуса, чтобы действительно включить эту опцию.</Resource>
     <Resource tag="ALLOW_THANKS">Разрешить «Спасибо»</Resource>
     <Resource tag="ALLOW_THANKS_HELP">Пользователи могут благодарить других пользователей за понравившиеся сообщения.</Resource>
-    <Resource tag="ALLOW_TOPIC_DESCRIPTION">Разрешить описание темы:</Resource>
-    <Resource tag="ALLOW_TOPIC_DESCRIPTION_HELP">Если включено, пользователи могут добавлять описание темы.</Resource>
     <Resource tag="ALLOW_TOPICS_DUPLICATENAME">Разрешить темы с совпадающим именем для:</Resource>
     <Resource tag="ALLOW_TOPICS_DUPLICATENAME_HELP">Темы с совпадающим именем разрешены для пользователей из списка.</Resource>
     <Resource tag="ALLOW_USER_HIDE">Разрешить пользователю скрывать себя:</Resource>
@@ -1293,8 +1285,6 @@
     <Resource tag="MAX_POST_SIZE_HELP">Максимальный размер сообщения в байтах. Установите 0 для неограниченного (не рекомендуется).</Resource>
     <Resource tag="MAX_SEARCH_RESULTS">Максимальное число результатов поиска:</Resource>
     <Resource tag="MAX_SEARCH_RESULTS_HELP">Максимальное число возвращаемых результатов поиска. Установите 0 для неограниченного (не рекомендуется).</Resource>
-    <Resource tag="MAX_WORD_LENGTH">Максимальная длина слова:</Resource>
-    <Resource tag="MAX_WORD_LENGTH_HELP">Используйте это, чтобы ограничить максимальную длину слова в названиях тем и некоторых других местах.</Resource>
     <Resource tag="MEDALS_TEMPLATE">Шаблон медали:</Resource>
     <Resource tag="MEDALS_TEMPLATE_HELP">Шаблон для отображения медалей пользователя в его данных в сообщениях.</Resource>
     <Resource tag="MEMBERLIST_PAGE_SIZE">Размер страницы списка участников:</Resource>
@@ -1520,6 +1510,8 @@
     <Resource tag="TOPICS_PER_PAGE_HELP">Количество тем для отображения на одной странице.</Resource>
     <Resource tag="TWITTER_USERNAME">Имя пользователя твитера для ретвитов:</Resource>
     <Resource tag="TWITTER_USERNAME_HELP">Упомянутое имя пользователя при ретвите темы или сообщения.</Resource>
+    <Resource tag="TWOCOLUMN_BOARD">Use 2 Column Board layout</Resource>
+    <Resource tag="TWOCOLUMN_BOARD_HELP">If enabled show forums in the left column and forum discussions and Stats in the Right Column</Resource>
     <Resource tag="UNHANDLED_USERAGENT_LOG">Включить журналирование для UserAgent:</Resource>
     <Resource tag="UNHANDLED_USERAGENT_LOG_HELP">Все неидентифицируемые UserAgent будут в журнале. Не включайте это постоянно.</Resource>
     <Resource tag="USE_FARSI_CALENDER">Использовать Фарси/арабский календарь :</Resource>

@@ -425,10 +425,6 @@
     <Resource tag="BOARD_EMAIL_ONREGISTER_HELP">Lista de email separados por punto y coma (;) a los que enviar notificación cuando se registra un nuevo usuario.</Resource>
     <Resource tag="BOARD_EMAIL_REPORTMODS">Enviar email a los moderadores al denunciarse una publicación.</Resource>
     <Resource tag="BOARD_EMAIL_REPORTMODS_HELP">¿Deben todos los moderadores del foro ser notificados si alguien denuncia una publicación?</Resource>
-    <Resource tag="BOARD_FILE_EXTENSIONS">La lista de extensiones de fichero es:</Resource>
-    <Resource tag="BOARD_FILE_EXTENSIONS_HELP">¿La lista de extensiones de fichero es de no permitidos o de permitidos? (cuantos menos más seguro)</Resource>
-    <Resource tag="BOARD_JQ_THEME">Tema para jQuery UI:</Resource>
-    <Resource tag="BOARD_JQ_THEME_HELP">El tema JQuery UI para usar en este tablero para las tabulaciones y acordeón.</Resource>
     <Resource tag="BOARD_LOGO">Board Logo:</Resource>
     <Resource tag="BOARD_LOGO_HELP">Select a Board Logo or use the default YAF Board Logo.</Resource>
     <Resource tag="BOARD_LOGO_SELECT">Select a Board logo</Resource>
@@ -439,8 +435,6 @@
     <Resource tag="BOARD_SETUP">Configuración del tablero</Resource>
     <Resource tag="BOARD_THEME">Tema:</Resource>
     <Resource tag="BOARD_THEME_HELP">El tema a utilizar en este tablero.</Resource>
-    <Resource tag="BOARD_THEME_LOGO">Permitir logo según tema:</Resource>
-    <Resource tag="BOARD_THEME_LOGO_HELP">Coje el logo del fichero del tema (no funciona en portales).</Resource>
     <Resource tag="BOARD_THREADED">Permitir visión por hilos:</Resource>
     <Resource tag="BOARD_THREADED_HELP">Permitir la visión por hilos de las publicaciones.</Resource>
     <Resource tag="BOARD_TOPIC_DEFAULT">Mostrar tema por defecto:</Resource>
@@ -1036,8 +1030,6 @@
     <Resource tag="ALLOW_SIGNATURE_HELP">Permite a los usuarios crear firmas. Debes configurar el número de caracteres y BBCodes para cada grupo y/o rango para realmente activar la funcionalidad.</Resource>
     <Resource tag="ALLOW_THANKS">Permitir a los usuarios agradecer publicaciones:</Resource>
     <Resource tag="ALLOW_THANKS_HELP">Si está marcado, los usuarios pueden agradecer las publicaciones que consideran útiles.</Resource>
-    <Resource tag="ALLOW_TOPIC_DESCRIPTION">Permitir la descripción de un tema:</Resource>
-    <Resource tag="ALLOW_TOPIC_DESCRIPTION_HELP">Si está marcado, los usuarios pueden añadir una descripcción a un tema.</Resource>
     <Resource tag="ALLOW_TOPICS_DUPLICATENAME">Permitir temas con el mismo nombre:</Resource>
     <Resource tag="ALLOW_TOPICS_DUPLICATENAME_HELP">Nombres de temas duplicados pueden ser permitidos.</Resource>
     <Resource tag="ALLOW_USER_HIDE">Permitir a los usuarios ocultarse a si mismos</Resource>
@@ -1305,8 +1297,6 @@
     <Resource tag="MAX_POST_SIZE_HELP">Tamaño máximo de una publicación en bytes. Ponlo a 0 para ilimitado (no recomendado).</Resource>
     <Resource tag="MAX_SEARCH_RESULTS">Número máximo de resultado de búsqueda:</Resource>
     <Resource tag="MAX_SEARCH_RESULTS_HELP">Número máximo de resultados de búsqueda que pueden ser devueltos. Introduce "0" para ilimitados (no recomendado).</Resource>
-    <Resource tag="MAX_WORD_LENGTH">Largo máximo por palabra:</Resource>
-    <Resource tag="MAX_WORD_LENGTH_HELP">Úsalo para limitar el número de caracteres de un palabra en nombres de temas y otros lugares.</Resource>
     <Resource tag="MEDALS_TEMPLATE">Plantilla de medallas:</Resource>
     <Resource tag="MEDALS_TEMPLATE_HELP">Plantilla para mostrar medallas de usuario.</Resource>
     <Resource tag="MEMBERLIST_PAGE_SIZE">Tamaño de página para la lista de miembros:</Resource>
@@ -1532,6 +1522,8 @@
     <Resource tag="TOPICS_PER_PAGE_HELP">Númeo de temas a mostrar por página.</Resource>
     <Resource tag="TWITTER_USERNAME">Usuario Twitter para Retweets:</Resource>
     <Resource tag="TWITTER_USERNAME_HELP">El usuario de Twitter que es mencionado cuando Retweetean un tema o mensaje.</Resource>
+    <Resource tag="TWOCOLUMN_BOARD">Use 2 Column Board layout</Resource>
+    <Resource tag="TWOCOLUMN_BOARD_HELP">If enabled show forums in the left column and forum discussions and Stats in the Right Column</Resource>
     <Resource tag="UNHANDLED_USERAGENT_LOG">Activar el registro de navegadores no controlados:</Resource>
     <Resource tag="UNHANDLED_USERAGENT_LOG_HELP">Si está marcado, todas las cadenas de los navegadores no controlados son registradas.</Resource>
     <Resource tag="USE_FARSI_CALENDER">Usar el calendario persa Farsi (Shamsi):</Resource>

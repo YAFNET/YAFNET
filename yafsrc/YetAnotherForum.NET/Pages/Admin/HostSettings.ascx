@@ -909,14 +909,6 @@
                                     <asp:CheckBox Text="&nbsp;" ID="AllowEmailTopic" runat="server"></asp:CheckBox>
                                 </div>
                             </div>
-                            <div class="form-group col-md-6">
-                                <YAF:HelpLabel ID="HelpLabel188" runat="server"
-                                               AssociatedControlID="EnableTopicDescription"
-                                               LocalizedTag="ALLOW_TOPIC_DESCRIPTION" LocalizedPage="ADMIN_HOSTSETTINGS" />
-                                <div class="custom-control custom-switch">
-                                    <asp:CheckBox Text="&nbsp;" ID="EnableTopicDescription" runat="server"></asp:CheckBox>
-                                </div>
-                            </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-6">
@@ -1190,14 +1182,6 @@
                     </div>
                     <div class="tab-pane fade" id="reputation" role="tabpanel" aria-labelledby="reputation-tab">
                         <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <YAF:HelpLabel ID="HelpLabel106" runat="server" 
-                                               AssociatedControlID="DisplayPoints"
-                                               LocalizedTag="DISPLAY_POINTS" LocalizedPage="ADMIN_HOSTSETTINGS" />
-                                <div class="custom-control custom-switch">
-                                    <asp:CheckBox Text="&nbsp;" ID="DisplayPoints" runat="server"></asp:CheckBox>
-                                </div>
-                            </div>
                             <div class="form-group col-md-6">
                                 <YAF:HelpLabel ID="HelpLabel203" runat="server" 
                                                AssociatedControlID="EnableUserReputation"
@@ -1776,12 +1760,6 @@
                 <asp:DropDownList CssClass="custom-select" ID="MembersListViewPermissions" runat="server">
                 </asp:DropDownList>
             </div>
-        </div>
-        <div class="form-group">
-            <YAF:HelpLabel ID="HelpLabel72" runat="server" 
-                           AssociatedControlID="MaxWordLength"
-                           LocalizedTag="MAX_WORD_LENGTH" LocalizedPage="ADMIN_HOSTSETTINGS" />
-            <asp:TextBox CssClass="form-control" ID="MaxWordLength" MaxLength="2" runat="server"></asp:TextBox>
         </div>
                     </div>
                     <div class="card-footer text-lg-center">

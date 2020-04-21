@@ -1770,24 +1770,6 @@ namespace YAF.Pages.Admin
         protected global::System.Web.UI.WebControls.CheckBox AllowEmailTopic;
 
         /// <summary>
-        /// HelpLabel188 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Web.Controls.HelpLabel HelpLabel188;
-
-        /// <summary>
-        /// EnableTopicDescription control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox EnableTopicDescription;
-
-        /// <summary>
         /// HelpLabel104 control.
         /// </summary>
         /// <remarks>
@@ -2398,24 +2380,6 @@ namespace YAF.Pages.Admin
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox IPInfoPageURL;
-
-        /// <summary>
-        /// HelpLabel106 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Web.Controls.HelpLabel HelpLabel106;
-
-        /// <summary>
-        /// DisplayPoints control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox DisplayPoints;
 
         /// <summary>
         /// HelpLabel203 control.
@@ -3568,24 +3532,6 @@ namespace YAF.Pages.Admin
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList MembersListViewPermissions;
-
-        /// <summary>
-        /// HelpLabel72 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Web.Controls.HelpLabel HelpLabel72;
-
-        /// <summary>
-        /// MaxWordLength control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox MaxWordLength;
 
         /// <summary>
         /// ThemeButton7 control.

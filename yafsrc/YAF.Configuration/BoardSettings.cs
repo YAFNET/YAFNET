@@ -118,16 +118,6 @@ namespace YAF.Configuration
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether to enable topic description.
-        /// </summary>
-        public bool EnableTopicDescription
-        {
-            get => this.Registry.GetValue("EnableTopicDescription", true);
-
-            set => this.Registry.SetValue("EnableTopicDescription", value);
-        }
-
-        /// <summary>
         /// Gets or sets a value indicating whether to use the script manager scripts from a CDN or locally.
         /// </summary>
         /// <value>
@@ -712,16 +702,6 @@ namespace YAF.Configuration
             get => this.Registry.GetValue("AvatarSize", 50000);
 
             set => this.Registry.SetValue("AvatarSize", value);
-        }
-
-        /// <summary>
-        /// Gets or sets MaxWordLength. Used in topic names etc. to avoid layout distortions.
-        /// </summary>
-        public int MaxWordLength
-        {
-            get => this.Registry.GetValue("MaxWordLength", 40);
-
-            set => this.Registry.SetValue("MaxWordLength", value);
         }
 
         /// <summary>

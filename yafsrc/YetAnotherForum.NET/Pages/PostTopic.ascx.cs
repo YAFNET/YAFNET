@@ -161,54 +161,6 @@ namespace YAF.Pages
                 return false;
             }
 
-            // Check if the topic name is not too long
-            if (this.PageContext.BoardSettings.MaxWordLength > 0
-                && this.TopicSubjectTextBox.Text.Trim()
-                    .AreAnyWordsOverMaxLength(this.PageContext.BoardSettings.MaxWordLength))
-            {
-                this.PageContext.AddLoadMessage(
-                    this.GetTextFormatted("TOPIC_NAME_WORDTOOLONG", this.PageContext.BoardSettings.MaxWordLength),
-                    MessageTypes.warning);
-
-                try
-                {
-                    this.TopicSubjectTextBox.Text =
-                        this.TopicSubjectTextBox.Text.Substring(this.PageContext.BoardSettings.MaxWordLength)
-                            .Substring(255);
-                }
-                catch (Exception)
-                {
-                    this.TopicSubjectTextBox.Text =
-                        this.TopicSubjectTextBox.Text.Substring(this.PageContext.BoardSettings.MaxWordLength);
-                }
-
-                return false;
-            }
-
-            // Check if the topic description words are not too long
-            if (this.PageContext.BoardSettings.MaxWordLength > 0
-                && this.TopicDescriptionTextBox.Text.Trim()
-                    .AreAnyWordsOverMaxLength(this.PageContext.BoardSettings.MaxWordLength))
-            {
-                this.PageContext.AddLoadMessage(
-                    this.GetTextFormatted("TOPIC_DESCRIPTION_WORDTOOLONG", this.PageContext.BoardSettings.MaxWordLength),
-                    MessageTypes.warning);
-
-                try
-                {
-                    this.TopicDescriptionTextBox.Text =
-                        this.TopicDescriptionTextBox.Text.Substring(this.PageContext.BoardSettings.MaxWordLength)
-                            .Substring(255);
-                }
-                catch (Exception)
-                {
-                    this.TopicDescriptionTextBox.Text =
-                        this.TopicDescriptionTextBox.Text.Substring(this.PageContext.BoardSettings.MaxWordLength);
-                }
-
-                return false;
-            }
-
             if (this.SubjectRow.Visible && this.TopicSubjectTextBox.Text.IsNotSet())
             {
                 this.PageContext.AddLoadMessage(this.GetText("NEED_SUBJECT"), MessageTypes.warning);
@@ -296,11 +248,6 @@ namespace YAF.Pages
             if (this.IsPostBack)
             {
                 return;
-            }
-
-            if (this.PageContext.BoardSettings.EnableTopicDescription)
-            {
-                this.DescriptionRow.Visible = true;
             }
 
             var normal = new ListItem(this.GetText("normal"), "0");
