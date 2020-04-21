@@ -91,15 +91,6 @@
                     <asp:DropDownList ID="Culture" runat="server" CssClass="select2-select">
                     </asp:DropDownList>
                 </div>
-                <div class="form-group col-md-6">
-                    <YAF:HelpLabel ID="LocalizedLabel12" runat="server"
-                                   AssociatedControlID="FileExtensionAllow"
-                                   LocalizedTag="BOARD_FILE_EXTENSIONS"
-                                   LocalizedPage="ADMIN_BOARDSETTINGS"/>
-                    <div class="custom-control custom-switch">
-                        <asp:CheckBox ID="FileExtensionAllow" runat="server" Text="&nbsp;"></asp:CheckBox>
-                    </div>
-                </div>
             </div>
             <asp:PlaceHolder ID="PollGroupList" runat="server" Visible="false">
                 <div class="form-group">

@@ -156,8 +156,6 @@ namespace YAF.Pages.Admin
                 ref this.DefaultNotificationSetting,
                 boardSettings.DefaultNotificationSetting.ToInt().ToString());
 
-            this.FileExtensionAllow.Checked = boardSettings.FileExtensionAreAllowed;
-
             this.NotificationOnUserRegisterEmailList.Text = boardSettings.NotificationOnUserRegisterEmailList;
             this.EmailModeratorsOnModeratedPost.Checked = boardSettings.EmailModeratorsOnModeratedPost;
             this.EmailModeratorsOnReportedPost.Checked = boardSettings.EmailModeratorsOnReportedPost;
@@ -268,7 +266,6 @@ namespace YAF.Pages.Admin
 
             // allow null/empty as a mobile theme many not be desired.
             boardSettings.ShowTopicsDefault = this.ShowTopic.SelectedValue.ToType<int>();
-            boardSettings.FileExtensionAreAllowed = this.FileExtensionAllow.Checked;
             boardSettings.NotificationOnUserRegisterEmailList = this.NotificationOnUserRegisterEmailList.Text.Trim();
 
             boardSettings.EmailModeratorsOnModeratedPost = this.EmailModeratorsOnModeratedPost.Checked;

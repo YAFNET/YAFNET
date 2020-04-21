@@ -302,16 +302,6 @@ namespace YAF.Configuration
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether FileExtensionAreAllowed.
-        /// </summary>
-        public bool FileExtensionAreAllowed
-        {
-            get => this.RegistryBoard.GetValue("FileExtensionAreAllowed", true);
-
-            set => this.RegistryBoard.SetValue("FileExtensionAreAllowed", value);
-        }
-
-        /// <summary>
         /// Gets or sets NotificationOnUserRegisterEmailList.
         /// </summary>
         public string NotificationOnUserRegisterEmailList

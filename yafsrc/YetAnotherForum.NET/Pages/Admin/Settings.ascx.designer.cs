@@ -195,24 +195,6 @@ namespace YAF.Pages.Admin
         protected global::System.Web.UI.WebControls.DropDownList Culture;
 
         /// <summary>
-        /// LocalizedLabel12 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Web.Controls.HelpLabel LocalizedLabel12;
-
-        /// <summary>
-        /// FileExtensionAllow control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox FileExtensionAllow;
-
-        /// <summary>
         /// PollGroupList control.
         /// </summary>
         /// <remarks>
