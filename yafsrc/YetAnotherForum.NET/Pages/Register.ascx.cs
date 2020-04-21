@@ -132,7 +132,7 @@ namespace YAF.Pages
             this.Get<IDataCache>().Remove(Constants.Cache.BoardUserStats);
 
             // redirect to the main forum URL      
-            BuildLink.Redirect(ForumPages.forum);
+            BuildLink.Redirect(ForumPages.Board);
         }
 
         /// <summary>

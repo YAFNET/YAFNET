@@ -2439,6 +2439,16 @@ namespace YAF.Configuration
         }
 
         /// <summary>
+        /// Gets or sets a value indicating whether two column board layout.
+        /// </summary>
+        public bool TwoColumnBoardLayout
+        {
+            get => this.RegistryBoard.GetValue("TwoColumnBoardLayout", false);
+
+            set => this.RegistryBoard.SetValue("TwoColumnBoardLayout", value);
+        }
+
+        /// <summary>
         /// Gets or sets the board announcement.
         /// </summary>
         public string BoardAnnouncement

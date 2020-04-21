@@ -30,9 +30,7 @@ namespace YAF.Pages.Admin
     using System.Data;
     using System.Drawing;
     using System.IO;
-    using System.Linq;
     using System.Web;
-    using System.Web.UI.HtmlControls;
     using System.Web.UI.WebControls;
 
     using YAF.Configuration;
@@ -236,12 +234,6 @@ namespace YAF.Pages.Admin
                 // bind data
                 this.BindData();
             }
-
-            // set previews
-            this.SetPreview(this.MedalImage, this.MedalPreview);
-            this.SetPreview(this.RibbonImage, this.RibbonPreview);
-            this.SetPreview(this.SmallMedalImage, this.SmallMedalPreview);
-            this.SetPreview(this.SmallRibbonImage, this.SmallRibbonPreview);
         }
 
         /// <summary>
@@ -309,16 +301,16 @@ namespace YAF.Pages.Admin
                             };
 
             // get medal images
-            var imageUrl = this.MedalImage.SelectedValue;
-            var smallImageUrl = this.SmallMedalImage.SelectedValue;
+            var imageUrl = this.MedalImage.SelectedItem.Text;
+            var smallImageUrl = this.SmallMedalImage.SelectedItem.Text;
             if (this.RibbonImage.SelectedIndex > 0)
             {
-                ribbonUrl = this.RibbonImage.SelectedValue;
+                ribbonUrl = this.RibbonImage.SelectedItem.Text;
             }
 
             if (this.SmallRibbonImage.SelectedIndex > 0)
             {
-                smallRibbonUrl = this.SmallRibbonImage.SelectedValue;
+                smallRibbonUrl = this.SmallRibbonImage.SelectedItem.Text;
 
                 imageSize = this.GetImageSize(smallRibbonUrl);
                 ribbonWidth = imageSize.Width.ToType<short>();
@@ -391,6 +383,27 @@ namespace YAF.Pages.Admin
         }
 
         /// <summary>
+        /// Select image in dropdown list and sets appropriate preview.
+        /// </summary>
+        /// <param name="list">
+        /// DropDownList where to search.
+        /// </param>
+        /// <param name="imageUrl">
+        /// URL to search for.
+        /// </param>
+        private static void SelectImage([NotNull] ListControl list, [NotNull] string imageUrl)
+        {
+            // try to find item in a list
+            var item = list.Items.FindByText(imageUrl);
+
+            if (item != null)
+            {
+                // select found item
+                item.Selected = true;
+            }
+        }
+
+        /// <summary>
         /// Bind data for this control.
         /// </summary>
         private void BindData()
@@ -399,13 +412,11 @@ namespace YAF.Pages.Admin
             using (var dt = new DataTable("Files"))
             {
                 // create structure
-                dt.Columns.Add("FileID", typeof(long));
                 dt.Columns.Add("FileName", typeof(string));
                 dt.Columns.Add("Description", typeof(string));
 
                 // add blank row
                 var dr = dt.NewRow();
-                dr["FileID"] = 0;
                 dr["FileName"] =
                     BoardInfo.GetURLToContent("images/spacer.gif"); // use spacer.gif for Description Entry
                 dr["Description"] = this.GetText("ADMIN_EDITMEDAL", "SELECT_IMAGE");
@@ -416,19 +427,7 @@ namespace YAF.Pages.Admin
                     this.Get<HttpRequestBase>().MapPath($"{BoardInfo.ForumServerFileRoot}{BoardFolders.Current.Medals}"));
                 var files = dir.GetFiles("*.*");
 
-                long fileId = 1;
-
-                foreach (var file in from file in files
-                                     let sExt = file.Extension.ToLower()
-                                     where sExt == ".png" || sExt == ".gif" || sExt == ".jpg"
-                                     select file)
-                {
-                    dr = dt.NewRow();
-                    dr["FileID"] = fileId++;
-                    dr["FileName"] = file.Name;
-                    dr["Description"] = file.Name;
-                    dt.Rows.Add(dr);
-                }
+                dt.AddImageFiles(files, BoardFolders.Current.Medals);
 
                 // medal image
                 this.MedalImage.DataSource = dt;
@@ -454,47 +453,37 @@ namespace YAF.Pages.Admin
             // bind data to controls
             this.DataBind();
 
-            // load existing medal if we are editing one
-            if (this.CurrentMedalId.HasValue)
+            if (!this.CurrentMedalId.HasValue)
             {
-                // load users and groups who has been assigned this medal
-                this.UserList.DataSource = this.GetRepository<UserMedal>().ListAsDataTable(null, this.CurrentMedalId);
-                this.UserList.DataBind();
-
-                this.GroupList.DataSource =
-                    this.GetRepository<Medal>().GroupMedalListAsDataTable(null, this.CurrentMedalId);
-                this.GroupList.DataBind();
-
-                var medal = this.GetRepository<Medal>().GetSingle(m => m.ID == this.CurrentMedalId);
-
-                // set controls
-                this.Name.Text = medal.Name;
-                this.Description.Text = medal.Description;
-                this.Message.Text = medal.Message;
-                this.Category.Text = medal.Category;
-                this.SortOrder.Text = medal.SortOrder.ToString();
-                this.ShowMessage.Checked = medal.MedalFlags.ShowMessage;
-                this.AllowRibbon.Checked = medal.MedalFlags.AllowRibbon;
-                this.AllowHiding.Checked = medal.MedalFlags.AllowHiding;
-                this.AllowReOrdering.Checked = medal.MedalFlags.AllowReOrdering;
-
-                // select images
-                this.SelectImage(this.MedalImage, this.MedalPreview, medal.MedalURL);
-                this.SelectImage(this.RibbonImage, this.RibbonPreview, medal.RibbonURL);
-                this.SelectImage(this.SmallMedalImage, this.SmallMedalPreview, medal.SmallMedalURL);
-                this.SelectImage(this.SmallRibbonImage, this.SmallRibbonPreview, medal.SmallRibbonURL);
+                return;
             }
-            else
-            {
-                // set all previews on blank image
-                var spacerPath =
-                    BoardInfo.GetURLToContent("images/spacer.gif"); // use spacer.gif for Description Entry
 
-                this.MedalPreview.Src = spacerPath;
-                this.RibbonPreview.Src = spacerPath;
-                this.SmallMedalPreview.Src = spacerPath;
-                this.SmallRibbonPreview.Src = spacerPath;
-            }
+            // load users and groups who has been assigned this medal
+            this.UserList.DataSource = this.GetRepository<UserMedal>().ListAsDataTable(null, this.CurrentMedalId);
+            this.UserList.DataBind();
+
+            this.GroupList.DataSource =
+                this.GetRepository<Medal>().GroupMedalListAsDataTable(null, this.CurrentMedalId);
+            this.GroupList.DataBind();
+
+            var medal = this.GetRepository<Medal>().GetById(this.CurrentMedalId.Value);
+
+            // set controls
+            this.Name.Text = medal.Name;
+            this.Description.Text = medal.Description;
+            this.Message.Text = medal.Message;
+            this.Category.Text = medal.Category;
+            this.SortOrder.Text = medal.SortOrder.ToString();
+            this.ShowMessage.Checked = medal.MedalFlags.ShowMessage;
+            this.AllowRibbon.Checked = medal.MedalFlags.AllowRibbon;
+            this.AllowHiding.Checked = medal.MedalFlags.AllowHiding;
+            this.AllowReOrdering.Checked = medal.MedalFlags.AllowReOrdering;
+
+            // select images
+            SelectImage(this.MedalImage, medal.MedalURL);
+            SelectImage(this.RibbonImage, medal.RibbonURL);
+            SelectImage(this.SmallMedalImage, medal.SmallMedalURL);
+            SelectImage(this.SmallRibbonImage, medal.SmallRibbonURL);
         }
 
         /// <summary>
@@ -513,50 +502,6 @@ namespace YAF.Pages.Admin
             {
                 return img.Size;
             }
-        }
-
-        /// <summary>
-        /// Select image in dropdown list and sets appropriate preview.
-        /// </summary>
-        /// <param name="list">
-        /// DropDownList where to search.
-        /// </param>
-        /// <param name="preview">
-        /// Preview image.
-        /// </param>
-        /// <param name="imageUrl">
-        /// URL to search for.
-        /// </param>
-        private void SelectImage([NotNull] DropDownList list, [NotNull] HtmlImage preview, [NotNull] string imageUrl)
-        {
-            // try to find item in a list
-            var item = list.Items.FindByText(imageUrl);
-
-            if (item != null)
-            {
-                // select found item
-                item.Selected = true;
-
-                // set preview image
-                preview.Src = $"{BoardInfo.ForumClientFileRoot}{BoardFolders.Current.Medals}/{imageUrl}";
-            }
-            else
-            {
-                // if we found nothing, set blank image as preview
-                preview.Src = BoardInfo.GetURLToContent("images/spacer.gif"); // use spacer.gif for Description Entry
-            }
-        }
-
-        /// <summary>
-        /// Sets the Image preview.
-        /// </summary>
-        /// <param name="imageSelector">DropDownList with image file listed.</param>
-        /// <param name="imagePreview">Image for showing preview.</param>
-        private void SetPreview([NotNull] WebControl imageSelector, [NotNull] HtmlControl imagePreview)
-        {
-            // create javascript
-            imageSelector.Attributes["onchange"] =
-                $"getElementById('{imagePreview.ClientID}').src='{BoardInfo.ForumClientFileRoot}{BoardFolders.Current.Medals}/' + this.value";
         }
 
         #endregion

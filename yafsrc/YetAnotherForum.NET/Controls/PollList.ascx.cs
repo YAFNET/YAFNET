@@ -1364,27 +1364,27 @@ namespace YAF.Controls
                     }
 
                     break;
-                case ForumPages.forum:
+                case ForumPages.Board:
 
                     // This is a poll on the board main page
                     if (this.BoardId > 0)
                     {
-                        BuildLink.Redirect(ForumPages.forum);
+                        BuildLink.Redirect(ForumPages.Board);
                     }
 
                     // This is a poll in a category list 
                     if (this.CategoryId > 0)
                     {
-                        BuildLink.Redirect(ForumPages.forum, "c={0}", this.CategoryId);
+                        BuildLink.Redirect(ForumPages.Board, "c={0}", this.CategoryId);
                     }
 
                     break;
-                case ForumPages.topics:
+                case ForumPages.Topics:
 
                     // this is a poll in forums topic view
                     if (this.ForumId > 0)
                     {
-                        BuildLink.Redirect(ForumPages.topics, "f={0}", this.ForumId);
+                        BuildLink.Redirect(ForumPages.Topics, "f={0}", this.ForumId);
                     }
 
                     break;

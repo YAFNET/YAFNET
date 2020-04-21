@@ -11,7 +11,8 @@
         <div class="col-xl-12">
             <h1><YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" 
                                     LocalizedTag="TITLE" 
-                                    LocalizedPage="ADMIN_EDITMEDAL" /></h1>
+                                    LocalizedPage="ADMIN_EDITMEDAL" />
+            </h1>
         </div>
     </div>
     <div class="row">
@@ -28,8 +29,10 @@
                             <YAF:HelpLabel ID="HelpLabel1" runat="server" 
                                            AssociatedControlID="Name"
                                            LocalizedTag="MEDAL_NAME" LocalizedPage="ADMIN_EDITMEDAL" />
-                            <asp:TextBox ID="Name" runat="server" MaxLength="100" CssClass="form-control"  />
-                            <asp:RequiredFieldValidator runat="server" 
+                            <asp:TextBox ID="Name" runat="server" 
+                                         MaxLength="100" 
+                                         CssClass="form-control"  />
+                            <YAF:LocalizedRequiredFieldValidator runat="server" 
                                                         ControlToValidate="Name" 
                                                         Display="Dynamic"
                                                         ValidationGroup="Medal" 
@@ -53,7 +56,7 @@
                                      TextMode="MultiLine" 
                                      CssClass="form-control"
                                      Height="100" />
-                        <asp:RequiredFieldValidator runat="server" 
+                        <YAF:LocalizedRequiredFieldValidator runat="server" 
                                                     ControlToValidate="Description" 
                                                     Display="Dynamic"
                                                     ValidationGroup="Medal" 
@@ -74,9 +77,14 @@
                             <YAF:HelpLabel ID="HelpLabel3" runat="server"
                                            AssociatedControlID="Message"
                                            LocalizedTag="MEDAL_MESSAGE" LocalizedPage="ADMIN_EDITMEDAL" />
-                            <asp:TextBox  ID="Message" runat="server" MaxLength="100" CssClass="form-control"  />
-                            <asp:RequiredFieldValidator runat="server" ControlToValidate="Message" Display="Dynamic"
-                                                        ValidationGroup="Medal" Text="Required" />
+                            <asp:TextBox  ID="Message" runat="server" 
+                                          MaxLength="100" 
+                                          CssClass="form-control"  />
+                            <YAF:LocalizedRequiredFieldValidator runat="server" 
+                                                        ControlToValidate="Message" 
+                                                        Display="Dynamic"
+                                                        ValidationGroup="Medal" 
+                                                        Text="Required" />
                         </div>
                         <div class="form-group col-md-4">
                             <YAF:HelpLabel ID="HelpLabel10" runat="server"
@@ -92,29 +100,25 @@
                         <YAF:HelpLabel ID="HelpLabel5" runat="server"
                                        AssociatedControlID="MedalImage"
                                        LocalizedTag="MEDAL_IMAGE" LocalizedPage="ADMIN_EDITMEDAL" />
-                        <img style="vertical-align: top;" runat="server" id="MedalPreview" alt="Preview" />
-                        <asp:DropDownList CssClass="custom-select" ID="MedalImage" runat="server" alt="Preview" />
+                        <YAF:ImageListBox ID="MedalImage" runat="server" CssClass="select2-image-select" />
                     </div>
                     <div class="form-group">
                         <YAF:HelpLabel ID="HelpLabel6" runat="server"
                                        AssociatedControlID="RibbonImage"
                                        LocalizedTag="RIBBON_IMAGE" LocalizedPage="ADMIN_EDITMEDAL" />
-                        <img style="vertical-align: top;" runat="server" id="RibbonPreview" alt="Preview" />
-                        <asp:DropDownList CssClass="custom-select" ID="RibbonImage" runat="server" />
+                        <YAF:ImageListBox ID="RibbonImage" runat="server" CssClass="select2-image-select" />
                     </div>
                     <div class="form-group">
                         <YAF:HelpLabel ID="HelpLabel7" runat="server"
                                        AssociatedControlID="SmallMedalImage"
                                        LocalizedTag="SMALL_IMAGE" LocalizedPage="ADMIN_EDITMEDAL" />
-                        <img style="vertical-align: top;" runat="server" id="SmallMedalPreview" alt="Preview" />
-                        <asp:DropDownList ID="SmallMedalImage" runat="server" CssClass="custom-select" />
+                        <YAF:ImageListBox ID="SmallMedalImage" runat="server" CssClass="select2-image-select" />
                     </div>
                     <div class="form-group">
                         <YAF:HelpLabel ID="HelpLabel8" runat="server"
                                        AssociatedControlID="SmallRibbonImage"
                                        LocalizedTag="SMALL_RIBBON" LocalizedPage="ADMIN_EDITMEDAL" />
-                        <img style="vertical-align: top;" runat="server" id="SmallRibbonPreview" alt="Preview" />
-                        <asp:DropDownList ID="SmallRibbonImage" runat="server" CssClass="custom-select" />
+                        <YAF:ImageListBox ID="SmallRibbonImage" runat="server" CssClass="select2-image-select" />
                     </div>
                     <div class="form-row">
                         <div class="form-group col-md-4">
@@ -151,16 +155,16 @@
                     </div>
                 </div>
                 <div class="card-footer text-center">
-				<YAF:ThemeButton ID="Save" runat="server" 
-                                 OnClick="SaveClick" 
-                                 Type="Primary"            
-				                 Icon="save" 
-                                 TextLocalizedTag="SAVE" />&nbsp;
-				<YAF:ThemeButton ID="Cancel" runat="server" 
-                                 OnClick="CancelClick" 
-                                 Type="Secondary"
-				                 Icon="times" 
-                                 TextLocalizedTag="CANCEL" />
+                    <YAF:ThemeButton ID="Save" runat="server" 
+                                     OnClick="SaveClick" 
+                                     Type="Primary" 
+                                     Icon="save" 
+                                     TextLocalizedTag="SAVE" />&nbsp;
+                    <YAF:ThemeButton ID="Cancel" runat="server" 
+                                     OnClick="CancelClick" 
+                                     Type="Secondary"
+                                     Icon="times" 
+                                     TextLocalizedTag="CANCEL" />
                 </div>
             </div>
         </div>

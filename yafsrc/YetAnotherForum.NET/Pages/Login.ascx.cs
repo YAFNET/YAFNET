@@ -235,7 +235,7 @@ namespace YAF.Pages
             this.Login1.DestinationPageUrl =
                 this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("ReturnUrl").IsSet()
                     ? this.HtmlEncode(this.Server.UrlDecode(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("ReturnUrl")))
-                    : BuildLink.GetLink(ForumPages.forum);
+                    : BuildLink.GetLink(ForumPages.Board);
 
             // localize controls
             var rememberMe = this.Login1.FindControlAs<CheckBox>("RememberMe");

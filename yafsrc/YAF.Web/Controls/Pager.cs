@@ -193,15 +193,15 @@ namespace YAF.Web.Controls
 
             switch (this.PageContext.ForumPageType)
             {
-                case ForumPages.topics:
+                case ForumPages.Topics:
                     url = page > 1
                               ? BuildLink.GetLinkNotEscaped(
-                                  ForumPages.topics,
+                                  ForumPages.Topics,
                                   "f={0}&p={1}",
                                   this.PageContext.PageForumID,
                                   page)
                               : BuildLink.GetLinkNotEscaped(
-                                  ForumPages.topics,
+                                  ForumPages.Topics,
                                   "f={0}",
                                   this.PageContext.PageForumID);
 

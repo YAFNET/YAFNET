@@ -11,7 +11,7 @@ namespace YAF.Pages
 {
 
 
-    public partial class forum
+    public partial class Board
     {
 
         /// <summary>

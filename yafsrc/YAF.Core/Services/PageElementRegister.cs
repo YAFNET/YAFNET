@@ -29,7 +29,6 @@ namespace YAF.Core.Services
     using System.Web;
     using System.Web.UI;
 
-    using YAF.Core;
     using YAF.Core.Context;
     using YAF.Utils;
     using YAF.Utils.Helpers;
@@ -41,22 +40,13 @@ namespace YAF.Core.Services
     /// </summary>
     public class PageElementRegister
     {
-        #region Constants and Fields
-
-        /// <summary>
-        ///   The _registered elements.
-        /// </summary>
-        private readonly List<string> registeredElements = new List<string>();
-
-        #endregion
-
         #region Properties
 
         /// <summary>
         ///   Gets elements (using in the head or header) that are registered on the page.
         ///   Used mostly by RegisterPageElementHelper.
         /// </summary>
-        public List<string> RegisteredElements => this.registeredElements;
+        public List<string> RegisteredElements { get; } = new List<string>();
 
         #endregion
 
@@ -70,7 +60,7 @@ namespace YAF.Core.Services
         /// </param>
         public void AddPageElement(string name)
         {
-            this.registeredElements.Add(name.ToLower());
+            this.RegisteredElements.Add(name.ToLower());
         }
 
         /// <summary>
@@ -84,7 +74,7 @@ namespace YAF.Core.Services
         /// </returns>
         public bool PageElementExists(string name)
         {
-            return this.registeredElements.Contains(name.ToLower());
+            return this.RegisteredElements.Contains(name.ToLower());
         }
 
         /// <summary>

@@ -432,7 +432,7 @@ namespace YAF.Install
             // done here...
             try
             {
-                this.Get<HttpResponseBase>().Redirect(BuildLink.GetLink(ForumPages.forum));
+                this.Get<HttpResponseBase>().Redirect(BuildLink.GetLink(ForumPages.Board));
             }
             catch (Exception)
             {

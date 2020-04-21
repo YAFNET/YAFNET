@@ -2166,36 +2166,6 @@ BEGIN
 END
 GO
 
-create procedure [{databaseOwner}].[{objectQualifier}eventlog_deletebyuser]
-(
-    @BoardID int = null,
-    @PageUserID int
-) as
-begin
-if (exists (select top 1 1 from [{databaseOwner}].[{objectQualifier}User] where ((Flags & 1) = 1 and UserID = @PageUserID)))
-begin
-delete from [{databaseOwner}].[{objectQualifier}EventLog] where
-            (UserID is null or
-            UserID in (select UserID from [{databaseOwner}].[{objectQualifier}User] where BoardID=@BoardID))
-end
-else
-begin
-declare @tmp_evlogdelacc table (EventLogTID int);
-
-        -- either EventLogID or BoardID must be null, not both at the same time
-    insert into	@tmp_evlogdelacc(EventLogTID)
-    select a.EventLogID from [{databaseOwner}].[{objectQualifier}EventLog] a
-        left join [{databaseOwner}].[{objectQualifier}EventLogGroupAccess] e on e.EventTypeID = a.[Type]
-        join [{databaseOwner}].[{objectQualifier}UserGroup] ug on (ug.UserID =  @PageUserID and ug.GroupID = e.GroupID)
-        left join [{databaseOwner}].[{objectQualifier}User] b on b.UserID=a.UserID
-        where e.DeleteAccess = 1
-        delete from [{databaseOwner}].[{objectQualifier}EventLog]
-        where EventLogID in (select EventLogTID from @tmp_evlogdelacc)
-    end
-end
-GO
-
-
 create procedure [{databaseOwner}].[{objectQualifier}eventlog_list](@BoardID int, @PageUserID int, @MaxRows int, @MaxDays int,  @PageIndex int,
    @PageSize int, @SinceDate datetime, @ToDate datetime, @EventIDs varchar(8000) = null,
 @UTCTIMESTAMP datetime) as

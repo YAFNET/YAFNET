@@ -289,21 +289,21 @@ namespace YAF.Pages
             {
                 this.PageLinks.AddLink(
                     this.PageContext.PageCategoryName,
-                    BuildLink.GetLink(ForumPages.forum, "c={0}", this.categoryId));
+                    BuildLink.GetLink(ForumPages.Board, "c={0}", this.categoryId));
             }
 
             if (this.returnForum > 0)
             {
                 var name = this.GetRepository<Forum>().GetById(this.returnForum.Value).Name;
 
-                this.PageLinks.AddLink(name, BuildLink.GetLink(ForumPages.topics, "f={0}", this.returnForum));
+                this.PageLinks.AddLink(name, BuildLink.GetLink(ForumPages.Topics, "f={0}", this.returnForum));
             }
 
             if (this.forumId > 0)
             {
                 var name = this.GetRepository<Forum>().GetById(this.forumId.Value).Name;
 
-                this.PageLinks.AddLink(name, BuildLink.GetLink(ForumPages.topics, "f={0}", this.forumId));
+                this.PageLinks.AddLink(name, BuildLink.GetLink(ForumPages.Topics, "f={0}", this.forumId));
             }
 
             if (this.topicId > 0)
@@ -885,7 +885,7 @@ namespace YAF.Pages
             if (this.topicUnapproved)
             {
                 // Tell user that his message will have to be approved by a moderator
-                var url = BuildLink.GetLink(ForumPages.topics, "f={0}", this.returnForum);
+                var url = BuildLink.GetLink(ForumPages.Topics, "f={0}", this.returnForum);
 
                 if (Config.IsRainbow)
                 {
@@ -913,19 +913,19 @@ namespace YAF.Pages
 
                 case "f":
 
-                    BuildLink.Redirect(ForumPages.topics, "f={0}", retvalue);
+                    BuildLink.Redirect(ForumPages.Topics, "f={0}", retvalue);
                     break;
                 case "ef":
                     BuildLink.Redirect(ForumPages.Admin_EditForum, "f={0}", retvalue);
                     break;
                 case "c":
-                    BuildLink.Redirect(ForumPages.forum, "c={0}", retvalue);
+                    BuildLink.Redirect(ForumPages.Board, "c={0}", retvalue);
                     break;
                 case "ec":
                     BuildLink.Redirect(ForumPages.Admin_EditCategory, "c={0}", retvalue);
                     break;
                 case "b":
-                    BuildLink.Redirect(ForumPages.forum);
+                    BuildLink.Redirect(ForumPages.Board);
                     break;
                 case "eb":
                     BuildLink.Redirect(ForumPages.Admin_EditBoard, "b={0}", retvalue);

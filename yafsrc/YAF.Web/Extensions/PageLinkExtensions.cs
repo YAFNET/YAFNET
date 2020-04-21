@@ -50,7 +50,7 @@ namespace YAF.Web.Extensions
         {
             CodeContracts.VerifyNotNull(pageLinks, "pageLinks");
 
-            pageLinks.AddLink(pageLinks.Get<BoardSettings>().Name, BuildLink.GetLink(ForumPages.forum));
+            pageLinks.AddLink(pageLinks.Get<BoardSettings>().Name, BuildLink.GetLink(ForumPages.Board));
 
             return pageLinks;
         }
@@ -70,7 +70,7 @@ namespace YAF.Web.Extensions
             CodeContracts.VerifyNotNull(pageLinks, "pageLinks");
             CodeContracts.VerifyNotNull(categoryName, "categoryName");
 
-            pageLinks.AddLink(categoryName, BuildLink.GetLink(ForumPages.forum, "c={0}", categoryId));
+            pageLinks.AddLink(categoryName, BuildLink.GetLink(ForumPages.Board, "c={0}", categoryId));
 
             return pageLinks;
         }
@@ -110,7 +110,7 @@ namespace YAF.Web.Extensions
 
                 if (parent != null)
                 {
-                    pageLinks.AddLink(parent.Name, BuildLink.GetLink(ForumPages.topics, "f={0}", parent.ID));
+                    pageLinks.AddLink(parent.Name, BuildLink.GetLink(ForumPages.Topics, "f={0}", parent.ID));
                 }
             }
 
@@ -118,7 +118,7 @@ namespace YAF.Web.Extensions
             {
                 pageLinks.AddLink(
                     BoardContext.Current.PageForumName,
-                    noForumLink ? string.Empty : BuildLink.GetLink(ForumPages.topics, "f={0}", forumId));
+                    noForumLink ? string.Empty : BuildLink.GetLink(ForumPages.Topics, "f={0}", forumId));
             }
 
             return pageLinks;

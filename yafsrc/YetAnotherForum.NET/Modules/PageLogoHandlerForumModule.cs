@@ -85,7 +85,7 @@ namespace YAF.Modules
                 return;
             }
 
-            bannerLink.NavigateUrl = BuildLink.GetLink(ForumPages.forum);
+            bannerLink.NavigateUrl = BuildLink.GetLink(ForumPages.Board);
             bannerLink.ToolTip = this.GetText("TOOLBAR", "FORUM_TITLE");
 
             var logoUrl = $"{BoardInfo.ForumClientFileRoot}{BoardFolders.Current.Logos}/{BoardContext.Current.BoardSettings.ForumLogo}";

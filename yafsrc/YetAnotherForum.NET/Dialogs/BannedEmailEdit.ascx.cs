@@ -103,16 +103,19 @@ namespace YAF.Dialogs
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Save_OnClick([NotNull] object sender, [NotNull] EventArgs e)
         {
-            if (this.mask.Text.IsSet())
+            if (this.mask.Text.IsNotSet())
             {
-                this.GetRepository<BannedEmail>().Save(
-                    this.BannedId,
-                    this.mask.Text.Trim(),
-                    this.BanReason.Text.Trim());
-
-                // go back to banned IP's administration page
-                BuildLink.Redirect(ForumPages.Admin_BannedEmails);
+                // TODO: SHow error message
+                return;
             }
+
+            this.GetRepository<BannedEmail>().Save(
+                this.BannedId,
+                this.mask.Text.Trim(),
+                this.BanReason.Text.Trim());
+
+            // go back to banned IP's administration page
+            BuildLink.Redirect(ForumPages.Admin_BannedEmails);
         }
 
         #endregion

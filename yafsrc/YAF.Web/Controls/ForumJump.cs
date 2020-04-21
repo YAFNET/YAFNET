@@ -92,18 +92,18 @@ namespace YAF.Web.Controls
         {
             if (this.ForumId == 0)
             {
-                BuildLink.Redirect(ForumPages.forum);
+                BuildLink.Redirect(ForumPages.Board);
                 return;
             }
 
             if (this.ForumId < 0)
             {
                 // categories are negative
-                BuildLink.Redirect(ForumPages.forum, "c={0}", -this.ForumId);
+                BuildLink.Redirect(ForumPages.Board, "c={0}", -this.ForumId);
                 return;
             }
 
-            BuildLink.Redirect(ForumPages.topics, "f={0}", this.ForumId);
+            BuildLink.Redirect(ForumPages.Topics, "f={0}", this.ForumId);
         }
 
         #endregion

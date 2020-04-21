@@ -35,7 +35,6 @@ namespace YAF.Web.Controls
     using System.Web.UI.WebControls;
 
     using YAF.Configuration;
-    using YAF.Core;
     using YAF.Core.BaseControls;
     using YAF.Core.BasePages;
     using YAF.Core.Context;
@@ -354,12 +353,6 @@ namespace YAF.Web.Controls
                 this.Controls.Add(this.LoadControl($"{BoardInfo.ForumServerFileRoot}controls/CookieConsent.ascx"));
             }
 
-            // Add smart Scroll
-            /*if (Config.IsAnyPortal)
-            {
-                this.Controls.Add(new SmartScroller());
-            }*/
-
             if (this.Get<BoardSettings>().ShowScrollBackToTopButton)
             {
                 // Add Scroll top button
@@ -417,7 +410,7 @@ namespace YAF.Web.Controls
 
             if (this.page == null)
             {
-                this.page = pages.GetPage("forum");
+                this.page = pages.GetPage("Board");
             }
 
             var src = $"{BoardInfo.ForumServerFileRoot}pages/{this.page.PageName}.ascx";

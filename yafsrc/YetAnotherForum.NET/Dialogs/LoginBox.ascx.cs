@@ -86,13 +86,13 @@ namespace YAF.Dialogs
         /// </returns>
         protected virtual string GetValidUsername(string username, string password)
         {
+            string realUsername;
             if (username.Contains("@") && this.Get<MembershipProvider>().RequiresUniqueEmail)
             {
                 // attempt Email Login
-                var realUsername = this.Get<MembershipProvider>().GetUserNameByEmail(username);
+                realUsername = this.Get<MembershipProvider>().GetUserNameByEmail(username);
 
-                if (realUsername.IsSet() && this.Get<MembershipProvider>()
-                        .ValidateUser(realUsername, password))
+                if (realUsername.IsSet() && this.Get<MembershipProvider>().ValidateUser(realUsername, password))
                 {
                     return realUsername;
                 }
@@ -113,20 +113,16 @@ namespace YAF.Dialogs
             // Display name login
             var id = this.Get<IUserDisplayName>().GetId(username);
 
-            if (id.HasValue)
+            if (!id.HasValue)
             {
-                // get the username associated with this id...
-                var realUsername = UserMembershipHelper.GetUserNameFromID(id.Value);
-
-                // validate again...
-                if (this.Get<MembershipProvider>().ValidateUser(realUsername, password))
-                {
-                    return realUsername;
-                }
+                return null;
             }
 
-            // no valid login -- return null
-            return null;
+            // get the username associated with this id...
+            realUsername = UserMembershipHelper.GetUserNameFromID(id.Value);
+
+            // validate again...
+            return this.Get<MembershipProvider>().ValidateUser(realUsername, password) ? realUsername : null;
         }
 
         /// <summary>

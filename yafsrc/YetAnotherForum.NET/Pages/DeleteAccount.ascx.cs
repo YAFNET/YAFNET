@@ -188,7 +188,7 @@ namespace YAF.Pages
                     break;
             }
 
-            BuildLink.Redirect(ForumPages.forum);
+            BuildLink.Redirect(ForumPages.Board);
         }
 
         #endregion

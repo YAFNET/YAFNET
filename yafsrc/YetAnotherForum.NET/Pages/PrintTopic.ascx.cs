@@ -175,7 +175,7 @@ namespace YAF.Pages
                 this.PageLinks.AddRoot();
                 this.PageLinks.AddLink(
                     this.PageContext.PageCategoryName,
-                    BuildLink.GetLink(ForumPages.forum, "c={0}", this.PageContext.PageCategoryID));
+                    BuildLink.GetLink(ForumPages.Board, "c={0}", this.PageContext.PageCategoryID));
             }
 
             this.PageLinks.AddForum(this.PageContext.PageForumID);

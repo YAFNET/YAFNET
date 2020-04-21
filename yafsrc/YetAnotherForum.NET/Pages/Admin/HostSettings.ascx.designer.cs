@@ -3174,6 +3174,24 @@ namespace YAF.Pages.Admin
         protected global::System.Web.UI.WebControls.CheckBox ShowScrollBackToTopButton;
 
         /// <summary>
+        /// HelpLabel38 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Web.Controls.HelpLabel HelpLabel38;
+
+        /// <summary>
+        /// TwoColumnBoardLayout control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox TwoColumnBoardLayout;
+
+        /// <summary>
         /// ThemeButton4 control.
         /// </summary>
         /// <remarks>

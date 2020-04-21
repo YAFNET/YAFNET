@@ -28,10 +28,8 @@ namespace YAF.Core.Services
     using System.Web;
 
     using YAF.Configuration;
-    using YAF.Core.Context;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
-    using YAF.Core.UsersRoles;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Interfaces;
@@ -42,8 +40,32 @@ namespace YAF.Core.Services
     /// <summary>
     ///  ThankYou Class to handle Thanks
     /// </summary>
-    public class ThankYou : IThankYou
+    public class ThankYou : IThankYou, IHaveServiceLocator
     {
+        #region Constructors and Destructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ThankYou"/> class.
+        /// </summary>
+        /// <param name="serviceLocator">
+        /// The service locator.
+        /// </param>
+        public ThankYou(IServiceLocator serviceLocator)
+        {
+            this.ServiceLocator = serviceLocator;
+        }
+
+        #endregion
+
+        #region Properties
+
+        /// <summary>
+        /// Gets or sets ServiceLocator.
+        /// </summary>
+        public IServiceLocator ServiceLocator { get; set; }
+
+        #endregion
+
         #region Public Methods
 
         /// <summary>
@@ -74,9 +96,9 @@ namespace YAF.Core.Services
             return new ThankYouInfo
                        {
                            MessageID = messageId,
-                           ThanksInfo = BoardContext.Current.Get<IThankYou>().ThanksInfo(username, messageId),
-                           Text = BoardContext.Current.Get<ILocalization>().GetText("BUTTON", textTag),
-                           Title = BoardContext.Current.Get<ILocalization>().GetText("BUTTON", titleTag)
+                           ThanksInfo = this.Get<IThankYou>().ThanksInfo(username, messageId),
+                           Text = this.Get<ILocalization>().GetText("BUTTON", textTag),
+                           Title = this.Get<ILocalization>().GetText("BUTTON", titleTag)
                        };
         }
 
@@ -95,31 +117,17 @@ namespace YAF.Core.Services
         /// </returns>
         public string ThanksInfo([NotNull] string username, int messageId)
         {
-            var thanksNumber = BoardContext.Current.GetRepository<Thanks>().Count(t => t.MessageID == messageId);
+            var thanksNumber = this.GetRepository<Thanks>().Count(t => t.MessageID == messageId);
 
             if (thanksNumber == 0)
             {
                 return "&nbsp;";
             }
 
-            var displayName = username;
-            if (BoardContext.Current.Get<BoardSettings>().EnableDisplayName)
-            {
-                // get the user's display name.
-                var mu = UserMembershipHelper.GetMembershipUserByName(username);
-                if (mu != null)
-                {
-                    displayName = BoardContext.Current.Get<IUserDisplayName>().GetName(
-                        UserMembershipHelper.GetUserIDFromProviderUserKey(mu.ProviderUserKey));
-                }
-            }
+            var thanksText = this.Get<ILocalization>()
+                .GetTextFormatted("THANKSINFO", thanksNumber, username);
 
-            displayName = BoardContext.Current.Get<HttpServerUtilityBase>().HtmlEncode(displayName);
-
-            var thanksText = BoardContext.Current.Get<ILocalization>()
-                .GetTextFormatted("THANKSINFO", thanksNumber, displayName);
-
-            var thanks = GetThanks(messageId);
+            var thanks = this.GetThanks(messageId);
 
             return $@"<a class=""btn btn-sm btn-link thanks-popover"" 
                            data-toggle=""popover"" 
@@ -142,21 +150,21 @@ namespace YAF.Core.Services
         /// The get thanks.
         /// </returns>
         [NotNull]
-        private static string GetThanks([NotNull] int messageId)
+        private string GetThanks([NotNull] int messageId)
         {
             var filler = new StringBuilder();
 
-            var thanks = BoardContext.Current.GetRepository<Thanks>().MessageGetThanksList(messageId);
+            var thanks = this.GetRepository<Thanks>().MessageGetThanksList(messageId);
 
             filler.Append("<ol>");
 
             thanks.ForEach(
                 dr =>
                     {
-                        var name = BoardContext.Current.Get<BoardSettings>().EnableDisplayName
-                                       ? BoardContext.Current.Get<HttpServerUtilityBase>()
+                        var name = this.Get<BoardSettings>().EnableDisplayName
+                                       ? this.Get<HttpServerUtilityBase>()
                                            .HtmlEncode(dr.Item2.DisplayName)
-                                       : BoardContext.Current.Get<HttpServerUtilityBase>().HtmlEncode(dr.Item2.Name);
+                                       : this.Get<HttpServerUtilityBase>().HtmlEncode(dr.Item2.Name);
 
                         // vzrus: quick fix for the incorrect link. URL rewriting don't work :(
                         filler.AppendFormat(
@@ -165,13 +173,13 @@ namespace YAF.Core.Services
                             BuildLink.GetLink(ForumPages.Profile, "u={0}&name={1}", dr.Item2.ID, name),
                             name);
 
-                        if (BoardContext.Current.Get<BoardSettings>().ShowThanksDate)
+                        if (this.Get<BoardSettings>().ShowThanksDate)
                         {
                             filler.AppendFormat(
                                 " {0}",
-                                BoardContext.Current.Get<ILocalization>().GetTextFormatted(
+                                this.Get<ILocalization>().GetTextFormatted(
                                     "ONDATE",
-                                    BoardContext.Current.Get<IDateTime>().FormatDateShort(dr.Item1.ThanksDate)));
+                                    this.Get<IDateTime>().FormatDateShort(dr.Item1.ThanksDate)));
                         }
 
                         filler.Append("</li>");

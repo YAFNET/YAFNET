@@ -222,7 +222,7 @@ namespace YAF.Pages.Admin
         /// </summary>
         protected override void CreatePageLinks()
         {
-            this.PageLinks.AddLink(this.Get<BoardSettings>().Name, BuildLink.GetLink(ForumPages.forum));
+            this.PageLinks.AddLink(this.Get<BoardSettings>().Name, BuildLink.GetLink(ForumPages.Board));
             this.PageLinks.AddLink(
                 this.GetText("ADMIN_ADMIN", "Administration"),
                 BuildLink.GetLink(ForumPages.Admin_Admin));
@@ -420,11 +420,10 @@ namespace YAF.Pages.Admin
 
             using (var dt = new DataTable("Files"))
             {
-                dt.Columns.Add("FileID", typeof(long));
                 dt.Columns.Add("FileName", typeof(string));
                 dt.Columns.Add("Description", typeof(string));
+                
                 var dr = dt.NewRow();
-                dr["FileID"] = 0;
                 dr["FileName"] =
                     BoardInfo.GetURLToContent("images/spacer.gif"); // use spacer.gif for Description Entry
                 dr["Description"] = this.GetText("BOARD_LOGO_SELECT");
@@ -434,21 +433,8 @@ namespace YAF.Pages.Admin
                     this.Get<HttpRequestBase>()
                         .MapPath($"{BoardInfo.ForumServerFileRoot}{BoardFolders.Current.Logos}"));
                 var files = dir.GetFiles("*.*");
-                long fileID = 1;
 
-                (from file in files
-                 let extension = file.Extension.ToLower()
-                 where extension == ".png" || extension == ".gif" || extension == ".jpg" || extension == ".svg"
-                 select file).ForEach(
-                    file =>
-                        {
-                            dr = dt.NewRow();
-                            dr["FileID"] = fileID++;
-                            dr["FileName"] =
-                                $"{BoardInfo.ForumClientFileRoot}{BoardFolders.Current.Logos}/{file.Name}";
-                            dr["Description"] = file.Name;
-                            dt.Rows.Add(dr);
-                        });
+                dt.AddImageFiles(files, BoardFolders.Current.Logos);
 
                 this.BoardLogo.DataSource = dt;
                 this.BoardLogo.DataValueField = "FileName";

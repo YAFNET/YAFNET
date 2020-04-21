@@ -3,6 +3,31 @@
 
 <YAF:PageLinks runat="server" ID="PageLinks" />
 
+<div class="row">
+    <div class="col-xl-12">
+        <h2>
+            <YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="TITLE" />
+        </h2>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col">
+        <div class="card mb-3">
+            <div class="card-header">
+                <YAF:Icon runat="server"
+                          IconNameBadge="comment"
+                          IconBadgeType="text-secondary"
+                          IconName="user"
+                          IconType="text-secondary"/>
+            </div>
+            <div class="card-footer text-center">
+                
+            </div>
+        </div>
+    </div>
+</div>
+
 <asp:Panel id="TopicsTabs" runat="server">
                <ul class="nav nav-tabs" role="tablist">
                  <li class="nav-item">

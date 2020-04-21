@@ -38,24 +38,19 @@ namespace YAF.Core.BBCode
     #region Constants and Fields
 
     /// <summary>
-    ///   The _replacement dictionary.
+    ///   The current index.
     /// </summary>
-    private readonly Dictionary<int, string> _replacementDictionary;
+    private int currentIndex;
 
     /// <summary>
-    ///   The _current index.
+    ///   The random instance.
     /// </summary>
-    private int _currentIndex;
-
-    /// <summary>
-    ///   The _random instance.
-    /// </summary>
-    private int _randomInstance;
+    private int randomInstance;
 
     /// <summary>
     ///  REPLACEMENT UNIQUE VALUE -- USED TO CREATE A UNIQUE VALUE TO REPLACE -- IT IS NOT SUPPOSED TO BE HUMAN READABLE.
     /// </summary>
-    private string _replaceFormat = "÷ñÒ{1}êÖ{0}õæ÷";
+    private string replaceFormat = "÷ñÒ{1}êÖ{0}õæ÷";
 
     #endregion
 
@@ -66,7 +61,7 @@ namespace YAF.Core.BBCode
     /// </summary>
     public ReplaceBlocksCollection()
     {
-      this._replacementDictionary = new Dictionary<int, string>();
+      this.ReplacementDictionary = new Dictionary<int, string>();
       this.RandomizeInstance();
     }
 
@@ -77,7 +72,7 @@ namespace YAF.Core.BBCode
     /// <summary>
     ///   Gets ReplacementDictionary.
     /// </summary>
-    public Dictionary<int, string> ReplacementDictionary => this._replacementDictionary;
+    public Dictionary<int, string> ReplacementDictionary { get; }
 
     #endregion
 
@@ -94,8 +89,8 @@ namespace YAF.Core.BBCode
     /// </returns>
     public int Add(string newItem)
     {
-      this._replacementDictionary.Add(this._currentIndex, newItem);
-      return this._currentIndex++;
+      this.ReplacementDictionary.Add(this.currentIndex, newItem);
+      return this.currentIndex++;
     }
 
     /// <summary>
@@ -109,7 +104,7 @@ namespace YAF.Core.BBCode
     /// </returns>
     public string Get(int index)
     {
-      return string.Format(this._replaceFormat, index, this._randomInstance);
+      return string.Format(this.replaceFormat, index, this.randomInstance);
     }
 
     /// <summary>
@@ -119,7 +114,7 @@ namespace YAF.Core.BBCode
     public void RandomizeInstance()
     {
       var rand = new Random();
-      this._randomInstance = rand.Next();
+      this.randomInstance = rand.Next();
     }
 
     /// <summary>
@@ -131,8 +126,8 @@ namespace YAF.Core.BBCode
     {
         var sb = new StringBuilder(text);
 
-        this._replacementDictionary.Keys.ForEach(
-            index => sb.Replace(this.Get(index), this._replacementDictionary[index]));
+        this.ReplacementDictionary.Keys.ForEach(
+            index => sb.Replace(this.Get(index), this.ReplacementDictionary[index]));
 
         text = sb.ToString();
     }

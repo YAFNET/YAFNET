@@ -150,22 +150,13 @@ namespace YAF.Pages.Admin
         protected global::YAF.Web.Controls.HelpLabel HelpLabel5;
 
         /// <summary>
-        /// MedalPreview control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlImage MedalPreview;
-
-        /// <summary>
         /// MedalImage control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList MedalImage;
+        protected global::YAF.Web.Controls.ImageListBox MedalImage;
 
         /// <summary>
         /// HelpLabel6 control.
@@ -177,22 +168,13 @@ namespace YAF.Pages.Admin
         protected global::YAF.Web.Controls.HelpLabel HelpLabel6;
 
         /// <summary>
-        /// RibbonPreview control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlImage RibbonPreview;
-
-        /// <summary>
         /// RibbonImage control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList RibbonImage;
+        protected global::YAF.Web.Controls.ImageListBox RibbonImage;
 
         /// <summary>
         /// HelpLabel7 control.
@@ -204,22 +186,13 @@ namespace YAF.Pages.Admin
         protected global::YAF.Web.Controls.HelpLabel HelpLabel7;
 
         /// <summary>
-        /// SmallMedalPreview control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlImage SmallMedalPreview;
-
-        /// <summary>
         /// SmallMedalImage control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList SmallMedalImage;
+        protected global::YAF.Web.Controls.ImageListBox SmallMedalImage;
 
         /// <summary>
         /// HelpLabel8 control.
@@ -231,22 +204,13 @@ namespace YAF.Pages.Admin
         protected global::YAF.Web.Controls.HelpLabel HelpLabel8;
 
         /// <summary>
-        /// SmallRibbonPreview control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlImage SmallRibbonPreview;
-
-        /// <summary>
         /// SmallRibbonImage control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList SmallRibbonImage;
+        protected global::YAF.Web.Controls.ImageListBox SmallRibbonImage;
 
         /// <summary>
         /// HelpLabel11 control.

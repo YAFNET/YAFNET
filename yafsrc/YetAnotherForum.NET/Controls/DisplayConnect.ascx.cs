@@ -130,63 +130,65 @@ namespace YAF.Controls
                     return;
                 }
 
-                if (this.Get<BoardSettings>().AllowSingleSignOn
-                    && (Config.FacebookAPIKey.IsSet() || Config.TwitterConsumerKey.IsSet()
-                        || Config.GoogleClientID.IsSet()))
+                if (!this.Get<BoardSettings>().AllowSingleSignOn
+                    || (!Config.FacebookAPIKey.IsSet() && !Config.TwitterConsumerKey.IsSet()
+                                                       && !Config.GoogleClientID.IsSet()))
                 {
-                    this.ConnectHolder.Controls.Add(
-                        new Literal { Text = $"&nbsp;{this.GetText("LOGIN", "CONNECT_VIA")}&nbsp;" });
+                    return;
+                }
 
-                    if (Config.FacebookAPIKey.IsSet() && Config.FacebookSecretKey.IsSet())
-                    {
-                        var linkButton = new LinkButton
-                                             {
-                                                 Text = "Facebook",
-                                                 ToolTip =
-                                                     this.GetTextFormatted("AUTH_CONNECT_HELP", "Facebook"),
-                                                 ID = "FacebookRegister",
-                                                 CssClass = "authLogin facebookLogin"
-                    };
+                this.ConnectHolder.Controls.Add(
+                    new Literal { Text = $"&nbsp;{this.GetText("LOGIN", "CONNECT_VIA")}&nbsp;" });
 
-                        linkButton.Click += this.FacebookFormClick;
+                if (Config.FacebookAPIKey.IsSet() && Config.FacebookSecretKey.IsSet())
+                {
+                    var linkButton = new LinkButton
+                                         {
+                                             Text = "Facebook",
+                                             ToolTip =
+                                                 this.GetTextFormatted("AUTH_CONNECT_HELP", "Facebook"),
+                                             ID = "FacebookRegister",
+                                             CssClass = "authLogin facebookLogin"
+                                         };
 
-                        this.ConnectHolder.Controls.Add(linkButton);
-                    }
+                    linkButton.Click += this.FacebookFormClick;
 
-                    this.ConnectHolder.Controls.Add(new Literal { Text = "&nbsp;" });
+                    this.ConnectHolder.Controls.Add(linkButton);
+                }
 
-                    if (Config.TwitterConsumerKey.IsSet() && Config.TwitterConsumerSecret.IsSet())
-                    {
-                        var linkButton = new LinkButton
-                                             {
-                                                 Text = "Twitter",
-                                                 ToolTip =
-                                                     this.GetTextFormatted("AUTH_CONNECT_HELP", "Twitter"),
-                                                 ID = "TwitterRegister",
-                                                 CssClass = "authLogin twitterLogin"
-                                             };
+                this.ConnectHolder.Controls.Add(new Literal { Text = "&nbsp;" });
 
-                        linkButton.Click += this.TwitterFormClick;
+                if (Config.TwitterConsumerKey.IsSet() && Config.TwitterConsumerSecret.IsSet())
+                {
+                    var linkButton = new LinkButton
+                                         {
+                                             Text = "Twitter",
+                                             ToolTip =
+                                                 this.GetTextFormatted("AUTH_CONNECT_HELP", "Twitter"),
+                                             ID = "TwitterRegister",
+                                             CssClass = "authLogin twitterLogin"
+                                         };
 
-                        this.ConnectHolder.Controls.Add(linkButton);
-                    }
+                    linkButton.Click += this.TwitterFormClick;
 
-                    this.ConnectHolder.Controls.Add(new Literal { Text = "&nbsp;" });
+                    this.ConnectHolder.Controls.Add(linkButton);
+                }
 
-                    if (Config.GoogleClientID.IsSet() && Config.GoogleClientSecret.IsSet())
-                    {
-                        var linkButton = new LinkButton
-                                             {
-                                                 Text = "Google",
-                                                 ToolTip = this.GetTextFormatted("AUTH_CONNECT_HELP", "Google"),
-                                                 ID = "GoogleRegister",
-                                                 CssClass = "authLogin googleLogin"
-                                             };
+                this.ConnectHolder.Controls.Add(new Literal { Text = "&nbsp;" });
 
-                        linkButton.Click += this.GoogleFormClick;
+                if (Config.GoogleClientID.IsSet() && Config.GoogleClientSecret.IsSet())
+                {
+                    var linkButton = new LinkButton
+                                         {
+                                             Text = "Google",
+                                             ToolTip = this.GetTextFormatted("AUTH_CONNECT_HELP", "Google"),
+                                             ID = "GoogleRegister",
+                                             CssClass = "authLogin googleLogin"
+                                         };
 
-                        this.ConnectHolder.Controls.Add(linkButton);
-                    }
+                    linkButton.Click += this.GoogleFormClick;
+
+                    this.ConnectHolder.Controls.Add(linkButton);
                 }
             }
         }

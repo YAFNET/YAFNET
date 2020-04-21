@@ -1,4 +1,4 @@
-<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.forum" Codebehind="Forum.ascx.cs" %>
+<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Board" Codebehind="Board.ascx.cs" %>
 <%@ Register TagPrefix="YAF" TagName="ForumWelcome" Src="../controls/ForumWelcome.ascx" %>
 <%@ Register TagPrefix="YAF" TagName="ForumStatsUsers" Src="../controls/ForumStatsUsers.ascx" %>
 <%@ Register TagPrefix="YAF" TagName="ForumStatistics" Src="../controls/ForumStatistics.ascx" %>
@@ -17,10 +17,11 @@
 <YAF:PollList ID="PollList" runat="server"/>
 
 <div class="row">
-    <div class="col-md-8">
+    <div class='<%= this.Get<BoardSettings>().TwoColumnBoardLayout ? "col-md-8" : "col" %>'>
         <YAF:ForumCategoryList ID="ForumCategoryList" runat="server" />
     </div>
-    <div class="col-md-4">
+    <%= this.Get<BoardSettings>().TwoColumnBoardLayout ?  string.Empty : @"</div><div class=""row"">" %>
+    <div class='<%= this.Get<BoardSettings>().TwoColumnBoardLayout ? "col-md-4" : "col" %>'>
         <YAF:ForumActiveDiscussion ID="ActiveDiscussions" runat="server" />
         <YAF:ForumStatsUsers ID="ForumStats" runat="Server" />
     </div>

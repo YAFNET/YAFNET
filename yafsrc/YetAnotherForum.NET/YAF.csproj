@@ -981,8 +981,8 @@
     <Compile Include="Pages\Error.ascx.designer.cs">
       <DependentUpon>Error.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Forum.ascx.designer.cs">
-      <DependentUpon>Forum.ascx</DependentUpon>
+    <Compile Include="Pages\Board.ascx.designer.cs">
+      <DependentUpon>Board.ascx</DependentUpon>
     </Compile>
     <Compile Include="Pages\Help.ascx.designer.cs">
       <DependentUpon>Help.ascx</DependentUpon>
@@ -2170,7 +2170,7 @@
     <Content Include="Pages\EmailTopic.ascx" />
     <Content Include="controls\EmailDigest.ascx" />
     <Content Include="Pages\Error.ascx" />
-    <Content Include="Pages\Forum.ascx" />
+    <Content Include="Pages\Board.ascx" />
     <Content Include="Pages\Help.ascx" />
     <Content Include="Pages\Email.ascx" />
     <Content Include="Pages\Jabber.ascx" />
@@ -3116,8 +3116,8 @@
       <DependentUpon>Error.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Pages\Forum.ascx.cs">
-      <DependentUpon>Forum.ascx</DependentUpon>
+    <Compile Include="Pages\Board.ascx.cs">
+      <DependentUpon>Board.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Pages\Help.ascx.cs">
@@ -3687,7 +3687,7 @@ RD /S /Q "$(TargetDir)zh-TW\"</PostBuildEvent>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties bundleconfig_1json__JSONSchema="" compilerconfig_1json__JSONSchema="" />
+      <UserProperties compilerconfig_1json__JSONSchema="" bundleconfig_1json__JSONSchema="" />
     </VisualStudio>
   </ProjectExtensions>
   <Import Project="..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets" Condition="Exists('..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets')" />

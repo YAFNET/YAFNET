@@ -82,7 +82,7 @@ namespace YAF.Core.URLBuilder
                 var useKey = string.Empty;
                 var description = string.Empty;
                 var pageName = parser["g"];
-                var forumPage = ForumPages.forum;
+                var forumPage = ForumPages.Board;
                 var getDescription = false;
 
                 var isFeed = false;
@@ -105,7 +105,7 @@ namespace YAF.Core.URLBuilder
                 {
                     switch (forumPage)
                     {
-                        case ForumPages.topics:
+                        case ForumPages.Topics:
                             useKey = "f";
                             pageName += "/";
 
@@ -153,7 +153,7 @@ namespace YAF.Core.URLBuilder
 
                             parser.Parameters.Remove("name");
                             break;
-                        case ForumPages.forum:
+                        case ForumPages.Board:
                             pageName = "category/";
                             if (parser["c"].IsSet())
                             {

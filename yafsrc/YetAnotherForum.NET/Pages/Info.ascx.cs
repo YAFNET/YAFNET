@@ -132,31 +132,31 @@ namespace YAF.Pages
                         this.Title.Text = this.GetText("title_accessdenied");
                         this.InfoLabel.Text = this.GetText("accessdenied");
                         this.RefreshTime = 10;
-                        this.RefreshURL = BuildLink.GetLink(ForumPages.forum);
+                        this.RefreshURL = BuildLink.GetLink(ForumPages.Board);
                         break;
                     case InfoMessage.Disabled: // Disabled feature
                         this.Title.Text = this.GetText("TITLE_ACCESSDENIED");
                         this.InfoLabel.Text = this.GetText("DISABLED");
                         this.RefreshTime = 10;
-                        this.RefreshURL = BuildLink.GetLink(ForumPages.forum);
+                        this.RefreshURL = BuildLink.GetLink(ForumPages.Board);
                         break;
                     case InfoMessage.Invalid: // Invalid argument!
                         this.Title.Text = this.GetText("TITLE_INVALID");
                         this.InfoLabel.Text = this.GetText("INVALID");
                         this.RefreshTime = 10;
-                        this.RefreshURL = BuildLink.GetLink(ForumPages.forum);
+                        this.RefreshURL = BuildLink.GetLink(ForumPages.Board);
                         break;
                     case InfoMessage.Failure: // some sort of failure
                         this.Title.Text = this.GetText("TITLE_FAILURE");
                         this.InfoLabel.Text = this.GetText("FAILURE");
                         this.RefreshTime = 10;
-                        this.RefreshURL = BuildLink.GetLink(ForumPages.forum);
+                        this.RefreshURL = BuildLink.GetLink(ForumPages.Board);
                         break;
                     case InfoMessage.HostAdminPermissionsAreRequired: // some sort of failure
                         this.Title.Text = this.GetText("TITLE_HOSTADMINPERMISSIONSREQUIRED");
                         this.InfoLabel.Text = this.GetText("HOSTADMINPERMISSIONSREQUIRED");
                         this.RefreshTime = 10;
-                        this.RefreshURL = BuildLink.GetLink(ForumPages.forum);
+                        this.RefreshURL = BuildLink.GetLink(ForumPages.Board);
                         break;
                 }
             }
@@ -173,7 +173,7 @@ namespace YAF.Pages
 
                 // redirect to forum main after 2 seconds
                 this.RefreshTime = 2;
-                this.RefreshURL = BuildLink.GetLink(ForumPages.forum);
+                this.RefreshURL = BuildLink.GetLink(ForumPages.Board);
             }
 
             // set continue button URL and visibility

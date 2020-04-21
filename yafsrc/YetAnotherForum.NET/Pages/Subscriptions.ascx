@@ -77,7 +77,7 @@
                                         <asp:CheckBox ID="unsubf" runat="server" CssClass="custom-control custom-checkbox d-inline-block" Text="&nbsp;" />
                                         <asp:Label ID="tfid" runat="server" Text='<%# this.Eval("Item1.ID") %>'
                                                Visible="false" />
-                                        <a href="<%# BuildLink.GetLinkNotEscaped(ForumPages.topics, "f={0}&name={1}",  this.Eval("Item1.ForumID"), this.Eval("Item2.Name"))%>">
+                                        <a href="<%# BuildLink.GetLinkNotEscaped(ForumPages.Topics, "f={0}&name={1}",  this.Eval("Item1.ForumID"), this.Eval("Item2.Name"))%>">
                                                 <%# this.HtmlEncode(this.Eval("Item2.Name"))%></a>
                                     </li>
                                 </ItemTemplate>

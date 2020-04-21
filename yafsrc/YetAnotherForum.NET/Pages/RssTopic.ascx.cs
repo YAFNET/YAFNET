@@ -640,7 +640,7 @@ namespace YAF.Pages
                         feed.LastUpdatedTime = DateTime.UtcNow + this.Get<IDateTime>().TimeOffset;
 
                         // Alternate Link
-                        // feed.Links.Add(new SyndicationLink(new Uri(BuildLink.GetLinkNotEscaped(ForumPages.topics, true))));
+                        // feed.Links.Add(new SyndicationLink(new Uri(BuildLink.GetLinkNotEscaped(ForumPages.Topics, true))));
                     }
 
                     if (!row["LastUserID"].IsNullOrEmptyDBField())
@@ -657,7 +657,7 @@ namespace YAF.Pages
                         row["Forum"].ToString(),
                         this.HtmlEncode(row["Description"].ToString()),
                         null,
-                        BuildLink.GetLinkNotEscaped(ForumPages.topics, true, "f={0}", row["ForumID"]),
+                        BuildLink.GetLinkNotEscaped(ForumPages.Topics, true, "f={0}", row["ForumID"]),
                         $"urn:{urlAlphaNum}:ft{feedType}:st{(atomFeedByVar ? SyndicationFormats.Atom.ToInt() : SyndicationFormats.Rss.ToInt())}:fid{row["ForumID"]}:lmid{row["LastMessageID"]}:{this.PageContext.PageBoardID}"
                             .Unidecode(),
                         lastPosted,

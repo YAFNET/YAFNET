@@ -198,7 +198,7 @@ namespace YAF.Pages.Admin
             }
 
             return
-                $"<a target=\"_top\" href=\"{BuildLink.GetLink(ForumPages.topics, "f={0}&name={1}", forumId, forumName)}\">{forumName}</a>";
+                $"<a target=\"_top\" href=\"{BuildLink.GetLink(ForumPages.Topics, "f={0}&name={1}", forumId, forumName)}\">{forumName}</a>";
         }
 
         /// <summary>

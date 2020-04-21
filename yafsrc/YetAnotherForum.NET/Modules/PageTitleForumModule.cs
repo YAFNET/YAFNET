@@ -125,7 +125,7 @@ namespace YAF.Modules
 
             var pageString = string.Empty;
 
-            if (this.ForumPageType == ForumPages.Posts || this.ForumPageType == ForumPages.topics)
+            if (this.ForumPageType == ForumPages.Posts || this.ForumPageType == ForumPages.Topics)
             {
                 // get current page...
                 var currentPager = this.CurrentForumPage.FindControlAs<Pager>("Pager");
@@ -156,7 +156,7 @@ namespace YAF.Modules
                         title.Append(pageString);
 
                         break;
-                    case ForumPages.topics:
+                    case ForumPages.Topics:
                         if (this.PageContext.PageForumName != string.Empty)
                         {
                             // Tack on the forum we're viewing
@@ -169,7 +169,7 @@ namespace YAF.Modules
                         title.Append(pageString);
 
                         break;
-                    case ForumPages.forum:
+                    case ForumPages.Board:
                         if (this.PageContext.PageCategoryName != string.Empty)
                         {
                             addBoardName = false;

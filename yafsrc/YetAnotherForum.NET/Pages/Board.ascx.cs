@@ -38,16 +38,16 @@ namespace YAF.Pages
     #endregion
 
     /// <summary>
-    /// The Main Forum Page.
+    /// The Main Board Page.
     /// </summary>
-    public partial class forum : ForumPage
+    public partial class Board : ForumPage
     {
         #region Constructors and Destructors
 
         /// <summary>
         ///   Initializes a new instance of the <see cref = "forum" /> class.
         /// </summary>
-        public forum()
+        public Board()
             : base("DEFAULT")
         {
         }
@@ -105,7 +105,7 @@ namespace YAF.Pages
 
             this.PageLinks.AddLink(
                 this.PageContext.PageCategoryName,
-                BuildLink.GetLink(ForumPages.forum, "c={0}", this.PageContext.PageCategoryID));
+                BuildLink.GetLink(ForumPages.Board, "c={0}", this.PageContext.PageCategoryID));
         }
 
         #endregion

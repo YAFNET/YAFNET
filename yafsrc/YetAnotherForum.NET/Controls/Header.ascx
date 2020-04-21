@@ -12,7 +12,7 @@
     
 <header class="mb-3">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand mb-1" href="<%=BuildLink.GetLink(ForumPages.forum) %>">
+        <a class="navbar-brand mb-1" href="<%=BuildLink.GetLink(ForumPages.Board) %>">
             <%= this.PageContext.BoardSettings.Name %>
         </a>
         

@@ -99,7 +99,7 @@ namespace YAF.Pages
         /// </param>
         protected void Cancel_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
-            BuildLink.Redirect(ForumPages.forum);
+            BuildLink.Redirect(ForumPages.Board);
         }
 
         /// <summary>

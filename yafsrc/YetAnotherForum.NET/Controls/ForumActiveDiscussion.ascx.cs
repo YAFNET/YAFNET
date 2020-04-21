@@ -81,6 +81,7 @@ namespace YAF.Controls
             // get the controls
             var postIcon = e.Item.FindControlAs<Label>("PostIcon");
             var textMessageLink = e.Item.FindControlAs<HyperLink>("TextMessageLink");
+            var forumLink = e.Item.FindControlAs<HyperLink>("ForumLink");
             var info = e.Item.FindControlAs<ThemeButton>("Info");
             var imageMessageLink = e.Item.FindControlAs<ThemeButton>("GoToLastPost");
             var imageLastUnreadMessageLink = e.Item.FindControlAs<ThemeButton>("GoToLastUnread");
@@ -114,6 +115,9 @@ namespace YAF.Controls
                 ForumPages.Posts, "t={0}&find=unread", currentRow["TopicID"]);
 
             imageMessageLink.NavigateUrl = messageUrl;
+
+            forumLink.Text = $"({currentRow["Forum"]})";
+            forumLink.NavigateUrl = BuildLink.GetLink(ForumPages.Topics, "f={0}", currentRow["ForumID"]);
 
             if (imageLastUnreadMessageLink.Visible)
             {

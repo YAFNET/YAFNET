@@ -20,6 +20,7 @@
                         <asp:Label runat="server" ID="PostIcon"></asp:Label>
                         <asp:HyperLink ID="TextMessageLink" runat="server" 
                                        CssClass="font-weight-bold" />
+                        <asp:HyperLink runat="server" ID="ForumLink"></asp:HyperLink>
                         <YAF:ThemeButton runat="server" ID="Info"
                                          Icon="info-circle"
                                          IconColor="text-secondary"

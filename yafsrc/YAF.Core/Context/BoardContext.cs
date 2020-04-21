@@ -62,11 +62,6 @@ namespace YAF.Core.Context
         private readonly ILifetimeScope contextLifetimeContainer;
 
         /// <summary>
-        /// The variables.
-        /// </summary>
-        private readonly TypeDictionary variables = new TypeDictionary();
-
-        /// <summary>
         /// The user.
         /// </summary>
         private MembershipUser user;
@@ -101,7 +96,7 @@ namespace YAF.Core.Context
             this.contextLifetimeContainer = contextLifetimeContainer;
 
             // init the repository
-            this.Globals = new ContextVariableRepository(this.variables);
+            this.Globals = new ContextVariableRepository(this.Vars);
 
             // init context...
             this.Init?.Invoke(this, new EventArgs());
@@ -170,7 +165,7 @@ namespace YAF.Core.Context
             {
                 if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("g").IsNotSet())
                 {
-                    return ForumPages.forum;
+                    return ForumPages.Board;
                 }
 
                 try
@@ -179,7 +174,7 @@ namespace YAF.Core.Context
                 }
                 catch (Exception)
                 {
-                    return ForumPages.forum;
+                    return ForumPages.Board;
                 }
             }
         }
@@ -237,7 +232,7 @@ namespace YAF.Core.Context
         /// <summary>
         /// Gets the YAF Context Global Instance Variables Use for plugins or other situations where a value is needed per instance.
         /// </summary>
-        public TypeDictionary Vars => this.variables;
+        public TypeDictionary Vars { get; } = new TypeDictionary();
 
         #endregion
 
@@ -251,9 +246,9 @@ namespace YAF.Core.Context
         /// </returns>
         public object this[[NotNull] string varName]
         {
-            get => this.variables.ContainsKey(varName) ? this.variables[varName] : null;
+            get => this.Vars.ContainsKey(varName) ? this.Vars[varName] : null;
 
-            set => this.variables[varName] = value;
+            set => this.Vars[varName] = value;
         }
 
         #endregion

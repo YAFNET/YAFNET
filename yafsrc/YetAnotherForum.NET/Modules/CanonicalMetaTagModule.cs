@@ -85,7 +85,7 @@ namespace YAF.Modules
                     head.Controls.Add(new LiteralControl($"<link rel=\"canonical\" href=\"{topicUrl}\" />"));
                 }
             }
-            else if (this.ForumPageType != ForumPages.forum && this.ForumPageType != ForumPages.topics)
+            else if (this.ForumPageType != ForumPages.Board && this.ForumPageType != ForumPages.Topics)
             {
                 // there is not much SEO value to having lists indexed
                 // because they change as soon as some adds a new topic

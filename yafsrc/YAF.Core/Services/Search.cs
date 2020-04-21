@@ -554,7 +554,7 @@ namespace YAF.Core.Services
                            UserName = doc.Get("Author"),
                            UserDisplayName = doc.Get("AuthorDisplay"),
                            ForumName = doc.Get("ForumName"),
-                           ForumUrl = BuildLink.GetLink(ForumPages.forum, "f={0}", doc.Get("ForumId").ToType<int>()),
+                           ForumUrl = BuildLink.GetLink(ForumPages.Board, "f={0}", doc.Get("ForumId").ToType<int>()),
                            UserStyle = doc.Get("AuthorStyle")
                        };
         }
@@ -726,7 +726,7 @@ namespace YAF.Core.Services
                            TopicUrl = BuildLink.GetLink(ForumPages.Posts, "t={0}", doc.Get("TopicId").ToType<int>()),
                            MessageUrl =
                                BuildLink.GetLink(ForumPages.Posts, "m={0}#post{0}", doc.Get("MessageId").ToType<int>()),
-                           ForumUrl = BuildLink.GetLink(ForumPages.forum, "f={0}", doc.Get("ForumId").ToType<int>()),
+                           ForumUrl = BuildLink.GetLink(ForumPages.Board, "f={0}", doc.Get("ForumId").ToType<int>()),
                            UserDisplayName = doc.Get("AuthorDisplay"),
                            ForumName = doc.Get("ForumName"),
                            UserStyle = doc.Get("AuthorStyle")

@@ -61,7 +61,7 @@ namespace YAF.Utils
         /// <summary>
         /// Gets full URL to the Root of the Forum
         /// </summary>
-        public static string ForumURL => BuildLink.GetLink(ForumPages.forum, true);
+        public static string ForumURL => BuildLink.GetLink(ForumPages.Board, true);
 
         /// <summary>
         /// Gets a value indicating whether this instance is local.

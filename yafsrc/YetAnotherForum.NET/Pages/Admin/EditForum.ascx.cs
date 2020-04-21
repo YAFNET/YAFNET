@@ -108,11 +108,10 @@ namespace YAF.Pages.Admin
         {
             using (var dt = new DataTable("Files"))
             {
-                dt.Columns.Add("FileID", typeof(long));
                 dt.Columns.Add("FileName", typeof(string));
                 dt.Columns.Add("Description", typeof(string));
+                
                 var dr = dt.NewRow();
-                dr["FileID"] = 0;
                 dr["FileName"] =
                     BoardInfo.GetURLToContent("images/spacer.gif"); // use spacer.gif for Description Entry
                 dr["Description"] = this.GetText("COMMON", "NONE");
@@ -123,23 +122,8 @@ namespace YAF.Pages.Admin
                 if (dir.Exists)
                 {
                     var files = dir.GetFiles("*.*");
-                    long fileId = 1;
 
-                    var filesList = from file in files
-                                    let sExt = file.Extension.ToLower()
-                                    where sExt == ".png" || sExt == ".gif" || sExt == ".jpg"
-                                    select file;
-
-                    filesList.ForEach(
-                        file =>
-                            {
-                                dr = dt.NewRow();
-                                dr["FileID"] = fileId++;
-                                dr["FileName"] =
-                                    $"{BoardInfo.ForumClientFileRoot}{BoardFolders.Current.Forums}/{file.Name}";
-                                dr["Description"] = file.Name;
-                                dt.Rows.Add(dr);
-                            });
+                    dt.AddImageFiles(files, BoardFolders.Current.Forums);
                 }
 
                 this.ForumImages.DataSource = dt;
@@ -159,7 +143,7 @@ namespace YAF.Pages.Admin
         {
             this.CategoryList.AutoPostBack = true;
             this.Save.Click += this.SaveClick;
-            this.Cancel.Click += this.CancelClick;
+            this.Cancel.Click += CancelClick;
             base.OnInit(e);
         }
 
@@ -421,7 +405,7 @@ namespace YAF.Pages.Admin
         /// <param name="e">
         /// The <see cref="EventArgs"/> instance containing the event data.
         /// </param>
-        private void CancelClick([NotNull] object sender, [NotNull] EventArgs e)
+        private static void CancelClick([NotNull] object sender, [NotNull] EventArgs e)
         {
             BuildLink.Redirect(ForumPages.Admin_Forums);
         }

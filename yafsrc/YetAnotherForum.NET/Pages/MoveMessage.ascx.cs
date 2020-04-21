@@ -94,7 +94,7 @@ namespace YAF.Pages
                     topicId.ToType<int>(),
                     true);
 
-                BuildLink.Redirect(ForumPages.topics, "f={0}", this.PageContext.PageForumID);
+                BuildLink.Redirect(ForumPages.Topics, "f={0}", this.PageContext.PageForumID);
             }
             else
             {
@@ -144,7 +144,7 @@ namespace YAF.Pages
                     true);
             }
 
-            BuildLink.Redirect(ForumPages.topics, "f={0}", this.PageContext.PageForumID);
+            BuildLink.Redirect(ForumPages.Topics, "f={0}", this.PageContext.PageForumID);
         }
 
         /// <summary>
@@ -187,7 +187,7 @@ namespace YAF.Pages
 
             this.PageLinks.AddLink(
                 this.PageContext.PageCategoryName,
-                BuildLink.GetLink(ForumPages.forum, "c={0}", this.PageContext.PageCategoryID));
+                BuildLink.GetLink(ForumPages.Board, "c={0}", this.PageContext.PageCategoryID));
             this.PageLinks.AddForum(this.PageContext.PageForumID);
             this.PageLinks.AddLink(
                 this.PageContext.PageTopicName,

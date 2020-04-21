@@ -292,7 +292,7 @@ namespace YAF.Web.Controls
                         outText.Append(this.GetText("ACTIVELOCATION", "TOPICINFORUM"));
                         outText.AppendFormat(
                             @"<a href=""{0}"" id=""forumidtopic_{1}"" title=""{2}"" runat=""server""> {3} </a>",
-                            BuildLink.GetLink(ForumPages.topics, "f={0}", this.ForumID),
+                            BuildLink.GetLink(ForumPages.Topics, "f={0}", this.ForumID),
                             this.UserID,
                             this.GetText("COMMON", "VIEW_FORUM"),
                             HttpUtility.HtmlEncode(this.ForumName));
@@ -310,7 +310,7 @@ namespace YAF.Web.Controls
                     {
                         outText.AppendFormat(
                             @"<a href=""{0}"" id=""forumid_{1}"" title=""{2}"" runat=""server""> {3} </a>",
-                            BuildLink.GetLink(ForumPages.topics, "f={0}", this.ForumID),
+                            BuildLink.GetLink(ForumPages.Topics, "f={0}", this.ForumID),
                             this.UserID,
                             this.GetText("COMMON", "VIEW_FORUM"),
                             HttpUtility.HtmlEncode(this.ForumName));

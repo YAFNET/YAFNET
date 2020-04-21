@@ -88,7 +88,7 @@ namespace YAF.Core.Handlers
                             new UrlLocation
                                 {
                                     Url = BuildLink.GetLinkNotEscaped(
-                                        ForumPages.topics,
+                                        ForumPages.Topics,
                                         true,
                                         "f={0}",
                                         forum.Item1.ID),

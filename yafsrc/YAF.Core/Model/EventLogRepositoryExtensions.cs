@@ -27,7 +27,6 @@ namespace YAF.Core.Model
     using System.Data;
 
     using YAF.Types;
-    using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
     using YAF.Types.Models;
 
@@ -37,30 +36,6 @@ namespace YAF.Core.Model
     public static class EventLogRepositoryExtensions
     {
         #region Public Methods and Operators
-
-        /// <summary>
-        /// The delete by user.
-        /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
-        /// <param name="userId">
-        /// The user id.
-        /// </param>
-        /// <param name="boardId">
-        /// The board id.
-        /// </param>
-        /// <returns>
-        /// The <see cref="DataTable"/>.
-        /// </returns>
-        public static void DeleteByUser(this IRepository<EventLog> repository, int userId, int? boardId = null)
-        {
-            CodeContracts.VerifyNotNull(repository, "repository");
-
-            repository.DbFunction.Query.eventlog_deletebyuser(BoardID: boardId ?? repository.BoardID, PageUserID: userId);
-
-            repository.FireDeleted();
-        }
 
         /// <summary>
         /// The list.

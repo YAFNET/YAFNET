@@ -158,7 +158,7 @@ namespace YAF.Pages
             else
             {
                 // new topic -- cancel back to forum
-                BuildLink.Redirect(ForumPages.topics, "f={0}", this.PageContext.PageForumID);
+                BuildLink.Redirect(ForumPages.Topics, "f={0}", this.PageContext.PageForumID);
             }
         }
 
@@ -316,7 +316,7 @@ namespace YAF.Pages
             this.PageLinks.AddRoot();
             this.PageLinks.AddLink(
                 this.PageContext.PageCategoryName,
-                BuildLink.GetLink(ForumPages.forum, "c={0}", this.PageContext.PageCategoryID));
+                BuildLink.GetLink(ForumPages.Board, "c={0}", this.PageContext.PageCategoryID));
             this.PageLinks.AddForum(this.PageContext.PageForumID);
         }
 
@@ -368,7 +368,7 @@ namespace YAF.Pages
             // If topic has been deleted, redirect to topic list for active forum, else show remaining posts for topic
             if (topic == null)
             {
-                BuildLink.Redirect(ForumPages.topics, "f={0}", tmpForumID);
+                BuildLink.Redirect(ForumPages.Topics, "f={0}", tmpForumID);
             }
             else
             {

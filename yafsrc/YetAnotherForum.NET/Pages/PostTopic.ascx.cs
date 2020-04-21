@@ -93,7 +93,7 @@ namespace YAF.Pages
         protected void Cancel_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
             // new topic -- cancel back to forum
-            BuildLink.Redirect(ForumPages.topics, "f={0}", this.PageContext.PageForumID);
+            BuildLink.Redirect(ForumPages.Topics, "f={0}", this.PageContext.PageForumID);
         }
 
         /// <summary>
@@ -385,7 +385,7 @@ namespace YAF.Pages
                 this.PageLinks.AddRoot();
                 this.PageLinks.AddLink(
                     this.PageContext.PageCategoryName,
-                    BuildLink.GetLink(ForumPages.forum, "c={0}", this.PageContext.PageCategoryID));
+                    BuildLink.GetLink(ForumPages.Board, "c={0}", this.PageContext.PageCategoryID));
             }
 
             this.PageLinks.AddForum(this.PageContext.PageForumID);
@@ -752,7 +752,7 @@ namespace YAF.Pages
                 }
 
                 // Tell user that his message will have to be approved by a moderator
-                var url = BuildLink.GetLink(ForumPages.topics, "f={0}", this.PageContext.PageForumID);
+                var url = BuildLink.GetLink(ForumPages.Topics, "f={0}", this.PageContext.PageForumID);
 
                 if (attachPollParameter.Length <= 0)
                 {

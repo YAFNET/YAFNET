@@ -79,11 +79,10 @@ namespace YAF.Pages.Admin
         {
             using (var dt = new DataTable("Files"))
             {
-                dt.Columns.Add("FileID", typeof(long));
                 dt.Columns.Add("FileName", typeof(string));
                 dt.Columns.Add("Description", typeof(string));
+                
                 var dr = dt.NewRow();
-                dr["FileID"] = 0;
                 dr["FileName"] =
                     $"{BoardInfo.ForumClientFileRoot}Content/images/spacer.gif"; // use spacer.gif for Description Entry
                 dr["Description"] = "None";
@@ -94,23 +93,8 @@ namespace YAF.Pages.Admin
                 if (dir.Exists)
                 {
                     var files = dir.GetFiles("*.*");
-                    long fileId = 1;
 
-                    var filesList = from file in files
-                                let sExt = file.Extension.ToLower()
-                                where sExt == ".png" || sExt == ".gif" || sExt == ".jpg"
-                                select file;
-
-                    filesList.ForEach(
-                        file =>
-                        {
-                            dr = dt.NewRow();
-                            dr["FileID"] = fileId++;
-                            dr["FileName"] =
-                                $"{BoardInfo.ForumClientFileRoot}{BoardFolders.Current.Categories}/{file.Name}";
-                            dr["Description"] = file.Name;
-                            dt.Rows.Add(dr);
-                        });
+                    dt.AddImageFiles(files, BoardFolders.Current.Categories);
                 }
 
                 this.CategoryImages.DataSource = dt;

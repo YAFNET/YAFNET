@@ -1556,6 +1556,14 @@
                             <asp:CheckBox Text="&nbsp;" ID="ShowScrollBackToTopButton" runat="server"></asp:CheckBox>
                         </div>
                     </div>
+                    <div class="form-group">
+                        <YAF:HelpLabel ID="HelpLabel38" runat="server" 
+                                       AssociatedControlID="TwoColumnBoardLayout"
+                                       LocalizedTag="TWOCOLUMN_BOARD" LocalizedPage="ADMIN_HOSTSETTINGS" />
+                        <div class="custom-control custom-switch">
+                            <asp:CheckBox Text="&nbsp;" ID="TwoColumnBoardLayout" runat="server"></asp:CheckBox>
+                        </div>
+                    </div>
                     </div>
                 <div class="card-footer text-lg-center">
                     <YAF:ThemeButton ID="ThemeButton4" runat="server"  Type="Primary" OnClick="SaveClick"
