@@ -28,7 +28,6 @@ namespace YAF.Dialogs
     using System;
 
     using YAF.Configuration;
-    using YAF.Core;
     using YAF.Core.BaseControls;
     using YAF.Core.Context;
     using YAF.Core.Utilities;
@@ -74,9 +73,7 @@ namespace YAF.Dialogs
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
             // show disallowed or allowed localized text depending on the Board Setting
-            this.ExtensionTitle.LocalizedTag = this.Get<BoardSettings>().FileExtensionAreAllowed
-                                                   ? "ALLOWED_EXTENSIONS"
-                                                   : "DISALLOWED_EXTENSIONS";
+            this.ExtensionTitle.LocalizedTag = "ALLOWED_EXTENSIONS";
 
             this.ExtensionsList.Text = this.Get<BoardSettings>().AllowedFileExtensions.Replace(",", ", ");
 
