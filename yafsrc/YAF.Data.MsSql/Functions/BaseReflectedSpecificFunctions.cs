@@ -30,6 +30,7 @@ namespace YAF.Data.MsSql.Functions
     using System.Linq;
     using System.Reflection;
 
+    using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces.Data;
 
@@ -100,7 +101,7 @@ namespace YAF.Data.MsSql.Functions
         protected override bool RunOperation(
             SqlConnection sqlConnection,
             IDbTransaction dbTransaction,
-            DbFunctionType dbfunctionType,
+            DBFunctionType dbfunctionType,
             string operationName,
             IEnumerable<KeyValuePair<string, object>> parameters,
             out object result)
@@ -121,7 +122,7 @@ namespace YAF.Data.MsSql.Functions
                                {
                                    { typeof(IDbTransaction), dbTransaction },
                                    { typeof(SqlConnection), sqlConnection },
-                                   { typeof(DbFunctionType), dbfunctionType },
+                                   { typeof(DBFunctionType), dbfunctionType },
                                    { typeof(IDbAccess), this.DbAccess }
                                };
 

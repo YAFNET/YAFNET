@@ -410,11 +410,7 @@ namespace YAF.Core.UsersRoles
         {
             if (this.MembershipUser != null && !this.userId.HasValue)
             {
-                if (this.userId == null)
-                {
-                    // get the user id
-                    this.userId = UserMembershipHelper.GetUserIDFromProviderUserKey(this.MembershipUser.ProviderUserKey);
-                }
+                this.userId ??= UserMembershipHelper.GetUserIDFromProviderUserKey(this.MembershipUser.ProviderUserKey);
             }
 
             if (!this.userId.HasValue)

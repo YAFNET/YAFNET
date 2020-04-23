@@ -95,10 +95,8 @@ namespace YAF.Core.BBCode.ReplaceRules
                 // pulls the html's into the replacement collection before it's inserted back into the main text
                 var replaceIndex = replacement.Add(replaceItem);
 
-                text = string.Format("{0}{1}{2}",
-                    text.Substring(0, m.Groups[0].Index),
-                    replacement.Get(replaceIndex),
-                    text.Substring(m.Groups[0].Index + m.Groups[0].Length));
+                text =
+                    $"{text.Substring(0, m.Groups[0].Index)}{replacement.Get(replaceIndex)}{text.Substring(m.Groups[0].Index + m.Groups[0].Length)}";
 
                 m = this.RegExSearch.Match(text);
             }

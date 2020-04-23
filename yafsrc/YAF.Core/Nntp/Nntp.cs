@@ -273,14 +273,16 @@ namespace YAF.Core.Nntp
                                     break;
                                 }
 
-                                if (count++ > 1000)
+                                if (count++ <= 1000)
                                 {
-                                    count = 0;
-                                    BoardContext.Current.GetRepository<NntpForum>().Update(
-                                        nntpForum.NntpForumID,
-                                        lastMessageNo,
-                                        guestUserId);
+                                    continue;
                                 }
+
+                                count = 0;
+                                BoardContext.Current.GetRepository<NntpForum>().Update(
+                                    nntpForum.NntpForumID,
+                                    lastMessageNo,
+                                    guestUserId);
                             }
                             catch (NntpException exception)
                             {

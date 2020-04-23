@@ -3,7 +3,7 @@
     <ProductVersion>9.0.30729</ProductVersion>
     <FileUpgradeFlags />
     <IsWebBootstrapper>false</IsWebBootstrapper>
-    <TargetFramework>net472</TargetFramework>
+    <TargetFramework>net48</TargetFramework>
     <UpgradeBackupLocation />
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
@@ -23,6 +23,7 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
     <AssemblyName>YAF.Web</AssemblyName>
     <RootNamespace>YAF.Web</RootNamespace>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <OutputPath>..\YetAnotherForum.NET\Bin</OutputPath>

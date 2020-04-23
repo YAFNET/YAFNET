@@ -32,38 +32,7 @@ namespace YAF.Types.Interfaces.Data
     #endregion
 
     /// <summary>
-    ///     The db function type.
-    /// </summary>
-    public enum DbFunctionType
-    {
-        /// <summary>
-        ///     The query.
-        /// </summary>
-        Query, 
-
-        /// <summary>
-        ///     The data table.
-        /// </summary>
-        DataTable, 
-
-        /// <summary>
-        ///     The data set.
-        /// </summary>
-        DataSet, 
-
-        /// <summary>
-        ///     The scalar.
-        /// </summary>
-        Scalar, 
-
-        /// <summary>
-        ///     The reader.
-        /// </summary>
-        Reader
-    }
-
-    /// <summary>
-    ///     The i db function.
+    ///     The DB function interface.
     /// </summary>
     public interface IDbFunction
     {

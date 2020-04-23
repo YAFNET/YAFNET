@@ -32,7 +32,6 @@ namespace YAF.Controls
     using System.Web.Security;
 
     using YAF.Configuration;
-    using YAF.Core;
     using YAF.Core.BaseControls;
     using YAF.Core.Context;
     using YAF.Core.Extensions;
@@ -137,8 +136,6 @@ namespace YAF.Controls
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            //this.Page.Form.DefaultButton = this.UpdateProfile.UniqueID;
-
             this.PageContext.QueryIDs = new QueryStringIDHelper("u");
 
             if (this.PageContext.CurrentForumPage.IsAdminPage && this.PageContext.IsAdmin
@@ -243,7 +240,7 @@ namespace YAF.Controls
             {
                 StaticDataHelper.Cultures().Rows.Cast<DataRow>()
                     .Where(row => culture.ToString() == row["CultureTag"].ToString()).ForEach(
-                        row => { language = row["CultureFile"].ToString(); });
+                        row => language = row["CultureFile"].ToString());
             }
 
             // save remaining settings to the DB

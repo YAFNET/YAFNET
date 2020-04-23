@@ -27,7 +27,6 @@ namespace YAF.Classes
     using System;
     using System.Web;
 
-    using YAF.Core;
     using YAF.Core.Context;
     using YAF.RegisterV2;
 #if DEBUG

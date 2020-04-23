@@ -30,6 +30,7 @@ namespace YAF.Core.Data.Filters
     using System.Linq;
 
     using YAF.Configuration;
+    using YAF.Types.Constants;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
 
@@ -128,9 +129,9 @@ namespace YAF.Core.Data.Filters
         /// <param name="data">
         /// The data.
         /// </param>
-        public void Run(DbFunctionType dbfunctionType, string operationName, IEnumerable<KeyValuePair<string, object>> parameters, object data)
+        public void Run(DBFunctionType dbfunctionType, string operationName, IEnumerable<KeyValuePair<string, object>> parameters, object data)
         {
-            if (!this.ServiceLocator.IsBoardContext() || !this._styledNickOperations.Contains(operationName.ToLower()) || dbfunctionType != DbFunctionType.DataTable)
+            if (!this.ServiceLocator.IsBoardContext() || !this._styledNickOperations.Contains(operationName.ToLower()) || dbfunctionType != DBFunctionType.DataTable)
             {
                 return;
             }

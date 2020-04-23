@@ -144,10 +144,7 @@ namespace YAF.Pages.Admin
                                         select hiddenId.Value.ToType<int>()).ToList();
 
                         topicIds.ForEach(
-                            topic =>
-                            {
-                                this.GetRepository<Topic>().Delete(topic, true);
-                            });
+                            topic => this.GetRepository<Topic>().Delete(topic, true));
 
                         this.PageContext.AddLoadMessage(this.GetText("MSG_DELETED"), MessageTypes.success);
 
@@ -163,10 +160,7 @@ namespace YAF.Pages.Admin
                         var deletedTopics = this.GetRepository<Topic>().GetDeletedTopics(BoardContext.Current.PageBoardID, this.Filter.Text);
 
                         deletedTopics.ForEach(
-                            topic =>
-                            {
-                                this.GetRepository<Topic>().Delete(topic.Item2.ID, true);
-                            });
+                            topic => this.GetRepository<Topic>().Delete(topic.Item2.ID, true));
 
                         this.PageContext.AddLoadMessage(this.GetText("MSG_DELETED"), MessageTypes.success);
 
@@ -179,10 +173,7 @@ namespace YAF.Pages.Admin
                         var deletedTopics = this.GetRepository<Topic>().Get(t => t.IsDeleted == true && t.NumPosts.Equals(0));
 
                         deletedTopics.ForEach(
-                            topic =>
-                                {
-                                    this.GetRepository<Topic>().Delete(topic.ID, true);
-                                });
+                            topic => this.GetRepository<Topic>().Delete(topic.ID, true));
 
                         this.PageContext.AddLoadMessage(this.GetText("MSG_DELETED"), MessageTypes.success);
 
@@ -243,10 +234,7 @@ namespace YAF.Pages.Admin
                                           select hiddenId.Value.ToType<int>()).ToList();
 
                         messageIds.ForEach(
-                            message =>
-                                {
-                                    this.GetRepository<Message>().Delete(message, true, string.Empty, 1, true, true);
-                                });
+                            message => this.GetRepository<Message>().Delete(message, true, string.Empty, 1, true, true));
 
                         this.PageContext.AddLoadMessage(this.GetText("MSG_DELETED"), MessageTypes.success);
 

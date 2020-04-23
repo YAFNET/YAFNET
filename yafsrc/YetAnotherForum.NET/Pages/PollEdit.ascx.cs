@@ -991,7 +991,7 @@ namespace YAF.Pages
                         }
                     });
 
-            duplicateList.Cast<DataRow>().ForEach(row => { pollGroup.Rows.Remove(row); });
+            duplicateList.Cast<DataRow>().ForEach(row => pollGroup.Rows.Remove(row));
 
             pollGroup.AcceptChanges();
 

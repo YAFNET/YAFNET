@@ -89,10 +89,7 @@ namespace YAF.Controls
                                 // these are all sub forums related to start page forums
                                 if (!t1["ParentID"].IsNullOrEmptyDBField())
                                 {
-                                    if (this.SubDataSource == null)
-                                    {
-                                        this.SubDataSource = t1.Table.Clone();
-                                    }
+                                    this.SubDataSource ??= t1.Table.Clone();
 
                                     var newRow = this.SubDataSource.NewRow();
                                     newRow.ItemArray = t1.ItemArray;
@@ -123,10 +120,7 @@ namespace YAF.Controls
                             {
                                 if (!t1["ParentID"].IsNullOrEmptyDBField())
                                 {
-                                    if (this.SubDataSource == null)
-                                    {
-                                        this.SubDataSource = t1.Table.Clone();
-                                    }
+                                    this.SubDataSource ??= t1.Table.Clone();
 
                                     var newRow = this.SubDataSource.NewRow();
                                     newRow.ItemArray = t1.ItemArray;

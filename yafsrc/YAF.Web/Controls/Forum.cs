@@ -408,17 +408,14 @@ namespace YAF.Web.Controls
                 this.page = pages.GetPage(pageQuery);
             }
 
-            if (this.page == null)
-            {
-                this.page = pages.GetPage("Board");
-            }
+            this.page ??= pages.GetPage("Board");
 
             var src = $"{BoardInfo.ForumServerFileRoot}pages/{this.page.PageName}.ascx";
 
             var replacementPaths = new List<string> { "moderate", "admin", "help" };
 
             replacementPaths.Where(path => src.IndexOf($"/{path}_", StringComparison.Ordinal) >= 0)
-                .ForEach(path => { src = src.Replace($"/{path}_", $"/{path}/"); });
+                .ForEach(path => src = src.Replace($"/{path}_", $"/{path}/"));
 
             return src;
         }

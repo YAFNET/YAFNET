@@ -120,10 +120,7 @@ namespace YAF.Core.Services
         /// </returns>
         public bool IsIgnored(int ignoredUserId)
         {
-            if (this._userIgnoreList == null)
-            {
-                this._userIgnoreList = this._dbBroker.UserIgnoredList(BoardContext.Current.PageUserID);
-            }
+            this._userIgnoreList ??= this._dbBroker.UserIgnoredList(BoardContext.Current.PageUserID);
 
             return this._userIgnoreList.Count > 0 && this._userIgnoreList.Contains(ignoredUserId);
         }

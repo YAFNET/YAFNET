@@ -30,7 +30,6 @@ namespace YAF.Core.Handlers
     using System.Web;
     using System.Xml.Serialization;
 
-    using YAF.Core;
     using YAF.Core.Context;
     using YAF.Core.Model;
     using YAF.Core.UsersRoles;
@@ -82,21 +81,18 @@ namespace YAF.Core.Handlers
                 UserMembershipHelper.GuestUserId);
 
             forumList.ForEach(
-                forum =>
-                    {
-                        siteMap.Add(
-                            new UrlLocation
-                                {
-                                    Url = BuildLink.GetLinkNotEscaped(
-                                        ForumPages.Topics,
-                                        true,
-                                        "f={0}",
-                                        forum.Item1.ID),
-                                    Priority = 0.8D,
-                                    LastModified = forum.Item1.LastPosted ?? DateTime.UtcNow,
-                                    ChangeFrequency = UrlLocation.ChangeFrequencies.always
-                                });
-                    });
+                forum => siteMap.Add(
+                    new UrlLocation
+                        {
+                            Url = BuildLink.GetLinkNotEscaped(
+                                ForumPages.Topics,
+                                true,
+                                "f={0}",
+                                forum.Item1.ID),
+                            Priority = 0.8D,
+                            LastModified = forum.Item1.LastPosted ?? DateTime.UtcNow,
+                            ChangeFrequency = UrlLocation.ChangeFrequencies.always
+                        }));
 
             context.Response.Clear();
             var xs = new XmlSerializer(typeof(SiteMap));

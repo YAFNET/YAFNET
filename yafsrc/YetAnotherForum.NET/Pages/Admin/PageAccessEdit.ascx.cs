@@ -147,13 +147,9 @@ namespace YAF.Pages.Admin
                 var userId = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefaultAs<int>("u");
 
                 this.AccessList.Items.Cast<RepeaterItem>().ForEach(
-                    ri =>
-                        {
-                            // save it
-                            this.GetRepository<AdminPageUserAccess>().Save(
-                                userId,
-                                ri.FindControlAs<Label>("PageName").Text.Trim());
-                        });
+                    ri => this.GetRepository<AdminPageUserAccess>().Save(
+                        userId,
+                        ri.FindControlAs<Label>("PageName").Text.Trim()));
             }
 
             BuildLink.Redirect(ForumPages.Admin_PageAccessList);

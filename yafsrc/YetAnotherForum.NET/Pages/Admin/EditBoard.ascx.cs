@@ -142,10 +142,8 @@ namespace YAF.Pages.Admin
             var cult = StaticDataHelper.Cultures();
             var langFile = "english.xml";
 
-            cult.Rows.Cast<DataRow>().Where(dataRow => dataRow["CultureTag"].ToString() == this.Culture.SelectedValue).ForEach(row => 
-            {
-                langFile = (string)row["CultureFile"];
-            });
+            cult.Rows.Cast<DataRow>().Where(dataRow => dataRow["CultureTag"].ToString() == this.Culture.SelectedValue)
+                .ForEach(row => langFile = (string)row["CultureFile"]);
 
             if (createUserAndRoles)
             {
@@ -386,10 +384,8 @@ namespace YAF.Pages.Admin
                 var langFile = "en-US";
 
                 cult.Rows.Cast<DataRow>()
-                    .Where(dataRow => dataRow["CultureTag"].ToString() == this.Culture.SelectedValue).ForEach(row =>
-                {
-                    langFile = row["CultureFile"].ToString();
-                });
+                    .Where(dataRow => dataRow["CultureTag"].ToString() == this.Culture.SelectedValue)
+                    .ForEach(row => langFile = row["CultureFile"].ToString());
 
                 // Save current board settings
                 this.GetRepository<Board>().Save(

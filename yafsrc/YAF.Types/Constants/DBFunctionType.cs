@@ -21,44 +21,37 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Interfaces.Data
+
+namespace YAF.Types.Constants
 {
-    #region Using
-
-    using System.Collections.Generic;
-
-    using YAF.Types.Constants;
-
-    #endregion
-
     /// <summary>
-    /// The DbDataFilter interface.
+    ///     The DB function type.
     /// </summary>
-    public interface IDbDataFilter : IDbSortableOperation
+    public enum DBFunctionType
     {
-        #region Public Methods and Operators
+        /// <summary>
+        ///     The query.
+        /// </summary>
+        Query,
 
         /// <summary>
-        /// The run.
+        ///     The data table.
         /// </summary>
-        /// <param name="dbfunctionType">
-        /// The dbfunction type.
-        /// </param>
-        /// <param name="operationName">
-        /// The operation name.
-        /// </param>
-        /// <param name="parameters">
-        /// The parameters.
-        /// </param>
-        /// <param name="data">
-        /// The data.
-        /// </param>
-        void Run(
-            DBFunctionType dbfunctionType,
-            string operationName,
-            IEnumerable<KeyValuePair<string, object>> parameters,
-            object data);
+        DataTable,
 
-        #endregion
+        /// <summary>
+        ///     The data set.
+        /// </summary>
+        DataSet,
+
+        /// <summary>
+        ///     The scalar.
+        /// </summary>
+        Scalar,
+
+        /// <summary>
+        ///     The reader.
+        /// </summary>
+        Reader
     }
 }

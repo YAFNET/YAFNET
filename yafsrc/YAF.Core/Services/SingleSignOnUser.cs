@@ -51,26 +51,13 @@ namespace YAF.Core.Services
         /// </returns>
         public static string GenerateLoginUrl([NotNull] AuthService authService, [NotNull] bool generatePopUpUrl, [CanBeNull] bool connectCurrentUser = false)
         {
-            switch (authService)
-            {
-                case AuthService.twitter:
-                    {
-                        return new Auth.Twitter().GenerateLoginUrl(generatePopUpUrl, connectCurrentUser);
-                    }
-
-                case AuthService.facebook:
-                    {
-                        return new Auth.Facebook().GenerateLoginUrl(generatePopUpUrl, connectCurrentUser);
-                    }
-
-                case AuthService.google:
-                    {
-                        return new Auth.Google().GenerateLoginUrl(generatePopUpUrl, connectCurrentUser);
-                    }
-
-                default:
-                    return string.Empty;
-            }
+            return authService switch
+                {
+                    AuthService.twitter => new Auth.Twitter().GenerateLoginUrl(generatePopUpUrl, connectCurrentUser),
+                    AuthService.facebook => new Auth.Facebook().GenerateLoginUrl(generatePopUpUrl, connectCurrentUser),
+                    AuthService.google => new Auth.Google().GenerateLoginUrl(generatePopUpUrl, connectCurrentUser),
+                    _ => string.Empty
+                };
         }
 
         /// <summary>

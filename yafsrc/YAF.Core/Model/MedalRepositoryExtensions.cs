@@ -63,35 +63,24 @@ namespace YAF.Core.Model
         /// <summary>
         /// Lists medal(s) assigned to the group
         /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
         /// <param name="groupID">
         /// ID of group of which to list medals.
         /// </param>
         /// <param name="medalID">
         /// ID of medal to list.
         /// </param>
-        public static DataTable GroupMedalListAsDataTable(this IRepository<Medal> repository, 
-                                                 [NotNull] object groupID, [NotNull] object medalID)
+        /// <returns>
+        /// The <see cref="DataTable"/>.
+        /// </returns>
+        public static DataTable GroupMedalListAsDataTable(
+            this IRepository<Medal> repository,
+            [NotNull] object groupID,
+            [NotNull] object medalID)
         {
             return repository.DbFunction.GetData.group_medal_list(GroupID: groupID, MedalID: medalID);
-        }
-
-        /// <summary>
-        /// The listusers.
-        /// </summary>
-        /// <param name="repository">
-        /// The repository. 
-        /// </param>
-        /// <param name="medalID">
-        /// The medal id. 
-        /// </param>
-        /// <returns>
-        /// The <see cref="DataTable"/> . 
-        /// </returns>
-        public static DataTable ListUsers(this IRepository<Medal> repository, int medalID)
-        {
-            CodeContracts.VerifyNotNull(repository, "repository");
-
-            return repository.DbFunction.GetData.medal_listusers(MedalID: medalID);
         }
 
         /// <summary>
@@ -213,21 +202,21 @@ namespace YAF.Core.Model
                 SortOrder: sortOrder, 
                 Flags: flags);
 
-            if (success > 0)
+            if (success <= 0)
             {
-                if (medalID.HasValue)
-                {
-                    repository.FireUpdated(medalID);
-                }
-                else
-                {
-                    repository.FireNew();
-                }
-
-                return true;
+                return false;
             }
 
-            return false;
+            if (medalID.HasValue)
+            {
+                repository.FireUpdated(medalID);
+            }
+            else
+            {
+                repository.FireNew();
+            }
+
+            return true;
         }
 
         #endregion

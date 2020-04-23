@@ -166,7 +166,7 @@ namespace YAF.Core.Extensions
             var enumerable = ids.ToList();
 
             enumerable.ForEach(
-                id => { success = repository.DbAccess.Execute(db => db.Connection.Delete<T>(x => x.ID == id)) == 1; });
+                id => success = repository.DbAccess.Execute(db => db.Connection.Delete<T>(x => x.ID == id)) == 1);
 
             if (success)
             {

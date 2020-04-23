@@ -26,15 +26,15 @@ namespace YAF.Core.Services
 {
     #region Using
 
-    using System;
+    using System.Linq;
     using System.Web;
 
     using YAF.Configuration;
     using YAF.Core.Context;
+    using YAF.Core.Extensions;
     using YAF.Core.Model;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Types.Interfaces.Data;
     using YAF.Types.Models;
     using YAF.Utils.Helpers;
 
@@ -82,7 +82,30 @@ namespace YAF.Core.Services
 
                 if (!lastRead.HasValue && this.UseDatabaseReadTracking)
                 {
-                    lastRead = this.Get<IDbFunction>().GetData.user_lastread(this.CurrentUserId).Rows[0]["LastAccessDate"];
+                    var lastForumRead = this.GetRepository<ForumReadTracking>().Get(t => t.UserID == this.CurrentUserId)
+                        .OrderByDescending(t => t.LastAccessDate).FirstOrDefault();
+
+                    var lastTopicRead = this.GetRepository<ForumReadTracking>().Get(t => t.UserID == this.CurrentUserId)
+                        .OrderByDescending(t => t.LastAccessDate).FirstOrDefault();
+
+                    if (lastForumRead != null && lastTopicRead != null)
+                    {
+                        lastRead = lastForumRead.LastAccessDate > lastTopicRead.LastAccessDate ? lastForumRead.LastAccessDate : lastTopicRead.LastAccessDate;
+                    }
+                    else
+                    {
+                        if (lastForumRead != null)
+                        {
+                            lastRead = lastForumRead.LastAccessDate;
+                        }
+                        else
+                        {
+                            if (lastTopicRead != null)
+                            {
+                                lastRead = lastTopicRead.LastAccessDate;
+                            }
+                        }
+                    }
                 }
                 else
                 {

@@ -72,7 +72,7 @@ namespace YAF.Types.Objects
                 var items = value;
                 this.map.Clear();
 
-                items.ForEach(item => { this.map.Add(item); });
+                items.ForEach(item => this.map.Add(item));
             }
         }
 

@@ -61,6 +61,7 @@ namespace YAF.Core.Helpers
         /// The transform Resource.
         /// </param>
         /// <returns>
+        /// The <see cref="T"/>.
         /// </returns>
         public T FromFile(string xmlFileName, string cacheName, Action<T> transformResource = null)
         {
@@ -85,23 +86,24 @@ namespace YAF.Core.Helpers
 
                     transformResource?.Invoke(resources);
 
-                    if (cacheName.IsSet())
+                    if (!cacheName.IsSet())
                     {
-                        var fileDependency = new CacheDependency(xmlFileName);
-                        HttpRuntime.Cache.Add(
-                            cacheName,
-                            resources,
-                            fileDependency,
-                            DateTime.UtcNow.AddHours(1.0),
-                            TimeSpan.Zero,
-                            CacheItemPriority.Default,
-                            null);
+                        return resources;
                     }
+
+                    var fileDependency = new CacheDependency(xmlFileName);
+                    HttpRuntime.Cache.Add(
+                        cacheName,
+                        resources,
+                        fileDependency,
+                        DateTime.UtcNow.AddHours(1.0),
+                        TimeSpan.Zero,
+                        CacheItemPriority.Default,
+                        null);
 
                     return resources;
                 }
             }
-
         }
 
         #endregion
@@ -115,6 +117,7 @@ namespace YAF.Core.Helpers
         /// The xml file name. 
         /// </param>
         /// <returns>
+        /// The <see cref="Encoding"/>.
         /// </returns>
         private static Encoding GetEncodingForXmlFile(string xmlFileName)
         {
@@ -124,22 +127,23 @@ namespace YAF.Core.Helpers
 
             // The first child of a standard XML document is the XML declaration.
             // The following code assumes and reads the first child as the XmlDeclaration.
-            if (doc.FirstChild.NodeType == XmlNodeType.XmlDeclaration)
+            if (doc.FirstChild.NodeType != XmlNodeType.XmlDeclaration)
             {
-                // Get the encoding declaration.
-                var decl = (XmlDeclaration)doc.FirstChild;
-                try
-                {
-                    var currentEncoding = Encoding.GetEncoding(decl.Encoding);
-                    return currentEncoding;
-                }
-                catch
-                {
-                    // use default...
-                }
+                return Encoding.UTF8;
             }
 
-            return Encoding.UTF8;
+            // Get the encoding declaration.
+            var decl = (XmlDeclaration)doc.FirstChild;
+            try
+            {
+                var currentEncoding = Encoding.GetEncoding(decl.Encoding);
+                return currentEncoding;
+            }
+            catch
+            {
+                // use default...
+                return Encoding.UTF8;
+            }
         }
 
         #endregion

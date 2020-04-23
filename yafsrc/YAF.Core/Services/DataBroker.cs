@@ -253,20 +253,16 @@ namespace YAF.Core.Services
                         },
                     TimeSpan.FromMinutes(this.BoardSettings.BoardCategoriesCacheTimeout));
 
-                // add it to this dataset
+                // add it to this DataSet
                 ds.Tables.Add(category.Copy());
 
                 var categoryTable = ds.Tables["Category"];
 
                 if (categoryID.HasValue)
                 {
-                    // make sure this only has the category desired in the dataset
+                    // make sure this only has the category desired in the DataSet
                     categoryTable.AsEnumerable().Where(row => row.Field<int>("CategoryID") != categoryID).ForEach(
-                        row =>
-                            {
-                                // delete it...
-                                row.Delete();
-                            });
+                        row => row.Delete());
 
                      categoryTable.AcceptChanges();
                 }
@@ -297,17 +293,15 @@ namespace YAF.Core.Services
                 var deletedCategory = false;
 
                 // remove empty categories...
-                foreach (
-                    var row in
-                        categoryTable.SelectTypedList(
+                categoryTable.SelectTypedList(
                             row => new { row, childRows = row.GetChildRows("FK_Forum_Category") })
-                            .Where(@t => !@t.childRows.Any())
-                            .Select(@t => @t.row))
+                            .Where(t => !t.childRows.Any())
+                            .Select(t => t.row).ForEach(r =>
                 {
                     // remove this category...
-                    row.Delete();
+                    r.Delete();
                     deletedCategory = true;
-                }
+                });
 
                 if (deletedCategory)
                 {
@@ -399,29 +393,6 @@ namespace YAF.Core.Services
         public IEnumerable<BBCode> GetCustomBBCode()
         {
             return this.DataCache.GetOrSet(Constants.Cache.CustomBBCode, () => this.GetRepository<BBCode>().GetByBoardId());
-        }
-
-        /// <summary>
-        ///     The get latest topics.
-        /// </summary>
-        /// <param name="numberOfPosts"> The number of posts. </param>
-        /// <param name="userId"> The user id. </param>
-        /// <param name="styleColumnNames"> The style Column Names. </param>
-        /// <returns> Returns List with Latest Topics. </returns>
-        public DataTable GetLatestTopics(int numberOfPosts, int userId, params string[] styleColumnNames)
-        {
-            return
-                this.StyleTransformDataTable(
-                    this.DbFunction.GetAsDataTable(
-                        cdb =>
-                        cdb.topic_latest(
-                            BoardContext.Current.PageBoardID,
-                            numberOfPosts,
-                            userId,
-                            this.BoardSettings.UseStyledNicks,
-                            this.BoardSettings.NoCountForumsInActiveDiscussions,
-                            this.BoardSettings.UseReadTrackingByDatabase)),
-                    styleColumnNames);
         }
 
         /// <summary>
@@ -532,19 +503,18 @@ namespace YAF.Core.Services
             }
 
             // load them into the page data...
-            foreach (var r in results)
-            {
-                // find the message id in the results...
-                var message =
-                    messageTextTable.AsEnumerable().FirstOrDefault(x => x.Field<int>("MessageID") == r.MessageID);
+            results.ForEach(
+                r =>
+                    {
+                        // find the message id in the results...
+                        var message = messageTextTable.AsEnumerable()
+                            .FirstOrDefault(x => x.Field<int>("MessageID") == r.MessageID);
 
-                if (message == null)
-                {
-                    continue;
-                }
-
-                r.Message = message.Field<string>("Message");
-            }
+                        if (message != null)
+                        {
+                            r.Message = message.Field<string>("Message");
+                        }
+                    });
         }
 
         /// <summary>
@@ -561,25 +531,6 @@ namespace YAF.Core.Services
 
             var styleTransform = this.Get<IStyleTransform>();
             styleTransform.DecodeStyleByTable(dt, true);
-
-            return dt;
-        }
-
-        /// <summary>
-        ///     The style transform function wrap.
-        /// </summary>
-        /// <param name="dt"> The DateTable </param>
-        /// <param name="styleColumns"> Style columns names </param>
-        /// <returns> The style transform wrap. </returns>
-        public DataTable StyleTransformDataTable(DataTable dt, params string[] styleColumns)
-        {
-            if (!this.BoardSettings.UseStyledNicks)
-            {
-                return dt;
-            }
-
-            var styleTransform = this.Get<IStyleTransform>();
-            styleTransform.DecodeStyleByTable(dt, true, styleColumns);
 
             return dt;
         }
@@ -619,10 +570,7 @@ namespace YAF.Core.Services
             }
 
             // get fresh values
-            foreach (var item in this.GetRepository<IgnoreUser>().Get(i => i.UserID == userId))
-            {
-                userList.Add(item.IgnoredUserID);
-            }
+            this.GetRepository<IgnoreUser>().Get(i => i.UserID == userId).ForEach(user => userList.Add(user.IgnoredUserID));
 
             // store it in the user session...
             this.HttpSessionState.Add(key, userList);

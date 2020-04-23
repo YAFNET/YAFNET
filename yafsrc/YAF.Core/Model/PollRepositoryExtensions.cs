@@ -498,22 +498,24 @@ namespace YAF.Core.Model
 
                     for (uint choiceCount1 = 0; choiceCount1 < question.Choice.GetUpperBound(1) + 1; choiceCount1++)
                     {
-                        if (question.Choice[0, choiceCount1].IsSet())
+                        if (question.Choice[0, choiceCount1].IsNotSet())
                         {
-                            cmd.AddParam($"@Choice{choiceCount1}", question.Choice[0, choiceCount1]);
-                            cmd.AddParam($"@Votes{choiceCount1}", 0);
-
-                            cmd.AddParam(
-                                $"@ChoiceObjectPath{choiceCount1}",
-                                question.Choice[1, choiceCount1].IsNotSet()
-                                    ? string.Empty
-                                    : question.Choice[1, choiceCount1]);
-                            cmd.AddParam(
-                                $"@ChoiceMimeType{choiceCount1}",
-                                question.Choice[2, choiceCount1].IsNotSet()
-                                    ? string.Empty
-                                    : question.Choice[2, choiceCount1]);
+                            continue;
                         }
+
+                        cmd.AddParam($"@Choice{choiceCount1}", question.Choice[0, choiceCount1]);
+                        cmd.AddParam($"@Votes{choiceCount1}", 0);
+
+                        cmd.AddParam(
+                            $"@ChoiceObjectPath{choiceCount1}",
+                            question.Choice[1, choiceCount1].IsNotSet()
+                                ? string.Empty
+                                : question.Choice[1, choiceCount1]);
+                        cmd.AddParam(
+                            $"@ChoiceMimeType{choiceCount1}",
+                            question.Choice[2, choiceCount1].IsNotSet()
+                                ? string.Empty
+                                : question.Choice[2, choiceCount1]);
                     }
 
                     if (question.TopicId > 0)

@@ -247,7 +247,7 @@ namespace YAF.Core.Services
         {
             try
             {
-                messageList.ForEach(message => { this.UpdateSearchIndexItemAsync(message).Wait(); });
+                messageList.ForEach(message => this.UpdateSearchIndexItemAsync(message).Wait());
             }
             finally
             {
@@ -876,13 +876,10 @@ namespace YAF.Core.Services
                     if (userAccessList.Any())
                     {
                         userAccessList.Where(a => !a.ReadAccess).ForEach(
-                            access =>
-                                {
-                                    fil.Add(
-                                        new FilterClause(
-                                            new TermsFilter(new Term("ForumId", access.ForumID.ToString())),
-                                            Occur.MUST_NOT));
-                                });
+                            access => fil.Add(
+                                new FilterClause(
+                                    new TermsFilter(new Term("ForumId", access.ForumID.ToString())),
+                                    Occur.MUST_NOT)));
                     }
                 }
 

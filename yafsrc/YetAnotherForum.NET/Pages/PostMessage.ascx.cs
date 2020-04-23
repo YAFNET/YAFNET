@@ -1291,10 +1291,7 @@ namespace YAF.Pages
                 var attachments = this.GetRepository<Attachment>().Get(a => a.MessageID == currentMessage.MessageID);
 
                 attachments.ForEach(
-                    attach =>
-                        {
-                            this.forumEditor.Text += $" [ATTACH]{attach.ID}[/Attach] ";
-                        });
+                    attach => this.forumEditor.Text += $" [ATTACH]{attach.ID}[/Attach] ");
             }
 
             if (this.forumEditor.UsesHTML && currentMessage.Flags.IsBBCode)

@@ -560,17 +560,14 @@ namespace YAF.Core.Services
             CodeContracts.VerifyNotNull(postfix, "postfix");
 
             wordList.Where(w => w.Length > 3).ForEach(
-                word =>
-                    {
-                        MatchAndPerformAction(
-                            $"({word.ToLower().ToRegExString()})",
-                            message,
-                            (inner, index, length) =>
-                                {
-                                    message = message.Insert(index + length, postfix);
-                                    message = message.Insert(index, prefix);
-                                });
-                    });
+                word => MatchAndPerformAction(
+                    $"({word.ToLower().ToRegExString()})",
+                    message,
+                    (inner, index, length) =>
+                        {
+                            message = message.Insert(index + length, postfix);
+                            message = message.Insert(index, prefix);
+                        }));
 
             return message;
         }

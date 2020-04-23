@@ -115,7 +115,7 @@ namespace YAF.Types.Extensions
 
             var builder = new StringBuilder(hashedBytes.Length * 2 + 2);
 
-            hashedBytes.ForEach(b => { builder.AppendFormat("{0:X2}", b); });
+            hashedBytes.ForEach(b => builder.AppendFormat("{0:X2}", b));
 
             return builder.ToString();
         }
@@ -137,6 +137,20 @@ namespace YAF.Types.Extensions
             return finalValue;
         }
 
+        /// <summary>
+        /// The to list of.
+        /// </summary>
+        /// <param name="array">
+        /// The array.
+        /// </param>
+        /// <param name="bitConverter">
+        /// The bit converter.
+        /// </param>
+        /// <typeparam name="T">
+        /// </typeparam>
+        /// <returns>
+        /// The <see cref="List"/>.
+        /// </returns>
         public static List<T> ToListOf<T>(this byte[] array, Func<byte[], int, T> bitConverter)
         {
             var size = Marshal.SizeOf(typeof(T));

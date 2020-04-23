@@ -32,6 +32,7 @@ namespace YAF.Core.Data
     using System.Linq;
 
     using YAF.Types;
+    using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Extensions.Data;
     using YAF.Types.Interfaces;
@@ -217,7 +218,7 @@ namespace YAF.Core.Data
         /// The db function execute. 
         /// </returns>
         protected bool DbFunctionExecute(
-            DbFunctionType functionType, 
+            DBFunctionType functionType, 
             [NotNull] InvokeMemberBinder binder, 
             [NotNull] IList<KeyValuePair<string, object>> parameters, 
             [NotNull] Func<IDbCommand, object> executeDb, 
@@ -281,7 +282,7 @@ namespace YAF.Core.Data
             }
 
             return this.DbFunctionExecute(
-                DbFunctionType.Reader, 
+                DBFunctionType.Reader, 
                 binder, 
                 this.MapParameters(binder.CallInfo, args), 
                 (cmd) => this._dbAccessProvider.Instance.GetReader(cmd, this.DbTransaction), 
@@ -307,7 +308,7 @@ namespace YAF.Core.Data
             [NotNull] InvokeMemberBinder binder, [NotNull] object[] args, [NotNull] out object result)
         {
             return this.DbFunctionExecute(
-                DbFunctionType.DataTable, 
+                DBFunctionType.DataTable, 
                 binder, 
                 this.MapParameters(binder.CallInfo, args), 
                 (cmd) =>
@@ -339,7 +340,7 @@ namespace YAF.Core.Data
             [NotNull] InvokeMemberBinder binder, [NotNull] object[] args, [NotNull] out object result)
         {
             return this.DbFunctionExecute(
-                DbFunctionType.DataSet, 
+                DBFunctionType.DataSet, 
                 binder, 
                 this.MapParameters(binder.CallInfo, args), 
                 (cmd) => this._dbAccessProvider.Instance.GetDataSet(cmd, this.DbTransaction), 
@@ -364,7 +365,7 @@ namespace YAF.Core.Data
         protected bool InvokeQuery([NotNull] InvokeMemberBinder binder, [NotNull] object[] args, [NotNull] out object result)
         {
             return this.DbFunctionExecute(
-                DbFunctionType.Query, 
+                DBFunctionType.Query, 
                 binder, 
                 this.MapParameters(binder.CallInfo, args), 
                 (cmd) =>
@@ -393,7 +394,7 @@ namespace YAF.Core.Data
         protected bool InvokeScalar([NotNull] InvokeMemberBinder binder, [NotNull] object[] args, [NotNull] out object result)
         {
             return this.DbFunctionExecute(
-                DbFunctionType.Scalar, 
+                DBFunctionType.Scalar, 
                 binder, 
                 this.MapParameters(binder.CallInfo, args), 
                 cmd => this._dbAccessProvider.Instance.ExecuteScalar(cmd, this.DbTransaction), 
@@ -454,7 +455,7 @@ namespace YAF.Core.Data
         /// <param name="result">
         /// The result.
         /// </param>
-        private void RunFilters(DbFunctionType functionType, IList<KeyValuePair<string, object>> parameters, string operationName, ref object result)
+        private void RunFilters(DBFunctionType functionType, IList<KeyValuePair<string, object>> parameters, string operationName, ref object result)
         {
             // execute filter...
             var filterFunctions = this._serviceLocator.Get<IEnumerable<IDbDataFilter>>()

@@ -618,36 +618,22 @@ namespace YAF.Pages
                         twitterHolder.Visible = false;
                         googleHolder.Visible = false;
 
-                        switch (loginAuth)
-                        {
-                            case AuthService.twitter:
-                                {
-                                    this.Login1.DestinationPageUrl = SingleSignOnUser.GenerateLoginUrl(
-                                        AuthService.twitter,
-                                        false,
-                                        true);
-                                }
-
-                                break;
-                            case AuthService.facebook:
-                                {
-                                    this.Login1.DestinationPageUrl = SingleSignOnUser.GenerateLoginUrl(
-                                        AuthService.facebook,
-                                        false,
-                                        true);
-                                }
-
-                                break;
-                            case AuthService.google:
-                                {
-                                    this.Login1.DestinationPageUrl = SingleSignOnUser.GenerateLoginUrl(
-                                        AuthService.google,
-                                        false,
-                                        true);
-                                }
-
-                                break;
-                        }
+                        this.Login1.DestinationPageUrl = loginAuth switch
+                            {
+                                AuthService.twitter => SingleSignOnUser.GenerateLoginUrl(
+                                    AuthService.twitter,
+                                    false,
+                                    true),
+                                AuthService.facebook => SingleSignOnUser.GenerateLoginUrl(
+                                    AuthService.facebook,
+                                    false,
+                                    true),
+                                AuthService.google => SingleSignOnUser.GenerateLoginUrl(
+                                    AuthService.google,
+                                    false,
+                                    true),
+                                _ => this.Login1.DestinationPageUrl
+                            };
                     }
 
                     break;

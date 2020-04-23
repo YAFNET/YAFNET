@@ -95,7 +95,7 @@ namespace YAF.Utils
             var styleRow = style.Trim().Split('/');
 
             styleRow.Select(s => s.Split('!')).Where(x => x.Length > 1).ForEach(
-                pair => { style = colorOnly ? GetColorOnly(pair[1]) : pair[1]; });
+                pair => style = colorOnly ? GetColorOnly(pair[1]) : pair[1]);
             
             return style;
         }
@@ -117,15 +117,12 @@ namespace YAF.Utils
             styleColumns ??= new[] { "Style" };
 
             dt.Rows.Cast<DataRow>().ForEach(
-                row =>
-                    {
-                        styleColumns.ForEach(
-                            t =>
-                                {
-                                    var dr = row;
-                                    this.DecodeStyleByRow(dr, t, colorOnly);
-                                });
-                    });
+                row => styleColumns.ForEach(
+                    t =>
+                        {
+                            var dr = row;
+                            this.DecodeStyleByRow(dr, t, colorOnly);
+                        }));
         }
 
         /// <summary>
@@ -139,7 +136,7 @@ namespace YAF.Utils
         /// </param>
         public void DecodeStyleByGroupList(List<Group> list, bool colorOnly = false)
         {
-            list.ForEach(group => { this.DecodeStyleByGroup(group, colorOnly); });
+            list.ForEach(group => this.DecodeStyleByGroup(@group, colorOnly));
         }
 
         #endregion

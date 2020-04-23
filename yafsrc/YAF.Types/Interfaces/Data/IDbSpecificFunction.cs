@@ -28,10 +28,12 @@ namespace YAF.Types.Interfaces.Data
     using System.Collections.Generic;
     using System.Data;
 
+    using YAF.Types.Constants;
+
     #endregion
 
     /// <summary>
-    /// The db specific function.
+    /// The DB specific function.
     /// </summary>
     public interface IDbSpecificFunction : IDbSortableOperation
     {
@@ -49,8 +51,8 @@ namespace YAF.Types.Interfaces.Data
         /// <summary>
         /// The execute.
         /// </summary>
-        /// <param name="dbfunctionType">
-        /// The dbfunction type.
+        /// <param name="functionType">
+        /// The function type.
         /// </param>
         /// <param name="operationName">
         /// The operation name.
@@ -58,15 +60,17 @@ namespace YAF.Types.Interfaces.Data
         /// <param name="parameters">
         /// The parameters.
         /// </param>
-        /// <param name="transaction"></param>
         /// <param name="result">
         /// The result.
         /// </param>
+        /// <param name="transaction">
+        /// The transaction.
+        /// </param>
         /// <returns>
-        /// The execute.
+        /// The <see cref="bool"/>.
         /// </returns>
         bool Execute(
-            DbFunctionType dbfunctionType,
+            DBFunctionType functionType,
             string operationName,
             IEnumerable<KeyValuePair<string, object>> parameters,
             out object result,

@@ -161,13 +161,8 @@ namespace YAF.Core.Services.Localization
                 pageResource = pagePointer.Resource.FirstOrDefault(r => r.tag.Equals(tag));
             }
 
-            if (pageResource == null)
-            {
-                // attempt to find the tag anywhere...
-                pageResource =
-                    this.localizationLanguageResources.page.SelectMany(p => p.Resource)
-                        .FirstOrDefault(r => r.tag.Equals(tag));
-            }
+            pageResource ??= this.localizationLanguageResources.page.SelectMany(p => p.Resource)
+                .FirstOrDefault(r => r.tag.Equals(tag));
 
             if (pageResource != null && pageResource.Value.IsSet())
             {

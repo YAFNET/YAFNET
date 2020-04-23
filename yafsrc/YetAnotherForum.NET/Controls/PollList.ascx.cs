@@ -1063,7 +1063,7 @@ namespace YAF.Controls
                 }
             });
 
-            duplicateList.Cast<DataRow>().ForEach(row => { this._dtPollGroupAllChoices.Rows.Remove(row); });
+            duplicateList.Cast<DataRow>().ForEach(row => this._dtPollGroupAllChoices.Rows.Remove(row));
 
             this._dtPollGroupAllChoices.AcceptChanges();
 
