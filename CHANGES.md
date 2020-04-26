@@ -1,6 +1,13 @@
 YetAnotherForum.NET Changelog
 ====================
 
+Avatars are now visible for posts on mobile devices 
+* Removed spacing from Quotes
+* [FIXED] Display Date Times in Posts
+* [FIXED] dont send email notifications after edit post
+* Better handling of mass emails
+
+
 # YetAnotherForum.NET v2.3.1.03
 * [NEW #549] Admin option to restore or permanently delete old topics that are deleted
 * Language for guests is now based on current browser Language
