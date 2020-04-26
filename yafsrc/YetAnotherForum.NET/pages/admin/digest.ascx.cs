@@ -26,9 +26,10 @@ namespace YAF.Pages.Admin
     #region Using
 
     using System;
+    using System.Collections.Generic;
     using System.Globalization;
-    using System.Text.RegularExpressions;
-
+    using System.Net.Mail;
+    
     using YAF.Configuration;
     using YAF.Core;
     using YAF.Types;
