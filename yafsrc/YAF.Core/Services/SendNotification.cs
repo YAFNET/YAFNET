@@ -36,6 +36,7 @@ namespace YAF.Core.Services
     using System.Web.Security;
 
     using YAF.Configuration;
+    using YAF.Core.Context;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
     using YAF.Core.UsersRoles;
@@ -348,9 +349,7 @@ namespace YAF.Core.Services
             catch (Exception x)
             {
                 // report exception to the forum's event log
-                this.Get<ILogger>().Error(
-                    x,
-                    $"Send PM Notification Error for UserID {BoardContext.Current.PageUserID}");
+                this.Get<ILogger>().Error(x, $"Send PM Notification Error for UserID {BoardContext.Current.PageUserID}");
 
                 // tell user about failure
                 BoardContext.Current.AddLoadMessage(
@@ -367,6 +366,7 @@ namespace YAF.Core.Services
         /// </param>
         public void ToWatchingUsers(int newMessageId)
         {
+            var mailMessages = new List<MailMessage>();
             var boardName = this.BoardSettings.Name;
             var forumEmail = this.BoardSettings.ForumEmail;
 
@@ -423,14 +423,14 @@ namespace YAF.Core.Services
                                 boardName);
 
                             watchEmail.TemplateLanguageFile = languageFile;
-                            watchEmail.SendEmail(
+                            mailMessages.Add(watchEmail.CreateEmail(
                                 new MailAddress(forumEmail, boardName),
                                 new MailAddress(
                                     row.Field<string>("Email"),
                                     this.BoardSettings.EnableDisplayName
                                         ? row.Field<string>("DisplayName")
                                         : row.Field<string>("Name")),
-                                subject);
+                                subject));
                         }
                         finally
                         {
@@ -470,18 +470,24 @@ namespace YAF.Core.Services
 
                             watchEmail.TemplateLanguageFile = languageFile;
 
-                            watchEmail.SendEmail(
+                            mailMessages.Add(watchEmail.CreateEmail(
                                 new MailAddress(forumEmail, boardName),
                                 new MailAddress(
                                     user.Email,
                                     this.BoardSettings.EnableDisplayName ? user.DisplayName : user.Name),
-                                subject);
+                                subject));
                         }
                         finally
                         {
                             HttpContext.Current = null;
                         }
                     });
+
+            if (mailMessages.Any())
+            {
+                // Now send all mails..
+                this.Get<ISendMail>().SendAll(mailMessages);
+            }
         }
 
         /// <summary>
@@ -681,8 +687,7 @@ namespace YAF.Core.Services
                 return;
             }
 
-            using (var dt = this.GetRepository<User>()
-                .EmailsAsDataTable(BoardContext.Current.PageBoardID, adminGroupId))
+            using (var dt = this.GetRepository<User>().EmailsAsDataTable(BoardContext.Current.PageBoardID, adminGroupId))
             {
                 dt.Rows.Cast<DataRow>().ForEach(
                     row =>
