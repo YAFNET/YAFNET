@@ -135,14 +135,14 @@ namespace YAF.Pages.Admin
                         .GetDigestHtml(this.PageContext.PageUserID, this.PageContext.BoardSettings, true);
 
                     // send....
-                    this.Get<IDigest>()
-                        .SendDigest(
-                            string.Format(this.GetText("DIGEST", "SUBJECT"), this.PageContext.BoardSettings.Name),
-                            digestHtml,
-                            this.PageContext.BoardSettings.Name,
-                            this.PageContext.BoardSettings.ForumEmail,
-                            this.TextSendEmail.Text.Trim(),
-                            "Digest Send Test");
+                    var message = this.Get<IDigest>().CreateDigestMessage(
+                        string.Format(this.GetText("DIGEST", "SUBJECT"), this.PageContext.BoardSettings.Name),
+                        digestHtml,
+                        new MailAddress(this.PageContext.BoardSettings.ForumEmail, this.PageContext.BoardSettings.Name),
+                        this.TextSendEmail.Text.Trim(),
+                        "Digest Send Test");
+
+                    this.Get<ISendMail>().SendAll(new List<MailMessage> { message });
 
                     this.PageContext.AddLoadMessage(
                         this.GetTextFormatted("MSG_SEND_SUC", "Direct"),
