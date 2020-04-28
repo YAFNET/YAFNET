@@ -45,41 +45,44 @@ namespace YAF.Core.Services
         #region Public Methods and Operators
 
         /// <summary>
-        /// Sends all MailMessages via the SmtpClient. Doesn't handle any exceptions.
+        /// Sends all MailMessages via the SMTP Client. Doesn't handle any exceptions.
         /// </summary>
-        /// <param name="messages">The messages.</param>
-        /// <param name="handleException"></param>
+        /// <param name="messages">
+        /// The messages.
+        /// </param>
+        /// <param name="handleException">
+        /// The handle Exception.
+        /// </param>
         public void SendAll([NotNull] IEnumerable<MailMessage> messages, [CanBeNull] Action<MailMessage, Exception> handleException = null)
         {
             CodeContracts.VerifyNotNull(messages, "messages");
 
-            using (var smtpClient = new SmtpClient
-                                        {
-                                            EnableSsl = Config.UseSMTPSSL
-                                        })
+            var smtpClient = new SmtpClient { EnableSsl = Config.UseSMTPSSL };
+
+            // send the message...
+            messages.ToList().ForEach(m =>
             {
-                // send the message...
-                foreach (var m in messages.ToList())
+                try
                 {
-                    try
+                    // send the message...
+                    smtpClient.Send(m);
+                }
+                catch (Exception ex)
+                {
+                    smtpClient.Dispose();
+                    if (handleException != null)
                     {
-                        // send the message...
-                        smtpClient.Send(m);
+                        handleException(m, ex);
                     }
-                    catch (Exception ex)
+                    else
                     {
-                        if (handleException != null)
-                        {
-                            handleException(m, ex);
-                        }
-                        else
-                        {
-                            // don't handle here...
-                            throw;
-                        }
+                        // don't handle here...
+                        throw;
                     }
                 }
-            }
+            });
+
+            smtpClient.Dispose();
         }
 
         #endregion

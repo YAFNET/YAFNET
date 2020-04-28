@@ -26,6 +26,7 @@ namespace YAF.Core.Services
     #region Using
 
     using System.Net;
+    using System.Net.Mail;
 
     using YAF.Configuration;
     using YAF.Core.Extensions;
@@ -101,19 +102,6 @@ namespace YAF.Core.Services
         /// </summary>
         /// <param name="userId">The user id.</param>
         /// <param name="boardSettings">The board settings.</param>
-        /// <returns>
-        /// The get digest url.
-        /// </returns>
-        public string GetDigestUrl(int userId, object boardSettings)
-        {
-            return this.GetDigestUrl(userId, boardSettings, false);
-        }
-
-        /// <summary>
-        /// Gets the digest URL.
-        /// </summary>
-        /// <param name="userId">The user id.</param>
-        /// <param name="boardSettings">The board settings.</param>
         /// <param name="showErrors">Show errors creating the digest.</param>
         /// <returns>
         /// The get digest url.
@@ -127,7 +115,7 @@ namespace YAF.Core.Services
         }
 
         /// <summary>
-        /// Sends the digest html to the email/name specified.
+        /// Creates the Digest Mail Message.
         /// </summary>
         /// <param name="subject">
         /// The subject.
@@ -135,11 +123,8 @@ namespace YAF.Core.Services
         /// <param name="digestHtml">
         /// The digest html.
         /// </param>
-        /// <param name="forumName">
-        /// The forum name.
-        /// </param>
-        /// <param name="forumEmail">
-        /// The forum email.
+        /// <param name="boardMessage">
+        /// The board Message.
         /// </param>
         /// <param name="toEmail">
         /// The to email.
@@ -147,27 +132,24 @@ namespace YAF.Core.Services
         /// <param name="toName">
         /// The to name.
         /// </param>
-        public void SendDigest(
+        /// <returns>
+        /// The <see cref="MailMessage"/>.
+        /// </returns>
+        public MailMessage CreateDigestMessage(
             [NotNull] string subject,
             [NotNull] string digestHtml,
-            [NotNull] string forumName,
-            [NotNull] string forumEmail,
+            [NotNull] MailAddress boardMessage,
             [NotNull] string toEmail,
             [CanBeNull] string toName)
         {
             CodeContracts.VerifyNotNull(digestHtml, "digestHtml");
-            CodeContracts.VerifyNotNull(forumName, "forumName");
-            CodeContracts.VerifyNotNull(forumEmail, "forumEmail");
+            CodeContracts.VerifyNotNull(boardMessage, "boardMessage");
             CodeContracts.VerifyNotNull(toEmail, "toEmail");
 
-            // send direct...
-            this.Get<ISendMail>().Send(
-                forumEmail,
-                forumName,
-                toEmail,
-                toName,
-                forumEmail,
-                forumName,
+            return this.Get<ISendMail>().CreateMessage(
+                boardMessage,
+                new MailAddress(toEmail, toName),
+                boardMessage,
                 subject,
                 "You must have HTML Email Viewer to View.",
                 digestHtml);
@@ -177,4 +159,4 @@ namespace YAF.Core.Services
 
         #endregion
     }
-}
+} 

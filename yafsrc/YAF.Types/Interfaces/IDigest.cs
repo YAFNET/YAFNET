@@ -23,6 +23,8 @@
  */
 namespace YAF.Types.Interfaces
 {
+    using System.Net.Mail;
+
     /// <summary>
     /// The digest interface
     /// </summary>
@@ -46,16 +48,6 @@ namespace YAF.Types.Interfaces
         /// </summary>
         /// <param name="userId">The user id.</param>
         /// <param name="boardSettings">The board settings.</param>
-        /// <returns>
-        /// The get digest url.
-        /// </returns>
-        string GetDigestUrl(int userId, object boardSettings);
-
-        /// <summary>
-        /// Gets the digest URL.
-        /// </summary>
-        /// <param name="userId">The user id.</param>
-        /// <param name="boardSettings">The board settings.</param>
         /// <param name="showErrors">Show digest generation errors</param>
         /// <returns>
         /// The get digest url.
@@ -63,7 +55,7 @@ namespace YAF.Types.Interfaces
         string GetDigestUrl(int userId, object boardSettings, bool showErrors);
 
         /// <summary>
-        /// Sends the digest html to the email/name specified.
+        /// Creates the Digest Mail Message.
         /// </summary>
         /// <param name="subject">
         /// The subject.
@@ -71,11 +63,8 @@ namespace YAF.Types.Interfaces
         /// <param name="digestHtml">
         /// The digest html.
         /// </param>
-        /// <param name="forumName">
-        /// The forum name.
-        /// </param>
-        /// <param name="forumEmail">
-        /// The forum email.
+        /// <param name="boardAddress">
+        /// The board Address.
         /// </param>
         /// <param name="toEmail">
         /// The to email.
@@ -83,11 +72,13 @@ namespace YAF.Types.Interfaces
         /// <param name="toName">
         /// The to name.
         /// </param>
-        void SendDigest(
+        /// <returns>
+        /// The <see cref="MailMessage"/>.
+        /// </returns>
+        MailMessage CreateDigestMessage(
             [NotNull] string subject,
             [NotNull] string digestHtml,
-            [NotNull] string forumName,
-            [NotNull] string forumEmail,
+            [NotNull] MailAddress boardAddress,
             [NotNull] string toEmail,
             [CanBeNull] string toName);
 

@@ -28,15 +28,21 @@ namespace YAF.Types.Interfaces
     using System.Collections.Generic;
     using System.Net.Mail;
 
+    /// <summary>
+    /// The SendMail interface.
+    /// </summary>
     public interface ISendMail
     {
         #region Public Methods and Operators
 
         /// <summary>
-        ///     Sends all MailMessages via the SmtpClient. Doesn't handle any exceptions.
+        /// Sends all MailMessages via the SmtpClient. Doesn't handle any exceptions.
         /// </summary>
         /// <param name="messages">
-        ///     The messages.
+        /// The messages.
+        /// </param>
+        /// <param name="handleException">
+        /// The handle Exception.
         /// </param>
         void SendAll([NotNull] IEnumerable<MailMessage> messages, [CanBeNull] Action<MailMessage, Exception> handleException = null);
 

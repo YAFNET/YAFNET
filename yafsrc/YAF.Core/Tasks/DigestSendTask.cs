@@ -29,6 +29,7 @@ namespace YAF.Core.Tasks
     using System.Collections.Generic;
     using System.Globalization;
     using System.Linq;
+    using System.Net.Mail;
     using System.Text.RegularExpressions;
     using System.Web;
 
@@ -193,9 +194,11 @@ namespace YAF.Core.Tasks
         /// <param name="boardSettings">The board settings.</param>
         private void SendDigestToUsers(IEnumerable<User> usersWithDigest, BoardSettings boardSettings)
         {
-            var usersSendCount = 0;
-
             var currentContext = HttpContext.Current;
+
+            var mailMessages = new List<MailMessage>();
+
+            var boardEmail = new MailAddress(boardSettings.ForumEmail, boardSettings.Name);
 
             usersWithDigest.AsParallel().ForAll(
                 user =>
@@ -227,15 +230,12 @@ namespace YAF.Core.Tasks
                                 .Groups[1].Value.Trim();
 
                             // send the digest...
-                            this.Get<IDigest>().SendDigest(
+                            mailMessages.Add(this.Get<IDigest>().CreateDigestMessage(
                                 subject.Trim(),
                                 digestHtml,
-                                boardSettings.Name,
-                                boardSettings.ForumEmail,
+                                boardEmail,
                                 membershipUser.Email,
-                                user.DisplayName);
-
-                            usersSendCount++;
+                                user.DisplayName));
                         }
                         catch (Exception e)
                         {
@@ -247,8 +247,10 @@ namespace YAF.Core.Tasks
                         }
                     });
 
+            this.Get<ISendMail>().SendAll(mailMessages);
+
             this.Get<ILogger>().Log(
-                $"Digest send to {usersSendCount} user(s)",
+                $"Digest send to {mailMessages.Count} user(s)",
                 EventLogTypes.Information,
                 null,
                 "Digest Send Task");

@@ -146,8 +146,40 @@ namespace YAF.Core.Extensions
             CodeContracts.VerifyNotNull(toAddress, "toAddress");
 
             var mailMessage = new MailMessage();
+            
             mailMessage.Populate(fromAddress, toAddress, senderAddress, subject, bodyText, bodyHtml);
+
             sendMail.SendAll(new List<MailMessage> { mailMessage });
+        }
+
+        /// <summary>
+        /// The send.
+        /// </summary>
+        /// <param name="sendMail">The send mail.</param>
+        /// <param name="fromAddress">The from address.</param>
+        /// <param name="toAddress">The to address.</param>
+        /// <param name="senderAddress">The sender address.</param>
+        /// <param name="subject">The subject.</param>
+        /// <param name="bodyText">The body text.</param>
+        /// <param name="bodyHtml">The body html.</param>
+        public static MailMessage CreateMessage(
+            [NotNull] this ISendMail sendMail,
+            [NotNull] MailAddress fromAddress,
+            [NotNull] MailAddress toAddress,
+            [NotNull] MailAddress senderAddress,
+            [CanBeNull] string subject,
+            [CanBeNull] string bodyText,
+            [CanBeNull] string bodyHtml)
+        {
+            CodeContracts.VerifyNotNull(sendMail, "sendMail");
+            CodeContracts.VerifyNotNull(fromAddress, "fromAddress");
+            CodeContracts.VerifyNotNull(toAddress, "toAddress");
+
+            var mailMessage = new MailMessage();
+
+            mailMessage.Populate(fromAddress, toAddress, senderAddress, subject, bodyText, bodyHtml);
+
+            return mailMessage;
         }
 
         #endregion
