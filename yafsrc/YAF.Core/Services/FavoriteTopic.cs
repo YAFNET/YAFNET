@@ -117,7 +117,7 @@ namespace YAF.Core.Services
         /// </returns>
         public bool IsFavoriteTopic(int topicID)
         {
-            var list = BoardContext.Current.Get<DataBroker>().FavoriteTopicList(BoardContext.Current.PageUserID);
+            var list = this.Get<DataBroker>().FavoriteTopicList(BoardContext.Current.PageUserID);
 
             return list.Any() && list.Contains(topicID);
         }

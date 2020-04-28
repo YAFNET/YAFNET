@@ -36,7 +36,6 @@ namespace YAF.Core.Services
     using System.Web;
 
     using YAF.Configuration;
-    using YAF.Core;
     using YAF.Core.Context;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
@@ -125,14 +124,14 @@ namespace YAF.Core.Services
                             BoardContext.Current.GetRepository<UserAlbum>().DeleteCover(imageIdDelete);
                         }
                     });
-                
-                BoardContext.Current.GetRepository<UserAlbumImage>().Delete(a => a.AlbumID == albumId.ToType<int>());
 
-                BoardContext.Current.GetRepository<UserAlbum>().Delete(a => a.ID == albumId.ToType<int>());
+                this.GetRepository<UserAlbumImage>().Delete(a => a.AlbumID == albumId.ToType<int>());
+
+                this.GetRepository<UserAlbum>().Delete(a => a.ID == albumId.ToType<int>());
             }
             else
             {
-                var image = BoardContext.Current.GetRepository<UserAlbumImage>().GetImage(imageId.Value);
+                var image = this.GetRepository<UserAlbumImage>().GetImage(imageId.Value);
 
                 var fileName = image.Item1.FileName;
                 var imgAlbumId = image.Item1.AlbumID.ToString();
@@ -141,16 +140,18 @@ namespace YAF.Core.Services
 
                 try
                 {
-                    if (file.Exists)
+                    if (!file.Exists)
                     {
-                        File.SetAttributes(fullName, FileAttributes.Normal);
-                        File.Delete(fullName);
+                        return;
                     }
+
+                    File.SetAttributes(fullName, FileAttributes.Normal);
+                    File.Delete(fullName);
                 }
                 finally
                 {
-                    BoardContext.Current.GetRepository<UserAlbumImage>().DeleteById(imageId.Value);
-                    BoardContext.Current.GetRepository<UserAlbum>().DeleteCover(imageId.Value);
+                    this.GetRepository<UserAlbumImage>().DeleteById(imageId.Value);
+                    this.GetRepository<UserAlbum>().DeleteCover(imageId.Value);
                 }
             }
         }
@@ -172,15 +173,15 @@ namespace YAF.Core.Services
             // load the DB so BoardContext can work...
             CodeContracts.VerifyNotNull(newTitle, "newTitle");
 
-            BoardContext.Current.Get<StartupInitializeDb>().Run();
+            this.Get<StartupInitializeDb>().Run();
 
             // newTitle = System.Web.HttpUtility.HtmlEncode(newTitle);
-            BoardContext.Current.GetRepository<UserAlbum>().UpdateTitle(albumId, newTitle);
+            this.GetRepository<UserAlbum>().UpdateTitle(albumId, newTitle);
 
             var returnObject = new ReturnClass { NewTitle = newTitle };
 
             returnObject.NewTitle = newTitle == string.Empty
-                                        ? BoardContext.Current.Get<ILocalization>().GetText("ALBUM", "ALBUM_CHANGE_TITLE")
+                                        ? this.Get<ILocalization>().GetText("ALBUM", "ALBUM_CHANGE_TITLE")
                                         : newTitle;
             returnObject.Id = $"0{albumId.ToString()}";
             return returnObject;
@@ -203,14 +204,14 @@ namespace YAF.Core.Services
             // load the DB so BoardContext can work...
             CodeContracts.VerifyNotNull(newCaption, "newCaption");
 
-            BoardContext.Current.Get<StartupInitializeDb>().Run();
+            this.Get<StartupInitializeDb>().Run();
 
             // newCaption = System.Web.HttpUtility.HtmlEncode(newCaption);
-            BoardContext.Current.GetRepository<UserAlbumImage>().UpdateCaption(imageId, newCaption);
+            this.GetRepository<UserAlbumImage>().UpdateCaption(imageId, newCaption);
             var returnObject = new ReturnClass { NewTitle = newCaption };
 
             returnObject.NewTitle = newCaption == string.Empty
-                                        ? BoardContext.Current.Get<ILocalization>().GetText(
+                                        ? this.Get<ILocalization>().GetText(
                                             "ALBUM",
                                             "ALBUM_IMAGE_CHANGE_CAPTION")
                                         : newCaption;
@@ -653,7 +654,7 @@ namespace YAF.Core.Services
                     newImgSize.Height + BottomSize + PixelPadding,
                     PixelFormat.Format24bppRgb))
                 {
-                    var rSrcImg = new Rectangle(
+                    var srcImg = new Rectangle(
                         0,
                         0,
                         src.Width,
@@ -661,17 +662,17 @@ namespace YAF.Core.Services
 
                     if (previewCropped)
                     {
-                        rSrcImg = new Rectangle(0, 0, newImgSize.Width, newImgSize.Height);
+                        srcImg = new Rectangle(0, 0, newImgSize.Width, newImgSize.Height);
                     }
 
-                    var rDstImg = new Rectangle(3, 3, dst.Width - PixelPadding, dst.Height - PixelPadding - BottomSize);
-                    var rDstTxt1 = new Rectangle(3, rDstImg.Height + 3, newImgSize.Width, BottomSize - 13);
-                    var rDstTxt2 = new Rectangle(3, rDstImg.Height + 16, newImgSize.Width, BottomSize - 13);
+                    var destRect = new Rectangle(3, 3, dst.Width - PixelPadding, dst.Height - PixelPadding - BottomSize);
+                    var rDstTxt1 = new Rectangle(3, destRect.Height + 3, newImgSize.Width, BottomSize - 13);
+                    var rDstTxt2 = new Rectangle(3, destRect.Height + 16, newImgSize.Width, BottomSize - 13);
 
                     using (var g = Graphics.FromImage(dst))
                     {
                         g.Clear(Color.FromArgb(64, 64, 64));
-                        g.FillRectangle(Brushes.White, rDstImg);
+                        g.FillRectangle(Brushes.White, destRect);
 
                         g.CompositingMode = CompositingMode.SourceOver;
                         g.CompositingQuality = CompositingQuality.GammaCorrected;
@@ -680,7 +681,7 @@ namespace YAF.Core.Services
 
                         g.TextRenderingHint = TextRenderingHint.ClearTypeGridFit;
 
-                        g.DrawImage(src, rDstImg, rSrcImg, GraphicsUnit.Pixel);
+                        g.DrawImage(src, destRect, srcImg, GraphicsUnit.Pixel);
 
                         using (var f = new Font("Arial", 10, FontStyle.Regular, GraphicsUnit.Pixel))
                         {

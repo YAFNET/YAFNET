@@ -41,9 +41,9 @@ namespace YAF.Core.Services
     #endregion
 
     /// <summary>
-    /// YAF buddies service
+    /// YAF Friends service
     /// </summary>
-    public class Buddys : IBuddy, IHaveServiceLocator
+    public class Friends : IFriends, IHaveServiceLocator
     {
         #region Constants and Fields
 
@@ -57,7 +57,7 @@ namespace YAF.Core.Services
         #region Constructors and Destructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Buddys"/> class.
+        /// Initializes a new instance of the <see cref="Friends"/> class.
         /// </summary>
         /// <param name="serviceLocator">
         /// The service locator.
@@ -65,7 +65,7 @@ namespace YAF.Core.Services
         /// <param name="dbBroker">
         /// The DB broker.
         /// </param>
-        public Buddys([NotNull] IServiceLocator serviceLocator, [NotNull] DataBroker dbBroker)
+        public Friends([NotNull] IServiceLocator serviceLocator, [NotNull] DataBroker dbBroker)
         {
             this.ServiceLocator = serviceLocator;
             this.dbBroker = dbBroker;

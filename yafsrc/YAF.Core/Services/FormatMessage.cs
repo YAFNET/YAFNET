@@ -163,13 +163,13 @@ namespace YAF.Core.Services
 
             if (detectedHtmlTag.IsSet() && detectedHtmlTag != "ALL")
             {
-                return BoardContext.Current.Get<ILocalization>().GetTextFormatted(
+                return this.Get<ILocalization>().GetTextFormatted(
                     "HTMLTAG_WRONG",
                     HttpUtility.HtmlEncode(detectedHtmlTag));
             }
 
             return detectedHtmlTag == "ALL"
-                       ? BoardContext.Current.Get<ILocalization>().GetText("HTMLTAG_FORBIDDEN")
+                       ? this.Get<ILocalization>().GetText("HTMLTAG_FORBIDDEN")
                        : string.Empty;
         }
 

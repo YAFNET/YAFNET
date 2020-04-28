@@ -45,14 +45,14 @@ namespace YAF.Web.Controls
         /// Add Flag Images to Items
         /// </summary>
         /// <param name="writer">
-        /// The writer.
+        /// The <paramref name="writer"/>.
         /// </param>
         protected override void Render(HtmlTextWriter writer)
         {
             this.Items.Cast<ListItem>().Where(item => item.Value.IsSet()).ForEach(
                 item => item.Attributes.Add(
                     "data-content",
-                    $"<span class=\"flag-icon flag-icon-{item.Value.ToLower()} select2-image-select-icon\" /><span>&nbsp;{item.Text}</span>"));
+                    $"<span class=\"select2-image-select-icon\"><span class=\"flag-icon flag-icon-{item.Value.ToLower()}\" /></span>&nbsp;{item.Text}</span>"));
             
             base.Render(writer);
         }

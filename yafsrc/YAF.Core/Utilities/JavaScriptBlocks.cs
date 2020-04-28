@@ -496,7 +496,7 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
 
             return $@"{Config.JQueryAlias}(document).ready(function() {{
                         {Config.JQueryAlias}('{selector}').tablesorter( 
-                                          {(options.IsSet() ? $"{{ theme: 'bootstrap', {options}{widgets} }}" : "{{ theme: 'bootstrap'{widgets} }}")} );
+                                          {(options.IsSet() ? $"{{ theme: 'bootstrap', {options}{widgets} }}" : $"{{ theme: 'bootstrap'{widgets} }}")} );
                     }});";
         }
 

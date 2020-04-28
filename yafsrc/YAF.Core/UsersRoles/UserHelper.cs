@@ -24,7 +24,6 @@
 namespace YAF.Core.UsersRoles
 {
     using System;
-    using System.Data;
     using System.Globalization;
     using System.Linq;
 
@@ -75,11 +74,11 @@ namespace YAF.Core.UsersRoles
                 StaticDataHelper.NeutralCultures,
                 TimeSpan.FromDays(30));
 
-            var languageRow = languages.Rows.Cast<DataRow>().FirstOrDefault(
-                row => row["CultureTag"].Equals(CultureInfo.CurrentCulture.TwoLetterISOLanguageName));
+            var languageRow = languages.FirstOrDefault(
+                row => row.CultureTag.Equals(CultureInfo.CurrentCulture.TwoLetterISOLanguageName));
 
             return languageRow != null
-                       ? languageRow["CultureFile"].ToString()
+                       ? languageRow.CultureFile
                        : BoardContext.Current.Get<BoardSettings>().Language;
         }
 

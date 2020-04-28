@@ -47,8 +47,17 @@ namespace YAF.Core.Services
     /// <summary>
     /// The permissions.
     /// </summary>
-    public class Permissions : IPermissions
+    public class Permissions : IPermissions, IHaveServiceLocator
     {
+        #region Properties
+
+        /// <summary>
+        /// Gets or sets ServiceLocator.
+        /// </summary>
+        public IServiceLocator ServiceLocator { get; set; }
+
+        #endregion
+
         #region Implemented Interfaces
 
         #region IPermissions
@@ -89,20 +98,20 @@ namespace YAF.Core.Services
 
             if (permission == ViewPermissions.RegisteredUsers)
             {
-                if (!Config.AllowLoginAndLogoff && BoardContext.Current.BoardSettings.CustomLoginRedirectUrl.IsSet())
+                if (!Config.AllowLoginAndLogoff && this.Get<BoardSettings>().CustomLoginRedirectUrl.IsSet())
                 {
-                    var loginRedirectUrl = BoardContext.Current.BoardSettings.CustomLoginRedirectUrl;
+                    var loginRedirectUrl = this.Get<BoardSettings>().CustomLoginRedirectUrl;
 
                     if (loginRedirectUrl.Contains("{0}"))
                     {
                         // process for return url..
                         loginRedirectUrl = string.Format(
                             loginRedirectUrl, HttpUtility.UrlEncode(
-                                General.GetSafeRawUrl(BoardContext.Current.Get<HttpRequestBase>().Url.ToString())));
+                                General.GetSafeRawUrl(this.Get<HttpRequestBase>().Url.ToString())));
                     }
 
                     // allow custom redirect...
-                    BoardContext.Current.Get<HttpResponseBase>().Redirect(loginRedirectUrl);
+                    this.Get<HttpResponseBase>().Redirect(loginRedirectUrl);
                     noAccess = false;
                 }
                 else if (!Config.AllowLoginAndLogoff && Config.IsDotNetNuke)
@@ -115,7 +124,7 @@ namespace YAF.Core.Services
                     }
 
                     // redirect to DNN login...
-                    BoardContext.Current.Get<HttpResponseBase>().Redirect(
+                    this.Get<HttpResponseBase>().Redirect(
                         $"{appPath}Login.aspx?ReturnUrl={HttpUtility.UrlEncode(General.GetSafeRawUrl())}");
                     noAccess = false;
                 }
@@ -163,13 +172,13 @@ namespace YAF.Core.Services
             // try and get more verbose platform name by ref and other parameters             
             UserAgentHelper.Platform(
                 userAgent,
-                HttpContext.Current.Request.Browser.Crawler,
+                this.Get<HttpRequestBase>().Browser.Crawler,
                 ref platform,
                 ref browser,
                 out var isSearchEngine,
                 out var dontTrack);
 
-            BoardContext.Current.Get<StartupInitializeDb>().Run();
+            this.Get<StartupInitializeDb>().Run();
 
             object userKey = DBNull.Value;
 

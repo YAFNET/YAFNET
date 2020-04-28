@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2020 Ingo Herbote
@@ -21,31 +21,44 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Interfaces
+
+namespace YAF.Types.Objects
 {
     /// <summary>
-    /// The StopWatch interface.
+    /// The Custom List Item
     /// </summary>
-    public interface IStopWatch
+    public class ListItem
     {
         /// <summary>
-        /// Gets Duration.
+        /// Initializes a new instance of the <see cref="ListItem"/> class.
         /// </summary>
-        double Duration { get; }
+        public ListItem()
+        {
+        }
 
         /// <summary>
-        /// The start.
+        /// Initializes a new instance of the <see cref="ListItem"/> class.
         /// </summary>
-        void Start();
+        /// <param name="name">
+        /// The name.
+        /// </param>
+        /// <param name="value">
+        /// The value.
+        /// </param>
+        public ListItem(string name, string value)
+        {
+            this.Name = name;
+            this.Value = value;
+        }
 
         /// <summary>
-        /// The stop.
+        /// Gets or sets the name.
         /// </summary>
-        void Stop();
+        public string Name { get; set; }
 
         /// <summary>
-        /// The reset.
+        /// Gets or sets the value.
         /// </summary>
-        void Reset();
+        public string Value { get; set; }
     }
 }

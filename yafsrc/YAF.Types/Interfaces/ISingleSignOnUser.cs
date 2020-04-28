@@ -21,31 +21,38 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF.Types.Interfaces
 {
+    using YAF.Types.Constants;
+
     /// <summary>
-    /// The StopWatch interface.
+    /// The SingeSignOnUser interface.
     /// </summary>
-    public interface IStopWatch
+    public interface ISingeSignOnUser
     {
         /// <summary>
-        /// Gets Duration.
+        /// Generates the oAUTH callback login URL.
         /// </summary>
-        double Duration { get; }
+        /// <param name="authService">The AUTH service.</param>
+        /// <param name="generatePopUpUrl">if set to <c>true</c> [generate pop up URL].</param>
+        /// <param name="connectCurrentUser">if set to <c>true</c> [connect current user].</param>
+        /// <returns>
+        /// Returns the login Url
+        /// </returns>
+        string GenerateLoginUrl([NotNull] AuthService authService, [NotNull] bool generatePopUpUrl, [CanBeNull] bool connectCurrentUser = false);
 
         /// <summary>
-        /// The start.
+        /// Do login and set correct flag
         /// </summary>
-        void Start();
-
-        /// <summary>
-        /// The stop.
-        /// </summary>
-        void Stop();
-
-        /// <summary>
-        /// The reset.
-        /// </summary>
-        void Reset();
+        /// <param name="authService">The AUTH service.</param>
+        /// <param name="userName">Name of the user.</param>
+        /// <param name="userID">The user ID.</param>
+        /// <param name="doLogin">if set to <c>true</c> [do login].</param>
+        void LoginSuccess(
+            [NotNull] AuthService authService,
+            [CanBeNull] string userName,
+            [NotNull] int userID,
+            [NotNull] bool doLogin);
     }
 }

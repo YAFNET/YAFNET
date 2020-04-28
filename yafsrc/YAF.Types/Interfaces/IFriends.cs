@@ -25,13 +25,16 @@ namespace YAF.Types.Interfaces
 {
   using System.Data;
 
-  public interface IBuddy
+  /// <summary>
+  /// The Friends interface.
+  /// </summary>
+  public interface IFriends
   {
     /// <summary>
     /// Adds a buddy request.
     /// </summary>
-    /// <param name="ToUserID">
-    /// the to user id.
+    /// <param name="toUserID">
+    /// The to User ID.
     /// </param>
     /// <returns>
     /// The name of the second user + whether this request is approved or not. (This request
@@ -43,8 +46,8 @@ namespace YAF.Types.Interfaces
     /// <summary>
     /// Approves all buddy requests for the current user.
     /// </summary>
-    /// <param name="Mutual">
-    /// should the users be added to current user's buddy list too?
+    /// <param name="mutual">
+    /// The mutual.
     /// </param>
     void ApproveAllRequests(bool mutual);
 

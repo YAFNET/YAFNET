@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2020 Ingo Herbote
@@ -21,31 +21,37 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Interfaces
+
+namespace YAF.Types.Objects
 {
     /// <summary>
-    /// The StopWatch interface.
+    /// The culture.
     /// </summary>
-    public interface IStopWatch
+    public class Culture
     {
         /// <summary>
-        /// Gets Duration.
+        /// Gets or sets the culture tag.
         /// </summary>
-        double Duration { get; }
+        public string CultureTag { get; set; }
 
         /// <summary>
-        /// The start.
+        /// Gets or sets the culture file.
         /// </summary>
-        void Start();
+        public string CultureFile { get; set; }
 
         /// <summary>
-        /// The stop.
+        /// Gets or sets the culture english name.
         /// </summary>
-        void Stop();
+        public string CultureEnglishName { get; set; }
 
         /// <summary>
-        /// The reset.
+        /// Gets or sets the culture native name.
         /// </summary>
-        void Reset();
+        public string CultureNativeName { get; set; }
+
+        /// <summary>
+        /// Gets or sets the culture display name.
+        /// </summary>
+        public string CultureDisplayName { get; set; }
     }
 }

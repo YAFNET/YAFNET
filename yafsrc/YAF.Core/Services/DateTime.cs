@@ -31,7 +31,6 @@ namespace YAF.Core.Services
     using FarsiLibrary.Utils;
 
     using YAF.Configuration;
-    using YAF.Core;
     using YAF.Core.Context;
     using YAF.Types;
     using YAF.Types.Interfaces;
@@ -41,7 +40,7 @@ namespace YAF.Core.Services
     /// <summary>
     /// The YAF DateTime.
     /// </summary>
-    public class DateTime : IDateTime
+    public class DateTime : IDateTime, IHaveServiceLocator
     {
         #region Constants and Fields
 
@@ -52,7 +51,27 @@ namespace YAF.Core.Services
 
         #endregion
 
+        #region Constructors and Destructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DateTime"/> class.
+        /// </summary>
+        /// <param name="serviceLocator">
+        /// The service locator.
+        /// </param>
+        public DateTime(IServiceLocator serviceLocator)
+        {
+            this.ServiceLocator = serviceLocator;
+        }
+
+        #endregion
+
         #region Properties
+
+        /// <summary>
+        /// Gets or sets ServiceLocator.
+        /// </summary>
+        public IServiceLocator ServiceLocator { get; set; }
 
         /// <summary>
         ///   Gets the time zone offset 
@@ -64,7 +83,7 @@ namespace YAF.Core.Services
             {
                 if (BoardContext.Current.Page == null)
                 {
-                    return new TimeSpan(0, BoardContext.Current.Get<BoardSettings>().ServerTimeCorrection, 0);
+                    return new TimeSpan(0, this.Get<BoardSettings>().ServerTimeCorrection, 0);
                 }
 
                 var min = BoardContext.Current.TimeZoneUserOffSet;
@@ -72,7 +91,7 @@ namespace YAF.Core.Services
 
                 return new TimeSpan(
                     hrs,
-                    min % 60 + BoardContext.Current.Get<BoardSettings>().ServerTimeCorrection,
+                    min % 60 + this.Get<BoardSettings>().ServerTimeCorrection,
                     0);
             }
         }
@@ -98,8 +117,8 @@ namespace YAF.Core.Services
             try
             {
                 dateFormat =
-                    BoardContext.Current.Get<ILocalization>()
-                        .FormatDateTime(BoardContext.Current.Get<ILocalization>().GetText("FORMAT_DATE_LONG"), dateTime);
+                    this.Get<ILocalization>()
+                        .FormatDateTime(this.Get<ILocalization>().GetText("FORMAT_DATE_LONG"), dateTime);
             }
             catch (Exception)
             {
@@ -228,7 +247,10 @@ namespace YAF.Core.Services
         public string FormatDateTimeTopic([NotNull] System.DateTime dateTime)
         {
             if (dateTime.Kind == DateTimeKind.Local)
+            {
                 dateTime = System.DateTime.SpecifyKind(dateTime, DateTimeKind.Unspecified);
+            }
+
             dateTime = TimeZoneInfo.ConvertTimeFromUtc(dateTime, BoardContext.Current.TimeZoneInfoUser);
             var nowDateTime = TimeZoneInfo.ConvertTimeFromUtc(System.DateTime.UtcNow, BoardContext.Current.TimeZoneInfoUser);
 

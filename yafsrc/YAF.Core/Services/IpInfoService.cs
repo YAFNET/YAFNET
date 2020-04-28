@@ -29,7 +29,6 @@ namespace YAF.Core.Services
     using System.Collections.Generic;
     using System.Web;
 
-    using YAF.Core;
     using YAF.Core.Context;
     using YAF.Core.Helpers;
     using YAF.Types;
@@ -73,7 +72,7 @@ namespace YAF.Core.Services
         /// </returns>
         public IDictionary<string, string> GetUserIpLocator()
         {
-            return this.GetUserIpLocator(BoardContext.Current.Get<HttpRequestBase>().GetUserRealIPAddress());
+            return this.GetUserIpLocator(this.Get<HttpRequestBase>().GetUserRealIPAddress());
         }
 
         /// <summary>

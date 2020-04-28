@@ -23,54 +23,54 @@
  */
 namespace YAF.Core.Services
 {
-  using System.Diagnostics;
+    using System.Diagnostics;
 
-  using YAF.Types.Interfaces;
-
-  /// <summary>
-  /// The stop watch.
-  /// </summary>
-  public class StopWatch : IStopWatch
-  {
-      /// <summary>
-    /// Gets Watch.
-    /// </summary>
-    public Stopwatch Watch { get; } = new Stopwatch();
+    using YAF.Types.Interfaces;
 
     /// <summary>
-    /// Gets Duration.
+    /// The stop watch.
     /// </summary>
-    public double Duration
+    public class StopWatch : IStopWatch
     {
-      get
-      {
-          var duration = this.Watch.ElapsedMilliseconds / 1000.0;
-        return duration;
-      }
-    }
+        /// <summary>
+        /// Gets Watch.
+        /// </summary>
+        public Stopwatch Watch { get; } = new Stopwatch();
 
-    /// <summary>
-    /// The start.
-    /// </summary>
-    public void Start()
-    {
-      this.Watch.Start();
-    }
+        /// <summary>
+        /// Gets Duration.
+        /// </summary>
+        public double Duration
+        {
+            get
+            {
+                var duration = this.Watch.ElapsedMilliseconds / 1000.0;
+                return duration;
+            }
+        }
 
-    /// <summary>
-    /// The stop.
-    /// </summary>
-    public void Stop()
-    {
-      this.Watch.Stop();
-    }
+        /// <summary>
+        /// The start.
+        /// </summary>
+        public void Start()
+        {
+            this.Watch.Start();
+        }
 
-    /// <summary>
-    /// The reset.
-    /// </summary>
-    public void Reset()
-    {
-      this.Watch.Reset();
+        /// <summary>
+        /// The stop.
+        /// </summary>
+        public void Stop()
+        {
+            this.Watch.Stop();
+        }
+
+        /// <summary>
+        /// The reset.
+        /// </summary>
+        public void Reset()
+        {
+            this.Watch.Reset();
+        }
     }
-  }
 }

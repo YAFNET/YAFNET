@@ -195,11 +195,11 @@ namespace YAF.Core.Services.Auth
                 }
 
                 userGender = facebookUser.Gender switch
-                    {
-                        "male" => 1,
-                        "female" => 2,
-                        _ => userGender
-                    };
+                {
+                    "male" => 1,
+                    "female" => 2,
+                    _ => userGender
+                };
 
                 // Create User if not exists?!
                 return CreateFacebookUser(facebookUser, userGender, out message);
@@ -228,7 +228,11 @@ namespace YAF.Core.Services.Auth
                 return false;
             }
 
-            SingleSignOnUser.LoginSuccess(AuthService.facebook, userName, yafUserData.UserID, true);
+            BoardContext.Current.Get<ISingeSignOnUser>().LoginSuccess(
+                AuthService.facebook,
+                userName,
+                yafUserData.UserID,
+                true);
 
             message = string.Empty;
 
@@ -264,15 +268,12 @@ namespace YAF.Core.Services.Auth
 
             if (facebookUser.Gender.IsSet())
             {
-                switch (facebookUser.Gender)
+                userGender = facebookUser.Gender switch
                 {
-                    case "male":
-                        userGender = 1;
-                        break;
-                    case "female":
-                        userGender = 2;
-                        break;
-                }
+                    "male" => 1,
+                    "female" => 2,
+                    _ => userGender
+                };
             }
 
             // Only validated logins can go here
@@ -286,7 +287,7 @@ namespace YAF.Core.Services.Auth
                     return false;
                 }
 
-                // Update profile with facebook informations
+                // Update profile with facebook information's
                 var userProfile = BoardContext.Current.Profile;
 
                 userProfile.Facebook = facebookUser.ProfileURL;
@@ -321,7 +322,11 @@ namespace YAF.Core.Services.Auth
                     null,
                     null);
 
-                SingleSignOnUser.LoginSuccess(AuthService.facebook, null, BoardContext.Current.PageUserID, false);
+                BoardContext.Current.Get<ISingeSignOnUser>().LoginSuccess(
+                    AuthService.facebook,
+                    null,
+                    BoardContext.Current.PageUserID,
+                    false);
 
                 message = string.Empty;
 
@@ -344,23 +349,21 @@ namespace YAF.Core.Services.Auth
         private static string GetRedirectURL(HttpRequest request)
         {
             var urlCurrentPage = request.Url.AbsoluteUri.IndexOf('?') == -1
-                                     ? request.Url.AbsoluteUri
-                                     : request.Url.AbsoluteUri.Substring(0, request.Url.AbsoluteUri.IndexOf('?'));
+                ? request.Url.AbsoluteUri
+                : request.Url.AbsoluteUri.Substring(0, request.Url.AbsoluteUri.IndexOf('?'));
 
             var nvc = new NameValueCollection();
 
-            foreach (var key in request.QueryString.Cast<string>().Where(key => key != "code"))
-            {
-                nvc.Add(key, request.QueryString[key]);
-            }
+            request.QueryString.Cast<string>().Where(key => key != "code")
+                .ForEach(key => nvc.Add(key, request.QueryString[key]));
 
             var queryString = string.Empty;
 
-            foreach (string key in nvc)
+            nvc.Cast<string>().ForEach(key =>
             {
                 queryString += queryString == string.Empty ? "?" : "&";
                 queryString += $"{key}={nvc[key]}";
-            }
+            });
 
             return $"{urlCurrentPage}{queryString}";
         }
@@ -394,7 +397,11 @@ namespace YAF.Core.Services.Auth
             var userIpAddress = BoardContext.Current.Get<HttpRequestBase>().GetUserRealIPAddress();
 
             // Check content for spam
-            if (BoardContext.Current.Get<ISpamCheck>().CheckUserForSpamBot(facebookUser.UserName, facebookUser.Email, userIpAddress, out var result))
+            if (BoardContext.Current.Get<ISpamCheck>().CheckUserForSpamBot(
+                facebookUser.UserName,
+                facebookUser.Email,
+                userIpAddress,
+                out var result))
             {
                 BoardContext.Current.Get<ILogger>().Log(
                     null,
@@ -416,24 +423,22 @@ namespace YAF.Core.Services.Auth
                         return false;
                     }
 
-                    BoardContext.Current.GetRepository<BannedIP>()
-                        .Save(
-                            null,
-                            userIpAddress,
-                            $"A spam Bot who was trying to register was banned by IP {userIpAddress}",
-                            BoardContext.Current.PageUserID);
+                    BoardContext.Current.GetRepository<BannedIP>().Save(
+                        null,
+                        userIpAddress,
+                        $"A spam Bot who was trying to register was banned by IP {userIpAddress}",
+                        BoardContext.Current.PageUserID);
 
                     // Clear cache
                     BoardContext.Current.Get<IDataCache>().Remove(Constants.Cache.BannedIP);
 
                     if (BoardContext.Current.Get<BoardSettings>().LogBannedIP)
                     {
-                        BoardContext.Current.Get<ILogger>()
-                            .Log(
-                                null,
-                                "IP BAN of Bot During Registration",
-                                $"A spam Bot who was trying to register was banned by IP {userIpAddress}",
-                                EventLogTypes.IpBanSet);
+                        BoardContext.Current.Get<ILogger>().Log(
+                            null,
+                            "IP BAN of Bot During Registration",
+                            $"A spam Bot who was trying to register was banned by IP {userIpAddress}",
+                            EventLogTypes.IpBanSet);
                     }
 
                     return false;
@@ -453,7 +458,7 @@ namespace YAF.Core.Services.Auth
                 memberShipProvider.RequiresQuestionAndAnswer ? securityAnswer : null,
                 true,
                 null,
-                out var status);
+                out _);
 
             // setup initial roles (if any) for this user
             RoleMembershipHelper.SetupUserRoles(BoardContext.Current.PageBoardID, facebookUser.UserName);
@@ -524,14 +529,17 @@ namespace YAF.Core.Services.Auth
             }
 
             // send user register notification to the user...
-            BoardContext.Current.Get<ISendNotification>()
-                .SendRegistrationNotificationToUser(user, pass, securityAnswer, "NOTIFICATION_ON_FACEBOOK_REGISTER");
+            BoardContext.Current.Get<ISendNotification>().SendRegistrationNotificationToUser(
+                user,
+                pass,
+                securityAnswer,
+                "NOTIFICATION_ON_FACEBOOK_REGISTER");
 
             // save the time zone...
             var userId = UserMembershipHelper.GetUserIDFromProviderUserKey(user.ProviderUserKey);
 
-            var autoWatchTopicsEnabled = BoardContext.Current.Get<BoardSettings>().DefaultNotificationSetting
-                                         == UserNotificationSetting.TopicsIPostToOrSubscribeTo;
+            var autoWatchTopicsEnabled = BoardContext.Current.Get<BoardSettings>().DefaultNotificationSetting ==
+                                         UserNotificationSetting.TopicsIPostToOrSubscribeTo;
 
             BoardContext.Current.GetRepository<User>().Save(
                 userId,
@@ -567,7 +575,7 @@ namespace YAF.Core.Services.Auth
 
             BoardContext.Current.Get<IRaiseEvent>().Raise(new NewUserRegisteredEvent(user, userId));
 
-            SingleSignOnUser.LoginSuccess(AuthService.facebook, user.UserName, userId, true);
+            BoardContext.Current.Get<ISingeSignOnUser>().LoginSuccess(AuthService.facebook, user.UserName, userId, true);
 
             message = string.Empty;
 

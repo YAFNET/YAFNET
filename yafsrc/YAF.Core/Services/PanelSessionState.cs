@@ -23,42 +23,42 @@
  */
 namespace YAF.Core.Services
 {
-  using System;
-  using System.Web;
+    using System.Web;
 
-  using YAF.Core.Context;
-  using YAF.Types;
-  using YAF.Types.Constants;
-  using YAF.Types.Interfaces;
-
-    /// <summary>
-  /// The panel session state.
-  /// </summary>
-  public class PanelSessionState : IPanelSessionState
-  {
-    #region Indexers
+    using YAF.Core.Context;
+    using YAF.Types;
+    using YAF.Types.Constants;
+    using YAF.Types.Interfaces;
 
     /// <summary>
-    ///   Gets panel session state.
+    /// The panel session state.
     /// </summary>
-    /// <param name = "panelID">panelID</param>
-    /// <returns></returns>
-    public CollapsiblePanelState this[[NotNull] string panelID]
+    public class PanelSessionState : IPanelSessionState
     {
-        // Ederon : 7/14/2007
-        get
+        #region Indexers
+
+        /// <summary>
+        ///   Gets panel session state.
+        /// </summary>
+        public CollapsiblePanelState this[[NotNull] string panelID]
         {
-            var sessionPanelID = $"panelstate_{panelID}";
-
-            // try to get panel state from session state first
-            if (BoardContext.Current.Get<HttpSessionStateBase>()[sessionPanelID] != null)
+            // Ederon : 7/14/2007
+            get
             {
-                return (CollapsiblePanelState)BoardContext.Current.Get<HttpSessionStateBase>()[sessionPanelID];
-            }
+                var sessionPanelID = $"panelstate_{panelID}";
 
-            // if no panel state info is in session state, try cookie
-            if (BoardContext.Current.Get<HttpRequestBase>().Cookies[sessionPanelID] != null)
-            {
+                // try to get panel state from session state first
+                if (BoardContext.Current.Get<HttpSessionStateBase>()[sessionPanelID] != null)
+                {
+                    return (CollapsiblePanelState)BoardContext.Current.Get<HttpSessionStateBase>()[sessionPanelID];
+                }
+
+                // if no panel state info is in session state, try cookie
+                if (BoardContext.Current.Get<HttpRequestBase>().Cookies[sessionPanelID] == null)
+                {
+                    return CollapsiblePanelState.None;
+                }
+
                 try
                 {
                     // we must convert string to int, better get is safe
@@ -73,61 +73,63 @@ namespace YAF.Core.Services
                     // in case cookie has wrong value
                     if (BoardContext.Current.Get<HttpRequestBase>() != null)
                     {
-                        BoardContext.Current.Get<HttpRequestBase>().Cookies.Remove(sessionPanelID); // scrap wrong cookie
+                        BoardContext.Current.Get<HttpRequestBase>().Cookies
+                            .Remove(sessionPanelID); // scrap wrong cookie
                     }
 
                     return CollapsiblePanelState.None;
                 }
+
+                return CollapsiblePanelState.None;
             }
 
-            return CollapsiblePanelState.None;
+            // Ederon : 7/14/2007
+            set
+            {
+                var sessionPanelID = $"panelstate_{panelID}";
+
+                BoardContext.Current.Get<HttpSessionStateBase>()[sessionPanelID] = value;
+
+                // create persistent cookie with visibility setting for panel
+                var c = new HttpCookie(sessionPanelID, ((int)value).ToString())
+                {
+                    Expires = System.DateTime.UtcNow.AddYears(1)
+                };
+
+                BoardContext.Current.Get<HttpResponseBase>().SetCookie(c);
+            }
         }
 
-        // Ederon : 7/14/2007
-        set
+        #endregion
+
+        #region Public Methods
+
+        /// <summary>
+        /// The toggle panel state.
+        /// </summary>
+        /// <param name="panelID">
+        /// The panel id.
+        /// </param>
+        /// <param name="defaultState">
+        /// The default state.
+        /// </param>
+        public void TogglePanelState([NotNull] string panelID, CollapsiblePanelState defaultState)
         {
-            var sessionPanelID = $"panelstate_{panelID}";
+            var currentState = this[panelID];
 
-            BoardContext.Current.Get<HttpSessionStateBase>()[sessionPanelID] = value;
+            if (currentState == CollapsiblePanelState.None)
+            {
+                currentState = defaultState;
+            }
 
-            // create persistent cookie with visibility setting for panel
-            var c = new HttpCookie(sessionPanelID, ((int)value).ToString()) { Expires = System.DateTime.UtcNow.AddYears(1) };
-            BoardContext.Current.Get<HttpResponseBase>().SetCookie(c);
+            this[panelID] = currentState switch
+            {
+                CollapsiblePanelState.Collapsed => CollapsiblePanelState.Expanded,
+                CollapsiblePanelState.Expanded => CollapsiblePanelState.Collapsed,
+                _ => this[panelID]
+            };
         }
+
+        #endregion
     }
-
-    #endregion
-
-    #region Public Methods
-
-    /// <summary>
-    /// The toggle panel state.
-    /// </summary>
-    /// <param name="panelID">
-    /// The panel id.
-    /// </param>
-    /// <param name="defaultState">
-    /// The default state.
-    /// </param>
-    public void TogglePanelState([NotNull] string panelID, CollapsiblePanelState defaultState)
-    {
-      var currentState = this[panelID];
-
-      if (currentState == CollapsiblePanelState.None)
-      {
-        currentState = defaultState;
-      }
-
-      if (currentState == CollapsiblePanelState.Collapsed)
-      {
-        this[panelID] = CollapsiblePanelState.Expanded;
-      }
-      else if (currentState == CollapsiblePanelState.Expanded)
-      {
-        this[panelID] = CollapsiblePanelState.Collapsed;
-      }
-    }
-
-    #endregion
-  }
 }

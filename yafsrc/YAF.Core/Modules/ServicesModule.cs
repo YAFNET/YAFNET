@@ -103,19 +103,19 @@ namespace YAF.Core.Modules
             builder.RegisterType<SpamWordCheck>().As<ISpamWordCheck>().SingleInstance().PreserveExistingDefaults();
             builder.RegisterType<SpamCheck>().As<ISpamCheck>().SingleInstance().PreserveExistingDefaults();
             builder.RegisterType<ThankYou>().As<IThankYou>().SingleInstance().PreserveExistingDefaults();
+            builder.RegisterType<SingleSignOnUser>().As<ISingeSignOnUser>().SingleInstance().PreserveExistingDefaults();
 
             builder.RegisterType<Permissions>().As<IPermissions>().InstancePerLifetimeScope()
                 .PreserveExistingDefaults();
             builder.RegisterType<DateTime>().As<IDateTime>().InstancePerLifetimeScope().PreserveExistingDefaults();
             builder.RegisterType<UserIgnored>().As<IUserIgnored>().InstancePerLifetimeScope()
                 .PreserveExistingDefaults();
-            builder.RegisterType<Buddys>().As<IBuddy>().InstancePerLifetimeScope().PreserveExistingDefaults();
+            builder.RegisterType<Friends>().As<IFriends>().InstancePerLifetimeScope().PreserveExistingDefaults();
 
             builder.RegisterType<InstallUpgradeService>().AsSelf().PreserveExistingDefaults();
 
-            // builder.RegisterType<RewriteUrlBuilder>().Named<IUrlBuilder>("rewriter").InstancePerLifetimeScope();
             builder.RegisterType<StopWatch>().As<IStopWatch>()
-                .InstancePerMatchingLifetimeScope(LifetimeScope.Context).PreserveExistingDefaults();
+                .InstancePerBoardContext().PreserveExistingDefaults();
 
             // localization registration...
             builder.RegisterType<LocalizationProvider>().InstancePerLifetimeScope().PreserveExistingDefaults();

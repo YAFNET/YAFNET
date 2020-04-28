@@ -24,8 +24,6 @@
 
 namespace YAF.Core.Services
 {
-    using System;
-
     using YAF.Core.Extensions;
     using YAF.Types;
     using YAF.Types.Constants;

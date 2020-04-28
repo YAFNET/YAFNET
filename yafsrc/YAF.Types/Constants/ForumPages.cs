@@ -531,6 +531,11 @@ namespace YAF.Types.Constants
         /// <summary>
         /// Digest Admin page
         /// </summary>
-        Admin_Digest
+        Admin_Digest,
+
+        /// <summary>
+        /// The Host Admin Web Profiler page.
+        /// </summary>
+        Admin_Profiler
     }
 }

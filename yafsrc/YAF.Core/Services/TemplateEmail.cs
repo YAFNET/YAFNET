@@ -167,6 +167,36 @@ namespace YAF.Core.Services
             this.Get<ISendMail>().Send(fromAddress, toAddress, fromAddress, subject, textBody, htmlBody);
         }
 
+        /// <summary>
+        /// Create Email.
+        /// </summary>
+        /// <param name="fromAddress">
+        /// The from address.
+        /// </param>
+        /// <param name="toAddress">
+        /// The to address.
+        /// </param>
+        /// <param name="subject">
+        /// The subject.
+        /// </param>
+        /// <returns>
+        /// The <see cref="MailMessage"/>.
+        /// </returns>
+        public MailMessage CreateEmail(MailAddress fromAddress, MailAddress toAddress, string subject)
+        {
+            var textBody = this.ProcessTemplate($"{this.TemplateName}_TEXT").Trim();
+            var htmlBody = this.ProcessTemplate($"{this.TemplateName}_HTML").Trim();
+
+            // null out html if it's not desired
+            if (!this.HtmlEnabled || htmlBody.IsNotSet())
+            {
+                htmlBody = null;
+            }
+
+            // Create Mail Message
+            return this.Get<ISendMail>().CreateMessage(fromAddress, toAddress, fromAddress, subject, textBody, htmlBody);
+        }
+
         #endregion
 
         #region Methods

@@ -206,7 +206,7 @@ namespace YAF.Core.Services.Auth
                 return false;
             }
 
-            SingleSignOnUser.LoginSuccess(AuthService.google, userName, yafUserData.UserID, true);
+            BoardContext.Current.Get<ISingeSignOnUser>().LoginSuccess(AuthService.google, userName, yafUserData.UserID, true);
 
             message = string.Empty;
 
@@ -268,7 +268,7 @@ namespace YAF.Core.Services.Auth
                 // save avatar
                 BoardContext.Current.GetRepository<User>().SaveAvatar(BoardContext.Current.PageUserID, googleUser.ProfileImage, null, null);
 
-                SingleSignOnUser.LoginSuccess(AuthService.google, null, BoardContext.Current.PageUserID, false);
+                BoardContext.Current.Get<ISingeSignOnUser>().LoginSuccess(AuthService.google, null, BoardContext.Current.PageUserID, false);
 
                 message = string.Empty;
 
@@ -397,7 +397,7 @@ namespace YAF.Core.Services.Auth
                 memberShipProvider.RequiresQuestionAndAnswer ? securityAnswer : null,
                 true,
                 null,
-                out var status);
+                out _);
 
             // setup initial roles (if any) for this user
             RoleMembershipHelper.SetupUserRoles(BoardContext.Current.PageBoardID, googleUser.UserName);
@@ -502,7 +502,7 @@ namespace YAF.Core.Services.Auth
 
             BoardContext.Current.Get<IRaiseEvent>().Raise(new NewUserRegisteredEvent(user, userId));
 
-            SingleSignOnUser.LoginSuccess(AuthService.google, user.UserName, userId, true);
+            BoardContext.Current.Get<ISingeSignOnUser>().LoginSuccess(AuthService.google, user.UserName, userId, true);
 
             message = string.Empty;
 

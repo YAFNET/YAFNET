@@ -202,7 +202,7 @@ namespace YAF.Core.Services.Auth
                             return false;
                         }
 
-                        // Update profile with twitter informations
+                        // Update profile with twitter information's
                         var userProfile = BoardContext.Current.Profile;
 
                         userProfile.TwitterId = twitterUser.UserId.ToString();
@@ -226,7 +226,7 @@ namespace YAF.Core.Services.Auth
                                 null);
                         }
 
-                        SingleSignOnUser.LoginSuccess(AuthService.twitter, null, BoardContext.Current.PageUserID, false);
+                        BoardContext.Current.Get<ISingeSignOnUser>().LoginSuccess(AuthService.twitter, null, BoardContext.Current.PageUserID, false);
 
                         message = string.Empty;
 
@@ -336,7 +336,7 @@ namespace YAF.Core.Services.Auth
                 memberShipProvider.RequiresQuestionAndAnswer ? securityAnswer : null,
                 true,
                 null,
-                out var status);
+                out _);
 
             // setup initial roles (if any) for this user
             RoleMembershipHelper.SetupUserRoles(BoardContext.Current.PageBoardID, twitterUser.UserName);
@@ -483,7 +483,7 @@ namespace YAF.Core.Services.Auth
             BoardContext.Current.Get<ISession>().TwitterToken = oAuth.Token;
             BoardContext.Current.Get<ISession>().TwitterTokenSecret = oAuth.TokenSecret;
 
-            SingleSignOnUser.LoginSuccess(AuthService.twitter, user.UserName, userId, true);
+            BoardContext.Current.Get<ISingeSignOnUser>().LoginSuccess(AuthService.twitter, user.UserName, userId, true);
         }
 
         /// <summary>
@@ -527,7 +527,6 @@ namespace YAF.Core.Services.Auth
                                              ["{forumname}"] = BoardContext.Current.Get<BoardSettings>().Name
                                          }
                                  };
-
 
             var emailBody = notifyUser.ProcessTemplate("NOTIFICATION_ON_TWITTER_REGISTER");
 

@@ -49,7 +49,7 @@ namespace YAF.Core.Services
         /// <summary>
         /// The YAF board settings.
         /// </summary>
-        private readonly BoardSettings _yafBoardSettings;
+        private readonly BoardSettings boardSettings;
 
         #endregion
 
@@ -63,7 +63,7 @@ namespace YAF.Core.Services
         /// </param>
         public Avatars(BoardSettings boardSettings)
         {
-            this._yafBoardSettings = boardSettings;
+            this.boardSettings = boardSettings;
         }
 
         #endregion
@@ -138,7 +138,7 @@ namespace YAF.Core.Services
                 userData.UserID,
                 userData.Avatar,
                 userData.HasAvatarImage,
-                this._yafBoardSettings.AvatarGravatar ? getUserEmail() : string.Empty);
+                this.boardSettings.AvatarGravatar ? getUserEmail() : string.Empty);
         }
 
         /// <summary>
@@ -163,7 +163,7 @@ namespace YAF.Core.Services
         {
             var avatarUrl = string.Empty;
 
-            if (this._yafBoardSettings.AvatarUpload && hasAvatarImage)
+            if (this.boardSettings.AvatarUpload && hasAvatarImage)
             {
                 avatarUrl = $"{BoardInfo.ForumClientFileRoot}resource.ashx?u={userId}";
             }
@@ -171,18 +171,18 @@ namespace YAF.Core.Services
             {
                 // Took out PageContext.BoardSettings.AvatarRemote
                 avatarUrl =
-                    $"{BoardInfo.ForumClientFileRoot}resource.ashx?url={HttpUtility.UrlEncode(avatarString)}&width={this._yafBoardSettings.AvatarWidth}&height={this._yafBoardSettings.AvatarHeight}";
+                    $"{BoardInfo.ForumClientFileRoot}resource.ashx?url={HttpUtility.UrlEncode(avatarString)}&width={this.boardSettings.AvatarWidth}&height={this.boardSettings.AvatarHeight}";
             }
-            else if (this._yafBoardSettings.AvatarGravatar && email.IsSet())
+            else if (this.boardSettings.AvatarGravatar && email.IsSet())
             {
                 const string GravatarBaseUrl = "https://www.gravatar.com/avatar/";
 
                 // JoeOuts added 8/17/09 for Gravatar use
                 var gravatarUrl =
-                    $@"{GravatarBaseUrl}{email.StringToHexBytes()}.jpg?r={this._yafBoardSettings.GravatarRating}&s={this._yafBoardSettings.AvatarWidth}";
+                    $@"{GravatarBaseUrl}{email.StringToHexBytes()}.jpg?r={this.boardSettings.GravatarRating}&s={this.boardSettings.AvatarWidth}";
 
                 avatarUrl =
-                    $@"{BoardInfo.ForumClientFileRoot}resource.ashx?url={HttpUtility.UrlEncode(gravatarUrl)}&width={this._yafBoardSettings.AvatarWidth}&height={this._yafBoardSettings.AvatarHeight}";
+                    $@"{BoardInfo.ForumClientFileRoot}resource.ashx?url={HttpUtility.UrlEncode(gravatarUrl)}&width={this.boardSettings.AvatarWidth}&height={this.boardSettings.AvatarHeight}";
             }
 
             // Return NoAvatar Image is no Avatar available for that user.
