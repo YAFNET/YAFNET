@@ -1661,6 +1661,9 @@
     <Resource tag="PM_NUMBER">Número de mensajes privados:</Resource>
     <Resource tag="TITLE">Mantenimiento de MPs</Resource>
   </page>
+  <page name="ADMIN_PROFILER">
+    <Resource tag="TITLE">Web Profiler</Resource>
+  </page>
   <page name="ADMIN_PRUNE">
     <Resource tag="ALL_FORUMS">Todos los foros</Resource>
     <Resource tag="CONFIRM_PRUNE">¿Estás seguro que quieres podar los temas? Este proceso es irreversible.</Resource>
@@ -1925,6 +1928,7 @@
     <Resource tag="admin_pageaccessedit">Editar acceso a la página de administración</Resource>
     <Resource tag="admin_pageaccesslist">Acceder a la página de administración</Resource>
     <Resource tag="admin_pm">Mensajes privados</Resource>
+    <Resource tag="admin_profiler">Web Profiler</Resource>
     <Resource tag="admin_prune">Podar temas</Resource>
     <Resource tag="admin_ranks">Rangos</Resource>
     <Resource tag="admin_reindex">Mantenimiento de la BD</Resource>

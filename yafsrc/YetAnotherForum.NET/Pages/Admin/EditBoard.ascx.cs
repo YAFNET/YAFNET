@@ -27,7 +27,6 @@ namespace YAF.Pages.Admin
     #region Using
 
     using System;
-    using System.Data;
     using System.IO;
     using System.Linq;
     using System.Web;
@@ -142,8 +141,8 @@ namespace YAF.Pages.Admin
             var cult = StaticDataHelper.Cultures();
             var langFile = "english.xml";
 
-            cult.Rows.Cast<DataRow>().Where(dataRow => dataRow["CultureTag"].ToString() == this.Culture.SelectedValue)
-                .ForEach(row => langFile = (string)row["CultureFile"]);
+            cult.Where(dataRow => dataRow.CultureTag == this.Culture.SelectedValue)
+                .ForEach(row => langFile = row.CultureFile);
 
             if (createUserAndRoles)
             {
@@ -236,9 +235,8 @@ namespace YAF.Pages.Admin
         /// The get membership error message.
         /// </returns>
         [NotNull]
-        protected string GetMembershipErrorMessage(MembershipCreateStatus status)
-        {
-            return status switch
+        protected string GetMembershipErrorMessage(MembershipCreateStatus status) =>
+            status switch
                 {
                     MembershipCreateStatus.DuplicateUserName => this.GetText("ADMIN_EDITBOARD", "STATUS_DUP_NAME"),
                     MembershipCreateStatus.DuplicateEmail => this.GetText("ADMIN_EDITBOARD", "STATUS_DUP_EMAIL"),
@@ -251,7 +249,6 @@ namespace YAF.Pages.Admin
                     MembershipCreateStatus.UserRejected => this.GetText("ADMIN_EDITBOARD", "STATUS_USR_REJECTED"),
                     _ => this.GetText("ADMIN_EDITBOARD", "STATUS_UNKNOWN")
                 };
-        }
 
         /// <summary>
         /// Handles the Load event of the Page control.
@@ -265,11 +262,7 @@ namespace YAF.Pages.Admin
                 return;
             }
 
-            this.Culture.DataSource =
-                StaticDataHelper.Cultures()
-                    .AsEnumerable()
-                    .OrderBy(x => x.Field<string>("CultureNativeName"))
-                    .CopyToDataTable();
+            this.Culture.DataSource = StaticDataHelper.Cultures().OrderBy(x => x.CultureNativeName);
             this.Culture.DataValueField = "CultureTag";
             this.Culture.DataTextField = "CultureNativeName";
 
@@ -383,9 +376,9 @@ namespace YAF.Pages.Admin
                 var cult = StaticDataHelper.Cultures();
                 var langFile = "en-US";
 
-                cult.Rows.Cast<DataRow>()
-                    .Where(dataRow => dataRow["CultureTag"].ToString() == this.Culture.SelectedValue)
-                    .ForEach(row => langFile = row["CultureFile"].ToString());
+                cult
+                    .Where(dataRow => dataRow.CultureTag == this.Culture.SelectedValue)
+                    .ForEach(row => langFile = row.CultureFile);
 
                 // Save current board settings
                 this.GetRepository<Board>().Save(

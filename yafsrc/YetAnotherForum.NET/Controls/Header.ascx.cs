@@ -300,7 +300,8 @@ namespace YAF.Controls
             if (this.PageContext.ForumPageType == ForumPages.Admin_HostSettings || this.PageContext.ForumPageType == ForumPages.Admin_Boards
                                                                                 || this.PageContext.ForumPageType == ForumPages.Admin_EditBoard
                                                                                 || this.PageContext.ForumPageType == ForumPages.Admin_PageAccessEdit
-                                                                                || this.PageContext.ForumPageType == ForumPages.Admin_PageAccessList)
+                                                                                || this.PageContext.ForumPageType == ForumPages.Admin_PageAccessList
+                                                                                || this.PageContext.ForumPageType == ForumPages.Admin_Profiler)
             {
                 this.hostDropdown.CssClass = "nav-link dropdown-toggle active";
             }

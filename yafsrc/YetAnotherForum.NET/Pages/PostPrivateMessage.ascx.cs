@@ -139,7 +139,7 @@ namespace YAF.Pages
         protected void AllBuddies_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
             // try to find users by user name
-            var usersFound = this.Get<IBuddy>().All();
+            var usersFound = this.Get<IFriends>().All();
 
             var friendsString = new StringBuilder();
 

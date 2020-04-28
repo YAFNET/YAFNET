@@ -27,7 +27,6 @@ namespace YAF.Controls
     #region Using
 
     using System;
-    using System.Data;
     using System.Linq;
     using System.Web.Security;
 
@@ -238,9 +237,9 @@ namespace YAF.Controls
             }
             else
             {
-                StaticDataHelper.Cultures().Rows.Cast<DataRow>()
-                    .Where(row => culture.ToString() == row["CultureTag"].ToString()).ForEach(
-                        row => language = row["CultureFile"].ToString());
+                StaticDataHelper.Cultures()
+                    .Where(row => culture.ToString() == row.CultureTag).ForEach(
+                        row => language = row.CultureFile);
             }
 
             // save remaining settings to the DB

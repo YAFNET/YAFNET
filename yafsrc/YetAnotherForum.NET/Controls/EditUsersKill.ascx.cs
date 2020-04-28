@@ -47,6 +47,8 @@ namespace YAF.Controls
     using YAF.Utils;
     using YAF.Utils.Helpers;
 
+    using ListItem = System.Web.UI.WebControls.ListItem;
+
     #endregion
 
     /// <summary>

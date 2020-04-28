@@ -168,7 +168,7 @@ namespace YAF.Pages
         {
             if (e.CommandArgument.ToString() == "addbuddy")
             {
-                var strBuddyRequest = this.Get<IBuddy>().AddRequest(this.UserId);
+                var strBuddyRequest = this.Get<IFriends>().AddRequest(this.UserId);
 
                 this.PageContext.AddLoadMessage(
                     Convert.ToBoolean(strBuddyRequest[1].ToType<int>())
@@ -179,7 +179,7 @@ namespace YAF.Pages
             else
             {
                 this.PageContext.AddLoadMessage(
-                    this.GetTextFormatted("REMOVEBUDDY_NOTIFICATION", this.Get<IBuddy>().Remove(this.UserId)),
+                    this.GetTextFormatted("REMOVEBUDDY_NOTIFICATION", this.Get<IFriends>().Remove(this.UserId)),
                     MessageTypes.success);
             }
 
@@ -308,7 +308,7 @@ namespace YAF.Pages
             {
                 this.lnkBuddy.Visible = false;
             }
-            else if (this.Get<IBuddy>().IsBuddy((int)userData.DBRow["userID"], true) && !this.PageContext.IsGuest)
+            else if (this.Get<IFriends>().IsBuddy((int)userData.DBRow["userID"], true) && !this.PageContext.IsGuest)
             {
                 this.lnkBuddy.Visible = true;
                 this.lnkBuddy.Icon = "user-minus";
@@ -318,7 +318,7 @@ namespace YAF.Pages
                 this.lnkBuddy.CommandArgument = "removebuddy";
                 this.lnkBuddy.ReturnConfirmText = this.GetText("FRIENDS", "NOTIFICATION_REMOVE");
             }
-            else if (this.Get<IBuddy>().IsBuddy((int)userData.DBRow["userID"], false))
+            else if (this.Get<IFriends>().IsBuddy((int)userData.DBRow["userID"], false))
             {
                 this.lnkBuddy.Visible = false;
             }

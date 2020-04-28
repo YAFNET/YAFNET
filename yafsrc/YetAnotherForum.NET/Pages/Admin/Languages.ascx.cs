@@ -27,6 +27,7 @@ namespace YAF.Pages.Admin
     #region Using
 
     using System;
+    using System.Linq;
     using System.Web.UI.WebControls;
 
     using YAF.Core.BasePages;
@@ -35,7 +36,6 @@ namespace YAF.Pages.Admin
     using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Constants;
-    using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Utils;
     using YAF.Web.Extensions;
@@ -126,7 +126,7 @@ namespace YAF.Pages.Admin
                "tablesorterLoadJs",
                JavaScriptBlocks.LoadTableSorter(
                    "#language-table",
-                   cultureTable.HasRows() ? "headers: { 4: { sorter: false }}" : null));
+                   cultureTable.Any() ? "headers: { 4: { sorter: false }}" : null));
 
             this.DataBind();
         }

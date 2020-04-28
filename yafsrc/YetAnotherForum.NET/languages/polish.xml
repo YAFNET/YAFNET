@@ -1649,6 +1649,9 @@
     <Resource tag="PM_NUMBER">Number of private messages:</Resource>
     <Resource tag="TITLE">PM Maintenance</Resource>
   </page>
+  <page name="ADMIN_PROFILER">
+    <Resource tag="TITLE">Web Profiler</Resource>
+  </page>
   <page name="ADMIN_PRUNE">
     <Resource tag="ALL_FORUMS">All Forums</Resource>
     <Resource tag="CONFIRM_PRUNE">Do you really want to prune topics? This process is irreversible.</Resource>
@@ -1913,6 +1916,7 @@
     <Resource tag="admin_pageaccessedit">Edytuj dostęp do panelu administracyjnego</Resource>
     <Resource tag="admin_pageaccesslist">Dostęp do panelu administracyjnego</Resource>
     <Resource tag="admin_pm">Prywatne wiadomości</Resource>
+    <Resource tag="admin_profiler">Web Profiler</Resource>
     <Resource tag="admin_prune">Czyszczenie tematów</Resource>
     <Resource tag="admin_ranks">Rangi</Resource>
     <Resource tag="admin_reindex">Konserwacja bazy danych</Resource>

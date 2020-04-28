@@ -118,7 +118,7 @@ namespace YAF.Controls
                     this.PageContext.AddLoadMessage(
                         string.Format(
                             this.GetText("REMOVEBUDDY_NOTIFICATION"),
-                            this.Get<IBuddy>().Remove(e.CommandArgument.ToType<int>())),
+                            this.Get<IFriends>().Remove(e.CommandArgument.ToType<int>())),
                         MessageTypes.success);
                     this.CurrentUserID = this.PageContext.PageUserID;
                     break;
@@ -126,30 +126,30 @@ namespace YAF.Controls
                     this.PageContext.AddLoadMessage(
                         string.Format(
                             this.GetText("NOTIFICATION_BUDDYAPPROVED"),
-                            this.Get<IBuddy>().ApproveRequest(e.CommandArgument.ToType<int>(), false)),
+                            this.Get<IFriends>().ApproveRequest(e.CommandArgument.ToType<int>(), false)),
                         MessageTypes.success);
                     break;
                 case "approveadd":
                     this.PageContext.AddLoadMessage(
                         string.Format(
                             this.GetText("NOTIFICATION_BUDDYAPPROVED_MUTUAL"),
-                            this.Get<IBuddy>().ApproveRequest(e.CommandArgument.ToType<int>(), true)),
+                            this.Get<IFriends>().ApproveRequest(e.CommandArgument.ToType<int>(), true)),
                         MessageTypes.success);
                     break;
                 case "approveall":
-                    this.Get<IBuddy>().ApproveAllRequests(false);
+                    this.Get<IFriends>().ApproveAllRequests(false);
                     this.PageContext.AddLoadMessage(this.GetText("NOTIFICATION_ALL_APPROVED"), MessageTypes.success);
                     break;
                 case "approveaddall":
-                    this.Get<IBuddy>().ApproveAllRequests(true);
+                    this.Get<IFriends>().ApproveAllRequests(true);
                     this.PageContext.AddLoadMessage(this.GetText("NOTIFICATION_ALL_APPROVED_ADDED"), MessageTypes.success);
                     break;
                 case "deny":
-                    this.Get<IBuddy>().DenyRequest(e.CommandArgument.ToType<int>());
+                    this.Get<IFriends>().DenyRequest(e.CommandArgument.ToType<int>());
                     this.PageContext.AddLoadMessage(this.GetText("NOTIFICATION_BUDDYDENIED"), MessageTypes.info);
                     break;
                 case "denyall":
-                    this.Get<IBuddy>().DenyAllRequests();
+                    this.Get<IFriends>().DenyAllRequests();
                     this.PageContext.AddLoadMessage(this.GetText("NOTIFICATION_ALL_DENIED"), MessageTypes.info);
                     break;
             }
@@ -218,7 +218,7 @@ namespace YAF.Controls
             this.Pager.PageSize = 20;
 
             // set the Data table
-            var buddyListDataTable = this.Get<IBuddy>().GetForUser(this.CurrentUserID);
+            var buddyListDataTable = this.Get<IFriends>().GetForUser(this.CurrentUserID);
 
             if (buddyListDataTable != null && buddyListDataTable.HasRows())
             {

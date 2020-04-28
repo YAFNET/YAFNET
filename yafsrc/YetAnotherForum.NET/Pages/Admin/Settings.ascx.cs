@@ -51,6 +51,8 @@ namespace YAF.Pages.Admin
     using YAF.Utils.Helpers;
     using YAF.Web.Extensions;
 
+    using ListItem = System.Web.UI.WebControls.ListItem;
+
     #endregion
 
     /// <summary>
@@ -84,15 +86,14 @@ namespace YAF.Pages.Admin
                 this.Theme.DataSource = themeData;
             }
 
-            this.Culture.DataSource = StaticDataHelper.Cultures().AsEnumerable()
-                .OrderBy(x => x.Field<string>("CultureNativeName")).CopyToDataTable();
+            this.Culture.DataSource = StaticDataHelper.Cultures().OrderBy(x => x.CultureNativeName);
 
             this.Culture.DataTextField = "CultureNativeName";
             this.Culture.DataValueField = "CultureTag";
 
             this.ShowTopic.DataSource = StaticDataHelper.TopicTimes();
-            this.ShowTopic.DataTextField = "TopicText";
-            this.ShowTopic.DataValueField = "TopicValue";
+            this.ShowTopic.DataTextField = "Name";
+            this.ShowTopic.DataValueField = "Value";
 
             this.BindData();
 
@@ -239,12 +240,12 @@ namespace YAF.Pages.Admin
         {
             var languageFile = "english.xml";
 
-            var cultures = StaticDataHelper.Cultures().AsEnumerable()
-                .Where(c => c.Field<string>("CultureTag").Equals(this.Culture.SelectedValue));
+            var cultures = StaticDataHelper.Cultures()
+                .Where(c => c.CultureTag.Equals(this.Culture.SelectedValue));
 
             if (cultures.Any())
             {
-                languageFile = cultures.First().Field<string>("CultureFile");
+                languageFile = cultures.FirstOrDefault().CultureFile;
             }
 
             this.GetRepository<Board>().Save(

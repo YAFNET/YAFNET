@@ -49,6 +49,8 @@ namespace YAF.Pages
     using YAF.Utils.Helpers.ImageUtils;
     using YAF.Web.Extensions;
 
+    using ListItem = System.Web.UI.WebControls.ListItem;
+
     #endregion
 
     /// <summary>

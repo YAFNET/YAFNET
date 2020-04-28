@@ -650,7 +650,7 @@ namespace YAF.Controls
             if (this.Get<BoardSettings>().EnableBuddyList && this.PageContext.PageUserID != this.PostData.UserId)
             {
                 // Should we add the "Add Buddy" item?
-                if (!this.Get<IBuddy>().IsBuddy(this.PostData.UserId, false) && !this.PageContext.IsGuest
+                if (!this.Get<IFriends>().IsBuddy(this.PostData.UserId, false) && !this.PageContext.IsGuest
                                                                              && !this.GetRepository<User>()
                                                                                  .GetById(this.PostData.UserId).Block
                                                                                  .BlockFriendRequests)
@@ -666,7 +666,7 @@ namespace YAF.Controls
 
                     addFriendButton.Click += (sender, args) =>
                         {
-                            var strBuddyRequest = this.Get<IBuddy>().AddRequest(this.PostData.UserId);
+                            var strBuddyRequest = this.Get<IFriends>().AddRequest(this.PostData.UserId);
 
                             if (Convert.ToBoolean(strBuddyRequest[1].ToType<int>()))
                             {
@@ -686,7 +686,7 @@ namespace YAF.Controls
 
                     this.UserDropHolder.Controls.Add(addFriendButton);
                 }
-                else if (this.Get<IBuddy>().IsBuddy(this.PostData.UserId, true) && !this.PageContext.IsGuest)
+                else if (this.Get<IFriends>().IsBuddy(this.PostData.UserId, true) && !this.PageContext.IsGuest)
                 {
                     // Are the users approved buddies? Add the "Remove buddy" item.
                     var removeFriendButton = new ThemeButton
@@ -703,14 +703,14 @@ namespace YAF.Controls
 
                     removeFriendButton.Click += (sender, args) =>
                         {
-                            this.Get<IBuddy>().Remove(this.PostData.UserId);
+                            this.Get<IFriends>().Remove(this.PostData.UserId);
 
                             this.Get<HttpResponseBase>().Redirect(this.Get<HttpRequestBase>().RawUrl);
 
                             this.PageContext.AddLoadMessage(
                                 this.GetTextFormatted(
                                     "REMOVEBUDDY_NOTIFICATION",
-                                    this.Get<IBuddy>().Remove(this.PostData.UserId)),
+                                    this.Get<IFriends>().Remove(this.PostData.UserId)),
                                 MessageTypes.success);
                         };
 

@@ -43,24 +43,30 @@
                                              TextLocalizedTag="HOST"
                                              TextLocalizedPage="TOOLBAR" />
                             <div class="dropdown-menu" aria-labelledby="hostDropdown">
-                            <a href="<%= BuildLink.GetLink(ForumPages.Admin_HostSettings) %>"
-                               class="<%= this.PageContext.ForumPageType == ForumPages.Admin_HostSettings ? "dropdown-item active" : "dropdown-item" %>">
-                            <i class="fa fa-cog fa-fw"></i>&nbsp;
-                                <YAF:LocalizedLabel runat="server" 
-                                                    LocalizedTag="admin_hostsettings"></YAF:LocalizedLabel>
-                            </a>
-                            <a href="<%= BuildLink.GetLink(ForumPages.Admin_Boards) %>"
-                               class="<%= this.PageContext.ForumPageType == ForumPages.Admin_Boards || this.PageContext.ForumPageType == ForumPages.Admin_EditBoard ? "dropdown-item active" : "dropdown-item" %>">
-                                <i class="fa fa-globe fa-fw"></i>&nbsp;
-                                <YAF:LocalizedLabel runat="server" 
-                                                    LocalizedTag="admin_boards" LocalizedPage="adminmenu"></YAF:LocalizedLabel>
-                            </a>
-                            <a href="<%= BuildLink.GetLink(ForumPages.Admin_PageAccessList) %>"
-                               class="<%= this.PageContext.ForumPageType == ForumPages.Admin_PageAccessList || this.PageContext.ForumPageType == ForumPages.Admin_PageAccessEdit ? "dropdown-item active" : "dropdown-item" %>">
-                                <i class="fa fa-building fa-fw"></i>&nbsp;
-                                <YAF:LocalizedLabel runat="server" 
-                                                    LocalizedTag="admin_pageaccesslist"></YAF:LocalizedLabel>
-                            </a>
+                                <a href="<%= BuildLink.GetLink(ForumPages.Admin_HostSettings) %>"
+                                   class="<%= this.PageContext.ForumPageType == ForumPages.Admin_HostSettings ? "dropdown-item active" : "dropdown-item" %>">
+                                    <i class="fa fa-cog fa-fw"></i>&nbsp;
+                                    <YAF:LocalizedLabel runat="server" 
+                                                        LocalizedTag="admin_hostsettings"></YAF:LocalizedLabel>
+                                </a>
+                                <a href="<%= BuildLink.GetLink(ForumPages.Admin_Boards) %>"
+                                   class="<%= this.PageContext.ForumPageType == ForumPages.Admin_Boards || this.PageContext.ForumPageType == ForumPages.Admin_EditBoard ? "dropdown-item active" : "dropdown-item" %>">
+                                    <i class="fa fa-globe fa-fw"></i>&nbsp;
+                                    <YAF:LocalizedLabel runat="server" 
+                                                        LocalizedTag="admin_boards" LocalizedPage="adminmenu"></YAF:LocalizedLabel>
+                                </a>
+                                <a href="<%= BuildLink.GetLink(ForumPages.Admin_PageAccessList) %>"
+                                   class="<%= this.PageContext.ForumPageType == ForumPages.Admin_PageAccessList || this.PageContext.ForumPageType == ForumPages.Admin_PageAccessEdit ? "dropdown-item active" : "dropdown-item" %>">
+                                    <i class="fa fa-building fa-fw"></i>&nbsp;
+                                    <YAF:LocalizedLabel runat="server" 
+                                                        LocalizedTag="admin_pageaccesslist"></YAF:LocalizedLabel>
+                                </a>
+                                <a href="<%= BuildLink.GetLink(ForumPages.Admin_Profiler) %>"
+                                   class="<%= this.PageContext.ForumPageType == ForumPages.Admin_Profiler ? "dropdown-item active" : "dropdown-item" %>">
+                                    <i class="fa fa-diagnoses fa-fw"></i>&nbsp;
+                                    <YAF:LocalizedLabel runat="server" 
+                                                        LocalizedTag="admin_profiler"></YAF:LocalizedLabel>
+                                </a>
                         </div>
                   </li>
                     </asp:PlaceHolder>

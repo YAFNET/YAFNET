@@ -1310,17 +1310,6 @@ begin
 end
 GO
 
-create procedure [{databaseOwner}].[{objectQualifier}group_eventlogaccesslist](@BoardID int = null) as
-begin
-        if @BoardID is null
-        select g.*,b.Name as BoardName from [{databaseOwner}].[{objectQualifier}Group] g
-        join [{databaseOwner}].[{objectQualifier}Board] b on b.BoardID = g.BoardID order by g.SortOrder
-    else
-        select g.*,b.Name as BoardName from [{databaseOwner}].[{objectQualifier}Group] g
-        join [{databaseOwner}].[{objectQualifier}Board] b on b.BoardID = g.BoardID where g.BoardID=@BoardID  order by g.SortOrder
-end
-GO
-
 create procedure [{databaseOwner}].[{objectQualifier}group_member](@BoardID int,@UserID int) as
 begin
         select
@@ -1396,17 +1385,6 @@ begin
 
 
     select GroupID = @GroupID
-end
-GO
-
-CREATE procedure [{databaseOwner}].[{objectQualifier}group_rank_style]( @BoardID int) as
-begin
--- added fields to get overall info about groups and ranks
-SELECT 1 AS LegendID,[Name],Style, PMLimit,[Description],UsrSigChars,UsrSigBBCodes,UsrSigHTMLTags,UsrAlbums,UsrAlbumImages FROM [{databaseOwner}].[{objectQualifier}Group]
-WHERE BoardID = @BoardID GROUP BY SortOrder,[Name],Style,[Description],PMLimit,UsrSigChars,UsrSigBBCodes,UsrSigHTMLTags,UsrAlbums,UsrAlbumImages
-UNION
-SELECT 2  AS LegendID,[Name],Style,PMLimit, [Description],UsrSigChars,UsrSigBBCodes,UsrSigHTMLTags,UsrAlbums,UsrAlbumImages FROM [{databaseOwner}].[{objectQualifier}Rank]
-WHERE BoardID = @BoardID GROUP BY SortOrder,[Name],Style,[Description],PMLimit,UsrSigChars,UsrSigBBCodes,UsrSigHTMLTags,UsrAlbums,UsrAlbumImages
 end
 GO
 
@@ -7686,34 +7664,7 @@ GO
 create procedure [{databaseOwner}].[{objectQualifier}user_savestyle](@GroupID int, @RankID int)  as
 
 begin
--- loop thru users to sync styles
-
- /*   declare @usridtmp int
-    declare @styletmp varchar(255)
-        declare c cursor for
-            select us.UserID, us.NewUserStyle from (
-                select uu.UserID, uu.UserStyle, NewUserStyle = ISNULL(
-                    (SELECT TOP 1 f.Style FROM [{databaseOwner}].[{objectQualifier}UserGroup] e  join [{databaseOwner}].[{objectQualifier}Group] f  on f.GroupID=e.GroupID WHERE e.UserID=uu.UserID AND f.Style != '' ORDER BY f.SortOrder),
-                    (SELECT TOP 1 r.Style FROM [{databaseOwner}].[{objectQualifier}Rank] r  where RankID = uu.RankID))
-                from [{databaseOwner}].[{objectQualifier}User] uu
-                JOIN [{databaseOwner}].[{objectQualifier}UserGroup] ug  ON ug.UserID = uu.UserID
-                where
-                (@RankID IS NULL OR uu.RankID = @RankID) AND
-                (@GroupID IS NULL OR ug.GroupID = @GroupID)) us
-            where us.UserStyle != us.NewUserStyle
-        FOR UPDATE -- OF UserStyle
-        open c
-
-        fetch next from c into @usridtmp, @styletmp
-        while @@FETCH_STATUS = 0
-        begin
-            UPDATE [{databaseOwner}].[{objectQualifier}User] SET UserStyle = @styletmp  WHERE UserID = @usridtmp  -- CURRENT OF c
-            fetch next from c into @usridtmp, @styletmp
-        end
-        close c
-        deallocate c
-        */
-        update d
+   update d
         set    d.UserStyle = ISNULL((select top 1 f.Style FROM [{databaseOwner}].[{objectQualifier}UserGroup] e
                                      join [{databaseOwner}].[{objectQualifier}Group] f on f.GroupID=e.GroupID
                                      WHERE f.Style IS NOT NULL and e.UserID = d.UserID order by f.SortOrder),

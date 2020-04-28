@@ -214,8 +214,8 @@ namespace YAF.Pages
             if (!this.IsPostBack)
             {
                 this.ShowList.DataSource = StaticDataHelper.TopicTimes();
-                this.ShowList.DataTextField = "TopicText";
-                this.ShowList.DataValueField = "TopicValue";
+                this.ShowList.DataTextField = "Name";
+                this.ShowList.DataValueField = "Value";
                 this.showTopicListSelected = this.Get<ISession>().ShowList == -1
                                                   ? this.Get<BoardSettings>().ShowTopicsDefault
                                                   : this.Get<ISession>().ShowList;

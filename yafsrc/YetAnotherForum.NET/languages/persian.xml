@@ -1651,6 +1651,9 @@
     <Resource tag="PM_NUMBER">تعداد پیام های خصوصی :</Resource>
     <Resource tag="TITLE">نگداری پیام خصوصی</Resource>
   </page>
+  <page name="ADMIN_PROFILER">
+    <Resource tag="TITLE">Web Profiler</Resource>
+  </page>
   <page name="ADMIN_PRUNE">
     <Resource tag="ALL_FORUMS">همه انجمن ها</Resource>
     <Resource tag="CONFIRM_PRUNE">آیا واقعا مایل به اصلاح موضوعات هستید؟ این فرآیند غیر قابل بازگشت است.</Resource>
@@ -1933,6 +1936,7 @@
     <Resource tag="admin_pageaccessedit">ویرایش دسترسی صفحه مدیر</Resource>
     <Resource tag="admin_pageaccesslist">دسترسی صفحه مدیر</Resource>
     <Resource tag="admin_pm">پیام های خصوصی</Resource>
+    <Resource tag="admin_profiler">Web Profiler</Resource>
     <Resource tag="admin_prune">اصلاح موضوعات</Resource>
     <Resource tag="admin_ranks">رتبه ها</Resource>
     <Resource tag="admin_reindex">نگهداری پایگاه داده</Resource>

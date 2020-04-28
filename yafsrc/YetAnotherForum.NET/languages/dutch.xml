@@ -1649,6 +1649,9 @@
     <Resource tag="PM_NUMBER">berichten:</Resource>
     <Resource tag="TITLE">PB Onderhoud</Resource>
   </page>
+  <page name="ADMIN_PROFILER">
+    <Resource tag="TITLE">Web Profiler</Resource>
+  </page>
   <page name="ADMIN_PRUNE">
     <Resource tag="ALL_FORUMS">Alle Forums</Resource>
     <Resource tag="CONFIRM_PRUNE">Weet je zeker dat je topics wilt schonen? Deze aktie kan niet ongedaan gemaakt worden.</Resource>
@@ -1913,6 +1916,7 @@
     <Resource tag="admin_pageaccessedit">Edit Admin Page Access</Resource>
     <Resource tag="admin_pageaccesslist">Admin Page Access</Resource>
     <Resource tag="admin_pm">PM's</Resource>
+    <Resource tag="admin_profiler">Web Profiler</Resource>
     <Resource tag="admin_prune">Opschonen van Topics</Resource>
     <Resource tag="admin_ranks">Rangen</Resource>
     <Resource tag="admin_reindex">DB Onderhoud</Resource>

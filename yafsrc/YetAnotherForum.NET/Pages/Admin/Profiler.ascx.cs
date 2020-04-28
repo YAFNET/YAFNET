@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2020 Ingo Herbote
  * https://www.yetanotherforum.net/
- *
+ * 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -22,22 +22,25 @@
  * under the License.
  */
 
-namespace YAF.Controls
+namespace YAF.Pages.Admin
 {
     #region Using
 
     using System;
 
-    using YAF.Core.BaseControls;
+    using YAF.Core.BasePages;
+    using YAF.Core.Utilities;
     using YAF.Types;
-    using YAF.Types.Constants;
+    using YAF.Types.Interfaces;
+    using YAF.Utils;
+    using YAF.Web.Extensions;
 
     #endregion
 
     /// <summary>
-    /// The Header.
+    /// The Host Admin Web Profiler page.
     /// </summary>
-    public partial class AdminMenu : BaseUserControl
+    public partial class Profiler : AdminPage
     {
         #region Methods
 
@@ -48,18 +51,28 @@ namespace YAF.Controls
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            this.AdminDropdown.CssClass = "nav-link dropdown-toggle";
-
-            if (this.PageContext.CurrentForumPage.IsAdminPage
-                && !(this.PageContext.ForumPageType == ForumPages.Admin_HostSettings
-                     || this.PageContext.ForumPageType == ForumPages.Admin_Boards
-                     || this.PageContext.ForumPageType == ForumPages.Admin_EditBoard
-                     || this.PageContext.ForumPageType == ForumPages.Admin_PageAccessEdit
-                     || this.PageContext.ForumPageType == ForumPages.Admin_PageAccessList
-                     || this.PageContext.ForumPageType == ForumPages.Admin_Profiler))
+            if (!this.PageContext.IsHostAdmin)
             {
-                this.AdminDropdown.CssClass = "nav-link dropdown-toggle active";
+                BuildLink.AccessDenied();
             }
+
+            this.PageContext.PageElements.RegisterJsBlock(
+                "tablesorterLoadJs",
+                JavaScriptBlocks.LoadTableSorter(
+                    ".table",
+                     null));
+        }
+
+        /// <summary>
+        /// Creates page links for this page.
+        /// </summary>
+        protected override void CreatePageLinks()
+        {
+            this.PageLinks.AddRoot();
+            this.PageLinks.AddLink(this.GetText("ADMIN_PROFILER", "TITLE"), string.Empty);
+
+            this.Page.Header.Title =
+                $"{this.GetText("ADMIN_PROFILER", "TITLE")}";
         }
 
         #endregion

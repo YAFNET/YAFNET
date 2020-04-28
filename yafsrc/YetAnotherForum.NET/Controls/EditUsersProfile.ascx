@@ -83,7 +83,7 @@
 
     <div class="form-group">
         <YAF:ThemeButton runat="server" ID="GetLocation"
-            Visible='<%# this.Get<BoardSettings>().EnableIPInfoService %>'
+            Visible="<%# this.Get<BoardSettings>().EnableIPInfoService %>"
             Icon="location-arrow"
             Type="Secondary"
             TextLocalizedTag="GET_LOCATION"

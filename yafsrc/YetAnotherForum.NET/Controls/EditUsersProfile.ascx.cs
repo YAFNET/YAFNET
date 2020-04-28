@@ -28,6 +28,7 @@ namespace YAF.Controls
 
     using System;
     using System.Globalization;
+    using System.Linq;
     using System.Text.RegularExpressions;
     using System.Web;
 
@@ -143,8 +144,6 @@ namespace YAF.Controls
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            //this.Page.Form.DefaultButton = this.UpdateProfile.UniqueID;
-
             this.PageContext.QueryIDs = new QueryStringIDHelper("u");
 
             if (this.PageContext.CurrentForumPage.IsAdminPage && this.PageContext.IsAdmin && this.PageContext.QueryIDs.ContainsKey("u"))
@@ -568,7 +567,7 @@ namespace YAF.Controls
             var dt = StaticDataHelper.Region(country);
 
             // The first row is empty
-            if (dt.Rows.Count > 1)
+            if (dt.Any())
             {
                 this.Region.DataSource = dt;
                 this.Region.DataValueField = "Value";

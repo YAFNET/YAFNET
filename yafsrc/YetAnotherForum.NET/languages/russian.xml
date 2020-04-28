@@ -1637,6 +1637,9 @@
     <Resource tag="PM_NUMBER">Число личных сообщений:</Resource>
     <Resource tag="TITLE">Управление ЛС</Resource>
   </page>
+  <page name="ADMIN_PROFILER">
+    <Resource tag="TITLE">Web Profiler</Resource>
+  </page>
   <page name="ADMIN_PRUNE">
     <Resource tag="ALL_FORUMS">Все форумы</Resource>
     <Resource tag="CONFIRM_PRUNE">Вы действительно желаете почистить темы? Этот процесс необратим.</Resource>
@@ -1901,6 +1904,7 @@
     <Resource tag="admin_pageaccessedit">Редактирование прав доступа </Resource>
     <Resource tag="admin_pageaccesslist">Страницы администратора</Resource>
     <Resource tag="admin_pm">Личные сообщения</Resource>
+    <Resource tag="admin_profiler">Web Profiler</Resource>
     <Resource tag="admin_prune">Чистка тем</Resource>
     <Resource tag="admin_ranks">Статусы</Resource>
     <Resource tag="admin_reindex">Обслуживание БД</Resource>
