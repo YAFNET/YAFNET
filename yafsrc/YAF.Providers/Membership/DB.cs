@@ -37,7 +37,6 @@ namespace YAF.Providers.Membership
     using YAF.Types;
     using YAF.Types.Extensions;
     using YAF.Types.Extensions.Data;
-    using YAF.Types.Interfaces.Data;
     using YAF.Utils.Helpers;
 
     #endregion

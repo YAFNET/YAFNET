@@ -30,17 +30,17 @@ namespace YAF.Types.Models
     using YAF.Types.Interfaces.Data;
 
     /// <summary>
-    ///     A class which represents the yaf_vaccess_user views.
+    ///     A class which represents the yaf_vaccess_null views.
     /// </summary>
     [Serializable]
-    public partial class vaccess_user : IEntity
+    public partial class vaccess_null : IEntity
     {
         #region Constructors and Destructors
 
         /// <summary>
         /// Initializes a new instance of the <see cref="vaccess_user"/> class.
         /// </summary>
-        public vaccess_user()
+        public vaccess_null()
         {
             this.OnCreated();
         }

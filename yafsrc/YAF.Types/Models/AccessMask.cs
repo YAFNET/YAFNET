@@ -35,7 +35,7 @@ namespace YAF.Types.Models
     #endregion
 
     /// <summary>
-    ///     A class which represents the yaf_AccessMask table in the Yaf Database.
+    ///     A class which represents the AccessMask table
     /// </summary>
     [Serializable]
     public class AccessMask : IEntity, IHaveBoardID, IHaveID
