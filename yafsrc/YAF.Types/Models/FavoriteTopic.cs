@@ -35,15 +35,8 @@ namespace YAF.Types.Models
     /// </summary>
     [Serializable]
     [Table(Name = "FavoriteTopic")]
-    public partial class FavoriteTopic : IEntity, IHaveID
+    public class FavoriteTopic : IEntity, IHaveID
     {
-        partial void OnCreated();
-
-        public FavoriteTopic()
-        {
-            this.OnCreated();
-        }
-
         #region Properties
 
         [AutoIncrement]

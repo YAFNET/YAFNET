@@ -33,17 +33,8 @@ namespace YAF.Types.Models
     ///     A class which represents the yaf_ForumAccess table.
     /// </summary>
     [Serializable]
-    public partial class ForumAccess : IEntity
+    public class ForumAccess : IEntity
     {
-        #region Constructors and Destructors
-
-        public ForumAccess()
-        {
-            this.OnCreated();
-        }
-
-        #endregion
-
         #region Public Properties
 
         [References(typeof(Group))]
@@ -59,15 +50,6 @@ namespace YAF.Types.Models
         [Required]
         public int AccessMaskID { get; set; }
 
-
-        #endregion
-
-        #region Methods
-
-        /// <summary>
-        /// The on created.
-        /// </summary>
-        partial void OnCreated();
 
         #endregion
     }

@@ -35,16 +35,8 @@ namespace YAF.Types.Models
     [Serializable]
 
     [UniqueConstraint(nameof(TopicID), nameof(TagID))]
-    public partial class TopicTag : IEntity
+    public class TopicTag : IEntity
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="TopicTag"/> class.
-        /// </summary>
-        public TopicTag()
-        {
-            this.OnCreated();
-        }
-
         #region Properties
 
         /// <summary>
@@ -62,10 +54,5 @@ namespace YAF.Types.Models
         public int TopicID { get; set; }
 
         #endregion
-
-        /// <summary>
-        /// The on created.
-        /// </summary>
-        partial void OnCreated();
     }
 }

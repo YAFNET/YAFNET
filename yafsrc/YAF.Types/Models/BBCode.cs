@@ -34,15 +34,8 @@ namespace YAF.Types.Models
     /// A class which represents the BBCode table.
     /// </summary>
     [Serializable]
-    public partial class BBCode : IEntity, IHaveBoardID, IHaveID
+    public class BBCode : IEntity, IHaveBoardID, IHaveID
     {
-        partial void OnCreated();
-
-        public BBCode()
-        {
-            this.OnCreated();
-        }
-
         #region Properties
 
         [AutoIncrement]

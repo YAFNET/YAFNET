@@ -37,15 +37,8 @@ namespace YAF.Types.Models
     /// A class which represents the EventLog table.
     /// </summary>
     [Serializable]
-    public partial class EventLog : IEntity, IHaveID
+    public class EventLog : IEntity, IHaveID
     {
-        partial void OnCreated();
-
-        public EventLog()
-        {
-            this.OnCreated();
-        }
-
         #region Properties
 
         [AutoIncrement]

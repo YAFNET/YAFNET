@@ -34,20 +34,8 @@ namespace YAF.Types.Models
     ///     A class which represents the ActiveAccess table.
     /// </summary>
     [Serializable]
-    public partial class ActiveAccess : IEntity, IHaveBoardID
+    public class ActiveAccess : IEntity, IHaveBoardID
     {
-        #region Constructors and Destructors
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ActiveAccess"/> class.
-        /// </summary>
-        public ActiveAccess()
-        {
-            this.OnCreated();
-        }
-
-        #endregion
-
         #region Public Properties
 
         /// <summary>
@@ -163,15 +151,6 @@ namespace YAF.Types.Models
         /// </summary>
         [Required]
         public bool VoteAccess { get; set; }
-
-        #endregion
-
-        #region Methods
-
-        /// <summary>
-        /// The on created.
-        /// </summary>
-        partial void OnCreated();
 
         #endregion
     }

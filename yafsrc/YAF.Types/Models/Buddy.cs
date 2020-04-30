@@ -34,18 +34,8 @@ namespace YAF.Types.Models
     /// </summary>
     [Serializable]
     [UniqueConstraint(nameof(FromUserID), nameof(ToUserID))]
-    public partial class Buddy : IEntity, IHaveID
+    public class Buddy : IEntity, IHaveID
     {
-        partial void OnCreated();
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Buddy"/> class.
-        /// </summary>
-        public Buddy()
-        {
-            this.OnCreated();
-        }
-
         #region Properties
 
         /// <summary>

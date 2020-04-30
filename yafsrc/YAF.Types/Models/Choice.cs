@@ -33,20 +33,8 @@ namespace YAF.Types.Models
     ///     A class which represents the yaf_Choice table.
     /// </summary>
     [Serializable]
-    public partial class Choice : IEntity, IHaveID
+    public class Choice : IEntity, IHaveID
     {
-        #region Constructors and Destructors
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Choice"/> class.
-        /// </summary>
-        public Choice()
-        {
-            this.OnCreated();
-        }
-
-        #endregion
-
         #region Public Properties
 
         [AutoIncrement]
@@ -70,15 +58,6 @@ namespace YAF.Types.Models
 
         [StringLength(50)]
         public string MimeType { get; set; }
-
-        #endregion
-
-        #region Methods
-
-        /// <summary>
-        /// The on created.
-        /// </summary>
-        partial void OnCreated();
 
         #endregion
     }

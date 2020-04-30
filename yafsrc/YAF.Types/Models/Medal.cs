@@ -35,20 +35,8 @@ namespace YAF.Types.Models
     ///     A class which represents the Medal table.
     /// </summary>
     [Serializable]
-    public partial class Medal : IEntity, IHaveBoardID, IHaveID
+    public class Medal : IEntity, IHaveBoardID, IHaveID
     {
-        #region Constructors and Destructors
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Medal"/> class.
-        /// </summary>
-        public Medal()
-        {
-            this.OnCreated();
-        }
-
-        #endregion
-
         #region Public Properties
 
         [Required]
@@ -110,15 +98,6 @@ namespace YAF.Types.Models
 
             set => this.Flags = value.BitValue;
         }
-
-        #endregion
-
-        #region Methods
-
-        /// <summary>
-        /// The on created.
-        /// </summary>
-        partial void OnCreated();
 
         #endregion
     }

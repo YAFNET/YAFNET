@@ -33,15 +33,8 @@ namespace YAF.Types.Models
     /// A class which represents the TopicReadTracking table.
     /// </summary>
     [Serializable]
-    public partial class TopicReadTracking : IEntity
+    public class TopicReadTracking : IEntity
     {
-        partial void OnCreated();
-
-        public TopicReadTracking()
-        {
-            this.OnCreated();
-        }
-
         #region Properties
 
         [References(typeof(User))]

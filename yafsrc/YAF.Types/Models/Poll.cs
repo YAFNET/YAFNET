@@ -35,15 +35,8 @@ namespace YAF.Types.Models
     /// </summary>
     [Serializable]
     [Table(Name = "Poll")]
-    public partial class Poll : IEntity, IHaveID
+    public class Poll : IEntity, IHaveID
     {
-        partial void OnCreated();
-
-        public Poll()
-        {
-            this.OnCreated();
-        }
-
         #region Properties
 
         [Alias("PollID")]

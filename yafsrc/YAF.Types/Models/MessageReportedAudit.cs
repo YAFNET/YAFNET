@@ -35,15 +35,8 @@ namespace YAF.Types.Models
     /// </summary>
     [Serializable]
     [Table(Name = "MessageReportedAudit")]
-    public partial class MessageReportedAudit : IEntity
+    public class MessageReportedAudit : IEntity
     {
-        partial void OnCreated();
-
-        public MessageReportedAudit()
-        {
-            this.OnCreated();
-        }
-
         #region Properties
 
         [AutoIncrement]

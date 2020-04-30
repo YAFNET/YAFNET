@@ -32,15 +32,8 @@ namespace YAF.Types.Models
 
     [Serializable]
     [UniqueConstraint(nameof(BoardID), nameof(Mask))]
-    public partial class BannedIP : IEntity, IHaveID, IHaveBoardID
+    public class BannedIP : IEntity, IHaveID, IHaveBoardID
     {
-        partial void OnCreated();
-
-        public BannedIP()
-        {
-            this.OnCreated();
-        }
-
         #region Properties
 
         [AutoIncrement]

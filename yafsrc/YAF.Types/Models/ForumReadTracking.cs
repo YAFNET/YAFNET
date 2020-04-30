@@ -33,15 +33,8 @@ namespace YAF.Types.Models
     /// A class which represents the ForumReadTracking table.
     /// </summary>
     [Serializable]
-    public partial class ForumReadTracking : IEntity
+    public class ForumReadTracking : IEntity
     {
-        partial void OnCreated();
-
-        public ForumReadTracking()
-        {
-            this.OnCreated();
-        }
-
         #region Properties
 
         [References(typeof(User))]
@@ -54,7 +47,6 @@ namespace YAF.Types.Models
 
         [Required]
         public DateTime LastAccessDate { get; set; }
-
 
         #endregion
     }

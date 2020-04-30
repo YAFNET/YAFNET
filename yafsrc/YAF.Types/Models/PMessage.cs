@@ -35,15 +35,8 @@ namespace YAF.Types.Models
     /// </summary>
     [Serializable]
     [Table(Name = "PMessage")]
-    public partial class PMessage : IEntity, IHaveID
+    public class PMessage : IEntity, IHaveID
     {
-        partial void OnCreated();
-
-        public PMessage()
-        {
-            this.OnCreated();
-        }
-
         #region Properties
 
         [Alias("PMessageID")]

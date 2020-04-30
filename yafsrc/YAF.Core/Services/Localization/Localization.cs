@@ -39,6 +39,7 @@ namespace YAF.Core.Services.Localization
     using YAF.Types;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Objects;
     using YAF.Utils;
 
     #endregion
@@ -212,9 +213,9 @@ namespace YAF.Core.Services.Localization
         /// <returns>
         /// The Nodes
         /// </returns>
-        public IEnumerable<LanuageResourcesPageResource> GetNodesUsingQuery(
+        public IEnumerable<LanguageResourcesPageResource> GetNodesUsingQuery(
             [NotNull] string page,
-            [NotNull] Func<LanuageResourcesPageResource, bool> predicate)
+            [NotNull] Func<LanguageResourcesPageResource, bool> predicate)
         {
             this.LoadTranslation();
 
@@ -234,9 +235,9 @@ namespace YAF.Core.Services.Localization
         /// <returns>
         /// The Nodes
         /// </returns>
-        public IEnumerable<LanuageResourcesPageResource> GetCountryNodesUsingQuery(
+        public IEnumerable<LanguageResourcesPageResource> GetCountryNodesUsingQuery(
             [NotNull] string page,
-            [NotNull] Func<LanuageResourcesPageResource, bool> predicate)
+            [NotNull] Func<LanguageResourcesPageResource, bool> predicate)
         {
             this.LoadTranslation();
 
@@ -256,9 +257,9 @@ namespace YAF.Core.Services.Localization
         /// <returns>
         /// The Nodes
         /// </returns>
-        public IEnumerable<LanuageResourcesPageResource> GetRegionNodesUsingQuery(
+        public IEnumerable<LanguageResourcesPageResource> GetRegionNodesUsingQuery(
             [NotNull] string page,
-            [NotNull] Func<LanuageResourcesPageResource, bool> predicate)
+            [NotNull] Func<LanguageResourcesPageResource, bool> predicate)
         {
             this.LoadTranslation();
 
@@ -665,10 +666,7 @@ namespace YAF.Core.Services.Localization
                                : BoardContext.Current.LanguageFile;
             }
 
-            if (filename == null)
-            {
-                filename = "english.xml";
-            }
+            filename ??= "english.xml";
 
             return this.LoadTranslation(filename);
         }

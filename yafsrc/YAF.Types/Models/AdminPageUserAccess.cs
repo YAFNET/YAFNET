@@ -33,20 +33,8 @@ namespace YAF.Types.Models
     ///     A class which represents the yaf_AdminPageUserAccess table.
     /// </summary>
     [Serializable]
-    public partial class AdminPageUserAccess : IEntity
+    public class AdminPageUserAccess : IEntity
     {
-        #region Constructors and Destructors
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="AdminPageUserAccess"/> class.
-        /// </summary>
-        public AdminPageUserAccess()
-        {
-            this.OnCreated();
-        }
-
-        #endregion
-
         #region Public Properties
 
         /// <summary>
@@ -58,15 +46,6 @@ namespace YAF.Types.Models
         [Required]
         [StringLength(128)]
         public string PageName { get; set; }
-
-        #endregion
-
-        #region Methods
-
-        /// <summary>
-        /// The on created.
-        /// </summary>
-        partial void OnCreated();
 
         #endregion
     }

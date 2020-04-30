@@ -35,15 +35,8 @@ namespace YAF.Types.Models
     /// </summary>
     [Serializable]
     [Table(Name = "PollGroupCluster")]
-    public partial class PollGroupCluster : IEntity, IHaveID
+    public class PollGroupCluster : IEntity, IHaveID
     {
-        partial void OnCreated();
-
-        public PollGroupCluster()
-        {
-            this.OnCreated();
-        }
-
         #region Properties
 
         [Alias("PollGroupID")]

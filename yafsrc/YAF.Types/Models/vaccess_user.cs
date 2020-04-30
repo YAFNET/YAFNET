@@ -29,24 +29,9 @@ namespace YAF.Types.Models
 
     using YAF.Types.Interfaces.Data;
 
-    /// <summary>
-    ///     A class which represents the yaf_vaccess_null views.
-    /// </summary>
     [Serializable]
-    public partial class vaccess_null : IEntity
+    public class vaccess_user : IEntity
     {
-        #region Constructors and Destructors
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="vaccess_null"/> class.
-        /// </summary>
-        public vaccess_null()
-        {
-            this.OnCreated();
-        }
-
-        #endregion
-
         #region Public Properties
 
         [AutoIncrement]
@@ -66,15 +51,6 @@ namespace YAF.Types.Models
         public int? UploadAccess { get; set; }
         public int? DownloadAccess { get; set; }
         public int? AdminGroup { get; set; }
-
-        #endregion
-
-        #region Methods
-
-        /// <summary>
-        /// The on created.
-        /// </summary>
-        partial void OnCreated();
 
         #endregion
     }

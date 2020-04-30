@@ -33,20 +33,8 @@ namespace YAF.Types.Models
     ///     A class which represents the yaf_vaccess views.
     /// </summary>
     [Serializable]
-    public partial class vaccess : IEntity
+    public class vaccess : IEntity
     {
-        #region Constructors and Destructors
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="vaccess"/> class.
-        /// </summary>
-        public vaccess()
-        {
-            this.OnCreated();
-        }
-
-        #endregion
-
         #region Public Properties
 
         /// <summary>
@@ -130,15 +118,6 @@ namespace YAF.Types.Models
         /// Gets or sets a value indicating whether download access.
         /// </summary>
         public bool DownloadAccess { get; set; }
-
-        #endregion
-
-        #region Methods
-
-        /// <summary>
-        /// The on created.
-        /// </summary>
-        partial void OnCreated();
 
         #endregion
     }

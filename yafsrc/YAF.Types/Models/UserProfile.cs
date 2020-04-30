@@ -36,15 +36,8 @@ namespace YAF.Types.Models
     [Serializable]
     [UniqueConstraint(nameof(ID), nameof(ApplicationName))]
     [Table(Name = "UserProfile")]
-    public partial class UserProfile : IEntity, IHaveID
+    public class UserProfile : IEntity, IHaveID
     {
-        partial void OnCreated();
-
-        public UserProfile()
-        {
-            this.OnCreated();
-        }
-
         #region Properties
 
 

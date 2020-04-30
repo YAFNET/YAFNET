@@ -33,21 +33,9 @@ namespace YAF.Types.Models
     ///     A class which represents the yaf_vaccess_group views.
     /// </summary>
     [Serializable]
-    public partial class vaccess_group : IEntity
+    public class vaccess_group : IEntity
     {
-        #region Constructors and Destructors
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="vaccess_group"/> class.
-        /// </summary>
-        public vaccess_group()
-        {
-            this.OnCreated();
-        }
-
-        #endregion
-
-        #region Public Properties
+       #region Public Properties
 
         [Required]
         public int UserID { get; set; }
@@ -69,15 +57,6 @@ namespace YAF.Types.Models
         public int? UploadAccess { get; set; }
         public int? DownloadAccess { get; set; }
         public int? AdminGroup { get; set; }
-
-        #endregion
-
-        #region Methods
-
-        /// <summary>
-        /// The on created.
-        /// </summary>
-        partial void OnCreated();
 
         #endregion
     }

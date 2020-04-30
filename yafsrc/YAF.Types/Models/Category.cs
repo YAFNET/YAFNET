@@ -38,13 +38,6 @@ namespace YAF.Types.Models
     [UniqueConstraint(nameof(BoardID), nameof(Name))]
     public partial class Category : IEntity, IHaveID, IHaveBoardID
     {
-        partial void OnCreated();
-
-        public Category()
-        {
-            this.OnCreated();
-        }
-
         #region Properties
 
         [AutoIncrement]

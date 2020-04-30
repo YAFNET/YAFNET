@@ -38,20 +38,8 @@ namespace YAF.Types.Models
     ///     A class which represents the yaf_AccessMask table in the Yaf Database.
     /// </summary>
     [Serializable]
-    public partial class AccessMask : IEntity, IHaveBoardID, IHaveID
+    public class AccessMask : IEntity, IHaveBoardID, IHaveID
     {
-        #region Constructors and Destructors
-
-        /// <summary>
-        ///     Initializes a new instance of the <see cref="AccessMask" /> class.
-        /// </summary>
-        public AccessMask()
-        {
-            this.OnCreated();
-        }
-
-        #endregion
-
         #region Public Properties
 
         /// <summary>
@@ -88,15 +76,6 @@ namespace YAF.Types.Models
         [Required]
         [Default(0)]
         public short SortOrder { get; set; }
-
-        #endregion
-
-        #region Methods
-
-        /// <summary>
-        ///     The on created.
-        /// </summary>
-        partial void OnCreated();
 
         #endregion
     }

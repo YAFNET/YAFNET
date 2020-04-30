@@ -40,10 +40,8 @@ namespace YAF.Types.Models
 
     [UniqueConstraint(nameof(BoardID), nameof(Name))]
     [Table(Name = "User")]
-    public partial class User : IEntity, IHaveBoardID, IHaveID
+    public class User : IEntity, IHaveBoardID, IHaveID
     {
-        partial void OnCreated();
-
         public User()
         {
             try
@@ -55,8 +53,6 @@ namespace YAF.Types.Models
                 this.IsGuest = true;
                 this.ProviderUserKey = null;
             }
-
-            this.OnCreated();
         }
 
         #region Properties

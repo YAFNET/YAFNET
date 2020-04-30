@@ -33,15 +33,8 @@ namespace YAF.Types.Models
     /// A class which represents the yaf_UserAlbumImage table.
     /// </summary>
     [Serializable]
-    public partial class UserAlbumImage : IEntity, IHaveID
+    public class UserAlbumImage : IEntity, IHaveID
     {
-        partial void OnCreated();
-
-        public UserAlbumImage()
-        {
-            this.OnCreated();
-        }
-
         #region Properties
 
         [Alias("ImageID")]

@@ -37,21 +37,8 @@ namespace YAF.Types.Models
     ///     A class which represents the YAF_Registry table in the YAF Database.
     /// </summary>
     [Serializable]
-    public partial class Registry : IEntity, IHaveID
+    public class Registry : IEntity, IHaveID
     {
-        // , IHaveBoardID
-        #region Constructors and Destructors
-
-        /// <summary>
-        ///     Initializes a new instance of the <see cref="Registry" /> class.
-        /// </summary>
-        public Registry()
-        {
-            this.OnCreated();
-        }
-
-        #endregion
-
         #region Public Properties
 
         /// <summary>
@@ -80,15 +67,6 @@ namespace YAF.Types.Models
         [References(typeof(Board))]
         [Index]
         public int? BoardID { get; set; }
-
-        #endregion
-
-        #region Methods
-
-        /// <summary>
-        ///     The on created.
-        /// </summary>
-        partial void OnCreated();
 
         #endregion
     }

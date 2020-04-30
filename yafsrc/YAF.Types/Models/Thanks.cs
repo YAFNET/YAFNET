@@ -37,20 +37,8 @@ namespace YAF.Types.Models
     ///     A class which represents the yaf_Thanks table in the Yaf Database.
     /// </summary>
     [Serializable]
-    public partial class Thanks : IEntity, IHaveID
+    public class Thanks : IEntity, IHaveID
     {
-        #region Constructors and Destructors
-
-        /// <summary>
-        ///     Initializes a new instance of the <see cref="Thanks" /> class.
-        /// </summary>
-        public Thanks()
-        {
-            this.OnCreated();
-        }
-
-        #endregion
-
         #region Public Properties
 
         /// <summary>
@@ -64,23 +52,17 @@ namespace YAF.Types.Models
         [Required]
         [Index]
         public int ThanksFromUserID { get; set; }
+
         [Required]
         [Index]
         public int ThanksToUserID { get; set; }
+
         [Required]
         [Index]
         public int MessageID { get; set; }
+
         [Required]
         public DateTime ThanksDate { get; set; }
-
-#endregion
-
-#region Methods
-
-/// <summary>
-///     The on created.
-/// </summary>
-partial void OnCreated();
 
         #endregion
     }

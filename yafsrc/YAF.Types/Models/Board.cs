@@ -33,21 +33,8 @@ namespace YAF.Types.Models
     /// The board.
     /// </summary>
     [Serializable]
-    public partial class Board : IEntity, IHaveID
+    public class Board : IEntity, IHaveID
     {
-        /// <summary>
-        /// The on created.
-        /// </summary>
-        partial void OnCreated();
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Board"/> class.
-        /// </summary>
-        public Board()
-        {
-            this.OnCreated();
-        }
-
         #region Properties
 
         /// <summary>

@@ -33,15 +33,8 @@ namespace YAF.Types.Models
     /// A class which represents the WatchForum table.
     /// </summary>
     [Serializable]
-    public partial class UserForum : IEntity
+    public class UserForum : IEntity
     {
-        partial void OnCreated();
-
-        public UserForum()
-        {
-            this.OnCreated();
-        }
-
         #region Properties
 
         [References(typeof(User))]

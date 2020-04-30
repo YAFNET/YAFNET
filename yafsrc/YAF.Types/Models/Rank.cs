@@ -40,20 +40,8 @@ namespace YAF.Types.Models
     [Serializable]
 
     [UniqueConstraint(nameof(BoardID), nameof(Name))]
-    public partial class Rank : IEntity, IHaveID, IHaveBoardID
+    public class Rank : IEntity, IHaveID, IHaveBoardID
     {
-        #region Constructors and Destructors
-
-        /// <summary>
-        ///     Initializes a new instance of the <see cref="Rank" /> class.
-        /// </summary>
-        public Rank()
-        {
-            this.OnCreated();
-        }
-
-        #endregion
-
         #region Public Properties
 
         /// <summary>
@@ -146,15 +134,6 @@ namespace YAF.Types.Models
         [Required]
         [Default(0)]
         public int UsrAlbumImages { get; set; }
-
-        #endregion
-
-        #region Methods
-
-        /// <summary>
-        ///     The on created.
-        /// </summary>
-        partial void OnCreated();
 
         #endregion
     }

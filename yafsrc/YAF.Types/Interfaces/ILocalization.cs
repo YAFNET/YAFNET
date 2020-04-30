@@ -27,6 +27,8 @@ namespace YAF.Types.Interfaces
     using System.Collections.Generic;
     using System.Globalization;
 
+    using YAF.Types.Objects;
+
     /// <summary>
     /// The Localization interface.
     /// </summary>
@@ -103,8 +105,8 @@ namespace YAF.Types.Interfaces
         /// <returns>
         /// The Nodes
         /// </returns>
-        IEnumerable<LanuageResourcesPageResource> GetNodesUsingQuery(
-          string page, Func<LanuageResourcesPageResource, bool> predicate);
+        IEnumerable<LanguageResourcesPageResource> GetNodesUsingQuery(
+          string page, Func<LanguageResourcesPageResource, bool> predicate);
 
         /// <summary>
         /// The get country nodes using query.
@@ -118,8 +120,8 @@ namespace YAF.Types.Interfaces
         /// <returns>
         /// The Nodes
         /// </returns>
-        IEnumerable<LanuageResourcesPageResource> GetCountryNodesUsingQuery(
-          string page, Func<LanuageResourcesPageResource, bool> predicate);
+        IEnumerable<LanguageResourcesPageResource> GetCountryNodesUsingQuery(
+          string page, Func<LanguageResourcesPageResource, bool> predicate);
 
         /// <summary>
         /// The get region nodes using query.
@@ -133,33 +135,33 @@ namespace YAF.Types.Interfaces
         /// <returns>
         /// The Nodes
         /// </returns>
-        IEnumerable<LanuageResourcesPageResource> GetRegionNodesUsingQuery(
-          string page, Func<LanuageResourcesPageResource, bool> predicate);
+        IEnumerable<LanguageResourcesPageResource> GetRegionNodesUsingQuery(
+          string page, Func<LanguageResourcesPageResource, bool> predicate);
 
         /// <summary>
-        /// The get text.
+        /// Gets the Text
         /// </summary>
         /// <param name="text">
         /// The text.
         /// </param>
         /// <returns>
-        /// The get text.
+        /// The <see cref="string"/>.
         /// </returns>
         string GetText([NotNull] string text);
 
         /// <summary>
-        ///  Gets the attribute encoded text. 
+        /// Gets the attribute encoded text. 
         /// </summary>
         /// <param name="text">
         /// The text.
         /// </param>
         /// <returns>
-        /// The get text.
+        /// The <see cref="string"/>.
         /// </returns>
         string GetAttributeText([NotNull] string text);
 
         /// <summary>
-        /// The get text.
+        /// Gets the Text
         /// </summary>
         /// <param name="page">
         /// The page.
@@ -173,7 +175,7 @@ namespace YAF.Types.Interfaces
         string GetText(string page, string tag);
 
         /// <summary>
-        /// The get text.
+        /// Gets the Text
         /// </summary>
         /// <param name="page">
         /// The page.
@@ -189,14 +191,22 @@ namespace YAF.Types.Interfaces
         /// <summary>
         /// Gets text with a language file.
         /// </summary>
-        /// <param name="page"></param>
-        /// <param name="tag"></param>
-        /// <param name="languageFile"></param>
-        /// <returns></returns>
+        /// <param name="page">
+        /// The page.
+        /// </param>
+        /// <param name="tag">
+        /// The tag.
+        /// </param>
+        /// <param name="languageFile">
+        /// The language File.
+        /// </param>
+        /// <returns>
+        /// The <see cref="string"/>.
+        /// </returns>
         string GetText(string page, string tag, string languageFile);
 
         /// <summary>
-        /// The get text exists.
+        /// Checks if the Text exists
         /// </summary>
         /// <param name="page">
         /// The page.
@@ -224,21 +234,21 @@ namespace YAF.Types.Interfaces
         string GetTextFormatted([NotNull] string text, [NotNull] params object[] args);
 
         /// <summary>
-        /// The load translation.
+        /// Loads the translation.
         /// </summary>
         /// <param name="fileName">
         /// The file name.
         /// </param>
         /// <returns>
-        /// The load translation.
+        /// The <see cref="CultureInfo"/>.
         /// </returns>
         CultureInfo LoadTranslation([NotNull] string fileName);
 
         /// <summary>
-        /// The load translation.
+        /// Loads the translation.
         /// </summary>
         /// <returns>
-        /// The load translation.
+        /// The <see cref="CultureInfo"/>.
         /// </returns>
         CultureInfo LoadTranslation();
     }

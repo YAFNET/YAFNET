@@ -35,17 +35,13 @@ namespace YAF.Types.Models
     [Serializable]
 
     [UniqueConstraint(nameof(ForumID), nameof(UserID))]
-    public partial class WatchForum : IEntity, IHaveID
+    public class WatchForum : IEntity, IHaveID
     {
-        partial void OnCreated();
-
-        public WatchForum()
-        {
-            this.OnCreated();
-        }
-
         #region Properties
 
+        /// <summary>
+        /// Gets or sets the id.
+        /// </summary>
         [Alias("WatchForumID")]
         [AutoIncrement]
         public int ID { get; set; }

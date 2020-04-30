@@ -34,21 +34,8 @@ namespace YAF.Types.Models
     /// The attachment.
     /// </summary>
     [Serializable]
-    public partial class Attachment : IEntity, IHaveID
+    public class Attachment : IEntity, IHaveID
     {
-        /// <summary>
-        /// The on created.
-        /// </summary>
-        partial void OnCreated();
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Attachment"/> class.
-        /// </summary>
-        public Attachment()
-        {
-            this.OnCreated();
-        }
-
         #region Properties
 
         /// <summary>
@@ -61,7 +48,6 @@ namespace YAF.Types.Models
         /// <summary>
         /// Gets or sets the message id.
         /// </summary>
-
         // [Default(0)]
         public int MessageID { get; set; }
 

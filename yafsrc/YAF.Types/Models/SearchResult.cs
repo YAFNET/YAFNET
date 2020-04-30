@@ -27,15 +27,8 @@ namespace YAF.Types.Models
     using System;
 
     [Serializable]
-    public partial class SearchResult
+    public class SearchResult
     {
-        public SearchResult()
-        {
-            this.OnCreated();
-        }
-
-        partial void OnCreated();
-
         public int ForumID { get; set; }
 
         public int TopicID { get; set; }

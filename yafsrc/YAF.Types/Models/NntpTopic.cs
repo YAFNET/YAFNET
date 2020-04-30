@@ -35,15 +35,8 @@ namespace YAF.Types.Models
     /// </summary>
     [Serializable]
     [Table(Name = "NntpTopic")]
-    public partial class NntpTopic : IEntity, IHaveID
+    public class NntpTopic : IEntity, IHaveID
     {
-        partial void OnCreated();
-
-        public NntpTopic()
-        {
-            this.OnCreated();
-        }
-
         #region Properties
 
         [Alias("NntpTopicID")]

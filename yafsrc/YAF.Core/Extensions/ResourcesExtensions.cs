@@ -27,8 +27,8 @@ namespace YAF.Core.Extensions
 
     using System;
 
-    using YAF.Types;
     using YAF.Types.Extensions;
+    using YAF.Types.Objects;
 
     #endregion
 
@@ -46,7 +46,7 @@ namespace YAF.Core.Extensions
         /// <returns>
         /// The get hours offset.
         /// </returns>
-        public static decimal GetHoursOffset(this LanuageResourcesPageResource languageResource)
+        public static decimal GetHoursOffset(this LanguageResourcesPageResource languageResource)
         {
             // calculate hours -- can use prefix of either UTC or GMT...
             decimal hours;

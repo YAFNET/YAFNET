@@ -35,15 +35,8 @@ namespace YAF.Types.Models
     [Serializable]
 
     [UniqueConstraint(nameof(TopicID), nameof(UserID))]
-    public partial class WatchTopic : IEntity, IHaveID
+    public class WatchTopic : IEntity, IHaveID
     {
-        partial void OnCreated();
-
-        public WatchTopic()
-        {
-            this.OnCreated();
-        }
-
         #region Properties
 
         [AutoIncrement]

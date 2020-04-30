@@ -39,15 +39,8 @@ namespace YAF.Types.Models
     [Table(Name = "Group")]
 
     [UniqueConstraint(nameof(BoardID), nameof(Name))]
-    public partial class Group : IEntity, IHaveID, IHaveBoardID
+    public class Group : IEntity, IHaveID, IHaveBoardID
     {
-        partial void OnCreated();
-
-        public Group()
-        {
-            this.OnCreated();
-        }
-
         #region Properties
 
         [AutoIncrement]

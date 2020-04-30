@@ -35,15 +35,8 @@ namespace YAF.Types.Models
     /// </summary>
     [Serializable]
     [Table(Name = "IgnoreUser")]
-    public partial class IgnoreUser : IEntity
+    public class IgnoreUser : IEntity
     {
-        partial void OnCreated();
-
-        public IgnoreUser()
-        {
-            this.OnCreated();
-        }
-
         #region Properties
 
         [Required]
@@ -51,7 +44,6 @@ namespace YAF.Types.Models
 
         [Required]
         public int IgnoredUserID { get; set; }
-
 
         #endregion
     }

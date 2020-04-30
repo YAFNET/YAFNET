@@ -33,20 +33,8 @@ namespace YAF.Types.Models
     ///     A class which represents the yaf_PollVote table.
     /// </summary>
     [Serializable]
-    public partial class PollVote : IEntity, IHaveID
+    public class PollVote : IEntity, IHaveID
     {
-        #region Constructors and Destructors
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="PollVote"/> class.
-        /// </summary>
-        public PollVote()
-        {
-            this.OnCreated();
-        }
-
-        #endregion
-
         #region Public Properties
 
         [Alias("PollVoteID")]
@@ -63,15 +51,6 @@ namespace YAF.Types.Models
         [StringLength(39)]
         public string RemoteIP { get; set; }
         public int? ChoiceID { get; set; }
-
-        #endregion
-
-        #region Methods
-
-        /// <summary>
-        /// The on created.
-        /// </summary>
-        partial void OnCreated();
 
         #endregion
     }

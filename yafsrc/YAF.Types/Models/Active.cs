@@ -34,20 +34,8 @@ namespace YAF.Types.Models
     ///     A class which represents the Active table.
     /// </summary>
     [Serializable]
-    public partial class Active : IEntity, IHaveBoardID
+    public class Active : IEntity, IHaveBoardID
     {
-        #region Constructors and Destructors
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Active"/> class.
-        /// </summary>
-        public Active()
-        {
-            this.OnCreated();
-        }
-
-        #endregion
-
         #region Public Properties
 
         /// <summary>
@@ -130,15 +118,6 @@ namespace YAF.Types.Models
         [References(typeof(User))]
         [Required]
         public int UserID { get; set; }
-
-        #endregion
-
-        #region Methods
-
-        /// <summary>
-        /// The on created.
-        /// </summary>
-        partial void OnCreated();
 
         #endregion
     }

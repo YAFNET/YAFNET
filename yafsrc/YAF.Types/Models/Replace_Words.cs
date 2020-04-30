@@ -34,18 +34,8 @@ namespace YAF.Types.Models
     /// A class which represents the Replace_Words table.
     /// </summary>
     [Serializable]
-    public partial class Replace_Words : IEntity, IHaveBoardID, IHaveID
+    public class Replace_Words : IEntity, IHaveBoardID, IHaveID
     {
-        partial void OnCreated();
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Replace_Words"/> class.
-        /// </summary>
-        public Replace_Words()
-        {
-            this.OnCreated();
-        }
-
         #region Properties
 
         /// <summary>

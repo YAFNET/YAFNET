@@ -35,15 +35,8 @@ namespace YAF.Types.Models
     /// </summary>
     [Serializable]
     [Table(Name = "MessageHistory")]
-    public partial class MessageHistory : IEntity
+    public class MessageHistory : IEntity
     {
-        partial void OnCreated();
-
-        public MessageHistory()
-        {
-            this.OnCreated();
-        }
-
         #region Properties
 
         [References(typeof(Message))]

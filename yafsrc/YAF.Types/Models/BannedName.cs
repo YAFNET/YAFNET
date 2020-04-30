@@ -35,18 +35,8 @@ namespace YAF.Types.Models
     /// </summary>
     [Serializable]
     [UniqueConstraint(nameof(BoardID), nameof(Mask))]
-    public partial class BannedName : IEntity, IHaveID, IHaveBoardID
+    public class BannedName : IEntity, IHaveID, IHaveBoardID
     {
-        partial void OnCreated();
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="BannedName"/> class.
-        /// </summary>
-        public BannedName()
-        {
-            this.OnCreated();
-        }
-
         #region Properties
 
         /// <summary>

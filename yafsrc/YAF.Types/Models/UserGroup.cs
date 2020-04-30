@@ -35,15 +35,8 @@ namespace YAF.Types.Models
     /// </summary>
     [Serializable]
     [Table(Name = "UserGroup")]
-    public partial class UserGroup : IEntity
+    public class UserGroup : IEntity
     {
-        partial void OnCreated();
-
-        public UserGroup()
-        {
-            this.OnCreated();
-        }
-
         #region Properties
 
 

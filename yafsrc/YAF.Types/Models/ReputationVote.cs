@@ -35,15 +35,8 @@ namespace YAF.Types.Models
     /// </summary>
     [Serializable]
     [Table(Name = "ReputationVote")]
-    public partial class ReputationVote : IEntity
+    public class ReputationVote : IEntity
     {
-        partial void OnCreated();
-
-        public ReputationVote()
-        {
-            this.OnCreated();
-        }
-
         #region Properties
 
         [References(typeof(User))]

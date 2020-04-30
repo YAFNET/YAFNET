@@ -35,15 +35,8 @@ namespace YAF.Types.Models
     /// </summary>
     [Serializable]
     [Table(Name = "GroupMedal")]
-    public partial class GroupMedal : IEntity
+    public class GroupMedal : IEntity
     {
-        partial void OnCreated();
-
-        public GroupMedal()
-        {
-            this.OnCreated();
-        }
-
         #region Properties
 
 

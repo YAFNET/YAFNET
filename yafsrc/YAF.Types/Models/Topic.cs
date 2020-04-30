@@ -35,15 +35,8 @@ namespace YAF.Types.Models
     /// A class which represents the Topic table.
     /// </summary>
     [Serializable]
-    public partial class Topic : IEntity, IHaveID
+    public class Topic : IEntity, IHaveID
     {
-        partial void OnCreated();
-
-        public Topic()
-        {
-            this.OnCreated();
-        }
-
         #region Properties
 
         [AutoIncrement]
