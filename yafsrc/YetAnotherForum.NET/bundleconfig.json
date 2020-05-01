@@ -12,9 +12,9 @@
     "outputFileName": "Scripts/jquery.fileupload.comb.js",
     "inputFiles": [
       "Scripts/jquery.FileUpload/vendor/jquery.ui.widget.js",
-      "Scripts/jquery.FileUpload/tmpl.min.js",
+      "Scripts/jquery.FileUpload/tmpl.js",
       "Scripts/jquery.FileUpload/load-image.all.min.js",
-      "Scripts/jquery.FileUpload/canvas-to-blob.min.js",
+      "Scripts/jquery.FileUpload/canvas-to-blob.js",
       "Scripts/jquery.FileUpload/jquery.iframe-transport.js",
       "Scripts/jquery.FileUpload/jquery.fileupload.js",
       "Scripts/jquery.FileUpload/jquery.fileupload-process.js",

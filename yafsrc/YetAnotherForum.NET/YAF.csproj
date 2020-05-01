@@ -696,6 +696,13 @@
     <Compile Include="Pages\Admin\BBCode_Edit.ascx.designer.cs">
       <DependentUpon>BBCode_Edit.ascx</DependentUpon>
     </Compile>
+    <Compile Include="Pages\Admin\Profiler.ascx.cs">
+      <DependentUpon>Profiler.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Admin\Profiler.ascx.designer.cs">
+      <DependentUpon>Profiler.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Pages\Admin\Boards.ascx.designer.cs">
       <DependentUpon>Boards.ascx</DependentUpon>
     </Compile>
@@ -2055,6 +2062,7 @@
     <Content Include="languages\estonian.xml" />
     <Content Include="Pages\Admin\BannedEmails.ascx" />
     <Content Include="Pages\Admin\BannedNames.ascx" />
+    <Content Include="Pages\Admin\Profiler.ascx" />
     <Content Include="Pages\Admin\Restore.ascx" />
     <Content Include="Pages\Admin\SpamLog.ascx" />
     <Content Include="Pages\Admin\PageAccessEdit.ascx" />
@@ -2749,7 +2757,7 @@
     </Content>
     <Content Include="Scripts\jquery.blockUI.js" />
     <Content Include="Scripts\jquery.bootstrap-touchspin.js" />
-    <Content Include="Scripts\jquery.FileUpload\canvas-to-blob.min.js" />
+    <Content Include="Scripts\jquery.FileUpload\canvas-to-blob.js" />
     <Content Include="Scripts\jquery.FileUpload\jquery.fileupload-audio.js" />
     <Content Include="Scripts\jquery.FileUpload\jquery.fileupload-image.js" />
     <Content Include="Scripts\jquery.FileUpload\jquery.fileupload-process.js" />
@@ -2763,7 +2771,7 @@
     <Content Include="Scripts\jquery.FileUpload\jquery.fileupload.js" />
     <Content Include="Scripts\jquery.FileUpload\jquery.iframe-transport.js" />
     <Content Include="Scripts\jquery.FileUpload\load-image.all.min.js" />
-    <Content Include="Scripts\jquery.FileUpload\tmpl.min.js" />
+    <Content Include="Scripts\jquery.FileUpload\tmpl.js" />
     <Content Include="Scripts\jquery.FileUpload\vendor\jquery.ui.widget.js" />
     <Content Include="Scripts\jquery.ForumAdminExtensions.js" />
     <Content Include="Scripts\jquery.ForumAdminExtensions.min.js">
@@ -2773,9 +2781,6 @@
       <DependentUpon>jquery.ForumExtensions.js</DependentUpon>
     </Content>
     <Content Include="Scripts\moment-with-locales.js" />
-    <Content Include="Scripts\moment-with-locales.min.js">
-      <DependentUpon>moment-with-locales.js</DependentUpon>
-    </Content>
     <Content Include="Scripts\jsdifflib.js" />
     <Content Include="Scripts\prism.js" />
     <Content Include="Scripts\select2.js" />
@@ -3690,7 +3695,7 @@ RD /S /Q "$(TargetDir)zh-TW\"</PostBuildEvent>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties bundleconfig_1json__JSONSchema="" compilerconfig_1json__JSONSchema="" />
+      <UserProperties compilerconfig_1json__JSONSchema="" bundleconfig_1json__JSONSchema="" />
     </VisualStudio>
   </ProjectExtensions>
   <Import Project="..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets" Condition="Exists('..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets')" />
