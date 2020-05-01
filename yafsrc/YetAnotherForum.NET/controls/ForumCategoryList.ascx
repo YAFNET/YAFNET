@@ -19,7 +19,7 @@
                                             AttachedControlID="body" 
                                             CssClass="pl-0">
                         </YAF:CollapseButton>
-                        <div class="d-none d-md-block">
+                        <div class="d-none d-md-block icon-category">
                             <%#  this.GetCategoryImage((System.Data.DataRowView)Container.DataItem) %>
                         </div>
                         <%# this.Page.HtmlEncode(DataBinder.Eval(Container.DataItem, "Name")) %>
