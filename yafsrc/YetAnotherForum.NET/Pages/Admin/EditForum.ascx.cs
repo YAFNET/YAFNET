@@ -526,7 +526,7 @@ namespace YAF.Pages.Admin
 
             int? moderatedPostCount = null;
 
-            if (this.ModerateAllPosts.Checked)
+            if (!this.ModerateAllPosts.Checked)
             {
                 moderatedPostCount = this.ModeratedPostCount.Text.ToType<int>();
             }
