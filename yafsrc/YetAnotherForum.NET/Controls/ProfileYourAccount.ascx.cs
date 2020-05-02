@@ -27,7 +27,6 @@ namespace YAF.Controls
 
   using System;
 
-  using YAF.Core;
   using YAF.Core.BaseControls;
   using YAF.Core.Context;
   using YAF.Core.Extensions;
@@ -72,12 +71,11 @@ namespace YAF.Controls
 
       if (BoardContext.Current.BoardSettings.UseStyledNicks)
       {
-        this.Get<IStyleTransform>().DecodeStyleByGroupList(groups, false);
+        this.Get<IStyleTransform>().DecodeStyleByGroupList(groups);
       }
 
       this.Groups.DataSource = groups;
 
-      // Bind			
       this.DataBind();
 
       // TitleUserName.Text = HtmlEncode( userData.Membership.UserName );

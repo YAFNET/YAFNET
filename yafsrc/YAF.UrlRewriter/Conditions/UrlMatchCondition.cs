@@ -53,15 +53,14 @@ namespace YAF.UrlRewriter.Conditions
         private Regex GetRegex(IRewriteContext context)
         {
             // Use double-checked locking pattern to synchronise access to the regex.
-            if (this._regex == null)
+            if (this._regex != null)
             {
-                lock (this)
-                {
-                    if (this._regex == null)
-                    {
-                        this._regex = new Regex(context.ResolveLocation(this.Pattern), RegexOptions.IgnoreCase);
-                    }
-                }
+                return this._regex;
+            }
+
+            lock (this)
+            {
+                this._regex ??= new Regex(context.ResolveLocation(this.Pattern), RegexOptions.IgnoreCase);
             }
 
             return this._regex;

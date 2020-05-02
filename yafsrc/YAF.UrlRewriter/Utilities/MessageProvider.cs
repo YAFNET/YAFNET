@@ -22,6 +22,16 @@ namespace YAF.UrlRewriter.Utilities
     internal static class MessageProvider
     {
         /// <summary>
+        /// The message cache.
+        /// </summary>
+        private static readonly IDictionary<Message, string> MessageCache = new Dictionary<Message, string>();
+
+        /// <summary>
+        /// The resources.
+        /// </summary>
+        private static readonly ResourceManager Resources = new ResourceManager(Constants.Messages, Assembly.GetExecutingAssembly());
+
+        /// <summary>
         /// Formats a string.
         /// </summary>
         /// <param name="message">The message ID</param>
@@ -31,23 +41,20 @@ namespace YAF.UrlRewriter.Utilities
         {
             string format;
 
-            lock (_messageCache)
+            lock (MessageCache)
             {
-                if (_messageCache.ContainsKey(message))
+                if (MessageCache.ContainsKey(message))
                 {
-                    format = _messageCache[message];
+                    format = MessageCache[message];
                 }
                 else
                 {
-                    format = _resources.GetString(message.ToString());
-                    _messageCache.Add(message, format);
+                    format = Resources.GetString(message.ToString());
+                    MessageCache.Add(message, format);
                 }
             }
 
-            return string.Format(format, args);
+            return string.Format(format ?? string.Empty, args);
         }
-
-        private static IDictionary<Message, string> _messageCache = new Dictionary<Message, string>();
-        private static ResourceManager _resources = new ResourceManager(Constants.Messages, Assembly.GetExecutingAssembly());
     }
 }

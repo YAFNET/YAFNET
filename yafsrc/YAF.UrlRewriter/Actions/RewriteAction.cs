@@ -53,6 +53,6 @@ namespace YAF.UrlRewriter.Actions
         /// </summary>
         public IList<IRewriteCondition> Conditions { get; } = new List<IRewriteCondition>();
 
-        private RewriteProcessing _processing;
+        private readonly RewriteProcessing _processing;
     }
 }

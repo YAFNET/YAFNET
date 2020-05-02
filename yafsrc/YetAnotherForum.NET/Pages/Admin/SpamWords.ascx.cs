@@ -34,7 +34,7 @@ namespace YAF.Pages.Admin
     using System.Xml.Linq;
 
     using YAF.Configuration;
-    using YAF.Core;
+    
     using YAF.Core.BasePages;
     using YAF.Core.Context;
     using YAF.Core.Extensions;

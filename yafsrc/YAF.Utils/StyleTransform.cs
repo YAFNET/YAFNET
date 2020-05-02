@@ -136,7 +136,7 @@ namespace YAF.Utils
         /// </param>
         public void DecodeStyleByGroupList(List<Group> list, bool colorOnly = false)
         {
-            list.ForEach(group => this.DecodeStyleByGroup(@group, colorOnly));
+            list.ForEach(group => this.DecodeStyleByGroup(group, colorOnly));
         }
 
         #endregion

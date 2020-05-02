@@ -27,6 +27,8 @@ namespace YAF.Utils.Structures
   using System.Collections;
   using System.Threading;
 
+  using YAF.Types;
+
   /// <summary>
   /// Class that represents a doubly linked list (I can't believe that .NET didn't 
   ///   have one of these).  The primary usage for this class is with the Most Recently Used class,
@@ -95,8 +97,8 @@ namespace YAF.Utils.Structures
     {
       get
       {
-        var i = 0;
-        var current = this.HeadLink;
+        int i;
+        LinkItem current;
         object item = null;
 
         // Skip to the index
@@ -114,13 +116,12 @@ namespace YAF.Utils.Structures
 
       set
       {
-        var i = 0;
-        var current = this.HeadLink;
+        int i;
+        LinkItem current;
 
         // Skip past existing items
         for (i = 0, current = this.HeadLink; current != null && i < index; i++, current = current.Next)
         {
-          ;
         }
 
         if (i == index && current != null)
@@ -152,10 +153,7 @@ namespace YAF.Utils.Structures
         this.TailLink.Previous.Next = this.TailLink;
       }
 
-      if (this.HeadLink == null)
-      {
-        this.HeadLink = this.TailLink;
-      }
+      this.HeadLink ??= this.TailLink;
 
       // Increment the count
       Interlocked.Increment(ref this.m_count);
@@ -176,35 +174,37 @@ namespace YAF.Utils.Structures
         return;
       }
 
-      if (item != this.HeadLink)
+      if (item == this.HeadLink)
       {
-        var prev = item.Previous;
-        var next = item.Next;
-
-        if (prev != null)
-        {
-          prev.Next = next;
-        }
-
-        if (next != null)
-        {
-          next.Previous = prev;
-        }
-
-        if (this.TailLink == item)
-        {
-          this.TailLink = prev;
-        }
-
-        if (this.HeadLink != null)
-        {
-          this.HeadLink.Previous = item;
-        }
-
-        item.Next = this.HeadLink;
-        item.Previous = null;
-        this.HeadLink = item;
+          return;
       }
+
+      var prev = item.Previous;
+      var next = item.Next;
+
+      if (prev != null)
+      {
+          prev.Next = next;
+      }
+
+      if (next != null)
+      {
+          next.Previous = prev;
+      }
+
+      if (this.TailLink == item)
+      {
+          this.TailLink = prev;
+      }
+
+      if (this.HeadLink != null)
+      {
+          this.HeadLink.Previous = item;
+      }
+
+      item.Next = this.HeadLink;
+      item.Previous = null;
+      this.HeadLink = item;
     }
 
     /// <summary>
@@ -225,10 +225,7 @@ namespace YAF.Utils.Structures
         this.HeadLink.Previous = newItem;
       }
 
-      if (this.TailLink == null)
-      {
-        this.TailLink = newItem;
-      }
+      this.TailLink ??= newItem;
 
       this.HeadLink = newItem;
 
@@ -294,10 +291,10 @@ namespace YAF.Utils.Structures
     /// <param name="index">
     /// The index.
     /// </param>
-    public void CopyTo(Array array, int index)
+    public void CopyTo([NotNull] Array array, int index)
     {
-      var i = 0;
-      LinkItem current = null;
+      int i;
+      LinkItem current;
 
       for (i = 0, current = this.HeadLink; current != null && i + index < array.Length; i++, current = current.Next)
       {
@@ -342,10 +339,7 @@ namespace YAF.Utils.Structures
         this.TailLink.Previous.Next = this.TailLink;
       }
 
-      if (this.HeadLink == null)
-      {
-        this.HeadLink = this.TailLink;
-      }
+      this.HeadLink ??= this.TailLink;
 
       // Adjust the count
       Interlocked.Increment(ref this.m_count);
@@ -373,7 +367,7 @@ namespace YAF.Utils.Structures
     /// </returns>
     public bool Contains(object value)
     {
-      var current = this.HeadLink;
+      LinkItem current;
       var hasItem = false;
 
       // Skip past existing items
@@ -400,15 +394,14 @@ namespace YAF.Utils.Structures
     /// </returns>
     public int IndexOf(object value)
     {
-      var current = this.HeadLink;
-      var index = -1;
+      LinkItem current;
+      int index;
 
       // Skip past existing items
       for (index = 0, current = this.HeadLink;
            current != null && current.Item != value;
            index++, current = current.Next)
       {
-        ;
       }
 
       if (current != null)
@@ -430,13 +423,12 @@ namespace YAF.Utils.Structures
     /// </param>
     public void Insert(int index, object value)
     {
-      var i = 0;
-      var current = this.HeadLink;
+      int i;
+      LinkItem current;
 
       // Skip past existing items
       for (i = 0, current = this.HeadLink; current != null && i < index; i++, current = current.Next)
       {
-        ;
       }
 
       if (i == index && current != null)
@@ -474,35 +466,36 @@ namespace YAF.Utils.Structures
       // Skip past existing items
       for (current = this.HeadLink; current != null && current.Item != value; current = current.Next)
       {
-        ;
       }
 
-      if (current != null)
+      if (current == null)
       {
-        var prev = current.Previous;
-        var next = current.Next;
-
-        if (current == this.HeadLink)
-        {
-          this.HeadLink = next;
-        }
-        else if (prev != null)
-        {
-          prev.Next = next;
-        }
-
-        if (current == this.TailLink)
-        {
-          this.TailLink = prev;
-        }
-        else if (next != null)
-        {
-          next.Previous = prev;
-        }
-
-        // Adjust the count
-        Interlocked.Decrement(ref this.m_count);
+          return;
       }
+
+      var prev = current.Previous;
+      var next = current.Next;
+
+      if (current == this.HeadLink)
+      {
+          this.HeadLink = next;
+      }
+      else if (prev != null)
+      {
+          prev.Next = next;
+      }
+
+      if (current == this.TailLink)
+      {
+          this.TailLink = prev;
+      }
+      else if (next != null)
+      {
+          next.Previous = prev;
+      }
+
+      // Adjust the count
+      Interlocked.Decrement(ref this.m_count);
     }
 
     /// <summary>
@@ -513,41 +506,42 @@ namespace YAF.Utils.Structures
     /// </param>
     public void RemoveAt(int index)
     {
-      var i = 0;
-      var current = this.HeadLink;
+      int i;
+      LinkItem current;
 
       // Skip past existing items
       for (i = 0, current = this.HeadLink; current != null && i < index; i++, current = current.Next)
       {
-        ;
       }
 
-      if (i == index && current != null)
+      if (i != index || current == null)
       {
-        var prev = current.Previous;
-        var next = current.Next;
-
-        if (current == this.HeadLink)
-        {
-          this.HeadLink = next;
-        }
-        else if (prev != null)
-        {
-          prev.Next = next;
-        }
-
-        if (this.TailLink == current)
-        {
-          this.TailLink = prev;
-        }
-        else if (next != null)
-        {
-          next.Previous = prev;
-        }
-
-        // Decrement the count
-        Interlocked.Decrement(ref this.m_count);
+          return;
       }
+
+      var prev = current.Previous;
+      var next = current.Next;
+
+      if (current == this.HeadLink)
+      {
+          this.HeadLink = next;
+      }
+      else if (prev != null)
+      {
+          prev.Next = next;
+      }
+
+      if (this.TailLink == current)
+      {
+          this.TailLink = prev;
+      }
+      else if (next != null)
+      {
+          next.Previous = prev;
+      }
+
+      // Decrement the count
+      Interlocked.Decrement(ref this.m_count);
     }
 
     #endregion

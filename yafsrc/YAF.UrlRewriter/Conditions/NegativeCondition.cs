@@ -38,6 +38,6 @@ namespace YAF.UrlRewriter.Conditions
             return !this._chainedCondition.IsMatch(context);
         }
 
-        private IRewriteCondition _chainedCondition;
+        private readonly IRewriteCondition _chainedCondition;
     }
 }

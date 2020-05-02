@@ -30,7 +30,7 @@ namespace YAF.Providers.Roles
     using System.Linq;
     using System.Web.Security;
 
-    using YAF.Core;
+    
     using YAF.Core.Context;
     using YAF.Providers.Utils;
     using YAF.Types.Extensions;

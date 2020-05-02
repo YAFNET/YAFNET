@@ -80,11 +80,14 @@ namespace YAF.UrlRewriter.Parsers
                         foreach (var parser in parsers)
                         {
                             var action = parser.Parse(childNode, config);
-                            if (action != null)
+
+                            if (action == null)
                             {
-                                parsed = true;
-                                actions.Add(action);
+                                continue;
                             }
+
+                            parsed = true;
+                            actions.Add(action);
                         }
 
                         if (!parsed)

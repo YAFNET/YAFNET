@@ -38,7 +38,7 @@ namespace YAF.UrlRewriter
                 return;
             }
 
-            context.BeginRequest += this.BeginRequest;
+            context.BeginRequest += BeginRequest;
         }
 
         /// <summary>
@@ -57,8 +57,8 @@ namespace YAF.UrlRewriter
         /// Event handler for the "BeginRequest" event.
         /// </summary>
         /// <param name="sender">The sender object</param>
-        /// <param name="e">Event args</param>
-        private void BeginRequest(object sender, EventArgs args)
+        /// <param name="args"></param>
+        private static void BeginRequest(object sender, EventArgs args)
         {
             // Add our PoweredBy header
             // HttpContext.Current.Response.AddHeader(Constants.HeaderXPoweredBy, Configuration.XPoweredBy);
@@ -79,7 +79,7 @@ namespace YAF.UrlRewriter
         /// <summary>
         /// The _rewriter.
         /// </summary>
-        private static RewriterEngine _rewriter = new RewriterEngine(
+        private static readonly RewriterEngine _rewriter = new RewriterEngine(
             new HttpContextFacade(),
             new ConfigurationManagerFacade(),
             new RewriterConfiguration());

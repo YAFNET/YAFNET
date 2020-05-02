@@ -28,7 +28,6 @@ namespace YAF.Web.Controls
     using System.Text;
     using System.Web.UI;
 
-    using YAF.Core;
     using YAF.Core.BaseControls;
     using YAF.Core.Context;
     using YAF.Types;

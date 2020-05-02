@@ -44,12 +44,5 @@ namespace YAF.UrlRewriter.Logging
         /// <param name="message">The message to write.</param>
         /// <param name="exception">The exception</param>
         public void Error(object message, Exception exception) { }
-
-        /// <summary>
-        /// Writes a fatal error.
-        /// </summary>
-        /// <param name="message">The message to write.</param>
-        /// <param name="exception">The exception</param>
-        public void Fatal(object message, Exception exception) { }
     }
 }

@@ -65,6 +65,9 @@ namespace YAF.Types.Interfaces
         /// </summary>
         bool DailyDigest { get; }
 
+        /// <summary>
+        /// Gets a value indicating whether activity.
+        /// </summary>
         bool Activity { get; }
 
         /// <summary>

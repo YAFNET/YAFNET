@@ -29,7 +29,6 @@ namespace YAF.Core.Modules
 
     using Autofac;
 
-    using YAF.Core;
     using YAF.Core.Data.Profiling;
     using YAF.Core.Extensions;
     using YAF.Types;

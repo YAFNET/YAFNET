@@ -34,22 +34,16 @@ namespace YAF.Configuration.Pattern
     /// The type application factory instance.
     /// </summary>
     /// <typeparam name="T">
+    /// The Type Parameter
     /// </typeparam>
     public class TypeFactoryInstanceApplicationScope<T> : ITypeFactoryInstance<T>
     {
-        #region Constructors and Destructors
-
         /// <summary>
-        /// Initializes a new instance of the <see cref="TypeFactoryInstanceApplicationScope{T}"/> class.
+        /// The instance.
         /// </summary>
-        /// <param name="typeName">
-        /// The type name.
-        /// </param>
-        public TypeFactoryInstanceApplicationScope(string typeName)
-        {
-            this.TypeName = typeName;
-            this.TypeInstanceKey = typeName;
-        }
+        private object instance;
+
+        #region Constructors and Destructors
 
         /// <summary>
         /// Initializes a new instance of the <see cref="TypeFactoryInstanceApplicationScope{T}"/> class. 
@@ -72,11 +66,6 @@ namespace YAF.Configuration.Pattern
         /// Gets or sets TypeInstanceKey.
         /// </summary>
         protected string TypeInstanceKey { get; set; }
-
-        /// <summary>
-        /// The instance.
-        /// </summary>
-        private object instance;
 
         /// <summary>
         /// Gets or sets ApplicationInstance.
@@ -116,6 +105,7 @@ namespace YAF.Configuration.Pattern
         /// The create.
         /// </summary>
         /// <returns>
+        /// The <see cref="T"/>.
         /// </returns>
         public T Get()
         {

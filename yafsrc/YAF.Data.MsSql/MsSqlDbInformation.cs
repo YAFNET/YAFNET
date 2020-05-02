@@ -41,17 +41,6 @@ namespace YAF.Data.MsSql
     public class MsSqlDbInformation : IDbInformation
     {
         /// <summary>
-        /// The DB parameters
-        /// </summary>
-        private readonly DbConnectionParam[] dbParameters =
-            {
-                new DbConnectionParam(0, "Password", string.Empty),
-                new DbConnectionParam(1, "Data Source", "(local)"),
-                new DbConnectionParam(2, "Initial Catalog", string.Empty),
-                new DbConnectionParam(11, "Use Integrated Security", "true")
-            };
-
-        /// <summary>
         /// The azure script list
         /// </summary>
         private static readonly string[] AzureScriptList =
@@ -108,6 +97,17 @@ namespace YAF.Data.MsSql
                 "mssql/upgrade/providers/indexes.sql", 
                 "mssql/upgrade/providers/procedures.sql"
             };
+
+        /// <summary>
+        /// The DB parameters
+        /// </summary>
+        private readonly DbConnectionParam[] dbParameters =
+        {
+            new DbConnectionParam(0, "Password", string.Empty),
+            new DbConnectionParam(1, "Data Source", "(local)"),
+            new DbConnectionParam(2, "Initial Catalog", string.Empty),
+            new DbConnectionParam(11, "Use Integrated Security", "true")
+        };
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MsSqlDbInformation"/> class.

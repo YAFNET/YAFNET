@@ -21,15 +21,30 @@ namespace YAF.UrlRewriter.Transforms
     public sealed class StaticMappingTransform : IRewriteTransform
     {
         /// <summary>
+        /// Gets the map.
+        /// </summary>
+        private readonly StringDictionary map;
+        
+        /// <summary>
+        /// Initializes a new instance of the <see cref="StaticMappingTransform"/> class. 
         /// Default constructor.
         /// </summary>
-        /// <param name="name">The name of the mapping.</param>
-        /// <param name="map">The mappings.</param>
+        /// <param name="name">
+        /// The name of the mapping.
+        /// </param>
+        /// <param name="map">
+        /// The mappings.
+        /// </param>
         public StaticMappingTransform(string name, StringDictionary map)
         {
             this.Name = name;
-            this._map = map;
+            this.map = map;
         }
+        
+        /// <summary>
+         /// Gets the name of the action.
+         /// </summary>
+        public string Name { get; }
 
         /// <summary>
         /// Maps the specified value in the specified map to its replacement value.
@@ -38,17 +53,7 @@ namespace YAF.UrlRewriter.Transforms
         /// <returns>The value mapped to, or null if no mapping could be performed.</returns>
         public string ApplyTransform(string input)
         {
-            return this._map[input];
+            return this.map[input];
         }
-
-        /// <summary>
-        /// The name of the action.
-        /// </summary>
-        public string Name { get; }
-
-        /// <summary>
-        /// The _map.
-        /// </summary>
-        private StringDictionary _map;
     }
 }

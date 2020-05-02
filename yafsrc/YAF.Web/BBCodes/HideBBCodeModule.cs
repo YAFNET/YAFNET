@@ -27,7 +27,6 @@ namespace YAF.Web.BBCodes
     using System.Web.UI;
 
     using YAF.Configuration;
-    using YAF.Core;
     using YAF.Core.BBCode;
     using YAF.Core.Context;
     using YAF.Core.Extensions;

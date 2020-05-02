@@ -92,15 +92,15 @@ namespace YAF.Utils.Helpers
         /// </returns>
         public static bool IsIgnoredForDisplay([CanBeNull] string userAgent)
         {
-            if (userAgent.IsSet())
+            if (!userAgent.IsSet())
             {
-                // Apple-PubSub - Safary RSS reader
-                string[] stringContains = { "PlaceHolder" };
-
-                return stringContains.Any(x => userAgent.ToLowerInvariant().Contains(x.ToLowerInvariant()));
+                return false;
             }
 
-            return false;
+            // Apple-PubSub - Safari RSS reader
+            string[] stringContains = { "PlaceHolder" };
+
+            return stringContains.Any(x => userAgent.ToLowerInvariant().Contains(x.ToLowerInvariant()));
         }
 
         /// <summary>

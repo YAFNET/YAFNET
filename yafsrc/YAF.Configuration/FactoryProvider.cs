@@ -59,10 +59,7 @@ namespace YAF.Configuration
         {
             get
             {
-                if (builderFactory == null)
-                {
-                    builderFactory = new TypeFactoryInstanceApplicationBoardScope<IUrlBuilder>(UrlBuilderType);
-                }
+                builderFactory ??= new TypeFactoryInstanceApplicationBoardScope<IUrlBuilder>(UrlBuilderType);
 
                 return builderFactory.Get();
             }
@@ -75,11 +72,7 @@ namespace YAF.Configuration
         {
             get
             {
-                if (userDisplayNameFactory == null)
-                {
-                    userDisplayNameFactory =
-                        new TypeFactoryInstanceApplicationBoardScope<IUserDisplayName>(UserDisplayNameType);
-                }
+                userDisplayNameFactory ??= new TypeFactoryInstanceApplicationBoardScope<IUserDisplayName>(UserDisplayNameType);
 
                 return userDisplayNameFactory.Get();
             }

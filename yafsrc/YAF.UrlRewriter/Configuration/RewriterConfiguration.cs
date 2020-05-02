@@ -143,7 +143,7 @@ namespace YAF.UrlRewriter.Configuration
             var section = this.ConfigurationManager.GetSection(Constants.RewriterNode) as XmlNode;
             if (section == null)
             {
-                throw new ConfigurationErrorsException(MessageProvider.FormatString(Message.MissingConfigFileSection, Constants.RewriterNode), section);
+                throw new ConfigurationErrorsException(MessageProvider.FormatString(Message.MissingConfigFileSection, Constants.RewriterNode), (XmlNode)null);
             }
 
             RewriterConfigurationReader.Read(this, section);

@@ -28,7 +28,6 @@ namespace YAF.Web.Editors
     using System;
 
     using YAF.Configuration;
-    using YAF.Core;
     using YAF.Core.Context;
     using YAF.Core.Utilities;
     using YAF.Types;

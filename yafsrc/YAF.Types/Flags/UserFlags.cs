@@ -128,6 +128,7 @@ namespace YAF.Types.Flags
             /// <summary>
             /// The Daylight Saving Time is Enabled.
             /// </summary>
+            [Obsolete("Not used anymore")]
             IsDST = 32,
 
             /// <summary>

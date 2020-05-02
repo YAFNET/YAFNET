@@ -189,34 +189,16 @@ namespace YAF.Web.Controls
         /// </returns>
         protected string GetPageUrl(int page)
         {
-            var url = string.Empty;
-
-            switch (this.PageContext.ForumPageType)
+            var url = this.PageContext.ForumPageType switch
             {
-                case ForumPages.Topics:
-                    url = page > 1
-                              ? BuildLink.GetLinkNotEscaped(
-                                  ForumPages.Topics,
-                                  "f={0}&p={1}",
-                                  this.PageContext.PageForumID,
-                                  page)
-                              : BuildLink.GetLinkNotEscaped(
-                                  ForumPages.Topics,
-                                  "f={0}",
-                                  this.PageContext.PageForumID);
-
-                    break;
-                case ForumPages.Posts:
-                    url = page > 1
-                              ? BuildLink.GetLinkNotEscaped(
-                                  ForumPages.Posts,
-                                  "t={0}&p={1}",
-                                  this.PageContext.PageTopicID,
-                                  page)
-                              : BuildLink.GetLinkNotEscaped(ForumPages.Posts, "t={0}", this.PageContext.PageTopicID);
-
-                    break;
-            }
+                ForumPages.Topics => page > 1
+                    ? BuildLink.GetLinkNotEscaped(ForumPages.Topics, "f={0}&p={1}", this.PageContext.PageForumID, page)
+                    : BuildLink.GetLinkNotEscaped(ForumPages.Topics, "f={0}", this.PageContext.PageForumID),
+                ForumPages.Posts => page > 1
+                    ? BuildLink.GetLinkNotEscaped(ForumPages.Posts, "t={0}&p={1}", this.PageContext.PageTopicID, page)
+                    : BuildLink.GetLinkNotEscaped(ForumPages.Posts, "t={0}", this.PageContext.PageTopicID),
+                _ => string.Empty
+            };
 
             return url;
         }

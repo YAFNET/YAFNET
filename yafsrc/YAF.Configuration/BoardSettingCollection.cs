@@ -35,9 +35,9 @@ namespace YAF.Configuration
   public class BoardSettingCollection
   {
     /// <summary>
-    /// The _settings.
+    /// The settings.
     /// </summary>
-    protected List<PropertyInfo> settings = new List<PropertyInfo>();
+    private readonly List<PropertyInfo> settings;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="BoardSettingCollection"/> class.
@@ -103,8 +103,8 @@ namespace YAF.Configuration
     {
       get
       {
-        var excludeTypes = new List<Type>()
-          {
+        var excludeTypes = new List<Type>
+        {
             typeof(string), 
             typeof(bool), 
             typeof(int), 

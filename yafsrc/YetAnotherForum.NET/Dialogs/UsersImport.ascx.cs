@@ -34,7 +34,7 @@ namespace YAF.Dialogs
     using System.Web.Security;
 
     using YAF.Configuration;
-    using YAF.Core;
+    
     using YAF.Core.BaseControls;
     using YAF.Core.Context;
     using YAF.Core.Model;
@@ -399,12 +399,7 @@ namespace YAF.Dialogs
                 row.Table.Columns.Contains("LanguageFile") ? row["LanguageFile"] : null,
                 row.Table.Columns.Contains("Culture") ? row["Culture"] : null,
                 row.Table.Columns.Contains("ThemeFile") ? row["ThemeFile"] : null,
-                null,
-                null,
-                this.Get<BoardSettings>().DefaultNotificationSetting,
-                autoWatchTopicsEnabled,
-                isDst,
-                null);
+                false);
 
             // save the settings...
             this.GetRepository<User>().SaveNotification(

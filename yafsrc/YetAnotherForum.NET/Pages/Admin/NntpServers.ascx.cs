@@ -30,7 +30,6 @@ namespace YAF.Pages.Admin
     using System.Linq;
     using System.Web.UI.WebControls;
 
-    using YAF.Core;
     using YAF.Core.BasePages;
     using YAF.Core.Context;
     using YAF.Core.Extensions;

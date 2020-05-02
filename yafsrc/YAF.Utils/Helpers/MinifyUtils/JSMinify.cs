@@ -144,43 +144,47 @@ namespace YAF.Utils.Helpers.MinifyUtils
                 }
             }
 
-            if (d <= 3)
+            if (d > 3)
             {
-                this.theB = this.Next();
-                if (this.theB == '/' && (this.theA == '(' || this.theA == ',' || this.theA == '=' || this.theA == '['
-                                         || this.theA == '!' || this.theA == ':' || this.theA == '&' || this.theA == '|'
-                                         || this.theA == '?' || this.theA == '{' || this.theA == '}' || this.theA == ';'
-                                         || this.theA == '\n'))
+                return;
+            }
+
+            this.theB = this.Next();
+            if (this.theB != '/' || this.theA != '(' && this.theA != ',' && this.theA != '=' && this.theA != '[' &&
+                this.theA != '!' && this.theA != ':' && this.theA != '&' && this.theA != '|' &&
+                this.theA != '?' && this.theA != '{' && this.theA != '}' && this.theA != ';' &&
+                this.theA != '\n')
+            {
+                return;
+            }
+
+            this.Put(this.theA);
+            this.Put(this.theB);
+
+            for (;;)
+            {
+                this.theA = this.Get();
+
+                if (this.theA == '/')
+                {
+                    break;
+                }
+
+                if (this.theA == '\\')
                 {
                     this.Put(this.theA);
-                    this.Put(this.theB);
-
-                    for (;;)
-                    {
-                        this.theA = this.Get();
-
-                        if (this.theA == '/')
-                        {
-                            break;
-                        }
-
-                        if (this.theA == '\\')
-                        {
-                            this.Put(this.theA);
-                            this.theA = this.Get();
-                        }
-                        else if (this.theA <= '\n')
-                        {
-                            throw new Exception(
-                                $"Error: JSMIN unterminated Regular Expression literal : {this.theA}.\n");
-                        }
-
-                        this.Put(this.theA);
-                    }
-
-                    this.theB = this.Next();
+                    this.theA = this.Get();
                 }
+                else if (this.theA <= '\n')
+                {
+                    throw new Exception(
+                        $"Error: JSMIN unterminated Regular Expression literal : {this.theA}.\n");
+                }
+
+                this.Put(this.theA);
             }
+
+            this.theB = this.Next();
         }
 
         /// <summary>
@@ -233,56 +237,56 @@ namespace YAF.Utils.Helpers.MinifyUtils
         private int Next()
         {
             var c = this.Get();
-            if (c == '/')
+            if (c != '/')
             {
-                switch (this.Peek())
+                return c;
+            }
+
+            switch (this.Peek())
+            {
+                case '/':
                 {
-                    case '/':
-                        {
-                            for (;;)
-                            {
-                                c = this.Get();
-                                if (c <= '\n')
-                                {
-                                    return c;
-                                }
-                            }
-                        }
-
-                    case '*':
-                        {
-                            this.Get();
-                            for (;;)
-                            {
-                                switch (this.Get())
-                                {
-                                    case '*':
-                                        {
-                                            if (this.Peek() == '/')
-                                            {
-                                                this.Get();
-                                                return ' ';
-                                            }
-
-                                            break;
-                                        }
-
-                                    case EOF:
-                                        {
-                                            throw new Exception("Error: JSMIN Unterminated comment.\n");
-                                        }
-                                }
-                            }
-                        }
-
-                    default:
+                    for (;;)
+                    {
+                        c = this.Get();
+                        if (c <= '\n')
                         {
                             return c;
                         }
+                    }
+                }
+
+                case '*':
+                {
+                    this.Get();
+                    for (;;)
+                    {
+                        switch (this.Get())
+                        {
+                            case '*':
+                            {
+                                if (this.Peek() == '/')
+                                {
+                                    this.Get();
+                                    return ' ';
+                                }
+
+                                break;
+                            }
+
+                            case EOF:
+                            {
+                                throw new Exception("Error: JSMIN Unterminated comment.\n");
+                            }
+                        }
+                    }
+                }
+
+                default:
+                {
+                    return c;
                 }
             }
-
-            return c;
         }
 
         /// <summary>

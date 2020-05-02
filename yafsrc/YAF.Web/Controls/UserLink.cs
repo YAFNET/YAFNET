@@ -30,7 +30,6 @@ namespace YAF.Web.Controls
     using System.Web.UI;
 
     using YAF.Configuration;
-    using YAF.Core;
     using YAF.Core.Context;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
@@ -154,6 +153,7 @@ namespace YAF.Web.Controls
                 return;
             }
 
+            // TODO : Move to SP
             var userSuspended = this.GetRepository<User>().GetSuspended(this.UserID);
 
             output.BeginRender();

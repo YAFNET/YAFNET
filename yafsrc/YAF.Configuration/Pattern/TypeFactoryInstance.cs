@@ -28,7 +28,7 @@ namespace YAF.Configuration.Pattern
     /// </summary>
     /// <typeparam name="T">
     /// </typeparam>
-    public interface ITypeFactoryInstance<T>
+    public interface ITypeFactoryInstance<out T>
     {
         #region Properties
 
@@ -45,6 +45,7 @@ namespace YAF.Configuration.Pattern
         /// Get an instance of the type.
         /// </summary>
         /// <returns>
+        /// The <see cref="T"/>.
         /// </returns>
         T Get();
 

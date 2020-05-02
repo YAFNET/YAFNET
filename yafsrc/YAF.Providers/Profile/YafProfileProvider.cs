@@ -22,8 +22,6 @@
  * under the License.
  */
 
-using YAF.Types.Objects;
-
 namespace YAF.Providers.Profile
 {
     using System;
@@ -36,11 +34,11 @@ namespace YAF.Providers.Profile
     using System.Text;
     using System.Web.Profile;
 
-    using YAF.Core;
     using YAF.Core.Context;
     using YAF.Providers.Utils;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Objects;
 
     /// <summary>
     /// YAF Custom Profile Provider

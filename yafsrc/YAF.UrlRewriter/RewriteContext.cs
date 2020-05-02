@@ -51,7 +51,6 @@ namespace YAF.UrlRewriter
             this.Location = rawUrl;
 
             // Initialise the Properties collection from all the server variables, headers and cookies.
-
             httpContext.ServerVariables.AllKeys.ForEach(key => this.Properties.Add(key, httpContext.ServerVariables[key]));
 
             httpContext.RequestHeaders.AllKeys.ForEach(
@@ -132,6 +131,6 @@ namespace YAF.UrlRewriter
             return this._engine.ResolveLocation(location);
         }
 
-        private RewriterEngine _engine;
+        private readonly RewriterEngine _engine;
     }
 }

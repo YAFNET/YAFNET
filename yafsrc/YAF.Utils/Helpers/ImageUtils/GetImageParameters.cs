@@ -55,16 +55,15 @@ namespace YAF.Utils.Helpers.ImageUtils
         /// </returns>
         public static string GetImageParameters(Uri uriPath, out long length)
         {
-            var pseudoMime = string.Empty;
-            var contentType = string.Empty;
-            using (var stream = GetRemoteData(uriPath, out length, out contentType))
+            string pseudoMime;
+            using (var stream = GetRemoteData(uriPath, out length, out var contentType))
             {
                 Bitmap img = null;
                 try
                 {
                     img = new Bitmap(stream);
 
-                    // no need to set here mime exatly this is reserved for customization.
+                    // no need to set here mime exactly this is reserved for customization.
                     pseudoMime = $"{contentType}!{img.Width};{img.Height}";
                 }
                 catch
@@ -88,6 +87,9 @@ namespace YAF.Utils.Helpers.ImageUtils
         /// <param name="path">
         /// The path. 
         /// </param>
+        /// <returns>
+        /// The <see cref="Stream"/>.
+        /// </returns>
         public static Stream GetLocalData(Uri path)
         {
             return new FileStream(path.LocalPath, FileMode.Open);
@@ -152,7 +154,6 @@ namespace YAF.Utils.Helpers.ImageUtils
         /// </returns>
         public static Stream GetResizedImageStreamFromImage(Image img, long x, long y)
         {
-            Stream resized = null;
             double newWidth = img.Width;
             double newHeight = img.Height;
             if (newWidth > x)
@@ -170,7 +171,7 @@ namespace YAF.Utils.Helpers.ImageUtils
             // TODO : Save an Animated Gif
             var bitmap = img.GetThumbnailImage((int)newWidth, (int)newHeight, null, IntPtr.Zero);
 
-            resized = new MemoryStream();
+            var resized = new MemoryStream();
             bitmap.Save(resized, img.RawFormat);
             return resized;
         }

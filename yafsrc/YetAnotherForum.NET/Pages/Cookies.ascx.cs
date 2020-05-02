@@ -26,7 +26,6 @@ namespace YAF.Pages
 {
     #region Using
 
-    using YAF.Core;
     using YAF.Core.BasePages;
 
     #endregion

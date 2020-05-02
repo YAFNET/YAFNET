@@ -31,7 +31,6 @@ namespace YAF.Dialogs
     using System.Web;
 
     using YAF.Configuration;
-    using YAF.Core;
     using YAF.Core.BaseControls;
     using YAF.Core.BaseModules;
     using YAF.Core.Context;

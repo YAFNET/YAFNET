@@ -90,5 +90,6 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\YAF.Configuration\YAF.Configuration.csproj" />
+    <ProjectReference Include="..\YAF.Types\YAF.Types.csproj" />
   </ItemGroup>
 </Project>
