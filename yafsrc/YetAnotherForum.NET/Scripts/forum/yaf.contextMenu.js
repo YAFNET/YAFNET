@@ -125,7 +125,39 @@ jQuery(document).ready(function () {
             contextMenu.removeClass("show").hide();
         });
 
-        $(this).find(".context-menu a").on("click", function () {
+        $(this).find(".context-menu a").on("click", function (e) {
+            if ($(this).data("toggle") !== undefined) {
+                e.preventDefault();
+
+                var link = $(this).attr("href");
+                var text = $(this).data("title");
+                var blockUI = $(this).data("confirm-event");
+                bootbox.confirm({
+                        centerVertical: true,
+                        message: text,
+                        buttons: {
+                            confirm: {
+                                label: '<i class="fa fa-check"></i> ' + $(this).data("yes"),
+                                className: "btn-success"
+                            },
+                            cancel: {
+                                label: '<i class="fa fa-times"></i> ' + $(this).data("no"),
+                                className: "btn-danger"
+                            }
+                        },
+                        callback: function (confirmed) {
+                            if (confirmed) {
+                                document.location.href = link;
+
+                                if (typeof blockUI !== "undefined") {
+                                    window[blockUI]();
+                                }
+                            }
+                        }
+                    }
+                );
+            }
+           
             contextMenu.removeClass("show").hide();
         });
 
