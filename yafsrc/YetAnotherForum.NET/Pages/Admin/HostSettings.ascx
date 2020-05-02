@@ -383,6 +383,12 @@
                                                LocalizedTag="IGNORE_SPAMCHECK_COUNT" LocalizedPage="ADMIN_HOSTSETTINGS" />
                                 <asp:TextBox ID="IgnoreSpamWordCheckPostCount" CssClass="form-control" runat="server"></asp:TextBox>
                             </div>
+                            <div class="form-group">
+                                <YAF:HelpLabel ID="HelpLabel242" runat="server" 
+                                               AssociatedControlID="AllowedNumberOfUrls"
+                                               LocalizedTag="SPAMCHECK_ALLOWED_URLS" LocalizedPage="ADMIN_HOSTSETTINGS" />
+                                <asp:TextBox ID="AllowedNumberOfUrls" CssClass="form-control" runat="server"></asp:TextBox>
+                            </div>
                         </div>
                         <asp:PlaceHolder runat="server" ID="BotRegisterCheck">
                         <div class="tab-pane fade" id="bot" role="tabpanel" aria-labelledby="bot-tab">
@@ -439,12 +445,6 @@
                             <div class="custom-control custom-switch">
                                 <asp:CheckBox Text="&nbsp;" ID="BanBotIpOnDetection" runat="server" />
                             </div>
-                            </div>
-                            <div class="form-group">
-                                <YAF:HelpLabel ID="HelpLabel242" runat="server" 
-                                               AssociatedControlID="AllowedNumberOfUrls"
-                                               LocalizedTag="SPAMCHECK_ALLOWED_URLS" LocalizedPage="ADMIN_HOSTSETTINGS" />
-                                <asp:TextBox ID="AllowedNumberOfUrls" CssClass="form-control" runat="server"></asp:TextBox>
                             </div>
                         </div>
                         </asp:PlaceHolder>
