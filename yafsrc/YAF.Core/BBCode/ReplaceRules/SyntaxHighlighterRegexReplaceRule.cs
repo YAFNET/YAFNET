@@ -58,7 +58,7 @@ namespace YAF.Core.BBCode.ReplaceRules
         public SyntaxHighlighterRegexReplaceRule(bool isEditMode, Regex regExSearch, string regExReplace)
             : base(regExSearch, regExReplace)
         {
-            this.isEditMode = isEditMode;
+            this.IsEditMode = isEditMode;
             this.syntaxHighlighter.ReplaceEnter = true;
             this.RuleRank = 1;
         }
@@ -66,9 +66,9 @@ namespace YAF.Core.BBCode.ReplaceRules
         #endregion
 
         /// <summary>
-        /// Indicates if the formatting is for the Editor.
+        /// Gets a value indicating whether the formatting is for the Editor.
         /// </summary>
-        private bool isEditMode { get; set; }
+        private bool IsEditMode { get; }
 
         #region Public Methods
 
@@ -88,7 +88,7 @@ namespace YAF.Core.BBCode.ReplaceRules
             while (m.Success)
             {
                 var inner = this.syntaxHighlighter.ColorText(
-                    this.GetInnerValue(m.Groups["inner"].Value), m.Groups["language"].Value, this.isEditMode);
+                    this.GetInnerValue(m.Groups["inner"].Value), m.Groups["language"].Value, this.IsEditMode);
 
                 var replaceItem = this.RegExReplace.Replace("${inner}", inner);
 

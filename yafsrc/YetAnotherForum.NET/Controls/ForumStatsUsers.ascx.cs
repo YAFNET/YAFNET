@@ -144,19 +144,11 @@ namespace YAF.Controls
 
             if (activeHidden > 0 && this.PageContext.IsAdmin)
             {
-                // vzrus: was temporary left as is, only admins can view hidden users online, why not everyone?
-                if (activeHidden > 0 && this.PageContext.IsAdmin)
-                {
-                    sb.AppendFormat(
-                        ", <a href=\"{1}\" title=\"{2}\">{0}</a>",
-                        this.GetTextFormatted("ACTIVE_USERS_HIDDEN", activeHidden),
-                        BuildLink.GetLink(ForumPages.ActiveUsers, "v={0}", 3),
-                        this.GetText("COMMON", "VIEW_FULLINFO"));
-                }
-                else
-                {
-                    sb.Append($", {this.GetTextFormatted("ACTIVE_USERS_HIDDEN", activeHidden)}");
-                }
+                sb.AppendFormat(
+                    ", <a href=\"{1}\" title=\"{2}\">{0}</a>",
+                    this.GetTextFormatted("ACTIVE_USERS_HIDDEN", activeHidden),
+                    BuildLink.GetLink(ForumPages.ActiveUsers, "v={0}", 3),
+                    this.GetText("COMMON", "VIEW_FULLINFO"));
             }
 
             sb.Append($" {this.GetTextFormatted("ACTIVE_USERS_TIME", this.Get<BoardSettings>().ActiveListTime)}");

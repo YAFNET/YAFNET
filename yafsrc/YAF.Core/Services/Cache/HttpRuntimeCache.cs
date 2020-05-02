@@ -141,8 +141,6 @@ namespace YAF.Core.Services.Cache
 
         yield return new KeyValuePair<string, T>(key, (T)dictionaryEnumerator.Value);
       }
-
-      yield break;
     }
 
     /// <summary>

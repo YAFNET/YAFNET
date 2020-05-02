@@ -46,6 +46,21 @@ namespace YAF.Core.Model
     {
         #region Public Methods and Operators
 
+        /// <summary>
+        /// The update.
+        /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="nntpForumId">
+        /// The nntp forum id.
+        /// </param>
+        /// <param name="lastMessageNo">
+        /// The last message no.
+        /// </param>
+        /// <param name="userId">
+        /// The user id.
+        /// </param>
         public static void Update(this IRepository<NntpForum> repository, [NotNull] object nntpForumId, [NotNull] object lastMessageNo, [NotNull] object userId)
         {
 
@@ -61,8 +76,11 @@ namespace YAF.Core.Model
         /// <summary>
         /// The nntpforum_list.
         /// </summary>
-        /// <param name="boardID">
-        /// The board id.
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="boardId">
+        /// The board Id.
         /// </param>
         /// <param name="minutes">
         /// The minutes.
@@ -74,6 +92,7 @@ namespace YAF.Core.Model
         /// The active.
         /// </param>
         /// <returns>
+        /// The <see cref="IEnumerable"/>.
         /// </returns>
         public static IEnumerable<TypedNntpForum> NntpForumList(this IRepository<NntpForum> repository, int boardId, int? minutes, int? nntpForumID, bool? active)
         {
@@ -87,6 +106,30 @@ namespace YAF.Core.Model
                         UTCTIMESTAMP: DateTime.UtcNow)).SelectTypedList(t => new TypedNntpForum(t));
         }
 
+        /// <summary>
+        /// The save.
+        /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="nntpForumId">
+        /// The nntp forum id.
+        /// </param>
+        /// <param name="nntpServerId">
+        /// The nntp server id.
+        /// </param>
+        /// <param name="groupName">
+        /// The group name.
+        /// </param>
+        /// <param name="forumID">
+        /// The forum id.
+        /// </param>
+        /// <param name="active">
+        /// The active.
+        /// </param>
+        /// <param name="datecutoff">
+        /// The datecutoff.
+        /// </param>
         public static void Save(
             this IRepository<NntpForum> repository,
             [NotNull] int? nntpForumId,

@@ -39,8 +39,7 @@ namespace YAF.Core.Services.CheckForSpam
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.CheckForSpam;
-    using YAF.Utils.Extensions;
-
+    
     #endregion
 
     /// <summary>

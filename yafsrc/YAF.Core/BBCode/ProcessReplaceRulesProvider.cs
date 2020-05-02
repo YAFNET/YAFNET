@@ -64,6 +64,9 @@ namespace YAF.Core.BBCode
     /// <summary>
     /// Initializes a new instance of the <see cref="ProcessReplaceRulesProvider"/> class.
     /// </summary>
+    /// <param name="objectStore">
+    /// The object Store.
+    /// </param>
     /// <param name="serviceLocator">
     /// The service locator.
     /// </param>
@@ -90,10 +93,8 @@ namespace YAF.Core.BBCode
     #region Properties
 
     /// <summary>
-    ///   The Instance of this provider.
+    ///   Gets the Instance of this provider.
     /// </summary>
-    /// <returns>
-    /// </returns>
     public IProcessReplaceRules Instance
     {
       get

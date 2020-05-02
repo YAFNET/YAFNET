@@ -114,8 +114,8 @@ namespace YAF.Core.BaseModules
     /// <summary>
     /// The load and validate assemblies.
     /// </summary>
-    /// <param name="filenames">
-    /// The fileNames.
+    /// <param name="fileNames">
+    /// The file Names.
     /// </param>
     /// <returns>
     /// </returns>

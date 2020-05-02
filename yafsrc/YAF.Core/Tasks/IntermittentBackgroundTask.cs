@@ -27,8 +27,7 @@ namespace YAF.Core.Tasks
     using System.Threading;
 
     using YAF.Types.Extensions;
-    using YAF.Types.Interfaces;
-
+    
     /// <summary>
     /// The intermittent background task.
     /// </summary>

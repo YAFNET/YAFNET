@@ -74,11 +74,6 @@ namespace YAF.Core.Context
         public string CultureUser => this.PageValueAsString("CultureUser");
 
         /// <summary>
-        ///   Gets a value indicating whether the time zone offset for the user
-        /// </summary>
-        public bool DSTUser => this.userFlags != null && this.userFlags.IsDST;
-
-        /// <summary>
         ///   Gets a value indicating whether the current user can delete own messages in the current forum (True).
         /// </summary>
         public bool ForumDeleteAccess => this.AccessNotNull("DeleteAccess");

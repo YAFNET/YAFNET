@@ -30,7 +30,6 @@ namespace YAF.Controls
     using System.Collections.Generic;
     using System.Data;
     using System.Linq;
-    using System.Web.UI.WebControls;
 
     using YAF.Configuration;
     using YAF.Core.BaseControls;
@@ -310,22 +309,18 @@ namespace YAF.Controls
                 name = UserMembershipHelper.GetUserNameFromID(this.CurrentUserId?.ToType<int>() ?? -1);
             }
 
-            foreach (var ip in this.IPAddresses.Except(allIps).ToList())
-            {
-                if (!ip.IsSet())
+            this.IPAddresses.Except(allIps).ToList().Where(i => i.IsSet()).ForEach(
+                ip =>
                 {
-                    continue;
-                }
+                    var linkUserBan = this.Get<ILocalization>().GetTextFormatted(
+                        "ADMIN_EDITUSER",
+                        "LINK_USER_BAN",
+                        this.CurrentUserId,
+                        BuildLink.GetLink(ForumPages.Profile, "u={0}&name={1}", this.CurrentUserId, name),
+                        this.HtmlEncode(name));
 
-                var linkUserBan = this.Get<ILocalization>().GetTextFormatted(
-                    "ADMIN_EDITUSER",
-                    "LINK_USER_BAN",
-                    this.CurrentUserId,
-                    BuildLink.GetLink(ForumPages.Profile, "u={0}&name={1}", this.CurrentUserId, name),
-                    this.HtmlEncode(name));
-
-                this.GetRepository<BannedIP>().Save(null, ip, linkUserBan, this.PageContext.PageUserID);
-            }
+                    this.GetRepository<BannedIP>().Save(null, ip, linkUserBan, this.PageContext.PageUserID);
+                });
 
             // Clear cache
             this.Get<IDataCache>().Remove(Constants.Cache.BannedIP);

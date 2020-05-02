@@ -165,17 +165,17 @@ namespace YAF.Core
         }
 
         /// <summary>
-        ///     Attempt to get the instance of the task.
+        /// Attempt to get the instance of the task.
         /// </summary>
         /// <param name="instanceName">
         /// The instance Name.
         /// </param>
+        /// <param name="task">
+        /// The task.
+        /// </param>
         /// <returns>
         /// </returns>
-        public virtual bool TryGetTask([NotNull] string instanceName, out IBackgroundTask task)
-        {
-            return _taskManager.TryGetValue(instanceName, out task);
-        }
+        public virtual bool TryGetTask([NotNull] string instanceName, out IBackgroundTask task) => _taskManager.TryGetValue(instanceName, out task);
 
         /// <summary>
         ///     The try remove task.
@@ -188,7 +188,7 @@ namespace YAF.Core
         /// </returns>
         public virtual bool TryRemoveTask([NotNull] string instanceName)
         {
-            return _taskManager.TryRemove(instanceName, out var task);
+            return _taskManager.TryRemove(instanceName, out _);
         }
 
         #endregion

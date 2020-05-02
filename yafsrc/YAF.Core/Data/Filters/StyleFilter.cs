@@ -46,16 +46,11 @@ namespace YAF.Core.Data.Filters
         /// <summary>
         ///     The _styled nick operations.
         /// </summary>
-        private readonly string[] _styledNickOperations = {
-                                                                  "active_list", 
-                                                                  "active_listtopic", 
-                                                                  "active_listforum", 
-                                                                  "forum_moderators", 
-                                                                  "topic_latest", 
-                                                                  "topic_latest", 
-                                                                  "active_list_user", 
-                                                                  "admin_list"
-                                                              };
+        private readonly string[] _styledNickOperations =
+        {
+            "active_list", "active_listtopic", "active_listforum", "forum_moderators", "topic_latest",
+            "topic_latest", "active_list_user", "admin_list"
+        };
 
         #endregion
 
@@ -135,8 +130,6 @@ namespace YAF.Core.Data.Filters
             {
                 return;
             }
-
-            var colorOnly = false;
 
             if (!this.BoardSettings.UseStyledNicks)
             {

@@ -109,11 +109,11 @@ namespace YAF.Core.Nntp
     /// <summary>
     /// The base 64 decode.
     /// </summary>
-    /// <param name="line">
-    /// The line.
+    /// <param name="encodedData">
+    /// The encoded Data.
     /// </param>
-    /// <param name="outputStream">
-    /// The output stream.
+    /// <param name="encoding">
+    /// The encoding.
     /// </param>
     /// <returns>
     /// The base 64 decode.
@@ -128,6 +128,18 @@ namespace YAF.Core.Nntp
       return (encoding ?? Encoding.Unicode).GetString(decodedDataAsBytes);
     }
 
+    /// <summary>
+    /// The base 64 decode.
+    /// </summary>
+    /// <param name="encodedData">
+    /// The encoded data.
+    /// </param>
+    /// <param name="output">
+    /// The output.
+    /// </param>
+    /// <returns>
+    /// The <see cref="int"/>.
+    /// </returns>
     public static int Base64Decode([NotNull] string encodedData, Stream output)
     {
         CodeContracts.VerifyNotNull(encodedData, "encodedData");
@@ -164,7 +176,7 @@ namespace YAF.Core.Nntp
           m = m.NextMatch();
         }
       }
-      catch (Exception ex)
+      catch (Exception)
       {
         // format problem...
       }

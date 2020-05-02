@@ -5384,7 +5384,7 @@ begin
 
     if @@ROWCOUNT<1
     begin
-        exec [{databaseOwner}].[{objectQualifier}user_save] null,@BoardID,@UserName,@UserName,@Email,@TimeZonetmp,null,null,null,null, 1, null, null, null, 0, 0,@UTCTIMESTAMP
+        exec [{databaseOwner}].[{objectQualifier}user_save] null,@BoardID,@UserName,@UserName,@Email,@TimeZonetmp,null,null,null,1, null, 0, @UTCTIMESTAMP
 
         -- The next one is not safe, but this procedure is only used for testing
         select @UserID = @@IDENTITY
@@ -5427,12 +5427,8 @@ CREATE procedure [{databaseOwner}].[{objectQualifier}user_save](
     @Culture		    varchar(10) = null,
     @ThemeFile			nvarchar(50) = null,
     @Approved			bit = null,
-    @PMNotification		bit = null,
-    @AutoWatchTopics    bit = null,
     @ProviderUserKey	nvarchar(64) = null,
-    @DSTUser            bit = null,
     @HideUser           bit = null,
-    @NotificationType	int = null,
     @UTCTIMESTAMP datetime)
 AS
 begin
@@ -5441,10 +5437,7 @@ begin
     declare @Flags int
     declare @OldDisplayName nvarchar(255)
 
-    if @DSTUser is null SET @DSTUser = 0
     if @HideUser is null SET @HideUser = 0
-    if @PMNotification is null SET @PMNotification = 1
-    if @AutoWatchTopics is null SET @AutoWatchTopics = 0
 
     if @UserID is null or @UserID<1 begin
 
@@ -5453,8 +5446,8 @@ begin
 
         select @RankID = RankID from [{databaseOwner}].[{objectQualifier}Rank] where (Flags & 1)<>0 and BoardID=@BoardID
 
-        insert into [{databaseOwner}].[{objectQualifier}User](BoardID,RankID,[Name],DisplayName,Password,Email,Joined,LastVisit,NumPosts,TimeZone,Flags,PMNotification,AutoWatchTopics,NotificationType,ProviderUserKey)
-        values(@BoardID,@RankID,@UserName,@DisplayName,'-',@Email,@UTCTIMESTAMP ,@UTCTIMESTAMP ,0,@TimeZone, @Flags,@PMNotification,@AutoWatchTopics,@NotificationType,@ProviderUserKey)
+        insert into [{databaseOwner}].[{objectQualifier}User](BoardID,RankID,[Name],DisplayName,Password,Email,Joined,LastVisit,NumPosts,TimeZone,Flags,ProviderUserKey)
+        values(@BoardID,@RankID,@UserName,@DisplayName,'-',@Email,@UTCTIMESTAMP ,@UTCTIMESTAMP ,0,@TimeZone, @Flags,@ProviderUserKey)
 
         set @UserID = SCOPE_IDENTITY()
 
@@ -5466,11 +5459,6 @@ begin
         -- set user dirty
         set @Flags = @Flags	| 64
 
-        IF ((@DSTUser<>0) AND (@Flags & 32) <> 32)
-        SET @Flags = @Flags | 32
-        ELSE IF ((@DSTUser=0) AND (@Flags & 32) = 32)
-        SET @Flags = @Flags ^ 32
-
         IF ((@HideUser<>0) AND ((@Flags & 16) <> 16))
         SET @Flags = @Flags | 16
         ELSE IF ((@HideUser=0) AND ((@Flags & 16) = 16))
@@ -5481,9 +5469,6 @@ begin
             LanguageFile = @LanguageFile,
             ThemeFile = @ThemeFile,
             Culture = @Culture,
-            PMNotification = (CASE WHEN (@PMNotification is not null) THEN  @PMNotification ELSE PMNotification END),
-            AutoWatchTopics = (CASE WHEN (@AutoWatchTopics is not null) THEN  @AutoWatchTopics ELSE AutoWatchTopics END),
-            NotificationType =  (CASE WHEN (@NotificationType is not null) THEN  @NotificationType ELSE NotificationType END),
             Flags = (CASE WHEN @Flags<>Flags THEN  @Flags ELSE Flags END),
             DisplayName = (CASE WHEN (@DisplayName is not null) THEN  @DisplayName ELSE DisplayName END),
             Email = (CASE WHEN (@Email is not null) THEN  @Email ELSE Email END)

@@ -67,11 +67,11 @@ namespace YAF.Core.Data
         /// <param name="dbProviderFactory">
         /// The db provider factory. 
         /// </param>
-        /// <param name="providerName">
-        /// The provider name. 
+        /// <param name="profiler">
+        /// The profiler.
         /// </param>
-        /// <param name="connectionString">
-        /// The connection String. 
+        /// <param name="information">
+        /// The information.
         /// </param>
         protected DbAccessBase(
             [NotNull] Func<string, DbProviderFactory> dbProviderFactory, IProfileQuery profiler, IDbInformation information)
@@ -99,7 +99,6 @@ namespace YAF.Core.Data
 
         #region Public Methods and Operators
         
-
         /// <summary>
         /// The execute.
         /// </summary>

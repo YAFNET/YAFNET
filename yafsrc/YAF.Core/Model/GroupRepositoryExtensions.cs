@@ -72,11 +72,11 @@ namespace YAF.Core.Model
         /// <param name="repository">
         /// The repository.
         /// </param>
-        /// <param name="boardID">
-        /// The board id.
+        /// <param name="boardId">
+        /// The board Id.
         /// </param>
-        /// <param name="userID">
-        /// The user id.
+        /// <param name="userId">
+        /// The user Id.
         /// </param>
         /// <returns>
         /// The <see cref="DataTable"/>.

@@ -529,10 +529,6 @@ namespace YAF.Pages
             ((Button)this.CreateUserWizard1.FindWizardControlRecursive("ContinueButton")).Text =
                 this.GetText("CONTINUE");
 
-            var dstUser = (CheckBox)this.CreateUserWizard1.FindWizardControlRecursive("DSTUser");
-
-            dstUser.Text = this.GetText("EDIT_PROFILE", "DST");
-
             var facebookRegister = (ThemeButton)this.CreateUserWizard1.FindWizardControlRecursive("FacebookRegister");
             var twitterRegister = (ThemeButton)this.CreateUserWizard1.FindWizardControlRecursive("TwitterRegister");
             var googleRegister = (ThemeButton)this.CreateUserWizard1.FindWizardControlRecursive("GoogleRegister");
@@ -618,7 +614,6 @@ namespace YAF.Pages
 
             // Auto Fill user time zone
             timeZones.Items.FindByValue(TimeZoneInfo.Local.Id).Selected = true;
-            dstUser.Checked = TimeZoneInfo.Local.SupportsDaylightSavingTime;
 
             this.CreateUserWizard1.FindWizardControlRecursive("UserName").Focus();
 
@@ -854,7 +849,6 @@ namespace YAF.Pages
             var country = (CountryImageListBox)this.CreateUserWizard1.FindWizardControlRecursive("Country");
             var locationTextBox = (TextBox)this.CreateUserWizard1.FindWizardControlRecursive("Location");
             var homepageTextBox = (TextBox)this.CreateUserWizard1.FindWizardControlRecursive("Homepage");
-            var dstUser = (CheckBox)this.CreateUserWizard1.FindWizardControlRecursive("DSTUser");
 
             // setup/save the profile
             var userProfile = Utils.UserProfile.GetProfile(this.CreateUserWizard1.UserName);
@@ -919,21 +913,16 @@ namespace YAF.Pages
 
             // save the time zone...
             this.GetRepository<User>().Save(
-                userId, 
-                this.PageContext.PageBoardID, 
-                null, 
-                null, 
-                null, 
-                timeZones.SelectedValue, 
-                null, 
-                null, 
-                null, 
+                userId,
+                this.PageContext.PageBoardID,
                 null,
-                this.Get<BoardSettings>().DefaultNotificationSetting,
-                autoWatchTopicsEnabled,
-                dstUser.Checked, 
-                null, 
-                null);
+                null,
+                null,
+                timeZones.SelectedValue,
+                null,
+                null,
+                null,
+                false);
 
             // save the settings...
             this.GetRepository<User>().SaveNotification(

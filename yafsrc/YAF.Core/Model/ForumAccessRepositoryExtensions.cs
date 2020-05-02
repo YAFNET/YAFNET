@@ -212,10 +212,7 @@ namespace YAF.Core.Model
                 row =>
                     {
                         // see if this is a root-forum
-                        if (!row.Item2.ParentID.HasValue)
-                        {
-                            row.Item2.ParentID = 0;
-                        }
+                        row.Item2.ParentID ??= 0;
 
                         if (row.Item2.ParentID.Value != parentID)
                         {

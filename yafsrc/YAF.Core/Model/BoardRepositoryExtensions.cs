@@ -194,25 +194,6 @@ namespace YAF.Core.Model
         }
 
         /// <summary>
-        /// The list.
-        /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
-        /// <param name="boardID">
-        /// The board id.
-        /// </param>
-        /// <returns>
-        /// The <see cref="DataTable"/>.
-        /// </returns>
-        /*public static DataTable List(this IRepository<Board> repository, int? boardID = null)
-        {
-            CodeContracts.VerifyNotNull(repository, "repository");
-
-            return repository.DbFunction.GetData.board_list(BoardID: boardID);
-        }*/
-
-        /// <summary>
         /// The list typed.
         /// </summary>
         /// <param name="repository">

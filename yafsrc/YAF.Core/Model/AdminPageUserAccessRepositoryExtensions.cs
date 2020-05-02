@@ -41,11 +41,17 @@ namespace YAF.Core.Model
         /// <summary>
         /// Lists the forum.
         /// </summary>
-        /// <param name="repository">The repository.</param>
-        /// <param name="forumID">The forum id.</param>
-        /// <param name="styledNicks">The styled nicks.</param>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="userId">
+        /// The user Id.
+        /// </param>
+        /// <param name="pageName">
+        /// The page Name.
+        /// </param>
         /// <returns>
-        /// The <see cref="DataTable" /> .
+        /// The <see cref="DataTable"/> .
         /// </returns>
         public static DataTable List(this IRepository<AdminPageUserAccess> repository, int userId, string pageName)
         {
@@ -76,6 +82,18 @@ namespace YAF.Core.Model
             }
         }
 
+        /// <summary>
+        /// The delete.
+        /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="userId">
+        /// The user id.
+        /// </param>
+        /// <param name="pageName">
+        /// The page name.
+        /// </param>
         public static void Delete(this IRepository<AdminPageUserAccess> repository, int userId, string pageName)
         {
             CodeContracts.VerifyNotNull(repository, "repository");

@@ -189,18 +189,20 @@ namespace YAF.Core.Services.Auth
         /// </returns>
         public string OAuthWebRequest(AuthUtilities.Method method, string url, string postData)
         {
-            // Setup postData for signing.
-            // Add the postData to the querystring.
-            if (method == AuthUtilities.Method.POST)
+            switch (method)
             {
-                if (postData.Length > 0)
+                // Setup postData for signing.
+                // Add the postData to the querystring.
+                case AuthUtilities.Method.POST:
                 {
-                    // Decode the parameters and re-encode using the oAuth UrlEncode method.
-                    var qs = HttpUtility.ParseQueryString(postData);
-                    postData = string.Empty;
+                    if (postData.Length > 0)
+                    {
+                        // Decode the parameters and re-encode using the oAuth UrlEncode method.
+                        var qs = HttpUtility.ParseQueryString(postData);
+                        postData = string.Empty;
 
-                    qs.AllKeys.ForEach(
-                        key =>
+                        qs.AllKeys.ForEach(
+                            key =>
                             {
                                 if (postData.Length > 0)
                                 {
@@ -212,21 +214,23 @@ namespace YAF.Core.Services.Auth
                                 postData += $"{key}={qs[key]}";
                             });
                     
-                    if (url.IndexOf("?", StringComparison.Ordinal) > 0)
-                    {
-                        url += "&";
-                    }
-                    else
-                    {
-                        url += "?";
+                        if (url.IndexOf("?", StringComparison.Ordinal) > 0)
+                        {
+                            url += "&";
+                        }
+                        else
+                        {
+                            url += "?";
+                        }
+
+                        url += postData;
                     }
 
-                    url += postData;
+                    break;
                 }
-            }
-            else if (method == AuthUtilities.Method.GET && postData.IsSet())
-            {
-                url += $"?{postData}";
+                case AuthUtilities.Method.GET when postData.IsSet():
+                    url += $"?{postData}";
+                    break;
             }
 
             var uri = new Uri(url);

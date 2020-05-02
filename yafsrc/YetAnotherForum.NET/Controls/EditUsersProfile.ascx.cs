@@ -336,12 +336,7 @@ namespace YAF.Controls
                 this.UserData.LanguageFile,
                 this.UserData.CultureUser,
                 this.UserData.ThemeFile,
-                null,
-                null,
-                null,
-                false,
-                this.UserData.IsActiveExcluded,
-                null);
+                this.UserData.IsActiveExcluded);
 
             // clear the cache for this user...)
             this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.currentUserId));
@@ -483,13 +478,15 @@ namespace YAF.Controls
                 }
             }
 
-            if (this.UserData.Profile.Region.IsSet())
+            if (!this.UserData.Profile.Region.IsSet())
             {
-                var regionItem = this.Region.Items.FindByValue(this.UserData.Profile.Region.Trim());
-                if (regionItem != null)
-                {
-                    regionItem.Selected = true;
-                }
+                return;
+            }
+
+            var regionItem = this.Region.Items.FindByValue(this.UserData.Profile.Region.Trim());
+            if (regionItem != null)
+            {
+                regionItem.Selected = true;
             }
         }
 

@@ -740,10 +740,7 @@ namespace YAF.Core.Model
             foreach (var (item1, item2, _) in listSource)
             {
                 // see if this is a root-forum
-                if (!item1.ParentID.HasValue)
-                {
-                    item1.ParentID = 0;
-                }
+                item1.ParentID ??= 0;
 
                 if (item1.ParentID != parentID)
                 {
@@ -812,10 +809,7 @@ namespace YAF.Core.Model
                 forum =>
                     {
                         // see if this is a root-forum
-                        if (!forum.ParentID.HasValue)
-                        {
-                            forum.ParentID = 0;
-                        }
+                        forum.ParentID ??= 0;
 
                         if (forum.ParentID != parentID)
                         {
@@ -867,10 +861,7 @@ namespace YAF.Core.Model
             listSource.ForEach(
                 row =>
                     {
-                        if (!row.ParentID.HasValue)
-                        {
-                            row.ParentID = 0;
-                        }
+                        row.ParentID ??= 0;
 
                         if (row.ParentID != parentId)
                         {

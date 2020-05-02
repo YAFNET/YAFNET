@@ -32,10 +32,12 @@ namespace YAF.Core.Model
     /// </summary>
     public static class RankRepositoryExtensions
     {
-
         /// <summary>
         /// The rank_save.
         /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
         /// <param name="rankID">
         /// The rank id.
         /// </param>
@@ -81,7 +83,8 @@ namespace YAF.Core.Model
         /// <param name="usrAlbumImages">
         /// The UsrAlbumImages defines number of images allowed for an album.
         /// </param>
-        public static void Save(this IRepository<Rank> repository, 
+        public static void Save(
+            this IRepository<Rank> repository,
             [NotNull] object rankID,
             [NotNull] object boardID,
             [NotNull] object name,

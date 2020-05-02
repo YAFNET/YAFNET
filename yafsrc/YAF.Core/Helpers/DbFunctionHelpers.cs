@@ -153,7 +153,7 @@ namespace YAF.Core.Helpers
         /// <param name="useTransactions">
         /// The use transactions.
         /// </param>
-        public static void SystemInitializeExecutescripts(
+        public static void SystemInitializeExecuteScripts(
             [NotNull] this IDbFunction dbFunction,
             [NotNull] string script,
             [NotNull] string scriptFile,
@@ -162,8 +162,8 @@ namespace YAF.Core.Helpers
             CodeContracts.VerifyNotNull(dbFunction, "dbFunction");
 
             dbFunction.ValidateAndExecute(
-                "SystemInitializeExecutescripts",
-                f => f.Scalar.SystemInitializeExecutescripts(script, scriptFile, useTransactions));
+                "SystemInitializeExecuteScripts",
+                f => f.Scalar.SystemInitializeExecuteScripts(script, scriptFile, useTransactions));
         }
 
         /// <summary>
@@ -175,15 +175,15 @@ namespace YAF.Core.Helpers
         /// <param name="grantAccess">
         /// The grant access.
         /// </param>
-        public static void SystemInitializeFixaccess(
+        public static void SystemInitializeFixAccess(
             [NotNull] this IDbFunction dbFunction,
             bool grantAccess)
         {
             CodeContracts.VerifyNotNull(dbFunction, "dbFunction");
 
             dbFunction.ValidateAndExecute(
-                "SystemInitializeFixaccess",
-                f => f.Scalar.SystemInitializeFixaccess(grantAccess));
+                "SystemInitializeFixAccess",
+                f => f.Scalar.SystemInitializeFixAccess(grantAccess));
         }
 
         /// <summary>

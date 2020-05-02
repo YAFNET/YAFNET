@@ -30,7 +30,6 @@ namespace YAF.Core.Services.Auth
 
     using YAF.Types;
     using YAF.Types.Objects;
-    using YAF.Utils.Extensions;
 
     /// <summary>
     /// Twitter Class to publish, delete, retrieve tweets and Send Direct Messages via twitter.com

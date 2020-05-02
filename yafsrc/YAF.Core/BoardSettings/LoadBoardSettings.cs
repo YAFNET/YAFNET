@@ -26,7 +26,6 @@ namespace YAF.Core
 {
     #region Using
 
-    using System.Data;
     using System.Web.Security;
 
     using YAF.Configuration;
@@ -177,8 +176,6 @@ namespace YAF.Core
         /// </summary>
         private void LoadBoardSettingsFromDB()
         {
-            DataTable dataTable;
-
             var registryList = BoardContext.Current.GetRepository<Registry>().List();
 
             // get all the registry settings into our hash table

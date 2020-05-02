@@ -284,7 +284,7 @@ namespace YAF.Core.Services.Import
 
             // import any extensions that don't exist...
             spamWords.Tables["YafSpamWords"].Rows.Cast<DataRow>()
-                .Where(row => spamWordsList.Any(s => s.SpamWord == row["spamword"])).ForEach(
+                .Where(row => spamWordsList.Any(s => s.SpamWord == row["spamword"].ToString())).ForEach(
                     row =>
                         {
                             // add this...

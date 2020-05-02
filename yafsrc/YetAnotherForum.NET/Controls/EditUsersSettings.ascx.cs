@@ -253,12 +253,7 @@ namespace YAF.Controls
                 language,
                 culture,
                 theme,
-                null,
-                null,
-                null,
-                false,
-                this.HideMe.Checked,
-                null);
+                this.HideMe.Checked);
 
             this.GetRepository<User>().UpdateOnly(
                 () => new User { Activity = this.Activity.Checked },

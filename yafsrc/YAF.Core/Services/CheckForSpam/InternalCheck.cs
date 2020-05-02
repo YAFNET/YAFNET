@@ -107,7 +107,7 @@ namespace YAF.Core.Services.CheckForSpam
                 {
                     BoardContext.Current.Get<ILogger>().Error(
                         ex,
-                        $"Error while Checking for Bot Email");
+                        "Error while Checking for Bot Email");
                 }
 
                 if (bannedIpList.Any(i => i.Equals(ipAddress)))

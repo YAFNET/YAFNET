@@ -427,7 +427,7 @@ namespace YAF.Core.Services
                 throw new IOException($"Failed to read {fileName}", x);
             }
 
-            this.Get<IDbFunction>().SystemInitializeExecutescripts(script, scriptFile, useTransactions);
+            this.Get<IDbFunction>().SystemInitializeExecuteScripts(script, scriptFile, useTransactions);
         }
 
         /// <summary>
@@ -436,7 +436,7 @@ namespace YAF.Core.Services
         /// <param name="grantAccess">if set to <c>true</c> [grant access].</param>
         private void FixAccess(bool grantAccess)
         {
-            this.Get<IDbFunction>().SystemInitializeFixaccess(grantAccess);
+            this.Get<IDbFunction>().SystemInitializeFixAccess(grantAccess);
         }
 
         /// <summary>

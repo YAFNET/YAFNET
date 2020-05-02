@@ -245,10 +245,7 @@
                                                   DataValueField="Value" 
                                                   CssClass="select2-select" />
                         </div>
-                    <div class="form-group">
-                                 <asp:CheckBox runat="server" ID="DSTUser" Visible="False" />
-                     </div>
-                       </div>
+                    </div>
                     <div class="card-footer text-center">
 							<YAF:ThemeButton ID="ProfileNextButton" runat="server" 
                                              CommandName="MoveNext" TextLocalizedTag="SAVE"

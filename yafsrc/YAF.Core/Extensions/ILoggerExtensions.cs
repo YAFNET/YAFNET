@@ -133,7 +133,7 @@ namespace YAF.Core.Extensions
             {
                 message = $"Exception at URL: {BoardContext.Current.Get<HttpRequestBase>().Url}";
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 message = "Exception";
             }

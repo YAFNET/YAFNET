@@ -74,7 +74,7 @@ namespace YAF.Controls
                                 AlternateText = row["Name"].ToString()
                             };
 
-            var icon = new Icon { IconName = "folder", IconType = "text-warning", IconSize = "fa-2x",  };
+            var icon = new Icon { IconName = "folder", IconType = "text-warning", IconSize = "fa-2x" };
 
             return hasCategoryImage
                        ? $"{image.RenderToString()}&nbsp;"

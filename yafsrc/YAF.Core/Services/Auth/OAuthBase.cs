@@ -400,10 +400,7 @@ namespace YAF.Core.Services.Auth
             out string normalizedUrl,
             out string normalizedRequestParameters)
         {
-            if (token == null)
-            {
-                token = string.Empty;
-            }
+            token ??= string.Empty;
 
             if (consumerKey.IsNotSet())
             {

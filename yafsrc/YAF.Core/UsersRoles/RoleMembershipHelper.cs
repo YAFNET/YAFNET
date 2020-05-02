@@ -42,7 +42,6 @@ namespace YAF.Core.UsersRoles
     using YAF.Types.Flags;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
-    using YAF.Utils;
     using YAF.Utils.Helpers;
 
     #endregion
@@ -618,7 +617,7 @@ namespace YAF.Core.UsersRoles
                         // setup roles for this user...
                         var groups = BoardContext.Current.GetRepository<UserGroup>().List(row.Field<int>("UserID"));
 
-                        groups.ForEach(group => AddUserToRole(user.UserName, @group.Name));
+                        groups.ForEach(group => AddUserToRole(user.UserName, group.Name));
                     });
         }
 

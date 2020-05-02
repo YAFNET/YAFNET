@@ -130,12 +130,7 @@ namespace YAF.Pages.Admin
                 null,
                 null,
                 null,
-                null,
-                this.Get<BoardSettings>().DefaultNotificationSetting,
-                autoWatchTopicsEnabled,
-                null,
-                null,
-                null);
+                false);
 
             if (this.Get<BoardSettings>().EmailVerification)
             {

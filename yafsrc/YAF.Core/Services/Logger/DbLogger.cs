@@ -68,7 +68,7 @@ namespace YAF.Core.Services.Logger
         /// <value>
         /// The event log repository.
         /// </value>
-        public IRepository<EventLog> EventLogRepository => this.GetRepository<Types.Models.EventLog>();
+        public IRepository<EventLog> EventLogRepository => this.GetRepository<EventLog>();
 
         /// <summary>
         /// Gets or sets the service locator.

@@ -45,14 +45,14 @@ namespace YAF.Core.Model
         /// Lists all the albums associated with the UserID or gets all the
         ///   specifications for the specified album id.
         /// </summary>
-        /// <param name="userID">
-        /// The user id.
+        /// <param name="repository">
+        /// The repository.
         /// </param>
-        /// <param name="albumID">
-        /// the album id.
+        /// <param name="albumId">
+        /// The album Id.
         /// </param>
         /// <returns>
-        /// a Datatable containing the albums.
+        /// The <see cref="List"/>.
         /// </returns>
         public static List<UserAlbum> List(
             [NotNull] this IRepository<UserAlbum> repository, int albumId)
@@ -64,14 +64,14 @@ namespace YAF.Core.Model
         /// Lists all the albums associated with the UserID or gets all the
         ///   specifications for the specified album id.
         /// </summary>
-        /// <param name="userID">
-        /// The user id.
+        /// <param name="repository">
+        /// The repository.
         /// </param>
-        /// <param name="albumID">
-        /// the album id.
+        /// <param name="userId">
+        /// The user Id.
         /// </param>
         /// <returns>
-        /// a Datatable containing the albums.
+        /// The <see cref="List"/>.
         /// </returns>
         public static List<UserAlbum> ListByUser(
             [NotNull] this IRepository<UserAlbum> repository, int userId)
@@ -79,17 +79,49 @@ namespace YAF.Core.Model
             return repository.Get(userAlbum => userAlbum.UserID == userId).OrderByDescending(u => u.Updated).ToList();
         }
 
-
+        /// <summary>
+        /// The get title.
+        /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="albumId">
+        /// The album id.
+        /// </param>
+        /// <returns>
+        /// The <see cref="string"/>.
+        /// </returns>
         public static string GetTitle(this IRepository<UserAlbum> repository, [NotNull] int albumId)
         {
             return repository.GetById(albumId).Title;
         }
 
+        /// <summary>
+        /// The delete cover.
+        /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="imageId">
+        /// The image id.
+        /// </param>
         public static void DeleteCover(this IRepository<UserAlbum> repository, [NotNull] int imageId)
         {
             repository.UpdateOnly(() => new UserAlbum { CoverImageID = null }, u => u.CoverImageID == imageId);
         }
 
+        /// <summary>
+        /// The count user album.
+        /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="userId">
+        /// The user id.
+        /// </param>
+        /// <returns>
+        /// The <see cref="long"/>.
+        /// </returns>
         [NotNull]
         public static long CountUserAlbum([NotNull] this IRepository<UserAlbum> repository, [NotNull] int userId)
         {
@@ -98,6 +130,18 @@ namespace YAF.Core.Model
             return repository.Count(album => album.UserID == userId);
         }
 
+        /// <summary>
+        /// The update title.
+        /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="albumId">
+        /// The album id.
+        /// </param>
+        /// <param name="title">
+        /// The title.
+        /// </param>
         public static void UpdateTitle(
             this IRepository<UserAlbum> repository,
             [NotNull] int albumId,
@@ -108,6 +152,18 @@ namespace YAF.Core.Model
                 album => album.ID == albumId);
         }
 
+        /// <summary>
+        /// The update cover.
+        /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="albumId">
+        /// The album id.
+        /// </param>
+        /// <param name="coverImageId">
+        /// The cover image id.
+        /// </param>
         public static void UpdateCover(
             this IRepository<UserAlbum> repository,
             [NotNull] int albumId,
@@ -118,6 +174,24 @@ namespace YAF.Core.Model
                 album => album.ID == albumId);
         }
 
+        /// <summary>
+        /// The save.
+        /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="userId">
+        /// The user id.
+        /// </param>
+        /// <param name="title">
+        /// The title.
+        /// </param>
+        /// <param name="coverImageId">
+        /// The cover image id.
+        /// </param>
+        /// <returns>
+        /// The <see cref="int"/>.
+        /// </returns>
         public static int Save(
             this IRepository<UserAlbum> repository,
             [NotNull] int userId,
