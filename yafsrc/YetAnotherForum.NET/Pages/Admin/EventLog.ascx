@@ -146,7 +146,6 @@
                         </YAF:ThemeButton>
                         <div class="dropdown-divider"></div>
                         <YAF:ThemeButton runat="server" 
-                                         Visible="<%# this.List.Items.Count > 0 %>" 
                                          Type="None" 
                                          CssClass="dropdown-item"
                                          Icon="trash" 
