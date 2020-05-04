@@ -47,7 +47,7 @@ namespace YAF.Web.Controls
     /// <summary>
     /// The theme button.
     /// </summary>
-    public sealed class ThemeButton : BaseControl, IPostBackEventHandler
+    public class ThemeButton : BaseControl, IPostBackEventHandler, IButtonControl
     {
         #region Constants and Fields
 
@@ -82,6 +82,8 @@ namespace YAF.Web.Controls
         #endregion
 
         #region Events
+
+        public string ValidationGroup { get; set; }
 
         /// <summary>
         ///   The click.
@@ -146,6 +148,17 @@ namespace YAF.Web.Controls
         /// </summary>
         public AttributeCollection Attributes { get; }
 
+        public bool CausesValidation
+        {
+            get
+            {
+                var causesValidation = this.ViewState["CausesValidation"];
+                if (causesValidation != null) return (bool)causesValidation;
+                return true;
+            }
+            set => this.ViewState["CausesValidation"] = value;
+        }
+
         /// <summary>
         ///   Gets or sets CommandArgument.
         /// </summary>
@@ -165,6 +178,8 @@ namespace YAF.Web.Controls
 
             set => this.ViewState["commandName"] = value;
         }
+
+        public string PostBackUrl { get; set; }
 
         /// <summary>
         /// Gets or sets the text.
@@ -438,6 +453,23 @@ namespace YAF.Web.Controls
         /// </param>
         void IPostBackEventHandler.RaisePostBackEvent([NotNull] string eventArgument)
         {
+            if (this.CausesValidation)
+            {
+                if (this.ValidationGroup.IsSet())
+                {
+                    this.Page.Validate(this.ValidationGroup);
+                }
+                else
+                {
+                    this.Page.Validate();
+                }
+            }
+
+            if (this.CausesValidation && !this.Page.IsValid)
+            {
+                return;
+            }
+
             this.OnCommand(new CommandEventArgs(this.CommandName, this.CommandArgument));
             this.OnClick(EventArgs.Empty);
         }
@@ -456,12 +488,27 @@ namespace YAF.Web.Controls
         /// </param>
         protected override void Render([NotNull] HtmlTextWriter output)
         {
+            PostBackOptions postBackOptions = new PostBackOptions(this)
+            {
+                PerformValidation = this.CausesValidation,
+                ValidationGroup = this.ValidationGroup,
+                RequiresJavaScriptProtocol = true,
+                ClientSubmit = false,
+                AutoPostBack = false
+            };
+
+            this.Page.ClientScript.RegisterForEventValidation(postBackOptions);
+
             // get the title...
             var title = this.GetLocalizedTitle();
 
             output.BeginRender();
             output.WriteBeginTag("a");
-            output.WriteAttribute("id", this.ClientID);
+            output.WriteAttribute(HtmlTextWriterAttribute.Id.ToString(), this.ClientID);
+
+            string uniqueID = this.UniqueID;
+
+            output.WriteAttribute(HtmlTextWriterAttribute.Name.ToString(), uniqueID);
 
             var actionClass = GetAttributeValue(this.Type);
 
@@ -498,6 +545,8 @@ namespace YAF.Web.Controls
             {
                 output.WriteAttribute("title", HttpUtility.HtmlEncode(this.TitleNonLocalized));
             }
+
+            output.WriteAttribute("role", "button");
 
             output.WriteAttribute(
                 "href",
@@ -604,7 +653,6 @@ namespace YAF.Web.Controls
             output.WriteEndTag("a");
             output.EndRender();
         }
-
         /// <summary>
         /// Gets the CSS class value.
         /// </summary>
