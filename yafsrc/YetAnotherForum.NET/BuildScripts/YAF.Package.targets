@@ -52,7 +52,7 @@
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery.ForumAdminExtensions.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\moment-with-locales.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\moment-with-locales.min.js" />
-      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery-3.5.0.js" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery-3.5.1.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jsdifflib.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jsdifflib.min.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\ladda.js" />

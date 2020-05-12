@@ -289,13 +289,7 @@ namespace YAF.Configuration
         /// The j query version.
         /// </summary>
         public static string JQueryVersion => GetConfigValueAsString("YAF.JQueryVersion")
-                                                   ?? "3.5.0";
-
-        /// <summary>
-        ///     Gets MembershipProvider.
-        /// </summary>
-        [NotNull]
-        public static string MembershipProvider => GetConfigValueAsString("YAF.MembershipProvider") ?? string.Empty;
+                                                   ?? "3.5.1";
 
         /// <summary>
         ///     Gets MobileUserAgents.
@@ -308,24 +302,6 @@ namespace YAF.Configuration
         ///     Gets a value indicating whether Boolean to force uploads, and images, themes etc.. from a specific BoardID folder within BoardRoot Example : true /false
         /// </summary>
         public static bool MultiBoardFolders => GetConfigValueAsBool("YAF.MultiBoardFolders", false);
-
-        /// <summary>
-        ///     Gets ProviderKeyType.
-        /// </summary>
-        [NotNull]
-        public static string ProviderKeyType => GetConfigValueAsString("YAF.ProviderKeyType") ?? "System.Guid";
-
-        /// <summary>
-        ///     Gets ProfileProvider.
-        /// </summary>
-        [NotNull]
-        public static string ProviderProvider => GetConfigValueAsString("YAF.ProfileProvider") ?? string.Empty;
-
-        /// <summary>
-        ///     Gets RoleProvider.
-        /// </summary>
-        [NotNull]
-        public static string RoleProvider => GetConfigValueAsString("YAF.RoleProvider") ?? string.Empty;
 
         /// <summary>
         ///     Gets ServerFileRoot.
