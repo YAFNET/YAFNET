@@ -153,8 +153,13 @@ namespace YAF.Web.Controls
             get
             {
                 var causesValidation = this.ViewState["CausesValidation"];
-                if (causesValidation != null) return (bool)causesValidation;
-                return true;
+                
+                if (causesValidation != null)
+                {
+                    return (bool)causesValidation;
+                }
+
+                return false;
             }
             set => this.ViewState["CausesValidation"] = value;
         }
@@ -463,15 +468,20 @@ namespace YAF.Web.Controls
                 {
                     this.Page.Validate();
                 }
-            }
 
-            if (this.CausesValidation && !this.Page.IsValid)
+                if (!this.Page.IsValid)
+                {
+                    return;
+                }
+
+                this.OnCommand(new CommandEventArgs(this.CommandName, this.CommandArgument));
+                this.OnClick(EventArgs.Empty);
+            }
+            else
             {
-                return;
+                this.OnCommand(new CommandEventArgs(this.CommandName, this.CommandArgument));
+                this.OnClick(EventArgs.Empty);
             }
-
-            this.OnCommand(new CommandEventArgs(this.CommandName, this.CommandArgument));
-            this.OnClick(EventArgs.Empty);
         }
 
         #endregion
@@ -488,17 +498,20 @@ namespace YAF.Web.Controls
         /// </param>
         protected override void Render([NotNull] HtmlTextWriter output)
         {
-            PostBackOptions postBackOptions = new PostBackOptions(this)
+            if (this.CausesValidation)
             {
-                PerformValidation = this.CausesValidation,
-                ValidationGroup = this.ValidationGroup,
-                RequiresJavaScriptProtocol = true,
-                ClientSubmit = false,
-                AutoPostBack = false
-            };
+                var postBackOptions = new PostBackOptions(this)
+                {
+                    PerformValidation = true,
+                    ValidationGroup = this.ValidationGroup,
+                    RequiresJavaScriptProtocol = true,
+                    ClientSubmit = false,
+                    AutoPostBack = false
+                };
 
-            this.Page.ClientScript.RegisterForEventValidation(postBackOptions);
-
+                this.Page.ClientScript.RegisterForEventValidation(postBackOptions);
+            }
+            
             // get the title...
             var title = this.GetLocalizedTitle();
 
@@ -649,7 +662,6 @@ namespace YAF.Web.Controls
             // render the optional controls (if any)
             base.Render(output);
 
-            // output.WriteEndTag("span");
             output.WriteEndTag("a");
             output.EndRender();
         }
