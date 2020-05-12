@@ -438,18 +438,15 @@ namespace YAF.Core.Services
                         }
                     });
 
-            if (!this.BoardSettings.AllowNotificationAllPostsAllTopics)
+            if (this.BoardSettings.AllowNotificationAllPostsAllTopics)
             {
-                return;
-            }
+                var usersWithAll = this.GetRepository<User>().FindUserTyped(
+                    false,
+                    notificationType: UserNotificationSetting.AllTopics.ToInt());
 
-            var usersWithAll = this.GetRepository<User>().FindUserTyped(
-                false,
-                notificationType: UserNotificationSetting.AllTopics.ToInt());
-
-            // create individual watch emails for all users who have All Posts on...
-            usersWithAll.Where(x => x.ID != messageAuthorUserID && x.ProviderUserKey != null).AsParallel().ForAll(
-                user =>
+                // create individual watch emails for all users who have All Posts on...
+                usersWithAll.Where(x => x.ID != messageAuthorUserID && x.ProviderUserKey != null).AsParallel().ForAll(
+                    user =>
                     {
                         HttpContext.Current = currentContext;
 
@@ -461,8 +458,8 @@ namespace YAF.Core.Services
                             }
 
                             var languageFile = user.LanguageFile.IsSet() && this.Get<BoardSettings>().AllowUserLanguage
-                                                   ? user.LanguageFile
-                                                   : this.Get<BoardSettings>().Language;
+                                ? user.LanguageFile
+                                : this.Get<BoardSettings>().Language;
 
                             var subject = string.Format(
                                 this.Get<ILocalization>().GetText("COMMON", "TOPIC_NOTIFICATION_SUBJECT", languageFile),
@@ -482,11 +479,21 @@ namespace YAF.Core.Services
                             HttpContext.Current = null;
                         }
                     });
+            }
+
+            
 
             if (mailMessages.Any())
             {
                 // Now send all mails..
-                this.Get<ISendMail>().SendAll(mailMessages);
+                this.Get<ISendMail>().SendAll(
+                    mailMessages,
+                    (mailMessage, exception) => this.Get<ILogger>().Log(
+                        "Mail Error",
+                        EventLogTypes.Error,
+                        "SYSTEM",
+                        null,
+                        exception));
             }
         }
 
