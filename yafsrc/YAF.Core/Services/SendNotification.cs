@@ -33,17 +33,18 @@ namespace YAF.Core.Services
     using System.Linq;
     using System.Net.Mail;
     using System.Web;
-    using System.Web.Security;
 
     using YAF.Configuration;
     using YAF.Core.Context;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
     using YAF.Core.UsersRoles;
+    using YAF.Identity.Interfaces;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Flags;
+    using YAF.Types.IdentityModels;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
     using YAF.Types.Objects;
@@ -109,7 +110,7 @@ namespace YAF.Core.Services
                     {
                         if (moderator.IsGroup)
                         {
-                            moderatorUserNames.AddRange(this.Get<RoleProvider>().GetUsersInRole(moderator.Name));
+                            moderatorUserNames.AddRange(RoleMembershipHelper.GetUsersInRole(moderator.Name).Select(u => u.UserName));
                         }
                         else
                         {
@@ -135,9 +136,9 @@ namespace YAF.Core.Services
                         try
                         {
                             // add each member of the group
-                            var membershipUser = UserMembershipHelper.GetUser(userName);
+                            var membershipUser = UserMembershipHelper.GetUserByName(userName);
                             var userId =
-                                UserMembershipHelper.GetUserIDFromProviderUserKey(membershipUser.ProviderUserKey);
+                                UserMembershipHelper.GetUserIDFromProviderUserKey(membershipUser.Id);
 
                             var languageFile = UserHelper.GetUserLanguageFile(userId);
 
@@ -209,7 +210,8 @@ namespace YAF.Core.Services
                         {
                             if (moderator.IsGroup)
                             {
-                                moderatorUserNames.AddRange(this.Get<RoleProvider>().GetUsersInRole(moderator.Name));
+                                moderatorUserNames.AddRange(
+                                    RoleMembershipHelper.GetUsersInRole(moderator.Name).Select(u => u.UserName));
                             }
                             else
                             {
@@ -228,9 +230,9 @@ namespace YAF.Core.Services
                             try
                             {
                                 // add each member of the group
-                                var membershipUser = UserMembershipHelper.GetUser(userName);
+                                var membershipUser = UserMembershipHelper.GetUserByName(userName);
                                 var userId =
-                                    UserMembershipHelper.GetUserIDFromProviderUserKey(membershipUser.ProviderUserKey);
+                                    UserMembershipHelper.GetUserIDFromProviderUserKey(membershipUser.Id);
 
                                 var languageFile = UserHelper.GetUserLanguageFile(userId);
 
@@ -399,7 +401,7 @@ namespace YAF.Core.Services
                                                  "m={0}#post{0}",
                                                  newMessageId),
                                              ["{subscriptionlink}"] = BuildLink.GetLinkNotEscaped(
-                                                 ForumPages.Subscriptions,
+                                                 ForumPages.Profile_Subscriptions,
                                                  true)
                                          }
                                  };
@@ -438,18 +440,15 @@ namespace YAF.Core.Services
                         }
                     });
 
-            if (!this.BoardSettings.AllowNotificationAllPostsAllTopics)
+            if (this.BoardSettings.AllowNotificationAllPostsAllTopics)
             {
-                return;
-            }
+                var usersWithAll = this.GetRepository<User>().FindUserTyped(
+                    false,
+                    notificationType: UserNotificationSetting.AllTopics.ToInt());
 
-            var usersWithAll = this.GetRepository<User>().FindUserTyped(
-                false,
-                notificationType: UserNotificationSetting.AllTopics.ToInt());
-
-            // create individual watch emails for all users who have All Posts on...
-            usersWithAll.Where(x => x.ID != messageAuthorUserID && x.ProviderUserKey != null).AsParallel().ForAll(
-                user =>
+                // create individual watch emails for all users who have All Posts on...
+                usersWithAll.Where(x => x.ID != messageAuthorUserID && x.ProviderUserKey != null).AsParallel().ForAll(
+                    user =>
                     {
                         HttpContext.Current = currentContext;
 
@@ -461,8 +460,8 @@ namespace YAF.Core.Services
                             }
 
                             var languageFile = user.LanguageFile.IsSet() && this.Get<BoardSettings>().AllowUserLanguage
-                                                   ? user.LanguageFile
-                                                   : this.Get<BoardSettings>().Language;
+                                ? user.LanguageFile
+                                : this.Get<BoardSettings>().Language;
 
                             var subject = string.Format(
                                 this.Get<ILocalization>().GetText("COMMON", "TOPIC_NOTIFICATION_SUBJECT", languageFile),
@@ -470,23 +469,32 @@ namespace YAF.Core.Services
 
                             watchEmail.TemplateLanguageFile = languageFile;
 
-                            mailMessages.Add(watchEmail.CreateEmail(
-                                new MailAddress(forumEmail, boardName),
-                                new MailAddress(
-                                    user.Email,
-                                    this.BoardSettings.EnableDisplayName ? user.DisplayName : user.Name),
-                                subject));
+                            mailMessages.Add(
+                                watchEmail.CreateEmail(
+                                    new MailAddress(forumEmail, boardName),
+                                    new MailAddress(
+                                        user.Email,
+                                        this.BoardSettings.EnableDisplayName ? user.DisplayName : user.Name),
+                                    subject));
                         }
                         finally
                         {
                             HttpContext.Current = null;
                         }
                     });
+            }
 
             if (mailMessages.Any())
             {
                 // Now send all mails..
-                this.Get<ISendMail>().SendAll(mailMessages);
+                this.Get<ISendMail>().SendAll(
+                    mailMessages,
+                    (mailMessage, exception) => this.Get<ILogger>().Log(
+                        "Mail Error",
+                        EventLogTypes.Error,
+                        "SYSTEM",
+                        null,
+                        exception));
             }
         }
 
@@ -507,7 +515,7 @@ namespace YAF.Core.Services
         /// The template Name.
         /// </param>
         public void SendRegistrationNotificationToUser(
-            [NotNull] MembershipUser user,
+            [NotNull] ApplicationUser user,
             [NotNull] string pass,
             [NotNull] string securityAnswer,
             string templateName)
@@ -585,7 +593,7 @@ namespace YAF.Core.Services
         /// </summary>
         /// <param name="user">The user.</param>
         /// <param name="removedRoles">The removed roles.</param>
-        public void SendRoleUnAssignmentNotification([NotNull] MembershipUser user, List<string> removedRoles)
+        public void SendRoleUnAssignmentNotification([NotNull] ApplicationUser user, List<string> removedRoles)
         {
             var subject = this.Get<ILocalization>().GetTextFormatted(
                 "NOTIFICATION_ROLE_ASSIGNMENT_SUBJECT",
@@ -610,7 +618,7 @@ namespace YAF.Core.Services
         /// </summary>
         /// <param name="user">The user.</param>
         /// <param name="addedRoles">The added roles.</param>
-        public void SendRoleAssignmentNotification([NotNull] MembershipUser user, List<string> addedRoles)
+        public void SendRoleAssignmentNotification([NotNull] ApplicationUser user, List<string> addedRoles)
         {
             var subject = this.Get<ILocalization>().GetTextFormatted(
                 "NOTIFICATION_ROLE_ASSIGNMENT_SUBJECT",
@@ -636,7 +644,7 @@ namespace YAF.Core.Services
         /// </summary>
         /// <param name="user">The user.</param>
         /// <param name="userId">The user id.</param>
-        public void SendRegistrationNotificationEmail([NotNull] MembershipUser user, int userId)
+        public void SendRegistrationNotificationEmail([NotNull] ApplicationUser user, int userId)
         {
             if (this.BoardSettings.NotificationOnUserRegisterEmailList.IsNotSet())
             {
@@ -676,7 +684,7 @@ namespace YAF.Core.Services
         /// </summary>
         /// <param name="user">The user.</param>
         /// <param name="userId">The user id.</param>
-        public void SendSpamBotNotificationToAdmins([NotNull] MembershipUser user, int userId)
+        public void SendSpamBotNotificationToAdmins([NotNull] ApplicationUser user, int userId)
         {
             // Get Admin Group ID
             var adminGroupId = this.GetRepository<Group>().List(boardId: BoardContext.Current.PageBoardID)
@@ -728,7 +736,7 @@ namespace YAF.Core.Services
         /// </summary>
         /// <param name="user">The user.</param>
         /// <param name="userId">The user identifier.</param>
-        public void SendUserWelcomeNotification([NotNull] MembershipUser user, int? userId)
+        public void SendUserWelcomeNotification([NotNull] ApplicationUser user, int userId)
         {
             if (this.BoardSettings.SendWelcomeNotificationAfterRegister.Equals(0))
             {
@@ -763,7 +771,7 @@ namespace YAF.Core.Services
 
                 BoardContext.Current.GetRepository<PMessage>().SendMessage(
                     hostUser.UserID.Value,
-                    userId.Value,
+                    userId,
                     subject,
                     emailBody,
                     messageFlags.BitValue,
@@ -783,7 +791,7 @@ namespace YAF.Core.Services
         /// <param name="userId">The user identifier.</param>
         /// <param name="newUsername">The new username.</param>
         public void SendVerificationEmail(
-            [NotNull] MembershipUser user,
+            [NotNull] ApplicationUser user,
             [NotNull] string email,
             int? userId,
             string newUsername = null)
@@ -791,11 +799,11 @@ namespace YAF.Core.Services
             CodeContracts.VerifyNotNull(email, "email");
             CodeContracts.VerifyNotNull(user, "user");
 
-            var hashInput = $"{System.DateTime.UtcNow}{email}{Security.CreatePassword(20)}";
-            var hash = FormsAuthentication.HashPasswordForStoringInConfigFile(hashInput, "md5");
+            var code = HttpUtility.UrlEncode(
+                BoardContext.Current.Get<IApplicationUserManager>().GenerateEmailConfirmationResetToken(user.Id));
 
             // save verification record...
-            this.GetRepository<CheckEmail>().Save(userId, hash, user.Email);
+            this.GetRepository<CheckEmail>().Save(userId, code, user.Email);
 
             var subject = this.Get<ILocalization>().GetTextFormatted(
                 "VERIFICATION_EMAIL_SUBJECT",
@@ -806,57 +814,13 @@ namespace YAF.Core.Services
                                       TemplateParams =
                                           {
                                               ["{link}"] =
-                                                  BuildLink.GetLinkNotEscaped(ForumPages.Approve, true, "k={0}", hash),
-                                              ["{key}"] = hash,
+                                                  BuildLink.GetLinkNotEscaped(ForumPages.Account_Approve, true, "code={0}", code),
+                                              ["{key}"] = code,
                                               ["{username}"] = user.UserName
                                           }
                                   };
 
             verifyEmail.SendEmail(new MailAddress(email, newUsername ?? user.UserName), subject);
-        }
-
-        /// <summary>
-        /// Send Email Verification to changed Email Address
-        /// </summary>
-        /// <param name="newEmail">
-        /// The new email.
-        /// </param>
-        /// <param name="userId">
-        /// The user Id.
-        /// </param>
-        /// <param name="userName">
-        /// The user Name.
-        /// </param>
-        public void SendEmailChangeVerification([NotNull] string newEmail, [NotNull] int userId, string userName)
-        {
-            var hashInput = $"{System.DateTime.UtcNow}{newEmail}{Security.CreatePassword(20)}";
-            var hash = FormsAuthentication.HashPasswordForStoringInConfigFile(hashInput, "md5");
-
-            // Create Email
-            var changeEmail = new TemplateEmail("CHANGEEMAIL")
-                                  {
-                                      TemplateParams =
-                                          {
-                                              ["{user}"] = userName,
-                                              ["{link}"] =
-                                                  $"{BuildLink.GetLinkNotEscaped(ForumPages.Approve, true, "k={0}", hash)}\r\n\r\n",
-                                              ["{newemail}"] = newEmail,
-                                              ["{key}"] = hash
-                                          }
-                                  };
-
-            // save a change email reference to the db
-            this.GetRepository<CheckEmail>().Save(userId, hash, newEmail);
-
-            // send a change email message...
-            changeEmail.SendEmail(
-                new MailAddress(newEmail),
-                this.Get<ILocalization>().GetText("COMMON", "CHANGEEMAIL_SUBJECT"));
-
-            // show a confirmation
-            BoardContext.Current.AddLoadMessage(
-                string.Format(this.Get<ILocalization>().GetText("PROFILE", "mail_sent"), newEmail),
-                MessageTypes.info);
         }
 
         /// <summary>
@@ -914,6 +878,35 @@ namespace YAF.Core.Services
                                  };
 
             notifyUser.SendEmail(new MailAddress(email, userName), subject);
+        }
+
+        /// <summary>
+        /// The send password reset.
+        /// </summary>
+        /// <param name="user">
+        /// The user.
+        /// </param>
+        /// <param name="code">
+        /// The code.
+        /// </param>
+        public void SendPasswordReset([NotNull] ApplicationUser user, [NotNull] string code)
+        {
+            // re-send verification email instead of lost password...
+            var verifyEmail = new TemplateEmail("RESET_PASS");
+
+            var subject = this.Get<ILocalization>().GetTextFormatted(
+                "RESET_PASS_EMAIL_SUBJECT",
+                this.Get<BoardSettings>().Name);
+
+            verifyEmail.TemplateParams["{link}"] = BuildLink.GetLinkNotEscaped(
+                ForumPages.Account_ResetPassword,
+                true,
+                "code={0}",
+                code);
+            verifyEmail.TemplateParams["{forumname}"] = this.Get<BoardSettings>().Name;
+            verifyEmail.TemplateParams["{forumlink}"] = $"{BoardInfo.ForumURL}";
+
+            verifyEmail.SendEmail(new MailAddress(user.Email, user.UserName), subject);
         }
 
         #endregion
