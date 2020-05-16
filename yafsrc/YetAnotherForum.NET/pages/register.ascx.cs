@@ -831,7 +831,7 @@ namespace YAF.Pages
 
             var location = new StringBuilder();
 
-            if (userIpLocator["CountryCode"] != null && userIpLocator["CountryCode"].IsSet() && !userIpLocator["CountryCode"].Equals("-"))
+            if (userIpLocator.ContainsKey("CountryCode") && userIpLocator["CountryCode"].IsSet() && !userIpLocator["CountryCode"].Equals("-"))
             {
                 var countryItem = country.Items.FindByValue(userIpLocator["CountryCode"]);
 
@@ -841,12 +841,12 @@ namespace YAF.Pages
                 }
             }
 
-            if (userIpLocator["RegionName"] != null && userIpLocator["RegionName"].IsSet() && !userIpLocator["RegionName"].Equals("-"))
+            if (userIpLocator.ContainsKey("RegionName") && userIpLocator["RegionName"].IsSet() && !userIpLocator["RegionName"].Equals("-"))
             {
                 location.Append(userIpLocator["RegionName"]);
             }
 
-            if (userIpLocator["CityName"] != null && userIpLocator["CityName"].IsSet() && !userIpLocator["CityName"].Equals("-"))
+            if (userIpLocator.ContainsKey("CityName") && userIpLocator["CityName"].IsSet() && !userIpLocator["CityName"].Equals("-"))
             {
                 location.AppendFormat(", {0}", userIpLocator["CityName"]);
             }

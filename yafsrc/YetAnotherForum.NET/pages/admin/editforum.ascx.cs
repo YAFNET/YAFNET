@@ -529,7 +529,7 @@ namespace YAF.Pages.Admin
                 }
             }
 
-            string themeUrl = string.Empty;
+            var themeUrl = string.Empty;
 
             if (this.ThemeList.SelectedValue.Length > 0)
             {

@@ -401,7 +401,8 @@ namespace YAF.Controls
                     ? this.UserData.LastIP
                     : BoardContext.Current.Get<HttpRequestBase>().GetUserRealIPAddress());
 
-            if (userIpLocator["CountryCode"] != null && userIpLocator["CountryCode"].IsSet() && !userIpLocator["CountryCode"].Equals("-"))
+            if (userIpLocator.ContainsKey("CountryCode") && userIpLocator["CountryCode"].IsSet() &&
+                !userIpLocator["CountryCode"].Equals("-"))
             {
                 var countryItem = this.Country.Items.FindByValue(userIpLocator["CountryCode"]);
 
@@ -412,7 +413,8 @@ namespace YAF.Controls
                 }
             }
 
-            if (userIpLocator["CityName"] != null && userIpLocator["CityName"].IsSet() && !userIpLocator["CityName"].Equals("-"))
+            if (userIpLocator.ContainsKey("CityName") && userIpLocator["CityName"].IsSet() &&
+                !userIpLocator["CityName"].Equals("-"))
             {
                 this.City.Text = userIpLocator["CityName"];
             }

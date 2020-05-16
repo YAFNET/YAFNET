@@ -34,6 +34,7 @@ namespace YAF.Controls
     using YAF.Configuration;
     using YAF.Core;
     using YAF.Core.BaseControls;
+    using YAF.Core.Context;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
     using YAF.Core.Utilities;
@@ -79,16 +80,16 @@ namespace YAF.Controls
                 ForumPages.Posts, "m={0}#post{0}", currentRow["LastMessageID"]);
 
             // get the controls
-            var postIcon = e.Item.FindControlAs<PlaceHolder>("PostIcon");
+            var postIcon = e.Item.FindControlAs<Label>("PostIcon");
             var textMessageLink = e.Item.FindControlAs<HyperLink>("TextMessageLink");
+            var forumLink = e.Item.FindControlAs<HyperLink>("ForumLink");
             var info = e.Item.FindControlAs<ThemeButton>("Info");
             var imageMessageLink = e.Item.FindControlAs<ThemeButton>("GoToLastPost");
             var imageLastUnreadMessageLink = e.Item.FindControlAs<ThemeButton>("GoToLastUnread");
             var lastUserLink = new UserLink();
             var lastPostedDateLabel = new DisplayDateTime { Format = DateTimeFormat.BothTopic };
 
-            var topicSubject = this.Get<IBadWordReplace>().Replace(this.HtmlEncode(currentRow["Topic"]))
-                .Truncate(70);
+            var topicSubject = this.Get<IBadWordReplace>().Replace(this.HtmlEncode(currentRow["Topic"]));
 
             var styles = this.Get<BoardSettings>().UseStyledTopicTitles
                              ? this.Get<IStyleTransform>().DecodeStyleByString(currentRow["Styles"].ToString())
@@ -115,6 +116,9 @@ namespace YAF.Controls
                 ForumPages.Posts, "t={0}&find=unread", currentRow["TopicID"]);
 
             imageMessageLink.NavigateUrl = messageUrl;
+
+            forumLink.Text = $"({currentRow["Forum"]})";
+            forumLink.NavigateUrl = BuildLink.GetLink(ForumPages.topics, "f={0}", currentRow["ForumID"]);
 
             if (imageLastUnreadMessageLink.Visible)
             {
@@ -145,12 +149,12 @@ namespace YAF.Controls
                         currentRow["LastForumAccess"].ToType<DateTime?>() ?? DateTimeHelper.SqlDbMinTime(),
                         currentRow["LastTopicAccess"].ToType<DateTime?>() ?? DateTimeHelper.SqlDbMinTime());
 
-                postIcon.Controls.Add(
-                    new Literal
-                    {
-                        Text = 
-                                $"<span class=\"fa-stack\"><i class=\"fas fa-comment fa-stack-2x {(DateTime.Parse(currentRow["LastPosted"].ToString()) > lastRead ? "text-success" : "text-secondary")}\"></i><i class=\"fas fa-comment fa-stack-1x fa-inverse\"></i></span>"
-                    });
+                if (DateTime.Parse(currentRow["LastPosted"].ToString()) > lastRead)
+                {
+                    postIcon.CssClass = "badge badge-success";
+
+                    postIcon.Text = this.GetText("NEW_MESSAGE");
+                }
             }
 
             var lastPostedDateTime = currentRow["LastPosted"].ToType<DateTime>();

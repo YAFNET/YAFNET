@@ -68,17 +68,15 @@ namespace YAF.Controls
             var hasCategoryImage = row["CategoryImage"].ToString().IsSet();
 
             var image = new Image
-                            {
-                                ImageUrl =
-                                    $"{BoardInfo.ForumClientFileRoot}{BoardFolders.Current.Categories}/{row["CategoryImage"]}",
-                                AlternateText = row["Name"].ToString() 
+            {
+                ImageUrl =
+                    $"{BoardInfo.ForumClientFileRoot}{BoardFolders.Current.Categories}/{row["CategoryImage"]}",
+                AlternateText = row["Name"].ToString()
             };
 
             var icon = new Icon { IconName = "folder", IconType = "text-warning", IconSize = "fa-2x" };
 
-            return hasCategoryImage
-                ? $"{image.RenderToString()}&nbsp;"
-                : $"{icon.RenderToString()}&nbsp;";
+            return hasCategoryImage ? $"{image.RenderToString()}&nbsp;" : $"{icon.RenderToString()}&nbsp;";
         }
 
         /// <summary>
@@ -113,29 +111,28 @@ namespace YAF.Controls
 
             dt.AsEnumerable().Select(r => r.Field<int>("ForumID")).ForEach(
                 forumId =>
+                {
+                    if (!watchForums.Any(
+                        w => w.Item1.ForumID == forumId && w.Item1.UserID == this.PageContext.PageUserID))
                     {
-                        if (!watchForums.Any(
-                                w => w.Item1.ForumID == forumId && w.Item1.UserID == this.PageContext.PageUserID))
-                        {
-                            this.GetRepository<WatchForum>().Add(this.PageContext.PageUserID, forumId);
-                        }
-                    });
+                        this.GetRepository<WatchForum>().Add(this.PageContext.PageUserID, forumId);
+                    }
+                });
 
             this.PageContext.AddLoadMessage(this.GetText("SAVED_NOTIFICATION_SETTING"), MessageTypes.success);
 
             this.BindData();
         }
-        
 
         /// <summary>
-         /// The mark all_ click.
-         /// </summary>
-         /// <param name="sender">
-         /// The sender.
-         /// </param>
-         /// <param name="e">
-         /// The e.
-         /// </param>
+        /// The mark all_ click.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
         protected void MarkAllClick([NotNull] object sender, [NotNull] EventArgs e)
         {
             var markAll = (ThemeButton)sender;
