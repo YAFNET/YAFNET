@@ -28852,6 +28852,8 @@ S2.define('jquery.select2',[
       closeOnSlideClick: true,
       // Close the gallery by swiping up or down:
       closeOnSwipeUpOrDown: true,
+      // Close the gallery when URL changes:
+      closeOnHashChange: true,
       // Emulate touch events on mouse-pointer devices such as desktop browsers:
       emulateTouchEvents: true,
       // Stop touch events from bubbling up to ancestor elements of the Gallery:
@@ -28879,11 +28881,11 @@ S2.define('jquery.select2',[
       index: 0,
       // The number of elements to load around the current index:
       preloadRange: 2,
-      // The transition speed between slide changes in milliseconds:
-      transitionSpeed: 400,
-      // The transition speed for automatic slide changes, set to an integer
-      // greater 0 to override the default transition speed:
-      slideshowTransitionSpeed: undefined,
+      // The transition duration between slide changes in milliseconds:
+      transitionDuration: 300,
+      // The transition duration for automatic slide changes, set to an integer
+      // greater 0 to override the default transition duration:
+      slideshowTransitionDuration: 500,
       // The event object for which the default action will be canceled
       // on Gallery initialization (e.g. the click event to open the Gallery):
       event: undefined,
@@ -29043,7 +29045,7 @@ S2.define('jquery.select2',[
       }
     },
 
-    slide: function (to, speed) {
+    slide: function (to, duration) {
       window.clearTimeout(this.timeout);
       var index = this.index;
       var direction;
@@ -29052,8 +29054,8 @@ S2.define('jquery.select2',[
       if (index === to || this.num === 1) {
         return;
       }
-      if (!speed) {
-        speed = this.options.transitionSpeed;
+      if (!duration) {
+        duration = this.options.transitionDuration;
       }
       if (this.support.transform) {
         if (!this.options.continuous) {
@@ -29082,8 +29084,8 @@ S2.define('jquery.select2',[
           );
         }
         to = this.circle(to);
-        this.move(index, this.slideWidth * direction, speed);
-        this.move(to, 0, speed);
+        this.move(index, this.slideWidth * direction, duration);
+        this.move(to, 0, duration);
         if (this.options.continuous) {
           this.move(
             this.circle(to - direction),
@@ -29093,7 +29095,7 @@ S2.define('jquery.select2',[
         }
       } else {
         to = this.circle(to);
-        this.animate(index * -this.slideWidth, to * -this.slideWidth, speed);
+        this.animate(index * -this.slideWidth, to * -this.slideWidth, duration);
       }
       this.onslide(to);
     },
@@ -29127,15 +29129,15 @@ S2.define('jquery.select2',[
       if (this.elements[this.index] > 1) {
         this.timeout = this.setTimeout(
           (!this.requestAnimationFrame && this.slide) ||
-            function (to, speed) {
+            function (to, duration) {
               that.animationFrameId = that.requestAnimationFrame.call(
                 window,
                 function () {
-                  that.slide(to, speed);
+                  that.slide(to, duration);
                 }
               );
             },
-          [nextIndex, this.options.slideshowTransitionSpeed],
+          [nextIndex, this.options.slideshowTransitionDuration],
           this.interval
         );
       }
@@ -29237,17 +29239,17 @@ S2.define('jquery.select2',[
       return (this.num + (index % this.num)) % this.num;
     },
 
-    move: function (index, dist, speed) {
-      this.translateX(index, dist, speed);
+    move: function (index, dist, duration) {
+      this.translateX(index, dist, duration);
       this.positions[index] = dist;
     },
 
-    translate: function (index, x, y, speed) {
+    translate: function (index, x, y, duration) {
       if (!this.slides[index]) return;
       var style = this.slides[index].style;
       var transition = this.support.transition;
       var transform = this.support.transform;
-      style[transition.name + 'Duration'] = speed + 'ms';
+      style[transition.name + 'Duration'] = duration + 'ms';
       style[transform.name] =
         'translate(' +
         x +
@@ -29257,16 +29259,16 @@ S2.define('jquery.select2',[
         (transform.translateZ ? ' translateZ(0)' : '');
     },
 
-    translateX: function (index, x, speed) {
-      this.translate(index, x, 0, speed);
+    translateX: function (index, x, duration) {
+      this.translate(index, x, 0, duration);
     },
 
-    translateY: function (index, y, speed) {
-      this.translate(index, 0, y, speed);
+    translateY: function (index, y, duration) {
+      this.translate(index, 0, y, duration);
     },
 
-    animate: function (from, to, speed) {
-      if (!speed) {
+    animate: function (from, to, duration) {
+      if (!duration) {
         this.slidesContainer[0].style.left = to + 'px';
         return;
       }
@@ -29274,14 +29276,14 @@ S2.define('jquery.select2',[
       var start = new Date().getTime();
       var timer = window.setInterval(function () {
         var timeElap = new Date().getTime() - start;
-        if (timeElap > speed) {
+        if (timeElap > duration) {
           that.slidesContainer[0].style.left = to + 'px';
           that.ontransitionend();
           window.clearInterval(timer);
           return;
         }
         that.slidesContainer[0].style.left =
-          (to - from) * (Math.floor((timeElap / speed) * 100) / 100) +
+          (to - from) * (Math.floor((timeElap / duration) * 100) / 100) +
           from +
           'px';
       }, 4);
@@ -29305,6 +29307,12 @@ S2.define('jquery.select2',[
 
     onresize: function () {
       this.initSlides(true);
+    },
+
+    onhashchange: function () {
+      if (this.options.closeOnHashChange) {
+        this.close();
+      }
     },
 
     onmousedown: function (event) {
@@ -29390,9 +29398,9 @@ S2.define('jquery.select2',[
       var touchDeltaX;
       var indices;
       // Ensure this is a one touch swipe and not, e.g. a pinch:
-        if (touches.length > 1 || (scale && scale !== 1)) {
+      if (touches.length > 1 || (scale && scale !== 1)) {
         return;
-        }
+      }
       if (this.options.disableScroll) {
         event.preventDefault();
       }
@@ -29446,13 +29454,14 @@ S2.define('jquery.select2',[
         this.stopPropagation(event);
       }
       var index = this.index;
-      var speed = this.options.transitionSpeed;
+      var absTouchDeltaX = Math.abs(this.touchDelta.x);
       var slideWidth = this.slideWidth;
-      var isShortDuration = Number(Date.now() - this.touchStart.time) < 250;
+      var duration = Math.ceil(
+        (this.options.transitionDuration * (1 - absTouchDeltaX / slideWidth)) /
+          2
+      );
       // Determine if slide attempt triggers next/prev slide:
-      var isValidSlide =
-        (isShortDuration && Math.abs(this.touchDelta.x) > 20) ||
-        Math.abs(this.touchDelta.x) > slideWidth / 2;
+      var isValidSlide = absTouchDeltaX > 20;
       // Determine if slide attempt is past start or end:
       var isPastBounds =
         (!index && this.touchDelta.x > 0) ||
@@ -29460,8 +29469,7 @@ S2.define('jquery.select2',[
       var isValidClose =
         !isValidSlide &&
         this.options.closeOnSwipeUpOrDown &&
-        ((isShortDuration && Math.abs(this.touchDelta.y) > 20) ||
-          Math.abs(this.touchDelta.y) > this.slideHeight / 2);
+        Math.abs(this.touchDelta.y) > 20;
       var direction;
       var indexForward;
       var indexBackward;
@@ -29484,27 +29492,27 @@ S2.define('jquery.select2',[
           } else if (indexForward >= 0 && indexForward < this.num) {
             this.move(indexForward, distanceForward, 0);
           }
-          this.move(index, this.positions[index] + distanceForward, speed);
+          this.move(index, this.positions[index] + distanceForward, duration);
           this.move(
             this.circle(indexBackward),
             this.positions[this.circle(indexBackward)] + distanceForward,
-            speed
+            duration
           );
           index = this.circle(indexBackward);
           this.onslide(index);
         } else {
           // Move back into position
           if (this.options.continuous) {
-            this.move(this.circle(index - 1), -slideWidth, speed);
-            this.move(index, 0, speed);
-            this.move(this.circle(index + 1), slideWidth, speed);
+            this.move(this.circle(index - 1), -slideWidth, duration);
+            this.move(index, 0, duration);
+            this.move(this.circle(index + 1), slideWidth, duration);
           } else {
             if (index) {
-              this.move(index - 1, -slideWidth, speed);
+              this.move(index - 1, -slideWidth, duration);
             }
-            this.move(index, 0, speed);
+            this.move(index, 0, duration);
             if (index < this.num - 1) {
-              this.move(index + 1, slideWidth, speed);
+              this.move(index + 1, slideWidth, duration);
             }
           }
         }
@@ -29513,7 +29521,7 @@ S2.define('jquery.select2',[
           this.close();
         } else {
           // Move back into position
-          this.translateY(index, 0, speed);
+          this.translateY(index, 0, duration);
         }
       }
     },
@@ -29788,8 +29796,8 @@ S2.define('jquery.select2',[
         element.alt = altText;
       }
       $(img).on('load error', callbackWrapper);
-        img.src = url;
-        return element;
+      img.src = url;
+      return element;
     },
 
     createElement: function (obj, callback) {
@@ -29810,7 +29818,7 @@ S2.define('jquery.select2',[
       if (srcset) {
         element.setAttribute('srcset', srcset);
       }
-        $(element).addClass(this.options.slideContentClass);
+      $(element).addClass(this.options.slideContentClass);
       return element;
     },
 
@@ -30060,6 +30068,7 @@ S2.define('jquery.select2',[
         that['on' + type](event);
       }
       $(window).on('resize', proxyListener);
+      $(window).on('hashchange', proxyListener);
       $(document.body).on('keydown', proxyListener);
       this.container.on('click', proxyListener);
       if (this.support.touch) {
@@ -30223,8 +30232,8 @@ S2.define('jquery.select2',[
       (widget.length && widget) || $(Gallery.prototype.options.container);
     var callbacks = {
       onopen: function () {
-            container.data("gallery", this).trigger("open");
             $("#blueimp-gallery").removeClass("d-none");
+            container.data("gallery", this).trigger("open");
       },
       onopened: function () {
         container.trigger("opened");
@@ -30239,11 +30248,12 @@ S2.define('jquery.select2',[
         container.trigger("slidecomplete", arguments);
       },
       onclose: function () {
-          container.trigger("close");
+        container.trigger("close");
       },
       onclosed: function () {
-          container.trigger("closed").removeData("gallery");
           $("#blueimp-gallery").addClass("d-none");
+          container.trigger("closed").removeData("gallery");
+          
       }
     };
     var options = $.extend(
