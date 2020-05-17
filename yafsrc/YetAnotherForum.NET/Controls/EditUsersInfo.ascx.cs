@@ -27,12 +27,10 @@ namespace YAF.Controls
 
     using System;
     using System.Data;
-    using System.Web.Security;
-
+    
     using YAF.Core.BaseControls;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
-    using YAF.Core.UsersRoles;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.EventProxies;
@@ -40,6 +38,7 @@ namespace YAF.Controls
     using YAF.Types.Flags;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Events;
+    using YAF.Types.Interfaces.Identity;
     using YAF.Types.Models;
     using YAF.Utils.Helpers;
 
@@ -90,9 +89,9 @@ namespace YAF.Controls
             // Update the Membership
             if (!this.IsGuestX.Checked)
             {
-                var user = UserMembershipHelper.GetUser(this.Name.Text.Trim());
+                var user = this.Get<IAspNetUsersHelper>().GetUserByName(this.Name.Text.Trim());
 
-                var userName = this.Get<MembershipProvider>().GetUserNameByEmail(this.Email.Text.Trim());
+                var userName = this.Get<IAspNetUsersHelper>().GetUserByEmail(this.Email.Text.Trim()).UserName;
                 if (userName.IsSet() && userName != user.UserName)
                 {
                     this.PageContext.AddLoadMessage(this.GetText("PROFILE", "BAD_EMAIL"), MessageTypes.warning);
@@ -108,7 +107,7 @@ namespace YAF.Controls
                 // Update IsApproved
                 user.IsApproved = this.IsApproved.Checked;
 
-                this.Get<MembershipProvider>().UpdateUser(user);
+                this.Get<IAspNetUsersHelper>().Update(user);
             }
             else
             {

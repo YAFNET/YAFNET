@@ -41,6 +41,6 @@
     <ProjectReference Include="..\YAF.Types\YAF.Types.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Autofac" Version="5.1.4" />
+    <PackageReference Include="Autofac" Version="5.2.0" />
   </ItemGroup>
 </Project>

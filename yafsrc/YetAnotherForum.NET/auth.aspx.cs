@@ -63,12 +63,12 @@ namespace YAF
             closeScript.Append("if (window.opener != null)");
             closeScript.AppendFormat(
                 "{{window.opener.location.href = '{0}';window.close();}}",
-                BuildLink.GetLink(ForumPages.Login).Replace(
+                BuildLink.GetLink(ForumPages.Account_Login).Replace(
                     "auth.aspx",
                     "default.aspx"));
             closeScript.AppendFormat(
                 "else {{ window.location.href = '{0}' }}",
-                BuildLink.GetLink(ForumPages.Login).Replace(
+                BuildLink.GetLink(ForumPages.Account_Login).Replace(
                     "auth.aspx",
                     "default.aspx"));
 
@@ -89,7 +89,7 @@ namespace YAF
 
             switch (loginAuth)
             {
-                case AuthService.twitter:
+                /*case AuthService.twitter:
                     this.HandleTwitterReturn();
                     break;
                 case AuthService.facebook:
@@ -97,7 +97,7 @@ namespace YAF
                     break;
                 case AuthService.google:
                     this.HandleGoogleReturn();
-                    break;
+                    break;*/
                 default:
                     BoardContext.Current.Get<HttpResponseBase>()
                         .Write($"{ScriptBeginTag} {closeScript} {ScriptEndTag}");
@@ -108,7 +108,7 @@ namespace YAF
         /// <summary>
         /// Handles the twitter return.
         /// </summary>
-        private void HandleTwitterReturn()
+       /* private void HandleTwitterReturn()
         {
             string message;
 
@@ -136,7 +136,7 @@ namespace YAF
                         string.Format(
                             "{2} alert('{0}');window.location.href = '{1}'; {3}",
                             message,
-                            BuildLink.GetLink(ForumPages.Login).Replace(
+                            BuildLink.GetLink(ForumPages.Account_Login).Replace(
                                 "auth.aspx",
                                 "default.aspx"),
                             ScriptBeginTag,
@@ -170,7 +170,7 @@ namespace YAF
                         string.Format(
                             "{2} alert('{0}');window.opener.location.href = '{1}';window.close(); {3}>",
                             message,
-                            BuildLink.GetLink(ForumPages.Login).Replace(
+                            BuildLink.GetLink(ForumPages.Account_Login).Replace(
                                 "auth.aspx",
                                 "default.aspx"),
                             ScriptBeginTag,
@@ -211,7 +211,7 @@ namespace YAF
                         string.Format(
                             "{2} alert('{0}');window.location.href = '{1}'; {3}",
                             BoardContext.Current.Get<ILocalization>().GetText("AUTH_NO_ACCESS_TOKEN"),
-                            BuildLink.GetLink(ForumPages.Login).Replace(
+                            BuildLink.GetLink(ForumPages.Account_Login).Replace(
                                 "auth.aspx",
                                 "default.aspx"),
                             ScriptBeginTag,
@@ -284,7 +284,7 @@ namespace YAF
                             string.Format(
                                 "{2} alert('{0}');window.location.href = '{1}';window.close(); {3}",
                                 message,
-                                BuildLink.GetLink(ForumPages.Login).Replace(
+                                BuildLink.GetLink(ForumPages.Account_Login).Replace(
                                     "auth.aspx",
                                     "default.aspx"),
                                 ScriptBeginTag,
@@ -307,7 +307,7 @@ namespace YAF
             {
                 // Return to login page if user cancels social login
                 BoardContext.Current.Get<HttpResponseBase>()
-                    .Redirect(BuildLink.GetLink(ForumPages.Login, true));
+                    .Redirect(BuildLink.GetLink(ForumPages.Account_Login, true));
             }
             else
             {
@@ -339,7 +339,7 @@ namespace YAF
                         string.Format(
                             "{2} alert('{0}');window.location.href = '{1}'; {3}",
                             BoardContext.Current.Get<ILocalization>().GetText("AUTH_NO_ACCESS_TOKEN"),
-                            BuildLink.GetLink(ForumPages.Login).Replace(
+                            BuildLink.GetLink(ForumPages.Account_Login).Replace(
                                 "auth.aspx",
                                 "default.aspx"),
                             ScriptBeginTag,
@@ -414,7 +414,7 @@ namespace YAF
                             string.Format(
                                 "{2} alert('{0}');window.location.href = '{1}';window.close(); {3}",
                                 message,
-                                BuildLink.GetLink(ForumPages.Login).Replace(
+                                BuildLink.GetLink(ForumPages.Account_Login).Replace(
                                     "auth.aspx",
                                     "default.aspx"),
                                 ScriptBeginTag,
@@ -437,7 +437,7 @@ namespace YAF
             {
                 // Return to login page if user cancels social login
                 BoardContext.Current.Get<HttpResponseBase>()
-                    .Redirect(BuildLink.GetLink(ForumPages.Login, true));
+                    .Redirect(BuildLink.GetLink(ForumPages.Account_Login, true));
             }
             else
             {
@@ -446,6 +446,6 @@ namespace YAF
                     googleAuth.GetAuthorizeUrl(this.Request),
                     true);
             }
-        }
+        }*/
     }
 }

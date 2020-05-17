@@ -26,7 +26,7 @@ namespace YAF.Core.Helpers
 {
     using System;
     using System.Linq;
-
+    
     using YAF.Types;
     using YAF.Types.Extensions.Data;
     using YAF.Types.Interfaces.Data;
@@ -79,20 +79,6 @@ namespace YAF.Core.Helpers
             CodeContracts.VerifyNotNull(dbFunction, "dbFunction");
 
             return dbFunction.ValidateAndExecute("DBSize", f => f.GetScalar<int>(s => s.DBSize()));
-        }
-
-        /// <summary>
-        /// Gets the current SQL Engine Edition.
-        /// </summary>
-        /// <param name="dbFunction">The database function.</param>
-        /// <returns>
-        /// Returns the current SQL Engine Edition.
-        /// </returns>
-        public static string GetSQLEngine([NotNull] this IDbFunction dbFunction)
-        {
-            CodeContracts.VerifyNotNull(dbFunction, "dbFunction");
-
-            return dbFunction.ValidateAndExecute("GetSQLEngine", f => f.GetScalar<string>(s => s.GetSQLEngine()));
         }
 
         /// <summary>

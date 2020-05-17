@@ -162,7 +162,7 @@ namespace YAF.Web.Controls
             {
                 output.WriteBeginTag("a");
 
-                output.WriteAttribute("href", BuildLink.GetLink(ForumPages.Profile, "u={0}&name={1}", this.UserID, displayName));
+                output.WriteAttribute("href", BuildLink.GetLink(ForumPages.UserProfile, "u={0}&name={1}", this.UserID, displayName));
 
                 if (this.CanViewProfile && this.IsHoverCardEnabled)
                 {

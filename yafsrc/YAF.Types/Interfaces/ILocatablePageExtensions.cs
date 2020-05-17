@@ -48,6 +48,7 @@ namespace YAF.Types.Interfaces
       /// The page name.
       /// </param>
       /// <returns>
+      /// The <see cref="ILocatablePage"/>.
       /// </returns>
       public static ILocatablePage GetPage([NotNull] this IEnumerable<ILocatablePage> locatablePages, [NotNull] string pageName)
       {

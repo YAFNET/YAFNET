@@ -35,7 +35,7 @@ namespace YAF.Core.Services.Localization
     using YAF.Configuration;
     using YAF.Core.Context;
     using YAF.Core.Extensions;
-    using YAF.Core.UsersRoles;
+    using YAF.Core.Helpers;
     using YAF.Types;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;

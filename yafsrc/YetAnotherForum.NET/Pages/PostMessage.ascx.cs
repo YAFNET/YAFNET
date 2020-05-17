@@ -31,21 +31,20 @@ namespace YAF.Pages
     using System.IO;
     using System.Linq;
     using System.Web;
-    using System.Web.UI.WebControls;
-
+    
     using YAF.Configuration;
     using YAF.Core.BaseModules;
     using YAF.Core.BasePages;
     using YAF.Core.Extensions;
     using YAF.Core.Helpers;
     using YAF.Core.Model;
-    using YAF.Core.UsersRoles;
     using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Flags;
     using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Identity;
     using YAF.Types.Models;
     using YAF.Types.Objects;
     using YAF.Utils;
@@ -575,7 +574,7 @@ namespace YAF.Pages
 
                 // form user is only for "Guest"
                 this.From.Text = this.Get<IUserDisplayName>().GetName(this.PageContext.PageUserID);
-                if (this.User != null)
+                if (!this.PageContext.IsGuest)
                 {
                     this.FromRow.Visible = false;
                 }
@@ -965,7 +964,7 @@ namespace YAF.Pages
                                     this.PageContext.CurrentUserData.Membership,
                                     this.PageContext.PageUserID).LastIP;
 
-                            UserMembershipHelper.DeleteAndBanUser(
+                            this.Get<IAspNetUsersHelper>().DeleteAndBanUser(
                                 this.PageContext.PageUserID,
                                 this.PageContext.CurrentUserData.Membership,
                                 userIp);
@@ -1025,7 +1024,7 @@ namespace YAF.Pages
                                     this.PageContext.CurrentUserData.Membership,
                                     this.PageContext.PageUserID).LastIP;
 
-                            UserMembershipHelper.DeleteAndBanUser(
+                            this.Get<IAspNetUsersHelper>().DeleteAndBanUser(
                                 this.PageContext.PageUserID,
                                 this.PageContext.CurrentUserData.Membership,
                                 userIp);
@@ -1172,11 +1171,6 @@ namespace YAF.Pages
                 else
                 {
                     BuildLink.Redirect(ForumPages.PollEdit, "&ra=1{0}{1}", attachPollParameter, returnForum);
-                }
-
-                if (Config.IsRainbow)
-                {
-                    BuildLink.Redirect(ForumPages.Info, "i=1");
                 }
             }
         }

@@ -25,7 +25,11 @@
 using System.Reflection;
 using System.Runtime.InteropServices;
 
+using Microsoft.Owin;
+
 using YAF.Types.Attributes;
+
+using Startup = YAF.Core.Context.Start.Startup;
 
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
@@ -49,3 +53,5 @@ using YAF.Types.Attributes;
 
 [assembly: AssemblyDelaySign(false)]
 [assembly: AssemblyKeyFile("..\\YetAnotherForum.NET.snk")]
+
+[assembly: OwinStartup(typeof(Startup))]

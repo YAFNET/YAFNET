@@ -41,17 +41,6 @@ namespace YAF.Data.MsSql
     public class MsSqlDbInformation : IDbInformation
     {
         /// <summary>
-        /// The azure script list
-        /// </summary>
-        private static readonly string[] AzureScriptList =
-            {
-                "mssql/install/azure/InstallCommon.sql",
-                "mssql/install/azure/InstallMembership.sql",
-                "mssql/install/azure/InstallProfile.sql",
-                "mssql/install/azure/InstallRoles.sql"
-            };
-
-        /// <summary>
         /// The install script list
         /// </summary>
         private static readonly string[] InstallScriptList =
@@ -79,23 +68,11 @@ namespace YAF.Data.MsSql
             };
 
         /// <summary>
-        /// The YAF Provider Install script list
-        /// </summary>
-        private static readonly string[] YafProviderInstallScriptList =
-            {
-                "mssql/install/providers/tables.sql",
-                "mssql/install/providers/indexes.sql", 
-                "mssql/install/providers/procedures.sql"
-            };
-
-        /// <summary>
         /// The YAF Provider Upgrade script list
         /// </summary>
-        private static readonly string[] YafProviderUpgradeScriptList =
+        private static readonly string[] IdentityUpgradeScriptList =
             {
-                "mssql/upgrade/providers/tables.sql",
-                "mssql/upgrade/providers/indexes.sql", 
-                "mssql/upgrade/providers/procedures.sql"
+                "mssql/upgrade/identity/upgrade.sql"
             };
 
         /// <summary>
@@ -134,11 +111,6 @@ namespace YAF.Data.MsSql
         public string FullTextUpgradeScript => "mssql/upgrade/fulltext.sql";
 
         /// <summary>
-        /// Gets the Azure Script List.
-        /// </summary>
-        public IEnumerable<string> AzureScripts => AzureScriptList;
-
-        /// <summary>
         /// Gets the Install Script List.
         /// </summary>
         public IEnumerable<string> InstallScripts => InstallScriptList;
@@ -149,14 +121,9 @@ namespace YAF.Data.MsSql
         public IEnumerable<string> UpgradeScripts => UpgradeScriptList;
 
         /// <summary>
-        /// Gets the YAF Provider Install Script List.
-        /// </summary>
-        public IEnumerable<string> YAFProviderInstallScripts => YafProviderInstallScriptList;
-
-        /// <summary>
         /// Gets the YAF Provider Upgrade Script List.
         /// </summary>
-        public IEnumerable<string> YAFProviderUpgradeScripts => YafProviderUpgradeScriptList;
+        public IEnumerable<string> IdentityUpgradeScripts => IdentityUpgradeScriptList;
 
         /// <summary>
         /// Gets the DB Connection Parameters.

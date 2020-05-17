@@ -25,6 +25,8 @@ namespace YAF.Types.Interfaces
 {
     using System.Collections.Generic;
 
+    using YAF.Types.Objects;
+
     /// <summary>
     /// The IP Info Service interface.
     /// </summary>
@@ -34,9 +36,9 @@ namespace YAF.Types.Interfaces
         /// Get the User IP Locator
         /// </summary>
         /// <returns>
-        /// The <see cref="IDictionary"/>.
+        /// The <see cref="IpLocator"/>.
         /// </returns>
-        IDictionary<string, string> GetUserIpLocator();
+        IpLocator GetUserIpLocator();
 
         /// <summary>
         /// Get the User IP Locator
@@ -45,8 +47,8 @@ namespace YAF.Types.Interfaces
         /// The IP Address.
         /// </param>
         /// <returns>
-        /// The <see cref="IDictionary"/>.
+        /// The <see cref="IpLocator"/>.
         /// </returns>
-        IDictionary<string, string> GetUserIpLocator(string ipAddress);
+        IpLocator GetUserIpLocator(string ipAddress);
     }
 }

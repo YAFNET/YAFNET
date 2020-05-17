@@ -33,11 +33,11 @@ namespace YAF.Pages
     using YAF.Configuration;
     using YAF.Core.BasePages;
     using YAF.Core.Extensions;
-    using YAF.Core.UsersRoles;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Identity;
     using YAF.Utils;
     using YAF.Web.Extensions;
 
@@ -90,7 +90,7 @@ namespace YAF.Pages
             }
 
             // get user data...
-            var user = UserMembershipHelper.GetMembershipUserById(this.UserId);
+            var user = this.Get<IAspNetUsersHelper>().GetMembershipUserById(this.UserId);
 
             if (user == null)
             {
@@ -104,13 +104,13 @@ namespace YAF.Pages
                     BuildLink.AccessDenied();
                 }
 
-                var displayName = UserMembershipHelper.GetDisplayNameFromID(this.UserId);
+                var displayName = this.Get<IAspNetUsersHelper>().GetDisplayNameFromID(this.UserId);
 
                 this.PageLinks.AddRoot();
                 this.PageLinks.AddLink(
                     this.PageContext.BoardSettings.EnableDisplayName ? displayName : user.UserName,
                     BuildLink.GetLink(
-                        ForumPages.Profile,
+                        ForumPages.UserProfile,
                         "u={0}&name={1}",
                         this.UserId,
                         this.PageContext.BoardSettings.EnableDisplayName ? displayName : user.UserName));
@@ -136,7 +136,7 @@ namespace YAF.Pages
             try
             {
                 // get "to" user...
-                var toUser = UserMembershipHelper.GetMembershipUserById(this.UserId);
+                var toUser = this.Get<IAspNetUsersHelper>().GetMembershipUserById(this.UserId);
 
                 // send it...
                 this.Get<ISendMail>().Send(
@@ -147,7 +147,7 @@ namespace YAF.Pages
                     this.Body.Text.Trim());
 
                 // redirect to profile page...
-                BuildLink.Redirect(ForumPages.Profile, false, "u={0}", this.UserId);
+                BuildLink.Redirect(ForumPages.UserProfile, false, "u={0}", this.UserId);
             }
             catch (Exception x)
             {

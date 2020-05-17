@@ -25,7 +25,8 @@ namespace YAF.Types.Interfaces
 {
     using System;
     using System.Collections.Generic;
-    using System.Web.Security;
+
+    using YAF.Types.Models.Identity;
 
     /// <summary>
     /// The SendNotification Interface
@@ -55,7 +56,11 @@ namespace YAF.Types.Interfaces
         /// <param name="reportText">
         /// The report Text.
         /// </param>
-        void ToModeratorsThatMessageWasReported(int pageForumID, int reportedMessageId, int reporter, string reportText);
+        void ToModeratorsThatMessageWasReported(
+            int pageForumID,
+            int reportedMessageId,
+            int reporter,
+            string reportText);
 
         /// <summary>
         /// Sends notification about new PM in user's inbox.
@@ -93,7 +98,7 @@ namespace YAF.Types.Interfaces
         /// The template Name.
         /// </param>
         void SendRegistrationNotificationToUser(
-            [NotNull] MembershipUser user,
+            [NotNull] AspNetUsers user,
             [NotNull] string pass,
             [NotNull] string securityAnswer,
             string templateName);
@@ -110,35 +115,35 @@ namespace YAF.Types.Interfaces
         /// </summary>
         /// <param name="user">The user.</param>
         /// <param name="addedRoles">The added roles.</param>
-        void SendRoleAssignmentNotification([NotNull] MembershipUser user, List<string> addedRoles);
+        void SendRoleAssignmentNotification([NotNull] AspNetUsers user, List<string> addedRoles);
 
         /// <summary>
         /// Sends the role un assignment notification.
         /// </summary>
         /// <param name="user">The user.</param>
         /// <param name="removedRoles">The removed roles.</param>
-        void SendRoleUnAssignmentNotification([NotNull] MembershipUser user, List<string> removedRoles);
+        void SendRoleUnAssignmentNotification([NotNull] AspNetUsers user, List<string> removedRoles);
 
         /// <summary>
         /// The send registration notification email.
         /// </summary>
         /// <param name="user">The user.</param>
         /// <param name="userId">The user id.</param>
-        void SendRegistrationNotificationEmail([NotNull] MembershipUser user, int userId);
+        void SendRegistrationNotificationEmail([NotNull] AspNetUsers user, int userId);
 
         /// <summary>
         /// Sends a spam bot notification to admins.
         /// </summary>
         /// <param name="user">The user.</param>
         /// <param name="userId">The user id.</param>
-        void SendSpamBotNotificationToAdmins([NotNull] MembershipUser user, int userId);
+        void SendSpamBotNotificationToAdmins([NotNull] AspNetUsers user, int userId);
 
         /// <summary>
         /// Sends the user welcome notification.
         /// </summary>
         /// <param name="user">The user.</param>
         /// <param name="userId">The user identifier.</param>
-        void SendUserWelcomeNotification([NotNull] MembershipUser user, int? userId);
+        void SendUserWelcomeNotification([NotNull] AspNetUsers user, int userId);
 
         /// <summary>
         /// Sends the verification email.
@@ -148,33 +153,19 @@ namespace YAF.Types.Interfaces
         /// <param name="userId">The user identifier.</param>
         /// <param name="newUsername">The new username.</param>
         void SendVerificationEmail(
-            [NotNull] MembershipUser user,
+            [NotNull] AspNetUsers user,
             [NotNull] string email,
             int? userId,
             string newUsername = null);
 
         /// <summary>
-        /// Send Email Verification to changed Email Address
+        /// Sends the user a suspension notification.
         /// </summary>
-        /// <param name="newEmail">
-        /// The new email.
-        /// </param>
-        /// <param name="userId">
-        /// The user Id.
-        /// </param>
-        /// <param name="userName">
-        /// The user Name.
-        /// </param>
-        void SendEmailChangeVerification([NotNull] string newEmail, [NotNull] int userId, string userName);
-
-        /// <summary>
-            /// Sends the user a suspension notification.
-            /// </summary>
-            /// <param name="suspendedUntil">The suspended until.</param>
-            /// <param name="suspendReason">The suspend reason.</param>
-            /// <param name="email">The email.</param>
-            /// <param name="userName">Name of the user.</param>
-            void SendUserSuspensionNotification(
+        /// <param name="suspendedUntil">The suspended until.</param>
+        /// <param name="suspendReason">The suspend reason.</param>
+        /// <param name="email">The email.</param>
+        /// <param name="userName">Name of the user.</param>
+        void SendUserSuspensionNotification(
             [NotNull] DateTime suspendedUntil,
             [NotNull] string suspendReason,
             [NotNull] string email,
@@ -185,8 +176,17 @@ namespace YAF.Types.Interfaces
         /// </summary>
         /// <param name="email">The email.</param>
         /// <param name="userName">Name of the user.</param>
-        void SendUserSuspensionEndedNotification(
-            [NotNull] string email,
-            [NotNull] string userName);
+        void SendUserSuspensionEndedNotification([NotNull] string email, [NotNull] string userName);
+
+        /// <summary>
+        /// The send password reset.
+        /// </summary>
+        /// <param name="user">
+        /// The user.
+        /// </param>
+        /// <param name="code">
+        /// The code.
+        /// </param>
+        void SendPasswordReset([NotNull] AspNetUsers user, [NotNull] string code);
     }
 }

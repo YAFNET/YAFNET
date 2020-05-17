@@ -56,7 +56,6 @@ namespace YAF.Types.Models
 
         [Required]
         [Index]
-        [StringLength(32)]
         public string Hash { get; set; }
 
         #endregion

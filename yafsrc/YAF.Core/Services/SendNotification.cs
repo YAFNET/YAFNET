@@ -37,16 +37,16 @@ namespace YAF.Core.Services
     using YAF.Configuration;
     using YAF.Core.Context;
     using YAF.Core.Extensions;
+    using YAF.Core.Helpers;
     using YAF.Core.Model;
-    using YAF.Core.UsersRoles;
-    using YAF.Identity.Interfaces;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Flags;
-    using YAF.Types.IdentityModels;
     using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Identity;
     using YAF.Types.Models;
+    using YAF.Types.Models.Identity;
     using YAF.Types.Objects;
     using YAF.Utils;
     using YAF.Utils.Helpers;
@@ -110,7 +110,7 @@ namespace YAF.Core.Services
                     {
                         if (moderator.IsGroup)
                         {
-                            moderatorUserNames.AddRange(RoleMembershipHelper.GetUsersInRole(moderator.Name).Select(u => u.UserName));
+                            moderatorUserNames.AddRange(AspNetRolesHelper.GetUsersInRole(moderator.Name).Select(u => u.UserName));
                         }
                         else
                         {
@@ -136,9 +136,9 @@ namespace YAF.Core.Services
                         try
                         {
                             // add each member of the group
-                            var membershipUser = UserMembershipHelper.GetUserByName(userName);
+                            var membershipUser = this.Get<IAspNetUsersHelper>().GetUserByName(userName);
                             var userId =
-                                UserMembershipHelper.GetUserIDFromProviderUserKey(membershipUser.Id);
+                                this.Get<IAspNetUsersHelper>().GetUserIDFromProviderUserKey(membershipUser.Id);
 
                             var languageFile = UserHelper.GetUserLanguageFile(userId);
 
@@ -211,7 +211,7 @@ namespace YAF.Core.Services
                             if (moderator.IsGroup)
                             {
                                 moderatorUserNames.AddRange(
-                                    RoleMembershipHelper.GetUsersInRole(moderator.Name).Select(u => u.UserName));
+                                    AspNetRolesHelper.GetUsersInRole(moderator.Name).Select(u => u.UserName));
                             }
                             else
                             {
@@ -230,9 +230,9 @@ namespace YAF.Core.Services
                             try
                             {
                                 // add each member of the group
-                                var membershipUser = UserMembershipHelper.GetUserByName(userName);
+                                var membershipUser = this.Get<IAspNetUsersHelper>().GetUserByName(userName);
                                 var userId =
-                                    UserMembershipHelper.GetUserIDFromProviderUserKey(membershipUser.Id);
+                                    this.Get<IAspNetUsersHelper>().GetUserIDFromProviderUserKey(membershipUser.Id);
 
                                 var languageFile = UserHelper.GetUserLanguageFile(userId);
 
@@ -392,7 +392,7 @@ namespace YAF.Core.Services
                                                  HttpUtility.HtmlDecode(
                                                      this.Get<IBadWordReplace>().Replace(message.Topic)),
                                              ["{postedby}"] =
-                                                 UserMembershipHelper.GetDisplayNameFromID(messageAuthorUserID),
+                                                 this.Get<IAspNetUsersHelper>().GetDisplayNameFromID(messageAuthorUserID),
                                              ["{body}"] = bodyText,
                                              ["{bodytruncated}"] = bodyText.Truncate(160),
                                              ["{link}"] = BuildLink.GetLinkNotEscaped(
@@ -515,7 +515,7 @@ namespace YAF.Core.Services
         /// The template Name.
         /// </param>
         public void SendRegistrationNotificationToUser(
-            [NotNull] ApplicationUser user,
+            [NotNull] AspNetUsers user,
             [NotNull] string pass,
             [NotNull] string securityAnswer,
             string templateName)
@@ -593,7 +593,7 @@ namespace YAF.Core.Services
         /// </summary>
         /// <param name="user">The user.</param>
         /// <param name="removedRoles">The removed roles.</param>
-        public void SendRoleUnAssignmentNotification([NotNull] ApplicationUser user, List<string> removedRoles)
+        public void SendRoleUnAssignmentNotification([NotNull] AspNetUsers user, List<string> removedRoles)
         {
             var subject = this.Get<ILocalization>().GetTextFormatted(
                 "NOTIFICATION_ROLE_ASSIGNMENT_SUBJECT",
@@ -618,7 +618,7 @@ namespace YAF.Core.Services
         /// </summary>
         /// <param name="user">The user.</param>
         /// <param name="addedRoles">The added roles.</param>
-        public void SendRoleAssignmentNotification([NotNull] ApplicationUser user, List<string> addedRoles)
+        public void SendRoleAssignmentNotification([NotNull] AspNetUsers user, List<string> addedRoles)
         {
             var subject = this.Get<ILocalization>().GetTextFormatted(
                 "NOTIFICATION_ROLE_ASSIGNMENT_SUBJECT",
@@ -644,7 +644,7 @@ namespace YAF.Core.Services
         /// </summary>
         /// <param name="user">The user.</param>
         /// <param name="userId">The user id.</param>
-        public void SendRegistrationNotificationEmail([NotNull] ApplicationUser user, int userId)
+        public void SendRegistrationNotificationEmail([NotNull] AspNetUsers user, int userId)
         {
             if (this.BoardSettings.NotificationOnUserRegisterEmailList.IsNotSet())
             {
@@ -684,7 +684,7 @@ namespace YAF.Core.Services
         /// </summary>
         /// <param name="user">The user.</param>
         /// <param name="userId">The user id.</param>
-        public void SendSpamBotNotificationToAdmins([NotNull] ApplicationUser user, int userId)
+        public void SendSpamBotNotificationToAdmins([NotNull] AspNetUsers user, int userId)
         {
             // Get Admin Group ID
             var adminGroupId = this.GetRepository<Group>().List(boardId: BoardContext.Current.PageBoardID)
@@ -736,7 +736,7 @@ namespace YAF.Core.Services
         /// </summary>
         /// <param name="user">The user.</param>
         /// <param name="userId">The user identifier.</param>
-        public void SendUserWelcomeNotification([NotNull] ApplicationUser user, int userId)
+        public void SendUserWelcomeNotification([NotNull] AspNetUsers user, int userId)
         {
             if (this.BoardSettings.SendWelcomeNotificationAfterRegister.Equals(0))
             {
@@ -791,7 +791,7 @@ namespace YAF.Core.Services
         /// <param name="userId">The user identifier.</param>
         /// <param name="newUsername">The new username.</param>
         public void SendVerificationEmail(
-            [NotNull] ApplicationUser user,
+            [NotNull] AspNetUsers user,
             [NotNull] string email,
             int? userId,
             string newUsername = null)
@@ -800,7 +800,7 @@ namespace YAF.Core.Services
             CodeContracts.VerifyNotNull(user, "user");
 
             var code = HttpUtility.UrlEncode(
-                BoardContext.Current.Get<IApplicationUserManager>().GenerateEmailConfirmationResetToken(user.Id));
+                this.Get<IAspNetUsersHelper>().GenerateEmailConfirmationResetToken(user.Id));
 
             // save verification record...
             this.GetRepository<CheckEmail>().Save(userId, code, user.Email);
@@ -889,7 +889,7 @@ namespace YAF.Core.Services
         /// <param name="code">
         /// The code.
         /// </param>
-        public void SendPasswordReset([NotNull] ApplicationUser user, [NotNull] string code)
+        public void SendPasswordReset([NotNull] AspNetUsers user, [NotNull] string code)
         {
             // re-send verification email instead of lost password...
             var verifyEmail = new TemplateEmail("RESET_PASS");

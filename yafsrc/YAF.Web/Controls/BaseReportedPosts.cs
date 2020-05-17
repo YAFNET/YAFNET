@@ -32,11 +32,11 @@ namespace YAF.Web.Controls
     using YAF.Core.BaseControls;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
-    using YAF.Core.UsersRoles;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Identity;
     using YAF.Types.Models;
     using YAF.Utils;
 
@@ -74,9 +74,9 @@ namespace YAF.Web.Controls
         ///   Gets or sets ResolvedBy. It returns UserID as string value
         /// </summary>
         [NotNull]
-        public virtual string ResolvedBy
+        public virtual int ResolvedBy
         {
-            get => this.ViewState["ResolvedBy"].ToString();
+            get => this.ViewState["ResolvedBy"].ToType<int>();
 
             set => this.ViewState["ResolvedBy"] = value;
         }
@@ -133,7 +133,7 @@ namespace YAF.Web.Controls
                                 true).Rows[0]["Name"].ToString();
 
                             var resolvedByDisplayName =
-                                UserMembershipHelper.GetDisplayNameFromID(this.ResolvedBy.ToType<long>()).IsSet()
+                                this.Get<IAspNetUsersHelper>().GetDisplayNameFromID(this.ResolvedBy).IsSet()
                                     ? this.Server.HtmlEncode(
                                         this.Get<IUserDisplayName>().GetName(this.ResolvedBy.ToType<int>()))
                                     : this.Server.HtmlEncode(resolvedByName);
@@ -142,7 +142,7 @@ namespace YAF.Web.Controls
                                 @"<span class=""font-weight-bold"">{0}</span><a href=""{1}""> {2}</a> : {3}",
                                 this.GetText("RESOLVEDBY"),
                                 BuildLink.GetLink(
-                                    ForumPages.Profile,
+                                    ForumPages.UserProfile,
                                     "u={0}&name={1}",
                                     this.ResolvedBy.ToType<int>(),
                                     resolvedByDisplayName),
@@ -152,12 +152,12 @@ namespace YAF.Web.Controls
 
                         writer.Write(
                             @"<span class=""font-weight-bold"">{3}</span><a href=""{1}""> {0}{2} </a>",
-                            UserMembershipHelper.GetDisplayNameFromID(reporter["UserID"].ToType<long>()).IsSet()
+                            this.Get<IAspNetUsersHelper>().GetDisplayNameFromID(reporter["UserID"].ToType<int>()).IsSet()
                                 ? this.Server.HtmlEncode(
                                     this.Get<IUserDisplayName>().GetName(reporter["UserID"].ToType<int>()))
                                 : this.Server.HtmlEncode(reporter["UserName"].ToString()),
                             BuildLink.GetLink(
-                                ForumPages.Profile,
+                                ForumPages.UserProfile,
                                 "u={0}&name={1}",
                                 reporter["UserID"].ToType<int>(),
                                 reporter["UserName"].ToString()),
@@ -166,7 +166,7 @@ namespace YAF.Web.Controls
 
                         writer.Write(
                             @"<a class=""btn btn-secondary btn-sm"" href=""{1}""><i class=""fa fa-envelope fa-fw""></i>&nbsp;{2} {0}</a>",
-                            UserMembershipHelper.GetDisplayNameFromID(reporter["UserID"].ToType<long>()).IsSet()
+                            this.Get<IAspNetUsersHelper>().GetDisplayNameFromID(reporter["UserID"].ToType<int>()).IsSet()
                                 ? this.Server.HtmlEncode(
                                     this.Get<IUserDisplayName>().GetName(reporter["UserID"].ToType<int>()))
                                 : this.Server.HtmlEncode(reporter["UserName"].ToString()),

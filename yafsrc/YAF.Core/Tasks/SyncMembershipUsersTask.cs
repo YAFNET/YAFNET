@@ -28,7 +28,7 @@ namespace YAF.Core.Tasks
   using System;
 
   using YAF.Core.Context;
-  using YAF.Core.UsersRoles;
+  using YAF.Core.Helpers;
   using YAF.Types;
   using YAF.Types.Extensions;
   using YAF.Types.Interfaces;
@@ -85,7 +85,7 @@ namespace YAF.Core.Tasks
       try
       {
         // attempt to run the sync code...
-        RoleMembershipHelper.SyncAllMembershipUsers((int)this.Data);
+        AspNetRolesHelper.SyncAllMembershipUsers((int)this.Data);
       }
       catch (Exception x)
       {

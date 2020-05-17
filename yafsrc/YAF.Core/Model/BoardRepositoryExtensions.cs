@@ -134,12 +134,6 @@ namespace YAF.Core.Model
         /// <param name="languageFile">
         /// The language file.
         /// </param>
-        /// <param name="membershipAppName">
-        /// The membership app name.
-        /// </param>
-        /// <param name="rolesAppName">
-        /// The roles app name.
-        /// </param>
         /// <param name="userName">
         /// The user name.
         /// </param>
@@ -163,8 +157,6 @@ namespace YAF.Core.Model
             string boardName, 
             string culture, 
             string languageFile, 
-            string membershipAppName, 
-            string rolesAppName, 
             string userName, 
             string userEmail, 
             string userKey, 
@@ -179,8 +171,6 @@ namespace YAF.Core.Model
                     BoardName: boardName, 
                     Culture: culture, 
                     LanguageFile: languageFile, 
-                    MembershipAppName: membershipAppName, 
-                    RolesAppName: rolesAppName, 
                     UserName: userName, 
                     UserEmail: userEmail, 
                     UserKey: userKey, 

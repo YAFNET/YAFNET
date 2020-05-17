@@ -31,6 +31,11 @@ namespace YAF.Types.Interfaces
     #region Properties
 
     /// <summary>
+    /// Gets a value indicating whether is account page.
+    /// </summary>
+    bool IsAccountPage { get; }
+
+    /// <summary>
     ///   Gets a value indicating whether IsAdminPage.
     /// </summary>
     bool IsAdminPage { get; }

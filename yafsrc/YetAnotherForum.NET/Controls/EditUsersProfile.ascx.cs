@@ -40,7 +40,6 @@ namespace YAF.Controls
     using YAF.Core.Extensions;
     using YAF.Core.Helpers;
     using YAF.Core.Model;
-    using YAF.Core.UsersRoles;
     using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Constants;
@@ -48,7 +47,9 @@ namespace YAF.Controls
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Events;
+    using YAF.Types.Interfaces.Identity;
     using YAF.Types.Models;
+    using YAF.Types.Models.Identity;
     using YAF.Utils;
     using YAF.Utils.Helpers;
 
@@ -119,7 +120,7 @@ namespace YAF.Controls
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void CancelClick([NotNull] object sender, [NotNull] EventArgs e)
         {
-            BuildLink.Redirect(this.PageContext.CurrentForumPage.IsAdminPage ? ForumPages.Admin_Users : ForumPages.Account);
+            BuildLink.Redirect(this.PageContext.CurrentForumPage.IsAdminPage ? ForumPages.Admin_Users : ForumPages.MyAccount);
         }
 
         /// <summary>
@@ -187,7 +188,7 @@ namespace YAF.Controls
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void UpdateProfileClick([NotNull] object sender, [NotNull] EventArgs e)
         {
-            var userName = UserMembershipHelper.GetUserNameFromID(this.currentUserId);
+            var userName = this.Get<IAspNetUsersHelper>().GetUserNameFromID(this.currentUserId);
 
             if (this.HomePage.Text.IsSet())
             {
@@ -228,12 +229,12 @@ namespace YAF.Controls
                             // Kill user
                             if (!this.PageContext.CurrentForumPage.IsAdminPage)
                             {
-                                var user = UserMembershipHelper.GetMembershipUserById(this.currentUserId);
+                                var user = this.Get<IAspNetUsersHelper>().GetMembershipUserById(this.currentUserId);
                                 var userId = this.currentUserId;
 
                                 var userIp = new CombinedUserDataHelper(user, userId).LastIP;
 
-                                UserMembershipHelper.DeleteAndBanUser(this.currentUserId, user, userIp);
+                                this.Get<IAspNetUsersHelper>().DeleteAndBanUser(this.currentUserId, user, userIp);
                             }
                         }
                     }
@@ -323,7 +324,7 @@ namespace YAF.Controls
                 return;
             }
 
-            this.UpdateUserProfile(userName);
+            this.UpdateUserProfile();
 
             // save remaining settings to the DB
             this.GetRepository<User>().Save(
@@ -345,7 +346,7 @@ namespace YAF.Controls
 
             if (!this.PageContext.CurrentForumPage.IsAdminPage)
             {
-                BuildLink.Redirect(ForumPages.Account);
+                BuildLink.Redirect(ForumPages.MyAccount);
             }
             else
             {
@@ -394,9 +395,10 @@ namespace YAF.Controls
                     ? this.UserData.LastIP
                     : BoardContext.Current.Get<HttpRequestBase>().GetUserRealIPAddress());
 
-            if (userIpLocator["CountryCode"] != null && userIpLocator["CountryCode"].IsSet() && !userIpLocator["CountryCode"].Equals("-"))
+            if (userIpLocator.CountryCode.IsSet() &&
+                !userIpLocator.CountryCode.Equals("-"))
             {
-                var countryItem = this.Country.Items.FindByValue(userIpLocator["CountryCode"]);
+                var countryItem = this.Country.Items.FindByValue(userIpLocator.CountryCode);
 
                 if (countryItem != null)
                 {
@@ -405,9 +407,10 @@ namespace YAF.Controls
                 }
             }
 
-            if (userIpLocator["CityName"] != null && userIpLocator["CityName"].IsSet() && !userIpLocator["CityName"].Equals("-"))
+            if (userIpLocator.CityName.IsSet() &&
+                !userIpLocator.CityName.Equals("-"))
             {
-                this.City.Text = userIpLocator["CityName"];
+                this.City.Text = userIpLocator.CityName;
             }
         }
 
@@ -491,35 +494,32 @@ namespace YAF.Controls
         }
 
         /// <summary>
-        /// The update user profile.
+        /// Update user Profile Info.
         /// </summary>
-        /// <param name="userName">
-        /// The user name.
-        /// </param>
-        private void UpdateUserProfile([NotNull] string userName)
+        private void UpdateUserProfile()
         {
-            var userProfile = Utils.UserProfile.GetProfile(userName);
-
-            userProfile.Country = this.Country.SelectedItem != null
-                                      ? this.Country.SelectedItem.Value.Trim()
-                                      : string.Empty;
-            userProfile.Region = this.Region.SelectedItem != null && this.Country.SelectedItem != null
-                                 && this.Country.SelectedItem.Value.Trim().IsSet()
-                                     ? this.Region.SelectedItem.Value.Trim()
-                                     : string.Empty;
-            userProfile.City = this.City.Text.Trim();
-            userProfile.Location = this.Location.Text.Trim();
-            userProfile.Homepage = this.HomePage.Text.Trim();
-            userProfile.ICQ = this.ICQ.Text.Trim();
-            userProfile.Facebook = this.Facebook.Text.Trim();
-            userProfile.Twitter = this.Twitter.Text.Trim();
-            userProfile.XMPP = this.Xmpp.Text.Trim();
-            userProfile.Skype = this.Skype.Text.Trim();
-            userProfile.RealName = this.Realname.Text.Trim();
-            userProfile.Occupation = this.Occupation.Text.Trim();
-            userProfile.Interests = this.Interests.Text.Trim();
-            userProfile.Gender = this.Gender.SelectedIndex;
-            userProfile.Blog = this.Weblog.Text.Trim();
+            var userProfile = new ProfileInfo
+            {
+                Country = this.Country.SelectedItem != null ? this.Country.SelectedItem.Value.Trim() : string.Empty,
+                Region =
+                    this.Region.SelectedItem != null && this.Country.SelectedItem != null &&
+                    this.Country.SelectedItem.Value.Trim().IsSet()
+                        ? this.Region.SelectedItem.Value.Trim()
+                        : string.Empty,
+                City = this.City.Text.Trim(),
+                Location = this.Location.Text.Trim(),
+                Homepage = this.HomePage.Text.Trim(),
+                ICQ = this.ICQ.Text.Trim(),
+                Facebook = this.Facebook.Text.Trim(),
+                Twitter = this.Twitter.Text.Trim(),
+                XMPP = this.Xmpp.Text.Trim(),
+                Skype = this.Skype.Text.Trim(),
+                RealName = this.Realname.Text.Trim(),
+                Occupation = this.Occupation.Text.Trim(),
+                Interests = this.Interests.Text.Trim(),
+                Gender = this.Gender.SelectedIndex,
+                Blog = this.Weblog.Text.Trim()
+            };
 
             DateTime userBirthdate;
 
@@ -552,7 +552,28 @@ namespace YAF.Controls
                 }
             }
 
-            userProfile.Save();
+            this.UserData.Membership.Profile_Birthday = userProfile.Birthday;
+            this.UserData.Membership.Profile_Blog = userProfile.Blog;
+            this.UserData.Membership.Profile_Gender = userProfile.Gender;
+            this.UserData.Membership.Profile_GoogleId = userProfile.GoogleId;
+            this.UserData.Membership.Profile_Homepage = userProfile.Homepage;
+            this.UserData.Membership.Profile_ICQ = userProfile.ICQ;
+            this.UserData.Membership.Profile_Facebook = userProfile.Facebook;
+            this.UserData.Membership.Profile_FacebookId = userProfile.FacebookId;
+            this.UserData.Membership.Profile_Twitter = userProfile.Twitter;
+            this.UserData.Membership.Profile_TwitterId = userProfile.TwitterId;
+            this.UserData.Membership.Profile_Interests = userProfile.Interests;
+            this.UserData.Membership.Profile_Location = userProfile.Location;
+            this.UserData.Membership.Profile_Country = userProfile.Country;
+            this.UserData.Membership.Profile_Region = userProfile.Region;
+            this.UserData.Membership.Profile_City = userProfile.City;
+            this.UserData.Membership.Profile_Occupation = userProfile.Occupation;
+            this.UserData.Membership.Profile_RealName = userProfile.RealName;
+            this.UserData.Membership.Profile_Skype = userProfile.Skype;
+            this.UserData.Membership.Profile_XMPP = userProfile.XMPP;
+            this.UserData.Membership.Profile_LastSyncedWithDNN = userProfile.LastSyncedWithDNN;
+
+            this.Get<IAspNetUsersHelper>().Update(this.UserData.Membership);
         }
 
         /// <summary>

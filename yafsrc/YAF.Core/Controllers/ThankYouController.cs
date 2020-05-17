@@ -30,10 +30,10 @@ namespace YAF.Core.Controllers
     using YAF.Core.Context;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
-    using YAF.Core.UsersRoles;
     using YAF.Types;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Identity;
     using YAF.Types.Models;
     using YAF.Utils.Helpers.StringUtils;
 
@@ -65,14 +65,14 @@ namespace YAF.Core.Controllers
         [HttpPost]
         public IHttpActionResult AddThanks([NotNull] int messageId)
         {
-            var membershipUser = UserMembershipHelper.GetUser();
+            var membershipUser = this.Get<IAspNetUsersHelper>().GetUser();
 
             if (membershipUser == null)
             {
                 return this.NotFound();
             }
 
-            var fromUserId = UserMembershipHelper.GetUserIDFromProviderUserKey(membershipUser.ProviderUserKey);
+            var fromUserId = this.Get<IAspNetUsersHelper>().GetUserIDFromProviderUserKey(membershipUser.Id);
 
             var message = this.GetRepository<Message>().GetById(messageId);
 

@@ -35,15 +35,6 @@
                                               CssClass="custom-select" />
                         </div>
                     </div>
-                    <asp:PlaceHolder runat="server" ID="BoardMembershipAppNameHolder">
-                        <div class="form-group">
-                            <YAF:HelpLabel ID="HelpLabel4" runat="server" 
-                                           AssociatedControlID="BoardMembershipAppName"
-                                           LocalizedTag="MEMBSHIP_APP_NAME" LocalizedPage="ADMIN_EDITBOARD" />
-                            <asp:TextBox ID="BoardMembershipAppName" runat="server" 
-                                         CssClass="form-control"></asp:TextBox>
-                        </div>
-                    </asp:PlaceHolder>
                     <asp:PlaceHolder runat="server" ID="CreateNewAdminHolder">
                         <div class="form-group">
                             <YAF:HelpLabel ID="HelpLabel5" runat="server" 
@@ -92,22 +83,6 @@
                                                LocalizedTag="VERIFY_PASS" LocalizedPage="ADMIN_EDITBOARD" />
                                 <asp:TextBox runat="server" ID="UserPass2" 
                                              TextMode="password" 
-                                             CssClass="form-control" />
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <YAF:HelpLabel ID="HelpLabel10" runat="server" 
-                                               AssociatedControlID="UserPasswordQuestion"
-                                               LocalizedTag="SECURITY_QUESTION" LocalizedPage="ADMIN_EDITBOARD" />
-                                <asp:TextBox runat="server" ID="UserPasswordQuestion" 
-                                             CssClass="form-control" />
-                            </div>
-                            <div class="form-group col-md-6">
-                                <YAF:HelpLabel ID="HelpLabel11" runat="server" 
-                                               AssociatedControlID="UserPasswordAnswer"
-                                               LocalizedTag="SECURITY_ANSWER" LocalizedPage="ADMIN_EDITBOARD" />
-                                <asp:TextBox runat="server" ID="UserPasswordAnswer" 
                                              CssClass="form-control" />
                             </div>
                         </div>

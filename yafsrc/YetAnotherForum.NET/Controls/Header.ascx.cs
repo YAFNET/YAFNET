@@ -61,7 +61,7 @@ namespace YAF.Controls
         {
             var returnUrl = string.Empty;
 
-            if (this.PageContext.ForumPageType != ForumPages.Login)
+            if (this.PageContext.ForumPageType != ForumPages.Account_Login)
             {
                 returnUrl = HttpContext.Current.Server.UrlEncode(General.GetSafeRawUrl());
             }
@@ -392,12 +392,20 @@ namespace YAF.Controls
             // Login
             if (Config.AllowLoginAndLogoff)
             {
+                var navigateUrl = "javascript:void(0);";
+
+                if (this.PageContext.ForumPageType == ForumPages.Account_Login ||
+                    this.PageContext.ForumPageType == ForumPages.Account_Register)
+                {
+                    navigateUrl = BuildLink.GetLink(ForumPages.Account_Login);
+                }
+
                 RenderMenuItem(
                     this.menuListItems,
                     "nav-link  LoginLink",
                     this.GetText("TOOLBAR", "LOGIN"),
                     "LOGIN_TITLE",
-                    "javascript:void(0);",
+                    navigateUrl,
                     true,
                     false,
                     null,
@@ -417,13 +425,13 @@ namespace YAF.Controls
                     this.Get<BoardSettings>().ShowRulesForRegistration
                         ? BuildLink.GetLink(ForumPages.RulesAndPrivacy)
                         : !this.Get<BoardSettings>().UseSSLToRegister
-                            ? BuildLink.GetLink(ForumPages.Register)
-                            : BuildLink.GetLink(ForumPages.Register, true).Replace("http:", "https:"),
+                            ? BuildLink.GetLink(ForumPages.Account_Register)
+                            : BuildLink.GetLink(ForumPages.Account_Register, true).Replace("http:", "https:"),
                     true,
                     false,
                     null,
                     null,
-                    this.PageContext.ForumPageType == ForumPages.Register,
+                    this.PageContext.ForumPageType == ForumPages.Account_Register,
                     string.Empty);
             }
         }
@@ -457,13 +465,20 @@ namespace YAF.Controls
             {
                 if (Config.AllowLoginAndLogoff)
                 {
+                    var navigateUrl = "javascript:void(0);";
+
+                    if (this.PageContext.CurrentForumPage.IsAccountPage)
+                    {
+                        navigateUrl = BuildLink.GetLink(ForumPages.Account_Login);
+                    }
+
                     // show login
                     var loginLink = new HyperLink
-                                        {
-                                            Text = this.GetText("TOOLBAR", "LOGIN"),
-                                            ToolTip = this.GetText("TOOLBAR", "LOGIN"),
-                                            NavigateUrl = "javascript:void(0);",
-                                            CssClass = "alert-link LoginLink"
+                    {
+                        Text = this.GetText("TOOLBAR", "LOGIN"),
+                        ToolTip = this.GetText("TOOLBAR", "LOGIN"),
+                        NavigateUrl = navigateUrl,
+                        CssClass = "alert-link LoginLink"
                     };
 
                     this.GuestUserMessage.Controls.Add(loginLink);
@@ -487,9 +502,9 @@ namespace YAF.Controls
                                                    this.Get<BoardSettings>().ShowRulesForRegistration
                                                        ? BuildLink.GetLink(ForumPages.RulesAndPrivacy)
                                                        : !this.Get<BoardSettings>().UseSSLToRegister
-                                                           ? BuildLink.GetLink(ForumPages.Register)
+                                                           ? BuildLink.GetLink(ForumPages.Account_Register)
                                                            : BuildLink.GetLink(
-                                                               ForumPages.Register,
+                                                               ForumPages.Account_Register,
                                                                true).Replace("http:", "https:"),
                                                CssClass = "alert-link"
                                            };

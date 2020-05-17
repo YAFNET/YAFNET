@@ -31,19 +31,21 @@ namespace YAF.Dialogs
     using System.IO;
     using System.Linq;
     using System.Text.RegularExpressions;
-    using System.Web.Security;
-
+    
     using YAF.Configuration;
     
     using YAF.Core.BaseControls;
     using YAF.Core.Context;
+    using YAF.Core.Helpers;
+    using YAF.Core.Membership;
     using YAF.Core.Model;
-    using YAF.Core.UsersRoles;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Identity;
     using YAF.Types.Models;
+    using YAF.Types.Models.Identity;
     using YAF.Utils;
     using YAF.Utils.Helpers;
 
@@ -158,7 +160,7 @@ namespace YAF.Dialogs
                 {
                     importedCount =
                         usersDataSet.Tables["YafUser"].Rows.Cast<DataRow>().Where(
-                            row => this.Get<MembershipProvider>().GetUser((string)row["Name"], false) == null)
+                            row => this.Get<IAspNetUsersHelper>().GetUserByName((string)row["Name"]) == null)
                                                       .Aggregate(
                                                           importedCount, (current, row) => this.ImportUser(row, current));
                 }
@@ -190,7 +192,7 @@ namespace YAF.Dialogs
 
                 importedCount =
                     usersTable.Rows.Cast<DataRow>().Where(
-                        row => this.Get<MembershipProvider>().GetUser((string)row["Name"], false) == null).Aggregate(
+                        row => this.Get<IAspNetUsersHelper>().GetUserByName((string)row["Name"]) == null).Aggregate(
                             importedCount, (current, row) => this.ImportUser(row, current));
             }
 
@@ -212,47 +214,18 @@ namespace YAF.Dialogs
         private int ImportUser(DataRow row, int importCount)
         {
             // Also Check if the Email is unique and exists
-            if (this.Get<MembershipProvider>().RequiresUniqueEmail)
+            if (this.Get<IAspNetUsersHelper>().GetUserByEmail((string)row["Email"]) != null)
             {
-                if (this.Get<MembershipProvider>().GetUserNameByEmail((string)row["Email"]) != null)
-                {
-                    return importCount;
-                }
+                return importCount;
             }
 
-            var pass = Membership.GeneratePassword(32, 16);
-            var securityAnswer = Membership.GeneratePassword(64, 30);
-            var securityQuestion = "Answer is a generated Pass";
+            var provider = new YafMembershipProvider();
 
-            if (row.Table.Columns.Contains("Password") && ((string)row["Password"]).IsSet()
-                && row.Table.Columns.Contains("SecurityQuestion")
-                && ((string)row["SecurityQuestion"]).IsSet()
-                && row.Table.Columns.Contains("SecurityAnswer") && ((string)row["SecurityAnswer"]).IsSet())
-            {
-                pass = (string)row["Password"];
-
-                securityAnswer = (string)row["SecurityAnswer"];
-                securityQuestion = (string)row["SecurityQuestion"];
-            }
-
-            var user = BoardContext.Current.Get<MembershipProvider>().CreateUser(
-                (string)row["Name"],
-                pass,
-                (string)row["Email"],
-                this.Get<MembershipProvider>().RequiresQuestionAndAnswer ? securityQuestion : null,
-                this.Get<MembershipProvider>().RequiresQuestionAndAnswer ? securityAnswer : null,
-                true,
-                null,
-                out _);
-
-            // setup initial roles (if any) for this user
-            RoleMembershipHelper.SetupUserRoles(BoardContext.Current.PageBoardID, (string)row["Name"]);
-
-            // create the user in the YAF DB as well as sync roles...
-            var userID = RoleMembershipHelper.CreateForumUser(user, BoardContext.Current.PageBoardID);
+            var pass = provider.GeneratePassword();
+            var securityAnswer = provider.GeneratePassword();
 
             // create empty profile just so they have one
-            var userProfile = Utils.UserProfile.GetProfile((string)row["Name"]);
+            var userProfile = new ProfileInfo();
 
             // Add Profile Fields to User List Table.
             if (row.Table.Columns.Contains("RealName") && ((string)row["RealName"]).IsSet())
@@ -357,7 +330,44 @@ namespace YAF.Dialogs
                 userProfile.FacebookId = (string)row["FacebookId"];
             }
 
-            userProfile.Save();
+            var user = new AspNetUsers
+            {
+                Id = Guid.NewGuid().ToString(),
+                ApplicationId = this.Get<BoardSettings>().ApplicationId,
+                UserName = (string)row["Name"],
+                LoweredUserName = (string)row["Name"],
+                Email = (string)row["Email"],
+                IsApproved = true,
+
+                Profile_Birthday = userProfile.Birthday,
+                Profile_Blog = userProfile.Blog,
+                Profile_Gender = userProfile.Gender,
+                Profile_GoogleId = userProfile.GoogleId,
+                Profile_Homepage = userProfile.Homepage,
+                Profile_ICQ = userProfile.ICQ,
+                Profile_Facebook = userProfile.Facebook,
+                Profile_FacebookId = userProfile.FacebookId,
+                Profile_Twitter = userProfile.Twitter,
+                Profile_TwitterId = userProfile.TwitterId,
+                Profile_Interests = userProfile.Interests,
+                Profile_Location = userProfile.Location,
+                Profile_Country = userProfile.Country,
+                Profile_Region = userProfile.Region,
+                Profile_City = userProfile.City,
+                Profile_Occupation = userProfile.Occupation,
+                Profile_RealName = userProfile.RealName,
+                Profile_Skype = userProfile.Skype,
+                Profile_XMPP = userProfile.XMPP,
+                Profile_LastSyncedWithDNN = userProfile.LastSyncedWithDNN
+            };
+
+            this.Get<IAspNetUsersHelper>().Create(user, pass);
+
+            // setup initial roles (if any) for this user
+            AspNetRolesHelper.SetupUserRoles(BoardContext.Current.PageBoardID, user);
+
+            // create the user in the YAF DB as well as sync roles...
+            var userID = AspNetRolesHelper.CreateForumUser(user, BoardContext.Current.PageBoardID);
 
             if (userID == null)
             {
@@ -370,14 +380,7 @@ namespace YAF.Dialogs
                 user, pass, securityAnswer, "NOTIFICATION_ON_REGISTER");
 
             // save the time zone...
-            var userId = UserMembershipHelper.GetUserIDFromProviderUserKey(user.ProviderUserKey);
-
-            var isDst = false;
-
-            if (row.Table.Columns.Contains("IsDST") && ((string)row["IsDST"]).IsSet())
-            {
-                bool.TryParse((string)row["IsDST"], out isDst);
-            }
+            var userId = this.Get<IAspNetUsersHelper>().GetUserIDFromProviderUserKey(user.Id);
 
             var timeZone = 0;
 

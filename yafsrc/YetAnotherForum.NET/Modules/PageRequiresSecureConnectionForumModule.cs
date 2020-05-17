@@ -70,7 +70,7 @@ namespace YAF.Modules
 
             switch (this.ForumPageType)
             {
-                case ForumPages.Login:
+                case ForumPages.Account_Login:
                     if (!HttpContext.Current.Request.IsSecureConnection & this.PageContext.BoardSettings.UseSSLToLogIn)
                     {
                         accessDenied = true;
@@ -78,7 +78,7 @@ namespace YAF.Modules
 
                     break;
 
-                case ForumPages.Register:
+                case ForumPages.Account_Register:
                     if (!HttpContext.Current.Request.IsSecureConnection
                         & this.PageContext.BoardSettings.UseSSLToRegister)
                     {

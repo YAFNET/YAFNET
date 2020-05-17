@@ -24,9 +24,8 @@
 
 namespace YAF.Core.Services
 {
-    using System.Web.Security;
-
     using YAF.Core.Context;
+    using YAF.Core.Helpers;
     using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;
@@ -77,9 +76,9 @@ namespace YAF.Core.Services
         {
             return authService switch
                 {
-                    AuthService.twitter => new Auth.Twitter().GenerateLoginUrl(generatePopUpUrl, connectCurrentUser),
-                    AuthService.facebook => new Auth.Facebook().GenerateLoginUrl(generatePopUpUrl, connectCurrentUser),
-                    AuthService.google => new Auth.Google().GenerateLoginUrl(generatePopUpUrl, connectCurrentUser),
+                   // AuthService.twitter => new Auth.Twitter().GenerateLoginUrl(generatePopUpUrl, connectCurrentUser),
+                    //AuthService.facebook => new Auth.Facebook().GenerateLoginUrl(generatePopUpUrl, connectCurrentUser),
+                    //AuthService.google => new Auth.Google().GenerateLoginUrl(generatePopUpUrl, connectCurrentUser),
                     _ => string.Empty
                 };
         }
@@ -101,7 +100,8 @@ namespace YAF.Core.Services
                 return;
             }
 
-            FormsAuthentication.SetAuthCookie(userName, true);
+            // TODO : Login
+            //IdentityHelper.SignIn();
 
             BoardContext.Current.Get<IRaiseEvent>().Raise(new SuccessfulUserLoginEvent(userID));
         }

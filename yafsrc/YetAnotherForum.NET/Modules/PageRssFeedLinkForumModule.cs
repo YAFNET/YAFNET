@@ -28,7 +28,6 @@ namespace YAF.Modules
   using System;
   using System.Web.UI.HtmlControls;
 
-  using YAF.Core;
   using YAF.Core.Context;
   using YAF.Core.Extensions;
   using YAF.Types;

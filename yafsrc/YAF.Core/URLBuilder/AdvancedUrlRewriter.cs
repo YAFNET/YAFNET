@@ -142,7 +142,7 @@ namespace YAF.Core.URLBuilder
 
                             handlePage = true;
                             break;
-                        case ForumPages.Profile:
+                        case ForumPages.UserProfile:
                             useKey = "u";
                             pageName += "/";
                             description =

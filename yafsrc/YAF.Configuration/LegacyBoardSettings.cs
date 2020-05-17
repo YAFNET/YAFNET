@@ -37,41 +37,21 @@ namespace YAF.Configuration
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="LegacyBoardSettings" /> class.
+        /// Initializes a new instance of the <see cref="LegacyBoardSettings"/> class.
         /// </summary>
-        /// <param name="boardName">The board name.</param>
-        /// <param name="membershipAppName">The membership app name.</param>
-        /// <param name="rolesAppName">The roles app name.</param>
-        public LegacyBoardSettings(string boardName, string membershipAppName, string rolesAppName)
+        /// <param name="boardName">
+        /// The board name.
+        /// </param>
+        public LegacyBoardSettings(string boardName)
             : this()
         {
             this.BoardName = boardName;
-            this.MembershipAppName = membershipAppName;
-            this.RolesAppName = rolesAppName;
         }
 
         /// <summary>
         /// Gets or sets BoardName.
         /// </summary>
         public string BoardName
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// Gets or sets MembershipAppName.
-        /// </summary>
-        public string MembershipAppName
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// Gets or sets RolesAppName.
-        /// </summary>
-        public string RolesAppName
         {
             get;
             set;

@@ -35,12 +35,12 @@ namespace YAF.Pages
     using YAF.Core.BasePages;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
-    using YAF.Core.UsersRoles;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Flags;
     using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Identity;
     using YAF.Types.Models;
     using YAF.Utils;
     using YAF.Web.Extensions;
@@ -194,9 +194,6 @@ namespace YAF.Pages
                 return;
             }
 
-            // load localized texts for buttons
-            this.FindUsers.Text = this.GetText("FIND");
-
             // bind data
             this.DataBind();
 
@@ -265,7 +262,7 @@ namespace YAF.Pages
                 return;
             }
 
-            if (UserMembershipHelper.IsGuestUser(userId))
+            if (this.Get<IAspNetUsersHelper>().IsGuestUser(userId))
             {
                 this.PageContext.AddLoadMessage(this.GetText("NOT_GUEST"), MessageTypes.warning);
                 return;

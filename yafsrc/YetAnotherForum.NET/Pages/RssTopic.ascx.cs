@@ -406,7 +406,7 @@ namespace YAF.Pages
                                 feed.Authors.Add(
                                     SyndicationItemExtensions.NewSyndicationPerson(
                                         string.Empty,
-                                        row["UserID"].ToType<long>(),
+                                        row["UserID"].ToType<int>(),
                                         null,
                                         null));
                                 feed.LastUpdatedTime = DateTime.UtcNow + this.Get<IDateTime>().TimeOffset;
@@ -415,7 +415,7 @@ namespace YAF.Pages
                             feed.Contributors.Add(
                                 SyndicationItemExtensions.NewSyndicationPerson(
                                     string.Empty,
-                                    row["LastUserID"].ToType<long>(),
+                                    row["LastUserID"].ToType<int>(),
                                     null,
                                     null));
 
@@ -536,7 +536,7 @@ namespace YAF.Pages
                                 feed.Authors.Add(
                                     SyndicationItemExtensions.NewSyndicationPerson(
                                         string.Empty,
-                                        row["UserID"].ToType<long>(),
+                                        row["UserID"].ToType<int>(),
                                         null,
                                         null));
                                 feed.LastUpdatedTime = DateTime.UtcNow + this.Get<IDateTime>().TimeOffset;
@@ -545,7 +545,7 @@ namespace YAF.Pages
                             feed.Contributors.Add(
                                 SyndicationItemExtensions.NewSyndicationPerson(
                                     string.Empty,
-                                    row["LastUserID"].ToType<long>(),
+                                    row["LastUserID"].ToType<int>(),
                                     null,
                                     null));
 
@@ -633,7 +633,7 @@ namespace YAF.Pages
                         feed.Authors.Add(
                             SyndicationItemExtensions.NewSyndicationPerson(
                                 string.Empty,
-                                row["LastUserID"].ToType<long>(),
+                                row["LastUserID"].ToType<int>(),
                                 null,
                                 null));
 
@@ -648,7 +648,7 @@ namespace YAF.Pages
                         feed.Contributors.Add(
                             SyndicationItemExtensions.NewSyndicationPerson(
                                 string.Empty,
-                                row["LastUserID"].ToType<long>(),
+                                row["LastUserID"].ToType<int>(),
                                 null,
                                 null));
                     }
@@ -708,7 +708,7 @@ namespace YAF.Pages
                             feed.Authors.Add(
                                 SyndicationItemExtensions.NewSyndicationPerson(
                                     string.Empty,
-                                    row["UserID"].ToType<long>(),
+                                    row["UserID"].ToType<int>(),
                                     null,
                                     null));
                             feed.LastUpdatedTime = DateTime.UtcNow + this.Get<IDateTime>().TimeOffset;
@@ -717,7 +717,7 @@ namespace YAF.Pages
                         feed.Contributors.Add(
                             SyndicationItemExtensions.NewSyndicationPerson(
                                 string.Empty,
-                                row["LastUserID"].ToType<long>(),
+                                row["LastUserID"].ToType<int>(),
                                 null,
                                 null));
 
@@ -824,7 +824,7 @@ namespace YAF.Pages
                                 feed.Authors.Add(
                                     SyndicationItemExtensions.NewSyndicationPerson(
                                         string.Empty,
-                                        row["UserID"].ToType<long>(),
+                                        row["UserID"].ToType<int>(),
                                         row["UserName"].ToString(),
                                         row["UserDisplayName"].ToString()));
                             }
@@ -832,7 +832,7 @@ namespace YAF.Pages
                             feed.Contributors.Add(
                                 SyndicationItemExtensions.NewSyndicationPerson(
                                     string.Empty,
-                                    row["LastUserID"].ToType<long>(),
+                                    row["LastUserID"].ToType<int>(),
                                     row["LastUserName"].ToString(),
                                     row["LastUserDisplayName"].ToString()));
 
@@ -954,7 +954,7 @@ namespace YAF.Pages
                                 feed.Authors.Add(
                                     SyndicationItemExtensions.NewSyndicationPerson(
                                         string.Empty,
-                                        row["UserID"].ToType<long>(),
+                                        row["UserID"].ToType<int>(),
                                         null,
                                         null));
                                 feed.LastUpdatedTime = DateTime.UtcNow + this.Get<IDateTime>().TimeOffset;
@@ -971,7 +971,7 @@ namespace YAF.Pages
                             feed.Contributors.Add(
                                 SyndicationItemExtensions.NewSyndicationPerson(
                                     string.Empty,
-                                    row["UserID"].ToType<long>(),
+                                    row["UserID"].ToType<int>(),
                                     null,
                                     null));
 
@@ -1054,7 +1054,7 @@ namespace YAF.Pages
                                 feed.Authors.Add(
                                     SyndicationItemExtensions.NewSyndicationPerson(
                                         string.Empty,
-                                        row["LastUserID"].ToType<long>(),
+                                        row["LastUserID"].ToType<int>(),
                                         null,
                                         null));
                                 feed.LastUpdatedTime = DateTime.UtcNow + this.Get<IDateTime>().TimeOffset;
@@ -1066,7 +1066,7 @@ namespace YAF.Pages
                             feed.Contributors.Add(
                                 SyndicationItemExtensions.NewSyndicationPerson(
                                     string.Empty,
-                                    row["LastUserID"].ToType<long>(),
+                                    row["LastUserID"].ToType<int>(),
                                     null,
                                     null));
 

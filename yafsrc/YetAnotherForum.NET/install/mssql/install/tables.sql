@@ -239,14 +239,10 @@ if not exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{d
 		UserID			int NOT NULL,
 		Email			nvarchar (255) NOT NULL,
 		Created			datetime NOT NULL,
-		[Hash]			nvarchar (32) NOT NULL,
+		[Hash]			nvarchar (max) NOT NULL,
  constraint [PK_{objectQualifier}CheckEmail] PRIMARY KEY CLUSTERED 
 (
 	[CheckEmailID] ASC
-)WITH (STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF),
- constraint [IX_{objectQualifier}CheckEmail] UNIQUE NONCLUSTERED 
-(
-	[Hash] ASC
 )WITH (STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF)
 	)
 GO
@@ -588,29 +584,6 @@ if not exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{d
 	[Name] ASC
 )WITH (STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF)
 )
-GO
-
-IF not exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}UserProfile]') and type in (N'U'))
-	CREATE TABLE [{databaseOwner}].[{objectQualifier}UserProfile]
-	(
-		[UserID] [int] NOT NULL,
-		[LastUpdatedDate] [datetime] NOT NULL,
-		-- added columns
-		[LastActivity] [datetime],
-		[ApplicationName] [nvarchar](255) NOT NULL,	
-		[IsAnonymous] [bit] NOT NULL,
-		[UserName] [nvarchar](255) NOT NULL,
- constraint [PK_{objectQualifier}UserProfile] PRIMARY KEY CLUSTERED 
-(
-	[UserID] ASC,
-	[ApplicationName] ASC
-)WITH (STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF),
- constraint [IX_{objectQualifier}UserProfile] UNIQUE NONCLUSTERED 
-(
-	[UserID] ASC,
-	[ApplicationName] ASC
-)WITH (STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF)
-	)
 GO
 
 if not exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[{objectQualifier}WatchForum]') and type in (N'U'))

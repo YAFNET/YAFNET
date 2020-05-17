@@ -28,6 +28,7 @@ namespace YAF.Core.Extensions
     using System.Data;
     using System.Linq;
     using System.Linq.Expressions;
+    using System.Threading.Tasks;
 
     using ServiceStack;
     using ServiceStack.OrmLite;
@@ -286,16 +287,17 @@ namespace YAF.Core.Extensions
             [NotNull] this IRepository<T> repository,
             [NotNull] T entity,
             IDbTransaction transaction = null)
-            where T : class, IEntity, IHaveID, new()
+            where T : class, IEntity, new()
         {
             CodeContracts.VerifyNotNull(entity, "entity");
             CodeContracts.VerifyNotNull(repository, "repository");
 
             var success = repository.DbAccess.Update(entity, transaction) > 0;
-            if (success)
+
+            /*if (success)
             {
                 repository.FireUpdated(entity.ID, entity);
-            }
+            }*/
 
             return success;
         }
@@ -392,7 +394,7 @@ namespace YAF.Core.Extensions
         /// <param name="criteria">The criteria.</param>
         /// <returns>Returns the Row Count</returns>
         public static long Count<T>([NotNull] this IRepository<T> repository, Expression<Func<T, bool>> criteria)
-            where T : class, IEntity, IHaveID, new()
+            where T : class, IEntity, new()
         {
             CodeContracts.VerifyNotNull(repository, "repository");
             CodeContracts.VerifyNotNull(criteria, "criteria");

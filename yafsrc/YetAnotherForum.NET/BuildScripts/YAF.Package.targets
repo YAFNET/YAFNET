@@ -36,11 +36,14 @@
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery.blockUI.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery.fileupload.comb.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery.ForumExtensions.js" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery.ForumAdminExtensionsDnn.js" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery.ForumAdminExtensionsDnn.min.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery.hovercard.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery.selectedQuoting.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\blueimp-gallery.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\blueimp-gallery-indicator.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\bootstrap.bundle.js" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\bootstrap.bundle.min.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\bootstrap-tagsinput.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\bootstrap-typeahead.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\bootstrap-datetimepicker.js" />
@@ -50,6 +53,8 @@
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery.blueimp-gallery.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery.bootstrap-touchspin.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery.ForumAdminExtensions.js" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery.ForumAdminExtensionsDnn.js" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery.ForumAdminExtensionsDnn.min.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\moment-with-locales.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\moment-with-locales.min.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery-3.5.1.js" />

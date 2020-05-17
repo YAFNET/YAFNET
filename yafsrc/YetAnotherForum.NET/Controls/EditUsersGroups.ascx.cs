@@ -33,14 +33,15 @@ namespace YAF.Controls
 
     using YAF.Core.BaseControls;
     using YAF.Core.Extensions;
+    using YAF.Core.Helpers;
     using YAF.Core.Model;
-    using YAF.Core.UsersRoles;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.EventProxies;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Events;
+    using YAF.Types.Interfaces.Identity;
     using YAF.Types.Models;
     using YAF.Utils;
     using YAF.Utils.Helpers;
@@ -132,8 +133,7 @@ namespace YAF.Controls
             var removedRoles = new List<string>();
 
             // get user's name
-            var userName = UserMembershipHelper.GetUserNameFromID(this.CurrentUserID);
-            var user = UserMembershipHelper.GetUser(userName);
+            var user = this.Get<IAspNetUsersHelper>().GetMembershipUserById(this.CurrentUserID);
             
             // go through all roles displayed on page
             for (var i = 0; i < this.UserGroups.Items.Count; i++)
@@ -158,21 +158,21 @@ namespace YAF.Controls
                 this.GetRepository<ActiveAccess>().DeleteAll();
 
                 // update roles if this user isn't the guest
-                if (UserMembershipHelper.IsGuestUser(this.CurrentUserID))
+                if (this.Get<IAspNetUsersHelper>().IsGuestUser(this.CurrentUserID))
                 {
                     continue;
                 }
 
                 // add/remove user from roles in membership provider
-                if (isChecked && !RoleMembershipHelper.IsUserInRole(userName, roleName))
+                if (isChecked && !AspNetRolesHelper.IsUserInRole(user, roleName))
                 {
-                    RoleMembershipHelper.AddUserToRole(userName, roleName);
+                    AspNetRolesHelper.AddUserToRole(user, roleName);
 
                     addedRoles.Add(roleName);
                 }
-                else if (!isChecked && RoleMembershipHelper.IsUserInRole(userName, roleName))
+                else if (!isChecked && AspNetRolesHelper.IsUserInRole(user, roleName))
                 {
-                    RoleMembershipHelper.RemoveUserFromRole(userName, roleName);
+                    AspNetRolesHelper.RemoveUserFromRole(user.Id, roleName);
 
                     removedRoles.Add(roleName);
                 }

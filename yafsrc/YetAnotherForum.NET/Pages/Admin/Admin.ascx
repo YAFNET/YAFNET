@@ -229,10 +229,6 @@
                                         LocalizedTag="ADMIN_IPADRESS" LocalizedPage="ADMIN_ADMIN" />
                                 </th>
                                 <th>
-                                    <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server"
-                                        LocalizedTag="LOCATION" />
-                                </th>
-                                <th>
                                     <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server"
                                         LocalizedTag="BOARD_LOCATION" LocalizedPage="ADMIN_ADMIN" />
                                 </th>
@@ -252,9 +248,6 @@
                         <a id="A1" href='<%# string.Format(this.Get<BoardSettings>().IPInfoPageURL, IPHelper.GetIp4Address(this.Eval("IP").ToString())) %>'
                             title='<%# this.GetText("COMMON","TT_IPDETAILS") %>' target="_blank" runat="server">
                             <%# IPHelper.GetIp4Address(this.Eval("IP").ToString())%></a>
-                    </td>
-                    <td>
-                        <%# this.SetLocation(this.Eval("UserName").ToString())%>
                     </td>
                     <td>
                         <YAF:ActiveLocation ID="ActiveLocation2" 
@@ -324,9 +317,6 @@
                             LocalizedPage="ADMIN_ADMIN" />
                     </th>
                     <th>
-                        <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="LOCATION" />
-                    </th>
-                    <th>
                         <YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedTag="ADMIN_JOINED"
                             LocalizedPage="ADMIN_ADMIN" />
                     </th>
@@ -344,9 +334,6 @@
                     </td>
                     <td>
                         <%# this.Eval("Email") %>
-                    </td>
-                    <td>
-                        <%# this.SetLocation(this.Eval("Name").ToString())%>
                     </td>
                     <td>
                         <%# this.Get<IDateTime>().FormatDateTime((DateTime)this.Eval("Joined")) %>

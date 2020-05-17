@@ -36,11 +36,11 @@ namespace YAF.Core.Tasks
     using YAF.Configuration;
     using YAF.Core.Context;
     using YAF.Core.Model;
-    using YAF.Core.UsersRoles;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Identity;
     using YAF.Types.Models;
 
     #endregion
@@ -219,7 +219,7 @@ namespace YAF.Core.Tasks
                                 return;
                             }
 
-                            var membershipUser = UserMembershipHelper.GetUser(user.Name);
+                            var membershipUser = this.Get<IAspNetUsersHelper>().GetUserByName(user.Name);
 
                             if (membershipUser == null || membershipUser.Email.IsNotSet())
                             {

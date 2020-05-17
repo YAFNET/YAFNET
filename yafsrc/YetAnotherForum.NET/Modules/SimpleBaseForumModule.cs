@@ -25,7 +25,6 @@ namespace YAF.Modules
 {
     #region Using
 
-    using YAF.Core;
     using YAF.Core.BaseModules;
     using YAF.Core.BasePages;
     using YAF.Types;

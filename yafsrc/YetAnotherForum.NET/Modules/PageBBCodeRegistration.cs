@@ -49,7 +49,7 @@ namespace YAF.Modules
                 case ForumPages.PrivateMessage:
                 case ForumPages.Search:
                 case ForumPages.Posts:
-                case ForumPages.Profile:
+                case ForumPages.UserProfile:
                     this.Get<IBBCode>().RegisterCustomBBCodePageElements(
                         this.PageContext.CurrentForumPage.Page,
                         this.PageContext.CurrentForumPage.GetType());

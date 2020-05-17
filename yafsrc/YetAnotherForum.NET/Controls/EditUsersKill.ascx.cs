@@ -34,13 +34,14 @@ namespace YAF.Controls
     using YAF.Configuration;
     using YAF.Core.BaseControls;
     using YAF.Core.Extensions;
+    using YAF.Core.Helpers;
     using YAF.Core.Model;
     using YAF.Core.Services.CheckForSpam;
-    using YAF.Core.UsersRoles;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Identity;
     using YAF.Types.Models;
     using YAF.Types.Objects;
     using YAF.Utils;
@@ -72,7 +73,7 @@ namespace YAF.Controls
         public IOrderedEnumerable<Message> AllPostsByUser =>
             this.allPostsByUser ?? (this.allPostsByUser =
                                         this.GetRepository<Message>()
-                                            .GetAllUserMessages(this.CurrentUserId.Value.ToType<int>()));
+                                            .GetAllUserMessages(this.CurrentUserId));
 
         /// <summary>
         ///   Gets IPAddresses.
@@ -103,19 +104,17 @@ namespace YAF.Controls
         {
             get
             {
-                var user = UserMembershipHelper.GetMembershipUserById(this.CurrentUserId);
+                var user = this.Get<IAspNetUsersHelper>().GetMembershipUserById(this.CurrentUserId);
                 var currentUserId = this.CurrentUserId;
 
-                return currentUserId != null
-                           ? new CombinedUserDataHelper(user, currentUserId.Value.ToType<int>())
-                           : null;
+                return new CombinedUserDataHelper(user, currentUserId);
             }
         }
 
         /// <summary>
         ///   Gets CurrentUserID.
         /// </summary>
-        protected long? CurrentUserId => this.PageContext.QueryIDs["u"];
+        protected int CurrentUserId => this.PageContext.QueryIDs["u"].Value.ToType<int>();
 
         /// <summary>
         /// Gets or sets the current user.
@@ -136,7 +135,7 @@ namespace YAF.Controls
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Kill_OnClick([NotNull] object sender, [NotNull] EventArgs e)
         {
-            var user = UserMembershipHelper.GetMembershipUserById(this.CurrentUserId);
+            var user = this.Get<IAspNetUsersHelper>().GetMembershipUserById(this.CurrentUserId);
 
             // Ban User Email?
             if (this.BanEmail.Checked)
@@ -242,7 +241,7 @@ namespace YAF.Controls
                         }
 
                         // all is good, user can be deleted
-                        UserMembershipHelper.DeleteUser(this.CurrentUserId.ToType<int>());
+                        this.Get<IAspNetUsersHelper>().DeleteUser(this.CurrentUserId.ToType<int>());
 
                         BuildLink.Redirect(ForumPages.Admin_Users);
                     }
@@ -302,11 +301,11 @@ namespace YAF.Controls
                 .Select(x => x.Mask).ToList();
 
             // ban user ips...
-            var name = UserMembershipHelper.GetDisplayNameFromID(this.CurrentUserId?.ToType<int>() ?? -1);
+            var name = this.Get<IAspNetUsersHelper>().GetDisplayNameFromID(this.CurrentUserId);
 
             if (name.IsNotSet())
             {
-                name = UserMembershipHelper.GetUserNameFromID(this.CurrentUserId?.ToType<int>() ?? -1);
+                name = this.Get<IAspNetUsersHelper>().GetUserNameFromID(this.CurrentUserId);
             }
 
             this.IPAddresses.Except(allIps).ToList().Where(i => i.IsSet()).ForEach(
@@ -316,7 +315,7 @@ namespace YAF.Controls
                         "ADMIN_EDITUSER",
                         "LINK_USER_BAN",
                         this.CurrentUserId,
-                        BuildLink.GetLink(ForumPages.Profile, "u={0}&name={1}", this.CurrentUserId, name),
+                        BuildLink.GetLink(ForumPages.UserProfile, "u={0}&name={1}", this.CurrentUserId, name),
                         this.HtmlEncode(name));
 
                     this.GetRepository<BannedIP>().Save(null, ip, linkUserBan, this.PageContext.PageUserID);
@@ -337,7 +336,7 @@ namespace YAF.Controls
                 !this.CurrentUserDataHelper.IsGuest
                     ? this.Get<BoardSettings>().EnableDisplayName ? this.CurrentUserDataHelper.DisplayName :
                       this.CurrentUserDataHelper.UserName
-                    : UserMembershipHelper.GuestUserName);
+                    : this.Get<IAspNetUsersHelper>().GuestUserName);
 
             this.ReportUserRow.Visible = this.Get<BoardSettings>().StopForumSpamApiKey.IsSet();
 

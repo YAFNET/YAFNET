@@ -71,9 +71,7 @@ namespace YAF.Modules
             [NotNull] EventConverterArgs<ForumPagePreLoadEvent> e)
         {
             // no security features for login/logout pages
-            if (this.ForumPageType == ForumPages.Login || this.ForumPageType == ForumPages.Approve
-                                                       || this.ForumPageType == ForumPages.Logout
-                                                       || this.ForumPageType == ForumPages.RecoverPassword)
+            if (this.CurrentForumPage.IsAccountPage)
             {
                 return;
             }
@@ -100,7 +98,7 @@ namespace YAF.Modules
             }
 
             // handle security features...
-            if (this.ForumPageType == ForumPages.Register && this.PageContext.BoardSettings.DisableRegistrations)
+            if (this.ForumPageType == ForumPages.Account_Register && this.PageContext.BoardSettings.DisableRegistrations)
             {
                 BuildLink.AccessDenied();
             }

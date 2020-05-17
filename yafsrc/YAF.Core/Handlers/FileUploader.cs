@@ -35,10 +35,10 @@ namespace YAF.Core.Handlers
     using YAF.Core.Context;
     using YAF.Core.Model;
     using YAF.Core.Services.Startup;
-    using YAF.Core.UsersRoles;
     using YAF.Types;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Identity;
     using YAF.Types.Models;
     using YAF.Types.Objects;
     using YAF.Utils.Helpers;
@@ -256,7 +256,7 @@ namespace YAF.Core.Handlers
             }
 
             // Find user name
-            var user = UserMembershipHelper.GetUser();
+            var user = this.Get<IAspNetUsersHelper>().GetUser();
 
             var browser =
                 $"{HttpContext.Current.Request.Browser.Browser} {HttpContext.Current.Request.Browser.Version}";
@@ -279,7 +279,7 @@ namespace YAF.Core.Handlers
 
             if (user != null)
             {
-                userKey = user.ProviderUserKey;
+                userKey = user.Id;
             }
 
             var pageRow = this.GetRepository<ActiveAccess>().PageLoadAsDataRow(

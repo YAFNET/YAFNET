@@ -24,11 +24,11 @@
 namespace YAF.Types.Interfaces
 {
     using System;
-    using System.Data;
-    using System.Web.Security;
-
+    
     using YAF.Types.Constants;
     using YAF.Types.Flags;
+    using YAF.Types.Models.Identity;
+    using YAF.Types.Objects;
 
     /// <summary>
     /// The UserData Interface
@@ -53,7 +53,7 @@ namespace YAF.Types.Interfaces
         /// <summary>
         ///   Gets DBRow.
         /// </summary>
-        DataRow DBRow { get; }
+        TypedUserList User { get; }
 
         /// <summary>
         ///   Gets a value indicating whether  DST is Enabled.
@@ -113,7 +113,7 @@ namespace YAF.Types.Interfaces
         /// <summary>
         ///   Gets Membership.
         /// </summary>
-        MembershipUser Membership { get; }
+        AspNetUsers Membership { get; }
 
         /// <summary>
         /// Gets NotificationSetting.
@@ -138,7 +138,7 @@ namespace YAF.Types.Interfaces
         /// <summary>
         ///   Gets Profile.
         /// </summary>
-        IUserProfile Profile { get; }
+        ProfileInfo Profile { get; }
 
         /// <summary>
         ///   Gets RankName.

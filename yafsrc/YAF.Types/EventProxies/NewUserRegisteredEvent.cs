@@ -25,9 +25,9 @@ namespace YAF.Types.EventProxies
 {
     #region Using
 
-    using System.Web.Security;
-
+    using YAF.Types;
     using YAF.Types.Interfaces.Events;
+    using YAF.Types.Models.Identity;
 
     #endregion
 
@@ -47,7 +47,7 @@ namespace YAF.Types.EventProxies
         /// <param name="userId">
         /// The user id.
         /// </param>
-        public NewUserRegisteredEvent([NotNull] MembershipUser user, int userId)
+        public NewUserRegisteredEvent([NotNull] AspNetUsers user, int userId)
         {
             CodeContracts.VerifyNotNull(user, "user");
 
@@ -62,7 +62,7 @@ namespace YAF.Types.EventProxies
         /// <summary>
         /// Gets or sets User.
         /// </summary>
-        public MembershipUser User { get; set; }
+        public AspNetUsers User { get; set; }
 
         /// <summary>
         /// Gets or sets UserId.

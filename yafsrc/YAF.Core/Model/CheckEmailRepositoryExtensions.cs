@@ -26,14 +26,12 @@ namespace YAF.Core.Model
     using System;
     using System.Collections.Generic;
     using System.Data;
-    
+
     using YAF.Core.Extensions;
     using YAF.Types;
     using YAF.Types.Extensions;
-    using YAF.Types.Extensions.Data;
     using YAF.Types.Interfaces.Data;
     using YAF.Types.Models;
-    using YAF.Utils.Helpers;
 
     /// <summary>
     ///     The check email repository extensions.
@@ -104,12 +102,14 @@ namespace YAF.Core.Model
         /// <returns>
         /// The <see cref="DataTable"/>.
         /// </returns>
-        public static DataRow Update(this IRepository<CheckEmail> repository, [NotNull] string hash)
+        public static CheckEmail Update(this IRepository<CheckEmail> repository, [NotNull] string hash)
         {
             CodeContracts.VerifyNotNull(hash, "hash");
             CodeContracts.VerifyNotNull(repository, "repository");
 
-            return repository.DbFunction.GetAsDataTable(mail => mail.checkemail_update(Hash: hash)).GetFirstRow();
+            var mail = repository.GetSingle(c => c.Hash == hash);
+
+            return mail;
         }
 
         #endregion

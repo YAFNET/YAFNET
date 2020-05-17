@@ -29,10 +29,10 @@ namespace YAF.Core.Extensions
 
     using YAF.Core.Context;
     using YAF.Core.Syndication;
-    using YAF.Core.UsersRoles;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Identity;
     using YAF.Utils;
 
     /// <summary>
@@ -163,7 +163,7 @@ namespace YAF.Core.Extensions
         /// <returns>The SyndicationPerson.</returns>
         public static SyndicationPerson NewSyndicationPerson(
             string userEmail,
-            long userId,
+            int userId,
             string userName,
             string userDisplayName)
         {
@@ -171,18 +171,18 @@ namespace YAF.Core.Extensions
             if (BoardContext.Current.BoardSettings.EnableDisplayName)
             {
                 userNameToShow = userDisplayName.IsNotSet()
-                                     ? UserMembershipHelper.GetDisplayNameFromID(userId)
+                                     ? BoardContext.Current.Get<IAspNetUsersHelper>().GetDisplayNameFromID(userId)
                                      : userDisplayName;
             }
             else
             {
-                userNameToShow = userName.IsNotSet() ? UserMembershipHelper.GetUserNameFromID(userId) : userName;
+                userNameToShow = userName.IsNotSet() ? BoardContext.Current.Get<IAspNetUsersHelper>().GetUserNameFromID(userId) : userName;
             }
 
             return new SyndicationPerson(
                 userEmail,
                 userNameToShow,
-                BuildLink.GetLinkNotEscaped(ForumPages.Profile, true, "u={0}&name={1}", userId, userNameToShow));
+                BuildLink.GetLinkNotEscaped(ForumPages.UserProfile, true, "u={0}&name={1}", userId, userNameToShow));
         }
 
         /// <summary>

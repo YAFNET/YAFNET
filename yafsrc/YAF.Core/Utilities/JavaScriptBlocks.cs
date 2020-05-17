@@ -1089,67 +1089,66 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
             [NotNull] string passwordStrongerText,
             [NotNull] string passwordWeakText)
         {
-            return $@"{Config.JQueryAlias}(document).ready(function() {{
+            return $@"{Config.JQueryAlias}(document).ready(function () {{
+        var password = {Config.JQueryAlias}('#{passwordClientId}');
+        var passwordConfirm = {Config.JQueryAlias}('#{confirmPasswordClientId}');
+        // Check if passwords match
+        {Config.JQueryAlias}('#{passwordClientId}, #{confirmPasswordClientId}').on('keyup', function () {{
+            if (password.val() !== '' && passwordConfirm.val() !== '' && password.val() === passwordConfirm.val()) {{
+                {Config.JQueryAlias}('#PasswordInvalid').hide();
+				password.removeClass('is-invalid');
+                passwordConfirm.removeClass('is-invalid');
+            }} else {{
+                {Config.JQueryAlias}('#PasswordInvalid').show();
+                {Config.JQueryAlias}('#PasswordInvalid').html('{notMatchText}');
+                password.addClass('is-invalid');
+                passwordConfirm.addClass('is-invalid');
+            }}
 
-    {Config.JQueryAlias}('#{confirmPasswordClientId}').on('keyup', function(e) {{
-        var password = {Config.JQueryAlias}('#{passwordClientId}').val();
-        var passwordConfirm = {Config.JQueryAlias}('#{confirmPasswordClientId}').val();
+            var strongRegex=new RegExp(""^(?=.{{8,}})(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*\\W).*$"",""g"");
+			var mediumRegex=new RegExp(""^(?=.{{7,}})(((?=.*[A-Z])(?=.*[a-z]))|((?=.*[A-Z])(?=.*[0-9]))|((?=.*[a-z])(?=.*[0-9]))).*$"",""g"");
+			var okRegex=new RegExp(""(?=.{{{minimumChars},}}).*"",""g"");
 
-        if(password == '' && passwordConfirm == '') {{
-            {Config.JQueryAlias}('#passwordStrength').removeClass().empty();
-            {Config.JQueryAlias}('#passwordStrength').parent().parent('.post').hide();
+            {Config.JQueryAlias}('#passwordStrength').removeClass(""d-none"");
 
-            return false;
-        }}
-        else
-        {{
-             if(password != passwordConfirm) {{
-    		    {Config.JQueryAlias}('#passwordStrength').removeClass().addClass('alert alert-danger').html('<p><i class=""fas fa-exclamation-circle""></i> {notMatchText}</p>');
-                {Config.JQueryAlias}('#passwordStrength').parent().parent('.post').show();
-        	    return false;
-    	     }}
-             else {{
-                {Config.JQueryAlias}('#passwordStrength').removeClass().empty();
-                {Config.JQueryAlias}('#passwordStrength').parent().parent('.post').hide();
-             }}
-         }}
-    }});
+            if (okRegex.test(password.val()) === false) {{
+			   {Config.JQueryAlias}('#passwordHelp').html('{passwordMinText}');
+               {Config.JQueryAlias}('#progress-password').removeClass().addClass('progress-bar bg-danger w-25');
+               
 
-    {Config.JQueryAlias}('#{passwordClientId}').on('keyup', function(e) {{
-
-        var password = {Config.JQueryAlias}('#{passwordClientId}').val();
-        var passwordConfirm = {Config.JQueryAlias}('#{confirmPasswordClientId}').val();
-
-        if(password == '' && passwordConfirm == '')
-        {{
-            {Config.JQueryAlias}('#passwordStrength').removeClass().empty();
-            {Config.JQueryAlias}('#passwordStrength').parent().parent('.post').hide();
-
-            return false;
-        }}
-
-        var strongRegex = new RegExp(""^(?=.{{8,}})(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*\\W).*$"", ""g"");
-
-        var mediumRegex = new RegExp(""^(?=.{{7,}})(((?=.*[A-Z])(?=.*[a-z]))|((?=.*[A-Z])(?=.*[0-9]))|((?=.*[a-z])(?=.*[0-9]))).*$"", ""g"");
-
-        var okRegex = new RegExp(""(?=.{{{minimumChars},}}).*"", ""g"");
-
-        if (okRegex.test(password) === false) {{
-            {Config.JQueryAlias}('#passwordStrength').removeClass().addClass('alert alert-danger').html('<p><i class=""fas fa-exclamation-circle""></i> {passwordMinText}</p>');
-
-        }} else if (strongRegex.test(password)) {{
-            {Config.JQueryAlias}('#passwordStrength').removeClass().addClass('alert alert-info').html('<p><i class=""fas fa-exclamation-circle""></i> {passwordGoodText}</p>');
-        }} else if (mediumRegex.test(password)) {{
-            {Config.JQueryAlias}('#passwordStrength').removeClass().addClass('alert alert-warning').html('<p><i class=""fas fa-exclamation-circle""></i> {passwordStrongerText}</p>');
-        }} else {{
-            {Config.JQueryAlias}('#passwordStrength').removeClass().addClass('alert alert-danger').html('<p><i class=""fas fa-exclamation-circle""></i> {passwordWeakText}</p>');
-        }}
-
-        {Config.JQueryAlias}('#passwordStrength').parent().parent('.post').show();
-
-        return true;
-    }});
-}});";
+            }} else if (strongRegex.test(password.val())) {{
+                {Config.JQueryAlias}('#passwordHelp').html('{passwordGoodText}');
+				{Config.JQueryAlias}('#progress-password').removeClass().addClass('progress-bar bg-success w-100');
+            }} else if (mediumRegex.test(password.val())) {{
+                {Config.JQueryAlias}('#passwordHelp').html('{passwordStrongerText}');
+				{Config.JQueryAlias}('#progress-password').removeClass().addClass('progress-bar bg-warning w-75');
+            }} else {{
+			    {Config.JQueryAlias}('#passwordHelp').html('{passwordWeakText}');
+                {Config.JQueryAlias}('#progress-password').removeClass().addClass('progress-bar bg-warning w-50');
+            }}
+        }});
+        let currForm1 = document.querySelector(""form"");
+        // Validate on submit:
+        currForm1.addEventListener('submit', function (event) {{
+            if (currForm1.checkValidity() === false) {{
+                event.preventDefault();
+                event.stopPropagation();
+            }}
+            currForm1.classList.add('was-validated');
+        }}, false);
+        // Validate on input:
+        currForm1.querySelectorAll('.form-control').forEach(input => {{
+            input.addEventListener(('input'), () => {{
+                if (input.checkValidity()) {{
+                    input.classList.remove('is-invalid');
+                    input.classList.add('is-valid');
+                }} else {{
+                    input.classList.remove('is-valid');
+                    input.classList.add('is-invalid');
+                }}
+            }});
+        }});
+    }});";
         }
 
         /// <summary>

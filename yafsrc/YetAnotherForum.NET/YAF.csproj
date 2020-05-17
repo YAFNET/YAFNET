@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="12.0">
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -141,10 +142,14 @@
     <Reference Include="FarsiLibrary.Utils, Version=2.7.0.0, Culture=neutral, PublicKeyToken=def7c46cace23f8f, processorArchitecture=MSIL">
       <HintPath>..\packages\Farsi.Library.2.7.0\lib\net46\FarsiLibrary.Utils.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.3\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System">
       <Name>System</Name>
     </Reference>
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Data">
       <Name>System.Data</Name>
@@ -157,7 +162,7 @@
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.ServiceModel.Web" />
     <Reference Include="System.Web">
-      <Name>System.Web</Name>
+      <HintPath>..\..\..\..\..\..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\System.Web.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.Abstractions" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -312,7 +317,6 @@
       <DependentUpon>auth.aspx</DependentUpon>
     </Compile>
     <Compile Include="Classes\LatestInformationService.cs" />
-    <Compile Include="Classes\MembershipUpgradeEvent.cs" />
     <Compile Include="controls\MostActiveUsers.ascx.cs">
       <DependentUpon>MostActiveUsers.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -488,9 +492,6 @@
     <Compile Include="controls\EditUsersProfile.ascx.designer.cs">
       <DependentUpon>EditUsersProfile.ascx</DependentUpon>
     </Compile>
-    <Compile Include="controls\EditUsersResetPass.ascx.designer.cs">
-      <DependentUpon>EditUsersResetPass.ascx</DependentUpon>
-    </Compile>
     <Compile Include="controls\EditUsersSignature.ascx.designer.cs">
       <DependentUpon>EditUsersSignature.ascx</DependentUpon>
     </Compile>
@@ -664,6 +665,13 @@
     <Compile Include="Modules\SimpleBaseForumModule.cs" />
     <Compile Include="Modules\SuspendCheckForumModule.cs" />
     <Compile Include="Modules\TimeAgoForumModule.cs" />
+    <Compile Include="Pages\Account\ResetPassword.ascx.cs">
+      <DependentUpon>ResetPassword.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Account\ResetPassword.ascx.designer.cs">
+      <DependentUpon>ResetPassword.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Pages\ActiveUsers.ascx.designer.cs">
       <DependentUpon>ActiveUsers.ascx</DependentUpon>
     </Compile>
@@ -885,23 +893,23 @@
     <Compile Include="Pages\Albums.ascx.designer.cs">
       <DependentUpon>Albums.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Approve.ascx.designer.cs">
+    <Compile Include="Pages\Account\Approve.ascx.designer.cs">
       <DependentUpon>Approve.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Attachments.ascx.designer.cs">
+    <Compile Include="Pages\Profile\Attachments.ascx.designer.cs">
       <DependentUpon>Attachments.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Avatar.ascx.designer.cs">
+    <Compile Include="Pages\Profile\Avatar.ascx.designer.cs">
       <DependentUpon>Avatar.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Pages\DeleteAccount.ascx.cs">
+    <Compile Include="Pages\Profile\DeleteAccount.ascx.cs">
       <DependentUpon>DeleteAccount.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Pages\DeleteAccount.ascx.designer.cs">
+    <Compile Include="Pages\Profile\DeleteAccount.ascx.designer.cs">
       <DependentUpon>DeleteAccount.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Pages\ChangePassword.ascx.designer.cs">
+    <Compile Include="Pages\Profile\ChangePassword.ascx.designer.cs">
       <DependentUpon>ChangePassword.ascx</DependentUpon>
     </Compile>
     <Compile Include="Pages\EditAlbumImages.ascx.cs">
@@ -911,11 +919,11 @@
     <Compile Include="Pages\EditAlbumImages.ascx.designer.cs">
       <DependentUpon>EditAlbumImages.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Pages\EditAvatar.ascx.cs">
+    <Compile Include="Pages\Profile\EditAvatar.ascx.cs">
       <DependentUpon>EditAvatar.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Pages\EditAvatar.ascx.designer.cs">
+    <Compile Include="Pages\Profile\EditAvatar.ascx.designer.cs">
       <DependentUpon>EditAvatar.ascx</DependentUpon>
     </Compile>
     <Compile Include="Pages\Friends.ascx.cs">
@@ -925,14 +933,14 @@
     <Compile Include="Pages\Friends.ascx.designer.cs">
       <DependentUpon>Friends.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Pages\EditSettings.ascx.cs">
+    <Compile Include="Pages\Profile\EditSettings.ascx.cs">
       <DependentUpon>EditSettings.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Pages\EditSettings.ascx.designer.cs">
+    <Compile Include="Pages\Profile\EditSettings.ascx.designer.cs">
       <DependentUpon>EditSettings.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Pages\EditProfile.ascx.designer.cs">
+    <Compile Include="Pages\Profile\EditProfile.ascx.designer.cs">
       <DependentUpon>EditProfile.ascx</DependentUpon>
     </Compile>
     <Compile Include="Pages\PostTopic.ascx.cs">
@@ -955,24 +963,24 @@
     <Compile Include="Pages\Notification.ascx.designer.cs">
       <DependentUpon>Notification.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Account.ascx.designer.cs">
-      <DependentUpon>Account.ascx</DependentUpon>
+    <Compile Include="Pages\MyAccount.ascx.designer.cs">
+      <DependentUpon>MyAccount.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Pages\BlockOptions.ascx.cs">
+    <Compile Include="Pages\Profile\BlockOptions.ascx.cs">
       <DependentUpon>BlockOptions.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Pages\BlockOptions.ascx.designer.cs">
+    <Compile Include="Pages\Profile\BlockOptions.ascx.designer.cs">
       <DependentUpon>BlockOptions.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Pages\EditSignature.ascx.cs">
+    <Compile Include="Pages\Profile\EditSignature.ascx.cs">
       <DependentUpon>EditSignature.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Pages\EditSignature.ascx.designer.cs">
+    <Compile Include="Pages\Profile\EditSignature.ascx.designer.cs">
       <DependentUpon>EditSignature.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Subscriptions.ascx.designer.cs">
+    <Compile Include="Pages\Profile\Subscriptions.ascx.designer.cs">
       <DependentUpon>Subscriptions.ascx</DependentUpon>
     </Compile>
     <Compile Include="Pages\DeleteMessage.ascx.designer.cs">
@@ -1010,18 +1018,18 @@
     <Compile Include="Pages\Info.ascx.designer.cs">
       <DependentUpon>Info.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Login.ascx.cs">
+    <Compile Include="Pages\Account\Login.ascx.cs">
       <DependentUpon>Login.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Pages\Login.ascx.designer.cs">
+    <Compile Include="Pages\Account\Login.ascx.designer.cs">
       <DependentUpon>Login.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Logout.ascx.cs">
+    <Compile Include="Pages\Account\Logout.ascx.cs">
       <DependentUpon>Logout.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Pages\Logout.ascx.designer.cs">
+    <Compile Include="Pages\Account\Logout.ascx.designer.cs">
       <DependentUpon>Logout.ascx</DependentUpon>
     </Compile>
     <Compile Include="Pages\Members.ascx.designer.cs">
@@ -1074,13 +1082,13 @@
     <Compile Include="Pages\PrintTopic.ascx.designer.cs">
       <DependentUpon>PrintTopic.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Profile.ascx.designer.cs">
-      <DependentUpon>Profile.ascx</DependentUpon>
+    <Compile Include="Pages\UserProfile.ascx.designer.cs">
+      <DependentUpon>UserProfile.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Pages\RecoverPassword.ascx.designer.cs">
-      <DependentUpon>RecoverPassword.ascx</DependentUpon>
+    <Compile Include="Pages\Account\ForgotPassword.ascx.designer.cs">
+      <DependentUpon>ForgotPassword.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Register.ascx.designer.cs">
+    <Compile Include="Pages\Account\Register.ascx.designer.cs">
       <DependentUpon>Register.ascx</DependentUpon>
     </Compile>
     <Compile Include="Pages\ReportPost.ascx.designer.cs">
@@ -1126,6 +1134,7 @@
     <EmbeddedResource Include="App_GlobalResources\Install.de.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Install.de.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <Content Include="auth.aspx" />
     <Content Include="BuildScripts\MSBuild.ExtensionPack.Tasks.Targets" />
@@ -1899,6 +1908,7 @@
     <Content Include="Content\fontawesome\fontawesome-all.scss" />
     <Content Include="Content\favicons\site.webmanifest" />
     <Content Include="Content\blueimp-gallery.scss" />
+    <Content Include="app.config" />
     <None Include="Content\forum\attachments-upload.scss" />
     <None Include="Content\forum\cookie-alert.scss" />
     <Content Include="Content\images\error.svg" />
@@ -1973,7 +1983,6 @@
     <Content Include="controls\EditUsersKill.ascx" />
     <Content Include="controls\EditUsersPoints.ascx" />
     <Content Include="controls\EditUsersProfile.ascx" />
-    <Content Include="controls\EditUsersResetPass.ascx" />
     <Content Include="controls\EditUsersSignature.ascx" />
     <Content Include="controls\EditUsersSuspend.ascx" />
     <Content Include="controls\ForumActiveDiscussion.ascx" />
@@ -2041,10 +2050,6 @@
     <Content Include="Images\noavatar.svg" />
     <Content Include="install\custom\custom.sql" />
     <Content Include="install\custom\dnn.sql" />
-    <Content Include="install\mssql\install\azure\InstallCommon.sql" />
-    <Content Include="install\mssql\install\azure\InstallMembership.sql" />
-    <Content Include="install\mssql\install\azure\InstallProfile.SQL" />
-    <Content Include="install\mssql\install\azure\InstallRoles.sql" />
     <Content Include="install\mssql\install\constraints.sql" />
     <Content Include="install\mssql\install\functions.sql" />
     <Content Include="install\mssql\install\indexes.sql" />
@@ -2052,14 +2057,13 @@
     <Content Include="install\mssql\install\tables.sql" />
     <Content Include="install\mssql\install\views.sql" />
     <Content Include="install\mssql\upgrade\fulltext.sql" />
-    <Content Include="install\mssql\upgrade\providers\indexes.sql" />
-    <Content Include="install\mssql\upgrade\providers\procedures.sql" />
-    <Content Include="install\mssql\upgrade\providers\tables.sql" />
+    <Content Include="install\mssql\upgrade\identity\upgrade.sql" />
     <Content Include="install\SpamWords.xml" />
     <Content Include="languages\arabic.xml">
       <SubType>Designer</SubType>
     </Content>
     <Content Include="languages\estonian.xml" />
+    <Content Include="Pages\Account\ResetPassword.ascx" />
     <Content Include="Pages\Admin\BannedEmails.ascx" />
     <Content Include="Pages\Admin\BannedNames.ascx" />
     <Content Include="Pages\Admin\Profiler.ascx" />
@@ -2082,9 +2086,6 @@
     <Content Include="install\mssql\upgrade\functions.sql" />
     <Content Include="install\mssql\upgrade\indexes.sql" />
     <Content Include="install\mssql\upgrade\procedures.sql" />
-    <Content Include="install\mssql\install\providers\indexes.sql" />
-    <Content Include="install\mssql\install\providers\procedures.sql" />
-    <Content Include="install\mssql\install\providers\tables.sql" />
     <Content Include="install\mssql\upgrade\tables.sql" />
     <Content Include="install\mssql\upgrade\triggers.sql" />
     <Content Include="install\mssql\upgrade\views.sql" />
@@ -2159,24 +2160,24 @@
     <Content Include="Pages\Admin\Version.ascx" />
     <Content Include="Pages\Album.ascx" />
     <Content Include="Pages\Albums.ascx" />
-    <Content Include="Pages\Approve.ascx" />
-    <Content Include="Pages\Attachments.ascx" />
-    <Content Include="Pages\Avatar.ascx" />
-    <Content Include="Pages\DeleteAccount.ascx" />
-    <Content Include="Pages\ChangePassword.ascx" />
+    <Content Include="Pages\Account\Approve.ascx" />
+    <Content Include="Pages\Profile\Attachments.ascx" />
+    <Content Include="Pages\Profile\Avatar.ascx" />
+    <Content Include="Pages\Profile\DeleteAccount.ascx" />
+    <Content Include="Pages\Profile\ChangePassword.ascx" />
     <Content Include="Pages\EditAlbumImages.ascx" />
-    <Content Include="Pages\EditAvatar.ascx" />
+    <Content Include="Pages\Profile\EditAvatar.ascx" />
     <Content Include="Pages\Friends.ascx" />
-    <Content Include="Pages\EditSettings.ascx" />
-    <Content Include="Pages\EditProfile.ascx" />
+    <Content Include="Pages\Profile\EditSettings.ascx" />
+    <Content Include="Pages\Profile\EditProfile.ascx" />
     <Content Include="Pages\PostTopic.ascx" />
     <Content Include="Pages\PrivateMessage.ascx" />
     <Content Include="Pages\PM.ascx" />
     <Content Include="Pages\Notification.ascx" />
-    <Content Include="Pages\Account.ascx" />
-    <Content Include="Pages\BlockOptions.ascx" />
-    <Content Include="Pages\EditSignature.ascx" />
-    <Content Include="Pages\Subscriptions.ascx" />
+    <Content Include="Pages\MyAccount.ascx" />
+    <Content Include="Pages\Profile\BlockOptions.ascx" />
+    <Content Include="Pages\Profile\EditSignature.ascx" />
+    <Content Include="Pages\Profile\Subscriptions.ascx" />
     <Content Include="Pages\DeleteMessage.ascx" />
     <Content Include="Pages\EmailTopic.ascx" />
     <Content Include="controls\EmailDigest.ascx" />
@@ -2186,8 +2187,8 @@
     <Content Include="Pages\Email.ascx" />
     <Content Include="Pages\Jabber.ascx" />
     <Content Include="Pages\Info.ascx" />
-    <Content Include="Pages\Login.ascx" />
-    <Content Include="Pages\Logout.ascx" />
+    <Content Include="Pages\Account\Login.ascx" />
+    <Content Include="Pages\Account\Logout.ascx" />
     <Content Include="Pages\Members.ascx" />
     <Content Include="Pages\MessageHistory.ascx" />
     <Content Include="Pages\moderating.ascx" />
@@ -2202,9 +2203,9 @@
     <Content Include="Pages\PostMessage.ascx" />
     <Content Include="Pages\Posts.ascx" />
     <Content Include="Pages\PrintTopic.ascx" />
-    <Content Include="Pages\Profile.ascx" />
-    <Content Include="Pages\RecoverPassword.ascx" />
-    <Content Include="Pages\Register.ascx" />
+    <Content Include="Pages\UserProfile.ascx" />
+    <Content Include="Pages\Account\ForgotPassword.ascx" />
+    <Content Include="Pages\Account\Register.ascx" />
     <Content Include="Pages\ReportPost.ascx" />
     <Content Include="Pages\RssTopic.ascx" />
     <Content Include="Pages\Cookies.ascx" />
@@ -2213,7 +2214,6 @@
     <Content Include="Pages\Team.ascx" />
     <Content Include="Pages\Topics.ascx" />
     <Content Include="Resources\HelpMenuList.xml" />
-    <Content Include="Resources\ProviderExceptions.xml" />
     <Content Include="robots.txt" />
     <Content Include="Scripts\blueimp-gallery\blueimp-gallery-indicator.js" />
     <Content Include="Scripts\blueimp-gallery\blueimp-gallery.js" />
@@ -2222,9 +2222,6 @@
     <Content Include="Scripts\bootstrap-datetimepicker.js" />
     <Content Include="Scripts\bootstrap-notify.js" />
     <None Include="Content\forum-admin.scss" />
-    <Content Include="recommended-azure.web.config">
-      <SubType>Designer</SubType>
-    </Content>
     <None Include="bundleconfig.json" />
     <None Include="compilerconfig.json" />
     <Content Include="Scripts\bootstrap-typeahead.js" />
@@ -2751,9 +2748,9 @@
     <Content Include="Scripts\InstallWizard.comb.min.js">
       <DependentUpon>InstallWizard.comb.js</DependentUpon>
     </Content>
-    <Content Include="Scripts\jquery-3.5.0.js" />
-    <Content Include="Scripts\jquery-3.5.0.min.js">
-      <DependentUpon>jquery-3.5.0.js</DependentUpon>
+    <Content Include="Scripts\jquery-3.5.1.js" />
+    <Content Include="Scripts\jquery-3.5.1.min.js">
+      <DependentUpon>jquery-3.5.1.js</DependentUpon>
     </Content>
     <Content Include="Scripts\jquery.blockUI.js" />
     <Content Include="Scripts\jquery.bootstrap-touchspin.js" />
@@ -2777,11 +2774,19 @@
     <Content Include="Scripts\jquery.ForumAdminExtensions.min.js">
       <DependentUpon>jquery.ForumAdminExtensions.js</DependentUpon>
     </Content>
+    <Content Include="Scripts\jquery.ForumAdminExtensionsDnn.js" />
+    <Content Include="Scripts\jquery.ForumAdminExtensionsDnn.min.js">
+      <DependentUpon>jquery.ForumAdminExtensionsDnn.js</DependentUpon>
+    </Content>
     <Content Include="Scripts\jquery.ForumExtensions.min.js">
       <DependentUpon>jquery.ForumExtensions.js</DependentUpon>
     </Content>
-    <Content Include="Scripts\moment-with-locales.js" />
+    <Content Include="Scripts\jquery.ForumExtensionsDnn.js" />
+    <Content Include="Scripts\jquery.ForumExtensionsDnn.min.js">
+      <DependentUpon>jquery.ForumExtensionsDnn.js</DependentUpon>
+    </Content>
     <Content Include="Scripts\jsdifflib.js" />
+    <Content Include="Scripts\moment-with-locales.js" />
     <Content Include="Scripts\prism.js" />
     <Content Include="Scripts\select2.js" />
     <Content Include="Scripts\tablesorter\extras\jquery.tablesorter.pager.js" />
@@ -2836,10 +2841,6 @@
     </Compile>
     <Compile Include="controls\EditUsersProfile.ascx.cs">
       <DependentUpon>EditUsersProfile.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="controls\EditUsersResetPass.ascx.cs">
-      <DependentUpon>EditUsersResetPass.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="controls\EditUsersSignature.ascx.cs">
@@ -3076,23 +3077,23 @@
       <DependentUpon>Version.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Pages\Approve.ascx.cs">
+    <Compile Include="Pages\Account\Approve.ascx.cs">
       <DependentUpon>Approve.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Pages\Attachments.ascx.cs">
+    <Compile Include="Pages\Profile\Attachments.ascx.cs">
       <DependentUpon>Attachments.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Pages\Avatar.ascx.cs">
+    <Compile Include="Pages\Profile\Avatar.ascx.cs">
       <DependentUpon>Avatar.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Pages\ChangePassword.ascx.cs">
+    <Compile Include="Pages\Profile\ChangePassword.ascx.cs">
       <DependentUpon>ChangePassword.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Pages\EditProfile.ascx.cs">
+    <Compile Include="Pages\Profile\EditProfile.ascx.cs">
       <DependentUpon>EditProfile.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
@@ -3104,11 +3105,11 @@
       <DependentUpon>PM.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Pages\Account.ascx.cs">
-      <DependentUpon>Account.ascx</DependentUpon>
+    <Compile Include="Pages\MyAccount.ascx.cs">
+      <DependentUpon>MyAccount.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Pages\Subscriptions.ascx.cs">
+    <Compile Include="Pages\Profile\Subscriptions.ascx.cs">
       <DependentUpon>Subscriptions.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
@@ -3188,15 +3189,15 @@
       <DependentUpon>PrintTopic.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Pages\Profile.ascx.cs">
-      <DependentUpon>Profile.ascx</DependentUpon>
+    <Compile Include="Pages\UserProfile.ascx.cs">
+      <DependentUpon>UserProfile.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Pages\RecoverPassword.ascx.cs">
-      <DependentUpon>RecoverPassword.ascx</DependentUpon>
+    <Compile Include="Pages\Account\ForgotPassword.ascx.cs">
+      <DependentUpon>ForgotPassword.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Pages\Register.ascx.cs">
+    <Compile Include="Pages\Account\Register.ascx.cs">
       <DependentUpon>Register.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
@@ -3220,9 +3221,6 @@
       <DependentUpon>Topics.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <None Include="app.config">
-      <SubType>Designer</SubType>
-    </None>
     <Content Include="App_Browsers\ie.browser" />
     <Content Include="App_Browsers\ie11.browser" />
     <Content Include="App_Browsers\MozillaPatch.browser" />
@@ -3339,6 +3337,7 @@
     </Content>
     <Content Include="Scripts\forum\yaf.MessageHistory.js" />
     <Content Include="Scripts\forum\yaf.Attachments.js" />
+    <Content Include="Scripts\jquery-3.5.1.min.map" />
     <None Include="Web References\RegisterV2\LatestVersionInformation.datasource">
       <DependentUpon>Reference.map</DependentUpon>
     </None>
@@ -3376,9 +3375,9 @@
       <Project>{BCEFE9BE-7417-47FB-A0E8-75E0201E88E8}</Project>
       <Name>YAF.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\YAF.Providers\YAF.Providers.csproj">
-      <Project>{95A44CD9-4399-4DB9-823F-1A264083A390}</Project>
-      <Name>YAF.Providers</Name>
+    <ProjectReference Include="..\YAF.Data.MsSql\YAF.Data.MsSql.csproj">
+      <Project>{900b3fcf-bd78-4718-a34d-2662576565c8}</Project>
+      <Name>YAF.Data.MsSql</Name>
     </ProjectReference>
     <ProjectReference Include="..\YAF.Types\YAF.Types.csproj">
       <Project>{B9CF38B0-39CF-43C7-9589-166DCC665652}</Project>
@@ -3705,6 +3704,9 @@ RD /S /Q "$(TargetDir)zh-TW\"</PostBuildEvent>
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets'))" />
     <Error Condition="!Exists('..\packages\MSBuild.Extension.Pack.1.9.1\build\net40\MSBuild.Extension.Pack.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\MSBuild.Extension.Pack.1.9.1\build\net40\MSBuild.Extension.Pack.targets'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.targets'))" />
   </Target>
   <Import Project="..\packages\MSBuild.Extension.Pack.1.9.1\build\net40\MSBuild.Extension.Pack.targets" Condition="Exists('..\packages\MSBuild.Extension.Pack.1.9.1\build\net40\MSBuild.Extension.Pack.targets')" />
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" />
 </Project>

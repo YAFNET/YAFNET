@@ -74,32 +74,6 @@
                                                   CssClass="form-text text-danger"></asp:CompareValidator>
                         </div>
                     </div>
-                    <div class="form-row">
-                        <div class="form-group col-md-6">
-                            <asp:Label runat="server" AssociatedControlID="Question">
-                                <YAF:LocalizedLabel ID="LocalizedLabel9" runat="server" 
-                                                    LocalizedTag="SECURITY_QUESTION" 
-                                                    LocalizedPage="REGISTER"></YAF:LocalizedLabel>:
-                            </asp:Label>
-                            <asp:TextBox CssClass="form-control" id="Question" runat="server"></asp:TextBox>
-                            <asp:RequiredFieldValidator id="Requiredfieldvalidator3" runat="server" 
-                                                        ControlToValidate="Question" 
-                                                        ErrorMessage="Password Question is Required." 
-                                                        CssClass="form-text text-danger"></asp:RequiredFieldValidator>
-                        </div>
-                        <div class="form-group col-md-6">
-                            <asp:Label runat="server" AssociatedControlID="Answer">
-                                <YAF:LocalizedLabel ID="LocalizedLabel10" runat="server" 
-                                                    LocalizedTag="SECURITY_ANSWER" 
-                                                    LocalizedPage="REGISTER"></YAF:LocalizedLabel>:
-                            </asp:Label>
-                            <asp:TextBox CssClass="form-control" id="Answer" runat="server"></asp:TextBox>
-                            <asp:RequiredFieldValidator id="Requiredfieldvalidator4" runat="server" 
-                                                        ControlToValidate="Answer" 
-                                                        ErrorMessage="Password Answer is Required." 
-                                                        CssClass="form-text text-danger"></asp:RequiredFieldValidator>
-                        </div>
-                    </div>
                     <h3>
                         <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" 
                                             LocalizedTag="HEADER3" 

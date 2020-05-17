@@ -103,8 +103,8 @@ namespace YAF.Controls
                         ?
                         BuildLink.GetLink(ForumPages.RulesAndPrivacy)
                         : !this.Get<BoardSettings>().UseSSLToRegister
-                            ? BuildLink.GetLink(ForumPages.Register)
-                            : BuildLink.GetLink(ForumPages.Register, true).Replace("http:", "https:")
+                            ? BuildLink.GetLink(ForumPages.Account_Register)
+                            : BuildLink.GetLink(ForumPages.Account_Register, true).Replace("http:", "https:")
                 };
 
                 this.ConnectHolder.Controls.Add(registerLink);
@@ -196,7 +196,7 @@ namespace YAF.Controls
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void FacebookFormClick(object sender, EventArgs e)
         {
-            BuildLink.Redirect(ForumPages.Login, "auth={0}", "facebook");
+            BuildLink.Redirect(ForumPages.Account_Login, "auth={0}", "facebook");
         }
 
         /// <summary>
@@ -206,7 +206,7 @@ namespace YAF.Controls
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void TwitterFormClick(object sender, EventArgs e)
         {
-            BuildLink.Redirect(ForumPages.Login, "auth={0}", "twitter");
+            BuildLink.Redirect(ForumPages.Account_Login, "auth={0}", "twitter");
         }
 
         /// <summary>
@@ -216,7 +216,7 @@ namespace YAF.Controls
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void GoogleFormClick(object sender, EventArgs e)
         {
-            BuildLink.Redirect(ForumPages.Login, "auth={0}", "google");
+            BuildLink.Redirect(ForumPages.Account_Login, "auth={0}", "google");
         }
 
         #endregion

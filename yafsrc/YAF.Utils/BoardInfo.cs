@@ -88,7 +88,7 @@ namespace YAF.Utils
         /// <summary>
         /// Gets the Current YAF Database Version
         /// </summary>
-        public static int AppVersion => 77;
+        public static int AppVersion => 80;
 
         /// <summary>
         /// Gets the Current YAF Application Version
@@ -97,12 +97,12 @@ namespace YAF.Utils
         {
             get
             {
-                const int Major = 2;
-                const byte Minor = 3;
-                const byte Build = 2;
+                const int Major = 3;
+                const byte Minor = 0;
+                const byte Build = 0;
                 const byte Sub = 0;
 
-                const ReleaseType ReleaseType = ReleaseType.BETA;
+                const ReleaseType ReleaseType = ReleaseType.Alpha;
                 const byte ReleaseNumber = 0;
 
                 var list = new List<int>
@@ -122,7 +122,7 @@ namespace YAF.Utils
         /// <summary>
         /// Gets the Current YAF Build Date
         /// </summary>
-        public static DateTime AppVersionDate => new DateTime(2020, 05, 01, 03, 00, 00);
+        public static DateTime AppVersionDate => new DateTime(2020, 05, 17, 06, 00, 00);
 
         /// <summary>
         /// Creates a string that is the YAF Application Version from a long value

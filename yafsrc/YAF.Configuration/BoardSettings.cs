@@ -25,10 +25,10 @@ namespace YAF.Configuration
 {
     using System;
     using System.Globalization;
-    using System.Web.Security;
 
     using YAF.Configuration.Pattern;
     using YAF.Types.Constants;
+    using YAF.Types.Extensions;
 
     /// <summary>
     /// The YAF board settings.
@@ -46,9 +46,6 @@ namespace YAF.Configuration
 
             // set the board dictionary as the override...
             this.Registry.OverrideDictionary = this.RegistryBoard;
-
-            this.membershipAppName = Membership.ApplicationName;
-            this.rolesAppName = Roles.ApplicationName;
         }
 
         /// <summary>
@@ -83,15 +80,17 @@ namespace YAF.Configuration
 
         // Provider Settings
 
-        /// <summary>
-        /// Gets MembershipAppName.
-        /// </summary>
-        public string MembershipAppName => this.membershipAppName;
+        public Guid ApplicationId => this.RegistryBoard.GetValue("ApplicationId", string.Empty).ToType<Guid>();
 
         /// <summary>
-        /// Gets RolesAppName.
+        /// Gets or sets the min required password length.
         /// </summary>
-        public string RolesAppName => this.rolesAppName;
+        public int MinRequiredPasswordLength
+        {
+            get => this.RegistryBoard.GetValue("MinRequiredPasswordLength", 6);
+
+            set => this.RegistryBoard.SetValue("MinRequiredPasswordLength", value);
+        }
 
         /// <summary>
         /// Gets Name.
@@ -2476,11 +2475,11 @@ namespace YAF.Configuration
         /// <summary>
         ///  Gets or sets the membership app name.
         /// </summary>
-        protected virtual string membershipAppName { get; set; }
+       // protected virtual string membershipAppName { get; set; }
 
         /// <summary>
         ///  Gets or sets the roles app name.
         /// </summary>
-        protected virtual string rolesAppName { get; set; }
+    //    protected virtual string rolesAppName { get; set; }
     }
 }

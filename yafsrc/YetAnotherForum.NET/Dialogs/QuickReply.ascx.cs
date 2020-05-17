@@ -37,13 +37,13 @@ namespace YAF.Dialogs
     using YAF.Core.Extensions;
     using YAF.Core.Helpers;
     using YAF.Core.Model;
-    using YAF.Core.UsersRoles;
     using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Flags;
     using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Identity;
     using YAF.Types.Models;
     using YAF.Utils;
     using YAF.Utils.Helpers;
@@ -254,7 +254,7 @@ namespace YAF.Dialogs
                                     this.PageContext.CurrentUserData.Membership,
                                     this.PageContext.PageUserID).LastIP;
 
-                                UserMembershipHelper.DeleteAndBanUser(
+                                this.Get<IAspNetUsersHelper>().DeleteAndBanUser(
                                     this.PageContext.PageUserID,
                                     this.PageContext.CurrentUserData.Membership,
                                     userIp);
@@ -318,7 +318,7 @@ namespace YAF.Dialogs
                                         this.PageContext.CurrentUserData.Membership,
                                         this.PageContext.PageUserID).LastIP;
 
-                                    UserMembershipHelper.DeleteAndBanUser(
+                                    this.Get<IAspNetUsersHelper>().DeleteAndBanUser(
                                         this.PageContext.PageUserID,
                                         this.PageContext.CurrentUserData.Membership,
                                         userIp);
@@ -409,14 +409,7 @@ namespace YAF.Dialogs
 
                     var url = BuildLink.GetLink(ForumPages.Topics, "f={0}", this.PageContext.PageForumID);
 
-                    if (Config.IsRainbow)
-                    {
-                        BuildLink.Redirect(ForumPages.Info, "i=1");
-                    }
-                    else
-                    {
-                        BuildLink.Redirect(ForumPages.Info, "i=1&url={0}", this.Server.UrlEncode(url));
-                    }
+                    BuildLink.Redirect(ForumPages.Info, "i=1&url={0}", this.Server.UrlEncode(url));
                 }
             }
             catch (Exception exception)

@@ -44,9 +44,9 @@ namespace YAF.Types.Constants
         Posts,
 
         /// <summary>
-        /// The profile.
+        /// The user profile page.
         /// </summary>
-        Profile,
+        UserProfile,
 
         /// <summary>
         /// The ActiveUsers.
@@ -89,11 +89,6 @@ namespace YAF.Types.Constants
         ModForumUser,
 
         /// <summary>
-        /// The attachments.
-        /// </summary>
-        Attachments,
-
-        /// <summary>
         /// The PostMessage.
         /// </summary>
         PostPrivateMessage,
@@ -124,11 +119,6 @@ namespace YAF.Types.Constants
         PM,
 
         /// <summary>
-        /// The Account.
-        /// </summary>
-        Account,
-
-        /// <summary>
         /// The Notification.
         /// </summary>
         Notification,
@@ -149,64 +139,14 @@ namespace YAF.Types.Constants
         Albums,
 
         /// <summary>
-        /// The BlockOptions.
-        /// </summary>
-        BlockOptions,
-
-        /// <summary>
         /// The EditAlbumImages.
         /// </summary>
         EditAlbumImages,
 
         /// <summary>
-        /// The EditProfile.
-        /// </summary>
-        EditProfile,
-
-        /// <summary>
-        /// The EditSettings.
-        /// </summary>
-        EditSettings,
-
-        /// <summary>
-        /// The EditAvatar.
-        /// </summary>
-        EditAvatar,
-
-        /// <summary>
-        /// The EditSignature.
-        /// </summary>
-        EditSignature,
-
-        /// <summary>
-        /// The Subscriptions.
-        /// </summary>
-        Subscriptions,
-
-        /// <summary>
         /// The Message.
         /// </summary>
         PrivateMessage,
-
-        /// <summary>
-        /// The Change Password page.
-        /// </summary>
-        ChangePassword,
-
-        /// <summary>
-        /// The Delete Account page.
-        /// </summary>
-        DeleteAccount,
-
-        /// <summary>
-        /// The Login page.
-        /// </summary>
-        Login,
-
-        /// <summary>
-        /// The approve.
-        /// </summary>
-        Approve,
 
         /// <summary>
         /// The Info page.
@@ -224,11 +164,6 @@ namespace YAF.Types.Constants
         RulesAndPrivacy,
 
         /// <summary>
-        /// The Register page.
-        /// </summary>
-        Register,
-
-        /// <summary>
         /// The Search page.
         /// </summary>
         Search,
@@ -237,11 +172,6 @@ namespace YAF.Types.Constants
         /// The My Topics page
         /// </summary>
         MyTopics,
-
-        /// <summary>
-        /// The Logout page.
-        /// </summary>
-        Logout,
 
         /// <summary>
         /// The moderate index page.
@@ -262,11 +192,6 @@ namespace YAF.Types.Constants
         /// The Error page.
         /// </summary>
         Error,
-
-        /// <summary>
-        /// The avatar page.
-        /// </summary>
-        Avatar,
 
         /// <summary>
         /// The Jabber page.
@@ -299,9 +224,39 @@ namespace YAF.Types.Constants
         Team,
 
         /// <summary>
-        /// The RecoverPassword page.
+        /// The approve.
         /// </summary>
-        RecoverPassword,
+        Account_Approve,
+
+        /// <summary>
+        /// The Account Forgot Password page.
+        /// </summary>
+        Account_ForgotPassword,
+
+        /// <summary>
+        /// The Logout page.
+        /// </summary>
+        Account_Logout,
+
+        /// <summary>
+        /// The Account Reset Password page.
+        /// </summary>
+        Account_ResetPassword,
+
+        /// <summary>
+        /// The Register page.
+        /// </summary>
+        Account_Register,
+
+        /// <summary>
+        /// The Login page.
+        /// </summary>
+        Account_Login,
+
+        /// <summary>
+        /// The Account Info Page.
+        /// </summary>
+        MyAccount,
 
         /// <summary>
         /// The Admin admin page.
@@ -536,6 +491,56 @@ namespace YAF.Types.Constants
         /// <summary>
         /// The Host Admin Web Profiler page.
         /// </summary>
-        Admin_Profiler
+        Admin_Profiler,
+
+        /// <summary>
+        /// The attachments.
+        /// </summary>
+        Profile_Attachments,
+
+        /// <summary>
+        /// The avatar page.
+        /// </summary>
+        Profile_Avatar,
+
+        /// <summary>
+        /// The BlockOptions.
+        /// </summary>
+        Profile_BlockOptions,
+
+        /// <summary>
+        /// The Change Password page.
+        /// </summary>
+        Profile_ChangePassword,
+
+        /// <summary>
+        /// The Delete Account page.
+        /// </summary>
+        Profile_DeleteAccount,
+
+        /// <summary>
+        /// The EditAvatar.
+        /// </summary>
+        Profile_EditAvatar,
+
+        /// <summary>
+        /// The EditProfile.
+        /// </summary>
+        Profile_EditProfile,
+
+        /// <summary>
+        /// The EditSettings.
+        /// </summary>
+        Profile_EditSettings,
+
+        /// <summary>
+        /// The EditSignature.
+        /// </summary>
+        Profile_EditSignature,
+
+        /// <summary>
+        /// The Subscriptions.
+        /// </summary>
+        Profile_Subscriptions
     }
 }

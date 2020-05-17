@@ -8350,13 +8350,6 @@ div#UploadDialog {
   overflow: hidden;
   overflow-y: scroll; }
 
-#passwordStrength {
-  padding: 0 .7em; }
-  #passwordStrength .PasswordStrengthMessageIcon {
-    display: inline-block;
-    vertical-align: bottom;
-    margin-right: .3em; }
-
 .scrollable-dropdown {
   height: auto;
   max-height: 200px;
@@ -8376,7 +8369,10 @@ div#UploadDialog {
   vertical-align: middle; }
 
 .blockquote-custom {
-  position: relative; }
+  position: relative;
+  margin-top: .25rem; }
+  .blockquote-custom > .blockquote-custom {
+    margin-top: 2rem; }
 
 .blockquote-custom-icon {
   width: 35px;

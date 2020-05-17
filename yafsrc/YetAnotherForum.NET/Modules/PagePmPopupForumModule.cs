@@ -27,7 +27,6 @@ namespace YAF.Modules
 
     using System;
 
-    using YAF.Core;
     using YAF.Core.Context;
     using YAF.Dialogs;
     using YAF.Types;

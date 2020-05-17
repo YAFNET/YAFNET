@@ -46,11 +46,11 @@ namespace YAF.Core.Services
     using YAF.Core.Extensions;
     using YAF.Core.Helpers;
     using YAF.Core.Services.Auth;
-    using YAF.Core.UsersRoles;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Identity;
     using YAF.Types.Models;
     using YAF.Types.Objects;
     using YAF.Utils;
@@ -93,11 +93,9 @@ namespace YAF.Core.Services
             {
                 var userId = context.Request.QueryString.GetFirstOrDefaultAs<int>("userinfo");
 
-                var boardId = context.Request.QueryString.GetFirstOrDefaultAs<int>("boardId");
+                var user = this.Get<IAspNetUsersHelper>().GetMembershipUserById(userId);
 
-                var user = UserMembershipHelper.GetMembershipUserById(userId, boardId);
-
-                if (user == null || user.ProviderUserKey.ToString() == "0")
+                if (user == null || user.Id == "0")
                 {
                     context.Response.Write(
                    "Error: Resource has been moved or is unavailable. Please contact the forum admin.");
@@ -170,7 +168,7 @@ namespace YAF.Core.Services
                     Joined =
                         $"{this.Get<IHaveLocalization>().GetText("PROFILE", "JOINED")} {this.Get<IDateTime>().FormatDateLong(userData.Joined)}",
                     Online = userIsOnline/*,
-                    ProfileLink = BuildLink.GetLink(ForumPages.Profile, true, "u={0}&name={1}", userId, userName)*/
+                    ProfileLink = BuildLink.GetLink(ForumPages.UserProfile, true, "u={0}&name={1}", userId, userName)*/
                 };
 
                 if (BoardContext.Current.Get<BoardSettings>().EnableUserReputation)

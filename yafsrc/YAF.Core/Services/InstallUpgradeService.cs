@@ -43,6 +43,7 @@ namespace YAF.Core.Services
     using YAF.Types.Interfaces.Data;
     using YAF.Types.Interfaces.Events;
     using YAF.Types.Models;
+    using YAF.Types.Models.Identity;
     using YAF.Utils;
 
     /// <summary>
@@ -98,9 +99,8 @@ namespace YAF.Core.Services
                 catch
                 {
                     // failure... no boards.
+                    return false;
                 }
-
-                return false;
             }
         }
 
@@ -129,6 +129,9 @@ namespace YAF.Core.Services
         /// <summary>
         /// Initializes the forum.
         /// </summary>
+        /// <param name="applicationId">
+        /// The application Id.
+        /// </param>
         /// <param name="forumName">
         /// The forum name.
         /// </param>
@@ -157,6 +160,7 @@ namespace YAF.Core.Services
         /// The admin provider user key.
         /// </param>
         public void InitializeForum(
+            Guid applicationId,
             string forumName,
             string timeZone,
             string culture,
@@ -187,6 +191,7 @@ namespace YAF.Core.Services
                 adminProviderUserKey,
                 Config.CreateDistinctRoles && Config.IsAnyPortal ? "YAF " : string.Empty);
 
+            this.GetRepository<Registry>().Save("applicationid", applicationId.ToString());
             this.GetRepository<Registry>().Save("version", BoardInfo.AppVersion.ToString());
             this.GetRepository<Registry>().Save("versionname", BoardInfo.AppVersionName);
 
@@ -223,15 +228,13 @@ namespace YAF.Core.Services
             // try
             this.FixAccess(false);
 
-            var isAzureEngine = this.Get<IDbFunction>().GetSQLEngine().Equals("Azure");
-
             if (!isForumInstalled)
             {
-                this.ExecuteInstallScripts(isAzureEngine);
+                this.ExecuteInstallScripts();
             }
             else
             {
-                this.ExecuteUpgradeScripts(isAzureEngine);
+                this.ExecuteUpgradeScripts();
             }
 
             this.FixAccess(true);
@@ -253,6 +256,12 @@ namespace YAF.Core.Services
 
             if (isForumInstalled)
             {
+                if (prevVersion < 80)
+                {
+                    // Upgrade to ASPNET Identity
+                    this.DbAccess.Information.IdentityUpgradeScripts.ForEach(script => this.ExecuteScript(script, true));
+                }
+
                 if (prevVersion < 30 || upgradeExtensions)
                 {
                     this.ImportStatics();
@@ -303,18 +312,14 @@ namespace YAF.Core.Services
         /// <summary>
         /// Executes the install scripts.
         /// </summary>
-        /// <param name="isAzureEngine">if set to <c>true</c> [is azure engine].</param>
-        private void ExecuteInstallScripts(bool isAzureEngine)
+        private void ExecuteInstallScripts()
         {
             // Install Membership Scripts
-            if (isAzureEngine)
-            {
-                this.DbAccess.Information.AzureScripts.ForEach(script => this.ExecuteScript(script, true));
-            }
-            else
-            {
-                this.DbAccess.Information.YAFProviderInstallScripts.ForEach(script => this.ExecuteScript(script, true));
-            }
+            this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<AspNetUsers>());
+            this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<AspNetRoles>());
+            this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<AspNetUserClaims>());
+            this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<AspNetUserLogins>());
+            this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<AspNetUserRoles>());
 
             //////
 
@@ -325,15 +330,8 @@ namespace YAF.Core.Services
         /// <summary>
         /// Executes the upgrade scripts.
         /// </summary>
-        /// <param name="isAzureEngine">if set to <c>true</c> [is azure engine].</param>
-        private void ExecuteUpgradeScripts(bool isAzureEngine)
+        private void ExecuteUpgradeScripts()
         {
-            // upgrade Membership Scripts
-            if (!isAzureEngine)
-            {
-                this.DbAccess.Information.YAFProviderUpgradeScripts.ForEach(script => this.ExecuteScript(script, true));
-            }
-
             this.DbAccess.Information.UpgradeScripts.ForEach(script => this.ExecuteScript(script, true));
         }
 

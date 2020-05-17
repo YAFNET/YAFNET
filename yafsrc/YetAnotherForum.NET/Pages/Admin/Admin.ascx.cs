@@ -31,7 +31,6 @@ namespace YAF.Pages.Admin
     using System.Data.SqlClient;
     using System.Linq;
     using System.Net.Mail;
-    using System.Web.Security;
     using System.Web.UI.WebControls;
 
     using FarsiLibrary.Utils;
@@ -44,13 +43,13 @@ namespace YAF.Pages.Admin
     using YAF.Core.Helpers;
     using YAF.Core.Model;
     using YAF.Core.Services;
-    using YAF.Core.UsersRoles;
     using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
+    using YAF.Types.Interfaces.Identity;
     using YAF.Types.Models;
     using YAF.Utils;
     using YAF.Utils.Helpers;
@@ -102,9 +101,9 @@ namespace YAF.Pages.Admin
                             .GetTextFormatted("VERIFICATION_EMAIL_SUBJECT", this.Get<BoardSettings>().Name);
 
                         verifyEmail.TemplateParams["{link}"] = BuildLink.GetLinkNotEscaped(
-                            ForumPages.Approve,
+                            ForumPages.Account_Approve,
                             true,
-                            "k={0}",
+                            "code={0}",
                             checkMail.Hash);
                         verifyEmail.TemplateParams["{key}"] = checkMail.Hash;
                         verifyEmail.TemplateParams["{forumname}"] = this.Get<BoardSettings>().Name;
@@ -120,7 +119,7 @@ namespace YAF.Pages.Admin
                     {
                         var userFound = this.Get<IUserDisplayName>().Find(commandArgument[1]).FirstOrDefault();
 
-                        var user = this.Get<MembershipProvider>().GetUser(userFound.Name, false);
+                        var user = this.Get<IAspNetUsersHelper>().GetUserByName(userFound.Name);
 
                         this.Get<ISendNotification>().SendVerificationEmail(user, commandArgument[0], userFound.ID);
                     }
@@ -129,7 +128,7 @@ namespace YAF.Pages.Admin
                 case "delete":
                     if (!Config.IsAnyPortal)
                     {
-                        UserMembershipHelper.DeleteUser(e.CommandArgument.ToType<int>());
+                        this.Get<IAspNetUsersHelper>().DeleteUser(e.CommandArgument.ToType<int>());
                     }
 
                     this.GetRepository<User>().Delete(e.CommandArgument.ToType<int>());
@@ -137,7 +136,7 @@ namespace YAF.Pages.Admin
                     this.BindData();
                     break;
                 case "approve":
-                    UserMembershipHelper.ApproveUser(e.CommandArgument.ToType<int>());
+                    this.Get<IAspNetUsersHelper>().ApproveUser(e.CommandArgument.ToType<int>());
                     this.BindData();
                     break;
                 case "deleteall":
@@ -155,7 +154,7 @@ namespace YAF.Pages.Admin
 
                     if (!Config.IsAnyPortal)
                     {
-                        UserMembershipHelper.DeleteAllUnapproved(System.DateTime.UtcNow.AddDays(-daysValueAll.ToType<int>()));
+                        this.Get<IAspNetUsersHelper>().DeleteAllUnapproved(System.DateTime.UtcNow.AddDays(-daysValueAll.ToType<int>()));
                     }
                     else
                     {
@@ -165,7 +164,7 @@ namespace YAF.Pages.Admin
                     this.BindData();
                     break;
                 case "approveall":
-                    UserMembershipHelper.ApproveAll();
+                    this.Get<IAspNetUsersHelper>().ApproveAll();
 
                     // vzrus: Should delete users from send email list
                     this.GetRepository<User>().ApproveAll(this.PageContext.PageBoardID);
@@ -222,32 +221,6 @@ namespace YAF.Pages.Admin
 
             return
                 $"<a target=\"_top\" href=\"{BuildLink.GetLink(ForumPages.Posts, "t={0}", topicId)}\">{topicName}</a>";
-        }
-
-        /// <summary>
-        /// Sets the location.
-        /// </summary>
-        /// <param name="userName">Name of the user.</param>
-        /// <returns>Returns the Location</returns>
-        protected string SetLocation([NotNull] string userName)
-        {
-            string location;
-
-            try
-            {
-                location = Utils.UserProfile.GetProfile(userName).Location;
-
-                if (location.IsNotSet())
-                {
-                    location = "-";
-                }
-            }
-            catch (Exception)
-            {
-                location = "-";
-            }
-
-            return this.HtmlEncode(this.Get<IBadWordReplace>().Replace(location));
         }
 
         /// <summary>

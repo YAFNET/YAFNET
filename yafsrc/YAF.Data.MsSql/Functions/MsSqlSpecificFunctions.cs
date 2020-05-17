@@ -71,38 +71,6 @@ namespace YAF.Data.MsSql.Functions
         /// <returns>
         /// Returns the current SQL Engine Edition.
         /// </returns>
-        public static string GetSQLEngine(this IDbAccess dbAccess)
-        {
-            CodeContracts.VerifyNotNull(dbAccess, "dbAccess");
-
-            try
-            {
-                using (var cmd = dbAccess.GetCommand("select SERVERPROPERTY('EngineEdition')", CommandType.Text))
-                {
-                    return dbAccess.ExecuteScalar(cmd).ToType<int>() switch
-                    {
-                        1 => "Personal",
-                        2 => "Standard",
-                        3 => "Enterprise",
-                        4 => "Express",
-                        5 => "Azure",
-                        _ => "Unknown"
-                    };
-                }
-            }
-            catch
-            {
-                return "Unknown";
-            }
-        }
-
-        /// <summary>
-        /// Gets the current SQL Engine Edition.
-        /// </summary>
-        /// <param name="dbAccess">The database access.</param>
-        /// <returns>
-        /// Returns the current SQL Engine Edition.
-        /// </returns>
         public static string GetSQLVersion(this IDbAccess dbAccess)
         {
             CodeContracts.VerifyNotNull(dbAccess, "dbAccess");

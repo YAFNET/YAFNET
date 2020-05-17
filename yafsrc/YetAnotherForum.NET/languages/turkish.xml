@@ -41,6 +41,9 @@
     <Resource tag="YOUR_USERDISPLAYNAME">Görüntülenecek İsminiz:</Resource>
     <Resource tag="YOUR_USERNAME">Kullanıcı adınız:</Resource>
   </page>
+  <page name="ACCOUNT_RESEST_PASSWORD">
+    <Resource tag="TITLE">Lost Password</Resource>
+  </page>
   <page name="ACTIVELOCATION">
     <Resource tag="ACCOUNT">Kullanıcı profilini göster</Resource>
     <Resource tag="ACTIVEUSERS">Aktif kullanıcı listesi</Resource>
@@ -5068,6 +5071,7 @@ Spoiler Content
     <Resource tag="RECATCHA_BADWORDS">Hatalı Deneme! Tekrar deneyiniz.</Resource>
     <Resource tag="REGISTER">Kayıt Ol</Resource>
     <Resource tag="REGISTER_AUTH">Register with {0}</Resource>
+    <Resource tag="RESET_PASS_EMAIL_SUBJECT">Reset Password for {0} Forum</Resource>
     <Resource tag="RETYPE_PASSWORD">Şifreyi yeniden giriniz</Resource>
     <Resource tag="SECURITY_ANSWER">Hatırlatma sorusu cevabı</Resource>
     <Resource tag="SECURITY_QUESTION">Hatırlatma sorusu</Resource>
@@ -6223,6 +6227,39 @@ Mesajı okumak için tarayıcınızda bu linki açın
 
 {link}
     </Resource>
+    <Resource tag="RESET_PASS_HTML">
+     &lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"&gt;
+     &lt;html&gt;
+     &lt;head&gt;
+     &lt;meta http-equiv="Content-Type" content="text/html; charset=utf-8" /&gt;
+     &lt;link rel="stylesheet" media="all" href="{themecss}" /&gt;
+     &lt;/head&gt;
+     &lt;body class="bg-light"&gt;
+     &lt;div class="container"&gt;
+     &lt;div class="mx-auto mt-4 mb-3 text-center" style="width:100px;height:40px;background: url('{logo}') no-repeat"&gt;
+     &lt;/div&gt;
+     &lt;div class="card mb-4" style="border-top: 5px solid #3761b5;"&gt;
+     &lt;div class="card-body"&gt;
+     &lt;h4 class="text-center"&gt;Hello &lt;strong&gt;{username}&lt;/strong&gt;,&lt;/h4&gt;
+     &lt;p class="mt-3 mb-4"&gt;You have requested to reset your password for {forumname}.&lt;/p&gt;
+     &lt;p&gt;Please open the following link in your web browser:&lt;/p&gt;
+     &lt;p class="text-center"&gt;&lt;a href="{link}"&gt;{link}&lt;/a&gt;&lt;/p&gt;
+     &lt;/div&gt;
+     &lt;/div&gt;
+
+     &lt;div class="text-center text-muted"&gt;&lt;strong&gt;{forumname}&lt;/strong&gt; at &lt;a href="{forumlink}"&gt;{forumlink}&lt;/a&gt;&lt;/div&gt;
+     &lt;/div&gt;
+
+     &lt;/body&gt;
+     &lt;/html&gt;
+   </Resource>
+    <Resource tag="RESET_PASS_TEXT">
+     You have requested to reset your password for {forumname}.
+
+     Please open the following link in your web browser:
+
+     {link}
+   </Resource>
     <Resource tag="TOPICPOST_HTML">
     &lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"&gt;
     &lt;html&gt;

@@ -889,14 +889,7 @@ namespace YAF.Pages
                 // Tell user that his message will have to be approved by a moderator
                 var url = BuildLink.GetLink(ForumPages.Topics, "f={0}", this.returnForum);
 
-                if (Config.IsRainbow)
-                {
-                    BuildLink.Redirect(ForumPages.Info, "i=1");
-                }
-                else
-                {
-                    BuildLink.Redirect(ForumPages.Info, "i=1&url={0}", this.Server.UrlEncode(url));
-                }
+                BuildLink.Redirect(ForumPages.Info, "i=1&url={0}", this.Server.UrlEncode(url));
             }
 
             // BuildLink.Redirect(ForumPages.Posts, "m={0}#{0}", this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("m"));      

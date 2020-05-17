@@ -7,7 +7,6 @@
 <%@ Register TagPrefix="uc1" TagName="SuspendEdit" Src="../../controls/EditUsersSuspend.ascx" %>
 <%@ Register TagPrefix="uc1" TagName="PointsEdit" Src="../../controls/EditUsersPoints.ascx" %>
 <%@ Register TagPrefix="uc1" TagName="AvatarEdit" Src="../../controls/EditUsersAvatar.ascx" %>
-<%@ Register TagPrefix="uc1" TagName="ResetPasswordEdit" Src="../../controls/EditUsersResetPass.ascx" %>
 <%@ Register TagPrefix="uc1" TagName="KillEdit" Src="../../controls/EditUsersKill.ascx" %>
 
 
@@ -64,12 +63,7 @@
                                 </a>
                             </li>
                             <asp:PlaceHolder runat="server" Visible="<%#!this.IsGuestUser%>">
-                            <li class="nav-item">
-                                <a class="nav-link" href="#View7" data-toggle="tab" role="tab">
-                                    <YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="USER_PASS" LocalizedPage="ADMIN_EDITUSER" />
-                                </a>
-                            </li>
-                            <li class="nav-item">
+                                <li class="nav-item">
                                 <a class="nav-link" href="#View8" data-toggle="tab" role="tab">
                                     <YAF:LocalizedLabel ID="LocalizedLabel8" runat="server" LocalizedTag="USER_SUSPEND" LocalizedPage="ADMIN_EDITUSER" />
                                 </a>
@@ -104,16 +98,13 @@
                             <uc1:PointsEdit runat="server" ID="UserPointsControl" />
                         </div>
                         <asp:PlaceHolder runat="server" ID="FielsNoGuests" Visible="<%#!this.IsGuestUser%>">
-                        <div class="tab-pane" id="View7" role="tabpanel">
-                            <uc1:ResetPasswordEdit runat="server" ID="ResetPasswordControl" />
-                        </div>
-                        <div class="tab-pane" id="View8" role="tabpanel">
-                            <uc1:SuspendEdit runat="server" ID="SuspendUserControl" />
-                        </div>
-                        <div class="tab-pane" id="View9" role="tabpanel">
-                             <uc1:KillEdit runat="server" ID="KillEdit1" />
-                        </div>
-                            </asp:PlaceHolder>
+                            <div class="tab-pane" id="View8" role="tabpanel">
+                                <uc1:SuspendEdit runat="server" ID="SuspendUserControl" />
+                            </div>
+                            <div class="tab-pane" id="View9" role="tabpanel">
+                                <uc1:KillEdit runat="server" ID="KillEdit1" />
+                            </div>
+                        </asp:PlaceHolder>
                     </div>
 
                     </asp:Panel>

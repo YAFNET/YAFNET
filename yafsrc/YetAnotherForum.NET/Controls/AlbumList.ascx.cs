@@ -36,12 +36,12 @@ namespace YAF.Controls
     using YAF.Core.Context;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
-    using YAF.Core.UsersRoles;
     using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Identity;
     using YAF.Types.Models;
     using YAF.Utils;
 
@@ -120,8 +120,8 @@ namespace YAF.Controls
 
             this.IconHeader.Param0 = this.HtmlEncode(
                 this.Get<BoardSettings>().EnableDisplayName
-                    ? UserMembershipHelper.GetDisplayNameFromID(this.UserID)
-                    : UserMembershipHelper.GetUserNameFromID(this.UserID));
+                    ? this.Get<IAspNetUsersHelper>().GetDisplayNameFromID(this.UserID)
+                    : this.Get<IAspNetUsersHelper>().GetUserNameFromID(this.UserID));
 
             this.BindData();
 

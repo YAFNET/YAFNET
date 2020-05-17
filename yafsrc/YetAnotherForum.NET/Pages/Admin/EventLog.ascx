@@ -173,7 +173,7 @@
                     <YAF:Alert runat="server" ID="NoInfo" 
                                Type="success" 
                                Visible="False">
-                        <i class="fa fa-check fa-fw text-success"></i>
+                        <YAF:Icon runat="server" IconName="check" IconType="text-success" />
                         <YAF:LocalizedLabel runat="server"
                                             LocalizedTag="NO_ENTRY"></YAF:LocalizedLabel>
                     </YAF:Alert>

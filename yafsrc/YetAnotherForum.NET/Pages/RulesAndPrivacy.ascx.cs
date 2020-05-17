@@ -81,11 +81,11 @@ namespace YAF.Pages
         {
             if (!this.Get<BoardSettings>().UseSSLToRegister)
             {
-                BuildLink.Redirect(ForumPages.Register);
+                BuildLink.Redirect(ForumPages.Account_Register);
             }
 
             this.Get<HttpResponseBase>()
-                .Redirect(BuildLink.GetLink(ForumPages.Register, true).Replace("http:", "https:"));
+                .Redirect(BuildLink.GetLink(ForumPages.Account_Register, true).Replace("http:", "https:"));
         }
 
         /// <summary>

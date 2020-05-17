@@ -42,12 +42,12 @@ namespace YAF.Pages
     using YAF.Core.Extensions;
     using YAF.Core.Helpers;
     using YAF.Core.Model;
-    using YAF.Core.UsersRoles;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Flags;
     using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Identity;
     using YAF.Types.Models;
     using YAF.Utils;
     using YAF.Utils.Helpers;
@@ -209,7 +209,7 @@ namespace YAF.Pages
                 this.Get<BoardSettings>().EnableDisplayName
                     ? this.PageContext.CurrentUserData.DisplayName
                     : this.PageContext.PageUserName,
-                BuildLink.GetLink(ForumPages.Account));
+                BuildLink.GetLink(ForumPages.MyAccount));
 
             // private messages
             this.PageLinks.AddLink(
@@ -676,7 +676,7 @@ namespace YAF.Pages
                         return;
                     }
 
-                    if (UserMembershipHelper.IsGuestUser(userId.Value))
+                    if (this.Get<IAspNetUsersHelper>().IsGuestUser(userId.Value))
                     {
                         BoardContext.Current.AddLoadMessage(this.GetText("NOT_GUEST"), MessageTypes.danger);
                         return;
@@ -695,7 +695,7 @@ namespace YAF.Pages
                         < receivingPMInfo["NumberAllowed"].ToType<int>() || BoardContext.Current.IsAdmin
                         || (bool)
                            Convert.ChangeType(
-                               UserMembershipHelper.GetUserRowForID(userId.Value, true)["IsAdmin"],
+                               BoardContext.Current.GetRepository<User>().ListAsDataTable(this.PageContext.PageBoardID,userId.Value, true).GetFirstRow()["IsAdmin"],
                                typeof(bool)))
                     {
                         continue;
@@ -812,7 +812,7 @@ namespace YAF.Pages
                                     this.PageContext.CurrentUserData.Membership,
                                     this.PageContext.PageUserID).LastIP;
 
-                            UserMembershipHelper.DeleteAndBanUser(
+                            this.Get<IAspNetUsersHelper>().DeleteAndBanUser(
                                 this.PageContext.PageUserID,
                                 this.PageContext.CurrentUserData.Membership,
                                 userIp);
@@ -876,7 +876,7 @@ namespace YAF.Pages
                                     this.PageContext.CurrentUserData.Membership,
                                     this.PageContext.PageUserID).LastIP;
 
-                            UserMembershipHelper.DeleteAndBanUser(
+                            this.Get<IAspNetUsersHelper>().DeleteAndBanUser(
                                 this.PageContext.PageUserID,
                                 this.PageContext.CurrentUserData.Membership,
                                 userIp);

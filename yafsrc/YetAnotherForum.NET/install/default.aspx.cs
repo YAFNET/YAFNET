@@ -32,27 +32,27 @@ namespace YAF.Install
     using System.Linq;
     using System.Security.Permissions;
     using System.Web;
-    using System.Web.Security;
     using System.Web.UI;
     using System.Web.UI.WebControls;
 
     using YAF.App_GlobalResources;
     using YAF.Configuration;
-    
+
     using YAF.Core.BasePages;
     using YAF.Core.Context;
     using YAF.Core.Extensions;
     using YAF.Core.Helpers;
+    using YAF.Core.Membership;
     using YAF.Core.Model;
     using YAF.Core.Services;
-    using YAF.Core.Tasks;
-    using YAF.Core.UsersRoles;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
+    using YAF.Types.Interfaces.Identity;
     using YAF.Types.Models;
+    using YAF.Types.Models.Identity;
     using YAF.Utils;
     using YAF.Utils.Helpers;
 
@@ -106,8 +106,8 @@ namespace YAF.Install
         /// <summary>
         /// Gets a value indicating whether is forum installed.
         /// </summary>
-        public bool IsForumInstalled => (this.isForumInstalled ?? (this.isForumInstalled = this.InstallUpgradeService.IsForumInstalled))
-            .Value;
+        public bool IsForumInstalled =>
+            (this.isForumInstalled ?? (this.isForumInstalled = this.InstallUpgradeService.IsForumInstalled)).Value;
 
         /// <summary>
         ///     Gets ServiceLocator.
@@ -125,27 +125,6 @@ namespace YAF.Install
         /// The database access.
         /// </value>
         public IDbAccess DbAccess => this.Get<IDbAccess>();
-
-        /// <summary>
-        /// Gets the page board identifier.
-        /// </summary>
-        /// <value>
-        /// The page board identifier.
-        /// </value>
-        private static int PageBoardID
-        {
-            get
-            {
-                try
-                {
-                    return Config.BoardID.ToType<int>();
-                }
-                catch
-                {
-                    return 1;
-                }
-            }
-        }
 
         /// <summary>
         ///     Gets CurrentConnString.
@@ -183,8 +162,8 @@ namespace YAF.Install
                 var connName = this.lbConnections.SelectedValue;
 
                 return connName.IsSet()
-                           ? ConfigurationManager.ConnectionStrings[connName].ConnectionString
-                           : string.Empty;
+                    ? ConfigurationManager.ConnectionStrings[connName].ConnectionString
+                    : string.Empty;
             }
         }
 
@@ -203,37 +182,6 @@ namespace YAF.Install
                     this.InstallWizard.ActiveStepIndex = index;
                 }
             }
-        }
-
-        #endregion
-
-        #region Public Methods and Operators
-
-        /// <summary>
-        /// Gets the membership error message.
-        /// </summary>
-        /// <param name="status">
-        /// The status.
-        /// </param>
-        /// <returns>
-        /// The get membership error message.
-        /// </returns>
-        [NotNull]
-        public string GetMembershipErrorMessage(MembershipCreateStatus status)
-        {
-            return status switch
-                {
-                    MembershipCreateStatus.DuplicateUserName => Install.DuplicateUserName,
-                    MembershipCreateStatus.DuplicateEmail => Install.DuplicateEmail,
-                    MembershipCreateStatus.InvalidPassword => Install.InvalidPassword,
-                    MembershipCreateStatus.InvalidEmail => Install.InvalidEmail,
-                    MembershipCreateStatus.InvalidAnswer => Install.InvalidAnswer,
-                    MembershipCreateStatus.InvalidQuestion => Install.InvalidQuestion,
-                    MembershipCreateStatus.InvalidUserName => Install.InvalidUserName,
-                    MembershipCreateStatus.ProviderError => Install.ProviderError,
-                    MembershipCreateStatus.UserRejected => Install.UserRejected,
-                    _ => Install.UnknownError
-                };
         }
 
         #endregion
@@ -411,36 +359,6 @@ namespace YAF.Install
         }
 
         /// <summary>
-        /// Handles the Tick event of the UpdateStatusTimer control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        protected void UpdateStatusTimer_Tick([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            // see if the migration is done....
-            if (this.Get<ITaskModuleManager>().IsTaskRunning(MigrateUsersTask.TaskName))
-            {
-                // proceed...
-                return;
-            }
-
-            if (this.Session["InstallWizardFinal"] == null)
-            {
-                this.Session.Add("InstallWizardFinal", true);
-            }
-
-            // done here...
-            try
-            {
-                this.Get<HttpResponseBase>().Redirect(BuildLink.GetLink(ForumPages.Board));
-            }
-            catch (Exception)
-            {
-                this.Get<HttpResponseBase>().Redirect("default.aspx");
-            }
-        }
-
-        /// <summary>
         /// The user choice_ selected index changed.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
@@ -492,33 +410,6 @@ namespace YAF.Install
                     if (this.InstallUpgradeService.IsForumInstalled)
                     {
                         this.InstallWizard.ActiveStepIndex++;
-                    }
-
-                    break;
-                case "WizMigrateUsers":
-                    if (!this.IsConfigPasswordSet)
-                    {
-                        // no migration because it's a new install...
-                        this.CurrentWizardStepID = "WizFinished";
-                    }
-                    else
-                    {
-                        var version = (this.Cache["DBVersion"] ?? this.GetRepository<Registry>().GetDbVersion()).ToType<int>();
-
-                        if (version >= 30 || version == -1)
-                        {
-                            // migration is NOT needed...
-                            this.CurrentWizardStepID = "WizFinished";
-                        }
-
-                        this.Cache.Remove("DBVersion");
-                    }
-
-                    // get user count
-                    if (this.CurrentWizardStepID == "WizMigrateUsers")
-                    {
-                        this.lblMigrateUsersCount.Text =
-                            this.GetRepository<User>().ListAsDataTable(PageBoardID, null, true).Rows.Count.ToString();
                     }
 
                     break;
@@ -636,10 +527,9 @@ namespace YAF.Install
 
                     e.Cancel = false;
 
-                    this.CurrentWizardStepID =
-                        this.config.WriteAppSetting(AppPasswordKey, this.txtCreatePassword1.Text)
-                            ? "WizDatabaseConnection"
-                            : "WizManuallySetPassword";
+                    this.CurrentWizardStepID = this.config.WriteAppSetting(AppPasswordKey, this.txtCreatePassword1.Text)
+                        ? "WizDatabaseConnection"
+                        : "WizManuallySetPassword";
 
                     break;
                 case "WizManuallySetPassword":
@@ -649,8 +539,7 @@ namespace YAF.Install
                     }
                     else
                     {
-                        this.ShowErrorMessage(
-                            Install.ErrorConfigPassword);
+                        this.ShowErrorMessage(Install.ErrorConfigPassword);
                     }
 
                     break;
@@ -658,21 +547,20 @@ namespace YAF.Install
                     e.Cancel = false;
                     break;
                 case "WizEnterPassword":
-                    if (this.config.GetConfigValueAsString(AppPasswordKey)
-                        == FormsAuthentication.HashPasswordForStoringInConfigFile(this.txtEnteredPassword.Text, "md5")
-                        || this.config.GetConfigValueAsString(AppPasswordKey) == this.txtEnteredPassword.Text.Trim())
+                    if (this.config.GetConfigValueAsString(AppPasswordKey) ==
+                        new SQLPasswordHasher().HashPassword(this.txtEnteredPassword.Text) ||
+                        this.config.GetConfigValueAsString(AppPasswordKey) == this.txtEnteredPassword.Text.Trim())
                     {
                         e.Cancel = false;
 
                         // move to upgrade..
-                        this.CurrentWizardStepID = this.IsForumInstalled ? "WizWelcomeUpgrade" : "WizDatabaseConnection";
+                        this.CurrentWizardStepID =
+                            this.IsForumInstalled ? "WizWelcomeUpgrade" : "WizDatabaseConnection";
 
                         var versionName = this.GetRepository<Registry>().GetDbVersionName();
                         var version = this.GetRepository<Registry>().GetDbVersion();
 
-                        this.CurrentVersionName.Text = version < 0
-                                                           ? "New"
-                                                           : $"{versionName} ({version})";
+                        this.CurrentVersionName.Text = version < 0 ? "New" : $"{versionName} ({version})";
                         this.UpgradeVersionName.Text = $"{BoardInfo.AppVersionName} ({BoardInfo.AppVersion})";
                     }
                     else
@@ -689,25 +577,11 @@ namespace YAF.Install
 
                     break;
                 case "WizInitDatabase":
-                    if (this.InstallUpgradeService.UpgradeDatabase(
-                        this.UpgradeExtensions.Checked))
+                    if (this.InstallUpgradeService.UpgradeDatabase(this.UpgradeExtensions.Checked))
                     {
                         e.Cancel = false;
                     }
 
-                    break;
-                case "WizMigrateUsers":
-
-                    // migrate users/roles only if user does not want to skip
-                    if (!this.skipMigration.Checked)
-                    {
-                        RoleMembershipHelper.SyncRoles(PageBoardID);
-
-                        // start the background migration task...
-                        this.Get<ITaskModuleManager>().Start<MigrateUsersTask>(PageBoardID);
-                    }
-
-                    e.Cancel = false;
                     break;
                 case "WizWelcomeUpgrade":
 
@@ -897,7 +771,8 @@ namespace YAF.Install
                 return false;
             }
 
-            MembershipUser user;
+            AspNetUsers user;
+            var applicationId = Guid.NewGuid(); 
 
             if (this.UserChoice.SelectedValue == "create")
             {
@@ -926,27 +801,28 @@ namespace YAF.Install
                 }
 
                 // create the admin user...
-                user = this.Get<MembershipProvider>()
-                    .CreateUser(
-                        this.UserName.Text,
-                        this.Password1.Text,
-                        this.AdminEmail.Text,
-                        this.SecurityQuestion.Text,
-                        this.SecurityAnswer.Text,
-                        true,
-                        null,
-                        out var status);
-
-                if (status != MembershipCreateStatus.Success)
+                user = new AspNetUsers
                 {
-                    this.ShowErrorMessage($"{Install.ErrorUserCreate} {this.GetMembershipErrorMessage(status)}");
+                    Id = Guid.NewGuid().ToString(),
+                    ApplicationId = applicationId,
+                    UserName = this.UserName.Text,
+                    LoweredUserName = this.UserName.Text,
+                    Email = this.AdminEmail.Text,
+                    IsApproved = true
+                };
+
+                var result = this.Get<IAspNetUsersHelper>().Create(user, this.Password1.Text);
+
+                if (!result.Succeeded)
+                {
+                    this.ShowErrorMessage($"{Install.ErrorUserCreate} - {result.Errors.FirstOrDefault()}");
                     return false;
                 }
             }
             else
             {
                 // try to get data for the existing user...
-                user = UserMembershipHelper.GetUser(this.ExistingUserName.Text.Trim());
+                user = this.Get<IAspNetUsersHelper>().GetUserByName(this.ExistingUserName.Text.Trim());
 
                 if (user == null)
                 {
@@ -960,26 +836,27 @@ namespace YAF.Install
                 var prefix = Config.CreateDistinctRoles && Config.IsAnyPortal ? "YAF " : string.Empty;
 
                 // add administrators and registered if they don't already exist...
-                if (!RoleMembershipHelper.RoleExists($"{prefix}Administrators"))
+                if (!AspNetRolesHelper.RoleExists($"{prefix}Administrators"))
                 {
-                    RoleMembershipHelper.CreateRole($"{prefix}Administrators");
+                    AspNetRolesHelper.CreateRole($"{prefix}Administrators");
                 }
 
-                if (!RoleMembershipHelper.RoleExists($"{prefix}Registered"))
+                if (!AspNetRolesHelper.RoleExists($"{prefix}Registered"))
                 {
-                    RoleMembershipHelper.CreateRole($"{prefix}Registered");
+                    AspNetRolesHelper.CreateRole($"{prefix}Registered");
                 }
 
-                if (!RoleMembershipHelper.IsUserInRole(user.UserName, $"{prefix}Administrators"))
+                if (!AspNetRolesHelper.IsUserInRole(user, $"{prefix}Administrators"))
                 {
-                    RoleMembershipHelper.AddUserToRole(user.UserName, $"{prefix}Administrators");
+                    AspNetRolesHelper.AddUserToRole(user, $"{prefix}Administrators");
                 }
 
                 // logout administrator...
-                FormsAuthentication.SignOut();
+                this.Get<IAspNetUsersHelper>().SignOut();
 
                 // init forum...
                 this.InstallUpgradeService.InitializeForum(
+                    applicationId,
                     this.TheForumName.Text,
                     this.TimeZones.SelectedValue,
                     this.Culture.SelectedValue,
@@ -988,7 +865,7 @@ namespace YAF.Install
                     this.ForumBaseUrlMask.Text,
                     user.UserName,
                     user.Email,
-                    user.ProviderUserKey);
+                    user.Id);
             }
             catch (Exception x)
             {
@@ -1046,7 +923,7 @@ namespace YAF.Install
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         private void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            var errorMessage = this.InstallWizard.FindControlAs<PlaceHolder>("ErrorMessage"); 
+            var errorMessage = this.InstallWizard.FindControlAs<PlaceHolder>("ErrorMessage");
 
             if (this.loadMessage.IsNotSet())
             {
@@ -1075,7 +952,9 @@ namespace YAF.Install
             {
                 this.Cache["DBVersion"] = this.GetRepository<Registry>().GetDbVersion();
 
-                this.CurrentWizardStepID = this.IsConfigPasswordSet && this.IsForumInstalled ? "WizEnterPassword" : "WizWelcome";
+                this.CurrentWizardStepID = this.IsConfigPasswordSet && this.IsForumInstalled
+                    ? "WizEnterPassword"
+                    : "WizWelcome";
 
                 // "WizCreatePassword"
                 if (!this.IsConfigPasswordSet)
@@ -1112,38 +991,38 @@ namespace YAF.Install
                 // Connection string parameters text boxes
                 Enumerable.Range(1, 20).ForEach(
                     paramNumber =>
+                    {
+                        var param = this.DbAccess.Information.DbConnectionParameters.FirstOrDefault(
+                            p => p.ID == paramNumber);
+
+                        var label = this.FindControlRecursiveAs<Label>($"Parameter{paramNumber}_Name");
+                        if (label != null)
                         {
-                            var param = this.DbAccess.Information.DbConnectionParameters.FirstOrDefault(
-                                p => p.ID == paramNumber);
+                            label.Text = param != null ? param.Name : string.Empty;
+                        }
 
-                            var label = this.FindControlRecursiveAs<Label>($"Parameter{paramNumber}_Name");
-                            if (label != null)
-                            {
-                                label.Text = param != null ? param.Name : string.Empty;
-                            }
+                        var control = this.FindControlRecursive($"Parameter{paramNumber}_Value");
 
-                            var control = this.FindControlRecursive($"Parameter{paramNumber}_Value");
-
-                            switch (control)
-                            {
-                                case TextBox textBox when param != null:
-                                    textBox.Text = param.Value;
-                                    textBox.Visible = true;
-                                    break;
-                                case TextBox textBox:
-                                    textBox.Text = string.Empty;
-                                    textBox.Visible = false;
-                                    break;
-                                case CheckBox checkBox when param != null:
-                                    checkBox.Checked = param.Value.ToType<bool>();
-                                    checkBox.Visible = true;
-                                    break;
-                                case CheckBox checkBox:
-                                    checkBox.Checked = false;
-                                    checkBox.Visible = false;
-                                    break;
-                            }
-                        });
+                        switch (control)
+                        {
+                            case TextBox textBox when param != null:
+                                textBox.Text = param.Value;
+                                textBox.Visible = true;
+                                break;
+                            case TextBox textBox:
+                                textBox.Text = string.Empty;
+                                textBox.Visible = false;
+                                break;
+                            case CheckBox checkBox when param != null:
+                                checkBox.Checked = param.Value.ToType<bool>();
+                                checkBox.Visible = true;
+                                break;
+                            case CheckBox checkBox:
+                                checkBox.Checked = false;
+                                checkBox.Visible = false;
+                                break;
+                        }
+                    });
 
                 // Hide New User on DNN
                 if (!Config.IsDotNetNuke)
@@ -1170,40 +1049,39 @@ namespace YAF.Install
             switch (this.rblYAFDatabase.SelectedValue)
             {
                 case "existing" when this.lbConnections.SelectedIndex >= 0:
+                {
+                    var selectedConnection = this.lbConnections.SelectedValue;
+                    if (selectedConnection == Config.ConnectionStringName)
                     {
-                        var selectedConnection = this.lbConnections.SelectedValue;
-                        if (selectedConnection == Config.ConnectionStringName)
-                        {
-                            return UpdateDBFailureType.None;
-                        }
+                        return UpdateDBFailureType.None;
+                    }
 
-                        try
+                    try
+                    {
+                        // have to write to the appSettings...
+                        if (!this.config.WriteAppSetting("YAF.ConnectionStringName", selectedConnection))
                         {
-                            // have to write to the appSettings...
-                            if (!this.config.WriteAppSetting("YAF.ConnectionStringName", selectedConnection))
-                            {
-                                this.lblConnectionStringName.Text = selectedConnection;
+                            this.lblConnectionStringName.Text = selectedConnection;
 
-                                // failure to write App Settings..
-                                return UpdateDBFailureType.AppSettingsWrite;
-                            }
-                        }
-                        catch
-                        {
+                            // failure to write App Settings..
                             return UpdateDBFailureType.AppSettingsWrite;
                         }
-
-                        break;
                     }
+                    catch
+                    {
+                        return UpdateDBFailureType.AppSettingsWrite;
+                    }
+
+                    break;
+                }
 
                 case "create":
                     try
                     {
-                        if (
-                            !this.config.WriteConnectionString(
-                                Config.ConnectionStringName,
-                                this.CurrentConnString,
-                                this.DbAccess.Information.ProviderName))
+                        if (!this.config.WriteConnectionString(
+                            Config.ConnectionStringName,
+                            this.CurrentConnString,
+                            this.DbAccess.Information.ProviderName))
                         {
                             // failure to write db Settings..
                             return UpdateDBFailureType.ConnectionStringWrite;

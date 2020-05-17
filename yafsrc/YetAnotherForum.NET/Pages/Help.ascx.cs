@@ -285,7 +285,7 @@ namespace YAF.Pages
                         {
                             helpContent = this.GetTextFormatted(
                                 $"{helpPage.HelpPage}CONTENT",
-                                BuildLink.GetLink(ForumPages.RecoverPassword));
+                                BuildLink.GetLink(ForumPages.Account_ForgotPassword));
                         }
 
                         break;

@@ -70,6 +70,7 @@ namespace YAF.Core.Services
                 catch (Exception ex)
                 {
                     smtpClient.Dispose();
+
                     if (handleException != null)
                     {
                         handleException(m, ex);

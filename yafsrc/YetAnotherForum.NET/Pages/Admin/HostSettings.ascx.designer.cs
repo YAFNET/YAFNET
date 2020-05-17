@@ -735,6 +735,24 @@ namespace YAF.Pages.Admin
         protected global::System.Web.UI.WebControls.TextBox IgnoreSpamWordCheckPostCount;
 
         /// <summary>
+        /// HelpLabel242 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Web.Controls.HelpLabel HelpLabel242;
+
+        /// <summary>
+        /// AllowedNumberOfUrls control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox AllowedNumberOfUrls;
+
+        /// <summary>
         /// BotRegisterCheck control.
         /// </summary>
         /// <remarks>
@@ -850,24 +868,6 @@ namespace YAF.Pages.Admin
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox BanBotIpOnDetection;
-
-        /// <summary>
-        /// HelpLabel242 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Web.Controls.HelpLabel HelpLabel242;
-
-        /// <summary>
-        /// AllowedNumberOfUrls control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox AllowedNumberOfUrls;
 
         /// <summary>
         /// LoginSettings control.

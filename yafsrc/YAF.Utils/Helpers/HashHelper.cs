@@ -1,8 +1,8 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2020 Ingo Herbote
- * https://www.yetanotherforum.net/
+ * Copyright (C) 2014-2018 Ingo Herbote
+ * http://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -12,7 +12,7 @@
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
 
- * https://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
 
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
@@ -48,27 +48,27 @@ namespace YAF.Utils.Helpers
         public enum HashAlgorithmType
         {
             /// <summary>
-            /// The m d 5.
+            /// The MD5.
             /// </summary>
             MD5,
 
             /// <summary>
-            /// The sh a 1.
+            /// The SHA1.
             /// </summary>
             SHA1,
 
             /// <summary>
-            /// The sh a 256.
+            /// The SHA256.
             /// </summary>
             SHA256,
 
             /// <summary>
-            /// The sh a 384.
+            /// The SHA384.
             /// </summary>
             SHA384,
 
             /// <summary>
-            /// The sh a 512.
+            /// The SHA512.
             /// </summary>
             SHA512
         }
@@ -86,7 +86,12 @@ namespace YAF.Utils.Helpers
             /// <summary>
             /// The lower.
             /// </summary>
-            Lower
+            Lower,
+
+            /// <summary>
+            /// The none.
+            /// </summary>
+            None
         }
 
         #endregion
@@ -189,12 +194,15 @@ namespace YAF.Utils.Helpers
             var hashedString = hashHex ? hashedBytes.ToHexString() : Convert.ToBase64String(hashedBytes);
 
             // Adjust the case of the hash output
-            hashedString = hashCaseType switch
-                {
-                    HashCaseType.Upper => hashedString.ToUpper(),
-                    HashCaseType.Lower => hashedString.ToLower(),
-                    _ => hashedString
-                };
+            switch (hashCaseType)
+            {
+                case HashCaseType.Upper:
+                    hashedString = hashedString.ToUpper();
+                    break;
+                case HashCaseType.Lower:
+                    hashedString = hashedString.ToLower();
+                    break;
+            }
 
             if (hashRemoveChars.IsSet())
             {
@@ -211,7 +219,7 @@ namespace YAF.Utils.Helpers
         #region Methods
 
         /// <summary>
-        /// Hashes clear bytes to given hashtype
+        /// Hashes clear bytes to given hash type
         /// </summary>
         /// <param name="clearBytes">
         /// Clear bytes to hash

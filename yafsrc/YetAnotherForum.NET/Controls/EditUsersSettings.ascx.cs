@@ -28,15 +28,13 @@ namespace YAF.Controls
 
     using System;
     using System.Linq;
-    using System.Web.Security;
-
+    
     using YAF.Configuration;
     using YAF.Core.BaseControls;
     using YAF.Core.Context;
     using YAF.Core.Extensions;
     using YAF.Core.Helpers;
     using YAF.Core.Model;
-    using YAF.Core.UsersRoles;
     using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Constants;
@@ -44,6 +42,7 @@ namespace YAF.Controls
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Events;
+    using YAF.Types.Interfaces.Identity;
     using YAF.Types.Models;
     using YAF.Utils;
     using YAF.Utils.Helpers;
@@ -100,7 +99,7 @@ namespace YAF.Controls
         protected void CancelClick([NotNull] object sender, [NotNull] EventArgs e)
         {
             BuildLink.Redirect(
-                this.PageContext.CurrentForumPage.IsAdminPage ? ForumPages.Admin_Users : ForumPages.Account);
+                this.PageContext.CurrentForumPage.IsAdminPage ? ForumPages.Admin_Users : ForumPages.MyAccount);
         }
 
         /// <summary>
@@ -178,7 +177,7 @@ namespace YAF.Controls
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void UpdateProfileClick([NotNull] object sender, [NotNull] EventArgs e)
         {
-            var userName = UserMembershipHelper.GetUserNameFromID(this.currentUserId);
+            var userName = this.Get<IAspNetUsersHelper>().GetUserNameFromID(this.currentUserId);
 
             if (this.UpdateEmailFlag)
             {
@@ -190,33 +189,25 @@ namespace YAF.Controls
                     return;
                 }
 
-                var userNameFromEmail = this.Get<MembershipProvider>().GetUserNameByEmail(this.Email.Text.Trim());
+                var userFromEmail = this.Get<IAspNetUsersHelper>().GetUserByEmail(this.Email.Text.Trim());
 
-                if (userNameFromEmail.IsSet() && userNameFromEmail != userName)
+                if (userFromEmail != null && userFromEmail.Email != userName)
                 {
                     this.PageContext.AddLoadMessage(this.GetText("PROFILE", "BAD_EMAIL"), MessageTypes.warning);
                     return;
                 }
 
-                if (this.Get<BoardSettings>().EmailVerification)
+                try
                 {
-                    this.Get<ISendNotification>().SendEmailChangeVerification(newEmail, this.currentUserId, userName);
+                    this.Get<IAspNetUsersHelper>().UpdateEmail(userFromEmail, this.Email.Text.Trim());
                 }
-                else
+                catch (ApplicationException)
                 {
-                    // just update the e-mail...
-                    try
-                    {
-                        UserMembershipHelper.UpdateEmail(this.currentUserId, this.Email.Text.Trim());
-                    }
-                    catch (ApplicationException)
-                    {
-                        this.PageContext.AddLoadMessage(
-                            this.GetText("PROFILE", "DUPLICATED_EMAIL"),
-                            MessageTypes.warning);
+                    this.PageContext.AddLoadMessage(
+                        this.GetText("PROFILE", "DUPLICATED_EMAIL"),
+                        MessageTypes.warning);
 
-                        return;
-                    }
+                    return;
                 }
             }
 
@@ -283,7 +274,7 @@ namespace YAF.Controls
 
             if (!this.PageContext.CurrentForumPage.IsAdminPage)
             {
-                BuildLink.Redirect(ForumPages.Account);
+                BuildLink.Redirect(ForumPages.MyAccount);
             }
             else
             {

@@ -30,11 +30,12 @@ namespace YAF.Pages
     using System.Web;
 
     using YAF.Core.BasePages;
-    using YAF.Core.UsersRoles;
+    using YAF.Core.Helpers;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Identity;
     using YAF.Utils;
     using YAF.Web.Extensions;
 
@@ -91,7 +92,7 @@ namespace YAF.Pages
             }
 
             // get user data...
-            var userHe = UserMembershipHelper.GetMembershipUserById(this.UserID);
+            var userHe = this.Get<IAspNetUsersHelper>().GetMembershipUserById(this.UserID);
 
             if (userHe == null)
             {
@@ -104,13 +105,13 @@ namespace YAF.Pages
                 BuildLink.AccessDenied();
             }
 
-            var displayNameHe = UserMembershipHelper.GetDisplayNameFromID(this.UserID);
+            var displayNameHe = this.Get<IAspNetUsersHelper>().GetDisplayNameFromID(this.UserID);
 
             this.PageLinks.AddRoot();
             this.PageLinks.AddLink(
                 this.PageContext.BoardSettings.EnableDisplayName ? displayNameHe : userHe.UserName,
                 BuildLink.GetLink(
-                    ForumPages.Profile,
+                    ForumPages.UserProfile,
                     "u={0}&name={1}",
                     this.UserID,
                     this.PageContext.BoardSettings.EnableDisplayName ? displayNameHe : userHe.UserName));
@@ -124,7 +125,7 @@ namespace YAF.Pages
             else
             {
                 // Data for current page user
-                var userMe = UserMembershipHelper.GetMembershipUserById(this.PageContext.PageUserID);
+                var userMe = this.Get<IAspNetUsersHelper>().GetMembershipUserById(this.PageContext.PageUserID);
 
                 // get full user data...
                 var userDataHe = new CombinedUserDataHelper(userHe, this.UserID);

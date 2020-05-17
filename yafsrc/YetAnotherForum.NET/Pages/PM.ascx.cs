@@ -126,7 +126,7 @@ namespace YAF.Pages
                 this.Get<BoardSettings>().EnableDisplayName
                     ? this.PageContext.CurrentUserData.DisplayName
                     : this.PageContext.PageUserName,
-                BuildLink.GetLink(ForumPages.Account));
+                BuildLink.GetLink(ForumPages.MyAccount));
             this.PageLinks.AddLink(this.GetText("TITLE"));
         }
 

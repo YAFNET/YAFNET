@@ -51,11 +51,6 @@ namespace YAF.Types.Interfaces.Data
         string FullTextUpgradeScript { get; }
 
         /// <summary>
-        ///     Gets the Azure Script List.
-        /// </summary>
-        IEnumerable<string> AzureScripts { get; }
-
-        /// <summary>
         ///     Gets the Install Script List.
         /// </summary>
         IEnumerable<string> InstallScripts { get; }
@@ -65,16 +60,10 @@ namespace YAF.Types.Interfaces.Data
         /// </summary>
         IEnumerable<string> UpgradeScripts { get; }
         
-
-        /// <summary>
-        ///     Gets the YAF Provider Install script list
-        /// </summary>
-        IEnumerable<string> YAFProviderInstallScripts { get; }
-
         /// <summary>
         ///     Gets the YAF Provider Upgrade script list
         /// </summary>
-        IEnumerable<string> YAFProviderUpgradeScripts { get; }
+        IEnumerable<string> IdentityUpgradeScripts { get; }
 
         /// <summary>
         /// Gets the DB Connection Parameters.

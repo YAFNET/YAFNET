@@ -32,10 +32,10 @@ namespace YAF.Core.Handlers
 
     using YAF.Core.Context;
     using YAF.Core.Model;
-    using YAF.Core.UsersRoles;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Identity;
     using YAF.Types.Models;
     using YAF.Utils;
 
@@ -78,7 +78,7 @@ namespace YAF.Core.Handlers
 
             var forumList = this.GetRepository<Forum>().ListAll(
                 BoardContext.Current.BoardSettings.BoardID,
-                UserMembershipHelper.GuestUserId);
+                this.Get<IAspNetUsersHelper>().GuestUserId);
 
             forumList.ForEach(
                 forum => siteMap.Add(

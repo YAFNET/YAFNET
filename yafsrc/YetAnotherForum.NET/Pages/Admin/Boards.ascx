@@ -79,8 +79,7 @@
                                          TitleLocalizedTag="DELETE"
                                          TextLocalizedTag="DELETE"
                                          Icon="trash"
-                                         ReturnConfirmText='<%# this.GetText("ADMIN_BOARDS", "CONFIRM_DELETE") %>'
-                                         Visible='<%# this.List.Items.Count > 1  %>'>
+                                         ReturnConfirmText='<%# this.GetText("ADMIN_BOARDS", "CONFIRM_DELETE") %>'>
                         </YAF:ThemeButton>
                         <div class="dropdown-divider"></div>
                         <YAF:ThemeButton ID="New" runat="server" 

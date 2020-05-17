@@ -30,8 +30,7 @@ namespace YAF.Pages.Admin
     using System.IO;
     using System.Linq;
     using System.Web;
-    using System.Web.Security;
-
+    
     using Core.Services.Import;
 
     using YAF.Configuration;
@@ -39,12 +38,13 @@ namespace YAF.Pages.Admin
     using YAF.Core.Extensions;
     using YAF.Core.Helpers;
     using YAF.Core.Model;
-    using YAF.Core.UsersRoles;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Identity;
     using YAF.Types.Models;
+    using YAF.Types.Models.Identity;
     using YAF.Utils;
     using YAF.Web.Extensions;
 
@@ -108,35 +108,16 @@ namespace YAF.Pages.Admin
         /// <param name="adminName">The admin name.</param>
         /// <param name="adminPassword">The admin password.</param>
         /// <param name="adminEmail">The admin email.</param>
-        /// <param name="adminPasswordQuestion">The admin password question.</param>
-        /// <param name="adminPasswordAnswer">The admin password answer.</param>
         /// <param name="boardName">The board name.</param>
-        /// <param name="boardMembershipAppName">The board membership app name.</param>
-        /// <param name="boardRolesAppName">The board roles app name.</param>
         /// <param name="createUserAndRoles">The create user and roles.</param>
         /// <returns>Returns if the board was created or not</returns>
         protected bool CreateBoard(
             [NotNull] string adminName,
             [NotNull] string adminPassword,
             [NotNull] string adminEmail,
-            [NotNull] string adminPasswordQuestion,
-            [NotNull] string adminPasswordAnswer,
             [NotNull] string boardName,
-            [NotNull] string boardMembershipAppName,
-            [NotNull] string boardRolesAppName,
             bool createUserAndRoles)
         {
-            // Store current App Names
-            var currentMembershipAppName = this.Get<MembershipProvider>().ApplicationName;
-            var currentRolesAppName = this.Get<RoleProvider>().ApplicationName;
-
-            if (boardMembershipAppName.IsSet() && boardRolesAppName.IsSet())
-            {
-                // Change App Names for new board
-                this.Get<MembershipProvider>().ApplicationName = boardMembershipAppName;
-                this.Get<MembershipProvider>().ApplicationName = boardRolesAppName;
-            }
-
             int newBoardId;
             var cult = StaticDataHelper.Cultures();
             var langFile = "english.xml";
@@ -146,109 +127,81 @@ namespace YAF.Pages.Admin
 
             if (createUserAndRoles)
             {
-                // Create new admin users
-                var newAdmin = this.Get<MembershipProvider>()
-                    .CreateUser(
-                        adminName,
-                        adminPassword,
-                        adminEmail,
-                        adminPasswordQuestion,
-                        adminPasswordAnswer,
-                        true,
-                        null,
-                        out var createStatus);
+                var user = new AspNetUsers
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    ApplicationId = this.Get<BoardSettings>().ApplicationId,
+                    UserName = adminName,
+                    LoweredUserName = adminName,
+                    Email = adminEmail,
+                    IsApproved = true
+                };
 
-                if (createStatus != MembershipCreateStatus.Success)
+                // Create new admin users
+                var result = this.Get<IAspNetUsersHelper>().Create(user, adminPassword);
+
+                if (!result.Succeeded)
                 {
                     this.PageContext.AddLoadMessage(
-                        $"Create User Failed: {this.GetMembershipErrorMessage(createStatus)}",
+                        $"Create User Failed: {result.Errors.FirstOrDefault()}",
                         MessageTypes.danger);
 
                     return false;
                 }
 
                 // Create groups required for the new board
-                RoleMembershipHelper.CreateRole("Administrators");
-                RoleMembershipHelper.CreateRole("Registered");
+                AspNetRolesHelper.CreateRole("Administrators");
+                AspNetRolesHelper.CreateRole("Registered");
 
                 // Add new admin users to group
-                RoleMembershipHelper.AddUserToRole(newAdmin.UserName, "Administrators");
+                AspNetRolesHelper.AddUserToRole(user, "Administrators");
 
                 // Create Board
                 newBoardId = this.DbCreateBoard(
                     boardName,
-                    boardMembershipAppName,
-                    boardRolesAppName,
                     langFile,
-                    newAdmin);
+                    user);
             }
             else
             {
                 // new admin
-                var newAdmin = UserMembershipHelper.GetUser();
+                var newAdmin = this.Get<IAspNetUsersHelper>().GetUser();
 
                 // Create Board
                 newBoardId = this.DbCreateBoard(
                     boardName,
-                    boardMembershipAppName,
-                    boardRolesAppName,
                     langFile,
                     newAdmin);
             }
 
-            if (newBoardId > 0 && Config.MultiBoardFolders)
+            if (newBoardId <= 0 || !Config.MultiBoardFolders)
             {
-                // Successfully created the new board
-                var boardFolder = this.Server.MapPath(Path.Combine(Config.BoardRoot, $"{newBoardId}/"));
-
-                // Create New Folders.
-                if (!Directory.Exists(Path.Combine(boardFolder, "Images")))
-                {
-                    // Create the Images Folders
-                    Directory.CreateDirectory(Path.Combine(boardFolder, "Images"));
-
-                    // Create Sub Folders
-                    Directory.CreateDirectory(Path.Combine(boardFolder, "Images\\Avatars"));
-                    Directory.CreateDirectory(Path.Combine(boardFolder, "Images\\Categories"));
-                    Directory.CreateDirectory(Path.Combine(boardFolder, "Images\\Forums"));
-                    Directory.CreateDirectory(Path.Combine(boardFolder, "Images\\Medals"));
-                }
-
-                if (!Directory.Exists(Path.Combine(boardFolder, "Uploads")))
-                {
-                    Directory.CreateDirectory(Path.Combine(boardFolder, "Uploads"));
-                }
+                return true;
             }
 
-            // Return application name to as they were before.
-            this.Get<MembershipProvider>().ApplicationName = currentMembershipAppName;
-            this.Get<RoleProvider>().ApplicationName = currentRolesAppName;
+            // Successfully created the new board
+            var boardFolder = this.Server.MapPath(Path.Combine(Config.BoardRoot, $"{newBoardId}/"));
+
+            // Create New Folders.
+            if (!Directory.Exists(Path.Combine(boardFolder, "Images")))
+            {
+                // Create the Images Folders
+                Directory.CreateDirectory(Path.Combine(boardFolder, "Images"));
+
+                // Create Sub Folders
+                Directory.CreateDirectory(Path.Combine(boardFolder, "Images\\Avatars"));
+                Directory.CreateDirectory(Path.Combine(boardFolder, "Images\\Categories"));
+                Directory.CreateDirectory(Path.Combine(boardFolder, "Images\\Forums"));
+                Directory.CreateDirectory(Path.Combine(boardFolder, "Images\\Medals"));
+            }
+
+            if (!Directory.Exists(Path.Combine(boardFolder, "Uploads")))
+            {
+                Directory.CreateDirectory(Path.Combine(boardFolder, "Uploads"));
+            }
 
             return true;
         }
-
-        /// <summary>
-        /// Gets the membership error message.
-        /// </summary>
-        /// <param name="status">The status.</param>
-        /// <returns>
-        /// The get membership error message.
-        /// </returns>
-        [NotNull]
-        protected string GetMembershipErrorMessage(MembershipCreateStatus status) =>
-            status switch
-                {
-                    MembershipCreateStatus.DuplicateUserName => this.GetText("ADMIN_EDITBOARD", "STATUS_DUP_NAME"),
-                    MembershipCreateStatus.DuplicateEmail => this.GetText("ADMIN_EDITBOARD", "STATUS_DUP_EMAIL"),
-                    MembershipCreateStatus.InvalidPassword => this.GetText("ADMIN_EDITBOARD", "STATUS_INVAL_PASS"),
-                    MembershipCreateStatus.InvalidEmail => this.GetText("ADMIN_EDITBOARD", "STATUS_INVAL_MAIL"),
-                    MembershipCreateStatus.InvalidAnswer => this.GetText("ADMIN_EDITBOARD", "STATUS_INVAL_ANSWER"),
-                    MembershipCreateStatus.InvalidQuestion => this.GetText("ADMIN_EDITBOARD", "STATUS_INVAL_QUESTION"),
-                    MembershipCreateStatus.InvalidUserName => this.GetText("ADMIN_EDITBOARD", "STATUS_INVAL_NAME"),
-                    MembershipCreateStatus.ProviderError => this.GetText("ADMIN_EDITBOARD", "STATUS_PROVIDER_ERR"),
-                    MembershipCreateStatus.UserRejected => this.GetText("ADMIN_EDITBOARD", "STATUS_USR_REJECTED"),
-                    _ => this.GetText("ADMIN_EDITBOARD", "STATUS_UNKNOWN")
-                };
 
         /// <summary>
         /// Handles the Load event of the Page control.
@@ -278,20 +231,8 @@ namespace YAF.Pages.Admin
                 this.CreateNewAdminHolder.Visible = false;
 
                 var board = this.GetRepository<Board>().GetById(this.BoardId.Value);
-                
-                    this.Name.Text = board.Name;
 
-                    var membershipAppName = board.MembershipAppName;
-
-                    if (membershipAppName.IsSet())
-                    {
-                        this.BoardMembershipAppName.Text = membershipAppName;
-                        this.BoardMembershipAppName.Enabled = false;
-                    }
-                    else
-                    {
-                        this.BoardMembershipAppNameHolder.Visible = false;
-                    }
+                this.Name.Text = board.Name;
             }
             else
             {
@@ -390,18 +331,13 @@ namespace YAF.Pages.Admin
             else
             {
                 // Create board
-                // MEK says : Purposefully set MembershipAppName without including RolesAppName yet, as the current providers don't support different Appnames.
                 if (this.CreateAdminUser.Checked)
                 {
                     this.CreateBoard(
                         this.UserName.Text.Trim(),
                         this.UserPass1.Text,
                         this.UserEmail.Text.Trim(),
-                        this.UserPasswordQuestion.Text.Trim(),
-                        this.UserPasswordAnswer.Text.Trim(),
                         this.Name.Text.Trim(),
-                        this.BoardMembershipAppName.Text.Trim(),
-                        this.BoardMembershipAppName.Text.Trim(),
                         true);
                 }
                 else
@@ -411,11 +347,7 @@ namespace YAF.Pages.Admin
                         null,
                         null,
                         null,
-                        null,
-                        null,
                         this.Name.Text.Trim(),
-                        this.BoardMembershipAppName.Text.Trim(),
-                        this.BoardMembershipAppName.Text.Trim(),
                         false);
                 }
             }
@@ -436,29 +368,31 @@ namespace YAF.Pages.Admin
         /// <summary>
         /// Creates the board in the database.
         /// </summary>
-        /// <param name="boardName">Name of the board.</param>
-        /// <param name="boardMembershipAppName">Name of the board membership application.</param>
-        /// <param name="boardRolesAppName">Name of the board roles application.</param>
-        /// <param name="langFile">The language file.</param>
-        /// <param name="newAdmin">The new admin.</param>
-        /// <returns>Returns the New Board Id</returns>
+        /// <param name="boardName">
+        /// Name of the board.
+        /// </param>
+        /// <param name="langFile">
+        /// The language file.
+        /// </param>
+        /// <param name="newAdmin">
+        /// The new admin.
+        /// </param>
+        /// <returns>
+        /// Returns the New Board Id
+        /// </returns>
         private int DbCreateBoard(
             string boardName,
-            string boardMembershipAppName,
-            string boardRolesAppName,
             string langFile,
-            MembershipUser newAdmin)
+            AspNetUsers newAdmin)
         {
             var newBoardId = this.GetRepository<Board>()
                 .Create(
                     boardName,
                     this.Culture.SelectedItem.Value,
                     langFile,
-                    boardMembershipAppName,
-                    boardRolesAppName,
                     newAdmin.UserName,
                     newAdmin.Email,
-                    newAdmin.ProviderUserKey.ToString(),
+                    newAdmin.Id,
                     this.PageContext().IsHostAdmin,
                     Config.CreateDistinctRoles && Config.IsAnyPortal ? "YAF " : string.Empty);
 

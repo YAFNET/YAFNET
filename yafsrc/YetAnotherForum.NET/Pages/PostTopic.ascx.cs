@@ -38,13 +38,13 @@ namespace YAF.Pages
     using YAF.Core.Extensions;
     using YAF.Core.Helpers;
     using YAF.Core.Model;
-    using YAF.Core.UsersRoles;
     using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Flags;
     using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Identity;
     using YAF.Types.Models;
     using YAF.Utils;
     using YAF.Utils.Helpers;
@@ -499,7 +499,7 @@ namespace YAF.Pages
                                     this.PageContext.CurrentUserData.Membership,
                                     this.PageContext.PageUserID).LastIP;
 
-                            UserMembershipHelper.DeleteAndBanUser(
+                            this.Get<IAspNetUsersHelper>().DeleteAndBanUser(
                                 this.PageContext.PageUserID,
                                 this.PageContext.CurrentUserData.Membership,
                                 userIp);
@@ -559,7 +559,7 @@ namespace YAF.Pages
                                     this.PageContext.CurrentUserData.Membership,
                                     this.PageContext.PageUserID).LastIP;
 
-                            UserMembershipHelper.DeleteAndBanUser(
+                            this.Get<IAspNetUsersHelper>().DeleteAndBanUser(
                                 this.PageContext.PageUserID,
                                 this.PageContext.CurrentUserData.Membership,
                                 userIp);
@@ -709,11 +709,6 @@ namespace YAF.Pages
                 {
                     BuildLink.Redirect(ForumPages.PollEdit, "&ra=1{0}{1}", attachPollParameter, returnForum);
                 }
-
-                if (Config.IsRainbow)
-                {
-                    BuildLink.Redirect(ForumPages.Info, "i=1");
-                }
             }
         }
 
@@ -750,14 +745,7 @@ namespace YAF.Pages
         /// </param>
         private void UpdateWatchTopic(int userId, int topicId)
         {
-            var topicWatchedID = this.GetRepository<WatchTopic>().Check(userId, topicId);
-
-            if (topicWatchedID.HasValue && !this.PostOptions1.WatchChecked)
-            {
-                // unsubscribe...
-                this.GetRepository<WatchTopic>().DeleteById(topicWatchedID.Value);
-            }
-            else if (!topicWatchedID.HasValue && this.PostOptions1.WatchChecked)
+            if (this.PostOptions1.WatchChecked)
             {
                 // subscribe to this topic...
                 this.GetRepository<WatchTopic>().Add(userId, topicId);

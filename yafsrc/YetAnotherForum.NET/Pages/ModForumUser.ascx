@@ -19,11 +19,13 @@
             </div>
             <div class="card-body text-center">
                 <div class="input-group mb-3">
-                        <asp:TextBox runat="server" ID="UserName" CssClass="form-control" PlaceHolder='<%# this.GetText("USER") %>' />
+                        <asp:TextBox runat="server" ID="UserName" CssClass="form-control mb-1" PlaceHolder='<%# this.GetText("USER") %>' />
                         <div class="input-group-append">
-                            <asp:Button runat="server" ID="FindUsers" 
-                                        OnClick="FindUsers_Click" 
-                                        CssClass="btn btn-secondary btn-sm" />
+                            <YAF:ThemeButton runat="server" ID="FindUsers" 
+                                             TextLocalizedTag="FIND"
+                                             OnClick="FindUsers_Click" 
+                                             Type="Secondary"
+                                             Icon="search" />
                         </div>
                     </div>
                     <div class="form-group">

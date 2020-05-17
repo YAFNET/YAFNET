@@ -59,7 +59,7 @@ namespace YAF.Web.BBCodes
                 return;
             }
 
-            if (this.PageContext.ForumPageType == ForumPages.Profile
+            if (this.PageContext.ForumPageType == ForumPages.UserProfile
                 || this.PageContext.ForumPageType == ForumPages.Board)
             {
                 writer.Write(@"<i class=""fa fa-file fa-fw""></i>&nbsp;{0}", attachment.FileName);

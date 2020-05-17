@@ -276,10 +276,6 @@ namespace YAF.Configuration
                 {
                     pathBuilder.Append("DesktopModules/YetAnotherForumDotNet/");
                 }
-                else if (Config.IsRainbow)
-                {
-                    pathBuilder.Append("DesktopModules/Forum/");
-                }
                 else if (Config.IsPortal)
                 {
                     pathBuilder.Append("Modules/Forum/");

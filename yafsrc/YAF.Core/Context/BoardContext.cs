@@ -28,8 +28,7 @@ namespace YAF.Core.Context
 
     using System;
     using System.Web;
-    using System.Web.Security;
-
+    
     using Autofac;
 
     using YAF.Configuration;
@@ -37,15 +36,16 @@ namespace YAF.Core.Context
     using YAF.Core.BasePages;
     using YAF.Core.Helpers;
     using YAF.Core.Services;
-    using YAF.Core.UsersRoles;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.EventProxies;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Events;
-    using YAF.Utils;
+    using YAF.Types.Interfaces.Identity;
     using YAF.Utils.Helpers;
+
+    using AspNetUsers = YAF.Types.Models.Identity.AspNetUsers;
 
     #endregion
 
@@ -64,7 +64,7 @@ namespace YAF.Core.Context
         /// <summary>
         /// The user.
         /// </summary>
-        private MembershipUser user;
+        private AspNetUsers user;
 
         /// <summary>
         /// The combined user data.
@@ -195,11 +195,6 @@ namespace YAF.Core.Context
         public PageElementRegister PageElements => this.pageElements ?? (this.pageElements = new PageElementRegister());
 
         /// <summary>
-        /// Gets the Current Page User Profile
-        /// </summary>
-        public UserProfile Profile => (UserProfile)this.Get<HttpContextBase>().Profile;
-
-        /// <summary>
         /// Gets or sets the Current Page Query ID Helper
         /// </summary>
         public QueryStringIDHelper QueryIDs { get; set; }
@@ -222,9 +217,9 @@ namespace YAF.Core.Context
         /// <summary>
         /// Gets or sets the Current Membership User
         /// </summary>
-        public MembershipUser User
+        public AspNetUsers User
         {
-            get => this.user ?? (this.user = UserMembershipHelper.GetUser(true));
+            get => this.user ?? (this.user = this.Get<IAspNetUsersHelper>().GetUser());
 
             set => this.user = value;
         }
@@ -314,7 +309,7 @@ namespace YAF.Core.Context
                                       || this.Get<HttpSessionStateBase>()["UserUpdated"].ToString()
                                       != this.User.UserName))
             {
-                RoleMembershipHelper.UpdateForumUser(this.User, this.PageBoardID);
+                AspNetRolesHelper.UpdateForumUser(this.User, this.PageBoardID);
                 this.Get<HttpSessionStateBase>()["UserUpdated"] = this.User.UserName;
             }
 

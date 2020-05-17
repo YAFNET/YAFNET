@@ -36,11 +36,11 @@ namespace YAF.Web.Controls
     using YAF.Core.Context;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
-    using YAF.Core.UsersRoles;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Identity;
     using YAF.Types.Models;
     using YAF.Utils;
     using YAF.Utils.Helpers;
@@ -427,12 +427,12 @@ namespace YAF.Web.Controls
                 if (userID.ToType<int>() != this.UserID)
                 {
                     var displayName =
-                        HttpUtility.HtmlEncode(UserMembershipHelper.GetDisplayNameFromID(userID.ToType<long>()));
+                        HttpUtility.HtmlEncode(this.Get<IAspNetUsersHelper>().GetDisplayNameFromID(userID.ToType<int>()));
 
                     if (displayName.IsNotSet())
                     {
                         displayName = HttpUtility.HtmlEncode(
-                            UserMembershipHelper.GetUserNameFromID(userID.ToType<long>()));
+                            this.Get<IAspNetUsersHelper>().GetUserNameFromID(userID.ToType<int>()));
                     }
 
                     outstring.Append(this.GetText("ACTIVELOCATION", "ALBUM"));
@@ -444,7 +444,7 @@ namespace YAF.Web.Controls
                     outstring.Append(this.GetText("ACTIVELOCATION", "ALBUM_OFUSER"));
                     outstring.AppendFormat(
                         @"<a href=""{0}"" id=""albumuserid_{1}"" runat=""server""> {2} </a>",
-                        BuildLink.GetLink(ForumPages.Profile, "u={0}&name={1}", userID, displayName),
+                        BuildLink.GetLink(ForumPages.UserProfile, "u={0}&name={1}", userID, displayName),
                         userID,
                         HttpUtility.HtmlEncode(displayName));
                 }
@@ -491,17 +491,17 @@ namespace YAF.Web.Controls
                 else
                 {
                     var displayName =
-                        HttpUtility.HtmlEncode(UserMembershipHelper.GetDisplayNameFromID(userId.ToType<long>()));
+                        HttpUtility.HtmlEncode(this.Get<IAspNetUsersHelper>().GetDisplayNameFromID(userId.ToType<int>()));
 
                     if (displayName.IsNotSet())
                     {
                         displayName = HttpUtility.HtmlEncode(
-                            UserMembershipHelper.GetUserNameFromID(userId.ToType<long>()));
+                            this.Get<IAspNetUsersHelper>().GetUserNameFromID(userId.ToType<int>()));
                     }
 
                     outstring.AppendFormat(
                         @"{3}<a href=""{0}"" id=""albumsuserid_{1}"" runat=""server""> {2} </a>",
-                        BuildLink.GetLink(ForumPages.Profile, "u={0}&name={1}", userId, displayName),
+                        BuildLink.GetLink(ForumPages.UserProfile, "u={0}&name={1}", userId, displayName),
                         userId + this.PageContext.PageUserID,
                         HttpUtility.HtmlEncode(displayName),
                         this.GetText("ACTIVELOCATION", "ALBUMS_OFUSER"));
@@ -538,18 +538,18 @@ namespace YAF.Web.Controls
                 if (userId.ToType<int>() != this.UserID)
                 {
                     var displayName =
-                        HttpUtility.HtmlEncode(UserMembershipHelper.GetDisplayNameFromID(userId.ToType<long>()));
+                        HttpUtility.HtmlEncode(this.Get<IAspNetUsersHelper>().GetDisplayNameFromID(userId.ToType<int>()));
 
                     if (displayName.IsNotSet())
                     {
                         displayName = HttpUtility.HtmlEncode(
-                            UserMembershipHelper.GetUserNameFromID(userId.ToType<long>()));
+                            this.Get<IAspNetUsersHelper>().GetUserNameFromID(userId.ToType<int>()));
                     }
 
                     outstring.Append(this.GetText("ACTIVELOCATION", "PROFILE_OFUSER"));
                     outstring.AppendFormat(
                         @"<a href=""{0}""  id=""profileuserid_{1}"" title=""{2}"" alt=""{2}"" runat=""server""> {3} </a>",
-                        BuildLink.GetLink(ForumPages.Profile, "u={0}&name={1}", userId, displayName),
+                        BuildLink.GetLink(ForumPages.UserProfile, "u={0}&name={1}", userId, displayName),
                         userId + this.PageContext.PageUserID,
                         this.GetText("COMMON", "VIEW_USRPROFILE"),
                         HttpUtility.HtmlEncode(displayName));

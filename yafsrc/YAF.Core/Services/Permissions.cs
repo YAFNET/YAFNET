@@ -33,11 +33,11 @@ namespace YAF.Core.Services
     using YAF.Core.Context;
     using YAF.Core.Model;
     using YAF.Core.Services.Startup;
-    using YAF.Core.UsersRoles;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Identity;
     using YAF.Types.Models;
     using YAF.Utils;
     using YAF.Utils.Helpers;
@@ -131,7 +131,7 @@ namespace YAF.Core.Services
                 else if (Config.AllowLoginAndLogoff)
                 {
                     BuildLink.Redirect(
-                        ForumPages.Login,
+                        ForumPages.Account_Login,
                         "ReturnUrl={0}",
                         HttpUtility.UrlEncode(General.GetSafeRawUrl()));
                     noAccess = false;
@@ -161,7 +161,7 @@ namespace YAF.Core.Services
             }
 
             // Find user name
-            var user = UserMembershipHelper.GetUser();
+            var user = this.Get<IAspNetUsersHelper>().GetUser();
 
             var browser =
                 $"{HttpContext.Current.Request.Browser.Browser} {HttpContext.Current.Request.Browser.Version}";
@@ -184,7 +184,7 @@ namespace YAF.Core.Services
 
             if (user != null)
             {
-                userKey = user.ProviderUserKey;
+                userKey = user.Id;
             }
 
             var pageRow = BoardContext.Current.GetRepository<ActiveAccess>().PageLoadAsDataRow(

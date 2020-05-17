@@ -70,57 +70,57 @@ namespace YAF.Web.Controls
             this.RenderMenuItem(
                 html,
                 "list-group-item list-group-item-action",
-                ForumPages.Account,
+                ForumPages.MyAccount,
                 this.GetText("YOUR_ACCOUNT"),
                 "address-card");
 
-            this.RenderMenuItem(htmlDropDown, "dropdown-item", ForumPages.Account, this.GetText("YOUR_ACCOUNT"), "address-card");
+            this.RenderMenuItem(htmlDropDown, "dropdown-item", ForumPages.MyAccount, this.GetText("YOUR_ACCOUNT"), "address-card");
 
             this.RenderMenuItem(
                 html,
                 "list-group-item list-group-item-action",
-                ForumPages.Profile,
+                ForumPages.UserProfile,
                 this.GetText("VIEW_PROFILE"),
                 "user",
-                $"u={this.PageContext.PageUserID}");
+                $"u={this.PageContext.PageUserID}&name={this.PageContext.User.UserName}");
 
             htmlDropDown.AppendFormat(@"<h6 class=""dropdown-header"">{0}</h6>", this.GetText("PERSONAL_PROFILE"));
 
             this.RenderMenuItem(
                 htmlDropDown,
                 "dropdown-item",
-                ForumPages.Profile,
+                ForumPages.UserProfile,
                 this.GetText("VIEW_PROFILE"),
                 "user",
-                $"u={this.PageContext.PageUserID}");
+                $"u={this.PageContext.PageUserID}&name={this.PageContext.User.UserName}");
 
             if (!Config.IsDotNetNuke)
             {
                 this.RenderMenuItem(
                     html,
                     "list-group-item list-group-item-action",
-                    ForumPages.EditProfile,
+                    ForumPages.Profile_EditProfile,
                     this.GetText("EDIT_PROFILE"),
                     "user-edit");
 
                 this.RenderMenuItem(
                     htmlDropDown,
                     "dropdown-item",
-                    ForumPages.EditProfile,
+                    ForumPages.Profile_EditProfile,
                     this.GetText("EDIT_PROFILE"),
                     "user-edit");
 
                 this.RenderMenuItem(
                     html,
                     "list-group-item list-group-item-action",
-                    ForumPages.EditSettings,
+                    ForumPages.Profile_EditSettings,
                     this.GetText("ACCOUNT", "EDIT_SETTINGS"),
                     "user-cog");
 
                 this.RenderMenuItem(
                     htmlDropDown,
                     "dropdown-item",
-                    ForumPages.EditSettings,
+                    ForumPages.Profile_EditSettings,
                     this.GetText("ACCOUNT", "EDIT_SETTINGS"),
                     "user-cog");
             }
@@ -130,14 +130,14 @@ namespace YAF.Web.Controls
                 this.RenderMenuItem(
                     html,
                     "list-group-item list-group-item-action",
-                    ForumPages.Attachments,
+                    ForumPages.Profile_Attachments,
                     this.GetText("ATTACHMENTS", "TITLE"),
                     "paperclip");
 
                 this.RenderMenuItem(
                     htmlDropDown,
                     "dropdown-item",
-                    ForumPages.Attachments,
+                    ForumPages.Profile_Attachments,
                     this.GetText("ATTACHMENTS", "TITLE"),
                     "paperclip");
             }
@@ -187,14 +187,14 @@ namespace YAF.Web.Controls
                 this.RenderMenuItem(
                     html,
                     "list-group-item list-group-item-action",
-                    ForumPages.EditAvatar,
+                    ForumPages.Profile_EditAvatar,
                     this.GetText("ACCOUNT", "EDIT_AVATAR"),
                     "user-tie");
 
                 this.RenderMenuItem(
                     htmlDropDown,
                     "dropdown-item",
-                    ForumPages.EditAvatar,
+                    ForumPages.Profile_EditAvatar,
                     this.GetText("ACCOUNT", "EDIT_AVATAR"),
                     "user-tie");
             }
@@ -204,14 +204,14 @@ namespace YAF.Web.Controls
                 this.RenderMenuItem(
                     html,
                     "list-group-item list-group-item-action",
-                    ForumPages.EditSignature,
+                    ForumPages.Profile_EditSignature,
                     this.GetText("ACCOUNT", "SIGNATURE"),
                     "signature");
 
                 this.RenderMenuItem(
                     htmlDropDown,
                     "dropdown-item",
-                    ForumPages.EditSignature,
+                    ForumPages.Profile_EditSignature,
                     this.GetText("ACCOUNT", "SIGNATURE"),
                     "signature");
             }
@@ -219,28 +219,28 @@ namespace YAF.Web.Controls
             this.RenderMenuItem(
                 html,
                 "list-group-item list-group-item-action",
-                ForumPages.Subscriptions,
+                ForumPages.Profile_Subscriptions,
                 this.GetText("ACCOUNT", "SUBSCRIPTIONS"),
                 "envelope");
 
             this.RenderMenuItem(
                 htmlDropDown,
                 "dropdown-item",
-                ForumPages.Subscriptions,
+                ForumPages.Profile_Subscriptions,
                 this.GetText("ACCOUNT", "SUBSCRIPTIONS"),
                 "envelope");
 
             this.RenderMenuItem(
                 html,
                 "list-group-item list-group-item-action",
-                ForumPages.BlockOptions,
+                ForumPages.Profile_BlockOptions,
                 this.GetText("BLOCK_OPTIONS", "TITLE"),
                 "user-lock");
 
             this.RenderMenuItem(
                 htmlDropDown,
                 "dropdown-item",
-                ForumPages.BlockOptions,
+                ForumPages.Profile_BlockOptions,
                 this.GetText("BLOCK_OPTIONS", "TITLE"),
                 "user-lock");
 
@@ -250,14 +250,14 @@ namespace YAF.Web.Controls
                 this.RenderMenuItem(
                     html,
                     "list-group-item list-group-item-action",
-                    ForumPages.ChangePassword,
+                    ForumPages.Profile_ChangePassword,
                     this.GetText("ACCOUNT", "CHANGE_PASSWORD"),
                     "lock");
 
                 this.RenderMenuItem(
                     htmlDropDown,
                     "dropdown-item",
-                    ForumPages.ChangePassword,
+                    ForumPages.Profile_ChangePassword,
                     this.GetText("ACCOUNT", "CHANGE_PASSWORD"),
                     "lock");
             }
@@ -268,14 +268,14 @@ namespace YAF.Web.Controls
                 this.RenderMenuItem(
                     html,
                     "list-group-item list-group-item-action",
-                    ForumPages.DeleteAccount,
+                    ForumPages.Profile_DeleteAccount,
                     this.GetText("ACCOUNT", "DELETE_ACCOUNT"),
                     "user-alt-slash");
 
                 this.RenderMenuItem(
                     htmlDropDown,
                     "dropdown-item",
-                    ForumPages.DeleteAccount,
+                    ForumPages.Profile_DeleteAccount,
                     this.GetText("ACCOUNT", "DELETE_ACCOUNT"),
                     "user-alt-slash");
             }

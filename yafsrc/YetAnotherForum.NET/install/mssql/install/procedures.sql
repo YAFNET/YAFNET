@@ -473,8 +473,6 @@ CREATE procedure [{databaseOwner}].[{objectQualifier}board_create](
     @BoardName 		nvarchar(50),
     @Culture varchar(10),
     @LanguageFile 	nvarchar(50),
-    @MembershipAppName nvarchar(50),
-    @RolesAppName nvarchar(50),
     @UserName		nvarchar(255),
     @UserEmail		nvarchar(255),
     @UserKey		nvarchar(64),
@@ -505,7 +503,7 @@ begin
     declare @UserFlags				int
 
     -- Board
-    INSERT INTO [{databaseOwner}].[{objectQualifier}Board](Name, MembershipAppName, RolesAppName ) values(@BoardName,@MembershipAppName, @RolesAppName)
+    INSERT INTO [{databaseOwner}].[{objectQualifier}Board](Name) values(@BoardName)
     SET @BoardID = SCOPE_IDENTITY()
 
     SET @TimeZone = (SELECT ISNULL([{databaseOwner}].[{objectQualifier}registry_value](N'TimeZone', @BoardID), N'Dateline Standard Time'))
@@ -3088,14 +3086,12 @@ begin
         HasAttachments	= CONVERT(bit,ISNULL((select top 1 1 from [{databaseOwner}].[{objectQualifier}Attachment] x where x.MessageID=m.MessageID),0)),
         HasAvatarImage = ISNULL((select top 1 1 from [{databaseOwner}].[{objectQualifier}User] x where x.UserID=b.UserID and AvatarImage is not null),0),
         TotalRows = @TotalRows,
-        PageIndex = @PageIndex,
-        up.*
+        PageIndex = @PageIndex
     from
         MessageIds ti
         inner join [{databaseOwner}].[{objectQualifier}Message] m
         ON m.MessageID = ti.MessageID
         join [{databaseOwner}].[{objectQualifier}User] b on b.UserID=m.UserID
-        left join [{databaseOwner}].[{objectQualifier}UserProfile] up on up.UserID=b.UserID
         join [{databaseOwner}].[{objectQualifier}Topic] d on d.TopicID=m.TopicID
         join [{databaseOwner}].[{objectQualifier}Forum] g on g.ForumID=d.ForumID
         join [{databaseOwner}].[{objectQualifier}Category] h on h.CategoryID=g.CategoryID
@@ -3250,7 +3246,7 @@ begin
 	EXEC [{databaseOwner}].[{objectQualifier}registry_save] 'baseurlmask', @ForumBaseUrlMask
 
     -- initalize new board
-    EXEC [{databaseOwner}].[{objectQualifier}board_create] @Name, @Culture, @LanguageFile, '','',@User,@UserEmail,@UserKey,1,@RolePrefix,@UTCTIMESTAMP
+    EXEC [{databaseOwner}].[{objectQualifier}board_create] @Name, @Culture, @LanguageFile, @User,@UserEmail,@UserKey,1,@RolePrefix,@UTCTIMESTAMP
 end
 GO
 
@@ -4581,59 +4577,6 @@ BEGIN
 
     SELECT UserID=@UserID
 END
-GO
-
-CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}user_migrate]
-(
-    @UserID int,
-    @ProviderUserKey nvarchar(64),
-    @UpdateProvider bit = 0
-)
-AS
-BEGIN
-
-    DECLARE @Password nvarchar(255), @IsApproved bit, @LastActivity datetime, @Joined datetime
-
-    UPDATE [{databaseOwner}].[{objectQualifier}User] SET ProviderUserKey = @ProviderUserKey where UserID = @UserID
-
-    IF (@UpdateProvider = 1)
-    BEGIN
-        SELECT
-            @Password = [Password],
-            @IsApproved = (CASE (Flags & 2) WHEN 2 THEN 1 ELSE 0 END),
-            @LastActivity = LastVisit,
-            @Joined = Joined
-        FROM
-            [{databaseOwner}].[{objectQualifier}User]
-        WHERE
-            UserID = @UserID
-
-        UPDATE
-            [{databaseOwner}].[{objectQualifier}prov_Membership]
-        SET
-            [Password] = @Password,
-            PasswordFormat = '1',
-            LastActivity = @LastActivity,
-            IsApproved = @IsApproved,
-            Joined = @Joined
-        WHERE
-            UserID = @ProviderUserKey
-    END
-END
-GO
-
-CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}user_changepassword](@UserID int,@OldPassword nvarchar(32),@NewPassword nvarchar(32)) as
-begin
-
-    declare @CurrentOld nvarchar(32)
-    select @CurrentOld = Password from [{databaseOwner}].[{objectQualifier}User] where UserID = @UserID
-    if @CurrentOld<>@OldPassword begin
-        select Success = convert(bit,0)
-        return
-    end
-    update [{databaseOwner}].[{objectQualifier}User] set Password = @NewPassword where UserID = @UserID
-    select Success = convert(bit,1)
-end
 GO
 
 CREATE PROC [{databaseOwner}].[{objectQualifier}user_pmcount]

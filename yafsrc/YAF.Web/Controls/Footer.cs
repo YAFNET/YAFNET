@@ -38,9 +38,6 @@ namespace YAF.Web.Controls
 
     using YAF.Configuration;
     using YAF.Core.BaseControls;
-#if DEBUG
-    using YAF.Core.Data.Profiling;
-#endif
 
     using YAF.Types;
     using YAF.Types.Constants;
@@ -149,12 +146,6 @@ namespace YAF.Web.Controls
                     extensions.Where(x => x.Contains(".Module")).ToDelimitedString("<br />"));
             }
 
-            writer.Write(
-                @"<br /><br /><b>{0}</b> SQL Queries: <b>{1:N3}</b> Seconds (<b>{2:N2}%</b> of Total Page Load Time).<br />{3}",
-                QueryCounter.Count,
-                QueryCounter.Duration,
-                100 * QueryCounter.Duration / this.Get<IStopWatch>().Duration,
-                QueryCounter.Commands);
             writer.Write("</div>");
 #endif
         }
@@ -224,10 +215,6 @@ namespace YAF.Web.Controls
                 if (Config.IsDotNetNuke)
                 {
                     writer.Write(" Under DNN ");
-                }
-                else if (Config.IsRainbow)
-                {
-                    writer.Write(" Under Rainbow ");
                 }
                 else if (Config.IsMojoPortal)
                 {

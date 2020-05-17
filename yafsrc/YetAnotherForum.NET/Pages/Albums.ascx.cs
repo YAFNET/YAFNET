@@ -32,11 +32,11 @@ namespace YAF.Pages
     using YAF.Configuration;
     
     using YAF.Core.BasePages;
-    using YAF.Core.UsersRoles;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Identity;
     using YAF.Utils;
     using YAF.Web.Extensions;
 
@@ -79,9 +79,9 @@ namespace YAF.Pages
             }
 
             var userId =
-                Security.StringToLongOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u"));
+                Security.StringToIntOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u"));
 
-            var user = UserMembershipHelper.GetMembershipUserById(userId);
+            var user = this.Get<IAspNetUsersHelper>().GetMembershipUserById(userId);
 
             if (user == null)
             {
@@ -94,15 +94,15 @@ namespace YAF.Pages
                 BuildLink.AccessDenied();
             }
 
-            var displayName = UserMembershipHelper.GetDisplayNameFromID(userId);
+            var displayName = this.Get<IAspNetUsersHelper>().GetDisplayNameFromID(userId);
 
             this.PageLinks.Clear();
             this.PageLinks.AddRoot();
             this.PageLinks.AddLink(
                 this.Get<BoardSettings>().EnableDisplayName
                     ? displayName
-                    : UserMembershipHelper.GetUserNameFromID(userId),
-                BuildLink.GetLink(ForumPages.Profile, "u={0}", userId));
+                    : this.Get<IAspNetUsersHelper>().GetUserNameFromID(userId),
+                BuildLink.GetLink(ForumPages.UserProfile, "u={0}", userId));
             this.PageLinks.AddLink(this.GetText("ALBUMS"), string.Empty);
 
             // Initialize the Album List control.

@@ -27,20 +27,27 @@ namespace YAF.Core.Modules
     using System.Collections.Generic;
     using System.Linq;
     using System.Reflection;
+    using System.Web;
 
     using Autofac;
+
+    using Microsoft.AspNet.Identity;
+    using Microsoft.Owin.Security;
 
     using YAF.Configuration;
     using YAF.Core.BaseModules;
     using YAF.Core.BBCode;
+    using YAF.Core.Context;
     using YAF.Core.Extensions;
     using YAF.Core.Handlers;
     using YAF.Core.Helpers;
+    using YAF.Core.Identity;
     using YAF.Core.Services;
     using YAF.Core.Services.Cache;
     using YAF.Core.Services.Startup;
-    using YAF.Types.Constants;
     using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Identity;
+    using YAF.Types.Models.Identity;
     using YAF.Utils;
 
     /// <summary>
@@ -146,6 +153,21 @@ namespace YAF.Core.Modules
             builder.RegisterType<CurrentBoardSettings>().AsSelf().InstancePerBoardContext().PreserveExistingDefaults();
             builder.Register(k => k.Resolve<IComponentContext>().Resolve<CurrentBoardSettings>().Instance)
                 .ExternallyOwned().PreserveExistingDefaults();
+
+            // user manager
+            var x = new IdentityDbContext();
+            builder.Register(c => x);
+
+            builder.RegisterType<UserStore>().As<IUserStore<AspNetUsers>>().InstancePerBoardContext();
+            builder.RegisterType<AspNetUsersManager>().AsSelf().InstancePerBoardContext();
+
+            builder.Register(c => HttpContext.Current.GetOwinContext().Authentication).As<IAuthenticationManager>();
+
+            builder.RegisterType<RoleStore>().As<IRoleStore<AspNetRoles, string>>().InstancePerBoardContext();
+            builder.RegisterType<AspNetRoleManager>().As<IAspNetRoleManager>().InstancePerBoardContext();
+
+
+            builder.RegisterType<AspNetUsersHelper>().As<IAspNetUsersHelper>().InstancePerBoardContext();
 
             // favorite topic is based on BoardContext
             builder.RegisterType<FavoriteTopic>().As<IFavoriteTopic>().InstancePerBoardContext()

@@ -61,7 +61,6 @@ namespace YAF.Core.Modules
             RegisterDataBindings(builder);
             RegisterGeneral(builder);
             RegisterEventBindings(builder);
-            RegisterMembershipProviders(builder);
             RegisterModules(builder);
             RegisterPages(builder);
         }
@@ -144,32 +143,6 @@ namespace YAF.Core.Modules
 
             // Shared object store -- used for objects local only
             builder.RegisterType<HttpRuntimeCache>().As<IObjectStore>().SingleInstance().PreserveExistingDefaults();
-        }
-
-        /// <summary>
-        /// Register membership providers
-        /// </summary>
-        /// <param name="builder">
-        /// The builder.
-        /// </param>
-        private static void RegisterMembershipProviders(ContainerBuilder builder)
-        {
-            // membership
-            builder.RegisterType<CurrentMembershipProvider>().AsSelf().InstancePerLifetimeScope()
-                .PreserveExistingDefaults();
-            builder.Register(x => x.Resolve<IComponentContext>().Resolve<CurrentMembershipProvider>().Instance)
-                .ExternallyOwned().PreserveExistingDefaults();
-
-            // roles
-            builder.RegisterType<CurrentRoleProvider>().AsSelf().InstancePerLifetimeScope().PreserveExistingDefaults();
-            builder.Register(x => x.Resolve<IComponentContext>().Resolve<CurrentRoleProvider>().Instance)
-                .ExternallyOwned().PreserveExistingDefaults();
-
-            // profiles
-            builder.RegisterType<CurrentProfileProvider>().AsSelf().InstancePerLifetimeScope()
-                .PreserveExistingDefaults();
-            builder.Register(x => x.Resolve<IComponentContext>().Resolve<CurrentProfileProvider>().Instance)
-                .ExternallyOwned().PreserveExistingDefaults();
         }
 
         /// <summary>

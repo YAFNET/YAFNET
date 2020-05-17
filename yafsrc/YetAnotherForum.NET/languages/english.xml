@@ -4667,19 +4667,24 @@
   <Resource tag="XMPP">XMPP Name:</Resource>
   <Resource tag="YIM">Yahoo Messenger:</Resource>
  </page>
- <page name="RECOVER_PASSWORD">
-  <Resource tag="ACCOUNT_NOT_APPROVED">Your account has not been approved by the administrator yet. You cannot reset your password unless you are approved.</Resource>
-  <Resource tag="ACCOUNT_NOT_APPROVED_VERIFICATION">Your account is not approved yet because you have not validated your email. A new email validation has been sent to {0}. Please verify so you can login.</Resource>
-  <Resource tag="GENERAL_FAILURE">Attempt to retrieve your password was not successful.</Resource>
-  <Resource tag="IDENTITY_CONFIRMATION_TITLE">Password Retrieval Identity Confirmation</Resource>
-  <Resource tag="PAGE1_INSTRUCTIONS">Enter your User Name to retrieve your password:</Resource>
-  <Resource tag="PAGE2_INSTRUCTIONS">Answer the following question to receive your password:</Resource>
-  <Resource tag="PASSWORD_SENT">Your password has been sent to your e-mail address on file.</Resource>
-  <Resource tag="PASSWORDRETRIEVAL_EMAIL_SUBJECT">Password Retrieval for {0} Forum</Resource>
-  <Resource tag="QUESTION_FAILURE">Your answer could not be verified. Please try again.</Resource>
-  <Resource tag="TITLE">Lost Password</Resource>
-  <Resource tag="USERNAME_FAILURE">Unable to locate the user name entered.</Resource>
+  <page name="ACCOUNT_RESEST_PASSWORD">
+    <Resource tag="TITLE">Lost Password</Resource>
+  </page>
+ <page name="ACCOUNT_RESEST_PASSWORD">
+   <Resource tag="TITLE">Reset Password</Resource>
+   <Resource tag="PASSWORD">Enter New Password</Resource>
+   <Resource tag="CONFIRM_PASSWORD">Confirm New Password</Resource>
+   <Resource tag="INVALID_MATCH">The Password and Confirmation Password must match.</Resource>
  </page>
+  <page name="RECOVER_PASSWORD">
+    <Resource tag="ACCOUNT_NOT_APPROVED">Your account has not been approved by the administrator yet. You cannot reset your password unless you are approved.</Resource>
+    <Resource tag="ACCOUNT_NOT_APPROVED_VERIFICATION">Your account is not approved yet because you have not validated your email. A new email validation has been sent to {0}. Please verify so you can login.</Resource>
+    <Resource tag="GENERAL_FAILURE">Attempt to retrieve your password was not successful.</Resource>
+    <Resource tag="PAGE1_INSTRUCTIONS">Enter your User Name, or password to retrieve your password:</Resource>
+    <Resource tag="TITLE">Lost Password</Resource>
+    <Resource tag="SUCCESS">An email with the Reset Link was send to your email address!</Resource>
+    <Resource tag="USERNAME_FAILURE">Unable to locate the user name entered.</Resource>
+  </page>
  <page name="Region_CH">
   <Resource tag="RGN_CH_AG">Aargau</Resource>
   <Resource tag="RGN_CH_AI">Appenzell Inner-Rhodes</Resource>
@@ -4826,6 +4831,7 @@
   <Resource tag="RECATCHA_BADWORDS">You are wrong! Try again.</Resource>
   <Resource tag="REGISTER">Register</Resource>
   <Resource tag="REGISTER_AUTH">Register with {0}</Resource>
+   <Resource tag="RESET_PASS_EMAIL_SUBJECT">Reset Password for {0} Forum</Resource>
   <Resource tag="RETYPE_PASSWORD">Confirmed password is required.</Resource>
   <Resource tag="SECURITY_ANSWER">Security Answer</Resource>
   <Resource tag="SECURITY_QUESTION">Security Question</Resource>
@@ -5879,6 +5885,39 @@ You can manage your subscriptions here:
 
 {subscriptionlink}
 </Resource>
+   <Resource tag="RESET_PASS_HTML">
+     &lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD XHTML 1.0 Strict//EN&quot; &quot;http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd&quot;&gt;
+     &lt;html&gt;
+     &lt;head&gt;
+     &lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=utf-8&quot; /&gt;
+     &lt;link rel=&quot;stylesheet&quot; media=&quot;all&quot; href=&quot;{themecss}&quot; /&gt;
+     &lt;/head&gt;
+     &lt;body class=&quot;bg-light&quot;&gt;
+     &lt;div class=&quot;container&quot;&gt;
+     &lt;div class=&quot;mx-auto mt-4 mb-3 text-center&quot; style=&quot;width:100px;height:40px;background: url(&#39;{logo}&#39;) no-repeat&quot;&gt;
+     &lt;/div&gt;
+     &lt;div class=&quot;card mb-4&quot; style=&quot;border-top: 5px solid #3761b5;&quot;&gt;
+     &lt;div class=&quot;card-body&quot;&gt;
+     &lt;h4 class=&quot;text-center&quot;&gt;Hello &lt;strong&gt;{username}&lt;/strong&gt;,&lt;/h4&gt;
+     &lt;p class=&quot;mt-3 mb-4&quot;&gt;You have requested to reset your password for {forumname}.&lt;/p&gt;
+     &lt;p&gt;Please open the following link in your web browser:&lt;/p&gt;
+     &lt;p class=&quot;text-center&quot;&gt;&lt;a href=&quot;{link}&quot;&gt;{link}&lt;/a&gt;&lt;/p&gt;
+     &lt;/div&gt;
+     &lt;/div&gt;
+
+     &lt;div class=&quot;text-center text-muted&quot;&gt;&lt;strong&gt;{forumname}&lt;/strong&gt; at &lt;a href=&quot;{forumlink}&quot;&gt;{forumlink}&lt;/a&gt;&lt;/div&gt;
+     &lt;/div&gt;
+
+     &lt;/body&gt;
+     &lt;/html&gt;
+   </Resource>
+   <Resource tag="RESET_PASS_TEXT">
+     You have requested to reset your password for {forumname}.
+
+     Please open the following link in your web browser:
+
+     {link}
+   </Resource>
   <Resource tag="VERIFYEMAIL_HTML">
     &lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD XHTML 1.0 Strict//EN&quot; &quot;http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd&quot;&gt;
     &lt;html&gt;

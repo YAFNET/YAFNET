@@ -1,5 +1,12 @@
 // Generic Functions
 jQuery(document).ready(function () {
+    $("a.btn-login,input.btn-login").click(function () {
+        // add spinner to button
+        $(this).html(
+            "<span class='spinner-border spinner-border-sm' role='status' aria-hidden='true'></span> Loading..."
+        );
+    });
+
     // Main Menu
     $(".dropdown-menu a.dropdown-toggle").on("click", function () {
 		var $el = $(this);

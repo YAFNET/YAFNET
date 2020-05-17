@@ -196,7 +196,7 @@ namespace YAF.Configuration
         /// <summary>
         ///     Gets a value indicating whether IsAnyPortal.
         /// </summary>
-        public static bool IsAnyPortal => IsDotNetNuke || IsMojoPortal || IsRainbow || IsPortal;
+        public static bool IsAnyPortal => IsDotNetNuke || IsMojoPortal || IsPortal;
 
         /// <summary>
         ///     Gets a value indicating whether IsDotNetNuke.
@@ -237,23 +237,6 @@ namespace YAF.Configuration
         ///     Gets a value indicating whether IsPortal.
         /// </summary>
         public static bool IsPortal => HttpContext.Current.Session != null && HttpContext.Current.Session["YetAnotherPortal.net"] != null;
-
-        /// <summary>
-        ///     Gets a value indicating whether IsRainbow.
-        /// </summary>
-        public static bool IsRainbow
-        {
-            get
-            {
-                if (HttpContext.Current == null)
-                {
-                    return false;
-                }
-
-                var obj = HttpContext.Current.Items["PortalSettings"];
-                return obj != null && obj.ToString().ToLower().IndexOf("rainbow", StringComparison.Ordinal) >= 0;
-            }
-        }
 
         /// <summary>
         ///     Gets jQuery Alias

@@ -38,13 +38,13 @@ namespace YAF.Pages
     using YAF.Core.Context;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
-    using YAF.Core.UsersRoles;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.EventProxies;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Events;
+    using YAF.Types.Interfaces.Identity;
     using YAF.Types.Models;
     using YAF.Utils;
     using YAF.Utils.Helpers;
@@ -253,14 +253,14 @@ namespace YAF.Pages
             }
 
             var displayName = BoardContext.Current.Get<BoardSettings>().EnableDisplayName
-                                  ? UserMembershipHelper.GetDisplayNameFromID(userID)
-                                  : UserMembershipHelper.GetUserNameFromID(userID);
+                                  ? this.Get<IAspNetUsersHelper>().GetDisplayNameFromID(userID)
+                                  : this.Get<IAspNetUsersHelper>().GetUserNameFromID(userID);
 
             // Add the page links.
             this.PageLinks.AddRoot();
             this.PageLinks.AddLink(
                 displayName,
-                BuildLink.GetLink(ForumPages.Profile, "u={0}&name={1}", userID.ToString(), displayName));
+                BuildLink.GetLink(ForumPages.UserProfile, "u={0}&name={1}", userID.ToString(), displayName));
             this.PageLinks.AddLink(
                 this.GetText("ALBUMS"),
                 BuildLink.GetLink(ForumPages.Albums, "u={0}", userID.ToString()));

@@ -321,7 +321,7 @@ namespace YAF.Web.Controls
             }
 
             // Add the LoginBox to Control, if used and User is Guest
-            if (BoardContext.Current.IsGuest && !Config.IsAnyPortal && Config.AllowLoginAndLogoff)
+            if (BoardContext.Current.IsGuest && !Config.IsAnyPortal && Config.AllowLoginAndLogoff && !this.page.IsAccountPage)
             {
                 this.Controls.Add(this.LoadControl($"{BoardInfo.ForumServerFileRoot}Dialogs/LoginBox.ascx"));
             }
@@ -412,7 +412,7 @@ namespace YAF.Web.Controls
 
             var src = $"{BoardInfo.ForumServerFileRoot}pages/{this.page.PageName}.ascx";
 
-            var replacementPaths = new List<string> { "moderate", "admin", "help" };
+            var replacementPaths = new List<string> { "Profile", "Account","moderate", "admin", "help" };
 
             replacementPaths.Where(path => src.IndexOf($"/{path}_", StringComparison.Ordinal) >= 0)
                 .ForEach(path => src = src.Replace($"/{path}_", $"/{path}/"));

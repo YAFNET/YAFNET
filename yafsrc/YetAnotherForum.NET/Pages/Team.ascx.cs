@@ -124,7 +124,7 @@ namespace YAF.Pages
 
             if (this.Get<BoardSettings>().UseStyledNicks)
             {
-                this.Get<IStyleTransform>().DecodeStyleByTable(adminListDataTable, false);
+                this.Get<IStyleTransform>().DecodeStyleByTable(adminListDataTable);
             }
 
             return adminListDataTable;

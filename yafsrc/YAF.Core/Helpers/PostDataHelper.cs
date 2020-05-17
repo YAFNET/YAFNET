@@ -28,10 +28,8 @@ namespace YAF.Core.Helpers
     using System.Data;
 
     using YAF.Core.Context;
-    using YAF.Core.UsersRoles;
     using YAF.Types.Extensions;
     using YAF.Types.Flags;
-    using YAF.Utils;
     using YAF.Utils.Helpers;
 
     /// <summary>
@@ -58,11 +56,6 @@ namespace YAF.Core.Helpers
         /// The _topic flags.
         /// </summary>
         private TopicFlags topicFlags;
-
-        /// <summary>
-        /// The _user profile.
-        /// </summary>
-        private UserProfile userProfile;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PostDataHelperWrapper"/> class.
@@ -111,28 +104,6 @@ namespace YAF.Core.Helpers
         }
 
         /// <summary>
-        /// Gets UserProfile.
-        /// </summary>
-        public UserProfile UserProfile
-        {
-            get
-            {
-                if (this.userProfile != null)
-                {
-                    return this.userProfile;
-                }
-
-                // setup instance of the user profile...
-                if (this.DataRow != null)
-                {
-                    this.userProfile = UserProfile.GetProfile(UserMembershipHelper.GetUserNameFromID(this.UserId));
-                }
-
-                return this.userProfile;
-            }
-        }
-
-        /// <summary>
         /// Gets UserId.
         /// </summary>
         public int UserId => this.DataRow?["UserID"].ToType<int>() ?? 0;
@@ -158,14 +129,6 @@ namespace YAF.Core.Helpers
         /// Sponsor post that isn't really there.
         /// </summary>
         public bool IsLocked => this.messageFlags != null && this.messageFlags.IsLocked;
-
-        /// <summary>
-        /// Gets a value indicating whether this instance is sponsor message.
-        /// </summary>
-        /// <value>
-        /// <c>true</c> if this instance is sponsor message; otherwise, <c>false</c>.
-        /// </value>
-        public bool IsSponserMessage => this.DataRow["IP"].ToString() == "none";
 
         /// <summary>
         /// Gets a value indicating whether CanThankPost.

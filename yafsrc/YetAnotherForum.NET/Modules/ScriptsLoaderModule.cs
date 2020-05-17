@@ -33,7 +33,6 @@ namespace YAF.Modules
 
     using YAF.Configuration;
     using YAF.Core;
-    using YAF.Core.Context;
     using YAF.Types;
     using YAF.Types.Attributes;
     using YAF.Types.Extensions;
@@ -46,7 +45,7 @@ namespace YAF.Modules
     /// <summary>
     /// Automatic JavaScript Loading Module
     /// </summary>
-    [Module("JavaScript Loading Module", "Ingo Herbote", 1)]
+    [YafModule("JavaScript Loading Module", "Ingo Herbote", 1)]
     public class ScriptsLoaderModule : SimpleBaseForumModule
     {
         #region Public Methods
@@ -114,14 +113,14 @@ namespace YAF.Modules
                 ScriptManager.ScriptResourceMapping.AddDefinition(
                     "jquery",
                     new ScriptResourceDefinition
-                        {
-                            Path = jqueryUrl,
-                            DebugPath = BoardInfo.GetURLToScripts($"jquery-{Config.JQueryVersion}.js"),
-                            CdnPath = $"//ajax.aspnetcdn.com/ajax/jQuery/jquery-{Config.JQueryVersion}.min.js",
-                            CdnDebugPath = $"//ajax.aspnetcdn.com/ajax/jQuery/jquery-{Config.JQueryVersion}.js",
-                            CdnSupportsSecureConnection = BoardContext.Current.Get<HttpRequestBase>().IsSecureConnection,
-                            LoadSuccessExpression = "window.jQuery"
-                        });
+                    {
+                        Path = jqueryUrl,
+                        DebugPath = BoardInfo.GetURLToScripts($"jquery-{Config.JQueryVersion}.js"),
+                        CdnPath = $"//ajax.aspnetcdn.com/ajax/jQuery/jquery-{Config.JQueryVersion}.min.js",
+                        CdnDebugPath = $"//ajax.aspnetcdn.com/ajax/jQuery/jquery-{Config.JQueryVersion}.js",
+                        CdnSupportsSecureConnection = true/*,
+                            LoadSuccessExpression = "window.jQuery"*/
+                    });
 
                 BoardContext.Current.PageElements.AddScriptReference("jquery");
             }
@@ -156,20 +155,23 @@ namespace YAF.Modules
 
             var version = this.Get<BoardSettings>().CdvVersion;
 
+            var forumJsName = Config.IsDotNetNuke ? "ForumExtensionsDnn" : "ForumExtensions";
+            var adminForumJsName = Config.IsDotNetNuke ? "ForumAdminExtensionsDnn" : "ForumAdminExtensions";
+
             ScriptManager.ScriptResourceMapping.AddDefinition(
                 "yafForumAdminExtensions",
                 new ScriptResourceDefinition
                     {
-                        Path = BoardInfo.GetURLToScripts($"jquery.ForumAdminExtensions.min.js?v={version}"),
-                        DebugPath = BoardInfo.GetURLToScripts($"jquery.ForumAdminExtensions.js?v={version}")
+                        Path = BoardInfo.GetURLToScripts($"jquery.{adminForumJsName}.min.js?v={version}"),
+                        DebugPath = BoardInfo.GetURLToScripts($"jquery.{adminForumJsName}.js?v={version}")
                 });
 
             ScriptManager.ScriptResourceMapping.AddDefinition(
                 "yafForumExtensions",
                 new ScriptResourceDefinition
                     {
-                        Path = BoardInfo.GetURLToScripts($"jquery.ForumExtensions.min.js?v={version}"),
-                        DebugPath = BoardInfo.GetURLToScripts($"jquery.ForumExtensions.js?v={version}")
+                        Path = BoardInfo.GetURLToScripts($"jquery.{forumJsName}.min.js?v={version}"),
+                        DebugPath = BoardInfo.GetURLToScripts($"jquery.{forumJsName}.js?v={version}")
                 });
 
             ScriptManager.ScriptResourceMapping.AddDefinition(

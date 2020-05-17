@@ -29,7 +29,7 @@ namespace YAF.Web.BBCodes
 
     using YAF.Core.BBCode;
     using YAF.Core.Context;
-    using YAF.Core.UsersRoles;
+    using YAF.Core.Helpers;
     using YAF.Types.Extensions;
 
     /// <summary>
@@ -105,8 +105,8 @@ namespace YAF.Web.BBCodes
                 }*/
 
                 // Check For Role Hiding
-                if (RoleMembershipHelper.GetRolesForUser(
-                            BoardContext.Current.User.UserName).Any(role => !groups.Any(role.Equals)))
+                if (AspNetRolesHelper.GetRolesForUser(
+                            BoardContext.Current.User).Any(role => !groups.Any(role.Equals)))
                 {
                     shownContentGuest = hiddenContent;
                 }

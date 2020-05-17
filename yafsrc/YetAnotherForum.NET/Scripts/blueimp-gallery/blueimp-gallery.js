@@ -1070,8 +1070,8 @@
         element.alt = altText;
       }
       $(img).on('load error', callbackWrapper);
-      img.src = url;
-      return element;
+        img.src = url;
+        return element;
     },
 
     createElement: function (obj, callback) {
@@ -1092,7 +1092,7 @@
       if (srcset) {
         element.setAttribute('srcset', srcset);
       }
-      $(element).addClass(this.options.slideContentClass);
+        $(element).addClass(this.options.slideContentClass);
       return element;
     },
 

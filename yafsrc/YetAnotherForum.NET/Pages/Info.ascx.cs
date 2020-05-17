@@ -126,7 +126,7 @@ namespace YAF.Pages
                         this.Title.Text = this.GetText("title_registration");
                         this.InfoLabel.Text = this.GetText("registration");
                         this.RefreshTime = 10;
-                        this.RefreshURL = BuildLink.GetLink(ForumPages.Login);
+                        this.RefreshURL = BuildLink.GetLink(ForumPages.Account_Login);
                         break;
                     case InfoMessage.AccessDenied: // Access Denied
                         this.Title.Text = this.GetText("title_accessdenied");

@@ -26,8 +26,6 @@ namespace YAF.Core
 {
     #region Using
 
-    using System.Web.Security;
-
     using YAF.Configuration;
     using YAF.Core.Context;
     using YAF.Core.Extensions;
@@ -87,7 +85,7 @@ namespace YAF.Core
         /// <summary>
         /// Gets or sets the _membership app name.
         /// </summary>
-        protected override string membershipAppName
+        /*protected override string membershipAppName
         {
             get => base.membershipAppName ?? (base.membershipAppName = this.LegacySettings.MembershipAppName);
 
@@ -102,7 +100,7 @@ namespace YAF.Core
             get => base.rolesAppName ?? (base.rolesAppName = this.LegacySettings.RolesAppName);
 
             set => base.rolesAppName = value;
-        }
+        }*/
 
         /// <summary>
         /// Gets the current board.
@@ -157,18 +155,18 @@ namespace YAF.Core
         {
             CodeContracts.VerifyNotNull(board, "board");
 
-            var membershipAppName = board.MembershipAppName.IsNotSet()
-                                        ? BoardContext.Current.Get<MembershipProvider>().ApplicationName
+            /*var membershipAppName = board.MembershipAppName.IsNotSet()
+                                        ? BoardContext.Current.Get<IAspNetUsersManager>().ApplicationName
                                         : board.MembershipAppName;
 
             var rolesAppName = board.RolesAppName.IsNotSet()
-                                   ? BoardContext.Current.Get<RoleProvider>().ApplicationName
-                                   : board.RolesAppName;
+                                   ? BoardContext.Current.Get<IAspNetUsersManager>().ApplicationName
+                                   : board.RolesAppName;*/
 
             return new LegacyBoardSettings(
-                board.Name,
+                board.Name/*,
                 membershipAppName,
-                rolesAppName);
+                rolesAppName*/);
         }
 
         /// <summary>

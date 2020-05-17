@@ -57,6 +57,8 @@ namespace YAF.Types.Objects
             this.LastVisit = row.Field<DateTime?>("LastVisit");
             this.IP = row.Field<string>("IP");
             this.NumPosts = row.Field<int?>("NumPosts");
+            this.NumDays = row.Field<int>("NumDays");
+            this.NumPostsForum = row.Field<int>("NumPostsForum");
             this.TimeZone = row.Field<string>("TimeZone");
             this.Avatar = row.Field<string>("Avatar");
             this.Signature = row.Field<string>("Signature");
@@ -83,6 +85,8 @@ namespace YAF.Types.Objects
             this.IsGuest = row.Field<bool?>("IsGuest");
             this.IsHostAdmin = row.Field<int?>("IsHostAdmin");
             this.RankName = row.Field<string>("RankName");
+            this.Activity = row.Field<bool>("Activity");
+            this.BlockFlags = row.Field<int?>("BlockFlags");
         }
 
         /// <summary>
@@ -274,6 +278,8 @@ namespace YAF.Types.Objects
 
         #region Properties
 
+        public bool Activity { get; set; }
+
         /// <summary>
         /// Gets or sets AutoWatchTopics.
         /// </summary>
@@ -323,6 +329,13 @@ namespace YAF.Types.Objects
         /// Gets or sets Email.
         /// </summary>
         public string Email { get; set; }
+
+
+
+        /// <summary>
+        /// Gets or sets Block Flags.
+        /// </summary>
+        public int? BlockFlags { get; set; }
 
         /// <summary>
         /// Gets or sets Flags.
@@ -393,6 +406,16 @@ namespace YAF.Types.Objects
         /// Gets or sets NumPosts.
         /// </summary>
         public int? NumPosts { get; set; }
+
+        /// <summary>
+        /// Gets or sets the num days.
+        /// </summary>
+        public int NumDays { get; set; }
+
+        /// <summary>
+        /// Gets or sets the num posts forum.
+        /// </summary>
+        public int NumPostsForum { get; set; }
 
         /// <summary>
         /// Gets or sets PMNotification.

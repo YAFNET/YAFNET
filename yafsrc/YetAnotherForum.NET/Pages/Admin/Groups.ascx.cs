@@ -35,8 +35,8 @@ namespace YAF.Pages.Admin
     using YAF.Core.BasePages;
     using YAF.Core.Context;
     using YAF.Core.Extensions;
+    using YAF.Core.Helpers;
     using YAF.Core.Model;
-    using YAF.Core.UsersRoles;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
@@ -128,7 +128,7 @@ namespace YAF.Pages.Admin
         }
 
         /// <summary>
-        /// Get status of provider role vs YAF roles.
+        /// Get status of provider role VS YAF roles.
         /// </summary>
         /// <param name="currentRow">
         /// Data row which contains data about role.
@@ -178,7 +178,7 @@ namespace YAF.Pages.Admin
             }
 
             // sync roles just in case...
-            RoleMembershipHelper.SyncRoles(BoardContext.Current.PageBoardID);
+            AspNetRolesHelper.SyncRoles(BoardContext.Current.PageBoardID);
 
             // bind data
             this.BindData();
@@ -228,7 +228,7 @@ namespace YAF.Pages.Admin
                 case "delete":
 
                     // delete role from provider data
-                    RoleMembershipHelper.DeleteRole(e.CommandArgument.ToString(), false);
+                    AspNetRolesHelper.DeleteRole(e.CommandArgument.ToString());
 
                     // re-bind data
                     this.BindData();
@@ -289,7 +289,7 @@ namespace YAF.Pages.Admin
             this.availableRoles.Clear();
 
             // get all provider roles
-            foreach (var role in from role in RoleMembershipHelper.GetAllRoles()
+            foreach (var role in from role in AspNetRolesHelper.GetAllRoles()
                                  let rows = dt.Select(g => g.Name == role)
                                  where dt.Count == 0
                                  select role)
@@ -301,12 +301,12 @@ namespace YAF.Pages.Admin
             // check if there are any roles for syncing
             if (this.availableRoles.Count > 0 && !Config.IsDotNetNuke)
             {
-                // make it datasource
+                // make it data-source
                 this.RoleListNet.DataSource = this.availableRoles;
             }
             else
             {
-                // no datasource for provider roles
+                // no data-source for provider roles
                 this.RoleListNet.DataSource = null;
             }
 

@@ -32,10 +32,10 @@ namespace YAF.Core.Nntp
 
     using YAF.Core.Context;
     using YAF.Core.Model;
-    using YAF.Core.UsersRoles;
     using YAF.Types;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Identity;
     using YAF.Types.Models;
     using YAF.Types.Objects;
     using YAF.Types.Objects.Nntp;
@@ -122,7 +122,7 @@ namespace YAF.Core.Nntp
                 return 0;
             }
 
-            var guestUserId = UserMembershipHelper.GuestUserId; // Use guests user-id
+            var guestUserId = BoardContext.Current.Get<IAspNetUsersHelper>().GuestUserId; // Use guests user-id
 
             // string hostAddress = BoardContext.Current.Get<HttpRequestBase>().UserHostAddress;     
             var dateTimeStart = DateTime.UtcNow;

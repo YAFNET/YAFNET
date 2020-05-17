@@ -698,33 +698,6 @@ namespace YAF.Core.Model
                 NumPostsCompare: numPostCompare);
 
         /// <summary>
-        /// Migrate Users
-        /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
-        /// <param name="userID">
-        /// The user id.
-        /// </param>
-        /// <param name="providerUserKey">
-        /// The provider user key.
-        /// </param>
-        /// <param name="updateProvider">
-        /// The update provider.
-        /// </param>
-        public static void Migrate(
-            this IRepository<User> repository,
-            [NotNull] int userID,
-            [NotNull] string providerUserKey,
-            [NotNull] bool updateProvider)
-        {
-            repository.DbFunction.Scalar.user_migrate(
-                ProviderUserKey: providerUserKey,
-                UserID: userID,
-                UpdateProvider: updateProvider);
-        }
-
-        /// <summary>
         /// The user_nntp.
         /// </summary>
         /// <param name="repository">

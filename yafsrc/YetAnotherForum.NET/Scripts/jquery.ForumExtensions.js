@@ -5614,7 +5614,7 @@
 
     //! moment.js
 
-    hooks.version = '2.25.1';
+    hooks.version = '2.25.3';
 
     setHookCallback(createLocal);
 
@@ -7988,6 +7988,13 @@
 
     //! moment.js locale configuration
 
+    function isFunction$1(input) {
+        return (
+            (typeof Function !== 'undefined' && input instanceof Function) ||
+            Object.prototype.toString.call(input) === '[object Function]'
+        );
+    }
+
     hooks.defineLocale('el', {
         monthsNominativeEl: 'Ιανουάριος_Φεβρουάριος_Μάρτιος_Απρίλιος_Μάιος_Ιούνιος_Ιούλιος_Αύγουστος_Σεπτέμβριος_Οκτώβριος_Νοέμβριος_Δεκέμβριος'.split(
             '_'
@@ -8051,7 +8058,7 @@
         calendar: function (key, mom) {
             var output = this._calendarEl[key],
                 hours = mom && mom.hours();
-            if (isFunction(output)) {
+            if (isFunction$1(output)) {
                 output = output.apply(mom);
             }
             return output.replace('{}', hours % 12 === 1 ? 'στη' : 'στις');
@@ -51424,6 +51431,13 @@ jQuery(document).ready(function () {
 
 // Generic Functions
 jQuery(document).ready(function () {
+    $("a.btn-login,input.btn-login").click(function () {
+        // add spinner to button
+        $(this).html(
+            "<span class='spinner-border spinner-border-sm' role='status' aria-hidden='true'></span> Loading..."
+        );
+    });
+
     // Main Menu
     $(".dropdown-menu a.dropdown-toggle").on("click", function () {
 		var $el = $(this);
@@ -51672,7 +51686,39 @@ jQuery(document).ready(function () {
             contextMenu.removeClass("show").hide();
         });
 
-        $(this).find(".context-menu a").on("click", function () {
+        $(this).find(".context-menu a").on("click", function (e) {
+            if ($(this).data("toggle") !== undefined) {
+                e.preventDefault();
+
+                var link = $(this).attr("href");
+                var text = $(this).data("title");
+                var blockUI = $(this).data("confirm-event");
+                bootbox.confirm({
+                        centerVertical: true,
+                        message: text,
+                        buttons: {
+                            confirm: {
+                                label: '<i class="fa fa-check"></i> ' + $(this).data("yes"),
+                                className: "btn-success"
+                            },
+                            cancel: {
+                                label: '<i class="fa fa-times"></i> ' + $(this).data("no"),
+                                className: "btn-danger"
+                            }
+                        },
+                        callback: function (confirmed) {
+                            if (confirmed) {
+                                document.location.href = link;
+
+                                if (typeof blockUI !== "undefined") {
+                                    window[blockUI]();
+                                }
+                            }
+                        }
+                    }
+                );
+            }
+           
             contextMenu.removeClass("show").hide();
         });
 

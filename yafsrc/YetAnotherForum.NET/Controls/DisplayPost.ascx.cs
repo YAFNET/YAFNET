@@ -40,13 +40,13 @@ namespace YAF.Controls
     using YAF.Core.Extensions;
     using YAF.Core.Helpers;
     using YAF.Core.Model;
-    using YAF.Core.UsersRoles;
     using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Flags;
     using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Identity;
     using YAF.Types.Models;
     using YAF.Utils;
     using YAF.Utils.Helpers;
@@ -86,7 +86,7 @@ namespace YAF.Controls
         /// <summary>
         ///   Gets a value indicating whether IsGuest.
         /// </summary>
-        public bool IsGuest => this.PostData == null || UserMembershipHelper.IsGuestUser(this.PostData.UserId);
+        public bool IsGuest => this.PostData == null || this.Get<IAspNetUsersHelper>().IsGuestUser(this.PostData.UserId);
 
         /// <summary>
         ///   Gets or sets Post Count.
@@ -260,8 +260,8 @@ namespace YAF.Controls
 
             var avatarUrl = this.Get<IAvatars>().GetAvatarUrlForUser(userId);
             var displayName = this.Get<BoardSettings>().EnableDisplayName
-                                  ? UserMembershipHelper.GetDisplayNameFromID(userId)
-                                  : UserMembershipHelper.GetUserNameFromID(userId);
+                                  ? this.Get<IAspNetUsersHelper>().GetDisplayNameFromID(userId)
+                                  : this.Get<IAspNetUsersHelper>().GetUserNameFromID(userId);
 
             if (avatarUrl.IsSet())
             {
@@ -403,7 +403,7 @@ namespace YAF.Controls
                         sb.AppendFormat(
                             @"<li><a id=""{0}"" href=""{1}""><u>{2}</u></a>",
                             userId,
-                            BuildLink.GetLink(ForumPages.Profile, "u={0}&name={1}", userId, displayName),
+                            BuildLink.GetLink(ForumPages.UserProfile, "u={0}&name={1}", userId, displayName),
                             this.Get<HttpServerUtilityBase>().HtmlEncode(displayName));
 
                         // If showing thanks date is enabled, add it to the formatted string.
@@ -833,8 +833,8 @@ namespace YAF.Controls
 
             var username = this.HtmlEncode(
                 this.Get<BoardSettings>().EnableDisplayName
-                    ? UserMembershipHelper.GetDisplayNameFromID(this.PostData.UserId)
-                    : UserMembershipHelper.GetUserNameFromID(this.PostData.UserId));
+                    ? this.Get<IAspNetUsersHelper>().GetDisplayNameFromID(this.PostData.UserId)
+                    : this.Get<IAspNetUsersHelper>().GetUserNameFromID(this.PostData.UserId));
 
             var thanksLabelText = thanksNumber == 1
                                       ? this.Get<ILocalization>().GetTextFormatted("THANKSINFOSINGLE", username)

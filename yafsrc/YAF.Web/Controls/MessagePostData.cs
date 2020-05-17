@@ -33,11 +33,11 @@ namespace YAF.Web.Controls
     using YAF.Configuration;
     using YAF.Core.Context;
     using YAF.Core.Extensions;
-    using YAF.Core.UsersRoles;
     using YAF.Types;
     using YAF.Types.Extensions;
     using YAF.Types.Flags;
     using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Identity;
     using YAF.Types.Models;
 
     #endregion
@@ -170,7 +170,7 @@ namespace YAF.Web.Controls
             if (!this.MessageFlags.IsDeleted)
             {
                 // populate DisplayUserID
-                if (!UserMembershipHelper.IsGuestUser(this.CurrentMessage.UserID))
+                if (!this.Get<IAspNetUsersHelper>().IsGuestUser(this.CurrentMessage.UserID))
                 {
                     this.DisplayUserID = this.CurrentMessage.UserID;
                 }
@@ -185,7 +185,7 @@ namespace YAF.Web.Controls
                         if (this.CurrentMessage.UserID > 0
                             && BoardContext.Current.Get<BoardSettings>().EnableDisplayName)
                         {
-                            attached.UserName = UserMembershipHelper.GetDisplayNameFromID(this.CurrentMessage.UserID);
+                            attached.UserName = this.Get<IAspNetUsersHelper>().GetDisplayNameFromID(this.CurrentMessage.UserID);
                         }
                         else
                         {

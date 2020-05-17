@@ -197,7 +197,7 @@
                                                          TextLocalizedTag="DELETE" 
                                                          TitleLocalizedTag="DELETE"
                                                          Icon="trash" 
-                                                         Visible='<%# DataBinder.Eval(Container.DataItem, "IsGuest").ToType<bool>() == false && !Config.IsDotNetNuke %>'>
+                                                         Visible='<%# DataBinder.Eval(Container.DataItem, "IsGuest").ToType<bool>() == false && !YAF.Configuration.Config.IsDotNetNuke %>'>
                                         </YAF:ThemeButton>
                                     </div>
                                 </small>
@@ -220,7 +220,7 @@
                                                      TextLocalizedTag="DELETE" 
                                                      TitleLocalizedTag="DELETE"
                                                      Icon="trash" 
-                                                     Visible='<%# DataBinder.Eval(Container.DataItem, "IsGuest").ToType<bool>() == false && !Config.IsDotNetNuke %>'>
+                                                     Visible='<%# DataBinder.Eval(Container.DataItem, "IsGuest").ToType<bool>() == false && !YAF.Configuration.Config.IsDotNetNuke %>'>
                                     </YAF:ThemeButton>
                                 </div>
                             </li>

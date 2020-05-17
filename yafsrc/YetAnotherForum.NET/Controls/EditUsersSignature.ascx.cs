@@ -32,14 +32,15 @@ namespace YAF.Controls
     using YAF.Configuration;
     using YAF.Core.BaseControls;
     using YAF.Core.BaseModules;
+    using YAF.Core.Helpers;
     using YAF.Core.Model;
-    using YAF.Core.UsersRoles;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.EventProxies;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Events;
+    using YAF.Types.Interfaces.Identity;
     using YAF.Types.Models;
     using YAF.Utils;
     using YAF.Utils.Helpers;
@@ -204,11 +205,11 @@ namespace YAF.Controls
         {
             if (this.InModeratorMode)
             {
-                BuildLink.Redirect(ForumPages.Profile, "u={0}", this.CurrentUserID);
+                BuildLink.Redirect(ForumPages.UserProfile, "u={0}", this.CurrentUserID);
             }
             else
             {
-                BuildLink.Redirect(ForumPages.Account);
+                BuildLink.Redirect(ForumPages.MyAccount);
             }
         }
 
@@ -256,7 +257,7 @@ namespace YAF.Controls
                         // Check for spam
                         if (this.Get<ISpamWordCheck>().CheckForSpamWord(body, out var result))
                         {
-                            var user = UserMembershipHelper.GetMembershipUserById(this.CurrentUserID);
+                            var user = this.Get<IAspNetUsersHelper>().GetMembershipUserById(this.CurrentUserID);
                             var userId = this.CurrentUserID;
 
                             // Log and Send Message to Admins
@@ -287,7 +288,7 @@ namespace YAF.Controls
                                 {
                                     var userIp = new CombinedUserDataHelper(user, userId).LastIP;
 
-                                    UserMembershipHelper.DeleteAndBanUser(this.CurrentUserID, user, userIp);
+                                    this.Get<IAspNetUsersHelper>().DeleteAndBanUser(this.CurrentUserID, user, userIp);
                                 }
                             }
                         }

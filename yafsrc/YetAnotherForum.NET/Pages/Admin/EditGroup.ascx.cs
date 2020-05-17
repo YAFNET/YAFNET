@@ -29,13 +29,12 @@ namespace YAF.Pages.Admin
     using System.Collections.Generic;
     using System.Linq;
     using System.Web;
-    using System.Web.Security;
     using System.Web.UI.WebControls;
 
     using YAF.Core.BasePages;
     using YAF.Core.Extensions;
+    using YAF.Core.Helpers;
     using YAF.Core.Model;
-    using YAF.Core.UsersRoles;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
@@ -44,6 +43,8 @@ namespace YAF.Pages.Admin
     using YAF.Utils;
     using YAF.Utils.Helpers;
     using YAF.Web.Extensions;
+
+    using Constants = YAF.Types.Constants.Constants;
 
     #endregion
 
@@ -295,30 +296,30 @@ namespace YAF.Pages.Admin
             this.GetRepository<ActiveAccess>().DeleteAll();
 
             // see if need to rename an existing role...
-            if (oldRoleName.IsSet() && roleName != oldRoleName && RoleMembershipHelper.RoleExists(oldRoleName)
-                && !RoleMembershipHelper.RoleExists(roleName) && !this.IsGuestX.Checked)
+            if (oldRoleName.IsSet() && roleName != oldRoleName && AspNetRolesHelper.RoleExists(oldRoleName)
+                && !AspNetRolesHelper.RoleExists(roleName) && !this.IsGuestX.Checked)
             {
                 // transfer users in addition to changing the name of the role...
-                var users = this.Get<RoleProvider>().GetUsersInRole(oldRoleName);
+                var users = AspNetRolesHelper.GetUsersInRole(oldRoleName);
 
                 // delete the old role...
-                RoleMembershipHelper.DeleteRole(oldRoleName, false);
+                AspNetRolesHelper.DeleteRole(oldRoleName);
 
                 // create new role...
-                RoleMembershipHelper.CreateRole(roleName);
+                AspNetRolesHelper.CreateRole(roleName);
 
                 if (users.Any())
                 {
                     // put users into new role...
-                    this.Get<RoleProvider>().AddUsersToRoles(users, new[] { roleName });
+                    users.ForEach(user => AspNetRolesHelper.AddUserToRole(user, roleName));
                 }
             }
-            else if (!RoleMembershipHelper.RoleExists(roleName) && !this.IsGuestX.Checked)
+            else if (!AspNetRolesHelper.RoleExists(roleName) && !this.IsGuestX.Checked)
             {
                 // if role doesn't exist in provider's data source, create it
 
                 // simply create it
-                RoleMembershipHelper.CreateRole(roleName);
+                AspNetRolesHelper.CreateRole(roleName);
             }
 
             // Access masks for a newly created or an existing role

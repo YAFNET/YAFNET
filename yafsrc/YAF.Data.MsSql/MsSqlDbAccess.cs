@@ -56,11 +56,8 @@ namespace YAF.Data.MsSql
         /// <param name="dbProviderFactory">
         /// The db provider factory. 
         /// </param>
-        /// <param name="profiler">
-        /// The profiler.
-        /// </param>
-        public MsSqlDbAccess([NotNull] Func<string, DbProviderFactory> dbProviderFactory, IProfileQuery profiler)
-            : base(dbProviderFactory, profiler, new MsSqlDbInformation())
+        public MsSqlDbAccess([NotNull] Func<string, DbProviderFactory> dbProviderFactory)
+            : base(dbProviderFactory, new MsSqlDbInformation())
         {
         }
 

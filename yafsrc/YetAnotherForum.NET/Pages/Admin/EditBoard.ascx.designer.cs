@@ -78,33 +78,6 @@ namespace YAF.Pages.Admin
         protected global::System.Web.UI.WebControls.DropDownList Culture;
 
         /// <summary>
-        /// BoardMembershipAppNameHolder control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder BoardMembershipAppNameHolder;
-
-        /// <summary>
-        /// HelpLabel4 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Web.Controls.HelpLabel HelpLabel4;
-
-        /// <summary>
-        /// BoardMembershipAppName control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox BoardMembershipAppName;
-
-        /// <summary>
         /// CreateNewAdminHolder control.
         /// </summary>
         /// <remarks>
@@ -220,42 +193,6 @@ namespace YAF.Pages.Admin
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox UserPass2;
-
-        /// <summary>
-        /// HelpLabel10 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Web.Controls.HelpLabel HelpLabel10;
-
-        /// <summary>
-        /// UserPasswordQuestion control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox UserPasswordQuestion;
-
-        /// <summary>
-        /// HelpLabel11 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Web.Controls.HelpLabel HelpLabel11;
-
-        /// <summary>
-        /// UserPasswordAnswer control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox UserPasswordAnswer;
 
         /// <summary>
         /// Save control.

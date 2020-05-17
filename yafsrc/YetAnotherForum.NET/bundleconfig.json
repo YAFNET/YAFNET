@@ -2,7 +2,7 @@
   {
     "outputFileName": "Scripts/InstallWizard.comb.js",
     "inputFiles": [
-      "Scripts/jquery-3.5.0.js",
+      "Scripts/jquery-3.5.1.js",
       "Scripts/select2.js",
       "Scripts/bootstrap.bundle.js",
       "Scripts/forum/InstallWizard.js"
@@ -58,10 +58,69 @@
     ]
   },
   {
+    "outputFileName": "Scripts/jquery.ForumExtensionsDnn.js",
+    "inputFiles": [
+      "Scripts/moment-with-locales.js",
+      "Scripts/bootbox.js",
+      "Scripts/bootstrap-datetimepicker.js",
+      "Scripts/bootstrap-notify.js",
+      "Scripts/jquery.bootstrap-touchspin.js",
+      "Scripts/select2.js",
+      "Scripts/bootstrap-tagsinput.js",
+      "Scripts/bootstrap-typeahead.js",
+      "Scripts/blueimp-gallery/blueimp-gallery.js",
+      "Scripts/blueimp-gallery/blueimp-gallery-indicator.js",
+      "Scripts/blueimp-gallery/jquery.blueimp-gallery.js",
+      "Scripts/jquery.hovercard.js",
+      "Scripts/prism.js",
+      "Scripts/tablesorter/jquery.tablesorter.combined.js",
+      "Scripts/tablesorter/extras/jquery.tablesorter.pager.js",
+      "Scripts/tablesorter/widgets/widget-reflow.js",
+      "Scripts/jsdifflib.js",
+      "Scripts/hammer.min.js",
+      "Scripts/forum/yaf.Utilities.js",
+      "Scripts/forum/yaf.MessageHistory.js",
+      "Scripts/forum/yaf.Albums.js",
+      "Scripts/forum/yaf.Attachments.js",
+      "Scripts/forum/yaf.Notify.js",
+      "Scripts/forum/yaf.SearchResults.js",
+      "Scripts/forum/yaf.SimilarTitles.js",
+      "Scripts/forum/yaf.Main.js",
+      "Scripts/forum/yaf.contextMenu.js",
+      "Scripts/forum/yaf.FileBrowser.js"
+    ]
+  },
+  {
     "outputFileName": "Scripts/jquery.ForumAdminExtensions.js",
     "inputFiles": [
       "Scripts/moment-with-locales.js",
       "Scripts/bootstrap.bundle.js",
+      "Scripts/bootbox.js",
+      "Scripts/bootstrap-datetimepicker.js",
+      "Scripts/bootstrap-notify.js",
+      "Scripts/jquery.bootstrap-touchspin.js",
+      "Scripts/select2.js",
+      "Scripts/blueimp-gallery/blueimp-gallery.js",
+      "Scripts/blueimp-gallery/jquery.blueimp-gallery.js",
+      "Scripts/jquery.blockUI.js",
+      "Scripts/jquery.hovercard.js",
+      "Scripts/prism.js",
+      "Scripts/hammer.min.js",
+      "Scripts/tablesorter/jquery.tablesorter.combined.js",
+      "Scripts/tablesorter/extras/jquery.tablesorter.pager.min.js",
+      "Scripts/tablesorter/widgets/widget-reflow.js",
+      "Scripts/forum/yaf.Utilities.js",
+      "Scripts/forum/yaf.Albums.js",
+      "Scripts/forum/yaf.Notify.js",
+      "Scripts/forum/yaf.Main.js",
+      "Scripts/forum/yaf.contextMenu.js",
+      "Scripts/forum/yaf.FileBrowser.js"
+    ]
+  },
+  {
+    "outputFileName": "Scripts/jquery.ForumAdminExtensionsDnn.js",
+    "inputFiles": [
+      "Scripts/moment-with-locales.js",
       "Scripts/bootbox.js",
       "Scripts/bootstrap-datetimepicker.js",
       "Scripts/bootstrap-notify.js",
