@@ -51,13 +51,13 @@ namespace YAF.Pages.Account
         protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel2;
 
         /// <summary>
-        /// Error control.
+        /// ErrorAlert control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.Controls.Alert Error;
+        protected global::YAF.Web.Controls.Alert ErrorAlert;
 
         /// <summary>
         /// ErrorMessage control.

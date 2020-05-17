@@ -89,7 +89,7 @@ namespace YAF.Pages.Account
             if (userEmail == null)
             {
                 this.Approved.Visible = false;
-                this.Error.Visible = true;
+                this.ErrorAlert.Visible = true;
                 this.ErrorMessage.Text = this.GetText("email_verify_failed");
 
                 return;
@@ -102,7 +102,7 @@ namespace YAF.Pages.Account
             if (result.Succeeded)
             {
                 this.Approved.Visible = true;
-                this.Error.Visible = false;
+                this.ErrorAlert.Visible = false;
 
                 user.IsApproved = true;
                 user.EmailConfirmed = true;
@@ -130,7 +130,7 @@ namespace YAF.Pages.Account
             else
             {
                 this.Approved.Visible = false;
-                this.Error.Visible = true;
+                this.ErrorAlert.Visible = true;
 
                 this.ErrorMessage.Text = result.Errors.FirstOrDefault();
             }
@@ -160,7 +160,7 @@ namespace YAF.Pages.Account
             else
             {
                 this.Approved.Visible = false;
-                this.Error.Visible = true;
+                this.ErrorAlert.Visible = true;
                 this.ErrorMessage.Text = this.GetText("email_verify_failed");
             }
         }

@@ -9,7 +9,7 @@
     <meta id="YafMetaScriptingLanguage" http-equiv="Content-Script-Type" runat="server"
         name="scriptlanguage" content="text/javascript" />
     <meta id="YafMetaStyles" http-equiv="Content-Style-Type" runat="server" name="styles"
-        content="text/css" />
+        content="text/css" />c
    <title>YAF.NET <%# this.IsForumInstalled ? YAF.App_GlobalResources.Install.Upgrade : YAF.App_GlobalResources.Install.Installation %></title>
    <link href="../Content/InstallWizard.min.css" rel="stylesheet" type="text/css" />
 </head>
@@ -440,10 +440,10 @@
                     </div>
                     <div class="form-group">
                         <asp:Label id="Label7" runat="server" 
-                                   AssociatedControlId="Culture">
+                                   AssociatedControlId="Cultures">
                             <%# YAF.App_GlobalResources.Install.Culture %>
                         </asp:Label>
-                        <asp:DropDownList ID="Culture" runat="server" 
+                        <asp:DropDownList ID="Cultures" runat="server" 
                                           CssClass="custom-select" />
                     </div>
                     <div class="form-group">

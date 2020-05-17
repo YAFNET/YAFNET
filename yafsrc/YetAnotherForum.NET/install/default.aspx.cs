@@ -859,7 +859,7 @@ namespace YAF.Install
                     applicationId,
                     this.TheForumName.Text,
                     this.TimeZones.SelectedValue,
-                    this.Culture.SelectedValue,
+                    this.Cultures.SelectedValue,
                     this.ForumEmailAddress.Text,
                     "YAFLogo.svg",
                     this.ForumBaseUrlMask.Text,
@@ -965,9 +965,9 @@ namespace YAF.Install
 
                 this.TimeZones.DataSource = StaticDataHelper.TimeZones();
 
-                this.Culture.DataSource = StaticDataHelper.Cultures();
-                this.Culture.DataValueField = "CultureTag";
-                this.Culture.DataTextField = "CultureNativeName";
+                this.Cultures.DataSource = StaticDataHelper.Cultures();
+                this.Cultures.DataValueField = "CultureTag";
+                this.Cultures.DataTextField = "CultureNativeName";
 
                 this.rblYAFDatabase.Items[0].Text = Install.ExistConnection;
                 this.rblYAFDatabase.Items[1].Text = Install.NewConnection;
@@ -979,9 +979,9 @@ namespace YAF.Install
 
                 this.TimeZones.Items.FindByValue(TimeZoneInfo.Local.Id).Selected = true;
 
-                if (this.Culture.Items.Count > 0)
+                if (this.Cultures.Items.Count > 0)
                 {
-                    this.Culture.Items.FindByValue("en-US").Selected = true;
+                    this.Cultures.Items.FindByValue("en-US").Selected = true;
                 }
 
                 this.ForumBaseUrlMask.Text = BaseUrlBuilder.GetBaseUrlFromVariables();

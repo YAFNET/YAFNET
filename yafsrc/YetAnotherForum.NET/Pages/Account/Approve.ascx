@@ -24,7 +24,7 @@
                     <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" 
                                         LocalizedTag="email_verified" />
                 </YAF:Alert>
-                <YAF:Alert runat="server" ID="Error" 
+                <YAF:Alert runat="server" ID="ErrorAlert" 
                            Type="danger" 
                            Visible="False">
                     <asp:Literal runat="server" ID="ErrorMessage"></asp:Literal>

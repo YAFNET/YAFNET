@@ -32,7 +32,7 @@ namespace YAF.Modules
     using System.Web.UI;
 
     using YAF.Configuration;
-    using YAF.Core;
+    using YAF.Core.Context;
     using YAF.Types;
     using YAF.Types.Attributes;
     using YAF.Types.Extensions;
@@ -45,7 +45,7 @@ namespace YAF.Modules
     /// <summary>
     /// Automatic JavaScript Loading Module
     /// </summary>
-    [YafModule("JavaScript Loading Module", "Ingo Herbote", 1)]
+    [Module("JavaScript Loading Module", "Ingo Herbote", 1)]
     public class ScriptsLoaderModule : SimpleBaseForumModule
     {
         #region Public Methods
