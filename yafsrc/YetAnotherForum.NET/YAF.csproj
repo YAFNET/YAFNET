@@ -2248,6 +2248,9 @@
     <None Include="compilerconfig.json" />
     <Content Include="Scripts\bootstrap-typeahead.js" />
     <Content Include="Scripts\bootstrap.bundle.js" />
+    <Content Include="Scripts\bootstrap.bundle.min.js">
+      <DependentUpon>bootstrap.bundle.js</DependentUpon>
+    </Content>
     <Content Include="Scripts\ckeditor\adapters\jquery.js" />
     <Content Include="Scripts\ckeditor\build-config.js" />
     <Content Include="Scripts\ckeditor\CHANGES.md" />
@@ -2735,8 +2738,16 @@
     <Content Include="Scripts\jquery.ForumAdminExtensions.min.js">
       <DependentUpon>jquery.ForumAdminExtensions.js</DependentUpon>
     </Content>
+    <Content Include="Scripts\jquery.ForumAdminExtensionsDnn.js" />
+    <Content Include="Scripts\jquery.ForumAdminExtensionsDnn.min.js">
+      <DependentUpon>jquery.ForumAdminExtensionsDnn.js</DependentUpon>
+    </Content>
     <Content Include="Scripts\jquery.ForumExtensions.min.js">
       <DependentUpon>jquery.ForumExtensions.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\jquery.ForumExtensionsDnn.js" />
+    <Content Include="Scripts\jquery.ForumExtensionsDnn.min.js">
+      <DependentUpon>jquery.ForumExtensionsDnn.js</DependentUpon>
     </Content>
     <Content Include="Scripts\moment-with-locales.js" />
     <Content Include="Scripts\moment-with-locales.min.js">
@@ -3300,45 +3311,6 @@
     <Content Include="Content\webfonts\fa-solid-900.woff" />
     <Content Include="Content\webfonts\fa-solid-900.woff2" />
     <Content Include="Content\Themes\yaf\_variables.scss" />
-    <Content Include="Content\Themes\solar\bootstrap-forum.min.css.gz">
-      <DependentUpon>bootstrap-forum.min.css</DependentUpon>
-    </Content>
-    <Content Include="Content\Themes\slate\bootstrap-forum.min.css.gz">
-      <DependentUpon>bootstrap-forum.min.css</DependentUpon>
-    </Content>
-    <Content Include="Content\Themes\sketchy\bootstrap-forum.min.css.gz">
-      <DependentUpon>bootstrap-forum.min.css</DependentUpon>
-    </Content>
-    <Content Include="Content\Themes\simplex\bootstrap-forum.min.css.gz">
-      <DependentUpon>bootstrap-forum.min.css</DependentUpon>
-    </Content>
-    <Content Include="Content\Themes\sandstone\bootstrap-forum.min.css.gz">
-      <DependentUpon>bootstrap-forum.min.css</DependentUpon>
-    </Content>
-    <Content Include="Content\Themes\pulse\bootstrap-forum.min.css.gz">
-      <DependentUpon>bootstrap-forum.min.css</DependentUpon>
-    </Content>
-    <Content Include="Content\Themes\minty\bootstrap-forum.min.css.gz">
-      <DependentUpon>bootstrap-forum.min.css</DependentUpon>
-    </Content>
-    <Content Include="Content\Themes\materia\bootstrap-forum.min.css.gz">
-      <DependentUpon>bootstrap-forum.min.css</DependentUpon>
-    </Content>
-    <Content Include="Content\Themes\lux\bootstrap-forum.min.css.gz">
-      <DependentUpon>bootstrap-forum.min.css</DependentUpon>
-    </Content>
-    <Content Include="Content\Themes\lumen\bootstrap-forum.min.css.gz">
-      <DependentUpon>bootstrap-forum.min.css</DependentUpon>
-    </Content>
-    <Content Include="Content\Themes\litera\bootstrap-forum.min.css.gz">
-      <DependentUpon>bootstrap-forum.min.css</DependentUpon>
-    </Content>
-    <Content Include="Content\Themes\journal\bootstrap-forum.min.css.gz">
-      <DependentUpon>bootstrap-forum.min.css</DependentUpon>
-    </Content>
-    <Content Include="Content\Themes\flatly\bootstrap-forum.min.css.gz">
-      <DependentUpon>bootstrap-forum.min.css</DependentUpon>
-    </Content>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -3709,7 +3681,7 @@ RD /S /Q "$(TargetDir)zh-TW\"</PostBuildEvent>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties compilerconfig_1json__JSONSchema="" bundleconfig_1json__JSONSchema="" />
+      <UserProperties bundleconfig_1json__JSONSchema="" compilerconfig_1json__JSONSchema="" />
     </VisualStudio>
   </ProjectExtensions>
   <Import Project="..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets" Condition="Exists('..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets')" />
