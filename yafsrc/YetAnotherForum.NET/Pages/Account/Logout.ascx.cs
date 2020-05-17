@@ -27,7 +27,8 @@ namespace YAF.Pages.Account
     #region Using
 
     using System;
-    
+    using System.Web.Security;
+
     using YAF.Core.BasePages;
     using YAF.Types;
     using YAF.Types.Constants;
@@ -67,6 +68,9 @@ namespace YAF.Pages.Account
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
             this.Get<IAspNetUsersHelper>().SignOut();
+
+            // Handle legacy ASP.NET Membership logout
+            FormsAuthentication.SignOut();
 
             this.Get<IRaiseEvent>().Raise(new UserLogoutEvent(this.PageContext.PageUserID));
 
