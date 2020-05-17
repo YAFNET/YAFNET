@@ -1,7 +1,14 @@
 YetAnotherForum.NET Changelog
 ====================
 
-Avatars are now visible for posts on mobile devices 
+# YetAnotherForum.NET v2.3.1.05
+* [FIXED] sending watch emails + added erro handling
+* [FIXED] MultiQuote Button
+* Bug fixes
+
+
+# YetAnotherForum.NET v2.3.1.04
+* Avatars are now visible for posts on mobile devices 
 * Removed spacing from Quotes
 * [FIXED] Display Date Times in Posts
 * [FIXED] dont send email notifications after edit post
