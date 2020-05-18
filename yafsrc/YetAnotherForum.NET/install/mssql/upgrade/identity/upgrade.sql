@@ -65,6 +65,69 @@ CREATE TABLE [{databaseOwner}].[{objectQualifier}AspNetUsers](
 
 GO
 
+/* Create missing profile columns first if not exist */
+
+if not exists (select top 1 1 from sys.columns where object_id=object_id('[{databaseOwner}].[{objectQualifier}prov_Profile]') and name='GoogleId')
+begin
+	alter table [{databaseOwner}].[{objectQualifier}prov_Profile] add GoogleId nvarchar(255)  Null
+end
+GO
+
+if not exists (select top 1 1 from sys.columns where object_id=object_id('[{databaseOwner}].[{objectQualifier}prov_Profile]') and name='Facebook')
+begin
+	alter table [{databaseOwner}].[{objectQualifier}prov_Profile] add Facebook nvarchar(255)  Null
+end
+GO
+
+if not exists (select top 1 1 from sys.columns where object_id=object_id('[{databaseOwner}].[{objectQualifier}prov_Profile]') and name='FacebookId')
+begin
+	alter table [{databaseOwner}].[{objectQualifier}prov_Profile] add FacebookId nvarchar(255)  Null
+end
+GO
+
+if not exists (select top 1 1 from sys.columns where object_id=object_id('[{databaseOwner}].[{objectQualifier}prov_Profile]') and name='Twitter')
+begin
+	alter table [{databaseOwner}].[{objectQualifier}prov_Profile] add Twitter nvarchar(255) Null
+end
+GO
+
+if not exists (select top 1 1 from sys.columns where object_id=object_id('[{databaseOwner}].[{objectQualifier}prov_Profile]') and name='TwitterId')
+begin
+	alter table [{databaseOwner}].[{objectQualifier}prov_Profile] add TwitterId nvarchar(255) Null
+end
+GO
+
+if not exists (select top 1 1 from sys.columns where object_id=object_id('[{databaseOwner}].[{objectQualifier}prov_Profile]') and name='Country')
+begin
+	alter table [{databaseOwner}].[{objectQualifier}prov_Profile] add Country nvarchar(255) Null
+end
+GO
+
+if not exists (select top 1 1 from sys.columns where object_id=object_id('[{databaseOwner}].[{objectQualifier}prov_Profile]') and name='Region')
+begin
+	alter table [{databaseOwner}].[{objectQualifier}prov_Profile] add Region nvarchar(255) Null
+end
+GO
+
+if not exists (select top 1 1 from sys.columns where object_id=object_id('[{databaseOwner}].[{objectQualifier}prov_Profile]') and name='City')
+begin
+	alter table [{databaseOwner}].[{objectQualifier}prov_Profile] add City nvarchar(255) Null
+end
+GO
+
+if not exists (select top 1 1 from sys.columns where object_id=object_id('[{databaseOwner}].[{objectQualifier}prov_Profile]') and name='XMPP')
+begin
+	alter table [{databaseOwner}].[{objectQualifier}prov_Profile] add XMPP nvarchar(255) Null
+end
+GO
+
+if not exists (select top 1 1 from sys.columns where object_id=object_id('[{databaseOwner}].[{objectQualifier}prov_Profile]') and name='LastSyncedWithDNN')
+begin
+	alter table [{databaseOwner}].[{objectQualifier}prov_Profile] add LastSyncedWithDNN nvarchar(255) Null
+end
+GO
+
+
  /* Migrate users standard provider */
 
   INSERT INTO [{databaseOwner}].[{objectQualifier}AspNetUsers] (
