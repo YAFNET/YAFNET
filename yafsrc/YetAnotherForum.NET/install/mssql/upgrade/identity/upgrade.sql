@@ -129,7 +129,8 @@ GO
 
 
  /* Migrate users standard provider */
-
+if exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[aspnet_Users]') and type in (N'U'))
+begin
   INSERT INTO [{databaseOwner}].[{objectQualifier}AspNetUsers] (
         ApplicationId,
         Id,
@@ -189,7 +190,8 @@ GO
       LEFT OUTER JOIN [{databaseOwner}].[{objectQualifier}AspNetUsers] ON [{databaseOwner}].[aspnet_Membership].UserId = [{databaseOwner}].[{objectQualifier}AspNetUsers].Id
   WHERE 
       [{databaseOwner}].[{objectQualifier}AspNetUsers].Id IS NULL
-
+      end
+GO
 /****/
 
 
@@ -376,9 +378,12 @@ GO
 
 
 -- Import Provider Roles
+if exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[aspnet_Roles]') and type in (N'U'))
+begin
 INSERT INTO [{databaseOwner}].[{objectQualifier}AspNetRoles](Id,Name)
 SELECT RoleId,RoleName
 FROM [{databaseOwner}].[aspnet_Roles]
+end
 GO
 
 INSERT INTO [{databaseOwner}].[{objectQualifier}AspNetRoles](Id,Name)
@@ -401,10 +406,14 @@ CREATE TABLE [{databaseOwner}].[{objectQualifier}AspNetUserRoles] (
 GO
 
 -- Import User Roles
-INSERT INTO [{databaseOwner}].[{objectQualifier}AspNetUserRoles](UserId,RoleId)
-SELECT UserId,RoleId
-FROM [{databaseOwner}].[aspnet_UsersInRoles]
+if exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[aspnet_usersInRoles]') and type in (N'U'))
+begin
+   INSERT INTO [{databaseOwner}].[{objectQualifier}AspNetUserRoles](UserId,RoleId)
+   SELECT UserId,RoleId
+   FROM [{databaseOwner}].[aspnet_UsersInRoles]
+end
 GO
+
 INSERT INTO [{databaseOwner}].[{objectQualifier}AspNetUserRoles](UserId,RoleId)
 SELECT UserId,RoleId
 FROM [{databaseOwner}].[{objectQualifier}prov_RoleMembership]
