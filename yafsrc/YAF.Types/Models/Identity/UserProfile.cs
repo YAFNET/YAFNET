@@ -36,7 +36,7 @@ namespace YAF.Types.Models.Identity
         /// </summary>
         public ProfileInfo()
         {
-            this.Birthday = DateTime.Parse("1/1/1754");
+            this.Birthday = DateTime.MinValue.AddYears(1902);
         }
 
         /// <summary>

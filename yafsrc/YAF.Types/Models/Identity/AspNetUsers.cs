@@ -53,9 +53,10 @@ namespace YAF.Types.Models.Identity
             this.LastLoginDate = DateTime.Now;
             this.LastActivityDate = DateTime.Now;
             this.LastPasswordChangedDate = DateTime.Now;
-            this.LastLockoutDate = DateTime.Parse("1/1/1754");
-            this.FailedPasswordAnswerAttemptWindowStart = DateTime.Parse("1/1/1754");
-            this.FailedPasswordAttemptWindowStart = DateTime.Parse("1/1/1754");
+            this.LastLockoutDate = DateTime.MinValue.AddYears(1902);
+            this.FailedPasswordAnswerAttemptWindowStart = DateTime.MinValue.AddYears(1902);
+            this.FailedPasswordAttemptWindowStart = DateTime.MinValue.AddYears(1902);
+            this.Profile_Birthday = DateTime.MinValue.AddYears(1902);
 
             /*this.Profile = new ProfileInfo
             {
@@ -97,9 +98,10 @@ namespace YAF.Types.Models.Identity
             this.LastLoginDate = DateTime.Now;
             this.LastActivityDate = DateTime.Now;
             this.LastPasswordChangedDate = DateTime.Now;
-            this.LastLockoutDate = DateTime.Parse("1/1/1754");
-            this.FailedPasswordAnswerAttemptWindowStart = DateTime.Parse("1/1/1754");
-            this.FailedPasswordAttemptWindowStart = DateTime.Parse("1/1/1754");
+            this.LastLockoutDate = DateTime.MinValue.AddYears(1902);
+            this.FailedPasswordAnswerAttemptWindowStart = DateTime.MinValue.AddYears(1902);
+            this.FailedPasswordAttemptWindowStart = DateTime.MinValue.AddYears(1902);
+            this.Profile_Birthday = DateTime.MinValue.AddYears(1902);
 
             /*this.Profile = new ProfileInfo
             {
