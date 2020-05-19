@@ -26,10 +26,12 @@
                 <YAF:ThemeButton ID="Accept" runat="server" 
                                  TextLocalizedTag="ACCEPT" 
                                  Type="Success"
+                                 CausesValidation="False"
                                  Icon="check"
                                  OnClick="Accept_Click" />
                 <YAF:ThemeButton ID="Cancel" runat="server" 
                                  TextLocalizedTag="DECLINE" 
+                                 CausesValidation="False"
                                  Type="Danger"
                                  Icon="hand-paper"
                                  OnClick="Cancel_Click" />
