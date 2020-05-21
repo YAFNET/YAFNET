@@ -147,20 +147,11 @@ namespace YAF.Web.Controls
         ///   Gets Attributes.
         /// </summary>
         public AttributeCollection Attributes { get; }
-
+        
+        [DefaultValue(false)]
         public bool CausesValidation
         {
-            get
-            {
-                var causesValidation = this.ViewState["CausesValidation"];
-                
-                if (causesValidation != null)
-                {
-                    return (bool)causesValidation;
-                }
-
-                return false;
-            }
+            get => this.ViewState["CausesValidation"]?.ToType<bool>() ?? false;
             set => this.ViewState["CausesValidation"] = value;
         }
 

@@ -180,7 +180,7 @@ namespace YAF.Web.Controls
             button.Attributes.Add("data-toggle", "tooltip");
             button.Attributes.Add("data-placement", "right");
 
-            button.Controls.Add(new Literal { Text = @"<i class=""fas fa-info-circle text-info fa-lg""></i>" });
+            button.Controls.Add(new Icon { IconName = "info-circle", IconSize = "fa-lg", IconType = "text-info" });
 
             label.Controls.Add(button);
 
