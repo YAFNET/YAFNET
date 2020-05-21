@@ -55,21 +55,18 @@ namespace YAF.Core.Identity
         {
             this.UserValidator = new UserValidator<AspNetUsers>(this)
             {
-                AllowOnlyAlphanumericUserNames = false, RequireUniqueEmail = true
+                AllowOnlyAlphanumericUserNames = false, 
+                RequireUniqueEmail = true
             };
 
             this.PasswordHasher = new SQLPasswordHasher();
 
             this.PasswordValidator = new PasswordValidator
             {
-                RequiredLength = BoardContext.Current.BoardSettings.MinRequiredPasswordLength, RequireNonLetterOrDigit = true
+                RequiredLength = BoardContext.Current.BoardSettings.MinRequiredPasswordLength, 
+                RequireNonLetterOrDigit = true,
+                RequireDigit = true
             };
-
-            /*manager.RegisterTwoFactorProvider("E-Mail-Code", new EmailTokenProvider<AspNetUsers>
-            {
-                Subject = "Sicherheitscode",
-                BodyFormat = "Ihr Sicherheitscode lautet {0}"
-            });*/
 
             this.UserLockoutEnabledByDefault = true;
             this.DefaultAccountLockoutTimeSpan = TimeSpan.FromMinutes(5);
@@ -87,7 +84,7 @@ namespace YAF.Core.Identity
         /// <summary>
         /// The users.
         /// </summary>
-        public virtual IQueryable<AspNetUsers> Users => this.Users;
+        public virtual IQueryable<AspNetUsers> Users => base.Users;
 
         /// <summary>
         /// Remove a user from a role.
