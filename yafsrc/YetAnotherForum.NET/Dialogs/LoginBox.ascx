@@ -55,11 +55,16 @@
                                          CssClass="form-control"
                                          TextMode="Password"
                                          required="required"/>
-                            
                             <YAF:LocalizedRequiredFieldValidator runat="server"
                                                                  CssClass="invalid-feedback"
                                                                  LocalizedTag="NEED_PASSWORD"
                                                                  ControlToValidate="Password" />
+                            
+                            <div class="input-group-append">
+                                <a class="input-group-text" id="PasswordToggle" href="#">
+                                    <i class="fa fa-eye-slash" aria-hidden="true"></i>
+                                </a>
+                            </div>
                         </div>
                     </div>
                     <div class="form-row">

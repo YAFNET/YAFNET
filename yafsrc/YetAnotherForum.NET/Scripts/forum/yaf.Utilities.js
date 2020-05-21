@@ -79,3 +79,20 @@ $(function () {
         return false;
     });
 });
+
+// Toggle password visibility 
+$(document).ready(function () {
+    $("#PasswordToggle").on("click", function (event) {
+        event.preventDefault();
+        var pass = $("input[id*='Password']");
+        if (pass.attr("type") === "text") {
+            pass.attr("type", "password");
+            $("#PasswordToggle i").addClass("fa-eye-slash");
+            $("#PasswordToggle i").removeClass("fa-eye");
+        } else if (pass.attr("type") === "password") {
+            pass.attr("type", "text");
+            $("#PasswordToggle i").removeClass("fa-eye-slash");
+            $("#PasswordToggle i").addClass("fa-eye");
+        }
+    });
+});

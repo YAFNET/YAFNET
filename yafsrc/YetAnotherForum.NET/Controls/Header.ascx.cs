@@ -394,15 +394,14 @@ namespace YAF.Controls
             {
                 var navigateUrl = "javascript:void(0);";
 
-                if (this.PageContext.ForumPageType == ForumPages.Account_Login ||
-                    this.PageContext.ForumPageType == ForumPages.Account_Register)
+                if (this.PageContext.CurrentForumPage.IsAccountPage)
                 {
                     navigateUrl = BuildLink.GetLink(ForumPages.Account_Login);
                 }
 
                 RenderMenuItem(
                     this.menuListItems,
-                    "nav-link  LoginLink",
+                    "nav-link LoginLink",
                     this.GetText("TOOLBAR", "LOGIN"),
                     "LOGIN_TITLE",
                     navigateUrl,
