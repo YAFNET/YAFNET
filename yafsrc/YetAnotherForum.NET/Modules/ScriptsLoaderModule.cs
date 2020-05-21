@@ -35,7 +35,6 @@ namespace YAF.Modules
     using YAF.Core.Context;
     using YAF.Types;
     using YAF.Types.Attributes;
-    using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Utils;
     using YAF.Utils.Helpers;
@@ -93,35 +92,6 @@ namespace YAF.Modules
 
             if (registerJQuery)
             {
-                string jqueryUrl;
-
-                // Check if override file is set ?
-                if (Config.JQueryOverrideFile.IsSet())
-                {
-                    jqueryUrl = !Config.JQueryOverrideFile.StartsWith("http")
-                                && !Config.JQueryOverrideFile.StartsWith("//")
-                                    ? BoardInfo.GetURLToScripts(Config.JQueryOverrideFile)
-                                    : Config.JQueryOverrideFile;
-                }
-                else
-                {
-                    jqueryUrl = BoardInfo.GetURLToScripts($"jquery-{Config.JQueryVersion}.min.js");
-                }
-
-                // load jQuery
-                // element.Controls.Add(ControlHelper.MakeJsIncludeControl(jqueryUrl));
-                ScriptManager.ScriptResourceMapping.AddDefinition(
-                    "jquery",
-                    new ScriptResourceDefinition
-                    {
-                        Path = jqueryUrl,
-                        DebugPath = BoardInfo.GetURLToScripts($"jquery-{Config.JQueryVersion}.js"),
-                        CdnPath = $"//ajax.aspnetcdn.com/ajax/jQuery/jquery-{Config.JQueryVersion}.min.js",
-                        CdnDebugPath = $"//ajax.aspnetcdn.com/ajax/jQuery/jquery-{Config.JQueryVersion}.js",
-                        CdnSupportsSecureConnection = true/*,
-                            LoadSuccessExpression = "window.jQuery"*/
-                    });
-
                 BoardContext.Current.PageElements.AddScriptReference("jquery");
             }
 

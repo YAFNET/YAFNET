@@ -27,8 +27,12 @@ namespace YAF.Core.Context
     using System;
     using System.Web;
     using System.Web.Http;
+    using System.Web.UI;
 
+    using YAF.Configuration;
     using YAF.Core.Context.Start;
+    using YAF.Types.Extensions;
+    using YAF.Utils;
 
     /// <summary>
     /// The YAF HttpApplication.
@@ -48,6 +52,41 @@ namespace YAF.Core.Context
         {
             // Pass a delegate to the Configure method.
             GlobalConfiguration.Configure(WebApiConfig.Register);
+
+            RegisterJQuery();
+        }
+
+        /// <summary>
+        /// Registers the jQuery script library.
+        /// </summary>
+        private static void RegisterJQuery()
+        {
+            string jqueryUrl;
+
+            // Check if override file is set ?
+            if (Config.JQueryOverrideFile.IsSet())
+            {
+                jqueryUrl = !Config.JQueryOverrideFile.StartsWith("http") && !Config.JQueryOverrideFile.StartsWith("//")
+                    ? BoardInfo.GetURLToScripts(Config.JQueryOverrideFile)
+                    : Config.JQueryOverrideFile;
+            }
+            else
+            {
+                jqueryUrl = BoardInfo.GetURLToScripts($"jquery-{Config.JQueryVersion}.min.js");
+            }
+
+            // load jQuery
+            ScriptManager.ScriptResourceMapping.AddDefinition(
+                "jquery",
+                new ScriptResourceDefinition
+                {
+                    Path = jqueryUrl,
+                    DebugPath = BoardInfo.GetURLToScripts($"jquery-{Config.JQueryVersion}.js"),
+                    CdnPath = $"//ajax.aspnetcdn.com/ajax/jQuery/jquery-{Config.JQueryVersion}.min.js",
+                    CdnDebugPath = $"//ajax.aspnetcdn.com/ajax/jQuery/jquery-{Config.JQueryVersion}.js",
+                    CdnSupportsSecureConnection = true /*,
+                            LoadSuccessExpression = "window.jQuery"*/
+                });
         }
     }
 }
