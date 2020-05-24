@@ -252,8 +252,6 @@ namespace YAF.Core.Services
             // re-sync all boards - necessary for proper last post bubbling
             this.GetRepository<Board>().ReSync();
 
-            this.RaiseEvent.RaiseIssolated(new AfterUpgradeDatabaseEvent(prevVersion, BoardInfo.AppVersion), null);
-
             if (isForumInstalled)
             {
                 if (prevVersion < 80)
