@@ -36,7 +36,6 @@ namespace YAF.Pages.Admin
 
     using FarsiLibrary.Utils;
 
-    using YAF.Classes;
     using YAF.Configuration;
     using YAF.Core;
     using YAF.Core.Extensions;
@@ -298,15 +297,19 @@ namespace YAF.Pages.Admin
         /// </summary>
         private void ShowUpgradeMessage()
         {
-            var latestInfo = new LatestInformationService().GetLatestVersion();
+            var version = this.Get<IDataCache>().GetOrSet(
+                "LatestVersion",
+                () => this.Get<ILatestInformation>().GetLatestVersion(),
+                TimeSpan.FromDays(1));
 
-            if (latestInfo == null || BitConverter.ToInt64(latestInfo, 0) <= BitConverter.ToInt64(BoardInfo.AppVersionCode, 0))
+            if (version.VersionDate <= BoardInfo.AppVersionDate)
             {
                 return;
             }
 
             // updateLink
             this.UpdateHightlight.Visible = true;
+            this.UpdateLinkHighlight.NavigateUrl = version.UpgradeUrl;
         }
 
         /// <summary>

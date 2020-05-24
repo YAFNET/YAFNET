@@ -1886,8 +1886,7 @@
     <Resource tag="LATEST_VERSION">De laatste stabiele versie is: &lt;b&gt;{0}&lt;/b&gt; Gereleased &lt;b&gt;{1}&lt;/b&gt;.</Resource>
     <Resource tag="RUNNING_VERSION">Jouw YAF.NET Versie: &lt;b&gt;{0}&lt;/b&gt; (Datum: {1}).</Resource>
     <Resource tag="TITLE">Versiecontrole</Resource>
-    <Resource tag="UPGRADE_VERSION">Haal de laatste versie &lt;a target="_top" href="https://yetanotherforum.net/"&gt;
-				  Hier&lt;/a&gt;.</Resource>
+    <Resource tag="UPGRADE_VERSION">Download Upgrade Package</Resource>
   </page>
   <page name="ADMINMENU">
     <Resource tag="admin_accessmasks">Toegangsmaskers</Resource>

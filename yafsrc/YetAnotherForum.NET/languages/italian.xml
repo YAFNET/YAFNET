@@ -1888,8 +1888,7 @@
     <Resource tag="LATEST_VERSION">The Latest Stable Version is: &lt;b&gt;{0}&lt;/b&gt; (Date: {1}).</Resource>
     <Resource tag="RUNNING_VERSION">Your YAF.NET Version: &lt;b&gt;{0}&lt;/b&gt; (Date: {1}).</Resource>
     <Resource tag="TITLE">Version Check</Resource>
-    <Resource tag="UPGRADE_VERSION">Get the Latest Version &lt;a target="_top" href="https://yetanotherforum.net/"&gt;
-                  Here&lt;/a&gt;.</Resource>
+    <Resource tag="UPGRADE_VERSION">Download Upgrade Package</Resource>
   </page>
   <page name="ADMINMENU">
     <Resource tag="admin_accessmasks">Access Masks</Resource>

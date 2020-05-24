@@ -1904,10 +1904,7 @@
     <Resource tag="LATEST_VERSION">آخرین نسخه نهائی در &lt;strong&gt;{0}&lt;/strong&gt; منتشر شده در &lt;strong&gt;{1}&lt;/strong&gt; موجود است.</Resource>
     <Resource tag="RUNNING_VERSION">شما در حال استفاده از YetAnotherForum.NET نسخه &lt;strong&gt;{0}&lt;/strong&gt; (تاریخ :{1}) هستید.</Resource>
     <Resource tag="TITLE">کنترل نسخه</Resource>
-    <Resource tag="UPGRADE_VERSION">&lt;p dir="rtl"&gt;شما می توانید آخرین نسخه را از
-&lt;a href="https://yetanotherforum.net/download/"&gt;اینجا&lt;/a&gt; دریافت کنید.&lt;/p&gt;
-      &lt;p dir="rtl"&gt;&lt;/p&gt;
-    </Resource>
+    <Resource tag="UPGRADE_VERSION">Download Upgrade Package</Resource>
   </page>
   <page name="ADMINMENU">
     <Resource tag="admin_accessmasks">قالب دسترسی</Resource>

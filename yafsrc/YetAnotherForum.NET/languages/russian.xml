@@ -1874,8 +1874,7 @@
     <Resource tag="LATEST_VERSION">Последняя доступная версия &lt;strong&gt;{0}&lt;/strong&gt; с датой релиза &lt;strong&gt;{1}&lt;/strong&gt;.</Resource>
     <Resource tag="RUNNING_VERSION">Вы используете YetAnotherForum.NET версии &lt;strong&gt;{0}&lt;/strong&gt; (Дата: {1}).</Resource>
     <Resource tag="TITLE">Проверка версии</Resource>
-    <Resource tag="UPGRADE_VERSION">Вы можете загрузить последнюю версию здесь: &lt;a target="_top" href="https://yetanotherforum.net/download/"&gt;
-						&lt;/a&gt;.</Resource>
+    <Resource tag="UPGRADE_VERSION">Download Upgrade Package</Resource>
   </page>
   <page name="ADMINMENU">
     <Resource tag="admin_accessmasks">Маски доступа</Resource>

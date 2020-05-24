@@ -16,8 +16,7 @@
             <YAF:LocalizedLabel runat="server"
                                 LocalizedTag="NEW_VERSION"></YAF:LocalizedLabel>
             <YAF:ThemeButton ID="UpdateLinkHighlight" runat="server" 
-                             TextLocalizedTag="NEW_VERSION_DOWNLOAD"
-                             NavigateUrl="https://yetanotherforum.net/download"
+                             TextLocalizedTag="UPGRADE_VERSION"
                              Type="Info"
                              Icon="cloud-download-alt"></YAF:ThemeButton>
         </YAF:Alert>
