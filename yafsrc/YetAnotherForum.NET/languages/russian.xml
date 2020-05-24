@@ -1879,8 +1879,7 @@
     <Resource tag="LATEST_VERSION">Последняя доступная версия &lt;strong&gt;{0}&lt;/strong&gt; с датой релиза &lt;strong&gt;{1}&lt;/strong&gt;.</Resource>
     <Resource tag="RUNNING_VERSION">Вы используете YetAnotherForum.NET версии &lt;strong&gt;{0}&lt;/strong&gt; (Дата: {1}).</Resource>
     <Resource tag="TITLE">Проверка версии</Resource>
-    <Resource tag="UPGRADE_VERSION">Вы можете загрузить последнюю версию здесь: &lt;a target="_top" href="https://yetanotherforum.net/download/"&gt;
-						&lt;/a&gt;.</Resource>
+    <Resource tag="UPGRADE_VERSION">Download Upgrade Package</Resource>
   </page>
   <page name="ADMINMENU">
     <Resource tag="admin_accessmasks">Маски доступа</Resource>
@@ -5474,7 +5473,7 @@ Spoiler Content
      &lt;p class="mt-3 mb-4"&gt;You have been successfully registered on the {forumname} forum using Facebook Login:&lt;/p&gt;
      &lt;p class="text-center"&gt;User Name: {user}&lt;/p&gt;
      &lt;p class="text-center"&gt;Auto Generated Password: {pass}&lt;/p&gt;
-     &lt;p class="text-center"&gt;Auto Generated Security Answer: {answer}&lt;/p&gt;
+     &lt;p class="text-center"&gt;&lt;/p&gt;
      &lt;p class="text-center"&gt;User Email: {email} (Please don't change your email, or you are unable to login with Facebook)&lt;/p&gt;
      &lt;/div&gt;
      &lt;/div&gt;
@@ -5492,7 +5491,7 @@ Spoiler Content
 
       User Name: {user}
 	  Auto Generated Password: {pass}
-	  Auto Generated Security Answer: {answer}
+	  
       User Email: {email} (Please don't change your email, or you are unable to login with Facebook)
 
     </Resource>
@@ -5503,7 +5502,7 @@ Spoiler Content
 
       User Name: {user}
 	  Auto Generated Password: {pass}
-	  Auto Generated Security Answer: {answer}
+	  
       User Email: {email} (Please don't change your email, or you are unable to login with Google)
 	  
     </Resource>
@@ -5524,7 +5523,7 @@ Spoiler Content
      &lt;p class="mt-3 mb-4"&gt;You have been successfully registered on the {forumname} forum using Google Login:&lt;/p&gt;
      &lt;p class="text-center"&gt;User Name: {user}&lt;/p&gt;
      &lt;p class="text-center"&gt;Auto Generated Password: {pass}&lt;/p&gt;
-     &lt;p class="text-center"&gt;Auto Generated Security Answer: {answer}&lt;/p&gt;
+     &lt;p class="text-center"&gt;&lt;/p&gt;
      &lt;p class="text-center"&gt;User Email: {email} (Please don't change your email, or you are unable to login with Google)&lt;/p&gt;
      &lt;/div&gt;
      &lt;/div&gt;
@@ -5542,7 +5541,7 @@ Spoiler Content
 
       User Name: {user}
 	  Auto Generated Password: {pass}
-	  Auto Generated Security Answer: {answer}
+	  
       User Email: {email} (Please don't change your email, or you are unable to login with Google)
 
     </Resource>
@@ -5696,7 +5695,7 @@ Spoiler Content
      &lt;p class="mt-3 mb-4"&gt;You have been successfully registered on the {forumname} forum:&lt;/p&gt;
      &lt;p class="text-center"&gt;User Name: {user}&lt;/p&gt;
      &lt;p class="text-center"&gt;Auto Generated Password: {pass}&lt;/p&gt;
-     &lt;p class="text-center"&gt;Auto Generated Security Answer: {answer}&lt;/p&gt;
+     &lt;p class="text-center"&gt;&lt;/p&gt;
      &lt;p class="text-center"&gt;User Email: {email}&lt;/p&gt;
      &lt;/div&gt;
      &lt;/div&gt;
@@ -5714,7 +5713,7 @@ Spoiler Content
 
     User Name: {user}
     Auto Generated Password: {pass}
-    Auto Generated Security Answer: {answer}
+    
     User Email: {email}
 
   </Resource>

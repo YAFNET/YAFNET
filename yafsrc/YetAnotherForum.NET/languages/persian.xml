@@ -1909,10 +1909,7 @@
     <Resource tag="LATEST_VERSION">آخرین نسخه نهائی در &lt;strong&gt;{0}&lt;/strong&gt; منتشر شده در &lt;strong&gt;{1}&lt;/strong&gt; موجود است.</Resource>
     <Resource tag="RUNNING_VERSION">شما در حال استفاده از YetAnotherForum.NET نسخه &lt;strong&gt;{0}&lt;/strong&gt; (تاریخ :{1}) هستید.</Resource>
     <Resource tag="TITLE">کنترل نسخه</Resource>
-    <Resource tag="UPGRADE_VERSION">&lt;p dir="rtl"&gt;شما می توانید آخرین نسخه را از
-&lt;a href="https://yetanotherforum.net/download/"&gt;اینجا&lt;/a&gt; دریافت کنید.&lt;/p&gt;
-      &lt;p dir="rtl"&gt;&lt;/p&gt;
-    </Resource>
+    <Resource tag="UPGRADE_VERSION">Download Upgrade Package</Resource>
   </page>
   <page name="ADMINMENU">
     <Resource tag="admin_accessmasks">قالب دسترسی</Resource>
@@ -5538,7 +5535,7 @@
      &lt;p class="mt-3 mb-4"&gt;You have been successfully registered on the {forumname} forum using Facebook Login:&lt;/p&gt;
      &lt;p class="text-center"&gt;User Name: {user}&lt;/p&gt;
      &lt;p class="text-center"&gt;Auto Generated Password: {pass}&lt;/p&gt;
-     &lt;p class="text-center"&gt;Auto Generated Security Answer: {answer}&lt;/p&gt;
+     &lt;p class="text-center"&gt;&lt;/p&gt;
      &lt;p class="text-center"&gt;User Email: {email} (Please don't change your email, or you are unable to login with Facebook)&lt;/p&gt;
      &lt;/div&gt;
      &lt;/div&gt;
@@ -5556,7 +5553,7 @@
 
       User Name: {user}
 	  Auto Generated Password: {pass}
-	  Auto Generated Security Answer: {answer}
+	  
       User Email: {email} (Please don't change your email, or you are unable to login with Facebook)
 
     </Resource>
@@ -5567,7 +5564,7 @@
 
       User Name: {user}
       Auto Generated Password: {pass}
-      Auto Generated Security Answer: {answer}
+      
       User Email: {email} (Please don't change your email, or you are unable to login with Google)
 
     </Resource>
@@ -5588,7 +5585,7 @@
      &lt;p class="mt-3 mb-4"&gt;You have been successfully registered on the {forumname} forum using Google Login:&lt;/p&gt;
      &lt;p class="text-center"&gt;User Name: {user}&lt;/p&gt;
      &lt;p class="text-center"&gt;Auto Generated Password: {pass}&lt;/p&gt;
-     &lt;p class="text-center"&gt;Auto Generated Security Answer: {answer}&lt;/p&gt;
+     &lt;p class="text-center"&gt;&lt;/p&gt;
      &lt;p class="text-center"&gt;User Email: {email} (Please don't change your email, or you are unable to login with Google)&lt;/p&gt;
      &lt;/div&gt;
      &lt;/div&gt;
@@ -5606,7 +5603,7 @@
 
       User Name: {user}
 	  Auto Generated Password: {pass}
-	  Auto Generated Security Answer: {answer}
+	  
       User Email: {email} (Please don't change your email, or you are unable to login with Google)
 
     </Resource>
@@ -5738,7 +5735,7 @@
 
       User Name: {user}
       Auto Generated Password: {pass}
-      Auto Generated Security Answer: {answer}
+      
       User Email: {email}
 
     </Resource>
@@ -5759,7 +5756,7 @@
      &lt;p class="mt-3 mb-4"&gt;You have been successfully registered on the {forumname} forum:&lt;/p&gt;
      &lt;p class="text-center"&gt;User Name: {user}&lt;/p&gt;
      &lt;p class="text-center"&gt;Auto Generated Password: {pass}&lt;/p&gt;
-     &lt;p class="text-center"&gt;Auto Generated Security Answer: {answer}&lt;/p&gt;
+     &lt;p class="text-center"&gt;&lt;/p&gt;
      &lt;p class="text-center"&gt;User Email: {email}&lt;/p&gt;
      &lt;/div&gt;
      &lt;/div&gt;
@@ -5777,7 +5774,7 @@
 
     User Name: {user}
     Auto Generated Password: {pass}
-    Auto Generated Security Answer: {answer}
+    
     User Email: {email}
 
   </Resource>
@@ -5898,7 +5895,7 @@
 
       User Name: {user}
       Auto Generated Password: {pass}
-      Auto Generated Security Answer: {answer}
+      
       User Email: {email} (Please change your Email adress to your real one in order to Receive E-Mails)
 
     </Resource>

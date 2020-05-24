@@ -21,46 +21,18 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.EventProxies
+
+namespace YAF.Types.Interfaces
 {
-    using YAF.Types.Interfaces.Events;
-
     /// <summary>
-    /// The after upgrade database event.
+    /// The LatestInformation interface.
     /// </summary>
-    public class AfterUpgradeDatabaseEvent : IAmEvent
+    public interface ILatestInformation
     {
-        #region Constructors and Destructors
-
         /// <summary>
-        /// Initializes a new instance of the <see cref="AfterUpgradeDatabaseEvent"/> class.
+        /// Gets the latest version information.
         /// </summary>
-        /// <param name="previousVersion">
-        /// The previous version.
-        /// </param>
-        /// <param name="newVersion">
-        /// The new version.
-        /// </param>
-        public AfterUpgradeDatabaseEvent(int previousVersion, int newVersion)
-        {
-            this.PreviousVersion = previousVersion;
-            this.CurrentVersion = newVersion;
-        }
-
-        #endregion
-
-        #region Public Properties
-
-        /// <summary>
-        /// Gets or sets the current version.
-        /// </summary>
-        public int CurrentVersion { get; set; }
-
-        /// <summary>
-        /// Gets or sets the previous version.
-        /// </summary>
-        public int PreviousVersion { get; set; }
-
-        #endregion
+        /// <returns>Returns the LatestVersionInformation</returns>
+        dynamic GetLatestVersion();
     }
 }

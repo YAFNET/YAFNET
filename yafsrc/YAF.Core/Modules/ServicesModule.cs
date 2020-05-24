@@ -118,6 +118,7 @@ namespace YAF.Core.Modules
             builder.RegisterType<UserIgnored>().As<IUserIgnored>().InstancePerLifetimeScope()
                 .PreserveExistingDefaults();
             builder.RegisterType<Friends>().As<IFriends>().InstancePerLifetimeScope().PreserveExistingDefaults();
+            builder.RegisterType<LatestInformation>().As<ILatestInformation>().InstancePerLifetimeScope().PreserveExistingDefaults();
 
             builder.RegisterType<InstallUpgradeService>().AsSelf().PreserveExistingDefaults();
 
@@ -165,7 +166,6 @@ namespace YAF.Core.Modules
 
             builder.RegisterType<RoleStore>().As<IRoleStore<AspNetRoles, string>>().InstancePerBoardContext();
             builder.RegisterType<AspNetRoleManager>().As<IAspNetRoleManager>().InstancePerBoardContext();
-
 
             builder.RegisterType<AspNetUsersHelper>().As<IAspNetUsersHelper>().InstancePerBoardContext();
 
