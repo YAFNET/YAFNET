@@ -1,7 +1,5 @@
-﻿using YAF.Lucene.Net.Configuration;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using System;
-using System.Security;
 
 namespace YAF.Lucene.Net.Util
 {
@@ -23,32 +21,37 @@ namespace YAF.Lucene.Net.Util
      */
 
     /// <summary>
-    /// Reads properties from an <see cref="IProperties"/> instance. The default configuration reads
-    /// the property valies from an <see cref="IConfiguration"/> instance returned by a
-    /// <see cref="IConfigurationFactory"/> implementation.
-    /// The <see cref="IConfigurationFactory"/> is set using
-    /// <see cref="ConfigurationSettings.SetConfigurationFactory(IConfigurationFactory)"/>.
-    /// This can be supplied a user implemented <see cref="IConfigurationFactory"/> to customize
-    /// the property sources.
+    /// Implementation of <see cref="IProperties"/> that handles type conversion and default values 
+    /// for Java-style properties.
+    /// <para/>
+    /// Reads properties from a <see cref="Func{IConfiguration}"/> that is supplied to the constructor.
     /// </summary>
-    internal static class SystemProperties
+    internal class Properties : IProperties
     {
-        // Calls ConfigurationSettings.GetConfigurationFactory internally to
-        // get the currently set instance of IConfigurationFactory
-        private readonly static IProperties properties = new Properties(ConfigurationSettings.GetConfigurationFactory().GetConfiguration);
+        private readonly Func<IConfiguration> getConfiguration;
 
         /// <summary>
-        /// Retrieves the value of a property from the current process.
+        /// Initializes a new instance of <see cref="Properties"/> with the specified <see cref="Func{IConfiguration}"/>.
+        /// The delegate method ensures the current instance of <see cref="IConfiguration"/> is used.
         /// </summary>
-        /// <param name="key">The name of the property.</param>
-        /// <returns>The property value.</returns>
-        public static string GetProperty(string key)
+        /// <param name="getConfiguration">The <see cref="Func{IConfiguration}"/>.</param>
+        public Properties(Func<IConfiguration> getConfiguration)
         {
-            return properties.GetProperty(key);
+            this.getConfiguration = getConfiguration ?? throw new ArgumentNullException(nameof(getConfiguration));
         }
 
         /// <summary>
-        /// Retrieves the value of a property from the current process, 
+        /// Retrieves the value of an property from the current process.
+        /// </summary>
+        /// <param name="key">The name of the property.</param>
+        /// <returns>The property value.</returns>
+        public string GetProperty(string key)
+        {
+            return GetProperty(key, null);
+        }
+
+        /// <summary>
+        /// Retrieves the value of an property from the current process, 
         /// with a default value if it doens't exist or the caller doesn't have 
         /// permission to read the value.
         /// </summary>
@@ -56,24 +59,29 @@ namespace YAF.Lucene.Net.Util
         /// <param name="defaultValue">The value to use if the property does not exist 
         /// or the caller doesn't have permission to read the value.</param>
         /// <returns>The property value.</returns>
-        public static string GetProperty(string key, string defaultValue)
+        public string GetProperty(string key, string defaultValue)
         {
-            return properties.GetProperty(key, defaultValue);
+            return GetProperty(key, defaultValue,
+                (str) =>
+                {
+                    return str;
+                }
+            );
         }
 
         /// <summary>
-        /// Retrieves the value of a property from the current process
+        /// Retrieves the value of an property from the current process
         /// as <see cref="bool"/>. If the value cannot be cast to <see cref="bool"/>, returns <c>false</c>.
         /// </summary>
         /// <param name="key">The name of the property.</param>
         /// <returns>The property value.</returns>
-        public static bool GetPropertyAsBoolean(string key)
+        public bool GetPropertyAsBoolean(string key)
         {
-            return properties.GetPropertyAsBoolean(key);
+            return GetPropertyAsBoolean(key, false);
         }
 
         /// <summary>
-        /// Retrieves the value of a property from the current process as <see cref="bool"/>, 
+        /// Retrieves the value of an property from the current process as <see cref="bool"/>, 
         /// with a default value if it doens't exist, the caller doesn't have permission to read the value, 
         /// or the value cannot be cast to a <see cref="bool"/>.
         /// </summary>
@@ -81,24 +89,29 @@ namespace YAF.Lucene.Net.Util
         /// <param name="defaultValue">The value to use if the property does not exist,
         /// the caller doesn't have permission to read the value, or the value cannot be cast to <see cref="bool"/>.</param>
         /// <returns>The property value.</returns>
-        public static bool GetPropertyAsBoolean(string key, bool defaultValue)
+        public bool GetPropertyAsBoolean(string key, bool defaultValue)
         {
-            return properties.GetPropertyAsBoolean(key, defaultValue);
+            return GetProperty(key, defaultValue,
+                (str) =>
+                {
+                    return bool.TryParse(str, out bool value) ? value : defaultValue;
+                }
+            );
         }
 
         /// <summary>
-        /// Retrieves the value of a property from the current process
+        /// Retrieves the value of an property from the current process
         /// as <see cref="int"/>. If the value cannot be cast to <see cref="int"/>, returns <c>0</c>.
         /// </summary>
         /// <param name="key">The name of the property.</param>
         /// <returns>The property value.</returns>
-        public static int GetPropertyAsInt32(string key)
+        public int GetPropertyAsInt32(string key)
         {
-            return properties.GetPropertyAsInt32(key);
+            return GetPropertyAsInt32(key, 0);
         }
 
         /// <summary>
-        /// Retrieves the value of a property from the current process as <see cref="int"/>, 
+        /// Retrieves the value of an property from the current process as <see cref="int"/>, 
         /// with a default value if it doens't exist, the caller doesn't have permission to read the value, 
         /// or the value cannot be cast to a <see cref="int"/>.
         /// </summary>
@@ -106,9 +119,24 @@ namespace YAF.Lucene.Net.Util
         /// <param name="defaultValue">The value to use if the property does not exist,
         /// the caller doesn't have permission to read the value, or the value cannot be cast to <see cref="int"/>.</param>
         /// <returns>The property value.</returns>
-        public static int GetPropertyAsInt32(string key, int defaultValue)
+        public int GetPropertyAsInt32(string key, int defaultValue)
         {
-            return properties.GetPropertyAsInt32(key, defaultValue);
+            return GetProperty(key, defaultValue,
+                (str) =>
+                {
+                    return int.TryParse(str, out int value) ? value : defaultValue;
+                }
+            );
+        }
+
+        private T GetProperty<T>(string key, T defaultValue, Func<string, T> conversionFunction)
+        {
+            IConfiguration configuration = getConfiguration();
+            string setting = configuration[key];
+
+            return string.IsNullOrEmpty(setting)
+                ? defaultValue
+                : conversionFunction(setting);
         }
     }
 }

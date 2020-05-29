@@ -28,17 +28,14 @@
     <AssemblyTitle>Lucene.Net</AssemblyTitle>
     <Description>Lucene.Net is a full-text search engine library capable of advanced text analysis, indexing, and searching. It can be used to easily add search capabilities to applications. Lucene.Net is a C# port of the popular Java Lucene search engine framework from The Apache Software Foundation, targeted at .NET Framework and .NET Core users.</Description>
     <NoWarn>$(NoWarn);1591;1573</NoWarn>
-    <SignAssembly>true</SignAssembly>
-    <AssemblyOriginatorKeyFile>Lucene.Net.snk</AssemblyOriginatorKeyFile>
-    <AssemblyVersion>4.8.0.0</AssemblyVersion>
-    <FileVersion>4.8.0.0</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="J2N" Version="2.0.0-beta-0007" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="3.1.4" />
   </ItemGroup>
 
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net45' ">
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net472' ">
     <Reference Include="System" />
     <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
@@ -59,6 +56,9 @@
     <InternalsVisibleTo Include="YAF.Lucene.Net.Highlighter" />
     <InternalsVisibleTo Include="YAF.Lucene.Net.Queries" />
     <InternalsVisibleTo Include="YAF.Lucene.Net.QueryParser" />
+    <InternalsVisibleTo Include="YAF.Lucene.Net.Analysis.Common" />
+    <InternalsVisibleTo Include="YAF.Lucene.Net.Support" />
+
   </ItemGroup>
 
 </Project>

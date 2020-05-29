@@ -17,6 +17,9 @@
 
 using System;
 using System.Reflection;
+using System.Runtime.CompilerServices;
+
+using YAF.Lucene.Net;
 
 //
 // General Information about an assembly is controlled through the following 
@@ -26,3 +29,11 @@ using System.Reflection;
 [assembly: AssemblyCulture("")]
 
 [assembly: CLSCompliant(true)]
+
+// We need InternalsVisibleTo in order to prevent making everything public just for the sake of testing.
+// This has broad implications because many methods are marked "protected internal", which means other assemblies
+// must update overridden methods to match.
+[assembly: InternalsVisibleTo("YAF.Lucene.Net.Analysis.Common, PublicKey=" + AssemblyKeys.PublicKey)]
+[assembly: InternalsVisibleTo("YAF.Lucene.Net.Highlighter, PublicKey=" + AssemblyKeys.PublicKey)]
+[assembly: InternalsVisibleTo("YAF.Lucene.Net.Queries, PublicKey=" + AssemblyKeys.PublicKey)]
+[assembly: InternalsVisibleTo("YAF.Lucene.Net.QueryParser, PublicKey=" + AssemblyKeys.PublicKey)]
