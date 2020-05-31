@@ -4,6 +4,7 @@
 <%@ Import Namespace="YAF.Types.Interfaces" %>
 <%@ Import Namespace="YAF.Types.Extensions" %>
 <%@ Import Namespace="System.Data" %>
+<%@ Import Namespace="YAF.Types.Models" %>
 
 <asp:Repeater ID="repLastPosts" runat="server">
     <HeaderTemplate>
@@ -29,23 +30,22 @@
                 <div class="card-title h5">
                     <footer class="blockquote-footer">
                         <YAF:UserLink ID="ProfileLink" runat="server" 
-                                      UserID='<%# Container.DataItemToField<int>("UserID") %>'
-                                      ReplaceName='<%# this.Get<BoardSettings>().EnableDisplayName ? Container.DataItemToField<string>("DisplayName") : Container.DataItemToField<string>("UserName") %>'
+                                      UserID="<%# ((Message)Container.DataItem).UserID %>"
                                       BlankTarget="true" />
+                        <small class="text-muted">
+                            <YAF:Icon runat="server" 
+                                      IconName="calendar-day"
+                                      IconNameBadge="clock"></YAF:Icon>
+                            <YAF:DisplayDateTime ID="DisplayDateTime" runat="server" DateTime="<%# ((Message)Container.DataItem).Posted %>"></YAF:DisplayDateTime>
+                        </small>
                     </footer>
                 </div>
                 <div class="card-text">
                     <YAF:MessagePostData ID="MessagePostPrimary" runat="server" 
-                                         DataRow="<%# (DataRow)Container.DataItem %>"
+                                         CurrentMessage="<%# ((Message)Container.DataItem)%>"
                                          ShowAttachments="false">
                     </YAF:MessagePostData>
                 </div>
-            </div>
-            <div class="card-footer">
-                <small class="text-muted">
-                    <YAF:LocalizedLabel ID="Posted" LocalizedTag="POSTED" runat="server" />
-                    <YAF:DisplayDateTime ID="DisplayDateTime" runat="server" DateTime='<%# Container.DataItemToField<DateTime>("Posted") %>'></YAF:DisplayDateTime>
-                </small>
             </div>
         </div>
     </ItemTemplate>

@@ -27,17 +27,12 @@ namespace YAF.Controls
     #region Using
 
     using System;
-    using System.Data;
-
-    using YAF.Configuration;
     using YAF.Core.BaseControls;
     using YAF.Core.Model;
     using YAF.Types;
-    using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
-    using YAF.Utils.Helpers;
-
+    
     #endregion
 
     /// <summary>
@@ -50,12 +45,7 @@ namespace YAF.Controls
         /// <summary>
         ///   Gets or sets TopicID.
         /// </summary>
-        public long? TopicID
-        {
-            get => this.ViewState["TopicID"]?.ToType<int>();
-
-            set => this.ViewState["TopicID"] = value;
-        }
+        public int? TopicID { get; set; }
 
         #endregion
 
@@ -78,41 +68,10 @@ namespace YAF.Controls
         {
             if (this.TopicID.HasValue)
             {
-                var showDeleted = false;
-                var userId = 0;
+                var messages = this.GetRepository<Message>().LastPosts(
+                    this.TopicID.Value);
 
-                if (this.Get<BoardSettings>().ShowDeletedMessagesToAll)
-                {
-                    showDeleted = true;
-                }
-
-                if (!showDeleted && this.Get<BoardSettings>().ShowDeletedMessages && !this.Get<BoardSettings>().ShowDeletedMessagesToAll || this.PageContext.IsAdmin
-                    || this.PageContext.IsForumModerator)
-                {
-                    userId = this.PageContext.PageUserID;
-                }
-
-                var dt = this.GetRepository<Message>().PostListAsDataTable(
-                    this.TopicID,
-                    this.PageContext.PageUserID,
-                    userId,
-                    0,
-                    showDeleted,
-                    false,
-                    false,
-                    DateTimeHelper.SqlDbMinTime(),
-                    DateTime.UtcNow,
-                    DateTimeHelper.SqlDbMinTime(),
-                    DateTime.UtcNow,
-                    0,
-                    10,
-                    2,
-                    0,
-                    0,
-                    false,
-                    -1);
-
-                this.repLastPosts.DataSource = dt.AsEnumerable();
+                this.repLastPosts.DataSource = messages;
             }
             else
             {

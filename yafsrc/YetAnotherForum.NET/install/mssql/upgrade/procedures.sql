@@ -4376,32 +4376,6 @@ begin
 end
 GO
 
-create procedure [{databaseOwner}].[{objectQualifier}post_list_reverse10](@TopicID int) as
-begin
-        set nocount on
-
-    select top 10
-        a.Posted,
-        [Subject] = d.Topic,
-        a.[Message],
-        a.UserID,
-        a.Flags,
-        UserName = IsNull(a.UserName,b.Name),
-        DisplayName = IsNull(a.UserDisplayName,b.DisplayName),
-        Style = b.UserStyle,
-        b.[Signature]
-    from
-        [{databaseOwner}].[{objectQualifier}Message] a
-        inner join [{databaseOwner}].[{objectQualifier}User] b on b.UserID = a.UserID
-        inner join [{databaseOwner}].[{objectQualifier}Topic] d on d.TopicID = a.TopicID
-    where
-        (a.Flags & 24)=16 and
-        a.TopicID = @TopicID
-    order by
-        a.Posted desc
-end
-GO
-
 create procedure [{databaseOwner}].[{objectQualifier}rank_save](
     @RankID		int,
     @BoardID	int,
@@ -6003,35 +5977,6 @@ begin
 end
 GO
 
-create procedure [{databaseOwner}].[{objectQualifier}user_emails](@BoardID int,@GroupID int=null) as
-begin
-
-    if @GroupID = 0 set @GroupID = null
-    if @GroupID is null
-        select
-            a.Email
-        from
-            [{databaseOwner}].[{objectQualifier}User] a
-        where
-            a.Email is not null and
-            a.BoardID = @BoardID and
-            a.Email is not null and
-            a.Email<>''
-    else
-        select
-            a.Email
-        from
-            [{databaseOwner}].[{objectQualifier}User] a
-            join [{databaseOwner}].[{objectQualifier}UserGroup] b on b.UserID=a.UserID
-            join [{databaseOwner}].[{objectQualifier}Group] c on c.GroupID=b.GroupID
-        where
-            b.GroupID = @GroupID and
-            (c.Flags & 2)=0 and
-            a.Email is not null and
-            a.Email<>''
-end
-GO
-
 create procedure [{databaseOwner}].[{objectQualifier}user_find](
     @BoardID int,
     @Filter bit,
@@ -6458,35 +6403,6 @@ begin
 end
 GO
 
-create procedure [{databaseOwner}].[{objectQualifier}user_login](@BoardID int,@Name nvarchar(255),@Password nvarchar(32)) as
-begin
-
-    declare @UserID int
-
-    -- Try correct board first
-    if exists(select UserID from [{databaseOwner}].[{objectQualifier}User] where Name=@Name and Password=@Password and BoardID=@BoardID and (Flags & 2)=2)
-    begin
-        select UserID from [{databaseOwner}].[{objectQualifier}User] where Name=@Name and Password=@Password and BoardID=@BoardID and (Flags & 2)=2
-        return
-    end
-
-    if not exists(select UserID from [{databaseOwner}].[{objectQualifier}User] where Name=@Name and Password=@Password and (BoardID=@BoardID or (Flags & 3)=3))
-        set @UserID=null
-    else
-        select
-            @UserID=UserID
-        from
-            [{databaseOwner}].[{objectQualifier}User]
-        where
-            Name=@Name and
-            [Password]=@Password and
-            (BoardID=@BoardID or (Flags & 1)=1) and
-            (Flags & 2)=2
-
-    select @UserID
-end
-GO
-
 create procedure [{databaseOwner}].[{objectQualifier}user_nntp](@BoardID int,@UserName nvarchar(255),@Email nvarchar(255),@TimeZone int, @UTCTIMESTAMP datetime) as
 begin
 
@@ -6735,48 +6651,6 @@ begin
     end
 end
 GO
-
-CREATE procedure [{databaseOwner}].[{objectQualifier}message_reply_list](@MessageID int) as
-begin
-        set nocount on
-    select
-        a.MessageID,
-        a.UserID,
-        UserName = b.Name,
-        UserDisplayName = b.DisplayName,
-        a.Posted,
-        a.[Message],
-        c.TopicID,
-        c.ForumID,
-        c.Topic,
-        c.Priority,
-        c.Description,
-        c.Status,
-        c.Styles,
-        a.Flags,
-        c.UserID AS TopicOwnerID,
-        Edited = IsNull(a.Edited,a.Posted),
-        a.EditReason,
-        a.Position,
-        a.Indent,
-        a.IsModeratorChanged,
-        a.DeleteReason,
-        a.BlogPostID,
-        c.PollID,
-        a.IP,
-        a.ReplyTo,
-        a.ExternalMessageId,
-        a.ReferenceMessageId
-    from
-        [{databaseOwner}].[{objectQualifier}Message] a
-        inner join [{databaseOwner}].[{objectQualifier}User] b on b.UserID = a.UserID
-        inner join [{databaseOwner}].[{objectQualifier}Topic] c on c.TopicID = a.TopicID
-    where
-        a.IsApproved = 1 and
-        a.ReplyTo = @MessageID
-end
-GO
-
 
 CREATE procedure [{databaseOwner}].[{objectQualifier}message_deleteundelete](@MessageID int, @isModeratorChanged bit, @DeleteReason nvarchar(100), @isDeleteAction int) as
 begin

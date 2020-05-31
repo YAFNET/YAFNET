@@ -360,25 +360,28 @@ namespace YAF.Core.Model
             repository.DbFunction.GetData.mail_list(TopicID: topicId, UserID: userId, UTCTIMESTAMP: DateTime.UtcNow);
 
         /// <summary>
-        /// The user_emails.
+        /// Gets all Emails from User in Group
         /// </summary>
         /// <param name="repository">
         /// The repository.
         /// </param>
-        /// <param name="boardID">
-        /// The board id.
-        /// </param>
         /// <param name="groupID">
         /// The group id.
         /// </param>
-        /// <returns>
-        /// The <see cref="DataTable"/>.
-        /// </returns>
-        public static DataTable EmailsAsDataTable(
+        public static List<string> GroupEmails(
             this IRepository<User> repository,
-            [NotNull] int boardID,
-            [NotNull] int? groupID) =>
-            repository.DbFunction.GetData.user_emails(BoardID: boardID, GroupID: groupID);
+            [NotNull] int groupID)
+        {
+             var expression = OrmLiteConfig.DialectProvider.SqlExpression<User>();
+
+             expression.Join<UserGroup>((u, b) => b.UserID == u.ID).Join<UserGroup, Group>((b, c) => c.ID == b.GroupID)
+                 .Where<User, UserGroup, Group>(
+                     (a, b, c) => b.GroupID == groupID && (c.Flags & 2) == 0 && a.Email != null)
+                 .Select(u => new { u.Email });
+
+            return repository.DbAccess.Execute(db => db.Connection.SqlList<string>(expression));
+
+        }
 
         /// <summary>
         /// Gets the user id from the Provider User Key

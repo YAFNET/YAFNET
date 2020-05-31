@@ -1432,7 +1432,7 @@ namespace YAF.Pages
 
             // show the last posts AJAX frame...
             this.LastPosts1.Visible = true;
-            this.LastPosts1.TopicID = this.TopicId.Value;
+            this.LastPosts1.TopicID = this.TopicId.Value.ToType<int>();
         }
 
         /// <summary>

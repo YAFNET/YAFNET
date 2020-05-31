@@ -26,8 +26,6 @@ namespace YAF.Pages.Admin
     #region Using
 
     using System;
-    using System.Data;
-    using System.Linq;
     using System.Net.Mail;
     using System.Threading.Tasks;
     using System.Web.UI.WebControls;
@@ -105,27 +103,26 @@ namespace YAF.Pages.Admin
             }
             else
             {
-                using (var dt = this.GetRepository<User>().EmailsAsDataTable(this.PageContext.PageBoardID, groupId))
-                {
-                    Parallel.ForEach(
-                        dt.Rows.Cast<DataRow>(),
-                        row =>
-                            {
-                                var from = new MailAddress(
-                                    this.Get<BoardSettings>().ForumEmail,
-                                    this.Get<BoardSettings>().Name);
+                var emails = this.GetRepository<User>().GroupEmails(groupId.Value);
 
-                                var to = new MailAddress(row.Field<string>("Email"));
+                Parallel.ForEach(
+                    emails,
+                    email =>
+                    {
+                        var from = new MailAddress(
+                            this.Get<BoardSettings>().ForumEmail,
+                            this.Get<BoardSettings>().Name);
 
-                                this.Get<ISendMail>().Send(
-                                    from,
-                                    to,
-                                    from,
-                                    this.Subject.Text.Trim(),
-                                    this.Body.Text.Trim(),
-                                    null);
-                            });
-                }
+                        var to = new MailAddress(email);
+
+                        this.Get<ISendMail>().Send(
+                            from,
+                            to,
+                            from,
+                            this.Subject.Text.Trim(),
+                            this.Body.Text.Trim(),
+                            null);
+                    });
 
                 this.Subject.Text = string.Empty;
                 this.Body.Text = string.Empty;

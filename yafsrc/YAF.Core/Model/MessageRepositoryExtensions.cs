@@ -223,6 +223,26 @@ namespace YAF.Core.Model
         }
 
         /// <summary>
+        /// The last posts.
+        /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="topicId">
+        /// The topic id.
+        /// </param>
+        /// <returns>
+        /// The <see cref="IEnumerable"/>.
+        /// </returns>
+        public static IEnumerable<Message> LastPosts(
+            this IRepository<Message> repository,
+            [NotNull] int topicId)
+        {
+            return repository.Get(m => m.TopicID == topicId && m.MessageFlags.IsApproved && !m.MessageFlags.IsDeleted)
+                .OrderByDescending(m => m.Posted).Take(10);
+        }
+
+        /// <summary>
         /// Gets all the post by a user.
         /// </summary>
         /// <param name="repository">
@@ -468,9 +488,11 @@ namespace YAF.Core.Model
         /// The <see cref="DataTable"/>.
         /// </returns>
         [NotNull]
-        public static DataTable RepliesListAsDataTable(this IRepository<Message> repository, [NotNull] int messageId)
+        public static List<Message> RepliesListAsDataTable(this IRepository<Message> repository, [NotNull] int messageId)
         {
-            return repository.DbFunction.GetData.message_reply_list(MessageID: messageId);
+            return
+                repository.Get(
+                    m => m.IsApproved.Value == true && m.ReplyTo == messageId);
         }
 
         /// <summary>

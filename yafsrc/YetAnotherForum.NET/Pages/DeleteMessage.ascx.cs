@@ -27,6 +27,7 @@ namespace YAF.Pages
 
     using System;
     using System.Data;
+    using System.Linq;
     using System.Web;
     using System.Web.UI.WebControls;
 
@@ -268,13 +269,13 @@ namespace YAF.Pages
             // delete message...
             this.PreviewRow.Visible = true;
 
-            var tempdb = this.GetRepository<Message>().RepliesListAsDataTable(
+            var replies = this.GetRepository<Message>().RepliesListAsDataTable(
                 this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("m").ToType<int>());
 
-            if (tempdb.HasRows() && (this.PageContext.ForumModeratorAccess || this.PageContext.IsAdmin))
+            if (replies.Any() && (this.PageContext.ForumModeratorAccess || this.PageContext.IsAdmin))
             {
                 this.LinkedPosts.Visible = true;
-                this.LinkedPosts.DataSource = tempdb;
+                this.LinkedPosts.DataSource = replies;
                 this.LinkedPosts.DataBind();
             }
 
