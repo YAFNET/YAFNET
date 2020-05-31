@@ -89,10 +89,10 @@ namespace YAF.Modules
 
                 this.Get<ISendNotification>()
                     .SendUserSuspensionEndedNotification(
-                        this.PageContext.CurrentUserData.Email,
+                        this.PageContext.CurrentUser.Email,
                         this.PageContext.BoardSettings.EnableDisplayName
-                            ? this.PageContext.CurrentUserData.DisplayName
-                            : this.PageContext.CurrentUserData.UserName);
+                            ? this.PageContext.CurrentUser.DisplayName
+                            : this.PageContext.CurrentUser.Name);
 
                 this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.PageContext.PageUserID));
             }

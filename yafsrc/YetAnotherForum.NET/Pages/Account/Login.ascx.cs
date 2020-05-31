@@ -256,13 +256,13 @@ namespace YAF.Pages.Account
                     }
 
                     break;
-                case AuthService.github:
+               /* case AuthService.github:
                     {
                         var gitHubAccountAuth = new GitHub();
                         gitHubAccountAuth.LoginOrCreateUser(out message);
                     }
 
-                    break;
+                    break;*/
             }
 
             if (message.IsSet())
