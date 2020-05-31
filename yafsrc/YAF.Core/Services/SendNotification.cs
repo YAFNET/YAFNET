@@ -391,7 +391,7 @@ namespace YAF.Core.Services
                                                  HttpUtility.HtmlDecode(
                                                      this.Get<IBadWordReplace>().Replace(message.Topic)),
                                              ["{postedby}"] =
-                                                 this.Get<IAspNetUsersHelper>().GetDisplayNameFromID(messageAuthorUserID),
+                                                 this.Get<IUserDisplayName>().GetName(messageAuthorUserID),
                                              ["{body}"] = bodyText,
                                              ["{bodytruncated}"] = bodyText.Truncate(160),
                                              ["{link}"] = BuildLink.GetLinkNotEscaped(
@@ -678,40 +678,39 @@ namespace YAF.Core.Services
                 return;
             }
 
-            using (var dt = this.GetRepository<User>().EmailsAsDataTable(BoardContext.Current.PageBoardID, adminGroupId))
-            {
-                dt.Rows.Cast<DataRow>().ForEach(
-                    row =>
+            var emails = this.GetRepository<User>().GroupEmails(adminGroupId);
+
+            emails.ForEach(
+                email =>
+                {
+                    var emailAddress = email;
+
+                    if (emailAddress.IsNotSet())
+                    {
+                        return;
+                    }
+
+                    var subject = this.Get<ILocalization>().GetTextFormatted(
+                        "COMMON",
+                        "NOTIFICATION_ON_BOT_USER_REGISTER_EMAIL_SUBJECT",
+                        this.BoardSettings.Name);
+
+                    var notifyAdmin = new TemplateEmail("NOTIFICATION_ON_BOT_USER_REGISTER")
+                    {
+                        TemplateParams =
                         {
-                            var emailAddress = row.Field<string>("Email");
+                            ["{adminlink}"] = BuildLink.GetLinkNotEscaped(
+                                ForumPages.Admin_EditUser,
+                                true,
+                                "u={0}",
+                                userId),
+                            ["{user}"] = user.UserName,
+                            ["{email}"] = user.Email
+                        }
+                    };
 
-                            if (emailAddress.IsNotSet())
-                            {
-                                return;
-                            }
-
-                            var subject = this.Get<ILocalization>().GetTextFormatted(
-                                "COMMON",
-                                "NOTIFICATION_ON_BOT_USER_REGISTER_EMAIL_SUBJECT",
-                                this.BoardSettings.Name);
-
-                            var notifyAdmin = new TemplateEmail("NOTIFICATION_ON_BOT_USER_REGISTER")
-                                                  {
-                                                      TemplateParams =
-                                                          {
-                                                              ["{adminlink}"] = BuildLink.GetLinkNotEscaped(
-                                                                  ForumPages.Admin_EditUser,
-                                                                  true,
-                                                                  "u={0}",
-                                                                  userId),
-                                                              ["{user}"] = user.UserName,
-                                                              ["{email}"] = user.Email
-                                                          }
-                                                  };
-
-                            notifyAdmin.SendEmail(new MailAddress(emailAddress), subject);
-                        });
-            }
+                    notifyAdmin.SendEmail(new MailAddress(emailAddress), subject);
+                });
         }
 
         /// <summary>

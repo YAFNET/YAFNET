@@ -29,6 +29,7 @@ namespace YAF.Web.Controls
     using System.Data;
     using System.Web.UI;
 
+    using YAF.Configuration;
     using YAF.Core.BaseControls;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
@@ -36,7 +37,6 @@ namespace YAF.Web.Controls
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Types.Interfaces.Identity;
     using YAF.Types.Models;
     using YAF.Utils;
 
@@ -123,19 +123,21 @@ namespace YAF.Web.Controls
                             howMany = $"({reporter["ReportedNumber"]})";
                         }
 
+                        var resolvedBy = this.GetRepository<User>().GetById(
+                            this.ResolvedBy.ToType<int>());
+                        var reporterUser = this.GetRepository<User>().GetById(reporter["UserID"].ToType<int>());
+
+                        var resolvedByName = this.Get<BoardSettings>().EnableDisplayName
+                            ? resolvedBy.DisplayName
+                            : resolvedBy.Name;
+                        var reporterName = this.Get<BoardSettings>().EnableDisplayName
+                            ? reporterUser.DisplayName
+                            : reporterUser.Name;
+
                         // If the message was previously resolved we have not null string
                         // and can add an info about last user who resolved the message
                         if (this.ResolvedDate.IsSet())
                         {
-                            var resolvedByName = this.GetRepository<User>().GetById(
-                                this.ResolvedBy.ToType<int>()).Name;
-
-                            var resolvedByDisplayName =
-                                this.Get<IAspNetUsersHelper>().GetDisplayNameFromID(this.ResolvedBy).IsSet()
-                                    ? this.Server.HtmlEncode(
-                                        this.Get<IUserDisplayName>().GetName(this.ResolvedBy.ToType<int>()))
-                                    : this.Server.HtmlEncode(resolvedByName);
-
                             writer.Write(
                                 @"<span class=""font-weight-bold"">{0}</span><a href=""{1}""> {2}</a> : {3}",
                                 this.GetText("RESOLVEDBY"),
@@ -143,31 +145,25 @@ namespace YAF.Web.Controls
                                     ForumPages.UserProfile,
                                     "u={0}&name={1}",
                                     this.ResolvedBy.ToType<int>(),
-                                    resolvedByDisplayName),
-                                resolvedByDisplayName,
+                                    resolvedByName),
+                                resolvedByName,
                                 this.Get<IDateTime>().FormatDateTimeTopic(this.ResolvedDate));
                         }
 
                         writer.Write(
                             @"<span class=""font-weight-bold"">{3}</span><a href=""{1}""> {0}{2} </a>",
-                            this.Get<IAspNetUsersHelper>().GetDisplayNameFromID(reporter["UserID"].ToType<int>()).IsSet()
-                                ? this.Server.HtmlEncode(
-                                    this.Get<IUserDisplayName>().GetName(reporter["UserID"].ToType<int>()))
-                                : this.Server.HtmlEncode(reporter["UserName"].ToString()),
+                            resolvedByName,
                             BuildLink.GetLink(
                                 ForumPages.UserProfile,
                                 "u={0}&name={1}",
                                 reporter["UserID"].ToType<int>(),
-                                reporter["UserName"].ToString()),
+                                reporterName),
                             howMany,
                             this.GetText("REPORTEDBY"));
 
                         writer.Write(
                             @"<a class=""btn btn-secondary btn-sm"" href=""{1}""><i class=""fa fa-envelope fa-fw""></i>&nbsp;{2} {0}</a>",
-                            this.Get<IAspNetUsersHelper>().GetDisplayNameFromID(reporter["UserID"].ToType<int>()).IsSet()
-                                ? this.Server.HtmlEncode(
-                                    this.Get<IUserDisplayName>().GetName(reporter["UserID"].ToType<int>()))
-                                : this.Server.HtmlEncode(reporter["UserName"].ToString()),
+                            reporterName,
                             BuildLink.GetLink(
                                 ForumPages.PostPrivateMessage,
                                 "u={0}&r={1}",

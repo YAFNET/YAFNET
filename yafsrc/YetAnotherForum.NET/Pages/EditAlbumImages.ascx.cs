@@ -44,7 +44,6 @@ namespace YAF.Pages
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Events;
-    using YAF.Types.Interfaces.Identity;
     using YAF.Types.Models;
     using YAF.Utils;
     using YAF.Utils.Helpers;
@@ -252,9 +251,7 @@ namespace YAF.Pages
                     break;
             }
 
-            var displayName = BoardContext.Current.Get<BoardSettings>().EnableDisplayName
-                                  ? this.Get<IAspNetUsersHelper>().GetDisplayNameFromID(userID)
-                                  : this.Get<IAspNetUsersHelper>().GetUserNameFromID(userID);
+            var displayName = this.Get<IUserDisplayName>().GetName(userID);
 
             // Add the page links.
             this.PageLinks.AddRoot();

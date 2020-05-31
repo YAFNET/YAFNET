@@ -105,7 +105,7 @@ namespace YAF.Pages
                 BuildLink.AccessDenied();
             }
 
-            var displayNameHe = this.Get<IAspNetUsersHelper>().GetDisplayNameFromID(this.UserID);
+            var displayNameHe = this.Get<IUserDisplayName>().GetName(this.UserID);
 
             this.PageLinks.AddRoot();
             this.PageLinks.AddLink(

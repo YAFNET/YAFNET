@@ -42,7 +42,6 @@ namespace YAF.Core.Services
     using YAF.Types.Extensions.Data;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
-    using YAF.Types.Interfaces.Identity;
     using YAF.Types.Models;
     using YAF.Types.Objects;
     using YAF.Utils.Helpers;
@@ -619,12 +618,12 @@ namespace YAF.Core.Services
                            Subject = row.Field<string>("Subject"),
                            StartedUserID = row.Field<int>("UserID"),
                            StartedUserName =
-                               this.Get<IAspNetUsersHelper>().GetDisplayNameFromID(row.Field<int>("UserID")),
+                               this.Get<IUserDisplayName>().GetName(row.Field<int>("UserID")),
                            Replies = row.Field<int>("Replies"),
                            LastPostDate = row.Field<System.DateTime>("LastPosted"),
                            LastUserID = row.Field<int>("LastUserID"),
                            LastUserName =
-                               this.Get<IAspNetUsersHelper>().GetDisplayNameFromID(row.Field<int>("LastUserID")),
+                               this.Get<IUserDisplayName>().GetName(row.Field<int>("LastUserID")),
                            LastMessageID = row.Field<int>("LastMessageID"),
                            FirstMessage = row.Field<string>("FirstMessage"),
                            LastMessage = this.GetRepository<Message>().MessageList(row.Field<int>("LastMessageID")).First().Message,

@@ -413,11 +413,8 @@ namespace YAF.Pages
                 BuildLink.RedirectInfoPage(InfoMessage.Invalid);
             }
 
-            var dt = this.GetRepository<Forum>().List(
-                this.PageContext.PageBoardID,
+            this.forum = this.GetRepository<Forum>().GetById(
                 this.PageContext.PageForumID);
-
-            this.forum = dt.FirstOrDefault();
             
             this.forumFlags = this.forum.ForumFlags;
 

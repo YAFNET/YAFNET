@@ -256,12 +256,15 @@ namespace YAF.Controls
 
             this.panMessage.CssClass = "col";
 
-            var userId = this.PostData.UserId;
+            var avatarUrl = this.Get<IAvatars>().GetAvatarUrlForUser(
+                this.PostData.UserId,
+                this.DataRow.Field<string>("Avatar"),
+                this.DataRow.Field<int>("HasAvatarImage") > 0,
+                string.Empty);
 
-            var avatarUrl = this.Get<IAvatars>().GetAvatarUrlForUser(userId);
             var displayName = this.Get<BoardSettings>().EnableDisplayName
-                                  ? this.Get<IAspNetUsersHelper>().GetDisplayNameFromID(userId)
-                                  : this.Get<IAspNetUsersHelper>().GetUserNameFromID(userId);
+                ? this.DataRow.Field<string>("DisplayName")
+                : this.DataRow.Field<string>("UserName");
 
             if (avatarUrl.IsSet())
             {
@@ -444,8 +447,8 @@ namespace YAF.Controls
         {
             this.UserProfileLink.UserID = this.PostData.UserId;
             this.UserProfileLink.ReplaceName = this.Get<BoardSettings>().EnableDisplayName
-                                                   ? this.DataRow.Field<string>("DisplayName")
-                                                   : this.DataRow.Field<string>("UserName");
+                ? this.DataRow.Field<string>("DisplayName")
+                : this.DataRow.Field<string>("UserName");
             this.UserProfileLink.PostfixText = this.DataRow.Field<string>("IP") == "NNTP"
                                                    ? this.GetText("EXTERNALUSER")
                                                    : string.Empty;
@@ -649,10 +652,11 @@ namespace YAF.Controls
 
             if (this.Get<BoardSettings>().EnableBuddyList && this.PageContext.PageUserID != this.PostData.UserId)
             {
+                var userBlockFlags = new UserBlockFlags(this.DataRow.Field<int>("BlockFlags")); 
+
                 // Should we add the "Add Buddy" item?
                 if (!this.Get<IFriends>().IsBuddy(this.PostData.UserId, false) && !this.PageContext.IsGuest
-                                                                             && !this.GetRepository<User>()
-                                                                                 .GetById(this.PostData.UserId).Block
+                                                                             && !userBlockFlags
                                                                                  .BlockFriendRequests)
                 {
                     var addFriendButton = new ThemeButton
@@ -831,10 +835,9 @@ namespace YAF.Controls
                 return;
             }
 
-            var username = this.HtmlEncode(
-                this.Get<BoardSettings>().EnableDisplayName
-                    ? this.Get<IAspNetUsersHelper>().GetDisplayNameFromID(this.PostData.UserId)
-                    : this.Get<IAspNetUsersHelper>().GetUserNameFromID(this.PostData.UserId));
+            var username = this.HtmlEncode(this.Get<BoardSettings>().EnableDisplayName
+                ? this.DataRow.Field<string>("DisplayName")
+                : this.DataRow.Field<string>("UserName"));
 
             var thanksLabelText = thanksNumber == 1
                                       ? this.Get<ILocalization>().GetTextFormatted("THANKSINFOSINGLE", username)

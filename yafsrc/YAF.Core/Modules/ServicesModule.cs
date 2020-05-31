@@ -109,7 +109,6 @@ namespace YAF.Core.Modules
             builder.RegisterType<BadWordReplace>().As<IBadWordReplace>().SingleInstance().PreserveExistingDefaults();
             builder.RegisterType<SpamWordCheck>().As<ISpamWordCheck>().SingleInstance().PreserveExistingDefaults();
             builder.RegisterType<SpamCheck>().As<ISpamCheck>().SingleInstance().PreserveExistingDefaults();
-            builder.RegisterType<ThankYou>().As<IThankYou>().SingleInstance().PreserveExistingDefaults();
 
             builder.RegisterType<Permissions>().As<IPermissions>().InstancePerLifetimeScope()
                 .PreserveExistingDefaults();
@@ -171,6 +170,7 @@ namespace YAF.Core.Modules
             // favorite topic is based on BoardContext
             builder.RegisterType<FavoriteTopic>().As<IFavoriteTopic>().InstancePerBoardContext()
                 .PreserveExistingDefaults();
+            builder.RegisterType<ThankYou>().As<IThankYou>().InstancePerBoardContext();
         }
 
         /// <summary>

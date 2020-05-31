@@ -427,13 +427,7 @@ namespace YAF.Web.Controls
                 if (userID.ToType<int>() != this.UserID)
                 {
                     var displayName =
-                        HttpUtility.HtmlEncode(this.Get<IAspNetUsersHelper>().GetDisplayNameFromID(userID.ToType<int>()));
-
-                    if (displayName.IsNotSet())
-                    {
-                        displayName = HttpUtility.HtmlEncode(
-                            this.Get<IAspNetUsersHelper>().GetUserNameFromID(userID.ToType<int>()));
-                    }
+                        HttpUtility.HtmlEncode(this.Get<IUserDisplayName>().GetName(userID.ToType<int>()));
 
                     outstring.Append(this.GetText("ACTIVELOCATION", "ALBUM"));
                     outstring.AppendFormat(
@@ -491,13 +485,7 @@ namespace YAF.Web.Controls
                 else
                 {
                     var displayName =
-                        HttpUtility.HtmlEncode(this.Get<IAspNetUsersHelper>().GetDisplayNameFromID(userId.ToType<int>()));
-
-                    if (displayName.IsNotSet())
-                    {
-                        displayName = HttpUtility.HtmlEncode(
-                            this.Get<IAspNetUsersHelper>().GetUserNameFromID(userId.ToType<int>()));
-                    }
+                        HttpUtility.HtmlEncode(this.Get<IUserDisplayName>().GetName(userId.ToType<int>()));
 
                     outstring.AppendFormat(
                         @"{3}<a href=""{0}"" id=""albumsuserid_{1}"" runat=""server""> {2} </a>",
@@ -538,13 +526,7 @@ namespace YAF.Web.Controls
                 if (userId.ToType<int>() != this.UserID)
                 {
                     var displayName =
-                        HttpUtility.HtmlEncode(this.Get<IAspNetUsersHelper>().GetDisplayNameFromID(userId.ToType<int>()));
-
-                    if (displayName.IsNotSet())
-                    {
-                        displayName = HttpUtility.HtmlEncode(
-                            this.Get<IAspNetUsersHelper>().GetUserNameFromID(userId.ToType<int>()));
-                    }
+                        HttpUtility.HtmlEncode(this.Get<IUserDisplayName>().GetName(userId.ToType<int>()));
 
                     outstring.Append(this.GetText("ACTIVELOCATION", "PROFILE_OFUSER"));
                     outstring.AppendFormat(

@@ -41,17 +41,6 @@ namespace YAF.Types.Interfaces
         /// <summary>
         /// The get avatar url for user.
         /// </summary>
-        /// <param name="userId">
-        /// The user id.
-        /// </param>
-        /// <returns>
-        /// Returns the Avatar Url
-        /// </returns>
-        string GetAvatarUrlForUser(int userId);
-
-        /// <summary>
-        /// The get avatar url for user.
-        /// </summary>
         /// <param name="user">
         /// The user.
         /// </param>

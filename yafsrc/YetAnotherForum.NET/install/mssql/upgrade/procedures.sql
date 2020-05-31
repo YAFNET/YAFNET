@@ -1330,31 +1330,6 @@ GO
 /*****************************************************************************************************************************/
 
 /* Procedures for "Thanks" Mod */
-CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}message_addthanks]
-    @FromUserID int,
-    @MessageID int,
-    @UTCTIMESTAMP datetime,
-    @UseDisplayName bit=0,
-    @paramOutput nvarchar(255) = null out
-AS
-BEGIN
-IF not exists (SELECT top 1 ThanksID FROM [{databaseOwner}].[{objectQualifier}Thanks] WHERE (MessageID = @MessageID AND ThanksFromUserID=@FromUserID))
-BEGIN
-DECLARE @ToUserID int
-    SET @ToUserID = (SELECT UserID FROM [{databaseOwner}].[{objectQualifier}Message] WHERE (MessageID = @MessageID))
-    INSERT INTO [{databaseOwner}].[{objectQualifier}Thanks] (ThanksFromUserID, ThanksToUserID, MessageID, ThanksDate) Values
-                                (@FromUserID, @ToUserId, @MessageID, @UTCTIMESTAMP )
-
-    IF @UseDisplayName = 1
-            SET @paramOutput = (SELECT [DisplayName] FROM [{databaseOwner}].[{objectQualifier}User] WHERE (UserID=@ToUserID))
-    ELSE
-            SET @paramOutput = (SELECT [Name] FROM [{databaseOwner}].[{objectQualifier}User] WHERE (UserID=@ToUserID))
-END
-ELSE
-    SET @paramOutput = ''
-END
-GO
-
 CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}message_getallthanks]
     @MessageIDs varchar(max)
 AS
@@ -1392,35 +1367,6 @@ END
     FROM @ParsedMessageIDs a
     INNER JOIN [{databaseOwner}].[{objectQualifier}Message] d ON (d.MessageID=a.MessageID)
     LEFT JOIN [{databaseOwner}].[{objectQualifier}Thanks] b ON (b.MessageID = a.MessageID)
-END
-GO
-
-CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}message_removethanks]
-    @FromUserID int,
-    @MessageID int,
-    @UseDisplayName bit=0,
-    @paramOutput nvarchar(255) = null out
-AS
-BEGIN
-    DELETE FROM [{databaseOwner}].[{objectQualifier}Thanks] WHERE (ThanksFromUserID=@FromUserID AND MessageID=@MessageID)
-    DECLARE @ToUserID int
-    SET @ToUserID = (SELECT UserID FROM [{databaseOwner}].[{objectQualifier}Message] WHERE (MessageID = @MessageID))
-    IF @UseDisplayName = 1
-            SET @paramOutput = (SELECT [DisplayName] FROM [{databaseOwner}].[{objectQualifier}User] WHERE (UserID=@ToUserID))
-    ELSE
-            SET @paramOutput = (SELECT [Name] FROM [{databaseOwner}].[{objectQualifier}User] WHERE (UserID=@ToUserID))
-END
-GO
-
-CREATE PROCEDURE [{databaseOwner}].[{objectQualifier}user_getthanks_to]
-    @UserID			int,
-    @PageUserID     int,
-    @ThanksToNumber int output,
-    @ThanksToPostsNumber int output
-AS
-BEGIN
-SELECT @ThanksToNumber=(SELECT Count(1) FROM [{databaseOwner}].[{objectQualifier}Thanks] WHERE ThanksToUserID=@UserID)
-SELECT @ThanksToPostsNumber=(SELECT Count(DISTINCT MessageID) FROM [{databaseOwner}].[{objectQualifier}Thanks] WHERE ThanksToUserID=@UserID)
 END
 GO
 
@@ -4340,6 +4286,7 @@ begin
         m.ReferenceMessageId,
         UserName = IsNull(m.UserName,b.Name),
         DisplayName =IsNull(m.UserDisplayName,b.DisplayName),
+        b.BlockFlags,
         b.Suspended,
         b.Joined,
         b.Avatar,

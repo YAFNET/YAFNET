@@ -94,14 +94,10 @@ namespace YAF.Pages
                 BuildLink.AccessDenied();
             }
 
-            var displayName = this.Get<IAspNetUsersHelper>().GetDisplayNameFromID(userId);
-
             this.PageLinks.Clear();
             this.PageLinks.AddRoot();
             this.PageLinks.AddLink(
-                this.Get<BoardSettings>().EnableDisplayName
-                    ? displayName
-                    : this.Get<IAspNetUsersHelper>().GetUserNameFromID(userId),
+                this.Get<IUserDisplayName>().GetName(userId),
                 BuildLink.GetLink(ForumPages.UserProfile, "u={0}", userId));
             this.PageLinks.AddLink(this.GetText("ALBUMS"), string.Empty);
 

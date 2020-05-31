@@ -28,13 +28,16 @@ namespace YAF.Core.Model
     using System;
     using System.Collections.Generic;
     using System.Data;
+    using System.Linq;
 
     using ServiceStack.OrmLite;
+    using ServiceStack.OrmLite.Dapper;
 
     using YAF.Core.Extensions;
     using YAF.Types;
     using YAF.Types.Extensions;
     using YAF.Types.Extensions.Data;
+    using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
     using YAF.Types.Models;
     using YAF.Types.Objects;
@@ -100,44 +103,24 @@ namespace YAF.Core.Model
         /// <param name="repository">
         /// The repository.
         /// </param>
-        /// <param name="userId">
-        /// The user id.
-        /// </param>
-        /// <param name="pageUserId">
-        /// The page User Id.
+        /// <param name="thanksToUserId">
+        /// The thanks To User Id.
         /// </param>
         /// <returns>
         /// Returns the number of times and posts that other users have thanked the
         /// user with the provided userID.
         /// </returns>
-        [NotNull]
-        public static int[] GetUserThanksTo(
-            this IRepository<Thanks> repository,
-            [NotNull] int userId,
-            [NotNull] int pageUserId)
+        public static dynamic ThanksToUser(this IRepository<Thanks> repository, int thanksToUserId)
         {
-            IDbDataParameter parameterThanksToNumber = null;
-            IDbDataParameter parameterThanksToPostsNumber = null;
+            CodeContracts.VerifyNotNull(repository, "repository");
 
-            repository.SqlList(
-                "user_getthanks_to",
-                cmd =>
-                    {
-                        cmd.CommandType = CommandType.StoredProcedure;
+            var expression = OrmLiteConfig.DialectProvider.SqlExpression<Thanks>();
 
-                        cmd.AddParam("UserID", userId);
-                        cmd.AddParam("PageUserID", pageUserId);
+            expression.Where<Thanks>(t => t.ThanksToUserID == thanksToUserId).Select(
+                u => new { ThankesPosts = Sql.CountDistinct(u.MessageID), ThankesReceived = Sql.Count("*") });
 
-                        parameterThanksToNumber = cmd.AddParam("ThanksToNumber", direction: ParameterDirection.Output);
-                        parameterThanksToPostsNumber = cmd.AddParam(
-                            "ThanksToPostsNumber",
-                            direction: ParameterDirection.Output);
-                    });
-
-            return new[]
-                       {
-                           parameterThanksToNumber.Value.ToType<int>(), parameterThanksToPostsNumber.Value.ToType<int>()
-                       };
+            return repository.DbAccess.Execute(
+                db => db.Connection.Select<dynamic>(expression)).FirstOrDefault();
         }
 
         /// <summary>
@@ -149,36 +132,28 @@ namespace YAF.Core.Model
         /// <param name="fromUserId">
         /// The from user id.
         /// </param>
+        /// <param name="toUserId">
+        /// The to User Id.
+        /// </param>
         /// <param name="messageId">
         /// The message id.
         /// </param>
-        /// <param name="useDisplayName">
-        /// Use Display Name.
-        /// </param>
-        /// <returns>
-        /// Returns the Name of the User
-        /// </returns>
         [NotNull]
-        public static string AddMessageThanks(
-            this IRepository<Thanks> repository, [NotNull] int fromUserId, [NotNull] int messageId, [NotNull] bool useDisplayName)
+        public static void AddMessageThanks(
+            this IRepository<Thanks> repository, [NotNull] int fromUserId, [NotNull] int toUserId, [NotNull] int messageId)
         {
-            IDbDataParameter parameterOutput = null;
+            CodeContracts.VerifyNotNull(repository, nameof(repository));
 
-            repository.SqlList(
-                "message_addthanks",
-                cmd =>
-                    {
-                        cmd.CommandType = CommandType.StoredProcedure;
+            var newIdentity = repository.Insert(
+                new Thanks
+                {
+                    ThanksFromUserID = fromUserId,
+                    ThanksToUserID = toUserId,
+                    MessageID = messageId,
+                    ThanksDate = DateTime.UtcNow,
+                });
 
-                        cmd.AddParam("FromUserID", fromUserId);
-                        cmd.AddParam("MessageID", messageId);
-                        cmd.AddParam("UTCTIMESTAMP", DateTime.UtcNow);
-                        cmd.AddParam("UseDisplayName", useDisplayName);
-
-                        parameterOutput = cmd.AddParam("paramOutput", direction: ParameterDirection.Output);
-                    });
-
-            return parameterOutput.Value.ToString();
+            repository.FireNew(newIdentity);
         }
 
         /// <summary>
@@ -211,7 +186,7 @@ namespace YAF.Core.Model
         }
 
         /// <summary>
-        /// The message_ remove thanks.
+        /// The message remove thanks.
         /// </summary>
         /// <param name="repository">
         /// The repository.
@@ -225,33 +200,13 @@ namespace YAF.Core.Model
         /// <param name="useDisplayName">
         /// use the display name.
         /// </param>
-        /// <returns>
-        /// Returns the name of the user
-        /// </returns>
         [NotNull]
-        public static string RemoveMessageThanks(
+        public static void RemoveMessageThanks(
             this IRepository<Thanks> repository, [NotNull] int fromUserId, [NotNull] int messageId, [NotNull] bool useDisplayName)
         {
-            //repository.Delete(t => t.ThanksFromUserID == fromUserId & t.MessageID == messageId);
+            CodeContracts.VerifyNotNull(repository, "repository");
 
-           // BoardContext.Current.GetRepository<User>().GetById()
-
-            IDbDataParameter parameterOutput = null;
-
-            repository.SqlList(
-                "message_Removethanks",
-                cmd =>
-                    {
-                        cmd.CommandType = CommandType.StoredProcedure;
-
-                        cmd.AddParam("FromUserID", fromUserId);
-                        cmd.AddParam("MessageID", messageId);
-                        cmd.AddParam("UseDisplayName", useDisplayName);
-
-                        parameterOutput = cmd.AddParam("paramOutput", direction: ParameterDirection.Output);
-                    });
-
-            return parameterOutput.Value.ToString();
+            repository.Delete(t => t.ThanksFromUserID == fromUserId && t.MessageID == messageId);
         }
 
         /// <summary>

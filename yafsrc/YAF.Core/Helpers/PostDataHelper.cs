@@ -30,6 +30,7 @@ namespace YAF.Core.Helpers
     using YAF.Core.Context;
     using YAF.Types.Extensions;
     using YAF.Types.Flags;
+    using YAF.Types.Models;
     using YAF.Utils.Helpers;
 
     /// <summary>

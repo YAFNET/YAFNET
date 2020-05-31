@@ -209,28 +209,6 @@ namespace YAF.Types.Interfaces.Identity
         int GetUserIDFromProviderUserKey(object providerUserKey);
 
         /// <summary>
-        /// Gets the user name from the UserID
-        /// </summary>
-        /// <param name="userId">
-        /// The user Id.
-        /// </param>
-        /// <returns>
-        /// The get user name from id.
-        /// </returns>
-        string GetUserNameFromID(int userId);
-
-        /// <summary>
-        /// Gets the user name from the UserID
-        /// </summary>
-        /// <param name="userId">
-        /// The user Id.
-        /// </param>
-        /// <returns>
-        /// The get user name from id.
-        /// </returns>
-        string GetDisplayNameFromID(int userId);
-
-        /// <summary>
         /// Helper function that gets user data from the DB (or cache)
         /// </summary>
         /// <param name="userId">

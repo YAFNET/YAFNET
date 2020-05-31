@@ -22,12 +22,16 @@
  * under the License.
  */
 
-namespace YAF.Core
+namespace YAF.Core.Modules
 {
     #region Using
 
+
     using System;
     using System.Collections.Generic;
+#if DEBUG
+    using System.Diagnostics;
+#endif
     using System.Linq;
     using System.Reflection;
 

@@ -283,12 +283,7 @@ namespace YAF.Controls
                 .Select(x => x.Mask).ToList();
 
             // ban user ips...
-            var name = this.Get<IAspNetUsersHelper>().GetDisplayNameFromID(this.CurrentUserId);
-
-            if (name.IsNotSet())
-            {
-                name = this.Get<IAspNetUsersHelper>().GetUserNameFromID(this.CurrentUserId);
-            }
+            var name = this.Get<BoardSettings>().EnableDisplayName ? this.User.Item1.DisplayName : this.User.Item1.Name;
 
             this.IPAddresses.Except(allIps).ToList().Where(i => i.IsSet()).ForEach(
                 ip =>

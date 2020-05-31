@@ -39,7 +39,6 @@ namespace YAF.Pages.Profile
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Types.Interfaces.Identity;
     using YAF.Types.Models;
     using YAF.Utils;
     using YAF.Utils.Helpers;
@@ -122,8 +121,8 @@ namespace YAF.Pages.Profile
             }
 
             var displayName = this.PageContext.BoardSettings.EnableDisplayName
-                                  ? this.Get<IAspNetUsersHelper>().GetDisplayNameFromID(this.PageContext.PageUserID)
-                                  : this.Get<IAspNetUsersHelper>().GetUserNameFromID(this.PageContext.PageUserID);
+                ? this.PageContext.CurrentUser.DisplayName
+                : this.PageContext.CurrentUser.Name;
             this.PageLinks.Clear();
             this.PageLinks.AddRoot();
             this.PageLinks.AddLink(

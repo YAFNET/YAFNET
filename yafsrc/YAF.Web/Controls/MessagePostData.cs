@@ -185,7 +185,7 @@ namespace YAF.Web.Controls
                         if (this.CurrentMessage.UserID > 0
                             && BoardContext.Current.Get<BoardSettings>().EnableDisplayName)
                         {
-                            attached.UserName = this.Get<IAspNetUsersHelper>().GetDisplayNameFromID(this.CurrentMessage.UserID);
+                            attached.UserName = this.Get<IUserDisplayName>().GetName(this.CurrentMessage.UserID);
                         }
                         else
                         {

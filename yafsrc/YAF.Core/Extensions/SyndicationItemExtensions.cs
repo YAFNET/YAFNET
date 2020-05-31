@@ -32,7 +32,6 @@ namespace YAF.Core.Extensions
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Types.Interfaces.Identity;
     using YAF.Utils;
 
     /// <summary>
@@ -168,15 +167,16 @@ namespace YAF.Core.Extensions
             string userDisplayName)
         {
             string userNameToShow;
+
             if (BoardContext.Current.BoardSettings.EnableDisplayName)
             {
                 userNameToShow = userDisplayName.IsNotSet()
-                                     ? BoardContext.Current.Get<IAspNetUsersHelper>().GetDisplayNameFromID(userId)
+                                     ? BoardContext.Current.Get<IUserDisplayName>().GetName(userId)
                                      : userDisplayName;
             }
             else
             {
-                userNameToShow = userName.IsNotSet() ? BoardContext.Current.Get<IAspNetUsersHelper>().GetUserNameFromID(userId) : userName;
+                userNameToShow = userName.IsNotSet() ? BoardContext.Current.Get<IUserDisplayName>().GetName(userId) : userName;
             }
 
             return new SyndicationPerson(

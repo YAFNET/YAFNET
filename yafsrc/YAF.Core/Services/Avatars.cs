@@ -31,7 +31,6 @@ namespace YAF.Core.Services
 
     using YAF.Configuration;
     using YAF.Core.Context;
-    using YAF.Core.Extensions;
     using YAF.Types;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
@@ -80,29 +79,6 @@ namespace YAF.Core.Services
         public string GetAvatarUrlForCurrentUser()
         {
             return this.GetAvatarUrlForUser(BoardContext.Current.CurrentUser);
-        }
-
-        /// <summary>
-        /// The get avatar url for user.
-        /// </summary>
-        /// <param name="userId">
-        /// The user id. 
-        /// </param>
-        /// <returns>
-        /// Returns the Avatar Url 
-        /// </returns>
-        public string GetAvatarUrlForUser(int userId)
-        {
-            try
-            {
-                var user = BoardContext.Current.GetRepository<User>().GetById(userId);
-                return this.GetAvatarUrlForUser(user);
-            }
-            catch (Exception)
-            {
-                // Return NoAvatar Image if there something wrong with the user
-                return $"{BoardInfo.ForumClientFileRoot}images/noavatar.svg";
-            }
         }
 
         /// <summary>

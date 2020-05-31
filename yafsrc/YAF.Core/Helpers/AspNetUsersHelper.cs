@@ -140,7 +140,7 @@ namespace YAF.Core.Helpers
                     // approve this user...
                     user.IsApproved = true;
                     this.Get<AspNetUsersManager>().Update(user);
-                    var id = GetUserIDFromProviderUserKey(user.Id);
+                    var id = this.Get<IAspNetUsersHelper>().GetUserIDFromProviderUserKey(user.Id);
                     if (id > 0)
                     {
                         this.GetRepository<User>().Approve(id);
@@ -192,7 +192,7 @@ namespace YAF.Core.Helpers
                 user =>
                 {
                     // delete this user...
-                    this.GetRepository<User>().Delete(GetUserIDFromProviderUserKey(user.Id));
+                    this.GetRepository<User>().Delete(this.Get<IAspNetUsersHelper>().GetUserIDFromProviderUserKey(user.Id));
                     this.Get<AspNetUsersManager>().Delete(user);
 
                     if (this.Get<BoardSettings>().LogUserDeleted)
@@ -237,9 +237,9 @@ namespace YAF.Core.Helpers
         /// </returns>
         public bool DeleteUser(int userID, bool isBotAutoDelete = false)
         {
-            var userName = this.Get<IAspNetUsersHelper>().GetUserNameFromID(userID);
+            var user = this.Get<IAspNetUsersHelper>().GetMembershipUserById(userID);
 
-            if (userName.IsNotSet())
+            if (user == null)
             {
                 return false;
             }
@@ -267,7 +267,6 @@ namespace YAF.Core.Helpers
                     });
             }
 
-            var user = this.Get<IAspNetUsersHelper>().GetUserByName(userName);
             this.Get<AspNetUsersManager>().Delete(user);
 
             this.GetRepository<User>().Delete(userID);
@@ -277,7 +276,7 @@ namespace YAF.Core.Helpers
                 this.Get<ILogger>().Log(
                     BoardContext.Current.PageUserID,
                     "UserMembershipHelper.DeleteUser",
-                    $"User {userName} was deleted by {(isBotAutoDelete ? "the automatic spam check system" : BoardContext.Current.PageUserName)}.",
+                    $"User {user.UserName} was deleted by {(isBotAutoDelete ? "the automatic spam check system" : BoardContext.Current.PageUserName)}.",
                     EventLogTypes.UserDeleted);
             }
 
@@ -504,38 +503,6 @@ namespace YAF.Core.Helpers
         public int GetUserIDFromProviderUserKey(object providerUserKey)
         {
             return this.GetRepository<User>().GetUserId(BoardContext.Current.PageBoardID, providerUserKey.ToString());
-        }
-
-        /// <summary>
-        /// Gets the user name from the UserID
-        /// </summary>
-        /// <param name="userId">
-        /// The user Id.
-        /// </param>
-        /// <returns>
-        /// The get user name from id.
-        /// </returns>
-        public string GetUserNameFromID(int userId)
-        {
-            var user = this.GetRepository<User>().GetById(userId);
-
-            return user == null ? string.Empty : user.Name;
-        }
-
-        /// <summary>
-        /// Gets the user name from the UserID
-        /// </summary>
-        /// <param name="userId">
-        /// The user Id.
-        /// </param>
-        /// <returns>
-        /// The get user name from id.
-        /// </returns>
-        public string GetDisplayNameFromID(int userId)
-        {
-            var user = this.GetRepository<User>().GetById(userId);
-
-            return user == null ? string.Empty : user.DisplayName;
         }
 
         /// <summary>
@@ -982,9 +949,9 @@ namespace YAF.Core.Helpers
             }
 
             // get the username associated with this id...
-            var realUsername = this.Get<IAspNetUsersHelper>().GetUserNameFromID(id.Value);
+            var realUsername = this.GetRepository<User>().GetSingle(u => u.DisplayName == id.Value.ToString());
 
-            user = this.Get<IAspNetUsersHelper>().GetUserByName(realUsername);
+            user = this.Get<IAspNetUsersHelper>().GetUserByName(realUsername.Name);
 
             // validate again...
             return user;

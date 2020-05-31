@@ -32,12 +32,10 @@ namespace YAF.Web.Controls
     using YAF.Configuration;
     using YAF.Core.Context;
     using YAF.Core.Extensions;
-    using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Types.Models;
     using YAF.Utils;
 
     #endregion
@@ -82,6 +80,16 @@ namespace YAF.Web.Controls
             get => this.ViewState["IsGuest"] != null && Convert.ToBoolean(this.ViewState["IsGuest"]);
 
             set => this.ViewState["IsGuest"] = value;
+        }
+
+        /// <summary>
+        /// Gets or sets the suspended.
+        /// </summary>
+        public DateTime? Suspended
+        {
+            get => this.ViewState["Suspended"] as DateTime?;
+
+            set => this.ViewState["Suspended"] = value;
         }
 
         #endregion
@@ -153,8 +161,7 @@ namespace YAF.Web.Controls
                 return;
             }
 
-            // TODO : Move to SP
-            var userSuspended = this.GetRepository<User>().GetSuspended(this.UserID);
+            var userSuspended = this.Suspended;
 
             output.BeginRender();
 

@@ -244,7 +244,7 @@ namespace YAF.Pages
 
             this.SetupUserLinks(user, userNameOrDisplayName);
 
-            this.SetupAvatar(this.UserId);
+            this.SetupAvatar(user.Item1);
 
             this.Groups.DataSource = AspNetRolesHelper.GetRolesForUser(user.Item2);
 
@@ -272,12 +272,12 @@ namespace YAF.Pages
         /// <summary>
         /// The setup avatar.
         /// </summary>
-        /// <param name="userID">
-        /// The user id.
+        /// <param name="user">
+        /// The user.
         /// </param>
-        private void SetupAvatar(int userID)
+        private void SetupAvatar(User user)
         {
-            this.Avatar.ImageUrl = this.Get<IAvatars>().GetAvatarUrlForUser(userID);
+            this.Avatar.ImageUrl = this.Get<IAvatars>().GetAvatarUrlForUser(user);
         }
 
         /// <summary>
@@ -548,12 +548,10 @@ namespace YAF.Pages
 
             this.ThanksFrom.Text = this.GetRepository<Thanks>().ThanksFromUser(user.Item1.ID).ToString();
 
-            var thanksToArray = this.GetRepository<Thanks>().GetUserThanksTo(
-                user.Item1.ID,
-                this.PageContext.PageUserID);
+            var thanks = this.GetRepository<Thanks>().ThanksToUser(user.Item1.ID);
+            this.ThanksToTimes.Text = thanks.ThankesReceived.ToString();
+            this.ThanksToPosts.Text = thanks.ThankesPosts.ToString();
 
-            this.ThanksToTimes.Text = thanksToArray[0].ToString();
-            this.ThanksToPosts.Text = thanksToArray[1].ToString();
             this.ReputationReceived.Text =
                 this.Get<IReputation>().GenerateReputationBar(user.Item1.Points, user.Item1.ID);
 

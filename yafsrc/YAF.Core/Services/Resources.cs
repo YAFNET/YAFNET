@@ -119,7 +119,7 @@ namespace YAF.Core.Services
                     System.DateTime.UtcNow.AddMilliseconds(BoardContext.Current.Get<BoardSettings>().OnlineStatusCacheTimeout));
                 context.Response.Cache.SetLastModified(System.DateTime.UtcNow);
 
-                var avatarUrl = this.Get<IAvatars>().GetAvatarUrlForUser(userId);
+                var avatarUrl = this.Get<IAvatars>().GetAvatarUrlForUser(user.Item1);
 
                 avatarUrl = avatarUrl.IsNotSet()
                            ? $"{BoardInfo.ForumClientFileRoot}images/noavatar.svg"

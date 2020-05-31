@@ -31,7 +31,8 @@
                         <asp:PlaceHolder runat="server" ID="UserInfo">
                             <ul class="list-inline">
                                 <li class="list-inline-item">
-                                    <YAF:UserLink  ID="UserProfileLink" runat="server" />
+                                    <YAF:UserLink ID="UserProfileLink" runat="server"
+                                                  Suspended='<%# this.DataRow.Field<DateTime?>("Suspended") %>' />
                                     <YAF:ThemeButton ID="AddReputation" runat="server" 
                                                      CssClass='<%# "AddReputation_{0} mr-1".Fmt(this.DataRow["UserID"])%>'
                                                      Size="Small"
